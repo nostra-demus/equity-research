@@ -60,19 +60,17 @@ After all specialists have returned, dispatch a single Task call with `subagent_
 
 Wait for it to complete. Treat the synthesizer as failed if `analyses/$ARGUMENTS_<DATE>/final_thesis.md` does not exist when it returns.
 
-## 7. Branch, commit, push, open PR
+## 7. Commit and push to main
 
 Run via Bash:
 
 ```
-git checkout -b claude/research-$ARGUMENTS-<DATE>
 git add analyses/$ARGUMENTS_<DATE>/
-git commit -m "Research run: $ARGUMENTS (<DATE>)"
-git push -u origin claude/research-$ARGUMENTS-<DATE>
-gh pr create --base main --title "Research: $ARGUMENTS (<DATE>)" --body "Automated research run for $ARGUMENTS on <DATE>. See analyses/$ARGUMENTS_<DATE>/final_thesis.md for the synthesized thesis."
+git commit -m "Research run: $ARGUMENTS <DATE>"
+git push origin main
 ```
 
-Capture the PR URL from the `gh pr create` output.
+Capture the commit SHA from `git rev-parse HEAD` (or the `git commit` output).
 
 ## 8. Report
 
@@ -82,4 +80,4 @@ Print a final summary to the user:
 - Names of any specialists that failed (or "none")
 - Whether the synthesizer succeeded
 - Path to `analyses/$ARGUMENTS_<DATE>/final_thesis.md`
-- The PR URL
+- The commit SHA pushed to `origin/main`
