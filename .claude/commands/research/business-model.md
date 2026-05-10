@@ -68,15 +68,21 @@ For every agent in this layer, dispatch a Task tool call with:
 
 Issue every Task call for the layer in a single message so they run concurrently. Wait for all of them to return before moving on to Step B.
 
-### Step B — Capture and write files
+### Step B — Capture, strip confirmation block, and write files
 
-The Task framework forces subagents to return their reports as inline chat messages rather than writing files. The orchestrator owns file IO.
+The Task framework forces subagents to return their reports as inline chat messages rather than writing files. The orchestrator owns file IO. Each agent's response also ends with a chat-confirmation block (Agent / Output / Verdict / Biggest finding) intended for the orchestrator, not for the saved report — Step B strips that block so each saved file ends with the final substantive section of the report (e.g., a `## 5. ...` section), not with the confirmation block. Anything trailing the confirmation block (sources lists, file-path appendices, etc.) is also discarded.
 
 After all of this layer's agents have returned, for each agent:
+
 - Determine the output path: `analyses/$ARGUMENTS_<DATE>/business-model/<NN>_<name>.md` (using the `<NN>` and `<name>` parsed during agent discovery in step 4).
-- The file content is the COMPLETE final assistant message returned by that agent's Task call — the full report body, exactly as the agent returned it. Do not edit, summarize, truncate, or reformat.
-- Use the Write tool, one Write call per file.
-- Issue all Write calls for this layer in a single message so they run in parallel.
+- Start from the COMPLETE final assistant message returned by that agent's Task call. Within the report body itself, do not edit, summarize, or reformat — preserve every line of substantive content verbatim.
+- Strip the trailing chat-confirmation block, applying these rules in order:
+  1. Locate the LAST line in the content matching the regex `^Agent:\s*\S+\s*$` (case-sensitive: literal `Agent:`, optional whitespace, a single non-empty token, optional trailing whitespace, end of line).
+  2. If such a line exists, inspect the next 5 lines after it. Confirm the block is a real chat-confirmation block by verifying that those 5 lines contain at least one line matching `^(\*\*)?Output:`, at least one matching `^(\*\*)?Verdict:`, and at least one matching `^(\*\*)?Biggest finding:` (case-sensitive labels, optional `**` markdown-bold prefix, order flexible).
+  3. If the `Agent:` line is found AND all three companion-label patterns are present, truncate the content to everything BEFORE the matched `Agent:` line. Then trim the truncated tail: repeatedly drop the last line if it is empty, contains only whitespace, contains only `---`, or is a fence line (only three backticks, optionally surrounded by whitespace). Stop when the last line is none of those.
+  4. If no `Agent:` line is found OR the companion-label triple is incomplete, use the content unchanged. Do not error.
+- Use the Write tool to save the cleaned content to OUTPUT_PATH. Issue all Write calls for this layer in a single message so they run in parallel.
+- After this layer's writes complete, verify each saved file by running this Bash check (substituting the actual path): `tail -20 "<output_path>" | grep -qE '^Agent:[[:space:]]+\S+[[:space:]]*$' && echo "WARN: stray confirmation block in <output_path>" || true`. If WARN fires for any file, re-apply the strip rules to that agent's original returned content and re-Write the file.
 
 Track which agents in the layer succeeded and which failed. An agent failed if either (a) its Task call returned an error, or (b) the agent returned no usable report content (e.g., refusal, empty message).
 
