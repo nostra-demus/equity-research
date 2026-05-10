@@ -2,6 +2,7 @@
 name: business-identity
 description: Describes in plain English what the company actually does, expresses the revenue model as a simple formula, and classifies the business type. The foundational identity layer that downstream agents (value-chain, competitive-map) rely on.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch
+layer: 1
 ---
 
 # ROLE

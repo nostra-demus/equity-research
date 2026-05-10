@@ -2,6 +2,7 @@
 name: segment-map
 description: Maps the company's reportable segments — what each does, revenue and profit share, margin quality, capital intensity, cyclicality, and main risk. Identifies the dominant segment (largest revenue or profit contributor). Critical input for unit-economics and competitive-map.
 tools: Read, Glob, Grep, Bash
+layer: 1
 ---
 
 # ROLE

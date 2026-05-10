@@ -2,6 +2,7 @@
 name: unit-economics
 description: Identifies the company's natural economic unit (per customer, per store, per ton, per loan, per AUM dollar, etc.) and tables out per-unit revenue, gross margin, contribution margin, acquisition cost, and payback. Reads segment-map output to identify the dominant unit. Decides whether each new unit creates or destroys value.
 tools: Read, Glob, Grep, Bash
+layer: 2
 ---
 
 # ROLE

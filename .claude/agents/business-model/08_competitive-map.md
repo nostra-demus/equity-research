@@ -2,6 +2,7 @@
 name: competitive-map
 description: Identifies 2–3 of the most credible competitors for the company's dominant segment and profiles each. Provides the named-competitor anchor that the moat agent uses for its competitive economics comparison.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch
+layer: 2
 ---
 
 # ROLE

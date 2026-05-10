@@ -2,6 +2,7 @@
 name: red-flags-sweep
 description: Catch-all sweep for red flags not already captured by upstream specialists. Reads outputs from disqualifier-scan, segment-map, customer-geography, business-quality, external-dependency, and capital-allocation-governance to avoid duplication. Surfaces only flags that are evidence-supported and not already prominent in upstream reports.
 tools: Read, Glob, Grep, Bash
+layer: 4
 ---
 
 # ROLE

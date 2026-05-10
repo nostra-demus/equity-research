@@ -2,6 +2,7 @@
 name: external-dependency
 description: Identifies the company's exposure to external variables (commodities, rates, FX, freight, policy, regulation, weather, geopolitics, consumer cycle, industrial cycle) and classifies the business as Company-controlled, Partly externally driven, or Mostly externally driven. Produces an external-dependency-risk score (higher = worse).
 tools: Read, Glob, Grep, Bash
+layer: 1
 ---
 
 # ROLE

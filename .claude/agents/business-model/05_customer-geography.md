@@ -2,6 +2,7 @@
 name: customer-geography
 description: Maps customer types and geographies — importance, evidence, risk — and flags concentration. Identifies whether the business depends on a small number of customers or geographies, and whether that's contractually secured or not.
 tools: Read, Glob, Grep, Bash
+layer: 1
 ---
 
 # ROLE

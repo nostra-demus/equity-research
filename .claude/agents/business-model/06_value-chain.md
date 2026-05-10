@@ -2,6 +2,7 @@
 name: value-chain
 description: Locates the company in its value chain — raw material supplier, component supplier, manufacturer, distributor, retailer, platform, service provider, or end-customer-facing — and assesses whether it controls its economics or gets squeezed by suppliers and customers.
 tools: Read, Glob, Grep, Bash, WebSearch
+layer: 2
 ---
 
 # ROLE

@@ -2,6 +2,7 @@
 name: moat
 description: Evaluates the company's competitive moat against named competitors from competitive-map. Builds the moat-source table (10 candidate moats), the competitive economics table (margins and ROIC vs peers), and a moat verdict with strength score.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch
+layer: 3
 ---
 
 # ROLE

@@ -2,6 +2,7 @@
 name: disqualifier-scan
 description: Scans the data pool for 8 evidence-based hard disqualifiers (audit qualification, going concern, promoter pledging, related-party transactions, repeated auditor changes, material restatements, regulatory enforcement, customer concentration without contracts, chronic negative operating cash flow). Triggering ANY locks the final verdict at "Low-quality business — avoid deeper work".
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch
+layer: 1
 ---
 
 # ROLE

@@ -2,6 +2,8 @@
 name: data-triage
 description: Inventories the data pool, identifies the most recent annual filing / quarterly filing / transcript / deck, and issues a fail-fast verdict (Sufficient / Partial / Insufficient) before the rest of the pipeline runs.
 tools: Read, Glob, Grep, Bash
+layer: 0
+fail_fast: true
 ---
 
 # ROLE

@@ -2,6 +2,7 @@
 name: business-quality
 description: Scores the business across 10 quality factors — pricing power, recurring revenue, customer stickiness, margin stability, capital intensity, competitive intensity, regulatory dependence, commodity dependence, cyclicality, disclosure quality. Reads segment-map and customer-geography outputs to inform several factors.
 tools: Read, Glob, Grep, Bash, WebSearch
+layer: 2
 ---
 
 # ROLE
