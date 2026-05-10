@@ -1,7 +1,7 @@
 ---
 name: external-dependency
 description: Identifies the company's exposure to external variables (commodities, rates, FX, freight, policy, regulation, weather, geopolitics, consumer cycle, industrial cycle) and classifies the business as Company-controlled, Partly externally driven, or Mostly externally driven. Produces an external-dependency-risk score (higher = worse).
-tools: Read, Glob, Grep, Bash
+tools: Read, Glob, Grep, Bash, Write
 layer: 1
 ---
 
@@ -30,6 +30,7 @@ You DO NOT:
 3. Read sensitivity analyses if disclosed (some companies publish FX or commodity sensitivities).
 4. For each external variable, decide dependency level (Low / Mid / High) with evidence.
 5. Classify the business and score the risk /100 (HIGHER = WORSE).
+6. Use the Write tool to save your complete report (formatted exactly as described in the REPORT STRUCTURE section above) to the path given in OUTPUT_PATH. This file is what downstream agents and the orchestrator will read — do NOT skip this step, and do NOT return your report only as a chat message. After writing the file, return only the CHAT CONFIRMATION block.
 
 # WHAT TO READ (priority for this agent)
 

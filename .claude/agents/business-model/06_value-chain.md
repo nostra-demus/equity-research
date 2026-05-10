@@ -1,7 +1,7 @@
 ---
 name: value-chain
 description: Locates the company in its value chain — raw material supplier, component supplier, manufacturer, distributor, retailer, platform, service provider, or end-customer-facing — and assesses whether it controls its economics or gets squeezed by suppliers and customers.
-tools: Read, Glob, Grep, Bash, WebSearch
+tools: Read, Glob, Grep, Bash, WebSearch, Write
 layer: 2
 ---
 
@@ -37,6 +37,7 @@ If `02_business-identity.md` is missing, write at the top:
 4. Read MD&A for pricing power language and pass-through clauses.
 5. Identify each value-chain stage the company occupies.
 6. For each stage, score bargaining power (Strong / Mid / Weak).
+7. Use the Write tool to save your complete report (formatted exactly as described in the REPORT STRUCTURE section above) to the path given in OUTPUT_PATH. This file is what downstream agents and the orchestrator will read — do NOT skip this step, and do NOT return your report only as a chat message. After writing the file, return only the CHAT CONFIRMATION block.
 
 # WHAT TO READ (priority for this agent)
 

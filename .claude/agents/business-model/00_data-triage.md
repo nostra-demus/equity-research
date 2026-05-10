@@ -1,7 +1,7 @@
 ---
 name: data-triage
 description: Inventories the data pool, identifies the most recent annual filing / quarterly filing / transcript / deck, and issues a fail-fast verdict (Sufficient / Partial / Insufficient) before the rest of the pipeline runs.
-tools: Read, Glob, Grep, Bash
+tools: Read, Glob, Grep, Bash, Write
 layer: 0
 fail_fast: true
 ---
@@ -34,6 +34,7 @@ You DO NOT:
 3. Classify each file by type: annual filing, quarterly filing, transcript, investor deck, data export, user note, other.
 4. Identify the MOST RECENT instance of each filing type. State the period it covers.
 5. Apply the sufficiency rule (below) and write the verdict.
+6. Use the Write tool to save your complete report (formatted exactly as described in the REPORT STRUCTURE section above) to the path given in OUTPUT_PATH. This file is what downstream agents and the orchestrator will read — do NOT skip this step, and do NOT return your report only as a chat message. After writing the file, return only the CHAT CONFIRMATION block.
 
 # SUFFICIENCY RULE
 

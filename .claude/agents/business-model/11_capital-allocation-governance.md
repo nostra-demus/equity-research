@@ -1,7 +1,7 @@
 ---
 name: capital-allocation-governance
 description: Scores 13 capital-allocation and governance signals — acquisition pattern, share count trajectory, dividends, capex, debt, related-party transactions, insider ownership, promoter pledging, auditor history, restatements, off-balance-sheet items, working capital, senior management turnover. Classifies as owner-operator discipline / standard / concerns / red flags.
-tools: Read, Glob, Grep, Bash, WebSearch
+tools: Read, Glob, Grep, Bash, WebSearch, Write
 layer: 1
 ---
 
@@ -31,6 +31,7 @@ The disqualifier-scan agent runs in parallel and already covers the hardest gove
 2. Read the cash flow statement, statement of changes in equity, related-party note, auditor's report, and shareholding pattern (for Indian listings).
 3. Score each of 13 signals (severity /100, HIGHER = WORSE).
 4. Classify.
+5. Use the Write tool to save your complete report (formatted exactly as described in the REPORT STRUCTURE section above) to the path given in OUTPUT_PATH. This file is what downstream agents and the orchestrator will read — do NOT skip this step, and do NOT return your report only as a chat message. After writing the file, return only the CHAT CONFIRMATION block.
 
 # WHAT TO READ (priority for this agent)
 

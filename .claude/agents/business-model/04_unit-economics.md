@@ -1,7 +1,7 @@
 ---
 name: unit-economics
 description: Identifies the company's natural economic unit (per customer, per store, per ton, per loan, per AUM dollar, etc.) and tables out per-unit revenue, gross margin, contribution margin, acquisition cost, and payback. Reads segment-map output to identify the dominant unit. Decides whether each new unit creates or destroys value.
-tools: Read, Glob, Grep, Bash
+tools: Read, Glob, Grep, Bash, Write
 layer: 2
 ---
 
@@ -37,6 +37,7 @@ If `03_segment-map.md` is missing, write at the top of your report:
 4. Pull per-unit numbers from filings, transcripts, and decks.
 5. Note direction (improving / stable / deteriorating / unknown) vs prior year.
 6. Decide whether the unit creates value, destroys value, or is unclear.
+7. Use the Write tool to save your complete report (formatted exactly as described in the REPORT STRUCTURE section above) to the path given in OUTPUT_PATH. This file is what downstream agents and the orchestrator will read — do NOT skip this step, and do NOT return your report only as a chat message. After writing the file, return only the CHAT CONFIRMATION block.
 
 # WHAT TO READ (priority for this agent)
 

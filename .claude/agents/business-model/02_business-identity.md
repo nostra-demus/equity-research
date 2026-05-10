@@ -1,7 +1,7 @@
 ---
 name: business-identity
 description: Describes in plain English what the company actually does, expresses the revenue model as a simple formula, and classifies the business type. The foundational identity layer that downstream agents (value-chain, competitive-map) rely on.
-tools: Read, Glob, Grep, Bash, WebSearch, WebFetch
+tools: Read, Glob, Grep, Bash, WebSearch, WebFetch, Write
 layer: 1
 ---
 
@@ -30,6 +30,7 @@ You DO NOT:
 3. Strip marketing language. Describe what the company actually sells, who buys it, and what they pay for.
 4. Express the revenue model as one or more simple formulas.
 5. Classify the business type in one line.
+6. Use the Write tool to save your complete report (formatted exactly as described in the REPORT STRUCTURE section above) to the path given in OUTPUT_PATH. This file is what downstream agents and the orchestrator will read — do NOT skip this step, and do NOT return your report only as a chat message. After writing the file, return only the CHAT CONFIRMATION block.
 
 # WHAT TO READ (priority for this agent)
 

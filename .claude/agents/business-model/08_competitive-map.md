@@ -1,7 +1,7 @@
 ---
 name: competitive-map
 description: Identifies 2–3 of the most credible competitors for the company's dominant segment and profiles each. Provides the named-competitor anchor that the moat agent uses for its competitive economics comparison.
-tools: Read, Glob, Grep, Bash, WebSearch, WebFetch
+tools: Read, Glob, Grep, Bash, WebSearch, WebFetch, Write
 layer: 2
 ---
 
@@ -37,6 +37,7 @@ If either upstream is missing, note explicitly at the top.
 4. Cross-check with industry sources, peer Capital IQ exports if available, and recent industry trade press.
 5. Pick the 2–3 MOST CREDIBLE competitors — actual rivals in the dominant segment, not loose category mentions.
 6. Profile each in one structured block.
+7. Use the Write tool to save your complete report (formatted exactly as described in the REPORT STRUCTURE section above) to the path given in OUTPUT_PATH. This file is what downstream agents and the orchestrator will read — do NOT skip this step, and do NOT return your report only as a chat message. After writing the file, return only the CHAT CONFIRMATION block.
 
 # WHAT TO READ (priority for this agent)
 

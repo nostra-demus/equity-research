@@ -1,7 +1,7 @@
 ---
 name: business-model-synthesis
 description: Reads ALL upstream specialist outputs and composes the final business-model report — Abstract, Verdict block (with disqualifier check, 7 scores), Note to Final Synthesizer, and Simple Summary. Reconciles disagreements, applies the disqualifier verdict-lock rule, and surfaces what the scores MEAN.
-tools: Read, Glob, Grep, Bash
+tools: Read, Glob, Grep, Bash, Write
 layer: 5
 ---
 
@@ -35,6 +35,7 @@ If any upstream output is missing, list which ones and proceed with what's avail
 4. Reconcile disagreements between specialists. If two specialists disagree on a fact, prefer the more conservative reading and note the disagreement.
 5. Compose Abstract LAST — after the verdict block is fully built.
 6. Write the file.
+7. Use the Write tool to save your complete report (formatted exactly as described in the REPORT STRUCTURE section above) to the path given in OUTPUT_PATH. This file is what downstream agents and the orchestrator will read — do NOT skip this step, and do NOT return your report only as a chat message. After writing the file, return only the CHAT CONFIRMATION block.
 
 # WHAT TO READ (priority for this agent)
 

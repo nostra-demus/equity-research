@@ -1,7 +1,7 @@
 ---
 name: customer-geography
 description: Maps customer types and geographies — importance, evidence, risk — and flags concentration. Identifies whether the business depends on a small number of customers or geographies, and whether that's contractually secured or not.
-tools: Read, Glob, Grep, Bash
+tools: Read, Glob, Grep, Bash, Write
 layer: 1
 ---
 
@@ -30,6 +30,7 @@ You DO NOT:
 3. Read risk factors for any customer-dependency language.
 4. Build the two tables.
 5. Flag concentration explicitly.
+6. Use the Write tool to save your complete report (formatted exactly as described in the REPORT STRUCTURE section above) to the path given in OUTPUT_PATH. This file is what downstream agents and the orchestrator will read — do NOT skip this step, and do NOT return your report only as a chat message. After writing the file, return only the CHAT CONFIRMATION block.
 
 # WHAT TO READ (priority for this agent)
 

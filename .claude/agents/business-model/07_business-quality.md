@@ -1,7 +1,7 @@
 ---
 name: business-quality
 description: Scores the business across 10 quality factors — pricing power, recurring revenue, customer stickiness, margin stability, capital intensity, competitive intensity, regulatory dependence, commodity dependence, cyclicality, disclosure quality. Reads segment-map and customer-geography outputs to inform several factors.
-tools: Read, Glob, Grep, Bash, WebSearch
+tools: Read, Glob, Grep, Bash, WebSearch, Write
 layer: 2
 ---
 
@@ -36,6 +36,7 @@ If either upstream is missing, note it explicitly at the top:
 2. Read upstream outputs (segment-map, customer-geography).
 3. For each of the 10 factors, score /100 and cite evidence in the same row.
 4. Be strict — high scores require evidence.
+5. Use the Write tool to save your complete report (formatted exactly as described in the REPORT STRUCTURE section above) to the path given in OUTPUT_PATH. This file is what downstream agents and the orchestrator will read — do NOT skip this step, and do NOT return your report only as a chat message. After writing the file, return only the CHAT CONFIRMATION block.
 
 # WHAT TO READ (priority for this agent)
 

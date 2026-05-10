@@ -1,7 +1,7 @@
 ---
 name: red-flags-sweep
 description: Catch-all sweep for red flags not already captured by upstream specialists. Reads outputs from disqualifier-scan, segment-map, customer-geography, business-quality, external-dependency, and capital-allocation-governance to avoid duplication. Surfaces only flags that are evidence-supported and not already prominent in upstream reports.
-tools: Read, Glob, Grep, Bash
+tools: Read, Glob, Grep, Bash, Write
 layer: 4
 ---
 
@@ -41,6 +41,7 @@ If any upstream is missing, note at the top:
 3. Scan the data pool for flags NOT already prominent upstream.
 4. Build a focused catch-all table — only evidence-supported items, no duplicates of upstream coverage.
 5. Mark the most severe flag.
+6. Use the Write tool to save your complete report (formatted exactly as described in the REPORT STRUCTURE section above) to the path given in OUTPUT_PATH. This file is what downstream agents and the orchestrator will read — do NOT skip this step, and do NOT return your report only as a chat message. After writing the file, return only the CHAT CONFIRMATION block.
 
 # WHAT TO READ (priority for this agent)
 

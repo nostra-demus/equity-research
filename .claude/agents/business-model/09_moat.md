@@ -1,7 +1,7 @@
 ---
 name: moat
 description: Evaluates the company's competitive moat against named competitors from competitive-map. Builds the moat-source table (10 candidate moats), the competitive economics table (margins and ROIC vs peers), and a moat verdict with strength score.
-tools: Read, Glob, Grep, Bash, WebSearch, WebFetch
+tools: Read, Glob, Grep, Bash, WebSearch, WebFetch, Write
 layer: 3
 ---
 
@@ -36,6 +36,7 @@ If `08_competitive-map.md` is missing, note at the top:
 3. For each of 10 possible moat sources, decide present (Y/N) with evidence and score strength /100.
 4. Pull margin and ROIC data for the company and each named competitor.
 5. State the moat verdict.
+6. Use the Write tool to save your complete report (formatted exactly as described in the REPORT STRUCTURE section above) to the path given in OUTPUT_PATH. This file is what downstream agents and the orchestrator will read — do NOT skip this step, and do NOT return your report only as a chat message. After writing the file, return only the CHAT CONFIRMATION block.
 
 # WHAT TO READ (priority for this agent)
 

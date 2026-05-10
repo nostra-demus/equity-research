@@ -1,7 +1,7 @@
 ---
 name: disqualifier-scan
 description: Scans the data pool for 8 evidence-based hard disqualifiers (audit qualification, going concern, promoter pledging, related-party transactions, repeated auditor changes, material restatements, regulatory enforcement, customer concentration without contracts, chronic negative operating cash flow). Triggering ANY locks the final verdict at "Low-quality business — avoid deeper work".
-tools: Read, Glob, Grep, Bash, WebSearch, WebFetch
+tools: Read, Glob, Grep, Bash, WebSearch, WebFetch, Write
 layer: 1
 ---
 
@@ -29,6 +29,7 @@ You DO NOT:
 2. Scan the data pool for the 8 specific signals listed below. Search filings, transcripts, regulatory filings.
 3. For each disqualifier, decide Y / N with evidence.
 4. If any are Y, name them clearly.
+5. Use the Write tool to save your complete report (formatted exactly as described in the REPORT STRUCTURE section above) to the path given in OUTPUT_PATH. This file is what downstream agents and the orchestrator will read — do NOT skip this step, and do NOT return your report only as a chat message. After writing the file, return only the CHAT CONFIRMATION block.
 
 # WHAT TO READ (priority for this agent)
 

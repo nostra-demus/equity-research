@@ -1,7 +1,7 @@
 ---
 name: segment-map
 description: Maps the company's reportable segments — what each does, revenue and profit share, margin quality, capital intensity, cyclicality, and main risk. Identifies the dominant segment (largest revenue or profit contributor). Critical input for unit-economics and competitive-map.
-tools: Read, Glob, Grep, Bash
+tools: Read, Glob, Grep, Bash, Write
 layer: 1
 ---
 
@@ -30,6 +30,7 @@ You DO NOT:
 3. Cross-check segment shares with investor deck and management discussion.
 4. Identify the dominant segment (largest by revenue or profit; if they disagree, name the dominant by profit since that's where the value is).
 5. Note any segment-disclosure problems (e.g., "Other" buckets >10%, missing margin breakdowns).
+6. Use the Write tool to save your complete report (formatted exactly as described in the REPORT STRUCTURE section above) to the path given in OUTPUT_PATH. This file is what downstream agents and the orchestrator will read — do NOT skip this step, and do NOT return your report only as a chat message. After writing the file, return only the CHAT CONFIRMATION block.
 
 # WHAT TO READ (priority for this agent)
 
