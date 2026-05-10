@@ -8,6 +8,8 @@ You are the orchestrator for the business-model module. The ticker is `$ARGUMENT
 
 Execute the steps below in order. Do not skip any.
 
+Agents in this module return their reports as inline chat messages (per Claude Code subagent framework behavior). This orchestrator captures each return and writes it to the correct OUTPUT_PATH on disk so downstream agents can Read those files. Agents are NOT responsible for file IO.
+
 ## 1. Resolve today's date
 
 Run `date +%Y-%m-%d` via Bash and capture the result as `<DATE>`. Use this exact string everywhere `<DATE>` appears below.
@@ -54,23 +56,37 @@ Group the discovered agents by their `layer` field. Sort the layer keys ascendin
 
 ## 6. Execute layers in order
 
-For each layer, in ascending order:
+For each layer, in ascending order, perform Step A → Step B → Step C, then advance to the next layer.
 
-1. For every agent in that layer, dispatch a Task tool call with:
-   - `subagent_type: "<name>"` (the value from the frontmatter)
-   - User message (substitute `$ARGUMENTS`, `<DATE>`, `<NN>`, `<name>` literally):
+### Step A — Dispatch agents
 
-     > Analyze ticker $ARGUMENTS. Data pool path: data/$ARGUMENTS/. Output path: analyses/$ARGUMENTS_<DATE>/business-model/<NN>_<name>.md. Today's date: <DATE>. Follow your system prompt and write your output to the specified path.
+For every agent in this layer, dispatch a Task tool call with:
+- `subagent_type: "<name>"` (the value from the frontmatter)
+- User message (substitute `$ARGUMENTS` and `<DATE>` literally):
 
-   Issue every Task call for the layer in a single message so they run concurrently. Wait for all of them to return before moving on.
+  > Analyze ticker $ARGUMENTS. Data pool path: data/$ARGUMENTS/. Today's date: <DATE>. Follow your system prompt and produce your complete report as your final assistant message, formatted exactly per your REPORT STRUCTURE section. Return the report inline — do not attempt to write any files.
 
-2. After the layer's agents have returned, check fail-fast. For any agent in this layer with `fail_fast: true`:
-   - Read its output file `analyses/$ARGUMENTS_<DATE>/business-model/<NN>_<name>.md`.
-   - If the file contents contain the string `"Verdict: Insufficient data"` (case-insensitive match), ABORT the entire run. Do not dispatch any later layer. Report to the user which agent triggered the abort, the path of its output file, and that no synthesizer ran.
+Issue every Task call for the layer in a single message so they run concurrently. Wait for all of them to return before moving on to Step B.
 
-3. Track which agents in the layer succeeded and which failed. An agent failed if either (a) its Task call returned an error, or (b) the expected output file does not exist after it returns.
+### Step B — Capture and write files
 
-4. Move on to the next layer only after all of the current layer's agents have returned.
+The Task framework forces subagents to return their reports as inline chat messages rather than writing files. The orchestrator owns file IO.
+
+After all of this layer's agents have returned, for each agent:
+- Determine the output path: `analyses/$ARGUMENTS_<DATE>/business-model/<NN>_<name>.md` (using the `<NN>` and `<name>` parsed during agent discovery in step 4).
+- The file content is the COMPLETE final assistant message returned by that agent's Task call — the full report body, exactly as the agent returned it. Do not edit, summarize, truncate, or reformat.
+- Use the Write tool, one Write call per file.
+- Issue all Write calls for this layer in a single message so they run in parallel.
+
+Track which agents in the layer succeeded and which failed. An agent failed if either (a) its Task call returned an error, or (b) the agent returned no usable report content (e.g., refusal, empty message).
+
+### Step C — Layer-specific post-processing
+
+For any agent in this layer with `fail_fast: true` (the data-triage agent in Layer 0 is currently the only one):
+- Read the file you just wrote at `analyses/$ARGUMENTS_<DATE>/business-model/<NN>_<name>.md`.
+- If the file contents contain the string `"Verdict: Insufficient data"` (case-insensitive match), ABORT the entire run. Do not dispatch any later layer. Do not run the commit step. Report to the user which agent triggered the abort, the path of its output file, and that no synthesizer ran.
+
+If no fail-fast trigger fires (or the layer has no fail-fast agents), proceed to the next layer.
 
 ## 7. Commit and push to main
 
