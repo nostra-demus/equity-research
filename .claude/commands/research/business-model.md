@@ -84,7 +84,8 @@ Track which agents in the layer succeeded and which failed. An agent failed if e
 
 For any agent in this layer with `fail_fast: true` (the data-triage agent in Layer 0 is currently the only one):
 - Read the file you just wrote at `analyses/$ARGUMENTS_<DATE>/business-model/<NN>_<name>.md`.
-- If the file contents contain the string `"Verdict: Insufficient data"` (case-insensitive match), ABORT the entire run. Do not dispatch any later layer. Do not run the commit step. Report to the user which agent triggered the abort, the path of its output file, and that no synthesizer ran.
+- Test for an "insufficient data" verdict with this case-insensitive, markdown-tolerant Bash check (exit 0 = match): `grep -iqE 'verdict[*_:[:space:]]*insufficient[[:space:]]+data' "analyses/$ARGUMENTS_<DATE>/business-model/<NN>_<name>.md"`. The character class `[*_:[:space:]]*` between "verdict" and "insufficient data" tolerates any asterisks, underscores, colons, and whitespace — so `**Verdict:** Insufficient data`, `Verdict: Insufficient data`, `_Verdict_ insufficient data`, and similar all match. The trigger phrase remains "insufficient data" preceded by "verdict".
+- If the regex matches, ABORT the entire run. Do not dispatch any later layer. Do not run the commit step. Report to the user which agent triggered the abort, the path of its output file, and that no synthesizer ran.
 
 If no fail-fast trigger fires (or the layer has no fail-fast agents), proceed to the next layer.
 
