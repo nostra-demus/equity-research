@@ -111,6 +111,8 @@ If any row is Y, the Verdict below is LOCKED at "Low-quality business — avoid 
 - Business type (one line): *(from `02_business-identity.md`)*
 - Biggest business-model risk (one line):
 
+**CAPITAL STRUCTURE TRANSACTION CAP.** If `11_capital-allocation-governance.md` reports a transaction in the period under review that materially changed the capital structure — defined as either (a) total debt change > 50% YoY, or (b) share count change > 25% YoY, or (c) both — then the **Capital allocation & governance /100** score above is CAPPED at 50/100 regardless of how clean other governance hygiene factors (auditor, related-party, restatements, insider behavior) are. Clean hygiene cannot override material capital-structure restructuring. If you apply this cap, state explicitly in your synthesis: "Capital allocation score capped at 50/100 due to [specific transaction] which [specific change]." If you choose NOT to apply the cap despite a triggering transaction, you must justify why in one sentence (e.g., the transaction was fully announced, board-approved, and shareholder-voted with clear strategic rationale and minimal execution risk).
+
 ## 2. Specialist Roll-Up
 
 | Specialist | Verdict Line | Biggest Finding |
@@ -136,6 +138,8 @@ If two specialists disagreed on a fact (e.g., revenue share, margin, classificat
 ## 4. Note To The Final Synthesizer
 
 Bullet list, no prose paragraphs. **Surface what the scores MEAN — do not restate scores.**
+
+**MANDATORY RED-FLAG PROPAGATION.** Read `12_red-flags-sweep.md` in full. Every flag with severity ≥ 40 (on the 0–100 higher-is-worse scale used by red-flags-sweep) MUST appear in your final synthesis output, either in the Risk Register, in the "biggest negatives" commentary, or in the "what would change the answer toward low-quality" bullet. If you choose to exclude a severity ≥ 40 flag, you must include an explicit one-sentence justification in your output stating why (e.g., "Flag X excluded because Y"). Silent omission of severity ≥ 40 flags is not permitted. Flags with severity < 40 may be summarized, aggregated, or omitted at your discretion.
 
 - Strongest business-model positive (with evidence)
 - Strongest business-model negative (with evidence)
