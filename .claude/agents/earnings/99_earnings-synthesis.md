@@ -136,6 +136,27 @@ Do NOT restate the earnings-quality score or CFO/EBITDA ratio from Section 2. In
 ### Consensus Bar
 Do NOT restate the consensus number or revision breadth from Section 2. In 2-3 sentences, INTERPRET. Specifically: (a) What would have to happen operationally for the company to beat the current bar by a material margin? (b) Where is the bar most likely set incorrectly — too high, too low, or correctly priced? (c) How much of the current consensus is anchored to a recent macro tailwind or one-off event that could reverse?
 
+## 5b. Leverage & Capital Structure
+
+This section is REQUIRED in the synthesis output if EITHER of the following triggers fires:
+
+**TRIGGER A (high absolute leverage):** The company's net debt / Adjusted EBITDA ratio at the most recent period-end is greater than 3.0x.
+
+**TRIGGER B (material leverage change):** Net debt / Adjusted EBITDA increased by more than 1.0x year-over-year, OR total debt increased by more than 50% year-over-year, OR net debt in absolute terms changed by more than 2x year-over-year.
+
+If NEITHER trigger fires, write exactly: "Leverage is within normal range and did not change materially during the period — no dedicated treatment required." Then proceed to Section 6.
+
+If EITHER trigger fires, this section must cover the following 6 points in 3-6 sentences total:
+
+1. Current leverage level — the actual net debt / Adjusted EBITDA ratio and the absolute net debt number, with sources cited.
+2. Year-over-year change in both ratio terms (e.g., "1.18x → 4.72x") and absolute dollar terms (e.g., "$2.9B → $12.9B").
+3. The single largest driver of the leverage change (acquisition, buyback, operating losses, FX, asset sale, etc.) with specific reference to the transaction or event.
+4. Whether the reported leverage ratio uses Adjusted EBITDA or GAAP EBITDA. If Adjusted, state what the GAAP-based ratio would be using the same period's net debt.
+5. Debt maturity profile if disclosed — what fraction of total debt matures within 24 months, and at what weighted-average interest rate relative to current market rates. If maturity profile is not disclosed, state so explicitly.
+6. Whether elevated leverage is currently constraining capital allocation choices — buybacks paused or reduced, dividend constrained, capex deferred, or credit ratings under negative watch / outlook. Cite specific management commentary or rating-agency action if available.
+
+**Cross-reference requirement:** If TRIGGER A or TRIGGER B fires AND the earnings trajectory verdict from Section 1 is "Earnings decelerating" or "Earnings inflecting — negative", the "Biggest earnings risk" line in Section 1 must be updated to reference both leverage AND the earnings trajectory, not just one or the other.
+
 ## 6. Key Numbers
 
 The 5–8 most important numbers the master synthesizer should know. One line each, with source:
