@@ -85,12 +85,9 @@ Write this LAST, after the verdict block is finalized.
   - Earnings inflecting — negative (specify driver)
   - Mixed earnings setup
   - Insufficient data
-- Earnings clarity /100:
 - Earnings quality /100: *(from 06)*
 - Consensus setup /100 *(higher = more beatable)*: *(from 04)*
 - Earnings volatility /100 *(higher = worse)*: *(from 07)*
-- Data quality /100: *(from 00)*
-- Overall usefulness /100:
 - Next-quarter setup: *(from 05 — Favors beat / Favors miss / Balanced / Unclear)*
 - Biggest earnings driver (one line):
 - Biggest earnings risk (one line):
@@ -118,14 +115,10 @@ Apply the score caps from `MODULE_RULES.md`. For each cap trigger, state whether
 
 | Cap Trigger | Applied? (Y/N) | Affected Score | Final Cap |
 |---|---|---|---|
-| No quarterly data | | Earnings clarity | max 60 |
 | No consensus / estimate data | | Consensus setup | max 30 |
 | No cash flow statement | | Earnings quality | max 45 |
-| No earnings transcript | | Earnings clarity | max 70 |
-| No segment-level P&L for multi-segment business | | Earnings clarity | max 70 |
 | No revision history | | Consensus setup | max 60 |
 | Only inferred sensitivities | | Earnings volatility confidence | must be Low |
-| Unreconciled source conflict | | Overall usefulness | max 65 |
 
 If multiple caps affect the same score, use the most restrictive.
 
