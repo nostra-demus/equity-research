@@ -1,59 +1,84 @@
 # Earnings Module
 
-The earnings module answers a single question: **"what changes the numbers in the next 3–12 months?"**
+A module of a multi-module equity research system. This module answers:
 
-It does not do valuation, position sizing, or business-model classification — those belong to other modules.
+> "What is the earnings setup for the next 3–12 months — accelerating, stable, decelerating, inflecting, or unclear?"
 
-## Agents
+It does NOT produce valuations, price targets, scenarios, or ratings — those live in other modules and in the master synthesizer.
 
-| File | Layer | Purpose |
-|---|---|---|
-| `00_earnings-data-triage.md` | 0 (fail-fast) | Inventory data; issue Sufficient / Partial / Insufficient verdict |
-| `01_historical-financials.md` | 1 | Build historical baseline (P&L, cash flow, balance sheet, seasonality) |
-| `04_guidance-consensus.md` | 1 | Compare management guidance vs sell-side consensus and revisions |
-| `02_revenue-drivers.md` | 2 | Identify what moves revenue (volume, price, mix, etc.) |
-| `03_margin-drivers.md` | 2 | Identify what moves margins (inputs, pricing, mix, FX, etc.) |
-| `06_earnings-quality.md` | 2 | EBITDA → CFO → FCF bridge; one-offs, accruals, channel risk |
-| `05_beat-miss-setup.md` | 3 | What could cause the next 1–2 quarters to beat or miss |
-| `07_earnings-sensitivity.md` | 3 | 3–7 variables with highest sensitivity; bull/bear EPS/EBITDA impact |
-| `99_earnings-synthesis.md` | 4 | Final earnings module report; six scores; one verdict |
+## Where things live
 
-## Execution DAG
+| What | Path |
+|---|---|
+| Module agent prompts | `.claude/agents/earnings/` |
+| Module operating rules | `.claude/agents/earnings/MODULE_RULES.md` |
+| Slash command | `.claude/commands/research/earnings.md` |
+| Module outputs (per ticker) | `analyses/{TICKER}_{DATE}/earnings/` |
+| Repo root cross-cutting rules | `/CLAUDE.md` |
+| Master synthesizer | `.claude/agents/synthesizer.md` |
 
-```
-Layer 0:  00_earnings-data-triage  (fail-fast)
-              │
-              ▼
-Layer 1:  01_historical-financials,  04_guidance-consensus     (parallel)
-              │
-              ▼
-Layer 2:  02_revenue-drivers,  03_margin-drivers,  06_earnings-quality   (parallel)
-              │
-              ▼
-Layer 3:  05_beat-miss-setup,  07_earnings-sensitivity         (parallel)
-              │
-              ▼
-Layer 4:  99_earnings-synthesis
-```
-
-Layer assignment is keyed off the `layer:` field in each agent file's YAML frontmatter — the orchestrator self-discovers and never hardcodes names.
-
-## Output paths
-
-Each run writes to `analyses/{TICKER}_{DATE}/earnings/{NN}_{name}.md`. The synthesizer's final report is at `analyses/{TICKER}_{DATE}/earnings/99_earnings-synthesis.md`.
-
-## How to invoke
+## How it's invoked
 
 ```
 /research:earnings TICKER
 ```
 
-The slash command at `.claude/commands/research/earnings.md` is the entry point. It self-discovers agents from this folder by globbing `[0-9][0-9]_*.md`, reads each agent's frontmatter for `name`, `layer`, and `fail_fast`, groups by layer, dispatches Tasks in parallel within each layer, captures the inline returns, strips the trailing chat-confirmation block, writes to disk, and runs the fail-fast check after Layer 0.
+The master command runs each module and then the master synthesizer:
 
-## Cross-module business-model handoff
+```
+/research:full TICKER
+  → /research:business-model TICKER
+  → /research:earnings TICKER               (this module)
+  → /research:[other-module] TICKER
+  → invokes .claude/agents/synthesizer.md
+```
 
-Before dispatching agents, the orchestrator resolves the most recent `business-model` analyses folder for the same ticker by globbing `analyses/{TICKER}_*/business-model/` and selecting the latest by directory name (which sorts correctly because of the `YYYY-MM-DD` format). If found, the path is passed to every agent's Task message as `BUSINESS_MODEL_PATH`. Agents `02_revenue-drivers`, `03_margin-drivers`, `07_earnings-sensitivity`, and `99_earnings-synthesis` use it for cross-module reads when available; all agents fall back to independent analysis when it equals the literal string `not available`. See `MODULE_RULES.md` for the full rule.
+The master synthesizer reads `99_earnings-synthesis.md` alongside other module syntheses.
 
-## Note on agent contents
+## Sub-agents
 
-The analytical body of each agent file is filled in by the user, not auto-generated. Each file ships as a scaffold containing only the YAML frontmatter, an HTML-comment placeholder marking where the user-written prompt body will go, and the four structural sections (`## RUNTIME INPUTS`, `## UPSTREAM INPUTS`, `## OUTPUT PATH`, `## REPORT STRUCTURE REQUIREMENTS`). Do not delete the placeholder comment when authoring the prompt body.
+| # | Sub-agent | Depends on | Output |
+|---|---|---|---|
+| 00 | `earnings-data-triage` | — | Inventory + fail-fast |
+| 01 | `historical-financials` | — | Baseline + seasonality |
+| 02 | `revenue-drivers` | 01 | What moves revenue |
+| 03 | `margin-drivers` | 01 | What moves margins |
+| 04 | `guidance-consensus` | — | Bar assessment |
+| 05 | `beat-miss-setup` | 01, 02, 03, 04 | Next-quarter setup |
+| 06 | `earnings-quality` | 01 | Quality + FCF bridge |
+| 07 | `earnings-sensitivity` | 01, 02, 03 | Sensitivity table |
+| 99 | `earnings-synthesis` | ALL | Verdict + summary |
+
+## Execution layers
+
+- **Layer 0** (sequential, fail-fast): `earnings-data-triage`
+- **Layer 1** (parallel): `historical-financials`, `guidance-consensus`
+- **Layer 2** (parallel, depend on 01): `revenue-drivers`, `margin-drivers`, `earnings-quality`
+- **Layer 3** (parallel): `beat-miss-setup`, `earnings-sensitivity`
+- **Layer 4**: `earnings-synthesis`
+
+## Cross-module inputs
+
+This module optionally reads business-model outputs if available:
+
+- `03_segment-map.md` → used by `revenue-drivers`, `margin-drivers`
+- `06_value-chain.md` → used by `margin-drivers`
+- `10_external-dependency.md` → used by `earnings-sensitivity`
+
+If business-model hasn't run, each affected agent proceeds independently.
+
+## Stopping early
+
+If `earnings-data-triage` returns "Insufficient data," the module aborts.
+If data is "Partial," the module runs with caps applied per the partial-data rules in `MODULE_RULES.md`.
+
+## What Good Output Looks Like
+
+A good Earnings module run should produce:
+- A clean historical baseline with TTM, seasonality, and reported vs adjusted metrics identified
+- Revenue and margin drivers separated, with segment decomposition where data allows
+- Consensus bar clearly assessed with revision momentum direction
+- Next-quarter beat/miss setup stated with specific scenarios and magnitude thresholds
+- Earnings quality tested against cash flow with the EBITDA → CFO → FCF bridge
+- Sensitivities ranked by impact with realistic move sizes and confidence levels
+- A final synthesis that tells the master synthesizer what matters, what is missing, and what can change the verdict
