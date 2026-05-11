@@ -57,30 +57,50 @@ If no output path is provided, default to:
 
 # INPUTS YOU MUST READ
 
-Before writing the final thesis, read:
+Before writing the final dossier, read inputs in this priority order:
+
+## PRIMARY INPUTS (read first, trust most)
 
 1. `CLAUDE.md` at the repo root and apply all rules inside it.
-2. Raw uploaded data inside `data/{TICKER}/`.
-3. All specialist outputs inside `analyses/{TICKER}_{DATE}/`.
-4. Any Capital IQ screenshots, exports, or notes if present.
-5. Any IBKR screenshots, options chain screenshots, borrow data, or positioning data if present.
-6. Filings, transcripts, presentations, annual reports, quarterly reports, investor updates, or notes if present.
-7. Any prior thesis, critique, memo, user note, or saved analysis inside the relevant ticker folders.
 
-If folder names differ slightly, infer the correct files by searching filenames and contents for:
+2. `RUN_METADATA.md` at `analyses/{TICKER}_{DATE}/RUN_METADATA.md`, if it exists. This file is written by the `/research:full` orchestrator at the start of every multi-module run and contains:
+   - Ticker, company name, and run date
+   - Commit SHA of the system at run time (so prompts/agents used can be reconstructed)
+   - List of modules that ran
+   - Source files used from data folder
+   - Capital IQ and IBKR data-as-of dates
+   - Current price used in any calculations
+   - Modules or data items that were missing or skipped
+   - Reference to prior run compared (if any)
 
-- Ticker
-- Company name
-- Latest run date
-- Specialist agent names
-- `final_thesis`
-- `consensus`
-- `valuation`
-- `balance sheet`
-- `filings`
-- `options`
-- `positioning`
-- `scenario`
+   If `RUN_METADATA.md` exists, read it before any module synthesis — it tells you what to expect.
+   If `RUN_METADATA.md` is missing, this is a non-blocking gap. Note its absence and proceed; the run may have been invoked module-by-module rather than via the master orchestrator.
+
+3. **Module syntheses** — every `99_*-synthesis.md` file inside `analyses/{TICKER}_{DATE}/*/`. These are the consolidated verdicts from each module (business-model, earnings, valuation, balance-sheet-survival, etc.) and have already adjudicated their own sub-agents. Read every module synthesis that exists in the run folder.
+
+   Expected examples:
+   - `analyses/{TICKER}_{DATE}/business-model/99_business-model-synthesis.md`
+   - `analyses/{TICKER}_{DATE}/earnings/99_earnings-synthesis.md`
+   - Additional modules as the system grows — read whatever `99_*-synthesis.md` files exist.
+
+## SECONDARY INPUTS (read for verification, override, and dossier appendices)
+
+4. **Sub-agent outputs** — all non-99 files inside each module folder (e.g., `analyses/{TICKER}_{DATE}/business-model/00_data-triage.md`, `01_disqualifier-scan.md`, etc.). Use these to:
+   - Verify claims in the module synthesis
+   - Override the module synthesis ONLY if a sub-agent's evidence directly contradicts it
+   - Include as Module Appendix material in the final dossier
+
+5. **Raw data** — files inside `data/{TICKER}/`. Includes filings, transcripts, presentations, annual/quarterly reports, investor decks, user notes, Capital IQ exports, IBKR screenshots, options data, and positioning data.
+
+6. **Prior runs** — if `analyses/{TICKER}_*` folders exist from earlier dates, note them. You may reference whether the verdict has changed since the prior run, but do not merge prior-run content into the current dossier — each dated run is a frozen snapshot. If prior dated runs exist, compare only high-level verdict changes unless explicitly asked for a full run-over-run diff. Never overwrite or modify files in prior-run folders.
+
+## EXTRACTION RULE
+
+The master synthesizer's primary job is to consume MODULE SYNTHESES, not to re-do specialist-level work. Module syntheses have already adjudicated their own sub-agents — trust that adjudication unless a sub-agent output directly contradicts it. Do not duplicate work that was already done at the module-synthesis level.
+
+If a module folder exists but its `99_*-synthesis.md` is missing, list this as a critical gap — the module ran partially and the master synthesizer cannot fully consume it.
+
+If folder names differ slightly from expectations, infer correct files by searching for ticker, company name, latest run date, module names (business-model, earnings, etc.), and `99_*-synthesis` filename patterns.
 
 ---
 
