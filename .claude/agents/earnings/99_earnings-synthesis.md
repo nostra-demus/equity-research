@@ -124,17 +124,17 @@ If multiple caps affect the same score, use the most restrictive.
 
 ## 5. Earnings Setup Summary
 
-### Revenue Setup (3–5 sentences)
-What's the revenue trajectory, what drives it, and where is the risk?
+### Revenue Setup
+Do NOT restate the revenue findings from Section 2 — assume the reader has them. In 3-5 sentences, INTERPRET what those findings mean for the next 12 months. Specifically: (a) Is the current revenue trajectory sustainable, or driven by one-time effects (M&A, FX, accounting changes, divestitures)? (b) What single factor would have to change for revenue direction to flip? (c) If reported revenue and underlying organic revenue tell different stories, name the gap explicitly with the magnitude.
 
-### Margin Setup (3–5 sentences)
-What's the margin trajectory, what drives it, and where is the risk?
+### Margin Setup
+Do NOT restate the margin findings from Section 2. In 3-5 sentences, INTERPRET. Specifically: (a) Are current margins sustainable through the next cycle, or are they at a cyclical peak or trough? (b) Which segment or driver, if it moves adversely by 10-20%, takes the largest bite out of consolidated margins? (c) Does management have any contractual or structural margin-protection mechanism (pass-through clauses, hedging, take-or-pay), or is the company a pure price-taker?
 
-### Quality Check (2–3 sentences)
-Are earnings cash-backed and repeatable? What's the biggest quality concern?
+### Quality Check
+Do NOT restate the earnings-quality score or CFO/EBITDA ratio from Section 2. In 2-3 sentences, INTERPRET. Specifically: (a) What is the single largest gap between reported and economic earnings, and is it widening or narrowing? (b) Are the adjustments management uses to bridge GAAP to non-GAAP genuinely one-time, or do they recur across periods? (c) If you had to model normalized earnings for next year, would you start from GAAP or non-GAAP, and why?
 
-### Consensus Bar (2–3 sentences)
-Is the bar beatable? What's the revision direction?
+### Consensus Bar
+Do NOT restate the consensus number or revision breadth from Section 2. In 2-3 sentences, INTERPRET. Specifically: (a) What would have to happen operationally for the company to beat the current bar by a material margin? (b) Where is the bar most likely set incorrectly — too high, too low, or correctly priced? (c) How much of the current consensus is anchored to a recent macro tailwind or one-off event that could reverse?
 
 ## 6. Key Numbers
 
