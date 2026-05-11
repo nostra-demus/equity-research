@@ -26,7 +26,7 @@ You DO NOT:
 
 # CROSS-MODULE INPUTS (optional)
 
-- `analyses/{TICKER}_{DATE}/business-model/03_segment-map.md` — segment structure
+- `{BUSINESS_MODEL_PATH}/03_segment-map.md` — segment structure
 
 If the business-model segment-map exists, read it and decompose revenue drivers by segment.
 If the company is single-segment (>85% from one segment), state that and proceed at consolidated level.

@@ -29,7 +29,7 @@ You DO NOT:
 
 # CROSS-MODULE INPUTS (optional)
 
-- `analyses/{TICKER}_{DATE}/business-model/10_external-dependency.md` — external variable identification
+- `{BUSINESS_MODEL_PATH}/10_external-dependency.md` — external variable identification
 
 If the business-model external-dependency output exists, use it to inform which external variables to test. If not, identify them independently.
 

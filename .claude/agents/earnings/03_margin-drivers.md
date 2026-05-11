@@ -26,8 +26,8 @@ You DO NOT:
 
 # CROSS-MODULE INPUTS (optional)
 
-- `analyses/{TICKER}_{DATE}/business-model/03_segment-map.md` — segment structure
-- `analyses/{TICKER}_{DATE}/business-model/06_value-chain.md` — pricing power context
+- `{BUSINESS_MODEL_PATH}/03_segment-map.md` — segment structure
+- `{BUSINESS_MODEL_PATH}/06_value-chain.md` — pricing power context
 
 If the business-model segment-map exists, read it and decompose margin drivers by segment.
 If the company is single-segment (>85% from one segment), state that and proceed at consolidated level.
