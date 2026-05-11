@@ -1,153 +1,151 @@
-# Earnings Quality — BG
+# Earnings Quality — BG (Bunge Global SA)
 
-Reporting currency: USD ($ millions). All figures GAAP/reported unless labeled adjusted. Note: Bunge closed the Viterra acquisition on July 2, 2025; FY25 reflects six months of Viterra, FY23/FY24 are pre-Viterra. Mid-period acquisition closing materially distorts year-on-year cash conversion and working capital comparisons; this is flagged throughout.
+Reporting currency: USD millions. Fiscal year ends December 31. CRITICAL CAVEAT: Viterra Limited was acquired July 2, 2025 (~$4.2B cash + 65.6m new shares worth $5.3B + debt assumed). H2 2025 onward consolidates Viterra; prior periods do NOT. Every year-over-year metric below is contaminated by this acquisition. Where I assess "quality" I separate acquisition-driven distortion from genuine earnings-quality concerns. Source: see citations in `01_historical-financials.md` and below.
 
 ## 1. EBITDA → CFO → FCF Bridge (3–5 years)
 
 | Item | FY2021 | FY2022 | FY2023 | FY2024 | FY2025 | Trend |
 |---|---:|---:|---:|---:|---:|---|
-| EBITDA (filing-derived = Total EBIT + D&A) [a] | n/a | n/a | 3,784 | 2,260 | 2,236 | Decelerating |
-| Working capital change (net) [b] | n/a | n/a | 660 | (169) | (502) | Deteriorating |
-| Net unrealized (gains)/losses on derivatives [c] | n/a | n/a | (366) | 262 | 395 | Volatile |
-| Impairment charges | n/a | n/a | 104 | 41 | 53 | Stable-low |
-| FX (gain)/loss on debt | n/a | n/a | (281) | 174 | (216) | Volatile |
-| Gain on sale of PP&E / investments | n/a | n/a | (4) | (205) | (160) | Recurring gains |
-| Share-based compensation (non-cash add-back) | n/a | n/a | 69 | 65 | 73 | Stable |
-| D&A (in CFO bridge) | n/a | n/a | 451 | 468 | 703 | Rising (Viterra) |
-| Deferred income taxes | n/a | n/a | (1) | (10) | (62) | Negative widening |
-| **CFO (reported)** | (2,894) | (5,549) | 3,308 | 1,900 | 844 | **Decelerating** |
-| Capex (cash payments, total) | 399 | 555 | 1,122 | 1,376 | 1,723 | Accelerating (rising) |
-| Maintenance vs growth capex split | not disclosed | not disclosed | not disclosed | not disclosed | not disclosed | n/a |
-| **FCF (CFO − Capex)** | (3,293) | (6,104) | 2,186 | 524 | (879) | **Deteriorating** |
-| **CFO / EBITDA %** | n/a | n/a | **87.4%** | **84.1%** | **37.7%** | **Sharp deterioration** |
+| EBITDA | n/a [3] | n/a [3] | 3,784 [2] | 2,260 [2] | 2,236 [2] | Decelerating |
+| Working capital change (sum of all WC lines in CFO) | n/a | n/a | +473 [2] | +131 [2] | (502) [2] | Worsening |
+| D&A (added back in CFO) | n/a | n/a | 451 [2] | 468 [2] | 703 [2] | Rising |
+| Tax paid (proxy: income tax expense per IS) | n/a | n/a | 714 [2] | 336 [2] | 288 [2] | Declining (mix/level) |
+| Interest paid (proxy: interest expense net of income) | n/a | n/a | 368 [2] | 308 [2] | 426 [2] | Rising sharply FY25 |
+| Other operating reconciling items (FX/SBC/impair./gains, net) | n/a | n/a | (157) [2] | 149 [2] | (200) [2] | Volatile |
+| **CFO (reported)** | n/a | n/a | **3,308** [2] | **1,900** [2] | **844** [2] | Decelerating |
+| Total capex (absolute) | 399 [1] | 555 [1] | 1,122 [2] | 1,376 [2] | 1,723 [2] | Accelerating |
+| Maintenance capex | not split | not split | not split | not split | $95m disclosed Q1'26 only [5] | n/a |
+| Growth capex | not split | not split | not split | not split | $240m disclosed Q1'26 only [5] | n/a |
+| **FCF (CFO − Total Capex)** | n/a | n/a | **2,186** [2] | **524** [2] | **(879)** [2] | Decelerating |
+| **CFO / EBITDA %** | n/a | n/a | **87.4%** | **84.1%** | **37.7%** | Sharply deteriorating |
 
-[a] EBITDA = Total EBIT (company non-GAAP) + D&A; FY25 = $1,533 + $703 = $2,236m; FY24 = $1,792 + $468 = $2,260m; FY23 = $3,333 + $451 = $3,784m [FY2025 10-K, p.37; p.F-13].
-[b] Working-capital change is the sum of CFO-line items: Trade A/R + Inventories + Secured advances + Trade A/P + Advances on sales. FY25 = (469)+(700)+22+153+(58) = ($1,052)m offset by other; per CFO bridge net WC drag was ~($1,052)m before Other. Using the sum of all the working capital lines (incl. margin deposits, taxes, marketable securities, derivatives, other): FY25 = ($502)m net negative; FY23 = +$660m net positive. [FY25 10-K, p.F-13]
-[c] Net unrealized (gains) losses on derivative contracts is a non-cash add-back. FY25 +$395m means $395m of unrealized derivative LOSSES on the income statement were reversed in CFO. This indicates derivative MTM losses sit in reported earnings — quality flag.
-
-**Note on capex split:** *Maintenance vs growth capex split is not disclosed. Total capex used. FCF may understate or overstate true recurring free cash flow.* [FY25 10-K, p.F-13]
-
-**Trend column:** Decelerating across CFO, CFO/EBITDA, and FCF — all three deteriorated sharply in FY25.
+Notes:
+- Working capital line aggregates the seven 10-K reconciliation lines: Trade A/R, Inventories, Secured advances to suppliers, Trade A/P, Advances on sales, Net unrealized gains/losses on derivatives, Margin deposits, Recoverable/income taxes, Marketable securities, Other-net. Positive = WC release; negative = WC build. FY2023 was a major release ($473m); FY2025 was a $502m build pre-Viterra acquisition-effect exclusions [FY25 10-K, p.F-13].
+- "Tax paid" and "interest paid" rows use income-statement expense as a proxy because the 10-K cash flow statement does not separately disclose supplemental cash interest/tax paid in the lines reviewed. Inference, not from filings.
+- Capex split: Bunge does not disclose maintenance vs growth capex in the 10-K. Q1 2026 transcript discloses for that quarter only: $95m sustaining + $240m growth = $335m of $336m total [Q1 2026 call, prepared remarks]. **Capex split not disclosed for FY periods — total capex used. FCF may understate true recurring free cash flow.**
+- Trend column: 4–5 year direction; CFO/EBITDA conversion collapsed from 87% to 38% across three years.
 
 ## 2. Cash Conversion Assessment
 
-CFO/EBITDA collapsed from 87% in FY23 and 84% in FY24 to **37.7%** in FY25 — a clear deterioration. FY21 and FY22 CFO was deeply negative because of working-capital builds in a commodity price spike, so a multi-year average is unreliable, but the FY23–FY25 trajectory is unambiguous: cash conversion is **deteriorating sharply**. Q1 2026 CFO of **negative $541m** [Q1 26 10-Q, p.6] is consistent with the trend, although Q1 is seasonally negative for Bunge (Q1 25 CFO was also negative $285m). Net unrealized derivative losses of $958m in Q1 26 [Q1 26 10-Q, p.6] further widen the CFO–GAAP earnings gap. **Below the 50% red-flag threshold for FY25.**
+CFO/EBITDA ratio collapsed from 87.4% (FY23) → 84.1% (FY24) → 37.7% (FY25). FY23 and FY24 are healthy (>70%) and consistent with normal commodity-processing cash conversion. FY25 falls deep into red-flag territory (<50%) for a single reason that is mostly mechanical, not accounting-quality-driven: the Viterra consolidation step-up of inventories from $6,491m (Dec 2024) to $13,198m (Dec 2025) [FY25 10-K, p.F-12] required a working-capital cash absorption disclosed at $1,089m of net WC investment within CFO drivers [FY25 10-K, p.F-13]. Trajectory: poor in FY25, structurally worsening into Q1 2026 (CFO of $(541)m vs $(285)m prior year), driven by inventory build of $2,169m and derivative position changes [Q1 2026 10-Q, p.6]. Even adjusting for the Viterra timing distortion, the trend is unambiguously negative.
 
 ## 3. Working Capital Trends
 
-| Metric | FY2024 | FY2025 | Direction | Risk |
-|---|---:|---:|---|---|
-| Revenue | 53,108 | 70,329 | +32.4% (Viterra) | |
-| COGS | 49,715 | 66,920 | +34.6% | |
-| Trade receivables, net | 2,148 | 3,870 | +80% (Viterra) | |
-| Inventories | 6,491 | 13,198 | +103% (Viterra) | |
-| Trade payables | 2,777 | 4,881 | +76% (Viterra) | |
-| DSO (Receivable days = AR ÷ Revenue × 365) | 14.8 | 20.1 | **+5.3 days** | High |
-| DIO (Inventory days = Inv ÷ COGS × 365) | 47.7 | 72.0 | **+24.3 days** | High |
-| DPO (Payable days = AP ÷ COGS × 365) | 20.4 | 26.6 | **+6.2 days** | Mid |
-| Cash conversion cycle (DSO + DIO − DPO) | 42.1 | 65.5 | **+23.4 days** | **High** |
+| Metric | FY2023 | FY2024 | FY2025 | Direction | Risk |
+|---|---:|---:|---:|---|---|
+| Trade A/R (USD m) [2] | n/a — pre-FY24 BS not in 10-K | 2,148 | 3,870 | Stepped up (Viterra) | n/a — acquisition driven |
+| Inventories (USD m) [2] | n/a | 6,491 | 13,198 | Stepped up (Viterra) | n/a — acquisition driven |
+| Trade A/P (USD m) [2] | n/a | 2,777 | 4,881 | Stepped up (Viterra) | n/a — acquisition driven |
+| Receivable days (DSO) = AR / Revenue × 365 | n/a | 14.8 | 20.1 | Rising | **Watch — see note** |
+| Inventory days (DIO) = Inv / COGS × 365 | n/a | 47.7 | 72.0 | Rising sharply | **Watch — see note** |
+| Payable days (DPO) = AP / COGS × 365 | n/a | 20.4 | 26.6 | Rising | Normal (counterparty terms) |
+| Cash conversion cycle (DSO + DIO − DPO) | n/a | 42.1 | 65.5 | +23 days | **Capital intensity rising** |
 
-**Caveat:** FY25 absorbs Viterra balance sheet as of December 31, 2025 (six months of operations) versus revenue/COGS that include only half a year of Viterra activity. **Inventory and receivables jumped immediately on July 2, 2025 (acquisition close), while revenue only accumulated from that date forward**, so days metrics overstate the underlying deterioration. However, even setting Viterra aside, the **direction is unfavorable** and the FY25 inventory build of $700m (excluding acquisitions) plus a $469m receivables build (excluding acquisitions) are both genuine working-capital outflows in the CFO statement [FY25 10-K, p.F-13]. **DSO and DIO both rose materially.**
+Critical caveat: FY24-to-FY25 comparison mixes pre-Viterra denominator (revenue/COGS) with post-Viterra-stepped numerator (BS includes Viterra at 12/31/2025). DIO of 72 days is a hybrid number, not a like-for-like deterioration. To get like-for-like DIO change, would need full-year proforma Viterra revenue/COGS — not in data pool. Inference, not from filings.
 
-Triggers flagged:
-- DSO rising — borderline (driven by acquisition mix; ex-Viterra change not directly disclosed)
-- DIO rising — **yes**, by 24+ days; partially Viterra mix, but $700m organic inventory build is real
-- DPO rising — moderate; consistent with normal supplier-relationship management given acquisition scale
+Flags applied to thresholds:
+- DSO rising >10% YoY: TRIGGERED on raw calculation (+36% YoY) but explained by Viterra mix (Viterra grain merchandising has longer collection cycles than oilseed processing). Not a revenue-recognition concern in isolation.
+- DIO rising >15% YoY: TRIGGERED on raw calculation (+51% YoY). The 10-K explicitly attributes the inventory step-up to "increased inventory balances from the Acquisition of Viterra" [FY25 10-K, p.55]. Inventory is largely Readily Marketable Inventory (RMI: $11,361m of $13,198m total — 86%) [FY25 10-K, p.F-34], which is fair-value-priced and quasi-cash. This is NOT channel stuffing.
+- DPO rising sharply: A/P rose 76% YoY. The 10-K attributes this to Viterra acquisition and "higher payables outstanding as of December 31, 2025 from the Acquisition of Viterra, higher inventory volumes, and slightly higher payables" [FY25 10-K, p.55]. Not a liquidity-stretch signal in isolation.
 
 ## 4. Non-GAAP Adjustments
 
-| Adjustment | Amount | Recurring? (Y/N) | Concern Level | Evidence |
+Bunge does NOT disclose adjusted EBITDA or adjusted EPS reconciliations in the 10-K filing. The Q1 2026 earnings call discusses adjusted measures but the formal bridge appears in the earnings release/deck, not the filing.
+
+| Adjustment (Q1 2026 reported in transcript) | Amount | Recurring? (Y/N) | Concern Level | Evidence |
 |---|---:|---|---|---|
-| MTM timing differences (Q1 26) | +$336m to EBIT, +$1.28 to EPS | **Yes — every quarter** | **High** | [Q1 26 release, p.2] |
-| Viterra acquisition/integration costs FY25 | $223m | **Yes — multi-year** ($244m FY24, $114m FY23) | **High** | [FY25 10-K, p.43] |
-| Pension settlement loss FY25 | $118m | N (one specific plan) | Mid | [FY25 10-K, p.43] |
-| Long-term investment impairment FY25 | $30m | N (item-specific, but impairments recur every year) | Mid | [FY25 10-K, p.43] |
-| Gain on sale of BP Bunge Bioenergia FY24 | $195m | N | Mid (one-time gain) | [FY25 10-K, p.43] |
-| Gain on sale of PP&E / investments FY25 | $160m | **Yes — recurs every year** ($205m FY24, $4m FY23) | Mid | [FY25 10-K, p.F-13] |
-| Stock-based compensation FY25 | $73m | **Yes** | **High** if excluded from "adjusted" | [FY25 10-K, p.F-13] |
-| Foreign exchange (gain)/loss on debt FY25 | $(216)m | **Yes — every year** | Mid | [FY25 10-K, p.F-13] |
-| Impairment charges (recurring) | $53m FY25, $41m FY24, $104m FY23 | **Yes — every year** | **High** | [FY25 10-K, p.F-13] |
+| Mark-to-market timing difference | +$1.28 per share | **Y — recurring quarter-on-quarter** | **High** | Q1 2026 call, prepared remarks, p.4 [5] |
+| Viterra transaction & integration costs | +$0.20 per share | Y — recurring at least FY2024–FY2026 | Mid (genuine acquisition cost, but recurring 2+ years) | Q1 2026 call, prepared remarks [5]; FY25 10-K, p.43 ($223m for FY25, $244m for FY24) |
+| Stock-based compensation (in CFO add-back) | $73m FY25 / $23m Q1'26 | Y — annual | Mid (not stripped from "adjusted segment EBIT" per filings; but cash-cost ignored in "adjusted EPS" not verifiable from available bridge) | FY25 10-K, p.F-13 [2]; Q1 2026 10-Q, p.6 [4] |
+| Foreign exchange (gain) loss on debt | +$216m gain FY25 / +$102m gain Q1'26 (added back in CFO) | Y — every period | High concern about reported income volatility but CFO add-back is genuinely non-cash | FY25 10-K, p.F-13 [2] |
+| Gain on sale of investments and PP&E | (160)m FY25 / (205)m FY24 / (4)m FY23 (deducted in CFO) | Y — significant in two of last three years | Mid — recurring gains effectively non-recurring economically | FY25 10-K, p.F-13 [2] |
 
-**Recurring "one-offs" flagged:** acquisition/integration costs ($223m FY25, $244m FY24, $114m FY23 — three consecutive years), impairment charges (every year for three years), gains on sale of PP&E ($160m FY25, $205m FY24), MTM timing (every quarter — Q1 26 alone added back $336m EBIT and $1.28 EPS).
-
-**Whether SBC is excluded from "adjusted" numbers:** the Q1 2026 release shows "Adjusted EPS" of $1.83 vs. GAAP $0.35 — the reconciliation adjusts for MTM ($1.28) and "certain charges" ($0.20). SBC ($23m in Q1 26) is **not added back** in Bunge's adjusted EPS reconciliation, so it is included in adjusted earnings. Capital IQ "Normalized EBITDA" may treat it differently. This is acceptable practice.
-
-**Adjustments exceeding 15% of GAAP earnings:** Q1 26 — adjusted EPS is **423%** of GAAP EPS ($1.83 vs $0.35). FY25 — adjusted EPS is **154%** of GAAP ($7.57 vs $4.91). **Far exceeds the 15% threshold; widening.**
+Adjustments to flag:
+- Mark-to-market timing recurs every quarter and is **explicitly labeled "timing"** by management — implying the GAAP charge and the adjustment offset over time. But it averages large amounts ($1.28 on $0.35 GAAP base in Q1 2026 = a 366% adjustment). This is recurring, large, and inherent to a commodity-trading P&L. Cannot be classified as "one-off."
+- Viterra integration costs of $223m FY25 + $244m FY24 + $114m FY23 = $581m cumulative three-year "transaction & integration" tag. Once these costs cross multiple fiscal years, they cease being one-time and become "recurring one-offs."
+- The full company reported "adjusted EBITDA" used for the 1.6× leverage ratio is NOT publicly bridged in available documents — management states the ratio but not the components [Q1 2026 call, slide 8 ref]. This is a non-GAAP measure without a published reconciliation in the data pool.
 
 ## 5. One-Off Items (last 3 years)
 
 | Item | Period | Amount | Classification | Evidence |
 |---|---|---:|---|---|
-| Viterra acquisition/integration costs | FY25 | $223m | **Recurring "one-off"** (3 consecutive years) | [FY25 10-K, p.43] |
-| Viterra acquisition/integration costs | FY24 | $244m | **Recurring "one-off"** | [FY25 10-K, p.43] |
-| Viterra acquisition/integration costs | FY23 | $114m | **Recurring "one-off"** | [FY25 10-K, p.43] |
-| Pension settlement loss (US DB plan) | FY25 | $118m | Genuine one-off | [FY25 10-K, p.43] |
-| Long-term investment impairment | FY25 | $30m | Suspicious (impairments recur) | [FY25 10-K, p.43] |
-| Sale of BP Bunge Bioenergia (50% stake) | FY24 | +$195m gain | Genuine one-off | [FY25 10-K, p.43] |
-| Loders Croklaan accelerated amortization | FY23 | $21m | Genuine one-off | [FY25 10-K, p.F-50] |
-| Impairment of minority investments (Aust. Plant Proteins) | FY23 | $20m + $16m | Suspicious (impairment-prone equity stakes recurring) | [FY25 10-K, p.43] |
-| Gain on sale of PP&E and investments | FY25 / FY24 / FY23 | $160m / $205m / $4m | **Recurring "one-off"** | [FY25 10-K, p.F-13] |
-| Net unrealized derivative MTM losses | FY25 / FY24 / FY23 | $395m loss / $262m loss / $366m gain | **Recurring — large, volatile** | [FY25 10-K, p.F-13] |
-| FX (gain)/loss on debt | FY25 / FY24 / FY23 | $(216)m / $174m / $(281)m | **Recurring** | [FY25 10-K, p.F-13] |
-| ViOil contingent consideration (recognized in Other current liab.) | FY25 | not disclosed in $ | New | [FY25 10-K, p.45] |
+| Viterra acquisition & integration costs | FY2023 | $114m | Recurring "one-off" | FY25 10-K, p.43 [2] |
+| Viterra acquisition & integration costs | FY2024 | $244m | Recurring "one-off" | FY25 10-K, p.43 [2] |
+| Viterra acquisition & integration costs | FY2025 | $223m | Recurring "one-off" | FY25 10-K, p.43 [2] |
+| Viterra transaction/integration costs | Q1 2026 | ~$58m EBIT equivalent (per $0.20 EPS impact × 194m diluted shares × tax-effected) | Recurring "one-off" | Q1 2026 call [5] |
+| US defined-benefit pension settlement loss | Q4 2025 | $118m pre-tax | Genuine one-off (lump-sum buyout) | FY25 10-K, p.50, Note 18 [2] |
+| Impairment charges — long-term investments | FY2025 | $30m (Other expense, net) + $53m total impairment per CFO add-back | Genuine one-off | FY25 10-K, p.43, p.F-13 [2] |
+| Impairment — North America minority investment | FY2024 | $19m | Genuine one-off | FY25 10-K, p.41 [2] |
+| Gain on sale of BP Bunge Bioenergia 50% stake | FY2024 | +$195m gain | Genuine (also distorts FY24-vs-FY25 baseline) | FY25 10-K, p.43 [2] |
+| Gain on sale of corn milling business + EU oilseeds divestment | FY2025 | $927m investing cash proceeds; per-line P&L gain not separately disclosed in MD&A snippet | Genuine one-off | FY25 10-K, p.49 [2] |
+| Impairment charges (P&L line) | FY2023 | $104m | Likely genuine | FY25 10-K, p.F-13 [2] |
+| Impairment charges (P&L line) | FY2024 | $41m | Likely genuine | FY25 10-K, p.F-13 [2] |
+| Impairment charges (P&L line) | FY2025 | $53m | Likely genuine | FY25 10-K, p.F-13 [2] |
+| 2023 Ukraine inventory recovery | FY2023 | Not quantified in extract | Genuine one-off (favorable to FY23) | FY25 10-K, p.40 reference [2] |
+
+Key observation: Bunge has reported impairment charges of $104m (FY23), $41m (FY24), and $53m (FY25). **Impairments every year for three consecutive years are not "one-off"** — they appear to be a recurring feature of running a 200+ industrial-asset commodity-processing portfolio. Similarly, acquisition/integration costs have now been booked for FY23, FY24, FY25, and Q1 2026 — four reporting periods.
 
 ## 6. Accrual Quality Flags
 
 | Flag | Triggered (Y/N) | Evidence |
 |---|---|---|
-| Revenue growing faster than CFO for 2+ years | **Yes (severe)** | FY24 revenue -10.8% but CFO -42.6% ($3,308 → $1,900); FY25 revenue +32.4% but CFO -55.6% ($1,900 → $844). CFO direction has moved opposite to revenue in both years. [FY25 10-K, p.F-10, p.F-13] |
-| Receivables growing faster than revenue | Mixed | FY24: AR fell while revenue fell (consistent). FY25: AR +80% vs revenue +32.4% — yes, but driven by Viterra acquisition. Organic A/R build $469m in CFO (separate from Viterra step-up). [FY25 10-K, p.F-13] |
-| Inventory growing faster than COGS | **Yes** | FY25: inventories +103% vs COGS +34.6% — driven by Viterra step-up. **Organic inventory build of $700m** (CFO line, excluding acquisitions) [FY25 10-K, p.F-13] — that is a real organic stock build of ~10% of FY24 inventory. |
-| Deferred revenue declining (advances on sales) | N (small line) | Advances on sales swing: $(58)m FY25, +$51m FY24, $(140)m FY23. Bunge is not subscription-based; not a key signal. [FY25 10-K, p.F-13] |
-| Capitalized costs growing as % of revenue | **Yes** | Capex tripled from $399m FY21 to $1,723m FY25; capex/revenue rose from 0.67% FY21 to 2.45% FY25. PP&E gross more than doubled to $16,994m at Dec 31, 2025 vs $10,031m a year prior — Viterra-driven. [FY25 10-K, p.F-31] Capex is guided to remain $1.5–$1.7B in 2026. [Q1 26 release, p.9] |
-| Frequent accounting policy changes | **Yes (operational, not policy)** | Reportable segments changed effective Q3 2025 to align with Viterra acquisition closing structure. 2023–2025 segment results were recast. [FY25 10-K, Note 26, p.F-76] |
-| Net unrealized derivative gains/losses oscillating large amounts | **Yes** | FY23 +$(366)m gain, FY24 +$262m loss, FY25 +$395m loss in CFO add-back. Large and volatile relative to GAAP EBIT. [FY25 10-K, p.F-13] Q1 26 alone $958m add-back [Q1 26 10-Q, p.6]. |
+| Revenue growing faster than CFO for 2+ years | **Y** | FY24: Revenue −10.8%, CFO −42.6%. FY25: Revenue +32.4%, CFO −55.6%. Two consecutive years of CFO underperforming revenue. [FY25 10-K, p.F-10, F-13] [2] |
+| Receivables growing faster than revenue | **Y (raw)** | A/R +80% YoY vs revenue +32% YoY. But largely Viterra-acquisition driven, not organic deterioration. [FY25 10-K, p.F-12] [2] |
+| Inventory growing faster than COGS | **Y (raw)** | Inventory +103% YoY vs COGS +35% YoY. Mostly Viterra; mostly RMI fair-value priced. [FY25 10-K, p.F-12, F-34] [2] |
+| Deferred revenue declining (subscription/contract business) | **N/A** | Bunge is not a subscription business. Advances on sales (closest analog) moved $(58)m FY25 vs $51m FY24 vs $(140)m FY23 — small swings, no clear pattern. [FY25 10-K, p.F-13] [2] |
+| Capitalized costs growing as % of revenue | **Not proven from available data** | Capex/Revenue: FY23 1.88% → FY24 2.59% → FY25 2.45%. Modest rise FY23→FY24 but stable FY24→FY25. Cannot distinguish capitalized labor/software in disclosure. [FY25 10-K, p.49, p.F-10] [2] |
+| Frequent accounting policy changes | **Mild Y** | (a) Segment renaming "Other Oilseeds" → "Tropical Oils & Specialty Ingredients" in Q1 2026 [Q1 2026 10-Q, Note 1, p.10] [4]; (b) RMI reclassification disclosed: $481m misclassified between segments at Dec 31 2024, corrected in current period [FY25 10-K, p.F-34, fn 1] [2]; (c) Adoption of new income-tax disclosures ASU 2023-09 [FY25 10-K, p.F-26] [2]. None are full policy changes affecting earnings recognition, but disclosure changes warrant noting. |
+
+The "revenue growing faster than CFO" flag is the most important: it is triggered for two consecutive years and is NOT fully explained by Viterra (FY24 saw the divergence before Viterra closed). In FY24, revenue fell 10.8% but CFO fell 42.6% — a much sharper cash deterioration than the revenue decline would predict, attributable to a swing from large working capital releases in FY23 ($1,518m inventory release alone) to small releases in FY24 ($96m inventory release, $(538)m payables outflow) [FY25 10-K, p.F-13]. This points to **earnings driven by working-capital releases in FY23 that did not repeat in FY24** — a quality concern at the FY23 earnings peak.
 
 ## 7. Reported vs Adjusted Reconciliation
 
-**Q1 2026 (most recent):**
-
-| Metric | Reported (GAAP) | Adjusted | Difference | % of Reported | Recurring? | Evidence |
+| Metric | Reported (Q1 2026) | Adjusted (mgmt Q1 2026) | Difference | % of Reported | Recurring? | Evidence |
 |---|---:|---:|---:|---:|---|---|
-| Segment EBIT | 319 | 661 | +342 | 107% | MTM yes / integration yes | [Q1 26 release, p.2] |
-| Total EBIT | 184 | 561 | +377 | 205% | yes | [Q1 26 release, p.2] |
-| Net income (attrib) | ~52 (0.35 × ~148m shares) | ~271 | +219 | ~421% | yes | [Q1 26 release, p.2] |
-| EPS diluted | 0.35 | 1.83 | +1.48 | 423% | yes | [Q1 26 release, p.2] |
+| EPS diluted (USD) | $0.35 | $1.83 | +$1.48 | +423% | Yes — MTM timing recurs quarterly | Q1 2026 call, prepared remarks [5] |
+| Segment EBIT | $319m | $661m | +$342m | +107% | Yes — both MTM and Viterra costs are recurring | Q1 2026 10-Q, p.32 [4]; Q1 2026 call [5] |
+| Net interest expense | $136m | $136m | $0 | 0% | n/a | Q1 2026 call [5] |
+| EBITDA (full company) | Not disclosed | Not bridged | n/a | n/a | n/a — used in 1.6× leverage ratio | Q1 2026 call, slide 8 [5] |
 
-**FY 2025:**
-
-| Metric | Reported (GAAP per filing) | Adjusted (Cap IQ "Normalized") | Difference | % of Reported | Recurring? | Evidence |
+| Metric | Reported (FY2025) | Adjusted | Difference | % of Reported | Recurring? | Evidence |
 |---|---:|---:|---:|---:|---|---|
-| Total EBIT (company non-GAAP) | 1,533 | 2,034 | +501 | 33% | yes | [FY25 10-K, p.37; Cap IQ Consensus.xlsx, row 122] |
-| EBITDA (filing-derived) | 2,236 | 2,737 (Cap IQ "EBITDA") | +501 | 22% | yes | [FY25 10-K, p.37 + p.F-13; Cap IQ Consensus.xlsx, row 114] |
-| Net income (attrib) | 816 | ~1,121 (Adj EPS × shares) | +305 | 37% | yes | [FY25 10-K, p.F-10; Cap IQ Surprise.xlsx, row 18] |
-| EPS diluted | 4.91 | 7.57 | +2.66 | 54% | yes | [FY25 10-K, p.F-10; Cap IQ Surprise.xlsx, row 18] |
+| Net income | $843m | Not formally adjusted/bridged by management in 10-K | n/a | n/a | n/a | FY25 10-K, p.F-10 [2] |
+| EPS diluted | $4.91 | CIQ "Normalized": $7.57 (third-party, NOT mgmt's adjustment) | +$2.66 | +54% | CIQ excludes impairments, FX on debt, gain on sale | Capital IQ Surprise.xlsx [1] |
+| EBITDA | $2,236m (CIQ-actual) | $3,054m TTM (CIQ-normalized) | +$818m on TTM basis | +37% | Recurring exclusions | Capital IQ Surprise.xlsx [1] |
 
-The **gap between reported and adjusted is widening every period**, and the adjustments are not declining over time. This is a material quality red flag.
+The Q1 2026 adjustment of +$1.48/share on a $0.35 GAAP base means the GAAP number is only 19% of the "adjusted" number — and the same adjustment will repeat in some direction in future quarters. The MTM "timing difference" theoretically averages to zero across time, but in a given quarter it can be wildly material. This is a structural feature of commodity-processing accounting and is a quality concern primarily for those who pay attention to GAAP EPS; for those who track adjusted, it is the headline number.
 
 ## 8. Accounting Trap Checklist
 
 | Trap | Triggered? (Y/N) | Evidence | Severity /100 |
 |---|---|---|---:|
-| Stock-based compensation excluded from adjusted earnings | **N** | Bunge's adjusted EPS reconciliation does not separately add back SBC; SBC ($73m FY25, $23m Q1 26) remains in adjusted EPS. [Q1 26 release, p.2; FY25 10-K, p.F-13] | 10 |
-| Restructuring / integration costs recur every year | **Y** | Acquisition/integration costs: $114m FY23, $244m FY24, $223m FY25 — three consecutive years; will continue into 2026+. [FY25 10-K, p.43] | **70** |
-| Capitalized costs rising faster than revenue | **Y** | Capex tripled to $1,723m FY25; capex/revenue 2.45% FY25 vs 0.67% FY21. PP&E doubled to $11,678m net. [FY25 10-K, p.F-12] Driven by Viterra absorption, but elevates depreciation base going forward. | 55 |
-| Receivable factoring / supplier finance disclosed | **Y** | Bunge has a trade receivables securitization program ($228m AR sold in FY25 per Note 4); $3,632m proceeds in Q1 26. Trade structured finance program at $208m time deposits in Q1 26. [FY25 10-K, p.F-26; Q1 26 10-Q, pp.602–701] | 50 |
-| Inventory write-downs or reserve releases | **Y (one-time)** | Recovery of inventory in Ukraine recognized in 2023 (mentioned as comparison item). [FY25 10-K, p.35] No material new write-downs disclosed in FY25, but a $30m investment impairment was recorded. | 20 |
-| Revenue recognized before cash collection risk is clear | **N (mostly)** | Bunge sells commodities to large counterparties; revenue recognition is point-in-time at delivery. AR allowance is $156m on $3,870m gross AR (4%). [FY25 10-K, p.F-12] | 15 |
-| Change in useful life / depreciation assumptions | **N (no explicit change in FY25)** | Useful lives policy in Note 1; no change disclosed. However, the **OBBBA 100% bonus depreciation provision** [FY25 10-K, p.F-58] accelerates tax depreciation. | 10 |
-| Tax rate unusually low or boosted by one-off | **Y (low)** | FY25 effective tax rate: $288m / $1,134m = **25.4%** vs FY24 22.0%, FY23 23.4%. Deferred income tax benefit of $62m in FY25 vs $10m FY24, $1m FY23 — increasing. New OBBBA bonus depreciation cited as additional FY26+ benefit. [FY25 10-K, p.F-10, p.F-58] | 30 |
-| Large fair-value / mark-to-market gains/losses | **Y (very large, volatile)** | Net unrealized derivative items in CFO bridge: $(366)m FY23 (gain), $262m FY24 (loss), $395m FY25 (loss), $958m Q1 26 (loss add-back). Adjusted EPS adds back $1.28 per share of "MTM timing" in Q1 26 alone. **Indicates GAAP earnings are heavily influenced by non-cash MTM swings.** [FY25 10-K, p.F-13; Q1 26 release, p.2] | **80** |
-| Segment reporting change | **Y** | Reportable segments changed effective Q3 2025; 2023–2025 recast. While disclosure is good, recasting reduces year-on-year transparency. [FY25 10-K, Note 26, p.F-76] | 35 |
-| Reported negative FCF in growth year | **Y** | FY25 FCF = ($879m); first negative FCF since FY22's commodity-spike year. Q1 26 FCF ≈ ($877m). [FY25 10-K, p.F-13; Q1 26 10-Q, p.6] | 60 |
-| Goodwill / intangible elevated risk | **Y (Grain Merchandising flagged)** | Goodwill jumped to $3,141m from $453m post-Viterra. Auditors identified Grain Merchandising goodwill impairment evaluation as a critical audit matter — fair value is sensitive to discount rate. [FY25 10-K, p.4360; Note 8] | 40 |
+| Stock-based compensation excluded from adjusted earnings | **Cannot fully verify** — management's adjusted-EPS bridge in transcript only mentions MTM ($1.28) and Viterra costs ($0.20). SBC ($23m Q1'26) is not mentioned in the adjustment, suggesting it is NOT excluded from adjusted EPS — meaning adjusted EPS includes SBC cost, which is good practice [Q1 2026 call [5]; Q1 2026 10-Q p.6 [4]] | 20 |
+| Restructuring/integration costs recur every year | **Y** — Viterra integration costs in FY23 ($114m), FY24 ($244m), FY25 ($223m), and Q1'26. Four consecutive periods. [FY25 10-K, p.43 [2]] | **65** |
+| Capitalized costs rising faster than revenue | **Y modest** — Capex grew 25% FY24→FY25 vs revenue +32%; capex/revenue ratio stable. Goodwill jumped from $453m to $3,141m, but this is Viterra purchase-accounting goodwill, not capitalized internal costs. [FY25 10-K, p.F-12 [2]] | 25 |
+| Receivable factoring / supplier finance disclosed | **Y — significant program** — Trade Receivable Securitization Program: $1,174m of receivables sold and derecognized at FY25 year-end ($1,148m at FY24). Gross receivables sold during FY25: $13,313m. This program is explicitly disclosed as "important source of liquidity" [FY25 10-K, Note 4, p.F-32 to F-33 [2]]. If the program were reversed, reported A/R would be ~30% higher and DSO would jump materially. Recurring, large, and at maximum capacity. | **55** |
+| Inventory write-downs or reserve releases | **Mild Y** — FY23 included Ukraine "recovery of inventory" mentioned in MD&A [FY25 10-K, p.40 [2]]; not quantified in extract. Allowance on Trade A/R rose from $89m to $156m FY24→FY25. | 30 |
+| Revenue recognized before cash collection risk is clear | **N** — Bunge's revenue recognition is title-and-risk-transfer-based commodity sales; not service-revenue or long-term-contract revenue. Net unrealized derivative gain changes ($395m FY25 in CFO reconciliation) are an unrealized P&L item but reverse cash flow through CFO line; this is structural, not a recognition trap. | 25 |
+| Change in useful life / depreciation assumptions | **Not proven from available data** — no disclosure of useful-life changes found in available 10-K sections. PP&E gross went from $5,254m to $11,678m post-Viterra. | 15 |
+| Tax rate unusually low or boosted by one-off | **Y — recurring favorable** — Effective tax rate FY25: $288m / $1,134m pre-tax = 25.4%. FY24: $336m / $1,524m = 22.0%. FY23: $714m / $3,051m = 23.4%. Mgmt guides 22%–26% adjusted ETR for FY26. Bunge Global SA is Swiss-domiciled; "expects dividends from subsidiaries and capital gains from sales of investments to be exempt from Swiss corporate income tax" [FY25 10-K, p.36 [2]]. Tax efficiency is structural, not a one-off boost. | 20 |
+| Large fair-value / mark-to-market gains | **Y — central feature** — Net unrealized gains/losses on derivatives reverse $395m in FY25, $262m in FY24, $(366)m in FY23 — i.e., the IS includes mark-to-market changes that the CFO reverses. Other current assets include $1,534m of "Unrealized gains on derivative contracts, at fair value" [FY25 10-K, p.F-34 [2]]. Inventory carried at fair value (RMI of $11,361m, 86% of total). This is industry-normal but is the primary reason GAAP earnings are noisy. | **70** |
+| Foreign exchange (gain) loss on debt distorting reported net income | **Y — high magnitude** — FY25 FX gain on debt +$216m added (subtracted) in CFO reconciliation as non-cash; FY24 was $(174)m loss; FY23 was +$281m gain. Q1 2026 FX gain on debt $102m. These are real income statement items that swing materially. [FY25 10-K, p.F-13 [2]] | 40 |
 
 ## 9. Earnings Quality Score
 
-**Score: 42/100** (low-mid range of band 41–60: "Material concerns — cash conversion weak OR recurring one-offs").
+**Earnings Quality Score: 48/100** (band: Material concerns — cash conversion weak AND recurring one-offs)
 
-**Single most important reason:** GAAP earnings quality has deteriorated sharply across three independent dimensions in FY25 / Q1 26: (a) CFO/EBITDA collapsed to 37.7% in FY25 from 87% in FY23, well below the 50% red-flag threshold; (b) the gap between adjusted EPS and GAAP EPS widened to 54% in FY25 and 423% in Q1 26, driven primarily by MTM timing add-backs that recur every quarter; (c) acquisition/integration "one-off" costs have now recurred for three straight years ($114m → $244m → $223m), with more expected through 2026+. Working-capital draws from inventory and receivables building, on top of a large Viterra balance sheet step-up that elevated net debt to $12.9B and net debt / adj. EBITDA to 4.72x, further reduce the cash-backing of reported earnings.
+Single most important reason: **CFO/EBITDA conversion has collapsed from 87% to 38%, and adjusted-vs-reported gaps are recurring rather than one-off** — Viterra integration costs have appeared in four consecutive reporting periods, mark-to-market "timing" adjustments are explicitly recurring quarterly, and FY24 already showed cash deteriorating faster than revenue before Viterra closed. The Viterra-driven inventory build is mostly Readily Marketable Inventory (quasi-cash, 86% of inventory) which partially defends the FY25 print, but management's own "adjusted leverage ratio" of 1.6× uses a non-disclosed adjusted-EBITDA denominator — a quality concern in itself. The combination of (a) heavy reliance on a $1.17B trade-receivables securitization program, (b) recurring "one-offs", and (c) mark-to-market-heavy GAAP earnings keeps quality firmly in the mixed band.
 
 ## 10. The Single Biggest Quality Concern
 
-**Mark-to-market timing differences are dominating reported GAAP earnings.** Bunge's adjusted EPS exceeded GAAP EPS by $1.48 (423% gap) in Q1 2026, with $1.28 of that — virtually all of it — attributed to "MTM timing differences." Over the last three fiscal years, the CFO statement has had to add back net unrealized derivative items of $(366)m (FY23, gain reversal), +$262m (FY24, loss reversal), +$395m (FY25, loss reversal), and +$958m in Q1 26 alone — a clear pattern of large, swinging non-cash items running through GAAP cost of goods sold. In Bunge's defense, these are mostly the timing mismatch between hedged commodity inventory (carried at fair value) and the offsetting forward sales (often executed in a later period), so they may reverse out over time. The issue for an equity-quality assessment is that (i) these reversals are large enough to flip GAAP EPS direction quarter to quarter, (ii) the cash conversion data (CFO/EBITDA = 37.7%) confirms the GAAP earnings are not currently being matched by cash generation, and (iii) Bunge has chosen to manage to "Adjusted" EPS — meaning the company's own guidance bar (FY26 adj. EPS $9.00–$9.50 [Q1 26 transcript, pp.3–5]) inherently embeds these MTM add-backs as if they don't matter. Combined with three straight years of recurring "one-off" Viterra integration costs and a 4.4x increase in net debt, BG's earnings need to be viewed primarily through cash-conversion and adjusted lenses simultaneously — neither alone is sufficient.
+The single biggest quality concern is **the gap between GAAP earnings and management's adjusted earnings is recurring, large, and structural — not a one-time clean-up**. In Q1 2026, GAAP EPS of $0.35 was reconciled to adjusted EPS of $1.83 via two adjustments: an MTM "timing difference" of $1.28 and Viterra integration costs of $0.20. Management characterizes MTM as "timing" — implying it averages to zero over time — but in any given period this single adjustment can be 366% of the GAAP base, and the four-quarter pattern of adjustments shows quality earnings cannot be assessed period-by-period without trusting management's "adjusted" labels. Layered on this is the Viterra integration cost which has now been booked across FY23, FY24, FY25 ($223m) and Q1 2026; calling this "one-off" through four reporting periods is unsupportable. The investor must either (a) accept the adjusted framing and trust the integration timetable will end, or (b) treat ~$580m+ of cumulative integration spend, plus recurring MTM swings, plus impairment-per-year as baseline operating cost — under which reported quality is materially weaker than the adjusted-EPS narrative implies. Cash conversion collapse to 38% in FY25 (and turning sharply negative Q1 2026 CFO of $(541)m) confirms the cash-flow side has not yet validated the "adjusted" earnings story.
+
+---
+
+Citations (in addition to 01_historical-financials.md citations):
+
+[1] Capital IQ export (Surprise.xlsx), data as of May 9, 2026.
+[2] FY2025 Annual Report on Form 10-K (bunge_10k.txt / bunge-2025-annual-report.pdf): income statement p.F-10; balance sheet p.F-12; cash flow statement p.F-13; MD&A cash flows p.49; working capital section p.55; trade receivable securitization Note 4 p.F-32 to F-33; inventories Note 5 p.F-34; pension settlement p.50; impairments p.43.
+[3] FY2021/FY2022 financial statements not in data pool; pre-FY24 balance sheet not in the FY2025 10-K comparative.
+[4] Q1 2026 Form 10-Q (bunge_10q.txt): condensed cash flow p.6; balance sheet p.5; segment data pp.32–33; segment renaming Note 1 p.10.
+[5] Q1 2026 Earnings Conference Call transcript (q1_call.txt), April 29, 2026.
