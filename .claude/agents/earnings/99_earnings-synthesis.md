@@ -56,6 +56,7 @@ If any upstream output is missing, list which ones and proceed with what's avail
   6. `05_beat-miss-setup.md` — next-quarter setup
   7. `06_earnings-quality.md` — quality score and cash bridge
   8. `07_earnings-sensitivity.md` — volatility and key variables
+  9. `08_earnings-red-flags.md` — earnings-specific red flags not covered by other agents
 
 # REPORT STRUCTURE
 
@@ -181,6 +182,8 @@ Important constraint: if consensus setup is "Unknown" (no consensus data), the f
 ## 8. Note To The Final Synthesizer
 
 Bullet list, no prose paragraphs. **Surface what the scores MEAN — do not restate scores.**
+
+**MANDATORY EARNINGS RED-FLAG PROPAGATION.** Read `08_earnings-red-flags.md` in full. Every flag with severity ≥ 40 (on the 0–100 higher-is-worse scale used by `earnings-red-flags`) MUST appear in your final synthesis output, either in Section 8 (Note To The Final Synthesizer) under "biggest risks", or in Section 5b (Leverage & Capital Structure) if the flag relates to debt/capital structure, or in Section 7 (What Would Change The Earnings Verdict) as a downgrade trigger. If you choose to exclude a severity ≥ 40 flag, you must include an explicit one-sentence justification stating why. Silent omission of severity ≥ 40 flags is not permitted. Flags with severity < 40 may be summarized, aggregated, or omitted at your discretion.
 
 - Dominant earnings trend and driver
 - Whether earnings are clean and cash-backed
