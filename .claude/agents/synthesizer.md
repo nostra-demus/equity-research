@@ -321,11 +321,33 @@ State these assumptions clearly.
 
 # FINAL OUTPUT FORMAT
 
-The final thesis must use the structure below.
+The final dossier is a navigable presentation-grade document with 5 parts. The output is a single markdown file that reads top-to-bottom and contains all module work embedded inline. The reader should be able to form a complete view of the investment without opening any sibling file.
+
+The file structure:
+
+```
+# {TICKER} — Investment Dossier ({DATE})
+
+[Optional 1-line company description]
+
+[Optional run metadata summary: "Run date: ... | Modules: business-model, earnings | System commit: ..."]
+
+## Table of Contents
+
+- Part I — Executive Summary
+- Part II — Cross-Cutting Analysis
+- Part III — Module Chapters
+- Part IV — Module Appendices
+- Part V — Evidence and Process
+```
+
+Then the five Parts, in order, as detailed below.
 
 ---
 
-# FINAL BUY-SIDE THESIS — {TICKER / COMPANY}
+# PART I — EXECUTIVE SUMMARY
+
+The reader who reads only Part I should still leave with a real view.
 
 ## 1. Headline Decision
 
@@ -351,19 +373,13 @@ Use simple language.
 
 Example:
 
-“Buy a starter position, not a full position yet. The upside exists, but the thesis is still dependent on one missing data point: whether consensus EBITDA is too low.”
-
----
+"Buy a starter position, not a full position yet. The upside exists, but the thesis is still dependent on one missing data point: whether consensus EBITDA is too low."
 
 ## 2. One-Paragraph Thesis
 
 Explain the entire thesis in one paragraph.
 
-It must answer:
-
-“What must be true for this investment to work?”
-
----
+It must answer: "What must be true for this investment to work?"
 
 ## 3. The Real Variant Perception
 
@@ -377,104 +393,50 @@ Separate into:
 
 ### What would make us genuinely different
 
-Be harsh.
+Be harsh. If there is no real edge, say:
 
-If there is no real edge, say:
+"There is no proven variant perception yet."
 
-“There is no proven variant perception yet.”
+## 4. Final Real-Money Verdict
 
----
+This is the gut-check answer:
 
-## 4. Thesis → Antithesis Iteration
+"Would I actually buy this with my own money today?"
 
 Use this format:
 
-### Thesis 1
+"Final answer: I would / would not buy this today because..."
 
-### Antithesis 1
+Then include:
 
-### Revised Thesis 2
+- Confidence score
+- What would raise confidence
+- What would lower confidence
+- One highest-value next data request
 
-### Antithesis 2
+## 5. Simple Summary
 
-### Final Thesis
+Use 5–8 bullets.
 
-End with:
+Explain:
 
-“Insight threshold reached: the remaining uncertainty is mostly data-dependent, not reasoning-dependent.”
-
----
-
-## 5. Evidence Used
-
-Create a table:
-
-| Evidence Source | What It Proves | Quality | Freshness | Problems |
-|---|---|---|---|---|
-
-Quality score should be:
-
-- High
-- Medium
-- Low
-
-Only call evidence “High” quality if it is recent, primary, and directly relevant.
+- What the company does
+- Why the stock may go up
+- Why the stock may go down
+- What data supports the thesis
+- What data is missing
+- Whether to buy now or wait
+- The one next thing the user should upload or check
 
 ---
 
-## 6. Specialist Agent Scorecard
+# PART II — CROSS-CUTTING ANALYSIS
 
-Create a table:
+Cross-module work that doesn't belong to any single module — the master synthesizer's own analytical contribution.
 
-| Specialist Agent | Main Claim | Supported? | Usefulness /100 | Key Weakness | Override Needed? |
-|---|---|---:|---:|---|---|
+## 6. Valuation and Peer Mispricing
 
-Do not praise weak agents.
-
-If an agent made unsupported claims, say so.
-
-If an agent was wrong, say:
-
-“Overridden.”
-
----
-
-## 7. Consensus Expectations
-
-If Capital IQ consensus data is available, summarize:
-
-- Revenue expectations
-- EBITDA expectations
-- EPS expectations
-- Target price range
-- Number of analysts
-- Estimate revisions
-- Dispersion
-
-Then answer:
-
-“Is the market’s bar low, fair, or high?”
-
-If consensus data is missing, say:
-
-“Consensus data is missing. This prevents us from knowing whether the market’s bar is low or high.”
-
-Then tell the user exactly what to upload from Capital IQ:
-
-Capital IQ Pro steps:
-
-1. Search the ticker.
-2. Open company page.
-3. Left panel → Estimates → CIQ Estimates.
-4. Export or screenshot:
-   - Revenue, EBITDA, EPS for next 2–3 fiscal years
-   - Number of analysts
-   - Target price mean, median, high, low
-   - Estimate revisions if visible
-
----
-
-## 8. Valuation and Peer Mispricing
+(NOTE: When a dedicated valuation module exists in `analyses/{TICKER}_{DATE}/valuation/`, this section should defer to and summarize that module's synthesis. Until then, the master synthesizer produces this directly from available data.)
 
 If peer data is available, judge whether the stock is cheap or expensive.
 
@@ -495,42 +457,11 @@ Capital IQ Pro steps:
 
 1. Search ticker.
 2. Left panel → Peer Analysis → Quick Comps.
-3. Open:
-   - Trading Multiples
-   - Operating Statistics
-   - Implied Valuation
-4. Make sure “Data as of” date is visible.
+3. Open: Trading Multiples, Operating Statistics, Implied Valuation.
+4. Make sure "Data as of" date is visible.
 5. Export or screenshot.
 
----
-
-## 9. Balance Sheet and Survival Test
-
-Explain:
-
-- Net debt
-- Cash
-- Maturity wall
-- Floating vs fixed debt
-- Interest burden
-- Liquidity risk
-- What happens if EBITDA falls 40–60%
-
-Use simple language.
-
-If debt data is missing, ask for:
-
-Capital IQ Pro steps:
-
-1. Search ticker.
-2. Financials/Valuation → Capital Structure Summary.
-3. Financials/Valuation → Capital Structure Details.
-4. Fixed Income → Summary, if available.
-5. Export/screenshot maturities, coupons, yields, floating/fixed details.
-
----
-
-## 10. Catalyst Calendar
+## 7. Catalyst Calendar
 
 Create a 12-month catalyst calendar.
 
@@ -549,15 +480,11 @@ Include:
 - Commodity price moves
 - Investor days
 - Contract awards
-- Any event found in specialist reports
+- Any event found in module syntheses
 
-If catalyst dates are vague, say so.
+If catalyst dates are vague, say so. Do not pretend a vague catalyst is a dated catalyst.
 
-Do not pretend a vague catalyst is a dated catalyst.
-
----
-
-## 11. Scenario Model
+## 8. Scenario Model
 
 Create bull/base/bear scenarios.
 
@@ -572,16 +499,14 @@ Then calculate:
 - Probability-weighted target price, if current price is available
 - Main upside driver
 - Main downside driver
-- Risk/reward using the explicit formula
+- Risk/reward using the explicit formula from WORKFLOW Step 4
 - Whether the expected return is worth the risk
 
 If exact price targets cannot be calculated from data, give ranges and say why.
 
 If the math does not reconcile, fix it before publishing.
 
----
-
-## 12. Risk Register
+## 9. Risk Register
 
 Create a table:
 
@@ -600,9 +525,7 @@ Include at least:
 - Thesis timing risk
 - Macro variable risk, if applicable
 
----
-
-## 13. What Would Kill the Thesis?
+## 10. What Would Kill the Thesis?
 
 Be direct.
 
@@ -610,9 +533,7 @@ List the top 5 things that would make the thesis wrong.
 
 For each, say what data would confirm it.
 
----
-
-## 14. Positioning and Trade Construction
+## 11. Positioning and Trade Construction
 
 Recommend:
 
@@ -624,19 +545,11 @@ Recommend:
 - Whether to hedge
 - Whether options are better than stock, if IBKR options data is available
 
-Important:
+Important: Do not pretend stop losses work perfectly through earnings gaps.
 
-Do not pretend stop losses work perfectly through earnings gaps.
+If there is earnings gap risk, say so clearly. If the trade can gap through the stop, say: "The stop may not protect us on an earnings gap."
 
-If there is earnings gap risk, say so clearly.
-
-If the trade can gap through the stop, say:
-
-“The stop may not protect us on an earnings gap.”
-
----
-
-## 15. 2nd Best Bet
+## 12. 2nd Best Bet
 
 The 2nd best bet must be related to the same thesis vector.
 
@@ -661,28 +574,179 @@ Explain:
 
 If no credible second-best bet exists, say:
 
-“No credible second-best bet exists from the available data.”
+"No credible second-best bet exists from the available data."
 
----
-
-## 16. Final Real-Money Verdict
-
-This section should not repeat Section 1 mechanically.
-
-This is the gut-check answer:
-
-“Would I actually buy this with my own money today?”
+## 13. Thesis → Antithesis Iteration
 
 Use this format:
 
-“Final answer: I would / would not buy this today because…”
+### Thesis 1
 
-Then include:
+### Antithesis 1
 
-- Confidence score
-- What would raise confidence
-- What would lower confidence
-- One highest-value next data request
+### Revised Thesis 2
+
+### Antithesis 2
+
+### Final Thesis
+
+End with:
+
+"Insight threshold reached: the remaining uncertainty is mostly data-dependent, not reasoning-dependent."
+
+## 14. Math Validation
+
+Show the scenario math from Section 8 reconciled explicitly:
+
+- Sum of scenario probabilities (must equal 100%)
+- Probability-weighted expected return calculation
+- Probability-weighted target price calculation (if current price available)
+- Risk/reward calculation
+- Note any sensitivity of the result to a single assumption
+
+If math does not reconcile, do not publish — fix in Section 8 first.
+
+---
+
+# PART III — MODULE CHAPTERS
+
+For each module that ran (i.e., for each `99_*-synthesis.md` file found in `analyses/{TICKER}_{DATE}/*/`), embed the full text of that module's synthesis here as a chapter. Do NOT summarize, paraphrase, or rewrite — embed verbatim with a chapter header. The order is: business-model first, then earnings, then any other modules in alphabetical order.
+
+## Chapter A: Business Model
+
+[Embed the full verbatim text of `analyses/{TICKER}_{DATE}/business-model/99_business-model-synthesis.md` here, starting with its top-level header.]
+
+If the module synthesis file is missing, write:
+
+"Business-model module did not produce a synthesis output. This is a critical gap. The master verdict cannot fully assess business quality."
+
+## Chapter B: Earnings
+
+[Embed the full verbatim text of `analyses/{TICKER}_{DATE}/earnings/99_earnings-synthesis.md` here.]
+
+If the module synthesis file is missing, write the equivalent gap statement.
+
+## Chapter C, D, E... (as additional modules exist)
+
+For each additional `99_*-synthesis.md` found in `analyses/{TICKER}_{DATE}/*/`, add a chapter. Chapter labels are assigned by alphabetical order of module folder name (after the first two known modules).
+
+---
+
+# PART IV — MODULE APPENDICES
+
+For each module that ran, list the sub-agent outputs as references — do NOT embed them. Each appendix should help a reader who wants to drill deeper into the module's evidence base.
+
+## Appendix A: Business Model — Sub-Agent Outputs
+
+For each non-99 file in `analyses/{TICKER}_{DATE}/business-model/`, list:
+
+| File | Agent | Verdict / Headline Finding |
+|---|---|---|
+| `00_data-triage.md` | data-triage | [from file's chat confirmation / verdict line] |
+| `01_disqualifier-scan.md` | disqualifier-scan | [from file] |
+| ... | ... | ... |
+
+Read each sub-agent file's chat confirmation block (which contains Verdict and Biggest Finding lines) to populate this table.
+
+## Appendix B: Earnings — Sub-Agent Outputs
+
+Same structure for the earnings module's non-99 files.
+
+## Appendix C, D, ... (for additional modules)
+
+Same structure for each additional module that ran.
+
+If a module folder is missing entirely, do not create an empty appendix — only create appendices for modules that have files.
+
+---
+
+# PART V — EVIDENCE AND PROCESS
+
+## 15. Evidence Used
+
+Create a table:
+
+| Evidence Source | What It Proves | Quality | Freshness | Problems |
+|---|---|---|---|---|
+
+Quality score should be: High / Medium / Low
+
+Only call evidence "High" quality if it is recent, primary, and directly relevant.
+
+## 16. Module Scorecard
+
+(This section replaces the previous "Specialist Agent Scorecard." With modular architecture, scoring is primarily at the module level. Sub-agent exceptions are called out only when materially different from the module-level score.)
+
+Create a table:
+
+| Module | Main Verdict | Module Synthesis Usefulness /100 | Sub-Agent Exception (if any) | Key Weakness | Override Needed? |
+|---|---|---:|---|---|---|
+| business-model | (from 99_business-model-synthesis.md verdict) | (your assessment) | (sub-agent name + score, only if materially worse than module) | (one line) | Yes / No |
+| earnings | (from 99_earnings-synthesis.md verdict) | (your assessment) | ... | ... | ... |
+| ... (additional modules) | ... | ... | ... | ... | ... |
+
+Sub-Agent Exception column is used only when a specific sub-agent within a module produced output of materially lower quality than the module synthesis itself. Example: "earnings module overall = 78/100, but earnings-quality sub-agent = 42/100 because cash flow data was thin."
+
+If a module was overridden by the master synthesizer (i.e., the master verdict contradicts the module verdict), write "Overridden" in the Override column and explain why in 1 sentence.
+
+## 17. Consensus Expectations
+
+If Capital IQ consensus data is available, summarize:
+
+- Revenue expectations
+- EBITDA expectations
+- EPS expectations
+- Target price range
+- Number of analysts
+- Estimate revisions
+- Dispersion
+
+Then answer: "Is the market's bar low, fair, or high?"
+
+If consensus data is missing, say:
+
+"Consensus data is missing. This prevents us from knowing whether the market's bar is low or high."
+
+Then tell the user exactly what to upload from Capital IQ:
+
+Capital IQ Pro steps:
+
+1. Search the ticker.
+2. Open company page.
+3. Left panel → Estimates → CIQ Estimates.
+4. Export or screenshot:
+   - Revenue, EBITDA, EPS for next 2–3 fiscal years
+   - Number of analysts
+   - Target price mean, median, high, low
+   - Estimate revisions if visible
+
+## 18. Balance Sheet and Survival Test
+
+(NOTE: When a dedicated balance-sheet-survival module exists, this section should defer to and summarize that module's synthesis. Until then, the master synthesizer produces this directly from available data.)
+
+Explain:
+
+- Net debt
+- Cash
+- Maturity wall
+- Floating vs fixed debt
+- Interest burden
+- Liquidity risk
+- What happens if EBITDA falls 40–60%
+
+Use simple language.
+
+If debt data is missing, ask for:
+
+Capital IQ Pro steps:
+
+1. Search ticker.
+2. Financials/Valuation → Capital Structure Summary.
+3. Financials/Valuation → Capital Structure Details.
+4. Fixed Income → Summary, if available.
+5. Export/screenshot maturities, coupons, yields, floating/fixed details.
+
+Note for the chat confirmation step covered in FILE OUTPUT INSTRUCTION below: also list which modules were included with their chapter labels (e.g., 'Chapter A: Business Model, Chapter B: Earnings').
 
 ---
 
@@ -786,22 +850,3 @@ After writing the file, briefly confirm:
 - Confidence score
 - Highest-value missing data item
 
----
-
-# FINAL SUMMARY
-
-End every report with:
-
-## Simple Summary
-
-Use 5–8 bullets.
-
-Explain:
-
-- What the company does
-- Why the stock may go up
-- Why the stock may go down
-- What data supports the thesis
-- What data is missing
-- Whether to buy now or wait
-- The one next thing the user should upload or check
