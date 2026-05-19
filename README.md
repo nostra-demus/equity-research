@@ -28,7 +28,7 @@ The master orchestrator:
 4. For each module (business-model first, then earnings, then others alphabetically), follows the shared pipeline in `frameworks/MODULE_PIPELINE.md` to discover the module's specialists, dispatch them in parallel by layer, strip confirmation blocks, and write outputs to `analyses/<TICKER>_<DATE>/<module>/`.
 5. Per-module fail-fast aborts the module but **not** the whole run; the master synthesizer still runs as long as at least one module completes.
 6. Invokes the master synthesizer to produce `analyses/<TICKER>_<DATE>/final_thesis.md`.
-7. Commits everything in one commit on `main` and pushes (per `CLAUDE.md` git policy: main only, no branches, no PRs).
+7. Commits the run in two commits on `main` and pushes both: a run-artifacts commit containing every file written during the run, then a metadata-backfill commit that writes the run-artifacts commit's SHA into `RUN_METADATA.md`. Per `CLAUDE.md` git policy: main only, no branches, no PRs.
 
 To run only one module: `/research:business-model <TICKER>` or `/research:earnings <TICKER>`.
 

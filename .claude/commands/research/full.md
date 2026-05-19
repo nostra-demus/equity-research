@@ -12,7 +12,7 @@ This orchestrator:
 3. Runs each module's pipeline inline, using the shared pipeline defined in `frameworks/MODULE_PIPELINE.md`.
 4. Continues past per-module fail-fast aborts; aborts the whole run only if **every** module aborts.
 5. Invokes the master synthesizer once all modules finish.
-6. Makes a **single** commit on `main` (per repo `CLAUDE.md` git policy). Per-module commits do NOT happen under this orchestrator — they only happen when a module command is invoked standalone.
+6. Makes **two** commits on `main` per run (per repo `CLAUDE.md` git policy: one run-artifacts commit, then one metadata-backfill commit that fills in the commit SHA of the first one). Per-module commits do NOT happen under this orchestrator — they only happen when a module command is invoked standalone.
 
 Execute the steps below in order. Do not skip any.
 
@@ -191,7 +191,7 @@ Wait for it to complete. Treat the synthesizer as failed if `<RUN_ROOT>/final_th
 
 ## 11. Update RUN_METADATA.md (final)
 
-Use the Edit tool (or rewrite via Write) to fill in the placeholder sections of `<RUN_ROOT>/RUN_METADATA.md`:
+Rewrite `<RUN_ROOT>/RUN_METADATA.md` via the Write tool to fill in the placeholder sections. Read the current file first, then issue a single Write call with the full new content. (This command does not have access to the Edit tool — see the `allowed-tools` frontmatter.) Fill in:
 
 - "Modules completed": list (one per line)
 - "Modules aborted": list with brief note per entry (one per line)
@@ -210,7 +210,7 @@ git commit -m "Research run: ${ARGUMENTS} <DATE>"
 git push origin main
 ```
 
-Capture the commit SHA from `git rev-parse HEAD` and patch the "Commit SHA" field in `RUN_METADATA.md` via the Edit tool. Then re-commit with `--amend` is NOT allowed (per CLAUDE.md spirit, prefer new commits over amends); instead, add the SHA patch as a follow-up commit:
+Capture the commit SHA from `git rev-parse HEAD` and patch the "Commit SHA" field in `RUN_METADATA.md` by rewriting that file via the Write tool (read it, substitute the SHA in place of `(to be filled after commit)`, write the full new content). Do not use `git commit --amend` — per `CLAUDE.md` spirit, prefer new commits over amends. Add the SHA patch as a follow-up commit:
 
 ```
 git add "analyses/${ARGUMENTS}_<DATE>/RUN_METADATA.md"
@@ -239,4 +239,4 @@ Print a final summary to the user containing:
 - Do not hardcode any module name except in the ordering rule in step 4 (which is the only place hardcoding is acceptable today, with a TODO to migrate to declarative `depends_on:` metadata).
 - Adding a new module — e.g. dropping `.claude/agents/valuation/` with specialists and a `99_valuation-synthesis.md` — must require zero changes to this orchestrator beyond optionally updating the ordering rule in step 4 if cross-module dependencies need it.
 - Never invoke another slash command from within this command. The shared pipeline is followed *inline* via the instructions in `frameworks/MODULE_PIPELINE.md`; the standalone module commands at `.claude/commands/research/<module>.md` are NOT called.
-- Single commit (plus the metadata-backfill commit) for the entire run. Per-module commits do not happen here.
+- Exactly two commits per run: one run-artifacts commit and one metadata-backfill commit that fills in the commit SHA of the first. Per-module commits do not happen here.
