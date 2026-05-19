@@ -1,0 +1,24 @@
+# Business Identity — BG
+
+## 1. What The Company Actually Does
+
+Bunge Global SA is an asset-heavy agribusiness intermediary that buys agricultural commodities (mainly soybeans, canola/rapeseed, sunflower seed, wheat, corn, palm) from farmers, processes them into protein meals, vegetable oils, biofuel feedstocks, wheat flour, and specialty ingredients, and sells them to animal feed manufacturers, livestock producers, biofuel refiners, food manufacturers, and bakery/foodservice customers around the world. [FY25 10-K, Item 1 Business, p.3] Following the July 2025 acquisition of Viterra, Bunge also operates a large global grain merchandising network that originates, stores, transports, and sells grains and oilseeds between producing regions and importing regions. [FY25 10-K, Item 1, p.5; Item 1, Viterra section, p.6] Geographically, processing capacity is concentrated in South America (47% of soybean crush) and Europe (53% of softseed crush), with the remainder split across North America and Asia-Pacific. [FY25 10-K, Item 1, pp.3–4] FY25 net sales were $70.3 billion. [FY25 10-K, Consolidated Statements of Income, p.F-financial statements section] The customer pays Bunge for a logistical and processing service: moving a crop from a farm gate in Brazil, Argentina, Canada, Ukraine, the US, or Australia, transforming it into oil and meal (or shipping it as grain), and delivering it to a food, feed, or fuel buyer who cannot do that themselves. The business is fundamentally about taking a margin between the cost of raw oilseed/grain and the combined sales value of its processed components ("crush margin"), plus a merchandising spread on grain handled. [FY25 10-K, Item 1, pp.3–5; Q1 2026 transcript, prepared remarks]
+
+## 2. How The Company Makes Money
+
+Bunge runs four reportable segments, each with its own revenue formula:
+
+- **Soybean Processing and Refining**: `Revenue = soybeans crushed (tons) × (soybean meal price + soybean oil yield × oil price)` — i.e., processing volume × the value of co-products at market prices. FY25 segment net sales: $36.3 billion. [FY25 10-K, p.42 segment review]
+- **Softseed Processing and Refining (canola/rapeseed, sunflower)**: same crush economics — `Revenue = softseeds crushed × (meal price + oil yield × oil price)`. FY25 segment net sales: $11.3 billion. [FY25 10-K, p.~45]
+- **Other Oilseeds Processing and Refining (tropical oils, soy protein concentrates, specialty ingredients)**: `Revenue = refined/specialty volume × price per ton`, with some branded/B2C component. FY25 segment net sales: $4.6 billion. [FY25 10-K, p.~46]
+- **Grain Merchandising and Milling**: `Revenue = grain volume merchandised × commodity price ± merchandising spread + wheat/sugar milling volume × milled price + ocean freight/financial services fees`. FY25 segment net sales: $18.1 billion. [FY25 10-K, p.~48]
+
+What drives volume: crop size, asset utilization, footprint expansion (Viterra added roughly $15.3 billion to FY25 net sales). [FY25 10-K, Note discussing Viterra, p.~F-section] What drives price: world commodity prices for soybean, soybean oil, soybean meal, canola, palm oil, wheat, corn — Bunge is a price-taker on inputs and outputs. [FY25 10-K, Item 1, competition section, p.3] What drives margin: the spread between the cost of the seed/grain and the combined sales price of its products — the "crush margin" — plus biofuel/renewable-diesel demand for vegetable oil feedstock and government biofuel mandates (e.g., the EPA RVO decision). [Q1 2026 transcript, prepared remarks; FY25 10-K, Item 1, biofuels regulation discussion, p.7]
+
+## 3. Business Type Classification
+
+Globally integrated, asset-heavy oilseed crusher and grain merchant whose profitability is a leveraged bet on crush margins, biofuel policy, and crop-flow arbitrage between hemispheres.
+
+## 4. What Drives Variance
+
+Reported revenue moves primarily with commodity prices (soybean, soybean oil, palm oil, wheat, canola) and with crop size in originating regions; FY24 segment-level declines were attributed to "lower prices in all regions" and FY25 increases were driven principally by the Viterra acquisition's added volume rather than organic price/margin. [FY25 10-K, p.42 and segment commentary] Margins move with the soybean and softseed crush spread, biofuel-driven vegetable oil demand (renewable diesel/biodiesel), logistics/freight costs (Q1 2026 ocean freight was hurt by a bunker fuel spike from Middle East disruption), and FX in Brazil, Argentina, and Europe. [Q1 2026 transcript, prepared remarks; FY25 10-K, forward-looking statement risk list, p.2] Mark-to-market timing on derivative hedges also creates large quarter-to-quarter GAAP noise — Q1 2026 reported EPS was $0.35 versus adjusted $1.83 because of a $1.28 mark-to-market timing difference plus $0.20 of Viterra integration costs. [Q1 2026 transcript, CFO remarks]
