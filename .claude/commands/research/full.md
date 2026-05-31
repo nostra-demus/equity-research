@@ -137,15 +137,23 @@ For each module in `<MODULES_PLANNED>` (in the order from step 4):
 
 ### 8A. Build cross-module context
 
-Compose a `<CROSS_MODULE_CONTEXT>` string for this module:
+Compose a `<CROSS_MODULE_CONTEXT>` string for this module, naming only upstream modules that **completed in THIS run** (verify the relevant `99_*-synthesis.md` exists under `<RUN_ROOT>`):
 
-- If this module is `earnings` AND `business-model` previously completed in this run (i.e. `<RUN_ROOT>/business-model/99_business-model-synthesis.md` exists), set:
-  ```
-  Business-model cross-module path: <RUN_ROOT>/business-model/
-  ```
-- Otherwise, set `<CROSS_MODULE_CONTEXT>` to the literal string `none`.
+- If this module is `earnings`:
+  - If `<RUN_ROOT>/business-model/99_business-model-synthesis.md` exists, set:
+    ```
+    Business-model cross-module path: <RUN_ROOT>/business-model/
+    ```
+  - Otherwise set `<CROSS_MODULE_CONTEXT>` to the literal string `none`.
+- If this module is `valuation` (reads BOTH upstream modules):
+  - Let business-model be available if `<RUN_ROOT>/business-model/99_business-model-synthesis.md` exists; let earnings be available if `<RUN_ROOT>/earnings/99_earnings-synthesis.md` exists.
+  - Both available: `Business-model cross-module path: <RUN_ROOT>/business-model/. Earnings cross-module path: <RUN_ROOT>/earnings/.`
+  - Only business-model: `Business-model cross-module path: <RUN_ROOT>/business-model/.`
+  - Only earnings: `Earnings cross-module path: <RUN_ROOT>/earnings/.`
+  - Neither: the literal string `none`.
+- For any other module, set `<CROSS_MODULE_CONTEXT>` to `none` unless and until a cross-module dependency for it is added here.
 
-**Important:** under `/research:full`, always pass the **current run's** business-model path, never an older run's. Do not fall back to `ls analyses/${ARGUMENTS}_*/business-model/ | sort -r | head -n 1` here — that is the behavior of the standalone `/research:earnings` command. Within a single `/research:full` run, the current run's path is the only correct value, and `none` is the correct value if business-model aborted in this run.
+**Important:** under `/research:full`, always pass the **current run's** module paths, never an older run's. Do not fall back to `ls analyses/${ARGUMENTS}_*/<module>/ | sort -r | head -n 1` here — that is the behavior of the standalone module commands. Within a single `/research:full` run, the current run's path is the only correct value, and `none` (or omitting that module from the string) is correct if the upstream module aborted in this run.
 
 ### 8B. Invoke the shared pipeline
 
