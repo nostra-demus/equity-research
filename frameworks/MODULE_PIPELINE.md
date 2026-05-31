@@ -82,7 +82,7 @@ For every agent in this layer, dispatch a Task tool call with:
 
 Issue every Task call for the layer in a single message so they run concurrently. Wait for all of them to return before moving on to Step 4B.
 
-> **Note on cross-module context format.** The cross-module context string is a complete, well-formed sentence chosen by the caller that names any upstream-module artefacts the agent should read. Today the earnings module orchestrator passes `Business-model cross-module path: <PATH>`. Agents that don't need cross-module data will simply ignore the sentence. The shared pipeline does NOT add a "Cross-module context:" label of its own — it pastes the caller's string verbatim — so agent-facing wording is fully controlled by the caller.
+> **Note on cross-module context format.** The caller builds the cross-module context string from the module's `depends_on` list (see `/research:full` step 8A): one sentence per dependency that completed in the run, in the form `<Dep> cross-module path: <PATH>.` — the dependency's module name with its first letter capitalized (e.g. `Business-model cross-module path: …`, `Earnings cross-module path: …`). Agents parse the label(s) for the dependencies they read and ignore the rest. The shared pipeline does NOT add a label of its own — it pastes the caller's string verbatim. A new module declares what it reads via `depends_on` on its `99_*-synthesis.md`; its agents look for those deps' labels.
 
 ### Step 4B — Capture, strip confirmation block, and write files
 

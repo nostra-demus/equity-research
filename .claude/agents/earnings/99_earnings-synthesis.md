@@ -1,5 +1,6 @@
 ---
 name: earnings-synthesis
+depends_on: [business-model]
 description: Reads ALL upstream earnings module outputs and produces the final Earnings module report — Abstract, Verdict block (with 6 scores), Specialist roll-up, Reconciliation, Note to Final Synthesizer, and Simple Summary. The master synthesizer at .claude/agents/synthesizer.md reads this output.
 tools: Read, Glob, Grep, Bash
 layer: 4

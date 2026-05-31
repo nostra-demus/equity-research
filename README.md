@@ -25,7 +25,7 @@ The master orchestrator:
 1. Verifies `data/<TICKER>/` exists and has files.
 2. Creates `analyses/<TICKER>_<DATE>/` and writes `RUN_METADATA.md` (ticker, date, repo SHA, source files, modules planned, prior run).
 3. Discovers runnable modules via `Glob .claude/agents/*/99_*-synthesis.md`.
-4. For each module (business-model first, then earnings, then others alphabetically), follows the shared pipeline in `frameworks/MODULE_PIPELINE.md` to discover the module's specialists, dispatch them in parallel by layer, strip confirmation blocks, and write outputs to `analyses/<TICKER>_<DATE>/<module>/`.
+4. For each module **in dependency order** (topologically sorted from each module's `depends_on:` frontmatter; ties broken alphabetically), follows the shared pipeline in `frameworks/MODULE_PIPELINE.md` to discover the module's specialists, dispatch them in parallel by layer, strip confirmation blocks, and write outputs to `analyses/<TICKER>_<DATE>/<module>/`.
 5. Per-module fail-fast aborts the module but **not** the whole run; the master synthesizer still runs as long as at least one module completes.
 6. Invokes the master synthesizer to produce `analyses/<TICKER>_<DATE>/final_thesis.md`.
 7. Commits the run in two commits on `main` and pushes both: a run-artifacts commit containing every file written during the run, then a metadata-backfill commit that writes the run-artifacts commit's SHA into `RUN_METADATA.md`. Per `CLAUDE.md` git policy: main only, no branches, no PRs.
@@ -35,7 +35,7 @@ To run only one module: `/research:business-model <TICKER>`, `/research:earnings
 ## Adding agents and modules
 
 - **New specialist in an existing module:** drop `.claude/agents/<module>/NN_name.md` with `name`/`description`/`tools`/`layer`/`fail_fast` frontmatter. The module's pipeline auto-discovers it. See `frameworks/HOW_TO_ADD_AN_AGENT.md`. To deactivate without deleting, rename to `_NN_name.md`.
-- **New module:** create `.claude/agents/<module>/` with specialists and a `99_<module>-synthesis.md`. `/research:full` will auto-discover the module via the synthesis-agent glob. Optionally add a standalone command at `.claude/commands/research/<module>.md` mirroring the existing module commands.
+- **New module:** create `.claude/agents/<module>/` with specialists and a `99_<module>-synthesis.md`. Declare its cross-module reads via `depends_on:` on that synthesis file (e.g. `depends_on: [business-model, earnings]`, or `[]` for a foundational module) — `/research:full` auto-discovers the module via the synthesis-agent glob, topologically sorts it by `depends_on`, and auto-builds its cross-module context. **No orchestrator edit needed.** Optionally add a standalone command at `.claude/commands/research/<module>.md` mirroring the existing module commands.
 
 ## Where to put data
 

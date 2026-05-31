@@ -1,5 +1,6 @@
 ---
 name: management-governance-synthesis
+depends_on: [business-model, earnings]
 description: Reads ALL upstream management-governance outputs and produces the final module report — Abstract, Verdict block (with 8 scores and a stewardship verdict), Specialist roll-up, Reconciliation, Score Cap application, Note to Final Synthesizer, and Simple Summary. The master synthesizer reads this as a module chapter and treats its governance verdict as primary (superseding the business-model quick-read).
 tools: Read, Glob, Grep, Bash
 layer: 3

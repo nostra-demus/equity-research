@@ -1,5 +1,6 @@
 ---
 name: business-model-synthesis
+depends_on: []
 description: Reads ALL upstream specialist outputs and composes the final business-model report — Abstract, Verdict block (with disqualifier check, 7 scores), Note to Final Synthesizer, and Simple Summary. Reconciles disagreements, applies the disqualifier verdict-lock rule, and surfaces what the scores MEAN.
 tools: Read, Glob, Grep, Bash, Write
 layer: 5

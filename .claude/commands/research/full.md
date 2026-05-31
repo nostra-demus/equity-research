@@ -56,16 +56,15 @@ For each matched file, extract `<module>` as the parent directory's basename (e.
 
 If the glob returns zero matches, STOP and tell the user: "No runnable modules found under `.claude/agents/*/`. Add at least one module with a `99_*-synthesis.md` agent."
 
-### Module ordering
+### Module ordering (dependency-driven)
 
-Sort discovered modules with this rule:
-- `business-model` first if present.
-- Then `earnings` if present.
-- Then any other modules in alphabetical order.
+For each discovered module, read `depends_on` from its `99_*-synthesis.md` frontmatter — a list of module names it consumes (treat a missing or empty `depends_on` as no dependencies). Ignore any listed dependency that is not itself a discovered runnable module (treat it as absent).
 
-> **TODO (future):** Replace this hardcoded ordering with `depends_on:` metadata read from each module's `99_*-synthesis.md` frontmatter, so new modules can declare their cross-module dependencies and the orchestrator can topologically sort.
+Order the modules by a **topological sort** of that dependency graph: a module runs only AFTER every module in its `depends_on`. Among modules whose dependencies are all already placed, pick the next in **alphabetical order** (stable and deterministic). If a dependency cycle makes a topological order impossible, fall back to alphabetical order and note the cycle in `RUN_METADATA.md`.
 
-Capture the ordered list as `<MODULES_PLANNED>`.
+(With today's modules this yields: business-model → earnings → balance-sheet-survival → management-governance → valuation. No module name is hardcoded — the order is derived entirely from `depends_on`.)
+
+Capture the ordered list as `<MODULES_PLANNED>`, and keep each module's `depends_on` list (used in step 8A).
 
 ---
 
@@ -137,23 +136,14 @@ For each module in `<MODULES_PLANNED>` (in the order from step 4):
 
 ### 8A. Build cross-module context
 
-Compose a `<CROSS_MODULE_CONTEXT>` string for this module, naming only upstream modules that **completed in THIS run** (verify the relevant `99_*-synthesis.md` exists under `<RUN_ROOT>`):
+Build `<CROSS_MODULE_CONTEXT>` for this module from its `depends_on` list (captured in step 4), naming only dependencies that **completed in THIS run**:
 
-- If this module is `earnings`:
-  - If `<RUN_ROOT>/business-model/99_business-model-synthesis.md` exists, set:
-    ```
-    Business-model cross-module path: <RUN_ROOT>/business-model/
-    ```
-  - Otherwise set `<CROSS_MODULE_CONTEXT>` to the literal string `none`.
-- If this module is `valuation`, `balance-sheet-survival`, or `management-governance` (each reads the business-model and earnings modules):
-  - Let business-model be available if `<RUN_ROOT>/business-model/99_business-model-synthesis.md` exists; let earnings be available if `<RUN_ROOT>/earnings/99_earnings-synthesis.md` exists.
-  - Both available: `Business-model cross-module path: <RUN_ROOT>/business-model/. Earnings cross-module path: <RUN_ROOT>/earnings/.`
-  - Only business-model: `Business-model cross-module path: <RUN_ROOT>/business-model/.`
-  - Only earnings: `Earnings cross-module path: <RUN_ROOT>/earnings/.`
-  - Neither: the literal string `none`.
-- For any other module, set `<CROSS_MODULE_CONTEXT>` to `none` unless and until a cross-module dependency for it is added here.
+1. For each module name `<dep>` in this module's `depends_on`, check whether `<RUN_ROOT>/<dep>/99_<dep>-synthesis.md` exists (i.e. it completed in this run).
+2. For each `<dep>` that completed, produce the sentence: `<Dep> cross-module path: <RUN_ROOT>/<dep>/.` — where `<Dep>` is the dependency name with its first letter capitalized (`business-model` → `Business-model`, `earnings` → `Earnings`). This is the label format every dependent agent parses.
+3. Join the sentences with a single space to form `<CROSS_MODULE_CONTEXT>`.
+4. If this module has no `depends_on`, or none of its dependencies completed in this run, set `<CROSS_MODULE_CONTEXT>` to the literal string `none`.
 
-**Important:** under `/research:full`, always pass the **current run's** module paths, never an older run's. Do not fall back to `ls analyses/${ARGUMENTS}_*/<module>/ | sort -r | head -n 1` here — that is the behavior of the standalone module commands. Within a single `/research:full` run, the current run's path is the only correct value, and `none` (or omitting that module from the string) is correct if the upstream module aborted in this run.
+**Important:** always use the **current run's** paths, never an older run's. Do not fall back to `ls analyses/${ARGUMENTS}_*/<dep>/ | sort -r | head -n 1` here — that is the standalone commands' behavior. Within a `/research:full` run the current run's path is the only correct value, and a dependency that aborted in this run is simply omitted (or yields `none` if it was the only dependency).
 
 ### 8B. Invoke the shared pipeline
 
@@ -244,7 +234,7 @@ Print a final summary to the user containing:
 
 ## Hard rules
 
-- Do not hardcode any module name except in the ordering rule in step 4 (which is the only place hardcoding is acceptable today, with a TODO to migrate to declarative `depends_on:` metadata).
+- Do not hardcode any module name. Run order (step 4) and cross-module context (step 8A) are both derived from each module's `depends_on:` frontmatter — adding a module requires only its files plus its `depends_on` list, with zero edits to this orchestrator.
 - Adding a new module — e.g. dropping `.claude/agents/valuation/` with specialists and a `99_valuation-synthesis.md` — must require zero changes to this orchestrator beyond optionally updating the ordering rule in step 4 if cross-module dependencies need it.
 - Never invoke another slash command from within this command. The shared pipeline is followed *inline* via the instructions in `frameworks/MODULE_PIPELINE.md`; the standalone module commands at `.claude/commands/research/<module>.md` are NOT called.
 - Exactly two commits per run: one run-artifacts commit and one metadata-backfill commit that fills in the commit SHA of the first. Per-module commits do not happen here.

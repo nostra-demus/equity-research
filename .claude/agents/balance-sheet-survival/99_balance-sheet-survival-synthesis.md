@@ -1,5 +1,6 @@
 ---
 name: balance-sheet-survival-synthesis
+depends_on: [business-model, earnings]
 description: Reads ALL upstream balance-sheet-survival outputs and produces the final module report — Abstract, Verdict block (with 6 scores and the survival read), Specialist roll-up, Reconciliation, Score Cap application, Note to Final Synthesizer, and Simple Summary. The master synthesizer at .claude/agents/synthesizer.md reads this output and defers its "Balance Sheet and Survival Test" section to it.
 tools: Read, Glob, Grep, Bash
 layer: 4
