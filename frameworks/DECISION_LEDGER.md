@@ -1,0 +1,439 @@
+# Investment Decision Feedback Loop Framework
+
+This is the **specification / doctrine layer** for turning every final thesis into a measurable, auditable decision the engine can learn from. It defines the decision-record schema, paper-trade rules, basket tracking, forecast and outcome review, and the post-mortem / calibration loop.
+
+It is cross-cutting doctrine, subordinate to the root `CLAUDE.md` (the Institutional Investing Constitution). It does **not** duplicate doctrine that already lives there — it references it: decision set (§18), probability bands (§10), data sufficiency (§11), thesis type (§14), forecast ledger (§19), error taxonomy (§20). On any conflict, the stricter, more conservative, more evidence-based rule wins.
+
+> **This step is spec-only.** Nothing is wired yet. The synthesizer is not modified to emit `decision_record.json`; no review command exists; no feedback-loop agent exists. See §15 (Future Integration Plan) and §17 (Acceptance Criteria) for what comes later.
+
+---
+
+## 1. Purpose
+
+The engine should not only **produce** research — it should **learn from its decisions over time**.
+
+Core idea — for every final thesis, track:
+- what the engine **selected**,
+- what the engine **rejected**,
+- what it put on **watchlist**,
+- the **paper trades**,
+- the **forecasts**,
+- what **actually happened**,
+- a classification of **why** the engine was right or wrong,
+
+and use that record to **calibrate** future modules, ratings, confidence, and data sufficiency.
+
+**The objective is not to optimize for short-term price movement alone. The objective is to improve investment judgment.**
+
+---
+
+## 2. North Star Metric
+
+The long-term question the engine asks about itself:
+
+> **"Do selected ideas outperform rejected ideas after adjusting for benchmark, sector, thesis type, and time horizon?"**
+
+**Primary metric:** `Selected Basket Return − Rejected Basket Return`.
+
+Also track:
+- selected vs **watchlist** spread,
+- selected vs **benchmark** return,
+- selected vs **sector** return,
+- rejected basket **avoided loss / opportunity cost**,
+- **short candidate** performance (if applicable).
+
+---
+
+## 3. Decision Universe
+
+Every final thesis classifies the stock into one of the `CLAUDE.md` §18 decision buckets, and each decision maps to exactly one basket and a paper treatment:
+
+| Final Decision | Basket | Paper Treatment |
+|---|---|---|
+| Strong Buy | Selected | Paper long |
+| Buy | Selected | Paper long |
+| Starter Position Only | Selected | Small paper long |
+| Watchlist | Watchlist | No trade, track opportunity cost |
+| Avoid | Rejected | No trade, track avoided/foregone return |
+| Short Candidate | Short | Paper short |
+| Pair Trade / Hedge Required | Pair Trade | Paper pair only if hedge is specified |
+| Insufficient Data — Refuse To Rate | Insufficient Data | No trade, track process quality only |
+
+Rules: one decision → one basket (no double-counting). "Pair Trade / Hedge Required" enters the Pair Trade basket only if a concrete hedge/second leg is named; otherwise it is tracked as Watchlist and flagged. "Insufficient Data — Refuse To Rate" is not a failure — it is tracked for process quality, never for return.
+
+---
+
+## 4. Paper Trade Rules
+
+Paper trades are **simulated research outcomes, not real orders**.
+
+- Paper trades are for **process feedback only**.
+- They do **not** imply actual execution.
+- Entry price = the **current price used in the final thesis**.
+- **If current price is missing, do NOT create a paper trade.**
+- Record the **source** and **date/time** of the price.
+- Record **currency**.
+- Record **benchmark**.
+- Record **sector benchmark** if available.
+- Record intended **time horizon**.
+- Record **expected return** and **downside** from the final thesis.
+- Record **confidence** and **data sufficiency**.
+- **No hindsight edits** except through explicit review records (§8).
+- **Never overwrite** original decision records.
+
+---
+
+## 5. Decision Record Schema
+
+The canonical `decision_record.json` a future synthesizer run will emit — one per final thesis, written to `<RUN_ROOT>/decision_record.json` alongside `final_thesis.md`.
+
+```json
+{
+  "schema_version": "1.0",
+  "ticker": "",
+  "company_name": "",
+  "exchange": "",
+  "currency": "",
+  "decision_date": "",
+  "run_root": "",
+  "final_thesis_path": "",
+  "decision": "",
+  "suggested_action": "",
+  "paper_treatment": "",
+  "basket": "",
+  "entry_price": null,
+  "entry_price_source": "",
+  "entry_price_timestamp": "",
+  "benchmark": "",
+  "sector_benchmark": "",
+  "time_horizon": "",
+  "expected_return_pct": null,
+  "downside_risk_pct": null,
+  "risk_reward": null,
+  "confidence_score": null,
+  "data_sufficiency_score": null,
+  "rating_cap": "",
+  "thesis_type": [],
+  "variant_perception_summary": "",
+  "what_everyone_knows": "",
+  "what_is_priced_in": "",
+  "what_market_may_be_missing": "",
+  "killer_risk": "",
+  "kill_criteria": [],
+  "forecast_ledger": [],
+  "module_scores": {},
+  "red_flags": [],
+  "missing_data": [],
+  "review_schedule": {
+    "30d": "",
+    "90d": "",
+    "180d": "",
+    "365d": ""
+  },
+  "created_by": "synthesizer",
+  "notes": ""
+}
+```
+
+**Field definitions:**
+
+| Field | Required? | Description | Source |
+|---|---|---|---|
+| `schema_version` | Yes | Schema version for forward compatibility ("1.0"). | This framework |
+| `ticker` | Yes | Ticker / instrument symbol. | Run metadata |
+| `company_name` | Yes | Legal / common company name. | Business-model module |
+| `exchange` | Recommended | Listing exchange (e.g. NSE, NYSE). | Run metadata / filings |
+| `currency` | Yes | Reporting / price currency (ISO). | Price anchor |
+| `decision_date` | Yes | Date the thesis was finalized (YYYY-MM-DD). | Run date |
+| `run_root` | Yes | Path to the run folder, `analyses/<TICKER>_<DATE>`. | Orchestrator |
+| `final_thesis_path` | Yes | Path to `final_thesis.md`. | Orchestrator |
+| `decision` | Yes | One of the §3 / `CLAUDE.md` §18 buckets. | Part I Headline Scorecard |
+| `suggested_action` | Yes | Plain-English action (e.g. "Start small, add below X"). | Part I |
+| `paper_treatment` | Yes (derived) | Paper treatment per the §3 mapping. | §3 mapping of `decision` |
+| `basket` | Yes (derived) | Basket per the §3 mapping. | §3 mapping of `decision` |
+| `entry_price` | Conditional | Current price used in the thesis; `null` if missing (then no paper trade, §4). | Price anchor |
+| `entry_price_source` | Conditional | Source of the price (required if `entry_price` set). | Price anchor |
+| `entry_price_timestamp` | Conditional | Date/time of the price (required if `entry_price` set). | Price anchor |
+| `benchmark` | Yes | Benchmark index for relative return. | Thesis / convention |
+| `sector_benchmark` | Recommended | Sector index, if available. | Thesis / convention |
+| `time_horizon` | Yes | Intended horizon (e.g. "12–18m"). | Part I |
+| `expected_return_pct` | Recommended | Base-case expected return, if quantified. | Part I / valuation |
+| `downside_risk_pct` | Recommended | Bear-case downside, if quantified. | Part I / valuation |
+| `risk_reward` | Recommended | Risk/reward ratio. | Part I |
+| `confidence_score` | Yes | Confidence /100. | Part I |
+| `data_sufficiency_score` | Yes | Data sufficiency /100 (`CLAUDE.md` §11). | Part I / gate |
+| `rating_cap` | Conditional | Any rating cap applied, else "". | Rating Cap Rules |
+| `thesis_type` | Yes | Array of thesis types (`CLAUDE.md` §14). | Part I |
+| `variant_perception_summary` | Yes | One-paragraph variant perception. | Part I |
+| `what_everyone_knows` | Recommended | Consensus view. | Part I variant perception |
+| `what_is_priced_in` | Recommended | What the price implies. | Part I variant perception |
+| `what_market_may_be_missing` | Recommended | The claimed edge. | Part I variant perception |
+| `killer_risk` | Yes | The single risk most likely to break the thesis. | Part I |
+| `kill_criteria` | Yes | Array of conditions that would invalidate the thesis. | Thesis Kill Criteria table |
+| `forecast_ledger` | Conditional | Array of forecast objects (§6); `[]` if none reliable. | Forecast Ledger |
+| `module_scores` | Yes | Object: module name → score/verdict. | Module Scorecard |
+| `red_flags` | Yes | Array of carried Critical/High red flags (with IDs). | Red-flag register |
+| `missing_data` | Yes | Array of key data gaps / next-data requests. | Gate evidence inventory |
+| `review_schedule` | Yes | Target review dates at 30/90/180/365d from `decision_date`. | Computed (§7) |
+| `created_by` | Yes | Emitter ("synthesizer"). | Convention |
+| `notes` | Optional | Free-text caveats. | Synthesizer |
+
+Rules: keep field names exactly as above. Absent values are `null` (numbers), `""` (strings), or `[]`/`{}` — never fabricated.
+
+---
+
+## 6. Forecast Ledger Schema
+
+Each element of `decision_record.forecast_ledger` — the machine-readable form of the synthesizer's Forecast Ledger (`CLAUDE.md` §19):
+
+```json
+{
+  "prediction": "",
+  "probability": null,
+  "time_window": "",
+  "evidence_today": "",
+  "confirmation_trigger": "",
+  "falsification_trigger": "",
+  "owner_module": "",
+  "confidence_score": null,
+  "status": "open"
+}
+```
+
+Rules:
+- Only include forecasts with enough evidence.
+- `probability` must follow the `CLAUDE.md` §10 probability bands.
+- Every forecast must have a **confirmation** trigger and a **falsification** trigger.
+- Forecasts must be reviewable later (resolved only via review records, §8 — `status` ∈ {open, confirmed, falsified, expired}).
+- If no reliable forecast can be created, say why (and leave `forecast_ledger` as `[]`).
+
+---
+
+## 7. Review Schedule
+
+Standard review windows: **30 days · 90 days · 180 days · 365 days** from `decision_date`.
+
+For long-duration theses, also allow: **24 months · 36 months**.
+
+Each review answers:
+- What happened to the stock?
+- What happened relative to the benchmark?
+- What happened relative to the sector?
+- Did the original thesis play out?
+- Did the catalyst happen?
+- Were the forecasts right?
+- Did the risks materialize?
+- Was the decision right for the **right reason**?
+- Was the decision right for the **wrong reason**?
+- Was the decision wrong **despite good process**?
+- Was the decision wrong **because of bad process**?
+
+---
+
+## 8. Outcome Review Schema
+
+Reviews are append-only files at:
+
+```
+analyses/<TICKER>_<DATE>/reviews/<REVIEW_DATE>_<WINDOW>_decision_review.json
+```
+
+Each references the original decision; the original decision record is never edited.
+
+```json
+{
+  "schema_version": "1.0",
+  "ticker": "",
+  "original_decision_date": "",
+  "review_date": "",
+  "review_window": "",
+  "original_decision": "",
+  "basket": "",
+  "entry_price": null,
+  "review_price": null,
+  "absolute_return_pct": null,
+  "benchmark_return_pct": null,
+  "sector_return_pct": null,
+  "benchmark_relative_return_pct": null,
+  "sector_relative_return_pct": null,
+  "thesis_status": "",
+  "forecast_results": [],
+  "catalyst_results": [],
+  "risk_results": [],
+  "decision_quality": "",
+  "error_taxonomy": [],
+  "lessons": [],
+  "module_calibration_notes": {}
+}
+```
+
+`review_window` ∈ {30d, 90d, 180d, 365d, 24m, 36m, ad-hoc, post-mortem}. `thesis_status` ∈ {on-track, at-risk, confirmed, broken, expired}. `decision_quality` records the §10 luck-vs-skill verdict. `error_taxonomy` is populated only when the call went wrong (§12).
+
+---
+
+## 9. Outcome Metrics
+
+**Price / return metrics:**
+- absolute return
+- benchmark-relative return
+- sector-relative return
+- selected basket return
+- rejected basket return
+- selected minus rejected spread
+- selected minus watchlist spread
+- hit rate
+- false positive rate
+- false negative rate
+
+**Research quality metrics:**
+- thesis accuracy
+- forecast accuracy
+- catalyst accuracy
+- risk accuracy
+- valuation accuracy
+- timing accuracy
+- data sufficiency calibration
+- confidence calibration
+
+**Process metrics:**
+- unsupported claim rate
+- missing data rate
+- red-flag override rate
+- rating cap override rate
+- stale data rate
+
+---
+
+## 10. Thesis Accuracy vs Price Accuracy
+
+**Do not judge the engine only by stock price movement.** Separate the price outcome from the thesis outcome:
+
+| Price Outcome | Thesis Outcome | Interpretation |
+|---|---|---|
+| Right | Right | Skill — the engine saw what others missed and it played out. Reinforce. |
+| Right | Wrong | Luck — the call paid but for a reason the engine did not identify. Do not reward; flag as a calibration warning. |
+| Wrong | Right | Good process, bad luck / too early — thesis sound but price hasn't followed (timing or exogenous). Do not punish process; check the horizon. |
+| Wrong | Wrong | Genuine miss — both the call and the reasoning were off. Attribute via the error taxonomy (§12). |
+
+A good process can lose money short term. A bad process can make money short term. **The feedback loop must distinguish luck from skill** — it tracks thesis accuracy and price accuracy separately and never lets one stand in for the other.
+
+---
+
+## 11. Selected vs Rejected Basket Analysis
+
+Cohort analysis. For any research batch or period, group decisions into:
+- Selected Basket
+- Rejected Basket
+- Watchlist Basket
+- Short Basket
+- Insufficient Data Basket
+
+Measure for each cohort:
+- 30d returns
+- 90d returns
+- 180d returns
+- 365d returns
+- benchmark-relative returns
+- sector-relative returns
+- hit rate
+- drawdown
+- upside capture
+- downside capture
+
+**Core question: did the engine's selected names beat its rejected names?** (benchmark- and sector-adjusted, sliced by thesis type and horizon).
+
+---
+
+## 12. Error Taxonomy Integration
+
+Use the error taxonomy from `CLAUDE.md` §20. When a call is wrong, classify it:
+- missing data
+- stale data
+- bad source
+- bad extraction
+- bad math
+- bad base rate
+- bad causal inference
+- management deception
+- exogenous shock
+- timing error
+- valuation multiple error
+- ignored red flag
+
+Plus these feedback-loop-specific categories:
+- **false positive:** engine selected a bad idea
+- **false negative:** engine rejected a good idea
+- **thesis drift:** the original thesis changed without an explicit update
+- **catalyst delay:** thesis may be right but the timing was wrong
+- **beta confusion:** market/sector beta drove the outcome, not the thesis
+
+---
+
+## 13. Module Calibration
+
+How reviews feed back into modules. For each decision review, identify:
+- Which module was **most responsible** for the decision?
+- Which module was **most accurate**?
+- Which module **missed the key variable**?
+- Which module **overruled another correctly**?
+- Which module **overruled another incorrectly**?
+- Did **valuation** matter most?
+- Did **earnings** matter most?
+- Did **governance** matter most?
+- Did **balance-sheet survival** matter most?
+- Did **business quality** matter most?
+
+Output: `module_calibration_notes` (the object in the review record, §8).
+
+Purpose: over time, identify which modules deserve more weight **by sector, thesis type, and time horizon**.
+
+---
+
+## 14. Guardrails Against Bad Incentives
+
+- Do **not** optimize the engine for 30-day price movement.
+- Do **not** reward lucky outcomes without thesis accuracy.
+- Do **not** punish good process for exogenous shocks.
+- Do **not** let P&L override evidence quality.
+- Do **not** convert paper trades into real trades.
+- Do **not** create hindsight edits to original decisions.
+- Do **not** ignore rejected winners; classify them as possible **false negatives**.
+- Do **not** ignore selected losers; classify them as possible **false positives**.
+- Do **not** treat "Avoid" as a short unless the final decision was explicitly "Short Candidate."
+
+---
+
+## 15. Future Integration Plan
+
+- **Phase 1 — Create `frameworks/DECISION_LEDGER.md`.** *Current task.*
+- **Phase 2 —** Upgrade `.claude/agents/synthesizer.md` so every final thesis also writes `<RUN_ROOT>/decision_record.json`.
+- **Phase 3 —** Add a command `.claude/commands/research/review-decisions.md` to review historical decision records.
+- **Phase 4 —** Add aggregate cohort reporting: `decision_performance_summary.md`.
+- **Phase 5 —** Optional dashboard / export layer.
+
+**Important: do not implement Phases 2–5 in this task. Only document them.**
+
+---
+
+## 16. Compatibility With Existing Architecture
+
+- This framework **complements** `CLAUDE.md`; it does **not** replace it.
+- It does **not** replace module-specific `MODULE_RULES.md`.
+- It does **not** change the existing `/research:full <TICKER>` contract.
+- Future synthesizer integration must write `decision_record.json` **in addition to** `final_thesis.md`, not instead of it.
+- Existing analyses remain valid.
+- On any conflict with a module rule, the stricter / more conservative / more evidence-based rule wins.
+
+---
+
+## 17. Acceptance Criteria for Future Synthesizer Integration
+
+Documented now, **not implemented in this task**:
+- final thesis still writes to `final_thesis.md`
+- decision record writes to `decision_record.json`
+- if price is missing, the paper trade is not created
+- selected/rejected/watchlist basket mapping follows this framework (§3)
+- forecast ledger is copied into the decision record
+- kill criteria are copied into the decision record
+- no original decision record is overwritten
+- review dates are generated from the decision date
