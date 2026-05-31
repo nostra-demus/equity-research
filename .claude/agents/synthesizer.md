@@ -73,7 +73,7 @@ Before writing the final dossier, read inputs in this priority order:
 
 ## PRIMARY INPUTS (read first, trust most)
 
-1. `CLAUDE.md` at the repo root and apply all rules inside it.
+1. `CLAUDE.md` at the repo root and apply all rules inside it. Also read **`frameworks/DECISION_LEDGER.md`** — it defines the canonical `decision_record.json` schema you must emit at the end of the run (see the **Decision Record Output Requirement** section below). Reading it is required; do not invent a conflicting schema.
 
 2. `RUN_METADATA.md` at `analyses/{TICKER}_{DATE}/RUN_METADATA.md`, if it exists. This file is written by the `/research:full` orchestrator at the start of every multi-module run and contains:
    - Ticker, company name, and run date
@@ -922,10 +922,183 @@ Do not only print the answer in chat.
 
 Do not create a different output file unless explicitly instructed.
 
-After writing the file, briefly confirm:
+In addition to the thesis, you MUST also write the machine-readable decision record — see **Decision Record Output Requirement** (next section). It is written in addition to `final_thesis.md`, never instead of it.
 
-- Output file path
+After writing both files, briefly confirm:
+
+- Final thesis path (`<RUN_ROOT>/final_thesis.md`)
+- Decision record path (`<RUN_ROOT>/decision_record.json`) — confirm it was written and parses as valid JSON
 - Rating
 - Confidence score
+- Basket and paper treatment
 - Highest-value missing data item
+
+---
+
+# Decision Record Output Requirement
+
+The synthesizer writes two outputs:
+
+1. `final_thesis.md` — human-readable institutional investment memo.
+2. `decision_record.json` — machine-readable decision ledger entry for feedback-loop tracking.
+
+The `decision_record.json` must be written **in addition to** `final_thesis.md`, **never instead of it**. Write `final_thesis.md` first (the orchestrator treats the run as failed if it is missing); then write the decision record. This implements Phase 2 of `frameworks/DECISION_LEDGER.md`.
+
+**Where to write it.** `<RUN_ROOT>/decision_record.json` — the same folder as `final_thesis.md`. Derive `<RUN_ROOT>` by removing `/final_thesis.md` from the output path in the invocation message (e.g. output `analyses/BG_2026-06-01/final_thesis.md` → `<RUN_ROOT>` = `analyses/BG_2026-06-01`, decision record = `analyses/BG_2026-06-01/decision_record.json`). Write exactly one decision record per run. Never overwrite a prior dated run's decision record.
+
+**Schema (canonical).** Follow the schema in `frameworks/DECISION_LEDGER.md` §5 exactly — read that file (it is listed in INPUTS YOU MUST READ). Do not invent a conflicting schema, do not rename fields, and do not omit required fields unless the data is genuinely unavailable. The values must be **consistent with `final_thesis.md`**: the `decision`, scores, `basket`, `kill_criteria`, and `forecast_ledger` in the JSON must match the memo you just wrote — the JSON is a structured extract of the Pre-Write Gate, Part I, and the ledgers, not a second opinion.
+
+**Unavailable-data conventions** (never fabricate a value):
+- `null` for numeric fields,
+- empty string `""` for unavailable string fields,
+- empty array `[]` for unavailable lists,
+- empty object `{}` for unavailable maps.
+
+**Valid JSON only:** double-quoted keys and string values, no comments, no trailing commas. After writing, verify it parses — run `python3 -m json.tool <RUN_ROOT>/decision_record.json` (or equivalent); if it does not parse, fix and rewrite before confirming.
+
+The exact object to emit (mirrors `frameworks/DECISION_LEDGER.md` §5 — that file is canonical; if this ever diverges from it, the framework file wins and you must reconcile):
+
+```json
+{
+  "schema_version": "1.0",
+  "ticker": "",
+  "company_name": "",
+  "exchange": "",
+  "currency": "",
+  "decision_date": "",
+  "run_root": "",
+  "final_thesis_path": "",
+  "decision": "",
+  "suggested_action": "",
+  "paper_treatment": "",
+  "basket": "",
+  "entry_price": null,
+  "entry_price_source": "",
+  "entry_price_timestamp": "",
+  "benchmark": "",
+  "sector_benchmark": "",
+  "time_horizon": "",
+  "expected_return_pct": null,
+  "downside_risk_pct": null,
+  "risk_reward": null,
+  "confidence_score": null,
+  "data_sufficiency_score": null,
+  "rating_cap": "",
+  "thesis_type": [],
+  "variant_perception_summary": "",
+  "what_everyone_knows": "",
+  "what_is_priced_in": "",
+  "what_market_may_be_missing": "",
+  "killer_risk": "",
+  "kill_criteria": [],
+  "forecast_ledger": [],
+  "module_scores": {},
+  "red_flags": [],
+  "missing_data": [],
+  "review_schedule": {
+    "30d": "",
+    "90d": "",
+    "180d": "",
+    "365d": ""
+  },
+  "created_by": "synthesizer",
+  "notes": ""
+}
+```
+
+## Decision record source mapping
+
+Populate each field as follows. All of these come from work you have already done — the Pre-Write Gate, Part I (One-Line Decision, Headline Scorecard, Variant Perception), the Thesis Kill Criteria and Forecast Ledger tables, and the module syntheses:
+
+| JSON Field | Source |
+|---|---|
+| schema_version | hardcode `"1.0"` |
+| ticker | run ticker / metadata |
+| company_name | final thesis / raw data / module outputs if available |
+| exchange | raw data / metadata if available |
+| currency | price/financial data source if available |
+| decision_date | run date or current analysis date |
+| run_root | actual run root path |
+| final_thesis_path | `<RUN_ROOT>/final_thesis.md` |
+| decision | Part I one-line decision |
+| suggested_action | Part I headline scorecard |
+| paper_treatment | mapping from `frameworks/DECISION_LEDGER.md` |
+| basket | mapping from `frameworks/DECISION_LEDGER.md` |
+| entry_price | current price used in final thesis |
+| entry_price_source | source used for current price |
+| entry_price_timestamp | date/time of price source |
+| benchmark | benchmark used in thesis, if available |
+| sector_benchmark | sector benchmark used, if available |
+| time_horizon | final thesis time horizon |
+| expected_return_pct | expected return from valuation/scenario math |
+| downside_risk_pct | downside from bear case/scenario math |
+| risk_reward | risk/reward from final thesis |
+| confidence_score | final confidence score /100 |
+| data_sufficiency_score | data sufficiency score /100 |
+| rating_cap | rating cap from pre-write gate, if any |
+| thesis_type | thesis type classification from CLAUDE.md §14 |
+| variant_perception_summary | final variant perception |
+| what_everyone_knows | variant perception section |
+| what_is_priced_in | variant perception section |
+| what_market_may_be_missing | variant perception section |
+| killer_risk | main killer risk |
+| kill_criteria | Thesis Kill Criteria section |
+| forecast_ledger | Forecast Ledger section |
+| module_scores | module-level scores from module syntheses |
+| red_flags | critical/high/medium red flags |
+| missing_data | missing-data list from pre-write gate |
+| review_schedule | 30d, 90d, 180d, 365d dates from decision_date |
+| created_by | hardcode `"synthesizer"` |
+| notes | any caveats about missing price, missing data, or no paper trade |
+
+## Basket and paper treatment mapping
+
+Map the Part I one-line `decision` to `basket` and `paper_treatment` using the exact mapping from `frameworks/DECISION_LEDGER.md` §3:
+
+| Final Decision | Basket | Paper Treatment |
+|---|---|---|
+| Strong Buy | Selected | Paper long |
+| Buy | Selected | Paper long |
+| Starter Position Only | Selected | Small paper long |
+| Watchlist | Watchlist | No trade, track opportunity cost |
+| Avoid | Rejected | No trade, track avoided/foregone return |
+| Short Candidate | Short | Paper short |
+| Pair Trade / Hedge Required | Pair Trade | Paper pair only if hedge is specified |
+| Insufficient Data — Refuse To Rate | Insufficient Data | No trade, track process quality only |
+
+**If the current price is missing**, still write `decision_record.json`, but:
+- `entry_price` must be `null` (and `entry_price_source` / `entry_price_timestamp` = `""`),
+- the paper treatment must not imply an executable paper trade,
+- `notes` must say: `Current price missing; no paper trade created.`
+
+Always write the decision record even for **"Insufficient Data — Refuse To Rate"** (`basket` = `"Insufficient Data"`, `paper_treatment` = `"No trade, track process quality only"`, `entry_price` = `null`).
+
+## Review schedule generation
+
+Generate `review_schedule` as calendar dates 30 / 90 / 180 / 365 days after `decision_date`:
+
+```json
+"review_schedule": {
+  "30d": "YYYY-MM-DD",
+  "90d": "YYYY-MM-DD",
+  "180d": "YYYY-MM-DD",
+  "365d": "YYYY-MM-DD"
+}
+```
+
+Compute the dates with Bash (portable):
+
+```bash
+python3 -c "import datetime; d=datetime.date.fromisoformat('<DECISION_DATE>'); print('\n'.join((d+datetime.timedelta(days=n)).isoformat() for n in (30,90,180,365)))"
+```
+
+`<DECISION_DATE>` is the `decision_date` you recorded (format `YYYY-MM-DD`). Equivalent BSD `date -v+30d` / GNU `date -d '+30 days'` is fine. For a long-duration thesis you may also add `24m` / `36m` keys per `frameworks/DECISION_LEDGER.md` §7.
+
+## Field-type rules
+
+- `thesis_type`, `kill_criteria`, `red_flags`, `missing_data`, `forecast_ledger` are JSON **arrays**.
+- `module_scores` is a JSON **object** keyed by module name (e.g. `{"business-model": 78, "earnings": 72}`; an object value such as `{"score": 78, "verdict": "..."}` is also acceptable).
+- `review_schedule` is a JSON **object** with `30d` / `90d` / `180d` / `365d` keys.
+- Each `forecast_ledger` element follows `frameworks/DECISION_LEDGER.md` §6: `prediction`, `probability`, `time_window`, `evidence_today`, `confirmation_trigger`, `falsification_trigger`, `owner_module`, `confidence_score`, `status` (default `"open"`). Probabilities use the `CLAUDE.md` §10 bands. If no forecast has enough evidence, use `[]`.
+- `red_flags`: carry Critical/High (and material Medium) red flags from the modules, with their Red Flag IDs where available.
 
