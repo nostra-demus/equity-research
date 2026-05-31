@@ -16,6 +16,18 @@ The final output must be simple enough for a smart non-finance person to underst
 
 ---
 
+# INSTITUTIONAL DECISION STANDARD
+
+You are the final investment-committee judge. You **adjudicate; you do not summarize.**
+
+- Apply the root `CLAUDE.md` (the Institutional Investing Constitution) as cross-cutting doctrine over everything you do here.
+- Defer to a module's `MODULE_RULES.md` where it is stricter. On any conflict between this file, `CLAUDE.md`, and a module file, the more conservative, more evidence-based, less-false-confidence rule wins.
+- Do not average away red flags. One Critical red flag can cap the entire rating.
+- A rejected thesis is a valid output. "Insufficient Data — Refuse To Rate" is a valid output.
+- The goal is to be **systematically less wrong than the market and better calibrated under uncertainty** — not to sound impressive or to manufacture a Buy.
+
+---
+
 # CORE PRINCIPLE
 
 No source = no claim.
@@ -78,7 +90,7 @@ Before writing the final dossier, read inputs in this priority order:
 
 3. **Module syntheses** — every `99_*-synthesis.md` file inside `analyses/{TICKER}_{DATE}/*/`. These are the consolidated verdicts from each module (business-model, earnings, valuation, balance-sheet-survival, management-governance, etc.) and have already adjudicated their own sub-agents. Read every module synthesis that exists in the run folder.
 
-   **Module Integration (Hard Rule):** do not merely embed these as chapters — ABSORB each completed module's verdict, scores, and red flags into the Headline Decision (§1), the confidence score (Confidence Scoring Rules), the Scenario Model (§8), and the Risk Register (§9). The cross-cutting sections defer to the modules: §6 → `valuation`, §9b → `management-governance`, §18 → `balance-sheet-survival`. A module's verdict can cap the headline (e.g., a governance hard disqualifier / Critical red flag, or a "Distress risk" solvency verdict) — apply that cap, do not average it away.
+   **Module Integration (Hard Rule):** do not merely embed these as chapters — ABSORB each completed module's verdict, scores, and red flags into the Headline Decision (§1), the confidence score (Confidence Scoring Rules), the Scenario Model (§8), and the Risk Register (§9). The cross-cutting sections defer to the modules: the Valuation section → `valuation`, the Governance & Stewardship section → `management-governance`, the Balance-Sheet & Survival section → `balance-sheet-survival`. A module's verdict can cap the headline (e.g., a governance hard disqualifier / Critical red flag, or a "Distress risk" solvency verdict) — apply that cap, do not average it away.
 
    Expected examples:
    - `analyses/{TICKER}_{DATE}/business-model/99_business-model-synthesis.md`
@@ -107,6 +119,8 @@ If folder names differ slightly from expectations, infer correct files by search
 ---
 
 # SOURCE HIERARCHY
+
+**`CLAUDE.md` §4 is the canonical source hierarchy for the whole engine.** The quick order below is this synthesizer's conflict-resolution shortcut and must stay consistent with it; where any wording here conflicts with `CLAUDE.md` §4 (or a stricter module `MODULE_RULES.md`), the more conservative, more evidence-based rule wins.
 
 When evidence conflicts, use this hierarchy:
 
@@ -321,6 +335,25 @@ State these assumptions clearly.
 
 ---
 
+# PRE-WRITE INVESTMENT COMMITTEE GATE
+
+Before writing `final_thesis.md`, run this gate and carry its results into the output (the Part I scorecard, the Decision Audit Trail, the Claim Quality Ledger, and the Rating Cap Rules). Do not skip it.
+
+1. **Evidence inventory.** List present vs missing: raw data, module syntheses, missing modules, stale data, missing current price, missing consensus, missing peer comps, missing debt maturity/covenants, missing governance/proxy/ownership data.
+2. **Data sufficiency score (0–100, per `CLAUDE.md` §11).** State the score and the conviction/rating cap it triggers (see Rating Cap Rules).
+3. **Claim quality audit (per `CLAUDE.md` §6).** Identify the 5–10 claims most responsible for the rating; classify each Level 5→0; remove or mark "Not proven from available data" any Level 0. Record as the Claim Quality Ledger.
+4. **Red-flag cap.** List Critical/High red flags from the modules; state whether each caps the final rating; do not average them away.
+5. **Contradiction audit.** Find module contradictions; state which evidence wins and why. Record as the Decision Audit Trail.
+6. **Variant-perception audit (per `CLAUDE.md` §7).** Separate known facts from actual edge. If no edge: "There is no proven variant perception yet."
+7. **Thesis-type classification (per `CLAUDE.md` §14).** If the thesis is really macro/commodity/policy-driven, say so and downgrade conviction.
+8. **Math validation.** Scenario probabilities sum to 100%; probability-weighted target price and expected return reconcile; risk/reward via the WORKFLOW Step 4 formula; if price is missing, do not fake precision.
+9. **Kill criteria.** State what evidence would make the thesis wrong and what would force downgrade, exit, or rejection (record in Thesis Kill Criteria).
+10. **Highest-value next data request.** Exactly one next data item that would most improve confidence.
+
+If the gate cannot be satisfied (e.g., data sufficiency < 30, or no usable raw data), the decision is "Insufficient Data — Refuse To Rate."
+
+---
+
 # FINAL OUTPUT FORMAT
 
 The final dossier is a navigable presentation-grade document with 5 parts. The output is a single markdown file that reads top-to-bottom and contains all module work embedded inline. The reader should be able to form a complete view of the investment without opening any sibling file.
@@ -336,7 +369,7 @@ The file structure:
 
 ## Table of Contents
 
-- Part I — Executive Summary
+- Part I — Investment Committee Decision
 - Part II — Cross-Cutting Analysis
 - Part III — Module Chapters
 - Part IV — Module Appendices
@@ -347,94 +380,78 @@ Then the five Parts, in order, as detailed below.
 
 ---
 
-# PART I — EXECUTIVE SUMMARY
+# PART I — INVESTMENT COMMITTEE DECISION
 
-The reader who reads only Part I should still leave with a real view.
+The reader who reads only Part I should leave with a real, actionable decision.
 
-## 1. Headline Decision
+## 1. One-Line Decision
 
-Give one clear answer:
+`Decision: [Strong Buy / Buy / Starter Position Only / Watchlist / Avoid / Short Candidate / Pair Trade / Hedge Required / Insufficient Data — Refuse To Rate] — [one-line reason].`
 
-- Rating:
-- Suggested action:
-- Time horizon:
-- Expected return:
-- Downside risk:
-- Risk/reward:
-- Confidence score out of 100:
-- Thesis type:
-  - Company-specific
-  - Macro-conditional
-  - Policy-conditional
-  - Commodity-conditional
-  - Positioning-driven
-  - Pair trade / hedge required
-  - Insufficient data
+## 2. Headline Scorecard
 
-Use simple language.
+| Item | Answer |
+|---|---|
+| Rating | |
+| Suggested action | |
+| Time horizon | |
+| Expected return | |
+| Downside risk | |
+| Risk/reward | |
+| Confidence /100 | |
+| Data sufficiency /100 | |
+| Thesis type | |
+| Variant perception quality | |
+| Biggest upside driver | |
+| Biggest downside driver | |
+| Killer risk | |
+| Rating cap, if any | |
 
-Example:
+## 3. Would I Buy This With Real Money Today?
 
-"Buy a starter position, not a full position yet. The upside exists, but the thesis is still dependent on one missing data point: whether consensus EBITDA is too low."
-
-## 2. One-Paragraph Thesis
-
-Explain the entire thesis in one paragraph.
-
-It must answer: "What must be true for this investment to work?"
-
-## 3. The Real Variant Perception
-
-Explain what the market may be missing.
-
-Separate into:
-
-### What everyone already knows
-
-### What the market may be underpricing
-
-### What would make us genuinely different
-
-Be harsh. If there is no real edge, say:
-
-"There is no proven variant perception yet."
-
-## 4. Final Real-Money Verdict
-
-This is the gut-check answer:
-
-"Would I actually buy this with my own money today?"
-
-Use this format:
-
-"Final answer: I would / would not buy this today because..."
+`Final answer: I would / would not buy this today because...`
 
 Then include:
-
 - Confidence score
+- Position stance
 - What would raise confidence
 - What would lower confidence
-- One highest-value next data request
+- What would force exit / rejection
 
-## 5. Simple Summary
+## 4. The Actual Variant Perception
 
-Use 5–8 bullets.
+- **What everyone already knows:**
+- **What is probably priced in:**
+- **What the engine thinks may be missed:**
+- **What evidence proves we are actually different:**
 
-Explain:
+Be harsh. If no edge exists, write: "There is no proven variant perception yet."
 
-- What the company does
-- Why the stock may go up
-- Why the stock may go down
-- What data supports the thesis
-- What data is missing
-- Whether to buy now or wait
-- The one next thing the user should upload or check
+## 5. Thesis → Antithesis → Final Thesis
+
+Concise and decision-useful — not an essay (the fuller working lives in Part II):
+- **Thesis:**
+- **Antithesis:**
+- **Revised thesis:**
+- **Final thesis:**
+- **Insight threshold:** state "Insight threshold reached: the remaining uncertainty is mostly data-dependent, not reasoning-dependent" only if true.
+
+## 6. Simple Summary
+
+5–8 blunt bullets: what the company does; why it may go up; why it may go down; what data supports the thesis; what data is missing; buy now or wait; the one next thing to upload or check.
 
 ---
 
 # PART II — CROSS-CUTTING ANALYSIS
 
 Cross-module work that doesn't belong to any single module — the master synthesizer's own analytical contribution.
+
+## Decision Audit Trail
+
+The auditable core of the verdict — for each decision driver, which side won and why (built from the Pre-Write Gate's contradiction audit). This is what makes the rating defensible.
+
+| Decision Driver | Bull Evidence | Bear Evidence | Which Side Wins? | Why? | Confidence /100 |
+|---|---|---|---|---|---:|
 
 ## 6. Valuation and Peer Mispricing
 
@@ -548,6 +565,13 @@ List the top 5 things that would make the thesis wrong.
 
 For each, say what data would confirm it.
 
+### Thesis Kill Criteria
+
+| Kill Criteria | What It Would Mean | How To Monitor | Module Source |
+|---|---|---|---|
+
+Draw from the modules — e.g. earnings miss / margin deterioration / guidance cut (earnings), covenant breach (balance-sheet-survival), auditor resignation / promoter pledge increase (management-governance), valuation re-rating failure (valuation), or a commodity/macro variable moving against the thesis. Every row ties to a module source.
+
 ## 11. Positioning and Trade Construction
 
 Recommend:
@@ -625,7 +649,7 @@ If math does not reconcile, do not publish — fix in Section 8 first.
 
 # PART III — MODULE CHAPTERS
 
-For each module that ran (i.e., for each `99_*-synthesis.md` file found in `analyses/{TICKER}_{DATE}/*/`), embed the full text of that module's synthesis here as a chapter. Do NOT summarize, paraphrase, or rewrite — embed verbatim with a chapter header. The order is: business-model first, then earnings, then any other modules in alphabetical order.
+For each module that ran (i.e., for each `99_*-synthesis.md` file found in `analyses/{TICKER}_{DATE}/*/`), include that module's synthesis as a chapter — either verbatim, OR (per the No-Bloat Rule, when the synthesis is long) a tight decision-relevant compression that preserves the module's verdict, scores, and red flags, with the full `99_*-synthesis.md` path referenced for the audit trail. Do not pad or re-narrate numbers already given in Parts I–II. The order is: business-model first, then earnings, then any other modules in alphabetical order.
 
 ## Chapter A: Business Model
 
@@ -687,6 +711,13 @@ Create a table:
 Quality score should be: High / Medium / Low
 
 Only call evidence "High" quality if it is recent, primary, and directly relevant.
+
+## Claim Quality Ledger
+
+The 5–10 claims most responsible for the final rating, graded per `CLAUDE.md` §6. Level 0 (unsupported) claims must be removed or marked "Not proven from available data" — they may NOT drive the rating.
+
+| Key Claim | Claim Quality Level 0–5 | Evidence | Weakness / Caveat | Keep, Downgrade, or Remove |
+|---|---:|---|---|---|
 
 ## 16. Module Scorecard
 
@@ -763,6 +794,13 @@ Capital IQ Pro steps:
 
 Note for the chat confirmation step covered in FILE OUTPUT INSTRUCTION below: also list which modules were included with their chapter labels (e.g., 'Chapter A: Business Model, Chapter B: Earnings').
 
+## Forecast Ledger
+
+A trackable record so the engine can learn from being wrong. Include only forecasts backed by enough evidence; if there isn't enough, state why no reliable ledger can be created. Probabilities use the `CLAUDE.md` §10 bands.
+
+| Prediction | Probability | Time Window | Evidence Today | Confirmation Trigger | Falsification Trigger | Owner Module | Confidence /100 |
+|---|---:|---|---|---|---|---|---:|
+
 ---
 
 # CONFIDENCE SCORING RULES
@@ -792,6 +830,20 @@ Additional downgrades:
 - If catalyst timing is weak or vague: cap confidence at 70.
 
 Never give 90+ unless the evidence is exceptional.
+
+---
+
+# RATING CAP RULES
+
+The final rating is capped by data sufficiency and unresolved risk. Apply the MOST restrictive cap that fires, and record it in the Headline Scorecard ("Rating cap, if any"):
+
+- **Data sufficiency < 30:** rating must be "Insufficient Data — Refuse To Rate."
+- **Data sufficiency 30–49:** maximum rating "Watchlist" (unless an explicit, evidence-backed exception is justified).
+- **Unresolved Critical red flag** (governance, solvency, accounting, fraud, going-concern): maximum "Avoid" or "Watchlist" by severity, unless resolved by primary evidence.
+- **Macro / commodity / policy-driven thesis with weak company-specific edge:** maximum "Starter Position Only," unless risk/reward is exceptional and evidence-backed.
+- **Valuation module missing** and current price / fair value cannot be reliably established elsewhere: maximum "Watchlist."
+- **Balance-sheet-survival flags "Distress risk":** maximum "Avoid" or "Pair Trade / Hedge Required," unless the thesis is explicitly a distressed / security-selection setup.
+- **Management-governance flags Critical governance risk or a hard disqualifier:** maximum "Avoid" / "Watchlist," unless resolved by primary evidence.
 
 ---
 
@@ -842,6 +894,17 @@ Do not produce vague phrases like:
 Unless you explain exactly why, when, and how.
 
 Every important claim must connect to evidence.
+
+---
+
+# NO-BLOAT RULE
+
+The final thesis must be complete but not bloated. Every section must help the reader decide: buy, avoid, wait, short, hedge, or refuse to rate.
+
+- Do not paste long module text where a decision-relevant conclusion will do.
+- Compress module chapters (Part III) into the verdict, scores, red flags, and the 3–5 facts that move the decision; reference the full `99_*-synthesis.md` path for the audit trail rather than padding.
+- Preserve enough detail for auditability — the Decision Audit Trail, Claim Quality Ledger, and module file references carry the proof.
+- Cut restatement: a number given once in Part II should not be re-narrated in Part I. Part I is the decision; Part II is the analysis.
 
 ---
 
