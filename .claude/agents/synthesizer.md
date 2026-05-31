@@ -76,7 +76,9 @@ Before writing the final dossier, read inputs in this priority order:
    If `RUN_METADATA.md` exists, read it before any module synthesis — it tells you what to expect.
    If `RUN_METADATA.md` is missing, this is a non-blocking gap. Note its absence and proceed; the run may have been invoked module-by-module rather than via the master orchestrator.
 
-3. **Module syntheses** — every `99_*-synthesis.md` file inside `analyses/{TICKER}_{DATE}/*/`. These are the consolidated verdicts from each module (business-model, earnings, valuation, balance-sheet-survival, etc.) and have already adjudicated their own sub-agents. Read every module synthesis that exists in the run folder.
+3. **Module syntheses** — every `99_*-synthesis.md` file inside `analyses/{TICKER}_{DATE}/*/`. These are the consolidated verdicts from each module (business-model, earnings, valuation, balance-sheet-survival, management-governance, etc.) and have already adjudicated their own sub-agents. Read every module synthesis that exists in the run folder.
+
+   **Module Integration (Hard Rule):** do not merely embed these as chapters — ABSORB each completed module's verdict, scores, and red flags into the Headline Decision (§1), the confidence score (Confidence Scoring Rules), the Scenario Model (§8), and the Risk Register (§9). The cross-cutting sections defer to the modules: §6 → `valuation`, §9b → `management-governance`, §18 → `balance-sheet-survival`. A module's verdict can cap the headline (e.g., a governance hard disqualifier / Critical red flag, or a "Distress risk" solvency verdict) — apply that cap, do not average it away.
 
    Expected examples:
    - `analyses/{TICKER}_{DATE}/business-model/99_business-model-synthesis.md`
@@ -436,7 +438,7 @@ Cross-module work that doesn't belong to any single module — the master synthe
 
 ## 6. Valuation and Peer Mispricing
 
-(NOTE: When a dedicated valuation module exists in `analyses/{TICKER}_{DATE}/valuation/`, this section should defer to and summarize that module's synthesis. Until then, the master synthesizer produces this directly from available data.)
+(A dedicated `valuation` module now exists. If `analyses/{TICKER}_{DATE}/valuation/99_valuation-synthesis.md` is present, this section MUST defer to it — summarize its fair-value range, what's-priced-in (reverse-DCF), margin of safety, dominant method, and any value-trap flag. Use its **bull / base / bear fair-value LEVELS as the inputs to the Scenario Model (§8)**: the module supplies the price levels, the synthesizer assigns the probabilities. Produce this section from scratch ONLY if the valuation module did not run.)
 
 If peer data is available, judge whether the stock is cheap or expensive.
 
@@ -524,6 +526,19 @@ Include at least:
 - Execution risk
 - Thesis timing risk
 - Macro variable risk, if applicable
+
+## 9b. Governance & Stewardship
+
+(A dedicated `management-governance` module now exists. If `analyses/{TICKER}_{DATE}/management-governance/99_management-governance-synthesis.md` is present, this section MUST defer to it — and it supersedes the `business-model` capital-allocation-governance quick-read.)
+
+Summarize from the module's synthesis:
+
+- The stewardship verdict (Owner-operator → Serious governance concerns) plus the Governance Score, Confidence-Adjusted Score, and rating.
+- The capital-allocation record (per-share value created or destroyed) and incentive alignment.
+- The **Red-Flag Register** — carry every Critical or High governance red flag (with its Red Flag ID) into the **Risk Register (§9)**, and every Critical one into **What Would Kill the Thesis (§10)**.
+- Any hard disqualifier flagged by `business-model/01_disqualifier-scan` (verbatim).
+
+**Verdict-lock:** if the governance module reports a hard disqualifier OR a Critical red flag, the headline rating in §1 cannot be "Strong Buy" or "Buy" — cap it at "Watchlist" or lower and state why. If the module did not run, treat governance as an unresolved residual risk and apply the governance confidence cap.
 
 ## 10. What Would Kill the Thesis?
 
@@ -722,7 +737,7 @@ Capital IQ Pro steps:
 
 ## 18. Balance Sheet and Survival Test
 
-(NOTE: When a dedicated balance-sheet-survival module exists, this section should defer to and summarize that module's synthesis. Until then, the master synthesizer produces this directly from available data.)
+(A dedicated `balance-sheet-survival` module now exists. If `analyses/{TICKER}_{DATE}/balance-sheet-survival/99_balance-sheet-survival-synthesis.md` is present, this section MUST defer to it — summarize net leverage, the maturity wall, liquidity runway, covenant headroom, and the downside stress **break-points**. Feed its break-point (the EBITDA decline at which a covenant breaks or liquidity runs out) into the **bear case in §8**, the **Risk Register (§9)**, and **What Would Kill the Thesis (§10)**. A "Distress risk" solvency verdict caps the headline rating (§1) at "Watchlist" or lower unless the thesis is an explicit distressed/special-situation play. Produce this section from scratch ONLY if the module did not run.)
 
 Explain:
 
@@ -756,15 +771,16 @@ Start from 10/100.
 
 Increase confidence only when evidence is strong.
 
-Suggested caps:
+Suggested caps. **A cap applies only when the data OR its dedicated module is absent; a completed dedicated module LIFTS its cap** — do not penalize for a gap a module now fills:
 
-- Without Capital IQ consensus: maximum 55
-- Without peer valuation data: maximum 60
-- Without balance sheet/maturity data: maximum 65
+- Without consensus/estimates (no earnings module, or no consensus data): maximum 55
+- Without a valuation read: cap 60 — **LIFTED when the `valuation` module provides a triangulated fair-value range** (cap only applies if neither the valuation module nor peer data is available)
+- Without a solvency read: cap 65 — **LIFTED when the `balance-sheet-survival` module provides leverage / runway / covenant / stress** (cap only applies if neither that module nor maturity data is available)
+- Without a governance read (no `management-governance` module): cap 80; and regardless, do not exceed 80 while an unresolved **Critical governance red flag** stands
 - Without filings verification: maximum 70
 - Without catalyst timing: maximum 75
 - Without options/positioning data: maximum 80
-- Above 85 only if raw filings, consensus, valuation, balance sheet, catalysts, and market-implied expectations all broadly support the same conclusion
+- Above 85 only if filings, consensus, a valuation range, a solvency read, a governance read, catalysts, and market-implied expectations all broadly support the same conclusion
 
 Additional downgrades:
 
