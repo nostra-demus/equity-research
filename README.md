@@ -1,6 +1,6 @@
 # Equity Research
 
-A self-discovering multi-agent equity research system. Specialists are organised into modules (`business-model`, `earnings`, `valuation`, `balance-sheet-survival`, …); each module runs its own layered pipeline; a master synthesizer reconciles everything into a final buy-side thesis.
+A self-discovering multi-agent equity research system. Specialists are organised into modules (`business-model`, `earnings`, `valuation`, `balance-sheet-survival`, `management-governance`, …); each module runs its own layered pipeline; a master synthesizer reconciles everything into a final buy-side thesis.
 
 ## Directory layout
 
@@ -30,7 +30,7 @@ The master orchestrator:
 6. Invokes the master synthesizer to produce `analyses/<TICKER>_<DATE>/final_thesis.md`.
 7. Commits the run in two commits on `main` and pushes both: a run-artifacts commit containing every file written during the run, then a metadata-backfill commit that writes the run-artifacts commit's SHA into `RUN_METADATA.md`. Per `CLAUDE.md` git policy: main only, no branches, no PRs.
 
-To run only one module: `/research:business-model <TICKER>`, `/research:earnings <TICKER>`, `/research:balance-sheet-survival <TICKER>`, or `/research:valuation <TICKER>`. The valuation and balance-sheet-survival modules read business-model and earnings outputs as cross-module context, so they run after those under `/research:full`; run them standalone only after the upstream modules have run for the ticker (they will still proceed independently if not).
+To run only one module: `/research:business-model <TICKER>`, `/research:earnings <TICKER>`, `/research:balance-sheet-survival <TICKER>`, `/research:management-governance <TICKER>`, or `/research:valuation <TICKER>`. The valuation, balance-sheet-survival, and management-governance modules read business-model and earnings outputs as cross-module context, so they run after those under `/research:full`; run them standalone only after the upstream modules have run for the ticker (they will still proceed independently if not).
 
 ## Adding agents and modules
 
