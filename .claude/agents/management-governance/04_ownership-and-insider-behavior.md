@@ -81,6 +81,17 @@ If none disclosed, write "No pledging disclosed." If material pledging exists, f
 | Controlled-company status | | |
 | Shareholder bloc with board rights | | |
 
+## 4A. Market Conduct
+
+| Signal | Detail | Source |
+|---|---|---|
+| Insider buys/sells vs subsequent results (timing) | | |
+| Unusual price / volume before announcements | | |
+| Exchange clarification sought for a price move | | |
+| Institutional (FII/DII/MF) holding trend; any sharp high-quality-holder exit | | |
+
+Flag insider selling that preceded weak results, or buying that preceded good news, as a market-conduct red flag (per the Red-Flag Trigger Engine). If trade-timing data is unavailable, state so.
+
 ## 5. Ownership / Insider Read
 
 2–3 blunt sentences: how much skin in the game (bought vs granted), the net insider signal, and the biggest control/pledging risk to minority holders.

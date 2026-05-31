@@ -96,6 +96,46 @@ Do NOT write "company filings" or "the proxy" alone — those are not citations.
 
 ---
 
+## Evidence, Verdict & Confidence Schema (Hard Rule)
+
+Every material finding in this module must be an auditable row, not a loose label. For each finding, capture:
+
+- **Standardized verdict:** Green / Amber / Red / Not Applicable / Insufficient Data.
+- **Raw value + unit:** the actual number (e.g., "66.7% independent," "RPT = 3.1% of revenue," "$190M tax dispute") — never just "Good/High/Low."
+- **Current vs prior + trend:** Improving / Stable / Deteriorating / Not enough history.
+- **Peer verdict:** Better than peers / In line / Worse than peers (where a peer set exists).
+- **Source + as-of date:** a real citation (filing, page/note, date) — never the word "Source" alone.
+- **Confidence (1–5):** by source quality (tiers below).
+- **Materiality:** Low / Medium / High / Critical (thresholds below).
+
+A finding may NOT be marked Red on existence alone — it must clear a materiality threshold. Replace every vague label ("strong," "good," "high") with a measurable criterion. Separate fact (evidence) from interpretation (your read). Use "Insufficient Data" rather than guessing; flag stale or source-conflicting data and lower the confidence.
+
+**Confidence tiers (1–5):** annual report / exchange filing = 5; auditor report / notes to accounts = 4; investor deck / transcript = 3; rating agency / proxy advisor / reputable news = 2; social / employee-review / unverified = 1.
+
+---
+
+## Materiality Thresholds (Hard Rule)
+
+Do not flag something Red just because it exists. Size it.
+
+| Item | Low | Medium | High | Critical |
+|---|---|---|---|---|
+| Legal / regulatory exposure | <0.5% of net worth or PAT | 0.5–2% | 2–5% | >5%, or criminal / fraud allegation |
+| Related-party transactions | <1% of revenue/assets | 1–5% | 5–10% | >10%, opaque, recurring, or promoter-linked |
+| CFO / PAT (or CFO / EBITDA) | ≥80% (Green) | 60–80% (Amber) | <60% (Red) | profits rising while cash conversion falls for multiple years |
+| Receivables | aging stable, in line with industry (Green) | growing faster than revenue (Amber) | >6-month receivables rising sharply / concentrated with related parties (Red) | — |
+
+For the forensic inputs above (CFO/PAT, receivables), use the figures from `earnings/06_earnings-quality` and `earnings/01_historical-financials` — do not recompute them; apply the governance lens (is this a candor or leakage signal?).
+
+---
+
+## Analyst Follow-Up & Peer Benchmark (Hard Rule)
+
+- **Follow-ups:** every Red or Amber finding must carry at least one analyst follow-up question (one-off or recurring? material to earnings/cash/valuation? disclosure adequate? company-specific or sector-wide? affects minority holders? does management's explanation hold?).
+- **Peer benchmark:** where `business-model/08_competitive-map` provides peers, benchmark the key governance metrics (board independence, insider/promoter holding, pledge, auditor / non-audit fees, RPT intensity, contingent liabilities, AGM votes-against) against 3–5 peers and assign a peer verdict. If no peer set is available, state "No peer set — relative governance not assessed."
+
+---
+
 ## Scoring Rules
 
 All scores are out of 100, whole numbers. Bands:
@@ -124,6 +164,36 @@ All scores are out of 100, whole numbers. Bands:
 **Inverted scores are flagged explicitly** in every table header that uses them.
 
 Be strict. High scores require evidence of action, not narrative. Default to the middle band when uncertain.
+
+### Composite Governance Score & Rating (Hard Rule)
+
+Roll the section scores into a single **Governance Score /100**, weighted: Capital allocation 20, Incentive alignment 18, Shareholder friendliness 18, Disclosure candor 16, Management quality 16, and Governance risk 12 (inverted — a high governance-risk score subtracts). State the weights used.
+
+Map the score to a **Governance Rating**: 85–100 Excellent · 70–84 Good · 55–69 Watchlist · 40–54 Weak · below 40 Avoid / High Governance Risk.
+
+Report separately: a **Confidence Score /100** (driven by the source-quality confidence tiers), a **Red-Flag Count**, and a **Critical Red-Flag Count**. If a hard disqualifier is flagged (see Disqualifier Deference) or a Critical red flag fires, the rating cannot exceed "Weak."
+
+---
+
+## Red-Flag Trigger Engine (Hard Rule)
+
+The following events are automatic red flags. When any is present, the synthesis lists it with: trigger, evidence (source + date), severity (High / Critical), and impact on the governance score. Count them (and the critical ones) in the verdict block.
+
+- Auditor resignation before term end; modified audit opinion; recurring Key Audit Matters; ICFR weakness
+- CFO, Company Secretary, or Compliance Officer resignation (especially sudden / unexplained)
+- Independent-director resignation, especially citing concerns
+- Promoter pledge increase; promoter stake sale (especially before bad news)
+- Related-party transactions above the High/Critical materiality threshold; large loans / guarantees to related parties
+- CFO/PAT (or CFO/EBITDA) below 60%, especially persistent (from `earnings/06`)
+- Sharp, unexplained receivables increase or concentration with related parties
+- Material contingent liability (>5% of net worth); goodwill impairment
+- SEBI / ED / MCA / SEC / DOJ / exchange enforcement action; repeated regulatory penalties; delayed results
+- High non-audit fees vs audit fees; sudden accounting-policy change; restatement
+- High AGM votes-against (remuneration, RPT, director / auditor reappointment)
+- Insider selling before weak results; unexplained price / volume move before an announcement
+- Large acquisition with vague rationale; cash trapped in subsidiaries; management commentary contradicting the numbers
+
+Severity uses the materiality thresholds. A Critical red flag (fraud allegation, going concern, enforcement, restatement, RPT leakage >10%) caps the rating at "Weak" or below and the verdict at "Serious governance concerns."
 
 ---
 

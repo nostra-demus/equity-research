@@ -64,12 +64,17 @@ If no board / proxy disclosure exists in the pool: state that board independence
 | Overboarding / staleness signs | | |
 | Recent refreshment | | |
 
-## 3. Related-Party Transactions
+## 3. Related-Party Transactions & Group Leakage
 
-| Counterparty | Nature | Amount | Director/Officer Involved | Source |
-|---|---|---:|---|---|
+| RPT Type | Amount | % of Revenue | % of PAT | % of Net Worth | Arm's Length? | Source |
+|---|---:|---:|---:|---:|---|---|
+| Sales to / purchases from related parties | | | | | | |
+| Loans / advances / guarantees to related parties | | | | | | |
+| Royalty / brand / management fees to promoter group | | | | | | |
+| Rent / other payments to promoter entities | | | | | | |
+| Outstanding receivables from related parties | | | | | | |
 
-If none disclosed, write "No material related-party transactions disclosed." If material, flag and cross-reference the disqualifier scan.
+Apply the RPT materiality thresholds (MODULE_RULES). State whether RPTs are recurring, arm's-length, and audit-committee / minority-approved, and whether they are growing faster than revenue. If none disclosed, write "No material related-party transactions disclosed." If material or promoter-linked, flag per the Red-Flag Trigger Engine and cross-reference `business-model/01_disqualifier-scan` (RPT >25% of revenue/expenses is a hard disqualifier owned there). The core question: is economic value leaking to the promoter / group?
 
 ## 4. Takeover Defenses & Voting Rights
 
@@ -80,6 +85,17 @@ If none disclosed, write "No material related-party transactions disclosed." If 
 | Dual-class / unequal voting | | | |
 | Majority vs plurality director voting | | | |
 | Shareholder ability to call meetings / act by written consent | | | |
+
+## 4A. Shareholder Voting & Dilution
+
+| Signal | Detail | Source |
+|---|---|---|
+| AGM votes against (remuneration / RPT / director / auditor resolutions) | | |
+| Proxy-advisor recommendations (ISS / Glass Lewis / IiAS) | | |
+| Institutional opposition to any resolution | | |
+| Dilution history (preferential allotment, warrants, QIP, ESOP pool) | | |
+
+High votes-against (e.g., >20%) on pay or RPT resolutions is a red flag per the Red-Flag Trigger Engine. If voting / proxy data is unavailable, state so.
 
 ## 5. Minority-Shareholder Protection Read
 

@@ -97,6 +97,10 @@ Write this LAST.
 - Overall usefulness /100:
 - Insider ownership (one line): *(from 04)*
 - Biggest governance signal (one line):
+- **Governance Score /100** (weighted per MODULE_RULES; state the weights):
+- **Governance Rating** (Excellent / Good / Watchlist / Weak / Avoid):
+- **Confidence Score /100** (source quality):
+- **Red-Flag Count / Critical Red-Flag Count:**
 
 ## 2. Specialist Roll-Up
 
@@ -129,6 +133,47 @@ If multiple caps affect the same score, use the most restrictive.
 ## 5. Stewardship Summary
 
 Do NOT restate the upstream tables. In 4–6 sentences, INTERPRET. Specifically: (a) have these people delivered on promises and allocated capital to create per-share value; (b) do incentives and ownership point them at per-share value or at size; (c) are minority shareholders protected and is management candid in bad times; (d) the single most important reason to trust — or not trust — this team with shareholder capital.
+
+## 5A. Red-Flag Register
+
+Per the Red-Flag Trigger Engine in `MODULE_RULES.md`. List every triggered flag; if none, write "No red flags triggered."
+
+| Red Flag | Trigger / Evidence | Severity (High / Critical) | Source + Date | Impact on Score |
+|---|---|---|---|---|
+
+Red-flag count: {n}. Critical: {n}.
+
+## 5B. Peer Governance Benchmark
+
+Where `business-model/08_competitive-map` provides peers, benchmark the key governance metrics; else write "No peer set — relative governance not assessed."
+
+| Metric | Company | Peer Median | Peer Verdict (Better / In-line / Worse) |
+|---|---:|---:|---|
+| Board independence % | | | |
+| Insider / promoter holding % | | | |
+| Pledge % | | | |
+| Non-audit / audit fee ratio | | | |
+| RPT intensity (% of revenue) | | | |
+| AGM votes-against (key resolutions) | | | |
+
+## 5C. Governance Change Since Last Run
+
+If a prior dated run exists for this ticker (`analyses/{TICKER}_{prior-date}/management-governance/`), compare and report deltas; else write "No prior run — first governance snapshot."
+
+| Item | Prior | Current | Change | Good / Bad | Material? |
+|---|---|---|---|---|---|
+| Board / KMP changes | | | | | |
+| Promoter holding / pledge | | | | | |
+| RPT intensity | | | | | |
+| New legal / regulatory items | | | | | |
+| New AGM opposition | | | | | |
+| CFO/PAT (from earnings) | | | | | |
+
+State whether any change moves the governance score and what to investigate next.
+
+## 5D. Analyst Follow-Up Questions
+
+For each Red or Amber finding, list the follow-up question(s) an analyst must answer before relying on the verdict (one-off vs recurring? material to earnings/cash/valuation? disclosure adequate? company-specific or sector-wide? affects minority holders? management explanation credible?).
 
 ## 6. What Would Change The Stewardship Verdict?
 
