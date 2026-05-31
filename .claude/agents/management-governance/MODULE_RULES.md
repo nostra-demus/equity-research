@@ -61,6 +61,46 @@ When the shareholder letter is upbeat and the proxy shows misaligned pay, trust 
 
 ---
 
+## Jurisdiction-Aware Source Mapping (Hard Rule)
+
+US filing names (DEF 14A, 10-K, 10-Q, 8-K, Form 4) are EXAMPLES, not requirements. Detect the listing jurisdiction (triage `00`) and use the local equivalents. Do NOT mark a non-US company's governance data "missing" because a US form is absent when the local equivalent exists.
+
+- **US / SEC:** DEF 14A, 10-K, 10-Q, 8-K, Form 4, Schedule 13D/13G, S-1/S-3/S-4/S-8, shareholder letter.
+- **India / SEBI-LODR:** Annual Report, Corporate Governance Report, Board's Report, MD&A, Auditor Report, Secretarial Audit Report, Notes to Accounts, RPT disclosures, AGM notice, AGM voting / scrutinizer results, shareholding-pattern filings, promoter pledge/encumbrance disclosures, NSE/BSE announcements, SEBI orders, MCA filings, BRSR, investor presentations, earnings-call transcripts, credit-rating reports, postal-ballot notices, scheme documents, SEBI PIT/SAST disclosures, LODR compliance disclosures.
+- **Other jurisdictions:** the local annual report, corporate-governance statement, remuneration report, voting results, exchange announcements, ownership disclosures, and regulator enforcement releases.
+
+For Indian companies the proxy-equivalent is the AGM Notice + Corporate Governance Report; ownership is the shareholding-pattern filing; compensation is the Board's Report / CG Report.
+
+---
+
+## Sector-Specific Governance Overlays (Hard Rule)
+
+Triage `00` identifies the sector and tells later agents which overlay applies. The CFO/PAT and working-capital lenses do NOT apply to financials — use the overlay instead.
+
+- **Banks / NBFCs / insurers:** GNPA/NNPA, provision coverage, restructured book, write-offs, related-party lending, ALM mismatch, capital adequacy (CET1 / CAR), RBI/IRDAI observations, lending concentration, promoter pledge, regulatory penalties. Do NOT use CFO/PAT or working-capital metrics.
+- **IT services:** client concentration, unbilled revenue, contract assets, attrition, subcontractor cost, visa exposure, wage-hike deferrals, large-deal margin risk, employee pyramid, cybersecurity / data-breach risk, government-contract exposure.
+- **Pharma:** USFDA observations / warning letters / import alerts, plant compliance, product concentration, related-party manufacturing/distribution, R&D capitalization, ANDA write-offs.
+- **Infra / real estate:** related-party land transactions, loans/advances, project SPVs, guarantees, contingent liabilities, land-title disputes, revenue recognition, customer advances, pledge / promoter debt.
+- **Holding companies / conglomerates:** holdco discount, capital allocation between subsidiaries, guarantees, cross-holdings, cash leakage, opaque subsidiary structures, intercompany loans.
+
+---
+
+## Hard Self-Check (canonical — every agent applies before returning)
+
+- [ ] Every material claim appears in the Universal Findings Table.
+- [ ] Every non-NA finding has evidence; every citation has source, period, and page/section/date where available.
+- [ ] Every Amber or Red finding has a follow-up question.
+- [ ] Every Red finding has a red-flag decision and a Red Flag ID where applicable.
+- [ ] Every score is traceable to specific rows.
+- [ ] No vague verdicts without raw values.
+- [ ] No US-only filing assumptions for non-US companies (jurisdiction map applied).
+- [ ] Missing data is marked "Insufficient Data," not guessed.
+- [ ] The narrative summary introduces no uncited claim.
+
+The synthesis (`99`) downgrades data quality and confidence if any upstream agent fails this.
+
+---
+
 ## Evidence Citation Format
 
 Every "Evidence" cell uses this format:
@@ -111,6 +151,44 @@ Every material finding in this module must be an auditable row, not a loose labe
 A finding may NOT be marked Red on existence alone — it must clear a materiality threshold. Replace every vague label ("strong," "good," "high") with a measurable criterion. Separate fact (evidence) from interpretation (your read). Use "Insufficient Data" rather than guessing; flag stale or source-conflicting data and lower the confidence.
 
 **Confidence tiers (1–5):** annual report / exchange filing = 5; auditor report / notes to accounts = 4; investor deck / transcript = 3; rating agency / proxy advisor / reputable news = 2; social / employee-review / unverified = 1.
+
+---
+
+## Universal Findings Table (Hard Rule)
+
+Every specialist agent (01–06) MUST output a Universal Findings Table. Every material claim in its narrative must also appear as a row here — the narrative summarizes this table and introduces no uncited claim. Columns:
+
+| Finding ID | Section | Question / Test | Standardized Verdict | Raw Value | Unit | Current Period | Prior Period | Trend | Peer Benchmark | Peer Verdict | Score | Max Score | Penalty | Confidence 1–5 | Materiality | Evidence | As-of Date | Analyst Interpretation | Red Flag Triggered? | Red Flag ID | Follow-up Required |
+|---|---|---|---|---:|---|---|---|---|---|---|---:|---:|---:|---:|---|---|---|---|---|---|---|
+
+- **Finding ID** = `{NN}-{nnn}` (agent number + sequence), e.g. `03-001`.
+- **Standardized Verdict** ∈ {Green, Amber, Red, Not Applicable, Insufficient Data}.
+- **Raw Value** numeric where possible; no vague labels ("Good/High/Low/Strong") without a measurable value.
+- Every non-NA row has **Evidence** in the MODULE_RULES citation format and an **As-of Date**.
+- Every **Amber/Red** row has a Follow-up; every **Red** row states whether a formal red flag is triggered and its **Red Flag ID** (registry below) if applicable.
+- Missing data → "Insufficient Data" (never guessed).
+
+## Source Log (Hard Rule)
+
+Every agent ends with a Source Log. No evidence without a source-log entry; no source-log entry without a use. If sources conflict, show the conflict and lower confidence. If a source is stale, mark it stale.
+
+| Source ID | Source Type | Filename / Filing | Period | Page / Section | Date | Confidence 1–5 | Used For |
+|---|---|---|---|---|---|---:|---|
+
+## Machine-Readable Outputs (Hard Rule)
+
+Markdown alone is not enough. Each specialist emits, at the END of its report, a fenced ```json block: an array of finding objects (one per Universal Findings Table row) using this schema:
+
+```
+{ "finding_id":"", "ticker":"", "date":"", "agent":"", "section":"", "question":"",
+  "standardized_verdict":"", "raw_value":null, "unit":"", "current_period":"", "prior_period":"",
+  "trend":"", "peer_benchmark":"", "peer_verdict":"", "score":null, "max_score":null, "penalty":null,
+  "confidence_1_to_5":null, "materiality":"", "evidence":"", "source_id":"", "source_type":"",
+  "source_date":"", "as_of_date":"", "analyst_interpretation":"", "red_flag_triggered":false,
+  "red_flag_id":"", "follow_up_required":"" }
+```
+
+The synthesis (`99`) consolidates these and emits, as fenced blocks, `governance_summary.json`, `governance_findings.csv`, `red_flags.csv`, and `source_log.csv`. The standalone command writes those blocks to disk as sidecar files (subagents return inline; the orchestrator owns file IO). If a block cannot be produced, mark that export "pending" — never omit it silently.
 
 ---
 
@@ -167,11 +245,17 @@ Be strict. High scores require evidence of action, not narrative. Default to the
 
 ### Composite Governance Score & Rating (Hard Rule)
 
-Roll the section scores into a single **Governance Score /100**, weighted: Capital allocation 20, Incentive alignment 18, Shareholder friendliness 18, Disclosure candor 16, Management quality 16, and Governance risk 12 (inverted — a high governance-risk score subtracts). State the weights used.
+Roll the specialist scores into a single **Governance Score /100** using this exact formula:
 
-Map the score to a **Governance Rating**: 85–100 Excellent · 70–84 Good · 55–69 Watchlist · 40–54 Weak · below 40 Avoid / High Governance Risk.
+`Governance Score = 0.20×Capital Allocation + 0.18×Incentive Alignment + 0.18×Shareholder Friendliness + 0.16×Disclosure Candor + 0.16×Management Quality + 0.12×(100 − Governance Risk)`
 
-Report separately: a **Confidence Score /100** (driven by the source-quality confidence tiers), a **Red-Flag Count**, and a **Critical Red-Flag Count**. If a hard disqualifier is flagged (see Disqualifier Deference) or a Critical red flag fires, the rating cannot exceed "Weak."
+(Governance Risk is inverted, so use `100 − Governance Risk`.) Then compute:
+
+`Confidence-Adjusted Governance Score = Governance Score × (Confidence Score / 100)`
+
+Map the Governance Score to a **Governance Rating**: 85–100 Excellent · 70–84 Good · 55–69 Watchlist · 40–54 Weak · below 40 Avoid / High Governance Risk.
+
+Report separately: **Confidence Score /100** (from the source-quality tiers), **Red-Flag Count**, and **Critical Red-Flag Count**. If a hard disqualifier is flagged (see Disqualifier Deference) OR a Critical red flag fires, the Governance Rating must be **no better than "Weak"** and the stewardship verdict **no better than "Serious governance concerns."**
 
 ---
 
@@ -193,7 +277,43 @@ The following events are automatic red flags. When any is present, the synthesis
 - Insider selling before weak results; unexplained price / volume move before an announcement
 - Large acquisition with vague rationale; cash trapped in subsidiaries; management commentary contradicting the numbers
 
-Severity uses the materiality thresholds. A Critical red flag (fraud allegation, going concern, enforcement, restatement, RPT leakage >10%) caps the rating at "Weak" or below and the verdict at "Serious governance concerns."
+Severity uses the materiality thresholds. A Critical red flag (fraud allegation, going concern, enforcement, restatement, RPT leakage >10%) forces the rating to **no better than "Weak"** and the verdict to **no better than "Serious governance concerns."**
+
+### Red-Flag ID Registry
+
+Every Red finding cites a Red Flag ID. Severity uses the Materiality Thresholds.
+
+| ID | Trigger |
+|---|---|
+| RF-AUD-001 | Auditor resignation before term end |
+| RF-AUD-002 | Modified audit opinion |
+| RF-AUD-003 | Emphasis of matter / adverse CARO / adverse secretarial-audit issue |
+| RF-MGT-001 | Sudden CFO resignation |
+| RF-MGT-002 | Sudden Company Secretary / Compliance Officer resignation |
+| RF-MGT-003 | Management changes a KPI after underperformance |
+| RF-OWN-001 | Promoter pledge above threshold |
+| RF-OWN-002 | Promoter pledge increased QoQ |
+| RF-OWN-003 | Promoter stake sale before weak result / adverse announcement |
+| RF-RPT-001 | RPT above High/Critical threshold |
+| RF-RPT-002 | Promoter-linked RPT above threshold |
+| RF-RPT-003 | Loans / advances / guarantees to related parties |
+| RF-FIN-001 | CFO/PAT below 60% |
+| RF-FIN-002 | Receivables growing faster than revenue |
+| RF-FIN-003 | Contingent liability above 5% of net worth |
+| RF-FIN-004 | Goodwill impairment |
+| RF-REG-001 | SEBI / SEC / MCA / ED / exchange enforcement |
+| RF-REG-002 | Delayed results or delayed material disclosure |
+| RF-SHR-001 | High votes against a key resolution |
+| RF-SHR-002 | Controversial preferential allotment / warrants / dilution |
+| RF-MKT-001 | Insider selling before weak result |
+| RF-MKT-002 | Unusual price / volume before announcement |
+| RF-CAP-001 | Large acquisition with vague rationale |
+| RF-CAP-002 | Buybacks not reducing share count |
+| RF-CAP-003 | Dividends not covered by FCF |
+| RF-DISC-001 | Management commentary contradicts the numbers |
+| RF-DISC-002 | Recurring "one-off" adjustments |
+
+Each Red finding records: Red Flag ID, trigger, severity, evidence, score impact, and a follow-up question.
 
 ---
 
