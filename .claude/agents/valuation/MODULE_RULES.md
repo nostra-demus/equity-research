@@ -55,6 +55,7 @@ This module does NOT:
 8. Your own inference — must be labeled *"Inference, not from filings."*
 
 **Special rule for current price:** prefer a user-provided IBKR or Capital IQ price in the data pool. If none exists, a web quote may be used ONLY when explicitly labeled `Indicative price, web-sourced as of {DATE}, not from data pool — unverified`, and the limitation must propagate to the synthesis.
+- Acceptable web price sources (only if needed): the primary exchange quote page, or a reputable market-data provider page. Must include a timestamp/date and the currency. Never use blogs or forums. Always label as indicative/unverified.
 
 When the deck is bullish and the filing is cautious, trust the filing.
 
@@ -93,11 +94,55 @@ Do NOT write "company filings" or "annual report" alone — those are not citati
 12. If a metric comes from Capital IQ / Bloomberg / FactSet, label the source and the "data as of" date.
 13. Show your formulas. A reader must be able to reproduce every number.
 
+### Economic Consistency Gates (Hard Rules)
+
+1. **FCFF identity must hold.** For operating companies, intrinsic valuation must reconcile to one of:
+   - `FCFF = CFO − total capex` (preferred when a cash flow statement exists), OR
+   - `FCFF = NOPAT + D&A − capex − ΔNWC` (when building from the income statement and balance sheet).
+   State which definition is used and why. Do not mix definitions within a single valuation.
+2. **Growth must be financeable.** If using an operating DCF, provide a cross-check:
+   - `Reinvestment rate ≈ (capex − D&A + ΔNWC) / NOPAT`
+   - `Implied growth ≈ ROIC × reinvestment rate`
+   If implied growth differs materially from modeled growth, flag it and explain what bridges the gap (pricing, mix, margin expansion, working-capital release, one-offs).
+3. **ROIC drift rule.** In the terminal years, ROIC should trend toward WACC unless moat/quality evidence explicitly supports persistent excess returns. Label any persistence as an inference and cite the upstream moat/quality outputs if available.
+4. **WACC sanity bounds.** Flag if:
+   - the risk-free rate or ERP is missing a dated source,
+   - the after-tax cost of debt is below 0% or implausibly low versus the company's credit reality, or
+   - terminal growth `g` exceeds the long-run nominal growth proxy for the reporting currency's economy (justify if higher).
+5. **Terminal dominance escalation.** If terminal value is >75% of EV, the DCF is low-confidence (already stated). In that case the intrinsic output must add a second lens: an exit-multiple cross-check OR an economic-profit / ROIC-based narrative.
+6. **Cyclicality gate.** If the business is cyclical or commodity-linked (from the upstream external-dependency output or inference), do NOT use a single-point mid-cycle margin assumption. Require a margin band and a mid-cycle normalization explanation.
+
 ---
 
 ## TTM / LTM Rule
 
 If quarterly data is available, compute LTM (last twelve months) revenue, EBITDA, EBIT, EPS, and FCF for trailing multiples. LTM = latest four reported quarters. If only annual data exists, use the latest FY and state *"LTM not available — trailing multiples on latest FY."*
+
+---
+
+## Fully Diluted Equity Rules (Hard Rules)
+
+These rules govern share counts and refine Calculation Standards items 1–2.
+
+1. **Market-cap share count:** use the most recent shares outstanding (cover-page or equivalent "as of" count), not the period diluted weighted-average.
+2. **Per-share fair-value share count:** use **fully diluted shares** where possible:
+   - Options/RSUs via the **treasury stock method** (state the assumed average strike, or use the disclosed weighted-average).
+   - Convertibles via **if-converted** when in-the-money; otherwise treat them as debt.
+   - If detailed dilution data is unavailable, default to diluted weighted-average shares and clearly label it as a limitation.
+3. Always show a **Share Count Reconciliation Table**: basic shares, + options/RSUs, + converts, = fully diluted shares used.
+
+---
+
+## Reconciliation Gates (Hard Rules)
+
+Before the synthesis publishes, these tie-outs must hold or be explicitly flagged:
+
+1. **Anchor consistency.** Every agent uses the price, share counts, net debt, and EV from `01_price-and-capital-structure` verbatim. If an agent's number differs (e.g., a later filing), it must say so — silent divergence is not allowed.
+2. **EV bridge ties.** `EV = market cap + total debt + minority + preferred − cash`, with no plug. Label any estimated component.
+3. **SOTP ties to consolidated.** The segment revenue and EBIT used in SOTP must reconcile to the consolidated totals; name any unallocated/corporate bucket — it may not vanish.
+4. **Share-count consistency.** The market-cap count and the per-share fair-value count are each stated once (in `01`) and reused everywhere; per-share outputs divide by the fair-value count, never a mixed number.
+5. **Currency consistency.** All methods use one reporting currency; if an input is in another currency, state the rate and date used to convert.
+6. **Cross-method tolerance.** If two value-producing methods disagree on fair value by more than 40%, the synthesis must reconcile the gap explicitly (ties to the score cap) — it may not silently average them.
 
 ---
 

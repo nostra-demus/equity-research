@@ -65,12 +65,17 @@ If price is web-sourced or missing, state the exact label from the partial-data 
 
 | Field | Value | Source |
 |---|---:|---|
-| Basic shares outstanding (cover page) | | |
-| Diluted weighted-average shares | | |
-| Dilutive instruments (options / RSUs / converts) | | |
+| Basic shares outstanding (as-of) | | |
+| Diluted weighted-average shares (period) | | |
+| Options/RSUs count (if disclosed) | | |
+| Convertibles / potential shares (if disclosed) | | |
+| **Fully diluted shares (TSM + if-converted)** | | |
 | Share count used for market cap | | |
+| Share count used for per-share fair value | | |
 
-Note any material gap between basic and diluted, and which count you use and why.
+Note any material gap between basic and fully diluted, and which count you use for which purpose and why.
+
+- If fully diluted shares cannot be computed, state exactly what is missing (option strikes, convert terms) and fall back to diluted weighted-average, labeled as a limitation.
 
 ## 3. Market Capitalization
 
@@ -86,6 +91,8 @@ Show the calculation. If price is unavailable, write "Market cap not computable 
 | + Total debt (short + long term) | | |
 | + Minority / non-controlling interest | | |
 | + Preferred equity | | |
+| + Operating lease liabilities (if material, optional adjustment) | | |
+| + Underfunded pension / other long-term obligations (if material) | | |
 | − Cash & equivalents (+ ST investments) | | |
 | − Equity-method investments (if treated separately) | | |
 | **= Enterprise value (EV)** | | |
@@ -113,19 +120,32 @@ State any adjustment you did NOT make (operating leases, pensions, contingent cl
 
 State, in a tight block, the numbers every other valuation agent should use verbatim:
 - Current price (and date / "not available")
-- Diluted share count used
+- Share counts used (market cap; per-share fair value)
 - Market cap
 - Enterprise value
 - Net debt
 - Reporting currency
 
 If any anchor number is missing or indicative, say so here so downstream agents propagate the caveat.
+
+### Anchor Block (copy-forward)
+
+- Price: {value or Not available} ({as-of}, {basis})
+- Currency: {currency}
+- Shares (market cap): {number} (source)
+- Shares (per-share fair value): {number} (source / limitation)
+- Market cap: {number or Not computable}
+- Net debt: {number} (source)
+- EV: {number or Incomplete}
+- Key caveats: {e.g., indicative web price / missing dilution terms}
+
+Do not add any valuation judgment.
 ```
 
 # SELF-CHECK
 
 - [ ] Current price has a source and an as-of date, OR is explicitly flagged missing/indicative per the partial-data rule.
-- [ ] Share count basis (basic vs diluted) is stated and the chosen count is justified.
+- [ ] Share count basis is stated; the count used for market cap and the count used for per-share fair value are each justified (fully diluted where possible).
 - [ ] The EV bridge lists every component with a source and the arithmetic is shown.
 - [ ] Net debt uses total debt − cash unless the company defines it otherwise (then state the definition).
 - [ ] Adjustments NOT made (leases, pensions) are named.

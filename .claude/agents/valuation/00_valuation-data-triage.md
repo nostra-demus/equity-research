@@ -73,6 +73,8 @@ You DO NOT:
 |---|---|---|---|
 | Current price | | | Anchor for market cap, EV, multiples, margin of safety |
 | Diluted share count | | | Needed for market cap and per-share fair value |
+| Dilution data (options/RSUs/convertibles) | | | Needed for fully diluted per-share fair value |
+| Business type track (Operating / Financial / REIT / Commodity / Holding co.) | | | Determines which valuation methods are valid |
 | Total debt, cash, minority/preferred | | | Needed for the enterprise-value bridge |
 | Income statement (LTM or FY) | | | Earnings/EBITDA base for multiples and DCF |
 | Cash flow statement | | | FCF base for DCF and FCF yield |
@@ -108,6 +110,16 @@ You DO NOT:
 | No balance sheet / capital structure | | 01, 04, 06 | confidence capped |
 | No cash flow statement | | 04 | DCF confidence Low |
 
+## 6A. Method Readiness Matrix
+
+| Method | Ready? (Y/N) | Blocking Missing Inputs | Notes |
+|---|---|---|---|
+| Own-history multiples | | | |
+| Peer relative valuation | | | |
+| Intrinsic DCF (Operating FCFF) | | | |
+| Reverse DCF | | | |
+| SOTP | | | |
+
 ## 6. Sufficiency Verdict
 
 - **Verdict:** Sufficient / Partial / Insufficient
@@ -123,7 +135,7 @@ You DO NOT:
 - [ ] Each file has a type classification and valuation-relevance rating.
 - [ ] Most-recent table identifies actual filenames (no fabrication).
 - [ ] Cross-module availability is checked against the actual filesystem.
-- [ ] Valuation usability check table is fully populated (all 10 rows have Y/N).
+- [ ] Valuation usability check table is fully populated (all 12 rows have Y/N).
 - [ ] Partial-data flags table is fully populated (all 6 rows have Y/N).
 - [ ] "Methods that can run" lists at least the methods supported by the available data.
 - [ ] A missing current price is treated as Partial, not Insufficient.
