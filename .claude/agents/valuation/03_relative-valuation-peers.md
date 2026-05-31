@@ -66,7 +66,7 @@ State whether the set came from competitive-map or was self-selected, and any pr
 | ... | | | | | | | | | | |
 | **Peer median** | | | | | | | | | | |
 
-Label every figure's source. Web-sourced figures carry the unverified label.
+Label every figure's source. Web-sourced figures carry the unverified label. Use the multiple set appropriate to the business type (Business-Type Method Map) — e.g., P/tangible book for banks, P/FFO and P/NAV for REITs, EV-based multiples only for operating/commodity businesses.
 
 ## 3. Premium / Discount to Peer Median
 

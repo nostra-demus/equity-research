@@ -34,7 +34,7 @@ If a method is missing or was capped, exclude it from the triangulation weightin
 
 1. Read the repo root `CLAUDE.md`, then read `.claude/agents/valuation/MODULE_RULES.md`, and apply both.
 2. Read each method's output (`02`–`06`) and extract its fair-value (or implied-value) range and its confidence/caveats.
-3. Build the method-summary table. Assign each method a weight based on its reliability FOR THIS COMPANY (e.g., DCF is weak for a deep cyclical at a margin extreme; peers are weak when no clean public comp exists; SOTP is strong for a multi-segment conglomerate). Justify each weight.
+3. Build the method-summary table. Assign each method a weight based on its reliability FOR THIS COMPANY (e.g., DCF is weak for a deep cyclical at a margin extreme; peers are weak when no clean public comp exists; SOTP is strong for a multi-segment conglomerate). Justify each weight. Include only methods valid for the business type (Business-Type Method Map); give zero weight to any method the map marks "do not use" for this type, and say so.
 4. Reconcile disagreements: where methods diverge, state which you trust more and why. If the spread is >40%, flag it as the headline finding.
 5. Derive the base-case fair value (a range), then the bull and bear fair-value levels — each tied to the operating drivers (from earnings sensitivity) and the warranted multiple.
 6. Compute the margin of safety: distance from current price to the bear-case fair value.

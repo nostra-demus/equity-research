@@ -146,6 +146,22 @@ Before the synthesis publishes, these tie-outs must hold or be explicitly flagge
 
 ---
 
+## Business-Type Method Map (Hard Rule)
+
+Method validity depends on the business type identified in `00_valuation-data-triage` (Operating / Financial / REIT / Commodity / Holding company). Apply this map; never force operating-company methods onto a business where they are meaningless.
+
+| Business type | Primary intrinsic method | Primary multiples | Do NOT use |
+|---|---|---|---|
+| Operating | FCFF DCF (+ reverse-DCF) | EV/EBITDA, EV/EBIT, P/E, FCF yield | — |
+| Financial (bank / insurer) | DDM or residual-income / excess-return on equity (value equity directly, discount at cost of equity) | P/E, P/tangible book; (insurers) P/embedded value | EV-based multiples, FCFF DCF, the EV bridge as a value |
+| REIT / real estate | NAV (asset value − net debt) and/or DDM on FFO | P/FFO, P/AFFO, P/NAV, implied cap rate | EBITDA / FCFF DCF (depreciation is non-economic) |
+| Commodity / cyclical | FCFF DCF on **normalized mid-cycle** earnings | mid-cycle EV/EBITDA, P/NAV (resources) | single-point peak / trough margins |
+| Holding company | SOTP / NAV (`06` is primary) | look-through / SOTP | a consolidated single multiple as the headline |
+
+For **Financial** and **REIT** issuers the EV bridge in `01` is informational only — value equity directly. If the type is ambiguous, state the assumption and run the most conservative applicable method. This map is the single source of truth; agents cite it rather than re-deriving method validity.
+
+---
+
 ## Scoring Rules
 
 All scores are out of 100, whole numbers. Bands:

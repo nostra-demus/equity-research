@@ -181,6 +181,7 @@ Bullet list, no prose paragraphs. **Surface what the numbers MEAN — do not res
 - [ ] Section 7 includes the explicit handoff telling the master synthesizer to defer its valuation section here.
 - [ ] The Abstract is 80–120 words, flowing prose, no bullets, no banned phrases.
 - [ ] No new analysis appears that wasn't in upstream outputs.
+- [ ] The methods treated as primary match the business type (Business-Type Method Map) — no operating-FCFF DCF or EV multiple is the headline for a financial or REIT.
 - [ ] No banned phrases.
 
 # CHAT CONFIRMATION

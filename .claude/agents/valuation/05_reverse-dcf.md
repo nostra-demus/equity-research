@@ -34,7 +34,7 @@ If no current price is available (from `01`): this agent CANNOT run — there is
 1. Read the repo root `CLAUDE.md`, then read `.claude/agents/valuation/MODULE_RULES.md`, and apply both.
 2. Take the current price, EV, net debt, and shares from `01`. If price is missing, stop per the partial-data rule.
 3. Establish the FCF (or NOPAT) base year from the filings / `earnings/01_historical-financials.md`.
-4. Build a discount rate (WACC) using the same components as the DCF methodology; web-source the risk-free rate / ERP if needed and label them. State the rate explicitly.
+4. Build a discount rate (WACC) using the same components as the DCF methodology; web-source the risk-free rate / ERP if needed and label them. State the rate explicitly. If the business type is Financial or REIT (Business-Type Method Map), reverse the equity-direct model instead — solve for the growth / ROE / payout the price implies in a DDM or residual-income model discounted at the cost of equity, not an FCFF / EV model.
 5. Solve backwards: holding the discount rate and a stated horizon fixed, find the FCF growth rate (and/or the number of years of above-GDP growth, and/or the steady-state margin) that makes the present value of cash flows equal to today's EV.
 6. Judge the implied expectations against evidence: the company's historical growth, earnings-module driver and sensitivity findings, and moat durability.
 7. Show robustness — the implied growth at one higher and one lower discount rate.

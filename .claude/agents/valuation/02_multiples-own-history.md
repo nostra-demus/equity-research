@@ -62,7 +62,7 @@ If no multi-year multiple history is available (only current multiples): present
 | P / FCF (or FCF yield) | | | | |
 | Dividend yield | | | | |
 
-State the reporting currency. Use the anchor EV and market cap from `01`.
+State the reporting currency. Use the anchor EV and market cap from `01`. Use the multiple set appropriate to the business type (Business-Type Method Map): P/E + P/tangible book for financials; P/FFO + P/NAV for REITs; EV-based multiples only for operating/commodity businesses. Drop multiples that are meaningless for the type.
 
 ## 2. Historical Multiple Bands (3–5 years)
 
