@@ -50,14 +50,15 @@ If undrawn committed facilities are not disclosed: set liquidity = cash + liquid
 
 ## 1. Liquidity Sources (committed only)
 
-| Source | Amount | Committed? | Source |
-|---|---:|---|---|
-| Cash & equivalents | | n/a | |
-| Liquid short-term investments | | n/a | |
-| Undrawn revolver / facilities | | Committed / Uncommitted | |
-| **Total committed liquidity** | | | |
+| Source | Amount | Usable? | Notes | Source |
+|---|---:|---|---|---|
+| Cash & equivalents | | Y/N | restricted / trapped? | |
+| Liquid short-term investments | | Y/N | restrictions? | |
+| Revolver / facilities (commitment) | | maybe | do NOT count as usable unless availability is known | |
+| Revolver availability (if disclosed) | | Y/N | borrowing base / reserves | |
+| **Total usable liquidity** | | | | |
 
-Exclude uncommitted lines from the total; list them separately if disclosed. State the reporting currency.
+Rule: Total usable liquidity must EXCLUDE the revolver if availability is unknown. List uncommitted lines separately. State the reporting currency.
 
 ## 2. Near-Term Uses (next 12 months)
 
@@ -79,6 +80,10 @@ Exclude uncommitted lines from the total; list them separately if disclosed. Sta
 | **Liquidity runway (months)** | |
 
 Show the formula. If FCF more than covers obligations, state the annual surplus instead of a finite runway.
+
+### Seasonality / Peak Liquidity Need (Hard Check)
+
+State whether working capital is seasonal. If it is seasonal and the peak build is disclosed, re-run the runway using peak-quarter cash usage. If the peak need is not disclosed, state: "Peak working-capital need not disclosed — runway may be overstated."
 
 ## 4. Sources & Uses Bridge
 

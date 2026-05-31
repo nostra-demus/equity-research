@@ -33,6 +33,16 @@ This module does NOT:
 
 ---
 
+## Business Type Applicability Gate (Hard Rule)
+
+This module's default metrics (debt/EBITDA, coverage, covenant headroom) assume an operating company with corporate debt.
+
+- If the company is a **bank/insurer** (regulatory capital and depositor/policyholder liabilities dominate), the module must NOT force debt/EBITDA logic. The triage returns **Insufficient data** with: "Financial institution — requires a separate solvency framework (CET1 / LCR / NSFR / asset quality)."
+- If the company is a **REIT-like** entity, treat it as operating but require coverage to include **recurring (maintenance) capex** and lease-like fixed charges; do not use EBITDA addbacks without cash-backing.
+- If the company is a **HoldCo/OpCo structure**, structural subordination mapping is mandatory (see Structural Priority & Entity Mapping below).
+
+---
+
 ## Core Principles
 
 1. **Survival before upside.** This module exists to find the floor — what breaks, when, and whether the company makes it through. Lead with the downside.
@@ -94,6 +104,24 @@ Do NOT write "company filings" or "annual report" alone — those are not citati
 12. **Off-balance-sheet:** record BOTH the recorded liability and the maximum/contingent exposure, with the ratio between them.
 13. **Stress:** apply explicit EBITDA haircuts and recompute. Show every formula. A reader must be able to reproduce every number.
 
+### Structural Priority & Entity Mapping (Hard Rules)
+
+1. **HoldCo vs OpCo mapping is mandatory when applicable.** If any material debt sits at a holding company, add an explicit HoldCo/OpCo map and state whether the HoldCo has dividend-upstream access or is structurally subordinated.
+2. **Security and collateral must be stated.** For each major instrument: secured/unsecured, collateral type, and whether the collateral is shared with the revolver.
+3. **Cross-default / change-of-control / rating-trigger scan.** Record any change-of-control puts, cross-default provisions, and rating-linked pricing steps if disclosed. If not disclosed, state: "Not disclosed in the data pool."
+
+### True Liquidity Availability (Hard Rules)
+
+1. **Revolvers are not "liquidity" unless availability is known.** If a facility is borrowing-base-based, liquidity must use **availability** (commitment − drawings − reserves), not the headline commitment. If availability is not disclosed, headline liquidity must exclude the revolver and show it as "committed but availability unknown" — and state whether that understates or overstates the risk.
+2. **Minimum-liquidity and springing covenants.** If any minimum-liquidity requirement exists, subtract it from usable liquidity and state it explicitly.
+3. **Trapped/restricted cash.** Usable cash must exclude restricted cash and must flag offshore/trapped cash if disclosed.
+
+### Covenant Definition Rigor (Hard Rules)
+
+1. **Covenant EBITDA is not reported EBITDA.** When covenant headroom is computed, state: the covenant EBITDA definition (addbacks allowed), any addback caps, whether the company is currently using addbacks aggressively (if disclosed), and therefore whether the headroom is high- or low-quality.
+2. **Springing covenants must be handled.** If a covenant applies only when revolver utilization exceeds a threshold, state whether it is currently "active" or "not active."
+3. **Cure rights must be captured.** If equity cures are permitted, state the size/frequency limits and how they change breach risk.
+
 ---
 
 ## Scoring Rules
@@ -151,6 +179,9 @@ When specific data is missing, the affected agents must cap their output as desc
 | No undrawn-facility disclosure | 03 | Liquidity = cash only; flag that it is understated |
 | No interest-expense detail | 04 | Coverage proxied from average rate × debt; flag |
 | No credit ratings | 99 | Note the absence; do not infer a rating |
+| No revolver availability / borrowing-base detail | 03, 06 | Liquidity cannot include the revolver; treat as "availability unknown"; cap liquidity-runway confidence |
+| No covenant EBITDA definition / addback detail | 04, 06 | Headroom quality cannot be judged; cap covenant confidence; flag "addback illusion" risk |
+| No HoldCo/OpCo disclosure for known HoldCo debt | 01, 99 | Structural subordination not assessable; cap solvency strength |
 
 ---
 
@@ -166,6 +197,9 @@ When data is missing or weak, these hard caps override an agent's own scoring. T
 | Only annual data (no interim) | Solvency strength max 75 |
 | No EBITDA base (stress test cannot run) | Downside resilience = "Not assessable"; Overall usefulness max 70 |
 | Off-balance-sheet exposures undisclosed for a known-litigious/levered name | Solvency strength max 75 |
+| Revolver exists but availability unknown (borrowing base) | Liquidity runway max 60 |
+| Covenant headroom relies on assumed covenant-EBITDA addbacks | Covenant headroom max 60 |
+| HoldCo has material debt but upstreaming constraints unclear | Solvency strength max 70 |
 
 If multiple caps affect the same score, use the most restrictive.
 
@@ -195,13 +229,18 @@ If a cross-module file is missing, the affected agent proceeds independently and
 
 ## Stress-Test Rule (Hard Rule)
 
-The `06_downside-stress-test` agent is mandatory and must:
-- Apply at least three EBITDA haircuts — **−30%, −40%, −60%** — OR, for a deep cyclical/commodity name (per `10_external-dependency`), calibrate the haircuts to the trough-to-peak EBITDA range from the company's own history.
-- For each haircut, recompute: net leverage, interest coverage, the tightest covenant's headroom (breach Y/N), and the 12-month liquidity gap.
-- Identify the EBITDA decline at which (a) the tightest maintenance covenant breaks, and (b) committed liquidity is exhausted within 12 months.
-- State whether the company survives each scenario without an equity raise, distressed asset sale, or covenant waiver — and if not, what it would need.
+The `06_downside-stress-test` agent is mandatory and must run:
 
-The stress test uses cash-backed EBITDA (cross-checked against `earnings/06_earnings-quality`), not headline adjusted EBITDA, where the two differ materially.
+**A) EBITDA haircuts (base set):** −30%, −40%, −60%. For a deep cyclical/commodity name (per `10_external-dependency`), also calibrate one haircut to the trough-to-peak EBITDA range from the company's own history.
+
+**B) PLUS at least two liquidity / market shocks:**
+1. **Working-capital shock:** add a cash outflow equal to a disclosed seasonal build, or — if not disclosed — a labeled assumption (e.g., X% of revenue) with the value stated.
+2. **Rate shock:** if material floating-rate exposure exists, apply +200 bps to the floating portion (net of hedges if disclosed).
+3. **Market closure:** assume refinancing markets are shut for 12 months (no new unsecured issuance); revolver draws are allowed only if availability is known.
+
+For each scenario, recompute net leverage, coverage, covenant headroom (breach Y/N), and the 12-month liquidity gap.
+
+The stress test must state: which factor breaks first (covenant, liquidity, or maturity), the EBITDA decline where it breaks, and what external action is required (waiver, asset sale, equity, restructuring). It uses cash-backed EBITDA (cross-checked against `earnings/06_earnings-quality`), not headline adjusted EBITDA, where the two differ materially.
 
 ---
 

@@ -86,11 +86,23 @@ State the reporting currency.
 
 ## 4. Refinancing Exposure
 
+### Refi Funding Plan (no speculation)
+
+| Source of repayment for next-24m maturities | Amount | Evidence |
+|---|---:|---|
+| Cash on hand | | |
+| Forecast FCF (or recent run-rate, labeled) | | |
+| Revolver availability (only if availability known) | | |
+| Asset-sale proceeds (only if announced / authorized) | | |
+| New debt issuance (only if committed / announced) | | |
+
+If any row is unknown, explicitly state it is unknown. Do not assume.
+
 In 3–5 sentences: Is the near-term wall (next 12–24 months) covered by cash + FCF, or does it require market access? What is the rating posture and recent refi activity? Floating-rate share means how much of interest cost reprices if rates move? State the conclusion as one of: "self-funded / low refi risk," "refinanceable in most markets," "exposed — depends on open markets," or "acute — near-term wall not covered."
 
 ## 5. Refinancing Read
 
-2–3 blunt sentences: the size and timing of the wall, the cost step-up on refinancing, and the single biggest refinancing risk.
+2–3 blunt sentences: the size and timing of the wall, the cost step-up on refinancing, and the single biggest refinancing risk. Also state explicitly whether the company survives the next 12 months under "market closure" (no new unsecured issuance), using the best available evidence and labeling any assumption.
 ```
 
 # SELF-CHECK

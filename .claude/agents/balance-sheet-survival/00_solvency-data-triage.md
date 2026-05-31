@@ -39,6 +39,7 @@ You DO NOT:
 - **Sufficient:** a recent balance sheet AND the debt note (amounts by type/maturity) AND a cash flow statement are available, so leverage, liquidity, coverage, and a stress test can all be built.
 - **Partial:** the balance sheet is present and leverage and liquidity can be assessed, but one or more of {maturity schedule, covenant disclosure, undrawn-facility detail, cash flow statement} is missing. State which partial-data caps and score caps from `MODULE_RULES.md` will apply.
 - **Insufficient:** no balance sheet, or debt and cash cannot be established at all — solvency cannot be assessed.
+- **Financial institution (override):** if the company is a bank or insurer (per the Business Type Applicability Gate in `MODULE_RULES.md`), return **Insufficient data** regardless of data completeness — this module's debt/EBITDA framework does not fit. State: "Financial institution — requires a separate solvency framework (CET1 / LCR / NSFR / asset quality)."
 
 # REPORT STRUCTURE
 
@@ -79,6 +80,12 @@ You DO NOT:
 | Commitments & contingencies note | | | Guarantees, LCs, litigation, tax claims |
 | Credit ratings | | | Refinancing access and cost |
 | EBITDA base (for stress test) | | | Required for the survival stress test |
+| Business type (operating / bank / insurer / REIT / HoldCo-OpCo) | | | Selects the correct framework (Business Type Applicability Gate) |
+| Revolver terms + availability / borrowing base | | | Determines usable liquidity and springing covenants |
+| Covenant EBITDA definition (addbacks / caps) | | | Prevents "fake headroom" |
+| HoldCo / OpCo structure disclosure | | | Structural subordination and upstreaming |
+| Hedging / swaps disclosure | | | Floating-rate exposure net of hedges |
+| Change-of-control / cross-default / rating triggers | | | Hidden accelerants to distress |
 
 ## 4. Cross-Module Availability
 
@@ -110,6 +117,7 @@ You DO NOT:
 - **Sections that can run:** (list which of: capital structure, maturity wall, liquidity, coverage/covenants, contingencies, stress test)
 - **Active partial-data caps:** (bulleted list, only if Partial)
 - **Critical missing items:** (bulleted list, only if Partial or Insufficient)
+- **Single highest-value missing document:** {credit agreement / liquidity note / maturity schedule / covenant definition}
 ```
 
 # SELF-CHECK
@@ -118,7 +126,7 @@ You DO NOT:
 - [ ] Each file has a type classification and solvency-relevance rating.
 - [ ] Most-recent table identifies actual filenames (no fabrication).
 - [ ] Cross-module availability is checked against the actual filesystem.
-- [ ] Solvency usability check table is fully populated (all 12 rows have Y/N).
+- [ ] Solvency usability check table is fully populated (all 18 rows have Y/N).
 - [ ] Partial-data flags table is fully populated (all 6 rows have Y/N).
 - [ ] "Sections that can run" lists at least the sections supported by the available data.
 - [ ] Verdict matches the sufficiency rule exactly.

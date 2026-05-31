@@ -58,22 +58,25 @@ If there is no usable EBITDA base, the stress test cannot run: state that and ma
 | Tightest covenant + threshold | | from 04 |
 | Next-12m obligations | | from 02/03 |
 | Committed liquidity | | from 03 |
+| Floating-rate debt (gross) | | from 01 / 02 |
+| Hedge coverage (if any) | | |
+| Working-capital seasonality / peak build | | from 03 |
 
 State the reporting currency and the EBITDA basis.
 
 ## 2. Stress Scenarios
 
-| Metric | Base | −30% EBITDA | −40% EBITDA | −60% EBITDA |
-|---|---:|---:|---:|---:|
-| EBITDA | | | | |
-| Net debt / EBITDA | | | | |
-| EBITDA / interest | | | | |
-| Tightest covenant headroom | | | | |
-| Covenant breach? (Y/N) | | | | |
-| 12-month liquidity gap | | | | |
-| Survives without external action? (Y/N) | | | | |
+| Metric | Base | −30% EBITDA | −40% EBITDA | −60% EBITDA | −40% + WC shock | −40% + rates +200bp |
+|---|---:|---:|---:|---:|---:|---:|
+| EBITDA | | | | | | |
+| Net debt / EBITDA | | | | | | |
+| EBITDA / interest | | | | | | |
+| Tightest covenant headroom | | | | | | |
+| Covenant breach? (Y/N) | | | | | | |
+| 12-month liquidity gap | | | | | | |
+| Survives without external action? (Y/N) | | | | | | |
 
-For a deep cyclical, add a row or scenario calibrated to the historical trough and say so.
+If floating exposure is immaterial or no working-capital data exists, still include the columns but label that shock "not applicable / not computable" and explain. For a deep cyclical, add a scenario calibrated to the historical trough and say so.
 
 ## 3. Break Points
 
@@ -85,7 +88,7 @@ For a deep cyclical, add a row or scenario calibrated to the historical trough a
 
 ## 4. Survival Read
 
-3–4 blunt sentences: at what EBITDA decline the structure first breaks (covenant or liquidity), what the company would need to do (waiver, equity, asset sale), and whether a 30–40% decline — a normal recession, not a tail — is survivable on its own.
+3–4 blunt sentences: at what EBITDA decline the structure first breaks (covenant or liquidity), what the company would need to do (waiver, equity, asset sale), and whether a 30–40% decline — a normal recession, not a tail — is survivable on its own. Market closure test: assume no new unsecured refinancing for 12 months; state whether liquidity holds and what breaks first.
 ```
 
 # SELF-CHECK

@@ -115,6 +115,17 @@ Write this LAST.
 
 If specialists disagreed on a number or direction, list the disagreement, the source of each side, and the reconciled (more conservative) view. If none, write *"No material disagreements between specialists."*
 
+## 3A. Fragility Map (what breaks first)
+
+| Fragility Driver | Indicator | Current Status | Why It Matters |
+|---|---|---|---|
+| Maturity concentration | % due within 24m | | wall risk |
+| Availability liquidity | usable liquidity vs uses | | revolver reality |
+| Covenant illusion risk | covenant EBITDA vs reported | | addback risk |
+| Floating-rate sensitivity | floating % net of hedges | | rate shock |
+| Structural subordination | HoldCo debt vs upstreaming | | trapped value |
+| Contingent accelerants | CoC puts / cross-default | | fast failure |
+
 ## 4. Score Cap Application
 
 | Cap Trigger | Applied? (Y/N) | Affected Score | Final Cap |
@@ -136,6 +147,17 @@ Do NOT restate the upstream tables. In 4–6 sentences, INTERPRET. Specifically:
 | Current Verdict | What Would Strengthen It | What Would Weaken It | Data Needed |
 |---|---|---|---|
 | {current verdict} | | | |
+
+## 6A. Survival Playbook (non-speculative levers)
+
+List only levers supported by evidence:
+- Refi actions taken (tenders, extensions, amendments)
+- Asset-sale programs announced
+- Capex cuts feasible (if historically flexible)
+- Dividend / buyback suspension ability (if not contractually constrained)
+- Covenant-amendment likelihood (based on prior actions, if disclosed)
+
+If no evidence, state: "No evidenced levers in the data pool."
 
 ## 7. Note To The Final Synthesizer
 

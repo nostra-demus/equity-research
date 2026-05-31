@@ -67,9 +67,22 @@ State the EBITDA basis (reported/adjusted) and whether interest is gross or net.
 | Max net leverage | | | | |
 | Min interest coverage | | | | |
 | Min liquidity / net worth | | | | |
+| Springing covenant trigger (e.g., revolver utilization threshold) | | | | |
+| Equity cure rights (Y/N, limits) | | | | |
 | Other | | | | |
 
 If covenants are undisclosed, state so and use the labeled-assumption approach from the partial-data rule.
+
+### Covenant EBITDA Definition & Quality (required if headroom is computed)
+
+| Item | Value / Description | Source |
+|---|---|---|
+| Covenant EBITDA definition summary | | |
+| Addbacks permitted (types) | | |
+| Addback caps / limits | | |
+| Is covenant EBITDA materially above reported EBITDA? | | |
+
+If the definition is undisclosed, explicitly say the headroom quality is unknown (risk of "addback illusion").
 
 ## 3. Headroom & Breach Proximity
 

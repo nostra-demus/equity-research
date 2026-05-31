@@ -52,16 +52,16 @@ If the debt note breaks out little detail: present what is disclosed (at minimum
 
 ## 1. Debt Stack
 
-| Instrument | Amount | Secured / Unsecured | Senior / Sub | Maturity (year) | Source |
-|---|---:|---|---|---|---|
-| Short-term debt / current portion | | | | | |
-| Bonds / notes | | | | | |
-| Term loans | | | | | |
-| Revolver (drawn) | | | | | |
-| Finance / capital leases | | | | | |
-| **Total gross debt** | | | | | |
+| Instrument | Amount | Entity (HoldCo/OpCo) | Secured? | Seniority | Collateral | Maturity | Rate (fixed/floating) | Source |
+|---|---:|---|---|---|---|---|---|---|
+| Short-term debt / current portion | | | | | | | | |
+| Bonds / notes | | | | | | | | |
+| Term loans | | | | | | | | |
+| Revolver (drawn) | | | | | | | | |
+| Finance / capital leases | | | | | | | | |
+| **Total gross debt** | | | | | | | | |
 
-State the reporting currency.
+State the reporting currency. If a field is undisclosed, write "Not disclosed" — do not leave it blank.
 
 ## 2. Other Debt-Like Obligations
 
@@ -106,6 +106,16 @@ State the EBITDA figure used and its basis. If leverage is quoted on adjusted EB
 | Net debt / EBITDA | | | | | |
 
 In 2–3 sentences: is leverage rising or falling, and what drove the change (acquisition, buyback, operating decline, FX, asset sale)? Cite evidence.
+
+## 6A. HoldCo / OpCo & Structural Subordination (if applicable)
+
+| Item | Evidence | Why It Matters |
+|---|---|---|
+| Where debt sits (HoldCo vs OpCo) | | Structural subordination risk |
+| Upstreaming constraints (dividend blockers, regulatory) | | Can the HoldCo service its own debt? |
+| Material restricted / trapped cash | | Net debt may be over- or understated |
+
+If not applicable, write: "Not applicable — no material HoldCo-level debt indicated."
 
 ## 7. Leverage Anchor Summary (canonical numbers for downstream agents)
 
