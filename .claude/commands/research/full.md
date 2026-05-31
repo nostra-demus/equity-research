@@ -145,7 +145,7 @@ Compose a `<CROSS_MODULE_CONTEXT>` string for this module, naming only upstream 
     Business-model cross-module path: <RUN_ROOT>/business-model/
     ```
   - Otherwise set `<CROSS_MODULE_CONTEXT>` to the literal string `none`.
-- If this module is `valuation` (reads BOTH upstream modules):
+- If this module is `valuation` or `balance-sheet-survival` (each reads the business-model and earnings modules):
   - Let business-model be available if `<RUN_ROOT>/business-model/99_business-model-synthesis.md` exists; let earnings be available if `<RUN_ROOT>/earnings/99_earnings-synthesis.md` exists.
   - Both available: `Business-model cross-module path: <RUN_ROOT>/business-model/. Earnings cross-module path: <RUN_ROOT>/earnings/.`
   - Only business-model: `Business-model cross-module path: <RUN_ROOT>/business-model/.`
