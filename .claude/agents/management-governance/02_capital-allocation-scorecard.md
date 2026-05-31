@@ -50,13 +50,13 @@ If only the latest year is available: score what you can and state the scorecard
 
 ## 1. Uses of Capital (3–5 years)
 
-| Use | Cumulative $ | % of CFO (or FCF) | Source |
-|---|---:|---:|---|
-| Acquisitions (net) | | | |
-| Buybacks | | | |
-| Dividends | | | |
-| Capex | | | |
-| Debt repayment | | | |
+| Use | Cumulative Amount | Currency | % of CFO (or FCF) | Source |
+|---|---:|---|---:|---|
+| Acquisitions (net) | | | | |
+| Buybacks | | | | |
+| Dividends | | | | |
+| Capex | | | | |
+| Debt repayment | | | | |
 
 State the reporting currency.
 
@@ -69,10 +69,10 @@ If no material M&A, write "No material M&A in the period."
 
 ## 3. Buyback Scorecard
 
-| Year | $ Spent | Shares Bought | Avg Price | Below Value? | Net Share-Count Change | Source |
-|---|---:|---:|---:|---|---:|---|
+| Year | Amount Spent | Currency | Shares Bought | Implied Avg Price | Share-Count Change | Offset SBC Dilution? | Price-Discipline Evidence | Judgment | Source |
+|---|---:|---|---:|---:|---:|---|---|---|---|
 
-Note whether buybacks reduced the share count or merely offset stock-based-comp dilution.
+This module runs BEFORE valuation, so do NOT judge buybacks against intrinsic / fair value. If the valuation module has not run, write "Intrinsic-value discipline not assessable from this module." Judge price discipline only on observable evidence: net share-count reduction; buyback price vs the historical trading range; buyback price vs book / earnings multiple if disclosed; whether buybacks occurred while leverage rose; whether they merely offset stock-based-comp dilution; and whether promoters/insiders disproportionately benefited.
 
 ## 4. Dividends & Organic Reinvestment
 
@@ -86,6 +86,34 @@ Note whether buybacks reduced the share count or merely offset stock-based-comp 
 
 3–4 blunt sentences: has capital created or destroyed per-share value, which use was best and worst, and the single biggest capital-allocation signal. State the conclusion as one of: "value-creative / disciplined," "mixed," or "value-destructive / size-driven."
 ```
+
+# STRUCTURED OUTPUT (mandatory — append to your report; full schema in MODULE_RULES)
+
+## Universal Findings Table
+| Finding ID | Section | Question / Test | Standardized Verdict | Raw Value | Unit | Current Period | Prior Period | Trend | Peer Benchmark | Peer Verdict | Score | Max Score | Penalty | Confidence 1–5 | Materiality | Evidence | As-of Date | Analyst Interpretation | Red Flag Triggered? | Red Flag ID | Follow-up Required |
+|---|---|---|---|---:|---|---|---|---|---|---|---:|---:|---:|---:|---|---|---|---|---|---|---|
+
+Every material claim in the narrative above appears here as a row (MODULE_RULES Universal Findings Table rules). Apply RF-CAP-001/002/003 from the Red-Flag ID Registry.
+
+## Capital Allocation Score
+| Component | Score | Max Score | Evidence |
+|---|---:|---:|---|
+| Organic reinvestment returns | | 25 | |
+| M&A discipline | | 20 | |
+| Buyback discipline | | 20 | |
+| Dividend sustainability | | 15 | |
+| Balance-sheet prudence | | 10 | |
+| Per-share value creation | | 10 | |
+| Total | | 100 | |
+
+If only a single period is available, score what is supportable, mark the rest "Insufficient Data," and apply the cap.
+
+## Source Log
+| Source ID | Source Type | Filename / Filing | Period | Page / Section | Date | Confidence 1–5 | Used For |
+|---|---|---|---|---|---|---:|---|
+
+## Machine-Readable Findings
+Emit a machine-readable JSON code block per the Machine-Readable Outputs schema in MODULE_RULES — an array with one finding object per Universal Findings Table row. Then apply the canonical **Hard Self-Check** in MODULE_RULES before returning.
 
 # SELF-CHECK
 

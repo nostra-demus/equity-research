@@ -97,6 +97,34 @@ Flag insider selling that preceded weak results, or buying that preceded good ne
 2–3 blunt sentences: how much skin in the game (bought vs granted), the net insider signal, and the biggest control/pledging risk to minority holders.
 ```
 
+# STRUCTURED OUTPUT (mandatory — append to your report; full schema in MODULE_RULES)
+
+## Universal Findings Table
+| Finding ID | Section | Question / Test | Standardized Verdict | Raw Value | Unit | Current Period | Prior Period | Trend | Peer Benchmark | Peer Verdict | Score | Max Score | Penalty | Confidence 1–5 | Materiality | Evidence | As-of Date | Analyst Interpretation | Red Flag Triggered? | Red Flag ID | Follow-up Required |
+|---|---|---|---|---:|---|---|---|---|---|---|---:|---:|---:|---:|---|---|---|---|---|---|---|
+
+Every material claim in the narrative above appears here as a row (MODULE_RULES Universal Findings Table rules). For promoter-led (e.g. Indian) companies, track promoter holding and pledge over up to 12 quarters where disclosed (shareholding-pattern filings), and apply RF-OWN-001 (pledge above threshold), RF-OWN-002 (pledge up QoQ), RF-OWN-003 (stake sale before adverse news), and RF-MKT-001/002 (market conduct) from the Red-Flag ID Registry.
+
+## Ownership Alignment Score
+| Component | Score | Max Score | Evidence |
+|---|---:|---:|---|
+| Insider / promoter ownership | | 25 | |
+| Bought vs granted ownership quality | | 15 | |
+| Recent insider behavior | | 20 | |
+| Pledge / encumbrance risk | | 20 | |
+| Control-structure fairness | | 10 | |
+| Institutional-holder quality / trend | | 10 | |
+| Total | | 100 | |
+
+If ownership / insider data is unavailable, mark components "Insufficient Data" and apply the cap.
+
+## Source Log
+| Source ID | Source Type | Filename / Filing | Period | Page / Section | Date | Confidence 1–5 | Used For |
+|---|---|---|---|---|---|---:|---|
+
+## Machine-Readable Findings
+Emit a machine-readable JSON code block per the Machine-Readable Outputs schema in MODULE_RULES — an array with one finding object per Universal Findings Table row. Then apply the canonical **Hard Self-Check** in MODULE_RULES before returning.
+
 # SELF-CHECK
 
 - [ ] Insider ownership % is stated, and bought-vs-granted is distinguished.

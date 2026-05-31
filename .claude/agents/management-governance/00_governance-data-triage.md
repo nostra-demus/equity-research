@@ -100,6 +100,40 @@ You DO NOT:
 | No multi-year history | | 02 | capital-allocation scorecard limited |
 | No transcripts / prior letters | | 01, 06 | promise-vs-delivery & candor limited |
 
+## 5A. Jurisdiction & Filing Regime
+
+| Item | Detected Value | Evidence |
+|---|---|---|
+| Primary listing country | | |
+| Exchange | | |
+| Filing regime (US SEC / India SEBI-LODR / UK / Singapore / Other) | | |
+| Sector | | |
+| Sector-specific governance overlay required? (Y/N + which) | | |
+
+Set these so later agents apply the right Jurisdiction-Aware Source Mapping and Sector Overlay (MODULE_RULES). For non-US issuers, do NOT mark US forms (DEF 14A, 10-K, Form 4) "missing" when the local equivalent exists.
+
+## 5B. Source Coverage Matrix
+
+| Governance Need | Best Available Source | Period | Confidence 1–5 | Missing? | Replacement Source |
+|---|---|---|---:|---|---|
+| Board composition | | | | | |
+| Compensation | | | | | |
+| Ownership | | | | | |
+| Insider trades | | | | | |
+| Related-party transactions | | | | | |
+| Auditor report | | | | | |
+| Secretarial / compliance report | | | | | |
+| AGM voting | | | | | |
+| Capital-allocation history | | | | | |
+| Legal / regulatory cases | | | | | |
+
+## 5C. Data Freshness
+
+| Source | Period | As-of Date | Age | Stale? | Impact |
+|---|---|---|---|---|---|
+
+Write a source manifest to `analyses/{TICKER}_{DATE}/management-governance/source_manifest.csv` if the framework supports file output; otherwise include it as the markdown table above and mark CSV export "pending."
+
 ## 6. Sufficiency Verdict
 
 - **Verdict:** Sufficient / Partial / Insufficient
@@ -120,6 +154,7 @@ You DO NOT:
 - [ ] Governance usability check table is fully populated (all 11 rows have Y/N).
 - [ ] Partial-data flags table is fully populated (all 5 rows have Y/N).
 - [ ] Whether `business-model/01_disqualifier-scan` flagged a hard disqualifier is noted.
+- [ ] Jurisdiction, filing regime, and sector are detected (Section 5A) so downstream agents apply the right source map and overlay.
 - [ ] Verdict matches the sufficiency rule exactly.
 - [ ] If Insufficient, report explicitly says "Verdict: Insufficient data" for orchestrator fail-fast.
 

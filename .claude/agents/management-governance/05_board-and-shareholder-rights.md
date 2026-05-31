@@ -102,6 +102,34 @@ High votes-against (e.g., >20%) on pay or RPT resolutions is a red flag per the 
 2–3 blunt sentences: is the board a real check on management, are rights intact, and the single biggest entrenchment or self-dealing risk to minority holders. State the conclusion as one of: "strong protection," "adequate," or "weak / entrenched."
 ```
 
+# STRUCTURED OUTPUT (mandatory — append to your report; full schema in MODULE_RULES)
+
+## Universal Findings Table
+| Finding ID | Section | Question / Test | Standardized Verdict | Raw Value | Unit | Current Period | Prior Period | Trend | Peer Benchmark | Peer Verdict | Score | Max Score | Penalty | Confidence 1–5 | Materiality | Evidence | As-of Date | Analyst Interpretation | Red Flag Triggered? | Red Flag ID | Follow-up Required |
+|---|---|---|---|---:|---|---|---|---|---|---|---:|---:|---:|---:|---|---|---|---|---|---|---|
+
+Every material claim in the narrative above appears here as a row (MODULE_RULES Universal Findings Table rules). Cover true (not just legal) independence, individual director tenure, attendance, overboarding, and committee-composition compliance. Apply RF-RPT-001/002/003 and RF-SHR-001/002 from the Red-Flag ID Registry.
+
+## Board & Shareholder Rights Score
+| Component | Score | Max Score | Evidence |
+|---|---:|---:|---|
+| Board independence | | 20 | |
+| True independence / tenure / overboarding | | 20 | |
+| Committee quality | | 15 | |
+| RPT and group-leakage protection | | 20 | |
+| Shareholder voting rights | | 15 | |
+| AGM opposition / minority protection | | 10 | |
+| Total | | 100 | |
+
+If board / proxy disclosure is unavailable, mark components "Insufficient Data" and apply the cap.
+
+## Source Log
+| Source ID | Source Type | Filename / Filing | Period | Page / Section | Date | Confidence 1–5 | Used For |
+|---|---|---|---|---|---|---:|---|
+
+## Machine-Readable Findings
+Emit a machine-readable JSON code block per the Machine-Readable Outputs schema in MODULE_RULES — an array with one finding object per Universal Findings Table row. Then apply the canonical **Hard Self-Check** in MODULE_RULES before returning.
+
 # SELF-CHECK
 
 - [ ] Independent-director % and chair/CEO split are stated.

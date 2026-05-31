@@ -76,6 +76,34 @@ In 2–3 sentences: in the worst recent quarter/period, was the tone candid or p
 2–3 blunt sentences: whether management can be trusted to tell the truth when results are bad, the strongest evidence either way, and the single biggest candor signal. State the conclusion as one of: "candid / high-trust," "mixed," or "promotional / low-trust."
 ```
 
+# STRUCTURED OUTPUT (mandatory — append to your report; full schema in MODULE_RULES)
+
+## Universal Findings Table
+| Finding ID | Section | Question / Test | Standardized Verdict | Raw Value | Unit | Current Period | Prior Period | Trend | Peer Benchmark | Peer Verdict | Score | Max Score | Penalty | Confidence 1–5 | Materiality | Evidence | As-of Date | Analyst Interpretation | Red Flag Triggered? | Red Flag ID | Follow-up Required |
+|---|---|---|---|---:|---|---|---|---|---|---|---:|---:|---:|---:|---|---|---|---|---|---|---|
+
+Every material claim in the narrative above appears here as a row (MODULE_RULES Universal Findings Table rules). Treat disclosure as structured tests: KPI consistency period-over-period, delayed results / material disclosure (RF-REG-002), recurring "one-off" adjustments (RF-DISC-002), and commentary contradicting the numbers (RF-DISC-001).
+
+## Disclosure Candor Score
+| Component | Score | Max Score | Evidence |
+|---|---:|---:|---|
+| Owning misses | | 25 | |
+| KPI consistency | | 20 | |
+| Non-GAAP / adjustment discipline | | 20 | |
+| Q&A transparency | | 15 | |
+| Disclosure timeliness | | 10 | |
+| Specificity vs boilerplate | | 10 | |
+| Total | | 100 | |
+
+If transcripts / prior letters are unavailable, mark the affected components "Insufficient Data" and apply the cap.
+
+## Source Log
+| Source ID | Source Type | Filename / Filing | Period | Page / Section | Date | Confidence 1–5 | Used For |
+|---|---|---|---|---|---|---:|---|
+
+## Machine-Readable Findings
+Emit a machine-readable JSON code block per the Machine-Readable Outputs schema in MODULE_RULES — an array with one finding object per Universal Findings Table row. Then apply the canonical **Hard Self-Check** in MODULE_RULES before returning.
+
 # SELF-CHECK
 
 - [ ] Communication around actual misses (from `01`) is assessed — owned vs obscured.

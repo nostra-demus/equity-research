@@ -97,7 +97,8 @@ Write this LAST.
 - Overall usefulness /100:
 - Insider ownership (one line): *(from 04)*
 - Biggest governance signal (one line):
-- **Governance Score /100** (weighted per MODULE_RULES; state the weights):
+- **Governance Score /100** — compute with the exact MODULE_RULES formula: `0.20×CapAlloc + 0.18×Incentive + 0.18×ShFriendliness + 0.16×Candor + 0.16×MgmtQuality + 0.12×(100 − GovRisk)`; show the inputs:
+- **Confidence-Adjusted Governance Score /100** (= Governance Score × Confidence Score / 100):
 - **Governance Rating** (Excellent / Good / Watchlist / Weak / Avoid):
 - **Confidence Score /100** (source quality):
 - **Red-Flag Count / Critical Red-Flag Count:**
@@ -114,21 +115,32 @@ Write this LAST.
 | board-and-shareholder-rights | | |
 | candor-and-disclosure-quality | | |
 
+## 2A. Consolidated Governance Findings
+
+Aggregate every specialist's Universal Findings Table into one table (the master synthesizer and the CSV export read this).
+
+| Finding ID | Agent | Section | Question / Test | Verdict | Raw Value | Unit | Trend | Peer Verdict | Score | Penalty | Confidence | Materiality | Evidence | Red Flag ID | Follow-Up |
+|---|---|---|---|---|---:|---|---|---|---:|---:|---:|---|---|---|---|
+
+If an upstream agent did not provide a valid Universal Findings Table, write: *"Upstream output quality issue: {agent} did not provide a valid Universal Findings Table — confidence reduced,"* and lower the Confidence Score.
+
 ## 3. Reconciliation
 
 If specialists disagreed (e.g., good capital-allocation record but misaligned incentives, or high ownership but weak minority rights), state the disagreement, the evidence each side rests on, and the reconciled (more conservative) view. If none, write *"No material disagreements between specialists."*
 
 ## 4. Score Cap Application
 
-| Cap Trigger | Applied? (Y/N) | Affected Score | Final Cap |
-|---|---|---|---|
-| No proxy / compensation disclosure | | Incentive alignment | max 50; usefulness max 70 |
-| No ownership / insider data | | Shareholder friendliness | max 60 |
-| No multi-year capital-allocation history | | Capital allocation | max 65 |
-| No prior promises to check | | Disclosure candor | max 65 |
-| Hard disqualifier flagged (business-model/01) | | Governance risk | floor 80; verdict ≤ "Serious governance concerns" |
+| Cap Trigger | Applies? | Affected Score | Cap / Floor | Pre-Cap Score | Applied Result | Reason / Evidence |
+|---|---|---|---|---:|---:|---|
+| No proxy / compensation disclosure | | Incentive alignment; usefulness | Incentive max 50; usefulness max 70 | | | |
+| No ownership / insider data | | Shareholder friendliness | max 60 | | | |
+| No board disclosure | | Board / shareholder-rights read | Not assessable / cap | | | |
+| No multi-year capital-allocation history | | Capital allocation | max 65 | | | |
+| No prior promises / transcripts / letters | | Management quality / disclosure candor | candor max 65 | | | |
+| Hard disqualifier flagged (business-model/01) | | Governance risk / verdict | risk floor 80; verdict no better than "Serious governance concerns" | | | |
+| Critical red flag triggered in this module | | Governance rating / verdict | rating no better than "Weak" until disproven | | | |
 
-If multiple caps affect the same score, use the most restrictive.
+If multiple caps affect the same score, use the most restrictive. If a hard disqualifier is flagged, the stewardship verdict must be no better than "Serious governance concerns."
 
 ## 5. Stewardship Summary
 
@@ -138,8 +150,8 @@ Do NOT restate the upstream tables. In 4–6 sentences, INTERPRET. Specifically:
 
 Per the Red-Flag Trigger Engine in `MODULE_RULES.md`. List every triggered flag; if none, write "No red flags triggered."
 
-| Red Flag | Trigger / Evidence | Severity (High / Critical) | Source + Date | Impact on Score |
-|---|---|---|---|---|
+| Red Flag ID | Trigger | Severity (High / Critical) | Evidence | Source + Date | Score Impact | Follow-up |
+|---|---|---|---|---|---:|---|
 
 Red-flag count: {n}. Critical: {n}.
 
@@ -206,6 +218,16 @@ Bullet list, no prose paragraphs. **Surface what the scores MEAN — do not rest
 - Whether management is candid when results are bad
 - Any hard disqualifier flagged
 - Whether this module is useful for the master synthesizer
+
+## 9. Machine-Readable Outputs
+
+Emit the consolidated exports as fenced code blocks, each labeled with its target filename, for the command to write to disk:
+- `governance_summary.json` — verdict, all specialist scores, Governance Score, Confidence-Adjusted Score, rating, red-flag counts.
+- `governance_findings.csv` — the Consolidated Governance Findings (one row per finding, MODULE_RULES finding schema).
+- `red_flags.csv` — the Red-Flag Register (ID, trigger, severity, evidence, source+date, score impact, follow-up).
+- `source_log.csv` — the union of every specialist's Source Log.
+
+If any export cannot be produced, label it "pending" and say why — never omit it silently.
 ```
 
 # SELF-CHECK

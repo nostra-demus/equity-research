@@ -77,6 +77,10 @@ If the pipeline returns `fail_fast_triggered = true`:
 
 This is the standalone behavior. Under `/research:full`, fail-fast in one module does not abort the whole run.
 
+## 6B. Write structured sidecar outputs
+
+After the synthesizer (`99`) completes, extract the fenced code blocks it emitted (its Section 9, labeled `governance_summary.json`, `governance_findings.csv`, `red_flags.csv`, `source_log.csv`) and Write each to `analyses/${ARGUMENTS}_<DATE>/management-governance/` under that exact filename. Also write `source_manifest.csv` from the triage (`00`) Source Coverage Matrix / Data Freshness tables if present. For any block the synthesizer marked "pending" or did not emit, skip that file and record it as a missing output. (Subagents return inline; the orchestrator owns this file IO. The step-7 `git add` of the module folder will include whatever sidecars were written.)
+
 ## 7. Commit and push to main
 
 Per repo `CLAUDE.md` git policy: commit straight to `main`. No branches. No PRs.
@@ -98,6 +102,7 @@ Print a final summary to the user containing:
 - Names of any agents that failed (or "none")
 - Whether a fail-fast abort was triggered, and by whom (if applicable)
 - Full path to the synthesizer's output: `analyses/${ARGUMENTS}_<DATE>/management-governance/99_management-governance-synthesis.md` (or note that it did not run, if aborted)
+- Whether each structured output exists: `99_management-governance-synthesis.md`, `governance_summary.json`, `governance_findings.csv`, `red_flags.csv`, `source_log.csv`, `source_manifest.csv` — list any that are missing or "pending"
 - The commit SHA pushed to `origin/main`
 
 ---

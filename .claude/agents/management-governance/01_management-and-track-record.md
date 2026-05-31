@@ -85,6 +85,33 @@ Use specific, dated promises (guidance, synergy targets, deleveraging plans, mar
 2–3 blunt sentences: tenure/stability, whether the record shows promises kept or missed, and the single biggest management signal (positive or negative).
 ```
 
+# STRUCTURED OUTPUT (mandatory — append to your report; full schema in MODULE_RULES)
+
+## Universal Findings Table
+| Finding ID | Section | Question / Test | Standardized Verdict | Raw Value | Unit | Current Period | Prior Period | Trend | Peer Benchmark | Peer Verdict | Score | Max Score | Penalty | Confidence 1–5 | Materiality | Evidence | As-of Date | Analyst Interpretation | Red Flag Triggered? | Red Flag ID | Follow-up Required |
+|---|---|---|---|---:|---|---|---|---|---|---|---:|---:|---:|---:|---|---|---|---|---|---|---|
+
+Every material claim in the narrative above appears here as a row (MODULE_RULES Universal Findings Table rules: verdict ∈ Green/Amber/Red/NA/Insufficient; numeric raw value where possible; evidence + as-of date on every non-NA row; follow-up on every Amber/Red; Red Flag ID on every Red where applicable; missing data = Insufficient Data, never guessed).
+
+## Management Quality Score
+| Component | Score | Max Score | Evidence |
+|---|---:|---:|---|
+| Stability and tenure | | 20 | |
+| Promise-vs-delivery | | 30 | |
+| Execution record | | 25 | |
+| Succession / depth | | 15 | |
+| Transparency around misses | | 10 | |
+| Total | | 100 | |
+
+If a partial-data cap applies, score what is supportable, mark the rest "Insufficient Data," and state the cap.
+
+## Source Log
+| Source ID | Source Type | Filename / Filing | Period | Page / Section | Date | Confidence 1–5 | Used For |
+|---|---|---|---|---|---|---:|---|
+
+## Machine-Readable Findings
+Emit a machine-readable JSON code block per the Machine-Readable Outputs schema in MODULE_RULES — an array with one finding object per Universal Findings Table row. Then apply the canonical **Hard Self-Check** in MODULE_RULES before returning.
+
 # SELF-CHECK
 
 - [ ] Key executives have appointment dates / tenure and a background line.

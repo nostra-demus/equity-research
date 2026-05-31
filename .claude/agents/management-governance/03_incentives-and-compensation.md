@@ -79,6 +79,34 @@ Classify each metric explicitly. Note any that reward absolute size (revenue, EB
 2–3 blunt sentences: what the pay actually rewards, whether that aligns with per-share value, and the single biggest incentive signal. State the conclusion as one of: "well-aligned (returns/per-share)," "mixed," or "misaligned (size-based)."
 ```
 
+# STRUCTURED OUTPUT (mandatory — append to your report; full schema in MODULE_RULES)
+
+## Universal Findings Table
+| Finding ID | Section | Question / Test | Standardized Verdict | Raw Value | Unit | Current Period | Prior Period | Trend | Peer Benchmark | Peer Verdict | Score | Max Score | Penalty | Confidence 1–5 | Materiality | Evidence | As-of Date | Analyst Interpretation | Red Flag Triggered? | Red Flag ID | Follow-up Required |
+|---|---|---|---|---:|---|---|---|---|---|---|---:|---:|---:|---:|---|---|---|---|---|---|---|
+
+Every material claim in the narrative above appears here as a row (MODULE_RULES Universal Findings Table rules: verdict ∈ Green/Amber/Red/NA/Insufficient; numeric raw value where possible; evidence + as-of date on every non-NA row; follow-up on every Amber/Red; Red Flag ID on every Red where applicable; missing data = Insufficient Data, never guessed). Use the jurisdiction-aware compensation source (US: DEF 14A; India: Board's Report / CG Report) per MODULE_RULES.
+
+## Incentive Alignment Score
+| Component | Score | Max Score | Evidence |
+|---|---:|---:|---|
+| Returns / per-share metrics | | 25 | |
+| Metric clarity and weights | | 20 | |
+| Pay-for-performance alignment | | 20 | |
+| Long-term orientation | | 15 | |
+| Pay magnitude vs peers/performance | | 10 | |
+| Minority-holder alignment | | 10 | |
+| Total | | 100 | |
+
+If no proxy/comp disclosure exists, mark components "Insufficient Data" and apply the cap.
+
+## Source Log
+| Source ID | Source Type | Filename / Filing | Period | Page / Section | Date | Confidence 1–5 | Used For |
+|---|---|---|---|---|---|---:|---|
+
+## Machine-Readable Findings
+Emit a machine-readable JSON code block per the Machine-Readable Outputs schema in MODULE_RULES — an array with one finding object per Universal Findings Table row. Then apply the canonical **Hard Self-Check** in MODULE_RULES before returning.
+
 # SELF-CHECK
 
 - [ ] Comp structure (base/bonus/LTIP, cash vs equity) is shown for at least the CEO.
