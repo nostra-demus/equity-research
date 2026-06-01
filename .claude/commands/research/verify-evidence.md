@@ -30,13 +30,53 @@ Confirm `<RUN_ROOT>/final_thesis.md` exists; if not, STOP and report "No finishe
 
 Read (read-only): `final_thesis.md`, `decision_record.json` (if present), every `<RUN_ROOT>/*/99_*-synthesis.md`, `RUN_METADATA.md`, and the specific module sub-agent files and `data/<TICKER>/` sources you need to check a claim.
 
+## 1b. Build a searchable corpus from the data pool (text AND binary files)
+
+Many pools — especially Indian / NSE Capital IQ exports — store the cited figures in **binary** files (`.xls`, `.pdf`, `.rtf`) whose numeric cell values are NOT recoverable with `grep`/`strings` (legacy `.xls` is OLE2/BIFF; numbers are binary doubles, not ASCII). Before checking citations, extract the whole pool into one searchable text corpus, using the right extractor per type:
+
+- `.txt` — read directly.
+- `.xls` (legacy BIFF / OLE2) — **`xlrd`** (xlrd ≥ 2.0 is purpose-built for `.xls`); dump every sheet's cell values.
+- `.xlsx` / `.xlsm` — **`openpyxl`** (`data_only=True`).
+- `.pdf` — **`pdftotext`** (or a Python PDF lib).
+- `.rtf` — `textutil -convert txt` (macOS) or `strings`.
+
+Reference extractor (run via Bash; tolerant of missing tools — fall back and record what could not be extracted):
+
+```bash
+python3 - "data/<TICKER>" <<'PY'
+import glob, os, subprocess, sys
+pool=sys.argv[1]; out=[]
+for f in sorted(glob.glob(os.path.join(pool,"*"))):
+    ext=f.lower().rsplit(".",1)[-1]
+    try:
+        if ext=="txt": out.append(open(f,errors="ignore").read())
+        elif ext=="xls":
+            import xlrd; wb=xlrd.open_workbook(f)
+            for sh in wb.sheets():
+                for r in range(sh.nrows):
+                    out.append("\t".join(str(sh.cell(r,c).value) for c in range(sh.ncols)))
+        elif ext in ("xlsx","xlsm"):
+            import openpyxl; wb=openpyxl.load_workbook(f,data_only=True,read_only=True)
+            for ws in wb.worksheets:
+                for row in ws.iter_rows(values_only=True):
+                    out.append("\t".join("" if v is None else str(v) for v in row))
+        elif ext=="pdf": out.append(subprocess.run(["pdftotext",f,"-"],capture_output=True,text=True).stdout)
+        elif ext=="rtf": out.append(subprocess.run(["textutil","-convert","txt","-stdout",f],capture_output=True,text=True).stdout)
+    except Exception as e: out.append(f"[EXTRACT-FAIL {os.path.basename(f)}: {e}]")
+open("/tmp/corpus.txt","w").write("\n".join(map(str,out)))
+print("corpus chars:", sum(len(str(x)) for x in out))
+PY
+```
+
+Run all Section-A citation checks (and the Section-C anchor checks) against this corpus (`/tmp/corpus.txt`), not just the raw `.txt`. A figure absent from the corpus AND the raw filings is genuinely `unsupported`; a figure absent only because its file type could not be extracted (record which file/why via the `[EXTRACT-FAIL …]` marker) is `unverified (extraction unavailable)` — not a fabrication.
+
 ## 2. Section A — Evidence & citation verification
 
 Select the **material claims** to check: per `CLAUDE.md` §6, the 5–10 claims most responsible for the rating. Draw them from (a) the final thesis's **Claim Quality Ledger** and **Headline Scorecard**, (b) the `decision_record.json` numeric fields (`expected_return_pct`, `downside_risk_pct`, leverage, ROIC, the killer-risk figure), and (c) each module synthesis's headline numbers. Always include every number that drives the decision (valuation anchors, leverage, ROIC vs cost of capital, the killer-risk figure, any red-flag magnitude).
 
 For each selected claim:
 - find its citation `[Source, Period, Page/Section]`;
-- open the cited source under `data/<TICKER>/` (prefer the `.txt` extracts) and confirm the figure/fact actually appears — `Grep` for the number and a nearby label, or read the cited section;
+- confirm the figure/fact appears in the **extracted corpus** from Step 1b — `grep` the number (and a nearby label) in `/tmp/corpus.txt`, which now covers `.xls` / `.pdf` / `.rtf` as well as `.txt`; or read the cited section directly;
 - classify `status`:
   - **verified** — the figure appears in the cited source/period;
   - **inference-labeled** — explicitly labeled inference/estimate/indicative (allowed under §3; note it);
