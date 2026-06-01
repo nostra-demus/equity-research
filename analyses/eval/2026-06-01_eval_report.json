@@ -1,0 +1,139 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-01",
+  "scope": "all",
+  "n_runs": 2,
+  "suite_pass": true,
+  "runs": {
+    "BG_2026-06-01": {
+      "run_root": "analyses/BG_2026-06-01",
+      "ticker": "BG",
+      "decision": "Watchlist",
+      "pass": true,
+      "checks": [
+        {
+          "check": "A_structural",
+          "status": "PASS",
+          "detail": "thesis>1KB=True; metadata=True; missing99=[]"
+        },
+        {
+          "check": "B_schema",
+          "status": "PASS",
+          "detail": "missing=[]; badtype=[]; ver=1.0"
+        },
+        {
+          "check": "C_decision_basket",
+          "status": "PASS",
+          "detail": "dec='Watchlist' basket='Watchlist' exp='Watchlist'"
+        },
+        {
+          "check": "D_missing_price",
+          "status": "PASS",
+          "detail": "notes refs price=True"
+        },
+        {
+          "check": "E_numeric",
+          "status": "PASS",
+          "detail": "{'expected_return_pct': -11.5, 'downside_risk_pct': -31.1, 'risk_reward': -0.37, 'confidence_score': 46, 'data_sufficiency_score': 68}"
+        },
+        {
+          "check": "F_review_dates",
+          "status": "PASS",
+          "detail": "30/90/180/365 = 2026-06-01+N ok"
+        },
+        {
+          "check": "G_verification_report.json",
+          "status": "PASS",
+          "detail": "verdict=Clean"
+        },
+        {
+          "check": "G_pre_mortem.json",
+          "status": "PASS",
+          "detail": "verdict=Survives"
+        },
+        {
+          "check": "G_expectations_gap.json",
+          "status": "PASS",
+          "detail": "verdict=None"
+        },
+        {
+          "check": "H_no_stray_confirmation",
+          "status": "PASS",
+          "detail": "stray=[]"
+        },
+        {
+          "check": "I_decision_in_thesis",
+          "status": "PASS",
+          "detail": "present=True"
+        }
+      ],
+      "warn_nonschema_files": []
+    },
+    "HCG_2026-06-01": {
+      "run_root": "analyses/HCG_2026-06-01",
+      "ticker": "HCG",
+      "decision": "Avoid",
+      "pass": true,
+      "checks": [
+        {
+          "check": "A_structural",
+          "status": "PASS",
+          "detail": "thesis>1KB=True; metadata=True; missing99=[]"
+        },
+        {
+          "check": "B_schema",
+          "status": "PASS",
+          "detail": "missing=[]; badtype=[]; ver=1.0"
+        },
+        {
+          "check": "C_decision_basket",
+          "status": "PASS",
+          "detail": "dec='Avoid' basket='Rejected' exp='Rejected'"
+        },
+        {
+          "check": "D_missing_price",
+          "status": "N/A",
+          "detail": "entry_price present"
+        },
+        {
+          "check": "E_numeric",
+          "status": "PASS",
+          "detail": "{'expected_return_pct': -13.4, 'downside_risk_pct': -31.9, 'risk_reward': -0.42, 'confidence_score': 70, 'data_sufficiency_score': 69}"
+        },
+        {
+          "check": "F_review_dates",
+          "status": "PASS",
+          "detail": "30/90/180/365 = 2026-06-01+N ok"
+        },
+        {
+          "check": "G_verification_report.json",
+          "status": "N/A",
+          "detail": "absent"
+        },
+        {
+          "check": "G_pre_mortem.json",
+          "status": "N/A",
+          "detail": "absent"
+        },
+        {
+          "check": "G_expectations_gap.json",
+          "status": "N/A",
+          "detail": "absent"
+        },
+        {
+          "check": "H_no_stray_confirmation",
+          "status": "PASS",
+          "detail": "stray=[]"
+        },
+        {
+          "check": "I_decision_in_thesis",
+          "status": "PASS",
+          "detail": "present=True"
+        }
+      ],
+      "warn_nonschema_files": [
+        "final_thesis_expanded.md"
+      ]
+    }
+  }
+}
