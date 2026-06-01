@@ -1,0 +1,32 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-02",
+  "scope": "all",
+  "disclaimer": "Illustrative model paper-portfolio for research process-tracking — not investment advice, not real orders.",
+  "n_decisions": 2,
+  "positions": [],
+  "watch": [
+    {
+      "ticker": "BG",
+      "decision": "Watchlist",
+      "size_in_trigger": "Do not buy at the indicative ~$123. Track. Re-rate to 'Starter Position Only' only on a pool-confirmed price below ~$100, or on a clean post-Viterra FY2026 cash",
+      "next_review": "2026-07-01",
+      "why_not_held": "basket=Watchlist (not Selected); expected return -11.5% <= 0; no exploitable edge (edge_score=32)"
+    },
+    {
+      "ticker": "HCG",
+      "decision": "Avoid",
+      "size_in_trigger": "Do not buy at INR 646.15. Put on a price-trigger watch; only re-underwrite at/below INR 520 (base-case low, where a margin of safety begins) or on two consecuti",
+      "next_review": "2026-07-01",
+      "why_not_held": "basket=Rejected (not Selected); expected return -13.4% <= 0; no exploitable edge (edge_score=48)"
+    }
+  ],
+  "book": {
+    "gross_pct": 0.0,
+    "cash_pct": 100.0,
+    "max_name_pct": 0.0,
+    "concentration_note": "no positions — model book is 100% cash",
+    "correlation_flags": "n/a (0 positions); note BG & HCG both carry a policy overlay but are different sectors/geographies"
+  },
+  "notes": "Both ledger names are 'don't own' (BG Watchlist ER -11.5% edge 32; HCG Avoid ER -13.4% edge 48) — neither is long-eligible (negative expected return + no exploitable edge), so the model book is correctly 100% cash with 2 names on watch. The sizing engine self-zeroed both, exactly as designed. It will allocate when a Selected name with positive expected return AND an evidence-backed edge appears; the watch triggers (BG pool price <~$100; HCG <=INR 520) are the conditions that would move a name into the book."
+}
