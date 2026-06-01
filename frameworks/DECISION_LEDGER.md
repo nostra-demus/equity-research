@@ -4,7 +4,37 @@ This is the **specification / doctrine layer** for turning every final thesis in
 
 It is cross-cutting doctrine, subordinate to the root `CLAUDE.md` (the Institutional Investing Constitution). It does **not** duplicate doctrine that already lives there — it references it: decision set (§18), probability bands (§10), data sufficiency (§11), thesis type (§14), forecast ledger (§19), error taxonomy (§20). On any conflict, the stricter, more conservative, more evidence-based rule wins.
 
-> **This step is spec-only.** Nothing is wired yet. The synthesizer is not modified to emit `decision_record.json`; no review command exists; no feedback-loop agent exists. See §15 (Future Integration Plan) and §17 (Acceptance Criteria) for what comes later.
+> **Status — Phase 2 complete, validated live.** Phase 1 (this framework) and Phase 2 (the master synthesizer emits `decision_record.json` beside `final_thesis.md`) are both done, and the chain has been validated end-to-end on a real `/research:full BG` run (`analyses/BG_2026-06-01/`). **Phase 3 is next:** an outcome-review command that reads existing `decision_record.json` files and writes append-only review JSON. See **Current Implementation Status** below and the **Future Integration Plan** (§15). A review command and a feedback-loop agent do not exist yet.
+
+## Current Implementation Status
+
+| Phase | Status | Evidence | Notes |
+|---|---|---|---|
+| Phase 1 — Ledger framework | Complete | `frameworks/DECISION_LEDGER.md` | Doctrine / spec layer (this file) |
+| Phase 2 — Synthesizer emits decision record | Complete | `analyses/BG_2026-06-01/decision_record.json` | Validated on BG; the synthesizer self-writes both `final_thesis.md` and `decision_record.json` |
+| Phase 3 — Review command | Not started | — | Next build step (`.claude/commands/research/review-decisions.md`) |
+| Phase 4 — Cohort reporting | Not started | — | After review records exist |
+| Phase 5 — Dashboard / export | Optional future | — | Later |
+
+## BG Live Validation Record
+
+The first end-to-end proof that the ledger works on real data — the `/research:full BG` run on 2026-06-01:
+
+- **Ticker:** BG (Bunge Global SA) · **Run root:** `analyses/BG_2026-06-01/`
+- **Modules completed:** 5 / 5 (business-model, earnings, balance-sheet-survival, management-governance, valuation), 49 specialists, no fail-fast abort.
+- **Decision:** Watchlist (confidence 46/100, data sufficiency 68/100; thesis type commodity- / policy-conditional).
+- **entry_price:** `null` — no pool-sourced current price existed; per §4 **no paper trade was created**, and `notes` recorded the indicative/web-price caveat.
+- **Forecast ledger:** present (6 entries, each with a confirmation and a falsification trigger).
+- **Review schedule:** 30d / 90d / 180d / 365d present (`2026-07-01 / 2026-08-30 / 2026-11-28 / 2027-06-01`).
+- **Schema:** all **38** top-level fields present; valid JSON; correct field types; `module_scores` populated for all five modules; `red_flags` and `missing_data` populated.
+- **Consistency:** matched `final_thesis.md` Part I (decision, scores, expected return, downside, risk/reward, thesis type, killer risk, rating cap).
+- **Commits:** run-artifacts `d3a645f`; metadata-backfill `302eb36`. (Post-run pipeline hardening — persistence Modes A/B/C in `frameworks/MODULE_PIPELINE.md` — landed separately as `1b5cb0b`.)
+
+This is why the schema in §5 is treated as proven and is preserved unchanged.
+
+## Why This Matters
+
+The engine cannot become high-accuracy merely by writing better reports. A better-written thesis that is never checked against what actually happened teaches the engine nothing. To improve, it must **compare each decision against its outcome, classify why it was right or wrong** (luck vs skill, §10; error taxonomy, §12), and feed that back into module weights, rating caps, confidence, and data-sufficiency calibration over time. Phase 2 made decisions **recordable**; Phase 3 makes them **reviewable** — and only the review loop turns research output into measured judgment.
 
 ---
 
@@ -85,7 +115,7 @@ Paper trades are **simulated research outcomes, not real orders**.
 
 ## 5. Decision Record Schema
 
-The canonical `decision_record.json` a future synthesizer run will emit — one per final thesis, written to `<RUN_ROOT>/decision_record.json` alongside `final_thesis.md`.
+The canonical `decision_record.json` the synthesizer emits — one per final thesis, written to `<RUN_ROOT>/decision_record.json` alongside `final_thesis.md` (Phase 2, live since the BG run). This schema is **proven** — it validated cleanly on BG — and is preserved unchanged.
 
 ```json
 {
@@ -405,13 +435,30 @@ Purpose: over time, identify which modules deserve more weight **by sector, thes
 
 ## 15. Future Integration Plan
 
-- **Phase 1 — Create `frameworks/DECISION_LEDGER.md`.** *Current task.*
-- **Phase 2 —** Upgrade `.claude/agents/synthesizer.md` so every final thesis also writes `<RUN_ROOT>/decision_record.json`.
-- **Phase 3 —** Add a command `.claude/commands/research/review-decisions.md` to review historical decision records.
-- **Phase 4 —** Add aggregate cohort reporting: `decision_performance_summary.md`.
-- **Phase 5 —** Optional dashboard / export layer.
+- **Phase 1 — Create `frameworks/DECISION_LEDGER.md`** — **Complete.**
+- **Phase 2 — Upgrade `.claude/agents/synthesizer.md` to emit `<RUN_ROOT>/decision_record.json`** — **Complete and validated on BG** (`analyses/BG_2026-06-01/decision_record.json`; see the BG Live Validation Record above).
+- **Phase 3 — Add the review command `.claude/commands/research/review-decisions.md`** — **Next.** Reads historical `decision_record.json` files and writes append-only review JSON (acceptance criteria below).
+- **Phase 4 — Add aggregate cohort reporting** (`decision_performance_summary.md`) — **Future** (after review records exist).
+- **Phase 5 — Optional dashboard / export layer** — **Future.**
 
-**Important: do not implement Phases 2–5 in this task. Only document them.**
+### Phase 3 — Review Command Acceptance Criteria
+
+The review command (`.claude/commands/research/review-decisions.md`), when it is built, must:
+
+- inspect existing `decision_record.json` files;
+- **never overwrite or edit** original decision records;
+- create **append-only** review files at `analyses/<TICKER>_<DATE>/reviews/<REVIEW_DATE>_<WINDOW>_decision_review.json`;
+- follow the outcome review schema in §8;
+- compare stock return vs **benchmark** and vs **sector** when price data is available;
+- resolve each forecast-ledger item as **confirmed / falsified / expired / still open**;
+- classify thesis status as **on-track / at-risk / confirmed / broken / expired**;
+- **separate the price outcome from the thesis outcome**;
+- classify **luck vs skill** using the §10 matrix;
+- populate the **error taxonomy** (§12) only when the call was wrong;
+- produce **module calibration notes** (§13);
+- **not edit `decision_record.json`**;
+- **not edit `final_thesis.md`**;
+- commit directly to `main` and push (per `CLAUDE.md` git policy).
 
 ---
 
@@ -420,20 +467,20 @@ Purpose: over time, identify which modules deserve more weight **by sector, thes
 - This framework **complements** `CLAUDE.md`; it does **not** replace it.
 - It does **not** replace module-specific `MODULE_RULES.md`.
 - It does **not** change the existing `/research:full <TICKER>` contract.
-- Future synthesizer integration must write `decision_record.json` **in addition to** `final_thesis.md`, not instead of it.
+- The synthesizer writes `decision_record.json` **in addition to** `final_thesis.md`, never instead of it (Phase 2 — live and validated on BG).
 - Existing analyses remain valid.
 - On any conflict with a module rule, the stricter / more conservative / more evidence-based rule wins.
 
 ---
 
-## 17. Acceptance Criteria for Future Synthesizer Integration
+## 17. Phase 2 Acceptance Criteria — Synthesizer Integration (met and validated on BG)
 
-Documented now, **not implemented in this task**:
-- final thesis still writes to `final_thesis.md`
-- decision record writes to `decision_record.json`
-- if price is missing, the paper trade is not created
-- selected/rejected/watchlist basket mapping follows this framework (§3)
-- forecast ledger is copied into the decision record
-- kill criteria are copied into the decision record
-- no original decision record is overwritten
-- review dates are generated from the decision date
+These were the Phase 2 acceptance criteria. **All are now met by the current synthesizer and were verified on the BG run** (`analyses/BG_2026-06-01/`):
+- final thesis still writes to `final_thesis.md` — ✓
+- decision record writes to `decision_record.json` — ✓
+- if price is missing, the paper trade is not created — ✓ (BG: `entry_price` null, no paper trade)
+- selected/rejected/watchlist basket mapping follows this framework (§3) — ✓ (BG: Watchlist → Watchlist basket → "No trade, track opportunity cost")
+- forecast ledger is copied into the decision record — ✓ (BG: 6 entries)
+- kill criteria are copied into the decision record — ✓
+- no original decision record is overwritten — ✓ (one record per dated run; append-only review records arrive in Phase 3)
+- review dates are generated from the decision date — ✓ (BG: 30/90/180/365d from 2026-06-01)
