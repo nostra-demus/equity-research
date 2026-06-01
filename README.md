@@ -32,6 +32,19 @@ The master orchestrator:
 
 To run only one module: `/research:business-model <TICKER>`, `/research:earnings <TICKER>`, `/research:balance-sheet-survival <TICKER>`, `/research:management-governance <TICKER>`, or `/research:valuation <TICKER>`. The valuation, balance-sheet-survival, and management-governance modules read business-model and earnings outputs as cross-module context, so they run after those under `/research:full`; run them standalone only after the upstream modules have run for the ticker (they will still proceed independently if not).
 
+## Post-run discipline & the decision-ledger feedback loop
+
+Every `/research:full` run emits **two** artifacts: `final_thesis.md` (the human memo) and `decision_record.json` (a machine-readable ledger entry; schema in `frameworks/DECISION_LEDGER.md`). A set of **read-only, append-only** commands then audit, sharpen, and track each decision — grounded in `CLAUDE.md` and `frameworks/DECISION_LEDGER.md`. None of them edit `final_thesis.md`, `decision_record.json`, or module outputs; each appends its own report and commits to `main`.
+
+- `/research:verify-evidence <run|ticker>` — truth audit: every rating-driver number traced to the data pool, the scenario/EV/net-debt math reconciled, and anchors checked for consistency across modules → `verification_report.json`.
+- `/research:pre-mortem <run|ticker>` — adversarial red-team (`CLAUDE.md` §8): assume the thesis failed and explain why, steelman the bear case, attack the kill criteria and the claimed edge, check the base rate, recommend a confidence haircut (can only hold or lower conviction) → `pre_mortem.json`.
+- `/research:expectations-gap <run|ticker>` — Mauboussin / Marks: what the price implies (consensus + reverse-DCF) vs the engine's view, the gap, and whether a real evidence-backed edge exists (`CLAUDE.md` §7) → `expectations_gap.json`.
+- `/research:review-decisions <run|ticker|due|all> [window]` — append-only outcome reviews at 30/90/180/365d that resolve forecasts, classify thesis status, and separate luck from skill → `reviews/<date>_<window>_decision_review.json`.
+- `/research:calibrate [scope]` — aggregate the whole ledger: selected-vs-rejected basket spread, hit rate, confidence/probability calibration (Brier), per-module accuracy, and process metrics. Refuses to quote metrics it cannot yet support → `analyses/performance/<date>_*`.
+- `/research:eval [run|all]` — deterministic regression harness: assert the schema, contract, and math invariants hold across the committed runs (the fixtures), so a framework/agent/command change cannot silently regress the engine → `analyses/eval/<date>_eval_report.json`.
+
+The phases of the decision-ledger feedback loop and their status are tracked in `frameworks/DECISION_LEDGER.md`.
+
 ## Adding agents and modules
 
 - **New specialist in an existing module:** drop `.claude/agents/<module>/NN_name.md` with `name`/`description`/`tools`/`layer`/`fail_fast` frontmatter. The module's pipeline auto-discovers it. See `frameworks/HOW_TO_ADD_AN_AGENT.md`. To deactivate without deleting, rename to `_NN_name.md`.
@@ -49,3 +62,8 @@ Every run writes to `analyses/<TICKER>_<DATE>/`:
 - `<module>/NN_name.md` — each specialist's output, preserving the discovery order
 - `<module>/99_<module>-synthesis.md` — each module's synthesis
 - `final_thesis.md` — the master synthesizer's final buy-side thesis
+- `decision_record.json` — machine-readable decision-ledger entry (schema in `frameworks/DECISION_LEDGER.md`)
+- `verification_report.json` / `pre_mortem.json` / `expectations_gap.json` — append-only post-run audit reports (present once those commands have run)
+- `reviews/<date>_<window>_decision_review.json` — append-only outcome reviews
+
+Cross-run reports land outside any single run folder: `analyses/performance/<date>_*` (calibration / cohort) and `analyses/eval/<date>_eval_report.json` (regression harness).
