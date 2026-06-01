@@ -4,7 +4,7 @@ This is the **specification / doctrine layer** for turning every final thesis in
 
 It is cross-cutting doctrine, subordinate to the root `CLAUDE.md` (the Institutional Investing Constitution). It does **not** duplicate doctrine that already lives there — it references it: decision set (§18), probability bands (§10), data sufficiency (§11), thesis type (§14), forecast ledger (§19), error taxonomy (§20). On any conflict, the stricter, more conservative, more evidence-based rule wins.
 
-> **Status — Phase 2 complete, validated live.** Phase 1 (this framework) and Phase 2 (the master synthesizer emits `decision_record.json` beside `final_thesis.md`) are both done, and the chain has been validated end-to-end on a real `/research:full BG` run (`analyses/BG_2026-06-01/`). **Phase 3 is next:** an outcome-review command that reads existing `decision_record.json` files and writes append-only review JSON. See **Current Implementation Status** below and the **Future Integration Plan** (§15). A review command and a feedback-loop agent do not exist yet.
+> **Status — Phase 2 complete, validated live.** Phase 1 (this framework) and Phase 2 (the master synthesizer emits `decision_record.json` beside `final_thesis.md`) are both done, and the chain has been validated end-to-end on a real `/research:full BG` run (`analyses/BG_2026-06-01/`). **Phase 3 — review command added, not yet run:** `.claude/commands/research/review-decisions.md` reads existing `decision_record.json` files and writes append-only review JSON; it has not been run yet (no scheduled review window is due). See **Current Implementation Status** below and the **Future Integration Plan** (§15). A feedback-loop agent does not exist yet.
 
 ## Current Implementation Status
 
@@ -12,7 +12,7 @@ It is cross-cutting doctrine, subordinate to the root `CLAUDE.md` (the Instituti
 |---|---|---|---|
 | Phase 1 — Ledger framework | Complete | `frameworks/DECISION_LEDGER.md` | Doctrine / spec layer (this file) |
 | Phase 2 — Synthesizer emits decision record | Complete | `analyses/BG_2026-06-01/decision_record.json` | Validated on BG; the synthesizer self-writes both `final_thesis.md` and `decision_record.json` |
-| Phase 3 — Review command | Not started | — | Next build step (`.claude/commands/research/review-decisions.md`) |
+| Phase 3 — Review command | Command added — not yet run | `.claude/commands/research/review-decisions.md` | Authored this build; first review run pending (BG's earliest scheduled window is 2026-07-01) |
 | Phase 4 — Cohort reporting | Not started | — | After review records exist |
 | Phase 5 — Dashboard / export | Optional future | — | Later |
 
@@ -437,7 +437,7 @@ Purpose: over time, identify which modules deserve more weight **by sector, thes
 
 - **Phase 1 — Create `frameworks/DECISION_LEDGER.md`** — **Complete.**
 - **Phase 2 — Upgrade `.claude/agents/synthesizer.md` to emit `<RUN_ROOT>/decision_record.json`** — **Complete and validated on BG** (`analyses/BG_2026-06-01/decision_record.json`; see the BG Live Validation Record above).
-- **Phase 3 — Add the review command `.claude/commands/research/review-decisions.md`** — **Next.** Reads historical `decision_record.json` files and writes append-only review JSON (acceptance criteria below).
+- **Phase 3 — Add the review command `.claude/commands/research/review-decisions.md`** — **Command added (not yet run).** Reads historical `decision_record.json` files and writes append-only review JSON (acceptance criteria below). First run is pending until a scheduled review window comes due.
 - **Phase 4 — Add aggregate cohort reporting** (`decision_performance_summary.md`) — **Future** (after review records exist).
 - **Phase 5 — Optional dashboard / export layer** — **Future.**
 
