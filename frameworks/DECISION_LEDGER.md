@@ -13,7 +13,7 @@ It is cross-cutting doctrine, subordinate to the root `CLAUDE.md` (the Instituti
 | Phase 1 — Ledger framework | Complete | `frameworks/DECISION_LEDGER.md` | Doctrine / spec layer (this file) |
 | Phase 2 — Synthesizer emits decision record | Complete | `analyses/BG_2026-06-01/decision_record.json` | Validated on BG; the synthesizer self-writes both `final_thesis.md` and `decision_record.json` |
 | Phase 3 — Review command | Command added — not yet run | `.claude/commands/research/review-decisions.md` | Authored this build; first review run pending (BG's earliest scheduled window is 2026-07-01) |
-| Phase 4 — Cohort reporting | Not started | — | After review records exist |
+| Phase 4 — Cohort + calibration | Command added — pre-data | `.claude/commands/research/calibrate.md` | Computes ledger inventory + process metrics now; selected-minus-rejected spread + Brier await resolved reviews |
 | Phase 5 — Dashboard / export | Optional future | — | Later |
 
 ## BG Live Validation Record
@@ -438,7 +438,7 @@ Purpose: over time, identify which modules deserve more weight **by sector, thes
 - **Phase 1 — Create `frameworks/DECISION_LEDGER.md`** — **Complete.**
 - **Phase 2 — Upgrade `.claude/agents/synthesizer.md` to emit `<RUN_ROOT>/decision_record.json`** — **Complete and validated on BG** (`analyses/BG_2026-06-01/decision_record.json`; see the BG Live Validation Record above).
 - **Phase 3 — Add the review command `.claude/commands/research/review-decisions.md`** — **Command added (not yet run).** Reads historical `decision_record.json` files and writes append-only review JSON (acceptance criteria below). First run is pending until a scheduled review window comes due.
-- **Phase 4 — Add aggregate cohort reporting** (`decision_performance_summary.md`) — **Future** (after review records exist).
+- **Phase 4 — Aggregate cohort + calibration reporting** (`/research:calibrate` → `analyses/performance/<DATE>_decision_performance_summary.md` + `_calibration_summary.json`) — **Command added (pre-data).** Computes ledger inventory + process metrics now; the selected-minus-rejected spread, hit rate, and the Brier/reliability calibration compute once enough resolved reviews exist (the §3/§4 floors in the command).
 - **Phase 5 — Optional dashboard / export layer** — **Future.**
 
 ### Phase 3 — Review Command Acceptance Criteria
