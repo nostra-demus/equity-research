@@ -2,7 +2,7 @@
 
 This document defines the **inline pipeline** that every research module follows when invoked by an orchestrator (`/research:full`, `/research:business-model`, `/research:earnings`, and any future module orchestrators).
 
-It exists to keep one source of truth for the per-module discovery → dispatch → strip → write → fail-fast loop, so that adding a new module or changing the loop logic does not require synchronised edits across three or more command files.
+It exists to keep one source of truth for the per-module discovery → dispatch → persist → verify → fail-fast loop, so that adding a new module or changing the loop logic does not require synchronised edits across three or more command files.
 
 **Who reads this:** the orchestrator command files cite this document. Agents themselves never read it.
 
@@ -67,46 +67,75 @@ For each layer, in ascending order, perform Step 4A → Step 4B → Step 4C, the
 
 ### Step 4A — Dispatch agents
 
+Resolve each agent's expected output path once, up front: `<OUTPUT_PATH>` = `<RUN_ROOT>/<MODULE>/<NN>_<name>.md` (from the Step 2 discovery). This is the single canonical destination for that agent's report in every persistence mode below.
+
+**Persistence contract (Modes A / B / C).** These are implementation mechanics only — the output-file contract is identical in all three. Every specialist output must land at `<OUTPUT_PATH>`, clean and complete, regardless of which mode produced it:
+
+- **Mode A — agent self-persists with `Write`.** Used when the specialist has the `Write` tool. It writes the complete clean report to `<OUTPUT_PATH>` and returns only a short status.
+- **Mode B — agent self-persists with a `Bash` heredoc.** Used when the specialist lacks `Write` but has `Bash`. It writes the complete clean report to `<OUTPUT_PATH>` with a safe quoted heredoc (creating the parent folder first if needed) and returns only a short status.
+- **Mode C — agent returns inline; orchestrator writes (fallback).** Used when the specialist can self-persist with neither tool. It returns its full report inline; the orchestrator strips the confirmation block and writes `<OUTPUT_PATH>` (Step 4B).
+
+Self-persistence (A or B) is preferred for scalability: a large run (dozens of agents in one pass) must not depend on the orchestrator capturing every full report inline and re-writing it. Mode C is the always-available fallback. In every mode the saved file is identical in shape and lands at the same path; the module synthesizer still reads sibling output files from disk, and the master synthesizer still reads the completed run folder from disk.
+
 For every agent in this layer, dispatch a Task tool call with:
 
 - `subagent_type: "<name>"` (the value from the frontmatter)
-- User message — assemble the body based on `<CROSS_MODULE_CONTEXT>`:
+- User message — assemble the body from `<CROSS_MODULE_CONTEXT>` and the agent's `<OUTPUT_PATH>`:
 
   **If `<CROSS_MODULE_CONTEXT>` is the literal string `none`:**
 
-  > Analyze ticker <TICKER>. Data pool path: data/<TICKER>/. Today's date: <DATE>. Follow your system prompt and produce your complete report as your final assistant message, formatted exactly per your REPORT STRUCTURE section. Return the report inline — do not attempt to write any files.
+  > Analyze ticker <TICKER>. Data pool path: data/<TICKER>/. Today's date: <DATE>. Follow your system prompt and produce your complete report formatted exactly per your REPORT STRUCTURE section. Then persist it to the exact path `<OUTPUT_PATH>` (the folder already exists): if you have the `Write` tool, use it (Mode A); if you do not have `Write` but have `Bash`, write it with a safe quoted heredoc `cat > '<OUTPUT_PATH>' <<'REPORT_EOF'` … `REPORT_EOF` (Mode B). The saved file must contain ONLY your report, starting with its top-level markdown header — no chat-confirmation block, no preamble. After saving, reply with ONLY a short status: a `WROTE: <OUTPUT_PATH>` line plus your one-line Verdict and one-line Biggest finding. If you have NEITHER `Write` nor `Bash`, instead return your COMPLETE report inline as your final message, starting with its header (Mode C) — the orchestrator will save it. Do not write any file other than `<OUTPUT_PATH>`, do not modify sibling files, and do not run git or commit anything — the orchestrator owns all commits.
 
   **Otherwise, paste `<CROSS_MODULE_CONTEXT>` verbatim as its own sentence before the "Follow your system prompt..." sentence:**
 
-  > Analyze ticker <TICKER>. Data pool path: data/<TICKER>/. Today's date: <DATE>. <CROSS_MODULE_CONTEXT>. Follow your system prompt and produce your complete report as your final assistant message, formatted exactly per your REPORT STRUCTURE section. Return the report inline — do not attempt to write any files.
+  > Analyze ticker <TICKER>. Data pool path: data/<TICKER>/. Today's date: <DATE>. <CROSS_MODULE_CONTEXT>. Follow your system prompt and produce your complete report formatted exactly per your REPORT STRUCTURE section. Then persist it to the exact path `<OUTPUT_PATH>` (the folder already exists): if you have the `Write` tool, use it (Mode A); if you do not have `Write` but have `Bash`, write it with a safe quoted heredoc `cat > '<OUTPUT_PATH>' <<'REPORT_EOF'` … `REPORT_EOF` (Mode B). The saved file must contain ONLY your report, starting with its top-level markdown header — no chat-confirmation block, no preamble. After saving, reply with ONLY a short status: a `WROTE: <OUTPUT_PATH>` line plus your one-line Verdict and one-line Biggest finding. If you have NEITHER `Write` nor `Bash`, instead return your COMPLETE report inline as your final message, starting with its header (Mode C) — the orchestrator will save it. Do not write any file other than `<OUTPUT_PATH>`, do not modify sibling files, and do not run git or commit anything — the orchestrator owns all commits.
 
 Issue every Task call for the layer in a single message so they run concurrently. Wait for all of them to return before moving on to Step 4B.
 
+> **Note on self-persisted reports.** Agents may carry tool sets that differ by module (e.g., in the validation run the business-model specialists had `Write` and used Mode A, while several earnings specialists lacked `Write` and used Mode B via a `Bash` heredoc). The orchestrator does not need to know each agent's tools in advance — the Task message offers all three modes, the agent picks the one it can execute, and Step 4B verifies the file landed correctly either way.
+
 > **Note on cross-module context format.** The caller builds the cross-module context string from the module's `depends_on` list (see `/research:full` step 8A): one sentence per dependency that completed in the run, in the form `<Dep> cross-module path: <PATH>.` — the dependency's module name with its first letter capitalized (e.g. `Business-model cross-module path: …`, `Earnings cross-module path: …`). Agents parse the label(s) for the dependencies they read and ignore the rest. The shared pipeline does NOT add a label of its own — it pastes the caller's string verbatim. A new module declares what it reads via `depends_on` on its `99_*-synthesis.md`; its agents look for those deps' labels.
 
-### Step 4B — Capture, strip confirmation block, and write files
+### Step 4B — Persist (self or orchestrator) and verify every output file
 
-The Task framework forces subagents to return their reports as inline chat messages rather than writing files. The orchestrator owns file IO. Each agent's response also ends with a chat-confirmation block (Agent / Output / Verdict / Biggest finding) intended for the orchestrator, not for the saved report — Step 4B strips that block so each saved file ends with the final substantive section of the report (e.g., a `## 5. ...` section), not with the confirmation block. Anything trailing the confirmation block (sources lists, file-path appendices, etc.) is also discarded.
+Each agent returns in one of two shapes (per the Step 4A contract): a **short status** because it self-persisted to `<OUTPUT_PATH>` (Mode A or B), or its **full report inline** as the Mode C fallback. The orchestrator owns file IO only in Mode C, but it **verifies** every file in all modes. A chat-confirmation block (Agent / Output / Verdict / Biggest finding) must never end up inside a saved file — Mode A/B agents are told not to include it; Mode C strips it here.
 
-After all of this layer's agents have returned, for each agent:
+After all of this layer's agents have returned, for each agent (`<OUTPUT_PATH>` = `<RUN_ROOT>/<MODULE>/<NN>_<name>.md`):
 
-- Determine the output path: `<RUN_ROOT>/<MODULE>/<NN>_<name>.md`.
+**1. Write the file only if the agent returned inline (Mode C).** If the agent self-persisted (Mode A/B), do NOT re-derive the file from its short status — skip straight to verification. For a Mode C inline return:
+
 - Start from the COMPLETE final assistant message returned by that agent's Task call. Within the report body itself, do not edit, summarize, or reformat — preserve every line of substantive content verbatim.
+- Strip any leading preamble before the report's first top-level `#` header.
 - Strip the trailing chat-confirmation block, applying these rules in order:
   1. Locate the LAST line in the content matching the regex `^Agent:\s*\S+\s*$` (case-sensitive: literal `Agent:`, optional whitespace, a single non-empty token, optional trailing whitespace, end of line).
   2. If such a line exists, inspect the next 5 lines after it. Confirm the block is a real chat-confirmation block by verifying that those 5 lines contain at least one line matching `^(\*\*)?Output:`, at least one matching `^(\*\*)?Verdict:`, and at least one matching `^(\*\*)?Biggest finding:` (case-sensitive labels, optional `**` markdown-bold prefix, order flexible).
   3. If the `Agent:` line is found AND all three companion-label patterns are present, truncate the content to everything BEFORE the matched `Agent:` line. Then trim the truncated tail: repeatedly drop the last line if it is empty, contains only whitespace, contains only `---`, or is a fence line (only three backticks, optionally surrounded by whitespace). Stop when the last line is none of those.
   4. If no `Agent:` line is found OR the companion-label triple is incomplete, use the content unchanged. Do not error.
-- Use the Write tool to save the cleaned content to OUTPUT_PATH. Issue all Write calls for this layer in a single message so they run in parallel.
-- After this layer's writes complete, verify each saved file by running this Bash check (substituting the actual path): `tail -20 "<output_path>" | grep -qE '^Agent:[[:space:]]+\S+[[:space:]]*$' && echo "WARN: stray confirmation block in <output_path>" || true`. If WARN fires for any file, re-apply the strip rules to that agent's original returned content and re-Write the file.
+- Use the Write tool to save the cleaned content to `<OUTPUT_PATH>`. Issue all Mode-C Write calls for the layer in a single message so they run in parallel.
 
-Track which agents in the layer succeeded and which failed. An agent failed if either (a) its Task call returned an error, or (b) the agent returned no usable report content (e.g., refusal, empty message).
+**2. Mandatory verification — run for EVERY expected `<OUTPUT_PATH>`, in all modes.** After the layer's writes/self-persists complete, run a Bash check per file (substituting the actual path):
+
+```
+test -s "<output_path>" || echo "FAIL missing-or-empty <output_path>"
+wc -c "<output_path>"   # inspect any suspiciously small file (e.g. < 400 bytes)
+head -1 "<output_path>" | grep -qE '^#' || echo "WARN no-top-level-header <output_path>"
+tail -20 "<output_path>" | grep -qE '^Agent:[[:space:]]+\S+[[:space:]]*$' && echo "WARN stray-confirmation-block <output_path>"
+```
+
+Each saved file must: (a) **exist and be non-empty** (`test -s`); (b) **contain substantive markdown** — it starts with a top-level `#` header, not whitespace or a stray status line; (c) **not be obviously truncated** — it ends on a complete section/line, not mid-sentence or inside an unclosed code fence; (d) have **no stray chat-confirmation block** in its last 20 lines.
+
+**3. Recovery — do not advance to the next layer until every expected file passes.**
+
+- Stray confirmation block (Mode C) → re-apply the strip rules to that agent's returned content and re-Write the file. (Mode A/B) → ask that agent to re-persist a clean file.
+- Missing / empty / truncated → ask that agent to return its COMPLETE report inline (or re-run the agent), then strip and write it as Mode C to `<OUTPUT_PATH>`.
+
+Track which agents in the layer succeeded and which failed. An agent **failed** if (a) its Task call returned an error, (b) it returned no usable report content (refusal, empty message), or (c) its `<OUTPUT_PATH>` still fails verification after a recovery attempt.
 
 ### Step 4C — Fail-fast post-processing
 
 For any agent in this layer with `fail_fast: true` (today only the per-module data-triage agent in Layer 0):
 
-- Read the file you just wrote at `<RUN_ROOT>/<MODULE>/<NN>_<name>.md`.
+- Read the triage output file (self-persisted in Mode A/B or orchestrator-written in Mode C, and verified in Step 4B) at `<RUN_ROOT>/<MODULE>/<NN>_<name>.md`.
 - Test for an "insufficient data" verdict with this case-insensitive, markdown-tolerant Bash check (exit 0 = match): `grep -iqE 'verdict[*_:[:space:]]*insufficient[[:space:]]+data' "<RUN_ROOT>/<MODULE>/<NN>_<name>.md"`. The character class `[*_:[:space:]]*` between "verdict" and "insufficient data" tolerates any asterisks, underscores, colons, and whitespace — so `**Verdict:** Insufficient data`, `Verdict: Insufficient data`, `_Verdict_ insufficient data`, and similar all match.
 - If the regex matches, the **module aborts**: do not dispatch any later layer for this module. Return control to the caller with `fail_fast_triggered = true`, the agent name, and the output-file path. **It is the caller's responsibility to decide what happens next** (abort the whole run, or continue with other modules).
 

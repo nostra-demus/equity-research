@@ -44,7 +44,7 @@ Follow every step in `frameworks/MODULE_PIPELINE.md` with these inputs:
 - `<RUN_ROOT>` = the run root from step 3
 - `<CROSS_MODULE_CONTEXT>` = `none` (business-model has no upstream module dependencies)
 
-The pipeline will discover agents at `.claude/agents/business-model/[0-9][0-9]_*.md`, group them by `layer`, dispatch each layer in parallel, strip confirmation blocks, write outputs to `<RUN_ROOT>/business-model/`, and apply fail-fast checks.
+The pipeline will discover agents at `.claude/agents/business-model/[0-9][0-9]_*.md`, group them by `layer`, dispatch each layer in parallel, persist each output to `<RUN_ROOT>/business-model/` per the persistence contract (Modes A/B/C — self-persist via `Write`/`Bash`, else inline fallback) in `frameworks/MODULE_PIPELINE.md`, verify each output file after every layer, and apply fail-fast checks. Do not assume all specialist reports return inline.
 
 ## 5. Standalone fail-fast handling
 

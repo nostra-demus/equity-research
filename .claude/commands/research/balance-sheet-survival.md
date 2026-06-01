@@ -66,7 +66,7 @@ Follow every step in `frameworks/MODULE_PIPELINE.md` with these inputs:
 - `<RUN_ROOT>` = the run root from step 3
 - `<CROSS_MODULE_CONTEXT>` = the string from step 4
 
-The pipeline will discover agents at `.claude/agents/balance-sheet-survival/[0-9][0-9]_*.md`, group them by `layer`, dispatch each layer in parallel, strip confirmation blocks, write outputs to `<RUN_ROOT>/balance-sheet-survival/`, and apply fail-fast checks.
+The pipeline will discover agents at `.claude/agents/balance-sheet-survival/[0-9][0-9]_*.md`, group them by `layer`, dispatch each layer in parallel, persist each output to `<RUN_ROOT>/balance-sheet-survival/` per the persistence contract (Modes A/B/C — self-persist via `Write`/`Bash`, else inline fallback) in `frameworks/MODULE_PIPELINE.md`, verify each output file after every layer, and apply fail-fast checks. Do not assume all specialist reports return inline.
 
 ## 6. Standalone fail-fast handling
 
