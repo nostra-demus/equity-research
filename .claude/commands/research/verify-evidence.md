@@ -76,7 +76,7 @@ Select the **material claims** to check: per `CLAUDE.md` §6, the 5–10 claims 
 
 For each selected claim:
 - find its citation `[Source, Period, Page/Section]`;
-- confirm the figure/fact appears in the **extracted corpus** from Step 1b — `grep` the number (and a nearby label) in `/tmp/corpus.txt`, which now covers `.xls` / `.pdf` / `.rtf` as well as `.txt`; or read the cited section directly;
+- confirm the figure/fact appears in the **extracted corpus** from Step 1b — `grep` the number (and a nearby label) in `/tmp/corpus.txt`, which now covers `.xls` / `.pdf` / `.rtf` as well as `.txt`; or read the cited section directly. **Count a hit ONLY on a literal match confirmed by surrounding context** (the right line item / label, with or without comma formatting). The digits appearing inside a larger number or a ratio (e.g. `2442` inside `-0.092442`), or a mere tolerance / near / magnitude-variant match, is **NOT** a hit — verify the figure, not a coincidental substring;
 - classify `status`:
   - **verified** — the figure appears in the cited source/period;
   - **inference-labeled** — explicitly labeled inference/estimate/indicative (allowed under §3; note it);
