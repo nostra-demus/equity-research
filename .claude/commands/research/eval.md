@@ -95,12 +95,16 @@ for drp in runs:
             if sch.get(w)!=exp: okF=False; detailF.append(f"{w}={sch.get(w)} exp {exp}")
     add("F_review_dates", okF, "; ".join(detailF) or f"all 30/90/180/365 = decision_date+N from {dd}")
     # G audit reports (optional)
+    # resolve the LATEST version of an audit report (convention: base=first, _v2/_v3=newer => authoritative is the highest version)
+    def _latest(stem):
+        c=glob.glob(os.path.join(run, stem[:-5]+"*.json"))
+        return max(c, key=lambda x:(int(re.search(r"_v(\d+)\.json$",x).group(1)) if re.search(r"_v(\d+)\.json$",x) else 1)) if c else None
     for af,reqk in [("verification_report.json",["verdict","integrity_score"]),("pre_mortem.json",["verdict","survives"]),("expectations_gap.json",["gap_direction","edge_score"])]:
-        p=os.path.join(run,af)
-        if not os.path.exists(p): add(f"G_{af}", True, "absent", na=True); continue
+        p=_latest(af)
+        if not p: add(f"G_{af}", True, "absent", na=True); continue
         try:
             a=json.load(open(p)); okG=all(k in a for k in reqk) and a.get("verdict")!="Failed"
-            add(f"G_{af}", okG, f"keys ok={all(k in a for k in reqk)}; verdict={a.get('verdict')}")
+            add(f"G_{af}", okG, f"using {os.path.basename(p)}; verdict={a.get('verdict')}")
         except Exception as e: add(f"G_{af}", False, f"parse failed: {e}")
     # H stray confirmation blocks
     stray=[]

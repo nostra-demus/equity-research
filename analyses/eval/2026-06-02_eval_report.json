@@ -1,0 +1,28 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-02",
+  "scope": "all",
+  "n_runs": 2,
+  "suite_pass": true,
+  "version_aware": true,
+  "runs": {
+    "BG_2026-06-01": {
+      "pass": true,
+      "fails": [],
+      "audit_versions": {
+        "verification_report.json": "verification_report.json verdict=Clean",
+        "pre_mortem.json": "pre_mortem.json verdict=Survives",
+        "expectations_gap.json": "expectations_gap.json"
+      }
+    },
+    "HCG_2026-06-01": {
+      "pass": true,
+      "fails": [],
+      "audit_versions": {
+        "verification_report.json": "verification_report_v3.json verdict=Minor issues",
+        "pre_mortem.json": "pre_mortem.json verdict=Survives with haircut",
+        "expectations_gap.json": "expectations_gap.json"
+      }
+    }
+  }
+}
