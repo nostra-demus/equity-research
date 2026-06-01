@@ -1,0 +1,88 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-01",
+  "scope": "all",
+  "n_decisions": 2,
+  "n_reviews": 0,
+  "n_resolved_forecasts": 0,
+  "inventory": [
+    {
+      "ticker": "BG",
+      "run_date": "2026-06-01",
+      "decision": "Watchlist",
+      "basket": "Watchlist",
+      "confidence": 46,
+      "data_sufficiency": 68,
+      "thesis_type": [
+        "Commodity-conditional",
+        "Policy-conditional"
+      ],
+      "n_forecasts": 6,
+      "n_reviews": 0,
+      "verify_verdict": "Clean",
+      "integrity_score": 100,
+      "premortem_verdict": "Survives",
+      "premortem_haircut": 0,
+      "gap_direction": "overvalued",
+      "edge_score": 32
+    },
+    {
+      "ticker": "HCG",
+      "run_date": "2026-06-01",
+      "decision": "Avoid",
+      "basket": "Rejected",
+      "confidence": 70,
+      "data_sufficiency": 69,
+      "thesis_type": [
+        "Company-specific",
+        "Policy-conditional"
+      ],
+      "n_forecasts": 6,
+      "n_reviews": 0,
+      "verify_verdict": null,
+      "integrity_score": null,
+      "premortem_verdict": null,
+      "premortem_haircut": null,
+      "gap_direction": null,
+      "edge_score": null
+    }
+  ],
+  "basket_distribution": {
+    "Watchlist": 1,
+    "Rejected": 1
+  },
+  "cohort_returns": "insufficient (0 reviews)",
+  "hit_rate": null,
+  "selected_minus_rejected_pct": null,
+  "calibration": "insufficient (0 resolved forecasts)",
+  "confidence_calibration": "insufficient (0 resolved decisions)",
+  "process_metrics": {
+    "n_decisions": 2,
+    "basket_distribution": {
+      "Watchlist": 1,
+      "Rejected": 1
+    },
+    "thesis_type_distribution": {
+      "Commodity-conditional": 1,
+      "Policy-conditional": 2,
+      "Company-specific": 1
+    },
+    "avg_confidence": 58.0,
+    "avg_data_sufficiency": 68.5,
+    "avg_verification_integrity": 100.0,
+    "verify_verdicts": {
+      "Clean": 1
+    },
+    "avg_premortem_haircut": 0.0,
+    "premortem_verdicts": {
+      "Survives": 1
+    },
+    "edge_scores": [
+      32
+    ],
+    "avg_edge_score": 32.0
+  },
+  "module_calibration": "pending first reviews",
+  "data_sufficiency_note": "N=2 decision(s), 0 review(s), 0 resolved forecast(s). Below the floors for reliable metrics (cohort spread needs >=5 reviewed names/basket; Brier/reliability needs >=10 resolved forecasts). Per CLAUDE.md §11, cohort returns and calibration are NOT computed (would be false precision). Process metrics below are computed (no outcomes needed). First scheduled review: BG 30d due 2026-07-01.",
+  "verdict": "Pre-data — learning loop live; inventory + process metrics computed; calibration awaits resolved reviews."
+}
