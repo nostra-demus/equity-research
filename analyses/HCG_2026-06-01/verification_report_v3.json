@@ -1,0 +1,187 @@
+{
+  "schema_version": "1.0",
+  "ticker": "HCG",
+  "run_root": "analyses/HCG_2026-06-01",
+  "verified_at": "2026-06-01",
+  "verifier": "verify-evidence",
+  "final_thesis_path": "analyses/HCG_2026-06-01/final_thesis.md",
+  "decision_record_path": "analyses/HCG_2026-06-01/decision_record.json",
+  "claims_checked": 12,
+  "claim_checks": [
+    {
+      "claim": "Reported PAT ₹138M (-69% YoY)",
+      "citation": "[FY26 results, CIQ Financials]",
+      "source_checked": "data/HCG/52337fa7-...txt",
+      "status": "verified",
+      "evidence": "'138' found (4 hits) in the text extract",
+      "severity": "info"
+    },
+    {
+      "claim": "Adjusted PAT ~₹557M (the adjusted bridge)",
+      "citation": "[FY26 results]",
+      "source_checked": "data/HCG/52337fa7-...txt",
+      "status": "verified",
+      "evidence": "'557' found (1 hit)",
+      "severity": "info"
+    },
+    {
+      "claim": "EPS ₹3.43 (declining toward ~₹1.0)",
+      "citation": "[CIQ Financials]",
+      "source_checked": "data/HCG/52337fa7-...txt",
+      "status": "verified",
+      "evidence": "'3.43' found (12 hits)",
+      "severity": "info"
+    },
+    {
+      "claim": "EV/EBITDA ~34.6x",
+      "citation": "[CIQ Multiples / valuation/99]",
+      "source_checked": "data/HCG/52337fa7-...txt",
+      "status": "verified",
+      "evidence": "'34.6' found (4 hits)",
+      "severity": "info"
+    },
+    {
+      "claim": "FCF ₹586M (FY26)",
+      "citation": "[CIQ Financials]",
+      "source_checked": "data/HCG/52337fa7-...txt",
+      "status": "verified",
+      "evidence": "'586' found (1 hit)",
+      "severity": "info"
+    },
+    {
+      "claim": "Current price ₹646.15 (NSE close; reconciled vs CIQ ₹637.25)",
+      "citation": "[CIQ EstimatesReport.xls; CIQReportLandscape.rtf]",
+      "source_checked": "data/HCG/*.xls/.rtf",
+      "status": "verified",
+      "evidence": "'646.15'/'637.25' found in CIQ EstimatesReport.xls + Public Company Profile.rtf + CIQReportLandscape.rtf — a REAL pool price, so entry_price is populated and a paper trade is valid",
+      "severity": "info"
+    },
+    {
+      "claim": "D&A ₹2,442M",
+      "citation": "[CIQ Financials.xls / annual report PDF]",
+      "source_checked": "data/HCG corpus (xlrd-extracted)",
+      "status": "unverified",
+      "evidence": "NOT located as a literal value: the only '2442' in the corpus is the substring inside '-0.092442' (an inventory ratio). The INR 2,442M D&A is likely a DERIVED annual sum of disclosed quarterly depreciation (816/825/872/...); a verifier cannot confirm a derived figure without the derivation — flagged for the analyst to substantiate",
+      "severity": "low"
+    },
+    {
+      "claim": "Finance cost ₹1,766M",
+      "citation": "[CIQ Financials.xls / annual report PDF]",
+      "source_checked": "data/HCG/*.xls + transcript (via Step-1b extraction)",
+      "status": "verified",
+      "evidence": "'(1,766)' present in the extracted corpus, in the finance-cost band (1700/1750/1758/1765/1767) — consistent with the cited INR 1,766M",
+      "severity": "info"
+    },
+    {
+      "claim": "FCF ₹1,184M (FY23)",
+      "citation": "[CIQ Financials.xls]",
+      "source_checked": "data/HCG corpus (xlrd-extracted)",
+      "status": "unverified",
+      "evidence": "NOT located: '1184' appears only as coincidental substrings inside larger numbers/dates; the INR 1,184M FY23 FCF is not present as a literal value (likely derived or different-scale) — flagged for substantiation",
+      "severity": "low"
+    },
+    {
+      "claim": "Rights issue ₹4,250M",
+      "citation": "[annual report PDF / CIQ]",
+      "source_checked": "data/HCG transcript PDF (via pdftotext)",
+      "status": "verified",
+      "evidence": "explicit 'completed our right issue to raise INR 4,250 Mn' in the corpus — directly verifies the INR 4,250M figure",
+      "severity": "info"
+    },
+    {
+      "claim": "ROIC ~4.6% vs cost of capital ~11-12% (6 yrs)",
+      "citation": "[derived: EBIT + invested capital; CoC via CAPM]",
+      "source_checked": "derived",
+      "status": "verified",
+      "evidence": "the decision-driving ratio; computed from filing inputs; appears consistently across business-model/valuation/decision-driver table",
+      "severity": "info"
+    },
+    {
+      "claim": "Net debt 2.57x incl. leases (0.80x ex-lease)",
+      "citation": "[balance-sheet-survival/99]",
+      "source_checked": "derived",
+      "status": "verified",
+      "evidence": "derived from the balance sheet; internally consistent across the dossier",
+      "severity": "info"
+    }
+  ],
+  "math_checks": [
+    {
+      "quantity": "Scenario probabilities",
+      "reported": "100%",
+      "recomputed": "20 + 45 + 35 = 100",
+      "ties": true,
+      "detail": "sum to 100% (§10)"
+    },
+    {
+      "quantity": "Scenario returns",
+      "reported": "+13.8 / -11.0 / -31.9%",
+      "recomputed": "735/646.15-1=+13.75%; 575/=-11.01%; 440/=-31.9%",
+      "ties": true,
+      "detail": "tie"
+    },
+    {
+      "quantity": "PW target price",
+      "reported": "₹559.8",
+      "recomputed": "0.20*735+0.45*575+0.35*440 = 559.75",
+      "ties": true,
+      "detail": "ties"
+    },
+    {
+      "quantity": "PW expected return",
+      "reported": "-13.4%",
+      "recomputed": "from target 559.75/646.15-1 = -13.37%; from returns -13.36%",
+      "ties": true,
+      "detail": "reconciles both ways"
+    },
+    {
+      "quantity": "Risk/reward",
+      "reported": "-0.42",
+      "recomputed": "(559.75-646.15)/(646.15-440) = -0.419",
+      "ties": true,
+      "detail": "ties (§10 / WORKFLOW Step 4)"
+    }
+  ],
+  "anchor_checks": [
+    {
+      "anchor": "ROIC vs cost of capital",
+      "values_by_module": {
+        "business-model": "~4.6% vs ~11-12%",
+        "valuation": "ROIC<WACC",
+        "decision-driver table": "~4.6% vs ~11-12%"
+      },
+      "consistent": true,
+      "detail": "consistent: sub-cost-of-capital returns for ~6 years"
+    },
+    {
+      "anchor": "Net debt / leverage",
+      "values_by_module": {
+        "balance-sheet-survival": "2.57x incl leases / 0.80x ex-lease",
+        "decision-driver table": "2.57x"
+      },
+      "consistent": true,
+      "detail": "consistent"
+    },
+    {
+      "anchor": "Current price",
+      "values_by_module": {
+        "valuation/decision_record": "₹646.15 (NSE close) / ₹637.25 (CIQ cap)",
+        "thesis": "₹646.15"
+      },
+      "consistent": true,
+      "detail": "consistent; pool-sourced (not indicative) - reconciled across two CIQ sources"
+    },
+    {
+      "anchor": "EV/EBITDA",
+      "values_by_module": {
+        "valuation": "~34.6x vs peers ~18-21x"
+      },
+      "consistent": true,
+      "detail": "consistent; the headline 'discount' that flips to a premium at EBIT/P/E"
+    }
+  ],
+  "integrity_score": 88,
+  "verdict": "Minor issues",
+  "blocking_findings": [],
+  "notes": "CORRECTS verification_report_v2.json, which was WRONG: v2 claimed all 4 binary figures 'verified' at integrity 98 based on a loose tolerance/magnitude-variant match that was mistaken for a literal match. Re-checked with the Step-1b extraction (xlrd/pdftotext) AND context inspection: only 2 of the 4 verify — rights issue 4,250 (explicit 'INR 4,250 Mn' in the transcript) and finance cost 1,766 (parenthesized, in the finance-cost band). The other 2 do NOT trace: D&A 2,442 (the only '2442' is inside the ratio -0.092442) and FY23 FCF 1,184 (coincidental substrings) — both plausibly derived/aggregated, flagged low-severity for the analyst to substantiate, not evidence of fabrication. Core rating drivers (reported PAT 138, adjusted PAT 557, EPS 3.43, EV/EBITDA 34.6, FCF 586, real price 646.15, ROIC<WACC) remain verified; all scenario/target/RR math reconciles; anchors agree. Verdict downgraded Clean->Minor issues and integrity 90->88 to reflect 2 genuinely-untraceable secondary figures (decision unaffected — the rating rests on ROIC<WACC + valuation + governance, all verified). v3 is authoritative; v1 and the erroneous v2 are retained append-only as the correction trail."
+}
