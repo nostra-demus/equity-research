@@ -1,0 +1,73 @@
+{
+  "schema_version": "1.0",
+  "ticker": "HCG",
+  "run_root": "analyses/HCG_2026-06-01",
+  "performed_at": "2026-06-01",
+  "auditor": "pre-mortem",
+  "final_thesis_path": "analyses/HCG_2026-06-01/final_thesis.md",
+  "decision_record_path": "analyses/HCG_2026-06-01/decision_record.json",
+  "original_decision": "Avoid",
+  "original_confidence": 70,
+  "adversarial_direction": "Avoid — red-team the avoidance (false-negative): is there a real bull the engine dismissed that makes avoiding at INR 646 a missed +14%+?",
+  "pre_mortem_narrative": "It is ~12 months on and avoiding HCG was wrong. The ramping centres (~50% of revenue at ~9% ROCE) migrated into the mature ~27%-ROCE bucket faster than modelled; West-cluster utilisation climbed toward South's ~68%; capex fell below D&A so FCF inflected up; group ROIC crossed the ~11-12% WACC; and a structurally-growing, recession-proof oncology platform with KKR control re-rated to INR 735+. We avoided at INR 646 and missed the bull (+14%+). The false-negative path is a genuine multi-year ramp finally converting.",
+  "bear_case": "(the avoid case) The EBITDA discount is deserved, not opportunity: it flips to a +9% EV/EBIT and +64% NTM P/E PREMIUM once profit is priced, because D&A + finance cost + sub-WACC ROIC convert a rupee of EBITDA into far less profit than peers. ROIC ~4.6% < ~11-12% WACC for six years; reported FCF FALLING (INR 1,184M->586M); the price embeds ~33% FCF CAGR/decade never achieved; ~33% of revenue is DPCO/scheme price-controlled; governance 'Weak' (7 High flags, per-share value destroyed EPS 3.43->~1.0); a brand-new PE-installed team with no per-share track record.",
+  "bull_case_steelman": "Largest dedicated oncology platform in a structurally growing, recession-proof market (India incidence ~1.77m by 2030); ~50% of revenue in centres still ramping toward the ~27% ROCE the mature centres ALREADY earn; KKR control + completed deleveraging (4.13x->2.57x); cancer care non-deferrable; +20% revenue CAGR through COVID. If the ramping cohort matures even partway, a thin profit base inflects non-linearly and a 22-35x sector multiple re-rates the equity to INR 735. This is a real, if slow, operating story — not a fantasy.",
+  "killer_risk": "To the AVOID, the killer is the ramp delivering faster than the 20% bull weight assumes: half the revenue is in a cohort whose mature peers demonstrably earn ~27% ROCE, so a faster-than-modelled migration would cross WACC and trigger the re-rating the avoid bets against.",
+  "kill_criteria_attack": [
+    {
+      "criterion": "West-cluster utilisation climbs toward South's ~68% / ramp converts",
+      "closeness_to_trigger": "Live, multi-year — West at ~45% of revenue, ~50% utilisation now; FQ2/FQ3 FY27 prints test it",
+      "disconfirming_evidence_now": "Mature centres already earn ~27% ROCE — the migration is mechanically plausible",
+      "severity": "high"
+    },
+    {
+      "criterion": "ROIC visibly climbs toward the cost of capital",
+      "closeness_to_trigger": "Not yet — ROIC stuck ~4.5-5.0% for 6 years",
+      "disconfirming_evidence_now": "No inflection yet; this is the crux of the avoid",
+      "severity": "medium"
+    },
+    {
+      "criterion": "FY26 audited PAT confirms the ~INR 557M adjusted bridge",
+      "closeness_to_trigger": "Imminent — board-approved 19 May 2026; audited AR ~June-Aug 2026",
+      "disconfirming_evidence_now": "Reported PAT was only 138M; the bridge to 557M is adjustment-heavy and unaudited",
+      "severity": "high"
+    },
+    {
+      "criterion": "Price falls toward INR 520 (margin of safety opens)",
+      "closeness_to_trigger": "Not triggered — price 646.15",
+      "disconfirming_evidence_now": "n/a",
+      "severity": "low"
+    },
+    {
+      "criterion": "Two consecutive clean, exceptional-free prints with revenue re-accelerating to ~15%",
+      "closeness_to_trigger": "Not yet — intra-year growth COOLED +16.6%->+11.5%",
+      "disconfirming_evidence_now": "Deceleration is the current trend, not re-acceleration",
+      "severity": "medium"
+    }
+  ],
+  "variant_perception_attack": {
+    "claimed_edge": "The thesis concedes 'no proven variant perception on the long side' — the edge is 'refusing to mistake a deserved discount for a bargain' (the EBITDA discount flips to an EBIT/P/E premium).",
+    "already_priced": true,
+    "is_provably_different": true,
+    "what_would_prove_not_different": "This IS an evidence-backed differentiated read (more specific than a mere opinion): the EBITDA-discount-flips-to-premium mechanism + 6 years of ROIC<WACC + a reverse-DCF bar never hit. It is a sharpened AGREEMENT with the market's discount, not a contrarian long edge. It would be proven wrong if the ramp converts and ROIC crosses WACC."
+  },
+  "value_trap_check": "The bull case IS the value trap risk in reverse — 'cheap EV/EBITDA' is the trap that flips to a premium at the profit line. The avoid correctly refuses the trap. Confirmed.",
+  "base_rate_check": "Mixed, net supports the avoid. Base rate for a ramping hospital cohort EVENTUALLY maturing is reasonable over multi-year (supports the bull) — BUT the base rate for a stock already pricing ~33% FCF CAGR/decade actually delivering it is LOW, and the base rate for a 6-year sub-WACC business inflecting above WACC within 12 months is low. So the 12-month avoid is base-rate-supported; the bull is a real multi-year story the 20% weight may slightly understate.",
+  "overconfidence_flags": [
+    "Confidence 70 is higher than the evidence for the 12-MONTH PRICE PATH supports: the returns/quality case (ROIC<WACC, deserved discount) is high-conviction, but the AVOID is partly a valuation/re-rating-TIMING call on a structurally-growing name with a genuine multi-year ramp and a volatile 22-35x sector multiple — the price could re-rate up before the fundamentals do."
+  ],
+  "disconfirming_evidence_present": [
+    "For the avoid: 6 yrs ROIC<WACC; falling FCF; never-hit reverse-DCF bar; cross-method triangulation all <= price; governance Weak.",
+    "Against the avoid (false-negative risk): mature centres already earn ~27% ROCE; ~50% of revenue ramping; KKR control; non-deferrable rising demand; completed deleveraging."
+  ],
+  "what_would_change_the_call": [
+    "Flip toward Watchlist/Starter: two clean prints with revenue re-accelerating toward ~15% AND ROIC climbing toward WACC; FY26 audited PAT confirms the 557M bridge; price toward INR 520 (margin of safety).",
+    "Confirm/deepen Avoid: DPCO/scheme tariff cut on the ~33% policy-exposed revenue; West ramp stalls; FY26 audit trues PAT DOWN; a fresh exceptional or receivable rebuild."
+  ],
+  "survives": true,
+  "confidence_haircut": 6,
+  "recommended_confidence": 64,
+  "recommended_rating_cap": "Avoid stands. Governance 'Weak' independently caps at Watchlist-or-lower; valuation + negative expected return push to Avoid. The haircut lowers conviction, not the rating.",
+  "verdict": "Survives with haircut",
+  "notes": "The Avoid SURVIVES — it is evidence-backed (6 yrs ROIC<WACC, deserved discount, never-hit implied bar) and the math reconciles. But confidence 70 modestly overstates 12-month PRICE-PATH certainty: the avoid is partly a re-rating-timing call on a structurally-growing oncology platform where the bull (ramp converts) is a genuine multi-year story and the sector multiple (22-35x) is volatile. Recommend a 6-point haircut to 64 (vs BG, where an already-humble 46 took 0 — the pre-mortem trims the more-confident, more-timing-dependent call and holds the humble one). Two kill criteria are live and imminent (FY26 audited AR; the West-cluster ramp prints) — the avoid's near-term test."
+}
