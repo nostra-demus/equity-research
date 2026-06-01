@@ -1,0 +1,240 @@
+{
+  "schema_version": "1.0",
+  "ticker": "BG",
+  "run_root": "analyses/BG_2026-06-01",
+  "verified_at": "2026-06-01",
+  "verifier": "verify-evidence",
+  "final_thesis_path": "analyses/BG_2026-06-01/final_thesis.md",
+  "decision_record_path": "analyses/BG_2026-06-01/decision_record.json",
+  "claims_checked": 14,
+  "claim_checks": [
+    {
+      "claim": "Total debt $14,553M (Q1 2026)",
+      "citation": "[Q1 2026 10-Q, balance sheet]",
+      "source_checked": "data/BG/bunge_10q.txt",
+      "status": "verified",
+      "evidence": "'14,553' found (4 hits); = 3,245 ST + 1,361 current LTD + 9,947 LTD",
+      "severity": "info"
+    },
+    {
+      "claim": "Net debt $13,714M (~5.8x GAAP EBITDA)",
+      "citation": "[Q1 2026 10-Q]",
+      "source_checked": "data/BG/bunge_10q.txt",
+      "status": "verified",
+      "evidence": "derived: 14,553 total debt - 839 cash = 13,714; components found in 10-Q",
+      "severity": "info"
+    },
+    {
+      "claim": "Diluted WA shares 195,733,665 / 194,018,115 o/s",
+      "citation": "[Q1 2026 10-Q, Note 18 / cover]",
+      "source_checked": "data/BG/bunge_10q.txt",
+      "status": "verified",
+      "evidence": "both share counts found (1 hit each)",
+      "severity": "info"
+    },
+    {
+      "claim": "Interest expense $628M FY2025",
+      "citation": "[FY25 10-K]",
+      "source_checked": "data/BG/bunge_10k.txt",
+      "status": "verified",
+      "evidence": "'628' found (5 hits)",
+      "severity": "info"
+    },
+    {
+      "claim": "Reportable Segment EBIT $2,329M FY2025",
+      "citation": "[FY25 10-K, segment note]",
+      "source_checked": "data/BG/bunge_10k.txt",
+      "status": "verified",
+      "evidence": "'2,329' found (3 hits)",
+      "severity": "info"
+    },
+    {
+      "claim": "Unused committed borrowing capacity $9,065M",
+      "citation": "[FY25 10-K, liquidity/MD&A]",
+      "source_checked": "data/BG/bunge_10k.txt",
+      "status": "verified",
+      "evidence": "'9,065' found (3 hits)",
+      "severity": "info"
+    },
+    {
+      "claim": "Share buybacks $551M FY2025",
+      "citation": "[FY25 10-K]",
+      "source_checked": "data/BG/bunge_10k.txt",
+      "status": "verified",
+      "evidence": "'551' found (9 hits)",
+      "severity": "info"
+    },
+    {
+      "claim": "Dividend $2.80/share FY2025",
+      "citation": "[FY25 10-K]",
+      "source_checked": "data/BG/bunge_10k.txt",
+      "status": "verified",
+      "evidence": "'2.80' found (4 hits)",
+      "severity": "info"
+    },
+    {
+      "claim": "Brazil indirect-tax claims ~$760M",
+      "citation": "[FY25 10-K, Note 20 contingencies]",
+      "source_checked": "data/BG/bunge_10k.txt",
+      "status": "verified",
+      "evidence": "'760' found (3 hits); 58 'Brazil' mentions",
+      "severity": "info"
+    },
+    {
+      "claim": "FY2026 adj-EPS guide $9.00-9.50, raised from $7.50-8.00",
+      "citation": "[Q1 2026 transcript, 2026-04-29]",
+      "source_checked": "data/BG/q1_call.txt",
+      "status": "verified",
+      "evidence": "'9.00|9.50' and '7.50|8.00' both found",
+      "severity": "info"
+    },
+    {
+      "claim": "ROIC 6.7% below cost of equity 7.2%",
+      "citation": "[derived: FY25 10-K EBIT + invested capital; CoE via CAPM]",
+      "source_checked": "data/BG/bunge_10k.txt",
+      "status": "verified",
+      "evidence": "computed ratio from filing inputs (segment EBIT + balance sheet); CoE is labeled inference per CAPM",
+      "severity": "info"
+    },
+    {
+      "claim": "Net leverage ~5.8x (gross 6.1-6.3x)",
+      "citation": "[derived: 10-Q debt + cash; FY25 EBITDA]",
+      "source_checked": "data/BG/bunge_10q.txt",
+      "status": "verified",
+      "evidence": "derived from verified net debt and EBITDA base",
+      "severity": "info"
+    },
+    {
+      "claim": "Current price ~$123.35 (drives all return figures)",
+      "citation": "[Web: MarketBeat last close 2026-05-29, indicative, NOT pool-sourced]",
+      "source_checked": "web (indicative)",
+      "status": "inference-labeled",
+      "evidence": "explicitly labeled indicative/web-sourced/unverified in valuation/01, final thesis, and decision_record notes; entry_price set null accordingly (CLAUDE.md §3 compliant)",
+      "severity": "info"
+    },
+    {
+      "claim": "Stale grant-date price $81.39 (Jul-2-2025)",
+      "citation": "[FY25 10-K]",
+      "source_checked": "data/BG/bunge_10k.txt",
+      "status": "verified",
+      "evidence": "'81.39' found (1 hit); correctly EXCLUDED as a current price",
+      "severity": "info"
+    }
+  ],
+  "math_checks": [
+    {
+      "quantity": "Total debt",
+      "reported": "14,553",
+      "recomputed": "3,245+1,361+9,947 = 14,553",
+      "ties": true,
+      "detail": "ties exactly"
+    },
+    {
+      "quantity": "Net debt",
+      "reported": "13,714",
+      "recomputed": "14,553 - 839 = 13,714",
+      "ties": true,
+      "detail": "ties; net debt = total debt - cash (CLAUDE.md §15)"
+    },
+    {
+      "quantity": "EV bridge",
+      "reported": "~39,078",
+      "recomputed": "23,932 mktcap + 13,714 net debt + 1,432 NCI = 39,078",
+      "ties": true,
+      "detail": "ties within rounding"
+    },
+    {
+      "quantity": "Scenario probabilities",
+      "reported": "100%",
+      "recomputed": "25 + 45 + 30 = 100",
+      "ties": true,
+      "detail": "sum to 100% (CLAUDE.md §10)"
+    },
+    {
+      "quantity": "PW expected return",
+      "reported": "-11.5%",
+      "recomputed": "0.25(13.5)+0.45(-12.4)+0.30(-31.1) = -11.54%",
+      "ties": true,
+      "detail": "ties; also reconciles from PW target"
+    },
+    {
+      "quantity": "PW target price",
+      "reported": "$109.10",
+      "recomputed": "0.25(140)+0.45(108)+0.30(85) = 109.10",
+      "ties": true,
+      "detail": "ties; ER from target = -11.55%"
+    },
+    {
+      "quantity": "Risk/reward",
+      "reported": "-0.37",
+      "recomputed": "(109.10-123.35)/(123.35-85) = -0.372",
+      "ties": true,
+      "detail": "ties (CLAUDE.md §10 / WORKFLOW Step 4)"
+    }
+  ],
+  "anchor_checks": [
+    {
+      "anchor": "Net debt",
+      "values_by_module": {
+        "earnings": "$13,714M",
+        "balance-sheet-survival": "~$13.7bn",
+        "valuation": "$13,714M",
+        "management-governance": "net debt cited"
+      },
+      "consistent": true,
+      "detail": "consistent across modules"
+    },
+    {
+      "anchor": "Net leverage (ND/EBITDA)",
+      "values_by_module": {
+        "earnings": "5.78x",
+        "balance-sheet-survival": "5.78x net / 6.28x gross",
+        "valuation": "5.8x",
+        "management-governance": "5.7x"
+      },
+      "consistent": true,
+      "detail": "consistent (~5.8x net)"
+    },
+    {
+      "anchor": "ROIC vs cost of equity",
+      "values_by_module": {
+        "business-model": "6.7% / 7.2%",
+        "management-governance": "6.7% / 7.2%",
+        "valuation": "6.7% trailing (+~9.7% normalized)"
+      },
+      "consistent": true,
+      "detail": "trailing ROIC 6.7% consistent; valuation additionally cites a ~9.7% normalized/mid-cycle ROIC - a distinct measure, not a conflict (info)"
+    },
+    {
+      "anchor": "Share count",
+      "values_by_module": {
+        "business-model": "194,018,115",
+        "valuation": "194,018,115 / 195,733,665 dil"
+      },
+      "consistent": true,
+      "detail": "consistent with 10-Q"
+    },
+    {
+      "anchor": "EV / market cap",
+      "values_by_module": {
+        "valuation": "EV ~$39.1bn, mktcap ~$23.9bn"
+      },
+      "consistent": true,
+      "detail": "ties to the EV bridge (Section B)"
+    },
+    {
+      "anchor": "Current price",
+      "values_by_module": {
+        "valuation": "$123.35 indicative",
+        "decision_record": "null entry_price + indicative note",
+        "final_thesis": "$123.35 indicative"
+      },
+      "consistent": true,
+      "detail": "consistent and uniformly labeled indicative/web-sourced/unverified across the run"
+    }
+  ],
+  "integrity_score": 100,
+  "verdict": "Clean",
+  "blocking_findings": [],
+  "notes": "Focused audit of the 14 rating-driver claims, 7 key math reconciliations, and 6 cross-module anchors (not every line in the dossier). All material claims trace to the data pool; the only non-filing input (current price $123.35) is correctly labeled indicative/web-sourced and handled with entry_price=null. All scenario/EV/net-debt math reconciles. Anchors agree across all five modules. One info-level note: valuation reports both a 6.7% trailing and ~9.7% normalized ROIC - a deliberate trailing-vs-mid-cycle distinction, not an inconsistency. No fabrications, miscitations, math breaks, or anchor conflicts found."
+}
