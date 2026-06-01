@@ -1,0 +1,76 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-01",
+  "scope": "all",
+  "n_decisions": 2,
+  "n_reviews": 0,
+  "n_resolved_forecasts": 0,
+  "inventory": [
+    {
+      "ticker": "BG",
+      "decision": "Watchlist",
+      "basket": "Watchlist",
+      "confidence": 46,
+      "data_sufficiency": 68,
+      "verify": "Clean",
+      "integrity": 100,
+      "premortem": "Survives",
+      "haircut": 0,
+      "edge": 32,
+      "gap": "overvalued"
+    },
+    {
+      "ticker": "HCG",
+      "decision": "Avoid",
+      "basket": "Rejected",
+      "confidence": 70,
+      "data_sufficiency": 69,
+      "verify": "Clean",
+      "integrity": 90,
+      "premortem": "Survives with haircut",
+      "haircut": 6,
+      "edge": 48,
+      "gap": "overvalued"
+    }
+  ],
+  "basket_distribution": {
+    "Watchlist": 1,
+    "Rejected": 1
+  },
+  "cohort_returns": "insufficient (0 reviews)",
+  "hit_rate": null,
+  "selected_minus_rejected_pct": null,
+  "calibration": "insufficient (0 resolved forecasts)",
+  "confidence_calibration": "insufficient",
+  "process_metrics": {
+    "n_decisions": 2,
+    "basket_distribution": {
+      "Watchlist": 1,
+      "Rejected": 1
+    },
+    "thesis_type_distribution": {
+      "Commodity-conditional": 1,
+      "Policy-conditional": 2,
+      "Company-specific": 1
+    },
+    "avg_confidence": 58.0,
+    "avg_data_sufficiency": 68.5,
+    "avg_verification_integrity": 95.0,
+    "verify_verdicts": {
+      "Clean": 2
+    },
+    "avg_premortem_haircut": 3.0,
+    "premortem_verdicts": {
+      "Survives": 1,
+      "Survives with haircut": 1
+    },
+    "edge_scores": [
+      32,
+      48
+    ],
+    "avg_edge_score": 40.0
+  },
+  "module_calibration": "pending first reviews",
+  "data_sufficiency_note": "N=2 decisions (BG, HCG) both now fully audited (verify+pre-mortem+expectations-gap); 0 reviews, 0 resolved forecasts. Per CLAUDE.md §11 cohort spread + Brier NOT computed. First review: 2026-07-01.",
+  "verdict": "Pre-data — both decisions fully audited; calibration awaits resolved reviews (first 2026-07-01)."
+}
