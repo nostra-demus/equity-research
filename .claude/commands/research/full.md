@@ -230,6 +230,22 @@ Print a final summary to the user containing:
 - Path to `final_thesis.md` (or note that it was skipped)
 - The two commit SHAs pushed to `origin/main`
 
+Then print the following **Post-Run Discipline Steps** block verbatim (substituting the actual ticker for `$ARGUMENTS`). The run is committed, but the thesis is **not decision-grade** until the three mandatory gates are cleared:
+
+---
+
+**Post-Run Discipline — run before acting on the $ARGUMENTS decision:**
+
+| Step | Command | What it catches | Required? |
+|------|---------|----------------|-----------|
+| 1 | `/research:verify-evidence $ARGUMENTS` | Citations, math integrity, cross-module anchor consistency. A `Failed` verdict means unsupported rating drivers — do not act until resolved. | **Mandatory** |
+| 2 | `/research:pre-mortem $ARGUMENTS` | Adversarial red-team. May produce a confidence haircut; the `/research:size` command reads this and scales down the model weight. | **Mandatory** |
+| 3 | `/research:expectations-gap $ARGUMENTS` | Whether the priced-in gap is exploitable. No proven variant perception = not actionable regardless of direction. | **Mandatory** |
+| 4 | `/research:eval` | Regression harness — confirms all golden fixtures still pass schema and contract invariants after this new run was added. | Recommended |
+| 5 | `/research:size` | Updates the model portfolio. Reads verify/pre-mortem/expectations-gap when present — run steps 1–3 first for accurate sizing. | Recommended |
+
+Steps 1–3 are not optional. Until they are complete, the confidence score and sizing weight from `/research:size` are not fully calibrated.
+
 ---
 
 ## Hard rules

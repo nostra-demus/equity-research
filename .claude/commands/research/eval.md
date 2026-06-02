@@ -106,6 +106,12 @@ for drp in runs:
             a=json.load(open(p)); okG=all(k in a for k in reqk) and a.get("verdict")!="Failed"
             add(f"G_{af}", okG, f"using {os.path.basename(p)}; verdict={a.get('verdict')}")
         except Exception as e: add(f"G_{af}", False, f"parse failed: {e}")
+    # Discipline completeness — tracked in JSON + WARN if 0%, never a suite FAIL
+    _audit_gates={"verification_report.json":False,"pre_mortem.json":False,"expectations_gap.json":False}
+    for _af in list(_audit_gates.keys()):
+        if _latest(_af): _audit_gates[_af]=True
+    _n_gates=sum(_audit_gates.values()); _disc_pct=round(100*_n_gates/len(_audit_gates))
+    _missing_gates=[k for k,v in _audit_gates.items() if not v]
     # H stray confirmation blocks
     stray=[]
     for mf in glob.glob(os.path.join(run,"*","*.md")):
@@ -122,10 +128,13 @@ for drp in runs:
     run_pass=all(c["status"]!="FAIL" for c in checks)
     suite_pass = suite_pass and run_pass
     results[name]={"run_root":run,"ticker":d.get("ticker"),"decision":dec,"pass":run_pass,
-                   "checks":checks,"warn_nonschema_files":extras}
+                   "checks":checks,"warn_nonschema_files":extras,
+                   "discipline_completeness_pct":_disc_pct,"missing_audit_gates":_missing_gates}
 
+_all_disc=[r["discipline_completeness_pct"] for r in results.values()]
+_disc_summary={"avg_pct":round(sum(_all_disc)/len(_all_disc)) if _all_disc else None,"runs_at_100pct":sum(1 for x in _all_disc if x==100),"runs_at_0pct":sum(1 for x in _all_disc if x==0),"total_runs":len(_all_disc)}
 out={"schema_version":"1.0","generated_at":today,"scope":scope,"n_runs":len(results),
-     "suite_pass":suite_pass,"runs":results}
+     "suite_pass":suite_pass,"discipline_summary":_disc_summary,"runs":results}
 os.makedirs("analyses/eval",exist_ok=True)
 of=f"analyses/eval/{today}_eval_report.json"; k=2
 while os.path.exists(of): of=f"analyses/eval/{today}_eval_report_v{k}.json"; k+=1
@@ -133,7 +142,9 @@ json.dump(out,open(of,"w"),indent=2,ensure_ascii=False)
 print("EVAL", "PASS" if suite_pass else "FAIL", f"({len(results)} runs)")
 for nm,r in results.items():
     fails=[c["check"] for c in r["checks"] if c["status"]=="FAIL"]
-    print(f"  {nm}: {'PASS' if r['pass'] else 'FAIL'} ({r['decision']})", ("fails="+",".join(fails)) if fails else "", ("WARN extras="+",".join(r['warn_nonschema_files'])) if r['warn_nonschema_files'] else "")
+    _dw=(f"WARN no-audit-gates={','.join(r['missing_audit_gates'])}") if r["discipline_completeness_pct"]==0 else ""
+    print(f"  {nm}: {'PASS' if r['pass'] else 'FAIL'} ({r['decision']})", ("fails="+",".join(fails)) if fails else "", ("WARN extras="+",".join(r['warn_nonschema_files'])) if r['warn_nonschema_files'] else "", f"discipline={r['discipline_completeness_pct']}%", _dw if _dw else "")
+print(f"  Discipline: {_disc_summary['runs_at_100pct']}/{_disc_summary['total_runs']} fixtures at 100%; {_disc_summary['runs_at_0pct']} with no gates run")
 print("WROTE", of)
 PY
 ```
