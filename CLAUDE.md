@@ -336,7 +336,31 @@ Its primary job is to consume module syntheses, which have already adjudicated t
 
 ---
 
-## 24. Git Policy
+## 24. Avoid Big Risks — The Rejector Doctrine
+
+The first job of the engine is not to find winners. It is to not be wiped out. Survival ranks above return. A few points of extra return on equity are worthless if they raise the odds of permanent capital loss. The engine should prefer an error of omission (missing a winner) to an error of commission (owning a disaster), and should say so when it walks away. "We can be better investors only if we are better rejectors." (Adapted from Pulak Prasad, *What I Learned About Investing from Darwin*, ch. "Avoid Big Risks".)
+
+This doctrine sits on top of §13 (Red Flag Handling) and §18 (Decision Discipline). It does not create new hard disqualifiers on its own — those live in §13 and in the disqualifier-scan. It defines six standing risk filters that every relevant module must test, score, and surface. When a filter trips on evidence, the owning module applies a score penalty and a conviction cap; the synthesis layer carries the cap to the headline. A filter trip is never averaged away.
+
+The six filters:
+
+1. **Crooks and integrity.** A controller or senior manager who has defrauded customers, suppliers, employees, or shareholders is a reason to walk away, not a risk to price. Cheapness does not compensate for a dishonest operator. Soft, unverified adverse signal ("buzz") about integrity must be investigated and must lower confidence — it is not discarded because a clean report exists. Where the evidence clears the §13 / disqualifier-scan bar, it escalates to the hard verdict-lock; below that bar it caps conviction.
+
+2. **Turnarounds.** The base rate of turnaround success is low, and a star CEO with an impressive résumé and a slick plan is not evidence of inflection. Judge the record by promises-versus-delivery and by at least two to three years of proven operating improvement, not by the pitch. A turnaround thesis without that proof carries a base-rate penalty and a conviction cap, and is classified honestly as a governance-turnaround thesis.
+
+3. **High debt and the survival test.** Leverage is the most common cause of permanent loss. The "optimal capital structure" that maximizes leverage to minimize the cost of capital is rejected; a strong balance sheet is the one that minimizes debt to maximize the safety of capital. Net cash is treated as a strategic asset (it funds counter-cyclical action), not as a lazy balance sheet. The survival read weights low / zero leverage positively, and a balance-sheet distress verdict caps the headline per §18.
+
+4. **Serial acquirers.** Most M&A destroys value, and the damage is understated when only the deal's own loss is counted. M&A must be charged its opportunity cost: businesses divested under deal pressure, focus lost on the existing franchise, and options foregone (the geese sold to buy a hen). A serial-acquirer pattern — especially debt-funded deals near or above the company's own value — is close to a disqualifier and caps the capital-allocation score and conviction. Bare "synergies / strategic fit / culture fit" language is not evidence.
+
+5. **Fast-changing industries.** In industries that change fast, the winners are rarely knowable in advance, and value destruction from disruption is large (railway mania, dot-com, and similar). The engine does not pretend to "skate to where the puck is going." High rate-of-change / disruption risk lowers the business-quality score and caps conviction, and such a thesis is flagged as a sector / technology-cycle bet rather than a durable compounder.
+
+6. **Unaligned owners.** A controller whose objective is not long-term per-share value creation is a structural cap, not a discount to be arbitraged. Government control, a listed subsidiary of a parent that maximizes value elsewhere, and sprawling unrelated-diversified conglomerates each create an inherent conflict with the minority holder. Persistent cheapness under a misaligned owner is a value trap, not a margin of safety, and the valuation layer treats it as such.
+
+Modules implement the specifics (signals, factors, score caps, red-flag IDs) in their own MODULE_RULES.md and agent files, consistent with §12 and §23. These filters are evidence-tested, not blanket bans: a filter trips on cited evidence, and the penalty scales with the strength of that evidence.
+
+---
+
+## 25. Git Policy
 
 For ALL work in this repository:
 - Commit directly to the `main` branch.
