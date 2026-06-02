@@ -86,7 +86,7 @@ If no current price, mark the percentage rows "not computable — no observed pr
 
 ## 5. Warranted-Multiple Check
 
-2–3 sentences: does the base-case fair value imply a multiple the business deserves given its quality/moat/cyclicality (from business-model)? If upside requires a multiple the company has never sustained, flag value-trap risk explicitly.
+2–3 sentences: does the base-case fair value imply a multiple the business deserves given its quality/moat/cyclicality (from business-model)? If upside requires a multiple the company has never sustained, flag value-trap risk explicitly. Also flag value-trap risk when the management-governance module flagged a structurally misaligned controlling owner (RF-OWN-004, §24 Filter 6): under a value-indifferent owner, persistent cheapness is a trap, not margin of safety, and the bear case should not assume a re-rating the owner will not pursue.
 
 ## 6. Fair-Value Read
 

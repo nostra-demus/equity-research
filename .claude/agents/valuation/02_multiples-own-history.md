@@ -90,7 +90,7 @@ State the implied value as a RANGE across the multiples used. Note explicitly th
 
 ## 5. Own-History Read
 
-2–3 blunt sentences: where the stock trades versus its own history, what reverting to mean implies, and the single biggest caveat (e.g., "the multiple de-rated because leverage doubled — reverting to the old mean is not warranted").
+2–3 blunt sentences: where the stock trades versus its own history, what reverting to mean implies, and the single biggest caveat (e.g., "the multiple de-rated because leverage doubled — reverting to the old mean is not warranted"). If the management-governance module flagged a structurally misaligned controlling owner (RF-OWN-004, §24 Filter 6 — government control, listed subsidiary of a value-maximizing parent, or sprawling conglomerate), state that the discount may be structural and persistent: do not present reversion to the old mean as the base case when the owner has no interest in delivering it.
 ```
 
 # SELF-CHECK

@@ -129,6 +129,7 @@ If two methods disagreed on fair value, list the disagreement, the value each pr
 | SOTP not possible for multi-segment | | Overall usefulness | max 80 |
 | Methods disagree >40% unreconciled | | Valuation confidence | max 55 |
 | Terminal value >75% of DCF EV | | Valuation confidence | max 60 |
+| Misaligned controlling owner (RF-OWN-004, §24 Filter 6) | | Valuation attractiveness | max 60; value-trap flag mandatory; verdict no better than "Modestly undervalued" on a cheap multiple alone |
 
 If multiple caps affect the same score, use the most restrictive.
 
@@ -149,7 +150,7 @@ Bullet list, no prose paragraphs. **Surface what the numbers MEAN — do not res
 - The fair-value range and the dominant method behind it
 - What the price implies and whether it's achievable (from reverse-DCF)
 - The margin of safety and the bear-case value (the downside anchor)
-- Whether this is genuine value or value-trap risk, with the warranted-multiple reasoning
+- Whether this is genuine value or value-trap risk, with the warranted-multiple reasoning — including any structurally misaligned controlling owner (RF-OWN-004, §24 Filter 6) that makes the cheapness a trap rather than a margin of safety
 - Which method to trust and which to discount for THIS company
 - Whether any partial-data cap applied (especially no current price) and what it limits
 - Biggest missing data point (state the single highest-value next data request)

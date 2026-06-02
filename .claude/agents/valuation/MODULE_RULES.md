@@ -36,7 +36,7 @@ This module does NOT:
 
 1. **No price ≠ no valuation.** If the current price is missing, still produce a fair-value range in per-share and multiple terms and state the *implied* price. Do not invent an observed price; flag that observed up/downside cannot be computed and that this is the single highest-value missing input.
 2. **Triangulate — never trust one method.** A fair value is only as good as the agreement among independent methods. Always show at least two methods and reconcile them. If methods disagree by more than ~40%, that disagreement is itself the finding.
-3. **Warranted vs observed.** A low multiple is not "cheap" if the business does not deserve a higher one. Always ask what multiple the business *warrants* given quality, moat, cyclicality, and balance sheet (from the business-model and earnings modules) before calling anything mispriced.
+3. **Warranted vs observed.** A low multiple is not "cheap" if the business does not deserve a higher one. Always ask what multiple the business *warrants* given quality, moat, cyclicality, and balance sheet (from the business-model and earnings modules) before calling anything mispriced. **Unaligned-owner value trap (CLAUDE.md §24, Filter 6):** if the management-governance module flagged a structurally misaligned controlling owner (RF-OWN-004 — government control, a listed subsidiary of a value-maximizing parent, or a sprawling unrelated conglomerate), persistent cheapness is a value trap, not a margin of safety. Do not underwrite a reversion to the old mean that the owner has no interest in delivering — such businesses are often perennially cheap and stay cheap.
 4. **Margin of safety is the point.** Buy-side cares about downside before upside. Every fair-value read must state the distance from today's price to a defensible bear-case value.
 5. **Ranges, not points.** Fair value is always a range. A single-number price target with false precision is a banned output.
 6. **Be blunt and conservative.** When evidence is thin or methods conflict, default to the lower fair value and say why.
@@ -202,7 +202,7 @@ The synthesis agent must pick exactly one:
 - **Materially overvalued** — fair value >25% below price
 - **Insufficient data** — cannot triangulate a fair value (e.g., no estimates AND no comps AND no usable cash-flow base)
 
-If the multiples look cheap but quality, moat, cyclicality, or balance-sheet evidence argues the discount is deserved, keep the category honest (often "Fairly valued" or "Modestly undervalued") and explicitly flag **value-trap risk** in prose. Do not let a low multiple alone drive a "Materially undervalued" verdict.
+If the multiples look cheap but quality, moat, cyclicality, or balance-sheet evidence argues the discount is deserved, keep the category honest (often "Fairly valued" or "Modestly undervalued") and explicitly flag **value-trap risk** in prose. Do not let a low multiple alone drive a "Materially undervalued" verdict. A structurally misaligned controlling owner (RF-OWN-004, §24 Filter 6) is a value-trap trigger in its own right: with such an owner the verdict may not be "Materially undervalued" on a cheap multiple alone, and the value-trap flag is mandatory.
 
 ---
 
@@ -235,6 +235,7 @@ When data is missing or weak, these hard caps override an agent's own scoring. T
 | SOTP not possible for a multi-segment business | Overall usefulness max 80 |
 | Methods disagree on fair value by >40% with no reconciliation | Valuation confidence max 55 |
 | Fair value rests on a terminal value >75% of DCF EV | Valuation confidence max 60 |
+| Structurally misaligned controlling owner flagged (RF-OWN-004, §24 Filter 6) | Valuation attractiveness max 60; value-trap flag mandatory; verdict no better than "Modestly undervalued" on a cheap multiple alone |
 
 If multiple caps affect the same score, use the most restrictive.
 
@@ -256,6 +257,9 @@ The valuation module reads outputs from previously-run modules. It is the **last
 - `03_margin-drivers.md` — margin assumptions for the forecast
 - `07_earnings-sensitivity.md` — the variable ranges that define bull/base/bear
 - `06_earnings-quality.md` — whether to anchor on GAAP or adjusted earnings, and any quality haircut
+
+**From management-governance (`analyses/{TICKER}_{DATE}/management-governance/`), if available** — under `/research:full` this module runs before valuation, so its outputs exist in the run root:
+- `04_ownership-and-insider-behavior.md` and `99_management-governance-synthesis.md` — the unaligned-owner flag (RF-OWN-004) that drives the §24 Filter 6 value-trap read. If unavailable (e.g., a standalone valuation run), proceed on this module's own read and leave the final value-trap adjudication to the master synthesizer.
 
 If a cross-module file is missing, the affected agent proceeds independently and states:
 *"{module} cross-module input not available — proceeding on this module's own read of the data pool."*
