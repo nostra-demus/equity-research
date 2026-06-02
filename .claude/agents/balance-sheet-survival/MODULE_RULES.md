@@ -52,6 +52,7 @@ This module's default metrics (debt/EBITDA, coverage, covenant headroom) assume 
 5. **Covenants in real terms.** State the actual covenant threshold and the actual headroom to it, not a vague "comfortable."
 6. **Contingencies are live until proven dormant.** Guarantees, standby LCs, litigation, and tax claims count until evidence shows they are remote. Record the recorded liability AND the maximum exposure.
 7. **Be blunt and conservative.** When data is thin, assume the more fragile reading and say why.
+8. **Net cash is a strategic asset; reject "optimal leverage" (CLAUDE.md §24, Filter 3).** A strong balance sheet is the one that minimizes debt to maximize the safety of capital — not the one that maximizes debt to minimize the cost of capital. Leverage is the most common cause of permanent loss. Treat net cash and zero/low debt as a positive: it funds counter-cyclical action (holding staff, supporting suppliers/dealers, buying assets cheap, taking strategic bets competitors cannot) precisely when earnings fall. Do NOT mark a net-cash balance sheet down as "lazy" or "sub-optimal." A company that survives every downside haircut on its own, with no refinancing dependence, earns the strongest survival read.
 
 ---
 
@@ -158,7 +159,7 @@ Be strict. Default to the middle band when uncertain. The synthesis verdict-bloc
 
 The synthesis agent must pick exactly one:
 
-- **Fortress balance sheet** — net cash or very low leverage (net debt/EBITDA < ~1x), deep committed liquidity, no near-term wall, wide covenant headroom
+- **Fortress balance sheet** — net cash or very low leverage (net debt/EBITDA < ~1x), deep committed liquidity, no near-term wall, wide covenant headroom. Net cash here is a strategic asset (counter-cyclical optionality per §24 Filter 3), not idle capital — credit it as such in the survival read.
 - **Solid** — investment-grade-like; comfortable coverage and headroom; maturities laddered and refinanceable in most environments
 - **Adequate** — leverage elevated but serviceable; coverage and headroom acceptable; some refinancing or covenant attention needed
 - **Stretched** — high leverage, thin covenant headroom, OR a near-term wall whose refinancing is not yet secured; survival depends on refi access or asset sales

@@ -128,6 +128,8 @@ State the numbers every other solvency agent should use verbatim:
 - Reporting currency
 
 If any number is estimated or based on adjusted EBITDA, say so here so downstream agents propagate the caveat.
+
+If the company is **net cash** (cash + liquid investments > gross debt), state it plainly here and flag it as a positive strategic-flexibility signal, not a "lazy balance sheet" (CLAUDE.md §24, Filter 3): net cash funds counter-cyclical action when earnings fall and removes refinancing dependence. Do not editorialize that the company is "under-levered" or should add debt to optimize cost of capital — this module rejects the "optimal leverage" frame.
 ```
 
 # SELF-CHECK

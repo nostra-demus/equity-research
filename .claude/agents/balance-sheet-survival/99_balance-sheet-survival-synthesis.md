@@ -170,6 +170,7 @@ Bullet list, no prose paragraphs. **Surface what the numbers MEAN — do not res
 - The tightest covenant and its headroom (or that covenants are undisclosed)
 - The largest live off-balance-sheet / contingent exposure
 - The stress break point — what fails first and at what EBITDA decline
+- If net cash / very low leverage: the strategic-flexibility read (counter-cyclical optionality, no refinancing dependence) as a positive, per §24 Filter 3 — not flagged as "lazy" capital
 - Whether any partial-data cap applied and what it limits
 - Biggest missing data point (the single highest-value next data request)
 - **Explicit handoff:** the master synthesizer's "Balance Sheet and Survival Test" section should defer to this synthesis; the stress break points here are the inputs for the master's downside scenario and risk register (the master assigns probabilities, not this module).
