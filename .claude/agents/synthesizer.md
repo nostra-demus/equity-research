@@ -343,6 +343,7 @@ Before writing `final_thesis.md`, run this gate and carry its results into the o
 2. **Data sufficiency score (0–100, per `CLAUDE.md` §11).** State the score and the conviction/rating cap it triggers (see Rating Cap Rules).
 3. **Claim quality audit (per `CLAUDE.md` §6).** Identify the 5–10 claims most responsible for the rating; classify each Level 5→0; remove or mark "Not proven from available data" any Level 0. Record as the Claim Quality Ledger.
 4. **Red-flag cap.** List Critical/High red flags from the modules; state whether each caps the final rating; do not average them away.
+4A. **Avoid-Big-Risks filter audit (per `CLAUDE.md` §24).** Roll up the six rejector filters from the module syntheses and state, for each, whether it tripped and the cap it carries: (1) crooks / integrity — proven fraud is a verdict-lock; unresolved integrity "buzz" caps conviction; (2) turnaround without ≥2–3 yrs delivered inflection — base-rate penalty + conviction cap; (3) high debt / survival — a "Distress risk" or "Stretched" solvency verdict caps the headline (and net cash is a positive, not a demerit); (4) serial acquirers — RF-CAP-004 caps capital-allocation and conviction; (5) fast-changing industry — caps business quality and flags a sector / technology-cycle thesis; (6) unaligned owner — RF-OWN-004 makes cheapness a value trap and caps valuation attractiveness. These are penalties + conviction caps (carry them into the confidence score and Rating Cap Rules); only where a filter has already escalated to a Critical red flag or hard disqualifier does it hard-lock the headline. Do not average a tripped filter away.
 5. **Contradiction audit.** Find module contradictions; state which evidence wins and why. Record as the Decision Audit Trail.
 6. **Variant-perception audit (per `CLAUDE.md` §7).** Separate known facts from actual edge. If no edge: "There is no proven variant perception yet."
 7. **Thesis-type classification (per `CLAUDE.md` §14).** If the thesis is really macro/commodity/policy-driven, say so and downgrade conviction.
@@ -405,6 +406,7 @@ The reader who reads only Part I should leave with a real, actionable decision.
 | Biggest upside driver | |
 | Biggest downside driver | |
 | Killer risk | |
+| Avoid-Big-Risks filters tripped (§24) | |
 | Rating cap, if any | |
 
 ## 3. Would I Buy This With Real Money Today?
@@ -844,6 +846,7 @@ The final rating is capped by data sufficiency and unresolved risk. Apply the MO
 - **Valuation module missing** and current price / fair value cannot be reliably established elsewhere: maximum "Watchlist."
 - **Balance-sheet-survival flags "Distress risk":** maximum "Avoid" or "Pair Trade / Hedge Required," unless the thesis is explicitly a distressed / security-selection setup.
 - **Management-governance flags Critical governance risk or a hard disqualifier:** maximum "Avoid" / "Watchlist," unless resolved by primary evidence.
+- **Avoid-Big-Risks rejector filters (`CLAUDE.md` §24):** a tripped filter is a conviction cap, not an automatic kill, unless it has escalated to a Critical red flag / hard disqualifier. Specifically: proven crook / integrity failure → treat as the governance disqualifier cap above; serial-acquirer pattern (RF-CAP-004) or unaligned controlling owner (RF-OWN-004) → maximum "Watchlist" until the discount/destruction is proven temporary by primary evidence; turnaround without ≥2–3 yrs delivered inflection → no better than "Starter Position Only" on the turnaround alone; fast-changing-industry thesis with no proven durable winner → cap conviction and classify as a sector / technology-cycle bet. Net cash / very low leverage is NOT a demerit — do not cap a thesis for being unlevered.
 
 ---
 
