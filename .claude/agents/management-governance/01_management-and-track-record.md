@@ -80,6 +80,19 @@ In 2–4 sentences: what management says it is doing, and the explicit, checkabl
 
 Use specific, dated promises (guidance, synergy targets, deleveraging plans, margin goals). If none can be checked, state: *"No checkable prior promises in the data pool — track record not assessable."*
 
+## 4A. Turnaround & Integrity Tests (CLAUDE.md §24, Filters 1 & 2)
+
+| Test | Finding | Source |
+|---|---|---|
+| Is the thesis a turnaround (struggling business + new management / new plan)? | | |
+| If yes: years of *proven* operating inflection actually delivered (not promised) | | |
+| Résumé / plan / consultant deck cited as the reason to believe? (not evidence) | | |
+| Routed integrity "buzz" from `business-model/01_disqualifier-scan` (unverified adverse signal) | | |
+
+**Turnaround rule (Filter 2).** The base rate of turnaround success is low. A star CEO with an impressive résumé and a slick plan is NOT evidence of inflection — IBM/Gerstner worked and JCPenney/Ron Johnson destroyed the company, and neither was predictable from the pitch. Credit a turnaround only on at least 2–3 years of *delivered* operating improvement visible in the numbers. If the thesis rests on a turnaround without that proof, say so plainly, apply the base-rate penalty to the Management Quality Score, and note the conviction cap (MODULE_RULES rejector-filter caps). Classify the thesis honestly as a governance-turnaround.
+
+**Integrity rule (Filter 1).** If `business-model/01_disqualifier-scan` routed unverified adverse integrity signal ("buzz") here, do NOT discard it because a clean report exists — chase it as far as the data pool allows, record it, and let it lower the management read and cap conviction. Proven fraud / defrauding of stakeholders is a hard disqualifier owned by the scan; this agent handles the unproven-but-unignorable spectrum below that lock.
+
 ## 5. Management Read
 
 2–3 blunt sentences: tenure/stability, whether the record shows promises kept or missed, and the single biggest management signal (positive or negative).
@@ -119,6 +132,8 @@ Emit a machine-readable JSON code block per the Machine-Readable Outputs schema 
 - [ ] Management turnover (especially CFO) is captured and any warning flagged.
 - [ ] Promise-vs-delivery uses specific, dated prior promises — not vague impressions.
 - [ ] If no checkable promises exist, that is stated and the read is capped.
+- [ ] Turnaround test applied: if the thesis is a turnaround without ≥2–3 yrs of delivered operating inflection, the base-rate penalty and conviction cap are noted (§24 Filter 2).
+- [ ] Any routed integrity "buzz" from the disqualifier scan is recorded and reflected in the read, not discarded (§24 Filter 1).
 - [ ] Web is used only to confirm background, labeled as web-sourced.
 - [ ] The read is grounded in the record, not the narrative.
 - [ ] No banned phrases (no naked "experienced team" / "proven track record").

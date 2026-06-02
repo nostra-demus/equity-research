@@ -80,6 +80,9 @@ If none disclosed, write "No pledging disclosed." If material pledging exists, f
 | Dual-class / super-voting | | |
 | Controlled-company status | | |
 | Shareholder bloc with board rights | | |
+| Controlling-owner objective alignment *(Filter 6)* | | |
+
+**Unaligned-owner test (CLAUDE.md §24, Filter 6).** Judge whether the controlling owner's objective is long-term per-share value creation. Three structures create an inherent conflict with the minority holder and are structural caps, not discounts to arbitrage: (a) **government control** (the state pursues multiple non-profit objectives — e.g. directed lending, loan waivers, social policy — and such names are often perennially cheap and stay cheap); (b) a **listed subsidiary of a parent** that maximizes value at its own listing / a wholly-owned sibling (best managers and economics can be steered to the parent's vehicle); (c) a **sprawling unrelated-diversified conglomerate** where capital is spread across businesses with no sustained focus. If any applies, flag RF-OWN-004, lower the Control-structure-fairness component, and note the shareholder-friendliness cap (MODULE_RULES). State plainly that persistent cheapness under a misaligned owner is a value trap, not a margin of safety, and hand that read to the valuation module.
 
 ## 4A. Market Conduct
 
@@ -131,6 +134,7 @@ Emit a machine-readable JSON code block per the Machine-Readable Outputs schema 
 - [ ] Insider transactions separate open-market buys from option exercises / 10b5-1 sales.
 - [ ] Pledging is checked and flagged if material (cross-referenced to the disqualifier scan).
 - [ ] Control structure (dual-class, blocs, board rights) is mapped.
+- [ ] Controlling-owner objective alignment is tested; government control / listed-subsidiary-of-parent / sprawling conglomerate flagged RF-OWN-004 with the shareholder-friendliness cap and value-trap note (§24 Filter 6).
 - [ ] Ownership (static) and insider behavior (signal) are reported separately.
 - [ ] Web-sourced ownership/transaction data is labeled unverified.
 - [ ] No banned phrases.

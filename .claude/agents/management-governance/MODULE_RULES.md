@@ -291,9 +291,11 @@ Every Red finding cites a Red Flag ID. Severity uses the Materiality Thresholds.
 | RF-MGT-001 | Sudden CFO resignation |
 | RF-MGT-002 | Sudden Company Secretary / Compliance Officer resignation |
 | RF-MGT-003 | Management changes a KPI after underperformance |
+| RF-MGT-004 | Turnaround claimed without ≥2–3 yrs of delivered operating inflection (§24 Filter 2) |
 | RF-OWN-001 | Promoter pledge above threshold |
 | RF-OWN-002 | Promoter pledge increased QoQ |
 | RF-OWN-003 | Promoter stake sale before weak result / adverse announcement |
+| RF-OWN-004 | Structurally unaligned controlling owner — government control, listed subsidiary of a value-maximizing parent, or sprawling unrelated conglomerate (§24 Filter 6) |
 | RF-RPT-001 | RPT above High/Critical threshold |
 | RF-RPT-002 | Promoter-linked RPT above threshold |
 | RF-RPT-003 | Loans / advances / guarantees to related parties |
@@ -310,6 +312,7 @@ Every Red finding cites a Red Flag ID. Severity uses the Materiality Thresholds.
 | RF-CAP-001 | Large acquisition with vague rationale |
 | RF-CAP-002 | Buybacks not reducing share count |
 | RF-CAP-003 | Dividends not covered by FCF |
+| RF-CAP-004 | Serial-acquirer / value-destructive M&A pattern, esp. debt-funded near/above own value (§24 Filter 4) |
 | RF-DISC-001 | Management commentary contradicts the numbers |
 | RF-DISC-002 | Recurring "one-off" adjustments |
 
@@ -355,8 +358,14 @@ When data is missing or weak, these hard caps override an agent's own scoring. T
 | No multi-year capital-allocation history | Capital allocation max 65 |
 | No prior promises/guidance to check against | Disclosure candor max 65 |
 | A hard disqualifier is flagged by `business-model/01_disqualifier-scan` | Governance risk floor 80 (i.e., score ≥80); Overall verdict cannot exceed "Serious governance concerns" |
+| **Turnaround thesis without ≥2–3 yrs of delivered operating inflection** (§24 Filter 2) | Management quality max 60; note conviction cap; classify as governance-turnaround |
+| **Serial-acquirer pattern** — multiple material deals, esp. debt-funded near/above own value (§24 Filter 4) | Capital allocation max 50; Governance risk floor 60; RF-CAP-004 |
+| **Structurally unaligned controlling owner** — government control, listed subsidiary of a value-maximizing parent, or sprawling unrelated conglomerate (§24 Filter 6) | Shareholder friendliness max 55; Governance risk floor 55; RF-OWN-004; value-trap note to valuation |
+| **Unresolved adverse integrity signal** routed from `business-model/01_disqualifier-scan` and not cleared (§24 Filter 1) | Management quality max 60; Disclosure candor max 60; note conviction cap (no hard lock unless proven) |
 
 If multiple caps affect the same score, use the most restrictive.
+
+These rows implement the CLAUDE.md §24 "Avoid Big Risks" rejector filters as score penalties + conviction caps. They are not new hard disqualifiers (those stay in `business-model/01_disqualifier-scan` and §13). A filter trips on cited evidence; a tripped filter is never averaged away, and the synthesis (`99`) applies it in the Score Cap Application table.
 
 ---
 

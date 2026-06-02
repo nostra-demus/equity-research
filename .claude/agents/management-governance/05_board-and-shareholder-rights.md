@@ -99,7 +99,7 @@ High votes-against (e.g., >20%) on pay or RPT resolutions is a red flag per the 
 
 ## 5. Minority-Shareholder Protection Read
 
-2–3 blunt sentences: is the board a real check on management, are rights intact, and the single biggest entrenchment or self-dealing risk to minority holders. State the conclusion as one of: "strong protection," "adequate," or "weak / entrenched."
+2–3 blunt sentences: is the board a real check on management, are rights intact, and the single biggest entrenchment or self-dealing risk to minority holders. State the conclusion as one of: "strong protection," "adequate," or "weak / entrenched." If `04_ownership-and-insider-behavior` flagged a structurally unaligned controlling owner (government control, listed subsidiary of a value-maximizing parent, or a sprawling unrelated conglomerate — RF-OWN-004, §24 Filter 6), treat minority protection as no better than "weak / entrenched" on that basis: a board cannot offset an owner whose objective is not per-share value.
 ```
 
 # STRUCTURED OUTPUT (mandatory — append to your report; full schema in MODULE_RULES)

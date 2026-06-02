@@ -62,10 +62,12 @@ State the reporting currency.
 
 ## 2. M&A Scorecard
 
-| Deal | Year | Price | Disclosed Rationale / Synergy | Delivered? | Source |
-|---|---|---:|---|---|---|
+| Deal | Year | Price | Disclosed Rationale / Synergy | Delivered? | Opportunity Cost (divestitures forced / focus lost / options foregone) | Source |
+|---|---|---:|---|---|---|---|
 
 If no material M&A, write "No material M&A in the period."
+
+**Serial-acquirer + opportunity-cost test (CLAUDE.md §24, Filter 4).** Most M&A destroys value; score it against that base rate, not the company's own narrative. Charge each material deal its *opportunity cost*, not only its reported return: businesses divested under deal pressure, focus pulled off the existing franchise, and strategic options foregone (the Bayer–Monsanto pattern — the geese sold to buy a hen, plus a 10x jump in net debt). Bare "synergies / strategic fit / culture fit" language is not evidence of value creation. If the company is a *serial acquirer* (multiple material deals over the period), especially with debt-funded deals near or above its own market value, flag it as RF-CAP-004, cap the M&A discipline component, and name it as the most material capital-allocation signal. A serial-acquirer pattern is close to a disqualifier per §24.
 
 ## 3. Buyback Scorecard
 
@@ -119,6 +121,7 @@ Emit a machine-readable JSON code block per the Machine-Readable Outputs schema 
 
 - [ ] Uses-of-capital sum is shown as a % of CFO/FCF, not just absolute dollars.
 - [ ] M&A returns are disclosed or computed — not assumed.
+- [ ] M&A is charged its opportunity cost (divestitures / focus / foregone options), not only its own return; serial-acquirer pattern flagged RF-CAP-004 and the M&A component capped (§24 Filter 4).
 - [ ] Buyback average price is stated (or marked not-determinable) and judged vs value.
 - [ ] Buybacks are tested against stock-based-comp dilution (net share-count change).
 - [ ] Incremental ROIC is computed where data allows.

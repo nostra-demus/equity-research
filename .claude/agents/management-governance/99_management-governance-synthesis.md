@@ -140,8 +140,12 @@ If specialists disagreed (e.g., good capital-allocation record but misaligned in
 | No prior promises / transcripts / letters | | Management quality / disclosure candor | candor max 65 | | | |
 | Hard disqualifier flagged (business-model/01) | | Governance risk / verdict | risk floor 80; verdict no better than "Serious governance concerns" | | | |
 | Critical red flag triggered in this module | | Governance rating / verdict | rating no better than "Weak" until disproven | | | |
+| Turnaround thesis without ≥2–3 yrs delivered inflection (§24 Filter 2) | | Management quality | max 60; conviction cap | | | |
+| Serial-acquirer pattern (§24 Filter 4, RF-CAP-004) | | Capital allocation; Governance risk | CapAlloc max 50; GovRisk floor 60 | | | |
+| Structurally unaligned controlling owner (§24 Filter 6, RF-OWN-004) | | Shareholder friendliness; Governance risk | ShFriendliness max 55; GovRisk floor 55 | | | |
+| Unresolved adverse integrity signal routed from business-model/01 (§24 Filter 1) | | Management quality; Disclosure candor | each max 60; conviction cap | | | |
 
-If multiple caps affect the same score, use the most restrictive. If a hard disqualifier is flagged, the stewardship verdict must be no better than "Serious governance concerns."
+If multiple caps affect the same score, use the most restrictive. If a hard disqualifier is flagged, the stewardship verdict must be no better than "Serious governance concerns." The four §24 rejector-filter rows apply score penalties + conviction caps (not hard locks); reflect them in the scores above and in the Note To The Final Synthesizer.
 
 ## 5. Stewardship Summary
 
@@ -203,6 +207,7 @@ Bullet list, no prose paragraphs. **Surface what the scores MEAN — do not rest
 - Whether incentives and ownership align management with minority holders
 - The biggest governance risk / red flag and its severity
 - Any hard disqualifier flagged by `business-model/01_disqualifier-scan` (verbatim)
+- Which §24 rejector filters tripped (turnaround / serial acquirer / unaligned owner / integrity) and the cap each applied
 - Whether any partial-data cap applied and what it limits
 - Biggest missing data point (the single highest-value next data request)
 - **Explicit handoff:** this module supersedes the `business-model/11_capital-allocation-governance` quick-read; the master synthesizer should treat this module's governance verdict and scores as the primary governance read.

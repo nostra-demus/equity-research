@@ -73,7 +73,7 @@ In 2–3 sentences: in the worst recent quarter/period, was the tone candid or p
 
 ## 5. Candor Read
 
-2–3 blunt sentences: whether management can be trusted to tell the truth when results are bad, the strongest evidence either way, and the single biggest candor signal. State the conclusion as one of: "candid / high-trust," "mixed," or "promotional / low-trust."
+2–3 blunt sentences: whether management can be trusted to tell the truth when results are bad, the strongest evidence either way, and the single biggest candor signal. State the conclusion as one of: "candid / high-trust," "mixed," or "promotional / low-trust." If unresolved adverse integrity signal was routed from `business-model/01_disqualifier-scan` or noted in `01_management-and-track-record` (CLAUDE.md §24, Filter 1), let it weigh against the trust read rather than be set aside — a promotional tone alongside unresolved integrity questions compounds, it does not net out.
 ```
 
 # STRUCTURED OUTPUT (mandatory — append to your report; full schema in MODULE_RULES)
