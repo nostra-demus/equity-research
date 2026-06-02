@@ -112,6 +112,13 @@ If any row is Y, the Verdict below is LOCKED at "Low-quality business — avoid 
 - Business type (one line): *(from `02_business-identity.md`)*
 - Biggest business-model risk (one line):
 
+**REJECTOR-FILTER CAPS (CLAUDE.md §24).** This module owns three of the six "Avoid Big Risks" filters. Check and apply each, and state explicitly when a cap is applied:
+- **Filter 1 — Crooks / integrity.** If `01_disqualifier-scan.md` flagged proven fraud / defrauding of stakeholders, the verdict is already locked. If it flagged unverified adverse "buzz" routed to management-governance, carry it forward as a conviction-capping note, not a lock.
+- **Filter 4 — Serial acquirers.** If `11_capital-allocation-governance.md` scored the acquisition-pattern row ≥70 severity (serial-acquirer pattern, especially debt-funded deals near/above own value), the Capital allocation & governance /100 is capped at 50 and Overall usefulness at 70.
+- **Filter 5 — Fast-changing industry.** If `07_business-quality.md` scored the industry rate-of-change / disruption row ≤40, the Business quality /100 is capped at 65, and the Abstract/Read must flag the thesis as a sector / technology-cycle bet rather than a durable compounder.
+
+If multiple caps affect the same score, use the most restrictive.
+
 **CAPITAL STRUCTURE TRANSACTION CAP.** If `11_capital-allocation-governance.md` reports a transaction in the period under review that materially changed the capital structure — defined as either (a) total debt change > 50% YoY, or (b) share count change > 25% YoY, or (c) both — then the **Capital allocation & governance /100** score above is CAPPED at 50/100 regardless of how clean other governance hygiene factors (auditor, related-party, restatements, insider behavior) are. Clean hygiene cannot override material capital-structure restructuring. If you apply this cap, state explicitly in your synthesis: "Capital allocation score capped at 50/100 due to [specific transaction] which [specific change]." If you choose NOT to apply the cap despite a triggering transaction, you must justify why in one sentence (e.g., the transaction was fully announced, board-approved, and shareholder-voted with clear strategic rationale and minimal execution risk).
 
 ## 2. Specialist Roll-Up
@@ -150,6 +157,7 @@ Bullet list, no prose paragraphs. **Surface what the scores MEAN — do not rest
 - Main external dependency
 - Most important capital allocation or governance signal
 - Whether any automatic disqualifier triggered
+- Which rejector filters (§24: crooks/integrity, serial acquirers, fast-changing industry) tripped, and the cap each applied
 - Biggest missing data point
 - Whether the business deserves deeper work, and what would change the answer
 

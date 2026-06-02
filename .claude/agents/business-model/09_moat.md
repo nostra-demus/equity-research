@@ -111,7 +111,7 @@ State ONE of:
 - **No moat proven** — no advantage strong enough to defend profits over time
 - **Insufficient data**
 
-In 2–3 sentences, name the strongest moat (if any) and the durability test it would need to pass over the next 5 years.
+In 2–3 sentences, name the strongest moat (if any) and the durability test it would need to pass over the next 5 years. If the industry is fast-changing (cross-check `07_business-quality.md` rate-of-change / disruption row), discount durability accordingly: a moat in a fast-changing industry decays faster and is harder to underwrite than the same moat in a stable, boring one (CLAUDE.md §24, Filter 5).
 ```
 
 # SELF-CHECK

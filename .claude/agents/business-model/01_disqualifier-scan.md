@@ -52,6 +52,10 @@ You DO NOT:
 7. More than 40% of revenue from a single customer with no long-term contract disclosed.
 8. Negative operating cash flow in 3 of the last 4 years (excludes early-stage businesses with explicit disclosed growth-investment narratives — if so, name the narrative).
 
+## Integrity note (CLAUDE.md §24, Filter 1)
+
+Proven fraud or proven defrauding of customers, suppliers, employees, or shareholders by the controller or senior management is a hard disqualifier — record it under #6 (regulatory enforcement) when there is an enforcement action, or as a §13 critical red flag when proven by primary evidence, and set the verdict-lock. But this gate triggers ONLY on hard, named, sourced facts. Soft or unverified adverse signal about integrity ("buzz", informal allegations, unproven media claims) does NOT trigger the lock here — it must NOT be discarded either. Note it explicitly in the report and route it to the management-governance module (track-record and candor agents), where it lowers the score and caps conviction rather than locking the verdict.
+
 # REPORT STRUCTURE
 
 ```

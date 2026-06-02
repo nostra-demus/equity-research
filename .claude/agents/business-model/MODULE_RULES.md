@@ -75,6 +75,20 @@ Be strict. High scores require evidence. Default to the middle band when uncerta
 
 ---
 
+## Rejector-Filter Penalties & Caps (CLAUDE.md §24)
+
+This module owns three of the six "Avoid Big Risks" filters. Each trips on cited evidence and applies a score penalty plus a conviction cap carried to `99_business-model-synthesis`. Penalties scale with the strength of evidence; a tripped filter is never averaged away.
+
+| Filter (§24) | Owning agent / signal | Trip condition (evidence-based) | Penalty / Cap |
+|---|---|---|---|
+| 1 — Crooks / integrity | `disqualifier-scan`; routed to management-governance | Proven fraud / defrauding of stakeholders by controller or senior management | Hard verdict-lock (via #6 / §13). Unverified adverse "buzz" → no lock; flag and route to management-governance to cap conviction |
+| 4 — Serial acquirers | `capital-allocation-governance`, acquisition-pattern row | Multiple material deals over the period (serial acquirer), especially debt-funded deals near or above the company's own value | Acquisition-pattern severity ≥70; Capital Allocation Score max 50; Overall usefulness max 70 |
+| 5 — Fast-changing industry | `business-quality`, rate-of-change row; cross-checked in `moat` | Industry rate-of-change / disruption row scores ≤40 (winners not knowable in advance) | Business quality aggregate max 65; flag thesis as a sector / technology-cycle bet; moat durability discounted |
+
+If multiple caps affect the same score, use the most restrictive. State explicitly in the report when a cap is applied and why.
+
+---
+
 ## Style Rules
 
 - Plain English. Short sentences.

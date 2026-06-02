@@ -56,7 +56,7 @@ Severity is INVERTED — higher score = worse.
 
 | Signal | Observation | Evidence | Severity /100 *(higher = worse)* |
 |---|---|---|---:|
-| Acquisition pattern (frequency, size, integration outcomes) | | | |
+| Acquisition pattern (frequency, size, integration outcomes; serial-acquirer + opportunity cost — Filter 4) | | | |
 | Net share count trajectory (buybacks minus issuance, dilution) | | | |
 | Dividend policy & coverage | | | |
 | Capex intensity vs depreciation (growth vs maintenance) | | | |
@@ -71,6 +71,8 @@ Severity is INVERTED — higher score = worse.
 | Senior management turnover (CEO, CFO, board chair in last 3 years) | | | |
 
 For each row, "Observation" is one sentence stating what the data shows.
+
+**Acquisition pattern — serial-acquirer + opportunity-cost test (CLAUDE.md §24, Filter 4).** Most M&A destroys value, so score this row against that base rate. Raise the severity when the company is a *serial acquirer* (multiple material deals over the period rather than the occasional bolt-on), and especially when a deal is debt-funded and large relative to the company's own value. Do NOT score a deal only on its own reported return / synergy — also weigh its opportunity cost: businesses divested under deal pressure, focus pulled off the existing franchise, and strategic options foregone. Bare "synergies / strategic fit / culture fit" language is not evidence of value creation. A clear serial-acquirer pattern is close to a disqualifier: score this row ≥70 severity and name it as the most material signal, which caps the Capital Allocation Score per the rejector-filter rule in MODULE_RULES.
 
 ## 2. Classification
 
@@ -91,6 +93,8 @@ One paragraph: which single signal would, if it deteriorated further, change the
 Single number /100, **higher = better** (better discipline, cleaner governance).
 
 This is the inverse of the average severity in the table, weighted by what matters most for this business.
+
+**Rejector-filter cap (CLAUDE.md §24, Filter 4):** if the acquisition-pattern row scored ≥70 severity (a clear serial-acquirer pattern, especially debt-funded deals near or above the company's own value), cap this Capital Allocation Score at 50/100 regardless of how clean the other signals are, and state that you applied the cap and why.
 ```
 
 # SELF-CHECK
