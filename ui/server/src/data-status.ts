@@ -122,7 +122,7 @@ function classifyFile(dir: string, filename: string): ClassifiedFile {
 // ---- per-module sufficiency ----
 const recent = (age: number | null, months: number) => (age == null ? true : age <= months)
 
-function evaluateModules(files: ClassifiedFile[]): Record<string, ModuleReadiness> {
+function evaluateModules(files: ClassifiedFile[], moduleNames: string[]): Record<string, ModuleReadiness> {
   const has = (t: FileType) => files.some((f) => f.type === t)
   const minAge = (types: FileType[]) => {
     const ages = files.filter((f) => types.includes(f.type)).map((f) => f.ageMonths).filter((a): a is number => a != null)
@@ -244,6 +244,26 @@ function evaluateModules(files: ClassifiedFile[]): Record<string, ModuleReadines
     out['management-governance'] = { status, reasons, caps }
   }
 
+  // generic fallback — keeps readiness self-discovering for any other module (e.g. catalyst) the
+  // engine adds, without a hand-written rule. Evidence-based on recent filings.
+  for (const name of moduleNames) {
+    if (out[name]) continue
+    const annualOk = hasAnnual && recent(annualAge, 18)
+    const periodicOk = hasPeriodic && recent(periodicAge, 9)
+    let status: Sufficiency = 'Insufficient'
+    const reasons: string[] = []
+    if (annualOk && periodicOk) {
+      status = 'Sufficient'
+      reasons.push('recent annual + quarterly/transcript present')
+    } else if (annualOk || periodicOk || hasFinancials) {
+      status = 'Partial'
+      reasons.push('some filings present; module-specific rule not yet encoded')
+    } else {
+      reasons.push('no recent filings')
+    }
+    out[name] = { status, reasons, caps: [] }
+  }
+
   return out
 }
 
@@ -265,7 +285,7 @@ export function analyzeTicker(ticker: string): DataStatus {
     }
   }
 
-  const modules = files.length ? evaluateModules(files) : Object.fromEntries(listModuleNames().map((m) => [m, { status: 'Insufficient' as Sufficiency, reasons: ['no data uploaded'], caps: [] }]))
+  const modules = files.length ? evaluateModules(files, listModuleNames()) : Object.fromEntries(listModuleNames().map((m) => [m, { status: 'Insufficient' as Sufficiency, reasons: ['no data uploaded'], caps: [] }]))
   const overallReady = Object.values(modules).some((m) => m.status === 'Sufficient')
 
   return {
