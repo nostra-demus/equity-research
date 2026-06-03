@@ -1,0 +1,279 @@
+import { randomUUID } from 'node:crypto'
+import fs from 'node:fs'
+import path from 'node:path'
+import chokidar from 'chokidar'
+import cors from '@fastify/cors'
+import Fastify, { type FastifyReply } from 'fastify'
+import { z } from 'zod'
+import { DATA_DIR, HOST, PORT, REPO_ROOT, WEB_DIST } from './config'
+import { getCreditStatus } from './credit'
+import { analyzeTicker, listTickers } from './data-status'
+import { cancel, creditCheck, estimate, launch } from './launcher'
+import { getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
+import { agentNamesForModule, buildSwarmGraph, graphForTicker, listModuleNames } from './roster'
+import { listRunsForTicker, readDecision, readMarkdown, resolveRunRoot, runManifest } from './outputs'
+import { AGENT_RE, MODULE_RE, TICKER_RE } from './sandbox'
+import type { RunKind } from './types'
+
+const app = Fastify({ logger: false })
+await app.register(cors, { origin: true })
+
+// ---------- SSE helper ----------
+function startSSE(reply: FastifyReply) {
+  reply.hijack()
+  const res = reply.raw
+  res.writeHead(200, {
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache, no-transform',
+    Connection: 'keep-alive',
+    'X-Accel-Buffering': 'no',
+  })
+  res.write(': connected\n\n')
+  const send = (event: any) => {
+    try {
+      res.write(`event: ${event.type}\ndata: ${JSON.stringify(event)}\n\n`)
+    } catch {}
+  }
+  const ping = setInterval(() => {
+    try {
+      res.write(': keep-alive\n\n')
+    } catch {}
+  }, 15000)
+  return { res, send, ping }
+}
+
+// ---------- health ----------
+app.get('/api/health', async () => ({ ok: true, repoRoot: REPO_ROOT }))
+
+// ---------- swarm graph ----------
+app.get('/api/swarm', async (req) => {
+  const ticker = (req.query as any)?.ticker as string | undefined
+  if (ticker && TICKER_RE.test(ticker)) return graphForTicker(ticker)
+  return buildSwarmGraph()
+})
+
+// ---------- tickers ----------
+app.get('/api/tickers', async () => listTickers())
+
+// ---------- data status ----------
+app.get('/api/data-status/:ticker', async (req, reply) => {
+  const ticker = (req.params as any).ticker as string
+  if (!TICKER_RE.test(ticker)) return reply.code(400).send({ error: 'bad ticker' })
+  return analyzeTicker(ticker)
+})
+
+// ---------- credit ----------
+app.get('/api/credit', async () => getCreditStatus())
+app.post('/api/credit-check', async () => creditCheck())
+
+// ---------- launch estimate ----------
+app.get('/api/launch/estimate', async (req, reply) => {
+  const q = req.query as any
+  const kind = q.kind as RunKind
+  if (!['full', 'module', 'agent'].includes(kind)) return reply.code(400).send({ error: 'bad kind' })
+  if (!TICKER_RE.test(q.ticker || '')) return reply.code(400).send({ error: 'bad ticker' })
+  return estimate(kind, q.ticker, q.module, q.agent)
+})
+
+// ---------- launch ----------
+const LaunchBody = z.object({
+  kind: z.enum(['full', 'module', 'agent']),
+  ticker: z.string().regex(TICKER_RE),
+  module: z.string().regex(MODULE_RE).optional(),
+  agent: z.string().regex(AGENT_RE).optional(),
+  model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i).optional(),
+  confirmTicker: z.string().optional(),
+})
+
+app.post('/api/launch', async (req, reply) => {
+  const parsed = LaunchBody.safeParse(req.body)
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  const { kind, ticker, module, agent, model, confirmTicker } = parsed.data
+
+  // closed allow-list checks against the live roster + data pool
+  const tickers = listTickers().tickers.map((t) => t.ticker)
+  if (!tickers.includes(ticker)) return reply.code(400).send({ error: `unknown ticker ${ticker}` })
+  if (kind !== 'full') {
+    if (!module || !listModuleNames().includes(module)) return reply.code(400).send({ error: 'unknown module' })
+  }
+  if (kind === 'agent') {
+    if (!agent || !agentNamesForModule(module!).includes(agent)) return reply.code(400).send({ error: 'unknown agent for module' })
+  }
+  if (kind === 'full' && confirmTicker !== ticker) {
+    return reply.code(412).send({ error: 'full run requires typed confirmation', detail: 'send confirmTicker === ticker' })
+  }
+
+  try {
+    const out = await launch({ kind, ticker, module, agent, model })
+    return out
+  } catch (e: any) {
+    return reply.code(e?.statusCode || 500).send({ error: e?.message || 'launch failed' })
+  }
+})
+
+// ---------- run stream (SSE) ----------
+app.get('/api/runs/:runId/stream', (req, reply) => {
+  const run = getRun((req.params as any).runId)
+  if (!run) {
+    reply.code(404).send({ error: 'no such run' })
+    return
+  }
+  const { send, ping } = startSSE(reply)
+  const client: SseClient = { id: randomUUID(), send }
+  subscribe(run, client)
+  req.raw.on('close', () => {
+    clearInterval(ping)
+    unsubscribe(run, client)
+  })
+})
+
+// ---------- run snapshot ----------
+app.get('/api/runs/:runId', async (req, reply) => {
+  const run = getRun((req.params as any).runId)
+  if (!run) return reply.code(404).send({ error: 'no such run' })
+  return {
+    runId: run.runId,
+    kind: run.kind,
+    ticker: run.ticker,
+    module: run.module,
+    agent: run.agent,
+    status: run.status,
+    runRoot: run.runRoot,
+    costUsd: run.costUsd,
+    numTurns: run.numTurns,
+    durationMs: run.durationMs,
+    agents: [...run.agents.values()],
+    startedAt: run.startedAt,
+    endedAt: run.endedAt,
+  }
+})
+
+// ---------- cancel ----------
+app.post('/api/runs/:runId/cancel', async (req, reply) => {
+  const ok = await cancel((req.params as any).runId)
+  if (!ok) return reply.code(404).send({ error: 'no such run / already ended' })
+  return { ok: true, status: 'cancelled' }
+})
+
+// ---------- active runs list ----------
+app.get('/api/runs', async (req) => {
+  const ticker = (req.query as any)?.ticker as string | undefined
+  if (ticker && TICKER_RE.test(ticker)) return { history: listRunsForTicker(ticker) }
+  return {
+    active: listRuns()
+      .filter((r) => r.status === 'starting' || r.status === 'running')
+      .map((r) => ({ runId: r.runId, kind: r.kind, ticker: r.ticker, module: r.module, status: r.status })),
+  }
+})
+
+// ---------- outputs (path-sandboxed) ----------
+app.get('/api/output', async (req, reply) => {
+  const p = (req.query as any)?.path as string
+  if (!p || !p.startsWith('analyses/')) return reply.code(400).send({ error: 'path must be under analyses/' })
+  try {
+    return readMarkdown(p)
+  } catch (e: any) {
+    return reply.code(e?.code === 'ENOENT' ? 404 : 400).send({ error: 'cannot read', detail: String(e?.message || e) })
+  }
+})
+
+app.get('/api/output/thesis', async (req, reply) => {
+  const q = req.query as any
+  const runRoot = resolveRunRoot({ runRoot: q.runRoot, ticker: q.ticker, date: q.date })
+  if (!runRoot) return reply.code(404).send({ error: 'no run found' })
+  try {
+    return readMarkdown(`${runRoot}/final_thesis.md`)
+  } catch {
+    return reply.code(404).send({ error: 'no final_thesis.md' })
+  }
+})
+
+app.get('/api/output/decision', async (req, reply) => {
+  const q = req.query as any
+  const runRoot = resolveRunRoot({ runRoot: q.runRoot, ticker: q.ticker, date: q.date })
+  if (!runRoot) return reply.code(404).send({ error: 'no run found' })
+  try {
+    return readDecision(runRoot)
+  } catch {
+    return reply.code(404).send({ error: 'no decision_record.json' })
+  }
+})
+
+app.get('/api/output/run', async (req, reply) => {
+  const q = req.query as any
+  const runRoot = resolveRunRoot({ runRoot: q.runRoot, ticker: q.ticker, date: q.date })
+  if (!runRoot) return reply.code(404).send({ error: 'no run found' })
+  try {
+    return runManifest(runRoot)
+  } catch (e: any) {
+    return reply.code(400).send({ error: 'cannot read run', detail: String(e?.message || e) })
+  }
+})
+
+// ---------- data folder watcher -> data-status SSE ----------
+const dataClients = new Set<{ send: (e: any) => void }>()
+app.get('/api/data-status/stream', (req, reply) => {
+  const { send, ping } = startSSE(reply)
+  const client = { send }
+  dataClients.add(client)
+  send({ type: 'data-watch-connected', ts: Date.now() })
+  req.raw.on('close', () => {
+    clearInterval(ping)
+    dataClients.delete(client)
+  })
+})
+
+function broadcastData(fp: string, change: 'added' | 'removed') {
+  let rel: string
+  try {
+    rel = path.relative(DATA_DIR, fp)
+  } catch {
+    return
+  }
+  const ticker = rel.split(path.sep)[0]
+  if (!ticker || ticker.startsWith('..')) return
+  const evt = { type: 'data-changed', ticker, change, ts: Date.now() }
+  for (const c of dataClients) {
+    try {
+      c.send(evt)
+    } catch {}
+  }
+}
+
+if (fs.existsSync(DATA_DIR)) {
+  // data/ is a Google Drive CloudStorage mount -> polling is the robust choice across the FUSE boundary
+  const dataWatcher = chokidar.watch(DATA_DIR, {
+    ignoreInitial: true,
+    usePolling: true,
+    interval: 1500,
+    depth: 2,
+    awaitWriteFinish: { stabilityThreshold: 2000, pollInterval: 500 },
+  })
+  dataWatcher.on('add', (f) => broadcastData(f, 'added'))
+  dataWatcher.on('addDir', (f) => broadcastData(f, 'added'))
+  dataWatcher.on('unlink', (f) => broadcastData(f, 'removed'))
+  dataWatcher.on('unlinkDir', (f) => broadcastData(f, 'removed'))
+}
+
+// ---------- static (built UI) ----------
+if (fs.existsSync(WEB_DIST)) {
+  const fastifyStatic = (await import('@fastify/static')).default
+  await app.register(fastifyStatic, { root: WEB_DIST, wildcard: false })
+  app.setNotFoundHandler((req, reply) => {
+    if (req.url.startsWith('/api/')) return reply.code(404).send({ error: 'not found' })
+    return reply.sendFile('index.html')
+  })
+}
+
+app
+  .listen({ host: HOST, port: PORT })
+  .then(() => {
+    const g = buildSwarmGraph()
+    // eslint-disable-next-line no-console
+    console.log(`[swarm-cockpit] control plane on http://${HOST}:${PORT}  (${g.totals.modules} modules, ${g.totals.agents} agents)`)
+  })
+  .catch((err) => {
+    // eslint-disable-next-line no-console
+    console.error('[swarm-cockpit] failed to start', err)
+    process.exit(1)
+  })

@@ -1,0 +1,330 @@
+import fs from 'node:fs'
+import path from 'node:path'
+import { DATA_DIR, ANALYSES_DIR } from './config'
+import { listModuleNames } from './roster'
+import type { ClassifiedFile, DataStatus, FileType, ModuleReadiness, Sufficiency, TickerSummary } from './types'
+
+// ---- light content sniffing (memoized) ----
+const sniffCache = new Map<string, string>()
+function sniffText(filePath: string, sizeBytes: number, mtimeMs: number): string {
+  const key = `${filePath}:${sizeBytes}:${Math.round(mtimeMs)}`
+  const hit = sniffCache.get(key)
+  if (hit !== undefined) return hit
+  let text = ''
+  try {
+    const ext = path.extname(filePath).toLowerCase()
+    const base = filePath.slice(0, -ext.length)
+    const sibling = base + '.txt'
+    if (ext === '.txt') {
+      text = fs.readFileSync(filePath, 'utf8').slice(0, 8000)
+    } else if (fs.existsSync(sibling)) {
+      text = fs.readFileSync(sibling, 'utf8').slice(0, 8000)
+    } else if (ext === '.pdf' || ext === '.rtf') {
+      // best-effort: keep printable chars from the head; compressed PDFs yield little, that's fine
+      const buf = fs.readFileSync(filePath).subarray(0, 16000).toString('latin1')
+      text = buf.replace(/[^\x20-\x7e\n]/g, ' ').slice(0, 8000)
+    }
+  } catch {
+    text = ''
+  }
+  sniffCache.set(key, text)
+  return text
+}
+
+// ---- period / age ----
+function monthsSince(year: number, month: number): number {
+  const now = new Date()
+  return (now.getFullYear() - year) * 12 + (now.getMonth() + 1 - month)
+}
+
+function extractPeriod(filename: string, sniff: string): { hint: string | null; ageMonths: number | null } {
+  const hay = `${filename}\n${sniff.slice(0, 2000)}`
+  // fiscal year e.g. FY24-25, FY2024-25, FY25
+  let m = hay.match(/FY\s?(\d{4})[-/](\d{2,4})/i)
+  if (m) {
+    const endY = m[2].length === 2 ? 2000 + Number(m[2]) : Number(m[2])
+    return { hint: `FY${m[1]}-${m[2]}`, ageMonths: Math.max(0, monthsSince(endY, 3)) }
+  }
+  m = hay.match(/\bFY\s?(\d{2})\b/i)
+  if (m) {
+    const endY = 2000 + Number(m[1])
+    return { hint: `FY${m[1]}`, ageMonths: Math.max(0, monthsSince(endY, 3)) }
+  }
+  // quarter e.g. Q1 2026 / q1-2026
+  m = hay.match(/\bQ([1-4])[\s\-_]?(20\d{2})\b/i)
+  if (m) {
+    const q = Number(m[1])
+    return { hint: `Q${m[1]} ${m[2]}`, ageMonths: Math.max(0, monthsSince(Number(m[2]), q * 3)) }
+  }
+  // plain 4-digit year, take the most recent plausible one
+  const years = [...hay.matchAll(/\b(20[1-3]\d)\b/g)].map((x) => Number(x[1])).filter((y) => y <= new Date().getFullYear() + 1)
+  if (years.length) {
+    const y = Math.max(...years)
+    return { hint: String(y), ageMonths: Math.max(0, monthsSince(y, 6)) }
+  }
+  return { hint: null, ageMonths: null }
+}
+
+// ---- classification ----
+function classify(filename: string, sniff: string): { type: FileType; confidence: 'high' | 'medium' | 'low'; basis: 'filename' | 'content' | 'extension' } {
+  const f = filename.toLowerCase()
+  const ext = path.extname(f)
+  const test = (re: RegExp) => re.test(f)
+  const testC = (re: RegExp) => re.test(sniff)
+
+  if (test(/\.gdoc$/)) return { type: 'user_note', confidence: 'high', basis: 'filename' }
+  if (test(/annual\s?report|10-?k|integrated annual/)) return { type: 'annual_filing', confidence: 'high', basis: 'filename' }
+  if (test(/10-?q|quarterly|q[1-4][\s\-_]?20\d{2}/)) return { type: 'quarterly_filing', confidence: 'high', basis: 'filename' }
+  if (test(/transcript|conference[\s\-_]?call|earnings[\s\-_]?call|_call\b/)) return { type: 'transcript', confidence: 'high', basis: 'filename' }
+  if (test(/estimates?|consensus/)) return { type: 'consensus_estimates', confidence: 'high', basis: 'filename' }
+  if (test(/revision|surprise|recent changes|trends/)) return { type: 'consensus_estimates', confidence: 'medium', basis: 'filename' }
+  if (test(/multiples/)) return { type: 'multiples_export', confidence: 'high', basis: 'filename' }
+  if (test(/comparable|comps|peer/)) return { type: 'peer_comps', confidence: 'high', basis: 'filename' }
+  if (test(/ownership|insider/)) return { type: 'ownership_insider', confidence: 'high', basis: 'filename' }
+  if (test(/proxy|def[\s_]?14a|compensation|remuneration|professionals/)) return { type: 'proxy_comp', confidence: 'medium', basis: 'filename' }
+  if (test(/guidance/)) return { type: 'guidance', confidence: 'high', basis: 'filename' }
+  if (test(/financials|income|balance|cash[\s_]?flow/)) return { type: 'financials', confidence: 'high', basis: 'filename' }
+  if (test(/presentation|deck|investor/)) return { type: 'investor_deck', confidence: 'high', basis: 'filename' }
+  if (test(/company profile|tearsheet|landscape|suppliers|customers|products/)) return { type: 'other', confidence: 'low', basis: 'filename' }
+
+  // content sniff for opaque names (UUID PDFs)
+  if (sniff) {
+    if (testC(/ANNUAL REPORT|Form 10-K|Independent Auditor|Integrated Annual/i)) return { type: 'annual_filing', confidence: 'medium', basis: 'content' }
+    if (testC(/Form 10-Q|three months ended|unaudited condensed/i)) return { type: 'quarterly_filing', confidence: 'medium', basis: 'content' }
+    if (testC(/prepared remarks|Question-and-Answer|Operator[,:]|Thank you for joining|earnings call/i)) return { type: 'transcript', confidence: 'medium', basis: 'content' }
+    if (testC(/investor presentation|earnings presentation/i)) return { type: 'investor_deck', confidence: 'medium', basis: 'content' }
+  }
+  if (ext === '.xls' || ext === '.xlsx') return { type: 'other', confidence: 'low', basis: 'extension' }
+  return { type: 'other', confidence: 'low', basis: 'extension' }
+}
+
+function classifyFile(dir: string, filename: string): ClassifiedFile {
+  const full = path.join(dir, filename)
+  const st = fs.statSync(full)
+  const sniff = sniffText(full, st.size, st.mtimeMs)
+  const { type, confidence, basis } = classify(filename, sniff)
+  const { hint, ageMonths } = extractPeriod(filename, sniff)
+  // fall back to file mtime age when no period could be parsed
+  const mtimeAge = Math.max(0, Math.round((Date.now() - st.mtimeMs) / (1000 * 60 * 60 * 24 * 30.4)))
+  return {
+    filename,
+    ext: path.extname(filename).toLowerCase(),
+    sizeBytes: st.size,
+    mtime: new Date(st.mtimeMs).toISOString(),
+    type,
+    periodHint: hint,
+    ageMonths: ageMonths ?? mtimeAge,
+    confidence,
+    basis,
+  }
+}
+
+// ---- per-module sufficiency ----
+const recent = (age: number | null, months: number) => (age == null ? true : age <= months)
+
+function evaluateModules(files: ClassifiedFile[]): Record<string, ModuleReadiness> {
+  const has = (t: FileType) => files.some((f) => f.type === t)
+  const minAge = (types: FileType[]) => {
+    const ages = files.filter((f) => types.includes(f.type)).map((f) => f.ageMonths).filter((a): a is number => a != null)
+    return ages.length ? Math.min(...ages) : null
+  }
+  const hasAnnual = has('annual_filing')
+  const hasQuarterly = has('quarterly_filing')
+  const hasTranscript = has('transcript')
+  const hasDeck = has('investor_deck')
+  const hasPeriodic = hasQuarterly || hasTranscript || hasDeck
+  const hasFinancials = has('financials') || hasAnnual
+  const hasConsensus = has('consensus_estimates')
+  const hasMultiples = has('multiples_export')
+  const hasPeerComps = has('peer_comps')
+  const hasOwnership = has('ownership_insider')
+  const hasProxyComp = has('proxy_comp') || hasAnnual
+  const hasCurrentPrice = hasConsensus || hasMultiples
+  const hasDebtNote = hasAnnual || hasQuarterly
+  const hasGovernance = hasAnnual || hasProxyComp || hasOwnership
+
+  const annualAge = minAge(['annual_filing'])
+  const periodicAge = minAge(['quarterly_filing', 'transcript', 'investor_deck'])
+
+  const out: Record<string, ModuleReadiness> = {}
+
+  // business-model
+  {
+    const annualOk = hasAnnual && recent(annualAge, 18)
+    const periodicOk = hasPeriodic && recent(periodicAge, 9)
+    let status: Sufficiency = 'Insufficient'
+    const reasons: string[] = []
+    if (annualOk && periodicOk) {
+      status = 'Sufficient'
+      reasons.push('annual filing + recent quarterly/transcript/deck present')
+    } else if (annualOk || periodicOk) {
+      status = 'Partial'
+      reasons.push(annualOk ? 'annual filing present, no recent quarterly/transcript' : 'recent quarterly/transcript present, no annual filing')
+    } else {
+      reasons.push('no recent annual filing or quarterly/transcript')
+    }
+    out['business-model'] = { status, reasons, caps: [] }
+  }
+
+  // earnings
+  {
+    const core = hasFinancials && (hasPeriodic || hasAnnual)
+    const caps: string[] = []
+    let status: Sufficiency = 'Insufficient'
+    const reasons: string[] = []
+    if (!hasFinancials) {
+      reasons.push('no income statement / cash-flow base to analyze earnings')
+    } else if (core && hasConsensus) {
+      status = 'Sufficient'
+      reasons.push('financials + recent period + consensus estimates present')
+    } else {
+      status = 'Partial'
+      reasons.push(core ? 'financials present' : 'financials present, period recency limited')
+      if (!hasConsensus) caps.push('consensus read capped (agents 04/05/99)')
+      if (!hasPeriodic) caps.push('quarterly trend capped (agents 01/02/03/06)')
+    }
+    out['earnings'] = { status, reasons, caps }
+  }
+
+  // valuation
+  {
+    const methods = [hasFinancials, hasPeerComps || hasMultiples, hasFinancials, hasFinancials && hasCurrentPrice].filter(Boolean).length
+    const caps: string[] = []
+    let status: Sufficiency = 'Insufficient'
+    const reasons: string[] = []
+    if (methods < 2 || !hasFinancials) {
+      reasons.push('fewer than two valuation methods runnable')
+    } else if (hasFinancials && hasCurrentPrice && (hasConsensus || hasPeerComps || hasMultiples)) {
+      status = 'Sufficient'
+      reasons.push('financials + current price + comps/consensus present (≥4 methods)')
+    } else {
+      status = 'Partial'
+      reasons.push('valuation base present')
+      if (!hasCurrentPrice) caps.push('margin of safety not assessable (no current price)')
+      if (!hasPeerComps) caps.push('relative-valuation peers limited')
+    }
+    out['valuation'] = { status, reasons, caps }
+  }
+
+  // balance-sheet-survival
+  {
+    const caps: string[] = []
+    let status: Sufficiency = 'Insufficient'
+    const reasons: string[] = []
+    if (!hasFinancials) {
+      reasons.push('no balance sheet to establish leverage')
+    } else if (hasFinancials && hasDebtNote) {
+      status = 'Sufficient'
+      reasons.push('balance sheet + debt note + cash flow present')
+      caps.push('covenant/maturity detail limited unless a credit agreement is in the pool')
+    } else {
+      status = 'Partial'
+      reasons.push('balance sheet present, debt detail limited')
+      caps.push('maturity wall + covenant headroom not assessable')
+    }
+    out['balance-sheet-survival'] = { status, reasons, caps }
+  }
+
+  // management-governance
+  {
+    const caps: string[] = []
+    let status: Sufficiency = 'Insufficient'
+    const reasons: string[] = []
+    if (!hasGovernance) {
+      reasons.push('no governance / ownership / proxy disclosure')
+    } else if (hasGovernance && hasOwnership && hasProxyComp) {
+      status = 'Sufficient'
+      reasons.push('proxy/comp + ownership + board/RPT disclosure present')
+    } else {
+      status = 'Partial'
+      reasons.push('partial governance disclosure')
+      if (!hasOwnership) caps.push('ownership/insider behavior limited')
+      if (!has('proxy_comp')) caps.push('compensation detail limited (no standalone proxy)')
+    }
+    out['management-governance'] = { status, reasons, caps }
+  }
+
+  return out
+}
+
+export function analyzeTicker(ticker: string): DataStatus {
+  const dir = path.join(DATA_DIR, ticker)
+  let filenames: string[] = []
+  try {
+    filenames = fs.readdirSync(dir).filter((n) => !n.startsWith('.') && fs.statSync(path.join(dir, n)).isFile())
+  } catch {
+    filenames = []
+  }
+  const files = filenames.map((n) => classifyFile(dir, n)).sort((a, b) => a.filename.localeCompare(b.filename))
+
+  const recentByType: DataStatus['recentByType'] = {}
+  for (const f of files) {
+    const cur = recentByType[f.type]
+    if (!cur || (f.ageMonths ?? 999) < (cur.ageMonths ?? 999)) {
+      recentByType[f.type] = { filename: f.filename, ageMonths: f.ageMonths }
+    }
+  }
+
+  const modules = files.length ? evaluateModules(files) : Object.fromEntries(listModuleNames().map((m) => [m, { status: 'Insufficient' as Sufficiency, reasons: ['no data uploaded'], caps: [] }]))
+  const overallReady = Object.values(modules).some((m) => m.status === 'Sufficient')
+
+  return {
+    ticker,
+    hasAnyData: files.length > 0,
+    fileCount: files.length,
+    files,
+    recentByType,
+    modules,
+    overallReady,
+    dataDir: dir,
+    ts: Date.now(),
+  }
+}
+
+// ---- tickers list ----
+export function listTickers(): { tickers: TickerSummary[]; emptyState: boolean } {
+  let names: string[] = []
+  try {
+    names = fs.readdirSync(DATA_DIR).filter((n) => {
+      try {
+        return !n.startsWith('.') && fs.statSync(path.join(DATA_DIR, n)).isDirectory()
+      } catch {
+        return false
+      }
+    })
+  } catch {
+    names = []
+  }
+  const tickers: TickerSummary[] = names.sort().map((ticker) => {
+    let fileCount = 0
+    try {
+      fileCount = fs.readdirSync(path.join(DATA_DIR, ticker)).filter((n) => !n.startsWith('.')).length
+    } catch {}
+    return { ticker, fileCount, hasAnyData: fileCount > 0, latestRun: latestDecision(ticker) }
+  })
+  return { tickers, emptyState: tickers.length === 0 }
+}
+
+function latestDecision(ticker: string): TickerSummary['latestRun'] {
+  try {
+    const dirs = fs
+      .readdirSync(ANALYSES_DIR)
+      .filter((n) => n.startsWith(ticker + '_'))
+      .sort()
+      .reverse()
+    for (const d of dirs) {
+      const drPath = path.join(ANALYSES_DIR, d, 'decision_record.json')
+      if (fs.existsSync(drPath)) {
+        const dr = JSON.parse(fs.readFileSync(drPath, 'utf8'))
+        return {
+          runRoot: `analyses/${d}`,
+          decision: dr.decision ?? null,
+          decisionDate: dr.decision_date ?? null,
+          confidence: typeof dr.confidence_score === 'number' ? dr.confidence_score : null,
+        }
+      }
+      return { runRoot: `analyses/${d}`, decision: null, decisionDate: null, confidence: null }
+    }
+  } catch {}
+  return null
+}
