@@ -11,7 +11,7 @@ This orchestrator:
 2. Writes `RUN_METADATA.md` before any module runs.
 3. Runs each module's pipeline inline, using the shared pipeline defined in `frameworks/MODULE_PIPELINE.md`.
 4. Continues past per-module fail-fast aborts; aborts the whole run only if **every** module aborts.
-5. Invokes the master synthesizer once all modules finish.
+5. Invokes the master synthesizer once all modules finish, then generates two more output tiers beside the deep-dive thesis — a ~10-page plain-English colleague `memo.md` and a deterministic, lossless `audit_dossier.md` (every agent and sub-agent output concatenated). Three tiers from one run: memo (share) → `final_thesis.md` (deep dive) → `audit_dossier.md` (audit everything).
 6. Makes **two** commits on `main` per run (per repo `CLAUDE.md` git policy: one run-artifacts commit, then one metadata-backfill commit that fills in the commit SHA of the first one). Per-module commits do NOT happen under this orchestrator — they only happen when a module command is invoked standalone.
 
 Execute the steps below in order. Do not skip any.
@@ -123,6 +123,14 @@ Use the Write tool to create `<RUN_ROOT>/RUN_METADATA.md` with the following con
 
 (filled in at end of run)
 
+## Memo status
+
+(filled in at end of run)
+
+## Audit dossier status
+
+(filled in at end of run)
+
 ## Commit SHA
 
 (filled in at end of run)
@@ -187,6 +195,110 @@ Wait for it to complete. Treat the synthesizer as failed if `<RUN_ROOT>/final_th
 
 ---
 
+## 10A. Generate the memo and the audit dossier
+
+Run this step only if `<RUN_ROOT>/final_thesis.md` exists (the synthesizer succeeded). If the synthesizer was skipped because every module aborted, skip 10A entirely and record both tiers as `skipped (no final thesis)` in step 11.
+
+These are the other two tiers of the run, written **beside** `final_thesis.md` so the step-12 commit (`git add "analyses/${ARGUMENTS}_<DATE>/"`) picks them up automatically — no extra commit:
+
+- `memo.md` — the ~10-page, plain-English colleague memo (the shareable tier).
+- `audit_dossier.md` — the deterministic, lossless concatenation of every artifact in the run (the audit tier).
+
+### 10A.1 — Memo (LLM, via the memo-writer agent)
+
+Dispatch a single Task call:
+
+- `subagent_type: "memo-writer"`
+- User message:
+
+  > Read <RUN_ROOT>/final_thesis.md and <RUN_ROOT>/decision_record.json and write the ~10-page colleague memo to <RUN_ROOT>/memo.md.
+
+Wait for it to complete. If `<RUN_ROOT>/memo.md` does not exist when it returns, record the memo as `failed` in step 11 — but do **NOT** fail the run. The memo is a derived convenience tier; `final_thesis.md` is the decision of record.
+
+### 10A.2 — Audit dossier (deterministic, no LLM)
+
+The audit dossier is a mechanical, lossless concatenation — never an LLM rewrite — so nothing can be omitted or paraphrased. Build it with this Bash step. It is read-only on every run artifact, writes only `audit_dossier.md`, is best-effort, and must never abort the run:
+
+```bash
+RUN_ROOT="analyses/${ARGUMENTS}_<DATE>" python3 - <<'PY'
+import os, glob, re, datetime
+RUN = os.environ["RUN_ROOT"]
+OUT = os.path.join(RUN, "audit_dossier.md")
+def slug(s): return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
+def read(p):
+    try: return open(p, encoding="utf-8", errors="replace").read()
+    except Exception: return None
+# discover modules = run subfolders that carry a 99_*-synthesis.md
+mods = {os.path.basename(os.path.dirname(s)): s
+        for s in glob.glob(os.path.join(RUN, "*", "99_*-synthesis.md"))}
+# run order = topological sort by each module's agent-spec depends_on, alpha tie-break (mirrors step 4)
+def deps(m):
+    sp = glob.glob(os.path.join(".claude/agents", m, "99_*-synthesis.md"))
+    if not sp: return []
+    parts = (read(sp[0]) or "").split("---")
+    fm = parts[1] if len(parts) >= 3 else ""
+    out, lines = [], fm.splitlines()
+    for i, ln in enumerate(lines):
+        mm = re.match(r"\s*depends_on:\s*(.*)$", ln)
+        if not mm: continue
+        inline = mm.group(1).strip()
+        if inline and inline not in ("|", ">", "[]"):
+            out += re.findall(r"[A-Za-z0-9_-]+", inline)
+        for ln2 in lines[i+1:]:
+            if re.match(r"\s*-\s*\S", ln2): out += re.findall(r"[A-Za-z0-9_-]+", ln2)
+            elif re.match(r"\s*\w+\s*:", ln2): break
+        break
+    return [n for n in out if n in mods]
+ordered, remaining = [], set(mods)
+while remaining:
+    cand = sorted(m for m in remaining if all((d in ordered) or (d not in mods) for d in deps(m)))
+    if not cand: cand = sorted(remaining)
+    ordered.append(cand[0]); remaining.discard(cand[0])
+# collect: final_thesis first, then per module the 99 synthesis, then 00..NN sub-agents ascending
+sections, gaps = [], []
+ft = os.path.join(RUN, "final_thesis.md")
+if os.path.exists(ft): sections.append(("Final Thesis (decision)", "final_thesis.md", ft))
+else: gaps.append("final_thesis.md missing")
+n_syn = n_sub = 0
+for m in ordered:
+    files = glob.glob(os.path.join(RUN, m, "*.md"))
+    syn = sorted(f for f in files if re.search(r"99_.*-synthesis\.md$", os.path.basename(f)))
+    subs = sorted(f for f in files if f not in syn)  # 00_,01_,...,NN_ zero-padded => lexical == numeric
+    for f in syn:
+        sections.append((f"{m} — module synthesis", os.path.relpath(f, RUN), f)); n_syn += 1
+    for f in subs:
+        sections.append((f"{m} / {os.path.basename(f)}", os.path.relpath(f, RUN), f)); n_sub += 1
+now = datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+ticker = os.path.basename(RUN).rsplit("_", 1)[0]
+H = [f"# Audit Dossier — {ticker}\n",
+     "> Deterministic, lossless concatenation of every artifact in this research run — the final thesis, "
+     "each module synthesis, and every sub-agent output, in run order. Generated mechanically by "
+     "`/research:full` (no LLM rewriting), so nothing is omitted or paraphrased. This is the \"see "
+     "everything\" audit tier; the decision lives in `final_thesis.md` and the colleague summary in `memo.md`.\n",
+     f"- Generated: {now}",
+     f"- Run root: `{RUN}`",
+     f"- Module run order: {', '.join(ordered) if ordered else '(none)'}",
+     f"- Contents: 1 final thesis + {n_syn} module syntheses + {n_sub} sub-agent outputs = {len(sections)} files"]
+if gaps: H.append(f"- Assembly notes: {'; '.join(gaps)}")
+H.append("\n## Table of Contents\n")
+for title, src, _ in sections:
+    H.append(f"- [{title}](#{slug(title)}) — `{src}`")
+parts = ["\n".join(H)]
+for title, src, path in sections:
+    body = read(path)
+    if body is None:
+        gaps.append(f"unreadable: {src}"); body = "_(file could not be read)_"
+    parts.append(f"\n\n---\n\n## {title}\n\n_Source: `{src}`_\n\n{body.rstrip()}\n")
+open(OUT, "w", encoding="utf-8").write("\n".join(parts))
+print(f"WROTE {OUT} ({len(sections)} sections, {os.path.getsize(OUT)} bytes)"
+      + (f"; gaps: {'; '.join(gaps)}" if gaps else ""))
+PY
+```
+
+If the script errors for any reason, record the audit dossier as `failed` in step 11 and continue — never abort the run over the audit tier.
+
+---
+
 ## 11. Update RUN_METADATA.md (final)
 
 Rewrite `<RUN_ROOT>/RUN_METADATA.md` via the Write tool to fill in the placeholder sections. Read the current file first, then issue a single Write call with the full new content. (This command does not have access to the Edit tool — see the `allowed-tools` frontmatter.) Fill in:
@@ -194,6 +306,8 @@ Rewrite `<RUN_ROOT>/RUN_METADATA.md` via the Write tool to fill in the placehold
 - "Modules completed": list (one per line)
 - "Modules aborted": list with brief note per entry (one per line)
 - "Synthesizer status": `succeeded` (if `final_thesis.md` exists), `failed` (if it does not), or `skipped (all modules aborted)`
+- "Memo status": `succeeded` (if `memo.md` exists), `failed`, or `skipped (no final thesis)`
+- "Audit dossier status": `succeeded` (if `audit_dossier.md` exists), `failed`, or `skipped (no final thesis)`
 - "Commit SHA": leave as `(to be filled after commit)` — you'll patch it post-commit in step 12.
 
 ---
@@ -227,7 +341,7 @@ Print a final summary to the user containing:
 - Number of modules discovered and their names
 - Per-module status: `completed` / `aborted (fail-fast at <agent>)` / `aborted (failures: <names>)`
 - Whether the master synthesizer ran and whether `final_thesis.md` exists
-- Path to `final_thesis.md` (or note that it was skipped)
+- The three output tiers and their paths: `<RUN_ROOT>/memo.md` (~10-page colleague memo), `<RUN_ROOT>/final_thesis.md` (deep-dive thesis), `<RUN_ROOT>/audit_dossier.md` (full audit concatenation) — noting any that were skipped or failed
 - The two commit SHAs pushed to `origin/main`
 
 ---
