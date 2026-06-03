@@ -1,0 +1,204 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-03",
+  "scope": "all",
+  "n_runs": 2,
+  "suite_pass": true,
+  "runs": {
+    "BG_2026-06-01": {
+      "run_root": "analyses/BG_2026-06-01",
+      "ticker": "BG",
+      "decision": "Watchlist",
+      "pass": true,
+      "checks": [
+        {
+          "check": "A_structural",
+          "status": "PASS",
+          "detail": "ft>1KB=True; RUN_METADATA=True; miss99=[]"
+        },
+        {
+          "check": "B_schema",
+          "status": "PASS",
+          "detail": "missing=[]; badtype=[]"
+        },
+        {
+          "check": "C_decision_basket",
+          "status": "PASS",
+          "detail": "'Watchlist'->'Watchlist'"
+        },
+        {
+          "check": "D_missing_price",
+          "status": "PASS",
+          "detail": "entry null"
+        },
+        {
+          "check": "E_numeric",
+          "status": "PASS",
+          "detail": ""
+        },
+        {
+          "check": "F_review_dates",
+          "status": "PASS",
+          "detail": "ok"
+        },
+        {
+          "check": "G_verification_report.json",
+          "status": "PASS",
+          "detail": "verification_report.json verdict=Clean"
+        },
+        {
+          "check": "G_pre_mortem.json",
+          "status": "PASS",
+          "detail": "pre_mortem.json verdict=Survives"
+        },
+        {
+          "check": "G_expectations_gap.json",
+          "status": "PASS",
+          "detail": "expectations_gap.json verdict=None"
+        },
+        {
+          "check": "H_no_stray_confirmation",
+          "status": "PASS",
+          "detail": "stray=[]"
+        },
+        {
+          "check": "I_decision_in_thesis",
+          "status": "PASS",
+          "detail": ""
+        },
+        {
+          "check": "K_s24_in_thesis",
+          "status": "N/A",
+          "detail": "predates §24 (2026-06-01) N/A"
+        }
+      ],
+      "warn_nonschema_files": []
+    },
+    "HCG_2026-06-01": {
+      "run_root": "analyses/HCG_2026-06-01",
+      "ticker": "HCG",
+      "decision": "Avoid",
+      "pass": true,
+      "checks": [
+        {
+          "check": "A_structural",
+          "status": "PASS",
+          "detail": "ft>1KB=True; RUN_METADATA=True; miss99=[]"
+        },
+        {
+          "check": "B_schema",
+          "status": "PASS",
+          "detail": "missing=[]; badtype=[]"
+        },
+        {
+          "check": "C_decision_basket",
+          "status": "PASS",
+          "detail": "'Avoid'->'Rejected'"
+        },
+        {
+          "check": "D_missing_price",
+          "status": "N/A",
+          "detail": "entry present"
+        },
+        {
+          "check": "E_numeric",
+          "status": "PASS",
+          "detail": ""
+        },
+        {
+          "check": "F_review_dates",
+          "status": "PASS",
+          "detail": "ok"
+        },
+        {
+          "check": "G_verification_report.json",
+          "status": "PASS",
+          "detail": "verification_report_v3.json verdict=Minor issues"
+        },
+        {
+          "check": "G_pre_mortem.json",
+          "status": "PASS",
+          "detail": "pre_mortem.json verdict=Survives with haircut"
+        },
+        {
+          "check": "G_expectations_gap.json",
+          "status": "PASS",
+          "detail": "expectations_gap.json verdict=None"
+        },
+        {
+          "check": "H_no_stray_confirmation",
+          "status": "PASS",
+          "detail": "stray=[]"
+        },
+        {
+          "check": "I_decision_in_thesis",
+          "status": "PASS",
+          "detail": ""
+        },
+        {
+          "check": "K_s24_in_thesis",
+          "status": "N/A",
+          "detail": "predates §24 (2026-06-01) N/A"
+        }
+      ],
+      "warn_nonschema_files": []
+    }
+  },
+  "source_contracts_s24": [
+    {
+      "file": "CLAUDE.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/business-model/MODULE_RULES.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/business-model/07_business-quality.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/business-model/01_disqualifier-scan.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/business-model/11_capital-allocation-governance.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/management-governance/MODULE_RULES.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/management-governance/01_management-and-track-record.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/management-governance/04_ownership-and-insider-behavior.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/balance-sheet-survival/MODULE_RULES.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/valuation/MODULE_RULES.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/synthesizer.md",
+      "status": "PASS",
+      "missing": []
+    }
+  ]
+}

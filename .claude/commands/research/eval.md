@@ -6,7 +6,7 @@ allowed-tools: Read, Glob, Bash, Write
 
 You are the **regression harness**. The engine grows fast — modules, frameworks, and a widening command surface (verify-evidence, pre-mortem, expectations-gap, review-decisions, calibrate). A system without an eval is a demo: this is the deterministic test suite that proves a change did not break the contracts. You assert that the **committed runs** (the golden fixtures, e.g. BG and HCG) still satisfy the structural, schema, contract, and math invariants.
 
-**You do NOT re-run agents or the pipeline.** LLM outputs are non-deterministic, so re-running and diffing is meaningless. Instead you check that the *already-committed artifacts* satisfy the contracts — a fast, repeatable, deterministic gate to run after any change to an agent, framework, command, or the synthesizer. You are READ-ONLY on all run artifacts; you write only a dated eval report. Grounded in `CLAUDE.md` (§18 decision set, §10 scenario math, §15 hygiene), `DECISION_LEDGER.md` (§5 record schema, §8 review schema), and `MODULE_PIPELINE.md` (no stray confirmation blocks). Arguments: `$ARGUMENTS`.
+**You do NOT re-run agents or the pipeline.** LLM outputs are non-deterministic, so re-running and diffing is meaningless. Instead you check that the *already-committed artifacts* satisfy the contracts — a fast, repeatable, deterministic gate to run after any change to an agent, framework, command, or the synthesizer. You are READ-ONLY on all run artifacts; you write only a dated eval report. Grounded in `CLAUDE.md` (§18 decision set, §10 scenario math, §15 hygiene, §24 Avoid-Big-Risks rejector filters), `DECISION_LEDGER.md` (§5 record schema, §8 review schema), and `MODULE_PIPELINE.md` (no stray confirmation blocks). Arguments: `$ARGUMENTS`.
 
 ---
 
@@ -27,6 +27,8 @@ Run the embedded check script below via Bash. It applies, per run, the following
 - **G. Audit-report schema** (optional, if present) — `verification_report.json` / `pre_mortem.json` / `expectations_gap.json` parse and carry their required keys; a `verification_report` with verdict "Failed" fails the suite (a golden fixture must not be a failed run).
 - **H. No stray confirmation blocks** (`MODULE_PIPELINE`) — no `<run>/<module>/*.md` file's last 20 lines contain a line matching `^Agent:\s+\S+\s*$`.
 - **I. Decision ↔ thesis consistency** — the `decision_record.decision` string appears in `final_thesis.md` (the JSON matches the memo).
+- **J. §24 rejector-filter source contracts** (suite-level, run once) — the "Avoid Big Risks" wiring is still present in the framework/agent files: `CLAUDE.md` §24 with all six filters; each module's `MODULE_RULES.md` carries its filter caps; the new red-flag IDs (`RF-CAP-004`, `RF-OWN-004`, `RF-MGT-004`) exist; `business-quality` has the 11th factor; the synthesizer carries the §24 gate step and rating cap. Guards the 23-file §24 implementation against silent deletion. Independent of any run; a missing anchor fails the suite.
+- **K. §24 reflected in post-§24 runs** (forward-looking) — for a run whose `decision_date` is on/after the §24 landing date (`2026-06-03`), `final_thesis.md` must reference the Avoid-Big-Risks roll-up (the Headline Scorecard row or a §24 reference). Runs that predate §24 (the BG/HCG fixtures) are **N/A**, so the suite still passes; the check activates automatically for every new run.
 
 The script also notes (WARN, not FAIL) any **non-schema artifact** in a run folder (e.g. a stray oversized file) so coverage gaps and strays surface.
 
@@ -117,6 +119,13 @@ for drp in runs:
     try: thesis=open(ft).read()
     except: thesis=""
     add("I_decision_in_thesis", (dec or "@@") in thesis, f"decision string present in final_thesis.md={(dec or '@@') in thesis}")
+    # K §24 rejector-filter roll-up reflected in post-§24 runs (forward-looking; older fixtures N/A)
+    S24_DATE="2026-06-03"; ddte=d.get("decision_date")
+    if isdate(ddte) and ddte>=S24_DATE:
+        okK=("Avoid-Big-Risks" in thesis) or ("Avoid Big Risks" in thesis) or ("§24" in thesis)
+        add("K_s24_in_thesis", okK, f"run dated >= {S24_DATE}; §24 roll-up present in final_thesis={okK}")
+    else:
+        add("K_s24_in_thesis", True, f"run predates §24 ({ddte}) — N/A", na=True)
     # WARN non-schema files
     extras=[os.path.basename(x) for x in glob.glob(os.path.join(run,"*")) if os.path.isfile(x) and os.path.basename(x) not in SCHEMA_FILES and not os.path.basename(x).endswith(("_decision_review.json","_calibration_summary.json")) and "review" not in os.path.basename(x) and "_v" not in os.path.basename(x)]
     run_pass=all(c["status"]!="FAIL" for c in checks)
@@ -124,8 +133,31 @@ for drp in runs:
     results[name]={"run_root":run,"ticker":d.get("ticker"),"decision":dec,"pass":run_pass,
                    "checks":checks,"warn_nonschema_files":extras}
 
+# J §24 rejector-filter SOURCE CONTRACTS (suite-level, run once; protects the framework/agent wiring)
+S24_CONTRACTS={
+ "CLAUDE.md":["## 24. Avoid Big Risks","Crooks and integrity","Turnarounds","High debt and the survival test","Serial acquirers","Fast-changing industries","Unaligned owners"],
+ ".claude/agents/business-model/MODULE_RULES.md":["Rejector-Filter Penalties & Caps","Serial acquirers","Fast-changing industry"],
+ ".claude/agents/business-model/07_business-quality.md":["Industry rate-of-change","11 quality factors"],
+ ".claude/agents/business-model/01_disqualifier-scan.md":["Integrity note","Filter 1"],
+ ".claude/agents/business-model/11_capital-allocation-governance.md":["Filter 4","opportunity cost"],
+ ".claude/agents/management-governance/MODULE_RULES.md":["RF-CAP-004","RF-OWN-004","RF-MGT-004","§24"],
+ ".claude/agents/management-governance/01_management-and-track-record.md":["Turnaround","Filter 2"],
+ ".claude/agents/management-governance/04_ownership-and-insider-behavior.md":["RF-OWN-004","Filter 6"],
+ ".claude/agents/balance-sheet-survival/MODULE_RULES.md":["Net cash is a strategic asset","Filter 3"],
+ ".claude/agents/valuation/MODULE_RULES.md":["RF-OWN-004","Filter 6","value trap"],
+ ".claude/agents/synthesizer.md":["Avoid-Big-Risks","§24"],
+}
+jchecks=[]
+for jf,subs in S24_CONTRACTS.items():
+    try: jtxt=open(jf).read()
+    except Exception as e:
+        jchecks.append({"file":jf,"status":"FAIL","missing":["unreadable: "+str(e)[:60]]}); suite_pass=False; continue
+    jmiss=[s for s in subs if s not in jtxt]
+    if jmiss: suite_pass=False
+    jchecks.append({"file":jf,"status":("PASS" if not jmiss else "FAIL"),"missing":jmiss})
+
 out={"schema_version":"1.0","generated_at":today,"scope":scope,"n_runs":len(results),
-     "suite_pass":suite_pass,"runs":results}
+     "suite_pass":suite_pass,"runs":results,"source_contracts_s24":jchecks}
 os.makedirs("analyses/eval",exist_ok=True)
 of=f"analyses/eval/{today}_eval_report.json"; k=2
 while os.path.exists(of): of=f"analyses/eval/{today}_eval_report_v{k}.json"; k+=1
@@ -134,6 +166,10 @@ print("EVAL", "PASS" if suite_pass else "FAIL", f"({len(results)} runs)")
 for nm,r in results.items():
     fails=[c["check"] for c in r["checks"] if c["status"]=="FAIL"]
     print(f"  {nm}: {'PASS' if r['pass'] else 'FAIL'} ({r['decision']})", ("fails="+",".join(fails)) if fails else "", ("WARN extras="+",".join(r['warn_nonschema_files'])) if r['warn_nonschema_files'] else "")
+jfails=[j["file"] for j in jchecks if j["status"]=="FAIL"]
+print("  §24 source contracts (J):", "PASS" if not jfails else "FAIL "+";".join(jfails))
+for j in jchecks:
+    if j["status"]=="FAIL": print(f"     FAIL {j['file']} missing={j['missing']}")
 print("WROTE", of)
 PY
 ```
