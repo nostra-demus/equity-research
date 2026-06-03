@@ -27,7 +27,7 @@ Run the embedded check script below via Bash. It applies, per run, the following
 - **G. Audit-report schema** (optional, if present) — `verification_report.json` / `pre_mortem.json` / `expectations_gap.json` parse and carry their required keys; a `verification_report` with verdict "Failed" fails the suite (a golden fixture must not be a failed run).
 - **H. No stray confirmation blocks** (`MODULE_PIPELINE`) — no `<run>/<module>/*.md` file's last 20 lines contain a line matching `^Agent:\s+\S+\s*$`.
 - **I. Decision ↔ thesis consistency** — the `decision_record.decision` string appears in `final_thesis.md` (the JSON matches the memo).
-- **J. §24 rejector-filter source contracts** (suite-level, run once) — the "Avoid Big Risks" wiring is still present in the framework/agent files: `CLAUDE.md` §24 with all six filters; each module's `MODULE_RULES.md` carries its filter caps; the new red-flag IDs (`RF-CAP-004`, `RF-OWN-004`, `RF-MGT-004`) exist; `business-quality` has the 11th factor; the synthesizer carries the §24 gate step and rating cap. Guards the 23-file §24 implementation against silent deletion. Independent of any run; a missing anchor fails the suite.
+- **J. Framework source contracts** (suite-level, run once) — two bodies of wiring are still present in the framework/agent files. **(i) §24 Avoid-Big-Risks:** `CLAUDE.md` §24 with all six filters; each module's `MODULE_RULES.md` carries its filter caps; the new red-flag IDs (`RF-CAP-004`, `RF-OWN-004`, `RF-MGT-004`) exist; `business-quality` has the 11th factor; the synthesizer carries the §24 gate step and rating cap. **(ii) §17 Catalyst module:** the `catalyst` module (`MODULE_RULES`, `01_catalyst-calendar`, `99_catalyst-synthesis`) exists with its §17 discipline and runs-last `depends_on`, and the synthesizer's §7 defers to it. Guards the §24 implementation and the catalyst module against silent deletion. Independent of any run; a missing anchor fails the suite.
 - **K. §24 reflected in post-§24 runs** (forward-looking) — for a run whose `decision_date` is on/after the §24 landing date (`2026-06-03`), `final_thesis.md` must reference the Avoid-Big-Risks roll-up (the Headline Scorecard row or a §24 reference). Runs that predate §24 (the BG/HCG fixtures) are **N/A**, so the suite still passes; the check activates automatically for every new run.
 
 The script also notes (WARN, not FAIL) any **non-schema artifact** in a run folder (e.g. a stray oversized file) so coverage gaps and strays surface.
@@ -133,8 +133,8 @@ for drp in runs:
     results[name]={"run_root":run,"ticker":d.get("ticker"),"decision":dec,"pass":run_pass,
                    "checks":checks,"warn_nonschema_files":extras}
 
-# J §24 rejector-filter SOURCE CONTRACTS (suite-level, run once; protects the framework/agent wiring)
-S24_CONTRACTS={
+# J FRAMEWORK SOURCE CONTRACTS (suite-level, run once; protects §24 wiring + the §17 catalyst module)
+FRAMEWORK_CONTRACTS={
  "CLAUDE.md":["## 24. Avoid Big Risks","Crooks and integrity","Turnarounds","High debt and the survival test","Serial acquirers","Fast-changing industries","Unaligned owners"],
  ".claude/agents/business-model/MODULE_RULES.md":["Rejector-Filter Penalties & Caps","Serial acquirers","Fast-changing industry"],
  ".claude/agents/business-model/07_business-quality.md":["Industry rate-of-change","11 quality factors"],
@@ -145,10 +145,13 @@ S24_CONTRACTS={
  ".claude/agents/management-governance/04_ownership-and-insider-behavior.md":["RF-OWN-004","Filter 6"],
  ".claude/agents/balance-sheet-survival/MODULE_RULES.md":["Net cash is a strategic asset","Filter 3"],
  ".claude/agents/valuation/MODULE_RULES.md":["RF-OWN-004","Filter 6","value trap"],
- ".claude/agents/synthesizer.md":["Avoid-Big-Risks","§24"],
+ ".claude/agents/synthesizer.md":["Avoid-Big-Risks","§24","DEFER to the catalyst module"],
+ ".claude/agents/catalyst/MODULE_RULES.md":["§17 Catalyst Discipline","Catalyst Category Checklist","No proven catalyst yet"],
+ ".claude/agents/catalyst/01_catalyst-calendar.md":["12-Month Catalyst Calendar","Bullish Trigger","Bearish Trigger"],
+ ".claude/agents/catalyst/99_catalyst-synthesis.md":["Catalyst strength /100","No proven catalyst yet"],
 }
 jchecks=[]
-for jf,subs in S24_CONTRACTS.items():
+for jf,subs in FRAMEWORK_CONTRACTS.items():
     try: jtxt=open(jf).read()
     except Exception as e:
         jchecks.append({"file":jf,"status":"FAIL","missing":["unreadable: "+str(e)[:60]]}); suite_pass=False; continue
@@ -167,7 +170,7 @@ for nm,r in results.items():
     fails=[c["check"] for c in r["checks"] if c["status"]=="FAIL"]
     print(f"  {nm}: {'PASS' if r['pass'] else 'FAIL'} ({r['decision']})", ("fails="+",".join(fails)) if fails else "", ("WARN extras="+",".join(r['warn_nonschema_files'])) if r['warn_nonschema_files'] else "")
 jfails=[j["file"] for j in jchecks if j["status"]=="FAIL"]
-print("  §24 source contracts (J):", "PASS" if not jfails else "FAIL "+";".join(jfails))
+print("  framework source contracts (J: §24 + catalyst):", "PASS" if not jfails else "FAIL "+";".join(jfails))
 for j in jchecks:
     if j["status"]=="FAIL": print(f"     FAIL {j['file']} missing={j['missing']}")
 print("WROTE", of)

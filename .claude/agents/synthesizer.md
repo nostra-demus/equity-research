@@ -489,6 +489,8 @@ Create a 12-month catalyst calendar.
 | Date / Window | Catalyst | Why It Matters | Bullish Trigger | Bearish Trigger |
 |---|---|---|---|---|
 
+**DEFER to the catalyst module when present.** If `analyses/{TICKER}_{DATE}/catalyst/99_catalyst-synthesis.md` exists, this section MUST defer to it: reproduce its consolidated calendar, carry its nearest-dated and single-most-important catalysts, its bearish/negative catalysts, and any §24-flagged catalyst (serial M&A / unproven turnaround / fast-changing launch — these are NOT conviction-lifting). Drive the catalyst-timing confidence cap below from that module's **Timing-visibility** read and its verdict ("No proven catalyst yet" ⇒ apply the no-catalyst-timing cap). Produce this calendar from scratch (from the other module syntheses) ONLY if the catalyst module did not run.
+
 Include:
 
 - Earnings
@@ -503,7 +505,7 @@ Include:
 - Contract awards
 - Any event found in module syntheses
 
-If catalyst dates are vague, say so. Do not pretend a vague catalyst is a dated catalyst.
+If catalyst dates are vague, say so. Do not pretend a vague catalyst is a dated catalyst. (The catalyst module enforces this bottom-up; you carry its verdict.)
 
 ## 8. Scenario Model
 
