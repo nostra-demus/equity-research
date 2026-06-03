@@ -27,6 +27,9 @@ Run the embedded check script below via Bash. It applies, per run, the following
 - **G. Audit-report schema** (optional, if present) — `verification_report.json` / `pre_mortem.json` / `expectations_gap.json` parse and carry their required keys; a `verification_report` with verdict "Failed" fails the suite (a golden fixture must not be a failed run).
 - **H. No stray confirmation blocks** (`MODULE_PIPELINE`) — no `<run>/<module>/*.md` file's last 20 lines contain a line matching `^Agent:\s+\S+\s*$`.
 - **I. Decision ↔ thesis consistency** — the `decision_record.decision` string appears in `final_thesis.md` (the JSON matches the memo).
+- **J. Forecast element completeness** (`DECISION_LEDGER` §6) — every element of `forecast_ledger` has all 9 required fields; `confirmation_trigger` and `falsification_trigger` are non-empty strings (an empty trigger makes the forecast permanently "not assessable" in Phase-3 reviews, silently breaking the learning loop); `probability` is numeric and in [0, 100] (accepts both decimal 0.60 and percentage 60 conventions); `status` ∈ {open, confirmed, falsified, expired}.
+- **K. Red-flag element completeness** (`CLAUDE.md` §13) — every element of `red_flags` has `severity` ∈ {Critical, High, Medium, Low}, a non-empty `module`, and a non-empty `description`. An incomplete red-flag entry loses its escalation signal and cannot be consumed by the review or calibration layer.
+- **L. Negative-return / decision contradiction** (`CLAUDE.md` §10/§18) — if `expected_return_pct` is a negative number, `decision` must not be "Strong Buy" or "Buy" (a fundamental reasoning error: a negative probability-weighted expected return is logically incompatible with recommending a long entry).
 
 The script also notes (WARN, not FAIL) any **non-schema artifact** in a run folder (e.g. a stray oversized file) so coverage gaps and strays surface.
 
@@ -106,6 +109,42 @@ for drp in runs:
             a=json.load(open(p)); okG=all(k in a for k in reqk) and a.get("verdict")!="Failed"
             add(f"G_{af}", okG, f"using {os.path.basename(p)}; verdict={a.get('verdict')}")
         except Exception as e: add(f"G_{af}", False, f"parse failed: {e}")
+    # J forecast element completeness (DECISION_LEDGER §6)
+    req_fe=["prediction","probability","time_window","evidence_today","confirmation_trigger","falsification_trigger","owner_module","confidence_score","status"]
+    valid_fe_status={"open","confirmed","falsified","expired"}
+    fl_arr=d.get("forecast_ledger")
+    jfails=[]
+    if isinstance(fl_arr,list):
+        for i,fe in enumerate(fl_arr):
+            if not isinstance(fe,dict): jfails.append(f"[{i}] not a dict"); continue
+            miss_fe=[k for k in req_fe if k not in fe]
+            if miss_fe: jfails.append(f"[{i}] missing={miss_fe}")
+            for trig in ["confirmation_trigger","falsification_trigger"]:
+                if not str(fe.get(trig,"")).strip(): jfails.append(f"[{i}] {trig} empty — forecast not reviewable in Phase-3")
+            p=fe.get("probability")
+            if p is None or not (isinstance(p,(int,float)) and 0<=p<=100): jfails.append(f"[{i}] probability={p!r} must be numeric in [0,100]")
+            if fe.get("status") not in valid_fe_status: jfails.append(f"[{i}] status={fe.get('status')!r} not in {valid_fe_status}")
+    n_fe=len(fl_arr) if isinstance(fl_arr,list) else "not-list"
+    add("J_forecast_elements", not jfails, f"n_forecasts={n_fe}; fails={jfails}")
+    # K red-flag element completeness (CLAUDE.md §13)
+    valid_sev={"Critical","High","Medium","Low"}
+    rfl_arr=d.get("red_flags")
+    kfails=[]
+    if isinstance(rfl_arr,list):
+        for i,rf in enumerate(rfl_arr):
+            if not isinstance(rf,dict): kfails.append(f"[{i}] not a dict"); continue
+            if rf.get("severity") not in valid_sev: kfails.append(f"[{i}] severity={rf.get('severity')!r} not in {valid_sev}")
+            if not str(rf.get("module","")).strip(): kfails.append(f"[{i}] module empty")
+            if not str(rf.get("description","")).strip(): kfails.append(f"[{i}] description empty")
+    n_rf=len(rfl_arr) if isinstance(rfl_arr,list) else "not-list"
+    add("K_red_flag_elements", not kfails, f"n_red_flags={n_rf}; fails={kfails}")
+    # L negative expected return vs buy decision (CLAUDE.md §10/§18)
+    exp_ret=d.get("expected_return_pct")
+    buy_decisions={"Strong Buy","Buy"}
+    if isinstance(exp_ret,(int,float)) and exp_ret<0 and dec in buy_decisions:
+        add("L_negative_return_vs_decision", False, f"expected_return_pct={exp_ret} is negative but decision={dec!r} — contradiction per CLAUDE.md §10/§18")
+    else:
+        add("L_negative_return_vs_decision", True, f"expected_return_pct={exp_ret}; decision={dec!r}; no contradiction")
     # H stray confirmation blocks
     stray=[]
     for mf in glob.glob(os.path.join(run,"*","*.md")):
@@ -151,4 +190,4 @@ Read the script's output. Confirm the eval report parses (`python3 -m json.tool`
 - **Deterministic only.** No agent/pipeline re-runs, no LLM judgment in the checks — pure structural/schema/contract/math assertions, so the result is reproducible and a real regression gate.
 - **Read-only on run artifacts;** writes only the dated `analyses/eval/` report.
 - **Any FAIL fails the suite.** Optional-artifact absence is N/A, not FAIL. A non-schema stray file is a WARN, not a FAIL.
-- Grounded in `CLAUDE.md` §18/§10/§15, `DECISION_LEDGER.md` §5/§8, `MODULE_PIPELINE.md`; spawns no subagents.
+- Grounded in `CLAUDE.md` §18/§10/§15/§13, `DECISION_LEDGER.md` §5/§6/§8, `MODULE_PIPELINE.md`; spawns no subagents.
