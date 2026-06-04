@@ -344,6 +344,16 @@ Print a final summary to the user containing:
 - The three output tiers and their paths: `<RUN_ROOT>/memo.md` (~10-page colleague memo), `<RUN_ROOT>/final_thesis.md` (deep-dive thesis), `<RUN_ROOT>/audit_dossier.md` (full audit concatenation) — noting any that were skipped or failed
 - The two commit SHAs pushed to `origin/main`
 
+Then output the following **Required Audit Checklist** verbatim after the summary — every completed run must be followed by all three commands in order. Skipping any of them will cause `/research:eval` check M to FAIL for this run:
+
+**Required Audit Checklist — run in order after every /research:full**
+
+1. `/research:verify-evidence <TICKER>` — Truth integrity: checks every cited number against the data pool, reconciles scenario math (probabilities sum to 100%, EV bridge ties), and detects cross-module anchor conflicts. Catches fabricated numbers and broken math before they drive decisions.
+2. `/research:pre-mortem <TICKER>` — Adversarial red-team: assumes the thesis failed and finds the most plausible cause. Can only hold or lower conviction — never raises it. Outputs a recommended confidence haircut and rating cap.
+3. `/research:expectations-gap <TICKER>` — Variant perception test: scores whether the engine's view is genuinely differentiated from what the price implies. A large gap with no evidence-backed edge is not an opportunity — it scores low. Catches fake variant perception.
+
+Each command writes an append-only JSON to `<RUN_ROOT>/` and commits to `main`. All three are required; `/research:eval` check M will FAIL for this run if any are missing from the run folder.
+
 ---
 
 ## Hard rules
