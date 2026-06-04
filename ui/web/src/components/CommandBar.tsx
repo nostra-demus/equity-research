@@ -170,7 +170,7 @@ export function CommandBar() {
       <div className="brand">
         <BrandMark />
         <div>
-          <div className="brand__name">Swarm</div>
+          <div className="brand__name">Nostradamus Swarm</div>
         </div>
         <span className="brand__sub">Equity Research Cockpit</span>
       </div>

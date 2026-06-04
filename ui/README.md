@@ -1,9 +1,14 @@
-# Swarm — Equity Research Cockpit
+# Nostradamus Swarm — Equity Research Cockpit
 
 A local, animated "swarm of agents" control surface for the research engine in this repo. It renders
 every agent / module / dependency from disk, shows per-ticker data readiness (mirroring the engine's
 data-triage rules), launches a single agent, a whole module, or the full pipeline on one click, and
 streams runs live as the swarm lights up layer by layer.
+
+Completed agents/modules turn amber; click one to read its output, and download it as a polished
+document — **PDF** (print-ready), **Word** (.docx, via macOS `textutil`), **HTML**, or **Markdown** —
+all from one report template (`server/src/export.ts`). The Claude plan-usage badge shows the real
+5-hour / weekly windows the CLI reports.
 
 - **`server/`** — Fastify control plane (Node). Parses the agent roster, computes data readiness,
   spawns the engine headlessly (`claude -p "/research:…"`), and fuses the CLI stream + a filesystem

@@ -30,7 +30,7 @@ interface State {
   runStream: StreamRow[]
   coreBloom: boolean
   decision: any | null
-  openOutput: { path: string; title: string } | null
+  openOutput: { path: string; title: string; verdict?: string | null } | null
   selectedNodeKey: string | null
   launchConfirm: { preflight: LaunchPreflight } | null
   toast: Toast | null
@@ -234,7 +234,7 @@ export const useStore = create<State>((set, get) => ({
       get().setToast({ msg: `${node.name} has no output yet`, tone: 'info' })
       return
     }
-    set({ openOutput: { path: rt.outputPath, title: node.name } })
+    set({ openOutput: { path: rt.outputPath, title: node.name, verdict: rt.verdict } })
   },
 
   openThesis: async () => {
@@ -242,7 +242,7 @@ export const useStore = create<State>((set, get) => ({
     if (!t) return
     try {
       const res = await api.thesis(t)
-      set({ openOutput: { path: res.path, title: 'Final Thesis' } })
+      set({ openOutput: { path: res.path, title: `Investment Thesis — ${t}`, verdict: get().decision?.decision ?? null } })
     } catch {
       get().setToast({ msg: 'No final thesis yet', tone: 'info' })
     }

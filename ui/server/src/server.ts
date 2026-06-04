@@ -1,10 +1,13 @@
 import { randomUUID } from 'node:crypto'
 import fs from 'node:fs'
+import os from 'node:os'
 import path from 'node:path'
 import chokidar from 'chokidar'
 import cors from '@fastify/cors'
+import { execa } from 'execa'
 import Fastify, { type FastifyReply } from 'fastify'
 import { z } from 'zod'
+import { buildReportHtml, parseMeta, safeName } from './export'
 import { DATA_DIR, HOST, PORT, REPO_ROOT, WEB_DIST } from './config'
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
@@ -207,6 +210,46 @@ app.get('/api/output/run', async (req, reply) => {
     return runManifest(runRoot)
   } catch (e: any) {
     return reply.code(400).send({ error: 'cannot read run', detail: String(e?.message || e) })
+  }
+})
+
+// ---------- export a saved output as a polished document (HTML / print-PDF / Word) ----------
+app.get('/api/export', async (req, reply) => {
+  const q = req.query as any
+  const p = q.path as string
+  if (!p || !p.startsWith('analyses/') || !p.endsWith('.md')) return reply.code(400).send({ error: 'path must be an analyses/*.md file' })
+  let markdown: string
+  try {
+    markdown = readMarkdown(p).markdown
+  } catch (e: any) {
+    return reply.code(e?.code === 'ENOENT' ? 404 : 400).send({ error: 'cannot read', detail: String(e?.message || e) })
+  }
+  const meta = parseMeta(p)
+  if (q.title) meta.title = String(q.title).slice(0, 160)
+  if (q.verdict) meta.verdict = String(q.verdict).slice(0, 400)
+  const html = buildReportHtml(markdown, meta, { print: q.print === '1' })
+
+  if ((q.format || 'html') !== 'docx') {
+    if (q.dl === '1') reply.header('Content-Disposition', `attachment; filename="${safeName(meta)}.html"`)
+    return reply.header('Content-Type', 'text/html; charset=utf-8').send(html)
+  }
+
+  // DOCX via macOS textutil (HTML -> docx). Falls back to 500 if textutil is unavailable.
+  const stamp = `${Date.now()}_${Math.floor(Math.random() * 1e6)}`
+  const htmlPath = path.join(os.tmpdir(), `nsw_${stamp}.html`)
+  const docxPath = path.join(os.tmpdir(), `nsw_${stamp}.docx`)
+  try {
+    fs.writeFileSync(htmlPath, html)
+    await execa('textutil', ['-convert', 'docx', htmlPath, '-output', docxPath], { timeout: 20000 })
+    const buf = fs.readFileSync(docxPath)
+    reply.header('Content-Type', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+    reply.header('Content-Disposition', `attachment; filename="${safeName(meta)}.docx"`)
+    return reply.send(buf)
+  } catch (e: any) {
+    return reply.code(500).send({ error: 'docx conversion failed', detail: String(e?.message || e) })
+  } finally {
+    try { fs.unlinkSync(htmlPath) } catch {}
+    try { fs.unlinkSync(docxPath) } catch {}
   }
 })
 
