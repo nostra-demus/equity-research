@@ -1,0 +1,705 @@
+{
+  "run": "BG_2026-06-01",
+  "ticker": "BG",
+  "date": "2026-06-01",
+  "decision": {
+    "schema_version": "1.0",
+    "ticker": "BG",
+    "company_name": "Bunge Global SA",
+    "exchange": "NYSE",
+    "currency": "USD",
+    "decision_date": "2026-06-01",
+    "run_root": "analyses/BG_2026-06-01",
+    "final_thesis_path": "analyses/BG_2026-06-01/final_thesis.md",
+    "decision": "Watchlist",
+    "suggested_action": "Do not buy at the indicative ~$123. Track. Re-rate to 'Starter Position Only' only on a pool-confirmed price below ~$100, or on a clean post-Viterra FY2026 cash-conversion print.",
+    "paper_treatment": "No trade, track opportunity cost",
+    "basket": "Watchlist",
+    "entry_price": null,
+    "entry_price_source": "",
+    "entry_price_timestamp": "",
+    "benchmark": "S&P 500",
+    "sector_benchmark": "S&P 500 Consumer Staples / agribusiness peers (ADM, Wilmar)",
+    "time_horizon": "12 months",
+    "expected_return_pct": -11.5,
+    "downside_risk_pct": -31.1,
+    "risk_reward": -0.37,
+    "confidence_score": 46,
+    "data_sufficiency_score": 68,
+    "rating_cap": "Policy/commodity-conditional thesis with weak company-specific edge caps at 'Starter Position Only'; negative probability-weighted risk/reward at the indicative price pulls the rating below that to Watchlist. Valuation confidence held at 48 by the no-pool-price gap.",
+    "thesis_type": [
+      "Commodity-conditional",
+      "Policy-conditional"
+    ],
+    "variant_perception_summary": "No proven variant perception. The two modest edges (FY2026 back-half consensus may be set too high; the EV/EBITDA discount to ADM is warranted rather than a bargain) are inferences from the filings, not a proprietary insight, and the decisive cross-checks (pool price, peer comps, standalone crush margin) are missing. This is a quality-and-valuation skepticism call backed by filings, not a differentiated view the market cannot see.",
+    "what_everyone_knows": "Bunge is an ABCD oligopoly crusher; it bought Viterra in July 2025; FY2026 adjusted-EPS guidance was raised ~20% (to $9.00-9.50) on the EPA biofuel decision and an improving crush spread; the balance sheet levered up sharply on the deal.",
+    "what_is_priced_in": "At the indicative ~$123 price the market prices only ~2.3% FCFF growth and a ~3.3% mid-cycle EBIT margin (reverse-DCF) -- the recovery merely holding at mid-cycle, not recovering to the FY23 peak. The Street's $9.43 already sits above the $9.25 guide midpoint, so the easy upside is arbitraged away.",
+    "what_market_may_be_missing": "The back half of FY2026 consensus may be too high (full-year estimates rose on H1/Q2 marks while FQ3/FQ4 breadth is net negative), and the 'cheap' EV/EBITDA discount to ADM is warranted by higher leverage, thinner margins and sub-cost-of-capital returns (a flagged value trap), not a mispricing.",
+    "killer_risk": "One uncontrollable external variable -- biofuel mandate policy via the crush spread -- dominates earnings; a single EPA RVO decision swung a full quarter's adjusted-EPS guidance >100%, with symmetric downside and no contractual margin floor.",
+    "kill_criteria": [
+      "Biofuel-policy or crush-spread reversal retracing FY2026 guidance toward $7.50-8.00 (the Critical earnings flag); H2 spread fades and the year lands at/below the bottom of the $9.00-9.50 range with FQ3/FQ4 breadth still negative.",
+      "FY2026 cash conversion stays broken: CFO/EBITDA 25-40%, FCF negative, dividend uncovered again.",
+      "A confirmed pool price materially above ~$115 with no change in earnings power (moves the call from Watchlist toward Avoid).",
+      "A Viterra goodwill impairment or measurement-period write-down (RF-CAP-001).",
+      "2028 maturity-cluster refinancing stress or a downgrade out of investment grade on the ~56% floating-rate book.",
+      "Brazil indirect-tax claims (~$760M, rising >$115M/qtr) moving from 'possible' to 'probable'.",
+      "Glencore/CPP/BCI ~34% bloc using board seats / supermajority weight against minority holders, or non-arm's-length Glencore/CPP related-party dealing (governance escalation to Critical)."
+    ],
+    "forecast_ledger": [
+      {
+        "prediction": "FY2026 full-year adjusted EPS lands inside (not above) the $9.00-9.50 guide.",
+        "probability": 0.6,
+        "time_window": "by Feb 2027",
+        "evidence_today": "Street consensus $9.43 sits at the guide midpoint; FY26 revenue revisions 4 down/1 up; FQ3/FQ4 breadth net negative.",
+        "confirmation_trigger": "Q2/Q3 FY2026 prints plus the Feb-2027 FY result landing inside the $9.00-9.50 range.",
+        "falsification_trigger": "FY2026 adjusted EPS prints above $9.50 or below $9.00.",
+        "owner_module": "earnings",
+        "confidence_score": 55,
+        "status": "open"
+      },
+      {
+        "prediction": "Q2 FY2026 beats on the quarter but management does not raise the full-year guide.",
+        "probability": 0.55,
+        "time_window": "late Jul 2026",
+        "evidence_today": "5 straight quarterly adjusted-EPS beats; back-half caution embedded in net-negative FQ3/FQ4 breadth.",
+        "confirmation_trigger": "A Q2 adjusted-EPS beat accompanied by an unchanged FY guide.",
+        "falsification_trigger": "A Q2 miss, or a guide raise above $9.50.",
+        "owner_module": "earnings",
+        "confidence_score": 50,
+        "status": "open"
+      },
+      {
+        "prediction": "FY2026 free cash flow turns positive / CFO-to-EBITDA recovers toward 70%.",
+        "probability": 0.45,
+        "time_window": "by Feb 2027",
+        "evidence_today": "Q1 is reliably cash-negative; CFO/EBITDA collapsed to 38% (FY25)/25% (TTM); Viterra working-capital build should unwind over the year.",
+        "confirmation_trigger": "FY2026 CFO exceeds capex plus dividend (positive FCF).",
+        "falsification_trigger": "FY2026 FCF negative again.",
+        "owner_module": "earnings",
+        "confidence_score": 45,
+        "status": "open"
+      },
+      {
+        "prediction": "At the indicative ~$123 price, BG's 12-month total return is negative (<=0%).",
+        "probability": 0.6,
+        "time_window": "by Jun 2027",
+        "evidence_today": "Probability-weighted expected return approx -11.5% vs the indicative price; no margin of safety (base FV ~$108); negative risk/reward (-0.37).",
+        "confirmation_trigger": "BG trades below ~$123 at the 365-day review.",
+        "falsification_trigger": "BG sustainably above ~$123 on a held or expanded crush/biofuel spread.",
+        "owner_module": "valuation",
+        "confidence_score": 50,
+        "status": "open"
+      },
+      {
+        "prediction": "No Viterra goodwill impairment in FY2026.",
+        "probability": 0.7,
+        "time_window": "by Feb 2027",
+        "evidence_today": "$2,659M preliminary goodwill; integration <1 year old; year-1 synergies >$70M realized.",
+        "confirmation_trigger": "FY2026 10-K passes goodwill impairment tests with no write-down.",
+        "falsification_trigger": "An impairment or measurement-period write-down disclosed.",
+        "owner_module": "management-governance",
+        "confidence_score": 50,
+        "status": "open"
+      },
+      {
+        "prediction": "No covenant breach and no downgrade out of investment grade in the next 12 months.",
+        "probability": 0.8,
+        "time_window": "by Jun 2027",
+        "evidence_today": "Adequate solvency verdict; covenants are balance-sheet-only (not earnings-linked); IG ratings affirmed post-Viterra; ~$10.5bn committed liquidity.",
+        "confirmation_trigger": "12 months elapse with no covenant breach, waiver, or sub-IG downgrade.",
+        "falsification_trigger": "A covenant breach/waiver or a downgrade out of investment grade.",
+        "owner_module": "balance-sheet-survival",
+        "confidence_score": 55,
+        "status": "open"
+      }
+    ],
+    "module_scores": {
+      "business-model": {
+        "score": 80,
+        "verdict": "Cyclical business -- worth deeper work only with a strong timing edge (business quality 28/100; ROIC 6.7% < 7.2% cost of equity)"
+      },
+      "earnings": {
+        "score": 82,
+        "verdict": "Mixed earnings setup -- policy-conditional; Material concerns; do not tag accelerating"
+      },
+      "balance-sheet-survival": {
+        "score": 78,
+        "verdict": "Adequate -- ~5.8-6.1x GAAP-built net leverage; survives -30/-60% EBITDA with no covenant breach; breaks only on a deep inventory write-down"
+      },
+      "management-governance": {
+        "score": 75,
+        "verdict": "Aligned & competent, on probation -- Governance Rating Watchlist; Governance Score 56; 0 Critical red flags; ~34% Glencore/CPP/BCI bloc overhang"
+      },
+      "valuation": {
+        "score": 70,
+        "verdict": "Modestly overvalued -- base FV ~$108 vs indicative ~$123; no margin of safety; value-trap flag on the bull case"
+      }
+    },
+    "red_flags": [
+      {
+        "id": "EARN-CRIT-01",
+        "severity": "Critical",
+        "module": "earnings",
+        "description": "Earnings dominated by one uncontrollable external variable (biofuel mandate policy / crush spread); a single EPA RVO decision swung a full quarter's adjusted-EPS guidance >100%, symmetric downside, no contractual margin floor. (Module severity verdict: Material concerns -- conviction haircut, not disqualification.)"
+      },
+      {
+        "id": "RF-CAP-001",
+        "severity": "High",
+        "module": "management-governance",
+        "description": "Viterra acquisition ($10.6bn = 175% of 3-yr CFO) per-share payoff unproven; ~44% dilution + $7.8bn debt step-up for a >$70M year-1 synergy down-payment; $2.66bn preliminary goodwill (watch -- rationale disclosed, not vague)."
+      },
+      {
+        "id": "RF-CAP-002",
+        "severity": "High",
+        "module": "management-governance",
+        "description": "Buybacks not reducing share count -- FY2025 share count rose ~44% (133.96M->193.41M); repurchases offset only ~10% of the Viterra issuance."
+      },
+      {
+        "id": "RF-CAP-003",
+        "severity": "High",
+        "module": "management-governance",
+        "description": "Dividend uncovered by free cash flow in FY2025 (dividend $459M vs FCF -$879M); covered 5.7x in FY23 and 1.4x in FY24."
+      },
+      {
+        "id": "RF-DISC-002",
+        "severity": "High",
+        "module": "management-governance",
+        "description": "Recurring 'one-off' adjustment -- 'Viterra integration' cost adjusted out of non-GAAP earnings for a 3rd straight year ($114M FY23 / $244M FY24 / $223M FY25, +$0.20 EPS Q1'26); treats an active-strategy cost as one-time."
+      },
+      {
+        "id": "GOV-OVERHANG",
+        "severity": "High",
+        "module": "management-governance",
+        "description": "~34% Glencore/CPP/BCI Viterra-seller bloc with contractual rights to name up to four directors and 2/3-supermajority swing weight on mergers/dilutive issuances; the 10-K says it 'could discourage' a value-creating change of control. Structural overhang, not current abuse."
+      },
+      {
+        "id": "BIZ-BRAZIL",
+        "severity": "High",
+        "module": "business-model",
+        "description": "Brazil compounding risk node (severity 62) -- ~$760M unprovisioned indirect-tax claims rising ~$115M/qtr vs ~$816M FY25 net income, plus a farmer-financing book ($835M + $183M, +75%) and Level 3 marks, all in one jurisdiction worsening in the same weak-crop/weak-real scenario."
+      },
+      {
+        "id": "BS-LEVERAGE",
+        "severity": "High",
+        "module": "balance-sheet-survival",
+        "description": "Net leverage ~5.8-6.1x GAAP-built (up from ~1.3x a year earlier) with negative FCF (-$879M FY25, -$1,161M TTM); refinancing-dependent, not self-funded; 2028 maturity cluster ($2.76bn term loans + $3.5bn revolver expiry); ~56% floating-rate; covenant thresholds undisclosed (headroom Not assessable)."
+      },
+      {
+        "id": "VAL-NO-MOS",
+        "severity": "Medium",
+        "module": "valuation",
+        "description": "No margin of safety at the indicative ~$123 price (base FV ~$108); bull case (~$140) requires an unearned re-rating on sub-cost-of-capital returns -- a flagged value trap; methods disagree ~53% (forward-normalized vs through-cycle)."
+      }
+    ],
+    "missing_data": [
+      "Pool-sourced current price as of ~2026-06-01 (single highest-value item -- converts every up/downside figure from indicative to pool-grade and decides Watchlist vs Starter; current ~$123.35 is web-sourced/unverified).",
+      "Peer margin/ROIC comps export (ADM, Ingredion, Wilmar, other agri-processors) to confirm whether BG's EV/EBITDA discount is warranted.",
+      "Clean post-Viterra FY2026 cash-conversion print (CFO/EBITDA, FCF).",
+      "Standalone soybean crush margin per ton, processing-only, split from merchandising.",
+      "2026 DEF 14A (CD&A + LTIP metric weights, beneficial-ownership table, formal board independence, director RPT, audit fees).",
+      "Numeric covenant thresholds (current ratio / debt-to-cap) and a credit-rating-agency report (Moody's/S&P/Fitch).",
+      "Debt maturity ladder with weighted-average coupon and floating/fixed detail.",
+      "Organic (ex-Viterra) revenue/volume -- first cleanly visible Q3 2026."
+    ],
+    "review_schedule": {
+      "30d": "2026-07-01",
+      "90d": "2026-08-30",
+      "180d": "2026-11-28",
+      "365d": "2027-06-01"
+    },
+    "created_by": "synthesizer",
+    "notes": "Current price is indicative/web-sourced ($123.35, MarketBeat last close 2026-05-29), NOT pool-verified; entry_price is null and no paper trade is created. Watchlist (not Avoid) precisely because the price is unverified -- a pool-confirmed price below ~$100 would re-open a margin of safety and move the call toward 'Starter Position Only', while a pool price above ~$115 would move it toward Avoid. All five planned modules completed; no module overridden; the five syntheses are mutually consistent. No Critical governance/solvency/accounting/going-concern red flag (governance 0 Critical; solvency 'Adequate', not 'Distress'; earnings 'Material concerns' = conviction haircut). Thesis classified commodity/policy-conditional with no proven company-specific edge. expected_return_pct/downside_risk_pct/risk_reward are computed against the indicative price and carry that caveat. The 30d review (2026-07-01) precedes the late-July Q2 FY2026 print; the 90d review (2026-08-30) is the first to capture it."
+  },
+  "modules": [
+    {
+      "name": "business-model",
+      "label": "Business Model",
+      "score": 80,
+      "verdict": "Cyclical business -- worth deeper work only with a strong timing edge (business quality 28/100; ROIC 6.7% < 7.2% cost of equity)",
+      "agents": [
+        {
+          "nn": "00",
+          "slug": "data-triage",
+          "name": "Data Triage",
+          "file": "BG_2026-06-01/business-model/00_data-triage.md",
+          "verdict": "Sufficient",
+          "isSynthesis": false,
+          "bytes": 3942
+        },
+        {
+          "nn": "01",
+          "slug": "disqualifier-scan",
+          "name": "Disqualifier Scan",
+          "file": "BG_2026-06-01/business-model/01_disqualifier-scan.md",
+          "verdict": "Any disqualifier triggered: N",
+          "isSynthesis": false,
+          "bytes": 6533
+        },
+        {
+          "nn": "02",
+          "slug": "business-identity",
+          "name": "Business Identity",
+          "file": "BG_2026-06-01/business-model/02_business-identity.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 5412
+        },
+        {
+          "nn": "03",
+          "slug": "segment-map",
+          "name": "Segment Map",
+          "file": "BG_2026-06-01/business-model/03_segment-map.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 9829
+        },
+        {
+          "nn": "04",
+          "slug": "unit-economics",
+          "name": "Unit Economics",
+          "file": "BG_2026-06-01/business-model/04_unit-economics.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 8565
+        },
+        {
+          "nn": "05",
+          "slug": "customer-geography",
+          "name": "Customer Geography",
+          "file": "BG_2026-06-01/business-model/05_customer-geography.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 8336
+        },
+        {
+          "nn": "06",
+          "slug": "value-chain",
+          "name": "Value Chain",
+          "file": "BG_2026-06-01/business-model/06_value-chain.md",
+          "verdict": "Squeezed — price-taker on inputs AND on outputs.",
+          "isSynthesis": false,
+          "bytes": 9490
+        },
+        {
+          "nn": "07",
+          "slug": "business-quality",
+          "name": "Business Quality",
+          "file": "BG_2026-06-01/business-model/07_business-quality.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 10870
+        },
+        {
+          "nn": "08",
+          "slug": "competitive-map",
+          "name": "Competitive Map",
+          "file": "BG_2026-06-01/business-model/08_competitive-map.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 7845
+        },
+        {
+          "nn": "09",
+          "slug": "moat",
+          "name": "Moat",
+          "file": "BG_2026-06-01/business-model/09_moat.md",
+          "verdict": "Narrow moat.",
+          "isSynthesis": false,
+          "bytes": 10646
+        },
+        {
+          "nn": "10",
+          "slug": "external-dependency",
+          "name": "External Dependency",
+          "file": "BG_2026-06-01/business-model/10_external-dependency.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 11744
+        },
+        {
+          "nn": "11",
+          "slug": "capital-allocation-governance",
+          "name": "Capital Allocation Governance",
+          "file": "BG_2026-06-01/business-model/11_capital-allocation-governance.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 10982
+        },
+        {
+          "nn": "12",
+          "slug": "red-flags-sweep",
+          "name": "Red Flags Sweep",
+          "file": "BG_2026-06-01/business-model/12_red-flags-sweep.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 10544
+        },
+        {
+          "nn": "99",
+          "slug": "business-model-synthesis",
+          "name": "Business Model Synthesis",
+          "file": "BG_2026-06-01/business-model/99_business-model-synthesis.md",
+          "verdict": "Cyclical business — worth deeper work only with a strong timing edge",
+          "isSynthesis": true,
+          "bytes": 17939
+        }
+      ]
+    },
+    {
+      "name": "earnings",
+      "label": "Earnings",
+      "score": 82,
+      "verdict": "Mixed earnings setup -- policy-conditional; Material concerns; do not tag accelerating",
+      "agents": [
+        {
+          "nn": "00",
+          "slug": "earnings-data-triage",
+          "name": "Earnings Data Triage",
+          "file": "BG_2026-06-01/earnings/00_earnings-data-triage.md",
+          "verdict": "Sufficient",
+          "isSynthesis": false,
+          "bytes": 6663
+        },
+        {
+          "nn": "01",
+          "slug": "historical-financials",
+          "name": "Historical Financials",
+          "file": "BG_2026-06-01/earnings/01_historical-financials.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 20892
+        },
+        {
+          "nn": "02",
+          "slug": "revenue-drivers",
+          "name": "Revenue Drivers",
+          "file": "BG_2026-06-01/earnings/02_revenue-drivers.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 13135
+        },
+        {
+          "nn": "03",
+          "slug": "margin-drivers",
+          "name": "Margin Drivers",
+          "file": "BG_2026-06-01/earnings/03_margin-drivers.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 26074
+        },
+        {
+          "nn": "04",
+          "slug": "guidance-consensus",
+          "name": "Guidance Consensus",
+          "file": "BG_2026-06-01/earnings/04_guidance-consensus.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 13404
+        },
+        {
+          "nn": "05",
+          "slug": "beat-miss-setup",
+          "name": "Beat Miss Setup",
+          "file": "BG_2026-06-01/earnings/05_beat-miss-setup.md",
+          "verdict": "Setup favors beat — narrowly, and only on the quarter, not on the guide.",
+          "isSynthesis": false,
+          "bytes": 11064
+        },
+        {
+          "nn": "06",
+          "slug": "earnings-quality",
+          "name": "Earnings Quality",
+          "file": "BG_2026-06-01/earnings/06_earnings-quality.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 25421
+        },
+        {
+          "nn": "07",
+          "slug": "earnings-sensitivity",
+          "name": "Earnings Sensitivity",
+          "file": "BG_2026-06-01/earnings/07_earnings-sensitivity.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 7328
+        },
+        {
+          "nn": "08",
+          "slug": "earnings-red-flags",
+          "name": "Earnings Red Flags",
+          "file": "BG_2026-06-01/earnings/08_earnings-red-flags.md",
+          "verdict": "Material concerns.",
+          "isSynthesis": false,
+          "bytes": 50145
+        },
+        {
+          "nn": "99",
+          "slug": "earnings-synthesis",
+          "name": "Earnings Synthesis",
+          "file": "BG_2026-06-01/earnings/99_earnings-synthesis.md",
+          "verdict": "Mixed earnings setup — conflicting signals: reported revenue acceleration is inorganic (Viterra), GAAP margins compressed for two years while the forward adjusted-spread call is \"improving,\" earnings quality is weak and management-defined,…",
+          "isSynthesis": true,
+          "bytes": 24892
+        }
+      ]
+    },
+    {
+      "name": "balance-sheet-survival",
+      "label": "Balance Sheet Survival",
+      "score": 78,
+      "verdict": "Adequate -- ~5.8-6.1x GAAP-built net leverage; survives -30/-60% EBITDA with no covenant breach; breaks only on a deep inventory write-down",
+      "agents": [
+        {
+          "nn": "00",
+          "slug": "solvency-data-triage",
+          "name": "Solvency Data Triage",
+          "file": "BG_2026-06-01/balance-sheet-survival/00_solvency-data-triage.md",
+          "verdict": "Sufficient",
+          "isSynthesis": false,
+          "bytes": 8656
+        },
+        {
+          "nn": "01",
+          "slug": "capital-structure-and-leverage",
+          "name": "Capital Structure And Leverage",
+          "file": "BG_2026-06-01/balance-sheet-survival/01_capital-structure-and-leverage.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 21473
+        },
+        {
+          "nn": "02",
+          "slug": "maturity-wall-and-refinancing",
+          "name": "Maturity Wall And Refinancing",
+          "file": "BG_2026-06-01/balance-sheet-survival/02_maturity-wall-and-refinancing.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 14807
+        },
+        {
+          "nn": "03",
+          "slug": "liquidity-runway",
+          "name": "Liquidity Runway",
+          "file": "BG_2026-06-01/balance-sheet-survival/03_liquidity-runway.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 15893
+        },
+        {
+          "nn": "04",
+          "slug": "coverage-and-covenants",
+          "name": "Coverage And Covenants",
+          "file": "BG_2026-06-01/balance-sheet-survival/04_coverage-and-covenants.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 19872
+        },
+        {
+          "nn": "05",
+          "slug": "off-balance-sheet-and-contingencies",
+          "name": "Off Balance Sheet And Contingencies",
+          "file": "BG_2026-06-01/balance-sheet-survival/05_off-balance-sheet-and-contingencies.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 19005
+        },
+        {
+          "nn": "06",
+          "slug": "downside-stress-test",
+          "name": "Downside Stress Test",
+          "file": "BG_2026-06-01/balance-sheet-survival/06_downside-stress-test.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 15992
+        },
+        {
+          "nn": "99",
+          "slug": "balance-sheet-survival-synthesis",
+          "name": "Balance Sheet Survival Synthesis",
+          "file": "BG_2026-06-01/balance-sheet-survival/99_balance-sheet-survival-synthesis.md",
+          "verdict": "Adequate — leverage is elevated (GAAP-built net ~5.8–6.1x) but serviceable; the near-term wall is refinanceable on committed bank capacity in most markets; covenants are balance-sheet only and not earnings-linked, so an earnings shock does…",
+          "isSynthesis": true,
+          "bytes": 20433
+        }
+      ]
+    },
+    {
+      "name": "management-governance",
+      "label": "Management Governance",
+      "score": 75,
+      "verdict": "Aligned & competent, on probation -- Governance Rating Watchlist; Governance Score 56; 0 Critical red flags; ~34% Glencore/CPP/BCI bloc overhang",
+      "agents": [
+        {
+          "nn": "00",
+          "slug": "governance-data-triage",
+          "name": "Governance Data Triage",
+          "file": "BG_2026-06-01/management-governance/00_governance-data-triage.md",
+          "verdict": "Partial",
+          "isSynthesis": false,
+          "bytes": 9678
+        },
+        {
+          "nn": "01",
+          "slug": "management-and-track-record",
+          "name": "Management And Track Record",
+          "file": "BG_2026-06-01/management-governance/01_management-and-track-record.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 40749
+        },
+        {
+          "nn": "02",
+          "slug": "capital-allocation-scorecard",
+          "name": "Capital Allocation Scorecard",
+          "file": "BG_2026-06-01/management-governance/02_capital-allocation-scorecard.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 47823
+        },
+        {
+          "nn": "03",
+          "slug": "incentives-and-compensation",
+          "name": "Incentives And Compensation",
+          "file": "BG_2026-06-01/management-governance/03_incentives-and-compensation.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 36895
+        },
+        {
+          "nn": "04",
+          "slug": "ownership-and-insider-behavior",
+          "name": "Ownership And Insider Behavior",
+          "file": "BG_2026-06-01/management-governance/04_ownership-and-insider-behavior.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 47694
+        },
+        {
+          "nn": "05",
+          "slug": "board-and-shareholder-rights",
+          "name": "Board And Shareholder Rights",
+          "file": "BG_2026-06-01/management-governance/05_board-and-shareholder-rights.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 60634
+        },
+        {
+          "nn": "06",
+          "slug": "candor-and-disclosure-quality",
+          "name": "Candor And Disclosure Quality",
+          "file": "BG_2026-06-01/management-governance/06_candor-and-disclosure-quality.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 39483
+        },
+        {
+          "nn": "99",
+          "slug": "management-governance-synthesis",
+          "name": "Management Governance Synthesis",
+          "file": "BG_2026-06-01/management-governance/99_management-governance-synthesis.md",
+          "verdict": "Aligned & competent (with a watch flag — the per-share payoff of the flagship acquisition is unproven, and a ~34% blockholder overhang exists)",
+          "isSynthesis": true,
+          "bytes": 53933
+        }
+      ]
+    },
+    {
+      "name": "valuation",
+      "label": "Valuation",
+      "score": 70,
+      "verdict": "Modestly overvalued -- base FV ~$108 vs indicative ~$123; no margin of safety; value-trap flag on the bull case",
+      "agents": [
+        {
+          "nn": "00",
+          "slug": "valuation-data-triage",
+          "name": "Valuation Data Triage",
+          "file": "BG_2026-06-01/valuation/00_valuation-data-triage.md",
+          "verdict": "Partial",
+          "isSynthesis": false,
+          "bytes": 9654
+        },
+        {
+          "nn": "01",
+          "slug": "price-and-capital-structure",
+          "name": "Price And Capital Structure",
+          "file": "BG_2026-06-01/valuation/01_price-and-capital-structure.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 16218
+        },
+        {
+          "nn": "02",
+          "slug": "multiples-own-history",
+          "name": "Multiples Own History",
+          "file": "BG_2026-06-01/valuation/02_multiples-own-history.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 15313
+        },
+        {
+          "nn": "03",
+          "slug": "relative-valuation-peers",
+          "name": "Relative Valuation Peers",
+          "file": "BG_2026-06-01/valuation/03_relative-valuation-peers.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 19188
+        },
+        {
+          "nn": "04",
+          "slug": "intrinsic-dcf",
+          "name": "Intrinsic Dcf",
+          "file": "BG_2026-06-01/valuation/04_intrinsic-dcf.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 18032
+        },
+        {
+          "nn": "05",
+          "slug": "reverse-dcf",
+          "name": "Reverse Dcf",
+          "file": "BG_2026-06-01/valuation/05_reverse-dcf.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 15679
+        },
+        {
+          "nn": "06",
+          "slug": "sum-of-the-parts",
+          "name": "Sum Of The Parts",
+          "file": "BG_2026-06-01/valuation/06_sum-of-the-parts.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 17015
+        },
+        {
+          "nn": "07",
+          "slug": "scenario-and-fair-value",
+          "name": "Scenario And Fair Value",
+          "file": "BG_2026-06-01/valuation/07_scenario-and-fair-value.md",
+          "verdict": null,
+          "isSynthesis": false,
+          "bytes": 16146
+        },
+        {
+          "nn": "99",
+          "slug": "valuation-synthesis",
+          "name": "Valuation Synthesis",
+          "file": "BG_2026-06-01/valuation/99_valuation-synthesis.md",
+          "verdict": "Modestly overvalued",
+          "isSynthesis": true,
+          "bytes": 16365
+        }
+      ]
+    }
+  ],
+  "files": {
+    "finalThesis": "BG_2026-06-01/final_thesis.md",
+    "finalThesisExpanded": null,
+    "runMetadata": "BG_2026-06-01/RUN_METADATA.md",
+    "verification": "BG_2026-06-01/verification_report.json",
+    "preMortem": "BG_2026-06-01/pre_mortem.json",
+    "expectationsGap": "BG_2026-06-01/expectations_gap.json"
+  },
+  "generatedAt": "2026-06-04T06:32:34.004Z"
+}

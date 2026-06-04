@@ -1,0 +1,77 @@
+{
+  "schema_version": "1.0",
+  "ticker": "BG",
+  "run_root": "analyses/BG_2026-06-01",
+  "performed_at": "2026-06-01",
+  "auditor": "pre-mortem",
+  "final_thesis_path": "analyses/BG_2026-06-01/final_thesis.md",
+  "decision_record_path": "analyses/BG_2026-06-01/decision_record.json",
+  "original_decision": "Watchlist",
+  "original_confidence": 46,
+  "adversarial_direction": "Watchlist — red-team BOTH sides: is the bear strong enough for Avoid, and is the bull strong enough (false-negative) for Starter?",
+  "pre_mortem_narrative": "It is ~12 months on and 'Watchlist / don't own at ~$123' looks wrong in one of two ways. (A) False-negative: the EPA RVO + Brazil/Indonesia/EU mandates proved a multi-year structural soy/canola-oil demand driver, Viterra synergies landed, FY2026 printed at the top of guide and FY2027 reached ~$10.89, the market paid a mid-cycle-plus multiple, and BG ran to $140-160 — we sat on the fence and missed +25-30%. (B) Too-lenient: the crush spread mean-reverted to the FY25 trough, ~5.8x leverage amplified the EBIT fall at the EPS line, FY2026 FCF stayed negative, the Brazil indirect-tax claim moved to 'probable', a Viterra goodwill charge hit, and the stock fell to ~$85 (SOTP-A floor ~$30 in a full trough) — 'Watchlist, track it' gave false comfort versus a clear Avoid.",
+  "bear_case": "Low-quality, price-taking commodity processor (gross margin ~3.5%, ROIC 6.7% < 7.2% cost of equity) now carrying ~5.8x GAAP net leverage post-Viterra (up from ~1.3x), negative TTM FCF (-$1,161M), an FCF-uncovered dividend, a rising unprovisioned Brazil indirect-tax exposure ($760M assessed vs ~$507M provisioned, +$104M in Q1'26), and a 2028 maturity cluster. The entire FY2026 ~20% guidance upgrade rests on ONE uncontrollable EPA RVO decision moving an exchange-set crush spread that compresses faster than it expands. At an indicative ~$123 there is no margin of safety (base FV ~$108) and the bull needs an unearned multiple re-rating on sub-cost-of-capital returns — a textbook value trap. A reasonable analyst could call this Avoid, not Watchlist.",
+  "bull_case_steelman": "The biofuel-mandate framework (RVO finalized at record levels + Brazil/Indonesia/EU) is a multi-year structural demand driver for soy/canola oil, not a one-quarter blip; Viterra makes BG the scale leader in Argentine/global origination with synergies running 'ahead of plan'; meal demand is 'surprising to the upside month after month'; FY2026 guidance was raised ~20% and Street revisions are one-sided up (6 up / 0 down). If the crush spread holds above mid-cycle into a genuine up-cycle, FY2026 prints at/above the top of the guide, FY2027 reaches ~$10.89 consensus, and the market pays a mid-cycle-plus multiple -> $140-160. The 25% bull weight may understate an already-CONFIRMED policy tailwind; a patient holder could be leaving a real up-cycle on the table.",
+  "killer_risk": "One uncontrollable external variable — biofuel mandate policy via the crush spread — dominates earnings and is symmetric. The pre-mortem's addition: it is simultaneously the killer of the bear AND the maker of the bull, which is exactly why a fence-sitting Watchlist is defensible and why neither a confident long nor a confident short is warranted.",
+  "kill_criteria_attack": [
+    {
+      "criterion": "Brazil indirect-tax claims move from 'possible' to 'probable'",
+      "closeness_to_trigger": "Partway — $760M assessed vs ~$507M provisioned; PIS/COFINS rose ~$104M in Q1'26 alone, against FY25 net income of only $816M",
+      "disconfirming_evidence_now": "The rising-quarter trajectory is already visible in the 10-K/10-Q",
+      "severity": "high"
+    },
+    {
+      "criterion": "FY2026 FCF stays negative / cash conversion does not normalize",
+      "closeness_to_trigger": "Partway — TTM FCF -$1,161M; CFO/EBITDA 25-38%; the bull needs Viterra working-capital to unwind",
+      "disconfirming_evidence_now": "Negative trailing FCF; the FY2026 cash print is the live test",
+      "severity": "high"
+    },
+    {
+      "criterion": "Crush/biofuel spread retraces toward the FY25 trough",
+      "closeness_to_trigger": "Not triggered (post-RVO favorable) but forward curves 'heavily inverted' and H2 visibility 'low'",
+      "disconfirming_evidence_now": "Inverted forward curves; back-half estimate breadth net negative",
+      "severity": "medium"
+    },
+    {
+      "criterion": "Viterra goodwill impairment",
+      "closeness_to_trigger": "Not triggered; Grain Merchandising goodwill cushion noted ~9% (thin) by disqualifier-scan",
+      "disconfirming_evidence_now": "Thin cushion flagged as a monitoring item",
+      "severity": "medium"
+    },
+    {
+      "criterion": "Covenant breach",
+      "closeness_to_trigger": "Dormant — no earnings-linked covenant; balance-sheet covenants only; stress test showed no break even at -60% EBITDA",
+      "disconfirming_evidence_now": "None — this risk is structurally low for BG",
+      "severity": "low"
+    },
+    {
+      "criterion": "Governance disqualifier (auditor resignation / promoter pledge / restatement)",
+      "closeness_to_trigger": "Dormant — disqualifier-scan clean (0/8); Deloitte unqualified since 2002",
+      "disconfirming_evidence_now": "None",
+      "severity": "low"
+    }
+  ],
+  "variant_perception_attack": {
+    "claimed_edge": "The thesis itself concedes 'no proven variant perception — a policy/commodity bet, not a company-specific edge.'",
+    "already_priced": true,
+    "is_provably_different": false,
+    "what_would_prove_not_different": "A measured ROIC/margin advantage vs ADM sustained through a cycle, or a structural cost/logistics moat that converts scale to above-cost-of-capital returns — neither is demonstrated. Every upside driver (RVO, crush, Viterra) is industry-wide. The engine's 'no edge' stance is VINDICATED by the red-team, which correctly caps conviction."
+  },
+  "value_trap_check": "Confirmed value trap on the bull. The EV/EBITDA discount to ADM is warranted (higher leverage, ~3-4% margins, sub-cost-of-capital returns), so 'cheap on EV/EBITDA' is cheap-for-a-reason; upside beyond ~$126 requires an unearned re-rating. The thesis already flagged this and the pre-mortem agrees.",
+  "base_rate_check": "Outside view supports the cautious call and argues AGAINST over-weighting the bull. (1) Base rate for a deep-cyclical commodity processor sustaining peak/elevated crush spreads 12m+ is LOW — spreads mean-revert; BG's own segment EBIT swung $2,222M->$872M->$1,225M. (2) Base rate for a ~44%-dilutive, leverage-tripling mega-acquisition (Viterra) creating per-share value on plan within 1-2 years is LOW-to-MIXED; 'synergies ahead of plan' is early and common. (3) The front-half beat-and-raise base rate is decent (5/5 recent beats) but the full-year-hold base rate is weaker given management's own 'low H2 visibility'. Net: base rates favor Watchlist/bear and suggest the 25% bull weight is, if anything, not too low.",
+  "overconfidence_flags": [],
+  "disconfirming_evidence_present": [
+    "For the bull: ROIC 6.7% < 7.2% cost of equity; explicit value-trap flag; inverted forward curves; base-rate mean reversion; ~5.8x leverage; negative FCF.",
+    "For the bear: survives -30/-60% EBITDA with no covenant breach; IG-rated; ~$10.5bn committed liquidity; a CONFIRMED (not hoped-for) favorable RVO; one-sided positive near-term revisions (6/0)."
+  ],
+  "what_would_change_the_call": [
+    "Toward Starter/long: a pool-confirmed price below ~$100 (opens a margin of safety); a clean FY2026 cash print (CFO/EBITDA toward 70%, FCF positive); peer comps proving the EV/EBITDA discount is unwarranted.",
+    "Toward Avoid: Brazil indirect-tax moves to 'probable'; a Viterra goodwill impairment; FY2026 FCF stays negative; a biofuel-policy reversal."
+  ],
+  "survives": true,
+  "confidence_haircut": 0,
+  "recommended_confidence": 46,
+  "recommended_rating_cap": "None beyond the run's existing cap — already Watchlist (rating already capped by the policy-conditional thesis + negative risk/reward).",
+  "verdict": "Survives",
+  "notes": "The Watchlist call SURVIVES the red-team. It is already a two-sided, well-disconfirmed, low-confidence (46) call that concedes no company-specific edge, flags the value trap, and respects the base rate — there is no overconfidence to haircut, so the haircut is 0 (the pre-mortem confirms rather than weakens it, and must not manufacture drama). The strongest honest attack is the false-negative (missing a biofuel super-cycle), but base rates disfavor that bet and the bull is already weighted 25% with a $140 target. Residual for the synthesizer to carry: the bear/Avoid case is marginally the stronger of the two tails (base-rate mean reversion + leverage + rising Brazil tax), but not enough to move Watchlist to Avoid given the indicative-price uncertainty and the genuine (if industry-wide) tailwind. A pre-mortem can only hold or lower conviction; here it holds."
+}
