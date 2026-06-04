@@ -319,6 +319,19 @@ a { color: inherit; }
 .decision__divider { width: 1px; height: 20px; background: var(--hairline-strong); }
 .decision__stat { font-size: 11px; color: var(--text-muted); font-family: var(--font-mono); }
 .decision__stat b { color: var(--text); font-weight: 600; }
+/* the three run tiers (memo / thesis / full dossier), opened from below the orb */
+.decision__tiers { display: flex; align-items: center; gap: 6px; }
+.tierbtn {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.2px; line-height: 1;
+  padding: 5px 9px; border-radius: var(--r-pill); white-space: nowrap;
+  background: var(--surface-3); color: var(--accent); border: 1px solid var(--hairline-strong);
+  cursor: pointer; transition: background var(--dur-fast), color var(--dur-fast), border-color var(--dur-fast);
+}
+.tierbtn:hover { background: var(--accent-wash); color: var(--accent-bright); border-color: var(--accent-deep); }
+.tierbtn--off, .tierbtn--off:hover {
+  color: var(--text-faint); background: transparent; border-color: var(--hairline);
+  cursor: default; opacity: 0.55;
+}
 
 /* toast */
 .toast {

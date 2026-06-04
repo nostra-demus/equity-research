@@ -153,8 +153,8 @@ function buildTicker(ticker, runFolder) {
     if (!dataModules[mod]) dataModules[mod] = { status: 'Sufficient', reasons: ['module completed in this run'], caps: [] }
   }
 
-  // copy top-level reports
-  for (const f of ['final_thesis.md', 'final_thesis_expanded.md', 'RUN_METADATA.md']) {
+  // copy top-level reports — the three shareable tiers (memo/thesis/dossier) plus run metadata
+  for (const f of ['memo.md', 'final_thesis.md', 'audit_dossier.md', 'final_thesis_expanded.md', 'RUN_METADATA.md']) {
     if (isFile(path.join(runDir, f))) copyInto(path.join(runDir, f), `analyses/${runFolder}/${f}`)
   }
 
@@ -162,7 +162,9 @@ function buildTicker(ticker, runFolder) {
   const manifest = {
     runRoot,
     modules: manifestModules,
+    memo: has('memo.md'),
     finalThesis: has('final_thesis.md'),
+    fullDossier: has('audit_dossier.md'),
     decisionRecord: has('decision_record.json'),
     verification: has('verification_report.json') || has('verification_report_v3.json'),
     preMortem: has('pre_mortem.json'),

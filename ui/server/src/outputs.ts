@@ -82,7 +82,9 @@ export function runManifest(runRoot: string) {
   return {
     runRoot,
     modules,
+    memo: has('memo.md'),
     finalThesis: has('final_thesis.md'),
+    fullDossier: has('audit_dossier.md'),
     decisionRecord: has('decision_record.json'),
     verification: has('verification_report.json') || has('verification_report_v3.json') || has('verification_report_v2.json'),
     preMortem: has('pre_mortem.json'),

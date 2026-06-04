@@ -31,6 +31,8 @@ interface State {
   runStream: StreamRow[]
   coreBloom: boolean
   decision: any | null
+  runRoot: string | null
+  reports: { memo: boolean; thesis: boolean; dossier: boolean }
   openOutput: { path: string; title: string; verdict?: string | null } | null
   selectedNodeKey: string | null
   launchConfirm: { preflight: LaunchPreflight } | null
@@ -50,6 +52,7 @@ interface State {
   cancelRun: () => Promise<void>
   openOutputForNode: (node: AgentNode) => Promise<void>
   openThesis: () => Promise<void>
+  openReport: (tier: 'memo' | 'thesis' | 'dossier') => Promise<void>
   closeOutput: () => void
   setToast: (t: Toast | null) => void
   _handleEvent: (e: SseEvent) => void
@@ -78,6 +81,8 @@ export const useStore = create<State>((set, get) => ({
   runStream: [],
   coreBloom: false,
   decision: null,
+  runRoot: null,
+  reports: { memo: false, thesis: false, dossier: false },
   openOutput: null,
   selectedNodeKey: null,
   launchConfirm: null,
@@ -114,7 +119,7 @@ export const useStore = create<State>((set, get) => ({
   },
 
   selectTicker: async (t) => {
-    set({ selectedTicker: t, dataStatus: null, nodeRuntime: {}, decision: null, coreBloom: false, selectedNodeKey: null, runStream: [], activeRun: null })
+    set({ selectedTicker: t, dataStatus: null, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, coreBloom: false, selectedNodeKey: null, runStream: [], activeRun: null })
     const graph = await api.swarm(t)
     set({ graph, nodesByKey: flatten(graph) })
     await get().refreshData()
@@ -126,7 +131,7 @@ export const useStore = create<State>((set, get) => ({
         for (const a of agents) seed[a.agentKey] = { status: 'done', verdict: a.verdict, outputPath: `${manifest.runRoot}/${a.agentKey}.md` }
       }
       if (manifest.finalThesis) seed['master/synthesizer'] = { status: 'done', outputPath: `${manifest.runRoot}/final_thesis.md` }
-      set({ nodeRuntime: seed })
+      set({ nodeRuntime: seed, runRoot: manifest.runRoot ?? null, reports: { memo: !!manifest.memo, thesis: !!manifest.finalThesis, dossier: !!manifest.fullDossier } })
     } catch {}
     try {
       const decision = await api.decision(t)
@@ -255,6 +260,17 @@ export const useStore = create<State>((set, get) => ({
     }
   },
 
+  // open one of the three run tiers (memo / thesis / dossier) by resolving its file under the run root.
+  // routes through OutputReader -> api.output, so it works in both live and static modes.
+  openReport: async (tier) => {
+    const t = get().selectedTicker
+    const runRoot = get().runRoot
+    if (!t || !runRoot) return get().setToast({ msg: 'No run output yet', tone: 'info' })
+    const file = tier === 'memo' ? 'memo.md' : tier === 'dossier' ? 'audit_dossier.md' : 'final_thesis.md'
+    const title = tier === 'memo' ? `Memo — ${t}` : tier === 'dossier' ? `Full Dossier — ${t}` : `Investment Thesis — ${t}`
+    set({ openOutput: { path: `${runRoot}/${file}`, title, verdict: get().decision?.decision ?? null } })
+  },
+
   closeOutput: () => set({ openOutput: null }),
   setToast: (t) => {
     set({ toast: t })
@@ -301,6 +317,7 @@ export const useStore = create<State>((set, get) => ({
           api.decision(get().selectedTicker!).then((d) => set({ decision: d })).catch(() => {})
           api.runManifest(get().selectedTicker!).then((m) => {
             if (m.finalThesis) set({ nodeRuntime: { ...get().nodeRuntime, ['master/synthesizer']: { status: 'done', outputPath: `${m.runRoot}/final_thesis.md` } } })
+            set({ runRoot: m.runRoot ?? get().runRoot, reports: { memo: !!m.memo, thesis: !!m.finalThesis, dossier: !!m.fullDossier } })
           }).catch(() => {})
         }
         get().setToast({ msg: 'Run complete', tone: 'good' })
