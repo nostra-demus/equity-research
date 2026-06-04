@@ -1,5 +1,3 @@
-import { decisionColor } from '../../lib/format'
-
 interface Props {
   x: number
   y: number
@@ -12,16 +10,17 @@ interface Props {
 
 export function CoreOrb({ x, y, r, decision, bloom, armed, onClick }: Props) {
   const size = r * 2
-  const call = decision?.decision as string | undefined
+  const hasMemo = !!decision?.decision
   const cls = `core${bloom ? ' core--bloom' : armed ? ' core--armed' : ''}`
   return (
-    <div className={cls} style={{ left: x, top: y, width: size, height: size }} onClick={(e) => { e.stopPropagation(); onClick() }} title="Run the full multi-module pipeline">
+    <div
+      className={cls}
+      style={{ left: x, top: y, width: size, height: size }}
+      onClick={(e) => { e.stopPropagation(); onClick() }}
+      title={hasMemo ? 'Open the Memo — the final synthesized view on the company' : 'The Memo — run the full pipeline to build it'}
+    >
       <div className="core__ring" />
-      {call ? (
-        <div className="core__decision" style={{ color: decisionColor(call) }}>{call}</div>
-      ) : (
-        <div className="core__label">Thesis</div>
-      )}
+      <div className="core__decision" style={{ color: 'var(--text)' }}>Memo</div>
     </div>
   )
 }

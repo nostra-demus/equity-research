@@ -18,8 +18,7 @@ export function SwarmField() {
   const nodeStatus = useStore((s) => s.nodeStatus)
   const launchAgent = useStore((s) => s.launchAgent)
   const launchModule = useStore((s) => s.launchModule)
-  const requestFull = useStore((s) => s.requestFull)
-  const requestFullDisabled = !!activeRun
+  const openThesis = useStore((s) => s.openThesis)
   const openOutputForNode = useStore((s) => s.openOutputForNode)
   const setToast = useStore((s) => s.setToast)
 
@@ -119,7 +118,7 @@ export function SwarmField() {
         ))}
       </div>
 
-      <CoreOrb x={layout.core.x} y={layout.core.y} r={layout.core.r} decision={decision} bloom={coreBloom} armed={!!selectedTicker} onClick={() => !requestFullDisabled && requestFull()} />
+      <CoreOrb x={layout.core.x} y={layout.core.y} r={layout.core.r} decision={decision} bloom={coreBloom} armed={!!selectedTicker} onClick={() => openThesis()} />
 
       {hover && <AgentTooltip node={hover.node} status={nodeStatus(hover.node.key)} verdict={nodeRuntime[hover.node.key]?.verdict} screenX={hover.x} screenY={hover.y} />}
     </div>
