@@ -90,6 +90,12 @@ a { color: inherit; }
 .creditbadge:hover { border-color: var(--hairline-strong); }
 .creditbadge__dot { width: 7px; height: 7px; border-radius: 50%; }
 
+/* plan-usage rows */
+.usagerow { padding: 7px 2px; }
+.usagerow__top { display: flex; align-items: baseline; justify-content: space-between; font-size: 12px; margin-bottom: 5px; }
+.usagebar { height: 5px; background: var(--surface-3); border-radius: var(--r-pill); overflow: hidden; }
+.usagebar__fill { height: 100%; border-radius: var(--r-pill); transition: width var(--dur) var(--ease); }
+
 /* ---------- main split ---------- */
 .main { position: relative; z-index: 1; flex: 1; display: flex; min-height: 0; }
 .stage { position: relative; flex: 1; min-width: 0; overflow: hidden; }

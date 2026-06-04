@@ -89,10 +89,19 @@ export function handleStreamLine(run: RunState, line: string) {
 
     case 'rate_limit_event': {
       const info = obj.rate_limit_info || {}
-      const ok = info.overageStatus !== 'rejected' && info.status !== 'rejected' && info.status !== 'blocked'
-      const reason = info.overageDisabledReason || info.status
-      setCreditStatus({ ok, reason, rateLimitType: info.rateLimitType, checked: true })
-      emit(run, { type: 'cost-tick', runId: run.runId, rateLimit: { ok, reason }, ts })
+      // "ok" = you can still make requests on plan quota. Overage being disabled is NOT out-of-quota.
+      const ok = info.status !== 'rejected' && info.status !== 'blocked'
+      setCreditStatus({
+        ok,
+        checked: true,
+        status: info.status,
+        rateLimitType: info.rateLimitType,
+        utilization: typeof info.utilization === 'number' ? info.utilization : undefined,
+        resetsAt: info.resetsAt,
+        isUsingOverage: info.isUsingOverage,
+        reason: info.overageDisabledReason || info.status,
+      })
+      emit(run, { type: 'cost-tick', runId: run.runId, rateLimit: { ok, reason: info.status } as any, ts })
       break
     }
 

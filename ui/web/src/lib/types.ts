@@ -72,3 +72,16 @@ export type SseEvent =
   | { type: 'run-error'; runId: string; status: 'error' | 'cancelled'; reason: string; message?: string; ts: number }
 
 export interface NodeRuntime { status: NodeStatus; verdict?: string | null; outputPath?: string }
+
+export interface UsageWindow { utilization?: number; resetsAt?: number; status?: string; isUsingOverage?: boolean }
+export interface Usage {
+  ok: boolean
+  checked: boolean
+  reason?: string
+  status?: string
+  rateLimitType?: string
+  utilization?: number
+  resetsAt?: number
+  isUsingOverage?: boolean
+  windows?: Record<string, UsageWindow>
+}

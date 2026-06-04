@@ -43,6 +43,41 @@ export function fmtDuration(ms?: number): string {
   return `${m}m ${s % 60}s`
 }
 
+// ---- plan usage / rate-limit windows ----
+export function usageLabel(rateLimitType?: string): string {
+  switch (rateLimitType) {
+    case 'five_hour':
+      return '5-hour'
+    case 'seven_day':
+      return 'Weekly · all models'
+    case 'seven_day_opus':
+    case 'seven_day_oauth_opus':
+      return 'Weekly · Opus'
+    default:
+      return rateLimitType ? rateLimitType.replace(/_/g, ' ') : 'usage'
+  }
+}
+export function usagePct(u?: number): number | null {
+  return typeof u === 'number' ? Math.round(u * 100) : null
+}
+export function usageColor(status?: string, utilization?: number): string {
+  if (status === 'rejected' || status === 'blocked') return 'var(--bad)'
+  const u = utilization ?? 0
+  if (u >= 0.9) return 'var(--bad)'
+  if (u >= 0.75) return 'var(--accent-bright)'
+  return 'var(--accent)'
+}
+export function resetIn(resetsAt?: number): string | null {
+  if (!resetsAt) return null
+  const ms = resetsAt * 1000 - Date.now()
+  if (ms <= 0) return 'now'
+  const mins = ms / 60000
+  if (mins < 60) return `${Math.max(1, Math.round(mins))}m`
+  const hours = mins / 60
+  if (hours < 48) return `${Math.round(hours)}h`
+  return `${Math.round(hours / 24)}d`
+}
+
 export function nodeStatusColor(status: string): string {
   switch (status) {
     case 'running':

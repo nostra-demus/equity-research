@@ -117,9 +117,14 @@ export type SseEvent =
 
 export interface CreditPreflight {
   ok: boolean
-  reason?: string
-  rateLimitType?: string
   checked: boolean
+  reason?: string
+  status?: string // allowed | allowed_warning | rejected | blocked
+  rateLimitType?: string // five_hour | seven_day | ...
+  utilization?: number // 0..1
+  resetsAt?: number // unix seconds
+  isUsingOverage?: boolean
+  windows?: Record<string, { utilization?: number; resetsAt?: number; status?: string; isUsingOverage?: boolean }>
 }
 
 export interface LaunchPreflight {

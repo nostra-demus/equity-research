@@ -241,6 +241,7 @@ export async function creditCheck(): Promise<ReturnType<typeof getCreditStatus>>
   try {
     const child = execa(CLAUDE_BIN, args, { cwd: REPO_ROOT, env: process.env, reject: false, timeout: 30000 })
     const { stdout } = await child
+    let sawRateLimit = false
     for (const line of stdout.split('\n')) {
       const t = line.trim()
       if (!t) continue
@@ -248,12 +249,21 @@ export async function creditCheck(): Promise<ReturnType<typeof getCreditStatus>>
         const obj = JSON.parse(t)
         if (obj.type === 'rate_limit_event') {
           const info = obj.rate_limit_info || {}
-          const ok = info.overageStatus !== 'rejected' && info.status !== 'rejected' && info.status !== 'blocked'
-          setCreditStatus({ ok, reason: info.overageDisabledReason || info.status, rateLimitType: info.rateLimitType, checked: true })
+          sawRateLimit = true
+          setCreditStatus({
+            ok: info.status !== 'rejected' && info.status !== 'blocked',
+            checked: true,
+            status: info.status,
+            rateLimitType: info.rateLimitType,
+            utilization: typeof info.utilization === 'number' ? info.utilization : undefined,
+            resetsAt: info.resetsAt,
+            isUsingOverage: info.isUsingOverage,
+            reason: info.overageDisabledReason || info.status,
+          })
         }
-        if (obj.type === 'result') {
+        if (obj.type === 'result' && !sawRateLimit) {
           if (obj.is_error && /credit|overage|rate/i.test(JSON.stringify(obj))) {
-            setCreditStatus({ ok: false, reason: 'out_of_credits', checked: true })
+            setCreditStatus({ ok: false, reason: 'rate_limited', checked: true })
           } else if (!obj.is_error) {
             setCreditStatus({ ok: true, reason: 'ok', checked: true })
           }

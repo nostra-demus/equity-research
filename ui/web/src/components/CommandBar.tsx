@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useStore } from '../lib/store'
-import { decisionColor, sufficiencyColor } from '../lib/format'
+import { decisionColor, resetIn, sufficiencyColor, usageColor, usageLabel, usagePct } from '../lib/format'
 
 function BrandMark() {
   return (
@@ -90,22 +90,62 @@ function ReadinessStrip() {
   )
 }
 
+const windowOrder = (t: string) => (t === 'five_hour' ? 0 : t.startsWith('seven_day') && !t.includes('opus') ? 1 : t.includes('opus') ? 2 : 3)
+
 function CreditBadge() {
   const credit = useStore((s) => s.credit)
   const checking = useStore((s) => s.creditChecking)
   const check = useStore((s) => s.checkCredit)
-  let color = 'var(--text-faint)'
-  let label = 'credits · check'
+  const [open, setOpen] = useState(false)
+
+  const bindingPct = usagePct(credit?.utilization)
+  const dotColor = credit?.checked ? usageColor(credit.status, credit.utilization) : 'var(--text-faint)'
+  let label = 'usage · check'
   if (credit?.checked) {
-    color = credit.ok ? 'var(--accent)' : 'var(--bad)'
-    label = credit.ok ? 'credits ok' : 'out of credits'
+    if (bindingPct != null) label = `${usageLabel(credit.rateLimitType)} ${bindingPct}%`
+    else label = credit.ok ? 'usage ok' : 'rate limited'
   }
+  const windows = credit?.windows ? Object.entries(credit.windows).sort((a, b) => windowOrder(a[0]) - windowOrder(b[0])) : []
+
   return (
-    <button className="creditbadge" onClick={check} title="Check Claude credit / rate-limit status">
-      <span className="creditbadge__dot" style={{ background: color }} />
-      <span className={checking ? 'spin' : ''} style={{ display: 'inline-flex' }}>{checking ? '◴' : ''}</span>
-      {checking ? 'checking…' : label}
-    </button>
+    <div className="tickerpick">
+      <button className="creditbadge" onClick={() => { setOpen((o) => !o); if (!credit?.checked && !checking) check() }} title="Claude plan usage — 5-hour / weekly limits">
+        <span className="creditbadge__dot" style={{ background: dotColor }} />
+        {checking ? 'checking…' : label}
+      </button>
+      {open && (
+        <>
+          <div style={{ position: 'fixed', inset: 0, zIndex: 39 }} onClick={() => setOpen(false)} />
+          <div className="tickerpick__menu" style={{ minWidth: 320, padding: '10px 12px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 6 }}>
+              <span style={{ fontSize: 11, letterSpacing: '0.4px', textTransform: 'uppercase', color: 'var(--text-muted)' }}>Plan usage</span>
+              <button className="btn btn--ghost" style={{ height: 24, padding: '0 8px', fontSize: 11 }} onClick={check}>{checking ? 'checking…' : 'refresh'}</button>
+            </div>
+            {windows.length ? (
+              windows.map(([type, w]) => {
+                const pct = usagePct(w.utilization) ?? 0
+                const reset = resetIn(w.resetsAt)
+                return (
+                  <div key={type} className="usagerow">
+                    <div className="usagerow__top">
+                      <span>{usageLabel(type)}</span>
+                      <span style={{ color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', fontSize: 11 }}>{pct}%{reset ? ` · resets ${reset}` : ''}</span>
+                    </div>
+                    <div className="usagebar"><div className="usagebar__fill" style={{ width: `${Math.min(100, pct)}%`, background: usageColor(w.status, w.utilization) }} /></div>
+                  </div>
+                )
+              })
+            ) : (
+              <div style={{ padding: '8px 2px', fontSize: 12, color: 'var(--text-faint)' }}>{checking ? 'checking…' : 'No usage data yet — click refresh.'}</div>
+            )}
+            <div style={{ marginTop: 8, fontSize: 10.5, color: 'var(--text-faint)', lineHeight: 1.5 }}>
+              Live from the Claude CLI this cockpit runs. Each check reports the currently binding window; others fill in as runs report them.
+              {credit?.isUsingOverage && <div style={{ color: 'var(--accent)', marginTop: 3 }}>Currently using paid overage.</div>}
+            </div>
+          </div>
+        </>
+      )}
+    </div>
   )
 }
 

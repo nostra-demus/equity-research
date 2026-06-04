@@ -1,4 +1,4 @@
-import type { DataStatus, LaunchPreflight, SwarmGraph, TickerSummary } from './types'
+import type { DataStatus, LaunchPreflight, SwarmGraph, TickerSummary, Usage } from './types'
 
 async function get<T>(url: string): Promise<T> {
   const r = await fetch(url)
@@ -16,8 +16,8 @@ export const api = {
   swarm: (ticker?: string) => get<SwarmGraph>(`/api/swarm${ticker ? `?ticker=${encodeURIComponent(ticker)}` : ''}`),
   tickers: () => get<{ tickers: TickerSummary[]; emptyState: boolean }>(`/api/tickers`),
   dataStatus: (ticker: string) => get<DataStatus>(`/api/data-status/${encodeURIComponent(ticker)}`),
-  credit: () => get<{ ok: boolean; reason?: string; checked: boolean }>(`/api/credit`),
-  creditCheck: () => post<{ ok: boolean; reason?: string; checked: boolean }>(`/api/credit-check`),
+  credit: () => get<Usage>(`/api/credit`),
+  creditCheck: () => post<Usage>(`/api/credit-check`),
   estimate: (kind: string, ticker: string, module?: string, agent?: string) =>
     get<LaunchPreflight>(`/api/launch/estimate?kind=${kind}&ticker=${encodeURIComponent(ticker)}${module ? `&module=${module}` : ''}${agent ? `&agent=${agent}` : ''}`),
   launch: (body: { kind: string; ticker: string; module?: string; agent?: string; model?: string; confirmTicker?: string }) =>

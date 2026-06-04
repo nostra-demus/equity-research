@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { api } from './api'
-import type { AgentNode, DataStatus, LaunchPreflight, NodeRuntime, NodeStatus, SseEvent, SwarmGraph, TickerSummary } from './types'
+import type { AgentNode, DataStatus, LaunchPreflight, NodeRuntime, NodeStatus, SseEvent, SwarmGraph, TickerSummary, Usage } from './types'
 
 const RUN_EVENT_TYPES = ['run-started', 'agent-started', 'agent-done', 'agent-failed', 'layer-advanced', 'module-done', 'cost-tick', 'run-done', 'run-error']
 
@@ -8,6 +8,7 @@ let runSource: EventSource | null = null
 let dataSource: EventSource | null = null
 let bloomTimer: any = null
 let reconnectTimer: any = null
+let creditProbed = false
 
 export interface StreamRow { key: string; name: string; module: string; layer: number; status: NodeStatus; verdict?: string | null; ts: number }
 export interface ActiveRun { runId: string; kind: string; module?: string; agent?: string; status: string; costUsd?: number; willCommitToMain?: boolean }
@@ -22,7 +23,7 @@ interface State {
   graph: SwarmGraph | null
   nodesByKey: Map<string, AgentNode>
   dataStatus: DataStatus | null
-  credit: { ok: boolean; reason?: string; checked: boolean } | null
+  credit: Usage | null
   creditChecking: boolean
   nodeRuntime: Record<string, NodeRuntime>
   activeRun: ActiveRun | null
@@ -96,6 +97,11 @@ export const useStore = create<State>((set, get) => ({
         })
       }
       if (tk.tickers.length && !get().selectedTicker) await get().selectTicker(tk.tickers[0].ticker)
+      // one cheap probe on first connect so the usage badge shows the real binding window
+      if (!creditProbed) {
+        creditProbed = true
+        get().checkCredit()
+      }
     } catch {
       // control plane unreachable — show offline and keep retrying so the UI auto-recovers when it starts
       set({ connected: false })
@@ -275,7 +281,8 @@ export const useStore = create<State>((set, get) => ({
         break
       case 'cost-tick':
         if (get().activeRun) patch.activeRun = { ...get().activeRun!, costUsd: e.costUsdSoFar ?? get().activeRun!.costUsd }
-        if (e.rateLimit && !e.rateLimit.ok) patch.credit = { ok: false, reason: e.rateLimit.reason, checked: true }
+        // the run's own rate_limit_event already updated the server — pull the rich status
+        if (e.rateLimit) api.credit().then((c) => set({ credit: c })).catch(() => {})
         break
       case 'run-done':
         if (get().activeRun) patch.activeRun = { ...get().activeRun!, status: 'done', costUsd: e.costUsd ?? get().activeRun!.costUsd }
