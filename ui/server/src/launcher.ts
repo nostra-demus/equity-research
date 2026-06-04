@@ -271,7 +271,8 @@ export async function creditCheck(): Promise<ReturnType<typeof getCreditStatus>>
       } catch {}
     }
   } catch {
-    setCreditStatus({ ok: false, reason: 'probe_failed', checked: true })
+    // a transient probe failure (e.g. a concurrent headless spawn) is NOT a rate limit —
+    // keep the last-known usage rather than falsely flipping the badge to "rate limited"
   }
   return getCreditStatus()
 }

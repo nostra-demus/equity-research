@@ -98,14 +98,24 @@ function CreditBadge() {
   const check = useStore((s) => s.checkCredit)
   const [open, setOpen] = useState(false)
 
-  const bindingPct = usagePct(credit?.utilization)
-  const dotColor = credit?.checked ? usageColor(credit.status, credit.utilization) : 'var(--text-faint)'
-  let label = 'usage · check'
-  if (credit?.checked) {
-    if (bindingPct != null) label = `${usageLabel(credit.rateLimitType)} ${bindingPct}%`
-    else label = credit.ok ? 'usage ok' : 'rate limited'
-  }
   const windows = credit?.windows ? Object.entries(credit.windows).sort((a, b) => windowOrder(a[0]) - windowOrder(b[0])) : []
+  // headline a real window if we have one (binding window preferred, else highest utilization)
+  const headline = windows.find(([t]) => t === credit?.rateLimitType) || [...windows].sort((a, b) => (b[1].utilization ?? 0) - (a[1].utilization ?? 0))[0]
+  let label = 'usage · check'
+  let dotColor = 'var(--text-faint)'
+  if (headline) {
+    const [type, w] = headline
+    label = `${usageLabel(type)} ${usagePct(w.utilization) ?? 0}%`
+    dotColor = usageColor(w.status, w.utilization)
+  } else if (credit?.checked) {
+    if (credit.status === 'rejected' || credit.status === 'blocked') {
+      label = 'rate limited'
+      dotColor = 'var(--bad)'
+    } else if (credit.ok) {
+      label = 'usage ok'
+      dotColor = 'var(--accent)'
+    }
+  }
 
   return (
     <div className="tickerpick">

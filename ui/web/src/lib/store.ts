@@ -148,7 +148,7 @@ export const useStore = create<State>((set, get) => ({
       const credit = await api.creditCheck()
       set({ credit })
     } catch {
-      set({ credit: { ok: false, reason: 'probe_failed', checked: true } })
+      // keep last-known usage on a transient failure — don't wipe the windows we already have
     } finally {
       set({ creditChecking: false })
     }
