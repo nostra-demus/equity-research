@@ -6,9 +6,10 @@ interface Props {
   bloom: boolean
   armed: boolean
   onClick: () => void
+  onHover?: (hovering: boolean) => void
 }
 
-export function CoreOrb({ x, y, r, decision, bloom, armed, onClick }: Props) {
+export function CoreOrb({ x, y, r, decision, bloom, armed, onClick, onHover }: Props) {
   const size = r * 2
   const hasMemo = !!decision?.decision
   const cls = `core${bloom ? ' core--bloom' : armed ? ' core--armed' : ''}`
@@ -17,6 +18,8 @@ export function CoreOrb({ x, y, r, decision, bloom, armed, onClick }: Props) {
       className={cls}
       style={{ left: x, top: y, width: size, height: size }}
       onClick={(e) => { e.stopPropagation(); onClick() }}
+      onMouseEnter={() => onHover?.(true)}
+      onMouseLeave={() => onHover?.(false)}
       title={hasMemo ? 'Open the Memo — the final synthesized view on the company' : 'The Memo — run the full pipeline to build it'}
     >
       <div className="core__ring" />

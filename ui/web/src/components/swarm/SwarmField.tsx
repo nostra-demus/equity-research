@@ -26,6 +26,7 @@ export function SwarmField() {
   const [size, setSize] = useState({ w: 1200, h: 760 })
   const [hover, setHover] = useState<{ node: PlacedNode; x: number; y: number } | null>(null)
   const [hoverModule, setHoverModule] = useState<string | null>(null)
+  const [hoverCore, setHoverCore] = useState(false)
 
   useEffect(() => {
     if (!ref.current) return
@@ -47,19 +48,20 @@ export function SwarmField() {
     return s
   }, [nodeRuntime, activeRun])
 
-  // which edges light up: hovered node's flows, hovered module's flows, or (idle) running modules
+  // which edges light up: hovered node's flows, hovered module's flows, the Memo's inbound arrows, or (idle) running modules
   const highlighted = useMemo(() => {
     const s = new Set<string>()
     const key = hover?.node.key
-    const hasHover = !!key || !!hoverModule
+    const hasHover = !!key || !!hoverModule || hoverCore
     for (const e of layout?.edges ?? []) {
       if (key && (e.fromKey === key || e.toKey === key)) s.add(e.id)
       if (hoverModule && (e.fromModule === hoverModule || e.toModule === hoverModule)) s.add(e.id)
+      if (hoverCore && e.kind === 'core') s.add(e.id) // every arrow flowing into the Memo
       if (!hasHover && activeModules.size && (activeModules.has(e.fromModule) || activeModules.has(e.toModule))) s.add(e.id)
     }
     return s
-  }, [hover, hoverModule, activeModules, layout])
-  const anyHover = !!(hover || hoverModule)
+  }, [hover, hoverModule, hoverCore, activeModules, layout])
+  const anyHover = !!(hover || hoverModule || hoverCore)
 
   if (!graph || !layout) return <div className="swarm" ref={ref} />
 
@@ -118,7 +120,7 @@ export function SwarmField() {
         ))}
       </div>
 
-      <CoreOrb x={layout.core.x} y={layout.core.y} r={layout.core.r} decision={decision} bloom={coreBloom} armed={!!selectedTicker} onClick={() => openThesis()} />
+      <CoreOrb x={layout.core.x} y={layout.core.y} r={layout.core.r} decision={decision} bloom={coreBloom} armed={!!selectedTicker} onClick={() => openThesis()} onHover={setHoverCore} />
 
       {hover && <AgentTooltip node={hover.node} status={nodeStatus(hover.node.key)} verdict={nodeRuntime[hover.node.key]?.verdict} screenX={hover.x} screenY={hover.y} />}
     </div>
