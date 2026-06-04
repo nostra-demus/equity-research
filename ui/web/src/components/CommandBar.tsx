@@ -99,14 +99,8 @@ function CreditBadge() {
   const staticMode = useStore((s) => s.staticMode)
   const [open, setOpen] = useState(false)
 
-  if (staticMode) {
-    return (
-      <span className="creditbadge" style={{ cursor: 'default' }} title="Static showcase — no Claude usage; runs happen on your local machine">
-        <span className="creditbadge__dot" style={{ background: 'var(--neutral, #6f8bb0)' }} />
-        local · read-only
-      </span>
-    )
-  }
+  // static showcase has no Claude usage to report — the "read-only showcase" chip already says so
+  if (staticMode) return null
 
   const windows = credit?.windows ? Object.entries(credit.windows).sort((a, b) => windowOrder(a[0]) - windowOrder(b[0])) : []
   // headline a real window if we have one (binding window preferred, else highest utilization)
