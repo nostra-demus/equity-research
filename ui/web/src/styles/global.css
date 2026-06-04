@@ -334,6 +334,10 @@ a { color: inherit; }
 .edge--pulse { stroke-dasharray: 3 9; animation: dash 1.1s linear infinite; }
 @keyframes dash { to { stroke-dashoffset: -24; } }
 
+/* directional data-flow on a highlighted edge (hover) — dashes march toward the arrow/target */
+.edge--flow { stroke-dasharray: 4 7; animation: edgeflow 0.85s linear infinite; filter: drop-shadow(0 0 3px var(--accent-glow)); }
+@keyframes edgeflow { to { stroke-dashoffset: -22; } }
+
 /* staggered awaken for nodes when a ticker is selected */
 @keyframes awaken { from { opacity: 0; transform: translate(-50%, -50%) scale(0.6); } to { opacity: 1; transform: translate(-50%, -50%) scale(1); } }
 .node, .core { animation: awaken var(--dur-slow) var(--ease-out) both; }

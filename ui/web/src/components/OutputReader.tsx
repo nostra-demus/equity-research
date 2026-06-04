@@ -4,6 +4,7 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { useStore } from '../lib/store'
 import { api } from '../lib/api'
+import { buildReportHtml, buildWordHtml, parseMeta, safeName } from '../lib/export'
 
 export function OutputReader({ output }: { output: { path: string; title: string; verdict?: string | null } }) {
   const close = useStore((s) => s.closeOutput)
@@ -27,24 +28,49 @@ export function OutputReader({ output }: { output: { path: string; title: string
     return () => window.removeEventListener('keydown', onKey)
   }, [close])
 
-  const base = `path=${encodeURIComponent(output.path)}&title=${encodeURIComponent(output.title)}${output.verdict ? `&verdict=${encodeURIComponent(output.verdict)}` : ''}`
-  const dl = (url: string) => {
-    const a = document.createElement('a')
-    a.href = url
-    a.rel = 'noopener'
-    a.click()
-  }
-  const onPDF = () => { window.open(`/api/export?${base}&print=1`, '_blank'); setMenu(false) }
-  const onWord = () => { dl(`/api/export?${base}&format=docx`); setMenu(false) }
-  const onHTML = () => { dl(`/api/export?${base}&format=html&dl=1`); setMenu(false) }
-  const onMD = () => {
-    const blob = new Blob([md], { type: 'text/markdown' })
+  // All exports are generated client-side from the loaded markdown, so they work
+  // identically with the local control plane and on the static Cloudflare showcase
+  // (which has no /api backend). The styling matches ui/server/src/export.ts.
+  const meta = parseMeta(output.path, output.title, output.verdict)
+  const saveBlob = (blob: Blob, filename: string) => {
     const u = URL.createObjectURL(blob)
     const a = document.createElement('a')
     a.href = u
-    a.download = `${output.title.replace(/[^a-z0-9]+/gi, '_')}.md`
+    a.download = filename
+    a.rel = 'noopener'
+    document.body.appendChild(a)
     a.click()
-    URL.revokeObjectURL(u)
+    a.remove()
+    setTimeout(() => URL.revokeObjectURL(u), 2000)
+  }
+  const onPDF = () => {
+    if (!md) return
+    const html = buildReportHtml(md, meta, { print: true })
+    const w = window.open('', '_blank')
+    if (w) {
+      w.document.open()
+      w.document.write(html)
+      w.document.close()
+    } else {
+      // popup blocked — hand the user a self-contained HTML file they can open & print
+      saveBlob(new Blob([buildReportHtml(md, meta)], { type: 'text/html;charset=utf-8' }), `${safeName(meta)}.html`)
+    }
+    setMenu(false)
+  }
+  const onWord = () => {
+    if (!md) return
+    // ﻿ BOM helps Word detect UTF-8
+    saveBlob(new Blob(['﻿', buildWordHtml(md, meta)], { type: 'application/msword' }), `${safeName(meta)}.doc`)
+    setMenu(false)
+  }
+  const onHTML = () => {
+    if (!md) return
+    saveBlob(new Blob([buildReportHtml(md, meta)], { type: 'text/html;charset=utf-8' }), `${safeName(meta)}.html`)
+    setMenu(false)
+  }
+  const onMD = () => {
+    if (!md) return
+    saveBlob(new Blob([md], { type: 'text/markdown;charset=utf-8' }), `${safeName(meta)}.md`)
     setMenu(false)
   }
 

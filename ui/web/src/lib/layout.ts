@@ -20,9 +20,11 @@ export interface PlacedCluster {
 export interface PlacedEdge {
   id: string
   d: string
-  kind: 'dep' | 'core'
-  from: string
-  to: string
+  kind: 'dep' | 'core' | 'feeds'
+  fromKey: string
+  toKey: string
+  fromModule: string
+  toModule: string
 }
 export interface Layout {
   nodes: PlacedNode[]
@@ -36,13 +38,18 @@ function curve(x1: number, y1: number, x2: number, y2: number): string {
   const my = (y1 + y2) / 2
   return `M ${x1} ${y1} C ${x1} ${my}, ${x2} ${my}, ${x2} ${y2}`
 }
+// pull the (x2,y2) endpoint back along the chord so an arrowhead sits just off the target node
+function shorten(x1: number, y1: number, x2: number, y2: number, gap: number): [number, number] {
+  const dx = x2 - x1, dy = y2 - y1
+  const L = Math.hypot(dx, dy) || 1
+  return [x2 - (dx / L) * gap, y2 - (dy / L) * gap]
+}
 
 export function computeLayout(graph: SwarmGraph, W: number, H: number): Layout {
   const N = graph.modules.length
   const core = { x: W * 0.5, y: H * 0.87, r: 36 }
   const baselineY = core.y
 
-  // split modules into two rows (roots up top), preserving topo order
   const topCount = N > 3 ? Math.floor(N / 2) : N
   const rows: { mods: typeof graph.modules; y: number; padX: number }[] = []
   rows.push({ mods: graph.modules.slice(0, topCount), y: H * 0.13, padX: 0.2 })
@@ -53,7 +60,6 @@ export function computeLayout(graph: SwarmGraph, W: number, H: number): Layout {
 
   const nodes: PlacedNode[] = []
   const clusters: PlacedCluster[] = []
-  const nodeByKey = new Map<string, PlacedNode>()
 
   for (const row of rows) {
     const k = row.mods.length
@@ -76,7 +82,6 @@ export function computeLayout(graph: SwarmGraph, W: number, H: number): Layout {
           const r = a.isSynthesis ? 10 : a.failFast ? 7 : 7
           const placed: PlacedNode = { ...a, x, y, r }
           nodes.push(placed)
-          nodeByKey.set(a.key, placed)
           if (a.isSynthesis) {
             synthKey = a.key
             synthX = x
@@ -85,17 +90,7 @@ export function computeLayout(graph: SwarmGraph, W: number, H: number): Layout {
         })
       })
 
-      clusters.push({
-        module: m.name,
-        dependsOn: m.dependsOn,
-        anchorX,
-        anchorTopY,
-        labelX: anchorX,
-        labelY: anchorTopY - 18,
-        synthKey,
-        synthX,
-        synthY,
-      })
+      clusters.push({ module: m.name, dependsOn: m.dependsOn, anchorX, anchorTopY, labelX: anchorX, labelY: anchorTopY - 18, synthKey, synthX, synthY })
     }
   }
 
@@ -103,14 +98,25 @@ export function computeLayout(graph: SwarmGraph, W: number, H: number): Layout {
   const edges: PlacedEdge[] = []
 
   for (const c of clusters) {
-    // dependency edges: dep.synthesis -> this cluster top anchor
+    // intra-module data flow: each specialist feeds the module's synthesis (revealed on hover)
+    if (c.synthKey) {
+      for (const n of nodes) {
+        if (n.module !== c.module || n.isSynthesis) continue
+        const [ex, ey] = shorten(n.x, n.y, c.synthX, c.synthY, 12)
+        edges.push({ id: `feed:${n.key}`, kind: 'feeds', fromKey: n.key, toKey: c.synthKey, fromModule: c.module, toModule: c.module, d: curve(n.x, n.y + n.r, ex, ey) })
+      }
+    }
+    // cross-module dependency: dep's synthesis output flows into this module
     for (const dep of c.dependsOn) {
       const src = clusterByName.get(dep)
       if (!src) continue
-      edges.push({ id: `dep:${dep}->${c.module}`, kind: 'dep', from: src.synthKey || dep, to: c.module, d: curve(src.synthX, src.synthY, c.anchorX, c.anchorTopY - 8) })
+      edges.push({ id: `dep:${dep}->${c.module}`, kind: 'dep', fromKey: src.synthKey || '', toKey: '', fromModule: dep, toModule: c.module, d: curve(src.synthX, src.synthY, c.anchorX, c.anchorTopY - 10) })
     }
-    // module synthesis -> core
-    edges.push({ id: `core:${c.module}`, kind: 'core', from: c.synthKey || c.module, to: 'core', d: curve(c.synthX, c.synthY, core.x, core.y - core.r * 0.7) })
+    // module synthesis -> master thesis core
+    if (c.synthKey) {
+      const [ex, ey] = shorten(c.synthX, c.synthY, core.x, core.y, core.r + 7)
+      edges.push({ id: `core:${c.module}`, kind: 'core', fromKey: c.synthKey, toKey: 'core', fromModule: c.module, toModule: 'master', d: curve(c.synthX, c.synthY, ex, ey) })
+    }
   }
 
   return { nodes, clusters, core, edges, baselineY }

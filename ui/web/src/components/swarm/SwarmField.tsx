@@ -26,6 +26,7 @@ export function SwarmField() {
   const ref = useRef<HTMLDivElement>(null)
   const [size, setSize] = useState({ w: 1200, h: 760 })
   const [hover, setHover] = useState<{ node: PlacedNode; x: number; y: number } | null>(null)
+  const [hoverModule, setHoverModule] = useState<string | null>(null)
 
   useEffect(() => {
     if (!ref.current) return
@@ -46,6 +47,20 @@ export function SwarmField() {
     for (const [k, v] of Object.entries(nodeRuntime)) if (v.status === 'running') s.add(k.split('/')[0])
     return s
   }, [nodeRuntime, activeRun])
+
+  // which edges light up: hovered node's flows, hovered module's flows, or (idle) running modules
+  const highlighted = useMemo(() => {
+    const s = new Set<string>()
+    const key = hover?.node.key
+    const hasHover = !!key || !!hoverModule
+    for (const e of layout?.edges ?? []) {
+      if (key && (e.fromKey === key || e.toKey === key)) s.add(e.id)
+      if (hoverModule && (e.fromModule === hoverModule || e.toModule === hoverModule)) s.add(e.id)
+      if (!hasHover && activeModules.size && (activeModules.has(e.fromModule) || activeModules.has(e.toModule))) s.add(e.id)
+    }
+    return s
+  }, [hover, hoverModule, activeModules, layout])
+  const anyHover = !!(hover || hoverModule)
 
   if (!graph || !layout) return <div className="swarm" ref={ref} />
 
@@ -74,13 +89,13 @@ export function SwarmField() {
 
   return (
     <div className="swarm" ref={ref} onClick={() => setHover(null)}>
-      <EdgeLayer layout={layout} activeModules={activeModules} />
+      <EdgeLayer layout={layout} highlighted={highlighted} anyHover={anyHover} />
 
       {/* cluster labels */}
       {layout.clusters.map((c) => {
         const ms = dataStatus?.modules[c.module]?.status
         return (
-          <div key={c.module} className="cluster__label" style={{ left: c.labelX, top: c.labelY }} onClick={(e) => { e.stopPropagation(); onClusterClick(c.module) }}>
+          <div key={c.module} className="cluster__label" style={{ left: c.labelX, top: c.labelY }} onMouseEnter={() => setHoverModule(c.module)} onMouseLeave={() => setHoverModule(null)} onClick={(e) => { e.stopPropagation(); onClusterClick(c.module) }}>
             <div className="cluster__name">{c.module.replace(/-/g, ' ')}</div>
             {ms && <div className="cluster__status" style={{ color: sufficiencyColor(ms) }}>{ms}</div>}
             <div className="cluster__run">▸ run module</div>
