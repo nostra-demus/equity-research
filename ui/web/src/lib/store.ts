@@ -7,12 +7,15 @@ const RUN_EVENT_TYPES = ['run-started', 'agent-started', 'agent-done', 'agent-fa
 let runSource: EventSource | null = null
 let dataSource: EventSource | null = null
 let bloomTimer: any = null
+let reconnectTimer: any = null
 
 export interface StreamRow { key: string; name: string; module: string; layer: number; status: NodeStatus; verdict?: string | null; ts: number }
 export interface ActiveRun { runId: string; kind: string; module?: string; agent?: string; status: string; costUsd?: number; willCommitToMain?: boolean }
 export interface Toast { msg: string; tone: 'info' | 'good' | 'bad' }
 
 interface State {
+  connected: boolean
+  dataDir: string | null
   tickers: TickerSummary[]
   emptyState: boolean
   selectedTicker: string | null
@@ -57,6 +60,8 @@ function flatten(graph: SwarmGraph): Map<string, AgentNode> {
 }
 
 export const useStore = create<State>((set, get) => ({
+  connected: true,
+  dataDir: null,
   tickers: [],
   emptyState: false,
   selectedTicker: null,
@@ -76,20 +81,27 @@ export const useStore = create<State>((set, get) => ({
   toast: null,
 
   init: async () => {
-    const [graph, tk, credit] = await Promise.all([api.swarm(), api.tickers(), api.credit().catch(() => null)])
-    set({ graph, nodesByKey: flatten(graph), tickers: tk.tickers, emptyState: tk.emptyState, credit })
-    // live data-folder watcher (Drive sync)
-    if (!dataSource) {
-      dataSource = new EventSource(api.dataStreamUrl())
-      dataSource.addEventListener('data-changed', (ev: MessageEvent) => {
-        try {
-          const d = JSON.parse(ev.data)
-          if (d.ticker === get().selectedTicker) get().refreshData()
-          api.tickers().then((t) => set({ tickers: t.tickers, emptyState: t.emptyState })).catch(() => {})
-        } catch {}
-      })
+    try {
+      const [graph, tk, credit] = await Promise.all([api.swarm(), api.tickers(), api.credit().catch(() => null)])
+      set({ connected: true, graph, nodesByKey: flatten(graph), tickers: tk.tickers, emptyState: tk.emptyState, dataDir: (tk as any).dataDir ?? null, credit })
+      // live data-folder watcher (Drive sync)
+      if (!dataSource) {
+        dataSource = new EventSource(api.dataStreamUrl())
+        dataSource.addEventListener('data-changed', (ev: MessageEvent) => {
+          try {
+            const d = JSON.parse(ev.data)
+            if (d.ticker === get().selectedTicker) get().refreshData()
+            api.tickers().then((t) => set({ tickers: t.tickers, emptyState: t.emptyState, dataDir: (t as any).dataDir ?? get().dataDir })).catch(() => {})
+          } catch {}
+        })
+      }
+      if (tk.tickers.length && !get().selectedTicker) await get().selectTicker(tk.tickers[0].ticker)
+    } catch {
+      // control plane unreachable — show offline and keep retrying so the UI auto-recovers when it starts
+      set({ connected: false })
+      if (reconnectTimer) clearTimeout(reconnectTimer)
+      reconnectTimer = setTimeout(() => get().init(), 2500)
     }
-    if (tk.tickers.length) await get().selectTicker(tk.tickers[0].ticker)
   },
 
   selectTicker: async (t) => {

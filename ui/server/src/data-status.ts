@@ -302,7 +302,7 @@ export function analyzeTicker(ticker: string): DataStatus {
 }
 
 // ---- tickers list ----
-export function listTickers(): { tickers: TickerSummary[]; emptyState: boolean } {
+export function listTickers(): { tickers: TickerSummary[]; emptyState: boolean; dataDir: string } {
   let names: string[] = []
   try {
     names = fs.readdirSync(DATA_DIR).filter((n) => {
@@ -322,7 +322,12 @@ export function listTickers(): { tickers: TickerSummary[]; emptyState: boolean }
     } catch {}
     return { ticker, fileCount, hasAnyData: fileCount > 0, latestRun: latestDecision(ticker) }
   })
-  return { tickers, emptyState: tickers.length === 0 }
+  // resolve the data/ symlink so the UI shows the real Google Drive location it reads from
+  let dataDir = DATA_DIR
+  try {
+    dataDir = fs.realpathSync(DATA_DIR)
+  } catch {}
+  return { tickers, emptyState: tickers.length === 0, dataDir }
 }
 
 function latestDecision(ticker: string): TickerSummary['latestRun'] {

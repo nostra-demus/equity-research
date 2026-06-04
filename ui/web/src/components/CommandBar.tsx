@@ -18,11 +18,14 @@ function TickerPicker() {
   const tickers = useStore((s) => s.tickers)
   const selected = useStore((s) => s.selectedTicker)
   const selectTicker = useStore((s) => s.selectTicker)
+  const connected = useStore((s) => s.connected)
+  const dataDir = useStore((s) => s.dataDir)
   const [open, setOpen] = useState(false)
   return (
     <div className="tickerpick">
       <button className="tickerpick__btn" onClick={() => setOpen((o) => !o)}>
-        <span className="tickerpick__ticker">{selected || 'Select ticker'}</span>
+        {!connected && <span className="readiness__dot" style={{ background: 'var(--bad)' }} title="Control plane offline" />}
+        <span className="tickerpick__ticker">{selected || (connected ? 'Select ticker' : 'Offline')}</span>
         <span className="tickerpick__caret">▾</span>
       </button>
       {open && (
@@ -45,7 +48,23 @@ function TickerPicker() {
                 )}
               </button>
             ))}
-            {!tickers.length && <div style={{ padding: '12px', color: 'var(--text-faint)', fontSize: 12 }}>No tickers in data/</div>}
+            {!tickers.length && (
+              <div style={{ padding: '12px', color: 'var(--text-faint)', fontSize: 12, lineHeight: 1.55 }}>
+                {connected ? (
+                  <>
+                    No ticker folders found in your Google Drive data folder:
+                    <div style={{ marginTop: 6, fontFamily: 'var(--font-mono)', fontSize: 10.5, color: 'var(--text-muted)', wordBreak: 'break-all' }}>{dataDir || 'data/'}</div>
+                    <div style={{ marginTop: 6 }}>Drop a <b style={{ color: 'var(--text-muted)' }}>&lt;TICKER&gt;/</b> folder of filings there.</div>
+                  </>
+                ) : (
+                  <>
+                    <span style={{ color: 'var(--bad)' }}>Control plane offline.</span>
+                    <div style={{ marginTop: 6 }}>Start it: <span className="kbd">cd ui &amp;&amp; npm run dev</span></div>
+                    <div style={{ marginTop: 4, color: 'var(--text-faint)' }}>The UI reconnects automatically.</div>
+                  </>
+                )}
+              </div>
+            )}
           </div>
         </>
       )}
