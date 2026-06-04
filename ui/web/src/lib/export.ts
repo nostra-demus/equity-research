@@ -132,14 +132,7 @@ export function buildReportHtml(markdown: string, meta: ReportMeta, opts: { prin
 <body>${inner(markdown, meta)}${printScript}</body></html>`
 }
 
-// Microsoft Word HTML (the format Word itself emits on "Save As → Web Page").
-// The mso namespaces + WordDocument block make Word open it as a real document
-// with the headings, tables and styling intact — no backend / textutil needed.
-export function buildWordHtml(markdown: string, meta: ReportMeta): string {
-  return `<!doctype html>
-<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:w="urn:schemas-microsoft-com:office:word" xmlns="http://www.w3.org/TR/REC-html40">
-<head><meta charset="utf-8"><title>${esc(meta.title)}</title>
-<!--[if gte mso 9]><xml><w:WordDocument><w:View>Print</w:View><w:Zoom>100</w:Zoom><w:DoNotOptimizeForBrowser/></w:WordDocument></xml><![endif]-->
-<style>${CSS}</style></head>
-<body>${inner(markdown, meta)}</body></html>`
-}
+// Word export lives in ./docx.ts — it emits a real .docx (Office Open XML),
+// which opens in Word, Pages, Google Docs and Quick Look. (The earlier
+// HTML-renamed-to-.doc approach was refused by Pages/Quick Look and tripped
+// Word's Protected View on downloaded files.)

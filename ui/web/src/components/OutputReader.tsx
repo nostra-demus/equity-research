@@ -4,7 +4,8 @@ import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { useStore } from '../lib/store'
 import { api } from '../lib/api'
-import { buildReportHtml, buildWordHtml, parseMeta, safeName } from '../lib/export'
+import { buildReportHtml, parseMeta, safeName } from '../lib/export'
+import { buildDocxBlob } from '../lib/docx'
 
 export function OutputReader({ output }: { output: { path: string; title: string; verdict?: string | null } }) {
   const close = useStore((s) => s.closeOutput)
@@ -57,11 +58,16 @@ export function OutputReader({ output }: { output: { path: string; title: string
     }
     setMenu(false)
   }
-  const onWord = () => {
+  const onWord = async () => {
     if (!md) return
-    // ﻿ BOM helps Word detect UTF-8
-    saveBlob(new Blob(['﻿', buildWordHtml(md, meta)], { type: 'application/msword' }), `${safeName(meta)}.doc`)
     setMenu(false)
+    try {
+      const blob = await buildDocxBlob(md, meta) // real Office Open XML (.docx)
+      saveBlob(blob, `${safeName(meta)}.docx`)
+    } catch {
+      // last-resort fallback: hand over the styled HTML report instead of failing silently
+      saveBlob(new Blob([buildReportHtml(md, meta)], { type: 'text/html;charset=utf-8' }), `${safeName(meta)}.html`)
+    }
   }
   const onHTML = () => {
     if (!md) return
