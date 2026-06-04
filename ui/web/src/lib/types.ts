@@ -33,7 +33,7 @@ export interface DataStatus {
   ticker: string
   hasAnyData: boolean
   fileCount: number
-  files: { filename: string; type: string; periodHint: string | null; ageMonths: number | null; confidence: string }[]
+  files: { filename: string; type: string; periodHint: string | null; ageMonths: number | null; confidence: string; sheets?: { name: string; rows: number; cols: number; cells: number }[] }[]
   recentByType: Record<string, { filename: string; ageMonths: number | null } | undefined>
   modules: Record<string, ModuleReadiness>
   overallReady: boolean

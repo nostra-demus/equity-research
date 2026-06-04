@@ -46,6 +46,13 @@ export type FileType =
   | 'user_note'
   | 'other'
 
+export interface WorkbookSheet {
+  name: string
+  rows: number
+  cols: number
+  cells: number // populated (non-empty) cells
+}
+
 export interface ClassifiedFile {
   filename: string
   ext: string
@@ -56,6 +63,9 @@ export interface ClassifiedFile {
   ageMonths: number | null
   confidence: 'high' | 'medium' | 'low'
   basis: 'filename' | 'content' | 'extension'
+  // present for multi-tab workbooks (.xls/.xlsx/.xlsm): one entry per tab, so the
+  // cockpit shows every sheet instead of one opaque file. Read via extract_pool.py.
+  sheets?: WorkbookSheet[]
 }
 
 export interface ModuleReadiness {

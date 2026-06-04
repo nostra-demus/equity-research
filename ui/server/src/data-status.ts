@@ -1,8 +1,9 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { DATA_DIR, ANALYSES_DIR } from './config'
+import { execFileSync } from 'node:child_process'
+import { DATA_DIR, ANALYSES_DIR, REPO_ROOT } from './config'
 import { listModuleNames } from './roster'
-import type { ClassifiedFile, DataStatus, FileType, ModuleReadiness, Sufficiency, TickerSummary } from './types'
+import type { ClassifiedFile, DataStatus, FileType, ModuleReadiness, Sufficiency, TickerSummary, WorkbookSheet } from './types'
 
 // ---- light content sniffing (memoized) ----
 const sniffCache = new Map<string, string>()
@@ -29,6 +30,48 @@ function sniffText(filePath: string, sizeBytes: number, mtimeMs: number): string
   }
   sniffCache.set(key, text)
   return text
+}
+
+// ---- workbook tab reader (memoized) ----
+// Reuses the engine's ONE canonical extractor (.claude/tools/extract_pool.py --list-json)
+// so the cockpit and the research pipeline agree on what tabs a workbook holds. A multi-tab
+// Capital IQ / NSE export must never show up as one opaque "other / low" row.
+const sheetCache = new Map<string, WorkbookSheet[] | null>()
+function readWorkbookSheets(filePath: string, sizeBytes: number, mtimeMs: number): WorkbookSheet[] | undefined {
+  const key = `${filePath}:${sizeBytes}:${Math.round(mtimeMs)}`
+  if (sheetCache.has(key)) return sheetCache.get(key) ?? undefined
+  let sheets: WorkbookSheet[] | undefined
+  try {
+    const script = path.join(REPO_ROOT, '.claude', 'tools', 'extract_pool.py')
+    const out = execFileSync('python3', [script, '--list-json', filePath], { timeout: 20000, maxBuffer: 8_000_000 }).toString('utf8')
+    const parsed = JSON.parse(out)
+    if (parsed && parsed.kind === 'workbook' && parsed.status === 'ok' && Array.isArray(parsed.sheets)) {
+      sheets = parsed.sheets.map((s: { name?: unknown; rows?: unknown; cols?: unknown; cells?: unknown }) => ({
+        name: String(s.name ?? ''),
+        rows: Number(s.rows) || 0,
+        cols: Number(s.cols) || 0,
+        cells: Number(s.cells) || 0,
+      }))
+    }
+  } catch {
+    sheets = undefined // missing python/xlrd, HTML-disguised .xls, or corrupt file — degrade gracefully
+  }
+  sheetCache.set(key, sheets ?? null)
+  return sheets
+}
+
+// when a workbook's filename gave no signal, classify on the tab names we actually read
+const SHEET_TYPE_RULES: [RegExp, FileType][] = [
+  [/multiple/i, 'multiples_export'],
+  [/peer|comp/i, 'peer_comps'],
+  [/consensus|estimate|revision|surprise|trend|guidance/i, 'consensus_estimates'],
+  [/ownership|insider|holding/i, 'ownership_insider'],
+  [/financ|income|balance|cash[\s_]?flow|profit|p&l/i, 'financials'],
+]
+function inferTypeFromSheets(sheets: WorkbookSheet[]): FileType {
+  const names = sheets.map((s) => s.name).join(' | ')
+  for (const [re, t] of SHEET_TYPE_RULES) if (re.test(names)) return t
+  return 'other'
 }
 
 // ---- period / age ----
@@ -102,13 +145,33 @@ function classifyFile(dir: string, filename: string): ClassifiedFile {
   const full = path.join(dir, filename)
   const st = fs.statSync(full)
   const sniff = sniffText(full, st.size, st.mtimeMs)
-  const { type, confidence, basis } = classify(filename, sniff)
+  let { type, confidence, basis } = classify(filename, sniff)
   const { hint, ageMonths } = extractPeriod(filename, sniff)
   // fall back to file mtime age when no period could be parsed
   const mtimeAge = Math.max(0, Math.round((Date.now() - st.mtimeMs) / (1000 * 60 * 60 * 24 * 30.4)))
+  const ext = path.extname(filename).toLowerCase()
+
+  // Crack open spreadsheets so a multi-tab workbook is never one opaque "other / low" row:
+  // read its tabs via the canonical extractor and, when the filename gave no signal,
+  // classify on what's actually inside.
+  let sheets: WorkbookSheet[] | undefined
+  if (ext === '.xls' || ext === '.xlsx' || ext === '.xlsm') {
+    sheets = readWorkbookSheets(full, st.size, st.mtimeMs)
+    if (sheets && sheets.length) {
+      if (basis === 'extension') {
+        type = inferTypeFromSheets(sheets)
+        confidence = 'medium'
+        basis = 'content'
+      } else if (confidence === 'low') {
+        confidence = 'medium'
+        basis = 'content'
+      }
+    }
+  }
+
   return {
     filename,
-    ext: path.extname(filename).toLowerCase(),
+    ext,
     sizeBytes: st.size,
     mtime: new Date(st.mtimeMs).toISOString(),
     type,
@@ -116,6 +179,7 @@ function classifyFile(dir: string, filename: string): ClassifiedFile {
     ageMonths: ageMonths ?? mtimeAge,
     confidence,
     basis,
+    ...(sheets && sheets.length ? { sheets } : {}),
   }
 }
 

@@ -35,6 +35,20 @@ This is the only folder this module writes to.
 
 ---
 
+## Step 1.5 — Pre-extract the data pool (multi-tab workbooks)
+
+Before any agent reads the pool, normalize it once so no spreadsheet tab is missed. Capital IQ / NSE / broker exports frequently bundle several datasets as TABS inside a single `.xls`/`.xlsx` (one `EstimatesReport.xls` can hold Consensus / Recent Changes / Multiples / Surprise / Trends / Revisions). Legacy `.xls` is OLE2/BIFF and `.xlsx` cells are binary — a filename-only read sees one opaque file and silently drops every tab but the first.
+
+Run the engine's canonical extractor once per run (idempotent — it skips when `_pool_extracts/manifest.json` is newer than every source, so re-running across modules is free):
+
+```
+python3 .claude/tools/extract_pool.py "data/<TICKER>/" "<RUN_ROOT>/_pool_extracts"
+```
+
+It writes one text extract per workbook tab into `<RUN_ROOT>/_pool_extracts/`, plus `manifest.json` / `manifest.md` inventorying every source, tab, and row×col dimension. The Layer-0 `*-data-triage` agent re-invokes the same script (idempotent) and is responsible for listing every tab as its own inventory row; `verify-evidence` later builds its audit corpus from the same extracts, so the audit greps exactly what the specialists read. The extractor writes only inside `_pool_extracts/`, never into the Google Drive pool.
+
+---
+
 ## Step 2 — Discover agents
 
 Use the Glob tool with pattern `.claude/agents/<MODULE>/[0-9][0-9]_*.md`.

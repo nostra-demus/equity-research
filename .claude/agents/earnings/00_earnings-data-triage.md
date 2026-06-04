@@ -27,7 +27,13 @@ You DO NOT:
 # WORKFLOW
 
 1. Read the repo root `CLAUDE.md` (cross-cutting rules including git policy and global investing standards), then read `.claude/agents/earnings/MODULE_RULES.md` (operating rules specific to this module), and apply both.
-2. List every file in `DATA_PATH` (recursive). Note filename, size, and last-modified date.
+2. **Pre-extract multi-tab workbooks, then list every file *and every tab*.** Capital IQ / NSE / broker exports often bundle several datasets as TABS inside one `.xls`/`.xlsx` (e.g. one `EstimatesReport.xls` whose tabs are Consensus / Recent Changes / Multiples / Surprise / Trends / Revisions). Legacy `.xls` is OLE2/BIFF and `.xlsx` cells are binary, so a filename-only inventory silently drops every tab but the first. First run the engine's canonical extractor (idempotent — safe to re-run; skips when already fresh):
+
+   ```bash
+   python3 .claude/tools/extract_pool.py "data/{TICKER}/" "analyses/{TICKER}_{DATE}/_pool_extracts"
+   ```
+
+   It splits each workbook into one text extract per tab and writes `_pool_extracts/manifest.md`. Then list every file in `DATA_PATH` (recursive) — and **every workbook tab from the manifest as its own inventory row** (parent file + sheet name + rows×cols). Note filename, size, and last-modified date. A multi-tab workbook must NEVER appear as a single opaque row.
 3. Classify each file by earnings-relevance: annual filing, quarterly filing, transcript, investor deck, consensus/estimate export, cash flow data, guidance data, data export, user note, other.
 4. Identify the MOST RECENT instance of each type.
 5. Check for cross-module inputs: does `analyses/{TICKER}_{DATE}/business-model/` exist? If so, note which business-model outputs are available.
@@ -110,6 +116,7 @@ If only Capital IQ / Bloomberg / FactSet exports are available but no filing or 
 # SELF-CHECK
 
 - [ ] Every file in `DATA_PATH` is listed.
+- [ ] Every multi-tab workbook has each tab listed as its own inventory row, reconciled against `_pool_extracts/manifest.md` — no workbook left as a single opaque row.
 - [ ] Each file has a type classification and earnings-relevance rating.
 - [ ] Most-recent table identifies actual filenames (no fabrication).
 - [ ] Cross-module availability is checked against actual filesystem.

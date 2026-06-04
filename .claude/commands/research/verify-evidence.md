@@ -40,35 +40,15 @@ Many pools — especially Indian / NSE Capital IQ exports — store the cited fi
 - `.pdf` — **`pdftotext`** (or a Python PDF lib).
 - `.rtf` — `textutil -convert txt` (macOS) or `strings`.
 
-Reference extractor (run via Bash; tolerant of missing tools — fall back and record what could not be extracted):
+Build the corpus with the engine's **canonical pool extractor** — the SAME `.claude/tools/extract_pool.py` the Layer-0 `*-data-triage` agents run at ingestion (CLAUDE.md §2, reuse not recreate), so the audit greps exactly what the specialists read. It splits every multi-tab `.xls`/`.xlsx` into one extract per tab, extracts `.pdf`/`.rtf`, and concatenates everything (plus the pool's `.txt` files) into one searchable corpus. It is tolerant of missing tools and idempotent:
 
 ```bash
-python3 - "data/<TICKER>" <<'PY'
-import glob, os, subprocess, sys
-pool=sys.argv[1]; out=[]
-for f in sorted(glob.glob(os.path.join(pool,"*"))):
-    ext=f.lower().rsplit(".",1)[-1]
-    try:
-        if ext=="txt": out.append(open(f,errors="ignore").read())
-        elif ext=="xls":
-            import xlrd; wb=xlrd.open_workbook(f)
-            for sh in wb.sheets():
-                for r in range(sh.nrows):
-                    out.append("\t".join(str(sh.cell(r,c).value) for c in range(sh.ncols)))
-        elif ext in ("xlsx","xlsm"):
-            import openpyxl; wb=openpyxl.load_workbook(f,data_only=True,read_only=True)
-            for ws in wb.worksheets:
-                for row in ws.iter_rows(values_only=True):
-                    out.append("\t".join("" if v is None else str(v) for v in row))
-        elif ext=="pdf": out.append(subprocess.run(["pdftotext",f,"-"],capture_output=True,text=True).stdout)
-        elif ext=="rtf": out.append(subprocess.run(["textutil","-convert","txt","-stdout",f],capture_output=True,text=True).stdout)
-    except Exception as e: out.append(f"[EXTRACT-FAIL {os.path.basename(f)}: {e}]")
-open("/tmp/corpus.txt","w").write("\n".join(map(str,out)))
-print("corpus chars:", sum(len(str(x)) for x in out))
-PY
+python3 .claude/tools/extract_pool.py "data/<TICKER>/" "<RUN_ROOT>/_pool_extracts" --corpus /tmp/corpus.txt
 ```
 
-Run all Section-A citation checks (and the Section-C anchor checks) against this corpus (`/tmp/corpus.txt`), not just the raw `.txt`. A figure absent from the corpus AND the raw filings is genuinely `unsupported`; a figure absent only because its file type could not be extracted (record which file/why via the `[EXTRACT-FAIL …]` marker) is `unverified (extraction unavailable)` — not a fabrication.
+If the finished run already has `<RUN_ROOT>/_pool_extracts/` from ingestion, extraction is skipped and only the combined corpus is rebuilt. Per-tab extracts live in `<RUN_ROOT>/_pool_extracts/` (each `<workbook>__<tab>.txt`); the combined searchable corpus is `/tmp/corpus.txt`; `<RUN_ROOT>/_pool_extracts/manifest.json` records every source, tab, and any extraction failure.
+
+Run all Section-A citation checks (and the Section-C anchor checks) against this corpus (`/tmp/corpus.txt`), not just the raw `.txt`. A figure absent from the corpus AND the raw filings is genuinely `unsupported`; a figure absent only because its file type could not be extracted (record which file/why from `<RUN_ROOT>/_pool_extracts/manifest.json` — any source whose `status` is `fail` or `fallback-text`) is `unverified (extraction unavailable)` — not a fabrication.
 
 ## 2. Section A — Evidence & citation verification
 

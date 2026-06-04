@@ -27,7 +27,13 @@ You DO NOT:
 # WORKFLOW
 
 1. Read the repo root `CLAUDE.md` (especially §17 Catalyst Discipline) and `.claude/agents/catalyst/MODULE_RULES.md`, and apply both.
-2. Inventory the data pool for scheduled-event signals (see the checklist below).
+2. Pre-extract the pool, then inventory it for scheduled-event signals (see the checklist below). Multi-tab workbooks can hide dated events (results dates, AGM/record dates, capital-return schedules) in non-first tabs, so first run the engine's canonical extractor (idempotent — safe to re-run):
+
+   ```bash
+   python3 .claude/tools/extract_pool.py "data/{TICKER}/" "analyses/{TICKER}_{DATE}/_pool_extracts"
+   ```
+
+   Read `_pool_extracts/manifest.md` and the per-tab extracts as part of the inventory; no workbook tab is skipped.
 3. Note which upstream module outputs exist in this run (each contributes catalysts).
 4. Issue a Sufficient / Partial / Insufficient read for the calendar — but do not abort.
 
@@ -77,6 +83,7 @@ State plainly whether the calendar will be able to carry proven dates, or will b
 # SELF-CHECK
 
 - [ ] Every category row has an explicit Y/N.
+- [ ] Multi-tab workbooks were pre-extracted (`_pool_extracts/manifest.md`); no tab was skipped in the scheduled-event scan.
 - [ ] Upstream-module availability is recorded.
 - [ ] The verdict is one of Sufficient / Partial / Insufficient.
 - [ ] No fail-fast abort is issued, even on Insufficient.
