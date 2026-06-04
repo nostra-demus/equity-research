@@ -5,6 +5,42 @@ import { DATA_DIR, ANALYSES_DIR, REPO_ROOT } from './config'
 import { listModuleNames } from './roster'
 import type { ClassifiedFile, DataStatus, FileType, ModuleReadiness, Sufficiency, TickerSummary, WorkbookSheet } from './types'
 
+// ---- persistent extract cache ----
+// Reading workbook tabs / pdf-rtf content spawns python over the Google Drive mount,
+// which is slow on a cold load — and we clear in-memory caches on every restart. Persist
+// the results to local disk keyed by path:size:mtime, so each file is read at most once
+// EVER; repeat loads (and loads after a restart) are instant. A changed file (new mtime
+// or size) re-reads automatically.
+const CACHE_FILE = path.join(REPO_ROOT, '.cache', 'cockpit-extract.json')
+let diskCache: Record<string, unknown> = {}
+try {
+  diskCache = JSON.parse(fs.readFileSync(CACHE_FILE, 'utf8'))
+} catch {
+  diskCache = {}
+}
+let cacheDirty = false
+let persistTimer: ReturnType<typeof setTimeout> | null = null
+function persistCache(): void {
+  if (persistTimer) return
+  persistTimer = setTimeout(() => {
+    persistTimer = null
+    if (!cacheDirty) return
+    cacheDirty = false
+    try {
+      fs.mkdirSync(path.dirname(CACHE_FILE), { recursive: true })
+      fs.writeFileSync(CACHE_FILE, JSON.stringify(diskCache))
+    } catch {}
+  }, 800)
+}
+function cacheGet<T>(key: string): T | undefined {
+  return key in diskCache ? (diskCache[key] as T) : undefined
+}
+function cacheSet(key: string, val: unknown): void {
+  diskCache[key] = val
+  cacheDirty = true
+  persistCache()
+}
+
 // ---- light content sniffing (memoized) ----
 const sniffCache = new Map<string, string>()
 function sniffText(filePath: string, sizeBytes: number, mtimeMs: number): string {
@@ -23,7 +59,7 @@ function sniffText(filePath: string, sizeBytes: number, mtimeMs: number): string
     } else if (ext === '.pdf' || ext === '.rtf') {
       // extract REAL text via the canonical extractor (pdftotext / textutil) so we
       // classify on contents, not raw bytes. Fall back to printable bytes if it fails.
-      text = extractSniffText(filePath).slice(0, 8000)
+      text = extractSniffText(filePath, sizeBytes, mtimeMs).slice(0, 8000)
       if (!text) {
         const buf = fs.readFileSync(filePath).subarray(0, 16000).toString('latin1')
         text = buf.replace(/[^\x20-\x7e\n]/g, ' ').slice(0, 8000)
@@ -39,23 +75,29 @@ function sniffText(filePath: string, sizeBytes: number, mtimeMs: number): string
 // real text for a pdf/rtf (and any supported type) via the canonical extractor —
 // the SAME extract_pool.py the pipeline uses, so the cockpit reads pdf/rtf instead
 // of guessing from raw bytes. Returns '' on any failure (pdftotext/textutil absent).
-function extractSniffText(filePath: string): string {
+function extractSniffText(filePath: string, sizeBytes: number, mtimeMs: number): string {
+  const key = `sniff:${filePath}:${sizeBytes}:${Math.round(mtimeMs)}`
+  const cached = cacheGet<string>(key)
+  if (cached !== undefined) return cached
+  let text = ''
   try {
     const script = path.join(REPO_ROOT, '.claude', 'tools', 'extract_pool.py')
-    return execFileSync('python3', [script, '--text', filePath, '--max-chars', '16000'], { timeout: 30000, maxBuffer: 8_000_000 }).toString('utf8')
+    text = execFileSync('python3', [script, '--text', filePath, '--max-chars', '16000'], { timeout: 30000, maxBuffer: 8_000_000 }).toString('utf8')
   } catch {
-    return ''
+    text = ''
   }
+  cacheSet(key, text)
+  return text
 }
 
 // ---- workbook tab reader (memoized) ----
 // Reuses the engine's ONE canonical extractor (.claude/tools/extract_pool.py --list-json)
 // so the cockpit and the research pipeline agree on what tabs a workbook holds. A multi-tab
 // Capital IQ / NSE export must never show up as one opaque "other / low" row.
-const sheetCache = new Map<string, WorkbookSheet[] | null>()
 function readWorkbookSheets(filePath: string, sizeBytes: number, mtimeMs: number): WorkbookSheet[] | undefined {
-  const key = `${filePath}:${sizeBytes}:${Math.round(mtimeMs)}`
-  if (sheetCache.has(key)) return sheetCache.get(key) ?? undefined
+  const key = `sheets:${filePath}:${sizeBytes}:${Math.round(mtimeMs)}`
+  const cached = cacheGet<WorkbookSheet[] | null>(key)
+  if (cached !== undefined) return cached ?? undefined
   let sheets: WorkbookSheet[] | undefined
   try {
     const script = path.join(REPO_ROOT, '.claude', 'tools', 'extract_pool.py')
@@ -72,7 +114,7 @@ function readWorkbookSheets(filePath: string, sizeBytes: number, mtimeMs: number
   } catch {
     sheets = undefined // missing python/xlrd, HTML-disguised .xls, or corrupt file — degrade gracefully
   }
-  sheetCache.set(key, sheets ?? null)
+  cacheSet(key, sheets ?? null)
   return sheets
 }
 

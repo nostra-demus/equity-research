@@ -301,10 +301,24 @@ if (fs.existsSync(DATA_DIR)) {
 // ---------- static (built UI) ----------
 if (fs.existsSync(WEB_DIST)) {
   const fastifyStatic = (await import('@fastify/static')).default
-  await app.register(fastifyStatic, { root: WEB_DIST, wildcard: false })
+  // Vite content-hashes every asset, so they're immutable — cache for a year. A normal
+  // reload then serves JS/CSS from the browser disk cache (zero tunnel round-trips);
+  // only index.html + /api calls go over the wire.
+  await app.register(fastifyStatic, { root: WEB_DIST, wildcard: false, index: false, maxAge: '365d', immutable: true })
+  // Serve index.html with a "this IS the live engine" marker injected, so the SPA
+  // skips its (tunnel-slow) /api/health probe and goes straight to LIVE mode —
+  // instant, and never the read-only static showcase. The Cloudflare Pages deploy
+  // serves a plain index.html without this marker, so it still uses the snapshot.
+  const indexHtml = fs.readFileSync(WEB_DIST + '/index.html', 'utf8').replace(
+    '</head>',
+    '<script>window.__ENGINE_LIVE__=true</script></head>',
+  )
+  // index.html must always revalidate (it points at the current hashed assets).
+  const sendIndex = (_req: any, reply: any) => reply.header('cache-control', 'no-cache').type('text/html').send(indexHtml)
+  app.get('/', sendIndex)
   app.setNotFoundHandler((req, reply) => {
     if (req.url.startsWith('/api/')) return reply.code(404).send({ error: 'not found' })
-    return reply.sendFile('index.html')
+    return sendIndex(req, reply)
   })
 }
 

@@ -12,8 +12,14 @@ async function ensureMode(): Promise<'live' | 'static'> {
   if (mode) return mode
   if (modeProbe) return modeProbe
   modeProbe = (async () => {
+    // the live engine server injects this marker into the HTML it serves -> go live
+    // immediately, skipping the tunnel-slow /api/health probe (no read-only fallback).
+    if (typeof window !== 'undefined' && (window as any).__ENGINE_LIVE__ === true) {
+      mode = 'live'
+      return mode
+    }
     try {
-      const r = await fetch('/api/health', { signal: AbortSignal.timeout(2500) })
+      const r = await fetch('/api/health', { signal: AbortSignal.timeout(6000) })
       if (r.ok) {
         // validate it's really the backend, not an SPA/HTML fallback returning 200
         const j = await r.json().catch(() => null)
