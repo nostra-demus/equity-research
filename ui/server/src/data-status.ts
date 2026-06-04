@@ -21,15 +21,31 @@ function sniffText(filePath: string, sizeBytes: number, mtimeMs: number): string
     } else if (fs.existsSync(sibling)) {
       text = fs.readFileSync(sibling, 'utf8').slice(0, 8000)
     } else if (ext === '.pdf' || ext === '.rtf') {
-      // best-effort: keep printable chars from the head; compressed PDFs yield little, that's fine
-      const buf = fs.readFileSync(filePath).subarray(0, 16000).toString('latin1')
-      text = buf.replace(/[^\x20-\x7e\n]/g, ' ').slice(0, 8000)
+      // extract REAL text via the canonical extractor (pdftotext / textutil) so we
+      // classify on contents, not raw bytes. Fall back to printable bytes if it fails.
+      text = extractSniffText(filePath).slice(0, 8000)
+      if (!text) {
+        const buf = fs.readFileSync(filePath).subarray(0, 16000).toString('latin1')
+        text = buf.replace(/[^\x20-\x7e\n]/g, ' ').slice(0, 8000)
+      }
     }
   } catch {
     text = ''
   }
   sniffCache.set(key, text)
   return text
+}
+
+// real text for a pdf/rtf (and any supported type) via the canonical extractor —
+// the SAME extract_pool.py the pipeline uses, so the cockpit reads pdf/rtf instead
+// of guessing from raw bytes. Returns '' on any failure (pdftotext/textutil absent).
+function extractSniffText(filePath: string): string {
+  try {
+    const script = path.join(REPO_ROOT, '.claude', 'tools', 'extract_pool.py')
+    return execFileSync('python3', [script, '--text', filePath, '--max-chars', '16000'], { timeout: 30000, maxBuffer: 8_000_000 }).toString('utf8')
+  } catch {
+    return ''
+  }
 }
 
 // ---- workbook tab reader (memoized) ----
@@ -121,6 +137,7 @@ function classify(filename: string, sniff: string): { type: FileType; confidence
   if (test(/transcript|conference[\s\-_]?call|earnings[\s\-_]?call|_call\b/)) return { type: 'transcript', confidence: 'high', basis: 'filename' }
   if (test(/estimates?|consensus/)) return { type: 'consensus_estimates', confidence: 'high', basis: 'filename' }
   if (test(/revision|surprise|recent changes|trends/)) return { type: 'consensus_estimates', confidence: 'medium', basis: 'filename' }
+  if (test(/analyst[\s_]?coverage|research[\s_]?coverage|broker[\s_]?(recommendation|rating)/)) return { type: 'consensus_estimates', confidence: 'high', basis: 'filename' }
   if (test(/multiples/)) return { type: 'multiples_export', confidence: 'high', basis: 'filename' }
   if (test(/comparable|comps|peer/)) return { type: 'peer_comps', confidence: 'high', basis: 'filename' }
   if (test(/ownership|insider/)) return { type: 'ownership_insider', confidence: 'high', basis: 'filename' }
@@ -136,6 +153,7 @@ function classify(filename: string, sniff: string): { type: FileType; confidence
     if (testC(/Form 10-Q|three months ended|unaudited condensed/i)) return { type: 'quarterly_filing', confidence: 'medium', basis: 'content' }
     if (testC(/prepared remarks|Question-and-Answer|Operator[,:]|Thank you for joining|earnings call/i)) return { type: 'transcript', confidence: 'medium', basis: 'content' }
     if (testC(/investor presentation|earnings presentation/i)) return { type: 'investor_deck', confidence: 'medium', basis: 'content' }
+    if (testC(/Equity Analyst Coverage|Recommendation[\s\S]{0,60}Target Price|Target Price[\s\S]{0,60}Recommendation|broker recommendation/i)) return { type: 'consensus_estimates', confidence: 'medium', basis: 'content' }
   }
   if (ext === '.xls' || ext === '.xlsx') return { type: 'other', confidence: 'low', basis: 'extension' }
   return { type: 'other', confidence: 'low', basis: 'extension' }

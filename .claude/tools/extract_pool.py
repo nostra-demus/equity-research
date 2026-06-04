@@ -155,11 +155,12 @@ def _tab_text(src_name, sheet_name, idx, total, rows, ncols):
 
 # ---------- pdf / rtf ----------
 
-def _read_pdf(path):
-    # pdftotext (poppler) preferred; -layout keeps tables aligned
+def _read_pdf(path, max_pages=None):
+    # pdftotext (poppler) preferred; -layout keeps tables aligned. max_pages caps
+    # the scan for fast sniffing (a cover page already says "Annual Report" / "10-K").
     try:
-        r = subprocess.run(["pdftotext", "-layout", path, "-"],
-                           capture_output=True, text=True, timeout=120)
+        cmd = ["pdftotext"] + (["-l", str(max_pages)] if max_pages else []) + ["-layout", path, "-"]
+        r = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
         if r.returncode == 0 and r.stdout.strip():
             return r.stdout, None
         return "", f"pdftotext rc={r.returncode}"
@@ -201,6 +202,34 @@ def list_file(path):
             return {"file": base, "ext": ext, "kind": "workbook",
                     "status": "fail", "error": f"{type(e).__name__}: {e}", "sheets": []}
     return {"file": base, "ext": ext, "kind": "other", "status": "skipped", "sheets": []}
+
+
+def sniff_text(path, max_chars=16000):
+    """Plain-text head of ANY supported file, for content-classification (the cockpit
+    sniff). Workbook -> tab names + first rows; pdf -> first pages; rtf -> textutil;
+    txt/csv/md -> head. One extractor, so the cockpit reads pdf/rtf the same way the
+    pipeline does instead of guessing from raw bytes."""
+    base = os.path.basename(path)
+    ext = base.lower().rsplit(".", 1)[-1] if "." in base else ""
+    try:
+        if ext in WORKBOOK_EXTS:
+            parts = []
+            for (nm, _nr, _nc, rows) in read_workbook(path, ext):
+                parts.append(nm)
+                for r in rows[:40]:
+                    parts.append("\t".join(r))
+                if sum(len(x) for x in parts) > max_chars:
+                    break
+            return "\n".join(parts)[:max_chars]
+        if ext in PDF_EXTS:
+            return (_read_pdf(path, max_pages=12)[0] or "")[:max_chars]
+        if ext in RTF_EXTS:
+            return (_read_rtf(path)[0] or "")[:max_chars]
+        if ext in TEXT_EXTS:
+            return open(path, errors="ignore").read(max_chars)
+    except Exception:  # noqa — sniffing must never throw
+        return ""
+    return ""
 
 
 # ---------- full pool extract ----------
@@ -386,6 +415,11 @@ def main(argv):
         i = argv.index("--list-json")
         f = argv[i + 1]
         print(json.dumps(list_file(f)))
+        return 0
+    if "--text" in argv:
+        f = argv[argv.index("--text") + 1]
+        mx = int(argv[argv.index("--max-chars") + 1]) if "--max-chars" in argv else 16000
+        sys.stdout.write(sniff_text(f, mx))
         return 0
     args = [a for a in argv if not a.startswith("--")]
     if len(args) < 2:

@@ -7,6 +7,7 @@ import { RunStreamPanel } from './components/RunStreamPanel'
 import { OutputReader } from './components/OutputReader'
 import { LaunchConfirm } from './components/LaunchConfirm'
 import { DataUploadEmptyState } from './components/DataUploadEmptyState'
+import { DataFilesPanel } from './components/DataFilesPanel'
 import { DecisionBanner } from './components/DecisionBanner'
 
 export function App() {
@@ -26,6 +27,7 @@ export function App() {
         <div className="stage">
           <SwarmField />
           <DataUploadEmptyState />
+          <DataFilesPanel />
           <DecisionBanner />
         </div>
         <RunStreamPanel />
