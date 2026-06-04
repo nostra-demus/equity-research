@@ -5,8 +5,9 @@
   "version": "0.1.0",
   "description": "Minimal-luxe animated swarm UI for the equity-research engine",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "node scripts/build-snapshot.mjs && vite",
+    "build": "node scripts/build-snapshot.mjs && vite build",
+    "snapshot": "node scripts/build-snapshot.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

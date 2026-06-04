@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { api } from './api'
+import { api, isStatic } from './api'
 import type { AgentNode, DataStatus, LaunchPreflight, NodeRuntime, NodeStatus, SseEvent, SwarmGraph, TickerSummary, Usage } from './types'
 
 const RUN_EVENT_TYPES = ['run-started', 'agent-started', 'agent-done', 'agent-failed', 'layer-advanced', 'module-done', 'cost-tick', 'run-done', 'run-error']
@@ -16,6 +16,7 @@ export interface Toast { msg: string; tone: 'info' | 'good' | 'bad' }
 
 interface State {
   connected: boolean
+  staticMode: boolean
   dataDir: string | null
   tickers: TickerSummary[]
   emptyState: boolean
@@ -62,6 +63,7 @@ function flatten(graph: SwarmGraph): Map<string, AgentNode> {
 
 export const useStore = create<State>((set, get) => ({
   connected: true,
+  staticMode: false,
   dataDir: null,
   tickers: [],
   emptyState: false,
@@ -84,9 +86,10 @@ export const useStore = create<State>((set, get) => ({
   init: async () => {
     try {
       const [graph, tk, credit] = await Promise.all([api.swarm(), api.tickers(), api.credit().catch(() => null)])
-      set({ connected: true, graph, nodesByKey: flatten(graph), tickers: tk.tickers, emptyState: tk.emptyState, dataDir: (tk as any).dataDir ?? null, credit })
-      // live data-folder watcher (Drive sync)
-      if (!dataSource) {
+      const stat = isStatic()
+      set({ connected: true, staticMode: stat, graph, nodesByKey: flatten(graph), tickers: tk.tickers, emptyState: tk.emptyState, dataDir: (tk as any).dataDir ?? null, credit })
+      // live data-folder watcher (Drive sync) — backend only
+      if (!stat && !dataSource) {
         dataSource = new EventSource(api.dataStreamUrl())
         dataSource.addEventListener('data-changed', (ev: MessageEvent) => {
           try {
@@ -97,8 +100,8 @@ export const useStore = create<State>((set, get) => ({
         })
       }
       if (tk.tickers.length && !get().selectedTicker) await get().selectTicker(tk.tickers[0].ticker)
-      // one cheap probe on first connect so the usage badge shows the real binding window
-      if (!creditProbed) {
+      // one cheap usage probe on first connect (backend only)
+      if (!stat && !creditProbed) {
         creditProbed = true
         get().checkCredit()
       }
@@ -143,6 +146,7 @@ export const useStore = create<State>((set, get) => ({
   },
 
   checkCredit: async () => {
+    if (get().staticMode) return
     set({ creditChecking: true })
     try {
       const credit = await api.creditCheck()
@@ -169,6 +173,7 @@ export const useStore = create<State>((set, get) => ({
   },
 
   launchAgent: async (node) => {
+    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' })
     const t = get().selectedTicker
     if (!t || get().activeRun) return
     if (!node.soloRunnable) {
@@ -185,6 +190,7 @@ export const useStore = create<State>((set, get) => ({
   },
 
   launchModule: async (module) => {
+    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' })
     const t = get().selectedTicker
     if (!t || get().activeRun) return
     const planned = [...get().nodesByKey.values()].filter((n) => n.module === module).map((n) => n.key)
@@ -198,6 +204,7 @@ export const useStore = create<State>((set, get) => ({
   },
 
   requestFull: async () => {
+    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — a full run executes on your machine via npm run dev', tone: 'info' })
     const t = get().selectedTicker
     if (!t || get().activeRun) return
     const preflight = await api.estimate('full', t)

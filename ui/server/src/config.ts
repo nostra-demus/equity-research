@@ -13,7 +13,7 @@ export const AGENTS_DIR = path.join(REPO_ROOT, '.claude', 'agents')
 export const COMMANDS_DIR = path.join(REPO_ROOT, '.claude', 'commands', 'research')
 export const DATA_DIR = path.join(REPO_ROOT, 'data')
 export const ANALYSES_DIR = path.join(REPO_ROOT, 'analyses')
-export const WEB_DIST = path.join(REPO_ROOT, 'ui', 'web', 'dist')
+export const WEB_DIST = path.join(REPO_ROOT, 'ui', 'dist')
 
 export const PORT = Number(process.env.PORT || 8787)
 export const HOST = '127.0.0.1'

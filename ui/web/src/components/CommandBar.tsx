@@ -96,7 +96,17 @@ function CreditBadge() {
   const credit = useStore((s) => s.credit)
   const checking = useStore((s) => s.creditChecking)
   const check = useStore((s) => s.checkCredit)
+  const staticMode = useStore((s) => s.staticMode)
   const [open, setOpen] = useState(false)
+
+  if (staticMode) {
+    return (
+      <span className="creditbadge" style={{ cursor: 'default' }} title="Static showcase — no Claude usage; runs happen on your local machine">
+        <span className="creditbadge__dot" style={{ background: 'var(--neutral, #6f8bb0)' }} />
+        local · read-only
+      </span>
+    )
+  }
 
   const windows = credit?.windows ? Object.entries(credit.windows).sort((a, b) => windowOrder(a[0]) - windowOrder(b[0])) : []
   // headline a real window if we have one (binding window preferred, else highest utilization)
@@ -165,6 +175,7 @@ export function CommandBar() {
   const requestFull = useStore((s) => s.requestFull)
   const activeRun = useStore((s) => s.activeRun)
   const selectedTicker = useStore((s) => s.selectedTicker)
+  const staticMode = useStore((s) => s.staticMode)
   return (
     <div className="topbar">
       <div className="brand">
@@ -173,13 +184,14 @@ export function CommandBar() {
           <div className="brand__name">Nostradamus Swarm</div>
         </div>
         <span className="brand__sub">Equity Research Cockpit</span>
+        {staticMode && <span className="chip" style={{ color: 'var(--accent)', borderColor: 'var(--accent-deep)' }} title="Live showcase of completed runs. Launching agents happens on your local machine.">read-only showcase</span>}
       </div>
       <div className="topbar__spacer" />
       <ReadinessStrip />
       {decision?.final_thesis_path !== undefined || decision?.decision ? (
         <button className="btn btn--ghost" onClick={openThesis}>Thesis</button>
       ) : null}
-      <button className="btn btn--amber" disabled={!selectedTicker || !!activeRun} onClick={requestFull}>
+      <button className="btn btn--amber" disabled={!selectedTicker || !!activeRun} onClick={requestFull} title={staticMode ? 'Runs on your local machine (npm run dev)' : 'Run the full pipeline'}>
         Run full ▸
       </button>
       <CreditBadge />
