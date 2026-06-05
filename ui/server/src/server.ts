@@ -118,7 +118,10 @@ app.post('/api/launch', async (req, reply) => {
     const out = await launch({ kind, ticker, module, agent, model })
     return out
   } catch (e: any) {
-    return reply.code(e?.statusCode || 500).send({ error: e?.message || 'launch failed' })
+    // Forward the discriminated admission-rejection body (code/reason/detail) so the client can
+    // branch the toast precisely; falls back to a plain message for other failures.
+    const body = e?.body && typeof e.body === 'object' ? e.body : null
+    return reply.code(e?.statusCode || 500).send({ error: e?.message || 'launch failed', ...(body || {}) })
   }
 })
 
@@ -156,6 +159,8 @@ app.get('/api/runs/:runId', async (req, reply) => {
     agents: [...run.agents.values()],
     expected: [...run.expected.values()],
     willCommitToMain: run.willCommitToMain,
+    coveredModules: run.coveredModules,
+    writeTargetsAbs: run.writeTargetsAbs,
     prompt: run.prompt,
     startedAt: run.startedAt,
     endedAt: run.endedAt,

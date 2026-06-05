@@ -35,8 +35,10 @@ function handleFile(run: RunState, fp: string) {
   const parts = rel.split(path.sep)
   if (parts[0] !== 'analyses') return
   const folder = parts[1]
-  if (!folder || !folder.startsWith(run.ticker + '_')) return
-  if (!run.runRoot) run.runRoot = `analyses/${folder}`
+  // Strict: only files inside THIS run's resolved folder count. runRoot is concrete at launch for
+  // every kind, so two same-ticker runs sharing today's folder are still disambiguated by the
+  // expected-set check below, and an agent/rerun bound to a different folder never steals events.
+  if (!folder || run.runRoot !== `analyses/${folder}`) return
 
   // master synthesizer output (full runs): analyses/<t>_<d>/final_thesis.md
   if (parts.length === 3 && parts[2] === 'final_thesis.md') {

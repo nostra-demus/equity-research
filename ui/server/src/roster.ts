@@ -152,6 +152,32 @@ export function findLatestRunRoot(ticker: string): string | null {
   return dirs.length ? path.join(ANALYSES_DIR, dirs[0]) : null
 }
 
+// Latest dated folder that contains <module>/, mirroring the slash-command resolver
+// `ls -1d analyses/<TICKER>_*/<module>/ | sort -r | head -1`. Absolute path to the module subfolder.
+export function latestModuleFolder(ticker: string, module: string): string | null {
+  if (!fs.existsSync(ANALYSES_DIR)) return null
+  const dirs = fg
+    .sync(`${ticker}_*/${module}`, { cwd: ANALYSES_DIR, onlyDirectories: true })
+    .sort()
+    .reverse()
+  return dirs.length ? path.join(ANALYSES_DIR, dirs[0]) : null
+}
+
+// Are a module's cross-module dependencies complete on disk? Checks ONLY module.dependsOn —
+// a no-deps module is trivially complete; it does NOT require the module's own synthesis. For each
+// dep, the EXACT folder the command would pick must contain its 99 synthesis (mirrors D4).
+export function depsCompleteForModule(ticker: string, module: string): { complete: boolean; missing: string[] } {
+  const g = buildSwarmGraph()
+  const deps = g.modules.find((x) => x.name === module)?.dependsOn ?? []
+  const missing: string[] = []
+  for (const dep of deps) {
+    const folder = latestModuleFolder(ticker, dep)
+    const ok = !!folder && fg.sync('99_*-synthesis.md', { cwd: folder }).length > 0
+    if (!ok) missing.push(dep)
+  }
+  return { complete: missing.length === 0, missing }
+}
+
 // Recompute soloRunnable against a ticker's latest run folder (deep agents need their upstream present).
 export function graphForTicker(ticker: string): SwarmGraph {
   const base = buildSwarmGraph()
@@ -200,14 +226,30 @@ export interface CascadeNode {
 
 const MASTER_CASCADE: CascadeNode = { key: 'master/synthesizer', module: 'master', name: 'synthesizer', layer: 99, kind: 'master' }
 
-function synthesisOf(m: ModuleNode): AgentNode | null {
+export function synthesisOf(m: ModuleNode): AgentNode | null {
   return Object.values(m.layers).flat().find((a) => a.isSynthesis) || null
 }
 function cascadeEntry(a: AgentNode, kind: 'agent' | 'module-synthesis'): CascadeNode {
   return { key: a.key, module: a.module, name: a.name, layer: a.layer, nn: a.nn, slug: a.slug, outputRel: `${a.module}/${a.nn}_${a.slug}.md`, kind }
 }
+// Transitive set of modules `moduleName` (directly or indirectly) depends on — its ancestors.
+export function moduleAncestors(graph: SwarmGraph, moduleName: string): Set<string> {
+  const up = new Set<string>()
+  const visit = (name: string) => {
+    const m = graph.modules.find((x) => x.name === name)
+    for (const d of m?.dependsOn ?? []) {
+      if (!up.has(d)) {
+        up.add(d)
+        visit(d)
+      }
+    }
+  }
+  visit(moduleName)
+  return up
+}
+
 // Transitive closure of modules that (directly or indirectly) depend on `moduleName`.
-function transitiveDownstreamModules(graph: SwarmGraph, moduleName: string): Set<string> {
+export function transitiveDownstreamModules(graph: SwarmGraph, moduleName: string): Set<string> {
   const down = new Set<string>()
   let changed = true
   while (changed) {

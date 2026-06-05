@@ -104,6 +104,23 @@ export type RunKind = 'full' | 'module' | 'agent' | 'rerun'
 export type RunStatus = 'starting' | 'running' | 'done' | 'error' | 'cancelled'
 export type AgentRunStatus = 'queued' | 'running' | 'done' | 'failed'
 
+// ---- admission control (dependency-aware concurrency) ----
+// Discriminated rejection so the client can branch the toast (info vs bad) and explain precisely.
+export type AdmissionRejection =
+  | { code: 'target_conflict'; httpStatus: 409; conflictRunId: string; conflictTargets: string[] }
+  | { code: 'exclusivity'; httpStatus: 409; blockingRunId: string; blockingKind: RunKind }
+  | {
+      code: 'dependency_conflict'
+      httpStatus: 409
+      conflictRunId: string
+      reason: 'module-scope-writer' | 'module-ancestry' | 'upstream-file-in-flight'
+      detail: { requestedModule?: string; conflictModule?: string; relation?: 'ancestor' | 'descendant'; conflictFiles?: string[] }
+    }
+  | { code: 'upstream_incomplete'; httpStatus: 400; missing: string[] }
+  | { code: 'capacity'; httpStatus: 429; activeCount: number; cap: number }
+
+export type AdmissionDecision = { ok: true } | ({ ok: false } & AdmissionRejection)
+
 export interface AgentRunState {
   key: string
   module: string

@@ -33,6 +33,9 @@ export interface RunState {
   durationMs?: number
   sessionId?: string
   willCommitToMain: boolean
+  writeTargetsAbs: string[] // absolute paths this run writes — D2 disjointness
+  coveredModules: string[] // modules this run writes into — D2b / D3
+  readDepsAbs: string[] // absolute requiredUpstream read paths (agent runs) — D4b; [] otherwise
   agents: Map<string, AgentRunState>
   expected: Map<string, ExpectedAgent>
   toolUseToAgent: Map<string, string> // tool_use_id -> agentKey
@@ -42,21 +45,31 @@ export interface RunState {
 }
 
 const runs = new Map<string, RunState>()
-// L1 run-scheduler lock: at most ONE active run per ticker (any kind). Different tickers run concurrently;
-// the same company is serialized because its runs share an analyses/<TICKER>_<date>/ folder.
-const activeRunByTicker = new Map<string, string>() // ticker -> runId
+// Dependency-aware admission (admission.ts) governs same-ticker concurrency; this map just tracks
+// the in-flight run ids per ticker. Different tickers always run concurrently.
+const activeRunsByTicker = new Map<string, Set<string>>() // ticker -> set of in-flight runIds
 
-export function isTickerBusy(ticker: string): RunState | null {
-  const runId = activeRunByTicker.get(ticker)
-  if (!runId) return null
-  const r = runs.get(runId)
-  if (r && (r.status === 'starting' || r.status === 'running')) return r
-  activeRunByTicker.delete(ticker) // self-heal a stale entry
-  return null
+// All currently-live runs for a ticker (starting|running), self-healing any stale/ended ids.
+export function inFlightRunsForTicker(ticker: string): RunState[] {
+  const ids = activeRunsByTicker.get(ticker)
+  if (!ids) return []
+  const live: RunState[] = []
+  for (const id of [...ids]) {
+    const r = runs.get(id)
+    if (r && (r.status === 'starting' || r.status === 'running')) live.push(r)
+    else ids.delete(id) // self-heal a stale entry
+  }
+  if (ids.size === 0) activeRunsByTicker.delete(ticker)
+  return live
 }
 
 export function setActiveTickerRun(runId: string, ticker: string) {
-  activeRunByTicker.set(ticker, runId)
+  let ids = activeRunsByTicker.get(ticker)
+  if (!ids) {
+    ids = new Set<string>()
+    activeRunsByTicker.set(ticker, ids)
+  }
+  ids.add(runId)
 }
 
 export function createRun(init: Omit<RunState, 'runId' | 'eventLog' | 'subscribers' | 'agents' | 'expected' | 'toolUseToAgent' | 'child' | 'status' | 'startedAt'> & Partial<Pick<RunState, 'expected' | 'agents'>>): RunState {
@@ -109,6 +122,10 @@ export function unsubscribe(run: RunState, client: SseClient) {
 export function finishRun(run: RunState, status: RunStatus) {
   run.status = status
   run.endedAt = Date.now()
-  if (activeRunByTicker.get(run.ticker) === run.runId) activeRunByTicker.delete(run.ticker)
+  const ids = activeRunsByTicker.get(run.ticker)
+  if (ids) {
+    ids.delete(run.runId)
+    if (ids.size === 0) activeRunsByTicker.delete(run.ticker)
+  }
   void Promise.resolve(run.closeWatcher?.()).catch(() => {})
 }

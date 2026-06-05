@@ -1,12 +1,15 @@
+import fs from 'node:fs'
+import path from 'node:path'
 import { execa, type ResultPromise } from 'execa'
+import { admitRun } from './admission'
 import { CLAUDE_BIN, DEFAULT_MODEL, ESTIMATES, LAUNCH_GUARDS, REPO_ROOT, type LaunchKind } from './config'
 import { getCreditStatus, setCreditStatus } from './credit'
 import { startRunWatcher } from './fs-watcher'
-import { createRun, emit, finishRun, getRun, isTickerBusy, setActiveTickerRun, type ExpectedAgent, type RunState } from './registry'
+import { createRun, emit, finishRun, getRun, setActiveTickerRun, type ExpectedAgent, type RunState } from './registry'
 import { resolveRunRoot } from './outputs'
 import { buildSwarmGraph, downstreamCascade } from './roster'
 import { handleStreamLine } from './stream-parser'
-import type { LaunchPreflight, RunKind } from './types'
+import type { AdmissionRejection, LaunchPreflight, RunKind } from './types'
 
 // ---- claude CLI flag capability detection (so we never pass an unknown flag) ----
 let supportedFlags: Set<string> | null = null
@@ -28,6 +31,52 @@ async function detectFlags(): Promise<Set<string>> {
 function todayDate(): string {
   const d = new Date()
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+}
+
+// A solo agent writes into the run folder its slash command will resolve: today's if it already
+// exists, else the latest prior run, else today's. Concrete (never null) so admission/watcher work.
+function resolveAgentRunRoot(ticker: string): string {
+  const today = `analyses/${ticker}_${todayDate()}`
+  if (fs.existsSync(path.join(REPO_ROOT, today))) return today
+  return resolveRunRoot({ ticker }) ?? today
+}
+
+// Modules this run writes into (for D2b / D3 admission).
+function coveredModulesFor(kind: RunKind, module?: string, agent?: string): string[] {
+  const g = buildSwarmGraph()
+  if (kind === 'full') return g.modules.map((m) => m.name)
+  if (kind === 'rerun') return [...new Set(downstreamCascade(module!, agent!).filter((c) => c.module !== 'master').map((c) => c.module))]
+  return module ? [module] : []
+}
+
+// The target agent's intra-module required-upstream files (for D4b).
+function agentRequiredUpstream(module?: string, agent?: string): string[] {
+  if (!module || !agent) return []
+  const g = buildSwarmGraph()
+  const m = g.modules.find((x) => x.name === module)
+  const a = m && Object.values(m.layers).flat().find((x) => x.name === agent || x.slug === agent)
+  return a?.requiredUpstream ?? []
+}
+
+// Run-root artifacts full/rerun also write (diagnostics for D2; D1 is the real exclusivity guard).
+const ROOT_ARTIFACTS_FULL = ['final_thesis.md', 'memo.md', 'audit_dossier.md', 'decision_record.json', 'RUN_METADATA.md']
+const ROOT_ARTIFACTS_RERUN = ['final_thesis.md', 'memo.md', 'audit_dossier.md', 'decision_record.json']
+
+function admissionMessage(r: AdmissionRejection, ticker: string): string {
+  switch (r.code) {
+    case 'exclusivity':
+      return `A ${r.blockingKind} run is in progress for ${ticker} and needs exclusive access — wait for it to finish.`
+    case 'target_conflict':
+      return `That run would overwrite files a run already in progress on ${ticker} is writing (${r.conflictTargets.join(', ')}).`
+    case 'dependency_conflict':
+      if (r.reason === 'module-scope-writer') return `A run is already writing the ${r.detail.conflictModule} module for ${ticker} — wait for it before launching another ${r.detail.requestedModule} run/orb.`
+      if (r.reason === 'module-ancestry') return `Can't run yet — ${r.detail.conflictModule} (${r.detail.relation}) is in flight for ${ticker}; it would be read or written half-finished.`
+      return `A required upstream file is being rewritten by another run on ${ticker} (${(r.detail.conflictFiles ?? []).join(', ')}).`
+    case 'upstream_incomplete':
+      return `Upstream isn't complete for ${ticker}: ${r.missing.join(', ')}. Run those first, or run the full pipeline.`
+    case 'capacity':
+      return `At the concurrency cap (${r.activeCount}/${r.cap} runs in flight). Wait for one to finish.`
+  }
 }
 
 function buildPrompt(kind: RunKind, ticker: string, module?: string, agent?: string): string {
@@ -129,29 +178,47 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   const { kind, ticker, module, agent } = params
   const model = params.model || DEFAULT_MODEL
 
-  // L1 per-ticker lock: one run per company at a time (any kind). Different companies run concurrently.
-  const busy = isTickerBusy(ticker)
-  if (busy) {
-    const err: any = new Error(`A run is already in progress for ${ticker} (${busy.kind}). One run per company at a time — different companies can run together.`)
-    err.statusCode = 409
-    throw err
-  }
-
-  // a re-run mutates the LATEST existing run folder (not today's) — fail early if there's nothing to re-run
-  let runRoot: string | null
+  // Resolve a CONCRETE run root for every kind (never null) so admission can compute absolute write
+  // targets and the fs-watcher can bind strictly. rerun fails early if there's nothing to re-run.
+  let runRoot: string
   if (kind === 'rerun') {
-    runRoot = resolveRunRoot({ ticker })
-    if (!runRoot) {
+    const latest = resolveRunRoot({ ticker })
+    if (!latest) {
       const err: any = new Error(`No existing run to re-run for ${ticker}. Run a module or the full pipeline first.`)
       err.statusCode = 400
       throw err
     }
+    runRoot = latest
+  } else if (kind === 'agent') {
+    runRoot = resolveAgentRunRoot(ticker)
   } else {
-    runRoot = kind === 'agent' ? null : `analyses/${ticker}_${todayDate()}`
+    runRoot = `analyses/${ticker}_${todayDate()}`
   }
 
   const prompt = buildPrompt(kind, ticker, module, agent)
   const expected = buildExpected(kind, module, agent)
+
+  // Admission metadata — derived once here, stored on the run, reused by admitRun.
+  const coveredModules = coveredModulesFor(kind, module, agent)
+  const writeTargetsAbs = [...new Set([
+    ...[...expected.values()].map((e) => path.join(REPO_ROOT, runRoot, e.outputRel)),
+    ...(kind === 'full' ? ROOT_ARTIFACTS_FULL : kind === 'rerun' ? ROOT_ARTIFACTS_RERUN : []).map((f) => path.join(REPO_ROOT, runRoot, f)),
+  ])]
+  const readDepsAbs = kind === 'agent'
+    ? agentRequiredUpstream(module, agent).map((relp) => path.join(REPO_ROOT, runRoot, relp))
+    : []
+
+  // Dependency-aware admission + register in ONE synchronous block (no await before
+  // setActiveTickerRun) so the check-and-claim is atomic under Node's single-threaded loop.
+  const decision = admitRun({ ticker, kind, coveredModules, writeTargetsAbs, readDepsAbs })
+  if (!decision.ok) {
+    const { ok: _ok, ...rejection } = decision
+    const err: any = new Error(admissionMessage(rejection, ticker))
+    err.statusCode = rejection.httpStatus
+    err.body = rejection
+    throw err
+  }
+
   const run = createRun({
     kind,
     ticker,
@@ -161,6 +228,9 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     prompt,
     runRoot,
     willCommitToMain: kind !== 'agent',
+    writeTargetsAbs,
+    coveredModules,
+    readDepsAbs,
     closeWatcher: undefined,
     expected,
   })
@@ -170,7 +240,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     run.agents.set(e.key, { key: e.key, module: e.module, name: e.name, layer: e.layer, status: 'queued' })
   }
 
-  setActiveTickerRun(run.runId, ticker) // hold the per-ticker lock for every kind; finishRun() releases it
+  setActiveTickerRun(run.runId, ticker) // register the in-flight run; finishRun() releases it
   startRunWatcher(run)
 
   const args = await buildArgs(prompt, kind, model)
@@ -221,7 +291,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     }
     if (run.status === 'running' || run.status === 'starting') {
       const code = res?.exitCode ?? res?.code
-      if (res?.killed || run.status === 'cancelled') {
+      if (res?.killed || (run.status as string) === 'cancelled') {
         emit(run, { type: 'run-error', runId: run.runId, status: 'cancelled', reason: 'cancelled', ts: Date.now() })
         finishRun(run, 'cancelled')
       } else if (code && code !== 0) {

@@ -6,7 +6,9 @@
   "description": "Fastify control plane: roster, data-status, launch, live SSE for the equity-research engine",
   "scripts": {
     "dev": "tsx watch src/server.ts",
-    "start": "tsx src/server.ts"
+    "start": "tsx src/server.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "tsx test/admission.test.ts"
   },
   "dependencies": {
     "@fastify/cors": "^9.0.1",

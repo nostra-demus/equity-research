@@ -18,6 +18,10 @@ export const WEB_DIST = path.join(REPO_ROOT, 'ui', 'dist')
 export const PORT = Number(process.env.PORT || 8787)
 export const HOST = '127.0.0.1'
 
+// Max concurrent headless runs across ALL tickers (cost / rate-limit backstop). The per-ticker
+// admission rules (admission.ts) govern same-company safety; this caps total fan-out. Tunable.
+export const MAX_CONCURRENT_RUNS = Math.max(1, Number(process.env.ENGINE_MAX_CONCURRENT_RUNS || 3))
+
 // The Claude Code CLI used to launch the engine in headless mode.
 export const CLAUDE_BIN = process.env.CLAUDE_BIN || 'claude'
 export const DEFAULT_MODEL = process.env.ENGINE_MODEL || 'sonnet'
