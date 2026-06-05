@@ -122,6 +122,14 @@ export const api = {
     if ((await ensureMode()) === 'static') return { history: [] }
     return get(`/api/runs?ticker=${encodeURIComponent(ticker)}`)
   },
+  activeRuns: async (): Promise<{ active: { runId: string; kind: string; ticker: string; module?: string; status: string }[] }> => {
+    if ((await ensureMode()) === 'static') return { active: [] }
+    return get(`/api/runs`)
+  },
+  runSnapshot: async (runId: string): Promise<any> => {
+    if ((await ensureMode()) === 'static') throw new Error('static')
+    return get(`/api/runs/${encodeURIComponent(runId)}`)
+  },
   runStreamUrl: (runId: string) => `/api/runs/${runId}/stream`,
   dataStreamUrl: () => `/api/data-status/stream`,
 }

@@ -145,9 +145,7 @@ Print: ticker · run root · report path · integrity score · verdict · claims
 Per `CLAUDE.md` git policy: commit straight to `main`, no branches, no PRs. Add only the verification report file:
 
 ```bash
-git add "<RUN_ROOT>/verification_report"*.json
-git commit -m "Verify run: <TICKER> <RUN_DATE> — <verdict> (<integrity_score>/100)"
-git push origin main
+bash scripts/commit-run.sh "Verify run: <TICKER> <RUN_DATE> — <verdict> (<integrity_score>/100)" -- "<RUN_ROOT>/verification_report*.json"
 ```
 
 Report the commit SHA from `git rev-parse HEAD`. If no report was written, skip the commit.

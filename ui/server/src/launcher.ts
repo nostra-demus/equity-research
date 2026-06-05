@@ -2,7 +2,7 @@ import { execa, type ResultPromise } from 'execa'
 import { CLAUDE_BIN, DEFAULT_MODEL, ESTIMATES, LAUNCH_GUARDS, REPO_ROOT, type LaunchKind } from './config'
 import { getCreditStatus, setCreditStatus } from './credit'
 import { startRunWatcher } from './fs-watcher'
-import { createRun, emit, finishRun, getRun, isWriteBusy, setActiveWrite, type ExpectedAgent, type RunState } from './registry'
+import { createRun, emit, finishRun, getRun, isTickerBusy, setActiveTickerRun, type ExpectedAgent, type RunState } from './registry'
 import { resolveRunRoot } from './outputs'
 import { buildSwarmGraph, downstreamCascade } from './roster'
 import { handleStreamLine } from './stream-parser'
@@ -129,13 +129,12 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   const { kind, ticker, module, agent } = params
   const model = params.model || DEFAULT_MODEL
 
-  if (kind !== 'agent') {
-    const busy = isWriteBusy()
-    if (busy) {
-      const err: any = new Error(`A run is already in progress (${busy.kind} ${busy.ticker}). Only one write-run at a time.`)
-      err.statusCode = 409
-      throw err
-    }
+  // L1 per-ticker lock: one run per company at a time (any kind). Different companies run concurrently.
+  const busy = isTickerBusy(ticker)
+  if (busy) {
+    const err: any = new Error(`A run is already in progress for ${ticker} (${busy.kind}). One run per company at a time — different companies can run together.`)
+    err.statusCode = 409
+    throw err
   }
 
   // a re-run mutates the LATEST existing run folder (not today's) — fail early if there's nothing to re-run
@@ -171,7 +170,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     run.agents.set(e.key, { key: e.key, module: e.module, name: e.name, layer: e.layer, status: 'queued' })
   }
 
-  if (kind !== 'agent') setActiveWrite(run.runId)
+  setActiveTickerRun(run.runId, ticker) // hold the per-ticker lock for every kind; finishRun() releases it
   startRunWatcher(run)
 
   const args = await buildArgs(prompt, kind, model)

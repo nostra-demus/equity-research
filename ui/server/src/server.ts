@@ -154,6 +154,9 @@ app.get('/api/runs/:runId', async (req, reply) => {
     numTurns: run.numTurns,
     durationMs: run.durationMs,
     agents: [...run.agents.values()],
+    expected: [...run.expected.values()],
+    willCommitToMain: run.willCommitToMain,
+    prompt: run.prompt,
     startedAt: run.startedAt,
     endedAt: run.endedAt,
   }

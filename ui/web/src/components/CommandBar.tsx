@@ -18,6 +18,7 @@ function TickerPicker() {
   const tickers = useStore((s) => s.tickers)
   const selected = useStore((s) => s.selectedTicker)
   const selectTicker = useStore((s) => s.selectTicker)
+  const activeRunsByTicker = useStore((s) => s.activeRunsByTicker)
   const connected = useStore((s) => s.connected)
   const dataDir = useStore((s) => s.dataDir)
   const [open, setOpen] = useState(false)
@@ -25,6 +26,7 @@ function TickerPicker() {
     <div className="tickerpick">
       <button className="tickerpick__btn" onClick={() => setOpen((o) => !o)}>
         {!connected && <span className="readiness__dot" style={{ background: 'var(--bad)' }} title="Control plane offline" />}
+        {connected && selected && activeRunsByTicker.has(selected) && <span className="pulsedot" style={{ flexShrink: 0 }} title="Run in progress" />}
         <span className="tickerpick__ticker">{selected || (connected ? 'Select ticker' : 'Offline')}</span>
         <span className="tickerpick__caret">▾</span>
       </button>
@@ -42,6 +44,7 @@ function TickerPicker() {
                 }}
               >
                 <span className="tickerpick__sym">{t.ticker}</span>
+                {activeRunsByTicker.has(t.ticker) && <span className="pulsedot" style={{ flexShrink: 0 }} title="Run in progress" />}
                 <span className="tickerpick__meta">{t.fileCount} files</span>
                 {t.latestRun?.decision && (
                   <span style={{ color: decisionColor(t.latestRun.decision), fontSize: 11, fontWeight: 600 }}>{t.latestRun.decision}</span>

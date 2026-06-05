@@ -85,10 +85,10 @@ After the synthesizer (`99`) completes, extract the fenced code blocks it emitte
 
 Per repo `CLAUDE.md` git policy: commit straight to `main`. No branches. No PRs.
 
+Commit through the serialized helper (global git lock; commits only this pathspec; pushes):
+
 ```
-git add "analyses/${ARGUMENTS}_<DATE>/management-governance/"
-git commit -m "Management-governance run: ${ARGUMENTS} <DATE>"
-git push origin main
+bash scripts/commit-run.sh "Management-governance run: ${ARGUMENTS} <DATE>" -- "analyses/${ARGUMENTS}_<DATE>/management-governance/"
 ```
 
 Capture the commit SHA from `git rev-parse HEAD`.

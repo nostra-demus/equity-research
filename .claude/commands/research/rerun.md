@@ -96,10 +96,10 @@ Only if `<RUN_ROOT>/final_thesis.md` exists. These keep the three tiers in sync 
 
 Per repo `CLAUDE.md` git policy: commit straight to `main`, no branches, no PRs.
 
+Commit through the serialized helper (global git lock so concurrent companies don't collide; commits only this run folder; pushes):
+
 ```
-git add "<RUN_ROOT>/"
-git commit -m "Re-run: <TICKER> <MODULE>/<AGENT> + downstream <DATE>"
-git push origin main
+bash scripts/commit-run.sh "Re-run: <TICKER> <MODULE>/<AGENT> + downstream <DATE>" -- "<RUN_ROOT>/"
 ```
 
 Capture the commit SHA (`git rev-parse HEAD`). Unlike `/research:full`, this is a single commit — do not backfill RUN_METADATA.

@@ -120,9 +120,7 @@ Print: ticker · run root · report path · original decision & confidence · ad
 Per `CLAUDE.md` git policy: commit straight to `main`, no branches, no PRs. Add only the pre-mortem report:
 
 ```bash
-git add "<RUN_ROOT>/pre_mortem"*.json
-git commit -m "Pre-mortem: <TICKER> <RUN_DATE> — <verdict> (conf <original_confidence> -> <recommended_confidence>)"
-git push origin main
+bash scripts/commit-run.sh "Pre-mortem: <TICKER> <RUN_DATE> — <verdict> (conf <original_confidence> -> <recommended_confidence>)" -- "<RUN_ROOT>/pre_mortem*.json"
 ```
 
 Report the commit SHA. If no report was written, skip the commit.

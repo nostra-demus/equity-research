@@ -241,9 +241,7 @@ If no records were due/found (e.g. mode `due` with nothing scheduled yet), say s
 Per repo `CLAUDE.md` git policy: commit straight to `main`. No branches. No PRs. Only `git add` the review files you created (never the original records):
 
 ```bash
-git add analyses/*/reviews/*_decision_review*.json
-git commit -m "Decision reviews: <N> review(s) on <REVIEW_DATE>"
-git push origin main
+bash scripts/commit-run.sh "Decision reviews: <N> review(s) on <REVIEW_DATE>" -- "analyses/*/reviews/*_decision_review*.json"
 ```
 
 Capture and report the commit SHA from `git rev-parse HEAD`. If no review files were created, skip the commit entirely.

@@ -42,18 +42,21 @@ export interface RunState {
 }
 
 const runs = new Map<string, RunState>()
-let activeWriteRunId: string | null = null
+// L1 run-scheduler lock: at most ONE active run per ticker (any kind). Different tickers run concurrently;
+// the same company is serialized because its runs share an analyses/<TICKER>_<date>/ folder.
+const activeRunByTicker = new Map<string, string>() // ticker -> runId
 
-export function isWriteBusy(): RunState | null {
-  if (!activeWriteRunId) return null
-  const r = runs.get(activeWriteRunId)
+export function isTickerBusy(ticker: string): RunState | null {
+  const runId = activeRunByTicker.get(ticker)
+  if (!runId) return null
+  const r = runs.get(runId)
   if (r && (r.status === 'starting' || r.status === 'running')) return r
-  activeWriteRunId = null
+  activeRunByTicker.delete(ticker) // self-heal a stale entry
   return null
 }
 
-export function setActiveWrite(runId: string) {
-  activeWriteRunId = runId
+export function setActiveTickerRun(runId: string, ticker: string) {
+  activeRunByTicker.set(ticker, runId)
 }
 
 export function createRun(init: Omit<RunState, 'runId' | 'eventLog' | 'subscribers' | 'agents' | 'expected' | 'toolUseToAgent' | 'child' | 'status' | 'startedAt'> & Partial<Pick<RunState, 'expected' | 'agents'>>): RunState {
@@ -106,6 +109,6 @@ export function unsubscribe(run: RunState, client: SseClient) {
 export function finishRun(run: RunState, status: RunStatus) {
   run.status = status
   run.endedAt = Date.now()
-  if (activeWriteRunId === run.runId) activeWriteRunId = null
+  if (activeRunByTicker.get(run.ticker) === run.runId) activeRunByTicker.delete(run.ticker)
   void Promise.resolve(run.closeWatcher?.()).catch(() => {})
 }

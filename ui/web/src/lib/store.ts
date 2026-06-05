@@ -9,10 +9,12 @@ let runSource: EventSource | null = null
 let dataSource: EventSource | null = null
 let bloomTimer: any = null
 let reconnectTimer: any = null
+let pollTimer: any = null
+let selectGen = 0 // bumped on every selectTicker; async work bails if it changed (fast-switch guard)
 let creditProbed = false
 
 export interface StreamRow { key: string; name: string; module: string; layer: number; status: NodeStatus; verdict?: string | null; ts: number }
-export interface ActiveRun { runId: string; kind: string; module?: string; agent?: string; status: string; costUsd?: number; willCommitToMain?: boolean; plannedCount?: number; startedAt?: number }
+export interface ActiveRun { runId: string; ticker: string; kind: string; module?: string; agent?: string; status: string; costUsd?: number; willCommitToMain?: boolean; plannedCount?: number; startedAt?: number }
 export interface Toast { msg: string; tone: 'info' | 'good' | 'bad' }
 
 interface State {
@@ -29,6 +31,8 @@ interface State {
   creditChecking: boolean
   nodeRuntime: Record<string, NodeRuntime>
   activeRun: ActiveRun | null
+  activeRunsByTicker: Set<string>
+  selectToken: number
   runStream: StreamRow[]
   coreBloom: boolean
   decision: any | null
@@ -42,6 +46,7 @@ interface State {
   init: () => Promise<void>
   selectTicker: (t: string) => Promise<void>
   refreshData: () => Promise<void>
+  refreshActiveRuns: () => Promise<void>
   checkCredit: () => Promise<void>
   selectNode: (key: string | null) => void
   nodeStatus: (key: string) => NodeStatus
@@ -82,6 +87,8 @@ export const useStore = create<State>((set, get) => ({
   creditChecking: false,
   nodeRuntime: {},
   activeRun: null,
+  activeRunsByTicker: new Set(),
+  selectToken: 0,
   runStream: [],
   coreBloom: false,
   decision: null,
@@ -123,13 +130,18 @@ export const useStore = create<State>((set, get) => ({
   },
 
   selectTicker: async (t) => {
-    set({ selectedTicker: t, dataStatus: null, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, coreBloom: false, selectedNodeKey: null, runStream: [], activeRun: null })
+    closeRunSource() // stop the previous company's live stream before anything else (no event bleed)
+    const token = ++selectGen
+    set({ selectToken: token, selectedTicker: t, dataStatus: null, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, coreBloom: false, selectedNodeKey: null, runStream: [], activeRun: null, openOutput: null })
     const graph = await api.swarm(t)
+    if (get().selectToken !== token) return // a newer selection superseded this one
     set({ graph, nodesByKey: flatten(graph) })
     await get().refreshData()
+    if (get().selectToken !== token) return
     // seed prior-run results into the swarm
     try {
       const manifest = await api.runManifest(t)
+      if (get().selectToken !== token) return
       const seed: Record<string, NodeRuntime> = {}
       for (const [mod, agents] of Object.entries<any>(manifest.modules || {})) {
         for (const a of agents) seed[a.agentKey] = { status: 'done', verdict: a.verdict, outputPath: `${manifest.runRoot}/${a.agentKey}.md` }
@@ -139,10 +151,20 @@ export const useStore = create<State>((set, get) => ({
     } catch {}
     try {
       const decision = await api.decision(t)
+      if (get().selectToken !== token) return
       set({ decision })
     } catch {
-      set({ decision: null })
+      if (get().selectToken === token) set({ decision: null })
     }
+    // if THIS company has a run in flight, reconnect to its live progress
+    try {
+      const { active } = await api.activeRuns()
+      if (get().selectToken !== token) return
+      set({ activeRunsByTicker: new Set(active.map((r) => r.ticker)) })
+      const mine = active.find((r) => r.ticker === t)
+      if (mine) await reconnectRun(set, get, mine.runId, token)
+      schedulePoll(get, active.length > 0)
+    } catch {}
   },
 
   refreshData: async () => {
@@ -151,6 +173,16 @@ export const useStore = create<State>((set, get) => ({
     try {
       const dataStatus = await api.dataStatus(t)
       set({ dataStatus })
+    } catch {}
+  },
+
+  // which companies have a run in flight (drives the ticker-menu dots). Self-polls while any run is active.
+  refreshActiveRuns: async () => {
+    if (get().staticMode) return
+    try {
+      const { active } = await api.activeRuns()
+      set({ activeRunsByTicker: new Set(active.map((r) => r.ticker)) })
+      schedulePoll(get, active.length > 0)
     } catch {}
   },
 
@@ -350,7 +382,9 @@ export const useStore = create<State>((set, get) => ({
         if (e.rateLimit) api.credit().then((c) => set({ credit: c })).catch(() => {})
         break
       case 'run-done':
-        if (get().activeRun) patch.activeRun = { ...get().activeRun!, status: 'done', costUsd: e.costUsd ?? get().activeRun!.costUsd }
+        get().refreshActiveRuns() // the finishing run drops out of the ticker dots
+        if (get().activeRun?.runId !== e.runId) { closeRunSource(); break } // event for a run we aren't viewing
+        patch.activeRun = { ...get().activeRun!, status: 'done', costUsd: e.costUsd ?? get().activeRun!.costUsd }
         patch.coreBloom = true
         if (bloomTimer) clearTimeout(bloomTimer)
         bloomTimer = setTimeout(() => set({ coreBloom: false }), 4500)
@@ -365,7 +399,9 @@ export const useStore = create<State>((set, get) => ({
         get().setToast({ msg: 'Run complete', tone: 'good' })
         break
       case 'run-error':
-        if (get().activeRun) patch.activeRun = { ...get().activeRun!, status: e.status }
+        get().refreshActiveRuns()
+        if (get().activeRun?.runId !== e.runId) { closeRunSource(); break }
+        patch.activeRun = { ...get().activeRun!, status: e.status }
         closeRunSource()
         get().setToast({ msg: e.reason === 'out_of_credits' ? 'Out of credits — run could not execute' : `Run ${e.status}: ${e.reason}`, tone: 'bad' })
         if (e.reason === 'out_of_credits') patch.credit = { ok: false, reason: 'out_of_credits', checked: true }
@@ -382,8 +418,15 @@ function beginRun(set: any, get: () => State, runId: string, info: { kind: strin
   for (const k of plannedKeys) rt[k] = { status: 'queued' }
   if (info.kind === 'full') rt['master/synthesizer'] = { status: 'queued' }
   const plannedCount = plannedKeys.length + (info.kind === 'full' ? 1 : 0)
+  const ticker = get().selectedTicker || ''
   // close the output panel so the user is dropped back to the swarm to watch the run live
-  set({ activeRun: { runId, ...info, status: 'running', plannedCount, startedAt: Date.now() }, nodeRuntime: rt, runStream: [], coreBloom: false, selectedNodeKey: null, openOutput: null })
+  set({ activeRun: { runId, ticker, ...info, status: 'running', plannedCount, startedAt: Date.now() }, nodeRuntime: rt, runStream: [], coreBloom: false, selectedNodeKey: null, openOutput: null })
+  connectRun(get, runId)
+  get().refreshActiveRuns()
+}
+
+// open the live SSE for a run and pipe its events (incl. the server's replayed backlog) into the store
+function connectRun(get: () => State, runId: string) {
   closeRunSource()
   runSource = new EventSource(api.runStreamUrl(runId))
   for (const t of RUN_EVENT_TYPES) {
@@ -394,6 +437,32 @@ function beginRun(set: any, get: () => State, runId: string, info: { kind: strin
     })
   }
   runSource.onerror = () => { /* keep open; server may still be streaming */ }
+}
+
+// rebuild the live view for a company's in-flight run from its snapshot, then attach the stream
+async function reconnectRun(set: any, get: () => State, runId: string, token: number) {
+  try {
+    const snap = await api.runSnapshot(runId)
+    if (get().selectToken !== token) return
+    const rt = { ...get().nodeRuntime }
+    const stream: StreamRow[] = []
+    for (const a of snap.agents || []) {
+      rt[a.key] = { status: a.status, verdict: a.verdict ?? null, outputPath: a.outputPath }
+      if (a.status !== 'queued') stream.unshift({ key: a.key, name: a.name, module: a.module, layer: a.layer, status: a.status, verdict: a.verdict ?? null, ts: Date.now() })
+    }
+    const plannedCount = (snap.expected?.length ?? snap.agents?.length ?? 0) + (snap.kind === 'full' ? 1 : 0)
+    set({
+      activeRun: { runId, ticker: snap.ticker, kind: snap.kind, module: snap.module, agent: snap.agent, status: snap.status, costUsd: snap.costUsd, willCommitToMain: snap.willCommitToMain, plannedCount, startedAt: snap.startedAt },
+      nodeRuntime: rt,
+      runStream: stream,
+    })
+    connectRun(get, runId)
+  } catch {}
+}
+
+function schedulePoll(get: () => State, keepGoing: boolean) {
+  if (pollTimer) { clearTimeout(pollTimer); pollTimer = null }
+  if (keepGoing && !get().staticMode) pollTimer = setTimeout(() => get().refreshActiveRuns(), 5000)
 }
 
 function closeRunSource() {

@@ -81,10 +81,10 @@ This is the standalone behavior. Under `/research:full`, fail-fast in one module
 
 Per repo `CLAUDE.md` git policy: commit straight to `main`. No branches. No PRs.
 
+Commit through the serialized helper (global git lock; commits only this pathspec; pushes):
+
 ```
-git add "analyses/${ARGUMENTS}_<DATE>/balance-sheet-survival/"
-git commit -m "Balance-sheet-survival run: ${ARGUMENTS} <DATE>"
-git push origin main
+bash scripts/commit-run.sh "Balance-sheet-survival run: ${ARGUMENTS} <DATE>" -- "analyses/${ARGUMENTS}_<DATE>/balance-sheet-survival/"
 ```
 
 Capture the commit SHA from `git rev-parse HEAD`.

@@ -316,18 +316,16 @@ Rewrite `<RUN_ROOT>/RUN_METADATA.md` via the Write tool to fill in the placehold
 
 Per repo `CLAUDE.md` git policy: commit straight to `main`. No branches. No PRs.
 
-```
-git add "analyses/${ARGUMENTS}_<DATE>/"
-git commit -m "Research run: ${ARGUMENTS} <DATE>"
-git push origin main
-```
-
-Capture the commit SHA from `git rev-parse HEAD` and patch the "Commit SHA" field in `RUN_METADATA.md` by rewriting that file via the Write tool (read it, substitute the SHA in place of `(to be filled after commit)`, write the full new content). Do not use `git commit --amend` — per `CLAUDE.md` spirit, prefer new commits over amends. Add the SHA patch as a follow-up commit:
+Commit through the serialized helper (it holds a global git lock so concurrent companies don't collide on `.git/index.lock`, commits only this run folder, and pushes):
 
 ```
-git add "analyses/${ARGUMENTS}_<DATE>/RUN_METADATA.md"
-git commit -m "Backfill commit SHA in RUN_METADATA for ${ARGUMENTS} <DATE>"
-git push origin main
+bash scripts/commit-run.sh "Research run: ${ARGUMENTS} <DATE>" -- "analyses/${ARGUMENTS}_<DATE>/"
+```
+
+The helper prints `COMMIT_SHA=<sha>` on success, or `NOOP=1` if nothing was staged (if `NOOP=1`, there is nothing to backfill — skip the rest of this step). Capture `<sha>` from that line and patch the "Commit SHA" field in `RUN_METADATA.md` by rewriting that file via the Write tool (read it, substitute `<sha>` in place of `(to be filled after commit)`, write the full new content). Do not use `git commit --amend`. Add the SHA patch as a second commit through the same helper:
+
+```
+bash scripts/commit-run.sh "Backfill commit SHA in RUN_METADATA for ${ARGUMENTS} <DATE>" -- "analyses/${ARGUMENTS}_<DATE>/RUN_METADATA.md"
 ```
 
 (The two-commit approach is intentional: it keeps the run-artifacts commit clean of metadata about itself.)
