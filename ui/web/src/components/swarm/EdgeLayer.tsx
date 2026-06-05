@@ -22,14 +22,18 @@ export function EdgeLayer({ layout, highlighted, anyHover }: { layout: Layout; h
         const isBackbone = e.kind !== 'feeds'
         if (!isBackbone && !hl) return null // intra-module feeds stay hidden until hovered
         const faded = anyHover && !hl
+        // cross-module dependency edges read at rest (dashed, deeper, higher opacity) so the
+        // real dependency structure is always visible — what's safe to run in parallel is obvious.
+        const isDep = e.kind === 'dep'
         return (
           <path
             key={e.id}
             d={e.d}
             fill="none"
-            stroke={hl ? 'var(--accent)' : 'var(--hairline)'}
-            strokeWidth={hl ? 1.6 : 1}
-            strokeOpacity={hl ? 0.95 : faded ? 0.14 : 0.5}
+            stroke={hl ? 'var(--accent)' : isDep ? 'var(--accent-deep)' : 'var(--hairline)'}
+            strokeWidth={hl ? 1.6 : isDep ? 1.2 : 1}
+            strokeOpacity={hl ? 0.95 : faded ? 0.14 : isDep ? 0.72 : 0.5}
+            strokeDasharray={isDep && !hl ? '5,4' : undefined}
             markerEnd={`url(#${hl ? 'arr-lit' : 'arr-dim'})`}
             className={hl ? 'edge--flow' : undefined}
             style={{ transition: 'stroke-opacity 160ms ease, stroke 160ms ease' }}

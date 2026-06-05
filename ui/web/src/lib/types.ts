@@ -21,6 +21,8 @@ export interface ModuleNode {
   dependsOn: string[]
   layers: Record<string, AgentNode[]>
   agentCount: number
+  depsComplete?: boolean // ticker graph only: are this module's dependsOn syntheses on disk?
+  missingDeps?: string[]
 }
 export interface SwarmGraph {
   modules: ModuleNode[]

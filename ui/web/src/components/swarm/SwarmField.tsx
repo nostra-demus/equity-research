@@ -40,6 +40,7 @@ export function SwarmField() {
 
   const layout = useMemo(() => (graph ? computeLayout(graph, size.w, size.h) : null), [graph, size.w, size.h])
   const moduleOrder = useMemo(() => new Map((graph?.modules || []).map((m, i) => [m.name, i])), [graph])
+  const moduleByName = useMemo(() => new Map((graph?.modules || []).map((m) => [m.name, m])), [graph])
 
   // modules with a live (queued or running) orb — they light their edges and pulse their label,
   // so a running module reads as "alive" from the moment of launch (incl. the engine-startup phase)
@@ -83,7 +84,9 @@ export function SwarmField() {
   const onClusterClick = (module: string) => {
     const ms = dataStatus?.modules[module]?.status
     if (ms === 'Insufficient') return setToast({ msg: `No data for ${module} — upload to Drive`, tone: 'info' })
-    launchModule(module) // launchModule guards if this module is already in flight; the server is authoritative
+    const mod = moduleByName.get(module)
+    if (mod?.depsComplete === false) return setToast({ msg: `${module} needs ${mod.missingDeps?.join(', ') || 'upstream'} complete first`, tone: 'info' })
+    launchModule(module) // launchModule also guards if this module is already in flight; the server is authoritative
   }
 
   return (
@@ -94,11 +97,20 @@ export function SwarmField() {
       {layout.clusters.map((c) => {
         const ms = dataStatus?.modules[c.module]?.status
         const live = activeModules.has(c.module)
+        const mod = moduleByName.get(c.module)
+        const depLocked = mod?.depsComplete === false
+        const miss = mod?.missingDeps?.join(', ')
         return (
           <div key={c.module} className={`cluster__label${live ? ' cluster__label--live' : ''}`} style={{ left: c.labelX, top: c.labelY }} onMouseEnter={() => setHoverModule(c.module)} onMouseLeave={() => setHoverModule(null)} onClick={(e) => { e.stopPropagation(); onClusterClick(c.module) }}>
             <div className="cluster__name">{c.module.replace(/-/g, ' ')}</div>
             {ms && <div className="cluster__status" style={{ color: sufficiencyColor(ms) }}>{ms}</div>}
-            {live ? <div className="cluster__run">● running…</div> : <div className="cluster__run">▸ run module</div>}
+            {live ? (
+              <div className="cluster__run">● running…</div>
+            ) : depLocked ? (
+              <div className="cluster__run" style={{ color: 'var(--text-faint)' }} title={`Needs ${miss} complete first`}>🔒 needs {miss}</div>
+            ) : (
+              <div className="cluster__run">▸ run module</div>
+            )}
           </div>
         )
       })}

@@ -184,6 +184,10 @@ export function graphForTicker(ticker: string): SwarmGraph {
   const runRoot = findLatestRunRoot(ticker)
   const clone: SwarmGraph = JSON.parse(JSON.stringify(base))
   for (const m of clone.modules) {
+    // module-level: are this module's cross-module dependencies complete on disk? (matches admission D4)
+    const deps = depsCompleteForModule(ticker, m.name)
+    m.depsComplete = deps.complete
+    m.missingDeps = deps.missing
     for (const layerKey of Object.keys(m.layers)) {
       for (const a of m.layers[layerKey]) {
         if (a.requiredUpstream.length === 0) {
