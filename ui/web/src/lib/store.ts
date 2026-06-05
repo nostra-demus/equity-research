@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { api, isStatic } from './api'
 import { downstreamCascade, type CascadeNode } from './cascade'
-import type { AgentNode, DataStatus, LaunchPreflight, NodeRuntime, NodeStatus, SseEvent, SwarmGraph, TickerSummary, Usage } from './types'
+import type { AgentNode, DataStatus, HealthState, LaunchPreflight, NodeRuntime, NodeStatus, SseEvent, SwarmGraph, TickerSummary, Usage } from './types'
 
 const RUN_EVENT_TYPES = ['run-started', 'agent-started', 'agent-done', 'agent-failed', 'layer-advanced', 'module-done', 'cost-tick', 'run-done', 'run-error']
 
@@ -15,6 +15,22 @@ let pollTimer: any = null
 let selectGen = 0 // bumped on every selectTicker; async work bails if it changed (fast-switch guard)
 let creditProbed = false
 
+// ---- engine heartbeat (the real source of truth for the online/offline indicator) ----
+// `connected` (below) only flips false on the INITIAL load failure; SSE onerror keeps run streams open,
+// so a mid-session engine loss (the laptop sleeps) is invisible to it. This independent /api/health poll
+// detects it and drives `health`. A generation counter lets checkHealthNow()/restart cancel an in-flight
+// tick's continuation, so two timers never coexist.
+let healthTimer: any = null
+let healthAbort: AbortController | null = null
+let healthLoopRunning = false
+let healthListenersBound = false
+let healthGen = 0
+const HEALTH_OK_MS = 20000 // healthy cadence
+const HEALTH_DEGRADED_MS = 5000 // faster while down — snappy detection + recovery
+const HEALTH_TIMEOUT_MS = 4000 // a sleeping laptop must register quickly
+const OFFLINE_THRESHOLD = 2 // consecutive fails before declaring the engine offline (anti-flicker)
+const HARD_DOWN = new Set<HealthState>(['engine-offline', 'your-network', 'session-expired'])
+
 export interface StreamRow { runId: string; ticker: string; key: string; name: string; module: string; layer: number; status: NodeStatus; verdict?: string | null; ts: number }
 export interface ActiveRun { runId: string; ticker: string; kind: string; module?: string; agent?: string; status: string; costUsd?: number; willCommitToMain?: boolean; plannedCount?: number; startedAt?: number }
 export interface Toast { msg: string; tone: 'info' | 'good' | 'bad' }
@@ -27,6 +43,9 @@ const runsForTicker = (runs: Record<string, ActiveRun>, t: string | null): Activ
 
 interface State {
   connected: boolean
+  health: HealthState
+  healthFailCount: number
+  lastHealthOkAt: number | null
   staticMode: boolean
   dataDir: string | null
   tickers: TickerSummary[]
@@ -52,6 +71,10 @@ interface State {
   toast: Toast | null
 
   init: () => Promise<void>
+  startHealth: () => void
+  stopHealth: () => void
+  checkHealthNow: () => Promise<void>
+  _tickHealth: () => Promise<void>
   selectTicker: (t: string) => Promise<void>
   refreshData: () => Promise<void>
   refreshActiveRuns: () => Promise<void>
@@ -86,6 +109,9 @@ function flatten(graph: SwarmGraph): Map<string, AgentNode> {
 
 export const useStore = create<State>((set, get) => ({
   connected: true,
+  health: 'connecting',
+  healthFailCount: 0,
+  lastHealthOkAt: null,
   staticMode: false,
   dataDir: null,
   tickers: [],
@@ -115,6 +141,7 @@ export const useStore = create<State>((set, get) => ({
       const [graph, tk, credit] = await Promise.all([api.swarm(), api.tickers(), api.credit().catch(() => null)])
       const stat = isStatic()
       set({ connected: true, staticMode: stat, graph, nodesByKey: flatten(graph), tickers: tk.tickers, emptyState: tk.emptyState, dataDir: (tk as any).dataDir ?? null, credit })
+      if (!stat) get().startHealth() // begin the engine heartbeat (live mode only); idempotent across reconnects
       // live data-folder watcher (Drive sync) — backend only
       if (!stat && !dataSource) {
         dataSource = new EventSource(api.dataStreamUrl())
@@ -237,6 +264,7 @@ export const useStore = create<State>((set, get) => ({
 
   launchAgent: async (node) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' })
+    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
     const t = get().selectedTicker
     if (!t) return
     if (get().targetInFlight(t, [node.key])) return get().setToast({ msg: `${node.name} is already running`, tone: 'info' })
@@ -255,6 +283,7 @@ export const useStore = create<State>((set, get) => ({
 
   launchModule: async (module) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' })
+    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
     const t = get().selectedTicker
     if (!t) return
     const planned = [...get().nodesByKey.values()].filter((n) => n.module === module).map((n) => n.key)
@@ -270,6 +299,7 @@ export const useStore = create<State>((set, get) => ({
 
   requestFull: async () => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — a full run executes on your machine via npm run dev', tone: 'info' })
+    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
     const t = get().selectedTicker
     if (!t) return
     if (get().anyRunForTicker(t)) return get().setToast({ msg: `Finish the in-flight run on ${t} first — a full run needs exclusive access`, tone: 'info' })
@@ -280,6 +310,7 @@ export const useStore = create<State>((set, get) => ({
   confirmFull: async () => {
     const t = get().selectedTicker
     if (!t) return
+    if (HARD_DOWN.has(get().health)) { set({ launchConfirm: null }); return get().setToast({ msg: 'Engine offline — the run was not started.', tone: 'bad' }) }
     set({ launchConfirm: null })
     const planned = [...get().nodesByKey.keys()]
     try {
@@ -295,6 +326,7 @@ export const useStore = create<State>((set, get) => ({
   // opens the cascade confirm dialog; confirmRerun() actually launches. Live-only.
   launchRerun: async (node) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — re-runs happen on your machine via npm run dev', tone: 'info' })
+    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
     const t = get().selectedTicker
     if (!t) return
     const cascade = downstreamCascade(get().graph, node.module, node.name)
@@ -312,6 +344,7 @@ export const useStore = create<State>((set, get) => ({
     const t = get().selectedTicker
     const lc = get().launchConfirm
     if (!t || !lc?.node) return
+    if (HARD_DOWN.has(get().health)) { set({ launchConfirm: null }); return get().setToast({ msg: 'Engine offline — the run was not started.', tone: 'bad' }) }
     const node = lc.node
     const planned = (lc.cascade ?? downstreamCascade(get().graph, node.module, node.name)).map((c) => c.key)
     set({ launchConfirm: null, openOutput: null })
@@ -373,6 +406,76 @@ export const useStore = create<State>((set, get) => ({
   setToast: (t) => {
     set({ toast: t })
     if (t) setTimeout(() => { if (get().toast === t) set({ toast: null }) }, 3200)
+  },
+
+  startHealth: () => {
+    if (get().staticMode || healthLoopRunning) return
+    healthLoopRunning = true
+    if (!healthListenersBound && typeof window !== 'undefined') {
+      healthListenersBound = true
+      // re-check instantly when the visitor's own network returns or the tab refocuses
+      window.addEventListener('online', () => get().checkHealthNow())
+      window.addEventListener('offline', () => set({ health: 'your-network', connected: false }))
+      document.addEventListener('visibilitychange', () => { if (!document.hidden) get().checkHealthNow() })
+    }
+    pumpHealth(get)
+  },
+
+  stopHealth: () => {
+    healthLoopRunning = false
+    healthGen++
+    if (healthTimer) { clearTimeout(healthTimer); healthTimer = null }
+    healthAbort?.abort()
+    healthAbort = null
+  },
+
+  checkHealthNow: async () => {
+    if (!healthLoopRunning) return
+    pumpHealth(get) // immediate probe + reschedule (gen guard voids the prior in-flight continuation)
+  },
+
+  _tickHealth: async () => {
+    if (get().staticMode) return
+    // the visitor's OWN connection is down — never blame the engine
+    if (typeof navigator !== 'undefined' && navigator.onLine === false) {
+      set({ health: 'your-network', connected: false })
+      return
+    }
+    healthAbort?.abort()
+    const ac = new AbortController()
+    healthAbort = ac
+    const to = setTimeout(() => ac.abort(), HEALTH_TIMEOUT_MS)
+    let outcome: 'ok' | 'engine' | 'session' = 'engine'
+    try {
+      const r = await fetch('/api/health', { cache: 'no-store', headers: { accept: 'application/json' }, signal: ac.signal })
+      const ct = r.headers.get('content-type') || ''
+      if (r.headers.get('x-engine-status') === 'offline' || r.status >= 520) {
+        outcome = 'engine' // the edge Worker / Cloudflare says the origin is down
+      } else if (r.ok && ct.includes('application/json')) {
+        const j = await r.json().catch(() => null)
+        outcome = j && j.ok === true ? 'ok' : 'engine' // {ok:true}=live; {ok:false}=worker offline marker
+      } else if (r.status === 401 || r.status === 403 || r.redirected || !ct.includes('application/json')) {
+        outcome = 'session' // Access login/redirect (HTML) — an auth issue, not an engine outage
+      } else {
+        outcome = 'engine'
+      }
+    } catch {
+      outcome = 'engine' // network error / abort / timeout (navigator.onLine was true)
+    } finally {
+      clearTimeout(to)
+      if (healthAbort === ac) healthAbort = null
+    }
+
+    if (outcome === 'ok') {
+      set({ health: 'online', healthFailCount: 0, lastHealthOkAt: Date.now(), connected: true })
+    } else if (outcome === 'session') {
+      set({ health: 'session-expired', connected: false })
+    } else {
+      const n = get().healthFailCount + 1
+      const health: HealthState = n >= OFFLINE_THRESHOLD ? 'engine-offline' : 'reconnecting'
+      // back-fill legacy `connected` (online/reconnecting = true) so the TickerPicker dot stays consistent
+      set({ health, healthFailCount: n, connected: health === 'reconnecting' })
+    }
   },
 
   _handleEvent: (e) => {
@@ -506,6 +609,20 @@ async function reconnectRun(set: any, get: () => State, runId: string, token: nu
 function schedulePoll(get: () => State, keepGoing: boolean) {
   if (pollTimer) { clearTimeout(pollTimer); pollTimer = null }
   if (keepGoing && !get().staticMode) pollTimer = setTimeout(() => get().refreshActiveRuns(), 5000)
+}
+
+// One health probe now, then self-reschedule (20s healthy / 5s degraded). The generation guard makes a
+// restart/checkHealthNow cancel any in-flight tick's continuation, so two timers never coexist.
+function pumpHealth(get: () => State) {
+  const gen = ++healthGen
+  if (healthTimer) { clearTimeout(healthTimer); healthTimer = null }
+  const tick = async () => {
+    if (gen !== healthGen) return
+    await get()._tickHealth()
+    if (gen !== healthGen || !healthLoopRunning) return
+    healthTimer = setTimeout(tick, get().health === 'online' ? HEALTH_OK_MS : HEALTH_DEGRADED_MS)
+  }
+  void tick()
 }
 
 function closeRunSource(runId?: string) {

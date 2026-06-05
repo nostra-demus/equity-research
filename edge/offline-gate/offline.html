@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta http-equiv="refresh" content="60" />
+<title>System offline · Nostradamus</title>
+<style>
+  :root {
+    --bg:#0e0e10; --surface:#141417; --hairline:#26262b; --hairline-strong:#34343b;
+    --text:#ececee; --muted:#8a8a93; --faint:#56565f; --accent:#e0a33e; --bad:#c9514e;
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", system-ui, sans-serif;
+    display: grid; place-items: center; padding: 24px; letter-spacing: 0.1px;
+    background-image: radial-gradient(1100px 640px at 50% 120%, rgba(224,163,62,0.05), transparent 60%);
+  }
+  .card {
+    width: 440px; max-width: 92%; text-align: center;
+    background: var(--surface); border: 1px solid var(--hairline); border-radius: 16px;
+    padding: 38px 34px; box-shadow: 0 18px 50px rgba(0,0,0,0.55);
+    opacity: 0; transform: translateY(8px) scale(0.98); animation: rise 260ms var(--ease-out) forwards;
+  }
+  @keyframes rise { to { opacity: 1; transform: none; } }
+  .mark { width: 34px; height: 34px; margin: 0 auto 18px; display: block; }
+  h1 { font-size: 18px; font-weight: 600; margin: 0 0 10px; letter-spacing: 0.2px; }
+  p { font-size: 13.5px; line-height: 1.6; color: var(--muted); margin: 0 auto; max-width: 35ch; }
+  .status { margin-top: 22px; font-size: 12px; color: var(--faint); display: inline-flex; align-items: center; gap: 8px; }
+  .dot {
+    width: 9px; height: 9px; border-radius: 50%; background: var(--bad);
+    box-shadow: 0 0 0 0 rgba(201,81,78,0.5); animation: pulse 1.8s var(--ease-out) infinite;
+  }
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(201,81,78,0.45); }
+    70% { box-shadow: 0 0 0 9px transparent; }
+    100% { box-shadow: 0 0 0 0 transparent; }
+  }
+  .brandname { margin-top: 22px; font-size: 10.5px; letter-spacing: 0.5px; text-transform: uppercase; color: var(--faint); }
+  @media (prefers-reduced-motion: reduce) { .card, .dot { animation: none; opacity: 1; transform: none; } }
+</style>
+</head>
+<body>
+  <main class="card" role="alert" aria-live="polite">
+    <svg class="mark" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+      <circle cx="9" cy="9" r="7.5" stroke="#34343b" />
+      <circle cx="9" cy="9" r="2.4" fill="#e0a33e" />
+      <circle cx="9" cy="1.6" r="1.1" fill="#56565f" />
+      <circle cx="15.4" cy="12.6" r="1.1" fill="#56565f" />
+      <circle cx="2.6" cy="12.6" r="1.1" fill="#56565f" />
+    </svg>
+    <h1>System offline</h1>
+    <p>The research engine’s machine is asleep or offline. This page will reconnect automatically when the engine is back online.</p>
+    <div class="status"><span class="dot"></span><span id="s">Checking every 10 seconds…</span></div>
+    <div class="brandname">Nostradamus Swarm</div>
+    <noscript><p style="margin-top:16px; color:#56565f;">Auto-refreshing every 60 seconds.</p></noscript>
+  </main>
+  <script>
+    var s = document.getElementById('s');
+    // Reload ONLY on a real healthy engine ({ok:true} JSON) — never on the Worker's own 503 marker
+    // or a Cloudflare/Access HTML page, which would cause a reload loop.
+    async function check() {
+      try {
+        var r = await fetch('/api/health', { cache: 'no-store', headers: { accept: 'application/json' } });
+        var ct = r.headers.get('content-type') || '';
+        if (r.ok && ct.indexOf('application/json') !== -1) {
+          var j = await r.json().catch(function () { return null; });
+          if (j && j.ok === true) { s.textContent = 'Back online — reloading…'; location.reload(); return; }
+        }
+      } catch (e) { /* still offline */ }
+    }
+    setInterval(check, 10000);
+    setTimeout(check, 2000);
+  </script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+# Cloudflare Worker "offline gate" for app.nostra-demus.com.
+# Transparently proxies to the tunnel origin (the laptop engine) when it's up; serves an honest
+# "offline" response when the origin is down (laptop asleep/off). See README.md before deploying.
+name = "nostradamus-offline-gate"
+main = "src/worker.ts"
+compatibility_date = "2026-06-01"
+workers_dev = true   # gives a *.workers.dev URL for smoke-testing the logic
+
+# Import offline.html as a string at build time.
+rules = [
+  { type = "Text", globs = ["**/*.html"], fallthrough = true }
+]
+
+# Production route — puts the Worker in front of the Access-protected hostname.
+# Deploy procedure (README): test with `wrangler dev` first, then `wrangler deploy`, then verify
+# (curl document -> offline HTML; curl /api/health -> 503 JSON), and `wrangler rollback` if wrong.
+routes = [
+  { pattern = "app.nostra-demus.com/*", zone_name = "nostra-demus.com" }
+]

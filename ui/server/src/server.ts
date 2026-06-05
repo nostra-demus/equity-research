@@ -46,7 +46,11 @@ function startSSE(reply: FastifyReply) {
 }
 
 // ---------- health ----------
-app.get('/api/health', async () => ({ ok: true, repoRoot: REPO_ROOT }))
+// no-store so a browser/proxy never serves a stale 200 that would mask an outage from the heartbeat.
+app.get('/api/health', async (_req, reply) => {
+  reply.header('cache-control', 'no-store')
+  return { ok: true, repoRoot: REPO_ROOT }
+})
 
 // ---------- swarm graph ----------
 app.get('/api/swarm', async (req) => {

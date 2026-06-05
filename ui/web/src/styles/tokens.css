@@ -26,6 +26,10 @@
   --neutral: #6b6b73;
   --bad: #c9514e;
   --bad-wash: rgba(201, 81, 78, 0.12);
+  /* the one green — engine "Live" only (the palette is otherwise amber; --good is amber and would
+     clash with the running-node pulses, reading as a warning rather than "healthy") */
+  --live: #43b581;
+  --live-wash: rgba(67, 181, 129, 0.14);
 
   /* radii */
   --r-sm: 6px;

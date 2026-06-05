@@ -1,5 +1,8 @@
 export type Sufficiency = 'Sufficient' | 'Partial' | 'Insufficient'
 export type NodeStatus = 'dormant' | 'locked' | 'ready' | 'notready' | 'queued' | 'running' | 'done' | 'failed'
+// engine reachability, driven by the /api/health heartbeat (lib/store). `your-network` = the visitor's
+// own connection is down; `session-expired` = Cloudflare Access cookie gone (reachable but not JSON-ok).
+export type HealthState = 'connecting' | 'online' | 'reconnecting' | 'engine-offline' | 'your-network' | 'session-expired'
 
 export interface AgentNode {
   key: string

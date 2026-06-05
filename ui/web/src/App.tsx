@@ -9,6 +9,7 @@ import { LaunchConfirm } from './components/LaunchConfirm'
 import { DataUploadEmptyState } from './components/DataUploadEmptyState'
 import { DataFilesPanel } from './components/DataFilesPanel'
 import { DecisionBanner } from './components/DecisionBanner'
+import { OfflineBanner } from './components/EngineStatus'
 
 export function App() {
   const init = useStore((s) => s.init)
@@ -23,6 +24,7 @@ export function App() {
     <div className="app">
       <div className="app__bg" />
       <CommandBar />
+      <OfflineBanner />
       <div className="main">
         <div className="stage">
           <SwarmField />

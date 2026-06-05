@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useStore } from '../lib/store'
 import { decisionColor, resetIn, sufficiencyColor, usageColor, usageLabel, usagePct } from '../lib/format'
+import { EngineStatusPill } from './EngineStatus'
 
 function BrandMark() {
   return (
@@ -173,6 +174,8 @@ export function CommandBar() {
   const anyRun = useStore((s) => s.anyRunForTicker(s.selectedTicker))
   const selectedTicker = useStore((s) => s.selectedTicker)
   const staticMode = useStore((s) => s.staticMode)
+  const health = useStore((s) => s.health)
+  const engineDown = health === 'engine-offline' || health === 'your-network' || health === 'session-expired'
   return (
     <div className="topbar">
       <div className="brand">
@@ -185,10 +188,11 @@ export function CommandBar() {
       </div>
       <div className="topbar__spacer" />
       <ReadinessStrip />
+      <EngineStatusPill />
       {decision?.final_thesis_path !== undefined || decision?.decision ? (
         <button className="btn btn--ghost" onClick={openThesis}>Thesis</button>
       ) : null}
-      <button className="btn btn--amber" disabled={!selectedTicker || anyRun} onClick={requestFull} title={staticMode ? 'Runs on your local machine (npm run dev)' : anyRun ? 'A run is in flight — a full run needs exclusive access' : 'Run the full pipeline'}>
+      <button className="btn btn--amber" disabled={!selectedTicker || anyRun || engineDown} onClick={requestFull} title={staticMode ? 'Runs on your local machine (npm run dev)' : engineDown ? 'Engine offline — live runs are paused until it reconnects' : anyRun ? 'A run is in flight — a full run needs exclusive access' : 'Run the full pipeline'}>
         Run full ▸
       </button>
       <CreditBadge />
