@@ -11,6 +11,7 @@ set -uo pipefail
 REPO="/Users/chiraagkapil/equity-research"
 PORT=8787
 UID_NUM="$(id -u)"
+AGENTS_DIR="$HOME/Library/LaunchAgents"
 LOG="$HOME/Library/Logs/nostradamus-watchdog.log"
 STATE_DIR="$HOME/Library/Application Support/nostradamus"
 FAILS="$STATE_DIR/watchdog.fails"
@@ -20,6 +21,14 @@ ts() { date '+%Y-%m-%d %H:%M:%S'; }
 log() { echo "$(ts) $*" >> "$LOG"; }
 get_fails() { cat "$FAILS" 2>/dev/null || echo 0; }
 set_fails() { echo "$1" > "$FAILS"; }
+# Recover an agent even if it was booted OUT (not just crashed): `kickstart` cannot start an
+# unloaded agent, so bootstrap first when it is gone, THEN (re)start. This is exactly what was
+# missing when a failed installer left the engine booted-out and the watchdog could not bring it back.
+ensure_up() {
+  launchctl print "gui/$UID_NUM/$1" >/dev/null 2>&1 \
+    || launchctl bootstrap "gui/$UID_NUM" "$AGENTS_DIR/$1.plist" 2>/dev/null || true
+  launchctl kickstart -k "gui/$UID_NUM/$1" 2>/dev/null || true
+}
 
 # keep the log bounded (~last 1000 lines once it passes 5000)
 if [ -f "$LOG" ] && [ "$(wc -l < "$LOG" 2>/dev/null || echo 0)" -gt 5000 ]; then
@@ -61,21 +70,25 @@ if [ -n "$problem" ]; then
         log "  rebuilding ui/web (dist looks corrupt/missing)"
         ( cd "$REPO" && /opt/homebrew/bin/npm --prefix ui/web run build ) >> "$LOG" 2>&1 || log "  WARN web build failed"
         lsof -ti:"$PORT" 2>/dev/null | xargs kill -9 2>/dev/null || true
-        launchctl kickstart -k "gui/$UID_NUM/com.nostradamus.engine" 2>/dev/null || true
+        ensure_up com.nostradamus.engine
         ;;
       engine-down)
-        # clear any non-launchd squatter holding the port, then let launchd own it again
+        # clear any non-launchd squatter holding the port, then ensure launchd owns it again —
+        # bootstrap if the agent was booted OUT, not merely crashed (kickstart alone can't).
         lsof -ti:"$PORT" 2>/dev/null | xargs kill -9 2>/dev/null || true
-        launchctl kickstart -k "gui/$UID_NUM/com.nostradamus.engine" 2>/dev/null || true
+        ensure_up com.nostradamus.engine
         ;;
       tunnel-down)
-        launchctl kickstart -k "gui/$UID_NUM/com.nostradamus.tunnel" 2>/dev/null || true
+        ensure_up com.nostradamus.tunnel
         ;;
     esac
-    set_fails 0   # reset after a repair so it recovers before any further action
+    set_fails 0                  # reset so the repair gets a cycle to take effect before any re-heal
+    : > "$STATE_DIR/healing"     # marker: the next healthy check writes an explicit RECOVERED line
   fi
 else
-  [ "$(get_fails)" != "0" ] && log "RECOVERED${detail:+ [$detail]}"
+  if [ "$(get_fails)" != "0" ] || [ -f "$STATE_DIR/healing" ]; then
+    log "RECOVERED${detail:+ [$detail]}"; rm -f "$STATE_DIR/healing"
+  fi
   set_fails 0
   # healthy: heartbeat at most ~hourly (and always on first run / fresh log) so the track shows
   # proof-of-life — you can tell at a glance the watchdog is alive — without becoming noise.
