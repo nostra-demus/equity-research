@@ -141,6 +141,7 @@ If a cross-module file is missing, the affected agent proceeds independently and
 ## Style Rules
 
 - Plain English. Short sentences. Numbers and dates beat adjectives.
+- Plain enough for a non-finance reader (CLAUDE.md §21): use the simplest word that keeps the meaning, and the first time a finance term appears (e.g. re-rate, the trigger and its window) keep the term and its number but add a short plain meaning in a clause. Plain is not vague — never drop a number or a date.
 - Every catalyst → evidence in the same row, in the citation format above.
 - Label all inference: *"Inference, not from filings."*
 

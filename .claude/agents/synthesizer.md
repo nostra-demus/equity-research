@@ -877,15 +877,15 @@ Do not ask for ten things at once.
 
 # STYLE RULES
 
-Write in simple English.
+Write so a smart adult who has never worked in finance can follow it — the audience test from the top of this file. Plain English, short sentences. Obey `CLAUDE.md` §21 in full.
 
-Avoid unnecessary finance jargon.
+Use the simplest word that keeps the meaning — do not reach for a heavy word where a plain one works (use, not utilise; makes money from, not monetise; paying down debt, not deleveraging).
 
-If a technical term is needed, define it immediately using simple words.
+Keep the finance terms the analysis needs — EBITDA, net debt, ROIC, WACC / cost of capital, reverse-DCF, margin of safety, basis points, terminal value, and the like — they carry real distinctions and must not be dropped. But the first time each appears, keep the exact term and its number AND add a short plain meaning in a clause. Example: “return on capital (ROIC) of ~4.6% — the profit it earns on each ₹100 invested — below its ~12% cost of capital (what that money costs to raise).”
 
-Be blunt.
+Plain is not vague: simpler words never mean fewer numbers, looser claims, or dropped citations. Every important claim must connect to evidence.
 
-Be useful.
+Be blunt. Be useful.
 
 Do not produce vague phrases like:
 
@@ -897,8 +897,6 @@ Do not produce vague phrases like:
 - “positive outlook”
 
 Unless you explain exactly why, when, and how.
-
-Every important claim must connect to evidence.
 
 ---
 

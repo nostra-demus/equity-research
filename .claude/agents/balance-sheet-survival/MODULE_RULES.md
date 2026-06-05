@@ -248,6 +248,7 @@ The stress test must state: which factor breaks first (covenant, liquidity, or m
 ## Style Rules
 
 - Plain English. Short sentences.
+- Plain enough for a non-finance reader (CLAUDE.md §21): use the simplest word that keeps the meaning, and the first time a finance term appears (e.g. net leverage, covenant headroom, fixed-charge coverage, liquidity runway) keep the term and its number but add a short plain meaning in a clause. Plain is not vague — never drop a number or a citation.
 - Every important claim → evidence in the same paragraph or table row, in the citation format above.
 - Numbers beat adjectives. Show the formula behind every ratio.
 - Label all inference: *"Inference, not from filings."*

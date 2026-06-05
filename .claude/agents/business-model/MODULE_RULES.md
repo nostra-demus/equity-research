@@ -92,6 +92,7 @@ If multiple caps affect the same score, use the most restrictive. State explicit
 ## Style Rules
 
 - Plain English. Short sentences.
+- Plain enough for a non-finance reader (CLAUDE.md §21): use the simplest word that keeps the meaning, and the first time a finance term appears (e.g. EBITDA margin, ROIC/ROCE, unit economics) keep the term and its number but add a short plain meaning in a clause. Plain is not vague — never drop a number or a citation.
 - Every important claim → evidence in the same paragraph or table row, in the citation format above.
 - Numbers beat adjectives. If you can quote a number from a filing, do.
 - Label all inference: *"Inference, not from filings."*
