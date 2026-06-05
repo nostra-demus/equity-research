@@ -42,10 +42,12 @@ export function SwarmField() {
   const layout = useMemo(() => (graph ? computeLayout(graph, size.w, size.h) : null), [graph, size.w, size.h])
   const moduleOrder = useMemo(() => new Map((graph?.modules || []).map((m, i) => [m.name, i])), [graph])
 
+  // modules with a live (queued or running) orb — they light their edges and pulse their label,
+  // so a running module reads as "alive" from the moment of launch (incl. the engine-startup phase)
   const activeModules = useMemo(() => {
     const s = new Set<string>()
     if (!activeRun) return s
-    for (const [k, v] of Object.entries(nodeRuntime)) if (v.status === 'running') s.add(k.split('/')[0])
+    for (const [k, v] of Object.entries(nodeRuntime)) if (v.status === 'running' || v.status === 'queued') s.add(k.split('/')[0])
     return s
   }, [nodeRuntime, activeRun])
 
@@ -94,11 +96,12 @@ export function SwarmField() {
       {/* cluster labels */}
       {layout.clusters.map((c) => {
         const ms = dataStatus?.modules[c.module]?.status
+        const live = activeModules.has(c.module)
         return (
-          <div key={c.module} className="cluster__label" style={{ left: c.labelX, top: c.labelY }} onMouseEnter={() => setHoverModule(c.module)} onMouseLeave={() => setHoverModule(null)} onClick={(e) => { e.stopPropagation(); onClusterClick(c.module) }}>
+          <div key={c.module} className={`cluster__label${live ? ' cluster__label--live' : ''}`} style={{ left: c.labelX, top: c.labelY }} onMouseEnter={() => setHoverModule(c.module)} onMouseLeave={() => setHoverModule(null)} onClick={(e) => { e.stopPropagation(); onClusterClick(c.module) }}>
             <div className="cluster__name">{c.module.replace(/-/g, ' ')}</div>
             {ms && <div className="cluster__status" style={{ color: sufficiencyColor(ms) }}>{ms}</div>}
-            <div className="cluster__run">▸ run module</div>
+            {live ? <div className="cluster__run">● running…</div> : <div className="cluster__run">▸ run module</div>}
           </div>
         )
       })}

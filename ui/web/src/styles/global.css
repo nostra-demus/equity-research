@@ -118,6 +118,10 @@ a { color: inherit; }
   display: flex; align-items: center; gap: 4px;
 }
 .cluster__label:hover .cluster__run { opacity: 1; }
+/* a module with a live (queued/running) orb: pulse its name + show a persistent "running…" */
+.cluster__label--live .cluster__name { color: var(--accent-bright); animation: clusterlive 1.7s ease-in-out infinite; }
+.cluster__label--live .cluster__run { opacity: 1; color: var(--accent); }
+@keyframes clusterlive { 0%, 100% { opacity: 0.65; } 50% { opacity: 1; } }
 
 /* agent dot */
 .node {
