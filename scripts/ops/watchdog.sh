@@ -96,3 +96,8 @@ else
   [ -f "$LOG" ] && hb_age=$(( $(date +%s) - $(stat -f %m "$LOG" 2>/dev/null || echo 0) ))
   { [ ! -f "$LOG" ] || [ "$hb_age" -ge 3300 ]; } && log "OK${detail:+ [$detail]} pub=${pub:-?}"
 fi
+
+# Always succeed once the checks ran: incidents live in the LOG, not the exit code. Without this a
+# healthy run that writes no heartbeat would exit 1 (shell-false &&) and read as "failed" in
+# `launchctl list` — misleading for the very command used to confirm the watchdog is alive.
+exit 0
