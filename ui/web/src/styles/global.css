@@ -141,8 +141,13 @@ a { color: inherit; }
 .node--ready:hover .node__ring { border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-wash-soft); }
 .node--notready .node__ring { border-color: #3a3a42; border-style: dashed; }
 .node--queued .node__ring { border-color: var(--accent-deep); }
-.node--running .node__ring { border-color: var(--accent); box-shadow: 0 0 14px var(--accent-glow); }
+.node--running .node__ring { border-color: var(--accent); animation: noderun 1.3s ease-out infinite; }
 .node--running .node__core { width: 40%; height: 40%; }
+@keyframes noderun {
+  0%   { box-shadow: 0 0 10px var(--accent-glow), 0 0 0 0 var(--accent-glow); }
+  70%  { box-shadow: 0 0 10px var(--accent-glow), 0 0 0 9px transparent; }
+  100% { box-shadow: 0 0 10px var(--accent-glow), 0 0 0 0 transparent; }
+}
 .node--done .node__ring { border-color: var(--accent); background: var(--accent-wash); }
 .node--done .node__core { width: 52%; height: 52%; box-shadow: 0 0 10px var(--accent-glow); }
 .node--failed .node__ring { border-color: var(--bad); }

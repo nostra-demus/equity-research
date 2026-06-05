@@ -12,7 +12,7 @@ let reconnectTimer: any = null
 let creditProbed = false
 
 export interface StreamRow { key: string; name: string; module: string; layer: number; status: NodeStatus; verdict?: string | null; ts: number }
-export interface ActiveRun { runId: string; kind: string; module?: string; agent?: string; status: string; costUsd?: number; willCommitToMain?: boolean }
+export interface ActiveRun { runId: string; kind: string; module?: string; agent?: string; status: string; costUsd?: number; willCommitToMain?: boolean; plannedCount?: number; startedAt?: number }
 export interface Toast { msg: string; tone: 'info' | 'good' | 'bad' }
 
 interface State {
@@ -381,7 +381,9 @@ function beginRun(set: any, get: () => State, runId: string, info: { kind: strin
   const rt = { ...get().nodeRuntime }
   for (const k of plannedKeys) rt[k] = { status: 'queued' }
   if (info.kind === 'full') rt['master/synthesizer'] = { status: 'queued' }
-  set({ activeRun: { runId, ...info, status: 'running' }, nodeRuntime: rt, runStream: [], coreBloom: false, selectedNodeKey: null })
+  const plannedCount = plannedKeys.length + (info.kind === 'full' ? 1 : 0)
+  // close the output panel so the user is dropped back to the swarm to watch the run live
+  set({ activeRun: { runId, ...info, status: 'running', plannedCount, startedAt: Date.now() }, nodeRuntime: rt, runStream: [], coreBloom: false, selectedNodeKey: null, openOutput: null })
   closeRunSource()
   runSource = new EventSource(api.runStreamUrl(runId))
   for (const t of RUN_EVENT_TYPES) {

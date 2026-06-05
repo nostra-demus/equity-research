@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { fmtCost } from '../lib/format'
@@ -14,10 +15,27 @@ export function RunStreamPanel() {
   const runStream = useStore((s) => s.runStream)
   const cancelRun = useStore((s) => s.cancelRun)
   const ticker = useStore((s) => s.selectedTicker)
+
+  // tick once a second so the elapsed clock updates live while a run is in progress
+  const [now, setNow] = useState(() => Date.now())
+  const running = activeRun?.status === 'running'
+  useEffect(() => {
+    if (!running) return
+    const id = setInterval(() => setNow(Date.now()), 1000)
+    return () => clearInterval(id)
+  }, [running, activeRun?.runId])
+
   if (!activeRun && runStream.length === 0) return null
 
   const doneCount = runStream.filter((r) => r.status === 'done').length
-  const label = activeRun ? (activeRun.kind === 'full' ? 'Full run' : activeRun.kind === 'module' ? `${activeRun.module} module` : activeRun.agent) : 'Last run'
+  const total = activeRun?.plannedCount ?? runStream.length
+  const pct = total ? Math.min(100, Math.round((doneCount / total) * 100)) : 0
+  const label = activeRun ? (activeRun.kind === 'full' ? 'Full run' : activeRun.kind === 'module' ? `${activeRun.module} module` : activeRun.kind === 'rerun' ? `Re-run · ${activeRun.agent}` : activeRun.agent) : 'Last run'
+
+  const elapsedMs = activeRun?.startedAt ? now - activeRun.startedAt : 0
+  const elapsed = `${Math.floor(elapsedMs / 60000)}:${String(Math.floor((elapsedMs % 60000) / 1000)).padStart(2, '0')}`
+  const etaLow = activeRun?.kind === 'full' ? 20 : Math.max(1, Math.ceil(total * 0.3))
+  const etaHigh = activeRun?.kind === 'full' ? 40 : Math.max(2, Math.ceil(total * 0.8))
 
   return (
     <div className="sidepanel">
@@ -28,6 +46,19 @@ export function RunStreamPanel() {
         </div>
         {activeRun?.willCommitToMain && <span className="chip" style={{ color: 'var(--accent)', borderColor: 'var(--accent-deep)' }}>commits main</span>}
       </div>
+
+      {activeRun && (
+        <div style={{ padding: '10px 16px 12px', borderBottom: '1px solid var(--hairline)' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 11, color: 'var(--text-muted)', fontFamily: 'var(--font-mono)', marginBottom: 6 }}>
+            <span>{doneCount}/{total} orbs done</span>
+            <span>{running ? `${elapsed} · ~${etaLow}–${etaHigh} min` : activeRun.status}</span>
+          </div>
+          <div style={{ height: 5, background: 'var(--surface-3)', borderRadius: 'var(--r-pill)', overflow: 'hidden' }}>
+            <div style={{ height: '100%', width: `${pct}%`, background: 'var(--accent)', boxShadow: running ? '0 0 8px var(--accent-glow)' : 'none', transition: 'width 350ms ease' }} />
+          </div>
+        </div>
+      )}
+
       <div className="sidepanel__body">
         <AnimatePresence initial={false}>
           {runStream.map((r) => (
@@ -45,11 +76,9 @@ export function RunStreamPanel() {
             </motion.div>
           ))}
         </AnimatePresence>
-        {runStream.length === 0 && <div className="sidepanel__empty">Waiting for the first agent to report…</div>}
+        {activeRun && runStream.length === 0 && <div className="sidepanel__empty">Starting the engine… the first orb will report in a moment.</div>}
       </div>
       <div className="runfoot">
-        <span className="runfoot__stat">{doneCount} done</span>
-        <span className="runfoot__stat">·</span>
         <span className="runfoot__stat">{fmtCost(activeRun?.costUsd)}</span>
         <div style={{ flex: 1 }} />
         {activeRun && activeRun.status === 'running' && <button className="btn btn--danger" style={{ height: 28, padding: '0 10px', fontSize: 12 }} onClick={cancelRun}>Cancel</button>}
