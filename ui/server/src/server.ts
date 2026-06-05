@@ -324,7 +324,12 @@ if (fs.existsSync(WEB_DIST)) {
   // Vite content-hashes every asset, so they're immutable — cache for a year. A normal
   // reload then serves JS/CSS from the browser disk cache (zero tunnel round-trips);
   // only index.html + /api calls go over the wire.
-  await app.register(fastifyStatic, { root: WEB_DIST, wildcard: false, index: false, maxAge: '365d', immutable: true })
+  // wildcard:true (a dynamic /* file route) — NOT wildcard:false. wildcard:false globs the asset routes
+  // at STARTUP, so rebuilding ui/dist while the engine runs makes the new hashed .js 404 until a restart
+  // (a blank page on every deploy). wildcard:true serves whatever is on disk per request, so a rebuild
+  // deploys with no restart. Missing files still delegate to the notFoundHandler below (which 404s any
+  // /api/* or file-extension path), so SPA deep links keep falling back to index.html.
+  await app.register(fastifyStatic, { root: WEB_DIST, wildcard: true, index: false, maxAge: '365d', immutable: true })
   // Serve index.html with a "this IS the live engine" marker injected, so the SPA
   // skips its (tunnel-slow) /api/health probe and goes straight to LIVE mode —
   // instant, and never the read-only static showcase. The Cloudflare Pages deploy
