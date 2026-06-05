@@ -11,7 +11,6 @@ export function SwarmField() {
   const graph = useStore((s) => s.graph)
   const dataStatus = useStore((s) => s.dataStatus)
   const nodeRuntime = useStore((s) => s.nodeRuntime)
-  const activeRun = useStore((s) => s.activeRun)
   const selectedTicker = useStore((s) => s.selectedTicker)
   const decision = useStore((s) => s.decision)
   const coreBloom = useStore((s) => s.coreBloom)
@@ -46,10 +45,9 @@ export function SwarmField() {
   // so a running module reads as "alive" from the moment of launch (incl. the engine-startup phase)
   const activeModules = useMemo(() => {
     const s = new Set<string>()
-    if (!activeRun) return s
     for (const [k, v] of Object.entries(nodeRuntime)) if (v.status === 'running' || v.status === 'queued') s.add(k.split('/')[0])
     return s
-  }, [nodeRuntime, activeRun])
+  }, [nodeRuntime])
 
   // which edges light up: hovered node's flows, hovered module's flows, the Memo's inbound arrows, or (idle) running modules
   const highlighted = useMemo(() => {
@@ -83,10 +81,9 @@ export function SwarmField() {
   }
 
   const onClusterClick = (module: string) => {
-    if (activeRun) return
     const ms = dataStatus?.modules[module]?.status
     if (ms === 'Insufficient') return setToast({ msg: `No data for ${module} — upload to Drive`, tone: 'info' })
-    launchModule(module)
+    launchModule(module) // launchModule guards if this module is already in flight; the server is authoritative
   }
 
   return (

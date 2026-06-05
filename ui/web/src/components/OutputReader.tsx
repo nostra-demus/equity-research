@@ -14,7 +14,6 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
   const launchRerun = useStore((s) => s.launchRerun)
   const launchAgent = useStore((s) => s.launchAgent)
   const launchModule = useStore((s) => s.launchModule)
-  const activeRun = useStore((s) => s.activeRun)
   const [md, setMd] = useState<string>('')
   const [loading, setLoading] = useState(false)
   const [menu, setMenu] = useState(false)
@@ -42,7 +41,10 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
   const rerunTarget: { module: string; name: string; key: string } | undefined = isMaster
     ? { module: 'master', name: 'synthesizer', key: 'master/synthesizer' }
     : agentNode
-  const busy = !!activeRun
+  // disable Run/Re-run only while THIS orb is in flight (a different concurrent run no longer blocks it)
+  const targetKey = output.pending ? agentNode?.key : rerunTarget?.key
+  const tstatus = targetKey ? nodeStatus(targetKey) : 'dormant'
+  const busy = tstatus === 'queued' || tstatus === 'running'
 
   // All exports are generated client-side from the loaded markdown, so they work
   // identically with the local control plane and on the static Cloudflare showcase

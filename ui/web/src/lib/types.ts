@@ -71,7 +71,7 @@ export type SseEvent =
   | { type: 'run-done'; runId: string; status: 'done'; costUsd?: number; durationMs?: number; numTurns?: number; finalThesisPath?: string | null; decisionRecordPath?: string | null; ts: number }
   | { type: 'run-error'; runId: string; status: 'error' | 'cancelled'; reason: string; message?: string; ts: number }
 
-export interface NodeRuntime { status: NodeStatus; verdict?: string | null; outputPath?: string }
+export interface NodeRuntime { status: NodeStatus; verdict?: string | null; outputPath?: string; runId?: string }
 
 export interface UsageWindow { utilization?: number; resetsAt?: number; status?: string; isUsingOverage?: boolean }
 export interface Usage {

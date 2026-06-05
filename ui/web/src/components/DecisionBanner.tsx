@@ -16,10 +16,10 @@ export function DecisionBanner() {
   const reports = useStore((s) => s.reports)
   const setToast = useStore((s) => s.setToast)
   const dataStatus = useStore((s) => s.dataStatus)
-  const activeRun = useStore((s) => s.activeRun)
+  const hasActiveRun = useStore((s) => s.anyRunForTicker(s.selectedTicker))
   if (!decision?.decision) return null
   if (dataStatus && !dataStatus.hasAnyData) return null
-  if (activeRun && activeRun.status === 'running') return null
+  if (hasActiveRun) return null
   const er = decision.expected_return_pct as number | undefined
   return (
     <motion.div className="decision" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }} onClick={openThesis} style={{ cursor: 'pointer' }} title="Open the Thesis — the deep-dive synthesized view">

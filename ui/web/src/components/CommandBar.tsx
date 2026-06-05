@@ -170,7 +170,7 @@ export function CommandBar() {
   const decision = useStore((s) => s.decision)
   const openThesis = useStore((s) => s.openThesis)
   const requestFull = useStore((s) => s.requestFull)
-  const activeRun = useStore((s) => s.activeRun)
+  const anyRun = useStore((s) => s.anyRunForTicker(s.selectedTicker))
   const selectedTicker = useStore((s) => s.selectedTicker)
   const staticMode = useStore((s) => s.staticMode)
   return (
@@ -188,7 +188,7 @@ export function CommandBar() {
       {decision?.final_thesis_path !== undefined || decision?.decision ? (
         <button className="btn btn--ghost" onClick={openThesis}>Thesis</button>
       ) : null}
-      <button className="btn btn--amber" disabled={!selectedTicker || !!activeRun} onClick={requestFull} title={staticMode ? 'Runs on your local machine (npm run dev)' : 'Run the full pipeline'}>
+      <button className="btn btn--amber" disabled={!selectedTicker || anyRun} onClick={requestFull} title={staticMode ? 'Runs on your local machine (npm run dev)' : anyRun ? 'A run is in flight — a full run needs exclusive access' : 'Run the full pipeline'}>
         Run full ▸
       </button>
       <CreditBadge />
