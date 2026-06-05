@@ -47,7 +47,7 @@ export interface TickerSummary {
 }
 
 export interface LaunchPreflight {
-  kind: 'full' | 'module' | 'agent'
+  kind: 'full' | 'module' | 'agent' | 'rerun'
   ticker: string
   module?: string
   agent?: string

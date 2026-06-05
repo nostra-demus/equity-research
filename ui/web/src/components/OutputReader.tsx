@@ -7,13 +7,20 @@ import { api } from '../lib/api'
 import { buildReportHtml, parseMeta, safeName } from '../lib/export'
 import { buildDocxBlob } from '../lib/docx'
 
-export function OutputReader({ output }: { output: { path: string; title: string; verdict?: string | null } }) {
+export function OutputReader({ output }: { output: { path?: string; title: string; verdict?: string | null; nodeKey?: string; pending?: boolean } }) {
   const close = useStore((s) => s.closeOutput)
+  const nodesByKey = useStore((s) => s.nodesByKey)
+  const nodeStatus = useStore((s) => s.nodeStatus)
+  const launchRerun = useStore((s) => s.launchRerun)
+  const launchAgent = useStore((s) => s.launchAgent)
+  const launchModule = useStore((s) => s.launchModule)
+  const activeRun = useStore((s) => s.activeRun)
   const [md, setMd] = useState<string>('')
   const [loading, setLoading] = useState(false)
   const [menu, setMenu] = useState(false)
 
   useEffect(() => {
+    if (!output.path) { setMd(''); setLoading(false); return } // pending (not-yet-run) node — nothing to fetch
     setLoading(true)
     setMd('')
     api
@@ -29,10 +36,18 @@ export function OutputReader({ output }: { output: { path: string; title: string
     return () => window.removeEventListener('keydown', onKey)
   }, [close])
 
+  // which orb this panel is about: an agent node, the master synthesizer (the Memo), or none
+  const isMaster = output.nodeKey === 'master/synthesizer'
+  const agentNode = !isMaster && output.nodeKey ? nodesByKey.get(output.nodeKey) : undefined
+  const rerunTarget: { module: string; name: string; key: string } | undefined = isMaster
+    ? { module: 'master', name: 'synthesizer', key: 'master/synthesizer' }
+    : agentNode
+  const busy = !!activeRun
+
   // All exports are generated client-side from the loaded markdown, so they work
   // identically with the local control plane and on the static Cloudflare showcase
   // (which has no /api backend). The styling matches ui/server/src/export.ts.
-  const meta = parseMeta(output.path, output.title, output.verdict)
+  const meta = parseMeta(output.path || '', output.title, output.verdict)
   const saveBlob = (blob: Blob, filename: string) => {
     const u = URL.createObjectURL(blob)
     const a = document.createElement('a')
@@ -80,35 +95,71 @@ export function OutputReader({ output }: { output: { path: string; title: string
     setMenu(false)
   }
 
+  // status-aware run control, left of Download. Done -> Re-run (cascade). Not-yet-run -> Run / Run module.
+  function runButton() {
+    if (output.pending) {
+      if (!agentNode) return null
+      const status = nodeStatus(agentNode.key)
+      if (status === 'ready' || status === 'failed') return <button className="btn btn--amber" style={{ height: 30 }} disabled={busy} onClick={() => launchAgent(agentNode)}>Run ▸</button>
+      if (status === 'notready') return <button className="btn btn--amber" style={{ height: 30 }} disabled={busy} onClick={() => launchModule(agentNode.module)}>Run module ▸</button>
+      if (status === 'queued' || status === 'running') return <button className="btn" style={{ height: 30 }} disabled>Running…</button>
+      return null // locked / dormant: no run affordance
+    }
+    if (!rerunTarget) return null
+    return <button className="btn btn--amber" style={{ height: 30 }} disabled={busy} onClick={() => launchRerun(rerunTarget)} title="Re-run this orb and everything downstream of it, to the Memo">Re-run ↻</button>
+  }
+
+  // body for a not-yet-run orb (no markdown to show) — explains what Run will do
+  function pendingBody() {
+    const status = agentNode ? nodeStatus(agentNode.key) : 'dormant'
+    const hint =
+      status === 'ready' || status === 'failed' ? 'Run it to produce its output.'
+      : status === 'notready' ? `It needs upstream outputs — running its module produces them first.`
+      : status === 'queued' || status === 'running' ? 'It is running now — its output will appear when it finishes.'
+      : status === 'locked' ? `No data for ${agentNode?.module ?? 'this module'} — add files to the Drive folder, then run.`
+      : 'Select a ticker with data to run this orb.'
+    return (
+      <div className="md">
+        <p style={{ color: 'var(--text-muted)' }}>This orb hasn't been run yet. {hint}</p>
+        {agentNode?.description && <p style={{ color: 'var(--text-faint)' }}>{agentNode.description}</p>}
+      </div>
+    )
+  }
+
   return (
     <motion.div className="reader" initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
       <div className="reader__head">
         <div style={{ minWidth: 0 }}>
           <div className="reader__title">
-            <span className="reader__done">✓ Completed</span> {output.title}
+            {output.pending ? <span className="reader__pending">○ Not run</span> : <span className="reader__done">✓ Completed</span>} {output.title}
           </div>
-          {output.verdict ? <div className="reader__verdict">{output.verdict}</div> : <div className="reader__path">{output.path}</div>}
+          {output.verdict ? <div className="reader__verdict">{output.verdict}</div> : output.path ? <div className="reader__path">{output.path}</div> : null}
         </div>
         <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexShrink: 0 }}>
-          <div style={{ position: 'relative' }}>
-            <button className="btn btn--amber" style={{ height: 30 }} onClick={() => setMenu((o) => !o)}>Download ▾</button>
-            {menu && (
-              <>
-                <div style={{ position: 'fixed', inset: 0, zIndex: 51 }} onClick={() => setMenu(false)} />
-                <div className="dlmenu">
-                  <button className="dlmenu__item" onClick={onPDF}><b>PDF</b><span>print-ready · opens & prints</span></button>
-                  <button className="dlmenu__item" onClick={onWord}><b>Word</b><span>.docx document</span></button>
-                  <button className="dlmenu__item" onClick={onHTML}><b>HTML</b><span>self-contained report</span></button>
-                  <button className="dlmenu__item" onClick={onMD}><b>Markdown</b><span>raw .md source</span></button>
-                </div>
-              </>
-            )}
-          </div>
+          {runButton()}
+          {!output.pending && (
+            <div style={{ position: 'relative' }}>
+              <button className="btn" style={{ height: 30 }} onClick={() => setMenu((o) => !o)}>Download ▾</button>
+              {menu && (
+                <>
+                  <div style={{ position: 'fixed', inset: 0, zIndex: 51 }} onClick={() => setMenu(false)} />
+                  <div className="dlmenu">
+                    <button className="dlmenu__item" onClick={onPDF}><b>PDF</b><span>print-ready · opens & prints</span></button>
+                    <button className="dlmenu__item" onClick={onWord}><b>Word</b><span>.docx document</span></button>
+                    <button className="dlmenu__item" onClick={onHTML}><b>HTML</b><span>self-contained report</span></button>
+                    <button className="dlmenu__item" onClick={onMD}><b>Markdown</b><span>raw .md source</span></button>
+                  </div>
+                </>
+              )}
+            </div>
+          )}
           <button className="btn btn--ghost" style={{ height: 30 }} onClick={close}>Close ✕</button>
         </div>
       </div>
       <div className="reader__body">
-        {loading ? (
+        {output.pending ? (
+          pendingBody()
+        ) : loading ? (
           <div style={{ color: 'var(--text-faint)' }}>Loading…</div>
         ) : (
           <div className="md">

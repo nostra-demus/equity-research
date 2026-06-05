@@ -33,7 +33,7 @@ export function App() {
         <RunStreamPanel />
       </div>
 
-      <AnimatePresence>{openOutput && <OutputReader key={openOutput.path} output={openOutput} />}</AnimatePresence>
+      <AnimatePresence>{openOutput && <OutputReader key={openOutput.path || openOutput.nodeKey || 'panel'} output={openOutput} />}</AnimatePresence>
       <LaunchConfirm />
 
       <AnimatePresence>

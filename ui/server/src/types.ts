@@ -100,7 +100,7 @@ export interface TickerSummary {
 
 // ---- runs / events ----
 
-export type RunKind = 'full' | 'module' | 'agent'
+export type RunKind = 'full' | 'module' | 'agent' | 'rerun'
 export type RunStatus = 'starting' | 'running' | 'done' | 'error' | 'cancelled'
 export type AgentRunStatus = 'queued' | 'running' | 'done' | 'failed'
 

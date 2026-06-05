@@ -3,7 +3,8 @@ import { CLAUDE_BIN, DEFAULT_MODEL, ESTIMATES, LAUNCH_GUARDS, REPO_ROOT, type La
 import { getCreditStatus, setCreditStatus } from './credit'
 import { startRunWatcher } from './fs-watcher'
 import { createRun, emit, finishRun, getRun, isWriteBusy, setActiveWrite, type ExpectedAgent, type RunState } from './registry'
-import { buildSwarmGraph } from './roster'
+import { resolveRunRoot } from './outputs'
+import { buildSwarmGraph, downstreamCascade } from './roster'
 import { handleStreamLine } from './stream-parser'
 import type { LaunchPreflight, RunKind } from './types'
 
@@ -32,6 +33,7 @@ function todayDate(): string {
 function buildPrompt(kind: RunKind, ticker: string, module?: string, agent?: string): string {
   if (kind === 'full') return `/research:full ${ticker}`
   if (kind === 'module') return `/research:${module} ${ticker}`
+  if (kind === 'rerun') return `/research:rerun ${module} ${agent} ${ticker}`
   return `/research:agent ${module} ${agent} ${ticker}`
 }
 
@@ -50,6 +52,13 @@ function buildExpected(kind: RunKind, module?: string, agent?: string): Map<stri
     if (a) map.set(a.key, { key: a.key, module: a.module, name: a.name, layer: a.layer, outputRel: `${a.module}/${a.nn}_${a.slug}.md` })
     return map
   }
+  if (kind === 'rerun') {
+    // the target orb + the downstream synthesis chain to the master (so the swarm shows the planned re-run)
+    for (const c of downstreamCascade(module!, agent!)) {
+      map.set(c.key, { key: c.key, module: c.module, name: c.name, layer: c.layer, outputRel: c.outputRel || 'final_thesis.md' })
+    }
+    return map
+  }
   for (const mn of plannedModules(kind, module)) {
     const m = g.modules.find((x) => x.name === mn)
     if (!m) continue
@@ -65,6 +74,7 @@ export function estimate(kind: RunKind, ticker: string, module?: string, agent?:
   let agentCount = 1
   if (kind === 'full') agentCount = g.totals.agents + 1
   else if (kind === 'module') agentCount = g.modules.find((m) => m.name === module)?.agentCount ?? 0
+  else if (kind === 'rerun') agentCount = downstreamCascade(module!, agent!).length
 
   let estCostUsdRange: [number, number]
   let estMinutesRange: [number, number]
@@ -85,7 +95,7 @@ export function estimate(kind: RunKind, ticker: string, module?: string, agent?:
     estCostUsdRange,
     estMinutesRange,
     willCommitToMain: kind !== 'agent',
-    estCommits: kind === 'full' ? 2 : kind === 'module' ? 1 : 0,
+    estCommits: kind === 'full' ? 2 : kind === 'module' || kind === 'rerun' ? 1 : 0,
     requiresTypedConfirm: kind === 'full',
     creditPreflight: getCreditStatus(),
   }
@@ -128,6 +138,19 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     }
   }
 
+  // a re-run mutates the LATEST existing run folder (not today's) — fail early if there's nothing to re-run
+  let runRoot: string | null
+  if (kind === 'rerun') {
+    runRoot = resolveRunRoot({ ticker })
+    if (!runRoot) {
+      const err: any = new Error(`No existing run to re-run for ${ticker}. Run a module or the full pipeline first.`)
+      err.statusCode = 400
+      throw err
+    }
+  } else {
+    runRoot = kind === 'agent' ? null : `analyses/${ticker}_${todayDate()}`
+  }
+
   const prompt = buildPrompt(kind, ticker, module, agent)
   const expected = buildExpected(kind, module, agent)
   const run = createRun({
@@ -137,7 +160,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     agent,
     model,
     prompt,
-    runRoot: kind === 'agent' ? null : `analyses/${ticker}_${todayDate()}`,
+    runRoot,
     willCommitToMain: kind !== 'agent',
     closeWatcher: undefined,
     expected,

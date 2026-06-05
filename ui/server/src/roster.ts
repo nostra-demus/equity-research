@@ -183,3 +183,70 @@ export function agentNamesForModule(moduleName: string): string[] {
   if (!m) return []
   return Object.values(m.layers).flat().map((a) => a.name)
 }
+
+// ---- re-run cascade ----
+// One entry per orb that must re-run when a node is re-run: the orb itself, then every
+// synthesis its output flows into (its module's 99, each downstream module's 99), then the master.
+export interface CascadeNode {
+  key: string
+  module: string
+  name: string
+  layer: number
+  nn?: string
+  slug?: string
+  outputRel?: string
+  kind: 'agent' | 'module-synthesis' | 'master'
+}
+
+const MASTER_CASCADE: CascadeNode = { key: 'master/synthesizer', module: 'master', name: 'synthesizer', layer: 99, kind: 'master' }
+
+function synthesisOf(m: ModuleNode): AgentNode | null {
+  return Object.values(m.layers).flat().find((a) => a.isSynthesis) || null
+}
+function cascadeEntry(a: AgentNode, kind: 'agent' | 'module-synthesis'): CascadeNode {
+  return { key: a.key, module: a.module, name: a.name, layer: a.layer, nn: a.nn, slug: a.slug, outputRel: `${a.module}/${a.nn}_${a.slug}.md`, kind }
+}
+// Transitive closure of modules that (directly or indirectly) depend on `moduleName`.
+function transitiveDownstreamModules(graph: SwarmGraph, moduleName: string): Set<string> {
+  const down = new Set<string>()
+  let changed = true
+  while (changed) {
+    changed = false
+    for (const m of graph.modules) {
+      if (down.has(m.name)) continue
+      if (m.dependsOn.includes(moduleName) || m.dependsOn.some((d) => down.has(d))) {
+        down.add(m.name)
+        changed = true
+      }
+    }
+  }
+  return down
+}
+
+// Ordered re-run cascade for a target orb. Three target cases:
+//  - specialist  -> [target, its module 99, ...downstream module 99s (topo), master]
+//  - module 99   -> [that 99, ...downstream module 99s (topo), master]
+//  - master      -> [master] only (regenerates thesis/memo/dossier)
+export function downstreamCascade(moduleName: string, agentName: string): CascadeNode[] {
+  if (moduleName === 'master') return [MASTER_CASCADE]
+  const graph = buildSwarmGraph()
+  const mod = graph.modules.find((m) => m.name === moduleName)
+  if (!mod) return []
+  const target = Object.values(mod.layers).flat().find((a) => a.name === agentName || a.slug === agentName)
+  if (!target) return []
+
+  const out: CascadeNode[] = []
+  out.push(cascadeEntry(target, target.isSynthesis ? 'module-synthesis' : 'agent'))
+  if (!target.isSynthesis) {
+    const synth = synthesisOf(mod)
+    if (synth) out.push(cascadeEntry(synth, 'module-synthesis'))
+  }
+  const down = transitiveDownstreamModules(graph, moduleName)
+  for (const m of graph.modules) {
+    if (!down.has(m.name)) continue
+    const synth = synthesisOf(m)
+    if (synth) out.push(cascadeEntry(synth, 'module-synthesis'))
+  }
+  out.push(MASTER_CASCADE)
+  return out
+}

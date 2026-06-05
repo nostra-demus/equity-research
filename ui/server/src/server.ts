@@ -73,14 +73,14 @@ app.post('/api/credit-check', async () => creditCheck())
 app.get('/api/launch/estimate', async (req, reply) => {
   const q = req.query as any
   const kind = q.kind as RunKind
-  if (!['full', 'module', 'agent'].includes(kind)) return reply.code(400).send({ error: 'bad kind' })
+  if (!['full', 'module', 'agent', 'rerun'].includes(kind)) return reply.code(400).send({ error: 'bad kind' })
   if (!TICKER_RE.test(q.ticker || '')) return reply.code(400).send({ error: 'bad ticker' })
   return estimate(kind, q.ticker, q.module, q.agent)
 })
 
 // ---------- launch ----------
 const LaunchBody = z.object({
-  kind: z.enum(['full', 'module', 'agent']),
+  kind: z.enum(['full', 'module', 'agent', 'rerun']),
   ticker: z.string().regex(TICKER_RE),
   module: z.string().regex(MODULE_RE).optional(),
   agent: z.string().regex(AGENT_RE).optional(),
@@ -96,11 +96,19 @@ app.post('/api/launch', async (req, reply) => {
   // closed allow-list checks against the live roster + data pool
   const tickers = listTickers().tickers.map((t) => t.ticker)
   if (!tickers.includes(ticker)) return reply.code(400).send({ error: `unknown ticker ${ticker}` })
-  if (kind !== 'full') {
+  if (kind !== 'full' && kind !== 'rerun') {
     if (!module || !listModuleNames().includes(module)) return reply.code(400).send({ error: 'unknown module' })
   }
   if (kind === 'agent') {
     if (!agent || !agentNamesForModule(module!).includes(agent)) return reply.code(400).send({ error: 'unknown agent for module' })
+  }
+  if (kind === 'rerun') {
+    // rerun needs an orb (module+agent). 'master' is the Memo (master synthesizer) — not a module dir, so skip the roster check for it.
+    if (!module || !agent) return reply.code(400).send({ error: 'rerun requires module and agent' })
+    if (module !== 'master') {
+      if (!listModuleNames().includes(module)) return reply.code(400).send({ error: 'unknown module' })
+      if (!agentNamesForModule(module).includes(agent)) return reply.code(400).send({ error: 'unknown agent for module' })
+    }
   }
   if (kind === 'full' && confirmTicker !== ticker) {
     return reply.code(412).send({ error: 'full run requires typed confirmation', detail: 'send confirmTicker === ticker' })

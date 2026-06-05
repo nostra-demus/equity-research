@@ -16,10 +16,11 @@ export function SwarmField() {
   const decision = useStore((s) => s.decision)
   const coreBloom = useStore((s) => s.coreBloom)
   const nodeStatus = useStore((s) => s.nodeStatus)
-  const launchAgent = useStore((s) => s.launchAgent)
   const launchModule = useStore((s) => s.launchModule)
   const openThesis = useStore((s) => s.openThesis)
   const openOutputForNode = useStore((s) => s.openOutputForNode)
+  const selectNodeForRun = useStore((s) => s.selectNodeForRun)
+  const selectedNodeKey = useStore((s) => s.selectedNodeKey)
   const setToast = useStore((s) => s.setToast)
 
   const ref = useRef<HTMLDivElement>(null)
@@ -72,13 +73,11 @@ export function SwarmField() {
   }
   const onLeave = () => setHover(null)
 
+  // click any orb -> select it and open the side panel. Done -> its output (with Re-run);
+  // not-yet-run -> a pending panel whose button runs/re-runs it. The panel owns the action.
   const onNodeClick = (n: PlacedNode) => {
-    const status = nodeStatus(n.key)
-    if (status === 'done') return openOutputForNode(n)
-    if (activeRun) return
-    if (status === 'ready' || status === 'failed') return launchAgent(n)
-    if (status === 'notready') return setToast({ msg: `${n.name} needs upstream — run the ${n.module} module`, tone: 'info' })
-    if (status === 'locked') return setToast({ msg: `No data for ${n.module} — upload to Drive`, tone: 'info' })
+    if (nodeStatus(n.key) === 'done') return openOutputForNode(n)
+    return selectNodeForRun(n)
   }
 
   const onClusterClick = (module: string) => {
@@ -111,7 +110,7 @@ export function SwarmField() {
             key={n.key}
             node={n}
             status={nodeStatus(n.key)}
-            selected={hover?.node.key === n.key}
+            selected={selectedNodeKey === n.key || hover?.node.key === n.key}
             delayMs={(moduleOrder.get(n.module) ?? 0) * 45 + n.layer * 50}
             onEnter={onEnter}
             onLeave={onLeave}

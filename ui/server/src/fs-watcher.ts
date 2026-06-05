@@ -79,7 +79,7 @@ function handleFile(run: RunState, fp: string) {
     if (status === 'Insufficient') aborted = true
   }
 
-  const changed = markDone(run, key, module, expected.name, expected.layer, `analyses/${folder}/${base}.md`, verdict, bytes)
+  const changed = markDone(run, key, module, expected.name, expected.layer, `analyses/${folder}/${module}/${base}.md`, verdict, bytes)
   if (!changed) return
 
   if (isTriage && aborted) {

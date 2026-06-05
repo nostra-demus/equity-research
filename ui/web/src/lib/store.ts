@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { api, isStatic } from './api'
+import { downstreamCascade, type CascadeNode } from './cascade'
 import type { AgentNode, DataStatus, LaunchPreflight, NodeRuntime, NodeStatus, SseEvent, SwarmGraph, TickerSummary, Usage } from './types'
 
 const RUN_EVENT_TYPES = ['run-started', 'agent-started', 'agent-done', 'agent-failed', 'layer-advanced', 'module-done', 'cost-tick', 'run-done', 'run-error']
@@ -33,9 +34,9 @@ interface State {
   decision: any | null
   runRoot: string | null
   reports: { memo: boolean; thesis: boolean; dossier: boolean }
-  openOutput: { path: string; title: string; verdict?: string | null } | null
+  openOutput: { path?: string; title: string; verdict?: string | null; nodeKey?: string; pending?: boolean } | null
   selectedNodeKey: string | null
-  launchConfirm: { preflight: LaunchPreflight } | null
+  launchConfirm: { kind: 'full' | 'rerun'; preflight: LaunchPreflight; cascade?: CascadeNode[]; node?: { module: string; name: string; key: string } } | null
   toast: Toast | null
 
   init: () => Promise<void>
@@ -48,8 +49,11 @@ interface State {
   launchModule: (module: string) => Promise<void>
   requestFull: () => Promise<void>
   confirmFull: () => Promise<void>
+  launchRerun: (node: { module: string; name: string; key: string }) => Promise<void>
+  confirmRerun: () => Promise<void>
   cancelLaunch: () => void
   cancelRun: () => Promise<void>
+  selectNodeForRun: (node: AgentNode) => void
   openOutputForNode: (node: AgentNode) => Promise<void>
   openThesis: () => Promise<void>
   openReport: (tier: 'memo' | 'thesis' | 'dossier') => Promise<void>
@@ -213,7 +217,7 @@ export const useStore = create<State>((set, get) => ({
     const t = get().selectedTicker
     if (!t || get().activeRun) return
     const preflight = await api.estimate('full', t)
-    set({ launchConfirm: { preflight } })
+    set({ launchConfirm: { kind: 'full', preflight } })
   },
 
   confirmFull: async () => {
@@ -230,6 +234,38 @@ export const useStore = create<State>((set, get) => ({
     }
   },
 
+  // re-run one orb + everything downstream of it (its module synthesis -> dependent module syntheses -> master Memo).
+  // opens the cascade confirm dialog; confirmRerun() actually launches. Live-only.
+  launchRerun: async (node) => {
+    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — re-runs happen on your machine via npm run dev', tone: 'info' })
+    const t = get().selectedTicker
+    if (!t || get().activeRun) return
+    const cascade = downstreamCascade(get().graph, node.module, node.name)
+    if (!cascade.length) return get().setToast({ msg: `Can't resolve the downstream of ${node.name}`, tone: 'bad' })
+    try {
+      const preflight = await api.estimate('rerun', t, node.module, node.name)
+      set({ launchConfirm: { kind: 'rerun', preflight, cascade, node } })
+    } catch (e: any) {
+      get().setToast({ msg: `Re-run estimate failed: ${e?.message || e}`, tone: 'bad' })
+    }
+  },
+
+  confirmRerun: async () => {
+    const t = get().selectedTicker
+    const lc = get().launchConfirm
+    if (!t || !lc?.node) return
+    const node = lc.node
+    const planned = (lc.cascade ?? downstreamCascade(get().graph, node.module, node.name)).map((c) => c.key)
+    set({ launchConfirm: null, openOutput: null })
+    try {
+      const { runId } = await api.launch({ kind: 'rerun', ticker: t, module: node.module, agent: node.name })
+      beginRun(set, get, runId, { kind: 'rerun', module: node.module, agent: node.name, willCommitToMain: true }, planned)
+      get().setToast({ msg: `Re-running ${node.name} + downstream on ${t}`, tone: 'good' })
+    } catch (e: any) {
+      get().setToast({ msg: `Re-run failed: ${e?.message || e}`, tone: 'bad' })
+    }
+  },
+
   cancelLaunch: () => set({ launchConfirm: null }),
 
   cancelRun: async () => {
@@ -240,13 +276,19 @@ export const useStore = create<State>((set, get) => ({
     } catch {}
   },
 
+  // select a not-yet-run orb and open the panel in "pending" mode (no output to load) so the
+  // Run button sits in the same place as Re-run, with the orb visibly selected.
+  selectNodeForRun: (node) => {
+    set({ selectedNodeKey: node.key, openOutput: { title: node.name, nodeKey: node.key, pending: true } })
+  },
+
   openOutputForNode: async (node) => {
     const rt = get().nodeRuntime[node.key]
     if (!rt?.outputPath) {
       get().setToast({ msg: `${node.name} has no output yet`, tone: 'info' })
       return
     }
-    set({ openOutput: { path: rt.outputPath, title: node.name, verdict: rt.verdict } })
+    set({ selectedNodeKey: node.key, openOutput: { path: rt.outputPath, title: node.name, verdict: rt.verdict, nodeKey: node.key } })
   },
 
   openThesis: async () => {
@@ -254,7 +296,7 @@ export const useStore = create<State>((set, get) => ({
     if (!t) return
     try {
       const res = await api.thesis(t)
-      set({ openOutput: { path: res.path, title: `Investment Thesis — ${t}`, verdict: get().decision?.decision ?? null } })
+      set({ openOutput: { path: res.path, title: `Investment Thesis — ${t}`, verdict: get().decision?.decision ?? null, nodeKey: 'master/synthesizer' } })
     } catch {
       get().setToast({ msg: 'No final thesis yet', tone: 'info' })
     }
@@ -268,10 +310,10 @@ export const useStore = create<State>((set, get) => ({
     if (!t || !runRoot) return get().setToast({ msg: 'No run output yet', tone: 'info' })
     const file = tier === 'memo' ? 'memo.md' : tier === 'dossier' ? 'audit_dossier.md' : 'final_thesis.md'
     const title = tier === 'memo' ? `Memo — ${t}` : tier === 'dossier' ? `Full Dossier — ${t}` : `Investment Thesis — ${t}`
-    set({ openOutput: { path: `${runRoot}/${file}`, title, verdict: get().decision?.decision ?? null } })
+    set({ openOutput: { path: `${runRoot}/${file}`, title, verdict: get().decision?.decision ?? null, nodeKey: 'master/synthesizer' } })
   },
 
-  closeOutput: () => set({ openOutput: null }),
+  closeOutput: () => set({ openOutput: null, selectedNodeKey: null }),
   setToast: (t) => {
     set({ toast: t })
     if (t) setTimeout(() => { if (get().toast === t) set({ toast: null }) }, 3200)

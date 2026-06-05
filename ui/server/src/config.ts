@@ -22,13 +22,15 @@ export const HOST = '127.0.0.1'
 export const CLAUDE_BIN = process.env.CLAUDE_BIN || 'claude'
 export const DEFAULT_MODEL = process.env.ENGINE_MODEL || 'sonnet'
 
-export type LaunchKind = 'full' | 'module' | 'agent'
+export type LaunchKind = 'full' | 'module' | 'agent' | 'rerun'
 
 // Runaway / cost guards per launch granularity.
 export const LAUNCH_GUARDS: Record<LaunchKind, { maxTurns: number; budgetUsd: number }> = {
   full: { maxTurns: 800, budgetUsd: 60 },
   module: { maxTurns: 250, budgetUsd: 20 },
   agent: { maxTurns: 60, budgetUsd: 5 },
+  // re-run one orb + its downstream synthesis chain to the master: between a module and a full run.
+  rerun: { maxTurns: 400, budgetUsd: 35 },
 }
 
 // Rough cost/time estimates surfaced to the UI before launch (heuristic only; the hard cap is budgetUsd).
