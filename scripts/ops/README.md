@@ -7,6 +7,17 @@ fronted by Cloudflare Access). Two macOS `launchd` user agents keep it up with *
 |---|---|---|---|
 | `com.nostradamus.engine` | `npm start` (`tsx src/server.ts`) in `ui/server/` | ✅ `RunAtLoad` | ✅ `KeepAlive` |
 | `com.nostradamus.tunnel` | `cloudflared tunnel run nostradamus-engine` | ✅ `RunAtLoad` | ✅ `KeepAlive` |
+| `com.nostradamus.watchdog` | `watchdog.sh` every 60s (`StartInterval`) | ✅ `RunAtLoad` | — (self-heals the others) |
+
+### Self-healing watchdog (`watchdog.sh`)
+`KeepAlive` only restarts a **crashed** process. The watchdog covers what it can't: a non-launchd
+process squatting `:8787`, the engine being up but serving **broken content** (the blank page = HTML
+returned for the `.js` bundle), or an unreachable tunnel. Every 60s it checks (1) `/api/health`,
+(2) that the served `index-*.js` comes back as real `application/javascript`, and (3) the public URL.
+After **2 consecutive** failures (so a transient blip doesn't flap) it auto-repairs — kill the port
+squatter + `kickstart` the engine, rebuild `ui/dist` if the bundle is corrupt, or `kickstart` the
+tunnel — and logs every incident + repair to `~/Library/Logs/nostradamus-watchdog.log`. **You do
+nothing; it fixes itself and keeps a track.**
 
 The source-of-truth plists live here (`scripts/ops/*.plist`). The installed copies are in
 `~/Library/LaunchAgents/`. To (re)install after a machine reset / migration:
