@@ -140,7 +140,12 @@ a { color: inherit; }
 .node--ready .node__ring { border-color: #50505a; }
 .node--ready:hover .node__ring { border-color: var(--accent); box-shadow: 0 0 0 4px var(--accent-wash-soft); }
 .node--notready .node__ring { border-color: #3a3a42; border-style: dashed; }
-.node--queued .node__ring { border-color: var(--accent-deep); }
+/* queued = launched, engine still spinning up -> gentle breathing glow so it reads as live */
+.node--queued .node__ring { border-color: var(--accent-deep); animation: nodequeued 1.7s ease-in-out infinite; }
+@keyframes nodequeued {
+  0%, 100% { box-shadow: 0 0 2px var(--accent-glow); }
+  50%      { box-shadow: 0 0 11px var(--accent-glow); }
+}
 .node--running .node__ring { border-color: var(--accent); animation: noderun 1.3s ease-out infinite; }
 .node--running .node__core { width: 40%; height: 40%; }
 @keyframes noderun {
