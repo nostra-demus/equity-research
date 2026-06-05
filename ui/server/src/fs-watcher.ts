@@ -25,7 +25,7 @@ function markDone(run: RunState, key: string, module: string, name: string, laye
   return true
 }
 
-function handleFile(run: RunState, fp: string) {
+export function handleFile(run: RunState, fp: string) {
   let rel: string
   try {
     rel = path.relative(REPO_ROOT, fp)
@@ -94,20 +94,41 @@ function handleFile(run: RunState, fp: string) {
   }
 }
 
-export function startRunWatcher(run: RunState) {
-  const watcher = chokidar.watch(ANALYSES_DIR, {
-    ignoreInitial: true,
-    depth: 3,
-    awaitWriteFinish: { stabilityThreshold: 500, pollInterval: 100 },
-  })
-  const onFile = (fp: string) => {
+// ONE shared chokidar watcher over ANALYSES_DIR dispatches to every active run — not one full-tree
+// watcher per run. With N concurrent runs that's 1 OS watcher, not N. Each run's handleFile still
+// binds strictly to its own runRoot + expected-set, so a file event never crosses into another run.
+// (Watching the always-present ANALYSES_DIR is more robust than scoping to each run's subtree, since
+// a module/full run's dated folder doesn't exist yet at launch.)
+const activeRuns = new Set<RunState>()
+let sharedWatcher: ReturnType<typeof chokidar.watch> | null = null
+
+function dispatch(fp: string) {
+  for (const run of activeRuns) {
     try {
       handleFile(run, fp)
     } catch {
       /* ignore watcher errors */
     }
   }
-  watcher.on('add', onFile)
-  watcher.on('change', onFile)
-  run.closeWatcher = () => watcher.close()
+}
+
+export function startRunWatcher(run: RunState) {
+  activeRuns.add(run)
+  if (!sharedWatcher) {
+    sharedWatcher = chokidar.watch(ANALYSES_DIR, {
+      ignoreInitial: true,
+      depth: 3,
+      awaitWriteFinish: { stabilityThreshold: 500, pollInterval: 100 },
+    })
+    sharedWatcher.on('add', dispatch)
+    sharedWatcher.on('change', dispatch)
+  }
+  // finishRun() calls this; drop the run from dispatch and close the shared watcher once idle.
+  run.closeWatcher = () => {
+    activeRuns.delete(run)
+    if (activeRuns.size === 0 && sharedWatcher) {
+      void sharedWatcher.close()
+      sharedWatcher = null
+    }
+  }
 }
