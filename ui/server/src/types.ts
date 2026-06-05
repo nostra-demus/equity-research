@@ -23,6 +23,7 @@ export interface ModuleNode {
   agentCount: number
   depsComplete?: boolean // ticker-specific (graphForTicker only): are this module's dependsOn synthesis outputs on disk?
   missingDeps?: string[] // the dependsOn modules whose synthesis is not yet present
+  dataReadiness?: DataReadinessDecl // optional, self-declared in the module's 00-triage frontmatter
 }
 
 export interface SwarmGraph {
@@ -47,6 +48,15 @@ export type FileType =
   | 'guidance'
   | 'user_note'
   | 'other'
+
+// A module's OPTIONAL self-declared data-readiness rule (in its 00-triage frontmatter as
+// `data_readiness:`). Lets a NEW module get a tailored readiness verdict with zero central edits —
+// the engine interprets this generically (data-status.ts evalDecl). Absent => generic fallback.
+export interface DataReadinessDecl {
+  required?: FileType[] // any missing => Insufficient
+  sufficient?: FileType[] // all present (and all required) => Sufficient; else Partial
+  caps?: Partial<Record<FileType, string>> // Partial-state note shown when that type is missing
+}
 
 export interface WorkbookSheet {
   name: string

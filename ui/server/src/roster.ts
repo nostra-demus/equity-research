@@ -3,7 +3,7 @@ import path from 'node:path'
 import fg from 'fast-glob'
 import matter from 'gray-matter'
 import { AGENTS_DIR, ANALYSES_DIR } from './config'
-import type { AgentNode, ModuleNode, SwarmGraph } from './types'
+import type { AgentNode, DataReadinessDecl, ModuleNode, SwarmGraph } from './types'
 
 function readFrontmatter(filePath: string) {
   const raw = fs.readFileSync(filePath, 'utf8')
@@ -82,12 +82,15 @@ function buildModule(name: string, dependsOn: string[], order: number): ModuleNo
     .sort()
   const layers: Record<string, AgentNode[]> = {}
   let count = 0
+  let dataReadiness: DataReadinessDecl | undefined
   for (const f of files) {
     const base = path.basename(f, '.md') // e.g. "09_moat"
     const nn = base.slice(0, 2)
     const slug = base.slice(3)
     const { data, content } = readFrontmatter(f)
     const layer = Number.isFinite(Number(data.layer)) ? Number(data.layer) : 999
+    // a module self-declares its data-readiness rule in its 00-triage frontmatter (optional)
+    if (nn === '00' && data.data_readiness && typeof data.data_readiness === 'object') dataReadiness = data.data_readiness as DataReadinessDecl
     const requiredUpstream = parseRequiredUpstream(content)
     const node: AgentNode = {
       key: `${name}/${base}`,
@@ -107,7 +110,15 @@ function buildModule(name: string, dependsOn: string[], order: number): ModuleNo
     count++
   }
   for (const k of Object.keys(layers)) layers[k].sort((a, b) => a.nn.localeCompare(b.nn))
-  return { name, order, dependsOn, layers, agentCount: count }
+  return { name, order, dependsOn, layers, agentCount: count, dataReadiness }
+}
+
+// Map of module name -> its self-declared data-readiness rule (undefined if it declares none).
+// data-status uses this so a NEW module never needs a hand-written rule in the readiness engine.
+export function moduleReadinessDecls(): Record<string, DataReadinessDecl | undefined> {
+  const out: Record<string, DataReadinessDecl | undefined> = {}
+  for (const m of buildSwarmGraph().modules) out[m.name] = m.dataReadiness
+  return out
 }
 
 let cached: SwarmGraph | null = null

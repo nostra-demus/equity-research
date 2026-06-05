@@ -8,7 +8,7 @@
     "dev": "tsx watch src/server.ts",
     "start": "tsx src/server.ts",
     "typecheck": "tsc --noEmit",
-    "test": "tsx test/admission.test.ts && tsx test/watcher.test.ts"
+    "test": "tsx test/admission.test.ts && tsx test/watcher.test.ts && tsx test/data-readiness.test.ts"
   },
   "dependencies": {
     "@fastify/cors": "^9.0.1",

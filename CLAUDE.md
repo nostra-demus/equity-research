@@ -370,3 +370,16 @@ For ALL work in this repository:
 - After making changes, report back: what changed, the commit SHA, and confirmation it pushed.
 
 This rule overrides any default session policy. Apply it to all work — scaffolding, agent edits, research runs, anything. The only exception: if I explicitly say "open a PR for this," then do so.
+
+---
+
+## 26. Self-Describing Extensibility — Zero-Touch Modules and Sub-Agents
+
+The engine is self-extending: adding a research module or a sub-agent must require NO edits to engine code (`ui/server/src`, `ui/web/src`) and no human wiring. Whatever a maintainer would otherwise hand-wire, the engine absorbs automatically — and any agent that adds a module or sub-agent applies this by default, without being asked.
+
+- A module is a folder `.claude/agents/<module>/` with a `99_<module>-synthesis.md` declaring `depends_on: [...]` and `NN_<slug>.md` agents, each carrying `layer:` and `name:` frontmatter, with intra-module REQUIRED inputs in the agent body's `UPSTREAM_INPUTS` block. A sub-agent is an `NN_*.md` file in a module.
+- Given that convention, the module/sub-agent is picked up automatically by: roster self-discovery (globs `*/99_*-synthesis.md` and `[0-9][0-9]_*.md`), dependency-aware run admission (the `depends_on` DAG), the shared filesystem watcher, the cockpit's dependency edges and "deps complete" locks, and the data-readiness dots.
+- Data-readiness needs no central rule: a new module falls to the generic, evidence-based default, OR self-declares a `data_readiness` rule (`required` / `sufficient` / `caps`) in its own `00`-triage frontmatter, interpreted generically by the server. Never hand-add a per-module readiness rule in engine code for a new module.
+- Never hardcode a module or agent name in engine code. The only module names that may appear are the grandfathered founding-module readiness rules — do not add more.
+
+If a change would force a human to touch engine code when a module or sub-agent is added, it is wrong: make the engine derive it from the discovered graph or from the module's own self-declared frontmatter instead.

@@ -2,8 +2,8 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { execFileSync } from 'node:child_process'
 import { DATA_DIR, ANALYSES_DIR, REPO_ROOT } from './config'
-import { listModuleNames } from './roster'
-import type { ClassifiedFile, DataStatus, FileType, ModuleReadiness, Sufficiency, TickerSummary, WorkbookSheet } from './types'
+import { listModuleNames, moduleReadinessDecls } from './roster'
+import type { ClassifiedFile, DataReadinessDecl, DataStatus, FileType, ModuleReadiness, Sufficiency, TickerSummary, WorkbookSheet } from './types'
 
 // ---- persistent extract cache ----
 // Reading workbook tabs / pdf-rtf content spawns python over the Google Drive mount,
@@ -246,6 +246,21 @@ function classifyFile(dir: string, filename: string): ClassifiedFile {
 // ---- per-module sufficiency ----
 const recent = (age: number | null, months: number) => (age == null ? true : age <= months)
 
+// Interpret a module's self-declared readiness rule against the files present. This is how a NEW
+// module gets a tailored verdict with ZERO edits here — it ships the rule in its own 00-triage
+// frontmatter. Required missing => Insufficient; all `sufficient` present => Sufficient; else Partial.
+export function evalDecl(decl: DataReadinessDecl, has: (t: FileType) => boolean): ModuleReadiness {
+  const required = decl.required ?? []
+  const sufficient = decl.sufficient ?? []
+  const missingRequired = required.filter((t) => !has(t))
+  if (missingRequired.length) return { status: 'Insufficient', reasons: [`missing required data: ${missingRequired.join(', ')}`], caps: [] }
+  const caps: string[] = []
+  for (const [t, note] of Object.entries(decl.caps ?? {})) if (!has(t as FileType) && note) caps.push(note)
+  const missing = sufficient.filter((t) => !has(t))
+  if (!missing.length) return { status: 'Sufficient', reasons: [sufficient.length ? `expected inputs present: ${sufficient.join(', ')}` : 'inputs present'], caps }
+  return { status: 'Partial', reasons: [`present, missing: ${missing.join(', ')}`], caps }
+}
+
 function evaluateModules(files: ClassifiedFile[], moduleNames: string[]): Record<string, ModuleReadiness> {
   const has = (t: FileType) => files.some((f) => f.type === t)
   const minAge = (types: FileType[]) => {
@@ -368,8 +383,18 @@ function evaluateModules(files: ClassifiedFile[], moduleNames: string[]): Record
     out['management-governance'] = { status, reasons, caps }
   }
 
-  // generic fallback — keeps readiness self-discovering for any other module (e.g. catalyst) the
-  // engine adds, without a hand-written rule. Evidence-based on recent filings.
+  // self-declared modules: any module shipping a `data_readiness` rule in its 00-triage frontmatter
+  // gets a tailored verdict here — no hand-written rule in this file. (Founding modules above keep
+  // their bespoke rules; a new module needs only its own declaration, else it falls to generic.)
+  const decls = moduleReadinessDecls()
+  for (const name of moduleNames) {
+    if (out[name]) continue
+    const d = decls[name]
+    if (d) out[name] = evalDecl(d, has)
+  }
+
+  // generic fallback — keeps readiness self-discovering for any other module the engine adds,
+  // without a hand-written rule AND without a declaration. Evidence-based on recent filings.
   for (const name of moduleNames) {
     if (out[name]) continue
     const annualOk = hasAnnual && recent(annualAge, 18)

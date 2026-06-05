@@ -4,6 +4,15 @@ description: Inventories forward-looking, scheduled-event data in the data pool 
 tools: Read, Glob, Grep, Bash
 layer: 0
 fail_fast: false
+# Self-declared data-readiness for the cockpit's pre-run readiness dots (the server reads this;
+# absent => generic fallback). Catalyst never aborts ("no proven catalyst yet" is valid), so nothing
+# is strictly required. This is how a module tailors its readiness with zero edits to engine code.
+data_readiness:
+  required: []
+  sufficient: [transcript, guidance]
+  caps:
+    transcript: "calendar leans on filings only (no transcript for management-commentary catalysts)"
+    guidance: "guidance-driven catalysts limited (no guidance doc in the pool)"
 ---
 
 # ROLE
