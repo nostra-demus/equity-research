@@ -325,15 +325,21 @@ if (fs.existsSync(WEB_DIST)) {
   // skips its (tunnel-slow) /api/health probe and goes straight to LIVE mode —
   // instant, and never the read-only static showcase. The Cloudflare Pages deploy
   // serves a plain index.html without this marker, so it still uses the snapshot.
-  const indexHtml = fs.readFileSync(WEB_DIST + '/index.html', 'utf8').replace(
-    '</head>',
-    '<script>window.__ENGINE_LIVE__=true</script></head>',
-  )
-  // index.html must always revalidate (it points at the current hashed assets).
-  const sendIndex = (_req: any, reply: any) => reply.header('cache-control', 'no-cache').type('text/html').send(indexHtml)
+  // Read index.html FRESH per request (it's ~0.5 KB) and inject the live marker. Reading it once at
+  // startup desyncs the served HTML from the on-disk hashed assets the moment ui/dist is rebuilt
+  // while the server is running — the browser then requests a stale hash that 404s and the app blanks.
+  const sendIndex = (_req: any, reply: any) => {
+    let html = ''
+    try { html = fs.readFileSync(WEB_DIST + '/index.html', 'utf8') } catch {}
+    html = html.replace('</head>', '<script>window.__ENGINE_LIVE__=true</script></head>')
+    return reply.header('cache-control', 'no-cache').type('text/html').send(html)
+  }
   app.get('/', sendIndex)
   app.setNotFoundHandler((req, reply) => {
-    if (req.url.startsWith('/api/')) return reply.code(404).send({ error: 'not found' })
+    // Never fall back to index.html for an API path or a static asset (anything with a file
+    // extension): returning HTML for a missing .js/.css makes the browser reject the module and
+    // blanks the whole app. A missing hashed asset must fail loudly as a 404.
+    if (req.url.startsWith('/api/') || /\.[a-z0-9]+(?:\?|$)/i.test(req.url)) return reply.code(404).send({ error: 'not found' })
     return sendIndex(req, reply)
   })
 }
