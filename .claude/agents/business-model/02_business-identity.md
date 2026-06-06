@@ -34,7 +34,9 @@ You DO NOT:
 
 # WHAT TO READ (priority for this agent)
 
-- **Item 1 / Business Overview** in the latest 10-K, 20-F, or annual report
+Detect the filing regime from triage `00` and read the local-equivalent document (CLAUDE.md §27 / MODULE_RULES Jurisdiction-Aware Sourcing). US form names below are examples.
+
+- **Business-overview section** of the latest annual filing (Item 1 of a US 10-K / 20-F; the Board's Report + Management Discussion & Analysis in an India Annual Report; local equivalent)
 - **Investor presentation** — first 5 slides usually carry the business description
 - **CEO prepared remarks** from the most recent earnings call
 - **Risk factors** — useful to triangulate what the business actually depends on (separate from how the company markets itself)

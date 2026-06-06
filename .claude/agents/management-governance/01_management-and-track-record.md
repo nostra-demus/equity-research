@@ -37,8 +37,8 @@ If there are no prior shareholder letters, transcripts, or guidance to check aga
 
 # WHAT TO READ (priority for this agent)
 
-- **Proxy / 10-K** — officer bios, tenure, appointment dates
-- **8-K filings** — management departures and appointments
+- **Proxy materials / annual report** — officer bios, tenure, appointment dates (US: DEF 14A / 10-K; India: AGM Notice + Corporate Governance Report / Annual Report; local equivalent — see the Jurisdiction-Aware Source Mapping in `MODULE_RULES.md`, CLAUDE.md §27)
+- **Material-event disclosures** — management departures and appointments (US: 8-K; India: exchange intimation to NSE/BSE under SEBI LODR Reg 30; RNS/local equivalent)
 - **Prior shareholder letters / investor days** — the promises and targets
 - **Latest filings / `earnings/04_guidance-consensus.md`** — the outcomes vs those promises
 - **business-model/02_business-identity.md** — control and founder context

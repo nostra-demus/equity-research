@@ -36,6 +36,7 @@ You DO NOT:
    It splits each workbook into one text extract per tab and writes `_pool_extracts/manifest.md`. Then list every file in `DATA_PATH` (recursive) — and **every workbook tab from the manifest as its own inventory row** (parent file + sheet name + rows×cols). Note filename, size, and last-modified date. A multi-tab workbook must NEVER appear as a single opaque row.
 3. Classify each file by solvency-relevance: annual filing, quarterly filing, debt/capital-structure export, fixed-income/maturities export, rating report, cash flow data, covenant/credit-agreement disclosure, transcript, deck, user note, other.
 4. Identify the MOST RECENT instance of each type.
+4a. **Detect and record the listing jurisdiction, reporting standard, and reporting currency** so downstream agents apply the right Jurisdiction-Aware Sourcing (MODULE_RULES, CLAUDE.md §27). From the filings, identify the primary listing country/exchange and the filing regime (US SEC / India SEBI-LODR / UK / Other), the accounting standard the financials use (US GAAP / IFRS / Ind AS), and the reporting currency (USD / INR / …). For non-US issuers, do NOT mark US forms (10-K, 10-Q, 8-K) "missing" when the local equivalent exists (e.g. an Indian Annual Report's borrowings note, quarterly results to NSE/BSE, CRISIL/ICRA/CARE/India Ratings reports).
 5. Check for cross-module inputs: do `analyses/{TICKER}_{DATE}/business-model/`, `analyses/{TICKER}_{DATE}/earnings/`, and `analyses/{TICKER}_{DATE}/valuation/` exist? If so, note which outputs are available.
 6. Apply sufficiency rules and write the verdict.
 7. Apply partial-data flags from `MODULE_RULES.md` and list which caps will bind.
@@ -105,6 +106,18 @@ You DO NOT:
 | earnings/03_margin-drivers.md | |
 | valuation/01_price-and-capital-structure.md | |
 
+## 4A. Jurisdiction & Reporting Regime
+
+| Item | Detected Value | Evidence |
+|---|---|---|
+| Primary listing country | | |
+| Exchange | | |
+| Filing regime (US SEC / India SEBI-LODR / UK / Other) | | |
+| Reporting standard (US GAAP / IFRS / Ind AS) | | |
+| Reporting currency (USD / INR / …) | | |
+
+Set these so later agents apply the right Jurisdiction-Aware Sourcing (MODULE_RULES, CLAUDE.md §27) — reading the local-equivalent debt note, contingency note, and rating reports, and stating the standard and currency on every figure. For non-US issuers, do NOT mark US forms (10-K, 10-Q, 8-K) "missing" when the local equivalent exists.
+
 ## 5. Partial-Data Flags
 
 | Missing Data | Applies? (Y/N) | Affected Agents | Cap Applied |
@@ -133,6 +146,7 @@ You DO NOT:
 - [ ] Each file has a type classification and solvency-relevance rating.
 - [ ] Most-recent table identifies actual filenames (no fabrication).
 - [ ] Cross-module availability is checked against the actual filesystem.
+- [ ] Jurisdiction, filing regime, reporting standard, and reporting currency are detected (Section 4A) so downstream agents apply the right source map.
 - [ ] Solvency usability check table is fully populated (all 18 rows have Y/N).
 - [ ] Partial-data flags table is fully populated (all 6 rows have Y/N).
 - [ ] "Sections that can run" lists at least the sections supported by the available data.

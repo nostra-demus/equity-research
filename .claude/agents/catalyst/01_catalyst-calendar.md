@@ -46,7 +46,7 @@ If no scheduled-event data exists and no upstream modules ran: produce the calen
 - **management-governance/05, 02, 01** — AGM/EGM votes, capital returns, M&A, succession
 - **valuation/05_reverse-dcf, 07_scenario-and-fair-value** — what's priced in and the re-rating trigger
 - **business-model/10_external-dependency, 11_capital-allocation-governance** — policy/regulatory/commodity catalysts; capital-return events
-- **Data pool** — AGM notices, debt maturities, regulatory timelines, contract/lock-up/index dates
+- **Data pool** — AGM notices, debt maturities, regulatory timelines, contract/lock-up/index dates. Read these in the company's own regime (per `CLAUDE.md` §27 and triage `00`): US 8-K / proxy / Form 4, or India NSE/BSE board-meeting & results intimations, AGM notices, record/ex dates, dividend declarations, SEBI / sector-regulator actions, and scheme-of-arrangement / NCLT timelines, or the local equivalent — never mark a non-US event "missing" when the local equivalent exists.
 
 # REPORT STRUCTURE
 

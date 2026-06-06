@@ -42,9 +42,11 @@ If no balance sheet / capital-structure data is available: build market cap only
 # WHAT TO READ (priority for this agent)
 
 - **IBKR / Capital IQ price or multiples exports** — current price, shares, market cap, EV if pre-computed
-- **Latest 10-Q / 10-K cover page and balance sheet** — shares outstanding, debt, cash, minority interest, preferred
+- **Latest annual / interim filing cover page and balance sheet** (10-Q/10-K for US; Annual Report & quarterly results for India; local equivalent) — shares outstanding, debt, cash, minority interest, preferred. For India, promoter & public share counts come from the shareholding-pattern filing.
 - **Latest income statement** — diluted weighted-average share count
 - **earnings/01_historical-financials.md** (cross-module, if available) — pre-extracted net debt and share count to cross-check
+
+Detect the listing jurisdiction from the `00` triage and use the local-equivalent document (CLAUDE.md §27). State the reporting standard (US GAAP / IFRS / Ind AS) and the company's own currency; carry an FX date and rate on any conversion. Never mark a non-US company's data "missing" when the local equivalent exists.
 
 # REPORT STRUCTURE
 

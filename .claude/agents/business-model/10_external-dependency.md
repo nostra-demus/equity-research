@@ -34,9 +34,11 @@ You DO NOT:
 
 # WHAT TO READ (priority for this agent)
 
+Detect the filing regime from triage `00` and read the local-equivalent document (CLAUDE.md §27 / MODULE_RULES Jurisdiction-Aware Sourcing). US form names below are examples.
+
 - **Risk Factors** in latest annual filing — names the dependencies the company itself acknowledges
 - **MD&A** — discusses how the variables moved and what the company did
-- **Quantitative and Qualitative Disclosures About Market Risk** (Item 7A in US 10-K) — includes FX/rate/commodity sensitivities
+- **Market-risk / sensitivity disclosure** (Item 7A of a US 10-K; the financial-instruments / market-risk note under Ind AS in an India Annual Report; local equivalent) — includes FX / rate / commodity sensitivities
 - **Sensitivity tables** if disclosed
 - **Earnings transcripts** — analyst questions probe these dependencies
 

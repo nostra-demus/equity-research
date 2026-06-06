@@ -51,6 +51,18 @@ Do NOT write "company filings" or "annual report" alone — those are not citati
 
 ---
 
+## Jurisdiction-Aware Sourcing (Hard Rule)
+
+This module follows the engine-wide canonical document map in repo-root `CLAUDE.md` §27. The US form names used in this file and its agents (10-K, 10-Q, 20-F, 8-K, S-1) are EXAMPLES, not requirements. Detect the listing jurisdiction from triage `00` and read/cite the local-equivalent document. An Indian company is the default-likely case, not an edge case.
+
+- **US / SEC:** 10-K / 20-F, 10-Q / 6-K, 8-K, S-1, segment note, MD&A.
+- **India / SEBI + Companies Act:** Annual Report (Board's Report + MD&A for the business overview; Notes to Accounts for reportable segments under Ind AS 108); BRSR for operations / supply-chain / ESG; related-party-transaction (RPT) disclosures; NSE/BSE exchange announcements (SEBI LODR Reg 30) for material events. Regulator = SEBI / RBI / IRDAI / MCA / sector regulator, not only the SEC.
+- **Other jurisdictions:** the local statutory annual report, interim report, segment note, exchange announcements (e.g. RNS), and national regulator.
+
+State the reporting standard (US GAAP / IFRS / Ind AS) and the company's own currency; any cross-currency figure carries its FX date and rate (§15). Never mark a non-US company's data "missing" because a US form is absent when the local equivalent exists — that is a bad-extraction error (CLAUDE.md §20), not a real data gap.
+
+---
+
 ## Scoring Rules
 
 All scores are out of 100, whole numbers. Bands:

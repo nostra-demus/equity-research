@@ -71,6 +71,20 @@ When the deck says "comfortable" and the filing shows a near-term wall, trust th
 
 ---
 
+## Jurisdiction-Aware Sourcing (Hard Rule)
+
+This module follows CLAUDE.md §27. The US form names used in this file and its agents (10-K, 10-Q, 8-K) are EXAMPLES, not requirements. Detect the listing jurisdiction from triage `00` and read/cite the local-equivalent document. Never mark a non-US company's solvency data "missing" because a US form is absent when the local equivalent exists — that is a bad-extraction error (§20), not a real data gap. An Indian company is the default-likely case.
+
+India / SEBI-LODR equivalents for THIS module:
+- **Debt amounts, maturities, security/collateral:** the Annual Report's borrowings notes (Ind AS Notes to Accounts) and the debenture / NCD trust deeds, not a US debt note or indenture.
+- **Credit ratings:** CRISIL / ICRA / CARE / India Ratings (the SEBI-registered agencies), not only Moody's / S&P / Fitch.
+- **Off-balance-sheet items:** the Contingent Liabilities & Commitments note in the Annual Report (guarantees, LCs, disputed tax/litigation, capital commitments).
+- **Disclosures and intimations:** SEBI LODR filings and NSE/BSE intimations (e.g. material events, rating changes, defaults) in place of an 8-K.
+
+State the reporting standard (US GAAP / IFRS / Ind AS) — it changes how leases, provisions, and contingencies read — and report in the company's own currency; any cross-currency figure carries its FX date and rate (§15).
+
+---
+
 ## Evidence Citation Format
 
 Every "Evidence" cell uses this format:
@@ -78,10 +92,11 @@ Every "Evidence" cell uses this format:
 `[Source, Period, Page or Section]`
 
 Examples:
-- `FY24 10-K, Note 13 (Debt)`
-- `FY24 10-K, Note 18 (Commitments & Contingencies)`
-- `Q2 FY26 10-Q, p.18 (maturities)`
+- `(US) FY24 10-K, Note 13 (Debt)` / `(India) FY24 Annual Report (Ind AS), Note on Borrowings`
+- `(US) FY24 10-K, Note 18 (Commitments & Contingencies)` / `(India) FY24 Annual Report, Contingent Liabilities & Commitments note`
+- `Q2 FY26 10-Q, p.18 (maturities)` / `(India) Q2 FY26 quarterly results to NSE/BSE (maturities)`
 - `Capital IQ Capital Structure, data as of 2026-05-09`
+- `(US) Moody's rating action, 2026-04-12` / `(India) CRISIL rating rationale, 2026-04-12`
 - `Q2 FY26 transcript, prepared remarks (refi)`
 - `Web: 5Y UST yield, 2026-05-31 (indicative, unverified)`
 

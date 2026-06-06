@@ -37,8 +37,8 @@ If no proxy / compensation disclosure exists in the pool: state that incentive a
 
 # WHAT TO READ (priority for this agent)
 
-- **Proxy / DEF 14A — Compensation Discussion & Analysis** — metrics, weights, targets
-- **Summary Compensation Table** — magnitude and mix
+- **Compensation disclosure** — metrics, weights, targets (US: DEF 14A Compensation Discussion & Analysis; India: Board's Report + Corporate Governance Report remuneration disclosures; local equivalent — see the Jurisdiction-Aware Source Mapping in `MODULE_RULES.md`, CLAUDE.md §27)
+- **Pay-detail table** — magnitude and mix (US: Summary Compensation Table; India: managerial-remuneration disclosure under the Companies Act / LODR; local equivalent)
 - **`01_management-and-track-record.md`** — context on the team
 - **Web** — peer compensation benchmarking (label as web-sourced)
 

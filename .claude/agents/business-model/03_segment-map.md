@@ -34,10 +34,12 @@ You DO NOT:
 
 # WHAT TO READ (priority for this agent)
 
-- **Segment information note** in the latest 10-K, 20-F, or annual report (often Note 4–8)
+Detect the filing regime from triage `00` and read the local-equivalent document (CLAUDE.md §27 / MODULE_RULES Jurisdiction-Aware Sourcing). US form names below are examples.
+
+- **Segment information note** in the latest annual filing (often Note 4–8 in a US 10-K / 20-F; the reportable-segments note under Ind AS 108 in an India Annual Report; local equivalent)
 - **Management discussion** — segment commentary
 - **Investor deck** — sometimes shows segment splits more clearly than filings
-- **Quarterly filings** if segment definitions changed recently
+- **Quarterly / interim filings** (10-Q for US; SEBI LODR quarterly results for India; local equivalent) if segment definitions changed recently
 
 # REPORT STRUCTURE
 

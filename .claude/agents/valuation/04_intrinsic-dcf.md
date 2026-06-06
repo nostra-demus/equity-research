@@ -55,8 +55,10 @@ Whatever method you use, keep this agent's discipline (every assumption sourced,
 - **earnings/04_guidance-consensus.md** — near-term revenue/margin guidance
 - **earnings/03_margin-drivers.md, 07_earnings-sensitivity.md** — margin path and ranges
 - **business-model/10_external-dependency.md** — cyclicality for the terminal assumption
-- **Latest 10-K / 10-Q** — cash flow statement, capex, tax rate, debt cost
+- **Latest annual / interim filing** (10-K/10-Q for US; Annual Report & quarterly results for India; local equivalent) — cash flow statement, capex, tax rate, debt cost
 - **Web** — current risk-free rate and equity-risk premium (label as web-sourced)
+
+Detect the listing jurisdiction from the `00` triage and use the local-equivalent document (CLAUDE.md §27). State the reporting standard (US GAAP / IFRS / Ind AS) and the company's own currency, and match the discount rate and terminal-growth `g` to that currency's economy (the WACC sanity bounds in MODULE_RULES key off the reporting currency).
 
 # REPORT STRUCTURE
 

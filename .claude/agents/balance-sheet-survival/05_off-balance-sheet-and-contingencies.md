@@ -38,7 +38,7 @@ If the commitments-and-contingencies note is thin: list what is disclosed, and f
 
 # WHAT TO READ (priority for this agent)
 
-- **Commitments & Contingencies note** (10-K/10-Q) — guarantees, LCs, litigation, tax claims, purchase commitments
+- **Commitments & Contingencies note** in the annual / interim filing (10-K/10-Q for US; the Contingent Liabilities & Commitments note in an India Annual Report; local equivalent) — guarantees, LCs, litigation, tax claims, purchase commitments
 - **Leases note** — operating vs finance lease split
 - **Pension / OPEB note** — funded status
 - **Off-balance-sheet arrangements / securitization disclosure**

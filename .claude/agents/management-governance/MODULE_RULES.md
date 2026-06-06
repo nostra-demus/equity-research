@@ -63,6 +63,8 @@ When the shareholder letter is upbeat and the proxy shows misaligned pay, trust 
 
 ## Jurisdiction-Aware Source Mapping (Hard Rule)
 
+This map implements CLAUDE.md §27 (Jurisdiction & Reporting-Regime Awareness) for the management-governance module.
+
 US filing names (DEF 14A, 10-K, 10-Q, 8-K, Form 4) are EXAMPLES, not requirements. Detect the listing jurisdiction (triage `00`) and use the local equivalents. Do NOT mark a non-US company's governance data "missing" because a US form is absent when the local equivalent exists.
 
 - **US / SEC:** DEF 14A, 10-K, 10-Q, 8-K, Form 4, Schedule 13D/13G, S-1/S-3/S-4/S-8, shareholder letter.

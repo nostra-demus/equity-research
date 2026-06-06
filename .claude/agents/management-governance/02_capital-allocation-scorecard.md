@@ -40,7 +40,7 @@ If only the latest year is available: score what you can and state the scorecard
 - **business-model/11_capital-allocation-governance.md** — the existing quick-read to deepen
 - **earnings/01_historical-financials.md** — CFO, FCF, capex, share count, returns
 - **Cash flow statement + financing section** — buybacks, dividends, debt
-- **10-K / press releases** — M&A prices and disclosed synergies/returns
+- **Annual report / press releases** — M&A prices and disclosed synergies/returns (US: 10-K; India: Annual Report (Ind AS) + NSE/BSE intimations; local equivalent — see the Jurisdiction-Aware Source Mapping in `MODULE_RULES.md`, CLAUDE.md §27)
 - **Web** — outcomes of past acquisitions where not disclosed (label as web-sourced)
 
 # REPORT STRUCTURE

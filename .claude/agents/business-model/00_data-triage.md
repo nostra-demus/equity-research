@@ -38,9 +38,10 @@ You DO NOT:
 
    It splits each workbook into one text extract per tab and writes `_pool_extracts/manifest.md`. Then list every file in `DATA_PATH` (recursive) — and **every workbook tab from the manifest as its own inventory row** (parent file + sheet name + rows×cols). Note filename, size, and last-modified date. A multi-tab workbook must NEVER appear as a single opaque row.
 3. Classify each file by type: annual filing, quarterly filing, transcript, investor deck, data export, user note, other.
-4. Identify the MOST RECENT instance of each filing type. State the period it covers.
-5. Apply the sufficiency rule (below) and write the verdict.
-6. Use the Write tool to save your complete report (formatted exactly as described in the REPORT STRUCTURE section above) to the path given in OUTPUT_PATH. This file is what downstream agents and the orchestrator will read — do NOT skip this step, and do NOT return your report only as a chat message. After writing the file, return only the CHAT CONFIRMATION block.
+4. **Detect and record the filing regime.** From the filings, identify the primary listing jurisdiction (US SEC / India SEBI-LODR / UK / Other), the reporting standard (US GAAP / IFRS / Ind AS), and the reporting currency (with fiscal-year end). Record these in Section 2A so downstream agents apply CLAUDE.md §27 and read the local-equivalent documents. For non-US issuers, do NOT mark US forms (10-K, 8-K, S-1) "missing" when the local equivalent exists.
+5. Identify the MOST RECENT instance of each filing type. State the period it covers.
+6. Apply the sufficiency rule (below) and write the verdict.
+7. Use the Write tool to save your complete report (formatted exactly as described in the REPORT STRUCTURE section above) to the path given in OUTPUT_PATH. This file is what downstream agents and the orchestrator will read — do NOT skip this step, and do NOT return your report only as a chat message. After writing the file, return only the CHAT CONFIRMATION block.
 
 # SUFFICIENCY RULE
 
@@ -69,6 +70,17 @@ You DO NOT:
 | Investor deck | | | |
 | Data export | | | |
 
+## 2A. Filing Regime
+
+| Item | Detected Value | Evidence |
+|---|---|---|
+| Primary listing country | | |
+| Filing regime (US SEC / India SEBI-LODR / UK / Other) | | |
+| Reporting standard (US GAAP / IFRS / Ind AS) | | |
+| Reporting currency + fiscal-year end | | |
+
+Set these so downstream agents apply CLAUDE.md §27 (read/cite the local-equivalent document). For non-US issuers, do NOT mark US forms (10-K, 8-K, S-1) "missing" when the local equivalent exists.
+
 ## 3. Sufficiency Verdict
 
 - **Verdict:** Sufficient / Partial / Insufficient
@@ -81,6 +93,7 @@ You DO NOT:
 - [ ] Every file in `DATA_PATH` is listed.
 - [ ] Every multi-tab workbook has each tab listed as its own inventory row, reconciled against `_pool_extracts/manifest.md` — no workbook left as a single opaque row.
 - [ ] Each file has a type classification.
+- [ ] Filing regime, reporting standard, and reporting currency are detected and recorded (Section 2A) so downstream agents apply the right §27 source map.
 - [ ] The most-recent table identifies actual filenames from the inventory (no fabrication).
 - [ ] The verdict matches the sufficiency rule exactly.
 - [ ] If Insufficient, the report explicitly says "Verdict: Insufficient data" so the orchestrator can fail-fast.

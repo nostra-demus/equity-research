@@ -53,19 +53,24 @@ Rule: when sources conflict, use the more conservative interpretation unless str
 
 This root hierarchy is the canonical version. Each module's MODULE_RULES.md may insert module-specific tiers (for example, the management-governance module elevates the proxy/DEF 14A; the balance-sheet-survival module elevates debt notes and rating-agency reports). Those refinements must stay consistent with this ordering — filings above transcripts, transcripts above decks, third-party data above user notes, user notes above dated web sources, everything above unlabeled inference.
 
+The document NAMES in this hierarchy are regime-specific. "10-K", "10-Q", "6-K" and the like are US/foreign-private-issuer examples; the equivalent for an Indian or other-market company is its local statutory filing. Detect the listing jurisdiction first and read the local equivalent — the tier (audited annual filing, interim filing, notes, proxy/AGM) is what matters, not the form number. See §27 for the full US / India / global equivalence map.
+
 ---
 
 ## 5. Evidence Citation Standard
 
 Every material claim cites evidence as: `[Source, Period, Page / Section / Date]`.
 
-Concrete forms already in use across modules, all acceptable:
-- `FY24 10-K, p.42`
+Concrete forms already in use across modules, all acceptable — cite the local document by its real name, whatever the jurisdiction (see §27):
+- `FY24 10-K, p.42` (US)
+- `FY24 20-F, Item 5` (foreign private issuer)
+- `FY24 Annual Report (Ind AS), Note 18` (India)
+- `Q1 FY26 results (SEBI LODR), NSE filing 2026-07-29` (India interim)
+- `FY24 Corporate Governance Report / AGM Notice` (India proxy-equivalent)
 - `Q2 FY26 transcript, prepared remarks`
-- `FY24 Annual Report, Note 18`
-- `FY24 DEF 14A, Compensation Discussion & Analysis`
+- `FY24 DEF 14A, Compensation Discussion & Analysis` (US proxy)
 - `FY24 10-K, Note 13 (Debt)`
-- `Capital IQ Multiples export, data as of 2026-05-09`
+- `CRISIL rating rationale, 2026-03-10` / `Capital IQ Multiples export, data as of 2026-05-09`
 - `IBKR screenshot, 2026-05-30`
 - `Web: exchange quote, 2026-05-31 (indicative, unverified)`
 
@@ -390,3 +395,29 @@ The engine is self-extending: adding a research module or a sub-agent must requi
 - Never hardcode a module or agent name in engine code. The only module names that may appear are the grandfathered founding-module readiness rules — do not add more.
 
 If a change would force a human to touch engine code when a module or sub-agent is added, it is wrong: make the engine derive it from the discovered graph or from the module's own self-declared frontmatter instead.
+
+---
+
+## 27. Jurisdiction & Reporting-Regime Awareness
+
+This engine covers companies in any market — the United States, India, and other jurisdictions. US SEC form names (10-K, 10-Q, 8-K, DEF 14A, Form 4, 13D/13G, S-1, plus 20-F / 6-K for foreign filers) appear throughout these prompts only as EXAMPLES. They are never requirements. Every agent detects the company's listing jurisdiction first — each module's `00` triage records it — then reads and cites the local-equivalent document. Never mark a non-US company's data "missing" because a US form is absent when the local equivalent exists; that is a bad-extraction error (§20), not a real data gap. An Indian company is the default-likely case, not an edge case.
+
+**Canonical document map** — match on what the document IS (the source tier in §4), then use its name in the company's regime:
+
+| Document type (what it is) | US / SEC | India / SEBI + Companies Act | Other jurisdictions → use the local equivalent |
+| --- | --- | --- | --- |
+| Audited annual report | 10-K (domestic) / 20-F (foreign filer) | Annual Report = Board's Report + audited financials + MD&A + Auditor's Report + Notes; plus BRSR / integrated report | statutory annual report / annual accounts |
+| Interim / quarterly results | 10-Q | Quarterly financial results (SEBI LODR Reg 33, limited-review) filed to NSE/BSE | half-year / quarterly report (e.g. UK interim, RNS) |
+| Material-event disclosure | 8-K | Stock-exchange intimations to NSE & BSE (SEBI LODR Reg 30) | regulatory news service (e.g. RNS) / ad-hoc disclosure |
+| Proxy — governance & pay | DEF 14A | AGM Notice + Corporate Governance Report + Board's Report (remuneration) + scrutinizer/voting results | notice of AGM / remuneration report / governance statement |
+| Ownership & insider trades | Schedule 13D/13G, Form 4 | Shareholding-pattern filing, SAST & PIT disclosures, promoter pledge/encumbrance | major-holdings / managers'-transactions disclosures |
+| Prospectus / offering | S-1, S-3 | DRHP / RHP / Prospectus, scheme documents | local prospectus / listing particulars |
+| Debt terms & ratings | indenture; Moody's / S&P / Fitch | debenture/NCD trust deed; CRISIL / ICRA / CARE / India Ratings | local debt notes + a recognised rating agency |
+| Regulator / enforcement | SEC | SEBI / RBI / IRDAI / MCA / sector regulator | the relevant national regulator |
+
+**Accounting standard, currency, and fiscal year** travel with the numbers:
+- State the reporting standard (US GAAP / IFRS / Ind AS). It changes how leases, revenue, provisions, and consolidation read — never compare across standards silently.
+- Report in the company's own currency (USD, INR, …). Any cross-currency figure carries its FX date and rate (§15). Local scale (lakh/crore) is fine, but always give the absolute number too.
+- Use the company's own fiscal year. An Indian "FY24" usually ends 31 March; a US "FY24" may end 31 December or otherwise — never assume a calendar of convenience, and never mix periods without reconciliation (§15).
+
+Each module's MODULE_RULES.md applies this map and may add its own regime-specific source list and sector overlays on top (management-governance already does). The citation format (§5) is unchanged: name the local document and its period.

@@ -43,12 +43,13 @@ You DO NOT:
    ```
 
    Read `_pool_extracts/manifest.md` and the per-tab extracts as part of the inventory; no workbook tab is skipped.
-3. Note which upstream module outputs exist in this run (each contributes catalysts).
-4. Issue a Sufficient / Partial / Insufficient read for the calendar — but do not abort.
+3. Detect and record the listing jurisdiction (US SEC / India SEBI-LODR / UK / Other), the reporting standard (US GAAP / IFRS / Ind AS), and the reporting currency, so downstream agents apply the right local-equivalent document map (`CLAUDE.md` §27, MODULE_RULES Jurisdiction-Aware Sourcing).
+4. Note which upstream module outputs exist in this run (each contributes catalysts).
+5. Issue a Sufficient / Partial / Insufficient read for the calendar — but do not abort.
 
 # WHAT TO READ (priority for this agent)
 
-- **Latest filing / exchange announcements** — results-date calendars, AGM/EGM notices, record dates
+- **Latest filing / exchange announcements** — results-date calendars, AGM/EGM notices, record dates (8-K / proxy in the US; board-meeting & results intimations to NSE/BSE + AGM Notice in India; local equivalent)
 - **Debt note / maturity table** — refinancing dates
 - **Risk factors / regulatory disclosures** — scheduled decisions, license renewals, hearing dates
 - **Transcripts / decks** — management-flagged upcoming events (launches, commissioning, capital returns)
@@ -58,6 +59,16 @@ You DO NOT:
 
 ```
 # Catalyst Data Triage — {TICKER}
+
+## 0. Jurisdiction & Reporting Regime
+
+| Item | Detected Value | Evidence |
+|---|---|---|
+| Listing jurisdiction (US SEC / India SEBI-LODR / UK / Other) | | |
+| Reporting standard (US GAAP / IFRS / Ind AS) | | |
+| Reporting currency (and fiscal year-end) | | |
+
+Set these so later agents read the local-equivalent scheduled-event documents (per `CLAUDE.md` §27). For non-US issuers, do NOT mark US forms (8-K, 10-K, DEF 14A) "missing" when the local equivalent (e.g. NSE/BSE intimation, AGM Notice) exists.
 
 ## 1. Scheduled-Event Inventory
 
@@ -91,6 +102,7 @@ State plainly whether the calendar will be able to carry proven dates, or will b
 
 # SELF-CHECK
 
+- [ ] Jurisdiction, reporting standard, and reporting currency are detected (Section 0) so downstream agents apply the right local-equivalent source map (§27).
 - [ ] Every category row has an explicit Y/N.
 - [ ] Multi-tab workbooks were pre-extracted (`_pool_extracts/manifest.md`); no tab was skipped in the scheduled-event scan.
 - [ ] Upstream-module availability is recorded.

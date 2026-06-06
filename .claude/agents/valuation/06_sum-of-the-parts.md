@@ -43,9 +43,11 @@ You DO NOT:
 
 - **business-model/03_segment-map.md** — segments and their economics
 - **business-model/08_competitive-map.md** — segment-level comparables
-- **Segment note in the latest 10-K / 10-Q** — segment revenue, EBIT, assets
+- **Segment note in the latest annual / interim filing** (10-K/10-Q for US; the Ind AS 108 segment note in the Annual Report & quarterly results for India; local equivalent) — segment revenue, EBIT, assets
 - **`01_price-and-capital-structure.md`** — net debt, shares, corporate items
 - **Web** — pure-play comparable multiples for each segment (label as web-sourced)
+
+Detect the listing jurisdiction from the `00` triage and use the local-equivalent segment disclosure (CLAUDE.md §27). State the reporting standard (US GAAP / IFRS / Ind AS) and the company's own currency; never mark a non-US company's segment data "missing" when the local equivalent exists.
 
 # REPORT STRUCTURE
 

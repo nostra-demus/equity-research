@@ -51,7 +51,7 @@ If any upstream is missing, note at the top:
 
 - **Upstream revenue-drivers and margin-drivers** — the driver tables with magnitude ratings
 - **Upstream historical-financials** — baseline EPS and EBITDA for computing impact
-- **Company's own sensitivity disclosures** (Item 7A in US 10-K, or equivalent) — FX, rate, commodity sensitivities
+- **Company's own market-risk / sensitivity disclosure** — FX, rate, commodity sensitivities (Item 7A of a US 10-K; the market-risk / financial-instruments notes in an India Annual Report under Ind AS 107; the local equivalent elsewhere)
 - **MD&A** — management sometimes discusses what-if scenarios
 - **Business-model external-dependency** if available — pre-identified external variables
 

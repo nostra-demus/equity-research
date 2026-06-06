@@ -42,7 +42,7 @@ If no earnings transcript is available, note: *"No transcript — guidance extra
 
 - **Earnings transcript** — guidance section in prepared remarks, often also in Q&A
 - **Investor presentation** — guidance slides
-- **8-K / 6-K** — sometimes contains standalone guidance updates
+- **Material-event disclosure** — sometimes contains standalone guidance updates (8-K/6-K in the US; exchange intimation to NSE/BSE under SEBI LODR Reg 30 in India; RNS/local equivalent elsewhere)
 - **Capital IQ / Bloomberg / FactSet exports** — consensus estimates and revision history
 - **Latest quarterly filing MD&A** — sometimes embeds implicit guidance
 

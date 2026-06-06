@@ -37,9 +37,9 @@ If no ownership table or insider-transaction data is in the pool: state that and
 
 # WHAT TO READ (priority for this agent)
 
-- **Proxy — Beneficial Ownership table** — insider and 5%+ holders, share classes
-- **Insider-transaction filings (Form 4 / equivalent)** — buys and sells
-- **10-K / proxy** — pledging disclosure, control structure, dual-class terms
+- **Ownership disclosure** — insider/promoter and large holders, share classes (US: DEF 14A Beneficial Ownership table + Schedule 13D/13G; India: shareholding-pattern filing; local equivalent — see the Jurisdiction-Aware Source Mapping in `MODULE_RULES.md`, CLAUDE.md §27)
+- **Insider-transaction filings** — buys and sells (US: Form 4; India: SAST & PIT disclosures; local equivalent)
+- **Annual report / proxy materials** — pledging disclosure, control structure, dual-class terms (US: 10-K / DEF 14A; India: Annual Report + promoter pledge/encumbrance disclosures; local equivalent)
 - **business-model/01_disqualifier-scan.md, 11_capital-allocation-governance.md** — pledging/related-party flags
 - **Web** — insider transactions / ownership not in the pool (label as web-sourced)
 

@@ -35,11 +35,13 @@ You DO NOT:
 
 # WHAT TO READ (priority for this agent)
 
-- **Financial statements** in the latest annual filing (income statement, cash flow, balance sheet)
+- **Financial statements** in the latest annual filing (income statement, cash flow, balance sheet) — 10-K/20-F for US; Annual Report for India; local annual report elsewhere
 - **5-year selected financial data** if available (some filings include this)
-- **Quarterly filings (10-Q, 6-K)** — for the quarterly trend table
+- **Interim / quarterly filing** — for the quarterly trend table (10-Q/6-K for US; quarterly financial results filed to NSE/BSE for India; local equivalent)
 - **Investor deck** — sometimes has clean multi-year summaries
 - **Capital IQ / Bloomberg exports** — for pre-formatted financial data
+
+Use the company's own reporting standard (US GAAP / IFRS / Ind AS), currency, and fiscal year (CLAUDE.md §27/§15). Do not assume USD, US GAAP, or a December year-end.
 
 # REPORT STRUCTURE
 
@@ -134,9 +136,9 @@ In 3–5 sentences:
 
 ## 7. Citations
 
-Every number in the tables must have a citation. Use a footnote block:
-[1] FY24 10-K, p.XX
-[2] Q3 FY25 10-Q, p.XX
+Every number in the tables must have a citation. Use a footnote block (name the local document — these forms are examples per CLAUDE.md §27):
+[1] (US) FY24 10-K, p.XX / (India) FY24 Annual Report (Ind AS), Note XX
+[2] (US) Q3 FY25 10-Q, p.XX / (India) Q3 FY25 quarterly results to NSE/BSE
 ...
 ```
 

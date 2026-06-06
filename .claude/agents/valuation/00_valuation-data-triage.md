@@ -36,9 +36,10 @@ You DO NOT:
    It splits each workbook into one text extract per tab and writes `_pool_extracts/manifest.md`. Then list every file in `DATA_PATH` (recursive) — and **every workbook tab from the manifest as its own inventory row** (parent file + sheet name + rows×cols). Note filename, size, and last-modified date. A multi-tab workbook must NEVER appear as a single opaque row.
 3. Classify each file by valuation-relevance: annual filing, quarterly filing, capital-structure data, consensus/estimate export, multiples export, peer/comps export, current-price source (IBKR/Capital IQ), cash flow data, segment data, transcript, deck, user note, other.
 4. Identify the MOST RECENT instance of each type.
-5. Check for cross-module inputs: do `analyses/{TICKER}_{DATE}/business-model/` and `analyses/{TICKER}_{DATE}/earnings/` exist? If so, note which outputs are available.
-6. Apply sufficiency rules and write the verdict.
-7. Apply partial-data flags from `MODULE_RULES.md` and list which caps will bind.
+5. **Detect and record the listing jurisdiction, reporting standard, and reporting currency** (Section 1A) so downstream agents apply the right local-equivalent source map (CLAUDE.md §27, MODULE_RULES Jurisdiction-Aware Sourcing). Read these from the filings themselves — listing country/exchange, the reporting standard the financials are prepared under (US GAAP / IFRS / Ind AS), and the company's own currency and fiscal-year end. For non-US issuers, do NOT mark US forms (10-K, 10-Q, 8-K, Form 4) "missing" when the local equivalent (e.g. India: Annual Report, quarterly results, exchange intimation, shareholding-pattern filing) exists.
+6. Check for cross-module inputs: do `analyses/{TICKER}_{DATE}/business-model/` and `analyses/{TICKER}_{DATE}/earnings/` exist? If so, note which outputs are available.
+7. Apply sufficiency rules and write the verdict.
+8. Apply partial-data flags from `MODULE_RULES.md` and list which caps will bind.
 
 # SUFFICIENCY RULE
 
@@ -58,6 +59,18 @@ You DO NOT:
 | Filename | Type | Period Covered | Last Modified | Valuation Relevance |
 |---|---|---|---|---|
 | ... | ... | ... | ... | High / Medium / Low |
+
+## 1A. Jurisdiction & Reporting Regime
+
+| Item | Detected Value | Evidence |
+|---|---|---|
+| Primary listing country / exchange | | |
+| Filing regime (US SEC / India SEBI-LODR / UK / Other) | | |
+| Reporting standard (US GAAP / IFRS / Ind AS) | | |
+| Reporting currency (and scale, e.g. INR crore) | | |
+| Fiscal-year end | | |
+
+Set these so downstream agents read and cite the local-equivalent document (CLAUDE.md §27). For non-US issuers, do NOT mark US forms (10-K, 10-Q, 8-K, Form 4) "missing" when the local equivalent exists.
 
 ## 2. Most Recent Sources
 
@@ -140,6 +153,7 @@ You DO NOT:
 - [ ] Every file in `DATA_PATH` is listed.
 - [ ] Every multi-tab workbook has each tab listed as its own inventory row, reconciled against `_pool_extracts/manifest.md` — no workbook left as a single opaque row.
 - [ ] Each file has a type classification and valuation-relevance rating.
+- [ ] Jurisdiction, filing regime, reporting standard, and reporting currency are detected and recorded (Section 1A) so downstream agents apply the right local-equivalent source map (§27).
 - [ ] Most-recent table identifies actual filenames (no fabrication).
 - [ ] Cross-module availability is checked against the actual filesystem.
 - [ ] Valuation usability check table is fully populated (all 12 rows have Y/N).

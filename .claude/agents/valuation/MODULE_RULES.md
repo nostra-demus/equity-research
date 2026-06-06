@@ -68,13 +68,27 @@ Every "Evidence" cell uses this format:
 `[Source, Period, Page or Section]`
 
 Examples:
-- `FY24 10-K, p.42`
+- (US) `FY24 10-K, p.42` / (India) `FY24 Annual Report (Ind AS), Note 18 (Segment)`
 - `Q2 FY26 transcript, prepared remarks`
 - `Capital IQ Multiples export, data as of 2026-05-09`
 - `IBKR screenshot, 2026-05-30`
 - `Web: exchange quote, 2026-05-31 (indicative, unverified)`
 
 Do NOT write "company filings" or "annual report" alone — those are not citations.
+
+---
+
+## Jurisdiction-Aware Sourcing (Hard Rule)
+
+This module follows CLAUDE.md §27. The US form names used throughout this file and its agents (10-K, 10-Q, 8-K, Form 4, DEF 14A, S-1) are EXAMPLES, not requirements. Detect the listing jurisdiction from the `00` triage (US SEC / India SEBI-LODR / UK / other), then read and cite the local-equivalent document. Never mark a non-US company's data "missing" because a US form is absent when the local equivalent exists — that is a bad-extraction error (§20), not a real data gap. An Indian company is the default-likely case.
+
+India / SEBI-LODR equivalents for this module's inputs:
+- **Shares, debt, cash, minority/preferred:** the balance sheet in the latest Annual Report or the latest quarterly results (SEBI LODR Reg 33).
+- **Promoter & public holding:** the shareholding-pattern filing (drives the float / per-share-count read).
+- **Segment EBIT / assets (for SOTP):** the Ind AS 108 segment note in the Annual Report.
+- **Reporting standard:** Ind AS; **currency:** INR (state lakh/crore scale but always give the absolute number).
+
+On any number: state the reporting standard (US GAAP / IFRS / Ind AS) and the company's own currency, and carry the FX date and rate on any cross-currency conversion (§15). Use the company's own fiscal year (an Indian "FY24" usually ends 31 March) — never assume a USD / US-GAAP / December-year default.
 
 ---
 

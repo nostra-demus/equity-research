@@ -37,8 +37,8 @@ If no board / proxy disclosure exists in the pool: state that board independence
 
 # WHAT TO READ (priority for this agent)
 
-- **Proxy / DEF 14A** — board composition, independence, committees, related-party, voting
-- **Bylaws / charter summaries** — takeover defenses, voting standards
+- **Proxy materials** — board composition, independence, committees, related-party, voting (US: DEF 14A; India: AGM Notice + Corporate Governance Report + Board's Report + scrutinizer/voting results; local equivalent — see the Jurisdiction-Aware Source Mapping in `MODULE_RULES.md`, CLAUDE.md §27)
+- **Bylaws / charter / Articles of Association summaries** — takeover defenses, voting standards
 - **business-model/01_disqualifier-scan.md** — related-party disqualifier
 - **Web** — director affiliations / interlocks if not disclosed (label as web-sourced)
 

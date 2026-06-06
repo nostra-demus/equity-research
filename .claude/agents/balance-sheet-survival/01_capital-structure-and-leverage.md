@@ -39,7 +39,7 @@ If the debt note breaks out little detail: present what is disclosed (at minimum
 
 # WHAT TO READ (priority for this agent)
 
-- **Latest 10-K / 10-Q debt note** — amounts, instruments, seniority, security
+- **Latest debt note in the annual / interim filing** (10-K/10-Q for US; Annual Report borrowings note & quarterly results for India; local equivalent) — amounts, instruments, seniority, security
 - **Balance sheet** — debt, cash, equity
 - **Capital IQ Capital Structure export** — pre-formatted debt stack
 - **earnings/01_historical-financials.md** — EBITDA base and leverage trend

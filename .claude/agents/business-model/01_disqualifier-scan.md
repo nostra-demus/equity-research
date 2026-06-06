@@ -33,13 +33,15 @@ You DO NOT:
 
 # WHAT TO READ (priority for this agent)
 
-- **Auditor's report** in latest annual filing — for qualification, going-concern, key audit matters
-- **Related-party transactions** note in latest annual filing
+Detect the filing regime from triage `00` and read the local-equivalent document (CLAUDE.md §27 / MODULE_RULES Jurisdiction-Aware Sourcing). US form names below are examples.
+
+- **Auditor's report** in latest annual filing — for qualification, going-concern, key audit matters (US: 10-K auditor's report; India: Independent Auditor's Report + CARO in the Annual Report; local equivalent)
+- **Related-party transactions** note in latest annual filing (US: 10-K Note; India: RPT disclosure / Notes under Ind AS 24; local equivalent)
 - **Cash flow statement** for last 4 years
-- **Stock exchange filings** for promoter pledging disclosures (BSE/NSE for Indian listings)
+- **Material-event / ownership disclosures** for promoter / insider pledging (US: 8-K, Schedule 13D/G; India: exchange intimation to NSE/BSE + promoter pledge/encumbrance disclosure; local equivalent)
 - **Risk factors** section for litigation, enforcement actions
 - **Customer concentration** disclosures
-- **Restatement notes** in 10-K, 20-F, or annual report
+- **Restatement notes** in the annual filing (10-K / 20-F for US; Annual Report under Ind AS for India; local equivalent)
 
 # THE 8 DISQUALIFIERS
 
@@ -89,7 +91,7 @@ For each Y row above, write one paragraph: what the fact is, the exact source, a
 
 - [ ] All 8 rows have an explicit Y or N decision (no blanks, no "Maybe").
 - [ ] Every Y row has a sourced evidence cell with a specific page or section.
-- [ ] Every N row has either evidence (e.g., "Auditor's report unqualified, FY24 10-K p.6") OR an explicit "Not disclosed in available data" note.
+- [ ] Every N row has either evidence (e.g., (US) "Auditor's report unqualified, FY24 10-K p.6" / (India) "Auditor's report unqualified, FY24 Annual Report (Ind AS), Independent Auditor's Report") OR an explicit "Not disclosed in available data" note.
 - [ ] If any row is Y, the verdict-lock signal is set to Y and the names are listed.
 - [ ] No banned phrase appears.
 

@@ -69,11 +69,24 @@ This module does NOT:
 
 ---
 
+## Jurisdiction-Aware Sourcing (Hard Rule)
+
+This module follows `CLAUDE.md` §27. US form names in this file and its agents (10-K, 10-Q, 8-K, DEF 14A, Form 4) are EXAMPLES, not requirements. Detect the listing jurisdiction from triage `00` and use the local equivalent. Never mark a non-US company's calendar data "missing" because a US form is absent when the local equivalent exists — that is a bad-extraction error (§20), not a real gap.
+
+For India / SEBI-LODR companies, the catalyst-relevant equivalents are:
+- **Scheduled-event / results dates:** board-meeting & financial-results intimations to NSE/BSE (LODR Reg 29/33), AGM/EGM notices, postal-ballot notices, record / ex / book-closure dates, dividend declarations.
+- **Corporate actions & structure:** scheme-of-arrangement documents and NCLT court / hearing timelines, buyback / open-offer schedules.
+- **Regulatory / legal:** SEBI and sector-regulator (RBI / IRDAI / USFDA-equivalent / MCA) actions, orders, and scheduled decisions.
+
+State the reporting standard (US GAAP / IFRS / Ind AS) and the company's own currency on any catalyst tied to a number; any cross-currency figure carries its FX date and rate (§15).
+
+---
+
 ## Evidence Citation Format
 
 Every "Evidence" cell uses `[Source, Period, Page or Section]`. Examples:
-- `FY24 10-K, Note 13 (Debt maturities)`
-- `AGM Notice, 2026-07-18`
+- `(US) FY24 10-K, Note 13 (Debt maturities)` / `(India) FY24 Annual Report (Ind AS), Note on borrowings`
+- `AGM Notice, 2026-07-18` (US DEF 14A; India AGM Notice + Corporate Governance Report; local equivalent)
 - `Q2 FY26 transcript, prepared remarks (capex commissioning)`
 - `analyses/{TICKER}_{DATE}/balance-sheet-survival/02_maturity-wall-and-refinancing.md`
 - `Web: exchange results-date calendar, 2026-06-03 (indicative, unverified)`

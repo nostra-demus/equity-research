@@ -39,7 +39,7 @@ If no maturity schedule is disclosed: build the wall from the short-term vs long
 
 # WHAT TO READ (priority for this agent)
 
-- **Debt note maturity table** in the latest 10-K / 10-Q
+- **Debt note maturity table** in the latest annual / interim filing (10-K/10-Q for US; Annual Report borrowings note & quarterly results for India; local equivalent)
 - **Fixed-income / maturities export** (Capital IQ) if present
 - **`01_capital-structure-and-leverage.md`** — gross debt and instruments
 - **Transcript / rating commentary** — refinancing plans, rating posture

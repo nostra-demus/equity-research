@@ -34,8 +34,8 @@ This module does NOT:
 
 ## Source Hierarchy (most → least trusted)
 
-1. Annual filings (10-K, 20-F, annual report)
-2. Quarterly filings (10-Q, 6-K)
+1. Audited annual filing (10-K / 20-F for US; Annual Report for India; local annual report elsewhere)
+2. Interim / quarterly filing (10-Q / 6-K for US; quarterly financial results filed to NSE/BSE for India; local equivalent)
 3. Earnings transcripts
 4. Investor presentations
 5. Capital IQ / Bloomberg / FactSet exports
@@ -62,6 +62,17 @@ Examples:
 - `BSE filing, Oct 2025`
 
 Do NOT write "company filings" or "annual report" alone — those are not citations.
+
+---
+
+## Jurisdiction-Aware Sourcing (Hard Rule)
+
+This module follows CLAUDE.md §27. The US form names in this file and its agents (10-K, 10-Q, 8-K, 20-F/6-K, Form 4) are EXAMPLES, not requirements. Detect the listing jurisdiction from triage `00` and read/cite the local equivalent. An Indian company is the default-likely case, not an edge case.
+
+- **India / SEBI-LODR equivalents for THIS module:** the quarterly trend comes from the **quarterly financial results** (SEBI LODR Reg 33, limited-review) filed to NSE/BSE; the full-year financials come from the **Annual Report** (Board's Report + audited financials + Auditor's Report + Notes); guidance comes from **stock-exchange intimations (SEBI LODR Reg 30) and results/investor presentations**; management tone and driver detail come from **earnings-call transcripts**.
+- **Other jurisdictions:** use the local annual report, the local interim/quarterly report (e.g. UK interim via RNS), local exchange announcements, and the earnings call.
+- **State the reporting standard** (US GAAP / IFRS / Ind AS) on the numbers — it changes how revenue, leases, and provisions read, so never compare across standards silently. Report in the company's own currency; any cross-currency figure carries its FX date and rate.
+- **Never mark a non-US company's data "missing"** because a US form is absent when the local equivalent exists — that is a bad-extraction error (§20), not a real data gap.
 
 ---
 
