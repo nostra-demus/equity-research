@@ -30,8 +30,10 @@ Run the embedded check script below via Bash. It applies, per run, the following
 - **J. Framework source contracts** (suite-level, run once) — two bodies of wiring are still present in the framework/agent files. **(i) §24 Avoid-Big-Risks:** `CLAUDE.md` §24 with all six filters; each module's `MODULE_RULES.md` carries its filter caps; the new red-flag IDs (`RF-CAP-004`, `RF-OWN-004`, `RF-MGT-004`) exist; `business-quality` has the 11th factor; the synthesizer carries the §24 gate step and rating cap. **(ii) §17 Catalyst module:** the `catalyst` module (`MODULE_RULES`, `01_catalyst-calendar`, `99_catalyst-synthesis`) exists with its §17 discipline and runs-last `depends_on`, and the synthesizer's §7 defers to it. **(iii) Three output tiers:** the `memo-writer` agent (`.claude/agents/memo-writer.md`) and the `/research:full` wiring (`.claude/commands/research/full.md`) that emit the colleague `memo.md` and the deterministic `audit_dossier.md` alongside `final_thesis.md` are present. **(iv) Review-due scheduler:** the SessionStart hook (`.claude/settings.json` + `.claude/hooks/review_due.py`) that surfaces due decision reviews is present. Guards the §24 implementation, the catalyst module, the three-output wiring, and the scheduler against silent deletion. Independent of any run; a missing anchor fails the suite.
 - **K. §24 reflected in post-§24 runs** (forward-looking) — for a run whose `decision_date` is on/after the §24 landing date (`2026-06-03`), `final_thesis.md` must reference the Avoid-Big-Risks roll-up (the Headline Scorecard row or a §24 reference). Runs that predate §24 (the BG/HCG fixtures) are **N/A**, so the suite still passes; the check activates automatically for every new run.
 - **L. Three output tiers present in post-landing runs** (forward-looking) — for a run whose `decision_date` is on/after the three-tier landing date (`2026-06-03`), both `memo.md` (the ~10-page colleague memo) and `audit_dossier.md` (the deterministic full-evidence concatenation) must exist beside `final_thesis.md`. Runs that predate the feature (the BG/HCG fixtures) are **N/A**, so the suite still passes; the check activates automatically for every new run.
+- **M. Audit completeness (WARN, not FAIL)** — for runs where `confidence_score ≥ 60` AND `decision` is one of {Strong Buy, Buy, Starter Position Only, Avoid, Short Candidate}, warns if `verification_report.json` is absent. These are the decisions with the highest real-money consequence — a long entry, a short, or a definitive rejection — and an un-audited high-confidence call is the single most dangerous failure mode the system can silently produce. N/A for low-confidence runs and for Watchlist/Pair-Trade/Insufficient-Data decisions. Does **not** fail the suite — it is a visibility WARN so analysts know which calls to audit next.
+- **N. Pre-mortem completeness (WARN, not FAIL)** — for runs where `confidence_score ≥ 65` AND `decision` is one of {Strong Buy, Buy, Short Candidate}, warns if `pre_mortem.json` is absent. These "betting decisions" are the subset most likely to carry undetected false confidence; a missing adversarial red-team on a ≥65-confidence buy or short is a gap that can lead to a thesis surviving unchallenged. N/A otherwise. Does **not** fail the suite.
 
-The script also notes (WARN, not FAIL) any **non-schema artifact** in a run folder (e.g. a stray oversized file) so coverage gaps and strays surface.
+The script notes (WARN, not FAIL) any **non-schema artifact** in a run folder (e.g. a stray oversized file) and emits the M/N audit-completeness WARNs. WARNs appear in the per-run output and the report JSON under `warn_checks` but do **not** contribute to `suite_pass`.
 
 ```bash
 python3 - "$ARGUMENTS" <<'PY'
@@ -134,12 +136,32 @@ for drp in runs:
         add("L_three_tiers", has_memo and has_audit, f"run dated >= {TIER3_DATE}; memo.md={has_memo} audit_dossier.md={has_audit}")
     else:
         add("L_three_tiers", True, f"run predates three-tier feature ({ddte}) — N/A", na=True)
+    # M: audit completeness for high-confidence, actionable decisions (WARN, not FAIL)
+    ACTIONABLE_DECS={"Strong Buy","Buy","Starter Position Only","Avoid","Short Candidate"}
+    conf_s=d.get("confidence_score")
+    m_active = dec in ACTIONABLE_DECS and isinstance(conf_s,(int,float)) and conf_s>=60
+    vr_present=bool(_latest("verification_report.json"))
+    if not m_active:
+        checks.append({"check":"M_verify_completeness","status":"N/A","detail":f"conf={conf_s} dec={dec!r} — below 60 or non-actionable"})
+    else:
+        checks.append({"check":"M_verify_completeness","status":("PASS" if vr_present else "WARN"),
+                       "detail":f"conf={conf_s} dec={dec!r}; verification_report={'present' if vr_present else 'ABSENT — run /research:verify-evidence'}"})
+    # N: pre-mortem completeness for betting decisions (conf ≥ 65, Strong Buy / Buy / Short)
+    BETTING_DECS={"Strong Buy","Buy","Short Candidate"}
+    pm_present=bool(_latest("pre_mortem.json"))
+    n_active = dec in BETTING_DECS and isinstance(conf_s,(int,float)) and conf_s>=65
+    if not n_active:
+        checks.append({"check":"N_premortem_completeness","status":"N/A","detail":f"conf={conf_s} dec={dec!r} — below 65 or non-betting"})
+    else:
+        checks.append({"check":"N_premortem_completeness","status":("PASS" if pm_present else "WARN"),
+                       "detail":f"conf={conf_s} dec={dec!r}; pre_mortem={'present' if pm_present else 'ABSENT — run /research:pre-mortem'}"})
     # WARN non-schema files
     extras=[os.path.basename(x) for x in glob.glob(os.path.join(run,"*")) if os.path.isfile(x) and os.path.basename(x) not in SCHEMA_FILES and not os.path.basename(x).endswith(("_decision_review.json","_calibration_summary.json")) and "review" not in os.path.basename(x) and "_v" not in os.path.basename(x)]
     run_pass=all(c["status"]!="FAIL" for c in checks)
+    run_warns=[c["check"] for c in checks if c["status"]=="WARN"]
     suite_pass = suite_pass and run_pass
     results[name]={"run_root":run,"ticker":d.get("ticker"),"decision":dec,"pass":run_pass,
-                   "checks":checks,"warn_nonschema_files":extras}
+                   "checks":checks,"warn_checks":run_warns,"warn_nonschema_files":extras}
 
 # J FRAMEWORK SOURCE CONTRACTS (suite-level, run once; protects §24 wiring + the §17 catalyst module)
 FRAMEWORK_CONTRACTS={
@@ -180,7 +202,13 @@ json.dump(out,open(of,"w"),indent=2,ensure_ascii=False)
 print("EVAL", "PASS" if suite_pass else "FAIL", f"({len(results)} runs)")
 for nm,r in results.items():
     fails=[c["check"] for c in r["checks"] if c["status"]=="FAIL"]
-    print(f"  {nm}: {'PASS' if r['pass'] else 'FAIL'} ({r['decision']})", ("fails="+",".join(fails)) if fails else "", ("WARN extras="+",".join(r['warn_nonschema_files'])) if r['warn_nonschema_files'] else "")
+    warns=r.get("warn_checks",[])
+    extras_warn=r.get("warn_nonschema_files",[])
+    parts=[f"  {nm}: {'PASS' if r['pass'] else 'FAIL'} ({r['decision']})"]
+    if warns: parts.append("WARN="+",".join(warns))
+    if fails: parts.append("FAIL="+",".join(fails))
+    if extras_warn: parts.append("extras="+",".join(extras_warn))
+    print(" ".join(parts))
 jfails=[j["file"] for j in jchecks if j["status"]=="FAIL"]
 print("  framework source contracts (J: §24 + catalyst + tiers):", "PASS" if not jfails else "FAIL "+";".join(jfails))
 for j in jchecks:
@@ -201,5 +229,5 @@ Read the script's output. Confirm the eval report parses (`python3 -m json.tool`
 
 - **Deterministic only.** No agent/pipeline re-runs, no LLM judgment in the checks — pure structural/schema/contract/math assertions, so the result is reproducible and a real regression gate.
 - **Read-only on run artifacts;** writes only the dated `analyses/eval/` report.
-- **Any FAIL fails the suite.** Optional-artifact absence is N/A, not FAIL. A non-schema stray file is a WARN, not a FAIL.
+- **Any FAIL fails the suite.** Optional-artifact absence is N/A, not FAIL. A non-schema stray file is a WARN, not a FAIL. Checks M and N are WARNs — they surface audit gaps on high-confidence decisions without failing the suite. A WARN does not block merging or signal a regression; it signals "act on this before the next trade."
 - Grounded in `CLAUDE.md` §18/§10/§15, `DECISION_LEDGER.md` §5/§8, `MODULE_PIPELINE.md`; spawns no subagents.
