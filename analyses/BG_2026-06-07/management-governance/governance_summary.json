@@ -1,0 +1,36 @@
+{
+  "ticker": "BG",
+  "date": "2026-06-07",
+  "stewardship_verdict": "Standard / mixed",
+  "hard_disqualifier_flagged": false,
+  "hard_disqualifier_detail": null,
+  "specialist_scores": {
+    "management_quality": 73,
+    "capital_allocation": 49,
+    "incentive_alignment": 50,
+    "shareholder_friendliness": 55,
+    "disclosure_candor": 63,
+    "governance_risk": 60,
+    "data_quality": 62,
+    "overall_usefulness": 64
+  },
+  "governance_score": 55,
+  "confidence_adjusted_governance_score": 34,
+  "governance_rating": "Watchlist",
+  "confidence_score": 62,
+  "red_flag_count": 5,
+  "critical_red_flag_count": 0,
+  "red_flags": ["RF-CAP-002", "RF-CAP-003", "RF-CAP-004", "RF-DISC-001", "RF-DISC-002"],
+  "score_caps_applied": [
+    {"cap": "Incentive alignment max 50", "trigger": "No proxy/CD&A in pool", "pre_cap": 56, "applied": 50},
+    {"cap": "Shareholder friendliness combined cap at 55", "trigger": "No proxy + no Form 4 in pool", "pre_cap": 73, "applied": 55},
+    {"cap": "Capital allocation max 50 (RF-CAP-004)", "trigger": "Serial-acquirer pattern", "pre_cap": 49, "applied": 49},
+    {"cap": "Governance risk floor 60 (RF-CAP-004)", "trigger": "Serial-acquirer pattern", "pre_cap": 42, "applied": 60},
+    {"cap": "Overall usefulness max 70", "trigger": "No proxy/CD&A in pool", "pre_cap": null, "applied": 64}
+  ],
+  "insider_ownership_summary": "Officers hold approximately 1% or below in aggregate (entirely compensation grants); CEO ~0.44% (~854,843 shares, web-sourced, unverified); no open-market purchases last 12 months; no insider pledging",
+  "biggest_governance_signal": "Viterra acquisition ($10.6B, >standalone market cap, funded with 65.6M new shares + $7.8B debt) gave Glencore/CPP contractual rights to four board seats including three on the Enterprise Risk Management Committee; share count +44%; net debt +4.4x",
+  "biggest_missing_data": "2026 DEF 14A (proxy filed 2026-04-10, SEC EDGAR, accession 000162828026024588) — lifts comp, ownership, and board-data caps",
+  "primary_governance_read": true,
+  "supersedes": "business-model/11_capital-allocation-governance"
+}
