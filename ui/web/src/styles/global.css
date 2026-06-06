@@ -309,12 +309,59 @@ a { color: inherit; }
 .reader__verdict { font-size: 12px; color: var(--accent-bright); margin-top: 5px; line-height: 1.4; }
 .reader__path { font-size: 11px; color: var(--text-faint); font-family: var(--font-mono); margin-top: 3px; word-break: break-all; }
 .dlmenu { position: absolute; top: 38px; right: 0; z-index: 52; min-width: 232px;
-  background: var(--surface-1); border: 1px solid var(--hairline-strong); border-radius: var(--r-md); box-shadow: var(--shadow-2); padding: 6px; }
+  background: var(--surface-1); border: 1px solid var(--hairline-strong); border-radius: var(--r-md); box-shadow: var(--shadow-2); padding: 6px;
+  transform-origin: top right; animation: dlmenu-in 160ms var(--ease-out) both; }
+@keyframes dlmenu-in { from { opacity: 0; transform: scale(0.96) translateY(-4px); } to { opacity: 1; transform: scale(1) translateY(0); } }
 .dlmenu__item { display: flex; flex-direction: column; align-items: flex-start; gap: 1px; width: 100%; padding: 8px 10px; border-radius: var(--r-sm); text-align: left; transition: background var(--dur-fast); }
 .dlmenu__item:hover { background: var(--surface-3); }
 .dlmenu__item b { font-size: 12.5px; font-weight: 600; }
 .dlmenu__item span { font-size: 10.5px; color: var(--text-faint); }
+
+/* prompt menu — view (left) or download (the ↓) each prompt this orb exposes */
+.pmenu { min-width: 286px; }
+.pmenu__label { font-size: 9.5px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-faint); padding: 4px 10px 6px; }
+.pmenu__row { display: flex; align-items: stretch; gap: 4px; border-radius: var(--r-sm); }
+.pmenu__row:hover { background: var(--surface-2); }
+.pmenu__view { display: flex; flex-direction: column; align-items: flex-start; gap: 1px; flex: 1; min-width: 0; padding: 8px 10px; border-radius: var(--r-sm); text-align: left; transition: background var(--dur-fast); }
+.pmenu__view:hover { background: var(--surface-3); }
+.pmenu__view b { font-size: 12.5px; font-weight: 600; }
+.pmenu__view span { font-size: 10.5px; color: var(--text-faint); }
+.pmenu__dl { flex-shrink: 0; width: 34px; display: grid; place-items: center; border-radius: var(--r-sm); color: var(--text-muted);
+  font-size: 14px; border: 1px solid transparent; transition: background var(--dur-fast), color var(--dur-fast), border-color var(--dur-fast), transform var(--dur-fast); }
+.pmenu__dl:hover { background: var(--accent-wash); color: var(--accent-bright); border-color: var(--accent-deep); }
+.pmenu__dl:active { transform: scale(0.92); }
+.pmenu__hint { display: block; margin: 6px 4px 2px; padding: 8px 10px; border-radius: var(--r-sm);
+  font-size: 11px; color: var(--accent); background: var(--accent-wash-soft); border: 1px solid transparent; transition: background var(--dur-fast), border-color var(--dur-fast), transform var(--dur-fast); }
+.pmenu__hint:hover { background: var(--accent-wash); border-color: var(--accent-deep); }
+.pmenu__hint:active { transform: scale(0.97); }
+
 .reader__body { flex: 1; overflow-y: auto; padding: 22px 28px 60px; }
+
+/* prompt view — explainer banner + frontmatter card sit above the rendered prompt */
+.promptbanner { border: 1px solid var(--accent-deep); background: linear-gradient(180deg, var(--accent-wash), var(--accent-wash-soft));
+  border-radius: var(--r-md); padding: 12px 14px; margin-bottom: 20px; animation: promptbanner-in 200ms var(--ease-out) both; }
+@keyframes promptbanner-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+.promptbanner__top { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.promptbanner__tag { font-size: 9.5px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: #1a1206; background: var(--accent); padding: 2px 8px; border-radius: var(--r-pill); }
+.promptbanner__back { font-size: 11.5px; font-weight: 600; color: var(--accent-bright); padding: 3px 8px; border-radius: var(--r-sm); transition: background var(--dur-fast), transform var(--dur-fast); }
+.promptbanner__back:hover { background: var(--accent-wash); }
+.promptbanner__back:active { transform: scale(0.97); }
+.promptbanner__blurb { font-size: 12px; color: var(--text-muted); line-height: 1.55; margin-top: 9px; }
+.promptbanner__foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-top: 10px; flex-wrap: wrap; }
+.promptbanner__foot code { font-family: var(--font-mono); font-size: 10.5px; color: var(--text-faint); word-break: break-all; }
+.promptbanner__mail { font-size: 11.5px; font-weight: 600; color: var(--accent); white-space: nowrap; transition: color var(--dur-fast), transform var(--dur-fast); }
+.promptbanner__mail:hover { color: var(--accent-bright); }
+.promptbanner__mail:active { transform: scale(0.97); }
+
+.fm { display: grid; gap: 0; margin: 0 0 18px; border: 1px solid var(--hairline); border-radius: var(--r-md); overflow: hidden; background: var(--surface-2); }
+.fm__row { display: grid; grid-template-columns: 116px 1fr; gap: 12px; padding: 8px 12px; border-bottom: 1px solid var(--hairline); }
+.fm__row:last-child { border-bottom: none; }
+.fm__k { font-family: var(--font-mono); font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.3px; }
+.fm__v { font-size: 12.5px; color: var(--text); line-height: 1.5; word-break: break-word; }
+
+@media (prefers-reduced-motion: reduce) {
+  .dlmenu, .promptbanner { animation: none; }
+}
 
 /* markdown */
 .md { font-size: 13.5px; line-height: 1.65; color: #d4d4d8; }

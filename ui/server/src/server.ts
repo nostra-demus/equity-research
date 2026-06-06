@@ -14,7 +14,7 @@ import { analyzeTicker, listTickers } from './data-status'
 import { cancel, creditCheck, estimate, launch } from './launcher'
 import { getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
 import { agentNamesForModule, buildSwarmGraph, graphForTicker, listModuleNames } from './roster'
-import { listRunsForTicker, readDecision, readMarkdown, resolveRunRoot, runManifest } from './outputs'
+import { listRunsForTicker, readDecision, readMarkdown, readPrompt, resolveRunRoot, runManifest } from './outputs'
 import { AGENT_RE, MODULE_RE, TICKER_RE } from './sandbox'
 import type { RunKind } from './types'
 
@@ -197,6 +197,19 @@ app.get('/api/output', async (req, reply) => {
     return readMarkdown(p)
   } catch (e: any) {
     return reply.code(e?.code === 'ENOENT' ? 404 : 400).send({ error: 'cannot read', detail: String(e?.message || e) })
+  }
+})
+
+// ---------- prompts (read-only doctrine surface: agent/module/constitution .md) ----------
+// Serves the exact instructions each orb / module runs on so they can be reviewed, downloaded, and
+// improved. Sandboxed by resolveInsidePrompts to .claude/agents/, frameworks/, and the root CLAUDE.md.
+app.get('/api/prompt', async (req, reply) => {
+  const p = (req.query as any)?.path as string
+  if (!p) return reply.code(400).send({ error: 'path required' })
+  try {
+    return readPrompt(p)
+  } catch (e: any) {
+    return reply.code(e?.code === 'ENOENT' ? 404 : 400).send({ error: 'cannot read prompt', detail: String(e?.message || e) })
   }
 })
 

@@ -195,6 +195,33 @@ function copyInto(src, rel) {
   fs.copyFileSync(src, d)
 }
 
+function walkMd(dir, out = []) {
+  if (!isDir(dir)) return out
+  for (const e of fs.readdirSync(dir)) {
+    const full = path.join(dir, e)
+    if (isDir(full)) walkMd(full, out)
+    else if (e.endsWith('.md')) out.push(full)
+  }
+  return out
+}
+
+// Bundle the read-only PROMPT surface (agent definitions, MODULE_RULES, frameworks docs, the root
+// CLAUDE.md) so the static showcase can view + download the exact instructions each orb/module runs on,
+// exactly like the live engine's /api/prompt. The leading-dot .claude/ folder is flattened to claude/
+// (static hosts skip dot-folders) — this transform MUST match staticPromptPath() in src/lib/prompts.ts.
+function copyPrompts() {
+  const files = [...walkMd(AGENTS), ...walkMd(path.join(REPO, 'frameworks'))]
+  const constitution = path.join(REPO, 'CLAUDE.md')
+  if (isFile(constitution)) files.push(constitution)
+  let n = 0
+  for (const abs of files) {
+    const repoRel = path.relative(REPO, abs).split(path.sep).join('/')
+    copyInto(abs, 'prompts/' + repoRel.replace(/^\.claude\//, 'claude/'))
+    n++
+  }
+  return n
+}
+
 // ---- main ----
 if (!isDir(AGENTS) || !isDir(ANALYSES)) {
   if (isFile(path.join(DEST, 'snapshot.json'))) { console.warn('[build-snapshot] engine dirs missing — keeping committed snapshot'); process.exit(0) }
@@ -202,9 +229,11 @@ if (!isDir(AGENTS) || !isDir(ANALYSES)) {
 }
 
 fs.rmSync(path.join(DEST, 'analyses'), { recursive: true, force: true })
+fs.rmSync(path.join(DEST, 'prompts'), { recursive: true, force: true })
 fs.mkdirSync(DEST, { recursive: true })
 
 const swarmGraph = buildSwarmGraph()
+const promptCount = copyPrompts()
 const tickerNames = [...new Set(fs.readdirSync(ANALYSES).filter((d) => isDir(path.join(ANALYSES, d)) && /_\d{4}-\d{2}-\d{2}$/.test(d)).map((d) => d.replace(/_\d{4}-\d{2}-\d{2}$/, '')))].sort()
 
 const tickers = [], dataStatus = {}, runs = {}, decisions = {}, finalThesis = {}
@@ -221,4 +250,4 @@ for (const t of tickerNames) {
 
 const snapshot = { static: true, swarmGraph, tickers, emptyState: tickers.length === 0, dataDir: 'bundled snapshot (static deploy)', dataStatus, runs, decisions, finalThesis, generatedAt: new Date().toISOString() }
 fs.writeFileSync(path.join(DEST, 'snapshot.json'), JSON.stringify(snapshot))
-console.log(`[build-snapshot] swarm: ${swarmGraph.totals.modules} modules / ${swarmGraph.totals.agents} agents · tickers: ${tickers.map((t) => t.ticker).join(', ')} -> ui/web/public/data/`)
+console.log(`[build-snapshot] swarm: ${swarmGraph.totals.modules} modules / ${swarmGraph.totals.agents} agents · ${promptCount} prompts · tickers: ${tickers.map((t) => t.ticker).join(', ')} -> ui/web/public/data/`)

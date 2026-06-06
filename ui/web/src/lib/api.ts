@@ -1,3 +1,4 @@
+import { staticPromptPath } from './prompts'
 import type { DataStatus, LaunchPreflight, SwarmGraph, TickerSummary, Usage } from './types'
 
 const BASE = import.meta.env.BASE_URL
@@ -101,6 +102,16 @@ export const api = {
       return { path, markdown: await r.text() }
     }
     return get(`/api/output?path=${encodeURIComponent(path)}`)
+  },
+  // Read-only prompt surface (agent definitions / module rules / constitution). Works in both modes:
+  // live -> the engine's sandboxed /api/prompt; static -> the bundled snapshot under data/prompts/.
+  prompt: async (path: string): Promise<{ path: string; markdown: string }> => {
+    if ((await ensureMode()) === 'static') {
+      const r = await fetch(`${BASE}data/${staticPromptPath(path)}`)
+      if (!r.ok) throw new Error('not found')
+      return { path, markdown: await r.text() }
+    }
+    return get(`/api/prompt?path=${encodeURIComponent(path)}`)
   },
   thesis: async (ticker: string): Promise<{ path: string; markdown?: string }> => {
     if ((await ensureMode()) === 'static') {

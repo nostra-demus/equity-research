@@ -1,11 +1,18 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { ANALYSES_DIR, REPO_ROOT } from './config'
-import { resolveInsideAnalyses } from './sandbox'
+import { resolveInsideAnalyses, resolveInsidePrompts } from './sandbox'
 import { extractVerdict } from './verdict'
 
 export function readMarkdown(relPath: string): { path: string; markdown: string } {
   const real = resolveInsideAnalyses(relPath)
+  const markdown = fs.readFileSync(real, 'utf8')
+  return { path: relPath, markdown }
+}
+
+// Read a prompt (agent definition / module rules / constitution) from the read-only doctrine surface.
+export function readPrompt(relPath: string): { path: string; markdown: string } {
+  const real = resolveInsidePrompts(relPath)
   const markdown = fs.readFileSync(real, 'utf8')
   return { path: relPath, markdown }
 }
