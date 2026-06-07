@@ -33,6 +33,13 @@ export const MAX_CONCURRENT_RUNS = Math.max(1, Number(process.env.ENGINE_MAX_CON
 export const CLAUDE_BIN = process.env.CLAUDE_BIN || 'claude'
 export const DEFAULT_MODEL = process.env.ENGINE_MODEL || 'sonnet'
 
+// OPT-IN (off by default): orchestrate a full run as a CHAIN of separate per-module runs (each its own
+// budget), in dependency order, then the master synthesizer — instead of one monolithic /research:full
+// process. No single budget cap can then truncate the whole pipeline. Enable with ENGINE_FULL_PER_MODULE=1.
+// Each step is its own run + its own activity-log entry (most transparent). Until validated, the default
+// stays the single-process /research:full path.
+export const FULL_PER_MODULE = process.env.ENGINE_FULL_PER_MODULE === '1'
+
 export type LaunchKind = 'full' | 'module' | 'agent' | 'rerun'
 
 // Runaway / cost guards per launch granularity. These are HARD ceilings: the headless CLI stops when it

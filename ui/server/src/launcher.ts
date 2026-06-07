@@ -3,7 +3,7 @@ import path from 'node:path'
 import { execa, type ResultPromise } from 'execa'
 import { logLaunch } from './activity-log'
 import { admitRun } from './admission'
-import { CLAUDE_BIN, DEFAULT_MODEL, ESTIMATES, LAUNCH_GUARDS, REPO_ROOT, type LaunchKind } from './config'
+import { CLAUDE_BIN, DEFAULT_MODEL, ESTIMATES, FULL_PER_MODULE, LAUNCH_GUARDS, REPO_ROOT, type LaunchKind } from './config'
 import { getCreditStatus, setCreditStatus } from './credit'
 import { startRunWatcher } from './fs-watcher'
 import { createRun, emit, finishRun, getRun, setActiveTickerRun, type ExpectedAgent, type RunState } from './registry'
@@ -185,11 +185,54 @@ export interface LaunchParams {
   userVia?: 'cf-access' | 'local'
 }
 
+// ---- chained full run (per-module budgets) — opt-in via FULL_PER_MODULE ----
+// A full pipeline as a CHAIN of separate runs: each module in dependency order (its own run + budget),
+// then the master synthesizer (its own run + budget). No single budget cap bounds the whole pipeline, so
+// a large company can't truncate it the way a monolithic /research:full can. Each step is its own run and
+// its own activity-log entry. A failed/incomplete/cancelled step stops the chain (so it's visible exactly
+// where), leaving the user to fix that module and resume.
+type ChainStep = { kind: RunKind; module?: string; agent?: string }
+function fullChainSteps(): ChainStep[] {
+  const g = buildSwarmGraph() // modules already topologically ordered by depends_on
+  const steps: ChainStep[] = g.modules.map((m) => ({ kind: 'module', module: m.name }))
+  steps.push({ kind: 'rerun', module: 'master', agent: 'synthesizer' }) // master synthesizer = its own run
+  return steps
+}
+
+async function launchChainStep(steps: ChainStep[], i: number, ticker: string, user: string, userVia: 'cf-access' | 'local'): Promise<{ runId: string; preflight: LaunchPreflight }> {
+  const s = steps[i]
+  const out = await launch({ kind: s.kind, ticker, module: s.module, agent: s.agent, user, userVia })
+  const run = getRun(out.runId)
+  if (run) {
+    run.onFinish = (status) => {
+      if (status === 'done' && i + 1 < steps.length) {
+        void launchChainStep(steps, i + 1, ticker, user, userVia).catch((e) => {
+          // eslint-disable-next-line no-console
+          console.error(`[full-chain] ${ticker}: failed to launch step ${i + 1}`, e?.message || e)
+        })
+      } else {
+        // eslint-disable-next-line no-console
+        console.log(`[full-chain] ${ticker}: ${status === 'done' ? 'pipeline complete' : `stopped at step ${i} (${s.module || s.agent}) — ${status}`}`)
+      }
+    }
+  }
+  return out
+}
+
+async function launchFullChained(ticker: string, user: string, userVia: 'cf-access' | 'local'): Promise<{ runId: string; preflight: LaunchPreflight }> {
+  const first = await launchChainStep(fullChainSteps(), 0, ticker, user, userVia)
+  // surface the FULL preflight (not just the first module's) so the cost/time estimate reflects the pipeline
+  return { runId: first.runId, preflight: estimate('full', ticker) }
+}
+
 export async function launch(params: LaunchParams): Promise<{ runId: string; preflight: LaunchPreflight }> {
   const { kind, ticker, module, agent } = params
   const model = params.model || DEFAULT_MODEL
   const user = params.user || 'local'
   const userVia = params.userVia || 'local'
+
+  // opt-in: run a full pipeline as a chain of per-module runs + master (each its own budget)
+  if (kind === 'full' && FULL_PER_MODULE) return launchFullChained(ticker, user, userVia)
 
   // Resolve a CONCRETE run root for every kind (never null) so admission can compute absolute write
   // targets and the fs-watcher can bind strictly. rerun fails early if there's nothing to re-run.

@@ -31,6 +31,7 @@ export interface RunState {
   status: RunStatus
   note?: string // optional finish note (e.g. why a run ended incomplete) — surfaced in the activity log
   finishLogged?: boolean // guards the activity-log finish write against double-fire
+  onFinish?: (status: RunStatus) => void // chained full run: advance to the next step when this one ends
   startedAt: number
   endedAt?: number
   costUsd?: number
@@ -151,6 +152,10 @@ export function finishRun(run: RunState, status: RunStatus) {
       numTurns: run.numTurns,
       note: run.note,
     })
+    // advance a chained full run to its next step (fires once, inside the finishLogged guard)
+    try {
+      run.onFinish?.(status)
+    } catch {}
   }
   void Promise.resolve(run.closeWatcher?.()).catch(() => {})
 }
