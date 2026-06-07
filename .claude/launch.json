@@ -8,6 +8,12 @@
       "port": 5173
     },
     {
+      "name": "cockpit-preview",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "ui/web", "run", "preview", "--", "--port", "4173", "--strictPort"],
+      "port": 4173
+    },
+    {
       "name": "dossier-site",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["--prefix", "site", "run", "dev"],
