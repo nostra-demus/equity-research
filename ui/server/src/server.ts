@@ -8,6 +8,7 @@ import { execa } from 'execa'
 import Fastify, { type FastifyReply, type FastifyRequest } from 'fastify'
 import { z } from 'zod'
 import { readActivity } from './activity-log'
+import { recordDataChange } from './data-activity'
 import { buildReportHtml, parseMeta, safeName } from './export'
 import { DATA_DIR, HOST, PORT, REPO_ROOT, WEB_DIST } from './config'
 import { getCreditStatus } from './credit'
@@ -346,6 +347,7 @@ function broadcastData(fp: string, change: 'added' | 'removed') {
   }
   const ticker = rel.split(path.sep)[0]
   if (!ticker || ticker.startsWith('..')) return
+  recordDataChange(ticker, change) // stamp Drive-sync activity so the UI can show a live "syncing…" state
   const evt = { type: 'data-changed', ticker, change, ts: Date.now() }
   for (const c of dataClients) {
     try {

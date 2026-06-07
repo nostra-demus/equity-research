@@ -102,6 +102,14 @@ export interface TickerSummary {
   ticker: string
   fileCount: number
   hasAnyData: boolean
+  // usable as a ticker symbol? A Drive folder named "TATA MOTORS" is listed but can't be loaded/run
+  // (no spaces allowed) — the cockpit surfaces this instead of silently failing.
+  valid: boolean
+  invalidReason?: string
+  suggestedTicker?: string
+  // live Google-Drive-sync signal: files are materializing from the cloud right now
+  syncing: boolean
+  lastChangeAt: number | null
   latestRun: {
     runRoot: string
     decision: string | null

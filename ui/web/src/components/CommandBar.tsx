@@ -23,10 +23,13 @@ function TickerPicker() {
   const connected = useStore((s) => s.connected)
   const dataDir = useStore((s) => s.dataDir)
   const [open, setOpen] = useState(false)
+  const sel = tickers.find((t) => t.ticker === selected)
   return (
     <div className="tickerpick">
       <button className="tickerpick__btn" onClick={() => setOpen((o) => !o)}>
         {!connected && <span className="readiness__dot" style={{ background: 'var(--bad)' }} title="Control plane offline" />}
+        {connected && sel?.valid === false && <span className="readiness__dot" style={{ background: 'var(--bad)' }} title={`Unusable name — ${sel.invalidReason}`} />}
+        {connected && sel?.syncing && <span className="pulsedot" style={{ flexShrink: 0 }} title="Syncing from Google Drive…" />}
         {connected && selected && activeRunsByTicker.has(selected) && <span className="pulsedot" style={{ flexShrink: 0 }} title="Run in progress" />}
         <span className="tickerpick__ticker">{selected || (connected ? 'Select ticker' : 'Offline')}</span>
         <span className="tickerpick__caret">▾</span>
@@ -38,7 +41,7 @@ function TickerPicker() {
             {tickers.map((t) => (
               <button
                 key={t.ticker}
-                className={`tickerpick__item${t.ticker === selected ? ' tickerpick__item--active' : ''}`}
+                className={`tickerpick__item${t.ticker === selected ? ' tickerpick__item--active' : ''}${t.valid === false ? ' tickerpick__item--invalid' : ''}`}
                 onClick={() => {
                   selectTicker(t.ticker)
                   setOpen(false)
@@ -46,8 +49,14 @@ function TickerPicker() {
               >
                 <span className="tickerpick__sym">{t.ticker}</span>
                 {activeRunsByTicker.has(t.ticker) && <span className="pulsedot" style={{ flexShrink: 0 }} title="Run in progress" />}
-                <span className="tickerpick__meta">{t.fileCount} files</span>
-                {t.latestRun?.decision && (
+                {t.valid === false ? (
+                  <span className="tickerpick__warn" title={`${t.invalidReason}. Rename the Drive folder to ${t.suggestedTicker}.`}>⚠ rename → {t.suggestedTicker}</span>
+                ) : t.syncing ? (
+                  <span className="tickerpick__meta tickerpick__meta--sync"><span className="pulsedot" style={{ flexShrink: 0 }} /> syncing… {t.fileCount} file{t.fileCount === 1 ? '' : 's'}</span>
+                ) : (
+                  <span className="tickerpick__meta">{t.fileCount} file{t.fileCount === 1 ? '' : 's'}</span>
+                )}
+                {t.valid !== false && t.latestRun?.decision && (
                   <span style={{ color: decisionColor(t.latestRun.decision), fontSize: 11, fontWeight: 600 }}>{t.latestRun.decision}</span>
                 )}
               </button>

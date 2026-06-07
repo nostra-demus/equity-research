@@ -2,7 +2,9 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { execFileSync } from 'node:child_process'
 import { DATA_DIR, ANALYSES_DIR, REPO_ROOT } from './config'
+import { syncingState } from './data-activity'
 import { listModuleNames, moduleReadinessDecls } from './roster'
+import { suggestTicker, tickerInvalidReason } from './sandbox'
 import type { ClassifiedFile, DataReadinessDecl, DataStatus, FileType, ModuleReadiness, Sufficiency, TickerSummary, WorkbookSheet } from './types'
 
 // ---- persistent extract cache ----
@@ -469,7 +471,19 @@ export function listTickers(): { tickers: TickerSummary[]; emptyState: boolean; 
     try {
       fileCount = fs.readdirSync(path.join(DATA_DIR, ticker)).filter((n) => !n.startsWith('.')).length
     } catch {}
-    return { ticker, fileCount, hasAnyData: fileCount > 0, latestRun: latestDecision(ticker) }
+    const invalidReason = tickerInvalidReason(ticker)
+    const { syncing, lastChangeAt } = syncingState(ticker)
+    return {
+      ticker,
+      fileCount,
+      hasAnyData: fileCount > 0,
+      valid: invalidReason === null,
+      invalidReason: invalidReason ?? undefined,
+      suggestedTicker: invalidReason ? suggestTicker(ticker) : undefined,
+      syncing,
+      lastChangeAt,
+      latestRun: latestDecision(ticker),
+    }
   })
   // resolve the data/ symlink so the UI shows the real Google Drive location it reads from
   let dataDir = DATA_DIR

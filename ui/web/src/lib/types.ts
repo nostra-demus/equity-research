@@ -48,6 +48,11 @@ export interface TickerSummary {
   ticker: string
   fileCount: number
   hasAnyData: boolean
+  valid: boolean
+  invalidReason?: string
+  suggestedTicker?: string
+  syncing: boolean
+  lastChangeAt: number | null
   latestRun: { runRoot: string; decision: string | null; decisionDate: string | null; confidence: number | null } | null
 }
 

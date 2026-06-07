@@ -46,3 +46,23 @@ export function resolveInsidePrompts(reqPath: string): string {
 export const TICKER_RE = /^[A-Z0-9.\-]{1,15}$/
 export const MODULE_RE = /^[a-z0-9-]{1,40}$/
 export const AGENT_RE = /^[a-z0-9-]{1,60}$/
+
+export function isValidTicker(name: string): boolean {
+  return TICKER_RE.test(name)
+}
+
+// A usable ticker symbol derived from a folder name (uppercase, drop spaces/illegal chars, cap length).
+// e.g. "TATA MOTORS" -> "TATAMOTORS", "reliance.ns" -> "RELIANCE.NS". Empty if nothing usable remains.
+export function suggestTicker(name: string): string {
+  return name.toUpperCase().replace(/[^A-Z0-9.\-]/g, '').slice(0, 15)
+}
+
+// Plain-English reason a folder name can't be used as a ticker (null if it's fine). Drives the cockpit's
+// "rename this folder" guidance so an unusable name is never a silent dead end.
+export function tickerInvalidReason(name: string): string | null {
+  if (isValidTicker(name)) return null
+  if (/\s/.test(name)) return 'ticker names can’t contain spaces'
+  if (/[a-z]/.test(name)) return 'ticker names must be uppercase'
+  if (name.length > 15) return 'ticker name is too long (max 15 characters)'
+  return 'ticker names allow only A–Z, 0–9, dot and hyphen'
+}

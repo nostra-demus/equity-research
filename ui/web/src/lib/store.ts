@@ -54,6 +54,7 @@ interface State {
   graph: SwarmGraph | null
   nodesByKey: Map<string, AgentNode>
   dataStatus: DataStatus | null
+  dataLoading: boolean
   credit: Usage | null
   creditChecking: boolean
   nodeRuntime: Record<string, NodeRuntime>
@@ -123,6 +124,7 @@ export const useStore = create<State>((set, get) => ({
   graph: null,
   nodesByKey: new Map(),
   dataStatus: null,
+  dataLoading: false,
   credit: null,
   creditChecking: false,
   nodeRuntime: {},
@@ -153,7 +155,7 @@ export const useStore = create<State>((set, get) => ({
           try {
             const d = JSON.parse(ev.data)
             if (d.ticker === get().selectedTicker) get().refreshData()
-            api.tickers().then((t) => set({ tickers: t.tickers, emptyState: t.emptyState, dataDir: (t as any).dataDir ?? get().dataDir })).catch(() => {})
+            refreshTickersSoon(get, set) // live count update + keep polling while Drive is still syncing
           } catch {}
         })
       }
@@ -176,7 +178,7 @@ export const useStore = create<State>((set, get) => ({
     const token = ++selectGen
     // keep only still-live runs across tickers (drop finished); the new ticker rebuilds from snapshots
     const activeRuns = Object.fromEntries(Object.entries(get().activeRuns).filter(([, r]) => LIVE_RUN.has(r.status)))
-    set({ selectToken: token, selectedTicker: t, dataStatus: null, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, coreBloom: false, selectedNodeKey: null, runStream: [], activeRuns, openOutput: null })
+    set({ selectToken: token, selectedTicker: t, dataStatus: null, dataLoading: true, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, coreBloom: false, selectedNodeKey: null, runStream: [], activeRuns, openOutput: null })
     const graph = await api.swarm(t)
     if (get().selectToken !== token) return // a newer selection superseded this one
     set({ graph, nodesByKey: flatten(graph) })
@@ -213,10 +215,23 @@ export const useStore = create<State>((set, get) => ({
   refreshData: async () => {
     const t = get().selectedTicker
     if (!t) return
+    // token-guard so a slow response for a just-deselected ticker can't overwrite the new selection or
+    // clear its loading flag (mirrors selectTicker's selectToken invariant)
+    const token = get().selectToken
+    // an unusable folder name (e.g. "TATA MOTORS") would 400 on data-status — skip the fetch and let the
+    // empty-state surface the rename guidance instead of failing silently
+    const sel = get().tickers.find((x) => x.ticker === t)
+    if (sel && sel.valid === false) { if (get().selectToken === token) set({ dataStatus: null, dataLoading: false }); return }
+    set({ dataLoading: true })
     try {
       const dataStatus = await api.dataStatus(t)
+      if (get().selectToken !== token) return // a newer selection superseded this fetch
       set({ dataStatus })
-    } catch {}
+    } catch {
+      // leave dataStatus as-is; the loading flag clears below so the UI stops showing "reading…"
+    } finally {
+      if (get().selectToken === token) set({ dataLoading: false })
+    }
   },
 
   // which companies have a run in flight (drives the ticker-menu dots). Self-polls while any run is active.
@@ -610,6 +625,21 @@ async function reconnectRun(set: any, get: () => State, runId: string, token: nu
     set({ activeRuns, nodeRuntime: rt, runStream: stream })
     connectRun(get, runId)
   } catch {}
+}
+
+// Refresh the ticker list (live file counts + sync state). While any ticker is still syncing from Drive,
+// keep re-polling so the count keeps climbing and the "syncing…" flag clears once files stop arriving —
+// even after the file-event stream goes quiet.
+let tickersSyncTimer: any = null
+function refreshTickersSoon(get: () => State, set: (p: Partial<State>) => void) {
+  api
+    .tickers()
+    .then((t) => {
+      set({ tickers: t.tickers, emptyState: t.emptyState, dataDir: (t as any).dataDir ?? get().dataDir })
+      if (tickersSyncTimer) { clearTimeout(tickersSyncTimer); tickersSyncTimer = null }
+      if (!get().staticMode && t.tickers.some((x) => x.syncing)) tickersSyncTimer = setTimeout(() => refreshTickersSoon(get, set), 5000)
+    })
+    .catch(() => {})
 }
 
 function schedulePoll(get: () => State, keepGoing: boolean) {
