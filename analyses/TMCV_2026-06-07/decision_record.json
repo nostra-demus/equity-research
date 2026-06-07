@@ -1,0 +1,232 @@
+{
+  "schema_version": "1.0",
+  "ticker": "TMCV",
+  "company_name": "Tata Motors Limited (Commercial Vehicles)",
+  "exchange": "NSE",
+  "currency": "INR",
+  "decision_date": "2026-06-07",
+  "run_root": "analyses/TMCV_2026-06-07",
+  "final_thesis_path": "analyses/TMCV_2026-06-07/final_thesis.md",
+  "decision": "Watchlist",
+  "suggested_action": "No position now; re-rate when Iveco financing structure is confirmed and TMF Holdings AGM vote outcome is known",
+  "paper_treatment": "No trade, track opportunity cost",
+  "basket": "Watchlist",
+  "entry_price": 369.15,
+  "entry_price_source": "S&P Capital IQ Key Stats export",
+  "entry_price_timestamp": "2026-06-07",
+  "benchmark": "NIFTY 50",
+  "sector_benchmark": "NIFTY AUTO",
+  "time_horizon": "12 months",
+  "expected_return_pct": -4.4,
+  "downside_risk_pct": -81.0,
+  "risk_reward": -0.23,
+  "confidence_score": 47,
+  "data_sufficiency_score": 68,
+  "rating_cap": "Filter 4 (serial-acquirer/very-large-deal) + Filter 6 (unaligned owner borderline) enforce maximum Watchlist until Iveco financing resolved and minority-holder protection evidence exists",
+  "thesis_type": ["sector-cycle", "company-specific"],
+  "variant_perception_summary": "No proven variant perception. The Iveco acquisition binary risk and governance concerns are publicly known. Market appears to be rationally pricing the deal risk at 1.7% implied FCF CAGR — conservative but explainable. No proprietary data point distinguishes this analysis from consensus.",
+  "what_everyone_knows": "TMCV is India's largest CV manufacturer (35.7% share), recently listed as a pure-play, generating genuine cash returns (FCF Rs12,438 cr, ROCE 72%), with an improving balance sheet and 550 bps of EBITDA margin expansion over three years.",
+  "what_is_priced_in": "The Iveco acquisition risk and associated balance-sheet transformation. The reverse-DCF at 13% WACC shows the current price implies only ~1.7% FCF CAGR over ten years — approximately 8-9 percentage points below India nominal GDP growth — suggesting the market is already applying a large discount for the Iveco binary.",
+  "what_market_may_be_missing": "The compound effect of the TMF Holdings merger on reported earnings quality may not be receiving enough attention. A Rs2,418 cr non-cash FVTPL loss already reduced reported PAT by 80% in FY26. If both Iveco bridge loan and TMF merger close simultaneously in FY27, the reported earnings reset will be severe and consensus likely resets sharply downward.",
+  "killer_risk": "Iveco Group acquisition closes on full EUR 3.875 bn bridge-loan terms with no equity component — equity value falls from ~Rs380-430 base case to approximately Rs66/share on the intrinsic DCF",
+  "kill_criteria": [
+    {
+      "condition": "Iveco closes fully debt-funded with no equity component",
+      "what_it_means": "Equity value falls to ~Rs66/share; net debt rises to ~Rs33,000 cr (~3.2x EBITDA); annual interest Rs3,000-4,000 cr; FY27 consensus cut 20-30%; every balance-sheet metric resets",
+      "monitor_via": "NSE/BSE exchange intimations on deal close + financing terms; SEBI LODR Note updates; management bridge-loan disclosure on earnings call",
+      "module_source": "balance-sheet-survival; earnings; valuation"
+    },
+    {
+      "condition": "TMF Holdings merger passes AGM (June 29, 2026) AND FVTPL losses repeat at Rs2,000+ cr in FY27",
+      "what_it_means": "Confirms promoter willingness to transfer group liabilities to minority holders permanently; reported PAT noise is structural; governance discount becomes permanent",
+      "monitor_via": "AGM vote results (NSE/BSE scrutinizer report post June 29); FY27 reported PAT vs normalised PAT gap",
+      "module_source": "management-governance; earnings"
+    },
+    {
+      "condition": "Q1 FY27 Underlying EBITDA margin falls below 11%",
+      "what_it_means": "FY23-FY26 margin expansion is reversing; full-year consensus EPS Rs19.17 becomes unreachable even without Iveco; operating-leverage thesis broken",
+      "monitor_via": "Q1 FY27 results press release (late July/early August 2026); Underlying EBITDA margin line",
+      "module_source": "earnings"
+    },
+    {
+      "condition": "India CV TIV contracts >10% in FY27",
+      "what_it_means": "Operating de-leverage triggers; EPS collapses 40-45% per the -10% volume sensitivity; combined with Iveco interest, EPS could go deeply negative",
+      "monitor_via": "Monthly SIAM wholesale data; MHCV retail registration trends; diesel prices at pump",
+      "module_source": "earnings; business-model"
+    },
+    {
+      "condition": "Post-Iveco NCD maturities refinanced at 100+ basis points above existing WAC (~7.3-7.5%)",
+      "what_it_means": "First tangible evidence that post-Iveco leverage has degraded credit access; rating agency action likely follows",
+      "monitor_via": "September/December 2026 NCD refinancing terms; CRISIL/ICRA rating watch announcements",
+      "module_source": "balance-sheet-survival; catalyst"
+    }
+  ],
+  "forecast_ledger": [
+    {
+      "prediction": "Q1 FY27 Underlying EBITDA margin will print below FY26's 12.3%",
+      "probability": 75,
+      "time_window": "Q1 FY27 results — late July / early August 2026",
+      "evidence_today": "Management confirmed Q1 commodity impact significantly higher than Q4's 100 bps; seasonal H1 softness; no contractual pass-through mechanism",
+      "confirmation_trigger": "Q1 results show Underlying EBITDA margin at or below 12.0%",
+      "falsification_trigger": "Q1 Underlying EBITDA margin at or above 12.3% — commodity absorption fully offset by pricing and volume",
+      "owner_module": "earnings",
+      "confidence_score": 65,
+      "status": "open"
+    },
+    {
+      "prediction": "Iveco Group acquisition closes in Q2 FY27 (July-September 2026)",
+      "probability": 55,
+      "time_window": "Q2 FY27 window (July-September 2026)",
+      "evidence_today": "CFO guided Q2 close; France and Spain approvals pending; activist hedge fund holds 6-7% of Iveco; all lender consents obtained to date",
+      "confirmation_trigger": "NSE/BSE exchange intimation announcing deal completion",
+      "falsification_trigger": "Management announces deal termination, withdrawal, or material delay beyond Q3 FY27",
+      "owner_module": "catalyst",
+      "confidence_score": 45,
+      "status": "open"
+    },
+    {
+      "prediction": "FY27 normalised EPS consensus will be revised downward post-Q1 results",
+      "probability": 70,
+      "time_window": "Consensus revision window August/September 2026",
+      "evidence_today": "Stale Apr-27-2026 consensus assumes +20.5% EPS growth; does not model Iveco bridge loan; Q1 commodity headwind pre-confirmed by management",
+      "confirmation_trigger": "Post-Q1-results broker revisions visible in Capital IQ; FY27E normalised EPS falls below Rs17.00",
+      "falsification_trigger": "No broker revisions; FY27 consensus holds above Rs19.00 after Q1 actuals",
+      "owner_module": "earnings",
+      "confidence_score": 60,
+      "status": "open"
+    },
+    {
+      "prediction": "TMF Holdings amalgamation will face material institutional opposition at 2nd AGM (June 29, 2026)",
+      "probability": 65,
+      "time_window": "June 29, 2026",
+      "evidence_today": "Promoter at 42.56% cannot carry the 75% special-resolution threshold alone; FIIs hold 19%; IiAS recommendation not yet published",
+      "confirmation_trigger": "IiAS or major proxy advisor recommends voting against; AGM vote count shows less than 75% in favour",
+      "falsification_trigger": "Resolution passes with 75%+ and no material institutional opposition",
+      "owner_module": "management-governance",
+      "confidence_score": 50,
+      "status": "open"
+    },
+    {
+      "prediction": "Net cash position will be eliminated by H1 FY28 at the latest",
+      "probability": 80,
+      "time_window": "H1 FY28",
+      "evidence_today": "Iveco deal consideration Rs41,691 cr vs current net cash (company-defined) Rs13,713 cr; bridge loan terms confirmed at Euribor +102.5 bps; equity raise web-sourced at ~EUR1 bn",
+      "confirmation_trigger": "FY28 interim results show net debt on consolidated balance sheet",
+      "falsification_trigger": "Deal does not close; or monetisation of Tata Capital stake fully offsets deal consideration with no new borrowing",
+      "owner_module": "balance-sheet-survival",
+      "confidence_score": 70,
+      "status": "open"
+    },
+    {
+      "prediction": "TMCV will not pay a dividend at the same Rs4/share level in FY27",
+      "probability": 60,
+      "time_window": "FY27 dividend announcement — typically March/May 2027",
+      "evidence_today": "Post-Iveco annual interest Rs3,000-4,000 cr compresses FCF; management has not committed to a dividend policy post-Iveco",
+      "confirmation_trigger": "Board recommends zero or reduced FY27 dividend at Q4 FY27 board meeting",
+      "falsification_trigger": "Board recommends Rs4/share or higher FY27 dividend, confirming FCF adequacy post-Iveco",
+      "owner_module": "management-governance",
+      "confidence_score": 50,
+      "status": "open"
+    }
+  ],
+  "module_scores": {
+    "business-model": {
+      "score": 60,
+      "verdict": "Average business — worth deeper work only at right price; Filter 4 and Filter 5 tripped; no hard disqualifier"
+    },
+    "earnings": {
+      "score": 72,
+      "verdict": "Mixed earnings setup; earnings quality 72/100; consensus setup 30/100 (capped); red-flags verdict Critical concerns"
+    },
+    "balance-sheet-survival": {
+      "score": 75,
+      "verdict": "Fortress balance sheet (pre-Iveco only); solvency strength 82/100; liquidity runway 88/100; overall usefulness capped at 75 (covenant gap)"
+    },
+    "management-governance": {
+      "score": 68,
+      "verdict": "Standard/mixed; Governance Score 51 (Weak band); 9 High red flags, 0 Critical; Filters 4 and 6 tripped"
+    },
+    "valuation": {
+      "score": 62,
+      "verdict": "Modestly undervalued; base fair value Rs380-430; bear Rs300-346; event-risk floor Rs66; confidence capped at 50 (missing 07_scenario-and-fair-value)"
+    },
+    "catalyst": {
+      "score": 74,
+      "verdict": "Dated, evidenced near-term catalysts; calendar skews bearish-to-neutral; Iveco close is untimable binary; timing visibility 52/100"
+    }
+  },
+  "red_flags": [
+    {
+      "id": "RF-CAP-001",
+      "severity": "High",
+      "trigger": "Iveco EUR3.8bn acquisition — zero ROIC target, synergy, or leverage ceiling disclosed; 3.3x book equity",
+      "source": "FY26 Annual Report, Board's Report, p.116; FQ4 FY26 Transcript Q&A p.9; May 13, 2026"
+    },
+    {
+      "id": "RF-CAP-004",
+      "severity": "High",
+      "trigger": "CLAUDE.md S24 Filter 4 — serial-acquirer/very-large-deal at 3.3x book equity with bare strategic-fit language; CapAlloc max 50; GovRisk floor 60",
+      "source": "FY26 Annual Report, Board's Report, p.116; SEBI LODR Note 7, May 13, 2026"
+    },
+    {
+      "id": "RF-RPT-001",
+      "severity": "High",
+      "trigger": "RPT outflows 8.2% of revenue — above 5% High threshold; dominated by Tata Cummins engine procurement",
+      "source": "FY26 Annual Report, Note 42, p.343-347"
+    },
+    {
+      "id": "RF-RPT-002",
+      "severity": "High",
+      "trigger": "TMF Holdings amalgamation pending — Rs2,478 cr negative PAT contribution without quantified minority economics disclosure",
+      "source": "FY26 Annual Report, Note 45; Note 11; SEBI LODR Note 11, May 13, 2026"
+    },
+    {
+      "id": "RF-RPT-003",
+      "severity": "High",
+      "trigger": "Loans/ICDs to subsidiaries Rs2,925 crore (23% of consolidated net worth)",
+      "source": "FY26 Annual Report, Standalone Notes 9-10, p.395-414"
+    },
+    {
+      "id": "RF-OWN-004",
+      "severity": "High",
+      "trigger": "CLAUDE.md S24 Filter 6 borderline — TMF merger transfers NBFC losses (Rs2,478 cr FVTPL drag) to listed entity at promoter direction; ShFriendliness max 55",
+      "source": "FY26 Annual Report, Board's Report, p.117; Note 45; Q3 FY26 press release, Jan 29, 2026"
+    },
+    {
+      "id": "RF-MGT-003",
+      "severity": "High",
+      "trigger": "Bonus scorecard rewards volumes and absolute EBITDA (size metrics); no ROIC, EPS, FCF/share, or TSR metric named; PSU vesting criteria undisclosed",
+      "source": "FY26 Annual Report, CG Report, p.233; Board's Report, p.121"
+    },
+    {
+      "id": "RF-DISC-001",
+      "severity": "High",
+      "trigger": "Noncyclical revenue KPI unverifiable from audited segment notes; TMF merger financial impact not quantified before shareholder vote",
+      "source": "FY26 Annual Report, MD&A, p.215; Q3 FY26 press release, Jan 29, 2026"
+    },
+    {
+      "id": "RF-DISC-002",
+      "severity": "High",
+      "trigger": "Recurring FVTPL addback creates 94.7% gap between reported PAT (Rs3,030 cr) and normalised PAT (~Rs5,900 cr); item is recurring by nature not genuinely exceptional",
+      "source": "FY26 Annual Report, MD&A, p.215; SEBI LODR Note 8, May 13, 2026"
+    }
+  ],
+  "missing_data": [
+    "Iveco acquisition financing structure — equity vs debt split; bridge loan final terms; post-deal net debt/EBITDA ceiling — single highest-value missing data point",
+    "Financial covenant thresholds (net-worth floor, leverage cap, coverage floor) for all active financing facilities — would lift covenant headroom from Not Assessable to precise number",
+    "Post-Q4 FY26 analyst estimate revisions to FY27 consensus (EstimatesReport.xls extraction failed; full revision series unavailable)",
+    "Company Comparable Analysis peer multiples (XLS extraction failed; peer comps web-sourced and unverified throughout)",
+    "SEBI PIT/SAST individual insider-transaction disclosures since November 2025 listing — would confirm whether any insider bought TMCV shares at market",
+    "TMF Holdings FVTPL portfolio composition and expected directional bias in FY27 — critical for estimating FY27 reported PAT",
+    "Iveco EBITDA margin and revenue profile — needed to model consolidated post-deal earnings contribution",
+    "Post-deal HoldCo/OpCo capital structure and covenant package for the EUR3.875 bn bridge facility"
+  ],
+  "review_schedule": {
+    "30d": "2026-07-07",
+    "90d": "2026-09-05",
+    "180d": "2026-12-04",
+    "365d": "2027-06-07"
+  },
+  "created_by": "synthesizer",
+  "notes": "Entry price Rs369.15 is available from S&P Capital IQ Key Stats export (2026-06-07); paper treatment is Watchlist (no trade, track opportunity cost) per frameworks/DECISION_LEDGER.md S3. Risk/reward of -0.23 reflects the probability-weighted expected return being negative (-4.4%), making the expected outcome a small loss at current price. The 30d review (2026-07-07) is most critical — AGM outcome (June 29) and early Iveco regulatory signals should be visible by then. The 90d review (2026-09-05) will capture Q1 FY27 results and the September NCD maturity outcome."
+}
