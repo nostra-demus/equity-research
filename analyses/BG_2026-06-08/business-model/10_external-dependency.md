@@ -1,0 +1,68 @@
+# External Dependency Check — BG (Bunge Global SA)
+
+> **Score direction: INVERTED — higher score = worse (more dangerous external dependence)**
+
+---
+
+## 1. Dependency Table
+
+| External Variable | Dependency Level | Why It Matters | Evidence |
+|---|---|---|---|
+| **Commodity prices (agricultural)** | **High** | Bunge's entire economics pivot on the spread between raw oilseed/grain input prices and the price of crushed outputs (meal + oil). When spreads compress — as they did in FY2024-2025 — segment EBIT falls sharply. The company also carries large inventories of soybeans, softseeds, and grains marked at market. A 10% adverse move in commodity positions could produce a market-risk loss of up to ~$131 million in a single day based on FY2025 position data. Hedging via futures reduces but does not eliminate exposure, and hedges can lag physical positions. | FY2025 10-K, Item 7A (commodity VaR table, p.56): highest daily aggregated fair value position $1,307M, market risk at 10% shock = $(131)M; Item 1A p.14–15 risk factors; MD&A p.34 "Profitability in our reportable segments is affected by the availability and market prices of agricultural commodities" |
+| **Government policy / trade policy** | **High** | Three distinct policy channels each capable of materially shifting Bunge's economics: (1) Biofuel mandates (US RVO/RIN, EU renewable energy directives, Brazil B-blend, Indonesia mandate) directly set demand for vegetable oils and thereby crush margins. CEO commentary in Q1 2026 describes EPA's RVO decision as decisive for the processing environment. (2) Export restrictions — Argentina historically restricts soy exports and levies export taxes that suppress local crush margins. (3) US-China trade conflict creates tariff-driven shifts in grain and soy trade flows, rerouting volumes and altering origin premiums. Any of these policy settings can change with an election or a regulatory order. | FY2025 10-K, Item 1A p.17: "Governmental policies affecting the agricultural industry… biofuels mandates, can influence industry profitability"; p.17: US-China tariff risk on agricultural products; Q1 2026 transcript p.3: "We need policy that supports the sector, and that's exactly what the EPA did with the recent RVO decision"; p.7: "policy evolving, not only in Brazil and Indonesia… but also in Europe" |
+| **Weather / crop conditions** | **High** | Crop size, quality, and timing are the primary determinants of both raw material availability and farmer selling patterns. A drought (La Niña, El Niño) or excessive rainfall can cause supply shortfalls, compress origination margins, and impair the $835M farmer advance book in Brazil. Management singled out El Niño probability and European sunflower crop development as key open variables for the second half of 2026 during Q1 earnings. Two consecutive poor European sunflower crops (2024–2025) have already pressured softseed margins. | FY2025 10-K, Item 1A p.13–14: "Adverse weather conditions… causing crop failures or significantly reduced harvests"; Q1 2026 transcript p.10: "there is increasing concern about El Nino developing"; p.10: "two tough soft seed crops the last two years in Europe"; p.11: farmer credit advances in Brazil $835M exposed to crop/weather risk (10-K, Item 1A p.20) |
+| **Geopolitics** | **High** | Russia-Ukraine war directly affects Bunge's four Ukrainian crushing facilities, two export terminals at Mykolaiv, and numerous grain elevators. Ukraine is the world's largest sunflower seed and oil supplier — supply cannot be fully redirected. The Q1 2026 call also flagged an escalating Middle East conflict as "meaningfully disrupt[ing] global trade flows, logistics costs, and supply chains." Geopolitical events also change fertilizer costs, fuel prices, and crop planting decisions globally. | FY2025 10-K, Item 1A p.14: Ukraine assets; p.14: "total assets and total liabilities associated with Bunge's Ukrainian subsidiaries each comprise less than 2% of consolidated totals"; Q1 2026 transcript p.3: "Middle East conflict… has meaningfully disrupted global trade flows, logistics costs, and supply chains" |
+| **FX** | **Mid** | Bunge consolidates operations across ~40 countries. Primary FX exposures are Brazilian real, Canadian dollar, Euro, and Chinese yuan. FX swings affect both income translation (non-USD subsidiaries) and transactional items. In FY2025 the company recorded a FX gain on net debt of $216M (vs. a FY2024 loss of $174M) — a $390M swing year-over-year. However, a hypothetical 10% adverse move in all currencies simultaneously results in an impact described as "not material" on the net hedged currency position. Argentina's exchange controls add a further layer: the company actively positions around the official/unofficial rate differential, which produced notable gains in FY2025 but also created restatement risk. | FY2025 10-K, Item 7A p.57 (Currency Risk): "potential loss in fair value of such net currency positions resulting from a hypothetical 10% adverse change in foreign currency exchange rates as of December 31, 2025, was not material"; MD&A p.35: FX gain on net debt $216M in FY2025 vs. loss $174M in FY2024; Item 1A p.16: Argentina exchange controls |
+| **Freight / logistics rates** | **Mid** | Ocean freight is a significant direct cost line — Bunge operates its own fleet and time-charter agreements and uses freight forward agreements (FFAs) to hedge. Bunker fuel is a key sub-cost. In Q1 2026, a spike in bunker fuel costs drove grain merchandising results sharply below expectations. The company holds time charters ranging two months to five years, creating both a hedge and an exposure to locked-in costs when rates fall. | FY2025 10-K, Item 7A p.56 (Ocean Freight Risk): "ocean freight represents a significant portion of our operating costs"; Q1 2026 transcript p.8: "largely driven by the ocean freight dynamics, the bunker fuel costs that hit us in Q1" |
+| **Energy prices** | **Mid** | Processing operations consume electricity, natural gas, coal, and bunker fuel. Higher energy costs directly increase cost of goods sold. The company hedges portions using OTC and exchange-traded energy derivatives. Additionally, as a biofuel feedstock supplier, lower oil/diesel prices compress the value of vegetable oils used in renewable diesel, creating a two-sided exposure: high energy prices raise input costs but support feedstock pricing. | FY2025 10-K, Item 7A p.57 (Energy Risk): operations use "electricity, natural gas, and bunker fuel"; Item 1A p.15: "selling prices of ethanol, renewable diesel, and biodiesel can be impacted by the selling prices of oil, gasoline and diesel fuel"; Q1 2026 transcript p.7: "higher crude prices and higher diesel prices" support biofuel economics |
+| **Interest rates** | **Mid** | Post-Viterra, Bunge carries $14.1B in total debt. Variable rate obligations of ~$225M are directly exposed. A 100bp rate change produces ~$78M shift in annual interest expense on variable debt. Fixed rate debt is insulated from rate changes on an income-statement basis but has a fair value sensitivity of less than 1% per 100bp (not economically significant). With net interest expense guided at $620–660M for FY2026, rate moves at the margin matter but are not the primary earnings driver. | FY2025 10-K, Item 7A p.57 (Interest Rate Risk): "hypothetical 100bp change in reference rate would result in ~$78M change in interest expense"; total debt $14,051M; Contractual obligations table: variable rate debt $225M; Q1 2026 transcript p.11: "lower average net interest rates" aided Q1 |
+| **Industrial / agricultural cycle** | **Mid** | Oilseed processing capacity is cyclical: periods of high margins attract new crush capacity, which eventually creates overcapacity and compresses margins. The 10-K explicitly notes this cycle. Management flagged additional competition from petroleum companies entering renewable diesel refining. Crush margin cycles are typically 3–5 years, with Bunge currently benefiting from a favorable phase, particularly in soy. | FY2025 10-K, Item 1A p.15: "market for some agricultural commodities and fertilizer products has been cyclical… this expansion may then produce excess supply conditions"; Item 1A p.16: "certain of our competitors have added oilseed processing and refining capacity" |
+| **Consumer cycle** | **Low** | Bunge sells primarily to industrial buyers (animal feed manufacturers, biofuel companies, food processors) rather than directly to consumers. Demand for its products is largely structural and nutrition-driven. A severe global recession can reduce meat consumption and thus meal demand at the margin, but food demand is far less cyclical than durables. | FY2025 10-K, Item 1A p.15: "level of demand for our products is affected by global and regional… macroeconomic conditions"; Q1 2026 transcript p.12: "meal demand globally continues to surprise… to the upside here, month after month" |
+
+---
+
+## 2. Sensitivity, If Disclosed
+
+Bunge publishes several quantified sensitivity figures in its FY2025 10-K, Item 7A:
+
+| Risk Variable | Scenario | Disclosed Impact | Source |
+|---|---|---|---|
+| Agricultural commodity prices | 10% adverse move in net commodity position | Up to ~$(131)M loss in fair value (highest daily position in FY2025 = $1,307M) | FY2025 10-K, Item 7A, p.56 commodity VaR table |
+| Agricultural commodity prices | 10% adverse move in net commodity position | Up to ~$(61)M loss in fair value (lowest daily position = $(611)M, long or short) | FY2025 10-K, Item 7A, p.56 |
+| Interest rates (variable debt) | +/− 100 basis points change in SOFR / reference rate | ~$78M change in annual interest expense | FY2025 10-K, Item 7A, p.57 |
+| Interest rates (fixed debt + swaps) | +/− 100 basis points change in yields | Less than 1% change in fair value of $14.1B debt portfolio | FY2025 10-K, Item 7A, p.57 |
+| Foreign currency (hedged net position) | 10% adverse move across all currencies simultaneously | "Not material" (exact figure not quantified; management states net position is hedged) | FY2025 10-K, Item 7A, p.57 |
+
+**No quantified sensitivity** is disclosed for: weather / crop outcomes, government policy changes, or freight rate moves. These are qualitatively described but not given a dollar figure.
+
+---
+
+## 3. Classification
+
+**Partly externally driven** — material exposure but real management levers (pricing, hedging, mix)
+
+Bunge is an agricultural commodity processor and merchandiser. The bulk of its economics are determined by oilseed and grain spreads, weather, and government policy — all outside management control. However, management has genuine levers: geographic diversification across the northern and southern hemispheres offsets some weather risk, hedging via futures and forwards reduces price exposure within policy limits, and the expanded global footprint post-Viterra allows Bunge to shift volumes toward better-margin origins. These levers are real but bounded: they reduce variance around an externally set level, they do not determine the level itself. This is not a company-controlled business, nor is it a pure pass-through — it sits firmly in the middle band, with the external tilt being the dominant force.
+
+---
+
+## 4. External Dependency Risk Score
+
+**Score: 72 / 100** (higher = worse)
+
+**Rationale for 72:**
+
+Bunge operates in the 61–80 band ("mostly externally driven, limited management levers") for the following reasons:
+
+- Three High-rated variables — agricultural commodity prices, government/trade policy, and weather — together account for the great majority of quarterly earnings variance. None of these are within management's control.
+- The commodity price sensitivity is structurally large: net daily positions swing between $(611)M and $1,307M, and a 10% adverse move can cost up to $131M in a single day even after hedging.
+- Biofuel policy is now a primary driver of vegetable oil demand and crush margin economics; the RVO decision, Indonesia blend mandates, and EU RED rules collectively set the demand side that Bunge cannot influence.
+- Weather in South America, North America, and Europe simultaneously affects both supply (crop size) and demand (farmer selling patterns), with no management hedge available.
+- Post-Viterra, geopolitical exposure has increased: Ukraine operations (oilseed crushing, export terminals) sit inside an active war zone; Middle East disruption already hit Q1 2026 freight costs.
+
+The score does not reach 80+ because: (a) hedging programs genuinely reduce short-term commodity volatility; (b) geographic diversification across hemispheres partially offsets weather in any single region; (c) the industrial cycle exposure — while real — operates on a multi-year horizon that management can partially anticipate; and (d) FX and interest rate sensitivities are comparatively contained.
+
+---
+
+## 5. The Single Biggest Lever
+
+**Agricultural commodity crush margins (the spread between input oilseed prices and output meal + oil prices):** a 20% adverse compression in crush margins — driven by a combination of commodity price moves, excess processing capacity, and weak biofuel demand — would do the most damage. In FY2024–2025, already-compressed margins cut net income by $321M year-over-year on an annual basis. A further 20% downside in spreads, applied to a processing segment generating the bulk of Bunge's ~$1.5B+ segment EBIT, would likely reduce earnings by $300M–$500M in a single year, which compares to total adjusted EPS guidance of $9.00–$9.50 for FY2026. Management has no direct lever to prevent this — it can shift volumes between origins and delay processing, but it cannot set the spread.
