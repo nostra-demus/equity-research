@@ -34,6 +34,14 @@ function todayDate(): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
 }
 
+// The deliverables a completed full/rerun MUST have written (the master synthesizer's primary outputs).
+// Their absence after a clean exit means the run was truncated before the master finished.
+function finalDeliverablesPresent(runRoot: string | null): boolean {
+  if (!runRoot) return false
+  const root = path.isAbsolute(runRoot) ? runRoot : path.join(REPO_ROOT, runRoot)
+  return fs.existsSync(path.join(root, 'final_thesis.md')) && fs.existsSync(path.join(root, 'decision_record.json'))
+}
+
 // A solo agent writes into the run folder its slash command will resolve: today's if it already
 // exists, else the latest prior run, else today's. Concrete (never null) so admission/watcher work.
 function resolveAgentRunRoot(ticker: string): string {
@@ -308,6 +316,15 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
         const reason = /credit|rate limit/i.test(stderr) ? 'out_of_credits' : 'nonzero_exit'
         emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason, message: stderr.slice(-400) || undefined, ts: Date.now() })
         finishRun(run, 'error')
+      } else if ((kind === 'full' || kind === 'rerun') && !finalDeliverablesPresent(run.runRoot)) {
+        // The process exited cleanly, but a full/rerun that didn't write its final thesis + decision
+        // record was almost certainly budget/turn-truncated before the master synthesizer finished.
+        // Report it honestly as INCOMPLETE (not a misleading "done") so the cockpit + activity log show
+        // the truth and the user can finish it / raise the cap.
+        const msg = 'Run ended without the final thesis & memo — likely budget- or turn-truncated before the master synthesizer finished. Re-run from the master (or any late orb) to finish; the cap is now higher.'
+        run.note = 'incomplete: no final thesis/decision (likely budget/turn truncation)'
+        emit(run, { type: 'run-error', runId: run.runId, status: 'incomplete', reason: 'incomplete_deliverables', message: msg, ts: Date.now() })
+        finishRun(run, 'incomplete')
       } else {
         emit(run, { type: 'run-done', runId: run.runId, status: 'done', costUsd: run.costUsd, durationMs: run.durationMs, numTurns: run.numTurns, ts: Date.now() })
         finishRun(run, 'done')

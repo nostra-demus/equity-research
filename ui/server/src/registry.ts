@@ -29,6 +29,7 @@ export interface RunState {
   runRoot: string | null // repo-relative, resolved on run-started
   child: ResultPromise | null
   status: RunStatus
+  note?: string // optional finish note (e.g. why a run ended incomplete) — surfaced in the activity log
   finishLogged?: boolean // guards the activity-log finish write against double-fire
   startedAt: number
   endedAt?: number
@@ -148,6 +149,7 @@ export function finishRun(run: RunState, status: RunStatus) {
       costUsd: run.costUsd,
       durationMs: run.durationMs ?? (run.endedAt - run.startedAt),
       numTurns: run.numTurns,
+      note: run.note,
     })
   }
   void Promise.resolve(run.closeWatcher?.()).catch(() => {})

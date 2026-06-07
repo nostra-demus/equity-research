@@ -79,7 +79,7 @@ export type SseEvent =
   | { type: 'module-done'; runId: string; module: string; status: 'completed' | 'aborted'; reason?: string; verdict?: string | null; ts: number }
   | { type: 'cost-tick'; runId: string; costUsdSoFar?: number; rateLimit?: { ok: boolean; reason?: string }; ts: number }
   | { type: 'run-done'; runId: string; status: 'done'; costUsd?: number; durationMs?: number; numTurns?: number; finalThesisPath?: string | null; decisionRecordPath?: string | null; ts: number }
-  | { type: 'run-error'; runId: string; status: 'error' | 'cancelled'; reason: string; message?: string; ts: number }
+  | { type: 'run-error'; runId: string; status: 'error' | 'cancelled' | 'incomplete'; reason: string; message?: string; ts: number }
 
 export interface NodeRuntime { status: NodeStatus; verdict?: string | null; outputPath?: string; runId?: string }
 
@@ -97,10 +97,11 @@ export interface ActivityRow {
   model?: string
   launchedAt: number
   finishedAt?: number
-  status: NodeStatus | 'starting' | 'cancelled' | 'error' | 'done' | 'running'
+  status: NodeStatus | 'starting' | 'cancelled' | 'error' | 'done' | 'running' | 'incomplete'
   costUsd?: number
   durationMs?: number
   numTurns?: number
+  note?: string
 }
 export interface ActivityQuery {
   from?: number

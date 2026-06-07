@@ -565,8 +565,15 @@ export const useStore = create<State>((set, get) => ({
         const r = get().activeRuns[e.runId]
         if (r) patch.activeRuns = { ...get().activeRuns, [e.runId]: { ...r, status: e.status } }
         if (!r || r.ticker === selected) {
-          get().setToast({ msg: e.reason === 'out_of_credits' ? 'Out of credits — run could not execute' : `Run ${e.status}: ${e.reason}`, tone: 'bad' })
-          if (e.reason === 'out_of_credits') patch.credit = { ok: false, reason: 'out_of_credits', checked: true }
+          if (e.status === 'incomplete') {
+            // honest signal: the process exited but the final memos weren't produced (budget/turn cut-off)
+            get().setToast({ msg: e.message || 'Run finished but the final thesis & memo were not produced — re-run from the master to finish.', tone: 'bad' })
+            // surface whatever DID get written so the cockpit isn't blank
+            if (r && r.ticker === selected) api.runManifest(selected).then((m) => set({ runRoot: m.runRoot ?? get().runRoot, reports: { memo: !!m.memo, thesis: !!m.finalThesis, dossier: !!m.fullDossier } })).catch(() => {})
+          } else {
+            get().setToast({ msg: e.reason === 'out_of_credits' ? 'Out of credits — run could not execute' : `Run ${e.status}: ${e.reason}`, tone: 'bad' })
+            if (e.reason === 'out_of_credits') patch.credit = { ok: false, reason: 'out_of_credits', checked: true }
+          }
         }
         break
       }

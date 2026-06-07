@@ -27,6 +27,7 @@ function statusTone(s: string): { color: string; label: string } {
     case 'done': return { color: 'var(--accent)', label: 'done' }
     case 'running': case 'starting': return { color: 'var(--accent-bright)', label: 'running' }
     case 'error': return { color: 'var(--bad)', label: 'error' }
+    case 'incomplete': return { color: 'var(--bad)', label: 'incomplete' }
     case 'cancelled': return { color: 'var(--text-faint)', label: 'cancelled' }
     default: return { color: 'var(--text-muted)', label: s }
   }
@@ -205,7 +206,7 @@ export function ActivityLog() {
                         <td><span className={`akind akind--${r.kind}`}>{KIND_LABEL[r.kind]}</span></td>
                         <td style={{ fontWeight: 600 }}>{r.ticker}</td>
                         <td style={{ color: 'var(--text-muted)' }}>{targetOf(r)}</td>
-                        <td><span className="apill" style={{ color: tone.color }}><span className="apill__dot" style={{ background: tone.color }} />{tone.label}</span></td>
+                        <td title={r.note || undefined}><span className="apill" style={{ color: tone.color }}><span className="apill__dot" style={{ background: tone.color }} />{tone.label}{r.note ? ' ⚠' : ''}</span></td>
                         <td className="atable__num">{fmtCost(r.costUsd)}</td>
                         <td className="atable__num">{fmtDuration(r.durationMs)}</td>
                       </tr>

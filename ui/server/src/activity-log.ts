@@ -28,6 +28,7 @@ export interface ActivityEvent {
   costUsd?: number
   durationMs?: number
   numTurns?: number
+  note?: string // e.g. why a run ended incomplete
 }
 
 // One run, folded from its launched (+ optional finished) events for the activity table.
@@ -46,6 +47,7 @@ export interface ActivityRow {
   costUsd?: number
   durationMs?: number
   numTurns?: number
+  note?: string
 }
 
 function append(ev: ActivityEvent) {
@@ -144,6 +146,7 @@ function foldRows(events: ActivityEvent[]): ActivityRow[] {
       if (ev.costUsd != null) row.costUsd = ev.costUsd
       if (ev.durationMs != null) row.durationMs = ev.durationMs
       if (ev.numTurns != null) row.numTurns = ev.numTurns
+      if (ev.note) row.note = ev.note
     }
   }
   return [...byRun.values()]

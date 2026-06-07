@@ -35,13 +35,21 @@ export const DEFAULT_MODEL = process.env.ENGINE_MODEL || 'sonnet'
 
 export type LaunchKind = 'full' | 'module' | 'agent' | 'rerun'
 
-// Runaway / cost guards per launch granularity.
+// Runaway / cost guards per launch granularity. These are HARD ceilings: the headless CLI stops when it
+// hits the budget/turn cap, even mid-run. The earlier full-run defaults (800 turns / $60) truncated a
+// large, data-heavy company (TMCV) before the catalyst module + master synthesizer ran — leaving no
+// final thesis/memo. Defaults are now generous enough to finish a full 6-module + master run for a
+// data-heavy company, and every cap is env-tunable so they can be raised/lowered without a code change.
+const capNum = (v: string | undefined, d: number) => {
+  const n = Number(v)
+  return Number.isFinite(n) && n > 0 ? n : d
+}
 export const LAUNCH_GUARDS: Record<LaunchKind, { maxTurns: number; budgetUsd: number }> = {
-  full: { maxTurns: 800, budgetUsd: 60 },
-  module: { maxTurns: 250, budgetUsd: 20 },
-  agent: { maxTurns: 60, budgetUsd: 5 },
+  full: { maxTurns: capNum(process.env.ENGINE_FULL_MAX_TURNS, 2500), budgetUsd: capNum(process.env.ENGINE_FULL_BUDGET_USD, 150) },
+  module: { maxTurns: capNum(process.env.ENGINE_MODULE_MAX_TURNS, 350), budgetUsd: capNum(process.env.ENGINE_MODULE_BUDGET_USD, 28) },
+  agent: { maxTurns: capNum(process.env.ENGINE_AGENT_MAX_TURNS, 60), budgetUsd: capNum(process.env.ENGINE_AGENT_BUDGET_USD, 6) },
   // re-run one orb + its downstream synthesis chain to the master: between a module and a full run.
-  rerun: { maxTurns: 400, budgetUsd: 35 },
+  rerun: { maxTurns: capNum(process.env.ENGINE_RERUN_MAX_TURNS, 1200), budgetUsd: capNum(process.env.ENGINE_RERUN_BUDGET_USD, 80) },
 }
 
 // Rough cost/time estimates surfaced to the UI before launch (heuristic only; the hard cap is budgetUsd).

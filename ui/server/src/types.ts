@@ -121,7 +121,9 @@ export interface TickerSummary {
 // ---- runs / events ----
 
 export type RunKind = 'full' | 'module' | 'agent' | 'rerun'
-export type RunStatus = 'starting' | 'running' | 'done' | 'error' | 'cancelled'
+// 'incomplete' = the process exited cleanly but a full/rerun didn't produce its final deliverables
+// (thesis/decision) — almost always budget/turn truncation. Distinct from 'error' (a real failure).
+export type RunStatus = 'starting' | 'running' | 'done' | 'error' | 'cancelled' | 'incomplete'
 export type AgentRunStatus = 'queued' | 'running' | 'done' | 'failed'
 
 // ---- admission control (dependency-aware concurrency) ----
@@ -160,7 +162,7 @@ export type SseEvent =
   | { type: 'module-done'; runId: string; module: string; status: 'completed' | 'aborted'; reason?: string; verdict?: string | null; ts: number }
   | { type: 'cost-tick'; runId: string; costUsdSoFar?: number; rateLimit?: { ok: boolean; reason?: string }; ts: number }
   | { type: 'run-done'; runId: string; status: 'done'; costUsd?: number; durationMs?: number; numTurns?: number; finalThesisPath?: string | null; decisionRecordPath?: string | null; ts: number }
-  | { type: 'run-error'; runId: string; status: 'error' | 'cancelled'; reason: string; message?: string; ts: number }
+  | { type: 'run-error'; runId: string; status: 'error' | 'cancelled' | 'incomplete'; reason: string; message?: string; ts: number }
 
 export interface CreditPreflight {
   ok: boolean
