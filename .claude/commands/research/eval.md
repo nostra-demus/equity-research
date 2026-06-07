@@ -27,7 +27,7 @@ Run the embedded check script below via Bash. It applies, per run, the following
 - **G. Audit-report schema** (optional, if present) — `verification_report.json` / `pre_mortem.json` / `expectations_gap.json` parse and carry their required keys; a `verification_report` with verdict "Failed" fails the suite (a golden fixture must not be a failed run).
 - **H. No stray confirmation blocks** (`MODULE_PIPELINE`) — no `<run>/<module>/*.md` file's last 20 lines contain a line matching `^Agent:\s+\S+\s*$`.
 - **I. Decision ↔ thesis consistency** — the `decision_record.decision` string appears in `final_thesis.md` (the JSON matches the memo).
-- **J. Framework source contracts** (suite-level, run once) — two bodies of wiring are still present in the framework/agent files. **(i) §24 Avoid-Big-Risks:** `CLAUDE.md` §24 with all six filters; each module's `MODULE_RULES.md` carries its filter caps; the new red-flag IDs (`RF-CAP-004`, `RF-OWN-004`, `RF-MGT-004`) exist; `business-quality` has the 11th factor; the synthesizer carries the §24 gate step and rating cap. **(ii) §17 Catalyst module:** the `catalyst` module (`MODULE_RULES`, `01_catalyst-calendar`, `99_catalyst-synthesis`) exists with its §17 discipline and runs-last `depends_on`, and the synthesizer's §7 defers to it. **(iii) Three output tiers:** the `memo-writer` agent (`.claude/agents/memo-writer.md`) and the `/research:full` wiring (`.claude/commands/research/full.md`) that emit the colleague `memo.md` and the deterministic `audit_dossier.md` alongside `final_thesis.md` are present. **(iv) Review-due scheduler:** the SessionStart hook (`.claude/settings.json` + `.claude/hooks/review_due.py`) that surfaces due decision reviews is present. Guards the §24 implementation, the catalyst module, the three-output wiring, and the scheduler against silent deletion. Independent of any run; a missing anchor fails the suite.
+- **J. Framework source contracts** (suite-level, run once) — five bodies of wiring are still present in the framework/agent files. **(i) §24 Avoid-Big-Risks:** `CLAUDE.md` §24 with all six filters; each module's `MODULE_RULES.md` carries its filter caps; the new red-flag IDs (`RF-CAP-004`, `RF-OWN-004`, `RF-MGT-004`) exist; `business-quality` has the 11th factor; the synthesizer carries the §24 gate step and rating cap. **(ii) §17 Catalyst module:** the `catalyst` module (`MODULE_RULES`, `01_catalyst-calendar`, `99_catalyst-synthesis`) exists with its §17 discipline and runs-last `depends_on`, and the synthesizer's §7 defers to it. **(iii) Three output tiers:** the `memo-writer` agent (`.claude/agents/memo-writer.md`) and the `/research:full` wiring (`.claude/commands/research/full.md`) that emit the colleague `memo.md` and the deterministic `audit_dossier.md` alongside `final_thesis.md` are present. **(iv) Review-due scheduler:** the SessionStart hook (`.claude/settings.json` + `.claude/hooks/review_due.py`) that surfaces due decision reviews is present. **(v) Post-run audit chain + core framework documents:** the six post-run commands (`verify-evidence`, `pre-mortem`, `expectations-gap`, `calibrate`, `review-decisions`, `size`) retain their core architectural invariants (pool-extractor reference, primary output fields, inviolable rules); and `frameworks/DECISION_LEDGER.md` and `frameworks/MODULE_PIPELINE.md` retain their canonical schemas and pipeline contracts. Guards all five bodies against silent deletion or corruption. Independent of any run; a missing anchor fails the suite.
 - **K. §24 reflected in post-§24 runs** (forward-looking) — for a run whose `decision_date` is on/after the §24 landing date (`2026-06-03`), `final_thesis.md` must reference the Avoid-Big-Risks roll-up (the Headline Scorecard row or a §24 reference). Runs that predate §24 (the BG/HCG fixtures) are **N/A**, so the suite still passes; the check activates automatically for every new run.
 - **L. Three output tiers present in post-landing runs** (forward-looking) — for a run whose `decision_date` is on/after the three-tier landing date (`2026-06-03`), both `memo.md` (the ~10-page colleague memo) and `audit_dossier.md` (the deterministic full-evidence concatenation) must exist beside `final_thesis.md`. Runs that predate the feature (the BG/HCG fixtures) are **N/A**, so the suite still passes; the check activates automatically for every new run.
 
@@ -141,7 +141,7 @@ for drp in runs:
     results[name]={"run_root":run,"ticker":d.get("ticker"),"decision":dec,"pass":run_pass,
                    "checks":checks,"warn_nonschema_files":extras}
 
-# J FRAMEWORK SOURCE CONTRACTS (suite-level, run once; protects §24 wiring + the §17 catalyst module)
+# J FRAMEWORK SOURCE CONTRACTS (suite-level, run once; protects §24, catalyst, tiers, scheduler, post-run audit chain, and core framework docs)
 FRAMEWORK_CONTRACTS={
  "CLAUDE.md":["## 24. Avoid Big Risks","Crooks and integrity","Turnarounds","High debt and the survival test","Serial acquirers","Fast-changing industries","Unaligned owners"],
  ".claude/agents/business-model/MODULE_RULES.md":["Rejector-Filter Penalties & Caps","Serial acquirers","Fast-changing industry"],
@@ -161,6 +161,15 @@ FRAMEWORK_CONTRACTS={
  ".claude/commands/research/full.md":["audit_dossier.md","memo.md","memo-writer"],
  ".claude/settings.json":["SessionStart","review_due.py"],
  ".claude/hooks/review_due.py":["review_schedule","research:review-decisions due"],
+ # --- (v) Post-run audit chain + core framework documents ---
+ ".claude/commands/research/verify-evidence.md":["extract_pool.py","integrity_score","Section A","Section B","Section C","unsupported","read-only"],
+ ".claude/commands/research/pre-mortem.md":["confidence_haircut","survives","kill_criteria_attack","Thesis broken","never raise"],
+ ".claude/commands/research/expectations-gap.md":["edge_score","is_exploitable","variant_perception_quality","A gap is not an edge"],
+ ".claude/commands/research/calibrate.md":["Brier score","selected_minus_rejected","process metrics","insufficient","calibration_summary.json"],
+ ".claude/commands/research/review-decisions.md":["thesis_status","decision_quality","forecast_results","append-only","DECISION_LEDGER"],
+ ".claude/commands/research/size.md":["model_weight_pct","is_exploitable","fractional-Kelly","negative expected return","illustrative"],
+ "frameworks/DECISION_LEDGER.md":["schema_version","review_schedule","selected-minus-rejected","forecast_ledger","error taxonomy"],
+ "frameworks/MODULE_PIPELINE.md":["extract_pool.py","Mode A","Mode B","Mode C","fail_fast","Step 1.5"],
 }
 jchecks=[]
 for jf,subs in FRAMEWORK_CONTRACTS.items():
@@ -182,7 +191,7 @@ for nm,r in results.items():
     fails=[c["check"] for c in r["checks"] if c["status"]=="FAIL"]
     print(f"  {nm}: {'PASS' if r['pass'] else 'FAIL'} ({r['decision']})", ("fails="+",".join(fails)) if fails else "", ("WARN extras="+",".join(r['warn_nonschema_files'])) if r['warn_nonschema_files'] else "")
 jfails=[j["file"] for j in jchecks if j["status"]=="FAIL"]
-print("  framework source contracts (J: §24 + catalyst + tiers):", "PASS" if not jfails else "FAIL "+";".join(jfails))
+print("  framework source contracts (J: §24 + catalyst + tiers + audit-chain + frameworks):", "PASS" if not jfails else "FAIL "+";".join(jfails))
 for j in jchecks:
     if j["status"]=="FAIL": print(f"     FAIL {j['file']} missing={j['missing']}")
 print("WROTE", of)
