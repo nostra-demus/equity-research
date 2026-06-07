@@ -87,7 +87,7 @@ export const api = {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return get(`/api/launch/estimate?kind=${kind}&ticker=${encodeURIComponent(ticker)}${module ? `&module=${module}` : ''}${agent ? `&agent=${agent}` : ''}`)
   },
-  launch: async (body: { kind: string; ticker: string; module?: string; agent?: string; model?: string; confirmTicker?: string }): Promise<{ runId: string; preflight: LaunchPreflight }> => {
+  launch: async (body: { kind: string; ticker: string; module?: string; agent?: string; model?: string; confirmTicker?: string }): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/launch`, body)
   },

@@ -61,6 +61,7 @@ interface State {
   now: number // shared 1s clock for every live timer (orb/module/panel/tooltip); ticked only while orbs run
   activeRuns: Record<string, ActiveRun> // selected-ticker live runs (+ just-finished, until next switch)
   activeRunsByTicker: Set<string>
+  chainTickers: Set<string> // tickers whose full run is a per-module CHAIN — defer the "complete" celebration to the master step
   selectToken: number
   runStream: StreamRow[]
   coreBloom: boolean
@@ -133,6 +134,7 @@ export const useStore = create<State>((set, get) => ({
   now: Date.now(),
   activeRuns: {},
   activeRunsByTicker: new Set(),
+  chainTickers: new Set(),
   selectToken: 0,
   runStream: [],
   coreBloom: false,
@@ -244,6 +246,14 @@ export const useStore = create<State>((set, get) => ({
     try {
       const { active } = await api.activeRuns()
       set({ activeRunsByTicker: new Set(active.map((r) => r.ticker)) })
+      // live-follow: connect to any active run for the SELECTED ticker we're not already streaming. A
+      // chained full run launches each step under a new runId server-side; without this the swarm would
+      // go dark between steps. Benign for normal runs (it only attaches to this ticker's own live runs).
+      const sel = get().selectedTicker
+      if (sel) {
+        const token = get().selectToken
+        for (const r of active) if (r.ticker === sel && !runSources.has(r.runId)) reconnectRun(set, get, r.runId, token)
+      }
       schedulePoll(get, active.length > 0)
     } catch {}
   },
@@ -338,9 +348,12 @@ export const useStore = create<State>((set, get) => ({
     set({ launchConfirm: null })
     const planned = [...get().nodesByKey.keys()]
     try {
-      const { runId } = await api.launch({ kind: 'full', ticker: t, confirmTicker: t })
+      const { runId, chained } = await api.launch({ kind: 'full', ticker: t, confirmTicker: t })
+      // a chained full run is a sequence of per-module runs + master; mark the ticker so run-done defers
+      // the "complete" celebration to the master step and the cockpit live-follows every step.
+      if (chained) set({ chainTickers: new Set(get().chainTickers).add(t) })
       beginRun(set, get, runId, { kind: 'full', willCommitToMain: true }, planned)
-      get().setToast({ msg: `Launched full run on ${t}`, tone: 'good' })
+      get().setToast({ msg: `Launched full run on ${t}${chained ? ' (per-module)' : ''}`, tone: 'good' })
     } catch (e: any) {
       launchErrorToast(get, e, t, 'full run')
     }
@@ -549,20 +562,30 @@ export const useStore = create<State>((set, get) => ({
         break
       }
       case 'run-done': {
-        get().refreshActiveRuns() // the finishing run drops out of the ticker dots
+        get().refreshActiveRuns() // drops the finished run from the dots AND connects the next chain step
         closeRunSource(e.runId)
         const r = get().activeRuns[e.runId]
         if (r) patch.activeRuns = { ...get().activeRuns, [e.runId]: { ...r, status: 'done', costUsd: e.costUsd ?? r.costUsd } }
         if (r && r.ticker === selected) {
-          patch.coreBloom = true
-          if (bloomTimer) clearTimeout(bloomTimer)
-          bloomTimer = setTimeout(() => set({ coreBloom: false }), 4500)
-          api.decision(selected).then((d) => set({ decision: d })).catch(() => {})
+          // a chained full run finishes once PER STEP; only the master step (the last) is "complete".
+          const chained = get().chainTickers.has(r.ticker)
+          const isFinal = !chained || r.module === 'master'
+          // keep reports/decision current as each step lands (memo/thesis stay false until the master)
           api.runManifest(selected).then((m) => {
             if (m.finalThesis) set({ nodeRuntime: { ...get().nodeRuntime, ['master/synthesizer']: { status: 'done', outputPath: `${m.runRoot}/final_thesis.md` } } })
             set({ runRoot: m.runRoot ?? get().runRoot, reports: { memo: !!m.memo, thesis: !!m.finalThesis, dossier: !!m.fullDossier } })
           }).catch(() => {})
-          get().setToast({ msg: 'Run complete', tone: 'good' })
+          if (isFinal) {
+            patch.coreBloom = true
+            if (bloomTimer) clearTimeout(bloomTimer)
+            bloomTimer = setTimeout(() => set({ coreBloom: false }), 4500)
+            api.decision(selected).then((d) => set({ decision: d })).catch(() => {})
+            if (chained) set({ chainTickers: new Set([...get().chainTickers].filter((x) => x !== r.ticker)) })
+            get().setToast({ msg: 'Run complete', tone: 'good' })
+          } else {
+            // mid-chain step done — the next module auto-starts (and is now being streamed); show progress
+            get().setToast({ msg: `${r.module || 'Module'} done — continuing the pipeline…`, tone: 'good' })
+          }
         }
         break
       }
@@ -571,6 +594,19 @@ export const useStore = create<State>((set, get) => ({
         closeRunSource(e.runId)
         const r = get().activeRuns[e.runId]
         if (r) patch.activeRuns = { ...get().activeRuns, [e.runId]: { ...r, status: e.status } }
+        // a chained full run stops advancing when a step fails/cancels/comes back incomplete — the engine
+        // won't launch the next step, so clear the chain and say exactly where it stopped.
+        if (r && get().chainTickers.has(r.ticker)) {
+          set({ chainTickers: new Set([...get().chainTickers].filter((x) => x !== r.ticker)) })
+          if (r.ticker === selected) {
+            const msg = e.status === 'incomplete'
+              ? (e.message || 'The pipeline finished but the final thesis & memo were not produced.')
+              : `Pipeline stopped at ${r.module || 'a step'} (${e.status}) — fix it and re-run from there.`
+            get().setToast({ msg, tone: 'bad' })
+            api.runManifest(selected).then((m) => set({ runRoot: m.runRoot ?? get().runRoot, reports: { memo: !!m.memo, thesis: !!m.finalThesis, dossier: !!m.fullDossier } })).catch(() => {})
+          }
+          break
+        }
         if (!r || r.ticker === selected) {
           if (e.status === 'incomplete') {
             // honest signal: the process exited but the final memos weren't produced (budget/turn cut-off)

@@ -219,13 +219,14 @@ async function launchChainStep(steps: ChainStep[], i: number, ticker: string, us
   return out
 }
 
-async function launchFullChained(ticker: string, user: string, userVia: 'cf-access' | 'local'): Promise<{ runId: string; preflight: LaunchPreflight }> {
+async function launchFullChained(ticker: string, user: string, userVia: 'cf-access' | 'local'): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean }> {
   const first = await launchChainStep(fullChainSteps(), 0, ticker, user, userVia)
-  // surface the FULL preflight (not just the first module's) so the cost/time estimate reflects the pipeline
-  return { runId: first.runId, preflight: estimate('full', ticker) }
+  // `chained: true` tells the cockpit to live-follow the WHOLE pipeline (connect to each step as it
+  // launches, and only celebrate when the master finishes — not after each module).
+  return { runId: first.runId, preflight: estimate('full', ticker), chained: true }
 }
 
-export async function launch(params: LaunchParams): Promise<{ runId: string; preflight: LaunchPreflight }> {
+export async function launch(params: LaunchParams): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean }> {
   const { kind, ticker, module, agent } = params
   const model = params.model || DEFAULT_MODEL
   const user = params.user || 'local'
