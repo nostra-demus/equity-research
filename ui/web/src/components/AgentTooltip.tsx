@@ -1,10 +1,15 @@
 import type { PlacedNode } from '../lib/layout'
 import type { NodeStatus } from '../lib/types'
+import { fmtClock, fmtEtaLeft, fmtSpan, orbProgress } from '../lib/eta'
 
 interface Props {
   node: PlacedNode
   status: NodeStatus
   verdict?: string | null
+  startedAt?: number
+  endedAt?: number
+  expectedMs?: number
+  now?: number
   screenX: number
   screenY: number
 }
@@ -30,11 +35,24 @@ function hint(node: PlacedNode, status: NodeStatus): { text: string; go: boolean
   }
 }
 
-export function AgentTooltip({ node, status, verdict, screenX, screenY }: Props) {
+// the live/finished timing line — the one spot where a precise numeral sits with the orb, on hover
+function timeLine(status: NodeStatus, startedAt?: number, endedAt?: number, expectedMs?: number, now?: number): string | null {
+  if (status === 'running' && startedAt && now && expectedMs) {
+    const p = orbProgress(startedAt, expectedMs, now)
+    return p.overrun ? `elapsed ${fmtClock(p.elapsedMs)} · over estimate` : `elapsed ${fmtClock(p.elapsedMs)} · ${fmtEtaLeft(p.remainingMs)}`
+  }
+  if (status === 'done' && startedAt && endedAt && endedAt > startedAt) return `took ${fmtSpan(endedAt - startedAt)}`
+  if (status === 'queued') return 'queued — timer starts when data arrives'
+  return null
+}
+
+export function AgentTooltip({ node, status, verdict, startedAt, endedAt, expectedMs, now, screenX, screenY }: Props) {
   const w = 300
   const left = Math.min(screenX + 18, window.innerWidth - w - 12)
   const top = Math.max(12, Math.min(screenY - 30, window.innerHeight - 220))
   const h = hint(node, status)
+  const t = timeLine(status, startedAt, endedAt, expectedMs, now)
+  const tdim = status === 'done' || status === 'queued'
   return (
     <div className="tipcard" style={{ left, top, width: w }}>
       <div className="tipcard__top">
@@ -42,6 +60,7 @@ export function AgentTooltip({ node, status, verdict, screenX, screenY }: Props)
         <span className="tipcard__layer">L{node.layer}{node.failFast ? ' · gate' : ''}{node.isSynthesis ? ' · synth' : ''}</span>
       </div>
       <div className="tipcard__desc">{node.description}</div>
+      {t && <div className={`tipcard__time${tdim ? ' tipcard__time--dim' : ''}`}>{t}</div>}
       {status === 'done' && verdict && <div className="tipcard__verdict">{verdict}</div>}
       <div className="tipcard__tools">
         {node.tools.slice(0, 6).map((t) => (

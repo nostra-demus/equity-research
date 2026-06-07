@@ -81,7 +81,10 @@ export type SseEvent =
   | { type: 'run-done'; runId: string; status: 'done'; costUsd?: number; durationMs?: number; numTurns?: number; finalThesisPath?: string | null; decisionRecordPath?: string | null; ts: number }
   | { type: 'run-error'; runId: string; status: 'error' | 'cancelled' | 'incomplete'; reason: string; message?: string; ts: number }
 
-export interface NodeRuntime { status: NodeStatus; verdict?: string | null; outputPath?: string; runId?: string }
+// startedAt/endedAt are SERVER timestamps (from the agent-started / agent-done SSE events), so a finished
+// orb's duration (endedAt - startedAt) is clock-skew-free. startedAt is set the instant the orchestrator
+// dispatches the orb — "the data reaching the orb" — which is when its live timer starts.
+export interface NodeRuntime { status: NodeStatus; verdict?: string | null; outputPath?: string; runId?: string; startedAt?: number; endedAt?: number }
 
 // ---- activity / audit log ----
 export type RunKind = 'full' | 'module' | 'agent' | 'rerun'

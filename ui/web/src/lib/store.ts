@@ -58,6 +58,7 @@ interface State {
   credit: Usage | null
   creditChecking: boolean
   nodeRuntime: Record<string, NodeRuntime>
+  now: number // shared 1s clock for every live timer (orb/module/panel/tooltip); ticked only while orbs run
   activeRuns: Record<string, ActiveRun> // selected-ticker live runs (+ just-finished, until next switch)
   activeRunsByTicker: Set<string>
   selectToken: number
@@ -82,6 +83,7 @@ interface State {
   refreshActiveRuns: () => Promise<void>
   checkCredit: () => Promise<void>
   selectNode: (key: string | null) => void
+  setNow: (n: number) => void
   nodeStatus: (key: string) => NodeStatus
   activeRunsForTicker: (t: string | null) => ActiveRun[]
   anyRunForTicker: (t: string | null) => boolean
@@ -128,6 +130,7 @@ export const useStore = create<State>((set, get) => ({
   credit: null,
   creditChecking: false,
   nodeRuntime: {},
+  now: Date.now(),
   activeRuns: {},
   activeRunsByTicker: new Set(),
   selectToken: 0,
@@ -259,6 +262,7 @@ export const useStore = create<State>((set, get) => ({
   },
 
   selectNode: (key) => set({ selectedNodeKey: key }),
+  setNow: (n) => set({ now: n }),
 
   nodeStatus: (key) => {
     const { nodeRuntime, nodesByKey, dataStatus, selectedTicker } = get()
@@ -519,19 +523,22 @@ export const useStore = create<State>((set, get) => ({
     switch (e.type) {
       case 'agent-started':
         if (forSelected) {
-          rt[e.agentKey] = { ...rt[e.agentKey], status: 'running', runId: e.runId }
+          // e.ts (server) marks when the orb's clock starts; clear any stale endedAt (e.g. a re-run)
+          rt[e.agentKey] = { ...rt[e.agentKey], status: 'running', runId: e.runId, startedAt: e.ts, endedAt: undefined }
           upsertRow(e.runId, e.agentKey, e.name, e.module, e.layer, 'running')
         }
         break
       case 'agent-done':
         if (forSelected) {
-          rt[e.agentKey] = { status: 'done', verdict: e.verdict, outputPath: e.outputPath, runId: e.runId }
+          // preserve startedAt (set on agent-started, incl. the replayed backlog on reconnect) so the
+          // finished orb can show its true duration
+          rt[e.agentKey] = { ...rt[e.agentKey], status: 'done', verdict: e.verdict, outputPath: e.outputPath, runId: e.runId, endedAt: e.ts }
           upsertRow(e.runId, e.agentKey, e.name, e.module, e.layer, 'done', e.verdict)
         }
         break
       case 'agent-failed':
         if (forSelected) {
-          rt[e.agentKey] = { ...rt[e.agentKey], status: 'failed', runId: e.runId }
+          rt[e.agentKey] = { ...rt[e.agentKey], status: 'failed', runId: e.runId, endedAt: e.ts }
           upsertRow(e.runId, e.agentKey, e.name, e.module, e.layer, 'failed')
         }
         break
@@ -583,6 +590,10 @@ export const useStore = create<State>((set, get) => ({
     set(patch)
   },
 }))
+
+// DEV-only: expose the store so live timer/ETA visuals can be exercised locally without paying for a real
+// run (simulate running orbs via __store.setState). Tree-shaken out of the production build.
+if (import.meta.env.DEV && typeof window !== 'undefined') (window as any).__store = useStore
 
 function beginRun(set: any, get: () => State, runId: string, info: { kind: string; module?: string; agent?: string; willCommitToMain?: boolean }, plannedKeys: string[]) {
   const ticker = get().selectedTicker || ''

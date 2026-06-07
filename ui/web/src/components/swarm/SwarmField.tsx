@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { computeLayout, type PlacedNode } from '../../lib/layout'
 import { sufficiencyColor } from '../../lib/format'
+import { collectSamples, expectedDurations, expectedFor, fmtClock, fmtEtaLeft, orbClass, scopeTiming, type ScopeOrb } from '../../lib/eta'
 import { useStore } from '../../lib/store'
 import { AgentNode } from './AgentNode'
 import { CoreOrb } from './CoreOrb'
@@ -21,6 +22,8 @@ export function SwarmField() {
   const selectNodeForRun = useStore((s) => s.selectNodeForRun)
   const selectedNodeKey = useStore((s) => s.selectedNodeKey)
   const setToast = useStore((s) => s.setToast)
+  const now = useStore((s) => s.now)
+  const setNow = useStore((s) => s.setNow)
 
   const ref = useRef<HTMLDivElement>(null)
   const [size, setSize] = useState({ w: 1200, h: 760 })
@@ -42,6 +45,11 @@ export function SwarmField() {
   const moduleOrder = useMemo(() => new Map((graph?.modules || []).map((m, i) => [m.name, i])), [graph])
   const moduleByName = useMemo(() => new Map((graph?.modules || []).map((m) => [m.name, m])), [graph])
 
+  // each orb's runtime class (gate / specialist / synthesis), and the run-adaptive expected duration per
+  // class learned from orbs that have already finished this session (seeded until the first one lands)
+  const classOf = useMemo(() => new Map((layout?.nodes ?? []).map((n) => [n.key, orbClass(n)])), [layout])
+  const exp = useMemo(() => expectedDurations(collectSamples(nodeRuntime, (k) => classOf.get(k) ?? 'specialist')), [nodeRuntime, classOf])
+
   // modules with a live (queued or running) orb — they light their edges and pulse their label,
   // so a running module reads as "alive" from the moment of launch (incl. the engine-startup phase)
   const activeModules = useMemo(() => {
@@ -49,6 +57,16 @@ export function SwarmField() {
     for (const [k, v] of Object.entries(nodeRuntime)) if (v.status === 'running' || v.status === 'queued') s.add(k.split('/')[0])
     return s
   }, [nodeRuntime])
+
+  // the single shared 1s clock that drives every live timer (orb fill, ring sweep, module triad, panel,
+  // tooltip). Runs ONLY while a module has a queued/running orb, so an idle constellation never re-renders.
+  const anyLive = activeModules.size > 0
+  useEffect(() => {
+    if (!anyLive) return
+    setNow(Date.now())
+    const id = setInterval(() => setNow(Date.now()), 1000)
+    return () => clearInterval(id)
+  }, [anyLive, setNow])
 
   // which edges light up: hovered node's flows, hovered module's flows, the Memo's inbound arrows, or (idle) running modules
   const highlighted = useMemo(() => {
@@ -100,12 +118,35 @@ export function SwarmField() {
         const mod = moduleByName.get(c.module)
         const depLocked = mod?.depsComplete === false
         const miss = mod?.missingDeps?.join(', ')
+        // live module timer: elapsed since the first orb here started + honest progress-projection ETA
+        const mt = live
+          ? scopeTiming(
+              layout.nodes
+                .filter((n) => n.module === c.module)
+                .map<ScopeOrb>((n) => ({ startedAt: nodeRuntime[n.key]?.startedAt, endedAt: nodeRuntime[n.key]?.endedAt, status: nodeStatus(n.key), cls: orbClass(n) })),
+              exp,
+              now,
+            )
+          : null
         return (
           <div key={c.module} className={`cluster__label${live ? ' cluster__label--live' : ''}`} style={{ left: c.labelX, top: c.labelY }} onMouseEnter={() => setHoverModule(c.module)} onMouseLeave={() => setHoverModule(null)} onClick={(e) => { e.stopPropagation(); onClusterClick(c.module) }}>
             <div className="cluster__name">{c.module.replace(/-/g, ' ')}</div>
             {ms && <div className="cluster__status" style={{ color: sufficiencyColor(ms) }}>{ms}</div>}
-            {live ? (
-              <div className="cluster__run">● running…</div>
+            {live && mt ? (
+              <div className="cluster__timer">
+                <div className="cluster__timer-line">
+                  <span className="cluster__timer-dot">●</span> {mt.done}/{mt.total}
+                  {mt.started ? (
+                    <>
+                      {' · '}{fmtClock(mt.elapsedMs)}
+                      {mt.etaRemainingMs != null && <span className="cluster__timer-eta">{' · '}{fmtEtaLeft(mt.etaRemainingMs)}</span>}
+                    </>
+                  ) : (
+                    <span className="cluster__timer-eta">{' · '}starting…</span>
+                  )}
+                </div>
+                <div className="cluster__flow"><div className="cluster__flow-fill" style={{ ['--frac' as any]: mt.total ? mt.done / mt.total : 0 }} /></div>
+              </div>
             ) : depLocked ? (
               <div className="cluster__run" style={{ color: 'var(--text-faint)' }} title={`Needs ${miss} complete first`}>🔒 needs {miss}</div>
             ) : (
@@ -117,23 +158,30 @@ export function SwarmField() {
 
       {/* nodes — keyed by ticker so the awaken animation replays on selection */}
       <div key={selectedTicker || 'none'}>
-        {layout.nodes.map((n) => (
-          <AgentNode
-            key={n.key}
-            node={n}
-            status={nodeStatus(n.key)}
-            selected={selectedNodeKey === n.key || hover?.node.key === n.key}
-            delayMs={(moduleOrder.get(n.module) ?? 0) * 45 + n.layer * 50}
-            onEnter={onEnter}
-            onLeave={onLeave}
-            onClick={onNodeClick}
-          />
-        ))}
+        {layout.nodes.map((n) => {
+          const st = nodeStatus(n.key)
+          const running = st === 'running'
+          return (
+            <AgentNode
+              key={n.key}
+              node={n}
+              status={st}
+              selected={selectedNodeKey === n.key || hover?.node.key === n.key}
+              delayMs={(moduleOrder.get(n.module) ?? 0) * 45 + n.layer * 50}
+              tStart={running ? nodeRuntime[n.key]?.startedAt : undefined}
+              tExpected={running ? expectedFor(orbClass(n), exp) : undefined}
+              tNow={running ? now : undefined}
+              onEnter={onEnter}
+              onLeave={onLeave}
+              onClick={onNodeClick}
+            />
+          )
+        })}
       </div>
 
       <CoreOrb x={layout.core.x} y={layout.core.y} r={layout.core.r} decision={decision} bloom={coreBloom} armed={!!selectedTicker} onClick={() => openThesis()} onHover={setHoverCore} />
 
-      {hover && <AgentTooltip node={hover.node} status={nodeStatus(hover.node.key)} verdict={nodeRuntime[hover.node.key]?.verdict} screenX={hover.x} screenY={hover.y} />}
+      {hover && <AgentTooltip node={hover.node} status={nodeStatus(hover.node.key)} verdict={nodeRuntime[hover.node.key]?.verdict} startedAt={nodeRuntime[hover.node.key]?.startedAt} endedAt={nodeRuntime[hover.node.key]?.endedAt} expectedMs={expectedFor(orbClass(hover.node), exp)} now={now} screenX={hover.x} screenY={hover.y} />}
     </div>
   )
 }
