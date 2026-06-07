@@ -5,6 +5,7 @@ import { CommandBar } from './components/CommandBar'
 import { SwarmField } from './components/swarm/SwarmField'
 import { RunStreamPanel } from './components/RunStreamPanel'
 import { OutputReader } from './components/OutputReader'
+import { ActivityLog } from './components/ActivityLog'
 import { LaunchConfirm } from './components/LaunchConfirm'
 import { DataUploadEmptyState } from './components/DataUploadEmptyState'
 import { DataFilesPanel } from './components/DataFilesPanel'
@@ -14,6 +15,7 @@ import { OfflineBanner } from './components/EngineStatus'
 export function App() {
   const init = useStore((s) => s.init)
   const openOutput = useStore((s) => s.openOutput)
+  const activityOpen = useStore((s) => s.activityOpen)
   const toast = useStore((s) => s.toast)
 
   useEffect(() => {
@@ -36,6 +38,7 @@ export function App() {
       </div>
 
       <AnimatePresence>{openOutput && <OutputReader key={openOutput.path || openOutput.nodeKey || 'panel'} output={openOutput} />}</AnimatePresence>
+      <AnimatePresence>{activityOpen && <ActivityLog />}</AnimatePresence>
       <LaunchConfirm />
 
       <AnimatePresence>

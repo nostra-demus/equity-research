@@ -78,6 +78,25 @@ export function resetIn(resetsAt?: number): string | null {
   return `${Math.round(hours / 24)}d`
 }
 
+// past-relative time for the activity log ("just now", "5m ago", "3h ago", "2d ago", else a date)
+export function fmtAgo(ts?: number): string {
+  if (!ts) return '—'
+  const s = Math.round((Date.now() - ts) / 1000)
+  if (s < 45) return 'just now'
+  const m = Math.round(s / 60)
+  if (m < 60) return `${m}m ago`
+  const h = Math.round(m / 60)
+  if (h < 24) return `${h}h ago`
+  const d = Math.round(h / 24)
+  if (d < 7) return `${d}d ago`
+  return new Date(ts).toLocaleDateString(undefined, { day: 'numeric', month: 'short' })
+}
+// full local timestamp for the hover title
+export function fmtAbsolute(ts?: number): string {
+  if (!ts) return ''
+  return new Date(ts).toLocaleString(undefined, { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+}
+
 export function nodeStatusColor(status: string): string {
   switch (status) {
     case 'running':

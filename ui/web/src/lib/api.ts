@@ -1,5 +1,5 @@
 import { staticPromptPath } from './prompts'
-import type { DataStatus, LaunchPreflight, SwarmGraph, TickerSummary, Usage } from './types'
+import type { ActivityQuery, ActivityResult, DataStatus, LaunchPreflight, SwarmGraph, TickerSummary, Usage, Whoami } from './types'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -143,4 +143,18 @@ export const api = {
   },
   runStreamUrl: (runId: string) => `/api/runs/${runId}/stream`,
   dataStreamUrl: () => `/api/data-status/stream`,
+
+  // who is signed in (Cloudflare Access email) — live only
+  whoami: async (): Promise<Whoami> => {
+    if ((await ensureMode()) === 'static') return { user: 'local', userVia: 'local' }
+    return get(`/api/whoami`)
+  },
+  // perpetual activity/audit log with filters — live only (the static showcase has no run history)
+  activity: async (query: ActivityQuery = {}): Promise<ActivityResult> => {
+    if ((await ensureMode()) === 'static') return { rows: [], total: 0, allTime: 0, users: [], tickers: [], earliest: null }
+    const qs = new URLSearchParams()
+    for (const [k, v] of Object.entries(query)) if (v !== undefined && v !== '' && v !== null) qs.set(k, String(v))
+    const s = qs.toString()
+    return get(`/api/activity${s ? `?${s}` : ''}`)
+  },
 }

@@ -78,6 +78,44 @@ export type SseEvent =
 
 export interface NodeRuntime { status: NodeStatus; verdict?: string | null; outputPath?: string; runId?: string }
 
+// ---- activity / audit log ----
+export type RunKind = 'full' | 'module' | 'agent' | 'rerun'
+export interface Whoami { user: string; userVia: 'cf-access' | 'local' }
+export interface ActivityRow {
+  runId: string
+  user: string
+  userVia: 'cf-access' | 'local'
+  kind: RunKind
+  ticker: string
+  module?: string
+  agent?: string
+  model?: string
+  launchedAt: number
+  finishedAt?: number
+  status: NodeStatus | 'starting' | 'cancelled' | 'error' | 'done' | 'running'
+  costUsd?: number
+  durationMs?: number
+  numTurns?: number
+}
+export interface ActivityQuery {
+  from?: number
+  to?: number
+  ticker?: string
+  kind?: RunKind
+  user?: string
+  status?: string
+  q?: string
+  limit?: number
+}
+export interface ActivityResult {
+  rows: ActivityRow[]
+  total: number
+  allTime: number
+  users: string[]
+  tickers: string[]
+  earliest: number | null
+}
+
 export interface UsageWindow { utilization?: number; resetsAt?: number; status?: string; isUsingOverage?: boolean }
 export interface Usage {
   ok: boolean

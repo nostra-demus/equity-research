@@ -5,8 +5,9 @@ import path from 'node:path'
 import chokidar from 'chokidar'
 import cors from '@fastify/cors'
 import { execa } from 'execa'
-import Fastify, { type FastifyReply } from 'fastify'
+import Fastify, { type FastifyReply, type FastifyRequest } from 'fastify'
 import { z } from 'zod'
+import { readActivity } from './activity-log'
 import { buildReportHtml, parseMeta, safeName } from './export'
 import { DATA_DIR, HOST, PORT, REPO_ROOT, WEB_DIST } from './config'
 import { getCreditStatus } from './credit'
@@ -20,6 +21,17 @@ import type { RunKind } from './types'
 
 const app = Fastify({ logger: false })
 await app.register(cors, { origin: true })
+
+// ---------- identity (who is acting) ----------
+// The engine sits behind Cloudflare Access (the public tunnel route enforces login), which injects the
+// authenticated email on every forwarded request. The origin binds to 127.0.0.1, reachable only via the
+// tunnel, so the header is trustworthy. Direct/local dev access has no header -> "local".
+function identify(req: FastifyRequest): { user: string; userVia: 'cf-access' | 'local' } {
+  const raw = req.headers['cf-access-authenticated-user-email']
+  const email = Array.isArray(raw) ? raw[0] : raw
+  if (typeof email === 'string' && email.trim()) return { user: email.trim().toLowerCase(), userVia: 'cf-access' }
+  return { user: 'local', userVia: 'local' }
+}
 
 // ---------- SSE helper ----------
 function startSSE(reply: FastifyReply) {
@@ -73,6 +85,31 @@ app.get('/api/data-status/:ticker', async (req, reply) => {
 app.get('/api/credit', async () => getCreditStatus())
 app.post('/api/credit-check', async () => creditCheck())
 
+// ---------- identity + activity log ----------
+// who am I (per Cloudflare Access) — drives the "signed in as" line in the cockpit
+app.get('/api/whoami', async (req) => identify(req))
+
+// perpetual audit log of cockpit-initiated runs, with filters (time / ticker / kind / user / status / text)
+app.get('/api/activity', async (req) => {
+  const q = req.query as any
+  const num = (v: any) => {
+    const n = Number(v)
+    return Number.isFinite(n) ? n : undefined
+  }
+  const kinds = ['full', 'module', 'agent', 'rerun']
+  const statuses = ['starting', 'running', 'done', 'error', 'cancelled']
+  return readActivity({
+    from: num(q.from),
+    to: num(q.to),
+    ticker: typeof q.ticker === 'string' && TICKER_RE.test(q.ticker) ? q.ticker : undefined,
+    kind: kinds.includes(q.kind) ? q.kind : undefined,
+    user: typeof q.user === 'string' && q.user ? q.user.slice(0, 200) : undefined,
+    status: statuses.includes(q.status) ? q.status : undefined,
+    q: typeof q.q === 'string' ? q.q.slice(0, 100) : undefined,
+    limit: num(q.limit),
+  })
+})
+
 // ---------- launch estimate ----------
 app.get('/api/launch/estimate', async (req, reply) => {
   const q = req.query as any
@@ -119,7 +156,8 @@ app.post('/api/launch', async (req, reply) => {
   }
 
   try {
-    const out = await launch({ kind, ticker, module, agent, model })
+    const { user, userVia } = identify(req)
+    const out = await launch({ kind, ticker, module, agent, model, user, userVia })
     return out
   } catch (e: any) {
     // Forward the discriminated admission-rejection body (code/reason/detail) so the client can

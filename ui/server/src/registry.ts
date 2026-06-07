@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto'
 import type { ResultPromise } from 'execa'
+import { logFinish } from './activity-log'
 import type { AgentRunState, RunKind, RunStatus, SseEvent } from './types'
 
 export interface SseClient {
@@ -23,9 +24,12 @@ export interface RunState {
   agent?: string
   model: string
   prompt: string
+  user: string // who launched it — authenticated email (Cloudflare Access) or "local"
+  userVia: 'cf-access' | 'local'
   runRoot: string | null // repo-relative, resolved on run-started
   child: ResultPromise | null
   status: RunStatus
+  finishLogged?: boolean // guards the activity-log finish write against double-fire
   startedAt: number
   endedAt?: number
   costUsd?: number
@@ -126,6 +130,25 @@ export function finishRun(run: RunState, status: RunStatus) {
   if (ids) {
     ids.delete(run.runId)
     if (ids.size === 0) activeRunsByTicker.delete(run.ticker)
+  }
+  // append the perpetual audit record once (finishRun can be reached from both the stream parser and
+  // the process-close handler; the guard makes the write idempotent)
+  if (!run.finishLogged) {
+    run.finishLogged = true
+    logFinish({
+      runId: run.runId,
+      user: run.user,
+      userVia: run.userVia,
+      kind: run.kind,
+      ticker: run.ticker,
+      module: run.module,
+      agent: run.agent,
+      model: run.model,
+      status,
+      costUsd: run.costUsd,
+      durationMs: run.durationMs ?? (run.endedAt - run.startedAt),
+      numTurns: run.numTurns,
+    })
   }
   void Promise.resolve(run.closeWatcher?.()).catch(() => {})
 }

@@ -1,6 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { execa, type ResultPromise } from 'execa'
+import { logLaunch } from './activity-log'
 import { admitRun } from './admission'
 import { CLAUDE_BIN, DEFAULT_MODEL, ESTIMATES, LAUNCH_GUARDS, REPO_ROOT, type LaunchKind } from './config'
 import { getCreditStatus, setCreditStatus } from './credit'
@@ -172,11 +173,15 @@ export interface LaunchParams {
   module?: string
   agent?: string
   model?: string
+  user?: string // who launched it (from Cloudflare Access at the route); defaults to "local"
+  userVia?: 'cf-access' | 'local'
 }
 
 export async function launch(params: LaunchParams): Promise<{ runId: string; preflight: LaunchPreflight }> {
   const { kind, ticker, module, agent } = params
   const model = params.model || DEFAULT_MODEL
+  const user = params.user || 'local'
+  const userVia = params.userVia || 'local'
 
   // Resolve a CONCRETE run root for every kind (never null) so admission can compute absolute write
   // targets and the fs-watcher can bind strictly. rerun fails early if there's nothing to re-run.
@@ -226,6 +231,8 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     agent,
     model,
     prompt,
+    user,
+    userVia,
     runRoot,
     willCommitToMain: kind !== 'agent',
     writeTargetsAbs,
@@ -264,6 +271,9 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   run.child = child
   run.status = 'running'
   emit(run, { type: 'run-started', runId: run.runId, kind, ticker, runRoot: run.runRoot, willCommitToMain: run.willCommitToMain, ts: Date.now() })
+
+  // perpetual audit record: who launched what, when, on which company (finish is logged in finishRun)
+  logLaunch({ runId: run.runId, user, userVia, kind, ticker, module, agent, model })
 
   // line-buffered stdout -> stream parser
   let buf = ''

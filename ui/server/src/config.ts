@@ -15,6 +15,13 @@ export const DATA_DIR = path.join(REPO_ROOT, 'data')
 export const ANALYSES_DIR = path.join(REPO_ROOT, 'analyses')
 export const WEB_DIST = path.join(REPO_ROOT, 'ui', 'dist')
 
+// Persistent engine state that survives restarts and deploys (deploys only rebuild ui/dist).
+// Gitignored (.state/). Holds the append-only activity/audit log. Override with ENGINE_STATE_DIR.
+export const STATE_DIR = process.env.ENGINE_STATE_DIR
+  ? path.resolve(process.env.ENGINE_STATE_DIR)
+  : path.resolve(__dirname, '..', '.state')
+export const ACTIVITY_LOG_PATH = path.join(STATE_DIR, 'activity-log.jsonl')
+
 export const PORT = Number(process.env.PORT || 8787)
 export const HOST = '127.0.0.1'
 

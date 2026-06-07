@@ -66,6 +66,7 @@ interface State {
   runRoot: string | null
   reports: { memo: boolean; thesis: boolean; dossier: boolean }
   openOutput: { path?: string; title: string; verdict?: string | null; nodeKey?: string; pending?: boolean } | null
+  activityOpen: boolean
   selectedNodeKey: string | null
   launchConfirm: { kind: 'full' | 'rerun'; preflight: LaunchPreflight; cascade?: CascadeNode[]; node?: { module: string; name: string; key: string } } | null
   toast: Toast | null
@@ -97,6 +98,8 @@ interface State {
   openThesis: () => Promise<void>
   openReport: (tier: 'memo' | 'thesis' | 'dossier') => Promise<void>
   closeOutput: () => void
+  openActivity: () => void
+  closeActivity: () => void
   setToast: (t: Toast | null) => void
   _handleEvent: (e: SseEvent) => void
 }
@@ -132,6 +135,7 @@ export const useStore = create<State>((set, get) => ({
   runRoot: null,
   reports: { memo: false, thesis: false, dossier: false },
   openOutput: null,
+  activityOpen: false,
   selectedNodeKey: null,
   launchConfirm: null,
   toast: null,
@@ -403,6 +407,8 @@ export const useStore = create<State>((set, get) => ({
   },
 
   closeOutput: () => set({ openOutput: null, selectedNodeKey: null }),
+  openActivity: () => set({ activityOpen: true }),
+  closeActivity: () => set({ activityOpen: false }),
   setToast: (t) => {
     set({ toast: t })
     if (t) setTimeout(() => { if (get().toast === t) set({ toast: null }) }, 3200)
