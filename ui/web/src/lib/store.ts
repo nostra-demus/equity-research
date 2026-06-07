@@ -159,6 +159,7 @@ export const useStore = create<State>((set, get) => ({
           } catch {}
         })
       }
+      reconcileSelection(get, set) // a reconnect may carry a now-removed selection — drop it so auto-select picks a live ticker
       if (tk.tickers.length && !get().selectedTicker) await get().selectTicker(tk.tickers[0].ticker)
       // one cheap usage probe on first connect (backend only)
       if (!stat && !creditProbed) {
@@ -627,6 +628,20 @@ async function reconnectRun(set: any, get: () => State, runId: string, token: nu
   } catch {}
 }
 
+// If the currently-selected company's folder was renamed or removed (so it's no longer in the list),
+// drop the stale selection — otherwise the picker keeps showing a ghost ticker that can't be loaded.
+// Returns the cleared name (for a toast) or null. Guards on a non-empty list so a transient/failed
+// fetch never clears a valid selection.
+function reconcileSelection(get: () => State, set: (p: Partial<State>) => void): string | null {
+  const sel = get().selectedTicker
+  const list = get().tickers
+  if (sel && list.length > 0 && !list.some((t) => t.ticker === sel)) {
+    set({ selectedTicker: null, dataStatus: null, dataLoading: false, decision: null, runRoot: null, nodeRuntime: {}, reports: { memo: false, thesis: false, dossier: false }, selectedNodeKey: null, openOutput: null })
+    return sel
+  }
+  return null
+}
+
 // Refresh the ticker list (live file counts + sync state). While any ticker is still syncing from Drive,
 // keep re-polling so the count keeps climbing and the "syncing…" flag clears once files stop arriving —
 // even after the file-event stream goes quiet.
@@ -636,6 +651,8 @@ function refreshTickersSoon(get: () => State, set: (p: Partial<State>) => void) 
     .tickers()
     .then((t) => {
       set({ tickers: t.tickers, emptyState: t.emptyState, dataDir: (t as any).dataDir ?? get().dataDir })
+      const removed = reconcileSelection(get, set)
+      if (removed) get().setToast({ msg: `${removed} is no longer in the data folder — pick a ticker`, tone: 'info' })
       if (tickersSyncTimer) { clearTimeout(tickersSyncTimer); tickersSyncTimer = null }
       if (!get().staticMode && t.tickers.some((x) => x.syncing)) tickersSyncTimer = setTimeout(() => refreshTickersSoon(get, set), 5000)
     })
