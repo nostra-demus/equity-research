@@ -173,7 +173,12 @@ Companion to **`FRAMEWORK_AUDIT_2026-06-08.md`**. Each fix below is one commit o
 - *Solution.* Cache ONLY successful reads; a failure leaves the key absent so the next refresh re-attempts.
 - *Why better.* A transient flake no longer becomes a confident, sticky "this workbook has no tabs"; correct readiness dots. *Verified: server typecheck clean, control plane healthy after the edit.*
 
-**Still open in Batch 6:** F28 (mostly covered by the finish-gate; full decision_record stamping pending) · F30/F32 (handoff guards) · F23 (stale-data) · **F-SECTOR-1** (sector overlay — the big build).
+### F23 — stop trusting Drive mtime for recency  ·  all 5 abort-capable triage agents
+- *Issue.* Period age was inferred from the file's last-modified date, but for a Google-Drive-synced pool that's the *sync* date — so a 2-year-old re-synced export reads as 0 months old and a stale pool looks current.
+- *Solution.* Triage now records the reporting period parsed from INSIDE each document (period-end / "as of" / fiscal-year lines), explicitly NOT the mtime.
+- *Why better.* Recency reflects the actual reporting period, so a stale-but-recently-synced pool can't masquerade as current.
+
+**Still open in Batch 6:** F28 (mostly covered by the finish-gate; full decision_record stamping pending) · F30/F32 (handoff guards) · **F-SECTOR-1** (sector overlay — the big build, in progress next).
 
 ## Still to come (next batches — not started)
 - ~~**Batch 2 — the finish-gate (F01/F17)**~~ ✅ done above. *(Still open from Batch 2's scope: extend the executed-arithmetic rule to the remaining numeric agents — scenario-and-fair-value, coverage-and-covenants, downside-stress-test, historical-financials. The CRM run showed intrinsic-DCF/reverse-DCF already execute it; the rest should carry the same one-line rule.)*
