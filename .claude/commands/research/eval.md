@@ -211,6 +211,8 @@ for drp in runs:
 # J FRAMEWORK SOURCE CONTRACTS (suite-level, run once; protects §24 wiring + the §17 catalyst module)
 FRAMEWORK_CONTRACTS={
  "CLAUDE.md":["## 24. Avoid Big Risks","Crooks and integrity","Turnarounds","High debt and the survival test","Serial acquirers","Fast-changing industries","Unaligned owners"],
+ "frameworks/SECTOR_OVERLAYS.md":["SaaS / subscription software","Bank / lender","cRPO","NIM","FFO","AISC","Generic operating company"],
+ ".claude/agents/business-model/02_business-identity.md":["Sector Overlay","SECTOR_OVERLAYS.md","generic read"],
  ".claude/agents/business-model/MODULE_RULES.md":["Rejector-Filter Penalties & Caps","Serial acquirers","Fast-changing industry"],
  ".claude/agents/business-model/07_business-quality.md":["Industry rate-of-change","11 quality factors"],
  ".claude/agents/business-model/01_disqualifier-scan.md":["Integrity note","Filter 1"],

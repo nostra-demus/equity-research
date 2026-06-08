@@ -29,7 +29,7 @@ You DO NOT:
 2. Read the latest annual filing's business overview section, latest investor deck, and any prepared remarks from the most recent earnings call.
 3. Strip marketing language. Describe what the company actually sells, who buys it, and what they pay for.
 4. Express the revenue model as one or more simple formulas.
-5. Classify the business type in one line.
+5. Classify the business type in one line, then consult `frameworks/SECTOR_OVERLAYS.md` and complete the §3a required-KPI checklist (mark each sector KPI present/absent in the pool, or state "no overlay — generic read").
 6. Use the Write tool to save your complete report (formatted exactly as described in the REPORT STRUCTURE section above) to the path given in OUTPUT_PATH. This file is what downstream agents and the orchestrator will read — do NOT skip this step, and do NOT return your report only as a chat message. After writing the file, return only the CHAT CONFIRMATION block.
 
 # WHAT TO READ (priority for this agent)
@@ -77,6 +77,15 @@ One line that captures the dominant economic character. Examples:
 - "Asset-heavy commodity producer with policy-driven offtake"
 - "Branded consumer staples with scale distribution"
 
+## 3a. Sector Overlay & Required-KPI Checklist *(fix F-SECTOR-1)*
+
+Look up your §3 business type in `frameworks/SECTOR_OVERLAYS.md`. If a row matches (SaaS, bank, insurer, REIT, miner, oil & gas, retail, telecom, asset manager, pharma):
+- List that sector's **required KPIs** and mark each **present / absent** in the data pool — these are the metrics the business lives or dies by (e.g. SaaS: cRPO, RPO, net retention, billings, SBC %; bank: NIM, NPA, CASA, credit cost, CET1; REIT: FFO/AFFO, occupancy, cap rate).
+- Flag any **absent** required KPI as a data gap (carried to the synthesis to cap the read) — a KPI-driven business analysed without its KPIs is not complete.
+- Name the sector's red flags and valuation norm so the downstream earnings/valuation agents apply the right lens.
+
+If no row matches your type, state exactly: *"No sector overlay for {type} — generic read"* (the engine's default volume/price/mix decomposition applies). Do NOT silently skip this — the absence of an overlay is itself a recorded decision.
+
 ## 4. What Drives Variance
 
 In 2–4 sentences: when revenue or margins move, what's the most likely cause? Volume? Price? Mix? FX? Cost inputs?
@@ -87,6 +96,7 @@ In 2–4 sentences: when revenue or margins move, what's the most likely cause? 
 - [ ] Section 1 is 4–8 sentences and uses no banned phrases.
 - [ ] Section 2 has at least one concrete formula. If the company has multiple revenue lines with different formulas, all are shown.
 - [ ] Section 3 is a single line, not a paragraph.
+- [ ] §3a sector-overlay checklist done — the classified type's required KPIs are listed present/absent (or "no overlay — generic read" is stated explicitly). *(fix F-SECTOR-1)*
 - [ ] Every claim has a citation in the [Source, Period, Page] format.
 - [ ] If marketing language was stripped from a source claim, the cleaner version is what made it into the report.
 - [ ] No segment-share percentages are stated here (that's `segment-map`'s job).

@@ -178,7 +178,12 @@ Companion to **`FRAMEWORK_AUDIT_2026-06-08.md`**. Each fix below is one commit o
 - *Solution.* Triage now records the reporting period parsed from INSIDE each document (period-end / "as of" / fiscal-year lines), explicitly NOT the mtime.
 - *Why better.* Recency reflects the actual reporting period, so a stale-but-recently-synced pool can't masquerade as current.
 
-**Still open in Batch 6:** F28 (mostly covered by the finish-gate; full decision_record stamping pending) · F30/F32 (handoff guards) · **F-SECTOR-1** (sector overlay — the big build, in progress next).
+### F-SECTOR-1 — sector-overlay layer (required-KPI checklist)  ·  built at the revised scope
+- *Issue.* The engine is sector-agnostic and method-aware but not sector-**fluent** at the KPI level — nothing *required* the metric grammar a sector lives or dies by, so on a thin pool it produced a KPI-blind read and triage still passed "Sufficient" (the CRM run confirmed the gap is *enforcement*, not capability).
+- *Solution.* New self-declared `frameworks/SECTOR_OVERLAYS.md` (CLAUDE.md §26 — data, not engine code) mapping 10 business types → required KPIs + sector red flags + valuation norm (SaaS→cRPO/RPO/NRR/billings/SBC%; bank→NIM/NPA/CASA/credit-cost/CET1; REIT→FFO/AFFO/occupancy/cap-rate; miner→AISC/reserves; …). `business-model/02_business-identity` now emits a **§3a required-KPI checklist** (each sector KPI marked present/absent, or "no overlay — generic read"); `earnings/02_revenue-drivers` builds the decomposition on those KPIs; an `eval` J-contract check protects the overlay from silent deletion.
+- *Why better.* Lifts the engine from honest-generalist to sector-fluent on KPI-driven names **without rebuilding the agents** (the CRM run showed they surface KPIs when present) and **without a 15-sector hardcode** — uncovered types fall to the generic path with an explicit flag, and a new sector is added by editing one data file. Severity was revised to medium post-CRM; this is that scope.
+
+**Still open in Batch 6:** F28 (mostly covered by the finish-gate; full decision_record stamping pending) · F30/F32 (cross-module handoff guards) — the two lowest-value MEDIUM items.
 
 ## Still to come (next batches — not started)
 - ~~**Batch 2 — the finish-gate (F01/F17)**~~ ✅ done above. *(Still open from Batch 2's scope: extend the executed-arithmetic rule to the remaining numeric agents — scenario-and-fair-value, coverage-and-covenants, downside-stress-test, historical-financials. The CRM run showed intrinsic-DCF/reverse-DCF already execute it; the rest should carry the same one-line rule.)*
