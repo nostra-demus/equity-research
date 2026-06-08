@@ -12,3 +12,6 @@ data
 
 # python tool venvs (recreate via .claude/tools/setup-tools.sh)
 .venv/
+
+# generated cockpit snapshot — rebuilt by `npm run build` (build-snapshot.mjs); never commit build output (footgun fix)
+ui/web/public/data/
