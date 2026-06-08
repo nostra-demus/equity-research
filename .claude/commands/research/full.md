@@ -366,7 +366,7 @@ If either audit cannot complete, record it as `not run` in the Integrity gate fi
 
 ## 11. Update RUN_METADATA.md (final)
 
-Rewrite `<RUN_ROOT>/RUN_METADATA.md` via the Write tool to fill in the placeholder sections. Read the current file first, then issue a single Write call with the full new content. (This command does not have access to the Edit tool — see the `allowed-tools` frontmatter.) Fill in:
+Rewrite `<RUN_ROOT>/RUN_METADATA.md` via the Write tool to fill in the placeholder sections. Read the current file first, then issue a single Write call with the full new content. (This command does not have access to the Edit tool — see the `allowed-tools` frontmatter.) **Derive every status below from the ACTUAL on-disk artifact set — glob the run folder — NOT from in-run tracking (fix F07).** On a resume / second completion pass the in-run state is stale, and the metadata must describe *what actually shipped* (a TMCV run once recorded "aborted, synthesizer skipped" while a complete `final_thesis.md`, `memo.md`, `decision_record.json`, and module syntheses were present on disk). Concretely: "Modules completed" = the modules whose `<RUN_ROOT>/<module>/99_*-synthesis.md` exists on disk; "Synthesizer status" = test `final_thesis.md` on disk; same for memo / dossier. **Guard:** if `final_thesis.md` exists you may NOT write "skipped/aborted" for the synthesizer — re-derive from disk. Fill in:
 
 - "Modules completed": list (one per line)
 - "Modules aborted": list with brief note per entry (one per line)

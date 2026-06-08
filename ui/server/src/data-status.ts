@@ -116,7 +116,11 @@ function readWorkbookSheets(filePath: string, sizeBytes: number, mtimeMs: number
   } catch {
     sheets = undefined // missing python/xlrd, HTML-disguised .xls, or corrupt file — degrade gracefully
   }
-  cacheSet(key, sheets ?? null)
+  // [fix F34] cache ONLY successful reads. A transient failure (FUSE deadlock, a momentary lock,
+  // a missing dep before bootstrap) must not be memoized as a permanent "no tabs": the disk cache
+  // persists across restarts and the key (path:size:mtime) won't change on a re-flake, so a one-off
+  // failure would stick forever. Leaving the key absent makes the next refresh re-attempt the read.
+  if (sheets !== undefined) cacheSet(key, sheets)
   return sheets
 }
 

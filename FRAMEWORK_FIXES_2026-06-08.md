@@ -163,7 +163,17 @@ Companion to **`FRAMEWORK_AUDIT_2026-06-08.md`**. Each fix below is one commit o
 - *Solution.* eval check P (forward-looking): the variant perception must be non-tautological (edge ≠ what-everyone-knows; an explicit "no edge yet" is allowed) and `kill_criteria` must carry a concrete trigger.
 - *Why better.* Mechanically catches a tautological edge / empty kill criteria — complements F37/F38 (which *require* the sections) by scoring their substance.
 
-**Still open in Batch 6:** F07 (metadata regen on resume) · F28 (mostly covered by the finish-gate; full decision_record stamping pending) · F34 (cockpit cache, `ui/server`) · F30/F32 (handoff guards) · F23 (stale-data) · **F-SECTOR-1** (sector overlay — the big build).
+### F07 — regenerate RUN_METADATA from the on-disk artifacts  ·  `full.md` step 11
+- *Issue.* On a resume / second completion pass the metadata used stale in-run tracking, so TMCV's run-of-record said "aborted, synthesizer skipped" while a complete `final_thesis.md` + `memo.md` + `decision_record.json` + module syntheses sat on disk — the provenance record contradicted what shipped.
+- *Solution.* Step 11 now derives every status by globbing the actual run folder (modules with a `99_*-synthesis.md`, `final_thesis.md`/`memo.md` presence), with a guard: if `final_thesis.md` exists you may not record "skipped/aborted".
+- *Why better.* The run-of-record describes reality, not a stale plan — critical for a system whose value proposition is provenance/auditability.
+
+### F34 — cockpit cache poisoning  ·  `ui/server/src/data-status.ts`
+- *Issue.* A transient workbook read failure was cached as `null` ("no tabs") keyed by `path:size:mtime` and persisted to disk — so a one-off FUSE deadlock / lock made that workbook show as permanently tab-less across restarts (the key never changes on a re-flake).
+- *Solution.* Cache ONLY successful reads; a failure leaves the key absent so the next refresh re-attempts.
+- *Why better.* A transient flake no longer becomes a confident, sticky "this workbook has no tabs"; correct readiness dots. *Verified: server typecheck clean, control plane healthy after the edit.*
+
+**Still open in Batch 6:** F28 (mostly covered by the finish-gate; full decision_record stamping pending) · F30/F32 (handoff guards) · F23 (stale-data) · **F-SECTOR-1** (sector overlay — the big build).
 
 ## Still to come (next batches — not started)
 - ~~**Batch 2 — the finish-gate (F01/F17)**~~ ✅ done above. *(Still open from Batch 2's scope: extend the executed-arithmetic rule to the remaining numeric agents — scenario-and-fair-value, coverage-and-covenants, downside-stress-test, historical-financials. The CRM run showed intrinsic-DCF/reverse-DCF already execute it; the rest should carry the same one-line rule.)*
