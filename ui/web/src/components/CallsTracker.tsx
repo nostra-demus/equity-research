@@ -4,34 +4,29 @@ import { useStore } from '../lib/store'
 import { api, isStatic } from '../lib/api'
 import { decisionColor } from '../lib/format'
 import type { CallSummary, CallTimelineEntry, CallsResult } from '../lib/types'
+import './CallsTracker.css'
 
-// every call the engine has made + what's happened since (price / thesis / forecasts), with the
-// due/overdue review checkpoints. Reuses the ActivityLog modal shell + table styles.
+// every call the engine has made + what's happened since — a card per call with a visual timeline
+// (an amber line that fills up to "now" through the dated review checkpoints).
 
-function statusColor(s: string): string {
-  switch (s) {
-    case 'overdue': return 'var(--bad)'
-    case 'due': return 'var(--accent-bright)'
-    case 'done': return 'var(--accent)'
-    default: return 'var(--text-muted)' // upcoming
-  }
+const dash = (v: unknown) => (v === null || v === undefined || v === '' ? '—' : String(v))
+function ret(v?: number | null): string {
+  return typeof v !== 'number' ? '—' : v >= 0 ? `+${v.toFixed(1)}%` : `${v.toFixed(1)}%`
 }
 function thesisColor(s?: string | null): string {
   switch ((s || '').toLowerCase()) {
     case 'confirmed': case 'on-track': return 'var(--accent)'
     case 'at-risk': return 'var(--accent-bright)'
     case 'broken': return 'var(--bad)'
-    default: return 'var(--text-muted)'
+    default: return 'var(--text-faint)'
   }
 }
-const dash = (v: unknown) => (v === null || v === undefined || v === '' ? '—' : String(v))
-function ret(v?: number | null): string {
-  return typeof v !== 'number' ? '—' : v >= 0 ? `+${v.toFixed(1)}%` : `${v.toFixed(1)}%`
+function money(cur?: string | null, v?: number | null): string {
+  if (v === null || v === undefined) return '—'
+  return `${(cur || '').trim()} ${v}`.trim()
 }
-function targetOf(c: CallSummary): string {
-  if (c.implied_target == null) return ret(c.expected_return_pct)
-  return `${ret(c.expected_return_pct)} → ${(c.currency || '').trim()} ${c.implied_target}`
-}
+
+type TLNode = { kind: 'call' | CallTimelineEntry['status']; label: string; sub: string; subTone?: 'pos' | 'neg'; reached: boolean; title: string; onClick?: () => void }
 
 export function CallsTracker() {
   const close = useStore((s) => s.closeCalls)
@@ -43,7 +38,6 @@ export function CallsTracker() {
   const anyRunForTicker = useStore((s) => s.anyRunForTicker)
   const [data, setData] = useState<CallsResult | null>(null)
   const [loading, setLoading] = useState(true)
-  const [open, setOpen] = useState<Set<string>>(new Set()) // expanded run_roots
   const staticMode = isStatic()
 
   const reqGen = useRef(0)
@@ -71,126 +65,133 @@ export function CallsTracker() {
     return () => window.removeEventListener('keydown', onKey)
   }, [close])
 
-  const toggle = (rr: string) => setOpen((s) => { const n = new Set(s); n.has(rr) ? n.delete(rr) : n.add(rr); return n })
   const calls = data?.calls ?? []
 
   return (
-    <motion.div className="activity" initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
-      <div className="activity__head">
+    <motion.div className="calls" initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
+      <div className="calls__head">
         <div style={{ minWidth: 0 }}>
-          <div className="activity__title">Calls tracker</div>
-          <div className="activity__sub">Every call the engine has made and what's happened since — click a call for its timeline</div>
+          <div className="calls__title">Calls tracker</div>
+          <div className="calls__sub">Every call the engine has made — and what's happened since</div>
         </div>
-        <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexShrink: 0 }}>
-          {!staticMode && <button className="btn btn--ghost" style={{ height: 30 }} onClick={() => refreshDashboard()} title="Regenerate the downloadable markdown/JSON dashboard (/research:track)">Rebuild ↻</button>}
-          <button className="btn btn--ghost" style={{ height: 30 }} onClick={() => data?.dashboard ? openCallFile(data.dashboard, 'Calls dashboard') : setToast({ msg: 'No dashboard yet — Rebuild to generate one', tone: 'info' })} title="Open the latest committed markdown dashboard">Dashboard ↧</button>
-          <button className="btn" style={{ height: 30 }} onClick={() => { setLoading(true); load() }}>Refresh</button>
-          <button className="btn btn--ghost" style={{ height: 30 }} onClick={close}>Close ✕</button>
+        <div className="calls__tools">
+          {!staticMode && <button className="btn btn--ghost btn--mini" onClick={() => refreshDashboard()} title="Rebuild the downloadable dashboard (/research:track)">Rebuild</button>}
+          <button className="btn btn--ghost btn--mini" onClick={() => data?.dashboard ? openCallFile(data.dashboard, 'Calls dashboard') : setToast({ msg: 'No dashboard yet — Rebuild to generate one', tone: 'info' })} title="Open the latest markdown dashboard">Dashboard ↧</button>
+          <button className="btn btn--ghost" style={{ height: 30 }} onClick={close} aria-label="Close">✕</button>
         </div>
       </div>
 
-      <div className="activity__count">
-        {loading && !data ? 'Loading…' : <>Tracking <b>{calls.length}</b> call{calls.length === 1 ? '' : 's'}{staticMode ? ' · read-only showcase' : ''}</>}
-      </div>
-
-      <div className="activity__body">
-        {calls.length === 0 && !loading ? (
-          <div className="activity__empty">No calls yet. Run the full pipeline on a company and its verdict appears here to track over time.</div>
+      <div className="calls__body">
+        {calls.length === 0 ? (
+          <div className="calls__empty">{loading ? 'Loading…' : "No calls yet. Run the full pipeline on a company and its verdict appears here to track over time."}</div>
         ) : (
-          <table className="atable">
-            <thead>
-              <tr>
-                <th>Company</th><th>Called</th><th>Verdict</th><th>Horizon</th><th>Entry → target</th><th>Latest status</th><th>Next checkpoint</th>
-              </tr>
-            </thead>
-            <tbody>
-              {calls.map((c) => {
-                const isOpen = open.has(c.run_root)
-                const nc = c.next_checkpoint
-                const busy = anyRunForTicker(c.ticker)
-                return (
-                  <CallRows
-                    key={c.run_root}
-                    c={c}
-                    isOpen={isOpen}
-                    busy={busy}
-                    staticMode={staticMode}
-                    onToggle={() => toggle(c.run_root)}
-                    onUpdate={() => updateCall(c.ticker)}
-                    onFileDue={(w) => fileDueReview(c.ticker, w)}
-                    onOpen={openCallFile}
-                    nc={nc}
-                  />
-                )
-              })}
-            </tbody>
-          </table>
+          <>
+            <div className="calls__count">Tracking <b style={{ color: 'var(--text-muted)' }}>{calls.length}</b> call{calls.length === 1 ? '' : 's'}{staticMode ? ' · read-only showcase' : ''}</div>
+            {calls.map((c) => (
+              <CallCard
+                key={c.run_root}
+                c={c}
+                busy={anyRunForTicker(c.ticker)}
+                staticMode={staticMode}
+                onUpdate={() => updateCall(c.ticker)}
+                onFileDue={(w) => fileDueReview(c.ticker, w)}
+                onOpen={openCallFile}
+              />
+            ))}
+          </>
         )}
       </div>
     </motion.div>
   )
 }
 
-function CallRows({ c, isOpen, busy, staticMode, onToggle, onUpdate, onFileDue, onOpen, nc }: {
+function CallCard({ c, busy, staticMode, onUpdate, onFileDue, onOpen }: {
   c: CallSummary
-  isOpen: boolean
   busy: boolean
   staticMode: boolean
-  onToggle: () => void
   onUpdate: () => void
   onFileDue: (window: string) => void
   onOpen: (path: string, title: string) => void
-  nc: CallSummary['next_checkpoint']
 }) {
+  // nodes = the call itself, then each review checkpoint in time order
+  const nodes: TLNode[] = [{
+    kind: 'call', label: 'Call', sub: dash(c.decision_date), reached: true,
+    title: `Call: ${dash(c.decision)} on ${dash(c.decision_date)} · entry ${money(c.currency, c.entry_price)}`,
+  }]
+  for (const t of c.timeline) {
+    const reached = t.status === 'done' || t.status === 'due' || t.status === 'overdue'
+    const sub = t.status === 'done' ? ret(t.absolute_return_pct) : dash(t.due_date)
+    const detail = t.status === 'done'
+      ? `Reviewed ${dash(t.review_date)} · price ${dash(t.review_price)} · ${ret(t.absolute_return_pct)} · thesis ${dash(t.thesis_status)} · forecasts ${dash(t.forecasts_confirmed)}✓/${dash(t.forecasts_falsified)}✗`
+      : `${t.window} review ${t.status} — due ${dash(t.due_date)}`
+    const subTone = t.status === 'done' && typeof t.absolute_return_pct === 'number' ? (t.absolute_return_pct >= 0 ? 'pos' : 'neg') : undefined
+    nodes.push({
+      kind: t.status, label: t.window, sub, subTone, reached, title: detail,
+      onClick: t.review_file ? () => onOpen(t.review_file!, `${c.ticker} ${t.window} review`) : undefined,
+    })
+  }
+  // amber fill reaches the furthest checkpoint time has passed (done/due/overdue)
+  let reachedIdx = 0
+  nodes.forEach((n, i) => { if (n.reached) reachedIdx = i })
+  const n = nodes.length
+  const inset = 100 / (2 * n)
+  const span = 100 - 2 * inset
+  const fillW = n > 1 ? (reachedIdx / (n - 1)) * span : 0
+
+  const nc = c.next_checkpoint
+  const dueNow = nc && (nc.status === 'due' || nc.status === 'overdue')
+  const statusLabel = c.latest_thesis_status || 'awaiting first review'
+  const forecastsTotal = c.forecasts.open + c.forecasts.confirmed + c.forecasts.falsified + c.forecasts.expired + c.forecasts.other
+
   return (
-    <>
-      <tr onClick={onToggle} style={{ cursor: 'pointer' }}>
-        <td style={{ fontWeight: 600 }}>{isOpen ? '▾ ' : '▸ '}{dash(c.company)} <span style={{ color: 'var(--text-faint)', fontWeight: 400 }}>{c.ticker}</span></td>
-        <td style={{ whiteSpace: 'nowrap', color: 'var(--text-muted)' }}>{dash(c.decision_date)}</td>
-        <td><span style={{ color: decisionColor(c.decision || ''), fontWeight: 600 }}>{dash(c.decision)}</span></td>
-        <td style={{ color: 'var(--text-muted)' }}>{dash(c.time_horizon)}</td>
-        <td style={{ color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>{(c.currency || '').trim()} {dash(c.entry_price)} · {targetOf(c)}</td>
-        <td><span style={{ color: thesisColor(c.latest_thesis_status) }}>{c.latest_thesis_status ? c.latest_thesis_status : <span style={{ color: 'var(--text-faint)' }}>awaiting review</span>}</span></td>
-        <td style={{ whiteSpace: 'nowrap' }}>{nc ? <span style={{ color: statusColor(nc.status) }}>{nc.window} · {nc.status} {dash(nc.due_date)}</span> : <span style={{ color: 'var(--text-faint)' }}>—</span>}</td>
-      </tr>
-      {isOpen && (
-        <tr>
-          <td colSpan={7} style={{ background: 'var(--surface-1)', padding: '10px 14px' }}>
-            <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 10 }}>
-              <button className="btn" style={{ height: 28, fontSize: 12 }} onClick={onUpdate} disabled={staticMode || busy} title="Fetch the latest price and re-check forecasts/risks now (files an ad-hoc review)">{busy ? 'Update running…' : 'Update now'}</button>
-              <button className="btn btn--ghost" style={{ height: 28, fontSize: 12 }} onClick={() => onOpen(c.final_thesis_path, `Investment Thesis — ${c.ticker}`)}>Thesis</button>
-              {nc && (nc.status === 'due' || nc.status === 'overdue') && (
-                <button className="btn btn--ghost" style={{ height: 28, fontSize: 12 }} onClick={() => onFileDue(nc.window)} disabled={staticMode || busy} title={`File the ${nc.window} review`}>File {nc.window} review</button>
-              )}
-              <span style={{ color: 'var(--text-faint)', fontSize: 12, alignSelf: 'center' }}>
-                downside {ret(c.downside_risk_pct)} · {c.kill_criteria_count} kill criteria · forecasts {c.forecasts.confirmed}✓/{c.forecasts.falsified}✗ of {c.forecasts.open + c.forecasts.confirmed + c.forecasts.falsified + c.forecasts.expired + c.forecasts.other}
-              </span>
+    <div className="callcard">
+      <div className="callcard__top">
+        <div className="callcard__id">
+          <span className="verdict" style={{ color: decisionColor(c.decision || '') }}>{dash(c.decision)}</span>
+          <span className="callcard__name" title={dash(c.company)}>{dash(c.company)}</span>
+          <span className="callcard__tkr">{c.ticker}</span>
+        </div>
+        <div className="callcard__when">{dash(c.decision_date)}<br />{dash(c.time_horizon)} horizon</div>
+      </div>
+
+      <div className="callcard__meta">
+        <span>entry <b>{money(c.currency, c.entry_price)}</b>{c.implied_target != null && <> → target <b>{money(c.currency, c.implied_target)}</b></>}</span>
+        <span>expected <b className={typeof c.expected_return_pct === 'number' ? (c.expected_return_pct >= 0 ? 'pos' : 'neg') : ''}>{ret(c.expected_return_pct)}</b></span>
+        <span className="statuschip" style={{ color: thesisColor(c.latest_thesis_status) }}>
+          <span className="dot" />{statusLabel}
+        </span>
+      </div>
+
+      <div className="tl">
+        <div className="tl__base" style={{ left: `${inset}%`, width: `${span}%` }} />
+        <div className="tl__fill" style={{ left: `${inset}%`, width: `${fillW}%` }} />
+        <div className="tl__row">
+          {nodes.map((node, i) => (
+            <div
+              key={i}
+              className={`tlnode tlnode--${node.kind}${node.onClick ? ' clickable' : ''}`}
+              title={node.title}
+              onClick={node.onClick}
+            >
+              <div className="tlnode__dot" />
+              <div className="tlnode__label">{node.label}</div>
+              <div className={`tlnode__sub${node.subTone ? ' ' + node.subTone : ''}`}>{node.sub}</div>
             </div>
-            <table className="atable" style={{ margin: 0 }}>
-              <thead>
-                <tr><th>Window</th><th>Due</th><th>Status</th><th>Reviewed</th><th>Price</th><th>Return</th><th>Thesis</th><th>Forecasts ✓/✗</th><th></th></tr>
-              </thead>
-              <tbody>
-                {c.timeline.length === 0 ? (
-                  <tr><td colSpan={9} style={{ color: 'var(--text-faint)' }}>No review schedule on this call.</td></tr>
-                ) : c.timeline.map((t: CallTimelineEntry, i) => (
-                  <tr key={t.window + '-' + (t.due_date || t.review_date || i)}>
-                    <td style={{ fontWeight: 600 }}>{t.window}</td>
-                    <td style={{ color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>{dash(t.due_date)}</td>
-                    <td><span style={{ color: statusColor(t.status) }}>{t.status}</span></td>
-                    <td style={{ color: 'var(--text-muted)', whiteSpace: 'nowrap' }}>{dash(t.review_date)}</td>
-                    <td>{dash(t.review_price)}</td>
-                    <td style={{ color: typeof t.absolute_return_pct === 'number' ? (t.absolute_return_pct >= 0 ? 'var(--accent)' : 'var(--bad)') : 'var(--text-faint)' }}>{ret(t.absolute_return_pct)}</td>
-                    <td><span style={{ color: thesisColor(t.thesis_status) }}>{dash(t.thesis_status)}</span></td>
-                    <td>{t.status === 'done' ? `${dash(t.forecasts_confirmed)}/${dash(t.forecasts_falsified)}` : '—'}</td>
-                    <td>{t.review_file && <button className="btn btn--ghost" style={{ height: 24, fontSize: 11 }} onClick={() => onOpen(t.review_file!, `${c.ticker} ${t.window} review`)}>View</button>}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </td>
-        </tr>
-      )}
-    </>
+          ))}
+        </div>
+      </div>
+
+      <div className="callcard__foot">
+        <button className="btn btn--mini" onClick={onUpdate} disabled={staticMode || busy} title="Fetch the latest price and re-check forecasts/risks now (files an ad-hoc review)">
+          {busy ? 'Updating…' : 'Update now'}
+        </button>
+        {dueNow && <button className="btn btn--ghost btn--mini" onClick={() => onFileDue(nc!.window)} disabled={staticMode || busy} title={`File the scheduled ${nc!.window} review`}>File {nc!.window} review</button>}
+        <button className="btn btn--ghost btn--mini" onClick={() => onOpen(c.final_thesis_path, `Investment Thesis — ${c.ticker}`)}>Thesis</button>
+        <span className="callcard__hint">
+          {forecastsTotal > 0 && <>{c.forecasts.confirmed}✓/{c.forecasts.falsified}✗ of {forecastsTotal} forecasts · </>}
+          {nc ? <>next: {nc.window} {nc.status === 'overdue' ? 'overdue' : nc.status} {dash(nc.due_date)}</> : 'no checkpoints'}
+        </span>
+      </div>
+    </div>
   )
 }
