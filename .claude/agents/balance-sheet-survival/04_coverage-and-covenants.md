@@ -106,6 +106,7 @@ If the definition is undisclosed, explicitly say the headroom quality is unknown
 - [ ] Each covenant shows threshold, actual, and signed headroom %.
 - [ ] The tightest covenant and the move that would trip it are identified.
 - [ ] If covenants are undisclosed, the labeled-assumption rule is applied and headroom marked "Not assessable" for scoring.
+- [ ] The coverage ratios and covenant headroom %s were produced by an executed Bash/Python snippet (command + result shown), not mental arithmetic — you have `Bash`. *(fix F09)*
 - [ ] No banned phrases (no naked "comfortable coverage" / "ample headroom").
 
 # CHAT CONFIRMATION

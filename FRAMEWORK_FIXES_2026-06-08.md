@@ -95,7 +95,10 @@ Companion to **`FRAMEWORK_AUDIT_2026-06-08.md`**. Each fix below is one commit o
 - **F24 — `.xlsx` silent truncation.** `ws.reset_dimensions = True` forces a real cell scan, so a stale/missing `<dimension>` tag can't make `iter_rows` stop early and drop trailing rows while the tab still reads "ok".
 - **F04 — unit/scale capture.** Each tab's declared currency/units header is now detected and recorded in the manifest (40/49 CRM tabs carry "Currency: US Dollar …"), so downstream reads carry scale/currency; the resolver's `scaled_hit_count` is the matching verify-time mismatch detector.
 
-**Still open in Batch 5:** F09 executed-arithmetic rollout (4 numeric agents) · F03 (triage reads manifest `fail` as missing).
+- **F09 (rollout) — executed arithmetic on the 4 remaining numeric agents.** Added the "compute with an executed Bash/Python snippet (command + result shown), not mental arithmetic" self-check to `balance-sheet-survival/04_coverage-and-covenants`, `06_downside-stress-test`, `earnings/01_historical-financials`, and `valuation/07_scenario-and-fair-value` — so coverage ratios, stressed leverage/break-points, growth/margins/TTM, and the scenario level math are all executed, not hand-done. (DCF/reverse-DCF already had it and were observed executing on the CRM run.)
+- **F03 — triage treats a manifest failure as MISSING.** All 5 abort-capable `00`-triage agents now read `_pool_extracts/manifest.json` and count any `fail` / `fallback-text` / `missing-dependency` source as NOT in the pool for the sufficiency verdict and caps (never "supplementary, no effect") — a structured export the module relies on, in a failure state, downgrades the run to Partial/Insufficient. Closes the TMCV "Critical missing: None while consensus/peers/credit all failed" hole.
+
+**HIGH-priority block (F05/F13/F02/F24/F04/F09/F03) is now complete.**
 
 ## Still to come (next batches — not started)
 - ~~**Batch 2 — the finish-gate (F01/F17)**~~ ✅ done above. *(Still open from Batch 2's scope: extend the executed-arithmetic rule to the remaining numeric agents — scenario-and-fair-value, coverage-and-covenants, downside-stress-test, historical-financials. The CRM run showed intrinsic-DCF/reverse-DCF already execute it; the rest should carry the same one-line rule.)*

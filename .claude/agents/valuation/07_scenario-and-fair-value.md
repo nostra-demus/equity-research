@@ -103,6 +103,7 @@ If no current price, mark the percentage rows "not computable — no observed pr
 - [ ] Margin of safety is computed explicitly (or marked not-computable if no price).
 - [ ] The warranted-multiple check flags value-trap risk where applicable.
 - [ ] The boundary is respected: no probabilities, no risk/reward, no rating, no position sizing.
+- [ ] The weighted level math, margin of safety, and implied multiples were produced by an executed Bash/Python snippet (command + result shown), not by hand. *(fix F09)*
 - [ ] No banned phrases.
 
 # CHAT CONFIRMATION
