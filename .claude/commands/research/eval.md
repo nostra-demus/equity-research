@@ -33,6 +33,7 @@ Run the embedded check script below via Bash. It applies, per run, the following
 - **M. Scenario-math reconciliation** (forward-looking; `fix F08/F12`) — for a run dated on/after `2026-06-08`, deterministically **recompute** the §10 identities from `decision_record.scenarios[]`: probabilities sum to 100; `expected_return_pct == Σ(probability × return_pct)` (1.0pp tolerance — catches sign flips); and, when a price anchor and per-case targets exist, the probability-weighted target and `risk_reward` reconcile too. This is the gate that the old check E (numeric *hygiene* only) never performed — the §10 math was previously enforced solely by LLM mental arithmetic. A post-gate run that quantified a return but omitted `scenarios[]` FAILs (the block is required so the math is checkable). Older fixtures lack `scenarios[]` → **N/A**.
 - **N. No scratch-reasoning leak** (forward-looking; `fix F12`) — for a run dated on/after `2026-06-08`, `final_thesis.md` must not contain model self-correction text (e.g. "let me recalculate", "recomputing") — a committed thesis once shipped its raw arithmetic-correction scratch in §8. Older fixtures → **N/A**.
 - **O. Integrity finish-gate present** (forward-looking; `fix F01`) — for a run dated on/after `2026-06-08` whose decision is in the Selected or Short basket, both `verification_report.json` and `pre_mortem.json` must exist — these are the in-path audits the `/research:full` finish-gate (step 10B) produces before commit; their absence means a conviction thesis shipped without the integrity + red-team pass. Older fixtures, and Watchlist/Avoid/Insufficient runs, → **N/A**.
+- **P. Disconfirmation / edge quality** (forward-looking; `fix F39`) — for a run dated on/after `2026-06-08`, the variant perception must be **non-tautological** (`what_market_may_be_missing` ≠ `what_everyone_knows`; an explicitly-empty "no proven edge yet" is allowed per §7) and `kill_criteria` must carry at least one concrete falsification trigger. Catches a perfunctory bear case / a restated-consensus "edge" that the old field-presence check waved through. Older fixtures → **N/A**.
 
 The script also notes (WARN, not FAIL) any **non-schema artifact** in a run folder (e.g. a stray oversized file) so coverage gaps and strays surface.
 
@@ -186,6 +187,20 @@ for drp in runs:
             f"Selected/Short run dated >= {SCEN_DATE} must carry verification_report.json({has_ve}) + pre_mortem.json({has_pm}) from the finish-gate")
     else:
         add("O_integrity_gate", True, "N/A (not a post-gate Selected/Short run)", na=True)
+    # P disconfirmation / edge quality [fix F39] — the eval used to check disconfirmation FIELDS exist
+    #   but never their quality. A post-gate thesis must carry a NON-tautological edge (what the market
+    #   may be missing must differ from what everyone knows; an explicitly-empty "no edge yet" is allowed)
+    #   and at least one concrete kill criterion. Forward-looking; older fixtures N/A.
+    if isdate(ddte) and ddte>=SCEN_DATE:
+        wek=(d.get("what_everyone_knows") or "").strip().lower()
+        wmm=(d.get("what_market_may_be_missing") or "").strip().lower()
+        kc=[k for k in (d.get("kill_criteria") or []) if isinstance(k,str) and k.strip()]
+        det=[]
+        if wmm and wek and wmm==wek: det.append("what_market_may_be_missing == what_everyone_knows (tautological edge)")
+        if not kc: det.append("kill_criteria empty (a thesis needs at least one falsification trigger)")
+        add("P_disconfirmation", not det, "; ".join(det) or "edge non-tautological; kill_criteria present")
+    else:
+        add("P_disconfirmation", True, f"run predates disconfirmation-quality gate ({ddte}) — N/A", na=True)
     # WARN non-schema files
     extras=[os.path.basename(x) for x in glob.glob(os.path.join(run,"*")) if os.path.isfile(x) and os.path.basename(x) not in SCHEMA_FILES and not os.path.basename(x).endswith(("_decision_review.json","_calibration_summary.json")) and "review" not in os.path.basename(x) and "_v" not in os.path.basename(x)]
     run_pass=all(c["status"]!="FAIL" for c in checks)

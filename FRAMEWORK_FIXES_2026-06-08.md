@@ -141,6 +141,30 @@ Companion to **`FRAMEWORK_AUDIT_2026-06-08.md`**. Each fix below is one commit o
 
 **HIGH-priority block (F05/F13/F02/F24/F04/F09/F03) is now complete.**
 
+## Batch 6 — MEDIUM (calibration + robustness)  ✅ partial (committed to branch, eval green)
+
+### F37 (rollout) — module disconfirmation on all 6 syntheses
+- *Issue.* Only business-model had the two-sided Module Disconfirmation block; the other 5 syntheses still collapsed disconfirmation into a one-directional score.
+- *Solution.* Added the same domain-adapted block (strongest bear + bull + killer risk + visible disconfirming evidence) to earnings, valuation, balance-sheet-survival, management-governance, and catalyst, before §2.
+- *Why better.* Every module now red-teams its own verdict at the layer that owns the evidence, feeding the master's §9A/§10 — disconfirmation is no longer concentrated in one place.
+
+### F18 (rest) — web-price corroboration  ·  `valuation/01_price-and-capital-structure`
+- *Issue.* A single unverified web quote could anchor the whole valuation (and for a famous ticker an LLM can hallucinate one), and `entry_price` could be set from it.
+- *Solution.* A web price may anchor only if two independent sources agree within ~1%; `decision_record.entry_price` stays `null` when there's no pool price, margin of safety "Not assessable".
+- *Why better.* Removes the single-source web/memory anchor risk while keeping a labeled indicative read; no paper trade strikes on an unverified number.
+
+### F41 — synthesizer hard-gates hoist  ·  `synthesizer.md`
+- *Issue.* The non-negotiables (executed scenario math, verdict-locks, rating-cap precedence, no-source-no-claim, symmetric disconfirmation) sat deep in an ~1,100-line prompt, far from where the model writes the verdict — easy to lose under load.
+- *Solution.* A short "HARD GATES — re-read before §1 and §8" block placed immediately before the output (Part I), restating the five non-negotiables.
+- *Why better.* Puts the load-bearing rules where the model is actively writing, improving adherence without changing the rules.
+
+### F39 — disconfirmation / edge quality  ·  `eval` check P
+- *Issue.* The eval checked that disconfirmation FIELDS exist and are well-typed but never their *quality* — a perfunctory bear case or a restated-consensus "edge" passed.
+- *Solution.* eval check P (forward-looking): the variant perception must be non-tautological (edge ≠ what-everyone-knows; an explicit "no edge yet" is allowed) and `kill_criteria` must carry a concrete trigger.
+- *Why better.* Mechanically catches a tautological edge / empty kill criteria — complements F37/F38 (which *require* the sections) by scoring their substance.
+
+**Still open in Batch 6:** F07 (metadata regen on resume) · F28 (mostly covered by the finish-gate; full decision_record stamping pending) · F34 (cockpit cache, `ui/server`) · F30/F32 (handoff guards) · F23 (stale-data) · **F-SECTOR-1** (sector overlay — the big build).
+
 ## Still to come (next batches — not started)
 - ~~**Batch 2 — the finish-gate (F01/F17)**~~ ✅ done above. *(Still open from Batch 2's scope: extend the executed-arithmetic rule to the remaining numeric agents — scenario-and-fair-value, coverage-and-covenants, downside-stress-test, historical-financials. The CRM run showed intrinsic-DCF/reverse-DCF already execute it; the rest should carry the same one-line rule.)*
 - **Batch 3b — remaining extraction hardening (F02/F24/F34/F04):** ~~format + dependency handling~~ ✅ done in 3a above. Still open: retry+lock / copy-to-tmp for the concurrent `Resource deadlock` failures (F02 — needs a multi-`.xls` race to reproduce; CRM's single-pass run did not trip it), `openpyxl reset_dimensions` truncation guard (F24), stop the cockpit caching transient failures (F34 — `ui/server`), and the unit/scale sanity layer (F04 — lakh/crore vs millions). *(F04 is especially relevant now: CRM's CIQ financials are in USD millions while a future Indian name would be in crore.)*

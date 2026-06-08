@@ -383,6 +383,18 @@ Then the five Parts, in order, as detailed below.
 
 ---
 
+## HARD GATES — re-read before writing §1 (the verdict) and §8 (the scenario model) *(fix F41)*
+
+These non-negotiables are defined in detail above but are easy to lose at ~1,100 lines, so they are restated here, immediately before output. None may be averaged away:
+
+1. **Scenario math is executed, not eyeballed (Step 4).** Compute Σ(p×return), the prob-weighted target, and risk/reward with a Bash/Python snippet; the §2 Headline Scorecard, §14, and `decision_record` carry the SAME computed numbers. No "let me recalculate" scratch text ships.
+2. **Verdict-locks (cap the headline at Watchlist or lower).** A governance hard-disqualifier or Critical red flag; a balance-sheet "Distress risk" verdict; an unresolved §13 critical accounting/fraud/going-concern flag; a §24 Avoid-Big-Risks filter tripped on evidence.
+3. **Rating-cap precedence:** apply the MOST restrictive cap that fires (data sufficiency §11, the verdict-locks above, macro/commodity/policy-driven thesis) and record it in the scorecard.
+4. **No-source-no-claim (§3/§5):** every rating-driver number is cited; a web/indicative price keeps `entry_price` null and margin of safety "Not assessable".
+5. **Symmetric disconfirmation:** §9A Bull Case and §10 Kill Criteria are both filled with equal rigor.
+
+---
+
 # PART I — INVESTMENT COMMITTEE DECISION
 
 The reader who reads only Part I should leave with a real, actionable decision.
