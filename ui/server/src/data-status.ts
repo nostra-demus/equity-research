@@ -469,7 +469,12 @@ export function listTickers(): { tickers: TickerSummary[]; emptyState: boolean; 
   const tickers: TickerSummary[] = names.sort().map((ticker) => {
     let fileCount = 0
     try {
-      fileCount = fs.readdirSync(path.join(DATA_DIR, ticker)).filter((n) => !n.startsWith('.')).length
+      // count only top-level FILES (not subfolders) — so engine-written "Memos …" output folders saved
+      // back into the company folder don't inflate the data-file count
+      fileCount = fs.readdirSync(path.join(DATA_DIR, ticker)).filter((n) => {
+        if (n.startsWith('.')) return false
+        try { return fs.statSync(path.join(DATA_DIR, ticker, n)).isFile() } catch { return false }
+      }).length
     } catch {}
     const invalidReason = tickerInvalidReason(ticker)
     const { syncing, lastChangeAt } = syncingState(ticker)

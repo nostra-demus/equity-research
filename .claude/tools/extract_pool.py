@@ -236,8 +236,14 @@ def sniff_text(path, max_chars=16000):
 
 def iter_pool_files(data_path):
     for p in sorted(glob.glob(os.path.join(data_path, "**", "*"), recursive=True)):
-        if os.path.isfile(p):
-            yield p
+        if not os.path.isfile(p):
+            continue
+        # skip engine-written output folders (the memos/thesis/dossier saved back into the company's
+        # Drive folder), marked by a .nostradamus_output sentinel — so a run never re-ingests its own
+        # prior research as input data and contaminates the new analysis.
+        if os.path.exists(os.path.join(os.path.dirname(p), ".nostradamus_output")):
+            continue
+        yield p
 
 
 def is_fresh(out_dir, data_path, script_path):
@@ -286,7 +292,8 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None):
             try:
                 sheets = read_workbook(p, ext)
             except Exception as e:  # noqa — try HTML-as-text fallback before giving up
-                txt, ferr = _read_rtf(p) if False else (_html_xls_fallback(p))
+                _fb = _read_rtf(p) if False else _html_xls_fallback(p)
+                txt, ferr = (_fb if isinstance(_fb, tuple) else (_fb, None))
                 if txt:
                     out_name = _unique(used, stem) + ".txt"
                     open(os.path.join(out_dir, out_name), "w").write(txt)

@@ -3,7 +3,7 @@ import path from 'node:path'
 import { execa, type ResultPromise } from 'execa'
 import { logLaunch } from './activity-log'
 import { admitRun } from './admission'
-import { CLAUDE_BIN, DEFAULT_MODEL, ESTIMATES, FULL_PER_MODULE, LAUNCH_GUARDS, REPO_ROOT, type LaunchKind } from './config'
+import { CLAUDE_BIN, DATA_DIR, DEFAULT_MODEL, ESTIMATES, FULL_PER_MODULE, LAUNCH_GUARDS, REPO_ROOT, type LaunchKind } from './config'
 import { getCreditStatus, setCreditStatus } from './credit'
 import { startRunWatcher } from './fs-watcher'
 import { createRun, emit, finishRun, getRun, setActiveTickerRun, type ExpectedAgent, type RunState } from './registry'
@@ -40,6 +40,41 @@ function finalDeliverablesPresent(runRoot: string | null): boolean {
   if (!runRoot) return false
   const root = path.isAbsolute(runRoot) ? runRoot : path.join(REPO_ROOT, runRoot)
   return fs.existsSync(path.join(root, 'final_thesis.md')) && fs.existsSync(path.join(root, 'decision_record.json'))
+}
+
+function memosFolderName(): string {
+  const d = new Date()
+  const p = (n: number) => String(n).padStart(2, '0')
+  return `Memos ${d.getFullYear()}-${p(d.getMonth() + 1)}-${p(d.getDate())} ${p(d.getHours())}-${p(d.getMinutes())}-${p(d.getSeconds())}`
+}
+
+// Save the three finished memos into the company's Google Drive folder, in a fresh date-and-time-stamped
+// subfolder, so they're shareable from Drive. A .nostradamus_output sentinel marks the folder so the data
+// pool (extract_pool.py) never re-ingests these outputs as input. Best-effort: never throws into the run
+// lifecycle (a Drive write failure must not fail the run).
+function saveMemosToCompanyFolder(ticker: string, runRoot: string | null): void {
+  try {
+    if (!runRoot) return
+    const root = path.isAbsolute(runRoot) ? runRoot : path.join(REPO_ROOT, runRoot)
+    const companyDir = path.join(DATA_DIR, ticker)
+    if (!fs.existsSync(companyDir)) return // no Drive folder for this ticker (e.g. cleaned up)
+    const docs: [string, string][] = [
+      ['final_thesis.md', `${ticker} - Investment Thesis.md`],
+      ['memo.md', `${ticker} - Memo.md`],
+      ['audit_dossier.md', `${ticker} - Full Dossier.md`],
+    ]
+    const present = docs.filter(([src]) => fs.existsSync(path.join(root, src)))
+    if (!present.length) return
+    const dest = path.join(companyDir, memosFolderName())
+    fs.mkdirSync(dest, { recursive: true })
+    fs.writeFileSync(path.join(dest, '.nostradamus_output'), 'Engine-written research output — excluded from the data pool so a future run never re-ingests it.\n')
+    for (const [src, nice] of present) fs.copyFileSync(path.join(root, src), path.join(dest, nice))
+    // eslint-disable-next-line no-console
+    console.log(`[memos→drive] ${ticker}: saved ${present.length} document(s) to ${dest}`)
+  } catch (e: any) {
+    // eslint-disable-next-line no-console
+    console.error('[memos→drive] failed for', ticker, e?.message || e)
+  }
 }
 
 // A solo agent writes into the run folder its slash command will resolve: today's if it already
@@ -370,6 +405,8 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
         emit(run, { type: 'run-error', runId: run.runId, status: 'incomplete', reason: 'incomplete_deliverables', message: msg, ts: Date.now() })
         finishRun(run, 'incomplete')
       } else {
+        // a completed full/rerun has the 3 memos — copy them into the company's Drive folder (timestamped)
+        if (kind === 'full' || kind === 'rerun') saveMemosToCompanyFolder(ticker, run.runRoot)
         emit(run, { type: 'run-done', runId: run.runId, status: 'done', costUsd: run.costUsd, durationMs: run.durationMs, numTurns: run.numTurns, ts: Date.now() })
         finishRun(run, 'done')
       }
