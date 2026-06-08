@@ -72,6 +72,7 @@ interface State {
   moduleReports: Record<string, { synthesis?: string; memo?: string; dossier?: string }>
   openOutput: { path?: string; title: string; verdict?: string | null; nodeKey?: string; pending?: boolean } | null
   activityOpen: boolean
+  callsOpen: boolean
   selectedNodeKey: string | null
   launchConfirm: { kind: 'full' | 'rerun'; preflight: LaunchPreflight; cascade?: CascadeNode[]; node?: { module: string; name: string; key: string } } | null
   toast: Toast | null
@@ -107,6 +108,12 @@ interface State {
   closeOutput: () => void
   openActivity: () => void
   closeActivity: () => void
+  openCalls: () => void
+  closeCalls: () => void
+  openCallFile: (path: string, title: string) => void
+  updateCall: (ticker: string) => Promise<void>
+  fileDueReview: (ticker: string, window: string) => Promise<void>
+  refreshDashboard: () => Promise<void>
   setToast: (t: Toast | null) => void
   _handleEvent: (e: SseEvent) => void
 }
@@ -147,6 +154,7 @@ export const useStore = create<State>((set, get) => ({
   moduleReports: {},
   openOutput: null,
   activityOpen: false,
+  callsOpen: false,
   selectedNodeKey: null,
   launchConfirm: null,
   toast: null,
@@ -457,6 +465,48 @@ export const useStore = create<State>((set, get) => ({
   closeOutput: () => set({ openOutput: null, selectedNodeKey: null }),
   openActivity: () => set({ activityOpen: true }),
   closeActivity: () => set({ activityOpen: false }),
+  openCalls: () => set({ callsOpen: true }),
+  closeCalls: () => set({ callsOpen: false }),
+  // open any analyses/ file (review JSON / thesis md / dashboard md) in the OutputReader (renders text).
+  openCallFile: (path, title) => set({ openOutput: { path, title } }),
+
+  // file an ad-hoc outcome review for one call ("update what's happened since now"). Delegates to
+  // Phase 3 /research:review-decisions <ticker> ad-hoc via the launch system; the tracker auto-refreshes.
+  updateCall: async (ticker) => {
+    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — updates run on your machine via npm run dev', tone: 'info' })
+    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live updates are paused until it reconnects.', tone: 'info' })
+    try {
+      await api.launch({ kind: 'review', ticker, window: 'ad-hoc' })
+      get().setToast({ msg: `Filing an ad-hoc review for ${ticker} — see Activity; the tracker refreshes when it lands`, tone: 'good' })
+    } catch (e: any) {
+      launchErrorToast(get, e, ticker, `${ticker} review`)
+    }
+  },
+  // file a specific scheduled (due/overdue) review window — never silently ad-hoc.
+  fileDueReview: async (ticker, window) => {
+    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — updates run on your machine via npm run dev', tone: 'info' })
+    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live updates are paused until it reconnects.', tone: 'info' })
+    try {
+      await api.launch({ kind: 'review', ticker, window })
+      get().setToast({ msg: `Filing the ${window} review for ${ticker} — see Activity`, tone: 'good' })
+    } catch (e: any) {
+      launchErrorToast(get, e, ticker, `${ticker} ${window} review`)
+    }
+  },
+  // regenerate the committed markdown/JSON calls dashboard (/research:track). It is cross-ticker and
+  // ignores the ticker; the launch validator requires a roster ticker, so pass an ignored placeholder.
+  refreshDashboard: async () => {
+    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — the dashboard regenerates on your machine via npm run dev', tone: 'info' })
+    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — paused until it reconnects.', tone: 'info' })
+    const t = get().selectedTicker || get().tickers[0]?.ticker
+    if (!t) return get().setToast({ msg: 'No company loaded to run the dashboard from', tone: 'info' })
+    try {
+      await api.launch({ kind: 'track', ticker: t })
+      get().setToast({ msg: 'Rebuilding the calls dashboard — see Activity; it commits when done', tone: 'good' })
+    } catch (e: any) {
+      launchErrorToast(get, e, t, 'calls dashboard')
+    }
+  },
   setToast: (t) => {
     set({ toast: t })
     if (t) setTimeout(() => { if (get().toast === t) set({ toast: null }) }, 3200)

@@ -16,7 +16,7 @@ import { analyzeTicker, listTickers } from './data-status'
 import { cancel, creditCheck, estimate, launch } from './launcher'
 import { getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
 import { agentNamesForModule, buildSwarmGraph, graphForTicker, listModuleNames } from './roster'
-import { listRunsForTicker, readDecision, readMarkdown, readPrompt, resolveRunRoot, runManifest } from './outputs'
+import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, resolveRunRoot, runManifest } from './outputs'
 import { AGENT_RE, MODULE_RE, TICKER_RE } from './sandbox'
 import type { RunKind } from './types'
 
@@ -97,7 +97,7 @@ app.get('/api/activity', async (req) => {
     const n = Number(v)
     return Number.isFinite(n) ? n : undefined
   }
-  const kinds = ['full', 'module', 'agent', 'rerun']
+  const kinds = ['full', 'module', 'agent', 'rerun', 'review', 'track']
   const statuses = ['starting', 'running', 'done', 'error', 'cancelled']
   return readActivity({
     from: num(q.from),
@@ -115,17 +115,19 @@ app.get('/api/activity', async (req) => {
 app.get('/api/launch/estimate', async (req, reply) => {
   const q = req.query as any
   const kind = q.kind as RunKind
-  if (!['full', 'module', 'agent', 'rerun'].includes(kind)) return reply.code(400).send({ error: 'bad kind' })
+  if (!['full', 'module', 'agent', 'rerun', 'review', 'track'].includes(kind)) return reply.code(400).send({ error: 'bad kind' })
   if (!TICKER_RE.test(q.ticker || '')) return reply.code(400).send({ error: 'bad ticker' })
   return estimate(kind, q.ticker, q.module, q.agent)
 })
 
 // ---------- launch ----------
 const LaunchBody = z.object({
-  kind: z.enum(['full', 'module', 'agent', 'rerun']),
+  kind: z.enum(['full', 'module', 'agent', 'rerun', 'review', 'track']),
   ticker: z.string().regex(TICKER_RE),
   module: z.string().regex(MODULE_RE).optional(),
   agent: z.string().regex(AGENT_RE).optional(),
+  // review window (for kind 'review'); ignored by other kinds. Defaults to ad-hoc below.
+  window: z.enum(['30d', '90d', '180d', '365d', '24m', '36m', 'ad-hoc', 'post-mortem']).optional(),
   model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i).optional(),
   confirmTicker: z.string().optional(),
 })
@@ -134,11 +136,14 @@ app.post('/api/launch', async (req, reply) => {
   const parsed = LaunchBody.safeParse(req.body)
   if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
   const { kind, ticker, module, agent, model, confirmTicker } = parsed.data
+  // review (file an outcome review) and track (rebuild the calls dashboard) need no upstream deps and
+  // ignore module/agent — they follow the dep-free `full` admission path. review defaults to ad-hoc.
+  const window = kind === 'review' ? (parsed.data.window ?? 'ad-hoc') : undefined
 
   // closed allow-list checks against the live roster + data pool
   const tickers = listTickers().tickers.map((t) => t.ticker)
   if (!tickers.includes(ticker)) return reply.code(400).send({ error: `unknown ticker ${ticker}` })
-  if (kind !== 'full' && kind !== 'rerun') {
+  if (kind === 'module' || kind === 'agent') {
     if (!module || !listModuleNames().includes(module)) return reply.code(400).send({ error: 'unknown module' })
   }
   if (kind === 'agent') {
@@ -158,7 +163,7 @@ app.post('/api/launch', async (req, reply) => {
 
   try {
     const { user, userVia } = identify(req)
-    const out = await launch({ kind, ticker, module, agent, model, user, userVia })
+    const out = await launch({ kind, ticker, module, agent, window, model, user, userVia })
     return out
   } catch (e: any) {
     // Forward the discriminated admission-rejection body (code/reason/detail) so the client can
@@ -284,6 +289,9 @@ app.get('/api/output/run', async (req, reply) => {
     return reply.code(400).send({ error: 'cannot read run', detail: String(e?.message || e) })
   }
 })
+
+// ---------- calls tracker: cross-ticker ledger of every call + its since-the-call timeline ----------
+app.get('/api/calls', async () => listAllCalls())
 
 // ---------- export a saved output as a polished document (HTML / print-PDF / Word) ----------
 app.get('/api/export', async (req, reply) => {

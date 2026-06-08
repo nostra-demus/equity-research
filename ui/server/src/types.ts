@@ -120,7 +120,9 @@ export interface TickerSummary {
 
 // ---- runs / events ----
 
-export type RunKind = 'full' | 'module' | 'agent' | 'rerun'
+// 'review' files an append-only outcome review (/research:review-decisions); 'track' rebuilds the
+// calls-tracker dashboard (/research:track). Both are dep-free, lightweight, cross-/single-ticker.
+export type RunKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track'
 // 'incomplete' = the process exited cleanly but a full/rerun didn't produce its final deliverables
 // (thesis/decision) — almost always budget/turn truncation. Distinct from 'error' (a real failure).
 export type RunStatus = 'starting' | 'running' | 'done' | 'error' | 'cancelled' | 'incomplete'

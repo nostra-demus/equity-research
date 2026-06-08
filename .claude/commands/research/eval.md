@@ -177,6 +177,7 @@ FRAMEWORK_CONTRACTS={
  ".claude/agents/module-memo-writer.md":["_memo.md","module synthesis","condenser"],
  "frameworks/MODULE_PIPELINE.md":["Step 4.9","module-memo-writer","_memo.md","_dossier.md"],
  ".claude/commands/research/rerun.md":["module-memo-writer","_dossier.md"],
+ ".claude/commands/research/track.md":["analyses/tracking","_calls_tracker","review_schedule","ad-hoc"],
  ".claude/settings.json":["SessionStart","review_due.py"],
  ".claude/hooks/review_due.py":["review_schedule","research:review-decisions due"],
 }

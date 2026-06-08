@@ -1,5 +1,5 @@
 import { staticPromptPath } from './prompts'
-import type { ActivityQuery, ActivityResult, DataStatus, LaunchPreflight, SwarmGraph, TickerSummary, Usage, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, CallsResult, DataStatus, LaunchPreflight, SwarmGraph, TickerSummary, Usage, Whoami } from './types'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -87,7 +87,7 @@ export const api = {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return get(`/api/launch/estimate?kind=${kind}&ticker=${encodeURIComponent(ticker)}${module ? `&module=${module}` : ''}${agent ? `&agent=${agent}` : ''}`)
   },
-  launch: async (body: { kind: string; ticker: string; module?: string; agent?: string; model?: string; confirmTicker?: string }): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean }> => {
+  launch: async (body: { kind: string; ticker: string; module?: string; agent?: string; window?: string; model?: string; confirmTicker?: string }): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/launch`, body)
   },
@@ -128,6 +128,11 @@ export const api = {
   runManifest: async (ticker: string): Promise<any> => {
     if ((await ensureMode()) === 'static') return snap.runs[ticker]
     return get(`/api/output/run?ticker=${encodeURIComponent(ticker)}`)
+  },
+  // cross-ticker call ledger + since-the-call timelines (the Calls Tracker). Static -> bundled snapshot.
+  calls: async (): Promise<CallsResult> => {
+    if ((await ensureMode()) === 'static') return { calls: snap.calls || [], dashboard: snap.dashboard || null }
+    return get(`/api/calls`)
   },
   history: async (ticker: string): Promise<{ history: any[] }> => {
     if ((await ensureMode()) === 'static') return { history: [] }
