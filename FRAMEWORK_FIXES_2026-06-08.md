@@ -67,8 +67,19 @@ Companion to **`FRAMEWORK_AUDIT_2026-06-08.md`**. Each fix below is one commit o
 
 ---
 
+## Batch 2 — the integrity finish-gate  ✅ committed to branch, validator tested, eval green
+
+### F01 / F17 — the run committed and pushed a thesis with NO in-path integrity check; caps were display-only
+- **Issue.** `/research:full` wired only synthesizer → memo → audit-dossier → commit/push. The deterministic citation/math re-check (`verify-evidence`) and the red-team (`pre-mortem`) were opt-in and ran (if ever) *after* the run was committed to main. So a confidently-wrong thesis shipped first and was audited never-or-later — the exact gap that let TMCV's +4.3%/−4.4% headline ship.
+- **Solution.** New **step 10B** in `full.md`, run AFTER the synthesizer and BEFORE the commit, in two parts: **(10B.1)** a deterministic Python validator that re-derives the §10 scenario math from `decision_record.scenarios[]` (probabilities sum to 100; headline `expected_return_pct == Σ(p×ret)` within 1.0pp), checks the missing-price and score-range caps, and **prepends a PROVISIONAL banner to `final_thesis.md`** on any hard inconsistency — so a wrong headline can never ship clean. **(10B.2)** invokes `verify-evidence` + `pre-mortem` in-path (reports written into the run folder, committed by step 12), feeds the pre-mortem confidence haircut into `RUN_METADATA`, and surfaces a `Failed` verification verdict loudly. Plus **eval check O**: a post-gate Selected/Short run must carry both reports, or eval FAILs (the wiring can't silently regress).
+- **Why better.** Moves the no-source-no-claim + §10 math guarantee from "optional, after commit" to "enforced, before commit," without aborting the run (the thesis AND the gate verdict are both committed — a failure is visible, never hidden). The deterministic half always fires even if the LLM audits are skipped.
+- **Validated.** The validator was run on synthetic data reproducing the TMCV defect (scenarios → −4.35%, headline +4.3%) → it printed `GATE: PROVISIONAL` and stamped the banner; correct math → `PASS`. Eval suite stays **PASS 3/3** (check O is N/A on the pre-date fixtures).
+- **Files.** `.claude/commands/research/full.md` (step 10B, RUN_METADATA "Integrity gate", step-13 report) · `.claude/commands/research/eval.md` (check O).
+
+---
+
 ## Still to come (next batches — not started)
-- **Batch 2 — the finish-gate (F01/F17):** wire `verify-evidence` + `pre-mortem` into `/research:full` *before* the commit; gate the "done"/Drive-copy on the verdict; add eval check O (a post-gate Selected/Short run must carry the integrity + red-team reports). Extend the executed-arithmetic rule to the remaining numeric agents.
+- ~~**Batch 2 — the finish-gate (F01/F17)**~~ ✅ done above. *(Still open from Batch 2's scope: extend the executed-arithmetic rule to the remaining numeric agents — scenario-and-fair-value, coverage-and-covenants, downside-stress-test, historical-financials. The CRM run showed intrinsic-DCF/reverse-DCF already execute it; the rest should carry the same one-line rule.)*
 - **Batch 3b — remaining extraction hardening (F02/F24/F34/F04):** ~~format + dependency handling~~ ✅ done in 3a above. Still open: retry+lock / copy-to-tmp for the concurrent `Resource deadlock` failures (F02 — needs a multi-`.xls` race to reproduce; CRM's single-pass run did not trip it), `openpyxl reset_dimensions` truncation guard (F24), stop the cockpit caching transient failures (F34 — `ui/server`), and the unit/scale sanity layer (F04 — lakh/crore vs millions). *(F04 is especially relevant now: CRM's CIQ financials are in USD millions while a future Indian name would be in crore.)*
 - **Batch 4 — data-gap contract (F19/F20/F03), citation resolver (F05/F13), abort-matcher robustness (F06), metadata regeneration (F07), steelman symmetry (F37/F38/F39/F28), source-hierarchy reconciliation (F14).**
 - **F-SECTOR-1 — sector-overlay layer** *(framework-level upgrade; ⏳ **REVISIT AFTER the CRM file analysis** — use the CRM run as the first concrete proof before deciding scope).*

@@ -32,6 +32,7 @@ Run the embedded check script below via Bash. It applies, per run, the following
 - **L. Three output tiers present in post-landing runs** (forward-looking) — for a run whose `decision_date` is on/after the three-tier landing date (`2026-06-03`), both `memo.md` (the ~10-page colleague memo) and `audit_dossier.md` (the deterministic full-evidence concatenation) must exist beside `final_thesis.md`. Runs that predate the feature (the BG/HCG fixtures) are **N/A**, so the suite still passes; the check activates automatically for every new run.
 - **M. Scenario-math reconciliation** (forward-looking; `fix F08/F12`) — for a run dated on/after `2026-06-08`, deterministically **recompute** the §10 identities from `decision_record.scenarios[]`: probabilities sum to 100; `expected_return_pct == Σ(probability × return_pct)` (1.0pp tolerance — catches sign flips); and, when a price anchor and per-case targets exist, the probability-weighted target and `risk_reward` reconcile too. This is the gate that the old check E (numeric *hygiene* only) never performed — the §10 math was previously enforced solely by LLM mental arithmetic. A post-gate run that quantified a return but omitted `scenarios[]` FAILs (the block is required so the math is checkable). Older fixtures lack `scenarios[]` → **N/A**.
 - **N. No scratch-reasoning leak** (forward-looking; `fix F12`) — for a run dated on/after `2026-06-08`, `final_thesis.md` must not contain model self-correction text (e.g. "let me recalculate", "recomputing") — a committed thesis once shipped its raw arithmetic-correction scratch in §8. Older fixtures → **N/A**.
+- **O. Integrity finish-gate present** (forward-looking; `fix F01`) — for a run dated on/after `2026-06-08` whose decision is in the Selected or Short basket, both `verification_report.json` and `pre_mortem.json` must exist — these are the in-path audits the `/research:full` finish-gate (step 10B) produces before commit; their absence means a conviction thesis shipped without the integrity + red-team pass. Older fixtures, and Watchlist/Avoid/Insufficient runs, → **N/A**.
 
 The script also notes (WARN, not FAIL) any **non-schema artifact** in a run folder (e.g. a stray oversized file) so coverage gaps and strays surface.
 
@@ -176,6 +177,15 @@ for drp in runs:
         add("N_no_scratch_leak", not leak, f"scratch-reasoning phrases in final_thesis.md={leak}")
     else:
         add("N_no_scratch_leak", True, f"run predates scratch-leak gate ({ddte}) — N/A", na=True)
+    # O integrity finish-gate present for committed conviction runs [fix F01] — a post-gate Selected/Short
+    #   run must carry the in-path verify-evidence + pre-mortem reports the /research:full finish-gate (10B)
+    #   produces; their absence means the integrity gate did not run. Forward-looking; older fixtures N/A.
+    if isdate(ddte) and ddte>=SCEN_DATE and DECISIONS.get(dec) in ("Selected","Short"):
+        has_ve = bool(_latest("verification_report.json")); has_pm = bool(_latest("pre_mortem.json"))
+        add("O_integrity_gate", has_ve and has_pm,
+            f"Selected/Short run dated >= {SCEN_DATE} must carry verification_report.json({has_ve}) + pre_mortem.json({has_pm}) from the finish-gate")
+    else:
+        add("O_integrity_gate", True, "N/A (not a post-gate Selected/Short run)", na=True)
     # WARN non-schema files
     extras=[os.path.basename(x) for x in glob.glob(os.path.join(run,"*")) if os.path.isfile(x) and os.path.basename(x) not in SCHEMA_FILES and not os.path.basename(x).endswith(("_decision_review.json","_calibration_summary.json")) and "review" not in os.path.basename(x) and "_v" not in os.path.basename(x)]
     run_pass=all(c["status"]!="FAIL" for c in checks)
