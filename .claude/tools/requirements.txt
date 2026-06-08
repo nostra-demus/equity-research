@@ -1,0 +1,7 @@
+# Python deps for .claude/tools/extract_pool.py (the canonical data-pool extractor).
+# Capital IQ ships legacy binary .xls (BIFF) and .xlsx workbooks; these libs read them.
+# On a PEP-668 system Python (e.g. Homebrew) you cannot pip-install globally — use the
+# venv: `python3 -m venv .claude/tools/.venv && .claude/tools/.venv/bin/pip install -r
+# .claude/tools/requirements.txt`. extract_pool.py auto-re-execs under that venv.
+xlrd>=2.0.1
+openpyxl>=3.1

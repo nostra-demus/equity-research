@@ -41,6 +41,9 @@ import io
 import json
 import glob
 import subprocess
+import tempfile
+import email as _email
+import html as _htmlmod
 from datetime import datetime, date, time
 
 WORKBOOK_EXTS = {"xls", "xlsx", "xlsm"}
@@ -49,6 +52,65 @@ PDF_EXTS = {"pdf"}
 RTF_EXTS = {"rtf"}
 # Google Drive pointer stubs — tiny JSON, no real content
 POINTER_EXTS = {"gdoc", "gsheet", "gslides"}
+
+
+def _ensure_deps():
+    """The extractor needs xlrd (.xls/BIFF) + openpyxl (.xlsx) to read workbooks.
+    On a PEP-668 "externally-managed" system Python (e.g. Homebrew) you cannot
+    pip-install them globally, so the engine ships an isolated venv at
+    `.claude/tools/.venv` (gitignored; recreate via setup-tools.sh). If the current
+    interpreter lacks the libs but that venv has them, transparently re-exec under it
+    so `python3 extract_pool.py ...` just works regardless of which python invoked it.
+    [fix F-EXTRACT-DEP — validated on the CRM pool: Homebrew py3.14 had neither lib,
+    so every .xls silently degraded to useless 'fallback-text'.]"""
+    try:
+        import xlrd  # noqa
+        import openpyxl  # noqa
+        return
+    except Exception:
+        pass
+    # A venv's bin/python is a SYMLINK to the same base binary, so comparing
+    # realpath(executable) can't tell venv from base — use an env sentinel instead,
+    # which also guarantees we never re-exec more than once (no loop).
+    if os.environ.get("_EXTRACT_POOL_VENV") == "1":
+        return
+    here = os.path.dirname(os.path.abspath(__file__))
+    venv_py = os.path.join(here, ".venv", "bin", "python")
+    if os.path.exists(venv_py):
+        os.environ["_EXTRACT_POOL_VENV"] = "1"  # invoke via the symlink path so the venv activates
+        os.execv(venv_py, [venv_py, os.path.abspath(__file__)] + sys.argv[1:])
+    # No venv: don't abort — workbook reads will mark 'missing-dependency' LOUDLY
+    # (a real failure with the install command), never silent fallback-text.
+
+
+def sniff_format(path):
+    """Return the TRUE format from magic bytes / head, because Capital IQ mislabels
+    extensions wholesale — a `.doc` that is MHTML, a `.rtf` that is binary Word, an
+    `.xls` that is an HTML table. Content wins over extension.
+    [fix F-EXTRACT — live-validated on the CRM pool, where all three mismatches occurred.]
+    Returns one of: ole2 | zip | pdf | rtf | mime | html | text | empty | unreadable."""
+    try:
+        with open(path, "rb") as fh:
+            head = fh.read(4096)
+    except Exception:
+        return "unreadable"
+    if not head.strip():
+        return "empty"
+    if head[:8] == b"\xd0\xcf\x11\xe0\xa1\xb1\x1a\xe1":
+        return "ole2"          # OLE2 Compound Document — BIFF .xls OR binary Word .doc
+    if head[:4] == b"PK\x03\x04":
+        return "zip"           # zip container — .xlsx / .docx
+    if head[:5] == b"%PDF-":
+        return "pdf"
+    if head[:5].lower() == b"{\\rtf":
+        return "rtf"
+    low = head[:1024].lower()
+    if (b"mime-version:" in low or low.lstrip().startswith(b"x-sender:")
+            or b"content-type: multipart" in low or low.lstrip().startswith(b"from:")):
+        return "mime"          # MHTML (HTML wrapped in MIME) — CIQ filing exports
+    if b"<html" in low or b"<table" in low or b"<!doctype html" in low or b"<spreadsheet" in low:
+        return "html"          # HTML table mislabeled .xls
+    return "text"
 
 
 def _fmt(v):
@@ -183,14 +245,79 @@ def _read_rtf(path):
         return "", f"{type(e).__name__}: {e}"
 
 
+# ---------- binary-Word / MHTML / HTML (Capital IQ's mislabeled exports) ----------
+
+def _html_to_text(b):
+    """Strip an HTML/XHTML byte string to readable text (no external deps)."""
+    t = b.decode("utf-8", "ignore") if isinstance(b, (bytes, bytearray)) else b
+    t = re.sub(r"(?is)<(script|style|head)\b.*?</\1>", " ", t)
+    t = re.sub(r"(?is)<(br|/p|/tr|/div|/h[1-6])\s*>", "\n", t)
+    t = re.sub(r"(?is)</td>\s*<td[^>]*>", "\t", t)
+    t = re.sub(r"(?s)<[^>]+>", " ", t)
+    t = _htmlmod.unescape(t)
+    t = re.sub(r"[ \t]+", " ", t)
+    t = re.sub(r"\n[ \t]*\n+", "\n\n", t)
+    return t.strip()
+
+
+def _read_doc(path):
+    """Binary Word (OLE2 .doc) via macOS `textutil`. textutil keys off the file
+    EXTENSION, so a CIQ transcript saved as `.rtf` but really OLE2 Word must be fed
+    through a temp file with a `.doc` suffix. [fix F-EXTRACT — the CRM transcripts.]"""
+    try:
+        with tempfile.NamedTemporaryFile(suffix=".doc", delete=False) as tf:
+            tf.write(open(path, "rb").read())
+            tmp = tf.name
+        try:
+            r = subprocess.run(["textutil", "-convert", "txt", "-stdout", tmp],
+                               capture_output=True, text=True, timeout=180)
+        finally:
+            os.unlink(tmp)
+        if r.returncode == 0 and r.stdout.strip():
+            return r.stdout, None
+        return "", f"textutil rc={r.returncode}"
+    except FileNotFoundError:
+        return "", "textutil not available (macOS-only); install antiword/libreoffice for .doc"
+    except Exception as e:  # noqa
+        return "", f"{type(e).__name__}: {e}"
+
+
+def _read_mhtml(path):
+    """MHTML — HTML wrapped in MIME, how Capital IQ exports filings (often a `.doc`
+    extension). Parse the MIME, take the HTML part, strip to text.
+    [fix F-EXTRACT — the CRM 10-K extracted as MHTML, 598K chars recovered.]"""
+    try:
+        msg = _email.message_from_bytes(open(path, "rb").read())
+        htmlbytes = None
+        for part in msg.walk():
+            if part.get_content_type() in ("text/html", "application/xhtml+xml"):
+                htmlbytes = part.get_payload(decode=True)
+                break
+        if htmlbytes is None:
+            htmlbytes = msg.get_payload(decode=True) or open(path, "rb").read()
+        txt = _html_to_text(htmlbytes)
+        return (txt, None) if txt.strip() else ("", "mhtml: empty after html strip")
+    except Exception as e:  # noqa
+        return "", f"{type(e).__name__}: {e}"
+
+
+def _read_html(path):
+    try:
+        return _html_to_text(open(path, "rb").read()), None
+    except Exception as e:  # noqa
+        return "", f"{type(e).__name__}: {e}"
+
+
 # ---------- one-file inspect (UI / --list-json) ----------
 
 def list_file(path):
-    ext = path.lower().rsplit(".", 1)[-1] if "." in os.path.basename(path) else ""
     base = os.path.basename(path)
-    if ext in WORKBOOK_EXTS:
+    ext = base.lower().rsplit(".", 1)[-1] if "." in base else ""
+    fmt = sniff_format(path)  # content, not extension — CIQ mislabels workbooks
+    if fmt in ("ole2", "zip"):
+        wbext = "xls" if fmt == "ole2" else "xlsx"
         try:
-            sheets = read_workbook(path, ext)
+            sheets = read_workbook(path, wbext)
             return {
                 "file": base, "ext": ext, "kind": "workbook", "status": "ok",
                 "sheets": [
@@ -198,10 +325,10 @@ def list_file(path):
                     for (nm, nr, nc, rows) in sheets
                 ],
             }
-        except Exception as e:  # noqa — HTML-disguised .xls, corrupt, missing lib
-            return {"file": base, "ext": ext, "kind": "workbook",
+        except Exception as e:  # noqa — OLE2/zip Word doc, corrupt, or missing lib
+            return {"file": base, "ext": ext, "kind": "document",
                     "status": "fail", "error": f"{type(e).__name__}: {e}", "sheets": []}
-    return {"file": base, "ext": ext, "kind": "other", "status": "skipped", "sheets": []}
+    return {"file": base, "ext": ext, "kind": fmt, "status": "skipped", "sheets": []}
 
 
 def sniff_text(path, max_chars=16000):
@@ -209,23 +336,30 @@ def sniff_text(path, max_chars=16000):
     sniff). Workbook -> tab names + first rows; pdf -> first pages; rtf -> textutil;
     txt/csv/md -> head. One extractor, so the cockpit reads pdf/rtf the same way the
     pipeline does instead of guessing from raw bytes."""
-    base = os.path.basename(path)
-    ext = base.lower().rsplit(".", 1)[-1] if "." in base else ""
+    fmt = sniff_format(path)  # content, not extension
     try:
-        if ext in WORKBOOK_EXTS:
-            parts = []
-            for (nm, _nr, _nc, rows) in read_workbook(path, ext):
-                parts.append(nm)
-                for r in rows[:40]:
-                    parts.append("\t".join(r))
-                if sum(len(x) for x in parts) > max_chars:
-                    break
-            return "\n".join(parts)[:max_chars]
-        if ext in PDF_EXTS:
+        if fmt in ("ole2", "zip"):
+            wbext = "xls" if fmt == "ole2" else "xlsx"
+            try:
+                parts = []
+                for (nm, _nr, _nc, rows) in read_workbook(path, wbext):
+                    parts.append(nm)
+                    for r in rows[:40]:
+                        parts.append("\t".join(r))
+                    if sum(len(x) for x in parts) > max_chars:
+                        break
+                return "\n".join(parts)[:max_chars]
+            except Exception:  # noqa — OLE2/zip Word doc, not a sheet
+                return (_read_doc(path)[0] or "")[:max_chars]
+        if fmt == "pdf":
             return (_read_pdf(path, max_pages=12)[0] or "")[:max_chars]
-        if ext in RTF_EXTS:
+        if fmt == "mime":
+            return (_read_mhtml(path)[0] or "")[:max_chars]
+        if fmt == "rtf":
             return (_read_rtf(path)[0] or "")[:max_chars]
-        if ext in TEXT_EXTS:
+        if fmt == "html":
+            return (_read_html(path)[0] or "")[:max_chars]
+        if fmt == "text":
             return open(path, errors="ignore").read(max_chars)
     except Exception:  # noqa — sniffing must never throw
         return ""
@@ -287,26 +421,45 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None):
         ext = base.lower().rsplit(".", 1)[-1] if "." in base else ""
         stem = _sanitize(base.rsplit(".", 1)[0] if "." in base else base, "file")
 
-        if ext in WORKBOOK_EXTS:
+        # Route by SNIFFED content, not extension — Capital IQ mislabels files
+        # (a `.doc` that is MHTML, a `.rtf` that is binary Word, an `.xls` that is HTML).
+        fmt = sniff_format(p)
+
+        # ---- workbooks: OLE2 (BIFF .xls) or zip (.xlsx). The same OLE2/zip container can
+        #      hold a Word .doc/.docx, so a non-workbook parse error falls through to a
+        #      document read instead of failing. A missing reader lib fails LOUDLY. ----
+        if fmt in ("ole2", "zip"):
             n_workbooks += 1
+            wbext = "xls" if fmt == "ole2" else "xlsx"
             try:
-                sheets = read_workbook(p, ext)
-            except Exception as e:  # noqa — try HTML-as-text fallback before giving up
-                _fb = _read_rtf(p) if False else _html_xls_fallback(p)
-                txt, ferr = (_fb if isinstance(_fb, tuple) else (_fb, None))
+                sheets = read_workbook(p, wbext)
+            except ModuleNotFoundError as e:  # xlrd/openpyxl absent — never silent garbage
+                n_workbooks -= 1
+                n_fail += 1
+                lib = "xlrd" if fmt == "ole2" else "openpyxl"
+                sources.append({"file": base, "ext": ext, "kind": "workbook",
+                                "status": "missing-dependency",
+                                "error": f"{type(e).__name__}: {e} — run "
+                                         f"`.claude/tools/setup-tools.sh` (installs {lib})",
+                                "sheets": []})
+                continue
+            except Exception as e:  # noqa — an OLE2/zip that is NOT a sheet is a Word doc
+                n_workbooks -= 1
+                txt, derr = _read_doc(p)
                 if txt:
                     out_name = _unique(used, stem) + ".txt"
                     open(os.path.join(out_dir, out_name), "w").write(txt)
                     n_written += 1
-                    sources.append({"file": base, "ext": ext, "kind": "workbook",
-                                    "status": "fallback-text",
-                                    "error": f"{type(e).__name__}: {e}",
-                                    "extract": out_name, "sheets": []})
+                    sources.append({"file": base, "ext": ext, "kind": "document",
+                                    "status": "ok",
+                                    "note": f"{fmt} container, not a workbook — read as document",
+                                    "extract": out_name, "chars": len(txt)})
                 else:
                     n_fail += 1
                     sources.append({"file": base, "ext": ext, "kind": "workbook",
                                     "status": "fail",
-                                    "error": f"{type(e).__name__}: {e}", "sheets": []})
+                                    "error": f"not a workbook ({type(e).__name__}); doc fallback: {derr}",
+                                    "sheets": []})
                 continue
             sheet_meta = []
             for i, (nm, nr, nc, rows) in enumerate(sheets, 1):
@@ -320,43 +473,53 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None):
             sources.append({"file": base, "ext": ext, "kind": "workbook",
                             "status": "ok", "sheets": sheet_meta})
 
-        elif ext in PDF_EXTS:
-            txt, err = _read_pdf(p)
+        # ---- document / text formats, again by sniffed content ----
+        elif fmt in ("pdf", "mime", "rtf", "html"):
+            if fmt == "pdf":
+                txt, err = _read_pdf(p); kind = "pdf"
+            elif fmt == "mime":
+                txt, err = _read_mhtml(p); kind = "mhtml"
+            elif fmt == "rtf":
+                txt, err = _read_rtf(p); kind = "rtf"
+            else:
+                txt, err = _read_html(p); kind = "html"
             if txt:
                 out_name = _unique(used, stem) + ".txt"
                 open(os.path.join(out_dir, out_name), "w").write(txt)
                 n_written += 1
-                sources.append({"file": base, "ext": ext, "kind": "pdf", "status": "ok",
+                sources.append({"file": base, "ext": ext, "kind": kind, "status": "ok",
                                 "extract": out_name, "chars": len(txt)})
             else:
                 n_fail += 1
-                sources.append({"file": base, "ext": ext, "kind": "pdf",
+                sources.append({"file": base, "ext": ext, "kind": kind,
                                 "status": "fail", "error": err})
 
-        elif ext in RTF_EXTS:
-            txt, err = _read_rtf(p)
-            if txt:
-                out_name = _unique(used, stem) + ".txt"
-                open(os.path.join(out_dir, out_name), "w").write(txt)
-                n_written += 1
-                sources.append({"file": base, "ext": ext, "kind": "rtf", "status": "ok",
-                                "extract": out_name, "chars": len(txt)})
-            else:
-                n_fail += 1
-                sources.append({"file": base, "ext": ext, "kind": "rtf",
-                                "status": "fail", "error": err})
-
-        elif ext in TEXT_EXTS:
-            sources.append({"file": base, "ext": ext, "kind": "text",
-                            "status": "in-place", "extract": "(original)"})
-
-        elif ext in POINTER_EXTS:
+        elif ext in POINTER_EXTS:  # pointer stubs are JSON text — match by extension
             sources.append({"file": base, "ext": ext, "kind": "gdrive-pointer",
                             "status": "skipped",
                             "error": "Google Drive pointer stub — open in browser; no local content"})
-        else:
+
+        elif fmt == "text":
+            sources.append({"file": base, "ext": ext or "(none)", "kind": "text",
+                            "status": "in-place", "extract": "(original)"})
+
+        elif fmt == "empty":
+            n_fail += 1
             sources.append({"file": base, "ext": ext or "(none)", "kind": "other",
-                            "status": "skipped"})
+                            "status": "fail", "error": "empty file"})
+
+        else:  # unknown binary — last-ditch document conversion, else surface honestly
+            txt, derr = _read_doc(p)
+            if txt:
+                out_name = _unique(used, stem) + ".txt"
+                open(os.path.join(out_dir, out_name), "w").write(txt)
+                n_written += 1
+                sources.append({"file": base, "ext": ext or "(none)", "kind": "document",
+                                "status": "ok", "note": "unrecognized binary — read via textutil",
+                                "extract": out_name, "chars": len(txt)})
+            else:
+                sources.append({"file": base, "ext": ext or "(none)", "kind": "other",
+                                "status": "skipped", "error": f"unrecognized format ({fmt}); {derr}"})
 
     manifest = {
         "data_path": os.path.abspath(data_path),
@@ -418,6 +581,7 @@ def _write_corpus(out_dir, data_path, corpus_path):
 
 
 def main(argv):
+    _ensure_deps()  # re-exec under .claude/tools/.venv if xlrd/openpyxl are missing here
     if "--list-json" in argv:
         i = argv.index("--list-json")
         f = argv[i + 1]
