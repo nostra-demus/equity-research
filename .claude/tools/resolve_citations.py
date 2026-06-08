@@ -64,12 +64,13 @@ def resolve(text, figures):
         value = fig.get("value") if isinstance(fig, dict) else fig
         pat = token_regex(value)
         h = count_hits(lines, pat)
-        scaled = 0  # hits ONLY at a x1000 / /1000 scale -> possible unit mismatch (crore vs million, F04)
+        scaled = 0  # hits ONLY at a x1000 / /1000 scale -> possible unit mismatch (millions vs billions/crore)
         try:
             v = float(str(value).replace(",", ""))
-            for sv in (v * 1000, v / 1000):
-                if abs(sv) >= 1 and sv == int(sv):
-                    scaled += len(count_hits(lines, token_regex(int(sv))))
+            for sv in (v * 1000, v / 1000, v / 1e7):  # millions<->billions/thousands, and INR crore (1cr=1e7)
+                if abs(sv) >= 0.001:
+                    rep = str(int(sv)) if sv == int(sv) else ("%g" % sv)  # 72400 -> also search "72.4"
+                    scaled += len(count_hits(lines, token_regex(rep)))
         except Exception:  # noqa
             pass
         out.append({"figure": str(value), "label": label, "hit_count": len(h),
