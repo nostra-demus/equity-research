@@ -42,6 +42,7 @@ import json
 import glob
 import subprocess
 import tempfile
+import time as _time  # NB: `from datetime import ... time` below would shadow a bare `import time`
 import email as _email
 import html as _htmlmod
 from datetime import datetime, date, time
@@ -146,11 +147,46 @@ def _unique(used, base):
 
 # ---------- workbook readers: return list of (sheet_name, rows, cols, list_of_rows) ----------
 
+def _read_bytes_retry(path, tries=5):
+    """Read a file's bytes with bounded retry on a transient OSError. [fix F02]
+    On a Google Drive FUSE mount, concurrent access to the same .xls (the 6 module
+    triage agents race on identical files) raises 'OSError: Resource deadlock avoided'
+    (errno 11) — a RECOVERABLE lock that the old code turned into a permanent extraction
+    failure. Reading into memory here also lets the workbook readers avoid mmap entirely."""
+    last = None
+    for i in range(tries):
+        try:
+            with open(path, "rb") as fh:
+                return fh.read()
+        except OSError as e:  # EAGAIN / EDEADLK / transient FUSE lock
+            last = e
+            _time.sleep(0.2 * (i + 1))
+    raise last
+
+
+def _detect_units(rows):
+    """Scan a tab's first rows for a declared unit/currency header (CIQ tabs carry
+    'Currency: …' / 'Units: …' / 'in millions' near the top). [fix F04] Surfaced into
+    the manifest so downstream reads carry scale/currency and a crore-vs-million mix
+    can be caught instead of silently producing a 10x error."""
+    head = " ".join(c for r in rows[:20] for c in r if c)[:1200]  # CIQ pads empty rows before the header block
+    hits = []
+    for pat in (r"currency\s*[:=]\s*[A-Za-z ]+", r"units?\s*[:=]\s*[A-Za-z0-9 ()]+",
+                r"\bin (?:thousands|millions|billions|lakhs?|crores?)\b",
+                r"\b(?:USD|INR|EUR|GBP|JPY)\b", r"[₹$€£]\s*in\s*\w+"):
+        m = re.search(pat, head, re.I)
+        if m:
+            hits.append(m.group(0).strip())
+    return "; ".join(dict.fromkeys(hits))[:160]  # dedupe, cap length
+
+
 def _read_xls(path):
     import xlrd  # xlrd >= 2.0 is purpose-built for legacy .xls
     # xlrd logs warnings to stdout by default — redirect so stdout stays clean
     # (the UI parses --list-json stdout as JSON, and corpus consumers grep it).
-    wb = xlrd.open_workbook(path, on_demand=True, logfile=sys.stderr)
+    # [fix F02] open from in-memory bytes (file_contents=) so xlrd never mmaps the file
+    # over the FUSE mount, the source of the 'Resource deadlock avoided' failures.
+    wb = xlrd.open_workbook(file_contents=_read_bytes_retry(path), on_demand=True, logfile=sys.stderr)
     datemode = wb.datemode
     out = []
     for name in wb.sheet_names():
@@ -179,9 +215,14 @@ def _read_xls(path):
 
 def _read_xlsx(path):
     import openpyxl
-    wb = openpyxl.load_workbook(path, data_only=True, read_only=True)
+    # [fix F02] load from in-memory bytes (retry-guarded) rather than the FUSE path.
+    wb = openpyxl.load_workbook(io.BytesIO(_read_bytes_retry(path)), data_only=True, read_only=True)
     out = []
     for ws in wb.worksheets:
+        # [fix F24] read_only mode trusts the stored <dimension> tag, which some CIQ/broker
+        # exporters write stale/missing — causing iter_rows to silently stop early and drop
+        # trailing rows/cols while the tab still looks 'ok'. Force a real cell scan.
+        ws.reset_dimensions = True
         rows = []
         maxc = 0
         for row in ws.iter_rows(values_only=True):
@@ -469,7 +510,8 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None):
                 n_written += 1
                 n_tabs += 1
                 sheet_meta.append({"name": nm, "rows": nr, "cols": nc,
-                                   "cells": _nonempty_cells(rows), "extract": out_name})
+                                   "cells": _nonempty_cells(rows), "units": _detect_units(rows),
+                                   "extract": out_name})
             sources.append({"file": base, "ext": ext, "kind": "workbook",
                             "status": "ok", "sheets": sheet_meta})
 
