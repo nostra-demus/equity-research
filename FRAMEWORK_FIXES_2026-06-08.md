@@ -80,23 +80,64 @@ Companion to **`FRAMEWORK_AUDIT_2026-06-08.md`**. Each fix below is one commit o
 
 ## Batch 4 — data-gap prompts, abort-matcher, steelman  ✅ partial (committed to branch)
 
-- **F19 — consensus data-gap.** `earnings/04_guidance-consensus` now requires consensus from a **pool export**; a web/memory Street estimate may not silently set the beat/miss bar — if used it carries the verbatim `web-sourced … unverified` label and triggers the consensus-setup cap. (Prompt + self-check.) *Note: the CRM run showed the agent already behaved well with complete data; this hardens the **thin-pool** case.*
-- **F20 — insider data-gap (highest memory-anchor risk).** `management-governance/04` now **gates red flags on a pool filing** — a web/memory figure (a famous founder's stake, a "recent sale") may be labeled context only, must NOT by itself fire an RF-OWN flag, and caps the insider-behavior component. (Prompt + self-check.)
-- **F06 — abort-matcher robustness.** `MODULE_PIPELINE` step 4C: the fail-fast grep no longer requires the literal word "data" after "insufficient" (`insufficient([[:space:]]+data)?`), so a triage that renders a bare "Verdict: Insufficient" correctly aborts the module — now aligned with the cockpit watcher (`verdict.ts`). Tested: matches every real Insufficient verdict, ignores Sufficient/Partial/the three-option menu line.
-- **F38 — master bull-case steelman.** `synthesizer.md` gains **§9A Bull Case — Steelman**, the symmetric counterpart to §10 "What Would Kill the Thesis", so disconfirmation defends *both* sides with equal rigor.
-- **F37 — module-level disconfirmation.** Added a mandatory two-sided "Module Disconfirmation" block (strongest bear + strongest bull + killer risk + visible disconfirming evidence) to `business-model/99-synthesis` as the canonical pattern. ⏳ **Still to roll out to the other 5 module syntheses** (earnings, valuation, balance-sheet-survival, management-governance, catalyst).
+### F19 — consensus data-gap  ·  `earnings/04_guidance-consensus`
+- *Issue.* The agent carries WebSearch/WebFetch but had no rule forbidding a web/memory Street estimate; for a covered name an LLM can produce plausible-but-fabricated "consensus" that silently sets the beat/miss bar and the rating.
+- *Solution.* Consensus must come from a pool export; if absent → guidance-only read + the consensus-setup cap; any web consensus must carry the verbatim `web-sourced … unverified` label and still trigger the cap. (Prompt + self-check box.)
+- *Why better.* Closes the gap in the prompt the model actually runs rather than hoping it recalls §5, and mirrors the already-hardened price path. (The CRM run showed the agent behaves with complete data — this protects the **thin-pool** case where the temptation to web-fill is real.)
+
+### F20 — insider data-gap (highest memory-anchor risk)  ·  `management-governance/04`
+- *Issue.* Insider stakes/sells/pledges are exactly the facts an LLM "knows" from training for a famous founder; the old rule only labeled web data "unverified" but still let it fire RF-OWN red flags and feed the governance score.
+- *Solution.* A pool filing (shareholding-pattern / Form 4 / SAST-PIT / proxy) is now REQUIRED to fire any RF-OWN flag; a web/memory figure is context-only and caps the insider-behavior component. (Prompt + self-check.)
+- *Why better.* A hard gate on the *consequential action* (the red flag) rather than a blanket ban — the agent can still report web context, but a fabricated stake or hallucinated sale can't reach the rating.
+
+### F06 — abort-matcher robustness  ·  `MODULE_PIPELINE` step 4C
+- *Issue.* The orchestrator's fail-fast grep required the literal "insufficient data", but the triage templates render a bare "Verdict: Insufficient" — so a module could fail to abort and run on data it declared insufficient, while the cockpit watcher (which matches bare "insufficient") disagreed.
+- *Solution.* Made the trailing "data" optional (`insufficient([[:space:]]+data)?`), anchored to the verdict label so it ignores Sufficient/Partial/the menu line; now identical to `verdict.ts`.
+- *Why better.* One robust matcher shared by both consumers — the orchestrator and the UI can never again disagree on whether a module aborted. Tested against every verdict form.
+
+### F38 — master bull-case steelman  ·  `synthesizer.md`
+- *Issue.* The synthesizer forced a *destructive* steelman (§10 What Would Kill the Thesis) but had no parallel *constructive* one, so disconfirmation was one-directional and the thesis under-defended the other side.
+- *Solution.* Added **§9A Bull Case — Steelman**, the symmetric counterpart with equal rigor (the single strongest reason the engine could be wrong, evidence-cited, module-tied).
+- *Why better.* Symmetric disconfirmation catches *both* error directions (wrongly rejecting and wrongly buying); it's a structural section the model must fill, not an optional closing caveat.
+
+### F37 — module-level disconfirmation  ·  `business-model/99-synthesis` (pattern)
+- *Issue.* No module synthesis forced the §8 bear-AND-bull steelman; module disconfirmation collapsed into a one-directional up/down score, concentrating all red-teaming in the master alone.
+- *Solution.* A mandatory two-sided "Module Disconfirmation" block (strongest bear + strongest bull + killer risk + visible disconfirming evidence), added to the business-model synthesis as the canonical pattern.
+- *Why better.* Forces the two-sided test at the layer that *owns the evidence*, feeding the master's §9A/§10. ⏳ **Rollout to the other 5 syntheses pending.**
 
 **Still open in Batch 4:** F37 rollout (5 files) · **F05 citation resolver** (a deterministic Python grep-resolver + eval hook — the bigger build) · F03 (triage reads manifest fail-state as missing) · F07 (regenerate RUN_METADATA from the on-disk artifact set on resume) · F14 (the governance source-tier note — low-confidence/debatable). Extend executed-arithmetic to the 4 remaining numeric agents.
 
 ## Batch 5 — HIGH-priority data integrity  ✅ partial (committed to branch, tested)
 
-- **F05 / F13 — deterministic citation resolver.** New `.claude/tools/resolve_citations.py`: given the figures a claim rests on + the extracted corpus, it actually greps and returns a machine `hit_count` per figure — **token-matched** (`2442` never matches inside `0.092442`/`12442`/`2442.5`), comma- and trailing-zero-tolerant (`4.6` matches `4.60`), and reports `scaled_hit_count` (hits only at ×1000/÷1000 → a likely crore-vs-million unit mismatch). Wired into `verify-evidence` Section A as the **authority**: a rating-driver with `hit_count == 0` may NOT be marked `verified`; the auditor reconciles its status against the tool, not its recollection ("the model says it grepped" → "the tool grepped"). Plus a vague-citation lint (F13). *Tested: rejects every false-positive substring, matches the real token, flags the absent figure.*
-- **F02 — extraction `Resource deadlock`.** `extract_pool.py` now reads every workbook into memory (retry-guarded `_read_bytes_retry`, `xlrd file_contents=` / `openpyxl BytesIO`) instead of letting the libraries mmap the file over the Google Drive FUSE mount — the recoverable `OSError: Resource deadlock avoided` (the 6 triage agents racing on the same `.xls`) no longer becomes a permanent failure. *Re-tested on CRM: 12/12 sources, 0 failures.*
-- **F24 — `.xlsx` silent truncation.** `ws.reset_dimensions = True` forces a real cell scan, so a stale/missing `<dimension>` tag can't make `iter_rows` stop early and drop trailing rows while the tab still reads "ok".
-- **F04 — unit/scale capture.** Each tab's declared currency/units header is now detected and recorded in the manifest (40/49 CRM tabs carry "Currency: US Dollar …"), so downstream reads carry scale/currency; the resolver's `scaled_hit_count` is the matching verify-time mismatch detector.
+### F05 / F13 — deterministic citation resolver  ·  `.claude/tools/resolve_citations.py` (new) + `verify-evidence`
+- *Issue.* `verify-evidence` is itself an LLM told to "grep the number yourself" — the step that gets skipped. The committed HCG v2→v3 correction proves this auditor has asserted "verified" on figures it never grepped. "Verifiability" was a behaviour, not a mechanism.
+- *Solution.* A new resolver actually greps each cited figure against the corpus and returns a machine `hit_count` — **token-matched** (`2442` never matches inside `0.092442`/`12442`/`2442.5`), comma/trailing-zero tolerant (`4.6` matches `4.60`), and `scaled_hit_count`-aware (hits only at ×1000/÷1000/÷1e7 → a likely million-vs-billion-vs-crore unit mismatch). Wired into `verify-evidence` as the **authority**: a rating-driver with `hit_count == 0` may NOT be marked `verified`. Plus a vague-citation lint (F13).
+- *Why better.* Turns "the model says it grepped" into "the tool grepped" — the no-fabrication guarantee no longer rests on LLM honesty. The token-matching also removes the false positives a naïve grep makes. *Tested on synthetic data AND the live CRM corpus (net debt $30,711 → verifies; a fabricated number → rejected; found a real unit-mismatch gap that was then fixed).*
 
-- **F09 (rollout) — executed arithmetic on the 4 remaining numeric agents.** Added the "compute with an executed Bash/Python snippet (command + result shown), not mental arithmetic" self-check to `balance-sheet-survival/04_coverage-and-covenants`, `06_downside-stress-test`, `earnings/01_historical-financials`, and `valuation/07_scenario-and-fair-value` — so coverage ratios, stressed leverage/break-points, growth/margins/TTM, and the scenario level math are all executed, not hand-done. (DCF/reverse-DCF already had it and were observed executing on the CRM run.)
-- **F03 — triage treats a manifest failure as MISSING.** All 5 abort-capable `00`-triage agents now read `_pool_extracts/manifest.json` and count any `fail` / `fallback-text` / `missing-dependency` source as NOT in the pool for the sufficiency verdict and caps (never "supplementary, no effect") — a structured export the module relies on, in a failure state, downgrades the run to Partial/Insufficient. Closes the TMCV "Critical missing: None while consensus/peers/credit all failed" hole.
+### F02 — extraction `Resource deadlock`  ·  `extract_pool.py`
+- *Issue.* `xlrd`/`openpyxl` mmap'd the file over the Google Drive FUSE mount; the 6 triage agents racing on the same `.xls` hit a *recoverable* `OSError: Resource deadlock avoided` that the old code turned into a *permanent* extraction failure — silent loss of rating-driver exports on Indian binary pools.
+- *Solution.* Read each workbook into memory (retry-guarded `_read_bytes_retry`) and feed the bytes to `xlrd file_contents=` / `openpyxl BytesIO` — no mmap — with bounded retry on the transient lock.
+- *Why better.* Removes the failure at its cause (mmap-over-FUSE) *and* adds belt-and-suspenders retry, so a recoverable lock recovers instead of dropping data. *Re-tested on CRM: 12/12 sources, 0 failures.*
+
+### F24 — `.xlsx` silent truncation  ·  `extract_pool.py`
+- *Issue.* `read_only` `iter_rows` trusts the stored `<dimension>` tag; a stale/missing tag makes it stop early and drop trailing rows while the tab still reads "ok" — a silent truncation that looks like success.
+- *Solution.* `ws.reset_dimensions = True` forces a real cell scan.
+- *Why better.* One line removes a whole class of silent data loss — and the worst extraction bug is one that looks like a success.
+
+### F04 — unit/scale capture  ·  `extract_pool.py`
+- *Issue.* Nothing recorded a tab's scale/currency, so a CapIQ "INR millions" tab mixed with a crore-denominated filing was a silent 10× error with no signal anywhere.
+- *Solution.* Detect each tab's currency/units header into the manifest (40/49 CRM tabs carry "Currency: US Dollar …").
+- *Why better.* Surfaces the unit context downstream reads need, and pairs with F05's scale-aware resolver so a cross-unit mismatch is *caught at verify time* instead of flowing into a valuation/leverage number.
+
+### F09 (rollout) — executed arithmetic on the 4 remaining numeric agents
+- *Issue.* Coverage ratios, stressed leverage/break-points, growth/margins/TTM, and the scenario level math were still mental arithmetic in `coverage-and-covenants`, `downside-stress-test`, `historical-financials`, and `scenario-and-fair-value` — the computation LLMs are least reliable at.
+- *Solution.* Added the "compute via an executed Bash/Python snippet (command + result shown), not mental arithmetic" self-check to all four.
+- *Why better.* The same pattern the DCF/reverse-DCF agents were *observed executing* on the CRM run; pure prompt change, no new tools, removes ungrounded math at the remaining sites.
+
+### F03 — triage treats a manifest failure as MISSING  ·  all 5 abort-capable `00`-triage agents
+- *Issue.* Triage keyed sufficiency on annual+quarterly+transcript and treated failed CIQ exports as "supplementary, no effect" — so a pool that lost its entire estimates/peer/credit layer still passed "Sufficient" (the TMCV "Critical missing: None" hole).
+- *Solution.* Each triage now reads `_pool_extracts/manifest.json` and counts any `fail` / `fallback-text` / `missing-dependency` source as NOT in the pool for the verdict and caps; a relied-on export in failure → Partial/Insufficient.
+- *Why better.* Sufficiency now reflects what actually *extracted*, not what was uploaded — a hollow pool can't pass as complete, and the failure is reported, not silently absorbed.
 
 **HIGH-priority block (F05/F13/F02/F24/F04/F09/F03) is now complete.**
 
