@@ -2,6 +2,12 @@
   "version": "0.0.1",
   "configurations": [
     {
+      "name": "cockpit-server",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": ["--prefix", "ui/server", "run", "dev"],
+      "port": 8787
+    },
+    {
       "name": "cockpit-web",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["--prefix", "ui/web", "run", "dev"],
