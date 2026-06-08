@@ -123,7 +123,10 @@ def _fmt(v):
     if isinstance(v, float):
         if v == int(v) and abs(v) < 1e15:
             return str(int(v))
-        return repr(v)
+        r = repr(v)
+        # [fix F25] repr() emits scientific notation for very large/small floats, which defeats the
+        # verify-evidence / resolve_citations grep (a cited "1500000000" can't match "1.5e+09"). Expand it.
+        return f"{v:.12f}".rstrip("0").rstrip(".") if ("e" in r or "E" in r) else r
     if isinstance(v, (datetime, date, time)):
         return v.isoformat()
     return str(v)
@@ -533,6 +536,10 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None):
                                 "extract": out_name, "chars": len(txt)})
             else:
                 n_fail += 1
+                # [fix F35] a valid PDF that yields no text is image-only/scanned — say so explicitly
+                # (an actionable "needs OCR" row), not a generic fail that reads like a corrupt file.
+                if kind == "pdf" and "not installed" not in (err or ""):
+                    err = "image-only/scanned PDF — no extractable text layer (needs OCR; re-export as text or run ocrmypdf)"
                 sources.append({"file": base, "ext": ext, "kind": kind,
                                 "status": "fail", "error": err})
 

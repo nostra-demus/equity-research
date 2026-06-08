@@ -150,9 +150,9 @@ Every material finding in this module must be an auditable row, not a loose labe
 - **Confidence (1–5):** by source quality (tiers below).
 - **Materiality:** Low / Medium / High / Critical (thresholds below).
 
-A finding may NOT be marked Red on existence alone — it must clear a materiality threshold. Replace every vague label ("strong," "good," "high") with a measurable criterion. Separate fact (evidence) from interpretation (your read). Use "Insufficient Data" rather than guessing; flag stale or source-conflicting data and lower the confidence.
+A finding may NOT be marked Red on existence alone — it must clear a materiality threshold. Replace every vague label ("strong," "good," "high") with a measurable criterion. Separate fact (evidence) from interpretation (your read). Use "Insufficient Data" rather than guessing; flag stale or source-conflicting data and lower the confidence. **Cite the document's PRINTED page number or named section (fix F27)** — NOT a PDF byte/stream offset (a 4–5-digit "page" like p.6382 in a 300-page report is an extraction artifact, not a real citation a reader can find).
 
-**Confidence tiers (1–5):** annual report / exchange filing = 5; auditor report / notes to accounts = 4; investor deck / transcript = 3; rating agency / proxy advisor / reputable news = 2; social / employee-review / unverified = 1.
+**Confidence tiers (1–5)** *(a governance-source heuristic, not the financial-data hierarchy; consistent with CLAUDE.md §4's allowance for module-specific tiers — filings still rank above transcripts above unverified, and the canonical vendor-data ordering lives in §4 and the financial modules; fix F14):* annual report / exchange filing = 5; auditor report / notes to accounts = 4; investor deck / transcript = 3; rating agency / proxy advisor / reputable news = 2; social / employee-review / unverified = 1.
 
 ---
 

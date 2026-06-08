@@ -87,7 +87,9 @@ Use the standard bands from `CLAUDE.md`:
 
 State an aggregate /100 score for the business as a whole. This is NOT a strict average — it is a judgment-weighted aggregate.
 
-In 2–3 sentences, explain how the aggregate weighting works for THIS business: which factors dominate the read, and which are secondary.
+**Band anchor (fix F43):** the aggregate must be reconstructable from the rows — it may **not exceed the second-lowest row score by more than ~20 points** (a single strong factor cannot rescue a business weak on several), and the 2–3 sentence rationale below must name the explicit weights used. This keeps the loosest score in the set from drifting free of its evidence.
+
+In 2–3 sentences, explain how the aggregate weighting works for THIS business: which factors dominate the read, and which are secondary, and the weights applied.
 
 ## 3. Strongest Factor & Weakest Factor
 
