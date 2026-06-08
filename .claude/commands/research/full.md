@@ -262,6 +262,9 @@ else: gaps.append("final_thesis.md missing")
 n_syn = n_sub = 0
 for m in ordered:
     files = glob.glob(os.path.join(RUN, m, "*.md"))
+    # the module's own memo/dossier tiers are derived condensations of these same files — exclude them
+    # so the run-level dossier does not double-include each module's memo and full module-dossier.
+    files = [f for f in files if not re.search(r"_(memo|dossier)\.md$", os.path.basename(f))]
     syn = sorted(f for f in files if re.search(r"99_.*-synthesis\.md$", os.path.basename(f)))
     subs = sorted(f for f in files if f not in syn)  # 00_,01_,...,NN_ zero-padded => lexical == numeric
     for f in syn:

@@ -40,7 +40,7 @@ export const DEFAULT_MODEL = process.env.ENGINE_MODEL || 'sonnet'
 // stays the single-process /research:full path.
 export const FULL_PER_MODULE = process.env.ENGINE_FULL_PER_MODULE === '1'
 
-export type LaunchKind = 'full' | 'module' | 'agent' | 'rerun'
+export type LaunchKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track'
 
 // Runaway / cost guards per launch granularity. These are HARD ceilings: the headless CLI stops when it
 // hits the budget/turn cap, even mid-run. The earlier full-run defaults (800 turns / $60) truncated a
@@ -57,6 +57,10 @@ export const LAUNCH_GUARDS: Record<LaunchKind, { maxTurns: number; budgetUsd: nu
   agent: { maxTurns: capNum(process.env.ENGINE_AGENT_MAX_TURNS, 60), budgetUsd: capNum(process.env.ENGINE_AGENT_BUDGET_USD, 12) },
   // re-run one orb + its downstream synthesis chain to the master: between a module and a full run.
   rerun: { maxTurns: capNum(process.env.ENGINE_RERUN_MAX_TURNS, 1200), budgetUsd: capNum(process.env.ENGINE_RERUN_BUDGET_USD, 160) },
+  // file one outcome review (read decision_record + thesis, optional web price fetch, write a review JSON).
+  review: { maxTurns: capNum(process.env.ENGINE_REVIEW_MAX_TURNS, 120), budgetUsd: capNum(process.env.ENGINE_REVIEW_BUDGET_USD, 20) },
+  // rebuild the calls-tracker dashboard (read-only aggregate of records + reviews; no web).
+  track: { maxTurns: capNum(process.env.ENGINE_TRACK_MAX_TURNS, 120), budgetUsd: capNum(process.env.ENGINE_TRACK_BUDGET_USD, 20) },
 }
 
 // Rough cost/time estimates surfaced to the UI before launch (heuristic only; the hard cap is budgetUsd).

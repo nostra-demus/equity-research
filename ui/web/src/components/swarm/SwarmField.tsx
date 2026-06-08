@@ -5,6 +5,7 @@ import { collectSamples, expectedDurations, expectedFor, fmtClock, fmtEtaLeft, o
 import { useStore } from '../../lib/store'
 import { AgentNode } from './AgentNode'
 import { CoreOrb } from './CoreOrb'
+import { ModuleReportPopup } from './ModuleReportPopup'
 import { EdgeLayer } from './EdgeLayer'
 import { AgentTooltip } from '../AgentTooltip'
 
@@ -19,6 +20,7 @@ export function SwarmField() {
   const launchModule = useStore((s) => s.launchModule)
   const openThesis = useStore((s) => s.openThesis)
   const openOutputForNode = useStore((s) => s.openOutputForNode)
+  const moduleReports = useStore((s) => s.moduleReports)
   const selectNodeForRun = useStore((s) => s.selectNodeForRun)
   const selectedNodeKey = useStore((s) => s.selectedNodeKey)
   const setToast = useStore((s) => s.setToast)
@@ -30,6 +32,7 @@ export function SwarmField() {
   const [hover, setHover] = useState<{ node: PlacedNode; x: number; y: number } | null>(null)
   const [hoverModule, setHoverModule] = useState<string | null>(null)
   const [hoverCore, setHoverCore] = useState(false)
+  const [modulePop, setModulePop] = useState<{ module: string; cx: number; top: number } | null>(null)
 
   useEffect(() => {
     if (!ref.current) return
@@ -94,9 +97,19 @@ export function SwarmField() {
 
   // click any orb -> select it and open the side panel. Done -> its output (with Re-run);
   // not-yet-run -> a pending panel whose button runs/re-runs it. The panel owns the action.
+  // A finished module-synthesis orb opens the module's 3-tier chooser (synthesis / memo / dossier)
+  // when more than one tier exists — the module-level mirror of the Memo orb's run-level popup.
   const onNodeClick = (n: PlacedNode) => {
-    if (nodeStatus(n.key) === 'done') return openOutputForNode(n)
-    return selectNodeForRun(n)
+    if (nodeStatus(n.key) !== 'done') return selectNodeForRun(n)
+    if (n.isSynthesis) {
+      const r = moduleReports[n.module]
+      const tierCount = [r?.synthesis, r?.memo, r?.dossier].filter(Boolean).length
+      if (tierCount > 1) {
+        const rect = ref.current?.getBoundingClientRect()
+        if (rect) return setModulePop({ module: n.module, cx: rect.left + n.x, top: rect.top + n.y - 14 })
+      }
+    }
+    return openOutputForNode(n)
   }
 
   const onClusterClick = (module: string) => {
@@ -180,6 +193,8 @@ export function SwarmField() {
       </div>
 
       <CoreOrb x={layout.core.x} y={layout.core.y} r={layout.core.r} decision={decision} bloom={coreBloom} armed={!!selectedTicker} onClick={() => openThesis()} onHover={setHoverCore} />
+
+      {modulePop && <ModuleReportPopup module={modulePop.module} cx={modulePop.cx} top={modulePop.top} onClose={() => setModulePop(null)} />}
 
       {hover && <AgentTooltip node={hover.node} status={nodeStatus(hover.node.key)} verdict={nodeRuntime[hover.node.key]?.verdict} startedAt={nodeRuntime[hover.node.key]?.startedAt} endedAt={nodeRuntime[hover.node.key]?.endedAt} expectedMs={expectedFor(orbClass(hover.node), exp)} now={now} screenX={hover.x} screenY={hover.y} />}
     </div>

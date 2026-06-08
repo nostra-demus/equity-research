@@ -73,8 +73,11 @@ For each `<M>` in `<CASCADE>`, in order:
 - Locate `<M>`'s synthesis agent: glob `.claude/agents/<M>/99_*-synthesis.md`, read its frontmatter `name` (= `subagent_type`). Its output path is `<RUN_ROOT>/<M>/99_<...>-synthesis.md`.
 - Build `<CROSS_MODULE_CONTEXT>` for `<M>` from its `depends_on` (step 5's rule) — naming every dependency whose `99_*-synthesis.md` exists under `<RUN_ROOT>` (all do, since this is a finished run; their upstream outputs were just refreshed earlier in the cascade).
 - Dispatch ONE Task call (same template as step 5): `subagent_type` = the synthesis agent's `name`; instruct it to read its module folder's specialist outputs under `<RUN_ROOT>/<M>/` plus the cross-module paths, and persist its refreshed synthesis to its `99_*` output path; **do not run git**. Verify per Step 4B.
+- **Refresh `<M>`'s two other module tiers** so they stay in sync with the refreshed synthesis (these are the module-level equivalent of step 9's run-level memo/dossier, per `frameworks/MODULE_PIPELINE.md` Step 4.9). Both are best-effort — never abort the rerun:
+  - **Module memo** — dispatch one Task call: `subagent_type: "module-memo-writer"`, message: `Read <RUN_ROOT>/<M>/99_<...>-synthesis.md and write the module memo to <RUN_ROOT>/<M>/<M>_memo.md. Condense only what the synthesis carries; do not change its verdict, scores, or caps; the saved file starts with its # header and has no confirmation block; do not write any other file and do not run git.` If `<RUN_ROOT>/<M>/<M>_memo.md` is absent afterward, record it as failed but continue.
+  - **Module dossier** — run the deterministic module-scoped Bash/Python concatenation from `frameworks/MODULE_PIPELINE.md` Step 4.9B **verbatim**, with `RUN_ROOT="<RUN_ROOT>"` and `MODULE="<M>"`. It is read-only on artifacts, writes only `<M>_dossier.md`, and must never abort the rerun.
 
-You re-run only the `99` synthesis of each cascade module — never its specialists.
+You re-run only the `99` synthesis of each cascade module (then refresh that module's memo + dossier tiers) — never its specialists.
 
 ## 8. Re-run the master synthesizer
 
@@ -106,7 +109,7 @@ Capture the commit SHA (`git rev-parse HEAD`). Unlike `/research:full`, this is 
 
 ## 11. Report
 
-Print: the resolved `<RUN_ROOT>`; the target orb that was re-run; the ordered cascade of syntheses re-run; whether the master thesis, memo, and audit dossier regenerated; the master thesis's one-line decision/verdict; and the commit SHA pushed to `origin/main`.
+Print: the resolved `<RUN_ROOT>`; the target orb that was re-run; the ordered cascade of syntheses re-run (and that each cascade module's `<M>_memo.md` + `<M>_dossier.md` tiers were refreshed); whether the master thesis, memo, and audit dossier regenerated; the master thesis's one-line decision/verdict; and the commit SHA pushed to `origin/main`.
 
 ---
 

@@ -123,10 +123,14 @@ function admissionMessage(r: AdmissionRejection, ticker: string): string {
   }
 }
 
-function buildPrompt(kind: RunKind, ticker: string, module?: string, agent?: string): string {
+function buildPrompt(kind: RunKind, ticker: string, module?: string, agent?: string, window?: string): string {
   if (kind === 'full') return `/research:full ${ticker}`
   if (kind === 'module') return `/research:${module} ${ticker}`
   if (kind === 'rerun') return `/research:rerun ${module} ${agent} ${ticker}`
+  // file one outcome review for this ticker's latest run (window defaults to ad-hoc — the "update now" snapshot).
+  if (kind === 'review') return `/research:review-decisions ${ticker} ${window || 'ad-hoc'}`
+  // rebuild the cross-ticker calls-tracker dashboard (ignores ticker — it is cross-ticker by design).
+  if (kind === 'track') return `/research:track`
   return `/research:agent ${module} ${agent} ${ticker}`
 }
 
@@ -215,6 +219,7 @@ export interface LaunchParams {
   ticker: string
   module?: string
   agent?: string
+  window?: string // review window (kind 'review'); ignored by other kinds
   model?: string
   user?: string // who launched it (from Cloudflare Access at the route); defaults to "local"
   userVia?: 'cf-access' | 'local'
@@ -262,7 +267,7 @@ async function launchFullChained(ticker: string, user: string, userVia: 'cf-acce
 }
 
 export async function launch(params: LaunchParams): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean }> {
-  const { kind, ticker, module, agent } = params
+  const { kind, ticker, module, agent, window } = params
   const model = params.model || DEFAULT_MODEL
   const user = params.user || 'local'
   const userVia = params.userVia || 'local'
@@ -287,7 +292,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     runRoot = `analyses/${ticker}_${todayDate()}`
   }
 
-  const prompt = buildPrompt(kind, ticker, module, agent)
+  const prompt = buildPrompt(kind, ticker, module, agent, window)
   const expected = buildExpected(kind, module, agent)
 
   // Admission metadata — derived once here, stored on the run, reused by admitRun.

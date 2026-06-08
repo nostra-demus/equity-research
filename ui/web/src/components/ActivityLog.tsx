@@ -15,11 +15,13 @@ const RANGES: { key: RangeKey; label: string }[] = [
 ]
 const DAY = 86_400_000
 
-const KIND_LABEL: Record<RunKind, string> = { full: 'Full run', module: 'Module', agent: 'Orb', rerun: 'Re-run' }
+const KIND_LABEL: Record<RunKind, string> = { full: 'Full run', module: 'Module', agent: 'Orb', rerun: 'Re-run', review: 'Update', track: 'Dashboard' }
 function targetOf(r: ActivityRow): string {
   if (r.kind === 'full') return 'whole pipeline'
   if (r.kind === 'module') return moduleLabel(r.module || '—')
   if (r.kind === 'rerun') return `${r.agent || r.module || '?'} + downstream`
+  if (r.kind === 'review') return 'outcome review'
+  if (r.kind === 'track') return 'calls dashboard'
   return `${moduleLabel(r.module || '')} › ${r.agent || '?'}`
 }
 function statusTone(s: string): { color: string; label: string } {
@@ -158,6 +160,8 @@ export function ActivityLog() {
               <option value="module">Module</option>
               <option value="agent">Orb</option>
               <option value="rerun">Re-run</option>
+              <option value="review">Update</option>
+              <option value="track">Dashboard</option>
             </select>
             {(data?.users.length ?? 0) > 1 && (
               <select className="fld" value={user} onChange={(e) => setUser(e.target.value)} aria-label="User">
