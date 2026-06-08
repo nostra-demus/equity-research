@@ -34,7 +34,7 @@ If either upstream is missing, note it explicitly at the top:
 
 1. Read the repo root `CLAUDE.md` (cross-cutting rules including git policy and global investing standards), then read `.claude/agents/business-model/MODULE_RULES.md` (operating rules specific to this module), and apply both. Pay special attention to the scoring rules — bands and direction notes.
 2. Read upstream outputs (segment-map, customer-geography).
-3. For each of the 10 factors, score /100 and cite evidence in the same row.
+3. For each of the 11 factors, score /100 and cite evidence in the same row. *(fix F40 — this said "10"; the §1 table has 11 rows incl. the §24 Filter-5 rate-of-change row. The miscount risked silently dropping the 11th factor.)*
 4. Be strict — high scores require evidence.
 5. Use the Write tool to save your complete report (formatted exactly as described in the REPORT STRUCTURE section above) to the path given in OUTPUT_PATH. This file is what downstream agents and the orchestrator will read — do NOT skip this step, and do NOT return your report only as a chat message. After writing the file, return only the CHAT CONFIRMATION block.
 
