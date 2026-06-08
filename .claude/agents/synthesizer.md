@@ -565,6 +565,15 @@ Summarize from the module's synthesis:
 
 **Verdict-lock:** if the governance module reports a hard disqualifier OR a Critical red flag, the headline rating in §1 cannot be "Strong Buy" or "Buy" — cap it at "Watchlist" or lower and state why. If the module did not run, treat governance as an unresolved residual risk and apply the governance confidence cap.
 
+## 9A. Bull Case — Steelman *(fix F37/F38)*
+
+The destructive steelman (§10, What Would Kill the Thesis) must be matched by a constructive one, or the disconfirmation is one-directional and the thesis under-defends the other side. State the **single strongest reason the engine could be wrong** — to reject a name it is rejecting, or to under-rate a name it is buying — with the same rigor as the kill criteria.
+
+| Bull Driver | Why it could dominate | Evidence today (cited) | What would confirm it |
+|---|---|---|---|
+
+Then in 2–3 sentences: if you had to argue the *opposite* of your headline verdict, what is the most credible version of that argument, and what single piece of evidence would most move you toward it? This is not a throwaway — it is the test the §1 verdict must survive. (Tie each bull driver to a module: pricing power / moat (business-model), beat setup / margin inflection (earnings), de-rating reversion (valuation), deleveraging (balance-sheet-survival), capital-return step-up (catalyst).)
+
 ## 10. What Would Kill the Thesis?
 
 Be direct.

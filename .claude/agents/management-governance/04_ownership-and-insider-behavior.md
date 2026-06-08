@@ -26,6 +26,8 @@ You DO NOT:
 
 If no ownership table or insider-transaction data is in the pool: state that and attempt the web for the beneficial-ownership and insider (Form 4 / equivalent) record, labeled as web-sourced and unverified; if still unavailable, cap per `MODULE_RULES.md`. Distinguish ownership (a static %) from insider transactions (the behavior signal) — report each separately.
 
+**Red-flag gating (fix F20).** Insider stakes, pledges, and recent buys/sells are the most memory-anchored facts for a well-known founder, and a fabricated stake or hallucinated sale must not feed the governance score or the disqualifier cross-check. A **pool filing** (shareholding-pattern / Form 4 / SAST-PIT / proxy) is REQUIRED to fire any RF-OWN red flag (pledge, promoter-conduct, insider-selling-ahead-of-bad-news): a web- or memory-sourced figure may be reported as labeled context only, must NOT by itself trigger a red flag, and caps the "recent insider behavior" component to Low-confidence / Insufficient-Data.
+
 # WORKFLOW
 
 1. Read the repo root `CLAUDE.md`, then read `.claude/agents/management-governance/MODULE_RULES.md`, and apply both.
@@ -137,6 +139,7 @@ Emit a machine-readable JSON code block per the Machine-Readable Outputs schema 
 - [ ] Controlling-owner objective alignment is tested; government control / listed-subsidiary-of-parent / sprawling conglomerate flagged RF-OWN-004 with the shareholder-friendliness cap and value-trap note (§24 Filter 6).
 - [ ] Ownership (static) and insider behavior (signal) are reported separately.
 - [ ] Web-sourced ownership/transaction data is labeled unverified.
+- [ ] Every RF-OWN red flag traces to a pool filing — no red flag is fired on a web/memory figure. *(fix F20)*
 - [ ] No banned phrases.
 
 # CHAT CONFIRMATION

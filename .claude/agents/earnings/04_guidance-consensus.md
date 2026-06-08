@@ -25,7 +25,7 @@ You DO NOT:
 
 # PARTIAL-DATA RULE
 
-If no consensus / estimate data is available, produce a guidance-only read: extract what management guided, skip the consensus comparison table and revision momentum table, and state: *"No consensus data available — consensus setup cannot be assessed. Beat/miss setup will be capped at Unclear."*
+**Consensus must come from a pool export** (Capital IQ / Bloomberg / FactSet estimates). *(fix F19)* Do NOT substitute a web-sourced or remembered Street estimate for a covered name — an LLM can produce plausible-but-fabricated "consensus" from memory, and it would silently set the beat/miss bar and the rating. If no consensus / estimate data is in the pool, produce a guidance-only read: extract what management guided, skip the consensus comparison table and revision momentum table, state: *"No consensus data in pool — consensus setup cannot be assessed. Beat/miss setup will be capped at Unclear."*, and apply the consensus-setup cap per `MODULE_RULES.md`. If a web consensus is used at all, it MUST carry the verbatim label `Consensus, web-sourced as of {DATE}, not from data pool — unverified` and still trigger the cap.
 
 If no earnings transcript is available, note: *"No transcript — guidance extracted from filings only."*
 
@@ -139,6 +139,7 @@ In 2–3 sentences, explain the rationale. Reference specific gaps and revision 
 - [ ] Revision momentum table uses actual data points, not estimates. Missing cells are marked "N/A."
 - [ ] Bar assessment is exactly one of {Low, Fair, High, Unknown}.
 - [ ] If consensus is missing, the partial-data cap is explicitly applied.
+- [ ] Consensus came from a pool export, not web/memory; if web was used it carries the verbatim `web-sourced … unverified` label AND the cap is applied. *(fix F19)*
 - [ ] Guidance midpoint is calculated for ranges.
 - [ ] Consensus gap uses consensus minus guidance midpoint.
 - [ ] Analyst count and data-as-of date are shown in the metadata table.
