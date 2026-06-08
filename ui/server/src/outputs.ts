@@ -68,6 +68,9 @@ export function listRunsForTicker(ticker: string) {
 export function runManifest(runRoot: string) {
   const abs = resolveInsideAnalyses(runRoot)
   const modules: Record<string, { agentKey: string; name: string; verdict: string | null }[]> = {}
+  // per-module three tiers (run-root-relative paths), mirroring the run-level memo/thesis/dossier.
+  // derived generically from filename patterns — no module name is ever hardcoded (CLAUDE.md §26).
+  const moduleReports: Record<string, { synthesis?: string; memo?: string; dossier?: string }> = {}
   for (const entry of fs.readdirSync(abs)) {
     const sub = path.join(abs, entry)
     let isDir = false
@@ -75,7 +78,8 @@ export function runManifest(runRoot: string) {
       isDir = fs.statSync(sub).isDirectory()
     } catch {}
     if (!isDir) continue
-    const files = fs.readdirSync(sub).filter((f) => /^[0-9]{2}_.*\.md$/.test(f)).sort()
+    const all = fs.readdirSync(sub)
+    const files = all.filter((f) => /^[0-9]{2}_.*\.md$/.test(f)).sort()
     modules[entry] = files.map((f) => {
       const base = f.replace(/\.md$/, '')
       let verdict: string | null = null
@@ -84,11 +88,22 @@ export function runManifest(runRoot: string) {
       } catch {}
       return { agentKey: `${entry}/${base}`, name: base.slice(3), verdict }
     })
+    const synthesis = all.find((f) => /^99_.*-synthesis\.md$/.test(f))
+    const memo = all.find((f) => /_memo\.md$/.test(f))
+    const dossier = all.find((f) => /_dossier\.md$/.test(f))
+    if (synthesis || memo || dossier) {
+      moduleReports[entry] = {
+        ...(synthesis ? { synthesis: `${runRoot}/${entry}/${synthesis}` } : {}),
+        ...(memo ? { memo: `${runRoot}/${entry}/${memo}` } : {}),
+        ...(dossier ? { dossier: `${runRoot}/${entry}/${dossier}` } : {}),
+      }
+    }
   }
   const has = (f: string) => fs.existsSync(path.join(abs, f))
   return {
     runRoot,
     modules,
+    moduleReports,
     memo: has('memo.md'),
     finalThesis: has('final_thesis.md'),
     fullDossier: has('audit_dossier.md'),

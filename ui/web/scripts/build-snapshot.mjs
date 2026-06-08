@@ -137,9 +137,12 @@ function buildTicker(ticker, runFolder) {
   try { decision = JSON.parse(fs.readFileSync(path.join(runDir, 'decision_record.json'), 'utf8')) } catch {}
 
   const manifestModules = {}
+  // per-module three tiers (synthesis / memo / dossier) — generic, no module name hardcoded (CLAUDE.md §26)
+  const manifestModuleReports = {}
   const dataModules = {}
   for (const mod of fs.readdirSync(runDir).filter((d) => isDir(path.join(runDir, d)))) {
-    const mdFiles = fs.readdirSync(path.join(runDir, mod)).filter((f) => /^[0-9]{2}_.*\.md$/.test(f)).sort()
+    const allFiles = fs.readdirSync(path.join(runDir, mod))
+    const mdFiles = allFiles.filter((f) => /^[0-9]{2}_.*\.md$/.test(f)).sort()
     const agents = []
     for (const f of mdFiles) {
       const content = fs.readFileSync(path.join(runDir, mod, f), 'utf8')
@@ -150,6 +153,15 @@ function buildTicker(ticker, runFolder) {
       if (base.startsWith('00_')) dataModules[mod] = { status: triageStatus(content), reasons: ['from committed run triage'], caps: [] }
     }
     manifestModules[mod] = agents
+    // the module's three tiers: 99 synthesis (already copied above) + memo + dossier (copy them too)
+    const synthesis = allFiles.find((f) => /^99_.*-synthesis\.md$/.test(f))
+    const memo = allFiles.find((f) => /_memo\.md$/.test(f))
+    const dossier = allFiles.find((f) => /_dossier\.md$/.test(f))
+    const rep = {}
+    if (synthesis) rep.synthesis = `analyses/${runFolder}/${mod}/${synthesis}`
+    if (memo) { rep.memo = `analyses/${runFolder}/${mod}/${memo}`; copyInto(path.join(runDir, mod, memo), rep.memo) }
+    if (dossier) { rep.dossier = `analyses/${runFolder}/${mod}/${dossier}`; copyInto(path.join(runDir, mod, dossier), rep.dossier) }
+    if (synthesis || memo || dossier) manifestModuleReports[mod] = rep
     if (!dataModules[mod]) dataModules[mod] = { status: 'Sufficient', reasons: ['module completed in this run'], caps: [] }
   }
 
@@ -162,6 +174,7 @@ function buildTicker(ticker, runFolder) {
   const manifest = {
     runRoot,
     modules: manifestModules,
+    moduleReports: manifestModuleReports,
     memo: has('memo.md'),
     finalThesis: has('final_thesis.md'),
     fullDossier: has('audit_dossier.md'),
