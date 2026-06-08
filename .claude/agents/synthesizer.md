@@ -234,6 +234,8 @@ You must check:
 
 7. If scenario math does not reconcile, fix the probabilities, returns, or price targets before writing the final answer.
 
+**Execute the math — do not do it in your head.** *(fix F08/F09/F11/F12 — see `FRAMEWORK_FIXES_2026-06-08.md`)* You have `Bash`. Compute every quantity in checks 1–5 with a single Python snippet and read the answers from its output — weighted sums and ratio chains done as mental arithmetic are the engine's single largest error source (a committed run once shipped a **+4.3%** headline whose true probability-weighted value was **−4.4%**). The §2 Headline Scorecard "Expected return" / "Risk/reward" / "Downside risk" cells and the `decision_record.json` `expected_return_pct` / `risk_reward` / `downside_risk_pct` fields MUST be **copied verbatim from this one computed result** — never re-typed independently — so the headline can never disagree with the body. Keep the snippet's working out of the published thesis: §14 shows only the clean reconciled figures, with **no "let me recalculate" / scratch correction text** in any committed artifact.
+
 Never publish inconsistent scenario math.
 
 ---
@@ -525,6 +527,8 @@ Then calculate:
 - Risk/reward using the explicit formula from WORKFLOW Step 4
 - Whether the expected return is worth the risk
 
+**Record these scenario rows verbatim into `decision_record.json` `scenarios[]`** — one object per case (`label`, `probability`, `return_pct`, `price_target`) — so the eval harness can re-derive the math deterministically. *(fix F08 — the scenario block used to live only in prose, invisible to every automated gate.)*
+
 If exact price targets cannot be calculated from data, give ranges and say why.
 
 If the math does not reconcile, fix it before publishing.
@@ -646,6 +650,8 @@ Show the scenario math from Section 8 reconciled explicitly:
 - Probability-weighted target price calculation (if current price available)
 - Risk/reward calculation
 - Note any sensitivity of the result to a single assumption
+
+Compute these with an executed Bash/Python snippet (per Step 4) and show **only the clean reconciled figures** here — the running scratch work and any "let me recalculate" correction stays out of the published thesis. These numbers, the §2 Headline Scorecard, and `decision_record.json` must be the *same* computed values. *(fix F12 — a committed thesis once printed a headline expected return that contradicted its own §14 body.)*
 
 If math does not reconcile, do not publish — fix in Section 8 first.
 
@@ -1036,6 +1042,7 @@ Populate each field as follows. All of these come from work you have already don
 | expected_return_pct | expected return from valuation/scenario math |
 | downside_risk_pct | downside from bear case/scenario math |
 | risk_reward | risk/reward from final thesis |
+| scenarios | §8 Scenario Model rows — array of `{label, probability, return_pct, price_target}` (fix F08; enables deterministic math re-check) |
 | confidence_score | final confidence score /100 |
 | data_sufficiency_score | data sufficiency score /100 |
 | rating_cap | rating cap from pre-write gate, if any |
@@ -1099,7 +1106,8 @@ python3 -c "import datetime; d=datetime.date.fromisoformat('<DECISION_DATE>'); p
 
 ## Field-type rules
 
-- `thesis_type`, `kill_criteria`, `red_flags`, `missing_data`, `forecast_ledger` are JSON **arrays**.
+- `thesis_type`, `kill_criteria`, `red_flags`, `missing_data`, `forecast_ledger`, `scenarios` are JSON **arrays**.
+- `scenarios` is an array of objects, one per §8 case: `{"label": "bull|base|bear|…", "probability": <0–100 number>, "return_pct": <number>, "price_target": <number or null>}`. Probabilities sum to 100. Copy these straight from §8; the eval harness recomputes `expected_return_pct` / `risk_reward` from them, so they must match the published numbers. Use `[]` only if no scenario model was built (then `expected_return_pct` must be null too).
 - `module_scores` is a JSON **object** keyed by module name (e.g. `{"business-model": 78, "earnings": 72}`; an object value such as `{"score": 78, "verdict": "..."}` is also acceptable).
 - `review_schedule` is a JSON **object** with `30d` / `90d` / `180d` / `365d` keys.
 - Each `forecast_ledger` element follows `frameworks/DECISION_LEDGER.md` §6: `prediction`, `probability`, `time_window`, `evidence_today`, `confirmation_trigger`, `falsification_trigger`, `owner_module`, `confidence_score`, `status` (default `"open"`). Probabilities use the `CLAUDE.md` §10 bands. If no forecast has enough evidence, use `[]`.
