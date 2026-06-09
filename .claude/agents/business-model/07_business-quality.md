@@ -34,7 +34,7 @@ If either upstream is missing, note it explicitly at the top:
 
 1. Read the repo root `CLAUDE.md` (cross-cutting rules including git policy and global investing standards), then read `.claude/agents/business-model/MODULE_RULES.md` (operating rules specific to this module), and apply both. Pay special attention to the scoring rules — bands and direction notes.
 2. Read upstream outputs (segment-map, customer-geography).
-3. For each of the 10 factors, score /100 and cite evidence in the same row.
+3. For each of the 11 factors, score /100 and cite evidence in the same row. *(fix F40 — this said "10"; the §1 table has 11 rows incl. the §24 Filter-5 rate-of-change row. The miscount risked silently dropping the 11th factor.)*
 4. Be strict — high scores require evidence.
 5. Use the Write tool to save your complete report (formatted exactly as described in the REPORT STRUCTURE section above) to the path given in OUTPUT_PATH. This file is what downstream agents and the orchestrator will read — do NOT skip this step, and do NOT return your report only as a chat message. After writing the file, return only the CHAT CONFIRMATION block.
 
@@ -87,7 +87,9 @@ Use the standard bands from `CLAUDE.md`:
 
 State an aggregate /100 score for the business as a whole. This is NOT a strict average — it is a judgment-weighted aggregate.
 
-In 2–3 sentences, explain how the aggregate weighting works for THIS business: which factors dominate the read, and which are secondary.
+**Band anchor (fix F43):** the aggregate must be reconstructable from the rows — it may **not exceed the second-lowest row score by more than ~20 points** (a single strong factor cannot rescue a business weak on several), and the 2–3 sentence rationale below must name the explicit weights used. This keeps the loosest score in the set from drifting free of its evidence.
+
+In 2–3 sentences, explain how the aggregate weighting works for THIS business: which factors dominate the read, and which are secondary, and the weights applied.
 
 ## 3. Strongest Factor & Weakest Factor
 

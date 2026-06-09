@@ -136,7 +136,7 @@ If the company does not disclose adjusted metrics, state so.
 
 ## 8. Accounting Trap Checklist
 
-| Trap | Triggered? (Y/N) | Evidence | Severity /100 |
+| Trap | Triggered? (Y/N) | Evidence | Severity /100 *(higher = WORSE — inverted)* |
 |---|---|---|---:|
 | Stock-based compensation excluded from adjusted earnings | | | |
 | Restructuring costs recur every year | | | |

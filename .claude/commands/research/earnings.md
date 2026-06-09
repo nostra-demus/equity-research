@@ -36,7 +36,7 @@ Capture `analyses/${ARGUMENTS}_<DATE>` as `<RUN_ROOT>`.
 
 ## 4. Resolve business-model cross-module path
 
-Several earnings agents (specifically `revenue-drivers`, `margin-drivers`, `earnings-sensitivity`, and the synthesizer) optionally read prior `business-model` module outputs for the same ticker. Resolve the most recent business-model run folder via Bash:
+Several earnings agents (specifically `revenue-drivers`, `margin-drivers`, `earnings-sensitivity`, and the synthesizer) optionally read prior `business-model` module outputs for the same ticker. Resolve the business-model upstream folder via Bash — **prefer THIS run's date `analyses/${ARGUMENTS}_<DATE>/business-model/`; only fall back to the latest prior-dated run (and then state "using prior-run business-model dated X" in your output) when this run lacks it (fix F30):**
 
 ```
 ls -1d analyses/${ARGUMENTS}_*/business-model/ 2>/dev/null | sort -r | head -n 1

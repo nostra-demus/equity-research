@@ -90,7 +90,7 @@ Before writing the final dossier, read inputs in this priority order:
 
 3. **Module syntheses** — every `99_*-synthesis.md` file inside `analyses/{TICKER}_{DATE}/*/`. These are the consolidated verdicts from each module (business-model, earnings, valuation, balance-sheet-survival, management-governance, etc.) and have already adjudicated their own sub-agents. Read every module synthesis that exists in the run folder.
 
-   **Module Integration (Hard Rule):** do not merely embed these as chapters — ABSORB each completed module's verdict, scores, and red flags into the Headline Decision (§1), the confidence score (Confidence Scoring Rules), the Scenario Model (§8), and the Risk Register (§9). The cross-cutting sections defer to the modules: the Valuation section → `valuation`, the Governance & Stewardship section → `management-governance`, the Balance-Sheet & Survival section → `balance-sheet-survival`. A module's verdict can cap the headline (e.g., a governance hard disqualifier / Critical red flag, or a "Distress risk" solvency verdict) — apply that cap, do not average it away.
+   **Module Integration (Hard Rule):** do not merely embed these as chapters — ABSORB each completed module's verdict, scores, and red flags into the Headline Decision (§1), the confidence score (Confidence Scoring Rules), the Scenario Model (§8), and the Risk Register (§9). The cross-cutting sections defer to the modules: the Valuation section → `valuation`, the Governance & Stewardship section → `management-governance`, the Balance-Sheet & Survival section → `balance-sheet-survival`. A module's verdict can cap the headline (e.g., a governance hard disqualifier / Critical red flag, or a "Distress risk" solvency verdict) — apply that cap, do not average it away. **Upstream-gap handling (fix F32):** if a module synthesis records that it ran WITHOUT one of its declared `depends_on` upstreams (a standalone-run gap), treat that as a data-sufficiency input — note it in `missing_data`, lower confidence, and do not let a module that lacked its cross-module context drive the headline unchecked. A missing upstream is a machine-checkable cap input, not just prose to skim past.
 
    Expected examples:
    - `analyses/{TICKER}_{DATE}/business-model/99_business-model-synthesis.md`
@@ -233,6 +233,8 @@ You must check:
 6. If the current price is missing, do not fake precision. Use returns only, or ask for current price.
 
 7. If scenario math does not reconcile, fix the probabilities, returns, or price targets before writing the final answer.
+
+**Execute the math — do not do it in your head.** *(fix F08/F09/F11/F12 — see `FRAMEWORK_FIXES_2026-06-08.md`)* You have `Bash`. Compute every quantity in checks 1–5 with a single Python snippet and read the answers from its output — weighted sums and ratio chains done as mental arithmetic are the engine's single largest error source (a committed run once shipped a **+4.3%** headline whose true probability-weighted value was **−4.4%**). The §2 Headline Scorecard "Expected return" / "Risk/reward" / "Downside risk" cells and the `decision_record.json` `expected_return_pct` / `risk_reward` / `downside_risk_pct` fields MUST be **copied verbatim from this one computed result** — never re-typed independently — so the headline can never disagree with the body. Keep the snippet's working out of the published thesis: §14 shows only the clean reconciled figures, with **no "let me recalculate" / scratch correction text** in any committed artifact.
 
 Never publish inconsistent scenario math.
 
@@ -381,6 +383,18 @@ Then the five Parts, in order, as detailed below.
 
 ---
 
+## HARD GATES — re-read before writing §1 (the verdict) and §8 (the scenario model) *(fix F41)*
+
+These non-negotiables are defined in detail above but are easy to lose at ~1,100 lines, so they are restated here, immediately before output. None may be averaged away:
+
+1. **Scenario math is executed, not eyeballed (Step 4).** Compute Σ(p×return), the prob-weighted target, and risk/reward with a Bash/Python snippet; the §2 Headline Scorecard, §14, and `decision_record` carry the SAME computed numbers. No "let me recalculate" scratch text ships.
+2. **Verdict-locks (cap the headline at Watchlist or lower).** A governance hard-disqualifier or Critical red flag; a balance-sheet "Distress risk" verdict; an unresolved §13 critical accounting/fraud/going-concern flag; a §24 Avoid-Big-Risks filter tripped on evidence.
+3. **Rating-cap precedence:** apply the MOST restrictive cap that fires (data sufficiency §11, the verdict-locks above, macro/commodity/policy-driven thesis) and record it in the scorecard.
+4. **No-source-no-claim (§3/§5):** every rating-driver number is cited; a web/indicative price keeps `entry_price` null and margin of safety "Not assessable".
+5. **Symmetric disconfirmation:** §9A Bull Case and §10 Kill Criteria are both filled with equal rigor.
+
+---
+
 # PART I — INVESTMENT COMMITTEE DECISION
 
 The reader who reads only Part I should leave with a real, actionable decision.
@@ -525,6 +539,8 @@ Then calculate:
 - Risk/reward using the explicit formula from WORKFLOW Step 4
 - Whether the expected return is worth the risk
 
+**Record these scenario rows verbatim into `decision_record.json` `scenarios[]`** — one object per case (`label`, `probability`, `return_pct`, `price_target`) — so the eval harness can re-derive the math deterministically. *(fix F08 — the scenario block used to live only in prose, invisible to every automated gate.)*
+
 If exact price targets cannot be calculated from data, give ranges and say why.
 
 If the math does not reconcile, fix it before publishing.
@@ -560,6 +576,15 @@ Summarize from the module's synthesis:
 - Any hard disqualifier flagged by `business-model/01_disqualifier-scan` (verbatim).
 
 **Verdict-lock:** if the governance module reports a hard disqualifier OR a Critical red flag, the headline rating in §1 cannot be "Strong Buy" or "Buy" — cap it at "Watchlist" or lower and state why. If the module did not run, treat governance as an unresolved residual risk and apply the governance confidence cap.
+
+## 9A. Bull Case — Steelman *(fix F37/F38)*
+
+The destructive steelman (§10, What Would Kill the Thesis) must be matched by a constructive one, or the disconfirmation is one-directional and the thesis under-defends the other side. State the **single strongest reason the engine could be wrong** — to reject a name it is rejecting, or to under-rate a name it is buying — with the same rigor as the kill criteria.
+
+| Bull Driver | Why it could dominate | Evidence today (cited) | What would confirm it |
+|---|---|---|---|
+
+Then in 2–3 sentences: if you had to argue the *opposite* of your headline verdict, what is the most credible version of that argument, and what single piece of evidence would most move you toward it? This is not a throwaway — it is the test the §1 verdict must survive. (Tie each bull driver to a module: pricing power / moat (business-model), beat setup / margin inflection (earnings), de-rating reversion (valuation), deleveraging (balance-sheet-survival), capital-return step-up (catalyst).)
 
 ## 10. What Would Kill the Thesis?
 
@@ -646,6 +671,8 @@ Show the scenario math from Section 8 reconciled explicitly:
 - Probability-weighted target price calculation (if current price available)
 - Risk/reward calculation
 - Note any sensitivity of the result to a single assumption
+
+Compute these with an executed Bash/Python snippet (per Step 4) and show **only the clean reconciled figures** here — the running scratch work and any "let me recalculate" correction stays out of the published thesis. These numbers, the §2 Headline Scorecard, and `decision_record.json` must be the *same* computed values. *(fix F12 — a committed thesis once printed a headline expected return that contradicted its own §14 body.)*
 
 If math does not reconcile, do not publish — fix in Section 8 first.
 
@@ -1036,6 +1063,7 @@ Populate each field as follows. All of these come from work you have already don
 | expected_return_pct | expected return from valuation/scenario math |
 | downside_risk_pct | downside from bear case/scenario math |
 | risk_reward | risk/reward from final thesis |
+| scenarios | §8 Scenario Model rows — array of `{label, probability, return_pct, price_target}` (fix F08; enables deterministic math re-check) |
 | confidence_score | final confidence score /100 |
 | data_sufficiency_score | data sufficiency score /100 |
 | rating_cap | rating cap from pre-write gate, if any |
@@ -1099,7 +1127,8 @@ python3 -c "import datetime; d=datetime.date.fromisoformat('<DECISION_DATE>'); p
 
 ## Field-type rules
 
-- `thesis_type`, `kill_criteria`, `red_flags`, `missing_data`, `forecast_ledger` are JSON **arrays**.
+- `thesis_type`, `kill_criteria`, `red_flags`, `missing_data`, `forecast_ledger`, `scenarios` are JSON **arrays**.
+- `scenarios` is an array of objects, one per §8 case: `{"label": "bull|base|bear|…", "probability": <0–100 number>, "return_pct": <number>, "price_target": <number or null>}`. Probabilities sum to 100. Copy these straight from §8; the eval harness recomputes `expected_return_pct` / `risk_reward` from them, so they must match the published numbers. Use `[]` only if no scenario model was built (then `expected_return_pct` must be null too).
 - `module_scores` is a JSON **object** keyed by module name (e.g. `{"business-model": 78, "earnings": 72}`; an object value such as `{"score": 78, "verdict": "..."}` is also acceptable).
 - `review_schedule` is a JSON **object** with `30d` / `90d` / `180d` / `365d` keys.
 - Each `forecast_ledger` element follows `frameworks/DECISION_LEDGER.md` §6: `prediction`, `probability`, `time_window`, `evidence_today`, `confirmation_trigger`, `falsification_trigger`, `owner_module`, `confidence_score`, `status` (default `"open"`). Probabilities use the `CLAUDE.md` §10 bands. If no forecast has enough evidence, use `[]`.

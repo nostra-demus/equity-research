@@ -38,7 +38,7 @@ Capture `analyses/${ARGUMENTS}_<DATE>` as `<RUN_ROOT>`.
 
 ## 4. Resolve cross-module paths (all five upstream modules)
 
-The catalyst agents optionally read prior module outputs for the same ticker. Resolve the most recent run folder of each via Bash:
+The catalyst agents optionally read prior module outputs for the same ticker. Resolve the upstream folder of each via Bash — **prefer THIS run's date `analyses/${ARGUMENTS}_<DATE>/`; only fall back to the latest prior-dated run (and then state "using prior-run upstream dated X" in your output) when this run lacks that module (fix F30):**
 
 ```
 ls -1d analyses/${ARGUMENTS}_*/business-model/ 2>/dev/null | sort -r | head -n 1

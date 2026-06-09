@@ -30,7 +30,11 @@ Run the embedded check script below via Bash. It applies, per run, the following
 - **J. Framework source contracts** (suite-level, run once) — two bodies of wiring are still present in the framework/agent files. **(i) §24 Avoid-Big-Risks:** `CLAUDE.md` §24 with all six filters; each module's `MODULE_RULES.md` carries its filter caps; the new red-flag IDs (`RF-CAP-004`, `RF-OWN-004`, `RF-MGT-004`) exist; `business-quality` has the 11th factor; the synthesizer carries the §24 gate step and rating cap. **(ii) §17 Catalyst module:** the `catalyst` module (`MODULE_RULES`, `01_catalyst-calendar`, `99_catalyst-synthesis`) exists with its §17 discipline and runs-last `depends_on`, and the synthesizer's §7 defers to it. **(iii) Three output tiers:** the `memo-writer` agent (`.claude/agents/memo-writer.md`) and the `/research:full` wiring (`.claude/commands/research/full.md`) that emit the colleague `memo.md` and the deterministic `audit_dossier.md` alongside `final_thesis.md` are present; AND the per-module tier wiring — the `module-memo-writer` agent (`.claude/agents/module-memo-writer.md`), the shared `frameworks/MODULE_PIPELINE.md` Step 4.9 (module memo + module dossier), and the `/research:rerun` refresh — that emit each module's `<module>_memo.md` and `<module>_dossier.md` alongside its `99_*-synthesis.md` are present. **(iv) Review-due scheduler:** the SessionStart hook (`.claude/settings.json` + `.claude/hooks/review_due.py`) that surfaces due decision reviews is present. Guards the §24 implementation, the catalyst module, the three-output wiring, and the scheduler against silent deletion. Independent of any run; a missing anchor fails the suite.
 - **K. §24 reflected in post-§24 runs** (forward-looking) — for a run whose `decision_date` is on/after the §24 landing date (`2026-06-03`), `final_thesis.md` must reference the Avoid-Big-Risks roll-up (the Headline Scorecard row or a §24 reference). Runs that predate §24 (the BG/HCG fixtures) are **N/A**, so the suite still passes; the check activates automatically for every new run.
 - **L. Three output tiers present in post-landing runs** (forward-looking) — for a run whose `decision_date` is on/after the three-tier landing date (`2026-06-03`), both `memo.md` (the ~10-page colleague memo) and `audit_dossier.md` (the deterministic full-evidence concatenation) must exist beside `final_thesis.md`. Runs that predate the feature (the BG/HCG fixtures) are **N/A**, so the suite still passes; the check activates automatically for every new run.
-- **M. Per-module three tiers present in post-landing runs** (forward-looking) — for a run whose `decision_date` is on/after the module-tiers landing date (`2026-06-08`), every module subfolder that has a `99_*-synthesis.md` must also carry a `*_memo.md` (the module memo) and a `*_dossier.md` (the module dossier) — the module-level equivalent of the run-level three tiers. Runs that predate the feature are **N/A**, so the suite still passes; the check activates automatically for every new run.
+- **M. Scenario-math reconciliation** (forward-looking; `fix F08/F12`) — for a run dated on/after `2026-06-08`, deterministically **recompute** the §10 identities from `decision_record.scenarios[]`: probabilities sum to 100; `expected_return_pct == Σ(probability × return_pct)` (1.0pp tolerance — catches sign flips); and, when a price anchor and per-case targets exist, the probability-weighted target and `risk_reward` reconcile too. This is the gate that the old check E (numeric *hygiene* only) never performed — the §10 math was previously enforced solely by LLM mental arithmetic. A post-gate run that quantified a return but omitted `scenarios[]` FAILs (the block is required so the math is checkable). Older fixtures lack `scenarios[]` → **N/A**.
+- **N. No scratch-reasoning leak** (forward-looking; `fix F12`) — for a run dated on/after `2026-06-08`, `final_thesis.md` must not contain model self-correction text (e.g. "let me recalculate", "recomputing") — a committed thesis once shipped its raw arithmetic-correction scratch in §8. Older fixtures → **N/A**.
+- **O. Integrity finish-gate present** (forward-looking; `fix F01`) — for a run dated on/after `2026-06-08` whose decision is in the Selected or Short basket, both `verification_report.json` and `pre_mortem.json` must exist — these are the in-path audits the `/research:full` finish-gate (step 10B) produces before commit; their absence means a conviction thesis shipped without the integrity + red-team pass. Older fixtures, and Watchlist/Avoid/Insufficient runs, → **N/A**.
+- **P. Disconfirmation / edge quality** (forward-looking; `fix F39`) — for a run dated on/after `2026-06-08`, the variant perception must be **non-tautological** (`what_market_may_be_missing` ≠ `what_everyone_knows`; an explicitly-empty "no proven edge yet" is allowed per §7) and `kill_criteria` must carry at least one concrete falsification trigger. Catches a perfunctory bear case / a restated-consensus "edge" that the old field-presence check waved through. Older fixtures → **N/A**.
+- **Q. Per-module three tiers present in post-landing runs** (forward-looking) — for a run whose `decision_date` is on/after the module-tiers landing date (`2026-06-08`), every module subfolder that has a `99_*-synthesis.md` must also carry a `*_memo.md` (the module memo) and a `*_dossier.md` (the module dossier) — the module-level equivalent of the run-level three tiers. Runs that predate the feature are **N/A**, so the suite still passes; the check activates automatically for every new run.
 
 The script also notes (WARN, not FAIL) any **non-schema artifact** in a run folder (e.g. a stray oversized file) so coverage gaps and strays surface.
 
@@ -62,8 +66,11 @@ for drp in runs:
     # A structural
     ft=os.path.join(run,"final_thesis.md"); rm=os.path.join(run,"RUN_METADATA.md")
     okA = os.path.exists(ft) and os.path.getsize(ft)>1024 and os.path.exists(rm)
-    # a "module" is a run subdir that holds numbered agent outputs; non-module dirs like `_pool_extracts`
-    # (the data-pool extraction cache, MODULE_PIPELINE Step 1.5) carry no NN_*.md and are not flagged.
+    # [fix F-EVAL-1] a "module" is a run subdir that holds numbered agent outputs (NN_*.md); non-module dirs like
+    # `_pool_extracts` (the data-pool extraction cache, MODULE_PIPELINE Step 1.5) carry no NN_*.md and are not flagged.
+    # Without this the harness was permanently RED on every binary-pool run (it mistook _pool_extracts for a module
+    # missing its 99-synthesis). Identifying a module by "has NN_*.md but no 99-synthesis" is stricter than an
+    # underscore-prefix skip and also ignores empty/stray dirs.
     miss99=[os.path.basename(d) for d in glob.glob(os.path.join(run,"*")) if os.path.isdir(d) and glob.glob(os.path.join(d,"[0-9][0-9]_*.md")) and not glob.glob(os.path.join(d,"99_*-synthesis.md"))]
     okA = okA and not miss99
     add("A_structural", okA, f"final_thesis>1KB={os.path.exists(ft) and os.path.getsize(ft)>1024}; RUN_METADATA={os.path.exists(rm)}; modules_missing_99={miss99}")
@@ -137,7 +144,73 @@ for drp in runs:
         add("L_three_tiers", has_memo and has_audit, f"run dated >= {TIER3_DATE}; memo.md={has_memo} audit_dossier.md={has_audit}")
     else:
         add("L_three_tiers", True, f"run predates three-tier feature ({ddte}) — N/A", na=True)
-    # M per-module three tiers present in post-landing runs (forward-looking; older fixtures N/A)
+    # M scenario-math reconciliation [fix F08/F12] — recompute the §10 identities from decision_record.scenarios[]
+    #   instead of trusting the LLM's hand arithmetic. Forward-looking: older fixtures have no scenarios[] -> N/A,
+    #   so the golden suite stays green; the gate activates automatically for every run dated >= SCEN_DATE.
+    SCEN_DATE="2026-06-08"; scen=d.get("scenarios")
+    if isdate(ddte) and ddte>=SCEN_DATE:
+        if not isinstance(scen,list) or not scen:
+            # a post-gate run that quantified a return MUST ship the machine-readable scenario block
+            add("M_scenario_math", d.get("expected_return_pct") is None,
+                "scenarios[] missing/empty but expected_return_pct is set — cannot re-derive the math (required post-2026-06-08)")
+        else:
+            det=[]; okM=True
+            try:
+                probs=[float(s["probability"]) for s in scen]; rets=[float(s["return_pct"]) for s in scen]
+                psum=sum(probs)
+                if abs(psum-100)>0.5: okM=False; det.append(f"prob sum={round(psum,2)}!=100")
+                calc_er=sum(p/100.0*r for p,r in zip(probs,rets)); er=d.get("expected_return_pct")
+                if isinstance(er,(int,float)) and abs(er-calc_er)>1.0:   # 1.0pp tol catches sign flips like +4.3 vs -4.4
+                    okM=False; det.append(f"expected_return_pct={er} != Sum(p*ret)={round(calc_er,2)}")
+                tgts=[s.get("price_target") for s in scen]; ep=d.get("entry_price")
+                if isinstance(ep,(int,float)) and ep and all(isinstance(t,(int,float)) for t in tgts):
+                    pwt=sum(p/100.0*t for p,t in zip(probs,tgts))
+                    # [PR#9 review fix] direction-aware: a SHORT profits when price FALLS, so its return,
+                    # its worst case, and its risk/reward all invert. Hard-coding the long side (er=(pwt-ep)/ep,
+                    # worst=min(tgts), rr=(pwt-ep)/(ep-worst)) falsely failed valid Short Candidate runs.
+                    short=DECISIONS.get(dec)=="Short"
+                    er_t=((ep-pwt) if short else (pwt-ep))/ep*100.0
+                    if abs(er_t-calc_er)>1.5: okM=False; det.append(f"ER_from_target={round(er_t,2)} != Sum(p*ret)={round(calc_er,2)}")
+                    rr=d.get("risk_reward"); worst=max(tgts) if short else min(tgts)
+                    if isinstance(rr,(int,float)) and (worst>ep if short else ep>worst):
+                        crr=((ep-pwt)/(worst-ep)) if short else ((pwt-ep)/(ep-worst))
+                        if abs(rr-crr)>max(0.15,abs(crr)*0.12): okM=False; det.append(f"risk_reward={rr} != calc={round(crr,2)}")
+            except Exception as e:
+                okM=False; det.append(f"scenario parse error: {e}")
+            add("M_scenario_math", okM, "; ".join(det) or "prob sum=100; expected_return=Sum(p*ret); target & risk/reward reconcile")
+    else:
+        add("M_scenario_math", True, f"run predates scenario-math gate ({ddte}) — N/A", na=True)
+    # N no scratch-reasoning leaked into the committed thesis [fix F12] — a published artifact must not contain
+    #   model self-correction text (a real run shipped "...= -4.35%... let me recalculate correctly"). Forward-looking.
+    if isdate(ddte) and ddte>=SCEN_DATE:
+        leak=sorted(set(m.lower() for m in re.findall(r"(?im)\b(let me (?:re-?calculate|re-?compute|re-?check|redo|try again|fix)|i need to re-?compute|scratch work|hold on,? let me|recomputing)\b", thesis)))
+        add("N_no_scratch_leak", not leak, f"scratch-reasoning phrases in final_thesis.md={leak}")
+    else:
+        add("N_no_scratch_leak", True, f"run predates scratch-leak gate ({ddte}) — N/A", na=True)
+    # O integrity finish-gate present for committed conviction runs [fix F01] — a post-gate Selected/Short
+    #   run must carry the in-path verify-evidence + pre-mortem reports the /research:full finish-gate (10B)
+    #   produces; their absence means the integrity gate did not run. Forward-looking; older fixtures N/A.
+    if isdate(ddte) and ddte>=SCEN_DATE and DECISIONS.get(dec) in ("Selected","Short"):
+        has_ve = bool(_latest("verification_report.json")); has_pm = bool(_latest("pre_mortem.json"))
+        add("O_integrity_gate", has_ve and has_pm,
+            f"Selected/Short run dated >= {SCEN_DATE} must carry verification_report.json({has_ve}) + pre_mortem.json({has_pm}) from the finish-gate")
+    else:
+        add("O_integrity_gate", True, "N/A (not a post-gate Selected/Short run)", na=True)
+    # P disconfirmation / edge quality [fix F39] — the eval used to check disconfirmation FIELDS exist
+    #   but never their quality. A post-gate thesis must carry a NON-tautological edge (what the market
+    #   may be missing must differ from what everyone knows; an explicitly-empty "no edge yet" is allowed)
+    #   and at least one concrete kill criterion. Forward-looking; older fixtures N/A.
+    if isdate(ddte) and ddte>=SCEN_DATE:
+        wek=(d.get("what_everyone_knows") or "").strip().lower()
+        wmm=(d.get("what_market_may_be_missing") or "").strip().lower()
+        kc=[k for k in (d.get("kill_criteria") or []) if isinstance(k,str) and k.strip()]
+        det=[]
+        if wmm and wek and wmm==wek: det.append("what_market_may_be_missing == what_everyone_knows (tautological edge)")
+        if not kc: det.append("kill_criteria empty (a thesis needs at least one falsification trigger)")
+        add("P_disconfirmation", not det, "; ".join(det) or "edge non-tautological; kill_criteria present")
+    else:
+        add("P_disconfirmation", True, f"run predates disconfirmation-quality gate ({ddte}) — N/A", na=True)
+    # Q per-module three tiers present in post-landing runs (forward-looking; older fixtures N/A)
     MODTIER_DATE="2026-06-08"
     if isdate(ddte) and ddte>=MODTIER_DATE:
         modmiss=[]
@@ -146,9 +219,10 @@ for drp in runs:
             mb=os.path.basename(dsub)
             if not glob.glob(os.path.join(dsub,"*_memo.md")): modmiss.append(mb+"/memo")
             if not glob.glob(os.path.join(dsub,"*_dossier.md")): modmiss.append(mb+"/dossier")
-        add("M_module_tiers", not modmiss, f"run dated >= {MODTIER_DATE}; modules missing a tier={modmiss}")
+        add("Q_module_tiers", not modmiss, f"run dated >= {MODTIER_DATE}; modules missing a tier={modmiss}")
     else:
-        add("M_module_tiers", True, f"run predates module-tiers feature ({ddte}) — N/A", na=True)
+        add("Q_module_tiers", True, f"run predates module-tiers feature ({ddte}) — N/A", na=True)
+    # Q per-module-tiers add() calls renamed from M_ to avoid collision with M_scenario_math (both shipped 2026-06-08)
     # WARN non-schema files
     extras=[os.path.basename(x) for x in glob.glob(os.path.join(run,"*")) if os.path.isfile(x) and os.path.basename(x) not in SCHEMA_FILES and not os.path.basename(x).endswith(("_decision_review.json","_calibration_summary.json")) and "review" not in os.path.basename(x) and "_v" not in os.path.basename(x)]
     run_pass=all(c["status"]!="FAIL" for c in checks)
@@ -159,6 +233,8 @@ for drp in runs:
 # J FRAMEWORK SOURCE CONTRACTS (suite-level, run once; protects §24 wiring + the §17 catalyst module)
 FRAMEWORK_CONTRACTS={
  "CLAUDE.md":["## 24. Avoid Big Risks","Crooks and integrity","Turnarounds","High debt and the survival test","Serial acquirers","Fast-changing industries","Unaligned owners"],
+ "frameworks/SECTOR_OVERLAYS.md":["SaaS / subscription software","Bank / lender","cRPO","NIM","FFO","AISC","Generic operating company"],
+ ".claude/agents/business-model/02_business-identity.md":["Sector Overlay","SECTOR_OVERLAYS.md","generic read"],
  ".claude/agents/business-model/MODULE_RULES.md":["Rejector-Filter Penalties & Caps","Serial acquirers","Fast-changing industry"],
  ".claude/agents/business-model/07_business-quality.md":["Industry rate-of-change","11 quality factors"],
  ".claude/agents/business-model/01_disqualifier-scan.md":["Integrity note","Filter 1"],

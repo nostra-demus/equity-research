@@ -55,6 +55,7 @@ If `01_historical-financials.md` is missing, write at the top:
 - **Investor deck** — KPI pages often show volume, price, ARPU, backlog
 - **Order backlog / book-to-bill** data if disclosed
 - **Business-model segment-map** if available
+- **`frameworks/SECTOR_OVERLAYS.md` + `business-model/02_business-identity` §3a** *(fix F-SECTOR-1)* — for a KPI-driven business (SaaS, bank, REIT, miner, telecom, …), build the revenue decomposition on the sector's required KPIs (e.g. SaaS → cRPO/RPO/net-retention/billings; bank → NIM/loan-growth/CASA; REIT → occupancy/SS-NOI/cap-rate), not just generic volume × price. If a required KPI is absent from the pool, flag it rather than skip it.
 
 # REVENUE DRIVER CANDIDATES
 

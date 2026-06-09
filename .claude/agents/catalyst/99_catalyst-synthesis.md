@@ -74,6 +74,16 @@ Write this LAST.
 - Biggest bearish catalyst (one line):
 - Any §24-flagged catalyst (one line): *(serial M&A / unproven turnaround / fast-changing launch, or "none")*
 
+## 1A. Module Disconfirmation *(CLAUDE.md §8; fix F37)*
+
+Force a two-sided test for THIS module's domain — do not let disconfirmation collapse into a one-directional score:
+- **Strongest bear point:** the dated/windowed event most likely to skew DOWN (a maturity wall, covenant test, lock-up expiry, adverse decision).
+- **Strongest bull point:** the single most credible conviction-lifting catalyst (proven date + evidence it exists).
+- **Single killer risk** specific to the calendar: a catalyst sold as bullish that is actually vague/undated, or a §24-flagged serial-acquisition / unproven-turnaround event.
+- **Disconfirming evidence already visible** (or "no proven catalyst yet").
+
+Three to five lines, evidence-cited — a required test the verdict must survive, not a closing caveat. Feeds the master synthesizer's §9A Bull Case and §10 Kill Criteria.
+
 ## 2. Consolidated 12-Month Calendar
 
 Reproduce the calendar from `01_catalyst-calendar.md` (do not re-derive). Keep all columns: Date/Window, Catalyst, Category, Why It Matters, Evidence, Bullish Trigger, Bearish Trigger, Timing (Proven/Vague), §24 Flag. If "No proven catalyst yet," state it here.

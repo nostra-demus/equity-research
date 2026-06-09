@@ -29,6 +29,22 @@ async function detectFlags(): Promise<Set<string>> {
   return flags
 }
 
+// ---- is the Claude CLI actually runnable? (cached) ----
+// The cockpit reads the data pool itself but SPAWNS this CLI to run the engine. Because execa uses
+// reject:false, a missing binary fails ASYNC (ENOENT) and surfaced only as a bare "error" with no
+// detail. Probe once up front so a launch fails fast with an actionable message instead.
+let claudeOk: boolean | null = null
+async function claudeAvailable(): Promise<boolean> {
+  if (claudeOk !== null) return claudeOk
+  try {
+    const r: any = await execa(CLAUDE_BIN, ['--version'], { reject: false, timeout: 15000 })
+    claudeOk = !r.failed && r.exitCode === 0
+  } catch {
+    claudeOk = false // ENOENT / not on PATH
+  }
+  return claudeOk
+}
+
 function todayDate(): string {
   const d = new Date()
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
@@ -271,6 +287,16 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   const model = params.model || DEFAULT_MODEL
   const user = params.user || 'local'
   const userVia = params.userVia || 'local'
+
+  // Fail fast with an actionable message if the engine CLI isn't installed (the #1 silent "error"):
+  if (!(await claudeAvailable())) {
+    const err: any = new Error(
+      `Claude CLI ('${CLAUDE_BIN}') not found on PATH — the cockpit can read the data pool but spawns the CLI to run the engine. ` +
+      `Install it with \`npm i -g @anthropic-ai/claude-code\` (or set CLAUDE_BIN to its full path), then restart the cockpit server.`)
+    err.statusCode = 503
+    err.code = 'CLAUDE_CLI_MISSING'
+    throw err
+  }
 
   // opt-in: run a full pipeline as a chain of per-module runs + master (each its own budget)
   if (kind === 'full' && FULL_PER_MODULE) return launchFullChained(ticker, user, userVia)

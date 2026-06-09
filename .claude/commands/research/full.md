@@ -131,6 +131,10 @@ Use the Write tool to create `<RUN_ROOT>/RUN_METADATA.md` with the following con
 
 (filled in at end of run)
 
+## Integrity gate
+
+(filled in at end of run)
+
 ## Commit SHA
 
 (filled in at end of run)
@@ -302,15 +306,86 @@ If the script errors for any reason, record the audit dossier as `failed` in ste
 
 ---
 
+## 10B. Integrity finish-gate (BEFORE commit) — fix F01/F17
+
+Run this step only if `<RUN_ROOT>/final_thesis.md` and `<RUN_ROOT>/decision_record.json` exist. **This is the backstop that makes the run's numbers trustworthy before they are committed and read** — previously the no-source-no-claim and §10 math re-checks lived only in optional, after-the-fact commands, so a confidently-wrong or fabricated-number thesis could ship clean. Two parts; neither aborts the run (the thesis AND the gate result are always committed, so a failure is visible, never hidden).
+
+### 10B.1 — Deterministic validator (always runs; can stamp the thesis PROVISIONAL)
+
+Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (the same identities the `eval` harness check M asserts) and the missing-price / score-range caps, and prepends a PROVISIONAL banner to `final_thesis.md` if a hard inconsistency is found:
+
+```bash
+python3 - "<RUN_ROOT>" <<'PY'
+import json, os, re, sys
+run = sys.argv[1]
+dr = os.path.join(run, "decision_record.json"); ft = os.path.join(run, "final_thesis.md")
+viol = []
+try: d = json.load(open(dr))
+except Exception as e: print("GATE: ERROR — decision_record.json unreadable:", e); sys.exit(0)
+scen = d.get("scenarios")
+if isinstance(scen, list) and scen:
+    try:
+        probs = [float(s["probability"]) for s in scen]; rets = [float(s["return_pct"]) for s in scen]
+        if abs(sum(probs) - 100) > 0.5: viol.append(f"scenario probabilities sum to {round(sum(probs),2)} != 100")
+        er = d.get("expected_return_pct"); calc = sum(p/100.0*r for p, r in zip(probs, rets))
+        if isinstance(er, (int, float)) and abs(er - calc) > 1.0:
+            viol.append(f"headline expected_return_pct={er} != Sum(p*ret)={round(calc,2)} from scenarios")
+    except Exception as e: viol.append(f"scenarios[] unparseable: {e}")
+elif d.get("expected_return_pct") is not None:
+    viol.append("expected_return_pct is set but scenarios[] is missing — the math cannot be re-derived")
+if d.get("entry_price") is None and not re.search(r"(price|not assessable|paper trade)", (d.get("notes") or "").lower()):
+    viol.append("entry_price is null but notes do not flag the missing/indicative price (margin of safety must be Not assessable)")
+for k in ("confidence_score", "data_sufficiency_score"):
+    v = d.get(k)
+    if isinstance(v, (int, float)) and not (0 <= v <= 100): viol.append(f"{k}={v} outside 0–100")
+# [PR#9 review fix] idempotent banner: ALWAYS strip any prior finish-gate banner first, then re-stamp
+# fresh if still failing, or write the clean thesis if it now passes. The old code only prepended-if-
+# absent, so a fixed re-run in the same folder kept a stale PROVISIONAL banner with outdated reasons.
+body = open(ft, encoding="utf-8").read()
+lines = body.split("\n"); i = 0
+while i < len(lines) and lines[i].strip() == "": i += 1
+if i < len(lines) and lines[i].startswith(">") and "PROVISIONAL — the automated finish-gate" in "\n".join(lines[i:i+6]):
+    while i < len(lines) and lines[i].startswith(">"): i += 1      # drop the old blockquote banner
+    while i < len(lines) and lines[i].strip() == "": i += 1        # and its blank separator
+    body = "\n".join(lines[i:])
+if viol:
+    banner = ("> ⚠️ **PROVISIONAL — the automated finish-gate found an integrity issue; this thesis was committed UNVERIFIED.**\n> "
+              + "; ".join(viol) + "\n>\n> Re-run the synthesizer Step 4 / §14 math and re-publish before relying on these numbers. (CLAUDE.md §10; finish-gate F01/F17.)\n\n")
+    open(ft, "w", encoding="utf-8").write(banner + body)
+    print("GATE: PROVISIONAL — " + "; ".join(viol))
+else:
+    open(ft, "w", encoding="utf-8").write(body)   # write back the cleaned thesis (strips any now-stale banner)
+    print("GATE: PASS — scenario math reconciles; missing-price and score-range caps satisfied")
+PY
+```
+
+Record the printed `GATE:` line for step 11 ("Integrity gate") and step 13 (report). A `PROVISIONAL` result must be surfaced loudly in the report — it is never silently dropped.
+
+### 10B.2 — Integrity audit + red-team (deeper, LLM)
+
+Then run the two standing audits IN the ship path, so the no-source-no-claim and §8 disconfirmation guarantees are enforced rather than left optional:
+
+- **Verify-evidence** — follow `.claude/commands/research/verify-evidence.md` against `<RUN_ROOT>`, producing `<RUN_ROOT>/verification_report.json` (every rating-driver number traced to the pool; scenario/EV math reconciled).
+- **Pre-mortem** — follow `.claude/commands/research/pre-mortem.md` against `<RUN_ROOT>`, producing `<RUN_ROOT>/pre_mortem.json` (adversarial red-team; can only HOLD or LOWER conviction).
+
+Produce ONLY the report JSON in each — **skip each command's own commit step**; full.md's step 12 commits the entire run folder (these reports included) in one place. Then:
+- If `pre_mortem.json`'s `recommended_confidence` is below `decision_record.json`'s `confidence_score`, note the haircut in RUN_METADATA (step 11) and the report — the published confidence should reflect the post-red-team number.
+- If `verification_report.json`'s verdict is `Failed` (or `Material issues`), treat it like a PROVISIONAL gate result: surface it loudly in step 13 (the deterministic validator may already have stamped the thesis).
+
+If either audit cannot complete, record it as `not run` in the Integrity gate field and continue — a missing deeper audit does not abort the run, but the run is then not "clean".
+
+---
+
 ## 11. Update RUN_METADATA.md (final)
 
-Rewrite `<RUN_ROOT>/RUN_METADATA.md` via the Write tool to fill in the placeholder sections. Read the current file first, then issue a single Write call with the full new content. (This command does not have access to the Edit tool — see the `allowed-tools` frontmatter.) Fill in:
+Rewrite `<RUN_ROOT>/RUN_METADATA.md` via the Write tool to fill in the placeholder sections. Read the current file first, then issue a single Write call with the full new content. (This command does not have access to the Edit tool — see the `allowed-tools` frontmatter.) **Derive every status below from the ACTUAL on-disk artifact set — glob the run folder — NOT from in-run tracking (fix F07).** On a resume / second completion pass the in-run state is stale, and the metadata must describe *what actually shipped* (a TMCV run once recorded "aborted, synthesizer skipped" while a complete `final_thesis.md`, `memo.md`, `decision_record.json`, and module syntheses were present on disk). Concretely: "Modules completed" = the modules whose `<RUN_ROOT>/<module>/99_*-synthesis.md` exists on disk; "Synthesizer status" = test `final_thesis.md` on disk; same for memo / dossier. **Guard:** if `final_thesis.md` exists you may NOT write "skipped/aborted" for the synthesizer — re-derive from disk. Fill in:
 
 - "Modules completed": list (one per line)
 - "Modules aborted": list with brief note per entry (one per line)
 - "Synthesizer status": `succeeded` (if `final_thesis.md` exists), `failed` (if it does not), or `skipped (all modules aborted)`
 - "Memo status": `succeeded` (if `memo.md` exists), `failed`, or `skipped (no final thesis)`
 - "Audit dossier status": `succeeded` (if `audit_dossier.md` exists), `failed`, or `skipped (no final thesis)`
+- "Integrity gate": the step-10B result — the `GATE: PASS|PROVISIONAL|ERROR` line from 10B.1, plus the verify-evidence verdict and the pre-mortem verdict / any confidence haircut from 10B.2 (e.g. `PASS; verify-evidence: Verified; pre-mortem: Survives (confidence 70→64)`). If 10B was skipped because no `final_thesis.md` exists, write `skipped (no final thesis)`.
 - "Commit SHA": leave as `(to be filled after commit)` — you'll patch it post-commit in step 12.
 
 ---
@@ -342,6 +417,7 @@ Print a final summary to the user containing:
 - Number of modules discovered and their names
 - Per-module status: `completed` / `aborted (fail-fast at <agent>)` / `aborted (failures: <names>)`
 - Whether the master synthesizer ran and whether `final_thesis.md` exists
+- **The integrity finish-gate result (step 10B):** the `GATE: PASS|PROVISIONAL` line, the verify-evidence verdict, and any pre-mortem confidence haircut. If the gate is `PROVISIONAL` or verify-evidence is `Failed`, say so prominently — the published thesis carries a PROVISIONAL banner and its numbers are not yet trusted.
 - The three output tiers and their paths: `<RUN_ROOT>/memo.md` (~10-page colleague memo), `<RUN_ROOT>/final_thesis.md` (deep-dive thesis), `<RUN_ROOT>/audit_dossier.md` (full audit concatenation) — noting any that were skipped or failed
 - The two commit SHAs pushed to `origin/main`
 

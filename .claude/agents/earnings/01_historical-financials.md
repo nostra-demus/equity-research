@@ -146,6 +146,7 @@ Every number in the tables must have a citation. Use a footnote block (name the 
 
 - [ ] All annual table rows are populated for available years. Missing years are marked "N/A."
 - [ ] Growth rates and margins are computed correctly (spot-check at least 2 cells).
+- [ ] Growth %, margins (bps), TTM, FCF and leverage were produced by an executed Bash/Python snippet (command + result shown), not mental arithmetic — you have `Bash`. *(fix F09)*
 - [ ] Quarterly table reflects actual quarterly filings, not annual numbers divided by 4.
 - [ ] Seasonality table uses actual quarterly revenue, not estimates.
 - [ ] Trend column uses exactly one of: Accelerating / Stable / Decelerating / Volatile / Inflecting.

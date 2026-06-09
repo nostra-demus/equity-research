@@ -140,6 +140,7 @@ The canonical `decision_record.json` the synthesizer emits — one per final the
   "expected_return_pct": null,
   "downside_risk_pct": null,
   "risk_reward": null,
+  "scenarios": [],
   "confidence_score": null,
   "data_sufficiency_score": null,
   "rating_cap": "",
@@ -190,6 +191,7 @@ The canonical `decision_record.json` the synthesizer emits — one per final the
 | `expected_return_pct` | Recommended | Base-case expected return, if quantified. | Part I / valuation |
 | `downside_risk_pct` | Recommended | Bear-case downside, if quantified. | Part I / valuation |
 | `risk_reward` | Recommended | Risk/reward ratio. | Part I |
+| `scenarios` | Recommended (additive) | Array of §8 scenario rows: `{label, probability, return_pct, price_target}`; probabilities sum to 100. Lets the eval harness deterministically recompute `expected_return_pct` / `risk_reward` instead of trusting hand arithmetic (fix F08/F12). Backward-compatible — older records omit it; the math gate only activates for runs dated on/after 2026-06-08. | Part I / §8 Scenario Model |
 | `confidence_score` | Yes | Confidence /100. | Part I |
 | `data_sufficiency_score` | Yes | Data sufficiency /100 (`CLAUDE.md` §11). | Part I / gate |
 | `rating_cap` | Conditional | Any rating cap applied, else "". | Rating Cap Rules |

@@ -104,6 +104,16 @@ Write this LAST.
 - **Confidence Score /100** (source quality):
 - **Red-Flag Count / Critical Red-Flag Count:**
 
+## 1A. Module Disconfirmation *(CLAUDE.md §8; fix F37)*
+
+Force a two-sided test for THIS module's domain — do not let disconfirmation collapse into a one-directional score:
+- **Strongest bear point:** the single finding that most undermines the verdict above.
+- **Strongest bull point:** the single finding that most supports it (the steelman, even if you land negative).
+- **Single killer risk** specific to stewardship / governance (alignment, candor, capital-allocation record, a §24 owner conflict).
+- **Disconfirming evidence already visible** in the specialist outputs (or "none visible").
+
+Three to five lines, evidence-cited — a required test the verdict must survive, not a closing caveat. Feeds the master synthesizer's §9A Bull Case and §10 Kill Criteria.
+
 ## 2. Specialist Roll-Up
 
 | Specialist | Verdict Line | Biggest Finding |

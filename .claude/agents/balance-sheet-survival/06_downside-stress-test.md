@@ -100,6 +100,7 @@ If floating exposure is immaterial or no working-capital data exists, still incl
 - [ ] Each scenario states whether survival requires external action.
 - [ ] No probability is assigned to the downside (that is the master synthesizer's job).
 - [ ] If no EBITDA base, downside resilience is marked "Not assessable."
+- [ ] Every stressed figure (leverage, coverage, covenant headroom, liquidity gap) and the break-point solves at each haircut were produced by an executed Bash/Python snippet (command + result shown), not by hand. *(fix F09)*
 - [ ] No banned phrases.
 
 # CHAT CONFIRMATION

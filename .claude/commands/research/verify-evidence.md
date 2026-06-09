@@ -54,6 +54,19 @@ Run all Section-A citation checks (and the Section-C anchor checks) against this
 
 Select the **material claims** to check: per `CLAUDE.md` §6, the 5–10 claims most responsible for the rating. Draw them from (a) the final thesis's **Claim Quality Ledger** and **Headline Scorecard**, (b) the `decision_record.json` numeric fields (`expected_return_pct`, `downside_risk_pct`, leverage, ROIC, the killer-risk figure), and (c) each module synthesis's headline numbers. Always include every number that drives the decision (valuation anchors, leverage, ROIC vs cost of capital, the killer-risk figure, any red-flag magnitude).
 
+**Resolve mechanically FIRST — do not eyeball this (fix F05).** You are an LLM; "grep it yourself" is exactly the step that gets skipped, and the committed HCG v2→v3 correction proves this auditor has over-credited figures before. Collect every figure your selected claims rest on into a JSON list and run the deterministic resolver against the corpus:
+
+```bash
+python3 .claude/tools/resolve_citations.py /tmp/corpus.txt --json '[{"label":"net debt","value":"30711"},{"label":"ROIC","value":"4.6"}, ...]'
+```
+
+It returns, per figure, a machine `hit_count` (token-matched, so `2442` never matches inside `0.092442` or `12442`; comma- and trailing-zero-tolerant so `4.6` matches `4.60`) and `scaled_hit_count` (hits found ONLY at a ×1000 / ÷1000 scale — a likely unit mismatch, crore vs million). **Your `status` must reconcile with the tool, not your recollection:**
+- a rating-driver figure with `hit_count == 0` CANNOT be `verified` — it is `unverified` (or `unsupported` if also uncited), unless its file shows as `fail`/`fallback-text` in the manifest (then `unverified (extraction unavailable)`);
+- a figure that hits only at `scaled_hit_count` is a probable unit mismatch — flag `high`;
+- paste the resolver's `hit_count` into each claim's `evidence`. You may read the cited section directly to UPGRADE an `unverified` to `verified`/`miscited` with a quote, but you may NOT mark `verified` a number the tool found 0 times in the corpus.
+
+**Vague-citation lint (fix F13; CLAUDE.md §5).** Flag any citation that names no locatable source — `company filings`, a bare `annual report`/`10-K` with no page/section, `management said`, `industry data`, `source`, `as per the company` — as a `format` finding (`low`, or `medium` if it backs a rating driver). A valid citation names the document AND a page / section / date.
+
 For each selected claim:
 - find its citation `[Source, Period, Page/Section]`;
 - confirm the figure/fact appears in the **extracted corpus** from Step 1b — `grep` the number (and a nearby label) in `/tmp/corpus.txt`, which now covers `.xls` / `.pdf` / `.rtf` as well as `.txt`; or read the cited section directly. **Count a hit ONLY on a literal match confirmed by surrounding context** (the right line item / label, with or without comma formatting). The digits appearing inside a larger number or a ratio (e.g. `2442` inside `-0.092442`), or a mere tolerance / near / magnitude-variant match, is **NOT** a hit — verify the figure, not a coincidental substring;

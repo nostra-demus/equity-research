@@ -151,6 +151,7 @@ WACC across columns, terminal growth (or exit multiple) down rows:
 - [ ] The sensitivity grid is populated and gives a per-share RANGE.
 - [ ] The output is a range, not a single false-precision number.
 - [ ] If FCF is proxied or forecast is self-built, confidence is capped and labeled.
+- [ ] The discounted-FCF sum, terminal value, and the EV → equity → per-share bridge were computed by an executed Bash/Python snippet (command + result shown), not by mental arithmetic — you have `Bash`. *(fix F09 — see `FRAMEWORK_FIXES_2026-06-08.md`.)*
 - [ ] No banned phrases.
 
 # CHAT CONFIRMATION
