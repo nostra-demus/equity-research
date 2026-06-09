@@ -39,7 +39,9 @@ def token_regex(value):
     """A tolerant numeric-TOKEN regex for a figure. Tolerant of thousands commas and
     trailing zeros (cited 4.6 matches 30,711-style commas and a corpus 4.60), but never
     a coincidental substring: 2442 will not match inside -0.092442 / 12442 / 2442.5."""
-    s = str(value).strip().replace(",", "").lstrip("+-")
+    raw = str(value).strip().replace(",", "")
+    neg = raw.startswith("-")                     # [admin PR#9 fix] preserve sign — a cited -4.6 must NOT
+    s = raw.lstrip("+-")                           # verify against a corpus 4.6 / +4.6 (sign-sensitive integrity)
     if not re.fullmatch(r"\d+(\.\d+)?", s):
         return None  # not a plain number (e.g. a date or percent string) — skip
     intpart, _, frac = s.partition(".")
@@ -48,8 +50,13 @@ def token_regex(value):
         body = int_pat + r"\." + frac.rstrip("0") + "0*"   # 4.6 / 4.60 / 4.600
     else:
         body = int_pat + r"(?:\.0+)?"             # 2442 and 2442.0, but NOT 2442.5
-    # left: no preceding digit/dot; right: no following digit, and not ".<digit>" (a different number)
-    return re.compile(r"(?<![\d.])" + body + r"(?![\d]|\.\d)")
+    # right guard: no following digit, and not ".<digit>" (a different number)
+    if neg:
+        # a NEGATIVE figure must be immediately preceded by a minus at a token boundary —
+        # so -4.6 matches only -4.6, never 4.6 or +4.6.
+        return re.compile(r"(?<![\d.])-" + body + r"(?![\d]|\.\d)")
+    # an UNSIGNED / positive figure must NOT be preceded by a minus — so 4.6 never matches inside -4.6.
+    return re.compile(r"(?<![\d.\-])" + body + r"(?![\d]|\.\d)")
 
 
 def count_hits(lines, pat):

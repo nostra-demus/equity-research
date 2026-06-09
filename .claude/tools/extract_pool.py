@@ -222,10 +222,14 @@ def _read_xlsx(path):
     wb = openpyxl.load_workbook(io.BytesIO(_read_bytes_retry(path)), data_only=True, read_only=True)
     out = []
     for ws in wb.worksheets:
-        # [fix F24] read_only mode trusts the stored <dimension> tag, which some CIQ/broker
-        # exporters write stale/missing — causing iter_rows to silently stop early and drop
-        # trailing rows/cols while the tab still looks 'ok'. Force a real cell scan.
-        ws.reset_dimensions = True
+        # [fix F24; corrected per PR#9 review] read_only mode trusts the stored <dimension> tag,
+        # which some CIQ/broker exporters write stale/missing — causing iter_rows to silently stop
+        # early and drop trailing rows/cols while the tab still looks 'ok'. Force a real cell scan.
+        # NB: reset_dimensions is a METHOD in read-only mode — it must be CALLED, not assigned. The
+        # old `ws.reset_dimensions = True` overwrote the method and never ran, so the truncation it
+        # was meant to fix kept reproducing.
+        if hasattr(ws, "reset_dimensions"):
+            ws.reset_dimensions()
         rows = []
         maxc = 0
         for row in ws.iter_rows(values_only=True):
