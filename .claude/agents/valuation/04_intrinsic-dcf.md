@@ -152,8 +152,8 @@ WACC across columns, terminal growth (or exit multiple) down rows:
 - [ ] The financeable-growth cross-check (Gate 2) is run; if implied growth (ROIC × reinvestment) differs from modeled terminal g by more than ~1.5pp and the bridge is not quantified, terminal g is lowered to the financeable level OR intrinsic confidence is capped and the grid is shown at the financeable g.
 - [ ] EV → equity → per-share bridge uses `01`'s net debt and share count.
 - [ ] The discounting convention is stated and defaults to mid-year (t−0.5); any use of end-of-year is justified.
-- [ ] The sensitivity grid is populated and gives a per-share RANGE.
-- [ ] The output is a range, not a single false-precision number.
+- [ ] The sensitivity grid is populated and gives a per-share dispersion range around the base point.
+- [ ] The output LEADS with a single base-case intrinsic value (a point); the sensitivity grid is its dispersion exhibit — not a vague band in place of the point, and not a single false-precision number with no dispersion shown.
 - [ ] If FCF is proxied or forecast is self-built, confidence is capped and labeled.
 - [ ] The discounted-FCF sum, terminal value, and the EV → equity → per-share bridge were computed by an executed Bash/Python snippet (command + result shown), not by mental arithmetic — you have `Bash`. *(fix F09 — see `FRAMEWORK_FIXES_2026-06-08.md`.)*
 - [ ] No banned phrases.
@@ -163,7 +163,7 @@ WACC across columns, terminal growth (or exit multiple) down rows:
 ```
 Agent: intrinsic-dcf
 Output: {OUTPUT_PATH}
-Verdict: DCF intrinsic value {range}/share vs price {price}
+Verdict: DCF intrinsic value: base {point}/share (grid dispersion {low}–{high}) vs price {price}
 Biggest finding: {one line — intrinsic range and the dominant assumption}
 ```
 

@@ -14,7 +14,7 @@ Audit any module/agent prompt against senior-analyst first principles. Apply wit
 2. Is it a good business? (returns on capital above the cost of capital, reinvestment runway, moat durability)
 3. Are the people honest, capable, aligned, good capital allocators?
 4. Can it survive? (leverage, liquidity, fraud, disruption — avoid permanent loss first)
-5. What is it worth, and how bad is the downside? (value as a range; margin of safety to the bear case)
+5. What is it worth, and how bad is the downside? (value as bull/base/bear levels — points, with dispersion shown separately; margin of safety = discount to base fair value, and downside-to-bear stated as a separate metric)
 6. What is priced in vs what we believe? (the edge)
 7. Why might we be wrong, and what would change the view?
 

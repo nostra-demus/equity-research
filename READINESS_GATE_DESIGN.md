@@ -10,10 +10,10 @@ Root cause: the cockpit has alert tiers for **run-level** conflicts (overlapping
 ## The two-phase model
 | Phase | When | Cost | Catches |
 |---|---|---|---|
-| **A — Deterministic pre-flight** | on launch, before any agent spawns | ~1s, no LLM | extraction failures (pdftotext/corrupt/zero-text), missing/zero files, no current price |
+| **A — Deterministic pre-flight** | on launch, before any agent spawns | ~1s, no LLM | extraction failures (**no usable extraction path** — poppler AND the pypdf fallback both fail, or corrupt / zero-text), missing/zero files, no current price |
 | **B — Triage gate** | Layer-0 triage runs, then PAUSE before Layer 1 | 1 cheap `claude` call | entity mismatch, jurisdiction, Sufficient/Partial/Insufficient, data-sanity conflicts |
 
-- Phase A Blocker → stop immediately, never reach the LLM (a missing system binary must stop the user at the door, not be "worked around").
+- Phase A Blocker → stop immediately, never reach the LLM (a file with **no usable extraction path** — poppler/`pdftotext` AND the pypdf fallback both fail, or the file is corrupt/zero-text — must stop the user at the door, not be "worked around"). Note: after DD-16 a *missing* `pdftotext` is no longer a blocker on its own, because the pypdf fallback still extracts; the blocker is the absence of *any* working path.
 - Phase B ≥ Degrade → pause and surface the panel.
 - **Clean runs pass invisibly** — zero friction on the happy path.
 

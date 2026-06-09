@@ -153,7 +153,7 @@ In 2–3 sentences, explain the rationale. Reference specific gaps and revision 
 ```
 Agent: guidance-consensus
 Output: {OUTPUT_PATH}
-Verdict: Consensus bar: {Low / Fair / High / Unknown}
+Verdict: Consensus bar: {Low / Fair / High / Unknown}{ — provisional, if consensus is stale per the stale-consensus guard}
 Biggest finding: {one line — the most important gap or revision signal}
 ```
 

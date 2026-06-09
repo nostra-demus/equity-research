@@ -94,5 +94,44 @@ print("  PASS: correct short passes, wrong-sign short fails, long unaffected" if
 sys.exit(0 if ok else 1)
 PY
 
+echo "== valuation canonical-definition regression guard (prompt-lint — weaker than the code tests above; born from the PR#10 review) =="
+# Guards the SPECIFIC cross-file drift the PR#10 review found: margin-of-safety re-defined as
+# distance-to-bear, and the base case described as a 'range'. NOT a general consistency engine —
+# its only job is to stop these exact phrasings from silently returning. The real prevention is the
+# DRY collapse (each definition stated once in MODULE_RULES, referenced elsewhere).
+"$PY" - "$DIR/../agents/valuation" <<'PY' || rc=1
+import glob, os, sys
+vdir=sys.argv[1]
+files=glob.glob(os.path.join(vdir,"*.md"))
+low={os.path.basename(f).lower():open(f,encoding="utf-8").read().lower() for f in files}
+ok=True
+if not files: print("  FAIL: no valuation md files found at", vdir); ok=False
+# (1) old drift phrasings that must NOT reappear anywhere in the valuation module
+BANNED=[
+  "always present fair value as a **range**",                 # old Calc-Std 11 opener
+  "margin of safety is the point",                            # old Core Principle 4 opener
+  "margin of safety: distance from current price to the bear",# old 07 step 6 (MoS == bear distance)
+  "the margin of safety to the bear case",                    # old 07 description
+  "base-case fair value (a range)",                           # base case described as a band
+  "fair value {range}/share",                                 # old CHAT verdict templates
+  "the fair-value range is a range pulled from",              # old 99 self-check
+  "higher = better | downside protection",                    # old MoS score row (== bear distance)
+]
+for b in BANNED:
+    hits=[k for k,t in low.items() if b in t]
+    if hits: print(f"  FAIL: drift phrasing returned -> {b!r} in {hits}"); ok=False
+# (2) canonical definitions must be present ONCE in MODULE_RULES (the single source of truth)
+mr=low.get("module_rules.md","")
+NEED=[
+  ("/ base-case fair value",        "canonical margin-of-safety denominator"),
+  ("/ current price",               "canonical downside-to-bear denominator"),
+  ("single canonical no-price cap", "the DRY no-price cap marker"),
+]
+for n,desc in NEED:
+    if n not in mr: print(f"  FAIL: {desc} missing from MODULE_RULES -> {n!r}"); ok=False
+print("  PASS: no MoS/range drift; MoS, downside-to-bear, and the no-price cap each defined once" if ok else "  -> valuation regression guard FAILED")
+sys.exit(0 if ok else 1)
+PY
+
 [ $rc -eq 0 ] && echo "ALL SMOKE TESTS PASS" || echo "SMOKE TESTS FAILED"
 exit $rc
