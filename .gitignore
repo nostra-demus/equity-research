@@ -15,3 +15,7 @@ data
 
 # generated cockpit snapshot — rebuilt by `npm run build` (build-snapshot.mjs); never commit build output (footgun fix)
 ui/web/public/data/
+
+# regenerable pool extracts (rebuilt by extract_pool.py) — never commit
+_pool_extracts/
+**/_pool_extracts/
