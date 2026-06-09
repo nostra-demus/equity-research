@@ -102,3 +102,43 @@ Method: a subagent deep-read each of the four highest-stakes valuation agents ag
 **Solution.** One self-check line: if the published base departs from the mechanically-weighted blend, the departure and its reason are stated — never a silent re-anchor.
 
 **Why better / risk read.** Disclosure-only; turns a good habit into a rule. Zero fabrication surface (it forces an existing number to be shown).
+
+### DD-07 · `price-and-capital-structure` — cash quality + web-corroboration band + vendor-price freshness
+**File:** `01_price-and-capital-structure.md` · **Net:** ~+6 lines
+
+This agent is the **anchor every other valuation agent reuses verbatim**, so an error here propagates to every multiple, the DCF bridge, the reverse-DCF, and margin of safety. Three output-evidenced gaps:
+
+1. **Cash quality (decisive).** The EV bridge said "− Cash & equivalents" with no test of what "cash" is. TMCV `01` netted **₹6,547 cr of a financial subsidiary's non-current FVTPL investments** into cash "because Capital IQ does" — the same subsidiary that booked a **₹2,418 cr mark-to-market loss** on those holdings in FY26 — understating EV by ~5% and flattering net debt. Fix: net only operating cash + genuine equivalents; financial-subsidiary investments, restricted/margin balances, and long-tenor mark-to-market securities are not cash-equivalents by default — show EV both ways, state which is canonical, never adopt a vendor's "cash" line uncritically.
+2. **Web-corroboration band (>1% case).** The F18 rule was binary — anchor if two web sources agree within ~1%, else "Not available". BG hit the real third case: sources confirmed a **~$123–126 band** (~2.4% apart). BG improvised well (anchored on the lower dated close, labelled a band) but off-rule; a weaker run could either over-reject a usable band or fake a precise point. Fix: codify the band case — anchor on the lower most-precisely-dated close, present the band, keep caps binding.
+3. **Vendor price freshness.** TMCV labelled ₹369.15 "as of 2026-06-07" — but that is the file *download* date, not the quote's as-of; downstream agents then treated it as a precise current anchor. Fix: a vendor export's download date is not the quote's as-of unless the export timestamps it; else label "as-of unconfirmed (export downloaded {DATE})" and note the small staleness inherited downstream.
+
+**Hallucination / error read.** All three **reduce** error and are fabrication-neutral: each forces a both-ways presentation or an honest label (removing an over-precise claim), not a new number. Cash-quality is the highest-value fix in the whole sweep because it sits at the anchor.
+
+(DON'T-FIX, noted: the financial-issuer "EV bridge informational-only" path and dual-class share handling are untested — no committed `01` exercises them — so they are **coverage holes to watch on the next financial / multi-class run**, not demonstrated prompt defects.)
+
+### DD-08 · `sum-of-the-parts` — net-cash single-row + capitalize-don't-assert the corporate drag
+**File:** `06_sum-of-the-parts.md` · **Net:** ~+4 lines
+
+The one genuine multi-segment run (BG) was exemplary and both single-segment collapses (HCG, TMCV) were honest, so this is two arithmetic-hygiene tightenings, not a rewrite:
+
+1. **Net-cash sign/double-row trap.** The bridge template assumes "− net debt"; when a company is net cash the sign flips and the prompt gave no guidance. TMCV `06` §4 produced two rows for the same balance ("− Net debt (basic)" 2,082 AND "− Net debt (effective: add net cash back) +2,082") — the arithmetic added it once (right answer) but the table invites a double-add. Fix: add net cash once as a single positive line, never a deduction-plus-add-back for the same balance; apply the `01` cash-quality test first.
+2. **Corporate drag dropped by assertion on a collapse.** The capitalize-corporate-cost step lived only on the multi-segment path. TMCV disclosed a (₹448 cr) corporate/unallocable loss then asserted it was "already embedded in the EBITDA multiple" — sound only because the multiple was applied to a metric that already nets it; a future run applying a pre-corporate segment EBITDA would silently drop the drag (a Gate-3 violation). Fix: on the collapse path too, either apply the multiple to a metric that already nets the drag (and say so) or capitalize-and-subtract it — never drop by assertion. Plus a one-line clarification of the "% of EBIT" denominator so a corporate drag can't produce an unexplained >100% segment share (TMCV showed ~103.7%).
+
+**Hallucination / error read.** Both are pure arithmetic-hygiene guards (one rule per balance-sheet item / Gate-3 on the collapse path) — they reduce double-count and vanished-bucket errors and invite no fabrication.
+
+---
+
+## Sweep status
+
+| # | Agent | Module | Status |
+|---|---|---|---|
+| DD-01 | moat | business-model | decisive gap fixed (return-vs-cost-of-capital) |
+| DD-02 | relative-valuation-peers | valuation | narrow fix (gap persistence + same-basis) |
+| DD-03 | intrinsic-dcf | valuation | 3 enforcement fixes |
+| DD-04 | reverse-dcf | valuation | base/terminal stress |
+| DD-05 | multiples-own-history | valuation | short-history suppression |
+| DD-06 | scenario-and-fair-value | valuation | blend-disclosure rule |
+| DD-07 | price-and-capital-structure | valuation | cash quality (anchor) + 2 |
+| DD-08 | sum-of-the-parts | valuation | 2 arithmetic-hygiene tightenings |
+
+**Valuation module: complete** (all 7 value-producing/anchor agents reviewed; 00-triage and 99-synthesis not separately swept — they consume, not produce, the numbers). Recurring theme: the prompts are already strong; the real gaps are *enforcement* holes where the best outputs did the right thing voluntarily and a weaker one didn't — the fixes make the good behavior mandatory and guard the few fabrication surfaces with "Not assessable / show both ways" escapes.
