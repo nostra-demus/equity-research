@@ -180,6 +180,7 @@ export function CommandBar() {
   const decision = useStore((s) => s.decision)
   const openThesis = useStore((s) => s.openThesis)
   const openActivity = useStore((s) => s.openActivity)
+  const openCalls = useStore((s) => s.openCalls)
   const requestFull = useStore((s) => s.requestFull)
   const anyRun = useStore((s) => s.anyRunForTicker(s.selectedTicker))
   const selectedTicker = useStore((s) => s.selectedTicker)
@@ -199,6 +200,7 @@ export function CommandBar() {
       <div className="topbar__spacer" />
       <ReadinessStrip />
       <EngineStatusPill />
+      <button className="btn btn--ghost" onClick={openCalls} title="Calls tracker — every call the engine made and what's happened since">Calls</button>
       <button className="btn btn--ghost" onClick={openActivity} title="Activity log — who ran what, when, on which company">Activity</button>
       {decision?.final_thesis_path !== undefined || decision?.decision ? (
         <button className="btn btn--ghost" onClick={openThesis}>Thesis</button>

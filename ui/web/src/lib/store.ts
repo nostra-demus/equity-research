@@ -68,8 +68,11 @@ interface State {
   decision: any | null
   runRoot: string | null
   reports: { memo: boolean; thesis: boolean; dossier: boolean }
+  // per-module three tiers (run-root-relative paths), keyed by module folder name. Generic — any module lights up.
+  moduleReports: Record<string, { synthesis?: string; memo?: string; dossier?: string }>
   openOutput: { path?: string; title: string; verdict?: string | null; nodeKey?: string; pending?: boolean } | null
   activityOpen: boolean
+  callsOpen: boolean
   selectedNodeKey: string | null
   launchConfirm: { kind: 'full' | 'rerun'; preflight: LaunchPreflight; cascade?: CascadeNode[]; node?: { module: string; name: string; key: string } } | null
   toast: Toast | null
@@ -101,9 +104,16 @@ interface State {
   openOutputForNode: (node: AgentNode) => Promise<void>
   openThesis: () => Promise<void>
   openReport: (tier: 'memo' | 'thesis' | 'dossier') => Promise<void>
+  openModuleReport: (module: string, tier: 'synthesis' | 'memo' | 'dossier') => void
   closeOutput: () => void
   openActivity: () => void
   closeActivity: () => void
+  openCalls: () => void
+  closeCalls: () => void
+  openCallFile: (path: string, title: string) => void
+  updateCall: (ticker: string) => Promise<void>
+  fileDueReview: (ticker: string, window: string) => Promise<void>
+  refreshDashboard: () => Promise<void>
   setToast: (t: Toast | null) => void
   _handleEvent: (e: SseEvent) => void
 }
@@ -141,8 +151,10 @@ export const useStore = create<State>((set, get) => ({
   decision: null,
   runRoot: null,
   reports: { memo: false, thesis: false, dossier: false },
+  moduleReports: {},
   openOutput: null,
   activityOpen: false,
+  callsOpen: false,
   selectedNodeKey: null,
   launchConfirm: null,
   toast: null,
@@ -184,7 +196,7 @@ export const useStore = create<State>((set, get) => ({
     const token = ++selectGen
     // keep only still-live runs across tickers (drop finished); the new ticker rebuilds from snapshots
     const activeRuns = Object.fromEntries(Object.entries(get().activeRuns).filter(([, r]) => LIVE_RUN.has(r.status)))
-    set({ selectToken: token, selectedTicker: t, dataStatus: null, dataLoading: true, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, coreBloom: false, selectedNodeKey: null, runStream: [], activeRuns, openOutput: null })
+    set({ selectToken: token, selectedTicker: t, dataStatus: null, dataLoading: true, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], activeRuns, openOutput: null })
     const graph = await api.swarm(t)
     if (get().selectToken !== token) return // a newer selection superseded this one
     set({ graph, nodesByKey: flatten(graph) })
@@ -199,7 +211,7 @@ export const useStore = create<State>((set, get) => ({
         for (const a of agents) seed[a.agentKey] = { status: 'done', verdict: a.verdict, outputPath: `${manifest.runRoot}/${a.agentKey}.md` }
       }
       if (manifest.finalThesis) seed['master/synthesizer'] = { status: 'done', outputPath: `${manifest.runRoot}/final_thesis.md` }
-      set({ nodeRuntime: seed, runRoot: manifest.runRoot ?? null, reports: { memo: !!manifest.memo, thesis: !!manifest.finalThesis, dossier: !!manifest.fullDossier } })
+      set({ nodeRuntime: seed, runRoot: manifest.runRoot ?? null, reports: { memo: !!manifest.memo, thesis: !!manifest.finalThesis, dossier: !!manifest.fullDossier }, moduleReports: manifest.moduleReports ?? {} })
     } catch {}
     try {
       const decision = await api.decision(t)
@@ -439,9 +451,62 @@ export const useStore = create<State>((set, get) => ({
     set({ openOutput: { path: `${runRoot}/${file}`, title, verdict: get().decision?.decision ?? null, nodeKey: 'master/synthesizer' } })
   },
 
+  // open one of a module's three tiers (synthesis / memo / dossier). The path comes straight from the
+  // manifest's moduleReports (already run-root-relative), so this works in both live and static modes.
+  // nodeKey points at the module synthesis so the reader has a valid prompt + Re-run target.
+  openModuleReport: (module, tier) => {
+    const path = get().moduleReports[module]?.[tier]
+    if (!path) return get().setToast({ msg: 'That document was not generated', tone: 'info' })
+    const titleTier = tier === 'memo' ? 'Memo' : tier === 'dossier' ? 'Dossier' : 'Synthesis'
+    const name = module.replace(/-/g, ' ')
+    set({ openOutput: { path, title: `${name} — ${titleTier}`, verdict: null, nodeKey: `${module}/99_${module}-synthesis` } })
+  },
+
   closeOutput: () => set({ openOutput: null, selectedNodeKey: null }),
   openActivity: () => set({ activityOpen: true }),
   closeActivity: () => set({ activityOpen: false }),
+  openCalls: () => set({ callsOpen: true }),
+  closeCalls: () => set({ callsOpen: false }),
+  // open any analyses/ file (review JSON / thesis md / dashboard md) in the OutputReader (renders text).
+  openCallFile: (path, title) => set({ openOutput: { path, title } }),
+
+  // file an ad-hoc outcome review for one call ("update what's happened since now"). Delegates to
+  // Phase 3 /research:review-decisions <ticker> ad-hoc via the launch system; the tracker auto-refreshes.
+  updateCall: async (ticker) => {
+    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — updates run on your machine via npm run dev', tone: 'info' })
+    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live updates are paused until it reconnects.', tone: 'info' })
+    try {
+      await api.launch({ kind: 'review', ticker, window: 'ad-hoc' })
+      get().setToast({ msg: `Filing an ad-hoc review for ${ticker} — see Activity; the tracker refreshes when it lands`, tone: 'good' })
+    } catch (e: any) {
+      launchErrorToast(get, e, ticker, `${ticker} review`)
+    }
+  },
+  // file a specific scheduled (due/overdue) review window — never silently ad-hoc.
+  fileDueReview: async (ticker, window) => {
+    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — updates run on your machine via npm run dev', tone: 'info' })
+    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live updates are paused until it reconnects.', tone: 'info' })
+    try {
+      await api.launch({ kind: 'review', ticker, window })
+      get().setToast({ msg: `Filing the ${window} review for ${ticker} — see Activity`, tone: 'good' })
+    } catch (e: any) {
+      launchErrorToast(get, e, ticker, `${ticker} ${window} review`)
+    }
+  },
+  // regenerate the committed markdown/JSON calls dashboard (/research:track). It is cross-ticker and
+  // ignores the ticker; the launch validator requires a roster ticker, so pass an ignored placeholder.
+  refreshDashboard: async () => {
+    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — the dashboard regenerates on your machine via npm run dev', tone: 'info' })
+    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — paused until it reconnects.', tone: 'info' })
+    const t = get().selectedTicker || get().tickers[0]?.ticker
+    if (!t) return get().setToast({ msg: 'No company loaded to run the dashboard from', tone: 'info' })
+    try {
+      await api.launch({ kind: 'track', ticker: t })
+      get().setToast({ msg: 'Rebuilding the calls dashboard — see Activity; it commits when done', tone: 'good' })
+    } catch (e: any) {
+      launchErrorToast(get, e, t, 'calls dashboard')
+    }
+  },
   setToast: (t) => {
     set({ toast: t })
     if (t) setTimeout(() => { if (get().toast === t) set({ toast: null }) }, 3200)
@@ -573,7 +638,7 @@ export const useStore = create<State>((set, get) => ({
           // keep reports/decision current as each step lands (memo/thesis stay false until the master)
           api.runManifest(selected).then((m) => {
             if (m.finalThesis) set({ nodeRuntime: { ...get().nodeRuntime, ['master/synthesizer']: { status: 'done', outputPath: `${m.runRoot}/final_thesis.md` } } })
-            set({ runRoot: m.runRoot ?? get().runRoot, reports: { memo: !!m.memo, thesis: !!m.finalThesis, dossier: !!m.fullDossier } })
+            set({ runRoot: m.runRoot ?? get().runRoot, reports: { memo: !!m.memo, thesis: !!m.finalThesis, dossier: !!m.fullDossier }, moduleReports: m.moduleReports ?? get().moduleReports })
           }).catch(() => {})
           if (isFinal) {
             patch.coreBloom = true
@@ -603,7 +668,7 @@ export const useStore = create<State>((set, get) => ({
               ? (e.message || 'The pipeline finished but the final thesis & memo were not produced.')
               : `Pipeline stopped at ${r.module || 'a step'} (${e.status}) — fix it and re-run from there.`
             get().setToast({ msg, tone: 'bad' })
-            api.runManifest(selected).then((m) => set({ runRoot: m.runRoot ?? get().runRoot, reports: { memo: !!m.memo, thesis: !!m.finalThesis, dossier: !!m.fullDossier } })).catch(() => {})
+            api.runManifest(selected).then((m) => set({ runRoot: m.runRoot ?? get().runRoot, reports: { memo: !!m.memo, thesis: !!m.finalThesis, dossier: !!m.fullDossier }, moduleReports: m.moduleReports ?? get().moduleReports })).catch(() => {})
           }
           break
         }
@@ -612,7 +677,7 @@ export const useStore = create<State>((set, get) => ({
             // honest signal: the process exited but the final memos weren't produced (budget/turn cut-off)
             get().setToast({ msg: e.message || 'Run finished but the final thesis & memo were not produced — re-run from the master to finish.', tone: 'bad' })
             // surface whatever DID get written so the cockpit isn't blank
-            if (r && r.ticker === selected) api.runManifest(selected).then((m) => set({ runRoot: m.runRoot ?? get().runRoot, reports: { memo: !!m.memo, thesis: !!m.finalThesis, dossier: !!m.fullDossier } })).catch(() => {})
+            if (r && r.ticker === selected) api.runManifest(selected).then((m) => set({ runRoot: m.runRoot ?? get().runRoot, reports: { memo: !!m.memo, thesis: !!m.finalThesis, dossier: !!m.fullDossier }, moduleReports: m.moduleReports ?? get().moduleReports })).catch(() => {})
           } else {
             get().setToast({ msg: e.reason === 'out_of_credits' ? 'Out of credits — run could not execute' : `Run ${e.status}: ${e.reason}`, tone: 'bad' })
             if (e.reason === 'out_of_credits') patch.credit = { ok: false, reason: 'out_of_credits', checked: true }
@@ -690,7 +755,7 @@ function reconcileSelection(get: () => State, set: (p: Partial<State>) => void):
   const sel = get().selectedTicker
   const list = get().tickers
   if (sel && list.length > 0 && !list.some((t) => t.ticker === sel)) {
-    set({ selectedTicker: null, dataStatus: null, dataLoading: false, decision: null, runRoot: null, nodeRuntime: {}, reports: { memo: false, thesis: false, dossier: false }, selectedNodeKey: null, openOutput: null })
+    set({ selectedTicker: null, dataStatus: null, dataLoading: false, decision: null, runRoot: null, nodeRuntime: {}, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, selectedNodeKey: null, openOutput: null })
     return sel
   }
   return null

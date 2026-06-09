@@ -22,6 +22,8 @@ The pipeline returns a structured status the orchestrator can act on:
 - `agents_run` — list of agent names successfully dispatched and saved
 - `agents_failed` — list of agent names where Task call errored or returned no usable content
 - `fail_fast_triggered` — boolean, plus the agent name and output-file path if true
+- `module_memo` — `succeeded` / `failed` / `skipped (no synthesis)` (the `<MODULE>_memo.md` tier, Step 4.9A)
+- `module_dossier` — `succeeded` / `failed` / `skipped (no synthesis)` (the `<MODULE>_dossier.md` tier, Step 4.9B)
 
 ---
 
@@ -154,6 +156,78 @@ For any agent in this layer with `fail_fast: true` (today only the per-module da
 - If the regex matches, the **module aborts**: do not dispatch any later layer for this module. Return control to the caller with `fail_fast_triggered = true`, the agent name, and the output-file path. **It is the caller's responsibility to decide what happens next** (abort the whole run, or continue with other modules).
 
 If no fail-fast trigger fires (or the layer has no fail-fast agents), proceed to the next layer.
+
+---
+
+## Step 4.9 — Build the module's other two tiers (module memo + module dossier)
+
+After all layers have completed (and only if the module did NOT abort via fail-fast), build the two remaining module tiers so every module is self-sufficient: a **module memo** (the short, plain-English shareable read) and a **module dossier** (the deterministic, lossless concatenation of this module's artifacts). Together with the `99_*-synthesis.md` (the deep-dive tier), these are the three module-level outputs, mirroring at the module level the run-level memo / final thesis / audit dossier.
+
+Run this step only if `<RUN_ROOT>/<MODULE>/` contains a `99_*-synthesis.md` (i.e. the synthesis layer produced a file). If the module aborted in Step 4C, skip Step 4.9 entirely. Both sub-steps are **best-effort**: a failure here is recorded for the caller but must NEVER abort the module — the `99` synthesis is the module's decision of record.
+
+Resolve the module's synthesis filename via Glob on `<RUN_ROOT>/<MODULE>/99_*-synthesis.md` (do not hardcode it). The two new files are named generically: `<RUN_ROOT>/<MODULE>/<MODULE>_memo.md` and `<RUN_ROOT>/<MODULE>/<MODULE>_dossier.md`. These names deliberately do NOT match the `[0-9][0-9]_*.md` agent pattern, so they are never mistaken for a specialist output.
+
+### Step 4.9A — Module memo (LLM, via the `module-memo-writer` agent)
+
+Dispatch a single Task call:
+
+- `subagent_type: "module-memo-writer"`
+- User message:
+
+  > Read `<RUN_ROOT>/<MODULE>/99_<...>-synthesis.md` and write the module memo to `<RUN_ROOT>/<MODULE>/<MODULE>_memo.md`. Condense only what the synthesis already carries — do not add new analysis, numbers, or evidence, and do not change its verdict, scores, or caps. The saved file must start with its `#` header and contain no chat-confirmation block. Do not write any other file and do not run git.
+
+Wait for it. Verify `<RUN_ROOT>/<MODULE>/<MODULE>_memo.md` exists and is non-empty (`test -s`). If it does not, record the module memo as `failed` and continue — do NOT abort the module.
+
+### Step 4.9B — Module dossier (deterministic, no LLM)
+
+The module dossier is a mechanical, lossless concatenation — never an LLM rewrite — of this module's artifacts: the `99` synthesis first, then the `00_…NN_` specialist outputs in ascending order. It EXCLUDES `*_memo.md` and `*_dossier.md` so it never includes itself or the module memo. Build it with this Bash step (read-only on every artifact, writes only `<MODULE>_dossier.md`, best-effort — never abort the module):
+
+```bash
+RUN_ROOT="<RUN_ROOT>" MODULE="<MODULE>" python3 - <<'PY'
+import os, glob, re, datetime
+RUN = os.environ["RUN_ROOT"]; MOD = os.environ["MODULE"]
+MDIR = os.path.join(RUN, MOD)
+OUT = os.path.join(MDIR, f"{MOD}_dossier.md")
+def slug(s): return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
+def read(p):
+    try: return open(p, encoding="utf-8", errors="replace").read()
+    except Exception: return None
+files = glob.glob(os.path.join(MDIR, "*.md"))
+# never include the dossier or the memo in the dossier
+files = [f for f in files if not re.search(r"_(memo|dossier)\.md$", os.path.basename(f))]
+syn  = sorted(f for f in files if re.search(r"99_.*-synthesis\.md$", os.path.basename(f)))
+subs = sorted(f for f in files if f not in syn)  # 00_,01_,...,NN_ zero-padded => lexical == numeric
+sections, gaps = [], []
+for f in syn:  sections.append((f"{MOD} — module synthesis", os.path.basename(f), f))
+for f in subs: sections.append((f"{MOD} / {os.path.basename(f)}", os.path.basename(f), f))
+if not syn: gaps.append("99 synthesis missing")
+now = datetime.datetime.utcnow().strftime("%Y-%m-%dT%H:%M:%SZ")
+ticker = os.path.basename(RUN).rsplit("_", 1)[0]
+H = [f"# {MOD} Module Dossier — {ticker}\n",
+     "> Deterministic, lossless concatenation of every artifact in this module — the module synthesis "
+     "and every specialist output, in order. Generated mechanically (no LLM rewriting), so nothing is "
+     "omitted or paraphrased. This is the module's \"see everything\" tier; the module's decision lives "
+     f"in `99_*-synthesis.md` and the short read in `{MOD}_memo.md`.\n",
+     f"- Generated: {now}",
+     f"- Module folder: `{os.path.relpath(MDIR, RUN)}`",
+     f"- Contents: {len(syn)} module synthesis + {len(subs)} specialist outputs = {len(sections)} files"]
+if gaps: H.append(f"- Assembly notes: {'; '.join(gaps)}")
+H.append("\n## Table of Contents\n")
+for title, src, _ in sections:
+    H.append(f"- [{title}](#{slug(title)}) — `{src}`")
+parts = ["\n".join(H)]
+for title, src, path in sections:
+    body = read(path)
+    if body is None:
+        gaps.append(f"unreadable: {src}"); body = "_(file could not be read)_"
+    parts.append(f"\n\n---\n\n## {title}\n\n_Source: `{src}`_\n\n{body.rstrip()}\n")
+open(OUT, "w", encoding="utf-8").write("\n".join(parts))
+print(f"WROTE {OUT} ({len(sections)} sections, {os.path.getsize(OUT)} bytes)"
+      + (f"; gaps: {'; '.join(gaps)}" if gaps else ""))
+PY
+```
+
+If the script errors for any reason, record the module dossier as `failed` and continue — never abort the module over a derived tier.
 
 ---
 

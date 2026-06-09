@@ -86,8 +86,49 @@ export type SseEvent =
 // dispatches the orb — "the data reaching the orb" — which is when its live timer starts.
 export interface NodeRuntime { status: NodeStatus; verdict?: string | null; outputPath?: string; runId?: string; startedAt?: number; endedAt?: number }
 
+// ---- calls tracker (the engine's call ledger + since-the-call outcomes) ----
+export interface CallTimelineEntry {
+  window: string
+  due_date: string | null
+  status: 'done' | 'due' | 'overdue' | 'upcoming'
+  review_date?: string
+  review_price?: number | null
+  absolute_return_pct?: number | null
+  thesis_status?: string | null
+  forecasts_confirmed?: number
+  forecasts_falsified?: number
+  review_file?: string
+  review_count?: number
+}
+export interface CallSummary {
+  ticker: string
+  company: string | null
+  decision_date: string | null
+  decision: string | null
+  basket: string | null
+  confidence: number | null
+  time_horizon: string | null
+  entry_price: number | null
+  currency: string | null
+  expected_return_pct: number | null
+  implied_target: number | null
+  downside_risk_pct: number | null
+  kill_criteria_count: number
+  forecasts: { open: number; confirmed: number; falsified: number; expired: number; other: number }
+  run_root: string
+  final_thesis_path: string
+  latest_thesis_status: string | null
+  next_checkpoint: { window: string; due_date: string | null; status: string } | null
+  review_count: number
+  timeline: CallTimelineEntry[]
+}
+export interface CallsResult {
+  calls: CallSummary[]
+  dashboard: string | null
+}
+
 // ---- activity / audit log ----
-export type RunKind = 'full' | 'module' | 'agent' | 'rerun'
+export type RunKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track'
 export interface Whoami { user: string; userVia: 'cf-access' | 'local' }
 export interface ActivityRow {
   runId: string

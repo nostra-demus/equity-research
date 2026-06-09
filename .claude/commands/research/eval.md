@@ -27,13 +27,14 @@ Run the embedded check script below via Bash. It applies, per run, the following
 - **G. Audit-report schema** (optional, if present) — `verification_report.json` / `pre_mortem.json` / `expectations_gap.json` parse and carry their required keys; a `verification_report` with verdict "Failed" fails the suite (a golden fixture must not be a failed run).
 - **H. No stray confirmation blocks** (`MODULE_PIPELINE`) — no `<run>/<module>/*.md` file's last 20 lines contain a line matching `^Agent:\s+\S+\s*$`.
 - **I. Decision ↔ thesis consistency** — the `decision_record.decision` string appears in `final_thesis.md` (the JSON matches the memo).
-- **J. Framework source contracts** (suite-level, run once) — two bodies of wiring are still present in the framework/agent files. **(i) §24 Avoid-Big-Risks:** `CLAUDE.md` §24 with all six filters; each module's `MODULE_RULES.md` carries its filter caps; the new red-flag IDs (`RF-CAP-004`, `RF-OWN-004`, `RF-MGT-004`) exist; `business-quality` has the 11th factor; the synthesizer carries the §24 gate step and rating cap. **(ii) §17 Catalyst module:** the `catalyst` module (`MODULE_RULES`, `01_catalyst-calendar`, `99_catalyst-synthesis`) exists with its §17 discipline and runs-last `depends_on`, and the synthesizer's §7 defers to it. **(iii) Three output tiers:** the `memo-writer` agent (`.claude/agents/memo-writer.md`) and the `/research:full` wiring (`.claude/commands/research/full.md`) that emit the colleague `memo.md` and the deterministic `audit_dossier.md` alongside `final_thesis.md` are present. **(iv) Review-due scheduler:** the SessionStart hook (`.claude/settings.json` + `.claude/hooks/review_due.py`) that surfaces due decision reviews is present. Guards the §24 implementation, the catalyst module, the three-output wiring, and the scheduler against silent deletion. Independent of any run; a missing anchor fails the suite.
+- **J. Framework source contracts** (suite-level, run once) — two bodies of wiring are still present in the framework/agent files. **(i) §24 Avoid-Big-Risks:** `CLAUDE.md` §24 with all six filters; each module's `MODULE_RULES.md` carries its filter caps; the new red-flag IDs (`RF-CAP-004`, `RF-OWN-004`, `RF-MGT-004`) exist; `business-quality` has the 11th factor; the synthesizer carries the §24 gate step and rating cap. **(ii) §17 Catalyst module:** the `catalyst` module (`MODULE_RULES`, `01_catalyst-calendar`, `99_catalyst-synthesis`) exists with its §17 discipline and runs-last `depends_on`, and the synthesizer's §7 defers to it. **(iii) Three output tiers:** the `memo-writer` agent (`.claude/agents/memo-writer.md`) and the `/research:full` wiring (`.claude/commands/research/full.md`) that emit the colleague `memo.md` and the deterministic `audit_dossier.md` alongside `final_thesis.md` are present; AND the per-module tier wiring — the `module-memo-writer` agent (`.claude/agents/module-memo-writer.md`), the shared `frameworks/MODULE_PIPELINE.md` Step 4.9 (module memo + module dossier), and the `/research:rerun` refresh — that emit each module's `<module>_memo.md` and `<module>_dossier.md` alongside its `99_*-synthesis.md` are present. **(iv) Review-due scheduler:** the SessionStart hook (`.claude/settings.json` + `.claude/hooks/review_due.py`) that surfaces due decision reviews is present. Guards the §24 implementation, the catalyst module, the three-output wiring, and the scheduler against silent deletion. Independent of any run; a missing anchor fails the suite.
 - **K. §24 reflected in post-§24 runs** (forward-looking) — for a run whose `decision_date` is on/after the §24 landing date (`2026-06-03`), `final_thesis.md` must reference the Avoid-Big-Risks roll-up (the Headline Scorecard row or a §24 reference). Runs that predate §24 (the BG/HCG fixtures) are **N/A**, so the suite still passes; the check activates automatically for every new run.
 - **L. Three output tiers present in post-landing runs** (forward-looking) — for a run whose `decision_date` is on/after the three-tier landing date (`2026-06-03`), both `memo.md` (the ~10-page colleague memo) and `audit_dossier.md` (the deterministic full-evidence concatenation) must exist beside `final_thesis.md`. Runs that predate the feature (the BG/HCG fixtures) are **N/A**, so the suite still passes; the check activates automatically for every new run.
 - **M. Scenario-math reconciliation** (forward-looking; `fix F08/F12`) — for a run dated on/after `2026-06-08`, deterministically **recompute** the §10 identities from `decision_record.scenarios[]`: probabilities sum to 100; `expected_return_pct == Σ(probability × return_pct)` (1.0pp tolerance — catches sign flips); and, when a price anchor and per-case targets exist, the probability-weighted target and `risk_reward` reconcile too. This is the gate that the old check E (numeric *hygiene* only) never performed — the §10 math was previously enforced solely by LLM mental arithmetic. A post-gate run that quantified a return but omitted `scenarios[]` FAILs (the block is required so the math is checkable). Older fixtures lack `scenarios[]` → **N/A**.
 - **N. No scratch-reasoning leak** (forward-looking; `fix F12`) — for a run dated on/after `2026-06-08`, `final_thesis.md` must not contain model self-correction text (e.g. "let me recalculate", "recomputing") — a committed thesis once shipped its raw arithmetic-correction scratch in §8. Older fixtures → **N/A**.
 - **O. Integrity finish-gate present** (forward-looking; `fix F01`) — for a run dated on/after `2026-06-08` whose decision is in the Selected or Short basket, both `verification_report.json` and `pre_mortem.json` must exist — these are the in-path audits the `/research:full` finish-gate (step 10B) produces before commit; their absence means a conviction thesis shipped without the integrity + red-team pass. Older fixtures, and Watchlist/Avoid/Insufficient runs, → **N/A**.
 - **P. Disconfirmation / edge quality** (forward-looking; `fix F39`) — for a run dated on/after `2026-06-08`, the variant perception must be **non-tautological** (`what_market_may_be_missing` ≠ `what_everyone_knows`; an explicitly-empty "no proven edge yet" is allowed per §7) and `kill_criteria` must carry at least one concrete falsification trigger. Catches a perfunctory bear case / a restated-consensus "edge" that the old field-presence check waved through. Older fixtures → **N/A**.
+- **Q. Per-module three tiers present in post-landing runs** (forward-looking) — for a run whose `decision_date` is on/after the module-tiers landing date (`2026-06-08`), every module subfolder that has a `99_*-synthesis.md` must also carry a `*_memo.md` (the module memo) and a `*_dossier.md` (the module dossier) — the module-level equivalent of the run-level three tiers. Runs that predate the feature are **N/A**, so the suite still passes; the check activates automatically for every new run.
 
 The script also notes (WARN, not FAIL) any **non-schema artifact** in a run folder (e.g. a stray oversized file) so coverage gaps and strays surface.
 
@@ -65,9 +66,12 @@ for drp in runs:
     # A structural
     ft=os.path.join(run,"final_thesis.md"); rm=os.path.join(run,"RUN_METADATA.md")
     okA = os.path.exists(ft) and os.path.getsize(ft)>1024 and os.path.exists(rm)
-    # [fix F-EVAL-1] exclude underscore-prefixed scratch dirs (e.g. _pool_extracts) — they are extractor output, not modules.
-    # Without this the harness was permanently RED on every binary-pool run (mistook _pool_extracts for a module missing its 99-synthesis).
-    miss99=[os.path.basename(d) for d in glob.glob(os.path.join(run,"*")) if os.path.isdir(d) and not os.path.basename(d).startswith("_") and not glob.glob(os.path.join(d,"99_*-synthesis.md"))]
+    # [fix F-EVAL-1] a "module" is a run subdir that holds numbered agent outputs (NN_*.md); non-module dirs like
+    # `_pool_extracts` (the data-pool extraction cache, MODULE_PIPELINE Step 1.5) carry no NN_*.md and are not flagged.
+    # Without this the harness was permanently RED on every binary-pool run (it mistook _pool_extracts for a module
+    # missing its 99-synthesis). Identifying a module by "has NN_*.md but no 99-synthesis" is stricter than an
+    # underscore-prefix skip and also ignores empty/stray dirs.
+    miss99=[os.path.basename(d) for d in glob.glob(os.path.join(run,"*")) if os.path.isdir(d) and glob.glob(os.path.join(d,"[0-9][0-9]_*.md")) and not glob.glob(os.path.join(d,"99_*-synthesis.md"))]
     okA = okA and not miss99
     add("A_structural", okA, f"final_thesis>1KB={os.path.exists(ft) and os.path.getsize(ft)>1024}; RUN_METADATA={os.path.exists(rm)}; modules_missing_99={miss99}")
     # B schema
@@ -201,6 +205,19 @@ for drp in runs:
         add("P_disconfirmation", not det, "; ".join(det) or "edge non-tautological; kill_criteria present")
     else:
         add("P_disconfirmation", True, f"run predates disconfirmation-quality gate ({ddte}) — N/A", na=True)
+    # Q per-module three tiers present in post-landing runs (forward-looking; older fixtures N/A)
+    MODTIER_DATE="2026-06-08"
+    if isdate(ddte) and ddte>=MODTIER_DATE:
+        modmiss=[]
+        for dsub in glob.glob(os.path.join(run,"*")):
+            if not os.path.isdir(dsub) or not glob.glob(os.path.join(dsub,"99_*-synthesis.md")): continue
+            mb=os.path.basename(dsub)
+            if not glob.glob(os.path.join(dsub,"*_memo.md")): modmiss.append(mb+"/memo")
+            if not glob.glob(os.path.join(dsub,"*_dossier.md")): modmiss.append(mb+"/dossier")
+        add("Q_module_tiers", not modmiss, f"run dated >= {MODTIER_DATE}; modules missing a tier={modmiss}")
+    else:
+        add("Q_module_tiers", True, f"run predates module-tiers feature ({ddte}) — N/A", na=True)
+    # Q per-module-tiers add() calls renamed from M_ to avoid collision with M_scenario_math (both shipped 2026-06-08)
     # WARN non-schema files
     extras=[os.path.basename(x) for x in glob.glob(os.path.join(run,"*")) if os.path.isfile(x) and os.path.basename(x) not in SCHEMA_FILES and not os.path.basename(x).endswith(("_decision_review.json","_calibration_summary.json")) and "review" not in os.path.basename(x) and "_v" not in os.path.basename(x)]
     run_pass=all(c["status"]!="FAIL" for c in checks)
@@ -228,6 +245,10 @@ FRAMEWORK_CONTRACTS={
  ".claude/agents/catalyst/99_catalyst-synthesis.md":["Catalyst strength /100","No proven catalyst yet"],
  ".claude/agents/memo-writer.md":["memo.md","colleague","~10"],
  ".claude/commands/research/full.md":["audit_dossier.md","memo.md","memo-writer"],
+ ".claude/agents/module-memo-writer.md":["_memo.md","module synthesis","condenser"],
+ "frameworks/MODULE_PIPELINE.md":["Step 4.9","module-memo-writer","_memo.md","_dossier.md"],
+ ".claude/commands/research/rerun.md":["module-memo-writer","_dossier.md"],
+ ".claude/commands/research/track.md":["analyses/tracking","_calls_tracker","review_schedule","ad-hoc"],
  ".claude/settings.json":["SessionStart","review_due.py"],
  ".claude/hooks/review_due.py":["review_schedule","research:review-decisions due"],
 }
