@@ -204,3 +204,15 @@ Ran the checklist against **balance-sheet-survival** (8 agents) and **management
 **Optional further hardening (not done, noted):** BSS's `UPSTREAM_INPUTS` are prose, not the engine-parsed `— REQUIRED` + `analyses/{TICKER}_{DATE}/…` format, so the run-admission DAG (`roster.ts parseRequiredUpstream`) won't *enforce* the gate even after re-layering — the layer-sort orders execution correctly, but converting to the formal format (module-wide) would add belt-and-suspenders DAG visibility. Left out to stay consistent with the earnings DD-13 fix (re-layer only).
 
 **Everything else in both modules: DON'T-FIX.** The handful of output wobbles (TMCV's two-method EBITDA/coverage arithmetic, missing §1A disconfirmation in BSS-99, missing F09 snippet in BSS-04, F27 byte-offset citations in HCG-01) are all **stale-output artifacts** — F09/F37/F27 all landed 2026-06-08, after the audited runs — verified via `git log -S`. The current prompts already require them.
+
+---
+
+## DD-16 · `extract_pool.py` — pure-Python PDF fallback (no system dep)
+
+**File:** `.claude/tools/extract_pool.py`, `requirements.txt` · **Live-found during a cockpit TMCV test**
+
+**Issue.** `_read_pdf` used **only** `pdftotext` (poppler) and had **no fallback**, so on a machine without poppler **every PDF silently produced zero extracts**. A live full-TMCV run from the cockpit hit exactly this: all 8 statutory PDFs (annual reports + transcripts) failed (`"pdftotext not installed"`), and the run proceeded on CIQ Excel only — `manifest.json` recorded 8 `status:"fail"` rows. (The extractor already auto-bootstraps a venv for xlrd/openpyxl but had no equivalent for PDFs — a real robustness gap.)
+
+**Fix.** Added a pure-Python `pypdf` fallback (`_read_pdf_py`), auto-bootstrapped via the same `_ensure_deps` venv mechanism (`pypdf` added to `requirements.txt` + the import guard). `pdftotext -layout` stays **preferred** (best table alignment); when poppler is absent or yields nothing, pypdf carries it — so PDF extraction no longer hard-depends on a system binary. **Verified:** after the fix + `brew install poppler`, the TMCV pool extracted **0 failures** (was 8); the annual reports came through at 3.3M / 2.5M chars; the pypdf-only path independently returns text on all four PDFs.
+
+**Risk read.** Pure error-reduction. poppler remains preferred for tables; pypdf is the durable backup. An image-only/scanned PDF still yields no text (correctly marked image-only) — a real limitation, not a regression. **Note:** the broader *surfacing* of such failures to the cockpit (so a degraded run isn't invisible) is the separately-logged **`READINESS_GATE_DESIGN.md`** — DD-16 only reduces the most common failure cause.

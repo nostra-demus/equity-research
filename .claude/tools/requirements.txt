@@ -5,3 +5,4 @@
 # .claude/tools/requirements.txt`. extract_pool.py auto-re-execs under that venv.
 xlrd>=2.0.1
 openpyxl>=3.1
+pypdf>=4.0  # [DD-16] pure-Python PDF text fallback when poppler/pdftotext is absent (no system dep)
