@@ -1,6 +1,6 @@
 ---
 name: moat
-description: Evaluates the company's competitive moat against named competitors from competitive-map. Builds the moat-source table (10 candidate moats), the competitive economics table (margins and ROIC vs peers), and a moat verdict with strength score.
+description: Evaluates the company's competitive moat against named competitors from competitive-map. Builds the moat-source table (10 candidate moats), the competitive economics table (margins and return on capital vs peers AND vs the cost of capital — the economic moat test), and a moat verdict with strength score.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch, Write
 layer: 3
 ---
@@ -34,7 +34,7 @@ If `08_competitive-map.md` is missing, note at the top:
 1. Read the repo root `CLAUDE.md` (cross-cutting rules including git policy and global investing standards), then read `.claude/agents/business-model/MODULE_RULES.md` (operating rules specific to this module), and apply both.
 2. Read competitive-map upstream — use those named competitors.
 3. For each of 10 possible moat sources, decide present (Y/N) with evidence and score strength /100.
-4. Pull margin and ROIC data for the company and each named competitor.
+4. Pull margin and return-on-capital data for the company and each named competitor — **ROIC for operating companies, ROE for banks / insurers / other financials** (match the metric to the business type, consistent with the sector overlay in `frameworks/SECTOR_OVERLAYS.md`). Also pull the company's **cost of capital** (WACC, or cost of equity for financials), then run the economic moat test in step 5.
 5. State the moat verdict.
 6. Use the Write tool to save your complete report (formatted exactly as described in the REPORT STRUCTURE section above) to the path given in OUTPUT_PATH. This file is what downstream agents and the orchestrator will read — do NOT skip this step, and do NOT return your report only as a chat message. After writing the file, return only the CHAT CONFIRMATION block.
 
@@ -90,7 +90,7 @@ If no moat is real, state: *"No clear moat proven from available data."*
 
 ## 3. Competitive Economics
 
-| Company / Competitor | Gross Margin | EBIT Margin | ROIC | Period | Source |
+| Company / Competitor | Gross Margin | EBIT Margin | Return on capital (ROIC, or ROE for financials) | Period | Source |
 |---|---:|---:|---:|---|---|
 | {Company} | | | | | |
 | Competitor 1 — {name} | | | | | |
@@ -99,19 +99,29 @@ If no moat is real, state: *"No clear moat proven from available data."*
 
 For private competitors with no margin data, mark "Not disclosed" — do NOT invent.
 
+**The economic moat test (required).** Right after the table, state it explicitly — a moat must produce a return on capital **above the cost of capital**. Peer-superiority alone is not a moat: an entire industry can earn below its cost of capital, leaving a "best of a bad lot" leader with no economic moat. Write one line:
+
+> Return on capital **{above / at / below}** cost of capital: **{X}% {ROIC|ROE}** vs **{Y}% {WACC|cost of equity}** ({gap} bps) — [source / basis].
+
+- **Match the metric to the business type** — ROIC vs WACC (the weighted-average cost of debt and equity) for operating companies; ROE vs cost of equity for banks / insurers / other financials (consistent with `frameworks/SECTOR_OVERLAYS.md`). Do not force ROIC onto a financial.
+- **Source the cost of capital in this priority, and never invent it:** (1) a company-disclosed figure (a stated cost of equity, WACC, or hurdle rate); (2) otherwise a clearly-labelled estimate — CAPM (risk-free rate + beta × equity-risk-premium), inputs shown, marked *"Inference, not from filings"* per `CLAUDE.md` §3; (3) if neither is possible, write *"cost of capital not determinable from available data"* and mark the economic test **Not assessable**. Fabricating a cost-of-capital number to force the test is a hard error.
+- **Do not swallow a management-headline return.** If ROIC / ROCE / ROE is management-disclosed, cross-check it against a figure you compute on the standard base (NOPAT ÷ average invested capital, or net income ÷ average equity), show both, and flag any material divergence — prefer the more conservative / computed figure per the source hierarchy. Label a segment-only or adjusted return that flatters the headline (e.g. "auto-segment ROCE", "adjusted ROIC") as such.
+
 ## 4. Where The Company Sits
 
-One line: **Company sits at the {top / median / bottom} of named peers on margin and capital efficiency**, OR *"Insufficient data to compare against named peers."*
+Two reads are required:
+1. **Relative to peers** — one line: **Company sits at the {top / median / bottom} of named peers on margin and capital efficiency**, OR *"Insufficient data to compare against named peers."*
+2. **Absolute (the economic moat test)** — one line: **the company earns a return on capital {above / at / below} its cost of capital** ({X}% vs {Y}%) — the decisive test of whether any moat is economic or merely structural. Mark **Not assessable** only if the cost of capital is genuinely undeterminable per §3 (never invented).
 
 ## 5. Moat Verdict
 
 State ONE of:
-- **Strong moat** — clear, evidenced advantage on at least one dimension that translates into observable margin/ROIC superiority
-- **Narrow moat** — some advantage, but limited in scope or duration
-- **No moat proven** — no advantage strong enough to defend profits over time
+- **Strong moat** — a clear, evidenced advantage that translates into a return on capital **sustained above the cost of capital** through the cycle (not merely above peers — an industry can earn below its cost of capital and still have a "best of a bad lot" leader)
+- **Narrow moat** — some advantage, but limited in scope or duration, OR an advantage that lifts the return on capital only modestly above the cost of capital
+- **No moat proven** — no advantage strong enough to defend profits over time. Includes the **"moat in structure, not economics"** case: a real scale / distribution / location advantage that does NOT lift the return on capital above the cost of capital is structural, not economic
 - **Insufficient data**
 
-In 2–3 sentences, name the strongest moat (if any) and the durability test it would need to pass over the next 5 years. If the industry is fast-changing (cross-check `07_business-quality.md` rate-of-change / disruption row), discount durability accordingly: a moat in a fast-changing industry decays faster and is harder to underwrite than the same moat in a stable, boring one (CLAUDE.md §24, Filter 5).
+In 2–3 sentences, name the strongest moat (if any) and the durability test it would need to pass over the next 5 years. **Hard rule: if the company's return on capital is at or below its cost of capital (the §3 economic test), the verdict cannot be "Strong moat" regardless of peer-relative superiority — classify it as a moat in structure, not economics, and cap at Narrow or No-moat.** If the industry is fast-changing (cross-check `07_business-quality.md` rate-of-change / disruption row), discount durability accordingly: a moat in a fast-changing industry decays faster and is harder to underwrite than the same moat in a stable, boring one (CLAUDE.md §24, Filter 5).
 ```
 
 # SELF-CHECK
@@ -120,6 +130,10 @@ In 2–3 sentences, name the strongest moat (if any) and the durability test it 
 - [ ] Every "Y" moat row has specific evidence in the [Source, Period, Page] format.
 - [ ] Strength scores (0–100) match the bands in `CLAUDE.md`.
 - [ ] Competitive economics table shows real numbers OR "Not disclosed" — never invented numbers.
+- [ ] The economic moat test is explicit: return on capital vs cost of capital, with the gap and the cost-of-capital source/basis — or "Not assessable" if genuinely undeterminable (never an invented cost of capital).
+- [ ] The return metric matches the business type (ROIC/WACC for operating companies; ROE/cost-of-equity for financials).
+- [ ] Any management-headline ROIC/ROCE/ROE is cross-checked against a computed figure; material divergence flagged; segment-only / adjusted returns labelled.
+- [ ] A "Strong moat" verdict is backed by returns above the cost of capital, not merely above peers.
 - [ ] The "where the company sits" line uses real data from Section 3, not impression.
 - [ ] The verdict is exactly one of {Strong / Narrow / No moat proven / Insufficient data}.
 - [ ] No banned phrases.
