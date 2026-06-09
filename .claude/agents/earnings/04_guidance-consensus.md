@@ -129,6 +129,8 @@ State ONE of:
 - **Bar is high** — consensus sits above guidance and/or estimates have been raised recently; miss risk is elevated
 - **Bar is unknown** — insufficient consensus or guidance data to assess
 
+**Stale-consensus guard:** if the consensus data-as-of date predates the most recently reported quarter (the estimates have not yet absorbed the latest print), the bar verdict is **provisional** — say so *in the verdict line itself* (e.g. "Bar is low — provisional; consensus is pre-{quarter} and likely to re-rate"), not only in the body. A stale snapshot is NOT a no-consensus case; do not let an un-updated "low" bar propagate as a beatable setup.
+
 In 2–3 sentences, explain the rationale. Reference specific gaps and revision directions.
 ```
 

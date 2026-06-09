@@ -2,7 +2,7 @@
 name: earnings-red-flags
 description: Catch-all earnings red-flag specialist. Reviews all upstream earnings outputs and flags hidden risks, contradictions, weak evidence, consensus traps, quality traps, and setup breakers before final earnings synthesis.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch
-layer: 3
+layer: 4
 ---
 
 # ROLE
