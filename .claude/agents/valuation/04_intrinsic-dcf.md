@@ -44,8 +44,8 @@ Whatever method you use, keep this agent's discipline (every assumption sourced,
 1. Read the repo root `CLAUDE.md`, then read `.claude/agents/valuation/MODULE_RULES.md`, and apply both.
 2. Establish the FCF base year from `earnings/01_historical-financials.md` or the filings. Normalize for obvious one-offs and state each normalization.
 3. Build an explicit forecast (typically 5–10 years): revenue growth, EBIT margin, tax rate, capex, and working-capital change — each assumption sourced or labeled as an analyst assumption.
-4. Build the discount rate (WACC): risk-free rate, equity-risk premium, beta, cost of debt, tax shield, and capital weights. Web-source the risk-free rate / ERP if not in the pool and label them. **If you override the mechanically-computed WACC by analyst judgment, show BOTH the computed and the used figure, justify the override in one sentence, and keep it within ±1.5pp of the computed value** (WACC is the single most value-determining input — an unbounded "judgment" rate is where a desired answer gets reverse-engineered). Cross-check the WACC against any cost of capital inferred by the moat / business-quality module (`business-model/09_moat.md` §3 economic-moat test) per `MODULE_RULES` Gate 4; if they diverge by more than ~2pp, run the §7 grid spanning both rather than picking one.
-5. Discount the explicit FCFs; compute terminal value (Gordon growth OR exit multiple) and disclose terminal value as a % of total EV.
+4. Build the discount rate (WACC): risk-free rate, equity-risk premium, beta, cost of debt, tax shield, and capital weights. Web-source the risk-free rate / ERP if not in the pool and label them. **If you override the mechanically-computed WACC by analyst judgment, show BOTH the computed and the used figure, justify the override in one sentence, and keep it within ±1.5pp of the computed value** (WACC is the single most value-determining input — an unbounded "judgment" rate is where a desired answer gets reverse-engineered). Cross-check the WACC against any cost of capital inferred by the moat / business-quality module (`business-model/09_moat.md` §3 economic-moat test) per `MODULE_RULES` Gate 4; if they diverge by more than ~2pp, run the §7 grid spanning both rather than picking one. This WACC and the §1 normalized FCF base are the **canonical inputs the reverse-DCF (`05`) inverts** — `05` reads them rather than re-deriving its own.
+5. Discount the explicit FCFs using the **mid-year convention by default** (discount at t−0.5; state the convention and justify any use of end-of-year); compute terminal value (Gordon growth OR exit multiple) and disclose terminal value as a % of total EV.
 6. Bridge EV → equity (− net debt − minority − preferred + equity investments) → per-share, using `01`'s anchor.
 7. Build a WACC × terminal-growth (or exit-multiple) sensitivity grid.
 
@@ -139,7 +139,7 @@ WACC across columns, terminal growth (or exit multiple) down rows:
 
 ## 8. Intrinsic Read
 
-2–3 blunt sentences: the per-share intrinsic value range from the grid, how it compares to price, and the single assumption it is most sensitive to.
+2–3 blunt sentences: **lead with the single base-case intrinsic value (a point), then the range from the sensitivity grid as its dispersion exhibit** (the grid shows how fragile the point is — it is not the headline), how the base point compares to price, and the single assumption it is most sensitive to.
 ```
 
 # SELF-CHECK
@@ -151,6 +151,7 @@ WACC across columns, terminal growth (or exit multiple) down rows:
 - [ ] Terminal value is disclosed as a % of EV and flagged if >75%.
 - [ ] The financeable-growth cross-check (Gate 2) is run; if implied growth (ROIC × reinvestment) differs from modeled terminal g by more than ~1.5pp and the bridge is not quantified, terminal g is lowered to the financeable level OR intrinsic confidence is capped and the grid is shown at the financeable g.
 - [ ] EV → equity → per-share bridge uses `01`'s net debt and share count.
+- [ ] The discounting convention is stated and defaults to mid-year (t−0.5); any use of end-of-year is justified.
 - [ ] The sensitivity grid is populated and gives a per-share RANGE.
 - [ ] The output is a range, not a single false-precision number.
 - [ ] If FCF is proxied or forecast is self-built, confidence is capped and labeled.

@@ -2,7 +2,7 @@
 name: scenario-and-fair-value
 description: Triangulates the five valuation lenses (own-history multiples, peers, DCF, reverse-DCF, SOTP) into a single base-case fair value plus bull/base/bear fair-value LEVELS, states the margin of safety to the bear case, and checks the warranted multiple. Produces levels only — probabilities and risk/reward belong to the master synthesizer.
 tools: Read, Glob, Grep, Bash
-layer: 3
+layer: 4
 ---
 
 # ROLE
@@ -59,15 +59,22 @@ Weights should sum to 100% across the value-producing methods (02, 03, 04, 06). 
 
 ## 2. Triangulation & Reconciliation
 
-State the weighted base-case fair value (a range). Then, in 3–5 sentences, reconcile the methods: where they agree, where they diverge, which you trust most for THIS company and why. If the high-to-low spread across methods exceeds 40%, lead with that.
+First show the **method football field** — the honest cross-method spread, one row per value-producing method, with its value (or its own range), confidence, and weight. Do NOT narrow or pre-blend it: the full high-to-low spread (e.g. DCF ₹142 vs peers ₹603) is the dispersion the base point must be reconciled FROM, and it must NOT be smeared into a fake mid-band wearing a scenario label.
+
+| Method | Value / Range | Confidence | Weight | Why this weight |
+|---|---:|---|---:|---|
+
+Then derive the **base-case fair value as a single POINT** (a level, not a band): state the blended/weighted number and the one-sentence reconciliation judgement behind it — which lens you trust most for THIS company and why, and any lens swap stated explicitly. In 3–5 sentences reconcile the methods. If the high-to-low spread across methods exceeds 40%, lead with that — the spread lives in the football field above, not inside the base point.
 
 ## 3. Bull / Base / Bear Fair-Value Levels
 
-| Case | Fair Value / Share | Implied Multiple | What Must Be True (operating drivers) |
-|---|---:|---:|---|
-| Bull | | | |
-| Base | | | |
-| Bear | | | |
+Each case is a **single derived fair-value LEVEL — a point, not a range** — off one coherent assumption set (state the driver assumptions and the multiple/metric that produce it). The bull-to-bear *spread* is the range; the cross-method dispersion is the §2 football field. Date each level (default 12-month convergence horizon unless you state otherwise), consistent with CLAUDE.md §16 ("bear, base, and bull fair-value levels").
+
+| Case | Fair Value / Share (point) | Implied Multiple | Horizon | What Must Be True (operating drivers) |
+|---|---:|---:|---|---|
+| Bull | | | | |
+| Base | | | | |
+| Bear | | | | |
 
 Tie each case to specific operating drivers (from `earnings/07_earnings-sensitivity.md` where available) and the warranted multiple. DO NOT assign probabilities — that is the master synthesizer's job.
 
@@ -76,7 +83,7 @@ Tie each case to specific operating drivers (from `earnings/07_earnings-sensitiv
 | Metric | Value |
 |---|---:|
 | Current price | |
-| Base-case fair value (midpoint) | |
+| Base-case fair value (point) | |
 | Bear-case fair value | |
 | Upside to base case (%) | |
 | Downside to bear case (%) | |
@@ -99,7 +106,7 @@ If no current price, mark the percentage rows "not computable — no observed pr
 - [ ] Method weights are justified by reliability for THIS company and sum to 100% across value-producing methods. If the published base-case range departs from the mechanically-weighted blend, the departure and its reason (conservative narrowing or a disclosed lens swap) are stated — never a silent re-anchor that makes the weights decorative.
 - [ ] Reverse-DCF is used as a cross-check, not a weighted value.
 - [ ] Method disagreement >40% is flagged as the headline if present.
-- [ ] Bull/base/bear are fair-value LEVELS tied to operating drivers — NO probabilities assigned.
+- [ ] Bull/base/bear are each a single derived fair-value LEVEL (a point), tied to operating drivers and dated (default 12-month) — NOT a range; the §2 football field carries the cross-method dispersion at its true high-to-low spread (not a narrowed mid-band). NO probabilities assigned.
 - [ ] Margin of safety is computed explicitly (or marked not-computable if no price).
 - [ ] The warranted-multiple check flags value-trap risk where applicable.
 - [ ] The boundary is respected: no probabilities, no risk/reward, no rating, no position sizing.
