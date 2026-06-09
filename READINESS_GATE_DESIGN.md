@@ -72,3 +72,22 @@ Shown only when issues exist. Issues grouped **Blocker → Degrade → Info**; e
 
 ## Related, already shipped
 - **DD-16** (committed): `extract_pool.py` now has a pure-Python `pypdf` fallback (auto-bootstrapped in the venv) so PDF extraction no longer hard-depends on poppler — this *reduces* the most common Phase-A failure cause but does not replace the gate (corrupt files, wrong entity, no price still need surfacing).
+
+---
+
+## Related future-hardening gap: no crash / shutdown / sleep resume for long runs
+
+**Logged for the combined engine-robustness audit (not yet built).**
+
+A full `/research:full` run is a long chain (~80 agents across 6 modules + the master synthesis) driven by **local child processes** (the cockpit backend `execa`-spawns the `claude` CLI per step) with the run tracked **in-memory only** (`new Map`, no persistence). Consequences:
+- **Shutdown / restart** kills every process; the backend returns with no memory of the in-flight run. There is **no resume** — completed *agent outputs* persist on disk (per-agent checkpointing), but the *orchestration* (which module/agent runs next) is not persisted or recoverable.
+- **Sleep / lid-close**, and especially **network loss** (e.g. driving, plane), breaks in-flight agents — their Anthropic API calls drop/time out — and can leave **orphaned processes** that wake and fail, plus a backend that still believes a run is "running" (zombie state).
+- Live incident (2026-06-09): a TMCV run was in progress when the operator needed to close the lid and lose connectivity; the run had to be cancelled because it could not survive either condition.
+
+**What a fix looks like (design sketch):**
+1. **Persist run state** to disk — a `run-state.json` per run root recording the ordered step list, each step's status (`done`/`running`/`pending`), the run kind/ticker/date, and the last-completed step. Write it after each step completes (cheap; the per-agent output already exists as the source of truth).
+2. **Resume command / API** — on backend start, scan `analyses/*/run-state.json` for runs whose status is `running` but whose process is gone; offer **[Resume]** in the cockpit. Resume = re-derive the step list, skip steps whose outputs already exist on disk (idempotent), and dispatch from the first incomplete step. This dovetails with the existing per-agent persistence — a completed agent file IS its checkpoint.
+3. **Zombie reconciliation** — on start, any in-memory-less "running" run with no live child is marked `interrupted`, not `running`, so the UI is honest.
+4. **Sleep/offline guard (optional)** — detect network loss / imminent sleep and **pause** the chain at the next step boundary (no new agent dispatched) rather than letting an in-flight agent fail mid-call; surface a "paused — connectivity lost" state with a one-click resume.
+
+**Scope:** engine-side (`ui/server` launcher + a `run-state.json` writer + a resume endpoint + cockpit UI). Same review-before-build discipline as the readiness gate; audit and build the two together as the "engine-robustness" unit (readiness gate + resume).
