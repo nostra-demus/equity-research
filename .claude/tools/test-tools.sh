@@ -46,5 +46,53 @@ else:
 sys.exit(0 if ok else 1)
 PY
 
+echo "== full.md finish-gate: idempotent rerun cycle (fail -> stamp -> fix -> strip) =="
+"$PY" - <<'PY' || rc=1
+import re, json, os, tempfile, subprocess, sys, shutil
+full=open(".claude/commands/research/full.md").read()
+m=re.search(r'python3 - "<RUN_ROOT>" <<.PY.\n(.*?)\nPY\n```', full, re.S)
+if not m: print("  FAIL: could not extract the finish-gate script from full.md"); sys.exit(1)
+d=tempfile.mkdtemp(); gp=os.path.join(d,"gate.py"); open(gp,"w").write(m.group(1))
+dr={"expected_return_pct":99.0,"entry_price":100,
+    "scenarios":[{"probability":50,"return_pct":10,"price_target":110},{"probability":50,"return_pct":-10,"price_target":90}],
+    "confidence_score":50,"data_sufficiency_score":60,"notes":"x"}
+json.dump(dr, open(os.path.join(d,"decision_record.json"),"w"))
+open(os.path.join(d,"final_thesis.md"),"w").write("# Thesis\n\nReal body content.\n")
+MARK="PROVISIONAL — the automated finish-gate"
+r1=subprocess.run([sys.executable,gp,d],capture_output=True,text=True).stdout; b1=open(os.path.join(d,"final_thesis.md")).read()
+ok = ("PROVISIONAL" in r1) and (MARK in b1)                                  # fail -> banner stamped
+dr["expected_return_pct"]=0.0; json.dump(dr, open(os.path.join(d,"decision_record.json"),"w"))
+r2=subprocess.run([sys.executable,gp,d],capture_output=True,text=True).stdout; b2=open(os.path.join(d,"final_thesis.md")).read()
+ok = ok and ("PASS" in r2) and (MARK not in b2) and ("Real body content." in b2)  # fixed -> banner stripped, body intact
+print("  PASS: stamps on fail, strips on pass, body preserved" if ok else f"  FAIL: r1={r1.strip()!r} r2={r2.strip()!r} banner_after={MARK in b2}")
+shutil.rmtree(d); sys.exit(0 if ok else 1)
+PY
+
+echo "== eval.md check M: direction-aware risk/reward (short vs long) =="
+"$PY" - <<'PY' || rc=1
+import re, textwrap, sys
+ev=open(".claude/commands/research/eval.md").read()
+m=re.search(r'\n(\s*pwt=sum\(p/100\.0\*t for p,t in zip\(probs,tgts\)\).*?if abs\(rr-crr\)>max\([^\n]*\))', ev, re.S)
+if not m: print("  FAIL: could not extract the check-M math block from eval.md"); sys.exit(1)
+code=compile(textwrap.dedent(m.group(1)),"<checkM>","exec")
+DECISIONS={"Short Candidate":"Short","Buy":"Selected"}
+def chk(dec,probs,rets,tgts,ep,rr):
+    calc_er=sum(p/100.0*r for p,r in zip(probs,rets))
+    ns={"probs":probs,"rets":rets,"tgts":tgts,"ep":ep,"dec":dec,"DECISIONS":DECISIONS,
+        "calc_er":calc_er,"okM":True,"det":[],"d":{"risk_reward":rr},
+        "abs":abs,"sum":sum,"zip":zip,"round":round,"max":max,"min":min,"isinstance":isinstance}
+    exec(code, ns)   # single namespace so the genexprs in the block resolve correctly
+    return ns["okM"]
+ok=True
+# a CORRECT short (targets fall = profit; short-signed returns; rr matches) must PASS
+if not chk("Short Candidate",[60,40],[30,-15],[70,115],100,0.8): print("  FAIL: correct short flagged"); ok=False
+# a short whose returns were computed LONG-side (wrong sign) must be CAUGHT (fail)
+if chk("Short Candidate",[60,40],[-30,15],[70,115],100,0.8): print("  FAIL: wrong-sign short NOT caught"); ok=False
+# a CORRECT long must still PASS (no regression)
+if not chk("Buy",[50,50],[30,-10],[130,90],100,1.0): print("  FAIL: correct long flagged"); ok=False
+print("  PASS: correct short passes, wrong-sign short fails, long unaffected" if ok else "  -> check-M test FAILED")
+sys.exit(0 if ok else 1)
+PY
+
 [ $rc -eq 0 ] && echo "ALL SMOKE TESTS PASS" || echo "SMOKE TESTS FAILED"
 exit $rc
