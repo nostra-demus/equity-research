@@ -1,6 +1,6 @@
 ---
 name: relative-valuation-peers
-description: Values the company against named peers. Builds a peer comp table (P/E, EV/EBITDA, EV/EBIT, EV/Sales, FCF yield, growth, margins, ROIC), computes the premium/discount to the peer median, judges whether that gap is warranted given quality/moat/leverage, and derives an implied value from peer multiples.
+description: Values the company against named peers. Builds a peer comp table (P/E, EV/EBITDA, EV/EBIT, EV/Sales, FCF yield, growth, margins, ROIC), computes the premium/discount to the peer median, checks whether that gap is wider or narrower than its own ~3-year norm, judges whether it is warranted given quality/moat/leverage, and derives an implied value from peer multiples.
 tools: Read, Glob, Grep, Bash, WebSearch, WebFetch
 layer: 2
 ---
@@ -34,8 +34,9 @@ If `business-model/08_competitive-map.md` is unavailable: identify peers yoursel
 3. Gather each peer's multiples and operating stats — from the data pool first, then web (labeled). Note the "data as of" date for every figure.
 4. Build the peer comp table and compute the peer median (and mean) for each multiple.
 5. Compute the company's premium/discount to the peer median on each multiple.
-6. Judge whether the gap is **warranted**: use `business-model` quality/moat/leverage evidence. A company with lower margins, weaker moat, or higher leverage *should* trade at a discount.
-7. Apply the warranted peer multiple to the company's metric to derive an implied value range.
+6. Place the gap in time: note whether the current premium/discount is in line with, wider than, or narrower than the company's typical relationship to these peers over ~3 years (relative-gap persistence). If peer-multiple history is unavailable, mark **Not assessable** — do not invent it.
+7. Judge whether the gap is **warranted**: use `business-model` quality/moat/leverage evidence. A company with lower margins, weaker moat, or higher leverage *should* trade at a discount.
+8. Apply the warranted peer multiple to the company's metric **on the same basis** (forward multiple → forward metric, trailing → trailing, adjusted → adjusted) to derive an implied value range.
 
 # WHAT TO READ (priority for this agent)
 
@@ -73,13 +74,15 @@ Label every figure's source. Web-sourced figures carry the unverified label. Use
 | Multiple | Company | Peer Median | Premium / (Discount) | 
 |---|---:|---:|---:|
 
+**Is the gap typical or unusual?** One line: state whether the current premium/discount is **in line with, wider than, or narrower than** the company's typical relationship to these peers over the past ~3 years. A *persistent* discount is usually structural and already warranted; a gap that has **newly widened** versus its own norm is the actual relative-value signal. This is the **relative gap to peers over time** — distinct from the stock's own absolute multiple history (`02_multiples-own-history`). If peer-multiple history is not in the pool and cannot be sourced, mark **Not assessable** — do not invent a history.
+
 ## 4. Is the Gap Warranted?
 
 In 3–5 sentences, judge whether the company deserves its premium/discount. Tie directly to evidence: margins vs peers, moat strength, leverage, growth, cyclicality. State the conclusion as one of: "discount is warranted," "discount is too deep (relative upside)," "premium is warranted," or "premium is unjustified (relative downside)."
 
 ## 5. Implied Value from Peer Multiples
 
-Apply the warranted peer multiple (median, adjusted up/down for quality) to the company's metric:
+Apply the warranted peer multiple (median, adjusted up/down for quality) to the company's metric — **on the same basis** (a forward peer multiple to a forward company metric, trailing to trailing, underlying/adjusted to underlying/adjusted; never a peer trailing multiple on a company forward number):
 
 | Multiple | Applied Peer Multiple | Implied EV or Equity | Implied Price/Share | vs Current Price |
 |---|---:|---:|---:|---:|
@@ -98,7 +101,9 @@ State the implied value as a RANGE. Show the quality adjustment you applied and 
 - [ ] Every multiple has a source and "data as-of" date; web figures are labeled unverified.
 - [ ] Peer median is computed, not eyeballed.
 - [ ] Premium/discount is a percentage on each multiple.
+- [ ] The current gap is placed in context — typical / wider / narrower than the company's own ~3-year relationship to these peers (or "Not assessable" if no peer-multiple history) — not just a point-in-time snapshot.
 - [ ] The warranted-gap judgement cites quality/moat/leverage evidence — it does not assume the company should trade at parity.
+- [ ] Each peer multiple is applied to the company metric on the same basis (forward↔forward, trailing↔trailing, adjusted↔adjusted).
 - [ ] Implied value is a range with the quality adjustment shown.
 - [ ] No banned phrases.
 

@@ -31,3 +31,26 @@ The test is decisive and cuts **both ways** (it would have strengthened TMCV and
 **Why better.** It moves the single most important moat economic test from "a diligent analyst might do it" to "the prompt requires it", and standardises the BG/HCG analysts' own best practice across every run. The guardrails mean the new requirement can't be satisfied by inventing a cost-of-capital number.
 
 **Hallucination / error read.** Net **lower** error risk. The one new fabrication surface — an unsupported cost-of-capital figure — is explicitly closed by the priority ladder + "Not assessable" escape + the "hard error" label. The anti-anchoring rule *reduces* the existing risk of swallowing flattering management headlines. No new web/tool calls forced. Length cost is small (+14 lines).
+
+---
+
+## DD-02 · `relative-valuation-peers` — add relative-gap persistence + same-basis guardrail
+
+**File:** `.claude/agents/valuation/03_relative-valuation-peers.md` · **Net:** +9 lines
+
+**Issue (and an honest scope correction).** Reading the three real outputs (BG, TMCV, HCG) showed this prompt is already in **good shape** — most of the "peer-data" weaknesses I flagged from the prompt alone were already handled well in practice:
+
+- *Capital-structure / double-counting* — TMCV reframed an apparent 47% EV/EBITDA discount to 11% on a debt-neutral basis (peer's EV inflated by a captive finance arm); BG handled cleanly.
+- *Peer-selection bias* — both flag named-vs-self-selected peers, refuse to guess private-peer multiples (Cargill, LDC, VECV), and down-weight 2-stock medians.
+- *Period / basis mismatch* — both use forward multiples for cyclicals and the same fiscal year-end; BG explicitly held its *own* current multiple as the "no re-rating" base.
+
+So imposing a big rewrite would have been bloat. The **one genuinely universal gap**: the prompt produces a **point-in-time** premium/discount but never asks whether that gap is **wider or narrower than the company's own multi-year norm** versus these peers. That is exactly what separates a *structural* (already-warranted) discount from a real relative-value signal — a name that always trades 20% below peers and trades 20% below now is not cheap; one that historically trades at parity and is now 20% below is the signal. It falls in the crack between agent `02` (the stock's own *absolute* multiple history) and agent `03` (the *current* relative snapshot) — neither covers the *relative gap over time*.
+
+**Solution.**
+1. **§3** — a required one-liner: is the current gap in line with / wider / narrower than the ~3-year norm vs these peers; explicitly distinguished from `02`'s own-absolute-history; **Not assessable** if no peer-multiple history (no invention).
+2. **§5 + workflow** — a same-basis guardrail: apply a peer multiple to the company metric on the *same* basis (forward↔forward, trailing↔trailing, adjusted↔adjusted) — never a peer trailing multiple on a company forward number.
+3. Workflow step + two self-check items to enforce both.
+
+**Why better.** Adds the single missing piece of a real relative-value read (gap-vs-its-own-history) without disturbing the parts the outputs already do well, and closes a quiet basis-mismatch error class in the implied-value step — at a +9-line cost.
+
+**Hallucination / error read.** Net **neutral-to-lower**. The persistence line could invite a fabricated peer history, so it is explicitly gated with **Not assessable** when peer-multiple history is absent (which is the common case — these runs barely had *current* peer multiples). The same-basis rule strictly *removes* an error class. No new forced tool calls.
