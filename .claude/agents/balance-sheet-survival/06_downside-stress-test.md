@@ -2,7 +2,7 @@
 name: downside-stress-test
 description: The survival test. Applies explicit EBITDA haircuts (−30/−40/−60%, or cyclically calibrated) and recomputes leverage, coverage, covenant headroom (breach Y/N), and the 12-month liquidity gap at each, then identifies the EBITDA decline at which covenants break or liquidity runs out.
 tools: Read, Glob, Grep, Bash
-layer: 3
+layer: 4
 ---
 
 # ROLE

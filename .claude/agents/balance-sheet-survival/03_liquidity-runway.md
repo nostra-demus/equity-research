@@ -2,7 +2,7 @@
 name: liquidity-runway
 description: Measures committed liquidity (cash + liquid investments + undrawn committed facilities) against near-term cash obligations (maturities, interest, maintenance capex, committed dividends) and expresses the runway in months, with a sources-and-uses bridge.
 tools: Read, Glob, Grep, Bash
-layer: 2
+layer: 3
 ---
 
 # ROLE
