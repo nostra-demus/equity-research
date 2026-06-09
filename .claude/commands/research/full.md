@@ -338,14 +338,23 @@ if d.get("entry_price") is None and not re.search(r"(price|not assessable|paper 
 for k in ("confidence_score", "data_sufficiency_score"):
     v = d.get(k)
     if isinstance(v, (int, float)) and not (0 <= v <= 100): viol.append(f"{k}={v} outside 0–100")
+# [PR#9 review fix] idempotent banner: ALWAYS strip any prior finish-gate banner first, then re-stamp
+# fresh if still failing, or write the clean thesis if it now passes. The old code only prepended-if-
+# absent, so a fixed re-run in the same folder kept a stale PROVISIONAL banner with outdated reasons.
+body = open(ft, encoding="utf-8").read()
+lines = body.split("\n"); i = 0
+while i < len(lines) and lines[i].strip() == "": i += 1
+if i < len(lines) and lines[i].startswith(">") and "PROVISIONAL — the automated finish-gate" in "\n".join(lines[i:i+6]):
+    while i < len(lines) and lines[i].startswith(">"): i += 1      # drop the old blockquote banner
+    while i < len(lines) and lines[i].strip() == "": i += 1        # and its blank separator
+    body = "\n".join(lines[i:])
 if viol:
     banner = ("> ⚠️ **PROVISIONAL — the automated finish-gate found an integrity issue; this thesis was committed UNVERIFIED.**\n> "
               + "; ".join(viol) + "\n>\n> Re-run the synthesizer Step 4 / §14 math and re-publish before relying on these numbers. (CLAUDE.md §10; finish-gate F01/F17.)\n\n")
-    body = open(ft, encoding="utf-8").read()
-    if "PROVISIONAL — the automated finish-gate" not in body:
-        open(ft, "w", encoding="utf-8").write(banner + body)
+    open(ft, "w", encoding="utf-8").write(banner + body)
     print("GATE: PROVISIONAL — " + "; ".join(viol))
 else:
+    open(ft, "w", encoding="utf-8").write(body)   # write back the cleaned thesis (strips any now-stale banner)
     print("GATE: PASS — scenario math reconciles; missing-price and score-range caps satisfied")
 PY
 ```

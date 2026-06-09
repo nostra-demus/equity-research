@@ -164,11 +164,16 @@ for drp in runs:
                     okM=False; det.append(f"expected_return_pct={er} != Sum(p*ret)={round(calc_er,2)}")
                 tgts=[s.get("price_target") for s in scen]; ep=d.get("entry_price")
                 if isinstance(ep,(int,float)) and ep and all(isinstance(t,(int,float)) for t in tgts):
-                    pwt=sum(p/100.0*t for p,t in zip(probs,tgts)); er_t=(pwt-ep)/ep*100.0
+                    pwt=sum(p/100.0*t for p,t in zip(probs,tgts))
+                    # [PR#9 review fix] direction-aware: a SHORT profits when price FALLS, so its return,
+                    # its worst case, and its risk/reward all invert. Hard-coding the long side (er=(pwt-ep)/ep,
+                    # worst=min(tgts), rr=(pwt-ep)/(ep-worst)) falsely failed valid Short Candidate runs.
+                    short=DECISIONS.get(dec)=="Short"
+                    er_t=((ep-pwt) if short else (pwt-ep))/ep*100.0
                     if abs(er_t-calc_er)>1.5: okM=False; det.append(f"ER_from_target={round(er_t,2)} != Sum(p*ret)={round(calc_er,2)}")
-                    rr=d.get("risk_reward"); bear=min(tgts)
-                    if isinstance(rr,(int,float)) and ep>bear:
-                        crr=(pwt-ep)/(ep-bear)
+                    rr=d.get("risk_reward"); worst=max(tgts) if short else min(tgts)
+                    if isinstance(rr,(int,float)) and (worst>ep if short else ep>worst):
+                        crr=((ep-pwt)/(worst-ep)) if short else ((pwt-ep)/(ep-worst))
                         if abs(rr-crr)>max(0.15,abs(crr)*0.12): okM=False; det.append(f"risk_reward={rr} != calc={round(crr,2)}")
             except Exception as e:
                 okM=False; det.append(f"scenario parse error: {e}")
