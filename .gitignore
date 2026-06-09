@@ -19,3 +19,7 @@ ui/web/public/data/
 # regenerable pool extracts (rebuilt by extract_pool.py) — never commit
 _pool_extracts/
 **/_pool_extracts/
+
+# python bytecode cache
+__pycache__/
+*.pyc
