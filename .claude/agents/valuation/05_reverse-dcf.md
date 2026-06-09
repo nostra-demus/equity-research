@@ -37,7 +37,7 @@ If no current price is available (from `01`): this agent CANNOT run — there is
 4. Build a discount rate (WACC) using the same components as the DCF methodology; web-source the risk-free rate / ERP if needed and label them. State the rate explicitly. If the business type is Financial or REIT (Business-Type Method Map), reverse the equity-direct model instead — solve for the growth / ROE / payout the price implies in a DDM or residual-income model discounted at the cost of equity, not an FCFF / EV model.
 5. Solve backwards: holding the discount rate and a stated horizon fixed, find the FCF growth rate (and/or the number of years of above-GDP growth, and/or the steady-state margin) that makes the present value of cash flows equal to today's EV. **Compute this with an executed solver — you have `Bash`.** Run a few lines of Python (e.g. `scipy.optimize.brentq`, or a bisection loop over the growth rate) and paste the command plus the root it returned. Backing implied growth out of price is a nonlinear root-find; doing it in your head yields a plausible-looking but unverified number, and this number *is* the engine's entire "what's priced in" read. *(fix F11 — see `FRAMEWORK_FIXES_2026-06-08.md`.)*
 6. Judge the implied expectations against evidence: the company's historical growth, earnings-module driver and sensitivity findings, and moat durability.
-7. Show robustness — the implied growth at one higher and one lower discount rate.
+7. Show robustness — the implied growth at one higher and one lower discount rate, AND at the low / base / high end of the FCF base (naming which input the result is more sensitive to); when terminal value exceeds ~60% of EV, also vary terminal `g` by ±0.5%.
 
 # WHAT TO READ (priority for this agent)
 
@@ -90,6 +90,8 @@ In 2–4 sentences, judge whether the market's implied expectations are conserva
 | WACC | |
 | WACC +1% |  |
 
+Also stress the **FCF base**, not just the discount rate — in every output that examined it, the base was the larger swing factor. Show the implied growth at the low / base / high end of the FCF-base band (use the same normalized vs literal figures already derived in §1 — do not invent new ones) and state which input the result is more sensitive to. **When terminal value exceeds ~60% of EV, also show the implied growth at terminal `g` ±0.5%** — a terminal-dominated solve is highly sensitive to `g`, and varying only the discount rate hides that.
+
 ## 5. What's-Priced-In Read
 
 2–3 blunt sentences: "At {price}, the market is pricing in {implied growth} for {years}. That is {conservative / fair / aggressive} because {evidence}." If the implied expectations are below what the company can plausibly deliver, that is upside; if above, that is downside.
@@ -102,7 +104,7 @@ In 2–4 sentences, judge whether the market's implied expectations are conserva
 - [ ] The solve clearly states what was held fixed and what was solved for.
 - [ ] Implied expectations are compared to the company's actual historical growth and to earnings-module evidence.
 - [ ] The achievable/stretch/no judgement is evidence-backed, not asserted.
-- [ ] Robustness across discount rates is shown.
+- [ ] Robustness is shown across BOTH the discount rate AND the FCF base (and terminal `g` ±0.5% when terminal value is >~60% of EV), with the dominant input named — not the discount rate alone.
 - [ ] The implied-growth solve **and** the two robustness re-solves were produced by an executed Bash/Python solver, with the command and the root shown — not hand-computed. *(fix F11)*
 - [ ] No banned phrases.
 

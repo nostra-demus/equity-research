@@ -96,7 +96,7 @@ If no current price, mark the percentage rows "not computable — no observed pr
 # SELF-CHECK
 
 - [ ] Every method's value and confidence is pulled from `02`–`06`, not re-derived.
-- [ ] Method weights are justified by reliability for THIS company and sum to 100% across value-producing methods.
+- [ ] Method weights are justified by reliability for THIS company and sum to 100% across value-producing methods. If the published base-case range departs from the mechanically-weighted blend, the departure and its reason (conservative narrowing or a disclosed lens swap) are stated — never a silent re-anchor that makes the weights decorative.
 - [ ] Reverse-DCF is used as a cross-check, not a weighted value.
 - [ ] Method disagreement >40% is flagged as the headline if present.
 - [ ] Bull/base/bear are fair-value LEVELS tied to operating drivers — NO probabilities assigned.

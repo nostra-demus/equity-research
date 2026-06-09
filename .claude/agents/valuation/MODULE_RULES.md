@@ -117,12 +117,13 @@ On any number: state the reporting standard (US GAAP / IFRS / Ind AS) and the co
 2. **Growth must be financeable.** If using an operating DCF, provide a cross-check:
    - `Reinvestment rate ≈ (capex − D&A + ΔNWC) / NOPAT`
    - `Implied growth ≈ ROIC × reinvestment rate`
-   If implied growth differs materially from modeled growth, flag it and explain what bridges the gap (pricing, mix, margin expansion, working-capital release, one-offs).
+   If implied growth differs materially from modeled growth, flag it and explain what bridges the gap (pricing, mix, margin expansion, working-capital release, one-offs). **Teeth:** if implied growth differs from the modeled terminal `g` by more than ~1.5pp and the bridge is not quantified, the agent must either lower terminal `g` to the financeable level, OR cap intrinsic confidence and show the sensitivity grid at the financeable `g`. A flagged-but-unquantified gap may not be left to stand on an un-financeable terminal value.
 3. **ROIC drift rule.** In the terminal years, ROIC should trend toward WACC unless moat/quality evidence explicitly supports persistent excess returns. Label any persistence as an inference and cite the upstream moat/quality outputs if available.
 4. **WACC sanity bounds.** Flag if:
    - the risk-free rate or ERP is missing a dated source,
    - the after-tax cost of debt is below 0% or implausibly low versus the company's credit reality, or
    - terminal growth `g` exceeds the long-run nominal growth proxy for the reporting currency's economy (justify if higher).
+   **WACC override discipline:** the WACC is the single most value-determining input, so a discretionary override of the mechanically-computed figure must (a) show both the computed and the used WACC, (b) carry a one-sentence justification, (c) stay within ±1.5pp of the computed value, and (d) be cross-checked against any cost of capital inferred by the moat / business-quality module (`09_moat.md` §3 economic-moat test). If the override and that inferred cost of capital diverge by more than ~2pp, run the sensitivity grid spanning both rather than asserting one.
 5. **Terminal dominance escalation.** If terminal value is >75% of EV, the DCF is low-confidence (already stated). In that case the intrinsic output must add a second lens: an exit-multiple cross-check OR an economic-profit / ROIC-based narrative.
 6. **Cyclicality gate.** If the business is cyclical or commodity-linked (from the upstream external-dependency output or inference), do NOT use a single-point mid-cycle margin assumption. Require a margin band and a mid-cycle normalization explanation.
 

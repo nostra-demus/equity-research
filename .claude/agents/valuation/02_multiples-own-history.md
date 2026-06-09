@@ -25,7 +25,7 @@ You DO NOT:
 
 # PARTIAL-DATA RULE
 
-If no multi-year multiple history is available (only current multiples): present the current multiples, state *"Historical multiple bands unavailable — re-rating read limited to current level"*, and skip the implied-value-from-reversion table. If no forward estimates: compute LTM multiples only and label them LTM.
+If no multi-year multiple history is available (only current multiples): present the current multiples, state *"Historical multiple bands unavailable — re-rating read limited to current level"*, and skip the implied-value-from-reversion table. **If own history is shorter than ~3 years (e.g. a recently-listed or just-demerged company): do NOT present a mean/median reversion target as a point or a tight range — a 3-point "mean" off six months is false precision. Give only a directional "where in its short range it sits" read, and label any reversion-implied value illustrative-only, not a fair-value input for `07`.** If no forward estimates: compute LTM multiples only and label them LTM.
 
 # WORKFLOW
 
@@ -86,7 +86,7 @@ Apply the own-mean and own-median multiple to the current metric to derive an im
 | Multiple | Reversion Target (mean / median) | Implied EV or Equity | Implied Price/Share | vs Current Price |
 |---|---:|---:|---:|---:|
 
-State the implied value as a RANGE across the multiples used. Note explicitly that reversion assumes the warranted multiple has not structurally changed — and whether business-model/earnings evidence supports that.
+State the implied value as a RANGE across the multiples used. Note explicitly that reversion assumes the warranted multiple has not structurally changed — and whether business-model/earnings evidence supports that. If own history is shorter than ~3 years, do not produce this table as a fair-value input — see the partial-data rule (illustrative-only, directional read).
 
 ## 5. Own-History Read
 
@@ -99,7 +99,7 @@ State the implied value as a RANGE across the multiples used. Note explicitly th
 - [ ] Every multiple is labeled LTM / NTM / FY and reported vs adjusted.
 - [ ] Historical bands cite a real source; if unavailable, the partial-data note is applied.
 - [ ] Premium/discount to own mean is computed as a percentage, not described vaguely.
-- [ ] Implied value is a range and states the reversion assumption.
+- [ ] Implied value is a range and states the reversion assumption. If own history is shorter than ~3 years, no point/tight-range reversion target is presented as a fair-value input (illustrative-only, directional read).
 - [ ] The read flags whether the warranted multiple has structurally changed.
 - [ ] No banned phrases (no naked "cheap"/"expensive").
 
