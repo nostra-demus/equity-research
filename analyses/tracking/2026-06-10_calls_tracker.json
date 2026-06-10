@@ -1,0 +1,167 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-10",
+  "scope": "all",
+  "n_calls": 3,
+  "calls": [
+    {
+      "ticker": "TMCV",
+      "company": "Tata Motors Limited (Commercial Vehicles)",
+      "decision_date": "2026-06-07",
+      "decision": "Watchlist",
+      "basket": "Watchlist",
+      "confidence": 47,
+      "time_horizon": "12 months",
+      "entry_price": 369.15,
+      "currency": "INR",
+      "expected_return_pct": -4.4,
+      "implied_target": 352.91,
+      "downside_risk_pct": -81.0,
+      "kill_criteria_count": 5,
+      "forecasts": {
+        "open": 6,
+        "confirmed": 0,
+        "falsified": 0,
+        "expired": 0,
+        "other": 0
+      },
+      "run_root": "analyses/TMCV_2026-06-07",
+      "final_thesis_path": "analyses/TMCV_2026-06-07/final_thesis.md",
+      "latest_thesis_status": null,
+      "next_checkpoint": {
+        "window": "30d",
+        "due_date": "2026-07-07",
+        "status": "upcoming"
+      },
+      "review_count": 0,
+      "timeline": [
+        {
+          "window": "30d",
+          "due_date": "2026-07-07",
+          "status": "upcoming"
+        },
+        {
+          "window": "90d",
+          "due_date": "2026-09-05",
+          "status": "upcoming"
+        },
+        {
+          "window": "180d",
+          "due_date": "2026-12-04",
+          "status": "upcoming"
+        },
+        {
+          "window": "365d",
+          "due_date": "2027-06-07",
+          "status": "upcoming"
+        }
+      ]
+    },
+    {
+      "ticker": "BG",
+      "company": "Bunge Global SA",
+      "decision_date": "2026-06-01",
+      "decision": "Watchlist",
+      "basket": "Watchlist",
+      "confidence": 46,
+      "time_horizon": "12 months",
+      "entry_price": null,
+      "currency": "USD",
+      "expected_return_pct": -11.5,
+      "implied_target": null,
+      "downside_risk_pct": -31.1,
+      "kill_criteria_count": 7,
+      "forecasts": {
+        "open": 6,
+        "confirmed": 0,
+        "falsified": 0,
+        "expired": 0,
+        "other": 0
+      },
+      "run_root": "analyses/BG_2026-06-01",
+      "final_thesis_path": "analyses/BG_2026-06-01/final_thesis.md",
+      "latest_thesis_status": null,
+      "next_checkpoint": {
+        "window": "30d",
+        "due_date": "2026-07-01",
+        "status": "upcoming"
+      },
+      "review_count": 0,
+      "timeline": [
+        {
+          "window": "30d",
+          "due_date": "2026-07-01",
+          "status": "upcoming"
+        },
+        {
+          "window": "90d",
+          "due_date": "2026-08-30",
+          "status": "upcoming"
+        },
+        {
+          "window": "180d",
+          "due_date": "2026-11-28",
+          "status": "upcoming"
+        },
+        {
+          "window": "365d",
+          "due_date": "2027-06-01",
+          "status": "upcoming"
+        }
+      ]
+    },
+    {
+      "ticker": "HCG",
+      "company": "HealthCare Global Enterprises Limited",
+      "decision_date": "2026-06-01",
+      "decision": "Avoid",
+      "basket": "Rejected",
+      "confidence": 70,
+      "time_horizon": "12 months",
+      "entry_price": 646.15,
+      "currency": "INR",
+      "expected_return_pct": -13.4,
+      "implied_target": 559.57,
+      "downside_risk_pct": -31.9,
+      "kill_criteria_count": 8,
+      "forecasts": {
+        "open": 6,
+        "confirmed": 0,
+        "falsified": 0,
+        "expired": 0,
+        "other": 0
+      },
+      "run_root": "analyses/HCG_2026-06-01",
+      "final_thesis_path": "analyses/HCG_2026-06-01/final_thesis.md",
+      "latest_thesis_status": null,
+      "next_checkpoint": {
+        "window": "30d",
+        "due_date": "2026-07-01",
+        "status": "upcoming"
+      },
+      "review_count": 0,
+      "timeline": [
+        {
+          "window": "30d",
+          "due_date": "2026-07-01",
+          "status": "upcoming"
+        },
+        {
+          "window": "90d",
+          "due_date": "2026-08-30",
+          "status": "upcoming"
+        },
+        {
+          "window": "180d",
+          "due_date": "2026-11-28",
+          "status": "upcoming"
+        },
+        {
+          "window": "365d",
+          "due_date": "2027-06-01",
+          "status": "upcoming"
+        }
+      ]
+    }
+  ]
+}
