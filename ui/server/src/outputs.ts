@@ -140,6 +140,9 @@ interface ReviewFile {
   thesis_status: string | null
   forecasts_confirmed: number
   forecasts_falsified: number
+  // §8 memo_delta block (DECISION_LEDGER): the human-readable "what changed since the memo" tier.
+  memo_delta_file: string | null
+  stage_one_comment: string | null
 }
 
 // normalize forecast_results[].status (lowercase, unknown-safe) and count the resolved ones.
@@ -173,6 +176,7 @@ function listReviewFiles(runRoot: string): ReviewFile[] {
       continue
     }
     const fc = countForecastResults(j?.forecast_results)
+    const md = j?.memo_delta && typeof j.memo_delta === 'object' ? j.memo_delta : null
     out.push({
       file: `${runRoot}/reviews/${n}`,
       basename: n,
@@ -183,6 +187,8 @@ function listReviewFiles(runRoot: string): ReviewFile[] {
       thesis_status: typeof j?.thesis_status === 'string' && j.thesis_status ? j.thesis_status : null,
       forecasts_confirmed: fc.confirmed,
       forecasts_falsified: fc.falsified,
+      memo_delta_file: typeof md?.memo_delta_file === 'string' && md.memo_delta_file ? md.memo_delta_file : null,
+      stage_one_comment: typeof md?.stage_one_comment === 'string' && md.stage_one_comment ? md.stage_one_comment : null,
     })
   }
   return out
@@ -208,6 +214,8 @@ interface TimelineEntry {
   forecasts_falsified?: number
   review_file?: string
   review_count?: number
+  memo_delta_file?: string // present only when the review filed a §8 memo delta
+  stage_one_comment?: string
 }
 
 function buildTimeline(schedule: Record<string, any>, reviews: ReviewFile[], today: string): TimelineEntry[] {
@@ -233,6 +241,8 @@ function buildTimeline(schedule: Record<string, any>, reviews: ReviewFile[], tod
         forecasts_falsified: win.forecasts_falsified,
         review_file: win.file,
         review_count: matches.length,
+        ...(win.memo_delta_file ? { memo_delta_file: win.memo_delta_file } : {}),
+        ...(win.stage_one_comment ? { stage_one_comment: win.stage_one_comment } : {}),
       })
     } else {
       out.push({ window, due_date: dt, status: dt < today ? 'overdue' : dt === today ? 'due' : 'upcoming' })
@@ -253,6 +263,8 @@ function buildTimeline(schedule: Record<string, any>, reviews: ReviewFile[], tod
       forecasts_confirmed: r.forecasts_confirmed,
       forecasts_falsified: r.forecasts_falsified,
       review_file: r.file,
+      ...(r.memo_delta_file ? { memo_delta_file: r.memo_delta_file } : {}),
+      ...(r.stage_one_comment ? { stage_one_comment: r.stage_one_comment } : {}),
     })
   }
   // order by effective date (scheduled due_date or ad-hoc review_date); undated last

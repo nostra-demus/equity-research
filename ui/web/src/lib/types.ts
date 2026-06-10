@@ -99,6 +99,8 @@ export interface CallTimelineEntry {
   forecasts_falsified?: number
   review_file?: string
   review_count?: number
+  memo_delta_file?: string // §8 memo delta — the "what changed since the memo" markdown, when the review filed one
+  stage_one_comment?: string // paste-ready 100–200-word Stage-One sheet note from the same block
 }
 export interface CallSummary {
   ticker: string

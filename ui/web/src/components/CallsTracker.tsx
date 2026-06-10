@@ -35,6 +35,15 @@ export function CallsTracker() {
   const refreshDashboard = useStore((s) => s.refreshDashboard)
   const openCallFile = useStore((s) => s.openCallFile)
   const setToast = useStore((s) => s.setToast)
+  // copy the paste-ready Stage-One sheet note (from the latest review's §8 memo_delta block)
+  const copyStageOne = useCallback(async (text: string) => {
+    try {
+      await navigator.clipboard.writeText(text)
+      setToast({ msg: 'Stage-One comment copied to clipboard', tone: 'good' })
+    } catch {
+      setToast({ msg: 'Could not copy — open the delta memo and copy section 6', tone: 'info' })
+    }
+  }, [setToast])
   const anyRunForTicker = useStore((s) => s.anyRunForTicker)
   const [data, setData] = useState<CallsResult | null>(null)
   const [loading, setLoading] = useState(true)
@@ -96,6 +105,7 @@ export function CallsTracker() {
                 onUpdate={() => updateCall(c.ticker)}
                 onFileDue={(w) => fileDueReview(c.ticker, w)}
                 onOpen={openCallFile}
+                onCopyNote={copyStageOne}
               />
             ))}
           </>
@@ -105,13 +115,14 @@ export function CallsTracker() {
   )
 }
 
-function CallCard({ c, busy, staticMode, onUpdate, onFileDue, onOpen }: {
+function CallCard({ c, busy, staticMode, onUpdate, onFileDue, onOpen, onCopyNote }: {
   c: CallSummary
   busy: boolean
   staticMode: boolean
   onUpdate: () => void
   onFileDue: (window: string) => void
   onOpen: (path: string, title: string) => void
+  onCopyNote: (text: string) => void
 }) {
   // nodes = the call itself, then each review checkpoint in time order
   const nodes: TLNode[] = [{
@@ -122,14 +133,19 @@ function CallCard({ c, busy, staticMode, onUpdate, onFileDue, onOpen }: {
     const reached = t.status === 'done' || t.status === 'due' || t.status === 'overdue'
     const sub = t.status === 'done' ? ret(t.absolute_return_pct) : dash(t.due_date)
     const detail = t.status === 'done'
-      ? `Reviewed ${dash(t.review_date)} · price ${dash(t.review_price)} · ${ret(t.absolute_return_pct)} · thesis ${dash(t.thesis_status)} · forecasts ${dash(t.forecasts_confirmed)}✓/${dash(t.forecasts_falsified)}✗`
+      ? `Reviewed ${dash(t.review_date)} · price ${dash(t.review_price)} · ${ret(t.absolute_return_pct)} · thesis ${dash(t.thesis_status)} · forecasts ${dash(t.forecasts_confirmed)}✓/${dash(t.forecasts_falsified)}✗${t.memo_delta_file ? ' · click: memo delta' : t.review_file ? ' · click: review JSON' : ''}`
       : `${t.window} review ${t.status} — due ${dash(t.due_date)}`
     const subTone = t.status === 'done' && typeof t.absolute_return_pct === 'number' ? (t.absolute_return_pct >= 0 ? 'pos' : 'neg') : undefined
-    nodes.push({
-      kind: t.status, label: t.window, sub, subTone, reached, title: detail,
-      onClick: t.review_file ? () => onOpen(t.review_file!, `${c.ticker} ${t.window} review`) : undefined,
-    })
+    // a done checkpoint opens its human-readable memo delta when the review filed one; else the raw review JSON
+    const onClick = t.memo_delta_file
+      ? () => onOpen(t.memo_delta_file!, `${c.ticker} ${t.window} memo delta`)
+      : t.review_file
+        ? () => onOpen(t.review_file!, `${c.ticker} ${t.window} review`)
+        : undefined
+    nodes.push({ kind: t.status, label: t.window, sub, subTone, reached, title: detail, onClick })
   }
+  // latest filed delta artifacts (timeline is in time order; take the last done entry that carries them)
+  const lastDelta = [...c.timeline].reverse().find((t) => t.status === 'done' && (t.memo_delta_file || t.stage_one_comment))
   // amber fill reaches the furthest checkpoint time has passed (done/due/overdue)
   let reachedIdx = 0
   nodes.forEach((n, i) => { if (n.reached) reachedIdx = i })
@@ -187,6 +203,16 @@ function CallCard({ c, busy, staticMode, onUpdate, onFileDue, onOpen }: {
         </button>
         {dueNow && <button className="btn btn--ghost btn--mini" onClick={() => onFileDue(nc!.window)} disabled={staticMode || busy} title={`File the scheduled ${nc!.window} review`}>File {nc!.window} review</button>}
         <button className="btn btn--ghost btn--mini" onClick={() => onOpen(c.final_thesis_path, `Investment Thesis — ${c.ticker}`)}>Thesis</button>
+        {lastDelta?.memo_delta_file && (
+          <button className="btn btn--ghost btn--mini" onClick={() => onOpen(lastDelta.memo_delta_file!, `${c.ticker} memo delta (${lastDelta.window})`)} title="What changed since the memo — the latest review's 2–3 page delta">
+            Delta memo
+          </button>
+        )}
+        {lastDelta?.stage_one_comment && (
+          <button className="btn btn--ghost btn--mini" onClick={() => onCopyNote(lastDelta.stage_one_comment!)} title="Copy the latest Stage-One sheet comment">
+            Copy note
+          </button>
+        )}
         <span className="callcard__hint">
           {forecastsTotal > 0 && <>{c.forecasts.confirmed}✓/{c.forecasts.falsified}✗ of {forecastsTotal} forecasts · </>}
           {nc ? <>next: {nc.window} {nc.status === 'overdue' ? 'overdue' : nc.status} {dash(nc.due_date)}</> : 'no checkpoints'}
