@@ -1,0 +1,455 @@
+{
+  "schema_version": "1.0",
+  "generated_at": "2026-06-10",
+  "scope": "all",
+  "n_runs": 3,
+  "suite_pass": true,
+  "runs": {
+    "BG_2026-06-01": {
+      "run_root": "analyses/BG_2026-06-01",
+      "ticker": "BG",
+      "decision": "Watchlist",
+      "pass": true,
+      "checks": [
+        {
+          "check": "A_structural",
+          "status": "PASS",
+          "detail": "final_thesis>1KB=True; RUN_METADATA=True; modules_missing_99=[]"
+        },
+        {
+          "check": "B_schema",
+          "status": "PASS",
+          "detail": "missing=[]; badtype=[]; schema_version=1.0"
+        },
+        {
+          "check": "C_decision_basket",
+          "status": "PASS",
+          "detail": "decision='Watchlist' basket='Watchlist' (expected 'Watchlist'); paper_treatment ok=True"
+        },
+        {
+          "check": "D_missing_price",
+          "status": "PASS",
+          "detail": "entry_price null; notes references price/paper-trade=True"
+        },
+        {
+          "check": "E_numeric",
+          "status": "PASS",
+          "detail": "{'expected_return_pct': -11.5, 'downside_risk_pct': -31.1, 'risk_reward': -0.37, 'confidence_score': 46, 'data_sufficiency_score': 68}"
+        },
+        {
+          "check": "F_review_dates",
+          "status": "PASS",
+          "detail": "all 30/90/180/365 = decision_date+N from 2026-06-01"
+        },
+        {
+          "check": "G_verification_report.json",
+          "status": "PASS",
+          "detail": "using verification_report.json; verdict=Clean"
+        },
+        {
+          "check": "G_pre_mortem.json",
+          "status": "PASS",
+          "detail": "using pre_mortem.json; verdict=Survives"
+        },
+        {
+          "check": "G_expectations_gap.json",
+          "status": "PASS",
+          "detail": "using expectations_gap.json; verdict=None"
+        },
+        {
+          "check": "H_no_stray_confirmation",
+          "status": "PASS",
+          "detail": "stray=[]"
+        },
+        {
+          "check": "I_decision_in_thesis",
+          "status": "PASS",
+          "detail": "decision string present in final_thesis.md=True"
+        },
+        {
+          "check": "K_s24_in_thesis",
+          "status": "N/A",
+          "detail": "run predates §24 (2026-06-01) — N/A"
+        },
+        {
+          "check": "L_three_tiers",
+          "status": "N/A",
+          "detail": "run predates three-tier feature (2026-06-01) — N/A"
+        },
+        {
+          "check": "M_scenario_math",
+          "status": "N/A",
+          "detail": "run predates scenario-math gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "N_no_scratch_leak",
+          "status": "N/A",
+          "detail": "run predates scratch-leak gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "O_integrity_gate",
+          "status": "N/A",
+          "detail": "N/A (not a post-gate Selected/Short run)"
+        },
+        {
+          "check": "P_disconfirmation",
+          "status": "N/A",
+          "detail": "run predates disconfirmation-quality gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "Q_module_tiers",
+          "status": "N/A",
+          "detail": "run predates module-tiers feature (2026-06-01) — N/A"
+        },
+        {
+          "check": "R_memo_delta",
+          "status": "N/A",
+          "detail": "no reviews filed on/after 2026-06-10 — N/A"
+        }
+      ],
+      "warn_nonschema_files": []
+    },
+    "HCG_2026-06-01": {
+      "run_root": "analyses/HCG_2026-06-01",
+      "ticker": "HCG",
+      "decision": "Avoid",
+      "pass": true,
+      "checks": [
+        {
+          "check": "A_structural",
+          "status": "PASS",
+          "detail": "final_thesis>1KB=True; RUN_METADATA=True; modules_missing_99=[]"
+        },
+        {
+          "check": "B_schema",
+          "status": "PASS",
+          "detail": "missing=[]; badtype=[]; schema_version=1.0"
+        },
+        {
+          "check": "C_decision_basket",
+          "status": "PASS",
+          "detail": "decision='Avoid' basket='Rejected' (expected 'Rejected'); paper_treatment ok=True"
+        },
+        {
+          "check": "D_missing_price",
+          "status": "N/A",
+          "detail": "entry_price present"
+        },
+        {
+          "check": "E_numeric",
+          "status": "PASS",
+          "detail": "{'expected_return_pct': -13.4, 'downside_risk_pct': -31.9, 'risk_reward': -0.42, 'confidence_score': 70, 'data_sufficiency_score': 69}"
+        },
+        {
+          "check": "F_review_dates",
+          "status": "PASS",
+          "detail": "all 30/90/180/365 = decision_date+N from 2026-06-01"
+        },
+        {
+          "check": "G_verification_report.json",
+          "status": "PASS",
+          "detail": "using verification_report_v3.json; verdict=Minor issues"
+        },
+        {
+          "check": "G_pre_mortem.json",
+          "status": "PASS",
+          "detail": "using pre_mortem.json; verdict=Survives with haircut"
+        },
+        {
+          "check": "G_expectations_gap.json",
+          "status": "PASS",
+          "detail": "using expectations_gap.json; verdict=None"
+        },
+        {
+          "check": "H_no_stray_confirmation",
+          "status": "PASS",
+          "detail": "stray=[]"
+        },
+        {
+          "check": "I_decision_in_thesis",
+          "status": "PASS",
+          "detail": "decision string present in final_thesis.md=True"
+        },
+        {
+          "check": "K_s24_in_thesis",
+          "status": "N/A",
+          "detail": "run predates §24 (2026-06-01) — N/A"
+        },
+        {
+          "check": "L_three_tiers",
+          "status": "N/A",
+          "detail": "run predates three-tier feature (2026-06-01) — N/A"
+        },
+        {
+          "check": "M_scenario_math",
+          "status": "N/A",
+          "detail": "run predates scenario-math gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "N_no_scratch_leak",
+          "status": "N/A",
+          "detail": "run predates scratch-leak gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "O_integrity_gate",
+          "status": "N/A",
+          "detail": "N/A (not a post-gate Selected/Short run)"
+        },
+        {
+          "check": "P_disconfirmation",
+          "status": "N/A",
+          "detail": "run predates disconfirmation-quality gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "Q_module_tiers",
+          "status": "N/A",
+          "detail": "run predates module-tiers feature (2026-06-01) — N/A"
+        },
+        {
+          "check": "R_memo_delta",
+          "status": "N/A",
+          "detail": "no reviews filed on/after 2026-06-10 — N/A"
+        }
+      ],
+      "warn_nonschema_files": [
+        "final_thesis_expanded.md"
+      ]
+    },
+    "TMCV_2026-06-07": {
+      "run_root": "analyses/TMCV_2026-06-07",
+      "ticker": "TMCV",
+      "decision": "Watchlist",
+      "pass": true,
+      "checks": [
+        {
+          "check": "A_structural",
+          "status": "PASS",
+          "detail": "final_thesis>1KB=True; RUN_METADATA=True; modules_missing_99=[]"
+        },
+        {
+          "check": "B_schema",
+          "status": "PASS",
+          "detail": "missing=[]; badtype=[]; schema_version=1.0"
+        },
+        {
+          "check": "C_decision_basket",
+          "status": "PASS",
+          "detail": "decision='Watchlist' basket='Watchlist' (expected 'Watchlist'); paper_treatment ok=True"
+        },
+        {
+          "check": "D_missing_price",
+          "status": "N/A",
+          "detail": "entry_price present"
+        },
+        {
+          "check": "E_numeric",
+          "status": "PASS",
+          "detail": "{'expected_return_pct': -4.4, 'downside_risk_pct': -81.0, 'risk_reward': -0.23, 'confidence_score': 47, 'data_sufficiency_score': 68}"
+        },
+        {
+          "check": "F_review_dates",
+          "status": "PASS",
+          "detail": "all 30/90/180/365 = decision_date+N from 2026-06-07"
+        },
+        {
+          "check": "G_verification_report.json",
+          "status": "N/A",
+          "detail": "absent"
+        },
+        {
+          "check": "G_pre_mortem.json",
+          "status": "N/A",
+          "detail": "absent"
+        },
+        {
+          "check": "G_expectations_gap.json",
+          "status": "N/A",
+          "detail": "absent"
+        },
+        {
+          "check": "H_no_stray_confirmation",
+          "status": "PASS",
+          "detail": "stray=[]"
+        },
+        {
+          "check": "I_decision_in_thesis",
+          "status": "PASS",
+          "detail": "decision string present in final_thesis.md=True"
+        },
+        {
+          "check": "K_s24_in_thesis",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-03; §24 roll-up present in final_thesis=True"
+        },
+        {
+          "check": "L_three_tiers",
+          "status": "PASS",
+          "detail": "run dated >= 2026-06-03; memo.md=True audit_dossier.md=True"
+        },
+        {
+          "check": "M_scenario_math",
+          "status": "N/A",
+          "detail": "run predates scenario-math gate (2026-06-07) — N/A"
+        },
+        {
+          "check": "N_no_scratch_leak",
+          "status": "N/A",
+          "detail": "run predates scratch-leak gate (2026-06-07) — N/A"
+        },
+        {
+          "check": "O_integrity_gate",
+          "status": "N/A",
+          "detail": "N/A (not a post-gate Selected/Short run)"
+        },
+        {
+          "check": "P_disconfirmation",
+          "status": "N/A",
+          "detail": "run predates disconfirmation-quality gate (2026-06-07) — N/A"
+        },
+        {
+          "check": "Q_module_tiers",
+          "status": "N/A",
+          "detail": "run predates module-tiers feature (2026-06-07) — N/A"
+        },
+        {
+          "check": "R_memo_delta",
+          "status": "N/A",
+          "detail": "no reviews filed on/after 2026-06-10 — N/A"
+        }
+      ],
+      "warn_nonschema_files": []
+    }
+  },
+  "source_contracts_s24": [
+    {
+      "file": "CLAUDE.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": "frameworks/SECTOR_OVERLAYS.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/business-model/02_business-identity.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/business-model/MODULE_RULES.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/business-model/07_business-quality.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/business-model/01_disqualifier-scan.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/business-model/11_capital-allocation-governance.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/management-governance/MODULE_RULES.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/management-governance/01_management-and-track-record.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/management-governance/04_ownership-and-insider-behavior.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/balance-sheet-survival/MODULE_RULES.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/valuation/MODULE_RULES.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/synthesizer.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/catalyst/MODULE_RULES.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/catalyst/01_catalyst-calendar.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/catalyst/99_catalyst-synthesis.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/memo-writer.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/commands/research/full.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/agents/module-memo-writer.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": "frameworks/MODULE_PIPELINE.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/commands/research/rerun.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/commands/research/track.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/settings.json",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/hooks/review_due.py",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": "frameworks/DECISION_LEDGER.md",
+      "status": "PASS",
+      "missing": []
+    },
+    {
+      "file": ".claude/commands/research/review-decisions.md",
+      "status": "PASS",
+      "missing": []
+    }
+  ]
+}

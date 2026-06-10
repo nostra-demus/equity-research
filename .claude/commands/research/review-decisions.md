@@ -1,5 +1,5 @@
 ---
-description: Review historical decision records and write append-only outcome review JSON files.
+description: Review historical decision records and write append-only outcome review JSON files, each paired with a human-readable memo delta (what changed since the memo).
 argument-hint: RUN_OR_TICKER_OR_DUE [WINDOW]
 allowed-tools: Read, Write, Glob, Bash, WebSearch, WebFetch
 ---
@@ -8,7 +8,7 @@ You implement **Phase 3 of the decision-ledger feedback loop**. You review one o
 
 `frameworks/DECISION_LEDGER.md` is the single source of truth. Read it first and follow it exactly:
 - §7 — review windows and the questions each review answers
-- §8 — the canonical outcome-review JSON schema and review-file path
+- §8 — the canonical outcome-review JSON schema and review-file path, **including the `memo_delta` block** (what changed since the memo) and its paired markdown
 - §10 — separating price outcome from thesis outcome (luck vs skill)
 - §12 — error taxonomy (also `CLAUDE.md` §20)
 - §13 — module calibration notes
@@ -90,7 +90,7 @@ PY
 
 Use the `DUE` lines to drive mode `due`. `REVIEWED` windows are skipped (append-only — never re-review the same window unless the user explicitly asks with an explicit window, in which case Step 4 versions the file).
 
-## 4. Resolve the review output path (append-only)
+## 4. Resolve the review output paths (append-only)
 
 Per `DECISION_LEDGER.md` §8, the review path is:
 
@@ -110,6 +110,8 @@ out="${base}.json"; n=2
 while [ -e "$out" ]; do out="${base}_v${n}.json"; n=$((n+1)); done
 echo "$out"
 ```
+
+The **paired memo-delta markdown** (§8) shares the basename: take the resolved review-JSON path and replace `_decision_review` with `_memo_delta` and `.json` with `.md` (any `_vN` suffix carries over) — e.g. `2026-07-01_30d_decision_review_v2.json` → `2026-07-01_30d_memo_delta_v2.md`.
 
 ## 5. Gather review evidence
 
@@ -178,7 +180,26 @@ Populate `module_calibration_notes` as a JSON object (§13). Address, where evid
 
 If there is not enough evidence yet (e.g. an early `30d` review), say so explicitly in the object rather than guessing.
 
-## 11. Write the review JSON
+## 11. Build the memo delta (`memo_delta`, §8)
+
+Each review also answers: **"what changed since the original memo, and does it matter?"** — machine-readable in the review JSON's `memo_delta` block (schema: `DECISION_LEDGER.md` §8), human-readable in the paired markdown (Step 13). This is a **small update, not a re-run**: you compare new facts against the original memo; you never re-analyze, never update the financial model, never touch the originals.
+
+- **The original memo** = `<RUN_ROOT>/memo.md` if present, else `final_thesis.md` (Part I plus its section headings).
+- **Delta evidence, in `CLAUDE.md` §4 source order:**
+  1. **Pool first.** Documents in the ticker's data pool (`data/<TICKER>/`) added or dated after `decision_date` — list them (`ls -lt data/<TICKER>/`), read the material ones, cite per §5. A pool source always beats a web source for the same fact.
+  2. Newer run folders / module outputs for the same ticker, if any exist.
+  3. The web-sourced outcome facts already gathered in Step 5 (price, benchmark, catalyst/risk outcomes) — already labelled source + date.
+- Populate per §8:
+  - `summary` — 2–4 sentences, the delta in plain English.
+  - `thesis_delta_verdict` ∈ {`unchanged`, `strengthened`, `weakened`, `broken`, `too_early`}; it must not contradict `thesis_status`.
+  - `changed_sections` — **material changes only**, each with: `section`, `original_claim`, `new_evidence`, `evidence_source` (a §5 citation **with a date** — required), `materiality_score` 0–100 (§12), `impact_direction`, `impacted_modules` (exact module folder names — discover the roster via Glob `.claude/agents/*/99_*-synthesis.md`, never guess a name), and when `rerun_recommended` is true, `rerun_reason` + an exact `rerun_command` (`/research:rerun <module> <agent> <TICKER>` for one orb; `/research:<module> <TICKER>` for a whole module). Recommend a re-run only when `materiality_score` ≥ 60 AND the change invalidates inputs that module relied on — not for every wiggle.
+  - `stage_one_comment` — 100–200 words of **plain text** (no markdown), paste-ready for the Stage-One sheet: what changed, whether the thesis holds, what we would do.
+  - `watch_items` — the specific things to watch before the next checkpoint (kill-criteria `monitor_via` fields, unresolved forecasts, pending catalysts). Note: `kill_criteria` exists in two shapes on disk — plain strings (older records) and structured objects with `condition`/`monitor_via`/`module_source` (newer) — handle both.
+  - `management_questions` — 3–7 questions the delta raises for management or analysts.
+  - `memo_delta_file` — the Step-4 markdown path (repo-relative).
+- "Nothing material changed" / "too early" is a valid result — record it honestly with an empty `changed_sections` and keep everything SHORT. Never fabricate a delta.
+
+## 12. Write the review JSON
 
 Use the **exact** outcome-review schema from `DECISION_LEDGER.md` §8 (do not drift; extra fields only if clearly useful):
 
@@ -205,11 +226,12 @@ Use the **exact** outcome-review schema from `DECISION_LEDGER.md` §8 (do not dr
   "decision_quality": "",
   "error_taxonomy": [],
   "lessons": [],
-  "module_calibration_notes": {}
+  "module_calibration_notes": {},
+  "memo_delta": {}
 }
 ```
 
-Fill: `ticker`, `original_decision_date` (= record `decision_date`), `review_date` (= `<TODAY>`), `review_window`, `original_decision` (= record `decision`), `basket` (= record `basket`), `entry_price` (= record `entry_price`, unchanged), and the fields produced in Steps 5–10. `lessons` is an array of short strings (the §7 answers, web-source labels, and the single most important takeaway).
+Fill: `ticker`, `original_decision_date` (= record `decision_date`), `review_date` (= `<TODAY>`), `review_window`, `original_decision` (= record `decision`), `basket` (= record `basket`), `entry_price` (= record `entry_price`, unchanged), the fields produced in Steps 5–10, and `memo_delta` = the full §8 block built in Step 11 (required for reviews filed on/after 2026-06-10). `lessons` is an array of short strings (the §7 answers, web-source labels, and the single most important takeaway).
 
 Conventions (must hold): valid JSON; no markdown fences; no comments; no trailing commas; `null` for unknown numbers; `""` for unknown strings; `[]` for empty arrays; `{}` for empty objects. Never fabricate a value.
 
@@ -221,27 +243,63 @@ python3 -m json.tool "<review_file>" >/tmp/review_check.json && echo "OK valid J
 
 If validation fails, fix the content and rewrite before continuing. Do not commit an invalid review file.
 
-## 12. Human-readable summary
+## 13. Write the memo delta markdown
 
-After writing each review JSON, print a short block:
+Write the paired markdown at the Step-4 memo-delta path — the human-readable tier of the SAME content. **Re-projection discipline:** no fact may appear here that is not in the review JSON. `CLAUDE.md` §21 plain English; every material claim cites source + date; target **2–3 pages, hard ceiling 4** (≤ ~1,600 words; the eval harness fails a delta above ~2,500 words). Structure:
+
+```markdown
+# <TICKER> Memo Delta — <REVIEW_DATE> (<WINDOW> review)
+
+## 1. One-line verdict
+Thesis status: <thesis_status> · Delta: <thesis_delta_verdict> · <the summary sentence>.
+
+## 2. What changed since the original memo
+New facts only, each with source + date. No generic market commentary unless it affects the thesis.
+
+## 3. Did the original thesis play out?
+What we expected · what actually happened · whether the stock moved for our reason or another reason (§10 luck-vs-skill).
+
+## 4. Forecasts, catalysts, risks
+Forecasts confirmed / falsified / still open; catalysts materialized / pending / delayed; risks materialized / not.
+
+## 5. Section impact map
+| Original section | Changed? | Materiality /100 | Why | Impacted module(s) | Re-run? |
+One row per `changed_sections` entry; the Re-run column shows the exact `rerun_command`, or "no".
+
+## 6. Stage-One sheet comment
+The `stage_one_comment`, verbatim, as one paste-ready block.
+
+## 7. Questions for management / analysts
+The `management_questions` (3–7).
+
+## 8. Watch before the next checkpoint
+The `watch_items`, with dates where known.
+```
+
+Hard limits: do not update the financial model; do not restate the whole memo; do not change the original memo, thesis, or decision record. A "nothing material changed" delta is one page, not three.
+
+## 14. Human-readable summary
+
+After writing each review JSON + memo delta pair, print a short block:
 - ticker
 - run root
 - review window
-- review file path
-- thesis status
+- review file path · memo delta file path
+- thesis status · thesis delta verdict
 - decision quality
 - forecasts: counts of confirmed / falsified / expired / still open / not assessable
+- changed sections: count, and how many carry a re-run recommendation (with the exact commands)
 - the single key lesson
 - confirmation that the original `decision_record.json` and `final_thesis.md` were NOT modified
 
 If no records were due/found (e.g. mode `due` with nothing scheduled yet), say so plainly and exit without writing or committing anything.
 
-## 13. Commit and push to main
+## 15. Commit and push to main
 
 Per repo `CLAUDE.md` git policy: commit straight to `main`. No branches. No PRs. Only `git add` the review files you created (never the original records):
 
 ```bash
-bash scripts/commit-run.sh "Decision reviews: <N> review(s) on <REVIEW_DATE>" -- "analyses/*/reviews/*_decision_review*.json"
+bash scripts/commit-run.sh "Decision reviews: <N> review(s) on <REVIEW_DATE>" -- "analyses/*/reviews/*_decision_review*.json" "analyses/*/reviews/*_memo_delta*.md"
 ```
 
 Capture and report the commit SHA from `git rev-parse HEAD`. If no review files were created, skip the commit entirely.
@@ -250,8 +308,9 @@ Capture and report the commit SHA from `git rev-parse HEAD`. If no review files 
 
 ## Hard rules
 
-- This command reads originals and writes only `analyses/<TICKER>_<DATE>/reviews/…_decision_review*.json`. It never edits `decision_record.json`, `final_thesis.md`, `RUN_METADATA.md`, or any module output.
-- Review files are append-only — existing reviews are never overwritten; collisions get a `_v2`, `_v3`, … suffix (Step 4).
+- This command reads originals and writes only `analyses/<TICKER>_<DATE>/reviews/…_decision_review*.json` plus the paired `…_memo_delta*.md`. It never edits `decision_record.json`, `final_thesis.md`, `RUN_METADATA.md`, or any module output.
+- Review files are append-only — existing reviews are never overwritten; collisions get a `_v2`, `_v3`, … suffix (Step 4); the memo delta carries the same suffix as its JSON.
+- The memo delta is a comparison, not a re-run: it never updates the financial model and never re-does module work. A re-run is only ever a *recommendation*, named with its module(s) and exact command (`rerun_command`).
 - The outcome-review schema and all doctrine come from `frameworks/DECISION_LEDGER.md`; this command does not redefine them.
 - Web-sourced numbers are always labeled with source + date and treated as indicative/unverified; if they cannot be verified, the field is `null` with a caveat — the review is still created.
 - This command spawns no subagents and creates no feedback-loop agent, dashboard, or cohort report (those are Phase 4/5).

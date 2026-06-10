@@ -39,11 +39,14 @@ def reviews_for(run_root):
         fr = j.get("forecast_results") or []
         conf = sum(1 for r in fr if str((r or {}).get("status", "")).lower() == "confirmed")
         fals = sum(1 for r in fr if str((r or {}).get("status", "")).lower() == "falsified")
+        md = j.get("memo_delta") if isinstance(j.get("memo_delta"), dict) else {}
         out.append({"file": rf, "basename": os.path.basename(rf),
                     "review_window": j.get("review_window") or "", "review_date": j.get("review_date") or "",
                     "review_price": j.get("review_price"), "absolute_return_pct": j.get("absolute_return_pct"),
                     "thesis_status": j.get("thesis_status") or None,
-                    "forecasts_confirmed": conf, "forecasts_falsified": fals})
+                    "forecasts_confirmed": conf, "forecasts_falsified": fals,
+                    "memo_delta_file": (md.get("memo_delta_file") or None),
+                    "stage_one_comment": (md.get("stage_one_comment") or None)})
     return out
 
 def winner(files):  # latest review_date, tie-break lexically-newest basename
@@ -57,19 +60,25 @@ def build_timeline(schedule, reviews):
         matches = [r for r in reviews if ("_%s_decision_review" % w) in r["basename"]]
         win = winner(matches)
         if win:
-            out.append({"window": w, "due_date": dt, "status": "done", "review_date": win["review_date"],
-                        "review_price": win["review_price"], "absolute_return_pct": win["absolute_return_pct"],
-                        "thesis_status": win["thesis_status"], "forecasts_confirmed": win["forecasts_confirmed"],
-                        "forecasts_falsified": win["forecasts_falsified"], "review_file": win["file"], "review_count": len(matches)})
+            e = {"window": w, "due_date": dt, "status": "done", "review_date": win["review_date"],
+                 "review_price": win["review_price"], "absolute_return_pct": win["absolute_return_pct"],
+                 "thesis_status": win["thesis_status"], "forecasts_confirmed": win["forecasts_confirmed"],
+                 "forecasts_falsified": win["forecasts_falsified"], "review_file": win["file"], "review_count": len(matches)}
+            if win.get("memo_delta_file"): e["memo_delta_file"] = win["memo_delta_file"]      # keys present only when set,
+            if win.get("stage_one_comment"): e["stage_one_comment"] = win["stage_one_comment"]  # matching /api/calls exactly
+            out.append(e)
         else:
             out.append({"window": w, "due_date": dt,
                         "status": ("overdue" if dt < today else ("due" if dt == today else "upcoming"))})
     for r in reviews:  # ad-hoc / non-scheduled reviews: each a distinct point in time
         if any(("_%s_decision_review" % w) in r["basename"] for w in keys): continue
-        out.append({"window": r["review_window"] or "ad-hoc", "due_date": r["review_date"] or None, "status": "done",
-                    "review_date": r["review_date"], "review_price": r["review_price"], "absolute_return_pct": r["absolute_return_pct"],
-                    "thesis_status": r["thesis_status"], "forecasts_confirmed": r["forecasts_confirmed"],
-                    "forecasts_falsified": r["forecasts_falsified"], "review_file": r["file"]})
+        e = {"window": r["review_window"] or "ad-hoc", "due_date": r["review_date"] or None, "status": "done",
+             "review_date": r["review_date"], "review_price": r["review_price"], "absolute_return_pct": r["absolute_return_pct"],
+             "thesis_status": r["thesis_status"], "forecasts_confirmed": r["forecasts_confirmed"],
+             "forecasts_falsified": r["forecasts_falsified"], "review_file": r["file"]}
+        if r.get("memo_delta_file"): e["memo_delta_file"] = r["memo_delta_file"]
+        if r.get("stage_one_comment"): e["stage_one_comment"] = r["stage_one_comment"]
+        out.append(e)
     out.sort(key=lambda t: t["due_date"] or "9999-99-99")
     return out
 
@@ -155,6 +164,14 @@ for c in calls:
                     f'{cell(t.get("review_price"))} | {ret(t.get("absolute_return_pct"))} | {cell(t.get("thesis_status"))} | '
                     f'{cell(t.get("forecasts_confirmed"))}/{cell(t.get("forecasts_falsified"))} |')
     parts.append("\n".join(rows) if rows else "_(no review schedule on this call)_")
+    delta_lines = []  # the human-readable "what changed since the memo" tier, when a review filed one (§8 memo_delta)
+    for t in c["timeline"]:
+        if not (t.get("memo_delta_file") or t.get("stage_one_comment")): continue
+        delta_lines.append(f'- **{t["window"]} memo delta:** `{cell(t.get("memo_delta_file"))}`')
+        if t.get("stage_one_comment"):
+            delta_lines.append("  > " + " ".join(str(t["stage_one_comment"]).split()))
+    if delta_lines:
+        parts.append("\n### Memo deltas (what changed since the memo)\n\n" + "\n".join(delta_lines))
 open(mf, "w", encoding="utf-8").write("\n".join(parts) + "\n")
 print(f"WROTE {jf}")
 print(f"WROTE {mf}")
@@ -191,6 +208,6 @@ Capture and report the commit SHA from `git rev-parse HEAD`. If no dashboard was
 - **Read-only** on every `decision_record.json`, `final_thesis.md`, and review file; writes only dated `analyses/tracking/<DATE>_calls_tracker.{md,json}` (a derived, regenerable aggregate).
 - **No Web, no new outcomes.** This command aggregates already-filed reviews. The live "update since now" is `/research:review-decisions <ticker> ad-hoc` (Phase 3) — do not fetch prices here.
 - The due/overdue rule is the **same** as `.claude/hooks/review_due.py` and `review-decisions.md` Step 3 (local date, lexical ISO compare, `*_<window>_decision_review*.json` glob). Do not re-derive it differently.
-- The `calls[]` JSON shape **matches `GET /api/calls`** so the dashboard and the cockpit Calls Tracker never disagree.
+- The `calls[]` JSON shape **matches `GET /api/calls`** so the dashboard and the cockpit Calls Tracker never disagree — including the per-checkpoint `memo_delta_file` / `stage_one_comment` lifted from each review's §8 `memo_delta` block (keys present only when the review carries them).
 - Append-only / non-destructive: a same-day re-run gets a `_v2`, `_v3`, … suffix; it never overwrites a prior dashboard.
 - Spawns no subagents. Grounded in `frameworks/DECISION_LEDGER.md` §5/§7/§8 (Phase 5).

@@ -35,6 +35,7 @@ Run the embedded check script below via Bash. It applies, per run, the following
 - **O. Integrity finish-gate present** (forward-looking; `fix F01`) — for a run dated on/after `2026-06-08` whose decision is in the Selected or Short basket, both `verification_report.json` and `pre_mortem.json` must exist — these are the in-path audits the `/research:full` finish-gate (step 10B) produces before commit; their absence means a conviction thesis shipped without the integrity + red-team pass. Older fixtures, and Watchlist/Avoid/Insufficient runs, → **N/A**.
 - **P. Disconfirmation / edge quality** (forward-looking; `fix F39`) — for a run dated on/after `2026-06-08`, the variant perception must be **non-tautological** (`what_market_may_be_missing` ≠ `what_everyone_knows`; an explicitly-empty "no proven edge yet" is allowed per §7) and `kill_criteria` must carry at least one concrete falsification trigger. Catches a perfunctory bear case / a restated-consensus "edge" that the old field-presence check waved through. Older fixtures → **N/A**.
 - **Q. Per-module three tiers present in post-landing runs** (forward-looking) — for a run whose `decision_date` is on/after the module-tiers landing date (`2026-06-08`), every module subfolder that has a `99_*-synthesis.md` must also carry a `*_memo.md` (the module memo) and a `*_dossier.md` (the module dossier) — the module-level equivalent of the run-level three tiers. Runs that predate the feature are **N/A**, so the suite still passes; the check activates automatically for every new run.
+- **R. Memo-delta contract** (forward-looking; landing `2026-06-10`) — every review JSON filed on/after the landing date must carry the `DECISION_LEDGER` §8 `memo_delta` block, and any review that carries one must satisfy it: the paired `*_memo_delta*.md` exists on disk at `memo_delta_file` and stays a delta (≤ ~2,500 words — the 2–3-page discipline); `thesis_delta_verdict` is in-enum; every `changed_sections` entry cites an `evidence_source`; and any `rerun_recommended` names impacted module(s) that exist in the discovered agent roster. Pre-landing reviews and runs with no reviews are **N/A**.
 
 The script also notes (WARN, not FAIL) any **non-schema artifact** in a run folder (e.g. a stray oversized file) so coverage gaps and strays surface.
 
@@ -49,6 +50,8 @@ ARRAYS=["thesis_type","kill_criteria","forecast_ledger","red_flags","missing_dat
 DECISIONS={"Strong Buy":"Selected","Buy":"Selected","Starter Position Only":"Selected","Watchlist":"Watchlist","Avoid":"Rejected","Short Candidate":"Short","Pair Trade / Hedge Required":"Pair Trade","Insufficient Data — Refuse To Rate":"Insufficient Data"}
 PAPER_KW={"Selected":["paper long","small paper long","long"],"Watchlist":["no trade","opportunity cost"],"Rejected":["no trade","avoided","foregone"],"Short":["paper short","short"],"Pair Trade":["pair"],"Insufficient Data":["no trade","process quality"]}
 SCHEMA_FILES={"decision_record.json","final_thesis.md","RUN_METADATA.md","verification_report.json","pre_mortem.json","expectations_gap.json","memo.md","audit_dossier.md"}
+# module roster for check R (rerun targets must be real modules) — self-discovered, never hardcoded (CLAUDE.md §26)
+ROSTER=set(os.path.basename(os.path.dirname(p)) for p in glob.glob(".claude/agents/*/99_*-synthesis.md"))
 
 def isdate(s): 
     try: datetime.date.fromisoformat(s); return True
@@ -223,6 +226,41 @@ for drp in runs:
     else:
         add("Q_module_tiers", True, f"run predates module-tiers feature ({ddte}) — N/A", na=True)
     # Q per-module-tiers add() calls renamed from M_ to avoid collision with M_scenario_math (both shipped 2026-06-08)
+    # R memo-delta contract (forward-looking; landing 2026-06-10) — a review filed on/after the landing date must
+    #   carry the §8 memo_delta block; any block present must have its paired *_memo_delta*.md on disk, an in-enum
+    #   thesis_delta_verdict, an evidence_source per changed section, and rerun targets that are REAL modules.
+    MEMO_DELTA_DATE="2026-06-10"; DELTA_VERDICTS={"unchanged","strengthened","weakened","broken","too_early"}
+    rdet=[]; rseen=False
+    for rvf in sorted(glob.glob(os.path.join(run,"reviews","*_decision_review*.json"))):
+        try: rv=json.load(open(rvf))
+        except Exception as e: rseen=True; rdet.append(f"{os.path.basename(rvf)}: unparseable ({str(e)[:60]})"); continue
+        rdate=rv.get("review_date") or ""
+        mdl=rv.get("memo_delta")
+        if not isinstance(mdl,dict) or not mdl:
+            if isdate(rdate) and rdate>=MEMO_DELTA_DATE:
+                rseen=True; rdet.append(f"{os.path.basename(rvf)}: memo_delta missing (required for reviews filed on/after {MEMO_DELTA_DATE})")
+            continue
+        rseen=True
+        mdf=mdl.get("memo_delta_file") or ""
+        if not (isinstance(mdf,str) and "_memo_delta" in os.path.basename(mdf) and os.path.exists(mdf)):
+            rdet.append(f"{os.path.basename(rvf)}: memo_delta_file missing or absent on disk ({mdf!r})")
+        elif len(open(mdf,encoding="utf-8").read().split())>2500:
+            rdet.append(f"{os.path.basename(mdf)}: > 2500 words — a memo delta is a 2-3 page update, not a re-written memo")
+        if mdl.get("thesis_delta_verdict") not in DELTA_VERDICTS:
+            rdet.append(f"{os.path.basename(rvf)}: thesis_delta_verdict={mdl.get('thesis_delta_verdict')!r} not in {sorted(DELTA_VERDICTS)}")
+        for i,cs in enumerate(mdl.get("changed_sections") or []):
+            if not isinstance(cs,dict): rdet.append(f"{os.path.basename(rvf)}: changed_sections[{i}] is not an object"); continue
+            if not str(cs.get("evidence_source") or "").strip():
+                rdet.append(f"{os.path.basename(rvf)}: changed_sections[{i}] lacks evidence_source (a changed claim needs a dated citation)")
+            if cs.get("rerun_recommended"):
+                mods=[m for m in (cs.get("impacted_modules") or []) if isinstance(m,str)]
+                bad=sorted(set(mods)-ROSTER)
+                if not mods: rdet.append(f"{os.path.basename(rvf)}: changed_sections[{i}] rerun_recommended without impacted_modules")
+                if bad: rdet.append(f"{os.path.basename(rvf)}: changed_sections[{i}] unknown module(s) {bad} (roster={sorted(ROSTER)})")
+    if rseen:
+        add("R_memo_delta", not rdet, "; ".join(rdet) or "memo_delta blocks valid; paired markdown present; rerun targets are real modules")
+    else:
+        add("R_memo_delta", True, f"no reviews filed on/after {MEMO_DELTA_DATE} — N/A", na=True)
     # WARN non-schema files
     extras=[os.path.basename(x) for x in glob.glob(os.path.join(run,"*")) if os.path.isfile(x) and os.path.basename(x) not in SCHEMA_FILES and not os.path.basename(x).endswith(("_decision_review.json","_calibration_summary.json")) and "review" not in os.path.basename(x) and "_v" not in os.path.basename(x)]
     run_pass=all(c["status"]!="FAIL" for c in checks)
@@ -253,9 +291,11 @@ FRAMEWORK_CONTRACTS={
  ".claude/agents/module-memo-writer.md":["_memo.md","module synthesis","condenser"],
  "frameworks/MODULE_PIPELINE.md":["Step 4.9","module-memo-writer","_memo.md","_dossier.md"],
  ".claude/commands/research/rerun.md":["module-memo-writer","_dossier.md"],
- ".claude/commands/research/track.md":["analyses/tracking","_calls_tracker","review_schedule","ad-hoc"],
+ ".claude/commands/research/track.md":["analyses/tracking","_calls_tracker","review_schedule","ad-hoc","memo_delta_file"],
  ".claude/settings.json":["SessionStart","review_due.py"],
  ".claude/hooks/review_due.py":["review_schedule","research:review-decisions due"],
+ "frameworks/DECISION_LEDGER.md":["Memo delta","memo_delta","thesis_delta_verdict","stage_one_comment","rerun_command","_memo_delta.md"],
+ ".claude/commands/research/review-decisions.md":["memo_delta","stage_one_comment","rerun_command","Pool first","_memo_delta"],
 }
 jchecks=[]
 for jf,subs in FRAMEWORK_CONTRACTS.items():

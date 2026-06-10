@@ -4,7 +4,7 @@ This is the **specification / doctrine layer** for turning every final thesis in
 
 It is cross-cutting doctrine, subordinate to the root `CLAUDE.md` (the Institutional Investing Constitution). It does **not** duplicate doctrine that already lives there — it references it: decision set (§18), probability bands (§10), data sufficiency (§11), thesis type (§14), forecast ledger (§19), error taxonomy (§20). On any conflict, the stricter, more conservative, more evidence-based rule wins.
 
-> **Status — Phase 2 complete, validated live.** Phase 1 (this framework) and Phase 2 (the master synthesizer emits `decision_record.json` beside `final_thesis.md`) are both done, and the chain has been validated end-to-end on a real `/research:full BG` run (`analyses/BG_2026-06-01/`). **Phase 3 — review command added, not yet run:** `.claude/commands/research/review-decisions.md` reads existing `decision_record.json` files and writes append-only review JSON; it has not been run yet (no scheduled review window is due). See **Current Implementation Status** below and the **Future Integration Plan** (§15). A feedback-loop agent does not exist yet.
+> **Status — Phase 2 complete, validated live.** Phase 1 (this framework) and Phase 2 (the master synthesizer emits `decision_record.json` beside `final_thesis.md`) are both done, and the chain has been validated end-to-end on a real `/research:full BG` run (`analyses/BG_2026-06-01/`). **Phase 3 — review command added, not yet run:** `.claude/commands/research/review-decisions.md` reads existing `decision_record.json` files and writes append-only review JSON, each paired (for reviews filed on/after 2026-06-10) with a human-readable **memo delta** — a 2–3 page "what changed since the memo" update (§8); it has not been run yet (no scheduled review window is due). See **Current Implementation Status** below and the **Future Integration Plan** (§15). A feedback-loop agent does not exist yet.
 
 ## Current Implementation Status
 
@@ -14,7 +14,7 @@ It is cross-cutting doctrine, subordinate to the root `CLAUDE.md` (the Instituti
 | Phase 2 — Synthesizer emits decision record | Complete | `analyses/BG_2026-06-01/decision_record.json` | Validated on BG; the synthesizer self-writes both `final_thesis.md` and `decision_record.json` |
 | Phase 3 — Review command | Command added — not yet run | `.claude/commands/research/review-decisions.md` | Authored this build; first review run pending (BG's earliest scheduled window is 2026-07-01) |
 | Phase 4 — Cohort + calibration | Command added — pre-data | `.claude/commands/research/calibrate.md` | Computes ledger inventory + process metrics now; selected-minus-rejected spread + Brier await resolved reviews |
-| Phase 5 — Dashboard / export | Optional future | — | Later |
+| Phase 5 — Calls tracker / viewing layer | Complete | `GET /api/calls` + `/research:track` | Read-only aggregation over records + reviews (§15 Phase 5) |
 
 ## BG Live Validation Record
 
@@ -295,11 +295,58 @@ Each references the original decision; the original decision record is never edi
   "decision_quality": "",
   "error_taxonomy": [],
   "lessons": [],
-  "module_calibration_notes": {}
+  "module_calibration_notes": {},
+  "memo_delta": {}
 }
 ```
 
 `review_window` ∈ {30d, 90d, 180d, 365d, 24m, 36m, ad-hoc, post-mortem}. `thesis_status` ∈ {on-track, at-risk, confirmed, broken, expired}. `decision_quality` records the §10 luck-vs-skill verdict. `error_taxonomy` is populated only when the call went wrong (§12).
+
+### Memo delta (`memo_delta`) — what changed since the memo (additive; required for reviews filed on/after 2026-06-10)
+
+Each review also answers the question a PM actually asks at a checkpoint: **"what changed since the original memo, and does it matter?"** The machine-readable answer is the review JSON's `memo_delta` object; its human-readable twin is a paired **Memo Delta Review** markdown (target 2–3 pages, hard ceiling 4) written beside the review JSON at:
+
+```
+analyses/<TICKER>_<DATE>/reviews/<REVIEW_DATE>_<WINDOW>_memo_delta.md
+```
+
+(same basename as its review JSON — `_decision_review.json` → `_memo_delta.md` — including any `_v2`/`_v3` suffix).
+
+```json
+"memo_delta": {
+  "summary": "",
+  "thesis_delta_verdict": "",
+  "stage_one_comment": "",
+  "changed_sections": [
+    {
+      "section": "",
+      "original_claim": "",
+      "new_evidence": "",
+      "evidence_source": "",
+      "materiality_score": null,
+      "impact_direction": "",
+      "impacted_modules": [],
+      "rerun_recommended": false,
+      "rerun_reason": "",
+      "rerun_command": ""
+    }
+  ],
+  "watch_items": [],
+  "management_questions": [],
+  "memo_delta_file": ""
+}
+```
+
+Rules:
+
+- `thesis_delta_verdict` ∈ {`unchanged`, `strengthened`, `weakened`, `broken`, `too_early`} — how the new facts move the original thesis. It is distinct from `thesis_status` (where the thesis stands) and the two must not contradict each other.
+- `changed_sections` lists **only material changes** versus the original memo (`memo.md` if the run has one, else `final_thesis.md`). Each entry carries: `section` (the original memo/thesis section), `original_claim`, `new_evidence` (the new fact), `evidence_source` (a §5-style citation **with a date** — required), `materiality_score` 0–100 (§12 calibration), `impact_direction` ∈ {positive, negative, mixed, neutral}, `impacted_modules` (exact module folder names from the agent roster), and `rerun_recommended` — when true, also `rerun_reason` plus a copy-pasteable `rerun_command` (`/research:rerun <module> <agent> <TICKER>` for one orb, `/research:<module> <TICKER>` for a whole module). **No re-run recommendation without naming the impacted module(s).**
+- `stage_one_comment`: a 100–200-word **plain-text** comment (no markdown) suitable for pasting straight into the Stage-One sheet.
+- `watch_items`: the specific things to watch before the next checkpoint. `management_questions`: 3–7 questions the delta raises.
+- `memo_delta_file`: repo-relative path to the paired markdown.
+- The JSON block is the machine record; the markdown is a **re-projection** of it (memo-writer discipline — no fact may appear in the markdown that is not in the review JSON). "Nothing material changed" / "too early" is a valid, SHORT delta — never pad it.
+- The memo delta **never** updates the financial model, the original memo, `final_thesis.md`, or `decision_record.json`. It may *recommend* re-running a module or orb; the re-run itself is a separate, explicit action.
+- Additive: `schema_version` stays "1.0". Reviews filed before 2026-06-10 omit the block (same convention as the decision-record `scenarios[]` field).
 
 ---
 
@@ -439,9 +486,9 @@ Purpose: over time, identify which modules deserve more weight **by sector, thes
 
 - **Phase 1 — Create `frameworks/DECISION_LEDGER.md`** — **Complete.**
 - **Phase 2 — Upgrade `.claude/agents/synthesizer.md` to emit `<RUN_ROOT>/decision_record.json`** — **Complete and validated on BG** (`analyses/BG_2026-06-01/decision_record.json`; see the BG Live Validation Record above).
-- **Phase 3 — Add the review command `.claude/commands/research/review-decisions.md`** — **Command added (not yet run).** Reads historical `decision_record.json` files and writes append-only review JSON (acceptance criteria below). First run is pending until a scheduled review window comes due.
+- **Phase 3 — Add the review command `.claude/commands/research/review-decisions.md`** — **Command added (not yet run).** Reads historical `decision_record.json` files and writes append-only review JSON (acceptance criteria below). First run is pending until a scheduled review window comes due. **Memo Delta Review (added 2026-06-10):** each review also populates the §8 `memo_delta` block and writes the paired `<REVIEW_DATE>_<WINDOW>_memo_delta.md` beside the review JSON — the 2–3 page human-readable "what changed since the memo" tier. The review JSON stays the machine source of truth; the markdown is a derived re-projection of it, append-only like the JSON.
 - **Phase 4 — Aggregate cohort + calibration reporting** (`/research:calibrate` → `analyses/performance/<DATE>_decision_performance_summary.md` + `_calibration_summary.json`) — **Command added (pre-data).** Computes ledger inventory + process metrics now; the selected-minus-rejected spread, hit rate, and the Brier/reliability calibration compute once enough resolved reviews exist (the §3/§4 floors in the command).
-- **Phase 5 — Calls-tracker dashboard / viewing layer** — **Added.** A **read-only viewing/aggregation layer** over the records and reviews — the place to see every call the engine made and what has happened to the company since, as time moves forward. Two twinned surfaces: the cockpit's live **Calls** view (`GET /api/calls`) and the downloadable **`/research:track`** command (writes dated `analyses/tracking/<DATE>_calls_tracker.{md,json}`, like Phase 4's `analyses/performance/` outputs). Both build, per call, a timeline of the scheduled review checkpoints (30d/90d/180d/365d) plus any ad-hoc reviews, each marked **done / due / overdue / upcoming** using the **same rule as `.claude/hooks/review_due.py`** and `review-decisions` Step 3 (local date, lexical ISO compare, `*_<window>_decision_review*.json` glob) — so the hook, the command, the API, and the static snapshot never disagree. **Inviolable:** this layer **never edits** any `decision_record.json`, `final_thesis.md`, or review file; it writes only the derived, regenerable dashboard under `analyses/tracking/`. The live **"Update now"** trigger delegates to Phase 3 `/research:review-decisions <ticker> ad-hoc` (it files an append-only review) — there is **no parallel review framework**.
+- **Phase 5 — Calls-tracker dashboard / viewing layer** — **Added.** A **read-only viewing/aggregation layer** over the records and reviews — the place to see every call the engine made and what has happened to the company since, as time moves forward. Two twinned surfaces: the cockpit's live **Calls** view (`GET /api/calls`) and the downloadable **`/research:track`** command (writes dated `analyses/tracking/<DATE>_calls_tracker.{md,json}`, like Phase 4's `analyses/performance/` outputs). Both build, per call, a timeline of the scheduled review checkpoints (30d/90d/180d/365d) plus any ad-hoc reviews, each marked **done / due / overdue / upcoming** using the **same rule as `.claude/hooks/review_due.py`** and `review-decisions` Step 3 (local date, lexical ISO compare, `*_<window>_decision_review*.json` glob) — so the hook, the command, the API, and the static snapshot never disagree. **Inviolable:** this layer **never edits** any `decision_record.json`, `final_thesis.md`, or review file; it writes only the derived, regenerable dashboard under `analyses/tracking/`. The live **"Update now"** trigger delegates to Phase 3 `/research:review-decisions <ticker> ad-hoc` (it files an append-only review) — there is **no parallel review framework**. Both surfaces also carry, per done checkpoint, the review's `memo_delta_file` and `stage_one_comment` (§8), so the human-readable delta is one click from the timeline.
 
 ### Phase 3 — Review Command Acceptance Criteria
 
@@ -458,6 +505,8 @@ The review command (`.claude/commands/research/review-decisions.md`), when it is
 - classify **luck vs skill** using the §10 matrix;
 - populate the **error taxonomy** (§12) only when the call was wrong;
 - produce **module calibration notes** (§13);
+- populate the §8 `memo_delta` block and write the paired memo-delta markdown (reviews filed on/after 2026-06-10) — a re-run recommendation must name its module(s) and the exact command;
+- never update the financial model, the original memo, or any module output from a review;
 - **not edit `decision_record.json`**;
 - **not edit `final_thesis.md`**;
 - commit directly to `main` and push (per `CLAUDE.md` git policy).
