@@ -166,7 +166,8 @@ When data is missing or weak, these hard caps override the agent's own scoring. 
 | Missing / Weak Data | Score Cap |
 |---|---|
 | No quarterly data | Earnings clarity max 60 |
-| No consensus / estimate data | Consensus setup max 30 |
+| No consensus / estimate data (genuinely absent — NOT merely stale) | Consensus setup max 30 |
+| Consensus present but stale (data-as-of predates the latest reported quarter) | Cap via the named triggers (e.g. no-revision-history) plus an explicitly-labeled discretionary staleness haircut — do NOT borrow the no-consensus max-30 value, which would read as "consensus absent" |
 | No cash flow statement | Earnings quality max 45 |
 | No earnings transcript | Earnings clarity max 70 |
 | No segment-level P&L for multi-segment business | Earnings clarity max 70 |
@@ -305,7 +306,10 @@ Layer 3 (parallel):
 - `05_beat-miss-setup` (depends on 01, 02, 03, 04)
 - `07_earnings-sensitivity` (depends on 01, 02, 03)
 
-Layer 4 (sequential, synthesizer):
+Layer 4 (reviews the specialist layer — depends on 05/06/07):
+- `08_earnings-red-flags` (reviews ALL upstream earnings outputs and requires 05 and 07 as inputs, so it must run AFTER them — not alongside them in Layer 3)
+
+Layer 5 (sequential, synthesizer):
 - `99_earnings-synthesis` (depends on all prior)
 
 If an upstream output is missing, the dependent subagent notes it explicitly:

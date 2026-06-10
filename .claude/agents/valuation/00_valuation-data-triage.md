@@ -47,7 +47,7 @@ You DO NOT:
 - **Partial:** the earnings base and capital structure exist and at least TWO valuation methods can run, but one or more of {current price, forward estimates, peer comps, segment data} is missing. State which partial-data caps and score caps from `MODULE_RULES.md` will apply.
 - **Insufficient:** fewer than two valuation methods can be run from available data (e.g., no usable financials at all, or only a price with no fundamentals, or only fundamentals with no way to value them).
 
-**Important:** a missing **current price** is a **Partial** condition, NOT Insufficient. This module is explicitly designed to produce a fair-value range and an implied price without an observed price. Do not abort the module for a missing price.
+**Important:** a missing **current price** is a **Partial** condition, NOT Insufficient. This module is explicitly designed to produce the bull/base/bear fair-value levels (points, with dispersion) and an implied price without an observed price. Do not abort the module for a missing price.
 
 # REPORT STRUCTURE
 

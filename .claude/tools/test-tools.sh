@@ -47,9 +47,9 @@ sys.exit(0 if ok else 1)
 PY
 
 echo "== full.md finish-gate: idempotent rerun cycle (fail -> stamp -> fix -> strip) =="
-"$PY" - <<'PY' || rc=1
+"$PY" - "$DIR/../commands/research/full.md" <<'PY' || rc=1
 import re, json, os, tempfile, subprocess, sys, shutil
-full=open(".claude/commands/research/full.md").read()
+full=open(sys.argv[1]).read()
 m=re.search(r'python3 - "<RUN_ROOT>" <<.PY.\n(.*?)\nPY\n```', full, re.S)
 if not m: print("  FAIL: could not extract the finish-gate script from full.md"); sys.exit(1)
 d=tempfile.mkdtemp(); gp=os.path.join(d,"gate.py"); open(gp,"w").write(m.group(1))
@@ -69,9 +69,9 @@ shutil.rmtree(d); sys.exit(0 if ok else 1)
 PY
 
 echo "== eval.md check M: direction-aware risk/reward (short vs long) =="
-"$PY" - <<'PY' || rc=1
+"$PY" - "$DIR/../commands/research/eval.md" <<'PY' || rc=1
 import re, textwrap, sys
-ev=open(".claude/commands/research/eval.md").read()
+ev=open(sys.argv[1]).read()
 m=re.search(r'\n(\s*pwt=sum\(p/100\.0\*t for p,t in zip\(probs,tgts\)\).*?if abs\(rr-crr\)>max\([^\n]*\))', ev, re.S)
 if not m: print("  FAIL: could not extract the check-M math block from eval.md"); sys.exit(1)
 code=compile(textwrap.dedent(m.group(1)),"<checkM>","exec")
@@ -91,6 +91,48 @@ if chk("Short Candidate",[60,40],[-30,15],[70,115],100,0.8): print("  FAIL: wron
 # a CORRECT long must still PASS (no regression)
 if not chk("Buy",[50,50],[30,-10],[130,90],100,1.0): print("  FAIL: correct long flagged"); ok=False
 print("  PASS: correct short passes, wrong-sign short fails, long unaffected" if ok else "  -> check-M test FAILED")
+sys.exit(0 if ok else 1)
+PY
+
+echo "== valuation canonical-definition regression guard (prompt-lint — weaker than the code tests above; born from the PR#10 review) =="
+# Guards the SPECIFIC cross-file drift the PR#10 review found: margin-of-safety re-defined as
+# distance-to-bear, and the base case described as a 'range'. NOT a general consistency engine —
+# its only job is to stop these exact phrasings from silently returning. The real prevention is the
+# DRY collapse (each definition stated once in MODULE_RULES, referenced elsewhere).
+"$PY" - "$DIR/../agents/valuation" <<'PY' || rc=1
+import glob, os, sys
+vdir=sys.argv[1]
+files=glob.glob(os.path.join(vdir,"*.md"))
+low={os.path.basename(f).lower():open(f,encoding="utf-8").read().lower() for f in files}
+ok=True
+if not files: print("  FAIL: no valuation md files found at", vdir); ok=False
+# (1) old drift phrasings that must NOT reappear anywhere in the valuation module
+BANNED=[
+  "always present fair value as a **range**",                 # old Calc-Std 11 opener
+  "margin of safety is the point",                            # old Core Principle 4 opener
+  "margin of safety: distance from current price to the bear",# old 07 step 6 (MoS == bear distance)
+  "the margin of safety to the bear case",                    # old 07 description
+  "base-case fair value (a range)",                           # base case described as a band
+  "fair value {range}/share",                                 # old CHAT verdict templates
+  "the fair-value range is a range pulled from",              # old 99 self-check
+  "higher = better | downside protection",                    # old MoS score row (== bear distance)
+  "a fair-value range",                                       # base case as a range (00/README/banned-row drift)
+  "implied value as a range",                                 # 02/03 method output as range-only (no base point)
+  "fair-value (or implied) range",                            # old 99 workflow step 2
+]
+for b in BANNED:
+    hits=[k for k,t in low.items() if b in t]
+    if hits: print(f"  FAIL: drift phrasing returned -> {b!r} in {hits}"); ok=False
+# (2) canonical definitions must be present in MODULE_RULES (the single source of truth)
+mr=low.get("module_rules.md","")
+NEED=[
+  ("/ base-case fair value",        "canonical margin-of-safety denominator"),
+  ("/ current price",               "canonical downside-to-bear denominator"),
+  ("single canonical no-price cap", "the DRY no-price cap marker"),
+]
+for n,desc in NEED:
+    if n not in mr: print(f"  FAIL: {desc} missing from MODULE_RULES -> {n!r}"); ok=False
+print("  PASS: no MoS/range drift; MoS, downside-to-bear, and the no-price cap each defined once" if ok else "  -> valuation regression guard FAILED")
 sys.exit(0 if ok else 1)
 PY
 

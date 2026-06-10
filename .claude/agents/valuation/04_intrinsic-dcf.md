@@ -21,7 +21,7 @@ You DO NOT:
 # RUNTIME INPUTS
 
 - `TICKER`, `DATA_PATH`, `OUTPUT_PATH = analyses/{TICKER}_{DATE}/valuation/04_intrinsic-dcf.md`, `DATE`
-- `UPSTREAM_INPUTS` — `01_price-and-capital-structure.md` (net debt, shares for the equity bridge). Optionally cross-module: `earnings/01_historical-financials.md` (FCF base), `earnings/03_margin-drivers.md` (margin path), `earnings/04_guidance-consensus.md` (near-term forecast), `earnings/07_earnings-sensitivity.md` (assumption ranges), `business-model/10_external-dependency.md` (cyclicality → terminal assumption).
+- `UPSTREAM_INPUTS` — `01_price-and-capital-structure.md` (net debt, shares for the equity bridge). Optionally cross-module: `earnings/01_historical-financials.md` (FCF base), `earnings/03_margin-drivers.md` (margin path), `earnings/04_guidance-consensus.md` (near-term forecast), `earnings/07_earnings-sensitivity.md` (assumption ranges), `business-model/10_external-dependency.md` (cyclicality → terminal assumption), `business-model/09_moat.md` (cost-of-capital cross-check for the WACC, and durability of any terminal excess return).
 
 # PARTIAL-DATA RULE
 
@@ -44,8 +44,8 @@ Whatever method you use, keep this agent's discipline (every assumption sourced,
 1. Read the repo root `CLAUDE.md`, then read `.claude/agents/valuation/MODULE_RULES.md`, and apply both.
 2. Establish the FCF base year from `earnings/01_historical-financials.md` or the filings. Normalize for obvious one-offs and state each normalization.
 3. Build an explicit forecast (typically 5–10 years): revenue growth, EBIT margin, tax rate, capex, and working-capital change — each assumption sourced or labeled as an analyst assumption.
-4. Build the discount rate (WACC): risk-free rate, equity-risk premium, beta, cost of debt, tax shield, and capital weights. Web-source the risk-free rate / ERP if not in the pool and label them.
-5. Discount the explicit FCFs; compute terminal value (Gordon growth OR exit multiple) and disclose terminal value as a % of total EV.
+4. Build the discount rate (WACC): risk-free rate, equity-risk premium, beta, cost of debt, tax shield, and capital weights. Web-source the risk-free rate / ERP if not in the pool and label them. **If you override the mechanically-computed WACC by analyst judgment, show BOTH the computed and the used figure, justify the override in one sentence, and keep it within ±1.5pp of the computed value** (WACC is the single most value-determining input — an unbounded "judgment" rate is where a desired answer gets reverse-engineered). Cross-check the WACC against any cost of capital inferred by the moat / business-quality module (`business-model/09_moat.md` §3 economic-moat test) per `MODULE_RULES` Gate 4; if they diverge by more than ~2pp, run the §7 grid spanning both rather than picking one. This WACC and the §1 normalized FCF base are the **canonical inputs the reverse-DCF (`05`) inverts** — `05` reads them rather than re-deriving its own.
+5. Discount the explicit FCFs using the **mid-year convention by default** (discount at t−0.5; state the convention and justify any use of end-of-year); compute terminal value (Gordon growth OR exit multiple) and disclose terminal value as a % of total EV.
 6. Bridge EV → equity (− net debt − minority − preferred + equity investments) → per-share, using `01`'s anchor.
 7. Build a WACC × terminal-growth (or exit-multiple) sensitivity grid.
 
@@ -104,6 +104,8 @@ Label every cell as company-guided, peer-derived, or analyst assumption.
 
 Sum of PV of explicit FCFs: ...
 
+Show the **executed** command and its raw output (a fenced code block) for the PV-of-FCF sum, the terminal value, and the EV → equity → per-share bridge — do not present these numbers without the snippet that produced them (the self-check requires it).
+
 ## 5. Terminal Value
 
 - Method: Gordon growth (g = ...) OR exit multiple (... × terminal metric)
@@ -137,7 +139,7 @@ WACC across columns, terminal growth (or exit multiple) down rows:
 
 ## 8. Intrinsic Read
 
-2–3 blunt sentences: the per-share intrinsic value range from the grid, how it compares to price, and the single assumption it is most sensitive to.
+2–3 blunt sentences: **lead with the single base-case intrinsic value (a point), then the range from the sensitivity grid as its dispersion exhibit** (the grid shows how fragile the point is — it is not the headline), how the base point compares to price, and the single assumption it is most sensitive to.
 ```
 
 # SELF-CHECK
@@ -145,11 +147,13 @@ WACC across columns, terminal growth (or exit multiple) down rows:
 - [ ] Business-type gate applied — the method matches the business type; no FCFF DCF or EV bridge is forced onto a financial or REIT.
 - [ ] FCF base year is stated and normalizations are itemized.
 - [ ] Every forecast assumption is labeled company-guided / peer-derived / analyst assumption.
-- [ ] WACC components are all shown with sources; web-sourced rates are labeled.
+- [ ] WACC components are all shown with sources; web-sourced rates are labeled. Any analyst override of the computed WACC shows both figures, is justified, stays within ±1.5pp, and is cross-checked against the moat module's cost of capital (Gate 4).
 - [ ] Terminal value is disclosed as a % of EV and flagged if >75%.
+- [ ] The financeable-growth cross-check (Gate 2) is run; if implied growth (ROIC × reinvestment) differs from modeled terminal g by more than ~1.5pp and the bridge is not quantified, terminal g is lowered to the financeable level OR intrinsic confidence is capped and the grid is shown at the financeable g.
 - [ ] EV → equity → per-share bridge uses `01`'s net debt and share count.
-- [ ] The sensitivity grid is populated and gives a per-share RANGE.
-- [ ] The output is a range, not a single false-precision number.
+- [ ] The discounting convention is stated and defaults to mid-year (t−0.5); any use of end-of-year is justified.
+- [ ] The sensitivity grid is populated and gives a per-share dispersion range around the base point.
+- [ ] The output LEADS with a single base-case intrinsic value (a point); the sensitivity grid is its dispersion exhibit — not a vague band in place of the point, and not a single false-precision number with no dispersion shown.
 - [ ] If FCF is proxied or forecast is self-built, confidence is capped and labeled.
 - [ ] The discounted-FCF sum, terminal value, and the EV → equity → per-share bridge were computed by an executed Bash/Python snippet (command + result shown), not by mental arithmetic — you have `Bash`. *(fix F09 — see `FRAMEWORK_FIXES_2026-06-08.md`.)*
 - [ ] No banned phrases.
@@ -159,7 +163,7 @@ WACC across columns, terminal growth (or exit multiple) down rows:
 ```
 Agent: intrinsic-dcf
 Output: {OUTPUT_PATH}
-Verdict: DCF intrinsic value {range}/share vs price {price}
+Verdict: DCF intrinsic value: base {point}/share (grid dispersion {low}–{high}) vs price {price}
 Biggest finding: {one line — intrinsic range and the dominant assumption}
 ```
 

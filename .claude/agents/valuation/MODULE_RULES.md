@@ -14,7 +14,7 @@ This module answers one question:
 
 > "What is this company worth, what is priced in at today's price, and how much margin of safety exists?"
 
-It produces a **fair-value range** triangulated across multiple methods, an explicit read of **what the current price implies**, and the **downside** to a bear-case value.
+It produces **bull / base / bear fair-value levels** (points) triangulated across multiple methods — with the cross-method dispersion shown separately — an explicit read of **what the current price implies**, the **margin of safety** (discount to base fair value), and the **downside to bear**.
 
 This module DOES:
 - establish the current price, diluted share count, and the market-cap → enterprise-value bridge
@@ -34,11 +34,11 @@ This module does NOT:
 
 ## Core Principles
 
-1. **No price ≠ no valuation.** If the current price is missing, still produce a fair-value range in per-share and multiple terms and state the *implied* price. Do not invent an observed price; flag that observed up/downside cannot be computed and that this is the single highest-value missing input.
+1. **No price ≠ no valuation.** If the current price is missing, still produce the fair-value **levels** (bull/base/bear) in per-share and multiple terms and state the *implied* price. Do not invent an observed price; flag that observed up/downside cannot be computed and that this is the single highest-value missing input. **A price that is not pool-verified — an indicative / web-sourced / unconfirmed quote — is treated the SAME as no price for every price-relative read** (margin of safety, downside-to-bear, observed up/down, attractiveness): it may be shown for context, labelled, but it does not unlock those scores. Only a pool-verified, dated price does (see Score-Cap rules — the single canonical no-price cap).
 2. **Triangulate — never trust one method.** A fair value is only as good as the agreement among independent methods. Always show at least two methods and reconcile them. If methods disagree by more than ~40%, that disagreement is itself the finding.
 3. **Warranted vs observed.** A low multiple is not "cheap" if the business does not deserve a higher one. Always ask what multiple the business *warrants* given quality, moat, cyclicality, and balance sheet (from the business-model and earnings modules) before calling anything mispriced. **Unaligned-owner value trap (CLAUDE.md §24, Filter 6):** if the management-governance module flagged a structurally misaligned controlling owner (RF-OWN-004 — government control, a listed subsidiary of a value-maximizing parent, or a sprawling unrelated conglomerate), persistent cheapness is a value trap, not a margin of safety. Do not underwrite a reversion to the old mean that the owner has no interest in delivering — such businesses are often perennially cheap and stay cheap.
-4. **Margin of safety is the point.** Buy-side cares about downside before upside. Every fair-value read must state the distance from today's price to a defensible bear-case value.
-5. **Ranges, not points.** Fair value is always a range. A single-number price target with false precision is a banned output.
+4. **Downside before upside.** Buy-side cares about the downside first. Every fair-value read states TWO distinct, separately-named numbers — never collapse them into one (see Calculation Standards 11): the **margin of safety** = the discount of price to the *base-case* fair value (the cushion if your base case is right), and the **downside to bear** = how far price falls to the *bear-case* value (the loss if the bear case plays out, an inverted metric).
+5. **No false precision — but each scenario is a derived level (point).** Consistent with CLAUDE.md §16 ("bear, base, and bull fair-value *levels*"): bull / base / bear are each a single derived fair-value LEVEL off a coherent assumption set; the **range** is the bull-to-bear spread plus the cross-method football field shown alongside. What is banned is a single all-in price target presented with false precision and no dispersion — NOT a derived point per scenario. Never narrow the method dispersion into a fake mid-band wearing a scenario label.
 6. **Be blunt and conservative.** When evidence is thin or methods conflict, default to the lower fair value and say why.
 
 ---
@@ -101,10 +101,13 @@ On any number: state the reporting standard (US GAAP / IFRS / Ind AS) and the co
 5. Growth rates: `(current − prior) / prior`. Margin changes in basis points.
 6. **FCF** = `CFO − total capex` unless the company provides a better disclosed definition. Capex sign: use absolute value.
 7. **Net debt** = `total debt − cash and equivalents` unless the company defines it differently.
-8. **DCF standard:** state every assumption with a source — forecast horizon (years), revenue/margin path, capex and working-capital path, tax rate, and the discount rate with its components (risk-free rate, equity-risk premium, beta, cost of debt, capital weights). State the terminal-value method (Gordon perpetuity growth OR exit multiple) and **disclose terminal value as a % of total EV**. If terminal value exceeds ~75% of EV, flag the DCF as terminal-dominated and low-confidence.
-9. **Reverse-DCF standard:** hold the discount rate and horizon fixed at the DCF's values, then solve for the growth (and/or margin) the *current price* implies. State precisely what was solved for and judge whether those implied expectations are achievable against earnings-module evidence.
+8. **DCF standard:** state every assumption with a source — forecast horizon (years), revenue/margin path, capex and working-capital path, tax rate, and the discount rate with its components (risk-free rate, equity-risk premium, beta, cost of debt, capital weights). State the terminal-value method (Gordon perpetuity growth OR exit multiple) and **disclose terminal value as a % of total EV**. If terminal value exceeds ~75% of EV, flag the DCF as terminal-dominated and low-confidence. **State the discounting convention and default to the mid-year convention** (cash flows arrive on average mid-period, so discount at t−0.5); end-of-year discounting systematically understates value by roughly a half-year's discount (larger at high WACC) and may be used only if stated and justified.
+9. **Reverse-DCF standard:** hold the discount rate, horizon, terminal growth, **and the normalized FCF base** fixed **at the forward DCF's (`04`'s) values** — the reverse-DCF must invert the SAME model, not re-derive an independent WACC or use a different (e.g. un-normalized / one-off-inflated) base, which can produce opposite verdicts on the same stock. Then solve for the growth (and/or margin) the *current price* implies. State precisely what was solved for and judge whether those implied expectations are achievable against earnings-module evidence. (`05` therefore runs AFTER `04` and reads it; if `04` is unavailable, self-derive and flag as unreconciled.)
 10. **SOTP standard:** value each reportable segment on a defensible segment-level metric × a cited comparable multiple; sum to a gross enterprise value; bridge to equity (− net debt − minority interest − unallocated corporate costs capitalized, + equity-method investments); divide by diluted shares. Disclose any conglomerate/holding-company discount applied and the reason. Name the comparable behind each segment multiple.
-11. Always present fair value as a **range**. Margin of safety = `(fair value − current price) / fair value` (positive = price below fair value = margin of safety exists). State the sign convention every time.
+11. **Output shape and the two price-relative metrics (canonical — every agent uses these definitions verbatim).** Present fair value as bull / base / bear **levels (points)** plus the cross-method dispersion (the football field) — never a single point with no dispersion, and never a vague band in place of the base point (Core Principle 5). Then state two *separate* price-relative metrics, each with its sign convention every time:
+    - **Margin of safety** = `(base-case fair value − current price) / base-case fair value` (positive = price below fair value = cushion exists). Denominator is fair value — this is the discount/cushion, NOT the upside.
+    - **Downside to bear** = `(current price − bear-case fair value) / current price` (an **inverted** metric — higher = worse). Denominator is price — this is the loss to the bear case.
+    Both require a pool-verified current price; without one, both are **"Not assessable"** (Score-Cap rules). Do not let "margin of safety" mean distance-to-bear — that is the separate Downside-risk score.
 12. If a metric comes from Capital IQ / Bloomberg / FactSet, label the source and the "data as of" date.
 13. Show your formulas. A reader must be able to reproduce every number.
 
@@ -117,12 +120,13 @@ On any number: state the reporting standard (US GAAP / IFRS / Ind AS) and the co
 2. **Growth must be financeable.** If using an operating DCF, provide a cross-check:
    - `Reinvestment rate ≈ (capex − D&A + ΔNWC) / NOPAT`
    - `Implied growth ≈ ROIC × reinvestment rate`
-   If implied growth differs materially from modeled growth, flag it and explain what bridges the gap (pricing, mix, margin expansion, working-capital release, one-offs).
+   If implied growth differs materially from modeled growth, flag it and explain what bridges the gap (pricing, mix, margin expansion, working-capital release, one-offs). **Teeth:** if implied growth differs from the modeled terminal `g` by more than ~1.5pp and the bridge is not quantified, the agent must either lower terminal `g` to the financeable level, OR cap intrinsic confidence and show the sensitivity grid at the financeable `g`. A flagged-but-unquantified gap may not be left to stand on an un-financeable terminal value.
 3. **ROIC drift rule.** In the terminal years, ROIC should trend toward WACC unless moat/quality evidence explicitly supports persistent excess returns. Label any persistence as an inference and cite the upstream moat/quality outputs if available.
 4. **WACC sanity bounds.** Flag if:
    - the risk-free rate or ERP is missing a dated source,
    - the after-tax cost of debt is below 0% or implausibly low versus the company's credit reality, or
    - terminal growth `g` exceeds the long-run nominal growth proxy for the reporting currency's economy (justify if higher).
+   **WACC override discipline:** the WACC is the single most value-determining input, so a discretionary override of the mechanically-computed figure must (a) show both the computed and the used WACC, (b) carry a one-sentence justification, (c) stay within ±1.5pp of the computed value, and (d) be cross-checked against any cost of capital inferred by the moat / business-quality module (`09_moat.md` §3 economic-moat test). If the override and that inferred cost of capital diverge by more than ~2pp, run the sensitivity grid spanning both rather than asserting one.
 5. **Terminal dominance escalation.** If terminal value is >75% of EV, the DCF is low-confidence (already stated). In that case the intrinsic output must add a second lens: an exit-multiple cross-check OR an economic-profit / ROIC-based narrative.
 6. **Cyclicality gate.** If the business is cyclical or commodity-linked (from the upstream external-dependency output or inference), do NOT use a single-point mid-cycle margin assumption. Require a margin band and a mid-cycle normalization explanation.
 
@@ -151,7 +155,7 @@ These rules govern share counts and refine Calculation Standards items 1–2.
 
 Before the synthesis publishes, these tie-outs must hold or be explicitly flagged:
 
-1. **Anchor consistency.** Every agent uses the price, share counts, net debt, and EV from `01_price-and-capital-structure` verbatim. If an agent's number differs (e.g., a later filing), it must say so — silent divergence is not allowed.
+1. **Anchor consistency.** Every agent uses the price, share counts, net debt, and EV from `01_price-and-capital-structure` verbatim. **Where `01` designates a canonical net-debt / net-cash figure among several definitions, every downstream equity bridge (02 / 03 / 04 / 06 / 07) uses THAT figure; using a different definition (e.g. broad vs basic) is allowed only with an explicit one-line reason — silent substitution is a divergence and is not allowed.** If an agent's number differs (e.g., a later filing), it must say so — silent divergence is not allowed.
 2. **EV bridge ties.** `EV = market cap + total debt + minority + preferred − cash`, with no plug. Label any estimated component.
 3. **SOTP ties to consolidated.** The segment revenue and EBIT used in SOTP must reconcile to the consolidated totals; name any unallocated/corporate bucket — it may not vanish.
 4. **Share-count consistency.** The market-cap count and the per-share fair-value count are each stated once (in `01`) and reused everywhere; per-share outputs divide by the fair-value count, never a mixed number.
@@ -193,7 +197,7 @@ All scores are out of 100, whole numbers. Bands:
 | Score | Direction | What it measures |
 |---|---|---|
 | Valuation attractiveness /100 | higher = cheaper | Upside from current price to base-case fair value (higher = more undervalued) |
-| Margin of safety /100 | higher = better | Downside protection — distance from price to bear-case fair value |
+| Margin of safety /100 | higher = better | The cushion: discount of price to **base-case** fair value — `(base FV − price)/base FV`. (Distance to the *bear* case is the separate Downside-risk score below — do not duplicate it here.) |
 | Valuation confidence /100 | higher = better | Reliability of the fair-value estimate: data completeness AND agreement across methods |
 | Downside risk /100 | **higher = WORSE** (inverted) | How far the price could fall to a defensible bear-case value |
 | Data quality /100 | higher = better | Completeness of valuation-relevant data (price, estimates, comps, capital structure) |
@@ -226,7 +230,7 @@ When specific data is missing, the affected agents must cap their output as desc
 
 | Missing Data | Affected Agents | Rule |
 |---|---|---|
-| No current price | 01, 05, 07, 99 | 01 produces the EV bridge in per-share/implied terms and flags the gap; 05 (reverse-DCF) cannot run — state "what's priced in" is unknowable without price; 07 expresses targets as fair-value levels with NO observed up/downside %; 99 caps margin-of-safety and attractiveness scoring |
+| No pool-verified price (price-state `indicative` or `none` — absent, or only an indicative / web-sourced quote) | 01, 05, 07, 99 | 01 produces the EV bridge in per-share/implied terms, tags the price-state (`pool-verified` / `indicative` / `none`), and flags the gap; 05 (reverse-DCF) cannot run — "what's priced in" is unknowable without a real price; 07 expresses targets as fair-value levels with NO observed up/downside %, margin of safety, or downside-to-bear; 99 applies the single canonical no-price Score-Cap row below |
 | No consensus / forward estimates | 02, 03, 04, 05 | Forward (NTM/FY) multiples unavailable — use LTM only; DCF builds its own forecast from history with assumptions flagged; cap valuation confidence |
 | No peer data | 03, 06 | Relative valuation runs on the company's own history only and flags it; SOTP segment multiples must be justified from web/comparables or marked low-confidence |
 | No segment-level data | 06 | SOTP cannot run — agent returns "SOTP not possible — segment EBIT and/or segment comparables unavailable" and does not guess |
@@ -241,7 +245,7 @@ When data is missing or weak, these hard caps override an agent's own scoring. T
 
 | Missing / Weak Data | Score Cap |
 |---|---|
-| No current price | Margin of safety = "Not assessable"; Valuation confidence max 55 |
+| No pool-verified price (price-state `indicative` or `none`) | Margin of safety, downside-to-bear (the Downside-risk score), observed up/down, and valuation attractiveness = **"Not assessable"**; valuation confidence max 55. *(Single canonical no-price cap — `01` tags the price-state; `05`/`07`/`99` apply THIS row and do not redefine which scores are capped. A pool price whose as-of date is unconfirmed remains `pool-verified` — staleness is a data-quality caveat, not a trigger for this row.)* |
 | No consensus / forward estimates | Valuation confidence max 60 |
 | No peer data | Overall usefulness max 70 |
 | Only ONE valuation method usable | Valuation confidence max 50 |
@@ -301,7 +305,7 @@ These may NOT appear unless paired with a specific number or range in the same s
 - "cheap" / "expensive" (state the discount/premium to fair value or to peers)
 - "attractive valuation" / "compelling value"
 - "trading at a discount" (to *what*, and by how much?)
-- "fairly valued" (state the fair-value range and the gap to price)
+- "fairly valued" (state the bull/base/bear fair-value levels and the gap to price)
 - "undervalued" / "overvalued" (state by how much vs which method)
 - "significant upside" / "limited downside"
 - "re-rating opportunity" (to what multiple, warranted why?)
@@ -365,7 +369,7 @@ The synthesizer reconciles disagreements at the end.
 A good Valuation module output should let the master synthesizer answer five questions quickly:
 
 1. Is the stock cheap or expensive, and by how much vs a defensible fair value?
-2. What is the fair-value range, and which method drives it?
+2. What are the bull/base/bear fair-value levels (and the base point), and which method drives them?
 3. What is priced in at today's price — and is that achievable?
 4. How much margin of safety exists — where is the bear-case value?
 5. Which method is most reliable for this company, and where do the methods disagree?
@@ -384,13 +388,15 @@ Layer 2 (parallel, all depend on `01`):
 - `02_multiples-own-history`
 - `03_relative-valuation-peers`
 - `04_intrinsic-dcf`
-- `05_reverse-dcf`
 - `06_sum-of-the-parts`
 
-Layer 3 (sequential — triangulation, depends on `02`–`06`):
+Layer 3 (depends on `04` — inverts the same model):
+- `05_reverse-dcf` (reads `04`'s canonical WACC + normalized FCF base; see Reconciliation/DCF standard 9)
+
+Layer 4 (triangulation, depends on `02`–`06`):
 - `07_scenario-and-fair-value`
 
-Layer 4 (sequential, synthesizer):
+Layer 5 (synthesizer):
 - `99_valuation-synthesis` (depends on all prior)
 
 If an upstream output is missing, the dependent subagent notes it explicitly:

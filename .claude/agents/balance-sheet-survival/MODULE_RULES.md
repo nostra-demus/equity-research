@@ -356,14 +356,16 @@ Layer 1 (sequential — the foundation everything else needs):
 
 Layer 2 (parallel, all depend on `01`):
 - `02_maturity-wall-and-refinancing`
-- `03_liquidity-runway`
 - `04_coverage-and-covenants`
 - `05_off-balance-sheet-and-contingencies`
 
-Layer 3 (sequential — the survival test, depends on `01`–`05`):
+Layer 3 (depends on `02` — needs the maturity wall):
+- `03_liquidity-runway` (consumes `02`'s next-12-month maturities, so it must run AFTER `02`, not alongside it)
+
+Layer 4 (the survival test, depends on `01`–`05`):
 - `06_downside-stress-test`
 
-Layer 4 (sequential, synthesizer):
+Layer 5 (sequential, synthesizer):
 - `99_balance-sheet-survival-synthesis` (depends on all prior)
 
 If an upstream output is missing, the dependent subagent notes it explicitly:

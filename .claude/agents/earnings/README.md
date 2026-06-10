@@ -47,6 +47,7 @@ The master synthesizer reads `99_earnings-synthesis.md` alongside other module s
 | 05 | `beat-miss-setup` | 01, 02, 03, 04 | Next-quarter setup |
 | 06 | `earnings-quality` | 01 | Quality + FCF bridge |
 | 07 | `earnings-sensitivity` | 01, 02, 03 | Sensitivity table |
+| 08 | `earnings-red-flags` | 00–07 (reviews all) | Hidden risks, contradictions, traps |
 | 99 | `earnings-synthesis` | ALL | Verdict + summary |
 
 ## Execution layers
@@ -55,7 +56,8 @@ The master synthesizer reads `99_earnings-synthesis.md` alongside other module s
 - **Layer 1** (parallel): `historical-financials`, `guidance-consensus`
 - **Layer 2** (parallel, depend on 01): `revenue-drivers`, `margin-drivers`, `earnings-quality`
 - **Layer 3** (parallel): `beat-miss-setup`, `earnings-sensitivity`
-- **Layer 4**: `earnings-synthesis`
+- **Layer 4** (reviews all specialist outputs — depends on 05/06/07): `earnings-red-flags`
+- **Layer 5**: `earnings-synthesis`
 
 ## Cross-module inputs
 

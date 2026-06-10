@@ -56,7 +56,8 @@ POINTER_EXTS = {"gdoc", "gsheet", "gslides"}
 
 
 def _ensure_deps():
-    """The extractor needs xlrd (.xls/BIFF) + openpyxl (.xlsx) to read workbooks.
+    """The extractor needs xlrd (.xls/BIFF) + openpyxl (.xlsx) to read workbooks, plus
+    pypdf as a pure-Python PDF text fallback when poppler/pdftotext is absent.
     On a PEP-668 "externally-managed" system Python (e.g. Homebrew) you cannot
     pip-install them globally, so the engine ships an isolated venv at
     `.claude/tools/.venv` (gitignored; recreate via setup-tools.sh). If the current
@@ -67,6 +68,7 @@ def _ensure_deps():
     try:
         import xlrd  # noqa
         import openpyxl  # noqa
+        import pypdf  # noqa  [DD-16] pure-Python PDF text fallback when poppler is absent
         return
     except Exception:
         pass
@@ -268,16 +270,47 @@ def _tab_text(src_name, sheet_name, idx, total, rows, ncols):
 def _read_pdf(path, max_pages=None):
     # pdftotext (poppler) preferred; -layout keeps tables aligned. max_pages caps
     # the scan for fast sniffing (a cover page already says "Annual Report" / "10-K").
+    # Falls back to pure-Python pypdf (auto-bootstrapped in the venv, no system dep) when
+    # poppler is absent or yields nothing, so PDF extraction never hard-depends on a system
+    # binary. [fix DD-16 — live-validated on the TMCV pool, where Homebrew lacked pdftotext
+    # and all 8 statutory PDFs (annual reports + transcripts) produced zero extracts.]
     try:
         cmd = ["pdftotext"] + (["-l", str(max_pages)] if max_pages else []) + ["-layout", path, "-"]
         r = subprocess.run(cmd, capture_output=True, text=True, timeout=120)
         if r.returncode == 0 and r.stdout.strip():
             return r.stdout, None
-        return "", f"pdftotext rc={r.returncode}"
+        # poppler present but produced no text (image-only scan, or a soft error) — try pypdf
+        txt, err = _read_pdf_py(path, max_pages)
+        return (txt, None) if txt.strip() else ("", err or f"pdftotext rc={r.returncode}; pypdf produced no text")
     except FileNotFoundError:
-        return "", "pdftotext not installed"
+        # poppler not installed at all — pure-Python fallback
+        txt, err = _read_pdf_py(path, max_pages)
+        return (txt, None) if txt.strip() else ("", err or "pdftotext not installed and pypdf produced no text")
     except Exception as e:  # noqa
         return "", f"{type(e).__name__}: {e}"
+
+
+def _read_pdf_py(path, max_pages=None):
+    """Pure-Python PDF text fallback via pypdf (no system dependency). Returns (text, error).
+    Poppler's `pdftotext -layout` is preferred for table alignment; this keeps the engine
+    working on machines without poppler. An image-only / scanned PDF still yields no text here
+    (the caller marks it image-only) — that is a real limitation, not a fallback failure."""
+    try:
+        import pypdf
+    except Exception as e:
+        return "", f"pypdf unavailable ({e}); run .claude/tools/setup-tools.sh"
+    try:
+        reader = pypdf.PdfReader(path)
+        pages = reader.pages[:max_pages] if max_pages else reader.pages
+        out = []
+        for pg in pages:
+            try:
+                out.append(pg.extract_text() or "")
+            except Exception:
+                continue  # one bad page shouldn't sink the whole document
+        return "\n".join(out), None
+    except Exception as e:
+        return "", f"pypdf: {type(e).__name__}: {e}"
 
 
 def _read_rtf(path):

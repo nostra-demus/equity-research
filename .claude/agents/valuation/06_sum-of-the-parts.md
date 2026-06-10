@@ -25,7 +25,7 @@ You DO NOT:
 
 # PARTIAL-DATA RULE
 
-- **Single-segment business** (>85% of EBIT from one segment): do NOT force a breakup. State *"Effectively single-segment — SOTP collapses to the consolidated read"* and provide only the dominant-segment multiple sanity check.
+- **Single-segment business** (>85% of EBIT from one segment): do NOT force a breakup. State *"Effectively single-segment — SOTP collapses to the consolidated read"* and provide only the dominant-segment multiple sanity check. **If a corporate / unallocable cost bucket exists, it may not be dropped by assertion even on a collapse: either apply the multiple to a metric that already nets the corporate drag (and say so explicitly) or capitalize and subtract it in the bridge — Reconciliation Gate 3 (no vanished bucket) holds on the collapse path too.**
 - **No segment-level revenue/EBIT, or no segment comparables:** state *"SOTP not possible — segment EBIT and/or segment comparables unavailable"* and stop. Do NOT fabricate segment multiples.
 
 # WORKFLOW
@@ -59,7 +59,7 @@ Detect the listing jurisdiction from the `00` triage and use the local-equivalen
 | Segment | Revenue | EBIT (or EBITDA) | Margin | % of Total EBIT | Source |
 |---|---:|---:|---:|---:|---|
 
-State the reporting currency. If single-segment, apply the partial-data rule here.
+State the reporting currency. Define the "% of Total EBIT" denominator — reportable-segment EBIT (which sums to 100% of reportable EBIT) vs total EBIT net of the corporate drag — so a corporate cost never produces a >100% segment share without explanation. If single-segment, apply the partial-data rule here.
 
 ## 2. Segment Multiples & Comparables
 
@@ -92,6 +92,8 @@ Every segment multiple MUST cite a named comparable. State why the comparable fi
 
 State the conglomerate discount applied (if any) and the reason. If none applied, say why none is warranted.
 
+**Net-cash sign discipline:** the bridge subtracts net debt. If the company is **net cash**, add it back **once** as a single positive line (show net debt as a negative number) — never show both a "− net debt" deduction and a separate "+ net cash" add-back for the same balance, which double-counts. (Apply the `01` cash-quality test first: net only real operating cash, not financial-subsidiary investments or trapped / mark-to-market balances.)
+
 ## 5. SOTP Read
 
 2–3 blunt sentences: the per-share breakup value vs price, which segment carries most of the value, and whether a segment is being masked by the consolidated multiple (the core SOTP insight).
@@ -103,10 +105,10 @@ State the conglomerate discount applied (if any) and the reason. If none applied
 - [ ] If single-segment, SOTP correctly collapses rather than forcing a spurious breakup.
 - [ ] Every segment multiple cites a NAMED comparable — none are fabricated.
 - [ ] Web-sourced comparable multiples are labeled unverified.
-- [ ] The equity bridge subtracts net debt and corporate costs and uses `01`'s share count.
+- [ ] The equity bridge subtracts net debt and corporate costs and uses `01`'s share count. Net cash is added once with the correct sign (no deduction-plus-add-back double-count); any corporate / unallocable drag is capitalized-and-subtracted or shown to be already netted in the metric — never dropped by assertion (Gate 3), including on a single-segment collapse.
 - [ ] Any conglomerate discount is disclosed with a reason (or its absence justified).
 - [ ] The read identifies which segment carries the value.
-- [ ] Output is a value (range where the multiples justify a range), not false precision.
+- [ ] Output is a base-case value (a point), with any multiple-driven dispersion shown separately as its range — not false precision.
 - [ ] No banned phrases.
 
 # CHAT CONFIRMATION
@@ -114,7 +116,7 @@ State the conglomerate discount applied (if any) and the reason. If none applied
 ```
 Agent: sum-of-the-parts
 Output: {OUTPUT_PATH}
-Verdict: SOTP value {value or range}/share vs price {price}; {segment} carries the value
+Verdict: SOTP value {point}/share (dispersion {low}–{high} where multiples justify) vs price {price}; {segment} carries the value
 Biggest finding: {one line — breakup value and which segment is masked, or why SOTP cannot run}
 ```
 
