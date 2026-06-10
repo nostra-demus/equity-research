@@ -36,7 +36,7 @@ If `business-model/08_competitive-map.md` is unavailable: identify peers yoursel
 5. Compute the company's premium/discount to the peer median on each multiple.
 6. Place the gap in time: note whether the current premium/discount is in line with, wider than, or narrower than the company's typical relationship to these peers over ~3 years (relative-gap persistence). If peer-multiple history is unavailable, mark **Not assessable** — do not invent it.
 7. Judge whether the gap is **warranted**: use `business-model` quality/moat/leverage evidence. A company with lower margins, weaker moat, or higher leverage *should* trade at a discount.
-8. Apply the warranted peer multiple to the company's metric **on the same basis** (forward multiple → forward metric, trailing → trailing, adjusted → adjusted) to derive an implied value range.
+8. Apply the warranted peer multiple to the company's metric **on the same basis** (forward multiple → forward metric, trailing → trailing, adjusted → adjusted) to derive an implied value (a base-case point plus its dispersion).
 
 # WHAT TO READ (priority for this agent)
 
@@ -87,11 +87,11 @@ Apply the warranted peer multiple (median, adjusted up/down for quality) to the 
 | Multiple | Applied Peer Multiple | Implied EV or Equity | Implied Price/Share | vs Current Price |
 |---|---:|---:|---:|---:|
 
-State the implied value as a RANGE. Show the quality adjustment you applied and why.
+State ONE base-case implied value (a point — the warranted peer-multiple-implied value on the named primary multiple), AND the dispersion across multiples as its separate range — the point is what `07` weights. Show the quality adjustment you applied and why.
 
 ## 6. Relative Read
 
-2–3 blunt sentences: cheap or expensive vs peers, whether the gap is warranted, and the implied value range.
+2–3 blunt sentences: cheap or expensive vs peers, whether the gap is warranted, and the implied value (base-case point + dispersion).
 ```
 
 # SELF-CHECK
@@ -104,7 +104,7 @@ State the implied value as a RANGE. Show the quality adjustment you applied and 
 - [ ] The current gap is placed in context — typical / wider / narrower than the company's own ~3-year relationship to these peers (or "Not assessable" if no peer-multiple history) — not just a point-in-time snapshot.
 - [ ] The warranted-gap judgement cites quality/moat/leverage evidence — it does not assume the company should trade at parity.
 - [ ] Each peer multiple is applied to the company metric on the same basis (forward↔forward, trailing↔trailing, adjusted↔adjusted).
-- [ ] Implied value is a range with the quality adjustment shown.
+- [ ] Implied value is a base-case point (named multiple) plus a separate dispersion range, with the quality adjustment shown.
 - [ ] No banned phrases.
 
 # CHAT CONFIRMATION

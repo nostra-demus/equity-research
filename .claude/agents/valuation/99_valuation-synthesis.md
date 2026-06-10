@@ -28,7 +28,7 @@ You DO NOT:
 
 # PARTIAL-DATA RULES
 
-- If `01`'s price-state is not `pool-verified` (no price, OR only an indicative/web/unconfirmed quote): apply the single canonical no-price Score-Cap row — margin of safety, downside-to-bear, observed up/down, and valuation attractiveness are all "Not assessable," AND valuation confidence is capped at 55. The Abstract must state that observed up/downside is not computable. An indicative band does not unlock these scores.
+- If `01`'s price-state is not `pool-verified` (`indicative` or `none` — no price, or only an indicative/web quote): apply the single canonical no-price Score-Cap row — margin of safety, downside-to-bear (the Downside-risk score), observed up/down, and valuation attractiveness are all "Not assessable," AND valuation confidence is capped at 55. The Abstract must state that observed up/downside is not computable. An indicative band does not unlock these scores. (A pool price whose as-of is unconfirmed stays `pool-verified` — staleness is a data-quality caveat, not this cap's trigger.)
 - If `05_reverse-dcf` was skipped (no price): note the "what's priced in" read is unavailable.
 - If `06_sum-of-the-parts` collapsed (single-segment) or could not run: note it; do not treat its absence as a value signal.
 - If only one value-producing method ran: cap valuation confidence at 50 and say the fair value rests on a single method.
@@ -40,7 +40,7 @@ If any upstream output is missing, list which ones and proceed with what's avail
 # WORKFLOW
 
 1. Read the repo root `CLAUDE.md` (cross-cutting rules including git policy and global investing standards), then read `.claude/agents/valuation/MODULE_RULES.md` (operating rules specific to this module), and apply both.
-2. Read every upstream specialist output. Note each one's verdict line and fair-value (or implied) range.
+2. Read every upstream specialist output. Note each one's verdict line and its base-case fair (or implied) value point with its dispersion.
 3. Reconcile disagreements. If methods diverge materially, prefer the more conservative reading and state the disagreement explicitly.
 4. Apply the score caps from `MODULE_RULES.md`.
 5. Compose the verdict block, the bull/base/bear fair-value levels (with dispersion), and the scores.
@@ -94,7 +94,7 @@ Write this LAST.
 - Valuation attractiveness /100 *(higher = cheaper)*: *(from 07 + caps)*
 - Margin of safety /100 *(higher = better)*: *(from 07, or "Not assessable")*
 - Valuation confidence /100: *(data completeness + method agreement)*
-- Downside risk /100 *(higher = worse)*: *(distance to bear-case value)*
+- Downside risk /100 *(higher = worse)*: *(distance to bear-case value, or "Not assessable" if price-state ≠ pool-verified)*
 - Data quality /100: *(from 00)*
 - Overall usefulness /100:
 - Dominant valuation method (one line): *(which method you trust most for this company and why)*
@@ -132,7 +132,7 @@ If two methods disagreed on fair value, list the disagreement, the value each pr
 
 | Cap Trigger | Applied? (Y/N) | Affected Score | Final Cap |
 |---|---|---|---|
-| No pool-verified price (absent OR indicative/unconfirmed) | | MoS, downside-to-bear, observed up/down, attractiveness + confidence | MoS / downside-to-bear / observed up-down / attractiveness = "Not assessable"; confidence max 55 |
+| No pool-verified price (price-state `indicative` or `none`) | | MoS, downside-to-bear (Downside-risk score), observed up/down, attractiveness + confidence | MoS / downside-to-bear / observed up-down / attractiveness = "Not assessable"; confidence max 55 |
 | No consensus / forward estimates | | Valuation confidence | max 60 |
 | No peer data | | Overall usefulness | max 70 |
 | Only one valuation method usable | | Valuation confidence | max 50 |
@@ -188,7 +188,7 @@ Bullet list, no prose paragraphs. **Surface what the numbers MEAN — do not res
 - [ ] The verdict is exactly one of the 6 defined categories.
 - [ ] The fair-value output is the bull/base/bear LEVELS (points) pulled from `07`, with the cross-method dispersion (football field) shown separately — the base case is a point, never a band — and the current price (or "not available", with price-state if `indicative`) shown.
 - [ ] Score caps from MODULE_RULES are applied in Section 4 — every row has an explicit Y/N.
-- [ ] If `01`'s price-state is not `pool-verified` (no price OR indicative/unconfirmed), the canonical no-price cap is applied — margin of safety, downside-to-bear, observed up/down, and attractiveness are all "Not assessable," confidence is capped at 55, and the Abstract says observed up/downside is not computable.
+- [ ] If `01`'s price-state is not `pool-verified` (`indicative` or `none`), the canonical no-price cap is applied — margin of safety, downside-to-bear (the Downside-risk score), observed up/down, and attractiveness are all "Not assessable," confidence is capped at 55, and the Abstract says observed up/downside is not computable.
 - [ ] Value-trap risk is addressed in Section 5 when a cheap multiple is not warranted.
 - [ ] The boundary is respected: no probabilities, no probability-weighted return, no risk/reward, no rating, no position sizing.
 - [ ] Section 7 includes the explicit handoff telling the master synthesizer to defer its valuation section here.

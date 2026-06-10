@@ -471,7 +471,7 @@ The auditable core of the verdict — for each decision driver, which side won a
 
 ## 6. Valuation and Peer Mispricing
 
-(A dedicated `valuation` module now exists. If `analyses/{TICKER}_{DATE}/valuation/99_valuation-synthesis.md` is present, this section MUST defer to it — summarize its fair-value range, what's-priced-in (reverse-DCF), margin of safety, dominant method, and any value-trap flag. Use its **bull / base / bear fair-value LEVELS as the inputs to the Scenario Model (§8)**: the module supplies the price levels, the synthesizer assigns the probabilities. Produce this section from scratch ONLY if the valuation module did not run.)
+(A dedicated `valuation` module now exists. If `analyses/{TICKER}_{DATE}/valuation/99_valuation-synthesis.md` is present, this section MUST defer to it — summarize its bull/base/bear fair-value levels (with the cross-method dispersion), what's-priced-in (reverse-DCF), margin of safety, dominant method, and any value-trap flag. Use its **bull / base / bear fair-value LEVELS as the inputs to the Scenario Model (§8)**: the module supplies the price levels, the synthesizer assigns the probabilities. Produce this section from scratch ONLY if the valuation module did not run.)
 
 If peer data is available, judge whether the stock is cheap or expensive.
 

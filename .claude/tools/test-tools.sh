@@ -47,9 +47,9 @@ sys.exit(0 if ok else 1)
 PY
 
 echo "== full.md finish-gate: idempotent rerun cycle (fail -> stamp -> fix -> strip) =="
-"$PY" - <<'PY' || rc=1
+"$PY" - "$DIR/../commands/research/full.md" <<'PY' || rc=1
 import re, json, os, tempfile, subprocess, sys, shutil
-full=open(".claude/commands/research/full.md").read()
+full=open(sys.argv[1]).read()
 m=re.search(r'python3 - "<RUN_ROOT>" <<.PY.\n(.*?)\nPY\n```', full, re.S)
 if not m: print("  FAIL: could not extract the finish-gate script from full.md"); sys.exit(1)
 d=tempfile.mkdtemp(); gp=os.path.join(d,"gate.py"); open(gp,"w").write(m.group(1))
@@ -69,9 +69,9 @@ shutil.rmtree(d); sys.exit(0 if ok else 1)
 PY
 
 echo "== eval.md check M: direction-aware risk/reward (short vs long) =="
-"$PY" - <<'PY' || rc=1
+"$PY" - "$DIR/../commands/research/eval.md" <<'PY' || rc=1
 import re, textwrap, sys
-ev=open(".claude/commands/research/eval.md").read()
+ev=open(sys.argv[1]).read()
 m=re.search(r'\n(\s*pwt=sum\(p/100\.0\*t for p,t in zip\(probs,tgts\)\).*?if abs\(rr-crr\)>max\([^\n]*\))', ev, re.S)
 if not m: print("  FAIL: could not extract the check-M math block from eval.md"); sys.exit(1)
 code=compile(textwrap.dedent(m.group(1)),"<checkM>","exec")
@@ -116,11 +116,14 @@ BANNED=[
   "fair value {range}/share",                                 # old CHAT verdict templates
   "the fair-value range is a range pulled from",              # old 99 self-check
   "higher = better | downside protection",                    # old MoS score row (== bear distance)
+  "a fair-value range",                                       # base case as a range (00/README/banned-row drift)
+  "implied value as a range",                                 # 02/03 method output as range-only (no base point)
+  "fair-value (or implied) range",                            # old 99 workflow step 2
 ]
 for b in BANNED:
     hits=[k for k,t in low.items() if b in t]
     if hits: print(f"  FAIL: drift phrasing returned -> {b!r} in {hits}"); ok=False
-# (2) canonical definitions must be present ONCE in MODULE_RULES (the single source of truth)
+# (2) canonical definitions must be present in MODULE_RULES (the single source of truth)
 mr=low.get("module_rules.md","")
 NEED=[
   ("/ base-case fair value",        "canonical margin-of-safety denominator"),

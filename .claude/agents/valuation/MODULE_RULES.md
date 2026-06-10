@@ -230,7 +230,7 @@ When specific data is missing, the affected agents must cap their output as desc
 
 | Missing Data | Affected Agents | Rule |
 |---|---|---|
-| No pool-verified price (absent, OR only an indicative / web / unconfirmed quote) | 01, 05, 07, 99 | 01 produces the EV bridge in per-share/implied terms, tags the price-state (`pool-verified` / `indicative` / `none`), and flags the gap; 05 (reverse-DCF) cannot run — "what's priced in" is unknowable without a real price; 07 expresses targets as fair-value levels with NO observed up/downside %, margin of safety, or downside-to-bear; 99 applies the single canonical no-price Score-Cap row below |
+| No pool-verified price (price-state `indicative` or `none` — absent, or only an indicative / web-sourced quote) | 01, 05, 07, 99 | 01 produces the EV bridge in per-share/implied terms, tags the price-state (`pool-verified` / `indicative` / `none`), and flags the gap; 05 (reverse-DCF) cannot run — "what's priced in" is unknowable without a real price; 07 expresses targets as fair-value levels with NO observed up/downside %, margin of safety, or downside-to-bear; 99 applies the single canonical no-price Score-Cap row below |
 | No consensus / forward estimates | 02, 03, 04, 05 | Forward (NTM/FY) multiples unavailable — use LTM only; DCF builds its own forecast from history with assumptions flagged; cap valuation confidence |
 | No peer data | 03, 06 | Relative valuation runs on the company's own history only and flags it; SOTP segment multiples must be justified from web/comparables or marked low-confidence |
 | No segment-level data | 06 | SOTP cannot run — agent returns "SOTP not possible — segment EBIT and/or segment comparables unavailable" and does not guess |
@@ -245,7 +245,7 @@ When data is missing or weak, these hard caps override an agent's own scoring. T
 
 | Missing / Weak Data | Score Cap |
 |---|---|
-| No pool-verified price (absent OR indicative/unconfirmed) | Margin of safety, downside-to-bear, observed up/down, and valuation attractiveness = **"Not assessable"**; valuation confidence max 55. *(Single canonical no-price cap — `01`, `07`, and `99` tag the price-state and apply THIS row; they do not redefine which scores are capped.)* |
+| No pool-verified price (price-state `indicative` or `none`) | Margin of safety, downside-to-bear (the Downside-risk score), observed up/down, and valuation attractiveness = **"Not assessable"**; valuation confidence max 55. *(Single canonical no-price cap — `01` tags the price-state; `05`/`07`/`99` apply THIS row and do not redefine which scores are capped. A pool price whose as-of date is unconfirmed remains `pool-verified` — staleness is a data-quality caveat, not a trigger for this row.)* |
 | No consensus / forward estimates | Valuation confidence max 60 |
 | No peer data | Overall usefulness max 70 |
 | Only ONE valuation method usable | Valuation confidence max 50 |
@@ -305,7 +305,7 @@ These may NOT appear unless paired with a specific number or range in the same s
 - "cheap" / "expensive" (state the discount/premium to fair value or to peers)
 - "attractive valuation" / "compelling value"
 - "trading at a discount" (to *what*, and by how much?)
-- "fairly valued" (state the fair-value range and the gap to price)
+- "fairly valued" (state the bull/base/bear fair-value levels and the gap to price)
 - "undervalued" / "overvalued" (state by how much vs which method)
 - "significant upside" / "limited downside"
 - "re-rating opportunity" (to what multiple, warranted why?)

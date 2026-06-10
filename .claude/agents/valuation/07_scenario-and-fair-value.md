@@ -33,7 +33,7 @@ If a method is missing or was capped, exclude it from the triangulation weightin
 # WORKFLOW
 
 1. Read the repo root `CLAUDE.md`, then read `.claude/agents/valuation/MODULE_RULES.md`, and apply both.
-2. Read each method's output (`02`–`06`) and extract its fair-value (or implied-value) range and its confidence/caveats.
+2. Read each method's output (`02`–`06`) and extract its base-case fair (or implied) value point, its dispersion, and its confidence/caveats.
 3. Build the method-summary table. Assign each method a weight based on its reliability FOR THIS COMPANY (e.g., DCF is weak for a deep cyclical at a margin extreme; peers are weak when no clean public comp exists; SOTP is strong for a multi-segment conglomerate). Justify each weight. **Zero-weight (and say so) any method that is (a) invalid for the business type per the Business-Type Method Map, OR (b) flagged by its own producer as non-value-producing — `02` reversion marked "illustrative-only" on short history, `06` marked "collapsed / single-segment sanity-check only", or any method marked skipped / not-a-fair-value-input.** Such methods still appear in the football field for transparency, but they do not enter the weighted base point.
 4. Reconcile disagreements: where methods diverge, state which you trust more and why. If the spread is >40%, flag it as the headline finding.
 5. Derive the base-case fair value as a single POINT (a level), then the bull and bear fair-value levels (also points) — each tied to the operating drivers (from earnings sensitivity) and the warranted multiple. The bull-to-bear spread is the range; the cross-method dispersion is the §2 football field.

@@ -45,7 +45,7 @@ The master synthesizer reads `99_balance-sheet-survival-synthesis.md` and, per i
 | 00 | `solvency-data-triage` | — | Inventory + fail-fast |
 | 01 | `capital-structure-and-leverage` | — | Debt stack + gross/net leverage |
 | 02 | `maturity-wall-and-refinancing` | 01 | Maturity schedule + refi exposure |
-| 03 | `liquidity-runway` | 01 | Committed liquidity vs near-term obligations |
+| 03 | `liquidity-runway` | 01, 02 | Committed liquidity vs near-term obligations |
 | 04 | `coverage-and-covenants` | 01 | Coverage ratios + covenant headroom |
 | 05 | `off-balance-sheet-and-contingencies` | 01 | Leases, pensions, guarantees, litigation |
 | 06 | `downside-stress-test` | 01–05 | EBITDA −30/−40/−60% survival test |
@@ -55,9 +55,10 @@ The master synthesizer reads `99_balance-sheet-survival-synthesis.md` and, per i
 
 - **Layer 0** (sequential, fail-fast): `solvency-data-triage`
 - **Layer 1** (sequential, the foundation): `capital-structure-and-leverage`
-- **Layer 2** (parallel, depend on 01): `maturity-wall-and-refinancing`, `liquidity-runway`, `coverage-and-covenants`, `off-balance-sheet-and-contingencies`
-- **Layer 3** (the survival test): `downside-stress-test`
-- **Layer 4**: `balance-sheet-survival-synthesis`
+- **Layer 2** (parallel, depend on 01): `maturity-wall-and-refinancing`, `coverage-and-covenants`, `off-balance-sheet-and-contingencies`
+- **Layer 3** (depends on 02 — needs the maturity wall): `liquidity-runway`
+- **Layer 4** (the survival test): `downside-stress-test`
+- **Layer 5**: `balance-sheet-survival-synthesis`
 
 ## Cross-module inputs
 

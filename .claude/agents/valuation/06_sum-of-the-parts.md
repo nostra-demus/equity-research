@@ -108,7 +108,7 @@ State the conglomerate discount applied (if any) and the reason. If none applied
 - [ ] The equity bridge subtracts net debt and corporate costs and uses `01`'s share count. Net cash is added once with the correct sign (no deduction-plus-add-back double-count); any corporate / unallocable drag is capitalized-and-subtracted or shown to be already netted in the metric — never dropped by assertion (Gate 3), including on a single-segment collapse.
 - [ ] Any conglomerate discount is disclosed with a reason (or its absence justified).
 - [ ] The read identifies which segment carries the value.
-- [ ] Output is a value (range where the multiples justify a range), not false precision.
+- [ ] Output is a base-case value (a point), with any multiple-driven dispersion shown separately as its range — not false precision.
 - [ ] No banned phrases.
 
 # CHAT CONFIRMATION
@@ -116,7 +116,7 @@ State the conglomerate discount applied (if any) and the reason. If none applied
 ```
 Agent: sum-of-the-parts
 Output: {OUTPUT_PATH}
-Verdict: SOTP value {value or range}/share vs price {price}; {segment} carries the value
+Verdict: SOTP value {point}/share (dispersion {low}–{high} where multiples justify) vs price {price}; {segment} carries the value
 Biggest finding: {one line — breakup value and which segment is masked, or why SOTP cannot run}
 ```
 

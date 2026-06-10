@@ -27,12 +27,12 @@ This agent runs AFTER `04_intrinsic-dcf` and **inverts the SAME model**: it read
 
 # PARTIAL-DATA RULE
 
-If no current price is available (from `01`): this agent CANNOT run — there is no price to reverse-engineer. State *"No current price — what's-priced-in is unknowable. Reverse-DCF skipped."* and produce nothing further. This is the single highest-value missing input.
+If `01`'s price-state is not `pool-verified` — i.e. `none` OR `indicative` (a web-sourced / corroborated-band quote): this agent CANNOT run — "what's priced in" is unknowable without a real, pool-verified price, and an indicative band is treated the same as no price (MODULE_RULES Partial-Data + Score-Cap rules). State *"No pool-verified price (price-state: {indicative|none}) — what's-priced-in is unknowable. Reverse-DCF skipped."* and produce nothing further. This is the single highest-value missing input.
 
 # WORKFLOW
 
 1. Read the repo root `CLAUDE.md`, then read `.claude/agents/valuation/MODULE_RULES.md`, and apply both.
-2. Take the current price, EV, net debt, and shares from `01`. If price is missing, stop per the partial-data rule.
+2. Take the current price, EV, net debt, and shares from `01`. If `01`'s price-state is not `pool-verified` (`indicative` or `none`), stop per the partial-data rule.
 3. Establish the FCF (or NOPAT) base year from the filings / `earnings/01_historical-financials.md`.
 4. Take the discount rate (WACC), the normalized FCF base, terminal growth, and the discounting convention from `04_intrinsic-dcf` and use them verbatim — do NOT re-derive an independent WACC or base (that is the bug this prevents). State them and cite `04`. If `04` is unavailable, build the WACC + normalized base yourself using the same components as the DCF methodology, label them, and flag that they are unreconciled. If the business type is Financial or REIT (Business-Type Method Map), reverse the equity-direct model instead — solve for the growth / ROE / payout the price implies in a DDM or residual-income model discounted at the cost of equity, not an FCFF / EV model.
 5. Solve backwards: holding the discount rate and a stated horizon fixed, find the FCF growth rate (and/or the number of years of above-GDP growth, and/or the steady-state margin) that makes the present value of cash flows equal to today's EV. **Compute this with an executed solver — you have `Bash`.** Run a few lines of Python (e.g. `scipy.optimize.brentq`, or a bisection loop over the growth rate) and paste the command plus the root it returned. Backing implied growth out of price is a nonlinear root-find; doing it in your head yields a plausible-looking but unverified number, and this number *is* the engine's entire "what's priced in" read. *(fix F11 — see `FRAMEWORK_FIXES_2026-06-08.md`.)*
@@ -99,7 +99,7 @@ Also stress the **FCF base**, not just the discount rate — in every output tha
 
 # SELF-CHECK
 
-- [ ] Current price and EV match `01`; if price is missing, the agent stopped per the partial-data rule.
+- [ ] Current price and EV match `01` and `01`'s price-state is `pool-verified`; otherwise (`indicative` / `none`) the agent stopped per the partial-data rule.
 - [ ] The discount rate, normalized FCF base, terminal growth, and discounting convention are taken from `04_intrinsic-dcf` verbatim (the reverse-DCF inverts the SAME model) — or, if `04` is unavailable, are self-derived and flagged as unreconciled.
 - [ ] The discount rate is stated explicitly with its basis.
 - [ ] The solve clearly states what was held fixed and what was solved for.
@@ -119,4 +119,4 @@ Biggest finding: {one line — implied expectation vs what's achievable}
 ```
 
 If the agent could not run, add:
-`Insufficient data: No current price — reverse-DCF skipped`
+`Insufficient data: No pool-verified price (price-state: {indicative|none}) — reverse-DCF skipped`
