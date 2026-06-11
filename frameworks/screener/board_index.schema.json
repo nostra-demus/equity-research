@@ -1,0 +1,124 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "frameworks/screener/board_index.schema.json",
+  "title": "Screener board index",
+  "description": "The single canonical machine-readable state of the screener pipeline board, at screener/board/index.json. Rebuilt deterministically by scripts/update_board_index.py from the ledger + run folders + inbox. The cockpit board reads THIS file (plus live in-memory runs) — it never crawls agent prose.",
+  "type": "object",
+  "required": ["generated_at", "inbox", "signals", "theses", "handoffs", "counts"],
+  "properties": {
+    "generated_at": { "type": "string" },
+    "inbox": {
+      "type": "array",
+      "description": "Unconsumed sweep rows (newest first).",
+      "items": {
+        "type": "object",
+        "required": ["inbox_id", "headline", "source_name", "found_at"],
+        "properties": {
+          "inbox_id": { "type": "string" },
+          "headline": { "type": "string" },
+          "url": { "type": "string" },
+          "source_name": { "type": "string" },
+          "input_nature": { "type": "string" },
+          "found_at": { "type": "string" },
+          "sweep_file": { "type": "string" },
+          "prelim_note": { "type": "string" },
+          "dedup_status": { "type": "string", "enum": ["new", "possible_duplicate"] },
+          "consumed": { "type": "boolean" },
+          "launched_signal_id": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "signals": {
+      "type": "array",
+      "description": "Every processed signal (from the events ledger), newest first.",
+      "items": {
+        "type": "object",
+        "required": ["signal_id", "headline", "status"],
+        "properties": {
+          "signal_id": { "type": "string" },
+          "event_id": { "type": "string" },
+          "headline": { "type": "string" },
+          "source_name": { "type": "string" },
+          "source_grade": { "type": "string" },
+          "processed_at": { "type": "string" },
+          "run_root": { "type": "string" },
+          "materiality_score": { "type": ["integer", "null"] },
+          "novelty_score": { "type": ["number", "null"] },
+          "pair_label": { "type": ["string", "null"] },
+          "action": { "type": ["string", "null"] },
+          "status": { "type": "string", "description": "PROMOTE / PARK / LOG / suppress / watchlist_no_source / in_gauntlet / thesis statuses once Phase 1 ran." },
+          "status_reason": { "type": "string" },
+          "thesis_id": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "theses": {
+      "type": "array",
+      "description": "Every thesis record (from screener/ledger/theses/), newest first.",
+      "items": {
+        "type": "object",
+        "required": ["thesis_id", "signal_id", "status"],
+        "properties": {
+          "thesis_id": { "type": "string" },
+          "signal_id": { "type": "string" },
+          "headline": { "type": "string" },
+          "status": { "type": "string" },
+          "status_reason": { "type": "string" },
+          "routing_reason": { "type": "string" },
+          "next_action": { "type": "string" },
+          "edge_score": { "type": ["integer", "null"] },
+          "horizon": { "type": ["string", "null"] },
+          "falsification_sentence": { "type": ["string", "null"] },
+          "convergence_trigger": { "type": ["string", "null"] },
+          "trigger_date_range": { "type": ["string", "null"] },
+          "locked": { "type": "boolean" },
+          "run_root": { "type": "string" },
+          "candidate_count": { "type": "integer" },
+          "candidates": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "candidate_id": { "type": "string" },
+                "ticker": { "type": "string" },
+                "company_name": { "type": "string" },
+                "side": { "type": "string" },
+                "exposure_score": { "type": "integer" },
+                "handed_off": { "type": "boolean" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "handoffs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["handoff_id", "thesis_id", "ticker", "handed_off_at", "seeded_path"],
+        "properties": {
+          "handoff_id": { "type": "string" },
+          "thesis_id": { "type": "string" },
+          "ticker": { "type": "string" },
+          "handed_off_at": { "type": "string" },
+          "seeded_path": { "type": "string" },
+          "research_run_root": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "counts": {
+      "type": "object",
+      "description": "Funnel totals for the board header.",
+      "properties": {
+        "inbox_unconsumed": { "type": "integer" },
+        "signals_total": { "type": "integer" },
+        "parked": { "type": "integer" },
+        "logged": { "type": "integer" },
+        "watchlist": { "type": "integer" },
+        "provisional": { "type": "integer" },
+        "full_machine": { "type": "integer" },
+        "handed_off": { "type": "integer" }
+      }
+    }
+  }
+}

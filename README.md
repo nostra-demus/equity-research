@@ -13,6 +13,10 @@ A self-discovering multi-agent equity research system. Specialists are organised
 - `data/` — symlink to a Google Drive folder. Source documents (filings, transcripts, models, notes) live under `data/<TICKER>/`. Not committed.
 - `analyses/<TICKER>_<YYYY-MM-DD>/` — one folder per run. Contains `RUN_METADATA.md`, one subfolder per module with that module's specialist outputs, and the synthesizer's `final_thesis.md`.
 - `watchlist/`, `positions/` — manual notes, separate from automated runs.
+- `.claude/agents/screener/` — the **screener swarm** (a second, nested swarm: idea generation). `SWARM.md` is its manifest (id, cyan color, unit `signal`, run-root template, routing contract, stage source policy); its modules nest one level deeper (`signal-gate/`, `thesis-structure/`, `edge-definition/`, `candidate-surfacing/`), each with the same `NN_*.md` + `99_*-synthesis.md` + `MODULE_RULES.md` convention. Invisible to the research roster (its glob is one-level).
+- `.claude/commands/screener/` — `/screener:signal`, `/screener:sweep`, `/screener:handoff`, `/screener:agent`.
+- `frameworks/screener/` — `SCREENER_PIPELINE.md` (the screener's adaptation of MODULE_PIPELINE.md) + the JSON Schemas (`intake`, `signal_payload`, `thesis_record`, `candidates`, `board_index`).
+- `screener/` — the screener's stores: `runs/<SIG-ID>/` (one folder per signal), `ledger/` (append-only events + locked theses + candidates + handoffs), `inbox/` (sweep results awaiting a human), `board/index.json` (the one machine-readable board state, rebuilt by `scripts/update_board_index.py`). A committed FIXTURE run (`SIG-20260610-a3f2c81d`) is the golden example of every artifact.
 - `CLAUDE.md` — cross-cutting investing standards and git policy every agent must follow.
 
 ## Running a research workflow
@@ -31,6 +35,26 @@ The master orchestrator:
 7. Commits the run in two commits on `main` and pushes both: a run-artifacts commit containing every file written during the run, then a metadata-backfill commit that writes the run-artifacts commit's SHA into `RUN_METADATA.md`. Per `CLAUDE.md` git policy: main only, no branches, no PRs.
 
 To run only one module: `/research:business-model <TICKER>`, `/research:earnings <TICKER>`, `/research:balance-sheet-survival <TICKER>`, `/research:management-governance <TICKER>`, or `/research:valuation <TICKER>`. The valuation, balance-sheet-survival, and management-governance modules read business-model and earnings outputs as cross-module context, so they run after those under `/research:full`; run them standalone only after the upstream modules have run for the ticker (they will still proceed independently if not).
+
+## The screener swarm (idea generation)
+
+The screener is a SECOND swarm that sits in front of the research swarm: it turns raw market signals (headlines, filings, price moves, human observations) into locked, machine-routable thesis records and shortlists of candidate companies — which a human then sends into `/research:full`.
+
+```
+/screener:sweep                       # scan approved sources -> fill the signal Inbox (no analysis spend)
+/screener:signal "<headline or URL>"  # run ONE signal through the whole gauntlet
+/screener:handoff <THESIS_ID> <TICKER>  # seed data/<TICKER>/ with the locked thesis memo (idempotent)
+/screener:agent <module> <agent> <SIG_ID>  # re-run one orb into an existing signal run
+```
+
+The pipeline (each stage gated by the SWARM.md routing contract):
+
+1. **signal-gate** — Gate 0 (approved-source firewall, A/B grading, ledger dedup) + the ten-step Phase 0.1 gauntlet (relevance → event types → entities → similarity vs the event ledger → fact delta → confirmation upgrade → pairwise classification → novelty → canonical action → **materiality 0–100**). Routing: PROMOTE ≥ 70 / PARK 40–69 / LOG.
+2. **thesis-structure** — Phase 1 M0.1–M0.5: sterile event statement (no causal language) → 2–6 already-occurred, quantified world changes → beneficiary blast-radius map (GICS industries, NO tickers, 4×25 impact matrix → primary/secondary/parked) → horizon + observable expiry → the falsification kill switch.
+3. **edge-definition** — M0.6: consensus (sympathetic) → market-implied dashboard → variant perception (numeric departure + evidenced coverage gap) → mispricing reason (3 verifiable facts) → convergence trigger (dated, 4-step mechanism) → **edge score** (0.40/0.30/0.30 blend, formula printed). Routing: < 60 watchlist_no_edge / 60–80 provisional / > 80 full_machine. The record LOCKS here.
+4. **candidate-surfacing** — runs only for provisional/full_machine: maps carry-forward industries to listed companies (tickers allowed for the first time), ranks by exposure purity, surfaces the shortlist deck.
+
+A terminal routing (watchlist_*, PARK, LOG) is a valid result, not a failure — the screener is a rejection machine first (`CLAUDE.md` §24). Handoff writes `data/<TICKER>/screener_thesis_<id>.md` (labelled engine-generated, user-note tier) and never auto-launches the research run — the human confirms that spend separately.
 
 ## Post-run discipline & the decision-ledger feedback loop
 

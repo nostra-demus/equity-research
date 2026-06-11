@@ -1,0 +1,110 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "frameworks/screener/signal_payload.schema.json",
+  "title": "Phase 0.1 signal payload",
+  "description": "The structured output of the signal-gate module (the ten-step gauntlet). Written to screener/runs/<SIG_ID>/signal_payload.json by the signal-gate synthesis.",
+  "type": "object",
+  "required": [
+    "signal_id",
+    "event_id",
+    "processed_at",
+    "relevance_label",
+    "relevance_confidence",
+    "event_types",
+    "issuer_linkage",
+    "similarity_score",
+    "pair_label",
+    "fact_delta",
+    "confirmation_upgrade",
+    "novelty_score",
+    "action",
+    "materiality_score",
+    "routing",
+    "routing_reason",
+    "sources"
+  ],
+  "properties": {
+    "signal_id": { "type": "string", "pattern": "^SIG-[0-9]{8}-[a-f0-9]{8}$" },
+    "event_id": { "type": "string", "pattern": "^EVT-[a-f0-9]{12}$", "description": "sha256 (first 12 hex) of normalized headline + source URL." },
+    "processed_at": { "type": "string" },
+    "gate0": {
+      "type": "object",
+      "required": ["approved_source_check", "source_grade"],
+      "properties": {
+        "approved_source_check": { "type": "boolean" },
+        "source_grade": { "type": "string", "enum": ["A", "B"] },
+        "source_grade_rationale": { "type": "string" },
+        "dedup_url_hash": { "type": "string" }
+      }
+    },
+    "relevance_label": { "type": "string", "enum": ["irrelevant", "relevant_non_material", "material"] },
+    "relevance_confidence": { "type": "number", "minimum": 0, "maximum": 1 },
+    "event_types": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "earnings_revenue_margin",
+          "guidance_change",
+          "mna",
+          "capital_actions",
+          "debt_credit",
+          "litigation_enforcement",
+          "regulatory",
+          "management",
+          "product",
+          "commercial",
+          "operations",
+          "cybersecurity",
+          "macro_sector",
+          "rumor"
+        ]
+      }
+    },
+    "entities": {
+      "type": "object",
+      "properties": {
+        "primary_issuers": { "type": "array", "items": { "type": "string" } },
+        "secondary_issuers": { "type": "array", "items": { "type": "string" } },
+        "sector": { "type": "string" },
+        "geography": { "type": "string" },
+        "commodity": { "type": "string" }
+      }
+    },
+    "issuer_linkage": { "type": "string", "enum": ["primary_issuer", "secondary_issuer", "sector_only", "macro_only"] },
+    "similarity_score": { "type": "number", "minimum": 0, "maximum": 1, "description": "Best-match similarity vs the 48-72h ledger window (agent-native textual-overlap rubric mapped to the cosine bands)." },
+    "similar_event_ids": { "type": "array", "items": { "type": "string" } },
+    "pair_label": {
+      "type": "string",
+      "enum": ["duplicate", "same_event_no_new_info", "same_event_new_info", "related_topic", "new_event"]
+    },
+    "fact_delta": { "type": "number", "minimum": 0, "maximum": 1 },
+    "fact_delta_fields": { "type": "array", "items": { "type": "string" }, "description": "Which extraction fields changed (guidance, deal_value, fine_amount, eps, revenue, counterparty, court, regulator)." },
+    "confirmation_upgrade": { "type": "boolean" },
+    "novelty_score": { "type": "number", "minimum": 0, "maximum": 1 },
+    "action": {
+      "type": "string",
+      "enum": ["replace_canonical", "suppress", "keep_linked_low_rank", "keep_linked", "keep_separate"]
+    },
+    "materiality_score": { "type": "integer", "minimum": 0, "maximum": 100 },
+    "materiality_math": { "type": "string", "description": "The visible arithmetic: base inputs, penalties applied, overrides applied." },
+    "routing": { "type": "string", "enum": ["PROMOTE", "PARK", "LOG", "watchlist_no_source", "suppress"] },
+    "routing_reason": { "type": "string" },
+    "next_action": { "type": "string" },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["source_name", "retrieved_at", "claim_supported"],
+        "properties": {
+          "url": { "type": "string" },
+          "source_name": { "type": "string" },
+          "source_grade": { "type": "string", "enum": ["A", "B"] },
+          "retrieved_at": { "type": "string" },
+          "claim_supported": { "type": "string" }
+        }
+      }
+    }
+  }
+}

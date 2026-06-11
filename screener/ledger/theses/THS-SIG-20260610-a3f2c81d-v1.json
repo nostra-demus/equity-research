@@ -1,0 +1,360 @@
+{
+  "meta": {
+    "thesis_id": "THS-SIG-20260610-a3f2c81d-v1",
+    "signal_id": "SIG-20260610-a3f2c81d",
+    "fixture": true,
+    "created_at": "2026-06-10T05:55:00Z",
+    "locked": true,
+    "version": 1,
+    "version_history": [],
+    "status": "provisional",
+    "status_reason": "Edge score 79 lands in the 60-80 provisional band: trigger clarity is high (scheduled prints), but the variant departure is moderate and partially covered by one contrarian house.",
+    "next_action": "Surface candidates; monitor falsifiers; consider handoff of the top expression once its data pool is populated.",
+    "analyst_id": "fixture",
+    "phase1_completed_at": "2026-06-10T07:05:00Z",
+    "next_module": "candidate-surfacing",
+    "raw_input_source": {
+      "input_nature": "news_headline",
+      "input_datetime": "2026-06-10T05:12:00+00:00",
+      "source_name": "Reuters",
+      "source_url": "https://www.reuters.com/world/india/rbi-mpc-cuts-repo-rate-50bps-2026-06-10/",
+      "source_grade": "A",
+      "human_prompt_note": "",
+      "approved_source_check": true
+    }
+  },
+  "headline": "RBI's Monetary Policy Committee cuts repo rate 50 bps to 5.00% in surprise off-cycle move",
+  "run_root": "screener/runs/SIG-20260610-a3f2c81d",
+  "M0_1": {
+    "event_statement": "The Reserve Bank of India's Monetary Policy Committee lowered the policy repo rate by 50 basis points to 5.00% on 10 June 2026, in an off-cycle decision passed by a 5-1 vote. The committee recorded May headline CPI of 2.9% and kept the policy stance at neutral. The decision was published in an RBI press release the same morning.",
+    "sentence_count": 3,
+    "primary_source": "RBI press release (Official Government Statement)",
+    "source_url": "https://www.rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx?prid=fixture",
+    "supporting_source_urls": ["https://www.reuters.com/world/india/rbi-mpc-cuts-repo-rate-50bps-2026-06-10/"],
+    "source_grade": "A",
+    "source_grade_rationale": "Official policy-authority publication; Reuters wire corroborates.",
+    "causal_language_check": true,
+    "causal_language_review": "Checked and removed: 'surprise' (headline adjective), 'citing' (causal attribution) - replaced with 'recorded'. No because/due to/driven by present in the saved statement.",
+    "60_second_source_check": true,
+    "60_second_check_note": "RBI press release opened and rate/vote/stance verified at 2026-06-10T05:20Z.",
+    "filled_by": "agent",
+    "agent_draft_reviewed_by": "",
+    "review_completed_at": ""
+  },
+  "M0_2": {
+    "world_changes": [
+      {
+        "id": "WC-001",
+        "change_description": "Policy repo rate reduced",
+        "quantitative_magnitude": "-50 bps to 5.00%",
+        "baseline_reference": "5.50% (in force since 2026-04-09 MPC)",
+        "date_confirmed": "2026-06-10",
+        "source": "RBI press release",
+        "source_url": "https://www.rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx?prid=fixture",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      },
+      {
+        "id": "WC-002",
+        "change_description": "10-year G-sec yield fell on the announcement day",
+        "quantitative_magnitude": "-18 bps to 6.04% intraday close",
+        "baseline_reference": "6.22% prior close (2026-06-09)",
+        "date_confirmed": "2026-06-10",
+        "source": "Exchange data (NSE/CCIL close), Reuters market wrap",
+        "source_url": "https://www.reuters.com/markets/asia/india-bonds-fixture/",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      },
+      {
+        "id": "WC-003",
+        "change_description": "Overnight call money rate repriced lower",
+        "quantitative_magnitude": "-42 bps to 5.08% weighted average",
+        "baseline_reference": "5.50% prior-day weighted average",
+        "date_confirmed": "2026-06-10",
+        "source": "CCIL / RBI money market data",
+        "source_url": "https://www.ccilindia.com/fixture",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      }
+    ],
+    "gate_result": "pass",
+    "gate_rationale": "Three already-occurred, quantified changes against stated baselines (2-6 required).",
+    "watchlist_deferred_items": [
+      "Bank MCLR/EBLR resets (will occur on reset dates - not yet occurred)",
+      "Housing-finance company funding-cost decline (expected over 1-2 quarters - not yet occurred)"
+    ],
+    "agent_data_sources_checked": ["RBI press release", "Reuters", "NSE/CCIL market data pages"]
+  },
+  "M0_3": {
+    "direct_beneficiaries": [
+      {
+        "id": "DIR-001",
+        "industry_category": "Housing finance companies (retail mortgage lenders funded largely by market borrowings)",
+        "gics_classification": "Financials / Consumer Finance (GICS 40202010)",
+        "mechanism": "Funding cost is repo-linked via CPs/NCDs and bank lines (WC-001, WC-003); mortgage book yields reprice slower, expanding spread.",
+        "scoring": {
+          "mechanism_directness_score": 25,
+          "magnitude_score": 15,
+          "speed_score": 15,
+          "reversibility_score": 25,
+          "composite_score": 80,
+          "tier": "primary",
+          "carry_forward": true,
+          "carry_forward_override": false,
+          "override_rationale": "",
+          "scoring_notes": "1-step funding-cost link (25); magnitude estimated from 50 bps x borrowing mix (15); benefit lands over 1-2 quarters as borrowings roll (15); a policy reversal inside the horizon is unlikely after an off-cycle cut (25)."
+        }
+      },
+      {
+        "id": "DIR-002",
+        "industry_category": "Vehicle financiers / NBFC consumer lenders",
+        "gics_classification": "Financials / Consumer Finance (GICS 40202010)",
+        "mechanism": "Same repo-linked funding-cost decline (WC-001, WC-003) on shorter-duration books.",
+        "scoring": {
+          "mechanism_directness_score": 25,
+          "magnitude_score": 15,
+          "speed_score": 15,
+          "reversibility_score": 15,
+          "composite_score": 70,
+          "tier": "secondary",
+          "carry_forward": true,
+          "carry_forward_override": false,
+          "override_rationale": "",
+          "scoring_notes": "Shorter books reprice both sides faster - spread benefit is real but partially competed away (reversibility 15)."
+        }
+      }
+    ],
+    "indirect_beneficiaries": [
+      {
+        "id": "IND-001",
+        "industry_category": "Residential real-estate developers",
+        "gics_classification": "Real Estate / Real Estate Management & Development (GICS 60201030)",
+        "two_step_mechanism": "Cheaper mortgages (via DIR-001 repricing) lift housing demand, then presales (WC-001 two steps removed).",
+        "scoring": {
+          "mechanism_directness_score": 15,
+          "magnitude_score": 5,
+          "speed_score": 5,
+          "reversibility_score": 15,
+          "composite_score": 40,
+          "tier": "parked",
+          "carry_forward": false,
+          "carry_forward_override": false,
+          "override_rationale": "",
+          "scoring_notes": "2-step (15); demand elasticity directional only (5); lagged beyond the horizon (5)."
+        }
+      }
+    ],
+    "harmed_parties": [
+      {
+        "id": "HARM-001",
+        "industry_category": "Banks with high repo-linked (EBLR) floating retail books and sticky deposit costs",
+        "gics_classification": "Financials / Banks (GICS 40101010)",
+        "mechanism": "EBLR loans reprice down within a quarter (WC-001); term-deposit costs reset slower, compressing NIM 1-2 quarters.",
+        "scoring": {
+          "mechanism_directness_score": 25,
+          "magnitude_score": 15,
+          "speed_score": 25,
+          "reversibility_score": 15,
+          "composite_score": 80,
+          "tier": "primary",
+          "carry_forward": true,
+          "carry_forward_override": false,
+          "override_rationale": "",
+          "scoring_notes": "Mechanical repricing (25); magnitude estimated from EBLR share disclosures (15); hits the very next reporting quarter (25); reverses as deposits reprice (15)."
+        }
+      }
+    ],
+    "population_gate": {
+      "direct_beneficiaries_populated": true,
+      "indirect_beneficiaries_populated": true,
+      "harmed_parties_populated": true,
+      "at_least_one_populated": true,
+      "both_sides_empty": false,
+      "primary_count": 2,
+      "secondary_count": 1,
+      "parked_count": 1,
+      "carry_forward_count": 3,
+      "zero_carry_forward_action": "proceed",
+      "beneficiaries_only_note": "",
+      "harmed_only_note": ""
+    },
+    "pair_trade_notes": "Natural pair: long housing-finance (DIR-001, funding-led spread expansion) vs short high-EBLR-share banking (HARM-001, NIM compression) - isolates the rate-transmission asymmetry from market beta.",
+    "ticker_check": true,
+    "ticker_check_detail": { "performed": true, "violations": [], "repair_action": "none" },
+    "agent_contribution": "Full map drafted by screener-beneficiary-map (fixture).",
+    "analyst_contribution": ""
+  },
+  "M0_4": {
+    "horizon": "medium_long_3_6months",
+    "horizon_rationale": "Funding-cost transmission to HFC/NBFC P&L runs over 1-2 reporting quarters as borrowings roll; the Q2 FY27 results window (Oct-Nov 2026) is the visibility point.",
+    "expiry_condition": "Publication of Q2 FY27 (Sep-quarter) results for the major listed housing-finance companies (Oct-Nov 2026 results season).",
+    "expiry_condition_is_observable": true,
+    "expiry_condition_is_opinion": false,
+    "monitoring_frequency": "weekly (money-market rates), quarterly (results)",
+    "horizon_expiry_market_signal": "3-month CP rates for AAA HFCs renormalizing toward the new repo level (CCIL/exchange data)."
+  },
+  "M0_5": {
+    "falsification_sentence": "If 3-month AAA HFC commercial-paper yields have not declined by at least 25 bps from their 2026-06-09 level by 2026-08-15, the funding-cost transmission this thesis depends on is not occurring.",
+    "falsification_condition_type": "mechanism_failure_transmission",
+    "monitorable_metric_1": "3-month AAA-rated HFC CP yield (CCIL / exchange money-market data)",
+    "monitorable_metric_2": "1-year AAA NBFC NCD yield (exchange bond data)",
+    "monitorable_threshold_rate": 25,
+    "monitorable_threshold_rate_unit": "bps decline from 2026-06-09 baseline",
+    "monitorable_threshold_date": "2026-08-15",
+    "uncomfortable_check": true,
+    "uncomfortable_check_rationale": "If short funding does not reprice, the entire DIR-001 spread-expansion mechanism is dead - there is no fallback story.",
+    "secondary_falsifiers": [
+      {
+        "id": "SF-001",
+        "description": "MPC reverses the cut (hike) at or before the August 2026 meeting",
+        "monitorable_metric": "RBI MPC decisions calendar",
+        "probability_estimate": 0.05
+      },
+      {
+        "id": "SF-002",
+        "description": "Deposit-rate war keeps HFC bank-line costs flat despite the repo cut",
+        "monitorable_metric": "WALR on fresh rupee loans (RBI monthly data)",
+        "probability_estimate": 0.15
+      }
+    ],
+    "locked_after_m0_complete": true,
+    "locked_at": "2026-06-10T07:05:00Z"
+  },
+  "M0_6_1": {
+    "consensus_view": {
+      "paragraph": "The street reads the off-cycle 50 bps cut as confirmation that the easing cycle is front-loaded and nearly done: with CPI at 2.9% and real rates still positive, most houses pencil one final 25 bps cut at most, then a long hold. Rate-sensitive financials rallied broadly on the day, and the consensus trade is simply 'own quality lenders into a stable-rate environment'; the transmission detail is treated as already in the price after the day-one re-rating.",
+      "numeric_anchor": "Median street terminal repo forecast 4.75-5.00%; NIFTY Financial Services +2.1% on 2026-06-10.",
+      "key_consensus_assumptions": [
+        "Transmission to lender funding costs is immediate and already priced after the day-one rally.",
+        "HFC spread benefit is offset by competitive pass-through to borrowers within one quarter.",
+        "Bank NIM compression from EBLR repricing is small (<10 bps) and recovers within two quarters."
+      ]
+    },
+    "contrary_view": {
+      "exists": true,
+      "paragraph": "One macro-strategy house argues short-funding renormalization will lag because system liquidity is only at neutral, muting the HFC benefit this cycle.",
+      "contrary_numeric_anchor": "Their CP-repo spread forecast: +35 bps persistent vs +15 bps historical.",
+      "contrary_view_sources": ["Named strategist note summarized in Moneycontrol, 2026-06-10 (labelled: secondary aggregator, grade B)"]
+    },
+    "consensus_strength": {
+      "unanimity_rating": "moderate",
+      "unanimity_rationale": "Clear majority on 'easing nearly done, own lenders', with one documented dissent on transmission speed."
+    },
+    "analyst_rating_distribution": {
+      "buy_count": null, "hold_count": null, "sell_count": null, "total_analysts": null, "buy_pct": null,
+      "source": "", "as_of": "",
+      "missing_reason": "No single-issuer subject at this stage (industry-level thesis); rating distributions deferred to candidate-level work."
+    },
+    "estimate_dispersion": {
+      "current_high_estimate": null, "current_low_estimate": null, "current_spread_abs": null, "current_spread_pct": null,
+      "metric": "NTM EPS, sector aggregate",
+      "historical_avg_spread_pct": null, "historical_period": "", "historical_std_dev_pct": null,
+      "spread_vs_history": null,
+      "dispersion_interpretation": "",
+      "missing_reason": "Industry-level subject; estimate dispersion meaningful only per issuer - searched aggregate dispersion data 2026-06-10, none published at sector level."
+    },
+    "entrenchment_note": "Index flows into financials reinforce the simple 'own lenders' consensus regardless of transmission detail.",
+    "strawman_risk_check": true
+  },
+  "M0_6_2": {
+    "estimate_dispersion": { "data": {}, "interpretation": "", "missing_reason": "Industry-level subject (see M0.6.1)." },
+    "estimate_revision_trajectory": {
+      "data": { "note": "NIFTY Financial Services consensus NTM EPS: +0.4% revision over 3m, +0.9% over 1m (aggregator data, 2026-06-10, labelled)." },
+      "interpretation": "Mildly positive drift; no step-change yet attributable to the cut.",
+      "missing_reason": ""
+    },
+    "implied_scenario_from_multiple": {
+      "data": { "note": "NIFTY Financial Services fwd P/E 16.8x vs 5-year band 13.5-17.5x (aggregator, 2026-06-10): pricing a benign, near-upper-band scenario." },
+      "interpretation": "The sector multiple already sits in the top third of its range - the easy re-rating happened on day one.",
+      "missing_reason": ""
+    },
+    "options_implied_move": {
+      "data": {},
+      "interpretation": "",
+      "missing_reason": "No single-issuer subject; index option IV not probative for the HFC-specific mechanism. Searched NSE option chain 2026-06-10."
+    },
+    "short_interest_positioning": {
+      "data": {},
+      "interpretation": "",
+      "missing_reason": "India lacks a comparable short-interest print; futures OI shifts deferred to candidate level."
+    },
+    "implied_scenario_interpretation": "Blocks 2 and 3 together say the market is pricing 'good news, fully transmitted': a near-top-of-band sector multiple with only mild estimate drift. Nothing in the priced scenario distinguishes funding-mix winners (market-borrowing-funded HFCs) from deposit-funded laggards - the cross-sectional detail the thesis lives on.",
+    "all_five_fields_present": false,
+    "fields_missing_flagged": ["estimate_dispersion (industry-level subject)", "options_implied_move (no issuer)", "short_interest_positioning (no India SI print)"]
+  },
+  "M0_6_3": {
+    "variant_paragraph": "The market re-rated the whole financials complex as if a 50 bps cut benefits all lenders equally. It does not: lenders funded by market borrowings (CP/NCD) capture the repricing within one to two quarters while asset yields lag, expanding spreads; deposit-funded banks with high EBLR shares see the OPPOSITE - assets reprice first. The cross-sectional spread between those two funding models is not in estimates yet.",
+    "consensus_numeric_view": "Sector-level: ~+1% NTM EPS drift, uniform across lenders (M0.6.2 block 2).",
+    "our_numeric_view": "Market-borrowing-funded HFCs: 50 bps x ~60-70% borrowing share rolling in 2 quarters = 30-35 bps funding-cost decline vs ~10-15 bps near-term asset-yield drag - roughly +15-20 bps NIM vs consensus's uniform drift.",
+    "numeric_departure_magnitude": "+15-20 bps NIM (roughly +4-6% EPS for a pure-play HFC) vs ~+1% uniform consensus drift",
+    "mechanism_1_missing_from_consensus": "Funding-mix asymmetry: borrowing-funded HFCs vs deposit-funded banks transmit a repo cut in opposite directions over the first two quarters.",
+    "mechanism_2_missing_from_consensus": "Off-cycle timing pulls the CP/NCD roll-down forward one full quarter relative to the scheduled-meeting path embedded in models.",
+    "sell_side_coverage_gap_confirmed": true,
+    "sell_side_gap_evidence": "Searches 'EBLR share NIM 50bps HFC funding mix' across published-summary aggregators (2026-06-10) returned sector-level commentary only; no note modelling the two-quarter funding-mix spread was found.",
+    "manifestation_event": "Q2 FY27 (Sep-quarter) results of listed HFCs printing NIM/spread expansion",
+    "manifestation_time_window": "2026-10-15 to 2026-11-15 results season"
+  },
+  "M0_6_4": {
+    "primary_category": "complexity",
+    "primary_category_rationale": "Pricing the variant needs three layered datasets per lender (borrowing mix and roll schedule, EBLR share, deposit beta) - cross-sectional work the day-one macro re-rating skipped.",
+    "evidence_verifiable_fact_1": "Day-one moves were near-uniform across financials sub-indices (dispersion of sub-index returns on 2026-06-10 under 80 bps - exchange data), despite opposite first-order funding effects.",
+    "evidence_verifiable_fact_2": "Published estimate revisions in the first 48h were sector-wide drifts, not funding-mix-differentiated (aggregator revision logs, 2026-06-10/11).",
+    "evidence_verifiable_fact_3": "The off-cycle date is absent from the standard quarterly model-update calendar (houses' last published financials models predate 2026-06-10 - model dates visible on aggregators).",
+    "secondary_categories": [
+      { "category": "timing", "rationale": "Models update on results cadence; the cut landed mid-cycle, so the mix effect enters models only after Q2 FY27 prints." }
+    ]
+  },
+  "M0_6_5": {
+    "trigger_name": "Q2 FY27 results season for listed housing-finance companies (first full quarter carrying the lower funding costs)",
+    "trigger_date_range": "2026-10-15 to 2026-11-15",
+    "trigger_type": "scheduled",
+    "probability_if_unscheduled": null,
+    "probability_note": "Mandatory exchange-results publication (SEBI LODR Reg 33); probability not applicable.",
+    "causal_mechanism": [
+      "1. Sep-quarter HFC results print spreads/NIM up 10-20 bps as CP/NCD rolls captured the June cut.",
+      "2. Sell-side financials teams update funding-cost assumptions and differentiate funding-mix winners in revisions.",
+      "3. Funds rotate within financials from uniform sector exposure toward borrowing-funded spread expanders.",
+      "4. Pure-play HFC prices converge toward the variant NIM path (re-rating + EPS upgrades)."
+    ],
+    "secondary_triggers": [
+      {
+        "id": "ST-001",
+        "trigger_name": "RBI monthly WALR/funding-cost data showing transmission",
+        "trigger_date_range": "monthly, first print ~2026-07-31",
+        "trigger_type": "scheduled",
+        "probability": null,
+        "mechanism": "Partial convergence as macro desks flag the transmission speed before results."
+      }
+    ]
+  },
+  "M0_6_6": {
+    "scoring_criteria": {
+      "variant_perception_quality": {
+        "sub_score": 78,
+        "rationale": "Numeric departure shown with carry-through arithmetic and two named mechanisms; capped below 80 because one contrarian house partially covers mechanism timing (coverage gap holds only for the cross-sectional mix model)."
+      },
+      "mispricing_reason_strength": {
+        "sub_score": 72,
+        "rationale": "Complexity category fits; three verifiable facts (uniform day-one moves, undifferentiated revisions, stale model dates) - the first two verifiable today, the third partially."
+      },
+      "convergence_trigger_clarity": {
+        "sub_score": 88,
+        "rationale": "Scheduled, mandatory results window inside the horizon with a four-step actor-named mechanism and a monthly partial-convergence pre-trigger."
+      }
+    },
+    "blended_calculation": "0.40 x 78 + 0.30 x 72 + 0.30 x 88 = 31.2 + 21.6 + 26.4 = 79.2",
+    "final_score": 79,
+    "analyst_override": false,
+    "override_justification": "",
+    "justification_sentence_1": "The funding-mix asymmetry is a real, modellable mechanism the day-one uniform re-rating did not price.",
+    "justification_sentence_2": "Convergence rests on a mandatory results print inside the horizon, not on sentiment.",
+    "routing_outcome": "provisional",
+    "routing_logic": "final_score 79 falls in the 60-80 band -> provisional.",
+    "routing_reason": "Edge is real but moderate: one house partially covers the timing leg, and the magnitude is in the +4-6% EPS range rather than a step-change."
+  },
+  "sources": [
+    { "url": "https://www.rbi.org.in/Scripts/BS_PressReleaseDisplay.aspx?prid=fixture", "source_name": "Official Government Statement", "source_grade": "A", "retrieved_at": "2026-06-10T05:20:00Z", "claim_supported": "Rate action, vote, stance." },
+    { "url": "https://www.reuters.com/world/india/rbi-mpc-cuts-repo-rate-50bps-2026-06-10/", "source_name": "Reuters", "source_grade": "A", "retrieved_at": "2026-06-10T05:15:00Z", "claim_supported": "Event facts; market reaction." },
+    { "url": "https://www.ccilindia.com/fixture", "source_name": "Exchange data (CCIL)", "source_grade": "A", "retrieved_at": "2026-06-10T06:10:00Z", "claim_supported": "Call money and CP rate levels (WC-002, WC-003)." }
+  ]
+}

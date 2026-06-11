@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "frameworks/screener/intake.schema.json",
+  "title": "Screener signal intake",
+  "description": "The raw signal handed to the screener pipeline. Materialized at launch (by the cockpit server or the /screener:signal command) as screener/runs/<SIG_ID>/intake.json. Mirrors meta.raw_input_source of the Phase 1 schema.",
+  "type": "object",
+  "required": ["signal_id", "input_nature", "input_datetime", "headline", "requested_by"],
+  "properties": {
+    "signal_id": { "type": "string", "pattern": "^SIG-[0-9]{8}-[a-f0-9]{8}$" },
+    "input_nature": {
+      "type": "string",
+      "enum": [
+        "human_prompt",
+        "news_headline",
+        "price_alert",
+        "regulatory_filing",
+        "earnings_release",
+        "earnings_call_transcript",
+        "company_press_release",
+        "exchange_announcement",
+        "commodity_price_move",
+        "shipping_rate_move",
+        "options_flow_alert",
+        "chart_pattern",
+        "geopolitical_event",
+        "macro_data_release"
+      ]
+    },
+    "input_datetime": { "type": "string", "description": "ISO 8601 with timezone — when the input was received." },
+    "headline": { "type": "string", "minLength": 8, "maxLength": 500 },
+    "body_text": { "type": "string", "description": "Optional pasted summary/body." },
+    "source_name": { "type": "string", "description": "Must be on the swarm's signal_gate allowed-source list, else Gate 0 fails. Empty only for human_prompt." },
+    "source_url": { "type": "string", "description": "Direct URL to the article/filing/data page. Empty only for human_prompt." },
+    "human_prompt_note": { "type": "string", "description": "Required when input_nature is human_prompt: the verbatim observation." },
+    "requested_by": { "type": "string", "description": "Who created the signal (cockpit user email or 'cli')." },
+    "from_inbox": { "type": "boolean", "description": "True when promoted from a sweep inbox row." },
+    "sweep_ref": { "type": "string", "description": "Inbox file + row id this signal came from, if any." },
+    "override_promote": { "type": "boolean", "description": "Human override: run Phase 1 even if materiality lands in the PARK band." }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "input_nature": { "const": "human_prompt" } } },
+      "then": { "required": ["human_prompt_note"] },
+      "else": { "required": ["source_name", "source_url"] }
+    }
+  ]
+}
