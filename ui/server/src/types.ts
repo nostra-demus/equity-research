@@ -24,12 +24,44 @@ export interface ModuleNode {
   depsComplete?: boolean // ticker-specific (graphForTicker only): are this module's dependsOn synthesis outputs on disk?
   missingDeps?: string[] // the dependsOn modules whose synthesis is not yet present
   dataReadiness?: DataReadinessDecl // optional, self-declared in the module's 00-triage frontmatter
+  swarmId?: string // omitted for research (back-compat: the default /api/swarm payload is byte-stable)
+  moduleDir?: string // repo-relative module folder (nested for swarms); omitted for research
 }
 
 export interface SwarmGraph {
   modules: ModuleNode[]
   masterSynthesizer: { name: string; description: string }
   totals: { modules: number; agents: number; specialists: number; synthesis: number }
+  // present ONLY for non-research swarms (research stays byte-identical for existing clients)
+  swarm?: { id: string; label: string; color: string; unit: string; layout: string; order: number }
+}
+
+// ---- swarms (CLAUDE.md §26 "Swarms": self-describing, zero-touch) ----
+// Parsed from .claude/agents/<swarm>/SWARM.md frontmatter. The research swarm is grandfathered
+// as a synthetic manifest (no SWARM.md on disk) so every code path can be swarm-agnostic.
+export interface SwarmRoutingContract {
+  verdictField: string // the labelled line to grep in synthesis outputs (e.g. "Routing")
+  terminal: string[] // routing values that STOP the pipeline (valid outcomes, not errors)
+  continue: string[] // routing values that let the next module run
+}
+
+export interface SwarmManifest {
+  id: string
+  label: string
+  color: string
+  unit: string // 'ticker' | 'signal' | future units
+  order: number
+  layout: string // 'constellation' | 'flow' | future layouts (UI hint only)
+  commandNs: string // slash-command namespace, e.g. 'screener' -> /screener:*
+  dir: string // absolute path to the swarm's agents root
+  runsRoot: string // repo-relative folder that holds run folders (e.g. 'screener/runs' / 'analyses')
+  runRootTemplate: string // e.g. 'screener/runs/{SIG_ID}' / 'analyses/{TICKER}_{DATE}'
+  placeholder: string // the subject token inside the template (e.g. 'SIG_ID' / 'TICKER')
+  ledgerRoot?: string
+  boardIndex?: string
+  inboxRoot?: string
+  schemasRoot?: string
+  routing?: SwarmRoutingContract // absent for research (it uses triage Sufficiency semantics)
 }
 
 // ---- data-status ----
@@ -122,7 +154,10 @@ export interface TickerSummary {
 
 // 'review' files an append-only outcome review (/research:review-decisions); 'track' rebuilds the
 // calls-tracker dashboard (/research:track). Both are dep-free, lightweight, cross-/single-ticker.
-export type RunKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track'
+// Screener swarm kinds: 'signal' runs one signal through the gauntlet (subject = SIG id), 'sweep'
+// fills the inbox (no subject), 'screener-agent' re-runs one orb in a signal run, 'handoff' seeds
+// a ticker's data pool from a locked thesis (idempotent; never launches the research run itself).
+export type RunKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track' | 'signal' | 'sweep' | 'screener-agent' | 'handoff'
 // 'incomplete' = the process exited cleanly but a full/rerun didn't produce its final deliverables
 // (thesis/decision) — almost always budget/turn truncation. Distinct from 'error' (a real failure).
 export type RunStatus = 'starting' | 'running' | 'done' | 'error' | 'cancelled' | 'incomplete'
@@ -156,12 +191,16 @@ export interface AgentRunState {
 }
 
 export type SseEvent =
-  | { type: 'run-started'; runId: string; kind: RunKind; ticker: string; runRoot: string | null; sessionId?: string; willCommitToMain: boolean; ts: number }
+  | { type: 'run-started'; runId: string; kind: RunKind; ticker: string; runRoot: string | null; sessionId?: string; willCommitToMain: boolean; swarm?: string; ts: number }
   | { type: 'agent-started'; runId: string; module: string; agentKey: string; name: string; layer: number; ts: number }
   | { type: 'agent-done'; runId: string; agentKey: string; module: string; name: string; layer: number; outputPath: string; verdict: string | null; bytes: number; ts: number }
   | { type: 'agent-failed'; runId: string; agentKey: string; module: string; name: string; layer: number; reason: string; ts: number }
   | { type: 'layer-advanced'; runId: string; module: string; toLayer: number; doneCount: number; expectedCount: number; ts: number }
   | { type: 'module-done'; runId: string; module: string; status: 'completed' | 'aborted'; reason?: string; verdict?: string | null; ts: number }
+  // swarm-routing contract event (SWARM.md `routing:`): a module's synthesis (or terminal gate)
+  // declared its Routing value. `terminal` mirrors the manifest's terminal list; the cockpit's
+  // switchyard lights the taken exit from this. Research runs never emit it.
+  | { type: 'module-routed'; runId: string; module: string; route: string; terminal: boolean; nextModule: string | null; ts: number }
   | { type: 'cost-tick'; runId: string; costUsdSoFar?: number; rateLimit?: { ok: boolean; reason?: string }; ts: number }
   | { type: 'run-done'; runId: string; status: 'done'; costUsd?: number; durationMs?: number; numTurns?: number; finalThesisPath?: string | null; decisionRecordPath?: string | null; ts: number }
   | { type: 'run-error'; runId: string; status: 'error' | 'cancelled' | 'incomplete'; reason: string; message?: string; ts: number }
@@ -180,7 +219,8 @@ export interface CreditPreflight {
 
 export interface LaunchPreflight {
   kind: RunKind
-  ticker: string
+  ticker: string // research: the ticker; swarm runs: the subject id (SIG-… / sweep / handoff key)
+  swarm?: string // omitted for research
   module?: string
   agent?: string
   agentCount: number

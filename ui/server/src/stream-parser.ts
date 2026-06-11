@@ -3,18 +3,15 @@ import path from 'node:path'
 import { REPO_ROOT } from './config'
 import { setCreditStatus } from './credit'
 import { emit, finishRun, type RunState } from './registry'
-import { buildSwarmGraph } from './roster'
+import { agentNameIndexAllSwarms, buildSwarmGraph } from './roster'
 
 let nameIndex: Map<string, { key: string; module: string; layer: number; name: string }> | null = null
 function getNameIndex() {
   if (nameIndex) return nameIndex
-  nameIndex = new Map()
+  // subagent_type -> orb across EVERY swarm (agent names are globally unique, CLAUDE.md §26),
+  // so screener Task calls attribute to orbs exactly like research ones.
+  nameIndex = agentNameIndexAllSwarms()
   const g = buildSwarmGraph()
-  for (const m of g.modules) {
-    for (const a of Object.values(m.layers).flat()) {
-      nameIndex.set(a.name, { key: a.key, module: a.module, layer: a.layer, name: a.name })
-    }
-  }
   if (g.masterSynthesizer?.name) {
     nameIndex.set(g.masterSynthesizer.name, { key: 'master/synthesizer', module: 'master', layer: 99, name: g.masterSynthesizer.name })
   }

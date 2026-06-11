@@ -15,9 +15,11 @@ import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
 import { cancel, creditCheck, estimate, launch } from './launcher'
 import { getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
-import { agentNamesForModule, buildSwarmGraph, graphForTicker, listModuleNames } from './roster'
+import { agentNamesForModule, buildSwarmGraph, graphForSubject, graphForTicker, listModuleNames } from './roster'
 import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, resolveRunRoot, runManifest } from './outputs'
-import { AGENT_RE, MODULE_RE, TICKER_RE } from './sandbox'
+import { dataPoolPresent, readCandidates, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest } from './screener'
+import { listSwarms } from './swarms'
+import { AGENT_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE } from './sandbox'
 import type { RunKind } from './types'
 
 const app = Fastify({ logger: false })
@@ -65,9 +67,25 @@ app.get('/api/health', async (_req, reply) => {
   return { ok: true, repoRoot: REPO_ROOT }
 })
 
+// ---------- swarms (manifest list for the cockpit's swarm switcher) ----------
+app.get('/api/swarms', async () =>
+  listSwarms().map((s) => ({ id: s.id, label: s.label, color: s.color, unit: s.unit, order: s.order, layout: s.layout })),
+)
+
 // ---------- swarm graph ----------
-app.get('/api/swarm', async (req) => {
-  const ticker = (req.query as any)?.ticker as string | undefined
+// No params -> the research graph, byte-identical to the pre-swarm payload (back-compat).
+// ?swarm=<id> -> that swarm's graph (with its `swarm` descriptor); optional ?subject= recomputes
+// per-subject runnability exactly like ?ticker= does for research.
+app.get('/api/swarm', async (req, reply) => {
+  const q = req.query as any
+  const swarm = q?.swarm as string | undefined
+  if (swarm && swarm !== 'research') {
+    if (!listSwarms().some((s) => s.id === swarm)) return reply.code(404).send({ error: `unknown swarm ${swarm}` })
+    const subject = q?.subject as string | undefined
+    if (subject && SIG_RE.test(subject)) return graphForSubject(swarm, subject)
+    return buildSwarmGraph(swarm)
+  }
+  const ticker = q?.ticker as string | undefined
   if (ticker && TICKER_RE.test(ticker)) return graphForTicker(ticker)
   return buildSwarmGraph()
 })
@@ -97,12 +115,12 @@ app.get('/api/activity', async (req) => {
     const n = Number(v)
     return Number.isFinite(n) ? n : undefined
   }
-  const kinds = ['full', 'module', 'agent', 'rerun', 'review', 'track']
+  const kinds = ['full', 'module', 'agent', 'rerun', 'review', 'track', 'signal', 'sweep', 'screener-agent', 'handoff']
   const statuses = ['starting', 'running', 'done', 'error', 'cancelled']
   return readActivity({
     from: num(q.from),
     to: num(q.to),
-    ticker: typeof q.ticker === 'string' && TICKER_RE.test(q.ticker) ? q.ticker : undefined,
+    ticker: typeof q.ticker === 'string' && (TICKER_RE.test(q.ticker) || SIG_RE.test(q.ticker)) ? q.ticker : undefined,
     kind: kinds.includes(q.kind) ? q.kind : undefined,
     user: typeof q.user === 'string' && q.user ? q.user.slice(0, 200) : undefined,
     status: statuses.includes(q.status) ? q.status : undefined,
@@ -112,16 +130,27 @@ app.get('/api/activity', async (req) => {
 })
 
 // ---------- launch estimate ----------
+// Discriminated by kind: research kinds require a TICKER; screener kinds validate their own
+// subject shape (signal: optional SIG id / none for a new signal; sweep: nothing; handoff: ticker).
 app.get('/api/launch/estimate', async (req, reply) => {
   const q = req.query as any
   const kind = q.kind as RunKind
-  if (!['full', 'module', 'agent', 'rerun', 'review', 'track'].includes(kind)) return reply.code(400).send({ error: 'bad kind' })
-  if (!TICKER_RE.test(q.ticker || '')) return reply.code(400).send({ error: 'bad ticker' })
-  return estimate(kind, q.ticker, q.module, q.agent)
+  const researchKinds = ['full', 'module', 'agent', 'rerun', 'review', 'track']
+  const screenerKinds = ['signal', 'sweep', 'screener-agent', 'handoff']
+  if (![...researchKinds, ...screenerKinds].includes(kind)) return reply.code(400).send({ error: 'bad kind' })
+  if (researchKinds.includes(kind)) {
+    if (!TICKER_RE.test(q.ticker || '')) return reply.code(400).send({ error: 'bad ticker' })
+    return estimate(kind, q.ticker, q.module, q.agent)
+  }
+  if (kind === 'screener-agent' && !SIG_RE.test(q.ticker || '')) return reply.code(400).send({ error: 'bad signal id' })
+  if (kind === 'handoff' && !TICKER_RE.test(q.ticker || '')) return reply.code(400).send({ error: 'bad ticker' })
+  return estimate(kind, q.ticker || '', q.module, q.agent)
 })
 
 // ---------- launch ----------
-const LaunchBody = z.object({
+// One discriminated body per kind family. Research kinds keep their EXACT pre-swarm contract
+// (ticker + typed full-run confirmation); screener kinds carry their own subjects.
+const ResearchLaunchBody = z.object({
   kind: z.enum(['full', 'module', 'agent', 'rerun', 'review', 'track']),
   ticker: z.string().regex(TICKER_RE),
   module: z.string().regex(MODULE_RE).optional(),
@@ -132,24 +161,113 @@ const LaunchBody = z.object({
   confirmTicker: z.string().optional(),
 })
 
+const SignalLaunchBody = z.object({
+  kind: z.literal('signal'),
+  // relaunch an existing signal by id…
+  sigId: z.string().regex(SIG_RE).optional(),
+  // …or submit a NEW signal via the intake form
+  intake: z
+    .object({
+      headline: z.string().min(8).max(500),
+      source_url: z.string().max(1000).optional(),
+      source_name: z.string().max(120).optional(),
+      input_nature: z.string().regex(/^[a-z_]{3,40}$/).optional(),
+      body_text: z.string().max(8000).optional(),
+      human_prompt_note: z.string().max(4000).optional(),
+      override_promote: z.boolean().optional(),
+    })
+    .optional(),
+  model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i).optional(),
+})
+
+const SweepLaunchBody = z.object({ kind: z.literal('sweep'), model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i).optional() })
+
+const ScreenerAgentLaunchBody = z.object({
+  kind: z.literal('screener-agent'),
+  sigId: z.string().regex(SIG_RE),
+  module: z.string().regex(MODULE_RE),
+  agent: z.string().regex(AGENT_RE),
+  model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i).optional(),
+})
+
+const HandoffLaunchBody = z.object({
+  kind: z.literal('handoff'),
+  thesisId: z.string().regex(THESIS_RE),
+  ticker: z.string().regex(TICKER_RE),
+  model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i).optional(),
+})
+
 app.post('/api/launch', async (req, reply) => {
-  const parsed = LaunchBody.safeParse(req.body)
+  const kind = (req.body as any)?.kind as RunKind | undefined
+  const { user, userVia } = identify(req)
+  const fail = (e: any) => {
+    // Forward the discriminated admission-rejection body (code/reason/detail) so the client can
+    // branch the toast precisely; falls back to a plain message for other failures.
+    const body = e?.body && typeof e.body === 'object' ? e.body : null
+    return reply.code(e?.statusCode || 500).send({ error: e?.message || 'launch failed', ...(body || {}) })
+  }
+
+  // ---- screener kinds ----
+  if (kind === 'signal') {
+    const parsed = SignalLaunchBody.safeParse(req.body)
+    if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+    if (!parsed.data.sigId && !parsed.data.intake) return reply.code(400).send({ error: 'signal launch needs sigId or intake' })
+    try {
+      return await launch({ kind, ticker: parsed.data.sigId, intake: parsed.data.intake, model: parsed.data.model, user, userVia })
+    } catch (e: any) {
+      return fail(e)
+    }
+  }
+  if (kind === 'sweep') {
+    const parsed = SweepLaunchBody.safeParse(req.body)
+    if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+    try {
+      return await launch({ kind, model: parsed.data.model, user, userVia })
+    } catch (e: any) {
+      return fail(e)
+    }
+  }
+  if (kind === 'screener-agent') {
+    const parsed = ScreenerAgentLaunchBody.safeParse(req.body)
+    if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+    const { sigId, module, agent, model } = parsed.data
+    if (!listModuleNames('screener').includes(module)) return reply.code(400).send({ error: 'unknown screener module' })
+    if (!agentNamesForModule(module, 'screener').includes(agent)) return reply.code(400).send({ error: 'unknown agent for module' })
+    try {
+      return await launch({ kind, ticker: sigId, module, agent, model, user, userVia })
+    } catch (e: any) {
+      return fail(e)
+    }
+  }
+  if (kind === 'handoff') {
+    const parsed = HandoffLaunchBody.safeParse(req.body)
+    if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+    try {
+      return await launch({ kind, ticker: parsed.data.ticker, thesisId: parsed.data.thesisId, model: parsed.data.model, user, userVia })
+    } catch (e: any) {
+      return fail(e)
+    }
+  }
+
+  // ---- research kinds (pre-swarm contract, unchanged) ----
+  const parsed = ResearchLaunchBody.safeParse(req.body)
   if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
-  const { kind, ticker, module, agent, model, confirmTicker } = parsed.data
+  const { ticker, module, agent, model, confirmTicker } = parsed.data
+  const rkind = parsed.data.kind
   // review (file an outcome review) and track (rebuild the calls dashboard) need no upstream deps and
   // ignore module/agent — they follow the dep-free `full` admission path. review defaults to ad-hoc.
-  const window = kind === 'review' ? (parsed.data.window ?? 'ad-hoc') : undefined
+  const window = rkind === 'review' ? (parsed.data.window ?? 'ad-hoc') : undefined
 
   // closed allow-list checks against the live roster + data pool
   const tickers = listTickers().tickers.map((t) => t.ticker)
   if (!tickers.includes(ticker)) return reply.code(400).send({ error: `unknown ticker ${ticker}` })
-  if (kind === 'module' || kind === 'agent') {
+  if (rkind === 'module' || rkind === 'agent') {
     if (!module || !listModuleNames().includes(module)) return reply.code(400).send({ error: 'unknown module' })
   }
-  if (kind === 'agent') {
+  if (rkind === 'agent') {
     if (!agent || !agentNamesForModule(module!).includes(agent)) return reply.code(400).send({ error: 'unknown agent for module' })
   }
-  if (kind === 'rerun') {
+  if (rkind === 'rerun') {
     // rerun needs an orb (module+agent). 'master' is the Memo (master synthesizer) — not a module dir, so skip the roster check for it.
     if (!module || !agent) return reply.code(400).send({ error: 'rerun requires module and agent' })
     if (module !== 'master') {
@@ -157,19 +275,15 @@ app.post('/api/launch', async (req, reply) => {
       if (!agentNamesForModule(module).includes(agent)) return reply.code(400).send({ error: 'unknown agent for module' })
     }
   }
-  if (kind === 'full' && confirmTicker !== ticker) {
+  if (rkind === 'full' && confirmTicker !== ticker) {
     return reply.code(412).send({ error: 'full run requires typed confirmation', detail: 'send confirmTicker === ticker' })
   }
 
   try {
-    const { user, userVia } = identify(req)
-    const out = await launch({ kind, ticker, module, agent, window, model, user, userVia })
+    const out = await launch({ kind: rkind, ticker, module, agent, window, model, user, userVia })
     return out
   } catch (e: any) {
-    // Forward the discriminated admission-rejection body (code/reason/detail) so the client can
-    // branch the toast precisely; falls back to a plain message for other failures.
-    const body = e?.body && typeof e.body === 'object' ? e.body : null
-    return reply.code(e?.statusCode || 500).send({ error: e?.message || 'launch failed', ...(body || {}) })
+    return fail(e)
   }
 })
 
@@ -292,6 +406,88 @@ app.get('/api/output/run', async (req, reply) => {
 
 // ---------- calls tracker: cross-ticker ledger of every call + its since-the-call timeline ----------
 app.get('/api/calls', async () => listAllCalls())
+
+// ---------- screener swarm (dedicated, sandboxed readers — /api/output stays locked to analyses/) ----------
+app.get('/api/screener/board', async (_req, reply) => {
+  try {
+    return screenerBoard()
+  } catch (e: any) {
+    return reply.code(e?.statusCode || 500).send({ error: String(e?.message || e) })
+  }
+})
+
+app.get('/api/screener/run', async (req, reply) => {
+  const sigId = (req.query as any)?.sig_id as string
+  if (!SIG_RE.test(sigId || '')) return reply.code(400).send({ error: 'bad signal id' })
+  try {
+    return screenerRunManifest(sigId)
+  } catch (e: any) {
+    return reply.code(e?.code === 'ENOENT' ? 404 : 400).send({ error: 'cannot read run', detail: String(e?.message || e) })
+  }
+})
+
+app.get('/api/screener/thesis/:id', async (req, reply) => {
+  const id = (req.params as any).id as string
+  if (!THESIS_RE.test(id || '')) return reply.code(400).send({ error: 'bad thesis id' })
+  try {
+    return { thesis: readThesis(id), candidates: safeCandidates(id), handoffs: readHandoffs(id) }
+  } catch (e: any) {
+    return reply.code(e?.code === 'ENOENT' ? 404 : 400).send({ error: 'cannot read thesis', detail: String(e?.message || e) })
+  }
+})
+
+function safeCandidates(id: string) {
+  try {
+    return readCandidates(id)
+  } catch {
+    return null
+  }
+}
+
+app.get('/api/screener/candidates/:id', async (req, reply) => {
+  const id = (req.params as any).id as string
+  if (!THESIS_RE.test(id || '')) return reply.code(400).send({ error: 'bad thesis id' })
+  try {
+    const doc = readCandidates(id)
+    // enrich each candidate with the live data-pool presence dot (cheap fs checks)
+    for (const c of doc?.candidates ?? []) {
+      if (c?.ticker && TICKER_RE.test(c.ticker)) {
+        c.prior_coverage = { ...(c.prior_coverage || {}), data_pool_present: dataPoolPresent(c.ticker) }
+      }
+    }
+    return doc
+  } catch (e: any) {
+    return reply.code(e?.code === 'ENOENT' ? 404 : 400).send({ error: 'cannot read candidates', detail: String(e?.message || e) })
+  }
+})
+
+// screener markdown outputs for the reader panel — sandboxed to screener/ (path must be inside it)
+app.get('/api/screener/output', async (req, reply) => {
+  const p = (req.query as any)?.path as string
+  if (!p || !p.startsWith('screener/')) return reply.code(400).send({ error: 'path must be under screener/' })
+  try {
+    return readScreenerMarkdown(p)
+  } catch (e: any) {
+    return reply.code(e?.code === 'ENOENT' ? 404 : 400).send({ error: 'cannot read', detail: String(e?.message || e) })
+  }
+})
+
+// handoff (idempotent): spawns /screener:handoff which seeds data/<TICKER>/ + appends the ledger.
+// The research run launch stays a SEPARATE human-confirmed act (cost control by design).
+app.post('/api/screener/handoff', async (req, reply) => {
+  const parsed = HandoffLaunchBody.omit({ kind: true }).safeParse(req.body)
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  const { user, userVia } = identify(req)
+  try {
+    const existing = readHandoffs(parsed.data.thesisId).find((h: any) => h.ticker === parsed.data.ticker)
+    if (existing) return { alreadyHandedOff: true, handoff: existing }
+    const out = await launch({ kind: 'handoff', ticker: parsed.data.ticker, thesisId: parsed.data.thesisId, user, userVia })
+    return { alreadyHandedOff: false, ...out }
+  } catch (e: any) {
+    const body = e?.body && typeof e.body === 'object' ? e.body : null
+    return reply.code(e?.statusCode || 500).send({ error: e?.message || 'handoff failed', ...(body || {}) })
+  }
+})
 
 // ---------- export a saved output as a polished document (HTML / print-PDF / Word) ----------
 app.get('/api/export', async (req, reply) => {

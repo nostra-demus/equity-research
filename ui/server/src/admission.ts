@@ -1,30 +1,36 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { MAX_CONCURRENT_RUNS, REPO_ROOT } from './config'
-import { inFlightRunsForTicker, listRuns } from './registry'
+import { inFlightRunsForSubject, listRuns } from './registry'
 import { buildSwarmGraph, depsCompleteForModule, moduleAncestors, transitiveDownstreamModules } from './roster'
 import type { AdmissionDecision, RunKind } from './types'
 
 // Everything admitRun needs, computed by the launcher BEFORE createRun so the decision and the
 // register step stay in one synchronous block (no await between them => atomic under Node's loop).
 export interface AdmissionRequest {
-  ticker: string
+  ticker: string // the SUBJECT id: research ticker, or a swarm unit id (e.g. SIG-…) — the concurrency key
   kind: RunKind
+  swarmId?: string // defaults to 'research'; module-DAG rules are scoped per swarm
   coveredModules: string[] // modules this run writes into
   writeTargetsAbs: string[] // absolute paths this run writes
   readDepsAbs: string[] // absolute requiredUpstream read paths (agent runs); [] otherwise
 }
 
-const isExclusive = (k: RunKind) => k === 'full' || k === 'rerun'
+// Exclusive = the run writes shared run-root artifacts / the whole run folder. A screener `signal`
+// run owns its entire SIG folder the same way a research `full` owns its dated folder.
+const isExclusive = (k: RunKind) => k === 'full' || k === 'rerun' || k === 'signal'
 const rel = (p: string) => path.relative(REPO_ROOT, p)
 
 // Dependency-aware admission. Returns {ok:true} or a discriminated rejection. Pure + synchronous
 // (fs.existsSync / in-memory reads only). Rules are evaluated D1 -> D4b -> D5 so a specific conflict
-// is reported before the generic global cap.
+// is reported before the generic global cap. Keyed by SUBJECT (ticker / signal id): different
+// subjects always run concurrently; module-scope rules (D2b/D3/D4) compare runs of the SAME swarm
+// only — module names are swarm-local.
 export function admitRun(req: AdmissionRequest): AdmissionDecision {
   const { ticker, kind, coveredModules, writeTargetsAbs, readDepsAbs } = req
-  const inflight = inFlightRunsForTicker(ticker)
-  const graph = buildSwarmGraph()
+  const swarmId = req.swarmId || 'research'
+  const inflight = inFlightRunsForSubject(ticker)
+  const graph = buildSwarmGraph(swarmId)
 
   // D1 — exclusivity for shared run-root writers (full/rerun write final_thesis/memo/dossier and
   // full commits the whole-folder pathspec). Applied independent of the requested kind.
@@ -49,8 +55,9 @@ export function admitRun(req: AdmissionRequest): AdmissionDecision {
   // D2b — module-scope writer conflict (catches the root-timing race D2 misses): a `module` run
   // covering M conflicts with ANY in-flight run covering M; a solo `agent` in M conflicts with an
   // in-flight `module` run covering M. (full/rerun handled by D1; agent-vs-agent left to D2 + D4b.)
-  if (kind === 'module' || kind === 'agent') {
+  if (kind === 'module' || kind === 'agent' || kind === 'screener-agent') {
     for (const e of inflight) {
+      if ((e.swarmId || 'research') !== swarmId) continue // module names are swarm-local
       const eIsModuleScopeWriter = e.kind === 'module' || isExclusive(e.kind)
       const relevant = kind === 'module' ? true : eIsModuleScopeWriter
       if (!relevant) continue
@@ -69,7 +76,7 @@ export function admitRun(req: AdmissionRequest): AdmissionDecision {
   }
 
   // D3 — no upstream/downstream overlap in the dependsOn DAG (bidirectional race-killer).
-  if (kind === 'module' || kind === 'agent') {
+  if (kind === 'module' || kind === 'agent' || kind === 'screener-agent') {
     const ancestors = new Set<string>()
     const descendants = new Set<string>()
     for (const m of coveredModules) {
@@ -77,6 +84,7 @@ export function admitRun(req: AdmissionRequest): AdmissionDecision {
       for (const d of transitiveDownstreamModules(graph, m)) descendants.add(d)
     }
     for (const e of inflight) {
+      if ((e.swarmId || 'research') !== swarmId) continue // DAG relations are swarm-local
       for (const em of e.coveredModules) {
         if (ancestors.has(em) || descendants.has(em)) {
           return {
@@ -94,10 +102,10 @@ export function admitRun(req: AdmissionRequest): AdmissionDecision {
 
   // D4 — cross-module deps complete on disk (the exact folder the command will pick). Checks only
   // module.dependsOn. This intentionally tightens cockpit behavior vs standalone-command fallback.
-  if (kind === 'module' || kind === 'agent') {
+  if (kind === 'module' || kind === 'agent' || kind === 'screener-agent') {
     const missing = new Set<string>()
     for (const m of coveredModules) {
-      for (const dep of depsCompleteForModule(ticker, m).missing) missing.add(dep)
+      for (const dep of depsCompleteForModule(ticker, m, swarmId).missing) missing.add(dep)
     }
     if (missing.size) {
       return { ok: false, code: 'upstream_incomplete', httpStatus: 400, missing: [...missing] }
@@ -106,7 +114,7 @@ export function admitRun(req: AdmissionRequest): AdmissionDecision {
 
   // D4b — required-upstream stability (solo agent runs): intra-module reads must EXIST on disk AND
   // not be in any in-flight run's write set (an agent reading a file another agent is rewriting).
-  if (kind === 'agent' && readDepsAbs.length) {
+  if ((kind === 'agent' || kind === 'screener-agent') && readDepsAbs.length) {
     const missingFiles = readDepsAbs.filter((p) => !fs.existsSync(p))
     if (missingFiles.length) {
       return { ok: false, code: 'upstream_incomplete', httpStatus: 400, missing: missingFiles.map(rel) }

@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 import { execa, type ResultPromise } from 'execa'
@@ -6,11 +7,38 @@ import { admitRun } from './admission'
 import { CLAUDE_BIN, DATA_DIR, DEFAULT_MODEL, ESTIMATES, FULL_PER_MODULE, LAUNCH_GUARDS, REPO_ROOT, type LaunchKind } from './config'
 import { getCreditStatus, setCreditStatus } from './credit'
 import { startRunWatcher } from './fs-watcher'
-import { createRun, emit, finishRun, getRun, setActiveTickerRun, type ExpectedAgent, type RunState } from './registry'
+import { createRun, emit, finishRun, getRun, setActiveSubjectRun, type ExpectedAgent, type RunState } from './registry'
 import { resolveRunRoot } from './outputs'
 import { buildSwarmGraph, downstreamCascade } from './roster'
+import { swarmById } from './swarms'
 import { handleStreamLine } from './stream-parser'
 import type { AdmissionRejection, LaunchPreflight, RunKind } from './types'
+
+// Screener kinds are swarm-scoped; everything else is the research default. Generic by design:
+// the kind->swarm mapping is the only place this file knows the screener exists, and it is driven
+// by the discovered manifest (a missing manifest fails the launch with a clear 404).
+const SCREENER_KINDS = new Set<RunKind>(['signal', 'sweep', 'screener-agent', 'handoff'])
+function swarmIdForKind(kind: RunKind): string {
+  return SCREENER_KINDS.has(kind) ? 'screener' : 'research'
+}
+
+// The cockpit's signal-intake form payload (materialized into <runRoot>/intake.json at launch so
+// only the SIG id ever crosses the CLI — no shell-quoting hazards on long headlines/notes).
+export interface SignalIntakeInput {
+  headline: string
+  source_url?: string
+  source_name?: string
+  input_nature?: string
+  body_text?: string
+  human_prompt_note?: string
+  override_promote?: boolean
+}
+
+function sigIdFor(intake: SignalIntakeInput, date: string): string {
+  const normalized = `${intake.headline.toLowerCase().replace(/\s+/g, ' ').trim()}|${intake.source_url || ''}|${date}`
+  const hash = createHash('sha256').update(normalized).digest('hex').slice(0, 8)
+  return `SIG-${date.replace(/-/g, '')}-${hash}`
+}
 
 // ---- claude CLI flag capability detection (so we never pass an unknown flag) ----
 let supportedFlags: Set<string> | null = null
@@ -103,16 +131,17 @@ function resolveAgentRunRoot(ticker: string): string {
 
 // Modules this run writes into (for D2b / D3 admission).
 function coveredModulesFor(kind: RunKind, module?: string, agent?: string): string[] {
-  const g = buildSwarmGraph()
-  if (kind === 'full') return g.modules.map((m) => m.name)
+  const swarmId = swarmIdForKind(kind)
+  const g = buildSwarmGraph(swarmId)
+  if (kind === 'full' || kind === 'signal') return g.modules.map((m) => m.name)
   if (kind === 'rerun') return [...new Set(downstreamCascade(module!, agent!).filter((c) => c.module !== 'master').map((c) => c.module))]
   return module ? [module] : []
 }
 
 // The target agent's intra-module required-upstream files (for D4b).
-function agentRequiredUpstream(module?: string, agent?: string): string[] {
+function agentRequiredUpstream(swarmId: string, module?: string, agent?: string): string[] {
   if (!module || !agent) return []
-  const g = buildSwarmGraph()
+  const g = buildSwarmGraph(swarmId)
   const m = g.modules.find((x) => x.name === module)
   const a = m && Object.values(m.layers).flat().find((x) => x.name === agent || x.slug === agent)
   return a?.requiredUpstream ?? []
@@ -121,6 +150,12 @@ function agentRequiredUpstream(module?: string, agent?: string): string[] {
 // Run-root artifacts full/rerun also write (diagnostics for D2; D1 is the real exclusivity guard).
 const ROOT_ARTIFACTS_FULL = ['final_thesis.md', 'memo.md', 'audit_dossier.md', 'decision_record.json', 'RUN_METADATA.md']
 const ROOT_ARTIFACTS_RERUN = ['final_thesis.md', 'memo.md', 'audit_dossier.md', 'decision_record.json']
+// A screener signal run owns its whole SIG folder; these are its run-root JSON artifacts.
+const ROOT_ARTIFACTS_SIGNAL = ['intake.json', 'signal_payload.json', 'thesis_record.json', 'candidates.json', 'RUN_METADATA.md']
+
+// Subject-id shapes (mirrored in sandbox.ts for route validation).
+const SIG_ID_RE = /^SIG-[0-9]{8}-[a-f0-9]{8}$/
+const THESIS_ID_RE = /^THS-SIG-[0-9]{8}-[a-f0-9]{8}-v[0-9]+$/
 
 function admissionMessage(r: AdmissionRejection, ticker: string): string {
   switch (r.code) {
@@ -139,7 +174,7 @@ function admissionMessage(r: AdmissionRejection, ticker: string): string {
   }
 }
 
-function buildPrompt(kind: RunKind, ticker: string, module?: string, agent?: string, window?: string): string {
+function buildPrompt(kind: RunKind, ticker: string, module?: string, agent?: string, window?: string, extra?: { thesisId?: string }): string {
   if (kind === 'full') return `/research:full ${ticker}`
   if (kind === 'module') return `/research:${module} ${ticker}`
   if (kind === 'rerun') return `/research:rerun ${module} ${agent} ${ticker}`
@@ -147,19 +182,29 @@ function buildPrompt(kind: RunKind, ticker: string, module?: string, agent?: str
   if (kind === 'review') return `/research:review-decisions ${ticker} ${window || 'ad-hoc'}`
   // rebuild the cross-ticker calls-tracker dashboard (ignores ticker — it is cross-ticker by design).
   if (kind === 'track') return `/research:track`
+  // screener swarm — namespace from the manifest (never hardcode the literal beyond the kind map)
+  if (SCREENER_KINDS.has(kind)) {
+    const ns = swarmById(swarmIdForKind(kind))?.commandNs || 'screener'
+    if (kind === 'signal') return `/${ns}:signal ${ticker}` // ticker carries the SIG id (the subject)
+    if (kind === 'sweep') return `/${ns}:sweep`
+    if (kind === 'handoff') return `/${ns}:handoff ${extra?.thesisId} ${ticker}` // ticker = the handoff target
+    return `/${ns}:agent ${module} ${agent} ${ticker}` // screener-agent: ticker carries the SIG id
+  }
   return `/research:agent ${module} ${agent} ${ticker}`
 }
 
 function plannedModules(kind: RunKind, module?: string): string[] {
-  const g = buildSwarmGraph()
-  if (kind === 'full') return g.modules.map((m) => m.name)
+  const g = buildSwarmGraph(swarmIdForKind(kind))
+  if (kind === 'full' || kind === 'signal') return g.modules.map((m) => m.name)
   return module ? [module] : []
 }
 
 function buildExpected(kind: RunKind, module?: string, agent?: string): Map<string, ExpectedAgent> {
-  const g = buildSwarmGraph()
+  const swarmId = swarmIdForKind(kind)
+  const g = buildSwarmGraph(swarmId)
   const map = new Map<string, ExpectedAgent>()
-  if (kind === 'agent') {
+  if (kind === 'sweep' || kind === 'handoff') return map // no orb outputs — inbox/ledger writes only
+  if (kind === 'agent' || kind === 'screener-agent') {
     const m = g.modules.find((x) => x.name === module)
     const a = m && Object.values(m.layers).flat().find((x) => x.name === agent || x.slug === agent)
     if (a) map.set(a.key, { key: a.key, module: a.module, name: a.name, layer: a.layer, outputRel: `${a.module}/${a.nn}_${a.slug}.md` })
@@ -183,9 +228,11 @@ function buildExpected(kind: RunKind, module?: string, agent?: string): Map<stri
 }
 
 export function estimate(kind: RunKind, ticker: string, module?: string, agent?: string): LaunchPreflight {
-  const g = buildSwarmGraph()
+  const swarmId = swarmIdForKind(kind)
+  const g = buildSwarmGraph(swarmId)
   let agentCount = 1
   if (kind === 'full') agentCount = g.totals.agents + 1
+  else if (kind === 'signal') agentCount = g.totals.agents // gauntlet; gates mean most signals stop early
   else if (kind === 'module') agentCount = g.modules.find((m) => m.name === module)?.agentCount ?? 0
   else if (kind === 'rerun') agentCount = downstreamCascade(module!, agent!).length
 
@@ -194,6 +241,16 @@ export function estimate(kind: RunKind, ticker: string, module?: string, agent?:
   if (kind === 'full') {
     estCostUsdRange = [25, 60]
     estMinutesRange = [20, 40]
+  } else if (kind === 'signal') {
+    // a PROMOTE-to-candidates path runs every module; a Gate-0/LOG stop costs a fraction of this
+    estCostUsdRange = [8, 45]
+    estMinutesRange = [6, 30]
+  } else if (kind === 'sweep') {
+    estCostUsdRange = [2, 12]
+    estMinutesRange = [3, 10]
+  } else if (kind === 'handoff') {
+    estCostUsdRange = [1, 4]
+    estMinutesRange = [1, 4]
   } else {
     estCostUsdRange = [round1(agentCount * ESTIMATES.perAgentUsd[0]), round1(agentCount * ESTIMATES.perAgentUsd[1])]
     estMinutesRange = [Math.max(1, Math.ceil(agentCount * ESTIMATES.perAgentMin[0])), Math.max(2, Math.ceil(agentCount * ESTIMATES.perAgentMin[1]))]
@@ -202,13 +259,14 @@ export function estimate(kind: RunKind, ticker: string, module?: string, agent?:
   return {
     kind,
     ticker,
+    ...(swarmId !== 'research' ? { swarm: swarmId } : {}),
     module,
     agent,
     agentCount,
     estCostUsdRange,
     estMinutesRange,
-    willCommitToMain: kind !== 'agent',
-    estCommits: kind === 'full' ? 2 : kind === 'module' || kind === 'rerun' ? 1 : 0,
+    willCommitToMain: kind !== 'agent' && kind !== 'screener-agent',
+    estCommits: kind === 'full' ? 2 : kind === 'module' || kind === 'rerun' || kind === 'signal' || kind === 'sweep' || kind === 'handoff' ? 1 : 0,
     requiresTypedConfirm: kind === 'full',
     creditPreflight: getCreditStatus(),
   }
@@ -232,11 +290,15 @@ async function buildArgs(prompt: string, kind: LaunchKind, model: string): Promi
 
 export interface LaunchParams {
   kind: RunKind
-  ticker: string
+  // research kinds: the ticker. signal: omit (derived SIG id) or pass an existing SIG id.
+  // screener-agent: the SIG id. handoff: the target TICKER. sweep: omit.
+  ticker?: string
   module?: string
   agent?: string
   window?: string // review window (kind 'review'); ignored by other kinds
   model?: string
+  intake?: SignalIntakeInput // kind 'signal' (new signal): materialized into <runRoot>/intake.json
+  thesisId?: string // kind 'handoff'
   user?: string // who launched it (from Cloudflare Access at the route); defaults to "local"
   userVia?: 'cf-access' | 'local'
 }
@@ -283,10 +345,15 @@ async function launchFullChained(ticker: string, user: string, userVia: 'cf-acce
 }
 
 export async function launch(params: LaunchParams): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean }> {
-  const { kind, ticker, module, agent, window } = params
+  const { kind, module, agent, window } = params
   const model = params.model || DEFAULT_MODEL
   const user = params.user || 'local'
   const userVia = params.userVia || 'local'
+  const swarmId = swarmIdForKind(kind)
+  const manifest = swarmById(swarmId)
+  if (!manifest) {
+    throw Object.assign(new Error(`swarm '${swarmId}' is not installed`), { statusCode: 404 })
+  }
 
   // Fail fast with an actionable message if the engine CLI isn't installed (the #1 silent "error"):
   if (!(await claudeAvailable())) {
@@ -298,53 +365,121 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     throw err
   }
 
-  // opt-in: run a full pipeline as a chain of per-module runs + master (each its own budget)
-  if (kind === 'full' && FULL_PER_MODULE) return launchFullChained(ticker, user, userVia)
-
-  // Resolve a CONCRETE run root for every kind (never null) so admission can compute absolute write
-  // targets and the fs-watcher can bind strictly. rerun fails early if there's nothing to re-run.
+  // ---- resolve the SUBJECT and a CONCRETE run root (never null) so admission can compute absolute
+  // write targets and the fs-watcher can bind strictly ----
+  let subjectId: string
   let runRoot: string
-  if (kind === 'rerun') {
-    const latest = resolveRunRoot({ ticker })
-    if (!latest) {
-      const err: any = new Error(`No existing run to re-run for ${ticker}. Run a module or the full pipeline first.`)
-      err.statusCode = 400
-      throw err
+  let pendingIntake: { path: string; body: any } | null = null
+
+  if (kind === 'signal') {
+    const date = todayDate()
+    if (params.ticker && SIG_ID_RE.test(params.ticker)) {
+      // relaunch/override of an existing signal: its intake.json must already exist
+      subjectId = params.ticker
+      runRoot = manifest.runRootTemplate.replace(`{${manifest.placeholder}}`, subjectId)
+      if (!fs.existsSync(path.join(REPO_ROOT, runRoot, 'intake.json'))) {
+        throw Object.assign(new Error(`No intake.json for ${subjectId} — submit the signal form instead.`), { statusCode: 400 })
+      }
+    } else {
+      const intake = params.intake
+      if (!intake?.headline || intake.headline.trim().length < 8) {
+        throw Object.assign(new Error('signal launch needs an intake with a headline (≥ 8 chars)'), { statusCode: 400 })
+      }
+      subjectId = sigIdFor(intake, date)
+      runRoot = manifest.runRootTemplate.replace(`{${manifest.placeholder}}`, subjectId)
+      const isHuman = (intake.input_nature || '') === 'human_prompt' || (!intake.source_url && !intake.source_name)
+      pendingIntake = {
+        path: path.join(REPO_ROOT, runRoot, 'intake.json'),
+        body: {
+          signal_id: subjectId,
+          input_nature: intake.input_nature || (isHuman ? 'human_prompt' : 'news_headline'),
+          input_datetime: new Date().toISOString(),
+          headline: intake.headline.trim().slice(0, 500),
+          body_text: intake.body_text || '',
+          source_name: intake.source_name || '',
+          source_url: intake.source_url || '',
+          human_prompt_note: isHuman ? (intake.human_prompt_note || intake.headline.trim()) : (intake.human_prompt_note || ''),
+          requested_by: user,
+          from_inbox: false,
+          sweep_ref: '',
+          override_promote: intake.override_promote === true,
+        },
+      }
     }
-    runRoot = latest
-  } else if (kind === 'agent') {
-    runRoot = resolveAgentRunRoot(ticker)
+  } else if (kind === 'sweep') {
+    subjectId = 'sweep'
+    runRoot = manifest.inboxRoot || 'screener/inbox'
+  } else if (kind === 'handoff') {
+    const thesisId = params.thesisId || ''
+    const target = (params.ticker || '').toUpperCase()
+    if (!THESIS_ID_RE.test(thesisId)) throw Object.assign(new Error('handoff needs a valid thesisId'), { statusCode: 400 })
+    subjectId = `${thesisId}::${target}`
+    runRoot = manifest.ledgerRoot || 'screener/ledger'
+  } else if (kind === 'screener-agent') {
+    subjectId = params.ticker || ''
+    if (!SIG_ID_RE.test(subjectId)) throw Object.assign(new Error('screener-agent needs a SIG id'), { statusCode: 400 })
+    runRoot = manifest.runRootTemplate.replace(`{${manifest.placeholder}}`, subjectId)
+    if (!fs.existsSync(path.join(REPO_ROOT, runRoot))) {
+      throw Object.assign(new Error(`No signal run folder at ${runRoot}.`), { statusCode: 400 })
+    }
   } else {
-    runRoot = `analyses/${ticker}_${todayDate()}`
+    // research kinds — unchanged behavior
+    const ticker = params.ticker || ''
+    subjectId = ticker
+    // opt-in: run a full pipeline as a chain of per-module runs + master (each its own budget)
+    if (kind === 'full' && FULL_PER_MODULE) return launchFullChained(ticker, user, userVia)
+    if (kind === 'rerun') {
+      const latest = resolveRunRoot({ ticker })
+      if (!latest) {
+        const err: any = new Error(`No existing run to re-run for ${ticker}. Run a module or the full pipeline first.`)
+        err.statusCode = 400
+        throw err
+      }
+      runRoot = latest
+    } else if (kind === 'agent') {
+      runRoot = resolveAgentRunRoot(ticker)
+    } else {
+      runRoot = `analyses/${ticker}_${todayDate()}`
+    }
   }
 
-  const prompt = buildPrompt(kind, ticker, module, agent, window)
+  const ticker = subjectId // RunState display/compat field: research = the ticker; swarms = the subject id
+  const prompt = buildPrompt(kind, ticker, module, agent, window, { thesisId: params.thesisId })
   const expected = buildExpected(kind, module, agent)
 
   // Admission metadata — derived once here, stored on the run, reused by admitRun.
   const coveredModules = coveredModulesFor(kind, module, agent)
   const writeTargetsAbs = [...new Set([
     ...[...expected.values()].map((e) => path.join(REPO_ROOT, runRoot, e.outputRel)),
-    ...(kind === 'full' ? ROOT_ARTIFACTS_FULL : kind === 'rerun' ? ROOT_ARTIFACTS_RERUN : []).map((f) => path.join(REPO_ROOT, runRoot, f)),
+    ...(kind === 'full' ? ROOT_ARTIFACTS_FULL : kind === 'rerun' ? ROOT_ARTIFACTS_RERUN : kind === 'signal' ? ROOT_ARTIFACTS_SIGNAL : []).map((f) => path.join(REPO_ROOT, runRoot, f)),
   ])]
-  const readDepsAbs = kind === 'agent'
-    ? agentRequiredUpstream(module, agent).map((relp) => path.join(REPO_ROOT, runRoot, relp))
+  const readDepsAbs = kind === 'agent' || kind === 'screener-agent'
+    ? agentRequiredUpstream(swarmId, module, agent).map((relp) => path.join(REPO_ROOT, runRoot, relp))
     : []
 
   // Dependency-aware admission + register in ONE synchronous block (no await before
-  // setActiveTickerRun) so the check-and-claim is atomic under Node's single-threaded loop.
-  const decision = admitRun({ ticker, kind, coveredModules, writeTargetsAbs, readDepsAbs })
+  // setActiveSubjectRun) so the check-and-claim is atomic under Node's single-threaded loop.
+  const decision = admitRun({ ticker: subjectId, kind, swarmId, coveredModules, writeTargetsAbs, readDepsAbs })
   if (!decision.ok) {
     const { ok: _ok, ...rejection } = decision
-    const err: any = new Error(admissionMessage(rejection, ticker))
+    const err: any = new Error(admissionMessage(rejection, subjectId))
     err.statusCode = rejection.httpStatus
     err.body = rejection
     throw err
   }
 
+  // Materialize the signal intake AFTER admission passes (no orphan folders on rejection).
+  if (pendingIntake) {
+    fs.mkdirSync(path.dirname(pendingIntake.path), { recursive: true })
+    fs.writeFileSync(pendingIntake.path, JSON.stringify(pendingIntake.body, null, 2) + '\n')
+  }
+
   const run = createRun({
     kind,
     ticker,
+    subjectId,
+    swarmId,
+    unit: manifest.unit,
     module,
     agent,
     model,
@@ -352,7 +487,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     user,
     userVia,
     runRoot,
-    willCommitToMain: kind !== 'agent',
+    willCommitToMain: kind !== 'agent' && kind !== 'screener-agent',
     writeTargetsAbs,
     coveredModules,
     readDepsAbs,
@@ -365,7 +500,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     run.agents.set(e.key, { key: e.key, module: e.module, name: e.name, layer: e.layer, status: 'queued' })
   }
 
-  setActiveTickerRun(run.runId, ticker) // register the in-flight run; finishRun() releases it
+  setActiveSubjectRun(run.runId, subjectId) // register the in-flight run; finishRun() releases it
   startRunWatcher(run)
 
   const args = await buildArgs(prompt, kind, model)
@@ -388,7 +523,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
 
   run.child = child
   run.status = 'running'
-  emit(run, { type: 'run-started', runId: run.runId, kind, ticker, runRoot: run.runRoot, willCommitToMain: run.willCommitToMain, ts: Date.now() })
+  emit(run, { type: 'run-started', runId: run.runId, kind, ticker, runRoot: run.runRoot, willCommitToMain: run.willCommitToMain, ...(swarmId !== 'research' ? { swarm: swarmId } : {}), ts: Date.now() })
 
   // perpetual audit record: who launched what, when, on which company (finish is logged in finishRun)
   logLaunch({ runId: run.runId, user, userVia, kind, ticker, module, agent, model })
