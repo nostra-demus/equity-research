@@ -182,6 +182,7 @@ One paragraph: what is the single biggest risk that reported earnings overstate 
 - [ ] Recurring "one-offs" are flagged as recurring.
 - [ ] Cash conversion is not judged only from one year.
 - [ ] Any major accounting judgment is flagged for the master synthesizer.
+- [ ] Where FCF is inflated by a one-off cash item or a company-defined add-back, the normalised operating FCF is the lead figure with the reported/company-defined figure labelled beside it (§15).
 - [ ] No banned phrases.
 
 # CHAT CONFIRMATION
