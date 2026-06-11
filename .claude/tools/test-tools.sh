@@ -191,7 +191,14 @@ for path in [".claude/agents/earnings/MODULE_RULES.md",".claude/agents/valuation
 # (4) vocab — the strict net-debt basis must not be called 'basic' in valuation (a third term for §15's 'strict')
 if "broad vs basic" in (read(".claude/agents/valuation/MODULE_RULES.md") or "").lower():
     print("  FAIL: valuation MODULE_RULES uses 'broad vs basic' — harmonise to the §15 strict/broad vocabulary"); ok=False
-print("  PASS: cycle/definition rules in their correct files; ROCE out of §15; young-entity fallback complete across the set" if ok else "  -> cyclical-normalisation placement guard FAILED")
+# (5) CONTRADICTION regression — the old broad-basis 'net cash, state it plainly' instruction (the TMCV
+#     ₹8,231-vs-₹2,082 site) must NOT return. This is the only class of bug that a positive presence check
+#     CANNOT see (the rule can be present AND contradicted at once); a targeted negative guard is the only
+#     deterministic way to catch a contradiction returning — it is whack-a-mole (one phrasing), not a
+#     semantic engine, so it complements verify-evidence rather than replacing it.
+if "investments > gross debt), state it plainly" in (read(".claude/agents/balance-sheet-survival/01_capital-structure-and-leverage.md") or "").lower():
+    print("  FAIL: BSS/01 reintroduced the broad-basis 'net cash, state it plainly' instruction that contradicts §15"); ok=False
+print("  PASS: cycle/definition rules in their correct files; ROCE out of §15; young-entity fallback complete; no net-cash contradiction" if ok else "  -> cyclical-normalisation placement guard FAILED")
 sys.exit(0 if ok else 1)
 PY
 
