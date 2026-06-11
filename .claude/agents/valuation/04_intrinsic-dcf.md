@@ -84,7 +84,7 @@ State the base year and the reporting currency.
 
 Label every cell as company-guided, peer-derived, or analyst assumption.
 
-**Working capital scales with revenue.** Forecast the working-capital change from a revenue-linked driver — net working capital as a % of revenue, or the days-of-sales (DSO / DIO / DPO carried in `earnings/06_earnings-quality`) applied to forecast revenue — NOT a flat absolute held constant across the forecast. A growing or cyclical business ties up more cash in working capital as sales rise, so a fixed ₹/$ assumption understates that drag and flatters FCF. If the company discloses a different working-capital driver, use it and state it; where standalone history is too short, use the segment / industry norm and label it.
+**Working capital scales with revenue.** Forecast the working-capital change from a revenue-linked driver — net working capital as a % of revenue (from the working-capital base in `earnings/01_historical-financials`, the declared upstream), or the days-of-sales (DSO / DIO / DPO from `earnings/06_earnings-quality` where that output is available) applied to forecast revenue — NOT a flat absolute held constant across the forecast. A growing or cyclical business ties up more cash in working capital as sales rise, so a fixed ₹/$ assumption understates that drag and flatters FCF. If the company discloses a different working-capital driver, use it and state it; where standalone history is too short, use the segment / industry norm and label it.
 
 ## 3. Discount Rate (WACC)
 
