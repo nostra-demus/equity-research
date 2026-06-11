@@ -89,7 +89,7 @@ If floating exposure is immaterial or no working-capital data exists, still incl
 
 ## 4. Survival Read
 
-3–4 blunt sentences: at what EBITDA decline the structure first breaks (covenant or liquidity), what the company would need to do (waiver, equity, asset sale), and whether a 30–40% decline — a normal recession, not a tail — is survivable on its own. Market closure test: assume no new unsecured refinancing for 12 months; state whether liquidity holds and what breaks first. If the company is net cash and survives every haircut with no covenant breach and no liquidity gap, say so plainly — that is the strongest survival outcome, and the net cash is strategic optionality (counter-cyclical capacity) rather than nothing-breaks blandness (CLAUDE.md §24, Filter 3).
+3–4 blunt sentences: at what EBITDA decline the structure first breaks (covenant or liquidity), what the company would need to do (waiver, equity, asset sale), and whether a 30–40% decline — a normal recession, not a tail — is survivable on its own. Market closure test: assume no new unsecured refinancing for 12 months; state whether liquidity holds and what breaks first. If the company is net cash (on the §15 basis stated in `01` — strict, with the broad figure labelled where used) and survives every haircut with no covenant breach and no liquidity gap, say so plainly — that is the strongest survival outcome, and the net cash is strategic optionality (counter-cyclical capacity) rather than nothing-breaks blandness (CLAUDE.md §24, Filter 3).
 ```
 
 # SELF-CHECK

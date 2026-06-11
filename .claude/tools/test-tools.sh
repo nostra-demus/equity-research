@@ -167,6 +167,8 @@ PRESENT=[
   (".claude/agents/synthesizer.md",                                   "Net-cash / leverage headline disclosure",        "synthesizer net-cash headline gate"),
   (".claude/agents/balance-sheet-survival/01_capital-structure-and-leverage.md","state it with its basis (CLAUDE.md §15)","BSS/01 net-cash basis labelling (the source, not just the headline)"),
   (".claude/agents/valuation/04_intrinsic-dcf.md",                    "benchmarked against peer-normal AND the company",  "val/04 terminal-margin benchmark self-check"),
+  (".claude/agents/valuation/04_intrinsic-dcf.md",                    "Working capital scales with revenue",            "val/04 working-capital-scales-with-revenue (Q1)"),
+  (".claude/agents/business-model/08_competitive-map.md",             "Profitability / return on capital",              "competitive-map per-peer return-on-capital (E — the moat's peer anchor)"),
 ]
 for path, needle, desc in PRESENT:
     t=read(path)

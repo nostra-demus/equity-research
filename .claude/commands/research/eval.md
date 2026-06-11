@@ -281,6 +281,8 @@ FRAMEWORK_CONTRACTS={
  ".claude/agents/earnings/MODULE_RULES.md":["Cycle-Position Rule"],
  ".claude/agents/earnings/06_earnings-quality.md":["Lead with normalised operating FCF"],
  ".claude/agents/valuation/07_scenario-and-fair-value.md":["true through-cycle trough"],
+ ".claude/agents/valuation/04_intrinsic-dcf.md":["Working capital scales with revenue"],
+ ".claude/agents/business-model/08_competitive-map.md":["Profitability / return on capital"],
  ".claude/agents/balance-sheet-survival/06_downside-stress-test.md":["Pending debt-funded acquisition check"],
  ".claude/agents/balance-sheet-survival/01_capital-structure-and-leverage.md":["state it with its basis (CLAUDE.md §15)"],
  ".claude/agents/valuation/04_intrinsic-dcf.md":["benchmarked against peer-normal AND the company"],

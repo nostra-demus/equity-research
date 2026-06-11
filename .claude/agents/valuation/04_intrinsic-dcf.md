@@ -80,9 +80,11 @@ State the base year and the reporting currency.
 | EBIT margin % | | | | | | | | |
 | Tax rate % | | | | | | | | |
 | Capex (% of revenue) | | | | | | | | |
-| Δ Working capital | | | | | | | | |
+| Δ Working capital (% of revenue, or days-based) | | | | | | | | |
 
 Label every cell as company-guided, peer-derived, or analyst assumption.
+
+**Working capital scales with revenue.** Forecast the working-capital change from a revenue-linked driver — net working capital as a % of revenue, or the days-of-sales (DSO / DIO / DPO carried in `earnings/06_earnings-quality`) applied to forecast revenue — NOT a flat absolute held constant across the forecast. A growing or cyclical business ties up more cash in working capital as sales rise, so a fixed ₹/$ assumption understates that drag and flatters FCF. If the company discloses a different working-capital driver, use it and state it; where standalone history is too short, use the segment / industry norm and label it.
 
 ## 3. Discount Rate (WACC)
 
@@ -150,6 +152,7 @@ WACC across columns, terminal growth (or exit multiple) down rows:
 - [ ] WACC components are all shown with sources; web-sourced rates are labeled. Any analyst override of the computed WACC shows both figures, is justified, stays within ±1.5pp, and is cross-checked against the moat module's cost of capital (Gate 4).
 - [ ] Terminal value is disclosed as a % of EV and flagged if >75%.
 - [ ] For a cyclical business, the terminal/normalized margin is benchmarked against peer-normal AND the company's own prior-trough — each cited — not merely set "below the recent peak" (Cyclicality Gate).
+- [ ] The working-capital change is forecast from a revenue-linked driver (% of revenue or days-of-sales), not a flat absolute held constant — unless the company discloses a different driver.
 - [ ] The financeable-growth cross-check (Gate 2) is run; if implied growth (ROIC × reinvestment) differs from modeled terminal g by more than ~1.5pp and the bridge is not quantified, terminal g is lowered to the financeable level OR intrinsic confidence is capped and the grid is shown at the financeable g.
 - [ ] EV → equity → per-share bridge uses `01`'s net debt and share count.
 - [ ] The discounting convention is stated and defaults to mid-year (t−0.5); any use of end-of-year is justified.
