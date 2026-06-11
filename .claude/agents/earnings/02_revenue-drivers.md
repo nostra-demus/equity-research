@@ -169,6 +169,7 @@ One paragraph: which driver, if it moved 10–20%, would have the largest impact
 - [ ] If no transcript exists, the limitation is flagged.
 - [ ] The report separates market demand, company share, price, mix, FX, and M&A where data allows.
 - [ ] If growth is due to acquisition or FX, it is not described as organic demand.
+- [ ] For a cyclical/policy-exposed business, the cycle position (peak/mid/trough) is stated with evidence and any one-time policy tailwind (GST/tax change, rate-cut demand pull-forward, subsidy) is labelled non-run-rate (Cycle-Position Rule).
 - [ ] No banned phrases.
 
 # CHAT CONFIRMATION

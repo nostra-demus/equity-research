@@ -92,6 +92,8 @@ In 2–4 sentences, answer: **Does each new unit clearly create value, destroy v
 A unit creates value when contribution margin × unit lifetime > acquisition cost, with reasonable margin.
 If the math cannot be done from disclosure, say so and name the single most valuable disclosure that's missing.
 
+If the per-unit returns (ROCE / contribution margin) reflect a peak-cycle year, ring-fence the read: state "creates value at peak-cycle returns" and give the through-cycle / normalised figure where history allows. Do not present a peak-cycle per-unit return (e.g. a 70%+ ROCE) as a structural constant.
+
 ## 4. Sensitivity
 
 One paragraph: which input would most change the value-creation read if it moved 20%? (Price per unit, retention, acquisition cost?) Where evidence allows, note which has historically been most volatile.

@@ -136,5 +136,49 @@ print("  PASS: no MoS/range drift; MoS, downside-to-bear, and the no-price cap e
 sys.exit(0 if ok else 1)
 PY
 
+echo "== cyclical-normalisation + canonical-definition PLACEMENT guard (prompt-lint — born from the 2026-06-10 TMCV optimistic-drift audit) =="
+# Guards the C1/C2 fix PLACEMENT: (1) each new rule is present in its CORRECT file; (2) the ROCE
+# canonical rule stays in the moat (which branches ROIC vs ROE by business type) and is NEVER
+# hoisted into CLAUDE.md §15, where a blanket through-cycle-ROIC rule would force an operating-
+# company metric onto banks/REITs (the HIGH-severity error the audit caught). prompt-lint only —
+# the semantic risks (duplication, dependency direction, graceful degradation) stay with
+# verify-evidence §4C and the layer DAG, NOT grep.
+"$PY" - "$DIR/../.." <<'PY' || rc=1
+import os, sys
+root=sys.argv[1]
+def read(p):
+    try: return open(os.path.join(root,p),encoding="utf-8").read()
+    except FileNotFoundError: return None
+ok=True
+# (1) positive — each new rule present in its correct file
+PRESENT=[
+  (".claude/agents/earnings/MODULE_RULES.md",                         "Cycle-Position Rule",                            "earnings cycle-position rule (the source)"),
+  (".claude/agents/earnings/02_revenue-drivers.md",                   "cycle position (peak/mid/trough) is stated",     "earnings 02 cycle self-check"),
+  (".claude/agents/earnings/03_margin-drivers.md",                    "cycle position (peak/mid/trough) is stated",     "earnings 03 cycle self-check"),
+  (".claude/agents/earnings/06_earnings-quality.md",                  "Lead with normalised operating FCF",             "earnings 06 FCF headline-lead"),
+  (".claude/agents/valuation/MODULE_RULES.md",                        "benchmarked against BOTH a peer-normal margin",  "valuation terminal-margin peer-normal+prior-trough anchor"),
+  (".claude/agents/valuation/07_scenario-and-fair-value.md",          "true through-cycle trough",                      "valuation 07 true-trough bear case"),
+  (".claude/agents/balance-sheet-survival/MODULE_RULES.md",           "Label the cycle position of the EBITDA",         "BSS leverage cycle-axis"),
+  (".claude/agents/balance-sheet-survival/06_downside-stress-test.md","Pending debt-funded acquisition check",          "BSS pro-forma post-event leverage step"),
+  (".claude/agents/business-model/09_moat.md",                        "Use a through-cycle return",                     "moat through-cycle ROIC enforcement"),
+  (".claude/agents/business-model/07_business-quality.md",            "at a cyclical peak, anchor them",                "business-quality peak-return ring-fence"),
+  ("CLAUDE.md",                                                       "normalised operating FCF",                       "§15 FCF headline-lead"),
+  ("CLAUDE.md",                                                       "gross-liquidity",                                "§15 net-cash basis label"),
+  (".claude/agents/synthesizer.md",                                   "Net-cash / leverage headline disclosure",        "synthesizer net-cash headline gate"),
+]
+for path, needle, desc in PRESENT:
+    t=read(path)
+    if t is None: print(f"  FAIL: file missing -> {path}"); ok=False
+    elif needle not in t: print(f"  FAIL: {desc} missing from {path} -> {needle!r}"); ok=False
+# (2) negative — the ROCE canonical rule must NOT live in CLAUDE.md (it belongs in the moat;
+#     a blanket §15 ROCE-on-invested-capital rule misfires for banks/REITs that use ROE)
+claude=(read("CLAUDE.md") or "").lower()
+for b in ["gross invested capital","through-cycle return on","canonical figure is a through-cycle"]:
+    if b in claude:
+        print(f"  FAIL: ROCE-canonical phrasing leaked into CLAUDE.md (financials/REIT misfire risk) -> {b!r}"); ok=False
+print("  PASS: cycle/definition rules in their correct files; ROCE rule kept out of §15" if ok else "  -> cyclical-normalisation placement guard FAILED")
+sys.exit(0 if ok else 1)
+PY
+
 [ $rc -eq 0 ] && echo "ALL SMOKE TESTS PASS" || echo "SMOKE TESTS FAILED"
 exit $rc

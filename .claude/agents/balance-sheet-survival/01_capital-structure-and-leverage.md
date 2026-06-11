@@ -96,7 +96,7 @@ State the reporting currency. If a field is undisclosed, write "Not disclosed" â
 | Debt / capital | | (n/a) | |
 | Debt / equity | | (n/a) | |
 
-State the EBITDA figure used and its basis. If leverage is quoted on adjusted EBITDA, the GAAP-based ratio must appear here too.
+State the EBITDA figure used and its basis. If leverage is quoted on adjusted EBITDA, the GAAP-based ratio must appear here too. For a cyclical name (per `business-model/10_external-dependency` / `07_business-quality`), add a row showing net leverage on a normalised / mid-cycle EBITDA alongside the latest-year figure, and label which is peak.
 
 ## 6. Leverage Trend
 
@@ -123,7 +123,7 @@ State the numbers every other solvency agent should use verbatim:
 - Gross debt
 - Net debt
 - Cash & liquid investments
-- EBITDA base used (value + reported/adjusted)
+- EBITDA base used (value + reported/adjusted + cycle position: peak/latest vs mid-cycle/normalised, for a cyclical)
 - Net debt / EBITDA (both bases)
 - Reporting currency
 

@@ -268,21 +268,28 @@ for drp in runs:
     results[name]={"run_root":run,"ticker":d.get("ticker"),"decision":dec,"pass":run_pass,
                    "checks":checks,"warn_nonschema_files":extras}
 
-# J FRAMEWORK SOURCE CONTRACTS (suite-level, run once; protects §24 wiring + the §17 catalyst module)
+# J FRAMEWORK SOURCE CONTRACTS (suite-level, run once; protects §24 wiring + the §17 catalyst module
+#   + the N1/C1/C2 net-cash-labelling / cyclical-normalisation wiring, in their CORRECT files —
+#   the ROCE rule must stay in the moat, never CLAUDE.md §15, or it misfires for banks/REITs)
 FRAMEWORK_CONTRACTS={
- "CLAUDE.md":["## 24. Avoid Big Risks","Crooks and integrity","Turnarounds","High debt and the survival test","Serial acquirers","Fast-changing industries","Unaligned owners"],
+ "CLAUDE.md":["## 24. Avoid Big Risks","Crooks and integrity","Turnarounds","High debt and the survival test","Serial acquirers","Fast-changing industries","Unaligned owners","normalised operating FCF","gross-liquidity"],
  "frameworks/SECTOR_OVERLAYS.md":["SaaS / subscription software","Bank / lender","cRPO","NIM","FFO","AISC","Generic operating company"],
  ".claude/agents/business-model/02_business-identity.md":["Sector Overlay","SECTOR_OVERLAYS.md","generic read"],
  ".claude/agents/business-model/MODULE_RULES.md":["Rejector-Filter Penalties & Caps","Serial acquirers","Fast-changing industry"],
- ".claude/agents/business-model/07_business-quality.md":["Industry rate-of-change","11 quality factors"],
+ ".claude/agents/business-model/07_business-quality.md":["Industry rate-of-change","11 quality factors","at a cyclical peak, anchor them"],
+ ".claude/agents/business-model/09_moat.md":["Use a through-cycle return"],
+ ".claude/agents/earnings/MODULE_RULES.md":["Cycle-Position Rule"],
+ ".claude/agents/earnings/06_earnings-quality.md":["Lead with normalised operating FCF"],
+ ".claude/agents/valuation/07_scenario-and-fair-value.md":["true through-cycle trough"],
+ ".claude/agents/balance-sheet-survival/06_downside-stress-test.md":["Pending debt-funded acquisition check"],
  ".claude/agents/business-model/01_disqualifier-scan.md":["Integrity note","Filter 1"],
  ".claude/agents/business-model/11_capital-allocation-governance.md":["Filter 4","opportunity cost"],
  ".claude/agents/management-governance/MODULE_RULES.md":["RF-CAP-004","RF-OWN-004","RF-MGT-004","§24"],
  ".claude/agents/management-governance/01_management-and-track-record.md":["Turnaround","Filter 2"],
  ".claude/agents/management-governance/04_ownership-and-insider-behavior.md":["RF-OWN-004","Filter 6"],
- ".claude/agents/balance-sheet-survival/MODULE_RULES.md":["Net cash is a strategic asset","Filter 3"],
- ".claude/agents/valuation/MODULE_RULES.md":["RF-OWN-004","Filter 6","value trap"],
- ".claude/agents/synthesizer.md":["Avoid-Big-Risks","§24","DEFER to the catalyst module"],
+ ".claude/agents/balance-sheet-survival/MODULE_RULES.md":["Net cash is a strategic asset","Filter 3","Label the cycle position of the EBITDA"],
+ ".claude/agents/valuation/MODULE_RULES.md":["RF-OWN-004","Filter 6","value trap","benchmarked against BOTH a peer-normal margin"],
+ ".claude/agents/synthesizer.md":["Avoid-Big-Risks","§24","DEFER to the catalyst module","Net-cash / leverage headline disclosure"],
  ".claude/agents/catalyst/MODULE_RULES.md":["§17 Catalyst Discipline","Catalyst Category Checklist","No proven catalyst yet"],
  ".claude/agents/catalyst/01_catalyst-calendar.md":["12-Month Catalyst Calendar","Bullish Trigger","Bearish Trigger"],
  ".claude/agents/catalyst/99_catalyst-synthesis.md":["Catalyst strength /100","No proven catalyst yet"],

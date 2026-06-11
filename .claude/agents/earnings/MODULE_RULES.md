@@ -200,6 +200,17 @@ Do NOT add a separate segment-earnings agent. Instead, mandate inside `02_revenu
 
 ---
 
+## Cycle-Position Rule (Hard Rule)
+
+For any business with a demand or margin cycle (auto/CV, commodities, capital goods, lenders, real estate, or anything the business-model `10_external-dependency` output flags as cyclical/policy-driven — or, if that output is unavailable, by inference), `02_revenue-drivers` and `03_margin-drivers` must each state **where in the cycle the latest reported period sits — peak / mid / trough — with evidence** (e.g. volumes or margins vs the prior peak and prior trough, a decade-high market share, replacement-cycle front-loading). Any one-time policy or macro tailwind in the latest period (a GST/tax-rate change, a rate-cut-driven demand pull-forward, a subsidy) must be **labelled as a one-time tailwind, not run-rate**, and the driver's direction must reflect that it can reverse. State plainly when the latest volumes/margins are NOT a normalised run-rate.
+
+- **Why this matters (downstream):** the DCF terminal margin, the valuation bear case, the leverage denominator, and the moat all inherit this read — if the cycle position is not stated here, those modules treat a peak as a baseline.
+- **Reconcile, don't diverge:** this read should agree with the business-model `10_external-dependency` cyclicality assessment; if they differ, flag it.
+- **Young entity:** if the company has less than one full cycle of standalone history (e.g. a recent demerger/IPO), infer the cycle position from the predecessor entity, the segment, or industry history, and say which.
+- **Evidence-based only:** cite the cycle position from the data; do not manufacture a downturn the history does not show.
+
+---
+
 ## Style Rules
 
 - Plain English. Short sentences.

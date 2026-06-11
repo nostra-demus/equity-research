@@ -31,6 +31,7 @@ If there is no usable EBITDA base, the stress test cannot run: state that and ma
 
 1. Read the repo root `CLAUDE.md`, then read `.claude/agents/balance-sheet-survival/MODULE_RULES.md`, and apply both.
 2. Establish the base EBITDA (cash-backed; cross-check `earnings/06`), the net debt (from `01`), the tightest covenant and threshold (from `04`), the next-12-month obligations and committed liquidity (from `02`/`03`).
+2a. **Pending debt-funded acquisition check.** If `business-model/11_capital-allocation-governance` (or the data pool) shows a pending or recently-announced debt-funded acquisition not yet in the reported balance sheet, build a **pro-forma base** before haircutting: pro-forma net debt = current net debt + acquisition debt; pro-forma EBITDA = base EBITDA + the acquired business's own EBITDA (labelled and sourced; if the target's EBITDA is not disclosed, say so and show the leverage as a range bracketing it). Also show the pro-forma leverage on a normalised / mid-cycle base EBITDA, not only peak — a peak-EBITDA pro-forma leverage is a floor, not the central estimate. Run the haircuts in step 3 against this pro-forma base, not only the current balance sheet.
 3. Apply the haircuts: **−30%, −40%, −60%** EBITDA. For a deep cyclical/commodity name (per `10_external-dependency`), also calibrate one haircut to the trough-to-peak EBITDA range from the company's own history and state it.
 4. At each haircut, recompute: net debt / EBITDA, EBITDA / interest, the tightest covenant's headroom (breach Y/N), and the 12-month liquidity gap (uses − sources).
 5. Solve for the break points: the EBITDA decline at which (a) the tightest covenant breaches and (b) committed liquidity is exhausted within 12 months.
@@ -98,6 +99,7 @@ If floating exposure is immaterial or no working-capital data exists, still incl
 - [ ] The base EBITDA is cash-backed (cross-checked vs `earnings/06`), not headline adjusted, where they differ.
 - [ ] Break points (covenant breach; liquidity exhaustion) are solved for explicitly.
 - [ ] Each scenario states whether survival requires external action.
+- [ ] If a debt-funded acquisition is pending, the stress base is pro-forma (current + acquisition debt AND acquired EBITDA), and leverage is shown on both peak and mid-cycle EBITDA, not as a single point estimate.
 - [ ] No probability is assigned to the downside (that is the master synthesizer's job).
 - [ ] If no EBITDA base, downside resilience is marked "Not assessable."
 - [ ] Every stressed figure (leverage, coverage, covenant headroom, liquidity gap) and the break-point solves at each haircut were produced by an executed Bash/Python snippet (command + result shown), not by hand. *(fix F09)*
