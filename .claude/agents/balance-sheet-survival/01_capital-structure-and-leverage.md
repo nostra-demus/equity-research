@@ -129,7 +129,7 @@ State the numbers every other solvency agent should use verbatim:
 
 If any number is estimated or based on adjusted EBITDA, say so here so downstream agents propagate the caveat.
 
-If the company is **net cash** (cash + liquid investments > gross debt), state it plainly here and flag it as a positive strategic-flexibility signal, not a "lazy balance sheet" (CLAUDE.md §24, Filter 3): net cash funds counter-cyclical action when earnings fall and removes refinancing dependence. Do not editorialize that the company is "under-levered" or should add debt to optimize cost of capital — this module rejects the "optimal leverage" frame.
+If the company is **net cash**, state it with its basis (CLAUDE.md §15): give the **strict** figure (cash & equivalents − gross debt) and, where short-term / liquid investments are netted in to reach a larger figure, the **broad** figure (cash + liquid investments − gross debt) alongside it, each labelled — never headline the investment-inclusive figure as bare "net cash" without the strict figure beside it. Flag net cash as a positive strategic-flexibility signal, not a "lazy balance sheet" (CLAUDE.md §24, Filter 3): net cash funds counter-cyclical action when earnings fall and removes refinancing dependence. Do not editorialize that the company is "under-levered" or should add debt to optimize cost of capital — this module rejects the "optimal leverage" frame.
 ```
 
 # SELF-CHECK
@@ -137,6 +137,7 @@ If the company is **net cash** (cash + liquid investments > gross debt), state i
 - [ ] The debt stack lists instruments with seniority/security where disclosed; total gross debt ties to the balance sheet.
 - [ ] Operating-lease treatment (IFRS 16 vs US GAAP) is stated.
 - [ ] Restricted/trapped cash is flagged, not silently netted.
+- [ ] Any net-cash figure is shown on the strict basis (cash & equivalents − gross debt), with the broad (investment-inclusive) figure labelled beside it where used — never a bare investment-inclusive "net cash" (§15).
 - [ ] BOTH gross and net leverage are shown.
 - [ ] If leverage is on adjusted EBITDA, the GAAP-based ratio also appears.
 - [ ] The leverage trend gives a direction and a driver.

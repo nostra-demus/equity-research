@@ -165,6 +165,8 @@ PRESENT=[
   ("CLAUDE.md",                                                       "normalised operating FCF",                       "§15 FCF headline-lead"),
   ("CLAUDE.md",                                                       "gross-liquidity",                                "§15 net-cash basis label"),
   (".claude/agents/synthesizer.md",                                   "Net-cash / leverage headline disclosure",        "synthesizer net-cash headline gate"),
+  (".claude/agents/balance-sheet-survival/01_capital-structure-and-leverage.md","state it with its basis (CLAUDE.md §15)","BSS/01 net-cash basis labelling (the source, not just the headline)"),
+  (".claude/agents/valuation/04_intrinsic-dcf.md",                    "benchmarked against peer-normal AND the company",  "val/04 terminal-margin benchmark self-check"),
 ]
 for path, needle, desc in PRESENT:
     t=read(path)
