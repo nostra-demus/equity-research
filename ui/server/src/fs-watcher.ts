@@ -133,6 +133,25 @@ export function handleFile(run: RunState, fp: string) {
   }
 }
 
+// End-of-run sweep: deterministically re-check every expected output on disk and dispatch any the
+// watcher missed. chokidar's awaitWriteFinish holds events ~500ms — an agent that writes its file
+// moments before the process exits can otherwise lose its event and strand the orb at queued/running
+// while the run reports done. Called by the launcher just before it finalizes a run. Idempotent
+// (markDone ignores already-done orbs).
+export function sweepRunOutputs(run: RunState) {
+  if (!run.runRoot) return
+  for (const e of run.expected.values()) {
+    const a = run.agents.get(e.key)
+    if (a?.status === 'done') continue
+    const abs = path.join(REPO_ROOT, run.runRoot, e.outputRel)
+    try {
+      if (fs.existsSync(abs)) handleFile(run, abs)
+    } catch {
+      /* sweep is best-effort */
+    }
+  }
+}
+
 // ONE shared chokidar watcher PER WATCH ROOT dispatches to every active run — not one full-tree
 // watcher per run. With N concurrent runs that's one OS watcher per root (analyses/ for research,
 // each swarm's runs root), not N. Each run's handleFile still binds strictly to its own runRoot +

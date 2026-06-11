@@ -6,7 +6,7 @@ import { logLaunch } from './activity-log'
 import { admitRun } from './admission'
 import { CLAUDE_BIN, DATA_DIR, DEFAULT_MODEL, ESTIMATES, FULL_PER_MODULE, LAUNCH_GUARDS, REPO_ROOT, type LaunchKind } from './config'
 import { getCreditStatus, setCreditStatus } from './credit'
-import { startRunWatcher } from './fs-watcher'
+import { startRunWatcher, sweepRunOutputs } from './fs-watcher'
 import { createRun, emit, finishRun, getRun, setActiveSubjectRun, type ExpectedAgent, type RunState } from './registry'
 import { resolveRunRoot } from './outputs'
 import { buildSwarmGraph, downstreamCascade } from './roster'
@@ -552,6 +552,8 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
       handleStreamLine(run, buf)
       buf = ''
     }
+    // heal any file event the watcher missed in the final moments (awaitWriteFinish hold vs exit)
+    sweepRunOutputs(run)
     if (run.status === 'running' || run.status === 'starting') {
       const code = res?.exitCode ?? res?.code
       if (res?.killed || (run.status as string) === 'cancelled') {

@@ -15,13 +15,16 @@ const RANGES: { key: RangeKey; label: string }[] = [
 ]
 const DAY = 86_400_000
 
-const KIND_LABEL: Record<RunKind, string> = { full: 'Full run', module: 'Module', agent: 'Orb', rerun: 'Re-run', review: 'Update', track: 'Dashboard' }
+const KIND_LABEL: Record<RunKind, string> = { full: 'Full run', module: 'Module', agent: 'Orb', rerun: 'Re-run', review: 'Update', track: 'Dashboard', signal: 'Signal', sweep: 'Sweep', 'screener-agent': 'Screener orb', handoff: 'Handoff' }
 function targetOf(r: ActivityRow): string {
   if (r.kind === 'full') return 'whole pipeline'
   if (r.kind === 'module') return moduleLabel(r.module || '—')
   if (r.kind === 'rerun') return `${r.agent || r.module || '?'} + downstream`
   if (r.kind === 'review') return 'outcome review'
   if (r.kind === 'track') return 'calls dashboard'
+  if (r.kind === 'signal') return 'screener gauntlet'
+  if (r.kind === 'sweep') return 'signal inbox'
+  if (r.kind === 'handoff') return 'thesis → data pool'
   return `${moduleLabel(r.module || '')} › ${r.agent || '?'}`
 }
 function statusTone(s: string): { color: string; label: string } {

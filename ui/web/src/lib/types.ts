@@ -31,6 +31,80 @@ export interface SwarmGraph {
   modules: ModuleNode[]
   masterSynthesizer: { name: string; description: string }
   totals: { modules: number; agents: number; specialists: number; synthesis: number }
+  // present only for non-research swarms (the research payload is unchanged)
+  swarm?: { id: string; label: string; color: string; unit: string; layout: string; order: number }
+}
+
+// ---- swarms (the cockpit can host multiple — research is the grandfathered default) ----
+export interface SwarmMeta { id: string; label: string; color: string; unit: string; order: number; layout: string }
+
+// ---- screener board (the canonical pipeline state the Pipeline panel renders) ----
+export interface BoardInboxRow {
+  inbox_id: string
+  headline: string
+  url?: string
+  source_name: string
+  input_nature?: string
+  found_at: string
+  prelim_note?: string
+  dedup_status?: string
+  consumed?: boolean
+  launched_signal_id?: string | null
+}
+export interface BoardSignal {
+  signal_id: string
+  event_id?: string
+  headline: string
+  source_name?: string
+  source_grade?: string
+  processed_at?: string
+  run_root?: string
+  materiality_score?: number | null
+  novelty_score?: number | null
+  pair_label?: string | null
+  action?: string | null
+  status: string
+  status_reason?: string
+  thesis_id?: string | null
+}
+export interface BoardCandidate { candidate_id: string; ticker: string; company_name: string; side: string; exposure_score: number; handed_off?: boolean }
+export interface BoardThesis {
+  thesis_id: string
+  signal_id: string
+  headline?: string
+  status: string
+  status_reason?: string
+  routing_reason?: string
+  next_action?: string
+  edge_score?: number | null
+  horizon?: string | null
+  falsification_sentence?: string | null
+  convergence_trigger?: string | null
+  trigger_date_range?: string | null
+  locked?: boolean
+  run_root?: string
+  candidate_count?: number
+  candidates?: BoardCandidate[]
+}
+export interface BoardHandoff { handoff_id: string; thesis_id: string; ticker: string; handed_off_at: string; seeded_path: string }
+export interface ScreenerBoard {
+  generated_at: string | null
+  inbox: BoardInboxRow[]
+  signals: BoardSignal[]
+  theses: BoardThesis[]
+  handoffs: BoardHandoff[]
+  counts: Record<string, number>
+  live?: { runId: string; kind: string; subjectId: string; runRoot: string | null; startedAt: number }[]
+}
+
+export interface SignalIntakeInput {
+  headline: string
+  source_url?: string
+  source_name?: string
+  input_nature?: string
+  body_text?: string
+  human_prompt_note?: string
+  override_promote?: boolean
 }
 
 export interface ModuleReadiness { status: Sufficiency; reasons: string[]; caps: string[] }
@@ -57,8 +131,9 @@ export interface TickerSummary {
 }
 
 export interface LaunchPreflight {
-  kind: 'full' | 'module' | 'agent' | 'rerun'
+  kind: 'full' | 'module' | 'agent' | 'rerun' | 'signal' | 'sweep' | 'screener-agent' | 'handoff'
   ticker: string
+  swarm?: string
   module?: string
   agent?: string
   agentCount: number
@@ -77,6 +152,7 @@ export type SseEvent =
   | { type: 'agent-failed'; runId: string; agentKey: string; module: string; name: string; layer: number; reason: string; ts: number }
   | { type: 'layer-advanced'; runId: string; module: string; toLayer: number; doneCount: number; expectedCount: number; ts: number }
   | { type: 'module-done'; runId: string; module: string; status: 'completed' | 'aborted'; reason?: string; verdict?: string | null; ts: number }
+  | { type: 'module-routed'; runId: string; module: string; route: string; terminal: boolean; nextModule: string | null; ts: number }
   | { type: 'cost-tick'; runId: string; costUsdSoFar?: number; rateLimit?: { ok: boolean; reason?: string }; ts: number }
   | { type: 'run-done'; runId: string; status: 'done'; costUsd?: number; durationMs?: number; numTurns?: number; finalThesisPath?: string | null; decisionRecordPath?: string | null; ts: number }
   | { type: 'run-error'; runId: string; status: 'error' | 'cancelled' | 'incomplete'; reason: string; message?: string; ts: number }
@@ -130,7 +206,7 @@ export interface CallsResult {
 }
 
 // ---- activity / audit log ----
-export type RunKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track'
+export type RunKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track' | 'signal' | 'sweep' | 'screener-agent' | 'handoff'
 export interface Whoami { user: string; userVia: 'cf-access' | 'local' }
 export interface ActivityRow {
   runId: string

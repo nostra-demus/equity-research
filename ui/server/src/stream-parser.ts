@@ -2,6 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { REPO_ROOT } from './config'
 import { setCreditStatus } from './credit'
+import { sweepRunOutputs } from './fs-watcher'
 import { emit, finishRun, type RunState } from './registry'
 import { agentNameIndexAllSwarms, buildSwarmGraph } from './roster'
 
@@ -106,6 +107,9 @@ export function handleStreamLine(run: RunState, line: string) {
       if (typeof obj.total_cost_usd === 'number') run.costUsd = obj.total_cost_usd
       if (typeof obj.num_turns === 'number') run.numTurns = obj.num_turns
       if (typeof obj.duration_ms === 'number') run.durationMs = obj.duration_ms
+      // last-moment file writes can still be held by the watcher's awaitWriteFinish — sweep the
+      // expected outputs from disk so agent-done lands BEFORE run-done, never after
+      sweepRunOutputs(run)
       emit(run, { type: 'cost-tick', runId: run.runId, costUsdSoFar: run.costUsd, ts })
       if (run.status === 'running' || run.status === 'starting') {
         if (obj.is_error || obj.subtype === 'error_max_turns' || obj.subtype === 'error_during_execution') {

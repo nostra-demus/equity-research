@@ -3,6 +3,10 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useStore } from './lib/store'
 import { CommandBar } from './components/CommandBar'
 import { SwarmField } from './components/swarm/SwarmField'
+import { ScreenerField } from './components/screener/ScreenerField'
+import { SignalIntake } from './components/screener/SignalIntake'
+import { PipelineBoard } from './components/screener/PipelineBoard'
+import { SwarmWarp } from './components/SwarmWarp'
 import { RunStreamPanel } from './components/RunStreamPanel'
 import { OutputReader } from './components/OutputReader'
 import { ActivityLog } from './components/ActivityLog'
@@ -13,28 +17,46 @@ import { DataFilesPanel } from './components/DataFilesPanel'
 import { DecisionBanner } from './components/DecisionBanner'
 import { OfflineBanner } from './components/EngineStatus'
 
+// Per-swarm stage shells: the research stage keeps its chrome (data files, decision banner,
+// upload empty-state) exactly as before; the screener stage mounts the gauntlet. No research
+// component learns about swarms — the shell swap is the only branch point.
+function ResearchStage() {
+  return (
+    <>
+      <SwarmField />
+      <DataUploadEmptyState />
+      <DataFilesPanel />
+      <DecisionBanner />
+    </>
+  )
+}
+
+function ScreenerStage() {
+  return <ScreenerField />
+}
+
 export function App() {
   const init = useStore((s) => s.init)
   const openOutput = useStore((s) => s.openOutput)
   const activityOpen = useStore((s) => s.activityOpen)
   const callsOpen = useStore((s) => s.callsOpen)
+  const pipelineOpen = useStore((s) => s.pipelineOpen)
   const toast = useStore((s) => s.toast)
+  const activeSwarm = useStore((s) => s.activeSwarm)
+  const warp = useStore((s) => s.warp)
 
   useEffect(() => {
     init().catch((e) => console.error('init failed', e))
   }, [init])
 
   return (
-    <div className="app">
+    <div className={`app${warp ? ` app--warp-${warp.phase}` : ''}`} data-swarm={activeSwarm}>
       <div className="app__bg" />
       <CommandBar />
       <OfflineBanner />
       <div className="main">
-        <div className="stage">
-          <SwarmField />
-          <DataUploadEmptyState />
-          <DataFilesPanel />
-          <DecisionBanner />
+        <div className="stage" key={activeSwarm}>
+          {activeSwarm === 'screener' ? <ScreenerStage /> : <ResearchStage />}
         </div>
         <RunStreamPanel />
       </div>
@@ -42,7 +64,10 @@ export function App() {
       <AnimatePresence>{openOutput && <OutputReader key={openOutput.path || openOutput.nodeKey || 'panel'} output={openOutput} />}</AnimatePresence>
       <AnimatePresence>{activityOpen && <ActivityLog />}</AnimatePresence>
       <AnimatePresence>{callsOpen && <CallsTracker />}</AnimatePresence>
+      <AnimatePresence>{pipelineOpen && <PipelineBoard />}</AnimatePresence>
+      <SignalIntake />
       <LaunchConfirm />
+      <SwarmWarp />
 
       <AnimatePresence>
         {toast && (

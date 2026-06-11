@@ -91,20 +91,20 @@ function topoSort(mods) {
   }
   return placed
 }
-function buildSwarmGraph() {
-  const moduleDirs = fs.readdirSync(AGENTS).filter((d) => isDir(path.join(AGENTS, d)) && fs.readdirSync(path.join(AGENTS, d)).some((f) => /^99_.*-synthesis\.md$/.test(f)))
+function buildSwarmGraph(rootDir = AGENTS, swarmMeta = null) {
+  const moduleDirs = fs.readdirSync(rootDir).filter((d) => isDir(path.join(rootDir, d)) && fs.readdirSync(path.join(rootDir, d)).some((f) => /^99_.*-synthesis\.md$/.test(f)))
   const discovered = moduleDirs.map((name) => {
-    const synth = fs.readdirSync(path.join(AGENTS, name)).find((f) => /^99_.*-synthesis\.md$/.test(f))
-    const { data } = parseFrontmatter(fs.readFileSync(path.join(AGENTS, name, synth), 'utf8'))
+    const synth = fs.readdirSync(path.join(rootDir, name)).find((f) => /^99_.*-synthesis\.md$/.test(f))
+    const { data } = parseFrontmatter(fs.readFileSync(path.join(rootDir, name, synth), 'utf8'))
     return { name, dependsOn: parseDeps(data.depends_on) }
   })
   const order = topoSort(discovered)
   const modules = order.map((name, i) => {
     const d = discovered.find((m) => m.name === name)
-    const files = fs.readdirSync(path.join(AGENTS, name)).filter((f) => /^[0-9]{2}_.*\.md$/.test(f)).sort()
+    const files = fs.readdirSync(path.join(rootDir, name)).filter((f) => /^[0-9]{2}_.*\.md$/.test(f)).sort()
     const layers = {}
     for (const f of files) {
-      const raw = fs.readFileSync(path.join(AGENTS, name, f), 'utf8')
+      const raw = fs.readFileSync(path.join(rootDir, name, f), 'utf8')
       const { data, body } = parseFrontmatter(raw)
       const base = f.replace(/\.md$/, ''), nn = base.slice(0, 2), slug = base.slice(3)
       const layer = Number.isFinite(Number(data.layer)) ? Number(data.layer) : 999
@@ -115,13 +115,62 @@ function buildSwarmGraph() {
     return { name, order: i, dependsOn: d.dependsOn, layers, agentCount: files.length }
   })
   let masterSynthesizer = { name: 'synthesizer', description: '' }
-  if (isFile(path.join(AGENTS, 'synthesizer.md'))) {
-    const { data } = parseFrontmatter(fs.readFileSync(path.join(AGENTS, 'synthesizer.md'), 'utf8'))
+  if (!swarmMeta && isFile(path.join(rootDir, 'synthesizer.md'))) {
+    const { data } = parseFrontmatter(fs.readFileSync(path.join(rootDir, 'synthesizer.md'), 'utf8'))
     masterSynthesizer = { name: String(data.name || 'synthesizer'), description: String(data.description || '') }
+  } else if (swarmMeta) {
+    masterSynthesizer = { name: '', description: '' }
   }
   const all = modules.flatMap((m) => Object.values(m.layers).flat())
   const synthesis = all.filter((a) => a.isSynthesis).length
-  return { modules, masterSynthesizer, totals: { modules: modules.length, agents: all.length, specialists: all.length - synthesis, synthesis } }
+  const graph = { modules, masterSynthesizer, totals: { modules: modules.length, agents: all.length, specialists: all.length - synthesis, synthesis } }
+  if (swarmMeta) graph.swarm = swarmMeta
+  return graph
+}
+
+// ---- screener swarm (static showcase): manifest, graph, board index, fixture run markdown ----
+// Mirrors the live /api/swarms + /api/swarm?swarm= + /api/screener/* readers so the Pages deploy
+// can demo the gauntlet + Pipeline board read-only. Everything is best-effort: a repo without the
+// screener simply yields a research-only snapshot.
+function buildScreenerStatic() {
+  const manifestPath = path.join(AGENTS, 'screener', 'SWARM.md')
+  if (!isFile(manifestPath)) return null
+  const { data } = parseFrontmatter(fs.readFileSync(manifestPath, 'utf8'))
+  const meta = { id: String(data.id || 'screener'), label: String(data.label || 'Screener'), color: String(data.color || '#3fc6d2'), unit: String(data.unit || 'signal'), order: Number(data.order) || 2, layout: String(data.layout || 'flow') }
+  const graph = buildSwarmGraph(path.join(AGENTS, 'screener'), meta)
+  const SCREENER = path.join(REPO, 'screener')
+  let board = null
+  const boardPath = path.join(SCREENER, 'board', 'index.json')
+  if (isFile(boardPath)) board = loadJSON(boardPath)
+  // bundle ledger records + run markdown for every thesis on the board
+  const theses = {}, candidates = {}, runs = {}
+  const thesesDir = path.join(SCREENER, 'ledger', 'theses')
+  if (isDir(thesesDir)) for (const f of fs.readdirSync(thesesDir).filter((f) => f.endsWith('.json'))) {
+    const rec = loadJSON(path.join(thesesDir, f)); if (!rec) continue
+    const id = f.replace(/\.json$/, '')
+    theses[id] = { thesis: rec, candidates: null, handoffs: [] }
+  }
+  const candDir = path.join(SCREENER, 'ledger', 'candidates')
+  if (isDir(candDir)) for (const f of fs.readdirSync(candDir).filter((f) => f.endsWith('.json'))) {
+    const rec = loadJSON(path.join(candDir, f)); if (!rec) continue
+    const id = f.replace(/\.json$/, '')
+    candidates[id] = rec
+    if (theses[id]) theses[id].candidates = rec
+  }
+  const runsDir = path.join(SCREENER, 'runs')
+  if (isDir(runsDir)) for (const sig of fs.readdirSync(runsDir).filter((d) => isDir(path.join(runsDir, d)))) {
+    const runAbs = path.join(runsDir, sig)
+    const modules = {}
+    for (const mod of fs.readdirSync(runAbs).filter((d) => isDir(path.join(runAbs, d)))) {
+      const files = fs.readdirSync(path.join(runAbs, mod)).filter((f) => /^[0-9]{2}_.*\.md$/.test(f)).sort()
+      modules[mod] = files.map((f) => ({ agentKey: `${mod}/${f.replace(/\.md$/, '')}`, name: f.replace(/\.md$/, '').slice(3), verdict: null, routing: null }))
+      for (const f of files) copyInto(path.join(runAbs, mod, f), `screener/runs/${sig}/${mod}/${f}`)
+    }
+    runs[sig] = { runRoot: `screener/runs/${sig}`, modules,
+      intake: loadJSON(path.join(runAbs, 'intake.json')), signalPayload: loadJSON(path.join(runAbs, 'signal_payload.json')),
+      thesisRecord: loadJSON(path.join(runAbs, 'thesis_record.json')), candidates: loadJSON(path.join(runAbs, 'candidates.json')) }
+  }
+  return { swarms: [{ id: 'research', label: 'Research', color: '#e0a33e', unit: 'ticker', order: 1, layout: 'constellation' }, meta], swarmGraphs: { screener: graph }, screenerBoard: board, screenerRuns: runs, screenerTheses: theses, screenerCandidates: candidates }
 }
 
 // ---- per-ticker run data ----
@@ -337,6 +386,8 @@ for (const t of tickerNames) {
 }
 
 const callsData = buildCalls()
-const snapshot = { static: true, swarmGraph, tickers, emptyState: tickers.length === 0, dataDir: 'bundled snapshot (static deploy)', dataStatus, runs, decisions, finalThesis, calls: callsData.calls, dashboard: callsData.dashboard, generatedAt: new Date().toISOString() }
+fs.rmSync(path.join(DEST, 'screener'), { recursive: true, force: true })
+const screenerStatic = buildScreenerStatic()
+const snapshot = { static: true, swarmGraph, tickers, emptyState: tickers.length === 0, dataDir: 'bundled snapshot (static deploy)', dataStatus, runs, decisions, finalThesis, calls: callsData.calls, dashboard: callsData.dashboard, ...(screenerStatic || {}), generatedAt: new Date().toISOString() }
 fs.writeFileSync(path.join(DEST, 'snapshot.json'), JSON.stringify(snapshot))
-console.log(`[build-snapshot] swarm: ${swarmGraph.totals.modules} modules / ${swarmGraph.totals.agents} agents · ${promptCount} prompts · ${callsData.calls.length} calls · tickers: ${tickers.map((t) => t.ticker).join(', ')} -> ui/web/public/data/`)
+console.log(`[build-snapshot] swarm: ${swarmGraph.totals.modules} modules / ${swarmGraph.totals.agents} agents · ${promptCount} prompts · ${callsData.calls.length} calls · tickers: ${tickers.map((t) => t.ticker).join(', ')}${screenerStatic ? ` · screener: ${screenerStatic.swarmGraphs.screener.totals.modules} modules / ${Object.keys(screenerStatic.screenerRuns).length} runs` : ''} -> ui/web/public/data/`)

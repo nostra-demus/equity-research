@@ -1,9 +1,9 @@
 import { create } from 'zustand'
 import { api, isStatic } from './api'
 import { downstreamCascade, type CascadeNode } from './cascade'
-import type { AgentNode, DataStatus, HealthState, LaunchPreflight, NodeRuntime, NodeStatus, SseEvent, SwarmGraph, TickerSummary, Usage } from './types'
+import type { AgentNode, DataStatus, HealthState, LaunchPreflight, NodeRuntime, NodeStatus, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
 
-const RUN_EVENT_TYPES = ['run-started', 'agent-started', 'agent-done', 'agent-failed', 'layer-advanced', 'module-done', 'cost-tick', 'run-done', 'run-error']
+const RUN_EVENT_TYPES = ['run-started', 'agent-started', 'agent-done', 'agent-failed', 'layer-advanced', 'module-done', 'module-routed', 'cost-tick', 'run-done', 'run-error']
 
 // Live SSE streams for the SELECTED ticker only, keyed by runId. A ticker switch closes them all;
 // background runs keep executing server-side and are rediscovered via /api/runs on return.
@@ -77,6 +77,22 @@ interface State {
   launchConfirm: { kind: 'full' | 'rerun'; preflight: LaunchPreflight; cascade?: CascadeNode[]; node?: { module: string; name: string; key: string } } | null
   toast: Toast | null
 
+  // ---- swarms (multi-swarm cockpit; research is the grandfathered default) ----
+  swarms: SwarmMeta[]
+  activeSwarm: string // 'research' | 'screener' | future swarms
+  // the warp transition between swarms; landing carries an optional research ticker to preselect
+  warp: { from: string; to: string; payloadTicker?: string; landTicker?: string; phase: 'collapse' | 'traverse' | 'bloom' } | null
+  // screener slice (self-contained so the research paths stay untouched)
+  scGraph: SwarmGraph | null
+  scNodesByKey: Map<string, AgentNode>
+  scRuntime: Record<string, NodeRuntime>
+  scSelectedSignal: string | null // SIG id whose run folder is shown on the gauntlet
+  scBoard: ScreenerBoard | null
+  scRouted: Record<string, { route: string; terminal: boolean }> // module -> latest routing (lights the switchyard)
+  signalIntakeOpen: boolean
+  pipelineOpen: boolean
+  scThesisDetail: { thesis: any; candidates: any; handoffs: any[] } | null
+
   init: () => Promise<void>
   startHealth: () => void
   stopHealth: () => void
@@ -116,6 +132,26 @@ interface State {
   refreshDashboard: () => Promise<void>
   setToast: (t: Toast | null) => void
   _handleEvent: (e: SseEvent) => void
+
+  // ---- swarm/screener actions ----
+  switchSwarm: (to: string, opts?: { payloadTicker?: string; landTicker?: string }) => void
+  _advanceWarp: () => void
+  scInit: () => Promise<void>
+  scRefreshBoard: () => Promise<void>
+  scSelectSignal: (sigId: string | null) => Promise<void>
+  scNodeStatus: (key: string) => NodeStatus
+  openSignalIntake: () => void
+  closeSignalIntake: () => void
+  submitSignal: (intake: SignalIntakeInput) => Promise<void>
+  relaunchSignal: (sigId: string) => Promise<void>
+  runSweep: () => Promise<void>
+  openPipeline: () => void
+  closePipeline: () => void
+  openThesisDetail: (thesisId: string) => Promise<void>
+  closeThesisDetail: () => void
+  sendToResearch: (thesisId: string, ticker: string, poolPresent: boolean) => Promise<void>
+  openScreenerOutput: (node: AgentNode) => void
+  _handleScreenerEvent: (e: SseEvent) => void
 }
 
 function flatten(graph: SwarmGraph): Map<string, AgentNode> {
@@ -159,11 +195,25 @@ export const useStore = create<State>((set, get) => ({
   launchConfirm: null,
   toast: null,
 
+  swarms: [],
+  activeSwarm: 'research',
+  warp: null,
+  scGraph: null,
+  scNodesByKey: new Map(),
+  scRuntime: {},
+  scSelectedSignal: null,
+  scBoard: null,
+  scRouted: {},
+  signalIntakeOpen: false,
+  pipelineOpen: false,
+  scThesisDetail: null,
+
   init: async () => {
     try {
       const [graph, tk, credit] = await Promise.all([api.swarm(), api.tickers(), api.credit().catch(() => null)])
       const stat = isStatic()
       set({ connected: true, staticMode: stat, graph, nodesByKey: flatten(graph), tickers: tk.tickers, emptyState: tk.emptyState, dataDir: (tk as any).dataDir ?? null, credit })
+      api.swarms().then((swarms) => set({ swarms })).catch(() => set({ swarms: [{ id: 'research', label: 'Research', color: '#e0a33e', unit: 'ticker', order: 1, layout: 'constellation' }] }))
       if (!stat) get().startHealth() // begin the engine heartbeat (live mode only); idempotent across reconnects
       // live data-folder watcher (Drive sync) — backend only
       if (!stat && !dataSource) {
@@ -690,6 +740,243 @@ export const useStore = create<State>((set, get) => ({
     patch.runStream = stream
     set(patch)
   },
+
+  // ================= swarm switcher + warp =================
+  // The warp is the cinematic transition between swarms: collapse (current constellation implodes)
+  // -> traverse (a comet crosses the void; the swarm flips mid-flight) -> bloom (the target
+  // constellation awakens). Reduced-motion visitors get a quick crossfade (the CSS handles it);
+  // the phase timings here match the keyframes in global.css.
+  switchSwarm: (to, opts) => {
+    const from = get().activeSwarm
+    if (to === from || get().warp) return
+    if (!get().swarms.some((s) => s.id === to)) return
+    const reduced = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    if (reduced) {
+      set({ activeSwarm: to, warp: null, openOutput: null, selectedNodeKey: null })
+      if (to !== 'research') void get().scInit()
+      if (opts?.landTicker) void get().selectTicker(opts.landTicker)
+      return
+    }
+    set({ warp: { from, to, payloadTicker: opts?.payloadTicker, landTicker: opts?.landTicker, phase: 'collapse' }, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, pipelineOpen: false, scThesisDetail: null })
+    if (warpTimer) clearTimeout(warpTimer)
+    warpTimer = setTimeout(() => get()._advanceWarp(), 420) // collapse -> traverse
+  },
+
+  _advanceWarp: () => {
+    const w = get().warp
+    if (!w) return
+    if (w.phase === 'collapse') {
+      // mid-flight: flip the active swarm so the target constellation mounts underneath the void
+      set({ warp: { ...w, phase: 'traverse' }, activeSwarm: w.to })
+      if (w.to !== 'research') void get().scInit()
+      if (w.landTicker) void get().selectTicker(w.landTicker)
+      if (warpTimer) clearTimeout(warpTimer)
+      warpTimer = setTimeout(() => get()._advanceWarp(), 520)
+    } else if (w.phase === 'traverse') {
+      set({ warp: { ...w, phase: 'bloom' } })
+      if (warpTimer) clearTimeout(warpTimer)
+      warpTimer = setTimeout(() => get()._advanceWarp(), 520)
+    } else {
+      set({ warp: null })
+    }
+  },
+
+  // ================= screener slice =================
+  scInit: async () => {
+    try {
+      if (!get().scGraph) {
+        const g = await api.swarmGraph('screener')
+        set({ scGraph: g, scNodesByKey: flatten(g) })
+      }
+      await get().scRefreshBoard()
+      // auto-show the most recent signal on the gauntlet so the stage is never empty
+      if (!get().scSelectedSignal) {
+        const latest = get().scBoard?.signals?.[0]?.signal_id || get().scBoard?.live?.find((l) => l.kind === 'signal')?.subjectId || null
+        if (latest) await get().scSelectSignal(latest)
+      }
+      // attach to any screener runs already in flight
+      const live = get().scBoard?.live || []
+      for (const l of live) if (!scRunSources.has(l.runId)) connectScreenerRun(get, l.runId)
+    } catch {}
+  },
+
+  scRefreshBoard: async () => {
+    try {
+      const scBoard = await api.screenerBoard()
+      set({ scBoard })
+    } catch {}
+  },
+
+  // load one signal's run folder onto the gauntlet: seed orb states from its saved outputs
+  scSelectSignal: async (sigId) => {
+    set({ scSelectedSignal: sigId, scRuntime: {}, scRouted: {} })
+    if (!sigId) return
+    try {
+      const m = await api.screenerRun(sigId)
+      if (get().scSelectedSignal !== sigId) return
+      const seed: Record<string, NodeRuntime> = {}
+      const routed: Record<string, { route: string; terminal: boolean }> = {}
+      for (const [mod, agents] of Object.entries<any>(m?.modules || {})) {
+        for (const a of agents) {
+          seed[a.agentKey] = { status: 'done', verdict: a.verdict, outputPath: `${m.runRoot}/${a.agentKey}.md` }
+          if (a.routing) routed[mod] = { route: a.routing, terminal: isTerminalRoute(a.routing) }
+        }
+      }
+      // thesis status is the authoritative switchyard light once Phase 1 locked
+      const status = m?.thesisRecord?.meta?.status
+      if (status) routed['__thesis__'] = { route: status, terminal: true }
+      set({ scRuntime: seed, scRouted: routed })
+    } catch {
+      if (get().scSelectedSignal === sigId) set({ scRuntime: {}, scRouted: {} })
+    }
+  },
+
+  scNodeStatus: (key) => {
+    const rt = get().scRuntime[key]
+    if (rt) return rt.status
+    return get().scSelectedSignal ? 'dormant' : 'dormant'
+  },
+
+  openSignalIntake: () => set({ signalIntakeOpen: true }),
+  closeSignalIntake: () => set({ signalIntakeOpen: false }),
+
+  submitSignal: async (intake) => {
+    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — signals run on your machine via npm run dev', tone: 'info' })
+    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    try {
+      const { runId, preflight } = await api.launchSignal({ intake })
+      set({ signalIntakeOpen: false })
+      const sigId = preflight.ticker
+      set({ scSelectedSignal: sigId, scRuntime: {}, scRouted: {} })
+      beginScreenerRun(set, get, runId, sigId)
+      get().setToast({ msg: `Signal ${sigId} entering the gauntlet`, tone: 'good' })
+    } catch (e: any) {
+      get().setToast({ msg: e?.message ? String(e.message) : 'Signal launch failed', tone: e?.body?.code ? 'info' : 'bad' })
+    }
+  },
+
+  // re-run an existing signal (e.g. a PARK the human overrides, or an inbox row promoted to a run)
+  relaunchSignal: async (sigId) => {
+    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — signals run on your machine via npm run dev', tone: 'info' })
+    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    try {
+      const { runId } = await api.launchSignal({ sigId })
+      set({ scSelectedSignal: sigId, scRuntime: {}, scRouted: {}, pipelineOpen: false })
+      beginScreenerRun(set, get, runId, sigId)
+      get().setToast({ msg: `Re-running ${sigId} through the gauntlet`, tone: 'good' })
+    } catch (e: any) {
+      get().setToast({ msg: e?.message ? String(e.message) : 'Signal launch failed', tone: e?.body?.code ? 'info' : 'bad' })
+    }
+  },
+
+  runSweep: async () => {
+    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — sweeps run on your machine via npm run dev', tone: 'info' })
+    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    try {
+      const { runId } = await api.launchSweep()
+      beginScreenerRun(set, get, runId, 'sweep')
+      get().setToast({ msg: 'Scanning approved sources — the Inbox fills when it lands', tone: 'good' })
+    } catch (e: any) {
+      get().setToast({ msg: e?.message ? String(e.message) : 'Sweep launch failed', tone: e?.body?.code ? 'info' : 'bad' })
+    }
+  },
+
+  openPipeline: () => {
+    set({ pipelineOpen: true })
+    void get().scRefreshBoard()
+  },
+  closePipeline: () => set({ pipelineOpen: false, scThesisDetail: null }),
+
+  openThesisDetail: async (thesisId) => {
+    try {
+      const d = await api.screenerThesis(thesisId)
+      set({ scThesisDetail: d })
+    } catch {
+      get().setToast({ msg: 'Could not load the thesis record', tone: 'bad' })
+    }
+  },
+  closeThesisDetail: () => set({ scThesisDetail: null }),
+
+  // The handoff: seed data/<TICKER>/ from the locked thesis (idempotent server-side), then warp to
+  // the research swarm with the ticker preselected. The research run itself stays a separate,
+  // human-confirmed launch — if the pool already has filings we open the full-run confirm on landing.
+  sendToResearch: async (thesisId, ticker, poolPresent) => {
+    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — handoffs run on your machine via npm run dev', tone: 'info' })
+    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    try {
+      const res = await api.handoff(thesisId, ticker)
+      const already = res.alreadyHandedOff
+      set({ pipelineOpen: false, scThesisDetail: null })
+      get().switchSwarm('research', { payloadTicker: ticker, landTicker: poolPresent ? ticker : undefined })
+      if (already) {
+        get().setToast({ msg: `${ticker} was already handed off — memo in place. ${poolPresent ? 'Launch when ready.' : 'Drop filings into its data folder first.'}`, tone: 'info' })
+      } else {
+        get().setToast({
+          msg: poolPresent
+            ? `Thesis memo seeding into data/${ticker}/ — review and launch the full run when ready.`
+            : `Thesis memo seeding into data/${ticker}/ — its pool has no filings yet; add them before a research run.`,
+          tone: 'good',
+        })
+      }
+      // refresh the board so the Handed Off bucket updates once the command lands
+      setTimeout(() => void get().scRefreshBoard(), 4000)
+    } catch (e: any) {
+      get().setToast({ msg: e?.message ? String(e.message) : 'Handoff failed', tone: 'bad' })
+    }
+  },
+
+  openScreenerOutput: (node) => {
+    const rt = get().scRuntime[node.key]
+    if (!rt?.outputPath) return get().setToast({ msg: `${node.name} has no output yet`, tone: 'info' })
+    set({ selectedNodeKey: node.key, openOutput: { path: rt.outputPath, title: node.name, verdict: rt.verdict, nodeKey: node.key } })
+  },
+
+  // screener SSE -> the screener slice (the research handler stays untouched)
+  _handleScreenerEvent: (e) => {
+    const rt = { ...get().scRuntime }
+    const stream = get().runStream.slice()
+    const upsert = (runId: string, key: string, name: string, module: string, layer: number, status: NodeStatus, verdict?: string | null) => {
+      const i = stream.findIndex((r) => r.key === key)
+      const row: StreamRow = { runId, ticker: get().scSelectedSignal || 'screener', key, name, module, layer, status, verdict, ts: Date.now() }
+      if (i >= 0) stream[i] = row
+      else stream.unshift(row)
+    }
+    switch (e.type) {
+      case 'agent-started':
+        rt[e.agentKey] = { ...rt[e.agentKey], status: 'running', runId: e.runId, startedAt: e.ts, endedAt: undefined }
+        upsert(e.runId, e.agentKey, e.name, e.module, e.layer, 'running')
+        break
+      case 'agent-done':
+        rt[e.agentKey] = { ...rt[e.agentKey], status: 'done', verdict: e.verdict, outputPath: e.outputPath, runId: e.runId, endedAt: e.ts }
+        upsert(e.runId, e.agentKey, e.name, e.module, e.layer, 'done', e.verdict)
+        break
+      case 'agent-failed':
+        rt[e.agentKey] = { ...rt[e.agentKey], status: 'failed', runId: e.runId, endedAt: e.ts }
+        upsert(e.runId, e.agentKey, e.name, e.module, e.layer, 'failed')
+        break
+      case 'module-routed': {
+        const scRouted = { ...get().scRouted, [e.module]: { route: e.route, terminal: e.terminal } }
+        set({ scRouted })
+        if (e.terminal) get().setToast({ msg: `${e.module}: routed ${e.route} — pipeline stops there (a valid outcome)`, tone: 'info' })
+        break
+      }
+      case 'run-done': {
+        closeScreenerRunSource(e.runId)
+        void get().scRefreshBoard()
+        const sig = get().scSelectedSignal
+        if (sig) void get().scSelectSignal(sig) // reload saved outputs + final routing lights
+        get().setToast({ msg: 'Screener run complete', tone: 'good' })
+        break
+      }
+      case 'run-error': {
+        closeScreenerRunSource(e.runId)
+        void get().scRefreshBoard()
+        get().setToast({ msg: `Screener run ${e.status}: ${e.reason}`, tone: 'bad' })
+        break
+      }
+    }
+    set({ scRuntime: rt, runStream: stream })
+  },
 }))
 
 // DEV-only: expose the store so live timer/ETA visuals can be exercised locally without paying for a real
@@ -803,6 +1090,50 @@ function closeRunSource(runId?: string) {
   if (es) {
     es.close()
     runSources.delete(runId)
+  }
+}
+
+// ---- screener run streams (separate map so research streams are never disturbed) ----
+const scRunSources = new Map<string, EventSource>()
+let warpTimer: any = null
+
+// Terminal routing values mirror the SWARM.md routing contract. Kept as a display heuristic only —
+// the server's module-routed events carry the authoritative `terminal` flag; this covers seeding
+// from saved run folders where only the routing string is known.
+const TERMINAL_ROUTES = new Set(['log', 'park', 'suppress', 'watchlist_no_source', 'watchlist_no_world_change', 'return_to_m0_2', 'watchlist_no_edge'])
+function isTerminalRoute(route: string): boolean {
+  return TERMINAL_ROUTES.has(String(route).toLowerCase())
+}
+
+function connectScreenerRun(get: () => State, runId: string) {
+  if (scRunSources.has(runId)) return
+  const es = new EventSource(api.runStreamUrl(runId))
+  for (const t of RUN_EVENT_TYPES) {
+    es.addEventListener(t, (ev: MessageEvent) => {
+      try {
+        get()._handleScreenerEvent(JSON.parse(ev.data))
+      } catch {}
+    })
+  }
+  es.onerror = () => { /* keep open; server may still be streaming */ }
+  scRunSources.set(runId, es)
+}
+
+function beginScreenerRun(set: any, get: () => State, runId: string, subject: string) {
+  // seed every screener orb as queued when a full signal enters the gauntlet (sweeps have no orbs)
+  if (subject.startsWith('SIG-')) {
+    const rt: Record<string, NodeRuntime> = {}
+    for (const k of get().scNodesByKey.keys()) rt[k] = { status: 'queued', runId }
+    set({ scRuntime: rt, runStream: get().runStream.filter((r) => r.runId !== runId) })
+  }
+  connectScreenerRun(get, runId)
+}
+
+function closeScreenerRunSource(runId: string) {
+  const es = scRunSources.get(runId)
+  if (es) {
+    es.close()
+    scRunSources.delete(runId)
   }
 }
 
