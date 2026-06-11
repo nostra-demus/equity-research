@@ -178,7 +178,20 @@ claude=(read("CLAUDE.md") or "").lower()
 for b in ["gross invested capital","through-cycle return on","canonical figure is a through-cycle"]:
     if b in claude:
         print(f"  FAIL: ROCE-canonical phrasing leaked into CLAUDE.md (financials/REIT misfire risk) -> {b!r}"); ok=False
-print("  PASS: cycle/definition rules in their correct files; ROCE rule kept out of §15" if ok else "  -> cyclical-normalisation placement guard FAILED")
+# (3) COMPLETENESS — the young-entity/predecessor fallback must appear in EVERY cyclical-normalisation
+#     rule, not just some. (Self-review found BSS had the mid-cycle normalisation but NOT the fallback,
+#     leaving it unsatisfiable for a <1-cycle demerged entity — the exact motivating case. A per-file
+#     presence check can't catch a fallback missing from ONE file in a set; this asserts it across the set.)
+for path in [".claude/agents/earnings/MODULE_RULES.md",".claude/agents/valuation/MODULE_RULES.md",
+             ".claude/agents/valuation/07_scenario-and-fair-value.md",
+             ".claude/agents/balance-sheet-survival/MODULE_RULES.md",".claude/agents/business-model/09_moat.md"]:
+    t=(read(path) or "").lower()
+    if "young entity" not in t and "predecessor" not in t:
+        print(f"  FAIL: cyclical-normalisation rule missing the young-entity/predecessor fallback -> {path}"); ok=False
+# (4) vocab — the strict net-debt basis must not be called 'basic' in valuation (a third term for §15's 'strict')
+if "broad vs basic" in (read(".claude/agents/valuation/MODULE_RULES.md") or "").lower():
+    print("  FAIL: valuation MODULE_RULES uses 'broad vs basic' — harmonise to the §15 strict/broad vocabulary"); ok=False
+print("  PASS: cycle/definition rules in their correct files; ROCE out of §15; young-entity fallback complete across the set" if ok else "  -> cyclical-normalisation placement guard FAILED")
 sys.exit(0 if ok else 1)
 PY
 
