@@ -261,6 +261,37 @@ for drp in runs:
         add("R_memo_delta", not rdet, "; ".join(rdet) or "memo_delta blocks valid; paired markdown present; rerun targets are real modules")
     else:
         add("R_memo_delta", True, f"no reviews filed on/after {MEMO_DELTA_DATE} — N/A", na=True)
+    # S pre-mortem haircut propagated to decision_record (forward-looking; landing 2026-06-12 / fix F28)
+    #   When the finish-gate's pre-mortem applied a haircut > 0, the decision_record must carry
+    #   post_review_confidence_score == pre_mortem.recommended_confidence so the calibration and
+    #   tracking systems use the post-red-team confidence, not the raw synthesizer number.
+    HAIRCUT_DATE="2026-06-12"
+    if isdate(ddte) and ddte>=HAIRCUT_DATE:
+        pm_files=sorted(glob.glob(os.path.join(run,"pre_mortem*.json")),
+                        key=lambda x:(int(re.search(r"_v(\d+)\.json$",x).group(1)) if re.search(r"_v(\d+)\.json$",x) else 1))
+        if pm_files:
+            try:
+                pm=json.load(open(pm_files[-1]))
+                haircut=pm.get("confidence_haircut") or 0
+                rec=pm.get("recommended_confidence")
+                pv=pm.get("verdict") or ""
+                dr_post=d.get("post_review_confidence_score")
+                dr_hc=d.get("confidence_haircut")
+                dr_pv=d.get("pre_mortem_verdict")
+                det_s=[]
+                if isinstance(haircut,(int,float)) and haircut>0:
+                    # a non-zero haircut MUST be reflected in decision_record
+                    if dr_post is None: det_s.append(f"confidence_haircut={haircut} but post_review_confidence_score absent in decision_record")
+                    elif isinstance(rec,(int,float)) and abs(dr_post-rec)>0.5: det_s.append(f"post_review_confidence_score={dr_post} != pre_mortem.recommended_confidence={rec}")
+                    if dr_hc is None: det_s.append("confidence_haircut field missing in decision_record")
+                if dr_pv is None: det_s.append("pre_mortem_verdict field missing in decision_record (should be set even when haircut=0)")
+                add("S_haircut_propagated",not det_s,"; ".join(det_s) or f"haircut={haircut}; post_review_confidence_score={dr_post}; pre_mortem_verdict={dr_pv!r}")
+            except Exception as e:
+                add("S_haircut_propagated",False,f"pre_mortem parse error: {e}")
+        else:
+            add("S_haircut_propagated",True,"no pre_mortem.json — N/A",na=True)
+    else:
+        add("S_haircut_propagated",True,f"run predates haircut-propagation gate ({ddte}) — N/A",na=True)
     # WARN non-schema files
     extras=[os.path.basename(x) for x in glob.glob(os.path.join(run,"*")) if os.path.isfile(x) and os.path.basename(x) not in SCHEMA_FILES and not os.path.basename(x).endswith(("_decision_review.json","_calibration_summary.json")) and "review" not in os.path.basename(x) and "_v" not in os.path.basename(x)]
     run_pass=all(c["status"]!="FAIL" for c in checks)
