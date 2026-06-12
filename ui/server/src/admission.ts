@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { MAX_CONCURRENT_RUNS, REPO_ROOT } from './config'
-import { inFlightRunsForSubject, listRuns } from './registry'
+import { IN_FLIGHT_STATUSES, inFlightRunsForSubject, listRuns } from './registry'
 import { buildSwarmGraph, depsCompleteForModule, moduleAncestors, transitiveDownstreamModules } from './roster'
 import type { AdmissionDecision, RunKind } from './types'
 
@@ -141,7 +141,7 @@ export function admitRun(req: AdmissionRequest): AdmissionDecision {
 
   // D5 — global concurrency cap across ALL tickers (cost / rate-limit backstop). Checked last so a
   // specific, actionable conflict is reported before the generic cap.
-  const liveCount = listRuns().filter((r) => r.status === 'starting' || r.status === 'running').length
+  const liveCount = listRuns().filter((r) => IN_FLIGHT_STATUSES.has(r.status)).length // incl. the pre-spawn gate states
   if (liveCount >= MAX_CONCURRENT_RUNS) {
     return { ok: false, code: 'capacity', httpStatus: 429, activeCount: liveCount, cap: MAX_CONCURRENT_RUNS }
   }

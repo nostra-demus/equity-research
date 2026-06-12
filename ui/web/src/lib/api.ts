@@ -54,7 +54,14 @@ async function get<T>(url: string): Promise<T> {
   return r.json() as Promise<T>
 }
 async function post<T>(url: string, body?: any): Promise<T> {
-  const r = await fetch(url, { method: 'POST', headers: { 'content-type': 'application/json' }, body: body ? JSON.stringify(body) : undefined })
+  // Only set the JSON content-type when there's actually a body. A bodyless POST (cancel, credit-check)
+  // sent WITH content-type: application/json makes Fastify reject it 400 FST_ERR_CTP_EMPTY_JSON_BODY
+  // before the route even runs — the real cause of the "cancel didn't work" bug.
+  const r = await fetch(url, {
+    method: 'POST',
+    headers: body !== undefined ? { 'content-type': 'application/json' } : undefined,
+    body: body !== undefined ? JSON.stringify(body) : undefined,
+  })
   const j = await r.json().catch(() => ({}))
   if (!r.ok) throw Object.assign(new Error((j as any)?.error || `${r.status}`), { status: r.status, body: j })
   return j as T
@@ -137,6 +144,10 @@ export const api = {
   cancel: async (runId: string) => {
     if ((await ensureMode()) === 'static') return {}
     return post(`/api/runs/${runId}/cancel`)
+  },
+  readinessDecision: async (runId: string, action: string, acknowledgedText?: string): Promise<{ ok: boolean; status: string }> => {
+    if ((await ensureMode()) === 'static') return { ok: false, status: 'static' }
+    return post(`/api/runs/${encodeURIComponent(runId)}/readiness-decision`, { action, acknowledgedText })
   },
   output: async (path: string): Promise<{ path: string; markdown: string }> => {
     if ((await ensureMode()) === 'static') {

@@ -1,7 +1,7 @@
 import { randomUUID } from 'node:crypto'
 import type { ResultPromise } from 'execa'
 import { logFinish } from './activity-log'
-import type { AgentRunState, RunKind, RunStatus, SseEvent } from './types'
+import type { AgentRunState, ReadinessDecision, ReadinessReport, RunKind, RunStatus, SseEvent } from './types'
 
 export interface SseClient {
   id: string
@@ -38,6 +38,12 @@ export interface RunState {
   status: RunStatus
   note?: string // optional finish note (e.g. why a run ended incomplete) — surfaced in the activity log
   finishLogged?: boolean // guards the activity-log finish write against double-fire
+  readiness?: ReadinessReport // pre-spawn data-readiness gate result (deterministic, no LLM)
+  readinessDecision?: ReadinessDecision // the user's gate decision (proceed / override / recheck / cancel)
+  deferredSpawn?: () => Promise<void> // set when the gate BLOCKS — spawns the engine once the user proceeds
+  cancelRequested?: boolean // cancel arrived while status was 'running' but the child wasn't up yet (the
+  // proceedSpawn->spawnEngine buildArgs window); spawnEngine honors it and bails before creating the child.
+  // (The running-child cancel + SIGKILL fallback gate on endedAt — see finalizeRunOnClose / cancel().)
   onFinish?: (status: RunStatus) => void // chained full run: advance to the next step when this one ends
   startedAt: number
   endedAt?: number
@@ -63,14 +69,21 @@ const runs = new Map<string, RunState>()
 // Different subjects always run concurrently.
 const activeRunsBySubject = new Map<string, Set<string>>() // subjectId -> set of in-flight runIds
 
-// All currently-live runs for a subject (starting|running), self-healing any stale/ended ids.
+// A run is IN FLIGHT — holds its subject claim + a concurrency slot — from launch through completion,
+// INCLUDING the pre-spawn gate pause. A run parked at readiness-checking / awaiting-readiness-decision
+// is fully committed to its write targets and will spawn the moment the user decides, so admission
+// (exclusivity, disjoint-write, the global cap) and the active-runs view MUST treat it as live. This is
+// the single source of truth for "in flight"; never re-list these statuses inline (they drift).
+export const IN_FLIGHT_STATUSES = new Set<RunStatus>(['starting', 'readiness-checking', 'awaiting-readiness-decision', 'running'])
+
+// All currently-live runs for a subject, self-healing any stale/ended ids.
 export function inFlightRunsForSubject(subjectId: string): RunState[] {
   const ids = activeRunsBySubject.get(subjectId)
   if (!ids) return []
   const live: RunState[] = []
   for (const id of [...ids]) {
     const r = runs.get(id)
-    if (r && (r.status === 'starting' || r.status === 'running')) live.push(r)
+    if (r && IN_FLIGHT_STATUSES.has(r.status)) live.push(r)
     else ids.delete(id) // self-heal a stale entry
   }
   if (ids.size === 0) activeRunsBySubject.delete(subjectId)

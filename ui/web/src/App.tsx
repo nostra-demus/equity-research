@@ -12,6 +12,7 @@ import { OutputReader } from './components/OutputReader'
 import { ActivityLog } from './components/ActivityLog'
 import { CallsTracker } from './components/CallsTracker'
 import { LaunchConfirm } from './components/LaunchConfirm'
+import { ReadinessWarnings } from './components/ReadinessWarnings'
 import { DataUploadEmptyState } from './components/DataUploadEmptyState'
 import { DataFilesPanel } from './components/DataFilesPanel'
 import { DecisionBanner } from './components/DecisionBanner'
@@ -67,6 +68,7 @@ export function App() {
       <AnimatePresence>{pipelineOpen && <PipelineBoard />}</AnimatePresence>
       <SignalIntake />
       <LaunchConfirm />
+      <ReadinessWarnings />
       <SwarmWarp />
 
       <AnimatePresence>

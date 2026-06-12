@@ -145,6 +145,31 @@ export interface LaunchPreflight {
   creditPreflight: { ok: boolean; reason?: string; rateLimitType?: string; checked: boolean }
 }
 
+// ---- pre-flight data-readiness gate (mirrors ui/server/src/types.ts) ----
+export type ReadinessSeverity = 'blocker' | 'degrade' | 'info'
+export interface ReadinessIssue {
+  code: string
+  severity: ReadinessSeverity
+  message: string
+  evidence?: string
+  file?: string
+  module?: string
+  suggestedFix?: string
+  affectedModules?: string[]
+  capIfProceeded?: string
+}
+export interface ReadinessReport {
+  ticker: string
+  kind: string
+  module?: string
+  overall: 'clean' | 'degraded' | 'blocked'
+  fileCount: number
+  usableCount: number
+  entities: { file: string; entity: string }[]
+  issues: ReadinessIssue[]
+  ts: number
+}
+
 export type SseEvent =
   | { type: 'run-started'; runId: string; kind: string; ticker: string; runRoot: string | null; willCommitToMain: boolean; ts: number }
   | { type: 'agent-started'; runId: string; module: string; agentKey: string; name: string; layer: number; ts: number }
@@ -156,6 +181,10 @@ export type SseEvent =
   | { type: 'cost-tick'; runId: string; costUsdSoFar?: number; rateLimit?: { ok: boolean; reason?: string }; ts: number }
   | { type: 'run-done'; runId: string; status: 'done'; costUsd?: number; durationMs?: number; numTurns?: number; finalThesisPath?: string | null; decisionRecordPath?: string | null; ts: number }
   | { type: 'run-error'; runId: string; status: 'error' | 'cancelled' | 'incomplete'; reason: string; message?: string; ts: number }
+  | { type: 'readiness-checking'; runId: string; ticker: string; kind: string; ts: number }
+  | { type: 'readiness-report'; runId: string; report: ReadinessReport; ts: number }
+  | { type: 'readiness-blocked'; runId: string; report: ReadinessReport; ts: number }
+  | { type: 'readiness-resolved'; runId: string; action: string; ts: number }
 
 // startedAt/endedAt are SERVER timestamps (from the agent-started / agent-done SSE events), so a finished
 // orb's duration (endedAt - startedAt) is clock-skew-free. startedAt is set the instant the orchestrator
