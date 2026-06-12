@@ -188,6 +188,22 @@ async function main() {
     ok(cancelled === true && run.status === 'cancelled' && run.endedAt !== undefined && cancelEmits === 1,
       'cancel() in the readiness-checking window finalizes once (exactly one terminal cancelled event)')
   }
+  // 17. AUDIT FIX (recheck double-spawn) — the recheck branch claims the run SYNCHRONOUSLY
+  //     (status -> readiness-checking) before its async re-check, so a concurrent decision (a double-
+  //     clicked re-check, or recheck racing proceed) hits the entry guard and is rejected instead of both
+  //     passing it and each spawning an engine CLI for one run. RED before the fix: recheck left status
+  //     'awaiting-readiness-decision' across the await, so the concurrent proceed reached proceedSpawn.
+  {
+    const TEST_ROOT17 = 'analyses/.test_readiness_gate'
+    const { run, spawned } = mkAwaiting(report('degraded'))
+    run.runRoot = `${TEST_ROOT17}/r17`
+    const p = decideReadiness(run.runId, 'recheck', 'local') // claims status synchronously, then awaits the real check
+    ok(run.status === 'readiness-checking', 'recheck claims the run synchronously (readiness-checking) before its async re-check')
+    const concurrent = await decideReadiness(run.runId, 'proceed', 'local') // sees readiness-checking -> entry guard
+    ok(!concurrent.ok && concurrent.httpStatus === 409 && !spawned(), 'a concurrent decision during the recheck window is rejected — no second spawn')
+    await p.catch(() => {}) // drain the recheck (runReadiness on the no-data TEST ticker -> blocker -> re-opens)
+    fs.rmSync(path.join(REPO_ROOT, TEST_ROOT17), { recursive: true, force: true })
+  }
 
   console.log(`\n  ${pass} checks passed`)
 }

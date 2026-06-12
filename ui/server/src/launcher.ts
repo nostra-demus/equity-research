@@ -751,8 +751,18 @@ export async function decideReadiness(
   }
 
   if (action === 'recheck') {
+    // Claim the run SYNCHRONOUSLY (before the async re-check's await) so a concurrent decision — a
+    // double-clicked re-check, or a recheck racing a proceed — hits the entry guard and is rejected,
+    // instead of both passing it and each calling proceedSpawn (which would spawn TWO engine CLIs for one
+    // run, both committing to main). readiness-checking is an IN_FLIGHT status and cancel() treats it as
+    // gate-parked, so a cancel landing mid-recheck still finalizes (caught by the endedAt re-check below).
+    run.status = 'readiness-checking'
     const report = await checkReadiness(run, true)
-    if (report.overall !== 'clean') return { ok: true, status: 'awaiting-readiness-decision', report }
+    if (run.endedAt !== undefined) return { ok: false, status: 'cancelled', error: 'run was cancelled', httpStatus: 409 } // cancelled mid-recheck
+    if (report.overall !== 'clean') {
+      run.status = 'awaiting-readiness-decision' // still gated — re-open for another decision
+      return { ok: true, status: 'awaiting-readiness-decision', report }
+    }
     return proceedSpawn(run, 'recheck', user) // the pool was fixed -> proceed CLEAN, no override trace
   }
 
