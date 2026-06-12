@@ -18,10 +18,10 @@ export function Switchyard({ layout, routed, onClick }: { layout: Layout; routed
           e.stopPropagation()
           onClick()
         }}
-        title="Routing switchyard — open the Pipeline board"
+        title="Where ideas end up — click to open the idea board"
       >
         <div className="switchyard__ring" />
-        <div className="switchyard__label">Route</div>
+        <div className="switchyard__label">Result</div>
       </div>
       {exits.map((x) => {
         const lit = taken === x.id

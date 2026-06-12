@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { api, isStatic } from './api'
 import { downstreamCascade, type CascadeNode } from './cascade'
+import { plainRoute, plainStage } from './plain'
 import type { AgentNode, DataStatus, HealthState, LaunchPreflight, NodeRuntime, NodeStatus, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
 
 const RUN_EVENT_TYPES = ['run-started', 'agent-started', 'agent-done', 'agent-failed', 'layer-advanced', 'module-done', 'module-routed', 'cost-tick', 'run-done', 'run-error']
@@ -849,9 +850,9 @@ export const useStore = create<State>((set, get) => ({
       const sigId = preflight.ticker
       set({ scSelectedSignal: sigId, scRuntime: {}, scRouted: {} })
       beginScreenerRun(set, get, runId, sigId)
-      get().setToast({ msg: `Signal ${sigId} entering the gauntlet`, tone: 'good' })
+      get().setToast({ msg: `Checks started for ${sigId} — watch them run left to right`, tone: 'good' })
     } catch (e: any) {
-      get().setToast({ msg: e?.message ? String(e.message) : 'Signal launch failed', tone: e?.body?.code ? 'info' : 'bad' })
+      get().setToast({ msg: e?.message ? String(e.message) : 'Could not start the checks', tone: e?.body?.code ? 'info' : 'bad' })
     }
   },
 
@@ -863,9 +864,9 @@ export const useStore = create<State>((set, get) => ({
       const { runId } = await api.launchSignal({ sigId })
       set({ scSelectedSignal: sigId, scRuntime: {}, scRouted: {}, pipelineOpen: false })
       beginScreenerRun(set, get, runId, sigId)
-      get().setToast({ msg: `Re-running ${sigId} through the gauntlet`, tone: 'good' })
+      get().setToast({ msg: `Re-running the checks for ${sigId}`, tone: 'good' })
     } catch (e: any) {
-      get().setToast({ msg: e?.message ? String(e.message) : 'Signal launch failed', tone: e?.body?.code ? 'info' : 'bad' })
+      get().setToast({ msg: e?.message ? String(e.message) : 'Could not start the checks', tone: e?.body?.code ? 'info' : 'bad' })
     }
   },
 
@@ -875,9 +876,9 @@ export const useStore = create<State>((set, get) => ({
     try {
       const { runId } = await api.launchSweep()
       beginScreenerRun(set, get, runId, 'sweep')
-      get().setToast({ msg: 'Scanning approved sources — the Inbox fills when it lands', tone: 'good' })
+      get().setToast({ msg: 'Looking for news — new items will appear in the Inbox when done', tone: 'good' })
     } catch (e: any) {
-      get().setToast({ msg: e?.message ? String(e.message) : 'Sweep launch failed', tone: e?.body?.code ? 'info' : 'bad' })
+      get().setToast({ msg: e?.message ? String(e.message) : 'The news scan could not start', tone: e?.body?.code ? 'info' : 'bad' })
     }
   },
 
@@ -892,7 +893,7 @@ export const useStore = create<State>((set, get) => ({
       const d = await api.screenerThesis(thesisId)
       set({ scThesisDetail: d })
     } catch {
-      get().setToast({ msg: 'Could not load the thesis record', tone: 'bad' })
+      get().setToast({ msg: 'Could not open this idea', tone: 'bad' })
     }
   },
   closeThesisDetail: () => set({ scThesisDetail: null }),
@@ -909,15 +910,15 @@ export const useStore = create<State>((set, get) => ({
       set({ pipelineOpen: false, scThesisDetail: null })
       get().switchSwarm('research', { payloadTicker: ticker, landTicker: poolPresent ? ticker : undefined })
       if (already) {
-        get().setToast({ msg: `${ticker} was already handed off — memo in place. ${poolPresent ? 'Launch when ready.' : 'Drop filings into its data folder first.'}`, tone: 'info' })
+        get().setToast({ msg: `${ticker} was already sent — its idea memo is in place. ${poolPresent ? 'Start the research run when ready.' : 'Add its filings to the data folder first.'}`, tone: 'info' })
       } else {
         // The API returns at CLI spawn, not at memo/ledger completion — say "started", and attach
-        // the run stream so run-done can confirm "seeded" truthfully (see _handleScreenerEvent).
+        // the run stream so run-done can confirm "saved" truthfully (see _handleScreenerEvent).
         if (res.runId) {
           scHandoffWatch.set(res.runId, { ticker, poolPresent })
           connectScreenerRun(get, res.runId)
         }
-        get().setToast({ msg: `Handoff started — seeding the thesis memo into data/${ticker}/…`, tone: 'good' })
+        get().setToast({ msg: `Sending ${ticker} to research — writing its idea memo now…`, tone: 'good' })
         // fallback board refresh in case the stream drops before run-done lands
         setTimeout(() => void get().scRefreshBoard(), 8000)
       }
@@ -960,7 +961,7 @@ export const useStore = create<State>((set, get) => ({
       case 'module-routed': {
         const scRouted = { ...get().scRouted, [e.module]: { route: e.route, terminal: e.terminal } }
         set({ scRouted })
-        if (e.terminal) get().setToast({ msg: `${e.module}: routed ${e.route} — pipeline stops there (a valid outcome)`, tone: 'info' })
+        if (e.terminal) get().setToast({ msg: `Stopped at "${plainStage(e.module)}": ${plainRoute(e.route)}. A normal outcome, not a failure.`, tone: 'info' })
         break
       }
       case 'run-done': {
@@ -971,15 +972,15 @@ export const useStore = create<State>((set, get) => ({
           scHandoffWatch.delete(e.runId)
           get().setToast({
             msg: handoff.poolPresent
-              ? `${handoff.ticker} memo seeded ✓ — review and launch the full run when ready.`
-              : `${handoff.ticker} memo seeded ✓ — its pool has no filings yet; add them before a research run.`,
+              ? `${handoff.ticker} is ready ✓ — its idea memo is saved. Start the deep research run when you want.`
+              : `${handoff.ticker} idea memo saved ✓ — but its data folder has no filings yet. Add them before starting research.`,
             tone: 'good',
           })
           break
         }
         const sig = get().scSelectedSignal
         if (sig) void get().scSelectSignal(sig) // reload saved outputs + final routing lights
-        get().setToast({ msg: 'Screener run complete', tone: 'good' })
+        get().setToast({ msg: 'Checks finished', tone: 'good' })
         break
       }
       case 'run-error': {
@@ -988,10 +989,10 @@ export const useStore = create<State>((set, get) => ({
         const handoff = scHandoffWatch.get(e.runId)
         if (handoff) {
           scHandoffWatch.delete(e.runId)
-          get().setToast({ msg: `Handoff for ${handoff.ticker} ${e.status}: ${e.reason} — the memo may not be seeded; retry from the Pipeline board.`, tone: 'bad' })
+          get().setToast({ msg: `Sending ${handoff.ticker} to research failed (${e.reason}) — the memo may not be saved. Try again from the idea board.`, tone: 'bad' })
           break
         }
-        get().setToast({ msg: `Screener run ${e.status}: ${e.reason}`, tone: 'bad' })
+        get().setToast({ msg: `The checks stopped with a problem (${e.reason})`, tone: 'bad' })
         break
       }
     }

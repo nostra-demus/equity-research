@@ -9,7 +9,8 @@ export default defineConfig({
   build: { outDir: '../dist', emptyOutDir: true },
   server: {
     host: '127.0.0.1',
-    port: 5173,
+    // PORT lets the cockpit-web preview entry (autoPort) assign a free port when 5173 is taken
+    port: Number(process.env.PORT) || 5173,
     strictPort: false,
     proxy: {
       '/api': { target: 'http://127.0.0.1:8787', changeOrigin: true },

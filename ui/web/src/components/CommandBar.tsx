@@ -67,15 +67,15 @@ function ScreenerControls() {
           setArmSweep(false)
           void runSweep()
         }}
-        title="Scan the approved sources for material events (~$2–12) — fills the Inbox; nothing runs without you"
+        title="Scan trusted news sources for big events (~$2–12) — found items land in the Inbox; nothing runs without you"
       >
-        {armSweep ? 'confirm scan · ~$2–12 ▸' : 'Scan sources'}
+        {armSweep ? 'yes, scan now · ~$2–12 ▸' : 'Find news'}
       </button>
-      <button className="btn btn--ghost" onClick={openPipeline} title="The idea pipeline — inbox, gauntlet, watchlist, provisional, full machine, handoffs">
-        Pipeline{inboxCount > 0 && <span className="inboxchip" title={`${inboxCount} unprocessed inbox signal${inboxCount === 1 ? '' : 's'}`}>{inboxCount}</span>}
+      <button className="btn btn--ghost" onClick={openPipeline} title="The idea board — every event and idea, from just-found to sent-to-research">
+        Idea board{inboxCount > 0 && <span className="inboxchip" title={`${inboxCount} new item${inboxCount === 1 ? '' : 's'} waiting in the Inbox`}>{inboxCount}</span>}
       </button>
-      <button className="btn btn--amber" disabled={engineDown} onClick={openSignalIntake} title="Run one signal through the gauntlet">
-        New signal ▸
+      <button className="btn btn--amber" disabled={engineDown} onClick={openSignalIntake} title="Paste one news event and run it through the checks">
+        Check an event ▸
       </button>
     </>
   )

@@ -60,10 +60,10 @@ export function SignalIntake() {
             transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="intake__title">New signal</div>
-            <div className="intake__sub">One event in → Gate 0 → the ten-step gauntlet → Phase 1 thesis → routing. A rejection is a result, not a failure.</div>
+            <div className="intake__title">Check a news event</div>
+            <div className="intake__sub">Paste one event. The system checks it step by step, then decides: drop it, watch it, or turn it into an investment idea. Most events get dropped — that is normal, and it is cheap.</div>
 
-            <label className="intake__label">What kind of signal?</label>
+            <label className="intake__label">What kind of event is this?</label>
             <div className="intake__natures">
               {NATURES.map(([k, label]) => (
                 <button key={k} className={`chip intake__nature${nature === k ? ' intake__nature--on' : ''}`} onClick={() => setNature(k)}>
@@ -72,14 +72,14 @@ export function SignalIntake() {
               ))}
             </div>
 
-            <label className="intake__label">{isHuman ? 'Your observation (verbatim)' : 'Headline (verbatim)'}</label>
+            <label className="intake__label">{isHuman ? 'What did you notice? (in your own words)' : 'Headline (paste it exactly as published)'}</label>
             <textarea className="intake__input" rows={2} value={headline} onChange={(e) => setHeadline(e.target.value)} placeholder={isHuman ? 'e.g. Capesize rates have jumped 30% in a week while iron-ore volumes are flat' : 'Paste the headline exactly as published'} />
 
             {!isHuman && (
               <>
                 <label className="intake__label">Source URL</label>
                 <input className="intake__input" value={url} onChange={(e) => setUrl(e.target.value)} placeholder="https://…" />
-                <label className="intake__label">Source name <span className="intake__hint">Gate 0 allows only approved origins — off-list lands on the watchlist</span></label>
+                <label className="intake__label">Source name <span className="intake__hint">only trusted sources pass the first check — anything else goes to the Watching pile</span></label>
                 <input className="intake__input" list="gate0-sources" value={source} onChange={(e) => setSource(e.target.value)} placeholder="Reuters, Bloomberg, Moneycontrol…" />
                 <datalist id="gate0-sources">
                   {SOURCES.map((s) => (
@@ -89,13 +89,13 @@ export function SignalIntake() {
               </>
             )}
 
-            <label className="intake__label">{isHuman ? 'Anything else the gauntlet should know' : 'Body / summary (optional)'}</label>
+            <label className="intake__label">{isHuman ? 'Anything else worth knowing' : 'Body / summary (optional)'}</label>
             <textarea className="intake__input" rows={3} value={note} onChange={(e) => setNote(e.target.value)} placeholder="Optional" />
 
             <div className="intake__actions">
-              <span className="intake__est">est. $8–45 · stops early when a gate rejects</span>
+              <span className="intake__est">costs about $8–45 · stops early (and cheaper) if a check says no</span>
               <button className="btn btn--ghost" onClick={close}>Cancel</button>
-              <button className="btn btn--amber" disabled={!valid} onClick={onSubmit}>Run the gauntlet ▸</button>
+              <button className="btn btn--amber" disabled={!valid} onClick={onSubmit}>Start the checks ▸</button>
             </div>
           </motion.div>
         </motion.div>
