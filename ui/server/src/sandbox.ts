@@ -42,10 +42,27 @@ export function resolveInsidePrompts(reqPath: string): string {
   return real
 }
 
+// Resolve a requested path and assert it lives inside the screener's store tree (screener/ at the
+// repo root: runs, ledger, inbox, board). Dedicated reader sandbox so /api/output can stay locked
+// to analyses/ — screener artifacts are served ONLY through the /api/screener/* readers.
+const SCREENER_DIR = path.join(REPO_ROOT, 'screener')
+export function resolveInsideScreener(reqPath: string): string {
+  const abs = path.isAbsolute(reqPath) ? reqPath : path.join(REPO_ROOT, reqPath)
+  const real = fs.realpathSync(abs) // throws ENOENT for missing -> caller maps to 404
+  const baseReal = fs.realpathSync(SCREENER_DIR)
+  if (real !== baseReal && !real.startsWith(baseReal + path.sep)) {
+    throw new Error('Path escapes the screener sandbox')
+  }
+  return real
+}
+
 // Validation patterns — launch params must also match the discovered roster (closed allow-list).
 export const TICKER_RE = /^[A-Z0-9.\-]{1,15}$/
 export const MODULE_RE = /^[a-z0-9-]{1,40}$/
 export const AGENT_RE = /^[a-z0-9-]{1,60}$/
+// Screener subject/record ids (shape-validated before any path is built from them).
+export const SIG_RE = /^SIG-[0-9]{8}-[a-f0-9]{8}$/
+export const THESIS_RE = /^THS-SIG-[0-9]{8}-[a-f0-9]{8}-v[0-9]+$/
 
 export function isValidTicker(name: string): boolean {
   return TICKER_RE.test(name)

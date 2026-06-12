@@ -1,0 +1,113 @@
+{
+  "generated_at": "2026-06-11T19:19:13Z",
+  "inbox": [
+    {
+      "inbox_id": "INB-20260611-001",
+      "headline": "Major Gulf LNG producer declares force majeure on June-July cargo loadings after compressor train failure",
+      "url": "https://www.reuters.com/business/energy/fixture-lng-force-majeure/",
+      "source_name": "Reuters",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-11T04:25:00Z",
+      "sweep_file": "screener/inbox/2026-06-11_sweep.json",
+      "prelim_note": "Supply/demand criterion: removes spot cargoes from a tight summer market; spot LNG assessments already +6% on the day.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null
+    },
+    {
+      "inbox_id": "INB-20260611-002",
+      "headline": "SEBI issues consultation paper proposing tighter disclosure norms for promoter share pledges",
+      "url": "https://www.business-standard.com/markets/fixture-sebi-pledge-consultation/",
+      "source_name": "Business Standard",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-06-11T04:27:00Z",
+      "sweep_file": "screener/inbox/2026-06-11_sweep.json",
+      "prelim_note": "Regulatory-risk criterion: consultation stage (not final) — materiality likely PARK-band until adopted.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null
+    }
+  ],
+  "signals": [
+    {
+      "signal_id": "SIG-20260610-a3f2c81d",
+      "event_id": "EVT-4be09c2d71aa",
+      "headline": "RBI's Monetary Policy Committee cuts repo rate 50 bps to 5.00% in surprise off-cycle move",
+      "source_name": "Reuters",
+      "source_grade": "A",
+      "processed_at": "2026-06-10T07:05:00Z",
+      "run_root": "screener/runs/SIG-20260610-a3f2c81d",
+      "materiality_score": 84,
+      "novelty_score": 0.85,
+      "pair_label": "new_event",
+      "action": "keep_separate",
+      "status": "provisional",
+      "status_reason": "Edge score 79 in the 60-80 band",
+      "thesis_id": "THS-SIG-20260610-a3f2c81d-v1"
+    }
+  ],
+  "theses": [
+    {
+      "thesis_id": "THS-SIG-20260610-a3f2c81d-v1",
+      "signal_id": "SIG-20260610-a3f2c81d",
+      "headline": "RBI's Monetary Policy Committee cuts repo rate 50 bps to 5.00% in surprise off-cycle move",
+      "status": "provisional",
+      "status_reason": "Edge score 79 lands in the 60-80 provisional band: trigger clarity is high (scheduled prints), but the variant departure is moderate and partially covered by one contrarian house.",
+      "routing_reason": "Edge is real but moderate: one house partially covers the timing leg, and the magnitude is in the +4-6% EPS range rather than a step-change.",
+      "next_action": "Surface candidates; monitor falsifiers; consider handoff of the top expression once its data pool is populated.",
+      "edge_score": 79,
+      "horizon": "medium_long_3_6months",
+      "falsification_sentence": "If 3-month AAA HFC commercial-paper yields have not declined by at least 25 bps from their 2026-06-09 level by 2026-08-15, the funding-cost transmission this thesis depends on is not occurring.",
+      "convergence_trigger": "Q2 FY27 results season for listed housing-finance companies (first full quarter carrying the lower funding costs)",
+      "trigger_date_range": "2026-10-15 to 2026-11-15",
+      "locked": true,
+      "run_root": "screener/runs/SIG-20260610-a3f2c81d",
+      "candidate_count": 4,
+      "candidates": [
+        {
+          "candidate_id": "CND-001",
+          "ticker": "CANFINHOME",
+          "company_name": "Can Fin Homes Ltd",
+          "side": "long",
+          "exposure_score": 86,
+          "handed_off": false
+        },
+        {
+          "candidate_id": "CND-002",
+          "ticker": "LICHSGFIN",
+          "company_name": "LIC Housing Finance Ltd",
+          "side": "long",
+          "exposure_score": 80,
+          "handed_off": false
+        },
+        {
+          "candidate_id": "CND-003",
+          "ticker": "CHOLAFIN",
+          "company_name": "Cholamandalam Investment & Finance Co Ltd",
+          "side": "long",
+          "exposure_score": 64,
+          "handed_off": false
+        },
+        {
+          "candidate_id": "CND-004",
+          "ticker": "FEDERALBNK",
+          "company_name": "The Federal Bank Ltd",
+          "side": "pair_short_leg",
+          "exposure_score": 58,
+          "handed_off": false
+        }
+      ]
+    }
+  ],
+  "handoffs": [],
+  "counts": {
+    "inbox_unconsumed": 2,
+    "signals_total": 1,
+    "parked": 0,
+    "logged": 0,
+    "watchlist": 0,
+    "provisional": 1,
+    "full_machine": 0,
+    "handed_off": 0
+  }
+}

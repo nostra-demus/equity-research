@@ -2,26 +2,24 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { REPO_ROOT } from './config'
 import { setCreditStatus } from './credit'
+import { sweepRunOutputs } from './fs-watcher'
 import { emit, finishRun, type RunState } from './registry'
-import { buildSwarmGraph } from './roster'
+import { agentNameIndexAllSwarms, buildSwarmGraph } from './roster'
 
 let nameIndex: Map<string, { key: string; module: string; layer: number; name: string }> | null = null
 function getNameIndex() {
   if (nameIndex) return nameIndex
-  nameIndex = new Map()
+  // subagent_type -> orb across EVERY swarm (agent names are globally unique, CLAUDE.md §26),
+  // so screener Task calls attribute to orbs exactly like research ones.
+  nameIndex = agentNameIndexAllSwarms()
   const g = buildSwarmGraph()
-  for (const m of g.modules) {
-    for (const a of Object.values(m.layers).flat()) {
-      nameIndex.set(a.name, { key: a.key, module: a.module, layer: a.layer, name: a.name })
-    }
-  }
   if (g.masterSynthesizer?.name) {
     nameIndex.set(g.masterSynthesizer.name, { key: 'master/synthesizer', module: 'master', layer: 99, name: g.masterSynthesizer.name })
   }
   return nameIndex
 }
 
-function finalPaths(run: RunState) {
+export function finalPaths(run: RunState) {
   const out: { finalThesisPath?: string | null; decisionRecordPath?: string | null } = {}
   if (!run.runRoot) return out
   const thesis = path.join(REPO_ROOT, run.runRoot, 'final_thesis.md')
@@ -109,15 +107,19 @@ export function handleStreamLine(run: RunState, line: string) {
       if (typeof obj.total_cost_usd === 'number') run.costUsd = obj.total_cost_usd
       if (typeof obj.num_turns === 'number') run.numTurns = obj.num_turns
       if (typeof obj.duration_ms === 'number') run.durationMs = obj.duration_ms
+      // last-moment file writes can still be held by the watcher's awaitWriteFinish — sweep the
+      // expected outputs from disk so agent-done lands BEFORE run-done, never after
+      sweepRunOutputs(run)
       emit(run, { type: 'cost-tick', runId: run.runId, costUsdSoFar: run.costUsd, ts })
+      // Error results finalize early (unambiguous). A CLEAN result does NOT finalize here: the
+      // process-close handler (launcher's finalizeRunOnClose) is the single success finalizer, so
+      // its integrity checks — the full/rerun missing-final-thesis guard — can never be bypassed
+      // by a clean stream `result` arriving moments before the process closes.
       if (run.status === 'running' || run.status === 'starting') {
         if (obj.is_error || obj.subtype === 'error_max_turns' || obj.subtype === 'error_during_execution') {
           const reason = obj.api_error_status ? `api_error_${obj.api_error_status}` : obj.subtype || 'engine_error'
           emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason, message: typeof obj.result === 'string' ? obj.result.slice(0, 400) : undefined, ts })
           finishRun(run, 'error')
-        } else {
-          emit(run, { type: 'run-done', runId: run.runId, status: 'done', costUsd: run.costUsd, durationMs: run.durationMs, numTurns: run.numTurns, ...finalPaths(run), ts })
-          finishRun(run, 'done')
         }
       }
       break

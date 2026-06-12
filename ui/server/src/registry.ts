@@ -19,6 +19,13 @@ export interface ExpectedAgent {
 export interface RunState {
   runId: string
   kind: RunKind
+  // The run's SUBJECT is the concurrency/routing key (RunSubject generalization): for research
+  // runs subjectId === ticker; for swarm runs it is the swarm's unit id (e.g. a SIG-… signal id).
+  // `ticker` is kept as the display/compat field — research consumers (activity log, calls list,
+  // run snapshots) read it unchanged; swarm runs set it to the subjectId label.
+  subjectId: string
+  swarmId: string // 'research' (default) or a SWARM.md id
+  unit: string // 'ticker' | 'signal' | …
   ticker: string
   module?: string
   agent?: string
@@ -51,13 +58,14 @@ export interface RunState {
 }
 
 const runs = new Map<string, RunState>()
-// Dependency-aware admission (admission.ts) governs same-ticker concurrency; this map just tracks
-// the in-flight run ids per ticker. Different tickers always run concurrently.
-const activeRunsByTicker = new Map<string, Set<string>>() // ticker -> set of in-flight runIds
+// Dependency-aware admission (admission.ts) governs same-subject concurrency; this map just tracks
+// the in-flight run ids per SUBJECT (research: the ticker; swarms: the unit id, e.g. a SIG id).
+// Different subjects always run concurrently.
+const activeRunsBySubject = new Map<string, Set<string>>() // subjectId -> set of in-flight runIds
 
-// All currently-live runs for a ticker (starting|running), self-healing any stale/ended ids.
-export function inFlightRunsForTicker(ticker: string): RunState[] {
-  const ids = activeRunsByTicker.get(ticker)
+// All currently-live runs for a subject (starting|running), self-healing any stale/ended ids.
+export function inFlightRunsForSubject(subjectId: string): RunState[] {
+  const ids = activeRunsBySubject.get(subjectId)
   if (!ids) return []
   const live: RunState[] = []
   for (const id of [...ids]) {
@@ -65,20 +73,33 @@ export function inFlightRunsForTicker(ticker: string): RunState[] {
     if (r && (r.status === 'starting' || r.status === 'running')) live.push(r)
     else ids.delete(id) // self-heal a stale entry
   }
-  if (ids.size === 0) activeRunsByTicker.delete(ticker)
+  if (ids.size === 0) activeRunsBySubject.delete(subjectId)
   return live
 }
 
-export function setActiveTickerRun(runId: string, ticker: string) {
-  let ids = activeRunsByTicker.get(ticker)
+// Back-compat alias (research callers/tests): a ticker IS the research subject.
+export function inFlightRunsForTicker(ticker: string): RunState[] {
+  return inFlightRunsForSubject(ticker)
+}
+
+export function setActiveSubjectRun(runId: string, subjectId: string) {
+  let ids = activeRunsBySubject.get(subjectId)
   if (!ids) {
     ids = new Set<string>()
-    activeRunsByTicker.set(ticker, ids)
+    activeRunsBySubject.set(subjectId, ids)
   }
   ids.add(runId)
 }
 
-export function createRun(init: Omit<RunState, 'runId' | 'eventLog' | 'subscribers' | 'agents' | 'expected' | 'toolUseToAgent' | 'child' | 'status' | 'startedAt'> & Partial<Pick<RunState, 'expected' | 'agents'>>): RunState {
+// Back-compat alias (research callers/tests).
+export function setActiveTickerRun(runId: string, ticker: string) {
+  setActiveSubjectRun(runId, ticker)
+}
+
+export function createRun(
+  init: Omit<RunState, 'runId' | 'eventLog' | 'subscribers' | 'agents' | 'expected' | 'toolUseToAgent' | 'child' | 'status' | 'startedAt' | 'subjectId' | 'swarmId' | 'unit'> &
+    Partial<Pick<RunState, 'expected' | 'agents' | 'subjectId' | 'swarmId' | 'unit'>>,
+): RunState {
   const runId = randomUUID()
   const run: RunState = {
     runId,
@@ -91,6 +112,11 @@ export function createRun(init: Omit<RunState, 'runId' | 'eventLog' | 'subscribe
     eventLog: [],
     subscribers: new Set(),
     ...init,
+    // RunSubject defaults AFTER the spread so an omitted/undefined field can never shadow them:
+    // existing research call sites pass only `ticker` and stay correct.
+    subjectId: init.subjectId ?? init.ticker,
+    swarmId: init.swarmId ?? 'research',
+    unit: init.unit ?? 'ticker',
   }
   runs.set(runId, run)
   return run
@@ -128,10 +154,10 @@ export function unsubscribe(run: RunState, client: SseClient) {
 export function finishRun(run: RunState, status: RunStatus) {
   run.status = status
   run.endedAt = Date.now()
-  const ids = activeRunsByTicker.get(run.ticker)
+  const ids = activeRunsBySubject.get(run.subjectId)
   if (ids) {
     ids.delete(run.runId)
-    if (ids.size === 0) activeRunsByTicker.delete(run.ticker)
+    if (ids.size === 0) activeRunsBySubject.delete(run.subjectId)
   }
   // append the perpetual audit record once (finishRun can be reached from both the stream parser and
   // the process-close handler; the guard makes the write idempotent)

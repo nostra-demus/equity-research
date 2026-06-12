@@ -2,8 +2,9 @@ import fs from 'node:fs'
 import path from 'node:path'
 import fg from 'fast-glob'
 import matter from 'gray-matter'
-import { AGENTS_DIR, ANALYSES_DIR } from './config'
-import type { AgentNode, DataReadinessDecl, ModuleNode, SwarmGraph } from './types'
+import { AGENTS_DIR, ANALYSES_DIR, REPO_ROOT } from './config'
+import { RESEARCH_SWARM_ID, listSwarms, runRootForSubject, swarmById } from './swarms'
+import type { AgentNode, DataReadinessDecl, ModuleNode, SwarmGraph, SwarmManifest } from './types'
 
 function readFrontmatter(filePath: string) {
   const raw = fs.readFileSync(filePath, 'utf8')
@@ -28,19 +29,37 @@ function parseDependsOn(v: any): string[] {
 }
 
 // Parse the agent body's UPSTREAM_INPUTS block for run-root-relative REQUIRED files.
-function parseRequiredUpstream(content: string): string[] {
+// The path shape is the SWARM's run-root template (manifest-derived, never hardcoded):
+// research agents write `analyses/{TICKER}_{DATE}/<rel>`, screener agents write
+// `screener/runs/{SIG_ID}/<rel>`, a future swarm writes its own template. The stored
+// requiredUpstream stays RUN-ROOT-RELATIVE in every swarm.
+function upstreamLineRegex(swarm: SwarmManifest): RegExp {
+  const esc = swarm.runRootTemplate.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  return new RegExp('`' + esc + '/([^`]+)`', 'g')
+}
+
+function parseRequiredUpstream(content: string, swarm: SwarmManifest): string[] {
   const out = new Set<string>()
+  const lineRe = upstreamLineRegex(swarm)
   for (const ln of content.split(/\r?\n/)) {
     if (!/required/i.test(ln)) continue
-    const lineRe = /`analyses\/\{TICKER\}_\{DATE\}\/([^`]+)`/g
+    lineRe.lastIndex = 0
     let m: RegExpExecArray | null
     while ((m = lineRe.exec(ln))) out.add(m[1].trim())
   }
   return [...out]
 }
 
-function discoverModules(): { name: string; dependsOn: string[]; dir: string }[] {
-  const synthFiles = fg.sync('*/99_*-synthesis.md', { cwd: AGENTS_DIR, absolute: true })
+interface DiscoveredModule {
+  name: string
+  dependsOn: string[]
+  dir: string // absolute module folder (nested for swarms)
+}
+
+function discoverModules(swarm: SwarmManifest): DiscoveredModule[] {
+  // research (grandfathered): flat one-level glob — by construction it cannot see a swarm's
+  // nested modules (their 99s sit two levels deep). Swarms: one level inside the swarm dir.
+  const synthFiles = fg.sync('*/99_*-synthesis.md', { cwd: swarm.dir, absolute: true })
   return synthFiles.map((f) => {
     const dir = path.dirname(f)
     const name = path.basename(dir)
@@ -76,10 +95,8 @@ function topoSort(mods: { name: string; dependsOn: string[] }[]): string[] {
   return placed
 }
 
-function buildModule(name: string, dependsOn: string[], order: number): ModuleNode {
-  const files = fg
-    .sync('[0-9][0-9]_*.md', { cwd: path.join(AGENTS_DIR, name), absolute: true })
-    .sort()
+function buildModule(mod: DiscoveredModule, order: number, swarm: SwarmManifest): ModuleNode {
+  const files = fg.sync('[0-9][0-9]_*.md', { cwd: mod.dir, absolute: true }).sort()
   const layers: Record<string, AgentNode[]> = {}
   let count = 0
   let dataReadiness: DataReadinessDecl | undefined
@@ -91,10 +108,10 @@ function buildModule(name: string, dependsOn: string[], order: number): ModuleNo
     const layer = Number.isFinite(Number(data.layer)) ? Number(data.layer) : 999
     // a module self-declares its data-readiness rule in its 00-triage frontmatter (optional)
     if (nn === '00' && data.data_readiness && typeof data.data_readiness === 'object') dataReadiness = data.data_readiness as DataReadinessDecl
-    const requiredUpstream = parseRequiredUpstream(content)
+    const requiredUpstream = parseRequiredUpstream(content, swarm)
     const node: AgentNode = {
-      key: `${name}/${base}`,
-      module: name,
+      key: `${mod.name}/${base}`,
+      module: mod.name,
       nn,
       name: String(data.name || slug),
       slug,
@@ -110,7 +127,13 @@ function buildModule(name: string, dependsOn: string[], order: number): ModuleNo
     count++
   }
   for (const k of Object.keys(layers)) layers[k].sort((a, b) => a.nn.localeCompare(b.nn))
-  return { name, order, dependsOn, layers, agentCount: count, dataReadiness }
+  const node: ModuleNode = { name: mod.name, order, dependsOn: mod.dependsOn, layers, agentCount: count, dataReadiness }
+  // swarm provenance only for non-research swarms — the default research payload stays byte-stable
+  if (swarm.id !== RESEARCH_SWARM_ID) {
+    node.swarmId = swarm.id
+    node.moduleDir = path.relative(REPO_ROOT, mod.dir)
+  }
+  return node
 }
 
 // Map of module name -> its self-declared data-readiness rule (undefined if it declares none).
@@ -121,27 +144,35 @@ export function moduleReadinessDecls(): Record<string, DataReadinessDecl | undef
   return out
 }
 
-let cached: SwarmGraph | null = null
+const cached = new Map<string, SwarmGraph>()
 
-export function buildSwarmGraph(force = false): SwarmGraph {
-  if (cached && !force) return cached
-  const discovered = discoverModules()
+export function buildSwarmGraph(swarmId: string = RESEARCH_SWARM_ID, force = false): SwarmGraph {
+  const hit = cached.get(swarmId)
+  if (hit && !force) return hit
+  const swarm = swarmById(swarmId)
+  if (!swarm) throw Object.assign(new Error(`unknown swarm '${swarmId}'`), { statusCode: 404 })
+  const discovered = discoverModules(swarm)
   const order = topoSort(discovered)
   const modules = order.map((name, i) => {
     const d = discovered.find((m) => m.name === name)!
-    return buildModule(name, d.dependsOn, i)
+    return buildModule(d, i, swarm)
   })
 
   let masterSynthesizer = { name: 'synthesizer', description: '' }
-  const synthFile = path.join(AGENTS_DIR, 'synthesizer.md')
-  if (fs.existsSync(synthFile)) {
-    const { data } = readFrontmatter(synthFile)
-    masterSynthesizer = { name: String(data.name || 'synthesizer'), description: String(data.description || '') }
+  if (swarm.id === RESEARCH_SWARM_ID) {
+    const synthFile = path.join(AGENTS_DIR, 'synthesizer.md')
+    if (fs.existsSync(synthFile)) {
+      const { data } = readFrontmatter(synthFile)
+      masterSynthesizer = { name: String(data.name || 'synthesizer'), description: String(data.description || '') }
+    }
+  } else {
+    // swarms have no master synthesizer orb — their terminal is the routing switchyard
+    masterSynthesizer = { name: '', description: '' }
   }
 
   const allAgents = modules.flatMap((m) => Object.values(m.layers).flat())
   const synthesis = allAgents.filter((a) => a.isSynthesis).length
-  cached = {
+  const graph: SwarmGraph = {
     modules,
     masterSynthesizer,
     totals: {
@@ -151,7 +182,11 @@ export function buildSwarmGraph(force = false): SwarmGraph {
       synthesis,
     },
   }
-  return cached
+  if (swarm.id !== RESEARCH_SWARM_ID) {
+    graph.swarm = { id: swarm.id, label: swarm.label, color: swarm.color, unit: swarm.unit, layout: swarm.layout, order: swarm.order }
+  }
+  cached.set(swarmId, graph)
+  return graph
 }
 
 export function findLatestRunRoot(ticker: string): string | null {
@@ -161,6 +196,19 @@ export function findLatestRunRoot(ticker: string): string | null {
     .sort()
     .reverse()
   return dirs.length ? path.join(ANALYSES_DIR, dirs[0]) : null
+}
+
+// The subject's run root for ANY swarm, ABSOLUTE, or null when none exists on disk yet.
+// research: the latest dated analyses/<TICKER>_* folder; other swarms: the template-resolved
+// folder (one run folder per subject — a signal's folder IS its identity).
+export function findRunRootForSubject(swarmId: string, subjectId: string): string | null {
+  if (swarmId === RESEARCH_SWARM_ID) return findLatestRunRoot(subjectId)
+  const swarm = swarmById(swarmId)
+  if (!swarm) return null
+  const rel = runRootForSubject(swarm, subjectId)
+  if (!rel) return null
+  const abs = path.join(REPO_ROOT, rel)
+  return fs.existsSync(abs) ? abs : null
 }
 
 // Latest dated folder that contains <module>/, mirroring the slash-command resolver
@@ -177,26 +225,33 @@ export function latestModuleFolder(ticker: string, module: string): string | nul
 // Are a module's cross-module dependencies complete on disk? Checks ONLY module.dependsOn —
 // a no-deps module is trivially complete; it does NOT require the module's own synthesis. For each
 // dep, the EXACT folder the command would pick must contain its 99 synthesis (mirrors D4).
-export function depsCompleteForModule(ticker: string, module: string): { complete: boolean; missing: string[] } {
-  const g = buildSwarmGraph()
+// Swarm-aware: research resolves each dep's latest dated folder; other swarms resolve the
+// subject's single run folder.
+export function depsCompleteForModule(subjectId: string, module: string, swarmId: string = RESEARCH_SWARM_ID): { complete: boolean; missing: string[] } {
+  const g = buildSwarmGraph(swarmId)
   const deps = g.modules.find((x) => x.name === module)?.dependsOn ?? []
   const missing: string[] = []
   for (const dep of deps) {
-    const folder = latestModuleFolder(ticker, dep)
-    const ok = !!folder && fg.sync('99_*-synthesis.md', { cwd: folder }).length > 0
+    const folder = swarmId === RESEARCH_SWARM_ID
+      ? latestModuleFolder(subjectId, dep)
+      : (() => {
+          const root = findRunRootForSubject(swarmId, subjectId)
+          return root ? path.join(root, dep) : null
+        })()
+    const ok = !!folder && fs.existsSync(folder) && fg.sync('99_*-synthesis.md', { cwd: folder }).length > 0
     if (!ok) missing.push(dep)
   }
   return { complete: missing.length === 0, missing }
 }
 
-// Recompute soloRunnable against a ticker's latest run folder (deep agents need their upstream present).
-export function graphForTicker(ticker: string): SwarmGraph {
-  const base = buildSwarmGraph()
-  const runRoot = findLatestRunRoot(ticker)
+// Recompute soloRunnable against a subject's run folder (deep agents need their upstream present).
+export function graphForSubject(swarmId: string, subjectId: string): SwarmGraph {
+  const base = buildSwarmGraph(swarmId)
+  const runRoot = findRunRootForSubject(swarmId, subjectId)
   const clone: SwarmGraph = JSON.parse(JSON.stringify(base))
   for (const m of clone.modules) {
     // module-level: are this module's cross-module dependencies complete on disk? (matches admission D4)
-    const deps = depsCompleteForModule(ticker, m.name)
+    const deps = depsCompleteForModule(subjectId, m.name, swarmId)
     m.depsComplete = deps.complete
     m.missingDeps = deps.missing
     for (const layerKey of Object.keys(m.layers)) {
@@ -214,15 +269,36 @@ export function graphForTicker(ticker: string): SwarmGraph {
   return clone
 }
 
-// Flat lookup helpers for launch validation.
-export function listModuleNames(): string[] {
-  return buildSwarmGraph().modules.map((m) => m.name)
+// Back-compat alias: the research cockpit's per-ticker graph.
+export function graphForTicker(ticker: string): SwarmGraph {
+  return graphForSubject(RESEARCH_SWARM_ID, ticker)
 }
 
-export function agentNamesForModule(moduleName: string): string[] {
-  const m = buildSwarmGraph().modules.find((x) => x.name === moduleName)
+// Flat lookup helpers for launch validation.
+export function listModuleNames(swarmId: string = RESEARCH_SWARM_ID): string[] {
+  return buildSwarmGraph(swarmId).modules.map((m) => m.name)
+}
+
+export function agentNamesForModule(moduleName: string, swarmId: string = RESEARCH_SWARM_ID): string[] {
+  const m = buildSwarmGraph(swarmId).modules.find((x) => x.name === moduleName)
   if (!m) return []
   return Object.values(m.layers).flat().map((a) => a.name)
+}
+
+// subagent_type -> {key, module, layer, name} across EVERY swarm (agent names are globally unique
+// per CLAUDE.md §26, so one flat index is safe). The stream parser uses this to attribute Task
+// calls to orbs regardless of which swarm's run produced them.
+export function agentNameIndexAllSwarms(): Map<string, { key: string; module: string; layer: number; name: string; swarmId: string }> {
+  const idx = new Map<string, { key: string; module: string; layer: number; name: string; swarmId: string }>()
+  for (const s of listSwarms()) {
+    const g = buildSwarmGraph(s.id)
+    for (const m of g.modules) {
+      for (const a of Object.values(m.layers).flat()) {
+        idx.set(a.name, { key: a.key, module: a.module, layer: a.layer, name: a.name, swarmId: s.id })
+      }
+    }
+  }
+  return idx
 }
 
 // ---- re-run cascade ----
@@ -284,9 +360,10 @@ export function transitiveDownstreamModules(graph: SwarmGraph, moduleName: strin
 //  - specialist  -> [target, its module 99, ...downstream module 99s (topo), master]
 //  - module 99   -> [that 99, ...downstream module 99s (topo), master]
 //  - master      -> [master] only (regenerates thesis/memo/dossier)
-export function downstreamCascade(moduleName: string, agentName: string): CascadeNode[] {
+// Swarm runs have no master orb — their cascade ends at the last downstream synthesis.
+export function downstreamCascade(moduleName: string, agentName: string, swarmId: string = RESEARCH_SWARM_ID): CascadeNode[] {
   if (moduleName === 'master') return [MASTER_CASCADE]
-  const graph = buildSwarmGraph()
+  const graph = buildSwarmGraph(swarmId)
   const mod = graph.modules.find((m) => m.name === moduleName)
   if (!mod) return []
   const target = Object.values(mod.layers).flat().find((a) => a.name === agentName || a.slug === agentName)
@@ -304,6 +381,6 @@ export function downstreamCascade(moduleName: string, agentName: string): Cascad
     const synth = synthesisOf(m)
     if (synth) out.push(cascadeEntry(synth, 'module-synthesis'))
   }
-  out.push(MASTER_CASCADE)
+  if (swarmId === RESEARCH_SWARM_ID) out.push(MASTER_CASCADE)
   return out
 }

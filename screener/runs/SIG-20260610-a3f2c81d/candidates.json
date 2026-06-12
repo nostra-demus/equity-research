@@ -1,0 +1,70 @@
+{
+  "thesis_id": "THS-SIG-20260610-a3f2c81d-v1",
+  "signal_id": "SIG-20260610-a3f2c81d",
+  "fixture": true,
+  "generated_at": "2026-06-10T07:40:00Z",
+  "routing": "provisional",
+  "candidates": [
+    {
+      "candidate_id": "CND-001",
+      "ticker": "CANFINHOME",
+      "company_name": "Can Fin Homes Ltd",
+      "exchange": "NSE",
+      "side": "long",
+      "beneficiary_ref": "DIR-001",
+      "exposure_score": 86,
+      "exposure_rationale": "Pure-play housing finance; ~100% of revenue is the mortgage spread; market borrowings (NCD/CP/bank lines) fund the large majority of the book, so the 50 bps roll-down hits nearly the whole funding stack. [FY25 Annual Report (Ind AS), borrowings note - fixture cite]",
+      "liquidity_note": "Mid-cap, adequately liquid for institutional sizing.",
+      "prior_coverage": { "has_run": false, "latest_run_root": null, "latest_decision": null, "data_pool_present": false },
+      "pair_with": null,
+      "caveats": "Mortgage pricing competition can pass the benefit to borrowers faster than modelled (SF-002 sensitivity).",
+      "sources": [{ "url": "https://www.nseindia.com/get-quotes/equity?symbol=CANFINHOME", "source_name": "Exchange data (NSE)", "source_grade": "A", "retrieved_at": "2026-06-10T07:20:00Z", "claim_supported": "Listing/liquidity." }]
+    },
+    {
+      "candidate_id": "CND-002",
+      "ticker": "LICHSGFIN",
+      "company_name": "LIC Housing Finance Ltd",
+      "exchange": "NSE",
+      "side": "long",
+      "beneficiary_ref": "DIR-001",
+      "exposure_score": 80,
+      "exposure_rationale": "Large pure-play HFC; heavy NCD funding mix rolls onto lower yields over 1-2 quarters; scale dampens the per-unit effect vs CND-001. [FY25 Annual Report (Ind AS), borrowings note - fixture cite]",
+      "liquidity_note": "Large-cap, highly liquid.",
+      "prior_coverage": { "has_run": false, "latest_run_root": null, "latest_decision": null, "data_pool_present": false },
+      "pair_with": null,
+      "caveats": "Parentage/governance questions belong to the research swarm's management-governance module.",
+      "sources": [{ "url": "https://www.nseindia.com/get-quotes/equity?symbol=LICHSGFIN", "source_name": "Exchange data (NSE)", "source_grade": "A", "retrieved_at": "2026-06-10T07:22:00Z", "claim_supported": "Listing/liquidity." }]
+    },
+    {
+      "candidate_id": "CND-003",
+      "ticker": "CHOLAFIN",
+      "company_name": "Cholamandalam Investment & Finance Co Ltd",
+      "exchange": "NSE",
+      "side": "long",
+      "beneficiary_ref": "DIR-002",
+      "exposure_score": 64,
+      "exposure_rationale": "Vehicle/consumer NBFC with market-borrowing funding; shorter asset duration passes some benefit to borrowers, diluting capture. [FY25 Annual Report (Ind AS) - fixture cite]",
+      "liquidity_note": "Large-cap, highly liquid.",
+      "prior_coverage": { "has_run": false, "latest_run_root": null, "latest_decision": null, "data_pool_present": false },
+      "pair_with": null,
+      "caveats": "Secondary-tier expression; competitive pass-through is the main dilution.",
+      "sources": [{ "url": "https://www.nseindia.com/get-quotes/equity?symbol=CHOLAFIN", "source_name": "Exchange data (NSE)", "source_grade": "A", "retrieved_at": "2026-06-10T07:24:00Z", "claim_supported": "Listing/liquidity." }]
+    },
+    {
+      "candidate_id": "CND-004",
+      "ticker": "FEDERALBNK",
+      "company_name": "The Federal Bank Ltd",
+      "exchange": "NSE",
+      "side": "pair_short_leg",
+      "beneficiary_ref": "HARM-001",
+      "exposure_score": 58,
+      "exposure_rationale": "High EBLR-linked floating retail share with competitive deposit costs - the NIM-compression expression of HARM-001 for the pair construction. [FY25 Annual Report, EBLR disclosure - fixture cite]",
+      "liquidity_note": "Liquid; futures available for the short leg.",
+      "prior_coverage": { "has_run": false, "latest_run_root": null, "latest_decision": null, "data_pool_present": false },
+      "pair_with": "CND-001",
+      "caveats": "Bank-specific deposit franchise strength can mute the compression; the pair isolates transmission asymmetry, not bank quality.",
+      "sources": [{ "url": "https://www.nseindia.com/get-quotes/equity?symbol=FEDERALBNK", "source_name": "Exchange data (NSE)", "source_grade": "A", "retrieved_at": "2026-06-10T07:26:00Z", "claim_supported": "Listing/liquidity/futures." }]
+    }
+  ],
+  "handoff_status": {}
+}

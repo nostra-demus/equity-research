@@ -16,8 +16,13 @@ interface PromptSource { path: string; label: string; blurb: string }
 
 export function OutputReader({ output }: { output: { path?: string; title: string; verdict?: string | null; nodeKey?: string; pending?: boolean } }) {
   const close = useStore((s) => s.closeOutput)
-  const nodesByKey = useStore((s) => s.nodesByKey)
-  const nodeStatus = useStore((s) => s.nodeStatus)
+  const activeSwarm = useStore((s) => s.activeSwarm)
+  const researchNodes = useStore((s) => s.nodesByKey)
+  const scNodes = useStore((s) => s.scNodesByKey)
+  const nodesByKey = activeSwarm === 'screener' ? scNodes : researchNodes
+  const researchNodeStatus = useStore((s) => s.nodeStatus)
+  const scNodeStatus = useStore((s) => s.scNodeStatus)
+  const nodeStatus = activeSwarm === 'screener' ? scNodeStatus : researchNodeStatus
   const launchRerun = useStore((s) => s.launchRerun)
   const launchAgent = useStore((s) => s.launchAgent)
   const launchModule = useStore((s) => s.launchModule)
@@ -62,18 +67,19 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
   const busy = tstatus === 'queued' || tstatus === 'running'
 
   // the prompt(s) reachable from this panel: the orb's own prompt, its module's shared rules (if any),
-  // and the engine constitution. Derived purely from the node key, so a new module needs no wiring.
-  const promptPath = promptPathForNodeKey(output.nodeKey)
+  // and the engine constitution. Derived purely from the node key (+ the active swarm's agents root,
+  // since swarm modules nest one folder deeper), so a new module or swarm needs no wiring.
+  const promptPath = promptPathForNodeKey(output.nodeKey, activeSwarm)
   const ownModule = moduleOfNodeKey(output.nodeKey)
   const promptRows = useMemo<PromptRow[]>(() => {
     if (!promptPath) return []
     const rows: PromptRow[] = [
       { path: promptPath, label: "This orb's prompt", sub: 'the exact instructions it runs on', blurb: `This is the exact prompt the “${output.title}” orb runs on, word for word.` },
     ]
-    if (ownModule) rows.push({ path: moduleRulesPath(ownModule), label: `${titleize(ownModule)} rules`, sub: 'shared rules for this module', blurb: `These are the shared rules every orb in the ${titleize(ownModule)} module follows.` })
+    if (ownModule) rows.push({ path: moduleRulesPath(ownModule, activeSwarm), label: `${titleize(ownModule)} rules`, sub: 'shared rules for this module', blurb: `These are the shared rules every orb in the ${titleize(ownModule)} module follows.` })
     rows.push({ path: CONSTITUTION_PATH, label: 'Engine constitution', sub: 'the cross-cutting doctrine', blurb: 'This is the engine-wide doctrine every module and orb is held to.' })
     return rows
-  }, [promptPath, ownModule, output.title])
+  }, [promptPath, ownModule, output.title, activeSwarm])
 
   const mailtoFor = (src: { path: string; label: string }) =>
     `mailto:${IMPROVE_EMAIL}?subject=${encodeURIComponent(`Prompt improvement — ${src.path}`)}&body=${encodeURIComponent(
@@ -157,7 +163,10 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
   }
 
   // status-aware run control, left of Download. Done -> Re-run (cascade). Not-yet-run -> Run / Run module.
+  // Screener orbs have no in-panel run control (their pipeline is gate-driven; orb-level re-runs go
+  // through /screener:agent) — never fall through to the RESEARCH launch actions from screener mode.
   function runButton() {
+    if (activeSwarm !== 'research') return null
     if (output.pending) {
       if (!agentNode) return null
       const status = nodeStatus(agentNode.key)

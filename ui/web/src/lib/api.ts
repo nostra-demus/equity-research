@@ -1,5 +1,5 @@
 import { staticPromptPath } from './prompts'
-import type { ActivityQuery, ActivityResult, CallsResult, DataStatus, LaunchPreflight, SwarmGraph, TickerSummary, Usage, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, CallsResult, DataStatus, LaunchPreflight, ScreenerBoard, SignalIntakeInput, SwarmGraph, SwarmMeta, TickerSummary, Usage, Whoami } from './types'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -62,10 +62,53 @@ async function post<T>(url: string, body?: any): Promise<T> {
 
 const STATIC_ERR = () => Object.assign(new Error('static-deploy'), { static: true })
 
+const EMPTY_BOARD: ScreenerBoard = { generated_at: null, inbox: [], signals: [], theses: [], handoffs: [], counts: {}, live: [] }
+
 export const api = {
   swarm: async (ticker?: string): Promise<SwarmGraph> => {
     if ((await ensureMode()) === 'static') return snap.swarmGraph
     return get<SwarmGraph>(`/api/swarm${ticker ? `?ticker=${encodeURIComponent(ticker)}` : ''}`)
+  },
+  // ---- swarms (the switcher) + the screener swarm's surface ----
+  swarms: async (): Promise<SwarmMeta[]> => {
+    if ((await ensureMode()) === 'static') return snap.swarms || [{ id: 'research', label: 'Research', color: '#e0a33e', unit: 'ticker', order: 1, layout: 'constellation' }]
+    return get<SwarmMeta[]>(`/api/swarms`)
+  },
+  swarmGraph: async (swarmId: string, subject?: string): Promise<SwarmGraph> => {
+    if ((await ensureMode()) === 'static') {
+      if (swarmId === 'research' || !snap.swarmGraphs?.[swarmId]) return snap.swarmGraph
+      return snap.swarmGraphs[swarmId]
+    }
+    if (swarmId === 'research') return get<SwarmGraph>(`/api/swarm`)
+    return get<SwarmGraph>(`/api/swarm?swarm=${encodeURIComponent(swarmId)}${subject ? `&subject=${encodeURIComponent(subject)}` : ''}`)
+  },
+  screenerBoard: async (): Promise<ScreenerBoard> => {
+    if ((await ensureMode()) === 'static') return snap.screenerBoard || EMPTY_BOARD
+    return get<ScreenerBoard>(`/api/screener/board`)
+  },
+  screenerRun: async (sigId: string): Promise<any> => {
+    if ((await ensureMode()) === 'static') return snap.screenerRuns?.[sigId] || null
+    return get(`/api/screener/run?sig_id=${encodeURIComponent(sigId)}`)
+  },
+  screenerThesis: async (thesisId: string): Promise<any> => {
+    if ((await ensureMode()) === 'static') return snap.screenerTheses?.[thesisId] || null
+    return get(`/api/screener/thesis/${encodeURIComponent(thesisId)}`)
+  },
+  screenerCandidates: async (thesisId: string): Promise<any> => {
+    if ((await ensureMode()) === 'static') return snap.screenerCandidates?.[thesisId] || null
+    return get(`/api/screener/candidates/${encodeURIComponent(thesisId)}`)
+  },
+  launchSignal: async (body: { sigId?: string; intake?: SignalIntakeInput }): Promise<{ runId: string; preflight: LaunchPreflight }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/launch`, { kind: 'signal', ...body })
+  },
+  launchSweep: async (): Promise<{ runId: string; preflight: LaunchPreflight }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/launch`, { kind: 'sweep' })
+  },
+  handoff: async (thesisId: string, ticker: string): Promise<{ alreadyHandedOff: boolean; runId?: string; handoff?: any }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/screener/handoff`, { thesisId, ticker })
   },
   tickers: async (): Promise<{ tickers: TickerSummary[]; emptyState: boolean; dataDir?: string }> => {
     if ((await ensureMode()) === 'static') return { tickers: snap.tickers, emptyState: snap.emptyState, dataDir: snap.dataDir }
@@ -101,6 +144,8 @@ export const api = {
       if (!r.ok) throw new Error('not found')
       return { path, markdown: await r.text() }
     }
+    // screener artifacts are served by their own sandboxed reader; analyses/ keeps /api/output
+    if (path.startsWith('screener/')) return get(`/api/screener/output?path=${encodeURIComponent(path)}`)
     return get(`/api/output?path=${encodeURIComponent(path)}`)
   },
   // Read-only prompt surface (agent definitions / module rules / constitution). Works in both modes:

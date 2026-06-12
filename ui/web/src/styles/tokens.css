@@ -51,4 +51,21 @@
   /* elevation */
   --shadow-1: 0 1px 0 rgba(255, 255, 255, 0.02) inset, 0 8px 24px rgba(0, 0, 0, 0.4);
   --shadow-2: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 18px 50px rgba(0, 0, 0, 0.55);
+
+  /* swarm identities (the switcher + warp read both regardless of the active scope) */
+  --swarm-research: #e0a33e;
+  --swarm-screener: #3fc6d2;
+}
+
+/* Screener swarm scope — remap the single accent family and the whole design language
+   (orbs, edges, glows, buttons, washes) flips to cyan with zero component forks.
+   Charcoal surfaces, text, --bad and the lone --live green stay shared. */
+[data-swarm='screener'] {
+  --accent: #3fc6d2;
+  --accent-bright: #7adde6;
+  --accent-deep: #2f9aa5;
+  --accent-glow: rgba(63, 198, 210, 0.55);
+  --accent-wash: rgba(63, 198, 210, 0.12);
+  --accent-wash-soft: rgba(63, 198, 210, 0.06);
+  --good: #3fc6d2;
 }

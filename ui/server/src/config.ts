@@ -40,7 +40,7 @@ export const DEFAULT_MODEL = process.env.ENGINE_MODEL || 'sonnet'
 // stays the single-process /research:full path.
 export const FULL_PER_MODULE = process.env.ENGINE_FULL_PER_MODULE === '1'
 
-export type LaunchKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track'
+export type LaunchKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track' | 'signal' | 'sweep' | 'screener-agent' | 'handoff'
 
 // Runaway / cost guards per launch granularity. These are HARD ceilings: the headless CLI stops when it
 // hits the budget/turn cap, even mid-run. The earlier full-run defaults (800 turns / $60) truncated a
@@ -61,6 +61,15 @@ export const LAUNCH_GUARDS: Record<LaunchKind, { maxTurns: number; budgetUsd: nu
   review: { maxTurns: capNum(process.env.ENGINE_REVIEW_MAX_TURNS, 120), budgetUsd: capNum(process.env.ENGINE_REVIEW_BUDGET_USD, 20) },
   // rebuild the calls-tracker dashboard (read-only aggregate of records + reviews; no web).
   track: { maxTurns: capNum(process.env.ENGINE_TRACK_MAX_TURNS, 120), budgetUsd: capNum(process.env.ENGINE_TRACK_BUDGET_USD, 20) },
+  // screener swarm — one signal through the whole gauntlet (4 modules, ~13 agents, fail-fast gates
+  // mean most signals stop early and cost far less than the ceiling).
+  signal: { maxTurns: capNum(process.env.ENGINE_SIGNAL_MAX_TURNS, 900), budgetUsd: capNum(process.env.ENGINE_SIGNAL_BUDGET_USD, 100) },
+  // market sweep: WebSearch across approved sources -> inbox JSON only (no gauntlet work).
+  sweep: { maxTurns: capNum(process.env.ENGINE_SWEEP_MAX_TURNS, 120), budgetUsd: capNum(process.env.ENGINE_SWEEP_BUDGET_USD, 20) },
+  // one screener orb into an existing signal run (mirror of research 'agent').
+  'screener-agent': { maxTurns: capNum(process.env.ENGINE_SCREENER_AGENT_MAX_TURNS, 60), budgetUsd: capNum(process.env.ENGINE_SCREENER_AGENT_BUDGET_USD, 12) },
+  // idempotent thesis->ticker handoff: read the locked record, write one data-pool memo + ledger line.
+  handoff: { maxTurns: capNum(process.env.ENGINE_HANDOFF_MAX_TURNS, 60), budgetUsd: capNum(process.env.ENGINE_HANDOFF_BUDGET_USD, 10) },
 }
 
 // Rough cost/time estimates surfaced to the UI before launch (heuristic only; the hard cap is budgetUsd).

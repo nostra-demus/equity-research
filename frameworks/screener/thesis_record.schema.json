@@ -1,0 +1,422 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "frameworks/screener/thesis_record.schema.json",
+  "title": "Phase 1 thesis record (M0.1-M0.6)",
+  "description": "The structured thesis record assembled by thesis-structure (meta + M0_1..M0_5) and completed + LOCKED by edge-definition (M0_6, routing). Field names follow the Phase 1 schema verbatim. Booleans documented as 'locked' carry const values: an agent that cannot truthfully set them fails the gate instead of bending the field.",
+  "type": "object",
+  "required": ["meta", "M0_1", "M0_2", "M0_3", "M0_4", "M0_5"],
+  "properties": {
+    "meta": {
+      "type": "object",
+      "required": ["thesis_id", "created_at", "locked", "version", "status"],
+      "properties": {
+        "thesis_id": { "type": "string", "pattern": "^THS-SIG-[0-9]{8}-[a-f0-9]{8}-v[0-9]+$" },
+        "signal_id": { "type": "string", "pattern": "^SIG-[0-9]{8}-[a-f0-9]{8}$" },
+        "created_at": { "type": "string" },
+        "locked": { "type": "boolean", "description": "Once true, no field may be overwritten; amendments append to version_history and increment version." },
+        "version": { "type": "integer", "minimum": 1 },
+        "version_history": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["version", "datetime", "change_note"],
+            "properties": {
+              "version": { "type": "integer" },
+              "datetime": { "type": "string" },
+              "change_note": { "type": "string" }
+            }
+          }
+        },
+        "status": {
+          "type": "string",
+          "enum": ["active", "watchlist_no_source", "watchlist_no_world_change", "watchlist_no_edge", "provisional", "full_machine"]
+        },
+        "status_reason": { "type": "string" },
+        "next_action": { "type": "string" },
+        "analyst_id": { "type": "string", "description": "Owner of the record (cockpit user or 'engine')." },
+        "phase1_completed_at": { "type": ["string", "null"], "description": "Datetime when M0.6.6 routing was confirmed." },
+        "next_module": { "type": ["string", "null"], "description": "Downstream destination on completion (e.g. research swarm full run for full_machine)." },
+        "raw_input_source": {
+          "type": "object",
+          "required": ["input_nature", "input_datetime", "approved_source_check"],
+          "properties": {
+            "input_nature": {
+              "type": "string",
+              "enum": [
+                "human_prompt", "news_headline", "price_alert", "regulatory_filing", "earnings_release",
+                "earnings_call_transcript", "company_press_release", "exchange_announcement", "commodity_price_move",
+                "shipping_rate_move", "options_flow_alert", "chart_pattern", "geopolitical_event", "macro_data_release"
+              ]
+            },
+            "input_datetime": { "type": "string" },
+            "source_name": { "type": "string", "description": "Must be on the swarm's approved list, else Gate 0 fails and status is forced to watchlist_no_source." },
+            "source_url": { "type": "string" },
+            "source_grade": { "type": "string", "enum": ["A", "B"] },
+            "human_prompt_note": { "type": "string" },
+            "approved_source_check": { "type": "boolean", "const": true, "description": "LOCKED: cannot be true for an off-list source; an off-list source never reaches this record." }
+          }
+        }
+      }
+    },
+    "M0_1": {
+      "type": "object",
+      "required": ["event_statement", "sentence_count", "primary_source", "source_grade", "causal_language_check", "60_second_source_check"],
+      "properties": {
+        "event_statement": { "type": "string", "minLength": 50, "description": "2-4 sentences; who did what, when, where, immediate observable consequence; NO causal or interpretive language." },
+        "sentence_count": { "type": "integer", "minimum": 2, "maximum": 4 },
+        "primary_source": { "type": "string" },
+        "source_url": { "type": "string" },
+        "supporting_source_urls": { "type": "array", "items": { "type": "string" } },
+        "source_grade": { "type": "string", "enum": ["A", "B"] },
+        "source_grade_rationale": { "type": "string" },
+        "causal_language_check": { "type": "boolean", "const": true, "description": "LOCKED: confirms no causal verbs are present." },
+        "causal_language_review": { "type": "string" },
+        "60_second_source_check": { "type": "boolean", "const": true, "description": "LOCKED: source verified within 60 seconds of input." },
+        "60_second_check_note": { "type": "string" },
+        "filled_by": { "type": "string", "enum": ["agent", "analyst", "both"] },
+        "agent_draft_reviewed_by": { "type": "string" },
+        "review_completed_at": { "type": "string" }
+      }
+    },
+    "M0_2": {
+      "type": "object",
+      "required": ["world_changes", "gate_result"],
+      "properties": {
+        "world_changes": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 6,
+          "items": {
+            "type": "object",
+            "required": ["id", "change_description", "quantitative_magnitude", "baseline_reference", "date_confirmed", "source", "already_occurred", "hypothetical_flag"],
+            "properties": {
+              "id": { "type": "string", "pattern": "^WC-[0-9]{3}$" },
+              "change_description": { "type": "string" },
+              "quantitative_magnitude": { "type": "string", "description": "A number, not a direction." },
+              "baseline_reference": { "type": "string", "description": "The pre-event number being compared against." },
+              "date_confirmed": { "type": "string" },
+              "source": { "type": "string" },
+              "source_url": { "type": "string" },
+              "already_occurred": { "type": "boolean", "const": true, "description": "LOCKED: hypothetical changes are not permitted." },
+              "hypothetical_flag": { "type": "boolean", "const": false, "description": "LOCKED." }
+            }
+          }
+        },
+        "gate_result": { "type": "string", "enum": ["pass", "watchlist_no_world_change"] },
+        "gate_rationale": { "type": "string" },
+        "watchlist_deferred_items": { "type": "array", "items": { "type": "string" }, "description": "Items consciously excluded and why; preserved for post-mortem." },
+        "agent_data_sources_checked": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "M0_3": {
+      "type": "object",
+      "required": ["direct_beneficiaries", "indirect_beneficiaries", "harmed_parties", "population_gate", "ticker_check"],
+      "properties": {
+        "direct_beneficiaries": { "type": "array", "items": { "$ref": "#/definitions/impact_party" } },
+        "indirect_beneficiaries": { "type": "array", "items": { "$ref": "#/definitions/impact_party" } },
+        "harmed_parties": { "type": "array", "items": { "$ref": "#/definitions/impact_party" } },
+        "population_gate": {
+          "type": "object",
+          "required": ["at_least_one_populated", "both_sides_empty", "primary_count", "secondary_count", "parked_count", "carry_forward_count", "zero_carry_forward_action"],
+          "properties": {
+            "direct_beneficiaries_populated": { "type": "boolean" },
+            "indirect_beneficiaries_populated": { "type": "boolean" },
+            "harmed_parties_populated": { "type": "boolean" },
+            "at_least_one_populated": { "type": "boolean", "const": true, "description": "LOCKED: all three lists empty is the single invalid state — such a record is rejected." },
+            "both_sides_empty": { "type": "boolean", "const": false, "description": "LOCKED." },
+            "primary_count": { "type": "integer", "minimum": 0 },
+            "secondary_count": { "type": "integer", "minimum": 0 },
+            "parked_count": { "type": "integer", "minimum": 0 },
+            "carry_forward_count": { "type": "integer", "minimum": 0 },
+            "zero_carry_forward_action": { "type": "string", "enum": ["return_to_m0_2", "proceed"] },
+            "beneficiaries_only_note": { "type": "string", "description": "Required when harmed_parties is empty." },
+            "harmed_only_note": { "type": "string", "description": "Required when both beneficiary lists are empty." }
+          }
+        },
+        "pair_trade_notes": { "type": "string" },
+        "ticker_check": { "type": "boolean", "const": true, "description": "LOCKED: no stock tickers anywhere in M0.3." },
+        "ticker_check_detail": {
+          "type": "object",
+          "required": ["performed", "violations", "repair_action"],
+          "properties": {
+            "performed": { "type": "boolean" },
+            "violations": { "type": "array", "items": { "type": "string" } },
+            "repair_action": { "type": "string" }
+          }
+        },
+        "agent_contribution": { "type": "string" },
+        "analyst_contribution": { "type": "string" }
+      }
+    },
+    "M0_4": {
+      "type": "object",
+      "required": ["horizon", "expiry_condition", "expiry_condition_is_observable", "expiry_condition_is_opinion", "monitoring_frequency"],
+      "properties": {
+        "horizon": { "type": "string", "enum": ["short_days_weeks", "medium_weeks_3months", "medium_long_3_6months", "long_6months_plus"] },
+        "horizon_rationale": { "type": "string" },
+        "expiry_condition": { "type": "string", "description": "The specific observable event that signals the thesis has expired or been resolved — checkable tomorrow." },
+        "expiry_condition_is_observable": { "type": "boolean", "const": true, "description": "LOCKED." },
+        "expiry_condition_is_opinion": { "type": "boolean", "const": false, "description": "LOCKED: expiry cannot rest on a judgement call." },
+        "monitoring_frequency": { "type": "string" },
+        "horizon_expiry_market_signal": { "type": "string" }
+      }
+    },
+    "M0_5": {
+      "type": "object",
+      "required": ["falsification_sentence", "monitorable_metric_1", "monitorable_threshold_rate", "monitorable_threshold_rate_unit", "monitorable_threshold_date", "uncomfortable_check"],
+      "properties": {
+        "falsification_sentence": { "type": "string", "minLength": 20, "description": "One sentence; specific enough to monitor tomorrow." },
+        "falsification_condition_type": { "type": "string" },
+        "monitorable_metric_1": { "type": "string" },
+        "monitorable_metric_2": { "type": "string" },
+        "monitorable_threshold_rate": { "type": ["number", "string"] },
+        "monitorable_threshold_rate_unit": { "type": "string" },
+        "monitorable_threshold_date": { "type": "string" },
+        "uncomfortable_check": { "type": "boolean", "const": true, "description": "LOCKED: the falsifier is genuinely threatening to the thesis, not a soft condition." },
+        "uncomfortable_check_rationale": { "type": "string" },
+        "secondary_falsifiers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "description", "monitorable_metric"],
+            "properties": {
+              "id": { "type": "string" },
+              "description": { "type": "string" },
+              "monitorable_metric": { "type": "string" },
+              "probability_estimate": { "type": ["number", "null"], "minimum": 0, "maximum": 1 }
+            }
+          }
+        },
+        "locked_after_m0_complete": { "type": "boolean", "description": "Once Phase 1 locks, falsification criteria cannot be moved." },
+        "locked_at": { "type": ["string", "null"] }
+      }
+    },
+    "M0_6_1": {
+      "type": "object",
+      "required": ["consensus_view", "contrary_view", "consensus_strength", "strawman_risk_check"],
+      "properties": {
+        "consensus_view": {
+          "type": "object",
+          "required": ["paragraph", "numeric_anchor", "key_consensus_assumptions"],
+          "properties": {
+            "paragraph": { "type": "string", "description": "The dominant market view written sympathetically — not a strawman." },
+            "numeric_anchor": { "type": "string" },
+            "key_consensus_assumptions": { "type": "array", "minItems": 2, "maxItems": 4, "items": { "type": "string" } }
+          }
+        },
+        "contrary_view": {
+          "type": "object",
+          "required": ["exists", "paragraph"],
+          "properties": {
+            "exists": { "type": "boolean" },
+            "paragraph": { "type": "string" },
+            "contrary_numeric_anchor": { "type": ["string", "null"] },
+            "contrary_view_sources": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "consensus_strength": {
+          "type": "object",
+          "required": ["unanimity_rating", "unanimity_rationale"],
+          "properties": {
+            "unanimity_rating": { "type": "string", "enum": ["high", "moderate", "low"] },
+            "unanimity_rationale": { "type": "string" }
+          }
+        },
+        "analyst_rating_distribution": {
+          "type": "object",
+          "properties": {
+            "buy_count": { "type": ["integer", "null"] },
+            "hold_count": { "type": ["integer", "null"] },
+            "sell_count": { "type": ["integer", "null"] },
+            "total_analysts": { "type": ["integer", "null"] },
+            "buy_pct": { "type": ["number", "null"] },
+            "source": { "type": "string" },
+            "as_of": { "type": "string" },
+            "missing_reason": { "type": "string" }
+          }
+        },
+        "estimate_dispersion": {
+          "type": "object",
+          "properties": {
+            "current_high_estimate": { "type": ["number", "string", "null"] },
+            "current_low_estimate": { "type": ["number", "string", "null"] },
+            "current_spread_abs": { "type": ["number", "string", "null"] },
+            "current_spread_pct": { "type": ["number", "null"] },
+            "metric": { "type": "string" },
+            "historical_avg_spread_pct": { "type": ["number", "null"] },
+            "historical_period": { "type": "string" },
+            "historical_std_dev_pct": { "type": ["number", "null"] },
+            "spread_vs_history": { "type": ["string", "null"], "enum": ["elevated", "normal", "compressed", null] },
+            "dispersion_interpretation": { "type": "string" },
+            "missing_reason": { "type": "string" }
+          }
+        },
+        "entrenchment_note": { "type": "string" },
+        "strawman_risk_check": { "type": "boolean", "const": true, "description": "LOCKED: the consensus paragraph was reviewed for fairness." }
+      }
+    },
+    "M0_6_2": {
+      "type": "object",
+      "required": ["all_five_fields_present", "fields_missing_flagged", "implied_scenario_interpretation"],
+      "properties": {
+        "estimate_dispersion": { "$ref": "#/definitions/market_block" },
+        "estimate_revision_trajectory": { "$ref": "#/definitions/market_block" },
+        "implied_scenario_from_multiple": { "$ref": "#/definitions/market_block" },
+        "options_implied_move": { "$ref": "#/definitions/market_block" },
+        "short_interest_positioning": { "$ref": "#/definitions/market_block" },
+        "implied_scenario_interpretation": { "type": "string", "description": "One paragraph referencing at least two of the five data blocks." },
+        "all_five_fields_present": { "type": "boolean" },
+        "fields_missing_flagged": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "M0_6_3": {
+      "type": "object",
+      "required": ["variant_paragraph", "consensus_numeric_view", "our_numeric_view", "numeric_departure_magnitude", "mechanism_1_missing_from_consensus", "manifestation_event", "manifestation_time_window"],
+      "properties": {
+        "variant_paragraph": { "type": "string" },
+        "consensus_numeric_view": { "type": "string" },
+        "our_numeric_view": { "type": "string" },
+        "numeric_departure_magnitude": { "type": "string" },
+        "mechanism_1_missing_from_consensus": { "type": "string" },
+        "mechanism_2_missing_from_consensus": { "type": ["string", "null"] },
+        "sell_side_coverage_gap_confirmed": { "type": "boolean" },
+        "sell_side_gap_evidence": { "type": "string" },
+        "manifestation_event": { "type": "string" },
+        "manifestation_time_window": { "type": "string" }
+      }
+    },
+    "M0_6_4": {
+      "type": "object",
+      "required": ["primary_category", "primary_category_rationale", "evidence_verifiable_fact_1", "evidence_verifiable_fact_2", "evidence_verifiable_fact_3"],
+      "properties": {
+        "primary_category": { "type": "string", "enum": ["structural", "mandate_constraint", "complexity", "timing", "behavioral"] },
+        "primary_category_rationale": { "type": "string" },
+        "evidence_verifiable_fact_1": { "type": "string" },
+        "evidence_verifiable_fact_2": { "type": "string" },
+        "evidence_verifiable_fact_3": { "type": "string" },
+        "secondary_categories": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["category", "rationale"],
+            "properties": {
+              "category": { "type": "string", "enum": ["structural", "mandate_constraint", "complexity", "timing", "behavioral"] },
+              "rationale": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "M0_6_5": {
+      "type": "object",
+      "required": ["trigger_name", "trigger_date_range", "trigger_type", "causal_mechanism"],
+      "properties": {
+        "trigger_name": { "type": "string" },
+        "trigger_date_range": { "type": "string" },
+        "trigger_type": { "type": "string", "enum": ["scheduled", "unscheduled"] },
+        "probability_if_unscheduled": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "probability_note": { "type": "string" },
+        "causal_mechanism": { "type": "array", "minItems": 4, "maxItems": 4, "items": { "type": "string" }, "description": "Four numbered steps: exactly how the trigger causes price convergence." },
+        "secondary_triggers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["id", "trigger_name", "trigger_type"],
+            "properties": {
+              "id": { "type": "string" },
+              "trigger_name": { "type": "string" },
+              "trigger_date_range": { "type": "string" },
+              "trigger_type": { "type": "string", "enum": ["scheduled", "unscheduled"] },
+              "probability": { "type": ["number", "null"] },
+              "mechanism": { "type": "string" }
+            }
+          }
+        }
+      }
+    },
+    "M0_6_6": {
+      "type": "object",
+      "required": ["scoring_criteria", "blended_calculation", "final_score", "routing_outcome", "routing_logic"],
+      "properties": {
+        "scoring_criteria": {
+          "type": "object",
+          "required": ["variant_perception_quality", "mispricing_reason_strength", "convergence_trigger_clarity"],
+          "properties": {
+            "variant_perception_quality": { "$ref": "#/definitions/sub_score" },
+            "mispricing_reason_strength": { "$ref": "#/definitions/sub_score" },
+            "convergence_trigger_clarity": { "$ref": "#/definitions/sub_score" }
+          }
+        },
+        "blended_calculation": { "type": "string", "description": "The literal formula string showing weights and sum." },
+        "final_score": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "analyst_override": { "type": "boolean" },
+        "override_justification": { "type": "string" },
+        "justification_sentence_1": { "type": "string" },
+        "justification_sentence_2": { "type": "string" },
+        "routing_outcome": { "type": "string", "enum": ["watchlist_no_edge", "provisional", "full_machine"] },
+        "routing_logic": { "type": "string" },
+        "routing_reason": { "type": "string" }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "description": "Compact evidence packet across the record.",
+      "items": {
+        "type": "object",
+        "required": ["source_name", "retrieved_at", "claim_supported"],
+        "properties": {
+          "url": { "type": "string" },
+          "source_name": { "type": "string" },
+          "source_grade": { "type": "string", "enum": ["A", "B"] },
+          "retrieved_at": { "type": "string" },
+          "claim_supported": { "type": "string" }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "impact_party": {
+      "type": "object",
+      "required": ["id", "industry_category", "gics_classification", "scoring"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^(DIR|IND|HARM)-[0-9]{3}$" },
+        "industry_category": { "type": "string", "description": "Industry or business model — NO company names, NO tickers." },
+        "gics_classification": { "type": "string" },
+        "mechanism": { "type": "string" },
+        "two_step_mechanism": { "type": "string" },
+        "scoring": {
+          "type": "object",
+          "required": ["mechanism_directness_score", "magnitude_score", "speed_score", "reversibility_score", "composite_score", "tier", "carry_forward"],
+          "properties": {
+            "mechanism_directness_score": { "type": "integer", "minimum": 0, "maximum": 25 },
+            "magnitude_score": { "type": "integer", "minimum": 0, "maximum": 25 },
+            "speed_score": { "type": "integer", "minimum": 0, "maximum": 25 },
+            "reversibility_score": { "type": "integer", "minimum": 0, "maximum": 25 },
+            "composite_score": { "type": "integer", "minimum": 0, "maximum": 100, "description": "System-computed sum of the four sub-scores." },
+            "tier": { "type": "string", "enum": ["primary", "secondary", "parked"] },
+            "carry_forward": { "type": "boolean" },
+            "carry_forward_override": { "type": "boolean" },
+            "override_rationale": { "type": "string" },
+            "scoring_notes": { "type": "string" }
+          }
+        }
+      }
+    },
+    "market_block": {
+      "type": "object",
+      "properties": {
+        "data": { "type": "object", "description": "The block's raw fields (varies per block)." },
+        "interpretation": { "type": "string" },
+        "missing_reason": { "type": "string", "description": "Required if the block could not be filled." }
+      }
+    },
+    "sub_score": {
+      "type": "object",
+      "required": ["sub_score", "rationale"],
+      "properties": {
+        "sub_score": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "rationale": { "type": "string" }
+      }
+    }
+  }
+}

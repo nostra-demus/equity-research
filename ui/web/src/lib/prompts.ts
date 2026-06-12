@@ -7,11 +7,13 @@ export const CONSTITUTION_PATH = 'CLAUDE.md'
 
 // Repo-relative path to an orb's prompt (its agent-definition markdown).
 // The master synthesizer (the Memo / core orb) lives at the agents root; every other orb's key already
-// IS its file stem under .claude/agents/.
-export function promptPathForNodeKey(nodeKey?: string): string | null {
+// IS its file stem under .claude/agents/ — prefixed by the swarm folder for non-research swarms
+// (their modules nest one level deeper, e.g. .claude/agents/screener/signal-gate/...).
+export function promptPathForNodeKey(nodeKey?: string, swarmId?: string): string | null {
   if (!nodeKey) return null
   if (nodeKey === 'master/synthesizer') return '.claude/agents/synthesizer.md'
-  return `.claude/agents/${nodeKey}.md`
+  const prefix = swarmId && swarmId !== 'research' ? `${swarmId}/` : ''
+  return `.claude/agents/${prefix}${nodeKey}.md`
 }
 
 // The module an orb belongs to (null for the master synthesizer, which has no owning module).
@@ -22,8 +24,9 @@ export function moduleOfNodeKey(nodeKey?: string): string | null {
 }
 
 // Repo-relative path to a module's shared doctrine (its MODULE_RULES.md).
-export function moduleRulesPath(module: string): string {
-  return `.claude/agents/${module}/MODULE_RULES.md`
+export function moduleRulesPath(module: string, swarmId?: string): string {
+  const prefix = swarmId && swarmId !== 'research' ? `${swarmId}/` : ''
+  return `.claude/agents/${prefix}${module}/MODULE_RULES.md`
 }
 
 // Map a repo-relative prompt path to its location inside the static snapshot bundle

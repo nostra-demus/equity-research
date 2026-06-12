@@ -55,6 +55,25 @@ export function extractVerdict(markdown: string): string | null {
   return null
 }
 
+// Swarm routing contract (SWARM.md `routing:`): extract the labelled routing line a swarm
+// synthesis writes in its `## Routing` block, e.g. `Routing: PROMOTE` -> "PROMOTE".
+// Generic over the manifest's verdict_field — no swarm or value names are hardcoded here.
+export function extractRouting(markdown: string, field: string): string | null {
+  const esc = field.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+  const re = new RegExp(`^[\\s>*-]*(?:\\*\\*)?\\s*${esc}\\s*:\\s*(?:\\*\\*)?\\s*(.+?)\\s*$`, 'i')
+  for (const ln of markdown.split(/\r?\n/)) {
+    const m = ln.match(re)
+    if (m && m[1]) {
+      // first token group before any separator commentary; tolerate "PROMOTE | PARK" menus by
+      // rejecting lines that still contain a menu separator — a real routing is a single value.
+      const v = stripMd(m[1])
+      if (!v || /[|/]/.test(v)) continue
+      return v.split(/\s{2,}|\s+—|\s+-\s/)[0].trim() || null
+    }
+  }
+  return null
+}
+
 // Triage-specific: Sufficient / Partial / Insufficient (insufficient checked first to avoid substring hit).
 export function extractTriageStatus(markdown: string): 'Sufficient' | 'Partial' | 'Insufficient' | null {
   const lines = markdown.split(/\r?\n/)

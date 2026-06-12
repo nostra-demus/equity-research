@@ -396,6 +396,8 @@ The engine is self-extending: adding a research module or a sub-agent must requi
 
 If a change would force a human to touch engine code when a module or sub-agent is added, it is wrong: make the engine derive it from the discovered graph or from the module's own self-declared frontmatter instead.
 
+**Swarms.** The same zero-touch rule extends one level up. The engine can host multiple swarms — independent pipelines with their own unit of work (the research swarm's unit is a ticker; the screener swarm's unit is a signal). A swarm = `.claude/agents/<swarm>/` containing a `SWARM.md` manifest (frontmatter: `id`, `label`, `color`, `unit`, `order`, `layout`, `command_ns`, `run_root_template` + `placeholder`, `ledger_root`, `board_index`, `inbox_root`, a `routing` contract with `verdict_field` / `terminal` / `continue` lists, and stage-scoped `sources` policy) plus NESTED module folders `<module>/NN_*.md` + `99_<module>-synthesis.md` that follow the exact module convention above. The engine discovers swarms by globbing `.claude/agents/*/SWARM.md`; everything else (graph, watcher roots, launch routing, board paths, gate semantics) derives from the manifest. The research swarm is grandfathered as the default: flat module folders, no SWARM.md, unit `ticker` — its one-level discovery glob (`*/99_*-synthesis.md`) cannot see nested swarm modules, so swarms never pollute the research roster. Agent `name:` frontmatter must be globally unique across the whole `.claude/agents/` tree (Claude Code discovers recursively and silently discards duplicates) — prefix swarm agents (e.g. `screener-*`). Adding a future swarm (portfolio construction, risk management) must require NO engine-code edits.
+
 ---
 
 ## 27. Jurisdiction & Reporting-Regime Awareness

@@ -15,6 +15,72 @@ function BrandMark() {
   )
 }
 
+// The swarm switcher: one orb-dot per swarm (amber research, cyan screener, future swarms join
+// automatically from /api/swarms). Clicking an inactive swarm triggers the warp.
+function SwarmSwitcher() {
+  const swarms = useStore((s) => s.swarms)
+  const active = useStore((s) => s.activeSwarm)
+  const warp = useStore((s) => s.warp)
+  const switchSwarm = useStore((s) => s.switchSwarm)
+  if (swarms.length < 2) return null
+  return (
+    <div className="swarmswitch" role="tablist" aria-label="Swarms">
+      {swarms.map((s) => (
+        <button
+          key={s.id}
+          role="tab"
+          aria-selected={active === s.id}
+          className={`swarmswitch__item${active === s.id ? ' swarmswitch__item--on' : ''}`}
+          disabled={!!warp}
+          onClick={() => switchSwarm(s.id)}
+          title={`${s.label} swarm — unit: ${s.unit}`}
+        >
+          <span className="swarmswitch__orb" style={{ ['--orb' as any]: s.color }} />
+          <span className="swarmswitch__label">{s.label}</span>
+        </button>
+      ))}
+    </div>
+  )
+}
+
+// Screener-mode middle controls: New signal · Scan sources (two-click confirm) · Inbox count · Pipeline.
+function ScreenerControls() {
+  const openSignalIntake = useStore((s) => s.openSignalIntake)
+  const openPipeline = useStore((s) => s.openPipeline)
+  const runSweep = useStore((s) => s.runSweep)
+  const board = useStore((s) => s.scBoard)
+  const health = useStore((s) => s.health)
+  const [armSweep, setArmSweep] = useState(false)
+  const engineDown = health === 'engine-offline' || health === 'your-network' || health === 'session-expired'
+  const inboxCount = board?.counts?.inbox_unconsumed ?? 0
+  return (
+    <>
+      <button
+        className={`btn btn--ghost${armSweep ? ' btn--armed' : ''}`}
+        disabled={engineDown}
+        onClick={() => {
+          if (!armSweep) {
+            setArmSweep(true)
+            setTimeout(() => setArmSweep(false), 4000)
+            return
+          }
+          setArmSweep(false)
+          void runSweep()
+        }}
+        title="Scan the approved sources for material events (~$2–12) — fills the Inbox; nothing runs without you"
+      >
+        {armSweep ? 'confirm scan · ~$2–12 ▸' : 'Scan sources'}
+      </button>
+      <button className="btn btn--ghost" onClick={openPipeline} title="The idea pipeline — inbox, gauntlet, watchlist, provisional, full machine, handoffs">
+        Pipeline{inboxCount > 0 && <span className="inboxchip" title={`${inboxCount} unprocessed inbox signal${inboxCount === 1 ? '' : 's'}`}>{inboxCount}</span>}
+      </button>
+      <button className="btn btn--amber" disabled={engineDown} onClick={openSignalIntake} title="Run one signal through the gauntlet">
+        New signal ▸
+      </button>
+    </>
+  )
+}
+
 function TickerPicker() {
   const tickers = useStore((s) => s.tickers)
   const selected = useStore((s) => s.selectedTicker)
@@ -186,7 +252,11 @@ export function CommandBar() {
   const selectedTicker = useStore((s) => s.selectedTicker)
   const staticMode = useStore((s) => s.staticMode)
   const health = useStore((s) => s.health)
+  const activeSwarm = useStore((s) => s.activeSwarm)
+  const swarms = useStore((s) => s.swarms)
   const engineDown = health === 'engine-offline' || health === 'your-network' || health === 'session-expired'
+  const screenerMode = activeSwarm === 'screener'
+  const sub = screenerMode ? (swarms.find((s) => s.id === activeSwarm)?.label ? 'Idea Generation — Screener' : 'Screener') : 'Equity Research Cockpit'
   return (
     <div className="topbar">
       <div className="brand">
@@ -194,22 +264,34 @@ export function CommandBar() {
         <div>
           <div className="brand__name">Nostradamus Swarm</div>
         </div>
-        <span className="brand__sub">Equity Research Cockpit</span>
+        <span className="brand__sub">{sub}</span>
+        <SwarmSwitcher />
         {staticMode && <span className="chip" style={{ color: 'var(--accent)', borderColor: 'var(--accent-deep)' }} title="Live showcase of completed runs. Launching agents happens on your local machine.">read-only showcase</span>}
       </div>
       <div className="topbar__spacer" />
-      <ReadinessStrip />
-      <EngineStatusPill />
-      <button className="btn btn--ghost" onClick={openCalls} title="Calls tracker — every call the engine made and what's happened since">Calls</button>
-      <button className="btn btn--ghost" onClick={openActivity} title="Activity log — who ran what, when, on which company">Activity</button>
-      {decision?.final_thesis_path !== undefined || decision?.decision ? (
-        <button className="btn btn--ghost" onClick={openThesis}>Thesis</button>
-      ) : null}
-      <button className="btn btn--amber" disabled={!selectedTicker || anyRun || engineDown} onClick={requestFull} title={staticMode ? 'Runs on your local machine (npm run dev)' : engineDown ? 'Engine offline — live runs are paused until it reconnects' : anyRun ? 'A run is in flight — a full run needs exclusive access' : 'Run the full pipeline'}>
-        Run full ▸
-      </button>
-      <CreditBadge />
-      <TickerPicker />
+      {screenerMode ? (
+        <>
+          <EngineStatusPill />
+          <button className="btn btn--ghost" onClick={openActivity} title="Activity log — who ran what, when">Activity</button>
+          <ScreenerControls />
+          <CreditBadge />
+        </>
+      ) : (
+        <>
+          <ReadinessStrip />
+          <EngineStatusPill />
+          <button className="btn btn--ghost" onClick={openCalls} title="Calls tracker — every call the engine made and what's happened since">Calls</button>
+          <button className="btn btn--ghost" onClick={openActivity} title="Activity log — who ran what, when, on which company">Activity</button>
+          {decision?.final_thesis_path !== undefined || decision?.decision ? (
+            <button className="btn btn--ghost" onClick={openThesis}>Thesis</button>
+          ) : null}
+          <button className="btn btn--amber" disabled={!selectedTicker || anyRun || engineDown} onClick={requestFull} title={staticMode ? 'Runs on your local machine (npm run dev)' : engineDown ? 'Engine offline — live runs are paused until it reconnects' : anyRun ? 'A run is in flight — a full run needs exclusive access' : 'Run the full pipeline'}>
+            Run full ▸
+          </button>
+          <CreditBadge />
+          <TickerPicker />
+        </>
+      )}
     </div>
   )
 }
