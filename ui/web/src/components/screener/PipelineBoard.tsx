@@ -21,6 +21,19 @@ function EdgeDial({ score }: { score: number | null | undefined }) {
   )
 }
 
+// The autonomous ingester's cheap pre-score, as a small colored pill. Green = worth a look,
+// amber = maybe, faint = low. It is a CHEAP pre-read, not the full materiality score the gauntlet
+// computes once you check the item.
+function TriagePill({ score }: { score?: number | null }) {
+  if (score == null) return null
+  const tone = score >= 70 ? 'var(--live)' : score >= 40 ? '#d2a13f' : 'var(--text-faint)'
+  return (
+    <span className="pcard__chip pcard__chip--num" style={{ color: tone, borderColor: tone }} title={`How worth-a-look the auto-scan judged this: ${score} out of 100 (a quick first read, not the full check)`}>
+      {score}
+    </span>
+  )
+}
+
 function SignalCard({ s, onRelaunch }: { s: BoardSignal; onRelaunch?: (id: string) => void }) {
   return (
     <div className="pcard">
@@ -178,7 +191,8 @@ export function PipelineBoard() {
     const thesisBySignal = new Map(theses.map((t) => [t.signal_id, t]))
     const watch = (t: BoardThesis) => ['watchlist_no_source', 'watchlist_no_world_change', 'watchlist_no_edge'].includes(t.status)
     return {
-      inbox: (board?.inbox || []).filter((r) => !r.consumed),
+      // ranked by the ingester's pre-triage score (highest first); manual-sweep rows (no score) sink below
+      inbox: (board?.inbox || []).filter((r) => !r.consumed).slice().sort((a, b) => (b.triage_score ?? -1) - (a.triage_score ?? -1)),
       gauntlet: signals.filter((s) => live.has(s.signal_id)),
       parked: signals.filter((s) => !live.has(s.signal_id) && (s.status === 'PARK' || s.status === 'LOG' || s.status === 'suppress') && !thesisBySignal.get(s.signal_id)),
       watchlist: [
@@ -218,19 +232,29 @@ export function PipelineBoard() {
       ) : (
         <div className="pipeline__lanes">
           <div className="plane">
-            <div className="plane__title" title="News found by a scan, waiting for you to pick what to check">Inbox <span className="plane__count">{buckets.inbox.length}</span></div>
+            <div className="plane__title" title="News the system pulled and scored, waiting for you to pick what to check">Inbox <span className="plane__count">{buckets.inbox.length}</span></div>
+            {board?.counts && (board.counts.news_seen_today ?? 0) > 0 && (
+              <div className="plane__firehose" title="What the automatic news scan did today: how many it read, how many it kept for you, how many it dropped as not worth it">
+                today: read {board.counts.news_seen_today ?? 0} · kept {board.counts.news_picked_today ?? 0} · dropped {board.counts.news_dropped_today ?? 0}
+              </div>
+            )}
             {buckets.inbox.map((r) => (
               <div key={r.inbox_id} className="pcard">
-                <div className="pcard__head"><span className="pcard__chip">{r.source_name}</span>{r.dedup_status === 'possible_duplicate' && <span className="pcard__chip" style={{ color: 'var(--text-faint)' }} title="This may be the same story we have already seen">maybe seen before</span>}</div>
+                <div className="pcard__head">
+                  <TriagePill score={r.triage_score} />
+                  <span className="pcard__chip">{r.source_name}</span>
+                  {r.region && r.region !== 'GLOBAL' && <span className="pcard__chip" style={{ color: 'var(--text-faint)' }}>{r.region}</span>}
+                  {r.dedup_status === 'possible_duplicate' && <span className="pcard__chip" style={{ color: 'var(--text-faint)' }} title="This may be the same story we have already seen">maybe seen before</span>}
+                </div>
                 <div className="pcard__headline">{r.headline}</div>
-                {r.prelim_note && <div className="pcard__why">{r.prelim_note}</div>}
+                {(r.triage_reason || r.prelim_note) && <div className="pcard__why">{r.triage_reason || r.prelim_note}</div>}
                 <div className="pcard__meta">
                   <span>{fmtTs(r.found_at)}</span>
                   <button className="btn btn--ghost pcard__act" onClick={() => void submitFromInbox({ headline: r.headline, source_url: r.url, source_name: r.source_name, input_nature: r.input_nature || 'news_headline' })}>check it ▸</button>
                 </div>
               </div>
             ))}
-            {!buckets.inbox.length && <div className="plane__empty">Empty — click "Find news" up top to fill this</div>}
+            {!buckets.inbox.length && <div className="plane__empty">Empty — the news scan fills this automatically; or click "Find news" up top</div>}
           </div>
 
           <div className="plane">

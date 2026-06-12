@@ -19,6 +19,7 @@ import { agentNamesForModule, buildSwarmGraph, graphForSubject, graphForTicker, 
 import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, resolveRunRoot, runManifest } from './outputs'
 import { dataPoolPresent, readCandidates, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest } from './screener'
 import { listSwarms } from './swarms'
+import { startNewsIngester } from './news/scheduler'
 import { AGENT_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE } from './sandbox'
 import type { RunKind } from './types'
 
@@ -616,6 +617,9 @@ app
     const g = buildSwarmGraph()
     // eslint-disable-next-line no-console
     console.log(`[swarm-cockpit] control plane on http://${HOST}:${PORT}  (${g.totals.modules} modules, ${g.totals.agents} agents)`)
+    // autonomous news ingester (screener swarm): fills a ranked inbox 24/7 at ~$0 when GROQ_API_KEY
+    // is set; stays dark otherwise. Never launches a paid run — promotion is the human's one click.
+    startNewsIngester()
   })
   .catch((err) => {
     // eslint-disable-next-line no-console

@@ -61,6 +61,22 @@ def read_ndjson(path: str) -> list[dict]:
     return out
 
 
+def firehose_counts(today: str) -> tuple[int, int, int]:
+    """Sum today's autonomous-ingester cycle summaries → (seen, picked-into-inbox, dropped).
+
+    The ingester logs one compact `cycle_summary` line per run to <DATE>_firehose.ndjson; dropped
+    items are counted here but never written to the inbox. seen == picked + dropped by construction.
+    """
+    seen = picked = dropped = 0
+    for o in read_ndjson(os.path.join(INBOX, f"{today}_firehose.ndjson")):
+        if o.get("kind") != "cycle_summary":
+            continue
+        seen += int(o.get("candidates") or 0)
+        picked += int(o.get("picked") or 0) + int(o.get("watched") or 0)
+        dropped += int(o.get("dropped") or 0)
+    return seen, picked, dropped
+
+
 def build() -> dict:
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
@@ -83,6 +99,12 @@ def build() -> dict:
                 "dedup_status": row.get("dedup_status") or "new",
                 "consumed": bool(row.get("consumed")),
                 "launched_signal_id": row.get("launched_signal_id"),
+                # additive: the autonomous ingester's cheap pre-triage (absent on manual-sweep rows)
+                "triage_score": row.get("triage_score"),
+                "triage_reason": row.get("triage_reason") or "",
+                "region": row.get("region") or "",
+                "relevance": row.get("relevance") or "",
+                "materiality_pre_score": row.get("materiality_pre_score"),
             })
 
     # ---- theses (read first so signals can link to them) ----
@@ -180,6 +202,7 @@ def build() -> dict:
 
     # ---- funnel counts ----
     thesis_statuses = [t["status"] for t in theses]
+    news_seen, news_picked, news_dropped = firehose_counts(now[:10])
     counts = {
         "inbox_unconsumed": sum(1 for r in inbox_rows if not r["consumed"]),
         "signals_total": len(signals),
@@ -190,6 +213,10 @@ def build() -> dict:
         "provisional": sum(1 for st in thesis_statuses if st == "provisional"),
         "full_machine": sum(1 for st in thesis_statuses if st == "full_machine"),
         "handed_off": len(handoff_rows),
+        # autonomous news ingester — today's firehose throughput (0 when nothing has run today)
+        "news_seen_today": news_seen,
+        "news_picked_today": news_picked,
+        "news_dropped_today": news_dropped,
     }
 
     return {

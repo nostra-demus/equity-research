@@ -1,0 +1,263 @@
+// Autonomous news ingester — unit + integration over the pure pipeline with MOCKED fetch + clock,
+// so no key, network, or install is needed. Run: npx tsx test/news.test.ts
+process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
+import assert from 'node:assert/strict'
+import fs from 'node:fs'
+import os from 'node:os'
+import path from 'node:path'
+import { approvedDomains, lookupSource, normalizeDomain } from '../src/news/sources/approved-domains'
+import { buildQueries, fetchGdelt } from '../src/news/sources/gdelt'
+import { eventIdFor, loadLedgerEventIds, normalizeAndFilter, parseSeendate } from '../src/news/normalize'
+import { SeenCache } from '../src/news/seen-cache'
+import { Budget, RateLimiter } from '../src/news/triage/budget'
+import { estimateTokens, scoreToBand, triageBatch } from '../src/news/triage/groq'
+import { mergeInbox } from '../src/news/write-inbox'
+import { runIngestCycle } from '../src/news/runCycle'
+import type { RawArticle, TriagedItem } from '../src/news/types'
+
+let passed = 0
+async function check(name: string, fn: () => void | Promise<void>) {
+  try {
+    await fn()
+    passed++
+    console.log(`  ok  ${name}`)
+  } catch (e: any) {
+    console.error(`FAIL  ${name}\n      ${e?.stack || e?.message || e}`)
+    process.exitCode = 1
+  }
+}
+
+// a Response-shaped stub; cast the function to typeof fetch at the call boundary
+function res(body: any, status = 200): any {
+  const text = typeof body === 'string' ? body : JSON.stringify(body)
+  return { ok: status >= 200 && status < 300, status, text: async () => text, json: async () => JSON.parse(text) }
+}
+const noSleep = async () => {}
+const tmp = () => fs.mkdtempSync(path.join(os.tmpdir(), 'news-'))
+
+// ---- approved-domains firewall ----
+await check('lookupSource: exact + subdomain match, look-alike rejected, off-list null', () => {
+  assert.equal(lookupSource('reuters.com')?.source_name, 'Reuters')
+  assert.equal(lookupSource('markets.ft.com')?.source_name, 'Financial Times') // subdomain on a dot boundary
+  assert.equal(lookupSource('economictimes.indiatimes.com')?.region, 'IN')
+  assert.equal(lookupSource('notactuallyreuters.com'), null) // look-alike must NOT match reuters.com
+  assert.equal(lookupSource('nytimes.com'), null) // off-list
+  assert.equal(lookupSource('sec.gov')?.input_nature, 'regulatory_filing')
+})
+await check('normalizeDomain strips scheme/www/path; approvedDomains is non-empty', () => {
+  assert.equal(normalizeDomain('https://www.Reuters.com/markets/x'), 'reuters.com')
+  assert.ok(approvedDomains().length >= 15)
+})
+
+// ---- identity + dates ----
+await check('eventIdFor matches the Gate-0 recipe (lowercased, whitespace-collapsed headline | url)', () => {
+  const id = eventIdFor('  RBI  cuts   rates ', 'https://x.test/a')
+  assert.match(id, /^EVT-[a-f0-9]{12}$/)
+  assert.equal(id, eventIdFor('rbi cuts rates', 'https://x.test/a')) // normalization is stable
+  assert.notEqual(id, eventIdFor('rbi cuts rates', 'https://x.test/b')) // url participates
+})
+await check('parseSeendate: GDELT compact → ISO; junk → now', () => {
+  assert.equal(parseSeendate('20260612T093000Z'), '2026-06-12T09:30:00Z')
+  assert.equal(parseSeendate('garbage', () => new Date('2026-06-12T00:00:00Z')), '2026-06-12T00:00:00Z')
+})
+
+// ---- normalize + filter + dedup ----
+await check('normalizeAndFilter: drops off-list + short titles, marks ledger dups, skips seen-cache', () => {
+  const raws: RawArticle[] = [
+    { title: 'Reuters: RBI cuts repo rate 50 bps in surprise move', url: 'https://reuters.com/a', domain: 'reuters.com', seendate: '20260612T090000Z' },
+    { title: 'Off-list blog rumor', url: 'https://randomblog.example/x', domain: 'randomblog.example', seendate: '20260612T090000Z' },
+    { title: 'short', url: 'https://reuters.com/short', domain: 'reuters.com', seendate: '20260612T090000Z' },
+    { title: 'ET: Infosys guidance cut to 3-5% for FY27', url: 'https://economictimes.indiatimes.com/b', domain: 'economictimes.indiatimes.com', seendate: '20260612T091000Z' },
+  ]
+  const dupId = eventIdFor(raws[0].title, raws[0].url)
+  const seen = new SeenCache(path.join(tmp(), 'seen.json'))
+  seen.add(eventIdFor(raws[3].title, raws[3].url), 80) // pretend the ET item was scored before
+  const items = normalizeAndFilter(raws, { ledgerEventIds: new Set([dupId]), seen })
+  assert.equal(items.length, 1) // off-list dropped, short dropped, ET skipped (seen) → only Reuters
+  assert.equal(items[0].source_name, 'Reuters')
+  assert.equal(items[0].dedup_status, 'possible_duplicate') // it was in the ledger set
+  assert.equal(items[0].region, 'GLOBAL')
+})
+await check('loadLedgerEventIds tolerates a missing/corrupt ledger', () => {
+  assert.equal(loadLedgerEventIds(path.join(tmp(), 'none.ndjson')).size, 0)
+  const f = path.join(tmp(), 'e.ndjson')
+  fs.writeFileSync(f, '{"event_id":"EVT-abc123abc123"}\n{corrupt\n\n{"event_id":"EVT-def456def456"}\n')
+  assert.equal(loadLedgerEventIds(f).size, 2)
+})
+
+// ---- GDELT adapter ----
+await check('buildQueries chunks approved domains into domain: OR groups', () => {
+  const q = buildQueries(['a.com', 'b.com', 'c.com'], 2)
+  assert.equal(q.length, 2)
+  assert.equal(q[0], '(domain:a.com OR domain:b.com)')
+  assert.equal(q[1], '(domain:c.com)')
+})
+await check('fetchGdelt: parses ArtList, dedups by url, backs off a 429 then succeeds, skips non-JSON', async () => {
+  let calls = 0
+  const fetchFn = (async (url: string) => {
+    calls++
+    if (calls === 1) return res('', 429) // first chunk rate-limited once...
+    if (calls === 2) return res({ articles: [{ url: 'https://reuters.com/a', title: 'A', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+    return res('<html>not json</html>') // a later chunk returns junk → skipped, not thrown
+  }) as unknown as typeof fetch
+  const got = await fetchGdelt({ lookbackMin: 30, baseUrl: 'https://gdelt.test', chunkSize: 50 }, { fetchFn, sleep: noSleep })
+  assert.ok(got.length >= 1)
+  assert.equal(got[0].url, 'https://reuters.com/a')
+})
+
+// ---- budget + throttle ----
+await check('Budget: caps on requests AND tokens, persists, resets on a new UTC day', () => {
+  const dir = tmp()
+  const day1 = Date.parse('2026-06-12T02:00:00Z')
+  const b1 = Budget.load(dir, 10, 1000, day1)
+  assert.equal(b1.canSpend(900), true)
+  b1.record(10, 900) // hit the request cap
+  b1.save()
+  const b2 = Budget.load(dir, 10, 1000, Date.parse('2026-06-12T06:00:00Z')) // same day → counters carry
+  assert.equal(b2.requests, 10)
+  assert.equal(b2.canSpend(1), false) // request cap reached
+  const b3 = Budget.load(dir, 10, 1000, Date.parse('2026-06-13T00:30:00Z')) // next day → reset
+  assert.equal(b3.requests, 0)
+  assert.equal(b3.canSpend(900), true)
+  // token cap independently
+  const b4 = Budget.load(tmp(), 100, 1000, day1)
+  b4.record(1, 950)
+  assert.equal(b4.canSpend(100), false) // 950+100 > 1000
+  assert.equal(b4.canSpend(40), true)
+})
+await check('RateLimiter spaces calls to ~60s/rpm', async () => {
+  const lim = new RateLimiter(60) // min gap 1000ms
+  let t = 1_000_000
+  const now = () => t
+  const slept: number[] = []
+  const sleep = async (ms: number) => { slept.push(ms); t += ms }
+  await lim.acquire(sleep, now) // first call: real-clock-far-from-zero → no wait
+  await lim.acquire(sleep, now) // immediate second → must wait ~1000ms
+  assert.deepEqual(slept, [1000])
+})
+
+// ---- groq triage ----
+await check('scoreToBand respects thresholds', () => {
+  assert.equal(scoreToBand(85, 70, 40), 'pick')
+  assert.equal(scoreToBand(55, 70, 40), 'watch')
+  assert.equal(scoreToBand(20, 70, 40), 'drop')
+  assert.ok(estimateTokens(12) > estimateTokens(1))
+})
+await check('triageBatch parses JSON-mode output, aligns by index, coerces/clamps', async () => {
+  const items = normalizeAndFilter(
+    [
+      { title: 'RBI cuts repo rate 50 bps in a surprise off-cycle move', url: 'https://reuters.com/a', domain: 'reuters.com', seendate: '20260612T090000Z' },
+      { title: 'Celebrity buys a yacht, sources say nothing material', url: 'https://cnbc.com/b', domain: 'cnbc.com', seendate: '20260612T090000Z' },
+    ],
+    { ledgerEventIds: new Set(), seen: new SeenCache(path.join(tmp(), 's.json')) },
+  )
+  const fetchFn = (async () => res({
+    usage: { total_tokens: 321 },
+    choices: [{ message: { content: JSON.stringify({ items: [
+      { i: 0, relevance: 'material', materiality_pre_score: 130, event_types: ['macro_sector', 'bogus_type'], issuer_linkage: 'macro', why: 'A 50 bps cut lowers funding costs.' },
+      { i: 1, relevance: 'irrelevant', materiality_pre_score: -5, event_types: [], issuer_linkage: 'primary', why: 'Lifestyle item.' },
+    ] }) } }],
+  })) as unknown as typeof fetch
+  const r = await triageBatch(items, { model: 'm', baseUrl: 'https://groq.test', apiKey: 'k' }, fetchFn)
+  assert.equal(r.ok, true)
+  assert.equal(r.requests, 1)
+  assert.equal(r.tokens, 321)
+  assert.equal(r.byIndex.get(0)?.materiality_pre_score, 100) // clamped from 130
+  assert.equal(r.byIndex.get(1)?.materiality_pre_score, 0) // clamped from -5
+  assert.deepEqual(r.byIndex.get(0)?.event_types, ['macro_sector']) // bogus type filtered out
+})
+await check('triageBatch: HTTP error and non-JSON content both return ok:false (never throw)', async () => {
+  const items = normalizeAndFilter(
+    [{ title: 'Reuters headline long enough to pass', url: 'https://reuters.com/a', domain: 'reuters.com', seendate: '20260612T090000Z' }],
+    { ledgerEventIds: new Set(), seen: new SeenCache(path.join(tmp(), 's.json')) },
+  )
+  const err = await triageBatch(items, { model: 'm', baseUrl: 'https://g.test', apiKey: 'k' }, (async () => res('rate limited', 429)) as unknown as typeof fetch)
+  assert.equal(err.ok, false)
+  assert.equal(err.requests, 1) // a 429 still counts against the daily request budget
+  const bad = await triageBatch(items, { model: 'm', baseUrl: 'https://g.test', apiKey: 'k' }, (async () => res({ choices: [{ message: { content: 'not json' } }] })) as unknown as typeof fetch)
+  assert.equal(bad.ok, false)
+  assert.equal(bad.byIndex.size, 0)
+  const noKey = await triageBatch(items, { model: 'm', baseUrl: 'https://g.test', apiKey: '' }, (async () => res({})) as unknown as typeof fetch)
+  assert.equal(noKey.ok, false) // no key → no call
+})
+
+// ---- inbox writer ----
+function triagedItem(url: string, score: number, headline: string): TriagedItem {
+  return {
+    event_id: eventIdFor(headline, url), headline, url, domain: 'reuters.com', source_name: 'Reuters',
+    region: 'GLOBAL', input_nature: 'news_headline', found_at: '2026-06-12T09:00:00Z', dedup_status: 'new',
+    triage_score: score, triage_reason: `score ${score}`, relevance: 'material', materiality_pre_score: score,
+    event_types: [], issuer_linkage: 'macro', band: score >= 70 ? 'pick' : 'watch',
+  }
+}
+await check('mergeInbox: writes ranked rows, caps unconsumed, assigns INB ids', () => {
+  const root = tmp()
+  const n = mergeInbox(root, '2026-06-12', [triagedItem('https://r/1', 80, 'H1'), triagedItem('https://r/2', 55, 'H2'), triagedItem('https://r/3', 72, 'H3')], { maxRows: 2 })
+  assert.equal(n, 2) // capped to 2 unconsumed
+  const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json'), 'utf8'))
+  assert.equal(doc.source, 'auto_ingester')
+  assert.deepEqual(doc.rows.map((r: any) => r.triage_score), [80, 72]) // ranked desc, H2(55) dropped by cap
+  assert.match(doc.rows[0].inbox_id, /^INB-20260612-\d{3}$/)
+  assert.equal(doc.rows[0].prelim_note, 'score 80') // legacy field kept populated for old readers
+})
+await check('mergeInbox is idempotent by URL and PRESERVES human consumed/launched state', () => {
+  const root = tmp()
+  mergeInbox(root, '2026-06-12', [triagedItem('https://r/1', 80, 'H1')], { maxRows: 10 })
+  const fp = path.join(root, 'screener/inbox/2026-06-12_sweep.json')
+  const doc1 = JSON.parse(fs.readFileSync(fp, 'utf8'))
+  doc1.rows[0].consumed = true
+  doc1.rows[0].launched_signal_id = 'SIG-20260612-deadbeef'
+  fs.writeFileSync(fp, JSON.stringify(doc1))
+  // re-seen with a NEW score: the row updates its score but keeps consumed + launched id, and is not duplicated
+  mergeInbox(root, '2026-06-12', [triagedItem('https://r/1', 91, 'H1 updated')], { maxRows: 10 })
+  const doc2 = JSON.parse(fs.readFileSync(fp, 'utf8'))
+  assert.equal(doc2.rows.length, 1)
+  assert.equal(doc2.rows[0].consumed, true)
+  assert.equal(doc2.rows[0].launched_signal_id, 'SIG-20260612-deadbeef')
+  assert.equal(doc2.rows[0].triage_score, 91) // score refreshed
+})
+
+// ---- orchestrator (end-to-end with mocked GDELT + Groq) ----
+await check('runIngestCycle: fetch → triage → ranked inbox; second run skips seen items', async () => {
+  const root = tmp()
+  const state = tmp()
+  const groqBody = {
+    usage: { total_tokens: 200 },
+    choices: [{ message: { content: JSON.stringify({ items: [
+      { i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'A 50 bps cut lowers funding costs.' },
+      { i: 1, relevance: 'irrelevant', materiality_pre_score: 8, event_types: [], issuer_linkage: 'sector', why: 'Weekend opinion piece.' },
+    ] }) } }],
+  }
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('groq')) return res(groqBody)
+    // GDELT: the chunk containing reuters.com returns our two articles (so both runs get them)
+    if (u.includes('reuters.com')) return res({ articles: [
+      { url: 'https://reuters.com/x', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' },
+      { url: 'https://cnbc.com/y', title: 'Columnist muses about weekend market vibes and little else', domain: 'cnbc.com', seendate: '20260612T090100Z' },
+    ] })
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40 } as any
+  const now = () => new Date('2026-06-12T09:30:00Z')
+
+  const s1 = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  assert.equal(s1.ok, true)
+  assert.equal(s1.candidates, 2)
+  assert.equal(s1.picked, 1) // only the rate-cut clears the pick threshold
+  assert.equal(s1.dropped, 1) // the opinion piece is dropped (not inboxed)
+  assert.equal(s1.groq_requests, 1)
+  const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json'), 'utf8'))
+  assert.equal(doc.rows.length, 1)
+  assert.equal(doc.rows[0].source_name, 'Reuters')
+  assert.equal(doc.rows[0].triage_score, 84)
+  const fh = fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_firehose.ndjson'), 'utf8').trim()
+  assert.ok(fh.includes('"kind":"cycle_summary"'))
+
+  // second run: same articles, but both are now in the seen-cache → no re-score, no Groq spend
+  const s2 = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  assert.equal(s2.candidates, 0)
+  assert.equal(s2.groq_requests, 0)
+})
+
+console.log(`\n${passed} checks passed`)
