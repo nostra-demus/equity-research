@@ -369,7 +369,40 @@ Then run the two standing audits IN the ship path, so the no-source-no-claim and
 - **Pre-mortem** — follow `.claude/commands/research/pre-mortem.md` against `<RUN_ROOT>`, producing `<RUN_ROOT>/pre_mortem.json` (adversarial red-team; can only HOLD or LOWER conviction).
 
 Produce ONLY the report JSON in each — **skip each command's own commit step**; full.md's step 12 commits the entire run folder (these reports included) in one place. Then:
-- If `pre_mortem.json`'s `recommended_confidence` is below `decision_record.json`'s `confidence_score`, note the haircut in RUN_METADATA (step 11) and the report — the published confidence should reflect the post-red-team number.
+
+**Haircut propagation — patch `decision_record.json` with the pre-mortem's verdict** (fix F28). Run this immediately after `pre_mortem.json` is written:
+
+```bash
+python3 - "<RUN_ROOT>" <<'PY'
+import json, glob, os, re, sys
+run = sys.argv[1]
+dr_path = os.path.join(run, "decision_record.json")
+# find the latest pre_mortem (versioned as _v2, _v3, ...)
+pms = sorted(glob.glob(os.path.join(run, "pre_mortem*.json")),
+             key=lambda x: int(re.search(r"_v(\d+)\.json$", x).group(1)) if re.search(r"_v(\d+)\.json$", x) else 1)
+if not pms: print("HAIRCUT: no pre_mortem.json found — skipping"); sys.exit(0)
+try:
+    pm = json.load(open(pms[-1], encoding="utf-8"))
+    dr = json.load(open(dr_path, encoding="utf-8"))
+except Exception as e: print(f"HAIRCUT: read error ({e}) — skipping"); sys.exit(0)
+haircut    = pm.get("confidence_haircut") or 0
+rec_conf   = pm.get("recommended_confidence")
+verdict    = pm.get("verdict") or ""
+orig_conf  = dr.get("confidence_score")
+dr["confidence_haircut"]        = haircut
+dr["pre_mortem_verdict"]        = verdict
+dr["post_review_confidence_score"] = rec_conf
+with open(dr_path, "w", encoding="utf-8") as f:
+    json.dump(dr, f, indent=2, ensure_ascii=False)
+if isinstance(haircut, (int, float)) and haircut > 0:
+    print(f"HAIRCUT: confidence {orig_conf} → {rec_conf} (−{haircut}pt) | pre-mortem: '{verdict}'")
+else:
+    print(f"HAIRCUT: no reduction (pre-mortem: '{verdict}'; confidence stays {orig_conf})")
+PY
+```
+
+Record the `HAIRCUT:` line for step 11 ("Integrity gate"). If the pre-mortem applied a haircut, the RUN_METADATA integrity-gate entry should read e.g. `pre-mortem: Survives with haircut (confidence 70 → 64)`.
+
 - If `verification_report.json`'s verdict is `Failed` (or `Material issues`), treat it like a PROVISIONAL gate result: surface it loudly in step 13 (the deterministic validator may already have stamped the thesis).
 
 If either audit cannot complete, record it as `not run` in the Integrity gate field and continue — a missing deeper audit does not abort the run, but the run is then not "clean".

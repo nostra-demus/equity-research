@@ -162,9 +162,14 @@ The canonical `decision_record.json` the synthesizer emits — one per final the
     "365d": ""
   },
   "created_by": "synthesizer",
-  "notes": ""
+  "notes": "",
+  "post_review_confidence_score": null,
+  "confidence_haircut": null,
+  "pre_mortem_verdict": ""
 }
 ```
+
+The three `post_review_*` fields are **additive and optional** — the synthesizer never sets them; the finish-gate step 10B.2 in `/research:full` patches them in-place after the pre-mortem runs. Older records (`decision_date` before 2026-06-12) omit them; every downstream consumer (calibrate, track, review-decisions) falls back to `confidence_score` when these fields are absent.
 
 **Field definitions:**
 
@@ -209,6 +214,9 @@ The canonical `decision_record.json` the synthesizer emits — one per final the
 | `review_schedule` | Yes | Target review dates at 30/90/180/365d from `decision_date`. | Computed (§7) |
 | `created_by` | Yes | Emitter ("synthesizer"). | Convention |
 | `notes` | Optional | Free-text caveats. | Synthesizer |
+| `post_review_confidence_score` | Additive | Confidence /100 after the in-path pre-mortem red-team. Set by the finish-gate (step 10B.2) — never by the synthesizer. `null` when no pre-mortem ran or no haircut applied. Downstream tools (calibrate, track) prefer this over `confidence_score` when present: it is the engine's best estimate of its own conviction after adversarial stress-testing. | Finish-gate patch (fix F28) |
+| `confidence_haircut` | Additive | Points of confidence removed by the pre-mortem (`confidence_score − post_review_confidence_score`). 0 if the thesis survived without haircut; `null` if no pre-mortem ran. | Finish-gate patch (fix F28) |
+| `pre_mortem_verdict` | Additive | The pre-mortem's verdict string (e.g. "Survives with haircut", "Does not survive — downgrade"). `""` if no pre-mortem ran. | Finish-gate patch (fix F28) |
 
 Rules: keep field names exactly as above. Absent values are `null` (numbers), `""` (strings), or `[]`/`{}` — never fabricated.
 
