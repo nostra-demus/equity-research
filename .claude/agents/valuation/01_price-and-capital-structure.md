@@ -156,7 +156,7 @@ Do not add any valuation judgment.
 - [ ] Share count basis is stated; the count used for market cap and the count used for per-share fair value are each justified (fully diluted where possible).
 - [ ] The EV bridge lists every component with a source and the arithmetic is shown.
 - [ ] Net debt uses total debt − cash unless the company defines it otherwise (then state the definition).
-- [ ] Only real operating cash + genuine equivalents are netted; financial-subsidiary investments, restricted/margin balances, and long-tenor mark-to-market securities are excluded by default (or EV is shown both ways with the canonical one stated) — a vendor's "cash" line is not adopted uncritically.
+- [ ] Only real operating cash + genuine equivalents are netted; financial-subsidiary investments, restricted/margin balances, and long-tenor mark-to-market securities are excluded by default (or EV is shown both ways with the canonical one stated) — a vendor's "cash" line is not adopted uncritically. Where a net-cash / net-debt figure is stated, it carries its §15 basis label (strict = debt − cash & equivalents / broad = incl. liquid investments / gross-liquidity), so this cash-quality split and the §15 basis label name the same axis.
 - [ ] Adjustments NOT made (leases, pensions) are named.
 - [ ] The Anchor Summary gives downstream agents a single canonical set of numbers.
 - [ ] Currency is stated.

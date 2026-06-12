@@ -23,6 +23,8 @@ You DO NOT:
 - `TICKER`, `DATA_PATH`, `OUTPUT_PATH = analyses/{TICKER}_{DATE}/business-model/09_moat.md`, `DATE`
 - `UPSTREAM_INPUTS`:
   - `analyses/{TICKER}_{DATE}/business-model/08_competitive-map.md` — REQUIRED
+  - `analyses/{TICKER}_{DATE}/business-model/07_business-quality.md` — OPTIONAL (cyclicality read, for the through-cycle return)
+  - `analyses/{TICKER}_{DATE}/business-model/10_external-dependency.md` — OPTIONAL (cyclical/policy exposure, for the through-cycle return)
 
 # DEPENDENCIES
 
@@ -34,7 +36,7 @@ If `08_competitive-map.md` is missing, note at the top:
 1. Read the repo root `CLAUDE.md` (cross-cutting rules including git policy and global investing standards), then read `.claude/agents/business-model/MODULE_RULES.md` (operating rules specific to this module), and apply both.
 2. Read competitive-map upstream — use those named competitors.
 3. For each of 10 possible moat sources, decide present (Y/N) with evidence and score strength /100.
-4. Pull margin and return-on-capital data for the company and each named competitor — **ROIC for operating companies, ROE for banks / insurers / other financials** (match the metric to the business type, consistent with the sector overlay in `frameworks/SECTOR_OVERLAYS.md`). Also pull the company's **cost of capital** (WACC, or cost of equity for financials), then run the economic moat test in step 5.
+4. Pull margin and return-on-capital data for the company and each named competitor — **ROIC for operating companies, ROE for banks / insurers / other financials** (match the metric to the business type, consistent with the sector overlay in `frameworks/SECTOR_OVERLAYS.md`). For the named competitors, **take the per-peer margin / return-on-capital from `competitive-map`'s profiles** (it captures them upstream) and only re-source where competitive-map marked a peer "not disclosed" — do not independently re-pull a peer figure competitive-map already provides, so the two can't diverge. Also pull the company's **cost of capital** (WACC, or cost of equity for financials), then run the economic moat test in step 5.
 5. State the moat verdict.
 6. Use the Write tool to save your complete report (formatted exactly as described in the REPORT STRUCTURE section above) to the path given in OUTPUT_PATH. This file is what downstream agents and the orchestrator will read — do NOT skip this step, and do NOT return your report only as a chat message. After writing the file, return only the CHAT CONFIRMATION block.
 
@@ -106,6 +108,7 @@ For private competitors with no margin data, mark "Not disclosed" — do NOT inv
 - **Match the metric to the business type** — ROIC vs WACC (the weighted-average cost of debt and equity) for operating companies; ROE vs cost of equity for banks / insurers / other financials (consistent with `frameworks/SECTOR_OVERLAYS.md`). Do not force ROIC onto a financial.
 - **Source the cost of capital in this priority, and never invent it:** (1) a company-disclosed figure (a stated cost of equity, WACC, or hurdle rate); (2) otherwise a clearly-labelled estimate — CAPM (risk-free rate + beta × equity-risk-premium), inputs shown, marked *"Inference, not from filings"* per `CLAUDE.md` §3; (3) if neither is possible, write *"cost of capital not determinable from available data"* and mark the economic test **Not assessable**. Fabricating a cost-of-capital number to force the test is a hard error.
 - **Do not swallow a management-headline return.** If ROIC / ROCE / ROE is management-disclosed, cross-check it against a figure you compute on the standard base (NOPAT ÷ average invested capital, or net income ÷ average equity), show both, and flag any material divergence — prefer the more conservative / computed figure per the source hierarchy. Label a segment-only or adjusted return that flatters the headline (e.g. "auto-segment ROCE", "adjusted ROIC") as such.
+- **Use a through-cycle return, not a single peak year.** The economic-moat test must run on a through-cycle return on capital (a multi-year average across the company's own cycle), consistent with the "through the cycle" standard in the Strong-moat verdict below — not a single elevated year. Where the latest year is a cycle peak (cross-check `07_business-quality`'s cyclicality read and `10_external-dependency`), label the latest-year figure as peak and normalise it before it supports a moat verdict. For a **net-cash** company, a collapsed (net-of-cash) capital base inflates the return — show the gross-capital (pre-cash-netting) return alongside, because a near-zero denominator can headline a return that a through-cycle, gross-capital basis would put materially lower. For a young entity with under one full standalone cycle, use the predecessor / segment / industry through-cycle return and name it.
 
 ## 4. Where The Company Sits
 
@@ -133,6 +136,7 @@ In 2–3 sentences, name the strongest moat (if any) and the durability test it 
 - [ ] The economic moat test is explicit: return on capital vs cost of capital, with the gap and the cost-of-capital source/basis — or "Not assessable" if genuinely undeterminable (never an invented cost of capital).
 - [ ] The return metric matches the business type (ROIC/WACC for operating companies; ROE/cost-of-equity for financials).
 - [ ] Any management-headline ROIC/ROCE/ROE is cross-checked against a computed figure; material divergence flagged; segment-only / adjusted returns labelled.
+- [ ] For a cyclical name, the economic-moat test runs on a through-cycle return (peak year labelled, not used raw); for a net-cash company, the gross-capital return is shown alongside the net-of-cash figure.
 - [ ] A "Strong moat" verdict is backed by returns above the cost of capital, not merely above peers.
 - [ ] The "where the company sits" line uses real data from Section 3, not impression.
 - [ ] The verdict is exactly one of {Strong / Narrow / No moat proven / Insufficient data}.

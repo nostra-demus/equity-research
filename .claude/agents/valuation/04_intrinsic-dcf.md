@@ -21,7 +21,7 @@ You DO NOT:
 # RUNTIME INPUTS
 
 - `TICKER`, `DATA_PATH`, `OUTPUT_PATH = analyses/{TICKER}_{DATE}/valuation/04_intrinsic-dcf.md`, `DATE`
-- `UPSTREAM_INPUTS` — `01_price-and-capital-structure.md` (net debt, shares for the equity bridge). Optionally cross-module: `earnings/01_historical-financials.md` (FCF base), `earnings/03_margin-drivers.md` (margin path), `earnings/04_guidance-consensus.md` (near-term forecast), `earnings/07_earnings-sensitivity.md` (assumption ranges), `business-model/10_external-dependency.md` (cyclicality → terminal assumption), `business-model/09_moat.md` (cost-of-capital cross-check for the WACC, and durability of any terminal excess return).
+- `UPSTREAM_INPUTS` — `01_price-and-capital-structure.md` (net debt, shares for the equity bridge). Optionally cross-module: `earnings/01_historical-financials.md` (FCF base), `earnings/03_margin-drivers.md` (margin path), `earnings/04_guidance-consensus.md` (near-term forecast), `earnings/06_earnings-quality.md` (DSO/DIO/DPO days for the working-capital driver), `earnings/07_earnings-sensitivity.md` (assumption ranges), `business-model/10_external-dependency.md` (cyclicality → terminal assumption), `business-model/09_moat.md` (cost-of-capital cross-check for the WACC, and durability of any terminal excess return).
 
 # PARTIAL-DATA RULE
 
@@ -54,6 +54,7 @@ Whatever method you use, keep this agent's discipline (every assumption sourced,
 - **earnings/01_historical-financials.md** — FCF, EBIT, capex, working-capital base
 - **earnings/04_guidance-consensus.md** — near-term revenue/margin guidance
 - **earnings/03_margin-drivers.md, 07_earnings-sensitivity.md** — margin path and ranges
+- **earnings/06_earnings-quality.md** — DSO/DIO/DPO days for the working-capital driver (where available)
 - **business-model/10_external-dependency.md** — cyclicality for the terminal assumption
 - **Latest annual / interim filing** (10-K/10-Q for US; Annual Report & quarterly results for India; local equivalent) — cash flow statement, capex, tax rate, debt cost
 - **Web** — current risk-free rate and equity-risk premium (label as web-sourced)
@@ -80,9 +81,11 @@ State the base year and the reporting currency.
 | EBIT margin % | | | | | | | | |
 | Tax rate % | | | | | | | | |
 | Capex (% of revenue) | | | | | | | | |
-| Δ Working capital | | | | | | | | |
+| Δ Working capital (% of revenue, or days-based) | | | | | | | | |
 
 Label every cell as company-guided, peer-derived, or analyst assumption.
+
+**Working capital scales with revenue.** Forecast the working-capital change from a revenue-linked driver — net working capital as a % of revenue (from the working-capital base in `earnings/01_historical-financials`, the declared upstream), or the days-of-sales (DSO / DIO / DPO from `earnings/06_earnings-quality` where that output is available) applied to forecast revenue — NOT a flat absolute held constant across the forecast. A growing or cyclical business ties up more cash in working capital as sales rise, so a fixed ₹/$ assumption understates that drag and flatters FCF. If the company discloses a different working-capital driver, use it and state it; where standalone history is too short, use the segment / industry norm and label it.
 
 ## 3. Discount Rate (WACC)
 
@@ -149,6 +152,8 @@ WACC across columns, terminal growth (or exit multiple) down rows:
 - [ ] Every forecast assumption is labeled company-guided / peer-derived / analyst assumption.
 - [ ] WACC components are all shown with sources; web-sourced rates are labeled. Any analyst override of the computed WACC shows both figures, is justified, stays within ±1.5pp, and is cross-checked against the moat module's cost of capital (Gate 4).
 - [ ] Terminal value is disclosed as a % of EV and flagged if >75%.
+- [ ] For a cyclical business, the terminal/normalized margin is benchmarked against peer-normal AND the company's own prior-trough — each cited — not merely set "below the recent peak" (Cyclicality Gate).
+- [ ] The working-capital change is forecast from a revenue-linked driver (% of revenue or days-of-sales), not a flat absolute held constant — unless the company discloses a different driver.
 - [ ] The financeable-growth cross-check (Gate 2) is run; if implied growth (ROIC × reinvestment) differs from modeled terminal g by more than ~1.5pp and the bridge is not quantified, terminal g is lowered to the financeable level OR intrinsic confidence is capped and the grid is shown at the financeable g.
 - [ ] EV → equity → per-share bridge uses `01`'s net debt and share count.
 - [ ] The discounting convention is stated and defaults to mid-year (t−0.5); any use of end-of-year is justified.

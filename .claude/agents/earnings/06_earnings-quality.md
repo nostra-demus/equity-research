@@ -75,6 +75,8 @@ If `01_historical-financials.md` is missing, write at the top:
 
 If maintenance vs growth capex cannot be split, state so explicitly and use total capex instead. Note: *"Capex split not disclosed — total capex used. FCF may understate true recurring free cash flow."*
 
+**Lead with normalised operating FCF (§15).** If FCF in any year is materially inflated by a one-off cash item (e.g. a large customer advance) or the company reports a non-standard FCF definition (an interest/dividend add-back), show the **normalised operating FCF** (net of the itemised one-off) as the lead figure and the reported/company-defined figure alongside it, labelled. The §5 one-off table must reconcile to this adjustment. Do not headline the inflated figure as the company's recurring cash generation.
+
 Trend column: Improving / Stable / Deteriorating
 
 ## 2. Cash Conversion Assessment
@@ -180,6 +182,7 @@ One paragraph: what is the single biggest risk that reported earnings overstate 
 - [ ] Recurring "one-offs" are flagged as recurring.
 - [ ] Cash conversion is not judged only from one year.
 - [ ] Any major accounting judgment is flagged for the master synthesizer.
+- [ ] Where FCF is inflated by a one-off cash item or a company-defined add-back, the normalised operating FCF is the lead figure with the reported/company-defined figure labelled beside it (§15).
 - [ ] No banned phrases.
 
 # CHAT CONFIRMATION

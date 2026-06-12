@@ -65,7 +65,7 @@ This module optionally reads business-model outputs if available:
 
 - `03_segment-map.md` → used by `revenue-drivers`, `margin-drivers`
 - `06_value-chain.md` → used by `margin-drivers`
-- `10_external-dependency.md` → used by `earnings-sensitivity`
+- `10_external-dependency.md` → used by `earnings-sensitivity`, and by `revenue-drivers` + `margin-drivers` for the cycle-position read (Cycle-Position Rule in MODULE_RULES)
 
 If business-model hasn't run, each affected agent proceeds independently.
 

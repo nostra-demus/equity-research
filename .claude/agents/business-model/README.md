@@ -49,7 +49,7 @@ The master synthesizer reads each module's synthesis output (including this modu
 | 06 | `value-chain` | 02 | Value-chain position |
 | 07 | `business-quality` | 03, 05 | 10-factor quality table |
 | 08 | `competitive-map` | 02, 03 | 2–3 named competitors |
-| 09 | `moat` | 08 | Moat sources + competitive economics |
+| 09 | `moat` | 08 (07, 10 optional) | Moat sources + competitive economics |
 | 10 | `external-dependency` | — | External variables + classification |
 | 11 | `capital-allocation-governance` | — | 13-signal governance table |
 | 12 | `red-flags-sweep` | most prior | Catch-all flags |

@@ -28,6 +28,7 @@ You DO NOT:
 
 - `{BUSINESS_MODEL_PATH}/03_segment-map.md` — segment structure
 - `{BUSINESS_MODEL_PATH}/06_value-chain.md` — pricing power context
+- `{BUSINESS_MODEL_PATH}/10_external-dependency.md` — cyclical/policy exposure, for the cycle-position read (Cycle-Position Rule in MODULE_RULES)
 
 If the business-model segment-map exists, read it and decompose margin drivers by segment.
 If the company is single-segment (>85% from one segment), state that and proceed at consolidated level.
@@ -171,6 +172,7 @@ One paragraph: which driver, if it moved adversely, would compress margins the m
 - [ ] Primary margin metric is chosen based on business model and justified.
 - [ ] Pass-through lag is stated if input costs are a material driver.
 - [ ] Segment mix is treated as a margin driver, not buried in prose.
+- [ ] For a cyclical/policy-exposed business, the cycle position (peak/mid/trough) is stated with evidence and any one-time policy tailwind is labelled non-run-rate (Cycle-Position Rule).
 - [ ] No banned phrases.
 
 # CHAT CONFIRMATION

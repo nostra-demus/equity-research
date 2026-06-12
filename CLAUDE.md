@@ -214,8 +214,8 @@ Rule: if the thesis is really a macro, commodity, or policy bet disguised as a s
 Require:
 - reported vs adjusted numbers clearly separated;
 - definitions stated for EBITDA, EBIT, EPS, and FCF;
-- FCF = CFO − total capex, unless the company discloses a different definition (then state it);
-- net debt = total debt − cash, unless the company defines it differently (then state it);
+- FCF = CFO − total capex, unless the company discloses a different definition (then state it); when reported FCF is inflated by a disclosed one-off (e.g. a large customer advance) or uses a company-defined add-back (interest / dividends received), lead with the normalised operating FCF (the recurring cash the operations throw off, net of itemised one-offs) and show the inflated / company-defined figure alongside it, labelled — do not headline the inflated number;
+- net debt = total debt − cash equivalents (the **strict** basis), unless the company defines it differently (then state it); whenever a net-cash / net-debt figure departs from the strict basis — netting in short-term / liquid investments (a **broad** basis), or quoting cash + investments with no debt netted (**gross liquidity**) — label the basis inline every time the figure appears (strict / broad / gross-liquidity), and never present an investment-inclusive figure as bare "net cash" without also showing the strict figure. A non-strict figure shown without its basis label is a §15 hygiene defect;
 - growth = (current − prior) / prior;
 - margin changes expressed in basis points;
 - no mixing of fiscal periods without reconciliation;

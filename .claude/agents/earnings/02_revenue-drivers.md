@@ -27,6 +27,7 @@ You DO NOT:
 # CROSS-MODULE INPUTS (optional)
 
 - `{BUSINESS_MODEL_PATH}/03_segment-map.md` — segment structure
+- `{BUSINESS_MODEL_PATH}/10_external-dependency.md` — cyclical/policy exposure, for the cycle-position read (Cycle-Position Rule in MODULE_RULES)
 
 If the business-model segment-map exists, read it and decompose revenue drivers by segment.
 If the company is single-segment (>85% from one segment), state that and proceed at consolidated level.
@@ -169,6 +170,7 @@ One paragraph: which driver, if it moved 10–20%, would have the largest impact
 - [ ] If no transcript exists, the limitation is flagged.
 - [ ] The report separates market demand, company share, price, mix, FX, and M&A where data allows.
 - [ ] If growth is due to acquisition or FX, it is not described as organic demand.
+- [ ] For a cyclical/policy-exposed business, the cycle position (peak/mid/trough) is stated with evidence and any one-time policy tailwind (GST/tax change, rate-cut demand pull-forward, subsidy) is labelled non-run-rate (Cycle-Position Rule).
 - [ ] No banned phrases.
 
 # CHAT CONFIRMATION

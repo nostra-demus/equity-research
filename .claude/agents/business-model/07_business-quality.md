@@ -100,7 +100,7 @@ In 2–3 sentences, explain how the aggregate weighting works for THIS business:
 
 ## 4. Read
 
-In 2–4 sentences: what kind of business is this — durable compounder, cyclical, regulated utility-like, commodity-exposed, fast-decaying — and what's the single quality factor a buyer should keep their eye on over the next 24 months? If the industry rate-of-change / disruption row scored Weak or below (≤40), state explicitly that this looks like a sector / technology-cycle bet rather than a durable compounder (CLAUDE.md §24, Filter 5).
+In 2–4 sentences: what kind of business is this — durable compounder, cyclical, regulated utility-like, commodity-exposed, fast-decaying — and what's the single quality factor a buyer should keep their eye on over the next 24 months? If the industry rate-of-change / disruption row scored Weak or below (≤40), state explicitly that this looks like a sector / technology-cycle bet rather than a durable compounder (CLAUDE.md §24, Filter 5). Where the headline returns (ROCE / margins) are at a cyclical peak, anchor them: name the through-cycle level, and do not let a high peak ROCE override a low Cyclicality row — reconcile the two in the same paragraph (the moat and the DCF inherit this read).
 ```
 
 # SELF-CHECK

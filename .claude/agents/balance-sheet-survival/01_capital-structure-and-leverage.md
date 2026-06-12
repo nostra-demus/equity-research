@@ -33,7 +33,7 @@ If the debt note breaks out little detail: present what is disclosed (at minimum
 2. Extract the debt stack from the latest balance sheet and debt note: short-term debt, current portion of long-term debt, long-term debt, by instrument (bonds, term loans, revolver drawn) and by seniority/security where disclosed; finance/capital leases.
 3. Capture other debt-like obligations: operating leases (note IFRS 16 vs US GAAP treatment), pension/OPEB underfunding, preferred equity.
 4. Capture cash, liquid short-term investments, and flag any restricted/trapped cash.
-5. Compute gross debt, net debt, and the leverage ratios (gross and net debt / EBITDA on reported and, if disclosed, adjusted EBITDA; debt/capital; debt/equity).
+5. Compute gross debt, net debt on BOTH §15 bases — strict (gross debt − cash & equivalents) and, where liquid short-term investments are netted in, broad (labelled) — and the leverage ratios (gross and net debt / EBITDA on reported and, if disclosed, adjusted EBITDA; debt/capital; debt/equity).
 6. Pull the multi-year leverage trend from `earnings/01_historical-financials.md` or the filings.
 7. Produce the Leverage Anchor Summary the downstream agents reuse.
 
@@ -84,8 +84,12 @@ State the reporting currency. If a field is undisclosed, write "Not disclosed" �
 | Metric | Value | Source |
 |---|---:|---|
 | Gross debt | | |
-| − Cash & liquid investments | | |
-| **Net debt** | | |
+| − Cash & equivalents | | |
+| **Net debt (strict, §15)** | | |
+| − Liquid short-term investments | | |
+| **Net debt (broad, incl. investments)** | | |
+
+The strict row (gross debt − cash & equivalents) is the §15 default. Where liquid short-term investments are material, also show the broad row, labelled — never a bare investment-inclusive "net debt"; the basis label travels with the figure downstream.
 
 ## 5. Leverage Ratios
 
@@ -96,13 +100,13 @@ State the reporting currency. If a field is undisclosed, write "Not disclosed" �
 | Debt / capital | | (n/a) | |
 | Debt / equity | | (n/a) | |
 
-State the EBITDA figure used and its basis. If leverage is quoted on adjusted EBITDA, the GAAP-based ratio must appear here too.
+State the EBITDA figure used and its basis. If leverage is quoted on adjusted EBITDA, the GAAP-based ratio must appear here too. State which §15 net-debt basis (strict / broad) the net-leverage row uses; if broad, show the strict-basis ratio too. For a cyclical name (per `business-model/10_external-dependency` / `07_business-quality`), add a row showing net leverage on a normalised / mid-cycle EBITDA alongside the latest-year figure, and label which is peak.
 
 ## 6. Leverage Trend
 
 | Metric | FY{-2} | FY{-1} | FY{0} | Latest | Direction |
 |---|---:|---:|---:|---:|---|
-| Net debt | | | | | |
+| Net debt (state §15 basis) | | | | | |
 | Net debt / EBITDA | | | | | |
 
 In 2–3 sentences: is leverage rising or falling, and what drove the change (acquisition, buyback, operating decline, FX, asset sale)? Cite evidence.
@@ -121,15 +125,15 @@ If not applicable, write: "Not applicable — no material HoldCo-level debt indi
 
 State the numbers every other solvency agent should use verbatim:
 - Gross debt
-- Net debt
+- Net debt (with its §15 basis label: strict, plus broad where used — and designate ONE as the canonical figure downstream agents use: strict by default, broad only with a stated reason)
 - Cash & liquid investments
-- EBITDA base used (value + reported/adjusted)
-- Net debt / EBITDA (both bases)
+- EBITDA base used (value + reported/adjusted + cycle position: peak/latest vs mid-cycle/normalised, for a cyclical)
+- Net debt / EBITDA (on both EBITDA bases — reported and adjusted — using the canonical net-debt figure)
 - Reporting currency
 
 If any number is estimated or based on adjusted EBITDA, say so here so downstream agents propagate the caveat.
 
-If the company is **net cash** (cash + liquid investments > gross debt), state it plainly here and flag it as a positive strategic-flexibility signal, not a "lazy balance sheet" (CLAUDE.md §24, Filter 3): net cash funds counter-cyclical action when earnings fall and removes refinancing dependence. Do not editorialize that the company is "under-levered" or should add debt to optimize cost of capital — this module rejects the "optimal leverage" frame.
+If the company is **net cash**, state it with its basis (CLAUDE.md §15): give the **strict** figure (cash & equivalents − gross debt) and, where short-term / liquid investments are netted in to reach a larger figure, the **broad** figure (cash + liquid investments − gross debt) alongside it, each labelled — never headline the investment-inclusive figure as bare "net cash" without the strict figure beside it. Flag net cash as a positive strategic-flexibility signal, not a "lazy balance sheet" (CLAUDE.md §24, Filter 3): net cash funds counter-cyclical action when earnings fall and removes refinancing dependence. Do not editorialize that the company is "under-levered" or should add debt to optimize cost of capital — this module rejects the "optimal leverage" frame.
 ```
 
 # SELF-CHECK
@@ -137,6 +141,7 @@ If the company is **net cash** (cash + liquid investments > gross debt), state i
 - [ ] The debt stack lists instruments with seniority/security where disclosed; total gross debt ties to the balance sheet.
 - [ ] Operating-lease treatment (IFRS 16 vs US GAAP) is stated.
 - [ ] Restricted/trapped cash is flagged, not silently netted.
+- [ ] Any net-debt / net-cash figure carries its §15 basis label — the strict figure (vs cash & equivalents only) is always shown, with the broad (investment-inclusive) figure labelled beside it where used; never a bare investment-inclusive "net debt" / "net cash" (§15).
 - [ ] BOTH gross and net leverage are shown.
 - [ ] If leverage is on adjusted EBITDA, the GAAP-based ratio also appears.
 - [ ] The leverage trend gives a direction and a driver.
@@ -150,7 +155,7 @@ If the company is **net cash** (cash + liquid investments > gross debt), state i
 ```
 Agent: capital-structure-and-leverage
 Output: {OUTPUT_PATH}
-Verdict: Net debt {value}; net leverage {x}x ({reported/adjusted} EBITDA), trend {rising/flat/falling}
+Verdict: Net debt {value} ({strict/broad} §15 basis); net leverage {x}x ({reported/adjusted} EBITDA), trend {rising/flat/falling}
 Biggest finding: {one line — the leverage level and what drove the trend}
 ```
 

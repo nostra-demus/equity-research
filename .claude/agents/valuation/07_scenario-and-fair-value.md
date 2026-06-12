@@ -76,7 +76,7 @@ Each case is a **single derived fair-value LEVEL — a point, not a range** — 
 | Base | | | | |
 | Bear | | | | |
 
-Tie each case to specific operating drivers (from `earnings/07_earnings-sensitivity.md` where available) and the warranted multiple. DO NOT assign probabilities — that is the master synthesizer's job.
+Tie each case to specific operating drivers (from `earnings/07_earnings-sensitivity.md` where available) and the warranted multiple. **For a cyclical/commodity business — or where the earnings module flagged the latest period as a cycle peak or carrying a one-time policy tailwind — the BEAR case must reflect a true through-cycle trough: cite the company's actual prior-downturn volume and margin (the last recession year), not a mild dip off the recent peak. If the upstream `earnings/07` sensitivity range was built only on the last ~3 years and those years are all upcycle, widen the bear move to the documented prior-trough and say so. For a young entity with under one full standalone cycle, use the predecessor / segment / industry prior-downturn and name it. Evidence-based: name the prior-downturn period and its figures; do not invent a trough deeper than the history supports.** DO NOT assign probabilities — that is the master synthesizer's job.
 
 ## 4. Margin of Safety & Downside (two separate metrics)
 
@@ -111,6 +111,7 @@ Margin of safety (discount to base fair value) and downside-to-bear (loss to the
 - [ ] The warranted-multiple check flags value-trap risk where applicable.
 - [ ] The boundary is respected: no probabilities, no risk/reward, no rating, no position sizing.
 - [ ] The weighted level math, margin of safety, and implied multiples were produced by an executed Bash/Python snippet (command + result shown), not by hand. *(fix F09)*
+- [ ] For a cyclical business, the bear case reaches a cited prior-downturn trough (predecessor/segment/industry if the entity is young), not a mild dip off the recent peak.
 - [ ] No banned phrases.
 
 # CHAT CONFIRMATION

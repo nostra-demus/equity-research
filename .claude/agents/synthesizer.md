@@ -392,6 +392,7 @@ These non-negotiables are defined in detail above but are easy to lose at ~1,100
 3. **Rating-cap precedence:** apply the MOST restrictive cap that fires (data sufficiency §11, the verdict-locks above, macro/commodity/policy-driven thesis) and record it in the scorecard.
 4. **No-source-no-claim (§3/§5):** every rating-driver number is cited; a web/indicative price keeps `entry_price` null and margin of safety "Not assessable".
 5. **Symmetric disconfirmation:** §9A Bull Case and §10 Kill Criteria are both filled with equal rigor.
+6. **Net-cash / leverage headline disclosure (§15).** Any "net cash" / "net-cash fortress" / "net debt" framing in the headline or Part I must state its basis (strict / broad-incl-investments / gross-liquidity) and, when it uses a non-strict figure, show the **strict** (debt − cash-equivalents) figure alongside it — never present an investment-inclusive number as bare "net cash." A broad "fortress" read (§24 Filter 3) is welcome — headline it *as* broad, with the strict figure named too. For a cyclical, leverage stated on peak-year EBITDA must be shown beside a normalised / mid-cycle figure (defers to balance-sheet-survival).
 
 ---
 

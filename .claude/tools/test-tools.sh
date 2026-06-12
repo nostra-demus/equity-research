@@ -136,5 +136,86 @@ print("  PASS: no MoS/range drift; MoS, downside-to-bear, and the no-price cap e
 sys.exit(0 if ok else 1)
 PY
 
+echo "== cyclical-normalisation + canonical-definition PLACEMENT guard (prompt-lint — born from the 2026-06-10 TMCV optimistic-drift audit) =="
+# Guards the C1/C2 fix PLACEMENT: (1) each new rule is present in its CORRECT file; (2) the ROCE
+# canonical rule stays in the moat (which branches ROIC vs ROE by business type) and is NEVER
+# hoisted into CLAUDE.md §15, where a blanket through-cycle-ROIC rule would force an operating-
+# company metric onto banks/REITs (the HIGH-severity error the audit caught). prompt-lint only —
+# the semantic risks (duplication, dependency direction, graceful degradation) stay with
+# verify-evidence §4C and the layer DAG, NOT grep.
+"$PY" - "$DIR/../.." <<'PY' || rc=1
+import os, sys
+root=sys.argv[1]
+def read(p):
+    try: return open(os.path.join(root,p),encoding="utf-8").read()
+    except FileNotFoundError: return None
+ok=True
+# (1) positive — each new rule present in its correct file
+PRESENT=[
+  (".claude/agents/earnings/MODULE_RULES.md",                         "Cycle-Position Rule",                            "earnings cycle-position rule (the source)"),
+  (".claude/agents/earnings/02_revenue-drivers.md",                   "cycle position (peak/mid/trough) is stated",     "earnings 02 cycle self-check"),
+  (".claude/agents/earnings/03_margin-drivers.md",                    "cycle position (peak/mid/trough) is stated",     "earnings 03 cycle self-check"),
+  (".claude/agents/earnings/06_earnings-quality.md",                  "Lead with normalised operating FCF",             "earnings 06 FCF headline-lead"),
+  (".claude/agents/valuation/MODULE_RULES.md",                        "benchmarked against BOTH a peer-normal margin",  "valuation terminal-margin peer-normal+prior-trough anchor"),
+  (".claude/agents/valuation/07_scenario-and-fair-value.md",          "true through-cycle trough",                      "valuation 07 true-trough bear case"),
+  (".claude/agents/balance-sheet-survival/MODULE_RULES.md",           "Label the cycle position of the EBITDA",         "BSS leverage cycle-axis"),
+  (".claude/agents/balance-sheet-survival/06_downside-stress-test.md","Pending acquisition (pro-forma) check",          "BSS pro-forma post-event leverage step"),
+  (".claude/agents/business-model/09_moat.md",                        "Use a through-cycle return",                     "moat through-cycle ROIC enforcement"),
+  (".claude/agents/business-model/07_business-quality.md",            "at a cyclical peak, anchor them",                "business-quality peak-return ring-fence"),
+  ("CLAUDE.md",                                                       "normalised operating FCF",                       "§15 FCF headline-lead"),
+  ("CLAUDE.md",                                                       "gross-liquidity",                                "§15 net-cash basis label"),
+  (".claude/agents/synthesizer.md",                                   "Net-cash / leverage headline disclosure",        "synthesizer net-cash headline gate"),
+  (".claude/agents/balance-sheet-survival/01_capital-structure-and-leverage.md","state it with its basis (CLAUDE.md §15)","BSS/01 net-cash basis labelling (the source, not just the headline)"),
+  (".claude/agents/balance-sheet-survival/MODULE_RULES.md",           "the **strict** basis (CLAUDE.md §15)",           "BSS MODULE_RULES Calculation Standard 3 net-debt strict-basis definition"),
+  (".claude/agents/balance-sheet-survival/01_capital-structure-and-leverage.md","Net debt (strict, §15)",                "BSS/01 Section-4 net-debt bridge carries both §15 bases (the canonical anchor)"),
+  (".claude/agents/valuation/04_intrinsic-dcf.md",                    "benchmarked against peer-normal AND the company",  "val/04 terminal-margin benchmark self-check"),
+  (".claude/agents/valuation/04_intrinsic-dcf.md",                    "Working capital scales with revenue",            "val/04 working-capital-scales-with-revenue (Q1)"),
+  (".claude/agents/business-model/08_competitive-map.md",             "Profitability / return on capital",              "competitive-map per-peer return-on-capital (E — the moat's peer anchor)"),
+]
+for path, needle, desc in PRESENT:
+    t=read(path)
+    if t is None: print(f"  FAIL: file missing -> {path}"); ok=False
+    elif needle not in t: print(f"  FAIL: {desc} missing from {path} -> {needle!r}"); ok=False
+# (2) negative — the ROCE canonical rule must NOT live in CLAUDE.md (it belongs in the moat;
+#     a blanket §15 ROCE-on-invested-capital rule misfires for banks/REITs that use ROE)
+claude=(read("CLAUDE.md") or "").lower()
+for b in ["gross invested capital","through-cycle return on","canonical figure is a through-cycle"]:
+    if b in claude:
+        print(f"  FAIL: ROCE-canonical phrasing leaked into CLAUDE.md (financials/REIT misfire risk) -> {b!r}"); ok=False
+# (3) COMPLETENESS — the young-entity/predecessor fallback must appear in EVERY cyclical-normalisation
+#     rule, not just some. (Self-review found BSS had the mid-cycle normalisation but NOT the fallback,
+#     leaving it unsatisfiable for a <1-cycle demerged entity — the exact motivating case. A per-file
+#     presence check can't catch a fallback missing from ONE file in a set; this asserts it across the set.)
+for path in [".claude/agents/earnings/MODULE_RULES.md",".claude/agents/valuation/MODULE_RULES.md",
+             ".claude/agents/valuation/07_scenario-and-fair-value.md",
+             ".claude/agents/balance-sheet-survival/MODULE_RULES.md",".claude/agents/business-model/09_moat.md"]:
+    t=(read(path) or "").lower()
+    if "young entity" not in t and "predecessor" not in t:
+        print(f"  FAIL: cyclical-normalisation rule missing the young-entity/predecessor fallback -> {path}"); ok=False
+# (4) vocab — the strict net-debt basis must not be called 'basic' in valuation (a third term for §15's 'strict')
+if "broad vs basic" in (read(".claude/agents/valuation/MODULE_RULES.md") or "").lower():
+    print("  FAIL: valuation MODULE_RULES uses 'broad vs basic' — harmonise to the §15 strict/broad vocabulary"); ok=False
+# (5) CONTRADICTION regression — the old broad-basis 'net cash, state it plainly' instruction (the TMCV
+#     ₹8,231-vs-₹2,082 site) must NOT return. This is the only class of bug that a positive presence check
+#     CANNOT see (the rule can be present AND contradicted at once); a targeted negative guard is the only
+#     deterministic way to catch a contradiction returning — it is whack-a-mole (one phrasing), not a
+#     semantic engine, so it complements verify-evidence rather than replacing it.
+if "investments > gross debt), state it plainly" in (read(".claude/agents/balance-sheet-survival/01_capital-structure-and-leverage.md") or "").lower():
+    print("  FAIL: BSS/01 reintroduced the broad-basis 'net cash, state it plainly' instruction that contradicts §15"); ok=False
+#     Same class, one file up: the module's own Calculation Standard 3 must not return to defining
+#     bare "net debt" on the broad basis (gross debt − cash − liquid investments with no basis label) —
+#     every BSS agent reads MODULE_RULES first, so an unlabelled broad definition there overrides the
+#     BSS/01 fix in practice (found in the PR#11 review).
+if "cash & equivalents − liquid short-term investments. state the definition;" in (read(".claude/agents/balance-sheet-survival/MODULE_RULES.md") or "").lower():
+    print("  FAIL: BSS MODULE_RULES Calculation Standard 3 reverted to the unlabelled broad net-debt definition that contradicts §15"); ok=False
+#     And BSS/01's Section-4 bridge must not return to a single combined "− Cash & liquid investments"
+#     row yielding a bare "Net debt" (an unlabelled broad figure as the canonical anchor every downstream
+#     solvency agent reuses verbatim — found by the PR#11 adversarial verify).
+if "| − cash & liquid investments |" in (read(".claude/agents/balance-sheet-survival/01_capital-structure-and-leverage.md") or "").lower():
+    print("  FAIL: BSS/01 Section 4 reverted to the combined cash+investments row that yields an unlabelled broad net debt"); ok=False
+print("  PASS: cycle/definition rules in their correct files; ROCE out of §15; young-entity fallback complete; no net-cash contradiction" if ok else "  -> cyclical-normalisation placement guard FAILED")
+sys.exit(0 if ok else 1)
+PY
+
 [ $rc -eq 0 ] && echo "ALL SMOKE TESTS PASS" || echo "SMOKE TESTS FAILED"
 exit $rc
