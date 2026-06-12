@@ -10,10 +10,11 @@ import { buildQueries, fetchGdelt } from '../src/news/sources/gdelt'
 import { eventIdFor, loadLedgerEventIds, normalizeAndFilter, parseSeendate } from '../src/news/normalize'
 import { SeenCache } from '../src/news/seen-cache'
 import { Budget, RateLimiter } from '../src/news/triage/budget'
-import { estimateTokens, scoreToBand, triageBatch } from '../src/news/triage/groq'
+import { coerceTriage, estimateTokens, scoreToBand, triageBatch } from '../src/news/triage/groq'
+import { appendFeedItems, readFeed } from '../src/news/feed'
 import { mergeInbox } from '../src/news/write-inbox'
 import { runIngestCycle } from '../src/news/runCycle'
-import type { RawArticle, TriagedItem } from '../src/news/types'
+import type { FeedItem, RawArticle, TriagedItem } from '../src/news/types'
 
 let passed = 0
 async function check(name: string, fn: () => void | Promise<void>) {
@@ -173,7 +174,7 @@ await check('triageBatch: HTTP error and non-JSON content both return ok:false (
   )
   const err = await triageBatch(items, { model: 'm', baseUrl: 'https://g.test', apiKey: 'k' }, (async () => res('rate limited', 429)) as unknown as typeof fetch)
   assert.equal(err.ok, false)
-  assert.equal(err.requests, 1) // a 429 still counts against the daily request budget
+  assert.equal(err.requests, 2) // a 429 is retried once; both attempts count against the daily request budget
   const bad = await triageBatch(items, { model: 'm', baseUrl: 'https://g.test', apiKey: 'k' }, (async () => res({ choices: [{ message: { content: 'not json' } }] })) as unknown as typeof fetch)
   assert.equal(bad.ok, false)
   assert.equal(bad.byIndex.size, 0)
@@ -258,6 +259,150 @@ await check('runIngestCycle: fetch → triage → ranked inbox; second run skips
   const s2 = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
   assert.equal(s2.candidates, 0)
   assert.equal(s2.groq_requests, 0)
+})
+
+// ---- the company/size guess: every new field coerces to a safe default (model drift ≠ crash) ----
+await check('coerceTriage: companies/size_bucket hard-coerce (bogus ticker → null, bad bucket → unknown)', () => {
+  const t = coerceTriage({
+    relevance: 'material', materiality_pre_score: 80, event_types: ['mna'], issuer_linkage: 'primary', why: 'x',
+    companies: [
+      { name: '  Infosys Ltd ', ticker: 'INFY', listing_country: 'in' },
+      { name: 'Bad Ticker Co', ticker: 'not a ticker!!', listing_country: 'India' },
+      { name: '', ticker: 'GONE' }, // empty name → dropped
+      { name: 'Fourth Co' }, // beyond slice(0,3) only if >3 — here it fills the dropped slot
+    ],
+    size_bucket: 'gigantic',
+  })
+  assert.equal(t.companies.length, 2) // slice(0,3) happens BEFORE the empty-name drop
+  assert.deepEqual(t.companies[0], { name: 'Infosys Ltd', ticker: 'INFY', listing_country: 'IN' })
+  assert.equal(t.companies[1].ticker, null) // bogus ticker rejected
+  assert.equal(t.companies[1].listing_country, null) // not a 2-letter code
+  assert.equal(t.size_bucket, 'unknown') // bad bucket → unknown
+  const empty = coerceTriage({ relevance: 'material', materiality_pre_score: 50 })
+  assert.deepEqual(empty.companies, [])
+  assert.equal(empty.size_bucket, 'unknown')
+})
+
+// ---- the live wire's persistence: per-item records for kept AND dropped ----
+await check('runIngestCycle writes kind:"item" feed lines for kept AND dropped, with themes + company guesses', async () => {
+  const root = tmp()
+  const state = tmp()
+  const groqBody = {
+    usage: { total_tokens: 220 },
+    choices: [{ message: { content: JSON.stringify({ items: [
+      { i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'A 50 bps cut lowers funding costs.', companies: [{ name: 'Can Fin Homes', ticker: 'CANFINHOME', listing_country: 'IN' }], size_bucket: 'mid' },
+      { i: 1, relevance: 'irrelevant', materiality_pre_score: 8, event_types: ['rumor'], issuer_linkage: 'sector', why: 'Weekend opinion piece.', companies: [], size_bucket: 'unknown' },
+    ] }) } }],
+  }
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('groq')) return res(groqBody)
+    if (u.includes('reuters.com')) return res({ articles: [
+      { url: 'https://reuters.com/x', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' },
+      { url: 'https://cnbc.com/y', title: 'Columnist muses about weekend market vibes and little else', domain: 'cnbc.com', seendate: '20260612T090100Z' },
+    ] })
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false } as any
+  const now = () => new Date('2026-06-12T09:30:00Z')
+  await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  const { items, cycles } = readFeed(root, 1, { now })
+  assert.equal(items.length, 2) // kept AND dropped both recorded
+  const kept = items.find((i) => i.band === 'pick')!
+  const dropped = items.find((i) => i.band === 'drop')!
+  assert.equal(kept.inboxed, true)
+  assert.equal(kept.event_types[0], 'macro_sector')
+  assert.equal(kept.companies[0].ticker, 'CANFINHOME')
+  assert.equal(kept.size_bucket, 'mid')
+  assert.equal(dropped.inboxed, false)
+  assert.equal(dropped.triage_reason, 'Weekend opinion piece.')
+  assert.equal(cycles.length, 1)
+  // …and the inbox row persists the theme/company fields
+  const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json'), 'utf8'))
+  assert.deepEqual(doc.rows[0].event_types, ['macro_sector'])
+  assert.equal(doc.rows[0].companies[0].name, 'Can Fin Homes')
+  assert.equal(doc.rows[0].size_bucket, 'mid')
+})
+
+await check('appendFeedItems honors the daily cap; readFeed skips corrupt lines', () => {
+  const root = tmp()
+  const mk = (n: number): FeedItem => ({
+    kind: 'item', ts: `2026-06-12T09:0${n}:00Z`, event_id: `EVT-${n}`, headline: `h${n}`, url: `https://reuters.com/${n}`,
+    domain: 'reuters.com', source_name: 'Reuters', via: 'gdelt', region: 'GLOBAL', input_nature: 'news_headline',
+    triage_score: 50, band: 'watch', triage_reason: '', relevance: 'relevant_non_material', event_types: [],
+    issuer_linkage: 'sector', companies: [], size_bucket: 'unknown', dedup_status: 'new', inboxed: true,
+  })
+  assert.equal(appendFeedItems(root, '2026-06-12', [mk(1), mk(2), mk(3)], 2), 2) // cap blocks the third
+  assert.equal(appendFeedItems(root, '2026-06-12', [mk(4)], 2), 0) // cap already reached
+  fs.appendFileSync(path.join(root, 'screener/inbox/2026-06-12_firehose.ndjson'), 'NOT JSON\n')
+  const { items } = readFeed(root, 1, { now: () => new Date('2026-06-12T10:00:00Z') })
+  assert.equal(items.length, 2) // corrupt line skipped, capped writes honored
+})
+
+// ---- the no-lost-news guarantee: a Groq hiccup defers a batch, it never buries it ----
+await check('a failed Groq batch is DEFERRED (not zero-scored-and-seen) and is scored on the next cycle from spillover', async () => {
+  const root = tmp()
+  const state = tmp()
+  let groqUp = false
+  const goodGroq = {
+    usage: { total_tokens: 200 },
+    choices: [{ message: { content: JSON.stringify({ items: [
+      { i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'A 50 bps cut lowers funding costs.', companies: [], size_bucket: 'unknown' },
+    ] }) } }],
+  }
+  let gdeltServed = false
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('groq')) return groqUp ? res(goodGroq) : res('upstream sad', 503)
+    if (u.includes('reuters.com') && !gdeltServed) {
+      gdeltServed = true // GDELT hands the article over ONCE — cycle 2 must rely on the spillover
+      return res({ articles: [{ url: 'https://reuters.com/once', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false } as any
+  const now = () => new Date('2026-06-12T09:30:00Z')
+
+  // cycle 1: Groq is down (503, retried, still down) — the item must NOT be scored-zero or marked seen
+  const s1 = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  assert.equal(s1.ok, true)
+  assert.equal(s1.picked + s1.watched + s1.dropped, 0) // nothing was actually scored
+  assert.match(s1.note || '', /deferred/) // and the summary says so honestly
+  assert.ok(fs.existsSync(path.join(state, 'news-deferred.json'))) // the spillover persisted
+
+  // cycle 2: Groq is back, GDELT has nothing new — the item re-enters from the spillover and scores
+  groqUp = true
+  const s2 = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  assert.equal(s2.candidates, 1) // the requeued item
+  assert.equal(s2.picked, 1) // scored this time
+  const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json'), 'utf8'))
+  assert.equal(doc.rows[0].url, 'https://reuters.com/once')
+  assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 0) // spillover drained
+})
+
+await check('mergeInbox: dismissed rows are preserved like consumed (never evicted, never resurrected)', () => {
+  const root = tmp()
+  const mkItem = (n: number, score: number): TriagedItem => ({
+    event_id: `EVT-m${n}`, headline: `headline number ${n} long enough`, url: `https://reuters.com/m${n}`, domain: 'reuters.com',
+    source_name: 'Reuters', region: 'GLOBAL', input_nature: 'news_headline', found_at: '2026-06-12T09:00:00Z', dedup_status: 'new',
+    triage_score: score, triage_reason: 'r', relevance: 'material', materiality_pre_score: score,
+    event_types: ['mna'], issuer_linkage: 'primary', companies: [], size_bucket: 'unknown', band: score >= 70 ? 'pick' : 'watch',
+  })
+  mergeInbox(root, '2026-06-12', [mkItem(1, 90), mkItem(2, 80)], { maxRows: 10 })
+  const fp = path.join(root, 'screener/inbox/2026-06-12_sweep.json')
+  const doc = JSON.parse(fs.readFileSync(fp, 'utf8'))
+  // a human dismisses row 2
+  doc.rows.find((r: any) => r.url === 'https://reuters.com/m2').dismissed = true
+  fs.writeFileSync(fp, JSON.stringify(doc, null, 2))
+  // next cycle re-sees the same URL + a cap of 1 — the dismissed row must survive AND stay dismissed
+  mergeInbox(root, '2026-06-12', [mkItem(2, 85), mkItem(3, 70)], { maxRows: 1 })
+  const after = JSON.parse(fs.readFileSync(fp, 'utf8'))
+  const m2 = after.rows.find((r: any) => r.url === 'https://reuters.com/m2')
+  assert.equal(m2.dismissed, true) // not resurrected by the re-seen URL
+  assert.ok(after.rows.find((r: any) => r.url === 'https://reuters.com/m2')) // not evicted by the cap
+  const live = after.rows.filter((r: any) => !r.dismissed && !r.consumed)
+  assert.equal(live.length, 1) // the cap applies only to the live pool
+  assert.deepEqual(m2.event_types, ['mna']) // theme fields persisted on rows
 })
 
 console.log(`\n${passed} checks passed`)

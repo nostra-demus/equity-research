@@ -31,8 +31,9 @@ LEDGER = os.path.join(REPO, "screener", "ledger")
 INBOX = os.path.join(REPO, "screener", "inbox")
 BOARD = os.path.join(REPO, "screener", "board", "index.json")
 
-# Thesis statuses count as "watchlist" for the funnel header.
-WATCHLIST_STATUSES = {"watchlist_no_source", "watchlist_no_world_change", "watchlist_no_edge"}
+# Thesis statuses count as "watchlist" for the funnel header. watchlist_manual is a HUMAN move
+# (an overrides.ndjson record), distinct from the engine's three watchlist reasons.
+WATCHLIST_STATUSES = {"watchlist_no_source", "watchlist_no_world_change", "watchlist_no_edge", "watchlist_manual"}
 
 
 def read_json(path: str):
@@ -64,8 +65,10 @@ def read_ndjson(path: str) -> list[dict]:
 def firehose_counts(today: str) -> tuple[int, int, int]:
     """Sum today's autonomous-ingester cycle summaries → (seen, picked-into-inbox, dropped).
 
-    The ingester logs one compact `cycle_summary` line per run to <DATE>_firehose.ndjson; dropped
-    items are counted here but never written to the inbox. seen == picked + dropped by construction.
+    The ingester logs one compact `cycle_summary` line per run to <DATE>_firehose.ndjson (per-item
+    `kind:"item"` lines are filtered out here); dropped items are counted but never written to the
+    inbox. NOTE: seen can exceed picked + dropped — a cycle that hits the daily Groq budget or a
+    transient Groq failure defers the unscored tail to the next cycle.
     """
     seen = picked = dropped = 0
     for o in read_ndjson(os.path.join(INBOX, f"{today}_firehose.ndjson")):
@@ -105,7 +108,24 @@ def build() -> dict:
                 "region": row.get("region") or "",
                 "relevance": row.get("relevance") or "",
                 "materiality_pre_score": row.get("materiality_pre_score"),
+                "event_types": row.get("event_types") if isinstance(row.get("event_types"), list) else [],
+                "issuer_linkage": row.get("issuer_linkage") or "",
+                "companies": row.get("companies") if isinstance(row.get("companies"), list) else [],
+                "size_bucket": row.get("size_bucket") or "",
+                # additive: human state (cockpit dismiss/restore)
+                "dismissed": bool(row.get("dismissed")),
+                "dismissed_at": row.get("dismissed_at") or "",
+                "dismissed_by": row.get("dismissed_by") or "",
             })
+
+    # ---- human thesis overrides (append-only; the LAST line per thesis wins) ----
+    # The engine's own `status` is never altered: the board carries BOTH — `status` (the checks'
+    # verdict) and `effective_status` (where the human put it) — plus `override_stale` when the
+    # engine re-ran and changed its mind AFTER the move (surfaced, never silently resolved).
+    latest_override: dict[str, dict] = {}
+    for line in read_ndjson(os.path.join(LEDGER, "overrides.ndjson")):
+        if line.get("kind") == "thesis_status" and line.get("thesis_id"):
+            latest_override[line["thesis_id"]] = line
 
     # ---- theses (read first so signals can link to them) ----
     theses: list[dict] = []
@@ -157,6 +177,22 @@ def build() -> dict:
             "candidate_count": len(cands),
             "candidates": cands,
         }
+        ovr = latest_override.get(thesis_id)
+        engine_status = entry["status"]
+        if ovr and ovr.get("to_status"):
+            entry["effective_status"] = ovr["to_status"]
+            entry["override"] = {
+                "from_status": ovr.get("from_status") or "",
+                "to_status": ovr.get("to_status"),
+                "reason": ovr.get("reason") or "",
+                "moved_by": ovr.get("moved_by") or "",
+                "moved_at": ovr.get("moved_at") or "",
+            }
+            entry["override_stale"] = (ovr.get("from_status") or "") != engine_status
+        else:
+            entry["effective_status"] = engine_status
+            entry["override"] = None
+            entry["override_stale"] = False
         theses.append(entry)
         if meta.get("signal_id"):
             thesis_by_signal[meta["signal_id"]] = entry
@@ -201,10 +237,11 @@ def build() -> dict:
     } for h in handoffs]
 
     # ---- funnel counts ----
-    thesis_statuses = [t["status"] for t in theses]
+    # funnel counts run on the EFFECTIVE status (engine verdict unless a human moved the idea)
+    thesis_statuses = [t.get("effective_status") or t["status"] for t in theses]
     news_seen, news_picked, news_dropped = firehose_counts(now[:10])
     counts = {
-        "inbox_unconsumed": sum(1 for r in inbox_rows if not r["consumed"]),
+        "inbox_unconsumed": sum(1 for r in inbox_rows if not r["consumed"] and not r.get("dismissed")),
         "signals_total": len(signals),
         "parked": sum(1 for s in signals if s["status"] == "PARK"),
         "logged": sum(1 for s in signals if s["status"] in ("LOG", "suppress")),

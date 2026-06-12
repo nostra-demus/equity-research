@@ -80,6 +80,7 @@ export function normalizeAndFilter(raws: RawArticle[], deps: NormalizeDeps): New
       input_nature: meta.input_nature,
       found_at: parseSeendate(a.seendate, now),
       dedup_status: deps.ledgerEventIds.has(event_id) ? 'possible_duplicate' : 'new',
+      via: a.via || 'gdelt',
     })
   }
   return out

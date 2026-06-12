@@ -1,6 +1,7 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useStore } from '../lib/store'
 import { decisionColor, resetIn, sufficiencyColor, usageColor, usageLabel, usagePct } from '../lib/format'
+import { plainKind } from '../lib/plain'
 import { EngineStatusPill } from './EngineStatus'
 
 function BrandMark() {
@@ -43,34 +44,102 @@ function SwarmSwitcher() {
   )
 }
 
-// Screener-mode middle controls: New signal · Scan sources (two-click confirm) · Inbox count · Pipeline.
+// The auto-scanner's always-visible status: on/off, when it last looked, what it found today.
+// Click → the News wire (the live view of everything it read). The free scanner replaced the old
+// top-bar "Find news" button — the paid manual scan now lives inside the Idea board's Inbox lane.
+function AutoScanChip() {
+  const status = useStore((s) => s.newsStatus)
+  const refresh = useStore((s) => s.refreshNewsStatus)
+  const openNewsFeed = useStore((s) => s.openNewsFeed)
+  useEffect(() => {
+    void refresh()
+    const id = setInterval(() => void refresh(), 60_000)
+    return () => clearInterval(id)
+  }, [refresh])
+  const ago = status?.lastCycleAt ? Math.max(0, Math.round((Date.now() - new Date(status.lastCycleAt).getTime()) / 60_000)) : null
+  const label = !status
+    ? 'Auto-scan …'
+    : status.enabled
+      ? status.running
+        ? 'Auto-scan looking now…'
+        : ago != null
+          ? `Auto-scan on · last look ${ago}m ago`
+          : 'Auto-scan on'
+      : 'Auto-scan off'
+  const title = status?.enabled
+    ? `The free scanner reads trusted news every ${status.intervalMin} min and scores each item. Today: read ${status.today.read} · kept ${status.today.kept} · dropped ${status.today.dropped}. Click to watch it live.`
+    : 'The free scanner is off — it needs a (free) Groq key in the engine. Click to see the wire anyway.'
+  return (
+    <button className="autoscan" onClick={() => void openNewsFeed()} title={title}>
+      <span className={`autoscan__dot${status?.enabled ? ' autoscan__dot--on' : ''}${status?.running ? ' autoscan__dot--busy' : ''}`} />
+      {label}
+    </button>
+  )
+}
+
+// The kill switch — visible in BOTH swarms whenever anything is running. One click shows what's
+// running; each row can be stopped alone, or everything at once (two-click confirm).
+function StopControl() {
+  const active = useStore((s) => s.globalActive)
+  const open = useStore((s) => s.stopListOpen)
+  const setOpen = useStore((s) => s.setStopListOpen)
+  const cancelRun = useStore((s) => s.cancelRun)
+  const stopEverything = useStore((s) => s.stopEverything)
+  const [armAll, setArmAll] = useState(false)
+  if (!active.length) return null
+  return (
+    <div className="tickerpick">
+      <button className="stopctl" onClick={() => setOpen(!open)} title="Something is running — click to see it, stop one thing, or stop everything">
+        <span className="stopctl__square">■</span>
+        {active.length} running
+      </button>
+      {open && (
+        <>
+          <div style={{ position: 'fixed', inset: 0, zIndex: 39 }} onClick={() => { setOpen(false); setArmAll(false) }} />
+          <div className="tickerpick__menu stopctl__menu">
+            <div className="stopctl__head">Running now</div>
+            {active.map((r) => (
+              <div key={r.runId} className="stopctl__row">
+                <span className="stopctl__kind">{plainKind(r.kind)}</span>
+                <span className="stopctl__subject mono">{r.ticker}</span>
+                <button className="btn btn--ghost stopctl__stop" onClick={() => void cancelRun(r.runId)} title="Stop just this one">
+                  stop
+                </button>
+              </div>
+            ))}
+            <button
+              className={`btn stopctl__all${armAll ? ' btn--armed' : ' btn--ghost'}`}
+              onClick={() => {
+                if (!armAll) {
+                  setArmAll(true)
+                  setTimeout(() => setArmAll(false), 4000)
+                  return
+                }
+                setArmAll(false)
+                void stopEverything()
+              }}
+            >
+              {armAll ? `yes — stop all ${active.length} ▸` : 'Stop everything'}
+            </button>
+            <div className="stopctl__note">Stopping also halts a full run's later steps — nothing new starts on its own.</div>
+          </div>
+        </>
+      )}
+    </div>
+  )
+}
+
+// Screener-mode middle controls: Idea board (with inbox count) · Check an event. The news scan is
+// automatic now — its status chip (AutoScanChip) lives beside the engine pill.
 function ScreenerControls() {
   const openSignalIntake = useStore((s) => s.openSignalIntake)
   const openPipeline = useStore((s) => s.openPipeline)
-  const runSweep = useStore((s) => s.runSweep)
   const board = useStore((s) => s.scBoard)
   const health = useStore((s) => s.health)
-  const [armSweep, setArmSweep] = useState(false)
   const engineDown = health === 'engine-offline' || health === 'your-network' || health === 'session-expired'
   const inboxCount = board?.counts?.inbox_unconsumed ?? 0
   return (
     <>
-      <button
-        className={`btn btn--ghost${armSweep ? ' btn--armed' : ''}`}
-        disabled={engineDown}
-        onClick={() => {
-          if (!armSweep) {
-            setArmSweep(true)
-            setTimeout(() => setArmSweep(false), 4000)
-            return
-          }
-          setArmSweep(false)
-          void runSweep()
-        }}
-        title="Scan trusted news sources for big events (~$2–12) — found items land in the Inbox; nothing runs without you"
-      >
-        {armSweep ? 'yes, scan now · ~$2–12 ▸' : 'Find news'}
-      </button>
       <button className="btn btn--ghost" onClick={openPipeline} title="The idea board — every event and idea, from just-found to sent-to-research">
         Idea board{inboxCount > 0 && <span className="inboxchip" title={`${inboxCount} new item${inboxCount === 1 ? '' : 's'} waiting in the Inbox`}>{inboxCount}</span>}
       </button>
@@ -271,6 +340,8 @@ export function CommandBar() {
       <div className="topbar__spacer" />
       {screenerMode ? (
         <>
+          <StopControl />
+          <AutoScanChip />
           <EngineStatusPill />
           <button className="btn btn--ghost" onClick={openActivity} title="Activity log — who ran what, when">Activity</button>
           <ScreenerControls />
@@ -279,6 +350,7 @@ export function CommandBar() {
       ) : (
         <>
           <ReadinessStrip />
+          <StopControl />
           <EngineStatusPill />
           <button className="btn btn--ghost" onClick={openCalls} title="Calls tracker — every call the engine made and what's happened since">Calls</button>
           <button className="btn btn--ghost" onClick={openActivity} title="Activity log — who ran what, when, on which company">Activity</button>

@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { api, isStatic } from './api'
 import { downstreamCascade, type CascadeNode } from './cascade'
 import { plainRoute, plainStage } from './plain'
-import type { AgentNode, DataStatus, HealthState, LaunchPreflight, NodeRuntime, NodeStatus, ReadinessReport, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
+import type { ActiveRunLite, AgentNode, BoardInboxRow, DataStatus, FeedItem, HealthState, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
 
 const RUN_EVENT_TYPES = ['run-started', 'agent-started', 'agent-done', 'agent-failed', 'layer-advanced', 'module-done', 'module-routed', 'cost-tick', 'run-done', 'run-error', 'readiness-checking', 'readiness-report', 'readiness-blocked', 'readiness-resolved']
 
@@ -155,6 +155,23 @@ interface State {
   sendToResearch: (thesisId: string, ticker: string, poolPresent: boolean) => Promise<void>
   openScreenerOutput: (node: AgentNode) => void
   _handleScreenerEvent: (e: SseEvent) => void
+
+  // ---- the news wire (live scanner view) + manual board actions + kill switch ----
+  newsFeedOpen: boolean
+  newsItems: FeedItem[]
+  newsStatus: NewsStatus | null
+  globalActive: ActiveRunLite[]
+  stopListOpen: boolean
+  openNewsFeed: () => Promise<void>
+  closeNewsFeed: () => void
+  refreshNewsStatus: () => Promise<void>
+  checkInboxItem: (row: BoardInboxRow) => Promise<void>
+  dismissInbox: (inboxId: string) => Promise<void>
+  restoreInbox: (inboxId: string) => Promise<void>
+  moveThesis: (thesisId: string, to: 'watchlist' | 'provisional' | 'full_machine' | 'engine', reason?: string) => Promise<void>
+  setStopListOpen: (open: boolean) => void
+  stopEverything: () => Promise<void>
+  _handleNewsEvent: (e: any) => void
 }
 
 function flatten(graph: SwarmGraph): Map<string, AgentNode> {
@@ -211,6 +228,11 @@ export const useStore = create<State>((set, get) => ({
   signalIntakeOpen: false,
   pipelineOpen: false,
   scThesisDetail: null,
+  newsFeedOpen: false,
+  newsItems: [],
+  newsStatus: null,
+  globalActive: [],
+  stopListOpen: false,
 
   init: async () => {
     try {
@@ -311,7 +333,7 @@ export const useStore = create<State>((set, get) => ({
     if (get().staticMode) return
     try {
       const { active } = await api.activeRuns()
-      set({ activeRunsByTicker: new Set(active.map((r) => r.ticker)) })
+      set({ activeRunsByTicker: new Set(active.map((r) => r.ticker)), globalActive: active as ActiveRunLite[] })
       // live-follow: connect to any active run for the SELECTED ticker we're not already streaming. A
       // chained full run launches each step under a new runId server-side; without this the swarm would
       // go dark between steps. Benign for normal runs (it only attaches to this ticker's own live runs).
@@ -785,12 +807,12 @@ export const useStore = create<State>((set, get) => ({
     if (!get().swarms.some((s) => s.id === to)) return
     const reduced = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
     if (reduced) {
-      set({ activeSwarm: to, warp: null, openOutput: null, selectedNodeKey: null })
+      set({ activeSwarm: to, warp: null, openOutput: null, selectedNodeKey: null, newsFeedOpen: false })
       if (to !== 'research') void get().scInit()
       if (opts?.landTicker) void get().selectTicker(opts.landTicker)
       return
     }
-    set({ warp: { from, to, payloadTicker: opts?.payloadTicker, landTicker: opts?.landTicker, phase: 'collapse' }, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, pipelineOpen: false, scThesisDetail: null })
+    set({ warp: { from, to, payloadTicker: opts?.payloadTicker, landTicker: opts?.landTicker, phase: 'collapse' }, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, pipelineOpen: false, scThesisDetail: null, newsFeedOpen: false })
     if (warpTimer) clearTimeout(warpTimer)
     warpTimer = setTimeout(() => get()._advanceWarp(), 420) // collapse -> traverse
   },
@@ -915,7 +937,7 @@ export const useStore = create<State>((set, get) => ({
   },
 
   openPipeline: () => {
-    set({ pipelineOpen: true })
+    set({ pipelineOpen: true, newsFeedOpen: false }) // one overlay at a time — the wire yields to the board
     void get().scRefreshBoard()
   },
   closePipeline: () => set({ pipelineOpen: false, scThesisDetail: null }),
@@ -961,6 +983,110 @@ export const useStore = create<State>((set, get) => ({
     }
   },
 
+  // ---- the news wire: watch the scanner live ----
+  openNewsFeed: async () => {
+    set({ newsFeedOpen: true, pipelineOpen: false, scThesisDetail: null })
+    void get().refreshNewsStatus()
+    try {
+      const { items } = await api.newsFeed(2)
+      set({ newsItems: items })
+    } catch {
+      set({ newsItems: [] })
+    }
+    if (!get().staticMode) connectNewsStream(get)
+  },
+  closeNewsFeed: () => set({ newsFeedOpen: false }),
+  refreshNewsStatus: async () => {
+    try {
+      set({ newsStatus: await api.newsStatus() })
+    } catch {
+      /* status is decoration — never toast for it */
+    }
+  },
+  _handleNewsEvent: (e) => {
+    if (e?.type === 'news-item' && e.item) {
+      const it = e.item as FeedItem
+      // a refresh that read the file in the append→emit window may already hold this item
+      if (get().newsItems.some((x) => x.event_id === it.event_id && x.ts === it.ts)) return
+      set({ newsItems: [it, ...get().newsItems].slice(0, 1000) })
+    } else if (e?.type === 'news-cycle') {
+      void get().refreshNewsStatus()
+      if (get().activeSwarm === 'screener') void get().scRefreshBoard() // the board is screener UI — don't refetch it from the research swarm every cycle
+    }
+  },
+
+  // promote one Inbox row into the paid gauntlet (the component shows the two-click cost confirm)
+  checkInboxItem: async (row) => {
+    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — checks run on your machine via npm run dev', tone: 'info' })
+    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    try {
+      const { runId, preflight } = await api.launchSignal({
+        intake: { headline: row.headline, source_url: row.url, source_name: row.source_name, input_nature: (row.input_nature as any) || 'news_headline' },
+        inboxId: row.inbox_id,
+      })
+      const sigId = preflight.ticker
+      set({ scSelectedSignal: sigId, scRuntime: {}, scRouted: {}, pipelineOpen: false })
+      beginScreenerRun(set, get, runId, sigId)
+      get().setToast({ msg: `Checks started for ${sigId} — watch them run left to right`, tone: 'good' })
+      void get().scRefreshBoard()
+    } catch (e: any) {
+      get().setToast({ msg: e?.message ? String(e.message) : 'Could not start the checks', tone: e?.body?.code ? 'info' : 'bad' })
+    }
+  },
+
+  dismissInbox: async (inboxId) => {
+    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — actions run on your machine via npm run dev', tone: 'info' })
+    try {
+      await api.inboxAction(inboxId, 'dismiss')
+      get().setToast({ msg: 'Set aside. Use "show set-aside" below the Inbox if you change your mind.', tone: 'info' })
+      void get().scRefreshBoard()
+    } catch (e: any) {
+      get().setToast({ msg: e?.message ? String(e.message) : 'Could not set the item aside', tone: 'bad' })
+    }
+  },
+  restoreInbox: async (inboxId) => {
+    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — actions run on your machine via npm run dev', tone: 'info' })
+    try {
+      await api.inboxAction(inboxId, 'restore')
+      get().setToast({ msg: 'Back in the Inbox.', tone: 'good' })
+      void get().scRefreshBoard()
+    } catch (e: any) {
+      get().setToast({ msg: e?.message ? String(e.message) : 'Could not restore the item', tone: 'bad' })
+    }
+  },
+
+  // hand-move an idea between lanes — recorded as YOUR call; the checks' own verdict stays visible
+  moveThesis: async (thesisId, to, reason) => {
+    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — actions run on your machine via npm run dev', tone: 'info' })
+    try {
+      await api.thesisMove(thesisId, to, reason)
+      get().setToast({
+        msg: to === 'engine' ? 'Following the checks again — your move is cleared.' : 'Moved. It is marked as your call; the checks’ own verdict stays visible on the card.',
+        tone: 'good',
+      })
+      void get().scRefreshBoard()
+    } catch (e: any) {
+      get().setToast({ msg: e?.message ? String(e.message) : 'Could not move the idea', tone: 'bad' })
+    }
+  },
+
+  // the kill switch
+  setStopListOpen: (open) => set({ stopListOpen: open }),
+  stopEverything: async () => {
+    try {
+      const { cancelled } = await api.cancelAllRuns()
+      set({ stopListOpen: false, chainTickers: new Set() })
+      get().setToast({
+        msg: cancelled.length ? `Stopped ${cancelled.length} run${cancelled.length === 1 ? '' : 's'}. Nothing else will start on its own.` : 'Nothing was running.',
+        tone: 'info',
+      })
+      void get().refreshActiveRuns()
+      void get().scRefreshBoard()
+    } catch (e: any) {
+      get().setToast({ msg: e?.message ? String(e.message) : 'Stop failed — check the engine', tone: 'bad' })
+    }
+  },
+
   openScreenerOutput: (node) => {
     const rt = get().scRuntime[node.key]
     if (!rt?.outputPath) return get().setToast({ msg: `${node.name} has no output yet`, tone: 'info' })
@@ -999,6 +1125,7 @@ export const useStore = create<State>((set, get) => ({
       case 'run-done': {
         closeScreenerRunSource(e.runId)
         void get().scRefreshBoard()
+        void get().refreshActiveRuns() // drop this run from the kill-switch pill
         const handoff = scHandoffWatch.get(e.runId)
         if (handoff) {
           scHandoffWatch.delete(e.runId)
@@ -1018,6 +1145,7 @@ export const useStore = create<State>((set, get) => ({
       case 'run-error': {
         closeScreenerRunSource(e.runId)
         void get().scRefreshBoard()
+        void get().refreshActiveRuns() // drop this run from the kill-switch pill
         const handoff = scHandoffWatch.get(e.runId)
         if (handoff) {
           scHandoffWatch.delete(e.runId)
@@ -1146,6 +1274,24 @@ function closeRunSource(runId?: string) {
   }
 }
 
+// ---- the news wire's live stream (one global EventSource, like dataSource) ----
+let newsSource: EventSource | null = null
+function connectNewsStream(get: () => State) {
+  if (newsSource) return
+  const es = new EventSource(api.newsStreamUrl())
+  for (const t of ['news-item', 'news-cycle']) {
+    es.addEventListener(t, (ev: MessageEvent) => {
+      try {
+        get()._handleNewsEvent(JSON.parse(ev.data))
+      } catch {}
+    })
+  }
+  es.onerror = () => {
+    /* keep open; EventSource auto-reconnects */
+  }
+  newsSource = es
+}
+
 // ---- screener run streams (separate map so research streams are never disturbed) ----
 const scRunSources = new Map<string, EventSource>()
 // Handoff runs being watched for completion: runId → toast context. The launch API returns as soon
@@ -1184,6 +1330,7 @@ function beginScreenerRun(set: any, get: () => State, runId: string, subject: st
     set({ scRuntime: rt, runStream: get().runStream.filter((r) => r.runId !== runId) })
   }
   connectScreenerRun(get, runId)
+  void get().refreshActiveRuns() // the kill-switch pill ("N running") tracks screener runs too
 }
 
 function closeScreenerRunSource(runId: string) {

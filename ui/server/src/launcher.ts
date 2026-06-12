@@ -7,7 +7,7 @@ import { admitRun } from './admission'
 import { CLAUDE_BIN, DATA_DIR, DEFAULT_MODEL, ESTIMATES, FULL_PER_MODULE, LAUNCH_GUARDS, REPO_ROOT, type LaunchKind } from './config'
 import { getCreditStatus, setCreditStatus } from './credit'
 import { startRunWatcher, sweepRunOutputs } from './fs-watcher'
-import { createRun, emit, finishRun, getRun, setActiveSubjectRun, type ExpectedAgent, type RunState } from './registry'
+import { createRun, emit, finishRun, getRun, IN_FLIGHT_STATUSES, listRuns, setActiveSubjectRun, type ExpectedAgent, type RunState } from './registry'
 import { resolveRunRoot } from './outputs'
 import { runReadiness } from './readiness'
 import { buildSwarmGraph, downstreamCascade } from './roster'
@@ -371,6 +371,7 @@ export interface LaunchParams {
   window?: string // review window (kind 'review'); ignored by other kinds
   model?: string
   intake?: SignalIntakeInput // kind 'signal' (new signal): materialized into <runRoot>/intake.json
+  inboxId?: string // kind 'signal' launched from an Inbox card — recorded as the intake's provenance
   thesisId?: string // kind 'handoff'
   user?: string // who launched it (from Cloudflare Access at the route); defaults to "local"
   userVia?: 'cf-access' | 'local'
@@ -390,12 +391,33 @@ function fullChainSteps(): ChainStep[] {
   return steps
 }
 
+// Kill switch for chained full runs: each chain step captures the epoch at launch; "stop
+// everything" bumps it, so a step that finishes AFTER the stop never launches its successor
+// (cancelling the current step alone couldn't guarantee that — onFinish fires on 'done' too).
+let chainEpoch = 0
+export function haltAllChains(): void {
+  chainEpoch++
+}
+
+/** Capture the chain epoch at a step's launch; the returned probe answers "may this chain still
+ *  advance?" — false once stop-everything has bumped the epoch. Exported for the test suite. */
+export function captureChainEpoch(): () => boolean {
+  const epoch = chainEpoch
+  return () => epoch === chainEpoch
+}
+
 async function launchChainStep(steps: ChainStep[], i: number, ticker: string, user: string, userVia: 'cf-access' | 'local'): Promise<{ runId: string; preflight: LaunchPreflight }> {
   const s = steps[i]
+  const chainAlive = captureChainEpoch()
   const out = await launch({ kind: s.kind, ticker, module: s.module, agent: s.agent, user, userVia })
   const run = getRun(out.runId)
   if (run) {
     run.onFinish = (status) => {
+      if (!chainAlive()) {
+        // eslint-disable-next-line no-console
+        console.log(`[full-chain] ${ticker}: chain halted by stop-everything — not launching step ${i + 1}`)
+        return
+      }
       if (status === 'done' && i + 1 < steps.length) {
         void launchChainStep(steps, i + 1, ticker, user, userVia).catch((e) => {
           // eslint-disable-next-line no-console
@@ -408,6 +430,22 @@ async function launchChainStep(steps: ChainStep[], i: number, ticker: string, us
     }
   }
   return out
+}
+
+/** Stop EVERYTHING: halt every full-run chain, then cancel every in-flight run (running,
+ *  starting, readiness-checking, or paused at the readiness gate). Returns the cancelled ids. */
+export async function cancelAll(): Promise<string[]> {
+  haltAllChains()
+  const cancelled: string[] = []
+  for (const r of listRuns()) {
+    if (!IN_FLIGHT_STATUSES.has(r.status)) continue
+    try {
+      if (await cancel(r.runId)) cancelled.push(r.runId)
+    } catch {
+      // keep stopping the rest — one stuck run must not shield the others
+    }
+  }
+  return cancelled
 }
 
 async function launchFullChained(ticker: string, user: string, userVia: 'cf-access' | 'local'): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean }> {
@@ -473,8 +511,10 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
           source_url: intake.source_url || '',
           human_prompt_note: isHuman ? (intake.human_prompt_note || intake.headline.trim()) : (intake.human_prompt_note || ''),
           requested_by: user,
-          from_inbox: false,
-          sweep_ref: '',
+          // provenance: an Inbox-card launch records its origin so the engine's own record and the
+          // sweep row's consumed mark tell the same story (§5 — no contradictory artifacts)
+          from_inbox: Boolean(params.inboxId),
+          sweep_ref: params.inboxId || '',
           override_promote: intake.override_promote === true,
         },
       }

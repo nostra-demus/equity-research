@@ -7,7 +7,7 @@ export type Region = 'US' | 'IN' | 'GLOBAL' | 'OTHER'
 // The triage band a cheap-LLM score maps to. pick/watch reach the inbox; drop is counted only.
 export type Band = 'pick' | 'watch' | 'drop'
 
-// What a source adapter (GDELT today) hands back, before normalization.
+// What a source adapter (GDELT or RSS) hands back, before normalization.
 export interface RawArticle {
   title: string
   url: string
@@ -15,7 +15,18 @@ export interface RawArticle {
   seendate: string // GDELT compact form e.g. 20260612T093000Z, or ISO — normalized downstream
   language?: string
   sourcecountry?: string // FIPS 2-letter from GDELT, when present
+  via?: 'gdelt' | 'rss' // which fetcher found it (provenance for the live feed)
 }
+
+// A company the cheap brain THINKS the headline is about — a guess from the title alone, never
+// verified. The UI must label it as a guess; downstream agents must not treat it as extraction.
+export interface CompanyGuess {
+  name: string
+  ticker: string | null
+  listing_country: string | null // 2-letter, when guessed
+}
+
+export type SizeBucket = 'mega' | 'large' | 'mid' | 'small' | 'unknown'
 
 // A normalized, on-list, deduped article ready for triage.
 export interface NewsItem {
@@ -28,6 +39,7 @@ export interface NewsItem {
   input_nature: string // news_headline / regulatory_filing / exchange_announcement / …
   found_at: string // ISO 8601
   dedup_status: 'new' | 'possible_duplicate'
+  via?: 'gdelt' | 'rss' // which fetcher found it
 }
 
 // The cheap brain's verdict on one item.
@@ -37,6 +49,8 @@ export interface Triage {
   event_types: string[]
   issuer_linkage: 'primary' | 'secondary' | 'sector' | 'macro'
   why: string // one plain sentence, ideally with a number (§21)
+  companies: CompanyGuess[] // ≤3, guessed from the headline alone (may be empty)
+  size_bucket: SizeBucket // rough size of the main company — a guess, 'unknown' when unsure
 }
 
 export interface TriagedItem extends NewsItem {
@@ -46,7 +60,10 @@ export interface TriagedItem extends NewsItem {
   materiality_pre_score: number
   event_types: string[]
   issuer_linkage: Triage['issuer_linkage']
+  companies: CompanyGuess[]
+  size_bucket: SizeBucket
   band: Band
+  via?: 'gdelt' | 'rss'
 }
 
 // The one row the inbox file carries — a superset of the existing sweep-row contract, plus the
@@ -68,6 +85,40 @@ export interface InboxRow {
   region?: Region
   relevance?: Triage['relevance']
   materiality_pre_score?: number
+  event_types?: string[] // theme tags (the gauntlet's event-type vocabulary)
+  issuer_linkage?: Triage['issuer_linkage']
+  companies?: CompanyGuess[] // guessed from the headline — the UI labels them as guesses
+  size_bucket?: SizeBucket
+  // --- additive: human state (set only via the cockpit; merge/eviction must preserve these) ---
+  dismissed?: boolean
+  dismissed_at?: string
+  dismissed_by?: string
+}
+
+// One line per TRIAGED item in the firehose (kind:"item") — the live feed's persistent record.
+// Written for kept AND dropped items so the wire shows everything the scanner read and why.
+// Additive next to kind:"cycle_summary" lines; existing readers filter by kind and ignore these.
+export interface FeedItem {
+  kind: 'item'
+  ts: string // ISO 8601 — when triaged
+  event_id: string
+  headline: string
+  url: string
+  domain: string
+  source_name: string
+  via: 'gdelt' | 'rss'
+  region: Region
+  input_nature: string
+  triage_score: number
+  band: Band
+  triage_reason: string
+  relevance: Triage['relevance']
+  event_types: string[]
+  issuer_linkage: Triage['issuer_linkage']
+  companies: CompanyGuess[]
+  size_bucket: SizeBucket
+  dedup_status: 'new' | 'possible_duplicate'
+  inboxed: boolean // band !== 'drop'
 }
 
 // One ingest cycle's outcome — returned to the caller and logged as a firehose summary line.

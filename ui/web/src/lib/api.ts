@@ -1,5 +1,5 @@
 import { staticPromptPath } from './prompts'
-import type { ActivityQuery, ActivityResult, CallsResult, DataStatus, LaunchPreflight, ScreenerBoard, SignalIntakeInput, SwarmGraph, SwarmMeta, TickerSummary, Usage, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, CallsResult, DataStatus, FeedItem, LaunchPreflight, NewsCycle, NewsStatus, ScreenerBoard, SignalIntakeInput, SwarmGraph, SwarmMeta, TickerSummary, Usage, Whoami } from './types'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -105,13 +105,36 @@ export const api = {
     if ((await ensureMode()) === 'static') return snap.screenerCandidates?.[thesisId] || null
     return get(`/api/screener/candidates/${encodeURIComponent(thesisId)}`)
   },
-  launchSignal: async (body: { sigId?: string; intake?: SignalIntakeInput }): Promise<{ runId: string; preflight: LaunchPreflight }> => {
+  launchSignal: async (body: { sigId?: string; intake?: SignalIntakeInput; inboxId?: string }): Promise<{ runId: string; preflight: LaunchPreflight }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/launch`, { kind: 'signal', ...body })
   },
   launchSweep: async (): Promise<{ runId: string; preflight: LaunchPreflight }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/launch`, { kind: 'sweep' })
+  },
+  // ---- the news wire (auto-scanner visibility + human actions) ----
+  newsStatus: async (): Promise<NewsStatus> => {
+    if ((await ensureMode()) === 'static')
+      return { enabled: false, running: false, intervalMin: 15, model: '', rssEnabled: false, lastCycleAt: null, nextCycleAt: null, lastNote: null, today: { read: 0, kept: 0, dropped: 0, cycles: 0 }, budget: { requests: 0, tokens: 0, reqCap: 0, tokenCap: 0 } }
+    return get(`/api/news/status`)
+  },
+  newsFeed: async (days: 1 | 2 = 2): Promise<{ items: FeedItem[]; cycles: NewsCycle[] }> => {
+    if ((await ensureMode()) === 'static') return { items: [], cycles: [] }
+    return get(`/api/news/feed?days=${days}`)
+  },
+  newsStreamUrl: () => `/api/news/stream`,
+  inboxAction: async (inboxId: string, action: 'dismiss' | 'restore'): Promise<{ ok: boolean }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/screener/inbox/action`, { inboxId, action })
+  },
+  thesisMove: async (thesisId: string, to: 'watchlist' | 'provisional' | 'full_machine' | 'engine', reason?: string): Promise<{ ok: boolean; effective_status: string | null }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/screener/thesis/${encodeURIComponent(thesisId)}/move`, { to, reason })
+  },
+  cancelAllRuns: async (): Promise<{ ok: boolean; cancelled: string[] }> => {
+    if ((await ensureMode()) === 'static') return { ok: true, cancelled: [] }
+    return post(`/api/runs/cancel-all`)
   },
   handoff: async (thesisId: string, ticker: string): Promise<{ alreadyHandedOff: boolean; runId?: string; handoff?: any }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()

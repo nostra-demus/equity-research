@@ -13,14 +13,19 @@ import { buildReportHtml, parseMeta, safeName } from './export'
 import { DATA_DIR, HOST, PORT, REPO_ROOT, WEB_DIST } from './config'
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
-import { cancel, creditCheck, decideReadiness, estimate, launch } from './launcher'
+import { cancel, cancelAll, creditCheck, decideReadiness, estimate, launch } from './launcher'
+import { newsBus } from './news/bus'
+import { readFeed } from './news/feed'
+import { markInboxConsumed, setDismissed } from './news/inbox-actions'
+import { refreshBoard } from './news/write-inbox'
+import { auditInboxAction, moveThesis, MOVE_TARGETS } from './screener-actions'
 import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
 import { agentNamesForModule, buildSwarmGraph, graphForSubject, graphForTicker, listModuleNames } from './roster'
 import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, resolveRunRoot, runManifest } from './outputs'
 import { dataPoolPresent, readCandidates, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest } from './screener'
 import { listSwarms } from './swarms'
-import { startNewsIngester } from './news/scheduler'
+import { getNewsStatus, startNewsIngester } from './news/scheduler'
 import { AGENT_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE } from './sandbox'
 import type { RunKind } from './types'
 
@@ -181,6 +186,8 @@ const ResearchLaunchBody = z.object({
   confirmTicker: z.string().optional(),
 })
 
+const INB_RE = /^INB-\d{8}-\d{3,}$/
+
 const SignalLaunchBody = z.object({
   kind: z.literal('signal'),
   // relaunch an existing signal by id…
@@ -197,6 +204,8 @@ const SignalLaunchBody = z.object({
       override_promote: z.boolean().optional(),
     })
     .optional(),
+  // when the launch came from an Inbox card, the row to mark consumed once the run is admitted
+  inboxId: z.string().regex(INB_RE).optional(),
   model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i).optional(),
 })
 
@@ -233,7 +242,18 @@ app.post('/api/launch', async (req, reply) => {
     if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
     if (!parsed.data.sigId && !parsed.data.intake) return reply.code(400).send({ error: 'signal launch needs sigId or intake' })
     try {
-      return await launch({ kind, ticker: parsed.data.sigId, intake: parsed.data.intake, model: parsed.data.model, user, userVia })
+      const out = await launch({ kind, ticker: parsed.data.sigId, intake: parsed.data.intake, inboxId: parsed.data.inboxId, model: parsed.data.model, user, userVia })
+      // an Inbox-card launch marks its row consumed so it leaves the lane (best-effort: a failed
+      // mark only leaves the row visible — a duplicate click is rejected by SIG-id exclusivity)
+      if (parsed.data.inboxId) {
+        try {
+          markInboxConsumed(REPO_ROOT, parsed.data.inboxId, out.preflight.ticker)
+          refreshBoard(REPO_ROOT)
+        } catch {
+          /* best-effort */
+        }
+      }
+      return out
     } catch (e: any) {
       return fail(e)
     }
@@ -354,6 +374,13 @@ app.post('/api/runs/:runId/cancel', async (req, reply) => {
   const ok = await cancel((req.params as any).runId)
   if (!ok) return reply.code(404).send({ error: 'no such run / already ended' })
   return { ok: true, status: 'cancelled' }
+})
+
+// The kill switch: stop every in-flight run (both swarms) and halt chained full runs so a step
+// finishing mid-stop never launches its successor. Idempotent — stopping nothing returns ok.
+app.post('/api/runs/cancel-all', async () => {
+  const cancelled = await cancelAll()
+  return { ok: true, cancelled, chainsHalted: true }
 })
 
 // Resolve a run paused at the pre-spawn data-readiness gate (thin route; lifecycle logic in launcher).
@@ -519,6 +546,74 @@ app.post('/api/screener/handoff', async (req, reply) => {
   } catch (e: any) {
     const body = e?.body && typeof e.body === 'object' ? e.body : null
     return reply.code(e?.statusCode || 500).send({ error: e?.message || 'handoff failed', ...(body || {}) })
+  }
+})
+
+// ---------- the news wire (auto-scanner visibility + human inbox/thesis actions) ----------
+
+// Scanner status for the cockpit's auto-scan chip: on/off, last/next cycle, today's counts.
+app.get('/api/news/status', async () => getNewsStatus())
+
+// Backfill for the live wire: every triaged item (kept AND dropped) from the last 1–2 days.
+app.get('/api/news/feed', async (req) => {
+  const q = req.query as any
+  const days = q?.days === '1' ? 1 : 2
+  return readFeed(REPO_ROOT, days)
+})
+
+// Live wire: one SSE client set, bridged once from the ingest cycle's bus.
+const newsClients = new Set<{ send: (e: any) => void }>()
+newsBus.subscribe((e) => {
+  const payload = e.type === 'news-item' ? { type: 'news-item', item: e.item } : { type: 'news-cycle', summary: e.summary }
+  for (const c of newsClients) c.send(payload)
+})
+app.get('/api/news/stream', (req, reply) => {
+  const { send, ping } = startSSE(reply)
+  const client = { send }
+  newsClients.add(client)
+  send({ type: 'news-connected' })
+  req.raw.on('close', () => {
+    clearInterval(ping)
+    newsClients.delete(client)
+  })
+})
+
+// Dismiss / restore an Inbox row (human state — preserved by every future merge; audited).
+const InboxActionBody = z.object({
+  inboxId: z.string().regex(INB_RE),
+  action: z.enum(['dismiss', 'restore']),
+})
+app.post('/api/screener/inbox/action', async (req, reply) => {
+  const parsed = InboxActionBody.safeParse(req.body)
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  const { user } = identify(req)
+  const row = setDismissed(REPO_ROOT, parsed.data.inboxId, parsed.data.action === 'dismiss', user)
+  if (!row) return reply.code(404).send({ error: 'no such inbox row' })
+  auditInboxAction(parsed.data.inboxId, parsed.data.action === 'dismiss' ? 'inbox_dismiss' : 'inbox_restore', user)
+  refreshBoard(REPO_ROOT)
+  return { ok: true, row }
+})
+
+// Hand-move a thesis between board lanes. Append-only override; the engine's own verdict is never
+// overwritten — the board shows both, plus a staleness flag if the engine later re-runs.
+const ThesisMoveBody = z.object({
+  to: z.enum(MOVE_TARGETS),
+  reason: z.string().max(500).optional(),
+})
+app.post('/api/screener/thesis/:id/move', async (req, reply) => {
+  const thesisId = (req.params as any).id as string
+  if (!THESIS_RE.test(thesisId)) return reply.code(400).send({ error: 'invalid thesis id' })
+  const parsed = ThesisMoveBody.safeParse(req.body)
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  const { user } = identify(req)
+  try {
+    const record = moveThesis(thesisId, parsed.data.to, parsed.data.reason || '', user)
+    if (!record) return reply.code(404).send({ error: 'no such thesis' })
+    refreshBoard(REPO_ROOT)
+    // after an 'engine' clear the effective status is the engine's own (captured as from_status)
+    return { ok: true, effective_status: record.to_status ?? record.from_status, override: record }
+  } catch (e: any) {
+    return reply.code(500).send({ error: e?.message || 'move failed' })
   }
 })
 

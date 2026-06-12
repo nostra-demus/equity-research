@@ -1,0 +1,11 @@
+{
+  "_doc": "Layer 2 of the screener's news ingestion (CLAUDE.md-versioned doctrine, not engine code): direct publisher RSS/Atom feeds, polled alongside GDELT every cycle. Items still pass the approved-domains firewall on their LINK domain — adding a feed here never bypasses Gate 0. Every URL below was verified live before being added. Known non-starters, checked and excluded: Reuters (no public RSS since 2020), Business Standard + Moneycontrol (bot-block RSS with 403), EIA (connection refused). The SEC requires a descriptive User-Agent with a contact — set NEWS_RSS_USER_AGENT if the default is ever rejected.",
+  "feeds": [
+    { "url": "https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms", "source_name": "The Economic Times" },
+    { "url": "https://www.livemint.com/rss/markets", "source_name": "LiveMint" },
+    { "url": "https://www.cnbc.com/id/100003114/device/rss/rss.html", "source_name": "CNBC" },
+    { "url": "https://feeds.content.dowjones.io/public/rss/mw_topstories", "source_name": "MarketWatch" },
+    { "url": "https://www.ft.com/rss/home", "source_name": "Financial Times" },
+    { "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=8-K&company=&dateb=&owner=include&count=40&output=atom", "source_name": "SEC EDGAR" }
+  ]
+}

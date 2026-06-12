@@ -113,4 +113,13 @@ export const NEWS = {
   // Score → band thresholds (mirror the gauntlet's promote/park/log bands; this is a cheap PRE-score).
   pickThreshold: capNum(process.env.NEWS_PICK_THRESHOLD, 70),
   watchThreshold: capNum(process.env.NEWS_WATCH_THRESHOLD, 40),
+  // RSS layer (Layer 2 of the ingestion stack): direct publisher feeds — lower latency than GDELT
+  // and immune to its rate limits. The approved-domains firewall still gates every item.
+  rssEnabled: process.env.NEWS_RSS_ENABLED === '0' ? false : true,
+  rssFeedsPath: process.env.NEWS_RSS_FEEDS_PATH || 'frameworks/screener/rss_feeds.json',
+  rssTimeoutMs: capNum(process.env.NEWS_RSS_TIMEOUT_MS, 10_000),
+  // Live-feed per-item records (firehose kind:"item") — the daily cap bounds file growth.
+  feedItemsDailyCap: capNum(process.env.NEWS_FEED_ITEMS_DAILY_CAP, 1500),
+  // Groq output budget per triage call (the per-item payload grew with companies/size_bucket).
+  triageMaxTokens: capNum(process.env.NEWS_TRIAGE_MAX_TOKENS, 2000),
 }

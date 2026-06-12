@@ -27,7 +27,7 @@ For each candidate event keep: headline (verbatim), URL, source_name (canonical 
 ## 4. Dedup
 
 - Against the ledger: grep `screener/ledger/events.ndjson` for each URL and for normalized-headline tokens of the same issuer — a hit marks the row `dedup_status: possible_duplicate` (keep the row; the gauntlet decides).
-- Within today's inbox: if `screener/inbox/<DATE>_sweep.json` already exists, read it; merge by URL (existing rows keep their `consumed` / `launched_signal_id` state). Never produce a second file for the same day.
+- Within today's inbox: if `screener/inbox/<DATE>_sweep.json` already exists, read it; merge by URL. **Existing rows keep ALL their human + triage state untouched: `consumed`, `launched_signal_id`, `dismissed` / `dismissed_at` / `dismissed_by`, and any `triage_*` / `event_types` / `companies` / `size_bucket` fields the auto-ingester wrote.** Re-read the file IMMEDIATELY before writing (the cockpit and the auto-ingester may have updated it while this sweep ran — a stale read loses a human's dismissals). Never produce a second file for the same day.
 
 ## 5. Write the inbox (one file per day, idempotent)
 
@@ -46,7 +46,7 @@ Write `screener/inbox/<DATE>_sweep.json`:
 }
 ```
 
-Keep ≤ 25 rows/day (rank by plausible materiality; drop the tail). Then refresh the board: `python3 scripts/update_board_index.py`.
+Keep ≤ 25 rows/day among rows with NO human state (rank by plausible materiality; drop only from that tail). **Rows that are `consumed` or `dismissed` are human history — ALWAYS kept, never dropped by the cap** (dropping a dismissed row would let a later scan resurrect the same URL as a fresh undismissed item). Then refresh the board: `python3 scripts/update_board_index.py`.
 
 ## 6. Commit and push to main
 
@@ -64,4 +64,4 @@ Print: rows found / new / possible-duplicate / total in today's file; the top 5 
 
 - Off-list sources never enter the inbox.
 - The sweep writes ONLY `screener/inbox/<DATE>_sweep.json` + the board index. No runs, no ledger events, no signals.
-- Re-running the same day MERGES (idempotent) — existing rows' consumed state is preserved.
+- Re-running the same day MERGES (idempotent) — existing rows' human state (`consumed`, `dismissed`, `launched_signal_id`) and ingester triage fields are preserved, and rows carrying human state are never dropped by the daily cap.

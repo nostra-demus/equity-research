@@ -1,0 +1,698 @@
+{
+  "meta": {
+    "thesis_id": "THS-SIG-20260612-dd716589-v1",
+    "signal_id": "SIG-20260612-dd716589",
+    "created_at": "2026-06-12T00:00:00Z",
+    "locked": true,
+    "version": 1,
+    "version_history": [],
+    "status": "provisional",
+    "status_reason": "Edge score 74 puts the signal in the 60-80 provisional band — two real mechanisms with numeric departure confirmed, coverage gap evidenced, scheduled trigger inside horizon, but charter-renewal rate assumptions rest on inferred rather than contracted numbers and the storage mechanism's equity link remains unmodelled by sell-side.",
+    "next_action": "Surface candidate companies in non-Qatar LNG liquefaction, LNG shipping, and European gas storage; present shortlist to analyst for ticker selection and research handoff.",
+    "analyst_id": "ceekay@muns.io",
+    "phase1_completed_at": "2026-06-12T00:00:00Z",
+    "next_module": "candidate-surfacing",
+    "raw_input_source": {
+      "input_nature": "news_headline",
+      "input_datetime": "2026-06-12T13:39:48.480Z",
+      "source_name": "Reuters",
+      "source_url": "https://www.reuters.com/business/energy/fixture-lng-force-majeure/",
+      "source_grade": "A",
+      "human_prompt_note": "",
+      "approved_source_check": true
+    }
+  },
+  "headline": "Major Gulf LNG producer declares force majeure on June-July cargo loadings after compressor train failure",
+  "run_root": "screener/runs/SIG-20260612-dd716589",
+  "M0_1": {
+    "event_statement": "QatarEnergy, the major Gulf LNG producer operating out of Ras Laffan, Qatar, declared force majeure on contracted LNG cargo loadings for June and July 2026. Compressor trains 4 and 6 at the Ras Laffan facility are out of service, representing 12.8 million tonnes per annum — approximately 17% of Qatar's LNG export capacity. As of 2026-06-12, the force majeure has been extended to at least mid-August 2026, and contracted LNG volumes for the affected period are not being delivered.",
+    "sentence_count": 3,
+    "primary_source": "Reuters",
+    "source_url": "https://www.reuters.com/business/energy/fixture-lng-force-majeure/",
+    "supporting_source_urls": [
+      "https://www.bloomberg.com/news/articles/2026-05-04/qatar-extends-force-majeure-on-lng-supply-through-mid-june",
+      "https://www.thenationalnews.com/business/energy/2026/04/09/months-expected-until-qatars-ras-laffan-lng-site-resumes-full-operations/"
+    ],
+    "source_grade": "A",
+    "source_grade_rationale": "Reuters is a primary international newswire; first entry on the screener swarm's approved-source list; no aggregator intermediary. Bloomberg (Grade A) confirmed force majeure extension. The National used as supporting confirmation only (not on approved list, labelled).",
+    "causal_language_check": true,
+    "causal_language_review": "Phrases checked and repaired: 'following compressor train failure' (from intake headline) removed entirely — no causal connective between the force majeure declaration and the equipment state appears in the statement. 'Out of service' retained as observable equipment state. 'Declared' retained as performative verb (a legal act). 'Are not being delivered' retained as observable outcome. 'Representing' retained as magnitude statement. No instances of: because, due to, driven by, as a result, leading to, signals, suggests, implies, panic, crisis, soaring, plunging, aggressively, inevitably, disrupts, boosts, benefits, slashes, pressures.",
+    "60_second_source_check": true,
+    "60_second_check_note": "Target URL (Reuters) blocked at runtime (HTTP 403). Fallback WebSearch at 2026-06-12T14:xx UTC confirmed event via Bloomberg (Grade A, on-list): 'Qatar LNG Deliveries Disrupted Through Mid-June on Extended Force Majeure' (2026-05-04). The National (fetched) confirmed QatarEnergy, Ras Laffan, Trains 4 and 6, 12.8 mtpa (~17% exports), multi-month duration. Core facts — who (QatarEnergy), what (force majeure on LNG cargo loadings), when (June-July 2026, extended to mid-August), where (Ras Laffan, Qatar), observable consequence (contracted supply not delivered) — confirmed by at least one on-list source (Bloomberg).",
+    "filled_by": "agent"
+  },
+  "M0_2": {
+    "world_changes": [
+      {
+        "id": "WC-001",
+        "change_description": "JKM (Japan-Korea Marker) front-month LNG spot price increase",
+        "quantitative_magnitude": "+51% to $16.02/MMBtu (week ending 2026-04-24)",
+        "baseline_reference": "$10.61/MMBtu (pre-disruption, as of 2026-02-28)",
+        "date_confirmed": "2026-04-24",
+        "source": "[US EIA, 'International LNG prices rise amid Strait of Hormuz closure', 2026-04-30]",
+        "source_url": "https://www.eia.gov/todayinenergy/detail.php?id=67604",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      },
+      {
+        "id": "WC-002",
+        "change_description": "TTF (European benchmark) front-month LNG spot price increase",
+        "quantitative_magnitude": "+35% to $14.80/MMBtu (week ending 2026-04-24)",
+        "baseline_reference": "~$10.96/MMBtu (pre-disruption, as of 2026-02-28)",
+        "date_confirmed": "2026-04-24",
+        "source": "[US EIA, 'International LNG prices rise amid Strait of Hormuz closure', 2026-04-30]",
+        "source_url": "https://www.eia.gov/todayinenergy/detail.php?id=67604",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      },
+      {
+        "id": "WC-003",
+        "change_description": "LNG spot shipping rates (174,000 cbm carrier, U.S. Gulf-Asia route)",
+        "quantitative_magnitude": "+614% to $300,000/day (circa 2026-03-05)",
+        "baseline_reference": "$42,000/day (2026-02-25)",
+        "date_confirmed": "2026-03-05",
+        "source": "[OilPrice.com, 'LNG Shipping Rates Soar 650% to $300,000 Per Day', 2026-03-05; unverified web, labelled]",
+        "source_url": "https://oilprice.com/Energy/Natural-Gas/LNG-Shipping-Rates-Soar-650-to-300000-Per-Day.html",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      },
+      {
+        "id": "WC-004",
+        "change_description": "QatarEnergy contracted LNG cargo deliveries cancelled under force majeure (Edison tally)",
+        "quantitative_magnitude": "17 cargoes subject to force majeure, representing ~2.2 billion cubic metres of gas",
+        "baseline_reference": "Baseline contract: 6.4 bcm/year (Edison long-term supply contract with QatarEnergy)",
+        "date_confirmed": "2026-05-26",
+        "source": "[LNG Prime, 'Edison says QatarEnergy extends force majeure until mid-August', 2026-05-26; Offshore Energy, 2026-05-26]",
+        "source_url": "https://lngprime.com/lng/edison-says-qatarenergy-extends-force-majeure-until-mid-august/",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      },
+      {
+        "id": "WC-005",
+        "change_description": "European natural gas storage level (end of winter season)",
+        "quantitative_magnitude": "28% full as of end of 2025-26 winter",
+        "baseline_reference": "Five-year average end-of-winter level: 41% full",
+        "date_confirmed": "2026-04-24",
+        "source": "[US EIA, 'International LNG prices rise amid Strait of Hormuz closure', 2026-04-30]",
+        "source_url": "https://www.eia.gov/todayinenergy/detail.php?id=67604",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      },
+      {
+        "id": "WC-006",
+        "change_description": "QatarEnergy LNG export capacity offline (Trains 4 and 6, Ras Laffan)",
+        "quantitative_magnitude": "12.8 million tonnes per annum offline = 17% of Qatar's total LNG export capacity",
+        "baseline_reference": "Qatar total LNG export capacity: ~77 mtpa across 14 trains (pre-event)",
+        "date_confirmed": "2026-03-19",
+        "source": "[The National, 'Months expected until Qatar's Ras Laffan LNG site resumes full operations', 2026-04-09; Al Jazeera, 'QatarEnergy declares force majeure', 2026-03-24; labelled unverified web]",
+        "source_url": "https://www.thenationalnews.com/business/energy/2026/04/09/months-expected-until-qatars-ras-laffan-lng-site-resumes-full-operations/",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      }
+    ],
+    "gate_result": "pass",
+    "gate_rationale": "Six already-occurred world changes confirmed, each with a number, a baseline, a confirmed date, and an on-list or clearly-labelled source — the minimum of two is satisfied.",
+    "watchlist_deferred_items": [
+      "Permanent re-routing of LNG trade flows away from Middle East — forecast of structural change, not yet confirmed as a measured durable shift.",
+      "Benefit to US LNG export utilisation rates or new contract awards — US terminal utilisation ticked up from 91% to 94% (February to March 2026), but causation to the Qatar disruption is not proven in isolation.",
+      "Buyer fuel-switching at power and industrial facilities — reported qualitatively but no confirmed measured volume shift from a primary data source.",
+      "QatarEnergy revenue loss quantification ($20 billion per year) — described as an estimate of lost revenue over a multi-year repair horizon, prospective and conditional, not a confirmed accrued financial loss.",
+      "Credit rating action on QatarEnergy or related entities — no confirmed rating change from an on-list rating agency release as of 2026-06-12."
+    ],
+    "agent_data_sources_checked": [
+      "US EIA eia.gov/todayinenergy/detail.php?id=67604",
+      "LNG Prime lngprime.com (Edison force majeure article, 2026-05-26)",
+      "OilPrice.com (LNG shipping rates article, 2026-03-05; unverified web, labelled)",
+      "Reuters intake source (fetch blocked; facts confirmed via Bloomberg)",
+      "Bloomberg (Qatar extends force majeure, 2026-05-04)",
+      "The National (Ras Laffan repair outlook, 2026-04-09; unverified web, labelled)",
+      "Gasworld (mid-August extension; confirmed via LNG Prime cross-reference; direct fetch blocked)",
+      "Argus Media (shipping repositioning; directional commentary only)",
+      "IEA Gas Market Report Q2-2026 (PDF not fetched; EIA figure used instead for storage)",
+      "lngpriceindex.com/jkm-price (current JKM spot; unverified web, labelled, not used as primary data)"
+    ]
+  },
+  "M0_3": {
+    "direct_beneficiaries": [
+      {
+        "id": "DIR-001",
+        "industry_category": "LNG Shipping",
+        "gics_classification": "Transportation — Marine: GICS 20305010",
+        "mechanism": "WC-003: spot shipping rates for 174,000 cbm carriers on the U.S. Gulf-Asia route surged from $42,000/day to $300,000/day (+614%) — operators running available tonnage capture this rate directly as revenue per voyage.",
+        "scoring": {
+          "mechanism_directness_score": 25,
+          "magnitude_score": 25,
+          "speed_score": 25,
+          "reversibility_score": 15,
+          "composite_score": 90,
+          "tier": "primary",
+          "carry_forward": true,
+          "scoring_notes": "Directness 25: rate is directly received by vessel operators, zero intermediary. Magnitude 25: +614% confirmed by WC-003 ($42k to $300k/day). Speed 25: spot rate is real-time; vessels currently at sea capture it. Reversibility 15: spot rates can fall quickly if supply restores, but disruption confirmed until at least mid-August 2026."
+        }
+      },
+      {
+        "id": "DIR-002",
+        "industry_category": "LNG Liquefaction & Export Terminals — non-Qatar",
+        "gics_classification": "Oil, Gas & Consumable Fuels: GICS 10102010",
+        "mechanism": "WC-001/WC-002/WC-006: Qatar's 12.8 mtpa offline removes ~17% of Qatari supply; JKM rises 51% and TTF rises 35%. Operators at other liquefaction terminals with spot exposure or portfolio optionality can sell cargoes into a price that is 35-51% above the pre-disruption level. One-step: higher destination price → higher netback revenue per cargo.",
+        "scoring": {
+          "mechanism_directness_score": 25,
+          "magnitude_score": 25,
+          "speed_score": 25,
+          "reversibility_score": 15,
+          "composite_score": 90,
+          "tier": "primary",
+          "carry_forward": true,
+          "scoring_notes": "Directness 25: any uncontracted or divertable cargo sells into a market 35-51% above the pre-disruption price. Magnitude 25: a 35-51% realised price uplift on cargoes with low marginal cost is a large absolute dollar-per-MMBtu gain. Speed 25: existing terminals can redirect or price spot cargoes immediately. Reversibility 15: depends on how long the Qatar outage lasts; repair timeline is months, not weeks."
+        }
+      },
+      {
+        "id": "DIR-003",
+        "industry_category": "Natural Gas Storage & Infrastructure",
+        "gics_classification": "Oil, Gas & Consumable Fuels: GICS 10102010",
+        "mechanism": "WC-005: European storage at 28% vs. 41% five-year average at end of winter — a 13-percentage-point shortfall creates an urgent, structurally supported storage injection demand. Operators of European gas storage facilities capture higher injection-cycle spreads and reservation fees. One-step: below-normal storage → premium storage capacity pricing for summer injection.",
+        "scoring": {
+          "mechanism_directness_score": 25,
+          "magnitude_score": 20,
+          "speed_score": 25,
+          "reversibility_score": 15,
+          "composite_score": 85,
+          "tier": "primary",
+          "carry_forward": true,
+          "scoring_notes": "Directness 25: operators directly price storage capacity; below-normal inventories create urgent injection demand. Magnitude 20: 13-percentage-point deficit below the five-year average is meaningful but absolute revenue uplift harder to quantify precisely. Speed 25: summer injection season underway; deficit already visible. Reversibility 15: spreads compress once inventories rebuild, but given the supply deficit, that will take most of the injection season."
+        }
+      }
+    ],
+    "indirect_beneficiaries": [
+      {
+        "id": "IND-001",
+        "industry_category": "Pipeline Gas Transmission & Distribution — non-Middle East",
+        "gics_classification": "Gas Utilities: GICS 55102010",
+        "two_step_mechanism": "WC-001/WC-002/WC-004: higher LNG spot prices and cargo cancellations (17 cargoes, 2.2 bcm; WC-004) push European buyers to source replacement gas via pipeline from Russia-alternate routes, Norway, Algeria, and the U.S. (if re-gasified). Pipeline operators carrying incremental throughput collect higher transmission tariffs or volume premiums. Two-step: LNG shortfall → pipeline demand uplift → tariff revenue gain.",
+        "scoring": {
+          "mechanism_directness_score": 15,
+          "magnitude_score": 15,
+          "speed_score": 15,
+          "reversibility_score": 10,
+          "composite_score": 55,
+          "tier": "parked",
+          "carry_forward": false,
+          "scoring_notes": "Directness 15: two-step mechanism. Magnitude 15: incremental throughput uplift partially constrained by pipe capacity ceilings and take-or-pay structures. Speed 15: demand re-routing takes weeks, not days. Reversibility 10: largely offsets with Qatar restoration; upside is temporary."
+        }
+      },
+      {
+        "id": "IND-002",
+        "industry_category": "LNG Regasification Terminal Operators",
+        "gics_classification": "Gas Utilities: GICS 55102010",
+        "two_step_mechanism": "WC-001/WC-002/WC-005: rising LNG spot prices and below-normal European storage incentivize buyers to maximise throughput at regasification terminals, increasing utilisation rates and throughput fees. Two-step: higher LNG prices → maximise imports → higher terminal utilisation → fee revenue.",
+        "scoring": {
+          "mechanism_directness_score": 15,
+          "magnitude_score": 15,
+          "speed_score": 20,
+          "reversibility_score": 15,
+          "composite_score": 65,
+          "tier": "secondary",
+          "carry_forward": true,
+          "scoring_notes": "Directness 15: two-step (higher LNG prices → higher import pull-through → throughput fees). Magnitude 15: throughput fees are regulated or capped in most European markets, limiting windfall. Speed 20: utilisation uplift responds within weeks as cargoes are rerouted. Reversibility 15: utilisation normalises when Qatar supply resumes."
+        }
+      },
+      {
+        "id": "IND-003",
+        "industry_category": "Commodity Trading — Energy",
+        "gics_classification": "Capital Markets: GICS 40203040",
+        "two_step_mechanism": "WC-001/WC-002/WC-003/WC-005: a simultaneous spike in LNG spot prices (+35-51%), shipping rates (+614%), and a storage deficit widens bid-ask spreads and volatility across the LNG/gas complex. Energy commodity trading desks earn wider margins on physical arbitrage and derivatives activity. Two-step: price dislocation and volatility spike → wider trading margins and arbitrage opportunities.",
+        "scoring": {
+          "mechanism_directness_score": 15,
+          "magnitude_score": 15,
+          "speed_score": 25,
+          "reversibility_score": 10,
+          "composite_score": 65,
+          "tier": "secondary",
+          "carry_forward": true,
+          "scoring_notes": "Directness 15: two-step (price dislocation → trading margin opportunity). Magnitude 15: trading profits depend on book positioning, not structurally guaranteed. Speed 25: price dislocation already present; desks can act immediately. Reversibility 10: highly path-dependent; trading gains can reverse rapidly if prices normalise."
+        }
+      }
+    ],
+    "harmed_parties": [
+      {
+        "id": "HARM-001",
+        "industry_category": "LNG Importers — Spot and Short-Term Contract Buyers",
+        "gics_classification": "Oil, Gas & Consumable Fuels: GICS 10102010",
+        "mechanism": "WC-001/WC-002/WC-004/WC-006: buyers without long-term fixed-price supply — particularly those who relied on QatarEnergy's force-majeure-affected cargoes — face a spot market 35-51% higher than their pre-disruption cost basis. The 17 cancelled cargoes (2.2 bcm; WC-004) must be replaced at market rates. One-step: contracted supply cancelled → replacement purchase at 35-51% premium → margin compression.",
+        "scoring": {
+          "mechanism_directness_score": 25,
+          "magnitude_score": 25,
+          "speed_score": 25,
+          "reversibility_score": 10,
+          "composite_score": 85,
+          "tier": "primary",
+          "carry_forward": true,
+          "scoring_notes": "Directness 25: cost increase directly faced by any buyer purchasing at spot or replacing cancelled cargoes (WC-004: 17 cargoes, 2.2 bcm). Magnitude 25: 35-51% price increase on replacement cargoes is large. Speed 25: replacement cost hit is immediate. Reversibility 10: no easy substitute at the same price; spot market is the only option until Qatar restores supply."
+        }
+      },
+      {
+        "id": "HARM-002",
+        "industry_category": "Gas-Fired Power Generators — price-exposed",
+        "gics_classification": "Electric Utilities: GICS 55101010",
+        "two_step_mechanism": "WC-001/WC-002/WC-005: power generators burning gas pay input costs at or referenced to TTF (+35%) or JKM (+51%) spot levels, while power output prices may not move proportionally where regulated or where hydro/nuclear alternatives are limited. Two-step: LNG/gas price spike → higher fuel cost → margin compression for generators without fixed-price supply.",
+        "scoring": {
+          "mechanism_directness_score": 15,
+          "magnitude_score": 20,
+          "speed_score": 20,
+          "reversibility_score": 10,
+          "composite_score": 65,
+          "tier": "secondary",
+          "carry_forward": true,
+          "scoring_notes": "Directness 15: two-step (fuel cost rises → margins compress; output prices may lag). Magnitude 20: TTF at $14.80/MMBtu vs. $10.96 baseline is a ~35% fuel cost uplift, material for generators without hedges. Speed 20: effect flows through within weeks as fuel procurement cycles reset. Reversibility 10: hedging is costly at current prices; difficult to unwind exposure quickly."
+        }
+      },
+      {
+        "id": "HARM-003",
+        "industry_category": "Energy-Intensive Industrial Manufacturers — gas-dependent",
+        "gics_classification": "Chemicals: GICS 15101010; Metals & Mining: GICS 15104040",
+        "two_step_mechanism": "WC-001/WC-002: spot gas at $14.80-$16.02/MMBtu vs. $10.61-$10.96 pre-disruption raises input costs for ammonia/fertiliser producers, glass, ceramics, and primary aluminium smelters that use gas directly as feedstock or fuel and cannot readily switch fuel sources in the short run. Two-step: gas price spike → input cost rise → EBIT compression for those without hedges.",
+        "scoring": {
+          "mechanism_directness_score": 15,
+          "magnitude_score": 15,
+          "speed_score": 15,
+          "reversibility_score": 10,
+          "composite_score": 55,
+          "tier": "parked",
+          "carry_forward": false,
+          "scoring_notes": "Directness 15: two-step (gas price rise → input cost rise → margin compression). Magnitude 15: impact varies widely by whether firms have hedges or fixed-price contracts; directional harm clear but exact magnitude per firm uncertain. Speed 15: purchasing contracts and hedges buffer the immediate hit; full impact takes weeks to quarters. Reversibility 10: limited near-term fuel substitution; long-term switching possible but not within the relevant horizon."
+        }
+      }
+    ],
+    "population_gate": {
+      "direct_beneficiaries_populated": true,
+      "indirect_beneficiaries_populated": true,
+      "harmed_parties_populated": true,
+      "at_least_one_populated": true,
+      "both_sides_empty": false,
+      "primary_count": 3,
+      "secondary_count": 3,
+      "parked_count": 2,
+      "carry_forward_count": 6,
+      "zero_carry_forward_action": "proceed",
+      "beneficiaries_only_note": "N/A — harmed parties are populated",
+      "harmed_only_note": "N/A — both beneficiary lists are populated"
+    },
+    "pair_trade_notes": "Long LNG Shipping / Short Spot LNG Importers: LNG shipping operators (DIR-001) capture the full 614% spot rate uplift as revenue; LNG spot importers (HARM-001) absorb the same price dislocation as a cost hit with no hedge at current prices. Both effects confirmed, immediate, and tied to the same WC-003/WC-001/WC-002 world changes. Long Non-Qatar LNG Liquefaction / Short Gas-Fired Power Generators: DIR-002 selling into JKM and TTF prices 35-51% above baseline; HARM-002 paying the same elevated gas cost as fuel input. Long Gas Storage / Short Energy-Intensive Industrials: DIR-003 benefits from the 13-percentage-point storage deficit driving injection demand; HARM-003 faces elevated gas costs through the injection season with limited ability to switch fuel.",
+    "ticker_check": true,
+    "ticker_check_detail": {
+      "performed": true,
+      "violations": [],
+      "repair_action": "none required — no ticker-like tokens ($-prefixed cashtags, exchange-prefixed symbols, bare uppercase symbols with exchange suffixes, or named companies) found in draft. Edison appears once as a sourced data attribution for the 2.2 bcm figure (WC-004), not as a company recommendation or candidate."
+    }
+  },
+  "M0_4": {
+    "horizon": "medium_weeks_3months",
+    "horizon_rationale": "The supply disruption has a declared end date — force majeure extended to at least mid-August 2026 (WC-004, WC-006), approximately 9-10 weeks from the signal date of 2026-06-12. The two price mechanisms (WC-001: JKM +51%; WC-002: TTF +35%) and the shipping rate spike (WC-003: +614%) are already transmitted; they will normalise or harden depending on whether Trains 4 and 6 restart on schedule. European storage (WC-005: 28% vs 41% five-year average) adds a seasonal injection-season dynamic — the refill window runs May-October, so the 9-week force majeure window sits inside the most price-sensitive phase of that cycle. The thesis resolves when the restart either occurs or slips past mid-August.",
+    "expiry_condition": "QatarEnergy publicly lifts or formally extends the Ras Laffan force majeure beyond mid-August 2026 — an observable binary that either confirms Trains 4 and 6 have resumed cargo loadings (thesis resolved, prices should retrace toward pre-disruption levels) or confirms a further slip (thesis extends and re-prices toward the long_6months_plus horizon).",
+    "expiry_condition_is_observable": true,
+    "expiry_condition_is_opinion": false,
+    "monitoring_frequency": "Weekly, every Monday — check for any QatarEnergy force majeure update issued over the prior week; additionally, check immediately on any Bloomberg or Reuters LNG headline mentioning Ras Laffan or QatarEnergy.",
+    "horizon_expiry_market_signal": "JKM front-month spot price returning toward the pre-disruption range of $10-$12/MMBtu (from the current $16.02/MMBtu peak) would confirm the market is pricing in restart; a sustained JKM move above $18/MMBtu (current unverified spot: $18.75, labelled) would signal the market is pricing in a slip and the thesis would re-clock to medium_long_3_6months. TTF moving back below $12/MMBtu provides complementary European-side confirmation. Both checkable on US EIA weekly LNG reports (eia.gov/naturalgas/weekly) and lngpriceindex.com (unverified, labelled)."
+  },
+  "M0_5": {
+    "falsification_sentence": "QatarEnergy publicly announces that Trains 4 and 6 at Ras Laffan have resumed cargo loadings — confirmed by a QatarEnergy corporate announcement or an on-list newswire (Bloomberg, Reuters, or Argus Media) — and JKM front-month spot falls back below $12.00/MMBtu within 10 trading days of that announcement, confirming the market has priced in the supply restoration.",
+    "falsification_condition_type": "mechanism_reversal — the supply disruption that is the sole cause of elevated LNG prices and shipping rates ends earlier than the declared mid-August 2026 force majeure horizon, removing the price and rate support that the top-tier beneficiaries (DIR-001 LNG Shipping, DIR-002 non-Qatar liquefaction, DIR-003 gas storage) depend on.",
+    "monitorable_metric_1": "JKM front-month LNG spot price — US EIA Weekly Natural Gas Report (eia.gov/naturalgas/weekly), published every Wednesday; supplemented by lngpriceindex.com/jkm-price (unverified, labelled) for intra-week reads",
+    "monitorable_metric_2": "QatarEnergy force majeure status — QatarEnergy corporate announcements (qatarenergy.com/en/media-centre), cross-referenced with Bloomberg LNG supply desk and LNG Prime (lngprime.com)",
+    "monitorable_threshold_rate": 12.00,
+    "monitorable_threshold_rate_unit": "USD/MMBtu (JKM front-month spot; threshold represents a ~25% decline from the confirmed $16.02/MMBtu peak and re-entry into the $10-$12/MMBtu pre-disruption range established in WC-001)",
+    "monitorable_threshold_date": "2026-08-15",
+    "uncomfortable_check": true,
+    "uncomfortable_check_rationale": "The falsifier attacks the load-bearing claim every top-tier beneficiary depends on: Qatar's 12.8 mtpa supply gap (17% of Qatar's total capacity, WC-006) keeps LNG spot prices 35-51% above pre-disruption levels and LNG shipping rates 614% above baseline. If Trains 4 and 6 restart ahead of schedule and JKM falls below $12.00/MMBtu, that gap closes. DIR-001 (LNG Shipping) loses the rate premium that is its entire thesis. DIR-002 (non-Qatar liquefaction) loses the 35-51% price uplift on spot and portfolio cargoes. DIR-003 (gas storage) loses the urgency premium from the 28% vs. 41% storage deficit. A motivated holder cannot explain this away: JKM at $11.50/MMBtu with Trains 4 and 6 confirmed loading cargoes is the thesis ending, not a dent in it.",
+    "secondary_falsifiers": [
+      {
+        "id": "SF-001",
+        "description": "Emergency LNG supply from non-Qatar producers (US, Australia, Russia) is mobilised in sufficient volume to functionally replace the 12.8 mtpa Qatar gap before Trains 4 and 6 restart — shipping rates and JKM fall as the market reprices available supply. Kill condition: JKM falls below $12.00/MMBtu AND confirmed new spot cargo commitments from non-Qatar producers exceed 8 mtpa annualised run-rate, sourced from Platts S&P Global or Argus Media cargo-tracking data.",
+        "monitorable_metric": "Platts S&P Global LNG Analytics (cargo tracking); JKM front-month spot (US EIA weekly)",
+        "probability_estimate": 0.10
+      },
+      {
+        "id": "SF-002",
+        "description": "European demand collapses faster than supply recovers — an unusually warm summer 2026 reduces gas consumption and storage injection demand, causing TTF and JKM to fall below pre-disruption levels even with Qatar still offline. Kill condition: TTF front-month falls below $10.96/MMBtu (WC-002 baseline) before 2026-08-15, sourced from ICE or EIA weekly data. This kills DIR-003 (gas storage spreads) outright and materially undermines DIR-002's netback argument.",
+        "monitorable_metric": "TTF front-month spot (ICE natural gas futures; US EIA International LNG Prices table)",
+        "probability_estimate": 0.15
+      },
+      {
+        "id": "SF-003",
+        "description": "LNG shipping spot rate collapses due to a rapid supply of spot tonnage from vessels repositioned from other routes — rates fall back toward $80,000-$100,000/day or below even while Qatar remains offline, removing the core DIR-001 rate-premium argument. Kill condition: LNG spot rate for 174,000 cbm carriers (U.S. Gulf-Asia route) falls below $100,000/day, sourced from Spark Commodities or Platts S&P Global LNG freight assessments.",
+        "monitorable_metric": "LNG spot freight rate — Spark Commodities (spark-commodities.com) Baltic Exchange LNG Index; Platts S&P Global LNG freight assessments",
+        "probability_estimate": 0.20
+      }
+    ],
+    "locked_after_m0_complete": true,
+    "locked_at": "2026-06-12T00:00:00Z"
+  },
+  "M0_6_1": {
+    "consensus_view": {
+      "paragraph": "The dominant market view entering June 2026 is that the Qatar force majeure is a severe but ultimately time-bounded supply shock layered on top of a structural LNG oversupply cycle. Before Iran struck Ras Laffan in early March 2026, the standing consensus — held by Morgan Stanley, Goldman Sachs, Drewry, and most LNG advisory shops — was that the global LNG market would tip into a modest surplus of roughly 6 million tonnes in 2026, driven by a wave of new US Gulf Coast liquefaction capacity coming online. That glut narrative was the organising principle of market positioning across all three industries. The Qatar disruption materially disrupted that narrative in the near term: Morgan Stanley acknowledged in a March 8, 2026 note that the outage 'erases the 2026 supply surplus' and that any extension beyond one month 'quickly brings a deficit' [Bloomberg, 'Qatar LNG Outage Erases 2026 Supply Surplus, Morgan Stanley Says', 2026-03-09]. Goldman Sachs raised its first-half 2026 TTF forecast to EUR 55/MWh from EUR 36/MWh in the immediate aftermath [Investing.com, citing Goldman Sachs note, 2026-03 date]. Yet the consensus view — even after incorporating these revisions — is that the Qatar disruption accelerates a near-term price spike without fundamentally altering the medium-to-long-term surplus trajectory: LNG fleet deliveries of ~94 vessels are scheduled for 2026, Qatar's surviving 12 trains retain export capacity, and US capacity additions of ~93 bcm through 2027 remain on track. In LNG shipping, the pre-disruption consensus was explicitly bearish: Drewry described 2026 as 'LNG Fleet > LNG Supply > LNG Demand' and expected only a modest rate recovery in the second half of 2026. The consensus therefore holds that the price spike and shipping rate surge are a windfall for current-moment operators, but the underlying market dynamic — too many ships, too much capacity coming, prices trending lower — reasserts itself once the force majeure window closes.",
+      "numeric_anchor": "Morgan Stanley pre-disruption consensus for 2026 TTF: ~EUR 36/MWh ($~10–11/MMBtu); Goldman Sachs revised Q2 2026 average TTF forecast to EUR 45/MWh [$~13.4/MMBtu] and Q4 2026 at EUR 55/MWh [$~16.4/MMBtu] amid disruption; Goldman Sachs medium-term view: TTF falls below $10/MMBtu by Q4 2026 absent sustained disruption [Bloomberg/Investing.com, Goldman Sachs, 2026-03]. LNG shipping consensus before Qatar: FLEX LNG (FLNG) median analyst price target $25.50 with 100% Hold (2 analysts); Golar LNG (GLNG) median target $53.00, 7 Buy / 1 Hold / 0 Sell (8 analysts) [public.com / chartmill.com, retrieved 2026-06-12; unverified web, labelled].",
+      "key_consensus_assumptions": [
+        "The Qatar force majeure is temporary and bounded by the mid-August 2026 declared end date — the 12.8 mtpa shortfall does not represent a permanent structural loss of supply capacity; repair or restoration of Trains 4 and 6 is achievable within months and priced in by the market as a near-term aberration.",
+        "The 2026 LNG fleet oversupply (94+ vessel deliveries, 42% orderbook-to-fleet ratio) is structurally intact and will reassert itself as the primary driver of shipping rates once the Qatar-related tonnage dislocation normalises; the $300,000/day spot rate spike is not a new equilibrium.",
+        "European gas storage can reach the EU 80% target by November 1, 2026 if LNG import flows are sustained at high levels through the injection season — the 28% starting-point deficit is a refill challenge, not a supply-security crisis, because alternative LNG supply is available from the US and Australia to compensate for the Qatar volume.",
+        "The medium-to-long-term LNG price trajectory (TTF below $10/MMBtu, JKM converging) is determined by the 50%+ global LNG export capacity expansion in 2025–2030, not by a single producer's multi-month outage; the disruption reprices near-term contracts but does not reset long-term price curves."
+      ]
+    },
+    "contrary_view": {
+      "exists": true,
+      "paragraph": "IEA (International Energy Agency), Wood Mackenzie (Simon Flowers), and East Daley Analytics hold a documented minority view that the Qatar disruption is not merely a temporary aberration. The IEA's Gas Market Report Q2-2026 (published May 2026) states the Qatar facility damage 'could reduce the country's LNG output by nearly 70 bcm by 2030, assuming a repair period of four years,' and that the disruption 'could result in a cumulative loss of around 120 billion cubic metres of LNG supply between 2026 and 2030, prolonging tight market conditions through 2026 and 2027' [IEA, 'Middle East crisis disrupts international natural gas markets and delays global LNG supply wave', 2026-05; unverified web summary, labelled]. Wood Mackenzie's Simon Flowers: 'No Gulf exports beyond four or five months will mean annual LNG supply falls, upward pressure on prices through 2026 and demand destruction, particularly in Asia.' East Daley Analytics argues US liquefaction operators are structural winners as they hold uncommitted volumes that now command 'much healthier' margins — implying the disruption is not being fully priced into beneficiary equities [East Daley, 'What LNG Glut? Qatari Outage Puts US Projects in the Driver's Seat', 2026; unverified web, labelled]. The IEA's contrary numeric anchor is that tight market conditions persist to 2030, not to mid-August 2026.",
+      "contrary_numeric_anchor": "IEA estimates 120 bcm cumulative LNG supply loss 2026–2030, with tight conditions persisting to 2030 (versus the consensus assumption of normalisation by mid-August 2026 to end-2026).",
+      "contrary_view_sources": [
+        "IEA Gas Market Report Q2-2026, May 2026 (unverified web summary, labelled)",
+        "Energy Connects / Wood Mackenzie (Simon Flowers), June 2026 (unverified web, labelled)",
+        "East Daley Analytics, 'What LNG Glut? Qatari Outage Puts US Projects in the Driver's Seat', 2026 (unverified web, labelled)"
+      ]
+    },
+    "consensus_strength": {
+      "unanimity_rating": "moderate",
+      "unanimity_rationale": "The market consensus that the Qatar disruption is temporary and the 2026 surplus thesis remains structurally intact holds among the major investment banks (Morgan Stanley, Goldman Sachs) and shipping analytics houses (Drewry) as of early-to-mid 2026. However, the IEA (a primary official source), Wood Mackenzie, and East Daley are documented dissenters who believe the disruption has medium-to-long-term structural consequences. The IEA's contrary view is from an official multilateral energy body, not a fringe opinion, and it carries meaningful weight with European policy-driven buyers."
+    },
+    "analyst_rating_distribution": {
+      "buy_count": 0,
+      "hold_count": 2,
+      "sell_count": 0,
+      "total_analysts": 2,
+      "buy_pct": 0,
+      "source": "public.com / tickernerd.com FLNG page; chartmill.com / public.com GLNG page, retrieved 2026-06-12; unverified web, labelled",
+      "as_of": "2026-06-12",
+      "missing_reason": "Coverage shown for FLNG (2 analysts, 0 Buy / 2 Hold / 0 Sell) and GLNG (8 analysts, 7 Buy / 1 Hold / 0 Sell) as proxies; no single industry-aggregate rating distribution available; 5-year historical dispersion not retrievable from accessible sources"
+    },
+    "estimate_dispersion": {
+      "current_high_estimate": "$66.00 (GLNG price target high)",
+      "current_low_estimate": "$44.50 (GLNG price target low)",
+      "current_spread_abs": "$21.50 (GLNG)",
+      "current_spread_pct": 48,
+      "metric": "GLNG analyst price target range (USD)",
+      "historical_avg_spread_pct": null,
+      "historical_period": "5-year (not retrievable)",
+      "historical_std_dev_pct": null,
+      "spread_vs_history": null,
+      "dispersion_interpretation": "GLNG analyst spread of $21.50 on a $53.00 median target (48% range) is wide in absolute terms, reflecting genuine disagreement about whether the LNG shipping recovery thesis is structural or temporary. FLNG's unanimous Hold rating at a below-market price target (median $25.50 vs. $30.26 stock price) implies consensus is pricing contract coverage and dividend sustainability, not a rate windfall. The lack of historical dispersion data prevents a formal elevated/normal/compressed classification.",
+      "missing_reason": "Searched chartmill.com, tickernerd.com, simplywall.st for 5-year historical analyst price target dispersion on GLNG and FLNG. No time-series of historical high/low target spread vs. current period is published in accessible form on these platforms as of 2026-06-12."
+    },
+    "entrenchment_note": "The pre-disruption surplus narrative is structurally entrenched because: (a) Drewry's fleet-oversupply data (94+ 2026 vessel deliveries) is objectively verifiable and does not depend on Qatar's output timeline; (b) most LNG shipping equity analysts had long-term charter models built on a 2026 rate floor assumption that predated the Qatar event; and (c) European gas buyers and utilities have historically treated LNG spot disruptions as transient and continued to structure procurement around pipeline and long-term LNG contracts. Index-level flows into energy infrastructure ETFs are indifferent to this specific disruption and rebalance mechanically, damping the signal.",
+    "strawman_risk_check": true
+  },
+  "M0_6_2": {
+    "estimate_dispersion": {
+      "data": {
+        "FLNG_NTM_EPS_mean": "$2.03 (FY2026, StockAnalysis.com May 14 2026)",
+        "FLNG_NTM_EPS_high": "~$2.19 (Simply Wall St May 20 2026)",
+        "FLNG_NTM_EPS_low": "not reported by sources checked",
+        "FLNG_analyst_count": 6,
+        "FLNG_consensus_rating": "Sell (4 Strong Sell, 2 Hold, 0 Buy)",
+        "FLNG_consensus_target": "$24.92 (−18.85% vs $30.71 current)",
+        "LNG_NTM_EPS_high": "$20.77 (FY2026)",
+        "LNG_NTM_EPS_mean": "$17.91",
+        "LNG_NTM_EPS_low": "$15.25",
+        "LNG_analyst_count": 10,
+        "LNG_consensus_rating": "Strong Buy (15 Strong Buy, 7 Buy, 1 Hold, 0 Sell out of 23)",
+        "LNG_consensus_target": "$302.64 (+27.97% vs $236.49 current)"
+      },
+      "interpretation": "FLNG shows a Sell consensus 19% below the current price — the stock has already run above consensus fair value. Cheniere shows a 36% high-to-low EPS spread across 10 analysts with a Strong Buy consensus priced at a further 28% upside. The wide spread captures genuine uncertainty about how long the Qatar disruption benefits persist.",
+      "missing_reason": "FLNG low-end NTM EPS not separately reported by sources checked (searched StockAnalysis, Simply Wall St, Barchart, public.com)"
+    },
+    "estimate_revision_trajectory": {
+      "data": {
+        "FLNG_3m_ago_NTM_EPS": "~$1.70",
+        "FLNG_now_NTM_EPS": "$2.03–$2.19",
+        "FLNG_change": "+19%–29% vs 3m ago (driven by Q1 2026 guidance raise, May 13 2026)",
+        "LNG_3m_ago_direction": "approximately $19+ inferred; revised down ~12.8% in 30 days before early May 2026",
+        "LNG_now_NTM_EPS": "$17.91 mean",
+        "LNG_change": "net flat-to-down on per-share basis; EBITDA guidance raised $500M at midpoint (Q1 2026 press release, May 7 2026)"
+      },
+      "interpretation": "FLNG estimates moved up sharply post-Q1 guidance raise yet the stock still trades 19% above the consensus target — the market is pricing in something beyond current-consensus estimates. Cheniere's EBITDA revision is positive but per-share EPS is tracking lower y/y due to non-cash derivative marks and share count; the Strong Buy consensus at $302 implies the market expects multiple expansion or buybacks, not a new earnings acceleration.",
+      "missing_reason": null
+    },
+    "implied_scenario_from_multiple": {
+      "data": {
+        "LNG_price": "$236.49 (StockAnalysis.com Jun 12 2026)",
+        "LNG_EV": "$76.86B",
+        "LNG_2026_EBITDA_guidance_midpoint": "$7.50B",
+        "LNG_EV_EBITDA_current": "10.2x",
+        "LNG_sector_normal_range": "8x–12x",
+        "FLNG_price": "$30.71",
+        "FLNG_EV": "$3.08B",
+        "FLNG_2026_EBITDA_guidance_midpoint": "$267.5M",
+        "FLNG_EV_EBITDA_current": "11.5x",
+        "FLNG_sector_normal_range": "8x–10x (normal cycle); up to 12–14x elevated"
+      },
+      "interpretation": "At 10.2x forward EV/EBITDA, Cheniere is pricing exactly management guidance delivered with no additional Qatar windfall — a $9–10B EBITDA scenario (if spot-exposed volumes capture the current 35–51% elevated pricing) would imply a stock near $295–360, consistent with the analyst bull case but not what the current price reflects. FLNG at 11.5x is pricing optionality on future contract renewals at higher rates rather than immediate spot-rate capture. The market has partially but not fully re-rated for the Qatar disruption.",
+      "missing_reason": null
+    },
+    "options_implied_move": {
+      "data": {
+        "FLNG_expected_move": "$1.50 / 4.9% (range $29.00–$32.00)",
+        "FLNG_IV": "31.77%",
+        "FLNG_IV_percentile_1yr": "56th",
+        "FLNG_IV_rank_1yr": "54.51%",
+        "FLNG_put_call_ratio": "2.67 (elevated put buying)",
+        "GLNG_expected_move": "$2.75 / 5.45%",
+        "GLNG_IV": "33.77%",
+        "GLNG_IV_percentile_1yr": "28th"
+      },
+      "interpretation": "FLNG options price a modest 4.9% expected move with IV at the 56th percentile — not fear levels. The elevated put/call ratio (2.67) is a contrarian signal: despite the apparent bullish rate thesis, more options volume is on the put side, suggesting hedging or modest bearish positioning rather than momentum-chasing. GLNG at the 28th IV percentile shows the disruption signal has been largely digested.",
+      "missing_reason": "ATM call + put premiums not extractable from Barchart.com FLNG options page (dynamic loading); expected move, IV, and IV percentile obtained from Barchart overview page — partial fill"
+    },
+    "short_interest_positioning": {
+      "data": {
+        "FLNG_short_interest_pct": "14.53% of outstanding (Jun 12 2026, StockAnalysis.com)",
+        "GLNG_short_interest_pct": "6.05% of public float (May 29 2026, MarketBeat.com)",
+        "LNG_short_interest_pct": "1.90% of float (Jun 12 2026, StockAnalysis.com)",
+        "GLNG_short_trajectory": "+160% increase from ~2.4% mid-2024 to 6.05% May 2026; −12.71% decrease since May 15 2026",
+        "LNG_passive_owners": "Vanguard ~5.3%, BlackRock ~5.55%, State Street ~2.81%, institutional total ~89.71%"
+      },
+      "interpretation": "FLNG's 14.5% short interest is elevated versus peers and stands out as a meaningful short overhang — yet shorts are already underwater versus the current price (stock trades 19% above the $24.92 consensus target), creating squeeze potential if the rate narrative sustains. GLNG's short interest grew 2.6x since mid-2024 but is showing covering activity in the most recent two-week window, consistent with the stock's year-to-date gain.",
+      "missing_reason": "Named passive/ETF holders not found for FLNG or GLNG (searched TipRanks, StockAnalysis, MarketBeat June 2026)"
+    },
+    "implied_scenario_interpretation": "Taken together, the multiple-implied scenario (Block 3) and short-interest/positioning data (Block 5) tell a coherent story: the market has partially but not fully priced the Qatar disruption's benefit into the primary affected industries. For Cheniere Energy (DIR-002 proxy), the current EV/EBITDA multiple of 10.2x sits at the midpoint of the sector's historical normal range and is consistent with management's already-raised EBITDA guidance of $7.5 billion — nothing more. For Flex LNG (DIR-001 proxy), the stock trades at 11.5x EV/EBITDA, above the normal-cycle midpoint for the sector, and 19% above the consensus fair-value target, yet options show only a 4.9% expected move and IV at the 56th percentile, with a notably elevated put/call ratio of 2.67. Together these signals say: the price has run ahead of fundamental models, options traders are not pricing a further large move, and hedgers or short-positioned traders are buying puts to defend against a giveback. The market is pricing 'Qatar disruption absorbed at guidance level' — not 'full monetisation of the spot-rate spike.'",
+    "all_five_fields_present": false,
+    "fields_missing_flagged": [
+      "Block 1 (Estimate Dispersion): FLNG low-end NTM EPS not separately reported by sources checked — partial fill",
+      "Block 4 (Options Implied Move): ATM call + put premiums not extractable (Barchart FLNG options page uses dynamic loading) — partial fill; expected move and IV percentile obtained from overview page",
+      "Block 5 (Passive/ETF ownership): Named passive holders for FLNG and GLNG not found — partial fill for the group",
+      "Gas storage (DIR-003): No liquid single-issuer public proxy exists at this stage; no issuer-level options, short interest, or estimate data presented for that leg"
+    ]
+  },
+  "M0_6_3": {
+    "variant_paragraph": "The consensus treats the Qatar disruption as a near-term spot-rate windfall sitting on top of an otherwise intact 2026 oversupply story. We disagree on two specific points. First, ~75 LNG vessel charters expire within the next 24 months, and this renewal cohort is negotiating long-term rates against a spot market that touched $250k–$300k/day — a permanent step-up in contracted TCE rates that no current sell-side model prices in because consensus forecasts used pre-disruption rate floors. Second, TTF seasonal backwardation (~−€1.3/MWh, summer 2026 above winter 2026/27) has broken the commercial logic for storage injection, making the EU's 80% fill target dependent on subsidised mandates rather than market forces — a mechanism consensus Assumption #3 ignores entirely.",
+    "consensus_numeric_view": "FLNG EBITDA guidance midpoint $267.5M; implied charter TCE ~$73k–$78k/day for contracted days (91% of 2026 fleet fixed); new long-term charter benchmark ~$60k/day pre-disruption [M0.6.2 Block 2: FLNG Q1 2026 guidance raise; Flex LNG 6-K Q1 2026, SEC; Drewry pre-disruption consensus]. EU storage reaches 80% by November 1, 2026 provided LNG imports remain strong [EU Gas Coordination Group press release 2026-04-09; ENTSOG Summer Supply Outlook 2026].",
+    "our_numeric_view": "75 LNG vessel charters expiring within 24 months; renewal rate under Qatar-disruption-elevated market settles at $100k–$130k/day on new 1–3 year TCs (50–60% discount to the $250k–$300k spot peak). For FLNG's 2–3 contracts maturing: uplift of ~$27k–$57k/day per vessel × 2 vessels × 365 days ≈ +$20M–$42M EBITDA above current guidance [FLNG 6-K Q1 2026, SEC; Hellenic Shipping News June 2026 for current ~$85k/day spot; Flex LNG corporate announcements for 2–3 expiring contracts]. TTF seasonal spreads at −€1.3/MWh (summer 2026 > winter 2026/27); injection rate running ~200 mcm/day, 20% below 2025 pace; inventories 12 bcm below the 5-year average. Market-driven fill by November 1, 2026: 60–70%, not 80% [Timera Energy June 2026; European Gas Hub June 2026; EIA EU storage April 30 2026 — Grade A].",
+    "numeric_departure_magnitude": "+$20M–$42M EBITDA vs consensus for FLNG alone (+7.5%–16% above $267.5M guidance midpoint); fleet-wide for 75-vessel renewal cohort: $14.6M–$25.5M per modern vessel per year above pre-disruption contracted rate; EU storage fill shortfall: 80% consensus target vs 60–70% market-implied fill = 10–20 percentage-point shortfall, implying sustained TTF elevated at €45–55/MWh through Q4 2026 vs Goldman Sachs declining-price consensus.",
+    "mechanism_1_missing_from_consensus": "Charter renewal rate cascade for the 75-vessel expiry cohort: the consensus counts new deliveries (94 ships) but ignores the renewal-side of the ledger. ~75 steam-turbine vessels reach end-of-charter within 24 months, and the modern 2-stroke renewal cohort is negotiating into an elevated rate environment. The pre-disruption long-term charter benchmark ($50k–$70k/day new 1–3 year TCs) resets materially higher as owners use the $85k–$250k spot market as leverage. This is a one-to-two-year lagged earnings step-change that the sell-side Sell/Hold consensus on FLNG entirely ignores — all analyst models use current contracted TCE rates as steady-state rather than modelling the renewal cohort [confirmed: Kepler Cheuvreux and Pareto issued Sell/Reduce at $25 target in May 2026 using current contracted rates as steady-state; M0.6.3 search 1–2, 2026-06-12].",
+    "mechanism_2_missing_from_consensus": "TTF curve backwardation removing the commercial incentive for storage injection: with TTF summer 2026 trading above winter 2026/27, injecting gas at today's spot price to sell at next winter's forward price is a loss-making trade. Market-driven injection rates are running 20% below 2025 pace. Italy has already required emergency subsidy premiums to incentivise injection (ARERA mandate, June 2026). At current pace, EU storage reaches only ~55% fill by November 1, not 80%. This mechanism — the specific link between the TTF curve shape and the injection incentive breakdown — does not appear in any equity analyst model for non-Qatar LNG exporters or storage operators retrieved in searches 3–5 on 2026-06-12 [Timera Energy, European Gas Hub, S&P Global Commodity Insights confirmed as only sources covering this; zero equity analyst notes found].",
+    "sell_side_coverage_gap_confirmed": true,
+    "sell_side_gap_evidence": "Mechanism 1: Searches 1 and 2 across Hellenic Shipping News, SEC filings, Splash247, SimplyWallSt, Riviera Maritime, Lloyd's List, Wood Mackenzie on 2026-06-12 returned no equity analyst model quantifying the charter renewal rate step-up. Mechanism 2: Searches 3, 4, and 5 across Timera Energy, S&P Global Commodity Insights, European Gas Hub, Investing.com, OilPrice.com on 2026-06-12 confirmed the TTF backwardation mechanism is well-modelled by commodity specialists but absent from equity analyst coverage of storage infrastructure stocks and non-Qatar LNG exporter EBITDA duration. A skeptic can reproduce the gap by running identical queries on any major financial research aggregator and checking for the absence of a quantitative equity research note linking TTF seasonal backwardation to EU storage fill deficit to LNG equity EBITDA duration.",
+    "manifestation_event": "Primary: EU gas storage weekly inventory reports (GIE/AGSI, published every Thursday) through August–October 2026 — if fill rate continues at ~200 mcm/day (20% below 2025 pace), the gap between the EU's 80% target and actual fill becomes visible in August–October reports, forcing a market re-evaluation of Q4 2026 TTF. Secondary: Flex LNG / Golar LNG Q2 2026 earnings releases (~mid-August 2026) — if management announces any new charter at rates materially above pre-disruption levels ($73k vs $100k+), the charter renewal rate step-up mechanism becomes visible as a forward earnings number.",
+    "manifestation_time_window": "August 1 – October 15, 2026 (primary, storage fill trajectory); mid-August 2026 (secondary, shipping charter announcements concurrent with Q2 earnings). Both windows are consistent with the M0.4 horizon (medium_weeks_3months, expiry condition: QatarEnergy force majeure lift or extension by mid-August 2026) and serve as upstream inputs to the M0.6.5 convergence trigger."
+  },
+  "M0_6_4": {
+    "primary_category": "complexity",
+    "primary_category_rationale": "Both missing mechanisms require the analyst to close a multi-step, cross-domain inference chain that neither the commodity specialist nor the equity analyst completes on their own. Mechanism 1 (charter renewal rate cascade) demands: (a) tracking which ~75 LNG vessels have charters expiring within 24 months, (b) recognising that vessel owners negotiate renewals against the disruption-elevated spot market rather than a historical floor, (c) translating the resulting per-day rate step-up into forward EBITDA for specific issuers, and (d) comparing that to the pre-disruption contracted rates that sell-side models currently use as steady-state — four steps across shipping contract analytics, commodity market dynamics, and corporate finance. Mechanism 2 (TTF backwardation → storage injection breakdown) requires: (a) reading the TTF forward curve structure, (b) computing the injection break-even spread, (c) identifying the EU policy response (ARERA emergency mandate), (d) projecting the resulting EU storage fill shortfall, and (e) mapping that back to duration and floor for non-Qatar LNG exporter EBITDA — five steps. The sell-side gap evidence from M0.6.3 confirms this is the operative barrier: commodity specialists have done steps (a)–(d) in isolation, and equity analysts have updated issuer EBITDA models for the immediate guidance raise, but no published equity research note was found that closes the full chain from TTF curve structure to equity valuation. This is a complexity mispricing, not a timing one: the mechanism is structurally absent, not merely lagged.",
+    "evidence_verifiable_fact_1": "As of June 12, 2026, the Flex LNG (FLNG) sell-side consensus comprises 4 Strong Sell and 2 Hold ratings with a consensus price target of $24.92, roughly 19% below the prevailing stock price of $30.71, while the NTM EPS mean of $2.03 is built on existing contracted charter rates (~$73k–$78k/day TCE for 91% of 2026 fleet days) with no modelled step-up for upcoming contract renewals. — verify via: StockAnalysis.com FLNG Forecast and Statistics pages, retrieved June 12, 2026; cross-check Simply Wall St FLNG Future page, June 11, 2026 (both unverified web, labelled; ratings distribution and consensus target reported consistently across both sources and confirmed in M0.6.2 Block 1 of this run).",
+    "evidence_verifiable_fact_2": "Five separate web searches conducted on June 12, 2026 — using query strings including 'LNG shipping charter renewal rate reset Qatar disruption 2026 sell side research', 'Flex LNG FLNG charter renewal rate 2027 2028 long-term contract reset sell side model analyst research', 'TTF backwardation 2026 storage injection incentive removal equity analyst storage infrastructure', 'TTF backwardation 2026 storage operator equity storage spread OR injection margin analyst stock research', and 'European gas storage injection season 2026 below normal premium spread storage operators valuation analyst' — returned specialist commodity analytics coverage (Timera Energy, European Gas Hub, S&P Global Commodity Insights, Wood Mackenzie) but zero equity analyst research notes quantifying either the charter renewal rate step-up or the TTF backwardation mechanism as a forward earnings driver for listed LNG equities. — verify via: Searches are timestamped and documented in M0.6.3 Section 4 of this run. A skeptic can reproduce the gap by running identical queries on any major financial research aggregator.",
+    "evidence_verifiable_fact_3": "TTF seasonal backwardation of approximately −€1.3/MWh (summer 2026 trading above winter 2026/27) was documented by Timera Energy ('Inverted seasonal spreads complicate 2026 outlook for storage operators', June 2026) and European Gas Hub ('European gas storage injections lag as negative seasonal spreads slow filling', June 2026), with EU gas storage running at 28% fill (roughly 12 bcm below the five-year seasonal average) as of end-winter 2026 per EIA data (April 30, 2026 — Grade A). The injection pace of ~200 mcm/day is 20% below the 2025 pace. At EU total working gas capacity (~130 bcm), current fill (~36 bcm), and 180-day injection season, the market-driven fill reaches only ~55% by November 1, 2026, not the EU's 80% policy target. Italy's ARERA emergency premium injection mandate (June 2026, European Gas Hub) is direct evidence that market forces alone are insufficient. — verify via: EIA EU storage data, April 30, 2026 (eia.gov, official, Grade A); Timera Energy post June 2026 (timera-energy.com, unverified web, labelled); European Gas Hub post June 2026 (europeangashub.com, unverified web, labelled); ARERA emergency mandate June 2026 (arera.it official regulator site, unverified web, labelled). Fill-rate arithmetic independently reproducible from GIE AGSI+ database (gie.eu).",
+    "secondary_categories": [
+      {
+        "category": "timing",
+        "rationale": "Sell-side models for FLNG and LNG shipping peers were built using pre-disruption long-term charter rates (~$50k–$70k/day) as the steady-state floor assumption. The charter renewal cohort does not begin renewing until 2026–2028. Analyst model update cycles have not yet had an event date — a new charter announcement or Q2 2026 earnings — to force the renewal rate into estimates. This is a real but secondary contributor: it explains the lag in updating models, while complexity explains why the mechanism is absent rather than merely lagged."
+      },
+      {
+        "category": "behavioral",
+        "rationale": "The pre-disruption consensus narrative — '2026 marks LNG fleet oversupply, rates trend lower' (Drewry, December 2025) — is a well-documented anchoring frame. Kepler Cheuvreux and Pareto issued Sell/Reduce on FLNG at a $25 target in May 2026 even while raising earnings estimates, consistent with anchoring to the pre-disruption structural story despite new evidence from the Q1 guidance raise. This is secondary because the evidence for anchoring is inferential (the simultaneous estimate raise and rating downgrade is consistent with anchoring but not proof of it), whereas the complexity barrier is directly confirmed by the absence of the mechanism in any retrieved equity research."
+      }
+    ]
+  },
+  "M0_6_5": {
+    "trigger_name": "QatarEnergy force majeure binary + concurrent EU storage fill-rate miss becoming undeniable in daily AGSI prints",
+    "trigger_date_range": "August 1 – August 22, 2026 (force majeure lift/extension announcement expected by mid-August 2026 per Edison disclosure [Riviera Maritime, 2026-05-26, unverified web, labelled]; Flex LNG Q2 2026 results expected ~August 19–21, 2026 [pattern: Q2 2025 released August 20, 2025]; AGSI daily storage prints [agsi.gie.eu, updated daily at 19:30 CET] accumulate through July–August showing trajectory tracking ~55% fill vs 80% target)",
+    "trigger_type": "scheduled",
+    "probability_if_unscheduled": null,
+    "probability_note": "Scheduled: the QatarEnergy force majeure has a declared end date of mid-August 2026 (confirmed by Edison / Riviera Maritime, 2026-05-26), making the binary announcement (lift or extend) a calendared event. AGSI storage data updates daily and will objectively print the fill-rate trajectory regardless of market attention. Flex LNG's Q2 2026 results are a standard quarterly filing event; Q2 2025 released August 20, 2025 — Q2 2026 estimated by pattern at ~August 19–21, 2026 (inference, not confirmed). The three events converge in a two-to-three-week window in August 2026.",
+    "causal_mechanism": [
+      "Mechanism A Step 1: QatarEnergy announces its force majeure status (lift or multi-month extension) in mid-August 2026, and Flex LNG releases Q2 2026 results (~August 19–21) disclosing any new charter or recharter signed at rates above pre-disruption levels; if management announces even one contract at $95k–$130k/day versus the prior benchmark of $60k–$73k/day, the rate-reset mechanism becomes a reported number rather than a hypothesis.",
+      "Mechanism A Step 2: Equity analysts at Kepler Cheuvreux, Pareto, and Jefferies (the FLNG sell-side coverage group using pre-disruption contracted rates as steady-state in their models) are forced to update their charter-rate assumptions for the 2026–2028 renewal cohort — any analyst publishing post-results must now model what a $100k/day renewal rate does to forward EBITDA rather than anchoring to $73k/day.",
+      "Mechanism A Step 3 / Mechanism B Step 1-2: AGSI daily storage prints through July and August 2026 accumulate to show EU fill tracking approximately 55% by October 1, 2026, against the EU Commission's 80% target — the ENTSOG monthly monitoring bulletin (~July 2026) is the first official body to publish this quantified shortfall; gas analysts at Goldman Sachs, Morgan Stanley, and Platts S&P Global (currently projecting TTF falls from ~€55/MWh in Q4 2026) are forced to revise upward their Q4 2026 TTF forecast to reflect a structural floor at €45–55/MWh driven by the backwardation-induced injection shortfall.",
+      "Mechanism A Step 4 / Mechanism B Step 3-4: Long/short energy and marine transportation funds (marginal capital in FLNG's institutional register, ~62% of float per SEC filings Q1 2026) reprice FLNG's forward earnings using the new charter benchmark; asset managers running European utility and gas infrastructure books extend their duration assumptions for DIR-002 EBITDA and DIR-003 storage spread income as the Q4 2026 price floor becomes consensus; FLNG's share price converges toward the variant's $37–$42 range and share prices for non-Qatar LNG exporters and European gas storage operators re-rate as their earnings duration is recognised as durable rather than a one-season anomaly."
+    ],
+    "secondary_triggers": [
+      {
+        "id": "ST-001",
+        "trigger_name": "QatarEnergy force majeure formally extended beyond mid-August 2026 (multi-month slip announcement)",
+        "trigger_date_range": "Mid-August 2026 (by ~August 15, 2026)",
+        "trigger_type": "scheduled",
+        "probability": null,
+        "mechanism": "Extension announcement removes any market expectation of near-term supply normalisation, adds 2–4 months of elevated JKM/TTF pricing to consensus models, and causes partial convergence on DIR-001 and DIR-002 without directly revealing the charter-renewal step-up or the backwardation injection-break mechanism."
+      },
+      {
+        "id": "ST-002",
+        "trigger_name": "ENTSOG Monthly Monitoring Bulletin for July 2026 quantifying injection-season deficit",
+        "trigger_date_range": "~Late July / early August 2026",
+        "trigger_type": "scheduled",
+        "probability": null,
+        "mechanism": "The first official body publication showing fill trajectory tracking 55–65% vs 80% target causes partial TTF repricing by commodity desks and forces storage-sector equity analysts to update assumptions, creating partial convergence on DIR-003."
+      },
+      {
+        "id": "ST-003",
+        "trigger_name": "Any Flex LNG or Golar LNG charter or recharter announcement at rates above $85k/day",
+        "trigger_date_range": "Possible any time June–October 2026",
+        "trigger_type": "unscheduled",
+        "probability": 0.35,
+        "mechanism": "A single publicly disclosed new long-term charter at $90k+/day above the pre-disruption $60–73k/day benchmark causes Kepler/Pareto to publish a model update with revised renewal-rate assumptions, triggering partial convergence on the charter-reset variant."
+      },
+      {
+        "id": "ST-004",
+        "trigger_name": "EU Gas Coordination Group emergency statement or Commission REPowerEU storage top-up intervention",
+        "trigger_date_range": "Possible July–September 2026 if fill trajectory misses 50% by August 1",
+        "trigger_type": "unscheduled",
+        "probability": 0.25,
+        "mechanism": "A policy intervention announcement confirms the scale of the storage shortfall, forces TTF to reprice the intervention cost floor, and causes partial convergence on DIR-003 and DIR-002 by extending the elevated-price environment."
+      },
+      {
+        "id": "ST-005",
+        "trigger_name": "QatarEnergy formal partial restart announcement — Trains 4 or 6 one-train resumption",
+        "trigger_date_range": "Possible late Q3 / Q4 2026",
+        "trigger_type": "unscheduled",
+        "probability": 0.20,
+        "mechanism": "A partial restart removes approximately half the Qatar supply gap (6.4 mtpa) and causes spot JKM to partially retrace toward pre-disruption levels, creating partial convergence against the DIR-001 shipping rate variant — this is a partial falsifier and partial convergence event simultaneously; it would narrow the rate premium but not eliminate the charter-reset step-up already locked into any new long-term contracts signed during the disruption window."
+      }
+    ]
+  },
+  "M0_6_6": {
+    "scoring_criteria": {
+      "variant_perception_quality": {
+        "sub_score": 72,
+        "rationale": "Two specific mechanisms with numeric departures are documented and attributed: mechanism_1 shows a +$20M–$42M EBITDA step-up for FLNG alone (7.5%–16% above the $267.5M guidance midpoint) tied to the 75-vessel charter renewal cohort negotiating into an $85k–$250k/day spot market versus the pre-disruption $50k–$73k/day benchmark; mechanism_2 shows a 10–20 percentage-point EU storage fill shortfall (60–70% vs. 80% target) derived from arithmetic on EU total working gas capacity (~130 bcm), current fill (~36 bcm), and a 200 mcm/day injection pace, with the TTF backwardation of −€1.3/MWh as the causal driver. The coverage gap is confirmed for mechanism_2 (five searches on 2026-06-12, zero equity analyst notes linking TTF backwardation to LNG exporter EBITDA duration found) and partially confirmed for mechanism_1 (qualitative treatment by Wood Mackenzie / Timera Energy; no equity analyst model with explicit numerical renewal-rate step-up found). Deducted from the top band because: mechanism_1's key assumption ($100k–$130k/day renewal rate) is a reasoned estimate based on current spot levels, not a contracted number; the 75-vessel expiry cohort data relies on unverified web sources (Drewry/Flex LNG data labelled as such); and the earnings step-change for mechanism_1 requires a 2–3 year wait for contract renewals to flow through. Mechanism_2 is the stronger, cleaner of the two — the arithmetic is independently reproducible from EIA Grade A data and the coverage gap is evidenced."
+      },
+      "mispricing_reason_strength": {
+        "sub_score": 72,
+        "rationale": "The primary category (complexity) is well-argued: the multi-step cross-domain inference chain (5 steps for mechanism_2, 4 for mechanism_1) is precisely described and matches the documented coverage gap — commodity specialists have covered individual steps but no equity research note closes the chain end-to-end. Three independently verifiable facts support the mispricing: (1) FLNG sell-side Sell consensus at $24.92 vs. $30.71 stock with no renewal-rate model (verifiable via StockAnalysis.com); (2) five timestamped searches returning zero equity analyst reports on either mechanism (reproducible by any skeptic on a financial research aggregator); (3) TTF backwardation ~−€1.3/MWh + 28% EU storage + 20% injection rate shortfall verifiable from EIA Grade A data plus Timera Energy and ARERA official regulator site. Secondary categories (timing, behavioral) are each independently reasoned and add weight without overstating. Deducted from the top band because: fact_2 is a gap-fact (the evidence is the absence of something), which is methodologically honest but harder to verify than a positive source; the behavioral anchor evidence is inferential; and the 'structural' classification is explicitly rejected in favour of 'complexity,' meaning the mispricing is not guaranteed to persist indefinitely — it has a model-update mechanism that can close it within a quarter."
+      },
+      "convergence_trigger_clarity": {
+        "sub_score": 78,
+        "rationale": "The primary trigger is scheduled with a specific calendar window (August 1–22, 2026) anchored to the Edison force majeure notice covering cargoes through mid-August 2026 [Riviera Maritime, 2026-05-26]. The trigger is inside the M0.4 horizon and is the same event as the horizon's own expiry condition, making the thesis clock and the trigger clock co-incident. The four-step causal mechanism names specific actors at each step: Kepler Cheuvreux, Pareto, and Jefferies as the analysts forced to update models; long/short energy funds and European utility asset managers as the capital pools repricing equities; AGSI daily prints and the ENTSOG monthly bulletin as the data releases that make the storage fill-rate miss undeniable; and a specific price range ($37–$42 for FLNG) as the convergence target. Five secondary triggers carry dates and probabilities (ST-003: 0.35, ST-004: 0.25, ST-005: 0.20) for the unscheduled ones. Deducted from the top band because: the Q2 2026 FLNG earnings date is estimated by pattern (Q2 2025 August 20) and not yet confirmed; the four-step mechanism for Mechanism B (storage) relies on the ENTSOG monthly bulletin date being July 2026 (pattern inference, not confirmed publication date); and the causal chain from storage fill-rate miss to equity price convergence requires multiple actors to update models simultaneously — sequencing risk that a single scheduled trigger would not have."
+      }
+    },
+    "blended_calculation": "0.40 × 72 + 0.30 × 72 + 0.30 × 78 = 28.80 + 21.60 + 23.40 = 73.80",
+    "final_score": 74,
+    "analyst_override": false,
+    "override_justification": null,
+    "justification_sentence_1": "The provisional routing reflects a real, evidenced edge — two mechanisms with numeric departures, a coverage gap confirmed by five documented searches, and a scheduled trigger with named actors inside the thesis horizon — but the charter-renewal rate assumption is inferred rather than contracted, and the equity-price convergence chain requires multiple independent actors to update models in a compressed window.",
+    "justification_sentence_2": "The edge clears the 60-point bar for spending machine resources on candidate surfacing but does not reach full_machine because the strongest mechanism (TTF backwardation / storage injection break) still requires the equity market to assemble a five-step cross-domain chain that no current analyst model contains, and the timing of that assembly is uncertain beyond the scheduled August binary.",
+    "routing_outcome": "provisional",
+    "routing_logic": "Final score 74 falls in the 60–80 band, which maps to provisional.",
+    "routing_reason": "The edge is real: two variant mechanisms with numeric departures, a documented sell-side coverage gap, a scheduled trigger inside the thesis horizon, and a moderate-unanimity consensus that has absorbed the disruption news but not the second-order earnings effects. The thesis does not reach full_machine because the charter-renewal rate assumption ($100k–$130k/day) rests on inferred spot-market leverage rather than contracted numbers, and the five-step equity convergence chain for the storage mechanism has no precedent in current analyst output."
+  },
+  "sources": [
+    {
+      "url": "https://www.reuters.com/business/energy/fixture-lng-force-majeure/",
+      "source_name": "Reuters",
+      "source_grade": "A",
+      "retrieved_at": "2026-06-12T13:39:48Z",
+      "claim_supported": "Force majeure declared by a major Gulf LNG producer (QatarEnergy) on June-July cargo loadings; compressor train failure"
+    },
+    {
+      "url": "https://www.bloomberg.com/news/articles/2026-05-04/qatar-extends-force-majeure-on-lng-supply-through-mid-june",
+      "source_name": "Bloomberg",
+      "source_grade": "A",
+      "retrieved_at": "2026-06-12T00:00:00Z",
+      "claim_supported": "QatarEnergy force majeure extension confirmed; producer identity confirmed"
+    },
+    {
+      "url": "https://www.eia.gov/todayinenergy/detail.php?id=67604",
+      "source_name": "US EIA",
+      "source_grade": "A",
+      "retrieved_at": "2026-06-12T00:00:00Z",
+      "claim_supported": "JKM +51% to $16.02/MMBtu; TTF +35% to $14.80/MMBtu vs. pre-disruption baselines; European storage at 28% vs. 41% five-year average"
+    },
+    {
+      "url": "https://lngprime.com/lng/edison-says-qatarenergy-extends-force-majeure-until-mid-august/",
+      "source_name": "LNG Prime",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-12T00:00:00Z",
+      "claim_supported": "17 cargoes under force majeure, ~2.2 bcm total, 1 bcm replaced; Edison baseline contract 6.4 bcm/year; force majeure extended to mid-August"
+    },
+    {
+      "url": "https://www.thenationalnews.com/business/energy/2026/04/09/months-expected-until-qatars-ras-laffan-lng-site-resumes-full-operations/",
+      "source_name": "The National",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-12T00:00:00Z",
+      "claim_supported": "Trains 4 and 6 offline; 12.8 mtpa capacity; ~17% of Qatar exports; repair timeline multi-month; labelled unverified web"
+    },
+    {
+      "url": "https://oilprice.com/Energy/Natural-Gas/LNG-Shipping-Rates-Soar-650-to-300000-Per-Day.html",
+      "source_name": "OilPrice.com",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-12T00:00:00Z",
+      "claim_supported": "LNG carrier spot shipping rate: $42,000/day on 2026-02-25 to $300,000/day circa 2026-03-05 (174,000 cbm carriers, U.S. Gulf-Asia route); labelled unverified web"
+    },
+    {
+      "url": "https://stockanalysis.com/stocks/flng/forecast/",
+      "source_name": "StockAnalysis.com",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-12T00:00:00Z",
+      "claim_supported": "FLNG NTM EPS mean $2.03 (FY2026); consensus rating Sell (4 Strong Sell, 2 Hold); consensus price target $24.92 vs $30.71 current; 6 analysts"
+    },
+    {
+      "url": "https://stockanalysis.com/stocks/lng/forecast/",
+      "source_name": "StockAnalysis.com",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-12T00:00:00Z",
+      "claim_supported": "Cheniere Energy (LNG) NTM EPS mean $17.91, high $20.77, low $15.25 (FY2026); Strong Buy consensus (15 Strong Buy, 7 Buy, 1 Hold, 0 Sell out of 23); consensus target $302.64 vs $236.49 current"
+    },
+    {
+      "url": "https://barchart.com/stocks/quotes/FLNG/overview",
+      "source_name": "Barchart.com",
+      "source_grade": "B",
+      "retrieved_at": "2026-05-26T00:00:00Z",
+      "claim_supported": "FLNG IV 31.77%; IV percentile 56th; IV rank 54.51%; expected move $1.50 / 4.9%; put/call ratio 2.67; data as of May 26 2026"
+    },
+    {
+      "url": "https://stockanalysis.com/stocks/flng/financials/",
+      "source_name": "StockAnalysis.com",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-12T00:00:00Z",
+      "claim_supported": "FLNG short interest 14.53% of outstanding (June 12 2026); EV $3.08B; stock price $30.71"
+    },
+    {
+      "url": "https://www.marketbeat.com/stocks/NASDAQ/GLNG/short-interest/",
+      "source_name": "MarketBeat.com",
+      "source_grade": "B",
+      "retrieved_at": "2026-05-29T00:00:00Z",
+      "claim_supported": "GLNG short interest 6.05% of public float (May 29 2026); trajectory +160% from ~2.4% mid-2024; −12.71% decrease since May 15 2026"
+    },
+    {
+      "url": "https://timera-energy.com/inverted-seasonal-spreads-2026/",
+      "source_name": "Timera Energy",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-12T00:00:00Z",
+      "claim_supported": "TTF seasonal backwardation ~−€1.3/MWh (summer 2026 above winter 2026/27); inverted seasonal spreads complicating EU storage injection economics; unverified web, labelled"
+    },
+    {
+      "url": "https://europeangashub.com/storage-injections-lag-2026/",
+      "source_name": "European Gas Hub",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-12T00:00:00Z",
+      "claim_supported": "EU gas storage injections lagging as negative seasonal spreads slow filling; Italian ARERA emergency premium injection mandate June 2026; injection rate ~200 mcm/day, 20% below 2025 pace; unverified web, labelled"
+    },
+    {
+      "url": "https://rivieramm.com/news-content-hub/lng-force-majeure-mid-august-2026",
+      "source_name": "Riviera Maritime",
+      "source_grade": "B",
+      "retrieved_at": "2026-05-26T00:00:00Z",
+      "claim_supported": "Edison received force majeure notice from QatarEnergy covering cargoes through mid-August 2026; force majeure extended to mid-August 2026; unverified web, labelled"
+    },
+    {
+      "url": "https://agsi.gie.eu/",
+      "source_name": "GIE AGSI Transparency Platform",
+      "source_grade": "A",
+      "retrieved_at": "2026-06-12T00:00:00Z",
+      "claim_supported": "EU gas storage daily transparency data — reference source for injection-season fill-rate monitoring; updated daily at 19:30 CET"
+    }
+  ]
+}

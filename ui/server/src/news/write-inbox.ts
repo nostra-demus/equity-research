@@ -56,6 +56,10 @@ export function mergeInbox(repoRoot: string, date: string, items: TriagedItem[],
       region: it.region,
       relevance: it.relevance,
       materiality_pre_score: it.materiality_pre_score,
+      event_types: it.event_types,
+      issuer_linkage: it.issuer_linkage,
+      companies: it.companies,
+      size_bucket: it.size_bucket,
       prelim_note: it.triage_reason, // keep the legacy field populated for any reader that uses it
       dedup_status: it.dedup_status,
     }
@@ -76,22 +80,34 @@ export function mergeInbox(repoRoot: string, date: string, items: TriagedItem[],
     }
   }
 
-  // rank by score; always keep consumed rows (history), cap the unconsumed tail
+  // rank by score; always keep consumed AND dismissed rows (human state is history — never evicted,
+  // never resurrected by a re-seen URL), cap only the live unconsumed tail
   const all = [...byUrl.values()]
   all.sort((a, b) => (b.triage_score ?? -1) - (a.triage_score ?? -1))
-  const consumed = all.filter((r) => r.consumed)
-  const unconsumed = all.filter((r) => !r.consumed).slice(0, maxRows)
-  const rows = [...consumed, ...unconsumed].sort((a, b) => (b.triage_score ?? -1) - (a.triage_score ?? -1))
+  const humanState = all.filter((r) => r.consumed || r.dismissed)
+  const live = all.filter((r) => !r.consumed && !r.dismissed).slice(0, maxRows)
+  const rows = [...humanState, ...live].sort((a, b) => (b.triage_score ?? -1) - (a.triage_score ?? -1))
 
+  // preserve whatever the existing document carried (a manual sweep's focus_hint, its source label,
+  // any future fields) — this merge only owns `rows` and the freshness stamps
   const doc = {
+    ...existing,
     date,
     updated_at: now().toISOString().replace(/\.\d{3}Z$/, 'Z'),
-    focus_hint: null,
-    source: 'auto_ingester', // distinguishes a Groq-scored file from a manual /screener:sweep
+    focus_hint: (existing as any).focus_hint ?? null,
+    source: (existing as any).source || 'auto_ingester',
     rows,
   }
   fs.mkdirSync(path.dirname(fp), { recursive: true })
-  fs.writeFileSync(fp, JSON.stringify(doc, null, 2) + '\n')
+  // atomic tmp+rename: this file is the ground truth for human state (consumed/dismissed) and is
+  // read by the CLI sweep and the python board builder — neither may ever see a half-written file
+  const tmpFp = `${fp}.tmp.${process.pid}`
+  try {
+    fs.writeFileSync(tmpFp, JSON.stringify(doc, null, 2) + '\n')
+    fs.renameSync(tmpFp, fp)
+  } finally {
+    if (fs.existsSync(tmpFp)) fs.unlinkSync(tmpFp)
+  }
   return rows.length
 }
 

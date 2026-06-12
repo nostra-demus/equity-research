@@ -5,6 +5,7 @@ import { CommandBar } from './components/CommandBar'
 import { SwarmField } from './components/swarm/SwarmField'
 import { ScreenerField } from './components/screener/ScreenerField'
 import { SignalIntake } from './components/screener/SignalIntake'
+import { LiveFeed } from './components/screener/LiveFeed'
 import { PipelineBoard } from './components/screener/PipelineBoard'
 import { SwarmWarp } from './components/SwarmWarp'
 import { RunStreamPanel } from './components/RunStreamPanel'
@@ -42,6 +43,7 @@ export function App() {
   const activityOpen = useStore((s) => s.activityOpen)
   const callsOpen = useStore((s) => s.callsOpen)
   const pipelineOpen = useStore((s) => s.pipelineOpen)
+  const newsFeedOpen = useStore((s) => s.newsFeedOpen)
   const toast = useStore((s) => s.toast)
   const activeSwarm = useStore((s) => s.activeSwarm)
   const warp = useStore((s) => s.warp)
@@ -66,6 +68,7 @@ export function App() {
       <AnimatePresence>{activityOpen && <ActivityLog />}</AnimatePresence>
       <AnimatePresence>{callsOpen && <CallsTracker />}</AnimatePresence>
       <AnimatePresence>{pipelineOpen && <PipelineBoard />}</AnimatePresence>
+      <AnimatePresence>{newsFeedOpen && <LiveFeed />}</AnimatePresence>
       <SignalIntake />
       <LaunchConfirm />
       <ReadinessWarnings />

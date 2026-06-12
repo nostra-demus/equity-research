@@ -56,6 +56,78 @@ export interface BoardInboxRow {
   region?: string
   relevance?: string
   materiality_pre_score?: number | null
+  event_types?: string[]
+  issuer_linkage?: string
+  companies?: CompanyGuess[]
+  size_bucket?: string
+  // additive: human state (cockpit dismiss/restore)
+  dismissed?: boolean
+  dismissed_at?: string
+  dismissed_by?: string
+}
+
+// A company the cheap scanner GUESSED from a headline — never verified extraction.
+export interface CompanyGuess {
+  name: string
+  ticker: string | null
+  listing_country: string | null
+}
+
+// One triaged item on the live news wire (a firehose kind:"item" record).
+export interface FeedItem {
+  kind: 'item'
+  ts: string
+  event_id: string
+  headline: string
+  url: string
+  domain: string
+  source_name: string
+  via: 'gdelt' | 'rss'
+  region: string
+  input_nature: string
+  triage_score: number
+  band: 'pick' | 'watch' | 'drop'
+  triage_reason: string
+  relevance: string
+  event_types: string[]
+  issuer_linkage: string
+  companies: CompanyGuess[]
+  size_bucket: string
+  dedup_status: string
+  inboxed: boolean
+}
+
+export interface NewsCycle {
+  ts: string
+  ok: boolean
+  fetched: number
+  candidates: number
+  picked: number
+  watched: number
+  dropped: number
+  inboxed: number
+  note?: string
+}
+
+export interface NewsStatus {
+  enabled: boolean
+  running: boolean
+  intervalMin: number
+  model: string
+  rssEnabled: boolean
+  lastCycleAt: string | null
+  nextCycleAt: string | null
+  lastNote: string | null
+  today: { read: number; kept: number; dropped: number; cycles: number }
+  budget: { requests: number; tokens: number; reqCap: number; tokenCap: number }
+}
+
+export interface ActiveRunLite {
+  runId: string
+  kind: string
+  ticker: string
+  module?: string
+  status: string
 }
 export interface BoardSignal {
   signal_id: string
@@ -91,6 +163,10 @@ export interface BoardThesis {
   run_root?: string
   candidate_count?: number
   candidates?: BoardCandidate[]
+  // additive: human override (the engine's own `status` above is never altered)
+  effective_status?: string
+  override?: { from_status: string; to_status: string; reason: string; moved_by: string; moved_at: string } | null
+  override_stale?: boolean
 }
 export interface BoardHandoff { handoff_id: string; thesis_id: string; ticker: string; handed_off_at: string; seeded_path: string }
 export interface ScreenerBoard {

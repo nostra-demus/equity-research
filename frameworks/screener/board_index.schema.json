@@ -29,7 +29,25 @@
           "triage_reason": { "type": "string" },
           "region": { "type": "string", "description": "US / IN / GLOBAL / OTHER" },
           "relevance": { "type": "string" },
-          "materiality_pre_score": { "type": ["integer", "null"] }
+          "materiality_pre_score": { "type": ["integer", "null"] },
+          "event_types": { "type": "array", "items": { "type": "string" }, "description": "Theme tags from the gauntlet's event-type vocabulary (mna, regulatory, …)." },
+          "issuer_linkage": { "type": "string", "description": "primary / secondary / sector / macro." },
+          "companies": {
+            "type": "array",
+            "description": "Companies the cheap scanner GUESSED from the headline alone — never verified extraction.",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": { "type": "string" },
+                "ticker": { "type": ["string", "null"] },
+                "listing_country": { "type": ["string", "null"] }
+              }
+            }
+          },
+          "size_bucket": { "type": "string", "description": "Guessed size of the main company: mega / large / mid / small / unknown (or empty on manual rows)." },
+          "dismissed": { "type": "boolean", "description": "Human state: hidden from the Inbox lane via the cockpit; restorable." },
+          "dismissed_at": { "type": "string" },
+          "dismissed_by": { "type": "string" }
         }
       }
     },
@@ -78,6 +96,19 @@
           "trigger_date_range": { "type": ["string", "null"] },
           "locked": { "type": "boolean" },
           "run_root": { "type": "string" },
+          "effective_status": { "type": "string", "description": "Where the board shows this thesis: the engine's status unless a human moved it (overrides.ndjson, latest wins). The engine's own `status` is never altered." },
+          "override": {
+            "type": ["object", "null"],
+            "description": "The active human move, when one exists.",
+            "properties": {
+              "from_status": { "type": "string", "description": "The engine status at move time — staleness detection anchor." },
+              "to_status": { "type": "string" },
+              "reason": { "type": "string" },
+              "moved_by": { "type": "string" },
+              "moved_at": { "type": "string" }
+            }
+          },
+          "override_stale": { "type": "boolean", "description": "True when the engine re-ran and changed its status AFTER the human move — surfaced in the UI, never silently resolved." },
           "candidate_count": { "type": "integer" },
           "candidates": {
             "type": "array",

@@ -19,6 +19,7 @@ const ROUTES: Record<string, string> = {
   watchlist_no_edge: 'watching — the market likely knows this already',
   provisional: 'early idea',
   full_machine: 'strong idea',
+  watchlist_manual: 'watching — you moved it here',
 }
 // Lookup order: exact → case-insensitive → first token (agents sometimes write "Proceed" or
 // "provisional (restated …)") → humanized raw, so a person never sees a bare machine code.
@@ -41,3 +42,58 @@ const STAGES: Record<string, string> = {
   'candidate-surfacing': 'pick companies',
 }
 export const plainStage = (module?: string | null): string => (module ? STAGES[module] || human(module) : '')
+
+// The scanner's theme tags (the gauntlet's event-type vocabulary) → plain words.
+const THEMES: Record<string, string> = {
+  earnings_revenue_margin: 'profits & sales',
+  guidance_change: 'forecast changed',
+  mna: 'deals & takeovers',
+  capital_actions: 'buybacks & share moves',
+  debt_credit: 'debt & credit',
+  litigation_enforcement: 'lawsuits & penalties',
+  regulatory: 'rules & regulators',
+  management: 'leadership changes',
+  product: 'products & launches',
+  commercial: 'contracts & customers',
+  operations: 'factories & supply',
+  cybersecurity: 'hacks & data leaks',
+  macro_sector: 'economy & industry',
+  rumor: 'unconfirmed talk',
+}
+export const plainTheme = (t?: string | null): string => (t ? THEMES[t] || human(t) : '')
+export const ALL_THEMES = Object.keys(THEMES)
+
+// Guessed company size buckets → plain words.
+const SIZES: Record<string, string> = {
+  mega: 'giant company',
+  large: 'big company',
+  mid: 'mid-size company',
+  small: 'small company',
+  unknown: 'size unknown',
+}
+export const plainSize = (s?: string | null): string => (s ? SIZES[s] || human(s) : '')
+
+// Who the news actually hits.
+const LINKAGE: Record<string, string> = {
+  primary: 'names the company',
+  secondary: 'hits a supplier or partner',
+  sector: 'industry-wide',
+  macro: 'whole economy',
+}
+export const plainLinkage = (l?: string | null): string => (l ? LINKAGE[l] || human(l) : '')
+
+// Score bands → what they mean on the wire. BOTH kept bands land in the Inbox (watch ranks lower).
+export const plainBand = (b?: string | null): string => (b === 'pick' ? 'kept → Inbox' : b === 'watch' ? 'kept → Inbox (borderline)' : b === 'drop' ? 'dropped' : human(b || ''))
+
+// Run kinds → what's actually running (for the stop list).
+const KINDS: Record<string, string> = {
+  full: 'full research run',
+  module: 'one research module',
+  agent: 'one research orb',
+  rerun: 're-run + downstream',
+  signal: 'event check',
+  sweep: 'manual news scan',
+  'screener-agent': 'one screener orb',
+  handoff: 'send to research',
+}
+export const plainKind = (k?: string | null): string => (k ? KINDS[k] || human(k) : '')
