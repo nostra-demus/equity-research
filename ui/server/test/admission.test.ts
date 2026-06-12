@@ -1,5 +1,7 @@
 // Admission-control matrix. Run: npx tsx test/admission.test.ts
 // Drives admitRun() against on-disk fixture trees + seeded in-flight runs. No real claude spawns.
+// keep the perpetual cockpit audit log free of fixture runs (read dynamically in activity-log append)
+process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'

@@ -51,6 +51,7 @@ export interface ActivityRow {
 }
 
 function append(ev: ActivityEvent) {
+  if (process.env.ENGINE_ACTIVITY_LOG_DISABLED === '1') return // tests: keep the perpetual audit log free of fixture runs
   try {
     fs.mkdirSync(STATE_DIR, { recursive: true })
     fs.appendFileSync(ACTIVITY_LOG_PATH, JSON.stringify(ev) + '\n')

@@ -911,17 +911,20 @@ export const useStore = create<State>((set, get) => ({
       if (already) {
         get().setToast({ msg: `${ticker} was already handed off — memo in place. ${poolPresent ? 'Launch when ready.' : 'Drop filings into its data folder first.'}`, tone: 'info' })
       } else {
-        get().setToast({
-          msg: poolPresent
-            ? `Thesis memo seeding into data/${ticker}/ — review and launch the full run when ready.`
-            : `Thesis memo seeding into data/${ticker}/ — its pool has no filings yet; add them before a research run.`,
-          tone: 'good',
-        })
+        // The API returns at CLI spawn, not at memo/ledger completion — say "started", and attach
+        // the run stream so run-done can confirm "seeded" truthfully (see _handleScreenerEvent).
+        if (res.runId) {
+          scHandoffWatch.set(res.runId, { ticker, poolPresent })
+          connectScreenerRun(get, res.runId)
+        }
+        get().setToast({ msg: `Handoff started — seeding the thesis memo into data/${ticker}/…`, tone: 'good' })
+        // fallback board refresh in case the stream drops before run-done lands
+        setTimeout(() => void get().scRefreshBoard(), 8000)
       }
-      // refresh the board so the Handed Off bucket updates once the command lands
-      setTimeout(() => void get().scRefreshBoard(), 4000)
     } catch (e: any) {
-      get().setToast({ msg: e?.message ? String(e.message) : 'Handoff failed', tone: 'bad' })
+      // admission rejections (e.g. exclusivity: this exact handoff is already running) are expected
+      // and actionable — surface them as info like the sibling launchers, not as a failure
+      get().setToast({ msg: e?.message ? String(e.message) : 'Handoff failed', tone: e?.body?.code ? 'info' : 'bad' })
     }
   },
 
@@ -963,6 +966,17 @@ export const useStore = create<State>((set, get) => ({
       case 'run-done': {
         closeScreenerRunSource(e.runId)
         void get().scRefreshBoard()
+        const handoff = scHandoffWatch.get(e.runId)
+        if (handoff) {
+          scHandoffWatch.delete(e.runId)
+          get().setToast({
+            msg: handoff.poolPresent
+              ? `${handoff.ticker} memo seeded ✓ — review and launch the full run when ready.`
+              : `${handoff.ticker} memo seeded ✓ — its pool has no filings yet; add them before a research run.`,
+            tone: 'good',
+          })
+          break
+        }
         const sig = get().scSelectedSignal
         if (sig) void get().scSelectSignal(sig) // reload saved outputs + final routing lights
         get().setToast({ msg: 'Screener run complete', tone: 'good' })
@@ -971,6 +985,12 @@ export const useStore = create<State>((set, get) => ({
       case 'run-error': {
         closeScreenerRunSource(e.runId)
         void get().scRefreshBoard()
+        const handoff = scHandoffWatch.get(e.runId)
+        if (handoff) {
+          scHandoffWatch.delete(e.runId)
+          get().setToast({ msg: `Handoff for ${handoff.ticker} ${e.status}: ${e.reason} — the memo may not be seeded; retry from the Pipeline board.`, tone: 'bad' })
+          break
+        }
         get().setToast({ msg: `Screener run ${e.status}: ${e.reason}`, tone: 'bad' })
         break
       }
@@ -1095,6 +1115,10 @@ function closeRunSource(runId?: string) {
 
 // ---- screener run streams (separate map so research streams are never disturbed) ----
 const scRunSources = new Map<string, EventSource>()
+// Handoff runs being watched for completion: runId → toast context. The launch API returns as soon
+// as the CLI spawns, so "memo seeded" is only true at run-done — these runs get a tailored
+// completion/failure toast instead of the generic "Screener run complete".
+const scHandoffWatch = new Map<string, { ticker: string; poolPresent: boolean }>()
 let warpTimer: any = null
 
 // Terminal routing values mirror the SWARM.md routing contract. Kept as a display heuristic only —

@@ -17,8 +17,13 @@ export interface AdmissionRequest {
 }
 
 // Exclusive = the run writes shared run-root artifacts / the whole run folder. A screener `signal`
-// run owns its entire SIG folder the same way a research `full` owns its dated folder.
-const isExclusive = (k: RunKind) => k === 'full' || k === 'rerun' || k === 'signal'
+// run owns its entire SIG folder the same way a research `full` owns its dated folder. `sweep` and
+// `handoff` are exclusive on their SUBJECT ('sweep' / `<thesis>::<ticker>`): each rewrites shared
+// screener stores (today's inbox + the board / the handoff ledger + the data seed), so two of the
+// same subject must be rejected, never interleaved — a duplicate sweep can silently drop the other
+// run's inbox rows, a duplicate handoff double-fires the paid CLI. Different handoff subjects still
+// run concurrently.
+const isExclusive = (k: RunKind) => k === 'full' || k === 'rerun' || k === 'signal' || k === 'sweep' || k === 'handoff'
 const rel = (p: string) => path.relative(REPO_ROOT, p)
 
 // Dependency-aware admission. Returns {ok:true} or a discriminated rejection. Pure + synchronous

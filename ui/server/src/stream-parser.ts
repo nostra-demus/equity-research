@@ -19,7 +19,7 @@ function getNameIndex() {
   return nameIndex
 }
 
-function finalPaths(run: RunState) {
+export function finalPaths(run: RunState) {
   const out: { finalThesisPath?: string | null; decisionRecordPath?: string | null } = {}
   if (!run.runRoot) return out
   const thesis = path.join(REPO_ROOT, run.runRoot, 'final_thesis.md')
@@ -111,14 +111,15 @@ export function handleStreamLine(run: RunState, line: string) {
       // expected outputs from disk so agent-done lands BEFORE run-done, never after
       sweepRunOutputs(run)
       emit(run, { type: 'cost-tick', runId: run.runId, costUsdSoFar: run.costUsd, ts })
+      // Error results finalize early (unambiguous). A CLEAN result does NOT finalize here: the
+      // process-close handler (launcher's finalizeRunOnClose) is the single success finalizer, so
+      // its integrity checks — the full/rerun missing-final-thesis guard — can never be bypassed
+      // by a clean stream `result` arriving moments before the process closes.
       if (run.status === 'running' || run.status === 'starting') {
         if (obj.is_error || obj.subtype === 'error_max_turns' || obj.subtype === 'error_during_execution') {
           const reason = obj.api_error_status ? `api_error_${obj.api_error_status}` : obj.subtype || 'engine_error'
           emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason, message: typeof obj.result === 'string' ? obj.result.slice(0, 400) : undefined, ts })
           finishRun(run, 'error')
-        } else {
-          emit(run, { type: 'run-done', runId: run.runId, status: 'done', costUsd: run.costUsd, durationMs: run.durationMs, numTurns: run.numTurns, ...finalPaths(run), ts })
-          finishRun(run, 'done')
         }
       }
       break

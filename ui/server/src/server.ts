@@ -116,7 +116,7 @@ app.get('/api/activity', async (req) => {
     return Number.isFinite(n) ? n : undefined
   }
   const kinds = ['full', 'module', 'agent', 'rerun', 'review', 'track', 'signal', 'sweep', 'screener-agent', 'handoff']
-  const statuses = ['starting', 'running', 'done', 'error', 'cancelled']
+  const statuses = ['starting', 'running', 'done', 'error', 'cancelled', 'incomplete']
   return readActivity({
     from: num(q.from),
     to: num(q.to),

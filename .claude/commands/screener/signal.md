@@ -22,8 +22,8 @@ Two argument shapes:
 
 **B. A headline / URL / observation** (anything else): materialize the signal yourself:
 
-1. Normalize: lowercase, collapse whitespace. Compute the id hash via Bash:
-   `printf '%s' "<normalized>|<DATE>" | shasum -a 256 | cut -c1-8`
+1. Normalize the HEADLINE ONLY: lowercase, collapse whitespace, trim. Use the source URL **byte-for-byte as given** — do NOT lowercase, trim, or rewrite it (URL paths/queries are case-sensitive). Compute the id hash via Bash over THREE pipe-separated fields — normalized headline, verbatim source URL, date — leaving the middle field EMPTY when there is no source URL (two pipes still present). This must byte-match the cockpit's `sigIdFor()` in `ui/server/src/launcher.ts`, or the same event gets two SIG folders:
+   `printf '%s' "<normalized>|<source_url or empty>|<DATE>" | shasum -a 256 | cut -c1-8`
    → `<SIG_ID>` = `SIG-<YYYYMMDD of DATE>-<8hex>`.
 2. `mkdir -p screener/runs/<SIG_ID>`
 3. Write `screener/runs/<SIG_ID>/intake.json` per `frameworks/screener/intake.schema.json`: signal_id; input_nature (`news_headline` for a headline, `human_prompt` for an observation with no source — set `human_prompt_note` verbatim); input_datetime `<NOW>`; headline; source_name + source_url when given (a bare URL: fetch nothing here — Gate 0 owns source checks; record the URL's domain as source_name candidate); requested_by `cli`.

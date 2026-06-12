@@ -1,11 +1,15 @@
 // Swarm layer (CLAUDE.md §26 "Swarms"): discovery isolation, manifest-driven graphs, the
 // run-root-prefix watcher, and the routing-contract events. Run: npx tsx test/swarm.test.ts
+// keep the perpetual cockpit audit log free of fixture runs (read dynamically in activity-log append)
+process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
+import { createHash } from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 import { REPO_ROOT } from '../src/config'
 import { createRun, finishRun, setActiveSubjectRun, type RunState } from '../src/registry'
 import { handleFile } from '../src/fs-watcher'
+import { sigIdFor } from '../src/launcher'
 import { buildSwarmGraph, graphForSubject } from '../src/roster'
 import { listSwarms, swarmById } from '../src/swarms'
 import { admitRun } from '../src/admission'
@@ -199,6 +203,64 @@ try {
     if (!d.ok) assert.equal(d.code, 'exclusivity')
     const other = admitRun({ ticker: 'SIG-20991231-0000beef', kind: 'signal', swarmId: 'screener', coveredModules: [], writeTargetsAbs: [], readDepsAbs: [] })
     assert.equal(other.ok, true)
+  })
+
+  // ---- admission: sweep/handoff are exclusive per subject (duplicates rejected, not raced) ----
+  // A sweep merges today's inbox + rebuilds the board; a handoff appends the ledger + seeds the data
+  // pool. Both used to carry zero write targets and no exclusivity, so two concurrent launches could
+  // silently interleave (one sweep dropping the other's inbox rows; a duplicate paid handoff CLI).
+  check('admission: duplicate sweep and identical handoff are rejected; a different handoff target is admitted', () => {
+    // release the SIG fixture runs from the earlier checks (not used below) so this check exercises
+    // the subject rules, not the D5 global concurrency cap (default 3)
+    finishRun(run, 'done')
+    finishRun(run2, 'done')
+    const boardAbs = path.join(REPO_ROOT, 'screener/board/index.json')
+    const seed = (kind: 'sweep' | 'handoff', subjectId: string, writeTargetsAbs: string[]) => {
+      const r = createRun({
+        kind, ticker: subjectId, model: 'sonnet', prompt: '', user: 'test', userVia: 'local',
+        runRoot: kind === 'sweep' ? 'screener/inbox' : 'screener/ledger', willCommitToMain: true,
+        writeTargetsAbs, coveredModules: [], readDepsAbs: [], closeWatcher: undefined, expected: new Map(),
+      })
+      r.status = 'running'
+      setActiveSubjectRun(r.runId, subjectId)
+      return r
+    }
+    const sweep = seed('sweep', 'sweep', [path.join(REPO_ROOT, 'screener/inbox/2099-01-01_sweep.json'), boardAbs])
+    try {
+      const dup = admitRun({ ticker: 'sweep', kind: 'sweep', swarmId: 'screener', coveredModules: [], writeTargetsAbs: [boardAbs], readDepsAbs: [] })
+      assert.equal(dup.ok, false)
+      if (!dup.ok) assert.equal(dup.code, 'exclusivity')
+    } finally {
+      finishRun(sweep, 'done')
+    }
+    const handoff = seed('handoff', 'TH-20990101-ZZZZ::AAA', [path.join(REPO_ROOT, 'screener/ledger/handoffs.ndjson'), boardAbs])
+    try {
+      const dup = admitRun({ ticker: 'TH-20990101-ZZZZ::AAA', kind: 'handoff', swarmId: 'screener', coveredModules: [], writeTargetsAbs: [boardAbs], readDepsAbs: [] })
+      assert.equal(dup.ok, false)
+      if (!dup.ok) assert.equal(dup.code, 'exclusivity')
+      // a DIFFERENT target of the same thesis is a different subject — still concurrent BY DESIGN,
+      // even though both declare the board index: admission is subject-scoped, and cross-subject
+      // board safety lives at the writer layer (per-process temp + atomic rename in
+      // update_board_index.py; lock + idempotency key in append-ndjson.sh)
+      const other = admitRun({ ticker: 'TH-20990101-ZZZZ::BBB', kind: 'handoff', swarmId: 'screener', coveredModules: [], writeTargetsAbs: [boardAbs], readDepsAbs: [] })
+      assert.equal(other.ok, true)
+    } finally {
+      finishRun(handoff, 'done')
+    }
+  })
+
+  // ---- SIG identity: cockpit and CLI must derive the SAME id (normalized headline|url|date) ----
+  check('sigIdFor hashes headline|source_url|date — and signal.md documents the identical recipe', () => {
+    const withUrl = sigIdFor({ headline: '  TCS wins  $2bn Deal ', source_url: 'https://x.test/a' }, '2026-06-12')
+    const expectUrl = createHash('sha256').update('tcs wins $2bn deal|https://x.test/a|2026-06-12').digest('hex').slice(0, 8)
+    assert.equal(withUrl, `SIG-20260612-${expectUrl}`)
+    // no URL: the middle field is EMPTY but the pipe stays (three fields always)
+    const noUrl = sigIdFor({ headline: 'TCS wins $2bn deal' }, '2026-06-12')
+    const expectNoUrl = createHash('sha256').update('tcs wins $2bn deal||2026-06-12').digest('hex').slice(0, 8)
+    assert.equal(noUrl, `SIG-20260612-${expectNoUrl}`)
+    // drift guard: the CLI command's manual-materialization recipe must carry the same three fields
+    const cmd = fs.readFileSync(path.join(REPO_ROOT, '.claude/commands/screener/signal.md'), 'utf8')
+    assert.ok(cmd.includes('"<normalized>|<source_url or empty>|<DATE>"'), 'signal.md hash recipe drifted from sigIdFor() — same event would get two SIG folders')
   })
 } finally {
   fs.rmSync(sigDir, { recursive: true, force: true })

@@ -1,6 +1,8 @@
 // fs-watcher binding under interleaved concurrent writes. Run: npx tsx test/watcher.test.ts
 // Reproduces the original first-write-wins hazard: an agent run pinned to the LATEST EXISTING folder
 // must NOT latch onto a different dated folder just because a write appears there first.
+// keep the perpetual cockpit audit log free of fixture runs (read dynamically in activity-log append)
+process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'

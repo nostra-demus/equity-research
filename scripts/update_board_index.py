@@ -202,14 +202,57 @@ def build() -> dict:
     }
 
 
-def main() -> int:
+USAGE = """usage: update_board_index.py [--check]
+
+  (no args)  rebuild screener/board/index.json from the canonical stores
+  --check    build in memory and compare against the existing board (generated_at
+             ignored); exit 0 if up to date, 1 if stale/missing. Writes NOTHING.
+  --help     show this help. Writes NOTHING.
+
+Any other argument is rejected — this script mutates the board, so an accidental
+flag (e.g. a typo'd --help) must never trigger a rebuild."""
+
+
+def main(argv: list | None = None) -> int:
+    args = sys.argv[1:] if argv is None else argv
+    if any(a in ("-h", "--help") for a in args):
+        print(USAGE)
+        return 0
+    unknown = [a for a in args if a != "--check"]
+    if unknown:
+        print(f"update_board_index.py: unknown argument(s): {' '.join(unknown)}", file=sys.stderr)
+        print(USAGE, file=sys.stderr)
+        return 2
     idx = build()
+    if "--check" in args:
+        try:
+            with open(BOARD, encoding="utf-8") as f:
+                current = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError):
+            print(f"STALE {os.path.relpath(BOARD, REPO)} — missing or unreadable; rerun without --check to rebuild")
+            return 1
+        if not isinstance(current, dict):
+            print(f"STALE {os.path.relpath(BOARD, REPO)} — not a JSON object; rerun without --check to rebuild")
+            return 1
+        strip = lambda d: {k: v for k, v in d.items() if k != "generated_at"}  # noqa: E731
+        if strip(current) == strip(idx):
+            print(f"OK {os.path.relpath(BOARD, REPO)} — up to date")
+            return 0
+        print(f"STALE {os.path.relpath(BOARD, REPO)} — rerun without --check to rebuild")
+        return 1
     os.makedirs(os.path.dirname(BOARD), exist_ok=True)
-    tmp = BOARD + ".tmp"
-    with open(tmp, "w", encoding="utf-8") as f:
-        json.dump(idx, f, indent=2, ensure_ascii=False)
-        f.write("\n")
-    os.replace(tmp, BOARD)  # atomic swap so a reader never sees a half-written board
+    # per-process temp file: concurrent rebuilds (a sweep + a handoff each refresh the board) must
+    # never interleave writes into one shared .tmp and rename a corrupt board into place. Each
+    # rebuild is deterministic from the stores, so last-rename-wins converges to the truth.
+    tmp = f"{BOARD}.tmp.{os.getpid()}"
+    try:
+        with open(tmp, "w", encoding="utf-8") as f:
+            json.dump(idx, f, indent=2, ensure_ascii=False)
+            f.write("\n")
+        os.replace(tmp, BOARD)  # atomic swap so a reader never sees a half-written board
+    finally:
+        if os.path.exists(tmp):
+            os.unlink(tmp)  # never leave a stray temp file on failure
     c = idx["counts"]
     print(
         f"WROTE {os.path.relpath(BOARD, REPO)} — {c['signals_total']} signals, "

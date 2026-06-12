@@ -11,7 +11,7 @@ import { createRun, emit, finishRun, getRun, setActiveSubjectRun, type ExpectedA
 import { resolveRunRoot } from './outputs'
 import { buildSwarmGraph, downstreamCascade } from './roster'
 import { swarmById } from './swarms'
-import { handleStreamLine } from './stream-parser'
+import { finalPaths, handleStreamLine } from './stream-parser'
 import type { AdmissionRejection, LaunchPreflight, RunKind } from './types'
 
 // Screener kinds are swarm-scoped; everything else is the research default. Generic by design:
@@ -34,10 +34,40 @@ export interface SignalIntakeInput {
   override_promote?: boolean
 }
 
-function sigIdFor(intake: SignalIntakeInput, date: string): string {
+// THE canonical signal identity: normalized headline | source URL (empty when none) | date.
+// Exported so tests can pin it; `.claude/commands/screener/signal.md` step B.1 documents the SAME
+// recipe for the CLI path — the two must never drift, or the same event gets two SIG folders.
+export function sigIdFor(intake: SignalIntakeInput, date: string): string {
   const normalized = `${intake.headline.toLowerCase().replace(/\s+/g, ' ').trim()}|${intake.source_url || ''}|${date}`
   const hash = createHash('sha256').update(normalized).digest('hex').slice(0, 8)
   return `SIG-${date.replace(/-/g, '')}-${hash}`
+}
+
+// Shared screener stores a sweep/handoff writes OUTSIDE any run root. NOTE the honest mechanics:
+// admission's target-overlap rule (D2) only compares runs of the SAME subject, and same-subject
+// duplicates are already rejected at D1 by the sweep/handoff exclusivity — so these declarations are
+// best-effort METADATA (introspection, future cross-subject rules), not the operative guard. The
+// operative protections are: D1 exclusivity per subject; append-ndjson.sh's lock + idempotency key
+// on the ledger; and update_board_index.py's deterministic rebuild via a per-process temp file +
+// atomic rename, which makes cross-subject board rebuilds converge instead of corrupting.
+// The sweep inbox filename uses the LAUNCH-time date — a run that crosses midnight may write the
+// next day's file instead (acceptable for metadata; do not build hard rules on this path).
+function swarmStoreTargets(kind: RunKind, subjectId: string): string[] {
+  if (kind === 'sweep') {
+    return [
+      path.join(REPO_ROOT, 'screener', 'inbox', `${todayDate()}_sweep.json`),
+      path.join(REPO_ROOT, 'screener', 'board', 'index.json'),
+    ]
+  }
+  if (kind === 'handoff') {
+    const [thesisId, target] = subjectId.split('::')
+    return [
+      path.join(REPO_ROOT, 'screener', 'ledger', 'handoffs.ndjson'),
+      path.join(REPO_ROOT, 'screener', 'board', 'index.json'),
+      path.join(DATA_DIR, target || '', `screener_thesis_${thesisId}.md`),
+    ]
+  }
+  return []
 }
 
 // ---- claude CLI flag capability detection (so we never pass an unknown flag) ----
@@ -84,6 +114,48 @@ function finalDeliverablesPresent(runRoot: string | null): boolean {
   if (!runRoot) return false
   const root = path.isAbsolute(runRoot) ? runRoot : path.join(REPO_ROOT, runRoot)
   return fs.existsSync(path.join(root, 'final_thesis.md')) && fs.existsSync(path.join(root, 'decision_record.json'))
+}
+
+// The SINGLE place a run's final status is decided on process close (exported for tests).
+// Gated on `endedAt` rather than status so (a) the stream parser's early ERROR finalization is
+// never double-applied, and (b) a cancel() — which sets status='cancelled' directly — still gets
+// finalized here and releases its subject; gating on status leaked cancelled runs' subjects and
+// blocked that ticker's admission until restart. Clean stream `result` events do NOT finalize
+// (stream-parser): success is decided here, AFTER the final output sweep, so the full/rerun
+// missing-final-thesis integrity check can never be bypassed by an early clean result.
+export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
+  if (run.endedAt !== undefined) return // already finalized (stream-parser error path)
+  const code = res?.exitCode ?? res?.code
+  // execa 9 reports signal termination as isTerminated/signal (exitCode undefined) — there is NO
+  // `killed` property; checking only `killed` made an externally-killed run fall through to "done"
+  // (and a killed handoff toast "memo seeded ✓" for a memo never written). `killed` kept for safety.
+  const terminated = res?.isTerminated === true || res?.killed === true || !!res?.signal
+  if ((run.status as string) === 'cancelled') {
+    emit(run, { type: 'run-error', runId: run.runId, status: 'cancelled', reason: 'cancelled', ts: Date.now() })
+    finishRun(run, 'cancelled')
+  } else if (terminated) {
+    // killed from OUTSIDE cancel() (OOM killer, manual kill, parent shutdown) — an error, not a success
+    emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason: `terminated_${res?.signal || 'signal'}`, message: stderr.slice(-400) || undefined, ts: Date.now() })
+    finishRun(run, 'error')
+  } else if ((code && code !== 0) || res?.failed === true) {
+    const reason = /credit|rate limit/i.test(stderr) ? 'out_of_credits' : 'nonzero_exit'
+    emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason, message: stderr.slice(-400) || undefined, ts: Date.now() })
+    finishRun(run, 'error')
+  } else if ((run.kind === 'full' || run.kind === 'rerun') && !finalDeliverablesPresent(run.runRoot)) {
+    // The process exited cleanly, but a full/rerun that didn't write its final thesis + decision
+    // record was almost certainly budget/turn-truncated before the master synthesizer finished.
+    // Report it honestly as INCOMPLETE (not a misleading "done") so the cockpit + activity log show
+    // the truth and the user can finish it / raise the cap.
+    const msg = 'Run ended without the final thesis & memo — likely budget- or turn-truncated before the master synthesizer finished. Re-run from the master (or any late orb) to finish; the cap is now higher.'
+    run.note = 'incomplete: no final thesis/decision (likely budget/turn truncation)'
+    emit(run, { type: 'run-error', runId: run.runId, status: 'incomplete', reason: 'incomplete_deliverables', message: msg, ts: Date.now() })
+    finishRun(run, 'incomplete')
+  } else {
+    // a completed full/rerun has the 3 memos — copy them into the company's Drive folder (timestamped)
+    if (run.kind === 'full' || run.kind === 'rerun') saveMemosToCompanyFolder(run.ticker, run.runRoot)
+    emit(run, { type: 'run-done', runId: run.runId, status: 'done', costUsd: run.costUsd, durationMs: run.durationMs, numTurns: run.numTurns, ...finalPaths(run), ts: Date.now() })
+    finishRun(run, 'done')
+  }
 }
 
 function memosFolderName(): string {
@@ -452,6 +524,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   const writeTargetsAbs = [...new Set([
     ...[...expected.values()].map((e) => path.join(REPO_ROOT, runRoot, e.outputRel)),
     ...(kind === 'full' ? ROOT_ARTIFACTS_FULL : kind === 'rerun' ? ROOT_ARTIFACTS_RERUN : kind === 'signal' ? ROOT_ARTIFACTS_SIGNAL : []).map((f) => path.join(REPO_ROOT, runRoot, f)),
+    ...swarmStoreTargets(kind, subjectId),
   ])]
   const readDepsAbs = kind === 'agent' || kind === 'screener-agent'
     ? agentRequiredUpstream(swarmId, module, agent).map((relp) => path.join(REPO_ROOT, runRoot, relp))
@@ -554,31 +627,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     }
     // heal any file event the watcher missed in the final moments (awaitWriteFinish hold vs exit)
     sweepRunOutputs(run)
-    if (run.status === 'running' || run.status === 'starting') {
-      const code = res?.exitCode ?? res?.code
-      if (res?.killed || (run.status as string) === 'cancelled') {
-        emit(run, { type: 'run-error', runId: run.runId, status: 'cancelled', reason: 'cancelled', ts: Date.now() })
-        finishRun(run, 'cancelled')
-      } else if (code && code !== 0) {
-        const reason = /credit|rate limit/i.test(stderr) ? 'out_of_credits' : 'nonzero_exit'
-        emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason, message: stderr.slice(-400) || undefined, ts: Date.now() })
-        finishRun(run, 'error')
-      } else if ((kind === 'full' || kind === 'rerun') && !finalDeliverablesPresent(run.runRoot)) {
-        // The process exited cleanly, but a full/rerun that didn't write its final thesis + decision
-        // record was almost certainly budget/turn-truncated before the master synthesizer finished.
-        // Report it honestly as INCOMPLETE (not a misleading "done") so the cockpit + activity log show
-        // the truth and the user can finish it / raise the cap.
-        const msg = 'Run ended without the final thesis & memo — likely budget- or turn-truncated before the master synthesizer finished. Re-run from the master (or any late orb) to finish; the cap is now higher.'
-        run.note = 'incomplete: no final thesis/decision (likely budget/turn truncation)'
-        emit(run, { type: 'run-error', runId: run.runId, status: 'incomplete', reason: 'incomplete_deliverables', message: msg, ts: Date.now() })
-        finishRun(run, 'incomplete')
-      } else {
-        // a completed full/rerun has the 3 memos — copy them into the company's Drive folder (timestamped)
-        if (kind === 'full' || kind === 'rerun') saveMemosToCompanyFolder(ticker, run.runRoot)
-        emit(run, { type: 'run-done', runId: run.runId, status: 'done', costUsd: run.costUsd, durationMs: run.durationMs, numTurns: run.numTurns, ts: Date.now() })
-        finishRun(run, 'done')
-      }
-    }
+    finalizeRunOnClose(run, res, stderr)
   }
   child.then(onClose).catch(onClose)
 
@@ -588,6 +637,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
 export async function cancel(runId: string): Promise<boolean> {
   const run = getRun(runId)
   if (!run || !run.child) return false
+  if (run.endedAt !== undefined) return false // already finalized — never overwrite a finished run's status
   run.status = 'cancelled'
   try {
     run.child.kill('SIGTERM')
