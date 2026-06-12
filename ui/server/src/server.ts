@@ -13,8 +13,9 @@ import { buildReportHtml, parseMeta, safeName } from './export'
 import { DATA_DIR, HOST, PORT, REPO_ROOT, WEB_DIST } from './config'
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
-import { cancel, creditCheck, estimate, launch } from './launcher'
-import { getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
+import { cancel, creditCheck, decideReadiness, estimate, launch } from './launcher'
+import { runReadiness } from './readiness'
+import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
 import { agentNamesForModule, buildSwarmGraph, graphForSubject, graphForTicker, listModuleNames } from './roster'
 import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, resolveRunRoot, runManifest } from './outputs'
 import { dataPoolPresent, readCandidates, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest } from './screener'
@@ -23,6 +24,15 @@ import { AGENT_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE } from './sandbox'
 import type { RunKind } from './types'
 
 const app = Fastify({ logger: false })
+// Tolerate an EMPTY application/json body. A bodyless POST (cancel, credit-check) sent WITH
+// content-type: application/json is otherwise rejected 400 FST_ERR_CTP_EMPTY_JSON_BODY before the route
+// even runs. Empty -> undefined body (the route runs); non-empty -> parsed (a route needing a body still
+// 400s on its own validation); malformed -> 400 (matches Fastify's default parser, not a leaked 500).
+app.addContentTypeParser('application/json', { parseAs: 'string' }, (_req, body, done) => {
+  const s = (body as string)?.trim()
+  if (!s) return done(null, undefined)
+  try { done(null, JSON.parse(s)) } catch (e) { done(Object.assign(e as Error, { statusCode: 400 }), undefined) }
+})
 await app.register(cors, { origin: true })
 
 // ---------- identity (who is acting) ----------
@@ -98,6 +108,15 @@ app.get('/api/data-status/:ticker', async (req, reply) => {
   const ticker = (req.params as any).ticker as string
   if (!TICKER_RE.test(ticker)) return reply.code(400).send({ error: 'bad ticker' })
   return analyzeTicker(ticker)
+})
+
+// Pre-flight data-readiness report (deterministic, no LLM). Read-only preview of what the pre-spawn
+// gate would surface for this ticker; ?force=1 re-reads a just-fixed pool.
+app.get('/api/data-readiness/:ticker', async (req, reply) => {
+  const ticker = (req.params as any).ticker as string
+  if (!TICKER_RE.test(ticker)) return reply.code(400).send({ error: 'bad ticker' })
+  const q = req.query as { force?: string; kind?: string; module?: string }
+  return await runReadiness(ticker, (q.kind as any) || 'full', q.module, { force: q.force === '1' })
 })
 
 // ---------- credit ----------
@@ -336,13 +355,26 @@ app.post('/api/runs/:runId/cancel', async (req, reply) => {
   return { ok: true, status: 'cancelled' }
 })
 
+// Resolve a run paused at the pre-spawn data-readiness gate (thin route; lifecycle logic in launcher).
+const ReadinessDecisionBody = z.object({
+  action: z.enum(['proceed', 'override', 'recheck', 'cancel']),
+  acknowledgedText: z.string().max(2000).optional(),
+})
+app.post('/api/runs/:runId/readiness-decision', async (req, reply) => {
+  const parsed = ReadinessDecisionBody.safeParse(req.body)
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid body: action must be proceed|override|recheck|cancel' })
+  const res = await decideReadiness((req.params as any).runId, parsed.data.action, identify(req).user, parsed.data.acknowledgedText)
+  if (!res.ok) return reply.code(res.httpStatus || 400).send({ error: res.error })
+  return res
+})
+
 // ---------- active runs list ----------
 app.get('/api/runs', async (req) => {
   const ticker = (req.query as any)?.ticker as string | undefined
   if (ticker && TICKER_RE.test(ticker)) return { history: listRunsForTicker(ticker) }
   return {
     active: listRuns()
-      .filter((r) => r.status === 'starting' || r.status === 'running')
+      .filter((r) => IN_FLIGHT_STATUSES.has(r.status)) // incl. the pre-spawn gate states (shared def)
       .map((r) => ({ runId: r.runId, kind: r.kind, ticker: r.ticker, module: r.module, status: r.status })),
   }
 })

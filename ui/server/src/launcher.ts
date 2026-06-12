@@ -9,10 +9,11 @@ import { getCreditStatus, setCreditStatus } from './credit'
 import { startRunWatcher, sweepRunOutputs } from './fs-watcher'
 import { createRun, emit, finishRun, getRun, setActiveSubjectRun, type ExpectedAgent, type RunState } from './registry'
 import { resolveRunRoot } from './outputs'
+import { runReadiness } from './readiness'
 import { buildSwarmGraph, downstreamCascade } from './roster'
 import { swarmById } from './swarms'
 import { finalPaths, handleStreamLine } from './stream-parser'
-import type { AdmissionRejection, LaunchPreflight, RunKind } from './types'
+import type { AdmissionRejection, LaunchPreflight, ReadinessDecision, ReadinessReport, RunKind } from './types'
 
 // Screener kinds are swarm-scoped; everything else is the research default. Generic by design:
 // the kind->swarm mapping is the only place this file knows the screener exists, and it is driven
@@ -576,7 +577,38 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   setActiveSubjectRun(run.runId, subjectId) // register the in-flight run; finishRun() releases it
   startRunWatcher(run)
 
-  const args = await buildArgs(prompt, kind, model)
+  // Pre-spawn data-readiness gate (deterministic, no LLM). Research data-consuming kinds only (swarm
+  // kinds skip it). If the check isn't clean, BLOCK: pause in awaiting-readiness-decision and defer the
+  // spawn until the user decides (decideReadiness). No CLI is spawned while paused. Clean -> proceed.
+  await runReadinessGate(run)
+  // cancel() can finalize the run DURING the gate's async check (it yields the loop while the check runs).
+  // A finalized run is never revived or spawned — mirrors finalizeRunOnClose's endedAt guard.
+  if (run.endedAt !== undefined) return { runId: run.runId, preflight: estimate(kind, ticker, module, agent) }
+  if (run.readiness && run.readiness.overall !== 'clean') {
+    run.status = 'awaiting-readiness-decision'
+    run.deferredSpawn = () => spawnEngine(run)
+    emit(run, { type: 'readiness-blocked', runId: run.runId, report: run.readiness, ts: Date.now() })
+    return { runId: run.runId, preflight: estimate(kind, ticker, module, agent) }
+  }
+
+  await spawnEngine(run)
+  return { runId: run.runId, preflight: estimate(kind, ticker, module, agent) }
+}
+
+// Spawn the engine CLI for an admitted, gate-cleared run and wire its lifecycle. Extracted from launch()
+// so the readiness gate can defer the spawn (until the user proceeds) without duplicating this logic.
+// onClose delegates to finalizeRunOnClose — the single endedAt-gated finalizer (PR12 review).
+async function spawnEngine(run: RunState): Promise<void> {
+  const args = await buildArgs(run.prompt, run.kind, run.model)
+  if (run.cancelRequested) {
+    // cancelled during the gate / the buildArgs window — finish WITHOUT creating the child (no orphan).
+    // Guard the terminal emit on not-already-finalized: finishRun is idempotent but emit is not.
+    if (run.endedAt === undefined) {
+      emit(run, { type: 'run-error', runId: run.runId, status: 'cancelled', reason: 'cancelled', ts: Date.now() })
+      finishRun(run, 'cancelled')
+    }
+    return
+  }
   let child: ResultPromise
   try {
     child = execa(CLAUDE_BIN, args, {
@@ -596,10 +628,10 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
 
   run.child = child
   run.status = 'running'
-  emit(run, { type: 'run-started', runId: run.runId, kind, ticker, runRoot: run.runRoot, willCommitToMain: run.willCommitToMain, ...(swarmId !== 'research' ? { swarm: swarmId } : {}), ts: Date.now() })
+  emit(run, { type: 'run-started', runId: run.runId, kind: run.kind, ticker: run.ticker, runRoot: run.runRoot, willCommitToMain: run.willCommitToMain, ...(run.swarmId !== 'research' ? { swarm: run.swarmId } : {}), ts: Date.now() })
 
   // perpetual audit record: who launched what, when, on which company (finish is logged in finishRun)
-  logLaunch({ runId: run.runId, user, userVia, kind, ticker, module, agent, model })
+  logLaunch({ runId: run.runId, user: run.user, userVia: run.userVia, kind: run.kind, ticker: run.ticker, module: run.module, agent: run.agent, model: run.model })
 
   // line-buffered stdout -> stream parser
   let buf = ''
@@ -630,14 +662,31 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     finalizeRunOnClose(run, res, stderr)
   }
   child.then(onClose).catch(onClose)
-
-  return { runId: run.runId, preflight: estimate(kind, ticker, module, agent) }
 }
 
 export async function cancel(runId: string): Promise<boolean> {
   const run = getRun(runId)
-  if (!run || !run.child) return false
-  if (run.endedAt !== undefined) return false // already finalized — never overwrite a finished run's status
+  if (!run || run.endedAt !== undefined) return false // gone, or already finalized
+  run.cancelRequested = true // honored by spawnEngine if the child isn't up yet (the gate-proceed buildArgs window)
+
+  // No child yet: the run is pre-spawn — parked at the readiness gate, or in the proceedSpawn->spawnEngine
+  // buildArgs window. There is no process to signal and no onClose will fire, so handle it here.
+  if (!run.child) {
+    // mid-spawn window (proceedSpawn set status='running' before spawnEngine's buildArgs await): just mark
+    // it; spawnEngine sees cancelRequested and finalizes before creating the child (no orphan, single emit).
+    if (run.status === 'running' || run.status === 'starting') {
+      run.status = 'cancelled'
+      return true
+    }
+    // parked at the gate (readiness-checking / awaiting-readiness-decision): finalize directly here.
+    emit(run, { type: 'run-error', runId, status: 'cancelled', reason: 'cancelled_at_readiness_gate', ts: Date.now() })
+    finishRun(run, 'cancelled')
+    return true
+  }
+
+  // Running child: the PR12 model — mark cancelled + SIGTERM, and let finalizeRunOnClose finalize on close
+  // (it is endedAt-gated and takes the status==='cancelled' branch, releasing the subject). The SIGKILL
+  // fallback also gates on endedAt so it stands down once the run is finalized.
   run.status = 'cancelled'
   try {
     run.child.kill('SIGTERM')
@@ -648,6 +697,118 @@ export async function cancel(runId: string): Promise<boolean> {
     }, 5000)
   } catch {}
   return true
+}
+
+// Run the deterministic data-readiness check for a run, record + emit the report. force re-reads a
+// just-fixed pool. A check that itself THROWS fails SAFE — it returns a blocker, never a silent proceed.
+async function checkReadiness(run: RunState, force: boolean): Promise<ReadinessReport> {
+  try {
+    const report = await runReadiness(run.ticker, run.kind, run.module, { outDir: path.join(REPO_ROOT, run.runRoot!, '_pool_extracts'), force })
+    run.readiness = report
+    emit(run, { type: 'readiness-report', runId: run.runId, report, ts: Date.now() })
+    return report
+  } catch (e) {
+    console.warn(`[readiness] check threw for ${run.ticker} (${run.kind}); failing safe to a blocker:`, (e as Error)?.message || e)
+    const report: ReadinessReport = {
+      ticker: run.ticker, kind: run.kind, module: run.module, overall: 'blocked',
+      fileCount: 0, usableCount: 0, entities: [],
+      issues: [{ code: 'check_failed', severity: 'blocker', message: 'The data-readiness check could not run.', evidence: (e as Error)?.message }],
+      ts: Date.now(),
+    }
+    run.readiness = report
+    emit(run, { type: 'readiness-report', runId: run.runId, report, ts: Date.now() })
+    return report
+  }
+}
+
+// Pre-spawn data-readiness gate. Research data-consuming kinds only (swarm kinds skip it); sets
+// readiness-checking, then runs the check.
+async function runReadinessGate(run: RunState): Promise<void> {
+  if (!run.runRoot || !['full', 'module', 'agent', 'rerun'].includes(run.kind)) return
+  run.status = 'readiness-checking'
+  emit(run, { type: 'readiness-checking', runId: run.runId, ticker: run.ticker, kind: run.kind, ts: Date.now() })
+  await checkReadiness(run, false)
+}
+
+// Resolve a run paused at the data-readiness gate (status awaiting-readiness-decision).
+export async function decideReadiness(
+  runId: string,
+  action: ReadinessDecision['action'],
+  user: string,
+  acknowledgedText?: string,
+): Promise<{ ok: boolean; status: string; report?: ReadinessReport; error?: string; httpStatus?: number }> {
+  const run = getRun(runId)
+  if (!run) return { ok: false, status: 'not_found', error: 'no such run', httpStatus: 404 }
+  if (run.status !== 'awaiting-readiness-decision') {
+    return { ok: false, status: run.status, error: 'run is not awaiting a readiness decision', httpStatus: 409 }
+  }
+
+  if (action === 'cancel') {
+    emit(run, { type: 'readiness-resolved', runId, action: 'cancel', ts: Date.now() })
+    emit(run, { type: 'run-error', runId, status: 'cancelled', reason: 'cancelled_at_readiness_gate', ts: Date.now() })
+    finishRun(run, 'cancelled')
+    return { ok: true, status: 'cancelled' }
+  }
+
+  if (action === 'recheck') {
+    const report = await checkReadiness(run, true)
+    if (report.overall !== 'clean') return { ok: true, status: 'awaiting-readiness-decision', report }
+    return proceedSpawn(run, 'recheck', user) // the pool was fixed -> proceed CLEAN, no override trace
+  }
+
+  // proceed / override — a human chooses to run on a STILL-non-clean gate
+  const hasBlocker = !!run.readiness?.issues.some((i) => i.severity === 'blocker')
+  if (hasBlocker && action !== 'override') {
+    return { ok: false, status: 'awaiting-readiness-decision', error: 'blockers present — use override with a typed acknowledgment', httpStatus: 409 }
+  }
+  if (action === 'override' && hasBlocker && acknowledgedText?.trim().toUpperCase() !== run.ticker.toUpperCase()) {
+    return { ok: false, status: 'awaiting-readiness-decision', error: `type the ticker (${run.ticker}) to acknowledge overriding the blocker`, httpStatus: 412 }
+  }
+  writeReadinessOverride(run, user, acknowledgedText) // indelible trace — a human accepted the gaps
+  return proceedSpawn(run, action, user, acknowledgedText)
+}
+
+// Record the gate decision, emit, and spawn the deferred engine. Shared by proceed / override / recheck-clean.
+async function proceedSpawn(
+  run: RunState, action: ReadinessDecision['action'], user: string, acknowledgedText?: string,
+): Promise<{ ok: boolean; status: string; error?: string; httpStatus?: number }> {
+  // A cancel() that landed during decideReadiness's own await (recheck re-runs the async check) finalizes
+  // the run. Never revive a finalized run to 'running' or spawn its engine.
+  if (run.endedAt !== undefined) return { ok: false, status: 'cancelled', error: 'run was cancelled', httpStatus: 409 }
+  // Flip the status SYNCHRONOUSLY (before the first await) so a concurrent decision — a double-click — sees
+  // a non-awaiting status and is rejected by decideReadiness's guard (else both spawn a CLI for one run).
+  run.status = 'running'
+  run.readinessDecision = { action, user, acknowledgedText, ts: Date.now() }
+  emit(run, { type: 'readiness-resolved', runId: run.runId, action, ts: Date.now() })
+  try {
+    await run.deferredSpawn?.()
+  } catch (e: any) {
+    return { ok: false, status: 'error', error: `spawn failed: ${e?.message || e}`, httpStatus: 500 }
+  }
+  return { ok: true, status: 'running' }
+}
+
+// Write the indelible override trace PRE-SPAWN (the source of truth the synthesizer merges into
+// decision_record.json + a final_thesis.md banner). Override does NOT bypass caps — it records that a
+// human accepted the gaps; the confidence caps still propagate from the in-run triage.
+function writeReadinessOverride(run: RunState, user: string, acknowledgedText?: string): void {
+  if (!run.runRoot || !run.readiness) return
+  const trace = {
+    ticker: run.ticker,
+    decided_by: user,
+    decided_at: new Date().toISOString(),
+    action: run.readiness.overall === 'blocked' ? 'override-blocker' : 'proceed-degraded',
+    overall: run.readiness.overall,
+    acknowledged_text: acknowledgedText ?? null,
+    issues: run.readiness.issues.map((i) => ({ code: i.code, severity: i.severity, message: i.message, file: i.file, module: i.module })),
+  }
+  try {
+    const dir = path.join(REPO_ROOT, run.runRoot)
+    fs.mkdirSync(dir, { recursive: true })
+    fs.writeFileSync(path.join(dir, 'readiness_override.json'), JSON.stringify(trace, null, 2))
+  } catch (e) {
+    console.warn(`[readiness] could not write override trace for ${run.ticker}:`, (e as Error)?.message || e)
+  }
 }
 
 // Active, near-free credit probe (out-of-credits is rejected before generation).

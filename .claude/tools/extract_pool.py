@@ -666,8 +666,278 @@ def _write_corpus(out_dir, data_path, corpus_path):
     print(f"[extract_pool] corpus: {corpus_path} ({sum(len(x) for x in parts)} chars)")
 
 
+# ---------- readiness pre-flight (the data-readiness GATE; deterministic, no LLM) ----------
+#
+# Feeds the cockpit's pre-spawn gate. Summarizes the pool's readiness from the SAME extraction
+# truth the pipeline uses (manifest sources[].status), plus a surface-and-confirm entity read.
+# severity: 'blocker' (wrong-direction / garbage if proceeded) | 'degrade' (same-direction, weaker)
+# | 'info' (note only). The launcher folds in type-based issues (no-price, annual-vs-quarterly,
+# §26 module readiness) from data-status.ts — this stays extraction- and entity-truth only.
+
+# A file COUNTS as usable when it has real content: 'ok' (extracted) OR 'in-place' (a plain text / CSV /
+# MD file used as-is). Everything else (fail / missing-dependency / skipped / gdrive-pointer stub) is not.
+USABLE_STATUSES = {"ok", "in-place"}
+
+_STATUS_ISSUES = {                       # per-source NON-usable status -> (issue code, severity)
+    "fail":               ("extraction_failed", "degrade"),
+    "missing-dependency": ("missing_dependency", "degrade"),
+    "skipped":            ("unreadable_format",  "info"),
+}
+
+_CORP_SUFFIX = (r"(?:Limited|Ltd\.?|Inc\.?|Incorporated|Corporation|Corp\.?|Company|"
+                r"PLC|LLC|N\.V\.|S\.A\.|S\.p\.A\.|AG|SE|Holdings|Group)")
+
+# Don't read a registrant name from non-filings that name PEERS: transcripts/decks (peers + people) and
+# comparables/comps (a comp sheet's whole point is to list rivals). Key-developments + most CIQ data
+# exports DO carry a clean "{Company} (EXCH:TICKER)" subject header (see _CIQ_HEADER), so they're allowed.
+_NON_FILING_NAME = re.compile(
+    r"(transcript|earnings.?call|\bcall\b|presentation|investor.?(?:deck|present)|\bdeck\b|\bppt\b|"
+    r"conference|webcast|comparable|\bcomps?\b)",
+    re.I)
+
+# CIQ / data-vendor export header: "{Company} ({Exchange}:{Ticker}) > Report > Section". The SUBJECT
+# company precedes the (EXCH:TICKER) tag — a high-confidence registrant signal that also works for
+# filings whose cover carries their own ticker. Used FIRST + only in the header region (so a deep-prose
+# peer mention can't match), which lets data exports contribute their clean entity.
+_CIQ_HEADER = re.compile(
+    r"([A-Za-z][\w&.,'’\- ]{2,80}?)\s*\(\s*[A-Za-z][\w.]*\s*:\s*[A-Za-z0-9.\-]+\s*\)")
+
+
+def _clean_entity(s):
+    return re.sub(r"\s+", " ", s or "").strip(" .,:-\t–—")
+
+
+def _norm_entity(s):
+    """Normalize an entity name for comparison: lowercase, drop corporate suffixes + punctuation."""
+    s = re.sub(r"[^a-z0-9 ]", " ", (s or "").lower())
+    s = re.sub(r"\b(limited|ltd|inc|incorporated|corporation|corp|company|plc|llc|nv|sa|spa|"
+               r"ag|se|holdings|group|the|formerly|erstwhile)\b", " ", s)
+    return re.sub(r"\s+", " ", s).strip()
+
+
+def _looks_like_entity(name):
+    """A registrant name LOOKS like a name, not prose or a bare suffix word: it has a real (non-suffix)
+    word, is short, and isn't mostly lowercase function words ("is in fact the very purpose of ...")."""
+    words = (name or "").split()
+    if not (1 <= len(words) <= 8):
+        return False
+    if not _norm_entity(name):                  # nothing but corporate suffixes ("Company", "The Group")
+        return False
+    lower = sum(1 for w in words if w[:1].islower())
+    return lower <= len(words) // 2             # mostly-lowercase -> prose, not a name
+
+
+_MIN_FILES_FOR_CONFLICT = 2   # a different company must appear in >=2 files to flag (1 = extraction noise)
+
+
+def _entity_clusters(entities):
+    """Group [{file,entity}] into distinct companies by EXACT normalized name. Case / punctuation /
+    corporate-suffix variants collapse (they share a normalized form via _norm_entity), but a BUSINESS-UNIT
+    qualifier does NOT — 'Tata Motors' and 'Tata Motors Passenger Vehicles' stay separate, because for a CV
+    ticker the PV demerged entity is a different company (the exact gap that read 'clean' before). Returns
+    [{tokens, name (fullest display), files:[...]}], sorted by file count desc. A file can contribute more
+    than one name (its content AND its filename)."""
+    groups = {}  # normalized name -> {name: fullest display, files: [...]}
+    for e in entities:
+        nm = _norm_entity(e.get("entity", ""))
+        if not nm:
+            continue
+        g = groups.setdefault(nm, {"name": e["entity"], "files": []})
+        if e["file"] not in g["files"]:
+            g["files"].append(e["file"])
+        if len(e["entity"]) > len(g["name"]):
+            g["name"] = e["entity"]                  # keep the fullest display name
+    reps = [{"tokens": set(nm.split()), "name": g["name"], "files": g["files"]} for nm, g in groups.items()]
+    reps.sort(key=lambda r: -len(r["files"]))
+    return reps
+
+
+def _entity_conflict(entities):
+    """Severity of an entity conflict among [{file,entity}], or None. A different company must appear in
+    >=_MIN_FILES_FOR_CONFLICT files to flag — a single odd extraction is treated as NOISE, because diverse
+    real pools throw off one-off garbage names (an owner on a holdings sheet, an exchange on a cover page, a
+    model's cell headers). Among the companies that clear the threshold and differ from the majority:
+      - 'blocker' if one shares NO word with the majority — clearly unrelated, so the pool is contaminated
+        with another company's files (e.g. a batch of 'Tata Motors' files in a 'Salesforce' pool);
+      - 'degrade' if it still shares a word (related group / abbreviation / weak extraction)."""
+    reps = _entity_clusters(entities)
+    if len(reps) < 2:
+        return None
+    maj = reps[0]
+    level = None
+    for r in reps[1:]:
+        if len(r["files"]) < _MIN_FILES_FOR_CONFLICT:
+            continue                                 # singleton -> extraction noise, ignore
+        if not (maj["tokens"] & r["tokens"]):
+            return "blocker"
+        level = "degrade"
+    return level
+
+
+def _entities_disagree(names):
+    """TEST-ONLY bool used by the smoke's clustering assertions (production reads use _entity_conflict +
+    _entity_evidence). Same EXACT-normalized clustering as production — so it answers "is there more than
+    one distinct company?" ignoring the file-count threshold (which the smoke tests separately via
+    _entity_conflict). NOT token-subset: a business-unit qualifier ('Passenger Vehicles') counts as
+    distinct, exactly as the production path treats it."""
+    return len(_entity_clusters([{"file": "", "entity": n} for n in names])) > 1
+
+
+def _entity_evidence(entities):
+    """A FOCUSED evidence line: name the majority company and point only at the files of the companies that
+    actually FLAGGED (cleared the >=2-file threshold) — not a dump of every file, and not the ignored
+    singletons."""
+    reps = _entity_clusters(entities)
+    flagged = [r for r in reps[1:] if len(r["files"]) >= _MIN_FILES_FOR_CONFLICT]
+    if not flagged:
+        return "; ".join(f'{e["file"]} → {e["entity"]}' for e in entities if e.get("entity"))
+    maj = reps[0]
+    odd_files = [f for r in flagged for f in r["files"]]
+    odd_names = " / ".join(dict.fromkeys(r["name"] for r in flagged))
+    return (f'{len(maj["files"])} file(s) name "{maj["name"]}"; {len(odd_files)} look out of place '
+            f'({odd_names}): {", ".join(odd_files)}')
+
+
+def entity_from_header(text):
+    """Best-guess the registrant / issuer name from a filing's header text — deterministic, heuristic.
+    Collects candidates from a few patterns and returns the first that LOOKS like a real name (not prose
+    or a bare suffix word). Returns '' if none. Surface-and-confirm: shows what the document says; the
+    engine never asserts the canonical name."""
+    if not text:
+        return ""
+    head = text[:2500]
+    cands = []
+    # CIQ / data-vendor export header "{Company} (EXCH:TICKER) > ..." — checked FIRST and only in the
+    # header region, so a data export contributes its clean subject (not a peer named deeper in the file).
+    m = _CIQ_HEADER.search(head[:300])
+    if m:
+        cands.append(m.group(1))
+    # SEC: the name precedes "Exact name of registrant as specified in its charter"
+    m = re.search(r"([^\n]{3,90}?)\s*\n[^\n]{0,40}Exact name of (?:the )?[Rr]egistrant", head)
+    if m:
+        cands.append(m.group(1))
+    # India / generic: "Name of the Company / Listed Entity:" — REQUIRE a real separator (colon/dash or a
+    # line break) before the value, so it can't capture inline prose ("...name of the Company is in fact").
+    m = re.search(r"Name of (?:the )?(?:Listed Entity|Company)\s*(?:[:\-]\s*|\n\s*)([^\n]{3,90})", head, re.I)
+    if m:
+        cands.append(m.group(1))
+    # the first short STANDALONE line ending in a corporate suffix (cover-page title; often ALL CAPS).
+    # Strip a trailing parenthetical first ("(Formerly TML ...)", "(NYSE: CRM)") so the registrant name
+    # is matched, not lost to the suffix being followed by ")".
+    for line in head.splitlines():
+        core = re.sub(r"\s*\([^)]*\)\s*$", "", line.strip()).strip()
+        if 3 <= len(core) <= 90 and len(core.split()) <= 8 and re.search(_CORP_SUFFIX + r"\.?\s*$", core, re.I):
+            cands.append(core)
+            break
+    for c in cands:
+        c = _clean_entity(c)
+        if _looks_like_entity(c):           # reject prose ("fact the very purpose") + bare suffixes ("Company")
+            return c
+    return ""
+
+
+def entity_from_filename(name):
+    """Best-guess the entity from the FILE NAME. CIQ exports + downloaded filings are usually named after
+    the company ("Tata_Motors_Passenger_Vehicles_Limited_-_Form_Annual_Report...", "Salesforce Inc NYSE
+    CRM Financials..."). This catches a wrong-entity file whose CONTENT hides it — e.g. a demerged entity
+    whose cover page still carries the former parent's name. Returns the leading name up to its first
+    corporate suffix, or '' (a cryptic filename yields nothing — content still covers it)."""
+    base = re.sub(r"[_\-]+", " ", os.path.splitext(name)[0])
+    base = re.sub(r"\s+", " ", base).strip()
+    m = re.match(r"([A-Z][A-Za-z0-9&.,' ]{2,78}?\b" + _CORP_SUFFIX + r")\b", base)
+    if m:
+        cand = _clean_entity(m.group(1))
+        if _looks_like_entity(cand):
+            return cand
+    return ""
+
+
+def readiness_summary(data_path, out_dir, force=False):
+    """Deterministic pre-flight summary for the data-readiness gate. No LLM.
+    Returns {file_count, usable_count, issues[], entities[]}."""
+    # The whole body sniffs files — extract_pool prints log lines, and the entity reads can invoke pypdf
+    # in-process (which may print). Redirect stdout->stderr for ALL of it so a stray library write can't
+    # corrupt the pure-JSON stdout the caller parses. Restored in finally, before main() prints the result.
+    _saved_stdout = sys.stdout
+    sys.stdout = sys.stderr
+    try:
+        manifest = extract_pool(data_path, out_dir, force=force)   # reuses the is_fresh cache unless --force
+        sources = manifest.get("sources", [])
+        usable = [s for s in sources if s.get("status") in USABLE_STATUSES]
+        issues = []
+        if not sources:
+            issues.append({"code": "zero_files", "severity": "blocker",
+                           "message": "No files found in the data pool — nothing to analyze.",
+                           "evidence": f"data path: {os.path.abspath(data_path)}"})
+        elif not usable:
+            issues.append({"code": "zero_usable_data", "severity": "blocker",
+                           "message": "No file in the pool could be read — nothing usable to analyze.",
+                           "evidence": f"{len(sources)} file(s) present, 0 readable"})
+        for s in sources:
+            spec = _STATUS_ISSUES.get(s.get("status"))
+            if spec:
+                code, sev = spec
+                issues.append({"code": code, "severity": sev, "file": s.get("file"),
+                               "message": f'Could not fully read "{s.get("file")}" ({s.get("status")}).',
+                               "evidence": s.get("error") or s.get("status")})
+
+        # entity read (surface-and-confirm): sniff each file's header for the registrant/subject name.
+        # Allow documents (pdf/mhtml/rtf/html) AND workbooks/Word docs (ole2/zip) — CIQ data exports carry
+        # a clean "{Company} (EXCH:TICKER)" subject header (entity_from_header checks it first). Still skip
+        # peer-listing non-filings by name (transcripts/decks/comparables) via _NON_FILING_NAME.
+        entities = []
+        for p in iter_pool_files(data_path):
+            base = os.path.basename(p)
+            if _NON_FILING_NAME.search(base):
+                continue
+            # (a) the FILE NAME as an entity signal — catches a wrong-entity file whose content hides it
+            # (a demerged entity whose cover still says the former parent's name). Works for any format.
+            fn = entity_from_filename(base)
+            if fn:
+                entities.append({"file": base, "entity": fn})
+            # (b) the CONTENT header — documents + workbooks (CIQ exports carry a "{Company} (EXCH:TICKER)").
+            if sniff_format(p) not in ("pdf", "mime", "rtf", "html", "ole2", "zip"):
+                continue
+            name = entity_from_header(sniff_text(p, 2500))
+            if name:
+                entities.append({"file": base, "entity": name})
+        _evid = _entity_evidence(entities)
+        _level = _entity_conflict(entities)
+        if _level == "blocker":
+            # Unrelated companies in one pool = contamination: wrong-company files present and/or the
+            # right ones missing. High-confidence, so it's a hard stop, not a one-click.
+            issues.append({"code": "entity_disagreement", "severity": "blocker",
+                           "message": "Some files are for a different company — the pool mixes entities "
+                                      "(and the files you want may be missing).",
+                           "evidence": _evid})
+        elif _level == "degrade":
+            # Distinct but RELATED names (share a word) — could be a group entity / abbreviation / weak
+            # extraction, where a false positive is plausible, so surface it but allow a one-click proceed.
+            issues.append({"code": "entity_disagreement", "severity": "degrade",
+                           "message": "Some files may be for a different (related) company — worth a "
+                                      "check before you run.",
+                           "evidence": _evid})
+
+        return {
+            "data_path": os.path.abspath(data_path),
+            "file_count": len(sources),
+            "usable_count": len(usable),
+            "issues": issues,
+            "entities": entities,       # the launcher confirms these against the ticker (surface-and-confirm)
+        }
+    finally:
+        sys.stdout = _saved_stdout
+
+
 def main(argv):
     _ensure_deps()  # re-exec under .claude/tools/.venv if xlrd/openpyxl are missing here
+    if "--readiness-json" in argv:
+        i = argv.index("--readiness-json")
+        dp = argv[i + 1]
+        rest = [a for a in argv[i + 2:] if not a.startswith("--")]
+        od = rest[0] if rest else tempfile.mkdtemp(prefix="readiness_")
+        print(json.dumps(readiness_summary(dp, od, force=("--force" in argv))))
+        return 0
     if "--list-json" in argv:
         i = argv.index("--list-json")
         f = argv[i + 1]

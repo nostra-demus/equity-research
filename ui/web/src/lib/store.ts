@@ -1,9 +1,9 @@
 import { create } from 'zustand'
 import { api, isStatic } from './api'
 import { downstreamCascade, type CascadeNode } from './cascade'
-import type { AgentNode, DataStatus, HealthState, LaunchPreflight, NodeRuntime, NodeStatus, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
+import type { AgentNode, DataStatus, HealthState, LaunchPreflight, NodeRuntime, NodeStatus, ReadinessReport, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
 
-const RUN_EVENT_TYPES = ['run-started', 'agent-started', 'agent-done', 'agent-failed', 'layer-advanced', 'module-done', 'module-routed', 'cost-tick', 'run-done', 'run-error']
+const RUN_EVENT_TYPES = ['run-started', 'agent-started', 'agent-done', 'agent-failed', 'layer-advanced', 'module-done', 'module-routed', 'cost-tick', 'run-done', 'run-error', 'readiness-checking', 'readiness-report', 'readiness-blocked', 'readiness-resolved']
 
 // Live SSE streams for the SELECTED ticker only, keyed by runId. A ticker switch closes them all;
 // background runs keep executing server-side and are rediscovered via /api/runs on return.
@@ -116,6 +116,8 @@ interface State {
   confirmRerun: () => Promise<void>
   cancelLaunch: () => void
   cancelRun: (runId: string) => Promise<void>
+  readinessGate: { runId: string; report: ReadinessReport } | null // pre-flight gate panel (null = hidden)
+  decideReadiness: (runId: string, action: string, ack?: string) => Promise<void>
   selectNodeForRun: (node: AgentNode) => void
   openOutputForNode: (node: AgentNode) => Promise<void>
   openThesis: () => Promise<void>
@@ -193,6 +195,7 @@ export const useStore = create<State>((set, get) => ({
   callsOpen: false,
   selectedNodeKey: null,
   launchConfirm: null,
+  readinessGate: null,
   toast: null,
 
   swarms: [],
@@ -461,7 +464,21 @@ export const useStore = create<State>((set, get) => ({
   cancelRun: async (runId) => {
     try {
       await api.cancel(runId)
-    } catch {}
+    } catch (e: any) {
+      // never swallow silently — a failed cancel looked exactly like "it didn't cancel"
+      get().setToast({ msg: `Couldn't cancel the run: ${e?.message || 'the request failed'}`, tone: 'bad' })
+    }
+  },
+
+  // Resolve a run paused at the pre-flight readiness gate. The SSE events (readiness-resolved / report)
+  // drive the panel open/close; here we just POST the decision and surface any rejection (412 bad ack, 409).
+  decideReadiness: async (runId, action, ack) => {
+    try {
+      await api.readinessDecision(runId, action, ack)
+      if (action === 'cancel') get().setToast({ msg: 'Run cancelled at the data check', tone: 'info' })
+    } catch (e: any) {
+      get().setToast({ msg: e?.message || 'Could not apply the decision', tone: 'bad' })
+    }
   },
 
   // select a not-yet-run orb and open the panel in "pending" mode (no output to load) so the
@@ -677,6 +694,7 @@ export const useStore = create<State>((set, get) => ({
         break
       }
       case 'run-done': {
+        if (get().readinessGate?.runId === e.runId) patch.readinessGate = null // a terminal event always closes the gate panel
         get().refreshActiveRuns() // drops the finished run from the dots AND connects the next chain step
         closeRunSource(e.runId)
         const r = get().activeRuns[e.runId]
@@ -705,6 +723,7 @@ export const useStore = create<State>((set, get) => ({
         break
       }
       case 'run-error': {
+        if (get().readinessGate?.runId === e.runId) patch.readinessGate = null // a terminal event (incl. a generic cancel of a gate-paused run, which emits run-error not readiness-resolved) always closes the gate panel
         get().refreshActiveRuns()
         closeRunSource(e.runId)
         const r = get().activeRuns[e.runId]
@@ -735,6 +754,19 @@ export const useStore = create<State>((set, get) => ({
         }
         break
       }
+      case 'readiness-blocked':
+        // the pre-flight gate paused the run before any token spend — open the panel for the run's OWN
+        // ticker (authoritative from the report, not the activeRuns lookup which may not have it yet)
+        if (!selected || e.report.ticker === selected) patch.readinessGate = { runId: e.runId, report: e.report }
+        break
+      case 'readiness-report':
+        // refresh the open gate panel (e.g. after a recheck that came back still-not-clean)
+        if (get().readinessGate?.runId === e.runId) patch.readinessGate = { runId: e.runId, report: e.report }
+        break
+      case 'readiness-resolved':
+        // any decision (proceed / override / recheck-clean / cancel) resolves the gate -> close the panel
+        if (get().readinessGate?.runId === e.runId) patch.readinessGate = null
+        break
     }
     patch.nodeRuntime = rt
     patch.runStream = stream

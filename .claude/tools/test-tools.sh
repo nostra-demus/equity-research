@@ -217,5 +217,97 @@ print("  PASS: cycle/definition rules in their correct files; ROCE out of §15; 
 sys.exit(0 if ok else 1)
 PY
 
+echo "== extract_pool.py: data-readiness pre-flight (entity extraction + blocker detection) =="
+# Guards the deterministic readiness GATE: entity-from-header (incl. the ALL-CAPS cover-page case
+# that is the PV-vs-CV incident), zero-files / mixed-entity blockers, and pure-JSON stdout.
+"$PY" - "$DIR/extract_pool.py" <<'PY' || rc=1
+import importlib.util, sys, os, tempfile, json
+spec=importlib.util.spec_from_file_location("ep", sys.argv[1]); m=importlib.util.module_from_spec(spec); spec.loader.exec_module(m)
+ok=True
+# entity_from_header — the three header shapes + the all-caps cover page (the incident)
+if m.entity_from_header("TATA MOTORS PASSENGER VEHICLES LIMITED\nAnnual Report\n") != "TATA MOTORS PASSENGER VEHICLES LIMITED":
+    print("  FAIL: all-caps cover-page entity not extracted (the PV-vs-CV incident case)"); ok=False
+if "Bunge Global SA" not in m.entity_from_header("SEC\nBunge Global SA\n(Exact name of registrant as specified in its charter)\n"):
+    print("  FAIL: SEC registrant not extracted"); ok=False
+# India "Name of the Company:" must still extract after the separator-tightening (no test covered it before)
+if m.entity_from_header("Name of the Company: Tata Motors Limited\nCIN: L123\n") != "Tata Motors Limited":
+    print("  FAIL: India 'Name of the Company:' extraction broke"); ok=False
+if m.entity_from_header("Quarterly revenue table 1234\n"):
+    print("  FAIL: a non-filing produced a phantom entity"); ok=False
+# a trailing parenthetical "(Formerly ...)" must NOT lose the registrant name (the live CRMTEST Tata case)
+if m.entity_from_header("2nd Integrated Annual Report 2025-26\nTata Motors Limited (Formerly TML Commercial Vehicles Limited)\n") != "Tata Motors Limited":
+    print("  FAIL: a trailing parenthetical broke registrant extraction"); ok=False
+# prose + bare-suffix words must be REJECTED (no garbage names like 'fact the very purpose' / 'Company')
+if m.entity_from_header("...the name of the Company is in fact the very purpose of our work\n"):
+    print("  FAIL: prose was extracted as a (garbage) entity name"); ok=False
+if m.entity_from_header("Company\nIndex\nPage 1\n"):
+    print("  FAIL: a bare corporate-suffix word ('Company') was extracted as an entity"); ok=False
+# CIQ data-export header "{Company} (EXCH:TICKER) > ..." extracts the SUBJECT (lets exports contribute)
+if m.entity_from_header("Summary\nTata Motors Limited (NSEI:TMCV) > Credit Health Panel > Summary\n") != "Tata Motors Limited":
+    print("  FAIL: CIQ '(EXCH:TICKER)' subject header not extracted"); ok=False
+# readiness_summary — empty pool -> zero_files blocker
+d0=tempfile.mkdtemp(); r0=m.readiness_summary(d0, tempfile.mkdtemp())
+if not any(i["code"]=="zero_files" and i["severity"]=="blocker" for i in r0["issues"]):
+    print("  FAIL: empty pool did not raise zero_files blocker"); ok=False
+# a SINGLE odd file is NOISE, not a flag (the TMCV2 garbage-extraction fix): 2 majority + 1 odd -> clean
+d1=tempfile.mkdtemp()
+for fn in ("tata1.html","tata2.html"): open(os.path.join(d1,fn),"w").write("<html><h1>Tata Motors Limited</h1></html>")
+open(os.path.join(d1,"odd.html"),"w").write("<html><h1>Reliance Industries Limited</h1></html>")
+r1=m.readiness_summary(d1, tempfile.mkdtemp())
+if any(i["code"]=="entity_disagreement" for i in r1["issues"]):
+    print("  FAIL: a single odd file (1 of 3) should be ignored as noise, not flagged:", [(i['code'],i['severity']) for i in r1["issues"]]); ok=False
+# file-aware severity: a company must appear in >=2 files to flag (blocker if unrelated, degrade if related)
+def _e(*specs):
+    out=[]
+    for nm,c in specs:
+        for k in range(c): out.append({"file":nm.split()[0]+str(k)+".pdf","entity":nm})
+    return out
+if m._entity_conflict(_e(("Salesforce, Inc",6),("Tata Motors Limited",2))) != "blocker":
+    print("  FAIL: a >=2-file UNRELATED minority should BLOCK (contamination)"); ok=False
+if m._entity_conflict(_e(("Tata Motors Limited",10),("Tata Sons Private Limited",1),("BSE Limited NSE Ltd",1))) is not None:
+    print("  FAIL: single odd extractions (1 file each) should be ignored as noise (the TMCV2 fix)"); ok=False
+if m._entity_conflict(_e(("Tata Motors Limited",5),("Tata Capital Limited",2))) != "degrade":
+    print("  FAIL: a >=2-file RELATED minority (share 'tata') should be a degrade, not a wall"); ok=False
+# focused evidence: name the MAJORITY company + point at the FLAGGED odd files, not a dump (none a substring of another)
+ev=m._entity_evidence(_e(("Salesforce, Inc",2))+[{"file":"oddtata_a.pdf","entity":"Tata Motors Limited"},{"file":"oddtata_b.pdf","entity":"Tata Motors Limited"}])
+if "Salesforce" not in ev or "oddtata_a.pdf" not in ev or "look out of place" not in ev or "Salesforce0.pdf" in ev:
+    print("  FAIL: entity evidence not focused (should name majority + the flagged odd files, not dump the majority files):", ev); ok=False
+# NO false disagreement when a transcript merely NAMES a peer (the over-fire fixed in the A.1 audit)
+d2=tempfile.mkdtemp()
+open(os.path.join(d2,"AR.html"),"w").write("<html><h1>Tata Motors Limited</h1><p>Annual Report 2025</p></html>")
+open(os.path.join(d2,"Q3-earnings-call-transcript.html"),"w").write("<html><p>Q3 call. Compared to Ashok Leyland Limited, our share grew.</p></html>")
+r2=m.readiness_summary(d2, tempfile.mkdtemp())
+if any(i["code"]=="entity_disagreement" for i in r2["issues"]):
+    print("  FAIL: a transcript naming a peer raised a FALSE entity_disagreement", [(e['file'],e['entity']) for e in r2['entities']]); ok=False
+# CLI stdout must be PURE JSON (extract_pool log lines go to stderr) — guards the redirect regression
+import subprocess
+out=subprocess.run([sys.executable, sys.argv[1], "--readiness-json", d1, tempfile.mkdtemp()],
+                   capture_output=True, text=True).stdout
+try:
+    json.loads(out)
+except Exception as e:
+    print(f"  FAIL: --readiness-json stdout is not pure JSON ({e}); first 80 chars: {out[:80]!r}"); ok=False
+# a text/CSV-only pool is USABLE (status 'in-place'), NOT a zero_usable_data blocker (the audit fix)
+d3=tempfile.mkdtemp(); open(os.path.join(d3,"financials.txt"),"w").write("Revenue 1234\nEBITDA 567\n")
+r3=m.readiness_summary(d3, tempfile.mkdtemp())
+if r3["usable_count"] != 1 or any(i["code"]=="zero_usable_data" for i in r3["issues"]):
+    print("  FAIL: a text-only pool was wrongly flagged unusable", r3["usable_count"], [i["code"] for i in r3["issues"]]); ok=False
+# case / punctuation / corporate-suffix variants of ONE name still collapse (same normalized form)
+if m._entities_disagree(["Tata Motors Limited","TATA MOTORS LTD.","Tata Motors, Incorporated"]):
+    print("  FAIL: case/suffix variants of one name tripped a false entity_disagreement"); ok=False
+# but a BUSINESS-UNIT qualifier marks a DIFFERENT entity (the TMCV CV-vs-PV demerger) -> it DOES surface
+if not m._entities_disagree(["Tata Motors Limited","Tata Motors Passenger Vehicles Limited"]):
+    print("  FAIL: a business-unit divergence (CV vs PV) was wrongly collapsed as the same company"); ok=False
+if not m._entities_disagree(["Tata Motors Limited","Reliance Industries Limited"]):
+    print("  FAIL: genuinely different companies did NOT disagree"); ok=False
+# the FILENAME is read as an entity signal (catches a wrong-entity file whose content hides it)
+if m.entity_from_filename("Tata_Motors_Passenger_Vehicles_Limited_-_Form_Annual_Report(Jun-06-2026).pdf") != "Tata Motors Passenger Vehicles Limited":
+    print("  FAIL: filename entity signal not extracted"); ok=False
+if m.entity_from_filename("Transcript Digest.pdf"):
+    print("  FAIL: a cryptic filename produced a phantom entity"); ok=False
+print("  PASS: entity (content+filename signals, CIQ-header, prose/suffix rejected); zero-files blocker + entity conflict (exact-norm clusters; >=2-file threshold; unrelated=blocker / business-unit-divergence=degrade / 1-off=noise); no peer over-fire; text-usable; pure-JSON stdout" if ok else "  -> readiness test FAILED")
+sys.exit(0 if ok else 1)
+PY
+
 [ $rc -eq 0 ] && echo "ALL SMOKE TESTS PASS" || echo "SMOKE TESTS FAILED"
 exit $rc
