@@ -23,12 +23,30 @@ mkdir -p "$AGENTS" "$HOME/Library/Logs"
 loaded() { launchctl print "$DOMAIN/$1" >/dev/null 2>&1; }
 
 install_one() {
-  local label="$1" src="$HERE/$1.plist" dst="$AGENTS/$1.plist" i
-  if loaded "$label" && cmp -s "$src" "$dst"; then
+  local label="$1" src="$HERE/$1.plist" dst="$AGENTS/$1.plist" i staged key cur
+  # SECRETS STAY OUT OF THE REPO: real API keys live only in the INSTALLED plists
+  # (~/Library/LaunchAgents), never in these versioned copies. When reinstalling, carry an
+  # existing GROQ_API_KEY over from the installed plist if the repo copy has none (or only the
+  # placeholder) — otherwise a routine reinstall would silently turn the news ingester off.
+  staged="$(mktemp)" && cp "$src" "$staged"
+  if [ -f "$dst" ]; then
+    key="$(/usr/libexec/PlistBuddy -c 'Print :EnvironmentVariables:GROQ_API_KEY' "$dst" 2>/dev/null || true)"
+    if [ -n "$key" ] && [ "$key" != "__SET_YOUR_GROQ_API_KEY__" ]; then
+      cur="$(/usr/libexec/PlistBuddy -c 'Print :EnvironmentVariables:GROQ_API_KEY' "$staged" 2>/dev/null || true)"
+      if [ -z "$cur" ]; then
+        /usr/libexec/PlistBuddy -c "Add :EnvironmentVariables:GROQ_API_KEY string $key" "$staged" 2>/dev/null || true
+      elif [ "$cur" = "__SET_YOUR_GROQ_API_KEY__" ]; then
+        /usr/libexec/PlistBuddy -c "Set :EnvironmentVariables:GROQ_API_KEY $key" "$staged" 2>/dev/null || true
+      fi
+    fi
+  fi
+  if loaded "$label" && cmp -s "$staged" "$dst"; then
+    rm -f "$staged"
     launchctl kickstart -k "$DOMAIN/$label" 2>/dev/null || true   # current + loaded: restart in place
     echo "  ok (in place): $label"; return
   fi
-  cp "$src" "$dst"
+  cp "$staged" "$dst" && rm -f "$staged"
+  chmod 600 "$dst" 2>/dev/null || true
   launchctl bootout "$DOMAIN/$label" 2>/dev/null || true
   for i in $(seq 1 40); do loaded "$label" || break; sleep 0.25; done   # wait out async bootout (<=10s)
   for i in 1 2 3 4 5 6; do
