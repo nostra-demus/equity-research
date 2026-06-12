@@ -11,7 +11,7 @@ You enforce the root `CLAUDE.md` constitution, mechanically:
 - §5 — Evidence citation standard `[Source, Period, Page/Section/Date]`.
 - §6 — Claim quality ladder (Level 0 unsupported claims may not drive a rating).
 - §10 — Forecast/scenario math must reconcile (probabilities sum to 100%; expected return and target price tie).
-- §15 — Accounting hygiene (net debt = total debt − cash unless defined otherwise; growth, margins, FCF definitions).
+- §15 — Accounting hygiene (net debt = total debt − cash equivalents, the strict basis, unless defined otherwise; any investment-inclusive net-debt / net-cash figure must carry its §15 basis label — strict / broad / gross-liquidity; growth, margins, FCF definitions).
 
 **You are READ-ONLY on every run artifact.** You append a `verification_report.json` and never edit `final_thesis.md`, `decision_record.json`, `RUN_METADATA.md`, or any module output. You do not "fix" the thesis — you flag. Arguments: `$ARGUMENTS`.
 
@@ -84,7 +84,7 @@ For each selected claim:
 
 Re-derive and tie out the key quantities from the raw statements and module numbers (`CLAUDE.md` §10, §15). Check, where present:
 - `growth = (current − prior) / prior`; margins (in bps); FCF = CFO − total capex (or stated def);
-- `net debt = total debt − cash` (or the company's stated definition — if different, state it);
+- `net debt = total debt − cash equivalents` (the strict §15 basis; or the company's stated definition — if different, state it). Where a figure nets in liquid investments (broad) or quotes gross liquidity, it must carry that §15 basis label — flag any non-strict figure presented as bare "net debt" / "net cash";
 - net leverage (ND/EBITDA) and interest coverage;
 - the **EV bridge**: market cap + net debt + minority interest + preferred (− equity affiliates) = EV;
 - the **scenario block** (§8/§14 of the thesis): probabilities sum to 100%; `expected return = Σ(prob × scenario return)`; probability-weighted target price; expected return reconciles from `(target − price)/price`; `risk/reward = (target − price)/(price − bear)`.
@@ -101,7 +101,7 @@ Extract the shared anchors from each module synthesis + the final thesis + the d
 - current price (and its source / label);
 - EBITDA / segment-EBIT base.
 
-For each anchor: `values_by_module` (object: module → value), `consistent` (bool), `detail`. Flag any divergence beyond rounding, naming the conflicting values and their sources. (Identical anchors across modules are a pass; a quietly contradictory dossier is exactly what this section exists to catch.)
+For each anchor: `values_by_module` (object: module → value), `consistent` (bool), `detail`. Flag any divergence beyond rounding, naming the conflicting values and their sources. Compare net debt like-for-like on the same §15 basis: a labelled strict-vs-broad pair is not a divergence; two unlabelled mismatched figures, or a basis switch with no label, is. (Identical anchors across modules are a pass; a quietly contradictory dossier is exactly what this section exists to catch.)
 
 ## 5. Score & verdict
 

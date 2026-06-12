@@ -21,7 +21,7 @@ You DO NOT:
 # RUNTIME INPUTS
 
 - `TICKER`, `DATA_PATH`, `OUTPUT_PATH = analyses/{TICKER}_{DATE}/valuation/04_intrinsic-dcf.md`, `DATE`
-- `UPSTREAM_INPUTS` — `01_price-and-capital-structure.md` (net debt, shares for the equity bridge). Optionally cross-module: `earnings/01_historical-financials.md` (FCF base), `earnings/03_margin-drivers.md` (margin path), `earnings/04_guidance-consensus.md` (near-term forecast), `earnings/07_earnings-sensitivity.md` (assumption ranges), `business-model/10_external-dependency.md` (cyclicality → terminal assumption), `business-model/09_moat.md` (cost-of-capital cross-check for the WACC, and durability of any terminal excess return).
+- `UPSTREAM_INPUTS` — `01_price-and-capital-structure.md` (net debt, shares for the equity bridge). Optionally cross-module: `earnings/01_historical-financials.md` (FCF base), `earnings/03_margin-drivers.md` (margin path), `earnings/04_guidance-consensus.md` (near-term forecast), `earnings/06_earnings-quality.md` (DSO/DIO/DPO days for the working-capital driver), `earnings/07_earnings-sensitivity.md` (assumption ranges), `business-model/10_external-dependency.md` (cyclicality → terminal assumption), `business-model/09_moat.md` (cost-of-capital cross-check for the WACC, and durability of any terminal excess return).
 
 # PARTIAL-DATA RULE
 
@@ -54,6 +54,7 @@ Whatever method you use, keep this agent's discipline (every assumption sourced,
 - **earnings/01_historical-financials.md** — FCF, EBIT, capex, working-capital base
 - **earnings/04_guidance-consensus.md** — near-term revenue/margin guidance
 - **earnings/03_margin-drivers.md, 07_earnings-sensitivity.md** — margin path and ranges
+- **earnings/06_earnings-quality.md** — DSO/DIO/DPO days for the working-capital driver (where available)
 - **business-model/10_external-dependency.md** — cyclicality for the terminal assumption
 - **Latest annual / interim filing** (10-K/10-Q for US; Annual Report & quarterly results for India; local equivalent) — cash flow statement, capex, tax rate, debt cost
 - **Web** — current risk-free rate and equity-risk premium (label as web-sourced)

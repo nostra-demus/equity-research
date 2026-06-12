@@ -159,13 +159,15 @@ PRESENT=[
   (".claude/agents/valuation/MODULE_RULES.md",                        "benchmarked against BOTH a peer-normal margin",  "valuation terminal-margin peer-normal+prior-trough anchor"),
   (".claude/agents/valuation/07_scenario-and-fair-value.md",          "true through-cycle trough",                      "valuation 07 true-trough bear case"),
   (".claude/agents/balance-sheet-survival/MODULE_RULES.md",           "Label the cycle position of the EBITDA",         "BSS leverage cycle-axis"),
-  (".claude/agents/balance-sheet-survival/06_downside-stress-test.md","Pending debt-funded acquisition check",          "BSS pro-forma post-event leverage step"),
+  (".claude/agents/balance-sheet-survival/06_downside-stress-test.md","Pending acquisition (pro-forma) check",          "BSS pro-forma post-event leverage step"),
   (".claude/agents/business-model/09_moat.md",                        "Use a through-cycle return",                     "moat through-cycle ROIC enforcement"),
   (".claude/agents/business-model/07_business-quality.md",            "at a cyclical peak, anchor them",                "business-quality peak-return ring-fence"),
   ("CLAUDE.md",                                                       "normalised operating FCF",                       "§15 FCF headline-lead"),
   ("CLAUDE.md",                                                       "gross-liquidity",                                "§15 net-cash basis label"),
   (".claude/agents/synthesizer.md",                                   "Net-cash / leverage headline disclosure",        "synthesizer net-cash headline gate"),
   (".claude/agents/balance-sheet-survival/01_capital-structure-and-leverage.md","state it with its basis (CLAUDE.md §15)","BSS/01 net-cash basis labelling (the source, not just the headline)"),
+  (".claude/agents/balance-sheet-survival/MODULE_RULES.md",           "the **strict** basis (CLAUDE.md §15)",           "BSS MODULE_RULES Calculation Standard 3 net-debt strict-basis definition"),
+  (".claude/agents/balance-sheet-survival/01_capital-structure-and-leverage.md","Net debt (strict, §15)",                "BSS/01 Section-4 net-debt bridge carries both §15 bases (the canonical anchor)"),
   (".claude/agents/valuation/04_intrinsic-dcf.md",                    "benchmarked against peer-normal AND the company",  "val/04 terminal-margin benchmark self-check"),
   (".claude/agents/valuation/04_intrinsic-dcf.md",                    "Working capital scales with revenue",            "val/04 working-capital-scales-with-revenue (Q1)"),
   (".claude/agents/business-model/08_competitive-map.md",             "Profitability / return on capital",              "competitive-map per-peer return-on-capital (E — the moat's peer anchor)"),
@@ -200,6 +202,17 @@ if "broad vs basic" in (read(".claude/agents/valuation/MODULE_RULES.md") or "").
 #     semantic engine, so it complements verify-evidence rather than replacing it.
 if "investments > gross debt), state it plainly" in (read(".claude/agents/balance-sheet-survival/01_capital-structure-and-leverage.md") or "").lower():
     print("  FAIL: BSS/01 reintroduced the broad-basis 'net cash, state it plainly' instruction that contradicts §15"); ok=False
+#     Same class, one file up: the module's own Calculation Standard 3 must not return to defining
+#     bare "net debt" on the broad basis (gross debt − cash − liquid investments with no basis label) —
+#     every BSS agent reads MODULE_RULES first, so an unlabelled broad definition there overrides the
+#     BSS/01 fix in practice (found in the PR#11 review).
+if "cash & equivalents − liquid short-term investments. state the definition;" in (read(".claude/agents/balance-sheet-survival/MODULE_RULES.md") or "").lower():
+    print("  FAIL: BSS MODULE_RULES Calculation Standard 3 reverted to the unlabelled broad net-debt definition that contradicts §15"); ok=False
+#     And BSS/01's Section-4 bridge must not return to a single combined "− Cash & liquid investments"
+#     row yielding a bare "Net debt" (an unlabelled broad figure as the canonical anchor every downstream
+#     solvency agent reuses verbatim — found by the PR#11 adversarial verify).
+if "| − cash & liquid investments |" in (read(".claude/agents/balance-sheet-survival/01_capital-structure-and-leverage.md") or "").lower():
+    print("  FAIL: BSS/01 Section 4 reverted to the combined cash+investments row that yields an unlabelled broad net debt"); ok=False
 print("  PASS: cycle/definition rules in their correct files; ROCE out of §15; young-entity fallback complete; no net-cash contradiction" if ok else "  -> cyclical-normalisation placement guard FAILED")
 sys.exit(0 if ok else 1)
 PY

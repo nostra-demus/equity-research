@@ -27,6 +27,7 @@ You DO NOT:
 # CROSS-MODULE INPUTS (optional)
 
 - `{BUSINESS_MODEL_PATH}/03_segment-map.md` — segment structure
+- `{BUSINESS_MODEL_PATH}/10_external-dependency.md` — cyclical/policy exposure, for the cycle-position read (Cycle-Position Rule in MODULE_RULES)
 
 If the business-model segment-map exists, read it and decompose revenue drivers by segment.
 If the company is single-segment (>85% from one segment), state that and proceed at consolidated level.
