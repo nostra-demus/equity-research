@@ -160,8 +160,48 @@ export interface TickerSummary {
 export type RunKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track' | 'signal' | 'sweep' | 'screener-agent' | 'handoff'
 // 'incomplete' = the process exited cleanly but a full/rerun didn't produce its final deliverables
 // (thesis/decision) — almost always budget/turn truncation. Distinct from 'error' (a real failure).
-export type RunStatus = 'starting' | 'running' | 'done' | 'error' | 'cancelled' | 'incomplete'
+// 'readiness-checking' / 'awaiting-readiness-decision' are PRE-SPAWN states: the deterministic
+// data-readiness gate runs before any `claude` CLI is spawned (run.child is still null). A run
+// only reaches 'running' once the gate passes clean or the user proceeds/overrides.
+export type RunStatus =
+  | 'starting' | 'readiness-checking' | 'awaiting-readiness-decision'
+  | 'running' | 'done' | 'error' | 'cancelled' | 'incomplete'
 export type AgentRunStatus = 'queued' | 'running' | 'done' | 'failed'
+
+// ---- data-readiness gate (pre-spawn; deterministic, no LLM) ----
+export type ReadinessSeverity = 'blocker' | 'degrade' | 'info'
+
+export interface ReadinessIssue {
+  code: string                 // 'zero_files' | 'zero_usable_data' | 'extraction_failed' | 'missing_dependency'
+                               // | 'empty_file' | 'entity_disagreement' | 'no_price_source' | 'module_insufficient' | ...
+  severity: ReadinessSeverity
+  message: string              // plain English
+  evidence?: string            // diagnostic detail (manifest error, entity pairings, …)
+  file?: string
+  module?: string              // for module-scoped issues (§26)
+  suggestedFix?: string
+  affectedModules?: string[]
+  capIfProceeded?: string      // the cap that binds if the user proceeds anyway
+}
+
+export interface ReadinessReport {
+  ticker: string
+  kind: RunKind
+  module?: string              // single-module variant
+  overall: 'clean' | 'degraded' | 'blocked'   // blocked if any blocker; degraded if any degrade; else clean
+  fileCount: number
+  usableCount: number
+  entities: { file: string; entity: string }[]   // surface-and-confirm (compared against the ticker by the UI)
+  issues: ReadinessIssue[]
+  ts: number
+}
+
+export interface ReadinessDecision {
+  action: 'proceed' | 'override' | 'recheck' | 'cancel'
+  user: string
+  acknowledgedText?: string    // required typed acknowledgment when blockers are overridden
+  ts: number
+}
 
 // ---- admission control (dependency-aware concurrency) ----
 // Discriminated rejection so the client can branch the toast (info vs bad) and explain precisely.
@@ -204,6 +244,10 @@ export type SseEvent =
   | { type: 'cost-tick'; runId: string; costUsdSoFar?: number; rateLimit?: { ok: boolean; reason?: string }; ts: number }
   | { type: 'run-done'; runId: string; status: 'done'; costUsd?: number; durationMs?: number; numTurns?: number; finalThesisPath?: string | null; decisionRecordPath?: string | null; ts: number }
   | { type: 'run-error'; runId: string; status: 'error' | 'cancelled' | 'incomplete'; reason: string; message?: string; ts: number }
+  | { type: 'readiness-checking'; runId: string; ticker: string; kind: RunKind; ts: number }
+  | { type: 'readiness-report'; runId: string; report: ReadinessReport; ts: number }
+  | { type: 'readiness-blocked'; runId: string; report: ReadinessReport; ts: number }
+  | { type: 'readiness-resolved'; runId: string; action: ReadinessDecision['action']; ts: number }
 
 export interface CreditPreflight {
   ok: boolean
