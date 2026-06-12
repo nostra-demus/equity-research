@@ -45,6 +45,17 @@ for label in com.nostradamus.engine com.nostradamus.tunnel com.nostradamus.watch
   install_one "$label"
 done
 
+# Optional: the autonomous news ingester (standalone 24/7 mode). Installed ONLY once you've put your
+# free Groq key into the plist (replacing the placeholder) — until then it's skipped, so a keyless
+# setup is unaffected. The cockpit server also runs the ingester in-process when GROQ_API_KEY is set,
+# so this standalone service is only needed if you want ingestion to run with the cockpit closed.
+if grep -q "__SET_YOUR_GROQ_API_KEY__" "$HERE/com.nostradamus.news-ingester.plist"; then
+  echo "skipping com.nostradamus.news-ingester (set your GROQ_API_KEY in its plist to enable)"
+else
+  echo "installing com.nostradamus.news-ingester"
+  install_one "com.nostradamus.news-ingester"
+fi
+
 echo
 echo "status (each should show a PID):"
 launchctl list | grep -i nostradamus || echo "  (none loaded!)"

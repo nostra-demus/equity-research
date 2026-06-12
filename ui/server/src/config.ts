@@ -77,3 +77,40 @@ export const ESTIMATES = {
   perAgentUsd: [0.4, 1.2] as [number, number],
   perAgentMin: [0.3, 0.8] as [number, number],
 }
+
+// ---- autonomous news ingester (screener swarm) ----
+// The "forever-living" front door of the screener: pull a free news firehose (GDELT, keyless),
+// score each item with a FREE LLM (Groq) as a cheap brain, and fill a RANKED inbox — all at ~$0.
+// It writes the same inbox contract the manual /screener:sweep already fills, so nothing downstream
+// changes. It NEVER spends Claude money: promoting an inbox row into the paid gauntlet stays the
+// human's one-click action (the cockpit "check it ▸" button). Auto-promote is intentionally absent.
+//
+// Every knob is env-tunable; the loop is OFF unless a Groq key is present, so a deploy without the
+// key behaves exactly as before. Defaults sit well under Groq's free-tier ceilings (~1k req/day,
+// ~100-200k tokens/day) with margin, so a smartly-batched cycle never trips a rate limit.
+export const NEWS = {
+  // The only secret. Absent → the ingester stays dark (no fetch, no scheduler).
+  groqApiKey: process.env.GROQ_API_KEY || '',
+  // A small, fast, cheap Groq model is ideal for batched title-triage. Model ids change — confirm
+  // the current free model when you provision the key. Override with GROQ_MODEL.
+  groqModel: process.env.GROQ_MODEL || 'llama-3.1-8b-instant',
+  groqBaseUrl: process.env.GROQ_BASE_URL || 'https://api.groq.com/openai/v1',
+  // Master switch. Default: ON iff a key exists. Set NEWS_INGEST_ENABLED=0 to force off even with a key.
+  enabled: process.env.NEWS_INGEST_ENABLED === '0' ? false : Boolean(process.env.GROQ_API_KEY),
+  // How often the in-server scheduler runs a cycle (the standalone --once entrypoint ignores this).
+  pollIntervalMin: capNum(process.env.NEWS_POLL_INTERVAL_MIN, 15),
+  // Daily Groq budget guards (org-level free tier). A cycle refuses to call Groq past either cap.
+  groqDailyReqCap: capNum(process.env.NEWS_GROQ_DAILY_REQ_CAP, 800),
+  groqDailyTokenCap: capNum(process.env.NEWS_GROQ_DAILY_TOKEN_CAP, 150_000),
+  // Throttle (requests/min, under the 30 RPM free limit) and how many articles ride in one Groq call.
+  groqRpm: capNum(process.env.NEWS_GROQ_RPM, 25),
+  triageBatch: capNum(process.env.NEWS_TRIAGE_BATCH, 12),
+  // GDELT look-back per cycle (minutes; > pollInterval gives overlap so nothing slips the gap).
+  gdeltLookbackMin: capNum(process.env.NEWS_GDELT_LOOKBACK_MIN, 40),
+  gdeltBaseUrl: process.env.NEWS_GDELT_BASE_URL || 'https://api.gdeltproject.org/api/v2/doc/doc',
+  // Inbox is ranked by triage score and capped; the tail is counted (firehose) but not inboxed.
+  inboxMaxRows: capNum(process.env.NEWS_INBOX_MAX_ROWS, 40),
+  // Score → band thresholds (mirror the gauntlet's promote/park/log bands; this is a cheap PRE-score).
+  pickThreshold: capNum(process.env.NEWS_PICK_THRESHOLD, 70),
+  watchThreshold: capNum(process.env.NEWS_WATCH_THRESHOLD, 40),
+}

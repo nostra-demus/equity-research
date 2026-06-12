@@ -637,6 +637,7 @@ a { color: inherit; }
 .plane { width: 248px; flex-shrink: 0; display: flex; flex-direction: column; gap: 8px; overflow-y: auto; padding-bottom: 12px; }
 .plane__title { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-muted); padding: 2px 2px 4px; border-bottom: 1px solid var(--hairline); position: sticky; top: 0; background: var(--surface-1); z-index: 2; }
 .plane__count { color: var(--text-faint); font-family: var(--font-mono); font-weight: 600; margin-left: 6px; }
+.plane__firehose { color: var(--text-faint); font-size: 10.5px; font-family: var(--font-mono); padding: 5px 2px 2px; letter-spacing: 0.2px; }
 .plane__empty { color: var(--text-faint); font-size: 11.5px; padding: 14px 4px; }
 .pcard { border: 1px solid var(--hairline); border-radius: var(--r-md); background: var(--surface-2); padding: 10px 12px; transition: border-color var(--dur-fast); }
 .pcard:hover { border-color: var(--hairline-strong); }

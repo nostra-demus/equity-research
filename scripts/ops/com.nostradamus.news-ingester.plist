@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Autonomous news ingester as a standalone launchd service (the "true 24/7" hosting mode, runs
+     independently of whether the cockpit UI is open). It fires one ingest cycle every StartInterval
+     seconds: pull GDELT → Groq-triage → fill the ranked inbox. It NEVER launches a paid Claude run.
+     Opt-in: replace __SET_YOUR_GROQ_API_KEY__ below with your free Groq key, then run
+     scripts/ops/install-services.sh (it installs this service only once the placeholder is gone). -->
+<plist version="1.0"><dict>
+  <key>Label</key><string>com.nostradamus.news-ingester</string>
+  <key>ProgramArguments</key><array><string>/opt/homebrew/bin/npm</string><string>run</string><string>ingest:once</string></array>
+  <key>WorkingDirectory</key><string>/Users/chiraagkapil/equity-research/ui/server</string>
+  <key>EnvironmentVariables</key><dict>
+    <key>PATH</key><string>/Users/chiraagkapil/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+    <key>HOME</key><string>/Users/chiraagkapil</string>
+    <key>GROQ_API_KEY</key><string>__SET_YOUR_GROQ_API_KEY__</string>
+    <!-- optional: pin a model id, override caps, etc. -->
+    <!-- <key>GROQ_MODEL</key><string>llama-3.1-8b-instant</string> -->
+  </dict>
+  <!-- run one cycle on load, then every 15 minutes. Each run is a single cycle that exits (not a
+       long-lived process), so there is no KeepAlive here. -->
+  <key>RunAtLoad</key><true/>
+  <key>StartInterval</key><integer>900</integer>
+  <key>StandardOutPath</key><string>/Users/chiraagkapil/Library/Logs/nostradamus-news-ingester.log</string>
+  <key>StandardErrorPath</key><string>/Users/chiraagkapil/Library/Logs/nostradamus-news-ingester.log</string>
+</dict></plist>

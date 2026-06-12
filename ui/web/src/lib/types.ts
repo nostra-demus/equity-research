@@ -50,6 +50,12 @@ export interface BoardInboxRow {
   dedup_status?: string
   consumed?: boolean
   launched_signal_id?: string | null
+  // additive: the autonomous news ingester's cheap pre-triage (absent on manual-sweep rows)
+  triage_score?: number | null
+  triage_reason?: string
+  region?: string
+  relevance?: string
+  materiality_pre_score?: number | null
 }
 export interface BoardSignal {
   signal_id: string
