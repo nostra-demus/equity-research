@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { computeLayout, type PlacedNode } from '../../lib/layout'
 import { collectSamples, expectedDurations, expectedFor, fmtClock, fmtEtaLeft, orbClass, scopeTiming, type ScopeOrb } from '../../lib/eta'
+import { plainRoute, plainStage } from '../../lib/plain'
 import { useStore } from '../../lib/store'
 import { AgentNode } from '../swarm/AgentNode'
 import { EdgeLayer } from '../swarm/EdgeLayer'
@@ -101,7 +102,7 @@ export function ScreenerField() {
             {headline && <div className="scsignal__headline">{headline}</div>}
           </>
         ) : (
-          <button className="btn btn--amber" onClick={openSignalIntake}>New signal ▸</button>
+          <button className="btn btn--amber" onClick={openSignalIntake}>Check a news event ▸</button>
         )}
       </div>
 
@@ -120,7 +121,7 @@ export function ScreenerField() {
           : null
         return (
           <div key={c.module} className={`cluster__label${live ? ' cluster__label--live' : ''}`} style={{ left: c.labelX, top: c.labelY }} onMouseEnter={() => setHoverModule(c.module)} onMouseLeave={() => setHoverModule(null)}>
-            <div className="cluster__name">{c.module.replace(/-/g, ' ')}</div>
+            <div className="cluster__name">{plainStage(c.module)}</div>
             {live && mt ? (
               <div className="cluster__timer">
                 <div className="cluster__timer-line">
@@ -137,9 +138,9 @@ export function ScreenerField() {
                 <div className="cluster__flow"><div className="cluster__flow-fill" style={{ ['--frac' as any]: mt.total ? mt.done / mt.total : 0 }} /></div>
               </div>
             ) : r ? (
-              <div className={`cluster__route${r.terminal ? ' cluster__route--terminal' : ''}`}>{r.route}</div>
+              <div className={`cluster__route${r.terminal ? ' cluster__route--terminal' : ''}`}>{plainRoute(r.route)}</div>
             ) : (
-              <div className="cluster__status" style={{ color: 'var(--text-faint)' }}>{selectedSignal ? 'awaiting' : 'idle'}</div>
+              <div className="cluster__status" style={{ color: 'var(--text-faint)' }}>{selectedSignal ? 'waiting' : 'idle'}</div>
             )}
           </div>
         )

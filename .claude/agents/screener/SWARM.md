@@ -132,6 +132,7 @@ These bands are doctrine, not engine code. Changing them is a one-line edit here
 - `screener/ledger/handoffs.ndjson` — append-only handoff log; idempotency key `<thesis_id>::<ticker>`.
 - `screener/board/index.json` (schema: `frameworks/screener/board_index.schema.json`) — the single machine-readable board state (inbox summary, signals by stage, theses by status, candidates, handoffs). Every synthesis/command that changes state updates it via `scripts/update_board_index.py`. The UI reads this file — it never scrapes agent prose.
 - Every canonical record carries `status`, `status_reason`, `routing`, `routing_reason`, `next_action`, and a compact source evidence packet (`[{url, source_name, source_grade, retrieved_at, claim_supported}]`).
+- **Plain English on board surfaces (CLAUDE.md §21).** `status_reason`, `routing_reason`, `prelim_note`, and `next_action` are shown verbatim on the cockpit's idea-board cards to a reader who may not work in finance. Write each as ONE short plain sentence that says what happened and why — no internal jargon (no "gauntlet", "Gate 0", "M0_x", "variant", "sterile"), no routing codes, no abbreviations a newspaper wouldn't use. Numbers and tickers stay; the §21 rule that plain is not vague applies.
 
 ## 7. Handoff — the bridge to the research swarm
 

@@ -202,9 +202,9 @@ function computeFlowLayout(graph: SwarmGraph, W: number, H: number): Layout {
 
   // three exit rails fanning rightward out of the switchyard
   const exits = [
-    { id: 'watchlist', label: 'watchlist', x: core.x + 92, y: core.y - 64 },
-    { id: 'provisional', label: 'provisional', x: core.x + 104, y: core.y },
-    { id: 'full_machine', label: 'full machine', x: core.x + 92, y: core.y + 64 },
+    { id: 'watchlist', label: 'watch', x: core.x + 92, y: core.y - 64 },
+    { id: 'provisional', label: 'early idea', x: core.x + 104, y: core.y },
+    { id: 'full_machine', label: 'strong idea', x: core.x + 92, y: core.y + 64 },
   ].map((e) => ({ ...e, x: Math.min(e.x, W - 56) }))
   for (const e of exits) {
     const [ex, ey] = shorten(core.x, core.y, e.x, e.y, 16)

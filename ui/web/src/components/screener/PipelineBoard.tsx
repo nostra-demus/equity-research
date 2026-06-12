@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
+import { plainRoute } from '../../lib/plain'
 import { useStore } from '../../lib/store'
 import type { BoardSignal, BoardThesis } from '../../lib/types'
 
@@ -14,7 +15,7 @@ function EdgeDial({ score }: { score: number | null | undefined }) {
   if (score == null) return null
   const angle = Math.round((score / 100) * 360)
   return (
-    <div className="edgedial" title={`Edge confidence ${score}/100`} style={{ ['--deg' as any]: `${angle}deg` }}>
+    <div className="edgedial" title={`Idea strength ${score}/100 — how confident the checks are that the market is missing this`} style={{ ['--deg' as any]: `${angle}deg` }}>
       <span className="edgedial__num">{score}</span>
     </div>
   )
@@ -24,15 +25,15 @@ function SignalCard({ s, onRelaunch }: { s: BoardSignal; onRelaunch?: (id: strin
   return (
     <div className="pcard">
       <div className="pcard__head">
-        <span className="pcard__chip">{s.source_name || 'signal'}{s.source_grade ? ` · ${s.source_grade}` : ''}</span>
-        {typeof s.materiality_score === 'number' && <span className="pcard__chip pcard__chip--num" title="Materiality 0–100">M {s.materiality_score}</span>}
+        <span className="pcard__chip">{s.source_name || 'event'}{s.source_grade ? ` · ${s.source_grade}` : ''}</span>
+        {typeof s.materiality_score === 'number' && <span className="pcard__chip pcard__chip--num" title={`How much this event matters: ${s.materiality_score} out of 100`}>M {s.materiality_score}</span>}
       </div>
       <div className="pcard__headline">{s.headline}</div>
       {s.status_reason && <div className="pcard__why">{s.status_reason}</div>}
       <div className="pcard__meta">
         <span>{fmtTs(s.processed_at)}</span>
         {s.status === 'PARK' && onRelaunch && (
-          <button className="btn btn--ghost pcard__act" onClick={() => onRelaunch(s.signal_id)} title="Human override: run Phase 1 despite the PARK band">override ▸ run</button>
+          <button className="btn btn--ghost pcard__act" onClick={() => onRelaunch(s.signal_id)} title="The checks said wait — run it anyway (your call)">run anyway ▸</button>
         )}
       </div>
     </div>
@@ -43,16 +44,16 @@ function ThesisCard({ t, onOpen }: { t: BoardThesis; onOpen: (id: string) => voi
   return (
     <div className="pcard pcard--thesis" onClick={() => onOpen(t.thesis_id)}>
       <div className="pcard__head">
-        <span className="pcard__chip">{t.horizon ? t.horizon.replace(/_/g, ' ') : 'thesis'}</span>
+        <span className="pcard__chip">{t.horizon ? t.horizon.replace(/_/g, ' ') : 'idea'}</span>
         <EdgeDial score={t.edge_score} />
       </div>
       <div className="pcard__headline">{t.headline || t.thesis_id}</div>
       {(t.routing_reason || t.status_reason) && <div className="pcard__why">{t.routing_reason || t.status_reason}</div>}
       {t.convergence_trigger && (
-        <div className="pcard__trigger" title="Convergence trigger">⚡ {t.convergence_trigger}{t.trigger_date_range ? ` · ${t.trigger_date_range}` : ''}</div>
+        <div className="pcard__trigger" title="What would make the market notice this — and when">⚡ {t.convergence_trigger}{t.trigger_date_range ? ` · ${t.trigger_date_range}` : ''}</div>
       )}
       <div className="pcard__meta">
-        <span>{t.candidate_count ? `${t.candidate_count} candidate${t.candidate_count === 1 ? '' : 's'}` : 'no candidates yet'}</span>
+        <span>{t.candidate_count ? `${t.candidate_count} compan${t.candidate_count === 1 ? 'y' : 'ies'} found` : 'no companies yet'}</span>
         <span className="pcard__open">open ▸</span>
       </div>
     </div>
@@ -77,7 +78,7 @@ function ThesisDetail() {
     <div className="tdetail" onClick={() => setConfirmFor(null)}>
       <div className="tdetail__top">
         <button className="btn btn--ghost" onClick={close}>← back</button>
-        <span className={`chip tdetail__status tdetail__status--${meta.status}`}>{String(meta.status || '').replace(/_/g, ' ')}</span>
+        <span className={`chip tdetail__status tdetail__status--${meta.status}`}>{plainRoute(meta.status)}</span>
         {typeof m066.final_score === 'number' && <EdgeDial score={m066.final_score} />}
         <span className="tdetail__id">{meta.thesis_id}</span>
       </div>
@@ -85,11 +86,11 @@ function ThesisDetail() {
 
       <div className="tdetail__grid">
         <section>
-          <h4>Event (sterile)</h4>
+          <h4>What happened — just the fact</h4>
           <p>{t.M0_1?.event_statement}</p>
         </section>
         <section>
-          <h4>World changes (already occurred)</h4>
+          <h4>What has actually changed</h4>
           <ul>
             {(t.M0_2?.world_changes || []).map((w: any) => (
               <li key={w.id}><b>{w.id}</b> {w.change_description}: {w.quantitative_magnitude} <span className="tdetail__dim">vs {w.baseline_reference}</span></li>
@@ -97,21 +98,21 @@ function ThesisDetail() {
           </ul>
         </section>
         <section>
-          <h4>Kill switch (locked)</h4>
+          <h4>When we would drop this idea</h4>
           <p>{m05.falsification_sentence}</p>
         </section>
         <section>
-          <h4>Edge</h4>
+          <h4>Why the market may be missing this</h4>
           <p>{t.M0_6_3?.variant_paragraph}</p>
           {m066.blended_calculation && <p className="tdetail__dim mono">{m066.blended_calculation}</p>}
           {m065.trigger_name && <p>⚡ {m065.trigger_name} <span className="tdetail__dim">{m065.trigger_date_range}</span></p>}
         </section>
       </div>
 
-      <h4 className="tdetail__cands-title">Candidates — the shortlist</h4>
+      <h4 className="tdetail__cands-title">Companies this idea points to</h4>
       <table className="tdetail__cands">
         <thead>
-          <tr><th>#</th><th>Ticker</th><th>Company</th><th>Side</th><th>Exposure</th><th>Pool</th><th></th></tr>
+          <tr><th>#</th><th>Ticker</th><th>Company</th><th>Buy or short?</th><th title="How directly this company feels the event, 0–100">Exposure</th><th title="Are its filings already in the data folder?">Filings</th><th></th></tr>
         </thead>
         <tbody>
           {cands.map((c: any, i: number) => {
@@ -124,16 +125,16 @@ function ThesisDetail() {
                 <td>{c.company_name}<div className="tdetail__dim">{c.exposure_rationale}</div></td>
                 <td>{String(c.side || '').replace(/_/g, ' ')}</td>
                 <td className="mono">{c.exposure_score}/100</td>
-                <td><span className="pooldot" style={{ background: pool ? 'var(--live)' : 'var(--text-faint)' }} title={pool ? 'data pool present — research can launch' : 'no data pool yet — add filings first'} /></td>
+                <td><span className="pooldot" style={{ background: pool ? 'var(--live)' : 'var(--text-faint)' }} title={pool ? 'filings are in — deep research can start' : 'no filings yet — add them before research'} /></td>
                 <td>
                   {done ? (
-                    <span className="tdetail__dim">handed off ✓</span>
+                    <span className="tdetail__dim">sent ✓</span>
                   ) : confirmFor === c.ticker ? (
                     <button className="btn btn--amber" onClick={(e) => { e.stopPropagation(); void sendToResearch(meta.thesis_id, c.ticker, pool) }}>
-                      confirm — seed memo{pool ? ' + go' : ''} ▸
+                      yes — send it ▸
                     </button>
                   ) : (
-                    <button className="btn btn--ghost" onClick={(e) => { e.stopPropagation(); setConfirmFor(c.ticker) }} title={`Seeds data/${c.ticker}/screener_thesis_….md (idempotent). The research run launch stays a separate confirm.`}>
+                    <button className="btn btn--ghost" onClick={(e) => { e.stopPropagation(); setConfirmFor(c.ticker) }} title={`Copies this idea's memo into data/${c.ticker}/ for the research team. Starting the deep research run stays a separate click.`}>
                       send to research
                     </button>
                   )}
@@ -142,14 +143,14 @@ function ThesisDetail() {
             )
           })}
           {!cands.length && (
-            <tr><td colSpan={7} className="tdetail__dim" style={{ padding: '10px 6px' }}>No candidates surfaced (watchlist routing keeps the industry map without ticker spend).</td></tr>
+            <tr><td colSpan={7} className="tdetail__dim" style={{ padding: '10px 6px' }}>No companies listed — this idea stopped before the company-picking step.</td></tr>
           )}
         </tbody>
       </table>
       {t.run_root && (
         <div className="tdetail__foot">
-          <button className="btn btn--ghost" onClick={() => openCallFile(`${t.run_root}/edge-definition/99_edge-definition-synthesis.md`, 'Edge synthesis')}>read the edge synthesis</button>
-          <button className="btn btn--ghost" onClick={() => openCallFile(`${t.run_root}/candidate-surfacing/99_candidate-surfacing-synthesis.md`, 'Candidate deck')}>read the deck</button>
+          <button className="btn btn--ghost" onClick={() => openCallFile(`${t.run_root}/edge-definition/99_edge-definition-synthesis.md`, 'Why this might be mispriced')}>read: why this might be mispriced</button>
+          <button className="btn btn--ghost" onClick={() => openCallFile(`${t.run_root}/candidate-surfacing/99_candidate-surfacing-synthesis.md`, 'Company shortlist')}>read: the company shortlist</button>
         </div>
       )}
     </div>
@@ -194,9 +195,16 @@ export function PipelineBoard() {
     <motion.div className="pipeline" initial={{ opacity: 0, x: '100%' }} animate={{ opacity: 1, x: 0 }} exit={{ x: '100%' }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
       <div className="pipeline__head">
         <div>
-          <div className="pipeline__title">Idea Pipeline</div>
+          <div className="pipeline__title">Idea board</div>
           <div className="pipeline__sub">
-            {board?.counts ? `${board.counts.signals_total ?? 0} signals · ${board.counts.provisional ?? 0} provisional · ${board.counts.full_machine ?? 0} full machine · ${board.counts.handed_off ?? 0} handed off` : 'the screener funnel'}
+            {board?.counts
+              ? [
+                  `${board.counts.signals_total ?? 0} event${(board.counts.signals_total ?? 0) === 1 ? '' : 's'} checked`,
+                  `${board.counts.provisional ?? 0} early idea${(board.counts.provisional ?? 0) === 1 ? '' : 's'}`,
+                  `${board.counts.full_machine ?? 0} strong idea${(board.counts.full_machine ?? 0) === 1 ? '' : 's'}`,
+                  `${board.counts.handed_off ?? 0} sent to research`,
+                ].join(' · ')
+              : 'news goes in on the left, checked step by step, and comes out as ideas on the right'}
           </div>
         </div>
         <div className="pipeline__tools">
@@ -210,33 +218,33 @@ export function PipelineBoard() {
       ) : (
         <div className="pipeline__lanes">
           <div className="plane">
-            <div className="plane__title">Inbox <span className="plane__count">{buckets.inbox.length}</span></div>
+            <div className="plane__title" title="News found by a scan, waiting for you to pick what to check">Inbox <span className="plane__count">{buckets.inbox.length}</span></div>
             {buckets.inbox.map((r) => (
               <div key={r.inbox_id} className="pcard">
-                <div className="pcard__head"><span className="pcard__chip">{r.source_name}</span>{r.dedup_status === 'possible_duplicate' && <span className="pcard__chip" style={{ color: 'var(--text-faint)' }}>dup?</span>}</div>
+                <div className="pcard__head"><span className="pcard__chip">{r.source_name}</span>{r.dedup_status === 'possible_duplicate' && <span className="pcard__chip" style={{ color: 'var(--text-faint)' }} title="This may be the same story we have already seen">maybe seen before</span>}</div>
                 <div className="pcard__headline">{r.headline}</div>
                 {r.prelim_note && <div className="pcard__why">{r.prelim_note}</div>}
                 <div className="pcard__meta">
                   <span>{fmtTs(r.found_at)}</span>
-                  <button className="btn btn--ghost pcard__act" onClick={() => void submitFromInbox({ headline: r.headline, source_url: r.url, source_name: r.source_name, input_nature: r.input_nature || 'news_headline' })}>run ▸</button>
+                  <button className="btn btn--ghost pcard__act" onClick={() => void submitFromInbox({ headline: r.headline, source_url: r.url, source_name: r.source_name, input_nature: r.input_nature || 'news_headline' })}>check it ▸</button>
                 </div>
               </div>
             ))}
-            {!buckets.inbox.length && <div className="plane__empty">Scan sources to fill the inbox</div>}
+            {!buckets.inbox.length && <div className="plane__empty">Empty — click "Find news" up top to fill this</div>}
           </div>
 
           <div className="plane">
-            <div className="plane__title">In gauntlet <span className="plane__count">{buckets.gauntlet.length}</span></div>
+            <div className="plane__title" title="Events going through the checks right now">Being checked <span className="plane__count">{buckets.gauntlet.length}</span></div>
             {buckets.gauntlet.map((s) => (
               <div key={s.signal_id} onClick={() => { void scSelectSignal(s.signal_id); close() }}>
                 <SignalCard s={s} />
               </div>
             ))}
-            {!buckets.gauntlet.length && <div className="plane__empty">No signal running</div>}
+            {!buckets.gauntlet.length && <div className="plane__empty">Nothing being checked right now</div>}
           </div>
 
           <div className="plane">
-            <div className="plane__title">Parked / logged <span className="plane__count">{buckets.parked.length}</span></div>
+            <div className="plane__title" title="Events the checks decided not to pursue — kept here so nothing is lost">Set aside <span className="plane__count">{buckets.parked.length}</span></div>
             {buckets.parked.map((s) => (
               <SignalCard key={s.signal_id} s={s} onRelaunch={(id) => void relaunchSignal(id)} />
             ))}
@@ -244,7 +252,7 @@ export function PipelineBoard() {
           </div>
 
           <div className="plane">
-            <div className="plane__title">Watchlist <span className="plane__count">{buckets.watchlist.length}</span></div>
+            <div className="plane__title" title="Interesting, but something is missing — a trusted source, a real change, or an angle the market doesn't already know">Watching <span className="plane__count">{buckets.watchlist.length}</span></div>
             {buckets.watchlist.map((x: any) =>
               x.thesis_id && x.status?.startsWith('watchlist') && 'edge_score' in x ? (
                 <ThesisCard key={x.thesis_id} t={x} onOpen={openThesisDetail} />
@@ -256,7 +264,7 @@ export function PipelineBoard() {
           </div>
 
           <div className="plane">
-            <div className="plane__title">Provisional <span className="plane__count">{buckets.provisional.length}</span></div>
+            <div className="plane__title" title="Passed the checks, but the case is not fully proven yet">Early ideas <span className="plane__count">{buckets.provisional.length}</span></div>
             {buckets.provisional.map((t) => (
               <ThesisCard key={t.thesis_id} t={t} onOpen={openThesisDetail} />
             ))}
@@ -264,7 +272,7 @@ export function PipelineBoard() {
           </div>
 
           <div className="plane">
-            <div className="plane__title">Full machine <span className="plane__count">{buckets.fullMachine.length}</span></div>
+            <div className="plane__title" title="Passed every check — ready to send to deep research">Strong ideas <span className="plane__count">{buckets.fullMachine.length}</span></div>
             {buckets.fullMachine.map((t) => (
               <ThesisCard key={t.thesis_id} t={t} onOpen={openThesisDetail} />
             ))}
@@ -272,11 +280,11 @@ export function PipelineBoard() {
           </div>
 
           <div className="plane">
-            <div className="plane__title">Handed off <span className="plane__count">{buckets.handedOff.length}</span></div>
+            <div className="plane__title" title="Ideas whose memo is already in a company's data folder, ready for a deep research run">Sent to research <span className="plane__count">{buckets.handedOff.length}</span></div>
             {buckets.handedOff.map((h) => (
               <div key={h.handoff_id} className="pcard">
                 <div className="pcard__head"><span className="pcard__chip mono">{h.ticker}</span></div>
-                <div className="pcard__why">seeded {h.seeded_path}</div>
+                <div className="pcard__why">memo saved at {h.seeded_path}</div>
                 <div className="pcard__meta"><span>{fmtTs(h.handed_off_at)}</span></div>
               </div>
             ))}
