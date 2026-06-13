@@ -4,10 +4,11 @@
 // article, the real companies (firms only, with their role) and whether we've analysed them, and the
 // corrected theme. Triage metadata sits in the header, not in the way. Then: run / open / shelve.
 
+import { useEffect, useRef } from 'react'
 import { plainBand, plainTheme } from '../../lib/plain'
 import { familyOf, isCompanyNameClient, roleLabel, SCOPES, scopeOf, sourceTierDef } from '../../lib/scope'
 import { useStore } from '../../lib/store'
-import type { ArticleParty, EventEnrichment, FeedItem } from '../../lib/types'
+import type { ArticleParty, EventEnrichment, FeedItem, RelatedEvent } from '../../lib/types'
 
 const fmtTime = (iso?: string) => {
   if (!iso) return ''
@@ -108,6 +109,20 @@ export function EventDetail({ it }: { it: FeedItem }) {
   const enrichCache = useStore((s) => s.enrichCache)
   const shelvedEvents = useStore((s) => s.shelvedEvents)
   const toggleShelve = useStore((s) => s.toggleShelve)
+  const newsItems = useStore((s) => s.newsItems)
+  const selectEvent = useStore((s) => s.scSelectEvent)
+
+  // jump to a related event so the user can check it: open the full wire item if we still hold it,
+  // else a minimal stand-in (the reader re-fetches its detail by event_id either way).
+  const wrapRef = useRef<HTMLDivElement>(null)
+  useEffect(() => { wrapRef.current?.scrollTo({ top: 0 }) }, [it.event_id])
+  const openRelated = (r: RelatedEvent) => {
+    const full = newsItems.find((n) => n.event_id === r.event_id)
+    selectEvent(
+      full ||
+        ({ kind: 'item', ts: r.ts, event_id: r.event_id, headline: r.headline, url: '', domain: '', source_name: r.source_name, via: 'rss', region: '', input_nature: '', triage_score: r.triage_score, band: 'pick', triage_reason: '', relevance: '', event_types: [], issuer_linkage: '', companies: [], size_bucket: 'unknown', scope: r.scope, dedup_status: '', inboxed: false } as FeedItem),
+    )
+  }
 
   const enr = enrichCache[it.event_id]
   const enrichment = enr && enr !== 'loading' ? enr : undefined
@@ -133,7 +148,7 @@ export function EventDetail({ it }: { it: FeedItem }) {
   }
 
   return (
-    <div className="evdetail-wrap">
+    <div className="evdetail-wrap" ref={wrapRef}>
       <article className="evdetail" key={`${it.event_id}-${it.ts}`}>
         <div className="evdetail__top">
           <span className="evdetail__score mono" style={{ color: tone, borderColor: tone }} title="Quick score out of 100 — a first read by the free scanner, not the full check">
@@ -233,10 +248,13 @@ export function EventDetail({ it }: { it: FeedItem }) {
             {enrichment.related.length ? (
               <ul className="evdetail__related">
                 {enrichment.related.map((r) => (
-                  <li key={`${r.event_id}-${r.ts}`} className="evdetail__rel">
-                    <span className="evdetail__rel-score mono">{r.triage_score}</span>
-                    <span className="evdetail__rel-hl">{r.headline}</span>
-                    <span className="evdetail__rel-src">{r.source_name}</span>
+                  <li key={`${r.event_id}-${r.ts}`}>
+                    <button type="button" className="evdetail__rel evdetail__rel--btn" onClick={() => openRelated(r)} title="Open this event to check it">
+                      <span className="evdetail__rel-score mono">{r.triage_score}</span>
+                      <span className="evdetail__rel-hl">{r.headline}</span>
+                      <span className="evdetail__rel-src">{r.source_name}</span>
+                      <span className="evdetail__rel-go" aria-hidden>↗</span>
+                    </button>
                   </li>
                 ))}
               </ul>
