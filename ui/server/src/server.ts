@@ -39,7 +39,21 @@ app.addContentTypeParser('application/json', { parseAs: 'string' }, (_req, body,
   if (!s) return done(null, undefined)
   try { done(null, JSON.parse(s)) } catch (e) { done(Object.assign(e as Error, { statusCode: 400 }), undefined) }
 })
-await app.register(cors, { origin: true })
+// CORS allow-list (NOT `origin: true`). The cockpit SPA is served SAME-ORIGIN by this engine and the
+// web client calls the API with a RELATIVE base (dev goes through a server-side vite proxy), so NO
+// legitimate browser request to this API is ever cross-origin — same-origin requests are exempt from
+// CORS enforcement entirely, so this list does not affect the live cockpit or local dev. The old
+// `origin: true` REFLECTED any site's Origin, which let a hostile page (a) read API responses and
+// (b) pass the CORS preflight for state-changing POSTs (e.g. /api/launch) carried on the operator's
+// Cloudflare Access session. Restricting to an explicit allow-list makes a disallowed cross-origin
+// request get NO `Access-Control-Allow-Origin` — the browser then blocks the read and fails the
+// preflight, so the write never fires. Extend via ENGINE_CORS_ORIGINS (comma-separated) — zero-touch.
+const CORS_ALLOWED_ORIGINS: (string | RegExp)[] = [
+  'https://app.nostra-demus.com',
+  /^https?:\/\/(?:localhost|127\.0\.0\.1)(?::\d+)?$/, // local dev (any port), if the web ever hits the API directly
+  ...(process.env.ENGINE_CORS_ORIGINS || '').split(',').map((s) => s.trim()).filter(Boolean),
+]
+await app.register(cors, { origin: CORS_ALLOWED_ORIGINS })
 
 // ---------- identity (who is acting) ----------
 // The engine sits behind Cloudflare Access (the public tunnel route enforces login), which injects the
