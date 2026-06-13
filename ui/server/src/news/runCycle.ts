@@ -79,6 +79,9 @@ export interface RunCycleDeps {
   sleep?: (ms: number) => Promise<void>
   now?: () => Date
   log?: (m: string) => void
+  // drain-only mode: skip the FETCH layers and just triage the deferred backlog (the scheduler runs
+  // this between fetch cycles so Groq never sits idle while there's a backlog + daily budget left).
+  skipFetch?: boolean
 }
 
 export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSummary> {
@@ -100,8 +103,9 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
 
   // 1. FETCH — GDELT, RSS and the NSE primary-disclosure API in parallel; one layer failing never
   // blocks the others. Merge by URL (first wins; order is only a tiebreak — each carries its own
-  // `via` provenance for the live feed).
-  const fetches = await Promise.allSettled([
+  // `via` provenance for the live feed). In drain-only mode we skip the network entirely and just
+  // work the deferred backlog (no re-fetch → never hammers the upstream feeds between fetch cycles).
+  const fetches = deps.skipFetch ? [] as PromiseSettledResult<RawArticle[]>[] : await Promise.allSettled([
     fetchGdelt({ lookbackMin: cfg.gdeltLookbackMin, baseUrl: cfg.gdeltBaseUrl }, { fetchFn, sleep, log }),
     cfg.rssEnabled
       ? fetchRss(

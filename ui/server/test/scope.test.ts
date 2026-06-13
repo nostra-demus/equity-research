@@ -8,6 +8,7 @@ import path from 'node:path'
 import { deriveScope, deriveSourceTier, familyOf, SCOPES } from '../src/news/scope'
 import { extractSummary, parseSecFiling, findPriorCoverage, findRelatedEvents, enrichEvent, isSafeFetchUrl } from '../src/news/enrich'
 import { appendFeedItems } from '../src/news/feed'
+import { runIngestCycle } from '../src/news/runCycle'
 import { cleanText, looksLikeHeadline } from '../src/news/clean'
 import { isCompanyName, filterCompanies } from '../src/news/entities'
 import { coerceArticleBrief, durToMs, parseRate } from '../src/news/triage/groq'
@@ -436,6 +437,23 @@ await check('RateLimiter.note429 backs off until the retry window', async () => 
   lim.note429(3000, now)
   await lim.acquire(100, sleep, now) // must wait out the 3s backoff before proceeding
   assert.ok(slept.reduce((a, b) => a + b, 0) >= 3000, 'honoured the 429 retry-after')
+})
+
+await check('drain mode (skipFetch) triages the deferred backlog WITHOUT re-fetching the feeds', async () => {
+  const root = tmp(), state = tmp()
+  // a backlog item left unscored by a prior (rate-limited) cycle
+  fs.writeFileSync(path.join(state, 'news-deferred.json'), JSON.stringify([{ event_id: 'EVT-bk', headline: 'Acme posts record quarterly profit up 30%', url: 'https://www.reuters.com/a', domain: 'reuters.com', source_name: 'Reuters', region: 'GLOBAL', input_nature: 'news_headline', found_at: '2026-06-13T10:00:00Z', dedup_status: 'new', via: 'rss' }]))
+  const triageJson = JSON.stringify({ items: [{ i: 0, relevance: 'material', materiality_pre_score: 80, event_types: ['earnings_revenue_margin'], issuer_linkage: 'primary', why: 'profit up 30%', companies: [{ name: 'Acme', ticker: 'ACME', listing_country: 'US' }], size_bucket: 'mid' }] })
+  let groqCalls = 0, feedFetches = 0
+  const fetchFn = (async (u: string) => {
+    if (String(u).includes('/chat/completions')) { groqCalls++; return res(JSON.stringify({ choices: [{ finish_reason: 'stop', message: { content: triageJson } }], usage: { total_tokens: 200 } })) }
+    feedFetches++; return res('', 200) // any GDELT/RSS/NSE fetch would land here — must stay 0
+  }) as unknown as typeof fetch
+  const cfg: any = { groqApiKey: 'k', groqModel: 'm', groqBaseUrl: 'https://api.groq.com/openai/v1', groqRpm: 0, groqTpm: 0, triageBatch: 12, groqDailyReqCap: 9999, groqDailyTokenCap: 9e9, pickThreshold: 70, watchThreshold: 40, rankBoostWeight: 1, inboxMaxRows: 40, feedItemsDailyCap: 5000, triageMaxTokens: 900, rssEnabled: false, nseEnabled: false, gdeltLookbackMin: 40, gdeltBaseUrl: 'https://gdelt.test' }
+  const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: async () => {}, now: () => new Date('2026-06-13T11:00:00Z'), skipFetch: true })
+  assert.equal(feedFetches, 0, 'skipFetch must not hit GDELT/RSS/NSE')
+  assert.equal(s.candidates, 1, 'the deferred backlog item was triaged')
+  assert.equal(groqCalls, 1)
 })
 
 console.log(`\nscope + enrich: ${passed} checks passed`)

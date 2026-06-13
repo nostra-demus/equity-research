@@ -15,10 +15,35 @@ import { runIngestCycle } from './runCycle'
 import type { CycleSummary } from './types'
 
 let timer: ReturnType<typeof setInterval> | null = null
+let drainTimer: ReturnType<typeof setInterval> | null = null
 let running = false
 let lastCycleAt: string | null = null
 let nextCycleAt: string | null = null
 let lastNote: string | null = null
+
+// How often the drain tick works the deferred backlog (no fetch). Short, so Groq is never idle while
+// there's a backlog + daily budget — the scarce per-minute pacing (RateLimiter) governs the actual rate.
+const DRAIN_INTERVAL_MS = Math.max(30, Number(process.env.NEWS_DRAIN_INTERVAL_SEC) || 120) * 1000
+
+/** How many items are waiting un-triaged in the deferred spillover (read-only, never throws). */
+function backlogCount(): number {
+  try {
+    const arr = JSON.parse(fs.readFileSync(path.join(STATE_DIR, 'news-deferred.json'), 'utf8'))
+    return Array.isArray(arr) ? arr.length : 0
+  } catch {
+    return 0
+  }
+}
+/** Is there daily Groq token budget left today? (reads the same file Budget writes). */
+function budgetHasHeadroom(): boolean {
+  try {
+    const b = JSON.parse(fs.readFileSync(path.join(STATE_DIR, 'groq-budget.json'), 'utf8'))
+    if (b?.date !== new Date().toISOString().slice(0, 10)) return true // fresh day
+    return (Number(b.tokens) || 0) < NEWS.groqDailyTokenCap && (Number(b.requests) || 0) < NEWS.groqDailyReqCap
+  } catch {
+    return true
+  }
+}
 
 export interface NewsStatus {
   enabled: boolean
@@ -98,13 +123,33 @@ export function startNewsIngester(): void {
       lastCycleAt = new Date().toISOString().replace(/\.\d{3}Z$/, 'Z')
     }
   }
+  // Drain tick: between fetch cycles, keep working the deferred backlog so Groq runs continuously at
+  // the sustainable per-minute pace whenever there's a backlog + daily budget (true 24/7 throttle).
+  // Skips entirely when caught up or out of budget; never overlaps a fetch cycle (shared `running`).
+  const drain = async () => {
+    if (running || backlogCount() === 0 || !budgetHasHeadroom()) return
+    running = true
+    try {
+      const summary = await runIngestCycle({ log, skipFetch: true })
+      lastNote = summary.note || lastNote
+    } catch (e: any) {
+      log(`drain error: ${e?.message || e}`)
+    } finally {
+      running = false
+      lastCycleAt = new Date().toISOString().replace(/\.\d{3}Z$/, 'Z')
+    }
+  }
+
   setTimeout(tick, 5000) // let the server settle, then run the first cycle
   nextCycleAt = new Date(Date.now() + 5000).toISOString().replace(/\.\d{3}Z$/, 'Z')
   timer = setInterval(tick, NEWS.pollIntervalMin * 60_000)
   timer.unref?.()
-  log(`ingester on — every ${NEWS.pollIntervalMin} min · model ${NEWS.groqModel}${NEWS.rssEnabled ? ' · gdelt+rss' : ' · gdelt only'}`)
+  drainTimer = setInterval(() => void drain(), DRAIN_INTERVAL_MS)
+  drainTimer.unref?.()
+  log(`ingester on — fetch every ${NEWS.pollIntervalMin} min, drain every ${Math.round(DRAIN_INTERVAL_MS / 1000)}s · model ${NEWS.groqModel}${NEWS.rssEnabled ? ' · gdelt+rss' : ' · gdelt only'}`)
 }
 
 export function stopNewsIngester(): void {
   if (timer) { clearInterval(timer); timer = null }
+  if (drainTimer) { clearInterval(drainTimer); drainTimer = null }
 }
