@@ -47,7 +47,7 @@ const EVENT_TYPES = [
   'cybersecurity', 'macro_sector', 'rumor',
 ]
 
-const SYSTEM = `You are a buy-side news triage filter. For each headline decide whether it could change an investment decision, and how much.
+export const SYSTEM = `You are a buy-side news triage filter. For each headline decide whether it could change an investment decision, and how much.
 
 An item is MATERIAL only if it plausibly can: move revenue / margins / cash flow / capital structure; alter regulatory, legal or operational risk; affect management credibility; shift supply / demand; or move analyst expectations. Routine recaps, opinion, and price chatter are NOT material.
 
@@ -93,7 +93,7 @@ export function scoreToBand(score: number, pickThreshold: number, watchThreshold
   return 'drop'
 }
 
-function buildUserMessage(items: NewsItem[]): string {
+export function buildUserMessage(items: NewsItem[]): string {
   const lines = items.map((it, i) => `${i}. [${it.source_name} · ${it.region}] ${it.headline}`)
   return `Score these ${items.length} headlines:\n${lines.join('\n')}`
 }

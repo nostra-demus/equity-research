@@ -39,20 +39,33 @@ function backlogCount(): number {
     return 0
   }
 }
-/**
- * Is there budget to drain right now — under BOTH the hard daily caps AND the daily pacer's clock ceiling?
- * Gating the drain on the pacer (not just the hard cap) is what spreads an overload day's backlog evenly:
- * when we're caught up to the schedule the drain skips and the backlog waits for the clock to advance.
- * Reads the same file Budget writes.
- */
-function budgetHasHeadroom(): boolean {
+/** Hard daily headroom on the Gemini overflow pool (its RPM/RPD throttle it; no pacer needed). */
+function geminiHasHeadroom(today: string): boolean {
+  if (!(NEWS.geminiEnabled && NEWS.geminiApiKey)) return false
   try {
-    const b = JSON.parse(fs.readFileSync(path.join(STATE_DIR, 'groq-budget.json'), 'utf8'))
-    if (b?.date !== new Date().toISOString().slice(0, 10)) return true // fresh day
-    return pacedHasHeadroom(Number(b.tokens) || 0, Number(b.requests) || 0, NEWS.groqDailyTokenCap, NEWS.groqDailyReqCap, PACE)
+    const g = JSON.parse(fs.readFileSync(path.join(STATE_DIR, 'gemini-budget.json'), 'utf8'))
+    if (g?.date !== today) return true // fresh day
+    return (Number(g.tokens) || 0) < NEWS.geminiDailyTokenCap && (Number(g.requests) || 0) < NEWS.geminiDailyReqCap
   } catch {
     return true
   }
+}
+
+/**
+ * Is there budget to drain right now? True if EITHER Groq has paced headroom OR the Gemini overflow pool
+ * has free room. Gating Groq on the pacer spreads an overload day evenly; OR-ing Gemini means the drain
+ * keeps clearing the backlog on Gemini's separate free pool once Groq is paced/spent (the throughput win).
+ */
+function budgetHasHeadroom(): boolean {
+  const today = new Date().toISOString().slice(0, 10)
+  let groqOk = true
+  try {
+    const b = JSON.parse(fs.readFileSync(path.join(STATE_DIR, 'groq-budget.json'), 'utf8'))
+    if (b?.date === today) groqOk = pacedHasHeadroom(Number(b.tokens) || 0, Number(b.requests) || 0, NEWS.groqDailyTokenCap, NEWS.groqDailyReqCap, PACE)
+  } catch {
+    return true // unreadable budget → don't stall the drain
+  }
+  return groqOk || geminiHasHeadroom(today)
 }
 
 export interface NewsStatus {
@@ -68,6 +81,8 @@ export interface NewsStatus {
   // tokenTarget = the pacer's day goal; paceCeiling = tokens allowed spent BY NOW under the clock
   // schedule (tokens ≈ paceCeiling ⇒ the pacer is metering; tokens ≪ paceCeiling ⇒ free-flowing).
   budget: { requests: number; tokens: number; reqCap: number; tokenCap: number; tokenTarget: number; paceCeiling: number }
+  // the Gemini free-tier overflow pool (absent when no key) — second provider that lifts daily throughput
+  gemini?: { enabled: boolean; model: string; requests: number; tokens: number; reqCap: number; tokenCap: number }
 }
 
 /** Status for the cockpit. Daily counts come from today's firehose ON DISK (restart-proof). */
@@ -100,6 +115,17 @@ export function getNewsStatus(): NewsStatus {
   } catch {
     // best-effort
   }
+  const geminiOn = NEWS.geminiEnabled && !!NEWS.geminiApiKey
+  let gemini: NewsStatus['gemini']
+  if (geminiOn) {
+    gemini = { enabled: true, model: NEWS.geminiModel, requests: 0, tokens: 0, reqCap: NEWS.geminiDailyReqCap, tokenCap: NEWS.geminiDailyTokenCap }
+    try {
+      const g = JSON.parse(fs.readFileSync(path.join(STATE_DIR, 'gemini-budget.json'), 'utf8'))
+      if (g?.date === todayDate) { gemini.requests = Number(g.requests) || 0; gemini.tokens = Number(g.tokens) || 0 }
+    } catch {
+      // best-effort
+    }
+  }
   return {
     enabled: NEWS.enabled,
     running,
@@ -111,6 +137,7 @@ export function getNewsStatus(): NewsStatus {
     lastNote,
     today,
     budget,
+    ...(gemini ? { gemini } : {}),
   }
 }
 
@@ -161,7 +188,7 @@ export function startNewsIngester(): void {
   timer.unref?.()
   drainTimer = setInterval(() => void drain(), DRAIN_INTERVAL_MS)
   drainTimer.unref?.()
-  log(`ingester on — fetch every ${NEWS.pollIntervalMin} min, drain every ${Math.round(DRAIN_INTERVAL_MS / 1000)}s · model ${NEWS.groqModel}${NEWS.rssEnabled ? ' · gdelt+rss' : ' · gdelt only'}`)
+  log(`ingester on — fetch every ${NEWS.pollIntervalMin} min, drain every ${Math.round(DRAIN_INTERVAL_MS / 1000)}s · model ${NEWS.groqModel}${NEWS.geminiEnabled && NEWS.geminiApiKey ? ` (+ ${NEWS.geminiModel} overflow)` : ''}${NEWS.rssEnabled ? ' · gdelt+rss' : ' · gdelt only'}`)
 }
 
 export function stopNewsIngester(): void {

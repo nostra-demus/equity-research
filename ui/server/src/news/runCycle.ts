@@ -14,7 +14,8 @@ import { fetchRss } from './sources/rss'
 import { fetchNse } from './sources/nse'
 import { loadLedgerEventIds, normalizeAndFilter } from './normalize'
 import { SeenCache } from './seen-cache'
-import { Budget, getSharedLimiter } from './triage/budget'
+import { Budget, getSharedGeminiLimiter, getSharedLimiter } from './triage/budget'
+import { triageBatchGemini } from './triage/gemini'
 import { estimateTokens, scoreToBand, triageBatch } from './triage/groq'
 import { rankScore, preTriagePriority } from './rank'
 import { deriveScope, deriveSourceTier } from './scope'
@@ -168,10 +169,18 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   // the live ceiling from Groq's response headers (no 429 bursts; full sustainable throughput).
   const budget = Budget.load(stateDir, cfg.groqDailyReqCap, cfg.groqDailyTokenCap, now().getTime())
   const limiter = getSharedLimiter(cfg.groqRpm, cfg.groqTpm)
+  // Gemini OVERFLOW provider (its own free pool + budget file + minute window). When Groq is paced/capped
+  // and Gemini still has free room, the batch goes to Gemini instead of deferring — raising the day's
+  // total throughput. Inactive (null) when no key, so the Groq-only path is byte-for-byte unchanged.
+  const geminiOn = cfg.geminiEnabled && !!cfg.geminiApiKey
+  const geminiBudget = geminiOn ? Budget.load(stateDir, cfg.geminiDailyReqCap, cfg.geminiDailyTokenCap, now().getTime(), 'gemini-budget.json') : null
+  const geminiLimiter = geminiOn ? getSharedGeminiLimiter(cfg.geminiRpm, cfg.geminiTpm) : null
   const triaged: TriagedItem[] = []
   const deferred: NewsItem[] = [] // unscored this cycle (budget hit / batch failed) — re-queued next cycle
   let groqRequests = 0
   let groqTokens = 0
+  let geminiRequests = 0
+  let geminiTokens = 0
   let budgetHit = false
   let paceHit = false
   let batchFailed = false
@@ -180,20 +189,36 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   for (let i = 0; i < items.length; i += cfg.triageBatch) {
     const batch = items.slice(i, i + cfg.triageBatch)
     const est = estimateTokens(batch.length)
-    // PACER first: hold to the day's clock-prorated ceiling so the budget lasts all day. On a normal day
-    // this never bites; on an overload day it meters the rest of the queue out over later drain ticks.
-    if (!budget.pacedCanSpend(est, pace, now().getTime())) {
-      paceHit = !budget.canSpend(est) ? false : true // distinguish "hard cap" from "paced for the day"
-      budgetHit = !paceHit // canSpend false ⇒ genuine daily cap; else the pacer deferred it
+    // PROVIDER PICK. Prefer Groq while it's on-schedule (the pacer keeps it spread across the day); when
+    // Groq is paced/capped, overflow to Gemini's separate free pool; defer only when BOTH are out.
+    const groqOk = budget.pacedCanSpend(est, pace, now().getTime())
+    const geminiOk = !!geminiBudget && geminiBudget.canSpend(est)
+    if (!groqOk && !geminiOk) {
+      const groqHardOut = !budget.canSpend(est)
+      // both exhausted: a genuine daily cap only if Groq is hard-capped (and Gemini too / absent); else
+      // it's the pacer spreading the rest across the day with no overflow room left this minute.
+      budgetHit = groqHardOut && (!geminiOn || !geminiOk)
+      paceHit = !budgetHit
       deferred.push(...items.slice(i)) // everything from here on waits for the next cycle / drain
       break
     }
-    await limiter.acquire(estimateTokens(batch.length), sleep, () => now().getTime())
-    const res = await triageBatch(batch, { model: cfg.groqModel, baseUrl: cfg.groqBaseUrl, apiKey: cfg.groqApiKey, maxTokens: cfg.triageMaxTokens }, fetchFn, sleep)
-    groqRequests += res.requests
-    groqTokens += res.tokens
-    budget.record(res.requests, res.tokens)
-    limiter.learn(res.rate, () => now().getTime()) // track the live per-minute ceiling + back off on 429
+    const useGemini = !groqOk && geminiOk // Groq can't take it but Gemini can → overflow
+    let res
+    if (useGemini) {
+      await geminiLimiter!.acquire(est, sleep, () => now().getTime())
+      res = await triageBatchGemini(batch, { model: cfg.geminiModel, baseUrl: cfg.geminiBaseUrl, apiKey: cfg.geminiApiKey, maxTokens: cfg.geminiMaxTokens }, fetchFn, sleep)
+      geminiRequests += res.requests
+      geminiTokens += res.tokens
+      geminiBudget!.record(res.requests, res.tokens)
+      geminiLimiter!.learn(res.rate, () => now().getTime())
+    } else {
+      await limiter.acquire(est, sleep, () => now().getTime())
+      res = await triageBatch(batch, { model: cfg.groqModel, baseUrl: cfg.groqBaseUrl, apiKey: cfg.groqApiKey, maxTokens: cfg.triageMaxTokens }, fetchFn, sleep)
+      groqRequests += res.requests
+      groqTokens += res.tokens
+      budget.record(res.requests, res.tokens)
+      limiter.learn(res.rate, () => now().getTime()) // track the live per-minute ceiling + back off on 429
+    }
     if (!res.ok) {
       // a failed batch is UNSCORED, not scored-zero: do NOT mark seen (the 7-day cache would make
       // the drop permanent) — defer the whole batch and try again next cycle
@@ -235,6 +260,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     }
   }
   budget.save()
+  geminiBudget?.save()
   seen.save()
   saveDeferred(stateDir, deferred)
 
@@ -302,20 +328,21 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   for (const fi of feedItems.slice(0, written)) newsBus.emit({ type: 'news-item', item: fi })
 
   const note = budgetHit
-    ? `daily Groq budget reached — ${deferred.length} item${deferred.length === 1 ? '' : 's'} deferred to next cycle`
+    ? `daily LLM budget reached${geminiOn ? ' (Groq + Gemini)' : ' (Groq)'} — ${deferred.length} item${deferred.length === 1 ? '' : 's'} deferred to next cycle`
     : paceHit
       ? `paced for the day — ${deferred.length} item${deferred.length === 1 ? '' : 's'} held for the next drain (spreading the budget evenly)`
       : batchFailed
-        ? `${deferred.length} item${deferred.length === 1 ? '' : 's'} not scored (Groq hiccup) — deferred to next cycle`
+        ? `${deferred.length} item${deferred.length === 1 ? '' : 's'} not scored (LLM hiccup) — deferred to next cycle`
         : undefined
   const summary: CycleSummary = {
     ts, ok: true, fetched: raws.length, candidates: items.length,
     picked, watched, dropped, inboxed, groq_requests: groqRequests, groq_tokens: groqTokens,
+    ...(geminiRequests ? { gemini_requests: geminiRequests, gemini_tokens: geminiTokens } : {}),
     note,
   }
   appendFirehoseSummary(repoRoot, date, summary)
   newsBus.emit({ type: 'news-cycle', summary })
-  log(`news cycle: fetched ${raws.length}, ${items.length} new, picked ${picked}, watched ${watched}, dropped ${dropped}; groq ${groqRequests} req / ${groqTokens} tok`)
+  log(`news cycle: fetched ${raws.length}, ${items.length} new, picked ${picked}, watched ${watched}, dropped ${dropped}; groq ${groqRequests} req / ${groqTokens} tok${geminiRequests ? ` · gemini ${geminiRequests} req / ${geminiTokens} tok` : ''}`)
 
   // 5. THEMES — bucket the material items into living, ranked investment themes (assign every cycle,
   // discover periodically, decay automatically). Runs AFTER the write and is fully guarded, so a themes

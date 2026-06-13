@@ -152,5 +152,7 @@ export interface CycleSummary {
   inboxed: number // total rows the inbox now holds after the merge
   groq_requests: number
   groq_tokens: number
+  gemini_requests?: number // batches that overflowed to the Gemini free-tier provider (0 / absent when unused)
+  gemini_tokens?: number
   note?: string // a human-readable reason when ok=false or a cap was hit
 }

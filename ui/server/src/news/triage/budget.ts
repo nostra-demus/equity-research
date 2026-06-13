@@ -64,8 +64,8 @@ export class Budget {
     }
   }
 
-  static load(stateDir: string, reqCap: number, tokenCap: number, now = Date.now()): Budget {
-    return new Budget(path.join(stateDir, 'groq-budget.json'), reqCap, tokenCap, now)
+  static load(stateDir: string, reqCap: number, tokenCap: number, now = Date.now(), fileName = 'groq-budget.json'): Budget {
+    return new Budget(path.join(stateDir, fileName), reqCap, tokenCap, now)
   }
 
   /** Headroom for one more call expected to cost ~estTokens. False when either daily cap is reached. */
@@ -184,4 +184,13 @@ let shared: RateLimiter | null = null
 export function getSharedLimiter(rpm: number, tpm: number): RateLimiter {
   if (!shared) shared = new RateLimiter(rpm, tpm)
   return shared
+}
+
+// A SEPARATE process-wide pacer for the Gemini overflow provider (its own per-minute ceiling, isolated
+// from the Groq limiter so the two free pools run their minute windows in parallel — that parallelism
+// is the throughput gain). Only triage calls Gemini; enrichment stays on Groq.
+let sharedGemini: RateLimiter | null = null
+export function getSharedGeminiLimiter(rpm: number, tpm: number): RateLimiter {
+  if (!sharedGemini) sharedGemini = new RateLimiter(rpm, tpm)
+  return sharedGemini
 }

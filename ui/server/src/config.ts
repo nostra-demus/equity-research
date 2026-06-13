@@ -129,6 +129,22 @@ export const NEWS = {
   // On a higher tier the headers raise the ceiling automatically; no redeploy needed.
   groqRpm: capNum(process.env.NEWS_GROQ_RPM, 28),
   groqTpm: capNum(process.env.NEWS_GROQ_TPM, 6000),
+  // SECOND free-tier brain — Google Gemini (AI Studio) as a triage OVERFLOW provider. A separate provider
+  // = a separate free rate-limit pool, so the day's total capacity = Groq free quota + Gemini free quota.
+  // When Groq is paced/capped, a batch routes to Gemini instead of deferring (that's the throughput gain).
+  // FREE TIER ONLY — do NOT enable billing on this key; the caps below sit under Gemini's free limits.
+  // Off entirely when GEMINI_API_KEY is unset (the engine behaves exactly as Groq-only). Secret lives in
+  // the launchd plist / env, never in tracked source.
+  geminiApiKey: process.env.GEMINI_API_KEY || '',
+  geminiEnabled: process.env.NEWS_GEMINI_ENABLED === '0' ? false : true,
+  geminiModel: process.env.NEWS_GEMINI_MODEL || 'gemini-2.5-flash-lite', // fast + cheap + highest free throughput
+  geminiBaseUrl: process.env.GEMINI_BASE_URL || 'https://generativelanguage.googleapis.com/v1beta',
+  // free-tier guardrails (2.5-flash-lite free ≈ 15 RPM / 1000 RPD / 250k TPM) — stay under with margin
+  geminiDailyReqCap: capNum(process.env.NEWS_GEMINI_DAILY_REQ_CAP, 900),
+  geminiDailyTokenCap: capNum(process.env.NEWS_GEMINI_DAILY_TOKEN_CAP, 900_000),
+  geminiRpm: capNum(process.env.NEWS_GEMINI_RPM, 12),
+  geminiTpm: capNum(process.env.NEWS_GEMINI_TPM, 240_000),
+  geminiMaxTokens: capNum(process.env.NEWS_GEMINI_MAX_TOKENS, 2000),
   triageBatch: capNum(process.env.NEWS_TRIAGE_BATCH, 12),
   // GDELT look-back per cycle (minutes; > pollInterval gives overlap so nothing slips the gap).
   gdeltLookbackMin: capNum(process.env.NEWS_GDELT_LOOKBACK_MIN, 40),
