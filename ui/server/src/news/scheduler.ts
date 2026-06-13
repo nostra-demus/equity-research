@@ -12,7 +12,10 @@ import path from 'node:path'
 import { NEWS, REPO_ROOT, STATE_DIR } from '../config'
 import { readFeed } from './feed'
 import { runIngestCycle } from './runCycle'
+import { pacedCeiling, pacedHasHeadroom } from './triage/budget'
 import type { CycleSummary } from './types'
+
+const PACE = { targetTokens: NEWS.groqDailyTokenTarget, floorFrac: NEWS.groqPaceFloorFrac }
 
 let timer: ReturnType<typeof setInterval> | null = null
 let drainTimer: ReturnType<typeof setInterval> | null = null
@@ -21,9 +24,11 @@ let lastCycleAt: string | null = null
 let nextCycleAt: string | null = null
 let lastNote: string | null = null
 
-// How often the drain tick works the deferred backlog (no fetch). Short, so Groq is never idle while
-// there's a backlog + daily budget — the scarce per-minute pacing (RateLimiter) governs the actual rate.
-const DRAIN_INTERVAL_MS = Math.max(30, Number(process.env.NEWS_DRAIN_INTERVAL_SEC) || 120) * 1000
+// How often the drain tick works the deferred backlog (no fetch). Short, so the daily-budget pacer
+// releases its clock-prorated allowance in small frequent sub-bursts (an even all-day drip) rather than
+// one lump per fetch — the per-minute RateLimiter still governs the instantaneous rate, and the pacer's
+// own clock ceiling governs how much of the day's budget is available right now.
+const DRAIN_INTERVAL_MS = Math.max(30, Number(process.env.NEWS_DRAIN_INTERVAL_SEC) || 60) * 1000
 
 /** How many items are waiting un-triaged in the deferred spillover (read-only, never throws). */
 function backlogCount(): number {
@@ -34,12 +39,17 @@ function backlogCount(): number {
     return 0
   }
 }
-/** Is there daily Groq token budget left today? (reads the same file Budget writes). */
+/**
+ * Is there budget to drain right now — under BOTH the hard daily caps AND the daily pacer's clock ceiling?
+ * Gating the drain on the pacer (not just the hard cap) is what spreads an overload day's backlog evenly:
+ * when we're caught up to the schedule the drain skips and the backlog waits for the clock to advance.
+ * Reads the same file Budget writes.
+ */
 function budgetHasHeadroom(): boolean {
   try {
     const b = JSON.parse(fs.readFileSync(path.join(STATE_DIR, 'groq-budget.json'), 'utf8'))
     if (b?.date !== new Date().toISOString().slice(0, 10)) return true // fresh day
-    return (Number(b.tokens) || 0) < NEWS.groqDailyTokenCap && (Number(b.requests) || 0) < NEWS.groqDailyReqCap
+    return pacedHasHeadroom(Number(b.tokens) || 0, Number(b.requests) || 0, NEWS.groqDailyTokenCap, NEWS.groqDailyReqCap, PACE)
   } catch {
     return true
   }
@@ -55,7 +65,9 @@ export interface NewsStatus {
   nextCycleAt: string | null
   lastNote: string | null
   today: { read: number; kept: number; dropped: number; cycles: number }
-  budget: { requests: number; tokens: number; reqCap: number; tokenCap: number }
+  // tokenTarget = the pacer's day goal; paceCeiling = tokens allowed spent BY NOW under the clock
+  // schedule (tokens ≈ paceCeiling ⇒ the pacer is metering; tokens ≪ paceCeiling ⇒ free-flowing).
+  budget: { requests: number; tokens: number; reqCap: number; tokenCap: number; tokenTarget: number; paceCeiling: number }
 }
 
 /** Status for the cockpit. Daily counts come from today's firehose ON DISK (restart-proof). */
@@ -74,7 +86,10 @@ export function getNewsStatus(): NewsStatus {
   } catch {
     // a status read never throws
   }
-  const budget = { requests: 0, tokens: 0, reqCap: NEWS.groqDailyReqCap, tokenCap: NEWS.groqDailyTokenCap }
+  const budget = {
+    requests: 0, tokens: 0, reqCap: NEWS.groqDailyReqCap, tokenCap: NEWS.groqDailyTokenCap,
+    tokenTarget: NEWS.groqDailyTokenTarget, paceCeiling: Math.round(pacedCeiling(Date.now(), PACE)),
+  }
   try {
     // read the persisted daily counter directly (same file Budget writes); counts only if today's
     const b = JSON.parse(fs.readFileSync(path.join(STATE_DIR, 'groq-budget.json'), 'utf8'))

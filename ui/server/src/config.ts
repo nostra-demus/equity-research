@@ -111,6 +111,17 @@ export const NEWS = {
   // tokens, so 500k tokens/day ≈ $0.025). Tune down with the env vars on a constrained free tier.
   groqDailyReqCap: capNum(process.env.NEWS_GROQ_DAILY_REQ_CAP, 1500),
   groqDailyTokenCap: capNum(process.env.NEWS_GROQ_DAILY_TOKEN_CAP, 500_000),
+  // Daily-budget PACER. The caps above stop us BUSTING the day's limit; the pacer stops us SPENDING IT
+  // ALL AT ONCE. It releases the day's token TARGET on a linear schedule across the UTC day, so a heavy
+  // news morning can't drain the budget and leave the afternoon dark — and an explicit buffer is always
+  // held back (target < cap). On a normal-volume day the schedule outruns demand and the pacer never
+  // bites (items triage promptly); only on overload days does it meter spend into an even all-day drip.
+  //   groqDailyTokenTarget — the day's spend goal (default ≈ 90% of the cap → ~10% buffer always held).
+  //   groqPaceFloorFrac    — small always-available slice of the target for a start-of-day burst and to
+  //                          keep tiny backlogs clearing when exactly on schedule.
+  // Set the target ≥ the cap (or to the cap) to effectively disable pacing and pace against the hard cap.
+  groqDailyTokenTarget: capNum(process.env.NEWS_GROQ_DAILY_TOKEN_TARGET, Math.round(capNum(process.env.NEWS_GROQ_DAILY_TOKEN_CAP, 500_000) * 0.9)),
+  groqPaceFloorFrac: capNum(process.env.NEWS_GROQ_PACE_FLOOR_FRAC, 0.06),
   // Pacing. The binding free-tier limit is TOKENS-per-minute, not requests-per-minute — so we pace by
   // both, and (crucially) the pacer LEARNS the live ceiling from Groq's own x-ratelimit-* response
   // headers, auto-tuning to whatever this account actually allows. These are starting points / fallbacks:

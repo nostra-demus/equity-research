@@ -173,13 +173,19 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   let groqRequests = 0
   let groqTokens = 0
   let budgetHit = false
+  let paceHit = false
   let batchFailed = false
+  const pace = { targetTokens: cfg.groqDailyTokenTarget, floorFrac: cfg.groqPaceFloorFrac }
 
   for (let i = 0; i < items.length; i += cfg.triageBatch) {
     const batch = items.slice(i, i + cfg.triageBatch)
-    if (!budget.canSpend(estimateTokens(batch.length))) {
-      budgetHit = true
-      deferred.push(...items.slice(i)) // everything from here on waits for the next cycle
+    const est = estimateTokens(batch.length)
+    // PACER first: hold to the day's clock-prorated ceiling so the budget lasts all day. On a normal day
+    // this never bites; on an overload day it meters the rest of the queue out over later drain ticks.
+    if (!budget.pacedCanSpend(est, pace, now().getTime())) {
+      paceHit = !budget.canSpend(est) ? false : true // distinguish "hard cap" from "paced for the day"
+      budgetHit = !paceHit // canSpend false ⇒ genuine daily cap; else the pacer deferred it
+      deferred.push(...items.slice(i)) // everything from here on waits for the next cycle / drain
       break
     }
     await limiter.acquire(estimateTokens(batch.length), sleep, () => now().getTime())
@@ -297,9 +303,11 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
 
   const note = budgetHit
     ? `daily Groq budget reached — ${deferred.length} item${deferred.length === 1 ? '' : 's'} deferred to next cycle`
-    : batchFailed
-      ? `${deferred.length} item${deferred.length === 1 ? '' : 's'} not scored (Groq hiccup) — deferred to next cycle`
-      : undefined
+    : paceHit
+      ? `paced for the day — ${deferred.length} item${deferred.length === 1 ? '' : 's'} held for the next drain (spreading the budget evenly)`
+      : batchFailed
+        ? `${deferred.length} item${deferred.length === 1 ? '' : 's'} not scored (Groq hiccup) — deferred to next cycle`
+        : undefined
   const summary: CycleSummary = {
     ts, ok: true, fetched: raws.length, candidates: items.length,
     picked, watched, dropped, inboxed, groq_requests: groqRequests, groq_tokens: groqTokens,

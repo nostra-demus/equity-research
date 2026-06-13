@@ -12,6 +12,43 @@ function utcDate(now = Date.now()): string {
   return new Date(now).toISOString().slice(0, 10) // YYYY-MM-DD
 }
 
+const DAY_MS = 86_400_000
+// Unix time has no leap seconds, so `now % DAY_MS` is exactly ms since the last UTC midnight — the same
+// boundary Budget resets on. Fraction of the UTC day elapsed, clamped to [0,1].
+export function dayFraction(now = Date.now()): number {
+  const f = (((now % DAY_MS) + DAY_MS) % DAY_MS) / DAY_MS
+  return f < 0 ? 0 : f > 1 ? 1 : f
+}
+
+// Daily-budget PACER config. The hard caps (canSpend) stop us BUSTING the day's limit; the pacer stops
+// us SPENDING IT ALL AT ONCE. targetTokens is the day's spend goal (usually a few % under the hard cap,
+// so a buffer is always held); floorFrac is a small always-available slice that gives a start-of-day
+// burst and keeps tiny backlogs clearing when we're exactly on schedule.
+export interface PaceCfg { targetTokens: number; floorFrac: number }
+
+/**
+ * Cumulative tokens the pacer ALLOWS spent by `now`: the day's target released on a linear schedule
+ * across the UTC day, never below a small floor. It is measured against the CLOCK, not against prior
+ * spend — so a quiet night carries its unspent allowance forward into the next burst automatically,
+ * while a heavy morning can't drain the day (the ceiling only rises as fast as the clock).
+ */
+export function pacedCeiling(now: number, pace: PaceCfg): number {
+  if (!(pace.targetTokens > 0)) return Number.POSITIVE_INFINITY // pacer disabled
+  const floor = Math.max(0, Math.min(1, pace.floorFrac))
+  return pace.targetTokens * Math.max(dayFraction(now), floor)
+}
+
+/**
+ * Drain-gate mirror of Budget.pacedCanSpend for callers that only have the on-disk counters (scheduler).
+ * True when there is room under BOTH the hard caps AND the pacer's clock-prorated ceiling.
+ */
+export function pacedHasHeadroom(
+  tokens: number, requests: number, reqCap: number, tokenCap: number, pace: PaceCfg, now = Date.now(),
+): boolean {
+  if (requests >= reqCap || tokens >= tokenCap) return false // hard daily backstop
+  return tokens < pacedCeiling(now, pace)
+}
+
 interface BudgetState { date: string; requests: number; tokens: number }
 
 export class Budget {
@@ -36,6 +73,18 @@ export class Budget {
     if (this.state.requests >= this.reqCap) return false
     if (this.state.tokens + Math.max(0, estTokens) > this.tokenCap) return false
     return true
+  }
+
+  /**
+   * Headroom under the hard cap AND the daily pacer: spend only while today's running total stays under
+   * the clock-prorated ceiling. On a normal-volume day the ceiling outruns demand and this never bites
+   * (items triage promptly); on an overload day it meters spend into an even drip so the budget lasts
+   * the whole day instead of going dark by noon. `pace.targetTokens <= 0` disables the pacer (falls back
+   * to the plain hard-cap canSpend).
+   */
+  pacedCanSpend(estTokens: number, pace: PaceCfg, now = Date.now()): boolean {
+    if (!this.canSpend(estTokens)) return false
+    return this.state.tokens + Math.max(0, estTokens) <= pacedCeiling(now, pace)
   }
 
   record(requests: number, tokens: number): void {
