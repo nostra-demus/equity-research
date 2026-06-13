@@ -3,6 +3,7 @@ import { useStore } from '../lib/store'
 import { decisionColor, resetIn, sufficiencyColor, usageColor, usageLabel, usagePct } from '../lib/format'
 import { plainKind } from '../lib/plain'
 import { EngineStatusPill } from './EngineStatus'
+import { ThemeToggle } from './ThemeToggle'
 
 function BrandMark() {
   return (
@@ -338,6 +339,7 @@ export function CommandBar() {
         {staticMode && <span className="chip" style={{ color: 'var(--accent-bright)', borderColor: 'var(--accent-deep)' }} title="Live showcase of completed runs. Launching agents happens on your local machine.">read-only showcase</span>}
       </div>
       <div className="topbar__spacer" />
+      <ThemeToggle />
       {screenerMode ? (
         <>
           <StopControl />

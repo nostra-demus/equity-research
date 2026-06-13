@@ -3,8 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="color-scheme" content="light" />
+    <meta name="color-scheme" content="dark light" />
     <title>Nostradamus Swarm · Equity Research Cockpit</title>
+    <!-- Apply the saved theme before first paint so there's no flash. Default (unset) = dark. -->
+    <script>
+      (function () {
+        try {
+          if (localStorage.getItem('nsw.theme') === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light')
+          }
+        } catch (e) {}
+      })()
+    </script>
   </head>
   <body>
     <div id="root"></div>

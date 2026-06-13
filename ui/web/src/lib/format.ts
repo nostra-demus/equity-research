@@ -106,8 +106,8 @@ export function nodeStatusColor(status: string): string {
     case 'failed':
       return 'var(--bad)'
     case 'ready':
-      return '#bcb8af' // ready-but-idle — a medium light gray (matches the .node--ready ring)
+      return 'var(--ring-ready)' // theme-flipping ready-orb ring color
     default:
-      return 'var(--hairline-strong)' // dormant — faint
+      return 'var(--ring-dormant)' // theme-flipping dormant-orb ring color
   }
 }
