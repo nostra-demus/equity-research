@@ -1187,6 +1187,17 @@ a { color: inherit; }
 .evdetail__pcnone { font-size: 11.5px; color: var(--text-faint); line-height: 1.4; }
 @media (max-width: 560px) { .evdetail__pc { grid-template-columns: 1fr; } }
 
+/* ---- THE STORY as gist bullets ---- */
+.evdetail__gist { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 7px; }
+.evdetail__gist li { font-size: 13.5px; line-height: 1.55; color: var(--text); }
+
+/* ---- who-gains / who's-exposed party rows (reuse the +/- marked pclist) ---- */
+.evdetail__party-name { font-weight: 600; color: var(--text); }
+.evdetail__party-tag { font-size: 8.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; color: var(--text-faint); border: 1px solid var(--hairline-strong); border-radius: var(--r-pill); padding: 0 5px; margin-left: 6px; vertical-align: middle; }
+.evdetail__party-basis { color: var(--text-muted); }
+/* role tag beside a named company (acquirer / target / forecaster …) */
+.evdetail__role { font-size: 10px; font-weight: 600; color: var(--text-faint); }
+
 /* ---- related recent events ---- */
 .evdetail__related { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
 .evdetail__rel { display: flex; align-items: baseline; gap: 9px; font-size: 12px; }

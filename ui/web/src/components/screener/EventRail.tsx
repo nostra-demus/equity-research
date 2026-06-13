@@ -7,7 +7,7 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import { plainSize, plainTheme } from '../../lib/plain'
-import { BROAD_SCOPES, COMPANY_SCOPES, familyOf, SCOPES, scopeLabel, scopeOf, type ScopeId } from '../../lib/scope'
+import { BROAD_SCOPES, COMPANY_SCOPES, familyOf, isCompanyNameClient, SCOPES, scopeLabel, scopeOf, type ScopeId } from '../../lib/scope'
 import { useStore } from '../../lib/store'
 import type { FeedItem } from '../../lib/types'
 
@@ -31,7 +31,7 @@ function ScopeChip({ it }: { it: FeedItem }) {
 function EventRow({ it, selected, shelved, onPick, onShelve }: { it: FeedItem; selected: boolean; shelved: boolean; onPick: (it: FeedItem) => void; onShelve: (id: string) => void }) {
   const kept = it.band !== 'drop'
   const tone = it.triage_score >= 70 ? 'var(--live)' : it.triage_score >= 40 ? 'var(--accent-bright)' : 'var(--text-faint)'
-  const company = it.companies?.[0]
+  const company = (it.companies || []).find((c) => isCompanyNameClient(c.name)) // skip a country/agency guess
   const companyLabel = company ? [company.name, company.ticker].filter(Boolean).join(' · ') : null
   return (
     <div className={`evrow${selected ? ' evrow--on' : ''}${kept ? '' : ' evrow--dropped'}${shelved ? ' evrow--shelved' : ''}`}>

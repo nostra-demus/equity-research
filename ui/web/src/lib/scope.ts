@@ -72,3 +72,27 @@ export function deriveScopeClient(it: { issuer_linkage?: string | null; companie
 /** The scope of a feed item — its stamped value, or a fallback derive if it predates the field. */
 export const scopeOf = (it: { scope?: string | null; issuer_linkage?: string | null; companies?: { name?: string }[] | null; event_types?: string[] | null; headline?: string | null }): ScopeId =>
   (it.scope as ScopeId) || deriveScopeClient(it)
+
+// ---- client mirror of the entity denylist (server: news/entities.ts) — so a country/agency guessed
+// as a "company" ("China", "Fed") never shows as one on the rail/detail before enrichment scrubs it ----
+const NOT_COMPANY = new Set([
+  'india', 'china', 'chinese', 'japan', 'japanese', 'uk', 'united kingdom', 'us', 'usa', 'united states', 'america', 'eu',
+  'european union', 'europe', 'thailand', 'turkey', 'indonesia', 'pakistan', 'taiwan', 'south korea', 'korea', 'iran',
+  'israel', 'russia', 'ukraine', 'germany', 'france', 'brazil', 'canada', 'australia', 'singapore', 'saudi arabia', 'uae',
+  'haryana', 'asia', 'gulf', 'middle east', 'west asia', 'global', 'wall street',
+  's&p 500', 's&p', 'nasdaq', 'dow', 'stoxx 600', 'msci', 'sensex', 'nifty', 'euribor', 'ftse', 'dax', 'nikkei',
+  'fed', 'federal reserve', 'fomc', 'ecb', 'boj', 'rbi', 'sebi', 'esma', 'sec', 'doj', 'european commission', 'opec',
+  'imf', 'world bank', 'wto', 'nato', 'un', 'united nations', 'treasury', 'parliament', 'congress',
+  '[]', 'n/a', 'none', 'unknown', 'the company', 'company', 'major tyre maker', 'startups', 'analysts', 'investors',
+])
+export function isCompanyNameClient(name?: string | null): boolean {
+  const n = String(name ?? '').toLowerCase().replace(/\s+/g, ' ').replace(/[.,]/g, '').replace(/\(.*?\)/g, '').replace(/^the /, '').trim()
+  if (!n || n.length < 2) return false
+  if (NOT_COMPANY.has(n)) return false
+  if (/\b(ministry|authority|regulator|commission|tribunal|government)\b/.test(n)) return false
+  return true
+}
+
+// plain labels for the article-company role tags
+const ROLE_LABEL: Record<string, string> = { subject: 'the subject', acquirer: 'acquirer', target: 'target', forecaster: 'forecaster', mentioned: 'mentioned' }
+export const roleLabel = (r?: string | null): string => (r ? ROLE_LABEL[r] || r : '')

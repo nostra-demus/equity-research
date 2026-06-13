@@ -122,16 +122,25 @@ export interface RelatedEvent {
   triage_score: number
   scope?: string
 }
+export type CompanyRole = 'subject' | 'acquirer' | 'target' | 'forecaster' | 'mentioned'
+export interface ArticleCompany { name: string; ticker: string | null; role: CompanyRole }
+export interface ArticleParty { name: string; named_in_article: boolean; basis: string }
 export interface EventEnrichment {
   event_id: string
   ok: boolean
   fetched_at: string
   note?: string
-  summary?: string
+  summary?: string // regex fallback when the article-body read is unavailable
   published?: string
   sec?: SecFiling
   prior_coverage: PriorCoverage[]
   related: RelatedEvent[]
+  // the article-body read (one Groq pass)
+  gist?: string[]
+  companies?: ArticleCompany[]
+  beneficiaries?: ArticleParty[]
+  exposed?: ArticleParty[]
+  theme?: string
 }
 
 export interface NewsCycle {

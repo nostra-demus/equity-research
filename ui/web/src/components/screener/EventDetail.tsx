@@ -1,83 +1,31 @@
-// The main-stage reader for one event the user picked off the rail — rebuilt as a decision surface.
-// The cheap scanner only ever saw the headline; this view pulls everything else a person needs to
-// answer "is this worth a paid check, or do I set it aside?": what KIND of event it is (company vs
-// broad scope), how good the SOURCE is (§4 tier), the at-a-glance read (materiality / relevance /
-// novelty / size), the named companies AND whether the engine has already analysed them, the real
-// STORY behind the headline (and, for SEC filings, the actual items filed), related recent events,
-// and a plain "is it worth it?" read. Then the one decision: run the checks, open the source, or shelve.
+// The main-stage reader for one event — rebuilt around what a PM actually needs to make the call.
+// The cheap scanner only saw the headline; on open we read the ARTICLE BODY (one Groq pass) and lead
+// with its substance: the crux as bullets (THE STORY), WHO GAINS / WHO'S EXPOSED named from the
+// article, the real companies (firms only, with their role) and whether we've analysed them, and the
+// corrected theme. Triage metadata sits in the header, not in the way. Then: run / open / shelve.
 
-import { useMemo } from 'react'
-import { plainBand, plainSize, plainTheme } from '../../lib/plain'
-import { familyOf, SCOPES, scopeOf, sourceTierDef } from '../../lib/scope'
+import { plainBand, plainTheme } from '../../lib/plain'
+import { familyOf, isCompanyNameClient, roleLabel, SCOPES, scopeOf, sourceTierDef } from '../../lib/scope'
 import { useStore } from '../../lib/store'
-import type { EventEnrichment, FeedItem } from '../../lib/types'
+import type { ArticleParty, EventEnrichment, FeedItem } from '../../lib/types'
 
 const fmtTime = (iso?: string) => {
   if (!iso) return ''
   const d = new Date(iso)
   return isNaN(d.getTime()) ? iso.slice(0, 16).replace('T', ' ') : d.toLocaleString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
 }
-const relevanceLabel = (r?: string) => (r === 'material' ? 'Material' : r === 'relevant_non_material' ? 'Relevant, smaller' : r === 'irrelevant' ? 'Not material' : '—')
+const SEC_FLAG = /^(4\.02|5\.02|5\.01|3\.01|1\.03|2\.06)$/
 
-// How a buy-side reader would PLAY this kind of event — the trade shape, by scope. Honest about the
-// fact that broad events aren't single-stock ideas (CLAUDE.md §21).
-const PLAY_BY_SCOPE: Record<string, string> = {
-  single_name: 'Single-stock idea — the most direct kind. Worth a look if it’s a name you’d consider owning or shorting.',
-  multi_name: 'A pair / read-across — the named companies move together or against each other (often a relative trade).',
-  sector: 'A sector basket — play the group or an ETF, not one stock; look for the read-across winners and losers.',
-  macro: 'A top-down macro view — usually a portfolio tilt (rates / FX / cyclicals), not a single name.',
-  commodity: 'A commodity play — the affected producers and users, not the headline itself.',
-  policy: 'A policy / rules theme — the winners and losers from the rule change, usually expressed as a basket.',
-  unknown: 'Open the source to see what it’s about before deciding how to play it.',
-}
-const SEC_FLAG = /^(4\.02|5\.02|5\.01|3\.01|1\.03|2\.06|2\.01|2\.04)$/
-
-// The one-glance judgement: what to play, the reasons FOR a paid check, and the reasons to skip/shelve.
-// Every line is tied to a concrete signal we already hold (scope / source tier / score / newness /
-// the filing's own items / prior coverage) — never an unsupported claim about the company (§3).
-function playRead(it: FeedItem, enr?: EventEnrichment): { play: string; pros: string[]; cons: string[] } {
-  const s = scopeOf(it)
-  const fam = familyOf(s)
-  const tier = it.source_tier
-  const co = it.companies?.[0]
-  const ticker = co?.ticker
-  const pros: string[] = []
-  const cons: string[] = []
-
-  // ---- pros (why it could be worth the spend) ----
-  if (it.triage_score >= 70) pros.push(`Scored ${it.triage_score}/100 — the scanner flags it as clearly decision-relevant.`)
-  if (tier === 'primary_filing') pros.push('Primary source — a filing / exchange disclosure, not second-hand.')
-  const flagged = enr?.sec?.items?.find((i) => SEC_FLAG.test(i.code))
-  if (flagged) pros.push(`The filing flags a real corporate event: ${flagged.label.toLowerCase()}.`)
-  if (enr?.sec?.items?.some((i) => i.code === '2.02')) pros.push('An earnings filing — fresh numbers to react to.')
-  if (fam === 'company' && ticker) pros.push(`Names a listed company (${ticker}) you can act on directly.`)
-  const pool = enr?.prior_coverage?.find((p) => p.kind === 'data_pool')
-  if (pool) pros.push(`We already hold a data pool for ${pool.ticker} — a check is cheap to extend.`)
-  if (it.dedup_status !== 'possible_duplicate' && it.relevance === 'material' && it.triage_score >= 60) pros.push('New to us and material — not a recycled story.')
-  if (fam === 'company' && (it.size_bucket === 'mega' || it.size_bucket === 'large')) pros.push('A large, liquid name — easy to size a position.')
-
-  // ---- cons (why you might skip or shelve) ----
-  if (fam === 'broad') cons.push('No single stock — you’d express this as a basket or a macro view, not one name.')
-  if (tier === 'unconfirmed') cons.push('Sourced to unnamed people — a lead to verify, not a fact.')
-  else if (tier === 'news') cons.push('A newswire report — verify against the primary source before you lean on it.')
-  if (it.triage_score < 50) cons.push(`Low score (${it.triage_score}) — most of these are noise; read the source before spending.`)
-  if (fam === 'company' && !ticker) cons.push('No ticker pinned yet — confirm the exact listing before acting.')
-  if (!it.companies?.length && fam !== 'broad') cons.push('No company named yet — harder to act on directly.')
-  const analysed = enr?.prior_coverage?.find((p) => p.kind === 'analysis')
-  if (analysed) cons.push(`Already analysed — ${analysed.detail.toLowerCase()}; the news may be priced in, so a check mostly refreshes the view.`)
-  if (it.dedup_status === 'possible_duplicate') cons.push('Possibly a duplicate of an event already in the ledger.')
-
-  return { play: PLAY_BY_SCOPE[s] || PLAY_BY_SCOPE.unknown, pros: pros.slice(0, 4), cons: cons.slice(0, 4) }
-}
-
-function StoryBlock({ it, enr }: { it: FeedItem; enr: EventEnrichment | 'loading' | undefined }) {
+// THE STORY — gist bullets read from the body (primary), the parsed SEC filing (for EDGAR), the regex
+// summary (fallback), or an honest note. Never a blank card.
+function StoryBlock({ enr }: { enr: EventEnrichment | 'loading' | undefined }) {
   if (enr === 'loading' || enr === undefined) {
     return (
       <div className="evdetail__block">
         <div className="evdetail__label">The story</div>
         <div className="evdetail__shimmer" aria-hidden />
         <div className="evdetail__shimmer evdetail__shimmer--short" aria-hidden />
-        <div className="evdetail__hint">Reading the source…</div>
+        <div className="evdetail__hint">Reading the article…</div>
       </div>
     )
   }
@@ -95,7 +43,7 @@ function StoryBlock({ it, enr }: { it: FeedItem; enr: EventEnrichment | 'loading
           {!!sec.items.length && (
             <ul className="evdetail__items">
               {sec.items.map((i) => (
-                <li key={i.code} className={`evdetail__item${/^4\.02$|^5\.0[12]$|^1\.03$|^3\.01$|^2\.06$/.test(i.code) ? ' evdetail__item--flag' : ''}`}>
+                <li key={i.code} className={`evdetail__item${SEC_FLAG.test(i.code) ? ' evdetail__item--flag' : ''}`}>
                   <span className="evdetail__itemcode mono">{i.code}</span>
                   <span className="evdetail__itemlabel">{i.label}</span>
                 </li>
@@ -111,20 +59,45 @@ function StoryBlock({ it, enr }: { it: FeedItem; enr: EventEnrichment | 'loading
           )}
         </div>
       )}
-      {enr.summary && (
+      {!sec && !!enr.gist?.length && (
+        <div className="evdetail__block">
+          <div className="evdetail__label">The story</div>
+          <ul className="evdetail__gist">
+            {enr.gist.map((g, i) => <li key={i}>{g}</li>)}
+          </ul>
+          {enr.published && <div className="evdetail__hint">Published {fmtTime(enr.published)}</div>}
+        </div>
+      )}
+      {!sec && !enr.gist?.length && enr.summary && (
         <div className="evdetail__block">
           <div className="evdetail__label">The story</div>
           <p className="evdetail__story">{enr.summary}</p>
           {enr.published && <div className="evdetail__hint">Published {fmtTime(enr.published)}</div>}
         </div>
       )}
-      {!sec && !enr.summary && enr.note && (
+      {!sec && !enr.gist?.length && !enr.summary && (
         <div className="evdetail__block">
           <div className="evdetail__label">The story</div>
-          <div className="evdetail__hint">{enr.note}</div>
+          <div className="evdetail__hint">{enr.note || 'Source blocked — headline only. Open the source to read it.'}</div>
         </div>
       )}
     </>
+  )
+}
+
+// WHO GAINS / WHO'S EXPOSED — the value the reader actually asked for: WHICH names, from the article.
+// Named firms render solid; an inferred sector/group renders muted with a "(sector)" tag; never invented.
+function PartyList({ parties }: { parties: ArticleParty[] }) {
+  return (
+    <ul className="evdetail__pclist">
+      {parties.map((p, i) => (
+        <li key={`${p.name}-${i}`} className="evdetail__party">
+          <span className="evdetail__party-name">{p.name}</span>
+          {!p.named_in_article && <span className="evdetail__party-tag">sector</span>}
+          {p.basis && <span className="evdetail__party-basis"> — {p.basis}</span>}
+        </li>
+      ))}
+    </ul>
   )
 }
 
@@ -144,9 +117,16 @@ export function EventDetail({ it }: { it: FeedItem }) {
   const s = scopeOf(it)
   const fam = familyOf(s)
   const tier = sourceTierDef(it.source_tier)
-  const read = useMemo(() => playRead(it, enrichment), [it, enrichment])
 
-  // map a guessed company (by ticker/name) to its prior-coverage row, if any
+  // companies: prefer the body-read firms (with role); else the headline guess, denylist-scrubbed
+  const companies = enrichment?.companies?.length
+    ? enrichment.companies.map((c) => ({ name: c.name, ticker: c.ticker, listing_country: null as string | null, role: c.role }))
+    : (it.companies || []).filter((c) => isCompanyNameClient(c.name)).map((c) => ({ ...c, role: undefined as string | undefined }))
+  const didRead = !!(enrichment && (enrichment.gist?.length || enrichment.companies?.length || enrichment.beneficiaries?.length || enrichment.exposed?.length))
+  const benefits = enrichment?.beneficiaries || []
+  const exposed = enrichment?.exposed || []
+  const themeKey = enrichment?.theme || it.event_types?.[0]
+
   const coverageFor = (name: string, ticker: string | null) => {
     const tk = (ticker || '').toUpperCase()
     return enrichment?.prior_coverage?.find((p) => p.ticker === tk || p.ticker.toLowerCase() === name.toLowerCase().replace(/[^a-z0-9]/g, ''))
@@ -164,16 +144,10 @@ export function EventDetail({ it }: { it: FeedItem }) {
               {SCOPES[s].label}
             </span>
           )}
-          {tier && (
-            <span className="evdetail__tier" title={tier.meaning}>
-              {tier.label}
-            </span>
-          )}
+          {tier && <span className="evdetail__tier" title={tier.meaning}>{tier.label}</span>}
           <span className={`evdetail__band${kept ? ' evdetail__band--kept' : ''}`}>{plainBand(it.band)}</span>
           <span className="evdetail__when">{fmtTime(it.ts)}</span>
-          <button type="button" className="evdetail__close" onClick={() => close(null)} aria-label="Back to events" title="Back to events">
-            ✕
-          </button>
+          <button type="button" className="evdetail__close" onClick={() => close(null)} aria-label="Back to events" title="Back to events">✕</button>
         </div>
 
         <h1 className="evdetail__headline">{it.headline}</h1>
@@ -193,77 +167,36 @@ export function EventDetail({ it }: { it: FeedItem }) {
           </div>
         )}
 
-        {/* at-a-glance read — the numbers the scanner already has */}
-        <div className="evdetail__glance">
-          <div className="evdetail__stat">
-            <span className="evdetail__stat-k">Materiality</span>
-            <span className="evdetail__stat-v">{it.triage_score}<span className="evdetail__stat-sub">/100 · {plainBand(it.band)}</span></span>
-          </div>
-          <div className="evdetail__stat">
-            <span className="evdetail__stat-k">Relevance</span>
-            <span className="evdetail__stat-v">{relevanceLabel(it.relevance)}</span>
-          </div>
-          <div className="evdetail__stat">
-            <span className="evdetail__stat-k">Source</span>
-            <span className="evdetail__stat-v">{tier?.label || '—'}</span>
-          </div>
-          <div className="evdetail__stat">
-            <span className="evdetail__stat-k">Newness</span>
-            <span className="evdetail__stat-v">{it.dedup_status === 'possible_duplicate' ? 'Seen before' : 'New to us'}</span>
-          </div>
-          {it.size_bucket && it.size_bucket !== 'unknown' && (
-            <div className="evdetail__stat">
-              <span className="evdetail__stat-k">Size</span>
-              <span className="evdetail__stat-v">{plainSize(it.size_bucket)}</span>
-            </div>
-          )}
-        </div>
+        {/* THE STORY — the crux, read from the article body */}
+        <StoryBlock enr={enr} />
 
-        {/* the one-glance judgement — how to play it, then the reasons FOR and AGAINST a paid check */}
-        <div className="evdetail__verdict">
-          <div className="evdetail__play">
-            <span className="evdetail__play-k">How to play it</span>
-            <span className="evdetail__play-v">{read.play}</span>
-          </div>
-          <div className="evdetail__pc">
-            <div className="evdetail__pccol evdetail__pccol--pro">
-              <div className="evdetail__pchead">Why look</div>
-              {read.pros.length ? (
-                <ul className="evdetail__pclist">{read.pros.map((p, i) => <li key={i}>{p}</li>)}</ul>
-              ) : (
-                <div className="evdetail__pcnone">Nothing strongly in its favour yet.</div>
-              )}
+        {/* WHO GAINS / WHO'S EXPOSED — the named read-through (only once we've read the body) */}
+        {didRead && (
+          <div className="evdetail__verdict">
+            <div className="evdetail__pc">
+              <div className="evdetail__pccol evdetail__pccol--pro">
+                <div className="evdetail__pchead">Who gains</div>
+                {benefits.length ? <PartyList parties={benefits} /> : <div className="evdetail__pcnone">No specific winners named in the article.</div>}
+              </div>
+              <div className="evdetail__pccol evdetail__pccol--con">
+                <div className="evdetail__pchead">Who’s exposed</div>
+                {exposed.length ? <PartyList parties={exposed} /> : <div className="evdetail__pcnone">No specific losers named in the article.</div>}
+              </div>
             </div>
-            <div className="evdetail__pccol evdetail__pccol--con">
-              <div className="evdetail__pchead">Why skip</div>
-              {read.cons.length ? (
-                <ul className="evdetail__pclist">{read.cons.map((c, i) => <li key={i}>{c}</li>)}</ul>
-              ) : (
-                <div className="evdetail__pcnone">No obvious reason to pass.</div>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {it.triage_reason && (
-          <div className="evdetail__block">
-            <div className="evdetail__label">Why the scanner {kept ? 'kept' : 'dropped'} it</div>
-            <p className="evdetail__why">{it.triage_reason}</p>
           </div>
         )}
 
-        {/* the real detail — fetched on open, never on the firehose path */}
-        <StoryBlock it={it} enr={enr} />
-
-        {!!it.companies?.length && (
+        {/* COMPANIES NAMED — firms only, with their role + whether we've analysed them */}
+        {companies.length ? (
           <div className="evdetail__block">
             <div className="evdetail__label">Companies named</div>
             <div className="evdetail__colist">
-              {it.companies.map((c, i) => {
+              {companies.map((c, i) => {
                 const cov = coverageFor(c.name, c.ticker)
                 return (
                   <div key={`${c.name}-${i}`} className="evdetail__co">
                     <span className="evdetail__chip evdetail__chip--co">{[c.name, c.ticker, c.listing_country].filter(Boolean).join(' · ')}</span>
+                    {c.role && c.role !== 'mentioned' && <span className="evdetail__role">{roleLabel(c.role)}</span>}
                     {cov ? (
                       <span className={`evdetail__cov evdetail__cov--${cov.kind}`} title={cov.path}>{cov.kind === 'analysis' ? '✓ ' : ''}{cov.detail}</span>
                     ) : (
@@ -273,24 +206,27 @@ export function EventDetail({ it }: { it: FeedItem }) {
                 )
               })}
             </div>
-            <div className="evdetail__hint">Guessed from the headline alone — the checks verify this properly.</div>
+            {!enrichment?.companies?.length && <div className="evdetail__hint">Guessed from the headline — the checks verify this properly.</div>}
           </div>
-        )}
-
-        {!!it.event_types?.length && (
+        ) : didRead ? (
           <div className="evdetail__block">
-            <div className="evdetail__label">Themes</div>
+            <div className="evdetail__label">Companies named</div>
+            <div className="evdetail__hint">No company is the subject — this is a {fam === 'broad' ? 'macro / sector / policy' : 'broad'} read, not a single name.</div>
+          </div>
+        ) : null}
+
+        {/* THEME — the corrected single tag */}
+        {themeKey && (
+          <div className="evdetail__block">
+            <div className="evdetail__label">Theme</div>
             <div className="evdetail__chips">
-              {it.event_types.map((t) => (
-                <span key={t} className="evdetail__chip evdetail__chip--theme">
-                  {plainTheme(t)}
-                </span>
-              ))}
+              <span className="evdetail__chip evdetail__chip--theme">{plainTheme(themeKey)}</span>
+              {s !== 'unknown' && <span className="evdetail__chip">{SCOPES[s].label}</span>}
             </div>
           </div>
         )}
 
-        {/* related — only genuinely on-topic items (same company or real headline overlap), else say so */}
+        {/* RELATED — only genuinely on-topic items, else say so */}
         {enrichment && (
           <div className="evdetail__block">
             <div className="evdetail__label">Related recent events</div>
@@ -316,9 +252,7 @@ export function EventDetail({ it }: { it: FeedItem }) {
             {shelved ? 'Bring back' : 'Set aside'}
           </button>
           {it.url && (
-            <a className="btn btn--ghost" href={it.url} target="_blank" rel="noreferrer">
-              Open source ↗
-            </a>
+            <a className="btn btn--ghost" href={it.url} target="_blank" rel="noreferrer">Open source ↗</a>
           )}
           <button className="btn btn--amber" onClick={() => void run(it)} title={staticMode ? 'Runs on your local machine (npm run dev)' : 'Send this event through the screener checks'}>
             Run the checks ▸
