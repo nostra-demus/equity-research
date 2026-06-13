@@ -32,12 +32,31 @@ const DENY = new Set<string>([
   // generic placeholders / parser junk
   '[]', 'n/a', 'na', 'none', 'unknown', 'the company', 'company', 'the firm', 'firm', 'unnamed', 'certain entities',
   'startups', 'hyperscalers', 'discoms', 'others', 'various', 'major tyre maker', 'a major tyre maker', 'analysts', 'investors',
+  // named INDIVIDUALS (politicians / public figures) — drivers of an event, never an investable position.
+  // Curated to the ones that actually leak through; the title-prefix patterns below catch the long tail.
+  // Bare surnames that collide with a real listed firm (Powell→Powell Industries, Reddy→Dr Reddy's,
+  // Xi) are deliberately NOT listed here — only the full disambiguated forms are.
+  'trump', 'donald trump', 'donald j trump', 'us president donald trump', 'president donald trump', 'president trump',
+  'trump administration', 'trump allies', 'melania trump', 'modi', 'narendra modi', 'pm modi', 'prime minister modi',
+  'macron', 'emmanuel macron', 'putin', 'vladimir putin', 'xi jinping', 'president xi', 'biden', 'joe biden',
+  'kamala harris', 'netanyahu', 'benjamin netanyahu', 'zelensky', 'zelenskyy', 'volodymyr zelensky', 'erdogan',
+  'rishi sunak', 'keir starmer', 'starmer', 'jeff bezos', 'bezos', 'elon musk', 'sam altman', 'mark zuckerberg',
+  'jensen huang', 'warren buffett', 'jerome powell', 'jay powell', 'nirmala sitharaman', 'shaktikanta das',
+  'g kishan reddy', 'kishan reddy', 'nino guerrero', 'tren de aragua',
+  // DEMOGRAPHIC / role classes — populations, not firms (they leaked in as "companies")
+  'foreign nationals', 'foreign national', 'patients', 'clinical trial patients', 'customers', 'sbi customers',
+  'consumers', 'creditors', 'lenders', 'shareholders', 'tendering shareholders', 'retail investors', 'depositors',
+  'fraudsters', 'criminals', 'employees', 'workers', 'taxpayers', 'voters', 'migrants', 'residents', 'india military',
 ])
 
-// pattern denylist — whole-name shapes that are always institutions, not firms
+// pattern denylist — whole-name shapes that are always institutions or people, not firms
 const DENY_RE = [
   /^ministry of /, /^department of /, /^bank of [a-z]+$/, /^(reserve|central|national) bank/, /\bcommission$/,
   /\b(authority|regulator|regulators|tribunal|parliament|ministry|govt|government)\b/, /^[a-z]$/,
+  // titled individuals — honorific/office PREFIXES that no real company name starts with
+  /^(mr|mrs|ms|miss|prof|professor|sir|dame|lord|rev|reverend|senator|congressman|congresswoman|justice|governor|ambassador|ayatollah|pope|crown prince) /,
+  // any "<dept> minister", "minister of/for X", or a bare "X minister" — a person/office, not a firm
+  /\bminister\b/,
 ]
 
 /** True only for a plausible investable FIRM. False for countries, regions, indices, central banks,

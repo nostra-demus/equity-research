@@ -15,6 +15,34 @@ export interface OrderSignals {
   avg_score: number // 0–100, mean member triage_score for items naming it (materiality)
   dominant_linkage: 'primary' | 'secondary' | 'sector' | 'macro' | ''
   dominant_event_type: string // '' when none
+  solo_headlines?: string[] // headlines where this was the ONLY named company (single-subject → side is safe to read)
+}
+
+// Directional cue words for the deterministic beneficiary/harmed read. Deliberately TIGHT: only words
+// that point one way for the SUBJECT of a single-company headline. Ambiguous words (order, cut, partners,
+// acquires, dividend, stake) are excluded — they flip meaning by context and would mis-side the company.
+const HARM_RE = /\b(administration|insolven\w*|liquidat\w*|bankrupt\w*|winding up|wind-up|defaults?|defaulting|fraud\w*|scam|probe|investigat\w*|lawsuit|sued|fined?|penalt\w*|enforcement|sanction\w*|banned|recalls?|recalled|breach|hacked?|cyberattack|outage|shutdown|resign\w*|ousted|slumps?|plunges?|crash\w*|miss(es|ed)?|warns?|warning|downgrade[ds]?|delist\w*|writedown|impair\w*|losses?|halts?)\b/
+const GAIN_RE = /\b(wins?|won|awarded|bags|secures?|approvals?|approved|cleared|first-to-market|positive|beats?|tops?|surges?|soars?|jumps?|upgrade[ds]?|buyback|launch(es|ed)?|expands?|milestone)\b/
+const HARM_EVENTS = new Set(['litigation_enforcement', 'debt_credit', 'cybersecurity'])
+
+/**
+ * Deterministic beneficiary/harmed read — CONSERVATIVE by design. Only reads a side from headlines where
+ * this company was the SOLE named subject (so a cue like "beats" can't be misattributed across two firms,
+ * the wrong-stock error the 50-article eval flagged). Multi-company or unclear → 'mixed', deferred to the
+ * LLM impact pass. Net of gain vs harm cues plus a one-way event-type nudge for unambiguously-bad events.
+ */
+export function sideFromHeadlines(solo: string[] | undefined, dominantEvent: string): ImpactSide {
+  if (!solo || !solo.length) return 'mixed'
+  let net = 0
+  for (const h of solo) {
+    const s = String(h).toLowerCase()
+    if (HARM_RE.test(s)) net -= 1
+    if (GAIN_RE.test(s)) net += 1
+  }
+  if (HARM_EVENTS.has(dominantEvent)) net -= 1
+  if (net >= 1) return 'beneficiary'
+  if (net <= -1) return 'harmed'
+  return 'mixed'
 }
 
 const FAST_EVENTS = new Set(['mna', 'guidance_change', 'debt_credit', 'capital_actions', 'litigation_enforcement'])
@@ -50,6 +78,7 @@ export function companyImpact(s: OrderSignals): { impact: Impact; order: OrderTi
   return {
     impact: { directness, magnitude, speed, reversibility, composite },
     order: orderTierFor(composite),
-    side: 'mixed', // refined by the Claude discovery pass (beneficiary vs harmed)
+    // conservative deterministic side from single-subject headlines; the LLM impact pass refines/widens it
+    side: sideFromHeadlines(s.solo_headlines, s.dominant_event_type),
   }
 }

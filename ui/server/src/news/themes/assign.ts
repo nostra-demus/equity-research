@@ -33,15 +33,18 @@ export function overlapScore(itemCompanyKeys: Set<string>, itemTokens: Set<strin
 /** Aggregate a theme's companies + sectors from its member ring and (re)assign order tiers. Members are
  *  the source of truth, so this is idempotent and self-healing — recomputed whenever members change. */
 export function rebuildThemeCompanies(theme: Theme): void {
-  interface Acc { name: string; ticker: string | null; listing_country: string | null; key: string; count: number; scoreSum: number; linkage: Record<string, number>; events: Record<string, number>; last: string }
+  interface Acc { name: string; ticker: string | null; listing_country: string | null; key: string; count: number; scoreSum: number; linkage: Record<string, number>; events: Record<string, number>; last: string; soloHeadlines: string[] }
   const byKey = new Map<string, Acc>()
   for (const m of theme.members) {
+    // real, investable companies named in THIS member (countries/agencies/people already filtered out)
+    const realKeys = (m.companies || []).map((c) => companyKeys([c]).values().next().value as string | undefined).filter(Boolean) as string[]
+    const solo = new Set(realKeys).size === 1 // single-subject member → its side is safe to read from the headline
     for (const c of m.companies || []) {
       const key = companyKeys([c]).values().next().value as string | undefined
-      if (!key) continue // not a real company (country/agency) → skipped
+      if (!key) continue // not a real company (country/agency/person) → skipped
       let a = byKey.get(key)
       if (!a) {
-        a = { name: c.name, ticker: c.ticker ?? null, listing_country: c.listing_country ?? null, key, count: 0, scoreSum: 0, linkage: {}, events: {}, last: m.found_at }
+        a = { name: c.name, ticker: c.ticker ?? null, listing_country: c.listing_country ?? null, key, count: 0, scoreSum: 0, linkage: {}, events: {}, last: m.found_at, soloHeadlines: [] }
         byKey.set(key, a)
       }
       a.count++
@@ -50,6 +53,7 @@ export function rebuildThemeCompanies(theme: Theme): void {
       if (m.issuer_linkage) a.linkage[m.issuer_linkage] = (a.linkage[m.issuer_linkage] || 0) + 1
       for (const ev of m.event_types || []) a.events[ev] = (a.events[ev] || 0) + 1
       if (m.found_at > a.last) a.last = m.found_at
+      if (solo && m.headline) a.soloHeadlines.push(m.headline)
     }
   }
   const dominant = (votes: Record<string, number>): string => Object.entries(votes).sort((x, y) => y[1] - x[1])[0]?.[0] || ''
@@ -59,6 +63,7 @@ export function rebuildThemeCompanies(theme: Theme): void {
       avg_score: a.count ? a.scoreSum / a.count : 0,
       dominant_linkage: (dominant(a.linkage) as any) || '',
       dominant_event_type: dominant(a.events),
+      solo_headlines: a.soloHeadlines,
     })
     return { name: a.name, ticker: a.ticker, listing_country: a.listing_country, name_key: a.key, order, side, impact, mention_count: a.count, last_seen: a.last }
   })
