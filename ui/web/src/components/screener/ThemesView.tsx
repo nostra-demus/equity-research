@@ -127,7 +127,7 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
           >
             <span className="themenode__core" />
             <span className="themenode__count">{t.member_count}</span>
-            <span className="themenode__label" style={{ maxWidth: n.labelW }}>{t.name}</span>
+            <span className="themenode__label" style={{ width: n.labelW, WebkitLineClamp: 3, color: 'var(--text)' }}>{t.name}</span>
           </button>
         )
       })}
@@ -149,7 +149,7 @@ function MapTooltip({ theme }: { theme: Theme }) {
 
 interface MapNode { id: string; x: number; y: number; r: number; flow: boolean; labelW: number; theme: Theme }
 function computeMapLayout(themes: Theme[], W: number, H: number) {
-  const coreX = W * 0.28, coreY = H * 0.5, coreR = Math.min(32, H * 0.06)
+  const coreX = W * 0.26, coreY = H * 0.5, coreR = Math.min(32, H * 0.06)
   const laneTiers = [
     { id: 'primary_filing', label: 'Filings' },
     { id: 'official_data', label: 'Official' },
@@ -157,36 +157,42 @@ function computeMapLayout(themes: Theme[], W: number, H: number) {
     { id: 'news', label: 'News' },
     { id: 'unconfirmed', label: 'Rumour' },
   ]
-  const laneX = W * 0.06
+  const laneX = W * 0.05
   const lanes = laneTiers.map((t, i) => ({ ...t, x: laneX, y: H * 0.18 + (i * (H * 0.64)) / (laneTiers.length - 1) }))
 
-  // Basins: hottest first, packed into balanced columns where each theme gets a fixed vertical SLOT
-  // that reserves room for its label UNDERNEATH the orb — so an orb and its caption can never collide
-  // with the next orb (the old layout spaced by orb radius only, which is why labels overlapped).
-  const LABEL_H = 30, GAP = 16, TOP = H * 0.07, BOT = H * 0.05
-  const usable = Math.max(140, H - TOP - BOT)
-  const maxR = Math.min(38, H * 0.072)
+  // Each theme gets a wide label box (up to 3 lines) so the FULL name shows, and a matching tall
+  // vertical SLOT so the name never collides with the orb beneath it. The basin band is inset on the
+  // right by half a label so the rightmost name can't clip; columns are limited to what fits the
+  // width so labels never collide sideways either.
+  const labelW = Math.round(Math.max(170, Math.min(250, W * 0.25)))
+  const LABEL_H = 46, GAP = 16, TOP = H * 0.06, BOT = H * 0.05
+  const usable = Math.max(150, H - TOP - BOT)
+  const maxR = Math.min(34, H * 0.066)
   const ranked = [...themes].sort((a, b) => heatOf(b) - heatOf(a)).slice(0, 16)
   const items = ranked.map((t) => ({ t, r: radiusFor(t.member_count, 13, maxR), flow: t.fresh_flow > 0 }))
   const slotH = (it: { r: number }) => it.r * 2 + LABEL_H + GAP
 
-  // smallest column count (2..4) whose greedy top-down fill keeps every column within the height
-  const greedyCols = (K: number) => {
+  const basinL = Math.max(W * 0.44, coreX + coreR + 96)
+  const basinR = W - (labelW / 2 + 16)
+  const horizMax = Math.max(1, Math.min(4, Math.floor((basinR - basinL) / (labelW + 18)) + 1))
+
+  // greedy top-down fill that NEVER overflows a column — overflow past the last column is dropped
+  // (the coldest themes; they still live in the Board view). Pick the smallest K that fits all.
+  const greedyFit = (K: number) => {
     const cols: { r: number; t: Theme; flow: boolean }[][] = Array.from({ length: K }, () => [])
+    const dropped: typeof items = []
     let c = 0, h = 0
     for (const it of items) {
       const sh = slotH(it)
-      if (h + sh > usable && c < K - 1) { c++; h = 0 }
+      if (h + sh > usable) { if (c < K - 1) { c++; h = 0 } else { dropped.push(it); continue } }
       cols[c].push(it); h += sh
     }
-    return { cols, ok: cols.every((col) => col.reduce((s, it) => s + slotH(it), 0) <= usable + 0.5) }
+    return { cols, dropped }
   }
-  let K = 2, packed = greedyCols(2)
-  while (!packed.ok && K < 4) { K++; packed = greedyCols(K) }
+  let K = Math.min(2, horizMax), packed = greedyFit(K)
+  while (packed.dropped.length && K < horizMax) { K++; packed = greedyFit(K) }
 
-  const basinL = W * 0.5, basinR = W * 0.92
   const spacing = K > 1 ? (basinR - basinL) / (K - 1) : 0
-  const labelW = Math.max(92, Math.min(168, (spacing || basinR - basinL) - 16))
   const colX = (c: number) => (K === 1 ? (basinL + basinR) / 2 : basinL + spacing * c)
 
   const nodes: MapNode[] = []
