@@ -98,7 +98,11 @@ export const NEWS = {
   // Master switch. Default: ON iff a key exists. Set NEWS_INGEST_ENABLED=0 to force off even with a key.
   enabled: process.env.NEWS_INGEST_ENABLED === '0' ? false : Boolean(process.env.GROQ_API_KEY),
   // How often the in-server scheduler runs a cycle (the standalone --once entrypoint ignores this).
-  pollIntervalMin: capNum(process.env.NEWS_POLL_INTERVAL_MIN, 15),
+  // 5 min (down from 15): fresher headline intake + more frequent dot bursts on the themes map. Safe —
+  // Groq scoring is paced separately (RPM/TPM, learned from live headers) and the daily caps defer
+  // excess, so a tighter fetch can't bust limits; the binding floor is RSS source politeness (a full
+  // 351-feed sweep is ~30-50s, so 5 min keeps it well-spaced). Tune with NEWS_POLL_INTERVAL_MIN.
+  pollIntervalMin: capNum(process.env.NEWS_POLL_INTERVAL_MIN, 5),
   // Daily Groq budget guards. A cycle refuses to call Groq past either cap; unscored items defer to
   // the next cycle (never lost, never zero-scored). Raised for the expanded source set (351 RSS feeds
   // + NSE + GDELT generate far more items/day than the old caps could score). These are the binding
