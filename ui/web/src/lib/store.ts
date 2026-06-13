@@ -188,6 +188,7 @@ interface State {
   // ---- the news wire (live scanner view) + manual board actions + kill switch ----
   newsFeedOpen: boolean
   newsItems: FeedItem[]
+  freshEvents: Set<string> // event_ids that just streamed in over SSE — drive the "new detected" glow
   newsStatus: NewsStatus | null
   globalActive: ActiveRunLite[]
   stopListOpen: boolean
@@ -275,6 +276,7 @@ export const useStore = create<State>((set, get) => ({
   enrichCache: {},
   newsFeedOpen: false,
   newsItems: [],
+  freshEvents: new Set(),
   newsStatus: null,
   themes: [],
   themesView: null,
@@ -1154,7 +1156,19 @@ export const useStore = create<State>((set, get) => ({
       const it = e.item as FeedItem
       // a refresh that read the file in the append→emit window may already hold this item
       if (get().newsItems.some((x) => x.event_id === it.event_id && x.ts === it.ts)) return
-      set({ newsItems: [it, ...get().newsItems].slice(0, 1000) })
+      // mark it FRESH so the rail glows it in ("new detected"); the glow self-expires after FRESH_MS so
+      // it never lingers and never fires on backfill (only genuine live SSE arrivals pass through here)
+      const fresh = new Set(get().freshEvents)
+      fresh.add(it.event_id)
+      set({ newsItems: [it, ...get().newsItems].slice(0, 1000), freshEvents: fresh })
+      const prev = freshTimers.get(it.event_id)
+      if (prev) clearTimeout(prev)
+      freshTimers.set(it.event_id, setTimeout(() => {
+        freshTimers.delete(it.event_id)
+        const n = new Set(get().freshEvents)
+        n.delete(it.event_id)
+        set({ freshEvents: n })
+      }, FRESH_MS))
     } else if (e?.type === 'news-cycle') {
       void get().refreshNewsStatus()
       if (get().activeSwarm === 'screener') void get().scRefreshBoard() // the board is screener UI — don't refetch it from the research swarm every cycle
@@ -1431,6 +1445,10 @@ function closeRunSource(runId?: string) {
 }
 
 // ---- the news wire's live stream (one global EventSource, like dataSource) ----
+// "new detected" glow: an event_id stays in freshEvents for FRESH_MS after it streams in, then clears
+// itself so the glow plays exactly once. Timers tracked here so a re-seen id resets cleanly.
+const FRESH_MS = 2600
+const freshTimers = new Map<string, ReturnType<typeof setTimeout>>()
 let newsSource: EventSource | null = null
 function connectNewsStream(get: () => State) {
   if (newsSource) return

@@ -1,10 +1,13 @@
 // The persistent left rail of the Screener stage: a live, ranked list of everything the auto-scanner
 // reads. New items stream in over SSE the moment a cycle scores them (and backfill from disk on mount,
-// so it survives a reload). "Ranked" sorts the events worth a look by score; "Everything" is the raw
-// firehose, newest first. A SCOPE filter splits the wire into what a buy-side reader can act on —
-// company-specific names vs broad macro/sector/commodity/policy context — so "what should I work on?"
-// is answerable at a glance. The same story reworded or carried by several outlets collapses into ONE
-// row (server dedup) with a "+N · also …" expander; multi-source corroboration nudges its rank up.
+// so it survives a reload). Three ways to read the wire:
+//   • Ranked     — the events worth a look, sorted by score (what's most important right now).
+//   • Latest     — the SAME good events, newest-first: a live stream where each fresh item glows in at
+//                  the top the moment it's detected ("something new just landed").
+//   • Everything — the raw firehose, newest first (includes the low-signal tail).
+// A SCOPE filter splits the wire into what a buy-side reader can act on — company-specific names vs broad
+// macro/sector/commodity/policy context. The same story reworded or carried by several outlets collapses
+// into ONE row (server dedup) with a "+N · also …" expander; multi-source corroboration nudges its rank.
 // Click a row to read the whole event; set aside the ones not worth a check.
 
 import { useEffect, useMemo, useState } from 'react'
@@ -14,7 +17,7 @@ import { BROAD_SCOPES, COMPANY_SCOPES, familyOf, isCompanyNameClient, SCOPES, sc
 import { useStore } from '../../lib/store'
 import type { FeedItem } from '../../lib/types'
 
-type Scope = 'kept' | 'all'
+type View = 'ranked' | 'latest' | 'all'
 
 const hhmm = (iso?: string) => (iso ? iso.slice(11, 16) : '')
 const agoMin = (iso?: string | null) => (iso ? Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 60_000)) : null)
@@ -31,7 +34,7 @@ function ScopeChip({ it }: { it: FeedItem }) {
   )
 }
 
-function EventRow({ group, selected, shelved, onPick, onShelve }: { group: StoryGroup; selected: boolean; shelved: boolean; onPick: (it: FeedItem) => void; onShelve: (id: string) => void }) {
+function EventRow({ group, selected, shelved, fresh, onPick, onShelve }: { group: StoryGroup; selected: boolean; shelved: boolean; fresh: boolean; onPick: (it: FeedItem) => void; onShelve: (id: string) => void }) {
   const it = group.rep
   const [expanded, setExpanded] = useState(false)
   const kept = it.band !== 'drop'
@@ -45,7 +48,8 @@ function EventRow({ group, selected, shelved, onPick, onShelve }: { group: Story
       ? `+${group.others.length} more`
       : ''
   return (
-    <div className={`evrow${selected ? ' evrow--on' : ''}${kept ? '' : ' evrow--dropped'}${shelved ? ' evrow--shelved' : ''}`}>
+    <div className={`evrow${selected ? ' evrow--on' : ''}${kept ? '' : ' evrow--dropped'}${shelved ? ' evrow--shelved' : ''}${fresh ? ' evrow--fresh' : ''}`}>
+      {fresh && <span className="evrow__glow" aria-hidden />}
       <button type="button" className="evrow__hit" onClick={() => onPick(it)} title={it.headline}>
         <span className="evrow__rail" aria-hidden style={{ background: tone }} />
         <span className="evrow__top">
@@ -107,6 +111,7 @@ function EventRow({ group, selected, shelved, onPick, onShelve }: { group: Story
 
 export function EventRail() {
   const items = useStore((s) => s.newsItems)
+  const freshEvents = useStore((s) => s.freshEvents)
   const status = useStore((s) => s.newsStatus)
   const selected = useStore((s) => s.scSelectedEvent)
   const ensure = useStore((s) => s.scEnsureNewsStream)
@@ -117,7 +122,7 @@ export function EventRail() {
   const themesOpen = useStore((s) => s.themesView !== null)
   const openThemes = useStore((s) => s.openThemes)
   const closeThemes = useStore((s) => s.closeThemes)
-  const [scope, setScope] = useState<Scope>('kept')
+  const [view, setView] = useState<View>('ranked')
   // multi-select: empty = show everything; otherwise show the UNION of the picked scopes
   const [scopeFilter, setScopeFilter] = useState<Set<ScopeId>>(new Set())
   const [showShelved, setShowShelved] = useState(false)
@@ -126,6 +131,7 @@ export function EventRail() {
     next.has(s) ? next.delete(s) : next.add(s)
     setScopeFilter(next)
   }
+  const pickView = (v: View) => { setView(v); if (themesOpen) closeThemes() }
 
   // backfill + attach the live stream the moment the rail mounts (self-healing if scInit raced)
   useEffect(() => {
@@ -138,18 +144,18 @@ export function EventRail() {
     return () => clearInterval(id)
   }, [refreshStatus])
 
-  // number of distinct kept STORIES (after story-collapse) — what the "Ranked" segment counts
+  // number of distinct kept STORIES (after story-collapse) — what the "Ranked" / "Latest" segments count
   const keptCount = useMemo(() => groupByDedup(items.filter((i) => i.band !== 'drop')).length, [items])
 
-  // the band-filtered wire, collapsed into one entry per story, sorted by the current mode. Ranked uses
-  // the corroboration-boosted score (a multi-source story rises); Everything is newest-first.
+  // the wire, collapsed into one entry per story, sorted by the current view. Ranked → corroboration-
+  // boosted score (a multi-source story rises); Latest & Everything → newest-first (the live stream).
   const groups = useMemo(() => {
-    const inScopeBand = scope === 'all' ? items : items.filter((i) => i.band !== 'drop')
-    const gs = groupByDedup(inScopeBand)
-    if (scope === 'all') gs.sort((a, b) => (a.rep.ts < b.rep.ts ? 1 : -1))
-    else gs.sort((a, b) => b.effectiveScore - a.effectiveScore || (a.rep.ts < b.rep.ts ? 1 : -1))
+    const inBand = view === 'all' ? items : items.filter((i) => i.band !== 'drop')
+    const gs = groupByDedup(inBand)
+    if (view === 'ranked') gs.sort((a, b) => b.effectiveScore - a.effectiveScore || (a.rep.ts < b.rep.ts ? 1 : -1))
+    else gs.sort((a, b) => (a.rep.ts < b.rep.ts ? 1 : -1)) // latest + everything: newest first
     return gs
-  }, [items, scope])
+  }, [items, view])
 
   // story groups minus the ones the user set aside (the rep carries the group's shelved state)
   const baseGroups = useMemo(() => (showShelved ? groups : groups.filter((g) => !shelvedEvents.has(g.rep.event_id))), [groups, shelvedEvents, showShelved])
@@ -164,6 +170,7 @@ export function EventRail() {
   const broadTotal = BROAD_SCOPES.reduce((n, s) => n + (counts[s] || 0), 0)
 
   const visibleGroups = useMemo(() => (scopeFilter.size ? baseGroups.filter((g) => scopeFilter.has(scopeOf(g.rep))) : baseGroups), [baseGroups, scopeFilter])
+  const isFresh = (g: StoryGroup) => g.members.some((m) => freshEvents.has(m.event_id))
 
   const shelvedInBand = useMemo(() => groups.reduce((n, g) => n + (shelvedEvents.has(g.rep.event_id) ? 1 : 0), 0), [groups, shelvedEvents])
 
@@ -203,14 +210,18 @@ export function EventRail() {
           <span className={`evrail__dot${status?.enabled ? ' evrail__dot--live' : ''}`} aria-hidden />
         </div>
         <div className="evrail__status">{statusLine}</div>
-        <div className="evrail__seg" role="radiogroup" aria-label="Which events to show">
-          <button type="button" role="radio" aria-checked={scope === 'kept'} className={`evrail__segbtn${scope === 'kept' ? ' evrail__segbtn--on' : ''}`} onClick={() => setScope('kept')}>
+        <div className="evrail__seg" role="radiogroup" aria-label="How to view the wire">
+          <button type="button" role="radio" aria-checked={view === 'ranked' && !themesOpen} className={`evrail__segbtn${view === 'ranked' && !themesOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => pickView('ranked')} title="The events worth a look, most important first">
             Ranked{keptCount ? ` · ${keptCount}` : ''}
           </button>
-          <button type="button" role="radio" aria-checked={scope === 'all' && !themesOpen} className={`evrail__segbtn${scope === 'all' && !themesOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => { setScope('all'); if (themesOpen) closeThemes() }}>
-            Everything{items.length ? ` · ${items.length}` : ''}
+          <button type="button" role="radio" aria-checked={view === 'latest' && !themesOpen} className={`evrail__segbtn${view === 'latest' && !themesOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => pickView('latest')} title="The same events, newest first — a live stream as news lands">
+            {status?.enabled && <span className="evrail__segpulse" aria-hidden />}
+            Latest
           </button>
-          <button type="button" role="radio" aria-checked={themesOpen} className={`evrail__segbtn${themesOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => void openThemes('map')}>
+          <button type="button" role="radio" aria-checked={view === 'all' && !themesOpen} className={`evrail__segbtn${view === 'all' && !themesOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => pickView('all')} title={`The full firehose, newest first${items.length ? ` (${items.length})` : ''} — includes the low-signal tail`}>
+            Everything
+          </button>
+          <button type="button" role="radio" aria-checked={themesOpen} className={`evrail__segbtn${themesOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => void openThemes('map')} title="The wire clustered into living investment themes">
             Themes
           </button>
         </div>
@@ -239,14 +250,16 @@ export function EventRail() {
 
       <div className="evrail__list">
         {visibleGroups.map((g) => (
-          <EventRow key={g.group} group={g} selected={inGroup(selected, g)} shelved={shelvedEvents.has(g.rep.event_id)} onPick={pick} onShelve={toggleShelve} />
+          <EventRow key={g.group} group={g} selected={inGroup(selected, g)} shelved={shelvedEvents.has(g.rep.event_id)} fresh={isFresh(g)} onPick={pick} onShelve={toggleShelve} />
         ))}
         {!visibleGroups.length && (
           <div className="evrail__empty">
             {scopeFilter.size
               ? `Nothing in the selected ${scopeFilter.size === 1 ? `“${SCOPES[[...scopeFilter][0]].label}”` : 'categories'} right now — tap All to see the rest.`
               : items.length
-                ? 'Nothing ranked yet — switch to Everything to see the full wire.'
+                ? view === 'ranked'
+                  ? 'Nothing ranked yet — switch to Everything to see the full wire.'
+                  : 'Nothing here yet — new events appear the moment the scanner scores them.'
                 : status?.enabled
                   ? 'Nothing read yet. New events appear here the moment the scanner scores them.'
                   : 'The auto-scan is off, so the wire is quiet. You can still check an event yourself from the top bar.'}
