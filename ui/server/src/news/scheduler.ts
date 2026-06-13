@@ -50,8 +50,10 @@ function geminiPoolUsage(): { used: number; cap: number; tokens: number } | null
   const day = geminiToday()
   let used = 0
   let tokens = 0
-  for (const m of NEWS.geminiModels) {
-    const f = path.join(STATE_DIR, `gemini-budget-${m.replace(/[^a-z0-9]+/gi, '-')}.json`)
+  let cap = 0
+  for (const e of NEWS.geminiModels) {
+    cap += e.dailyReqCap
+    const f = path.join(STATE_DIR, `gemini-budget-${e.model.replace(/[^a-z0-9]+/gi, '-')}.json`)
     try {
       const g = JSON.parse(fs.readFileSync(f, 'utf8'))
       if (g?.date === day) { used += Number(g.requests) || 0; tokens += Number(g.tokens) || 0 }
@@ -59,7 +61,7 @@ function geminiPoolUsage(): { used: number; cap: number; tokens: number } | null
       // missing/unreadable model budget counts as 0 used (fresh)
     }
   }
-  return { used, cap: NEWS.geminiModels.length * NEWS.geminiDailyReqCap, tokens }
+  return { used, cap, tokens }
 }
 
 /** Any free room left across the whole Gemini pool today? */

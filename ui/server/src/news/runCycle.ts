@@ -176,7 +176,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   // Groq-only path is byte-for-byte unchanged.
   const geminiOn = cfg.geminiEnabled && !!cfg.geminiApiKey && cfg.geminiModels.length > 0
   const geminiPool = geminiOn
-    ? cfg.geminiModels.map((m) => ({ model: m, budget: Budget.load(stateDir, cfg.geminiDailyReqCap, cfg.geminiDailyTokenCap, now().getTime(), `gemini-budget-${m.replace(/[^a-z0-9]+/gi, '-')}.json`, cfg.geminiDayTz) }))
+    ? cfg.geminiModels.map((e) => ({ model: e.model, budget: Budget.load(stateDir, e.dailyReqCap, cfg.geminiDailyTokenCap, now().getTime(), `gemini-budget-${e.model.replace(/[^a-z0-9]+/gi, '-')}.json`, cfg.geminiDayTz) }))
     : []
   const geminiLimiter = geminiOn ? getSharedGeminiLimiter(cfg.geminiRpm, cfg.geminiTpm) : null
   const triaged: TriagedItem[] = []
