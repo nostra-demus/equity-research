@@ -1,11 +1,1450 @@
 {
-  "_doc": "Layer 2 of the screener's news ingestion (CLAUDE.md-versioned doctrine, not engine code): direct publisher RSS/Atom feeds, polled alongside GDELT every cycle. Items still pass the approved-domains firewall on their LINK domain — adding a feed here never bypasses Gate 0. Every URL below was verified live before being added. Known non-starters, checked and excluded: Reuters (no public RSS since 2020), Business Standard + Moneycontrol (bot-block RSS with 403), EIA (connection refused). The SEC requires a descriptive User-Agent with a contact — set NEWS_RSS_USER_AGENT if the default is ever rejected.",
+  "_doc": "Layer 2 of the screener's news ingestion (CLAUDE.md-versioned doctrine, not engine code): direct publisher RSS/Atom feeds, polled alongside GDELT (Layer 1) and the NSE disclosure API (Layer 3) every cycle. Items still pass the approved-domains firewall on their LINK domain — adding a feed here never bypasses Gate 0. Every URL was verified live (HTTP 200 + parseable by scripts/verify-feeds.ts, which reuses the production parseFeed) before being added. The fetcher uses a browser User-Agent by default (UA-sniffing publishers soft-block bots); per-feed `user_agent` overrides it where required — SEC/.gov feeds carry a descriptive contact UA. Known non-starters, checked and excluded: Reuters (no public RSS since 2020) and AP/AFP direct (only via Google News, which we drop to preserve Gate-0 link-domain discipline) — these still arrive via GDELT; Business Standard RSS (403 on every UA). NSE/BSE corporate filings come via the NSE adapter (sources/nse.ts), not RSS. To add a feed: verify it with `npx tsx scripts/verify-feeds.ts`, then ensure its LINK domain is on the approved-domains firewall.",
   "feeds": [
-    { "url": "https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms", "source_name": "The Economic Times" },
-    { "url": "https://www.livemint.com/rss/markets", "source_name": "LiveMint" },
-    { "url": "https://www.cnbc.com/id/100003114/device/rss/rss.html", "source_name": "CNBC" },
-    { "url": "https://feeds.content.dowjones.io/public/rss/mw_topstories", "source_name": "MarketWatch" },
-    { "url": "https://www.ft.com/rss/home", "source_name": "Financial Times" },
-    { "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=8-K&company=&dateb=&owner=include&count=40&output=atom", "source_name": "SEC EDGAR" }
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=8-K&output=atom&count=100",
+      "source_name": "SEC EDGAR — Latest 8-K (Current Reports)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=10-K&output=atom&count=100",
+      "source_name": "SEC EDGAR — Latest 10-K (Annual Report)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=10-Q&output=atom&count=100",
+      "source_name": "SEC EDGAR — Latest 10-Q (Quarterly Report)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=6-K&output=atom&count=100",
+      "source_name": "SEC EDGAR — Latest 6-K (Foreign Private Issuer interim)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=20-F&output=atom&count=100",
+      "source_name": "SEC EDGAR — Latest 20-F (Foreign Annual Report)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=40-F&output=atom&count=100",
+      "source_name": "SEC EDGAR — Latest 40-F (Canadian Annual Report, MJDS)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=S-1&output=atom&count=100",
+      "source_name": "SEC EDGAR — Latest S-1 (IPO Registration)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=S-4&output=atom&count=100",
+      "source_name": "SEC EDGAR — Latest S-4 (M&A / Exchange-Offer Registration)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=424B2&output=atom&count=100",
+      "source_name": "SEC EDGAR — Latest 424B2 (Prospectus, shelf takedown)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=424B3&output=atom&count=100",
+      "source_name": "SEC EDGAR — Latest 424B3 (Prospectus)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=424B4&output=atom&count=100",
+      "source_name": "SEC EDGAR — Latest 424B4 (IPO/Offering Final Prospectus)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=424B5&output=atom&count=100",
+      "source_name": "SEC EDGAR — Latest 424B5 (Shelf Offering Final Prospectus)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=SC%2013D&output=atom&count=100",
+      "source_name": "SEC EDGAR — Latest SC 13D (Activist / >5% Beneficial Ownership)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=SC%2013D%2FA&output=atom&count=100",
+      "source_name": "SEC EDGAR — Latest SC 13D/A (13D Amendment)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=SC%2013G&output=atom&count=100",
+      "source_name": "SEC EDGAR — Latest SC 13G (Passive >5% Ownership)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=SC%20TO-T&output=atom&count=100",
+      "source_name": "SEC EDGAR — Latest SC TO-T (Third-Party Tender Offer)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=SC%2014D9&output=atom&count=100",
+      "source_name": "SEC EDGAR — Latest SC 14D9 (Target's Tender-Offer Response)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=DEF%2014A&output=atom&count=100",
+      "source_name": "SEC EDGAR — Latest DEF 14A (Definitive Proxy)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=DEFA14A&output=atom&count=100",
+      "source_name": "SEC EDGAR — Latest DEFA14A (Additional Proxy Soliciting Material)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=425&output=atom&count=100",
+      "source_name": "SEC EDGAR — Latest 425 (M&A Business-Combination Communications)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=NT%2010-K&output=atom&count=100",
+      "source_name": "SEC EDGAR — Latest NT 10-K (Late Annual Filing Notice)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=NT%2010-Q&output=atom&count=100",
+      "source_name": "SEC EDGAR — Latest NT 10-Q (Late Quarterly Filing Notice)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=25-NSE&output=atom&count=100",
+      "source_name": "SEC EDGAR — Latest 25-NSE (Delisting Notification)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=15-12B&output=atom&count=100",
+      "source_name": "SEC EDGAR — Latest 15-12B (Deregistration / Reporting Termination)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=13F-HR&output=atom&count=100",
+      "source_name": "SEC EDGAR — Latest 13F-HR (Institutional Holdings)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=11-K&output=atom&count=100",
+      "source_name": "SEC EDGAR — Latest 11-K (Employee Stock-Plan Annual Report)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=4&output=atom&count=100",
+      "source_name": "SEC EDGAR — Latest Form 4 (Insider Transactions)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=144&output=atom&count=100",
+      "source_name": "SEC EDGAR — Latest Form 144 (Proposed Insider Sale)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=SD&output=atom&count=100",
+      "source_name": "SEC EDGAR — Latest SD (Specialized Disclosure / Conflict Minerals)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=EFFECT&output=atom&count=100",
+      "source_name": "SEC EDGAR — Latest EFFECT (Registration Effectiveness Notice)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=&company=&dateb=&owner=include&count=100&output=atom",
+      "source_name": "SEC EDGAR — All Latest Filings (every form, getcurrent)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.eia.gov/rss/todayinenergy.xml",
+      "source_name": "U.S. Energy Information Administration — Today in Energy"
+    },
+    {
+      "url": "https://www.eia.gov/rss/press_rss.xml",
+      "source_name": "U.S. Energy Information Administration — Press Releases"
+    },
+    {
+      "url": "https://www.eia.gov/about/new/WNtest3.php",
+      "source_name": "U.S. Energy Information Administration — What's New"
+    },
+    {
+      "url": "https://www.eia.gov/petroleum/gasdiesel/includes/gas_diesel_rss.xml",
+      "source_name": "U.S. Energy Information Administration — Gasoline & Diesel Fuel Update"
+    },
+    {
+      "url": "https://www.eia.gov/petroleum/heatingoilpropane/includes/hopu_rss.xml",
+      "source_name": "U.S. Energy Information Administration — Heating Oil & Propane Update"
+    },
+    {
+      "url": "https://www.eia.gov/rss/testimony.xml",
+      "source_name": "U.S. Energy Information Administration — Congressional Testimony"
+    },
+    {
+      "url": "https://www.nass.usda.gov/rss/reports.xml",
+      "source_name": "USDA National Agricultural Statistics Service — Today's Reports"
+    },
+    {
+      "url": "https://www.nass.usda.gov/rss/news.xml",
+      "source_name": "USDA National Agricultural Statistics Service — News & Events"
+    },
+    {
+      "url": "https://www.nass.usda.gov/rss/asb.xml",
+      "source_name": "USDA NASS — Agricultural Statistics Board (ASB) Notices"
+    },
+    {
+      "url": "https://publicreporting.cftc.gov/api/views/6dca-aqww/rows.rss",
+      "source_name": "CFTC Commitments of Traders — Legacy (Futures Only)"
+    },
+    {
+      "url": "https://publicreporting.cftc.gov/api/views/72hh-3qpy/rows.rss",
+      "source_name": "CFTC Commitments of Traders — Disaggregated (Futures Only)"
+    },
+    {
+      "url": "https://publicreporting.cftc.gov/api/views/gpe5-46if/rows.rss",
+      "source_name": "CFTC Commitments of Traders — Traders in Financial Futures (TFF)"
+    },
+    {
+      "url": "https://www.federalreserve.gov/feeds/press_all.xml",
+      "source_name": "Federal Reserve Board — All Press Releases"
+    },
+    {
+      "url": "https://www.federalreserve.gov/feeds/press_monetary.xml",
+      "source_name": "Federal Reserve Board — Monetary Policy / FOMC"
+    },
+    {
+      "url": "https://www.federalreserve.gov/feeds/speeches.xml",
+      "source_name": "Federal Reserve Board — Speeches"
+    },
+    {
+      "url": "https://www.federalreserve.gov/feeds/testimony.xml",
+      "source_name": "Federal Reserve Board — Testimony"
+    },
+    {
+      "url": "https://www.federalreserve.gov/feeds/h15.xml",
+      "source_name": "Federal Reserve Board — Selected Interest Rates (H.15)"
+    },
+    {
+      "url": "https://www.federalreserve.gov/feeds/g19.xml",
+      "source_name": "Federal Reserve Board — Consumer Credit (G.19)"
+    },
+    {
+      "url": "https://www.federalreserve.gov/feeds/sloos.xml",
+      "source_name": "Federal Reserve Board — Senior Loan Officer Survey (SLOOS)"
+    },
+    {
+      "url": "https://www.federalreserve.gov/feeds/datadownload.xml",
+      "source_name": "Federal Reserve Board — Data Download Program (all data releases)"
+    },
+    {
+      "url": "https://www.bls.gov/feed/empsit.rss",
+      "source_name": "Bureau of Labor Statistics — Employment Situation (jobs report)"
+    },
+    {
+      "url": "https://www.bls.gov/feed/cpi.rss",
+      "source_name": "Bureau of Labor Statistics — Consumer Price Index (CPI)"
+    },
+    {
+      "url": "https://www.bls.gov/feed/ppi.rss",
+      "source_name": "Bureau of Labor Statistics — Producer Price Index (PPI)"
+    },
+    {
+      "url": "https://www.bls.gov/feed/jolts.rss",
+      "source_name": "Bureau of Labor Statistics — Job Openings & Labor Turnover (JOLTS)"
+    },
+    {
+      "url": "https://www.bls.gov/feed/eci.rss",
+      "source_name": "Bureau of Labor Statistics — Employment Cost Index (ECI)"
+    },
+    {
+      "url": "https://www.bls.gov/feed/ximpim.rss",
+      "source_name": "Bureau of Labor Statistics — U.S. Import & Export Prices"
+    },
+    {
+      "url": "https://apps.bea.gov/rss/rss.xml",
+      "source_name": "Bureau of Economic Analysis — News Releases (GDP, PCE, trade)"
+    },
+    {
+      "url": "https://www.census.gov/economic-indicators/indicator.xml",
+      "source_name": "U.S. Census Bureau — Economic Indicators"
+    },
+    {
+      "url": "https://www.cbo.gov/publications/all/rss.xml",
+      "source_name": "Congressional Budget Office — Publications"
+    },
+    {
+      "url": "https://www.treasurydirect.gov/TA_WS/securities/auctioned/rss",
+      "source_name": "TreasuryDirect — Treasury Auction Results"
+    },
+    {
+      "url": "https://www.treasurydirect.gov/TA_WS/securities/announced/rss",
+      "source_name": "TreasuryDirect — Treasury Offering Announcements"
+    },
+    {
+      "url": "https://www.treasurydirect.gov/NP_WS/debt/feeds/recent",
+      "source_name": "TreasuryDirect — Debt to the Penny"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=10-K&company=&dateb=&owner=include&count=100&output=atom",
+      "source_name": "SEC EDGAR — Latest Filings, 10-K (annual reports)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=10-Q&company=&dateb=&owner=include&count=100&output=atom",
+      "source_name": "SEC EDGAR — Latest Filings, 10-Q (quarterly reports)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=4&company=&dateb=&owner=only&count=100&output=atom",
+      "source_name": "SEC EDGAR — Latest Filings, Form 4 (insider transactions)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=SC+13D&company=&dateb=&owner=include&count=100&output=atom",
+      "source_name": "SEC EDGAR — Latest Filings, SC 13D (activist 5%+ stakes)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/Archives/edgar/usgaap.rss.xml",
+      "source_name": "SEC — Structured Disclosure (XBRL financial statements)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.newyorkfed.org/research/rss/feeds/epr.xml",
+      "source_name": "Federal Reserve Bank of New York — Economic Policy Review (research)"
+    },
+    {
+      "url": "https://fredblog.stlouisfed.org/feed/",
+      "source_name": "FRED (St. Louis Fed) — FRED Blog"
+    },
+    {
+      "url": "https://www.occ.gov/rss/occ_news.xml",
+      "source_name": "Office of the Comptroller of the Currency — News Releases"
+    },
+    {
+      "url": "https://www.occ.gov/rss/occ_bulletins.xml",
+      "source_name": "Office of the Comptroller of the Currency — Bulletins"
+    },
+    {
+      "url": "https://www.theguardian.com/uk/business/rss",
+      "source_name": "The Guardian — Business"
+    },
+    {
+      "url": "https://www.theguardian.com/business/economics/rss",
+      "source_name": "The Guardian — Economics"
+    },
+    {
+      "url": "https://www.theguardian.com/business/stock-markets/rss",
+      "source_name": "The Guardian — Stock markets"
+    },
+    {
+      "url": "https://www.theguardian.com/business/marketturmoil/rss",
+      "source_name": "The Guardian — Market turmoil"
+    },
+    {
+      "url": "https://www.theguardian.com/world/rss",
+      "source_name": "The Guardian — World news"
+    },
+    {
+      "url": "https://feeds.npr.org/1006/rss.xml",
+      "source_name": "NPR — Business"
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/business/rss.xml",
+      "source_name": "BBC News — Business"
+    },
+    {
+      "url": "https://feeds.bbci.co.uk/news/world/rss.xml",
+      "source_name": "BBC News — World"
+    },
+    {
+      "url": "https://www.cbc.ca/webfeed/rss/rss-business",
+      "source_name": "CBC — Business"
+    },
+    {
+      "url": "https://rss.politico.com/playbook.xml",
+      "source_name": "POLITICO — Playbook"
+    },
+    {
+      "url": "https://rss.politico.com/congress.xml",
+      "source_name": "POLITICO — Congress"
+    },
+    {
+      "url": "https://rss.politico.com/energy.xml",
+      "source_name": "POLITICO — Energy & Environment"
+    },
+    {
+      "url": "https://rss.politico.com/defense.xml",
+      "source_name": "POLITICO — Defense"
+    },
+    {
+      "url": "https://rss.politico.com/healthcare.xml",
+      "source_name": "POLITICO — Health Care"
+    },
+    {
+      "url": "https://thehill.com/business/feed/",
+      "source_name": "The Hill — Business News"
+    },
+    {
+      "url": "https://thehill.com/homenews/feed/",
+      "source_name": "The Hill — Homenews"
+    },
+    {
+      "url": "https://thehill.com/business/economy/feed/",
+      "source_name": "The Hill — Economy"
+    },
+    {
+      "url": "https://www.aljazeera.com/xml/rss/all.xml",
+      "source_name": "Al Jazeera — All news"
+    },
+    {
+      "url": "https://moxie.foxbusiness.com/google-publisher/markets.xml",
+      "source_name": "Fox Business — Markets"
+    },
+    {
+      "url": "https://www.cnbc.com/id/100003114/device/rss/rss.html",
+      "source_name": "CNBC"
+    },
+    {
+      "url": "https://www.cnbc.com/id/20910258/device/rss/rss.html",
+      "source_name": "CNBC"
+    },
+    {
+      "url": "https://www.cnbc.com/id/10000664/device/rss/rss.html",
+      "source_name": "CNBC"
+    },
+    {
+      "url": "https://www.cnbc.com/id/15839135/device/rss/rss.html",
+      "source_name": "CNBC"
+    },
+    {
+      "url": "https://www.cnbc.com/id/15839069/device/rss/rss.html",
+      "source_name": "CNBC"
+    },
+    {
+      "url": "https://www.cnbc.com/id/10001147/device/rss/rss.html",
+      "source_name": "CNBC"
+    },
+    {
+      "url": "https://www.cnbc.com/id/19836768/device/rss/rss.html",
+      "source_name": "CNBC"
+    },
+    {
+      "url": "https://www.cnbc.com/id/10000115/device/rss/rss.html",
+      "source_name": "CNBC"
+    },
+    {
+      "url": "https://www.cnbc.com/id/10000113/device/rss/rss.html",
+      "source_name": "CNBC"
+    },
+    {
+      "url": "https://www.cnbc.com/id/100727362/device/rss/rss.html",
+      "source_name": "CNBC"
+    },
+    {
+      "url": "https://www.cnbc.com/id/19854910/device/rss/rss.html",
+      "source_name": "CNBC"
+    },
+    {
+      "url": "https://feeds.content.dowjones.io/public/rss/RSSMarketsMain",
+      "source_name": "The Wall Street Journal"
+    },
+    {
+      "url": "https://feeds.content.dowjones.io/public/rss/WSJcomUSBusiness",
+      "source_name": "The Wall Street Journal"
+    },
+    {
+      "url": "https://feeds.content.dowjones.io/public/rss/RSSWorldNews",
+      "source_name": "The Wall Street Journal"
+    },
+    {
+      "url": "https://feeds.content.dowjones.io/public/rss/RSSWSJD",
+      "source_name": "The Wall Street Journal"
+    },
+    {
+      "url": "https://feeds.content.dowjones.io/public/rss/mw_realtimeheadlines",
+      "source_name": "MarketWatch"
+    },
+    {
+      "url": "https://feeds.content.dowjones.io/public/rss/mw_marketpulse",
+      "source_name": "MarketWatch"
+    },
+    {
+      "url": "https://feeds.content.dowjones.io/public/rss/mw_bulletins",
+      "source_name": "MarketWatch"
+    },
+    {
+      "url": "https://feeds.content.dowjones.io/public/rss/mw_topstories",
+      "source_name": "MarketWatch"
+    },
+    {
+      "url": "https://www.nasdaq.com/feed/rssoutbound?category=Markets",
+      "source_name": "Nasdaq"
+    },
+    {
+      "url": "https://www.nasdaq.com/feed/rssoutbound?category=Earnings",
+      "source_name": "Nasdaq"
+    },
+    {
+      "url": "https://www.nasdaq.com/feed/rssoutbound?category=Stocks",
+      "source_name": "Nasdaq"
+    },
+    {
+      "url": "https://www.nasdaq.com/feed/rssoutbound?category=Commodities",
+      "source_name": "Nasdaq"
+    },
+    {
+      "url": "https://www.nasdaq.com/feed/rssoutbound?category=Economy",
+      "source_name": "Nasdaq"
+    },
+    {
+      "url": "https://www.nasdaq.com/feed/rssoutbound?category=Dividends",
+      "source_name": "Nasdaq"
+    },
+    {
+      "url": "https://www.nasdaq.com/feed/rssoutbound?category=Technology",
+      "source_name": "Nasdaq"
+    },
+    {
+      "url": "https://finance.yahoo.com/news/rssindex",
+      "source_name": "Yahoo Finance"
+    },
+    {
+      "url": "https://www.forbes.com/business/feed/",
+      "source_name": "Forbes"
+    },
+    {
+      "url": "https://fortune.com/feed/",
+      "source_name": "Fortune"
+    },
+    {
+      "url": "https://markets.businessinsider.com/rss/news",
+      "source_name": "Business Insider"
+    },
+    {
+      "url": "https://api.axios.com/feed/",
+      "source_name": "Axios"
+    },
+    {
+      "url": "https://www.benzinga.com/feed",
+      "source_name": "Benzinga"
+    },
+    {
+      "url": "https://www.thestreet.com/.rss/full/",
+      "source_name": "TheStreet"
+    },
+    {
+      "url": "https://www.cbsnews.com/latest/rss/moneywatch",
+      "source_name": "CBS MoneyWatch"
+    },
+    {
+      "url": "https://www.investing.com/rss/news_25.rss",
+      "source_name": "Investing.com"
+    },
+    {
+      "url": "https://www.investing.com/rss/news_95.rss",
+      "source_name": "Investing.com"
+    },
+    {
+      "url": "https://www.investing.com/rss/news_11.rss",
+      "source_name": "Investing.com"
+    },
+    {
+      "url": "https://www.investing.com/rss/news_356.rss",
+      "source_name": "Investing.com"
+    },
+    {
+      "url": "https://www.investing.com/rss/news_357.rss",
+      "source_name": "Investing.com"
+    },
+    {
+      "url": "https://www.sebi.gov.in/sebirss.xml",
+      "source_name": "Securities and Exchange Board of India (SEBI)"
+    },
+    {
+      "url": "https://www.rbi.org.in/pressreleases_rss.xml",
+      "source_name": "Reserve Bank of India (RBI) — Press Releases"
+    },
+    {
+      "url": "https://www.rbi.org.in/notifications_rss.xml",
+      "source_name": "Reserve Bank of India (RBI) — Notifications"
+    },
+    {
+      "url": "https://www.rbi.org.in/speeches_rss.xml",
+      "source_name": "Reserve Bank of India (RBI) — Speeches"
+    },
+    {
+      "url": "https://www.rbi.org.in/Publication_rss.xml",
+      "source_name": "Reserve Bank of India (RBI) — Publications / Bulletins"
+    },
+    {
+      "url": "https://www.rbi.org.in/tenders_rss.xml",
+      "source_name": "Reserve Bank of India (RBI) — Tenders"
+    },
+    {
+      "url": "https://trai.gov.in/rss.xml",
+      "source_name": "Telecom Regulatory Authority of India (TRAI)"
+    },
+    {
+      "url": "https://nsearchives.nseindia.com/content/RSS/Online_announcements.xml",
+      "source_name": "NSE India — Corporate Announcements (RSS)"
+    },
+    {
+      "url": "https://nsearchives.nseindia.com/content/RSS/Board_Meetings.xml",
+      "source_name": "NSE India — Board Meetings (RSS)"
+    },
+    {
+      "url": "https://nsearchives.nseindia.com/content/RSS/Financial_Results.xml",
+      "source_name": "NSE India — Financial Results (RSS)"
+    },
+    {
+      "url": "https://nsearchives.nseindia.com/content/RSS/Corporate_action.xml",
+      "source_name": "NSE India — Corporate Actions (RSS)"
+    },
+    {
+      "url": "https://nsearchives.nseindia.com/content/RSS/Insider_Trading.xml",
+      "source_name": "NSE India — Insider Trading / PIT (RSS)"
+    },
+    {
+      "url": "https://nsearchives.nseindia.com/content/RSS/Circulars.xml",
+      "source_name": "NSE India — Circulars (RSS)"
+    },
+    {
+      "url": "https://nsearchives.nseindia.com/content/RSS/Shareholding_Pattern.xml",
+      "source_name": "NSE India — Shareholding Pattern (RSS)"
+    },
+    {
+      "url": "https://nsearchives.nseindia.com/content/RSS/Annual_Reports.xml",
+      "source_name": "NSE India — Annual Reports (RSS)"
+    },
+    {
+      "url": "https://www.bseindia.com/data/xml/announcements.xml",
+      "source_name": "BSE India — Corporate Announcements (RSS)"
+    },
+    {
+      "url": "https://www.bseindia.com/data/xml/notices.xml",
+      "source_name": "BSE India — Notices (RSS)"
+    },
+    {
+      "url": "https://www.bseindia.com/data/xml/sensexrss.xml",
+      "source_name": "BSE India — SENSEX Level (RSS)"
+    },
+    {
+      "url": "https://www.fda.gov/about-fda/contact-fda/stay-informed/rss-feeds/press-releases/rss.xml",
+      "source_name": "U.S. Food & Drug Administration (Press Releases)"
+    },
+    {
+      "url": "https://www.fda.gov/about-fda/contact-fda/stay-informed/rss-feeds/recalls/rss.xml",
+      "source_name": "U.S. Food & Drug Administration (Recalls)"
+    },
+    {
+      "url": "https://www.fda.gov/about-fda/contact-fda/stay-informed/rss-feeds/medwatch/rss.xml",
+      "source_name": "U.S. Food & Drug Administration (MedWatch Safety Alerts)"
+    },
+    {
+      "url": "https://www.ftc.gov/feeds/press-release.xml",
+      "source_name": "Federal Trade Commission (Press Releases)"
+    },
+    {
+      "url": "https://www.ftc.gov/feeds/press-release-competition.xml",
+      "source_name": "Federal Trade Commission (Competition / Antitrust)"
+    },
+    {
+      "url": "https://www.ftc.gov/feeds/press-release-consumer-protection.xml",
+      "source_name": "Federal Trade Commission (Consumer Protection)"
+    },
+    {
+      "url": "https://www.justice.gov/news/rss?type=press_release",
+      "source_name": "DOJ — All Justice News (press releases, incl. Antitrust Division)"
+    },
+    {
+      "url": "https://www.cftc.gov/RSS/RSSGP/rssgp.xml",
+      "source_name": "CFTC (General Press Releases)"
+    },
+    {
+      "url": "https://www.cftc.gov/RSS/RSSENF/rssenf.xml",
+      "source_name": "CFTC (Enforcement Press Releases)"
+    },
+    {
+      "url": "https://www.cftc.gov/RSS/RSSST/rssst.xml",
+      "source_name": "CFTC (Speeches & Testimony)"
+    },
+    {
+      "url": "https://www.sec.gov/news/pressreleases.rss",
+      "source_name": "U.S. Securities & Exchange Commission (Press Releases)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/rss/litigation/admin.xml",
+      "source_name": "U.S. SEC (Administrative Proceedings)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/news/speeches-statements.rss",
+      "source_name": "U.S. SEC (Speeches & Statements)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/news/statements.rss",
+      "source_name": "U.S. SEC (Statements)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.sec.gov/news/testimony.rss",
+      "source_name": "U.S. SEC (Testimony)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.federalreserve.gov/feeds/press_enforcement.xml",
+      "source_name": "Federal Reserve Board (Enforcement Actions)"
+    },
+    {
+      "url": "https://www.federalreserve.gov/feeds/press_orders.xml",
+      "source_name": "Federal Reserve Board (Orders on Banking Applications)"
+    },
+    {
+      "url": "https://www.federalreserve.gov/feeds/press_bcreg.xml",
+      "source_name": "Federal Reserve Board (Banking & Consumer Regulatory Policy)"
+    },
+    {
+      "url": "https://public.govdelivery.com/topics/USFDIC_26/feed.rss",
+      "source_name": "FDIC (Press Releases, via GovDelivery)"
+    },
+    {
+      "url": "https://www.osha.gov/news/newsreleases.xml",
+      "source_name": "OSHA — News Releases"
+    },
+    {
+      "url": "https://www.dol.gov/rss/releases.xml",
+      "source_name": "DOL — U.S. Department of Labor News Releases"
+    },
+    {
+      "url": "https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms",
+      "source_name": "The Economic Times"
+    },
+    {
+      "url": "https://economictimes.indiatimes.com/markets/stocks/rssfeeds/2146842.cms",
+      "source_name": "The Economic Times"
+    },
+    {
+      "url": "https://economictimes.indiatimes.com/markets/stocks/news/rssfeeds/2146843.cms",
+      "source_name": "The Economic Times"
+    },
+    {
+      "url": "https://economictimes.indiatimes.com/news/economy/rssfeeds/1373380680.cms",
+      "source_name": "The Economic Times"
+    },
+    {
+      "url": "https://economictimes.indiatimes.com/news/economy/policy/rssfeeds/1286551815.cms",
+      "source_name": "The Economic Times"
+    },
+    {
+      "url": "https://economictimes.indiatimes.com/news/company/corporate-trends/rssfeeds/2143429.cms",
+      "source_name": "The Economic Times"
+    },
+    {
+      "url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/rssfeeds/13358259.cms",
+      "source_name": "The Economic Times"
+    },
+    {
+      "url": "https://economictimes.indiatimes.com/industry/rssfeeds/13352306.cms",
+      "source_name": "The Economic Times"
+    },
+    {
+      "url": "https://economictimes.indiatimes.com/wealth/rssfeeds/837555174.cms",
+      "source_name": "The Economic Times Wealth"
+    },
+    {
+      "url": "https://www.livemint.com/rss/markets",
+      "source_name": "Mint"
+    },
+    {
+      "url": "https://www.livemint.com/rss/companies",
+      "source_name": "Mint"
+    },
+    {
+      "url": "https://www.livemint.com/rss/economy",
+      "source_name": "Mint"
+    },
+    {
+      "url": "https://www.livemint.com/rss/industry",
+      "source_name": "Mint"
+    },
+    {
+      "url": "https://www.livemint.com/rss/money",
+      "source_name": "Mint"
+    },
+    {
+      "url": "https://www.livemint.com/rss/news",
+      "source_name": "Mint"
+    },
+    {
+      "url": "https://www.livemint.com/rss/budget",
+      "source_name": "Mint"
+    },
+    {
+      "url": "https://www.moneycontrol.com/rss/latestnews.xml",
+      "source_name": "Moneycontrol"
+    },
+    {
+      "url": "https://www.moneycontrol.com/rss/results.xml",
+      "source_name": "Moneycontrol"
+    },
+    {
+      "url": "https://www.moneycontrol.com/rss/business.xml",
+      "source_name": "Moneycontrol"
+    },
+    {
+      "url": "https://www.moneycontrol.com/rss/MCtopnews.xml",
+      "source_name": "Moneycontrol"
+    },
+    {
+      "url": "https://www.moneycontrol.com/rss/buzzingstocks.xml",
+      "source_name": "Moneycontrol"
+    },
+    {
+      "url": "https://www.moneycontrol.com/rss/marketreports.xml",
+      "source_name": "Moneycontrol"
+    },
+    {
+      "url": "https://www.moneycontrol.com/rss/iponews.xml",
+      "source_name": "Moneycontrol"
+    },
+    {
+      "url": "https://www.moneycontrol.com/rss/marketedge.xml",
+      "source_name": "Moneycontrol"
+    },
+    {
+      "url": "https://www.moneycontrol.com/rss/currency.xml",
+      "source_name": "Moneycontrol"
+    },
+    {
+      "url": "https://www.thehindubusinessline.com/markets/feeder/default.rss",
+      "source_name": "The Hindu BusinessLine"
+    },
+    {
+      "url": "https://www.thehindubusinessline.com/markets/stock-markets/feeder/default.rss",
+      "source_name": "The Hindu BusinessLine"
+    },
+    {
+      "url": "https://www.thehindubusinessline.com/economy/feeder/default.rss",
+      "source_name": "The Hindu BusinessLine"
+    },
+    {
+      "url": "https://www.thehindubusinessline.com/companies/feeder/default.rss",
+      "source_name": "The Hindu BusinessLine"
+    },
+    {
+      "url": "https://www.thehindubusinessline.com/money-and-banking/feeder/default.rss",
+      "source_name": "The Hindu BusinessLine"
+    },
+    {
+      "url": "https://www.thehindubusinessline.com/feeder/default.rss",
+      "source_name": "The Hindu BusinessLine"
+    },
+    {
+      "url": "https://www.cnbctv18.com/commonfeeds/v1/cne/rss/market.xml",
+      "source_name": "CNBC-TV18"
+    },
+    {
+      "url": "https://www.cnbctv18.com/commonfeeds/v1/cne/rss/earnings.xml",
+      "source_name": "CNBC-TV18"
+    },
+    {
+      "url": "https://www.cnbctv18.com/commonfeeds/v1/cne/rss/economy.xml",
+      "source_name": "CNBC-TV18"
+    },
+    {
+      "url": "https://www.cnbctv18.com/commonfeeds/v1/cne/rss/companies.xml",
+      "source_name": "CNBC-TV18"
+    },
+    {
+      "url": "https://www.cnbctv18.com/commonfeeds/v1/cne/rss/business.xml",
+      "source_name": "CNBC-TV18"
+    },
+    {
+      "url": "https://www.cnbctv18.com/commonfeeds/v1/cne/rss/news.xml",
+      "source_name": "CNBC-TV18"
+    },
+    {
+      "url": "https://feeds.feedburner.com/ndtvprofit-latest",
+      "source_name": "NDTV Profit"
+    },
+    {
+      "url": "https://timesofindia.indiatimes.com/rssfeeds/1898055.cms",
+      "source_name": "The Times of India (Business)"
+    },
+    {
+      "url": "https://www.hindustantimes.com/feeds/rss/business/rssfeed.xml",
+      "source_name": "Hindustan Times (Business)"
+    },
+    {
+      "url": "https://www.prnewswire.com/rss/news-releases-list.rss",
+      "source_name": "PR Newswire — All News Releases"
+    },
+    {
+      "url": "https://www.prnewswire.com/rss/financial-services-latest-news/financial-services-latest-news-list.rss",
+      "source_name": "PR Newswire — Financial Services & Investing"
+    },
+    {
+      "url": "https://www.prnewswire.com/rss/financial-services-latest-news/earnings-list.rss",
+      "source_name": "PR Newswire — Earnings"
+    },
+    {
+      "url": "https://www.prnewswire.com/rss/financial-services-latest-news/acquisitions-mergers-and-takeovers-list.rss",
+      "source_name": "PR Newswire — Acquisitions, Mergers & Takeovers"
+    },
+    {
+      "url": "https://www.prnewswire.com/rss/general-business-latest-news/general-business-latest-news-list.rss",
+      "source_name": "PR Newswire — General Business"
+    },
+    {
+      "url": "https://www.globenewswire.com/RssFeed/orgclass/1/feedTitle/GlobeNewswire%20-%20News%20about%20Public%20Companies",
+      "source_name": "GlobeNewswire — News about Public Companies"
+    },
+    {
+      "url": "https://www.globenewswire.com/RssFeed/subjectcode/13-Earnings%20Releases%20and%20Operating%20Results",
+      "source_name": "GlobeNewswire — Earnings Releases & Operating Results"
+    },
+    {
+      "url": "https://www.globenewswire.com/RssFeed/subjectcode/27-Mergers%20and%20Acquisitions",
+      "source_name": "GlobeNewswire — Mergers & Acquisitions"
+    },
+    {
+      "url": "https://www.globenewswire.com/RssFeed/subjectcode/8-Calendar%20Of%20Events",
+      "source_name": "GlobeNewswire — Calendar of Events"
+    },
+    {
+      "url": "https://www.globenewswire.com/RssFeed/subjectcode/3-Analyst%20Recommendations",
+      "source_name": "GlobeNewswire — Analyst Recommendations"
+    },
+    {
+      "url": "https://www.globenewswire.com/RssFeed/subjectcode/65-Annual%20Report",
+      "source_name": "GlobeNewswire — Annual Report"
+    },
+    {
+      "url": "https://www.globenewswire.com/RssFeed/subjectcode/72-Press%20Releases",
+      "source_name": "GlobeNewswire — Press Releases (general)"
+    },
+    {
+      "url": "https://feed.businesswire.com/rss/home/?rss=G1QFDERJXkJeEFtRWA%3D%3D",
+      "source_name": "Business Wire — Merger/Acquisition News"
+    },
+    {
+      "url": "https://feed.businesswire.com/rss/home/?rss=G1QFDERJXkJeEFtRXw%3D%3D",
+      "source_name": "Business Wire — Funding News"
+    },
+    {
+      "url": "https://feed.businesswire.com/rss/home/?rss=G1QFDERJXkJeEFtRXg%3D%3D",
+      "source_name": "Business Wire — Investment Opinion News"
+    },
+    {
+      "url": "https://feed.businesswire.com/rss/home/?rss=G1QFDERJXkJeEFtRXR%3D%3D",
+      "source_name": "Business Wire — Bankruptcy News"
+    },
+    {
+      "url": "https://feed.businesswire.com/rss/home/?rss=G1QFDERJXkJeEFtRWQ%3D%3D",
+      "source_name": "Business Wire — Lawsuit News"
+    },
+    {
+      "url": "https://feed.businesswire.com/rss/home/?rss=G1QFDERJXkJeEFtRWw%3D%3D",
+      "source_name": "Business Wire — Product/Service News"
+    },
+    {
+      "url": "https://feed.businesswire.com/rss/home/?rss=G1QFDERJXkJeEFtRXA%3D%3D",
+      "source_name": "Business Wire — Feature News"
+    },
+    {
+      "url": "https://www.stocktitan.net/rss",
+      "source_name": "Stock Titan — Latest News"
+    },
+    {
+      "url": "https://247wallst.com/feed/",
+      "source_name": "24/7 Wall St."
+    },
+    {
+      "url": "https://www.ecb.europa.eu/rss/press.html",
+      "source_name": "European Central Bank — Press Releases, Speeches & Interviews"
+    },
+    {
+      "url": "https://www.ecb.europa.eu/rss/statpress.html",
+      "source_name": "European Central Bank — Statistical Press Releases"
+    },
+    {
+      "url": "https://www.ecb.europa.eu/rss/yc.html",
+      "source_name": "European Central Bank — Euro Area Yield Curve"
+    },
+    {
+      "url": "https://www.ecb.europa.eu/rss/fxref-usd.html",
+      "source_name": "European Central Bank — Euro FX Reference Rate (USD)"
+    },
+    {
+      "url": "https://www.ecb.europa.eu/rss/blog.html",
+      "source_name": "European Central Bank — The ECB Blog"
+    },
+    {
+      "url": "https://www.ecb.europa.eu/rss/pub.html",
+      "source_name": "European Central Bank — Publications"
+    },
+    {
+      "url": "https://www.bankofengland.co.uk/rss/news",
+      "source_name": "Bank of England — News & Minutes"
+    },
+    {
+      "url": "https://www.bankofengland.co.uk/rss/publications",
+      "source_name": "Bank of England — Publications"
+    },
+    {
+      "url": "https://www.bankofengland.co.uk/rss/statistics",
+      "source_name": "Bank of England — Statistics"
+    },
+    {
+      "url": "https://www.bankofengland.co.uk/rss/speeches",
+      "source_name": "Bank of England — Speeches"
+    },
+    {
+      "url": "https://www.bankofengland.co.uk/rss/prudential-regulation-publications",
+      "source_name": "Bank of England — Prudential Regulation (PRA) Publications"
+    },
+    {
+      "url": "https://www.boj.or.jp/en/rss/whatsnew.xml",
+      "source_name": "Bank of Japan — What's New (English)"
+    },
+    {
+      "url": "https://www.bankofcanada.ca/feed/",
+      "source_name": "Bank of Canada — All Content"
+    },
+    {
+      "url": "https://www.bankofcanada.ca/content_type/press-releases/feed/",
+      "source_name": "Bank of Canada — Press Releases"
+    },
+    {
+      "url": "https://www.riksbank.se/en-gb/rss/press-releases/",
+      "source_name": "Sveriges Riksbank — Press Releases (English)"
+    },
+    {
+      "url": "https://www.snb.ch/public/en/rss/news",
+      "source_name": "Swiss National Bank — News (English)"
+    },
+    {
+      "url": "https://www.bis.org/doclist/all_pressrels.rss",
+      "source_name": "Bank for International Settlements — Press Releases"
+    },
+    {
+      "url": "https://www.bis.org/doclist/cbspeeches.rss",
+      "source_name": "Bank for International Settlements — Central Bankers' Speeches"
+    },
+    {
+      "url": "https://www.bis.org/doclist/all_statistics.rss",
+      "source_name": "Bank for International Settlements — Statistical Releases"
+    },
+    {
+      "url": "https://www.wto.org/library/rss/latest_news_e.xml",
+      "source_name": "World Trade Organization — Latest News"
+    },
+    {
+      "url": "https://ec.europa.eu/eurostat/api/dissemination/catalogue/rss/en/statistics-update.rss",
+      "source_name": "Eurostat — Statistics Update (Economy & Finance and all themes)"
+    },
+    {
+      "url": "https://www.gold.org/rss.xml",
+      "source_name": "World Gold Council — Research & Reports"
+    },
+    {
+      "url": "https://www.rba.gov.au/rss/rss-cb-media-releases.xml",
+      "source_name": "Reserve Bank of Australia — Media Releases"
+    },
+    {
+      "url": "https://connect2.euronext.com/en/rss.xml",
+      "source_name": "Euronext — Market Status / Customer Connect RSS"
+    },
+    {
+      "url": "https://www.nasdaq.com/feed/rssoutbound?symbol=AAPL",
+      "source_name": "Nasdaq.com (per-symbol RSS)"
+    },
+    {
+      "url": "https://www.investing.com/rss/news.rss",
+      "source_name": "Investing.com (all-news RSS)"
+    },
+    {
+      "url": "https://oilprice.com/rss/main",
+      "source_name": "OilPrice.com"
+    },
+    {
+      "url": "https://www.rigzone.com/news/rss/rigzone_latest.aspx",
+      "source_name": "Rigzone"
+    },
+    {
+      "url": "https://www.mining.com/feed/",
+      "source_name": "Mining.com"
+    },
+    {
+      "url": "https://worldsteel.org/feed/",
+      "source_name": "World Steel Association (worldsteel)"
+    },
+    {
+      "url": "https://gcaptain.com/feed/",
+      "source_name": "gCaptain"
+    },
+    {
+      "url": "https://theloadstar.com/feed/",
+      "source_name": "The Loadstar"
+    },
+    {
+      "url": "https://maritime-executive.com/articles.rss",
+      "source_name": "Maritime Executive"
+    },
+    {
+      "url": "https://www.seatrade-maritime.com/rss.xml",
+      "source_name": "Seatrade Maritime News"
+    },
+    {
+      "url": "https://www.hellenicshippingnews.com/feed/",
+      "source_name": "Hellenic Shipping News Worldwide"
+    },
+    {
+      "url": "https://splash247.com/feed/",
+      "source_name": "Splash247"
+    },
+    {
+      "url": "https://www.offshore-energy.biz/feed/",
+      "source_name": "Offshore Energy"
+    },
+    {
+      "url": "https://www.bunkerspot.com/rss",
+      "source_name": "ship.energy (Bunkerspot)"
+    },
+    {
+      "url": "https://www.war.gov/DesktopModules/ArticleCS/RSS.ashx?ContentType=400&Site=945&max=25",
+      "source_name": "U.S. Department of War (formerly DoD) — Contract Announcements"
+    },
+    {
+      "url": "https://www.war.gov/DesktopModules/ArticleCS/RSS.ashx?ContentType=9&Site=945&max=25",
+      "source_name": "U.S. Department of War (formerly DoD) — News Releases"
+    },
+    {
+      "url": "https://www.defensenews.com/arc/outboundfeeds/rss/?outputType=xml",
+      "source_name": "Defense News"
+    },
+    {
+      "url": "https://www.defensedaily.com/feed/",
+      "source_name": "Defense Daily"
+    },
+    {
+      "url": "https://www.fiercebiotech.com/rss/xml",
+      "source_name": "FierceBiotech"
+    },
+    {
+      "url": "https://www.fiercepharma.com/rss/xml",
+      "source_name": "FiercePharma"
+    },
+    {
+      "url": "https://www.fiercehealthcare.com/rss/xml",
+      "source_name": "Fierce Healthcare"
+    },
+    {
+      "url": "https://endpoints.news/feed/",
+      "source_name": "Endpoints News"
+    },
+    {
+      "url": "https://www.biopharmadive.com/feeds/news/",
+      "source_name": "BioPharma Dive"
+    },
+    {
+      "url": "https://www.medtechdive.com/feeds/news/",
+      "source_name": "MedTech Dive"
+    },
+    {
+      "url": "https://www.healthcaredive.com/feeds/news/",
+      "source_name": "Healthcare Dive"
+    },
+    {
+      "url": "https://www.statnews.com/feed/",
+      "source_name": "STAT News"
+    },
+    {
+      "url": "https://www.ema.europa.eu/en/news.xml",
+      "source_name": "European Medicines Agency — News & Press Releases"
+    },
+    {
+      "url": "https://www.ema.europa.eu/en/new-human-medicine-new.xml",
+      "source_name": "European Medicines Agency — New Human Medicines & Opinions"
+    },
+    {
+      "url": "https://clinicaltrials.gov/api/rss?dateField=StudyFirstPostDate",
+      "source_name": "ClinicalTrials.gov — recently posted studies"
+    },
+    {
+      "url": "https://www.eetimes.com/feed/",
+      "source_name": "EE Times"
+    },
+    {
+      "url": "https://semiwiki.com/feed/",
+      "source_name": "SemiWiki"
+    },
+    {
+      "url": "https://www.tomshardware.com/feeds/all",
+      "source_name": "Tom's Hardware"
+    },
+    {
+      "url": "https://spectrum.ieee.org/feeds/feed.rss",
+      "source_name": "IEEE Spectrum"
+    },
+    {
+      "url": "https://www.theregister.com/headlines.atom",
+      "source_name": "The Register"
+    },
+    {
+      "url": "https://techcrunch.com/feed/",
+      "source_name": "TechCrunch"
+    },
+    {
+      "url": "https://www.theverge.com/rss/index.xml",
+      "source_name": "The Verge"
+    },
+    {
+      "url": "https://www.geekwire.com/feed/",
+      "source_name": "GeekWire"
+    },
+    {
+      "url": "https://www.ciodive.com/feeds/news/",
+      "source_name": "CIO Dive"
+    },
+    {
+      "url": "https://www.bankingdive.com/feeds/news/",
+      "source_name": "Banking Dive"
+    },
+    {
+      "url": "https://www.retaildive.com/feeds/news/",
+      "source_name": "Retail Dive"
+    },
+    {
+      "url": "https://www.grocerydive.com/feeds/news/",
+      "source_name": "Grocery Dive"
+    },
+    {
+      "url": "https://www.restaurantdive.com/feeds/news/",
+      "source_name": "Restaurant Dive"
+    },
+    {
+      "url": "https://www.supplychaindive.com/feeds/news/",
+      "source_name": "Supply Chain Dive"
+    },
+    {
+      "url": "https://www.manufacturingdive.com/feeds/news/",
+      "source_name": "Manufacturing Dive"
+    },
+    {
+      "url": "https://www.constructiondive.com/feeds/news/",
+      "source_name": "Construction Dive"
+    },
+    {
+      "url": "https://www.utilitydive.com/feeds/news/",
+      "source_name": "Utility Dive"
+    },
+    {
+      "url": "https://www.esgdive.com/feeds/news/",
+      "source_name": "ESG Dive"
+    },
+    {
+      "url": "https://www.cfodive.com/feeds/news/",
+      "source_name": "CFO Dive"
+    },
+    {
+      "url": "https://www.canarymedia.com/rss",
+      "source_name": "Canary Media"
+    },
+    {
+      "url": "https://www.automotivedive.com/feeds/news/",
+      "source_name": "WardsAuto (Automotive Dive)"
+    },
+    {
+      "url": "https://www.carscoops.com/feed/",
+      "source_name": "Carscoops"
+    },
+    {
+      "url": "https://www.coindesk.com/arc/outboundfeeds/rss/",
+      "source_name": "CoinDesk"
+    },
+    {
+      "url": "https://cointelegraph.com/rss",
+      "source_name": "Cointelegraph"
+    },
+    {
+      "url": "https://www.housingwire.com/feed/",
+      "source_name": "HousingWire"
+    },
+    {
+      "url": "https://www.ft.com/rss/home",
+      "source_name": "Financial Times"
+    },
+    {
+      "url": "https://www.ft.com/companies?format=rss",
+      "source_name": "Financial Times"
+    },
+    {
+      "url": "https://www.ft.com/markets?format=rss",
+      "source_name": "Financial Times"
+    },
+    {
+      "url": "https://www.ft.com/world?format=rss",
+      "source_name": "Financial Times"
+    },
+    {
+      "url": "https://www.ft.com/global-economy?format=rss",
+      "source_name": "Financial Times"
+    },
+    {
+      "url": "https://feeds.bloomberg.com/markets/news.rss",
+      "source_name": "Bloomberg"
+    },
+    {
+      "url": "https://feeds.bloomberg.com/economics/news.rss",
+      "source_name": "Bloomberg"
+    },
+    {
+      "url": "https://feeds.bloomberg.com/industries/news.rss",
+      "source_name": "Bloomberg"
+    },
+    {
+      "url": "https://feeds.bloomberg.com/technology/news.rss",
+      "source_name": "Bloomberg"
+    },
+    {
+      "url": "https://feeds.bloomberg.com/politics/news.rss",
+      "source_name": "Bloomberg"
+    },
+    {
+      "url": "https://feeds.bloomberg.com/green/news.rss",
+      "source_name": "Bloomberg"
+    },
+    {
+      "url": "https://asia.nikkei.com/rss/feed/nar",
+      "source_name": "Nikkei Asia"
+    },
+    {
+      "url": "https://www.scmp.com/rss/92/feed/",
+      "source_name": "South China Morning Post"
+    },
+    {
+      "url": "https://www.scmp.com/rss/91/feed/",
+      "source_name": "South China Morning Post"
+    },
+    {
+      "url": "https://www.scmp.com/rss/96/feed/",
+      "source_name": "South China Morning Post"
+    },
+    {
+      "url": "https://rss.dw.com/rdf/rss-en-bus",
+      "source_name": "Deutsche Welle"
+    },
+    {
+      "url": "https://www.france24.com/en/business/rss",
+      "source_name": "France 24"
+    },
+    {
+      "url": "https://www.france24.com/en/economy/rss",
+      "source_name": "France 24"
+    },
+    {
+      "url": "https://www.straitstimes.com/news/business/rss.xml",
+      "source_name": "The Straits Times"
+    },
+    {
+      "url": "https://www.businesstimes.com.sg/rss/companies-markets",
+      "source_name": "The Business Times (Singapore)"
+    },
+    {
+      "url": "https://www.businesstimes.com.sg/rss/international",
+      "source_name": "The Business Times (Singapore)"
+    },
+    {
+      "url": "https://www.businesstimes.com.sg/rss/top-stories",
+      "source_name": "The Business Times (Singapore)"
+    },
+    {
+      "url": "https://www.afr.com/rss/feed.xml",
+      "source_name": "Australian Financial Review"
+    },
+    {
+      "url": "https://www.afr.com/rss/markets.xml",
+      "source_name": "Australian Financial Review"
+    },
+    {
+      "url": "https://www.afr.com/rss/policy.xml",
+      "source_name": "Australian Financial Review"
+    },
+    {
+      "url": "https://www.theglobeandmail.com/arc/outboundfeeds/rss/category/business/",
+      "source_name": "The Globe and Mail"
+    },
+    {
+      "url": "https://www.theglobeandmail.com/arc/outboundfeeds/rss/category/business/economy/",
+      "source_name": "The Globe and Mail"
+    },
+    {
+      "url": "https://www.theglobeandmail.com/arc/outboundfeeds/rss/category/investing/",
+      "source_name": "The Globe and Mail"
+    },
+    {
+      "url": "https://www.handelsblatt.com/contentexport/feed/finanzen",
+      "source_name": "Handelsblatt"
+    },
+    {
+      "url": "https://www.handelsblatt.com/contentexport/feed/wirtschaft",
+      "source_name": "Handelsblatt"
+    },
+    {
+      "url": "https://www.handelsblatt.com/contentexport/feed/unternehmen",
+      "source_name": "Handelsblatt"
+    },
+    {
+      "url": "https://www.esma.europa.eu/rss.xml",
+      "source_name": "ESMA — European Securities and Markets Authority (News)"
+    },
+    {
+      "url": "https://www.eba.europa.eu/news-press/news/rss.xml",
+      "source_name": "European Banking Authority (EBA) — News & Press"
+    },
+    {
+      "url": "https://www.bankingsupervision.europa.eu/rss/press.html",
+      "source_name": "ECB Banking Supervision (SSM) — Press Releases"
+    },
+    {
+      "url": "https://www.fca.org.uk/news/rss.xml",
+      "source_name": "UK Financial Conduct Authority (FCA) — News"
+    },
+    {
+      "url": "https://public.govdelivery.com/topics/USTREAS_61/feed.rss",
+      "source_name": "U.S. Treasury / OFAC — Recent Actions & Sanctions (SDN, GLs, enforcement)"
+    },
+    {
+      "url": "https://public.govdelivery.com/topics/USTREAS_12/feed.rss",
+      "source_name": "U.S. Treasury — Press Releases (department-wide)"
+    },
+    {
+      "url": "https://ecollection.ferc.gov/api/rssfeed",
+      "source_name": "FERC — eForms Accepted Filings (XBRL: Form 6, 3-Q, 714)"
+    },
+    {
+      "url": "https://www.cpsc.gov/Newsroom/CPSC-RSS-Feed/Recalls-RSS",
+      "source_name": "U.S. CPSC — All Recalls"
+    },
+    {
+      "url": "https://www.cpsc.gov/Newsroom/CPSC-RSS-Feed/News-RSS",
+      "source_name": "U.S. CPSC — News Releases"
+    },
+    {
+      "url": "https://ec.europa.eu/commission/presscorner/api/rss?language=en",
+      "source_name": "European Commission — Press Releases (RAPID/midday)"
+    },
+    {
+      "url": "https://www.moneyweb.co.za/feed/",
+      "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)"
+    },
+    {
+      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=8-K&company=&dateb=&owner=include&count=40&output=atom",
+      "source_name": "SEC EDGAR"
+    }
   ]
 }

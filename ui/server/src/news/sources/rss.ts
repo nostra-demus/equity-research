@@ -12,12 +12,23 @@ import fs from 'node:fs'
 import path from 'node:path'
 import type { RawArticle } from '../types'
 
+// Default User-Agent: a real browser string. Many publishers (LiveMint, Moneycontrol, several India/
+// EU sites) soft-block non-browser agents — they answer 200 with an empty challenge page, so a
+// "nostra-demus-screener/1.0" UA silently yields zero items. A browser UA is read by all of them.
+// SEC/.gov endpoints instead REQUIRE a descriptive UA with a contact, and reject look-alike contact
+// suffixes elsewhere (Moneycontrol 403s on a contact-tagged UA) — so SEC feeds set a per-feed
+// `user_agent` override in rss_feeds.json rather than forcing one global UA to please everyone.
+const DEFAULT_UA =
+  'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
+
 export interface RssOptions {
   feedsPath: string // absolute path to the versioned feed list (frameworks/screener/rss_feeds.json)
   lookbackMin: number // items older than 3× this are skipped (RSS has no timespan parameter)
   timeoutMs: number
   stateDir: string // where the conditional-GET cache lives
-  userAgent?: string
+  userAgent?: string // default UA when a feed doesn't override it (DEFAULT_UA if unset)
+  concurrency?: number // max DISTINCT HOSTS fetched at once (default 8) — bounds load as the list grows
+  perHostGapMs?: number // pause between two feeds on the SAME host (default 700ms) — politeness vs burst-blocks
 }
 
 export interface RssDeps {
@@ -30,6 +41,7 @@ export interface RssDeps {
 interface FeedEntry {
   url: string
   source_name?: string
+  user_agent?: string // optional per-feed UA override (e.g. SEC's required contact UA)
 }
 
 type CondCache = Record<string, { etag?: string; lastModified?: string }>
@@ -74,20 +86,39 @@ function textOf(block: string, tag: string): string | null {
   return t || null
 }
 
-/** The item's outbound link: RSS puts it in <link>text</link>; Atom in <link href> (prefer rel="alternate"). */
+/** The item's outbound link. Handles, in order:
+ *  - RSS <link>text</link>, including CDATA-wrapped and entity-encoded URLs (e.g. Federal Reserve
+ *    feeds use <link><![CDATA[https://…]]></link>);
+ *  - Atom <link href> (prefer rel="alternate" over rel="self"/enclosure);
+ *  - a <guid> that is itself a permalink URL — many RSS feeds (LiveMint, CNBC-TV18, The Hindu
+ *    BusinessLine and other Indian/wire feeds) leave <link> empty and carry the canonical article
+ *    URL only in <guid isPermaLink="true">. Without this fallback those feeds parse to ZERO items. */
 function linkOf(block: string): string | null {
-  const rssText = /<link[^>]*>([^<]+)<\/link>/i.exec(block)
-  if (rssText && rssText[1].trim().startsWith('http')) return decodeEntities(rssText[1].trim())
+  // RSS <link>…</link> — tolerate CDATA + entities, not just a bare URL
+  const rssText = /<link[^>]*>([\s\S]*?)<\/link>/i.exec(block)
+  if (rssText) {
+    const v = decodeEntities(stripCdata(rssText[1]).trim())
+    if (/^https?:\/\//i.test(v)) return v
+  }
+  // Atom <link href="…"> — prefer rel="alternate"; keep any href as a fallback
   const linkTags = block.match(/<link\b[^>]*>/gi) || []
-  let fallback: string | null = null
+  let hrefFallback: string | null = null
   for (const tag of linkTags) {
     const href = /href\s*=\s*["']([^"']+)["']/i.exec(tag)?.[1]
     if (!href) continue
     const rel = /rel\s*=\s*["']([^"']+)["']/i.exec(tag)?.[1]
-    if (!rel || rel === 'alternate') return decodeEntities(href)
-    if (!fallback) fallback = decodeEntities(href)
+    const v = decodeEntities(href)
+    if ((!rel || rel === 'alternate') && /^https?:\/\//i.test(v)) return v
+    if (!hrefFallback) hrefFallback = v
   }
-  return fallback
+  if (hrefFallback && /^https?:\/\//i.test(hrefFallback)) return hrefFallback
+  // <guid> permalink fallback (skip when isPermaLink="false")
+  const guid = /<guid\b([^>]*)>([\s\S]*?)<\/guid>/i.exec(block)
+  if (guid && !/ispermalink\s*=\s*["']?\s*false/i.test(guid[1] || '')) {
+    const v = decodeEntities(stripCdata(guid[2]).trim())
+    if (/^https?:\/\//i.test(v)) return v
+  }
+  return null
 }
 
 function dateOf(block: string): string | null {
@@ -119,7 +150,9 @@ export async function fetchRss(opts: RssOptions, deps: RssDeps = {}): Promise<Ra
   const sleep = deps.sleep || ((ms: number) => new Promise<void>((r) => setTimeout(r, ms)))
   const now = deps.now || (() => new Date())
   const log = deps.log || (() => {})
-  const userAgent = opts.userAgent || 'nostra-demus-screener/1.0 (news ingester)'
+  const defaultUa = opts.userAgent || DEFAULT_UA
+  const concurrency = Math.max(1, opts.concurrency ?? 8)
+  const perHostGapMs = opts.perHostGapMs ?? 700
 
   let feeds: FeedEntry[]
   try {
@@ -134,69 +167,100 @@ export async function fetchRss(opts: RssOptions, deps: RssDeps = {}): Promise<Ra
   const cache = loadCache(opts.stateDir)
   const oldestMs = now().getTime() - opts.lookbackMin * 3 * 60_000
 
-  const perFeed = await Promise.allSettled(
-    feeds.map(async (feed): Promise<RawArticle[]> => {
-      for (let attempt = 1; attempt <= 3; attempt++) {
-        const ctrl = new AbortController()
-        const timer = setTimeout(() => ctrl.abort(), opts.timeoutMs)
-        try {
-          const headers: Record<string, string> = { 'user-agent': userAgent, accept: 'application/rss+xml, application/atom+xml, application/xml, text/xml' }
-          const cond = cache[feed.url]
-          if (cond?.etag) headers['if-none-match'] = cond.etag
-          if (cond?.lastModified) headers['if-modified-since'] = cond.lastModified
-          const res = await fetchFn(feed.url, { headers, signal: ctrl.signal })
-          if (res.status === 304) return [] // unchanged since last cycle
-          if (!res.ok) throw new Error(`HTTP ${res.status}`)
-          const xml = await res.text()
-          const etag = res.headers.get('etag')
-          const lastModified = res.headers.get('last-modified')
-          if (etag || lastModified) cache[feed.url] = { etag: etag || undefined, lastModified: lastModified || undefined }
-          const items = parseFeed(xml)
-          const arts: RawArticle[] = []
-          for (const it of items) {
-            const d = it.date ? new Date(it.date) : null
-            const fresh = !d || Number.isNaN(d.getTime()) || d.getTime() >= oldestMs
-            if (!fresh) continue
-            let domain: string
-            try {
-              domain = new URL(it.link).hostname
-            } catch {
-              continue
-            }
-            arts.push({
-              title: it.title,
-              url: it.link,
-              domain,
-              seendate: d && !Number.isNaN(d.getTime()) ? d.toISOString().replace(/\.\d{3}Z$/, 'Z') : now().toISOString().replace(/\.\d{3}Z$/, 'Z'),
-              via: 'rss',
-            })
+  // One feed → its fresh, on-window articles. Self-contained and total: every failure path returns []
+  // (per-feed isolation), so one bad feed never affects another and the scheduler need not guard.
+  const fetchOneFeed = async (feed: FeedEntry): Promise<RawArticle[]> => {
+    const ua = feed.user_agent || defaultUa
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      const ctrl = new AbortController()
+      const timer = setTimeout(() => ctrl.abort(), opts.timeoutMs)
+      try {
+        const headers: Record<string, string> = { 'user-agent': ua, accept: 'application/rss+xml, application/atom+xml, application/xml, text/xml' }
+        const cond = cache[feed.url]
+        if (cond?.etag) headers['if-none-match'] = cond.etag
+        if (cond?.lastModified) headers['if-modified-since'] = cond.lastModified
+        const res = await fetchFn(feed.url, { headers, signal: ctrl.signal })
+        if (res.status === 304) return [] // unchanged since last cycle
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        const xml = await res.text()
+        const etag = res.headers.get('etag')
+        const lastModified = res.headers.get('last-modified')
+        if (etag || lastModified) cache[feed.url] = { etag: etag || undefined, lastModified: lastModified || undefined }
+        const items = parseFeed(xml)
+        const arts: RawArticle[] = []
+        for (const it of items) {
+          const d = it.date ? new Date(it.date) : null
+          const fresh = !d || Number.isNaN(d.getTime()) || d.getTime() >= oldestMs
+          if (!fresh) continue
+          let domain: string
+          try {
+            domain = new URL(it.link).hostname
+          } catch {
+            continue
           }
-          return arts
-        } catch (e: any) {
-          if (attempt === 3) {
-            log(`rss ${feed.source_name || feed.url}: ${e?.name === 'AbortError' ? 'timeout' : e?.message || e}, gave up`)
-            return []
-          }
-          await sleep(1000 * attempt)
-        } finally {
-          clearTimeout(timer)
+          arts.push({
+            title: it.title,
+            url: it.link,
+            domain,
+            seendate: d && !Number.isNaN(d.getTime()) ? d.toISOString().replace(/\.\d{3}Z$/, 'Z') : now().toISOString().replace(/\.\d{3}Z$/, 'Z'),
+            via: 'rss',
+          })
         }
+        return arts
+      } catch (e: any) {
+        if (attempt === 3) {
+          log(`rss ${feed.source_name || feed.url}: ${e?.name === 'AbortError' ? 'timeout' : e?.message || e}, gave up`)
+          return []
+        }
+        await sleep(1000 * attempt)
+      } finally {
+        clearTimeout(timer)
       }
-      return []
-    }),
-  )
+    }
+    return []
+  }
+
+  // Host-aware scheduling: feeds on the SAME host run sequentially with a politeness gap (rate-
+  // sensitive publishers answer 200-but-empty when bursted); DIFFERENT hosts run concurrently up to
+  // `concurrency`. With a handful of feeds this behaves like the old fire-all; it only starts to
+  // matter as the list grows and several feeds share a host (e.g. many SEC EDGAR form feeds).
+  const groups = new Map<string, FeedEntry[]>()
+  for (const feed of feeds) {
+    let host: string
+    try {
+      host = new URL(feed.url).hostname
+    } catch {
+      host = feed.url
+    }
+    if (!groups.has(host)) groups.set(host, [])
+    groups.get(host)!.push(feed)
+  }
+  const hostKeys = [...groups.keys()]
+  let nextHost = 0
+  const collected: RawArticle[] = []
+  const worker = async (): Promise<void> => {
+    for (;;) {
+      const k = nextHost++
+      if (k >= hostKeys.length) return
+      const group = groups.get(hostKeys[k])!
+      for (let j = 0; j < group.length; j++) {
+        const arts = await fetchOneFeed(group[j]) // never throws
+        for (const a of arts) collected.push(a)
+        if (j < group.length - 1) await sleep(perHostGapMs)
+      }
+    }
+  }
+  await Promise.all(Array.from({ length: Math.min(concurrency, hostKeys.length) }, worker))
 
   saveCache(opts.stateDir, cache)
 
+  // dedup across feeds by URL (first occurrence wins) — unchanged contract
   const out: RawArticle[] = []
   const seen = new Set<string>()
-  for (const r of perFeed) {
-    if (r.status !== 'fulfilled') continue // isolation: a feed's terminal failure was already logged
-    for (const a of r.value) {
-      if (!seen.has(a.url)) {
-        seen.add(a.url)
-        out.push(a)
-      }
+  for (const a of collected) {
+    if (!seen.has(a.url)) {
+      seen.add(a.url)
+      out.push(a)
     }
   }
   return out

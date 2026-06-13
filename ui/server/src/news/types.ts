@@ -15,7 +15,7 @@ export interface RawArticle {
   seendate: string // GDELT compact form e.g. 20260612T093000Z, or ISO — normalized downstream
   language?: string
   sourcecountry?: string // FIPS 2-letter from GDELT, when present
-  via?: 'gdelt' | 'rss' // which fetcher found it (provenance for the live feed)
+  via?: 'gdelt' | 'rss' | 'nse' // which fetcher found it (provenance for the live feed)
 }
 
 // A company the cheap brain THINKS the headline is about — a guess from the title alone, never
@@ -39,7 +39,7 @@ export interface NewsItem {
   input_nature: string // news_headline / regulatory_filing / exchange_announcement / …
   found_at: string // ISO 8601
   dedup_status: 'new' | 'possible_duplicate'
-  via?: 'gdelt' | 'rss' // which fetcher found it
+  via?: 'gdelt' | 'rss' | 'nse' // which fetcher found it
 }
 
 // The cheap brain's verdict on one item.
@@ -63,7 +63,7 @@ export interface TriagedItem extends NewsItem {
   companies: CompanyGuess[]
   size_bucket: SizeBucket
   band: Band
-  via?: 'gdelt' | 'rss'
+  via?: 'gdelt' | 'rss' | 'nse'
 }
 
 // The one row the inbox file carries — a superset of the existing sweep-row contract, plus the
@@ -106,7 +106,7 @@ export interface FeedItem {
   url: string
   domain: string
   source_name: string
-  via: 'gdelt' | 'rss'
+  via: 'gdelt' | 'rss' | 'nse'
   region: Region
   input_nature: string
   triage_score: number

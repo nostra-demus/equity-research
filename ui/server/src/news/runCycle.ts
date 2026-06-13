@@ -10,6 +10,7 @@ import { newsBus } from './bus'
 import { appendFeedItems } from './feed'
 import { fetchGdelt } from './sources/gdelt'
 import { fetchRss } from './sources/rss'
+import { fetchNse } from './sources/nse'
 import { loadLedgerEventIds, normalizeAndFilter } from './normalize'
 import { SeenCache } from './seen-cache'
 import { Budget, RateLimiter } from './triage/budget'
@@ -22,7 +23,10 @@ import fs from 'node:fs'
 // retry) spill into this file and are re-queued next cycle. Without it they'd be silently lost:
 // the sources won't hand them back (GDELT's lookback ages out; an unchanged RSS feed answers 304).
 const DEFERRED_FILE = 'news-deferred.json'
-const DEFERRED_CAP = 200
+// Spillover backlog of items not yet scored (budget hit / Groq hiccup). Raised with the expanded
+// source set so a burst day (earnings season, many filings) doesn't truncate unscored items before
+// the next cycle can pick them up.
+const DEFERRED_CAP = 1000
 
 function loadDeferred(stateDir: string): NewsItem[] {
   try {
@@ -89,12 +93,27 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     return { ...blank, note: 'no GROQ_API_KEY — ingester idle' }
   }
 
-  // 1. FETCH — GDELT and RSS in parallel; one layer failing never blocks the other. Merge by URL
-  // (first wins; GDELT listed first only as a tiebreak — both carry their `via` provenance).
+  // 1. FETCH — GDELT, RSS and the NSE primary-disclosure API in parallel; one layer failing never
+  // blocks the others. Merge by URL (first wins; order is only a tiebreak — each carries its own
+  // `via` provenance for the live feed).
   const fetches = await Promise.allSettled([
     fetchGdelt({ lookbackMin: cfg.gdeltLookbackMin, baseUrl: cfg.gdeltBaseUrl }, { fetchFn, sleep, log }),
     cfg.rssEnabled
-      ? fetchRss({ feedsPath: path.join(repoRoot, cfg.rssFeedsPath), lookbackMin: cfg.gdeltLookbackMin, timeoutMs: cfg.rssTimeoutMs, stateDir }, { fetchFn, sleep, now, log })
+      ? fetchRss(
+          {
+            feedsPath: path.join(repoRoot, cfg.rssFeedsPath),
+            lookbackMin: cfg.gdeltLookbackMin,
+            timeoutMs: cfg.rssTimeoutMs,
+            stateDir,
+            userAgent: cfg.rssUserAgent || undefined,
+            concurrency: cfg.rssConcurrency,
+            perHostGapMs: cfg.rssPerHostGapMs,
+          },
+          { fetchFn, sleep, now, log },
+        )
+      : Promise.resolve([] as RawArticle[]),
+    cfg.nseEnabled
+      ? fetchNse({ baseUrl: cfg.nseBaseUrl, lookbackHours: cfg.nseLookbackHours, timeoutMs: cfg.rssTimeoutMs, userAgent: cfg.rssUserAgent || undefined }, { fetchFn, sleep, now, log })
       : Promise.resolve([] as RawArticle[]),
   ])
   const raws: RawArticle[] = []
@@ -217,6 +236,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     issuer_linkage: t.issuer_linkage,
     companies: t.companies,
     size_bucket: t.size_bucket,
+    // derived, zero-cost classification — persisted so the wire + a later backfill agree
     dedup_status: t.dedup_status,
     inboxed: t.band !== 'drop',
   }))

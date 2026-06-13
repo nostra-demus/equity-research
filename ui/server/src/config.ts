@@ -99,9 +99,14 @@ export const NEWS = {
   enabled: process.env.NEWS_INGEST_ENABLED === '0' ? false : Boolean(process.env.GROQ_API_KEY),
   // How often the in-server scheduler runs a cycle (the standalone --once entrypoint ignores this).
   pollIntervalMin: capNum(process.env.NEWS_POLL_INTERVAL_MIN, 15),
-  // Daily Groq budget guards (org-level free tier). A cycle refuses to call Groq past either cap.
-  groqDailyReqCap: capNum(process.env.NEWS_GROQ_DAILY_REQ_CAP, 800),
-  groqDailyTokenCap: capNum(process.env.NEWS_GROQ_DAILY_TOKEN_CAP, 150_000),
+  // Daily Groq budget guards. A cycle refuses to call Groq past either cap; unscored items defer to
+  // the next cycle (never lost, never zero-scored). Raised for the expanded source set (351 RSS feeds
+  // + NSE + GDELT generate far more items/day than the old caps could score). These are the binding
+  // constraint on "score everything": on a free Groq key the real limiter is Groq's own rate limit
+  // (cycles just defer, no spend); a higher Groq tier uses the extra headroom (8b-instant is ~$0.05/M
+  // tokens, so 500k tokens/day ≈ $0.025). Tune down with the env vars on a constrained free tier.
+  groqDailyReqCap: capNum(process.env.NEWS_GROQ_DAILY_REQ_CAP, 1500),
+  groqDailyTokenCap: capNum(process.env.NEWS_GROQ_DAILY_TOKEN_CAP, 500_000),
   // Throttle (requests/min, under the 30 RPM free limit) and how many articles ride in one Groq call.
   groqRpm: capNum(process.env.NEWS_GROQ_RPM, 25),
   triageBatch: capNum(process.env.NEWS_TRIAGE_BATCH, 12),
@@ -118,8 +123,21 @@ export const NEWS = {
   rssEnabled: process.env.NEWS_RSS_ENABLED === '0' ? false : true,
   rssFeedsPath: process.env.NEWS_RSS_FEEDS_PATH || 'frameworks/screener/rss_feeds.json',
   rssTimeoutMs: capNum(process.env.NEWS_RSS_TIMEOUT_MS, 10_000),
+  // Default RSS User-Agent: '' lets rss.ts use its browser-UA default (UA-sniffing publishers like
+  // LiveMint/Moneycontrol soft-block non-browser agents). SEC feeds override per-feed in the list.
+  rssUserAgent: process.env.NEWS_RSS_USER_AGENT || '',
+  // Politeness as the feed list grows: max distinct hosts fetched at once, and the gap between two
+  // feeds that share a host (rate-sensitive publishers answer 200-but-empty when bursted).
+  rssConcurrency: capNum(process.env.NEWS_RSS_CONCURRENCY, 8),
+  rssPerHostGapMs: capNum(process.env.NEWS_RSS_PER_HOST_GAP_MS, 700),
+  // NSE layer (Layer 3): the NSE India primary-disclosure JSON API (corporate announcements +
+  // board-meeting intimations) — the exchange itself, the highest-signal India source. Items pass the
+  // same approved-domains firewall on their nseindia.com link domain. Default ON; NEWS_NSE_ENABLED=0 off.
+  nseEnabled: process.env.NEWS_NSE_ENABLED === '0' ? false : true,
+  nseBaseUrl: process.env.NEWS_NSE_BASE_URL || 'https://www.nseindia.com',
+  nseLookbackHours: capNum(process.env.NEWS_NSE_LOOKBACK_HOURS, 24),
   // Live-feed per-item records (firehose kind:"item") — the daily cap bounds file growth.
-  feedItemsDailyCap: capNum(process.env.NEWS_FEED_ITEMS_DAILY_CAP, 1500),
+  feedItemsDailyCap: capNum(process.env.NEWS_FEED_ITEMS_DAILY_CAP, 5000),
   // Groq output budget per triage call (the per-item payload grew with companies/size_bucket).
   triageMaxTokens: capNum(process.env.NEWS_TRIAGE_MAX_TOKENS, 2000),
 }

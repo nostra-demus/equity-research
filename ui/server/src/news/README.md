@@ -10,10 +10,21 @@ stays the human's one-click "check it ▸" action. There is no auto-promote.
 
 ## The funnel (one cycle = `runIngestCycle()`)
 
-1. **Fetch** — `sources/gdelt.ts` queries GDELT DOC 2.0 (keyless, no real rate limit), filtered to
-   the approved-source domains, last ~40 min, newest first. US / India / global in one pass.
+1. **Fetch** — three layers run in parallel, each isolated (one failing never blocks the others),
+   merged + deduped by URL, each carrying its own `via` provenance:
+   - `sources/gdelt.ts` — GDELT DOC 2.0 (keyless), filtered to the GDELT-indexed approved domains.
+   - `sources/rss.ts` — ~350 direct publisher **RSS/Atom feeds** (`frameworks/screener/rss_feeds.json`):
+     every material SEC EDGAR form, US/India/global regulators, central banks, macro & data agencies,
+     PR wires, exchanges, and sector & financial press. Dependency-free parser (handles RSS 2.0, Atom,
+     CDATA-wrapped and `<guid>`-only links), conditional-GET (304) caching, a browser User-Agent by
+     default (with per-feed overrides — SEC carries its required contact UA), and host-aware politeness
+     (per-host serialization + a concurrency cap) so a big list never burst-trips a publisher.
+   - `sources/nse.ts` — the **NSE India primary-disclosure JSON API** (corporate announcements +
+     board-meeting intimations): the exchange itself, the highest-signal India source, with no RSS
+     equivalent. One-time cookie-prime + retry on a 401/403.
 2. **Normalize + filter + dedup** — `normalize.ts` + `sources/approved-domains.ts`: drop off-list
-   publishers (the Gate-0 firewall, look-alike-safe), compute the same `event_id` the gauntlet uses,
+   publishers (the Gate-0 firewall, ~154 domains, look-alike-safe; a `gdelt:false` flag keeps a domain
+   on the firewall without bloating the GDELT query), compute the same `event_id` the gauntlet uses,
    mark `possible_duplicate` against the events ledger, and skip anything already in the seen-cache.
 3. **Triage** — `triage/groq.ts`: one batched Groq call scores N titles 0–100 against an
    approximation of the materiality rubric, returning a band (pick / watch / drop) + a one-line why.
@@ -48,19 +59,33 @@ Two hosting modes (build-both):
 
 ## Rate-limit math (why the free tier is safe)
 
-Groq free tier ≈ 30 req/min, ~1,000 req/day, ~100–200k tokens/day (org-level; cached tokens free).
-Defaults: ≤25 req/min throttle, daily caps of 800 req / 150k tokens, 12 titles per call, scored once
-and cached. A heavy day (a few hundred new on-list items) costs well under those caps; once a cap is
-reached the cycle defers the rest to the next run rather than erroring.
+Groq free tier ≈ 30 req/min, ~1,000 req/day, with a generous daily token budget (org-level; cached
+tokens free). Defaults: ≤25 req/min throttle, daily caps of 1,500 req / 500k tokens, 12 titles per
+call, scored once and cached. With the expanded source set (≈350 RSS feeds + NSE + GDELT) the daily
+item volume is large, so **Groq throughput is now the binding constraint on "score everything"**: on a
+free key the real limiter is Groq's own rate limit (cycles defer the rest to the next run — never lost,
+never zero-scored — at no cost); a higher Groq tier uses the extra headroom (8b-instant ≈ $0.05/M
+tokens, so 500k tokens/day ≈ $0.025). The firehose record (`kind:"item"`, capped at 5,000/day) shows
+every item read, kept *and* dropped.
 
 ## Config (all `NEWS.*` in `../config.ts`, env-tunable)
 
 `GROQ_API_KEY` · `GROQ_MODEL` · `NEWS_INGEST_ENABLED` · `NEWS_POLL_INTERVAL_MIN` ·
 `NEWS_GROQ_DAILY_REQ_CAP` · `NEWS_GROQ_DAILY_TOKEN_CAP` · `NEWS_GROQ_RPM` · `NEWS_TRIAGE_BATCH` ·
-`NEWS_GDELT_LOOKBACK_MIN` · `NEWS_INBOX_MAX_ROWS` · `NEWS_PICK_THRESHOLD` · `NEWS_WATCH_THRESHOLD`.
+`NEWS_GDELT_LOOKBACK_MIN` · `NEWS_INBOX_MAX_ROWS` · `NEWS_PICK_THRESHOLD` · `NEWS_WATCH_THRESHOLD` ·
+`NEWS_RSS_ENABLED` · `NEWS_RSS_FEEDS_PATH` · `NEWS_RSS_USER_AGENT` · `NEWS_RSS_CONCURRENCY` ·
+`NEWS_RSS_PER_HOST_GAP_MS` · `NEWS_NSE_ENABLED` · `NEWS_NSE_BASE_URL` · `NEWS_NSE_LOOKBACK_HOURS` ·
+`NEWS_FEED_ITEMS_DAILY_CAP`.
+
+To add a source: run `npx tsx scripts/verify-feeds.ts <candidates.json>` (live HTTP 200 + parseable
+check that reuses the production parser and reports the real item-link domains), add the feed to
+`frameworks/screener/rss_feeds.json`, and ensure its **link** domain is on the `approved-domains.ts`
+firewall + the `SWARM.md` allow-list. `scripts/gen-wiring.py` automates the firewall/allow-list rows.
 
 ## What this is not
 
 The Groq score is a cheap **pre-read** that decides inbox membership and ranking only — it is not the
 authoritative materiality score. The Claude gauntlet still does the real Phase 0.1 / Phase 1 work on
-any row a human promotes. Tests: `ui/server/test/news.test.ts` (mocked GDELT + Groq, no key needed).
+any row a human promotes. Tests: `test/news.test.ts` (mocked GDELT + Groq), `test/rss.test.ts` (RSS/Atom
+parsing incl. CDATA/`<guid>` links + the feed-list integrity check), `test/nse.test.ts` (the NSE
+adapter incl. the cookie-prime path) — all mocked, no network, no key needed.
