@@ -195,6 +195,43 @@ const DOMAINS: Record<string, SourceMeta> = {
   'rba.gov.au': { source_name: 'Reserve Bank of Australia', region: 'OTHER', input_nature: 'macro_data_release', gdelt: false },
   'tpex.org.tw': { source_name: 'Taipei Exchange (TPEx)', region: 'OTHER', input_nature: 'exchange_announcement', gdelt: false },
   'twse.com.tw': { source_name: 'Taiwan Stock Exchange (TWSE)', region: 'OTHER', input_nature: 'regulatory_filing', gdelt: false },
+  // --- Top IBKR-tradable markets — Japan, UK, China, South Korea + US/India deepening (verified live) ---
+  // --- US (added) ---
+  'fool.com': { source_name: 'The Motley Fool', region: 'US', input_nature: 'news_headline', gdelt: false },
+  'nasdaqtrader.com': { source_name: 'Nasdaq Trader', region: 'US', input_nature: 'exchange_announcement', gdelt: false },
+  // --- United Kingdom ---
+  'cityam.com': { source_name: 'City A.M.', region: 'GB', input_nature: 'news_headline', gdelt: false },
+  'independent.co.uk': { source_name: 'The Independent', region: 'GB', input_nature: 'news_headline', gdelt: false },
+  'ons.gov.uk': { source_name: 'Office for National Statistics (ONS)', region: 'GB', input_nature: 'macro_data_release', gdelt: false },
+  'sky.com': { source_name: 'Sky News', region: 'GB', input_nature: 'news_headline', gdelt: false },
+  'standard.co.uk': { source_name: 'The Standard (Evening Standard)', region: 'GB', input_nature: 'news_headline', gdelt: false },
+  'thisismoney.co.uk': { source_name: 'This is Money (Daily Mail)', region: 'GB', input_nature: 'news_headline', gdelt: false },
+  // --- Japan ---
+  'fsa.go.jp': { source_name: 'Financial Services Agency (FSA Japan)', region: 'JP', input_nature: 'regulatory_filing', gdelt: false },
+  'japantimes.co.jp': { source_name: 'The Japan Times', region: 'JP', input_nature: 'news_headline', gdelt: false },
+  'japantoday.com': { source_name: 'Japan Today', region: 'JP', input_nature: 'news_headline', gdelt: false },
+  'jpx.co.jp': { source_name: 'Japan Exchange Group (JPX)', region: 'JP', input_nature: 'exchange_announcement', gdelt: false },
+  'kyodonews.net': { source_name: 'Kyodo News (Japan Wire)', region: 'JP', input_nature: 'news_headline', gdelt: false },
+  'mainichi.jp': { source_name: 'The Mainichi', region: 'JP', input_nature: 'news_headline', gdelt: false },
+  'nippon.com': { source_name: 'nippon.com', region: 'JP', input_nature: 'news_headline', gdelt: false },
+  // --- China (mainland, English) ---
+  'cgtn.com': { source_name: 'CGTN Business', region: 'CN', input_nature: 'news_headline', gdelt: false },
+  'cnevpost.com': { source_name: 'CnEVPost', region: 'CN', input_nature: 'news_headline', gdelt: false },
+  'ecns.cn': { source_name: 'ECNS (China News Service, English)', region: 'CN', input_nature: 'news_headline', gdelt: false },
+  'globaltimes.cn': { source_name: 'Global Times', region: 'CN', input_nature: 'news_headline', gdelt: false },
+  'sixthtone.com': { source_name: 'Sixth Tone', region: 'CN', input_nature: 'news_headline', gdelt: false },
+  'technode.com': { source_name: 'TechNode', region: 'CN', input_nature: 'news_headline', gdelt: false },
+  // --- South Korea ---
+  'yna.co.kr': { source_name: 'Yonhap News Agency', region: 'KR', input_nature: 'news_headline', gdelt: false },
+  'kedglobal.com': { source_name: 'KED Global (Korea Economic Daily, English)', region: 'KR', input_nature: 'news_headline', gdelt: false },
+  'koreaherald.com': { source_name: 'The Korea Herald', region: 'KR', input_nature: 'news_headline', gdelt: false },
+  // --- India (deepened) ---
+  'businesstoday.in': { source_name: 'Business Today', region: 'IN', input_nature: 'news_headline', gdelt: false },
+  'deccanherald.com': { source_name: 'Deccan Herald', region: 'IN', input_nature: 'news_headline', gdelt: false },
+  'freepressjournal.in': { source_name: 'Free Press Journal', region: 'IN', input_nature: 'news_headline', gdelt: false },
+  'outlookbusiness.com': { source_name: 'Outlook Business', region: 'IN', input_nature: 'news_headline', gdelt: false },
+  'outlookmoney.com': { source_name: 'Outlook Money', region: 'IN', input_nature: 'news_headline', gdelt: false },
+  'theprint.in': { source_name: 'The Print', region: 'IN', input_nature: 'news_headline', gdelt: false },
 }
 
 /** Lowercase, strip a leading www., and keep only the host (no scheme/path) — GDELT gives a bare host already. */

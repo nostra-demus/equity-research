@@ -73,6 +73,12 @@ const SIZES: Record<string, string> = {
 }
 export const plainSize = (s?: string | null): string => (s ? SIZES[s] || human(s) : '')
 
+// Region codes → readable market names (the IBKR-tradable markets are first-class).
+const REGIONS_PLAIN: Record<string, string> = {
+  US: 'US', IN: 'India', JP: 'Japan', GB: 'UK', CN: 'China', KR: 'South Korea', GLOBAL: 'Global', OTHER: 'Other',
+}
+export const plainRegion = (r?: string | null): string => (r ? REGIONS_PLAIN[r] || r : '')
+
 // Who the news actually hits.
 const LINKAGE: Record<string, string> = {
   primary: 'names the company',

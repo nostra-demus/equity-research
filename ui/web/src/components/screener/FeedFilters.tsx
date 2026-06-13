@@ -2,7 +2,7 @@
 // board's Inbox lane. Pure client-side filtering (the data volumes are tiny); the matching helper
 // is exported so both views filter identically.
 
-import { ALL_THEMES, plainBand, plainLinkage, plainSize, plainTheme } from '../../lib/plain'
+import { ALL_THEMES, plainBand, plainLinkage, plainRegion, plainSize, plainTheme } from '../../lib/plain'
 
 export interface FeedFilterState {
   themes: Set<string>
@@ -50,7 +50,7 @@ export function matchesFilters(it: Filterable, f: FeedFilterState): boolean {
   return true
 }
 
-const REGIONS = ['US', 'IN', 'GLOBAL', 'OTHER']
+const REGIONS = ['US', 'IN', 'JP', 'GB', 'CN', 'KR', 'GLOBAL', 'OTHER']
 const SIZES = ['mega', 'large', 'mid', 'small', 'unknown']
 const LINKAGES = ['primary', 'secondary', 'sector', 'macro']
 const BANDS = ['pick', 'watch', 'drop']
@@ -98,7 +98,7 @@ export function FeedFilters({
           <option value="">all regions</option>
           {REGIONS.map((r) => (
             <option key={r} value={r}>
-              {r}
+              {plainRegion(r)}
             </option>
           ))}
         </select>
