@@ -627,6 +627,24 @@ a { color: inherit; }
 .scsignal__src { color: var(--text-muted); }
 .scsignal__outcome { color: var(--accent-bright); font-weight: 600; }
 .scsignal__hint { margin: 8px auto 0; max-width: 440px; font-size: 11px; line-height: 1.4; color: var(--text-muted); }
+/* run controls under the signal — Stop (while live) / Continue (resume a stopped run) */
+.scsignal__actions { margin-top: 11px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.scsignal__act {
+  display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: var(--r-pill);
+  font-family: inherit; font-size: 11px; font-weight: 600; letter-spacing: 0.2px; cursor: pointer;
+  border: 1px solid var(--hairline-strong); background: var(--surface-2); color: var(--text-muted);
+  transition: transform 120ms var(--ease-out), color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+}
+.scsignal__act-glyph { font-size: 9px; line-height: 1; }
+.scsignal__act:active { transform: scale(0.97); }
+.scsignal__act:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--accent); }
+.scsignal__act--stop { color: var(--bad); border-color: color-mix(in srgb, var(--bad) 45%, var(--hairline-strong)); }
+.scsignal__act--continue { color: var(--accent-bright); border-color: var(--accent-deep); background: var(--accent-wash); }
+@media (hover: hover) and (pointer: fine) {
+  .scsignal__act--stop:hover { color: var(--bad); border-color: var(--bad); background: color-mix(in srgb, var(--bad) 12%, transparent); }
+  .scsignal__act--continue:hover { color: var(--accent); border-color: var(--accent); background: var(--accent-wash-strong, var(--accent-wash)); }
+}
+@media (prefers-reduced-motion: reduce) { .scsignal__act:active { transform: none; } }
 .cluster__route { font-size: 10.5px; font-weight: 700; font-family: var(--font-mono); letter-spacing: 0.4px; color: var(--accent-bright); margin-top: 2px; }
 .cluster__route--terminal { color: var(--text-faint); }
 

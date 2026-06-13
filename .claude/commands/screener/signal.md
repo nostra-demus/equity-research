@@ -36,12 +36,17 @@ Glob `.claude/agents/screener/*/99_*-synthesis.md`. Parse each `depends_on` from
 
 ## 4. Run each module via the screener pipeline, gated by the routing contract
 
-For each module in order, follow `frameworks/screener/SCREENER_PIPELINE.md` (which adapts `frameworks/MODULE_PIPELINE.md` — same dispatch/persist/verify mechanics, screener substitutions) with:
+**This step is RESUMABLE.** A re-launched run reuses everything a prior run already finished, so a human "Continue" after a stop picks up where it left off instead of redoing paid work. A fresh signal has an empty run root, so nothing is skipped and the full gauntlet runs.
 
-- `<SIG_ID>`, `<DATE>`, `<MODULE>`, `<RUN_ROOT>`
-- `<CROSS_MODULE_CONTEXT>` — one sentence per completed upstream module: `<Dep> cross-module path: <RUN_ROOT>/<dep>/.` (first letter capitalized), or `none`.
+For each module in order:
 
-After each module, extract its routing (the SCREENER_PIPELINE grep on the synthesis — and for signal-gate ALSO check the 00 intake output first, which can terminate at Gate 0):
+- **Already finished? Skip it.** If `<RUN_ROOT>/<MODULE>/99_<MODULE>-synthesis.md` exists and is non-empty (`test -s`), this module completed in a prior run — do NOT re-dispatch it. Still read its synthesis to extract the routing (below), so the gate decision is honored exactly as if it had just run, then move to the next module.
+- **Otherwise, run it** via `frameworks/screener/SCREENER_PIPELINE.md` (which adapts `frameworks/MODULE_PIPELINE.md` — same dispatch/persist/verify mechanics, screener substitutions) with:
+  - `<SIG_ID>`, `<DATE>`, `<MODULE>`, `<RUN_ROOT>`
+  - `<CROSS_MODULE_CONTEXT>` — one sentence per completed upstream module: `<Dep> cross-module path: <RUN_ROOT>/<dep>/.` (first letter capitalized), or `none`.
+  - Within an incomplete module you MAY skip an individual agent whose output file already exists AND is complete/well-formed (open it and confirm) — but when in ANY doubt, re-run it; and NEVER skip the module synthesis (99) of an incomplete module. (A partial file left by a killed prior run must be re-run, not trusted.)
+
+After each module (whether just run or reused from disk), extract its routing (the SCREENER_PIPELINE grep on the synthesis — and for signal-gate ALSO check the 00 intake output first, which can terminate at Gate 0):
 
 - Routing in the manifest's `routing.terminal` list → STOP the pipeline here. This is a recorded, valid outcome.
 - Routing in `routing.continue` → next module.

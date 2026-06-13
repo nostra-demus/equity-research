@@ -165,6 +165,9 @@ interface State {
   closeSignalIntake: () => void
   submitSignal: (intake: SignalIntakeInput) => Promise<void>
   relaunchSignal: (sigId: string) => Promise<void>
+  // resume a stopped/partial signal run from where it left off — reuses the finished orbs on disk and
+  // only runs the remaining ones (the gauntlet command skips completed modules). NOT a fresh restart.
+  continueSignal: (sigId: string) => Promise<void>
   runSweep: () => Promise<void>
   openPipeline: () => void
   closePipeline: () => void
@@ -1072,6 +1075,30 @@ export const useStore = create<State>((set, get) => ({
     }
   },
 
+  // RESUME a stopped run: relaunch the same signal but KEEP the orbs that already finished (the gauntlet
+  // command skips any module whose synthesis is already on disk, so only the remaining orbs actually run).
+  // Unlike relaunchSignal (a clean restart), this preserves the done orbs so the constellation picks up
+  // exactly where it stopped — 3 done, the rest queued → running.
+  continueSignal: async (sigId) => {
+    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — signals run on your machine via npm run dev', tone: 'info' })
+    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    try {
+      // make sure we hold the authoritative finished-orb set from disk before relaunching
+      if (get().scSelectedSignal !== sigId || !Object.keys(get().scRuntime).length) await get().scSelectSignal(sigId)
+      const done = { ...get().scRuntime } // the orbs already finished (loaded from disk / frozen from the stop)
+      const { runId } = await api.launchSignal({ sigId })
+      // keep finished orbs as-is; re-queue everything else under the new runId so they animate as they run
+      const rt: Record<string, NodeRuntime> = {}
+      for (const k of get().scNodesByKey.keys()) rt[k] = done[k]?.status === 'done' ? done[k] : { status: 'queued', runId }
+      set({ scSelectedSignal: sigId, scRuntime: rt, pipelineOpen: false })
+      connectScreenerRun(get, runId)
+      void get().refreshActiveRuns()
+      get().setToast({ msg: `Resuming ${sigId} — picking up where it stopped`, tone: 'good' })
+    } catch (e: any) {
+      get().setToast({ msg: e?.message ? String(e.message) : 'Could not resume the checks', tone: e?.body?.code ? 'info' : 'bad' })
+    }
+  },
+
   runSweep: async () => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — sweeps run on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
@@ -1322,7 +1349,15 @@ export const useStore = create<State>((set, get) => ({
           get().setToast({ msg: `Sending ${handoff.ticker} to research failed (${e.reason}) — the memo may not be saved. Try again from the idea board.`, tone: 'bad' })
           break
         }
-        get().setToast({ msg: `The checks stopped with a problem (${e.reason})`, tone: 'bad' })
+        // a stopped/failed signal run: reload the truthful finished-orb set from disk (the done orbs stay
+        // done, the rest fall back to dormant) so the constellation shows exactly what completed — and the
+        // Continue button can resume from there. A user STOP reads as a calm pause, not a failure.
+        const sig = get().scSelectedSignal
+        if (sig) void get().scSelectSignal(sig)
+        const stopped = /cancel/i.test(String(e.reason || ''))
+        get().setToast(stopped
+          ? { msg: 'Stopped — your finished checks are saved. Press Continue to resume from here.', tone: 'info' }
+          : { msg: `The checks stopped with a problem (${e.reason}) — your finished checks are saved; Continue picks up from there.`, tone: 'bad' })
         break
       }
     }

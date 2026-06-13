@@ -23,6 +23,9 @@ export function ScreenerField() {
   const openPipeline = useStore((s) => s.openPipeline)
   const openSignalIntake = useStore((s) => s.openSignalIntake)
   const selectedNodeKey = useStore((s) => s.selectedNodeKey)
+  const nodesByKey = useStore((s) => s.scNodesByKey)
+  const cancelRun = useStore((s) => s.cancelRun)
+  const continueSignal = useStore((s) => s.continueSignal)
   const now = useStore((s) => s.now)
   const setNow = useStore((s) => s.setNow)
 
@@ -54,6 +57,26 @@ export function ScreenerField() {
   }, [runtime])
 
   const anyLive = activeModules.size > 0
+
+  // the runId of the live gauntlet (the running/queued orbs all carry it) — what the Stop button cancels
+  const liveRunId = useMemo(() => {
+    for (const v of Object.values(runtime)) if ((v.status === 'running' || v.status === 'queued') && v.runId) return v.runId
+    return null
+  }, [runtime])
+
+  // resumable = a signal that's stopped mid-gauntlet (some orbs done, not all) and did NOT end at a real
+  // terminal gate (a PARK/LOG/watchlist exit is a complete result, not a stop). Drives the Continue button.
+  const resumable = useMemo(() => {
+    if (!selectedSignal || anyLive) return false
+    const total = nodesByKey.size
+    if (!total) return false
+    let done = 0
+    for (const v of Object.values(runtime)) if (v.status === 'done') done++
+    if (done === 0 || done >= total) return false
+    const endedAtGate = Object.entries(routed).some(([k, r]) => k !== '__thesis__' && r.terminal)
+    return !endedAtGate
+  }, [selectedSignal, anyLive, runtime, routed, nodesByKey])
+
   useEffect(() => {
     if (!anyLive) return
     setNow(Date.now())
@@ -116,9 +139,26 @@ export function ScreenerField() {
               {sigDate && <span>{sigDate}</span>}
               {sig?.status && <span className="scsignal__outcome">{plainRoute(sig.status)}</span>}
             </div>
-            {!anyLive && (
+            {!anyLive && !resumable && (
               <div className="scsignal__hint">Not the live wire on the left — open an event to run a new check.</div>
             )}
+            {resumable && (
+              <div className="scsignal__hint">Stopped partway — your finished checks are saved.</div>
+            )}
+            {(anyLive && liveRunId) || resumable ? (
+              <div className="scsignal__actions">
+                {anyLive && liveRunId && (
+                  <button type="button" className="scsignal__act scsignal__act--stop" onClick={() => void cancelRun(liveRunId)} title="Stop the run — finished checks are saved so you can continue later">
+                    <span className="scsignal__act-glyph" aria-hidden>■</span> Stop
+                  </button>
+                )}
+                {resumable && (
+                  <button type="button" className="scsignal__act scsignal__act--continue" onClick={() => void continueSignal(selectedSignal)} title="Resume from where it stopped — reuses the finished checks, runs only the rest">
+                    Continue <span className="scsignal__act-glyph" aria-hidden>▸</span>
+                  </button>
+                )}
+              </div>
+            ) : null}
           </>
         ) : (
           <button className="btn btn--amber" onClick={openSignalIntake}>Check a news event ▸</button>
