@@ -22,6 +22,7 @@ import path from 'node:path'
 import { lookupSource } from './sources/approved-domains'
 import { readFeed } from './feed'
 import { cleanText } from './clean'
+import { storyFloor, isFilingEvent } from './story-floor'
 import { filterCompanies, isCompanyName } from './entities'
 import { analyzeArticle, type ArticleCompany, type ArticleParty } from './triage/groq'
 import { Budget, getSharedLimiter } from './triage/budget'
@@ -448,7 +449,13 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
   let companies = input.companies || []
   let event_types = input.event_types || []
   let scope = input.scope
+  let headline = (input.headline || '').trim()
   let snippet = '' // the feed's own lede (RSS) — a fetch-free body when the source page blocks us
+  // carried so the story floor can tell a regulatory/exchange filing (headline IS the disclosure) from
+  // an article (body is the story) — see story-floor.ts. Pulled from the event's OWN stored record.
+  let inputNature = ''
+  let sourceTier = ''
+  let sourceName = ''
   try {
     const stored = readFeed(deps.repoRoot, 2, { now, maxItems: 2000 }).items.find((it) => it.event_id === input.event_id)
     if (stored) {
@@ -456,17 +463,26 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
       companies = stored.companies || companies
       event_types = stored.event_types || event_types
       scope = (stored as any).scope || scope
+      headline = cleanText(stored.headline) || headline // the stored headline is authoritative + cleaned
       snippet = (stored as any).snippet || ''
+      inputNature = (stored as any).input_nature || ''
+      sourceTier = (stored as any).source_tier || ''
+      sourceName = (stored as any).source_name || ''
     }
   } catch {}
+  if (!headline) headline = (input.headline || '').trim()
 
   // local, always-available sections first (use the reconciled companies/types)
   const prior_coverage = findPriorCoverage(deps.repoRoot, companies)
-  const related = findRelatedEvents(deps.repoRoot, { event_id: input.event_id, headline: input.headline, companies, event_types, scope }, now)
+  const related = findRelatedEvents(deps.repoRoot, { event_id: input.event_id, headline, companies, event_types, scope }, now)
 
   const result: EventEnrichment = { event_id: input.event_id, ok: true, fetched_at: nowIso, prior_coverage, related }
 
   const host = url ? (() => { try { return new URL(url).hostname.toLowerCase() } catch { return '' } })() : ''
+  // classify once: a regulatory/exchange filing's meaning lives in the headline (its body is a PDF/
+  // attachment), so we never try to "read" it — we synthesize the story from what we hold (story-floor.ts).
+  const filingInput = { headline, url, snippet, input_nature: inputNature, source_tier: sourceTier, source_name: sourceName, domain: host, companies }
+  const filing = isFilingEvent(filingInput)
   // SEC item parsing applies ONLY to an actual EDGAR filing INDEX page — sec.gov press releases /
   // litigation bulletins are ordinary articles and fall through to the summary extractor.
   const isSec = /(^|\.)sec\.gov$/.test(host) && /\/Archives\/edgar\//i.test(url) && /-index\.html?($|[?#])/i.test(url)
@@ -493,17 +509,19 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
     // the body for the read: the feed's lede + any fetched page text (snippet first — it's the cleanest).
     const pageBody = pageHtml ? cleanText(pageHtml.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' ')) : ''
     const body = [snippet, pageBody].filter(Boolean).join('\n\n').trim()
-    // one Groq body-read — through the SHARED adaptive pacer + the daily budget, so an opened event
-    // never blows the per-minute ceiling alongside the ingester, and counts toward the same daily cap.
+    // one Groq body-read — through the SHARED adaptive pacer + the daily budget, so an opened event never
+    // blows the per-minute ceiling alongside the ingester, and counts toward the same daily cap. SKIPPED
+    // for a filing: its "body" is a PDF/exchange-shell with no story to read — the headline IS the
+    // disclosure, so we go straight to the deterministic floor (no wasted Groq call, no fabrication).
     let brief = null
     const g = deps.groq
-    if (g?.apiKey && body) {
+    if (g?.apiKey && body && !filing) {
       const budget = Budget.load(deps.stateDir, g.dailyReqCap ?? Number.MAX_SAFE_INTEGER, g.dailyTokenCap ?? Number.MAX_SAFE_INTEGER, now().getTime())
       const est = Math.min(3500, Math.ceil(body.length / 3) + 500) // rough input+output token estimate
       if (budget.canSpend(est)) {
         const limiter = getSharedLimiter(g.rpm ?? 28, g.tpm ?? 6000)
         await limiter.acquire(est, deps.sleep, () => now().getTime())
-        const r = await analyzeArticle(body, input.headline || '', { model: g.model, baseUrl: g.baseUrl, apiKey: g.apiKey, maxTokens: g.maxTokens }, fetchFn, deps.sleep)
+        const r = await analyzeArticle(body, headline, { model: g.model, baseUrl: g.baseUrl, apiKey: g.apiKey, maxTokens: g.maxTokens }, fetchFn, deps.sleep)
         brief = r.brief
         budget.record(1, r.tokens || est)
         budget.save()
@@ -519,13 +537,24 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
       const exp = scrubParties(brief.exposed)
       if (exp.length) result.exposed = exp
       if (brief.theme) result.theme = brief.theme
-      if (!brief.gist.length) { const s = (pageHtml && extractSummary(pageHtml)) || snippet; if (s) result.summary = s.slice(0, 600) }
+      // read succeeded but produced no gist bullets → back it with a readable summary, never blank
+      if (!brief.gist.length) result.summary = ((!filing && pageHtml && extractSummary(pageHtml)) || snippet || storyFloor(filingInput).summary).slice(0, 600)
     } else {
-      // no body read → degrade to the page summary, then the feed snippet, then an honest note. Never blank.
-      const summary = (pageHtml && extractSummary(pageHtml)) || snippet
-      if (summary) result.summary = summary.slice(0, 600)
-      else result.note = fetchNote || 'source blocked — headline only'
+      // NO readable body (a PDF/attachment filing, a JS shell, a paywall, an off-list link). Guarantee a
+      // meaningful, accurate THE STORY rather than a raw fetch error. For an article we prefer a real page
+      // summary / feed lede; for a filing (or when those are empty) we synthesize from the headline +
+      // filing metadata (story-floor.ts — never empty, never fabricated). The raw fetch reason is demoted
+      // to a SECONDARY hint, never shown AS the story.
+      const extracted = !filing ? ((pageHtml && extractSummary(pageHtml)) || snippet) : ''
+      result.summary = (extracted && extracted.trim() ? extracted : storyFloor(filingInput).summary).slice(0, 600)
+      if (fetchNote) result.note = fetchNote
     }
+  }
+
+  // FINAL GUARANTEE: the reader must NEVER see an empty or error-only story. If no section produced
+  // renderable content (an unforeseen branch, an EDGAR page that parsed to nothing), synthesize the floor.
+  if (!result.sec && !(result.gist && result.gist.length) && !(result.summary && result.summary.trim())) {
+    result.summary = storyFloor(filingInput).summary
   }
 
   cache[input.event_id] = result
