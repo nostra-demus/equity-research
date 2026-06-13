@@ -1297,20 +1297,31 @@ a { color: inherit; }
 /* ---- the map ---- */
 .thememap { position: relative; flex: 1; min-height: 0; overflow: hidden; border: 1px solid var(--hairline); border-radius: var(--r-lg); background: radial-gradient(circle at 30% 50%, var(--accent-wash-soft), transparent 60%); }
 .thememap__edges { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
-.thememap__lane-edge { fill: none; stroke: var(--hairline); stroke-width: 1; opacity: 0.5; }
-.thememap__edge { fill: none; stroke: var(--hairline); stroke-width: 1.25; opacity: 0.4; transition: stroke var(--dur) var(--ease), opacity var(--dur) var(--ease); }
-.thememap__edge.is-active { stroke: var(--accent); opacity: 0.85; stroke-dasharray: 4 6; animation: themeflow 0.7s linear infinite; }
+.thememap__lane-edge { fill: none; stroke: var(--hairline-strong); stroke-width: 1; opacity: 0.6; stroke-dasharray: 2 8; animation: themeflow 2.6s linear infinite; }
+.thememap__edge { fill: none; stroke: var(--hairline-strong); stroke-width: 1.25; opacity: 0.55; stroke-dasharray: 2 8; animation: themeflow 2.9s linear infinite; transition: stroke var(--dur) var(--ease), opacity var(--dur) var(--ease); }
+.thememap__edge.is-active { stroke: var(--accent); opacity: 0.9; stroke-dasharray: 4 6; animation: themeflow 0.7s linear infinite; }
+
+/* live stream particles — events flow source → ranking → theme along the edges (offset-path = GPU) */
+.thememap__particles { position: absolute; inset: 0; pointer-events: none; }
+.thememap__pulse { position: absolute; top: 0; left: 0; width: 5px; height: 5px; border-radius: 50%; offset-rotate: 0deg; opacity: 0; will-change: offset-distance, opacity; animation-name: thememap-stream; animation-timing-function: linear; animation-iteration-count: infinite; }
+.thememap__pulse--in { background: var(--accent-bright); box-shadow: 0 0 6px var(--accent-glow); }
+.thememap__pulse--out { width: 6px; height: 6px; background: var(--tier, var(--accent)); box-shadow: 0 0 8px color-mix(in srgb, var(--tier, var(--accent)) 55%, transparent); }
 .thememap__lanes { position: absolute; inset: 0; pointer-events: none; }
 .thememap__lane { position: absolute; transform: translateY(-50%); }
 .thememap__lane-label { font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-faint); background: var(--surface-2); border: 1px solid var(--hairline); padding: 3px 8px; border-radius: var(--r-pill); white-space: nowrap; }
 .thememap__core { position: absolute; border-radius: 50%; border: 1px solid var(--hairline-strong); background: radial-gradient(circle at 50% 40%, var(--accent-wash), var(--surface-2)); display: flex; align-items: center; justify-content: center; }
 .thememap__core span { font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
 .thememap__core::after { content: ''; position: absolute; inset: -3px; border-radius: 50%; border: 1px solid var(--accent-wash); animation: themebreathe 3s var(--ease) infinite; }
+/* the ranking core "pumps" — a radar ping expands out of it on a loop */
+.thememap__core::before { content: ''; position: absolute; inset: 0; border-radius: 50%; border: 1px solid var(--accent); opacity: 0; animation: thememap-ping 2.8s var(--ease-out) infinite; }
 
 .themenode { position: absolute; border: 0; background: transparent; padding: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; will-change: transform; transition: transform var(--dur) var(--ease-out), opacity var(--dur) var(--ease); animation: themepop var(--dur-slow) var(--ease-out) both; }
 .themenode__core { position: absolute; inset: 0; border-radius: 50%; border: 1.5px solid var(--tier); background: color-mix(in srgb, var(--tier) 14%, transparent); transition: background var(--dur) var(--ease), box-shadow var(--dur) var(--ease); }
 .themenode--hot .themenode__core { background: color-mix(in srgb, var(--tier) 26%, transparent); box-shadow: 0 0 18px -2px var(--accent-glow); }
 .themenode--parked .themenode__core { background: transparent; }
+/* live basins breathe by heat — hot fastest, active gentle, cooling/parked still */
+.themenode--hot .themenode__core { animation: thememap-node 2.2s ease-in-out infinite; }
+.themenode--active .themenode__core { animation: thememap-node 3.4s ease-in-out infinite; }
 .themenode__count { position: relative; font-size: 11px; font-variant-numeric: tabular-nums; color: var(--text); font-weight: 600; }
 .themenode__label { position: absolute; top: calc(100% + 4px); left: 50%; transform: translateX(-50%); font-size: 11px; line-height: 1.15; color: var(--text-muted); text-align: center; white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; pointer-events: none; }
 .themenode.is-dim { opacity: 0.34; }
@@ -1386,7 +1397,11 @@ a { color: inherit; }
 @keyframes themepop { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
 @keyframes themebreathe { 0%,100% { opacity: 0.55; } 50% { opacity: 1; } }
 @keyframes themeshimmer { to { background-position: -200% 0; } }
+@keyframes thememap-stream { 0% { offset-distance: 0%; opacity: 0; } 12% { opacity: 1; } 85% { opacity: 1; } 100% { offset-distance: 100%; opacity: 0; } }
+@keyframes thememap-ping { 0% { transform: scale(1); opacity: 0.5; } 100% { transform: scale(2.5); opacity: 0; } }
+@keyframes thememap-node { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.07); } }
 @media (prefers-reduced-motion: reduce) {
-  .themenode, .themenode.is-pulsing::before, .thememap__edge.is-active, .thememap__core::after, .themes__emptyorb, .themes__shimmer { animation: none !important; }
+  .themenode, .themenode.is-pulsing::before, .themenode__core, .thememap__edge, .thememap__edge.is-active, .thememap__lane-edge, .thememap__core::after, .thememap__core::before, .thememap__pulse, .themes__emptyorb, .themes__shimmer { animation: none !important; }
+  .thememap__particles { display: none; }
   .themecard, .themenode, .themedd__back, .themedd__relchip { transition: none !important; }
 }

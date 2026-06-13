@@ -85,6 +85,22 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
     return new Set((t?.related_themes || []).map((r) => r.theme_id))
   }, [hover, themes])
 
+  // live stream particles: events flow in from each source lane → the ranking core → out to each
+  // theme basin (the hotter the theme, the more/faster). Pure offset-path motion (GPU), looped.
+  const particles = useMemo(() => {
+    const out: { id: string; d: string; dur: number; delay: number; cls: string; tier?: Theme['tier'] }[] = []
+    layout.lanes.forEach((l, i) => {
+      const d = hcurve(l.x + 18, l.y, layout.core.x - layout.core.r, layout.core.y)
+      for (let k = 0; k < 2; k++) out.push({ id: `in-${l.id}-${k}`, d, dur: 3.1 + (i % 3) * 0.6, delay: i * 0.5 + k * 1.7, cls: 'thememap__pulse--in' })
+    })
+    layout.nodes.forEach((n, i) => {
+      const d = hcurve(layout.core.x + layout.core.r, layout.core.y, n.x - n.r, n.y)
+      const hot = n.theme.tier === 'hot'
+      for (let k = 0; k < (hot ? 2 : 1); k++) out.push({ id: `out-${n.id}-${k}`, d, dur: hot ? 2.5 : 3.7, delay: i * 0.3 + k * 1.25, cls: 'thememap__pulse--out', tier: n.theme.tier })
+    })
+    return out
+  }, [layout])
+
   return (
     <div className="thememap" ref={ref}>
       <svg className="thememap__edges" viewBox={`0 0 ${box.w} ${box.h}`} preserveAspectRatio="none" aria-hidden>
@@ -96,6 +112,17 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
           return <path key={n.id} d={hcurve(layout.core.x + layout.core.r, layout.core.y, n.x - n.r, n.y)} className={`thememap__edge${active ? ' is-active' : ''}`} style={{ ['--flow' as any]: n.flow ? 1 : 0 }} />
         })}
       </svg>
+
+      {/* live stream — events pulse source → ranking → theme along the edges */}
+      <div className="thememap__particles" aria-hidden>
+        {particles.map((p) => (
+          <i
+            key={p.id}
+            className={`thememap__pulse ${p.cls}`}
+            style={{ offsetPath: `path("${p.d}")`, animationDuration: `${p.dur}s`, animationDelay: `${p.delay}s`, ...(p.tier ? { ['--tier' as any]: tierColorVar(p.tier) } : {}) }}
+          />
+        ))}
+      </div>
 
       {/* source-tier lanes */}
       <div className="thememap__lanes">
@@ -118,7 +145,7 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
           <button
             key={n.id}
             type="button"
-            className={`themenode themenode--${t.tier}${t.tier === 'hot' && t.fresh_flow > 0 ? ' is-pulsing' : ''}${hover && hover !== n.id && !hoveredRelated.has(n.id) ? ' is-dim' : ''}`}
+            className={`themenode themenode--${t.tier}${t.tier === 'hot' ? ' is-pulsing' : ''}${hover && hover !== n.id && !hoveredRelated.has(n.id) ? ' is-dim' : ''}`}
             style={{ left: n.x - n.r, top: n.y - n.r, width: n.r * 2, height: n.r * 2, ['--tier' as any]: tierColorVar(t.tier) }}
             onMouseEnter={() => setHover(n.id)}
             onMouseLeave={() => setHover(null)}
