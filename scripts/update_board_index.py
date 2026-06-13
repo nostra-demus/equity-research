@@ -103,11 +103,12 @@ def build() -> dict:
                 "consumed": bool(row.get("consumed")),
                 "launched_signal_id": row.get("launched_signal_id"),
                 # additive: the autonomous ingester's cheap pre-triage (absent on manual-sweep rows)
-                "triage_score": row.get("triage_score"),
+                "triage_score": row.get("triage_score"),  # composite PRIORITY (materiality + source-tier/scope/recency)
                 "triage_reason": row.get("triage_reason") or "",
                 "region": row.get("region") or "",
                 "relevance": row.get("relevance") or "",
-                "materiality_pre_score": row.get("materiality_pre_score"),
+                "materiality_pre_score": row.get("materiality_pre_score"),  # the raw Groq title read
+                "rank_factors": row.get("rank_factors") if isinstance(row.get("rank_factors"), dict) else None,
                 "event_types": row.get("event_types") if isinstance(row.get("event_types"), list) else [],
                 "issuer_linkage": row.get("issuer_linkage") or "",
                 "companies": row.get("companies") if isinstance(row.get("companies"), list) else [],

@@ -15,6 +15,7 @@ import { loadLedgerEventIds, normalizeAndFilter } from './normalize'
 import { SeenCache } from './seen-cache'
 import { Budget, RateLimiter } from './triage/budget'
 import { estimateTokens, scoreToBand, triageBatch } from './triage/groq'
+import { rankScore } from './rank'
 import { deriveScope, deriveSourceTier } from './scope'
 import { appendFirehoseSummary, mergeInbox, refreshBoard } from './write-inbox'
 import type { CycleSummary, FeedItem, NewsItem, RawArticle, TriagedItem } from './types'
@@ -185,11 +186,20 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       // a missing index on an OK response is a deliberate model omission → score 0 (drop), marked
       // seen so we don't pay to re-score it next cycle
       const score = t ? t.materiality_pre_score : 0
-      const band = scoreToBand(score, cfg.pickThreshold, cfg.watchThreshold)
+      // composite PRIORITY: the Groq read, lifted/lowered by the §4 source tier, company-vs-broad
+      // scope, strongest event, size and recency — the deterministic, no-extra-cost re-rank that
+      // stops terse primary filings being buried under verbose news (see rank.ts). triage_score
+      // becomes this priority; materiality_pre_score keeps the raw Groq read for transparency.
+      const ranked = rankScore(
+        { materiality_pre_score: score, issuer_linkage: t?.issuer_linkage, companies: t?.companies, event_types: t?.event_types, input_nature: it.input_nature, headline: it.headline, size_bucket: t?.size_bucket, found_at: it.found_at },
+        now(),
+        cfg.rankBoostWeight,
+      )
+      const band = scoreToBand(ranked.rank_score, cfg.pickThreshold, cfg.watchThreshold)
       seen.add(it.event_id, score)
       triaged.push({
         ...it,
-        triage_score: score,
+        triage_score: ranked.rank_score,
         triage_reason: t?.why || 'not material',
         relevance: t?.relevance || 'irrelevant',
         materiality_pre_score: score,
@@ -198,6 +208,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         companies: t?.companies || [],
         size_bucket: t?.size_bucket || 'unknown',
         band,
+        rank_factors: ranked.rank_factors,
       })
     }
   }
@@ -240,6 +251,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     // derived, zero-cost classification — persisted so the wire + a later backfill agree
     scope: deriveScope(t),
     source_tier: deriveSourceTier(t),
+    rank_factors: t.rank_factors, // the composite-priority breakdown (rank.ts) — for the WHY in the UI
     dedup_status: t.dedup_status,
     inboxed: t.band !== 'drop',
   }))

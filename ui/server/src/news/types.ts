@@ -57,15 +57,16 @@ export interface Triage {
 }
 
 export interface TriagedItem extends NewsItem {
-  triage_score: number
+  triage_score: number // composite PRIORITY (rank.ts): Groq materiality + §4 source-tier/scope/event/size/recency
   triage_reason: string
   relevance: Triage['relevance']
-  materiality_pre_score: number
+  materiality_pre_score: number // the RAW Groq title read, before the composite re-rank
   event_types: string[]
   issuer_linkage: Triage['issuer_linkage']
   companies: CompanyGuess[]
   size_bucket: SizeBucket
   band: Band
+  rank_factors?: import('./rank').RankFactors // the composite-priority breakdown (the WHY)
   via?: 'gdelt' | 'rss' | 'nse'
 }
 
@@ -94,6 +95,7 @@ export interface InboxRow {
   size_bucket?: SizeBucket
   scope?: import('./scope').ScopeId // derived company-vs-broad bucket (news/scope.ts)
   source_tier?: import('./scope').SourceTierId // derived §4 source tier
+  rank_factors?: import('./rank').RankFactors // composite-priority breakdown (triage_score is the composite)
   // --- additive: human state (set only via the cockpit; merge/eviction must preserve these) ---
   dismissed?: boolean
   dismissed_at?: string
@@ -126,6 +128,7 @@ export interface FeedItem {
   //     backfilled on read for older firehose lines that predate it (feed.ts) ---
   scope?: import('./scope').ScopeId // company-vs-broad bucket the cockpit filters + chips on
   source_tier?: import('./scope').SourceTierId // §4 source hierarchy, made visible
+  rank_factors?: import('./rank').RankFactors // composite-priority breakdown (triage_score is the composite)
   dedup_status: 'new' | 'possible_duplicate'
   inboxed: boolean // band !== 'drop'
 }

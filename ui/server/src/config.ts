@@ -115,9 +115,13 @@ export const NEWS = {
   gdeltBaseUrl: process.env.NEWS_GDELT_BASE_URL || 'https://api.gdeltproject.org/api/v2/doc/doc',
   // Inbox is ranked by triage score and capped; the tail is counted (firehose) but not inboxed.
   inboxMaxRows: capNum(process.env.NEWS_INBOX_MAX_ROWS, 40),
-  // Score → band thresholds (mirror the gauntlet's promote/park/log bands; this is a cheap PRE-score).
+  // Score → band thresholds. NB: as of the composite re-rank these apply to the PRIORITY score
+  // (rank.ts), not the raw Groq read — so a terse but high-tier primary filing can still clear them.
   pickThreshold: capNum(process.env.NEWS_PICK_THRESHOLD, 70),
   watchThreshold: capNum(process.env.NEWS_WATCH_THRESHOLD, 40),
+  // How hard the deterministic re-rank pushes (rank.ts): 1 = full, 0 = pure Groq score (no boost),
+  // up to 2. Tune down if primary filings flood the inbox; tune up to lean harder on source quality.
+  rankBoostWeight: (() => { const n = Number(process.env.NEWS_RANK_BOOST_WEIGHT); return Number.isFinite(n) && n >= 0 ? Math.min(2, n) : 1 })(),
   // RSS layer (Layer 2 of the ingestion stack): direct publisher feeds — lower latency than GDELT
   // and immune to its rate limits. The approved-domains firewall still gates every item.
   rssEnabled: process.env.NEWS_RSS_ENABLED === '0' ? false : true,

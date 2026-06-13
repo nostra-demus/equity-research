@@ -251,7 +251,10 @@ await check('runIngestCycle: fetch → triage → ranked inbox; second run skips
   const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json'), 'utf8'))
   assert.equal(doc.rows.length, 1)
   assert.equal(doc.rows[0].source_name, 'Reuters')
-  assert.equal(doc.rows[0].triage_score, 84)
+  assert.equal(doc.rows[0].materiality_pre_score, 84) // raw Groq title read
+  // composite priority (rank.ts): 84 + policy scope (+2) + macro_sector event (+1) + recency (+5) = 92
+  assert.equal(doc.rows[0].triage_score, 92)
+  assert.ok(doc.rows[0].rank_factors && doc.rows[0].rank_factors.recency === 5)
   const fh = fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_firehose.ndjson'), 'utf8').trim()
   assert.ok(fh.includes('"kind":"cycle_summary"'))
 
