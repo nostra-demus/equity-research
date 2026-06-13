@@ -3,10 +3,12 @@
 // fans out to its SSE clients. No deps, no buffering — backfill comes from the firehose file.
 
 import type { CycleSummary, FeedItem } from './types'
+import type { ThemeSummary } from './themes/types'
 
 export type NewsBusEvent =
   | { type: 'news-item'; item: FeedItem }
   | { type: 'news-cycle'; summary: CycleSummary }
+  | { type: 'theme-update'; theme: ThemeSummary }
 
 type Listener = (e: NewsBusEvent) => void
 

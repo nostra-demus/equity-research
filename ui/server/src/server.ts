@@ -16,6 +16,7 @@ import { analyzeTicker, listTickers } from './data-status'
 import { cancel, cancelAll, creditCheck, decideReadiness, estimate, launch } from './launcher'
 import { newsBus } from './news/bus'
 import { readFeed } from './news/feed'
+import { readThemesIndex, loadTheme, buildThemeDetail } from './news/themes/store'
 import { enrichEvent } from './news/enrich'
 import { markInboxConsumed, setDismissed } from './news/inbox-actions'
 import { refreshBoard } from './news/write-inbox'
@@ -576,6 +577,17 @@ app.get('/api/news/feed', async (req) => {
   return readFeed(REPO_ROOT, days)
 })
 
+// THEMES — the living, ranked investment themes the firehose is bucketed into.
+const THEME_RE = /^THM-[a-z0-9]{8}$/
+app.get('/api/news/themes', async () => readThemesIndex(REPO_ROOT))
+app.get('/api/news/themes/:id', async (req, reply) => {
+  const id = String((req.params as any)?.id || '')
+  if (!THEME_RE.test(id)) return reply.code(400).send({ error: 'bad theme id' })
+  const theme = loadTheme(REPO_ROOT, id)
+  if (!theme) return reply.code(404).send({ error: 'theme not found' })
+  return buildThemeDetail(REPO_ROOT, theme)
+})
+
 // On-demand enrichment for ONE event the human opened: the real story (approved-domain fetch),
 // parsed SEC filing items, prior coverage of the named companies, and related recent wire items.
 // No Claude/Groq spend; cached by event_id; degrades gracefully (always 200 with a `note`).
@@ -619,7 +631,8 @@ app.get('/api/news/enrich', async (req, reply) => {
 // Live wire: one SSE client set, bridged once from the ingest cycle's bus.
 const newsClients = new Set<{ send: (e: any) => void }>()
 newsBus.subscribe((e) => {
-  const payload = e.type === 'news-item' ? { type: 'news-item', item: e.item } : { type: 'news-cycle', summary: e.summary }
+  const payload =
+    e.type === 'news-item' ? { type: 'news-item', item: e.item } : e.type === 'theme-update' ? { type: 'theme-update', theme: e.theme } : { type: 'news-cycle', summary: e.summary }
   for (const c of newsClients) c.send(payload)
 })
 app.get('/api/news/stream', (req, reply) => {

@@ -18,6 +18,9 @@ import { estimateTokens, scoreToBand, triageBatch } from './triage/groq'
 import { rankScore, preTriagePriority } from './rank'
 import { deriveScope, deriveSourceTier } from './scope'
 import { appendFirehoseSummary, mergeInbox, refreshBoard } from './write-inbox'
+import { runThemesCycle, bumpCycleCounter, themesConfigFromNews } from './themes/engine'
+import { makeThemeNamer } from './themes/llm'
+import type { ThemeItemView } from './themes/types'
 import type { CycleSummary, FeedItem, NewsItem, RawArticle, TriagedItem } from './types'
 import fs from 'node:fs'
 
@@ -278,5 +281,42 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   appendFirehoseSummary(repoRoot, date, summary)
   newsBus.emit({ type: 'news-cycle', summary })
   log(`news cycle: fetched ${raws.length}, ${items.length} new, picked ${picked}, watched ${watched}, dropped ${dropped}; groq ${groqRequests} req / ${groqTokens} tok`)
+
+  // 5. THEMES — bucket the material items into living, ranked investment themes (assign every cycle,
+  // discover periodically, decay automatically). Runs AFTER the write and is fully guarded, so a themes
+  // bug can never block or corrupt the core pipeline (same fail-soft posture as every other stage).
+  if (cfg.themesEnabled) {
+    try {
+      const themeItems: ThemeItemView[] = picks
+        .filter((t) => t.triage_score >= cfg.themesMinScore)
+        .map((t) => ({
+        event_id: t.event_id,
+        headline: t.headline,
+        found_at: t.found_at,
+        companies: t.companies,
+        event_types: t.event_types,
+        issuer_linkage: t.issuer_linkage,
+        triage_score: t.triage_score,
+        materiality_pre_score: t.materiality_pre_score,
+        source_tier: deriveSourceTier(t),
+        scope: deriveScope(t),
+        region: t.region,
+      }))
+      const n = bumpCycleCounter(stateDir)
+      const res = await runThemesCycle({
+        repoRoot,
+        stateDir,
+        items: themeItems,
+        runDiscovery: n % Math.max(1, cfg.themesDiscoverEveryCycles) === 0,
+        now,
+        cfg: themesConfigFromNews(cfg),
+        llmNamer: makeThemeNamer(cfg, fetchFn, stateDir, log),
+      })
+      for (const s of res.changed) newsBus.emit({ type: 'theme-update', theme: s })
+      if (res.changed.length) log(`themes: ${res.changed.length} updated`)
+    } catch (e: any) {
+      log(`themes stage error: ${e?.message || e}`)
+    }
+  }
   return summary
 }

@@ -144,4 +144,22 @@ export const NEWS = {
   feedItemsDailyCap: capNum(process.env.NEWS_FEED_ITEMS_DAILY_CAP, 5000),
   // Groq output budget per triage call (the per-item payload grew with companies/size_bucket).
   triageMaxTokens: capNum(process.env.NEWS_TRIAGE_MAX_TOKENS, 2000),
+  // THEMES layer (news/themes/*): buckets the ranked firehose into living investment themes, scores +
+  // ranks them (hot/active/cooling/parked, auto-decaying), and assigns 1st/2nd/3rd-order companies.
+  // Assignment runs every cycle (deterministic, $0); discovery runs every Nth cycle. The discovery
+  // NAMING/ripple pass optionally uses Claude-Haiku (the ONE place the ingester can spend Claude
+  // money) — off unless THEMES_CLAUDE_API_KEY is set; otherwise discovery stays deterministic ($0).
+  themesEnabled: process.env.NEWS_THEMES_ENABLED === '0' ? false : true,
+  // Only items at/above this composite priority are bucketed into themes — routine low-materiality
+  // filings (which flood the firehose) cluster on boilerplate and aren't investment themes; real
+  // narratives score higher. Keeps the theme layer about MEANINGFUL flow.
+  themesMinScore: capNum(process.env.NEWS_THEMES_MIN_SCORE, 50),
+  themesDiscoverEveryCycles: capNum(process.env.NEWS_THEMES_DISCOVER_EVERY_CYCLES, 4),
+  themesRetireHours: capNum(process.env.NEWS_THEMES_RETIRE_HOURS, 72),
+  themesMaxMembers: capNum(process.env.NEWS_THEMES_MAX_MEMBERS, 400),
+  themesDiscoverModel: process.env.NEWS_THEMES_DISCOVER_MODEL || 'claude-haiku', // 'claude-haiku' | 'groq' | 'off'
+  themesClaudeModel: process.env.NEWS_THEMES_CLAUDE_MODEL || 'claude-haiku-4-5',
+  themesClaudeApiKey: process.env.THEMES_CLAUDE_API_KEY || process.env.ANTHROPIC_API_KEY || '',
+  themesClaudeBaseUrl: process.env.THEMES_CLAUDE_BASE_URL || 'https://api.anthropic.com',
+  themesClaudeDailyCap: capNum(process.env.NEWS_THEMES_CLAUDE_DAILY_CAP, 60), // max Claude discovery calls/day
 }
