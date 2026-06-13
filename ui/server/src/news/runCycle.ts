@@ -169,11 +169,15 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   // the live ceiling from Groq's response headers (no 429 bursts; full sustainable throughput).
   const budget = Budget.load(stateDir, cfg.groqDailyReqCap, cfg.groqDailyTokenCap, now().getTime())
   const limiter = getSharedLimiter(cfg.groqRpm, cfg.groqTpm)
-  // Gemini OVERFLOW provider (its own free pool + budget file + minute window). When Groq is paced/capped
-  // and Gemini still has free room, the batch goes to Gemini instead of deferring — raising the day's
-  // total throughput. Inactive (null) when no key, so the Groq-only path is byte-for-byte unchanged.
-  const geminiOn = cfg.geminiEnabled && !!cfg.geminiApiKey
-  const geminiBudget = geminiOn ? Budget.load(stateDir, cfg.geminiDailyReqCap, cfg.geminiDailyTokenCap, now().getTime(), 'gemini-budget.json') : null
+  // Gemini OVERFLOW — a ROTATION POOL of free models. Each model is a SEPARATE per-project-per-model
+  // free daily bucket (resets midnight Pacific), so the pool stacks the (tiny, ~20/day) per-model
+  // trickles. When Groq is paced/capped, a batch goes to the first pool model with room instead of
+  // deferring; a per-DAY 429 marks that model done for the day. Inactive (empty) when no key — the
+  // Groq-only path is byte-for-byte unchanged.
+  const geminiOn = cfg.geminiEnabled && !!cfg.geminiApiKey && cfg.geminiModels.length > 0
+  const geminiPool = geminiOn
+    ? cfg.geminiModels.map((m) => ({ model: m, budget: Budget.load(stateDir, cfg.geminiDailyReqCap, cfg.geminiDailyTokenCap, now().getTime(), `gemini-budget-${m.replace(/[^a-z0-9]+/gi, '-')}.json`, cfg.geminiDayTz) }))
+    : []
   const geminiLimiter = geminiOn ? getSharedGeminiLimiter(cfg.geminiRpm, cfg.geminiTpm) : null
   const triaged: TriagedItem[] = []
   const deferred: NewsItem[] = [] // unscored this cycle (budget hit / batch failed) — re-queued next cycle
@@ -192,25 +196,27 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     // PROVIDER PICK. Prefer Groq while it's on-schedule (the pacer keeps it spread across the day); when
     // Groq is paced/capped, overflow to Gemini's separate free pool; defer only when BOTH are out.
     const groqOk = budget.pacedCanSpend(est, pace, now().getTime())
-    const geminiOk = !!geminiBudget && geminiBudget.canSpend(est)
+    const gemPick = geminiOn ? geminiPool.find((g) => g.budget.canSpend(est)) : undefined // first pool model with daily room
+    const geminiOk = !!gemPick
     if (!groqOk && !geminiOk) {
       const groqHardOut = !budget.canSpend(est)
-      // both exhausted: a genuine daily cap only if Groq is hard-capped (and Gemini too / absent); else
-      // it's the pacer spreading the rest across the day with no overflow room left this minute.
+      // both exhausted: a genuine daily cap only if Groq is hard-capped (and the whole Gemini pool too /
+      // absent); else it's the pacer spreading the rest across the day with no overflow room this minute.
       budgetHit = groqHardOut && (!geminiOn || !geminiOk)
       paceHit = !budgetHit
       deferred.push(...items.slice(i)) // everything from here on waits for the next cycle / drain
       break
     }
-    const useGemini = !groqOk && geminiOk // Groq can't take it but Gemini can → overflow
+    const useGemini = !groqOk && geminiOk // Groq can't take it but a Gemini pool model can → overflow
     let res
     if (useGemini) {
       await geminiLimiter!.acquire(est, sleep, () => now().getTime())
-      res = await triageBatchGemini(batch, { model: cfg.geminiModel, baseUrl: cfg.geminiBaseUrl, apiKey: cfg.geminiApiKey, maxTokens: cfg.geminiMaxTokens }, fetchFn, sleep)
+      res = await triageBatchGemini(batch, { model: gemPick!.model, baseUrl: cfg.geminiBaseUrl, apiKey: cfg.geminiApiKey, maxTokens: cfg.geminiMaxTokens }, fetchFn, sleep)
       geminiRequests += res.requests
       geminiTokens += res.tokens
-      geminiBudget!.record(res.requests, res.tokens)
+      gemPick!.budget.record(res.requests, res.tokens)
       geminiLimiter!.learn(res.rate, () => now().getTime())
+      if (!res.ok && /PerDay/i.test(res.note || '')) gemPick!.budget.exhaust() // model's free day is spent → rotation skips it until midnight PT
     } else {
       await limiter.acquire(est, sleep, () => now().getTime())
       res = await triageBatch(batch, { model: cfg.groqModel, baseUrl: cfg.groqBaseUrl, apiKey: cfg.groqApiKey, maxTokens: cfg.triageMaxTokens }, fetchFn, sleep)
@@ -260,7 +266,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     }
   }
   budget.save()
-  geminiBudget?.save()
+  for (const g of geminiPool) g.budget.save()
   seen.save()
   saveDeferred(stateDir, deferred)
 

@@ -8,14 +8,25 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-function utcDate(now = Date.now()): string {
-  return new Date(now).toISOString().slice(0, 10) // YYYY-MM-DD
+// Day key (YYYY-MM-DD) marking the reset boundary. Default UTC; pass an IANA tz (e.g.
+// 'America/Los_Angeles') for a provider whose daily quota resets in a specific zone — Gemini's
+// requests-per-day resets at midnight Pacific, NOT UTC, so its Budget must key on PT or it would
+// reset 7-8h early and risk busting Google's still-counting day.
+function dayKey(now = Date.now(), tz?: string): string {
+  if (!tz) return new Date(now).toISOString().slice(0, 10)
+  return new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(now)
 }
 
 const DAY_MS = 86_400_000
-// Unix time has no leap seconds, so `now % DAY_MS` is exactly ms since the last UTC midnight — the same
-// boundary Budget resets on. Fraction of the UTC day elapsed, clamped to [0,1].
-export function dayFraction(now = Date.now()): number {
+// Fraction of the day elapsed, clamped to [0,1]. Default UTC (Unix time has no leap seconds, so
+// `now % DAY_MS` is exactly ms since UTC midnight). With a tz, the fraction is of the LOCAL day.
+export function dayFraction(now = Date.now(), tz?: string): number {
+  if (tz) {
+    const p = new Intl.DateTimeFormat('en-GB', { timeZone: tz, hourCycle: 'h23', hour: '2-digit', minute: '2-digit', second: '2-digit' }).formatToParts(now)
+    const get = (t: string) => Number(p.find((x) => x.type === t)?.value || 0)
+    const f = (get('hour') * 3600 + get('minute') * 60 + get('second')) / 86400
+    return f < 0 ? 0 : f > 1 ? 1 : f
+  }
   const f = (((now % DAY_MS) + DAY_MS) % DAY_MS) / DAY_MS
   return f < 0 ? 0 : f > 1 ? 1 : f
 }
@@ -53,20 +64,23 @@ interface BudgetState { date: string; requests: number; tokens: number }
 
 export class Budget {
   private state: BudgetState
-  constructor(private file: string, private reqCap: number, private tokenCap: number, now = Date.now()) {
-    this.state = { date: utcDate(now), requests: 0, tokens: 0 }
+  constructor(private file: string, private reqCap: number, private tokenCap: number, now = Date.now(), private dayTz?: string) {
+    this.state = { date: dayKey(now, dayTz), requests: 0, tokens: 0 }
     try {
       const loaded = JSON.parse(fs.readFileSync(file, 'utf8')) as BudgetState
-      // carry the counters only if they belong to today; otherwise a fresh day starts at zero
+      // carry the counters only if they belong to today (in this provider's reset zone); else fresh day
       if (loaded && loaded.date === this.state.date) this.state = loaded
     } catch {
       // no prior file → today starts at zero
     }
   }
 
-  static load(stateDir: string, reqCap: number, tokenCap: number, now = Date.now(), fileName = 'groq-budget.json'): Budget {
-    return new Budget(path.join(stateDir, fileName), reqCap, tokenCap, now)
+  static load(stateDir: string, reqCap: number, tokenCap: number, now = Date.now(), fileName = 'groq-budget.json', dayTz?: string): Budget {
+    return new Budget(path.join(stateDir, fileName), reqCap, tokenCap, now, dayTz)
   }
+
+  /** Mark today's quota fully spent — e.g. the provider returned a per-DAY 429, so skip it until reset. */
+  exhaust(): void { this.state.requests = Math.max(this.state.requests, this.reqCap) }
 
   /** Headroom for one more call expected to cost ~estTokens. False when either daily cap is reached. */
   canSpend(estTokens: number): boolean {

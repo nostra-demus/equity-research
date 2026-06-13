@@ -129,22 +129,30 @@ export const NEWS = {
   // On a higher tier the headers raise the ceiling automatically; no redeploy needed.
   groqRpm: capNum(process.env.NEWS_GROQ_RPM, 28),
   groqTpm: capNum(process.env.NEWS_GROQ_TPM, 6000),
-  // SECOND free-tier brain — Google Gemini (AI Studio) as a triage OVERFLOW provider. A separate provider
-  // = a separate free rate-limit pool, so the day's total capacity = Groq free quota + Gemini free quota.
-  // When Groq is paced/capped, a batch routes to Gemini instead of deferring (that's the throughput gain).
-  // FREE TIER ONLY — do NOT enable billing on this key; the caps below sit under Gemini's free limits.
-  // Off entirely when GEMINI_API_KEY is unset (the engine behaves exactly as Groq-only). Secret lives in
-  // the launchd plist / env, never in tracked source.
+  // SECOND free-tier brain — Google Gemini (AI Studio) as a triage OVERFLOW provider. When Groq is
+  // paced/capped, a batch routes to Gemini instead of deferring. REALITY CHECK (empirically probed from
+  // the live 429 quota, Jun 2026): Google gutted the free tier — gemini-2.5-flash-lite is only ~20
+  // requests/DAY, PER PROJECT, PER MODEL, resetting at midnight Pacific. The published 1000-1500/day
+  // figures are pre-Dec-2025 and stale. We therefore ROTATE across the free model pool (each model has
+  // its OWN per-day bucket) to stack the trickles, and let a per-DAY 429 mark a model done for the day.
+  // FREE TIER ONLY — never attach billing. Off when GEMINI_API_KEY is unset. Secret lives in env, not src.
   geminiApiKey: process.env.GEMINI_API_KEY || '',
   geminiEnabled: process.env.NEWS_GEMINI_ENABLED === '0' ? false : true,
-  geminiModel: process.env.NEWS_GEMINI_MODEL || 'gemini-2.5-flash-lite', // fast + cheap + highest free throughput
+  // the rotation pool — each is a SEPARATE per-project-per-model free daily bucket (verified live; 2.0-*
+  // are shut down, 2.5-pro free is ~0, so they're excluded). Order = preference. Env override comma-sep.
+  geminiModels: (process.env.NEWS_GEMINI_MODELS || 'gemini-2.5-flash-lite,gemini-2.5-flash,gemini-flash-latest,gemini-flash-lite-latest').split(',').map((s) => s.trim()).filter(Boolean),
+  geminiModel: (process.env.NEWS_GEMINI_MODELS || 'gemini-2.5-flash-lite').split(',')[0].trim(), // first of the pool — for log/status display
   geminiBaseUrl: process.env.GEMINI_BASE_URL || 'https://generativelanguage.googleapis.com/v1beta',
-  // free-tier guardrails (2.5-flash-lite free ≈ 15 RPM / 1000 RPD / 250k TPM) — stay under with margin
-  geminiDailyReqCap: capNum(process.env.NEWS_GEMINI_DAILY_REQ_CAP, 900),
-  geminiDailyTokenCap: capNum(process.env.NEWS_GEMINI_DAILY_TOKEN_CAP, 900_000),
-  geminiRpm: capNum(process.env.NEWS_GEMINI_RPM, 12),
+  // PER-MODEL daily request cap. Set to the empirically-observed free limit (~20/day/model) so we stop
+  // exactly at the ceiling with no wasted 429s; the live per-DAY 429 + exhaust() is the safety net for any
+  // model whose real limit is lower (or shared). Raise per-model via env if a model proves more generous.
+  // TPM (240k) sits under the 250k free; daily token cap is non-binding (free tier gates RPM/RPD, not TPD).
+  geminiDailyReqCap: capNum(process.env.NEWS_GEMINI_DAILY_REQ_CAP, 20),
+  geminiDailyTokenCap: capNum(process.env.NEWS_GEMINI_DAILY_TOKEN_CAP, 5_000_000),
+  geminiRpm: capNum(process.env.NEWS_GEMINI_RPM, 14),
   geminiTpm: capNum(process.env.NEWS_GEMINI_TPM, 240_000),
   geminiMaxTokens: capNum(process.env.NEWS_GEMINI_MAX_TOKENS, 2000),
+  geminiDayTz: process.env.NEWS_GEMINI_DAY_TZ || 'America/Los_Angeles', // RPD resets midnight Pacific
   triageBatch: capNum(process.env.NEWS_TRIAGE_BATCH, 12),
   // GDELT look-back per cycle (minutes; > pollInterval gives overlap so nothing slips the gap).
   gdeltLookbackMin: capNum(process.env.NEWS_GDELT_LOOKBACK_MIN, 40),

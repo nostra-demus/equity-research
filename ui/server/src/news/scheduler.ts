@@ -39,16 +39,33 @@ function backlogCount(): number {
     return 0
   }
 }
-/** Hard daily headroom on the Gemini overflow pool (its RPM/RPD throttle it; no pacer needed). */
-function geminiHasHeadroom(today: string): boolean {
-  if (!(NEWS.geminiEnabled && NEWS.geminiApiKey)) return false
-  try {
-    const g = JSON.parse(fs.readFileSync(path.join(STATE_DIR, 'gemini-budget.json'), 'utf8'))
-    if (g?.date !== today) return true // fresh day
-    return (Number(g.tokens) || 0) < NEWS.geminiDailyTokenCap && (Number(g.requests) || 0) < NEWS.geminiDailyReqCap
-  } catch {
-    return true
+/** Today's date in the Gemini reset zone (midnight Pacific), matching the per-model Budget day key. */
+function geminiToday(): string {
+  return new Intl.DateTimeFormat('en-CA', { timeZone: NEWS.geminiDayTz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(Date.now())
+}
+
+/** Aggregate today's usage across the Gemini model-rotation pool (each model = a separate daily bucket). */
+function geminiPoolUsage(): { used: number; cap: number; tokens: number } | null {
+  if (!(NEWS.geminiEnabled && NEWS.geminiApiKey && NEWS.geminiModels.length)) return null
+  const day = geminiToday()
+  let used = 0
+  let tokens = 0
+  for (const m of NEWS.geminiModels) {
+    const f = path.join(STATE_DIR, `gemini-budget-${m.replace(/[^a-z0-9]+/gi, '-')}.json`)
+    try {
+      const g = JSON.parse(fs.readFileSync(f, 'utf8'))
+      if (g?.date === day) { used += Number(g.requests) || 0; tokens += Number(g.tokens) || 0 }
+    } catch {
+      // missing/unreadable model budget counts as 0 used (fresh)
+    }
   }
+  return { used, cap: NEWS.geminiModels.length * NEWS.geminiDailyReqCap, tokens }
+}
+
+/** Any free room left across the whole Gemini pool today? */
+function geminiHasHeadroom(): boolean {
+  const u = geminiPoolUsage()
+  return !!u && u.used < u.cap
 }
 
 /**
@@ -65,7 +82,7 @@ function budgetHasHeadroom(): boolean {
   } catch {
     return true // unreadable budget → don't stall the drain
   }
-  return groqOk || geminiHasHeadroom(today)
+  return groqOk || geminiHasHeadroom()
 }
 
 export interface NewsStatus {
@@ -115,16 +132,11 @@ export function getNewsStatus(): NewsStatus {
   } catch {
     // best-effort
   }
-  const geminiOn = NEWS.geminiEnabled && !!NEWS.geminiApiKey
+  const pool = geminiPoolUsage()
   let gemini: NewsStatus['gemini']
-  if (geminiOn) {
-    gemini = { enabled: true, model: NEWS.geminiModel, requests: 0, tokens: 0, reqCap: NEWS.geminiDailyReqCap, tokenCap: NEWS.geminiDailyTokenCap }
-    try {
-      const g = JSON.parse(fs.readFileSync(path.join(STATE_DIR, 'gemini-budget.json'), 'utf8'))
-      if (g?.date === todayDate) { gemini.requests = Number(g.requests) || 0; gemini.tokens = Number(g.tokens) || 0 }
-    } catch {
-      // best-effort
-    }
+  if (pool) {
+    const n = NEWS.geminiModels.length
+    gemini = { enabled: true, model: `${n} model${n === 1 ? '' : 's'} (${NEWS.geminiModel}…)`, requests: pool.used, tokens: pool.tokens, reqCap: pool.cap, tokenCap: NEWS.geminiDailyTokenCap * n }
   }
   return {
     enabled: NEWS.enabled,
@@ -188,7 +200,7 @@ export function startNewsIngester(): void {
   timer.unref?.()
   drainTimer = setInterval(() => void drain(), DRAIN_INTERVAL_MS)
   drainTimer.unref?.()
-  log(`ingester on — fetch every ${NEWS.pollIntervalMin} min, drain every ${Math.round(DRAIN_INTERVAL_MS / 1000)}s · model ${NEWS.groqModel}${NEWS.geminiEnabled && NEWS.geminiApiKey ? ` (+ ${NEWS.geminiModel} overflow)` : ''}${NEWS.rssEnabled ? ' · gdelt+rss' : ' · gdelt only'}`)
+  log(`ingester on — fetch every ${NEWS.pollIntervalMin} min, drain every ${Math.round(DRAIN_INTERVAL_MS / 1000)}s · model ${NEWS.groqModel}${NEWS.geminiEnabled && NEWS.geminiApiKey && NEWS.geminiModels.length ? ` (+ ${NEWS.geminiModels.length}-model gemini overflow)` : ''}${NEWS.rssEnabled ? ' · gdelt+rss' : ' · gdelt only'}`)
 }
 
 export function stopNewsIngester(): void {

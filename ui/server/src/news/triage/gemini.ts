@@ -25,6 +25,20 @@ function parseGeminiRetry(body: any): RateInfo {
   return {}
 }
 
+/** True when a 429 body's QuotaFailure is a per-DAY violation (RPD) — the model is done until midnight PT. */
+function isPerDayQuota(body: any): boolean {
+  try {
+    for (const d of body?.error?.details || []) {
+      for (const v of d?.violations || []) {
+        if (/PerDay|RequestsPerDay|InputTokens.*PerDay/i.test(String(v?.quotaId || ''))) return true
+      }
+    }
+  } catch {
+    // best-effort
+  }
+  return false
+}
+
 /**
  * Triage one batch via Gemini. Returns the same TriageResult shape as triageBatch (Groq). On ok:false
  * the caller treats the batch as UNSCORED (defer it), never scored-zero — identical to the Groq path.
@@ -60,8 +74,10 @@ export async function triageBatchGemini(
         let parsedErr: any
         try { parsedErr = JSON.parse(raw) } catch { parsedErr = null }
         const rate = res.status === 429 ? parseGeminiRetry(parsedErr) : {}
-        lastNote = `gemini HTTP ${res.status}${raw ? ': ' + raw.slice(0, 120) : ''}`
-        const transient = res.status === 429 || res.status >= 500
+        const perDay = res.status === 429 && isPerDayQuota(parsedErr)
+        lastNote = `gemini HTTP ${res.status}${perDay ? ' PerDay-quota-exhausted' : ''}${raw ? ': ' + raw.slice(0, 100) : ''}`
+        // a per-DAY 429 won't clear by retrying this cycle — surface it so the caller skips this model
+        const transient = (res.status === 429 && !perDay) || res.status >= 500
         if (transient && attempt < 2) {
           await sleep(rate.retryAfterMs || 1500 * attempt)
           continue
