@@ -16,6 +16,7 @@ import { plainSize, plainTheme } from '../../lib/plain'
 import { BROAD_SCOPES, COMPANY_SCOPES, familyOf, isCompanyNameClient, SCOPES, scopeLabel, scopeOf, type ScopeId } from '../../lib/scope'
 import { useStore } from '../../lib/store'
 import type { FeedItem } from '../../lib/types'
+import { emptyFilters, FeedFilters, filtersActive, matchesFilters, type FeedFilterState } from './FeedFilters'
 
 type View = 'ranked' | 'latest' | 'all'
 
@@ -122,10 +123,18 @@ export function EventRail() {
   const themesOpen = useStore((s) => s.themesView !== null)
   const openThemes = useStore((s) => s.openThemes)
   const closeThemes = useStore((s) => s.closeThemes)
+  const openNewsFeed = useStore((s) => s.openNewsFeed)
+  const runSweep = useStore((s) => s.runSweep)
+  const staticMode = useStore((s) => s.staticMode)
   const [view, setView] = useState<View>('ranked')
   // multi-select: empty = show everything; otherwise show the UNION of the picked scopes
   const [scopeFilter, setScopeFilter] = useState<Set<ScopeId>>(new Set())
   const [showShelved, setShowShelved] = useState(false)
+  // the Refine layer (theme / search / region / size) — secondary filter, collapsed by default
+  const [filters, setFilters] = useState<FeedFilterState>(emptyFilters())
+  const [showRefine, setShowRefine] = useState(false)
+  const [armScan, setArmScan] = useState(false) // two-click arm for the paid top-up sweep
+  const refineCount = filters.themes.size + (filters.region ? 1 : 0) + (filters.size ? 1 : 0) + (filters.text.trim() ? 1 : 0)
   const toggleScope = (s: ScopeId) => {
     const next = new Set(scopeFilter)
     next.has(s) ? next.delete(s) : next.add(s)
@@ -160,16 +169,21 @@ export function EventRail() {
   // story groups minus the ones the user set aside (the rep carries the group's shelved state)
   const baseGroups = useMemo(() => (showShelved ? groups : groups.filter((g) => !shelvedEvents.has(g.rep.event_id))), [groups, shelvedEvents, showShelved])
 
-  // per-scope counts over the base groups — drive the filter chips + the at-a-glance split
+  // the Refine layer applied: theme / region / size / text, ON TOP of the (scope-independent) base.
+  // Counts and the company/broad split below run on this refined set, so the scope chips always show
+  // what is actually available under the current refine.
+  const refined = useMemo(() => baseGroups.filter((g) => matchesFilters(g.rep, filters)), [baseGroups, filters])
+
+  // per-scope counts over the refined groups — drive the filter chips + the at-a-glance split
   const counts = useMemo(() => {
     const c: Record<string, number> = {}
-    for (const g of baseGroups) c[scopeOf(g.rep)] = (c[scopeOf(g.rep)] || 0) + 1
+    for (const g of refined) c[scopeOf(g.rep)] = (c[scopeOf(g.rep)] || 0) + 1
     return c
-  }, [baseGroups])
+  }, [refined])
   const companyTotal = COMPANY_SCOPES.reduce((n, s) => n + (counts[s] || 0), 0)
   const broadTotal = BROAD_SCOPES.reduce((n, s) => n + (counts[s] || 0), 0)
 
-  const visibleGroups = useMemo(() => (scopeFilter.size ? baseGroups.filter((g) => scopeFilter.has(scopeOf(g.rep))) : baseGroups), [baseGroups, scopeFilter])
+  const visibleGroups = useMemo(() => (scopeFilter.size ? refined.filter((g) => scopeFilter.has(scopeOf(g.rep))) : refined), [refined, scopeFilter])
   const isFresh = (g: StoryGroup) => g.members.some((m) => freshEvents.has(m.event_id))
 
   const shelvedInBand = useMemo(() => groups.reduce((n, g) => n + (shelvedEvents.has(g.rep.event_id) ? 1 : 0), 0), [groups, shelvedEvents])
@@ -177,9 +191,10 @@ export function EventRail() {
   const ago = agoMin(status?.lastCycleAt)
   const statusLine = status
     ? status.enabled
-      ? `Watching · last look ${ago != null ? `${ago}m ago` : 'soon'} · today ${status.today.read} read · ${status.today.kept} kept`
+      ? `Watching · last look ${ago != null ? `${ago}m ago` : 'soon'}`
       : 'Auto-scan off — add a free Groq key to watch the wire'
     : 'connecting to the scanner…'
+  const today = status?.today
 
   const scopeChip = (s: ScopeId) => {
     const n = counts[s] || 0
@@ -210,6 +225,36 @@ export function EventRail() {
           <span className={`evrail__dot${status?.enabled ? ' evrail__dot--live' : ''}`} aria-hidden />
         </div>
         <div className="evrail__status">{statusLine}</div>
+        {today && status?.enabled && (
+          <div className="evrail__today" title="What the automatic scan did today: how many it read, how many it kept for you, how many it dropped as not worth it">
+            today {today.read} read · {today.kept} kept · {today.dropped} dropped
+          </div>
+        )}
+        {status?.enabled && (
+          <div className="evrail__scan">
+            <button type="button" className="evrail__scanbtn" onClick={() => void openNewsFeed()} title="The live wire — everything the scanner read today, kept and dropped, with the reason for each">
+              watch live ▸
+            </button>
+            {!staticMode && (
+              <button
+                type="button"
+                className={`evrail__scanbtn${armScan ? ' evrail__scanbtn--armed' : ''}`}
+                onClick={() => {
+                  if (!armScan) {
+                    setArmScan(true)
+                    setTimeout(() => setArmScan(false), 4000)
+                    return
+                  }
+                  setArmScan(false)
+                  void runSweep()
+                }}
+                title="A manual top-up scan by the paid engine (~$2–12). Usually unnecessary — the free auto-scan runs every 15 minutes."
+              >
+                {armScan ? 'yes, scan now · ~$2–12 ▸' : 'scan now ▸'}
+              </button>
+            )}
+          </div>
+        )}
         <div className="evrail__seg" role="radiogroup" aria-label="How to view the wire">
           <button type="button" role="radio" aria-checked={view === 'ranked' && !themesOpen} className={`evrail__segbtn${view === 'ranked' && !themesOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => pickView('ranked')} title="The events worth a look, most important first">
             Ranked{keptCount ? ` · ${keptCount}` : ''}
@@ -230,7 +275,7 @@ export function EventRail() {
         <div className="evscope" role="group" aria-label="Filter by what the event is about — tap to add or remove">
           <button type="button" className={`evscope__chip evscope__chip--all${scopeFilter.size === 0 ? ' evscope__chip--on' : ''}`} onClick={() => setScopeFilter(new Set())} aria-pressed={scopeFilter.size === 0} title="Show every category">
             {scopeFilter.size === 0 && <span className="evscope__tick" aria-hidden>✓</span>}
-            All<span className="evscope__n">{baseGroups.length}</span>
+            All<span className="evscope__n">{refined.length}</span>
           </button>
           {(companyTotal > 0 || COMPANY_SCOPES.some((s) => scopeFilter.has(s))) && (
             <span className="evscope__group" title="A specific listed company is in play — a potential single-stock idea">
@@ -246,6 +291,32 @@ export function EventRail() {
         </div>
         {scopeFilter.size === 1 && <div className="evscope__meaning">{SCOPES[[...scopeFilter][0]].meaning}</div>}
         {scopeFilter.size > 1 && <div className="evscope__meaning">Showing {scopeFilter.size} categories together — tap All to reset.</div>}
+
+        {/* REFINE — a secondary filter on top of scope: news type, region, company size, or text.
+            Collapsed by default to keep the wire scannable; the badge shows active filters. */}
+        <div className="evrefine">
+          <button
+            type="button"
+            className={`evrefine__toggle${showRefine ? ' evrefine__toggle--on' : ''}${refineCount ? ' evrefine__toggle--active' : ''}`}
+            onClick={() => setShowRefine((v) => !v)}
+            aria-expanded={showRefine}
+            title="Filter by news type, region, company size, or a search term"
+          >
+            <span className="evrefine__label">Refine</span>
+            {refineCount > 0 && <span className="evrefine__badge">{refineCount}</span>}
+            <span className="evrefine__caret" aria-hidden>▾</span>
+          </button>
+          {!showRefine && filtersActive(filters) && (
+            <button type="button" className="evrefine__clear" onClick={() => setFilters(emptyFilters())} title="Clear the refine filters">
+              clear
+            </button>
+          )}
+        </div>
+        {showRefine && (
+          <div className="evrefine__panel">
+            <FeedFilters value={filters} onChange={setFilters} sources={[]} compact />
+          </div>
+        )}
       </header>
 
       <div className="evrail__list">
@@ -254,8 +325,8 @@ export function EventRail() {
         ))}
         {!visibleGroups.length && (
           <div className="evrail__empty">
-            {scopeFilter.size
-              ? `Nothing in the selected ${scopeFilter.size === 1 ? `“${SCOPES[[...scopeFilter][0]].label}”` : 'categories'} right now — tap All to see the rest.`
+            {scopeFilter.size || filtersActive(filters)
+              ? `Nothing matches these filters right now — tap All${filtersActive(filters) ? ' or clear Refine' : ''} to see the rest.`
               : items.length
                 ? view === 'ranked'
                   ? 'Nothing ranked yet — switch to Everything to see the full wire.'

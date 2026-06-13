@@ -47,7 +47,7 @@ function SwarmSwitcher() {
 
 // The auto-scanner's always-visible status: on/off, when it last looked, what it found today.
 // Click → the News wire (the live view of everything it read). The free scanner replaced the old
-// top-bar "Find news" button — the paid manual scan now lives inside the Idea board's Inbox lane.
+// top-bar "Find news" button — the paid manual top-up scan now lives at the top of the Events rail.
 function AutoScanChip() {
   const status = useStore((s) => s.newsStatus)
   const refresh = useStore((s) => s.refreshNewsStatus)
@@ -130,19 +130,18 @@ function StopControl() {
   )
 }
 
-// Screener-mode middle controls: Idea board (with inbox count) · Check an event. The news scan is
-// automatic now — its status chip (AutoScanChip) lives beside the engine pill.
+// Screener-mode middle controls: Recent runs · Check an event. The triage → idea funnel folded into
+// the left Events rail (one unified stream); this button opens the run history. The news scan is
+// automatic — its status chip (AutoScanChip) lives beside the engine pill.
 function ScreenerControls() {
   const openSignalIntake = useStore((s) => s.openSignalIntake)
   const openPipeline = useStore((s) => s.openPipeline)
-  const board = useStore((s) => s.scBoard)
   const health = useStore((s) => s.health)
   const engineDown = health === 'engine-offline' || health === 'your-network' || health === 'session-expired'
-  const inboxCount = board?.counts?.inbox_unconsumed ?? 0
   return (
     <>
-      <button className="btn btn--ghost" onClick={openPipeline} title="The idea board — every event and idea, from just-found to sent-to-research">
-        Idea board{inboxCount > 0 && <span className="inboxchip" title={`${inboxCount} new item${inboxCount === 1 ? '' : 's'} waiting in the Inbox`}>{inboxCount}</span>}
+      <button className="btn btn--ghost" onClick={openPipeline} title="Recent runs — every event you've put through the checks, newest first; reopen any analysis">
+        Recent runs
       </button>
       <button className="btn btn--amber" disabled={engineDown} onClick={openSignalIntake} title="Paste one news event and run it through the checks">
         Check an event ▸

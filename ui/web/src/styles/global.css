@@ -1175,6 +1175,45 @@ a { color: inherit; }
 .evscope__n { font-size: 9px; font-variant-numeric: tabular-nums; color: var(--text-muted); font-weight: 700; }
 .evscope__chip--on .evscope__n { color: var(--accent-bright); }
 .evscope__meaning { font-size: 10.5px; color: var(--text-muted); margin-top: 7px; line-height: 1.45; }
+
+/* ---- read/kept/dropped counters + the scan controls, at the top of the rail ---- */
+.evrail__today { font-size: 10px; color: var(--text-faint); margin-top: 4px; font-family: var(--font-mono); letter-spacing: 0.2px; font-variant-numeric: tabular-nums; }
+.evrail__scan { display: flex; flex-wrap: wrap; gap: 3px 14px; margin-top: 5px; }
+.evrail__scanbtn {
+  padding: 0; background: transparent; border: none; cursor: pointer; font-size: 10.5px; color: var(--text-faint);
+  transition: color var(--dur-fast), transform 140ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .evrail__scanbtn:hover { color: var(--accent-bright); } }
+.evrail__scanbtn:active { transform: scale(0.97); }
+.evrail__scanbtn--armed { color: var(--accent-bright); font-weight: 600; }
+
+/* ---- Refine: the secondary filter disclosure (news type / search / region / size) ---- */
+.evrefine { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
+.evrefine__toggle {
+  display: inline-flex; align-items: center; gap: 6px; padding: 3px 10px; border: 1px solid var(--hairline);
+  border-radius: var(--r-pill); background: transparent; color: var(--text-muted);
+  font-size: 10.5px; font-weight: 600; letter-spacing: 0.2px; cursor: pointer;
+  transition: color var(--dur-fast), border-color var(--dur-fast), background var(--dur-fast), transform 140ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .evrefine__toggle:hover { color: var(--text); border-color: var(--hairline-strong); } }
+.evrefine__toggle:active { transform: scale(0.97); }
+.evrefine__toggle--active { color: var(--accent-bright); border-color: var(--accent-deep); }
+.evrefine__toggle--on { background: var(--accent-wash); border-color: var(--accent); color: var(--accent-bright); }
+.evrefine__badge {
+  display: inline-grid; place-items: center; min-width: 15px; height: 15px; padding: 0 4px; border-radius: var(--r-pill);
+  background: var(--accent-wash); color: var(--accent-bright); font-size: 9px; font-weight: 700; font-family: var(--font-mono);
+}
+.evrefine__caret { font-size: 8px; transition: transform 180ms var(--ease-out); }
+.evrefine__toggle--on .evrefine__caret { transform: rotate(180deg); }
+.evrefine__clear {
+  padding: 0; background: transparent; border: none; cursor: pointer; font-size: 10.5px; color: var(--text-faint);
+  transition: color var(--dur-fast);
+}
+@media (hover: hover) and (pointer: fine) { .evrefine__clear:hover { color: var(--accent-bright); } }
+.evrefine__panel { margin-top: 8px; animation: evrefinein 180ms var(--ease-out) both; }
+@keyframes evrefinein { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) { .evrefine__panel { animation: none; } .evrefine__caret { transition: none; } }
+
 .evrail__shelfline {
   display: block; width: calc(100% - 36px); margin: 10px 18px 4px; padding: 7px 0; font-size: 10.5px;
   color: var(--text-faint); background: transparent; border: 1px dashed var(--hairline-strong); border-radius: var(--r-md);
