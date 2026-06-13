@@ -3,7 +3,7 @@
 // Run: npx tsx test/rank.test.ts
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
-import { rankScore } from '../src/news/rank'
+import { rankScore, preTriagePriority } from '../src/news/rank'
 
 let passed = 0
 function check(name: string, fn: () => void) {
@@ -72,6 +72,16 @@ check('factors are explainable and the score reconciles to materiality + boost (
 check('score clamps to 100 (no overflow) for a maxed-out item', () => {
   const r = rankScore({ materiality_pre_score: 95, input_nature: 'regulatory_filing', issuer_linkage: 'primary', companies: [{ name: 'A' }, { name: 'B' }], event_types: ['mna'], size_bucket: 'mega', headline: 'A to acquire B', found_at: fresh }, NOW)
   assert.equal(r.rank_score, 100)
+})
+
+check('preTriagePriority orders the Groq queue: material-first, then primary filings, then routine news', () => {
+  const matFiling = preTriagePriority({ input_nature: 'regulatory_filing', headline: 'Acme Ltd to acquire Beta Inc', found_at: fresh }, NOW)
+  const matNews = preTriagePriority({ input_nature: 'news_headline', headline: 'Gamma in merger talks, sources say', found_at: fresh }, NOW)
+  const routineFiling = preTriagePriority({ input_nature: 'regulatory_filing', headline: 'Delta Ltd: Newspaper Publication', found_at: fresh }, NOW)
+  const routineNews = preTriagePriority({ input_nature: 'news_headline', headline: 'A quiet day in the markets', found_at: fresh }, NOW)
+  assert.ok(matFiling > matNews, `material filing ${matFiling} > material news ${matNews}`)
+  assert.ok(matNews > routineFiling, `material news ${matNews} > routine filing ${routineFiling} (a takeover headline beats a routine filing of any tier)`)
+  assert.ok(routineFiling > routineNews, `routine filing ${routineFiling} > routine news ${routineNews}`)
 })
 
 console.log(`\n${passed} checks passed`)

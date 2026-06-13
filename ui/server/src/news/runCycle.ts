@@ -15,7 +15,7 @@ import { loadLedgerEventIds, normalizeAndFilter } from './normalize'
 import { SeenCache } from './seen-cache'
 import { Budget, RateLimiter } from './triage/budget'
 import { estimateTokens, scoreToBand, triageBatch } from './triage/groq'
-import { rankScore } from './rank'
+import { rankScore, preTriagePriority } from './rank'
 import { deriveScope, deriveSourceTier } from './scope'
 import { appendFirehoseSummary, mergeInbox, refreshBoard } from './write-inbox'
 import type { CycleSummary, FeedItem, NewsItem, RawArticle, TriagedItem } from './types'
@@ -140,7 +140,12 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const fresh = normalizeAndFilter(raws, { ledgerEventIds: ledgerIds, seen, now })
   const freshIds = new Set(fresh.map((i) => i.event_id))
   const requeued = loadDeferred(stateDir).filter((d) => d?.event_id && !freshIds.has(d.event_id) && !seen.has(d.event_id))
-  const items = [...requeued, ...fresh]
+  // Order the triage queue by a cheap deterministic pre-priority so the SCARCE Groq budget scores the
+  // most promising items first (a material keyword / primary filing / fresh item before routine news).
+  // Whatever the budget can't reach this cycle defers to the next — never lost, but now the tail that
+  // defers is the low-priority tail, not a random one. (rank.ts preTriagePriority.)
+  const nowDate = now()
+  const items = [...requeued, ...fresh].sort((a, b) => preTriagePriority(b, nowDate) - preTriagePriority(a, nowDate))
 
   if (!items.length) {
     saveDeferred(stateDir, []) // any stale spillover was consumed by the filters above

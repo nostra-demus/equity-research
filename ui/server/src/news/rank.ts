@@ -137,6 +137,33 @@ export function rankFamily(f: RankFactors): 'company' | 'broad' | 'unknown' {
   return familyOf(f.scope_id)
 }
 
+// High-value terms a buy-side PM would jump on — cheap to scan on the title BEFORE the LLM runs.
+// Substrings (not whole-word) on purpose: 'acqui' catches acquire/acquisition/acquired; 'investigat'
+// catches investigation/investigated. Used only to ORDER the triage queue, never to score.
+const PRE_KEYWORDS = [
+  'acqui', 'merger', 'takeover', 'buyout', 'tender offer', 'open offer', 'stake sale', 'divest',
+  'spin-off', 'spinoff', 'demerger', 'block deal', 'preferential issue', 'rights issue', 'qip',
+  'bankrupt', 'insolven', 'default', 'restructur', 'liquidat', 'wind-up', 'going concern', 'nclt',
+  'guidance', 'profit warning', 'downgrade', 'upgrade', 'buyback', 'repurchase', 'dividend', 'bonus issue',
+  'results', 'earnings', 'fraud', 'probe', 'investigat', 'lawsuit', 'charged', 'penalt', 'fine ',
+  'sanction', 'recall', 'resign', 'steps down', 'ceo', 'cfo', 'auditor', 'delisting', 'rate cut',
+  'rate hike', 'rate decision', 'acquire', 'to buy', 'merges', 'fundrais', 'raises ', 'cuts ', 'warns',
+]
+
+/**
+ * Cheap, deterministic PRE-triage priority — used to ORDER the queue so the scarce Groq budget scores
+ * the most promising items first (the budget/rate-limit is the binding constraint). Uses only fields
+ * present BEFORE the LLM runs (input_nature → §4 tier; the title; recency). Weighted so a MATERIAL
+ * item (a takeover/default/guidance keyword) outranks a routine filing of any tier, which in turn
+ * outranks routine news — material-first, then primary sources, then the rest.
+ */
+export function preTriagePriority(it: { input_nature?: string | null; headline?: string | null; found_at?: string | null }, now: Date = new Date()): number {
+  const tier = sourceTierRank(deriveSourceTier({ input_nature: it.input_nature })) // 5 (filing) … 2 (news); no event_types pre-triage
+  const hay = ' ' + String(it.headline || '').toLowerCase() + ' '
+  const material = PRE_KEYWORDS.some((k) => hay.includes(k)) ? 12 : 0 // bigger than the filing↔news tier gap (3×3=9)
+  return tier * 3 + material + recencyBonus(it.found_at, now)
+}
+
 // re-export the tier rank for any caller that wants the raw §4 number
 export function sourceTierRank(id: SourceTierId): number {
   return SOURCE_TIERS[id]?.rank ?? 0
