@@ -8,8 +8,9 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { readFeed } from '../feed'
+import { deriveSourceTier } from '../scope'
 import type { FeedItem } from '../types'
-import type { Theme, ThemeSummary, ThemesIndex, ThemeMutation, ThemeTier, ThemeDetail, CompaniesByOrder } from './types'
+import type { Theme, ThemeSummary, ThemesIndex, ThemeMutation, ThemeTier, ThemeDetail, CompaniesByOrder, ThemeItemView } from './types'
 
 const ledgerPath = (repoRoot: string) => path.join(repoRoot, 'screener', 'ledger', 'themes.ndjson')
 const indexPath = (repoRoot: string) => path.join(repoRoot, 'screener', 'board', 'themes_index.json')
@@ -104,6 +105,27 @@ export function readThemesIndex(repoRoot: string): ThemesIndex {
     // none yet
   }
   return { generated_at: '', themes: [], counts: { hot: 0, active: 0, cooling: 0, parked: 0, retired: 0, total: 0 } }
+}
+
+/** Recent MATERIAL firehose items as ThemeItemViews — the cold-start / comprehensiveness pool for a
+ *  discovery pass, so themes form from the whole recent backlog, not just this cycle's handful. */
+export function readRecentThemeItems(repoRoot: string, minScore: number): ThemeItemView[] {
+  const out: ThemeItemView[] = []
+  try {
+    const feed = readFeed(repoRoot, 2)
+    for (const it of feed.items as FeedItem[]) {
+      if (it.band === 'drop' || (it.triage_score || 0) < minScore) continue
+      out.push({
+        event_id: it.event_id, headline: it.headline, found_at: it.ts,
+        companies: it.companies || [], event_types: it.event_types || [], issuer_linkage: it.issuer_linkage,
+        triage_score: it.triage_score, materiality_pre_score: (it as any).materiality_pre_score,
+        source_tier: it.source_tier || deriveSourceTier(it), scope: it.scope, region: it.region,
+      })
+    }
+  } catch {
+    // none
+  }
+  return out
 }
 
 /** Load one live theme's full record by id (for the deep-dive API). */

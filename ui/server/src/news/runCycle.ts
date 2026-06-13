@@ -308,6 +308,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         stateDir,
         items: themeItems,
         runDiscovery: n % Math.max(1, cfg.themesDiscoverEveryCycles) === 0,
+        minScore: cfg.themesMinScore,
         now,
         cfg: themesConfigFromNews(cfg),
         llmNamer: makeThemeNamer(cfg, fetchFn, stateDir, log),

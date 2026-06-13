@@ -14,7 +14,7 @@ import path from 'node:path'
 import { assignThemes, DEFAULT_ASSIGN_CONFIG, type AssignConfig } from './assign'
 import { discoverDeterministic, linkThemes, mergeAndRetire, DEFAULT_DISCOVER_CONFIG, type DiscoverConfig } from './discover'
 import { scoreTheme, DEFAULT_THEME_SCORE_CONFIG, type ThemeScoreConfig } from './score'
-import { appendThemeMutations, buildSummary, loadThemes, writeThemesIndex } from './store'
+import { appendThemeMutations, buildSummary, loadThemes, readRecentThemeItems, writeThemesIndex } from './store'
 import type { Theme, ThemeItemView, ThemeSummary } from './types'
 
 export interface ThemesConfig {
@@ -159,6 +159,7 @@ export interface RunThemesInput {
   stateDir: string
   items: ThemeItemView[]
   runDiscovery: boolean
+  minScore?: number // discovery cold-start: seed the pool from recent firehose items at/above this score
   now?: () => Date
   cfg?: ThemesConfig
   llmNamer?: LlmNamer
@@ -170,7 +171,22 @@ export async function runThemesCycle(input: RunThemesInput): Promise<{ changed: 
   const now = input.now || (() => new Date())
   const cfg = input.cfg || DEFAULT_THEMES_CONFIG
   const themes = loadThemes(input.repoRoot)
-  const pool = loadPool(input.stateDir)
+  let pool = loadPool(input.stateDir)
+  // on a discovery cycle, augment the pool with recent MATERIAL firehose items that aren't already a
+  // member of any theme — so discovery forms from the whole recent backlog (rich cold-start), not just
+  // the few items this cycle. Self-heals duplicates via mergeAndRetire.
+  if (input.runDiscovery) {
+    const memberIds = new Set<string>()
+    for (const t of themes) for (const m of t.members) memberIds.add(m.event_id)
+    const haveInPool = new Set(pool.map((p) => p.event_id))
+    for (const it of readRecentThemeItems(input.repoRoot, input.minScore ?? 50)) {
+      if (!memberIds.has(it.event_id) && !haveInPool.has(it.event_id)) {
+        pool.push(it)
+        haveInPool.add(it.event_id)
+      }
+    }
+    if (pool.length > cfg.poolCap) pool = pool.slice(pool.length - cfg.poolCap)
+  }
   const res = await stepThemes({ themes, pool, items: input.items, runDiscovery: input.runDiscovery, now: now(), cfg, llmNamer: input.llmNamer })
   // persist: append only the changed themes to the ledger; rewrite the full live index
   const changedThemes = res.themes.filter((t) => res.changed.some((c) => c.theme_id === t.theme_id))
