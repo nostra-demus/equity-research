@@ -14,6 +14,23 @@ import { emptyFilters, FeedFilters, matchesFilters, type FeedFilterState } from 
 
 const agoMin = (iso?: string | null) => (iso ? Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 60_000)) : null)
 
+// compact 405000 → "405k", 14 → "14"
+const kfmt = (n: number): string => (n >= 1000 ? `${(n / 1000).toFixed(n >= 100_000 ? 0 : 1)}k` : `${Math.round(n)}`)
+
+// A small daily-budget pool readout: a label, a fill bar, and used/cap. The fill animates with a GPU
+// transform (scaleX) so the poll-driven update never triggers layout. `tone` distinguishes the two
+// providers — Groq (the paced primary) from the Gemini free-tier overflow (green = bonus capacity).
+function BudgetChip({ label, used, cap, unit, tone, title }: { label: string; used: number; cap: number; unit: string; tone: 'groq' | 'gemini'; title: string }) {
+  const frac = cap > 0 ? Math.min(1, Math.max(0, used / cap)) : 0
+  return (
+    <span className={`poolchip poolchip--${tone}${used > 0 && tone === 'gemini' ? ' is-active' : ''}`} title={title}>
+      <span className="poolchip__label">{label}</span>
+      <span className="poolchip__bar" aria-hidden><span className="poolchip__fill" style={{ transform: `scaleX(${frac})` }} /></span>
+      <span className="poolchip__val mono">{kfmt(used)}<span className="poolchip__sep">/</span>{kfmt(cap)}<span className="poolchip__unit"> {unit}</span></span>
+    </span>
+  )
+}
+
 function ScorePill({ score }: { score: number }) {
   const tone = score >= 70 ? 'var(--live)' : score >= 40 ? 'var(--accent-bright)' : 'var(--text-faint)'
   return (
@@ -103,6 +120,28 @@ export function LiveFeed() {
         <div>
           <div className="pipeline__title">News wire — everything the scanner read</div>
           <div className="pipeline__sub">{statusLine}</div>
+          {status?.enabled && status.budget && (
+            <div className="pipeline__pools">
+              <BudgetChip
+                label="Groq"
+                used={status.budget.tokens}
+                cap={status.budget.tokenTarget || status.budget.tokenCap}
+                unit="tok"
+                tone="groq"
+                title={`Groq daily token budget — paced evenly across the day so it never runs dry by noon. ${kfmt(status.budget.tokens)} of ${kfmt(status.budget.tokenTarget || status.budget.tokenCap)} tokens used today${status.budget.paceCeiling ? ` · ${kfmt(status.budget.paceCeiling)} released so far on the clock schedule` : ''}.`}
+              />
+              {status.gemini?.enabled && (
+                <BudgetChip
+                  label="Gemini overflow"
+                  used={status.gemini.requests}
+                  cap={status.gemini.reqCap}
+                  unit="req"
+                  tone="gemini"
+                  title={`Free-tier overflow (${status.gemini.model}) — a second provider that picks up triage when Groq is paced or capped, so the day's throughput is Groq + Gemini. ${status.gemini.requests} of ${status.gemini.reqCap} requests used today.`}
+                />
+              )}
+            </div>
+          )}
         </div>
         <div className="pipeline__tools">
           <button className="btn btn--ghost" onClick={() => void openFeed()}>

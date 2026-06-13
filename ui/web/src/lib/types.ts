@@ -166,7 +166,9 @@ export interface NewsStatus {
   nextCycleAt: string | null
   lastNote: string | null
   today: { read: number; kept: number; dropped: number; cycles: number }
-  budget: { requests: number; tokens: number; reqCap: number; tokenCap: number }
+  budget: { requests: number; tokens: number; reqCap: number; tokenCap: number; tokenTarget?: number; paceCeiling?: number }
+  // the Gemini free-tier overflow pool (present only when a Gemini key is wired) — second triage provider
+  gemini?: { enabled: boolean; model: string; requests: number; tokens: number; reqCap: number; tokenCap: number }
 }
 
 export interface ActiveRunLite {
