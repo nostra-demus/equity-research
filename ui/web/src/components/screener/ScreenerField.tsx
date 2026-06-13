@@ -88,18 +88,37 @@ export function ScreenerField() {
     setHover({ node: n, x: rect.left + n.x, y: rect.top + n.y })
   }
 
-  const headline = board?.signals.find((s) => s.signal_id === selectedSignal)?.headline
+  // the signal parked on the stage = a SIGNAL RUN (a gauntlet pass), NOT the live wire on the left.
+  // surface what it actually is so the tie-up is unmistakable: which news, from where, when it ran,
+  // its outcome, and whether it's running now or a finished past result.
+  const sig = board?.signals.find((s) => s.signal_id === selectedSignal)
+  const sigWhen = sig?.processed_at ? new Date(sig.processed_at) : null
+  const sigDate = sigWhen && !isNaN(sigWhen.getTime()) ? sigWhen.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' }) : null
 
   return (
     <div className="swarm" ref={ref} onClick={() => setHover(null)}>
       <EdgeLayer layout={layout} highlighted={highlighted} anyHover={anyHover} />
 
       {/* the signal under the gauntlet (or the empty-state invitation) */}
-      <div className="scsignal" style={{ left: size.w * 0.5, top: size.h * 0.1 }}>
+      <div className="scsignal" style={{ left: size.w * 0.5, top: size.h * 0.055 }}>
         {selectedSignal ? (
           <>
-            <div className="scsignal__id">{selectedSignal}</div>
-            {headline && <div className="scsignal__headline">{headline}</div>}
+            <div className={`scsignal__state${anyLive ? ' scsignal__state--live' : ''}`}>
+              {anyLive ? (
+                <><span className="scsignal__pulse" aria-hidden />Running the checks now</>
+              ) : (
+                'Most recent check'
+              )}
+            </div>
+            {sig?.headline && <div className="scsignal__headline">{sig.headline}</div>}
+            <div className="scsignal__meta">
+              {sig?.source_name && <span className="scsignal__src">{sig.source_name}</span>}
+              {sigDate && <span>{sigDate}</span>}
+              {sig?.status && <span className="scsignal__outcome">{plainRoute(sig.status)}</span>}
+            </div>
+            {!anyLive && (
+              <div className="scsignal__hint">Not the live wire on the left — open an event to run a new check.</div>
+            )}
           </>
         ) : (
           <button className="btn btn--amber" onClick={openSignalIntake}>Check a news event ▸</button>
