@@ -29,7 +29,7 @@ function targetOf(r: ActivityRow): string {
 }
 function statusTone(s: string): { color: string; label: string } {
   switch (s) {
-    case 'done': return { color: 'var(--accent)', label: 'done' }
+    case 'done': return { color: 'var(--accent-bright)', label: 'done' }
     case 'running': case 'starting': return { color: 'var(--accent-bright)', label: 'running' }
     case 'error': return { color: 'var(--bad)', label: 'error' }
     case 'incomplete': return { color: 'var(--bad)', label: 'incomplete' }

@@ -71,7 +71,7 @@ export function RunStreamPanel() {
                   <div className="sidepanel__title" style={{ fontSize: 13 }}>{runLabel(run)}</div>
                   <div className="sidepanel__meta">{done}/{total} orbs · {running ? `${fmtClock(elapsedMs)} · ${etaText}` : run.status}</div>
                 </div>
-                {run.willCommitToMain && <span className="chip" style={{ color: 'var(--accent)', borderColor: 'var(--accent-deep)' }}>commits main</span>}
+                {run.willCommitToMain && <span className="chip" style={{ color: 'var(--accent-bright)', borderColor: 'var(--accent-deep)' }}>commits main</span>}
                 <span className="runfoot__stat">{fmtCost(run.costUsd)}</span>
                 {running && <button className="btn btn--danger" style={{ height: 26, padding: '0 9px', fontSize: 12 }} onClick={() => cancelRun(run.runId)}>Cancel</button>}
               </div>
@@ -98,7 +98,7 @@ export function RunStreamPanel() {
                           <div className="streamrow__verdict">{r.verdict}{r.status === 'done' && dur && <span className="streamrow__dur"> · {dur}</span>}</div>
                         )}
                         {r.status === 'done' && !r.verdict && dur && <div className="streamrow__verdict streamrow__dur">{dur}</div>}
-                        {r.status === 'running' && <div className="streamrow__verdict" style={{ color: 'var(--accent)' }}>running{liveElapsed ? ` · ${liveElapsed}` : ''}{liveLeft ? ` · ${liveLeft}` : ''}</div>}
+                        {r.status === 'running' && <div className="streamrow__verdict" style={{ color: 'var(--accent-bright)' }}>running{liveElapsed ? ` · ${liveElapsed}` : ''}{liveLeft ? ` · ${liveLeft}` : ''}</div>}
                         {r.status === 'failed' && <div className="streamrow__verdict" style={{ color: 'var(--bad)' }}>failed</div>}
                       </div>
                     </motion.div>

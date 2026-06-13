@@ -16,7 +16,7 @@ function researchManifest(): SwarmManifest {
   return {
     id: RESEARCH_SWARM_ID,
     label: 'Research',
-    color: '#e0a33e',
+    color: '#c0851d',
     unit: 'ticker',
     order: 1,
     layout: 'constellation',
@@ -52,7 +52,7 @@ function parseManifest(file: string): SwarmManifest | null {
   return {
     id,
     label: str(data.label, id),
-    color: str(data.color, '#3fc6d2'),
+    color: str(data.color, '#1499ab'),
     unit: str(data.unit, 'signal'),
     order: Number.isFinite(Number(data.order)) ? Number(data.order) : 99,
     layout: str(data.layout, 'flow'),

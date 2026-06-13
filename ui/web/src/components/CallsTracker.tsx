@@ -15,7 +15,7 @@ function ret(v?: number | null): string {
 }
 function thesisColor(s?: string | null): string {
   switch ((s || '').toLowerCase()) {
-    case 'confirmed': case 'on-track': return 'var(--accent)'
+    case 'confirmed': case 'on-track': return 'var(--accent-bright)'
     case 'at-risk': return 'var(--accent-bright)'
     case 'broken': return 'var(--bad)'
     default: return 'var(--text-faint)'

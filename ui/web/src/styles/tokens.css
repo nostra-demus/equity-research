@@ -1,35 +1,46 @@
 :root {
-  /* surfaces — charcoal, deep and quiet */
-  --bg: #0e0e10;
-  --bg-2: #0b0b0d;
-  --surface-1: #141417;
-  --surface-2: #18181c;
-  --surface-3: #1f1f24;
-  --hairline: #26262b;
-  --hairline-strong: #34343b;
+  color-scheme: light;
 
-  /* text */
-  --text: #ececee;
-  --text-muted: #8a8a93;
-  --text-faint: #56565f;
+  /* surfaces — warm off-white paper, quiet and bright.
+     Light-mode elevation runs OPPOSITE to dark: the canvas is the soft gray desktop,
+     panels are white and float above it, and "raised" surfaces darken slightly (so a
+     hover/inset reads as a gentle gray, never a brighter-than-white impossibility). */
+  --bg: #f4f3ef;            /* canvas / desktop behind the panels */
+  --bg-2: #e8e6df;          /* recessed wells — inputs, code blocks, segmented tracks */
+  --surface-1: #ffffff;     /* primary panels, modals, menus, cards, the reader */
+  --surface-2: #f7f6f2;     /* secondary fills, table headers, sub-cards */
+  --surface-3: #edebe4;     /* hover states, chips, kbd, default buttons */
+  --hairline: #e6e3db;      /* soft separators on white */
+  --hairline-strong: #d3cfc4; /* stronger borders, ring outlines, scrollbar thumb */
 
-  /* the single accent — amber */
-  --accent: #e0a33e;
-  --accent-bright: #f4c66b;
-  --accent-deep: #b9842c;
-  --accent-glow: rgba(224, 163, 62, 0.55);
-  --accent-wash: rgba(224, 163, 62, 0.12);
-  --accent-wash-soft: rgba(224, 163, 62, 0.06);
+  /* text — near-black primary, stepped grays kept above their contrast floors on white
+     (text 15:1, muted 6:1, faint ~4:1) so de-emphasis never means unreadable */
+  --text: #1c1c21;
+  --text-muted: #5d5d66;
+  --text-faint: #69676f;    /* deepened to clear AA (4.5:1) for small metadata text on every surface */
+
+  /* the single accent — amber/gold.
+     On a light canvas the dark theme's brightness logic inverts: the deeper golds carry
+     contrast, so "bright" is now the DARK gold used for high-emphasis text, "accent" is a
+     readable gold that still looks gold as a fill, and "deep" sits between for borders. */
+  --accent: #b27d1c;        /* general accent + gold fills (with dark text on top) */
+  --accent-bright: #8a5c0c; /* high-emphasis amber TEXT on white (~6:1) */
+  --accent-deep: #9c6c16;   /* borders, washed edges, ready-orb rings */
+  --accent-soft: #c8922c;   /* PALER gold — fill-button hover (must stay light enough for dark text) */
+  --accent-glow: rgba(178, 125, 28, 0.42);
+  --accent-wash: rgba(178, 125, 28, 0.15);
+  --accent-wash-soft: rgba(178, 125, 28, 0.075);
 
   /* sparing semantic tints */
-  --good: #e0a33e;
+  --good: #b27d1c;
   --neutral: #6b6b73;
-  --bad: #c9514e;
-  --bad-wash: rgba(201, 81, 78, 0.12);
-  /* the one green — engine "Live" only (the palette is otherwise amber; --good is amber and would
-     clash with the running-node pulses, reading as a warning rather than "healthy") */
-  --live: #43b581;
-  --live-wash: rgba(67, 181, 129, 0.14);
+  --bad: #b5342b;
+  --bad-wash: rgba(181, 52, 43, 0.11);
+  /* the one green — engine "Live" only (the palette is otherwise amber; --good is amber and
+     would clash with the running-node pulses, reading as a warning rather than "healthy").
+     Deepened for light so the pill text and "kept" badges clear ~4:1 on white. */
+  --live: #0c7048;
+  --live-wash: rgba(12, 112, 72, 0.16);
 
   /* radii */
   --r-sm: 6px;
@@ -48,24 +59,28 @@
   --dur: 240ms;
   --dur-slow: 420ms;
 
-  /* elevation */
-  --shadow-1: 0 1px 0 rgba(255, 255, 255, 0.02) inset, 0 8px 24px rgba(0, 0, 0, 0.4);
-  --shadow-2: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 18px 50px rgba(0, 0, 0, 0.55);
+  /* elevation — soft, diffuse, low-alpha gray shadows (light-mode depth is shadow, not
+     a brighter face); the dark theme's white inset highlight is meaningless on white */
+  --shadow-1: 0 1px 2px rgba(28, 28, 33, 0.05), 0 6px 18px rgba(28, 28, 33, 0.07);
+  --shadow-2: 0 6px 16px rgba(28, 28, 33, 0.10), 0 22px 52px rgba(28, 28, 33, 0.13);
 
-  /* swarm identities (the switcher + warp read both regardless of the active scope) */
-  --swarm-research: #e0a33e;
-  --swarm-screener: #3fc6d2;
+  /* swarm identities (the switcher + warp read both regardless of the active scope) —
+     deepened from the dark-theme hues so the small orbs/comets stay vivid on a light bg */
+  --swarm-research: #c0851d;
+  --swarm-screener: #1499ab;
 }
 
 /* Screener swarm scope — remap the single accent family and the whole design language
-   (orbs, edges, glows, buttons, washes) flips to cyan with zero component forks.
-   Charcoal surfaces, text, --bad and the lone --live green stay shared. */
+   (orbs, edges, glows, buttons, washes) flips to teal with zero component forks.
+   Off-white surfaces, text, --bad and the lone --live green stay shared. Teal is deepened
+   for the light canvas so accent text/borders clear ~5:1 and fills still read teal. */
 [data-swarm='screener'] {
-  --accent: #3fc6d2;
-  --accent-bright: #7adde6;
-  --accent-deep: #2f9aa5;
-  --accent-glow: rgba(63, 198, 210, 0.55);
-  --accent-wash: rgba(63, 198, 210, 0.12);
-  --accent-wash-soft: rgba(63, 198, 210, 0.06);
-  --good: #3fc6d2;
+  --accent: #0e8c9c;
+  --accent-bright: #08606e;
+  --accent-deep: #0c7c8a;
+  --accent-soft: #16a6b8;
+  --accent-glow: rgba(14, 140, 156, 0.42);
+  --accent-wash: rgba(14, 140, 156, 0.15);
+  --accent-wash-soft: rgba(14, 140, 156, 0.075);
+  --good: #0e8c9c;
 }

@@ -1,7 +1,7 @@
 ---
 id: screener
 label: Screener
-color: "#3fc6d2"
+color: "#1499ab"
 unit: signal
 order: 2
 layout: flow

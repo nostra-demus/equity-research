@@ -1,9 +1,9 @@
 import type { Sufficiency } from './types'
 
 export function sufficiencyColor(s: Sufficiency): string {
-  if (s === 'Sufficient') return 'var(--accent)'
-  if (s === 'Partial') return '#9a8048'
-  return '#3f3f47'
+  if (s === 'Sufficient') return 'var(--accent-bright)' // used as the module status TEXT too — needs AA on light
+  if (s === 'Partial') return '#9a8048' // muted olive-gold — distinct from the deep-gold "Sufficient", ~3.6:1 on white
+  return 'var(--text-faint)' // "Insufficient" reads as a neutral, empty gray
 }
 export function sufficiencyLabel(s: Sufficiency): string {
   return s
@@ -106,8 +106,8 @@ export function nodeStatusColor(status: string): string {
     case 'failed':
       return 'var(--bad)'
     case 'ready':
-      return '#50505a'
+      return '#bcb8af' // ready-but-idle — a medium light gray (matches the .node--ready ring)
     default:
-      return '#2c2c32'
+      return 'var(--hairline-strong)' // dormant — faint
   }
 }

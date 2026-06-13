@@ -136,7 +136,7 @@ function buildScreenerStatic() {
   const manifestPath = path.join(AGENTS, 'screener', 'SWARM.md')
   if (!isFile(manifestPath)) return null
   const { data } = parseFrontmatter(fs.readFileSync(manifestPath, 'utf8'))
-  const meta = { id: String(data.id || 'screener'), label: String(data.label || 'Screener'), color: String(data.color || '#3fc6d2'), unit: String(data.unit || 'signal'), order: Number(data.order) || 2, layout: String(data.layout || 'flow') }
+  const meta = { id: String(data.id || 'screener'), label: String(data.label || 'Screener'), color: String(data.color || '#1499ab'), unit: String(data.unit || 'signal'), order: Number(data.order) || 2, layout: String(data.layout || 'flow') }
   const graph = buildSwarmGraph(path.join(AGENTS, 'screener'), meta)
   const SCREENER = path.join(REPO, 'screener')
   let board = null
@@ -170,7 +170,7 @@ function buildScreenerStatic() {
       intake: loadJSON(path.join(runAbs, 'intake.json')), signalPayload: loadJSON(path.join(runAbs, 'signal_payload.json')),
       thesisRecord: loadJSON(path.join(runAbs, 'thesis_record.json')), candidates: loadJSON(path.join(runAbs, 'candidates.json')) }
   }
-  return { swarms: [{ id: 'research', label: 'Research', color: '#e0a33e', unit: 'ticker', order: 1, layout: 'constellation' }, meta], swarmGraphs: { screener: graph }, screenerBoard: board, screenerRuns: runs, screenerTheses: theses, screenerCandidates: candidates }
+  return { swarms: [{ id: 'research', label: 'Research', color: '#c0851d', unit: 'ticker', order: 1, layout: 'constellation' }, meta], swarmGraphs: { screener: graph }, screenerBoard: board, screenerRuns: runs, screenerTheses: theses, screenerCandidates: candidates }
 }
 
 // ---- per-ticker run data ----

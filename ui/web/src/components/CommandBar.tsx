@@ -302,7 +302,7 @@ function CreditBadge() {
             )}
             <div style={{ marginTop: 8, fontSize: 10.5, color: 'var(--text-faint)', lineHeight: 1.5 }}>
               Live from the Claude CLI this cockpit runs. Each check reports the currently binding window; others fill in as runs report them.
-              {credit?.isUsingOverage && <div style={{ color: 'var(--accent)', marginTop: 3 }}>Currently using paid overage.</div>}
+              {credit?.isUsingOverage && <div style={{ color: 'var(--accent-bright)', marginTop: 3 }}>Currently using paid overage.</div>}
             </div>
           </div>
         </>
@@ -335,7 +335,7 @@ export function CommandBar() {
         </div>
         <span className="brand__sub">{sub}</span>
         <SwarmSwitcher />
-        {staticMode && <span className="chip" style={{ color: 'var(--accent)', borderColor: 'var(--accent-deep)' }} title="Live showcase of completed runs. Launching agents happens on your local machine.">read-only showcase</span>}
+        {staticMode && <span className="chip" style={{ color: 'var(--accent-bright)', borderColor: 'var(--accent-deep)' }} title="Live showcase of completed runs. Launching agents happens on your local machine.">read-only showcase</span>}
       </div>
       <div className="topbar__spacer" />
       {screenerMode ? (

@@ -14,7 +14,7 @@ const hhmm = (iso?: string) => (iso ? iso.slice(11, 16) : '')
 const agoMin = (iso?: string | null) => (iso ? Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 60_000)) : null)
 
 function ScorePill({ score }: { score: number }) {
-  const tone = score >= 70 ? 'var(--live)' : score >= 40 ? '#d2a13f' : 'var(--text-faint)'
+  const tone = score >= 70 ? 'var(--live)' : score >= 40 ? 'var(--accent-bright)' : 'var(--text-faint)'
   return (
     <span className="pcard__chip pcard__chip--num wire__score" style={{ color: tone, borderColor: tone }} title={`Quick score ${score} out of 100 — a first read by the free scanner, not the full check`}>
       {score}

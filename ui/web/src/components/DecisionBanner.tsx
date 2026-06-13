@@ -30,7 +30,7 @@ export function DecisionBanner() {
       <div className="decision__divider" />
       <span className="decision__stat">conf <b>{decision.confidence_score ?? '—'}</b></span>
       {typeof er === 'number' && (
-        <span className="decision__stat">exp ret <b style={{ color: er >= 0 ? 'var(--accent)' : 'var(--bad)' }}>{er > 0 ? '+' : ''}{er}%</b></span>
+        <span className="decision__stat">exp ret <b style={{ color: er >= 0 ? 'var(--accent-bright)' : 'var(--bad)' }}>{er > 0 ? '+' : ''}{er}%</b></span>
       )}
       {decision.entry_price && <span className="decision__stat">@ <b>{decision.currency || ''} {decision.entry_price}</b></span>}
       <div className="decision__divider" />

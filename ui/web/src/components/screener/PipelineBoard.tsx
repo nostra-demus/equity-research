@@ -35,7 +35,7 @@ function EdgeDial({ score }: { score: number | null | undefined }) {
 // computes once you check the item.
 function TriagePill({ score }: { score?: number | null }) {
   if (score == null) return null
-  const tone = score >= 70 ? 'var(--live)' : score >= 40 ? '#d2a13f' : 'var(--text-faint)'
+  const tone = score >= 70 ? 'var(--live)' : score >= 40 ? 'var(--accent-bright)' : 'var(--text-faint)'
   return (
     <span className="pcard__chip pcard__chip--num" style={{ color: tone, borderColor: tone }} title={`How worth-a-look the auto-scan judged this: ${score} out of 100 (a quick first read, not the full check)`}>
       {score}
