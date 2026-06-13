@@ -65,7 +65,10 @@ export async function triageBatchGemini(
         body: JSON.stringify({
           system_instruction: { parts: [{ text: SYSTEM }] },
           contents: [{ role: 'user', parts: [{ text: buildUserMessage(items) }] }],
-          generationConfig: { temperature: 0.1, maxOutputTokens: opts.maxTokens ?? 2000, responseMimeType: 'application/json' },
+          // thinkingBudget 0 = no chain-of-thought: the 3.x flash models are "thinking" models that
+          // otherwise burn the output budget reasoning (→ truncated/empty JSON) and cost extra tokens.
+          // Disabling it gives clean JSON from every pool model; harmless for the non-thinking 2.5 models.
+          generationConfig: { temperature: 0.1, maxOutputTokens: opts.maxTokens ?? 2000, responseMimeType: 'application/json', thinkingConfig: { thinkingBudget: 0 } },
         }),
       })
       requests++

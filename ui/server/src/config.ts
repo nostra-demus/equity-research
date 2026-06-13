@@ -138,9 +138,11 @@ export const NEWS = {
   // FREE TIER ONLY — never attach billing. Off when GEMINI_API_KEY is unset. Secret lives in env, not src.
   geminiApiKey: process.env.GEMINI_API_KEY || '',
   geminiEnabled: process.env.NEWS_GEMINI_ENABLED === '0' ? false : true,
-  // the rotation pool — each is a SEPARATE per-project-per-model free daily bucket (verified live; 2.0-*
-  // are shut down, 2.5-pro free is ~0, so they're excluded). Order = preference. Env override comma-sep.
-  geminiModels: (process.env.NEWS_GEMINI_MODELS || 'gemini-2.5-flash-lite,gemini-2.5-flash,gemini-flash-latest,gemini-flash-lite-latest').split(',').map((s) => s.trim()).filter(Boolean),
+  // the rotation pool — each is a SEPARATE per-project-per-model free daily bucket (all verified live to
+  // return clean JSON triage; the 3.x flash models need thinking disabled, done in the adapter). Excluded:
+  // 2.0-* (shut down), 2.5-pro (free ~0), the *-latest aliases (may collapse onto a pool model's bucket),
+  // and Gemma (ignores JSON mode → unusable). ~5 models × ~20 RPD ≈ ~100 free triages/day. Order = pref.
+  geminiModels: (process.env.NEWS_GEMINI_MODELS || 'gemini-2.5-flash-lite,gemini-3.1-flash-lite,gemini-2.5-flash,gemini-3.5-flash,gemini-3-flash-preview').split(',').map((s) => s.trim()).filter(Boolean),
   geminiModel: (process.env.NEWS_GEMINI_MODELS || 'gemini-2.5-flash-lite').split(',')[0].trim(), // first of the pool — for log/status display
   geminiBaseUrl: process.env.GEMINI_BASE_URL || 'https://generativelanguage.googleapis.com/v1beta',
   // PER-MODEL daily request cap. Set to the empirically-observed free limit (~20/day/model) so we stop
@@ -149,7 +151,9 @@ export const NEWS = {
   // TPM (240k) sits under the 250k free; daily token cap is non-binding (free tier gates RPM/RPD, not TPD).
   geminiDailyReqCap: capNum(process.env.NEWS_GEMINI_DAILY_REQ_CAP, 20),
   geminiDailyTokenCap: capNum(process.env.NEWS_GEMINI_DAILY_TOKEN_CAP, 5_000_000),
-  geminiRpm: capNum(process.env.NEWS_GEMINI_RPM, 14),
+  // shared per-minute limiter across the pool. Rotation hammers the first model-with-room, whose RPM is
+  // 5-15; 10 matches the lead model (flash-lite=10) and a per-minute 429 on a 5-RPM model just backs off.
+  geminiRpm: capNum(process.env.NEWS_GEMINI_RPM, 10),
   geminiTpm: capNum(process.env.NEWS_GEMINI_TPM, 240_000),
   geminiMaxTokens: capNum(process.env.NEWS_GEMINI_MAX_TOKENS, 2000),
   geminiDayTz: process.env.NEWS_GEMINI_DAY_TZ || 'America/Los_Angeles', // RPD resets midnight Pacific
