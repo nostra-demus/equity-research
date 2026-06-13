@@ -1,0 +1,14 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 '/Users/chiraagkapil/equity-research/.codex/hooks/review_due.py'"
+          }
+        ]
+      }
+    ]
+  }
+}

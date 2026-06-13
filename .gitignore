@@ -23,3 +23,6 @@ _pool_extracts/
 # python bytecode cache
 __pycache__/
 *.pyc
+
+# Cloudflare wrangler local cache (account info / build cache) — never commit
+.wrangler/
