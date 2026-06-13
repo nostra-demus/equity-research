@@ -84,6 +84,9 @@ export function EventRail() {
   const pick = useStore((s) => s.scSelectEvent)
   const shelvedEvents = useStore((s) => s.shelvedEvents)
   const toggleShelve = useStore((s) => s.toggleShelve)
+  const themesOpen = useStore((s) => s.themesView !== null)
+  const openThemes = useStore((s) => s.openThemes)
+  const closeThemes = useStore((s) => s.closeThemes)
   const [scope, setScope] = useState<Scope>('kept')
   // multi-select: empty = show everything; otherwise show the UNION of the picked scopes
   const [scopeFilter, setScopeFilter] = useState<Set<ScopeId>>(new Set())
@@ -171,8 +174,11 @@ export function EventRail() {
           <button type="button" role="radio" aria-checked={scope === 'kept'} className={`evrail__segbtn${scope === 'kept' ? ' evrail__segbtn--on' : ''}`} onClick={() => setScope('kept')}>
             Ranked{keptCount ? ` · ${keptCount}` : ''}
           </button>
-          <button type="button" role="radio" aria-checked={scope === 'all'} className={`evrail__segbtn${scope === 'all' ? ' evrail__segbtn--on' : ''}`} onClick={() => setScope('all')}>
+          <button type="button" role="radio" aria-checked={scope === 'all' && !themesOpen} className={`evrail__segbtn${scope === 'all' && !themesOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => { setScope('all'); if (themesOpen) closeThemes() }}>
             Everything{items.length ? ` · ${items.length}` : ''}
+          </button>
+          <button type="button" role="radio" aria-checked={themesOpen} className={`evrail__segbtn${themesOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => void openThemes('map')}>
+            Themes
           </button>
         </div>
 

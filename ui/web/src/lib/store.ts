@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { api, isStatic } from './api'
 import { downstreamCascade, type CascadeNode } from './cascade'
 import { plainRoute, plainStage } from './plain'
+import type { Theme, ThemeDetail } from './themes'
 import type { ActiveRunLite, AgentNode, BoardInboxRow, DataStatus, EventEnrichment, FeedItem, HealthState, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
 
 // --- shelved events: a local, per-browser "set aside" set for wire items the user has judged not
@@ -200,6 +201,19 @@ interface State {
   setStopListOpen: (open: boolean) => void
   stopEverything: () => Promise<void>
   _handleNewsEvent: (e: any) => void
+
+  // ---- dynamic themes (the firehose bucketed into living, ranked investment themes) ----
+  themes: Theme[]
+  themesView: 'map' | 'board' | null // null = themes view closed (gauntlet/idle canvas shows)
+  selectedTheme: string | null // open deep-dive
+  themeDetail: ThemeDetail | null // the open theme's resolved members + companies-by-order
+  themesStatus: 'idle' | 'loading' | 'ready' | 'error'
+  themesLoading: boolean
+  openThemes: (view: 'map' | 'board') => Promise<void>
+  closeThemes: () => void
+  setThemesView: (view: 'map' | 'board') => void
+  selectTheme: (id: string | null) => Promise<void>
+  refreshThemes: () => Promise<void>
 }
 
 function flatten(graph: SwarmGraph): Map<string, AgentNode> {
@@ -262,6 +276,12 @@ export const useStore = create<State>((set, get) => ({
   newsFeedOpen: false,
   newsItems: [],
   newsStatus: null,
+  themes: [],
+  themesView: null,
+  selectedTheme: null,
+  themeDetail: null,
+  themesStatus: 'idle',
+  themesLoading: false,
   globalActive: [],
   stopListOpen: false,
 
@@ -907,6 +927,33 @@ export const useStore = create<State>((set, get) => ({
     if (it) void get().fetchEnrichment(it) // kick the enrichment the moment an event opens
   },
 
+  // ---- dynamic themes ----
+  refreshThemes: async () => {
+    try {
+      const idx = await api.newsThemes()
+      set({ themes: idx.themes, themesStatus: 'ready' })
+    } catch {
+      set({ themesStatus: 'error' })
+    }
+  },
+  openThemes: async (view) => {
+    set({ themesView: view, scSelectedEvent: null, themesStatus: get().themes.length ? 'ready' : 'loading' })
+    await get().refreshThemes()
+    if (!get().staticMode) connectNewsStream(get) // reuse the one news EventSource; theme-update flows on it
+  },
+  setThemesView: (view) => set({ themesView: view, selectedTheme: null }),
+  closeThemes: () => set({ themesView: null, selectedTheme: null, themeDetail: null }),
+  selectTheme: async (id) => {
+    if (!id) { set({ selectedTheme: null, themeDetail: null }); return }
+    set({ selectedTheme: id, themeDetail: null, themesLoading: true })
+    try {
+      const detail = await api.newsTheme(id)
+      if (get().selectedTheme === id) set({ themeDetail: detail, themesLoading: false })
+    } catch {
+      set({ themesLoading: false })
+    }
+  },
+
   // set an event aside / bring it back (local, persisted). If the shelved event is the open one, close it.
   toggleShelve: (eventId) => {
     const next = new Set(get().shelvedEvents)
@@ -1111,6 +1158,16 @@ export const useStore = create<State>((set, get) => ({
     } else if (e?.type === 'news-cycle') {
       void get().refreshNewsStatus()
       if (get().activeSwarm === 'screener') void get().scRefreshBoard() // the board is screener UI — don't refetch it from the research swarm every cycle
+    } else if (e?.type === 'theme-update' && e.theme) {
+      // upsert the changed theme; the map/board re-rank from the array. Only when the themes view is
+      // open (otherwise we'd hold stale themes until next open anyway).
+      if (get().themesView === null && !get().themes.length) return
+      const t = e.theme as Theme
+      const cur = get().themes
+      const i = cur.findIndex((x) => x.theme_id === t.theme_id)
+      const next = i >= 0 ? cur.map((x) => (x.theme_id === t.theme_id ? t : x)) : [...cur, t]
+      next.sort((a, b) => b.composite - a.composite)
+      set({ themes: next })
     }
   },
 
@@ -1378,7 +1435,7 @@ let newsSource: EventSource | null = null
 function connectNewsStream(get: () => State) {
   if (newsSource) return
   const es = new EventSource(api.newsStreamUrl())
-  for (const t of ['news-item', 'news-cycle']) {
+  for (const t of ['news-item', 'news-cycle', 'theme-update']) {
     es.addEventListener(t, (ev: MessageEvent) => {
       try {
         get()._handleNewsEvent(JSON.parse(ev.data))

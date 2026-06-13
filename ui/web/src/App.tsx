@@ -6,6 +6,7 @@ import { SwarmField } from './components/swarm/SwarmField'
 import { ScreenerField } from './components/screener/ScreenerField'
 import { EventRail } from './components/screener/EventRail'
 import { EventDetail } from './components/screener/EventDetail'
+import { ThemesView } from './components/screener/ThemesView'
 import { SignalIntake } from './components/screener/SignalIntake'
 import { LiveFeed } from './components/screener/LiveFeed'
 import { PipelineBoard } from './components/screener/PipelineBoard'
@@ -42,10 +43,11 @@ function ResearchStage() {
 // see events → read one → run it → watch the orbs.
 function ScreenerStage() {
   const event = useStore((s) => s.scSelectedEvent)
+  const themesView = useStore((s) => s.themesView)
   return (
     <div className="scstage">
       <EventRail />
-      <div className="scstage__main">{event ? <EventDetail it={event} /> : <ScreenerField />}</div>
+      <div className="scstage__main">{event ? <EventDetail it={event} /> : themesView ? <ThemesView /> : <ScreenerField />}</div>
     </div>
   )
 }
