@@ -1088,12 +1088,20 @@ a { color: inherit; }
   color: var(--text-muted); cursor: pointer;
   transition: color var(--dur-fast), border-color var(--dur-fast), background var(--dur-fast), transform 140ms var(--ease-out);
 }
-.evscope__chip--company { color: var(--accent-bright); border-color: var(--accent-deep); }
-.evscope__chip--broad { color: var(--text-muted); border-color: var(--hairline-strong); }
-.evscope__chip--on { color: var(--accent-bright); border-color: var(--accent-deep); background: var(--accent-wash); }
+/* resting chips are HOLLOW — the family shows only as a subtle text tint (teal = company, grey =
+   broad), never as a fill or strong border, so an unselected chip never looks "on" */
+.evscope__chip--company { color: var(--accent-bright); border-color: var(--hairline); }
+.evscope__chip--broad { color: var(--text-muted); border-color: var(--hairline); }
+/* SELECTED is unmistakable: a tinted fill + a doubled accent ring + a ✓ tick + bold weight */
+.evscope__chip--on {
+  color: var(--accent-bright); border-color: var(--accent); background: var(--accent-wash); font-weight: 700;
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
 @media (hover: hover) and (pointer: fine) { .evscope__chip:not(.evscope__chip--on):hover { color: var(--text); border-color: var(--hairline-strong); } }
 .evscope__chip:active { transform: scale(0.96); }
+.evscope__tick { font-size: 8.5px; font-weight: 800; line-height: 1; }
 .evscope__n { font-size: 9px; font-variant-numeric: tabular-nums; color: var(--text-muted); font-weight: 700; }
+.evscope__chip--on .evscope__n { color: var(--accent-bright); }
 .evscope__meaning { font-size: 10.5px; color: var(--text-muted); margin-top: 7px; line-height: 1.45; }
 .evrail__shelfline {
   display: block; width: calc(100% - 36px); margin: 10px 18px 4px; padding: 7px 0; font-size: 10.5px;

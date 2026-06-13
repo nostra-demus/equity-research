@@ -85,8 +85,14 @@ export function EventRail() {
   const shelvedEvents = useStore((s) => s.shelvedEvents)
   const toggleShelve = useStore((s) => s.toggleShelve)
   const [scope, setScope] = useState<Scope>('kept')
-  const [scopeFilter, setScopeFilter] = useState<ScopeId | null>(null)
+  // multi-select: empty = show everything; otherwise show the UNION of the picked scopes
+  const [scopeFilter, setScopeFilter] = useState<Set<ScopeId>>(new Set())
   const [showShelved, setShowShelved] = useState(false)
+  const toggleScope = (s: ScopeId) => {
+    const next = new Set(scopeFilter)
+    next.has(s) ? next.delete(s) : next.add(s)
+    setScopeFilter(next)
+  }
 
   // backfill + attach the live stream the moment the rail mounts (self-healing if scInit raced)
   useEffect(() => {
@@ -118,7 +124,7 @@ export function EventRail() {
   const companyTotal = COMPANY_SCOPES.reduce((n, s) => n + (counts[s] || 0), 0)
   const broadTotal = BROAD_SCOPES.reduce((n, s) => n + (counts[s] || 0), 0)
 
-  const visible = useMemo(() => (scopeFilter ? base.filter((i) => scopeOf(i) === scopeFilter) : base), [base, scopeFilter])
+  const visible = useMemo(() => (scopeFilter.size ? base.filter((i) => scopeFilter.has(scopeOf(i))) : base), [base, scopeFilter])
 
   const shelvedInBand = useMemo(() => {
     const band = scope === 'all' ? items : items.filter((i) => i.band !== 'drop')
@@ -134,18 +140,19 @@ export function EventRail() {
 
   const scopeChip = (s: ScopeId) => {
     const n = counts[s] || 0
-    if (!n && scopeFilter !== s) return null
+    const on = scopeFilter.has(s)
+    if (!n && !on) return null
     const fam = familyOf(s)
-    const on = scopeFilter === s
     return (
       <button
         key={s}
         type="button"
         className={`evscope__chip evscope__chip--${fam}${on ? ' evscope__chip--on' : ''}`}
-        onClick={() => setScopeFilter(on ? null : s)}
-        title={SCOPES[s].meaning}
+        onClick={() => toggleScope(s)}
+        title={`${SCOPES[s].meaning}${on ? ' · tap to remove' : ' · tap to add'}`}
         aria-pressed={on}
       >
+        {on && <span className="evscope__tick" aria-hidden>✓</span>}
         {SCOPES[s].label}
         <span className="evscope__n">{n}</span>
       </button>
@@ -169,26 +176,26 @@ export function EventRail() {
           </button>
         </div>
 
-        {/* SCOPE filter — company-specific (warm) vs broad context (muted), the institution-grade split */}
-        <div className="evscope" role="group" aria-label="Filter by what the event is about">
-          <button type="button" className={`evscope__chip evscope__chip--all${scopeFilter === null ? ' evscope__chip--on' : ''}`} onClick={() => setScopeFilter(null)} aria-pressed={scopeFilter === null}>
+        {/* SCOPE filter — tap to add/remove (multi-select); company-specific vs broad context */}
+        <div className="evscope" role="group" aria-label="Filter by what the event is about — tap to add or remove">
+          <button type="button" className={`evscope__chip evscope__chip--all${scopeFilter.size === 0 ? ' evscope__chip--on' : ''}`} onClick={() => setScopeFilter(new Set())} aria-pressed={scopeFilter.size === 0} title="Show every category">
+            {scopeFilter.size === 0 && <span className="evscope__tick" aria-hidden>✓</span>}
             All<span className="evscope__n">{base.length}</span>
           </button>
-          {(companyTotal > 0 || COMPANY_SCOPES.some((s) => scopeFilter === s)) && (
+          {(companyTotal > 0 || COMPANY_SCOPES.some((s) => scopeFilter.has(s))) && (
             <span className="evscope__group" title="A specific listed company is in play — a potential single-stock idea">
               {COMPANY_SCOPES.map(scopeChip)}
             </span>
           )}
-          {(companyTotal > 0 && broadTotal > 0) && <span className="evscope__div" aria-hidden />}
-          {(broadTotal > 0 || BROAD_SCOPES.some((s) => scopeFilter === s)) && (
+          {companyTotal > 0 && broadTotal > 0 && <span className="evscope__div" aria-hidden />}
+          {(broadTotal > 0 || BROAD_SCOPES.some((s) => scopeFilter.has(s))) && (
             <span className="evscope__group" title="Broad — macro, sector, commodity or policy context, not one company">
               {BROAD_SCOPES.map(scopeChip)}
             </span>
           )}
         </div>
-        {scopeFilter && (
-          <div className="evscope__meaning">{SCOPES[scopeFilter].meaning}</div>
-        )}
+        {scopeFilter.size === 1 && <div className="evscope__meaning">{SCOPES[[...scopeFilter][0]].meaning}</div>}
+        {scopeFilter.size > 1 && <div className="evscope__meaning">Showing {scopeFilter.size} categories together — tap All to reset.</div>}
       </header>
 
       <div className="evrail__list">
@@ -197,8 +204,8 @@ export function EventRail() {
         ))}
         {!visible.length && (
           <div className="evrail__empty">
-            {scopeFilter
-              ? `Nothing in “${SCOPES[scopeFilter].label}” right now — clear the filter to see the rest.`
+            {scopeFilter.size
+              ? `Nothing in the selected ${scopeFilter.size === 1 ? `“${SCOPES[[...scopeFilter][0]].label}”` : 'categories'} right now — tap All to see the rest.`
               : items.length
                 ? 'Nothing ranked yet — switch to Everything to see the full wire.'
                 : status?.enabled
