@@ -126,8 +126,8 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
             title={t.description}
           >
             <span className="themenode__core" />
-            {n.r > 22 && <span className="themenode__count">{t.member_count}</span>}
-            <span className="themenode__label" style={{ maxWidth: Math.max(120, n.r * 3) }}>{t.name}</span>
+            <span className="themenode__count">{t.member_count}</span>
+            <span className="themenode__label" style={{ maxWidth: n.labelW }}>{t.name}</span>
           </button>
         )
       })}
@@ -147,9 +147,9 @@ function MapTooltip({ theme }: { theme: Theme }) {
   )
 }
 
-interface MapNode { id: string; x: number; y: number; r: number; flow: boolean; theme: Theme }
+interface MapNode { id: string; x: number; y: number; r: number; flow: boolean; labelW: number; theme: Theme }
 function computeMapLayout(themes: Theme[], W: number, H: number) {
-  const coreX = W * 0.3, coreY = H * 0.5, coreR = Math.min(34, H * 0.06)
+  const coreX = W * 0.28, coreY = H * 0.5, coreR = Math.min(32, H * 0.06)
   const laneTiers = [
     { id: 'primary_filing', label: 'Filings' },
     { id: 'official_data', label: 'Official' },
@@ -158,27 +158,47 @@ function computeMapLayout(themes: Theme[], W: number, H: number) {
     { id: 'unconfirmed', label: 'Rumour' },
   ]
   const laneX = W * 0.06
-  const lanes = laneTiers.map((t, i) => ({ ...t, x: laneX, y: H * 0.2 + (i * (H * 0.6)) / (laneTiers.length - 1) }))
+  const lanes = laneTiers.map((t, i) => ({ ...t, x: laneX, y: H * 0.18 + (i * (H * 0.64)) / (laneTiers.length - 1) }))
 
-  // basins: top-N by heat, packed in 2 sub-columns on the right, y driven by heat (hot → top)
-  const ranked = [...themes].sort((a, b) => heatOf(b) - heatOf(a)).slice(0, 18)
-  const colXs = [W * 0.62, W * 0.84]
-  const nodes: MapNode[] = []
-  const colCount = [0, 0]
-  const topPad = H * 0.12, usable = H * 0.78
-  ranked.forEach((t, i) => {
-    const r = radiusFor(t.member_count, 15, Math.min(46, H * 0.085))
-    const col = i % 2
-    const heat = heatOf(t)
-    let y = topPad + (1 - heat) * usable
-    // collision nudge within the column
-    for (const n of nodes) {
-      if (Math.abs(n.x - colXs[col]) > 4) continue
-      if (Math.abs(n.y - y) < n.r + r + 10) y = n.y + n.r + r + 12
+  // Basins: hottest first, packed into balanced columns where each theme gets a fixed vertical SLOT
+  // that reserves room for its label UNDERNEATH the orb — so an orb and its caption can never collide
+  // with the next orb (the old layout spaced by orb radius only, which is why labels overlapped).
+  const LABEL_H = 30, GAP = 16, TOP = H * 0.07, BOT = H * 0.05
+  const usable = Math.max(140, H - TOP - BOT)
+  const maxR = Math.min(38, H * 0.072)
+  const ranked = [...themes].sort((a, b) => heatOf(b) - heatOf(a)).slice(0, 16)
+  const items = ranked.map((t) => ({ t, r: radiusFor(t.member_count, 13, maxR), flow: t.fresh_flow > 0 }))
+  const slotH = (it: { r: number }) => it.r * 2 + LABEL_H + GAP
+
+  // smallest column count (2..4) whose greedy top-down fill keeps every column within the height
+  const greedyCols = (K: number) => {
+    const cols: { r: number; t: Theme; flow: boolean }[][] = Array.from({ length: K }, () => [])
+    let c = 0, h = 0
+    for (const it of items) {
+      const sh = slotH(it)
+      if (h + sh > usable && c < K - 1) { c++; h = 0 }
+      cols[c].push(it); h += sh
     }
-    y = Math.min(H - r - 8, Math.max(topPad, y))
-    colCount[col]++
-    nodes.push({ id: t.theme_id, x: colXs[col], y, r, flow: t.fresh_flow > 0, theme: t })
+    return { cols, ok: cols.every((col) => col.reduce((s, it) => s + slotH(it), 0) <= usable + 0.5) }
+  }
+  let K = 2, packed = greedyCols(2)
+  while (!packed.ok && K < 4) { K++; packed = greedyCols(K) }
+
+  const basinL = W * 0.5, basinR = W * 0.92
+  const spacing = K > 1 ? (basinR - basinL) / (K - 1) : 0
+  const labelW = Math.max(92, Math.min(168, (spacing || basinR - basinL) - 16))
+  const colX = (c: number) => (K === 1 ? (basinL + basinR) / 2 : basinL + spacing * c)
+
+  const nodes: MapNode[] = []
+  packed.cols.forEach((list, c) => {
+    const colTotal = list.reduce((s, it) => s + slotH(it), 0)
+    let y = TOP + Math.max(0, (usable - colTotal) / 2) // vertically center each column
+    const x = colX(c)
+    for (const it of list) {
+      y += it.r
+      nodes.push({ id: it.t.theme_id, x, y, r: it.r, flow: it.flow, labelW, theme: it.t })
+      y += it.r + LABEL_H + GAP
+    }
   })
   return { lanes, core: { x: coreX, y: coreY, r: coreR }, nodes }
 }
