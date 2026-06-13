@@ -326,15 +326,52 @@ function ThemeCard({ t, onPick }: { t: Theme; onPick: (id: string) => void }) {
   )
 }
 
-function Sparkline({ series, w = 88, h = 18 }: { series: number[]; w?: number; h?: number }) {
-  const pts = sparklinePoints(series, w, h)
+// The flow sparkline. `interactive` (used on the deep-dive) adds a hover crosshair + a tooltip that
+// names the hour and its item count, so you can read HOW the theme built over time, not just the shape.
+// flow_series is hourly, newest bucket last, zero-filled to now — so point i is (n-1-i) hours before now.
+function Sparkline({ series, w = 88, h = 18, interactive = false }: { series: number[]; w?: number; h?: number; interactive?: boolean }) {
+  const pad = 1
+  const ref = useRef<SVGSVGElement>(null)
+  const [hi, setHi] = useState<number | null>(null)
+  const pts = sparklinePoints(series, w, h, pad)
   if (!pts) return <span className="sparkline sparkline--empty" />
-  const last = pts.split(' ').slice(-1)[0]?.split(',')
+  const coords = pts.split(' ').map((p) => p.split(',').map(Number))
+  const last = coords[coords.length - 1]
+  if (!interactive) {
+    return (
+      <svg className="sparkline" width={w} height={h} viewBox={`0 0 ${w} ${h}`} aria-hidden>
+        <polyline points={pts} fill="none" stroke="var(--accent)" strokeWidth="1.5" vectorEffect="non-scaling-stroke" strokeLinejoin="round" />
+        {last && <circle cx={last[0]} cy={last[1]} r="2" fill="var(--accent-bright)" />}
+      </svg>
+    )
+  }
+  const n = series.length
+  const stepX = n > 1 ? (w - pad * 2) / (n - 1) : 0
+  const sel = hi == null ? null : coords[hi]
+  const onMove = (e: { clientX: number }) => {
+    const r = ref.current?.getBoundingClientRect()
+    if (!r || !r.width) return
+    const x = (e.clientX - r.left) * (w / r.width)
+    setHi(Math.max(0, Math.min(n - 1, Math.round((x - pad) / (stepX || 1)))))
+  }
+  // anchor the newest bucket at the current hour (local), each prior bucket one hour earlier
+  const when = hi == null ? null : new Date(Math.floor(Date.now() / 3600_000) * 3600_000 - (n - 1 - hi) * 3600_000)
+  const val = hi == null ? 0 : series[hi]
   return (
-    <svg className="sparkline" width={w} height={h} viewBox={`0 0 ${w} ${h}`} aria-hidden>
-      <polyline points={pts} fill="none" stroke="var(--accent)" strokeWidth="1.5" vectorEffect="non-scaling-stroke" strokeLinejoin="round" />
-      {last && <circle cx={last[0]} cy={last[1]} r="2" fill="var(--accent-bright)" />}
-    </svg>
+    <span className="sparkline-wrap" style={{ width: w, height: h }}>
+      <svg ref={ref} className="sparkline sparkline--live" width={w} height={h} viewBox={`0 0 ${w} ${h}`} onPointerMove={onMove} onPointerLeave={() => setHi(null)} role="img" aria-label="news flow by hour — hover for each hour’s item count">
+        <polyline points={pts} fill="none" stroke="var(--accent)" strokeWidth="1.5" vectorEffect="non-scaling-stroke" strokeLinejoin="round" />
+        {last && <circle cx={last[0]} cy={last[1]} r="2" fill="var(--accent-bright)" />}
+        {sel && <line className="sparkline__guide" x1={sel[0]} y1={pad} x2={sel[0]} y2={h - pad} />}
+        {sel && <circle className="sparkline__dot" cx={sel[0]} cy={sel[1]} r="2.6" />}
+      </svg>
+      {sel && when && (
+        <span className="sparkline__tip" style={{ left: `${(sel[0] / w) * 100}%` }}>
+          <span className="sparkline__tip-time">{when.toLocaleString([], { month: 'short', day: 'numeric', hour: 'numeric' })}</span>
+          <span className="sparkline__tip-val">{val} item{val === 1 ? '' : 's'}</span>
+        </span>
+      )}
+    </span>
   )
 }
 
@@ -368,7 +405,7 @@ function ThemeDeepDive() {
       </div>
       <h2 className="themedd__name">{t.name}</h2>
       <p className="themedd__desc">{t.description}</p>
-      <div className="themedd__sparkrow"><Sparkline series={t.flow_series} w={220} h={36} /><span className="themedd__scores">freshness {detail.scores.freshness} · breadth {detail.scores.breadth} · staying power {detail.scores.persistence}</span></div>
+      <div className="themedd__sparkrow"><Sparkline series={t.flow_series} w={220} h={36} interactive /><span className="themedd__scores">freshness {detail.scores.freshness} · breadth {detail.scores.breadth} · staying power {detail.scores.persistence}</span></div>
 
       <div className="themedd__orders">
         {orders.map(([label, cos]) => cos.length > 0 && (

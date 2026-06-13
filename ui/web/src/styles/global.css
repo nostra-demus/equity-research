@@ -1397,6 +1397,21 @@ a { color: inherit; }
 .themecard__rel { font-size: 11px; color: var(--text-faint); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .sparkline { flex: none; }
 .sparkline--empty { display: inline-block; width: 88px; height: 18px; border-bottom: 1px dashed var(--hairline); }
+/* interactive flow sparkline (deep-dive): hover crosshair + per-hour tooltip */
+.sparkline-wrap { position: relative; display: inline-block; flex: none; }
+.sparkline--live { display: block; cursor: crosshair; overflow: visible; touch-action: none; }
+.sparkline__guide { stroke: var(--hairline-strong); stroke-width: 1; vector-effect: non-scaling-stroke; }
+.sparkline__dot { fill: var(--accent-bright); stroke: var(--surface-1); stroke-width: 1; }
+.sparkline__tip {
+  position: absolute; bottom: calc(100% + 7px); transform: translateX(-50%); z-index: 6; pointer-events: none;
+  display: flex; flex-direction: column; align-items: center; gap: 1px; white-space: nowrap;
+  padding: 4px 9px; border-radius: var(--r-md); background: var(--surface-3); border: 1px solid var(--hairline-strong); box-shadow: var(--shadow-2);
+  animation: sparktipin 130ms var(--ease-out) both;
+}
+.sparkline__tip-time { font-size: 10px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.sparkline__tip-val { font-size: 11.5px; font-weight: 700; color: var(--accent-bright); }
+@keyframes sparktipin { from { opacity: 0; transform: translateX(-50%) translateY(3px); } to { opacity: 1; transform: translateX(-50%) translateY(0); } }
+@media (prefers-reduced-motion: reduce) { .sparkline__tip { animation: none; } }
 
 /* ---- the deep-dive ---- */
 .themedd { height: 100%; min-height: 0; overflow-y: auto; padding: 16px 22px 28px; display: flex; flex-direction: column; gap: 10px; }
