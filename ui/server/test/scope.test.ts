@@ -8,6 +8,9 @@ import path from 'node:path'
 import { deriveScope, deriveSourceTier, familyOf, SCOPES } from '../src/news/scope'
 import { extractSummary, parseSecFiling, findPriorCoverage, findRelatedEvents, enrichEvent, isSafeFetchUrl } from '../src/news/enrich'
 import { appendFeedItems } from '../src/news/feed'
+import { cleanText, looksLikeHeadline } from '../src/news/clean'
+import { isCompanyName, filterCompanies } from '../src/news/entities'
+import { coerceArticleBrief } from '../src/news/triage/groq'
 import type { FeedItem } from '../src/news/types'
 
 let passed = 0
@@ -23,7 +26,7 @@ async function check(name: string, fn: () => void | Promise<void>) {
 }
 function res(body: string, status = 200, headers: Record<string, string> = {}): any {
   const h = new Map(Object.entries(headers).map(([k, v]) => [k.toLowerCase(), v]))
-  return { ok: status >= 200 && status < 300, status, headers: { get: (k: string) => h.get(k.toLowerCase()) ?? null }, text: async () => body }
+  return { ok: status >= 200 && status < 300, status, headers: { get: (k: string) => h.get(k.toLowerCase()) ?? null }, text: async () => body, json: async () => JSON.parse(body) }
 }
 const tmp = () => fs.mkdtempSync(path.join(os.tmpdir(), 'scope-'))
 
@@ -291,6 +294,80 @@ await check('findRelatedEvents: two genuinely on-topic commodity items relate (s
   appendFeedItems(root, today, [mk('EVT-oil2', 'Brent crude oil steadies after the selloff')], 100)
   const rel = findRelatedEvents(root, { event_id: 'EVT-oil1', headline: 'Brent crude oil falls on demand worries', companies: [], event_types: ['macro_sector'], scope: 'commodity' }, () => new Date(`${today}T11:00:00Z`))
   assert.ok(rel.map((r) => r.event_id).includes('EVT-oil2'), 'two items sharing {brent, crude, oil} should relate')
+})
+
+// ---- text hygiene: strip HTML/markup from headlines, keep the real text ----
+await check('cleanText strips an <a> wrapper + decodes entities, keeping the headline', () => {
+  assert.equal(
+    cleanText(`<a href="/biotech/x" hreflang="en">Chutes &amp; Ladders&mdash;Perrigo CEO ousted over &#x27;personal conduct&#x27;</a>`),
+    "Chutes & Ladders—Perrigo CEO ousted over 'personal conduct'",
+  )
+  assert.equal(cleanText('<![CDATA[Plain title]]>'), 'Plain title')
+  assert.equal(cleanText('  spaced   <b>out</b>  '), 'spaced out')
+  assert.equal(looksLikeHeadline(cleanText('<div></div>')), false) // pure markup → not a headline
+  assert.equal(looksLikeHeadline(cleanText('<p>RBI cuts repo rate</p>')), true)
+})
+
+// ---- entity safety-net: countries / agencies / indices are NOT companies ----
+await check('isCompanyName rejects countries / agencies / indices / junk, keeps real firms', () => {
+  for (const x of ['China', 'india', 'Fed', 'ECB', 'SEBI', 'ESMA', 'European Commission', 'Nifty', 'S&P 500', 'Euribor', 'Haryana', 'Middle East', '[]', 'major tyre maker', 'the company', 'Ministry of Power'])
+    assert.equal(isCompanyName(x), false, `${x} must NOT be a company`)
+  for (const x of ['Perrigo', 'Reliance Industries', 'China Mobile', 'Woodside', 'Mitsui Chemicals', 'TSMC'])
+    assert.equal(isCompanyName(x), true, `${x} must be a company`)
+  // filterCompanies scrubs a mixed list
+  assert.deepEqual(filterCompanies([{ name: 'China' }, { name: 'Perrigo' }, { name: 'Fed' }]).map((c) => c.name), ['Perrigo'])
+})
+
+// ---- the article-body brief coercion ----
+await check('coerceArticleBrief shapes gist/companies/parties safely; bad roles default to mentioned', () => {
+  const b = coerceArticleBrief({
+    gist: ['a', '', 'b', 'c', 'd', 'e'], // dirty: empties dropped, capped at 4
+    companies: [{ name: 'Perrigo', ticker: 'prgo', role: 'subject' }, { name: 'X', role: 'bogus' }, { name: '' }],
+    beneficiaries: [{ name: 'Woodside', named_in_article: true, basis: 'target +14%' }],
+    exposed: [{ name: 'Shell', named_in_article: false }],
+    theme: 'M&A!!',
+  })
+  assert.deepEqual(b.gist, ['a', 'b', 'c', 'd'])
+  assert.equal(b.companies[0].ticker, 'PRGO')
+  assert.equal(b.companies[1].role, 'mentioned') // bogus role coerced
+  assert.equal(b.companies.length, 2) // empty-name dropped
+  assert.equal(b.beneficiaries[0].name, 'Woodside')
+  assert.equal(b.theme, 'ma') // non-letters stripped
+})
+
+// ---- enrichEvent: the article-body Groq read (gist + firms-only + theme), with denylist scrub ----
+await check('enrichEvent reads the body with Groq → gist, firms-only companies, corrected theme', async () => {
+  const root = tmp(), state = tmp()
+  const ARTICLE = '<html><head><meta property="og:description" content="thin teaser"></head><body><p>Drugmaker Perrigo said CEO Patrick Lockwood-Taylor resigned after the board found certain personal conduct inconsistent with its values. Board member Albert Manzone steps in as interim CEO.</p></body></html>'
+  const groqContent = JSON.stringify({
+    gist: ['Perrigo CEO Patrick Lockwood-Taylor resigned over personal conduct.', 'Board member Albert Manzone is interim CEO while a search runs.'],
+    companies: [{ name: 'Perrigo', ticker: 'PRGO', role: 'subject' }, { name: 'China', ticker: null, role: 'mentioned' }],
+    beneficiaries: [], exposed: [{ name: 'Perrigo', named_in_article: true, basis: 'leadership gap' }],
+    theme: 'management',
+  })
+  let groqCalls = 0
+  const fetchFn = (async (u: string) => {
+    if (String(u).includes('/chat/completions')) { groqCalls++; return res(JSON.stringify({ choices: [{ finish_reason: 'stop', message: { content: groqContent } }], usage: { total_tokens: 300 } })) }
+    return res(ARTICLE, 200, { 'content-type': 'text/html' })
+  }) as unknown as typeof fetch
+  const e = await enrichEvent(
+    { event_id: 'EVT-perrigo', url: 'https://www.reuters.com/x', headline: 'Perrigo CEO ousted over personal conduct', companies: [] },
+    { repoRoot: root, stateDir: state, fetchFn, groq: { apiKey: 'k', model: 'm', baseUrl: 'https://api.groq.com/openai/v1' } },
+  )
+  assert.equal(groqCalls, 1)
+  assert.ok(e.gist && e.gist.length >= 2 && e.gist[0].toLowerCase().includes('perrigo'), 'gist bullets read from the body')
+  assert.deepEqual((e.companies || []).map((c) => c.name), ['Perrigo'], 'denylist scrubs "China" from companies')
+  assert.equal(e.theme, 'management')
+  assert.equal(e.exposed?.[0]?.name, 'Perrigo')
+})
+
+await check('enrichEvent with NO groq key degrades to the regex summary (never blank)', async () => {
+  const root = tmp(), state = tmp()
+  const ARTICLE = '<html><head><meta property="og:description" content="The Reserve Bank of India plans to simplify cross-border payment approvals for exporters."></head><body><p>x</p></body></html>'
+  const fetchFn = (async () => res(ARTICLE, 200, { 'content-type': 'text/html' })) as unknown as typeof fetch
+  const e = await enrichEvent({ event_id: 'EVT-rbi', url: 'https://www.reuters.com/y', headline: 'RBI eases cross-border payments', companies: [] }, { repoRoot: root, stateDir: state, fetchFn })
+  assert.ok(!e.gist, 'no gist without a groq key')
+  assert.ok((e.summary || '').includes('cross-border'), 'falls back to the regex summary')
 })
 
 console.log(`\nscope + enrich: ${passed} checks passed`)

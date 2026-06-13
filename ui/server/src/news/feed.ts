@@ -10,14 +10,19 @@ import fs from 'node:fs'
 import path from 'node:path'
 import type { CycleSummary, FeedItem } from './types'
 import { deriveScope, deriveSourceTier } from './scope'
+import { cleanText } from './clean'
 
-/** Fill scope/source_tier on a feed item that predates them (older firehose lines), so the whole
- *  backlog is classified the same way as a fresh item. Idempotent: only fills what's missing. */
+/** Hydrate a feed item on read: clean any HTML/markup left in the headline (older firehose lines were
+ *  stored before ingest-time cleaning — e.g. "<a href=…>Title</a>"), and fill scope/source_tier so the
+ *  whole backlog is classified like a fresh item. Idempotent; never drops the real text. */
 function withScope(it: FeedItem): FeedItem {
-  if (it.scope && it.source_tier) return it
+  const headline = cleanText(it.headline)
+  const needsClean = headline !== it.headline
+  if (it.scope && it.source_tier && !needsClean) return it
   return {
     ...it,
-    scope: it.scope || deriveScope(it),
+    headline: headline || it.headline,
+    scope: it.scope || deriveScope({ ...it, headline }),
     source_tier: it.source_tier || deriveSourceTier(it),
   }
 }

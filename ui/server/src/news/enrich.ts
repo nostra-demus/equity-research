@@ -21,6 +21,9 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { lookupSource } from './sources/approved-domains'
 import { readFeed } from './feed'
+import { cleanText } from './clean'
+import { filterCompanies, isCompanyName } from './entities'
+import { analyzeArticle, type ArticleCompany, type ArticleParty } from './triage/groq'
 import type { CompanyGuess } from './types'
 
 const CACHE_FILE = 'news-enrich-cache.json'
@@ -57,11 +60,17 @@ export interface EventEnrichment {
   ok: boolean
   fetched_at: string
   note?: string // why a section is thin (off-list domain, fetch failed, …)
-  summary?: string // the real story beyond the headline
+  summary?: string // regex fallback: the real story beyond the headline (used when the Groq read is unavailable)
   published?: string
   sec?: SecFiling
   prior_coverage: PriorCoverage[]
   related: RelatedEvent[]
+  // --- the article-body read (one Groq pass over the fetched body; absent on failure/no-key) ---
+  gist?: string[] // 2-4 bullets: the real crux
+  companies?: ArticleCompany[] // investable firms only (denylist-scrubbed), each with its role
+  beneficiaries?: ArticleParty[] // who gains — named firms or an inferred group (flagged)
+  exposed?: ArticleParty[] // who's at risk
+  theme?: string // corrected single event-type (replaces the mis-tagged triage theme)
 }
 
 // ---- 8-K item-code dictionary (SEC §13/15(d) current-report items) — plain meanings ----
@@ -266,6 +275,7 @@ function topicTokens(headline?: string, companies?: CompanyGuess[]): Set<string>
     if (w.length >= 4 || SHORT_TOPICS.has(w)) out.add(w)
   }
   for (const c of companies || []) {
+    if (!isCompanyName(c?.name)) continue // a country/agency guess ("China") must not cluster the wire
     const n = normName(c?.name)
     if (n) out.add(n)
     if (c?.ticker) out.add(String(c.ticker).toLowerCase())
@@ -391,6 +401,14 @@ export interface EnrichDeps {
   fetchFn?: typeof fetch
   now?: () => Date
   force?: boolean
+  // the cheap-Groq plumbing for the article-body read (omit → degrade to the regex summary)
+  groq?: { apiKey: string; model: string; baseUrl: string; maxTokens?: number }
+}
+
+// Scrub a Groq-returned party list: drop a NAMED party that's actually a country/index/agency (per the
+// entity denylist); keep inferred groups (named_in_article=false) as-is — those are the honest "(sector)".
+function scrubParties(parties: ArticleParty[] | undefined): ArticleParty[] {
+  return (parties || []).filter((p) => p && p.name && (!p.named_in_article || isCompanyName(p.name)))
 }
 
 /**
@@ -443,21 +461,39 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
   } else {
     const { ok, text, note } = await fetchText(url, fetchFn)
     if (!ok || !text) {
-      result.note = note || 'could not read the source'
+      // a paywall/boilerplate block degrades to an honest note — never a blank panel
+      result.note = note || 'source blocked — headline only'
+    } else if (isSec) {
+      // an EDGAR filing index: the parsed item block IS the meaning; its page "summary" is just header
+      // boilerplate, so skip the body read entirely.
+      const sec = parseSecFiling(text)
+      if (sec) result.sec = sec
+      else { const summary = extractSummary(text); if (summary) result.summary = summary }
     } else {
-      if (isSec) {
-        const sec = parseSecFiling(text)
-        if (sec) result.sec = sec
-      }
-      // For an EDGAR filing the page "summary" is just the SEC header boilerplate (EIN / SIC / film
-      // number) — never a story. The parsed `sec` block carries the real meaning, so skip it there.
-      if (!result.sec) {
+      // the primary path: read the actual article body with ONE Groq pass (gist + firms + who-benefits +
+      // corrected theme). Strip script/style first; analyzeArticle caps + cleans further.
+      const pub = extractPublished(text)
+      if (pub) result.published = pub
+      const body = cleanText(text.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' '))
+      const brief = deps.groq?.apiKey
+        ? (await analyzeArticle(body, input.headline || '', { model: deps.groq.model, baseUrl: deps.groq.baseUrl, apiKey: deps.groq.apiKey, maxTokens: deps.groq.maxTokens }, fetchFn)).brief
+        : null
+      if (brief && (brief.gist.length || brief.companies.length || brief.beneficiaries.length || brief.exposed.length)) {
+        if (brief.gist.length) result.gist = brief.gist
+        const co = filterCompanies(brief.companies) // denylist safety-net on top of the prompt rule
+        if (co.length) result.companies = co
+        const ben = scrubParties(brief.beneficiaries)
+        if (ben.length) result.beneficiaries = ben
+        const exp = scrubParties(brief.exposed)
+        if (exp.length) result.exposed = exp
+        if (brief.theme) result.theme = brief.theme
+        if (!brief.gist.length) { const s = extractSummary(text); if (s) result.summary = s } // empty gist → keep a regex line
+      } else {
+        // Groq unavailable / failed / boilerplate → degrade to the regex summary, never blank
         const summary = extractSummary(text)
         if (summary) result.summary = summary
-        const pub = extractPublished(text)
-        if (pub) result.published = pub
+        else result.note = note || 'source had no readable story — headline only'
       }
-      if (!result.summary && !result.sec) result.note = 'fetched, but no summary could be extracted'
     }
   }
 

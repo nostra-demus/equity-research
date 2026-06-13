@@ -10,6 +10,8 @@
 // variant-perception company-vs-macro split, screener-beneficiary-map's directness read) so the
 // pre-triage tags line up with what the paid pipeline will say later.
 
+import { isCompanyName } from './entities'
+
 export type ScopeId = 'single_name' | 'multi_name' | 'sector' | 'macro' | 'commodity' | 'policy' | 'unknown'
 export type ScopeFamily = 'company' | 'broad' | 'unknown'
 
@@ -129,7 +131,8 @@ export function deriveScope(it: ScopeInput): ScopeId {
   const link = normLinkage(it.issuer_linkage)
   const nature = lc(it.input_nature)
   const types = (it.event_types || []).map(lc)
-  const companies = (it.companies || []).filter((c) => c && lc(c.name).trim())
+  // count only REAL firms — a "China"/"Fed" guess must not make this look like a single-name idea
+  const companies = (it.companies || []).filter((c) => c && lc(c.name).trim() && isCompanyName(c.name))
   const namedCount = companies.length
   const hasMnaType = types.includes('mna')
   // a single named company that the linkage points at IS the subject — this guards both the policy

@@ -7,6 +7,7 @@
 
 import { createHash } from 'node:crypto'
 import fs from 'node:fs'
+import { cleanText, looksLikeHeadline } from './clean'
 import { lookupSource } from './sources/approved-domains'
 import type { SeenCache } from './seen-cache'
 import type { NewsItem, RawArticle } from './types'
@@ -61,9 +62,11 @@ export function normalizeAndFilter(raws: RawArticle[], deps: NormalizeDeps): New
   const out: NewsItem[] = []
   const seenThisRun = new Set<string>()
   for (const a of raws) {
-    const title = (a.title || '').trim()
+    // strip HTML/markup + entities up front so the STORED headline is clean AND the event_id is hashed
+    // from the same clean text the gauntlet's Gate-0 will see (one consistent identity everywhere)
+    const title = cleanText(a.title)
     const url = (a.url || '').trim()
-    if (title.length < 8 || !url) continue // an 8-char floor matches the intake headline minimum
+    if (!looksLikeHeadline(title) || !url) continue // floor: real prose, not empty markup debris
     const meta = lookupSource(a.domain)
     if (!meta) continue // off-list firewall
     const event_id = eventIdFor(title, url)

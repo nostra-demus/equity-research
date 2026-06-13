@@ -10,7 +10,7 @@ import { z } from 'zod'
 import { readActivity } from './activity-log'
 import { recordDataChange } from './data-activity'
 import { buildReportHtml, parseMeta, safeName } from './export'
-import { DATA_DIR, HOST, PORT, REPO_ROOT, STATE_DIR, WEB_DIST } from './config'
+import { DATA_DIR, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, WEB_DIST } from './config'
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
 import { cancel, cancelAll, creditCheck, decideReadiness, estimate, launch } from './launcher'
@@ -603,7 +603,11 @@ app.get('/api/news/enrich', async (req, reply) => {
   try {
     const enrichment = await enrichEvent(
       { event_id: q.event_id, url: q.url, headline: q.headline, companies, event_types, scope: q.scope },
-      { repoRoot: REPO_ROOT, stateDir: STATE_DIR, force: q.force === '1' },
+      {
+        repoRoot: REPO_ROOT, stateDir: STATE_DIR, force: q.force === '1',
+        // the article-body read uses the same free Groq key as the ingester (one call per opened event)
+        groq: NEWS.groqApiKey ? { apiKey: NEWS.groqApiKey, model: NEWS.groqModel, baseUrl: NEWS.groqBaseUrl, maxTokens: 900 } : undefined,
+      },
     )
     return enrichment
   } catch (e: any) {

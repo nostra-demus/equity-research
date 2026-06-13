@@ -169,3 +169,119 @@ export async function triageBatch(
   }
   return { byIndex, requests, tokens, ok: false, note: lastNote }
 }
+
+// ============================================================================
+// Article-BODY read — the on-demand enrichment pass. The cheap triage above is title-only; this reads
+// the fetched article body (one Groq call per opened event, cached) and returns a decision-ready brief:
+// the real crux, firms-only companies with their role, who gains / who's exposed (named vs inferred
+// group), and a corrected theme. Designed from a 50-article audit of the failure modes.
+// ============================================================================
+
+export type CompanyRole = 'subject' | 'acquirer' | 'target' | 'forecaster' | 'mentioned'
+export interface ArticleCompany { name: string; ticker: string | null; role: CompanyRole }
+export interface ArticleParty { name: string; named_in_article: boolean; basis: string }
+export interface ArticleBrief {
+  gist: string[] // 2-4 plain bullets, the crux
+  companies: ArticleCompany[] // investable firms only, each with its role
+  beneficiaries: ArticleParty[] // who gains (named firm or an inferred group, flagged)
+  exposed: ArticleParty[] // who's at risk
+  theme: string // corrected single event-type
+}
+
+const ARTICLE_SYSTEM = `You are a buy-side analyst's reading assistant. You are given the BODY TEXT of one news article (not just its headline). Extract a compact, decision-ready brief.
+
+Return ONLY this JSON:
+{"gist":["...","..."],"companies":[{"name":"...","ticker":null,"role":"subject|acquirer|target|forecaster|mentioned"}],"beneficiaries":[{"name":"...","named_in_article":true,"basis":"..."}],"exposed":[{"name":"...","named_in_article":true,"basis":"..."}],"theme":"<tag>"}
+
+GIST — 2 to 4 short bullets carrying the REAL crux a portfolio manager needs: the number, threshold, call, or change that is the point of the story. Lead with the punchline, not the setup (e.g. "sees 50-75bp of rate hikes and 5% FY27 CPI", not the CPI sub-components). Plain English, short sentences. Every number you state must be in the body. No hype words (robust, strong, well-positioned, attractive, best-in-class). If the body is boilerplate, a cookie/ad notice, an "about us" page, or a login wall with no story, return gist [] and set theme to your best guess.
+If a story is contested or two-sided, the gist must state BOTH sides (do not echo a one-sided headline).
+
+COMPANIES — INVESTABLE FIRMS ONLY. A company issues equity or debt. NEVER list: a country, nationality, region, state or city (India, China, Thailand, Haryana); a market index or rate (S&P 500, Nifty, Euribor); a government body, regulator, central bank or agency (Fed, ECB, RBI, SEBI, ESMA, SEC, DOJ, European Commission, OPEC, Ministry of X); a generic placeholder ("major tyre maker", "startups"). Give each firm a role: subject (the firm the story is about) | acquirer/target (M&A) | forecaster (a bank/analyst MAKING a call — NOT a party that gains) | mentioned.
+
+BENEFICIARIES / EXPOSED — who GAINS and who's AT RISK. If the article NAMES specific firms, list them with named_in_article=true and a one-clause basis. If it points only to a sector/group, give the group with named_in_article=false. If it supports neither, return []. NEVER invent a named beneficiary the body doesn't support (do not guess "Capital One" off a generic consumer-credit piece). A forecaster (ICICI, JPMorgan, Pimco, Goldman) is never a beneficiary.
+
+THEME — choose exactly one, by what the story IS: earnings_revenue_margin | guidance_change | mna | capital_actions | debt_credit | litigation_enforcement | regulatory | management | product | commercial | operations | cybersecurity | macro_sector | policy | rumor.
+Rules: guidance_change ONLY means a company changing its OWN forecast — a central-bank rate path, inflation/GDP print, war/geopolitics, oil move, country capex or trade-bloc story is macro_sector. An IPO/SPAC/listing/buyback/dividend/raise is capital_actions, NOT mna ("Acquisition" in a shell's name does not make an 8-K an M&A event). A government/regulator/court action that sets rules (sanctions, tariffs, antitrust, trade pacts, scheme approvals) is regulatory or policy. Use rumor only when the article itself cites unnamed sources.`
+
+const ROLES: CompanyRole[] = ['subject', 'acquirer', 'target', 'forecaster', 'mentioned']
+const str = (v: unknown, max = 200): string => (typeof v === 'string' ? v.trim().slice(0, max) : '')
+
+function coerceParty(raw: any): ArticleParty | null {
+  const name = str(raw?.name, 120)
+  if (!name) return null
+  return { name, named_in_article: raw?.named_in_article !== false, basis: str(raw?.basis, 160) }
+}
+
+/** Coerce the model's JSON into a safe ArticleBrief. Exported for tests. */
+export function coerceArticleBrief(raw: any): ArticleBrief {
+  const gist = (Array.isArray(raw?.gist) ? raw.gist : []).map((g: any) => str(g, 280)).filter(Boolean).slice(0, 4)
+  const companies: ArticleCompany[] = (Array.isArray(raw?.companies) ? raw.companies : [])
+    .map((c: any): ArticleCompany | null => {
+      const name = str(c?.name, 120)
+      if (!name) return null
+      const ticker = typeof c?.ticker === 'string' && TICKER_RE.test(c.ticker.trim()) ? c.ticker.trim().toUpperCase() : null
+      const role: CompanyRole = ROLES.includes(c?.role) ? c.role : 'mentioned'
+      return { name, ticker, role }
+    })
+    .filter((c: ArticleCompany | null): c is ArticleCompany => c !== null)
+    .slice(0, 8)
+  const beneficiaries = (Array.isArray(raw?.beneficiaries) ? raw.beneficiaries : []).map(coerceParty).filter(Boolean).slice(0, 6) as ArticleParty[]
+  const exposed = (Array.isArray(raw?.exposed) ? raw.exposed : []).map(coerceParty).filter(Boolean).slice(0, 6) as ArticleParty[]
+  const theme = typeof raw?.theme === 'string' ? raw.theme.trim().toLowerCase().replace(/[^a-z_]/g, '') : ''
+  return { gist, companies, beneficiaries, exposed, theme }
+}
+
+/**
+ * One Groq call over an article body → an ArticleBrief. Never throws. Returns brief=null on no-key,
+ * transient failure (one retry), truncation, or non-JSON — the caller then degrades to the regex summary.
+ */
+export async function analyzeArticle(
+  body: string,
+  headline: string,
+  opts: TriageOptions,
+  fetchFn: typeof fetch = fetch,
+  sleep: (ms: number) => Promise<void> = (ms) => new Promise((r) => setTimeout(r, ms)),
+): Promise<{ brief: ArticleBrief | null; tokens: number; note?: string }> {
+  if (!opts.apiKey) return { brief: null, tokens: 0, note: 'no GROQ_API_KEY' }
+  const text = String(body || '').slice(0, 6000)
+  if (text.replace(/\s+/g, ' ').trim().length < 80) return { brief: null, tokens: 0, note: 'body too thin to read' }
+  const user = `HEADLINE: ${headline}\n\nARTICLE BODY:\n${text}`
+  let tokens = 0
+  let lastNote = 'groq fetch error'
+  for (let attempt = 1; attempt <= 2; attempt++) {
+    try {
+      const res = await fetchFn(`${opts.baseUrl}/chat/completions`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', authorization: `Bearer ${opts.apiKey}` },
+        body: JSON.stringify({
+          model: opts.model,
+          temperature: 0.1,
+          max_tokens: opts.maxTokens ?? 900,
+          response_format: { type: 'json_object' },
+          messages: [
+            { role: 'system', content: ARTICLE_SYSTEM },
+            { role: 'user', content: user },
+          ],
+        }),
+      })
+      if (!res.ok) {
+        const t = await res.text().catch(() => '')
+        lastNote = `groq HTTP ${res.status}${t ? ': ' + t.slice(0, 120) : ''}`
+        if ((res.status === 429 || res.status >= 500) && attempt < 2) { await sleep(1200 * attempt); continue }
+        return { brief: null, tokens, note: lastNote }
+      }
+      const data: any = await res.json()
+      tokens += Number(data?.usage?.total_tokens) || 0
+      if (data?.choices?.[0]?.finish_reason === 'length') return { brief: null, tokens, note: 'groq: output truncated' }
+      const content = data?.choices?.[0]?.message?.content
+      if (typeof content !== 'string') return { brief: null, tokens, note: 'groq: empty content' }
+      let parsed: any
+      try { parsed = JSON.parse(content) } catch { return { brief: null, tokens, note: 'groq: non-JSON content' } }
+      return { brief: coerceArticleBrief(parsed), tokens }
+    } catch (e: any) {
+      lastNote = e?.message || 'groq fetch error'
+      if (attempt < 2) await sleep(1200 * attempt)
+    }
+  }
+  return { brief: null, tokens, note: lastNote }
+}
