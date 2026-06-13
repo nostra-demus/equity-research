@@ -167,4 +167,17 @@ export const NEWS = {
   themesClaudeApiKey: process.env.THEMES_CLAUDE_API_KEY || process.env.ANTHROPIC_API_KEY || '',
   themesClaudeBaseUrl: process.env.THEMES_CLAUDE_BASE_URL || 'https://api.anthropic.com',
   themesClaudeDailyCap: capNum(process.env.NEWS_THEMES_CLAUDE_DAILY_CAP, 60), // max Claude discovery calls/day
+  // DEDUP layer (news/dedup.ts): collapse near-duplicate STORIES on the wire into one row (the same
+  // event reworded, or the same story across sources) — the reader sees one row per story with a
+  // "+N sources" badge, and multi-source corroboration lifts the rank. TIGHT by design (same event
+  // only — different events about the same company stay separate). Deterministic, $0, fail-soft.
+  dedupEnabled: process.env.NEWS_DEDUP_ENABLED === '0' ? false : true,
+  // two items can only be the same story if their timestamps are within this many hours of each other
+  dedupWindowHours: capNum(process.env.NEWS_DEDUP_WINDOW_HOURS, 48),
+  // token-set similarity (jaccard) floor for a same-story match, guarded by a shared company OR source
+  dedupJaccard: (() => { const n = Number(process.env.NEWS_DEDUP_JACCARD); return Number.isFinite(n) && n > 0 && n <= 1 ? n : 0.55 })(),
+  // a similarity this high merges on its own (a verbatim-ish repost) — no company/source guard needed
+  dedupVerbatimJaccard: (() => { const n = Number(process.env.NEWS_DEDUP_VERBATIM_JACCARD); return Number.isFinite(n) && n > 0 && n <= 1 ? n : 0.82 })(),
+  // cap the O(n²) clustering to the most recent N items (covers the 2-day read window with margin)
+  dedupMaxScan: capNum(process.env.NEWS_DEDUP_MAX_SCAN, 1500),
 }

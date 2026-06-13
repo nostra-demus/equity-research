@@ -7,7 +7,8 @@
 import path from 'node:path'
 import { NEWS, REPO_ROOT, STATE_DIR } from '../config'
 import { newsBus } from './bus'
-import { appendFeedItems } from './feed'
+import { appendFeedItems, readFeed } from './feed'
+import { assignDedupGroups } from './dedup'
 import { fetchGdelt } from './sources/gdelt'
 import { fetchRss } from './sources/rss'
 import { fetchNse } from './sources/nse'
@@ -231,6 +232,24 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   seen.save()
   saveDeferred(stateDir, deferred)
 
+  // 3b. DEDUP — micro-cluster this cycle's items against the recent firehose into STORIES (finer than
+  // themes), so the firehose line + the SSE event each carry a stable story-cluster id and the wire
+  // shows one row per story. Uses the cycle ts for fresh items so it matches the read-side recompute
+  // (feed.ts withDedup). Fully guarded — a dedup bug never blocks or corrupts the core pipeline.
+  if (cfg.dedupEnabled && triaged.length) {
+    try {
+      const recent = readFeed(repoRoot, 2, { now }).items
+      const views = [
+        ...recent.map((it) => ({ event_id: it.event_id, headline: it.headline, ts: it.ts, companies: it.companies, source_name: it.source_name })),
+        ...triaged.map((t) => ({ event_id: t.event_id, headline: t.headline, ts, companies: t.companies, source_name: t.source_name })),
+      ]
+      const groups = assignDedupGroups(views, { windowHours: cfg.dedupWindowHours, jaccard: cfg.dedupJaccard, verbatimJaccard: cfg.dedupVerbatimJaccard, maxScan: cfg.dedupMaxScan })
+      for (const t of triaged) t.dedup_group = groups.get(t.event_id) || t.event_id
+    } catch (e: any) {
+      log(`dedup stage error: ${e?.message || e}`)
+    }
+  }
+
   // 4. WRITE
   const picks = triaged.filter((t) => t.band !== 'drop')
   const picked = triaged.filter((t) => t.band === 'pick').length
@@ -269,6 +288,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     snippet: t.snippet, // the feed's own lede — fetch-free body for on-open enrichment
     rank_factors: t.rank_factors, // the composite-priority breakdown (rank.ts) — for the WHY in the UI
     dedup_status: t.dedup_status,
+    dedup_group: t.dedup_group, // story-cluster id (news/dedup.ts) — the live wire collapses on it
     inboxed: t.band !== 'drop',
   }))
   // emit exactly what was persisted, so the live wire and a later backfill agree

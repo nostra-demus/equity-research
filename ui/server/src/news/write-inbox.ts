@@ -10,7 +10,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { execFileSync } from 'node:child_process'
 import type { CycleSummary, InboxRow, TriagedItem } from './types'
-import { deriveScope, deriveSourceTier } from './scope'
+import { deriveScope, deriveSourceTier, SOURCE_TIERS, type SourceTierId } from './scope'
 
 function inboxPath(repoRoot: string, date: string): string {
   return path.join(repoRoot, 'screener', 'inbox', `${date}_sweep.json`)
@@ -31,6 +31,33 @@ function nextInboxSeq(rows: InboxRow[]): number {
 export interface MergeOptions {
   maxRows?: number // cap on UNCONSUMED rows (ranked by score); consumed rows are always kept
   now?: () => Date
+}
+
+const tierRank = (t?: string | null): number => (t ? SOURCE_TIERS[t as SourceTierId]?.rank ?? 0 : 0)
+
+/**
+ * Collapse rows sharing a story-cluster id (news/dedup.ts) to ONE representative, so the curated inbox
+ * shows one row per story like the wire does. Rows with no dedup_group stay standalone. A group that
+ * already touched a run (any member launched) is left intact — never silently drop a row that spawned
+ * work. Representative = best §4 source tier, then highest triage score. The caller has already removed
+ * consumed/dismissed rows, so this only ever folds away fresh, never-acted-on duplicates.
+ */
+function collapseInboxByGroup(rows: InboxRow[]): InboxRow[] {
+  const byGroup = new Map<string, InboxRow[]>()
+  const kept: InboxRow[] = []
+  for (const r of rows) {
+    const g = r.dedup_group
+    if (!g) { kept.push(r); continue } // ungrouped → standalone
+    const arr = byGroup.get(g)
+    if (arr) arr.push(r)
+    else byGroup.set(g, [r])
+  }
+  for (const members of byGroup.values()) {
+    if (members.length === 1 || members.some((m) => m.launched_signal_id)) { kept.push(...members); continue }
+    const rep = members.slice().sort((a, b) => tierRank(b.source_tier) - tierRank(a.source_tier) || (b.triage_score ?? -1) - (a.triage_score ?? -1))[0]
+    kept.push(rep)
+  }
+  return kept
 }
 
 /**
@@ -66,6 +93,7 @@ export function mergeInbox(repoRoot: string, date: string, items: TriagedItem[],
       rank_factors: it.rank_factors, // composite-priority breakdown; triage_score IS the composite
       prelim_note: it.triage_reason, // keep the legacy field populated for any reader that uses it
       dedup_status: it.dedup_status,
+      dedup_group: it.dedup_group, // story-cluster id — collapse duplicate stories below
     }
     if (prior) {
       Object.assign(prior, triageFields) // refresh score; NEVER touch consumed / launched_signal_id
@@ -89,7 +117,9 @@ export function mergeInbox(repoRoot: string, date: string, items: TriagedItem[],
   const all = [...byUrl.values()]
   all.sort((a, b) => (b.triage_score ?? -1) - (a.triage_score ?? -1))
   const humanState = all.filter((r) => r.consumed || r.dismissed)
-  const live = all.filter((r) => !r.consumed && !r.dismissed).slice(0, maxRows)
+  // collapse duplicate STORIES before the cap, so one story never eats several inbox slots and the cap
+  // counts distinct stories (news/dedup.ts). Ungrouped rows and run-touched groups pass through intact.
+  const live = collapseInboxByGroup(all.filter((r) => !r.consumed && !r.dismissed)).slice(0, maxRows)
   const rows = [...humanState, ...live].sort((a, b) => (b.triage_score ?? -1) - (a.triage_score ?? -1))
 
   // preserve whatever the existing document carried (a manual sweep's focus_hint, its source label,

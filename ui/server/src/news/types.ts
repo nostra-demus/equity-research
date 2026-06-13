@@ -1,8 +1,9 @@
 // Shared shapes for the autonomous news ingester. Kept dependency-free (only built-ins anywhere in
 // this module) so the pipeline can be unit-tested by stripping types — no bundler, no install.
 
-// A region tag for the inbox view — coarse on purpose (the user asked for global / US / India).
-export type Region = 'US' | 'IN' | 'GLOBAL' | 'OTHER'
+// A region tag for the inbox view. The IBKR-tradable markets the engine covers are first-class
+// (US, India, Japan, UK, China, South Korea); GLOBAL = wires that aren't one market; OTHER = the rest.
+export type Region = 'US' | 'IN' | 'JP' | 'GB' | 'CN' | 'KR' | 'GLOBAL' | 'OTHER'
 
 // The triage band a cheap-LLM score maps to. pick/watch reach the inbox; drop is counted only.
 export type Band = 'pick' | 'watch' | 'drop'
@@ -70,6 +71,7 @@ export interface TriagedItem extends NewsItem {
   band: Band
   rank_factors?: import('./rank').RankFactors // the composite-priority breakdown (the WHY)
   via?: 'gdelt' | 'rss' | 'nse'
+  dedup_group?: string // story-cluster id (news/dedup.ts) — earliest member's event_id; one row per story
 }
 
 // The one row the inbox file carries — a superset of the existing sweep-row contract, plus the
@@ -98,6 +100,7 @@ export interface InboxRow {
   scope?: import('./scope').ScopeId // derived company-vs-broad bucket (news/scope.ts)
   source_tier?: import('./scope').SourceTierId // derived §4 source tier
   rank_factors?: import('./rank').RankFactors // composite-priority breakdown (triage_score is the composite)
+  dedup_group?: string // story-cluster id (news/dedup.ts) — collapse rows sharing it to one
   // --- additive: human state (set only via the cockpit; merge/eviction must preserve these) ---
   dismissed?: boolean
   dismissed_at?: string
@@ -133,6 +136,7 @@ export interface FeedItem {
   snippet?: string // the feed's own lede — fetch-free body the enrichment reads when the page blocks
   rank_factors?: import('./rank').RankFactors // composite-priority breakdown (triage_score is the composite)
   dedup_status: 'new' | 'possible_duplicate'
+  dedup_group?: string // story-cluster id (news/dedup.ts) — earliest member's event_id; one row per story
   inboxed: boolean // band !== 'drop'
 }
 

@@ -11,6 +11,8 @@ import path from 'node:path'
 import type { CycleSummary, FeedItem } from './types'
 import { deriveScope, deriveSourceTier } from './scope'
 import { cleanText } from './clean'
+import { assignDedupGroups, type DedupConfig } from './dedup'
+import { NEWS } from '../config'
 
 /** Hydrate a feed item on read: clean any HTML/markup left in the headline (older firehose lines were
  *  stored before ingest-time cleaning — e.g. "<a href=…>Title</a>"), and fill scope/source_tier so the
@@ -25,6 +27,16 @@ function withScope(it: FeedItem): FeedItem {
     scope: it.scope || deriveScope({ ...it, headline }),
     source_tier: it.source_tier || deriveSourceTier(it),
   }
+}
+
+/** Recompute story-cluster ids over the whole returned window, so the wire de-dupes the EXISTING
+ *  backlog on load (the firehose lines were stamped against a narrower per-cycle window, or predate
+ *  dedup entirely). Idempotent + fail-soft (assignDedupGroups never throws). Mutates in place. */
+function withDedup(items: FeedItem[]): void {
+  if (!NEWS.dedupEnabled || items.length < 2) return
+  const cfg: DedupConfig = { windowHours: NEWS.dedupWindowHours, jaccard: NEWS.dedupJaccard, verbatimJaccard: NEWS.dedupVerbatimJaccard, maxScan: NEWS.dedupMaxScan }
+  const groups = assignDedupGroups(items.map((it) => ({ event_id: it.event_id, headline: it.headline, ts: it.ts, companies: it.companies, source_name: it.source_name })), cfg)
+  for (const it of items) it.dedup_group = groups.get(it.event_id) || it.event_id
 }
 
 function firehosePath(repoRoot: string, date: string): string {
@@ -98,5 +110,7 @@ export function readFeed(repoRoot: string, days = 2, opts: { now?: () => Date; m
   }
   items.sort((a, b) => (b.ts || '').localeCompare(a.ts || ''))
   cycles.sort((a, b) => (b.ts || '').localeCompare(a.ts || ''))
-  return { items: items.slice(0, maxItems), cycles }
+  const capped = items.slice(0, maxItems)
+  withDedup(capped) // story-cluster the served window so the wire shows one row per story
+  return { items: capped, cycles }
 }
