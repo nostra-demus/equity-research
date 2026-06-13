@@ -1,5 +1,5 @@
 import { staticPromptPath } from './prompts'
-import type { ActivityQuery, ActivityResult, CallsResult, DataStatus, FeedItem, LaunchPreflight, NewsCycle, NewsStatus, ScreenerBoard, SignalIntakeInput, SwarmGraph, SwarmMeta, TickerSummary, Usage, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, CallsResult, DataStatus, EventEnrichment, FeedItem, LaunchPreflight, NewsCycle, NewsStatus, ScreenerBoard, SignalIntakeInput, SwarmGraph, SwarmMeta, TickerSummary, Usage, Whoami } from './types'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -78,7 +78,7 @@ export const api = {
   },
   // ---- swarms (the switcher) + the screener swarm's surface ----
   swarms: async (): Promise<SwarmMeta[]> => {
-    if ((await ensureMode()) === 'static') return snap.swarms || [{ id: 'research', label: 'Research', color: '#e0a33e', unit: 'ticker', order: 1, layout: 'constellation' }]
+    if ((await ensureMode()) === 'static') return snap.swarms || [{ id: 'research', label: 'Research', color: '#c0851d', unit: 'ticker', order: 1, layout: 'constellation' }]
     return get<SwarmMeta[]>(`/api/swarms`)
   },
   swarmGraph: async (swarmId: string, subject?: string): Promise<SwarmGraph> => {
@@ -124,6 +124,18 @@ export const api = {
     return get(`/api/news/feed?days=${days}`)
   },
   newsStreamUrl: () => `/api/news/stream`,
+  // On-demand enrichment for ONE opened event: the real story, parsed SEC filing items, prior
+  // coverage of the named companies, and related recent wire items. No Claude/Groq spend.
+  enrichEvent: async (it: Pick<FeedItem, 'event_id' | 'url' | 'headline' | 'companies' | 'event_types' | 'scope'>): Promise<EventEnrichment> => {
+    if ((await ensureMode()) === 'static') return { event_id: it.event_id, ok: false, fetched_at: new Date().toISOString(), prior_coverage: [], related: [], note: 'Read-only showcase — enrichment runs on your machine.' }
+    const qs = new URLSearchParams({ event_id: it.event_id })
+    if (it.url) qs.set('url', it.url)
+    if (it.headline) qs.set('headline', it.headline)
+    if (it.companies?.length) qs.set('companies', JSON.stringify(it.companies))
+    if (it.event_types?.length) qs.set('event_types', JSON.stringify(it.event_types))
+    if (it.scope) qs.set('scope', it.scope)
+    return get(`/api/news/enrich?${qs.toString()}`)
+  },
   inboxAction: async (inboxId: string, action: 'dismiss' | 'restore'): Promise<{ ok: boolean }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/screener/inbox/action`, { inboxId, action })

@@ -10,6 +10,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { execFileSync } from 'node:child_process'
 import type { CycleSummary, InboxRow, TriagedItem } from './types'
+import { deriveScope, deriveSourceTier } from './scope'
 
 function inboxPath(repoRoot: string, date: string): string {
   return path.join(repoRoot, 'screener', 'inbox', `${date}_sweep.json`)
@@ -60,6 +61,8 @@ export function mergeInbox(repoRoot: string, date: string, items: TriagedItem[],
       issuer_linkage: it.issuer_linkage,
       companies: it.companies,
       size_bucket: it.size_bucket,
+      scope: deriveScope(it),
+      source_tier: deriveSourceTier(it),
       prelim_note: it.triage_reason, // keep the legacy field populated for any reader that uses it
       dedup_status: it.dedup_status,
     }

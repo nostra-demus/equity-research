@@ -1,0 +1,403 @@
+// On-demand event enrichment — the "give me enough to decide whether to spend $8–45 on this" layer.
+// The cheap triage is title-only by design; this fills the gap the moment a HUMAN opens an event,
+// so it costs nothing on the firehose path and never touches Claude/Groq money. It does four jobs,
+// each best-effort and independently degradable:
+//   1. STORY     — fetch the source page (approved-domains only) and pull the real summary/lede
+//                  beyond the headline, plus the publish time.
+//   2. FILING     — for SEC EDGAR filings, parse the actual form type + 8-K item codes (turning
+//                  "8-K — Acme Corp" into "8-K · Item 4.02 Non-reliance on prior financials") + filer
+//                  + period. The single biggest uplift for the filing-heavy wire.
+//   3. COVERAGE   — does the engine already KNOW this name? (a data pool, or a finished analysis +
+//                  its last call). "We've looked at this before — last call Avoid" vs "net-new name"
+//                  changes the decision completely. Asserted only when the company NAME reconciles —
+//                  a bare guessed ticker is never enough to claim prior coverage (CLAUDE.md §3).
+//   4. RELATED    — other recent wire items about the same company or theme, so a reader sees "this
+//                  is the third Amazon item today", not an isolated line.
+//
+// Dependency-free (node built-ins only), tolerant regex extraction (no DOM lib), cached in STATE_DIR
+// keyed by event_id, and it NEVER throws — every branch degrades to a labelled "couldn't fetch".
+
+import fs from 'node:fs'
+import path from 'node:path'
+import { lookupSource } from './sources/approved-domains'
+import { readFeed } from './feed'
+import type { CompanyGuess } from './types'
+
+const CACHE_FILE = 'news-enrich-cache.json'
+const CACHE_TTL_MS = 12 * 60 * 60 * 1000 // 12h — a story/filing doesn't change; coverage rarely does intraday
+const FETCH_TIMEOUT_MS = 9000
+const USER_AGENT = process.env.NEWS_ENRICH_USER_AGENT || process.env.NEWS_RSS_USER_AGENT || 'Nostradamus Research (ceekay@muns.io)'
+
+// ---- public shapes ----
+
+export interface PriorCoverage {
+  ticker: string
+  kind: 'data_pool' | 'analysis'
+  detail: string // plain one-liner, e.g. "Last call: Avoid (2026-06-01, confidence 38)"
+  path?: string
+}
+export interface SecFiling {
+  form: string // "8-K", "10-Q", …
+  form_label?: string // "Current report", when known
+  items: { code: string; label: string }[] // 8-K item codes mapped to plain meaning
+  filer?: string
+  period?: string // period of report (YYYY-MM-DD)
+  filed?: string // filing date (YYYY-MM-DD)
+}
+export interface RelatedEvent {
+  event_id: string
+  ts: string
+  headline: string
+  source_name: string
+  triage_score: number
+  scope?: string
+}
+export interface EventEnrichment {
+  event_id: string
+  ok: boolean
+  fetched_at: string
+  note?: string // why a section is thin (off-list domain, fetch failed, …)
+  summary?: string // the real story beyond the headline
+  published?: string
+  sec?: SecFiling
+  prior_coverage: PriorCoverage[]
+  related: RelatedEvent[]
+}
+
+// ---- 8-K item-code dictionary (SEC §13/15(d) current-report items) — plain meanings ----
+// The codes a buy-side reader actually cares about; 4.02 (restatement) and 5.02 (exec change) are the
+// ones that flip a bland filing into a real signal.
+const EIGHTK_ITEMS: Record<string, string> = {
+  '1.01': 'Entry into a material agreement', '1.02': 'Termination of a material agreement', '1.03': 'Bankruptcy or receivership',
+  '1.04': 'Mine safety', '2.01': 'Completion of an acquisition or disposal', '2.02': 'Results of operations (earnings)',
+  '2.03': 'New financial obligation / debt', '2.04': 'Triggering of a debt acceleration', '2.05': 'Costs from exit/disposal',
+  '2.06': 'Material impairment', '3.01': 'Delisting / failure to meet listing rules', '3.02': 'Unregistered share sale',
+  '3.03': 'Change to holders’ rights', '4.01': 'Change of auditor', '4.02': 'Non-reliance on prior financials (restatement)',
+  '5.01': 'Change in control', '5.02': 'Director / officer departure or appointment', '5.03': 'Change to bylaws / fiscal year',
+  '5.04': 'Trading-plan suspension', '5.05': 'Change to code of ethics', '5.07': 'Shareholder vote results',
+  '5.08': 'Shareholder nominations', '6.01': 'ABS informational', '7.01': 'Reg-FD disclosure', '8.01': 'Other events',
+  '9.01': 'Financial statements & exhibits',
+}
+
+// ---- tiny helpers ----
+
+const clean = (s: string): string => s.replace(/\s+/g, ' ').replace(/&amp;/g, '&').replace(/&#39;|&rsquo;/g, "'").replace(/&quot;/g, '"').replace(/&nbsp;/g, ' ').trim()
+
+function firstMatch(html: string, res: RegExp[]): string | undefined {
+  for (const re of res) {
+    const m = re.exec(html)
+    if (m && m[1] && clean(m[1])) return clean(m[1])
+  }
+  return undefined
+}
+
+/** Pull a readable summary: og:description / meta description / twitter:description, else the first
+ *  substantial <p>. Capped — this is a teaser to decide on, not the full article. */
+export function extractSummary(html: string): string | undefined {
+  const meta = firstMatch(html, [
+    /<meta[^>]+property=["']og:description["'][^>]+content=["']([^"']+)["']/i,
+    /<meta[^>]+name=["']description["'][^>]+content=["']([^"']+)["']/i,
+    /<meta[^>]+name=["']twitter:description["'][^>]+content=["']([^"']+)["']/i,
+    /<meta[^>]+content=["']([^"']+)["'][^>]+name=["']description["']/i,
+  ])
+  if (meta && meta.length > 40) return meta.slice(0, 600)
+  // fall back to the first paragraph with real prose (≥ 80 chars, contains a space-separated sentence)
+  const paras = [...html.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)].map((m) => clean(m[1].replace(/<[^>]+>/g, '')))
+  const lede = paras.find((p) => p.length >= 80 && /[.!?]/.test(p))
+  return lede ? lede.slice(0, 600) : meta?.slice(0, 600)
+}
+
+export function extractPublished(html: string): string | undefined {
+  return firstMatch(html, [
+    /<meta[^>]+property=["']article:published_time["'][^>]+content=["']([^"']+)["']/i,
+    /<meta[^>]+name=["'][^"']*publish[^"']*["'][^>]+content=["']([^"']+)["']/i,
+    /<time[^>]+datetime=["']([^"']+)["']/i,
+  ])
+}
+
+/** Parse an EDGAR filing index page (…-index.htm). Tolerant: any field that isn't found is simply
+ *  omitted. Exported for the test suite. Item codes are extracted ONLY for current-report forms
+ *  (8-K / 6-K), ONLY from the "Items" grouping, and ONLY from item cells / "Item N.NN" labels — never
+ *  from a bare decimal in prose or the page <head> (which would invent phantom items). */
+export function parseSecFiling(html: string): SecFiling | undefined {
+  // work only within <body> — the <head>/DOCTYPE/version strings carry decimals that look like codes
+  const bodyStart = html.search(/<body[\s>]/i)
+  const body = bodyStart >= 0 ? html.slice(bodyStart) : html
+  // form type: "Form 8-K", or the filing-type cell
+  const form = firstMatch(body, [
+    /<div[^>]*id=["']formName["'][^>]*>\s*<strong>\s*Form\s+([0-9A-Za-z./-]+)/i,
+    /Form\s+Type[^<]*<\/div>\s*<div[^>]*class=["']info["'][^>]*>\s*([0-9A-Za-z./-]+)/i,
+  ])
+  // form descriptive label, e.g. "Current report" — strip a trailing separator and the bracketed clause
+  let formLabel = firstMatch(body, [/<div[^>]*id=["']formName["'][^>]*>\s*<strong>[^<]*<\/strong>\s*-?\s*([^<]+)</i])
+  if (formLabel) formLabel = formLabel.replace(/\s*\[[^\]]*\]/g, '').replace(/\s*[:\-–]\s*$/, '').trim() || undefined
+  // item codes exist ONLY on current reports (8-K domestic / 6-K foreign). 10-Q/10-K/S-1/DEF 14A carry none.
+  const items: { code: string; label: string }[] = []
+  if (/^(8-K|6-K)/i.test(form || '')) {
+    const itemsZone = /Items?<\/div>([\s\S]*?)(?:<\/div>\s*<\/div>|<div[^>]*class=["']formGrouping|$)/i.exec(body)?.[1]
+    if (itemsZone) {
+      const codes = new Set<string>()
+      // a code must be an item-cell value (<div class="info">8.01</div>) or an explicit "Item 8.01" —
+      // never a bare decimal floating in prose (e.g. an "8.01%" coupon)
+      for (const m of itemsZone.matchAll(/(?:<div[^>]*class=["']info["'][^>]*>\s*|Item\s+)(?:Item\s+)?([1-9]\.\d{2})\b/gi)) {
+        if (EIGHTK_ITEMS[m[1]]) codes.add(m[1])
+      }
+      for (const code of [...codes].sort()) items.push({ code, label: EIGHTK_ITEMS[code] })
+    }
+  }
+  const filer = firstMatch(body, [/<span[^>]*class=["']companyName["'][^>]*>\s*([^<(]+?)\s*\(/i, /<div[^>]*class=["']companyName["'][^>]*>\s*([^<(]+?)\s*\(/i])
+  const period = firstMatch(body, [/Period of Report<\/div>\s*<div[^>]*class=["']info["'][^>]*>\s*(\d{4}-\d{2}-\d{2})/i])
+  const filed = firstMatch(body, [/Filing Date<\/div>\s*<div[^>]*class=["']info["'][^>]*>\s*(\d{4}-\d{2}-\d{2})/i])
+  if (!form && !items.length && !filer) return undefined
+  return { form: form || '(filing)', form_label: formLabel, items, filer, period, filed }
+}
+
+// ---- prior coverage: does the engine already know this name? ----
+
+const tickerKey = (t?: string | null): string => String(t || '').trim().toUpperCase()
+const normName = (s?: string | null): string =>
+  String(s || '').toLowerCase().replace(/\b(inc|corp|corporation|ltd|limited|plc|llc|co|company|holdings|group|sa|ag|nv|the)\b/g, '').replace(/[^a-z0-9]/g, '').trim()
+
+/** Look up data pools (data/<TICKER>/), finished analyses (analyses/<TICKER>_<date>/decision_record.json)
+ *  and the latest decision for each guessed company. Ticker-exact first, then a normalized-name match
+ *  against the data-pool / analysis folders. Best-effort; never throws. */
+export function findPriorCoverage(repoRoot: string, companies: CompanyGuess[]): PriorCoverage[] {
+  const out: PriorCoverage[] = []
+  const seen = new Set<string>()
+  let dataDirs: string[] = []
+  let analysisDirs: string[] = []
+  try { dataDirs = fs.readdirSync(path.join(repoRoot, 'data'), { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name) } catch {}
+  try { analysisDirs = fs.readdirSync(path.join(repoRoot, 'analyses'), { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name) } catch {}
+  const dataNorm = new Map(dataDirs.map((d) => [normName(d), d]))
+
+  for (const c of companies || []) {
+    const tk = tickerKey(c.ticker)
+    const nn = normName(c.name)
+    // candidate tickers, each tagged with whether a folder NAME corroborates the guessed company name.
+    // A bare guessed-ticker match (the model can guess a wrong ticker) is NOT name-corroborated.
+    const cands = new Map<string, boolean>() // ticker -> nameCorroborated
+    if (tk) cands.set(tk, false)
+    for (const d of dataDirs) {
+      if (nn && normName(d) === nn) cands.set(tickerKey(d), true)
+      else if (tk && tickerKey(d) === tk) cands.set(tickerKey(d), cands.get(tickerKey(d)) ?? false)
+    }
+    if (nn && dataNorm.has(nn)) cands.set(tickerKey(dataNorm.get(nn)!), true)
+    if (!cands.size) continue
+
+    for (const [cand, nameCorroborated] of cands) {
+      if (!cand || seen.has(cand)) continue
+      const hasPool = dataDirs.some((d) => tickerKey(d) === cand)
+      // latest analysis for this ticker (folders are <TICKER>_<YYYY-MM-DD>)
+      const runs = analysisDirs.filter((d) => tickerKey(d.split('_')[0]) === cand).sort().reverse()
+      if (runs.length) {
+        const latest = runs[0]
+        let dr: any = null
+        try { dr = JSON.parse(fs.readFileSync(path.join(repoRoot, 'analyses', latest, 'decision_record.json'), 'utf8')) } catch {}
+        // §3: only ASSERT we analysed "this name" when the name reconciles — via a folder-name match,
+        // OR the decision record's own company_name matching the guessed name. A bare ticker guess
+        // that doesn't reconcile is silently skipped (it could be a wrong ticker).
+        const drNameOk = !!(dr && nn && normName(dr.company_name) === nn)
+        if (!nameCorroborated && !drNameOk) continue
+        let detail = `Analyzed ${runs.length === 1 ? 'once' : `${runs.length}×`}`
+        const bits = [dr?.decision && `Last call: ${dr.decision}`, dr?.decision_date && `(${dr.decision_date}${typeof dr?.confidence_score === 'number' ? `, conf ${dr.confidence_score}` : ''})`].filter(Boolean)
+        if (bits.length) detail = bits.join(' ')
+        out.push({ ticker: cand, kind: 'analysis', detail, path: `analyses/${latest}` })
+        seen.add(cand)
+      } else if (hasPool && nameCorroborated) {
+        // a bare data pool (no analysis to reconcile against) is asserted only on a folder-NAME match
+        out.push({ ticker: cand, kind: 'data_pool', detail: 'Data pool present — not yet analyzed', path: `data/${cand}` })
+        seen.add(cand)
+      }
+    }
+  }
+  return out.slice(0, 4)
+}
+
+// ---- related recent events on the wire ----
+
+export function findRelatedEvents(repoRoot: string, self: { event_id: string; headline?: string; companies?: CompanyGuess[]; event_types?: string[]; scope?: string }, now: () => Date = () => new Date()): RelatedEvent[] {
+  let items: RelatedEvent[] = []
+  try {
+    const feed = readFeed(repoRoot, 2, { now, maxItems: 1500 })
+    const myNames = new Set((self.companies || []).map((c) => normName(c.name)).filter(Boolean))
+    const myTypes = new Set(self.event_types || [])
+    // a theme match is only meaningful for BROAD events (two oil items, two Fed items genuinely
+    // relate); for company/deal scopes, "related" must mean the SAME company — otherwise every 8-K
+    // would relate to every other 8-K just because they share the "litigation" tag.
+    const selfBroad = ['sector', 'macro', 'commodity', 'policy'].includes(String(self.scope || ''))
+    items = feed.items
+      .filter((it: any) => it.event_id !== self.event_id)
+      .map((it: any) => {
+        const names = (it.companies || []).map((c: any) => normName(c?.name)).filter(Boolean)
+        const sameCo = !!myNames.size && names.some((n: string) => myNames.has(n))
+        const sameTheme = selfBroad && it.scope === self.scope && (it.event_types || []).some((t: string) => myTypes.has(t))
+        return sameCo || sameTheme ? { it, sameCo } : null
+      })
+      .filter(Boolean)
+      // same-company hits first, then most recent
+      .sort((a: any, b: any) => Number(b.sameCo) - Number(a.sameCo) || String(b.it.ts).localeCompare(String(a.it.ts)))
+      .slice(0, 6)
+      .map(({ it }: any) => ({ event_id: it.event_id, ts: it.ts, headline: it.headline, source_name: it.source_name, triage_score: it.triage_score, scope: it.scope }))
+  } catch {}
+  return items
+}
+
+// ---- fetch + cache orchestration ----
+
+function loadCache(stateDir: string): Record<string, EventEnrichment> {
+  try {
+    const o = JSON.parse(fs.readFileSync(path.join(stateDir, CACHE_FILE), 'utf8'))
+    return o && typeof o === 'object' ? o : {}
+  } catch {
+    return {}
+  }
+}
+function saveCache(stateDir: string, cache: Record<string, EventEnrichment>): void {
+  try {
+    fs.mkdirSync(stateDir, { recursive: true })
+    // bound growth — keep the 400 most recent
+    const entries = Object.entries(cache).sort((a, b) => String(b[1].fetched_at).localeCompare(String(a[1].fetched_at))).slice(0, 400)
+    fs.writeFileSync(path.join(stateDir, CACHE_FILE), JSON.stringify(Object.fromEntries(entries)))
+  } catch {}
+}
+
+/** SSRF gate: a URL is fetchable only if it is http(s), on a default port, carries no userinfo, sits on
+ *  an APPROVED public source domain, and is not an IP literal / loopback / private / metadata host.
+ *  Applied to the initial URL AND re-applied to every redirect hop. (Approved sources are all public
+ *  registrable domains, so any IP-literal host is inherently suspect and rejected.) Exported for tests. */
+export function isSafeFetchUrl(u: string): boolean {
+  let url: URL
+  try { url = new URL(u) } catch { return false }
+  if (url.protocol !== 'http:' && url.protocol !== 'https:') return false
+  if (url.username || url.password) return false
+  if (url.port && url.port !== '80' && url.port !== '443') return false
+  const host = url.hostname.toLowerCase()
+  if (!host || !lookupSource(host)) return false // must stay inside the approved-source set
+  if (host.includes(':') || /^\d{1,3}(\.\d{1,3}){3}$/.test(host)) return false // IPv6 / IPv4 literal
+  if (host === 'localhost' || host.endsWith('.local') || host.endsWith('.internal')) return false
+  return true
+}
+
+/** Fetch with our own bounded, re-validated redirect handling (no blind redirect:'follow' to an
+ *  arbitrary host), an HTML/size guard, and the request timeout. Never throws. */
+async function fetchText(url: string, fetchFn: typeof fetch): Promise<{ ok: boolean; text?: string; note?: string }> {
+  let current = url
+  for (let hop = 0; hop < 4; hop++) {
+    if (!isSafeFetchUrl(current)) return { ok: false, note: 'source link is not an approved, public http(s) URL' }
+    let res: Response
+    try {
+      res = await fetchFn(current, {
+        headers: { 'user-agent': USER_AGENT, accept: 'text/html,application/xhtml+xml,application/xml' },
+        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+        redirect: 'manual',
+      })
+    } catch (e: any) {
+      return { ok: false, note: e?.name === 'TimeoutError' ? 'source timed out' : 'could not reach the source' }
+    }
+    // follow ONE redirect ourselves, re-validating the destination against the SSRF gate
+    if (res.status >= 300 && res.status < 400) {
+      const loc = res.headers.get('location')
+      if (!loc) return { ok: false, note: `source returned HTTP ${res.status}` }
+      try { current = new URL(loc, current).toString() } catch { return { ok: false, note: 'bad redirect target' } }
+      continue
+    }
+    if (!res.ok) return { ok: false, note: `source returned HTTP ${res.status}` }
+    // reject non-HTML and oversized declared bodies before materializing the string
+    const ct = (res.headers.get('content-type') || '').toLowerCase()
+    if (ct && !/(html|xml|text\/plain)/.test(ct)) return { ok: false, note: 'source is not an HTML page' }
+    const len = Number(res.headers.get('content-length'))
+    if (Number.isFinite(len) && len > 1_500_000) return { ok: false, note: 'source page too large' }
+    const text = await res.text()
+    return { ok: true, text: text.slice(0, 600_000) }
+  }
+  return { ok: false, note: 'too many redirects' }
+}
+
+export interface EnrichInput {
+  event_id: string
+  url?: string
+  headline?: string
+  companies?: CompanyGuess[]
+  event_types?: string[]
+  scope?: string
+}
+export interface EnrichDeps {
+  repoRoot: string
+  stateDir: string
+  fetchFn?: typeof fetch
+  now?: () => Date
+  force?: boolean
+}
+
+/**
+ * Enrich one event. Coverage + related events are always computed from local disk (cheap, no network);
+ * the story + filing parse need the source page, which we fetch only for approved domains. Result is
+ * cached by event_id for CACHE_TTL_MS. Never throws.
+ */
+export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise<EventEnrichment> {
+  const fetchFn = deps.fetchFn || fetch
+  const now = deps.now || (() => new Date())
+  const nowIso = now().toISOString().replace(/\.\d{3}Z$/, 'Z')
+
+  const cache = loadCache(deps.stateDir)
+  const hit = cache[input.event_id]
+  if (!deps.force && hit && Date.now() - new Date(hit.fetched_at).getTime() < CACHE_TTL_MS) return hit
+
+  // Prefer the event's OWN stored record (url + companies) from the firehose over the client-supplied
+  // values — a client must not be able to point enrichment at an arbitrary page or poison the shared
+  // cache for an event_id. Fall back to the client input only when the event has aged out of the
+  // 2-day firehose window.
+  let url = (input.url || '').trim()
+  let companies = input.companies || []
+  let event_types = input.event_types || []
+  let scope = input.scope
+  try {
+    const stored = readFeed(deps.repoRoot, 2, { now, maxItems: 2000 }).items.find((it) => it.event_id === input.event_id)
+    if (stored) {
+      url = (stored.url || '').trim()
+      companies = stored.companies || companies
+      event_types = stored.event_types || event_types
+      scope = (stored as any).scope || scope
+    }
+  } catch {}
+
+  // local, always-available sections first (use the reconciled companies/types)
+  const prior_coverage = findPriorCoverage(deps.repoRoot, companies)
+  const related = findRelatedEvents(deps.repoRoot, { event_id: input.event_id, headline: input.headline, companies, event_types, scope }, now)
+
+  const result: EventEnrichment = { event_id: input.event_id, ok: true, fetched_at: nowIso, prior_coverage, related }
+
+  const host = url ? (() => { try { return new URL(url).hostname.toLowerCase() } catch { return '' } })() : ''
+  // SEC item parsing applies ONLY to an actual EDGAR filing INDEX page — sec.gov press releases /
+  // litigation bulletins are ordinary articles and fall through to the summary extractor.
+  const isSec = /(^|\.)sec\.gov$/.test(host) && /\/Archives\/edgar\//i.test(url) && /-index\.html?($|[?#])/i.test(url)
+
+  if (!url) {
+    result.note = 'no source link to fetch'
+  } else if (!isSafeFetchUrl(url)) {
+    result.note = 'source is off the approved list — not fetched'
+  } else {
+    const { ok, text, note } = await fetchText(url, fetchFn)
+    if (!ok || !text) {
+      result.note = note || 'could not read the source'
+    } else {
+      if (isSec) {
+        const sec = parseSecFiling(text)
+        if (sec) result.sec = sec
+      }
+      // For an EDGAR filing the page "summary" is just the SEC header boilerplate (EIN / SIC / film
+      // number) — never a story. The parsed `sec` block carries the real meaning, so skip it there.
+      if (!result.sec) {
+        const summary = extractSummary(text)
+        if (summary) result.summary = summary
+        const pub = extractPublished(text)
+        if (pub) result.published = pub
+      }
+      if (!result.summary && !result.sec) result.note = 'fetched, but no summary could be extracted'
+    }
+  }
+
+  cache[input.event_id] = result
+  saveCache(deps.stateDir, cache)
+  return result
+}

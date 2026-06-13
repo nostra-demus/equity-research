@@ -15,6 +15,7 @@ import { loadLedgerEventIds, normalizeAndFilter } from './normalize'
 import { SeenCache } from './seen-cache'
 import { Budget, RateLimiter } from './triage/budget'
 import { estimateTokens, scoreToBand, triageBatch } from './triage/groq'
+import { deriveScope, deriveSourceTier } from './scope'
 import { appendFirehoseSummary, mergeInbox, refreshBoard } from './write-inbox'
 import type { CycleSummary, FeedItem, NewsItem, RawArticle, TriagedItem } from './types'
 import fs from 'node:fs'
@@ -237,6 +238,8 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     companies: t.companies,
     size_bucket: t.size_bucket,
     // derived, zero-cost classification — persisted so the wire + a later backfill agree
+    scope: deriveScope(t),
+    source_tier: deriveSourceTier(t),
     dedup_status: t.dedup_status,
     inboxed: t.band !== 'drop',
   }))

@@ -10,12 +10,13 @@ import { z } from 'zod'
 import { readActivity } from './activity-log'
 import { recordDataChange } from './data-activity'
 import { buildReportHtml, parseMeta, safeName } from './export'
-import { DATA_DIR, HOST, PORT, REPO_ROOT, WEB_DIST } from './config'
+import { DATA_DIR, HOST, PORT, REPO_ROOT, STATE_DIR, WEB_DIST } from './config'
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
 import { cancel, cancelAll, creditCheck, decideReadiness, estimate, launch } from './launcher'
 import { newsBus } from './news/bus'
 import { readFeed } from './news/feed'
+import { enrichEvent } from './news/enrich'
 import { markInboxConsumed, setDismissed } from './news/inbox-actions'
 import { refreshBoard } from './news/write-inbox'
 import { auditInboxAction, moveThesis, MOVE_TARGETS } from './screener-actions'
@@ -573,6 +574,42 @@ app.get('/api/news/feed', async (req) => {
   const q = req.query as any
   const days = q?.days === '1' ? 1 : 2
   return readFeed(REPO_ROOT, days)
+})
+
+// On-demand enrichment for ONE event the human opened: the real story (approved-domain fetch),
+// parsed SEC filing items, prior coverage of the named companies, and related recent wire items.
+// No Claude/Groq spend; cached by event_id; degrades gracefully (always 200 with a `note`).
+const EnrichQuery = z.object({
+  event_id: z.string().min(3).max(64),
+  // http(s) only, default ports, no embedded credentials — the host allow-list + full SSRF gate live
+  // in enrich.ts (isSafeFetchUrl); this rejects obviously-bad schemes/ports at the boundary too
+  url: z.string().url().max(2000).refine((u) => {
+    try { const x = new URL(u); return (x.protocol === 'http:' || x.protocol === 'https:') && !x.username && !x.password && (!x.port || x.port === '80' || x.port === '443') } catch { return false }
+  }, 'url must be a plain http(s) URL').optional(),
+  headline: z.string().max(500).optional(),
+  // companies/event_types arrive JSON-encoded so the GET stays a single querystring
+  companies: z.string().max(2000).optional(),
+  event_types: z.string().max(500).optional(),
+  scope: z.string().max(32).optional(),
+  force: z.string().optional(),
+})
+app.get('/api/news/enrich', async (req, reply) => {
+  const parsed = EnrichQuery.safeParse(req.query)
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid query', detail: parsed.error.flatten() })
+  const q = parsed.data
+  const safeJson = (s?: string): any => { try { return s ? JSON.parse(s) : undefined } catch { return undefined } }
+  const companies = Array.isArray(safeJson(q.companies)) ? safeJson(q.companies) : []
+  const event_types = Array.isArray(safeJson(q.event_types)) ? safeJson(q.event_types) : []
+  try {
+    const enrichment = await enrichEvent(
+      { event_id: q.event_id, url: q.url, headline: q.headline, companies, event_types, scope: q.scope },
+      { repoRoot: REPO_ROOT, stateDir: STATE_DIR, force: q.force === '1' },
+    )
+    return enrichment
+  } catch (e: any) {
+    // enrichEvent never throws, but keep the route honest if something upstream does
+    return { event_id: q.event_id, ok: false, fetched_at: new Date().toISOString(), prior_coverage: [], related: [], note: String(e?.message || e) }
+  }
 })
 
 // Live wire: one SSE client set, bridged once from the ingest cycle's bus.

@@ -28,6 +28,9 @@ export interface CompanyGuess {
 
 export type SizeBucket = 'mega' | 'large' | 'mid' | 'small' | 'unknown'
 
+// Re-export the scope/source-tier vocabulary so downstream modules import one news surface.
+export type { ScopeId, ScopeFamily, SourceTierId } from './scope'
+
 // A normalized, on-list, deduped article ready for triage.
 export interface NewsItem {
   event_id: string // EVT-<sha256-12 of normalized headline | url> — the screener's dedup identity
@@ -89,6 +92,8 @@ export interface InboxRow {
   issuer_linkage?: Triage['issuer_linkage']
   companies?: CompanyGuess[] // guessed from the headline — the UI labels them as guesses
   size_bucket?: SizeBucket
+  scope?: import('./scope').ScopeId // derived company-vs-broad bucket (news/scope.ts)
+  source_tier?: import('./scope').SourceTierId // derived §4 source tier
   // --- additive: human state (set only via the cockpit; merge/eviction must preserve these) ---
   dismissed?: boolean
   dismissed_at?: string
@@ -117,6 +122,10 @@ export interface FeedItem {
   issuer_linkage: Triage['issuer_linkage']
   companies: CompanyGuess[]
   size_bucket: SizeBucket
+  // --- additive: derived, zero-cost classification (news/scope.ts) — present on fresh items;
+  //     backfilled on read for older firehose lines that predate it (feed.ts) ---
+  scope?: import('./scope').ScopeId // company-vs-broad bucket the cockpit filters + chips on
+  source_tier?: import('./scope').SourceTierId // §4 source hierarchy, made visible
   dedup_status: 'new' | 'possible_duplicate'
   inboxed: boolean // band !== 'drop'
 }

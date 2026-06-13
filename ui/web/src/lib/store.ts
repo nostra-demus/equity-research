@@ -2,7 +2,23 @@ import { create } from 'zustand'
 import { api, isStatic } from './api'
 import { downstreamCascade, type CascadeNode } from './cascade'
 import { plainRoute, plainStage } from './plain'
-import type { ActiveRunLite, AgentNode, BoardInboxRow, DataStatus, FeedItem, HealthState, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
+import type { ActiveRunLite, AgentNode, BoardInboxRow, DataStatus, EventEnrichment, FeedItem, HealthState, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
+
+// --- shelved events: a local, per-browser "set aside" set for wire items the user has judged not
+//     worth a paid check. Persisted to localStorage (the wire is ephemeral firehose data, not server
+//     state), keyed by event_id. Survives reloads; intentionally never leaves this machine. ---
+const SHELF_KEY = 'nsw.shelvedEvents'
+function loadShelf(): Set<string> {
+  try {
+    const raw = JSON.parse(localStorage.getItem(SHELF_KEY) || '[]')
+    return new Set(Array.isArray(raw) ? raw.filter((x) => typeof x === 'string') : [])
+  } catch {
+    return new Set()
+  }
+}
+function saveShelf(s: Set<string>): void {
+  try { localStorage.setItem(SHELF_KEY, JSON.stringify([...s].slice(-500))) } catch {}
+}
 
 const RUN_EVENT_TYPES = ['run-started', 'agent-started', 'agent-done', 'agent-failed', 'layer-advanced', 'module-done', 'module-routed', 'cost-tick', 'run-done', 'run-error', 'readiness-checking', 'readiness-report', 'readiness-blocked', 'readiness-resolved']
 
@@ -161,6 +177,12 @@ interface State {
   scEnsureNewsStream: () => Promise<void>
   scSelectEvent: (it: FeedItem | null) => void
   runEventChecks: (it: FeedItem) => Promise<void>
+  // shelving: set an event aside (or bring it back) — local, persisted, filters the rail
+  shelvedEvents: Set<string>
+  toggleShelve: (eventId: string) => void
+  // on-demand enrichment for the opened event (the real story / SEC items / prior coverage / related)
+  enrichCache: Record<string, EventEnrichment | 'loading'>
+  fetchEnrichment: (it: FeedItem) => Promise<void>
 
   // ---- the news wire (live scanner view) + manual board actions + kill switch ----
   newsFeedOpen: boolean
@@ -235,6 +257,8 @@ export const useStore = create<State>((set, get) => ({
   pipelineOpen: false,
   scThesisDetail: null,
   scSelectedEvent: null,
+  shelvedEvents: loadShelf(),
+  enrichCache: {},
   newsFeedOpen: false,
   newsItems: [],
   newsStatus: null,
@@ -246,7 +270,7 @@ export const useStore = create<State>((set, get) => ({
       const [graph, tk, credit] = await Promise.all([api.swarm(), api.tickers(), api.credit().catch(() => null)])
       const stat = isStatic()
       set({ connected: true, staticMode: stat, graph, nodesByKey: flatten(graph), tickers: tk.tickers, emptyState: tk.emptyState, dataDir: (tk as any).dataDir ?? null, credit })
-      api.swarms().then((swarms) => set({ swarms })).catch(() => set({ swarms: [{ id: 'research', label: 'Research', color: '#e0a33e', unit: 'ticker', order: 1, layout: 'constellation' }] }))
+      api.swarms().then((swarms) => set({ swarms })).catch(() => set({ swarms: [{ id: 'research', label: 'Research', color: '#c0851d', unit: 'ticker', order: 1, layout: 'constellation' }] }))
       if (!stat) get().startHealth() // begin the engine heartbeat (live mode only); idempotent across reconnects
       // live data-folder watcher (Drive sync) — backend only
       if (!stat && !dataSource) {
@@ -878,7 +902,39 @@ export const useStore = create<State>((set, get) => ({
     if (!get().staticMode) connectNewsStream(get)
   },
 
-  scSelectEvent: (it) => set({ scSelectedEvent: it }),
+  scSelectEvent: (it) => {
+    set({ scSelectedEvent: it })
+    if (it) void get().fetchEnrichment(it) // kick the enrichment the moment an event opens
+  },
+
+  // set an event aside / bring it back (local, persisted). If the shelved event is the open one, close it.
+  toggleShelve: (eventId) => {
+    const next = new Set(get().shelvedEvents)
+    if (next.has(eventId)) next.delete(eventId)
+    else next.add(eventId)
+    saveShelf(next)
+    const open = get().scSelectedEvent
+    set({ shelvedEvents: next, ...(open && open.event_id === eventId && next.has(eventId) ? { scSelectedEvent: null } : {}) })
+  },
+
+  // fetch (once, then cache) the on-demand enrichment for an opened event. Keyed by event_id;
+  // a 'loading' sentinel prevents duplicate in-flight fetches. A FAILED result is NOT cached as final —
+  // reopening the event re-fires the fetch (the human's retry actually retries). Never throws into the UI.
+  fetchEnrichment: async (it) => {
+    const cur = get().enrichCache[it.event_id]
+    if (cur === 'loading') return // a fetch is already in flight
+    if (cur && cur.ok) return // we already have a good result
+    set({ enrichCache: { ...get().enrichCache, [it.event_id]: 'loading' } })
+    try {
+      const enrichment = await api.enrichEvent(it)
+      set({ enrichCache: { ...get().enrichCache, [it.event_id]: enrichment } })
+    } catch (e: any) {
+      // drop the in-flight sentinel rather than cache a sticky failure — the next open retries
+      const next = { ...get().enrichCache }
+      delete next[it.event_id]
+      set({ enrichCache: next })
+    }
+  },
 
   // Run the paid gauntlet straight from a wire event: map the FeedItem to the intake schema and reuse
   // submitSignal (which selects the new signal + animates the orbs). Clearing the read view first means

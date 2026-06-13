@@ -9,6 +9,18 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import type { CycleSummary, FeedItem } from './types'
+import { deriveScope, deriveSourceTier } from './scope'
+
+/** Fill scope/source_tier on a feed item that predates them (older firehose lines), so the whole
+ *  backlog is classified the same way as a fresh item. Idempotent: only fills what's missing. */
+function withScope(it: FeedItem): FeedItem {
+  if (it.scope && it.source_tier) return it
+  return {
+    ...it,
+    scope: it.scope || deriveScope(it),
+    source_tier: it.source_tier || deriveSourceTier(it),
+  }
+}
 
 function firehosePath(repoRoot: string, date: string): string {
   return path.join(repoRoot, 'screener', 'inbox', `${date}_firehose.ndjson`)
@@ -72,7 +84,7 @@ export function readFeed(repoRoot: string, days = 2, opts: { now?: () => Date; m
       if (!t) continue
       try {
         const o = JSON.parse(t)
-        if (o?.kind === 'item') items.push(o as FeedItem)
+        if (o?.kind === 'item') items.push(withScope(o as FeedItem))
         else if (o?.kind === 'cycle_summary') cycles.push(o as CycleSummary)
       } catch {
         // corrupt line — skip, never break the wire

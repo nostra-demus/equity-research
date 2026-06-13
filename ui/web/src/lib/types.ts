@@ -93,8 +93,45 @@ export interface FeedItem {
   issuer_linkage: string
   companies: CompanyGuess[]
   size_bucket: string
+  scope?: string // derived company-vs-broad bucket (news/scope.ts) — present on every served item
+  source_tier?: string // derived §4 source tier (Filing / Official data / Company / News / Unconfirmed)
   dedup_status: string
   inboxed: boolean
+}
+
+// ---- on-demand event enrichment (GET /api/news/enrich) ----
+export interface PriorCoverage {
+  ticker: string
+  kind: 'data_pool' | 'analysis'
+  detail: string
+  path?: string
+}
+export interface SecFiling {
+  form: string
+  form_label?: string
+  items: { code: string; label: string }[]
+  filer?: string
+  period?: string
+  filed?: string
+}
+export interface RelatedEvent {
+  event_id: string
+  ts: string
+  headline: string
+  source_name: string
+  triage_score: number
+  scope?: string
+}
+export interface EventEnrichment {
+  event_id: string
+  ok: boolean
+  fetched_at: string
+  note?: string
+  summary?: string
+  published?: string
+  sec?: SecFiling
+  prior_coverage: PriorCoverage[]
+  related: RelatedEvent[]
 }
 
 export interface NewsCycle {
