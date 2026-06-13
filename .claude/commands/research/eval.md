@@ -36,6 +36,7 @@ Run the embedded check script below via Bash. It applies, per run, the following
 - **P. Disconfirmation / edge quality** (forward-looking; `fix F39`) — for a run dated on/after `2026-06-08`, the variant perception must be **non-tautological** (`what_market_may_be_missing` ≠ `what_everyone_knows`; an explicitly-empty "no proven edge yet" is allowed per §7) and `kill_criteria` must carry at least one concrete falsification trigger. Catches a perfunctory bear case / a restated-consensus "edge" that the old field-presence check waved through. Older fixtures → **N/A**.
 - **Q. Per-module three tiers present in post-landing runs** (forward-looking) — for a run whose `decision_date` is on/after the module-tiers landing date (`2026-06-08`), every module subfolder that has a `99_*-synthesis.md` must also carry a `*_memo.md` (the module memo) and a `*_dossier.md` (the module dossier) — the module-level equivalent of the run-level three tiers. Runs that predate the feature are **N/A**, so the suite still passes; the check activates automatically for every new run.
 - **R. Memo-delta contract** (forward-looking; landing `2026-06-10`) — every review JSON filed on/after the landing date must carry the `DECISION_LEDGER` §8 `memo_delta` block, and any review that carries one must satisfy it: the paired `*_memo_delta*.md` exists on disk at `memo_delta_file` and stays a delta (≤ ~2,500 words — the 2–3-page discipline); `thesis_delta_verdict` is in-enum; every `changed_sections` entry cites an `evidence_source`; and any `rerun_recommended` names impacted module(s) that exist in the discovered agent roster. Pre-landing reviews and runs with no reviews are **N/A**.
+- **T. Forecast-ledger entry quality** (forward-looking; landing `2026-06-13` / fix F-FL-1) — for a run dated on/after the landing date with a non-empty `forecast_ledger`, every entry must carry `prediction`, `confirmation_trigger`, `falsification_trigger`, and `time_window` (all non-empty strings), and `status` ∈ {open, confirmed, falsified, expired}. An entry missing a required field cannot be resolved in Phase 3 (`review-decisions`) and breaks Phase 4 calibration (no Brier-score data from that forecast). An empty `[]` is allowed per §19 (when no forecast has enough evidence). Runs that predate the gate, and runs with `forecast_ledger: []`, are **N/A**.
 
 The script also notes (WARN, not FAIL) any **non-schema artifact** in a run folder (e.g. a stray oversized file) so coverage gaps and strays surface.
 
@@ -292,6 +293,31 @@ for drp in runs:
             add("S_haircut_propagated",True,"no pre_mortem.json — N/A",na=True)
     else:
         add("S_haircut_propagated",True,f"run predates haircut-propagation gate ({ddte}) — N/A",na=True)
+    # T forecast_ledger entry quality (forward-looking; landing 2026-06-13 / fix F-FL-1)
+    #   The calibration loop (Phase 3 review + Phase 4 Brier score) depends on each forecast
+    #   being resolvable. A forecast missing confirmation_trigger / falsification_trigger /
+    #   time_window can never be confirmed or falsified — it stays "open" forever and
+    #   contributes nothing to the Brier score. Implements DECISION_LEDGER §6 / CLAUDE.md §19.
+    #   An empty forecast_ledger ([]) is allowed — §19 permits omitting forecasts when evidence is thin.
+    FL_DATE="2026-06-13"
+    if isdate(ddte) and ddte>=FL_DATE:
+        fl=d.get("forecast_ledger") or []
+        fdet=[]
+        for i,entry in enumerate(fl):
+            if not isinstance(entry,dict):
+                fdet.append(f"forecast_ledger[{i}] is not an object"); continue
+            for req in ["prediction","confirmation_trigger","falsification_trigger","time_window"]:
+                if not str(entry.get(req) or "").strip():
+                    fdet.append(f"forecast_ledger[{i}] missing or empty: {req}")
+            st=str(entry.get("status") or "open").lower()
+            if st not in {"open","confirmed","falsified","expired"}:
+                fdet.append(f"forecast_ledger[{i}].status={entry.get('status')!r} not in allowed enum")
+        add("T_forecast_ledger_quality",not fdet,
+            "; ".join(fdet) or
+            (f"all {len(fl)} forecast_ledger entries have required fields + valid status" if fl
+             else "forecast_ledger is [] — no forecasts (allowed per §19)"))
+    else:
+        add("T_forecast_ledger_quality",True,f"run predates forecast-ledger quality gate ({ddte}) — N/A",na=True)
     # WARN non-schema files
     extras=[os.path.basename(x) for x in glob.glob(os.path.join(run,"*")) if os.path.isfile(x) and os.path.basename(x) not in SCHEMA_FILES and not os.path.basename(x).endswith(("_decision_review.json","_calibration_summary.json")) and "review" not in os.path.basename(x) and "_v" not in os.path.basename(x)]
     run_pass=all(c["status"]!="FAIL" for c in checks)
@@ -337,6 +363,7 @@ FRAMEWORK_CONTRACTS={
  ".claude/hooks/review_due.py":["review_schedule","research:review-decisions due"],
  "frameworks/DECISION_LEDGER.md":["Memo delta","memo_delta","thesis_delta_verdict","stage_one_comment","rerun_command","_memo_delta.md"],
  ".claude/commands/research/review-decisions.md":["memo_delta","stage_one_comment","rerun_command","Pool first","_memo_delta"],
+ ".claude/commands/research/eval.md":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger"],
 }
 jchecks=[]
 for jf,subs in FRAMEWORK_CONTRACTS.items():
