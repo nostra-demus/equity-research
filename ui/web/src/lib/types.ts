@@ -124,7 +124,7 @@ export interface RelatedEvent {
   scope?: string
 }
 export type CompanyRole = 'subject' | 'acquirer' | 'target' | 'forecaster' | 'mentioned'
-export interface ArticleCompany { name: string; ticker: string | null; role: CompanyRole }
+export interface ArticleCompany { name: string; ticker: string | null; role: CompanyRole; listing_country?: string | null; exchange?: string | null }
 export interface ArticleParty { name: string; named_in_article: boolean; basis: string }
 export interface EventEnrichment {
   event_id: string

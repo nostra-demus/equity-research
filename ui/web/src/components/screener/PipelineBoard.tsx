@@ -203,7 +203,7 @@ function RecentChecks({ onOpen, onReplay }: { onOpen: (thesisId: string) => void
             </div>
             <div className="recentrow__actions">
               {t && <button className="btn btn--ghost recentrow__act" onClick={() => onOpen(t.thesis_id)}>Open analysis ▸</button>}
-              <button className="btn btn--ghost recentrow__act" onClick={() => onReplay(s.signal_id)} title="Show this run on the gauntlet board">Replay</button>
+              <button className="btn btn--ghost recentrow__act" onClick={() => onReplay(s.signal_id)} title="Show this run playing out on the board">Replay</button>
             </div>
           </div>
         )

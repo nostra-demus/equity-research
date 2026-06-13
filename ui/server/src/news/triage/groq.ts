@@ -213,7 +213,7 @@ export async function triageBatch(
 // ============================================================================
 
 export type CompanyRole = 'subject' | 'acquirer' | 'target' | 'forecaster' | 'mentioned'
-export interface ArticleCompany { name: string; ticker: string | null; role: CompanyRole }
+export interface ArticleCompany { name: string; ticker: string | null; role: CompanyRole; listing_country: string | null; exchange: string | null }
 export interface ArticleParty { name: string; named_in_article: boolean; basis: string }
 export interface ArticleBrief {
   gist: string[] // 2-4 plain bullets, the crux
@@ -226,12 +226,13 @@ export interface ArticleBrief {
 const ARTICLE_SYSTEM = `You are a buy-side analyst's reading assistant. You are given the BODY TEXT of one news article (not just its headline). Extract a compact, decision-ready brief.
 
 Return ONLY this JSON:
-{"gist":["...","..."],"companies":[{"name":"...","ticker":null,"role":"subject|acquirer|target|forecaster|mentioned"}],"beneficiaries":[{"name":"...","named_in_article":true,"basis":"..."}],"exposed":[{"name":"...","named_in_article":true,"basis":"..."}],"theme":"<tag>"}
+{"gist":["...","..."],"companies":[{"name":"...","ticker":null,"listing_country":null,"exchange":null,"role":"subject|acquirer|target|forecaster|mentioned"}],"beneficiaries":[{"name":"...","named_in_article":true,"basis":"..."}],"exposed":[{"name":"...","named_in_article":true,"basis":"..."}],"theme":"<tag>"}
 
 GIST — 2 to 4 short bullets carrying the REAL crux a portfolio manager needs: the number, threshold, call, or change that is the point of the story. Lead with the punchline, not the setup (e.g. "sees 50-75bp of rate hikes and 5% FY27 CPI", not the CPI sub-components). Plain English, short sentences. Every number you state must be in the body. No hype words (robust, strong, well-positioned, attractive, best-in-class). If the body is boilerplate, a cookie/ad notice, an "about us" page, or a login wall with no story, return gist [] and set theme to your best guess.
 If a story is contested or two-sided, the gist must state BOTH sides (do not echo a one-sided headline).
 
 COMPANIES — INVESTABLE FIRMS ONLY. A company issues equity or debt. NEVER list: a country, nationality, region, state or city (India, China, Thailand, Haryana); a market index or rate (S&P 500, Nifty, Euribor); a government body, regulator, central bank or agency (Fed, ECB, RBI, SEBI, ESMA, SEC, DOJ, European Commission, OPEC, Ministry of X); a generic placeholder ("major tyre maker", "startups"). Give each firm a role: subject (the firm the story is about) | acquirer/target (M&A) | forecaster (a bank/analyst MAKING a call — NOT a party that gains) | mentioned.
+For each firm also give listing_country (the FULL English name of the country of its primary stock listing, e.g. "Brazil", "United States", "India", "Japan", "South Korea") and exchange (the primary exchange where it trades, with its ticker if you are confident, e.g. "B3: PETR3", "NYSE: PBR", "NSE: RELIANCE", "LSE", "Tokyo (TSE)"; if a well-known dual listing / ADR also applies you may add it, e.g. "B3 (NYSE ADR: PBR)"). These come from your own knowledge of the company, not the article. Use null for listing_country and/or exchange whenever you are not confident — NEVER guess a listing, ticker or exchange you are unsure of.
 
 BENEFICIARIES / EXPOSED — who GAINS and who's AT RISK. If the article NAMES specific firms, list them with named_in_article=true and a one-clause basis. If it points only to a sector/group, give the group with named_in_article=false. If it supports neither, return []. NEVER invent a named beneficiary the body doesn't support (do not guess "Capital One" off a generic consumer-credit piece). A forecaster (ICICI, JPMorgan, Pimco, Goldman) is never a beneficiary.
 
@@ -256,7 +257,9 @@ export function coerceArticleBrief(raw: any): ArticleBrief {
       if (!name) return null
       const ticker = typeof c?.ticker === 'string' && TICKER_RE.test(c.ticker.trim()) ? c.ticker.trim().toUpperCase() : null
       const role: CompanyRole = ROLES.includes(c?.role) ? c.role : 'mentioned'
-      return { name, ticker, role }
+      const listing_country = str(c?.listing_country, 48) || null
+      const exchange = str(c?.exchange, 48) || null
+      return { name, ticker, role, listing_country, exchange }
     })
     .filter((c: ArticleCompany | null): c is ArticleCompany => c !== null)
     .slice(0, 8)

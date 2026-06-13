@@ -88,8 +88,8 @@ const LINKAGE: Record<string, string> = {
 }
 export const plainLinkage = (l?: string | null): string => (l ? LINKAGE[l] || human(l) : '')
 
-// Score bands → what they mean on the wire. BOTH kept bands land in the Inbox (watch ranks lower).
-export const plainBand = (b?: string | null): string => (b === 'pick' ? 'kept → Inbox' : b === 'watch' ? 'kept → Inbox (borderline)' : b === 'drop' ? 'dropped' : human(b || ''))
+// Score bands → what the scanner did with the item on the wire: kept it for a look, or dropped it.
+export const plainBand = (b?: string | null): string => (b === 'pick' ? 'kept' : b === 'watch' ? 'kept (borderline)' : b === 'drop' ? 'dropped' : human(b || ''))
 
 // Run kinds → what's actually running (for the stop list).
 const KINDS: Record<string, string> = {

@@ -5,7 +5,7 @@
 // corrected theme. Triage metadata sits in the header, not in the way. Then: run / open / shelve.
 
 import { useEffect, useRef } from 'react'
-import { plainBand, plainTheme } from '../../lib/plain'
+import { plainTheme } from '../../lib/plain'
 import { familyOf, isCompanyNameClient, roleLabel, SCOPES, scopeOf, sourceTierDef } from '../../lib/scope'
 import { useStore } from '../../lib/store'
 import type { ArticleParty, EventEnrichment, FeedItem, RelatedEvent } from '../../lib/types'
@@ -127,16 +127,19 @@ export function EventDetail({ it }: { it: FeedItem }) {
   const enr = enrichCache[it.event_id]
   const enrichment = enr && enr !== 'loading' ? enr : undefined
   const shelved = shelvedEvents.has(it.event_id)
-  const kept = it.band !== 'drop'
   const tone = it.triage_score >= 70 ? 'var(--live)' : it.triage_score >= 40 ? 'var(--accent-bright)' : 'var(--text-faint)'
   const s = scopeOf(it)
   const fam = familyOf(s)
   const tier = sourceTierDef(it.source_tier)
 
-  // companies: prefer the body-read firms (with role); else the headline guess, denylist-scrubbed
+  // companies: prefer the body-read firms (with role + where they're listed); else the headline guess
   const companies = enrichment?.companies?.length
-    ? enrichment.companies.map((c) => ({ name: c.name, ticker: c.ticker, listing_country: null as string | null, role: c.role }))
-    : (it.companies || []).filter((c) => isCompanyNameClient(c.name)).map((c) => ({ ...c, role: undefined as string | undefined }))
+    ? enrichment.companies.map((c) => ({ name: c.name, ticker: c.ticker, listing_country: c.listing_country ?? null, exchange: c.exchange ?? null, role: c.role }))
+    : (it.companies || []).filter((c) => isCompanyNameClient(c.name)).map((c) => ({ name: c.name, ticker: c.ticker, listing_country: null as string | null, exchange: null as string | null, role: undefined as string | undefined }))
+  // the company the story is about + where it trades — the "which market / where would I buy this"
+  // glance a global investor needs. From the article-body read; null until that read lands.
+  const subject = companies.find((c) => c.role === 'subject') || (companies.length === 1 ? companies[0] : undefined)
+  const subjectWhere = subject ? [subject.listing_country, subject.exchange].filter(Boolean).join(' · ') : ''
   const didRead = !!(enrichment && (enrichment.gist?.length || enrichment.companies?.length || enrichment.beneficiaries?.length || enrichment.exposed?.length))
   const benefits = enrichment?.beneficiaries || []
   const exposed = enrichment?.exposed || []
@@ -160,7 +163,6 @@ export function EventDetail({ it }: { it: FeedItem }) {
             </span>
           )}
           {tier && <span className="evdetail__tier" title={tier.meaning}>{tier.label}</span>}
-          <span className={`evdetail__band${kept ? ' evdetail__band--kept' : ''}`}>{plainBand(it.band)}</span>
           <span className="evdetail__when">{fmtTime(it.ts)}</span>
           <button type="button" className="evdetail__close" onClick={() => close(null)} aria-label="Back to events" title="Back to events">✕</button>
         </div>
@@ -170,9 +172,19 @@ export function EventDetail({ it }: { it: FeedItem }) {
         <div className="evdetail__source">
           <span>{it.source_name}</span>
           {it.region && <span className="evdetail__sep">·</span>}
-          {it.region && <span>{it.region}</span>}
+          {it.region && <span title="Where the news SOURCE is based — not necessarily where the company trades">{it.region}</span>}
           {it.via === 'rss' && <span className="evrow__tag evrow__tag--rss">RSS</span>}
         </div>
+
+        {/* WHERE IT'S LISTED — the country + exchange for the company the story is about, at a glance */}
+        {subjectWhere && (
+          <div className="evdetail__listing" title="Where the company in this story is listed — read from the article; the checks verify it before any thesis">
+            <span className="evdetail__listing-label">Listed</span>
+            <span className="evdetail__listing-co">{[subject!.name, subject!.ticker].filter(Boolean).join(' · ')}</span>
+            <span className="evdetail__listing-sep" aria-hidden>—</span>
+            <span className="evdetail__listing-where">{subjectWhere}</span>
+          </div>
+        )}
 
         {/* what KIND of event — the company-vs-broad call, stated plainly */}
         {s !== 'unknown' && (
@@ -210,7 +222,10 @@ export function EventDetail({ it }: { it: FeedItem }) {
                 const cov = coverageFor(c.name, c.ticker)
                 return (
                   <div key={`${c.name}-${i}`} className="evdetail__co">
-                    <span className="evdetail__chip evdetail__chip--co">{[c.name, c.ticker, c.listing_country].filter(Boolean).join(' · ')}</span>
+                    <span className="evdetail__chip evdetail__chip--co">{[c.name, c.ticker].filter(Boolean).join(' · ')}</span>
+                    {(c.listing_country || c.exchange) && (
+                      <span className="evdetail__listingtag" title="Where it's listed (from the article read)">{[c.listing_country, c.exchange].filter(Boolean).join(' · ')}</span>
+                    )}
                     {c.role && c.role !== 'mentioned' && <span className="evdetail__role">{roleLabel(c.role)}</span>}
                     {cov ? (
                       <span className={`evdetail__cov evdetail__cov--${cov.kind}`} title={cov.path}>{cov.kind === 'analysis' ? '✓ ' : ''}{cov.detail}</span>
