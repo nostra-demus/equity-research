@@ -5,6 +5,7 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
+import { groupByDedup, type StoryGroup } from '../../lib/dedup'
 import { plainBand, plainSize, plainTheme } from '../../lib/plain'
 import { useStore } from '../../lib/store'
 import type { FeedItem } from '../../lib/types'
@@ -34,8 +35,10 @@ function CompanyChip({ it }: { it: FeedItem }) {
   )
 }
 
-function WireRow({ it }: { it: FeedItem }) {
+function WireRow({ group }: { group: StoryGroup }) {
+  const it = group.rep
   const kept = it.band !== 'drop'
+  const otherSources = group.sources.slice(1)
   return (
     <div className={`wire__row${kept ? '' : ' wire__row--dropped'}`}>
       <span className="wire__time mono">{hhmm(it.ts)}</span>
@@ -51,6 +54,11 @@ function WireRow({ it }: { it: FeedItem }) {
           <span>{it.source_name}</span>
           {it.via === 'rss' && <span className="pcard__chip wire__via">RSS</span>}
           {it.region && <span>{it.region}</span>}
+          {otherSources.length > 0 && (
+            <span className="pcard__chip wire__dups" title={`Same story also reported by: ${otherSources.join(', ')}`}>
+              +{otherSources.length} {otherSources.length === 1 ? 'source' : 'sources'}
+            </span>
+          )}
           {it.event_types.map((t) => (
             <span key={t} className="pcard__chip wire__theme">
               {plainTheme(t)}
@@ -79,7 +87,8 @@ export function LiveFeed() {
   }, [refreshStatus])
 
   const sources = useMemo(() => [...new Set(items.map((i) => i.source_name).filter(Boolean))].sort(), [items])
-  const visible = useMemo(() => items.filter((i) => matchesFilters(i, filters)), [items, filters])
+  // filter first, then collapse near-duplicate stories so the wire shows one row per story (newest-first)
+  const visibleGroups = useMemo(() => groupByDedup(items.filter((i) => matchesFilters(i, filters))), [items, filters])
   const ago = agoMin(status?.lastCycleAt)
 
   const statusLine = status
@@ -108,10 +117,10 @@ export function LiveFeed() {
       <FeedFilters value={filters} onChange={setFilters} sources={sources} />
 
       <div className="wire__list">
-        {visible.map((it) => (
-          <WireRow key={`${it.event_id}-${it.ts}`} it={it} />
+        {visibleGroups.map((g) => (
+          <WireRow key={g.group} group={g} />
         ))}
-        {!visible.length && (
+        {!visibleGroups.length && (
           <div className="plane__empty wire__empty">
             {items.length
               ? 'Nothing matches these filters — clear them to see everything again.'

@@ -3,9 +3,12 @@
 // so it survives a reload). "Ranked" sorts the events worth a look by score; "Everything" is the raw
 // firehose, newest first. A SCOPE filter splits the wire into what a buy-side reader can act on —
 // company-specific names vs broad macro/sector/commodity/policy context — so "what should I work on?"
-// is answerable at a glance. Click a row to read the whole event; set aside the ones not worth a check.
+// is answerable at a glance. The same story reworded or carried by several outlets collapses into ONE
+// row (server dedup) with a "+N · also …" expander; multi-source corroboration nudges its rank up.
+// Click a row to read the whole event; set aside the ones not worth a check.
 
 import { useEffect, useMemo, useState } from 'react'
+import { groupByDedup, type StoryGroup } from '../../lib/dedup'
 import { plainSize, plainTheme } from '../../lib/plain'
 import { BROAD_SCOPES, COMPANY_SCOPES, familyOf, isCompanyNameClient, SCOPES, scopeLabel, scopeOf, type ScopeId } from '../../lib/scope'
 import { useStore } from '../../lib/store'
@@ -15,7 +18,7 @@ type Scope = 'kept' | 'all'
 
 const hhmm = (iso?: string) => (iso ? iso.slice(11, 16) : '')
 const agoMin = (iso?: string | null) => (iso ? Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 60_000)) : null)
-const sameEvent = (a: FeedItem | null, b: FeedItem) => !!a && a.event_id === b.event_id && a.ts === b.ts
+const inGroup = (sel: FeedItem | null, g: StoryGroup) => !!sel && g.members.some((m) => m.event_id === sel.event_id && m.ts === sel.ts)
 
 function ScopeChip({ it }: { it: FeedItem }) {
   const s = scopeOf(it)
@@ -28,11 +31,19 @@ function ScopeChip({ it }: { it: FeedItem }) {
   )
 }
 
-function EventRow({ it, selected, shelved, onPick, onShelve }: { it: FeedItem; selected: boolean; shelved: boolean; onPick: (it: FeedItem) => void; onShelve: (id: string) => void }) {
+function EventRow({ group, selected, shelved, onPick, onShelve }: { group: StoryGroup; selected: boolean; shelved: boolean; onPick: (it: FeedItem) => void; onShelve: (id: string) => void }) {
+  const it = group.rep
+  const [expanded, setExpanded] = useState(false)
   const kept = it.band !== 'drop'
   const tone = it.triage_score >= 70 ? 'var(--live)' : it.triage_score >= 40 ? 'var(--accent-bright)' : 'var(--text-faint)'
   const company = (it.companies || []).find((c) => isCompanyNameClient(c.name)) // skip a country/agency guess
   const companyLabel = company ? [company.name, company.ticker].filter(Boolean).join(' · ') : null
+  const otherSources = group.sources.slice(1)
+  const dupLabel = otherSources.length
+    ? `+${otherSources.length} · also ${otherSources.slice(0, 2).join(', ')}${otherSources.length > 2 ? '…' : ''}`
+    : group.others.length
+      ? `+${group.others.length} more`
+      : ''
   return (
     <div className={`evrow${selected ? ' evrow--on' : ''}${kept ? '' : ' evrow--dropped'}${shelved ? ' evrow--shelved' : ''}`}>
       <button type="button" className="evrow__hit" onClick={() => onPick(it)} title={it.headline}>
@@ -71,6 +82,25 @@ function EventRow({ it, selected, shelved, onPick, onShelve }: { it: FeedItem; s
       >
         {shelved ? '↩' : '⌄'}
       </button>
+      {group.others.length > 0 && (
+        <button type="button" className={`evrow__dups${expanded ? ' evrow__dups--open' : ''}`} onClick={() => setExpanded((v) => !v)} aria-expanded={expanded} title="The same story from other sources — click to expand">
+          <span className="evrow__dups-label">{dupLabel}</span>
+          <span className="evrow__dups-caret" aria-hidden>▾</span>
+        </button>
+      )}
+      {expanded && (
+        <ul className="evrow__duplist">
+          {group.others.map((m) => (
+            <li key={`${m.event_id}-${m.ts}`}>
+              <button type="button" className="evrow__dup" onClick={() => onPick(m)} title={m.headline}>
+                <span className="evrow__dup-score mono">{m.triage_score}</span>
+                <span className="evrow__dup-src">{m.source_name}</span>
+                <span className="evrow__dup-hl">{m.headline}</span>
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
   )
 }
@@ -108,31 +138,34 @@ export function EventRail() {
     return () => clearInterval(id)
   }, [refreshStatus])
 
-  const keptCount = useMemo(() => items.reduce((n, i) => n + (i.band !== 'drop' ? 1 : 0), 0), [items])
+  // number of distinct kept STORIES (after story-collapse) — what the "Ranked" segment counts
+  const keptCount = useMemo(() => groupByDedup(items.filter((i) => i.band !== 'drop')).length, [items])
 
-  // the base list before the scope filter: ranked-or-all, with shelved items removed unless the
-  // user chose to reveal them.
-  const base = useMemo(() => {
+  // the band-filtered wire, collapsed into one entry per story, sorted by the current mode. Ranked uses
+  // the corroboration-boosted score (a multi-source story rises); Everything is newest-first.
+  const groups = useMemo(() => {
     const inScopeBand = scope === 'all' ? items : items.filter((i) => i.band !== 'drop')
-    const ranked = scope === 'all' ? inScopeBand : inScopeBand.slice().sort((a, b) => b.triage_score - a.triage_score || (a.ts < b.ts ? 1 : -1))
-    return showShelved ? ranked : ranked.filter((i) => !shelvedEvents.has(i.event_id))
-  }, [items, scope, shelvedEvents, showShelved])
+    const gs = groupByDedup(inScopeBand)
+    if (scope === 'all') gs.sort((a, b) => (a.rep.ts < b.rep.ts ? 1 : -1))
+    else gs.sort((a, b) => b.effectiveScore - a.effectiveScore || (a.rep.ts < b.rep.ts ? 1 : -1))
+    return gs
+  }, [items, scope])
 
-  // per-scope counts over the base list — drive the filter chips + the at-a-glance split
+  // story groups minus the ones the user set aside (the rep carries the group's shelved state)
+  const baseGroups = useMemo(() => (showShelved ? groups : groups.filter((g) => !shelvedEvents.has(g.rep.event_id))), [groups, shelvedEvents, showShelved])
+
+  // per-scope counts over the base groups — drive the filter chips + the at-a-glance split
   const counts = useMemo(() => {
     const c: Record<string, number> = {}
-    for (const it of base) c[scopeOf(it)] = (c[scopeOf(it)] || 0) + 1
+    for (const g of baseGroups) c[scopeOf(g.rep)] = (c[scopeOf(g.rep)] || 0) + 1
     return c
-  }, [base])
+  }, [baseGroups])
   const companyTotal = COMPANY_SCOPES.reduce((n, s) => n + (counts[s] || 0), 0)
   const broadTotal = BROAD_SCOPES.reduce((n, s) => n + (counts[s] || 0), 0)
 
-  const visible = useMemo(() => (scopeFilter.size ? base.filter((i) => scopeFilter.has(scopeOf(i))) : base), [base, scopeFilter])
+  const visibleGroups = useMemo(() => (scopeFilter.size ? baseGroups.filter((g) => scopeFilter.has(scopeOf(g.rep))) : baseGroups), [baseGroups, scopeFilter])
 
-  const shelvedInBand = useMemo(() => {
-    const band = scope === 'all' ? items : items.filter((i) => i.band !== 'drop')
-    return band.reduce((n, i) => n + (shelvedEvents.has(i.event_id) ? 1 : 0), 0)
-  }, [items, scope, shelvedEvents])
+  const shelvedInBand = useMemo(() => groups.reduce((n, g) => n + (shelvedEvents.has(g.rep.event_id) ? 1 : 0), 0), [groups, shelvedEvents])
 
   const ago = agoMin(status?.lastCycleAt)
   const statusLine = status
@@ -186,7 +219,7 @@ export function EventRail() {
         <div className="evscope" role="group" aria-label="Filter by what the event is about — tap to add or remove">
           <button type="button" className={`evscope__chip evscope__chip--all${scopeFilter.size === 0 ? ' evscope__chip--on' : ''}`} onClick={() => setScopeFilter(new Set())} aria-pressed={scopeFilter.size === 0} title="Show every category">
             {scopeFilter.size === 0 && <span className="evscope__tick" aria-hidden>✓</span>}
-            All<span className="evscope__n">{base.length}</span>
+            All<span className="evscope__n">{baseGroups.length}</span>
           </button>
           {(companyTotal > 0 || COMPANY_SCOPES.some((s) => scopeFilter.has(s))) && (
             <span className="evscope__group" title="A specific listed company is in play — a potential single-stock idea">
@@ -205,10 +238,10 @@ export function EventRail() {
       </header>
 
       <div className="evrail__list">
-        {visible.map((it) => (
-          <EventRow key={`${it.event_id}-${it.ts}`} it={it} selected={sameEvent(selected, it)} shelved={shelvedEvents.has(it.event_id)} onPick={pick} onShelve={toggleShelve} />
+        {visibleGroups.map((g) => (
+          <EventRow key={g.group} group={g} selected={inGroup(selected, g)} shelved={shelvedEvents.has(g.rep.event_id)} onPick={pick} onShelve={toggleShelve} />
         ))}
-        {!visible.length && (
+        {!visibleGroups.length && (
           <div className="evrail__empty">
             {scopeFilter.size
               ? `Nothing in the selected ${scopeFilter.size === 1 ? `“${SCOPES[[...scopeFilter][0]].label}”` : 'categories'} right now — tap All to see the rest.`

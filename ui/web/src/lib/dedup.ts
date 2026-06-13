@@ -1,0 +1,59 @@
+// Client-side story grouping for the news wire. The server stamps each item with a `dedup_group`
+// (news/dedup.ts) = the earliest member's event_id of the story it belongs to. Here we fold the flat
+// feed into one entry per story: pick the representative row to show, list the corroborating sources,
+// and compute a small corroboration bonus so a story carried by several outlets ranks a touch higher.
+// Pure + memo-friendly (the components call groupByDedup inside a useMemo). No grouping ⇒ each item is
+// its own group, so this is a no-op when dedup is disabled or an item predates it.
+
+import { sourceTierDef } from './scope'
+import type { FeedItem } from './types'
+
+export interface StoryGroup {
+  group: string // the dedup_group id (earliest member's event_id)
+  rep: FeedItem // the representative row to render
+  members: FeedItem[] // every member of the story, newest-first
+  others: FeedItem[] // members other than the representative (the expandable list)
+  sources: string[] // distinct source names, the representative's first
+  distinctSources: number
+  effectiveScore: number // rep.triage_score + corroboration bonus — the Ranked sort key
+}
+
+const tierRank = (it: FeedItem): number => sourceTierDef(it.source_tier)?.rank ?? 0
+const tsv = (it: FeedItem): string => it.ts || ''
+
+/** Multi-source corroboration nudges a story up the Ranked list: +3 per extra source, capped at +10. */
+export const corroborationBonus = (distinctSources: number): number => Math.min(10, 3 * Math.max(0, distinctSources - 1))
+
+/** Best representative of a story: best §4 source tier → highest quick-score → earliest seen. */
+function pickRep(members: FeedItem[]): FeedItem {
+  return members.slice().sort((a, b) => tierRank(b) - tierRank(a) || b.triage_score - a.triage_score || (tsv(a) < tsv(b) ? -1 : 1))[0]
+}
+
+/**
+ * Fold a flat feed list into story groups, preserving the order in which each group is first seen
+ * (so a caller that pre-sorted the list keeps that order at the group level). One pass + one sort.
+ */
+export function groupByDedup(items: FeedItem[]): StoryGroup[] {
+  const order: string[] = []
+  const byGroup = new Map<string, FeedItem[]>()
+  for (const it of items) {
+    const g = it.dedup_group || it.event_id
+    const arr = byGroup.get(g)
+    if (arr) arr.push(it)
+    else { byGroup.set(g, [it]); order.push(g) }
+  }
+  const out: StoryGroup[] = []
+  for (const g of order) {
+    const members = byGroup.get(g)!.slice().sort((a, b) => (tsv(b) < tsv(a) ? -1 : 1)) // newest-first
+    const rep = pickRep(members)
+    const others = members.filter((m) => !(m.event_id === rep.event_id && m.ts === rep.ts))
+    const sources: string[] = []
+    const seen = new Set<string>()
+    for (const m of [rep, ...members]) {
+      const s = (m.source_name || '').trim()
+      if (s && !seen.has(s)) { seen.add(s); sources.push(s) }
+    }
+    out.push({ group: g, rep, members, others, sources, distinctSources: sources.length, effectiveScore: rep.triage_score + corroborationBonus(sources.length) })
+  }
+  return out
+}

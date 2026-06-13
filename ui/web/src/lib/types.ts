@@ -96,6 +96,7 @@ export interface FeedItem {
   scope?: string // derived company-vs-broad bucket (news/scope.ts) — present on every served item
   source_tier?: string // derived §4 source tier (Filing / Official data / Company / News / Unconfirmed)
   dedup_status: string
+  dedup_group?: string // story-cluster id (news/dedup.ts) — the wire shows one row per group
   inboxed: boolean
 }
 
