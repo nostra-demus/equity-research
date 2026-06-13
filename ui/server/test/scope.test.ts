@@ -10,7 +10,8 @@ import { extractSummary, parseSecFiling, findPriorCoverage, findRelatedEvents, e
 import { appendFeedItems } from '../src/news/feed'
 import { cleanText, looksLikeHeadline } from '../src/news/clean'
 import { isCompanyName, filterCompanies } from '../src/news/entities'
-import { coerceArticleBrief } from '../src/news/triage/groq'
+import { coerceArticleBrief, durToMs, parseRate } from '../src/news/triage/groq'
+import { RateLimiter } from '../src/news/triage/budget'
 import type { FeedItem } from '../src/news/types'
 
 let passed = 0
@@ -352,7 +353,7 @@ await check('enrichEvent reads the body with Groq → gist, firms-only companies
   }) as unknown as typeof fetch
   const e = await enrichEvent(
     { event_id: 'EVT-perrigo', url: 'https://www.reuters.com/x', headline: 'Perrigo CEO ousted over personal conduct', companies: [] },
-    { repoRoot: root, stateDir: state, fetchFn, groq: { apiKey: 'k', model: 'm', baseUrl: 'https://api.groq.com/openai/v1' } },
+    { repoRoot: root, stateDir: state, fetchFn, sleep: async () => {}, groq: { apiKey: 'k', model: 'm', baseUrl: 'https://api.groq.com/openai/v1' } },
   )
   assert.equal(groqCalls, 1)
   assert.ok(e.gist && e.gist.length >= 2 && e.gist[0].toLowerCase().includes('perrigo'), 'gist bullets read from the body')
@@ -385,11 +386,56 @@ await check('enrichEvent reads the FEED SNIPPET when the page fetch is blocked (
     if (String(u).includes('/chat/completions')) return res(JSON.stringify({ choices: [{ finish_reason: 'stop', message: { content: groqContent } }], usage: { total_tokens: 200 } }))
     triedPage = true; return res('Access Denied', 403) // the article page blocks us
   }) as unknown as typeof fetch
-  const e = await enrichEvent({ event_id: 'EVT-snip', headline: 'Acme wins big EU contract', companies: [] }, { repoRoot: root, stateDir: state, fetchFn, now: () => new Date(`${today}T11:00:00Z`), groq: { apiKey: 'k', model: 'm', baseUrl: 'https://api.groq.com/openai/v1' } })
+  const e = await enrichEvent({ event_id: 'EVT-snip', headline: 'Acme wins big EU contract', companies: [] }, { repoRoot: root, stateDir: state, fetchFn, sleep: async () => {}, now: () => new Date(`${today}T11:00:00Z`), groq: { apiKey: 'k', model: 'm', baseUrl: 'https://api.groq.com/openai/v1' } })
   assert.ok(triedPage, 'it still tried the page')
   assert.ok(e.gist && e.gist.length >= 2, 'gist read from the feed snippet despite the 403')
   assert.equal(e.theme, 'commercial')
   assert.deepEqual((e.companies || []).map((c) => c.name), ['Acme'])
+})
+
+// ---- Groq pacing: tokens-per-minute + header learning (full-throttle without 429s) ----
+await check('durToMs parses Groq reset/retry formats', () => {
+  assert.equal(durToMs('7.66s'), 7660)
+  assert.equal(durToMs('2m59.56s'), 179560)
+  assert.equal(durToMs('120ms'), 120)
+  assert.equal(durToMs('3'), 3000) // bare seconds (retry-after)
+  assert.equal(durToMs(null), undefined)
+})
+
+await check('parseRate reads the x-ratelimit-* headers', () => {
+  const r = parseRate({ headers: { get: (k: string) => ({ 'x-ratelimit-limit-tokens': '6000', 'x-ratelimit-remaining-tokens': '120', 'x-ratelimit-reset-tokens': '7.5s', 'x-ratelimit-remaining-requests': '13000', 'retry-after': '2' } as any)[k] ?? null } })
+  assert.equal(r.tpmLimit, 6000)
+  assert.equal(r.tpmRemaining, 120)
+  assert.equal(r.tpmResetMs, 7500)
+  assert.equal(r.rpdRemaining, 13000)
+  assert.equal(r.retryAfterMs, 2000)
+})
+
+await check('RateLimiter paces by tokens/min and lifts the ceiling when headers say so', async () => {
+  const lim = new RateLimiter(0, 1000) // no request gap; 1000 tokens/min ceiling
+  let t = 1_000_000
+  const now = () => t
+  const slept: number[] = []
+  const sleep = async (ms: number) => { slept.push(ms); t += ms }
+  await lim.acquire(600, sleep, now) // fits → no wait
+  assert.equal(slept.length, 0)
+  await lim.acquire(600, sleep, now) // 600+600 > 1000 → must pace until the first ages out
+  assert.ok(slept.length >= 1 && slept[0] > 0, 'paced when the per-minute token budget is exceeded')
+  lim.learn({ tpmLimit: 100_000 }) // a higher tier (or the real free ceiling) is learned from headers
+  const before = slept.length
+  await lim.acquire(600, sleep, now)
+  assert.equal(slept.length, before, 'no wait once the ceiling is learned higher')
+})
+
+await check('RateLimiter.note429 backs off until the retry window', async () => {
+  const lim = new RateLimiter(0, 100_000)
+  let t = 5_000_000
+  const now = () => t
+  const slept: number[] = []
+  const sleep = async (ms: number) => { slept.push(ms); t += ms }
+  lim.note429(3000, now)
+  await lim.acquire(100, sleep, now) // must wait out the 3s backoff before proceeding
+  assert.ok(slept.reduce((a, b) => a + b, 0) >= 3000, 'honoured the 429 retry-after')
 })
 
 console.log(`\nscope + enrich: ${passed} checks passed`)

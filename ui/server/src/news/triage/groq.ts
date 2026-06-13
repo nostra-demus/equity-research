@@ -5,6 +5,39 @@
 // human promotes the row. GDELT gives titles (no body), so triage is title-only by design.
 
 import type { Band, CompanyGuess, NewsItem, SizeBucket, Triage } from '../types'
+import type { RateInfo } from './budget'
+
+/** Parse Groq's reset/retry duration strings to ms: "7.66s", "1m30s", "2m59.56s", "120ms", or bare seconds. */
+export function durToMs(s: string | null | undefined): number | undefined {
+  if (!s) return undefined
+  const str = String(s).trim()
+  if (/^\d+(\.\d+)?$/.test(str)) return Math.round(parseFloat(str) * 1000) // bare seconds (retry-after)
+  const parts = str.match(/\d+(?:\.\d+)?(?:ms|s|m|h)/g)
+  if (!parts) return undefined
+  let ms = 0
+  for (const p of parts) {
+    const v = parseFloat(p)
+    if (p.endsWith('ms')) ms += v
+    else if (p.endsWith('h')) ms += v * 3_600_000
+    else if (p.endsWith('m')) ms += v * 60_000
+    else ms += v * 1000
+  }
+  return Math.round(ms)
+}
+
+/** Read Groq's x-ratelimit-* + retry-after headers off a response. Per Groq's docs: limit/remaining-
+ *  tokens are PER-MINUTE; remaining-requests is the DAILY request budget. */
+export function parseRate(res: { headers?: { get(k: string): string | null } }): RateInfo {
+  const h = (k: string) => res?.headers?.get?.(k) ?? null
+  const num = (k: string) => { const v = Number(h(k)); return Number.isFinite(v) ? v : undefined }
+  return {
+    tpmLimit: num('x-ratelimit-limit-tokens'),
+    tpmRemaining: num('x-ratelimit-remaining-tokens'),
+    tpmResetMs: durToMs(h('x-ratelimit-reset-tokens')),
+    rpdRemaining: num('x-ratelimit-remaining-requests'),
+    retryAfterMs: durToMs(h('retry-after')),
+  }
+}
 
 // The fixed event-type vocabulary the gauntlet uses (signal_payload.schema.json). We pass it to the
 // model so its tags line up with what downstream expects.
@@ -45,6 +78,7 @@ export interface TriageResult {
   tokens: number
   ok: boolean
   note?: string
+  rate?: RateInfo // live rate-limit state from the response headers (drives the adaptive pacer)
 }
 
 /** Rough token estimate for the budget pre-check (input titles + structured output + overhead).
@@ -134,33 +168,34 @@ export async function triageBatch(
         }),
       })
       requests++
+      const rate = parseRate(res)
       if (!res.ok) {
         const body = await res.text().catch(() => '')
         lastNote = `groq HTTP ${res.status}${body ? ': ' + body.slice(0, 120) : ''}`
         const transient = res.status === 429 || res.status >= 500
         if (transient && attempt < 2) {
-          await sleep(1500 * attempt)
+          await sleep(rate.retryAfterMs || 1500 * attempt)
           continue
         }
-        return { byIndex, requests, tokens, ok: false, note: lastNote }
+        return { byIndex, requests, tokens, ok: false, note: lastNote, rate }
       }
       const data: any = await res.json()
       const used = Number(data?.usage?.total_tokens) || estimateTokens(items.length)
       tokens += used
       // a max_tokens truncation is deterministic — report it loudly instead of half-parsing
       if (data?.choices?.[0]?.finish_reason === 'length') {
-        return { byIndex, requests, tokens, ok: false, note: 'groq: output truncated at max_tokens — lower NEWS_TRIAGE_BATCH or raise NEWS_TRIAGE_MAX_TOKENS' }
+        return { byIndex, requests, tokens, ok: false, note: 'groq: output truncated at max_tokens — lower NEWS_TRIAGE_BATCH or raise NEWS_TRIAGE_MAX_TOKENS', rate }
       }
       const content = data?.choices?.[0]?.message?.content
-      if (typeof content !== 'string') return { byIndex, requests, tokens, ok: false, note: 'groq: empty content' }
+      if (typeof content !== 'string') return { byIndex, requests, tokens, ok: false, note: 'groq: empty content', rate }
       let parsed: any
-      try { parsed = JSON.parse(content) } catch { return { byIndex, requests, tokens, ok: false, note: 'groq: non-JSON content' } }
+      try { parsed = JSON.parse(content) } catch { return { byIndex, requests, tokens, ok: false, note: 'groq: non-JSON content', rate } }
       const arr: any[] = Array.isArray(parsed) ? parsed : Array.isArray(parsed?.items) ? parsed.items : []
       for (const row of arr) {
         const i = Number(row?.i)
         if (Number.isInteger(i) && i >= 0 && i < items.length && !byIndex.has(i)) byIndex.set(i, coerceTriage(row))
       }
-      return { byIndex, requests, tokens, ok: true }
+      return { byIndex, requests, tokens, ok: true, rate }
     } catch (e: any) {
       requests++
       lastNote = e?.message || 'groq fetch error'
@@ -241,7 +276,7 @@ export async function analyzeArticle(
   opts: TriageOptions,
   fetchFn: typeof fetch = fetch,
   sleep: (ms: number) => Promise<void> = (ms) => new Promise((r) => setTimeout(r, ms)),
-): Promise<{ brief: ArticleBrief | null; tokens: number; note?: string }> {
+): Promise<{ brief: ArticleBrief | null; tokens: number; note?: string; rate?: RateInfo }> {
   if (!opts.apiKey) return { brief: null, tokens: 0, note: 'no GROQ_API_KEY' }
   const text = String(body || '').slice(0, 6000)
   if (text.replace(/\s+/g, ' ').trim().length < 80) return { brief: null, tokens: 0, note: 'body too thin to read' }
@@ -264,20 +299,21 @@ export async function analyzeArticle(
           ],
         }),
       })
+      const rate = parseRate(res)
       if (!res.ok) {
         const t = await res.text().catch(() => '')
         lastNote = `groq HTTP ${res.status}${t ? ': ' + t.slice(0, 120) : ''}`
-        if ((res.status === 429 || res.status >= 500) && attempt < 2) { await sleep(1200 * attempt); continue }
-        return { brief: null, tokens, note: lastNote }
+        if ((res.status === 429 || res.status >= 500) && attempt < 2) { await sleep(rate.retryAfterMs || 1200 * attempt); continue }
+        return { brief: null, tokens, note: lastNote, rate }
       }
       const data: any = await res.json()
       tokens += Number(data?.usage?.total_tokens) || 0
-      if (data?.choices?.[0]?.finish_reason === 'length') return { brief: null, tokens, note: 'groq: output truncated' }
+      if (data?.choices?.[0]?.finish_reason === 'length') return { brief: null, tokens, note: 'groq: output truncated', rate }
       const content = data?.choices?.[0]?.message?.content
-      if (typeof content !== 'string') return { brief: null, tokens, note: 'groq: empty content' }
+      if (typeof content !== 'string') return { brief: null, tokens, note: 'groq: empty content', rate }
       let parsed: any
-      try { parsed = JSON.parse(content) } catch { return { brief: null, tokens, note: 'groq: non-JSON content' } }
-      return { brief: coerceArticleBrief(parsed), tokens }
+      try { parsed = JSON.parse(content) } catch { return { brief: null, tokens, note: 'groq: non-JSON content', rate } }
+      return { brief: coerceArticleBrief(parsed), tokens, rate }
     } catch (e: any) {
       lastNote = e?.message || 'groq fetch error'
       if (attempt < 2) await sleep(1200 * attempt)

@@ -107,8 +107,13 @@ export const NEWS = {
   // tokens, so 500k tokens/day ≈ $0.025). Tune down with the env vars on a constrained free tier.
   groqDailyReqCap: capNum(process.env.NEWS_GROQ_DAILY_REQ_CAP, 1500),
   groqDailyTokenCap: capNum(process.env.NEWS_GROQ_DAILY_TOKEN_CAP, 500_000),
-  // Throttle (requests/min, under the 30 RPM free limit) and how many articles ride in one Groq call.
-  groqRpm: capNum(process.env.NEWS_GROQ_RPM, 25),
+  // Pacing. The binding free-tier limit is TOKENS-per-minute, not requests-per-minute — so we pace by
+  // both, and (crucially) the pacer LEARNS the live ceiling from Groq's own x-ratelimit-* response
+  // headers, auto-tuning to whatever this account actually allows. These are starting points / fallbacks:
+  //   groqRpm — requests/min floor (under the 30 free RPM); groqTpm — tokens/min (8b-instant free ≈ 6000).
+  // On a higher tier the headers raise the ceiling automatically; no redeploy needed.
+  groqRpm: capNum(process.env.NEWS_GROQ_RPM, 28),
+  groqTpm: capNum(process.env.NEWS_GROQ_TPM, 6000),
   triageBatch: capNum(process.env.NEWS_TRIAGE_BATCH, 12),
   // GDELT look-back per cycle (minutes; > pollInterval gives overlap so nothing slips the gap).
   gdeltLookbackMin: capNum(process.env.NEWS_GDELT_LOOKBACK_MIN, 40),

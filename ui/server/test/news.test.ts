@@ -132,8 +132,8 @@ await check('RateLimiter spaces calls to ~60s/rpm', async () => {
   const now = () => t
   const slept: number[] = []
   const sleep = async (ms: number) => { slept.push(ms); t += ms }
-  await lim.acquire(sleep, now) // first call: real-clock-far-from-zero → no wait
-  await lim.acquire(sleep, now) // immediate second → must wait ~1000ms
+  await lim.acquire(0, sleep, now) // first call: real-clock-far-from-zero → no wait
+  await lim.acquire(0, sleep, now) // immediate second → must wait ~1000ms
   assert.deepEqual(slept, [1000])
 })
 

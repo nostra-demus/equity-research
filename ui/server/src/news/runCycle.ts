@@ -13,7 +13,7 @@ import { fetchRss } from './sources/rss'
 import { fetchNse } from './sources/nse'
 import { loadLedgerEventIds, normalizeAndFilter } from './normalize'
 import { SeenCache } from './seen-cache'
-import { Budget, RateLimiter } from './triage/budget'
+import { Budget, getSharedLimiter } from './triage/budget'
 import { estimateTokens, scoreToBand, triageBatch } from './triage/groq'
 import { rankScore, preTriagePriority } from './rank'
 import { deriveScope, deriveSourceTier } from './scope'
@@ -158,9 +158,11 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     return summary
   }
 
-  // 3. TRIAGE (batched, budget + throttle)
+  // 3. TRIAGE (batched, budget + adaptive token-per-minute pacing). The pacer is SHARED with the
+  // on-demand enrichment read so the two never collectively blow the per-minute ceiling, and it LEARNS
+  // the live ceiling from Groq's response headers (no 429 bursts; full sustainable throughput).
   const budget = Budget.load(stateDir, cfg.groqDailyReqCap, cfg.groqDailyTokenCap, now().getTime())
-  const limiter = new RateLimiter(cfg.groqRpm)
+  const limiter = getSharedLimiter(cfg.groqRpm, cfg.groqTpm)
   const triaged: TriagedItem[] = []
   const deferred: NewsItem[] = [] // unscored this cycle (budget hit / batch failed) — re-queued next cycle
   let groqRequests = 0
@@ -175,11 +177,12 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       deferred.push(...items.slice(i)) // everything from here on waits for the next cycle
       break
     }
-    await limiter.acquire(sleep, () => now().getTime())
+    await limiter.acquire(estimateTokens(batch.length), sleep, () => now().getTime())
     const res = await triageBatch(batch, { model: cfg.groqModel, baseUrl: cfg.groqBaseUrl, apiKey: cfg.groqApiKey, maxTokens: cfg.triageMaxTokens }, fetchFn, sleep)
     groqRequests += res.requests
     groqTokens += res.tokens
     budget.record(res.requests, res.tokens)
+    limiter.learn(res.rate, () => now().getTime()) // track the live per-minute ceiling + back off on 429
     if (!res.ok) {
       // a failed batch is UNSCORED, not scored-zero: do NOT mark seen (the 7-day cache would make
       // the drop permanent) — defer the whole batch and try again next cycle

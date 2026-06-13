@@ -124,8 +124,18 @@ export const api = {
     return get(`/api/news/feed?days=${days}`)
   },
   newsStreamUrl: () => `/api/news/stream`,
-  // On-demand enrichment for ONE opened event: the real story, parsed SEC filing items, prior
-  // coverage of the named companies, and related recent wire items. No Claude/Groq spend.
+  // the living themes the firehose is bucketed into (ranked index + one theme's deep-dive)
+  newsThemes: async (): Promise<import('./themes').ThemesIndex> => {
+    if ((await ensureMode()) === 'static') return { generated_at: '', themes: [], counts: { hot: 0, active: 0, cooling: 0, parked: 0, retired: 0, total: 0 } }
+    return get(`/api/news/themes`)
+  },
+  newsTheme: async (id: string): Promise<import('./themes').ThemeDetail | null> => {
+    if ((await ensureMode()) === 'static') return null
+    return get(`/api/news/themes/${encodeURIComponent(id)}`)
+  },
+  // On-demand enrichment for ONE opened event: the real story (read from the article body by one free
+  // Groq pass), parsed SEC filing items, prior coverage of the named companies, and related events.
+  // No CLAUDE spend (the body-read uses the free Groq key, paced + budgeted alongside the scanner).
   enrichEvent: async (it: Pick<FeedItem, 'event_id' | 'url' | 'headline' | 'companies' | 'event_types' | 'scope'>): Promise<EventEnrichment> => {
     if ((await ensureMode()) === 'static') return { event_id: it.event_id, ok: false, fetched_at: new Date().toISOString(), prior_coverage: [], related: [], note: 'Read-only showcase — enrichment runs on your machine.' }
     const qs = new URLSearchParams({ event_id: it.event_id })

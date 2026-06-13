@@ -617,8 +617,9 @@ app.get('/api/news/enrich', async (req, reply) => {
       { event_id: q.event_id, url: q.url, headline: q.headline, companies, event_types, scope: q.scope },
       {
         repoRoot: REPO_ROOT, stateDir: STATE_DIR, force: q.force === '1',
-        // the article-body read uses the same free Groq key as the ingester (one call per opened event)
-        groq: NEWS.groqApiKey ? { apiKey: NEWS.groqApiKey, model: NEWS.groqModel, baseUrl: NEWS.groqBaseUrl, maxTokens: 900 } : undefined,
+        // the article-body read shares the ingester's free Groq key, adaptive pacer (rpm/tpm) and daily
+        // budget — so an opened event never blows the per-minute ceiling alongside the scanner.
+        groq: NEWS.groqApiKey ? { apiKey: NEWS.groqApiKey, model: NEWS.groqModel, baseUrl: NEWS.groqBaseUrl, maxTokens: 900, rpm: NEWS.groqRpm, tpm: NEWS.groqTpm, dailyReqCap: NEWS.groqDailyReqCap, dailyTokenCap: NEWS.groqDailyTokenCap } : undefined,
       },
     )
     return enrichment

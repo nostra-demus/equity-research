@@ -56,17 +56,83 @@ export class Budget {
   get tokens(): number { return this.state.tokens }
 }
 
-/** Minimum-spacing throttle: acquire() resolves only once `60s / rpm` has passed since the last call. */
+// What Groq tells us about the live rate-limit state, parsed from the response headers (groq.ts).
+export interface RateInfo {
+  tpmLimit?: number // x-ratelimit-limit-tokens — the per-MINUTE token ceiling (the binding free-tier limit)
+  tpmRemaining?: number // x-ratelimit-remaining-tokens
+  tpmResetMs?: number // x-ratelimit-reset-tokens, in ms
+  rpdRemaining?: number // x-ratelimit-remaining-requests — DAILY requests left
+  retryAfterMs?: number // retry-after on a 429
+}
+
+/**
+ * Adaptive pacer. Two controls, both active:
+ *   - a minimum gap between calls (requests/min), and
+ *   - a sliding 60-second TOKEN window capped at the per-minute ceiling (the limit that actually bites).
+ * The ceiling LEARNS from Groq's response headers (learn()), so it tracks the real account limit and a
+ * tier upgrade is picked up automatically. On a 429 / near-empty minute it backs off until reset. The
+ * wait loop is bounded so an injected no-op clock (tests) can never hang it.
+ */
 export class RateLimiter {
   private last = 0
   private minGapMs: number
-  constructor(rpm: number) {
+  private tpm: number
+  private window: { t: number; tokens: number }[] = []
+  private retryUntil = 0
+  constructor(rpm: number, tpm = 0) {
     this.minGapMs = rpm > 0 ? Math.ceil(60_000 / rpm) : 0
+    this.tpm = tpm > 0 ? tpm : 0
   }
 
-  async acquire(sleep: (ms: number) => Promise<void> = (ms) => new Promise((r) => setTimeout(r, ms)), now = () => Date.now()): Promise<void> {
-    const wait = this.last + this.minGapMs - now()
-    if (wait > 0) await sleep(wait)
+  private prune(now: number): void {
+    const cut = now - 60_000
+    while (this.window.length && this.window[0].t < cut) this.window.shift()
+  }
+  private spent60(now: number): number {
+    this.prune(now)
+    return this.window.reduce((s, w) => s + w.tokens, 0)
+  }
+
+  /** Block until both the request gap AND the per-minute token window have room for ~estTokens. */
+  async acquire(estTokens = 0, sleep: (ms: number) => Promise<void> = (ms) => new Promise((r) => setTimeout(r, ms)), now = () => Date.now()): Promise<void> {
+    // request spacing
+    const gap = this.last + this.minGapMs - now()
+    if (gap > 0) await sleep(gap)
+    // token-per-minute pacing + 429 backoff (bounded loop → never hangs on a frozen test clock)
+    if (this.tpm > 0 && estTokens > 0) {
+      const cost = Math.min(estTokens, this.tpm) // a single est larger than the whole minute can't deadlock
+      for (let i = 0; i < 600; i++) {
+        const t = now()
+        if (t >= this.retryUntil && this.spent60(t) + cost <= this.tpm) break
+        const oldest = this.window.length ? this.window[0].t + 60_000 - t : 0
+        const wait = t < this.retryUntil ? this.retryUntil - t : Math.max(0, oldest)
+        await sleep(Math.max(200, wait || 250))
+      }
+      this.window.push({ t: now(), tokens: estTokens })
+    }
     this.last = now()
   }
+
+  /** Update the live ceiling + backoff from a response's rate headers. */
+  learn(rate?: RateInfo, now = () => Date.now()): void {
+    if (!rate) return
+    if (rate.tpmLimit && rate.tpmLimit > 0) this.tpm = rate.tpmLimit
+    if (rate.retryAfterMs && rate.retryAfterMs > 0) this.retryUntil = Math.max(this.retryUntil, now() + rate.retryAfterMs)
+    else if (rate.tpmRemaining != null && this.tpm > 0 && rate.tpmRemaining < this.tpm * 0.04 && rate.tpmResetMs) {
+      this.retryUntil = Math.max(this.retryUntil, now() + rate.tpmResetMs) // this minute is nearly spent — wait for reset
+    }
+  }
+  /** Explicit 429 backoff. */
+  note429(retryAfterMs = 2000, now = () => Date.now()): void {
+    this.retryUntil = Math.max(this.retryUntil, now() + Math.max(1000, retryAfterMs))
+  }
+}
+
+// One process-wide pacer shared by the ingester's triage AND the on-demand enrichment read, so the two
+// never collectively blow the per-minute ceiling (the cause of the 429 bursts). Created once; both
+// callers pass the same config values, so the args only seed the singleton.
+let shared: RateLimiter | null = null
+export function getSharedLimiter(rpm: number, tpm: number): RateLimiter {
+  if (!shared) shared = new RateLimiter(rpm, tpm)
+  return shared
 }

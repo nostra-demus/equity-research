@@ -24,6 +24,7 @@ import { readFeed } from './feed'
 import { cleanText } from './clean'
 import { filterCompanies, isCompanyName } from './entities'
 import { analyzeArticle, type ArticleCompany, type ArticleParty } from './triage/groq'
+import { Budget, getSharedLimiter } from './triage/budget'
 import type { CompanyGuess } from './types'
 
 const CACHE_FILE = 'news-enrich-cache.json'
@@ -412,9 +413,11 @@ export interface EnrichDeps {
   stateDir: string
   fetchFn?: typeof fetch
   now?: () => Date
+  sleep?: (ms: number) => Promise<void>
   force?: boolean
-  // the cheap-Groq plumbing for the article-body read (omit → degrade to the regex summary)
-  groq?: { apiKey: string; model: string; baseUrl: string; maxTokens?: number }
+  // the cheap-Groq plumbing for the article-body read (omit → degrade to the regex summary). rpm/tpm/
+  // daily caps let the read share the ingester's adaptive pacer + daily budget, so it never collides.
+  groq?: { apiKey: string; model: string; baseUrl: string; maxTokens?: number; rpm?: number; tpm?: number; dailyReqCap?: number; dailyTokenCap?: number }
 }
 
 // Scrub a Groq-returned party list: drop a NAMED party that's actually a country/index/agency (per the
@@ -490,9 +493,23 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
     // the body for the read: the feed's lede + any fetched page text (snippet first — it's the cleanest).
     const pageBody = pageHtml ? cleanText(pageHtml.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' ')) : ''
     const body = [snippet, pageBody].filter(Boolean).join('\n\n').trim()
-    const brief = deps.groq?.apiKey && body
-      ? (await analyzeArticle(body, input.headline || '', { model: deps.groq.model, baseUrl: deps.groq.baseUrl, apiKey: deps.groq.apiKey, maxTokens: deps.groq.maxTokens }, fetchFn)).brief
-      : null
+    // one Groq body-read — through the SHARED adaptive pacer + the daily budget, so an opened event
+    // never blows the per-minute ceiling alongside the ingester, and counts toward the same daily cap.
+    let brief = null
+    const g = deps.groq
+    if (g?.apiKey && body) {
+      const budget = Budget.load(deps.stateDir, g.dailyReqCap ?? Number.MAX_SAFE_INTEGER, g.dailyTokenCap ?? Number.MAX_SAFE_INTEGER, now().getTime())
+      const est = Math.min(3500, Math.ceil(body.length / 3) + 500) // rough input+output token estimate
+      if (budget.canSpend(est)) {
+        const limiter = getSharedLimiter(g.rpm ?? 28, g.tpm ?? 6000)
+        await limiter.acquire(est, deps.sleep, () => now().getTime())
+        const r = await analyzeArticle(body, input.headline || '', { model: g.model, baseUrl: g.baseUrl, apiKey: g.apiKey, maxTokens: g.maxTokens }, fetchFn, deps.sleep)
+        brief = r.brief
+        budget.record(1, r.tokens || est)
+        budget.save()
+        limiter.learn(r.rate, () => now().getTime())
+      }
+    }
     if (brief && (brief.gist.length || brief.companies.length || brief.beneficiaries.length || brief.exposed.length)) {
       if (brief.gist.length) result.gist = brief.gist
       const co = filterCompanies(brief.companies) // denylist safety-net on top of the prompt rule
