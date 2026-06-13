@@ -609,7 +609,6 @@ a { color: inherit; }
 .swarmswitch__item:disabled { opacity: 0.6; cursor: default; }
 .swarmswitch__orb { width: 8px; height: 8px; border-radius: 50%; background: var(--orb); box-shadow: 0 0 0 1px var(--orb-inset) inset; opacity: var(--orb-inactive-op); transition: opacity var(--dur-fast), box-shadow var(--dur) var(--ease); }
 .swarmswitch__item--on .swarmswitch__orb { opacity: 1; box-shadow: 0 0 8px var(--orb); }
-.inboxchip { display: inline-grid; place-items: center; min-width: 16px; height: 16px; margin-left: 7px; padding: 0 4px; border-radius: var(--r-pill); background: var(--accent-wash); color: var(--accent-bright); font-size: 10px; font-weight: 700; font-family: var(--font-mono); }
 .btn--armed { color: var(--accent-bright); border-color: var(--accent-deep); background: var(--accent-wash); }
 
 /* ================= screener stage (the gauntlet) ================= */
@@ -664,11 +663,6 @@ a { color: inherit; }
 .pipeline__title { font-size: 15px; font-weight: 600; letter-spacing: 0.2px; }
 .pipeline__sub { font-size: 11.5px; color: var(--text-faint); margin-top: 3px; font-variant-numeric: tabular-nums; }
 .pipeline__tools { display: flex; gap: 8px; flex-shrink: 0; }
-.pipeline__lanes { flex: 1; overflow-x: auto; overflow-y: hidden; display: flex; gap: 12px; padding: 14px 16px; }
-
-/* Idea board: Funnel / Recent tab switcher (reuses the .seg control) */
-.pipeline__tabs { margin: 0 auto; }
-
 /* "Recent" history view — revisit every past check, newest first */
 .recent { flex: 1; min-height: 0; overflow-y: auto; padding: 14px 18px 28px; display: flex; flex-direction: column; gap: 10px; }
 .recent__lead { font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 2px; }
@@ -683,25 +677,10 @@ a { color: inherit; }
 .recentrow__actions { display: flex; align-items: center; gap: 7px; flex-shrink: 0; }
 .recentrow__act { height: 28px; padding: 0 11px; font-size: 12px; }
 @media (prefers-reduced-motion: reduce) { .recentrow { animation: none; } }
-.plane { width: 248px; flex-shrink: 0; display: flex; flex-direction: column; gap: 8px; overflow-y: auto; padding-bottom: 12px; }
-.plane__title { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-muted); padding: 2px 2px 4px; border-bottom: 1px solid var(--hairline); position: sticky; top: 0; background: var(--surface-1); z-index: 2; }
-.plane__count { color: var(--text-faint); font-family: var(--font-mono); font-weight: 600; margin-left: 6px; }
-.plane__firehose { color: var(--text-faint); font-size: 10.5px; font-family: var(--font-mono); padding: 5px 2px 2px; letter-spacing: 0.2px; }
+/* still shared with the live scanner feed (LiveFeed) — kept after the funnel was removed */
 .plane__empty { color: var(--text-faint); font-size: 11.5px; padding: 14px 4px; }
-.pcard { border: 1px solid var(--hairline); border-radius: var(--r-md); background: var(--surface-2); padding: 10px 12px; transition: border-color var(--dur-fast); }
-.pcard:hover { border-color: var(--hairline-strong); }
-.pcard--thesis { cursor: pointer; }
-.pcard--thesis:hover { border-color: var(--accent-deep); }
-.pcard__head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
 .pcard__chip { font-size: 9.5px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-faint); border: 1px solid var(--hairline); border-radius: var(--r-pill); padding: 2px 7px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .pcard__chip--num { color: var(--accent-bright); border-color: var(--accent-deep); font-family: var(--font-mono); }
-.pcard__headline { font-size: 12.5px; font-weight: 600; line-height: 1.45; color: var(--text); }
-.pcard__why { font-size: 11px; color: var(--text-muted); line-height: 1.45; margin-top: 5px; }
-.pcard__trigger { font-size: 11px; color: var(--accent-bright); margin-top: 5px; }
-.pcard__meta { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 7px; font-size: 10.5px; color: var(--text-faint); font-family: var(--font-mono); }
-.pcard__open { color: var(--text-faint); }
-.pcard--thesis:hover .pcard__open { color: var(--accent-bright); }
-.pcard__act { height: 22px; padding: 0 8px; font-size: 10.5px; }
 .edgedial { width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0; display: grid; place-items: center; background: conic-gradient(var(--accent) var(--deg), var(--surface-3) 0); position: relative; }
 .edgedial::before { content: ''; position: absolute; inset: 3px; border-radius: 50%; background: var(--surface-2); }
 .edgedial__num { position: relative; font-size: 10.5px; font-weight: 700; font-family: var(--font-mono); color: var(--text); }
@@ -927,26 +906,8 @@ a { color: inherit; }
 .wire__why { font-size: 11px; color: var(--text-muted); line-height: 1.45; margin-top: 3px; }
 .wire__empty { padding: 28px 4px; }
 
-/* ---- Inbox-card extras: themes, company guess, dismiss, set-aside ---- */
-.pcard__tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 6px; }
-.pcard__chip--theme { color: var(--accent-bright); border-color: var(--accent-deep); text-transform: none; letter-spacing: 0.2px; }
-.pcard__chip--company { color: var(--text-muted); text-transform: none; letter-spacing: 0.2px; max-width: 100%; }
-.pcard__dismiss {
-  margin-left: auto; flex-shrink: 0; width: 20px; height: 20px; display: grid; place-items: center;
-  border: none; background: transparent; color: var(--text-faint); font-size: 11px; cursor: pointer;
-  border-radius: var(--r-pill); transition: color var(--dur-fast), transform 160ms cubic-bezier(0.23, 1, 0.32, 1);
-}
-@media (hover: hover) and (pointer: fine) { .pcard__dismiss:hover { color: var(--bad); } }
-.pcard__dismiss:active { transform: scale(0.9); }
-.pcard--aside { opacity: 0.6; }
-.plane--inbox { width: 290px; }
-.plane__foot { display: flex; flex-direction: column; gap: 5px; padding-top: 4px; }
-.plane__foot-btn { height: 26px; font-size: 11px; justify-content: flex-start; }
-
-/* ---- moved-by-you markers + the move control ---- */
+/* ---- moved-by-you marker (the thesis deep-dive override chip) ---- */
 .pcard__chip--moved { color: var(--accent-bright); border-color: var(--accent-deep); text-transform: none; letter-spacing: 0.2px; }
-.pcard__enginesaid { font-size: 10.5px; color: var(--text-faint); margin-top: 4px; }
-.pcard__stale { font-size: 10.5px; color: var(--accent-bright); margin-top: 4px; }
 .tdetail__move { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; margin: 10px 0 2px; }
 .tdetail__move-label { font-size: 11px; color: var(--text-faint); }
 .tdetail__move-btn { height: 25px; padding: 0 10px; font-size: 11px; }
