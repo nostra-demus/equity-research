@@ -97,6 +97,15 @@ export function fmtAbsolute(ts?: number): string {
   return new Date(ts).toLocaleString(undefined, { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
 }
 
+// local wall-clock HH:MM for an ISO timestamp. The wire stores UTC (e.g. "…T19:53:00Z"); show it in
+// the VIEWER's own timezone, not UTC — slicing the raw string would leak UTC. 24-hour to fit the dense
+// mono column. Falls back to the raw slice only if the date won't parse.
+export function hhmmLocal(iso?: string): string {
+  if (!iso) return ''
+  const d = new Date(iso)
+  return isNaN(d.getTime()) ? iso.slice(11, 16) : d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })
+}
+
 export function nodeStatusColor(status: string): string {
   switch (status) {
     case 'running':

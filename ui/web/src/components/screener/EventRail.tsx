@@ -14,13 +14,13 @@ import { useEffect, useMemo, useState } from 'react'
 import { groupByDedup, type StoryGroup } from '../../lib/dedup'
 import { plainSize, plainTheme } from '../../lib/plain'
 import { BROAD_SCOPES, COMPANY_SCOPES, familyOf, isCompanyNameClient, SCOPES, scopeLabel, scopeOf, type ScopeId } from '../../lib/scope'
+import { hhmmLocal } from '../../lib/format'
 import { useStore } from '../../lib/store'
 import type { FeedItem } from '../../lib/types'
 import { emptyFilters, FeedFilters, filtersActive, matchesFilters, type FeedFilterState } from './FeedFilters'
 
 type View = 'ranked' | 'latest' | 'all'
 
-const hhmm = (iso?: string) => (iso ? iso.slice(11, 16) : '')
 const agoMin = (iso?: string | null) => (iso ? Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 60_000)) : null)
 const inGroup = (sel: FeedItem | null, g: StoryGroup) => !!sel && g.members.some((m) => m.event_id === sel.event_id && m.ts === sel.ts)
 
@@ -57,7 +57,7 @@ function EventRow({ group, selected, shelved, fresh, onPick, onShelve }: { group
           <span className="evrow__score mono" style={{ color: tone, borderColor: tone }}>
             {it.triage_score}
           </span>
-          <span className="evrow__time mono">{hhmm(it.ts)}</span>
+          <span className="evrow__time mono">{hhmmLocal(it.ts)}</span>
           <span className="evrow__src">{it.source_name}</span>
           {it.via === 'rss' && <span className="evrow__tag evrow__tag--rss">RSS</span>}
         </span>

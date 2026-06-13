@@ -7,11 +7,11 @@ import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
 import { groupByDedup, type StoryGroup } from '../../lib/dedup'
 import { plainBand, plainSize, plainTheme } from '../../lib/plain'
+import { hhmmLocal } from '../../lib/format'
 import { useStore } from '../../lib/store'
 import type { FeedItem } from '../../lib/types'
 import { emptyFilters, FeedFilters, matchesFilters, type FeedFilterState } from './FeedFilters'
 
-const hhmm = (iso?: string) => (iso ? iso.slice(11, 16) : '')
 const agoMin = (iso?: string | null) => (iso ? Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 60_000)) : null)
 
 function ScorePill({ score }: { score: number }) {
@@ -41,7 +41,7 @@ function WireRow({ group }: { group: StoryGroup }) {
   const otherSources = group.sources.slice(1)
   return (
     <div className={`wire__row${kept ? '' : ' wire__row--dropped'}`}>
-      <span className="wire__time mono">{hhmm(it.ts)}</span>
+      <span className="wire__time mono">{hhmmLocal(it.ts)}</span>
       <ScorePill score={it.triage_score} />
       <span className={`pcard__chip wire__band${kept ? ' wire__band--kept' : ''}`} title={it.triage_reason || undefined}>
         {plainBand(it.band)}
