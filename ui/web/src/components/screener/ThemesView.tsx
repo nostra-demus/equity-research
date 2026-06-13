@@ -85,21 +85,57 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
     return new Set((t?.related_themes || []).map((r) => r.theme_id))
   }, [hover, themes])
 
-  // live stream particles: events flow in from each source lane → the ranking core → out to each
-  // theme basin (the hotter the theme, the more/faster). Pure offset-path motion (GPU), looped.
-  const particles = useMemo(() => {
-    const out: { id: string; d: string; dur: number; delay: number; cls: string; tier?: Theme['tier'] }[] = []
-    layout.lanes.forEach((l, i) => {
-      const d = hcurve(l.x + 18, l.y, layout.core.x - layout.core.r, layout.core.y)
-      for (let k = 0; k < 2; k++) out.push({ id: `in-${l.id}-${k}`, d, dur: 3.1 + (i % 3) * 0.6, delay: i * 0.5 + k * 1.7, cls: 'thememap__pulse--in' })
-    })
-    layout.nodes.forEach((n, i) => {
-      const d = hcurve(layout.core.x + layout.core.r, layout.core.y, n.x - n.r, n.y)
-      const hot = n.theme.tier === 'hot'
-      for (let k = 0; k < (hot ? 2 : 1); k++) out.push({ id: `out-${n.id}-${k}`, d, dur: hot ? 2.5 : 3.7, delay: i * 0.3 + k * 1.25, cls: 'thememap__pulse--out', tier: n.theme.tier })
-    })
-    return out
-  }, [layout])
+  // ---- TRUTHFUL flow: a dot is emitted ONLY for a real event. An OUTBOUND dot (ranking → theme) is
+  //      one news item just assigned to that theme — its landing ticks that theme's count up by one.
+  //      An INBOUND dot (source lane → ranking) is one item just read off the wire, from its real
+  //      source tier. No dots for no reason — between real events the map is calm. ----
+  type Emit = { id: number; d: string; cls: string; tier?: Theme['tier']; dur: number; delay?: number; target?: string }
+  const newsItems = useStore((s) => s.newsItems)
+  const prevCounts = useRef<Map<string, number>>(new Map())
+  const prevWireLen = useRef<number | null>(null)
+  const seq = useRef(0)
+  const [emits, setEmits] = useState<Emit[]>([])
+  const [shown, setShown] = useState<Record<string, number>>({})
+  const nodeById = useMemo(() => new Map(layout.nodes.map((n) => [n.id, n])), [layout])
+  const reduceMotion = typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+
+  // OUTBOUND — diff each theme's real member_count; one capped dot per new member, count ticks on landing
+  useEffect(() => {
+    const pc = prevCounts.current
+    const add: Emit[] = []
+    const sync: Record<string, number> = {}
+    for (const t of themes) {
+      const prev = pc.get(t.theme_id)
+      pc.set(t.theme_id, t.member_count)
+      if (prev === undefined) { sync[t.theme_id] = t.member_count; continue } // first sight — show real, no burst
+      const delta = t.member_count - prev
+      const node = nodeById.get(t.theme_id)
+      if (delta <= 0 || !node || reduceMotion) { if (delta !== 0) sync[t.theme_id] = t.member_count; continue }
+      const d = hcurve(layout.core.x + layout.core.r, layout.core.y, node.x - node.r, node.y)
+      const n = Math.min(delta, 8)
+      sync[t.theme_id] = prev // HOLD the old number on screen; each landing dot ticks it up by one
+      for (let k = 0; k < n; k++) add.push({ id: ++seq.current, d, cls: 'thememap__pulse--out', tier: t.tier, dur: 2.0, delay: k * 0.32, target: t.theme_id })
+      const tid = t.theme_id // converge to truth once the staggered dots have landed (covers delta > cap + any race)
+      window.setTimeout(() => setShown((s) => ({ ...s, [tid]: prevCounts.current.get(tid) ?? 0 })), 2000 + n * 320 + 700)
+    }
+    if (add.length) setEmits((e) => [...e, ...add].slice(-60)) // safety cap — never accumulate unbounded particles
+    if (Object.keys(sync).length) setShown((s) => ({ ...s, ...sync }))
+  }, [themes, nodeById, layout, reduceMotion])
+
+  // INBOUND — diff the wire; one dot per newly-read item, from its source-tier lane into ranking
+  useEffect(() => {
+    if (prevWireLen.current === null || reduceMotion) { prevWireLen.current = newsItems.length; return }
+    const added = newsItems.length - prevWireLen.current
+    prevWireLen.current = newsItems.length
+    if (added <= 0) return
+    const add: Emit[] = []
+    for (const it of newsItems.slice(0, Math.min(added, 8))) {
+      const lane = layout.lanes.find((l) => l.id === it.source_tier) || layout.lanes.find((l) => l.id === 'news') || layout.lanes[0]
+      if (!lane) continue
+      add.push({ id: ++seq.current, d: hcurve(lane.x + 18, lane.y, layout.core.x - layout.core.r, layout.core.y), cls: 'thememap__pulse--in', dur: 2.8 })
+    }
+    if (add.length) setEmits((e) => [...e, ...add].slice(-60)) // safety cap — never accumulate unbounded particles
+  }, [newsItems, layout, reduceMotion])
 
   return (
     <div className="thememap" ref={ref}>
@@ -113,13 +149,23 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
         })}
       </svg>
 
-      {/* live stream — events pulse source → ranking → theme along the edges */}
+      {/* truthful flow — each dot is a real event; an outbound dot ticks its theme's count on landing */}
       <div className="thememap__particles" aria-hidden>
-        {particles.map((p) => (
+        {emits.map((p) => (
           <i
             key={p.id}
             className={`thememap__pulse ${p.cls}`}
-            style={{ offsetPath: `path("${p.d}")`, animationDuration: `${p.dur}s`, animationDelay: `${p.delay}s`, ...(p.tier ? { ['--tier' as any]: tierColorVar(p.tier) } : {}) }}
+            style={{ offsetPath: `path("${p.d}")`, animationDuration: `${p.dur}s`, animationDelay: p.delay ? `${p.delay}s` : undefined, ...(p.tier ? { ['--tier' as any]: tierColorVar(p.tier) } : {}) }}
+            onAnimationEnd={() => {
+              setEmits((e) => e.filter((x) => x.id !== p.id))
+              if (p.cls === 'thememap__pulse--out' && p.target) {
+                const tid = p.target
+                setShown((s) => {
+                  const real = prevCounts.current.get(tid) ?? s[tid] ?? 0
+                  return { ...s, [tid]: Math.min((s[tid] ?? real) + 1, real) }
+                })
+              }
+            }}
           />
         ))}
       </div>
@@ -153,7 +199,7 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
             title={t.description}
           >
             <span className="themenode__core" />
-            <span className="themenode__count">{t.member_count}</span>
+            <span className="themenode__count">{shown[t.theme_id] ?? t.member_count}</span>
             <span className="themenode__label" style={{ width: n.labelW, WebkitLineClamp: 3, color: 'var(--text)' }}>{t.name}</span>
           </button>
         )
