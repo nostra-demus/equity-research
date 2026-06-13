@@ -61,12 +61,44 @@ export interface ThemeDetail {
 
 const clamp = (n: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, n))
 
-/** Continuous "heat" 0–1 for placement/size — blends score with fresh flow so a theme that's both
- *  important AND actively flowing rises highest. */
-export function heatOf(t: Pick<Theme, 'composite' | 'fresh_flow'>): number {
+/** Items in roughly the last `hours` hours, summed from the hourly flow series (newest bucket last). */
+export function recentFlow(series: number[] | undefined, hours: number): number {
+  const fs = series || []
+  return fs.slice(Math.max(0, fs.length - hours)).reduce((a, b) => a + b, 0)
+}
+
+const hoursSinceFlow = (iso: string | undefined, now: number): number => {
+  const t = iso ? Date.parse(iso) : NaN
+  return Number.isFinite(t) ? Math.max(0, (now - t) / 3_600_000) : Infinity
+}
+
+// How fast news is STILL pouring into a theme right now — its velocity, distinct from the tier (the
+// long-run heat/importance). The old label keyed off `fresh_flow` (a 1-hour publish-time window), which
+// is ~always 0 because article publish times lag — so every theme read "quiet" even hot ones. This reads
+// the time since the theme's most recent item (its real recency) plus a burst check on the recent series:
+//   surging — a real burst in the last hour or two
+//   active  — news landed within ~2.5h (still live)
+//   cooling — last item 2.5–5h ago (the rush has eased)
+//   quiet   — nothing for 5h+ (genuinely gone quiet)
+export type Momentum = 'surging' | 'active' | 'cooling' | 'quiet'
+
+export function momentumOf(t: Pick<Theme, 'flow_series' | 'last_flow'>, now: number = Date.now()): Momentum {
+  const last1 = recentFlow(t.flow_series, 1)
+  const last2 = recentFlow(t.flow_series, 2)
+  const since = hoursSinceFlow(t.last_flow, now)
+  if (last1 >= 3 || last2 >= 6) return 'surging' // a genuine burst right now
+  if (since < 2.5) return 'active'
+  if (since < 5) return 'cooling'
+  return 'quiet'
+}
+
+/** Continuous "heat" 0–1 for placement/size — blends the composite score with RECENT flow (last ~4h)
+ *  so a theme that's both important AND actively taking news rises highest. (Was fresh_flow, which is
+ *  ~always 0 and dragged every theme's flow term to zero — see momentumOf.) */
+export function heatOf(t: Pick<Theme, 'composite' | 'flow_series'>): number {
   const score = clamp(t.composite / 100, 0, 1)
-  const flow = clamp(t.fresh_flow / 8, 0, 1)
-  return clamp(0.65 * score + 0.35 * flow, 0, 1)
+  const flow = clamp(recentFlow(t.flow_series, 4) / 12, 0, 1)
+  return clamp(0.7 * score + 0.3 * flow, 0, 1)
 }
 
 /** Tier → the CSS custom-property the basin/chip paints with (inherits cyan + light/dark for free). */

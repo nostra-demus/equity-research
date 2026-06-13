@@ -6,7 +6,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useStore } from '../../lib/store'
-import { heatOf, radiusFor, sparklinePoints, tierColorVar, tierLabel, orderLabel, type Theme, type ThemeCompany } from '../../lib/themes'
+import { heatOf, momentumOf, recentFlow, radiusFor, sparklinePoints, tierColorVar, tierLabel, orderLabel, type Theme, type ThemeCompany } from '../../lib/themes'
 import type { FeedItem } from '../../lib/types'
 
 const TIERS = ['all', 'hot', 'active', 'cooling', 'parked'] as const
@@ -214,7 +214,7 @@ function MapTooltip({ theme }: { theme: Theme }) {
     <div className="thememap__tip" role="status">
       <div className="thememap__tip-name">{theme.name}</div>
       <div className="thememap__tip-desc">{theme.description}</div>
-      <div className="thememap__tip-meta">{tierLabel(theme.tier)} · score {theme.composite} · {theme.member_count} items{theme.fresh_flow ? ` · +${theme.fresh_flow} fresh` : ''}</div>
+      <div className="thememap__tip-meta">{tierLabel(theme.tier)} · {momentumOf(theme)} · score {theme.composite} · {theme.member_count} items</div>
       {real(theme.top_companies).length > 0 && <div className="thememap__tip-cos">{real(theme.top_companies).slice(0, 5).map((c) => c.name).join(' · ')}</div>}
     </div>
   )
@@ -242,7 +242,7 @@ function computeMapLayout(themes: Theme[], W: number, H: number) {
   const usable = Math.max(150, H - TOP - BOT)
   const maxR = Math.min(34, H * 0.066)
   const ranked = [...themes].sort((a, b) => heatOf(b) - heatOf(a)).slice(0, 16)
-  const items = ranked.map((t) => ({ t, r: radiusFor(t.member_count, 13, maxR), flow: t.fresh_flow > 0 }))
+  const items = ranked.map((t) => ({ t, r: radiusFor(t.member_count, 13, maxR), flow: recentFlow(t.flow_series, 2) > 0 }))
   const slotH = (it: { r: number }) => it.r * 2 + LABEL_H + GAP
 
   const basinL = Math.max(W * 0.44, coreX + coreR + 96)
@@ -310,7 +310,7 @@ function ThemeCard({ t, onPick }: { t: Theme; onPick: (id: string) => void }) {
       <p className="themecard__desc">{t.description}</p>
       <div className="themecard__flow">
         <Sparkline series={t.flow_series} />
-        <span className="themecard__flowmeta">{t.fresh_flow ? `+${t.fresh_flow} fresh` : 'quiet'} · {t.member_count} items</span>
+        <span className="themecard__flowmeta">{momentumOf(t)}{t.fresh_flow ? ` · +${t.fresh_flow} fresh` : ''} · {t.member_count} items</span>
       </div>
       {real(t.top_companies).length > 0 && (
         <div className="themecard__cos">
@@ -364,7 +364,7 @@ function ThemeDeepDive() {
         <button type="button" className="themedd__back" onClick={() => selectTheme(null)}>← Themes</button>
         <span className={`themecard__tier themecard__tier--${t.tier}`}>{tierLabel(t.tier)}</span>
         <span className="themedd__score mono">{t.composite}<span className="themedd__score-sub">/100</span></span>
-        <span className="themedd__flow">{t.fresh_flow ? `+${t.fresh_flow} fresh` : 'quiet'} · {t.member_count} items</span>
+        <span className="themedd__flow">{momentumOf(t)}{t.fresh_flow ? ` · +${t.fresh_flow} fresh` : ''} · {t.member_count} items</span>
       </div>
       <h2 className="themedd__name">{t.name}</h2>
       <p className="themedd__desc">{t.description}</p>
