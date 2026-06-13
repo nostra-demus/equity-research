@@ -6,6 +6,7 @@ import { SwarmField } from './components/swarm/SwarmField'
 import { ScreenerField } from './components/screener/ScreenerField'
 import { EventRail } from './components/screener/EventRail'
 import { EventDetail } from './components/screener/EventDetail'
+import { CompanyView } from './components/screener/CompanyView'
 import { ThemesView } from './components/screener/ThemesView'
 import { SignalIntake } from './components/screener/SignalIntake'
 import { LiveFeed } from './components/screener/LiveFeed'
@@ -44,10 +45,11 @@ function ResearchStage() {
 function ScreenerStage() {
   const event = useStore((s) => s.scSelectedEvent)
   const themesView = useStore((s) => s.themesView)
+  const focusedCompany = useStore((s) => s.scFocusedCompany)
   return (
     <div className="scstage">
       <EventRail />
-      <div className="scstage__main">{event ? <EventDetail it={event} /> : themesView ? <ThemesView /> : <ScreenerField />}</div>
+      <div className="scstage__main">{focusedCompany ? <CompanyView /> : event ? <EventDetail it={event} /> : themesView ? <ThemesView /> : <ScreenerField />}</div>
     </div>
   )
 }

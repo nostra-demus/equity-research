@@ -5,6 +5,10 @@ import { plainRoute, plainStage } from './plain'
 import type { Theme, ThemeDetail } from './themes'
 import type { ActiveRunLite, AgentNode, BoardInboxRow, DataStatus, EventEnrichment, FeedItem, HealthState, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
 
+// A company the user drilled into from an event (the COMPANIES NAMED chips) — the main stage then
+// shows every wire story about it. listing_country/exchange ride along from the article-body read.
+export interface FocusedCompany { name: string; ticker: string | null; listing_country?: string | null; exchange?: string | null }
+
 // --- shelved events: a local, per-browser "set aside" set for wire items the user has judged not
 //     worth a paid check. Persisted to localStorage (the wire is ephemeral firehose data, not server
 //     state), keyed by event_id. Survives reloads; intentionally never leaves this machine. ---
@@ -111,6 +115,7 @@ interface State {
   pipelineOpen: boolean
   scThesisDetail: { thesis: any; candidates: any; handoffs: any[] } | null
   scSelectedEvent: FeedItem | null // a wire event the user clicked to read in the main stage (before deciding to run it)
+  scFocusedCompany: FocusedCompany | null // a company the user drilled into — the main stage shows all its wire news
 
   init: () => Promise<void>
   startHealth: () => void
@@ -180,6 +185,7 @@ interface State {
   // let the user open one event to read it, and run the paid checks straight from that event
   scEnsureNewsStream: () => Promise<void>
   scSelectEvent: (it: FeedItem | null) => void
+  scFocusCompany: (c: FocusedCompany | null) => void
   runEventChecks: (it: FeedItem) => Promise<void>
   // shelving: set an event aside (or bring it back) — local, persisted, filters the rail
   shelvedEvents: Set<string>
@@ -275,6 +281,7 @@ export const useStore = create<State>((set, get) => ({
   pipelineOpen: false,
   scThesisDetail: null,
   scSelectedEvent: null,
+  scFocusedCompany: null,
   shelvedEvents: loadShelf(),
   enrichCache: {},
   newsFeedOpen: false,
@@ -863,12 +870,12 @@ export const useStore = create<State>((set, get) => ({
     if (!get().swarms.some((s) => s.id === to)) return
     const reduced = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
     if (reduced) {
-      set({ activeSwarm: to, warp: null, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, newsFeedOpen: false })
+      set({ activeSwarm: to, warp: null, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, scFocusedCompany: null, newsFeedOpen: false })
       if (to !== 'research') void get().scInit()
       if (opts?.landTicker) void get().selectTicker(opts.landTicker)
       return
     }
-    set({ warp: { from, to, payloadTicker: opts?.payloadTicker, landTicker: opts?.landTicker, phase: 'collapse' }, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, newsFeedOpen: false })
+    set({ warp: { from, to, payloadTicker: opts?.payloadTicker, landTicker: opts?.landTicker, phase: 'collapse' }, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, scFocusedCompany: null, newsFeedOpen: false })
     if (warpTimer) clearTimeout(warpTimer)
     warpTimer = setTimeout(() => get()._advanceWarp(), 420) // collapse -> traverse
   },
@@ -928,9 +935,12 @@ export const useStore = create<State>((set, get) => ({
   },
 
   scSelectEvent: (it) => {
-    set({ scSelectedEvent: it })
+    // opening any event exits the company drill-down (the CompanyView takes main-stage precedence)
+    set({ scSelectedEvent: it, scFocusedCompany: null })
     if (it) void get().fetchEnrichment(it) // kick the enrichment the moment an event opens
   },
+
+  scFocusCompany: (c) => set({ scFocusedCompany: c }),
 
   // ---- dynamic themes ----
   refreshThemes: async () => {

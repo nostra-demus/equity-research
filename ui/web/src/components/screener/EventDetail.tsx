@@ -89,11 +89,16 @@ function StoryBlock({ enr }: { enr: EventEnrichment | 'loading' | undefined }) {
 // WHO GAINS / WHO'S EXPOSED — the value the reader actually asked for: WHICH names, from the article.
 // Named firms render solid; an inferred sector/group renders muted with a "(sector)" tag; never invented.
 function PartyList({ parties }: { parties: ArticleParty[] }) {
+  const focusCompany = useStore((s) => s.scFocusCompany)
   return (
     <ul className="evdetail__pclist">
       {parties.map((p, i) => (
         <li key={`${p.name}-${i}`} className="evdetail__party">
-          <span className="evdetail__party-name">{p.name}</span>
+          {p.named_in_article ? (
+            <button type="button" className="evdetail__party-name evdetail__party-name--btn" onClick={() => focusCompany({ name: p.name, ticker: null })} title={`See all wire news on ${p.name}`}>{p.name}</button>
+          ) : (
+            <span className="evdetail__party-name">{p.name}</span>
+          )}
           {!p.named_in_article && <span className="evdetail__party-tag">sector</span>}
           {p.basis && <span className="evdetail__party-basis"> — {p.basis}</span>}
         </li>
@@ -111,6 +116,7 @@ export function EventDetail({ it }: { it: FeedItem }) {
   const toggleShelve = useStore((s) => s.toggleShelve)
   const newsItems = useStore((s) => s.newsItems)
   const selectEvent = useStore((s) => s.scSelectEvent)
+  const focusCompany = useStore((s) => s.scFocusCompany)
 
   // jump to a related event so the user can check it: open the full wire item if we still hold it,
   // else a minimal stand-in (the reader re-fetches its detail by event_id either way).
@@ -222,7 +228,10 @@ export function EventDetail({ it }: { it: FeedItem }) {
                 const cov = coverageFor(c.name, c.ticker)
                 return (
                   <div key={`${c.name}-${i}`} className="evdetail__co">
-                    <span className="evdetail__chip evdetail__chip--co">{[c.name, c.ticker].filter(Boolean).join(' · ')}</span>
+                    <button type="button" className="evdetail__chip evdetail__chip--co evdetail__chip--btn" onClick={() => focusCompany({ name: c.name, ticker: c.ticker, listing_country: c.listing_country, exchange: c.exchange })} title={`See all wire news on ${c.name}`}>
+                      {[c.name, c.ticker].filter(Boolean).join(' · ')}
+                      <span className="evdetail__chip-go" aria-hidden>›</span>
+                    </button>
                     {(c.listing_country || c.exchange) && (
                       <span className="evdetail__listingtag" title="Where it's listed (from the article read)">{[c.listing_country, c.exchange].filter(Boolean).join(' · ')}</span>
                     )}
