@@ -263,6 +263,62 @@ function ThesisDetail() {
   )
 }
 
+// nicer absolute timestamp for the history list — "Jun 12, 01:39 PM"
+const fmtWhen = (s?: string | null) => {
+  if (!s) return ''
+  const d = new Date(s)
+  return isNaN(d.getTime()) ? fmtTs(s) : d.toLocaleString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' })
+}
+
+// "Recent" tab — every event you've actually put through the checks, NEWEST FIRST, as a flat
+// revisit list (distinct from the status funnel). One click reopens the full analysis; "Replay"
+// drops the run back onto the gauntlet. Reads only the canonical board (signals = the runs,
+// joined to their theses for the edge score + company count).
+function RecentChecks({ onOpen, onReplay }: { onOpen: (thesisId: string) => void; onReplay: (sigId: string) => void }) {
+  const board = useStore((s) => s.scBoard)
+  const rows = useMemo(() => {
+    const tBySig = new Map((board?.theses || []).map((t) => [t.signal_id, t]))
+    return (board?.signals || [])
+      .filter((s) => s.processed_at)
+      .map((s) => ({ s, t: tBySig.get(s.signal_id) }))
+      .sort((a, b) => ((a.s.processed_at || '') < (b.s.processed_at || '') ? 1 : -1))
+  }, [board])
+
+  if (!rows.length) {
+    return (
+      <div className="recent__empty">
+        No checks yet. Open a news event on the left of the Screener and press “Run the checks” — every event you run shows up here, newest first, to reopen any time.
+      </div>
+    )
+  }
+  return (
+    <div className="recent">
+      <div className="recent__lead">Every event you’ve put through the checks, newest first. Open one to re-read its full analysis, or replay it on the board.</div>
+      {rows.map(({ s, t }) => {
+        const outcome = plainRoute(t ? effStatus(t) : s.status)
+        return (
+          <div key={s.signal_id} className="recentrow">
+            <EdgeDial score={t?.edge_score} />
+            <div className="recentrow__main">
+              <div className="recentrow__headline">{s.headline}</div>
+              <div className="recentrow__meta">
+                {s.source_name && <span className="recentrow__src">{s.source_name}</span>}
+                <span>{fmtWhen(s.processed_at)}</span>
+                {outcome && <span className="recentrow__outcome">{outcome}</span>}
+                {t?.candidate_count ? <span>{t.candidate_count} compan{t.candidate_count === 1 ? 'y' : 'ies'} found</span> : null}
+              </div>
+            </div>
+            <div className="recentrow__actions">
+              {t && <button className="btn btn--ghost recentrow__act" onClick={() => onOpen(t.thesis_id)}>Open analysis ▸</button>}
+              <button className="btn btn--ghost recentrow__act" onClick={() => onReplay(s.signal_id)} title="Show this run on the gauntlet board">Replay</button>
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
+
 export function PipelineBoard() {
   const board = useStore((s) => s.scBoard)
   const refresh = useStore((s) => s.scRefreshBoard)
@@ -280,6 +336,7 @@ export function PipelineBoard() {
   const [showSetAside, setShowSetAside] = useState(false)
   const [armCheck, setArmCheck] = useState<string | null>(null) // inbox_id armed for the paid check
   const [armScan, setArmScan] = useState(false)
+  const [view, setView] = useState<'funnel' | 'recent'>('funnel')
 
   useEffect(() => {
     void refresh()
@@ -326,6 +383,12 @@ export function PipelineBoard() {
               : 'news goes in on the left, checked step by step, and comes out as ideas on the right'}
           </div>
         </div>
+        {!detail?.thesis && (
+          <div className="seg pipeline__tabs">
+            <button className={`seg__btn${view === 'funnel' ? ' seg__btn--on' : ''}`} onClick={() => setView('funnel')} title="The funnel: every stage from Inbox to Sent to research">Funnel</button>
+            <button className={`seg__btn${view === 'recent' ? ' seg__btn--on' : ''}`} onClick={() => setView('recent')} title="Your run history — every event you've checked, newest first">Recent</button>
+          </div>
+        )}
         <div className="pipeline__tools">
           <button className="btn btn--ghost" onClick={() => void refresh()}>refresh</button>
           <button className="btn btn--ghost" onClick={close}>✕</button>
@@ -334,6 +397,8 @@ export function PipelineBoard() {
 
       {detail?.thesis ? (
         <ThesisDetail />
+      ) : view === 'recent' ? (
+        <RecentChecks onOpen={openThesisDetail} onReplay={(id) => { void scSelectSignal(id); close() }} />
       ) : (
         <div className="pipeline__lanes">
           <div className="plane plane--inbox">
