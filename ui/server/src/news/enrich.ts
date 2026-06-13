@@ -483,6 +483,10 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
   // attachment), so we never try to "read" it — we synthesize the story from what we hold (story-floor.ts).
   const filingInput = { headline, url, snippet, input_nature: inputNature, source_tier: sourceTier, source_name: sourceName, domain: host, companies }
   const filing = isFilingEvent(filingInput)
+  // …but only a BSE/NSE exchange filing or a PDF/attachment is genuinely body-LESS. A regulator press
+  // release (FCA / SEC press / etc.) is a readable article — still read its body. So we skip the read
+  // only for these, and let every other "filing" fall through to a normal body read.
+  const bodylessFiling = filing && (/(^|\.)(bseindia|nseindia)\.com$/.test(host) || /\.(?:pdf|xlsx?|docx?|zip)(?:[?#]|$)/i.test(url))
   // SEC item parsing applies ONLY to an actual EDGAR filing INDEX page — sec.gov press releases /
   // litigation bulletins are ordinary articles and fall through to the summary extractor.
   const isSec = /(^|\.)sec\.gov$/.test(host) && /\/Archives\/edgar\//i.test(url) && /-index\.html?($|[?#])/i.test(url)
@@ -515,7 +519,7 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
     // disclosure, so we go straight to the deterministic floor (no wasted Groq call, no fabrication).
     let brief = null
     const g = deps.groq
-    if (g?.apiKey && body && !filing) {
+    if (g?.apiKey && body && !bodylessFiling) {
       const budget = Budget.load(deps.stateDir, g.dailyReqCap ?? Number.MAX_SAFE_INTEGER, g.dailyTokenCap ?? Number.MAX_SAFE_INTEGER, now().getTime())
       const est = Math.min(3500, Math.ceil(body.length / 3) + 500) // rough input+output token estimate
       if (budget.canSpend(est)) {
@@ -538,14 +542,14 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
       if (exp.length) result.exposed = exp
       if (brief.theme) result.theme = brief.theme
       // read succeeded but produced no gist bullets → back it with a readable summary, never blank
-      if (!brief.gist.length) result.summary = ((!filing && pageHtml && extractSummary(pageHtml)) || snippet || storyFloor(filingInput).summary).slice(0, 600)
+      if (!brief.gist.length) result.summary = ((!bodylessFiling && pageHtml && extractSummary(pageHtml)) || snippet || storyFloor(filingInput).summary).slice(0, 600)
     } else {
       // NO readable body (a PDF/attachment filing, a JS shell, a paywall, an off-list link). Guarantee a
       // meaningful, accurate THE STORY rather than a raw fetch error. For an article we prefer a real page
       // summary / feed lede; for a filing (or when those are empty) we synthesize from the headline +
       // filing metadata (story-floor.ts — never empty, never fabricated). The raw fetch reason is demoted
       // to a SECONDARY hint, never shown AS the story.
-      const extracted = !filing ? ((pageHtml && extractSummary(pageHtml)) || snippet) : ''
+      const extracted = !bodylessFiling ? ((pageHtml && extractSummary(pageHtml)) || snippet) : ''
       result.summary = (extracted && extracted.trim() ? extracted : storyFloor(filingInput).summary).slice(0, 600)
       if (fetchNote) result.note = fetchNote
     }

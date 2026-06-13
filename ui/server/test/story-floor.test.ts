@@ -87,6 +87,53 @@ check('attachment hint adapts to the link type', () => {
   assert.ok(/Open the source/.test(storyFloor({ ...FILING, headline: 'Foo Ltd: General Updates', url: 'https://www.bseindia.com/corporates/ann.html#123' }).summary))
 })
 
+// ---- regressions for the four must-fix defect classes the firehose audit surfaced ----
+
+check('audit fix: SEC "8-K - Company (CIK) (Filer)" — no CIK/(Filer)/form leak', () => {
+  const r = storyFloor({ source_tier: 'primary_filing', domain: 'www.sec.gov', headline: '8-K - Genprex, Inc. (0001595248) (Filer)', url: 'https://www.sec.gov/x-index.htm' })
+  assert.ok(/Genprex, Inc\./.test(r.summary), r.summary)
+  assert.ok(!/0001595248|\(Filer\)|8-K -/.test(r.summary), `leaked EDGAR junk: ${r.summary}`)
+})
+
+check('audit fix: BSE "Company-$ (scrip): subject" — no -$ / scrip leak in the company', () => {
+  const r = storyFloor({ ...FILING, headline: 'Mysore Petro Chemicals Ltd-$ (506734): Outcome of Board Meeting', url: 'x.pdf' })
+  assert.ok(/Mysore Petro Chemicals Ltd\b/.test(r.summary), r.summary)
+  assert.ok(!/-\$|\(506734\)/.test(r.summary), `leaked BSE junk: ${r.summary}`)
+  assert.ok(/Outcome of Board Meeting/.test(r.summary))
+})
+
+check('audit fix: bare-name stub "Company Ltd (scrip)" → clean company, NO scrip in subject', () => {
+  const r = storyFloor({ ...FILING, headline: 'Kabra Drugs Ltd (524322)', companies: [{ name: 'Kabra Drugs Ltd' }] })
+  assert.ok(/Exchange disclosure by Kabra Drugs Ltd\b/.test(r.summary), r.summary)
+  assert.ok(!/\(524322\)/.test(r.summary), `leaked scrip code: ${r.summary}`)
+  assert.ok(!/A listed company/.test(r.summary), 'we know the company — do not say "A listed company"')
+})
+
+check('audit fix: broken connective "has submitted the Exchange a copy …" reads clean', () => {
+  const r = storyFloor({ ...FILING, headline: "NELCO Limited: NELCO Limited has submitted to the Exchange a copy of Scrutinizer's report of Postal Ballot" })
+  assert.ok(/Scrutinizer'?s report of Postal Ballot/i.test(r.summary), r.summary)
+  assert.ok(!/has submitted|the Exchange a copy/i.test(r.summary), `dangling connective: ${r.summary}`)
+})
+
+check('audit fix: "Ltd" vs "Limited" repeat is stripped (form-tolerant)', () => {
+  const r = storyFloor({ ...FILING, headline: 'Indian Toners & Developers Ltd: Indian Toners & Developers Limited has informed the Exchange about Board Meeting Outcome' })
+  assert.ok(/Subject — Board Meeting Outcome/.test(r.summary), r.summary)
+  assert.ok(!/Indian Toners & Developers (?:Ltd|Limited) has informed/i.test(r.summary), `repeated company not stripped: ${r.summary}`)
+})
+
+check('audit fix: suffix word inside the name ("Company"/"India") is not half-eaten', () => {
+  const r = storyFloor({ ...FILING, headline: 'Home First Finance Company India Limited: Home First Finance Company India Limited has informed the Exchange about Allotment of Shares' })
+  assert.ok(/Subject — Allotment of Shares/.test(r.summary), r.summary)
+  assert.ok(!/Subject — mpany India/i.test(r.summary), `half-eaten company word leaked into the subject: ${r.summary}`)
+  assert.ok(/by Home First Finance Company India Limited/.test(r.summary), 'the full company name is preserved in the lead')
+})
+
+check('audit fix: cover-letter opener stripped to the real subject (when substantial)', () => {
+  const r = storyFloor({ ...FILING, headline: 'Foo Ltd: With reference to the captioned subject, we wish to inform that the Board approved a dividend of Rs 5 per share' })
+  assert.ok(/Board approved a dividend of Rs 5 per share/.test(r.summary), r.summary)
+  assert.ok(!/captioned subject/i.test(r.summary), `cover-letter opener not stripped: ${r.summary}`)
+})
+
 check('NEVER empty and NEVER fabricated — fuzz over odd inputs', () => {
   const odd: any[] = [
     { headline: '' },
