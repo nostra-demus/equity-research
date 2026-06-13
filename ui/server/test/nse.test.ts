@@ -39,13 +39,34 @@ const ANNOUNCE = [
 const BOARD = [
   { sm_name: 'Diamond Power Infrastructure Limited', bm_symbol: 'DIACABS', bm_date: '18-Jun-2026', bm_purpose: 'Board Meeting Intimation', bm_timestamp: '12-Jun-2026 23:09:32', attachment: 'https://nsearchives.nseindia.com/corporate/xbrl/DIACABS_BM.xml' },
 ]
+const BSE_ROWS = [
+  { SLONGNAME: 'Janus Corporation Ltd', HEADLINE: 'Declaration under Reg 31(4) of SEBI (SAST) Regulations', ATTACHMENTNAME: 'abc-123.pdf', News_submission_dt: '2026-06-13T11:40:07', NEWSID: 'nid1' },
+  { SLONGNAME: 'TextOnly Ltd', NEWSSUB: 'TextOnly Ltd - 500001 - Some company update', ATTACHMENTNAME: '', NSURL: 'https://www.bseindia.com/stock-share-price/textonly/txt/500001/', NEWSID: 'nid2', DT_TM: '2026-06-13T10:00:00.123' },
+  { SLONGNAME: 'Stale BSE Co', HEADLINE: 'Old filing', ATTACHMENTNAME: 'old.pdf', News_submission_dt: '2026-06-01T09:00:00', NEWSID: 'nid3' }, // dropped by lookback
+]
 
-await check('nseDate: parses NSE date shapes to ISO with IST offset', () => {
+await check('nseDate: parses NSE/BSE date shapes (incl. fractional secs) to ISO with IST offset', () => {
   assert.equal(nseDate('2026-06-13 15:52:46'), '2026-06-13T15:52:46+05:30')
+  assert.equal(nseDate('2026-06-13T16:40:07.747'), '2026-06-13T16:40:07+05:30') // BSE fractional secs
   assert.equal(nseDate('13-Jun-2026 15:52:46'), '2026-06-13T15:52:46+05:30')
   assert.equal(nseDate('18-Jun-2026'), '2026-06-18T00:00:00+05:30')
   assert.equal(nseDate('garbage'), null)
   assert.equal(nseDate(''), null)
+})
+
+await check('fetchNse: BSE rows → RawArticles (via:nse, bseindia.com), PDF + NSURL#id urls', async () => {
+  const fetchFn = (async (url: string) => {
+    if (url.includes('AnnSubCategoryGetData')) return res(200, { Table: BSE_ROWS })
+    return res(200, []) // NSE endpoints empty
+  }) as unknown as typeof fetch
+  const arts = await fetchNse({ baseUrl: 'https://www.nseindia.com', lookbackHours: 24, timeoutMs: 2000 }, { fetchFn, sleep: noSleep, now })
+  assert.equal(arts.length, 2) // Janus + TextOnly; Stale dropped by lookback
+  assert.ok(arts.every((a) => a.via === 'nse'))
+  const janus = arts.find((a) => a.title.startsWith('Janus Corporation Ltd'))!
+  assert.equal(janus.url, 'https://www.bseindia.com/xml-data/corpfiling/AttachLive/abc-123.pdf')
+  assert.equal(janus.domain, 'www.bseindia.com') // firewall matches bseindia.com on the dot boundary
+  const textonly = arts.find((a) => a.title.startsWith('TextOnly Ltd'))!
+  assert.equal(textonly.url, 'https://www.bseindia.com/stock-share-price/textonly/txt/500001/#nid2') // NSURL + #NEWSID
 })
 
 await check('fetchNse: maps announcements + board meetings to RawArticles tagged via:nse', async () => {
