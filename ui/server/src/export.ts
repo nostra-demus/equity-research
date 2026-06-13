@@ -2,6 +2,45 @@ import { marked } from 'marked'
 
 marked.setOptions({ gfm: true, breaks: false })
 
+// ---- HTML-safety hardening for the exported document ----
+// The exported report is served as text/html on the SAME ORIGIN as the live cockpit
+// (app.nostra-demus.com). marked v12 has NO sanitizer (the old `sanitize` option was removed), so by
+// default it passes raw HTML (<script>, <img onerror>), and `javascript:`/`data:` link & image URLs,
+// straight through from the source markdown into that response. The source is engine/LLM-authored
+// analyses/*.md built from external data the agents quote — so a hostile string surviving into a
+// thesis would execute in the cockpit's origin when the report is viewed/exported. We neutralise all
+// three vectors at the renderer (no new dependency): raw HTML tokens are escaped to text, and link /
+// image URLs are restricted to a safe scheme allow-list (anything else collapses to "#"/empty).
+const SAFE_URL = /^(?:https?:|mailto:|tel:|#|\/|\.\/|\.\.\/)/i
+function safeHref(href: unknown): string {
+  const h = String(href ?? '').trim()
+  return SAFE_URL.test(h) ? h : '#'
+}
+marked.use({
+  renderer: {
+    // block- and inline-level raw HTML: escape it instead of emitting it live
+    html(token: any) {
+      const raw = typeof token === 'string' ? token : token?.raw ?? token?.text ?? ''
+      return esc(String(raw))
+    },
+    link(token: any) {
+      // marked v12 passes a token object; keep the positional fallback for safety across minors
+      const href = token && typeof token === 'object' ? token.href : arguments[0]
+      const text = token && typeof token === 'object' ? (this as any).parser.parseInline(token.tokens) : arguments[2]
+      const safe = safeHref(href)
+      return `<a href="${esc(safe)}"${safe === '#' ? '' : ' rel="noopener noreferrer"'}>${text}</a>`
+    },
+    image(token: any) {
+      const href = token && typeof token === 'object' ? token.href : arguments[0]
+      const alt = token && typeof token === 'object' ? token.text : arguments[2]
+      const h = String(href ?? '').trim()
+      // images: allow only http(s) and root/relative; drop javascript:/data: entirely
+      const safe = /^(?:https?:|\/|\.\/|\.\.\/)/i.test(h) ? h : ''
+      return `<img src="${esc(safe)}" alt="${esc(String(alt ?? ''))}">`
+    },
+  },
+})
+
 export interface ReportMeta {
   title: string
   ticker?: string
