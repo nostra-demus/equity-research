@@ -82,6 +82,7 @@ sources:
       - "Bureau of Labor Statistics"
       - "Business Insider"
       - "Business Wire"
+      - "BusinessKorea"
       - "CBC"
       - "CBS MoneyWatch"
       - "CFO Dive"
