@@ -4,6 +4,8 @@ import { useStore } from './lib/store'
 import { CommandBar } from './components/CommandBar'
 import { SwarmField } from './components/swarm/SwarmField'
 import { ScreenerField } from './components/screener/ScreenerField'
+import { EventRail } from './components/screener/EventRail'
+import { EventDetail } from './components/screener/EventDetail'
 import { SignalIntake } from './components/screener/SignalIntake'
 import { LiveFeed } from './components/screener/LiveFeed'
 import { PipelineBoard } from './components/screener/PipelineBoard'
@@ -33,8 +35,19 @@ function ResearchStage() {
   )
 }
 
+// Two panes: a persistent left rail streaming every event the scanner reads (ranked), and the main
+// stage. The main stage reads ONE event when the user picks it off the rail, otherwise it is the
+// gauntlet constellation (dormant until a signal runs, animated while one does). Picking "Run the
+// checks" in the reader clears the event and the constellation takes over — one continuous flow:
+// see events → read one → run it → watch the orbs.
 function ScreenerStage() {
-  return <ScreenerField />
+  const event = useStore((s) => s.scSelectedEvent)
+  return (
+    <div className="scstage">
+      <EventRail />
+      <div className="scstage__main">{event ? <EventDetail it={event} /> : <ScreenerField />}</div>
+    </div>
+  )
 }
 
 export function App() {

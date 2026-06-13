@@ -93,6 +93,7 @@ interface State {
   signalIntakeOpen: boolean
   pipelineOpen: boolean
   scThesisDetail: { thesis: any; candidates: any; handoffs: any[] } | null
+  scSelectedEvent: FeedItem | null // a wire event the user clicked to read in the main stage (before deciding to run it)
 
   init: () => Promise<void>
   startHealth: () => void
@@ -155,6 +156,11 @@ interface State {
   sendToResearch: (thesisId: string, ticker: string, poolPresent: boolean) => Promise<void>
   openScreenerOutput: (node: AgentNode) => void
   _handleScreenerEvent: (e: SseEvent) => void
+  // the persistent event rail: keep the wire backfilled+streaming whenever the screener stage is mounted,
+  // let the user open one event to read it, and run the paid checks straight from that event
+  scEnsureNewsStream: () => Promise<void>
+  scSelectEvent: (it: FeedItem | null) => void
+  runEventChecks: (it: FeedItem) => Promise<void>
 
   // ---- the news wire (live scanner view) + manual board actions + kill switch ----
   newsFeedOpen: boolean
@@ -228,6 +234,7 @@ export const useStore = create<State>((set, get) => ({
   signalIntakeOpen: false,
   pipelineOpen: false,
   scThesisDetail: null,
+  scSelectedEvent: null,
   newsFeedOpen: false,
   newsItems: [],
   newsStatus: null,
@@ -807,12 +814,12 @@ export const useStore = create<State>((set, get) => ({
     if (!get().swarms.some((s) => s.id === to)) return
     const reduced = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
     if (reduced) {
-      set({ activeSwarm: to, warp: null, openOutput: null, selectedNodeKey: null, newsFeedOpen: false })
+      set({ activeSwarm: to, warp: null, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, newsFeedOpen: false })
       if (to !== 'research') void get().scInit()
       if (opts?.landTicker) void get().selectTicker(opts.landTicker)
       return
     }
-    set({ warp: { from, to, payloadTicker: opts?.payloadTicker, landTicker: opts?.landTicker, phase: 'collapse' }, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, pipelineOpen: false, scThesisDetail: null, newsFeedOpen: false })
+    set({ warp: { from, to, payloadTicker: opts?.payloadTicker, landTicker: opts?.landTicker, phase: 'collapse' }, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, newsFeedOpen: false })
     if (warpTimer) clearTimeout(warpTimer)
     warpTimer = setTimeout(() => get()._advanceWarp(), 420) // collapse -> traverse
   },
@@ -852,7 +859,43 @@ export const useStore = create<State>((set, get) => ({
       // attach to any screener runs already in flight
       const live = get().scBoard?.live || []
       for (const l of live) if (!scRunSources.has(l.runId)) connectScreenerRun(get, l.runId)
+      // the event rail is part of the screener stage now — keep the wire backfilled + streaming live
+      void get().scEnsureNewsStream()
     } catch {}
+  },
+
+  // Backfill the wire from disk (restart-proof) and attach the live SSE stream, WITHOUT opening the old
+  // overlay. Idempotent: connectNewsStream guards a single global source, and we only backfill when empty
+  // so we never clobber items already streamed in. Drives the persistent left-rail feed.
+  scEnsureNewsStream: async () => {
+    void get().refreshNewsStatus()
+    if (!get().newsItems.length) {
+      try {
+        const { items } = await api.newsFeed(2)
+        if (!get().newsItems.length) set({ newsItems: items })
+      } catch {}
+    }
+    if (!get().staticMode) connectNewsStream(get)
+  },
+
+  scSelectEvent: (it) => set({ scSelectedEvent: it }),
+
+  // Run the paid gauntlet straight from a wire event: map the FeedItem to the intake schema and reuse
+  // submitSignal (which selects the new signal + animates the orbs). Clearing the read view first means
+  // the main stage swaps from the event detail to the constellation as soon as the run begins.
+  runEventChecks: async (it) => {
+    // bail BEFORE tearing down the reader — submitSignal no-ops (toast only) in static/offline, and clearing
+    // first would drop the user back to the empty constellation on a confusing no-op, losing their place.
+    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' })
+    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    set({ scSelectedEvent: null })
+    await get().submitSignal({
+      headline: it.headline,
+      source_url: it.url || undefined,
+      source_name: it.source_name || undefined,
+      input_nature: it.input_nature || 'news_headline',
+      body_text: it.triage_reason || undefined,
+    })
   },
 
   scRefreshBoard: async () => {

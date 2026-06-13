@@ -594,9 +594,11 @@ a { color: inherit; }
 .btn--armed { color: var(--accent-bright); border-color: var(--accent-deep); background: var(--accent-wash); }
 
 /* ================= screener stage (the gauntlet) ================= */
-.scsignal { position: absolute; transform: translateX(-50%); z-index: 5; max-width: 56%; text-align: center; pointer-events: auto; }
+.scsignal { position: absolute; transform: translateX(-50%); z-index: 5; max-width: min(440px, 82%); text-align: center; pointer-events: auto; }
 .scsignal__id { font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.6px; color: var(--text-faint); }
-.scsignal__headline { margin-top: 5px; font-size: 13.5px; font-weight: 600; color: var(--text-muted); line-height: 1.45; }
+/* clamp to two lines so a long event headline can't grow down into the stage labels in a narrow main pane
+   — the full text lives in the rail row and the reader anyway */
+.scsignal__headline { margin-top: 5px; font-size: 13.5px; font-weight: 600; color: var(--text-muted); line-height: 1.45; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 .cluster__route { font-size: 10.5px; font-weight: 700; font-family: var(--font-mono); letter-spacing: 0.4px; color: var(--accent); margin-top: 2px; }
 .cluster__route--terminal { color: var(--text-faint); }
 
@@ -901,3 +903,129 @@ a { color: inherit; }
 .tdetail__move-label { font-size: 11px; color: var(--text-faint); }
 .tdetail__move-btn { height: 25px; padding: 0 10px; font-size: 11px; }
 .tdetail__move-btn--here { color: var(--text-faint); border-color: var(--hairline); cursor: default; opacity: 0.55; }
+
+/* ============================================================================
+   Screener stage: persistent left event rail + main stage (read / orbs)
+   ========================================================================== */
+.scstage { position: absolute; inset: 0; display: flex; min-height: 0; }
+.scstage__main { position: relative; flex: 1; min-width: 0; overflow: hidden; }
+
+/* ---- the rail ---- */
+.evrail {
+  width: 340px; flex-shrink: 0; min-height: 0; display: flex; flex-direction: column;
+  background: var(--surface-1); border-right: 1px solid var(--hairline);
+}
+.evrail__head { padding: 14px 16px 10px; border-bottom: 1px solid var(--hairline); }
+.evrail__titlerow { display: flex; align-items: center; gap: 8px; }
+.evrail__title { font-size: 12px; font-weight: 600; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text); }
+.evrail__dot { width: 6px; height: 6px; border-radius: var(--r-pill); background: var(--text-faint); }
+.evrail__dot--live { background: var(--live); box-shadow: 0 0 7px var(--live); animation: evpulse 1.9s var(--ease-out) infinite; }
+.evrail__status { font-size: 10.5px; color: var(--text-muted); margin-top: 3px; line-height: 1.4; font-variant-numeric: tabular-nums; }
+.evrail__seg {
+  display: flex; gap: 2px; margin-top: 10px; padding: 2px; border-radius: var(--r-md);
+  background: var(--bg-2); border: 1px solid var(--hairline);
+}
+.evrail__segbtn {
+  flex: 1; height: 24px; border: none; background: transparent; cursor: pointer; border-radius: var(--r-sm);
+  font-size: 10.5px; font-weight: 600; letter-spacing: 0.2px; color: var(--text-muted);
+  font-variant-numeric: tabular-nums; transition: color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+}
+.evrail__segbtn--on { color: var(--accent-bright); background: var(--accent-wash); }
+.evrail__segbtn:active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) { .evrail__segbtn:not(.evrail__segbtn--on):hover { color: var(--text); } }
+
+.evrail__list { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; padding: 4px 0 16px; }
+.evrail__list::-webkit-scrollbar { width: 8px; }
+.evrail__list::-webkit-scrollbar-thumb { background: var(--hairline-strong); border-radius: var(--r-pill); border: 2px solid var(--surface-1); }
+.evrail__empty { padding: 28px 18px; font-size: 11.5px; line-height: 1.5; color: var(--text-muted); }
+
+/* ---- a row ---- */
+.evrow {
+  position: relative; display: flex; flex-direction: column; gap: 5px; width: 100%; text-align: left;
+  padding: 11px 16px 12px 18px; background: transparent; border: none; border-bottom: 1px solid var(--hairline);
+  cursor: pointer; color: inherit; font-family: inherit;
+  transition: background var(--dur-fast) var(--ease-out), transform 120ms var(--ease-out);
+  animation: evrowin 240ms var(--ease-out) both;
+}
+.evrow__rail { position: absolute; left: 0; top: 0; bottom: 0; width: 2px; opacity: 0; transition: opacity var(--dur-fast) var(--ease-out); }
+.evrow--dropped { opacity: 0.5; }
+@media (hover: hover) and (pointer: fine) { .evrow:hover { background: var(--accent-wash-soft); } .evrow:hover .evrow__rail { opacity: 0.5; } }
+.evrow:active { transform: scale(0.985); }
+.evrow--on { background: var(--accent-wash); }
+.evrow--on .evrow__rail { opacity: 1; width: 3px; }
+.evrow--on .evrow__headline { color: var(--text); }
+
+.evrow__top { display: flex; align-items: center; gap: 7px; min-width: 0; }
+.evrow__score {
+  flex-shrink: 0; font-size: 10px; font-weight: 700; line-height: 1; padding: 3px 5px; border-radius: var(--r-sm);
+  border: 1px solid; font-variant-numeric: tabular-nums;
+}
+.evrow__time { flex-shrink: 0; font-size: 10px; color: var(--text-faint); }
+.evrow__src { flex: 1; min-width: 0; font-size: 10.5px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.evrow__headline {
+  font-size: 12.5px; font-weight: 600; line-height: 1.4; color: var(--text-muted);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.evrow__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 5px; font-size: 10px; color: var(--text-faint); }
+.evrow__company { color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.evrow__region { color: var(--text-faint); }
+.evrow__tag {
+  flex-shrink: 0; font-size: 9px; font-weight: 700; letter-spacing: 0.3px; text-transform: uppercase;
+  padding: 1px 5px; border-radius: var(--r-pill); border: 1px solid var(--hairline); color: var(--text-faint);
+}
+.evrow__tag--theme { color: var(--accent); border-color: var(--accent-deep); text-transform: none; letter-spacing: 0.2px; }
+.evrow__tag--rss { color: var(--live); border-color: var(--live); }
+
+/* ---- the reader (main stage) ---- */
+.evdetail-wrap { position: absolute; inset: 0; overflow-y: auto; display: flex; justify-content: center; }
+.evdetail {
+  width: min(680px, 100%); margin: clamp(24px, 7vh, 72px) 28px 40px; align-self: flex-start;
+  animation: evdetailin 260ms var(--ease-out) both;
+}
+.evdetail__top { display: flex; align-items: center; gap: 10px; }
+.evdetail__score { font-size: 12px; font-weight: 700; padding: 4px 7px; border-radius: var(--r-sm); border: 1px solid; font-variant-numeric: tabular-nums; }
+.evdetail__band { font-size: 10px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-faint); border: 1px solid var(--hairline); border-radius: var(--r-pill); padding: 3px 9px; }
+.evdetail__band--kept { color: var(--live); border-color: var(--live); }
+.evdetail__when { font-size: 11px; color: var(--text-faint); font-variant-numeric: tabular-nums; }
+.evdetail__close {
+  margin-left: auto; width: 28px; height: 28px; display: grid; place-items: center; flex-shrink: 0;
+  border: 1px solid var(--hairline); background: var(--surface-2); color: var(--text-muted); cursor: pointer;
+  border-radius: var(--r-pill); font-size: 12px; transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), transform 140ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .evdetail__close:hover { color: var(--text); border-color: var(--hairline-strong); } }
+.evdetail__close:active { transform: scale(0.92); }
+.evdetail__headline { font-size: 22px; font-weight: 600; line-height: 1.3; letter-spacing: -0.2px; color: var(--text); margin: 14px 0 0; }
+.evdetail__source { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; margin-top: 9px; font-size: 12px; color: var(--text-muted); }
+.evdetail__sep { color: var(--text-faint); }
+.evdetail__block { margin-top: 18px; }
+.evdetail__label { font-size: 10.5px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-faint); margin-bottom: 7px; }
+.evdetail__why { font-size: 13.5px; line-height: 1.6; color: var(--text); margin: 0; }
+.evdetail__chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.evdetail__chip { font-size: 11px; color: var(--text-muted); border: 1px solid var(--hairline); border-radius: var(--r-pill); padding: 4px 10px; }
+.evdetail__chip--co { color: var(--text); border-color: var(--hairline-strong); }
+.evdetail__chip--theme { color: var(--accent); border-color: var(--accent-deep); }
+.evdetail__hint { font-size: 10.5px; color: var(--text-faint); margin-top: 7px; line-height: 1.4; }
+.evdetail__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 26px; padding-top: 18px; border-top: 1px solid var(--hairline); }
+.evdetail__est { font-size: 11px; color: var(--text-faint); margin-right: auto; }
+
+/* keyboard focus — the rail is now the main way to move through events, so it must be visibly traversable.
+   box-shadow ring (token-scoped to cyan) matches the .intake__input:focus idiom; inset on the full-width row. */
+.evrow:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--accent); }
+.evrail__segbtn:focus-visible, .evdetail__close:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--accent); }
+
+@keyframes evpulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+@keyframes evrowin { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes evdetailin { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .evrow, .evdetail { animation: none; }
+  .evrow:active, .evrail__segbtn:active, .evdetail__close:active { transform: none; }
+  .evrail__dot--live { animation: none; }
+}
+
+@media (max-width: 1040px) { .evrail { width: 296px; } }
+/* narrow / stacked: the rail collapses above the reader instead of squeezing it */
+@media (max-width: 720px) {
+  .scstage { flex-direction: column; }
+  .evrail { width: auto; max-height: 40vh; border-right: none; border-bottom: 1px solid var(--hairline); }
+}
