@@ -143,14 +143,25 @@ export function makeThemeNamer(cfg: NamerCfg, fetchFn: typeof fetch, stateDir: s
     }
     const batch = created.slice(0, 8) // cap clusters per call
     const user = buildUserMessage(batch)
-    try {
-      const text = useClaude ? await callClaude(cfg, user, fetchFn) : await callGroq(cfg, user, fetchFn)
-      if (useClaude) recordSpend(stateDir, todayISO)
-      if (!text) return
-      applyProposals(batch, parseThemesJson(text))
-      log(`themes: named ${batch.length} new theme${batch.length === 1 ? '' : 's'} via ${useClaude ? 'claude' : 'groq'}`)
-    } catch (e: any) {
-      log(`themes namer: ${e?.message || e} — keeping deterministic names`)
+    // Naming runs AFTER the write, so it can afford to retry across a rate-limit window — the Groq
+    // per-minute cap is usually exhausted by triage this cycle, but resets within ~60s. 3 attempts.
+    const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
+    for (let attempt = 1; attempt <= 3; attempt++) {
+      try {
+        const text = useClaude ? await callClaude(cfg, user, fetchFn) : await callGroq(cfg, user, fetchFn)
+        if (useClaude) recordSpend(stateDir, todayISO)
+        if (!text) return
+        applyProposals(batch, parseThemesJson(text))
+        log(`themes: named ${batch.length} new theme${batch.length === 1 ? '' : 's'} via ${useClaude ? 'claude' : 'groq'}`)
+        return
+      } catch (e: any) {
+        const transient = /HTTP (429|5\d\d)/.test(String(e?.message || ''))
+        if (attempt === 3 || !transient) {
+          log(`themes namer: ${e?.message || e} — keeping deterministic names`)
+          return
+        }
+        await sleep(8000 * attempt) // 8s, 16s — let the Groq per-minute limit reset
+      }
     }
   }
 }
