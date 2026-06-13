@@ -1,100 +1,1592 @@
 {
-  "generated_at": "2026-06-13T04:43:50Z",
+  "generated_at": "2026-06-13T11:54:22Z",
   "inbox": [
     {
-      "inbox_id": "INB-20260613-001",
-      "headline": "US orders Anthropic to halt foreign access to its most advanced AI models",
-      "url": "https://economictimes.indiatimes.com/tech/artificial-intelligence/us-orders-anthropic-to-halt-foreign-access-to-its-most-advanced-ai-models/articleshow/131696190.cms",
-      "source_name": "The Economic Times",
+      "inbox_id": "INB-20260613-168",
+      "headline": "What naphtha shortage? China extends petrochemicals lead during Iran war",
+      "url": "https://asia.nikkei.com/business/markets/commodities/what-naphtha-shortage-china-extends-petrochemicals-lead-during-iran-war",
+      "source_name": "Nikkei Asia",
       "input_nature": "news_headline",
-      "found_at": "2026-06-13T02:45:00Z",
+      "found_at": "2026-06-13T11:45:25Z",
       "sweep_file": "screener/inbox/2026-06-13_sweep.json",
-      "prelim_note": "US orders Anthropic to halt foreign access to its most advanced AI models",
+      "prelim_note": "China extends petrochemicals lead during Iran war, implying a significant shift in the global petrochemicals market.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "US orders Anthropic to halt foreign access to its most advanced AI models",
-      "region": "IN",
+      "triage_score": 100,
+      "triage_reason": "China extends petrochemicals lead during Iran war, implying a significant shift in the global petrochemicals market.",
+      "region": "GLOBAL",
       "relevance": "material",
-      "materiality_pre_score": 70,
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 1,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "scope_id": "commodity",
+        "source_tier_id": "news"
+      },
       "event_types": [
-        "cybersecurity"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260613-003",
-      "headline": "Trump faces G7 after year of trade wrath , diplomatic bluster",
-      "url": "https://economictimes.indiatimes.com/news/international/global-trends/trump-faces-g7-after-year-of-trade-wrath-diplomatic-bluster/articleshow/131696419.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-06-13T02:45:00Z",
-      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
-      "prelim_note": "Trump faces G7 after year of trade wrath, diplomatic bluster",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 70,
-      "triage_reason": "Trump faces G7 after year of trade wrath, diplomatic bluster",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Trump",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260613-002",
-      "headline": "Think Rs 5 , 000 SIPs will make you rich ? CA says a crucial piece of the puzzle is missing",
-      "url": "https://economictimes.indiatimes.com/magazines/panache/think-rs-5000-sips-will-make-you-rich-ca-says-a-crucial-piece-of-the-puzzle-is-missing/articleshow/131696180.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-06-13T02:45:00Z",
-      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
-      "prelim_note": "CA says a crucial piece of the puzzle is missing",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 45,
-      "triage_reason": "CA says a crucial piece of the puzzle is missing",
-      "region": "IN",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 45,
-      "event_types": [
-        "product"
+        "guidance_change"
       ],
       "issuer_linkage": "sector",
       "companies": [
         {
-          "name": "CA",
+          "name": "China",
           "ticker": null,
           "listing_country": null
         }
       ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-178",
+      "headline": "ESMA publishes shortlist of candidates for position of Chair",
+      "url": "https://www.esma.europa.eu/press-news/esma-news/esma-publishes-shortlist-candidates-position-chair-0",
+      "source_name": "ESMA",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-06-13T11:25:14Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "ESMA publishes shortlist of candidates for position of Chair",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ESMA publishes shortlist of candidates for position of Chair",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "ESMA",
+          "ticker": null,
+          "listing_country": "EU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-179",
+      "headline": "ESMA issues guidance on effective use of resolution tools in CCP crisis planning",
+      "url": "https://www.esma.europa.eu/press-news/esma-news/esma-issues-guidance-effective-use-resolution-tools-ccp-crisis-planning",
+      "source_name": "ESMA",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-06-13T11:25:14Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "ESMA issues guidance on effective use of resolution tools in CCP crisis planning",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ESMA issues guidance on effective use of resolution tools in CCP crisis planning",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "ESMA",
+          "ticker": null,
+          "listing_country": "EU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-180",
+      "headline": "European Commission launches call for candidates for the ESAs’ Board of Appeal",
+      "url": "https://www.esma.europa.eu/press-news/esma-news/european-commission-launches-call-candidates-esas-board-appeal",
+      "source_name": "ESMA",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-06-13T11:25:14Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "European Commission launches call for candidates for the ESAs’ Board of Appeal",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "European Commission launches call for candidates for the ESAs’ Board of Appeal",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "European Commission",
+          "ticker": null,
+          "listing_country": "EU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-183",
+      "headline": "Intellia Therapeutics Reports Additional Positive Phase 3 Results for Lonvoguran Ziclumeran (lonvo-z) in Patients with Hereditary Angioedema | NTLA Stock News",
+      "url": "https://www.stocktitan.net/news/NTLA/intellia-therapeutics-reports-additional-positive-phase-3-results-afks73wvycew.html",
+      "source_name": "Stock Titan",
+      "input_nature": "company_press_release",
+      "found_at": "2026-06-13T11:30:00Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "Intellia Therapeutics Reports Additional Positive Phase 3 Results for Lonvoguran Ziclumeran (lonvo-z) in Patients with Hereditary Angioedema",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Intellia Therapeutics Reports Additional Positive Phase 3 Results for Lonvoguran Ziclumeran (lonvo-z) in Patients with Hereditary Angioedema",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "scope_id": "single_name",
+        "source_tier_id": "company"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Intellia Therapeutics",
+          "ticker": "NTLA",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-184",
+      "headline": "New TALVEY® (talquetamab-tgvs) plus DARZALEX FASPRO® (daratumumab and hyaluronidase-fihj) data demonstrate the strength of a bispecific combination in earlier-line relapsed or refractory multiple myeloma | JNJ Stock News",
+      "url": "https://www.stocktitan.net/news/JNJ/new-talvey-talquetamab-tgvs-plus-darzalex-faspro-daratumumab-and-x38q1cp9trq5.html",
+      "source_name": "Stock Titan",
+      "input_nature": "company_press_release",
+      "found_at": "2026-06-13T10:33:00Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "New TALVEY® (talquetamab-tgvs) plus DARZALEX FASPRO® (daratumumab and hyaluronidase-fihj) data demonstrate the strength of a bispecific combination in earlier-line relapsed or refractory multiple myeloma",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "New TALVEY® (talquetamab-tgvs) plus DARZALEX FASPRO® (daratumumab and hyaluronidase-fihj) data demonstrate the strength of a bispecific combination in earlier-line relapsed or refractory multiple myeloma",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 4,
+        "scope_id": "single_name",
+        "source_tier_id": "company"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Johnson & Johnson",
+          "ticker": "JNJ",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-185",
+      "headline": "Dr. Reddy’s Announces the First-to-Market Launch of Bosutinib Tablets 400mg, a Generic Equivalent of Bosulif®, in the United States | RDY Stock News",
+      "url": "https://www.stocktitan.net/news/RDY/dr-reddy-s-announces-the-first-to-market-launch-of-bosutinib-tablets-fpwf37qn5fq2.html",
+      "source_name": "Stock Titan",
+      "input_nature": "company_press_release",
+      "found_at": "2026-06-13T10:22:00Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "Dr. Reddy’s Announces the First-to-Market Launch of Bosutinib Tablets 400mg, a Generic Equivalent of Bosulif®, in the United States",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Dr. Reddy’s Announces the First-to-Market Launch of Bosutinib Tablets 400mg, a Generic Equivalent of Bosulif®, in the United States",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "scope_id": "single_name",
+        "source_tier_id": "company"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dr. Reddy’s",
+          "ticker": "RDY",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-186",
+      "headline": "Results from Incyte’s Pivotal Phase 3 frontMIND Trial of Tafasitamab (Monjuvi®/Minjuvi®) Combination Presented at the 2026 European Hematology Association (EHA) Congress Plenary Showed Prolonged Progression Free Survival | INCY Stock News",
+      "url": "https://www.stocktitan.net/news/INCY/results-from-incyte-s-pivotal-phase-3-front-mind-trial-of-3dzvf5uu50k3.html",
+      "source_name": "Stock Titan",
+      "input_nature": "company_press_release",
+      "found_at": "2026-06-13T10:00:00Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "Results from Incyte’s Pivotal Phase 3 frontMIND Trial of Tafasitamab (Monjuvi®/Minjuvi®) Combination Presented at the 2026 European Hematology Association (EHA) Congress Plenary Showed Prolonged Progression Free Survival",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Results from Incyte’s Pivotal Phase 3 frontMIND Trial of Tafasitamab (Monjuvi®/Minjuvi®) Combination Presented at the 2026 European Hematology Association (EHA) Congress Plenary Showed Prolonged Progression Free Survival",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 4,
+        "scope_id": "single_name",
+        "source_tier_id": "company"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Incyte",
+          "ticker": "INCY",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-197",
+      "headline": "CMS Info Systems Ltd: The Company hereby submits a copy of the post buyback public announcement dated June 12, 2026 (\"Post Buyback Public Announcement\") which was published on June 13, 2026.",
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/bc2245b1-80e2-45b5-b9e7-66a4b3c5dd04.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-06-13T10:29:49Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "CMS Info Systems Ltd submits a post buyback public announcement.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "CMS Info Systems Ltd submits a post buyback public announcement.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 4,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CMS Info Systems Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-198",
+      "headline": "Royal Orchid Hotels Ltd: Pursuant to Regulation 30 read with Schedule III Part A Para A of SEBI (LODR) Regulations, 2015 please find enclosed herewith the copies of Newspaper Advertisements published in Financial ....",
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/bad46266-56e3-4d07-80a6-0cfa1a8f9eb5.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-06-13T10:26:33Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "Royal Orchid Hotels Ltd publishes newspaper advertisements for buyback.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Royal Orchid Hotels Ltd publishes newspaper advertisements for buyback.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 4,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Royal Orchid Hotels Ltd",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-200",
+      "headline": "Intellia Therapeutics Reports Additional Positive Phase 3 Results for Lonvoguran Ziclumeran (lonvo-z) in Patients with Hereditary Angioedema",
+      "url": "https://www.globenewswire.com/news-release/2026/06/13/3311378/0/en/Intellia-Therapeutics-Reports-Additional-Positive-Phase-3-Results-for-Lonvoguran-Ziclumeran-lonvo-z-in-Patients-with-Hereditary-Angioedema.html",
+      "source_name": "GlobeNewswire",
+      "input_nature": "company_press_release",
+      "found_at": "2026-06-13T11:30:00Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "Reports Additional Positive Phase 3 Results for Lonvoguran Ziclumeran (lonvo-z) in Patients with Hereditary Angioedema",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reports Additional Positive Phase 3 Results for Lonvoguran Ziclumeran (lonvo-z) in Patients with Hereditary Angioedema",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 5,
+        "size": 0,
+        "recency": 5,
+        "scope_id": "single_name",
+        "source_tier_id": "company"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Intellia Therapeutics",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-201",
+      "headline": "ExxonMobil Explores Acquisitions Including Woodside",
+      "url": "https://www.rigzone.com/news/wire/exxonmobil_explores_acquisitions_including_woodside-13-jun-2026-183916-article/?rss=true",
+      "source_name": "Rigzone",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-13T11:00:00Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "ExxonMobil explores acquisitions including Woodside, potentially worth $1B+",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "ExxonMobil explores acquisitions including Woodside, potentially worth $1B+",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "scope_id": "multi_name",
+        "source_tier_id": "news"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ExxonMobil",
+          "ticker": "XOM",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-202",
+      "headline": "Rheinmetall CEO Sees Risk of France Exiting Tank Project: WamS",
+      "url": "https://www.bloomberg.com/news/articles/2026-06-13/rheinmetall-ceo-sees-risk-of-france-exiting-tank-project-wams",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-13T10:46:15Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "Rheinmetall CEO sees risk of France exiting tank project, potentially affecting Rheinmetall's revenue",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Rheinmetall CEO sees risk of France exiting tank project, potentially affecting Rheinmetall's revenue",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 4,
+        "scope_id": "single_name",
+        "source_tier_id": "news"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rheinmetall",
+          "ticker": "RHMG.F",
+          "listing_country": "DE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-162",
+      "headline": "ESMA consults on revised guidelines to support smoother allocations and confirmations under T+1",
+      "url": "https://www.esma.europa.eu/press-news/esma-news/esma-consults-revised-guidelines-support-smoother-allocations-and",
+      "source_name": "ESMA",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-06-13T11:25:14Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "ESMA consults on revised guidelines to support smoother allocations and confirmations under T+1",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "ESMA consults on revised guidelines to support smoother allocations and confirmations under T+1",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "scope_id": "policy",
+        "source_tier_id": "primary_filing"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-165",
+      "headline": "India doubles public investment in 5 years to build rails, chip plants",
+      "url": "https://asia.nikkei.com/economy/india-doubles-public-investment-in-5-years-to-build-rails-chip-plants",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-13T11:45:25Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "India doubles public investment in 5 years to build rails and chip plants, with a specific focus on $5 billion in new spending.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "India doubles public investment in 5 years to build rails and chip plants, with a specific focus on $5 billion in new spending.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 0,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "scope_id": "sector",
+        "source_tier_id": "news"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "India",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-169",
+      "headline": "China's AI companies dig in as SpaceX, US rivals ready IPO bonanza",
+      "url": "https://asia.nikkei.com/business/markets/china-s-ai-companies-dig-in-as-spacex-us-rivals-ready-ipo-bonanza",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-13T11:45:25Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "China's AI companies dig in as SpaceX and US rivals ready IPO bonanza, potentially benefiting Chinese AI companies.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "China's AI companies dig in as SpaceX and US rivals ready IPO bonanza, potentially benefiting Chinese AI companies.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 0,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "scope_id": "sector",
+        "source_tier_id": "news"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "China",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-173",
+      "headline": "Chinese firefighting equipment makers target untapped EU market",
+      "url": "https://asia.nikkei.com/economy/trade/chinese-firefighting-equipment-makers-target-untapped-eu-market",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-13T11:45:25Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "Chinese firefighting equipment makers target untapped EU market, potentially benefiting Chinese companies in the sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Chinese firefighting equipment makers target untapped EU market, potentially benefiting Chinese companies in the sector.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 0,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "scope_id": "sector",
+        "source_tier_id": "news"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "China",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-164",
+      "headline": "Morgan Stanley CEO floats bold $10T wealth opportunity",
+      "url": "https://www.thestreet.com/investing/morgan-stanley-10-trillion-target-wealth-management-division",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-13T10:03:00Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "Morgan Stanley CEO floats bold $10T wealth opportunity",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Morgan Stanley CEO floats bold $10T wealth opportunity",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "scope_id": "single_name",
+        "source_tier_id": "news"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Morgan Stanley",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-170",
+      "headline": "Turkey halts BYD tax break, warns of clawback if it misses $1bn plan",
+      "url": "https://asia.nikkei.com/business/automobiles/electric-vehicles/turkey-halts-byd-tax-break-warns-of-clawback-if-it-misses-1bn-plan",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-13T11:45:25Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "Turkey halts BYD tax break and warns of clawback if it misses $1 billion plan, implying potential financial consequences for BYD.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Turkey halts BYD tax break and warns of clawback if it misses $1 billion plan, implying potential financial consequences for BYD.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "scope_id": "multi_name",
+        "source_tier_id": "news"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BYD",
+          "ticker": "002594.SZ",
+          "listing_country": null
+        },
+        {
+          "name": "Turkey",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-161",
+      "headline": "​Euribor panel to include KBC Bank​",
+      "url": "https://www.esma.europa.eu/press-news/esma-news/euribor-panel-include-kbc-bank",
+      "source_name": "ESMA",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-06-13T11:25:14Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "Euribor panel to include KBC Bank",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Euribor panel to include KBC Bank",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 0,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "scope_id": "sector",
+        "source_tier_id": "primary_filing"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "KBC Bank",
+          "ticker": null,
+          "listing_country": "BE"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-166",
+      "headline": "SpaceX stock fund in Japan halts new inflows after investors pile in",
+      "url": "https://asia.nikkei.com/business/markets/equities/spacex-stock-fund-in-japan-halts-new-inflows-after-investors-pile-in",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-13T11:45:25Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "SpaceX stock fund in Japan halts new inflows after investors pile in, implying a potential slowdown in investment.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "SpaceX stock fund in Japan halts new inflows after investors pile in, implying a potential slowdown in investment.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "scope_id": "multi_name",
+        "source_tier_id": "news"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Japan",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-159",
+      "headline": "Dr Reddy’s launches Bosutinib tablets in US market",
+      "url": "https://www.thehindubusinessline.com/companies/dr-reddys-launches-bosutinib-tablets-in-us-market/article71097162.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-13T09:33:22Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "Dr Reddy’s launches Bosutinib tablets in US market",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Dr Reddy’s launches Bosutinib tablets in US market",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 3,
+        "size": 2,
+        "recency": 4,
+        "scope_id": "single_name",
+        "source_tier_id": "news"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dr Reddy’s",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-167",
+      "headline": "Japan, UK to create startup support fund for dual-use tech",
+      "url": "https://asia.nikkei.com/politics/international-relations/japan-uk-to-create-startup-support-fund-for-dual-use-tech",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-13T11:45:25Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "Japan and UK create startup support fund for dual-use tech, potentially benefiting companies in the sector.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Japan and UK create startup support fund for dual-use tech, potentially benefiting companies in the sector.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "scope_id": "multi_name",
+        "source_tier_id": "news"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "Japan",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "UK",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-172",
+      "headline": "Indonesia's shrinkflation belies government's 'strong' fundamentals claim",
+      "url": "https://asia.nikkei.com/economy/indonesia-s-shrinkflation-belies-government-s-strong-fundamentals-claim",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-13T11:45:25Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "Indonesia's shrinkflation belies government's 'strong' fundamentals claim, potentially impacting investor confidence and market expectations.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 94,
+      "triage_reason": "Indonesia's shrinkflation belies government's 'strong' fundamentals claim, potentially impacting investor confidence and market expectations.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 0,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "scope_id": "sector",
+        "source_tier_id": "news"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "Indonesia",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-160",
+      "headline": "Pakistan PM Expects Finalization of US-Iran Deal Within 24 Hours",
+      "url": "https://www.bloomberg.com/news/articles/2026-06-13/pakistan-pm-expects-finalization-of-us-iran-deal-within-24-hours",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-13T11:13:52Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "Pakistan PM Expects Finalization of US-Iran Deal Within 24 Hours",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Pakistan PM Expects Finalization of US-Iran Deal Within 24 Hours",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -4,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "scope_id": "macro",
+        "source_tier_id": "news"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-171",
+      "headline": "Thailand reassessing joining CPTPP alongside EU trade deal, minister says",
+      "url": "https://asia.nikkei.com/editor-s-picks/interview/thailand-reassessing-joining-cptpp-alongside-eu-trade-deal-minister-says2",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-13T11:45:25Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "Thailand reassesses joining CPTPP alongside EU trade deal, potentially impacting trade agreements and market access.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 91,
+      "triage_reason": "Thailand reassesses joining CPTPP alongside EU trade deal, potentially impacting trade agreements and market access.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "scope_id": "policy",
+        "source_tier_id": "news"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "Thailand",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-056",
+      "headline": "How Wall Street pulled off the biggest IPO in history for SpaceX",
+      "url": "https://www.ft.com/content/a7f4246d-9ae2-4f7b-90af-e5a53c52203b",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-13T10:00:04Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "How Wall Street pulled off the biggest IPO in history for SpaceX",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "How Wall Street pulled off the biggest IPO in history for SpaceX",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": null,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-102",
+      "headline": "US eyes Japanese funding for nuclear revival, Lutnick says",
+      "url": "https://asia.nikkei.com/business/energy/us-eyes-japanese-funding-for-nuclear-revival-lutnick-says",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-13T10:55:10Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "US eyes Japanese funding for nuclear revival, Lutnick says",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "US eyes Japanese funding for nuclear revival, Lutnick says",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": null,
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-126",
+      "headline": "Yes Bank Ltd (532648)",
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5249c978-c883-4d31-a408-692210b97fe6.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-06-13T10:39:49Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "Yes Bank Ltd has filed a document with the exchange.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Yes Bank Ltd has filed a document with the exchange.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": null,
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yes Bank Ltd",
+          "ticker": "532648",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-127",
+      "headline": "Trident Lifeline Ltd (543616)",
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/735b8f0c-1a6b-4dd6-855f-9e47f62a9af5.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-06-13T10:39:32Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "Trident Lifeline Ltd has filed a document with the exchange.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Trident Lifeline Ltd has filed a document with the exchange.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": null,
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Trident Lifeline Ltd",
+          "ticker": "543616",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-128",
+      "headline": "Zee Media Corporation Ltd (532794)",
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/11ad724f-0308-4171-8b05-5ccb10a641f9.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-06-13T10:39:30Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "Zee Media Corporation Ltd has filed a document with the exchange.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Zee Media Corporation Ltd has filed a document with the exchange.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": null,
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Zee Media Corporation Ltd",
+          "ticker": "532794",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-129",
+      "headline": "Yash Innoventures Ltd (523650)",
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/d6316759-8114-4493-8cec-2cc38bc4b5d7.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-06-13T10:39:03Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "Yash Innoventures Ltd has filed a document with the exchange.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Yash Innoventures Ltd has filed a document with the exchange.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": null,
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yash Innoventures Ltd",
+          "ticker": "523650",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-130",
+      "headline": "Tata Communications Limited",
+      "url": "https://nsearchives.nseindia.com/corporate/TATACOMM_13062026143324_18432.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-06-13T09:04:21Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "Tata Communications Limited has filed a document with the exchange.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Tata Communications Limited has filed a document with the exchange.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": null,
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Tata Communications Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-131",
+      "headline": "CSB Bank Limited",
+      "url": "https://nsearchives.nseindia.com/corporate/CSBBANK_13062026142839_IntimationofAnalystMeet12062026f.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-06-13T09:00:01Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "CSB Bank Limited has filed a document with the exchange.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "CSB Bank Limited has filed a document with the exchange.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": null,
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CSB Bank Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-132",
+      "headline": "Max India Limited",
+      "url": "https://nsearchives.nseindia.com/corporate/MAXIND_13062026142542_MaxIndiantimationNewspaperPostalBallot13062026final.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-06-13T08:55:52Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "Max India Limited has filed a document with the exchange.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "Max India Limited has filed a document with the exchange.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": null,
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Max India Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-156",
+      "headline": "'Indonesia Bankrupt' rallies demand fiscal reform, end to flagship programs",
+      "url": "https://asia.nikkei.com/politics/indonesia-bankrupt-rallies-demand-fiscal-reform-end-to-flagship-programs",
+      "source_name": "Nikkei Asia",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-13T11:25:04Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "'Indonesia Bankrupt' rallies demand fiscal reform, end to flagship programs.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 90,
+      "triage_reason": "'Indonesia Bankrupt' rallies demand fiscal reform, end to flagship programs.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": null,
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-177",
+      "headline": "Why A $1.77 Trillion SpaceX IPO Could ‘Permanently Scar’ The Night Sky",
+      "url": "https://www.forbes.com/sites/jamiecartereurope/2026/06/13/why-a-2-trillion-spacex-ipo-could-permanently-scar-the-night-sky/",
+      "source_name": "Forbes",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-13T09:34:00Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "A $1.77 trillion SpaceX IPO could 'permanently scar' the night sky.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 88,
+      "triage_reason": "A $1.77 trillion SpaceX IPO could 'permanently scar' the night sky.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "scope_id": "multi_name",
+        "source_tier_id": "news"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-163",
+      "headline": "BofA reveals $3 billion reason to watch DraftKings now",
+      "url": "https://www.thestreet.com/investing/stocks/bofa-3-billion-dollar-reason-to-watch-draftkings-dkng",
+      "source_name": "TheStreet",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-13T11:07:00Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "BofA reveals $3 billion reason to watch DraftKings now",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "BofA reveals $3 billion reason to watch DraftKings now",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "scope_id": "single_name",
+        "source_tier_id": "news"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "DraftKings",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-014",
+      "headline": "India FTAs set stage for $1 trillion export target : Report",
+      "url": "https://economictimes.indiatimes.com/news/economy/foreign-trade/indias-ftas-set-stage-for-1-trillion-export-target-report/articleshow/131698363.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-13T06:15:00Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "India FTAs set stage for $1 trillion export target",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "India FTAs set stage for $1 trillion export target",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": null,
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260613-033",
+      "headline": "US Treasury expands bank data - sharing rules tied to Trump immigration crackdown",
+      "url": "https://economictimes.indiatimes.com/nri/latest-updates/us-treasury-expands-bank-data-sharing-rules-tied-to-trump-immigration-crackdown/articleshow/131700554.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-13T09:00:00Z",
+      "sweep_file": "screener/inbox/2026-06-13_sweep.json",
+      "prelim_note": "US Treasury expands bank data-sharing rules tied to Trump immigration crackdown",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 85,
+      "triage_reason": "US Treasury expands bank data-sharing rules tied to Trump immigration crackdown",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": null,
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -117,6 +1609,7 @@
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 90,
+      "rank_factors": null,
       "event_types": [
         "earnings_revenue_margin"
       ],
@@ -150,6 +1643,7 @@
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 90,
+      "rank_factors": null,
       "event_types": [
         "earnings_revenue_margin"
       ],
@@ -183,6 +1677,7 @@
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 90,
+      "rank_factors": null,
       "event_types": [
         "earnings_revenue_margin"
       ],
@@ -216,6 +1711,7 @@
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 90,
+      "rank_factors": null,
       "event_types": [
         "litigation_enforcement"
       ],
@@ -249,6 +1745,7 @@
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 90,
+      "rank_factors": null,
       "event_types": [
         "mna"
       ],
@@ -282,6 +1779,7 @@
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 90,
+      "rank_factors": null,
       "event_types": [
         "litigation_enforcement"
       ],
@@ -315,6 +1813,7 @@
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 90,
+      "rank_factors": null,
       "event_types": [
         "litigation_enforcement"
       ],
@@ -348,6 +1847,7 @@
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 90,
+      "rank_factors": null,
       "event_types": [
         "litigation_enforcement"
       ],
@@ -381,6 +1881,7 @@
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 90,
+      "rank_factors": null,
       "event_types": [
         "litigation_enforcement"
       ],
@@ -414,6 +1915,7 @@
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 90,
+      "rank_factors": null,
       "event_types": [
         "litigation_enforcement"
       ],
@@ -447,6 +1949,7 @@
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 90,
+      "rank_factors": null,
       "event_types": [
         "litigation_enforcement"
       ],
@@ -480,6 +1983,7 @@
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 90,
+      "rank_factors": null,
       "event_types": [
         "litigation_enforcement"
       ],
@@ -513,6 +2017,7 @@
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 90,
+      "rank_factors": null,
       "event_types": [
         "litigation_enforcement"
       ],
@@ -546,6 +2051,7 @@
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 90,
+      "rank_factors": null,
       "event_types": [
         "litigation_enforcement"
       ],
@@ -579,6 +2085,7 @@
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 90,
+      "rank_factors": null,
       "event_types": [
         "litigation_enforcement"
       ],
@@ -612,6 +2119,7 @@
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 90,
+      "rank_factors": null,
       "event_types": [
         "earnings_revenue_margin"
       ],
@@ -645,6 +2153,7 @@
       "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 90,
+      "rank_factors": null,
       "event_types": [
         "mna"
       ],
@@ -678,6 +2187,7 @@
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 90,
+      "rank_factors": null,
       "event_types": [
         "regulatory"
       ],
@@ -711,6 +2221,7 @@
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 85,
+      "rank_factors": null,
       "event_types": [],
       "issuer_linkage": "",
       "companies": [],
@@ -736,6 +2247,7 @@
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 85,
+      "rank_factors": null,
       "event_types": [],
       "issuer_linkage": "",
       "companies": [],
@@ -761,6 +2273,7 @@
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 85,
+      "rank_factors": null,
       "event_types": [],
       "issuer_linkage": "",
       "companies": [],
@@ -786,6 +2299,7 @@
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 85,
+      "rank_factors": null,
       "event_types": [],
       "issuer_linkage": "",
       "companies": [],
@@ -811,6 +2325,7 @@
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 85,
+      "rank_factors": null,
       "event_types": [
         "earnings_revenue_margin"
       ],
@@ -844,6 +2359,7 @@
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 85,
+      "rank_factors": null,
       "event_types": [
         "earnings_revenue_margin"
       ],
@@ -877,6 +2393,7 @@
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 85,
+      "rank_factors": null,
       "event_types": [
         "mna"
       ],
@@ -910,6 +2427,7 @@
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 85,
+      "rank_factors": null,
       "event_types": [
         "earnings_revenue_margin"
       ],
@@ -943,6 +2461,7 @@
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 80,
+      "rank_factors": null,
       "event_types": [],
       "issuer_linkage": "",
       "companies": [],
@@ -968,6 +2487,7 @@
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 80,
+      "rank_factors": null,
       "event_types": [],
       "issuer_linkage": "",
       "companies": [],
@@ -993,6 +2513,7 @@
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 80,
+      "rank_factors": null,
       "event_types": [
         "capital_actions"
       ],
@@ -1031,6 +2552,7 @@
       "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 80,
+      "rank_factors": null,
       "event_types": [
         "earnings_revenue_margin"
       ],
@@ -1064,6 +2586,7 @@
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 80,
+      "rank_factors": null,
       "event_types": [
         "earnings_revenue_margin"
       ],
@@ -1097,6 +2620,7 @@
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 80,
+      "rank_factors": null,
       "event_types": [
         "guidance_change"
       ],
@@ -1130,6 +2654,7 @@
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 80,
+      "rank_factors": null,
       "event_types": [
         "earnings_revenue_margin"
       ],
@@ -1163,6 +2688,7 @@
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 80,
+      "rank_factors": null,
       "event_types": [
         "earnings_revenue_margin"
       ],
@@ -1196,6 +2722,7 @@
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 80,
+      "rank_factors": null,
       "event_types": [
         "earnings_revenue_margin"
       ],
@@ -1223,6 +2750,7 @@
       "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 80,
+      "rank_factors": null,
       "event_types": [
         "guidance_change"
       ],
@@ -1256,6 +2784,7 @@
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 75,
+      "rank_factors": null,
       "event_types": [
         "capital_actions"
       ],
@@ -1289,6 +2818,7 @@
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 75,
+      "rank_factors": null,
       "event_types": [
         "capital_actions"
       ],
@@ -1322,6 +2852,7 @@
       "region": "US",
       "relevance": "material",
       "materiality_pre_score": 75,
+      "rank_factors": null,
       "event_types": [
         "capital_actions"
       ],
@@ -1355,6 +2886,7 @@
       "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 70,
+      "rank_factors": null,
       "event_types": [],
       "issuer_linkage": "",
       "companies": [],
@@ -1380,6 +2912,7 @@
       "region": "",
       "relevance": "",
       "materiality_pre_score": null,
+      "rank_factors": null,
       "event_types": [],
       "issuer_linkage": "",
       "companies": [],
@@ -1405,6 +2938,7 @@
       "region": "",
       "relevance": "",
       "materiality_pre_score": null,
+      "rank_factors": null,
       "event_types": [],
       "issuer_linkage": "",
       "companies": [],
@@ -1527,7 +3061,7 @@
   ],
   "handoffs": [],
   "counts": {
-    "inbox_unconsumed": 45,
+    "inbox_unconsumed": 82,
     "signals_total": 2,
     "parked": 0,
     "logged": 0,
@@ -1535,8 +3069,8 @@
     "provisional": 2,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 0,
-    "news_picked_today": 0,
-    "news_dropped_today": 0
+    "news_seen_today": 1754,
+    "news_picked_today": 238,
+    "news_dropped_today": 224
   }
 }
