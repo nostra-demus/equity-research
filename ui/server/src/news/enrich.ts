@@ -30,6 +30,15 @@ const CACHE_FILE = 'news-enrich-cache.json'
 const CACHE_TTL_MS = 12 * 60 * 60 * 1000 // 12h — a story/filing doesn't change; coverage rarely does intraday
 const FETCH_TIMEOUT_MS = 9000
 const USER_AGENT = process.env.NEWS_ENRICH_USER_AGENT || process.env.NEWS_RSS_USER_AGENT || 'Nostradamus Research (ceekay@muns.io)'
+// SEC.gov mandates a descriptive contact UA; everywhere else a realistic browser header set so public
+// article pages don't reject us as a bot (the cause of the low body-read rate).
+const SEC_HEADERS: Record<string, string> = { 'user-agent': USER_AGENT, accept: 'text/html,application/xhtml+xml,application/xml' }
+const BROWSER_HEADERS: Record<string, string> = {
+  'user-agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+  accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+  'accept-language': 'en-US,en;q=0.9',
+}
+const secHost = (u: string): boolean => { try { return /(^|\.)sec\.gov$/i.test(new URL(u).hostname) } catch { return false } }
 
 // ---- public shapes ----
 
@@ -361,7 +370,10 @@ async function fetchText(url: string, fetchFn: typeof fetch): Promise<{ ok: bool
     let res: Response
     try {
       res = await fetchFn(current, {
-        headers: { 'user-agent': USER_AGENT, accept: 'text/html,application/xhtml+xml,application/xml' },
+        // Most news sites 403 a bare server fetch (bot block). A realistic browser header set lifts the
+        // read rate sharply on public pages (no paywall circumvention — a hard paywall still serves a
+        // stub, which we degrade on). SEC.gov is the exception: it REQUIRES its descriptive contact UA.
+        headers: secHost(current) ? SEC_HEADERS : BROWSER_HEADERS,
         signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
         redirect: 'manual',
       })
