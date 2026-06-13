@@ -227,27 +227,79 @@ export function findPriorCoverage(repoRoot: string, companies: CompanyGuess[]): 
 
 // ---- related recent events on the wire ----
 
+// A real English stoplist (function words + light verbs + news/finance scaffolding). A headline
+// overlap built only from these would relate everything ("AI is MAKING promises YOUR brand…" must NOT
+// relate to "…a lesson on decision-MAKING and knowing YOUR place"). Distinctive topic words — places,
+// people, products, "nuclear", "tariff", "oil" — are deliberately NOT here, so they still anchor a match.
+const STOP_WORDS = new Set(
+  (
+    // articles / pronouns / determiners / conjunctions / prepositions / aux + modals
+    'the a an and or but for nor so yet of to in on at by as is are was were be been being am ' +
+    'with from into onto over under after before amid among between within without across through during ' +
+    'this that these those it its it’s they them their there here what when where which who whom whose why how ' +
+    'i you he she we us our your his her my mine ours yours hers him me ' +
+    'will would shall should can could may might must do does did done has have had having not no ' +
+    // light/common verbs that carry no topic
+    'make makes making made take takes taking took get gets getting got go goes going gone went come comes coming came ' +
+    'say says said see sees seeing saw seen use uses using used want wants need needs keep keeps put puts set sets ' +
+    'find finds show shows tell tells ask asks turn turns help helps move moves give gives gave knowing know knows ' +
+    'paying pays paid eyes eyeing sees seeking seek seeks plan plans planning back ' +
+    // generic adjectives / adverbs / quantifiers
+    'new old big small good bad high low long short full early late best top more most less least many much few ' +
+    'first last next other another same different such very just only also even still about around near nearly ' +
+    'up down out off than then now soon later again over major minor key main ' +
+    // time / number / news-finance filler
+    'year years week weeks month months day days today week quarter data news report reports update updates live ' +
+    'global market markets stock stocks share shares firm firms group price prices cost costs percent pct rate rates ' +
+    'two three four five ten billion bn million mn trillion crore lakh amid says brand place lesson promises proverb'
+  ).split(/\s+/),
+)
+// short-but-meaningful topic anchors (skipped by the ≥4-char rule but worth matching on)
+const SHORT_TOPICS = new Set(['oil', 'gas', 'war', 'tax', 'fed', 'ecb', 'boj', 'rbi', 'fta', 'cpi', 'gdp', 'ppi', 'wpi', 'pmi', 'yen', 'ipo'])
+
+/** The set of meaningful topic tokens in a headline (+ the guessed company names/tickers) used to test
+ *  whether two events are ACTUALLY about the same thing — not just sharing a coarse theme tag. */
+function topicTokens(headline?: string, companies?: CompanyGuess[]): Set<string> {
+  const out = new Set<string>()
+  for (const w of String(headline || '').toLowerCase().replace(/[^a-z0-9 ]+/g, ' ').split(/\s+/)) {
+    if (!w || STOP_WORDS.has(w)) continue
+    if (w.length >= 4 || SHORT_TOPICS.has(w)) out.add(w)
+  }
+  for (const c of companies || []) {
+    const n = normName(c?.name)
+    if (n) out.add(n)
+    if (c?.ticker) out.add(String(c.ticker).toLowerCase())
+  }
+  return out
+}
+
+/**
+ * Find events ACTUALLY related to this one — not merely sharing a theme tag. Two signals:
+ *   - SAME named company (precise, strong)
+ *   - ≥2 shared meaningful headline tokens (topical overlap, e.g. {japan, nuclear})
+ * The old coarse "same scope + shared event_type" match is gone: it dumped the whole policy/macro
+ * bucket (a US-Japan nuclear story "related" to Israel air strikes) — pure noise. When nothing clears
+ * the bar we return [] and the UI says so honestly, which beats six irrelevant rows.
+ */
 export function findRelatedEvents(repoRoot: string, self: { event_id: string; headline?: string; companies?: CompanyGuess[]; event_types?: string[]; scope?: string }, now: () => Date = () => new Date()): RelatedEvent[] {
   let items: RelatedEvent[] = []
   try {
     const feed = readFeed(repoRoot, 2, { now, maxItems: 1500 })
     const myNames = new Set((self.companies || []).map((c) => normName(c.name)).filter(Boolean))
-    const myTypes = new Set(self.event_types || [])
-    // a theme match is only meaningful for BROAD events (two oil items, two Fed items genuinely
-    // relate); for company/deal scopes, "related" must mean the SAME company — otherwise every 8-K
-    // would relate to every other 8-K just because they share the "litigation" tag.
-    const selfBroad = ['sector', 'macro', 'commodity', 'policy'].includes(String(self.scope || ''))
+    const myTok = topicTokens(self.headline, self.companies)
     items = feed.items
       .filter((it: any) => it.event_id !== self.event_id)
       .map((it: any) => {
         const names = (it.companies || []).map((c: any) => normName(c?.name)).filter(Boolean)
         const sameCo = !!myNames.size && names.some((n: string) => myNames.has(n))
-        const sameTheme = selfBroad && it.scope === self.scope && (it.event_types || []).some((t: string) => myTypes.has(t))
-        return sameCo || sameTheme ? { it, sameCo } : null
+        let overlap = 0
+        if (myTok.size) for (const t of topicTokens(it.headline, it.companies)) if (myTok.has(t)) overlap++
+        // related iff same company OR a genuine topical overlap (≥2 shared meaningful tokens)
+        return sameCo || overlap >= 2 ? { it, sameCo, overlap } : null
       })
       .filter(Boolean)
-      // same-company hits first, then most recent
-      .sort((a: any, b: any) => Number(b.sameCo) - Number(a.sameCo) || String(b.it.ts).localeCompare(String(a.it.ts)))
+      // same-company first, then strongest topical overlap, then most recent
+      .sort((a: any, b: any) => Number(b.sameCo) - Number(a.sameCo) || b.overlap - a.overlap || String(b.it.ts).localeCompare(String(a.it.ts)))
       .slice(0, 6)
       .map(({ it }: any) => ({ event_id: it.event_id, ts: it.ts, headline: it.headline, source_name: it.source_name, triage_score: it.triage_score, scope: it.scope }))
   } catch {}

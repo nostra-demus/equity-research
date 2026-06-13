@@ -247,7 +247,40 @@ await check('findRelatedEvents: same company always relates; unrelated single-na
   assert.ok(!ids.includes('EVT-other-co'), 'a different single-name 8-K with the same theme must NOT relate')
 })
 
-await check('findRelatedEvents: broad-scope items relate by shared theme', () => {
+await check('findRelatedEvents: relates by TOPIC overlap, NOT by a shared coarse theme tag', () => {
+  const root = tmp()
+  const today = '2026-06-13'
+  const mk = (id: string, headline: string): FeedItem => ({
+    kind: 'item', ts: `${today}T10:00:00Z`, event_id: id, headline, url: `https://x/${id}`, domain: 'x', source_name: 'Reuters',
+    via: 'gdelt', region: 'GLOBAL', input_nature: 'news_headline', triage_score: 80, band: 'pick', triage_reason: '', relevance: 'material',
+    event_types: ['regulatory'], issuer_linkage: 'macro', companies: [], size_bucket: 'unknown', scope: 'policy' as any, dedup_status: 'new', inboxed: true,
+  })
+  appendFeedItems(root, today, [
+    mk('EVT-japan2', 'Japan weighs nuclear restart to meet funding pledge'), // shares {japan, nuclear, funding}
+    mk('EVT-israel', 'Israel carries out air strikes on Lebanon, state media says'), // same policy theme, 0 topic overlap
+    mk('EVT-fisa', 'FISA 702 lapse plunges US into unknown territory'), // same policy theme, 0 topic overlap
+  ], 100)
+  // the exact bug the user hit: a US-Japan nuclear story must NOT relate to Israel/FISA just because all are "policy"
+  const rel = findRelatedEvents(root, { event_id: 'EVT-self', headline: 'US eyes Japanese funding for nuclear revival', companies: [], event_types: ['regulatory'], scope: 'policy' }, () => new Date(`${today}T11:00:00Z`))
+  const ids = rel.map((r) => r.event_id)
+  assert.ok(ids.includes('EVT-japan2'), 'a genuinely on-topic item (japan/nuclear/funding) should relate')
+  assert.ok(!ids.includes('EVT-israel') && !ids.includes('EVT-fisa'), 'topically-unrelated items sharing the policy theme must NOT relate')
+})
+
+await check('findRelatedEvents: generic function words ("making"/"your") do NOT create a relation', () => {
+  const root = tmp()
+  const today = '2026-06-13'
+  const mk = (id: string, headline: string): FeedItem => ({
+    kind: 'item', ts: `${today}T10:00:00Z`, event_id: id, headline, url: `https://x/${id}`, domain: 'x', source_name: 'X',
+    via: 'gdelt', region: 'GLOBAL', input_nature: 'news_headline', triage_score: 30, band: 'drop', triage_reason: '', relevance: 'irrelevant',
+    event_types: [], issuer_linkage: 'sector', companies: [], size_bucket: 'unknown', scope: 'sector' as any, dedup_status: 'new', inboxed: false,
+  })
+  appendFeedItems(root, today, [mk('EVT-proverb', 'Burmese proverb of the day: a lesson on decision-making and knowing your place')], 100)
+  const rel = findRelatedEvents(root, { event_id: 'EVT-ai', headline: 'AI is making promises your brand never made. Hotels are paying the price', companies: [], event_types: [], scope: 'sector' }, () => new Date(`${today}T11:00:00Z`))
+  assert.equal(rel.length, 0, 'sharing only stopwords like making/your must not relate')
+})
+
+await check('findRelatedEvents: two genuinely on-topic commodity items relate (shared tokens)', () => {
   const root = tmp()
   const today = '2026-06-13'
   const mk = (id: string, headline: string): FeedItem => ({
@@ -255,9 +288,9 @@ await check('findRelatedEvents: broad-scope items relate by shared theme', () =>
     via: 'gdelt', region: 'GLOBAL', input_nature: 'news_headline', triage_score: 70, band: 'watch', triage_reason: '', relevance: 'material',
     event_types: ['macro_sector'], issuer_linkage: 'macro', companies: [], size_bucket: 'unknown', scope: 'commodity' as any, dedup_status: 'new', inboxed: true,
   })
-  appendFeedItems(root, today, [mk('EVT-oil2', 'Crude steadies after selloff')], 100)
-  const rel = findRelatedEvents(root, { event_id: 'EVT-oil1', headline: 'Oil falls', companies: [], event_types: ['macro_sector'], scope: 'commodity' }, () => new Date(`${today}T11:00:00Z`))
-  assert.ok(rel.map((r) => r.event_id).includes('EVT-oil2'), 'two commodity items sharing a theme should relate')
+  appendFeedItems(root, today, [mk('EVT-oil2', 'Brent crude oil steadies after the selloff')], 100)
+  const rel = findRelatedEvents(root, { event_id: 'EVT-oil1', headline: 'Brent crude oil falls on demand worries', companies: [], event_types: ['macro_sector'], scope: 'commodity' }, () => new Date(`${today}T11:00:00Z`))
+  assert.ok(rel.map((r) => r.event_id).includes('EVT-oil2'), 'two items sharing {brent, crude, oil} should relate')
 })
 
 console.log(`\nscope + enrich: ${passed} checks passed`)

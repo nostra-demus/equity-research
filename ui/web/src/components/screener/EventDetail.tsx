@@ -19,30 +19,55 @@ const fmtTime = (iso?: string) => {
 }
 const relevanceLabel = (r?: string) => (r === 'material' ? 'Material' : r === 'relevant_non_material' ? 'Relevant, smaller' : r === 'irrelevant' ? 'Not material' : '—')
 
-// A plain, honest "should I spend on this?" read — guidance derived from the scope + source tier +
-// score + prior coverage we already hold. Never a claim about the company itself (CLAUDE.md §3, §21).
-function worthItPoints(it: FeedItem, enr?: EventEnrichment): string[] {
-  const out: string[] = []
+// How a buy-side reader would PLAY this kind of event — the trade shape, by scope. Honest about the
+// fact that broad events aren't single-stock ideas (CLAUDE.md §21).
+const PLAY_BY_SCOPE: Record<string, string> = {
+  single_name: 'Single-stock idea — the most direct kind. Worth a look if it’s a name you’d consider owning or shorting.',
+  multi_name: 'A pair / read-across — the named companies move together or against each other (often a relative trade).',
+  sector: 'A sector basket — play the group or an ETF, not one stock; look for the read-across winners and losers.',
+  macro: 'A top-down macro view — usually a portfolio tilt (rates / FX / cyclicals), not a single name.',
+  commodity: 'A commodity play — the affected producers and users, not the headline itself.',
+  policy: 'A policy / rules theme — the winners and losers from the rule change, usually expressed as a basket.',
+  unknown: 'Open the source to see what it’s about before deciding how to play it.',
+}
+const SEC_FLAG = /^(4\.02|5\.02|5\.01|3\.01|1\.03|2\.06|2\.01|2\.04)$/
+
+// The one-glance judgement: what to play, the reasons FOR a paid check, and the reasons to skip/shelve.
+// Every line is tied to a concrete signal we already hold (scope / source tier / score / newness /
+// the filing's own items / prior coverage) — never an unsupported claim about the company (§3).
+function playRead(it: FeedItem, enr?: EventEnrichment): { play: string; pros: string[]; cons: string[] } {
   const s = scopeOf(it)
   const fam = familyOf(s)
   const tier = it.source_tier
-  if (fam === 'company') {
-    out.push(s === 'multi_name'
-      ? 'Names more than one company — read it as a possible pair or read-across, not just one stock.'
-      : 'About a single named company — the most directly actionable kind of event.')
-  } else if (fam === 'broad') {
-    out.push('Broad context, not one company — useful for a basket or a macro/sector view; shelve it if you only want single-stock ideas.')
-  }
-  if (tier === 'primary_filing') out.push('It’s a primary filing or exchange disclosure — top of the evidence ladder, not second-hand.')
-  else if (tier === 'unconfirmed') out.push('Sourced to unnamed people — treat it as a lead to verify, not a fact.')
-  else if (tier === 'news') out.push('A newswire report — verify against the primary source before you lean on it.')
-  if (it.triage_score < 40) out.push('The quick score is low — the scanner thinks most of these are noise. Open the source before spending.')
-  if (enr?.prior_coverage?.length) {
-    const a = enr.prior_coverage.find((p) => p.kind === 'analysis')
-    if (a) out.push(`The engine has already analysed this name — ${a.detail.toLowerCase()}. A check would update that view.`)
-    else out.push('There’s already a data pool for this name — a check can build on it.')
-  }
-  return out.slice(0, 3)
+  const co = it.companies?.[0]
+  const ticker = co?.ticker
+  const pros: string[] = []
+  const cons: string[] = []
+
+  // ---- pros (why it could be worth the spend) ----
+  if (it.triage_score >= 70) pros.push(`Scored ${it.triage_score}/100 — the scanner flags it as clearly decision-relevant.`)
+  if (tier === 'primary_filing') pros.push('Primary source — a filing / exchange disclosure, not second-hand.')
+  const flagged = enr?.sec?.items?.find((i) => SEC_FLAG.test(i.code))
+  if (flagged) pros.push(`The filing flags a real corporate event: ${flagged.label.toLowerCase()}.`)
+  if (enr?.sec?.items?.some((i) => i.code === '2.02')) pros.push('An earnings filing — fresh numbers to react to.')
+  if (fam === 'company' && ticker) pros.push(`Names a listed company (${ticker}) you can act on directly.`)
+  const pool = enr?.prior_coverage?.find((p) => p.kind === 'data_pool')
+  if (pool) pros.push(`We already hold a data pool for ${pool.ticker} — a check is cheap to extend.`)
+  if (it.dedup_status !== 'possible_duplicate' && it.relevance === 'material' && it.triage_score >= 60) pros.push('New to us and material — not a recycled story.')
+  if (fam === 'company' && (it.size_bucket === 'mega' || it.size_bucket === 'large')) pros.push('A large, liquid name — easy to size a position.')
+
+  // ---- cons (why you might skip or shelve) ----
+  if (fam === 'broad') cons.push('No single stock — you’d express this as a basket or a macro view, not one name.')
+  if (tier === 'unconfirmed') cons.push('Sourced to unnamed people — a lead to verify, not a fact.')
+  else if (tier === 'news') cons.push('A newswire report — verify against the primary source before you lean on it.')
+  if (it.triage_score < 50) cons.push(`Low score (${it.triage_score}) — most of these are noise; read the source before spending.`)
+  if (fam === 'company' && !ticker) cons.push('No ticker pinned yet — confirm the exact listing before acting.')
+  if (!it.companies?.length && fam !== 'broad') cons.push('No company named yet — harder to act on directly.')
+  const analysed = enr?.prior_coverage?.find((p) => p.kind === 'analysis')
+  if (analysed) cons.push(`Already analysed — ${analysed.detail.toLowerCase()}; the news may be priced in, so a check mostly refreshes the view.`)
+  if (it.dedup_status === 'possible_duplicate') cons.push('Possibly a duplicate of an event already in the ledger.')
+
+  return { play: PLAY_BY_SCOPE[s] || PLAY_BY_SCOPE.unknown, pros: pros.slice(0, 4), cons: cons.slice(0, 4) }
 }
 
 function StoryBlock({ it, enr }: { it: FeedItem; enr: EventEnrichment | 'loading' | undefined }) {
@@ -119,7 +144,7 @@ export function EventDetail({ it }: { it: FeedItem }) {
   const s = scopeOf(it)
   const fam = familyOf(s)
   const tier = sourceTierDef(it.source_tier)
-  const points = useMemo(() => worthItPoints(it, enrichment), [it, enrichment])
+  const read = useMemo(() => playRead(it, enrichment), [it, enrichment])
 
   // map a guessed company (by ticker/name) to its prior-coverage row, if any
   const coverageFor = (name: string, ticker: string | null) => {
@@ -194,6 +219,32 @@ export function EventDetail({ it }: { it: FeedItem }) {
           )}
         </div>
 
+        {/* the one-glance judgement — how to play it, then the reasons FOR and AGAINST a paid check */}
+        <div className="evdetail__verdict">
+          <div className="evdetail__play">
+            <span className="evdetail__play-k">How to play it</span>
+            <span className="evdetail__play-v">{read.play}</span>
+          </div>
+          <div className="evdetail__pc">
+            <div className="evdetail__pccol evdetail__pccol--pro">
+              <div className="evdetail__pchead">Why look</div>
+              {read.pros.length ? (
+                <ul className="evdetail__pclist">{read.pros.map((p, i) => <li key={i}>{p}</li>)}</ul>
+              ) : (
+                <div className="evdetail__pcnone">Nothing strongly in its favour yet.</div>
+              )}
+            </div>
+            <div className="evdetail__pccol evdetail__pccol--con">
+              <div className="evdetail__pchead">Why skip</div>
+              {read.cons.length ? (
+                <ul className="evdetail__pclist">{read.cons.map((c, i) => <li key={i}>{c}</li>)}</ul>
+              ) : (
+                <div className="evdetail__pcnone">No obvious reason to pass.</div>
+              )}
+            </div>
+          </div>
+        </div>
+
         {it.triage_reason && (
           <div className="evdetail__block">
             <div className="evdetail__label">Why the scanner {kept ? 'kept' : 'dropped'} it</div>
@@ -239,29 +290,23 @@ export function EventDetail({ it }: { it: FeedItem }) {
           </div>
         )}
 
-        {!!points.length && (
-          <div className="evdetail__block">
-            <div className="evdetail__label">Is it worth a check?</div>
-            <ul className="evdetail__worth">
-              {points.map((p, i) => (
-                <li key={i}>{p}</li>
-              ))}
-            </ul>
-          </div>
-        )}
-
-        {!!enrichment?.related?.length && (
+        {/* related — only genuinely on-topic items (same company or real headline overlap), else say so */}
+        {enrichment && (
           <div className="evdetail__block">
             <div className="evdetail__label">Related recent events</div>
-            <ul className="evdetail__related">
-              {enrichment.related.map((r) => (
-                <li key={`${r.event_id}-${r.ts}`} className="evdetail__rel">
-                  <span className="evdetail__rel-score mono">{r.triage_score}</span>
-                  <span className="evdetail__rel-hl">{r.headline}</span>
-                  <span className="evdetail__rel-src">{r.source_name}</span>
-                </li>
-              ))}
-            </ul>
+            {enrichment.related.length ? (
+              <ul className="evdetail__related">
+                {enrichment.related.map((r) => (
+                  <li key={`${r.event_id}-${r.ts}`} className="evdetail__rel">
+                    <span className="evdetail__rel-score mono">{r.triage_score}</span>
+                    <span className="evdetail__rel-hl">{r.headline}</span>
+                    <span className="evdetail__rel-src">{r.source_name}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <div className="evdetail__hint">Nothing closely related on the wire in the last two days.</div>
+            )}
           </div>
         )}
 
