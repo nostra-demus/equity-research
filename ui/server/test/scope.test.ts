@@ -95,6 +95,12 @@ await check('extractSummary prefers og:description, falls back to first real <p>
   assert.ok(lede && lede.includes('demand to stay firm'))
 })
 
+await check('extractSummary decodes numeric/hex HTML entities (Tokyo&#x27;s → Tokyo’s reads clean)', () => {
+  const s = extractSummary('<meta property="og:description" content="Commerce secretary points to Tokyo&#x27;s $550bn pledge &amp; Seoul&#39;s response">')
+  assert.ok(s && s.includes("Tokyo's") && s.includes("Seoul's") && s.includes(' & '))
+  assert.ok(s && !s.includes('&#'))
+})
+
 // ---- SEC filing parse ----
 
 const EDGAR_INDEX = `

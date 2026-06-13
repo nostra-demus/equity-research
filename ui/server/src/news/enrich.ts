@@ -81,7 +81,19 @@ const EIGHTK_ITEMS: Record<string, string> = {
 
 // ---- tiny helpers ----
 
-const clean = (s: string): string => s.replace(/\s+/g, ' ').replace(/&amp;/g, '&').replace(/&#39;|&rsquo;/g, "'").replace(/&quot;/g, '"').replace(/&nbsp;/g, ' ').trim()
+// Decode the entities a scraped summary/title commonly carries — numeric (&#39; / &#x27;) AND named —
+// so the reader shows "Tokyo's", not "Tokyo&#x27;s". Numeric is decoded first; &amp; is decoded LAST
+// so an already-encoded "&amp;#39;" doesn't double-decode.
+const clean = (s: string): string =>
+  s
+    .replace(/\s+/g, ' ')
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, h) => { try { return String.fromCodePoint(parseInt(h, 16)) } catch { return '' } })
+    .replace(/&#(\d+);/g, (_, d) => { try { return String.fromCodePoint(Number(d)) } catch { return '' } })
+    .replace(/&rsquo;|&lsquo;|&apos;/g, "'")
+    .replace(/&rdquo;|&ldquo;|&quot;/g, '"')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&amp;/g, '&')
+    .trim()
 
 function firstMatch(html: string, res: RegExp[]): string | undefined {
   for (const re of res) {
