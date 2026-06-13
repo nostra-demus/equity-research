@@ -5,6 +5,7 @@
 // (no graph lib), tokens-only colour, transform/opacity animation, reduced-motion aware.
 
 import { useEffect, useMemo, useRef, useState } from 'react'
+import { fmtStampLocal } from '../../lib/format'
 import { useStore } from '../../lib/store'
 import { heatOf, momentumOf, recentFlow, radiusFor, sparklinePoints, tierColorVar, tierLabel, orderLabel, type Theme, type ThemeCompany } from '../../lib/themes'
 import type { FeedItem } from '../../lib/types'
@@ -435,6 +436,7 @@ function ThemeDeepDive() {
           <button key={`${m.event_id}-${m.ts}`} type="button" className="themedd__row" onClick={() => scSelectEvent(m as FeedItem)}>
             <span className="themedd__rowscore mono" style={{ color: m.triage_score >= 70 ? 'var(--live)' : m.triage_score >= 40 ? 'var(--accent-bright)' : 'var(--text-faint)' }}>{m.triage_score}</span>
             <span className="themedd__rowhead">{m.headline}</span>
+            <span className="themedd__rowsrc mono" title="When this was published (your local time)">{fmtStampLocal(m.ts)}</span>
             <span className="themedd__rowsrc">{m.source_name}</span>
           </button>
         ))}

@@ -106,6 +106,14 @@ export function hhmmLocal(iso?: string): string {
   return isNaN(d.getTime()) ? iso.slice(11, 16) : d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false })
 }
 
+// compact local DATE + time for an ISO timestamp — "Jun 14, 01:23" (no year, 24-hour) for per-row
+// stamps where items can span days. Viewer's own timezone, same as hhmmLocal.
+export function fmtStampLocal(iso?: string): string {
+  if (!iso) return ''
+  const d = new Date(iso)
+  return isNaN(d.getTime()) ? '' : d.toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false })
+}
+
 export function nodeStatusColor(status: string): string {
   switch (status) {
     case 'running':
