@@ -84,6 +84,8 @@ export function normalizeAndFilter(raws: RawArticle[], deps: NormalizeDeps): New
       found_at: parseSeendate(a.seendate, now),
       dedup_status: deps.ledgerEventIds.has(event_id) ? 'possible_duplicate' : 'new',
       via: a.via || 'gdelt',
+      // the feed's own lede, cleaned of markup + capped — fetch-free body for enrichment
+      snippet: a.snippet ? cleanText(a.snippet).slice(0, 2500) || undefined : undefined,
     })
   }
   return out

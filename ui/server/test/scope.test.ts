@@ -370,4 +370,26 @@ await check('enrichEvent with NO groq key degrades to the regex summary (never b
   assert.ok((e.summary || '').includes('cross-border'), 'falls back to the regex summary')
 })
 
+await check('enrichEvent reads the FEED SNIPPET when the page fetch is blocked (fetch-free body)', async () => {
+  const root = tmp(), state = tmp(), today = '2026-06-13'
+  appendFeedItems(root, today, [{
+    kind: 'item', ts: `${today}T10:00:00Z`, event_id: 'EVT-snip', headline: 'Acme wins big EU contract', url: 'https://www.reuters.com/z', domain: 'reuters.com',
+    source_name: 'Reuters', via: 'rss', region: 'GLOBAL', input_nature: 'news_headline', triage_score: 80, band: 'pick', triage_reason: '', relevance: 'material',
+    event_types: [], issuer_linkage: 'primary', companies: [{ name: 'Acme', ticker: 'ACME', listing_country: 'US' }], size_bucket: 'unknown',
+    snippet: 'Acme Corp won a 500 million euro contract to supply firefighting equipment across the EU, beating its rivals. Shares rose 8% on the news.',
+    dedup_status: 'new', inboxed: true,
+  } as any], 100)
+  const groqContent = JSON.stringify({ gist: ['Acme won a €500m EU firefighting-equipment contract, beating rivals.', 'Shares rose 8% on the news.'], companies: [{ name: 'Acme', ticker: 'ACME', role: 'subject' }], beneficiaries: [{ name: 'Acme', named_in_article: true, basis: 'won the contract' }], exposed: [], theme: 'commercial' })
+  let triedPage = false
+  const fetchFn = (async (u: string) => {
+    if (String(u).includes('/chat/completions')) return res(JSON.stringify({ choices: [{ finish_reason: 'stop', message: { content: groqContent } }], usage: { total_tokens: 200 } }))
+    triedPage = true; return res('Access Denied', 403) // the article page blocks us
+  }) as unknown as typeof fetch
+  const e = await enrichEvent({ event_id: 'EVT-snip', headline: 'Acme wins big EU contract', companies: [] }, { repoRoot: root, stateDir: state, fetchFn, now: () => new Date(`${today}T11:00:00Z`), groq: { apiKey: 'k', model: 'm', baseUrl: 'https://api.groq.com/openai/v1' } })
+  assert.ok(triedPage, 'it still tried the page')
+  assert.ok(e.gist && e.gist.length >= 2, 'gist read from the feed snippet despite the 403')
+  assert.equal(e.theme, 'commercial')
+  assert.deepEqual((e.companies || []).map((c) => c.name), ['Acme'])
+})
+
 console.log(`\nscope + enrich: ${passed} checks passed`)

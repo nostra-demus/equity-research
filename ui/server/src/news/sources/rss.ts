@@ -125,10 +125,17 @@ function dateOf(block: string): string | null {
   return textOf(block, 'pubDate') || textOf(block, 'published') || textOf(block, 'updated') || textOf(block, 'dc:date')
 }
 
+/** The entry's own body/lede, straight from the feed — the fullest the feed offers. This is the
+ *  fetch-free article text that lets enrichment read a story even when the source page 403s or renders
+ *  client-side (most of the wire). May contain HTML; the consumer strips it. */
+function snippetOf(block: string): string | null {
+  return textOf(block, 'content:encoded') || textOf(block, 'description') || textOf(block, 'summary') || textOf(block, 'content')
+}
+
 /** Parse one RSS 2.0 or Atom document into raw articles. Tolerant by construction: a malformed
  *  entry yields nothing rather than an error. Exported for the test suite. */
-export function parseFeed(xml: string, maxItems = 60): { title: string; link: string; date: string | null }[] {
-  const out: { title: string; link: string; date: string | null }[] = []
+export function parseFeed(xml: string, maxItems = 60): { title: string; link: string; date: string | null; snippet: string | null }[] {
+  const out: { title: string; link: string; date: string | null; snippet: string | null }[] = []
   // entry blocks: RSS <item>…</item>, Atom <entry>…</entry>
   const blocks = xml.split(/<(?:item|entry)[\s>]/i).slice(1)
   for (const rawBlock of blocks.slice(0, maxItems)) {
@@ -136,7 +143,7 @@ export function parseFeed(xml: string, maxItems = 60): { title: string; link: st
     const title = textOf(block, 'title')
     const link = linkOf(block)
     if (!title || !link || !/^https?:\/\//i.test(link)) continue
-    out.push({ title, link, date: dateOf(block) })
+    out.push({ title, link, date: dateOf(block), snippet: snippetOf(block) })
   }
   return out
 }
@@ -204,6 +211,7 @@ export async function fetchRss(opts: RssOptions, deps: RssDeps = {}): Promise<Ra
             domain,
             seendate: d && !Number.isNaN(d.getTime()) ? d.toISOString().replace(/\.\d{3}Z$/, 'Z') : now().toISOString().replace(/\.\d{3}Z$/, 'Z'),
             via: 'rss',
+            snippet: it.snippet || undefined,
           })
         }
         return arts

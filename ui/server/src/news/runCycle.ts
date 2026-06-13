@@ -256,6 +256,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     // derived, zero-cost classification — persisted so the wire + a later backfill agree
     scope: deriveScope(t),
     source_tier: deriveSourceTier(t),
+    snippet: t.snippet, // the feed's own lede — fetch-free body for on-open enrichment
     rank_factors: t.rank_factors, // the composite-priority breakdown (rank.ts) — for the WHY in the UI
     dedup_status: t.dedup_status,
     inboxed: t.band !== 'drop',

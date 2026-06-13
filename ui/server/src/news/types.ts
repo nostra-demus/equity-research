@@ -16,6 +16,7 @@ export interface RawArticle {
   language?: string
   sourcecountry?: string // FIPS 2-letter from GDELT, when present
   via?: 'gdelt' | 'rss' | 'nse' // which fetcher found it (provenance for the live feed)
+  snippet?: string // the feed's own description/lede (RSS) — fetch-free article text for enrichment
 }
 
 // A company the cheap brain THINKS the headline is about — a guess from the title alone, never
@@ -43,6 +44,7 @@ export interface NewsItem {
   found_at: string // ISO 8601
   dedup_status: 'new' | 'possible_duplicate'
   via?: 'gdelt' | 'rss' | 'nse' // which fetcher found it
+  snippet?: string // the feed's own lede (cleaned), carried for fetch-free enrichment
 }
 
 // The cheap brain's verdict on one item.
@@ -128,6 +130,7 @@ export interface FeedItem {
   //     backfilled on read for older firehose lines that predate it (feed.ts) ---
   scope?: import('./scope').ScopeId // company-vs-broad bucket the cockpit filters + chips on
   source_tier?: import('./scope').SourceTierId // §4 source hierarchy, made visible
+  snippet?: string // the feed's own lede — fetch-free body the enrichment reads when the page blocks
   rank_factors?: import('./rank').RankFactors // composite-priority breakdown (triage_score is the composite)
   dedup_status: 'new' | 'possible_duplicate'
   inboxed: boolean // band !== 'drop'

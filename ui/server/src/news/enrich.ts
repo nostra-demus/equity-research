@@ -445,6 +445,7 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
   let companies = input.companies || []
   let event_types = input.event_types || []
   let scope = input.scope
+  let snippet = '' // the feed's own lede (RSS) — a fetch-free body when the source page blocks us
   try {
     const stored = readFeed(deps.repoRoot, 2, { now, maxItems: 2000 }).items.find((it) => it.event_id === input.event_id)
     if (stored) {
@@ -452,6 +453,7 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
       companies = stored.companies || companies
       event_types = stored.event_types || event_types
       scope = (stored as any).scope || scope
+      snippet = (stored as any).snippet || ''
     }
   } catch {}
 
@@ -466,46 +468,46 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
   // litigation bulletins are ordinary articles and fall through to the summary extractor.
   const isSec = /(^|\.)sec\.gov$/.test(host) && /\/Archives\/edgar\//i.test(url) && /-index\.html?($|[?#])/i.test(url)
 
-  if (!url) {
-    result.note = 'no source link to fetch'
-  } else if (!isSafeFetchUrl(url)) {
-    result.note = 'source is off the approved list — not fetched'
+  // Fetch the source page (best effort). A block (403 / paywall / JS-rendered shell) is NOT fatal:
+  // most of the wire is RSS, and the feed's own lede (`snippet`) gives the body read a fetch-free input.
+  let pageHtml = ''
+  let fetchNote = ''
+  if (!url) fetchNote = 'no source link to fetch'
+  else if (!isSafeFetchUrl(url)) fetchNote = 'source is off the approved list — not fetched'
+  else {
+    const r = await fetchText(url, fetchFn)
+    if (r.ok && r.text) pageHtml = r.text
+    else fetchNote = r.note || 'source blocked'
+  }
+
+  if (isSec && pageHtml) {
+    // an EDGAR filing index: the parsed item block IS the meaning; its page "summary" is header boilerplate.
+    const sec = parseSecFiling(pageHtml)
+    if (sec) result.sec = sec
+    else { const s = extractSummary(pageHtml); if (s) result.summary = s }
   } else {
-    const { ok, text, note } = await fetchText(url, fetchFn)
-    if (!ok || !text) {
-      // a paywall/boilerplate block degrades to an honest note — never a blank panel
-      result.note = note || 'source blocked — headline only'
-    } else if (isSec) {
-      // an EDGAR filing index: the parsed item block IS the meaning; its page "summary" is just header
-      // boilerplate, so skip the body read entirely.
-      const sec = parseSecFiling(text)
-      if (sec) result.sec = sec
-      else { const summary = extractSummary(text); if (summary) result.summary = summary }
+    if (pageHtml) { const pub = extractPublished(pageHtml); if (pub) result.published = pub }
+    // the body for the read: the feed's lede + any fetched page text (snippet first — it's the cleanest).
+    const pageBody = pageHtml ? cleanText(pageHtml.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' ')) : ''
+    const body = [snippet, pageBody].filter(Boolean).join('\n\n').trim()
+    const brief = deps.groq?.apiKey && body
+      ? (await analyzeArticle(body, input.headline || '', { model: deps.groq.model, baseUrl: deps.groq.baseUrl, apiKey: deps.groq.apiKey, maxTokens: deps.groq.maxTokens }, fetchFn)).brief
+      : null
+    if (brief && (brief.gist.length || brief.companies.length || brief.beneficiaries.length || brief.exposed.length)) {
+      if (brief.gist.length) result.gist = brief.gist
+      const co = filterCompanies(brief.companies) // denylist safety-net on top of the prompt rule
+      if (co.length) result.companies = co
+      const ben = scrubParties(brief.beneficiaries)
+      if (ben.length) result.beneficiaries = ben
+      const exp = scrubParties(brief.exposed)
+      if (exp.length) result.exposed = exp
+      if (brief.theme) result.theme = brief.theme
+      if (!brief.gist.length) { const s = (pageHtml && extractSummary(pageHtml)) || snippet; if (s) result.summary = s.slice(0, 600) }
     } else {
-      // the primary path: read the actual article body with ONE Groq pass (gist + firms + who-benefits +
-      // corrected theme). Strip script/style first; analyzeArticle caps + cleans further.
-      const pub = extractPublished(text)
-      if (pub) result.published = pub
-      const body = cleanText(text.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' '))
-      const brief = deps.groq?.apiKey
-        ? (await analyzeArticle(body, input.headline || '', { model: deps.groq.model, baseUrl: deps.groq.baseUrl, apiKey: deps.groq.apiKey, maxTokens: deps.groq.maxTokens }, fetchFn)).brief
-        : null
-      if (brief && (brief.gist.length || brief.companies.length || brief.beneficiaries.length || brief.exposed.length)) {
-        if (brief.gist.length) result.gist = brief.gist
-        const co = filterCompanies(brief.companies) // denylist safety-net on top of the prompt rule
-        if (co.length) result.companies = co
-        const ben = scrubParties(brief.beneficiaries)
-        if (ben.length) result.beneficiaries = ben
-        const exp = scrubParties(brief.exposed)
-        if (exp.length) result.exposed = exp
-        if (brief.theme) result.theme = brief.theme
-        if (!brief.gist.length) { const s = extractSummary(text); if (s) result.summary = s } // empty gist → keep a regex line
-      } else {
-        // Groq unavailable / failed / boilerplate → degrade to the regex summary, never blank
-        const summary = extractSummary(text)
-        if (summary) result.summary = summary
-        else result.note = note || 'source had no readable story — headline only'
-      }
+      // no body read → degrade to the page summary, then the feed snippet, then an honest note. Never blank.
+      const summary = (pageHtml && extractSummary(pageHtml)) || snippet
+      if (summary) result.summary = summary.slice(0, 600)
+      else result.note = fetchNote || 'source blocked — headline only'
     }
   }
 
