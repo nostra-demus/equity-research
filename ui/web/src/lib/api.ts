@@ -105,7 +105,7 @@ export const api = {
     if ((await ensureMode()) === 'static') return snap.screenerCandidates?.[thesisId] || null
     return get(`/api/screener/candidates/${encodeURIComponent(thesisId)}`)
   },
-  launchSignal: async (body: { sigId?: string; intake?: SignalIntakeInput; inboxId?: string }): Promise<{ runId: string; preflight: LaunchPreflight }> => {
+  launchSignal: async (body: { sigId?: string; intake?: SignalIntakeInput; inboxId?: string; until?: string }): Promise<{ runId: string; preflight: LaunchPreflight }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/launch`, { kind: 'signal', ...body })
   },

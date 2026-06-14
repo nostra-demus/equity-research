@@ -5,7 +5,7 @@
 // corrected theme. Triage metadata sits in the header, not in the way. Then: run / open / shelve.
 
 import { useEffect, useRef } from 'react'
-import { plainTheme } from '../../lib/plain'
+import { plainStage, plainTheme } from '../../lib/plain'
 import { familyOf, isCompanyNameClient, roleLabel, SCOPES, scopeOf, sourceTierDef } from '../../lib/scope'
 import { useStore } from '../../lib/store'
 import type { ArticleParty, EventEnrichment, FeedItem, RelatedEvent } from '../../lib/types'
@@ -110,6 +110,10 @@ function PartyList({ parties }: { parties: ArticleParty[] }) {
 export function EventDetail({ it }: { it: FeedItem }) {
   const close = useStore((s) => s.scSelectEvent)
   const run = useStore((s) => s.runEventChecks)
+  const graph = useStore((s) => s.graph)
+  // the screener pipeline stages in dependency order — drives the "run only through X" picker.
+  // Derived from the live graph (zero-touch: new modules appear automatically); plain names via plainStage.
+  const scStages = (graph?.modules || []).slice().sort((a, b) => a.order - b.order)
   const staticMode = useStore((s) => s.staticMode)
   const enrichCache = useStore((s) => s.enrichCache)
   const shelvedEvents = useStore((s) => s.shelvedEvents)
@@ -296,10 +300,26 @@ export function EventDetail({ it }: { it: FeedItem }) {
           {it.url && (
             <a className="btn btn--ghost" href={it.url} target="_blank" rel="noreferrer">Open source ↗</a>
           )}
-          <button className="btn btn--amber" onClick={() => void run(it)} title={staticMode ? 'Runs on your local machine (npm run dev)' : 'Send this event through the screener checks'}>
+          <button className="btn btn--amber" onClick={() => void run(it)} title={staticMode ? 'Runs on your local machine (npm run dev)' : 'Run the full gauntlet — every stage'}>
             Run the checks ▸
           </button>
         </div>
+        {scStages.length > 1 && (
+          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8, marginTop: 12 }}>
+            <span className="evdetail__est mono">or run only through:</span>
+            {scStages.slice(0, -1).map((m) => (
+              <button
+                key={m.name}
+                type="button"
+                className="evdetail__chip evdetail__chip--btn"
+                onClick={() => void run(it, m.name)}
+                title={`Run the gauntlet through "${plainStage(m.name)}" and stop there — finished checks are saved, and you can Continue the rest later`}
+              >
+                {plainStage(m.name)}
+              </button>
+            ))}
+          </div>
+        )}
       </article>
     </div>
   )

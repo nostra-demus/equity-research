@@ -169,7 +169,7 @@ interface State {
   scNodeStatus: (key: string) => NodeStatus
   openSignalIntake: () => void
   closeSignalIntake: () => void
-  submitSignal: (intake: SignalIntakeInput) => Promise<void>
+  submitSignal: (intake: SignalIntakeInput, until?: string) => Promise<void>
   relaunchSignal: (sigId: string) => Promise<void>
   // resume a stopped/partial signal run from where it left off — reuses the finished orbs on disk and
   // only runs the remaining ones (the gauntlet command skips completed modules). NOT a fresh restart.
@@ -187,7 +187,7 @@ interface State {
   scEnsureNewsStream: () => Promise<void>
   scSelectEvent: (it: FeedItem | null) => void
   scFocusCompany: (c: FocusedCompany | null) => void
-  runEventChecks: (it: FeedItem) => Promise<void>
+  runEventChecks: (it: FeedItem, until?: string) => Promise<void>
   // shelving: set an event aside (or bring it back) — local, persisted, filters the rail
   shelvedEvents: Set<string>
   toggleShelve: (eventId: string) => void
@@ -1029,7 +1029,7 @@ export const useStore = create<State>((set, get) => ({
   // Run the paid gauntlet straight from a wire event: map the FeedItem to the intake schema and reuse
   // submitSignal (which selects the new signal + animates the orbs). Clearing the read view first means
   // the main stage swaps from the event detail to the constellation as soon as the run begins.
-  runEventChecks: async (it) => {
+  runEventChecks: async (it, until) => {
     // bail BEFORE tearing down the reader — submitSignal no-ops (toast only) in static/offline, and clearing
     // first would drop the user back to the empty constellation on a confusing no-op, losing their place.
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' })
@@ -1041,7 +1041,7 @@ export const useStore = create<State>((set, get) => ({
       source_name: it.source_name || undefined,
       input_nature: it.input_nature || 'news_headline',
       body_text: it.triage_reason || undefined,
-    })
+    }, until) // until = target module to run THROUGH then stop (undefined = the full gauntlet)
   },
 
   scRefreshBoard: async () => {
@@ -1084,11 +1084,11 @@ export const useStore = create<State>((set, get) => ({
   openSignalIntake: () => set({ signalIntakeOpen: true }),
   closeSignalIntake: () => set({ signalIntakeOpen: false }),
 
-  submitSignal: async (intake) => {
+  submitSignal: async (intake, until) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — signals run on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
     try {
-      const { runId, preflight } = await api.launchSignal({ intake })
+      const { runId, preflight } = await api.launchSignal({ intake, until })
       set({ signalIntakeOpen: false })
       const sigId = preflight.ticker
       set({ scSelectedSignal: sigId, scRuntime: {}, scRouted: {} })
