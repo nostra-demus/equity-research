@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T12:57:43Z",
+  "generated_at": "2026-06-14T13:27:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20260614-004",
@@ -1458,87 +1458,87 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260614-003",
-      "headline": "China’s Geely Auto to slash excess capacity amid overhaul to boost carmaker’s global edge",
-      "url": "https://www.scmp.com/business/china-business/article/3357014/chinas-geely-auto-slash-excess-capacity-amid-overhaul-boost-carmakers-global-edge?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-06-14T00:00:10Z",
+      "inbox_id": "INB-20260614-240",
+      "headline": "U.S. Consumer Product Safety Commission Launches Crackdown on Fake Safety Labels Used to Push Dangerous Foreign Products into U.S. Homes",
+      "url": "https://www.cpsc.gov/Newsroom/News-Releases/2026/US-Consumer-Product-Safety-Commission-Launches-Crackdown-on-Fake-Safety-Labels-Used-to-Push-Dangerous-Foreign-Products-into-US-Homes",
+      "source_name": "U.S. CPSC",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-06-14T12:34:39Z",
       "sweep_file": "screener/inbox/2026-06-14_sweep.json",
-      "prelim_note": "Geely Auto plans to slash excess capacity, potentially affecting its global market share.",
+      "prelim_note": "CPSC launches crackdown on fake safety labels used to push dangerous foreign products into U.S. homes.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Geely Auto plans to slash excess capacity, potentially affecting its global market share.",
-      "region": "CN",
+      "triage_score": 100,
+      "triage_reason": "CPSC launches crackdown on fake safety labels used to push dangerous foreign products into U.S. homes.",
+      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 80,
       "rank_factors": {
         "materiality": 80,
-        "source_tier": 0,
+        "source_tier": 8,
         "scope": 6,
-        "event": 6,
-        "size": 2,
+        "event": 4,
+        "size": 0,
         "recency": 5,
         "scope_id": "single_name",
-        "source_tier_id": "news"
+        "source_tier_id": "primary_filing"
       },
       "event_types": [
-        "capital_actions"
+        "regulatory"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Geely Auto",
+          "name": "U.S. CPSC",
           "ticker": null,
-          "listing_country": "CN"
+          "listing_country": "US"
         }
       ],
-      "size_bucket": "large",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260614-078",
-      "headline": "China’s AI ‘hundred model’ war shifts to enterprise value, JPMorgan says",
-      "url": "https://www.scmp.com/tech/big-tech/article/3357008/chinas-ai-hundred-model-war-shifts-enterprise-value-jpmorgan-says?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-06-14T04:00:17Z",
+      "inbox_id": "INB-20260614-241",
+      "headline": "CPSC’s New Federal Water Beads Safety Standard Takes Effect to Protect Children from Deadly Hazard",
+      "url": "https://www.cpsc.gov/Newsroom/News-Releases/2026/CPSC%25E2%2580%2599s-New-Federal-Water-Beads-Safety-Standard-Takes-Effect-to-Protect-Children-from-Deadly-Hazard",
+      "source_name": "U.S. CPSC",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-06-14T12:34:39Z",
       "sweep_file": "screener/inbox/2026-06-14_sweep.json",
-      "prelim_note": "JPMorgan says China’s AI ‘hundred model’ war shifts to enterprise value",
+      "prelim_note": "CPSC's new federal water beads safety standard takes effect to protect children from deadly hazard.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "JPMorgan says China’s AI ‘hundred model’ war shifts to enterprise value",
-      "region": "CN",
+      "triage_score": 100,
+      "triage_reason": "CPSC's new federal water beads safety standard takes effect to protect children from deadly hazard.",
+      "region": "US",
       "relevance": "material",
       "materiality_pre_score": 85,
       "rank_factors": {
         "materiality": 85,
-        "source_tier": 0,
-        "scope": 0,
-        "event": 7,
-        "size": 2,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
         "recency": 5,
-        "scope_id": "sector",
-        "source_tier_id": "news"
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing"
       },
       "event_types": [
-        "guidance_change"
+        "regulatory"
       ],
-      "issuer_linkage": "sector",
+      "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "JPMorgan",
+          "name": "U.S. CPSC",
           "ticker": null,
           "listing_country": "US"
         }
       ],
-      "size_bucket": "mega",
+      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -5028,9 +5028,9 @@
     "provisional": 3,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 1437,
-    "news_picked_today": 400,
-    "news_dropped_today": 797
+    "news_seen_today": 1513,
+    "news_picked_today": 434,
+    "news_dropped_today": 827
   },
   "book_momentum": {
     "live_count": 3,

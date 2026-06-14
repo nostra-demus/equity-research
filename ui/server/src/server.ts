@@ -28,6 +28,7 @@ import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt
 import { dataPoolPresent, readCandidates, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest } from './screener'
 import { listSwarms } from './swarms'
 import { getNewsStatus, startNewsIngester } from './news/scheduler'
+import { startConvictionLoop } from './conviction-dispatch'
 import { AGENT_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE } from './sandbox'
 import type { RunKind } from './types'
 
@@ -825,6 +826,9 @@ app
     // autonomous news ingester (screener swarm): fills a ranked inbox 24/7 at ~$0 when GROQ_API_KEY
     // is set; stays dark otherwise. Never launches a paid run — promotion is the human's one click.
     startNewsIngester()
+    // conviction loop (Phase 3): auto-fire /screener:validate on due checkpoints + on matching wire
+    // items. OFF unless CONVICTION_LOOP_ENABLED=1 — auto-spawning paid checks is opt-in.
+    startConvictionLoop()
   })
   .catch((err) => {
     // eslint-disable-next-line no-console

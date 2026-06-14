@@ -34,6 +34,8 @@ BOARD = os.path.join(REPO, "screener", "board", "index.json")
 # override path). Folded into each thesis entry as `conviction`; missing dir = empty (the
 # loop is additive and the board never depends on it existing).
 CONV_STATE = os.path.join(LEDGER, "conviction", "conviction_state")
+CONV_CHECKPOINTS = os.path.join(LEDGER, "conviction", "checkpoints.ndjson")
+CONV_TICKS = os.path.join(LEDGER, "conviction", "conviction.ndjson")
 
 # Thesis statuses count as "watchlist" for the funnel header. watchlist_manual is a HUMAN move
 # (an overrides.ndjson record), distinct from the engine's three watchlist reasons.
@@ -63,6 +65,19 @@ def read_ndjson(path: str) -> list[dict]:
                     out.append(obj)
             except Exception:
                 continue  # a corrupt line never breaks the board
+    return out
+
+
+def conviction_resolved_ids() -> set[str]:
+    """Checkpoints with a recorded result — used to DERIVE staleness at every build, so a missed check
+    (a by-date that passed with no validation) can never leave a thesis showing a live rating."""
+    out: set[str] = set()
+    for r in read_ndjson(CONV_TICKS):
+        if r.get("row_type") == "validation_result" and r.get("verdict") not in (None, "unresolved") and r.get("checkpoint_id"):
+            out.add(r["checkpoint_id"])
+    for c in read_ndjson(CONV_CHECKPOINTS):
+        if c.get("status") == "resolved" and c.get("checkpoint_id"):
+            out.add(c["checkpoint_id"])
     return out
 
 
@@ -144,6 +159,13 @@ def build() -> dict:
     handoffs = read_ndjson(os.path.join(LEDGER, "handoffs.ndjson"))
     handed_off_keys = {f"{h.get('thesis_id')}::{h.get('ticker')}" for h in handoffs}
 
+    # conviction: derive staleness from the calendar at every build (robust to a missed dispatch)
+    conv_resolved = conviction_resolved_ids()
+    conv_cps_by_thesis: dict[str, list] = {}
+    for c in read_ndjson(CONV_CHECKPOINTS):
+        conv_cps_by_thesis.setdefault(c.get("thesis_id"), []).append(c)
+    today_day = now[:10]
+
     for fp in sorted(glob.glob(os.path.join(LEDGER, "theses", "*.json")), reverse=True):
         rec = read_json(fp)
         if not rec:
@@ -201,7 +223,16 @@ def build() -> dict:
         # Phase 3: fold in the engine-owned conviction snapshot (rung, live edge, momentum,
         # sparkline points) — the board reads it; the locked thesis JSON is never touched.
         cs = read_json(os.path.join(CONV_STATE, f"{thesis_id}.json"))
-        entry["conviction"] = cs if isinstance(cs, dict) else None
+        if isinstance(cs, dict):
+            if not cs.get("archived"):
+                cs["stale"] = bool(cs.get("stale")) or any(
+                    cp.get("due_at") and cp["due_at"] < today_day
+                    and cp.get("status") != "resolved" and cp.get("checkpoint_id") not in conv_resolved
+                    for cp in conv_cps_by_thesis.get(thesis_id, [])
+                )
+            entry["conviction"] = cs
+        else:
+            entry["conviction"] = None
         theses.append(entry)
         if meta.get("signal_id"):
             thesis_by_signal[meta["signal_id"]] = entry
