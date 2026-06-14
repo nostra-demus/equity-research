@@ -1430,8 +1430,9 @@ a { color: inherit; }
 .thememap__pulse--in { background: var(--accent-bright); box-shadow: 0 0 6px var(--accent-glow); }
 .thememap__pulse--out { width: 6px; height: 6px; background: var(--tier, var(--accent)); box-shadow: 0 0 8px color-mix(in srgb, var(--tier, var(--accent)) 55%, transparent); }
 .thememap__lanes { position: absolute; inset: 0; pointer-events: none; }
-.thememap__lane { position: absolute; transform: translateY(-50%); }
+.thememap__lane { position: absolute; transform: translateY(-50%); display: inline-flex; align-items: center; gap: 6px; }
 .thememap__lane-label { font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-faint); background: var(--surface-2); border: 1px solid var(--hairline); padding: 3px 8px; border-radius: var(--r-pill); white-space: nowrap; }
+.thememap__lane-share { font-size: 9.5px; font-weight: 600; color: var(--accent-bright); font-variant-numeric: tabular-nums; }
 .thememap__core { position: absolute; border-radius: 50%; border: 1px solid var(--hairline-strong); background: radial-gradient(circle at 50% 40%, var(--accent-wash), var(--surface-2)); display: flex; align-items: center; justify-content: center; }
 .thememap__core span { font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
 .thememap__core::after { content: ''; position: absolute; inset: -3px; border-radius: 50%; border: 1px solid var(--accent-wash); animation: themebreathe 3s var(--ease) infinite; }

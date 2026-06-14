@@ -68,10 +68,16 @@ export function ThemesView() {
 
 // ---------------- the MAP ----------------
 
-// The source-tier lane mix for the inbound scanning flow. The raw fetch is overwhelmingly RSS news; the
-// filtered bulk doesn't carry a per-article tier, so the spread across lanes is MODELLED (news-heavy) —
-// the volume (fetched) is the real signal, the lane assignment is representative. ids match layout.lanes.
-const LANE_MIX = ['news', 'news', 'news', 'company', 'news', 'official_data', 'news', 'primary_filing', 'news', 'unconfirmed', 'company', 'news']
+// The §4 source tiers, top-of-hierarchy first. Which lanes actually render is DATA-DRIVEN: only tiers we
+// genuinely collect appear (news is always shown), sized + labelled by their real share — so dead tiers
+// (e.g. rumour, which is ~0% of the real feed) never show as empty lanes.
+const TIER_LANES = [
+  { id: 'primary_filing', label: 'Filings' },
+  { id: 'official_data', label: 'Official' },
+  { id: 'company', label: 'Company' },
+  { id: 'news', label: 'News' },
+  { id: 'unconfirmed', label: 'Rumour' },
+]
 
 function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) => void }) {
   const ref = useRef<HTMLDivElement>(null)
@@ -84,7 +90,18 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
     return () => ro.disconnect()
   }, [])
 
-  const layout = useMemo(() => computeMapLayout(themes, box.w, box.h), [themes, box.w, box.h])
+  // the LIVE source-tier mix of what we ACTUALLY collect (from the wire backfill) — drives the lane
+  // sizing/labels AND the inbound dot distribution, so the lanes reflect REALITY (e.g. ~73% news, ~17%
+  // filings), never a hardcoded guess. Empty tiers (e.g. rumour) drop out; real ones flow proportionally.
+  const newsItems = useStore((s) => s.newsItems)
+  const tierMix = useMemo(() => {
+    const counts: Record<string, number> = {}
+    for (const it of newsItems) { const t = (it.source_tier as string) || 'news'; counts[t] = (counts[t] || 0) + 1 }
+    return counts
+  }, [newsItems])
+  const tierMixRef = useRef(tierMix); tierMixRef.current = tierMix
+
+  const layout = useMemo(() => computeMapLayout(themes, box.w, box.h, tierMix), [themes, box.w, box.h, tierMix])
   const hoveredRelated = useMemo(() => {
     if (!hover) return new Set<string>()
     const t = themes.find((x) => x.theme_id === hover)
@@ -160,7 +177,21 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
     if (reduceMotion || !lastScan || lastScan.seq === prevScanSeq.current) return
     prevScanSeq.current = lastScan.seq
     const n = Math.max(0, Math.min(lastScan.fetched, MAX_QUEUE))
-    for (let i = 0; i < n; i++) queue.current.push({ kind: 'in', sourceTier: LANE_MIX[i % LANE_MIX.length] })
+    // spread the n scanning dots across the source lanes by the REAL collected mix (stratified, so they
+    // interleave evenly instead of clumping) — filings, company, etc. flow in proportion to reality.
+    const entries = Object.entries(tierMixRef.current)
+    const totalC = entries.reduce((a, [, c]) => a + c, 0)
+    if (totalC && entries.length) {
+      const assigned: Record<string, number> = {}
+      for (let i = 0; i < n; i++) {
+        let best = entries[0][0], bestDef = -Infinity
+        for (const [t, c] of entries) { const def = ((i + 1) * c) / totalC - (assigned[t] || 0); if (def > bestDef) { bestDef = def; best = t } }
+        assigned[best] = (assigned[best] || 0) + 1
+        queue.current.push({ kind: 'in', sourceTier: best })
+      }
+    } else {
+      for (let i = 0; i < n; i++) queue.current.push({ kind: 'in', sourceTier: 'news' })
+    }
     if (queue.current.length > MAX_QUEUE) queue.current = queue.current.slice(-MAX_QUEUE)
     // the rate IS the intensity: fetched ÷ scan cadence, dynamic + uncapped (200/scan ≈ 0.7/s, 1000 ≈ 3.3/s)
     rateRef.current = queue.current.length / Math.max(60, windowRef.current / 1000)
@@ -245,11 +276,12 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
         ))}
       </div>
 
-      {/* source-tier lanes */}
+      {/* source-tier lanes — only the ones we actually collect, each labelled with its REAL share */}
       <div className="thememap__lanes">
         {layout.lanes.map((l) => (
-          <div key={l.id} className="thememap__lane" style={{ left: l.x, top: l.y - 12 }}>
+          <div key={l.id} className="thememap__lane" style={{ left: l.x, top: l.y - 12 }} title={`${(l as any).count?.toLocaleString?.() || 0} of the last ${newsItems.length} reads`}>
             <span className="thememap__lane-label">{l.label}</span>
+            {(l as any).share > 0 && <span className="thememap__lane-share">{Math.max(1, Math.round((l as any).share * 100))}%</span>}
           </div>
         ))}
       </div>
@@ -302,17 +334,14 @@ function MapTooltip({ theme }: { theme: Theme }) {
 }
 
 interface MapNode { id: string; x: number; y: number; r: number; flow: boolean; labelW: number; theme: Theme }
-function computeMapLayout(themes: Theme[], W: number, H: number) {
+function computeMapLayout(themes: Theme[], W: number, H: number, tierCounts: Record<string, number> = {}) {
   const coreX = W * 0.26, coreY = H * 0.5, coreR = Math.min(32, H * 0.06)
-  const laneTiers = [
-    { id: 'primary_filing', label: 'Filings' },
-    { id: 'official_data', label: 'Official' },
-    { id: 'company', label: 'Company' },
-    { id: 'news', label: 'News' },
-    { id: 'unconfirmed', label: 'Rumour' },
-  ]
+  // lanes are DATA-DRIVEN: only tiers we actually collect (news always shown), each carrying its real
+  // count + share so the lane labels read the true source mix.
+  const totalT = Object.values(tierCounts).reduce((a, b) => a + b, 0)
+  const activeTiers = TIER_LANES.map((t) => ({ ...t, count: tierCounts[t.id] || 0, share: totalT ? (tierCounts[t.id] || 0) / totalT : 0 })).filter((t) => t.share >= 0.005 || t.id === 'news')
   const laneX = W * 0.05
-  const lanes = laneTiers.map((t, i) => ({ ...t, x: laneX, y: H * 0.18 + (i * (H * 0.64)) / (laneTiers.length - 1) }))
+  const lanes = activeTiers.map((t, i) => ({ ...t, x: laneX, y: H * 0.18 + (i * (H * 0.64)) / Math.max(1, activeTiers.length - 1) }))
 
   // Each theme gets a wide label box (up to 3 lines) so the FULL name shows, and a matching tall
   // vertical SLOT so the name never collides with the orb beneath it. The basin band is inset on the
