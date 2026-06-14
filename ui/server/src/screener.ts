@@ -99,6 +99,18 @@ export function readConviction(thesisId: string) {
   }
 }
 
+// The latest conviction track record (from /screener:calibrate). Null until one has been written.
+export function readConvictionCalibration() {
+  const conv = `${manifest().ledgerRoot || 'screener/ledger'}/conviction`
+  try {
+    const dir = resolveInsideScreener(conv)
+    const files = fs.readdirSync(dir).filter((f) => /_conviction_calibration\.json$/.test(f)).sort()
+    return files.length ? readJson(`${conv}/${files[files.length - 1]}`) : null
+  } catch {
+    return null
+  }
+}
+
 // A screener run folder's manifest: module outputs + per-file verdict/routing + run-root artifacts.
 // Mirrors outputs.runManifest but lives in the screener sandbox.
 export function screenerRunManifest(sigId: string) {

@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+import { api } from '../../lib/api'
 import type { BoardConviction, BookMomentum, ConvictionDetail, TrajectoryEnum } from '../../lib/types'
 
 // Phase 3 live book — the conviction surface. Reads ONLY the board's engine-owned conviction
@@ -158,6 +160,38 @@ export function CheckpointTimeline({ detail }: { detail: ConvictionDetail }) {
           ))}
         </div>
       )}
+    </div>
+  )
+}
+
+// The track record strip — the proof the loop works. Reads /screener:calibrate's latest output;
+// shows an honest "building" state until enough checks resolve (never fabricates a metric).
+export function TrackRecord() {
+  const [c, setC] = useState<any | null>(null)
+  useEffect(() => {
+    let on = true
+    api.screenerCalibration().then((r) => { if (on) setC(r) }).catch(() => {})
+    return () => { on = false }
+  }, [])
+  if (!c) return null
+  if (!c.sufficient) {
+    return (
+      <div className="trackrec trackrec--building" title={c.verdict}>
+        <span className="trackrec__label">Track record</span>
+        <span className="trackrec__note">building — {c.n_resolved}/{c.min_resolved_for_calibration} checks resolved across {c.n_theses} idea{c.n_theses === 1 ? '' : 's'}; fills in as they hit their dates</span>
+      </div>
+    )
+  }
+  return (
+    <div className="trackrec" title={c.verdict}>
+      <span className="trackrec__label">Track record</span>
+      <span className="trackrec__stats">
+        {c.hit_rate != null && <b>{Math.round(c.hit_rate * 100)}% hit-rate</b>}
+        <span>{c.brier != null ? `Brier ${c.brier}` : 'Brier pending'}</span>
+        <span>{c.n_resolved} checks resolved</span>
+        {c.median_days_lock_to_confirm != null && <span>~{c.median_days_lock_to_confirm}d to confirm</span>}
+        {c.false_discard_rate != null && <span>{Math.round(c.false_discard_rate * 100)}% discards reversed</span>}
+      </span>
     </div>
   )
 }

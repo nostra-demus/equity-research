@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { plainRoute } from '../../lib/plain'
 import { useStore } from '../../lib/store'
 import type { BoardThesis } from '../../lib/types'
-import { BookMomentumBanner, CheckpointTimeline, ConvictionStrip } from './ConvictionCard'
+import { BookMomentumBanner, CheckpointTimeline, ConvictionStrip, TrackRecord } from './ConvictionCard'
 
 // "Recent runs" — the screener's run history. Every event you put through the checks shows up here,
 // newest first; one click reopens the full analysis (with the hand-move + send-to-research controls).
@@ -235,6 +235,7 @@ function RecentChecks({ onOpen, onReplay }: { onOpen: (thesisId: string) => void
     <div className="recent">
       <div className="recent__lead">Your live book — ideas ranked by how strongly they’re holding up. Open one to re-read it, or replay it on the board.</div>
       {board?.book_momentum && <BookMomentumBanner m={board.book_momentum} />}
+      <TrackRecord />
       {live.map(liveRow)}
       {archived.length > 0 && (
         <div className="archived">

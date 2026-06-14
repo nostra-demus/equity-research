@@ -165,6 +165,10 @@ export const api = {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/screener/conviction/${encodeURIComponent(thesisId)}/restore`, {})
   },
+  screenerCalibration: async (): Promise<any | null> => {
+    if ((await ensureMode()) === 'static') return snap.screenerCalibration || null
+    return get<any>(`/api/screener/calibration`)
+  },
   cancelAllRuns: async (): Promise<{ ok: boolean; cancelled: string[] }> => {
     if ((await ensureMode()) === 'static') return { ok: true, cancelled: [] }
     return post(`/api/runs/cancel-all`)

@@ -26,7 +26,7 @@ import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
 import { agentNamesForModule, buildSwarmGraph, graphForSubject, graphForTicker, listModuleNames } from './roster'
 import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, resolveRunRoot, runManifest } from './outputs'
-import { dataPoolPresent, readCandidates, readConviction, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest } from './screener'
+import { dataPoolPresent, readCandidates, readConviction, readConvictionCalibration, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest } from './screener'
 import { listSwarms } from './swarms'
 import { getNewsStatus, startNewsIngester } from './news/scheduler'
 import { startConvictionLoop } from './conviction-dispatch'
@@ -496,6 +496,10 @@ app.get('/api/screener/board', async (_req, reply) => {
     return reply.code(e?.statusCode || 500).send({ error: String(e?.message || e) })
   }
 })
+
+// The conviction track record (from /screener:calibrate) — null until one is written. Honest empty
+// state lives in the payload (sufficient:false + verdict), so the UI never fabricates a metric.
+app.get('/api/screener/calibration', async () => readConvictionCalibration())
 
 app.get('/api/screener/run', async (req, reply) => {
   const sigId = (req.query as any)?.sig_id as string
