@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { plainRoute } from '../../lib/plain'
 import { useStore } from '../../lib/store'
 import type { BoardThesis } from '../../lib/types'
+import { BookMomentumBanner, ConvictionStrip } from './ConvictionCard'
 
 // "Recent runs" — the screener's run history. Every event you put through the checks shows up here,
 // newest first; one click reopens the full analysis (with the hand-move + send-to-research controls).
@@ -62,6 +63,7 @@ function ThesisDetail() {
         <span className="tdetail__id">{meta.thesis_id}</span>
       </div>
       <div className="tdetail__headline">{t.headline}</div>
+      {bt?.conviction && <ConvictionStrip conv={bt.conviction} />}
 
       <div className="tdetail__move" onClick={(e) => e.stopPropagation()}>
         <span className="tdetail__move-label" title="Put this idea where YOU think it belongs. Your move is marked on the card; the checks' own verdict stays visible, and nothing the engine wrote is changed.">
@@ -187,11 +189,12 @@ function RecentChecks({ onOpen, onReplay }: { onOpen: (thesisId: string) => void
   return (
     <div className="recent">
       <div className="recent__lead">Every event you’ve put through the checks, newest first. Open one to re-read its full analysis, or replay it on the board.</div>
+      {board?.book_momentum && <BookMomentumBanner m={board.book_momentum} />}
       {rows.map(({ s, t }) => {
         const outcome = plainRoute(t ? effStatus(t) : s.status)
         return (
           <div key={s.signal_id} className="recentrow">
-            <EdgeDial score={t?.edge_score} />
+            <EdgeDial score={t?.conviction?.edge_score_live ?? t?.edge_score} />
             <div className="recentrow__main">
               <div className="recentrow__headline">{s.headline}</div>
               <div className="recentrow__meta">
@@ -205,6 +208,7 @@ function RecentChecks({ onOpen, onReplay }: { onOpen: (thesisId: string) => void
               {t && <button className="btn btn--ghost recentrow__act" onClick={() => onOpen(t.thesis_id)}>Open analysis ▸</button>}
               <button className="btn btn--ghost recentrow__act" onClick={() => onReplay(s.signal_id)} title="Show this run playing out on the board">Replay</button>
             </div>
+            {t?.conviction && <ConvictionStrip conv={t.conviction} />}
           </div>
         )
       })}

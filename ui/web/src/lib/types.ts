@@ -196,6 +196,40 @@ export interface BoardSignal {
   thesis_id?: string | null
 }
 export interface BoardCandidate { candidate_id: string; ticker: string; company_name: string; side: string; exposure_score: number; handed_off?: boolean }
+
+// ---- Phase 3 conviction loop (the live book) ----
+export type ConvictionState = 'watching' | 'provisional' | 'strong' | 'confirmed' | 'fading' | 'handed_off' | 'falsified_discarded' | 'expired_unproven'
+export type TrajectoryEnum = 'accelerating' | 'steady' | 'stalling' | 'decaying'
+export interface BoardConviction {
+  state: ConvictionState
+  sell_side_rating: string
+  edge_locked: number
+  edge_score_live: number
+  conviction: number
+  upgrade_velocity: number // edge points / 30 days (signed) — the "rate of upgrade"
+  trajectory_enum: TrajectoryEnum
+  rank_score: number
+  proximity_pct: number
+  progress_confirmed: number
+  progress_total: number
+  validated: boolean // false = never checked yet; cannot masquerade as a confirmed climber
+  trajectory: { at: string; edge: number }[]
+  next_checkpoint: { checkpoint_id: string; metric_name: string; kind: string; due_at: string | null } | null
+  stale: boolean
+  insufficient: boolean
+  archived: boolean
+  plain_note?: string
+}
+export interface BookMomentum {
+  live_count: number
+  upgrading_count: number
+  decaying_count: number
+  mean_upgrade_velocity: number
+  confirmed_count: number
+  fading_count: number
+  stale_count: number
+  archived_count: number
+}
 export interface BoardThesis {
   thesis_id: string
   signal_id: string
@@ -217,6 +251,8 @@ export interface BoardThesis {
   effective_status?: string
   override?: { from_status: string; to_status: string; reason: string; moved_by: string; moved_at: string } | null
   override_stale?: boolean
+  // additive: Phase 3 live-book snapshot (engine-owned, separate from the override above)
+  conviction?: BoardConviction | null
 }
 export interface BoardHandoff { handoff_id: string; thesis_id: string; ticker: string; handed_off_at: string; seeded_path: string }
 export interface ScreenerBoard {
@@ -226,6 +262,7 @@ export interface ScreenerBoard {
   theses: BoardThesis[]
   handoffs: BoardHandoff[]
   counts: Record<string, number>
+  book_momentum?: BookMomentum
   live?: { runId: string; kind: string; subjectId: string; runRoot: string | null; startedAt: number }[]
 }
 
