@@ -308,6 +308,11 @@ export const NEWS = {
   nseEnabled: process.env.NEWS_NSE_ENABLED === '0' ? false : true,
   nseBaseUrl: process.env.NEWS_NSE_BASE_URL || 'https://www.nseindia.com',
   nseLookbackHours: capNum(process.env.NEWS_NSE_LOOKBACK_HOURS, 24),
+  // Intl-exchange layer (Layer 3, non-India): HKEXnews (Hong Kong) + ASX (Australia) primary-disclosure
+  // JSON APIs — the exchanges themselves, the highest-signal source for those regions. Items pass the
+  // firewall on their hkexnews.hk / asx.com.au link domain. Default ON; NEWS_EXCHANGE_INTL_ENABLED=0 off.
+  exchangeIntlEnabled: process.env.NEWS_EXCHANGE_INTL_ENABLED === '0' ? false : true,
+  exchangeIntlLookbackHours: capNum(process.env.NEWS_EXCHANGE_INTL_LOOKBACK_HOURS, 24),
   // Live-feed per-item records (firehose kind:"item") — the daily cap bounds file growth.
   feedItemsDailyCap: capNum(process.env.NEWS_FEED_ITEMS_DAILY_CAP, 5000),
   // Groq output budget per triage call (the per-item payload grew with companies/size_bucket).

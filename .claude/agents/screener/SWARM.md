@@ -246,6 +246,25 @@ sources:
       - "Decrypt"
       - "DataCenterDynamics"
       - "USGS Earthquakes"
+      # International exchange primary filings (exchange-intl.ts JSON adapters):
+      - "HKEXnews (HK Exchange Filing)"
+      - "ASX (Australia Exchange Filing)"
+      # GDELT-queried global financial press:
+      - "Barron's"
+      - "The Economist"
+      - "Caixin Global"
+      - "Investor's Business Daily"
+      - "Semafor Business"
+      - "The Block (crypto)"
+      - "Finextra"
+      - "Les Echos"
+      - "Il Sole 24 Ore"
+      - "Expansión"
+      - "The National (UAE)"
+      - "Arab News"
+      - "Bangkok Post"
+      - "Business Day (BusinessLive)"
+      - "DealStreetAsia"
   thesis_structure:
     reject_if_unapproved: false
     note: "Prefer the signal_gate list plus primary data (filings, exchange data, official statistics). An off-list source must be dated and labelled, and never outranks an on-list source on the same fact."

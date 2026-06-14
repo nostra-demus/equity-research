@@ -250,6 +250,29 @@ const DOMAINS: Record<string, SourceMeta> = {
   'decrypt.co': { source_name: 'Decrypt', region: 'GLOBAL', input_nature: 'news_headline', gdelt: false },
   'datacenterdynamics.com': { source_name: 'DataCenterDynamics', region: 'GLOBAL', input_nature: 'news_headline', gdelt: false },
   'usgs.gov': { source_name: 'USGS Earthquakes', region: 'GLOBAL', input_nature: 'macro_data_release', gdelt: false },
+  // --- GDELT-queried global financial press (Jun 2026): high-quality, genuinely-additive outlets we
+  //     have no direct feed for, covering regions/sectors beyond our existing wires. NO gdelt:false →
+  //     GDELT pulls their headlines (it indexes these reliably). Kept conservative (+15) so the GDELT
+  //     query stays short and few-chunked; expand only while watching for 429 / "query too long".
+  'barrons.com': { source_name: "Barron's", region: 'US', input_nature: 'news_headline' },
+  'economist.com': { source_name: 'The Economist', region: 'GB', input_nature: 'news_headline' },
+  'caixinglobal.com': { source_name: 'Caixin Global', region: 'CN', input_nature: 'news_headline' },
+  'investors.com': { source_name: "Investor's Business Daily", region: 'US', input_nature: 'news_headline' },
+  'semafor.com': { source_name: 'Semafor Business', region: 'US', input_nature: 'news_headline' },
+  'theblock.co': { source_name: 'The Block (crypto)', region: 'GLOBAL', input_nature: 'news_headline' },
+  'finextra.com': { source_name: 'Finextra', region: 'GB', input_nature: 'news_headline' },
+  'lesechos.fr': { source_name: 'Les Echos', region: 'OTHER', input_nature: 'news_headline' },
+  'ilsole24ore.com': { source_name: 'Il Sole 24 Ore', region: 'OTHER', input_nature: 'news_headline' },
+  'expansion.com': { source_name: 'Expansión', region: 'OTHER', input_nature: 'news_headline' },
+  'thenationalnews.com': { source_name: 'The National (UAE)', region: 'OTHER', input_nature: 'news_headline' },
+  'arabnews.com': { source_name: 'Arab News', region: 'OTHER', input_nature: 'news_headline' },
+  'bangkokpost.com': { source_name: 'Bangkok Post', region: 'OTHER', input_nature: 'news_headline' },
+  'businesslive.co.za': { source_name: 'Business Day (BusinessLive)', region: 'OTHER', input_nature: 'news_headline' },
+  'dealstreetasia.com': { source_name: 'DealStreetAsia', region: 'OTHER', input_nature: 'news_headline' },
+  // --- International exchange primary-disclosure JSON adapters (exchange-intl.ts) — items pass the
+  //     firewall on these link domains (the API hosts differ). gdelt:false: read directly, not via GDELT.
+  'hkexnews.hk': { source_name: 'HKEXnews (HK Exchange Filing)', region: 'CN', input_nature: 'exchange_announcement', gdelt: false },
+  'asx.com.au': { source_name: 'ASX (Australia Exchange Filing)', region: 'OTHER', input_nature: 'exchange_announcement', gdelt: false },
 }
 
 /** Lowercase, strip a leading www., and keep only the host (no scheme/path) — GDELT gives a bare host already. */
