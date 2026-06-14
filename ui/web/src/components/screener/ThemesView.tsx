@@ -68,6 +68,11 @@ export function ThemesView() {
 
 // ---------------- the MAP ----------------
 
+// The source-tier lane mix for the inbound scanning flow. The raw fetch is overwhelmingly RSS news; the
+// filtered bulk doesn't carry a per-article tier, so the spread across lanes is MODELLED (news-heavy) —
+// the volume (fetched) is the real signal, the lane assignment is representative. ids match layout.lanes.
+const LANE_MIX = ['news', 'news', 'news', 'company', 'news', 'official_data', 'news', 'primary_filing', 'news', 'unconfirmed', 'company', 'news']
+
 function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) => void }) {
   const ref = useRef<HTMLDivElement>(null)
   const [box, setBox] = useState({ w: 900, h: 560 })
@@ -96,11 +101,10 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
   type Emit = { id: number; d: string; cls: string; tier?: Theme['tier']; dur: number; target?: string }
   type Pending = { kind: 'in'; sourceTier?: string } | { kind: 'out'; themeId: string; tier: Theme['tier'] }
   const MAX_QUEUE = 4000 // generous — a real scan's full volume drives the rate; this is only a runaway guard
-  const newsItems = useStore((s) => s.newsItems)
-  const arrived = useStore((s) => s.newsArrivedTotal)
+  const lastScan = useStore((s) => s.lastScan)
   const intervalMin = useStore((s) => s.newsStatus?.intervalMin) || 5
   const prevCounts = useRef<Map<string, number>>(new Map())
-  const prevArrived = useRef<number | null>(null)
+  const prevScanSeq = useRef<number | null>(null)
   const seenThemes = useRef<Set<string>>(new Set())
   const seq = useRef(0)
   const queue = useRef<Pending[]>([])
@@ -146,20 +150,22 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
     }
   }, [themes, reduceMotion])
 
-  // ENQUEUE inbound — diff the MONOTONIC arrival counter (survives the wire's 1000-item cap, unlike a
-  // length diff). The `added` newest items sit at the front of the wire; queue one dot per real item.
+  // ENQUEUE inbound — the cycle's RAW FETCH volume (`fetched` ≈ 200 articles/scan) is the true "data
+  // coming in" intensity the user wants to gauge — not the ~5 new-after-dedup items, which look like
+  // nothing. On mount it SEEDS from the most recent scan (alive on open, not dead until the next 5-min
+  // cycle); each new scan tops it up. The filtered bulk doesn't carry a per-article source tier, so dots
+  // are spread across the lanes by a news-heavy mix — the COUNT (fetched) is exact; only the lane split
+  // is modelled. These are the "scanning" pulse (source → Ranking); they don't tick theme counts.
   useEffect(() => {
-    if (prevArrived.current === null || reduceMotion) { prevArrived.current = arrived; return }
-    const added = arrived - prevArrived.current
-    prevArrived.current = arrived
-    if (added <= 0) return
-    const fresh = newsItems.slice(0, Math.max(0, added))
-    for (let i = 0; i < added; i++) queue.current.push({ kind: 'in', sourceTier: fresh[i]?.source_tier })
+    if (reduceMotion || !lastScan || lastScan.seq === prevScanSeq.current) return
+    prevScanSeq.current = lastScan.seq
+    const n = Math.max(0, Math.min(lastScan.fetched, MAX_QUEUE))
+    for (let i = 0; i < n; i++) queue.current.push({ kind: 'in', sourceTier: LANE_MIX[i % LANE_MIX.length] })
     if (queue.current.length > MAX_QUEUE) queue.current = queue.current.slice(-MAX_QUEUE)
-    // the rate IS the intensity: pending items ÷ the scan cadence, dynamic + uncapped (1000/scan ≈ 3.3/s)
+    // the rate IS the intensity: fetched ÷ scan cadence, dynamic + uncapped (200/scan ≈ 0.7/s, 1000 ≈ 3.3/s)
     rateRef.current = queue.current.length / Math.max(60, windowRef.current / 1000)
     setRate(rateRef.current)
-  }, [arrived, reduceMotion])
+  }, [lastScan, reduceMotion])
 
   // PACER — one stable loop. It releases dots at the FIXED per-scan rate (rateRef, = scraped ÷ cadence),
   // held steady across the window so the whole scan's volume spreads evenly: 1000 items over 300s reads

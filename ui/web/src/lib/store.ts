@@ -199,6 +199,7 @@ interface State {
   newsItems: FeedItem[]
   freshEvents: Set<string> // event_ids that just streamed in over SSE — drive the "new detected" glow
   newsArrivedTotal: number // monotonic count of items read off the wire (survives the 1000 cap) — paces the live themes map
+  lastScan: { fetched: number; candidates: number; seq: number } | null // the latest ingest cycle's RAW fetch volume — the true "data coming in" intensity that drives the live themes-map flow
   newsStatus: NewsStatus | null
   feedWindowDays: number // the time-travel window the wire is showing (2 = live; 14/30/90/180/370 = history)
   feedWindowLoading: boolean
@@ -292,6 +293,7 @@ export const useStore = create<State>((set, get) => ({
   newsItems: [],
   freshEvents: new Set(),
   newsArrivedTotal: 0,
+  lastScan: null,
   feedWindowDays: 2,
   feedWindowLoading: false,
   newsStatus: null,
@@ -932,10 +934,15 @@ export const useStore = create<State>((set, get) => ({
   // so we never clobber items already streamed in. Drives the persistent left-rail feed.
   scEnsureNewsStream: async () => {
     void get().refreshNewsStatus()
-    if (!get().newsItems.length) {
+    if (!get().newsItems.length || !get().lastScan) {
       try {
-        const { items } = await api.newsFeed(2)
-        if (!get().newsItems.length) set({ newsItems: items })
+        const { items, cycles } = await api.newsFeed(2)
+        const patch: Partial<State> = {}
+        if (!get().newsItems.length) patch.newsItems = items
+        // seed the live map from the most recent scan's RAW fetch volume so it's alive on open (not dead
+        // until the next 5-min cycle). cycles come back newest-first from readFeed.
+        if (cycles?.length && !get().lastScan) patch.lastScan = { fetched: cycles[0].fetched || 0, candidates: cycles[0].candidates || 0, seq: (get().lastScan?.seq || 0) + 1 }
+        if (Object.keys(patch).length) set(patch)
       } catch {}
     }
     if (!get().staticMode) connectNewsStream(get)
@@ -1231,6 +1238,9 @@ export const useStore = create<State>((set, get) => ({
       }, FRESH_MS))
     } else if (e?.type === 'news-cycle') {
       void get().refreshNewsStatus()
+      // the cycle's RAW fetch volume drives the live themes map's scanning flow — top it up each scan
+      const sum = (e as any).summary
+      if (sum && typeof sum.fetched === 'number') set({ lastScan: { fetched: sum.fetched, candidates: sum.candidates || 0, seq: (get().lastScan?.seq || 0) + 1 } })
       if (get().activeSwarm === 'screener') void get().scRefreshBoard() // the board is screener UI — don't refetch it from the research swarm every cycle
     } else if (e?.type === 'theme-update' && e.theme) {
       // upsert the changed theme; the map/board re-rank from the array. Only when the themes view is
