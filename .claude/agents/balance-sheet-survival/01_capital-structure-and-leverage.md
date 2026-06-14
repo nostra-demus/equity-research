@@ -21,7 +21,7 @@ You DO NOT:
 # RUNTIME INPUTS
 
 - `TICKER`, `DATA_PATH`, `OUTPUT_PATH = analyses/{TICKER}_{DATE}/balance-sheet-survival/01_capital-structure-and-leverage.md`, `DATE`
-- `UPSTREAM_INPUTS` — none in-module. Optionally cross-module: `earnings/01_historical-financials.md` (EBITDA, net debt, leverage trend), `valuation/01_price-and-capital-structure.md` (debt stack cross-check), `business-model/11_capital-allocation-governance.md` (how the debt got here).
+- `UPSTREAM_INPUTS` — none in-module. Optionally cross-module: `earnings/01_historical-financials.md` (EBITDA, net debt, leverage trend), `business-model/11_capital-allocation-governance.md` (how the debt got here). (Do NOT read `valuation/` — it runs after/alongside this module, so it is never reliably present in a forward run; reading it would break output-neutrality under the parallel scheduler.)
 
 # PARTIAL-DATA RULE
 

@@ -64,7 +64,6 @@ The master synthesizer reads `99_balance-sheet-survival-synthesis.md` and, per i
 
 - business-model: `10_external-dependency` (cyclicality → stress depth), `11_capital-allocation-governance` (debt trajectory, pledging), `03_segment-map` (asset-sale capacity)
 - earnings: `01_historical-financials` (EBITDA/CFO/FCF/net debt), `06_earnings-quality` (is the EBITDA cash-backed?), `03_margin-drivers` (downside margin)
-- valuation (if available): `01_price-and-capital-structure` (debt stack cross-check)
 
 If an upstream module hasn't run, each affected agent proceeds independently and flags it.
 

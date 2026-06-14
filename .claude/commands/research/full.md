@@ -167,6 +167,8 @@ Follow every step in `frameworks/MODULE_PIPELINE.md` with these inputs:
 - `<RUN_ROOT>` = the run root from step 3
 - `<CROSS_MODULE_CONTEXT>` = the string from step 8A
 
+**Defer the module memo (speed, output-neutral).** When you follow `MODULE_PIPELINE.md` Step 4.9 for this module, do Step 4.9B (the deterministic module dossier) but **skip Step 4.9A (the LLM module memo)** — in a `/research:full` run the per-module memos are generated together in one batch in **Step 10A.0** (after the master synthesizer). Nothing downstream reads a module memo (the master reads each `99_*-synthesis.md`, and every dossier already excludes `*_memo.md`), so this changes only *when* a memo is written, never its content — and it stops the pipeline pausing ~2.5 min after every module.
+
 ### 8C. Record outcome
 
 After the shared pipeline returns:
@@ -207,6 +209,16 @@ These are the other two tiers of the run, written **beside** `final_thesis.md` s
 
 - `memo.md` — the ~10-page, plain-English colleague memo (the shareable tier).
 - `audit_dossier.md` — the deterministic, lossless concatenation of every artifact in the run (the audit tier).
+
+### 10A.0 — Module memos (deferred batch, LLM, via the `module-memo-writer` agent)
+
+In a full run the per-module memos were deferred from step 8 (Step 4.9A was skipped) so they don't pause the pipeline ~2.5 min after each module. Generate them now, after the master synthesis — they are leaf outputs nothing else reads, so this is pure scheduling and is output-neutral (the memo content is identical to inline generation; only its timing moves).
+
+For **every** module folder `<RUN_ROOT>/<module>/` that has a `99_*-synthesis.md`, dispatch a `module-memo-writer` Task — **regenerate unconditionally**; do NOT skip a module just because a `<module>_memo.md` already exists. (On a second `/research:full` into the same dated run folder the synthesis was rewritten, so an old memo from the earlier attempt must be refreshed to stay in sync — never left stale beside a fresh synthesis. This mirrors the inline Step 4.9A, which always rewrote the memo after its synthesis.) **Issue all of these Task calls in a single message so they run concurrently** — the memos are independent, so batched they cost about one memo's time, not the sum of six. For each such module the user message is:
+
+> Read `<RUN_ROOT>/<module>/99_<...>-synthesis.md` and write the module memo to `<RUN_ROOT>/<module>/<module>_memo.md`. Condense only what the synthesis already carries — do not add new analysis, numbers, or evidence, and do not change its verdict, scores, or caps. The saved file must start with its `#` header and contain no chat-confirmation block. Do not write any other file and do not run git.
+
+Best-effort: a module memo that fails to write is recorded as `failed` for that module but never aborts the run (the `99_*-synthesis.md` is the module's decision of record). Order does not matter versus the audit dossier (10A.2), which already excludes `*_memo.md`.
 
 ### 10A.1 — Memo (LLM, via the memo-writer agent)
 

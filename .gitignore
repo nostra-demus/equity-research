@@ -20,6 +20,9 @@ ui/web/public/data/
 _pool_extracts/
 **/_pool_extracts/
 
+# transient defer-module-memos marker (written by the per-module chain, removed at run end / on failure) — never commit
+**/.defer_module_memos
+
 # python bytecode cache
 __pycache__/
 *.pyc

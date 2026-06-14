@@ -104,7 +104,6 @@ You DO NOT:
 | earnings/01_historical-financials.md | |
 | earnings/06_earnings-quality.md | |
 | earnings/03_margin-drivers.md | |
-| valuation/01_price-and-capital-structure.md | |
 
 ## 4A. Jurisdiction & Reporting Regime
 

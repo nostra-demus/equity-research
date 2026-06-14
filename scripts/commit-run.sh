@@ -71,6 +71,15 @@ fi
 git commit -q -m "$MSG" -- "$@"
 SHA="$(git rev-parse HEAD)"
 
+# Validation / dry-run: commit locally but DO NOT push to origin/main. Lets the cheap real validations
+# (a single-module run, a master rerun) produce their outputs on the CURRENT branch without touching
+# main. Enable by setting ENGINE_NO_PUSH=1 in the run's environment.
+if [ "${ENGINE_NO_PUSH:-}" = "1" ]; then
+  echo "commit-run: ENGINE_NO_PUSH=1 — committed locally ($SHA); NOT pushing to origin/main" >&2
+  echo "COMMIT_SHA=$SHA"
+  exit 0
+fi
+
 if git push -q origin main 2>/dev/null; then
   echo "COMMIT_SHA=$SHA"
   exit 0

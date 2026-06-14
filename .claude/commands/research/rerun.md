@@ -95,6 +95,16 @@ Only if `<RUN_ROOT>/final_thesis.md` exists. These keep the three tiers in sync 
 - **Memo** — dispatch one Task call: `subagent_type: "memo-writer"`, message: `Read <RUN_ROOT>/final_thesis.md and <RUN_ROOT>/decision_record.json and write the ~10-page colleague memo to <RUN_ROOT>/memo.md.` If `memo.md` is absent afterward, record it as failed but do not abort.
 - **Audit dossier** — run the deterministic Bash/Python concatenation from `/research:full` step 10A.2 **verbatim**, with `RUN_ROOT="<RUN_ROOT>"`. It is read-only on run artifacts, writes only `audit_dossier.md`, and must never abort the run.
 
+## 9A. Generate deferred module memos (per-module-chain runs only)
+
+Check for the marker file `<RUN_ROOT>/.defer_module_memos` (`test -f`). If it is **absent**, skip this entire step — a normal `/research:rerun` already refreshed each cascade module's memo inline in step 7, and a standalone full run handles its own memos. If it is **present**, a `/research:full` per-module **chain** run deferred its per-module memos so they stayed off the parallel critical path, and you generate them now, after the thesis — they are leaf outputs nothing else reads (the master reads each `99_*-synthesis.md`; every dossier excludes `*_memo.md`), so this is output-neutral.
+
+For **every** module folder `<RUN_ROOT>/<module>/` that has a `99_*-synthesis.md`, dispatch a `module-memo-writer` Task — **regenerate unconditionally**; do NOT skip a module whose `<module>_memo.md` already exists (a re-run into the same dated folder rewrote the synthesis, so a stale memo must be refreshed, not left in place). **Issue all of these calls in a single message so they run concurrently** — they are independent, so batched they cost about one memo's time. Each message is:
+
+> Read `<RUN_ROOT>/<module>/99_<...>-synthesis.md` and write the module memo to `<RUN_ROOT>/<module>/<module>_memo.md`. Condense only what the synthesis already carries — do not add new analysis, numbers, or evidence, and do not change its verdict, scores, or caps. The saved file must start with its `#` header and contain no chat-confirmation block. Do not write any other file and do not run git.
+
+Each is best-effort: a module memo that fails to write is recorded as `failed` but never aborts the rerun (the `99_*-synthesis.md` is the module's decision of record). When done, **delete the marker so it is never committed**: `rm -f "<RUN_ROOT>/.defer_module_memos"`. The next step (10) then commits the whole run folder, including these newly generated memos.
+
 ## 10. Commit and push to main (one commit)
 
 Per repo `CLAUDE.md` git policy: commit straight to `main`, no branches, no PRs.

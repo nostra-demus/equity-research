@@ -169,6 +169,8 @@ Resolve the module's synthesis filename via Glob on `<RUN_ROOT>/<MODULE>/99_*-sy
 
 ### Step 4.9A — Module memo (LLM, via the `module-memo-writer` agent)
 
+**Deferred-memo mode (skip this sub-step).** You are in deferred-memo mode if EITHER (a) the orchestrator that invoked this pipeline told you to defer the module memo — the monolithic `/research:full` does, in its step 8B — OR (b) the marker file `<RUN_ROOT>/.defer_module_memos` exists (check with `test -f "<RUN_ROOT>/.defer_module_memos"`; the per-module-chain `/research:full` writes it). In either case the full run batches all module memos at the end, off the per-module critical path (the monolithic run in its Step 10A.0; the chain in its master step, `/research:rerun` Step 9A) — so **skip this sub-step entirely** and the memo is generated identically later, nothing lost. If NEITHER holds — a standalone `/research:<module>` run or a normal `/research:rerun` — generate the memo inline as below, so the module stays self-sufficient. Deferral suppresses ONLY the memo: always still do Step 4.9B (the dossier) regardless.
+
 Dispatch a single Task call:
 
 - `subagent_type: "module-memo-writer"`
