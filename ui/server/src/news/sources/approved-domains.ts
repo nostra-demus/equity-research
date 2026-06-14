@@ -27,7 +27,7 @@ const DOMAINS: Record<string, SourceMeta> = {
   // global wires
   'reuters.com': { source_name: 'Reuters', region: 'GLOBAL', input_nature: 'news_headline' },
   'apnews.com': { source_name: 'Associated Press', region: 'GLOBAL', input_nature: 'news_headline' },
-  'ap.org': { source_name: 'Associated Press', region: 'GLOBAL', input_nature: 'news_headline' },
+  'ap.org': { source_name: 'Associated Press', region: 'GLOBAL', input_nature: 'news_headline', gdelt: false }, // GDELT indexes AP under apnews.com, not ap.org (verified empty) — keep approved, drop the wasted query slot
   'bloomberg.com': { source_name: 'Bloomberg', region: 'GLOBAL', input_nature: 'news_headline' },
   'afp.com': { source_name: 'AFP', region: 'GLOBAL', input_nature: 'news_headline' },
   'ft.com': { source_name: 'Financial Times', region: 'GLOBAL', input_nature: 'news_headline' },
@@ -51,7 +51,7 @@ const DOMAINS: Record<string, SourceMeta> = {
   'eia.gov': { source_name: 'US EIA', region: 'US', input_nature: 'macro_data_release' },
   'argusmedia.com': { source_name: 'Argus Media', region: 'GLOBAL', input_nature: 'commodity_price_move' },
   // other agency on the list
-  'tasnimnews.com': { source_name: 'Tasnim News Agency', region: 'OTHER', input_nature: 'news_headline' },
+  'tasnimnews.com': { source_name: 'Tasnim News Agency', region: 'OTHER', input_nature: 'news_headline', gdelt: false }, // GDELT returns nothing for tasnimnews.com (verified empty) — drop the wasted query slot
 
   // ============================================================================================
   // Expanded coverage — verified-live feeds wired into frameworks/screener/rss_feeds.json and the
@@ -144,6 +144,9 @@ const DOMAINS: Record<string, SourceMeta> = {
   'bankofcanada.ca': { source_name: 'Bank of Canada', region: 'GLOBAL', input_nature: 'macro_data_release', gdelt: false },
   'bankofengland.co.uk': { source_name: 'Bank of England', region: 'GB', input_nature: 'macro_data_release', gdelt: false },
   'bbc.com': { source_name: 'BBC News', region: 'GB', input_nature: 'news_headline', gdelt: false },
+  // BBC's RSS items link to BOTH bbc.com and bbc.co.uk — without this entry the bbc.co.uk items were
+  // silently dropped at the gate (~5 of every ~85 BBC items/cycle). Same source_name for clean dedup.
+  'bbc.co.uk': { source_name: 'BBC News', region: 'GB', input_nature: 'news_headline', gdelt: false },
   'bis.org': { source_name: 'Bank for International Settlements', region: 'GLOBAL', input_nature: 'macro_data_release', gdelt: false },
   'boj.or.jp': { source_name: 'Bank of Japan', region: 'JP', input_nature: 'macro_data_release', gdelt: false },
   'businesstimes.com.sg': { source_name: 'The Business Times (Singapore)', region: 'GLOBAL', input_nature: 'news_headline', gdelt: false },

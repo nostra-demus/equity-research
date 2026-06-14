@@ -136,14 +136,14 @@ async function verifyOne(c: Candidate): Promise<Result> {
     return base
   }
   // rss / atom / html (try to parse anyway — some "html" sources are really feeds)
-  let parsed = parseFeed(body, 80)
+  let parsed = parseFeed(body, 80, c.feed_url)
   const looksLikeFeed = (b: string) => /<rss|<feed[ >]|<rdf|<channel[ >]/i.test(b)
   // retry-on-empty once: a 0-item parse from a feed that LOOKS valid is often transient burst-throttle.
   if (parsed.length === 0) {
     await new Promise((r) => setTimeout(r, 2500))
     const retry = await fetchWithRetry(c.feed_url)
     if (typeof retry.status === 'number' && retry.status === 200) {
-      const re = parseFeed(retry.body, 80)
+      const re = parseFeed(retry.body, 80, c.feed_url)
       if (re.length > parsed.length) { parsed = re; body = retry.body }
     }
   }

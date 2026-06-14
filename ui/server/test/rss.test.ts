@@ -68,6 +68,32 @@ await check('parseFeed: CDATA-wrapped <link> + <guid> permalink fallback; non-pe
   assert.equal(items[2].link, 'https://cnbctv18.com/guid-b') // guid with default isPermaLink=true
 })
 
+// EIA-style: item links are root-relative ("/pressroom/…"). Without a baseUrl they were silently
+// dropped (not absolute); with the feed URL they resolve. Anchors / non-http schemes stay dropped.
+const RELATIVE = `<?xml version="1.0"?><rss version="2.0"><channel><title>EIA</title>
+<item><title>EIA expects an oil-demand drop</title><link>/pressroom/releases/press589.php</link><pubDate>Fri, 12 Jun 2026 09:00:00 GMT</pubDate></item>
+<item><title>Anchor-only link is not a story</title><link>#top</link><pubDate>Fri, 12 Jun 2026 09:01:00 GMT</pubDate></item>
+</channel></rss>`
+await check('parseFeed: relative item links resolve against the feed URL (EIA class); anchors dropped', () => {
+  assert.equal(parseFeed(RELATIVE).length, 0) // no baseUrl → relative link unusable (unchanged old behavior)
+  const items = parseFeed(RELATIVE, 60, 'https://www.eia.gov/rss/press_rss.xml')
+  assert.equal(items.length, 1) // the anchor-only item is still dropped
+  assert.equal(items[0].link, 'https://www.eia.gov/pressroom/releases/press589.php')
+})
+
+// Atlanta-Fed-GDPNow class: a valid link but an EMPTY <title>, with the headline in the body. Synthesize
+// a title from the lede rather than dropping the item.
+const EMPTY_TITLE = `<?xml version="1.0"?><rss version="2.0"><channel><title>GDPNow</title>
+<item><title></title><link>https://atlantafed.org/gdpnow</link><description>The GDPNow model estimate for real GDP growth is 2.4 percent.</description><pubDate>Fri, 12 Jun 2026 09:00:00 GMT</pubDate></item>
+<item><title></title><link>https://atlantafed.org/empty</link><pubDate>Fri, 12 Jun 2026 09:01:00 GMT</pubDate></item>
+</channel></rss>`
+await check('parseFeed: empty <title> with a body lede → synthesize a title (GDPNow class)', () => {
+  const items = parseFeed(EMPTY_TITLE)
+  assert.equal(items.length, 1) // the second item has no title AND no body → still dropped
+  assert.match(items[0].title, /^The GDPNow model estimate for real GDP growth/)
+  assert.equal(items[0].link, 'https://atlantafed.org/gdpnow')
+})
+
 await check('fetchRss: per-feed isolation (a 500 feed never hurts the others) + URL dedupe across feeds', async () => {
   const state = tmp()
   const feedsPath = path.join(tmp(), 'feeds.json')

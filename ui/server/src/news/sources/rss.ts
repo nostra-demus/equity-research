@@ -93,12 +93,28 @@ function textOf(block: string, tag: string): string | null {
  *  - a <guid> that is itself a permalink URL — many RSS feeds (LiveMint, CNBC-TV18, The Hindu
  *    BusinessLine and other Indian/wire feeds) leave <link> empty and carry the canonical article
  *    URL only in <guid isPermaLink="true">. Without this fallback those feeds parse to ZERO items. */
-function linkOf(block: string): string | null {
+// Absolute http(s) URL, resolving a RELATIVE link/guid against the feed's own URL when we have it.
+// Some feeds (e.g. EIA press releases) emit item links as "/pressroom/releases/…" — rejecting those
+// outright silently drops every item; resolving them against the feed URL recovers them. Anchors and
+// non-http schemes (mailto:, javascript:) are still rejected.
+function absOf(v: string, baseUrl?: string): string | null {
+  if (!v || v.startsWith('#')) return null
+  if (/^https?:\/\//i.test(v)) return v
+  if (!baseUrl) return null
+  try {
+    const u = new URL(v, baseUrl)
+    return u.protocol === 'http:' || u.protocol === 'https:' ? u.href : null
+  } catch {
+    return null
+  }
+}
+
+function linkOf(block: string, baseUrl?: string): string | null {
   // RSS <link>…</link> — tolerate CDATA + entities, not just a bare URL
   const rssText = /<link[^>]*>([\s\S]*?)<\/link>/i.exec(block)
   if (rssText) {
-    const v = decodeEntities(stripCdata(rssText[1]).trim())
-    if (/^https?:\/\//i.test(v)) return v
+    const v = absOf(decodeEntities(stripCdata(rssText[1]).trim()), baseUrl)
+    if (v) return v
   }
   // Atom <link href="…"> — prefer rel="alternate"; keep any href as a fallback
   const linkTags = block.match(/<link\b[^>]*>/gi) || []
@@ -107,16 +123,16 @@ function linkOf(block: string): string | null {
     const href = /href\s*=\s*["']([^"']+)["']/i.exec(tag)?.[1]
     if (!href) continue
     const rel = /rel\s*=\s*["']([^"']+)["']/i.exec(tag)?.[1]
-    const v = decodeEntities(href)
-    if ((!rel || rel === 'alternate') && /^https?:\/\//i.test(v)) return v
+    const v = absOf(decodeEntities(href), baseUrl)
+    if ((!rel || rel === 'alternate') && v) return v
     if (!hrefFallback) hrefFallback = v
   }
-  if (hrefFallback && /^https?:\/\//i.test(hrefFallback)) return hrefFallback
+  if (hrefFallback) return hrefFallback
   // <guid> permalink fallback (skip when isPermaLink="false")
   const guid = /<guid\b([^>]*)>([\s\S]*?)<\/guid>/i.exec(block)
   if (guid && !/ispermalink\s*=\s*["']?\s*false/i.test(guid[1] || '')) {
-    const v = decodeEntities(stripCdata(guid[2]).trim())
-    if (/^https?:\/\//i.test(v)) return v
+    const v = absOf(decodeEntities(stripCdata(guid[2]).trim()), baseUrl)
+    if (v) return v
   }
   return null
 }
@@ -134,16 +150,23 @@ function snippetOf(block: string): string | null {
 
 /** Parse one RSS 2.0 or Atom document into raw articles. Tolerant by construction: a malformed
  *  entry yields nothing rather than an error. Exported for the test suite. */
-export function parseFeed(xml: string, maxItems = 60): { title: string; link: string; date: string | null; snippet: string | null }[] {
+export function parseFeed(xml: string, maxItems = 60, baseUrl?: string): { title: string; link: string; date: string | null; snippet: string | null }[] {
   const out: { title: string; link: string; date: string | null; snippet: string | null }[] = []
   // entry blocks: RSS <item>…</item>, Atom <entry>…</entry>
   const blocks = xml.split(/<(?:item|entry)[\s>]/i).slice(1)
   for (const rawBlock of blocks.slice(0, maxItems)) {
     const block = rawBlock.split(/<\/(?:item|entry)>/i)[0]
-    const title = textOf(block, 'title')
-    const link = linkOf(block)
-    if (!title || !link || !/^https?:\/\//i.test(link)) continue
-    out.push({ title, link, date: dateOf(block), snippet: snippetOf(block) })
+    const link = linkOf(block, baseUrl)
+    if (!link || !/^https?:\/\//i.test(link)) continue
+    let title = textOf(block, 'title')
+    const snippet = snippetOf(block)
+    // Some data feeds (e.g. Atlanta Fed GDPNow) ship an EMPTY <title> with the real headline in the
+    // body — synthesize a title from the lede rather than silently dropping the item.
+    if (!title && snippet) {
+      title = decodeEntities(snippet.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()).slice(0, 140).trim()
+    }
+    if (!title) continue
+    out.push({ title, link, date: dateOf(block), snippet })
   }
   return out
 }
@@ -197,7 +220,7 @@ export async function fetchRss(opts: RssOptions, deps: RssDeps = {}): Promise<Ra
         const etag = res.headers.get('etag')
         const lastModified = res.headers.get('last-modified')
         if (etag || lastModified) cache[feed.url] = { etag: etag || undefined, lastModified: lastModified || undefined }
-        const items = parseFeed(xml)
+        const items = parseFeed(xml, 60, feed.url)
         const arts: RawArticle[] = []
         for (const it of items) {
           const d = it.date ? new Date(it.date) : null
