@@ -65,6 +65,7 @@ At `<RUN_ROOT>/RUN_METADATA.md`: signal id, date, started/finished timestamps, r
 - `test -s <RUN_ROOT>/signal_payload.json` (whenever signal-gate completed its synthesis).
 - If edge-definition ran: `test -s <RUN_ROOT>/thesis_record.json` AND `python3 -c "import json;assert json.load(open('<RUN_ROOT>/thesis_record.json'))['meta']['locked']"` — a completed edge-definition MUST leave a locked record.
 - If candidate-surfacing ran: `test -s <RUN_ROOT>/candidates.json`.
+- If edge-definition locked a thesis: seed its conviction checkpoints (the post-lock live-book calendar). Read `<THESIS_ID>` = `meta.thesis_id` from `<RUN_ROOT>/thesis_record.json`, then run `python3 scripts/screener_emit_checkpoints.py <THESIS_ID>` — deterministic, no LLM, idempotent (safe on a resumed run). This places the idea on the Live Book; the conviction loop then runs separately, per checkpoint, via `/screener:validate` (never as part of this signal pipeline). See `frameworks/screener/CONVICTION_LOOP.md`.
 - Always: `python3 scripts/update_board_index.py` (idempotent — ensures the board reflects the final state even after an early stop).
 
 ## 7. Commit and push to main
