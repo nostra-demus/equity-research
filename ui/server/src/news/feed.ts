@@ -107,6 +107,10 @@ export function readFeed(repoRoot: string, days = 2, opts: { now?: () => Date; m
         // corrupt line — skip, never break the wire
       }
     }
+    // Days are read NEWEST-first (d=0 is today), so once we have maxItems the older days can only add
+    // older items that the slice below would drop anyway — stop early. Keeps a 6-month / all-time window
+    // from parsing hundreds of files: it reads just enough recent days to fill the cap.
+    if (items.length >= maxItems) break
   }
   items.sort((a, b) => (b.ts || '').localeCompare(a.ts || ''))
   cycles.sort((a, b) => (b.ts || '').localeCompare(a.ts || ''))

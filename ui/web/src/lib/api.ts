@@ -119,9 +119,9 @@ export const api = {
       return { enabled: false, running: false, intervalMin: 15, model: '', rssEnabled: false, lastCycleAt: null, nextCycleAt: null, lastNote: null, today: { read: 0, kept: 0, dropped: 0, cycles: 0 }, budget: { requests: 0, tokens: 0, reqCap: 0, tokenCap: 0 } }
     return get(`/api/news/status`)
   },
-  newsFeed: async (days: 1 | 2 = 2): Promise<{ items: FeedItem[]; cycles: NewsCycle[] }> => {
+  newsFeed: async (days = 2): Promise<{ items: FeedItem[]; cycles: NewsCycle[] }> => {
     if ((await ensureMode()) === 'static') return { items: [], cycles: [] }
-    return get(`/api/news/feed?days=${days}`)
+    return get(`/api/news/feed?days=${Math.max(1, Math.floor(days))}`)
   },
   newsStreamUrl: () => `/api/news/stream`,
   // the living themes the firehose is bucketed into (ranked index + one theme's deep-dive)

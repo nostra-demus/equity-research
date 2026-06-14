@@ -570,11 +570,14 @@ app.post('/api/screener/handoff', async (req, reply) => {
 // Scanner status for the cockpit's auto-scan chip: on/off, last/next cycle, today's counts.
 app.get('/api/news/status', async () => getNewsStatus())
 
-// Backfill for the live wire: every triaged item (kept AND dropped) from the last 1–2 days.
+// Backfill for the live wire + the time-travel view: every triaged item (kept AND dropped) over the
+// requested window. days defaults to 2 (the live view); larger windows (14 / 30 / 90 / 180 / all) read
+// the daily firehose files newest-first with a higher item cap, so you can surface the archived history.
 app.get('/api/news/feed', async (req) => {
   const q = req.query as any
-  const days = q?.days === '1' ? 1 : 2
-  return readFeed(REPO_ROOT, days)
+  const days = Math.min(370, Math.max(1, Math.floor(Number(q?.days) || 2))) // 'all' → the client sends 370
+  const maxItems = days <= 2 ? 1000 : 6000 // deep windows return the newest 6k items in range (readFeed early-stops)
+  return readFeed(REPO_ROOT, days, { maxItems })
 })
 
 // THEMES — the living, ranked investment themes the firehose is bucketed into.

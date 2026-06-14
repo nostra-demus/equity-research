@@ -14,6 +14,17 @@ import { emptyFilters, FeedFilters, matchesFilters, type FeedFilterState } from 
 
 const agoMin = (iso?: string | null) => (iso ? Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 60_000)) : null)
 
+// Time-travel windows over the on-disk news archive. 2 = the live view (SSE keeps appending); the rest
+// pull a historical snapshot (newest items in range) from the daily firehose files. 370 ≈ "all".
+const FEED_WINDOWS: { d: number; label: string }[] = [
+  { d: 2, label: 'Live · 2d' },
+  { d: 14, label: '14 days' },
+  { d: 30, label: '1 month' },
+  { d: 90, label: '3 months' },
+  { d: 180, label: '6 months' },
+  { d: 370, label: 'All' },
+]
+
 // compact 405000 → "405k", 14 → "14"
 const kfmt = (n: number): string => (n >= 1000 ? `${(n / 1000).toFixed(n >= 100_000 ? 0 : 1)}k` : `${Math.round(n)}`)
 
@@ -96,6 +107,9 @@ export function LiveFeed() {
   const status = useStore((s) => s.newsStatus)
   const refreshStatus = useStore((s) => s.refreshNewsStatus)
   const openFeed = useStore((s) => s.openNewsFeed)
+  const feedWindowDays = useStore((s) => s.feedWindowDays)
+  const setFeedWindow = useStore((s) => s.setFeedWindow)
+  const feedWindowLoading = useStore((s) => s.feedWindowLoading)
   const [filters, setFilters] = useState<FeedFilterState>(emptyFilters())
 
   // keep the "last look Xm ago" line honest while the panel is open
@@ -154,6 +168,24 @@ export function LiveFeed() {
             ✕
           </button>
         </div>
+      </div>
+
+      <div className="wirewindow" role="group" aria-label="Time window">
+        <span className="wirewindow__label">Look back</span>
+        {FEED_WINDOWS.map((w) => (
+          <button
+            key={w.d}
+            type="button"
+            className={`wirewindow__chip${feedWindowDays === w.d ? ' is-active' : ''}`}
+            onClick={() => { if (feedWindowDays !== w.d) void setFeedWindow(w.d) }}
+            disabled={feedWindowLoading}
+          >
+            {w.label}
+          </button>
+        ))}
+        <span className="wirewindow__note">
+          {feedWindowLoading ? 'loading…' : feedWindowDays > 2 ? `historical · newest ${items.length.toLocaleString()} in range` : `live · ${items.length.toLocaleString()} loaded`}
+        </span>
       </div>
 
       <FeedFilters value={filters} onChange={setFilters} sources={sources} />

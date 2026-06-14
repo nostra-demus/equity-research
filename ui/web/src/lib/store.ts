@@ -200,6 +200,9 @@ interface State {
   freshEvents: Set<string> // event_ids that just streamed in over SSE — drive the "new detected" glow
   newsArrivedTotal: number // monotonic count of items read off the wire (survives the 1000 cap) — paces the live themes map
   newsStatus: NewsStatus | null
+  feedWindowDays: number // the time-travel window the wire is showing (2 = live; 14/30/90/180/370 = history)
+  feedWindowLoading: boolean
+  setFeedWindow: (days: number) => Promise<void>
   globalActive: ActiveRunLite[]
   stopListOpen: boolean
   openNewsFeed: () => Promise<void>
@@ -289,6 +292,8 @@ export const useStore = create<State>((set, get) => ({
   newsItems: [],
   freshEvents: new Set(),
   newsArrivedTotal: 0,
+  feedWindowDays: 2,
+  feedWindowLoading: false,
   newsStatus: null,
   themes: [],
   themesView: null,
@@ -1175,14 +1180,26 @@ export const useStore = create<State>((set, get) => ({
     set({ newsFeedOpen: true, pipelineOpen: false, scThesisDetail: null })
     void get().refreshNewsStatus()
     try {
-      const { items } = await api.newsFeed(2)
+      const { items } = await api.newsFeed(get().feedWindowDays || 2)
       set({ newsItems: items })
     } catch {
       set({ newsItems: [] })
     }
     if (!get().staticMode) connectNewsStream(get)
   },
-  closeNewsFeed: () => set({ newsFeedOpen: false }),
+  // Switch the wire's time window. 2 = live (SSE keeps appending); bigger = a historical snapshot pulled
+  // from the daily firehose archive (newest items in that range). Live items still prepend on top.
+  setFeedWindow: async (days: number) => {
+    set({ feedWindowDays: days, feedWindowLoading: true })
+    try {
+      const { items } = await api.newsFeed(days)
+      set({ newsItems: items })
+    } catch {
+      // keep whatever's shown on failure
+    }
+    set({ feedWindowLoading: false })
+  },
+  closeNewsFeed: () => set({ newsFeedOpen: false, feedWindowDays: 2 }),
   refreshNewsStatus: async () => {
     try {
       set({ newsStatus: await api.newsStatus() })
@@ -1193,6 +1210,10 @@ export const useStore = create<State>((set, get) => ({
   _handleNewsEvent: (e) => {
     if (e?.type === 'news-item' && e.item) {
       const it = e.item as FeedItem
+      // when a HISTORICAL time-window is showing (feedWindowDays > 2), keep that archive snapshot stable —
+      // a live prepend + slice(1000) would collapse a 6-month view back to 1000. Still tick the live
+      // counter so the themes map keeps pulsing; the snapshot refreshes when the user returns to Live·2d.
+      if (get().feedWindowDays > 2) { set({ newsArrivedTotal: get().newsArrivedTotal + 1 }); return }
       // a refresh that read the file in the append→emit window may already hold this item
       if (get().newsItems.some((x) => x.event_id === it.event_id && x.ts === it.ts)) return
       // mark it FRESH so the rail glows it in ("new detected"); the glow self-expires after FRESH_MS so
