@@ -141,13 +141,15 @@ function computeFlowLayout(graph: SwarmGraph, W: number, H: number): Layout {
   const padR = 0.22 // room for the switchyard + exit rails on the right
   const colGap = Math.min(34, Math.max(24, W / 60))
   const rowGap = 33
-  // The run-status header (.scsignal) is an absolute overlay at the top (~0.055H down, up to ~200px tall
-  // incl. the Stop/Continue actions). Push the pipeline spine DOWN so even the DEEPEST module's stage
-  // label always clears the header — bulletproof against the header's variable height (no fixed-fraction
-  // guess). Falls back to the 0.40H spine when the stage is tall enough that there's already room.
+  // Reserve the top band for the run-status header (.scsignal): an absolute overlay at 0.055H down,
+  // ~211px tall at most (2-line headline + meta + hint + the Stop/Continue actions row). The deepest
+  // module's stack-half ADDS to minBandY and SUBTRACTS at the label, so it cancels: the deepest label
+  // always lands at 0.055H + RESERVE - 34, giving a fixed gap of (RESERVE - 34 - headerHeight) ≈ 55px
+  // to the header — independent of stage size AND stack depth. Bulletproof; no fixed-fraction guess.
   const maxLayers = Math.max(1, ...graph.modules.map((m) => Object.keys(m.layers).length))
-  const minBandY = H * 0.055 + 272 + ((maxLayers - 1) * rowGap) / 2 // header reserve (~210 incl. Stop/Continue) + label offset (34) + margin (28) + half the deepest stack
-  const bandY = Math.max(H * 0.40, minBandY) // the pipeline's spine
+  const HEADER_RESERVE = 300 // header max-height (~211 incl. Stop/Continue) + label offset (34) + ~55px clearance
+  const minBandY = H * 0.055 + HEADER_RESERVE + ((maxLayers - 1) * rowGap) / 2
+  const bandY = Math.max(H * 0.40, minBandY) // the pipeline's spine, pushed down to clear the header
   const core = { x: W * (1 - padR) + 56, y: bandY, r: 26 } // the switchyard occupies the core slot
 
   const nodes: PlacedNode[] = []
