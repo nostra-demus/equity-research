@@ -1437,6 +1437,14 @@ a { color: inherit; }
 .thememap__pulse { position: absolute; top: 0; left: 0; width: 5px; height: 5px; border-radius: 50%; offset-rotate: 0deg; opacity: 0; will-change: offset-distance, opacity; animation-name: thememap-stream; animation-timing-function: linear; animation-iteration-count: 1; animation-fill-mode: forwards; }
 .thememap__pulse--in { width: 6.5px; height: 6.5px; background: var(--accent-bright); box-shadow: 0 0 10px var(--accent-glow), 0 0 4px var(--accent-bright); }
 .thememap__pulse--out { width: 6px; height: 6px; background: var(--tier, var(--accent)); box-shadow: 0 0 8px color-mix(in srgb, var(--tier, var(--accent)) 55%, transparent); }
+/* the packet's payload — a small frosted pill riding the dot (child of .thememap__pulse), naming the
+   theme bubble this item is being filed into. It inherits the parent's GPU offset-path motion AND the
+   stream's opacity fade (so it appears as the packet launches and dissolves as it lands). Anchored to the
+   RIGHT-of-its-own-box-edge so it TRAILS the rightward-moving packet — never overlapping the destination
+   basin and never clipping the overflow:hidden container. pointer-events none (inherited from particles). */
+.thememap__tag { position: absolute; right: calc(100% + 6px); top: 50%; transform: translateY(-50%); display: inline-flex; align-items: center; gap: 5px; max-width: 168px; padding: 2px 8px 2px 7px; border-radius: 999px; white-space: nowrap; line-height: 1; font-size: 9.5px; font-weight: 600; font-style: normal; letter-spacing: 0.02em; background: color-mix(in srgb, var(--surface-1) 92%, transparent); border: 1px solid var(--hairline-strong); box-shadow: 0 4px 14px -7px rgba(0,0,0,0.5); }
+.thememap__tag-dot { flex: none; width: 5px; height: 5px; border-radius: 50%; background: var(--tier, var(--accent-bright)); box-shadow: 0 0 5px color-mix(in srgb, var(--tier, var(--accent-bright)) 60%, transparent); }
+.thememap__tag-text { overflow: hidden; text-overflow: ellipsis; color: var(--text); }
 .thememap__lanes { position: absolute; inset: 0; pointer-events: none; }
 .thememap__lane { position: absolute; transform: translateY(-50%); display: inline-flex; align-items: center; gap: 6px; }
 .thememap__lane-label { font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-faint); background: var(--surface-2); border: 1px solid var(--hairline); padding: 3px 8px; border-radius: var(--r-pill); white-space: nowrap; transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease); }

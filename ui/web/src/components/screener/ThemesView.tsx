@@ -115,9 +115,12 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
   //      (from its real source tier) → Ranking. OUTBOUND dot = one item assigned to a theme → its
   //      basin, ticking that theme's count up by one as it lands. No invented events; only real ones,
   //      shown at their true average cadence. ----
-  type Emit = { id: number; d: string; cls: string; tier?: Theme['tier']; dur: number; target?: string }
+  type Emit = { id: number; d: string; cls: string; tier?: Theme['tier']; dur: number; target?: string; tag?: { text: string; kind: 'in' | 'out' } }
   type Pending = { kind: 'in'; sourceTier?: string } | { kind: 'out'; themeId: string; tier: Theme['tier'] }
   const MAX_QUEUE = 4000 // generous — a real scan's full volume drives the rate; this is only a runaway guard
+  // At most this many in-flight packets carry a visible payload tag at once — a calm, legible sample of
+  // the stream (every tag names the theme bubble its packet is being filed into), never a wall of labels.
+  const MAX_TAGS = 3
   const lastScan = useStore((s) => s.lastScan)
   const intervalMin = useStore((s) => s.newsStatus?.intervalMin) || 5
   const prevCounts = useRef<Map<string, number>>(new Map())
@@ -219,7 +222,14 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
         const node = nodeByIdRef.current.get(p.themeId)
         if (!node) { setShown((s) => ({ ...s, [p.themeId]: Math.min((s[p.themeId] ?? 0) + 1, prevCounts.current.get(p.themeId) ?? Infinity) })); return }
         const d = hcurve(L.core.x + L.core.r, L.core.y, node.x - node.r, node.y)
-        setEmits((e) => [...e, { id: ++seq.current, d, cls: 'thememap__pulse--out', tier: p.tier, dur: 1.7, target: p.themeId }].slice(-120))
+        const name = node.theme.name
+        // tag a capped sample of outbound packets with their destination theme — "what this packet carries":
+        // a real news item being filed into that bubble. Cap keeps the stream legible (see MAX_TAGS).
+        setEmits((e) => {
+          const labeled = e.reduce((n, x) => n + (x.tag ? 1 : 0), 0)
+          const tag = labeled < MAX_TAGS && name ? { text: name, kind: 'out' as const } : undefined
+          return [...e, { id: ++seq.current, d, cls: 'thememap__pulse--out', tier: p.tier, dur: 1.7, target: p.themeId, tag }].slice(-120)
+        })
       }
     }
     let last = performance.now()
@@ -275,7 +285,16 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
                 window.setTimeout(() => setAbsorbing((a) => { if (!a.has(tid)) return a; const n = new Set(a); n.delete(tid); return n }), 480)
               }
             }}
-          />
+          >
+            {/* the payload this packet is carrying — rides along with the dot (inherits its GPU motion +
+                stream fade), trailing to the left so it never overlaps the bubble it's heading into */}
+            {p.tag && (
+              <span className={`thememap__tag thememap__tag--${p.tag.kind}`}>
+                <span className="thememap__tag-dot" aria-hidden />
+                <span className="thememap__tag-text">{p.tag.text}</span>
+              </span>
+            )}
+          </i>
         ))}
       </div>
 
