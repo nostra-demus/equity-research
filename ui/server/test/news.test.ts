@@ -93,17 +93,29 @@ await check('buildQueries chunks approved domains into domain: OR groups', () =>
   assert.equal(q[0], '(domain:a.com OR domain:b.com)')
   assert.equal(q[1], '(domain:c.com)')
 })
-await check('fetchGdelt: parses ArtList, dedups by url, backs off a 429 then succeeds, skips non-JSON', async () => {
+await check('fetchGdelt: parses ArtList, dedups by url across chunks, skips non-JSON', async () => {
   let calls = 0
-  const fetchFn = (async (url: string) => {
+  const fetchFn = (async () => {
     calls++
-    if (calls === 1) return res('', 429) // first chunk rate-limited once...
-    if (calls === 2) return res({ articles: [{ url: 'https://reuters.com/a', title: 'A', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+    if (calls === 1) return res({ articles: [{ url: 'https://reuters.com/a', title: 'A', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+    if (calls === 2) return res({ articles: [{ url: 'https://reuters.com/a', title: 'A dup', domain: 'reuters.com', seendate: '20260612T090000Z' }] }) // dup url → collapsed
     return res('<html>not json</html>') // a later chunk returns junk → skipped, not thrown
   }) as unknown as typeof fetch
-  const got = await fetchGdelt({ lookbackMin: 30, baseUrl: 'https://gdelt.test', chunkSize: 50 }, { fetchFn, sleep: noSleep })
-  assert.ok(got.length >= 1)
+  const got = await fetchGdelt({ lookbackMin: 30, baseUrl: 'https://gdelt.test', chunkSize: 11 }, { fetchFn, sleep: noSleep })
+  assert.equal(got.length, 1, 'duplicate url collapsed to one article')
   assert.equal(got[0].url, 'https://reuters.com/a')
+})
+
+await check('fetchGdelt: a 429 ABORTS GDELT for the cycle (no retry storm), keeps items gathered so far', async () => {
+  let calls = 0
+  const fetchFn = (async () => {
+    calls++
+    if (calls === 1) return res({ articles: [{ url: 'https://reuters.com/a', title: 'A', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+    return res('Please limit requests to one every 5 seconds', 429) // chunk 2 → penalty
+  }) as unknown as typeof fetch
+  const got = await fetchGdelt({ lookbackMin: 30, baseUrl: 'https://gdelt.test', chunkSize: 11 }, { fetchFn, sleep: noSleep })
+  assert.equal(got.length, 1, 'returns the first chunk it already gathered')
+  assert.equal(calls, 2, 'a 429 is NOT retried — exactly one call per chunk until the 429, then abort')
 })
 
 // ---- budget + throttle ----

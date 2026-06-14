@@ -66,12 +66,16 @@ export async function fetchGdelt(opts: GdeltOptions, deps: GdeltDeps = {}): Prom
   for (let qi = 0; qi < queries.length; qi++) {
     const url = gdeltUrl(opts.baseUrl, queries[qi], opts.lookbackMin, maxRecords)
     let attempt = 0
-    // up to 3 tries with backoff on a transient (429 / network) failure, then give up on this chunk.
-    // A 429 means we hit the 5s window — back off PAST it (≥ chunkGapMs), not the old 2s that re-tripped it.
+    // A 429 is GDELT rate-limiting / penalty-boxing this IP — it will NOT clear in a few seconds, and
+    // hammering it with retries only keeps the penalty alive. So on a 429 we ABORT GDELT for the WHOLE
+    // cycle (no retry, skip the remaining chunks) and let the penalty decay; the engine pokes GDELT at
+    // most once per cycle, which its "1 req / 5s" rule tolerates. A 5xx / network blip is transient and
+    // still gets up to 3 backed-off retries on that single chunk.
     for (;;) {
       try {
         const res = await fetchFn(url, { headers: { 'user-agent': 'screener-news-ingester/1' } })
-        if (res.status === 429 || res.status >= 500) {
+        if (res.status === 429) { log(`gdelt chunk ${qi}: 429 — backing off GDELT for this cycle`); return [...byUrl.values()] }
+        if (res.status >= 500) {
           if (++attempt >= 3) { log(`gdelt chunk ${qi}: ${res.status}, gave up`); break }
           await sleep(Math.max(chunkGapMs, 2000) * attempt)
           continue
