@@ -184,6 +184,10 @@ export function EventRail() {
   const [showShelved, setShowShelved] = useState(false)
   // the secondary filters (theme / search / region / size) — now always visible
   const [filters, setFilters] = useState<FeedFilterState>(emptyFilters())
+  // collapse toggle for the secondary filters — open by default, but remembers your choice (per browser)
+  const [filtersOpen, setFiltersOpen] = useState<boolean>(() => { try { return localStorage.getItem('nsw.filtersOpen') !== '0' } catch { return true } })
+  const toggleFilters = () => setFiltersOpen((v) => { const n = !v; try { localStorage.setItem('nsw.filtersOpen', n ? '1' : '0') } catch {} return n })
+  const refineCount = filters.themes.size + (filters.region ? 1 : 0) + (filters.size ? 1 : 0) + (filters.text.trim() ? 1 : 0)
   // Sector & Commodity drill into specific sub-values (dynamic multi-select); openDrop = which menu is open
   const [sectorSel, setSectorSel] = useState<SubSel>({ all: false, picks: new Set() })
   const [commSel, setCommSel] = useState<SubSel>({ all: false, picks: new Set() })
@@ -377,10 +381,28 @@ export function EventRail() {
         {scopeFilter.size === 1 && <div className="evscope__meaning">{SCOPES[[...scopeFilter][0]].meaning}</div>}
         {scopeFilter.size > 1 && <div className="evscope__meaning">Showing {scopeFilter.size} categories together — tap All to reset.</div>}
 
-        {/* secondary filters — always visible: news type, region, company size, search */}
-        <div className="evrail__filters">
-          <FeedFilters value={filters} onChange={setFilters} sources={[]} compact />
+        {/* secondary filters — collapsible (remembers your choice); badge shows the active count when hidden */}
+        <div className="evrefine">
+          <button
+            type="button"
+            className={`evrefine__toggle${filtersOpen ? ' evrefine__toggle--on' : ''}${!filtersOpen && refineCount ? ' evrefine__toggle--active' : ''}`}
+            onClick={toggleFilters}
+            aria-expanded={filtersOpen}
+            title={filtersOpen ? 'Collapse the news-type / region / size / search filters' : 'Show the news-type / region / size / search filters'}
+          >
+            <span className="evrefine__label">Filters</span>
+            {!filtersOpen && refineCount > 0 && <span className="evrefine__badge">{refineCount}</span>}
+            <span className="evrefine__caret" aria-hidden>▾</span>
+          </button>
+          {!filtersOpen && filtersActive(filters) && (
+            <button type="button" className="evrefine__clear" onClick={() => setFilters(emptyFilters())} title="Clear the filters">clear</button>
+          )}
         </div>
+        {filtersOpen && (
+          <div className="evrail__filters">
+            <FeedFilters value={filters} onChange={setFilters} sources={[]} compact />
+          </div>
+        )}
       </header>
 
       <div className="evrail__list">
