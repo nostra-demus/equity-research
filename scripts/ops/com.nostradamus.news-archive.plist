@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <!-- Versioned template for the news cloud-archive agent. Install: copy to ~/Library/LaunchAgents/ and
-     `launchctl bootstrap gui/$(id -u) <path>`. Pushes the raw-news firehose files to Google Drive via
-     rclone every 3 hours (and once at load). No-ops cleanly until `brew install rclone` + `rclone config`
-     (Google Drive remote named "gdrive") are done. -->
+     `launchctl bootstrap gui/$(id -u) <path>`. Every 3 hours (and once at load) it COPIES the raw-news
+     firehose files into a Google Drive for Desktop mount folder (Drive uploads them to the cloud — no
+     rclone/API needed) and prunes local copies older than the retention window, keeping disk bounded. -->
 <plist version="1.0">
 <dict>
 	<key>Label</key>
@@ -12,10 +12,10 @@
 	<dict>
 		<key>REPO</key>
 		<string>/Users/chiraagkapil/equity-research</string>
-		<key>RCLONE_REMOTE</key>
-		<string>gdrive</string>
-		<key>DRIVE_FOLDER</key>
-		<string>equity-research-data/news-archive</string>
+		<key>NEWS_ARCHIVE_DIR</key>
+		<string>/Users/chiraagkapil/Library/CloudStorage/GoogleDrive-ceekay@muns.io/My Drive/equity-research-data/news-archive</string>
+		<key>NEWS_LOCAL_RETENTION_DAYS</key>
+		<string>30</string>
 		<key>HOME</key>
 		<string>/Users/chiraagkapil</string>
 		<key>PATH</key>

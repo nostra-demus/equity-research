@@ -173,6 +173,13 @@ export const NEWS = {
   // the current free model when you provision the key. Override with GROQ_MODEL.
   groqModel: process.env.GROQ_MODEL || 'llama-3.1-8b-instant',
   groqBaseUrl: process.env.GROQ_BASE_URL || 'https://api.groq.com/openai/v1',
+  // CLOUD ARCHIVE — the raw-news firehose files are mirrored to a Google Drive for Desktop mount folder
+  // (the news-archive launchd agent copies them there; Drive uploads to the cloud). Local files older than
+  // the retention window are then pruned, so the laptop disk stays bounded while the full history lives in
+  // the cloud. readFeed falls back to this folder for days no longer on local disk, so the time-travel
+  // filter still spans the whole archive. Empty → no cloud archive (read local only).
+  newsArchiveDir: process.env.NEWS_ARCHIVE_DIR || '',
+  newsLocalRetentionDays: capNum(process.env.NEWS_LOCAL_RETENTION_DAYS, 30), // days of firehose kept on local disk
   // Master switch. Default: ON iff a key exists. Set NEWS_INGEST_ENABLED=0 to force off even with a key.
   enabled: process.env.NEWS_INGEST_ENABLED === '0' ? false : Boolean(process.env.GROQ_API_KEY),
   // How often the in-server scheduler runs a cycle (the standalone --once entrypoint ignores this).

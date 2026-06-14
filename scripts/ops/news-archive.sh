@@ -1,48 +1,58 @@
 #!/usr/bin/env bash
 # ---------------------------------------------------------------------------------------------------
-# Daily cloud archive of the RAW NEWS store to Google Drive via rclone.
+# Cloud archive of the RAW NEWS store to Google Drive — via the Google Drive for Desktop mount.
 #
-# The screener writes every day's news to screener/inbox/<date>_firehose.ndjson (append-only, never
-# pruned). This pushes those files to Drive for durability ("infinite memory" + survive a laptop loss),
-# so the local disk is a working cache and Drive is the permanent archive.
+# Drive for Desktop presents the user's Drive as a normal local folder; anything copied into it is
+# uploaded to the cloud automatically (no rclone, no API key, no OAuth — it uses the already-signed-in
+# desktop app). So this just COPIES the firehose files into the Drive folder, then PRUNES the local
+# copies older than the retention window — the laptop disk stays bounded while the full history lives
+# permanently in the cloud. readFeed (the engine) falls back to the same Drive folder for pruned days,
+# so the time-travel filter still spans the entire archive.
 #
-# Design:
-#   - rclone COPY, never SYNC: it only uploads new/changed files and NEVER deletes on the remote, so if
-#     we later prune old local files the cloud copy is untouched. Append-only by construction.
-#   - Idempotent + safe on a schedule (launchd runs it every few hours; re-running is a cheap no-op).
-#   - No-ops CLEANLY until setup is done: if rclone isn't installed or the remote isn't configured yet,
-#     it logs a one-line hint and exits 0 (so launchd never thrashes). Once you run the two setup
-#     commands, the next tick starts archiving automatically — no further action needed.
-#
-# One-time setup (you):   brew install rclone   &&   rclone config   (create a Google Drive remote
-# named exactly "gdrive").  That's it.
+#   - COPY (never move) into Drive, re-copying only when the local file is newer → cloud is append-only.
+#   - PRUNE local firehose files older than RETENTION_DAYS, but ONLY when a same-size copy is confirmed
+#     in the Drive folder (never delete data that isn't safely in the cloud).
+#   - No-ops cleanly if the Drive folder isn't reachable (Drive app off) — logs and exits 0, prunes nothing.
 # ---------------------------------------------------------------------------------------------------
 
 REPO="${REPO:-/Users/chiraagkapil/equity-research}"
-REMOTE="${RCLONE_REMOTE:-gdrive}"
-DEST="${DRIVE_FOLDER:-equity-research-data/news-archive}"
+ARCH="${NEWS_ARCHIVE_DIR:-}"
+RETENTION_DAYS="${NEWS_LOCAL_RETENTION_DAYS:-30}"
 LOG="${ARCHIVE_LOG:-$HOME/Library/Logs/nostradamus-news-archive.log}"
+SRC="$REPO/screener/inbox"
 ts() { date "+%Y-%m-%dT%H:%M:%S"; }
-
 mkdir -p "$(dirname "$LOG")" 2>/dev/null
 
-RCLONE="$(command -v rclone || true)"
-if [ -z "$RCLONE" ]; then
-  echo "$(ts) [waiting] rclone not installed — run:  brew install rclone" >> "$LOG"
-  exit 0
+if [ -z "$ARCH" ]; then
+  echo "$(ts) [skip] NEWS_ARCHIVE_DIR not set — no cloud archive configured" >> "$LOG"; exit 0
+fi
+# the Drive folder must exist + be writable (Drive app running + mounted), else don't prune anything
+if ! mkdir -p "$ARCH" 2>/dev/null || [ ! -w "$ARCH" ]; then
+  echo "$(ts) [waiting] Drive folder not reachable ($ARCH) — is Google Drive running? (no prune this run)" >> "$LOG"; exit 0
 fi
 
-if ! "$RCLONE" listremotes 2>/dev/null | grep -q "^${REMOTE}:"; then
-  echo "$(ts) [waiting] rclone remote '${REMOTE}:' not configured — run:  rclone config  (make a Google Drive remote named ${REMOTE})" >> "$LOG"
-  exit 0
-fi
+echo "$(ts) [start] mirror raw news → $ARCH" >> "$LOG"
+up=0
+for f in "$SRC"/*_firehose.ndjson "$SRC"/*_sweep.json; do
+  [ -e "$f" ] || continue
+  dest="$ARCH/$(basename "$f")"
+  if [ ! -e "$dest" ] || [ "$f" -nt "$dest" ]; then
+    # write CONTENTS (not cp -p): Google Drive's file-provider rejects attribute-preservation on
+    # overwrite ("Operation not permitted"), so copy the bytes only — Drive then uploads them.
+    if cat "$f" > "$dest" 2>>"$LOG"; then up=$((up+1)); else echo "$(ts) [warn] copy failed: $(basename "$f")" >> "$LOG"; fi
+  fi
+done
+echo "$(ts) [up] $up file(s) copied/updated to Drive" >> "$LOG"
 
-echo "$(ts) [start] archiving raw news → ${REMOTE}:${DEST}" >> "$LOG"
-if "$RCLONE" copy "$REPO/screener/inbox" "${REMOTE}:${DEST}" \
-    --include "*_firehose.ndjson" --include "*_sweep.json" \
-    --transfers 4 --checkers 8 --stats-one-line --log-file "$LOG" --log-level INFO 2>>"$LOG"; then
-  echo "$(ts) [ok] archive complete → ${REMOTE}:${DEST}" >> "$LOG"
-else
-  echo "$(ts) [error] rclone copy failed (see lines above)" >> "$LOG"
-fi
+# prune local firehose older than retention, only if a same-size cloud copy exists
+pruned=0
+while IFS= read -r f; do
+  [ -e "$f" ] || continue
+  dest="$ARCH/$(basename "$f")"
+  if [ -e "$dest" ] && [ "$(stat -f%z "$f" 2>/dev/null)" = "$(stat -f%z "$dest" 2>/dev/null)" ]; then
+    rm -f "$f" && pruned=$((pruned+1)) && echo "$(ts) [prune] $(basename "$f") (safe in Drive)" >> "$LOG"
+  fi
+done < <(find "$SRC" -name '*_firehose.ndjson' -type f -mtime +"$RETENTION_DAYS" 2>/dev/null)
+
+echo "$(ts) [ok] archive complete · uploaded $up · pruned $pruned (local retention ${RETENTION_DAYS}d)" >> "$LOG"
 exit 0

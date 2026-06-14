@@ -577,7 +577,7 @@ app.get('/api/news/feed', async (req) => {
   const q = req.query as any
   const days = Math.min(370, Math.max(1, Math.floor(Number(q?.days) || 2))) // 'all' → the client sends 370
   const maxItems = days <= 2 ? 1000 : 6000 // deep windows return the newest 6k items in range (readFeed early-stops)
-  return readFeed(REPO_ROOT, days, { maxItems })
+  return readFeed(REPO_ROOT, days, { maxItems, archiveDir: NEWS.newsArchiveDir }) // read pruned days from the Drive archive
 })
 
 // THEMES — the living, ranked investment themes the firehose is bucketed into.

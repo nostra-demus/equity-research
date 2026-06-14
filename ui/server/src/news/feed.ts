@@ -83,9 +83,10 @@ export interface FeedSnapshot {
  * Read the last `days` firehose files (today first) and split records by kind. Items come back
  * newest-first, capped, corrupt lines skipped — same tolerance discipline as the ledger readers.
  */
-export function readFeed(repoRoot: string, days = 2, opts: { now?: () => Date; maxItems?: number } = {}): FeedSnapshot {
+export function readFeed(repoRoot: string, days = 2, opts: { now?: () => Date; maxItems?: number; archiveDir?: string } = {}): FeedSnapshot {
   const now = opts.now || (() => new Date())
   const maxItems = opts.maxItems && opts.maxItems > 0 ? opts.maxItems : 1000
+  const archiveDir = opts.archiveDir || '' // Google Drive mount folder — read older days from here after local prune
   const items: FeedItem[] = []
   const cycles: CycleSummary[] = []
   for (let d = 0; d < Math.max(1, days); d++) {
@@ -94,7 +95,10 @@ export function readFeed(repoRoot: string, days = 2, opts: { now?: () => Date; m
     try {
       text = fs.readFileSync(firehosePath(repoRoot, date), 'utf8')
     } catch {
-      continue
+      // not on local disk (pruned or never here) → fall back to the cloud archive (Drive mount) if set
+      if (archiveDir) {
+        try { text = fs.readFileSync(path.join(archiveDir, `${date}_firehose.ndjson`), 'utf8') } catch { continue }
+      } else continue
     }
     for (const ln of text.split('\n')) {
       const t = ln.trim()
