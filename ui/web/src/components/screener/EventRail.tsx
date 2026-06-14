@@ -10,14 +10,66 @@
 // into ONE row (server dedup) with a "+N · also …" expander; multi-source corroboration nudges its rank.
 // Click a row to read the whole event; set aside the ones not worth a check.
 
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { groupByDedup, type StoryGroup } from '../../lib/dedup'
 import { plainSize, plainTheme } from '../../lib/plain'
 import { BROAD_SCOPES, COMPANY_SCOPES, familyOf, isCompanyNameClient, SCOPES, scopeLabel, scopeOf, type ScopeId } from '../../lib/scope'
 import { hhmmLocal } from '../../lib/format'
+import { extractCommodities, extractSectors } from '../../lib/taxonomy'
 import { useStore } from '../../lib/store'
 import type { FeedItem } from '../../lib/types'
 import { emptyFilters, FeedFilters, filtersActive, matchesFilters, type FeedFilterState } from './FeedFilters'
+
+// a multi-select dropdown for a broad scope with dynamic sub-values (Sector, Commodity). "All X" =
+// the whole scope; specific picks narrow to those. Closes on outside-click / Escape.
+type SubSel = { all: boolean; picks: Set<string> }
+const subActive = (s: SubSel) => s.all || s.picks.size > 0
+function ScopeDropdown({ label, total, options, sel, onChange, open, onOpen }: { label: string; total: number; options: [string, number][]; sel: SubSel; onChange: (s: SubSel) => void; open: boolean; onOpen: (o: boolean) => void }) {
+  const ref = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (!open) return
+    const onDoc = (e: MouseEvent) => { if (ref.current && !ref.current.contains(e.target as Node)) onOpen(false) }
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') onOpen(false) }
+    document.addEventListener('mousedown', onDoc)
+    document.addEventListener('keydown', onKey)
+    return () => { document.removeEventListener('mousedown', onDoc); document.removeEventListener('keydown', onKey) }
+  }, [open, onOpen])
+  const active = subActive(sel)
+  const toggleAll = () => onChange(sel.all ? { all: false, picks: sel.picks } : { all: true, picks: new Set() })
+  const togglePick = (name: string) => {
+    const picks = new Set(sel.picks)
+    picks.has(name) ? picks.delete(name) : picks.add(name)
+    onChange({ all: false, picks })
+  }
+  return (
+    <div className="evscope__dropwrap" ref={ref}>
+      <button type="button" className={`evscope__chip evscope__chip--broad evscope__chip--drop${active ? ' evscope__chip--on' : ''}`} onClick={() => onOpen(!open)} aria-expanded={open} aria-haspopup="listbox" title={`${label} — pick specific ${label.toLowerCase()}s, or all`}>
+        {active && <span className="evscope__tick" aria-hidden>✓</span>}
+        {label}
+        <span className="evscope__n">{sel.picks.size || total}</span>
+        <span className={`evscope__dropcaret${open ? ' evscope__dropcaret--open' : ''}`} aria-hidden>▾</span>
+      </button>
+      {open && (
+        <div className="evscope__menu" role="listbox">
+          <button type="button" className={`evscope__opt${sel.all ? ' evscope__opt--on' : ''}`} onClick={toggleAll}>
+            <span className="evscope__optcheck" aria-hidden>{sel.all ? '✓' : ''}</span>
+            <span className="evscope__optlabel">All {label.toLowerCase()}</span>
+            <span className="evscope__optn">{total}</span>
+          </button>
+          {options.length > 0 && <div className="evscope__menudiv" aria-hidden />}
+          {options.map(([name, n]) => (
+            <button key={name} type="button" className={`evscope__opt${sel.picks.has(name) ? ' evscope__opt--on' : ''}`} onClick={() => togglePick(name)}>
+              <span className="evscope__optcheck" aria-hidden>{sel.picks.has(name) ? '✓' : ''}</span>
+              <span className="evscope__optlabel">{name}</span>
+              <span className="evscope__optn">{n}</span>
+            </button>
+          ))}
+          {!options.length && <div className="evscope__optempty">No specific {label.toLowerCase()} named on the wire yet.</div>}
+        </div>
+      )}
+    </div>
+  )
+}
 
 type View = 'ranked' | 'latest' | 'all'
 
@@ -130,11 +182,15 @@ export function EventRail() {
   // multi-select: empty = show everything; otherwise show the UNION of the picked scopes
   const [scopeFilter, setScopeFilter] = useState<Set<ScopeId>>(new Set())
   const [showShelved, setShowShelved] = useState(false)
-  // the Refine layer (theme / search / region / size) — secondary filter, collapsed by default
+  // the secondary filters (theme / search / region / size) — now always visible
   const [filters, setFilters] = useState<FeedFilterState>(emptyFilters())
-  const [showRefine, setShowRefine] = useState(false)
+  // Sector & Commodity drill into specific sub-values (dynamic multi-select); openDrop = which menu is open
+  const [sectorSel, setSectorSel] = useState<SubSel>({ all: false, picks: new Set() })
+  const [commSel, setCommSel] = useState<SubSel>({ all: false, picks: new Set() })
+  const [openDrop, setOpenDrop] = useState<'sector' | 'commodity' | null>(null)
   const [armScan, setArmScan] = useState(false) // two-click arm for the paid top-up sweep
-  const refineCount = filters.themes.size + (filters.region ? 1 : 0) + (filters.size ? 1 : 0) + (filters.text.trim() ? 1 : 0)
+  const clearBroad = () => { setScopeFilter(new Set()); setSectorSel({ all: false, picks: new Set() }); setCommSel({ all: false, picks: new Set() }) }
+  const broadActive = scopeFilter.size > 0 || subActive(sectorSel) || subActive(commSel)
   const toggleScope = (s: ScopeId) => {
     const next = new Set(scopeFilter)
     next.has(s) ? next.delete(s) : next.add(s)
@@ -183,7 +239,29 @@ export function EventRail() {
   const companyTotal = COMPANY_SCOPES.reduce((n, s) => n + (counts[s] || 0), 0)
   const broadTotal = BROAD_SCOPES.reduce((n, s) => n + (counts[s] || 0), 0)
 
-  const visibleGroups = useMemo(() => (scopeFilter.size ? refined.filter((g) => scopeFilter.has(scopeOf(g.rep))) : refined), [refined, scopeFilter])
+  // dynamic sub-value lists for the Sector / Commodity dropdowns — only what's actually on the wire, with counts
+  const sectorOptions = useMemo(() => {
+    const c: Record<string, number> = {}
+    for (const g of refined) if (scopeOf(g.rep) === 'sector') for (const x of extractSectors(g.rep.headline)) c[x] = (c[x] || 0) + 1
+    return Object.entries(c).sort((a, b) => b[1] - a[1]) as [string, number][]
+  }, [refined])
+  const commodityOptions = useMemo(() => {
+    const c: Record<string, number> = {}
+    for (const g of refined) if (scopeOf(g.rep) === 'commodity') for (const x of extractCommodities(g.rep.headline)) c[x] = (c[x] || 0) + 1
+    return Object.entries(c).sort((a, b) => b[1] - a[1]) as [string, number][]
+  }, [refined])
+
+  // the broad filter: a UNION of the picked scope chips + the Sector/Commodity sub-selections
+  const visibleGroups = useMemo(() => {
+    if (!broadActive) return refined
+    return refined.filter((g) => {
+      const sc = scopeOf(g.rep)
+      if (scopeFilter.has(sc)) return true
+      if (sc === 'sector' && (sectorSel.all || extractSectors(g.rep.headline).some((x) => sectorSel.picks.has(x)))) return true
+      if (sc === 'commodity' && (commSel.all || extractCommodities(g.rep.headline).some((x) => commSel.picks.has(x)))) return true
+      return false
+    })
+  }, [refined, scopeFilter, sectorSel, commSel, broadActive])
   const isFresh = (g: StoryGroup) => g.members.some((m) => freshEvents.has(m.event_id))
 
   const shelvedInBand = useMemo(() => groups.reduce((n, g) => n + (shelvedEvents.has(g.rep.event_id) ? 1 : 0), 0), [groups, shelvedEvents])
@@ -273,8 +351,8 @@ export function EventRail() {
 
         {/* SCOPE filter — tap to add/remove (multi-select); company-specific vs broad context */}
         <div className="evscope" role="group" aria-label="Filter by what the event is about — tap to add or remove">
-          <button type="button" className={`evscope__chip evscope__chip--all${scopeFilter.size === 0 ? ' evscope__chip--on' : ''}`} onClick={() => setScopeFilter(new Set())} aria-pressed={scopeFilter.size === 0} title="Show every category">
-            {scopeFilter.size === 0 && <span className="evscope__tick" aria-hidden>✓</span>}
+          <button type="button" className={`evscope__chip evscope__chip--all${!broadActive ? ' evscope__chip--on' : ''}`} onClick={clearBroad} aria-pressed={!broadActive} title="Show every category">
+            {!broadActive && <span className="evscope__tick" aria-hidden>✓</span>}
             All<span className="evscope__n">{refined.length}</span>
           </button>
           {(companyTotal > 0 || COMPANY_SCOPES.some((s) => scopeFilter.has(s))) && (
@@ -282,41 +360,27 @@ export function EventRail() {
               {COMPANY_SCOPES.map(scopeChip)}
             </span>
           )}
-          {companyTotal > 0 && broadTotal > 0 && <span className="evscope__div" aria-hidden />}
-          {(broadTotal > 0 || BROAD_SCOPES.some((s) => scopeFilter.has(s))) && (
-            <span className="evscope__group" title="Broad — macro, sector, commodity or policy context, not one company">
-              {BROAD_SCOPES.map(scopeChip)}
+          {companyTotal > 0 && (broadTotal > 0 || broadActive) && <span className="evscope__div" aria-hidden />}
+          {(broadTotal > 0 || broadActive) && (
+            <span className="evscope__group" title="Broad — sector, macro, commodity or policy context, not one company">
+              {((counts.sector || 0) > 0 || subActive(sectorSel)) && (
+                <ScopeDropdown label="Sector" total={counts.sector || 0} options={sectorOptions} sel={sectorSel} onChange={setSectorSel} open={openDrop === 'sector'} onOpen={(o) => setOpenDrop(o ? 'sector' : null)} />
+              )}
+              {scopeChip('macro')}
+              {((counts.commodity || 0) > 0 || subActive(commSel)) && (
+                <ScopeDropdown label="Commodity" total={counts.commodity || 0} options={commodityOptions} sel={commSel} onChange={setCommSel} open={openDrop === 'commodity'} onOpen={(o) => setOpenDrop(o ? 'commodity' : null)} />
+              )}
+              {scopeChip('policy')}
             </span>
           )}
         </div>
         {scopeFilter.size === 1 && <div className="evscope__meaning">{SCOPES[[...scopeFilter][0]].meaning}</div>}
         {scopeFilter.size > 1 && <div className="evscope__meaning">Showing {scopeFilter.size} categories together — tap All to reset.</div>}
 
-        {/* REFINE — a secondary filter on top of scope: news type, region, company size, or text.
-            Collapsed by default to keep the wire scannable; the badge shows active filters. */}
-        <div className="evrefine">
-          <button
-            type="button"
-            className={`evrefine__toggle${showRefine ? ' evrefine__toggle--on' : ''}${refineCount ? ' evrefine__toggle--active' : ''}`}
-            onClick={() => setShowRefine((v) => !v)}
-            aria-expanded={showRefine}
-            title="Filter by news type, region, company size, or a search term"
-          >
-            <span className="evrefine__label">Refine</span>
-            {refineCount > 0 && <span className="evrefine__badge">{refineCount}</span>}
-            <span className="evrefine__caret" aria-hidden>▾</span>
-          </button>
-          {!showRefine && filtersActive(filters) && (
-            <button type="button" className="evrefine__clear" onClick={() => setFilters(emptyFilters())} title="Clear the refine filters">
-              clear
-            </button>
-          )}
+        {/* secondary filters — always visible: news type, region, company size, search */}
+        <div className="evrail__filters">
+          <FeedFilters value={filters} onChange={setFilters} sources={[]} compact />
         </div>
-        {showRefine && (
-          <div className="evrefine__panel">
-            <FeedFilters value={filters} onChange={setFilters} sources={[]} compact />
-          </div>
-        )}
       </header>
 
       <div className="evrail__list">
@@ -325,8 +389,8 @@ export function EventRail() {
         ))}
         {!visibleGroups.length && (
           <div className="evrail__empty">
-            {scopeFilter.size || filtersActive(filters)
-              ? `Nothing matches these filters right now — tap All${filtersActive(filters) ? ' or clear Refine' : ''} to see the rest.`
+            {broadActive || filtersActive(filters)
+              ? 'Nothing matches these filters right now — tap All or clear the filters to see the rest.'
               : items.length
                 ? view === 'ranked'
                   ? 'Nothing ranked yet — switch to Everything to see the full wire.'
