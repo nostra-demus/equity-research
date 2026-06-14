@@ -1,0 +1,34 @@
+{
+  "thesis_id": "THS-SIG-20260612-dd716589-v1",
+  "state": "provisional",
+  "sell_side_rating": "Starter Position Only",
+  "edge_locked": 74,
+  "edge_score_live": 74,
+  "conviction": 74,
+  "data_sufficiency_factor": 1.0,
+  "upgrade_velocity": 0.0,
+  "trajectory_enum": "steady",
+  "rank_score": 52.0,
+  "proximity_pct": 0.0,
+  "progress_confirmed": 0,
+  "progress_total": 12,
+  "validated": false,
+  "trajectory": [
+    {
+      "at": "2026-06-12T00:00:00Z",
+      "edge": 74
+    }
+  ],
+  "next_checkpoint": {
+    "checkpoint_id": "CHK-dd716589-01",
+    "metric_name": "JKM front-month LNG spot price — US EIA Weekly Natural Gas Report (eia.gov/naturalgas/weekly), published every Wednesday; supplemented by lngpriceindex.com/jkm-price (unverified, labelled) for intra-week reads",
+    "kind": "kill_metric",
+    "due_at": "2026-08-15"
+  },
+  "stale": false,
+  "insufficient": false,
+  "archived": false,
+  "plain_note": "Locked at edge 74 (Starter Position Only). 12 proof points scheduled; first up: JKM front-month LNG spot price — US EIA Weekly Natural Gas R by 2026-08-15.",
+  "history": [],
+  "updated_at": "2026-06-14T12:56:15Z"
+}

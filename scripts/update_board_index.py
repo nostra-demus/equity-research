@@ -30,6 +30,10 @@ REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 LEDGER = os.path.join(REPO, "screener", "ledger")
 INBOX = os.path.join(REPO, "screener", "inbox")
 BOARD = os.path.join(REPO, "screener", "board", "index.json")
+# Phase 3 conviction loop: the engine-owned live-book snapshots (separate from the human
+# override path). Folded into each thesis entry as `conviction`; missing dir = empty (the
+# loop is additive and the board never depends on it existing).
+CONV_STATE = os.path.join(LEDGER, "conviction", "conviction_state")
 
 # Thesis statuses count as "watchlist" for the funnel header. watchlist_manual is a HUMAN move
 # (an overrides.ndjson record), distinct from the engine's three watchlist reasons.
@@ -194,6 +198,10 @@ def build() -> dict:
             entry["effective_status"] = engine_status
             entry["override"] = None
             entry["override_stale"] = False
+        # Phase 3: fold in the engine-owned conviction snapshot (rung, live edge, momentum,
+        # sparkline points) — the board reads it; the locked thesis JSON is never touched.
+        cs = read_json(os.path.join(CONV_STATE, f"{thesis_id}.json"))
+        entry["conviction"] = cs if isinstance(cs, dict) else None
         theses.append(entry)
         if meta.get("signal_id"):
             thesis_by_signal[meta["signal_id"]] = entry
@@ -257,6 +265,23 @@ def build() -> dict:
         "news_dropped_today": news_dropped,
     }
 
+    # ---- book momentum (Phase 3 live book) ----
+    # The single number the desk watches: are live ideas, on balance, upgrading? Computed from the
+    # conviction snapshots. Archived (terminal) theses leave the live book but stay counted.
+    conv = [t["conviction"] for t in theses if isinstance(t.get("conviction"), dict)]
+    live = [c for c in conv if not c.get("archived")]
+    vels = [float(c.get("upgrade_velocity") or 0) for c in live]
+    book_momentum = {
+        "live_count": len(live),
+        "upgrading_count": sum(1 for v in vels if v > 0),
+        "decaying_count": sum(1 for v in vels if v < 0),
+        "mean_upgrade_velocity": round(sum(vels) / len(vels), 1) if vels else 0.0,
+        "confirmed_count": sum(1 for c in live if c.get("state") == "confirmed"),
+        "fading_count": sum(1 for c in live if c.get("state") == "fading"),
+        "stale_count": sum(1 for c in live if c.get("stale")),
+        "archived_count": sum(1 for c in conv if c.get("archived")),
+    }
+
     return {
         "generated_at": now,
         "inbox": inbox_rows,
@@ -264,6 +289,7 @@ def build() -> dict:
         "theses": theses,
         "handoffs": handoff_rows,
         "counts": counts,
+        "book_momentum": book_momentum,
     }
 
 

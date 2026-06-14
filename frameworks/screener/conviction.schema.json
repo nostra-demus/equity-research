@@ -1,0 +1,144 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "frameworks/screener/conviction.schema.json",
+  "title": "Screener conviction state (Phase 3 live book)",
+  "description": "ROOT validates a per-thesis conviction_state snapshot at screener/ledger/conviction/conviction_state/<thesis_id>.json — the derived, regenerable read the board builder folds into board/index.json. The append-only ledger row shapes (checkpoint, validation_result, conviction_event) live under definitions; they are enforced by the emit/validate code paths (NDJSON is line-by-line, not a single JSON doc). See frameworks/screener/CONVICTION_LOOP.md for the full design.",
+  "type": "object",
+  "required": ["thesis_id", "state", "edge_locked", "edge_score_live", "conviction", "validated", "updated_at"],
+  "properties": {
+    "thesis_id": { "type": "string", "pattern": "^THS-SIG-[0-9]{8}-[a-f0-9]{8}-v[0-9]+$" },
+    "state": {
+      "type": "string",
+      "enum": ["watching", "provisional", "strong", "confirmed", "fading", "handed_off", "falsified_discarded", "expired_unproven"]
+    },
+    "sell_side_rating": {
+      "type": "string",
+      "description": "The §18 decision-set label for this state.",
+      "enum": ["Watchlist", "Starter Position Only", "Buy", "Strong Buy", "Short Candidate", "Hold", "Avoid", "Pair Trade / Hedge Required", "Insufficient Data — Refuse To Rate"]
+    },
+    "edge_locked": { "type": "integer", "minimum": 0, "maximum": 100, "description": "The frozen M0.6.6 final_score baseline. Never changes." },
+    "edge_score_live": { "type": "integer", "minimum": 0, "maximum": 100, "description": "Re-scored edge off the locked baseline using cited checkpoint deltas." },
+    "conviction": { "type": "integer", "minimum": 0, "maximum": 100, "description": "edge_score_live × data_sufficiency_factor (§11 cap)." },
+    "data_sufficiency_factor": { "type": "number", "minimum": 0, "maximum": 1 },
+    "upgrade_velocity": { "type": "number", "description": "Change in edge_score_live per 30 days (signed). The 'rate of upgrade'." },
+    "trajectory_enum": { "type": "string", "enum": ["accelerating", "steady", "stalling", "decaying"] },
+    "rank_score": { "type": "number", "minimum": 0, "maximum": 100 },
+    "proximity_pct": { "type": "number", "minimum": 0, "maximum": 100, "description": "Weighted share of checkpoints confirmed (load-bearing kill/trigger weight 3, else 1)." },
+    "progress_confirmed": { "type": "integer", "minimum": 0 },
+    "progress_total": { "type": "integer", "minimum": 0 },
+    "validated": { "type": "boolean", "description": "Has at least one checkpoint resolved? Never-validated theses are tagged so they cannot masquerade as confirmed climbers." },
+    "trajectory": {
+      "type": "array",
+      "description": "Edge points over time for the sparkline.",
+      "items": {
+        "type": "object",
+        "required": ["at", "edge"],
+        "properties": { "at": { "type": "string" }, "edge": { "type": "integer", "minimum": 0, "maximum": 100 } }
+      }
+    },
+    "next_checkpoint": {
+      "type": ["object", "null"],
+      "properties": {
+        "checkpoint_id": { "type": "string" },
+        "metric_name": { "type": "string" },
+        "kind": { "type": "string" },
+        "due_at": { "type": ["string", "null"] }
+      }
+    },
+    "stale": { "type": "boolean", "description": "A checkpoint's by-date passed with no validation on record. Rating frozen." },
+    "insufficient": { "type": "boolean", "description": "Validator ran but no approved source yielded the number (or a single-source kill awaiting a second). Rating frozen." },
+    "archived": { "type": "boolean", "description": "Terminal (falsified_discarded / expired_unproven) — off the live leaderboard, in the Archived tray, still counted." },
+    "kill_reason": { "type": "string" },
+    "error_taxonomy_tag": { "type": "string" },
+    "plain_note": { "type": "string", "description": "The latest sell-side one-liner (§21)." },
+    "history": { "type": "array", "items": { "type": "string" }, "description": "conviction_event ids, oldest first." },
+    "updated_at": { "type": "string" }
+  },
+  "definitions": {
+    "checkpoint": {
+      "type": "object",
+      "description": "One row of screener/ledger/conviction/checkpoints.ndjson — the calendar. Idempotency key: thesis_id::checkpoint_id.",
+      "required": ["checkpoint_id", "thesis_id", "source_field", "kind", "metric_name", "status", "created_at"],
+      "properties": {
+        "checkpoint_id": { "type": "string", "pattern": "^CHK-[a-f0-9]{8}-[0-9]{2}$" },
+        "thesis_id": { "type": "string" },
+        "source_field": { "type": "string", "description": "json-path into the locked record, e.g. M0_5.monitorable_metric_1." },
+        "kind": { "type": "string", "enum": ["kill_metric", "secondary_metric", "secondary_falsifier", "convergence_trigger", "secondary_trigger", "expiry"] },
+        "metric_name": { "type": "string" },
+        "threshold": { "type": ["number", "string", "null"] },
+        "operator": { "type": "string", "enum": ["lt", "lte", "gt", "gte", "eq", "na"] },
+        "unit": { "type": "string" },
+        "direction": { "type": "string", "enum": ["bullish_if_above", "bullish_if_below", "binary", "na"], "description": "HINT for the validator; the authoritative kill rule is the falsification_sentence text carried below." },
+        "falsification_text": { "type": "string", "description": "The exact M0.5 kill sentence (kill_metric only) so the validator judges with the real rule, not the parsed operator." },
+        "due_at": { "type": ["string", "null"], "description": "Concrete ISO date; null when the source range gives no anchor (watched via the wire only)." },
+        "trigger_type": { "type": "string", "enum": ["scheduled", "unscheduled", "na"] },
+        "cadence": { "type": "string", "enum": ["daily", "weekly", "monthly", "quarterly", "na"] },
+        "can_kill": { "type": "boolean", "description": "Only kill_metric is true; only a true checkpoint can drive falsified_discarded." },
+        "wire_keywords": { "type": "array", "items": { "type": "string" } },
+        "predicted_prob": { "type": ["number", "null"], "minimum": 0, "maximum": 1, "description": "Locked prior (secondary_falsifier.probability_estimate / trigger probability) — feeds the Brier." },
+        "scheduled_task_id": { "type": ["string", "null"] },
+        "status": { "type": "string", "enum": ["scheduled", "dispatched", "resolved", "skipped"] },
+        "created_at": { "type": "string" }
+      }
+    },
+    "validation_result": {
+      "type": "object",
+      "description": "One row of screener/ledger/conviction/conviction.ndjson (row_type=validation_result). Idempotency key: checkpoint_id::run_id.",
+      "required": ["row_type", "checkpoint_id", "thesis_id", "verdict", "checked_at"],
+      "properties": {
+        "row_type": { "type": "string", "const": "validation_result" },
+        "checkpoint_id": { "type": "string" },
+        "thesis_id": { "type": "string" },
+        "run_id": { "type": "string" },
+        "source_field": { "type": "string" },
+        "observed_value": { "type": ["number", "string", "null"] },
+        "threshold": { "type": ["number", "string", "null"] },
+        "unit": { "type": "string" },
+        "verdict": { "type": "string", "enum": ["confirmed", "partial", "against", "breached_kill", "unresolved"] },
+        "distance_to_threshold": { "type": ["number", "string", "null"] },
+        "cited_evidence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["source", "retrieved_at"],
+            "properties": {
+              "url": { "type": "string" },
+              "source": { "type": "string" },
+              "grade": { "type": "string", "enum": ["A", "B", "unverified"] },
+              "retrieved_at": { "type": "string" },
+              "quoted_value": { "type": "string" }
+            }
+          }
+        },
+        "source_count": { "type": "integer", "minimum": 0, "description": "Approved sources agreeing on the value — a kill needs >= 2." },
+        "predicted_prob": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "realized": { "type": ["integer", "null"], "minimum": 0, "maximum": 1, "description": "Did the predicted event happen (1) or not (0)? Brier input." },
+        "error_taxonomy_tag": { "type": "string", "description": "§20 tag when against/breached (missing_data, stale_data, bad_extraction, …)." },
+        "narrative": { "type": "string" },
+        "checked_at": { "type": "string" }
+      }
+    },
+    "conviction_event": {
+      "type": "object",
+      "description": "One row of screener/ledger/conviction/conviction.ndjson (row_type=conviction_event). Idempotency key: thesis_id::at.",
+      "required": ["row_type", "thesis_id", "at", "kind", "from_state", "to_state", "edge_locked", "edge_score_live"],
+      "properties": {
+        "row_type": { "type": "string", "const": "conviction_event" },
+        "thesis_id": { "type": "string" },
+        "at": { "type": "string" },
+        "kind": { "type": "string", "enum": ["seed", "upgrade", "downgrade", "discard", "hold", "recover", "expire"] },
+        "from_state": { "type": "string" },
+        "to_state": { "type": "string" },
+        "edge_locked": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "edge_score_live": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "subscores_before": { "type": "object" },
+        "subscores_after": { "type": "object" },
+        "conviction": { "type": "integer", "minimum": 0, "maximum": 100 },
+        "sell_side_rating": { "type": "string" },
+        "triggering_checkpoint_id": { "type": ["string", "null"] },
+        "evidence_refs": { "type": "array", "items": { "type": "string" } },
+        "plain_note": { "type": "string" }
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-14T10:49:36Z",
+  "generated_at": "2026-06-14T12:57:43Z",
   "inbox": [
     {
       "inbox_id": "INB-20260614-004",
@@ -1410,6 +1410,54 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260614-239",
+      "headline": "Reliance Industries Limited: Please find attached a media release by Jio Platforms Limited, a subsidiary of the Company, titled Jio Platforms Surges into Global Top 20 in latest WIPO Patents Ranking.",
+      "url": "https://nsearchives.nseindia.com/corporate/kavinavora_14062026155341_SE_14062026.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-06-14T10:23:52Z",
+      "sweep_file": "screener/inbox/2026-06-14_sweep.json",
+      "prelim_note": "Reliance Industries' subsidiary Jio Platforms ranked 20th globally in WIPO patents.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Reliance Industries' subsidiary Jio Platforms ranked 20th globally in WIPO patents.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 3,
+        "size": 2,
+        "recency": 4,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing"
+      },
+      "event_types": [
+        "product"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Reliance Industries Limited",
+          "ticker": null,
+          "listing_country": null
+        },
+        {
+          "name": "Jio Platforms Limited",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "mega",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260614-003",
       "headline": "China’s Geely Auto to slash excess capacity amid overhaul to boost carmaker’s global edge",
       "url": "https://www.scmp.com/business/china-business/article/3357014/chinas-geely-auto-slash-excess-capacity-amid-overhaul-boost-carmakers-global-edge?utm_source=rss_feed",
@@ -1491,49 +1539,6 @@
         }
       ],
       "size_bucket": "mega",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260614-096",
-      "headline": "Bridgepoint weighs $1bn sale of anti-drone group guarding World Cup sites",
-      "url": "https://www.ft.com/content/d9117016-8402-4a1c-84b1-f2101d1a56c4",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-06-14T04:00:17Z",
-      "sweep_file": "screener/inbox/2026-06-14_sweep.json",
-      "prelim_note": "Bridgepoint weighs $1bn sale of anti-drone group",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Bridgepoint weighs $1bn sale of anti-drone group",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "scope_id": "multi_name",
-        "source_tier_id": "news"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bridgepoint",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -4833,7 +4838,41 @@
       ],
       "effective_status": "provisional",
       "override": null,
-      "override_stale": false
+      "override_stale": false,
+      "conviction": {
+        "thesis_id": "THS-SIG-20260613-4bbcdeae-v1",
+        "state": "provisional",
+        "sell_side_rating": "Starter Position Only",
+        "edge_locked": 64,
+        "edge_score_live": 64,
+        "conviction": 64,
+        "data_sufficiency_factor": 1.0,
+        "upgrade_velocity": 0.0,
+        "trajectory_enum": "steady",
+        "rank_score": 47.0,
+        "proximity_pct": 0.0,
+        "progress_confirmed": 0,
+        "progress_total": 11,
+        "validated": false,
+        "trajectory": [
+          {
+            "at": "2026-06-14T00:00:00Z",
+            "edge": 64
+          }
+        ],
+        "next_checkpoint": {
+          "checkpoint_id": "CHK-4bbcdeae-07",
+          "metric_name": "Intel Q2 2026 pre-announcement or preliminary revenue/margin guidance update",
+          "kind": "secondary_trigger",
+          "due_at": "2026-07-22"
+        },
+        "stale": false,
+        "insufficient": false,
+        "archived": false,
+        "plain_note": "Locked at edge 64 (Starter Position Only). 11 proof points scheduled; first up: Intel Q2 2026 pre-announcement or preliminary revenue/margin by 2026-07-22.",
+        "history": [],
+        "updated_at": "2026-06-14T12:56:16Z"
+      }
     },
     {
       "thesis_id": "THS-SIG-20260612-dd716589-v1",
@@ -4854,7 +4893,41 @@
       "candidates": [],
       "effective_status": "provisional",
       "override": null,
-      "override_stale": false
+      "override_stale": false,
+      "conviction": {
+        "thesis_id": "THS-SIG-20260612-dd716589-v1",
+        "state": "provisional",
+        "sell_side_rating": "Starter Position Only",
+        "edge_locked": 74,
+        "edge_score_live": 74,
+        "conviction": 74,
+        "data_sufficiency_factor": 1.0,
+        "upgrade_velocity": 0.0,
+        "trajectory_enum": "steady",
+        "rank_score": 52.0,
+        "proximity_pct": 0.0,
+        "progress_confirmed": 0,
+        "progress_total": 12,
+        "validated": false,
+        "trajectory": [
+          {
+            "at": "2026-06-12T00:00:00Z",
+            "edge": 74
+          }
+        ],
+        "next_checkpoint": {
+          "checkpoint_id": "CHK-dd716589-01",
+          "metric_name": "JKM front-month LNG spot price — US EIA Weekly Natural Gas Report (eia.gov/naturalgas/weekly), published every Wednesday; supplemented by lngpriceindex.com/jkm-price (unverified, labelled) for intra-week reads",
+          "kind": "kill_metric",
+          "due_at": "2026-08-15"
+        },
+        "stale": false,
+        "insufficient": false,
+        "archived": false,
+        "plain_note": "Locked at edge 74 (Starter Position Only). 12 proof points scheduled; first up: JKM front-month LNG spot price — US EIA Weekly Natural Gas R by 2026-08-15.",
+        "history": [],
+        "updated_at": "2026-06-14T12:56:15Z"
+      }
     },
     {
       "thesis_id": "THS-SIG-20260610-a3f2c81d-v1",
@@ -4908,7 +4981,41 @@
       ],
       "effective_status": "provisional",
       "override": null,
-      "override_stale": false
+      "override_stale": false,
+      "conviction": {
+        "thesis_id": "THS-SIG-20260610-a3f2c81d-v1",
+        "state": "provisional",
+        "sell_side_rating": "Starter Position Only",
+        "edge_locked": 79,
+        "edge_score_live": 79,
+        "conviction": 79,
+        "data_sufficiency_factor": 1.0,
+        "upgrade_velocity": 0.0,
+        "trajectory_enum": "steady",
+        "rank_score": 54.5,
+        "proximity_pct": 0.0,
+        "progress_confirmed": 0,
+        "progress_total": 7,
+        "validated": false,
+        "trajectory": [
+          {
+            "at": "2026-06-10T05:55:00Z",
+            "edge": 79
+          }
+        ],
+        "next_checkpoint": {
+          "checkpoint_id": "CHK-a3f2c81d-06",
+          "metric_name": "RBI monthly WALR/funding-cost data showing transmission",
+          "kind": "secondary_trigger",
+          "due_at": "2026-07-31"
+        },
+        "stale": false,
+        "insufficient": false,
+        "archived": false,
+        "plain_note": "Locked at edge 79 (Starter Position Only). 7 proof points scheduled; first up: RBI monthly WALR/funding-cost data showing transmission by 2026-07-31.",
+        "history": [],
+        "updated_at": "2026-06-14T12:56:14Z"
+      }
     }
   ],
   "handoffs": [],
@@ -4921,8 +5028,18 @@
     "provisional": 3,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 925,
-    "news_picked_today": 300,
-    "news_dropped_today": 601
+    "news_seen_today": 1437,
+    "news_picked_today": 400,
+    "news_dropped_today": 797
+  },
+  "book_momentum": {
+    "live_count": 3,
+    "upgrading_count": 0,
+    "decaying_count": 0,
+    "mean_upgrade_velocity": 0.0,
+    "confirmed_count": 0,
+    "fading_count": 0,
+    "stale_count": 0,
+    "archived_count": 0
   }
 }
