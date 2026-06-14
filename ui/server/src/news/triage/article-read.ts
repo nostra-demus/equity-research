@@ -91,8 +91,10 @@ export async function readArticleBrief(
     if (now() >= deadline) { lastNote = 'deadline reached before a provider answered'; break }
     if (!p.apiKey) continue
 
-    // a single provider call must fit inside what's left of the deadline (minus the limiter-wait slice)
-    const callTimeout = Math.min(deps.perCallTimeoutMs ?? 9000, Math.max(0, deadline - now() - limiterWaitMs))
+    // a single provider call must fit inside what's left of the deadline (minus the limiter-wait slice).
+    // The 7s default is generous for Groq/Gemini-flash-lite (they answer in 1-3s) yet trims a stuck free
+    // model fast, so one slow provider can't eat the whole budget and starve the reliable ones behind it.
+    const callTimeout = Math.min(deps.perCallTimeoutMs ?? 7000, Math.max(0, deadline - now() - limiterWaitMs))
     if (callTimeout < 1500) { lastNote = 'deadline too close to safely try another provider'; break }
 
     const limiter = p.limiter === 'groq' ? getSharedLimiter(p.rpm, p.tpm)

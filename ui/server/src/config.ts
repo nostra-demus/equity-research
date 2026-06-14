@@ -341,24 +341,30 @@ export const NEWS = {
 }
 
 /**
- * The on-demand article read's LLM fallback chain, in priority order — Groq (primary) → OpenAI-compatible
- * overflow (OpenRouter, NVIDIA, …) → Gemini pool. It REUSES the ingester's exact budget files + process-wide
- * limiters (so the two paths share one free-tier accounting), and is built purely from whatever keys are
- * present — adding a provider is the same single config entry that wires it into the ingester (§26). When no
- * key is set the chain is empty and the read degrades to the deterministic story floor.
+ * The on-demand article read's LLM fallback chain. It REUSES the ingester's exact budget files +
+ * process-wide limiters (so the two paths share one free-tier accounting), and is built purely from
+ * whatever keys are present — adding a provider is the same single config entry that wires it into the
+ * ingester (§26). When no key is set the chain is empty and the read degrades to the deterministic floor.
+ *
+ * ORDER differs from the ingester ON PURPOSE. The ingester (runCycle) saves Gemini's tiny daily pool for
+ * LAST so the strong overflow models absorb the batch volume. A HUMAN waiting on one article wants LATENCY
+ * + RELIABILITY, not quota-spreading: so the order here is Groq (fastest when its minute-window has room) →
+ * GEMINI (flash-lite is fast, has a huge per-minute ceiling, and rarely blocks) → OpenAI-compatible overflow
+ * (OpenRouter/NVIDIA free models are strong but can be slow/queued — they'd otherwise eat the time budget and
+ * starve the more reliable providers of their turn).
  */
 export function buildArticleReadProviders(cfg: typeof NEWS = NEWS): ArticleReadProvider[] {
   const out: ArticleReadProvider[] = []
   if (cfg.groqApiKey) {
     out.push({ id: 'groq', kind: 'openai', apiKey: cfg.groqApiKey, baseUrl: cfg.groqBaseUrl, model: cfg.groqModel, maxTokens: 900, rpm: cfg.groqRpm, tpm: cfg.groqTpm, dailyReqCap: cfg.groqDailyReqCap, dailyTokenCap: cfg.groqDailyTokenCap, budgetFile: 'groq-budget.json', limiter: 'groq' })
   }
+  if (cfg.geminiEnabled && cfg.geminiApiKey && cfg.geminiModels.length) {
+    out.push({ id: 'gemini', kind: 'gemini', apiKey: cfg.geminiApiKey, baseUrl: cfg.geminiBaseUrl, model: cfg.geminiModel, pool: cfg.geminiModels, maxTokens: cfg.geminiMaxTokens, rpm: cfg.geminiRpm, tpm: cfg.geminiTpm, dailyReqCap: cfg.geminiDailyReqCap, dailyTokenCap: cfg.geminiDailyTokenCap, budgetFile: 'gemini-budget-{model}.json', dayTz: cfg.geminiDayTz, limiter: 'gemini' })
+  }
   for (const p of cfg.overflowProviders) {
     // OpenAI-compatible overflow: its own named limiter (rpm spacing only, tpm 0) + daily budget file, exactly
     // as runCycle uses it. The non-binding token cap mirrors the ingester (free models gate on RPM/RPD).
     out.push({ id: p.id, kind: 'openai', apiKey: p.apiKey, baseUrl: p.baseUrl, model: p.model, models: p.models, maxTokens: p.maxTokens, rpm: p.rpm, tpm: 0, dailyReqCap: p.dailyReqCap, dailyTokenCap: 50_000_000, budgetFile: p.budgetFile, dayTz: p.dayTz, headers: p.headers, extraBody: p.extraBody, limiter: p.id })
-  }
-  if (cfg.geminiEnabled && cfg.geminiApiKey && cfg.geminiModels.length) {
-    out.push({ id: 'gemini', kind: 'gemini', apiKey: cfg.geminiApiKey, baseUrl: cfg.geminiBaseUrl, model: cfg.geminiModel, pool: cfg.geminiModels, maxTokens: cfg.geminiMaxTokens, rpm: cfg.geminiRpm, tpm: cfg.geminiTpm, dailyReqCap: cfg.geminiDailyReqCap, dailyTokenCap: cfg.geminiDailyTokenCap, budgetFile: 'gemini-budget-{model}.json', dayTz: cfg.geminiDayTz, limiter: 'gemini' })
   }
   return out
 }
