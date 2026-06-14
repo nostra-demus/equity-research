@@ -182,7 +182,11 @@ export async function fetchRss(opts: RssOptions, deps: RssDeps = {}): Promise<Ra
       const ctrl = new AbortController()
       const timer = setTimeout(() => ctrl.abort(), opts.timeoutMs)
       try {
-        const headers: Record<string, string> = { 'user-agent': ua, accept: 'application/rss+xml, application/atom+xml, application/xml, text/xml' }
+        // The trailing */* matters: some content-negotiation-strict origins (e.g. Eurostat) return 406 to
+        // the explicit-only list — verified live, Eurostat 406s on the strict list but 200s with */* — and
+        // a feed that serves a generic content-type would otherwise be rejected. Keeps the specific types
+        // first (preferred) while never hard-failing a valid feed on the Accept header alone.
+        const headers: Record<string, string> = { 'user-agent': ua, accept: 'application/rss+xml, application/atom+xml, application/xml, text/xml, */*' }
         const cond = cache[feed.url]
         if (cond?.etag) headers['if-none-match'] = cond.etag
         if (cond?.lastModified) headers['if-modified-since'] = cond.lastModified
