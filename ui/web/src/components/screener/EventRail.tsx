@@ -184,8 +184,8 @@ export function EventRail() {
   const [showShelved, setShowShelved] = useState(false)
   // the secondary filters (theme / search / region / size) — now always visible
   const [filters, setFilters] = useState<FeedFilterState>(emptyFilters())
-  // collapse toggle for the secondary filters — open by default, but remembers your choice (per browser)
-  const [filtersOpen, setFiltersOpen] = useState<boolean>(() => { try { return localStorage.getItem('nsw.filtersOpen') !== '0' } catch { return true } })
+  // collapse toggle for the secondary filters — COLLAPSED by default; opens only if you've opened it before (per browser)
+  const [filtersOpen, setFiltersOpen] = useState<boolean>(() => { try { return localStorage.getItem('nsw.filtersOpen') === '1' } catch { return false } })
   const toggleFilters = () => setFiltersOpen((v) => { const n = !v; try { localStorage.setItem('nsw.filtersOpen', n ? '1' : '0') } catch {} return n })
   const refineCount = filters.themes.size + (filters.region ? 1 : 0) + (filters.size ? 1 : 0) + (filters.text.trim() ? 1 : 0)
   // Sector & Commodity drill into specific sub-values (dynamic multi-select); openDrop = which menu is open
