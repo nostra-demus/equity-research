@@ -111,6 +111,25 @@ await check('fetchRss: per-feed isolation (a 500 feed never hurts the others) + 
   assert.equal(arts[0].domain, 'reuters.com')
 })
 
+await check('fetchRss: WAF-cloak self-heal — a 403 on the browser UA auto-retries with the contact UA', async () => {
+  const state = tmp()
+  const feedsPath = path.join(tmp(), 'feeds.json')
+  fs.writeFileSync(feedsPath, JSON.stringify({ feeds: [{ url: 'https://bls.test/cpi.rss' }] })) // no per-feed override
+  const now = () => new Date('2026-06-12T09:30:00Z')
+  const seenUas: string[] = []
+  const fetchFn = (async (_url: string, init: any) => {
+    const ua = init?.headers?.['user-agent'] || ''
+    seenUas.push(ua)
+    // Akamai cloak: 403 to the spoofed browser UA, 200 to the honest contact UA
+    if (/Mozilla|Chrome/.test(ua)) return { ok: false, status: 403, text: async () => 'Access Denied', headers: { get: () => null } }
+    return { ok: true, status: 200, text: async () => RSS2, headers: { get: () => null } }
+  }) as unknown as typeof fetch
+  const arts = await fetchRss({ feedsPath, lookbackMin: 40, timeoutMs: 2000, stateDir: state }, { fetchFn, sleep: noSleep, now })
+  assert.equal(arts.length, 2) // recovered via the fallback — items flow
+  assert.ok(/Mozilla|Chrome/.test(seenUas[0]), 'first tried the browser UA')
+  assert.ok(seenUas.some((u) => u.includes('nostra-demus-screener')), 'fell back to the contact UA')
+})
+
 await check('fetchRss: conditional GET — a 304 feed contributes nothing and costs nothing', async () => {
   const state = tmp()
   const feedsPath = path.join(tmp(), 'feeds.json')
