@@ -694,6 +694,16 @@ a { color: inherit; }
 .poolchip__sep { opacity: 0.45; margin: 0 1px; }
 .poolchip__unit { opacity: 0.65; }
 @media (prefers-reduced-motion: reduce) { .poolchip__fill { transition: none; } }
+
+/* time-travel window selector — surface news over 14d / 1mo / 6mo / all, from the on-disk archive */
+.wirewindow { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; padding: 10px 20px; border-bottom: 1px solid var(--hairline); }
+.wirewindow__label { font-size: 10px; font-weight: 600; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-faint); margin-right: 4px; }
+.wirewindow__chip { font-size: 12px; padding: 4px 11px; border: 1px solid var(--hairline); border-radius: 999px; background: var(--surface-2); color: var(--text-muted); cursor: pointer; transition: transform 160ms cubic-bezier(0.23, 1, 0.32, 1), border-color 160ms ease, color 160ms ease, background-color 160ms ease; }
+.wirewindow__chip:active { transform: scale(0.97); }
+.wirewindow__chip:disabled { opacity: 0.5; cursor: default; }
+.wirewindow__chip.is-active { background: color-mix(in srgb, var(--accent) 14%, var(--surface-2)); border-color: color-mix(in srgb, var(--accent) 55%, var(--hairline)); color: var(--accent-bright); font-weight: 600; }
+@media (hover: hover) and (pointer: fine) { .wirewindow__chip:not(.is-active):not(:disabled):hover { border-color: color-mix(in srgb, var(--accent) 40%, var(--hairline)); color: var(--text); } }
+.wirewindow__note { margin-left: auto; font-size: 11px; color: var(--text-faint); font-variant-numeric: tabular-nums; }
 /* "Recent" history view — revisit every past check, newest first */
 .recent { flex: 1; min-height: 0; overflow-y: auto; padding: 14px 18px 28px; display: flex; flex-direction: column; gap: 10px; }
 .recent__lead { font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 2px; }
@@ -1453,10 +1463,13 @@ a { color: inherit; }
 @keyframes themeabsorb-ring { 0% { opacity: 0.85; transform: scale(0.9); } 100% { opacity: 0; transform: scale(1.7); } }
 @keyframes themecount { 0% { transform: scale(1); } 40% { transform: scale(1.35); color: var(--tier); } 100% { transform: scale(1); } }
 @keyframes themeborn { 0% { opacity: 0; transform: scale(0.62); } 45% { opacity: 1; transform: scale(1.14); } 70% { transform: scale(0.97); } 100% { opacity: 1; transform: scale(1); } }
-/* the ranking lens emits harder while a real stream is flowing through it */
-.thememap__core.is-emitting { border-color: var(--accent); }
-.thememap__core.is-emitting::before { animation-duration: 1.6s; }
+/* the ranking lens emits harder the heavier the flow — --rate (0–1) scales the glow + ping speed, so the
+   intensity of incoming data reads at a glance (a fat glow = a big scan; a faint one = a quiet scan) */
+.thememap__core.is-emitting { border-color: var(--accent); box-shadow: 0 0 calc(8px + 26px * var(--rate, 0)) -4px var(--accent-glow); }
+.thememap__core.is-emitting::before { animation-duration: calc(2.6s - 1.5s * var(--rate, 0)); }
 .thememap__core.is-emitting span { color: var(--accent-bright); }
+/* the readout dot pulses faster the heavier the flow too */
+.thememap__rate-dot { animation-duration: calc(1.6s - 1.1s * var(--rate, 0)) !important; }
 /* live throughput readout under the lens — proof the stream is real, not decoration */
 .thememap__rate { position: absolute; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 5px; font-size: 9.5px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent-bright); white-space: nowrap; pointer-events: none; z-index: 4; font-variant-numeric: tabular-nums; }
 .thememap__rate-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--live); box-shadow: 0 0 6px var(--live); animation: evpulse 1.4s var(--ease-out) infinite; }

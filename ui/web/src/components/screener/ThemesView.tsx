@@ -95,8 +95,7 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
   //      shown at their true average cadence. ----
   type Emit = { id: number; d: string; cls: string; tier?: Theme['tier']; dur: number; target?: string }
   type Pending = { kind: 'in'; sourceTier?: string } | { kind: 'out'; themeId: string; tier: Theme['tier'] }
-  const MAX_QUEUE = 600
-  const clampN = (n: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, n))
+  const MAX_QUEUE = 4000 // generous — a real scan's full volume drives the rate; this is only a runaway guard
   const newsItems = useStore((s) => s.newsItems)
   const arrived = useStore((s) => s.newsArrivedTotal)
   const intervalMin = useStore((s) => s.newsStatus?.intervalMin) || 5
@@ -106,6 +105,7 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
   const seq = useRef(0)
   const queue = useRef<Pending[]>([])
   const acc = useRef(0)
+  const rateRef = useRef(0) // live emission rate (items/sec) — FIXED at each scan = pending ÷ cadence, NO clamp
   const [emits, setEmits] = useState<Emit[]>([])
   const [shown, setShown] = useState<Record<string, number>>({})
   const [absorbing, setAbsorbing] = useState<Set<string>>(new Set()) // theme_ids briefly lit as a dot lands
@@ -138,6 +138,7 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
       } else if (delta !== 0) sync[t.theme_id] = t.member_count // merge/retire — jump straight to truth
     }
     if (queue.current.length > MAX_QUEUE) queue.current = queue.current.slice(-MAX_QUEUE)
+    if (!reduceMotion) { rateRef.current = queue.current.length / Math.max(60, windowRef.current / 1000); setRate(rateRef.current) }
     if (Object.keys(sync).length) setShown((s) => ({ ...s, ...sync }))
     if (newborn.length && !reduceMotion) {
       setBorn((b) => { const n = new Set(b); newborn.forEach((id) => n.add(id)); return n })
@@ -155,11 +156,15 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
     const fresh = newsItems.slice(0, Math.max(0, added))
     for (let i = 0; i < added; i++) queue.current.push({ kind: 'in', sourceTier: fresh[i]?.source_tier })
     if (queue.current.length > MAX_QUEUE) queue.current = queue.current.slice(-MAX_QUEUE)
+    // the rate IS the intensity: pending items ÷ the scan cadence, dynamic + uncapped (1000/scan ≈ 3.3/s)
+    rateRef.current = queue.current.length / Math.max(60, windowRef.current / 1000)
+    setRate(rateRef.current)
   }, [arrived, reduceMotion])
 
-  // PACER — one stable loop. Each tick releases queued dots so the whole real backlog drains evenly over
-  // the cycle window (≈ items ÷ cycle-seconds; ~1/s on a busy cycle). A fractional accumulator gives a
-  // smooth sub-1/s cadence on quiet cycles. When the queue empties, counts converge to the truth.
+  // PACER — one stable loop. It releases dots at the FIXED per-scan rate (rateRef, = scraped ÷ cadence),
+  // held steady across the window so the whole scan's volume spreads evenly: 1000 items over 300s reads
+  // as a dense ~3.3/s, 100 items as a sparse ~0.3/s. NO clamp — the dot density IS the intensity gauge.
+  // A fractional accumulator handles any rate (sub-1/s to tens/s). On drain it goes idle until next scan.
   useEffect(() => {
     if (reduceMotion) return
     const TICK = 200
@@ -169,24 +174,28 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
         const lane = L.lanes.find((l) => l.id === p.sourceTier) || L.lanes.find((l) => l.id === 'news') || L.lanes[0]
         if (!lane) return
         const d = hcurve(lane.x + 18, lane.y, L.core.x - L.core.r, L.core.y)
-        setEmits((e) => [...e, { id: ++seq.current, d, cls: 'thememap__pulse--in', dur: 2.4 }].slice(-100))
+        setEmits((e) => [...e, { id: ++seq.current, d, cls: 'thememap__pulse--in', dur: 2.4 }].slice(-120))
       } else {
         const node = nodeByIdRef.current.get(p.themeId)
         if (!node) { setShown((s) => ({ ...s, [p.themeId]: Math.min((s[p.themeId] ?? 0) + 1, prevCounts.current.get(p.themeId) ?? Infinity) })); return }
         const d = hcurve(L.core.x + L.core.r, L.core.y, node.x - node.r, node.y)
-        setEmits((e) => [...e, { id: ++seq.current, d, cls: 'thememap__pulse--out', tier: p.tier, dur: 1.7, target: p.themeId }].slice(-100))
+        setEmits((e) => [...e, { id: ++seq.current, d, cls: 'thememap__pulse--out', tier: p.tier, dur: 1.7, target: p.themeId }].slice(-120))
       }
     }
+    let last = performance.now()
     const id = window.setInterval(() => {
-      const q = queue.current
-      const windowSec = Math.max(60, windowRef.current / 1000)
-      const target = clampN(q.length / windowSec, q.length ? 0.45 : 0, 7) // real drain rate, items/sec
-      setRate((r) => (Math.abs(r - target) > 0.04 ? Math.round(target * 10) / 10 : r))
-      acc.current += target * (TICK / 1000)
-      let released = 0
-      while (acc.current >= 1 && q.length && released < 6) { acc.current -= 1; emitOne(q.shift()!); released++ }
+      const now = performance.now()
+      const elapsed = Math.min(2, (now - last) / 1000) // REAL elapsed (throttle-proof: background tabs clamp
+      last = now                                       // setInterval to ~1/s, so the fixed TICK lies); capped
+      const q = queue.current                          // at 2s so a backgrounded tab can't dump a huge catch-up burst
+      if (q.length && rateRef.current > 0) {
+        acc.current += rateRef.current * elapsed
+        let released = 0
+        while (acc.current >= 1 && q.length && released < 40) { acc.current -= 1; emitOne(q.shift()!); released++ }
+      }
       if (!q.length) {
         acc.current = 0
+        if (rateRef.current !== 0) { rateRef.current = 0; setRate(0) } // drained — idle until the next scan re-measures
         const pc = prevCounts.current // converge any held counts to the truth
         setShown((s) => { let ch = false; const n = { ...s }; for (const [tid, c] of pc) if (n[tid] !== c) { n[tid] = c; ch = true } return ch ? n : s })
       }
@@ -239,13 +248,14 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
         ))}
       </div>
 
-      {/* the ranking lens — pulses while it's emitting; a live rate readout sits beneath it */}
-      <div className={`thememap__core${rate > 0 ? ' is-emitting' : ''}`} style={{ left: layout.core.x - layout.core.r, top: layout.core.y - layout.core.r, width: layout.core.r * 2, height: layout.core.r * 2 }}>
+      {/* the ranking lens — emits harder the heavier the flow (--rate drives the glow), so intensity reads
+          at a glance; a live readout beneath it shows the real per-scan volume + rate (the intensity gauge) */}
+      <div className={`thememap__core${rate > 0 ? ' is-emitting' : ''}`} style={{ left: layout.core.x - layout.core.r, top: layout.core.y - layout.core.r, width: layout.core.r * 2, height: layout.core.r * 2, ['--rate' as any]: Math.min(1, rate / 4) }}>
         <span>Ranking</span>
       </div>
       {rate > 0 && (
-        <div className="thememap__rate" style={{ left: layout.core.x, top: layout.core.y + layout.core.r + 13 }}>
-          <span className="thememap__rate-dot" aria-hidden /> scanning · ~{rate.toFixed(1)}/s
+        <div className="thememap__rate" style={{ left: layout.core.x, top: layout.core.y + layout.core.r + 13, ['--rate' as any]: Math.min(1, rate / 4) }}>
+          <span className="thememap__rate-dot" aria-hidden /> {Math.round(rate * Math.max(60, intervalMin * 60)).toLocaleString()} this scan · {rate >= 0.1 ? `~${rate.toFixed(1)}/s` : '<0.1/s'}
         </div>
       )}
 
