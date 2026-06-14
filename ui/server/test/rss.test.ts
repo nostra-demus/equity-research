@@ -87,6 +87,19 @@ const EMPTY_TITLE = `<?xml version="1.0"?><rss version="2.0"><channel><title>GDP
 <item><title></title><link>https://atlantafed.org/gdpnow</link><description>The GDPNow model estimate for real GDP growth is 2.4 percent.</description><pubDate>Fri, 12 Jun 2026 09:00:00 GMT</pubDate></item>
 <item><title></title><link>https://atlantafed.org/empty</link><pubDate>Fri, 12 Jun 2026 09:01:00 GMT</pubDate></item>
 </channel></rss>`
+// FERC class: every item's <link> is the site root (https://ferc.gov/) and the real per-item URL is an
+// href in the (entity-encoded) <description>. Without recovering it, all items dedup-collapse to one.
+const ROOT_LINK = `<?xml version="1.0"?><rss version="2.0"><channel><title>FERC</title>
+<item><title>Tri-States NGL Pipeline</title><link>https://ferc.gov/</link><guid>uuid-1</guid><description>Form 6&lt;br/&gt;&lt;a href='https://ecollection.ferc.gov/api/DownloadDocument/430346/1?f=a'&gt;doc&lt;/a&gt;</description></item>
+<item><title>Chugach Electric</title><link>https://ferc.gov/</link><guid>uuid-2</guid><description>Form 3Q&lt;br/&gt;&lt;a href='https://ecollection.ferc.gov/api/DownloadDocument/430333/1?f=b'&gt;doc&lt;/a&gt;</description></item>
+</channel></rss>`
+await check('parseFeed: bare site-root <link> → recover the per-item href from the body (FERC class)', () => {
+  const items = parseFeed(ROOT_LINK, 60, 'https://ecollection.ferc.gov/api/rssfeed')
+  assert.equal(items.length, 2)
+  assert.equal(new Set(items.map((i) => i.link)).size, 2, 'two distinct per-item links (no homepage collapse)')
+  assert.equal(items[0].link, 'https://ecollection.ferc.gov/api/DownloadDocument/430346/1?f=a')
+})
+
 await check('parseFeed: empty <title> with a body lede → synthesize a title (GDPNow class)', () => {
   const items = parseFeed(EMPTY_TITLE)
   assert.equal(items.length, 1) // the second item has no title AND no body → still dropped

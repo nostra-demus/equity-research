@@ -154,6 +154,18 @@ function snippetOf(block: string): string | null {
   return textOf(block, 'content:encoded') || textOf(block, 'description') || textOf(block, 'summary') || textOf(block, 'content')
 }
 
+// A bare site root ("https://ferc.gov/", no path/query) — useless as a per-item link and, when every
+// item shares it, collapses the whole feed to one row at dedup time.
+function isRootUrl(u: string): boolean {
+  try { const x = new URL(u); return (x.pathname === '/' || x.pathname === '') && !x.search && !x.hash } catch { return false }
+}
+// First real article href inside a body/description (FERC, TreasuryDirect put the per-item URL there).
+function firstHttpHref(html: string | null): string | null {
+  if (!html) return null
+  const m = /href\s*=\s*["']?(https?:\/\/[^"'\s>]+)/i.exec(decodeEntities(html))
+  return m ? m[1] : null
+}
+
 /** Parse one RSS 2.0 or Atom document into raw articles. Tolerant by construction: a malformed
  *  entry yields nothing rather than an error. Exported for the test suite. */
 export function parseFeed(xml: string, maxItems = 60, baseUrl?: string): { title: string; link: string; date: string | null; snippet: string | null }[] {
@@ -162,7 +174,7 @@ export function parseFeed(xml: string, maxItems = 60, baseUrl?: string): { title
   const blocks = xml.split(/<(?:item|entry)[\s>]/i).slice(1)
   for (const rawBlock of blocks.slice(0, maxItems)) {
     const block = rawBlock.split(/<\/(?:item|entry)>/i)[0]
-    const link = linkOf(block, baseUrl)
+    let link = linkOf(block, baseUrl)
     if (!link || !/^https?:\/\//i.test(link)) continue
     let title = textOf(block, 'title')
     const snippet = snippetOf(block)
@@ -172,6 +184,13 @@ export function parseFeed(xml: string, maxItems = 60, baseUrl?: string): { title
       title = decodeEntities(snippet.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()).slice(0, 140).trim()
     }
     if (!title) continue
+    // FERC/TreasuryDirect class: every item's <link> is the site root and the real per-item URL is an
+    // href in the body. Without this, all items dedup-collapse to one. Prefer the body href when the
+    // link is a bare root and the body carries a deeper URL.
+    if (isRootUrl(link)) {
+      const href = firstHttpHref(snippet)
+      if (href && !isRootUrl(href)) link = href
+    }
     out.push({ title, link, date: dateOf(block), snippet })
   }
   return out
