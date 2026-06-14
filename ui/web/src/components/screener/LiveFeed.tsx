@@ -20,10 +20,10 @@ const kfmt = (n: number): string => (n >= 1000 ? `${(n / 1000).toFixed(n >= 100_
 // A small daily-budget pool readout: a label, a fill bar, and used/cap. The fill animates with a GPU
 // transform (scaleX) so the poll-driven update never triggers layout. `tone` distinguishes the two
 // providers — Groq (the paced primary) from the Gemini free-tier overflow (green = bonus capacity).
-function BudgetChip({ label, used, cap, unit, tone, title }: { label: string; used: number; cap: number; unit: string; tone: 'groq' | 'gemini'; title: string }) {
+function BudgetChip({ label, used, cap, unit, tone, title }: { label: string; used: number; cap: number; unit: string; tone: 'groq' | 'gemini' | 'openrouter'; title: string }) {
   const frac = cap > 0 ? Math.min(1, Math.max(0, used / cap)) : 0
   return (
-    <span className={`poolchip poolchip--${tone}${used > 0 && tone === 'gemini' ? ' is-active' : ''}`} title={title}>
+    <span className={`poolchip poolchip--${tone}${used > 0 && (tone === 'gemini' || tone === 'openrouter') ? ' is-active' : ''}`} title={title}>
       <span className="poolchip__label">{label}</span>
       <span className="poolchip__bar" aria-hidden><span className="poolchip__fill" style={{ transform: `scaleX(${frac})` }} /></span>
       <span className="poolchip__val mono">{kfmt(used)}<span className="poolchip__sep">/</span>{kfmt(cap)}<span className="poolchip__unit"> {unit}</span></span>
@@ -138,6 +138,16 @@ export function LiveFeed() {
                   unit="req"
                   tone="gemini"
                   title={`Free-tier overflow (${status.gemini.model}) — a second provider that picks up triage when Groq is paced or capped, so the day's throughput is Groq + Gemini. ${status.gemini.requests} of ${status.gemini.reqCap} requests used today.`}
+                />
+              )}
+              {status.openrouter?.enabled && (
+                <BudgetChip
+                  label="OpenRouter overflow"
+                  used={status.openrouter.requests}
+                  cap={status.openrouter.reqCap}
+                  unit="req"
+                  tone="openrouter"
+                  title={`Free-tier overflow (${status.openrouter.model}) — the strongest free models (gpt-oss-120b, llama-3.3-70b…), used as the highest-quality overflow tier. ${status.openrouter.requests} of ${status.openrouter.reqCap} requests used today.`}
                 />
               )}
             </div>

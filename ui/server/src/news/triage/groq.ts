@@ -70,6 +70,10 @@ export interface TriageOptions {
   baseUrl: string
   apiKey: string
   maxTokens?: number
+  // OpenAI-compatible extras for OpenRouter (ignored by Groq, which never sets them):
+  models?: string[] // OpenRouter fallback chain — auto-routes to the first available free model
+  headers?: Record<string, string> // extra request headers (e.g. OpenRouter HTTP-Referer / X-Title)
+  extraBody?: Record<string, unknown> // extra request-body fields (e.g. OpenRouter reasoning: {effort:'low'})
 }
 
 export interface TriageResult {
@@ -155,9 +159,10 @@ export async function triageBatch(
     try {
       const res = await fetchFn(`${opts.baseUrl}/chat/completions`, {
         method: 'POST',
-        headers: { 'content-type': 'application/json', authorization: `Bearer ${opts.apiKey}` },
+        headers: { 'content-type': 'application/json', authorization: `Bearer ${opts.apiKey}`, ...(opts.headers || {}) },
         body: JSON.stringify({
           model: opts.model,
+          ...(opts.models?.length ? { models: opts.models } : {}), // OpenRouter fallback chain (Groq omits)
           temperature: 0.1,
           max_tokens: opts.maxTokens ?? 2000,
           response_format: { type: 'json_object' },
@@ -165,6 +170,7 @@ export async function triageBatch(
             { role: 'system', content: SYSTEM },
             { role: 'user', content: buildUserMessage(items) },
           ],
+          ...(opts.extraBody || {}), // OpenRouter reasoning effort etc. (Groq omits)
         }),
       })
       requests++

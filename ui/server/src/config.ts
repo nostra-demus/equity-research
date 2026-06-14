@@ -176,6 +176,23 @@ export const NEWS = {
   geminiTpm: capNum(process.env.NEWS_GEMINI_TPM, 240_000),
   geminiMaxTokens: capNum(process.env.NEWS_GEMINI_MAX_TOKENS, 2000),
   geminiDayTz: process.env.NEWS_GEMINI_DAY_TZ || 'America/Los_Angeles', // RPD resets midnight Pacific
+  // THIRD free brain — OpenRouter (OpenAI-compatible gateway). Its free models are far STRONGER than
+  // Groq's 8B (gpt-oss-120b, llama-3.3-70b, qwen3-80b), so these are the highest-QUALITY overflow slots.
+  // Free tier = ~20 req/min and a POOLED daily cap (~50/day with no credits; ~1000/day once $10 is loaded
+  // — free models still cost $0, the balance just unlocks the higher tier). One request carries a fallback
+  // CHAIN (openRouterModels) so it auto-routes to whichever free model is up (they 429 individually).
+  // FREE ONLY by construction (only ':free' models; caps under the free limits). Off when no key.
+  openRouterApiKey: process.env.OPENROUTER_API_KEY || '',
+  openRouterEnabled: process.env.NEWS_OPENROUTER_ENABLED === '0' ? false : true,
+  openRouterBaseUrl: process.env.OPENROUTER_BASE_URL || 'https://openrouter.ai/api/v1',
+  // OpenRouter caps the fallback chain at 3 models; ordered best-first (gpt-oss-120b is the highest-quality
+  // free model that reliably emits JSON; 20b + llama-3.3-70b are the fallbacks when 120b's provider 429s).
+  openRouterModels: (process.env.NEWS_OPENROUTER_MODELS || 'openai/gpt-oss-120b:free,openai/gpt-oss-20b:free,meta-llama/llama-3.3-70b-instruct:free').split(',').map((s) => s.trim()).filter(Boolean).slice(0, 3),
+  openRouterDailyReqCap: capNum(process.env.NEWS_OPENROUTER_DAILY_REQ_CAP, 45), // under the ~50/day free pool; raise to ~950 after loading $10
+  openRouterRpm: capNum(process.env.NEWS_OPENROUTER_RPM, 18), // under the 20/min free
+  // gpt-oss is a reasoning model; give the output room (reasoning + a 12-item JSON array) — paired with
+  // reasoning effort 'low' in runCycle so thinking tokens stay minimal.
+  openRouterMaxTokens: capNum(process.env.NEWS_OPENROUTER_MAX_TOKENS, 3500),
   triageBatch: capNum(process.env.NEWS_TRIAGE_BATCH, 12),
   // GDELT look-back per cycle (minutes; > pollInterval gives overlap so nothing slips the gap).
   gdeltLookbackMin: capNum(process.env.NEWS_GDELT_LOOKBACK_MIN, 40),

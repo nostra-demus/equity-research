@@ -154,5 +154,7 @@ export interface CycleSummary {
   groq_tokens: number
   gemini_requests?: number // batches that overflowed to the Gemini free-tier provider (0 / absent when unused)
   gemini_tokens?: number
+  openrouter_requests?: number // batches that overflowed to the OpenRouter free-tier provider
+  openrouter_tokens?: number
   note?: string // a human-readable reason when ok=false or a cap was hit
 }

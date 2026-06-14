@@ -208,3 +208,10 @@ export function getSharedGeminiLimiter(rpm: number, tpm: number): RateLimiter {
   if (!sharedGemini) sharedGemini = new RateLimiter(rpm, tpm)
   return sharedGemini
 }
+
+// Process-wide pacer for the OpenRouter overflow provider (its own per-minute window, free tier ~20 RPM).
+let sharedOpenRouter: RateLimiter | null = null
+export function getSharedOpenRouterLimiter(rpm: number, tpm: number): RateLimiter {
+  if (!sharedOpenRouter) sharedOpenRouter = new RateLimiter(rpm, tpm)
+  return sharedOpenRouter
+}

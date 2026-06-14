@@ -682,7 +682,7 @@ a { color: inherit; }
 .pipeline__sub { font-size: 11.5px; color: var(--text-faint); margin-top: 3px; font-variant-numeric: tabular-nums; }
 .pipeline__tools { display: flex; gap: 8px; flex-shrink: 0; }
 
-/* daily-budget pool readout — Groq (paced primary) + Gemini (free-tier overflow) */
+/* daily-budget pool readout — Groq (paced primary) + Gemini + OpenRouter (free-tier overflow) */
 .pipeline__pools { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
 .poolchip { display: inline-flex; align-items: center; gap: 7px; padding: 3px 9px; border: 1px solid var(--hairline); border-radius: 999px; background: var(--surface-2); line-height: 1; }
 .poolchip__label { font-size: 10px; font-weight: 600; letter-spacing: 0.3px; text-transform: uppercase; color: var(--text-faint); }
@@ -692,10 +692,13 @@ a { color: inherit; }
 .poolchip--groq .poolchip__label { color: color-mix(in srgb, var(--accent-bright) 85%, var(--text)); }
 .poolchip--gemini .poolchip__fill { background: var(--live); }
 .poolchip--gemini .poolchip__label { color: var(--live); }
+.poolchip--openrouter .poolchip__fill { background: var(--provider-or); }
+.poolchip--openrouter .poolchip__label { color: var(--provider-or); }
 .poolchip__val { color: var(--text-faint); font-size: 10.5px; font-variant-numeric: tabular-nums; }
 .poolchip__sep { opacity: 0.45; margin: 0 1px; }
 .poolchip__unit { opacity: 0.65; }
 .poolchip--gemini.is-active { border-color: color-mix(in srgb, var(--live) 40%, var(--hairline)); }
+.poolchip--openrouter.is-active { border-color: color-mix(in srgb, var(--provider-or) 40%, var(--hairline)); }
 @media (prefers-reduced-motion: reduce) { .poolchip__fill { transition: none; } }
 /* "Recent" history view — revisit every past check, newest first */
 .recent { flex: 1; min-height: 0; overflow-y: auto; padding: 14px 18px 28px; display: flex; flex-direction: column; gap: 10px; }
