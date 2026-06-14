@@ -1008,10 +1008,21 @@ export const useStore = create<State>((set, get) => ({
       const enrichment = await api.enrichEvent(it)
       set({ enrichCache: { ...get().enrichCache, [it.event_id]: enrichment } })
     } catch (e: any) {
-      // drop the in-flight sentinel rather than cache a sticky failure — the next open retries
-      const next = { ...get().enrichCache }
-      delete next[it.event_id]
-      set({ enrichCache: next })
+      // The server always returns SOMETHING within its budget, so a throw here means the request itself
+      // failed (timeout / network / tunnel blip). DON'T drop the entry back to undefined — that re-renders
+      // the "Reading the article…" shimmer with no fetch in flight, i.e. it hangs forever (the original
+      // bug). Cache an honest headline-only fallback so THE STORY always shows something; ok:false keeps it
+      // non-sticky, so reopening the event re-fires the fetch (the human's retry actually retries).
+      const fallback: EventEnrichment = {
+        event_id: it.event_id,
+        ok: false,
+        fetched_at: new Date().toISOString(),
+        prior_coverage: [],
+        related: [],
+        summary: it.headline ? `Couldn’t reach the reader just now. From the headline: ${it.headline}` : undefined,
+        note: 'The article read timed out or the source was unreachable — open the source to read it. Reopening this event retries the read.',
+      }
+      set({ enrichCache: { ...get().enrichCache, [it.event_id]: fallback } })
     }
   },
 

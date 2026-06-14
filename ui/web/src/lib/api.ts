@@ -144,7 +144,14 @@ export const api = {
     if (it.companies?.length) qs.set('companies', JSON.stringify(it.companies))
     if (it.event_types?.length) qs.set('event_types', JSON.stringify(it.event_types))
     if (it.scope) qs.set('scope', it.scope)
-    return get(`/api/news/enrich?${qs.toString()}`)
+    // The server caps its own work at ~23s worst case (≤9s page fetch + ≤14s LLM budget). A client timeout
+    // a little above that guarantees the reader never waits on a dead socket forever — on a timeout the
+    // store falls back to a headline-only story rather than spinning the shimmer. (The default get() has no
+    // timeout — the bug that let the shimmer hang.)
+    const url = `/api/news/enrich?${qs.toString()}`
+    const r = await fetch(url, { signal: AbortSignal.timeout(28_000) })
+    if (!r.ok) throw new Error(`${r.status} ${url}`)
+    return r.json() as Promise<EventEnrichment>
   },
   inboxAction: async (inboxId: string, action: 'dismiss' | 'restore'): Promise<{ ok: boolean }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
