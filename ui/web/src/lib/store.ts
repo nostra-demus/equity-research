@@ -198,6 +198,7 @@ interface State {
   newsFeedOpen: boolean
   newsItems: FeedItem[]
   freshEvents: Set<string> // event_ids that just streamed in over SSE — drive the "new detected" glow
+  newsArrivedTotal: number // monotonic count of items read off the wire (survives the 1000 cap) — paces the live themes map
   newsStatus: NewsStatus | null
   globalActive: ActiveRunLite[]
   stopListOpen: boolean
@@ -287,6 +288,7 @@ export const useStore = create<State>((set, get) => ({
   newsFeedOpen: false,
   newsItems: [],
   freshEvents: new Set(),
+  newsArrivedTotal: 0,
   newsStatus: null,
   themes: [],
   themesView: null,
@@ -1197,7 +1199,7 @@ export const useStore = create<State>((set, get) => ({
       // it never lingers and never fires on backfill (only genuine live SSE arrivals pass through here)
       const fresh = new Set(get().freshEvents)
       fresh.add(it.event_id)
-      set({ newsItems: [it, ...get().newsItems].slice(0, 1000), freshEvents: fresh })
+      set({ newsItems: [it, ...get().newsItems].slice(0, 1000), freshEvents: fresh, newsArrivedTotal: get().newsArrivedTotal + 1 })
       const prev = freshTimers.get(it.event_id)
       if (prev) clearTimeout(prev)
       freshTimers.set(it.event_id, setTimeout(() => {

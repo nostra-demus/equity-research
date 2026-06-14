@@ -1442,6 +1442,24 @@ a { color: inherit; }
 .themenode__pulse { display: none; }
 @media (hover: hover) and (pointer: fine) { .themenode:hover { transform: scale(1.1); z-index: 3; } .themenode:hover .themenode__label { color: var(--text); } }
 .themenode:active { transform: scale(0.97); }
+/* a basin ABSORBS a landing dot — a brief bright ring + the count "felt" the hit (transform/opacity only) */
+.themenode.is-absorbing { z-index: 4; }
+.themenode.is-absorbing .themenode__core { animation: themeabsorb 480ms var(--ease-out); }
+.themenode.is-absorbing::after { content: ''; position: absolute; inset: -3px; border-radius: 50%; border: 1.5px solid var(--tier); opacity: 0; animation: themeabsorb-ring 480ms var(--ease-out); }
+.themenode.is-absorbing .themenode__count { animation: themecount 480ms var(--ease-out); }
+/* a brand-new theme is BORN — it scales + glows in from nothing (never from scale(0)) */
+.themenode.is-born { animation: themeborn 1300ms var(--ease-out) both; z-index: 4; }
+@keyframes themeabsorb { 0% { transform: scale(1); } 38% { transform: scale(1.16); box-shadow: 0 0 22px -2px var(--tier); } 100% { transform: scale(1); } }
+@keyframes themeabsorb-ring { 0% { opacity: 0.85; transform: scale(0.9); } 100% { opacity: 0; transform: scale(1.7); } }
+@keyframes themecount { 0% { transform: scale(1); } 40% { transform: scale(1.35); color: var(--tier); } 100% { transform: scale(1); } }
+@keyframes themeborn { 0% { opacity: 0; transform: scale(0.62); } 45% { opacity: 1; transform: scale(1.14); } 70% { transform: scale(0.97); } 100% { opacity: 1; transform: scale(1); } }
+/* the ranking lens emits harder while a real stream is flowing through it */
+.thememap__core.is-emitting { border-color: var(--accent); }
+.thememap__core.is-emitting::before { animation-duration: 1.6s; }
+.thememap__core.is-emitting span { color: var(--accent-bright); }
+/* live throughput readout under the lens — proof the stream is real, not decoration */
+.thememap__rate { position: absolute; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 5px; font-size: 9.5px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent-bright); white-space: nowrap; pointer-events: none; z-index: 4; font-variant-numeric: tabular-nums; }
+.thememap__rate-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--live); box-shadow: 0 0 6px var(--live); animation: evpulse 1.4s var(--ease-out) infinite; }
 
 .thememap__tip { position: absolute; left: 16px; bottom: 14px; max-width: 320px; background: var(--surface-1); border: 1px solid var(--hairline-strong); border-radius: var(--r-md); padding: 10px 12px; box-shadow: 0 8px 28px -8px rgba(0,0,0,0.5); pointer-events: none; z-index: 5; }
 .thememap__tip-name { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
@@ -1529,7 +1547,8 @@ a { color: inherit; }
 @keyframes thememap-ping { 0% { transform: scale(1); opacity: 0.5; } 100% { transform: scale(2.5); opacity: 0; } }
 @keyframes thememap-node { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.07); } }
 @media (prefers-reduced-motion: reduce) {
-  .themenode, .themenode.is-pulsing::before, .themenode__core, .thememap__edge, .thememap__edge.is-active, .thememap__lane-edge, .thememap__core::after, .thememap__core::before, .thememap__pulse, .themes__emptyorb, .themes__shimmer { animation: none !important; }
-  .thememap__particles { display: none; }
+  .themenode, .themenode.is-pulsing::before, .themenode__core, .thememap__edge, .thememap__edge.is-active, .thememap__lane-edge, .thememap__core::after, .thememap__core::before, .thememap__pulse, .themes__emptyorb, .themes__shimmer,
+  .themenode.is-absorbing .themenode__core, .themenode.is-absorbing::after, .themenode.is-absorbing .themenode__count, .themenode.is-born, .thememap__rate-dot { animation: none !important; }
+  .thememap__particles, .thememap__rate { display: none; }
   .themecard, .themenode, .themedd__back, .themedd__relchip { transition: none !important; }
 }
