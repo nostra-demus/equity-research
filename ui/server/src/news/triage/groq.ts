@@ -91,10 +91,15 @@ export interface TriageResult {
   rate?: RateInfo // live rate-limit state from the response headers (drives the adaptive pacer)
 }
 
-/** Rough token estimate for the budget pre-check (input titles + structured output + overhead).
- *  Per-item cost rose with the companies/size_bucket fields. */
+/** Token estimate for the budget pre-check + per-minute pacer reservation (input titles + structured
+ *  output + the ~484-token SYSTEM prompt, fixed per batch). Calibrated to LIVE usage: 12-item batches
+ *  measured ~1,554 total tokens (Groq usage headers, Jun 2026), so ~500 fixed + ~90/item lands just
+ *  above actual with a safety margin. The OLD 450 + n*190 (=2,730 for 12) over-reserved 76%, so the
+ *  6,000-TPM limiter packed only ~2 batches/min when ~3-4 fit — throttling Groq below its real rate.
+ *  The adaptive pacer also learns the live ceiling from response headers (budget.ts learn()), which is
+ *  the real 429 backstop, so a tight-but-honest estimate is safe and converts directly to throughput. */
 export function estimateTokens(itemCount: number): number {
-  return 450 + itemCount * 190
+  return 500 + itemCount * 95
 }
 
 export function scoreToBand(score: number, pickThreshold: number, watchThreshold: number): Band {
