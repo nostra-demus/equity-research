@@ -3,7 +3,7 @@ import { api, isStatic } from './api'
 import { downstreamCascade, type CascadeNode } from './cascade'
 import { plainRoute, plainStage } from './plain'
 import type { Theme, ThemeDetail } from './themes'
-import type { ActiveRunLite, AgentNode, BoardInboxRow, DataStatus, EventEnrichment, FeedItem, HealthState, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
+import type { ActiveRunLite, AgentNode, BoardInboxRow, ConvictionDetail, DataStatus, EventEnrichment, FeedItem, HealthState, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
 
 // A company the user drilled into from an event (the COMPANIES NAMED chips) — the main stage then
 // shows every wire story about it. listing_country/exchange ride along from the article-body read.
@@ -114,7 +114,7 @@ interface State {
   scRouted: Record<string, { route: string; terminal: boolean }> // module -> latest routing (lights the switchyard)
   signalIntakeOpen: boolean
   pipelineOpen: boolean
-  scThesisDetail: { thesis: any; candidates: any; handoffs: any[] } | null
+  scThesisDetail: { thesis: any; candidates: any; handoffs: any[]; conviction?: ConvictionDetail | null } | null
   scSelectedEvent: FeedItem | null // a wire event the user clicked to read in the main stage (before deciding to run it)
   scFocusedCompany: FocusedCompany | null // a company the user drilled into — the main stage shows all its wire news
 
@@ -214,6 +214,7 @@ interface State {
   dismissInbox: (inboxId: string) => Promise<void>
   restoreInbox: (inboxId: string) => Promise<void>
   moveThesis: (thesisId: string, to: 'watchlist' | 'provisional' | 'full_machine' | 'engine', reason?: string) => Promise<void>
+  restoreConviction: (thesisId: string) => Promise<void>
   setStopListOpen: (open: boolean) => void
   stopEverything: () => Promise<void>
   _handleNewsEvent: (e: any) => void
@@ -1164,6 +1165,22 @@ export const useStore = create<State>((set, get) => ({
     }
   },
   closeThesisDetail: () => set({ scThesisDetail: null }),
+
+  // One-click un-discard: re-open an archived (killed/expired) idea onto the live book. The discard is
+  // a SOFT discard — the engine flips its snapshot back and records the recover; the board rebuilds.
+  restoreConviction: async (thesisId) => {
+    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — restores run on your machine via npm run dev', tone: 'info' })
+    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — try again once it reconnects.', tone: 'info' })
+    try {
+      await api.convictionRestore(thesisId)
+      get().setToast({ msg: 'Idea restored to the live book', tone: 'good' })
+      await get().scRefreshBoard()
+      const d = get().scThesisDetail
+      if (d?.thesis?.meta?.thesis_id === thesisId) await get().openThesisDetail(thesisId)
+    } catch (e: any) {
+      get().setToast({ msg: e?.message || 'Could not restore', tone: 'bad' })
+    }
+  },
 
   // The handoff: seed data/<TICKER>/ from the locked thesis (idempotent server-side), then warp to
   // the research swarm with the ticker preselected. The research run itself stays a separate,

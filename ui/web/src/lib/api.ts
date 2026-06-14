@@ -161,6 +161,10 @@ export const api = {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/screener/thesis/${encodeURIComponent(thesisId)}/move`, { to, reason })
   },
+  convictionRestore: async (thesisId: string): Promise<{ ok: boolean; message?: string }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/screener/conviction/${encodeURIComponent(thesisId)}/restore`, {})
+  },
   cancelAllRuns: async (): Promise<{ ok: boolean; cancelled: string[] }> => {
     if ((await ensureMode()) === 'static') return { ok: true, cancelled: [] }
     return post(`/api/runs/cancel-all`)

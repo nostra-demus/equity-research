@@ -230,6 +230,39 @@ export interface BookMomentum {
   stale_count: number
   archived_count: number
 }
+export interface ConvictionCheckpoint {
+  checkpoint_id: string
+  thesis_id: string
+  kind: string
+  metric_name: string
+  threshold?: number | string | null
+  unit?: string
+  due_at: string | null
+  status: string
+  can_kill?: boolean
+  predicted_prob?: number | null
+}
+export interface ConvictionEventRow {
+  row_type: 'conviction_event' | 'validation_result'
+  thesis_id: string
+  at?: string
+  checked_at?: string
+  kind?: string
+  verdict?: string
+  from_state?: string
+  to_state?: string
+  edge_score_live?: number
+  observed_value?: string | number | null
+  plain_note?: string
+  narrative?: string
+  triggering_checkpoint_id?: string | null
+  checkpoint_id?: string
+}
+export interface ConvictionDetail {
+  state: BoardConviction | null
+  checkpoints: ConvictionCheckpoint[]
+  events: ConvictionEventRow[]
+}
 export interface BoardThesis {
   thesis_id: string
   signal_id: string

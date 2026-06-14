@@ -1,4 +1,4 @@
-import type { BoardConviction, BookMomentum, TrajectoryEnum } from '../../lib/types'
+import type { BoardConviction, BookMomentum, ConvictionDetail, TrajectoryEnum } from '../../lib/types'
 
 // Phase 3 live book — the conviction surface. Reads ONLY the board's engine-owned conviction
 // snapshot (no client math beyond formatting). Shows, per idea: its sell-side rung, a conviction
@@ -102,6 +102,62 @@ export function ConvictionStrip({ conv }: { conv: BoardConviction }) {
       )}
       {conv.stale && <span className="conv__flag conv__flag--stale" title="A check's due date passed with no result on record — rating frozen.">stale</span>}
       {conv.insufficient && <span className="conv__flag conv__flag--insuff" title="The check ran but no approved source gave the number — we refuse to fake it.">needs a source</span>}
+      {conv.validated && conv.plain_note && <div className="conv__why" title="Why it last moved">{conv.plain_note}</div>}
+    </div>
+  )
+}
+
+// Map a checkpoint kind to a short plain label the board shows (no jargon, §21).
+const KIND_LABEL: Record<string, string> = {
+  kill_metric: 'kill-switch', secondary_metric: 'backup check', secondary_falsifier: 'warning sign',
+  convergence_trigger: 'the catalyst', secondary_trigger: 'backup catalyst', expiry: 'deadline',
+}
+
+function dueLabel(iso: string | null): string {
+  if (!iso) return 'no set date'
+  const d = daysUntil(iso)
+  if (d == null) return iso
+  if (d > 0) return `${iso} · in ${d}d`
+  if (d === 0) return `${iso} · today`
+  return `${iso} · passed`
+}
+
+// The proof points as a dated track: each checkpoint with its status dot (confirmed / missed / killed /
+// upcoming) + the move history beneath. Powers "what are we waiting for, and what's already landed".
+export function CheckpointTimeline({ detail }: { detail: ConvictionDetail }) {
+  const cps = [...(detail.checkpoints || [])].sort((a, b) => (a.due_at || '~') < (b.due_at || '~') ? -1 : 1)
+  const verdictByCp: Record<string, string> = {}
+  for (const e of detail.events || []) if (e.row_type === 'validation_result' && e.checkpoint_id && e.verdict) verdictByCp[e.checkpoint_id] = e.verdict
+  const moves = (detail.events || []).filter((e) => e.row_type === 'conviction_event' && e.kind !== 'seed')
+  if (!cps.length) return null
+  return (
+    <div className="cptl">
+      <div className="cptl__list">
+        {cps.map((c) => {
+          const v = verdictByCp[c.checkpoint_id]
+          const tone = v === 'confirmed' ? 'ok' : v === 'breached_kill' ? 'kill' : v === 'against' ? 'miss' : v === 'partial' ? 'part' : c.status === 'resolved' ? 'done' : 'soon'
+          const thr = c.threshold != null && c.threshold !== '' ? ` ${c.threshold}${c.unit ? ` ${c.unit}` : ''}` : ''
+          return (
+            <div key={c.checkpoint_id} className={`cptl__row cptl__row--${tone}`}>
+              <span className="cptl__dot" />
+              <span className="cptl__kind">{KIND_LABEL[c.kind] || c.kind}{c.can_kill ? ' ⚠' : ''}</span>
+              <span className="cptl__metric" title={c.metric_name}>{c.metric_name.length > 64 ? c.metric_name.slice(0, 64) + '…' : c.metric_name}{thr}</span>
+              <span className="cptl__due">{v ? v.replace(/_/g, ' ') : dueLabel(c.due_at)}</span>
+            </div>
+          )
+        })}
+      </div>
+      {moves.length > 0 && (
+        <div className="cptl__moves">
+          {moves.slice(-6).reverse().map((m, i) => (
+            <div key={i} className="cptl__move">
+              <span className={`cptl__movekind cptl__movekind--${m.kind}`}>{m.kind}</span>
+              <span className="cptl__movenote">{m.plain_note}</span>
+              {typeof m.edge_score_live === 'number' && <span className="cptl__moveedge">{m.edge_score_live}</span>}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }

@@ -2,6 +2,7 @@ import { randomUUID } from 'node:crypto'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
+import { execFileSync } from 'node:child_process'
 import chokidar from 'chokidar'
 import cors from '@fastify/cors'
 import { execa } from 'execa'
@@ -25,7 +26,7 @@ import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
 import { agentNamesForModule, buildSwarmGraph, graphForSubject, graphForTicker, listModuleNames } from './roster'
 import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, resolveRunRoot, runManifest } from './outputs'
-import { dataPoolPresent, readCandidates, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest } from './screener'
+import { dataPoolPresent, readCandidates, readConviction, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest } from './screener'
 import { listSwarms } from './swarms'
 import { getNewsStatus, startNewsIngester } from './news/scheduler'
 import { startConvictionLoop } from './conviction-dispatch'
@@ -510,11 +511,19 @@ app.get('/api/screener/thesis/:id', async (req, reply) => {
   const id = (req.params as any).id as string
   if (!THESIS_RE.test(id || '')) return reply.code(400).send({ error: 'bad thesis id' })
   try {
-    return { thesis: readThesis(id), candidates: safeCandidates(id), handoffs: readHandoffs(id) }
+    return { thesis: readThesis(id), candidates: safeCandidates(id), handoffs: readHandoffs(id), conviction: safeConviction(id) }
   } catch (e: any) {
     return reply.code(e?.code === 'ENOENT' ? 404 : 400).send({ error: 'cannot read thesis', detail: String(e?.message || e) })
   }
 })
+
+function safeConviction(id: string) {
+  try {
+    return readConviction(id)
+  } catch {
+    return null
+  }
+}
 
 function safeCandidates(id: string) {
   try {
@@ -693,6 +702,22 @@ app.post('/api/screener/thesis/:id/move', async (req, reply) => {
     return { ok: true, effective_status: record.to_status ?? record.from_status, override: record }
   } catch (e: any) {
     return reply.code(500).send({ error: e?.message || 'move failed' })
+  }
+})
+
+// Restore an archived (killed/expired) thesis to the live book — the conviction loop's one-click
+// un-discard (a discard is a SOFT discard, §24). Deterministic: a Python helper flips the snapshot and
+// records a `recover` event; the board is rebuilt so the card returns to the live lanes.
+app.post('/api/screener/conviction/:id/restore', async (req, reply) => {
+  const thesisId = (req.params as any).id as string
+  if (!THESIS_RE.test(thesisId)) return reply.code(400).send({ error: 'invalid thesis id' })
+  const { user } = identify(req)
+  try {
+    const out = execFileSync('python3', [path.join(REPO_ROOT, 'scripts', 'screener_restore_conviction.py'), thesisId, user], { cwd: REPO_ROOT, encoding: 'utf8' })
+    execFileSync('python3', [path.join(REPO_ROOT, 'scripts', 'update_board_index.py')], { cwd: REPO_ROOT, stdio: 'ignore' })
+    return { ok: true, message: out.trim() }
+  } catch (e: any) {
+    return reply.code(500).send({ error: e?.message || 'restore failed' })
   }
 })
 
