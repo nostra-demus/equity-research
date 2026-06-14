@@ -110,10 +110,10 @@ function PartyList({ parties }: { parties: ArticleParty[] }) {
 export function EventDetail({ it }: { it: FeedItem }) {
   const close = useStore((s) => s.scSelectEvent)
   const run = useStore((s) => s.runEventChecks)
-  const graph = useStore((s) => s.graph)
+  const scGraph = useStore((s) => s.scGraph) // the SCREENER swarm graph (signal-gate…candidate-surfacing) — NOT the research s.graph
   // the screener pipeline stages in dependency order — drives the "run only through X" picker.
-  // Derived from the live graph (zero-touch: new modules appear automatically); plain names via plainStage.
-  const scStages = (graph?.modules || []).slice().sort((a, b) => a.order - b.order)
+  // Derived from the live screener graph (zero-touch: new modules appear automatically); plain names via plainStage.
+  const scStages = (scGraph?.modules || []).slice().sort((a, b) => a.order - b.order)
   const staticMode = useStore((s) => s.staticMode)
   const enrichCache = useStore((s) => s.enrichCache)
   const shelvedEvents = useStore((s) => s.shelvedEvents)
