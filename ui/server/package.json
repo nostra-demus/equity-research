@@ -10,7 +10,7 @@
     "ingest:once": "tsx src/news/ingest-once.ts",
     "enrich:eval": "tsx src/news/enrich-eval.ts",
     "typecheck": "tsc --noEmit",
-    "test": "tsx test/admission.test.ts && tsx test/watcher.test.ts && tsx test/data-readiness.test.ts && tsx test/readiness-gate.test.ts && tsx test/swarm.test.ts && tsx test/finalize.test.ts && tsx test/news.test.ts && tsx test/scope.test.ts && tsx test/rss.test.ts && tsx test/nse.test.ts && tsx test/exchange-intl.test.ts && tsx test/rank.test.ts && tsx test/themes.test.ts && tsx test/dedup.test.ts && tsx test/story-floor.test.ts && tsx test/screener-actions.test.ts && tsx test/cancel-all.test.ts"
+    "test": "tsx test/admission.test.ts && tsx test/watcher.test.ts && tsx test/data-readiness.test.ts && tsx test/readiness-gate.test.ts && tsx test/swarm.test.ts && tsx test/finalize.test.ts && tsx test/news.test.ts && tsx test/scope.test.ts && tsx test/rss.test.ts && tsx test/nse.test.ts && tsx test/exchange-intl.test.ts && tsx test/gov-data.test.ts && tsx test/rank.test.ts && tsx test/themes.test.ts && tsx test/dedup.test.ts && tsx test/story-floor.test.ts && tsx test/screener-actions.test.ts && tsx test/cancel-all.test.ts"
   },
   "dependencies": {
     "@fastify/cors": "^9.0.1",

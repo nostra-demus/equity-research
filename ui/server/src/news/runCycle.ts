@@ -13,6 +13,7 @@ import { fetchGdelt } from './sources/gdelt'
 import { fetchRss } from './sources/rss'
 import { fetchNse } from './sources/nse'
 import { fetchExchangeIntl } from './sources/exchange-intl'
+import { fetchGovData } from './sources/gov-data'
 import { loadLedgerEventIds, normalizeAndFilter } from './normalize'
 import { SeenCache } from './seen-cache'
 import { Budget, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter } from './triage/budget'
@@ -129,6 +130,9 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       : Promise.resolve([] as RawArticle[]),
     cfg.exchangeIntlEnabled
       ? fetchExchangeIntl({ lookbackHours: cfg.exchangeIntlLookbackHours, timeoutMs: cfg.rssTimeoutMs, userAgent: cfg.rssUserAgent || undefined }, { fetchFn, sleep, now, log })
+      : Promise.resolve([] as RawArticle[]),
+    cfg.govDataEnabled
+      ? fetchGovData({ lookbackDays: cfg.govDataLookbackDays, timeoutMs: cfg.rssTimeoutMs }, { fetchFn, sleep, now, log })
       : Promise.resolve([] as RawArticle[]),
   ])
   const raws: RawArticle[] = []

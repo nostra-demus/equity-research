@@ -313,6 +313,11 @@ export const NEWS = {
   // firewall on their hkexnews.hk / asx.com.au link domain. Default ON; NEWS_EXCHANGE_INTL_ENABLED=0 off.
   exchangeIntlEnabled: process.env.NEWS_EXCHANGE_INTL_ENABLED === '0' ? false : true,
   exchangeIntlLookbackHours: capNum(process.env.NEWS_EXCHANGE_INTL_LOOKBACK_HOURS, 24),
+  // Gov-data layer (Layer 3, US regulatory JSON): keyless openFDA — drug/device recalls + 510(k) device
+  // clearances (biotech/pharma/medtech catalysts; no usable RSS). Items pass the firewall on their
+  // fda.gov link domain. Default ON; NEWS_GOV_DATA_ENABLED=0 off. lookbackDays bounds the first-run backlog.
+  govDataEnabled: process.env.NEWS_GOV_DATA_ENABLED === '0' ? false : true,
+  govDataLookbackDays: capNum(process.env.NEWS_GOV_DATA_LOOKBACK_DAYS, 21),
   // Live-feed per-item records (firehose kind:"item") — the daily cap bounds file growth.
   feedItemsDailyCap: capNum(process.env.NEWS_FEED_ITEMS_DAILY_CAP, 5000),
   // Groq output budget per triage call (the per-item payload grew with companies/size_bucket).

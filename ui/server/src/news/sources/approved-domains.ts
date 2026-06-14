@@ -188,7 +188,7 @@ const DOMAINS: Record<string, SourceMeta> = {
   'theloadstar.com': { source_name: 'The Loadstar', region: 'GLOBAL', input_nature: 'shipping_rate_move', gdelt: false },
   'theregister.com': { source_name: 'The Register', region: 'GLOBAL', input_nature: 'news_headline', gdelt: false },
   'tomshardware.com': { source_name: 'Tom\'s Hardware', region: 'GLOBAL', input_nature: 'news_headline', gdelt: false },
-  'worldbank.org': { source_name: 'World Bank Group', region: 'GLOBAL', input_nature: 'macro_data_release', gdelt: false },
+  'worldbank.org': { source_name: 'World Bank Group', region: 'GLOBAL', input_nature: 'macro_data_release' }, // no free RSS exists (verified) — let GDELT cover its headlines (it indexes them) instead of an empty promise
   'worldsteel.org': { source_name: 'World Steel Association (worldsteel)', region: 'GLOBAL', input_nature: 'macro_data_release', gdelt: false },
   'wto.org': { source_name: 'World Trade Organization', region: 'GLOBAL', input_nature: 'geopolitical_event', gdelt: false },
   // --- Other markets (new) ---
