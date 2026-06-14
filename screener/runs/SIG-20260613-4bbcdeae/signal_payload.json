@@ -1,0 +1,44 @@
+{
+  "signal_id": "SIG-20260613-4bbcdeae",
+  "event_id": "EVT-e453d65c1cc5",
+  "processed_at": "2026-06-13T17:39:50.949Z",
+  "gate0": {
+    "approved_source_check": true,
+    "source_grade": "B",
+    "source_grade_rationale": "The Motley Fool is a secondary investment commentary outlet. The underlying primary event — the Bank of America analyst note by Vivek Arya — is Grade A, but the signal was ingested from the secondary report.",
+    "dedup_url_hash": "EVT-e453d65c1cc5"
+  },
+  "relevance_label": "material",
+  "relevance_confidence": 0.82,
+  "event_types": ["guidance_change", "macro_sector", "product"],
+  "entities": {
+    "primary_issuers": ["Intel Corporation"],
+    "secondary_issuers": ["Bank of America"],
+    "sector": "Semiconductors & Semiconductor Equipment (GICS)",
+    "geography": "United States",
+    "commodity": ""
+  },
+  "issuer_linkage": "primary_issuer",
+  "similarity_score": 0.0,
+  "similar_event_ids": [],
+  "pair_label": "new_event",
+  "fact_delta": 0.0,
+  "fact_delta_fields": [],
+  "confirmation_upgrade": false,
+  "novelty_score": 0.85,
+  "action": "keep_separate",
+  "materiality_score": 72,
+  "materiality_math": "Base 55 (material relevance, guidance_change + macro_sector + product events, primary_issuer linkage, sell-side analyst call with 6% same-day stock move; Grade B source, not an official filing) + novelty 0.85 × 20 = +17 − penalties 0 (new_event, no duplicate) + overrides 0 (no official filing, enforcement, or default) = 72/100",
+  "routing": "PROMOTE",
+  "routing_reason": "Materiality 72 clears the 70-point PROMOTE threshold. New analyst call shifting Intel consensus view: two-notch upgrade (underperform to buy), 41% price target increase ($96 to $135), and a TAM revision ($125B to $170B+ server CPU market by 2030) tied to agentic AI demand. High novelty (0.85) and primary issuer linkage. No prior Intel or BofA analyst event in the 48-hour ledger window.",
+  "next_action": "thesis-structure",
+  "sources": [
+    {
+      "url": "https://www.fool.com/investing/2026/06/13/intel-just-got-a-rare-double-upgrade-from-bank-of/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-13T17:39:50.949Z",
+      "claim_supported": "Bank of America analyst Vivek Arya double-upgraded Intel from underperform to buy on 2026-06-11, raising price target from $96 to $135; server CPU TAM revised $125B to $170B+ by 2030; Intel Q1 2026 data-center and AI revenue ~$5.1B (+22% YoY); shares +6% on the day. [Unverified secondary — primary BofA research note not directly in ledger]"
+    }
+  ]
+}
