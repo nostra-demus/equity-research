@@ -41,7 +41,9 @@
   --neutral: #6b6b73;
   --bad: #c9514e;
   --bad-wash: rgba(201, 81, 78, 0.12);
-  /* the one green — engine "Live" only */
+  /* conviction traffic-light amber (a "came up short / warning" state in the proof-point timeline) */
+  --conv-warn: #d9912f;
+  /* the one green — engine "Live" only (+ conviction "confirmed" success) */
   --live: #43b581;
   --provider-or: #8b7cf0; /* OpenRouter overflow accent (violet) — distinct from Groq teal + Gemini green */
   --provider-nv: #76b900; /* NVIDIA NIM overflow accent (NVIDIA green) */
@@ -146,6 +148,7 @@
   --neutral: #6b6b73;
   --bad: #b5342b;
   --bad-wash: rgba(181, 52, 43, 0.11);
+  --conv-warn: #b9740c;
   --live: #0c7048;
   --provider-or: #5b46c9; /* OpenRouter overflow accent (violet, darkened for light-mode contrast) */
   --provider-nv: #4f7d00; /* NVIDIA NIM overflow accent (NVIDIA green, darkened for light-mode contrast) */

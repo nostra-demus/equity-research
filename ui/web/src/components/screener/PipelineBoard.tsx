@@ -274,6 +274,14 @@ export function PipelineBoard() {
 
   useEffect(() => {
     void refresh()
+    // keep the live book current while it's open: re-pull the board (and the open idea's detail, so
+    // its checkpoint timeline updates) every 30s — a check that resolves shows up on its own.
+    const id = setInterval(() => {
+      void refresh()
+      const tid = useStore.getState().scThesisDetail?.thesis?.meta?.thesis_id
+      if (tid) void useStore.getState().openThesisDetail(tid)
+    }, 30_000)
+    return () => clearInterval(id)
   }, [refresh])
 
   return (

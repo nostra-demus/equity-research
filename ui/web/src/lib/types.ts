@@ -241,6 +241,7 @@ export interface ConvictionCheckpoint {
   status: string
   can_kill?: boolean
   predicted_prob?: number | null
+  created_at?: string // later than the thesis lock = a newly-added check (slots in by date, tagged "new")
 }
 export interface ConvictionEventRow {
   row_type: 'conviction_event' | 'validation_result'
@@ -253,6 +254,7 @@ export interface ConvictionEventRow {
   to_state?: string
   edge_score_live?: number
   observed_value?: string | number | null
+  sell_side_rating?: string
   plain_note?: string
   narrative?: string
   triggering_checkpoint_id?: string | null

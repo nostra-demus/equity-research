@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { api } from '../../lib/api'
-import type { BoardConviction, BookMomentum, ConvictionDetail, TrajectoryEnum } from '../../lib/types'
+import type { BoardConviction, BookMomentum, ConvictionCheckpoint, ConvictionDetail, ConvictionEventRow, TrajectoryEnum } from '../../lib/types'
 
 // Phase 3 live book — the conviction surface. Reads ONLY the board's engine-owned conviction
 // snapshot (no client math beyond formatting). Shows, per idea: its sell-side rung, a conviction
@@ -115,51 +115,101 @@ const KIND_LABEL: Record<string, string> = {
   convergence_trigger: 'the catalyst', secondary_trigger: 'backup catalyst', expiry: 'deadline',
 }
 
-function dueLabel(iso: string | null): string {
-  if (!iso) return 'no set date'
-  const d = daysUntil(iso)
-  if (d == null) return iso
-  if (d > 0) return `${iso} · in ${d}d`
-  if (d === 0) return `${iso} · today`
-  return `${iso} · passed`
+const VERDICT_STATE: Record<string, string> = { confirmed: 'ok', partial: 'part', against: 'miss', breached_kill: 'kill', unresolved: 'unresolved' }
+const VERDICT_LABEL: Record<string, string> = { confirmed: 'confirmed', partial: 'partial', against: 'came up short', breached_kill: 'kill fired', unresolved: 'no read yet' }
+const DOT_GLYPH: Record<string, string> = { ok: '✓', part: '~', miss: '!', kill: '✕', unresolved: '·' }
+
+function shortDate(iso?: string | null): string {
+  if (!iso) return ''
+  const d = new Date(iso)
+  return isNaN(d.getTime()) ? iso.slice(0, 10) : d.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })
 }
 
-// The proof points as a dated track: each checkpoint with its status dot (confirmed / missed / killed /
-// upcoming) + the move history beneath. Powers "what are we waiting for, and what's already landed".
+// The proof points as ONE connected timeline: what already resolved (green confirmed / amber short /
+// red killed, with the real number read + the verdict it caused) → a "today" marker → what's still
+// ahead (dated, counting down). New checks slot in by date with a "new" tag, on the same thread — so
+// the idea reads top-to-bottom and you can see what's been checked, what it meant, and what's next.
 export function CheckpointTimeline({ detail }: { detail: ConvictionDetail }) {
-  const cps = [...(detail.checkpoints || [])].sort((a, b) => (a.due_at || '~') < (b.due_at || '~') ? -1 : 1)
-  const verdictByCp: Record<string, string> = {}
-  for (const e of detail.events || []) if (e.row_type === 'validation_result' && e.checkpoint_id && e.verdict) verdictByCp[e.checkpoint_id] = e.verdict
-  const moves = (detail.events || []).filter((e) => e.row_type === 'conviction_event' && e.kind !== 'seed')
+  const cps = detail.checkpoints || []
   if (!cps.length) return null
-  return (
-    <div className="cptl">
-      <div className="cptl__list">
-        {cps.map((c) => {
-          const v = verdictByCp[c.checkpoint_id]
-          const tone = v === 'confirmed' ? 'ok' : v === 'breached_kill' ? 'kill' : v === 'against' ? 'miss' : v === 'partial' ? 'part' : c.status === 'resolved' ? 'done' : 'soon'
-          const thr = c.threshold != null && c.threshold !== '' ? ` ${c.threshold}${c.unit ? ` ${c.unit}` : ''}` : ''
-          return (
-            <div key={c.checkpoint_id} className={`cptl__row cptl__row--${tone}`}>
-              <span className="cptl__dot" />
-              <span className="cptl__kind">{KIND_LABEL[c.kind] || c.kind}{c.can_kill ? ' ⚠' : ''}</span>
-              <span className="cptl__metric" title={c.metric_name}>{c.metric_name.length > 64 ? c.metric_name.slice(0, 64) + '…' : c.metric_name}{thr}</span>
-              <span className="cptl__due">{v ? v.replace(/_/g, ' ') : dueLabel(c.due_at)}</span>
+  const events = detail.events || []
+  const resultByCp: Record<string, ConvictionEventRow> = {}
+  for (const e of events) {
+    if (e.row_type === 'validation_result' && e.checkpoint_id) {
+      const cur = resultByCp[e.checkpoint_id]
+      if (!cur || (e.checked_at || '') >= (cur.checked_at || '')) resultByCp[e.checkpoint_id] = e
+    }
+  }
+  const moveByCp: Record<string, ConvictionEventRow> = {}
+  for (const e of events) if (e.row_type === 'conviction_event' && e.triggering_checkpoint_id) moveByCp[e.triggering_checkpoint_id] = e
+  const lock = cps.map((c) => c.created_at || '').filter(Boolean).sort()[0] || ''
+  const isNew = (c: ConvictionCheckpoint) => !!(c.created_at && lock && c.created_at.slice(0, 10) > lock.slice(0, 10))
+  const isResolved = (c: ConvictionCheckpoint) => { const r = resultByCp[c.checkpoint_id]; return !!(r && r.verdict && r.verdict !== 'unresolved') }
+
+  const checked = cps.filter(isResolved).sort((a, b) => ((resultByCp[a.checkpoint_id].checked_at || '') < (resultByCp[b.checkpoint_id].checked_at || '') ? -1 : 1))
+  const ahead = cps.filter((c) => !isResolved(c)).sort((a, b) => ((a.due_at || '~') < (b.due_at || '~') ? -1 : 1))
+  const todayShort = shortDate(new Date().toISOString().slice(0, 10))
+
+  const resolvedNode = (c: ConvictionCheckpoint) => {
+    const r = resultByCp[c.checkpoint_id]
+    const st = VERDICT_STATE[r.verdict || ''] || 'unresolved'
+    const mv = moveByCp[c.checkpoint_id]
+    const up = !!mv && ['upgrade', 'recover'].includes(mv.kind || '')
+    return (
+      <div key={c.checkpoint_id} className={`tl__node tl__node--${st}`}>
+        <span className={`tl__dot tl__dot--${st}`}>{DOT_GLYPH[st]}</span>
+        <div className="tl__body">
+          <div className="tl__head">
+            <span className="tl__kind">{KIND_LABEL[c.kind] || c.kind}{c.can_kill ? ' ⚠' : ''}</span>
+            <span className={`tl__pill tl__pill--${st}`}>{VERDICT_LABEL[r.verdict || ''] || r.verdict}</span>
+            {r.checked_at && <span className="tl__date">checked {shortDate(r.checked_at)}</span>}
+          </div>
+          <div className="tl__metric">
+            {c.metric_name}
+            {r.observed_value != null && r.observed_value !== '' ? <> — read <b>{String(r.observed_value)}</b></> : null}
+            {c.threshold != null && c.threshold !== '' ? <span className="tl__vs"> vs {c.threshold}{c.unit ? ` ${c.unit}` : ''}</span> : null}
+          </div>
+          {mv && (mv.plain_note || mv.sell_side_rating) && (
+            <div className={`tl__move tl__move--${up ? 'up' : 'down'}`}>
+              {up ? '↑ ' : '↓ '}{mv.plain_note || `${mv.kind} to ${mv.sell_side_rating}`}
+              {typeof mv.edge_score_live === 'number' ? ` · strength ${mv.edge_score_live}` : ''}
             </div>
-          )
-        })}
-      </div>
-      {moves.length > 0 && (
-        <div className="cptl__moves">
-          {moves.slice(-6).reverse().map((m, i) => (
-            <div key={i} className="cptl__move">
-              <span className={`cptl__movekind cptl__movekind--${m.kind}`}>{m.kind}</span>
-              <span className="cptl__movenote">{m.plain_note}</span>
-              {typeof m.edge_score_live === 'number' && <span className="cptl__moveedge">{m.edge_score_live}</span>}
-            </div>
-          ))}
+          )}
         </div>
-      )}
+      </div>
+    )
+  }
+
+  const upcomingNode = (c: ConvictionCheckpoint, last: boolean) => {
+    const d = daysUntil(c.due_at)
+    const overdue = d != null && d < 0
+    const isKill = c.kind === 'kill_metric'
+    const tone = overdue ? 'checking' : isKill ? 'killsoon' : 'soon'
+    return (
+      <div key={c.checkpoint_id} className={`tl__node tl__node--${tone}${last ? ' tl__node--end' : ''}${isNew(c) ? ' tl__node--new' : ''}`}>
+        <span className={`tl__dot tl__dot--${tone}`}>{isKill ? '⚠' : isNew(c) ? '+' : ''}</span>
+        <div className="tl__body">
+          <div className="tl__head">
+            <span className="tl__kind">{KIND_LABEL[c.kind] || c.kind}{c.can_kill ? ' ⚠' : ''}</span>
+            {isNew(c) && <span className="tl__pill tl__pill--new">new · added {shortDate(c.created_at)}</span>}
+            <span className="tl__date">{c.due_at ? `due ${shortDate(c.due_at)}` : 'no set date'}{d != null ? ` · ${overdue ? 'checking…' : `in ${d}d`}` : ''}</span>
+          </div>
+          <div className="tl__metric">
+            {c.metric_name}
+            {c.threshold != null && c.threshold !== '' ? <span className="tl__vs"> · {c.threshold}{c.unit ? ` ${c.unit}` : ''}</span> : null}
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <div className="tl">
+      {checked.length > 0 && <div className="tl__zone">Checked — results are in</div>}
+      {checked.map(resolvedNode)}
+      <div className="tl__now"><span className="tl__nowline" />Today · {todayShort}<span className="tl__nowline" /></div>
+      {ahead.length > 0 && <div className="tl__zone">Coming up — what we’re waiting on</div>}
+      {ahead.map((c, i) => upcomingNode(c, i === ahead.length - 1))}
     </div>
   )
 }
