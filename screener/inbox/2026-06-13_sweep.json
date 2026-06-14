@@ -1,6 +1,6 @@
 {
   "date": "2026-06-13",
-  "updated_at": "2026-06-13T11:54:22Z",
+  "updated_at": "2026-06-13T23:36:49Z",
   "focus_hint": null,
   "source": "auto_ingester",
   "rows": [
@@ -538,175 +538,17 @@
       "dedup_status": "new"
     },
     {
-      "inbox_id": "INB-20260613-162",
-      "headline": "ESMA consults on revised guidelines to support smoother allocations and confirmations under T+1",
-      "url": "https://www.esma.europa.eu/press-news/esma-news/esma-consults-revised-guidelines-support-smoother-allocations-and",
-      "source_name": "ESMA",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-06-13T11:25:14Z",
+      "inbox_id": "INB-20260613-205",
+      "headline": "Fineotex Chemical Ltd (533333)",
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/8b8b1c5d-3044-4162-a431-cf1287a137cf.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-06-13T10:57:07Z",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "ESMA consults on revised guidelines to support smoother allocations and confirmations under T+1",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "scope": "policy",
-      "source_tier": "primary_filing",
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 8,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "scope_id": "policy",
-        "source_tier_id": "primary_filing"
-      },
-      "prelim_note": "ESMA consults on revised guidelines to support smoother allocations and confirmations under T+1",
-      "dedup_status": "new"
-    },
-    {
-      "inbox_id": "INB-20260613-165",
-      "headline": "India doubles public investment in 5 years to build rails, chip plants",
-      "url": "https://asia.nikkei.com/economy/india-doubles-public-investment-in-5-years-to-build-rails-chip-plants",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-06-13T11:45:25Z",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "India doubles public investment in 5 years to build rails and chip plants, with a specific focus on $5 billion in new spending.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "India",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "mega",
-      "scope": "sector",
-      "source_tier": "news",
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 0,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "scope_id": "sector",
-        "source_tier_id": "news"
-      },
-      "prelim_note": "India doubles public investment in 5 years to build rails and chip plants, with a specific focus on $5 billion in new spending.",
-      "dedup_status": "new"
-    },
-    {
-      "inbox_id": "INB-20260613-169",
-      "headline": "China's AI companies dig in as SpaceX, US rivals ready IPO bonanza",
-      "url": "https://asia.nikkei.com/business/markets/china-s-ai-companies-dig-in-as-spacex-us-rivals-ready-ipo-bonanza",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-06-13T11:45:25Z",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "China's AI companies dig in as SpaceX and US rivals ready IPO bonanza, potentially benefiting Chinese AI companies.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "China",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "scope": "sector",
-      "source_tier": "news",
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 0,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "scope_id": "sector",
-        "source_tier_id": "news"
-      },
-      "prelim_note": "China's AI companies dig in as SpaceX and US rivals ready IPO bonanza, potentially benefiting Chinese AI companies.",
-      "dedup_status": "new"
-    },
-    {
-      "inbox_id": "INB-20260613-173",
-      "headline": "Chinese firefighting equipment makers target untapped EU market",
-      "url": "https://asia.nikkei.com/economy/trade/chinese-firefighting-equipment-makers-target-untapped-eu-market",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-06-13T11:45:25Z",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 99,
-      "triage_reason": "Chinese firefighting equipment makers target untapped EU market, potentially benefiting Chinese companies in the sector.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "China",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "scope": "sector",
-      "source_tier": "news",
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": 0,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "scope_id": "sector",
-        "source_tier_id": "news"
-      },
-      "prelim_note": "Chinese firefighting equipment makers target untapped EU market, potentially benefiting Chinese companies in the sector.",
-      "dedup_status": "new"
-    },
-    {
-      "inbox_id": "INB-20260613-164",
-      "headline": "Morgan Stanley CEO floats bold $10T wealth opportunity",
-      "url": "https://www.thestreet.com/investing/morgan-stanley-10-trillion-target-wealth-management-division",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-06-13T10:03:00Z",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Morgan Stanley CEO floats bold $10T wealth opportunity",
-      "region": "US",
+      "triage_score": 100,
+      "triage_reason": "Fineotex Chemical Ltd is opening a special window for transfer and dematerialisation of physical equity shares.",
+      "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 80,
       "event_types": [
@@ -715,648 +557,448 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Morgan Stanley",
-          "ticker": null,
-          "listing_country": "US"
+          "name": "Fineotex Chemical Ltd",
+          "ticker": "533333",
+          "listing_country": "IN"
         }
       ],
-      "size_bucket": "mega",
+      "size_bucket": "small",
       "scope": "single_name",
-      "source_tier": "news",
+      "source_tier": "primary_filing",
       "rank_factors": {
         "materiality": 80,
-        "source_tier": 0,
+        "source_tier": 8,
         "scope": 6,
         "event": 6,
-        "size": 2,
+        "size": -1,
         "recency": 4,
         "scope_id": "single_name",
-        "source_tier_id": "news"
+        "source_tier_id": "primary_filing"
       },
-      "prelim_note": "Morgan Stanley CEO floats bold $10T wealth opportunity",
+      "prelim_note": "Fineotex Chemical Ltd is opening a special window for transfer and dematerialisation of physical equity shares.",
       "dedup_status": "new"
     },
     {
-      "inbox_id": "INB-20260613-170",
-      "headline": "Turkey halts BYD tax break, warns of clawback if it misses $1bn plan",
-      "url": "https://asia.nikkei.com/business/automobiles/electric-vehicles/turkey-halts-byd-tax-break-warns-of-clawback-if-it-misses-1bn-plan",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-06-13T11:45:25Z",
+      "inbox_id": "INB-20260613-207",
+      "headline": "Allied Blenders and Distillers Ltd (544203)",
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/eaa9b671-e7ef-4dc1-b861-56cb6e526c2b.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-06-13T10:56:03Z",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 98,
-      "triage_reason": "Turkey halts BYD tax break and warns of clawback if it misses $1 billion plan, implying potential financial consequences for BYD.",
-      "region": "GLOBAL",
+      "triage_score": 100,
+      "triage_reason": "Allied Blenders and Distillers Ltd is opening a special window for transfer and dematerialisation of physical equity shares.",
+      "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 80,
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Allied Blenders and Distillers Ltd",
+          "ticker": "544203",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "small",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 4,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing"
+      },
+      "prelim_note": "Allied Blenders and Distillers Ltd is opening a special window for transfer and dematerialisation of physical equity shares.",
+      "dedup_status": "new"
+    },
+    {
+      "inbox_id": "INB-20260613-211",
+      "headline": "Ganesh Housing Ltd-$: Publication of Newspaper Advertisements - Special Window for transfer and dematerialisation of physical equity shares",
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/b148a8bc-74db-490d-9baf-7e4c63980c22.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-06-13T10:48:45Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Ganesh Housing Ltd is opening a special window for transfer and dematerialisation of physical equity shares.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Ganesh Housing Ltd",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing"
+      },
+      "prelim_note": "Ganesh Housing Ltd is opening a special window for transfer and dematerialisation of physical equity shares.",
+      "dedup_status": "new"
+    },
+    {
+      "inbox_id": "INB-20260613-212",
+      "headline": "Maiden Forgings Ltd: Pursuant to the provisions of Regulation 30 read with Schedule III of Securities Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015, it is hereby ....",
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/8574311c-858c-424c-ae2f-3c14cf25fb72.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-06-13T10:44:39Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Maiden Forgings Ltd is opening a special window for transfer and dematerialisation of physical equity shares.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Maiden Forgings Ltd",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing"
+      },
+      "prelim_note": "Maiden Forgings Ltd is opening a special window for transfer and dematerialisation of physical equity shares.",
+      "dedup_status": "new"
+    },
+    {
+      "inbox_id": "INB-20260613-213",
+      "headline": "Rajasthan Cylinders & Containers Ltd: Newspaper Advertisement regarding opening of Special Window for transfer and dematerialisation of physical securities.",
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/4486a96c-e323-442e-8e96-a3029a97036e.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-06-13T10:44:01Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Rajasthan Cylinders & Containers Ltd is opening a special window for transfer and dematerialisation of physical securities.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Rajasthan Cylinders & Containers Ltd",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing"
+      },
+      "prelim_note": "Rajasthan Cylinders & Containers Ltd is opening a special window for transfer and dematerialisation of physical securities.",
+      "dedup_status": "new"
+    },
+    {
+      "inbox_id": "INB-20260613-215",
+      "headline": "U.S. gov't orders Anthropic to disable its newest AI models worldwide due to security threats — ban on Claude Fable 5 and Mythos 5 bars access by any foreign national, even its own employees",
+      "url": "https://www.tomshardware.com/tech-industry/artificial-intelligence/us-export-control-order-forces-anthropic-to-disable-claude-fable-5-and-mythos-5-worldwide",
+      "source_name": "Tom's Hardware",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-13T11:24:13Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "U.S. government orders Anthropic to disable AI models due to security threats.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 90,
       "event_types": [
         "litigation_enforcement"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "BYD",
-          "ticker": "002594.SZ",
-          "listing_country": null
-        },
-        {
-          "name": "Turkey",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "scope": "multi_name",
-      "source_tier": "news",
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "scope_id": "multi_name",
-        "source_tier_id": "news"
-      },
-      "prelim_note": "Turkey halts BYD tax break and warns of clawback if it misses $1 billion plan, implying potential financial consequences for BYD.",
-      "dedup_status": "new"
-    },
-    {
-      "inbox_id": "INB-20260613-161",
-      "headline": "​Euribor panel to include KBC Bank​",
-      "url": "https://www.esma.europa.eu/press-news/esma-news/euribor-panel-include-kbc-bank",
-      "source_name": "ESMA",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-06-13T11:25:14Z",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "Euribor panel to include KBC Bank",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "KBC Bank",
-          "ticker": null,
-          "listing_country": "BE"
-        }
-      ],
-      "size_bucket": "large",
-      "scope": "sector",
-      "source_tier": "primary_filing",
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 8,
-        "scope": 0,
-        "event": 6,
-        "size": 2,
-        "recency": 5,
-        "scope_id": "sector",
-        "source_tier_id": "primary_filing"
-      },
-      "prelim_note": "Euribor panel to include KBC Bank",
-      "dedup_status": "new"
-    },
-    {
-      "inbox_id": "INB-20260613-166",
-      "headline": "SpaceX stock fund in Japan halts new inflows after investors pile in",
-      "url": "https://asia.nikkei.com/business/markets/equities/spacex-stock-fund-in-japan-halts-new-inflows-after-investors-pile-in",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-06-13T11:45:25Z",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 96,
-      "triage_reason": "SpaceX stock fund in Japan halts new inflows after investors pile in, implying a potential slowdown in investment.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "SpaceX",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Japan",
+          "name": "Anthropic",
           "ticker": null,
           "listing_country": null
         }
       ],
       "size_bucket": "unknown",
-      "scope": "multi_name",
-      "source_tier": "news",
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 6,
-        "size": 0,
-        "recency": 5,
-        "scope_id": "multi_name",
-        "source_tier_id": "news"
-      },
-      "prelim_note": "SpaceX stock fund in Japan halts new inflows after investors pile in, implying a potential slowdown in investment.",
-      "dedup_status": "new"
-    },
-    {
-      "inbox_id": "INB-20260613-159",
-      "headline": "Dr Reddy’s launches Bosutinib tablets in US market",
-      "url": "https://www.thehindubusinessline.com/companies/dr-reddys-launches-bosutinib-tablets-in-us-market/article71097162.ece",
-      "source_name": "The Hindu BusinessLine",
-      "input_nature": "news_headline",
-      "found_at": "2026-06-13T09:33:22Z",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Dr Reddy’s launches Bosutinib tablets in US market",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "event_types": [
-        "product"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Dr Reddy’s",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
       "scope": "single_name",
       "source_tier": "news",
       "rank_factors": {
-        "materiality": 80,
+        "materiality": 90,
         "source_tier": 0,
         "scope": 6,
-        "event": 3,
-        "size": 2,
-        "recency": 4,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
         "scope_id": "single_name",
         "source_tier_id": "news"
       },
-      "prelim_note": "Dr Reddy’s launches Bosutinib tablets in US market",
+      "prelim_note": "U.S. government orders Anthropic to disable AI models due to security threats.",
       "dedup_status": "new"
     },
     {
-      "inbox_id": "INB-20260613-167",
-      "headline": "Japan, UK to create startup support fund for dual-use tech",
-      "url": "https://asia.nikkei.com/politics/international-relations/japan-uk-to-create-startup-support-fund-for-dual-use-tech",
+      "inbox_id": "INB-20260613-217",
+      "headline": "Kioxia caps years of uncertainty to become Japan's most valuable company",
+      "url": "https://asia.nikkei.com/business/tech/semiconductors/kioxia-caps-years-of-uncertainty-to-become-japan-s-most-valuable-company",
       "source_name": "Nikkei Asia",
       "input_nature": "news_headline",
-      "found_at": "2026-06-13T11:45:25Z",
+      "found_at": "2026-06-13T12:08:11Z",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Japan and UK create startup support fund for dual-use tech, potentially benefiting companies in the sector.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "Japan",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "UK",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "mega",
-      "scope": "multi_name",
-      "source_tier": "news",
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "scope_id": "multi_name",
-        "source_tier_id": "news"
-      },
-      "prelim_note": "Japan and UK create startup support fund for dual-use tech, potentially benefiting companies in the sector.",
-      "dedup_status": "new"
-    },
-    {
-      "inbox_id": "INB-20260613-172",
-      "headline": "Indonesia's shrinkflation belies government's 'strong' fundamentals claim",
-      "url": "https://asia.nikkei.com/economy/indonesia-s-shrinkflation-belies-government-s-strong-fundamentals-claim",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-06-13T11:45:25Z",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Indonesia's shrinkflation belies government's 'strong' fundamentals claim, potentially impacting investor confidence and market expectations.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "Indonesia",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "scope": "sector",
-      "source_tier": "news",
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 0,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "scope_id": "sector",
-        "source_tier_id": "news"
-      },
-      "prelim_note": "Indonesia's shrinkflation belies government's 'strong' fundamentals claim, potentially impacting investor confidence and market expectations.",
-      "dedup_status": "new"
-    },
-    {
-      "inbox_id": "INB-20260613-160",
-      "headline": "Pakistan PM Expects Finalization of US-Iran Deal Within 24 Hours",
-      "url": "https://www.bloomberg.com/news/articles/2026-06-13/pakistan-pm-expects-finalization-of-us-iran-deal-within-24-hours",
-      "source_name": "Bloomberg",
-      "input_nature": "news_headline",
-      "found_at": "2026-06-13T11:13:52Z",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Pakistan PM Expects Finalization of US-Iran Deal Within 24 Hours",
+      "triage_score": 100,
+      "triage_reason": "Kioxia becomes Japan's most valuable company.",
       "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 85,
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "scope": "macro",
-      "source_tier": "news",
-      "rank_factors": {
-        "materiality": 85,
-        "source_tier": 0,
-        "scope": -4,
-        "event": 7,
-        "size": 0,
-        "recency": 5,
-        "scope_id": "macro",
-        "source_tier_id": "news"
-      },
-      "prelim_note": "Pakistan PM Expects Finalization of US-Iran Deal Within 24 Hours",
-      "dedup_status": "new"
-    },
-    {
-      "inbox_id": "INB-20260613-171",
-      "headline": "Thailand reassessing joining CPTPP alongside EU trade deal, minister says",
-      "url": "https://asia.nikkei.com/editor-s-picks/interview/thailand-reassessing-joining-cptpp-alongside-eu-trade-deal-minister-says2",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-06-13T11:45:25Z",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Thailand reassesses joining CPTPP alongside EU trade deal, potentially impacting trade agreements and market access.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "event_types": [
-        "guidance_change"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "Thailand",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "scope": "policy",
-      "source_tier": "news",
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 7,
-        "size": 2,
-        "recency": 5,
-        "scope_id": "policy",
-        "source_tier_id": "news"
-      },
-      "prelim_note": "Thailand reassesses joining CPTPP alongside EU trade deal, potentially impacting trade agreements and market access.",
-      "dedup_status": "new"
-    },
-    {
-      "inbox_id": "INB-20260613-056",
-      "headline": "How Wall Street pulled off the biggest IPO in history for SpaceX",
-      "url": "https://www.ft.com/content/a7f4246d-9ae2-4f7b-90af-e5a53c52203b",
-      "source_name": "Financial Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-06-13T10:00:04Z",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "How Wall Street pulled off the biggest IPO in history for SpaceX",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 90,
       "event_types": [
         "mna"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "SpaceX",
+          "name": "Kioxia",
           "ticker": null,
-          "listing_country": "US"
+          "listing_country": null
         }
       ],
       "size_bucket": "unknown",
       "scope": "multi_name",
       "source_tier": "news",
-      "prelim_note": "How Wall Street pulled off the biggest IPO in history for SpaceX",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "scope_id": "multi_name",
+        "source_tier_id": "news"
+      },
+      "prelim_note": "Kioxia becomes Japan's most valuable company.",
       "dedup_status": "new"
     },
     {
-      "inbox_id": "INB-20260613-102",
-      "headline": "US eyes Japanese funding for nuclear revival, Lutnick says",
-      "url": "https://asia.nikkei.com/business/energy/us-eyes-japanese-funding-for-nuclear-revival-lutnick-says",
-      "source_name": "Nikkei Asia",
-      "input_nature": "news_headline",
-      "found_at": "2026-06-13T10:55:10Z",
+      "inbox_id": "INB-20260613-218",
+      "headline": "MUTHOOT FINCORP Ltd (976980)",
+      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/dad96b4e-bdf5-4920-8332-9c1b5173c839.pdf",
+      "source_name": "BSE / NSE Exchange Filing",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-06-13T11:00:35Z",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "US eyes Japanese funding for nuclear revival, Lutnick says",
-      "region": "GLOBAL",
+      "triage_score": 100,
+      "triage_reason": "MUTHOOT FINCORP Ltd has filed a document with the BSE/NSE Exchange.",
+      "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 90,
       "event_types": [
-        "regulatory"
+        "capital_actions"
       ],
-      "issuer_linkage": "macro",
-      "companies": [],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "MUTHOOT FINCORP Ltd",
+          "ticker": "976980",
+          "listing_country": null
+        }
+      ],
       "size_bucket": "unknown",
-      "scope": "policy",
-      "source_tier": "news",
-      "prelim_note": "US eyes Japanese funding for nuclear revival, Lutnick says",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing"
+      },
+      "prelim_note": "MUTHOOT FINCORP Ltd has filed a document with the BSE/NSE Exchange.",
       "dedup_status": "new"
     },
     {
-      "inbox_id": "INB-20260613-126",
-      "headline": "Yes Bank Ltd (532648)",
+      "inbox_id": "INB-20260613-219",
+      "headline": "Yes Bank Ltd: Intimation under Regulation 30 of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015",
       "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/5249c978-c883-4d31-a408-692210b97fe6.pdf",
       "source_name": "BSE / NSE Exchange Filing",
       "input_nature": "exchange_announcement",
       "found_at": "2026-06-13T10:39:49Z",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Yes Bank Ltd has filed a document with the exchange.",
+      "triage_score": 100,
+      "triage_reason": "Yes Bank Ltd has made an intimation under Regulation 30 of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015.",
       "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 90,
+      "materiality_pre_score": 80,
       "event_types": [
-        "capital_actions"
+        "litigation_enforcement"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
           "name": "Yes Bank Ltd",
-          "ticker": "532648",
-          "listing_country": "IN"
+          "ticker": null,
+          "listing_country": null
         }
       ],
       "size_bucket": "large",
       "scope": "single_name",
       "source_tier": "primary_filing",
-      "prelim_note": "Yes Bank Ltd has filed a document with the exchange.",
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing"
+      },
+      "prelim_note": "Yes Bank Ltd has made an intimation under Regulation 30 of the Securities and Exchange Board of India (Listing Obligations and Disclosure Requirements) Regulations, 2015.",
       "dedup_status": "new"
     },
     {
-      "inbox_id": "INB-20260613-127",
-      "headline": "Trident Lifeline Ltd (543616)",
-      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/735b8f0c-1a6b-4dd6-855f-9e47f62a9af5.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-06-13T10:39:32Z",
+      "inbox_id": "INB-20260613-224",
+      "headline": "Rhythm Pharmaceuticals Presents Positive Interim Six-month Data from Phase 2 Trial of Setmelanotide in Patients with Prader-Willi Syndrome (PWS) at ENDO 2026 | RYTM Stock News",
+      "url": "https://www.stocktitan.net/news/RYTM/rhythm-pharmaceuticals-presents-positive-interim-six-month-data-from-iqrbwn9rw7qc.html",
+      "source_name": "Stock Titan",
+      "input_nature": "company_press_release",
+      "found_at": "2026-06-13T12:01:00Z",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Trident Lifeline Ltd has filed a document with the exchange.",
-      "region": "IN",
+      "triage_score": 100,
+      "triage_reason": "Rhythm Pharmaceuticals has presented positive interim six-month data from a Phase 2 trial of Setmelanotide in patients with Prader-Willi Syndrome (PWS).",
+      "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 90,
+      "materiality_pre_score": 85,
       "event_types": [
-        "capital_actions"
+        "earnings_revenue_margin"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Trident Lifeline Ltd",
-          "ticker": "543616",
-          "listing_country": "IN"
+          "name": "Rhythm Pharmaceuticals",
+          "ticker": "RYTM",
+          "listing_country": null
         }
       ],
       "size_bucket": "small",
       "scope": "single_name",
-      "source_tier": "primary_filing",
-      "prelim_note": "Trident Lifeline Ltd has filed a document with the exchange.",
+      "source_tier": "company",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "scope_id": "single_name",
+        "source_tier_id": "company"
+      },
+      "prelim_note": "Rhythm Pharmaceuticals has presented positive interim six-month data from a Phase 2 trial of Setmelanotide in patients with Prader-Willi Syndrome (PWS).",
       "dedup_status": "new"
     },
     {
-      "inbox_id": "INB-20260613-128",
-      "headline": "Zee Media Corporation Ltd (532794)",
-      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/11ad724f-0308-4171-8b05-5ccb10a641f9.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-06-13T10:39:30Z",
+      "inbox_id": "INB-20260613-225",
+      "headline": "Rhythm Pharmaceuticals Presents Positive Interim Six-month Data from Phase 2 Trial of Setmelanotide in Patients with Prader-Willi Syndrome (PWS) at ENDO 2026",
+      "url": "https://www.globenewswire.com/news-release/2026/06/13/3311380/0/en/Rhythm-Pharmaceuticals-Presents-Positive-Interim-Six-month-Data-from-Phase-2-Trial-of-Setmelanotide-in-Patients-with-Prader-Willi-Syndrome-PWS-at-ENDO-2026.html",
+      "source_name": "GlobeNewswire",
+      "input_nature": "company_press_release",
+      "found_at": "2026-06-13T12:01:00Z",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Zee Media Corporation Ltd has filed a document with the exchange.",
-      "region": "IN",
+      "triage_score": 100,
+      "triage_reason": "Rhythm Pharmaceuticals has presented positive interim six-month data from a Phase 2 trial of Setmelanotide in patients with Prader-Willi Syndrome (PWS).",
+      "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 90,
+      "materiality_pre_score": 85,
       "event_types": [
-        "capital_actions"
+        "earnings_revenue_margin"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Zee Media Corporation Ltd",
-          "ticker": "532794",
-          "listing_country": "IN"
+          "name": "Rhythm Pharmaceuticals",
+          "ticker": "RYTM",
+          "listing_country": null
         }
       ],
       "size_bucket": "small",
       "scope": "single_name",
-      "source_tier": "primary_filing",
-      "prelim_note": "Zee Media Corporation Ltd has filed a document with the exchange.",
+      "source_tier": "company",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "scope_id": "single_name",
+        "source_tier_id": "company"
+      },
+      "prelim_note": "Rhythm Pharmaceuticals has presented positive interim six-month data from a Phase 2 trial of Setmelanotide in patients with Prader-Willi Syndrome (PWS).",
       "dedup_status": "new"
     },
     {
-      "inbox_id": "INB-20260613-129",
-      "headline": "Yash Innoventures Ltd (523650)",
-      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/d6316759-8114-4493-8cec-2cc38bc4b5d7.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-06-13T10:39:03Z",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Yash Innoventures Ltd has filed a document with the exchange.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Yash Innoventures Ltd",
-          "ticker": "523650",
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "scope": "single_name",
-      "source_tier": "primary_filing",
-      "prelim_note": "Yash Innoventures Ltd has filed a document with the exchange.",
-      "dedup_status": "new"
-    },
-    {
-      "inbox_id": "INB-20260613-130",
-      "headline": "Tata Communications Limited",
-      "url": "https://nsearchives.nseindia.com/corporate/TATACOMM_13062026143324_18432.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-06-13T09:04:21Z",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Tata Communications Limited has filed a document with the exchange.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Tata Communications Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "scope": "single_name",
-      "source_tier": "primary_filing",
-      "prelim_note": "Tata Communications Limited has filed a document with the exchange.",
-      "dedup_status": "new"
-    },
-    {
-      "inbox_id": "INB-20260613-131",
-      "headline": "CSB Bank Limited",
-      "url": "https://nsearchives.nseindia.com/corporate/CSBBANK_13062026142839_IntimationofAnalystMeet12062026f.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-06-13T09:00:01Z",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "CSB Bank Limited has filed a document with the exchange.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "CSB Bank Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "small",
-      "scope": "single_name",
-      "source_tier": "primary_filing",
-      "prelim_note": "CSB Bank Limited has filed a document with the exchange.",
-      "dedup_status": "new"
-    },
-    {
-      "inbox_id": "INB-20260613-132",
-      "headline": "Max India Limited",
-      "url": "https://nsearchives.nseindia.com/corporate/MAXIND_13062026142542_MaxIndiantimationNewspaperPostalBallot13062026final.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-06-13T08:55:52Z",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "Max India Limited has filed a document with the exchange.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Max India Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "large",
-      "scope": "single_name",
-      "source_tier": "primary_filing",
-      "prelim_note": "Max India Limited has filed a document with the exchange.",
-      "dedup_status": "new"
-    },
-    {
-      "inbox_id": "INB-20260613-156",
-      "headline": "'Indonesia Bankrupt' rallies demand fiscal reform, end to flagship programs",
-      "url": "https://asia.nikkei.com/politics/indonesia-bankrupt-rallies-demand-fiscal-reform-end-to-flagship-programs",
-      "source_name": "Nikkei Asia",
+      "inbox_id": "INB-20260613-227",
+      "headline": "+++ Iran-Krieg +++: Pakistan: USA-Iran-Deal vermutlich in den nächsten 24 Stunden finalisiert",
+      "url": "https://www.handelsblatt.com/politik/international/iran-krieg-pakistan-vermutet-usa-iran-deal-in-den-naechsten-24-stunden/100136895.html",
+      "source_name": "Handelsblatt",
       "input_nature": "news_headline",
-      "found_at": "2026-06-13T11:25:04Z",
+      "found_at": "2026-06-13T11:45:00Z",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 90,
-      "triage_reason": "'Indonesia Bankrupt' rallies demand fiscal reform, end to flagship programs.",
+      "triage_score": 100,
+      "triage_reason": "US-Iran deal to be signed within 24 hours",
       "region": "GLOBAL",
       "relevance": "material",
       "materiality_pre_score": 90,
@@ -1368,136 +1010,628 @@
       "size_bucket": "unknown",
       "scope": "policy",
       "source_tier": "news",
-      "prelim_note": "'Indonesia Bankrupt' rallies demand fiscal reform, end to flagship programs.",
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "scope_id": "policy",
+        "source_tier_id": "news"
+      },
+      "prelim_note": "US-Iran deal to be signed within 24 hours",
       "dedup_status": "new"
     },
     {
-      "inbox_id": "INB-20260613-177",
-      "headline": "Why A $1.77 Trillion SpaceX IPO Could ‘Permanently Scar’ The Night Sky",
-      "url": "https://www.forbes.com/sites/jamiecartereurope/2026/06/13/why-a-2-trillion-spacex-ipo-could-permanently-scar-the-night-sky/",
-      "source_name": "Forbes",
-      "input_nature": "news_headline",
-      "found_at": "2026-06-13T09:34:00Z",
+      "inbox_id": "INB-20260613-228",
+      "headline": "Notice of Demand under Recovery Certificate number 9156 of 2026 dated June 11, 2026 issued to Sunil Singh (Proprietor- Alfa Finsec) (PAN: BDGPS0774K) [Defaulter] in the matter of trading activities of certain entities in the scrip of Delta Leasing and Finance Ltd.: under Recovery Certificate No. 9156 of 2026.",
+      "url": "https://www.sebi.gov.in/enforcement/recovery-proceedings/jun-2026/notice-of-demand-under-recovery-certificate-number-9156-of-2026-dated-june-11-2026-issued-to-sunil-singh-proprietor-alfa-finsec-pan-bdgps0774k-defaulter-in-the-matter-of-trading-activities-of-_102087.html",
+      "source_name": "Securities and Exchange Board of India (SEBI)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-06-13T12:37:48Z",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 88,
-      "triage_reason": "A $1.77 trillion SpaceX IPO could 'permanently scar' the night sky.",
-      "region": "US",
+      "triage_score": 100,
+      "triage_reason": "SEBI issued a notice of demand to Sunil Singh for trading activities in Delta Leasing and Finance Ltd.",
+      "region": "IN",
       "relevance": "material",
-      "materiality_pre_score": 70,
+      "materiality_pre_score": 80,
       "event_types": [
-        "mna"
+        "litigation_enforcement"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "SpaceX",
+          "name": "Delta Leasing and Finance Ltd.",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing"
+      },
+      "prelim_note": "SEBI issued a notice of demand to Sunil Singh for trading activities in Delta Leasing and Finance Ltd.",
+      "dedup_status": "new"
+    },
+    {
+      "inbox_id": "INB-20260613-229",
+      "headline": "Notice of Demand under Recovery Certificate number 9154 of 2026 dated June 11, 2026 issued to MADHU GUPTA (PAN: ABUPG9329D) [Defaulter] in the matter of dealing in Illiquid Stock Options on BSE: under Recovery Certificate No. 9154 of 2026.",
+      "url": "https://www.sebi.gov.in/enforcement/recovery-proceedings/jun-2026/notice-of-demand-under-recovery-certificate-number-9154-of-2026-dated-june-11-2026-issued-to-madhu-gupta-pan-abupg9329d-defaulter-in-the-matter-of-dealing-in-illiquid-stock-options-on-bse-under-_102085.html",
+      "source_name": "Securities and Exchange Board of India (SEBI)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-06-13T12:37:48Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SEBI issued a notice of demand to Madhu Gupta for dealing in Illiquid Stock Options on BSE.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BSE",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing"
+      },
+      "prelim_note": "SEBI issued a notice of demand to Madhu Gupta for dealing in Illiquid Stock Options on BSE.",
+      "dedup_status": "new"
+    },
+    {
+      "inbox_id": "INB-20260613-230",
+      "headline": "Remittance Advice against: Manish Kumar [Defaulter] (PAN: AMWPK4668G) in the matter of Investigation in the trading activities of certain entities in the scrip of Continental Seeds and Chemicals Limited: under Recovery Certificate No. 8875 of 2025.",
+      "url": "https://www.sebi.gov.in/enforcement/recovery-proceedings/jun-2026/remittance-advice-against-manish-kumar-defaulter-pan-amwpk4668g-in-the-matter-of-investigation-in-the-trading-activities-of-certain-entities-in-the-scrip-of-continental-seeds-and-chemicals-limit-_102079.html",
+      "source_name": "Securities and Exchange Board of India (SEBI)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-06-13T12:37:48Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SEBI issued a remittance advice to Manish Kumar for trading activities in Continental Seeds and Chemicals Limited.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Continental Seeds and Chemicals Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing"
+      },
+      "prelim_note": "SEBI issued a remittance advice to Manish Kumar for trading activities in Continental Seeds and Chemicals Limited.",
+      "dedup_status": "new"
+    },
+    {
+      "inbox_id": "INB-20260613-231",
+      "headline": "Remittance Advice against: Hari Om Singh [Defaulter] PAN: BGBPS4181A in the matter of Investigation in the trading activities of certain entities in the scrip of Continental Seeds and Chemicals Limited: under Recovery Certificate No. 8872 of 2025.",
+      "url": "https://www.sebi.gov.in/enforcement/recovery-proceedings/jun-2026/remittance-advice-against-hari-om-singh-defaulter-pan-bgbps4181a-in-the-matter-of-investigation-in-the-trading-activities-of-certain-entities-in-the-scrip-of-continental-seeds-and-chemicals-limite-_102077.html",
+      "source_name": "Securities and Exchange Board of India (SEBI)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-06-13T12:37:48Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SEBI issued a remittance advice to Hari Om Singh for trading activities in Continental Seeds and Chemicals Limited.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Continental Seeds and Chemicals Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing"
+      },
+      "prelim_note": "SEBI issued a remittance advice to Hari Om Singh for trading activities in Continental Seeds and Chemicals Limited.",
+      "dedup_status": "new"
+    },
+    {
+      "inbox_id": "INB-20260613-232",
+      "headline": "Remittance Advice against: Mohd Idrees, proprietor of Tirupati Enterprises (PAN: AASPI4395Q) in the matter of Investigation in the trading activities of certain entities in the scrip of Continental Seeds and Chemicals Limited: under Recovery Certificate No. 8866 of 2025.",
+      "url": "https://www.sebi.gov.in/enforcement/recovery-proceedings/jun-2026/remittance-advice-against-mohd-idrees-proprietor-of-tirupati-enterprises-pan-aaspi4395q-in-the-matter-of-investigation-in-the-trading-activities-of-certain-entities-in-the-scrip-of-continental-se-_102075.html",
+      "source_name": "Securities and Exchange Board of India (SEBI)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-06-13T12:37:48Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SEBI issued a remittance advice to Mohd Idrees for trading activities in Continental Seeds and Chemicals Limited.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Continental Seeds and Chemicals Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing"
+      },
+      "prelim_note": "SEBI issued a remittance advice to Mohd Idrees for trading activities in Continental Seeds and Chemicals Limited.",
+      "dedup_status": "new"
+    },
+    {
+      "inbox_id": "INB-20260613-233",
+      "headline": "Vijay Prakash Gupta [Defaulter] PAN: ANCPV2725J in the matter of Investigation in the trading activities of certain entities in the scrip of Continental Seeds and Chemical Limited: under Recovery Certificate No. 8873 of 2025.",
+      "url": "https://www.sebi.gov.in/enforcement/recovery-proceedings/jun-2026/vijay-prakash-gupta-defaulter-pan-ancpv2725j-in-the-matter-of-investigation-in-the-trading-activities-of-certain-entities-in-the-scrip-of-continental-seeds-and-chemical-limited-under-recovery-cert-_102050.html",
+      "source_name": "Securities and Exchange Board of India (SEBI)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-06-13T12:37:48Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SEBI issued a remittance advice to Vijay Prakash Gupta for trading activities in Continental Seeds and Chemical Limited.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Continental Seeds and Chemical Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing"
+      },
+      "prelim_note": "SEBI issued a remittance advice to Vijay Prakash Gupta for trading activities in Continental Seeds and Chemical Limited.",
+      "dedup_status": "new"
+    },
+    {
+      "inbox_id": "INB-20260613-234",
+      "headline": "Remittance Advice against: Momin Jahan, proprietor of Jahan Enterprises (PAN: BNKPJ7050D) in the matter of Investigation in the trading activities of certain entities in the scrip of Continental Seeds and Chemicals Limited: under Recovery Certificate No. 8870 of 2025.",
+      "url": "https://www.sebi.gov.in/enforcement/recovery-proceedings/jun-2026/remittance-advice-against-momin-jahan-proprietor-of-jahan-enterprises-pan-bnkpj7050d-in-the-matter-of-investigation-in-the-trading-activities-of-certain-entities-in-the-scrip-of-continental-seeds-_102048.html",
+      "source_name": "Securities and Exchange Board of India (SEBI)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-06-13T12:37:48Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SEBI issued a remittance advice to Momin Jahan for trading activities in Continental Seeds and Chemicals Limited.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Continental Seeds and Chemicals Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing"
+      },
+      "prelim_note": "SEBI issued a remittance advice to Momin Jahan for trading activities in Continental Seeds and Chemicals Limited.",
+      "dedup_status": "new"
+    },
+    {
+      "inbox_id": "INB-20260613-235",
+      "headline": "Remittance Advice against: Mujaffar Khan, proprietor of Shiv Enterprises (PAN: EGSPK2609R) in the matter of Investigation in the trading activities of certain entities in the scrip of Continental Seeds and Chemicals Limited: under Recovery Certificate No. 8869 of 2025.",
+      "url": "https://www.sebi.gov.in/enforcement/recovery-proceedings/jun-2026/remittance-advice-against-mujaffar-khan-proprietor-of-shiv-enterprises-pan-egspk2609r-in-the-matter-of-investigation-in-the-trading-activities-of-certain-entities-in-the-scrip-of-continental-seed-_102046.html",
+      "source_name": "Securities and Exchange Board of India (SEBI)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-06-13T12:37:48Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SEBI issued a remittance advice to Mujaffar Khan for trading activities in Continental Seeds and Chemicals Limited.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Continental Seeds and Chemicals Limited",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing"
+      },
+      "prelim_note": "SEBI issued a remittance advice to Mujaffar Khan for trading activities in Continental Seeds and Chemicals Limited.",
+      "dedup_status": "new"
+    },
+    {
+      "inbox_id": "INB-20260613-236",
+      "headline": "Remittance Advice against: Arvind Poddar [Defaulter] PAN: AODPA6026K in the matter of IPO of Shilpi Cable Technologies Ltd. under Recovery Certificate No. 6728 of 2023.",
+      "url": "https://www.sebi.gov.in/enforcement/recovery-proceedings/jun-2026/remittance-advice-against-arvind-poddar-defaulter-pan-aodpa6026k-in-the-matter-of-ipo-of-shilpi-cable-technologies-ltd-under-recovery-certificate-no-6728-of-2023-_102044.html",
+      "source_name": "Securities and Exchange Board of India (SEBI)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-06-13T12:37:48Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SEBI issued a remittance advice to Arvind Poddar for IPO of Shilpi Cable Technologies Ltd.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Shilpi Cable Technologies Ltd.",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing"
+      },
+      "prelim_note": "SEBI issued a remittance advice to Arvind Poddar for IPO of Shilpi Cable Technologies Ltd.",
+      "dedup_status": "new"
+    },
+    {
+      "inbox_id": "INB-20260613-237",
+      "headline": "Notice of Demand under Recovery Certificate number 9153 of 2026 dated June 10, 2026, issued to USHA AWASTHI (PAN: AFHPA2077D) [Defaulter] in the matter of ISO at BSE-USHA AWASTHI: under Recovery Certificate No. 9153 of 2026.",
+      "url": "https://www.sebi.gov.in/enforcement/recovery-proceedings/jun-2026/notice-of-demand-under-recovery-certificate-number-9153-of-2026-dated-june-10-2026-issued-to-usha-awasthi-pan-afhpa2077d-defaulter-in-the-matter-of-iso-at-bse-usha-awasthi-under-recovery-certi-_102043.html",
+      "source_name": "Securities and Exchange Board of India (SEBI)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-06-13T12:37:48Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SEBI issued a notice of demand to Usha Awasthi for ISO at BSE.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "BSE",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing"
+      },
+      "prelim_note": "SEBI issued a notice of demand to Usha Awasthi for ISO at BSE.",
+      "dedup_status": "new"
+    },
+    {
+      "inbox_id": "INB-20260613-238",
+      "headline": "Notice of Demand under Recovery Certificate number 9152 of 2026 dated June 10, 2026, issued to Santosh Kumar (PAN: AEKPK6751Q) [Defaulter] in the matter of Investigation into the trading activities of certain entities in the scrip of Delta Leasing and Finance Ltd: under Recovery Certificate No. 9152 of 2026.",
+      "url": "https://www.sebi.gov.in/enforcement/recovery-proceedings/jun-2026/notice-of-demand-under-recovery-certificate-number-9152-of-2026-dated-june-10-2026-issued-to-santosh-kumar-pan-aekpk6751q-defaulter-in-the-matter-of-investigation-into-the-trading-activities-of-_102024.html",
+      "source_name": "Securities and Exchange Board of India (SEBI)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-06-13T12:37:48Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SEBI issued a notice of demand to Santosh Kumar for trading activities in Delta Leasing and Finance Ltd.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Delta Leasing and Finance Ltd.",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing"
+      },
+      "prelim_note": "SEBI issued a notice of demand to Santosh Kumar for trading activities in Delta Leasing and Finance Ltd.",
+      "dedup_status": "new"
+    },
+    {
+      "inbox_id": "INB-20260613-239",
+      "headline": "FCA decides to fine Carlos Ricardo Fuenmayor £99,600 for disclosure failures",
+      "url": "https://www.fca.org.uk/news/press-releases/fca-decides-fine-carlos-ricardo-fuenmayor-disclosure-failures",
+      "source_name": "UK Financial Conduct Authority (FCA)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-06-13T12:38:15Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "FCA fined Carlos Ricardo Fuenmayor £99,600 for disclosure failures.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "secondary",
+      "companies": [
+        {
+          "name": "Carlos Ricardo Fuenmayor",
           "ticker": null,
           "listing_country": null
         }
       ],
       "size_bucket": "unknown",
-      "scope": "multi_name",
-      "source_tier": "news",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
       "rank_factors": {
-        "materiality": 70,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
         "size": 0,
-        "recency": 4,
-        "scope_id": "multi_name",
-        "source_tier_id": "news"
+        "recency": 5,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing"
       },
-      "prelim_note": "A $1.77 trillion SpaceX IPO could 'permanently scar' the night sky.",
+      "prelim_note": "FCA fined Carlos Ricardo Fuenmayor £99,600 for disclosure failures.",
       "dedup_status": "new"
     },
     {
-      "inbox_id": "INB-20260613-163",
-      "headline": "BofA reveals $3 billion reason to watch DraftKings now",
-      "url": "https://www.thestreet.com/investing/stocks/bofa-3-billion-dollar-reason-to-watch-draftkings-dkng",
-      "source_name": "TheStreet",
-      "input_nature": "news_headline",
-      "found_at": "2026-06-13T11:07:00Z",
+      "inbox_id": "INB-20260613-240",
+      "headline": "FCA secures confiscation order against Ponzi scheme fraudster",
+      "url": "https://www.fca.org.uk/news/press-releases/fca-secures-confiscation-order-against-ponzi-scheme-fraudster",
+      "source_name": "UK Financial Conduct Authority (FCA)",
+      "input_nature": "regulatory_filing",
+      "found_at": "2026-06-13T12:53:13Z",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 87,
-      "triage_reason": "BofA reveals $3 billion reason to watch DraftKings now",
+      "triage_score": 100,
+      "triage_reason": "FCA secures confiscation order against Ponzi scheme fraudster",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "UK Financial Conduct Authority (FCA)",
+          "ticker": null,
+          "listing_country": "UK"
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "primary_filing",
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing"
+      },
+      "prelim_note": "FCA secures confiscation order against Ponzi scheme fraudster",
+      "dedup_status": "new"
+    },
+    {
+      "inbox_id": "INB-20260613-257",
+      "headline": "India demonstrates elite air defence capability against Intercontinental Ballistic Missiles",
+      "url": "https://www.thehindubusinessline.com/news/national/india-demonstrates-elite-air-defence-capability-against-intercontinental-ballistic-missiles/article71097920.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-13T13:55:59Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "India demonstrates elite air defence capability against Intercontinental Ballistic Missiles",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "scope": "policy",
+      "source_tier": "news",
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "scope_id": "policy",
+        "source_tier_id": "news"
+      },
+      "prelim_note": "India demonstrates elite air defence capability against Intercontinental Ballistic Missiles",
+      "dedup_status": "new"
+    },
+    {
+      "inbox_id": "INB-20260613-260",
+      "headline": "$35B AI Infrastructure Platform Plan Affirms Broadcom Inc. (AVGO) As a Promising Growth Stock to Buy",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/35b-ai-infrastructure-platform-plan-192530880.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-13T19:25:30Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Broadcom Inc. plans a $35B AI infrastructure platform.",
       "region": "US",
       "relevance": "material",
-      "materiality_pre_score": 70,
+      "materiality_pre_score": 85,
       "event_types": [
         "guidance_change"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "DraftKings",
-          "ticker": null,
+          "name": "Broadcom Inc.",
+          "ticker": "AVGO",
           "listing_country": "US"
         }
       ],
-      "size_bucket": "small",
+      "size_bucket": "large",
       "scope": "single_name",
       "source_tier": "news",
       "rank_factors": {
-        "materiality": 70,
+        "materiality": 85,
         "source_tier": 0,
         "scope": 6,
         "event": 7,
-        "size": -1,
+        "size": 2,
         "recency": 5,
         "scope_id": "single_name",
         "source_tier_id": "news"
       },
-      "prelim_note": "BofA reveals $3 billion reason to watch DraftKings now",
-      "dedup_status": "new"
-    },
-    {
-      "inbox_id": "INB-20260613-014",
-      "headline": "India FTAs set stage for $1 trillion export target : Report",
-      "url": "https://economictimes.indiatimes.com/news/economy/foreign-trade/indias-ftas-set-stage-for-1-trillion-export-target-report/articleshow/131698363.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-06-13T06:15:00Z",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "India FTAs set stage for $1 trillion export target",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [],
-      "size_bucket": "unknown",
-      "prelim_note": "India FTAs set stage for $1 trillion export target",
-      "dedup_status": "new"
-    },
-    {
-      "inbox_id": "INB-20260613-033",
-      "headline": "US Treasury expands bank data - sharing rules tied to Trump immigration crackdown",
-      "url": "https://economictimes.indiatimes.com/nri/latest-updates/us-treasury-expands-bank-data-sharing-rules-tied-to-trump-immigration-crackdown/articleshow/131700554.cms",
-      "source_name": "The Economic Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-06-13T09:00:00Z",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 85,
-      "triage_reason": "US Treasury expands bank data-sharing rules tied to Trump immigration crackdown",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 85,
-      "event_types": [
-        "litigation_enforcement"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "prelim_note": "US Treasury expands bank data-sharing rules tied to Trump immigration crackdown",
-      "dedup_status": "new"
+      "prelim_note": "Broadcom Inc. plans a $35B AI infrastructure platform.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-26364c4fd959"
     }
   ]
 }
