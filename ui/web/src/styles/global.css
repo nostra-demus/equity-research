@@ -358,7 +358,10 @@ a { color: inherit; }
 
 /* ---------- output reader ---------- */
 .reader {
-  position: absolute; top: 0; right: 0; bottom: 0; width: min(720px, 64%); z-index: 50;
+  /* z-index 55 > the pipeline panel (50): the output reader is OPENED FROM the pipeline (the
+     "read: why this might be mispriced" / shortlist buttons), so it must paint ABOVE it — at equal
+     z-index the later-in-DOM pipeline covered it and the reader opened invisibly behind the panel. */
+  position: absolute; top: 0; right: 0; bottom: 0; width: min(720px, 64%); z-index: 55;
   background: var(--surface-1); border-left: 1px solid var(--hairline-strong); box-shadow: var(--shadow-2);
   display: flex; flex-direction: column;
 }
