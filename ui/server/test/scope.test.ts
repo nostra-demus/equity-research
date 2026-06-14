@@ -12,7 +12,7 @@ import { runIngestCycle } from '../src/news/runCycle'
 import { cleanText, looksLikeHeadline } from '../src/news/clean'
 import { isCompanyName, filterCompanies } from '../src/news/entities'
 import { coerceArticleBrief, durToMs, parseRate } from '../src/news/triage/groq'
-import { RateLimiter } from '../src/news/triage/budget'
+import { RateLimiter, resetSharedLimiters } from '../src/news/triage/budget'
 import type { FeedItem } from '../src/news/types'
 
 let passed = 0
@@ -340,6 +340,7 @@ await check('coerceArticleBrief shapes gist/companies/parties safely; bad roles 
 // ---- enrichEvent: the article-body Groq read (gist + firms-only + theme), with denylist scrub ----
 await check('enrichEvent reads the body with Groq → gist, firms-only companies, corrected theme', async () => {
   const root = tmp(), state = tmp()
+  resetSharedLimiters() // hermetic per-minute window — these singletons are shared across cases in-process
   const ARTICLE = '<html><head><meta property="og:description" content="thin teaser"></head><body><p>Drugmaker Perrigo said CEO Patrick Lockwood-Taylor resigned after the board found certain personal conduct inconsistent with its values. Board member Albert Manzone steps in as interim CEO.</p></body></html>'
   const groqContent = JSON.stringify({
     gist: ['Perrigo CEO Patrick Lockwood-Taylor resigned over personal conduct.', 'Board member Albert Manzone is interim CEO while a search runs.'],
@@ -374,6 +375,7 @@ await check('enrichEvent with NO groq key degrades to the regex summary (never b
 
 await check('enrichEvent reads the FEED SNIPPET when the page fetch is blocked (fetch-free body)', async () => {
   const root = tmp(), state = tmp(), today = '2026-06-13'
+  resetSharedLimiters() // hermetic per-minute window — these singletons are shared across cases in-process
   appendFeedItems(root, today, [{
     kind: 'item', ts: `${today}T10:00:00Z`, event_id: 'EVT-snip', headline: 'Acme wins big EU contract', url: 'https://www.reuters.com/z', domain: 'reuters.com',
     source_name: 'Reuters', via: 'rss', region: 'GLOBAL', input_nature: 'news_headline', triage_score: 80, band: 'pick', triage_reason: '', relevance: 'material',

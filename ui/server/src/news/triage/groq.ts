@@ -74,6 +74,12 @@ export interface TriageOptions {
   models?: string[] // OpenRouter fallback chain — auto-routes to the first available free model
   headers?: Record<string, string> // extra request headers (e.g. OpenRouter HTTP-Referer / X-Title)
   extraBody?: Record<string, unknown> // extra request-body fields (e.g. OpenRouter reasoning: {effort:'low'})
+  // Reliability guards. timeoutMs aborts a single HTTP call that hangs (a stalled provider / dead socket)
+  // — without it a hung fetch blocks forever. maxAttempts caps the in-call retry: leave at the default 2
+  // for the background ingester (retry the same provider), set to 1 for the user-facing article read
+  // (don't retry — fall through to the NEXT provider instead, which is faster and more resilient).
+  timeoutMs?: number
+  maxAttempts?: number
 }
 
 export interface TriageResult {
@@ -155,11 +161,13 @@ export async function triageBatch(
   let requests = 0
   let tokens = 0
   let lastNote = 'groq fetch error'
-  for (let attempt = 1; attempt <= 2; attempt++) {
+  const maxAttempts = opts.maxAttempts ?? 2
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     try {
       const res = await fetchFn(`${opts.baseUrl}/chat/completions`, {
         method: 'POST',
         headers: { 'content-type': 'application/json', authorization: `Bearer ${opts.apiKey}`, ...(opts.headers || {}) },
+        signal: AbortSignal.timeout(opts.timeoutMs ?? 30_000), // never let a hung connection block the cycle
         body: JSON.stringify({
           model: opts.model,
           ...(opts.models?.length ? { models: opts.models } : {}), // OpenRouter fallback chain (Groq omits)
@@ -179,7 +187,7 @@ export async function triageBatch(
         const body = await res.text().catch(() => '')
         lastNote = `groq HTTP ${res.status}${body ? ': ' + body.slice(0, 120) : ''}`
         const transient = res.status === 429 || res.status >= 500
-        if (transient && attempt < 2) {
+        if (transient && attempt < maxAttempts) {
           await sleep(rate.retryAfterMs || 1500 * attempt)
           continue
         }
@@ -204,8 +212,8 @@ export async function triageBatch(
       return { byIndex, requests, tokens, ok: true, rate }
     } catch (e: any) {
       requests++
-      lastNote = e?.message || 'groq fetch error'
-      if (attempt < 2) await sleep(1500 * attempt)
+      lastNote = e?.name === 'TimeoutError' ? 'groq: request timed out' : e?.message || 'groq fetch error'
+      if (attempt < maxAttempts) await sleep(1500 * attempt)
     }
   }
   return { byIndex, requests, tokens, ok: false, note: lastNote }
@@ -229,7 +237,7 @@ export interface ArticleBrief {
   theme: string // corrected single event-type
 }
 
-const ARTICLE_SYSTEM = `You are a buy-side analyst's reading assistant. You are given the BODY TEXT of one news article (not just its headline). Extract a compact, decision-ready brief.
+export const ARTICLE_SYSTEM = `You are a buy-side analyst's reading assistant. You are given the BODY TEXT of one news article (not just its headline). Extract a compact, decision-ready brief.
 
 Return ONLY this JSON:
 {"gist":["...","..."],"companies":[{"name":"...","ticker":null,"listing_country":null,"exchange":null,"role":"subject|acquirer|target|forecaster|mentioned"}],"beneficiaries":[{"name":"...","named_in_article":true,"basis":"..."}],"exposed":[{"name":"...","named_in_article":true,"basis":"..."}],"theme":"<tag>"}
@@ -292,13 +300,16 @@ export async function analyzeArticle(
   const user = `HEADLINE: ${headline}\n\nARTICLE BODY:\n${text}`
   let tokens = 0
   let lastNote = 'groq fetch error'
-  for (let attempt = 1; attempt <= 2; attempt++) {
+  const maxAttempts = opts.maxAttempts ?? 2
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     try {
       const res = await fetchFn(`${opts.baseUrl}/chat/completions`, {
         method: 'POST',
-        headers: { 'content-type': 'application/json', authorization: `Bearer ${opts.apiKey}` },
+        headers: { 'content-type': 'application/json', authorization: `Bearer ${opts.apiKey}`, ...(opts.headers || {}) },
+        signal: AbortSignal.timeout(opts.timeoutMs ?? 30_000), // a hung provider must never block the reader
         body: JSON.stringify({
           model: opts.model,
+          ...(opts.models?.length ? { models: opts.models } : {}), // OpenRouter fallback chain (Groq omits)
           temperature: 0.1,
           max_tokens: opts.maxTokens ?? 900,
           response_format: { type: 'json_object' },
@@ -306,13 +317,14 @@ export async function analyzeArticle(
             { role: 'system', content: ARTICLE_SYSTEM },
             { role: 'user', content: user },
           ],
+          ...(opts.extraBody || {}), // OpenRouter reasoning effort etc. (Groq omits)
         }),
       })
       const rate = parseRate(res)
       if (!res.ok) {
         const t = await res.text().catch(() => '')
         lastNote = `groq HTTP ${res.status}${t ? ': ' + t.slice(0, 120) : ''}`
-        if ((res.status === 429 || res.status >= 500) && attempt < 2) { await sleep(rate.retryAfterMs || 1200 * attempt); continue }
+        if ((res.status === 429 || res.status >= 500) && attempt < maxAttempts) { await sleep(rate.retryAfterMs || 1200 * attempt); continue }
         return { brief: null, tokens, note: lastNote, rate }
       }
       const data: any = await res.json()
@@ -324,8 +336,8 @@ export async function analyzeArticle(
       try { parsed = JSON.parse(content) } catch { return { brief: null, tokens, note: 'groq: non-JSON content', rate } }
       return { brief: coerceArticleBrief(parsed), tokens, rate }
     } catch (e: any) {
-      lastNote = e?.message || 'groq fetch error'
-      if (attempt < 2) await sleep(1200 * attempt)
+      lastNote = e?.name === 'TimeoutError' ? 'groq: request timed out' : e?.message || 'groq fetch error'
+      if (attempt < maxAttempts) await sleep(1200 * attempt)
     }
   }
   return { brief: null, tokens, note: lastNote }

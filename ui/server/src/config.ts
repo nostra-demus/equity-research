@@ -2,6 +2,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
+import type { ArticleReadProvider } from './news/triage/article-read'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -332,4 +333,35 @@ export const NEWS = {
   dedupVerbatimJaccard: (() => { const n = Number(process.env.NEWS_DEDUP_VERBATIM_JACCARD); return Number.isFinite(n) && n > 0 && n <= 1 ? n : 0.82 })(),
   // cap the O(n²) clustering to the most recent N items (covers the 2-day read window with margin)
   dedupMaxScan: capNum(process.env.NEWS_DEDUP_MAX_SCAN, 1500),
+  // On-demand article read (THE STORY when a human opens an event). HARD ceilings so the reader can never
+  // hang: at most this much wall-clock across ALL fallback providers, and at most this long waiting on any
+  // one provider's rate limiter before skipping it. Past the budget the read degrades to the story floor.
+  enrichLlmBudgetMs: capNum(process.env.NEWS_ENRICH_LLM_BUDGET_MS, 14_000),
+  enrichLimiterWaitMs: capNum(process.env.NEWS_ENRICH_LIMITER_WAIT_MS, 2500),
 }
+
+/**
+ * The on-demand article read's LLM fallback chain, in priority order — Groq (primary) → OpenAI-compatible
+ * overflow (OpenRouter, NVIDIA, …) → Gemini pool. It REUSES the ingester's exact budget files + process-wide
+ * limiters (so the two paths share one free-tier accounting), and is built purely from whatever keys are
+ * present — adding a provider is the same single config entry that wires it into the ingester (§26). When no
+ * key is set the chain is empty and the read degrades to the deterministic story floor.
+ */
+export function buildArticleReadProviders(cfg: typeof NEWS = NEWS): ArticleReadProvider[] {
+  const out: ArticleReadProvider[] = []
+  if (cfg.groqApiKey) {
+    out.push({ id: 'groq', kind: 'openai', apiKey: cfg.groqApiKey, baseUrl: cfg.groqBaseUrl, model: cfg.groqModel, maxTokens: 900, rpm: cfg.groqRpm, tpm: cfg.groqTpm, dailyReqCap: cfg.groqDailyReqCap, dailyTokenCap: cfg.groqDailyTokenCap, budgetFile: 'groq-budget.json', limiter: 'groq' })
+  }
+  for (const p of cfg.overflowProviders) {
+    // OpenAI-compatible overflow: its own named limiter (rpm spacing only, tpm 0) + daily budget file, exactly
+    // as runCycle uses it. The non-binding token cap mirrors the ingester (free models gate on RPM/RPD).
+    out.push({ id: p.id, kind: 'openai', apiKey: p.apiKey, baseUrl: p.baseUrl, model: p.model, models: p.models, maxTokens: p.maxTokens, rpm: p.rpm, tpm: 0, dailyReqCap: p.dailyReqCap, dailyTokenCap: 50_000_000, budgetFile: p.budgetFile, dayTz: p.dayTz, headers: p.headers, extraBody: p.extraBody, limiter: p.id })
+  }
+  if (cfg.geminiEnabled && cfg.geminiApiKey && cfg.geminiModels.length) {
+    out.push({ id: 'gemini', kind: 'gemini', apiKey: cfg.geminiApiKey, baseUrl: cfg.geminiBaseUrl, model: cfg.geminiModel, pool: cfg.geminiModels, maxTokens: cfg.geminiMaxTokens, rpm: cfg.geminiRpm, tpm: cfg.geminiTpm, dailyReqCap: cfg.geminiDailyReqCap, dailyTokenCap: cfg.geminiDailyTokenCap, budgetFile: 'gemini-budget-{model}.json', dayTz: cfg.geminiDayTz, limiter: 'gemini' })
+  }
+  return out
+}
+
+// Built once at startup from the present keys; consumed by the /api/news/enrich route.
+export const ARTICLE_READ_PROVIDERS: ArticleReadProvider[] = buildArticleReadProviders()

@@ -156,11 +156,30 @@ export class RateLimiter {
     return this.window.reduce((s, w) => s + w.tokens, 0)
   }
 
-  /** Block until both the request gap AND the per-minute token window have room for ~estTokens. */
-  async acquire(estTokens = 0, sleep: (ms: number) => Promise<void> = (ms) => new Promise((r) => setTimeout(r, ms)), now = () => Date.now()): Promise<void> {
+  /**
+   * Block until both the request gap AND the per-minute token window have room for ~estTokens, then
+   * reserve the slot. Resolves `true` once acquired.
+   *
+   * With `maxWaitMs` set, it gives up and resolves `false` the moment the NEXT required wait would push
+   * past that budget — without sleeping it out. This is the lever a USER-FACING caller pulls: when the
+   * background ingester has the per-minute Groq window saturated, the on-demand article read skips Groq
+   * in milliseconds and falls through to the next provider, instead of blocking the HTTP response for up
+   * to two minutes. Without `maxWaitMs` (the ingester) the wait is unbounded exactly as before, and the
+   * resolved value is simply ignored — so every existing caller is byte-for-byte unaffected.
+   */
+  async acquire(
+    estTokens = 0,
+    sleep: (ms: number) => Promise<void> = (ms) => new Promise((r) => setTimeout(r, ms)),
+    now = () => Date.now(),
+    maxWaitMs?: number,
+  ): Promise<boolean> {
+    const deadline = maxWaitMs != null && maxWaitMs >= 0 ? now() + maxWaitMs : Number.POSITIVE_INFINITY
     // request spacing
     const gap = this.last + this.minGapMs - now()
-    if (gap > 0) await sleep(gap)
+    if (gap > 0) {
+      if (now() + gap > deadline) return false // can't even satisfy request spacing within the budget
+      await sleep(gap)
+    }
     // token-per-minute pacing + 429 backoff (bounded loop → never hangs on a frozen test clock)
     if (this.tpm > 0 && estTokens > 0) {
       const cost = Math.min(estTokens, this.tpm) // a single est larger than the whole minute can't deadlock
@@ -168,12 +187,14 @@ export class RateLimiter {
         const t = now()
         if (t >= this.retryUntil && this.spent60(t) + cost <= this.tpm) break
         const oldest = this.window.length ? this.window[0].t + 60_000 - t : 0
-        const wait = t < this.retryUntil ? this.retryUntil - t : Math.max(0, oldest)
-        await sleep(Math.max(200, wait || 250))
+        const wait = Math.max(200, (t < this.retryUntil ? this.retryUntil - t : Math.max(0, oldest)) || 250)
+        if (t + wait > deadline) return false // the next wait would blow the budget → let the caller move on
+        await sleep(wait)
       }
       this.window.push({ t: now(), tokens: estTokens })
     }
     this.last = now()
+    return true
   }
 
   /** Update the live ceiling + backoff from a response's rate headers. */
@@ -216,4 +237,14 @@ export function getNamedLimiter(id: string, rpm: number, tpm: number): RateLimit
   let lim = namedLimiters.get(id)
   if (!lim) { lim = new RateLimiter(rpm, tpm); namedLimiters.set(id, lim) }
   return lim
+}
+
+// Test hook only — clears the process-wide limiter singletons. In production these are deliberately shared
+// across the ingester AND the on-demand article read (so the two never collectively bust the per-minute
+// ceiling). In unit tests that run many cases in ONE process with DIFFERENT injected clocks, that sharing
+// would otherwise leak a window entry between cases; reset between cases to keep each hermetic.
+export function resetSharedLimiters(): void {
+  shared = null
+  sharedGemini = null
+  namedLimiters.clear()
 }

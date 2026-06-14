@@ -10,7 +10,7 @@ import { z } from 'zod'
 import { readActivity } from './activity-log'
 import { recordDataChange } from './data-activity'
 import { buildReportHtml, parseMeta, safeName } from './export'
-import { DATA_DIR, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, WEB_DIST } from './config'
+import { ARTICLE_READ_PROVIDERS, DATA_DIR, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, WEB_DIST } from './config'
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
 import { cancel, cancelAll, creditCheck, decideReadiness, estimate, launch } from './launcher'
@@ -222,6 +222,8 @@ const SignalLaunchBody = z.object({
     .optional(),
   // when the launch came from an Inbox card, the row to mark consumed once the run is admitted
   inboxId: z.string().regex(INB_RE).optional(),
+  // optional TARGET module: run the gauntlet THROUGH this module then stop (a deliberate partial run)
+  until: z.string().regex(MODULE_RE).optional(),
   model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i).optional(),
 })
 
@@ -257,8 +259,9 @@ app.post('/api/launch', async (req, reply) => {
     const parsed = SignalLaunchBody.safeParse(req.body)
     if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
     if (!parsed.data.sigId && !parsed.data.intake) return reply.code(400).send({ error: 'signal launch needs sigId or intake' })
+    if (parsed.data.until && !listModuleNames('screener').includes(parsed.data.until)) return reply.code(400).send({ error: 'unknown screener module' })
     try {
-      const out = await launch({ kind, ticker: parsed.data.sigId, intake: parsed.data.intake, inboxId: parsed.data.inboxId, model: parsed.data.model, user, userVia })
+      const out = await launch({ kind, ticker: parsed.data.sigId, intake: parsed.data.intake, inboxId: parsed.data.inboxId, module: parsed.data.until, model: parsed.data.model, user, userVia })
       // an Inbox-card launch marks its row consumed so it leaves the lane (best-effort: a failed
       // mark only leaves the row visible — a duplicate click is rejected by SIG-id exclusivity)
       if (parsed.data.inboxId) {
@@ -620,9 +623,12 @@ app.get('/api/news/enrich', async (req, reply) => {
       { event_id: q.event_id, url: q.url, headline: q.headline, companies, event_types, scope: q.scope },
       {
         repoRoot: REPO_ROOT, stateDir: STATE_DIR, force: q.force === '1',
-        // the article-body read shares the ingester's free Groq key, adaptive pacer (rpm/tpm) and daily
-        // budget — so an opened event never blows the per-minute ceiling alongside the scanner.
-        groq: NEWS.groqApiKey ? { apiKey: NEWS.groqApiKey, model: NEWS.groqModel, baseUrl: NEWS.groqBaseUrl, maxTokens: 900, rpm: NEWS.groqRpm, tpm: NEWS.groqTpm, dailyReqCap: NEWS.groqDailyReqCap, dailyTokenCap: NEWS.groqDailyTokenCap } : undefined,
+        // the article-body read runs the multi-provider fallback chain (Groq → OpenRouter/NVIDIA → Gemini),
+        // each sharing the ingester's daily budget + per-minute limiter so an opened event never blows the
+        // per-minute ceiling alongside the scanner — under HARD time budgets so it can never hang the reader.
+        articleProviders: ARTICLE_READ_PROVIDERS,
+        llmBudgetMs: NEWS.enrichLlmBudgetMs,
+        limiterWaitMs: NEWS.enrichLimiterWaitMs,
       },
     )
     return enrichment
