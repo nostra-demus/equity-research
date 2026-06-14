@@ -207,12 +207,15 @@ export const NEWS = {
   // 351-feed sweep is ~30-50s, so 5 min keeps it well-spaced). Tune with NEWS_POLL_INTERVAL_MIN.
   pollIntervalMin: capNum(process.env.NEWS_POLL_INTERVAL_MIN, 5),
   // Daily Groq budget guards. A cycle refuses to call Groq past either cap; unscored items defer to
-  // the next cycle (never lost, never zero-scored). Raised for the expanded source set (351 RSS feeds
-  // + NSE + GDELT generate far more items/day than the old caps could score). These are the binding
-  // constraint on "score everything": on a free Groq key the real limiter is Groq's own rate limit
-  // (cycles just defer, no spend); a higher Groq tier uses the extra headroom (8b-instant is ~$0.05/M
-  // tokens, so 500k tokens/day ≈ $0.025). Tune down with the env vars on a constrained free tier.
-  groqDailyReqCap: capNum(process.env.NEWS_GROQ_DAILY_REQ_CAP, 1500),
+  // the next cycle (never lost, never zero-scored). The REQUEST cap matches Groq's real free-tier RPD
+  // for 8b-instant — 14,400/day (verified Jun 2026) — set to 13,000 to hold a safety margin. It was
+  // previously 1,500, which was the BINDING throttle: failed/timed-out calls (each still counts as a
+  // request) exhausted it by mid-day while only ~31% of the token ceiling was used, forcing everything
+  // onto overflow and leaving Groq dark. With the cap raised, the TOKEN cap (500k = Groq's real free
+  // TPD, the true ceiling) governs instead — converting the unused token headroom into ~free throughput.
+  // On a higher Groq tier both rise automatically via the live rate-limit headers. Tune down on a
+  // constrained tier (8b-instant is ~$0.05/M tokens, so 500k tokens/day ≈ $0.025 if ever metered).
+  groqDailyReqCap: capNum(process.env.NEWS_GROQ_DAILY_REQ_CAP, 13_000),
   groqDailyTokenCap: capNum(process.env.NEWS_GROQ_DAILY_TOKEN_CAP, 500_000),
   // Daily-budget PACER. The caps above stop us BUSTING the day's limit; the pacer stops us SPENDING IT
   // ALL AT ONCE. It releases the day's token TARGET on a linear schedule across the UTC day, so a heavy
@@ -271,6 +274,13 @@ export const NEWS = {
   // GDELT look-back per cycle (minutes; > pollInterval gives overlap so nothing slips the gap).
   gdeltLookbackMin: capNum(process.env.NEWS_GDELT_LOOKBACK_MIN, 40),
   gdeltBaseUrl: process.env.NEWS_GDELT_BASE_URL || 'https://api.gdeltproject.org/api/v2/doc/doc',
+  // GDELT rate limits HARD: its 429 body literally says "limit requests to one every 5 seconds", and a
+  // burst parks the whole IP. With ~22 GDELT-queried domains, chunkSize 11 = just 2 OR-queries/cycle
+  // (each ~250 chars — safely under GDELT's query-length ceiling, where ~28 domains/632 chars is "too
+  // long"), spaced 6s apart so each lands in its own 5s window. This was the GDELT outage: 4 queries at
+  // 1.5s spacing 429'd every cycle, so GDELT (our broadest genuinely-new global source) returned ~zero.
+  gdeltChunkSize: capNum(process.env.NEWS_GDELT_CHUNK_SIZE, 11),
+  gdeltChunkGapMs: capNum(process.env.NEWS_GDELT_CHUNK_GAP_MS, 6000),
   // Inbox is ranked by triage score and capped; the tail is counted (firehose) but not inboxed.
   inboxMaxRows: capNum(process.env.NEWS_INBOX_MAX_ROWS, 40),
   // Score → band thresholds. NB: as of the composite re-rank these apply to the PRIORITY score

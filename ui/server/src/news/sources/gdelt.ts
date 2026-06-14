@@ -15,6 +15,7 @@ export interface GdeltOptions {
   baseUrl: string
   maxRecords?: number // GDELT caps at 250
   chunkSize?: number // domains OR-ed per query (keeps each query well under GDELT's length limit)
+  chunkGapMs?: number // pause between queries — GDELT enforces "one request every 5 seconds"
 }
 
 export interface GdeltDeps {
@@ -57,19 +58,22 @@ export async function fetchGdelt(opts: GdeltOptions, deps: GdeltDeps = {}): Prom
   const sleep = deps.sleep || realSleep
   const log = deps.log || (() => {})
   const maxRecords = opts.maxRecords ?? 250
-  const queries = buildQueries(approvedDomains(), opts.chunkSize ?? 6)
+  const queries = buildQueries(approvedDomains(), opts.chunkSize ?? 11)
+  // GDELT enforces "one request every 5 seconds" (its own 429 text); space queries past that window.
+  const chunkGapMs = opts.chunkGapMs ?? 6000
 
   const byUrl = new Map<string, RawArticle>()
   for (let qi = 0; qi < queries.length; qi++) {
     const url = gdeltUrl(opts.baseUrl, queries[qi], opts.lookbackMin, maxRecords)
     let attempt = 0
-    // up to 3 tries with backoff on a transient (429 / network) failure, then give up on this chunk
+    // up to 3 tries with backoff on a transient (429 / network) failure, then give up on this chunk.
+    // A 429 means we hit the 5s window — back off PAST it (≥ chunkGapMs), not the old 2s that re-tripped it.
     for (;;) {
       try {
         const res = await fetchFn(url, { headers: { 'user-agent': 'screener-news-ingester/1' } })
         if (res.status === 429 || res.status >= 500) {
           if (++attempt >= 3) { log(`gdelt chunk ${qi}: ${res.status}, gave up`); break }
-          await sleep(2000 * attempt)
+          await sleep(Math.max(chunkGapMs, 2000) * attempt)
           continue
         }
         if (!res.ok) { log(`gdelt chunk ${qi}: HTTP ${res.status}`); break }
@@ -94,8 +98,8 @@ export async function fetchGdelt(opts: GdeltOptions, deps: GdeltDeps = {}): Prom
         await sleep(2000 * attempt)
       }
     }
-    // be gentle on GDELT's shared cluster between chunks
-    if (qi < queries.length - 1) await sleep(1500)
+    // be gentle on GDELT's shared cluster between chunks — must clear its 5s-per-request window
+    if (qi < queries.length - 1) await sleep(chunkGapMs)
   }
   return [...byUrl.values()]
 }

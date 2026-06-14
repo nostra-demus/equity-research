@@ -108,7 +108,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   // `via` provenance for the live feed). In drain-only mode we skip the network entirely and just
   // work the deferred backlog (no re-fetch → never hammers the upstream feeds between fetch cycles).
   const fetches = deps.skipFetch ? [] as PromiseSettledResult<RawArticle[]>[] : await Promise.allSettled([
-    fetchGdelt({ lookbackMin: cfg.gdeltLookbackMin, baseUrl: cfg.gdeltBaseUrl }, { fetchFn, sleep, log }),
+    fetchGdelt({ lookbackMin: cfg.gdeltLookbackMin, baseUrl: cfg.gdeltBaseUrl, chunkSize: cfg.gdeltChunkSize, chunkGapMs: cfg.gdeltChunkGapMs }, { fetchFn, sleep, log }),
     cfg.rssEnabled
       ? fetchRss(
           {
