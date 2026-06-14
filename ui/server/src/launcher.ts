@@ -412,6 +412,7 @@ async function launchChainStep(steps: ChainStep[], i: number, ticker: string, us
   const out = await launch({ kind: s.kind, ticker, module: s.module, agent: s.agent, user, userVia })
   const run = getRun(out.runId)
   if (run) {
+    run.chained = true // cancelling this step must halt the whole chain (see cancel())
     run.onFinish = (status) => {
       if (!chainAlive()) {
         // eslint-disable-next-line no-console
@@ -659,6 +660,11 @@ async function spawnEngine(run: RunState): Promise<void> {
       stderr: 'pipe',
       buffer: false,
       reject: false,
+      // own process group (setsid) so cancel() can kill the WHOLE tree — claude + every tool/subagent
+      // process it spawns — with one group signal. Without this, kill() hits only the top pid and the
+      // descendants orphan and keep running (the "stop doesn't work" bug). We never unref it: the engine
+      // tracks the child for streaming + finalize, and on cancel we group-kill it explicitly.
+      detached: true,
     })
   } catch (e: any) {
     emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason: 'spawn_failed', message: String(e?.message || e), ts: Date.now() })
@@ -704,10 +710,30 @@ async function spawnEngine(run: RunState): Promise<void> {
   child.then(onClose).catch(onClose)
 }
 
+// Kill the run's WHOLE process tree promptly. The detached spawn put claude in its own process group, so
+// a negative-pid signal reaches claude AND every tool/subagent process it spawned — fixing the bug where
+// kill() hit only the top pid and the descendants kept running. SIGTERM first (lets claude flush / abort a
+// commit cleanly), then SIGKILL the group ~2s later if anything survives. Falls back to a single-pid kill
+// if the group signal can't be sent. endedAt-gated so it stands down once the run has finalized.
+function killProcessTree(run: RunState): void {
+  const child = run.child
+  if (!child) return
+  const pid = child.pid
+  const sigGroup = (sig: NodeJS.Signals) => {
+    if (pid) { try { process.kill(-pid, sig); return } catch { /* not a group leader / already gone */ } }
+    try { child.kill(sig) } catch { /* already dead */ }
+  }
+  sigGroup('SIGTERM')
+  setTimeout(() => { if (run.endedAt === undefined) sigGroup('SIGKILL') }, 2000)
+}
+
 export async function cancel(runId: string): Promise<boolean> {
   const run = getRun(runId)
   if (!run || run.endedAt !== undefined) return false // gone, or already finalized
   run.cancelRequested = true // honored by spawnEngine if the child isn't up yet (the gate-proceed buildArgs window)
+  // A chained full-run step: halt the chain HERE (any cancel path) so the next module can never launch —
+  // not only on the stop-everything kill switch. Without this, cancelling one step could still advance.
+  if (run.chained) haltAllChains()
 
   // No child yet: the run is pre-spawn — parked at the readiness gate, or in the proceedSpawn->spawnEngine
   // buildArgs window. There is no process to signal and no onClose will fire, so handle it here.
@@ -724,18 +750,11 @@ export async function cancel(runId: string): Promise<boolean> {
     return true
   }
 
-  // Running child: the PR12 model — mark cancelled + SIGTERM, and let finalizeRunOnClose finalize on close
-  // (it is endedAt-gated and takes the status==='cancelled' branch, releasing the subject). The SIGKILL
-  // fallback also gates on endedAt so it stands down once the run is finalized.
+  // Running child: mark cancelled + kill the whole process tree (claude + descendants) promptly, and let
+  // finalizeRunOnClose finalize on close (endedAt-gated, takes the status==='cancelled' branch, releases
+  // the subject). killProcessTree's SIGKILL fallback also gates on endedAt so it stands down once final.
   run.status = 'cancelled'
-  try {
-    run.child.kill('SIGTERM')
-    setTimeout(() => {
-      try {
-        if (run.child && run.endedAt === undefined) run.child.kill('SIGKILL')
-      } catch {}
-    }, 5000)
-  } catch {}
+  killProcessTree(run)
   return true
 }
 

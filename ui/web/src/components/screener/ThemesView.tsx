@@ -132,6 +132,7 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
   const [absorbing, setAbsorbing] = useState<Set<string>>(new Set()) // theme_ids briefly lit as a dot lands
   const [born, setBorn] = useState<Set<string>>(new Set()) // theme_ids that just appeared on the map
   const [rate, setRate] = useState(0) // live items/sec being released — the real backlog drain rate
+  const [laneFired, setLaneFired] = useState<Record<string, number>>({}) // per-lane dots fired THIS scan — drives the lane fire-pulse + the live "filled" count
   const nodeById = useMemo(() => new Map(layout.nodes.map((n) => [n.id, n])), [layout])
   const reduceMotion = typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
 
@@ -193,6 +194,7 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
       for (let i = 0; i < n; i++) queue.current.push({ kind: 'in', sourceTier: 'news' })
     }
     if (queue.current.length > MAX_QUEUE) queue.current = queue.current.slice(-MAX_QUEUE)
+    setLaneFired({}) // fresh scan — restart each lane's "filled this scan" counter from zero
     // the rate IS the intensity: fetched ÷ scan cadence, dynamic + uncapped (200/scan ≈ 0.7/s, 1000 ≈ 3.3/s)
     rateRef.current = queue.current.length / Math.max(60, windowRef.current / 1000)
     setRate(rateRef.current)
@@ -212,6 +214,7 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
         if (!lane) return
         const d = hcurve(lane.x + 18, lane.y, L.core.x - L.core.r, L.core.y)
         setEmits((e) => [...e, { id: ++seq.current, d, cls: 'thememap__pulse--in', dur: 2.4 }].slice(-120))
+        setLaneFired((f) => ({ ...f, [lane.id]: (f[lane.id] || 0) + 1 })) // the lane FIRES — pulses + its count ticks up
       } else {
         const node = nodeByIdRef.current.get(p.themeId)
         if (!node) { setShown((s) => ({ ...s, [p.themeId]: Math.min((s[p.themeId] ?? 0) + 1, prevCounts.current.get(p.themeId) ?? Infinity) })); return }
@@ -279,9 +282,10 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
       {/* source-tier lanes — only the ones we actually collect, each labelled with its REAL share */}
       <div className="thememap__lanes">
         {layout.lanes.map((l) => (
-          <div key={l.id} className="thememap__lane" style={{ left: l.x, top: l.y - 12 }} title={`${(l as any).count?.toLocaleString?.() || 0} of the last ${newsItems.length} reads`}>
+          <div key={l.id} className={`thememap__lane${laneFired[l.id] ? ' is-firing' : ''}`} style={{ left: l.x, top: l.y - 12 }} title={`${(l as any).count?.toLocaleString?.() || 0} of the last ${newsItems.length} reads${laneFired[l.id] ? ` · ${laneFired[l.id]} this scan` : ''}`}>
+            {laneFired[l.id] ? <span key={laneFired[l.id]} className="thememap__lane-fire" aria-hidden /> : null}
             <span className="thememap__lane-label">{l.label}</span>
-            {(l as any).share > 0 && <span className="thememap__lane-share">{Math.max(1, Math.round((l as any).share * 100))}%</span>}
+            {(l as any).share > 0 && <span className="thememap__lane-share">{Math.max(1, Math.round((l as any).share * 100))}%{laneFired[l.id] ? ` · ${laneFired[l.id]}` : ''}</span>}
           </div>
         ))}
       </div>

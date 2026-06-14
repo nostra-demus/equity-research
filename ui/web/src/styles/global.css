@@ -310,6 +310,14 @@ a { color: inherit; }
 }
 .sidepanel__head { padding: 14px 16px; border-bottom: 1px solid var(--hairline); display: flex; align-items: center; justify-content: space-between; }
 .sidepanel__title { font-size: 12px; font-weight: 600; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-muted); }
+.sidepanel__close {
+  flex-shrink: 0; width: 26px; height: 26px; display: grid; place-items: center; border-radius: var(--r-pill);
+  border: 1px solid var(--hairline); background: var(--surface-2); color: var(--text-muted); cursor: pointer; font-size: 12px;
+  transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), transform 140ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .sidepanel__close:hover { color: var(--text); border-color: var(--hairline-strong); } }
+.sidepanel__close:active { transform: scale(0.92); }
+.sidepanel__close:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--accent); }
 .sidepanel__meta { font-size: 11px; color: var(--text-faint); font-family: var(--font-mono); }
 .sidepanel__body { flex: 1; overflow-y: auto; padding: 8px 10px; }
 .sidepanel__empty { color: var(--text-faint); font-size: 12px; padding: 24px 14px; text-align: center; line-height: 1.6; }
@@ -1427,12 +1435,17 @@ a { color: inherit; }
 /* live stream particles — events flow source → ranking → theme along the edges (offset-path = GPU) */
 .thememap__particles { position: absolute; inset: 0; pointer-events: none; }
 .thememap__pulse { position: absolute; top: 0; left: 0; width: 5px; height: 5px; border-radius: 50%; offset-rotate: 0deg; opacity: 0; will-change: offset-distance, opacity; animation-name: thememap-stream; animation-timing-function: linear; animation-iteration-count: 1; animation-fill-mode: forwards; }
-.thememap__pulse--in { background: var(--accent-bright); box-shadow: 0 0 6px var(--accent-glow); }
+.thememap__pulse--in { width: 6.5px; height: 6.5px; background: var(--accent-bright); box-shadow: 0 0 10px var(--accent-glow), 0 0 4px var(--accent-bright); }
 .thememap__pulse--out { width: 6px; height: 6px; background: var(--tier, var(--accent)); box-shadow: 0 0 8px color-mix(in srgb, var(--tier, var(--accent)) 55%, transparent); }
 .thememap__lanes { position: absolute; inset: 0; pointer-events: none; }
 .thememap__lane { position: absolute; transform: translateY(-50%); display: inline-flex; align-items: center; gap: 6px; }
-.thememap__lane-label { font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-faint); background: var(--surface-2); border: 1px solid var(--hairline); padding: 3px 8px; border-radius: var(--r-pill); white-space: nowrap; }
+.thememap__lane-label { font-size: 10px; letter-spacing: 0.04em; text-transform: uppercase; color: var(--text-faint); background: var(--surface-2); border: 1px solid var(--hairline); padding: 3px 8px; border-radius: var(--r-pill); white-space: nowrap; transition: color var(--dur) var(--ease), border-color var(--dur) var(--ease); }
 .thememap__lane-share { font-size: 9.5px; font-weight: 600; color: var(--accent-bright); font-variant-numeric: tabular-nums; }
+/* a lane FIRES when it emits a scanning dot — the label lights, and a ring pulses out (re-armed per dot),
+   so even a sparse source (e.g. Filings at a few %) is visibly active and you can watch it fill this scan */
+.thememap__lane.is-firing .thememap__lane-label { color: var(--accent-bright); border-color: var(--accent-deep); }
+.thememap__lane-fire { position: absolute; inset: -3px -5px; border-radius: var(--r-pill); border: 1.5px solid var(--accent); opacity: 0; pointer-events: none; animation: themelanefire 620ms var(--ease-out); }
+@keyframes themelanefire { 0% { opacity: 0.85; transform: scale(0.94); } 100% { opacity: 0; transform: scale(1.45); } }
 .thememap__core { position: absolute; border-radius: 50%; border: 1px solid var(--hairline-strong); background: radial-gradient(circle at 50% 40%, var(--accent-wash), var(--surface-2)); display: flex; align-items: center; justify-content: center; }
 .thememap__core span { font-size: 10px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); }
 .thememap__core::after { content: ''; position: absolute; inset: -3px; border-radius: 50%; border: 1px solid var(--accent-wash); animation: themebreathe 3s var(--ease) infinite; }
@@ -1563,6 +1576,6 @@ a { color: inherit; }
 @media (prefers-reduced-motion: reduce) {
   .themenode, .themenode.is-pulsing::before, .themenode__core, .thememap__edge, .thememap__edge.is-active, .thememap__lane-edge, .thememap__core::after, .thememap__core::before, .thememap__pulse, .themes__emptyorb, .themes__shimmer,
   .themenode.is-absorbing .themenode__core, .themenode.is-absorbing::after, .themenode.is-absorbing .themenode__count, .themenode.is-born, .thememap__rate-dot { animation: none !important; }
-  .thememap__particles, .thememap__rate { display: none; }
+  .thememap__particles, .thememap__rate, .thememap__lane-fire { display: none; }
   .themecard, .themenode, .themedd__back, .themedd__relchip { transition: none !important; }
 }

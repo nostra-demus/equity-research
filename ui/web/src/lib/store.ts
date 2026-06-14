@@ -86,6 +86,7 @@ interface State {
   chainTickers: Set<string> // tickers whose full run is a per-module CHAIN — defer the "complete" celebration to the master step
   selectToken: number
   runStream: StreamRow[]
+  dismissRunStream: () => void // clear the persisted last-run rows (closes the run-stream side panel)
   coreBloom: boolean
   decision: any | null
   runRoot: string | null
@@ -555,6 +556,8 @@ export const useStore = create<State>((set, get) => ({
   },
 
   cancelLaunch: () => set({ launchConfirm: null }),
+
+  dismissRunStream: () => set({ runStream: [] }),
 
   cancelRun: async (runId) => {
     try {
