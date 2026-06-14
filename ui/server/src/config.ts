@@ -1,3 +1,5 @@
+import fs from 'node:fs'
+import os from 'node:os'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 
@@ -29,8 +31,23 @@ export const HOST = '127.0.0.1'
 // admission rules (admission.ts) govern same-company safety; this caps total fan-out. Tunable.
 export const MAX_CONCURRENT_RUNS = Math.max(1, Number(process.env.ENGINE_MAX_CONCURRENT_RUNS || 3))
 
-// The Claude Code CLI used to launch the engine in headless mode.
-export const CLAUDE_BIN = process.env.CLAUDE_BIN || 'claude'
+// The Claude Code CLI used to launch the engine in headless mode. Resolved to an ABSOLUTE path so it
+// never depends on the launchd process's PATH (which has bitten us: the binary + plist PATH are fine,
+// yet the running engine couldn't resolve bare 'claude', 503-ing every screener/research launch). Order:
+// explicit CLAUDE_BIN env → known install locations → bare 'claude' (last-resort PATH lookup).
+function resolveClaudeBin(): string {
+  if (process.env.CLAUDE_BIN) return process.env.CLAUDE_BIN
+  const candidates = [
+    path.join(os.homedir(), '.local', 'bin', 'claude'), // native installer (the symlink — survives version bumps)
+    '/opt/homebrew/bin/claude', // homebrew / npm-global on Apple Silicon
+    '/usr/local/bin/claude', // npm-global on Intel
+  ]
+  for (const c of candidates) {
+    try { if (fs.existsSync(c)) return c } catch { /* keep looking */ }
+  }
+  return 'claude' // last resort — rely on PATH
+}
+export const CLAUDE_BIN = resolveClaudeBin()
 export const DEFAULT_MODEL = process.env.ENGINE_MODEL || 'sonnet'
 
 // OPT-IN (off by default): orchestrate a full run as a CHAIN of separate per-module runs (each its own
