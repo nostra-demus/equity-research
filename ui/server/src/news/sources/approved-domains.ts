@@ -233,6 +233,23 @@ const DOMAINS: Record<string, SourceMeta> = {
   'outlookbusiness.com': { source_name: 'Outlook Business', region: 'IN', input_nature: 'news_headline', gdelt: false },
   'outlookmoney.com': { source_name: 'Outlook Money', region: 'IN', input_nature: 'news_headline', gdelt: false },
   'theprint.in': { source_name: 'The Print', region: 'IN', input_nature: 'news_headline', gdelt: false },
+  // --- Genuinely-new high-edge expansion (Jun 2026): primary regulatory/recall feeds, new exchange
+  //     regions, central banks, crypto/datacenter/semi trade press, weather catastrophe. All carry
+  //     their own RSS/JSON (gdelt:false → keep the GDELT query lean). Verified live by verify-feeds.ts.
+  'cision.com': { source_name: 'Cision (Nordic regulatory wire)', region: 'OTHER', input_nature: 'company_press_release', gdelt: false },
+  'bok.or.kr': { source_name: 'Bank of Korea', region: 'KR', input_nature: 'macro_data_release', gdelt: false },
+  'rbnz.govt.nz': { source_name: 'Reserve Bank of New Zealand', region: 'OTHER', input_nature: 'macro_data_release', gdelt: false },
+  'trendforce.com': { source_name: 'TrendForce', region: 'OTHER', input_nature: 'news_headline', gdelt: false },
+  'consumerfinance.gov': { source_name: 'CFPB', region: 'US', input_nature: 'regulatory_filing', gdelt: false },
+  'drugs.com': { source_name: 'Drugs.com', region: 'US', input_nature: 'regulatory_filing', gdelt: false },
+  'nih.gov': { source_name: 'DailyMed (NIH/NLM)', region: 'US', input_nature: 'regulatory_filing', gdelt: false },
+  'noaa.gov': { source_name: 'NOAA / National Hurricane Center', region: 'US', input_nature: 'macro_data_release', gdelt: false },
+  'weather.gov': { source_name: 'US National Weather Service', region: 'US', input_nature: 'macro_data_release', gdelt: false },
+  'atlantafed.org': { source_name: 'Atlanta Fed (GDPNow)', region: 'US', input_nature: 'macro_data_release', gdelt: false },
+  'blockworks.com': { source_name: 'Blockworks', region: 'US', input_nature: 'news_headline', gdelt: false },
+  'decrypt.co': { source_name: 'Decrypt', region: 'GLOBAL', input_nature: 'news_headline', gdelt: false },
+  'datacenterdynamics.com': { source_name: 'DataCenterDynamics', region: 'GLOBAL', input_nature: 'news_headline', gdelt: false },
+  'usgs.gov': { source_name: 'USGS Earthquakes', region: 'GLOBAL', input_nature: 'macro_data_release', gdelt: false },
 }
 
 /** Lowercase, strip a leading www., and keep only the host (no scheme/path) — GDELT gives a bare host already. */

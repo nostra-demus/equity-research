@@ -230,6 +230,22 @@ sources:
       - "This is Money (Daily Mail)"
       - "Yonhap News Agency"
       - "nippon.com"
+      # Genuinely-new high-edge expansion (Jun 2026): primary recall/regulatory feeds, new exchange
+      #   regions, central banks, crypto/datacenter/semi trade press, weather catastrophe.
+      - "Cision (Nordic regulatory wire)"
+      - "Bank of Korea"
+      - "Reserve Bank of New Zealand"
+      - "TrendForce"
+      - "CFPB"
+      - "Drugs.com"
+      - "DailyMed (NIH/NLM)"
+      - "NOAA / National Hurricane Center"
+      - "US National Weather Service"
+      - "Atlanta Fed (GDPNow)"
+      - "Blockworks"
+      - "Decrypt"
+      - "DataCenterDynamics"
+      - "USGS Earthquakes"
   thesis_structure:
     reject_if_unapproved: false
     note: "Prefer the signal_gate list plus primary data (filings, exchange data, official statistics). An off-list source must be dated and labelled, and never outranks an on-list source on the same fact."
