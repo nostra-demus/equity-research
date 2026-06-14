@@ -258,7 +258,7 @@ function buildPrompt(kind: RunKind, ticker: string, module?: string, agent?: str
   // screener swarm — namespace from the manifest (never hardcode the literal beyond the kind map)
   if (SCREENER_KINDS.has(kind)) {
     const ns = swarmById(swarmIdForKind(kind))?.commandNs || 'screener'
-    if (kind === 'signal') return `/${ns}:signal ${ticker}` // ticker carries the SIG id (the subject)
+    if (kind === 'signal') return module ? `/${ns}:signal ${ticker} ${module}` : `/${ns}:signal ${ticker}` // ticker = SIG id; optional module = target to run THROUGH then stop
     if (kind === 'sweep') return `/${ns}:sweep`
     if (kind === 'handoff') return `/${ns}:handoff ${extra?.thesisId} ${ticker}` // ticker = the handoff target
     return `/${ns}:agent ${module} ${agent} ${ticker}` // screener-agent: ticker carries the SIG id
@@ -268,7 +268,14 @@ function buildPrompt(kind: RunKind, ticker: string, module?: string, agent?: str
 
 function plannedModules(kind: RunKind, module?: string): string[] {
   const g = buildSwarmGraph(swarmIdForKind(kind))
-  if (kind === 'full' || kind === 'signal') return g.modules.map((m) => m.name)
+  if (kind === 'full') return g.modules.map((m) => m.name)
+  if (kind === 'signal') {
+    // a TARGETED signal plans only modules up to & including the target, so a partial run reads as a
+    // clean "stopped here" (continuable) rather than a half-finished full run. Graph order = topo order.
+    const all = g.modules.map((m) => m.name)
+    const i = module ? all.indexOf(module) : -1
+    return i >= 0 ? all.slice(0, i + 1) : all
+  }
   return module ? [module] : []
 }
 
