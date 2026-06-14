@@ -68,6 +68,67 @@ function parseGeminiPool(v: string | undefined, fallbackCap: number): { model: s
     })
     .filter((e) => e.model)
 }
+
+// An OpenAI-compatible free overflow provider (OpenRouter, NVIDIA NIM, …). The triage loop tries these in
+// order after Groq is paced/capped, each with its own daily budget file + rate limiter. Adding another such
+// key is a single entry in buildOverflowProviders() below — no engine-code change anywhere else (§26).
+export interface OverflowProvider {
+  id: string // stable key — names the budget file + the cockpit chip
+  label: string // human label for status/log
+  color: string // CSS var for the cockpit chip (defined in tokens.css)
+  apiKey: string
+  baseUrl: string // OpenAI-compatible base (…/v1)
+  model: string // primary model
+  models?: string[] // optional fallback chain (OpenRouter only; OpenAI standard ignores it)
+  dailyReqCap: number
+  rpm: number
+  maxTokens: number
+  extraBody?: Record<string, unknown> // provider-specific body fields (e.g. OpenRouter reasoning effort)
+  headers?: Record<string, string> // provider-specific headers (e.g. OpenRouter ranking)
+  budgetFile: string
+  dayTz?: string // daily reset zone (undefined = UTC)
+}
+
+// Build the overflow chain from whatever keys are present. ONLY OpenAI-compatible providers belong here
+// (Gemini is separate — it uses generateContent, not chat/completions). Order = priority (best first).
+function buildOverflowProviders(): OverflowProvider[] {
+  const out: OverflowProvider[] = []
+  const orKey = process.env.OPENROUTER_API_KEY || ''
+  if (orKey && process.env.NEWS_OPENROUTER_ENABLED !== '0') {
+    // OpenRouter: strongest free models (gpt-oss-120b…). Free = ~20 RPM, ~50/day pooled (no credits) →
+    // ~1000/day once $10 is loaded (free models still cost $0). Fallback chain (max 3) routes around 429s.
+    const models = (process.env.NEWS_OPENROUTER_MODELS || 'openai/gpt-oss-120b:free,openai/gpt-oss-20b:free,meta-llama/llama-3.3-70b-instruct:free').split(',').map((s) => s.trim()).filter(Boolean).slice(0, 3)
+    out.push({
+      id: 'openrouter', label: 'OpenRouter', color: '--provider-or',
+      apiKey: orKey, baseUrl: process.env.OPENROUTER_BASE_URL || 'https://openrouter.ai/api/v1',
+      model: models[0] || 'openai/gpt-oss-120b:free', models,
+      dailyReqCap: capNum(process.env.NEWS_OPENROUTER_DAILY_REQ_CAP, 45),
+      rpm: capNum(process.env.NEWS_OPENROUTER_RPM, 18),
+      maxTokens: capNum(process.env.NEWS_OPENROUTER_MAX_TOKENS, 3500),
+      extraBody: { reasoning: { effort: 'low' } }, // gpt-oss is a reasoning model — keep thinking minimal
+      headers: { 'HTTP-Referer': 'https://app.nostra-demus.com', 'X-Title': 'Nostradamus Screener' },
+      budgetFile: 'openrouter-budget.json',
+    })
+  }
+  const nvKey = process.env.NVIDIA_API_KEY || ''
+  if (nvKey && process.env.NEWS_NVIDIA_ENABLED !== '0') {
+    // NVIDIA NIM hosted API: free, generous, OpenAI-compatible. Use a fast NON-reasoning model
+    // (llama-3.3-70b); the nemotron/gpt-oss reasoning models are slow + flaky there. No fallback array.
+    out.push({
+      id: 'nvidia', label: 'NVIDIA NIM', color: '--provider-nv',
+      apiKey: nvKey, baseUrl: process.env.NVIDIA_BASE_URL || 'https://integrate.api.nvidia.com/v1',
+      model: process.env.NEWS_NVIDIA_MODEL || 'meta/llama-3.3-70b-instruct',
+      // NVIDIA free is a FINITE credit pool (~1,000, →5,000 with a business email) that EXPIRES in ~30 days,
+      // not a daily-resetting tier — so it's a temporary high-quality boost. Ration ~150/day so a 5,000 pool
+      // lasts the ~30 days; if it's the 1,000 pool it burns out sooner and the loop's 4xx-exhaust skips it.
+      dailyReqCap: capNum(process.env.NEWS_NVIDIA_DAILY_REQ_CAP, 150),
+      rpm: capNum(process.env.NEWS_NVIDIA_RPM, 36),
+      maxTokens: capNum(process.env.NEWS_NVIDIA_MAX_TOKENS, 2000),
+      budgetFile: 'nvidia-budget.json',
+    })
+  }
+  return out
+}
 export const LAUNCH_GUARDS: Record<LaunchKind, { maxTurns: number; budgetUsd: number }> = {
   full: { maxTurns: capNum(process.env.ENGINE_FULL_MAX_TURNS, 2500), budgetUsd: capNum(process.env.ENGINE_FULL_BUDGET_USD, 300) },
   module: { maxTurns: capNum(process.env.ENGINE_MODULE_MAX_TURNS, 350), budgetUsd: capNum(process.env.ENGINE_MODULE_BUDGET_USD, 56) },
@@ -176,23 +237,11 @@ export const NEWS = {
   geminiTpm: capNum(process.env.NEWS_GEMINI_TPM, 240_000),
   geminiMaxTokens: capNum(process.env.NEWS_GEMINI_MAX_TOKENS, 2000),
   geminiDayTz: process.env.NEWS_GEMINI_DAY_TZ || 'America/Los_Angeles', // RPD resets midnight Pacific
-  // THIRD free brain — OpenRouter (OpenAI-compatible gateway). Its free models are far STRONGER than
-  // Groq's 8B (gpt-oss-120b, llama-3.3-70b, qwen3-80b), so these are the highest-QUALITY overflow slots.
-  // Free tier = ~20 req/min and a POOLED daily cap (~50/day with no credits; ~1000/day once $10 is loaded
-  // — free models still cost $0, the balance just unlocks the higher tier). One request carries a fallback
-  // CHAIN (openRouterModels) so it auto-routes to whichever free model is up (they 429 individually).
-  // FREE ONLY by construction (only ':free' models; caps under the free limits). Off when no key.
-  openRouterApiKey: process.env.OPENROUTER_API_KEY || '',
-  openRouterEnabled: process.env.NEWS_OPENROUTER_ENABLED === '0' ? false : true,
-  openRouterBaseUrl: process.env.OPENROUTER_BASE_URL || 'https://openrouter.ai/api/v1',
-  // OpenRouter caps the fallback chain at 3 models; ordered best-first (gpt-oss-120b is the highest-quality
-  // free model that reliably emits JSON; 20b + llama-3.3-70b are the fallbacks when 120b's provider 429s).
-  openRouterModels: (process.env.NEWS_OPENROUTER_MODELS || 'openai/gpt-oss-120b:free,openai/gpt-oss-20b:free,meta-llama/llama-3.3-70b-instruct:free').split(',').map((s) => s.trim()).filter(Boolean).slice(0, 3),
-  openRouterDailyReqCap: capNum(process.env.NEWS_OPENROUTER_DAILY_REQ_CAP, 45), // under the ~50/day free pool; raise to ~950 after loading $10
-  openRouterRpm: capNum(process.env.NEWS_OPENROUTER_RPM, 18), // under the 20/min free
-  // gpt-oss is a reasoning model; give the output room (reasoning + a 12-item JSON array) — paired with
-  // reasoning effort 'low' in runCycle so thinking tokens stay minimal.
-  openRouterMaxTokens: capNum(process.env.NEWS_OPENROUTER_MAX_TOKENS, 3500),
+  // OpenAI-compatible OVERFLOW providers (OpenRouter, NVIDIA NIM, …) — a registry, tried in order after
+  // Groq is paced/capped, each with its own free daily budget + limiter. Their free models are far stronger
+  // than Groq's 8B. Adding another OpenAI-compatible free key = one entry in buildOverflowProviders() — it
+  // then auto-appears in routing, the drain gate, status, and as a cockpit chip (§26, zero other edits).
+  overflowProviders: buildOverflowProviders(),
   triageBatch: capNum(process.env.NEWS_TRIAGE_BATCH, 12),
   // GDELT look-back per cycle (minutes; > pollInterval gives overlap so nothing slips the gap).
   gdeltLookbackMin: capNum(process.env.NEWS_GDELT_LOOKBACK_MIN, 40),

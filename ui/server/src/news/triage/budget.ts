@@ -209,9 +209,11 @@ export function getSharedGeminiLimiter(rpm: number, tpm: number): RateLimiter {
   return sharedGemini
 }
 
-// Process-wide pacer for the OpenRouter overflow provider (its own per-minute window, free tier ~20 RPM).
-let sharedOpenRouter: RateLimiter | null = null
-export function getSharedOpenRouterLimiter(rpm: number, tpm: number): RateLimiter {
-  if (!sharedOpenRouter) sharedOpenRouter = new RateLimiter(rpm, tpm)
-  return sharedOpenRouter
+// Process-wide pacer per named OVERFLOW provider (OpenRouter, NVIDIA, …) — one RateLimiter per id, so each
+// provider's per-minute window is isolated and they run in parallel. Created once per id (rpm/tpm seed it).
+const namedLimiters = new Map<string, RateLimiter>()
+export function getNamedLimiter(id: string, rpm: number, tpm: number): RateLimiter {
+  let lim = namedLimiters.get(id)
+  if (!lim) { lim = new RateLimiter(rpm, tpm); namedLimiters.set(id, lim) }
+  return lim
 }

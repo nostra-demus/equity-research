@@ -167,10 +167,9 @@ export interface NewsStatus {
   lastNote: string | null
   today: { read: number; kept: number; dropped: number; cycles: number }
   budget: { requests: number; tokens: number; reqCap: number; tokenCap: number; tokenTarget?: number; paceCeiling?: number }
-  // the Gemini free-tier overflow pool (present only when a Gemini key is wired) — second triage provider
-  gemini?: { enabled: boolean; model: string; requests: number; tokens: number; reqCap: number; tokenCap: number }
-  // the OpenRouter free-tier overflow pool (present only when an OpenRouter key is wired) — third provider
-  openrouter?: { enabled: boolean; model: string; requests: number; tokens: number; reqCap: number }
+  // every free OVERFLOW pool (Gemini + each OpenAI-compatible provider) — one entry per provider; the
+  // cockpit renders a chip per entry, so a newly-wired key appears automatically. color = a CSS var name.
+  overflow?: { id: string; label: string; color: string; model: string; requests: number; reqCap: number; tokens: number }[]
 }
 
 export interface ActiveRunLite {

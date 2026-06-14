@@ -70,31 +70,29 @@ function geminiHasHeadroom(): boolean {
   return !!u && u.used < u.cap
 }
 
-/** Today's OpenRouter usage (single pooled budget, resets midnight UTC). */
-function openRouterUsage(): { used: number; cap: number; tokens: number } | null {
-  if (!(NEWS.openRouterEnabled && NEWS.openRouterApiKey && NEWS.openRouterModels.length)) return null
-  const today = new Date().toISOString().slice(0, 10)
+/** Today's usage for one OpenAI-compatible overflow provider (its own budget file, reset zone p.dayTz). */
+function overflowUsage(p: (typeof NEWS.overflowProviders)[number]): { id: string; label: string; color: string; used: number; cap: number; tokens: number } {
+  const day = p.dayTz ? new Intl.DateTimeFormat('en-CA', { timeZone: p.dayTz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(Date.now()) : new Date().toISOString().slice(0, 10)
   let used = 0
   let tokens = 0
   try {
-    const o = JSON.parse(fs.readFileSync(path.join(STATE_DIR, 'openrouter-budget.json'), 'utf8'))
-    if (o?.date === today) { used = Number(o.requests) || 0; tokens = Number(o.tokens) || 0 }
+    const o = JSON.parse(fs.readFileSync(path.join(STATE_DIR, p.budgetFile), 'utf8'))
+    if (o?.date === day) { used = Number(o.requests) || 0; tokens = Number(o.tokens) || 0 }
   } catch {
     // fresh / unreadable → 0 used
   }
-  return { used, cap: NEWS.openRouterDailyReqCap, tokens }
+  return { id: p.id, label: p.label, color: p.color, used, cap: p.dailyReqCap, tokens }
 }
 
-/** Free room left on the OpenRouter daily pool today? */
-function openRouterHasHeadroom(): boolean {
-  const u = openRouterUsage()
-  return !!u && u.used < u.cap
+/** Free room left on ANY OpenAI-compatible overflow provider today? */
+function overflowHasHeadroom(): boolean {
+  return NEWS.overflowProviders.some((p) => { const u = overflowUsage(p); return u.used < u.cap })
 }
 
 /**
- * Is there budget to drain right now? True if Groq has paced headroom OR EITHER free overflow pool
- * (Gemini / OpenRouter) has room. Gating Groq on the pacer spreads an overload day evenly; OR-ing the
- * overflow pools keeps the drain clearing the backlog on their separate free quotas once Groq is paced.
+ * Is there budget to drain right now? True if Groq has paced headroom OR any free overflow pool (Gemini or
+ * an OpenAI-compatible provider) has room. Gating Groq on the pacer spreads an overload day evenly; OR-ing
+ * the overflow pools keeps the drain clearing the backlog on their separate free quotas once Groq is paced.
  */
 function budgetHasHeadroom(): boolean {
   const today = new Date().toISOString().slice(0, 10)
@@ -105,7 +103,7 @@ function budgetHasHeadroom(): boolean {
   } catch {
     return true // unreadable budget → don't stall the drain
   }
-  return groqOk || geminiHasHeadroom() || openRouterHasHeadroom()
+  return groqOk || geminiHasHeadroom() || overflowHasHeadroom()
 }
 
 export interface NewsStatus {
@@ -121,10 +119,9 @@ export interface NewsStatus {
   // tokenTarget = the pacer's day goal; paceCeiling = tokens allowed spent BY NOW under the clock
   // schedule (tokens ≈ paceCeiling ⇒ the pacer is metering; tokens ≪ paceCeiling ⇒ free-flowing).
   budget: { requests: number; tokens: number; reqCap: number; tokenCap: number; tokenTarget: number; paceCeiling: number }
-  // the Gemini free-tier overflow pool (absent when no key) — second provider that lifts daily throughput
-  gemini?: { enabled: boolean; model: string; requests: number; tokens: number; reqCap: number; tokenCap: number }
-  // the OpenRouter free-tier overflow pool (absent when no key) — third provider, strongest free models
-  openrouter?: { enabled: boolean; model: string; requests: number; tokens: number; reqCap: number }
+  // every free OVERFLOW pool (Gemini + each OpenAI-compatible provider), one entry per provider. The cockpit
+  // renders a chip per entry, so a newly-added provider appears automatically. Empty when none are keyed.
+  overflow: { id: string; label: string; color: string; model: string; requests: number; reqCap: number; tokens: number }[]
 }
 
 /** Status for the cockpit. Daily counts come from today's firehose ON DISK (restart-proof). */
@@ -157,17 +154,16 @@ export function getNewsStatus(): NewsStatus {
   } catch {
     // best-effort
   }
+  const overflow: NewsStatus['overflow'] = []
   const pool = geminiPoolUsage()
-  let gemini: NewsStatus['gemini']
   if (pool) {
     const n = NEWS.geminiModels.length
-    gemini = { enabled: true, model: `${n} model${n === 1 ? '' : 's'} (${NEWS.geminiModel}…)`, requests: pool.used, tokens: pool.tokens, reqCap: pool.cap, tokenCap: NEWS.geminiDailyTokenCap * n }
+    overflow.push({ id: 'gemini', label: 'Gemini', color: '--live', model: `${n} model${n === 1 ? '' : 's'} (${NEWS.geminiModel}…)`, requests: pool.used, reqCap: pool.cap, tokens: pool.tokens })
   }
-  const or = openRouterUsage()
-  let openrouter: NewsStatus['openrouter']
-  if (or) {
-    const lead = (NEWS.openRouterModels[0] || '').split('/').pop() || 'free'
-    openrouter = { enabled: true, model: `${NEWS.openRouterModels.length} model${NEWS.openRouterModels.length === 1 ? '' : 's'} (${lead}…)`, requests: or.used, tokens: or.tokens, reqCap: or.cap }
+  for (const p of NEWS.overflowProviders) {
+    const u = overflowUsage(p)
+    const lead = (p.model || '').split('/').pop() || p.id
+    overflow.push({ id: p.id, label: p.label, color: p.color, model: lead, requests: u.used, reqCap: u.cap, tokens: u.tokens })
   }
   return {
     enabled: NEWS.enabled,
@@ -180,8 +176,7 @@ export function getNewsStatus(): NewsStatus {
     lastNote,
     today,
     budget,
-    ...(gemini ? { gemini } : {}),
-    ...(openrouter ? { openrouter } : {}),
+    overflow,
   }
 }
 
@@ -232,7 +227,9 @@ export function startNewsIngester(): void {
   timer.unref?.()
   drainTimer = setInterval(() => void drain(), DRAIN_INTERVAL_MS)
   drainTimer.unref?.()
-  log(`ingester on — fetch every ${NEWS.pollIntervalMin} min, drain every ${Math.round(DRAIN_INTERVAL_MS / 1000)}s · model ${NEWS.groqModel}${NEWS.geminiEnabled && NEWS.geminiApiKey && NEWS.geminiModels.length ? ` (+ ${NEWS.geminiModels.length}-model gemini overflow)` : ''}${NEWS.openRouterEnabled && NEWS.openRouterApiKey && NEWS.openRouterModels.length ? ` (+ openrouter overflow)` : ''}${NEWS.rssEnabled ? ' · gdelt+rss' : ' · gdelt only'}`)
+  const gemOn = NEWS.geminiEnabled && NEWS.geminiApiKey && NEWS.geminiModels.length
+  const overflowLabels = [...(gemOn ? [`gemini×${NEWS.geminiModels.length}`] : []), ...NEWS.overflowProviders.map((p) => p.id)]
+  log(`ingester on — fetch every ${NEWS.pollIntervalMin} min, drain every ${Math.round(DRAIN_INTERVAL_MS / 1000)}s · model ${NEWS.groqModel}${overflowLabels.length ? ` (+ overflow: ${overflowLabels.join(', ')})` : ''}${NEWS.rssEnabled ? ' · gdelt+rss' : ' · gdelt only'}`)
 }
 
 export function stopNewsIngester(): void {

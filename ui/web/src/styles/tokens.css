@@ -44,6 +44,7 @@
   /* the one green — engine "Live" only */
   --live: #43b581;
   --provider-or: #8b7cf0; /* OpenRouter overflow accent (violet) — distinct from Groq teal + Gemini green */
+  --provider-nv: #76b900; /* NVIDIA NIM overflow accent (NVIDIA green) */
   --live-wash: rgba(67, 181, 129, 0.14);
 
   /* chrome — values the dark theme used to hardcode in global.css, now tokenized so they flip */
@@ -147,6 +148,7 @@
   --bad-wash: rgba(181, 52, 43, 0.11);
   --live: #0c7048;
   --provider-or: #5b46c9; /* OpenRouter overflow accent (violet, darkened for light-mode contrast) */
+  --provider-nv: #4f7d00; /* NVIDIA NIM overflow accent (NVIDIA green, darkened for light-mode contrast) */
   --live-wash: rgba(12, 112, 72, 0.16);
 
   --scrollbar-hover: #b8b4ab;
