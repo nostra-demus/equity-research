@@ -1,0 +1,591 @@
+{
+  "meta": {
+    "thesis_id": "THS-SIG-20260615-71775d0a-v1",
+    "signal_id": "SIG-20260615-71775d0a",
+    "created_at": "2026-06-15T18:30:00Z",
+    "locked": true,
+    "version": 1,
+    "version_history": [],
+    "status": "provisional",
+    "status_reason": "Edge score 71 in the 60–80 band. Variant is evidenced with a 27% numeric departure and confirmed coverage gap, but HONA has no standalone trading history yet — the mechanism is pre-confirmation.",
+    "next_action": "Surface candidates",
+    "analyst_id": "nvaz51000@gmail.com",
+    "phase1_completed_at": "2026-06-15T19:00:00Z",
+    "next_module": "candidate-surfacing",
+    "raw_input_source": {
+      "input_nature": "company_press_release",
+      "input_datetime": "2026-06-15T17:25:12.070Z",
+      "source_name": "PR Newswire",
+      "source_url": "https://www.prnewswire.com/news-releases/honeywell-board-of-directors-approves-spin-off-of-honeywell-aerospace-302799898.html",
+      "source_grade": "A",
+      "human_prompt_note": "",
+      "approved_source_check": true
+    }
+  },
+  "headline": "HONEYWELL BOARD OF DIRECTORS APPROVES SPIN-OFF OF HONEYWELL AEROSPACE",
+  "run_root": "screener/runs/SIG-20260615-71775d0a",
+  "M0_1": {
+    "event_statement": "On June 15, 2026, Honeywell International's board of directors formally approved the spin-off of Honeywell Aerospace from the parent company. Holders of Honeywell common stock as of June 15, 2026 will receive one share of Honeywell Aerospace for every two shares held, with distribution scheduled for June 29, 2026 at 12:01 a.m. New York City time. The remaining company will be renamed Honeywell Technologies and will continue trading under the HON ticker; the spun-off entity will trade under HONA. A 1-for-2 reverse stock split of Honeywell Technologies common stock is scheduled to occur immediately after the distribution.",
+    "sentence_count": 4,
+    "primary_source": "PR Newswire (Honeywell International board-resolution press release)",
+    "source_url": "https://www.prnewswire.com/news-releases/honeywell-board-of-directors-approves-spin-off-of-honeywell-aerospace-302799898.html",
+    "supporting_source_urls": [],
+    "source_grade": "A",
+    "source_grade_rationale": "Company-issued board resolution distributed over a Grade-A wire; originates directly from Honeywell International, the primary issuer. PR Newswire is on the approved-source list.",
+    "causal_language_check": true,
+    "causal_language_review": "Checked: 'formally approved' (factual verb, no causal work), 'will receive' (factual distribution mechanic), 'scheduled for' (factual date reference), 'will be renamed' (factual corporate action outcome), 'is scheduled to occur' (factual timing). No instances of: because, due to, driven by, as a result, leading to, signals, suggests, implies, panic, crisis, soaring, plunging, aggressively, inevitably.",
+    "60_second_source_check": true,
+    "60_second_check_note": "Fetched https://www.prnewswire.com/news-releases/honeywell-board-of-directors-approves-spin-off-of-honeywell-aerospace-302799898.html at 2026-06-15T18:10:00Z. Confirmed all headline facts literally in the article: board approval verbatim; 1-for-2 distribution ratio; June 15, 2026 record date; June 29, 2026 distribution date at 12:01 a.m. ET; Honeywell Technologies (HON) rename; HONA ticker; 1-for-2 reverse stock split. Source is on the approved list.",
+    "filled_by": "agent",
+    "agent_draft_reviewed_by": "",
+    "review_completed_at": ""
+  },
+  "M0_2": {
+    "world_changes": [
+      {
+        "id": "WC-001",
+        "change_description": "Honeywell Aerospace Form 10 registration declared effective by the SEC, making the entity a registered public company with disclosed financials",
+        "quantitative_magnitude": "$17.4B net sales and $4.3B pro forma adjusted EBIT disclosed as FY2025 figures for the new stand-alone entity",
+        "baseline_reference": "Honeywell Aerospace was a private division of Honeywell International with no separate SEC-registered status or public financials before the Form 10",
+        "date_confirmed": "2026-06-11",
+        "source": "PR Newswire / Honeywell IR press release, June 2026; SEC EDGAR Form 10 effectiveness confirmed June 11, 2026 (Web, unverified)",
+        "source_url": "https://www.prnewswire.com/news-releases/honeywell-board-of-directors-approves-spin-off-of-honeywell-aerospace-302799898.html",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      },
+      {
+        "id": "WC-002",
+        "change_description": "Honeywell Aerospace shares began when-issued trading on Nasdaq under ticker HONAV, creating a new listed instrument; simultaneously HON began trading ex-distribution under ticker HONIV",
+        "quantitative_magnitude": "New security: HONAV commenced trading with a separate price on or about June 15, 2026",
+        "baseline_reference": "No HONAV security existed; HON traded as one combined entity",
+        "date_confirmed": "2026-06-15",
+        "source": "PR Newswire, Honeywell Board Approves Spin-Off press release, June 15, 2026 (Grade A on-list source); Honeywell IR investor page, June 15, 2026 (Web, unverified)",
+        "source_url": "https://www.prnewswire.com/news-releases/honeywell-board-of-directors-approves-spin-off-of-honeywell-aerospace-302799898.html",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      },
+      {
+        "id": "WC-003",
+        "change_description": "HON stock price fell on June 15, 2026, as the ex-distribution price adjusted for the value of the HONA share being distributed",
+        "quantitative_magnitude": "$205.88 intraday, down ~4.6% on the session; intraday range $205.52-$216.81",
+        "baseline_reference": "HON prior session close approximately $215.72 (implied by the 4.6% decline)",
+        "date_confirmed": "2026-06-15",
+        "source": "EBC Financial Group article, June 2026 (Web, unverified — market price data, indicative)",
+        "source_url": "https://www.ebc.com/forex/honeywell-stock-aerospace-spin-off-breakup-bargain",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      },
+      {
+        "id": "WC-004",
+        "change_description": "Jillian Evanko resigned from the Honeywell International board of directors with immediate effect, reducing HON's board size",
+        "quantitative_magnitude": "HON board shrank by 1 director from 13 to 12 members, effective June 13, 2026",
+        "baseline_reference": "HON board had 13 directors before June 13, 2026",
+        "date_confirmed": "2026-06-13",
+        "source": "Search-confirmed SEC 8-K filing, Honeywell International Inc., Form 8-K FY2026, filed June 2026 (SEC EDGAR, unverified via direct access)",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/0000773840/000077384026000080/hon-20260615.htm",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      }
+    ],
+    "gate_result": "pass",
+    "gate_rationale": "Four already-occurred, quantified changes are confirmed — SEC registration with disclosed $17.4B / $4.3B financials, new listed when-issued instrument, confirmed 4.6% HON price move on the ex-date, and board shrinkage from 13 to 12 — all with dates and baselines.",
+    "watchlist_deferred_items": [
+      "HON shares outstanding reduced from ~634M to ~317M via 1-for-2 reverse split — scheduled June 29, 2026, not yet occurred.",
+      "Authorized HON shares reduced from 2 billion to 1 billion — same June 29 effective date, not yet occurred.",
+      "Four Honeywell directors (Craig Arnold, William Ayer, D. Scott Davis, Deborah Flint) leave HON board and join HONA board — resignations conditional on and effective immediately before spin-off completion June 29.",
+      "Distribution of one HONA share per two HON shares — scheduled June 29; record date has passed but distribution has not occurred.",
+      "Honeywell Technologies (HON) begins trading as stand-alone automation and energy company — June 29 event.",
+      "HONA begins regular-way trading on Nasdaq — regular-way trading begins June 29; HONAV when-issued is already trading.",
+      "Honeywell Aerospace becomes legally independent and operationally separated — conditions must be met at close June 29."
+    ],
+    "agent_data_sources_checked": [
+      "PR Newswire — Honeywell Board Approves Spin-Off press release (June 15, 2026)",
+      "PR Newswire — Honeywell Sets Record Date press release",
+      "Honeywell Investor Relations — official press release page (investor.honeywell.com)",
+      "SEC EDGAR Form 10-12B/A (Honeywell Aerospace Inc.)",
+      "SEC EDGAR Form 8-K (Honeywell International Inc., FY2026)",
+      "EBC Financial Group article (Web, unverified — HON intraday price)",
+      "StockTitan (Web, unverified — HON market cap and float)",
+      "Yahoo Finance / search queries for HONAV when-issued price (not found)"
+    ]
+  },
+  "M0_3": {
+    "direct_beneficiaries": [
+      {
+        "id": "DIR-001",
+        "industry_category": "Investment Banking & Financial Advisory",
+        "gics_classification": "40201040",
+        "mechanism": "1-step from WC-001: the Form 10 effectiveness and board-approved spin-off directly generates advisory, underwriting, legal structuring, and listing fees for the advisors managing the separation",
+        "scoring": {
+          "mechanism_directness_score": 25,
+          "magnitude_score": 15,
+          "speed_score": 25,
+          "reversibility_score": 25,
+          "composite_score": 90,
+          "tier": "primary",
+          "carry_forward": true,
+          "scoring_notes": "Directness 25: a board-approved spin-off with an effective Form 10 is the transaction — advisory fees are the immediate product, a literal 1-step. Magnitude 15: fees on a $17.4B-revenue separation are large in absolute terms (estimated hundreds of millions across lead and co-advisors), but one-time payments spread across several firms do not shift the sector's revenue line; scored 15 (estimated) rather than 25 (quantified and large). Speed 25: work is already substantially complete; fees book at or before the June 29 distribution. Reversibility 25: once the distribution closes, fees are earned and cannot be clawed back."
+        }
+      },
+      {
+        "id": "DIR-002",
+        "industry_category": "Aerospace & Defense Equipment Manufacturers — pure-play listed",
+        "gics_classification": "20101010",
+        "mechanism": "2-step from WC-001 + WC-002: Honeywell Aerospace's registration as a stand-alone entity with disclosed financials ($17.4B net sales, $4.3B pro forma adjusted EBIT for FY2025) introduces a new pure-play aerospace benchmark into the listed comparables universe, which can shift how investors value existing pure-play peers",
+        "scoring": {
+          "mechanism_directness_score": 15,
+          "magnitude_score": 15,
+          "speed_score": 15,
+          "reversibility_score": 15,
+          "composite_score": 60,
+          "tier": "secondary",
+          "carry_forward": true,
+          "scoring_notes": "Directness 15: two steps — Form 10 effectiveness creates a new stand-alone peer benchmark, which then shifts comparable-company multiples for existing pure-plays; real but not a direct revenue or cost link. Magnitude 15: a new $17.4B aerospace entity entering the listed universe is notable and can move peer multiples, but the effect on the broader sector is estimated rather than directly quantified. Speed 15: analyst model updates and investor repositioning take weeks to months. Reversibility 15: if the new aerospace entity trades at a discount to peers, the re-rating pressure partially reverses; not permanent but not easily hedged."
+        }
+      }
+    ],
+    "indirect_beneficiaries": [
+      {
+        "id": "IND-001",
+        "industry_category": "Passive Index Management & ETF Sponsors",
+        "gics_classification": "40203020",
+        "mechanism": "2-step from WC-002: a new Nasdaq-listed instrument triggers index eligibility reviews and, once regular-way trading begins, forces rebalancing buy programs across index-tracking funds",
+        "scoring": {
+          "mechanism_directness_score": 15,
+          "magnitude_score": 5,
+          "speed_score": 25,
+          "reversibility_score": 5,
+          "composite_score": 50,
+          "tier": "parked",
+          "carry_forward": false,
+          "scoring_notes": "Directness 15: two steps — new Nasdaq listing triggers index methodology review, which then forces rebalancing. Magnitude 5: directional only; which indices include the new aerospace entity and in what weight is not determinable from the confirmed world changes. Speed 25: index rebalancing decisions are triggered by the distribution date (June 29), which is within days. Reversibility 5: once a security is added to an index, the demand is structural; index methodology changes are slow."
+        }
+      },
+      {
+        "id": "IND-002",
+        "industry_category": "Securities Brokers & Prime Brokers",
+        "gics_classification": "40203010",
+        "mechanism": "2-step from WC-002: the creation of a new publicly traded instrument and the associated when-issued market raises trading volumes and prime brokerage demand as event-driven investors build positions around the spin-off arbitrage",
+        "scoring": {
+          "mechanism_directness_score": 15,
+          "magnitude_score": 5,
+          "speed_score": 25,
+          "reversibility_score": 15,
+          "composite_score": 60,
+          "tier": "secondary",
+          "carry_forward": true,
+          "scoring_notes": "Directness 15: two steps — new listed instrument leads to elevated trading activity, which generates brokerage revenue. Magnitude 5: directional only; incremental revenue from one new instrument is small relative to sector revenues. Speed 25: when-issued trading already started on June 15 per WC-002; the revenue effect is immediate. Reversibility 15: elevated trading volumes around spin-off events typically normalise within 4-8 weeks; partially reverses but not immediately."
+        }
+      }
+    ],
+    "harmed_parties": [
+      {
+        "id": "HARM-001",
+        "industry_category": "Diversified Multi-Segment Industrial Conglomerates",
+        "gics_classification": "20106010",
+        "mechanism": "2-step from WC-001 + WC-003: the spin-off permanently removes $17.4B in aerospace revenues and $4.3B in adjusted EBIT from the remaining parent, reducing its scale; the 4.6% ex-distribution price drop on June 15 signals that the remaining entity is valued lower as a focused automation/energy business, establishing a benchmark that can put pressure on other diversified industrials facing activist or investor scrutiny",
+        "scoring": {
+          "mechanism_directness_score": 15,
+          "magnitude_score": 15,
+          "speed_score": 15,
+          "reversibility_score": 15,
+          "composite_score": 60,
+          "tier": "secondary",
+          "carry_forward": true,
+          "scoring_notes": "Directness 15: two steps — the spin-off shrinks the remaining parent's earnings base, and the 4.6% price drop on June 15 benchmarks how the market prices a de-diversified industrial, putting pressure on other diversified industrials. Magnitude 15: losing $17.4B in revenue and $4.3B in adjusted EBIT is a large reduction in scale; the peer-group pressure effect is estimated but plausible given the transaction size. Speed 15: the direct parent-level harm is immediate (WC-003 already confirmed the price drop); peer-group sentiment takes weeks to months. Reversibility 15: once separated, the parent's scale loss is permanent; peer-group sentiment can reverse if the new pure-play underperforms expectations."
+        }
+      },
+      {
+        "id": "HARM-002",
+        "industry_category": "Derivatives Dealers & Options Market Makers",
+        "gics_classification": "40201030",
+        "mechanism": "2-step from WC-002 + WC-003: the creation of a new listed instrument alongside the 4.6% ex-distribution price move on June 15 creates basis risk and mark-to-model adjustments for market makers holding existing options on the parent; standard spin-off distribution mechanics require adjustment of outstanding contracts",
+        "scoring": {
+          "mechanism_directness_score": 15,
+          "magnitude_score": 5,
+          "speed_score": 25,
+          "reversibility_score": 5,
+          "composite_score": 50,
+          "tier": "parked",
+          "carry_forward": false,
+          "scoring_notes": "Directness 15: two steps — new instrument creation plus ex-distribution price adjustment require contract adjustments on existing options. Magnitude 5: directional only; standard spin-off options adjustment mechanics are well-understood and losses are typically contained. Speed 25: the adjustment obligation arose on June 15 with the ex-distribution price move confirmed in WC-003. Reversibility 5: once outstanding contracts are adjusted for the distribution, the change is permanent."
+        }
+      }
+    ],
+    "population_gate": {
+      "direct_beneficiaries_populated": true,
+      "indirect_beneficiaries_populated": true,
+      "harmed_parties_populated": true,
+      "at_least_one_populated": true,
+      "both_sides_empty": false,
+      "primary_count": 1,
+      "secondary_count": 3,
+      "parked_count": 2,
+      "carry_forward_count": 4,
+      "zero_carry_forward_action": "proceed",
+      "beneficiaries_only_note": "N/A — harmed side is populated",
+      "harmed_only_note": "N/A — beneficiary sides are populated"
+    },
+    "pair_trade_notes": "Long advisory / short diversified conglomerates (DIR-001 vs HARM-001): the spin-off event rewards the investment banking industry with immediate, non-reversible fee income while simultaneously reducing the scale and appeal of diversified multi-segment industrials as a category. Long aerospace & defense pure-plays / short diversified industrials (DIR-002 vs HARM-001): the emergence of a new large-cap pure-play aerospace entity benchmarks pure-play valuations against diversified industrial peers — the direction of the pair depends on whether the new entity lists at a premium or discount to the pre-spin implied aerospace value. Long prime brokers / short derivatives dealers (IND-002 vs HARM-002): elevated spin-off arbitrage trading volumes benefit prime brokers through commission and lending revenue, while options market makers face short-term basis risk from the contract adjustment mechanics of the ex-distribution event.",
+    "ticker_check": true,
+    "ticker_check_detail": {
+      "performed": true,
+      "violations": [],
+      "repair_action": "No violations found. The report was scanned for patterns matching $[A-Z]{1,5}, exchange-suffixed symbols (.NS, .BO, NYSE:, NASDAQ:, NSE:, BSE:), and well-known company names. References to the parent and spun-off entities and their tickers present in upstream M0.1 and M0.2 source files were deliberately excluded from this report's narrative and table cells. GICS codes in parentheses are classification codes, not ticker symbols. WC-001 through WC-004 are structural references, not tickers."
+    },
+    "agent_contribution": "agent",
+    "analyst_contribution": ""
+  },
+  "M0_4": {
+    "horizon": "medium_weeks_3months",
+    "horizon_rationale": "The distribution closes on June 29, 2026 — 14 days out — making the corporate action a near-term event. But the thesis turns on what happens after separation: HONA and Honeywell Technologies (HON) begin trading as stand-alone companies, sell-side analysts initiate separate coverage, passive funds rebalance to reflect two new index constituents, and forced sellers (shareholders who do not want an aerospace-only stock) clear their positions. That post-distribution price-discovery and overhang-clearing process typically runs 6-10 weeks following the first regular-way session, placing full thesis resolution inside a medium_weeks_3months window.",
+    "expiry_condition": "HONA opens for regular-way trading on Nasdaq on June 29, 2026 at market open (9:30 a.m. ET), ending the when-issued (HONAV) period and establishing the first real price for the stand-alone Honeywell Aerospace business. The thesis is fully resolved (or expired without resolution) once both stocks have traded for 10 full weeks from June 29 without the combined market cap having moved more than 15% from the pre-distribution HON close of ~$205.88.",
+    "expiry_condition_is_observable": true,
+    "expiry_condition_is_opinion": false,
+    "monitoring_frequency": "Daily through June 29 (distribution date, the hard event); then weekly every Monday for the following 10 weeks — check HONA and HON prices each Monday morning, multiply by shares outstanding (HONA ~317M post-split; HON ~317M post-split), sum, and compare to the pre-distribution HON combined market cap (~$138.85B).",
+    "horizon_expiry_market_signal": "The HONAV when-issued spread versus the implied HONA value collapses to zero on June 29 at distribution — a spread of zero is the market-side confirmation that the corporate action has settled. After June 29, the signal to watch is the HON + HONA combined market cap stabilising within +/-5% of the pre-spin HON market cap (~$138.85B) for two consecutive weeks, indicating that post-spin selling and index rebalancing have cleared."
+  },
+  "M0_5": {
+    "falsification_sentence": "If the combined market cap of HONA and HON (post-split shares times their prices) falls and stays more than 10% below the pre-spin HON combined market cap of ~$138.85B for two consecutive weeks after regular-way trading begins on June 29, 2026, the spin-off has destroyed rather than unlocked value and the thesis is dead.",
+    "falsification_condition_type": "mechanism_reversal",
+    "monitorable_metric_1": "HONA daily closing price on Nasdaq (nasdaq.com/market-activity/stocks/hona or Bloomberg/IBKR quote, labelled indicative) multiplied by ~317M shares outstanding post-distribution",
+    "monitorable_metric_2": "HON daily closing price on Nasdaq (post-reverse-split, ticker HON) multiplied by ~317M shares outstanding post-split",
+    "monitorable_threshold_rate": 124965,
+    "monitorable_threshold_rate_unit": "USD millions (combined HONA + HON market cap)",
+    "monitorable_threshold_date": "2026-09-07",
+    "uncomfortable_check": true,
+    "uncomfortable_check_rationale": "The thesis rests on one claim: separating Honeywell Aerospace from the parent makes the two pieces together worth more than the combined company was. The load-bearing assumption is that the market was applying a conglomerate discount to the aerospace business inside HON, and a stand-alone listing removes that discount and raises total value. If the combined market cap instead drops more than 10% below the pre-spin baseline and stays there for two weeks, that discount has not closed — it has widened, or the separation itself has destroyed value through stranded costs, loss of cross-segment revenue, or the market deciding the parent without aerospace is worth less than expected. Every beneficiary party that depends on a positive spin-off outcome collapses if the combined value goes the other way. The investment banking fees (DIR-001) are the only piece that does not reverse, but those fees are already earned and not investable. This falsifier attacks the mechanism the entire thesis is built on.",
+    "secondary_falsifiers": [
+      {
+        "id": "SF-001",
+        "description": "The June 29 distribution is delayed or cancelled — for example, a regulator blocks the separation, a material adverse change clause is triggered, or Honeywell's board reverses the decision — meaning HONA never begins regular-way trading and the entire spin-off timeline collapses",
+        "monitorable_metric": "SEC EDGAR or Honeywell IR: absence of an 8-K confirming distribution completion by market open June 30, 2026; or a filing announcing postponement or withdrawal",
+        "probability_estimate": 0.04
+      },
+      {
+        "id": "SF-002",
+        "description": "HONA's first regular-way price implies a stand-alone enterprise value materially below the $17.4B net sales / $4.3B pro forma adjusted EBIT base, meaning investors are discounting the aerospace business more heavily as a stand-alone entity than it was priced inside the conglomerate — the opposite of the re-rating thesis",
+        "monitorable_metric": "HONA EV/EBIT multiple on day one of regular-way trading (price times shares divided by implied EV); falsified if the implied EBIT multiple is below 8x — roughly a 40% discount to the 13-15x range typical for pure-play aerospace peers",
+        "probability_estimate": 0.20
+      },
+      {
+        "id": "SF-003",
+        "description": "A large forced-seller overhang persists beyond 8 weeks — index funds, HON dividend-yield investors, and generalist holders who do not want an aerospace-only stock dump HONA shares steadily, preventing the price-discovery window from clearing",
+        "monitorable_metric": "HONA average daily volume (via Nasdaq or Bloomberg) staying above 3x its expected steady-state volume for more than 8 consecutive weeks from June 29",
+        "probability_estimate": 0.25
+      }
+    ],
+    "locked_after_m0_complete": true,
+    "locked_at": "2026-06-15T19:00:00Z"
+  },
+  "M0_6_1": {
+    "consensus_view": {
+      "paragraph": "The dominant view on Wall Street is that spinning Honeywell Aerospace out of the parent removes a persistent conglomerate discount and allows each business to attract the specialist investors it deserves. Before the split, HON traded at roughly 17x EV/EBITDA as a blended industrial — cheaper than either its aerospace peers or its automation peers trade on their own. The consensus argument is that the combined market value of HONA and Honeywell Technologies after June 29 should exceed what the market was willing to pay for the whole before the separation, because each piece will be owned by investors who actually want that business and will price it against the right set of comparable companies. On the aerospace side, analysts point to Honeywell Aerospace's $17.4B in net sales and $4.3B in pro forma adjusted earnings for FY2025, margins above 25%, and a $37B-plus order backlog with a book-to-bill ratio above 1.0 — metrics that put the business in the top tier among listed aerospace suppliers. The peer valuation range for pure-play aerospace companies runs from roughly 20x to 37x EV/EBITDA, with a median around 29x; applied to HONA's ~$4.75B EBITDA, that median implies a standalone equity value of approximately $207 per HONA share.",
+      "numeric_anchor": "Sum-of-parts median ~$307 per pre-split HON share (pure-play aerospace at ~29x peer-median EV/EBITDA on HONA's $4.75B EBITDA ~$207/share + automation at ~16x EV/EBITDA on $4.4B EBITDA ~$101/share); consolidated analyst mean price target $246.67; FY2025 Honeywell Aerospace pro forma adjusted EBIT $4.3B / net sales $17.4B [divergentcapital7651.substack.com, June 2026, web unverified; stockanalysis.com, June 2026, web unverified; Honeywell Form 10-12B/A, FY2026, SEC EDGAR]",
+      "key_consensus_assumptions": [
+        "A stand-alone Honeywell Aerospace will trade at or close to the peer-median multiple for pure-play aerospace suppliers (~29x EV/EBITDA), erasing the conglomerate discount that suppressed HON's blended valuation to ~17x EV/EBITDA.",
+        "Honeywell Aerospace's 25%+ margins and $37B backlog are durable and will compound to at least $6.5B in earnings by 2030, meaning the pure-play premium is earned rather than gifted by investor enthusiasm.",
+        "One-time separation costs ($1.5–2.0B) and stranded-cost items (~$202M standalone burden including a $150M trademark licence fee) are manageable relative to the long-run value created and will not permanently impair HONA's margin profile.",
+        "Honeywell Technologies (the automation remainco) will also re-rate higher as a focused automation and energy-transition business, so the gain is two-sided — both pieces improve — rather than the parent simply shrinking while HONA captures all the benefit."
+      ]
+    },
+    "contrary_view": {
+      "exists": true,
+      "paragraph": "Barclays analyst Julian Mitchell (Overweight, but cut target to $243 from $255) stated explicitly that Honeywell Aerospace 'still has some work to do to win over the investment community,' pointing to Q1 2026 organic revenue growth of only 3% year over year and weak cash flow conversion as reasons the premium multiple may not materialise on day one. Wells Fargo analyst Joseph O'Dea (Equal Weight, target $220–$240, lowered from $254) argued that combined-company guidance came in below expectations and that near-term execution risk — stranded costs, slower automation growth, weak Q1 cash conversion of only $56M down from $191M in Q1 2025 — limits the upside from the break-up. The bear/sceptic view does not say the spin-off is wrong in direction but does say the timeline for earning the premium is longer and the interim execution risk is higher than the bullish SOTP math assumes.",
+      "contrary_numeric_anchor": "Wells Fargo target $220–$240; Barclays target $243; both below the $246.67 mean. Q1 2026 cash conversion $56M vs $191M in Q1 2025 [Honeywell Q1 FY2026 8-K, April 24, 2026, SEC EDGAR]",
+      "contrary_view_sources": [
+        "stocktwits.com/news-articles 'HON Stock Analyst Price Target Cuts — Barclays Aerospace Unit Still Has Some Work To Do,' June 2026, web unverified",
+        "tipranks.com 'Honeywell Price Target Lowered to 240 from 254 at Wells Fargo,' June 2026, web unverified"
+      ]
+    },
+    "consensus_strength": {
+      "unanimity_rating": "moderate",
+      "unanimity_rationale": "Of 27 analysts tracked by stockanalysis.com (June 2026), 15 rate HON Strong Buy or Buy, 11 Hold, and 1 Sell — buy fraction 56%. The direction of the re-rating thesis is near-universal, but the size of the uplift and the timeline are contested. The 41% Hold rate is unusually high for a mega-cap with a clear catalyst, reflecting genuine uncertainty about whether HONA will earn the assumed peer multiple on day one of regular-way trading."
+    },
+    "analyst_rating_distribution": {
+      "buy_count": 15,
+      "hold_count": 11,
+      "sell_count": 1,
+      "total_analysts": 27,
+      "buy_pct": 55.6,
+      "source": "stockanalysis.com/stocks/hon/forecast",
+      "as_of": "2026-06-15",
+      "missing_reason": ""
+    },
+    "estimate_dispersion": {
+      "current_high_estimate": 10.75,
+      "current_low_estimate": 10.30,
+      "current_spread_abs": 0.45,
+      "current_spread_pct": 4.3,
+      "metric": "FY2026 adjusted EPS",
+      "historical_avg_spread_pct": null,
+      "historical_period": "~5-year",
+      "historical_std_dev_pct": null,
+      "spread_vs_history": null,
+      "dispersion_interpretation": "The current FY2026 EPS spread of ~4.3% is narrow in absolute terms for a large-cap industrial undergoing a major structural split. Company guidance ($10.35–$10.65) covers almost the full analyst range, suggesting models are anchored on management guidance rather than independent bottom-up rebuilds. Historical comparison not available from accessible sources.",
+      "missing_reason": "Searched stockanalysis.com, TIKR.com, divergentcapital7651.substack.com, and simplywall.st for historical HON EPS estimate dispersion; no published time-series of HON EPS spread vs history found in publicly accessible sources."
+    },
+    "entrenchment_note": "HON is a Dow Jones Industrial Average constituent and Nasdaq-100 member. Index-fund positions at scale and passive-mandate flows anchor large holders to the stock regardless of their view on the spin; this structural ownership creates inertia that makes the consensus difficult to shift quickly.",
+    "strawman_risk_check": true
+  },
+  "M0_6_2": {
+    "estimate_dispersion": {
+      "data": {
+        "ntm_eps_mean": 10.52,
+        "ntm_eps_high": 10.75,
+        "ntm_eps_low": 10.30,
+        "spread_abs": 0.45,
+        "spread_pct": 4.3,
+        "company_guidance": "$10.35–$10.65",
+        "analyst_count": "15 buy, 11 hold, 1 sell — 27 total",
+        "avg_price_target": 246.67
+      },
+      "interpretation": "The $0.45 spread (4.3% of consensus) is narrow for a company undergoing a major structural split; the market is treating earnings visibility as high, not wide-open."
+    },
+    "estimate_revision_trajectory": {
+      "data": {
+        "three_months_ago": "~$10.50 (inference from Feb 2026 guidance midpoint)",
+        "one_month_ago": "~$10.52",
+        "now": "$10.52"
+      },
+      "interpretation": "The revision trajectory is flat to slightly upward: consensus has moved from roughly $10.50 to $10.52, a change of $0.02 (+0.2%). There is no sign of material downward revision pressure around the spin-off announcement.",
+      "missing_reason": "Exact 3-month-ago consensus point (mid-March 2026) not directly retrievable; replaced with inference from the company's initial February 2026 guidance midpoint. Searched stockanalysis.com, Smartkarma, MarketScreener (403), Zacks March 2026 article, and tickerreport.com — no timestamped historical consensus series found."
+    },
+    "implied_scenario_from_multiple": {
+      "data": {
+        "hon_price_jun15": 229.82,
+        "forward_pe": "~21.8x",
+        "ev_ebitda_trailing": "18.53–20.06x",
+        "hon_10yr_median_ev_ebitda": "~15.64x",
+        "premium_to_10yr_median": "~18%–28%"
+      },
+      "interpretation": "At ~21.8x forward P/E and ~18.5–20x trailing EV/EBITDA, the current combined HON multiple sits above its own 10-year average (~15.6x) and above the conglomerate peer median (~8.9x), but the back-calculated implied EV/EBIT for HONA (roughly 15–17x) is well below pure-play aerospace peers like HEICO (~30x) and TransDigm (~27x). The market is pricing a partial re-rating — roughly 60–70% of the theoretical conglomerate discount closure — not the full unlock."
+    },
+    "options_implied_move": {
+      "data": {
+        "iv_call_20day": "34.69%",
+        "iv_put_20day": "28.07%",
+        "iv_blended": "30.68%",
+        "iv_rank": "66.92%",
+        "iv_percentile": "92%",
+        "implied_move_to_june29": "~±7–8%"
+      },
+      "interpretation": "At the 92nd IV percentile, options on HON are priced more expensively than on 92% of days over the past year — a clear signal that the market expects an unusually large move around the June 29 distribution event.",
+      "missing_reason": "ATM call and put premium dollar amounts for June 27/29 expiry not retrieved; Barchart's live options table requires JavaScript session. IV, IV Rank, and IV Percentile were retrieved; implied move % derived from the IV figure."
+    },
+    "short_interest_positioning": {
+      "data": {
+        "short_interest_shares": 13820000,
+        "short_interest_pct_float": "2.18%–2.30%",
+        "short_ratio_days": 3.30,
+        "institutional_ownership": "78%–86%",
+        "blackrock": "7.71%",
+        "vanguard": "6.51%",
+        "state_street": "5.01%"
+      },
+      "interpretation": "Short interest at ~2.2% of float is low — there is almost no short overhang. The stock is ~84–86% institutionally owned, dominated by the big three passive-index managers, which means a large chunk of the forced selling after June 29 will come from generalist and yield-focused active holders who do not want an aerospace-only position.",
+      "missing_reason": "ETF-level breakdown of passive ownership (SPY, XLI, DJIA-tracker share counts) not retrieved from ETF Channel or Nasdaq institutional holdings pages."
+    },
+    "implied_scenario_interpretation": "The combined price of $229.82 on June 15, 2026 tells a specific story when Block 3 (the multiple) and Block 4 (options) are read together. At ~21.8x forward earnings and ~18.5–20x trailing EV/EBITDA — above HON's own 10-year average of ~15.6x — some conglomerate-discount closure is already in the price, but the back-calculated implied EV/EBIT for HONA (roughly 15–17x, Block 3) sits well below where pure-play aerospace peers trade. Block 4's 92nd-percentile IV and ~7–8% implied move to distribution confirm that the market knows the spread between partial-credit and full-credit scenarios can be resolved over the next two weeks. Block 1's narrow estimate spread (4.3% of consensus) and Block 5's minimal short interest (2.2% of float) confirm this is not a bearish setup — the options elevation is a bet on range, not on direction.",
+    "all_five_fields_present": false,
+    "fields_missing_flagged": [
+      "Block 2 (revision trajectory): exact 3-month-ago consensus point not directly retrievable; replaced with inference from the company's initial February 2026 guidance midpoint.",
+      "Block 4 (options implied move): ATM call and put premium dollar amounts for the June 27/29 expiry not retrieved.",
+      "Block 5 (positioning): ETF-level breakdown of passive ownership not retrieved."
+    ]
+  },
+  "M0_6_3": {
+    "variant_paragraph": "The consensus SOTP values Honeywell Aerospace at roughly 29x EV/EBITDA — the peer median for listed aerospace suppliers — and assumes the stand-alone listing is enough to earn that multiple. But the businesses that trade at 27–30x (TransDigm, HEICO) grow organic revenue at 8–13% per year. Honeywell Aerospace delivered only 3% organic growth in Q1 2026. A company growing at 3% belongs in the mid-range of the aerospace peer set, not at the top. The consensus has applied the right peer roster but the wrong tier of that roster. We believe HONA will settle at 18–20x EV/EBITDA — consistent with lower-growth aerospace suppliers — which implies an equity value roughly 23–31% below the consensus SOTP figure for HONA.",
+    "consensus_numeric_view": "HONA at ~29x EV/EBITDA on ~$4.75B EBITDA → ~$207/HONA share [M0.6.1 anchor; divergentcapital7651.substack.com, June 2026, web unverified; Honeywell Aerospace Investor Day, June 3, 2026]",
+    "our_numeric_view": "HONA at ~18–20x EV/EBITDA → ~$144–160/HONA share [growth-adjusted sub-group multiple; Honeywell Form 10-12B/A structural reference; net debt allocation is inference]",
+    "numeric_departure_magnitude": "~$47–$63/HONA share below consensus (23–31% discount); midpoint ~$55/share or ~27% below the consensus SOTP",
+    "mechanism_1_missing_from_consensus": "Organic growth tier mismatch in the peer multiple: consensus applies the full aerospace peer-roster median (29x) without filtering to the sub-group whose growth rate matches HONA's actual Q1 2026 delivery of 3%. The companies anchoring the 29x median (HEICO, TransDigm) grow at 13%+ and 8%+ per year. A growth-filtered comp set yields 17–21x EV/EBITDA for the matching sub-group. No published research found disaggregating the peer set by organic growth quartile to derive an HONA-specific multiple. [Honeywell Q1 FY2026 8-K, SEC EDGAR, April 24, 2026; four searches June 15, 2026 across web news, Substack, TIKR, EBC, Barclays/Wells Fargo commentary — no growth-adjusted comp set found]",
+    "mechanism_2_missing_from_consensus": "Cash conversion deficit as a re-rating brake: high-multiple aerospace suppliers earn their premium partly because they convert EBIT to free cash flow at 85–95%+ per year. HONA's most recent disclosed performance: Q1 2026 FCF was $56M, down from $191M in Q1 2025, with operating cash flow from continuing operations at -$650M. A new standalone company starting public life with negative operating cash flow cannot immediately claim the FCF-conversion premium the market is applying at 29x. Consensus uses $4.75B EBITDA as the valuation base but does not adjust the multiple for the demonstrated FCF-conversion shortfall. [Honeywell Q1 FY2026 8-K, SEC EDGAR, April 24, 2026; $225M/year trademark licence fee from Honeywell Aerospace Investor Day, June 3, 2026]",
+    "sell_side_coverage_gap_confirmed": true,
+    "sell_side_gap_evidence": "Four searches across web news, Substack analysis, TIKR, EBC, divergentcapital, and Barclays/Wells Fargo commentary (all web-retrieved, June 15, 2026, labelled unverified) found no published research that: (a) disaggregates the aerospace peer set by organic growth quartile and derives an HONA-specific multiple from the matching growth-rate sub-group, or (b) models the first-year FCF conversion rate for HONA with the trademark licence fee ($225M/year) and stranded overhead costs included. Barclays and Wells Fargo have flagged directional concern but have not published the specific mechanism.",
+    "manifestation_event": "HONA opens for regular-way trading on Nasdaq on June 29, 2026 (first day of stand-alone price discovery), followed by HONA's first standalone quarterly earnings release — expected late July or early August 2026 — which will publish organic revenue growth and FCF conversion as reported figures for a fully separated entity.",
+    "manifestation_time_window": "June 29, 2026 through late August 2026 (approximately 8 weeks, covering the first standalone quarterly earnings and the clearing of the forced-seller overhang). Inside the M0.4 medium_weeks_3months horizon (resolution by September 7, 2026)."
+  },
+  "M0_6_4": {
+    "primary_category": "complexity",
+    "primary_category_rationale": "Getting the right multiple for HONA requires a multi-step exercise that no retrieved published research has done: (1) take the standard aerospace comparable list, (2) segment it by organic revenue growth quartile, (3) observe that the companies trading at 27–30x all deliver 8–13%+ organic growth while HONA delivered only 3% in Q1 2026, (4) identify the growth-tier that matches HONA's actual delivery (17–21x EV/EBITDA), and (5) separately model FCF conversion under a $225M/year trademark licence fee plus stranded overhead costs. Steps 1–2 are available to any analyst; steps 3–5 require cross-domain work across comp selection, growth analytics, and cash-flow modelling in a single coordinated rebuild. Four independent searches conducted on June 15, 2026 found no published piece that has done this.",
+    "evidence_verifiable_fact_1": "Honeywell Aerospace delivered 3% organic revenue growth in Q1 2026 year over year. Verify by reading the Honeywell Q1 FY2026 earnings press release filed with the SEC on April 24, 2026, available at SEC EDGAR (search ticker HON, 8-K filed April 24, 2026, financial tables section). [Honeywell Q1 FY2026 8-K press release, April 24, 2026, SEC EDGAR; investor.honeywell.com earnings releases, April 2026]",
+    "evidence_verifiable_fact_2": "HEICO and TransDigm — the high-multiple comparables that anchor the 29x peer-median consensus — grow organic revenue at 13%+ and 8%+ per year respectively and both trade at 27–30x+ EV/EBITDA. Verify from each company's most recent annual report on SEC EDGAR (organic growth disclosures) and current trading multiples at any financial data aggregator (finviz.com, Macrotrends, TIKR). [TransDigm Group 10-K FY2025, SEC EDGAR; HEICO Corporation 10-K FY2025, SEC EDGAR; finviz.com for HEI and TDG EV/EBITDA multiples, retrieved June 2026]",
+    "evidence_verifiable_fact_3": "Four searches run on June 15, 2026 across web news, Substack SOTP analyses, broker commentary (Barclays, Wells Fargo), TIKR blog, EBC, and divergentcapital7651.substack.com found no published research that disaggregates the aerospace peer set by organic revenue growth quartile and derives an HONA-specific multiple from the matching sub-group. Barclays and Wells Fargo both flagged weak growth and cash conversion directionally but neither published a growth-adjusted comp table. Replicate the search by running queries for 'Honeywell Aerospace HONA organic revenue growth peer comparison 2026' and 'Honeywell Aerospace HONA pure-play premium 29x EBITDA Barclays Wells Fargo' in any news or research index. [Web search across news indices, Substack, TIKR, EBC, broker commentary, June 15, 2026 — search strings recorded in M0.6.3; Barclays HON note cited in stocktwits.com/news-articles, June 2026, web unverified; tipranks.com, June 2026, web unverified]",
+    "secondary_categories": [
+      {
+        "category": "structural",
+        "rationale": "Forced sellers — yield-focused generalist funds and ESG-screened defense-excluded funds that receive HONA shares on June 29 — must sell into a market where the three largest holders (Blackrock 7.71%, Vanguard 6.51%, State Street 5.01%) are passive-index holders who will not absorb supply on a discretionary basis. This supply imbalance will push the opening HONA price below what a fully cleared market would produce, independent of the growth-multiple question. [Block 5, M0.6.2; wallstreetzen.com, June 2026, web unverified]"
+      },
+      {
+        "category": "timing",
+        "rationale": "HONA has no standalone trading history before June 29, 2026. Analyst models are anchored to combined HON data, and consensus estimate systems will not carry HONA-specific standalone estimates until regular-way trading opens. The first standalone quarterly earnings (expected late July / early August 2026) will be the first data point where organic growth and FCF conversion are reported as fully separated figures — until then, the multiple-compression mechanism cannot fully register in model revisions. [M0.6.3 manifestation section; Honeywell Aerospace Investor Day, June 3, 2026; HON Q1 FY2026 8-K, April 24, 2026, SEC EDGAR]"
+      }
+    ]
+  },
+  "M0_6_5": {
+    "trigger_name": "HONA first standalone quarterly earnings release (Q2 FY2026)",
+    "trigger_date_range": "Late July 2026 — approximately July 22–31, 2026; hard outer deadline August 9, 2026 (SEC 40-day filing rule for large accelerated filers after June 30 quarter-end). [Honeywell Q1 FY2026 8-K, SEC EDGAR, April 24, 2026; prior-year Q2 FY2025 release pattern; SEC Regulation S-X Rule 10-01(a)(8)]",
+    "trigger_type": "scheduled",
+    "probability_if_unscheduled": null,
+    "probability_note": "A public company is legally required to file its quarterly results with the SEC within 40 days of quarter-end (June 30, 2026), placing the outer deadline at August 9, 2026. The report will happen; the exact date within the late-July to August 9 window is not yet confirmed. [SEC Regulation S-X Rule 10-01(a)(8)]",
+    "causal_mechanism": [
+      "HONA reports Q2 FY2026 results as a standalone company for the first time — organic revenue growth rate and cash from operations are disclosed as clean, separated figures. If organic growth comes in at 3–5% (consistent with Q1 2026's 3% print) and FCF conversion remains below 85% of EBITDA due to the $225M/year trademark licence fee and stranded overhead costs, the growth-tier mismatch and FCF-conversion deficit become reported facts on a separated-company income statement — not inferences from combined-company filing. [Honeywell Q1 FY2026 8-K, SEC EDGAR, April 24, 2026; Honeywell Aerospace Investor Day, June 3, 2026]",
+      "Analysts at Barclays (Overweight, $243 target) and Wells Fargo (Equal Weight, $220–$240) — both of whom noted directional concern about cash flow and execution risk without publishing a growth-adjusted peer comparable — must now reconcile their models against the first standalone organic growth number and the first standalone FCF conversion rate. Any sell-side team that recalibrates toward the 17–21x range (matching Curtiss-Wright and mid-tier A&D peers at comparable growth rates) publishes a lower price target that anchors the market's view of fair value. [Web searches, June 15, 2026, unverified]",
+      "Event-driven and long-only funds that bought HONA into the spin-off expecting the consensus ~$207 SOTP to clear sell into the post-earnings weakness; generalist large-cap holders who were already reluctant to own an aerospace-only stock accelerate exits as the growth case fails to materialise at the top-tier peer level; value-oriented aerospace specialists who price HONA at 18–20x EV/EBITDA begin to set bids only at or below ~$144–160/share, creating a lower equilibrium.",
+      "HONA's market price moves from the ~$207 consensus anchor toward the $144–160 range as the combination of lower analyst price targets, forced-seller clearing, and growth-rate-justified bid levels sets a new price equilibrium. This convergence runs over the weeks following the earnings release as analyst model updates propagate and the forced-seller overhang clears (the M0.5 falsifier window closes September 7, 2026)."
+    ],
+    "secondary_triggers": [
+      {
+        "id": "ST-001",
+        "trigger_name": "HONA regular-way opening price on Nasdaq",
+        "trigger_date_range": "June 29, 2026",
+        "trigger_type": "scheduled",
+        "probability": null,
+        "mechanism": "If HONA opens materially below ~$175, the day-one price reveals that the market is not awarding the consensus 29x multiple even before reported data — partial convergence without confirming the organic-growth mechanism specifically."
+      },
+      {
+        "id": "ST-002",
+        "trigger_name": "Barclays or Wells Fargo publish a revised HONA price target with a growth-adjusted peer comparable set",
+        "trigger_date_range": "Expected July 2026 — within 2–4 weeks of the June 29 listing",
+        "trigger_type": "unscheduled",
+        "probability": 0.45,
+        "mechanism": "Initiation or target-cut research from either bank that explicitly ties HONA's applicable EV/EBITDA to the organic growth sub-group (rather than the full peer median) causes other analysts to adopt the same framework and compresses the consensus target, driving partial price convergence before the earnings release."
+      },
+      {
+        "id": "ST-003",
+        "trigger_name": "HONA 10-Q filing (Form 10-Q, Q2 FY2026)",
+        "trigger_date_range": "By August 9, 2026",
+        "trigger_type": "scheduled",
+        "probability": null,
+        "mechanism": "If HONA files its 10-Q before it holds an earnings call, the FCF conversion and organic revenue growth figures become publicly available and trigger analyst model updates even before management commentary — same causal chain as the primary trigger but without the call narrative."
+      },
+      {
+        "id": "ST-004",
+        "trigger_name": "HON (Honeywell Technologies) Q2 FY2026 earnings call includes HONA-related commentary",
+        "trigger_date_range": "Late July 2026",
+        "trigger_type": "scheduled",
+        "probability": null,
+        "mechanism": "Honeywell Technologies reports its own Q2 results for the stub period post-separation; any commentary on the combined Honeywell Q2 run-rate for the period before separation reveals the organic growth trajectory and may prompt analysts to update HONA models in advance of HONA's own standalone release."
+      }
+    ]
+  },
+  "M0_6_6": {
+    "scoring_criteria": {
+      "variant_perception_quality": {
+        "sub_score": 72,
+        "rationale": "The variant has a specific 27% numeric departure ($207 consensus vs. $144–160 growth-adjusted), two evidenced mechanisms (organic growth tier mismatch and FCF conversion deficit), and a confirmed coverage gap from four independent searches. The score stops at 72 because the mechanism rests on one quarter of combined-company data (not yet standalone HONA-reported figures) and the concern is partially public — two sell-side banks have noted it directionally, limiting the novelty ceiling."
+      },
+      "mispricing_reason_strength": {
+        "sub_score": 74,
+        "rationale": "All three required verifiable facts are grounded in primary or independently checkable sources: Q1 2026 8-K (SEC EDGAR), HEICO and TransDigm 10-Ks, and four replicable searches. The complexity category fits precisely — the required cross-domain work exists in public filings but has not been done by any retrieved published source. Two secondary categories (structural forced-seller mechanics and timing) reinforce the primary. The score stays at 74 because the structural secondary relies partly on web-unverified ownership data and the complexity claim that the work 'hasn't been done' is verifiable by search but not from a filed source."
+      },
+      "convergence_trigger_clarity": {
+        "sub_score": 68,
+        "rationale": "The primary trigger has a hard outer deadline of August 9, 2026 (SEC 40-day filing rule), is inside the M0.4 September 7, 2026 horizon, and the four-step mechanism names specific actors (Barclays, Wells Fargo, named forced-seller populations) and specific data points (organic revenue growth rate, FCF conversion vs. 85–95%+ benchmark). The score is 68 rather than higher because the exact earnings date within the late-July to August 9 window is not yet announced, and step 2 of the mechanism depends on two specific banks publishing the growth-adjusted framework — which is probable but not certain (secondary trigger ST-002 carries P=0.45)."
+      }
+    },
+    "blended_calculation": "0.40 × 72 + 0.30 × 74 + 0.30 × 68 = 28.8 + 22.2 + 20.4 = 71.4",
+    "final_score": 71,
+    "analyst_override": false,
+    "override_justification": "",
+    "justification_sentence_1": "The variant has a 27% numeric departure with two evidenced mechanisms and a confirmed coverage gap, but it rests on pre-confirmation combined-company data, which keeps the VPQ below the 80s and holds the blend in the provisional range.",
+    "justification_sentence_2": "The convergence trigger has a legally mandated hard deadline and a four-step mechanism with named actors, but the exact earnings date is not yet pinned and the key model-revision step depends on specific sell-side banks acting — sufficient for provisional, not the standard for full_machine.",
+    "routing_outcome": "provisional",
+    "routing_logic": "final_score 71 falls in the 60–80 band → provisional",
+    "routing_reason": "The variant perception and mispricing reason are both well-evidenced and grounded in filed primary sources, but HONA has no standalone trading or reporting history yet — the full mechanism cannot be confirmed until the first standalone quarterly earnings release (August 9, 2026 outer bound). The edge is real enough to surface candidates at moderate resource deployment; it is not strong enough to warrant the full machine before standalone data appears."
+  },
+  "sources": [
+    {
+      "url": "https://www.prnewswire.com/news-releases/honeywell-board-of-directors-approves-spin-off-of-honeywell-aerospace-302799898.html",
+      "source_name": "PR Newswire",
+      "source_grade": "A",
+      "retrieved_at": "2026-06-15T18:10:00Z",
+      "claim_supported": "Board approval of Honeywell Aerospace spin-off; HONA ticker; 1-for-2 share distribution ratio; June 29 distribution date; June 15 record date; 1-for-2 reverse stock split of remaining entity; rebranding to Honeywell Technologies (HON); CEO Vimal Kapur attribution; Form 10 declared effective June 11, 2026"
+    },
+    {
+      "url": "https://www.prnewswire.com/news-releases/honeywell-board-of-directors-sets-record-date-and-announces-expected-timing-for-spin-off-of-honeywell-aerospace-and-honeywell-reverse-stock-split-302793079.html",
+      "source_name": "PR Newswire",
+      "source_grade": "A",
+      "retrieved_at": "2026-06-15T18:10:00Z",
+      "claim_supported": "~634M shares outstanding pre-split reducing to ~317M post-split; authorized shares 2B to 1B; new CUSIP 438516205"
+    },
+    {
+      "url": "https://investor.honeywell.com/news-releases/news-release-details/honeywell-board-directors-approves-spin-honeywell-aerospace",
+      "source_name": "Honeywell Investor Relations",
+      "source_grade": "A",
+      "retrieved_at": "2026-06-15T18:10:00Z",
+      "claim_supported": "Full text of board approval announcement; confirmed Form 10 effective June 11, 2026; confirmed all dates and ratios"
+    },
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/0000773840/000077384026000080/hon-20260615.htm",
+      "source_name": "SEC EDGAR Form 8-K (Honeywell International Inc.)",
+      "source_grade": "A",
+      "retrieved_at": "2026-06-15T18:10:00Z",
+      "claim_supported": "Five director resignations June 13, 2026 — Evanko immediately, four others contingent on spin-off completion; HON board shrinkage from 13 to 12 members"
+    },
+    {
+      "url": "https://www.ebc.com/forex/honeywell-stock-aerospace-spin-off-breakup-bargain",
+      "source_name": "EBC Financial Group (Web, unverified)",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-15T18:10:00Z",
+      "claim_supported": "HON intraday price $205.88, down ~4.6% on June 15, 2026; intraday range $205.52-$216.81 (indicative, unverified)"
+    },
+    {
+      "url": "https://www.stocktitan.net/news/HON/honeywell-board-of-directors-approves-spin-off-of-honeywell-7csrbgkkpqu1.html",
+      "source_name": "StockTitan (Web, unverified)",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-15T18:10:00Z",
+      "claim_supported": "HON market cap ~$138.85B; float ~633.24M shares (indicative, unverified)"
+    },
+    {
+      "url": "https://stockanalysis.com/stocks/hon/forecast/",
+      "source_name": "stockanalysis.com (Web, unverified)",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-15T00:00:00Z",
+      "claim_supported": "27 analyst ratings: 12 Strong Buy + 3 Buy / 11 Hold / 1 Sell; buy_pct 56%; FY2026 EPS high $10.75 / low $10.30 / mean $10.52; average price target $246.67"
+    },
+    {
+      "url": "https://alphaquery.com/stock/HON/volatility-option-statistics/20-day/iv-call",
+      "source_name": "alphaquery.com (Web, unverified)",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-12T00:00:00Z",
+      "claim_supported": "20-day call IV 34.69%; 20-day put IV 28.07% as of June 12, 2026"
+    },
+    {
+      "url": "https://barchart.com/stocks/quotes/HON/options-summary",
+      "source_name": "Barchart (Web, unverified)",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-15T00:00:00Z",
+      "claim_supported": "Blended IV 30.68%; IV Rank 66.92%; IV Percentile 92%; 30-day historical volatility 37.76%"
+    },
+    {
+      "url": "https://finviz.com/quote.ashx?t=HON",
+      "source_name": "finviz.com (Web, unverified)",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-15T00:00:00Z",
+      "claim_supported": "HON closing price $229.82 June 15, 2026; Forward P/E 20.05; EV/EBITDA 18.53–20.06; short interest 2.18% of float; short ratio 3.30 days"
+    },
+    {
+      "url": "https://wallstreetzen.com/stocks/us/nasdaq/hon/statistics",
+      "source_name": "wallstreetzen.com (Web, unverified)",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-15T00:00:00Z",
+      "claim_supported": "Institutional ownership 78.01%; Blackrock 7.71%; Vanguard 6.51%; State Street 5.01%; CEO sold 868 shares June 2026; multiple directors bought 625 shares at $230.93 April 2026 (indicative, unverified)"
+    },
+    {
+      "url": "https://stocktwits.com/news-articles/hon-stock-analyst-price-target-cuts",
+      "source_name": "StockTwits / web news aggregation (Web, unverified)",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-15T00:00:00Z",
+      "claim_supported": "Barclays cut HON price target to $243 from $255 (Overweight maintained); Barclays stated HONA 'still has some work to do to win over the investment community'; Q1 2026 organic revenue growth 3% cited by Barclays"
+    },
+    {
+      "url": "https://tipranks.com/stocks/hon/forecast",
+      "source_name": "TipRanks (Web, unverified)",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-15T00:00:00Z",
+      "claim_supported": "Wells Fargo price target lowered to $220–$240 from $254; Equal Weight rating; below-expectation guidance cited as reason"
+    }
+  ]
+}
