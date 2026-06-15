@@ -76,6 +76,8 @@ Concrete forms already in use across modules, all acceptable — cite the local 
 
 Ban vague citations: "company filings", "annual report" alone, "management said", "source", "industry data". A web-sourced input must be dated and labelled unverified, and must not be used when a pool source covers the same fact.
 
+**Cite the source the number came from, and the number must actually appear in it.** A figure tied to a specific source must literally appear in that source for that period. Never present one source's number under another source's name — in particular, do not attach a data-vendor figure (Capital IQ / Bloomberg / a screener export) to a filing citation, or a filing figure to a vendor. Cite whichever document you actually took the number from. When the audited filing carries its own figure for the same line item, prefer it (§4) and reconcile any difference; a vendor's number and the filing's number for the same metric are not interchangeable. (Example defect: writing "EBITDA ₹9,965 cr [FY26 Annual Report, Note 22]" when ₹9,965 cr is the data-vendor figure and the annual report's own EBITDA is ₹10,314 cr — either cite the vendor for ₹9,965 cr, or use the report's ₹10,314 cr; do not put the vendor's number under the filing's name.)
+
 ---
 
 ## 6. Claim Quality Ladder
@@ -214,8 +216,8 @@ Rule: if the thesis is really a macro, commodity, or policy bet disguised as a s
 Require:
 - reported vs adjusted numbers clearly separated;
 - definitions stated for EBITDA, EBIT, EPS, and FCF;
-- FCF = CFO − total capex, unless the company discloses a different definition (then state it);
-- net debt = total debt − cash, unless the company defines it differently (then state it);
+- FCF = CFO − total capex, unless the company discloses a different definition (then state it); when reported FCF is inflated by a disclosed one-off (e.g. a large customer advance) or uses a company-defined add-back (interest / dividends received), lead with the normalised operating FCF (the recurring cash the operations throw off, net of itemised one-offs) and show the inflated / company-defined figure alongside it, labelled — do not headline the inflated number;
+- net debt = total debt − cash equivalents (the **strict** basis), unless the company defines it differently (then state it); whenever a net-cash / net-debt figure departs from the strict basis — netting in short-term / liquid investments (a **broad** basis), or quoting cash + investments with no debt netted (**gross liquidity**) — label the basis inline every time the figure appears (strict / broad / gross-liquidity), and never present an investment-inclusive figure as bare "net cash" without also showing the strict figure. A non-strict figure shown without its basis label is a §15 hygiene defect;
 - growth = (current − prior) / prior;
 - margin changes expressed in basis points;
 - no mixing of fiscal periods without reconciliation;
@@ -374,14 +376,16 @@ Modules implement the specifics (signals, factors, score caps, red-flag IDs) in 
 
 ## 25. Git Policy
 
+> **Scope — research-data output only.** This section is the *data* contract: it governs the engine's autonomous research commits (`analyses/**`, `screener/**`, `analyses/tracking/**`), which `commit-run.sh` writes and pushes straight to `main`. **Code changes do not follow this section** — engine source, the prompt-program under `.claude/`, `frameworks/`, the doctrine files, scripts, and CI go through branch → PR → CI → review → merge queue. See §28, which takes precedence for code.
+
 For ALL work in this repository:
 - Commit directly to the `main` branch.
-- Do NOT create working branches (no `Codex/...`, no feature branches).
+- Do NOT create working branches (no `claude/...`, no feature branches).
 - Do NOT open pull requests.
 - Push every commit immediately to `origin/main`.
 - After making changes, report back: what changed, the commit SHA, and confirmation it pushed.
 
-This rule overrides any default session policy. Apply it to all work — scaffolding, agent edits, research runs, anything. The only exception: if I explicitly say "open a PR for this," then do so.
+This rule overrides any default session policy **for data commits**. Code — engine source, the prompt-program under `.claude/`, `frameworks/`, the doctrine files, scripts, and CI — does NOT follow this rule; it goes through a pull request (see §28, which takes precedence for code). The only exception: if I explicitly say "open a PR for this," then do so.
 
 ---
 
@@ -389,12 +393,14 @@ This rule overrides any default session policy. Apply it to all work — scaffol
 
 The engine is self-extending: adding a research module or a sub-agent must require NO edits to engine code (`ui/server/src`, `ui/web/src`) and no human wiring. Whatever a maintainer would otherwise hand-wire, the engine absorbs automatically — and any agent that adds a module or sub-agent applies this by default, without being asked.
 
-- A module is a folder `.Codex/agents/<module>/` with a `99_<module>-synthesis.md` declaring `depends_on: [...]` and `NN_<slug>.md` agents, each carrying `layer:` and `name:` frontmatter, with intra-module REQUIRED inputs in the agent body's `UPSTREAM_INPUTS` block. A sub-agent is an `NN_*.md` file in a module.
+- A module is a folder `.claude/agents/<module>/` with a `99_<module>-synthesis.md` declaring `depends_on: [...]` and `NN_<slug>.md` agents, each carrying `layer:` and `name:` frontmatter, with intra-module REQUIRED inputs in the agent body's `UPSTREAM_INPUTS` block. A sub-agent is an `NN_*.md` file in a module.
 - Given that convention, the module/sub-agent is picked up automatically by: roster self-discovery (globs `*/99_*-synthesis.md` and `[0-9][0-9]_*.md`), dependency-aware run admission (the `depends_on` DAG), the shared filesystem watcher, the cockpit's dependency edges and "deps complete" locks, and the data-readiness dots.
 - Data-readiness needs no central rule: a new module falls to the generic, evidence-based default, OR self-declares a `data_readiness` rule (`required` / `sufficient` / `caps`) in its own `00`-triage frontmatter, interpreted generically by the server. Never hand-add a per-module readiness rule in engine code for a new module.
 - Never hardcode a module or agent name in engine code. The only module names that may appear are the grandfathered founding-module readiness rules — do not add more.
 
 If a change would force a human to touch engine code when a module or sub-agent is added, it is wrong: make the engine derive it from the discovered graph or from the module's own self-declared frontmatter instead.
+
+**Swarms.** The same zero-touch rule extends one level up. The engine can host multiple swarms — independent pipelines with their own unit of work (the research swarm's unit is a ticker; the screener swarm's unit is a signal). A swarm = `.claude/agents/<swarm>/` containing a `SWARM.md` manifest (frontmatter: `id`, `label`, `color`, `unit`, `order`, `layout`, `command_ns`, `run_root_template` + `placeholder`, `ledger_root`, `board_index`, `inbox_root`, a `routing` contract with `verdict_field` / `terminal` / `continue` lists, and stage-scoped `sources` policy) plus NESTED module folders `<module>/NN_*.md` + `99_<module>-synthesis.md` that follow the exact module convention above. The engine discovers swarms by globbing `.claude/agents/*/SWARM.md`; everything else (graph, watcher roots, launch routing, board paths, gate semantics) derives from the manifest. The research swarm is grandfathered as the default: flat module folders, no SWARM.md, unit `ticker` — its one-level discovery glob (`*/99_*-synthesis.md`) cannot see nested swarm modules, so swarms never pollute the research roster. Agent `name:` frontmatter must be globally unique across the whole `.claude/agents/` tree (Claude Code discovers recursively and silently discards duplicates) — prefix swarm agents (e.g. `screener-*`). Adding a future swarm (portfolio construction, risk management) must require NO engine-code edits.
 
 ---
 
@@ -421,3 +427,22 @@ This engine covers companies in any market — the United States, India, and oth
 - Use the company's own fiscal year. An Indian "FY24" usually ends 31 March; a US "FY24" may end 31 December or otherwise — never assume a calendar of convenience, and never mix periods without reconciliation (§15).
 
 Each module's MODULE_RULES.md applies this map and may add its own regime-specific source list and sector overlays on top (management-governance already does). The citation format (§5) is unchanged: name the local document and its period.
+
+---
+
+## 28. Code vs Data Commit Streams
+
+Two different kinds of commit reach `main`, and they follow opposite rules. Telling them apart is what lets the engine publish research on its own while keeping all hand-written code — human or AI — under review.
+
+- **Data — the engine's research output.** The files `scripts/commit-run.sh` writes — `analyses/**`, `screener/**`, `analyses/tracking/**` — are produced by the running cockpit and pushed straight to `main`. **This is the stream §25 governs.** It is data-only by construction: `commit-run.sh` stages only the exact pathspecs it is handed (`git add -- "$@"`), and every caller hands it data paths. A caller that passes a code path is a bug, not a new allowance.
+- **Code — everything else.** Engine source (`ui/server/src/**`, `ui/web/**`), the prompt-program (`.claude/agents/**`, `.claude/commands/**`, `frameworks/**`), the doctrine files (`AGENTS.md` and its twin), build, CI, and scripts (`scripts/**`, `.github/**`), and root `*.md`. **Code MUST go through branch → pull request → green CI → review → merge queue. It may NOT be pushed directly to `main` by any contributor, human or AI.** The agent, command, and framework `.md` files ARE the program — a bad edit changes research behaviour with no compiler to catch it — so they are gated exactly like source code.
+
+**Why two streams.** Research data is high in volume, low in risk, and machine-generated; gating it behind human review would stall the engine and train reviewers to rubber-stamp. Code is low in volume, high in risk, and changes behaviour for every future run; it has to be reviewed and tested. One repository, two rules.
+
+**Enforcement lives in the tooling, not in trust:**
+1. `commit-run.sh` stages only data pathspecs, so the code stream cannot leak through it by accident.
+2. A GitHub branch ruleset on `main` requires a pull request, with the engine's push identity as the **only** bypass actor — so the engine keeps publishing data directly while every other push, human or AI, must go through a reviewed PR. The engine cannot itself push code (see point 1): landing code through its bypass would mean editing a caller of `commit-run.sh`, which is itself a reviewed code change. The exact GitHub settings and the contributor workflow live in `CONTRIBUTING.md`.
+
+**Precedence.** When §25 and this section appear to conflict, **§28 wins for code and §25 wins for data.** §25's "commit directly to `main`" is the data contract; it does not authorise pushing code to `main`.
+
+**The twins must match.** This doctrine is maintained as two files — this one (`AGENTS.md`) and its counterpart read by the other assistant — and they must stay identical except for each file's own name. Derive one from the other instead of hand-editing both; drift between them is a defect, and a CI check may enforce that they match.
