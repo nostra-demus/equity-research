@@ -4,6 +4,27 @@ export type NodeStatus = 'dormant' | 'locked' | 'ready' | 'notready' | 'queued' 
 // own connection is down; `session-expired` = Cloudflare Access cookie gone (reachable but not JSON-ok).
 export type HealthState = 'connecting' | 'online' | 'reconnecting' | 'engine-offline' | 'your-network' | 'session-expired'
 
+// Per-source health for the Sources panel (GET /api/news/sources).
+export type SourceHealth = 'healthy' | 'quiet' | 'failing' | 'idle'
+export interface SourceRow {
+  name: string
+  region: string
+  feed_type: string
+  via: string
+  health: SourceHealth
+  last_data_at: string | null
+  items_24h: number
+  items_7d: number
+  fetch_status: 'ok' | 'unchanged' | 'empty' | 'error' | null
+  last_error: string | null
+  last_ok_at: string | null
+}
+export interface SourcesReport {
+  updated_at: string
+  counts: { total: number; healthy: number; quiet: number; failing: number; idle: number }
+  sources: SourceRow[]
+}
+
 export interface AgentNode {
   key: string
   module: string
