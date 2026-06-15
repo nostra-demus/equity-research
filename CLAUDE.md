@@ -76,6 +76,8 @@ Concrete forms already in use across modules, all acceptable — cite the local 
 
 Ban vague citations: "company filings", "annual report" alone, "management said", "source", "industry data". A web-sourced input must be dated and labelled unverified, and must not be used when a pool source covers the same fact.
 
+**Cite the source the number came from, and the number must actually appear in it.** A figure tied to a specific source must literally appear in that source for that period. Never present one source's number under another source's name — in particular, do not attach a data-vendor figure (Capital IQ / Bloomberg / a screener export) to a filing citation, or a filing figure to a vendor. Cite whichever document you actually took the number from. When the audited filing carries its own figure for the same line item, prefer it (§4) and reconcile any difference; a vendor's number and the filing's number for the same metric are not interchangeable. (Example defect: writing "EBITDA ₹9,965 cr [FY26 Annual Report, Note 22]" when ₹9,965 cr is the data-vendor figure and the annual report's own EBITDA is ₹10,314 cr — either cite the vendor for ₹9,965 cr, or use the report's ₹10,314 cr; do not put the vendor's number under the filing's name.)
+
 ---
 
 ## 6. Claim Quality Ladder

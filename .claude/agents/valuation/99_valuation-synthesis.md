@@ -1,6 +1,6 @@
 ---
 name: valuation-synthesis
-depends_on: [business-model, earnings]
+depends_on: [business-model, earnings, management-governance]
 description: Reads ALL upstream valuation module outputs and produces the final Valuation module report — Abstract, Verdict block (with 6 scores and the bull/base/bear fair-value levels plus cross-method dispersion), Specialist roll-up, Reconciliation, Score Cap application, Note to Final Synthesizer, and Simple Summary. The master synthesizer at .claude/agents/synthesizer.md reads this output and defers its valuation section to it.
 tools: Read, Glob, Grep, Bash
 layer: 5

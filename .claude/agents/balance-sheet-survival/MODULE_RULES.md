@@ -235,8 +235,7 @@ The balance-sheet-survival module reads outputs from previously-run modules. Und
 - `06_earnings-quality.md` — cash conversion (is the EBITDA used for coverage/leverage actually cash-backed?)
 - `03_margin-drivers.md` — how far margins (and thus EBITDA) can fall in a downside
 
-**From valuation (`analyses/{TICKER}_{DATE}/valuation/`), if available:**
-- `01_price-and-capital-structure.md` — the EV bridge / debt stack can be reused as a cross-check
+(Valuation is NOT a cross-module input here: it runs after / concurrently with balance-sheet-survival under the parallel scheduler, so it is never reliably available in a forward run — reading it would break output-neutrality. Leave it out.)
 
 If a cross-module file is missing, the affected agent proceeds independently and states:
 *"{module} cross-module input not available — proceeding on this module's own read of the data pool."*

@@ -51,14 +51,17 @@ function check(name: string, fn: () => void) {
   }
 }
 
-// ---- fixtures: business-model + earnings complete for ${T} ----
+// ---- fixtures: business-model + earnings + management-governance complete for ${T} ----
+// valuation now declares management-governance as a dependency (the RF-OWN-004 / §24 Filter-6 ownership
+// read), so its on-disk deps include mgov; without it D4 would (correctly) reject a valuation run.
 fs.rmSync(path.join(ANALYSES_DIR, `${T}_${DATE}`), { recursive: true, force: true })
 writeFixture('business-model/99_business-model-synthesis.md')
 writeFixture('earnings/99_earnings-synthesis.md')
+writeFixture('management-governance/99_management-governance-synthesis.md')
 writeFixture('business-model/01_business-identity.md') // a read-dep target for D4b
 
 try {
-  // D4 admit: valuation with bm+earnings present, nothing in flight
+  // D4 admit: valuation with bm+earnings+management-governance present, nothing in flight
   check('D4 admit valuation (deps on disk)', () => {
     const d = admitRun(req('module', { coveredModules: ['valuation'] }))
     assert.equal(d.ok, true)

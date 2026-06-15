@@ -1,5 +1,5 @@
 ---
-description: Run the valuation module's layered pipeline on a ticker. Self-discovers agents from .claude/agents/valuation/. Reads both business-model and earnings outputs as cross-module context.
+description: Run the valuation module's layered pipeline on a ticker. Self-discovers agents from .claude/agents/valuation/. Reads business-model, earnings, and management-governance outputs as cross-module context.
 argument-hint: TICKER
 allowed-tools: Read, Write, Glob, Bash, Task
 ---
@@ -8,7 +8,7 @@ You are the orchestrator for the valuation module, invoked standalone (not via `
 
 This command runs only the valuation module's pipeline and commits its output. To run all modules end-to-end with the master synthesizer, use `/research:full $ARGUMENTS` instead.
 
-The valuation module depends on BOTH the business-model and earnings modules (it reads segment, peer, quality, and forward-estimate context from them). It still runs if they are absent — each agent falls back to its own read of the data pool — but the analysis is stronger when both have run for this ticker.
+The valuation module depends on the business-model, earnings, AND management-governance modules: it reads segment/peer/quality context from business-model, forward-estimate context from earnings, and the ownership / §24 Filter-6 value-trap read from management-governance (`04_ownership-and-insider-behavior` + the synthesis — see `.claude/agents/valuation/MODULE_RULES.md`). Under `/research:full` all three run before valuation (the synthesis declares `depends_on: [business-model, earnings, management-governance]`, so the parallel scheduler orders valuation after them and the cockpit requires them complete). A standalone run still proceeds if one is absent — each agent falls back to its own read of the data pool, and for the value-trap read defers the final adjudication to the master synthesizer — but the analysis is stronger when all three have run for this ticker.
 
 Execute the steps below in order. Do not skip any.
 
@@ -55,6 +55,8 @@ Build the cross-module context string `<CROSS_MODULE_CONTEXT>` from what is avai
 - Neither: the literal string `none`.
 
 Per `.claude/agents/valuation/MODULE_RULES.md`, agents that need a path will parse it from the cross-module-context string; agents that don't need it will ignore it.
+
+**Management-governance is NOT resolved here** (by design). The agents that need the §24 Filter-6 ownership / value-trap read (`02_multiples-own-history`, `99_valuation-synthesis`) read it directly from this run root (`<RUN_ROOT>/management-governance/`) per `MODULE_RULES.md` — under `/research:full` it ran first and is present; in a standalone run those agents proceed independently and say so if it is absent. The cross-module-context string carries only the business-model/earnings paths because those support the prior-run fallback above.
 
 ## 5. Run the shared module pipeline
 

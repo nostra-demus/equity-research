@@ -4,7 +4,7 @@ import path from 'node:path'
 import { execa, type ResultPromise } from 'execa'
 import { logLaunch } from './activity-log'
 import { admitRun } from './admission'
-import { CLAUDE_BIN, DATA_DIR, DEFAULT_MODEL, ESTIMATES, FULL_PER_MODULE, LAUNCH_GUARDS, REPO_ROOT, type LaunchKind } from './config'
+import { CLAUDE_BIN, DATA_DIR, DEFAULT_MODEL, ESTIMATES, FULL_PER_MODULE, LAUNCH_GUARDS, MAX_CONCURRENT_RUNS, REPO_ROOT, type LaunchKind } from './config'
 import { getCreditStatus, setCreditStatus } from './credit'
 import { startRunWatcher, sweepRunOutputs } from './fs-watcher'
 import { createRun, emit, finishRun, getRun, IN_FLIGHT_STATUSES, listRuns, setActiveSubjectRun, type ExpectedAgent, type RunState } from './registry'
@@ -13,7 +13,7 @@ import { runReadiness } from './readiness'
 import { buildSwarmGraph, downstreamCascade } from './roster'
 import { swarmById } from './swarms'
 import { finalPaths, handleStreamLine } from './stream-parser'
-import type { AdmissionRejection, LaunchPreflight, ReadinessDecision, ReadinessReport, RunKind } from './types'
+import type { AdmissionRejection, LaunchPreflight, ReadinessDecision, ReadinessReport, RunKind, RunStatus } from './types'
 
 // Screener kinds are swarm-scoped; everything else is the research default. Generic by design:
 // the kind->swarm mapping is the only place this file knows the screener exists, and it is driven
@@ -384,60 +384,195 @@ export interface LaunchParams {
   userVia?: 'cf-access' | 'local'
 }
 
-// ---- chained full run (per-module budgets) — opt-in via FULL_PER_MODULE ----
-// A full pipeline as a CHAIN of separate runs: each module in dependency order (its own run + budget),
-// then the master synthesizer (its own run + budget). No single budget cap bounds the whole pipeline, so
-// a large company can't truncate it the way a monolithic /research:full can. Each step is its own run and
-// its own activity-log entry. A failed/incomplete/cancelled step stops the chain (so it's visible exactly
-// where), leaving the user to fix that module and resume.
-type ChainStep = { kind: RunKind; module?: string; agent?: string }
-function fullChainSteps(): ChainStep[] {
-  const g = buildSwarmGraph() // modules already topologically ordered by depends_on
-  const steps: ChainStep[] = g.modules.map((m) => ({ kind: 'module', module: m.name }))
-  steps.push({ kind: 'rerun', module: 'master', agent: 'synthesizer' }) // master synthesizer = its own run
-  return steps
-}
+// ---- chained full run (per-module budgets), DAG-PARALLEL — opt-in via FULL_PER_MODULE ----
+// A full pipeline as a set of SEPARATE per-module runs (each its own budget + activity-log entry),
+// scheduled by the depends_on DAG: a module launches as soon as ALL its upstream modules are done, so
+// INDEPENDENT modules run CONCURRENTLY instead of in series. For the research swarm this means
+// business-model -> earnings -> { balance-sheet-survival || management-governance } -> valuation -> catalyst -> master
+// -> catalyst -> master synthesizer. The modules write disjoint subfolders of ONE shared
+// analyses/<ticker>_<date> root, so admission's disjoint-writes rule (D2) is satisfied and the master
+// reads them all; admission D3 blocks only ancestor/descendant overlaps, so siblings are allowed.
+// Concurrency is bounded by MAX_CONCURRENT_RUNS. This is purely a SCHEDULE change — same modules, same
+// orbs, same model, byte-identical outputs — so it is output-neutral; the only effect is wall-clock (the
+// independent wave overlaps) and the disappearance of the single-budget truncation a monolithic
+// /research:full can suffer. A failed/incomplete/cancelled module stops scheduling NEW modules (already
+// in-flight ones still finish), leaving the pipeline visibly stopped at that module to fix and resume.
+// Self-discovers modules + deps from buildSwarmGraph (no hardcoded names), so a new module auto-joins the
+// DAG (CLAUDE.md §26).
+// The scheduler's two I/O touchpoints are INJECTED so the DAG logic can be unit-tested with a fake
+// launcher (no spawned CLI, no filesystem). The defaults wire the real launch() + getRun().onFinish and
+// the real marker file — so production behavior is unchanged.
+// A transient global-capacity rejection (admission D5 → HTTP 429) is backpressure, not a failure: the
+// chain re-pumps after this delay until a slot frees. Injected scheduleRetry lets tests drive it.
+const CAPACITY_RETRY_MS = 5000
+const deferMarkerPath = (ticker: string) => path.join(REPO_ROOT, `analyses/${ticker}_${todayDate()}`, '.defer_module_memos')
 
-// Kill switch for chained full runs: each chain step captures the epoch at launch; "stop
-// everything" bumps it, so a step that finishes AFTER the stop never launches its successor
-// (cancelling the current step alone couldn't guarantee that — onFinish fires on 'done' too).
+// Kill switch for chained full runs: launchFullChained captures the epoch at start; "stop everything"
+// (haltAllChains) bumps it, so the DAG scheduler stops launching once a stop has fired — and cancelling
+// any chained run bumps it too (see cancel()), which halts the rest of the pipeline.
 let chainEpoch = 0
 export function haltAllChains(): void {
   chainEpoch++
 }
 
-/** Capture the chain epoch at a step's launch; the returned probe answers "may this chain still
- *  advance?" — false once stop-everything has bumped the epoch. Exported for the test suite. */
+/** Capture the chain epoch; the returned probe answers "may this chain still advance?" — false once
+ *  stop-everything has bumped the epoch. Exported for the test suite. */
 export function captureChainEpoch(): () => boolean {
   const epoch = chainEpoch
   return () => epoch === chainEpoch
 }
 
-async function launchChainStep(steps: ChainStep[], i: number, ticker: string, user: string, userVia: 'cf-access' | 'local'): Promise<{ runId: string; preflight: LaunchPreflight }> {
-  const s = steps[i]
+export interface FullChainDeps {
+  // launch one run (params) and register its completion callback; resolves to the run's id + preflight.
+  launchAndWire: (params: LaunchParams, onFinish: (status: RunStatus) => void) => Promise<{ runId: string; preflight: LaunchPreflight }>
+  // drop the defer-module-memos marker in the run root (best-effort).
+  writeMarker: (ticker: string) => void
+  // remove the defer-module-memos marker (best-effort). Called on every failure path so a crashed chain
+  // never leaves an orphaned marker that would make a later same-day standalone module run defer-and-DROP
+  // its memo (the success path's marker removal is done by the master step, rerun.md Step 9A).
+  clearMarker: (ticker: string) => void
+  // schedule a re-pump after a transient 429 capacity rejection (default: setTimeout; tests fire it directly).
+  scheduleRetry: (fn: () => void) => void
+}
+const defaultFullChainDeps: FullChainDeps = {
+  launchAndWire: async (params, onFinish) => {
+    const out = await launch(params)
+    const run = getRun(out.runId)
+    if (run) { run.chained = true; run.onFinish = onFinish } // chained:true so cancel()/cancelAll halt the whole chain (parity with the old serial launchChainStep)
+    else onFinish('error') // run vanished before we could wire onFinish — treat as a failure
+    return { runId: out.runId, preflight: out.preflight }
+  },
+  writeMarker: (ticker) => {
+    try {
+      const p = deferMarkerPath(ticker)
+      fs.mkdirSync(path.dirname(p), { recursive: true })
+      fs.writeFileSync(p, '')
+    } catch { /* non-fatal: fall back to inline per-module memos */ }
+  },
+  clearMarker: (ticker) => {
+    try { fs.rmSync(deferMarkerPath(ticker), { force: true }) } catch { /* best-effort */ }
+  },
+  scheduleRetry: (fn) => { setTimeout(fn, CAPACITY_RETRY_MS) },
+}
+export async function launchFullChained(ticker: string, user: string, userVia: 'cf-access' | 'local', deps: FullChainDeps = defaultFullChainDeps): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean }> {
+  const g = buildSwarmGraph()
+  const names = g.modules.map((m) => m.name)
+  const known = new Set(names)
+  const depsOf = new Map(g.modules.map((m) => [m.name, m.dependsOn.filter((d) => known.has(d))]))
+  const total = names.length
+
+  // Drop a marker in the shared run root so each per-module run SKIPS its inline memo (MODULE_PIPELINE
+  // Step 4.9A); the master step regenerates all module memos in ONE batch at the end (rerun.md Step 9A)
+  // and removes the marker. Keeps the ~2.5-min-per-module memo off the parallel critical path —
+  // output-neutral, only the memo's timing moves. Injected so the test asserts it without touching disk.
+  deps.writeMarker(ticker)
+
+  const done = new Set<string>()
+  const started = new Set<string>()
+  const inflight = new Set<string>()
+  let stopped = false
+  let masterLaunched = false
+  let retryScheduled = false
+  // stop-everything (haltAllChains) bumps the epoch; once it does, the scheduler launches nothing further.
   const chainAlive = captureChainEpoch()
-  const out = await launch({ kind: s.kind, ticker, module: s.module, agent: s.agent, user, userVia })
-  const run = getRun(out.runId)
-  if (run) {
-    run.chained = true // cancelling this step must halt the whole chain (see cancel())
-    run.onFinish = (status) => {
-      if (!chainAlive()) {
+
+  let firstRunId: string | null = null
+  let settleFirst!: (out: { runId: string; preflight: LaunchPreflight }) => void
+  let rejectFirst!: (e: unknown) => void
+  const firstReady = new Promise<{ runId: string; preflight: LaunchPreflight }>((res, rej) => { settleFirst = res; rejectFirst = rej })
+
+  // modules whose every (known) upstream is done and which we have not yet started
+  const readyNow = () => names.filter((n) => !started.has(n) && (depsOf.get(n) ?? []).every((d) => done.has(d)))
+
+  const launchMaster = () => {
+    if (masterLaunched) return
+    masterLaunched = true
+    void deps.launchAndWire(
+      { kind: 'rerun', ticker, module: 'master', agent: 'synthesizer', user, userVia },
+      (status) => {
+        deps.clearMarker(ticker) // always clear the defer-memo marker once master exits — success path: rerun.md Step 9A also rm -f's it (idempotent); this is the safety net for an abnormal 'done' before Step 9A ran, or any failure
         // eslint-disable-next-line no-console
-        console.log(`[full-chain] ${ticker}: chain halted by stop-everything — not launching step ${i + 1}`)
-        return
-      }
-      if (status === 'done' && i + 1 < steps.length) {
-        void launchChainStep(steps, i + 1, ticker, user, userVia).catch((e) => {
+        console.log(`[full-chain] ${ticker}: ${status === 'done' ? 'pipeline complete' : `stopped at master — ${status}`}`)
+      },
+    ).catch((e) => {
+      deps.clearMarker(ticker)
+      // eslint-disable-next-line no-console
+      console.error(`[full-chain] ${ticker}: failed to launch master synthesizer`, (e as any)?.message || e)
+    })
+  }
+
+  const onModuleFinish = (name: string, status: RunStatus) => {
+    inflight.delete(name)
+    if (!chainAlive()) { stopped = true; deps.clearMarker(ticker); return } // stop-everything halted the chain — clear the defer-memo marker (no orphan) + launch nothing further
+    if (status !== 'done') {
+      stopped = true
+      deps.clearMarker(ticker) // failed pipeline — don't leave an orphaned defer-memo marker
+      // eslint-disable-next-line no-console
+      console.log(`[full-chain] ${ticker}: stopped at module ${name} — ${status} (in-flight modules still finish)`)
+      return
+    }
+    done.add(name)
+    if (done.size === total) { launchMaster(); return }
+    pump()
+  }
+
+  // A transient 429 (global concurrency cap momentarily full — usually runs on OTHER tickers) is retried,
+  // not fatal. At most one pending retry; when it fires, pump() re-offers every un-started ready module.
+  const scheduleRetry = () => {
+    if (retryScheduled || stopped) return
+    retryScheduled = true
+    deps.scheduleRetry(() => { retryScheduled = false; pump() })
+  }
+
+  const launchModule = (name: string) => {
+    started.add(name)
+    inflight.add(name) // reserve the slot synchronously so the cap holds within one pump() pass
+    void deps.launchAndWire(
+      { kind: 'module', ticker, module: name, user, userVia },
+      (status) => onModuleFinish(name, status),
+    )
+      .then((out) => {
+        if (firstRunId === null) { firstRunId = out.runId; settleFirst({ runId: out.runId, preflight: out.preflight }) }
+      })
+      .catch((e) => {
+        inflight.delete(name)
+        // A transient 429 (admission D5 capacity) is backpressure, not a failure — once the chain is underway
+        // (firstRunId set). Un-reserve so readyNow() offers the module again, and retry; do NOT kill the
+        // in-flight pipeline. A 429 before any module launched, or any non-capacity error, stops the chain
+        // at that module (matches the old serial chain).
+        const transient = (e as any)?.statusCode === 429 || (e as any)?.body?.code === 'capacity'
+        if (transient && firstRunId !== null && !stopped) {
+          started.delete(name)
           // eslint-disable-next-line no-console
-          console.error(`[full-chain] ${ticker}: failed to launch step ${i + 1}`, e?.message || e)
-        })
-      } else {
+          console.warn(`[full-chain] ${ticker}: ${name} hit the concurrency cap (429) — retrying shortly`)
+          scheduleRetry()
+          return
+        }
+        stopped = true
+        deps.clearMarker(ticker)
         // eslint-disable-next-line no-console
-        console.log(`[full-chain] ${ticker}: ${status === 'done' ? 'pipeline complete' : `stopped at step ${i} (${s.module || s.agent}) — ${status}`}`)
-      }
+        console.error(`[full-chain] ${ticker}: failed to launch module ${name}`, (e as any)?.message || e)
+        if (firstRunId === null) rejectFirst(e)
+      })
+  }
+
+  function pump() {
+    if (stopped || !chainAlive()) return
+    for (const name of readyNow()) {
+      if (inflight.size >= MAX_CONCURRENT_RUNS) break
+      launchModule(name)
     }
   }
-  return out
+
+  if (total === 0) { launchMaster(); return { runId: '', preflight: estimate('full', ticker), chained: true } }
+  pump()
+  // business-model has no deps, so something is always runnable; if not, the graph has a cycle — fail loud
+  // rather than hang on the firstReady promise below.
+  if (started.size === 0) { deps.clearMarker(ticker); throw new Error(`[full-chain] ${ticker}: no module is runnable at start (depends_on cycle?)`) }
+  // `chained: true` -> the cockpit live-follows the WHOLE pipeline (each module + master), celebrating only
+  // when the master finishes — not after each module.
+  const first = await firstReady
+  return { runId: first.runId, preflight: estimate('full', ticker), chained: true }
 }
 
 /** Stop EVERYTHING: halt every full-run chain, then cancel every in-flight run (running,
@@ -454,13 +589,6 @@ export async function cancelAll(): Promise<string[]> {
     }
   }
   return cancelled
-}
-
-async function launchFullChained(ticker: string, user: string, userVia: 'cf-access' | 'local'): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean }> {
-  const first = await launchChainStep(fullChainSteps(), 0, ticker, user, userVia)
-  // `chained: true` tells the cockpit to live-follow the WHOLE pipeline (connect to each step as it
-  // launches, and only celebrate when the master finishes — not after each module).
-  return { runId: first.runId, preflight: estimate('full', ticker), chained: true }
 }
 
 export async function launch(params: LaunchParams): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean }> {
