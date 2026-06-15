@@ -234,7 +234,7 @@ const DOMAINS: Record<string, SourceMeta> = {
   'deccanherald.com': { source_name: 'Deccan Herald', region: 'IN', input_nature: 'news_headline', gdelt: false },
   'freepressjournal.in': { source_name: 'Free Press Journal', region: 'IN', input_nature: 'news_headline', gdelt: false },
   'outlookbusiness.com': { source_name: 'Outlook Business', region: 'IN', input_nature: 'news_headline', gdelt: false },
-  'outlookmoney.com': { source_name: 'Outlook Money', region: 'IN', input_nature: 'news_headline', gdelt: false },
+  'outlookmoney.com': { source_name: 'Outlook Money', region: 'IN', input_nature: 'news_headline' },
   'theprint.in': { source_name: 'The Print', region: 'IN', input_nature: 'news_headline', gdelt: false },
   // --- Genuinely-new high-edge expansion (Jun 2026): primary regulatory/recall feeds, new exchange
   //     regions, central banks, crypto/datacenter/semi trade press, weather catastrophe. All carry
