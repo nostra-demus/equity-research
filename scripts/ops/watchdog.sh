@@ -97,6 +97,24 @@ else
   { [ ! -f "$LOG" ] || [ "$hb_age" -ge 3300 ]; } && log "OK${detail:+ [$detail]} pub=${pub:-?}"
 fi
 
+# 4) THE STORY (enrich) read health — defense-in-depth ON TOP OF the engine's own per-cycle heal pass.
+# Low-frequency (~30 min) and only when the engine is locally healthy this cycle. A high ON-WIRE degraded
+# rate means article reads are regressing in a way the in-engine heal can't fix on its own (LLM keys expired,
+# provider chain broken, the heal pass silently not firing) — exactly the "frozen useless story" class of
+# bug. Log the incident and attempt an INDEPENDENT heal via the engine API. Never fatal; bounded by the
+# timestamp gate so it can't run every 60s.
+if [ -z "$problem" ]; then
+  eh_age=999999
+  [ -f "$STATE_DIR/enrich-health.at" ] && eh_age=$(( $(date +%s) - $(stat -f %m "$STATE_DIR/enrich-health.at" 2>/dev/null || echo 0) ))
+  if [ "$eh_age" -ge 1800 ]; then
+    touch "$STATE_DIR/enrich-health.at"
+    if ! ( cd "$REPO" && ENGINE_STATE_DIR="$REPO/ui/server/.state" /opt/homebrew/bin/npm --prefix ui/server run --silent enrich:health -- --strict ) >/dev/null 2>&1; then
+      log "ENRICH-DEGRADED — article reads regressing; attempting independent heal"
+      ( cd "$REPO" && ENGINE_STATE_DIR="$REPO/ui/server/.state" /opt/homebrew/bin/npm --prefix ui/server run --silent enrich:health -- --heal ) >> "$LOG" 2>&1 || log "  WARN enrich heal failed"
+    fi
+  fi
+fi
+
 # Always succeed once the checks ran: incidents live in the LOG, not the exit code. Without this a
 # healthy run that writes no heartbeat would exit 1 (shell-false &&) and read as "failed" in
 # `launchctl list` — misleading for the very command used to confirm the watchdog is alive.
