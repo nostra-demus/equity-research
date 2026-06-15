@@ -142,6 +142,12 @@ export interface EventEnrichment {
   beneficiaries?: ArticleParty[]
   exposed?: ArticleParty[]
   theme?: string
+  // read-quality flags from the server: `complete` = the best obtainable read (rich brief, SEC parse, filing
+  // floor, or retries exhausted). A degraded read (complete falsy) self-heals — reopening the event re-fires
+  // the read instead of freezing a useless dek for hours. See ui/server/src/news/enrich.ts.
+  complete?: boolean
+  degraded?: boolean
+  read_attempts?: number
 }
 
 export interface NewsCycle {

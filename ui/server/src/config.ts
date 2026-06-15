@@ -365,6 +365,11 @@ export const NEWS = {
   // one provider's rate limiter before skipping it. Past the budget the read degrades to the story floor.
   enrichLlmBudgetMs: capNum(process.env.NEWS_ENRICH_LLM_BUDGET_MS, 14_000),
   enrichLimiterWaitMs: capNum(process.env.NEWS_ENRICH_LIMITER_WAIT_MS, 2500),
+  // Background self-heal (news/enrich-heal.ts): each ingest cycle, re-read this many DEGRADED stories (a
+  // readable article whose on-demand LLM read momentarily missed) that are still on the live wire, so a
+  // story fixes itself even if no human reopens it. Capped + budget-gated so it never starves the title
+  // triage. 0 disables the pass (the short degraded TTL still self-heals on the next manual open).
+  enrichHealMaxPerCycle: capNum(process.env.NEWS_ENRICH_HEAL_MAX_PER_CYCLE, 6),
 }
 
 /**

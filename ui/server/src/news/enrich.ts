@@ -22,15 +22,25 @@ import path from 'node:path'
 import { lookupSource } from './sources/approved-domains'
 import { readFeed } from './feed'
 import { cleanText } from './clean'
-import { storyFloor, isFilingEvent } from './story-floor'
+import { storyFloor, isFilingEvent, type StoryFloorInput } from './story-floor'
 import { filterCompanies, isCompanyName } from './entities'
 import type { ArticleCompany, ArticleParty } from './triage/groq'
 import { type ArticleReadProvider, readArticleBrief } from './triage/article-read'
 import type { CompanyGuess } from './types'
 
 const CACHE_FILE = 'news-enrich-cache.json'
-const CACHE_TTL_MS = 12 * 60 * 60 * 1000 // 12h — a story/filing doesn't change; coverage rarely does intraday
+const CACHE_BACKUP_FILE = 'news-enrich-cache.bak.json' // last-known-good copy, written before each overwrite
+const CACHE_TTL_MS = 12 * 60 * 60 * 1000 // 12h — a COMPLETE story/filing doesn't change; coverage rarely does intraday
+// A DEGRADED read (a readable article whose LLM body-read momentarily missed — rate-limit window, empty
+// parse, deadline) must NOT be frozen for 12h: that is exactly the bug where one transient miss showed the
+// clickbait dek for half a day. It gets a short TTL so the very next open re-runs the real read and self-heals.
+const DEGRADED_TTL_MS = capInt(process.env.NEWS_ENRICH_DEGRADED_TTL_MS, 90_000) // 90s — dedupes rapid re-opens, heals on the next genuine look
+// After this many LLM read attempts on a readable article that still yields no brief, accept the deterministic
+// floor as the final answer (it's the honest best — a hard paywall / JS shell isn't going to read) and give it
+// the full TTL so we stop re-reading it forever.
+const MAX_READ_ATTEMPTS = capInt(process.env.NEWS_ENRICH_MAX_READ_ATTEMPTS, 3)
 const FETCH_TIMEOUT_MS = 9000
+function capInt(v: string | undefined, dflt: number): number { const n = Number(v); return Number.isFinite(n) && n >= 0 ? n : dflt }
 const USER_AGENT = process.env.NEWS_ENRICH_USER_AGENT || process.env.NEWS_RSS_USER_AGENT || 'Nostradamus Research (ceekay@muns.io)'
 // SEC.gov mandates a descriptive contact UA; everywhere else a realistic browser header set so public
 // article pages don't reject us as a bot (the cause of the low body-read rate).
@@ -82,6 +92,17 @@ export interface EventEnrichment {
   beneficiaries?: ArticleParty[] // who gains — named firms or an inferred group (flagged)
   exposed?: ArticleParty[] // who's at risk
   theme?: string // corrected single event-type (replaces the mis-tagged triage theme)
+  // ---- read-quality bookkeeping (the anti-poisoning layer) ----
+  // complete = this is the BEST obtainable read: a rich brief, an SEC parse, a filing floor (the headline
+  // IS the disclosure), OR a readable article where we've exhausted MAX_READ_ATTEMPTS and the floor is the
+  // honest best. Only a `complete` result earns the long 12h cache TTL; a `degraded` one gets a short TTL
+  // so the next open (or the background heal pass) retries the real read instead of freezing a useless dek.
+  complete?: boolean
+  // degraded = had a readable article body but the LLM read produced no brief yet (the heal target).
+  degraded?: boolean
+  // how many times the LLM body read has been attempted for this event (across opens + heal passes). Caps
+  // retries so a genuinely unreadable article (hard paywall, JS shell) isn't re-read forever.
+  read_attempts?: number
 }
 
 // ---- 8-K item-code dictionary (SEC §13/15(d) current-report items) — plain meanings ----
@@ -330,20 +351,94 @@ export function findRelatedEvents(repoRoot: string, self: { event_id: string; he
 // ---- fetch + cache orchestration ----
 
 function loadCache(stateDir: string): Record<string, EventEnrichment> {
-  try {
-    const o = JSON.parse(fs.readFileSync(path.join(stateDir, CACHE_FILE), 'utf8'))
-    return o && typeof o === 'object' ? o : {}
-  } catch {
-    return {}
+  // Prefer the live file; fall back to the last-good backup if it's missing/corrupt (a truncated write,
+  // a half-flushed crash). The backup means a single bad write can never wipe every cached read.
+  for (const file of [CACHE_FILE, CACHE_BACKUP_FILE]) {
+    try {
+      const o = JSON.parse(fs.readFileSync(path.join(stateDir, file), 'utf8'))
+      if (o && typeof o === 'object') return o
+    } catch {}
   }
+  return {}
 }
 function saveCache(stateDir: string, cache: Record<string, EventEnrichment>): void {
   try {
     fs.mkdirSync(stateDir, { recursive: true })
     // bound growth — keep the 400 most recent
     const entries = Object.entries(cache).sort((a, b) => String(b[1].fetched_at).localeCompare(String(a[1].fetched_at))).slice(0, 400)
-    fs.writeFileSync(path.join(stateDir, CACHE_FILE), JSON.stringify(Object.fromEntries(entries)))
+    const json = JSON.stringify(Object.fromEntries(entries))
+    const main = path.join(stateDir, CACHE_FILE)
+    // BACKUP: copy the current good file aside BEFORE overwriting, so a crash mid-write leaves a recoverable
+    // copy. Then write to a temp file and rename (atomic on POSIX) so a reader never sees a half-written file.
+    try { if (fs.existsSync(main)) fs.copyFileSync(main, path.join(stateDir, CACHE_BACKUP_FILE)) } catch {}
+    const tmp = `${main}.tmp`
+    fs.writeFileSync(tmp, json)
+    fs.renameSync(tmp, main)
   } catch {}
+}
+
+/** Did this enrichment produce its best obtainable substance? A rich brief, an SEC parse, a filing floor
+ *  (the headline IS the disclosure), or an article where retries are exhausted (complete set explicitly). */
+export function isEnrichmentComplete(r: EventEnrichment): boolean {
+  return !!(
+    r.complete ||
+    r.sec ||
+    (r.gist && r.gist.length) ||
+    (r.companies && r.companies.length) ||
+    (r.beneficiaries && r.beneficiaries.length) ||
+    (r.exposed && r.exposed.length)
+  )
+}
+/** A complete read is stable → 12h. A degraded one expires fast so the next look retries the real read. */
+function ttlFor(r: EventEnrichment): number {
+  return isEnrichmentComplete(r) ? CACHE_TTL_MS : DEGRADED_TTL_MS
+}
+
+/** When the LLM read isn't available, show the MOST substantial real text we already hold — not whatever
+ *  comes first. The og:description is frequently a vague marketing dek ("there's one theme you can't
+ *  ignore"); the RSS lede is frequently the real opening paragraph. Prefer the longest genuine prose of the
+ *  two, falling back to the deterministic story floor. (A filing has no readable body → straight to floor.) */
+export function bestFallbackSummary(pageHtml: string, snippet: string, filingInput: StoryFloorInput, bodylessFiling: boolean): string {
+  if (bodylessFiling) return storyFloor(filingInput).summary
+  const cands = [String(snippet || ''), pageHtml ? extractSummary(pageHtml) || '' : '']
+    .map((s) => s.trim())
+    .filter((s) => s.length >= 40 && /[a-z][a-z ,;:'"-]{12,}/i.test(s)) // real prose, not a code/stub
+    .sort((a, b) => b.length - a.length)
+  return (cands[0] || storyFloor(filingInput).summary).slice(0, 600)
+}
+
+/**
+ * Commit a freshly-computed enrichment to the cache with two durable guards:
+ *   - NO-CLOBBER (the backup): never replace a still-fresh COMPLETE read with a DEGRADED one. A force-refresh
+ *     or heal pass that momentarily misses the LLM must not destroy a good brief we already had. We keep the
+ *     good one and only refresh its volatile bits (coverage / related).
+ *   - ATTEMPT BOOKKEEPING: count LLM read attempts and, once MAX is hit on a still-readable article, accept
+ *     the floor as the final answer (mark complete) so it earns the long TTL and the heal pass leaves it be.
+ * Re-reads the on-disk cache first so concurrent writers (the route + the heal pass) don't lose each other's
+ * single-entry updates. Returns the entry actually stored (which the caller returns to the client).
+ */
+function commitEnrichment(stateDir: string, id: string, next: EventEnrichment, attempted: boolean): EventEnrichment {
+  const cache = loadCache(stateDir)
+  const prev = cache[id]
+  if (attempted) next.read_attempts = (prev?.read_attempts || 0) + 1
+  else if (prev?.read_attempts) next.read_attempts = prev.read_attempts
+  // a readable article we've now tried enough times → accept the floor as final (stop re-reading forever)
+  if (!isEnrichmentComplete(next) && (next.read_attempts || 0) >= MAX_READ_ATTEMPTS) next.complete = true
+  next.degraded = !isEnrichmentComplete(next)
+
+  let chosen = next
+  if (prev && isEnrichmentComplete(prev) && !isEnrichmentComplete(next) && Date.now() - new Date(prev.fetched_at).getTime() < CACHE_TTL_MS) {
+    // keep the good read; carry forward the latest attempt count + freshly-computed volatile sections
+    chosen = {
+      ...prev,
+      read_attempts: next.read_attempts ?? prev.read_attempts,
+      related: next.related?.length ? next.related : prev.related,
+      prior_coverage: next.prior_coverage?.length ? next.prior_coverage : prev.prior_coverage,
+    }
+  }
+  cache[id] = chosen
+  saveCache(stateDir, cache)
+  return chosen
 }
 
 /** SSRF gate: a URL is fetchable only if it is http(s), on a default port, carries no userinfo, sits on
@@ -449,7 +544,9 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
 
   const cache = loadCache(deps.stateDir)
   const hit = cache[input.event_id]
-  if (!deps.force && hit && Date.now() - new Date(hit.fetched_at).getTime() < CACHE_TTL_MS) return hit
+  // TTL is quality-aware: a COMPLETE read is served for 12h; a DEGRADED one expires in ~90s so the next open
+  // re-runs the real article read instead of freezing a useless dek for half a day (the reported bug).
+  if (!deps.force && hit && Date.now() - new Date(hit.fetched_at).getTime() < ttlFor(hit)) return hit
 
   // Prefer the event's OWN stored record (url + companies) from the firehose over the client-supplied
   // values — a client must not be able to point enrichment at an arbitrary page or poison the shared
@@ -513,6 +610,7 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
     else fetchNote = r.note || 'source blocked'
   }
 
+  let attempted = false // did we run the LLM body read this call? (drives read_attempts bookkeeping)
   if (isSec && pageHtml) {
     // an EDGAR filing index: the parsed item block IS the meaning; its page "summary" is header boilerplate.
     const sec = parseSecFiling(pageHtml)
@@ -536,6 +634,7 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
         : []
     let brief = null
     if (body && !bodylessFiling && providers.length) {
+      attempted = true // a real LLM read was tried — counts toward read_attempts so retries are bounded
       const r = await readArticleBrief(body, headline, providers, {
         stateDir: deps.stateDir,
         fetchFn,
@@ -555,16 +654,14 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
       const exp = scrubParties(brief.exposed)
       if (exp.length) result.exposed = exp
       if (brief.theme) result.theme = brief.theme
-      // read succeeded but produced no gist bullets → back it with a readable summary, never blank
-      if (!brief.gist.length) result.summary = ((!bodylessFiling && pageHtml && extractSummary(pageHtml)) || snippet || storyFloor(filingInput).summary).slice(0, 600)
+      // read succeeded but produced no gist bullets → back it with the most substantial text we hold, never blank
+      if (!brief.gist.length) result.summary = bestFallbackSummary(pageHtml, snippet, filingInput, bodylessFiling)
     } else {
-      // NO readable body (a PDF/attachment filing, a JS shell, a paywall, an off-list link). Guarantee a
-      // meaningful, accurate THE STORY rather than a raw fetch error. For an article we prefer a real page
-      // summary / feed lede; for a filing (or when those are empty) we synthesize from the headline +
-      // filing metadata (story-floor.ts — never empty, never fabricated). The raw fetch reason is demoted
-      // to a SECONDARY hint, never shown AS the story.
-      const extracted = !bodylessFiling ? ((pageHtml && extractSummary(pageHtml)) || snippet) : ''
-      result.summary = (extracted && extracted.trim() ? extracted : storyFloor(filingInput).summary).slice(0, 600)
+      // NO readable body (a PDF/attachment filing, a JS shell, a paywall, an off-list link) OR the LLM read
+      // momentarily missed. Guarantee a meaningful, accurate THE STORY rather than a raw fetch error — and
+      // prefer the MOST substantial real text we hold (the RSS lede over the vague og:description dek), then
+      // the deterministic floor (never empty, never fabricated). The raw fetch reason is demoted to a hint.
+      result.summary = bestFallbackSummary(pageHtml, snippet, filingInput, bodylessFiling)
       if (fetchNote) result.note = fetchNote
     }
   }
@@ -575,7 +672,13 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
     result.summary = storyFloor(filingInput).summary
   }
 
-  cache[input.event_id] = result
-  saveCache(deps.stateDir, cache)
-  return result
+  // A filing's floor / an SEC parse / a bodyless event is the BEST obtainable read (the headline IS the
+  // disclosure) — mark it complete so it earns the long TTL and the heal pass never re-reads it. A readable
+  // article that yielded a brief is complete via isEnrichmentComplete; one that didn't stays degraded
+  // (short TTL → self-heals) until MAX_READ_ATTEMPTS, which commitEnrichment then accepts as final.
+  if (result.sec || bodylessFiling) result.complete = true
+
+  // Commit through the no-clobber + attempt-bookkeeping guard (never overwrite a fresh good read with a
+  // degraded one; bound retries). Returns the entry actually stored, which is what the client sees.
+  return commitEnrichment(deps.stateDir, input.event_id, result, attempted)
 }

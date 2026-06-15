@@ -998,12 +998,16 @@ export const useStore = create<State>((set, get) => ({
   },
 
   // fetch (once, then cache) the on-demand enrichment for an opened event. Keyed by event_id;
-  // a 'loading' sentinel prevents duplicate in-flight fetches. A FAILED result is NOT cached as final —
-  // reopening the event re-fires the fetch (the human's retry actually retries). Never throws into the UI.
+  // a 'loading' sentinel prevents duplicate in-flight fetches. A FAILED or DEGRADED result is NOT cached as
+  // final — reopening the event re-fires the fetch (the human's retry actually retries). Never throws into UI.
   fetchEnrichment: async (it) => {
     const cur = get().enrichCache[it.event_id]
     if (cur === 'loading') return // a fetch is already in flight
-    if (cur && cur.ok) return // we already have a good result
+    // Only stop refetching once the server says the read is COMPLETE (a rich brief, an SEC parse, a filing
+    // floor, or retries exhausted). A degraded read — where the article body read momentarily missed and we
+    // fell back to a thin dek — re-fires on reopen, so a transient miss can't freeze a useless story. The
+    // server's short degraded TTL + background heal mean the retry returns the real read.
+    if (cur && cur.complete) return
     set({ enrichCache: { ...get().enrichCache, [it.event_id]: 'loading' } })
     try {
       const enrichment = await api.enrichEvent(it)

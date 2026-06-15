@@ -12,6 +12,7 @@ import path from 'node:path'
 import { NEWS, REPO_ROOT, STATE_DIR } from '../config'
 import { readFeed } from './feed'
 import { runIngestCycle } from './runCycle'
+import { healEnrichCache } from './enrich-heal'
 import { pacedCeiling, pacedHasHeadroom } from './triage/budget'
 import type { CycleSummary } from './types'
 
@@ -208,6 +209,10 @@ export function startNewsIngester(): void {
     try {
       const summary = await withCycleGuard(runIngestCycle({ log }))
       lastNote = summary.note || null
+      // AUTO-FIX (under the SAME cycle lock so it can't overlap a drain and double-spend a budget file):
+      // re-read any degraded THE STORY entries still on the wire, so a momentarily-missed article fixes
+      // itself without a human reopening it. Budget-gated, capped, guarded, and it never throws.
+      if (budgetHasHeadroom()) await withCycleGuard(healEnrichCache({ hasBudget: budgetHasHeadroom, log }))
     } catch (e: any) {
       log(`cycle error: ${e?.message || e}`)
       lastNote = `cycle error: ${e?.message || e}`
