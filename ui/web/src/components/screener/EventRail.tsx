@@ -342,6 +342,9 @@ export function EventRail() {
           </div>
         )}
         <div className="evrail__seg" role="radiogroup" aria-label="How to view the wire">
+          <button type="button" role="radio" aria-checked={themesOpen} className={`evrail__segbtn${themesOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => void openThemes('map')} title="The wire clustered into living investment themes">
+            Themes
+          </button>
           <button type="button" role="radio" aria-checked={view === 'ranked' && !themesOpen} className={`evrail__segbtn${view === 'ranked' && !themesOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => pickView('ranked')} title="The events worth a look, most important first">
             Ranked{keptCount ? ` · ${keptCount}` : ''}
           </button>
@@ -351,9 +354,6 @@ export function EventRail() {
           </button>
           <button type="button" role="radio" aria-checked={view === 'all' && !themesOpen} className={`evrail__segbtn${view === 'all' && !themesOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => pickView('all')} title={`The full firehose, newest first${items.length ? ` (${items.length})` : ''} — includes the low-signal tail`}>
             Everything
-          </button>
-          <button type="button" role="radio" aria-checked={themesOpen} className={`evrail__segbtn${themesOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => void openThemes('map')} title="The wire clustered into living investment themes">
-            Themes
           </button>
         </div>
 

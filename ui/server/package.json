@@ -15,12 +15,12 @@
     "enrich:health": "tsx ../../scripts/news-enrich-health.ts"
   },
   "dependencies": {
-    "@fastify/cors": "^9.0.1",
-    "@fastify/static": "^7.0.4",
+    "@fastify/cors": "^10.0.1",
+    "@fastify/static": "^8.0.3",
     "chokidar": "^3.6.0",
     "execa": "^9.5.1",
     "fast-glob": "^3.3.2",
-    "fastify": "^4.28.1",
+    "fastify": "^5.8.5",
     "gray-matter": "^4.0.3",
     "marked": "^12.0.2",
     "zod": "^3.23.8"
