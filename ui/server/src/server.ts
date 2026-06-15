@@ -17,6 +17,7 @@ import { analyzeTicker, listTickers } from './data-status'
 import { cancel, cancelAll, creditCheck, decideReadiness, estimate, launch } from './launcher'
 import { newsBus } from './news/bus'
 import { readFeed } from './news/feed'
+import { buildSourcesReport } from './news/source-health'
 import { readThemesIndex, loadTheme, buildThemeDetail } from './news/themes/store'
 import { enrichEvent } from './news/enrich'
 import { markInboxConsumed, setDismissed } from './news/inbox-actions'
@@ -586,6 +587,10 @@ app.post('/api/screener/handoff', async (req, reply) => {
 
 // Scanner status for the cockpit's auto-scan chip: on/off, last/next cycle, today's counts.
 app.get('/api/news/status', async () => getNewsStatus())
+
+// Per-source health for the Sources panel: every wired feed + adapter, when its data last arrived, and
+// whether it's healthy / quiet / failing / idle (fetch outcome + firehose recency). Read-only, never throws.
+app.get('/api/news/sources', async () => buildSourcesReport(REPO_ROOT, STATE_DIR))
 
 // Backfill for the live wire + the time-travel view: every triaged item (kept AND dropped) over the
 // requested window. days defaults to 2 (the live view); larger windows (14 / 30 / 90 / 180 / all) read
