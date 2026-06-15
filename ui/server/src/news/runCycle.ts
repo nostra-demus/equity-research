@@ -206,6 +206,10 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   let budgetHit = false
   let paceHit = false
   let batchFailed = false
+  // Once Groq fails this cycle (org 429 / network), STOP poking it for the rest of the cycle and go
+  // straight to overflow — otherwise a sustained Groq outage burns the whole daily request cap on
+  // failed calls (each 429 still counts as a request), locking Groq out even after the outage clears.
+  let groqDownThisCycle = false
   const pace = { targetTokens: cfg.groqDailyTokenTarget, floorFrac: cfg.groqPaceFloorFrac }
 
   for (let i = 0; i < items.length; i += cfg.triageBatch) {
@@ -223,13 +227,14 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     // never stall triage: the batch flows to whoever is up. `res` stays undefined only when NOTHING
     // was even attempted (all daily budgets out) → that's the genuine "defer the rest" case.
     let res
-    if (groqOk) {
+    if (groqOk && !groqDownThisCycle) {
       await limiter.acquire(est, sleep, () => now().getTime())
       res = await triageBatch(batch, { model: cfg.groqModel, baseUrl: cfg.groqBaseUrl, apiKey: cfg.groqApiKey, maxTokens: cfg.triageMaxTokens }, fetchFn, sleep)
       groqRequests += res.requests
       groqTokens += res.tokens
       budget.record(res.requests, res.tokens)
       limiter.learn(res.rate, () => now().getTime()) // track the live per-minute ceiling + back off on 429
+      if (!res.ok) groqDownThisCycle = true // Groq is having a bad cycle → skip it for the rest, save the cap
     }
     if (!res || !res.ok) {
       const ovPick = overflow.find((o) => !o.failed && o.budget.canSpend(est)) // first overflow provider with daily room
