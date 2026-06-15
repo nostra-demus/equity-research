@@ -16,6 +16,12 @@ export interface GdeltOptions {
   maxRecords?: number // GDELT caps at 250
   chunkSize?: number // domains OR-ed per query (keeps each query well under GDELT's length limit)
   chunkGapMs?: number // pause between queries — GDELT enforces "one request every 5 seconds"
+  // Multi-cycle penalty backoff. When set (production passes both), a 429 puts GDELT to sleep for
+  // backoffCyclesOn429 whole cycles — i.e. we stop poking it entirely for ~that long — so its IP
+  // penalty-box can actually DECAY (a compliant 1-poke-per-5-min still kept it alive). Absent in unit
+  // tests (they pass neither), so the module-level backoff state is never set or read there.
+  cycleMs?: number // length of one ingest cycle (pollIntervalMin × 60_000)
+  backoffCyclesOn429?: number // cycles to skip GDELT after a 429
 }
 
 export interface GdeltDeps {
@@ -25,6 +31,12 @@ export interface GdeltDeps {
 }
 
 const realSleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms))
+
+// Module-level GDELT penalty backoff (persists across cycles via the long-lived scheduler). Only
+// touched when the cycle config (cycleMs + backoffCyclesOn429) is supplied — production-only.
+let gdeltSkipUntilMs = 0
+/** Test hook: clear the cross-cycle GDELT backoff so cases don't leak into each other. */
+export function resetGdeltBackoff(): void { gdeltSkipUntilMs = 0 }
 
 /** Group domains into OR-queries so each GDELT call stays small and reliable. */
 export function buildQueries(domains: string[], chunkSize = 6): string[] {
@@ -61,6 +73,14 @@ export async function fetchGdelt(opts: GdeltOptions, deps: GdeltDeps = {}): Prom
   const queries = buildQueries(approvedDomains(), opts.chunkSize ?? 11)
   // GDELT enforces "one request every 5 seconds" (its own 429 text); space queries past that window.
   const chunkGapMs = opts.chunkGapMs ?? 6000
+  const backoffEnabled = !!(opts.cycleMs && opts.backoffCyclesOn429)
+
+  // If GDELT 429'd us recently, stay completely off it until the backoff window elapses — poking a
+  // penalty-boxed IP (even once/cycle) can keep the penalty alive; only true quiet lets it decay.
+  if (backoffEnabled && Date.now() < gdeltSkipUntilMs) {
+    log(`gdelt: penalty backoff — skipping (~${Math.ceil((gdeltSkipUntilMs - Date.now()) / 60_000)} min left)`)
+    return []
+  }
 
   const byUrl = new Map<string, RawArticle>()
   for (let qi = 0; qi < queries.length; qi++) {
@@ -74,7 +94,11 @@ export async function fetchGdelt(opts: GdeltOptions, deps: GdeltDeps = {}): Prom
     for (;;) {
       try {
         const res = await fetchFn(url, { headers: { 'user-agent': 'screener-news-ingester/1' } })
-        if (res.status === 429) { log(`gdelt chunk ${qi}: 429 — backing off GDELT for this cycle`); return [...byUrl.values()] }
+        if (res.status === 429) {
+          if (backoffEnabled) gdeltSkipUntilMs = Date.now() + opts.cycleMs! * opts.backoffCyclesOn429!
+          log(`gdelt chunk ${qi}: 429${backoffEnabled ? ` — backing off GDELT for ${opts.backoffCyclesOn429} cycles` : ' — backing off for this cycle'}`)
+          return [...byUrl.values()]
+        }
         if (res.status >= 500) {
           if (++attempt >= 3) { log(`gdelt chunk ${qi}: ${res.status}, gave up`); break }
           await sleep(Math.max(chunkGapMs, 2000) * attempt)

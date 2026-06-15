@@ -281,6 +281,9 @@ export const NEWS = {
   // 1.5s spacing 429'd every cycle, so GDELT (our broadest genuinely-new global source) returned ~zero.
   gdeltChunkSize: capNum(process.env.NEWS_GDELT_CHUNK_SIZE, 11),
   gdeltChunkGapMs: capNum(process.env.NEWS_GDELT_CHUNK_GAP_MS, 6000),
+  // After a 429, skip GDELT entirely for this many whole cycles so its IP penalty-box can decay (a
+  // compliant once-per-cycle poke can still keep the penalty alive). 0 disables the multi-cycle backoff.
+  gdeltBackoffCyclesOn429: capNum(process.env.NEWS_GDELT_BACKOFF_CYCLES, 4),
   // Inbox is ranked by triage score and capped; the tail is counted (firehose) but not inboxed.
   inboxMaxRows: capNum(process.env.NEWS_INBOX_MAX_ROWS, 40),
   // Score → band thresholds. NB: as of the composite re-rank these apply to the PRIORITY score

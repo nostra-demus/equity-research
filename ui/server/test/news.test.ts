@@ -6,7 +6,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { approvedDomains, lookupSource, normalizeDomain } from '../src/news/sources/approved-domains'
-import { buildQueries, fetchGdelt } from '../src/news/sources/gdelt'
+import { buildQueries, fetchGdelt, resetGdeltBackoff } from '../src/news/sources/gdelt'
 import { eventIdFor, loadLedgerEventIds, normalizeAndFilter, parseSeendate } from '../src/news/normalize'
 import { SeenCache } from '../src/news/seen-cache'
 import { Budget, RateLimiter } from '../src/news/triage/budget'
@@ -116,6 +116,19 @@ await check('fetchGdelt: a 429 ABORTS GDELT for the cycle (no retry storm), keep
   const got = await fetchGdelt({ lookbackMin: 30, baseUrl: 'https://gdelt.test', chunkSize: 11 }, { fetchFn, sleep: noSleep })
   assert.equal(got.length, 1, 'returns the first chunk it already gathered')
   assert.equal(calls, 2, 'a 429 is NOT retried — exactly one call per chunk until the 429, then abort')
+})
+
+await check('fetchGdelt: a 429 with the cycle config arms a MULTI-CYCLE backoff — next cycle skips GDELT entirely', async () => {
+  resetGdeltBackoff()
+  let calls = 0
+  const fetchFn = (async () => { calls++; return res('Please limit requests to one every 5 seconds', 429) }) as unknown as typeof fetch
+  const opts = { lookbackMin: 30, baseUrl: 'https://gdelt.test', chunkSize: 11, cycleMs: 300_000, backoffCyclesOn429: 4 }
+  await fetchGdelt(opts, { fetchFn, sleep: noSleep }) // cycle 1: 429 → arms the backoff
+  const callsAfterFirst = calls
+  const got = await fetchGdelt(opts, { fetchFn, sleep: noSleep }) // cycle 2: should SKIP without any fetch
+  assert.equal(got.length, 0)
+  assert.equal(calls, callsAfterFirst, 'no GDELT request made while the backoff window is open')
+  resetGdeltBackoff() // don't leak into later cases
 })
 
 // ---- budget + throttle ----
