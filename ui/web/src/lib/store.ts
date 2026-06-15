@@ -197,6 +197,7 @@ interface State {
 
   // ---- the news wire (live scanner view) + manual board actions + kill switch ----
   newsFeedOpen: boolean
+  sourcesOpen: boolean
   newsItems: FeedItem[]
   freshEvents: Set<string> // event_ids that just streamed in over SSE — drive the "new detected" glow
   newsArrivedTotal: number // monotonic count of items read off the wire (survives the 1000 cap) — paces the live themes map
@@ -209,6 +210,8 @@ interface State {
   stopListOpen: boolean
   openNewsFeed: () => Promise<void>
   closeNewsFeed: () => void
+  openSources: () => void
+  closeSources: () => void
   refreshNewsStatus: () => Promise<void>
   checkInboxItem: (row: BoardInboxRow) => Promise<void>
   dismissInbox: (inboxId: string) => Promise<void>
@@ -292,6 +295,7 @@ export const useStore = create<State>((set, get) => ({
   shelvedEvents: loadShelf(),
   enrichCache: {},
   newsFeedOpen: false,
+  sourcesOpen: false,
   newsItems: [],
   freshEvents: new Set(),
   newsArrivedTotal: 0,
@@ -1242,6 +1246,8 @@ export const useStore = create<State>((set, get) => ({
     set({ feedWindowLoading: false })
   },
   closeNewsFeed: () => set({ newsFeedOpen: false, feedWindowDays: 2 }),
+  openSources: () => set({ sourcesOpen: true }),
+  closeSources: () => set({ sourcesOpen: false }),
   refreshNewsStatus: async () => {
     try {
       set({ newsStatus: await api.newsStatus() })
