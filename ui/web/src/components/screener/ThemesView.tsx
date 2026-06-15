@@ -79,6 +79,11 @@ const TIER_LANES = [
   { id: 'unconfirmed', label: 'Rumour' },
 ]
 
+// One-time entrance: the size-ranked reveal cascade plays once per page session (a single "assembly"
+// moment), never replaying on a Map<->Board toggle, a tier filter, or a hover. This module-level flag
+// survives ThemeMap unmount/remount within the session; a full page reload resets it (fresh reveal).
+let themeMapRevealed = false
+
 function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) => void }) {
   const ref = useRef<HTMLDivElement>(null)
   const [box, setBox] = useState({ w: 900, h: 560 })
@@ -138,6 +143,17 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
   const [laneFired, setLaneFired] = useState<Record<string, number>>({}) // per-lane dots fired THIS scan — drives the lane fire-pulse + the live "filled" count
   const nodeById = useMemo(() => new Map(layout.nodes.map((n) => [n.id, n])), [layout])
   const reduceMotion = typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+
+  // Run the entrance cascade only on the FIRST map mount this session (and never under reduced motion).
+  // `is-entering` on the container gates every entrance animation; we drop it once the cascade is done,
+  // so hover / tier-filter / Map<->Board re-mounts after that never re-fire it.
+  const [entering, setEntering] = useState(() => !themeMapRevealed && !reduceMotion)
+  useEffect(() => {
+    themeMapRevealed = true
+    if (!entering) return
+    const id = window.setTimeout(() => setEntering(false), 1800) // > the bounded cascade (~1.6s for ≤16 bubbles)
+    return () => window.clearTimeout(id)
+  }, []) // once, on mount
 
   // stable refs so the single pacer loop always reads the current layout / window without resetting
   const layoutRef = useRef(layout); layoutRef.current = layout
@@ -254,14 +270,14 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
   }, [reduceMotion])
 
   return (
-    <div className="thememap" ref={ref}>
+    <div className={`thememap${entering ? ' is-entering' : ''}`} ref={ref}>
       <svg className="thememap__edges" viewBox={`0 0 ${box.w} ${box.h}`} preserveAspectRatio="none" aria-hidden>
         {layout.lanes.map((l) => (
           <path key={l.id} d={hcurve(l.x + 18, l.y, layout.core.x - layout.core.r, layout.core.y)} className="thememap__lane-edge" />
         ))}
         {layout.nodes.map((n) => {
           const active = hover === n.id || hoveredRelated.has(n.id)
-          return <path key={n.id} d={hcurve(layout.core.x + layout.core.r, layout.core.y, n.x - n.r, n.y)} className={`thememap__edge${active ? ' is-active' : ''}`} style={{ ['--flow' as any]: n.flow ? 1 : 0 }} />
+          return <path key={n.id} d={hcurve(layout.core.x + layout.core.r, layout.core.y, n.x - n.r, n.y)} className={`thememap__edge${active ? ' is-active' : ''}`} style={{ ['--flow' as any]: n.flow ? 1 : 0, ['--enter' as any]: n.enterRank }} />
         })}
       </svg>
 
@@ -328,7 +344,7 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
             key={n.id}
             type="button"
             className={`themenode themenode--${t.tier}${t.tier === 'hot' ? ' is-pulsing' : ''}${absorbing.has(n.id) ? ' is-absorbing' : ''}${born.has(n.id) ? ' is-born' : ''}${hover && hover !== n.id && !hoveredRelated.has(n.id) ? ' is-dim' : ''}`}
-            style={{ left: n.x - n.r, top: n.y - n.r, width: n.r * 2, height: n.r * 2, ['--tier' as any]: tierColorVar(t.tier) }}
+            style={{ left: n.x - n.r, top: n.y - n.r, width: n.r * 2, height: n.r * 2, ['--tier' as any]: tierColorVar(t.tier), ['--enter' as any]: n.enterRank }}
             onMouseEnter={() => setHover(n.id)}
             onMouseLeave={() => setHover(null)}
             onClick={() => onPick(t.theme_id)}
@@ -356,7 +372,7 @@ function MapTooltip({ theme }: { theme: Theme }) {
   )
 }
 
-interface MapNode { id: string; x: number; y: number; r: number; flow: boolean; labelW: number; theme: Theme }
+interface MapNode { id: string; x: number; y: number; r: number; flow: boolean; labelW: number; enterRank: number; theme: Theme }
 function computeMapLayout(themes: Theme[], W: number, H: number, tierCounts: Record<string, number> = {}) {
   const coreX = W * 0.26, coreY = H * 0.5, coreR = Math.min(32, H * 0.06)
   // lanes are DATA-DRIVEN: only tiers we actually collect (news always shown), each carrying its real
@@ -408,10 +424,14 @@ function computeMapLayout(themes: Theme[], W: number, H: number, tierCounts: Rec
     const x = colX(c)
     for (const it of list) {
       y += it.r
-      nodes.push({ id: it.t.theme_id, x, y, r: it.r, flow: it.flow, labelW, theme: it.t })
+      nodes.push({ id: it.t.theme_id, x, y, r: it.r, flow: it.flow, labelW, enterRank: 0, theme: it.t })
       y += it.r + LABEL_H + GAP
     }
   })
+  // Entrance order — biggest bubble first, then strictly descending by size (member_count, which also
+  // sets the radius). Independent of the spatial packing above; this rank alone drives the staggered
+  // reveal cascade (see --enter / --theme-stagger in global.css), so the map assembles largest → smallest.
+  ;[...nodes].sort((a, b) => b.theme.member_count - a.theme.member_count || b.r - a.r).forEach((n, i) => { n.enterRank = i })
   return { lanes, core: { x: coreX, y: coreY, r: coreR }, nodes }
 }
 
