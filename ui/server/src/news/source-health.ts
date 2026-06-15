@@ -43,7 +43,7 @@ export type Health = 'healthy' | 'quiet' | 'failing' | 'idle'
 export interface SourceRow {
   name: string
   region: string
-  feed_type: string // 'news' | 'filing' | 'macro' | 'recall' | … (from input_nature)
+  feed_type: string // 'news' | 'filing' | 'recall' (RSS: inferred from source_name; adapters: fixed)
   via: string // rss | gdelt | nse | hkex | asx | gov
   health: Health
   last_data_at: string | null // when an item from this source last arrived (firehose)
@@ -60,11 +60,13 @@ export interface SourcesReport {
 }
 
 const MS_H = 3_600_000
-const tier = (input_nature: string): string => {
-  if (/regulatory|exchange|filing/.test(input_nature)) return 'filing'
-  if (/recall/.test(input_nature)) return 'recall'
-  if (/macro|data_release/.test(input_nature)) return 'macro'
-  if (/press_release/.test(input_nature)) return 'press'
+// rss_feeds.json carries no explicit nature field, so classify an RSS feed by its source_name.
+// HIGH-PRECISION only: reclassify the unambiguous filing / recall feeds (SEC EDGAR, exchange
+// filings, FDA/CPSC recalls); everything else stays 'news' to avoid mislabelling general news.
+const tier = (source_name: string): string => {
+  const n = source_name.toLowerCase()
+  if (/\bedgar\b|exchange filing|\bsedar\b|hkexnews|\blodr\b|\bfiling\b/.test(n)) return 'filing'
+  if (/\brecall/.test(n)) return 'recall'
   return 'news'
 }
 
@@ -79,7 +81,7 @@ export function buildSourcesReport(repoRoot: string, stateDir: string, opts: { n
     const feedsDoc = JSON.parse(fs.readFileSync(path.join(repoRoot, 'frameworks/screener/rss_feeds.json'), 'utf8'))
     const roster = new Map<string, { region: string; feed_type: string; via: string }>()
     for (const f of feedsDoc.feeds || []) {
-      if (f?.source_name && !roster.has(f.source_name)) roster.set(f.source_name, { region: '—', feed_type: 'news', via: 'rss' })
+      if (f?.source_name && !roster.has(f.source_name)) roster.set(f.source_name, { region: '—', feed_type: tier(f.source_name), via: 'rss' })
     }
     const ADAPTERS: { name: string; via: string; feed_type: string; region: string }[] = [
       { name: 'GDELT — global press index', via: 'gdelt', feed_type: 'news', region: 'GLOBAL' },
