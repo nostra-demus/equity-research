@@ -368,6 +368,30 @@ await check('appendFeedItems honors the daily cap; readFeed skips corrupt lines'
 })
 
 // ---- the no-lost-news guarantee: a Groq hiccup defers a batch, it never buries it ----
+await check('triage falls back to OVERFLOW when Groq fails — the batch is scored, not deferred (resilience)', async () => {
+  const root = tmp()
+  const state = tmp()
+  const goodTriage = { usage: { total_tokens: 200 }, choices: [{ message: { content: JSON.stringify({ items: [
+    { i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'A 50 bps cut lowers funding costs.', companies: [], size_bucket: 'unknown' },
+  ] }) } }] }
+  let gdeltServed = false
+  let ovHits = 0
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('groq')) return res('upstream sad', 503) // Groq DOWN all cycle
+    if (u.includes('overflow.test')) { ovHits++; return res(goodTriage) } // overflow UP
+    if (u.includes('reuters.com') && !gdeltServed) { gdeltServed = true; return res({ articles: [{ url: 'https://reuters.com/ov', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] }) }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false,
+    overflowProviders: [{ id: 'ovf', label: 'OVF', color: '--x', kind: 'openai', apiKey: 'k', baseUrl: 'https://overflow.test/v1', model: 'm', maxTokens: 900, rpm: 6000, tpm: 0, dailyReqCap: 100, dailyTokenCap: 1e9, budgetFile: 'ovf-budget.json', limiter: 'ovf' }] } as any
+  const now = () => new Date('2026-06-12T09:30:00Z')
+  const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  assert.ok(ovHits >= 1, 'overflow provider was tried after Groq failed')
+  assert.equal(s.picked, 1, 'the item was SCORED via overflow, not deferred')
+  assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 0, 'nothing deferred — overflow handled it')
+})
+
 await check('a failed Groq batch is DEFERRED (not zero-scored-and-seen) and is scored on the next cycle from spillover', async () => {
   const root = tmp()
   const state = tmp()

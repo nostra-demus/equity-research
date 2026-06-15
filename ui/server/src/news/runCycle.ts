@@ -216,16 +216,12 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     // PROVIDER PICK, in order: Groq (primary, paced across the day) → OpenAI-compatible overflow registry
     // (OpenRouter, NVIDIA, …, best first) → Gemini pool → defer when all are out.
     const groqOk = budget.pacedCanSpend(est, pace, now().getTime())
-    const ovPick = !groqOk ? overflow.find((o) => !o.failed && o.budget.canSpend(est)) : undefined // first overflow provider with daily room (skip ones that errored this cycle)
-    const gemPick = !groqOk && !ovPick && geminiOn ? geminiPool.find((g) => g.budget.canSpend(est)) : undefined // first pool model with daily room
-    if (!groqOk && !ovPick && !gemPick) {
-      // all exhausted: a genuine daily cap only if Groq is hard-capped too; else the pacer is spreading the
-      // rest across the day with no overflow room left this minute.
-      budgetHit = !budget.canSpend(est)
-      paceHit = !budgetHit
-      deferred.push(...items.slice(i)) // everything from here on waits for the next cycle / drain
-      break
-    }
+    // RESILIENT PROVIDER CHAIN: try Groq (primary) → overflow registry → Gemini pool, falling to the
+    // NEXT provider whenever the current one is unavailable OR was tried and FAILED. The old code only
+    // reached overflow when Groq was capped — so a Groq outage (org 429 / network blip) just deferred
+    // every batch AND burned the daily request cap on failures. Now a single provider being down can
+    // never stall triage: the batch flows to whoever is up. `res` stays undefined only when NOTHING
+    // was even attempted (all daily budgets out) → that's the genuine "defer the rest" case.
     let res
     if (groqOk) {
       await limiter.acquire(est, sleep, () => now().getTime())
@@ -234,26 +230,41 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       groqTokens += res.tokens
       budget.record(res.requests, res.tokens)
       limiter.learn(res.rate, () => now().getTime()) // track the live per-minute ceiling + back off on 429
-    } else if (ovPick) {
-      await ovPick.limiter.acquire(est, sleep, () => now().getTime())
-      res = await triageBatch(batch, { model: ovPick.p.model, models: ovPick.p.models, baseUrl: ovPick.p.baseUrl, apiKey: ovPick.p.apiKey, maxTokens: ovPick.p.maxTokens, headers: ovPick.p.headers, extraBody: ovPick.p.extraBody }, fetchFn, sleep)
-      ovPick.requests += res.requests
-      ovPick.tokens += res.tokens
-      ovPick.budget.record(res.requests, res.tokens)
-      if (!res.ok) {
-        ovPick.failed = true // skip this provider for the rest of the cycle so the deferred batch can flow to the next
-        // a terminal 4xx (auth / out-of-credits / quota) won't recover today — exhaust its daily budget so it's
-        // skipped across cycles too (e.g. NVIDIA's finite credit pool running dry), until the daily reset.
-        if (/HTTP (400|401|402|403|404|413)/.test(res.note || '')) ovPick.budget.exhaust()
+    }
+    if (!res || !res.ok) {
+      const ovPick = overflow.find((o) => !o.failed && o.budget.canSpend(est)) // first overflow provider with daily room
+      if (ovPick) {
+        await ovPick.limiter.acquire(est, sleep, () => now().getTime())
+        res = await triageBatch(batch, { model: ovPick.p.model, models: ovPick.p.models, baseUrl: ovPick.p.baseUrl, apiKey: ovPick.p.apiKey, maxTokens: ovPick.p.maxTokens, headers: ovPick.p.headers, extraBody: ovPick.p.extraBody }, fetchFn, sleep)
+        ovPick.requests += res.requests
+        ovPick.tokens += res.tokens
+        ovPick.budget.record(res.requests, res.tokens)
+        if (!res.ok) {
+          ovPick.failed = true // skip this provider for the rest of the cycle so the batch can flow to the next
+          // a terminal 4xx (auth / out-of-credits / quota) won't recover today — exhaust its daily budget so it's
+          // skipped across cycles too (e.g. NVIDIA's finite credit pool running dry), until the daily reset.
+          if (/HTTP (400|401|402|403|404|413)/.test(res.note || '')) ovPick.budget.exhaust()
+        }
       }
-    } else {
-      await geminiLimiter!.acquire(est, sleep, () => now().getTime())
-      res = await triageBatchGemini(batch, { model: gemPick!.model, baseUrl: cfg.geminiBaseUrl, apiKey: cfg.geminiApiKey, maxTokens: cfg.geminiMaxTokens }, fetchFn, sleep)
-      geminiRequests += res.requests
-      geminiTokens += res.tokens
-      gemPick!.budget.record(res.requests, res.tokens)
-      geminiLimiter!.learn(res.rate, () => now().getTime())
-      if (!res.ok && /PerDay/i.test(res.note || '')) gemPick!.budget.exhaust() // model's free day is spent → rotation skips it until midnight PT
+    }
+    if ((!res || !res.ok) && geminiOn) {
+      const gemPick = geminiPool.find((g) => g.budget.canSpend(est)) // first pool model with daily room
+      if (gemPick) {
+        await geminiLimiter!.acquire(est, sleep, () => now().getTime())
+        res = await triageBatchGemini(batch, { model: gemPick.model, baseUrl: cfg.geminiBaseUrl, apiKey: cfg.geminiApiKey, maxTokens: cfg.geminiMaxTokens }, fetchFn, sleep)
+        geminiRequests += res.requests
+        geminiTokens += res.tokens
+        gemPick.budget.record(res.requests, res.tokens)
+        geminiLimiter!.learn(res.rate, () => now().getTime())
+        if (!res.ok && /PerDay/i.test(res.note || '')) gemPick.budget.exhaust() // model's free day is spent → rotation skips it until midnight PT
+      }
+    }
+    if (!res) {
+      // NOTHING was attempted: Groq capped/paced AND no overflow or Gemini has daily room left → all out.
+      budgetHit = !budget.canSpend(est)
+      paceHit = !budgetHit
+      deferred.push(...items.slice(i)) // everything from here on waits for the next cycle / drain
+      break
     }
     if (!res.ok) {
       // a failed batch is UNSCORED, not scored-zero: do NOT mark seen (the 7-day cache would make
