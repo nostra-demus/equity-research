@@ -347,7 +347,7 @@ Before writing `final_thesis.md`, run this gate and carry its results into the o
 4. **Red-flag cap.** List Critical/High red flags from the modules; state whether each caps the final rating; do not average them away.
 4A. **Avoid-Big-Risks filter audit (per `CLAUDE.md` §24).** Roll up the six rejector filters from the module syntheses and state, for each, whether it tripped and the cap it carries: (1) crooks / integrity — proven fraud is a verdict-lock; unresolved integrity "buzz" caps conviction; (2) turnaround without ≥2–3 yrs delivered inflection — base-rate penalty + conviction cap; (3) high debt / survival — a "Distress risk" or "Stretched" solvency verdict caps the headline (and net cash is a positive, not a demerit); (4) serial acquirers — RF-CAP-004 caps capital-allocation and conviction; (5) fast-changing industry — caps business quality and flags a sector / technology-cycle thesis; (6) unaligned owner — RF-OWN-004 makes cheapness a value trap and caps valuation attractiveness. These are penalties + conviction caps (carry them into the confidence score and Rating Cap Rules); only where a filter has already escalated to a Critical red flag or hard disqualifier does it hard-lock the headline. Do not average a tripped filter away.
 5. **Contradiction audit.** Find module contradictions; state which evidence wins and why. Record as the Decision Audit Trail.
-6. **Variant-perception audit (per `CLAUDE.md` §7).** Separate known facts from actual edge. If no edge: "There is no proven variant perception yet."
+6. **Variant-perception audit (per `CLAUDE.md` §7).** Separate known facts from actual edge across all four parts: what everyone knows → what is priced in → what the engine thinks is missed → **what evidence would prove the engine is actually different** (§7 item 4). Then score it: set **`edge_score` (0–100)** = how well evidence *proves* the engine is different (not whether an edge story can be told), and write the falsifiable **`edge_proof`** (the §7 item-4 test, checkable at a later review). Restated consensus ⇒ `edge_score` near 0 and `edge_proof` `""`. If no edge: "There is no proven variant perception yet." **This binds confidence** — see the Confidence Scoring Rules edge gate.
 7. **Thesis-type classification (per `CLAUDE.md` §14).** If the thesis is really macro/commodity/policy-driven, say so and downgrade conviction.
 8. **Math validation.** Scenario probabilities sum to 100%; probability-weighted target price and expected return reconcile; risk/reward via the WORKFLOW Step 4 formula; if price is missing, do not fake precision.
 9. **Kill criteria.** State what evidence would make the thesis wrong and what would force downgrade, exit, or rejection (record in Thesis Kill Criteria).
@@ -417,7 +417,7 @@ The reader who reads only Part I should leave with a real, actionable decision.
 | Confidence /100 | |
 | Data sufficiency /100 | |
 | Thesis type | |
-| Variant perception quality | |
+| Variant perception — edge score /100 | |
 | Biggest upside driver | |
 | Biggest downside driver | |
 | Killer risk | |
@@ -443,6 +443,8 @@ Then include:
 - **What evidence proves we are actually different:**
 
 Be harsh. If no edge exists, write: "There is no proven variant perception yet."
+
+State the **edge score (0–100)** and the **falsifiable proof** (the fourth bullet) explicitly — they populate `decision_record.json` (`edge_score`, `edge_proof`) and **bind the confidence cap** (Confidence Scoring Rules: confidence > 60 requires `edge_score` ≥ 50 on a falsifiable proof).
 
 ## 5. Thesis → Antithesis → Final Thesis
 
@@ -858,7 +860,7 @@ Additional downgrades:
 - If scenario math is highly sensitive to one assumption: reduce confidence by 5–10 points.
 - If key data is stale: reduce confidence by 5–15 points.
 - If specialists conflict and raw data cannot resolve the conflict: reduce confidence by 10–20 points.
-- If no clear variant perception exists: cap confidence at 60.
+- **Edge gate (mechanical, per `CLAUDE.md` §7).** Confidence may **not exceed 60** unless the Pre-Write Gate's `edge_score` ≥ **50** *and* it rests on a falsifiable `edge_proof` (the §7 item-4 evidence). A high `edge_score` with an empty or unfalsifiable `edge_proof` does **not** lift the cap — restated consensus is not an edge, and §7 holds that no proven variant perception means no high conviction. Expect this to lower confidence on no-edge theses; that is the intended calibration. Carry `edge_score` and `edge_proof` into `decision_record.json`.
 - If catalyst timing is weak or vague: cap confidence at 70.
 
 Never give 90+ unless the evidence is exceptional.
@@ -1020,6 +1022,8 @@ The exact object to emit (mirrors `frameworks/DECISION_LEDGER.md` §5 — that f
   "what_everyone_knows": "",
   "what_is_priced_in": "",
   "what_market_may_be_missing": "",
+  "edge_score": null,
+  "edge_proof": "",
   "killer_risk": "",
   "kill_criteria": [],
   "forecast_ledger": [],
@@ -1073,6 +1077,8 @@ Populate each field as follows. All of these come from work you have already don
 | what_everyone_knows | variant perception section |
 | what_is_priced_in | variant perception section |
 | what_market_may_be_missing | variant perception section |
+| edge_score | Part I edge score (0–100); `CLAUDE.md` §7 proven-edge strength — binds the confidence cap |
+| edge_proof | Part I variant perception, 4th bullet — the falsifiable §7 item-4 test |
 | killer_risk | main killer risk |
 | kill_criteria | Thesis Kill Criteria section |
 | forecast_ledger | Forecast Ledger section |

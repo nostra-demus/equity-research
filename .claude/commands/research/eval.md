@@ -19,7 +19,7 @@ You are the **regression harness**. The engine grows fast — modules, framework
 Run the embedded check script below via Bash. It applies, per run, the following invariants — each PASS / FAIL / N/A with detail. **Any FAIL fails the suite** (a regression). Absent *optional* artifacts (audit reports, reviews) are N/A, not FAIL.
 
 - **A. Structural** — `final_thesis.md` exists and is non-trivial (> 1 KB); `RUN_METADATA.md` exists; `decision_record.json` exists; every module subfolder present has its `99_*-synthesis.md`.
-- **B. Decision-record schema** (`DECISION_LEDGER` §5) — parses; all 38 canonical fields present; arrays are arrays, objects are objects; `schema_version` == "1.0". Additive fields (`scenarios`, `post_review_confidence_score`, `confidence_haircut`, `pre_mortem_verdict`) are type-checked **when present** (never required — older records omit them).
+- **B. Decision-record schema** (`DECISION_LEDGER` §5) — parses; all 38 canonical fields present; arrays are arrays, objects are objects; `schema_version` == "1.0". Additive fields (`scenarios`, `post_review_confidence_score`, `confidence_haircut`, `pre_mortem_verdict`, `edge_score`, `edge_proof`) are type-checked **when present** (never required — older records omit them).
 - **B2. `decision_date` is a real date** — the `decision_date` *value* parses as an ISO date, not merely that the key exists. A garbage/null date otherwise sends every forward-looking gate (K–S) to a false "predates feature" N/A; this makes it a hard FAIL.
 - **C. Decision enum + basket mapping** — `decision` ∈ the `CLAUDE.md` §18 allowed set; `basket` matches the §3 mapping for that decision; `paper_treatment` matches the mapping (keyword check).
 - **D. Missing-price contract** — if `entry_price` is null, `paper_treatment` is a no-trade treatment and `notes` actually **addresses** the missing/indicative price (a specific phrase — "indicative", "unverified", "entry price is null", "no paper trade" — not merely any word containing the substring "price").
@@ -40,6 +40,7 @@ Run the embedded check script below via Bash. It applies, per run, the following
 - **S. Pre-mortem haircut propagated** (forward-looking; landing `2026-06-12`) — for a run whose `decision_date` is on/after the landing date, if `pre_mortem.json` exists and applied a haircut > 0, the decision_record must carry `post_review_confidence_score == pre_mortem.recommended_confidence` and `confidence_haircut`; `pre_mortem_verdict` must always be set (even at zero haircut). Older fixtures → **N/A**.
 - **T. Forecast-ledger entry quality** (forward-looking; landing `2026-06-13` / fix F-FL-1) — for a run dated on/after the landing date with a non-empty `forecast_ledger`, every entry must carry `prediction`, `confirmation_trigger`, `falsification_trigger`, and `time_window` (all non-empty strings), and `status` ∈ {open, confirmed, falsified, expired}. An entry missing a required field cannot be resolved in Phase 3 (`review-decisions`) and breaks Phase 4 calibration (no Brier-score data from that forecast). An empty `[]` is allowed per §19 (when no forecast has enough evidence). Runs that predate the gate, and runs with `forecast_ledger: []`, are **N/A**.
 - **U. Post-mortem rating-cap consistency** (forward-looking; `fix F28b`; landing `2026-06-12`) — for a run dated on/after the landing date where `pre_mortem_verdict` is a terminal verdict ("Thesis broken" or "Does not survive — downgrade"), the finish-gate must have written `post_mortem_decision` and `post_mortem_basket`, and `post_mortem_basket` must NOT be "Selected" or "Short" — those verdicts mean the thesis does not hold as a conviction position. Closes the logical-contradiction gap where a "Strong Buy" decision coexists with a "Thesis broken" red-team verdict in the same committed record. The original `decision` / `basket` fields are preserved (the synthesizer's immutable call, required by check I); only the additive post-mortem fields are validated here. Older fixtures, and runs with non-terminal pre-mortem verdicts, → **N/A**.
+- **V. Edge gate** (forward-looking; `CLAUDE.md` §7; landing `2026-06-15`) — the mechanical edge cap on confidence. For a run dated on/after the landing date: `edge_score` (when present) is a 0–100 number; a claimed real edge (`edge_score` ≥ 50) must carry a non-empty `edge_proof` (the falsifiable §7 item-4 test); and `confidence_score` > 60 requires a proven edge (`edge_score` ≥ 50 on a non-empty `edge_proof`) — restated consensus is not an edge. Older fixtures (pre-feature) → **N/A**.
 
 The script also notes (WARN, not FAIL) any **non-schema artifact** in a run folder (a stray file that is not a known schema / versioned-audit / review artifact) so coverage gaps and strays surface.
 
@@ -97,10 +98,11 @@ for drp in runs:
         badtype=[k for k in ARRAYS if not isinstance(d.get(k),list)]+[k for k in OBJECTS if not isinstance(d.get(k),dict)]
         # [review fix] additive fields: validate TYPE when present (never require presence — older records omit them).
         # `scenarios` (the array check M consumes) and the post-review numerics were previously type-unchecked.
-        for _k,_t in [("scenarios",list),("post_review_confidence_score",(int,float)),("confidence_haircut",(int,float))]:
+        for _k,_t in [("scenarios",list),("post_review_confidence_score",(int,float)),("confidence_haircut",(int,float)),("edge_score",(int,float))]:
             v=d.get(_k)
             if _k in d and v is not None and not (isinstance(v,_t) and not isinstance(v,bool)): badtype.append(_k)
         if "pre_mortem_verdict" in d and not isinstance(d.get("pre_mortem_verdict"),str): badtype.append("pre_mortem_verdict")
+        if "edge_proof" in d and not isinstance(d.get("edge_proof"),str): badtype.append("edge_proof")
         # [fix F28b] post_mortem_decision + post_mortem_basket are additive string fields written by the
         # finish-gate's rating-cap propagation step; type-check when present (never require presence —
         # pre-gate runs omit them; the forward-looking check T validates the content).
@@ -286,6 +288,20 @@ for drp in runs:
         add("P_disconfirmation", not det, "; ".join(det) or "edge non-tautological; kill_criteria present")
     else:
         add("P_disconfirmation", True, f"run predates disconfirmation-quality gate ({ddte}) — N/A", na=True)
+    # V edge gate [CLAUDE.md §7 mechanical] — the edge_score cap on confidence. Forward-looking (landing
+    #   2026-06-15); older fixtures (BG/HCG/TMCV, pre-feature) N/A. edge_score/edge_proof are additive
+    #   (type-checked in B). (1) edge_score, when present, is 0-100; (2) a claimed real edge (edge_score >= 50)
+    #   needs a non-empty edge_proof (the falsifiable §7 item-4 test); (3) confidence_score > 60 requires a
+    #   proven edge (edge_score >= 50 on a non-empty edge_proof) — restated consensus is not an edge.
+    EDGE_DATE="2026-06-15"
+    if isdate(ddte) and ddte>=EDGE_DATE:
+        es=d.get("edge_score"); ep=(d.get("edge_proof") or "").strip(); cf=d.get("confidence_score"); det_v=[]
+        if es is not None and not (isnum(es) and 0<=es<=100): det_v.append(f"edge_score={es!r} not a 0-100 number")
+        if isnum(es) and es>=50 and not ep: det_v.append(f"edge_score={es} >=50 but edge_proof empty — a proven edge needs a falsifiable test")
+        if isnum(cf) and cf>60 and not (isnum(es) and es>=50 and ep): det_v.append(f"confidence_score={cf} >60 but edge not proven (edge_score={es!r}, edge_proof {'set' if ep else 'empty'}) — §7 edge gate")
+        add("V_edge_gate", not det_v, "; ".join(det_v) or f"edge_score={es!r}; edge_proof={'set' if ep else 'empty'}; confidence={cf}")
+    else:
+        add("V_edge_gate", True, f"run predates the §7 edge gate ({ddte}) — N/A", na=True)
     # Q per-module three tiers present in post-landing runs (forward-looking; older fixtures N/A)
     MODTIER_DATE="2026-06-08"
     if isdate(ddte) and ddte>=MODTIER_DATE:
