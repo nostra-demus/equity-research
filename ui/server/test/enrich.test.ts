@@ -103,6 +103,7 @@ await check('e2e: a good read is complete, carries the gist, and is not degraded
   const r = await enrichEvent({ event_id: EVENT_ID }, baseDeps(repoRoot, stateDir, GOOD_BRIEF))
   assert.ok(r.gist && r.gist.length, 'has gist')
   assert.equal(isEnrichmentComplete(r), true, 'complete')
+  assert.equal(r.complete, true, 'complete flag stamped explicitly (client gates refetch on this)')
   assert.equal(r.degraded, false, 'not flagged degraded')
   assert.equal(r.read_attempts, 1, 'one read attempt recorded')
 })

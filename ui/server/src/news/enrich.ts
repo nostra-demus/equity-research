@@ -424,10 +424,15 @@ function commitEnrichment(stateDir: string, id: string, next: EventEnrichment, a
   else if (prev?.read_attempts) next.read_attempts = prev.read_attempts
   // a readable article we've now tried enough times → accept the floor as final (stop re-reading forever)
   if (!isEnrichmentComplete(next) && (next.read_attempts || 0) >= MAX_READ_ATTEMPTS) next.complete = true
-  next.degraded = !isEnrichmentComplete(next)
+  // stamp `complete` as an explicit boolean on EVERY result — a rich brief / SEC parse is complete even
+  // though nothing set the flag, and the client gates its refetch on exactly this flag (no needless re-read
+  // of a good story, and a degraded one keeps retrying).
+  const complete = isEnrichmentComplete(next)
+  next.complete = complete
+  next.degraded = !complete
 
   let chosen = next
-  if (prev && isEnrichmentComplete(prev) && !isEnrichmentComplete(next) && Date.now() - new Date(prev.fetched_at).getTime() < CACHE_TTL_MS) {
+  if (prev && isEnrichmentComplete(prev) && !complete && Date.now() - new Date(prev.fetched_at).getTime() < CACHE_TTL_MS) {
     // keep the good read; carry forward the latest attempt count + freshly-computed volatile sections
     chosen = {
       ...prev,
