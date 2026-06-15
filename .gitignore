@@ -3,6 +3,14 @@ data
 .DS_Store
 **/.DS_Store
 
+# Engine GitHub App identity secrets (§28) — the real ones live in
+# ~/.config/nostra-engine (outside the repo); this is a guard so a stray copy of a
+# private key or the App env can never be committed by accident.
+*.pem
+github-app.env
+.token-cache
+nostra-engine/
+
 # Local module-audit scratch — single-file consolidated views used to edit the
 # agent prompts; canonical content is tracked under .claude/agents/. Kept on
 # disk, out of version control.
