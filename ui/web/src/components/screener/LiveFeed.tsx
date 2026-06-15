@@ -14,18 +14,30 @@ import { emptyFilters, FeedFilters, matchesFilters, type FeedFilterState } from 
 
 const agoMin = (iso?: string | null) => (iso ? Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 60_000)) : null)
 
+// Time-travel windows over the on-disk news archive. 2 = the live view (SSE keeps appending); the rest
+// pull a historical snapshot (newest items in range) from the daily firehose files. 370 ≈ "all".
+const FEED_WINDOWS: { d: number; label: string }[] = [
+  { d: 2, label: 'Live · 2d' },
+  { d: 14, label: '14 days' },
+  { d: 30, label: '1 month' },
+  { d: 90, label: '3 months' },
+  { d: 180, label: '6 months' },
+  { d: 370, label: 'All' },
+]
+
 // compact 405000 → "405k", 14 → "14"
 const kfmt = (n: number): string => (n >= 1000 ? `${(n / 1000).toFixed(n >= 100_000 ? 0 : 1)}k` : `${Math.round(n)}`)
 
-// A small daily-budget pool readout: a label, a fill bar, and used/cap. The fill animates with a GPU
-// transform (scaleX) so the poll-driven update never triggers layout. `tone` distinguishes the two
-// providers — Groq (the paced primary) from the Gemini free-tier overflow (green = bonus capacity).
-function BudgetChip({ label, used, cap, unit, tone, title }: { label: string; used: number; cap: number; unit: string; tone: 'groq' | 'gemini' | 'openrouter'; title: string }) {
+// A small daily-budget pool readout: a label, a fill bar, used/cap. The fill animates with a GPU transform
+// (scaleX) so the poll-driven update never triggers layout. `color` is a CSS var name (per provider), so a
+// newly-wired provider gets its own colour with no code change. `active` tints the border (overflow firing).
+function BudgetChip({ label, used, cap, unit, color, active, title }: { label: string; used: number; cap: number; unit: string; color: string; active?: boolean; title: string }) {
   const frac = cap > 0 ? Math.min(1, Math.max(0, used / cap)) : 0
+  const c = `var(${color})`
   return (
-    <span className={`poolchip poolchip--${tone}${used > 0 && (tone === 'gemini' || tone === 'openrouter') ? ' is-active' : ''}`} title={title}>
-      <span className="poolchip__label">{label}</span>
-      <span className="poolchip__bar" aria-hidden><span className="poolchip__fill" style={{ transform: `scaleX(${frac})` }} /></span>
+    <span className="poolchip" style={active ? { borderColor: `color-mix(in srgb, ${c} 40%, var(--hairline))` } : undefined} title={title}>
+      <span className="poolchip__label" style={{ color: c }}>{label}</span>
+      <span className="poolchip__bar" aria-hidden><span className="poolchip__fill" style={{ transform: `scaleX(${frac})`, background: c }} /></span>
       <span className="poolchip__val mono">{kfmt(used)}<span className="poolchip__sep">/</span>{kfmt(cap)}<span className="poolchip__unit"> {unit}</span></span>
     </span>
   )
@@ -95,6 +107,9 @@ export function LiveFeed() {
   const status = useStore((s) => s.newsStatus)
   const refreshStatus = useStore((s) => s.refreshNewsStatus)
   const openFeed = useStore((s) => s.openNewsFeed)
+  const feedWindowDays = useStore((s) => s.feedWindowDays)
+  const setFeedWindow = useStore((s) => s.setFeedWindow)
+  const feedWindowLoading = useStore((s) => s.feedWindowLoading)
   const [filters, setFilters] = useState<FeedFilterState>(emptyFilters())
 
   // keep the "last look Xm ago" line honest while the panel is open
@@ -127,29 +142,21 @@ export function LiveFeed() {
                 used={status.budget.tokens}
                 cap={status.budget.tokenTarget || status.budget.tokenCap}
                 unit="tok"
-                tone="groq"
+                color="--accent"
                 title={`Groq daily token budget — paced evenly across the day so it never runs dry by noon. ${kfmt(status.budget.tokens)} of ${kfmt(status.budget.tokenTarget || status.budget.tokenCap)} tokens used today${status.budget.paceCeiling ? ` · ${kfmt(status.budget.paceCeiling)} released so far on the clock schedule` : ''}.`}
               />
-              {status.gemini?.enabled && (
+              {(status.overflow || []).map((o) => (
                 <BudgetChip
-                  label="Gemini overflow"
-                  used={status.gemini.requests}
-                  cap={status.gemini.reqCap}
+                  key={o.id}
+                  label={`${o.label} overflow`}
+                  used={o.requests}
+                  cap={o.reqCap}
                   unit="req"
-                  tone="gemini"
-                  title={`Free-tier overflow (${status.gemini.model}) — a second provider that picks up triage when Groq is paced or capped, so the day's throughput is Groq + Gemini. ${status.gemini.requests} of ${status.gemini.reqCap} requests used today.`}
+                  color={o.color}
+                  active={o.requests > 0}
+                  title={`Free-tier overflow (${o.model}) — picks up triage when Groq is paced or capped, so the day's throughput is Groq + every free pool. ${o.requests} of ${o.reqCap} requests used today.`}
                 />
-              )}
-              {status.openrouter?.enabled && (
-                <BudgetChip
-                  label="OpenRouter overflow"
-                  used={status.openrouter.requests}
-                  cap={status.openrouter.reqCap}
-                  unit="req"
-                  tone="openrouter"
-                  title={`Free-tier overflow (${status.openrouter.model}) — the strongest free models (gpt-oss-120b, llama-3.3-70b…), used as the highest-quality overflow tier. ${status.openrouter.requests} of ${status.openrouter.reqCap} requests used today.`}
-                />
-              )}
+              ))}
             </div>
           )}
         </div>
@@ -161,6 +168,24 @@ export function LiveFeed() {
             ✕
           </button>
         </div>
+      </div>
+
+      <div className="wirewindow" role="group" aria-label="Time window">
+        <span className="wirewindow__label">Look back</span>
+        {FEED_WINDOWS.map((w) => (
+          <button
+            key={w.d}
+            type="button"
+            className={`wirewindow__chip${feedWindowDays === w.d ? ' is-active' : ''}`}
+            onClick={() => { if (feedWindowDays !== w.d) void setFeedWindow(w.d) }}
+            disabled={feedWindowLoading}
+          >
+            {w.label}
+          </button>
+        ))}
+        <span className="wirewindow__note">
+          {feedWindowLoading ? 'loading…' : feedWindowDays > 2 ? `historical · newest ${items.length.toLocaleString()} in range` : `live · ${items.length.toLocaleString()} loaded`}
+        </span>
       </div>
 
       <FeedFilters value={filters} onChange={setFilters} sources={sources} />

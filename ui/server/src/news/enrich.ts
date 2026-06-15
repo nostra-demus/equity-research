@@ -24,8 +24,8 @@ import { readFeed } from './feed'
 import { cleanText } from './clean'
 import { storyFloor, isFilingEvent } from './story-floor'
 import { filterCompanies, isCompanyName } from './entities'
-import { analyzeArticle, type ArticleCompany, type ArticleParty } from './triage/groq'
-import { Budget, getSharedLimiter } from './triage/budget'
+import type { ArticleCompany, ArticleParty } from './triage/groq'
+import { type ArticleReadProvider, readArticleBrief } from './triage/article-read'
 import type { CompanyGuess } from './types'
 
 const CACHE_FILE = 'news-enrich-cache.json'
@@ -416,8 +416,18 @@ export interface EnrichDeps {
   now?: () => Date
   sleep?: (ms: number) => Promise<void>
   force?: boolean
-  // the cheap-Groq plumbing for the article-body read (omit → degrade to the regex summary). rpm/tpm/
-  // daily caps let the read share the ingester's adaptive pacer + daily budget, so it never collides.
+  // the article-body read's LLM fallback chain (Groq → OpenAI-compatible overflow → Gemini), in priority
+  // order. Omit → no LLM read, degrade to the regex summary / deterministic story floor. Each provider
+  // shares the ingester's daily budget + per-minute limiter, so the two paths keep one honest free-tier
+  // accounting and never collectively bust a quota. Built once in config.ts (buildArticleReadProviders).
+  articleProviders?: ArticleReadProvider[]
+  // hard ceilings that keep an opened event from ever hanging the reader: the LLM read gets at most
+  // llmBudgetMs of wall-clock across ALL providers (default 14s), and waits at most limiterWaitMs on any
+  // single provider's rate limiter before skipping it (default 2.5s). Past the budget we return the floor.
+  llmBudgetMs?: number
+  limiterWaitMs?: number
+  // legacy single-Groq shape — still honoured (tests / older callers). When articleProviders is absent but
+  // this is set, it's promoted to a one-element chain so behaviour is unchanged.
   groq?: { apiKey: string; model: string; baseUrl: string; maxTokens?: number; rpm?: number; tpm?: number; dailyReqCap?: number; dailyTokenCap?: number }
 }
 
@@ -513,24 +523,28 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
     // the body for the read: the feed's lede + any fetched page text (snippet first — it's the cleanest).
     const pageBody = pageHtml ? cleanText(pageHtml.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' ')) : ''
     const body = [snippet, pageBody].filter(Boolean).join('\n\n').trim()
-    // one Groq body-read — through the SHARED adaptive pacer + the daily budget, so an opened event never
-    // blows the per-minute ceiling alongside the ingester, and counts toward the same daily cap. SKIPPED
-    // for a filing: its "body" is a PDF/exchange-shell with no story to read — the headline IS the
-    // disclosure, so we go straight to the deterministic floor (no wasted Groq call, no fabrication).
+    // The article-body read — through the multi-provider fallback chain (Groq → OpenAI-compatible overflow
+    // → Gemini), each sharing the ingester's daily budget + per-minute limiter, with a HARD wall-clock
+    // budget so an opened event can NEVER hang the reader: if a provider's minute window is busy we skip it
+    // in milliseconds and try the next, and past the budget we stop and fall through to the story floor.
+    // SKIPPED for a filing: its "body" is a PDF/exchange-shell with no story to read — the headline IS the
+    // disclosure, so we go straight to the deterministic floor (no wasted LLM call, no fabrication).
+    const providers: ArticleReadProvider[] = deps.articleProviders?.length
+      ? deps.articleProviders
+      : deps.groq?.apiKey
+        ? [{ id: 'groq', kind: 'openai', apiKey: deps.groq.apiKey, baseUrl: deps.groq.baseUrl, model: deps.groq.model, maxTokens: deps.groq.maxTokens, rpm: deps.groq.rpm ?? 28, tpm: deps.groq.tpm ?? 6000, dailyReqCap: deps.groq.dailyReqCap ?? Number.MAX_SAFE_INTEGER, dailyTokenCap: deps.groq.dailyTokenCap ?? Number.MAX_SAFE_INTEGER, budgetFile: 'groq-budget.json', limiter: 'groq' }]
+        : []
     let brief = null
-    const g = deps.groq
-    if (g?.apiKey && body && !bodylessFiling) {
-      const budget = Budget.load(deps.stateDir, g.dailyReqCap ?? Number.MAX_SAFE_INTEGER, g.dailyTokenCap ?? Number.MAX_SAFE_INTEGER, now().getTime())
-      const est = Math.min(3500, Math.ceil(body.length / 3) + 500) // rough input+output token estimate
-      if (budget.canSpend(est)) {
-        const limiter = getSharedLimiter(g.rpm ?? 28, g.tpm ?? 6000)
-        await limiter.acquire(est, deps.sleep, () => now().getTime())
-        const r = await analyzeArticle(body, headline, { model: g.model, baseUrl: g.baseUrl, apiKey: g.apiKey, maxTokens: g.maxTokens }, fetchFn, deps.sleep)
-        brief = r.brief
-        budget.record(1, r.tokens || est)
-        budget.save()
-        limiter.learn(r.rate, () => now().getTime())
-      }
+    if (body && !bodylessFiling && providers.length) {
+      const r = await readArticleBrief(body, headline, providers, {
+        stateDir: deps.stateDir,
+        fetchFn,
+        sleep: deps.sleep,
+        now: () => now().getTime(),
+        deadlineMs: now().getTime() + (deps.llmBudgetMs ?? 14_000),
+        limiterWaitMs: deps.limiterWaitMs,
+      })
+      brief = r.brief
     }
     if (brief && (brief.gist.length || brief.companies.length || brief.beneficiaries.length || brief.exposed.length)) {
       if (brief.gist.length) result.gist = brief.gist

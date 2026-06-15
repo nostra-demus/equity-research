@@ -124,6 +124,30 @@
                 "handed_off": { "type": "boolean" }
               }
             }
+          },
+          "conviction": {
+            "type": ["object", "null"],
+            "description": "Phase 3 live-book snapshot (engine-owned, separate from the human override). Full shape: frameworks/screener/conviction.schema.json. Null when the conviction loop has not seeded this thesis.",
+            "properties": {
+              "state": { "type": "string", "enum": ["watching", "provisional", "strong", "confirmed", "fading", "handed_off", "falsified_discarded", "expired_unproven"] },
+              "sell_side_rating": { "type": "string" },
+              "edge_locked": { "type": "integer" },
+              "edge_score_live": { "type": "integer" },
+              "conviction": { "type": "integer" },
+              "upgrade_velocity": { "type": "number", "description": "Edge points / 30 days (signed) — the 'rate of upgrade'." },
+              "trajectory_enum": { "type": "string", "enum": ["accelerating", "steady", "stalling", "decaying"] },
+              "rank_score": { "type": "number" },
+              "proximity_pct": { "type": "number" },
+              "progress_confirmed": { "type": "integer" },
+              "progress_total": { "type": "integer" },
+              "validated": { "type": "boolean" },
+              "trajectory": { "type": "array", "items": { "type": "object" } },
+              "next_checkpoint": { "type": ["object", "null"] },
+              "stale": { "type": "boolean" },
+              "insufficient": { "type": "boolean" },
+              "archived": { "type": "boolean" },
+              "plain_note": { "type": "string" }
+            }
           }
         }
       }
@@ -158,6 +182,20 @@
         "news_seen_today": { "type": "integer", "description": "Autonomous ingester: on-list items triaged today." },
         "news_picked_today": { "type": "integer", "description": "Autonomous ingester: items scored worth inboxing today." },
         "news_dropped_today": { "type": "integer", "description": "Autonomous ingester: items triaged but not inboxed today." }
+      }
+    },
+    "book_momentum": {
+      "type": "object",
+      "description": "Phase 3 live book: is the desk's set of live ideas upgrading on balance? The headline 'upgrading at +N/30d' number.",
+      "properties": {
+        "live_count": { "type": "integer" },
+        "upgrading_count": { "type": "integer" },
+        "decaying_count": { "type": "integer" },
+        "mean_upgrade_velocity": { "type": "number", "description": "Mean edge-points / 30 days across live theses." },
+        "confirmed_count": { "type": "integer" },
+        "fading_count": { "type": "integer" },
+        "stale_count": { "type": "integer" },
+        "archived_count": { "type": "integer" }
       }
     }
   }

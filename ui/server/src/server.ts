@@ -2,6 +2,7 @@ import { randomUUID } from 'node:crypto'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
+import { execFileSync } from 'node:child_process'
 import chokidar from 'chokidar'
 import cors from '@fastify/cors'
 import { execa } from 'execa'
@@ -10,7 +11,7 @@ import { z } from 'zod'
 import { readActivity } from './activity-log'
 import { recordDataChange } from './data-activity'
 import { buildReportHtml, parseMeta, safeName } from './export'
-import { DATA_DIR, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, WEB_DIST } from './config'
+import { ARTICLE_READ_PROVIDERS, DATA_DIR, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, WEB_DIST } from './config'
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
 import { cancel, cancelAll, creditCheck, decideReadiness, estimate, launch } from './launcher'
@@ -25,9 +26,10 @@ import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
 import { agentNamesForModule, buildSwarmGraph, graphForSubject, graphForTicker, listModuleNames } from './roster'
 import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, resolveRunRoot, runManifest } from './outputs'
-import { dataPoolPresent, readCandidates, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest } from './screener'
+import { dataPoolPresent, readCandidates, readConviction, readConvictionCalibration, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest } from './screener'
 import { listSwarms } from './swarms'
 import { getNewsStatus, startNewsIngester } from './news/scheduler'
+import { startConvictionLoop } from './conviction-dispatch'
 import { AGENT_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE } from './sandbox'
 import type { RunKind } from './types'
 
@@ -222,6 +224,8 @@ const SignalLaunchBody = z.object({
     .optional(),
   // when the launch came from an Inbox card, the row to mark consumed once the run is admitted
   inboxId: z.string().regex(INB_RE).optional(),
+  // optional TARGET module: run the gauntlet THROUGH this module then stop (a deliberate partial run)
+  until: z.string().regex(MODULE_RE).optional(),
   model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i).optional(),
 })
 
@@ -257,8 +261,9 @@ app.post('/api/launch', async (req, reply) => {
     const parsed = SignalLaunchBody.safeParse(req.body)
     if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
     if (!parsed.data.sigId && !parsed.data.intake) return reply.code(400).send({ error: 'signal launch needs sigId or intake' })
+    if (parsed.data.until && !listModuleNames('screener').includes(parsed.data.until)) return reply.code(400).send({ error: 'unknown screener module' })
     try {
-      const out = await launch({ kind, ticker: parsed.data.sigId, intake: parsed.data.intake, inboxId: parsed.data.inboxId, model: parsed.data.model, user, userVia })
+      const out = await launch({ kind, ticker: parsed.data.sigId, intake: parsed.data.intake, inboxId: parsed.data.inboxId, module: parsed.data.until, model: parsed.data.model, user, userVia })
       // an Inbox-card launch marks its row consumed so it leaves the lane (best-effort: a failed
       // mark only leaves the row visible — a duplicate click is rejected by SIG-id exclusivity)
       if (parsed.data.inboxId) {
@@ -492,6 +497,10 @@ app.get('/api/screener/board', async (_req, reply) => {
   }
 })
 
+// The conviction track record (from /screener:calibrate) — null until one is written. Honest empty
+// state lives in the payload (sufficient:false + verdict), so the UI never fabricates a metric.
+app.get('/api/screener/calibration', async () => readConvictionCalibration())
+
 app.get('/api/screener/run', async (req, reply) => {
   const sigId = (req.query as any)?.sig_id as string
   if (!SIG_RE.test(sigId || '')) return reply.code(400).send({ error: 'bad signal id' })
@@ -506,11 +515,19 @@ app.get('/api/screener/thesis/:id', async (req, reply) => {
   const id = (req.params as any).id as string
   if (!THESIS_RE.test(id || '')) return reply.code(400).send({ error: 'bad thesis id' })
   try {
-    return { thesis: readThesis(id), candidates: safeCandidates(id), handoffs: readHandoffs(id) }
+    return { thesis: readThesis(id), candidates: safeCandidates(id), handoffs: readHandoffs(id), conviction: safeConviction(id) }
   } catch (e: any) {
     return reply.code(e?.code === 'ENOENT' ? 404 : 400).send({ error: 'cannot read thesis', detail: String(e?.message || e) })
   }
 })
+
+function safeConviction(id: string) {
+  try {
+    return readConviction(id)
+  } catch {
+    return null
+  }
+}
 
 function safeCandidates(id: string) {
   try {
@@ -570,11 +587,14 @@ app.post('/api/screener/handoff', async (req, reply) => {
 // Scanner status for the cockpit's auto-scan chip: on/off, last/next cycle, today's counts.
 app.get('/api/news/status', async () => getNewsStatus())
 
-// Backfill for the live wire: every triaged item (kept AND dropped) from the last 1–2 days.
+// Backfill for the live wire + the time-travel view: every triaged item (kept AND dropped) over the
+// requested window. days defaults to 2 (the live view); larger windows (14 / 30 / 90 / 180 / all) read
+// the daily firehose files newest-first with a higher item cap, so you can surface the archived history.
 app.get('/api/news/feed', async (req) => {
   const q = req.query as any
-  const days = q?.days === '1' ? 1 : 2
-  return readFeed(REPO_ROOT, days)
+  const days = Math.min(370, Math.max(1, Math.floor(Number(q?.days) || 2))) // 'all' → the client sends 370
+  const maxItems = days <= 2 ? 1000 : 6000 // deep windows return the newest 6k items in range (readFeed early-stops)
+  return readFeed(REPO_ROOT, days, { maxItems, archiveDir: NEWS.newsArchiveDir }) // read pruned days from the Drive archive
 })
 
 // THEMES — the living, ranked investment themes the firehose is bucketed into.
@@ -617,9 +637,12 @@ app.get('/api/news/enrich', async (req, reply) => {
       { event_id: q.event_id, url: q.url, headline: q.headline, companies, event_types, scope: q.scope },
       {
         repoRoot: REPO_ROOT, stateDir: STATE_DIR, force: q.force === '1',
-        // the article-body read shares the ingester's free Groq key, adaptive pacer (rpm/tpm) and daily
-        // budget — so an opened event never blows the per-minute ceiling alongside the scanner.
-        groq: NEWS.groqApiKey ? { apiKey: NEWS.groqApiKey, model: NEWS.groqModel, baseUrl: NEWS.groqBaseUrl, maxTokens: 900, rpm: NEWS.groqRpm, tpm: NEWS.groqTpm, dailyReqCap: NEWS.groqDailyReqCap, dailyTokenCap: NEWS.groqDailyTokenCap } : undefined,
+        // the article-body read runs the multi-provider fallback chain (Groq → OpenRouter/NVIDIA → Gemini),
+        // each sharing the ingester's daily budget + per-minute limiter so an opened event never blows the
+        // per-minute ceiling alongside the scanner — under HARD time budgets so it can never hang the reader.
+        articleProviders: ARTICLE_READ_PROVIDERS,
+        llmBudgetMs: NEWS.enrichLlmBudgetMs,
+        limiterWaitMs: NEWS.enrichLimiterWaitMs,
       },
     )
     return enrichment
@@ -683,6 +706,22 @@ app.post('/api/screener/thesis/:id/move', async (req, reply) => {
     return { ok: true, effective_status: record.to_status ?? record.from_status, override: record }
   } catch (e: any) {
     return reply.code(500).send({ error: e?.message || 'move failed' })
+  }
+})
+
+// Restore an archived (killed/expired) thesis to the live book — the conviction loop's one-click
+// un-discard (a discard is a SOFT discard, §24). Deterministic: a Python helper flips the snapshot and
+// records a `recover` event; the board is rebuilt so the card returns to the live lanes.
+app.post('/api/screener/conviction/:id/restore', async (req, reply) => {
+  const thesisId = (req.params as any).id as string
+  if (!THESIS_RE.test(thesisId)) return reply.code(400).send({ error: 'invalid thesis id' })
+  const { user } = identify(req)
+  try {
+    const out = execFileSync('python3', [path.join(REPO_ROOT, 'scripts', 'screener_restore_conviction.py'), thesisId, user], { cwd: REPO_ROOT, encoding: 'utf8' })
+    execFileSync('python3', [path.join(REPO_ROOT, 'scripts', 'update_board_index.py')], { cwd: REPO_ROOT, stdio: 'ignore' })
+    return { ok: true, message: out.trim() }
+  } catch (e: any) {
+    return reply.code(500).send({ error: e?.message || 'restore failed' })
   }
 })
 
@@ -816,6 +855,9 @@ app
     // autonomous news ingester (screener swarm): fills a ranked inbox 24/7 at ~$0 when GROQ_API_KEY
     // is set; stays dark otherwise. Never launches a paid run — promotion is the human's one click.
     startNewsIngester()
+    // conviction loop (Phase 3): auto-fire /screener:validate on due checkpoints + on matching wire
+    // items. OFF unless CONVICTION_LOOP_ENABLED=1 — auto-spawning paid checks is opt-in.
+    startConvictionLoop()
   })
   .catch((err) => {
     // eslint-disable-next-line no-console

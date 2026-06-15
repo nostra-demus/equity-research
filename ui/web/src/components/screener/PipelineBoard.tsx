@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { plainRoute } from '../../lib/plain'
 import { useStore } from '../../lib/store'
 import type { BoardThesis } from '../../lib/types'
+import { BookMomentumBanner, CheckpointTimeline, ConvictionStrip, TrackRecord } from './ConvictionCard'
 
 // "Recent runs" — the screener's run history. Every event you put through the checks shows up here,
 // newest first; one click reopens the full analysis (with the hand-move + send-to-research controls).
@@ -37,6 +38,7 @@ function ThesisDetail() {
   const openCallFile = useStore((s) => s.openCallFile)
   const board = useStore((s) => s.scBoard)
   const moveThesis = useStore((s) => s.moveThesis)
+  const restoreConviction = useStore((s) => s.restoreConviction)
   const [confirmFor, setConfirmFor] = useState<string | null>(null)
   if (!detail?.thesis) return null
   const t = detail.thesis
@@ -62,6 +64,18 @@ function ThesisDetail() {
         <span className="tdetail__id">{meta.thesis_id}</span>
       </div>
       <div className="tdetail__headline">{t.headline}</div>
+      {bt?.conviction && <ConvictionStrip conv={bt.conviction} />}
+      {detail.conviction?.checkpoints?.length ? (
+        <section className="tdetail__cptl">
+          <h4>{bt?.conviction?.archived ? 'The proof points — how this idea closed' : 'The proof points — what we are waiting on'}</h4>
+          <CheckpointTimeline detail={detail.conviction} />
+          {bt?.conviction?.archived && (
+            <button className="btn btn--ghost tdetail__restore" onClick={() => void restoreConviction(meta.thesis_id)} title="Re-open this idea onto the live book and keep monitoring it">
+              ↩ restore to the live book
+            </button>
+          )}
+        </section>
+      ) : null}
 
       <div className="tdetail__move" onClick={(e) => e.stopPropagation()}>
         <span className="tdetail__move-label" title="Put this idea where YOU think it belongs. Your move is marked on the card; the checks' own verdict stays visible, and nothing the engine wrote is changed.">
@@ -169,45 +183,81 @@ const fmtWhen = (s?: string | null) => {
 // board (signals = the runs, joined to their theses for the edge score + company count).
 function RecentChecks({ onOpen, onReplay }: { onOpen: (thesisId: string) => void; onReplay: (sigId: string) => void }) {
   const board = useStore((s) => s.scBoard)
-  const rows = useMemo(() => {
+  const restoreConviction = useStore((s) => s.restoreConviction)
+  const [showArchived, setShowArchived] = useState(false)
+  // Live ideas rank by conviction (climbing ideas float up); archived (killed/expired) drop to a tray.
+  const { live, archived } = useMemo(() => {
     const tBySig = new Map((board?.theses || []).map((t) => [t.signal_id, t]))
-    return (board?.signals || [])
-      .filter((s) => s.processed_at)
-      .map((s) => ({ s, t: tBySig.get(s.signal_id) }))
-      .sort((a, b) => ((a.s.processed_at || '') < (b.s.processed_at || '') ? 1 : -1))
+    const all = (board?.signals || []).filter((s) => s.processed_at).map((s) => ({ s, t: tBySig.get(s.signal_id) }))
+    const arch = all.filter((r) => r.t?.conviction?.archived)
+    const liveRows = all.filter((r) => !r.t?.conviction?.archived)
+    liveRows.sort((a, b) => {
+      const ra = a.t?.conviction?.rank_score, rb = b.t?.conviction?.rank_score
+      if (ra != null && rb != null && ra !== rb) return rb - ra // higher conviction first
+      if (ra != null && rb == null) return -1
+      if (rb != null && ra == null) return 1
+      return (a.s.processed_at || '') < (b.s.processed_at || '') ? 1 : -1 // else newest
+    })
+    arch.sort((a, b) => ((a.s.processed_at || '') < (b.s.processed_at || '') ? 1 : -1))
+    return { live: liveRows, archived: arch }
   }, [board])
 
-  if (!rows.length) {
+  if (!live.length && !archived.length) {
     return (
       <div className="recent__empty">
-        No checks yet. Open a news event on the left of the Screener and press “Run the checks” — every event you run shows up here, newest first, to reopen any time.
+        No checks yet. Open a news event on the left of the Screener and press “Run the checks” — every event you run shows up here, ranked by how the idea is holding up, to reopen any time.
+      </div>
+    )
+  }
+  const liveRow = ({ s, t }: { s: any; t?: BoardThesis }) => {
+    const outcome = plainRoute(t ? effStatus(t) : s.status)
+    return (
+      <div key={s.signal_id} className="recentrow">
+        <EdgeDial score={t?.conviction?.edge_score_live ?? t?.edge_score} />
+        <div className="recentrow__main">
+          <div className="recentrow__headline">{s.headline}</div>
+          <div className="recentrow__meta">
+            {s.source_name && <span className="recentrow__src">{s.source_name}</span>}
+            <span>{fmtWhen(s.processed_at)}</span>
+            {outcome && <span className="recentrow__outcome">{outcome}</span>}
+            {t?.candidate_count ? <span>{t.candidate_count} compan{t.candidate_count === 1 ? 'y' : 'ies'} found</span> : null}
+          </div>
+        </div>
+        <div className="recentrow__actions">
+          {t && <button className="btn btn--ghost recentrow__act" onClick={() => onOpen(t.thesis_id)}>Open analysis ▸</button>}
+          <button className="btn btn--ghost recentrow__act" onClick={() => onReplay(s.signal_id)} title="Show this run playing out on the board">Replay</button>
+        </div>
+        {t?.conviction && <ConvictionStrip conv={t.conviction} />}
       </div>
     )
   }
   return (
     <div className="recent">
-      <div className="recent__lead">Every event you’ve put through the checks, newest first. Open one to re-read its full analysis, or replay it on the board.</div>
-      {rows.map(({ s, t }) => {
-        const outcome = plainRoute(t ? effStatus(t) : s.status)
-        return (
-          <div key={s.signal_id} className="recentrow">
-            <EdgeDial score={t?.edge_score} />
-            <div className="recentrow__main">
-              <div className="recentrow__headline">{s.headline}</div>
-              <div className="recentrow__meta">
-                {s.source_name && <span className="recentrow__src">{s.source_name}</span>}
-                <span>{fmtWhen(s.processed_at)}</span>
-                {outcome && <span className="recentrow__outcome">{outcome}</span>}
-                {t?.candidate_count ? <span>{t.candidate_count} compan{t.candidate_count === 1 ? 'y' : 'ies'} found</span> : null}
+      <div className="recent__lead">Your live book — ideas ranked by how strongly they’re holding up. Open one to re-read it, or replay it on the board.</div>
+      {board?.book_momentum && <BookMomentumBanner m={board.book_momentum} />}
+      <TrackRecord />
+      {live.map(liveRow)}
+      {archived.length > 0 && (
+        <div className="archived">
+          <button className="archived__head" onClick={() => setShowArchived((v) => !v)} aria-expanded={showArchived}>
+            <span className="archived__chev" data-open={showArchived}>›</span>
+            Archived — {archived.length} idea{archived.length === 1 ? '' : 's'} closed by their own rules (kept on record)
+          </button>
+          {showArchived && archived.map(({ s, t }) => (
+            <div key={s.signal_id} className="archivedrow">
+              <EdgeDial score={t?.conviction?.edge_score_live ?? t?.edge_score} />
+              <div className="recentrow__main">
+                <div className="recentrow__headline">{s.headline}</div>
+                <div className="archivedrow__note">{t?.conviction?.plain_note || (t?.conviction?.state === 'expired_unproven' ? 'The window closed without proof.' : 'Killed by its own rule.')}</div>
+              </div>
+              <div className="recentrow__actions">
+                {t && <button className="btn btn--ghost recentrow__act" onClick={() => onOpen(t.thesis_id)}>Open ▸</button>}
+                {t && <button className="btn btn--ghost recentrow__act" onClick={() => void restoreConviction(t.thesis_id)} title="Re-open this idea onto the live book">↩ restore</button>}
               </div>
             </div>
-            <div className="recentrow__actions">
-              {t && <button className="btn btn--ghost recentrow__act" onClick={() => onOpen(t.thesis_id)}>Open analysis ▸</button>}
-              <button className="btn btn--ghost recentrow__act" onClick={() => onReplay(s.signal_id)} title="Show this run playing out on the board">Replay</button>
-            </div>
-          </div>
-        )
-      })}
+          ))}
+        </div>
+      )}
     </div>
   )
 }
@@ -224,6 +274,14 @@ export function PipelineBoard() {
 
   useEffect(() => {
     void refresh()
+    // keep the live book current while it's open: re-pull the board (and the open idea's detail, so
+    // its checkpoint timeline updates) every 30s — a check that resolves shows up on its own.
+    const id = setInterval(() => {
+      void refresh()
+      const tid = useStore.getState().scThesisDetail?.thesis?.meta?.thesis_id
+      if (tid) void useStore.getState().openThesisDetail(tid)
+    }, 30_000)
+    return () => clearInterval(id)
   }, [refresh])
 
   return (

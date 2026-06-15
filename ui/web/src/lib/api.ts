@@ -105,7 +105,7 @@ export const api = {
     if ((await ensureMode()) === 'static') return snap.screenerCandidates?.[thesisId] || null
     return get(`/api/screener/candidates/${encodeURIComponent(thesisId)}`)
   },
-  launchSignal: async (body: { sigId?: string; intake?: SignalIntakeInput; inboxId?: string }): Promise<{ runId: string; preflight: LaunchPreflight }> => {
+  launchSignal: async (body: { sigId?: string; intake?: SignalIntakeInput; inboxId?: string; until?: string }): Promise<{ runId: string; preflight: LaunchPreflight }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/launch`, { kind: 'signal', ...body })
   },
@@ -119,9 +119,9 @@ export const api = {
       return { enabled: false, running: false, intervalMin: 15, model: '', rssEnabled: false, lastCycleAt: null, nextCycleAt: null, lastNote: null, today: { read: 0, kept: 0, dropped: 0, cycles: 0 }, budget: { requests: 0, tokens: 0, reqCap: 0, tokenCap: 0 } }
     return get(`/api/news/status`)
   },
-  newsFeed: async (days: 1 | 2 = 2): Promise<{ items: FeedItem[]; cycles: NewsCycle[] }> => {
+  newsFeed: async (days = 2): Promise<{ items: FeedItem[]; cycles: NewsCycle[] }> => {
     if ((await ensureMode()) === 'static') return { items: [], cycles: [] }
-    return get(`/api/news/feed?days=${days}`)
+    return get(`/api/news/feed?days=${Math.max(1, Math.floor(days))}`)
   },
   newsStreamUrl: () => `/api/news/stream`,
   // the living themes the firehose is bucketed into (ranked index + one theme's deep-dive)
@@ -144,7 +144,14 @@ export const api = {
     if (it.companies?.length) qs.set('companies', JSON.stringify(it.companies))
     if (it.event_types?.length) qs.set('event_types', JSON.stringify(it.event_types))
     if (it.scope) qs.set('scope', it.scope)
-    return get(`/api/news/enrich?${qs.toString()}`)
+    // The server caps its own work at ~23s worst case (≤9s page fetch + ≤14s LLM budget). A client timeout
+    // a little above that guarantees the reader never waits on a dead socket forever — on a timeout the
+    // store falls back to a headline-only story rather than spinning the shimmer. (The default get() has no
+    // timeout — the bug that let the shimmer hang.)
+    const url = `/api/news/enrich?${qs.toString()}`
+    const r = await fetch(url, { signal: AbortSignal.timeout(28_000) })
+    if (!r.ok) throw new Error(`${r.status} ${url}`)
+    return r.json() as Promise<EventEnrichment>
   },
   inboxAction: async (inboxId: string, action: 'dismiss' | 'restore'): Promise<{ ok: boolean }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
@@ -153,6 +160,14 @@ export const api = {
   thesisMove: async (thesisId: string, to: 'watchlist' | 'provisional' | 'full_machine' | 'engine', reason?: string): Promise<{ ok: boolean; effective_status: string | null }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/screener/thesis/${encodeURIComponent(thesisId)}/move`, { to, reason })
+  },
+  convictionRestore: async (thesisId: string): Promise<{ ok: boolean; message?: string }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/screener/conviction/${encodeURIComponent(thesisId)}/restore`, {})
+  },
+  screenerCalibration: async (): Promise<any | null> => {
+    if ((await ensureMode()) === 'static') return snap.screenerCalibration || null
+    return get<any>(`/api/screener/calibration`)
   },
   cancelAllRuns: async (): Promise<{ ok: boolean; cancelled: string[] }> => {
     if ((await ensureMode()) === 'static') return { ok: true, cancelled: [] }

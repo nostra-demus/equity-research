@@ -1,0 +1,225 @@
+{
+  "thesis_id": "THS-SIG-20260613-4bbcdeae-v1",
+  "signal_id": "SIG-20260613-4bbcdeae",
+  "generated_at": "2026-06-14T00:00:00Z",
+  "routing": "provisional",
+  "candidates": [
+    {
+      "candidate_id": "CND-001",
+      "ticker": "INTC",
+      "company_name": "Intel Corporation",
+      "exchange": "NASDAQ",
+      "side": "pair_long_leg",
+      "beneficiary_ref": "DIR-001",
+      "exposure_score": 72,
+      "exposure_rationale": "DC+AI segment was 37% of Q1 2026 revenue ($5.1B of $13.6B); Intel is the named subject of the BofA TAM revision from ~$125B to >$170B by 2030; Xeon 6 is the specific platform cited. Score capped below 80 because foundry ($5.4B) and CCG (~$4.7B) segments represent ~63% of revenue and do not benefit from the mechanism. The convergence trigger (Q2 2026 earnings, 2026-07-23) resolves specifically on Intel's gross margin and DC+AI revenue print — making INTC the highest-sensitivity name to M0.5 falsification. [Intel Q1 2026 8-K, SEC EDGAR, 2026-04-23; Manufacturing Dive, 2026-04-23, unverified secondary]",
+      "liquidity_note": "S&P 500 and Nasdaq 100 constituent; NASDAQ-listed; very high liquidity; no restrictions. IV at 99th percentile (Barchart.com, 2026-06-14); ~23–24% implied move through 2026-07-23 earnings date.",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run_root": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "pair_with": "CND-007",
+      "caveats": "Variant-perception caveat: thesis asserts Q2 2026 gross margin will print ~39% (guided), compressing BofA's $6.24 2030 EPS model. INTC is simultaneously the convergence trigger and the primary long — a Q2 miss confirms the short thesis and kills the DC+AI run-rate claim. 117x forward P/E already prices recovery optimism. Research handoff requires a full cold start (no data pool).",
+      "sources": [
+        {
+          "url": "https://www.manufacturingdive.com/news/intel-136-billion-q1-revenue-ai-demand/818625/",
+          "source_name": "Manufacturing Dive",
+          "source_grade": "B",
+          "retrieved_at": "2026-06-14T00:00:00Z",
+          "claim_supported": "Intel Q1 2026 DC+AI segment revenue $5.1B (+22% YoY), total revenue $13.6B; DC+AI = 37% of total. Cross-confirms Intel Q1 2026 8-K."
+        },
+        {
+          "url": "https://barchart.com/stocks/quotes/INTC/",
+          "source_name": "Barchart.com",
+          "source_grade": "B",
+          "retrieved_at": "2026-06-14T00:00:00Z",
+          "claim_supported": "IV rank 90.35%; IV percentile ~99%; next earnings date 2026-07-23."
+        }
+      ]
+    },
+    {
+      "candidate_id": "CND-002",
+      "ticker": "AMD",
+      "company_name": "Advanced Micro Devices",
+      "exchange": "NASDAQ",
+      "side": "long",
+      "beneficiary_ref": "DIR-001",
+      "exposure_score": 58,
+      "exposure_rationale": "EPYC Venice holds approximately 27.4% server CPU unit share in Q1 2026; AMD's Data Center segment was $16.6B for full-year 2025 (+39% YoY), representing approximately 55–60% of total revenue by inference. The same server CPU TAM expansion (WC-005) that benefits Intel's Xeon also enlarges the addressable pool for EPYC. Score capped at 58 because the BofA upgrade event was Intel-specific; AMD's re-rating is derivative rather than a direct subject of the thesis, and Gaming/Embedded/Client segments dilute the pure data-center signal. [AMD FY2025 8-K, SEC EDGAR, 2026-01-28, unverified secondary via ir.amd.com]",
+      "liquidity_note": "S&P 500 constituent; NASDAQ-listed; very high liquidity; no restrictions. Trades at approximately 38x forward P/E — elevated but less stretched than INTC's 117x.",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run_root": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "pair_with": null,
+      "caveats": "SF-002 sensitivity: any hyperscaler disclosure favouring ARM/custom silicon over x86 harms AMD more severely than INTC in unit-share terms (AMD has less incumbent embedded base). Research handoff requires a full cold start.",
+      "sources": [
+        {
+          "url": "https://ir.amd.com/",
+          "source_name": "AMD Investor Relations (via SEC EDGAR 8-K)",
+          "source_grade": "B",
+          "retrieved_at": "2026-06-14T00:00:00Z",
+          "claim_supported": "AMD FY2025 Data Center segment revenue $16.6B (+39% YoY); EPYC server CPU market share ~27.4% Q1 2026. [AMD FY2025 8-K, SEC EDGAR, 2026-01-28, unverified secondary]"
+        }
+      ]
+    },
+    {
+      "candidate_id": "CND-003",
+      "ticker": "KLAC",
+      "company_name": "KLA Corporation",
+      "exchange": "NASDAQ",
+      "side": "long",
+      "beneficiary_ref": "DIR-002",
+      "exposure_score": 44,
+      "exposure_rationale": "Advanced packaging revenue expected to exceed $925M in CY2025 (+70% YoY), directly tied to AI infrastructure build-out; total FY2025 revenue $12.16B (+24% YoY). Process-control inspection and metrology equipment is near-mandatory at every new node expansion, making KLA a required spend item alongside any wafer-start increase from server CPU TAM expansion. Score 44 reflects that equipment revenue is approximately 10–15% of the chip revenue the TAM covers, and the 6–18 month order-lag means this mechanism transmits after the thesis's primary 5–6 week horizon. Ranked above AMAT within DIR-002 because KLA's AI-packaging revenue is more specifically quantified. [KLA FY2025 10-K, SEC EDGAR; PR Newswire, 2025-08-06, unverified secondary]",
+      "liquidity_note": "S&P 500 constituent; NASDAQ-listed; highly liquid; no restrictions. FY ends June — next KLA print is August 2026, after the INTC Q2 date.",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run_root": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "pair_with": null,
+      "caveats": "DIR-002 mechanism is secondary-pace: equipment orders typically lag chip-revenue inflections by 6–18 months, meaning any KLAC revenue impact likely does not appear until H2 2026 or 2027. This is the longer-duration expression of the thesis. Research handoff requires a full cold start.",
+      "sources": [
+        {
+          "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0000319201",
+          "source_name": "KLA FY2025 10-K, SEC EDGAR",
+          "source_grade": "A",
+          "retrieved_at": "2026-06-14T00:00:00Z",
+          "claim_supported": "KLA FY2025 total revenue $12.16B (+24% YoY)."
+        },
+        {
+          "url": "https://www.prnewswire.com/",
+          "source_name": "PR Newswire (KLA FY2025 Q4 earnings release, 2025-08-06)",
+          "source_grade": "B",
+          "retrieved_at": "2026-06-14T00:00:00Z",
+          "claim_supported": "Advanced packaging revenue expected to exceed $925M in CY2025 (+70% YoY), directly tied to AI infrastructure. [Unverified secondary]"
+        }
+      ]
+    },
+    {
+      "candidate_id": "CND-004",
+      "ticker": "AMAT",
+      "company_name": "Applied Materials, Inc.",
+      "exchange": "NASDAQ",
+      "side": "long",
+      "beneficiary_ref": "DIR-002",
+      "exposure_score": 42,
+      "exposure_rationale": "Semiconductor Systems segment approximately 73% of FY2025 net revenue ($28.37B); advanced packaging identified as an AI-driven growth category. Mechanism and timing are identical to KLAC (6–18 month equipment-order lag). Scored 1 point below KLAC because AMAT's revenue base is more diversified across DRAM and NAND equipment (approximately 20–25% of Semiconductor Systems), which do not benefit from server CPU TAM expansion, diluting the pure-server signal slightly more. [Applied Materials FY2025 earnings release, ir.appliedmaterials.com, 2025-11, unverified secondary]",
+      "liquidity_note": "S&P 500 constituent; NASDAQ-listed; highly liquid; no restrictions.",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run_root": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "pair_with": null,
+      "caveats": "Same DIR-002 timing caveat as KLAC: 6–18 month equipment-order lag. AMAT's memory-equipment revenue is insensitive to server CPU TAM growth. Research handoff requires a full cold start.",
+      "sources": [
+        {
+          "url": "https://ir.appliedmaterials.com/",
+          "source_name": "Applied Materials FY2025 earnings release, ir.appliedmaterials.com, 2025-11",
+          "source_grade": "B",
+          "retrieved_at": "2026-06-14T00:00:00Z",
+          "claim_supported": "Semiconductor Systems segment ~73% of FY2025 net revenue $28.37B; advanced packaging cited as AI-driven growth category. [Unverified secondary]"
+        }
+      ]
+    },
+    {
+      "candidate_id": "CND-005",
+      "ticker": "AMKR",
+      "company_name": "Amkor Technology, Inc.",
+      "exchange": "NASDAQ",
+      "side": "long",
+      "beneficiary_ref": "IND-003",
+      "exposure_score": 38,
+      "exposure_rationale": "Management guided AI advanced packaging portfolio to 'triple in 2026'; FY2025 total revenue $6.7B. Two-step mechanism (chip volume growth → outsourced assembly and advanced packaging throughput). Score 38 reflects that conventional packaging revenue (consumer, automotive, mobile) continues to dilute the AI/server portion — AI advanced packaging is growing but not yet a majority share of Amkor's $6.7B base, and the tripling guidance is from a small base not yet confirmed as a separate filing segment. [Amkor FY2025 earnings release, ir.amkor.com, 2026; Amkor Q4 2025 investor presentation 8-K, SEC EDGAR, 2026]",
+      "liquidity_note": "NASDAQ-listed; mid-cap; liquid but not S&P 500 constituent — passive flow absent; lower institutional ownership than INTC/AMD/KLAC/AMAT.",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run_root": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "pair_with": null,
+      "caveats": "Tripling guidance is management commentary from earnings IR materials, not a filed segment result. AI advanced packaging revenue share not yet separately disclosed in filings. Mid-cap sizing and lack of S&P 500 membership reduce passive-flow support. Research handoff requires a full cold start.",
+      "sources": [
+        {
+          "url": "https://ir.amkor.com/",
+          "source_name": "Amkor FY2025 earnings release and Q4 2025 investor presentation 8-K, SEC EDGAR, 2026",
+          "source_grade": "B",
+          "retrieved_at": "2026-06-14T00:00:00Z",
+          "claim_supported": "Amkor FY2025 total revenue $6.7B; management guided AI advanced packaging to 'triple in 2026'. [Unverified secondary]"
+        }
+      ]
+    },
+    {
+      "candidate_id": "CND-006",
+      "ticker": "EQIX",
+      "company_name": "Equinix, Inc.",
+      "exchange": "NASDAQ",
+      "side": "long",
+      "beneficiary_ref": "IND-002",
+      "exposure_score": 32,
+      "exposure_rationale": "100% of revenue is data-center-derived (colocation, interconnection, managed services); colocation revenue for nine months ended September 2025 was $4,767M (annualised approximately $6.36B). Mechanism is two-step and slow: TAM expansion → more AI servers deployed → increased rack space, power, and interconnection demand at Equinix facilities. Score 32 reflects that the mechanism transmits 9–18 months after chip availability, and REIT structure means the effect flows through occupancy and interconnection volumes rather than direct earnings from chip sales. [Equinix 10-Q, SEC EDGAR, Q3 2025]",
+      "liquidity_note": "S&P 500 constituent; NASDAQ-listed; highly liquid; no restrictions. REIT classification means different sector sensitivity and valuation framework from semiconductor names — interest-rate policy is a co-driver of REIT valuations independent of AI compute demand.",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run_root": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "pair_with": null,
+      "caveats": "IND-002 mechanism is furthest removed from the BofA upgrade event. A REIT rally is as likely driven by interest-rate policy as by server CPU TAM expansion. SF-001 (consensus stalls on INTC) does not directly harm Equinix. Lowest thesis transmission speed and fidelity of any ranked name. Research handoff requires a full cold start.",
+      "sources": [
+        {
+          "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001101239",
+          "source_name": "Equinix 10-Q, SEC EDGAR, Q3 2025",
+          "source_grade": "A",
+          "retrieved_at": "2026-06-14T00:00:00Z",
+          "claim_supported": "Colocation revenue nine months ended September 2025: $4,767M (annualised ~$6.36B); 100% of revenue data-center-derived."
+        }
+      ]
+    },
+    {
+      "candidate_id": "CND-007",
+      "ticker": "ARM",
+      "company_name": "Arm Holdings plc",
+      "exchange": "NASDAQ",
+      "side": "pair_short_leg",
+      "beneficiary_ref": "HARM-001",
+      "exposure_score": 55,
+      "exposure_rationale": "ARM licenses the architecture underlying approximately 17.7% of server CPU unit shipments in Q1 2026; if x86 (Intel/AMD) re-captures server AI inference sockets, ARM's royalty revenue growth from hyperscaler custom-silicon programs (Microsoft Cobalt, Google Axion, AWS Graviton) slows relative to its current trajectory. Total royalty revenue was $939M in FY2025; server/cloud is a growing contributor but is not separately disclosed as a sub-segment in the 20-F — preventing a precise filing-derived exposure score. Score 55 reflects the directionally real mechanism with a data-gap penalty. [ARM Holdings FY2025 20-F, SEC EDGAR; Tom's Hardware, 2026, unverified secondary]",
+      "liquidity_note": "NASDAQ-listed (ADR; UK incorporated); very high liquidity; no restrictions. Conflict: ARM also benefits from TAM expansion as a whole (rising server unit count, including ARM-based designs) — the short thesis is specific to relative socket-share shift away from ARM toward x86, not to absolute ARM royalty decline.",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run_root": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "pair_with": "CND-001",
+      "caveats": "Short leg only in PAIR-A context (Long INTC / Short ARM). ARM server royalty sub-segment not disclosed separately in 20-F; standalone short would rest on inference. Sizing must be notionally matched against INTC long to avoid residual semiconductor-cycle beta. The pair is asymmetric: if the AI TAM expands without x86 share recapture, both legs could move in the same direction (ARM up on royalty growth, INTC up on TAM). Research handoff requires a full cold start.",
+      "sources": [
+        {
+          "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001973239",
+          "source_name": "ARM Holdings FY2025 20-F, SEC EDGAR",
+          "source_grade": "A",
+          "retrieved_at": "2026-06-14T00:00:00Z",
+          "claim_supported": "ARM total royalty revenue $939M FY2025; server/cloud royalty sub-segment not separately disclosed."
+        },
+        {
+          "url": "https://www.tomshardware.com/",
+          "source_name": "Tom's Hardware, 2026",
+          "source_grade": "B",
+          "retrieved_at": "2026-06-14T00:00:00Z",
+          "claim_supported": "ARM-based server CPU unit share approximately 17.7% in Q1 2026. [Unverified secondary]"
+        }
+      ]
+    }
+  ]
+}

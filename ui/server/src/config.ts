@@ -1,5 +1,8 @@
+import fs from 'node:fs'
+import os from 'node:os'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
+import type { ArticleReadProvider } from './news/triage/article-read'
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -29,8 +32,23 @@ export const HOST = '127.0.0.1'
 // admission rules (admission.ts) govern same-company safety; this caps total fan-out. Tunable.
 export const MAX_CONCURRENT_RUNS = Math.max(1, Number(process.env.ENGINE_MAX_CONCURRENT_RUNS || 3))
 
-// The Claude Code CLI used to launch the engine in headless mode.
-export const CLAUDE_BIN = process.env.CLAUDE_BIN || 'claude'
+// The Claude Code CLI used to launch the engine in headless mode. Resolved to an ABSOLUTE path so it
+// never depends on the launchd process's PATH (which has bitten us: the binary + plist PATH are fine,
+// yet the running engine couldn't resolve bare 'claude', 503-ing every screener/research launch). Order:
+// explicit CLAUDE_BIN env → known install locations → bare 'claude' (last-resort PATH lookup).
+function resolveClaudeBin(): string {
+  if (process.env.CLAUDE_BIN) return process.env.CLAUDE_BIN
+  const candidates = [
+    path.join(os.homedir(), '.local', 'bin', 'claude'), // native installer (the symlink — survives version bumps)
+    '/opt/homebrew/bin/claude', // homebrew / npm-global on Apple Silicon
+    '/usr/local/bin/claude', // npm-global on Intel
+  ]
+  for (const c of candidates) {
+    try { if (fs.existsSync(c)) return c } catch { /* keep looking */ }
+  }
+  return 'claude' // last resort — rely on PATH
+}
+export const CLAUDE_BIN = resolveClaudeBin()
 export const DEFAULT_MODEL = process.env.ENGINE_MODEL || 'sonnet'
 
 // OPT-IN (off by default): orchestrate a full run as a CHAIN of separate per-module runs (each its own
@@ -67,6 +85,67 @@ function parseGeminiPool(v: string | undefined, fallbackCap: number): { model: s
       return { model, dailyReqCap: Number.isFinite(cap) && cap > 0 ? cap : fallbackCap }
     })
     .filter((e) => e.model)
+}
+
+// An OpenAI-compatible free overflow provider (OpenRouter, NVIDIA NIM, …). The triage loop tries these in
+// order after Groq is paced/capped, each with its own daily budget file + rate limiter. Adding another such
+// key is a single entry in buildOverflowProviders() below — no engine-code change anywhere else (§26).
+export interface OverflowProvider {
+  id: string // stable key — names the budget file + the cockpit chip
+  label: string // human label for status/log
+  color: string // CSS var for the cockpit chip (defined in tokens.css)
+  apiKey: string
+  baseUrl: string // OpenAI-compatible base (…/v1)
+  model: string // primary model
+  models?: string[] // optional fallback chain (OpenRouter only; OpenAI standard ignores it)
+  dailyReqCap: number
+  rpm: number
+  maxTokens: number
+  extraBody?: Record<string, unknown> // provider-specific body fields (e.g. OpenRouter reasoning effort)
+  headers?: Record<string, string> // provider-specific headers (e.g. OpenRouter ranking)
+  budgetFile: string
+  dayTz?: string // daily reset zone (undefined = UTC)
+}
+
+// Build the overflow chain from whatever keys are present. ONLY OpenAI-compatible providers belong here
+// (Gemini is separate — it uses generateContent, not chat/completions). Order = priority (best first).
+function buildOverflowProviders(): OverflowProvider[] {
+  const out: OverflowProvider[] = []
+  const orKey = process.env.OPENROUTER_API_KEY || ''
+  if (orKey && process.env.NEWS_OPENROUTER_ENABLED !== '0') {
+    // OpenRouter: strongest free models (gpt-oss-120b…). Free = ~20 RPM, ~50/day pooled (no credits) →
+    // ~1000/day once $10 is loaded (free models still cost $0). Fallback chain (max 3) routes around 429s.
+    const models = (process.env.NEWS_OPENROUTER_MODELS || 'openai/gpt-oss-120b:free,openai/gpt-oss-20b:free,meta-llama/llama-3.3-70b-instruct:free').split(',').map((s) => s.trim()).filter(Boolean).slice(0, 3)
+    out.push({
+      id: 'openrouter', label: 'OpenRouter', color: '--provider-or',
+      apiKey: orKey, baseUrl: process.env.OPENROUTER_BASE_URL || 'https://openrouter.ai/api/v1',
+      model: models[0] || 'openai/gpt-oss-120b:free', models,
+      dailyReqCap: capNum(process.env.NEWS_OPENROUTER_DAILY_REQ_CAP, 45),
+      rpm: capNum(process.env.NEWS_OPENROUTER_RPM, 18),
+      maxTokens: capNum(process.env.NEWS_OPENROUTER_MAX_TOKENS, 3500),
+      extraBody: { reasoning: { effort: 'low' } }, // gpt-oss is a reasoning model — keep thinking minimal
+      headers: { 'HTTP-Referer': 'https://app.nostra-demus.com', 'X-Title': 'Nostradamus Screener' },
+      budgetFile: 'openrouter-budget.json',
+    })
+  }
+  const nvKey = process.env.NVIDIA_API_KEY || ''
+  if (nvKey && process.env.NEWS_NVIDIA_ENABLED !== '0') {
+    // NVIDIA NIM hosted API: free, generous, OpenAI-compatible. Use a fast NON-reasoning model
+    // (llama-3.3-70b); the nemotron/gpt-oss reasoning models are slow + flaky there. No fallback array.
+    out.push({
+      id: 'nvidia', label: 'NVIDIA NIM', color: '--provider-nv',
+      apiKey: nvKey, baseUrl: process.env.NVIDIA_BASE_URL || 'https://integrate.api.nvidia.com/v1',
+      model: process.env.NEWS_NVIDIA_MODEL || 'meta/llama-3.3-70b-instruct',
+      // NVIDIA free is a FINITE credit pool (~1,000, →5,000 with a business email) that EXPIRES in ~30 days,
+      // not a daily-resetting tier — so it's a temporary high-quality boost. Ration ~150/day so a 5,000 pool
+      // lasts the ~30 days; if it's the 1,000 pool it burns out sooner and the loop's 4xx-exhaust skips it.
+      dailyReqCap: capNum(process.env.NEWS_NVIDIA_DAILY_REQ_CAP, 150),
+      rpm: capNum(process.env.NEWS_NVIDIA_RPM, 36),
+      maxTokens: capNum(process.env.NEWS_NVIDIA_MAX_TOKENS, 2000),
+      budgetFile: 'nvidia-budget.json',
+    })
+  }
+  return out
 }
 export const LAUNCH_GUARDS: Record<LaunchKind, { maxTurns: number; budgetUsd: number }> = {
   full: { maxTurns: capNum(process.env.ENGINE_FULL_MAX_TURNS, 2500), budgetUsd: capNum(process.env.ENGINE_FULL_BUDGET_USD, 300) },
@@ -112,6 +191,13 @@ export const NEWS = {
   // the current free model when you provision the key. Override with GROQ_MODEL.
   groqModel: process.env.GROQ_MODEL || 'llama-3.1-8b-instant',
   groqBaseUrl: process.env.GROQ_BASE_URL || 'https://api.groq.com/openai/v1',
+  // CLOUD ARCHIVE — the raw-news firehose files are mirrored to a Google Drive for Desktop mount folder
+  // (the news-archive launchd agent copies them there; Drive uploads to the cloud). Local files older than
+  // the retention window are then pruned, so the laptop disk stays bounded while the full history lives in
+  // the cloud. readFeed falls back to this folder for days no longer on local disk, so the time-travel
+  // filter still spans the whole archive. Empty → no cloud archive (read local only).
+  newsArchiveDir: process.env.NEWS_ARCHIVE_DIR || '',
+  newsLocalRetentionDays: capNum(process.env.NEWS_LOCAL_RETENTION_DAYS, 30), // days of firehose kept on local disk
   // Master switch. Default: ON iff a key exists. Set NEWS_INGEST_ENABLED=0 to force off even with a key.
   enabled: process.env.NEWS_INGEST_ENABLED === '0' ? false : Boolean(process.env.GROQ_API_KEY),
   // How often the in-server scheduler runs a cycle (the standalone --once entrypoint ignores this).
@@ -120,13 +206,20 @@ export const NEWS = {
   // excess, so a tighter fetch can't bust limits; the binding floor is RSS source politeness (a full
   // 351-feed sweep is ~30-50s, so 5 min keeps it well-spaced). Tune with NEWS_POLL_INTERVAL_MIN.
   pollIntervalMin: capNum(process.env.NEWS_POLL_INTERVAL_MIN, 5),
+  // Hard ceiling on a single ingest cycle (fetch+triage+themes). A safety net well ABOVE any legitimate
+  // cycle (a normal fetch is ~1-3 min): if one ever hangs, the scheduler aborts it and runs the next, so
+  // the ingester can never wedge permanently. Tune with NEWS_CYCLE_TIMEOUT_MS.
+  cycleTimeoutMs: capNum(process.env.NEWS_CYCLE_TIMEOUT_MS, 480_000),
   // Daily Groq budget guards. A cycle refuses to call Groq past either cap; unscored items defer to
-  // the next cycle (never lost, never zero-scored). Raised for the expanded source set (351 RSS feeds
-  // + NSE + GDELT generate far more items/day than the old caps could score). These are the binding
-  // constraint on "score everything": on a free Groq key the real limiter is Groq's own rate limit
-  // (cycles just defer, no spend); a higher Groq tier uses the extra headroom (8b-instant is ~$0.05/M
-  // tokens, so 500k tokens/day ≈ $0.025). Tune down with the env vars on a constrained free tier.
-  groqDailyReqCap: capNum(process.env.NEWS_GROQ_DAILY_REQ_CAP, 1500),
+  // the next cycle (never lost, never zero-scored). The REQUEST cap matches Groq's real free-tier RPD
+  // for 8b-instant — 14,400/day (verified Jun 2026) — set to 13,000 to hold a safety margin. It was
+  // previously 1,500, which was the BINDING throttle: failed/timed-out calls (each still counts as a
+  // request) exhausted it by mid-day while only ~31% of the token ceiling was used, forcing everything
+  // onto overflow and leaving Groq dark. With the cap raised, the TOKEN cap (500k = Groq's real free
+  // TPD, the true ceiling) governs instead — converting the unused token headroom into ~free throughput.
+  // On a higher Groq tier both rise automatically via the live rate-limit headers. Tune down on a
+  // constrained tier (8b-instant is ~$0.05/M tokens, so 500k tokens/day ≈ $0.025 if ever metered).
+  groqDailyReqCap: capNum(process.env.NEWS_GROQ_DAILY_REQ_CAP, 13_000),
   groqDailyTokenCap: capNum(process.env.NEWS_GROQ_DAILY_TOKEN_CAP, 500_000),
   // Daily-budget PACER. The caps above stop us BUSTING the day's limit; the pacer stops us SPENDING IT
   // ALL AT ONCE. It releases the day's token TARGET on a linear schedule across the UTC day, so a heavy
@@ -176,27 +269,25 @@ export const NEWS = {
   geminiTpm: capNum(process.env.NEWS_GEMINI_TPM, 240_000),
   geminiMaxTokens: capNum(process.env.NEWS_GEMINI_MAX_TOKENS, 2000),
   geminiDayTz: process.env.NEWS_GEMINI_DAY_TZ || 'America/Los_Angeles', // RPD resets midnight Pacific
-  // THIRD free brain — OpenRouter (OpenAI-compatible gateway). Its free models are far STRONGER than
-  // Groq's 8B (gpt-oss-120b, llama-3.3-70b, qwen3-80b), so these are the highest-QUALITY overflow slots.
-  // Free tier = ~20 req/min and a POOLED daily cap (~50/day with no credits; ~1000/day once $10 is loaded
-  // — free models still cost $0, the balance just unlocks the higher tier). One request carries a fallback
-  // CHAIN (openRouterModels) so it auto-routes to whichever free model is up (they 429 individually).
-  // FREE ONLY by construction (only ':free' models; caps under the free limits). Off when no key.
-  openRouterApiKey: process.env.OPENROUTER_API_KEY || '',
-  openRouterEnabled: process.env.NEWS_OPENROUTER_ENABLED === '0' ? false : true,
-  openRouterBaseUrl: process.env.OPENROUTER_BASE_URL || 'https://openrouter.ai/api/v1',
-  // OpenRouter caps the fallback chain at 3 models; ordered best-first (gpt-oss-120b is the highest-quality
-  // free model that reliably emits JSON; 20b + llama-3.3-70b are the fallbacks when 120b's provider 429s).
-  openRouterModels: (process.env.NEWS_OPENROUTER_MODELS || 'openai/gpt-oss-120b:free,openai/gpt-oss-20b:free,meta-llama/llama-3.3-70b-instruct:free').split(',').map((s) => s.trim()).filter(Boolean).slice(0, 3),
-  openRouterDailyReqCap: capNum(process.env.NEWS_OPENROUTER_DAILY_REQ_CAP, 45), // under the ~50/day free pool; raise to ~950 after loading $10
-  openRouterRpm: capNum(process.env.NEWS_OPENROUTER_RPM, 18), // under the 20/min free
-  // gpt-oss is a reasoning model; give the output room (reasoning + a 12-item JSON array) — paired with
-  // reasoning effort 'low' in runCycle so thinking tokens stay minimal.
-  openRouterMaxTokens: capNum(process.env.NEWS_OPENROUTER_MAX_TOKENS, 3500),
+  // OpenAI-compatible OVERFLOW providers (OpenRouter, NVIDIA NIM, …) — a registry, tried in order after
+  // Groq is paced/capped, each with its own free daily budget + limiter. Their free models are far stronger
+  // than Groq's 8B. Adding another OpenAI-compatible free key = one entry in buildOverflowProviders() — it
+  // then auto-appears in routing, the drain gate, status, and as a cockpit chip (§26, zero other edits).
+  overflowProviders: buildOverflowProviders(),
   triageBatch: capNum(process.env.NEWS_TRIAGE_BATCH, 12),
   // GDELT look-back per cycle (minutes; > pollInterval gives overlap so nothing slips the gap).
   gdeltLookbackMin: capNum(process.env.NEWS_GDELT_LOOKBACK_MIN, 40),
   gdeltBaseUrl: process.env.NEWS_GDELT_BASE_URL || 'https://api.gdeltproject.org/api/v2/doc/doc',
+  // GDELT rate limits HARD: its 429 body literally says "limit requests to one every 5 seconds", and a
+  // burst parks the whole IP. With ~22 GDELT-queried domains, chunkSize 11 = just 2 OR-queries/cycle
+  // (each ~250 chars — safely under GDELT's query-length ceiling, where ~28 domains/632 chars is "too
+  // long"), spaced 6s apart so each lands in its own 5s window. This was the GDELT outage: 4 queries at
+  // 1.5s spacing 429'd every cycle, so GDELT (our broadest genuinely-new global source) returned ~zero.
+  gdeltChunkSize: capNum(process.env.NEWS_GDELT_CHUNK_SIZE, 11),
+  gdeltChunkGapMs: capNum(process.env.NEWS_GDELT_CHUNK_GAP_MS, 6000),
+  // After a 429, skip GDELT entirely for this many whole cycles so its IP penalty-box can decay (a
+  // compliant once-per-cycle poke can still keep the penalty alive). 0 disables the multi-cycle backoff.
+  gdeltBackoffCyclesOn429: capNum(process.env.NEWS_GDELT_BACKOFF_CYCLES, 4),
   // Inbox is ranked by triage score and capped; the tail is counted (firehose) but not inboxed.
   inboxMaxRows: capNum(process.env.NEWS_INBOX_MAX_ROWS, 40),
   // Score → band thresholds. NB: as of the composite re-rank these apply to the PRIORITY score
@@ -224,6 +315,16 @@ export const NEWS = {
   nseEnabled: process.env.NEWS_NSE_ENABLED === '0' ? false : true,
   nseBaseUrl: process.env.NEWS_NSE_BASE_URL || 'https://www.nseindia.com',
   nseLookbackHours: capNum(process.env.NEWS_NSE_LOOKBACK_HOURS, 24),
+  // Intl-exchange layer (Layer 3, non-India): HKEXnews (Hong Kong) + ASX (Australia) primary-disclosure
+  // JSON APIs — the exchanges themselves, the highest-signal source for those regions. Items pass the
+  // firewall on their hkexnews.hk / asx.com.au link domain. Default ON; NEWS_EXCHANGE_INTL_ENABLED=0 off.
+  exchangeIntlEnabled: process.env.NEWS_EXCHANGE_INTL_ENABLED === '0' ? false : true,
+  exchangeIntlLookbackHours: capNum(process.env.NEWS_EXCHANGE_INTL_LOOKBACK_HOURS, 24),
+  // Gov-data layer (Layer 3, US regulatory JSON): keyless openFDA — drug/device recalls + 510(k) device
+  // clearances (biotech/pharma/medtech catalysts; no usable RSS). Items pass the firewall on their
+  // fda.gov link domain. Default ON; NEWS_GOV_DATA_ENABLED=0 off. lookbackDays bounds the first-run backlog.
+  govDataEnabled: process.env.NEWS_GOV_DATA_ENABLED === '0' ? false : true,
+  govDataLookbackDays: capNum(process.env.NEWS_GOV_DATA_LOOKBACK_DAYS, 21),
   // Live-feed per-item records (firehose kind:"item") — the daily cap bounds file growth.
   feedItemsDailyCap: capNum(process.env.NEWS_FEED_ITEMS_DAILY_CAP, 5000),
   // Groq output budget per triage call (the per-item payload grew with companies/size_bucket).
@@ -259,4 +360,41 @@ export const NEWS = {
   dedupVerbatimJaccard: (() => { const n = Number(process.env.NEWS_DEDUP_VERBATIM_JACCARD); return Number.isFinite(n) && n > 0 && n <= 1 ? n : 0.82 })(),
   // cap the O(n²) clustering to the most recent N items (covers the 2-day read window with margin)
   dedupMaxScan: capNum(process.env.NEWS_DEDUP_MAX_SCAN, 1500),
+  // On-demand article read (THE STORY when a human opens an event). HARD ceilings so the reader can never
+  // hang: at most this much wall-clock across ALL fallback providers, and at most this long waiting on any
+  // one provider's rate limiter before skipping it. Past the budget the read degrades to the story floor.
+  enrichLlmBudgetMs: capNum(process.env.NEWS_ENRICH_LLM_BUDGET_MS, 14_000),
+  enrichLimiterWaitMs: capNum(process.env.NEWS_ENRICH_LIMITER_WAIT_MS, 2500),
 }
+
+/**
+ * The on-demand article read's LLM fallback chain. It REUSES the ingester's exact budget files +
+ * process-wide limiters (so the two paths share one free-tier accounting), and is built purely from
+ * whatever keys are present — adding a provider is the same single config entry that wires it into the
+ * ingester (§26). When no key is set the chain is empty and the read degrades to the deterministic floor.
+ *
+ * ORDER differs from the ingester ON PURPOSE. The ingester (runCycle) saves Gemini's tiny daily pool for
+ * LAST so the strong overflow models absorb the batch volume. A HUMAN waiting on one article wants LATENCY
+ * + RELIABILITY, not quota-spreading: so the order here is Groq (fastest when its minute-window has room) →
+ * GEMINI (flash-lite is fast, has a huge per-minute ceiling, and rarely blocks) → OpenAI-compatible overflow
+ * (OpenRouter/NVIDIA free models are strong but can be slow/queued — they'd otherwise eat the time budget and
+ * starve the more reliable providers of their turn).
+ */
+export function buildArticleReadProviders(cfg: typeof NEWS = NEWS): ArticleReadProvider[] {
+  const out: ArticleReadProvider[] = []
+  if (cfg.groqApiKey) {
+    out.push({ id: 'groq', kind: 'openai', apiKey: cfg.groqApiKey, baseUrl: cfg.groqBaseUrl, model: cfg.groqModel, maxTokens: 900, rpm: cfg.groqRpm, tpm: cfg.groqTpm, dailyReqCap: cfg.groqDailyReqCap, dailyTokenCap: cfg.groqDailyTokenCap, budgetFile: 'groq-budget.json', limiter: 'groq' })
+  }
+  if (cfg.geminiEnabled && cfg.geminiApiKey && cfg.geminiModels.length) {
+    out.push({ id: 'gemini', kind: 'gemini', apiKey: cfg.geminiApiKey, baseUrl: cfg.geminiBaseUrl, model: cfg.geminiModel, pool: cfg.geminiModels, maxTokens: cfg.geminiMaxTokens, rpm: cfg.geminiRpm, tpm: cfg.geminiTpm, dailyReqCap: cfg.geminiDailyReqCap, dailyTokenCap: cfg.geminiDailyTokenCap, budgetFile: 'gemini-budget-{model}.json', dayTz: cfg.geminiDayTz, limiter: 'gemini' })
+  }
+  for (const p of cfg.overflowProviders) {
+    // OpenAI-compatible overflow: its own named limiter (rpm spacing only, tpm 0) + daily budget file, exactly
+    // as runCycle uses it. The non-binding token cap mirrors the ingester (free models gate on RPM/RPD).
+    out.push({ id: p.id, kind: 'openai', apiKey: p.apiKey, baseUrl: p.baseUrl, model: p.model, models: p.models, maxTokens: p.maxTokens, rpm: p.rpm, tpm: 0, dailyReqCap: p.dailyReqCap, dailyTokenCap: 50_000_000, budgetFile: p.budgetFile, dayTz: p.dayTz, headers: p.headers, extraBody: p.extraBody, limiter: p.id })
+  }
+  return out
+}
+
+// Built once at startup from the present keys; consumed by the /api/news/enrich route.
+export const ARTICLE_READ_PROVIDERS: ArticleReadProvider[] = buildArticleReadProviders()

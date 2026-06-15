@@ -1,6 +1,6 @@
 ---
 description: Run ONE signal through the screener gauntlet — Gate 0 + Phase 0.1 (signal-gate), then Phase 1 (thesis-structure, edge-definition) and candidate-surfacing, gated by the routing contract. Self-discovers modules from .claude/agents/screener/*/99_*-synthesis.md.
-argument-hint: SIG_ID — or a quoted headline/URL (an intake will be materialized)
+argument-hint: SIG_ID [TARGET_MODULE] — or a quoted headline/URL (an intake will be materialized). An optional module slug after the SIG_ID runs the gauntlet THROUGH that module, then stops (a deliberate, resumable partial run).
 allowed-tools: Read, Write, Glob, Grep, Bash, Task, WebSearch
 ---
 
@@ -15,6 +15,8 @@ Execute the steps below in order. Do not skip any.
 Run `date +%Y-%m-%d` via Bash and capture as `<DATE>` (and `date -u +%Y-%m-%dT%H:%M:%SZ` as `<NOW>`).
 
 ## 2. Resolve the signal and its intake
+
+**Detect a target module first.** If `$ARGUMENTS` begins with a SIG_ID (`^SIG-[0-9]{8}-[a-f0-9]{8}`), any non-empty whitespace-separated token AFTER that SIG_ID is `<TARGET_MODULE>` — the module to run THROUGH, then stop (step 4). Strip it off before resolving the signal so the shape-A match below still sees a bare SIG_ID. A headline/URL (shape B) never carries a target. If no trailing token, `<TARGET_MODULE>` = none (run the full gauntlet, gated by routing as usual).
 
 Two argument shapes:
 
@@ -49,6 +51,7 @@ For each module in order:
 After each module (whether just run or reused from disk), extract its routing (the SCREENER_PIPELINE grep on the synthesis — and for signal-gate ALSO check the 00 intake output first, which can terminate at Gate 0):
 
 - Routing in the manifest's `routing.terminal` list → STOP the pipeline here. This is a recorded, valid outcome.
+- **Target reached?** If `<TARGET_MODULE>` is set and the module just completed (run OR reused from disk) IS `<TARGET_MODULE>`, STOP the pipeline here even when its routing says continue — this is the deliberate partial run the human requested. Record it as `stopped-at-target` (NOT a terminal/declined outcome): a later "Continue" reruns the rest, reusing everything finished. Skip all remaining modules.
 - Routing in `routing.continue` → next module.
 - `candidate-surfacing` runs ONLY if edge-definition routed `provisional` or `full_machine`.
 - Unknown routing → STOP, flag loudly in the report.
@@ -62,6 +65,7 @@ At `<RUN_ROOT>/RUN_METADATA.md`: signal id, date, started/finished timestamps, r
 - `test -s <RUN_ROOT>/signal_payload.json` (whenever signal-gate completed its synthesis).
 - If edge-definition ran: `test -s <RUN_ROOT>/thesis_record.json` AND `python3 -c "import json;assert json.load(open('<RUN_ROOT>/thesis_record.json'))['meta']['locked']"` — a completed edge-definition MUST leave a locked record.
 - If candidate-surfacing ran: `test -s <RUN_ROOT>/candidates.json`.
+- If edge-definition locked a thesis: seed its conviction checkpoints (the post-lock live-book calendar). Read `<THESIS_ID>` = `meta.thesis_id` from `<RUN_ROOT>/thesis_record.json`, then run `python3 scripts/screener_emit_checkpoints.py <THESIS_ID>` — deterministic, no LLM, idempotent (safe on a resumed run). This places the idea on the Live Book; the conviction loop then runs separately, per checkpoint, via `/screener:validate` (never as part of this signal pipeline). See `frameworks/screener/CONVICTION_LOOP.md`.
 - Always: `python3 scripts/update_board_index.py` (idempotent — ensures the board reflects the final state even after an early stop).
 
 ## 7. Commit and push to main

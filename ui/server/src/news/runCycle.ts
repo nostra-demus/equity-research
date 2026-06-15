@@ -12,9 +12,11 @@ import { assignDedupGroups } from './dedup'
 import { fetchGdelt } from './sources/gdelt'
 import { fetchRss } from './sources/rss'
 import { fetchNse } from './sources/nse'
+import { fetchExchangeIntl } from './sources/exchange-intl'
+import { fetchGovData } from './sources/gov-data'
 import { loadLedgerEventIds, normalizeAndFilter } from './normalize'
 import { SeenCache } from './seen-cache'
-import { Budget, getSharedGeminiLimiter, getSharedLimiter, getSharedOpenRouterLimiter } from './triage/budget'
+import { Budget, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter } from './triage/budget'
 import { triageBatchGemini } from './triage/gemini'
 import { estimateTokens, scoreToBand, triageBatch } from './triage/groq'
 import { rankScore, preTriagePriority } from './rank'
@@ -108,7 +110,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   // `via` provenance for the live feed). In drain-only mode we skip the network entirely and just
   // work the deferred backlog (no re-fetch → never hammers the upstream feeds between fetch cycles).
   const fetches = deps.skipFetch ? [] as PromiseSettledResult<RawArticle[]>[] : await Promise.allSettled([
-    fetchGdelt({ lookbackMin: cfg.gdeltLookbackMin, baseUrl: cfg.gdeltBaseUrl }, { fetchFn, sleep, log }),
+    fetchGdelt({ lookbackMin: cfg.gdeltLookbackMin, baseUrl: cfg.gdeltBaseUrl, chunkSize: cfg.gdeltChunkSize, chunkGapMs: cfg.gdeltChunkGapMs, timeoutMs: cfg.rssTimeoutMs, cycleMs: cfg.pollIntervalMin * 60_000, backoffCyclesOn429: cfg.gdeltBackoffCyclesOn429 }, { fetchFn, sleep, log }),
     cfg.rssEnabled
       ? fetchRss(
           {
@@ -125,6 +127,12 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       : Promise.resolve([] as RawArticle[]),
     cfg.nseEnabled
       ? fetchNse({ baseUrl: cfg.nseBaseUrl, lookbackHours: cfg.nseLookbackHours, timeoutMs: cfg.rssTimeoutMs, userAgent: cfg.rssUserAgent || undefined }, { fetchFn, sleep, now, log })
+      : Promise.resolve([] as RawArticle[]),
+    cfg.exchangeIntlEnabled
+      ? fetchExchangeIntl({ lookbackHours: cfg.exchangeIntlLookbackHours, timeoutMs: cfg.rssTimeoutMs, userAgent: cfg.rssUserAgent || undefined }, { fetchFn, sleep, now, log })
+      : Promise.resolve([] as RawArticle[]),
+    cfg.govDataEnabled
+      ? fetchGovData({ lookbackDays: cfg.govDataLookbackDays, timeoutMs: cfg.rssTimeoutMs }, { fetchFn, sleep, now, log })
       : Promise.resolve([] as RawArticle[]),
   ])
   const raws: RawArticle[] = []
@@ -179,19 +187,22 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     ? cfg.geminiModels.map((e) => ({ model: e.model, budget: Budget.load(stateDir, e.dailyReqCap, cfg.geminiDailyTokenCap, now().getTime(), `gemini-budget-${e.model.replace(/[^a-z0-9]+/gi, '-')}.json`, cfg.geminiDayTz) }))
     : []
   const geminiLimiter = geminiOn ? getSharedGeminiLimiter(cfg.geminiRpm, cfg.geminiTpm) : null
-  // OpenRouter OVERFLOW — one OpenAI-compatible budget over a fallback chain of strong FREE models. Pooled
-  // daily cap (resets midnight UTC), so a single budget (not per-model). Highest-quality overflow tier.
-  const openRouterOn = cfg.openRouterEnabled && !!cfg.openRouterApiKey && cfg.openRouterModels.length > 0
-  const orBudget = openRouterOn ? Budget.load(stateDir, cfg.openRouterDailyReqCap, 50_000_000, now().getTime(), 'openrouter-budget.json') : null
-  const orLimiter = openRouterOn ? getSharedOpenRouterLimiter(cfg.openRouterRpm, 0) : null
+  // OpenAI-compatible OVERFLOW registry (OpenRouter, NVIDIA, …) — each its own budget + per-minute limiter,
+  // tried in config order after Groq. Adding a provider is a config entry; this loop needs no change.
+  const overflow = cfg.overflowProviders.map((p) => ({
+    p,
+    budget: Budget.load(stateDir, p.dailyReqCap, 50_000_000, now().getTime(), p.budgetFile, p.dayTz),
+    limiter: getNamedLimiter(p.id, p.rpm, 0),
+    requests: 0,
+    tokens: 0,
+    failed: false, // set when a call errors this cycle → skip it so the batch flows to the next provider
+  }))
   const triaged: TriagedItem[] = []
   const deferred: NewsItem[] = [] // unscored this cycle (budget hit / batch failed) — re-queued next cycle
   let groqRequests = 0
   let groqTokens = 0
   let geminiRequests = 0
   let geminiTokens = 0
-  let orRequests = 0
-  let orTokens = 0
   let budgetHit = false
   let paceHit = false
   let batchFailed = false
@@ -202,13 +213,12 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     const est = estimateTokens(batch.length)
     // PROVIDER PICK. Prefer Groq while it's on-schedule (the pacer keeps it spread across the day); when
     // Groq is paced/capped, overflow to Gemini's separate free pool; defer only when BOTH are out.
-    // PROVIDER PICK, in order: Groq (primary, paced across the day) → OpenRouter (highest-quality free
-    // overflow, small daily pool) → Gemini pool (bigger free overflow) → defer when all are out.
+    // PROVIDER PICK, in order: Groq (primary, paced across the day) → OpenAI-compatible overflow registry
+    // (OpenRouter, NVIDIA, …, best first) → Gemini pool → defer when all are out.
     const groqOk = budget.pacedCanSpend(est, pace, now().getTime())
-    const orOk = !!orBudget && orBudget.canSpend(est)
-    const gemPick = geminiOn ? geminiPool.find((g) => g.budget.canSpend(est)) : undefined // first pool model with daily room
-    const geminiOk = !!gemPick
-    if (!groqOk && !orOk && !geminiOk) {
+    const ovPick = !groqOk ? overflow.find((o) => !o.failed && o.budget.canSpend(est)) : undefined // first overflow provider with daily room (skip ones that errored this cycle)
+    const gemPick = !groqOk && !ovPick && geminiOn ? geminiPool.find((g) => g.budget.canSpend(est)) : undefined // first pool model with daily room
+    if (!groqOk && !ovPick && !gemPick) {
       // all exhausted: a genuine daily cap only if Groq is hard-capped too; else the pacer is spreading the
       // rest across the day with no overflow room left this minute.
       budgetHit = !budget.canSpend(est)
@@ -224,12 +234,18 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       groqTokens += res.tokens
       budget.record(res.requests, res.tokens)
       limiter.learn(res.rate, () => now().getTime()) // track the live per-minute ceiling + back off on 429
-    } else if (orOk) {
-      await orLimiter!.acquire(est, sleep, () => now().getTime())
-      res = await triageBatch(batch, { model: cfg.openRouterModels[0], models: cfg.openRouterModels.slice(0, 3), baseUrl: cfg.openRouterBaseUrl, apiKey: cfg.openRouterApiKey, maxTokens: cfg.openRouterMaxTokens, headers: { 'HTTP-Referer': 'https://app.nostra-demus.com', 'X-Title': 'Nostradamus Screener' }, extraBody: { reasoning: { effort: 'low' } } }, fetchFn, sleep)
-      orRequests += res.requests
-      orTokens += res.tokens
-      orBudget!.record(res.requests, res.tokens)
+    } else if (ovPick) {
+      await ovPick.limiter.acquire(est, sleep, () => now().getTime())
+      res = await triageBatch(batch, { model: ovPick.p.model, models: ovPick.p.models, baseUrl: ovPick.p.baseUrl, apiKey: ovPick.p.apiKey, maxTokens: ovPick.p.maxTokens, headers: ovPick.p.headers, extraBody: ovPick.p.extraBody }, fetchFn, sleep)
+      ovPick.requests += res.requests
+      ovPick.tokens += res.tokens
+      ovPick.budget.record(res.requests, res.tokens)
+      if (!res.ok) {
+        ovPick.failed = true // skip this provider for the rest of the cycle so the deferred batch can flow to the next
+        // a terminal 4xx (auth / out-of-credits / quota) won't recover today — exhaust its daily budget so it's
+        // skipped across cycles too (e.g. NVIDIA's finite credit pool running dry), until the daily reset.
+        if (/HTTP (400|401|402|403|404|413)/.test(res.note || '')) ovPick.budget.exhaust()
+      }
     } else {
       await geminiLimiter!.acquire(est, sleep, () => now().getTime())
       res = await triageBatchGemini(batch, { model: gemPick!.model, baseUrl: cfg.geminiBaseUrl, apiKey: cfg.geminiApiKey, maxTokens: cfg.geminiMaxTokens }, fetchFn, sleep)
@@ -281,7 +297,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   }
   budget.save()
   for (const g of geminiPool) g.budget.save()
-  orBudget?.save()
+  for (const o of overflow) o.budget.save()
   seen.save()
   saveDeferred(stateDir, deferred)
 
@@ -348,8 +364,11 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const written = appendFeedItems(repoRoot, date, feedItems, cfg.feedItemsDailyCap)
   for (const fi of feedItems.slice(0, written)) newsBus.emit({ type: 'news-item', item: fi })
 
+  const overflowReq = overflow.reduce((s, o) => s + o.requests, 0)
+  const overflowTok = overflow.reduce((s, o) => s + o.tokens, 0)
+  const overflowLog = overflow.filter((o) => o.requests).map((o) => ` · ${o.p.id} ${o.requests} req / ${o.tokens} tok`).join('')
   const note = budgetHit
-    ? `daily LLM budget reached${geminiOn ? ' (Groq + Gemini)' : ' (Groq)'} — ${deferred.length} item${deferred.length === 1 ? '' : 's'} deferred to next cycle`
+    ? `daily LLM budget reached (all providers) — ${deferred.length} item${deferred.length === 1 ? '' : 's'} deferred to next cycle`
     : paceHit
       ? `paced for the day — ${deferred.length} item${deferred.length === 1 ? '' : 's'} held for the next drain (spreading the budget evenly)`
       : batchFailed
@@ -359,12 +378,12 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     ts, ok: true, fetched: raws.length, candidates: items.length,
     picked, watched, dropped, inboxed, groq_requests: groqRequests, groq_tokens: groqTokens,
     ...(geminiRequests ? { gemini_requests: geminiRequests, gemini_tokens: geminiTokens } : {}),
-    ...(orRequests ? { openrouter_requests: orRequests, openrouter_tokens: orTokens } : {}),
+    ...(overflowReq ? { overflow_requests: overflowReq, overflow_tokens: overflowTok } : {}),
     note,
   }
   appendFirehoseSummary(repoRoot, date, summary)
   newsBus.emit({ type: 'news-cycle', summary })
-  log(`news cycle: fetched ${raws.length}, ${items.length} new, picked ${picked}, watched ${watched}, dropped ${dropped}; groq ${groqRequests} req / ${groqTokens} tok${geminiRequests ? ` · gemini ${geminiRequests} req / ${geminiTokens} tok` : ''}${orRequests ? ` · openrouter ${orRequests} req / ${orTokens} tok` : ''}`)
+  log(`news cycle: fetched ${raws.length}, ${items.length} new, picked ${picked}, watched ${watched}, dropped ${dropped}; groq ${groqRequests} req / ${groqTokens} tok${geminiRequests ? ` · gemini ${geminiRequests} req / ${geminiTokens} tok` : ''}${overflowLog}`)
 
   // 5. THEMES — bucket the material items into living, ranked investment themes (assign every cycle,
   // discover periodically, decay automatically). Runs AFTER the write and is fully guarded, so a themes
@@ -387,16 +406,22 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         region: t.region,
       }))
       const n = bumpCycleCounter(stateDir)
-      const res = await runThemesCycle({
-        repoRoot,
-        stateDir,
-        items: themeItems,
-        runDiscovery: n % Math.max(1, cfg.themesDiscoverEveryCycles) === 0,
-        minScore: cfg.themesMinScore,
-        now,
-        cfg: themesConfigFromNews(cfg),
-        llmNamer: makeThemeNamer(cfg, fetchFn, stateDir, log),
-      })
+      // Hard time-bound: themes runs AFTER the core write, so it must NEVER eat the cycle. Even though
+      // every LLM call inside has its own 30s timeout, bound the whole stage as a belt-and-suspenders
+      // (a slow clustering pass or a retry loop can't stall the ingester) — the catch below logs + skips.
+      const res = await Promise.race([
+        runThemesCycle({
+          repoRoot,
+          stateDir,
+          items: themeItems,
+          runDiscovery: n % Math.max(1, cfg.themesDiscoverEveryCycles) === 0,
+          minScore: cfg.themesMinScore,
+          now,
+          cfg: themesConfigFromNews(cfg),
+          llmNamer: makeThemeNamer(cfg, fetchFn, stateDir, log),
+        }),
+        new Promise<never>((_, rej) => setTimeout(() => rej(new Error('themes stage exceeded 90s — skipped')), 90_000)),
+      ])
       for (const s of res.changed) newsBus.emit({ type: 'theme-update', theme: s })
       if (res.changed.length) log(`themes: ${res.changed.length} updated`)
     } catch (e: any) {

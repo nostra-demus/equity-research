@@ -72,6 +72,45 @@ export function readHandoffs(thesisId?: string) {
   return out
 }
 
+// Phase 3 conviction loop: the per-thesis live-book detail — the current snapshot, the full dated
+// checkpoint calendar, and the tick history (validations + moves). Read-only; powers the card's
+// checkpoint timeline + "why it moved". Missing files = empty (the loop is additive).
+export function readConviction(thesisId: string) {
+  const m = manifest()
+  const conv = `${m.ledgerRoot || 'screener/ledger'}/conviction`
+  const readLines = (rel: string): any[] => {
+    try {
+      return fs.readFileSync(resolveInsideScreener(rel), 'utf8').split('\n').map((l) => l.trim()).filter(Boolean)
+        .map((l) => { try { return JSON.parse(l) } catch { return null } }).filter(Boolean)
+    } catch {
+      return []
+    }
+  }
+  let state: any = null
+  try {
+    state = readJson(`${conv}/conviction_state/${thesisId}.json`)
+  } catch {
+    /* not seeded yet */
+  }
+  return {
+    state,
+    checkpoints: readLines(`${conv}/checkpoints.ndjson`).filter((c) => c.thesis_id === thesisId),
+    events: readLines(`${conv}/conviction.ndjson`).filter((r) => r.thesis_id === thesisId),
+  }
+}
+
+// The latest conviction track record (from /screener:calibrate). Null until one has been written.
+export function readConvictionCalibration() {
+  const conv = `${manifest().ledgerRoot || 'screener/ledger'}/conviction`
+  try {
+    const dir = resolveInsideScreener(conv)
+    const files = fs.readdirSync(dir).filter((f) => /_conviction_calibration\.json$/.test(f)).sort()
+    return files.length ? readJson(`${conv}/${files[files.length - 1]}`) : null
+  } catch {
+    return null
+  }
+}
+
 // A screener run folder's manifest: module outputs + per-file verdict/routing + run-root artifacts.
 // Mirrors outputs.runManifest but lives in the screener sandbox.
 export function screenerRunManifest(sigId: string) {

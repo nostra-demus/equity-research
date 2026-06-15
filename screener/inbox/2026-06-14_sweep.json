@@ -1,0 +1,903 @@
+{
+  "date": "2026-06-14",
+  "updated_at": "2026-06-14T04:26:39Z",
+  "focus_hint": null,
+  "source": "sweep+auto_ingester",
+  "rows": [
+    {
+      "inbox_id": "INB-20260614-004",
+      "headline": "Meta reportedly moves to unwind $2B Manus deal after Beijing’s demand",
+      "url": "https://techcrunch.com/2026/06/13/meta-reportedly-moves-to-unwind-2b-manus-deal-after-beijings-demand/",
+      "source_name": "TechCrunch",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-14T00:03:49Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Meta reportedly moves to unwind $2B Manus deal.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Meta",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "multi_name",
+      "source_tier": "news",
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "scope_id": "multi_name",
+        "source_tier_id": "news"
+      },
+      "prelim_note": "Meta reportedly moves to unwind $2B Manus deal.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-f8b3cc6866e0"
+    },
+    {
+      "inbox_id": "INB-20260614-024",
+      "headline": "Hyundai Motor Group takes up 11.8 pct of US market through April: data",
+      "url": "https://www.koreaherald.com/article/10771139",
+      "source_name": "The Korea Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-14T01:23:55Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Hyundai Motor Group took up 11.8% of the US market through April.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "commercial"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hyundai Motor Group",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "single_name",
+      "source_tier": "news",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 3,
+        "size": 2,
+        "recency": 5,
+        "scope_id": "single_name",
+        "source_tier_id": "news"
+      },
+      "prelim_note": "Hyundai Motor Group took up 11.8% of the US market through April.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-3bb14da450a0"
+    },
+    {
+      "inbox_id": "INB-20260614-041",
+      "headline": "Did Dario Amodei own AI warnings hand US Govt the justification to ban Anthropic Mythos 5 and Fable 5 ?",
+      "url": "https://www.livemint.com/companies/news/dario-amodei-warned-mythos-5-fable-5-was-a-national-security-risk-then-us-government-banned-it-with-export-order-11781393933706.html",
+      "source_name": "LiveMint",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-14T01:45:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "US Govt justification to ban Anthropic Mythos 5 and Fable 5",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "news",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "scope_id": "single_name",
+        "source_tier_id": "news"
+      },
+      "prelim_note": "US Govt justification to ban Anthropic Mythos 5 and Fable 5",
+      "dedup_status": "new",
+      "dedup_group": "EVT-f14da38c70b7"
+    },
+    {
+      "inbox_id": "INB-20260614-043",
+      "headline": "Deal off! Investors hold up red card for Sigma’s mega UK M&A bet",
+      "url": "https://www.afr.com/street-talk/deal-off-investors-hold-up-red-card-for-sigma-s-mega-uk-m-and-a-bet-20260611-p605w0?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-14T02:04:58Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Sigma's mega UK M&A bet",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sigma",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "multi_name",
+      "source_tier": "news",
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "scope_id": "multi_name",
+        "source_tier_id": "news"
+      },
+      "prelim_note": "Sigma's mega UK M&A bet",
+      "dedup_status": "new",
+      "dedup_group": "EVT-9a4a9c34ca70"
+    },
+    {
+      "inbox_id": "INB-20260614-046",
+      "headline": "How SpaceX turned the IPO curse into a goldmine",
+      "url": "https://www.afr.com/chanticleer/how-spacex-turned-the-ipo-curse-into-a-goldmine-20260613-p606k5?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-14T02:00:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "SpaceX turned the IPO curse into a goldmine",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "scope": "single_name",
+      "source_tier": "news",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "scope_id": "single_name",
+        "source_tier_id": "news"
+      },
+      "prelim_note": "SpaceX turned the IPO curse into a goldmine",
+      "dedup_status": "new",
+      "dedup_group": "EVT-6301351600f6"
+    },
+    {
+      "inbox_id": "INB-20260614-051",
+      "headline": "Trump Says He’ll Sign Deal With Iran To Reopen Hormuz Sunday",
+      "url": "https://gcaptain.com/trump-says-hell-sign-deal-with-iran-to-reopen-hormuz-sunday/",
+      "source_name": "gCaptain",
+      "input_nature": "shipping_rate_move",
+      "found_at": "2026-06-14T02:20:38Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Iran and US may sign a deal to reopen Hormuz.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "scope": "policy",
+      "source_tier": "official_data",
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 5,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "scope_id": "policy",
+        "source_tier_id": "official_data"
+      },
+      "prelim_note": "Iran and US may sign a deal to reopen Hormuz.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-bf39b838326f"
+    },
+    {
+      "inbox_id": "INB-20260614-056",
+      "headline": "Coupang rallies as record fine removes uncertainty",
+      "url": "https://www.koreaherald.com/article/10771178",
+      "source_name": "The Korea Herald",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-14T02:44:26Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Coupang received a record fine, removing uncertainty.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Coupang",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "single_name",
+      "source_tier": "news",
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "scope_id": "single_name",
+        "source_tier_id": "news"
+      },
+      "prelim_note": "Coupang received a record fine, removing uncertainty.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-1877323255a8"
+    },
+    {
+      "inbox_id": "INB-20260614-058",
+      "headline": "Fuel crisis raises stakes around $60b Woodside takeover interest",
+      "url": "https://www.afr.com/companies/energy/fuel-crisis-raises-stakes-around-60b-woodside-takeover-interest-20260613-p606kb?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-14T02:47:13Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Woodside takeover interest worth $60b",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Woodside",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "multi_name",
+      "source_tier": "news",
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "scope_id": "multi_name",
+        "source_tier_id": "news"
+      },
+      "prelim_note": "Woodside takeover interest worth $60b",
+      "dedup_status": "new",
+      "dedup_group": "EVT-fbc211da6838"
+    },
+    {
+      "inbox_id": "INB-20260614-074",
+      "headline": "Anthropic shuts down Mythos access after sweeping U.S. order",
+      "url": "https://www.japantimes.co.jp/business/2026/06/14/tech/anthropic-mythos-us-order/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-14T03:31:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Anthropic shuts down Mythos access after a sweeping U.S. order, potentially affecting its business operations.",
+      "region": "JP",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "news",
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "scope_id": "single_name",
+        "source_tier_id": "news"
+      },
+      "prelim_note": "Anthropic shuts down Mythos access after a sweeping U.S. order, potentially affecting its business operations.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-0f398a196037"
+    },
+    {
+      "inbox_id": "INB-20260614-003",
+      "headline": "China’s Geely Auto to slash excess capacity amid overhaul to boost carmaker’s global edge",
+      "url": "https://www.scmp.com/business/china-business/article/3357014/chinas-geely-auto-slash-excess-capacity-amid-overhaul-boost-carmakers-global-edge?utm_source=rss_feed",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-14T00:00:10Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Geely Auto plans to slash excess capacity, potentially affecting its global market share.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Geely Auto",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "single_name",
+      "source_tier": "news",
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 5,
+        "scope_id": "single_name",
+        "source_tier_id": "news"
+      },
+      "prelim_note": "Geely Auto plans to slash excess capacity, potentially affecting its global market share.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-5838baf21c5e"
+    },
+    {
+      "inbox_id": "INB-20260614-078",
+      "headline": "China’s AI ‘hundred model’ war shifts to enterprise value, JPMorgan says",
+      "url": "https://www.scmp.com/tech/big-tech/article/3357008/chinas-ai-hundred-model-war-shifts-enterprise-value-jpmorgan-says?utm_source=rss_feed",
+      "source_name": "South China Morning Post",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-14T04:00:17Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "JPMorgan says China’s AI ‘hundred model’ war shifts to enterprise value",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "JPMorgan",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "scope": "sector",
+      "source_tier": "news",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 0,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "scope_id": "sector",
+        "source_tier_id": "news"
+      },
+      "prelim_note": "JPMorgan says China’s AI ‘hundred model’ war shifts to enterprise value",
+      "dedup_status": "new",
+      "dedup_group": "EVT-9b82e5d0f31a"
+    },
+    {
+      "inbox_id": "INB-20260614-040",
+      "headline": "Amazon voiced concerns about Anthropic AI models before US crackdown , source says​",
+      "url": "https://economictimes.indiatimes.com/news/international/global-trends/amazon-voiced-concerns-about-anthropic-ai-models-before-us-crackdown-source-says/articleshow/131714507.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-14T01:45:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 97,
+      "triage_reason": "US crackdown on Anthropic AI models",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Amazon",
+          "ticker": null,
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "mega",
+      "scope": "single_name",
+      "source_tier": "news",
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 5,
+        "scope_id": "single_name",
+        "source_tier_id": "news"
+      },
+      "prelim_note": "US crackdown on Anthropic AI models",
+      "dedup_status": "new",
+      "dedup_group": "EVT-5f70da62ae30"
+    },
+    {
+      "inbox_id": "INB-20260614-055",
+      "headline": "China tees up digital payments system to compete with dollar",
+      "url": "https://www.ft.com/content/76de5ca6-9ae8-49ae-a0cb-64d09040f327",
+      "source_name": "Financial Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-14T02:24:03Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "China is developing a digital payments system to compete with the dollar.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [
+        {
+          "name": "China",
+          "ticker": null,
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "policy",
+      "source_tier": "news",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "scope_id": "policy",
+        "source_tier_id": "news"
+      },
+      "prelim_note": "China is developing a digital payments system to compete with the dollar.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-85e6d0dc6d8c"
+    },
+    {
+      "inbox_id": "INB-20260614-061",
+      "headline": "Gadkari clears E100 fuel framework, paving way for ethanol-only vehicles in India",
+      "url": "https://www.thehindubusinessline.com/economy/policy/gadkari-clears-e100-fuel-framework-paving-way-for-ethanol-only-vehicles-in-india/article71098945.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-14T02:56:46Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Gadkari clears E100 fuel framework, paving way for ethanol-only vehicles in India",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "scope": "policy",
+      "source_tier": "news",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "scope_id": "policy",
+        "source_tier_id": "news"
+      },
+      "prelim_note": "Gadkari clears E100 fuel framework, paving way for ethanol-only vehicles in India",
+      "dedup_status": "new",
+      "dedup_group": "EVT-65438ae41e87"
+    },
+    {
+      "inbox_id": "INB-20260614-087",
+      "headline": "\"Iran will open Strait of Hormuz sans tolls, there will be demining exercise,\" say US officials",
+      "url": "https://www.thehindubusinessline.com/news/world/iran-will-open-strait-of-hormuz-sans-tolls-there-will-be-demining-exercise-say-us-officials/article71100289.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-14T04:24:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Iran will open Strait of Hormuz sans tolls, with demining exercise.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "scope": "policy",
+      "source_tier": "news",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "scope_id": "policy",
+        "source_tier_id": "news"
+      },
+      "prelim_note": "Iran will open Strait of Hormuz sans tolls, with demining exercise.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-e457f4c91b5a"
+    },
+    {
+      "inbox_id": "INB-20260614-037",
+      "headline": "Genmab Presents Promising Epcoritamab Data In Elderly DLBCL Patients",
+      "url": "https://www.nasdaq.com/articles/genmab-presents-promising-epcoritamab-data-elderly-dlbcl-patients",
+      "source_name": "Nasdaq",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-14T01:49:27Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 95,
+      "triage_reason": "Genmab presents promising Epcoritamab data, increasing revenue potential.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Genmab",
+          "ticker": "GMAB",
+          "listing_country": "US"
+        }
+      ],
+      "size_bucket": "small",
+      "scope": "single_name",
+      "source_tier": "news",
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 5,
+        "size": -1,
+        "recency": 5,
+        "scope_id": "single_name",
+        "source_tier_id": "news"
+      },
+      "prelim_note": "Genmab presents promising Epcoritamab data, increasing revenue potential.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-f7eeb609bb5a"
+    },
+    {
+      "inbox_id": "INB-20260614-001",
+      "headline": "Air Canada and the IAMAW Reach Tentative Agreement on New Contract",
+      "url": "https://www.globenewswire.com/news-release/2026/06/14/3311421/0/en/Air-Canada-and-the-IAMAW-Reach-Tentative-Agreement-on-New-Contract.html",
+      "source_name": "GlobeNewswire",
+      "input_nature": "company_press_release",
+      "found_at": "2026-06-14T00:00:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "Air Canada and IAMAW reached a tentative agreement on a new contract.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Air Canada",
+          "ticker": null,
+          "listing_country": "CA"
+        }
+      ],
+      "size_bucket": "large",
+      "scope": "single_name",
+      "source_tier": "company",
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 3,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "scope_id": "single_name",
+        "source_tier_id": "company"
+      },
+      "prelim_note": "Air Canada and IAMAW reached a tentative agreement on a new contract.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-c7d5c2d528d8"
+    },
+    {
+      "inbox_id": "INB-20260614-047",
+      "headline": "S. Korea's ICT exports for May hit all-time high amid AI chip demand: data",
+      "url": "https://en.yna.co.kr/view/AEN20260612009900320",
+      "source_name": "Yonhap News Agency",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-14T02:00:05Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 93,
+      "triage_reason": "S. Korea's ICT exports hit all-time high due to AI chip demand.",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "commercial",
+        "macro_sector"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "scope": "sector",
+      "source_tier": "news",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 0,
+        "event": 3,
+        "size": 0,
+        "recency": 5,
+        "scope_id": "sector",
+        "source_tier_id": "news"
+      },
+      "prelim_note": "S. Korea's ICT exports hit all-time high due to AI chip demand.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-557ec8a2e2ec"
+    },
+    {
+      "inbox_id": "INB-20260614-068",
+      "headline": "India's Russian oil imports rise in May as refiners boost purchases",
+      "url": "https://www.thehindubusinessline.com/markets/commodities/indias-russian-oil-imports-rise-in-may-as-refiners-boost-purchases/article71100225.ece",
+      "source_name": "The Hindu BusinessLine",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-14T03:37:07Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 92,
+      "triage_reason": "India's Russian oil imports rise by 10% in May",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "sector",
+      "companies": [],
+      "size_bucket": "unknown",
+      "scope": "commodity",
+      "source_tier": "news",
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 1,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "scope_id": "commodity",
+        "source_tier_id": "news"
+      },
+      "prelim_note": "India's Russian oil imports rise by 10% in May",
+      "dedup_status": "new",
+      "dedup_group": "EVT-c97bc5a74a45"
+    },
+    {
+      "inbox_id": "INB-20260614-053",
+      "headline": "SEBI moves Supreme Court against relief granted to managers of Sahara Group entity in OFCD case",
+      "url": "https://www.livemint.com/companies/news/sebi-moves-supreme-court-against-relief-granted-to-managers-of-sahara-group-entity-in-ofcd-case-11781403471916.html",
+      "source_name": "LiveMint",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-14T02:31:50Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 87,
+      "triage_reason": "SEBI moves Supreme Court against relief granted to managers of Sahara Group entity in OFCD case",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Sahara Group",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "scope": "single_name",
+      "source_tier": "news",
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "scope_id": "single_name",
+        "source_tier_id": "news"
+      },
+      "prelim_note": "SEBI moves Supreme Court against relief granted to managers of Sahara Group entity in OFCD case",
+      "dedup_status": "new",
+      "dedup_group": "EVT-3e052ca1d80e"
+    },
+    {
+      "inbox_id": "INB-20260614-011",
+      "headline": "World’s Hottest Stock Market Turns Attention to MSCI Moment",
+      "url": "https://www.bloomberg.com/news/articles/2026-06-14/world-s-hottest-stock-market-turns-attention-to-msci-moment",
+      "source_name": "Bloomberg",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-14T00:00:00Z",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 86,
+      "triage_reason": "South Korea's stock market is expected to be included in the MSCI index.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "scope": "macro",
+      "source_tier": "news",
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": -4,
+        "event": 1,
+        "size": 0,
+        "recency": 4,
+        "scope_id": "macro",
+        "source_tier_id": "news"
+      },
+      "prelim_note": "South Korea's stock market is expected to be included in the MSCI index.",
+      "dedup_status": "new",
+      "dedup_group": "EVT-7f641dcd4cc0"
+    },
+    {
+      "inbox_id": "INB-20260614-088",
+      "headline": "ECB hikes interest rates for first time since 2023 as Iran war ramps up energy costs",
+      "url": "https://www.cnbc.com/2026/06/11/ecb-hikes-interest-rates.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-14T04:26:39Z",
+      "prelim_note": "ECB raised deposit rate 25bps to 2.25% on June 11 — first hike since 2023 — driven by Iran war energy inflation at 3.2%; changes borrowing costs for European corporates and alters risk appetite globally (materiality: alters revenue/margins/capital structure across rate-sensitive sectors)",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null
+    },
+    {
+      "inbox_id": "INB-20260614-089",
+      "headline": "Bank of Japan rate hike a 'done deal' given inflation and weak yen",
+      "url": "https://www.japantimes.co.jp/business/2026/06/11/economy/boj-preview-june-meeting-2026/",
+      "source_name": "The Japan Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-14T04:26:39Z",
+      "prelim_note": "BoJ set to raise policy rate from 0.75% to 1.0% at June 15-16 meeting — first time since 1995 — as inflation persists; unwinds global carry trade and reshapes Japanese equities and yen-sensitive sectors (materiality: shifts supply/demand and analyst expectations across rate-sensitive and export-sensitive names)",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null
+    },
+    {
+      "inbox_id": "INB-20260614-090",
+      "headline": "U.S. crude oil falls below $85 as U.S. and Iran near a deal to reopen Hormuz",
+      "url": "https://www.cnbc.com/2026/06/12/oil-prices-wti-brent-on-hopes-of-us-iran-deal-despite-tehran-pushback.html",
+      "source_name": "CNBC",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-14T04:26:39Z",
+      "prelim_note": "WTI crude fell 3.2% to $84.88 — 8-week low and ~6% weekly drop — on 80% probability a US-Iran Hormuz deal will be signed within days; directly changes margins for energy producers and input costs for transportation (materiality: commodity price move changes revenue and margins)",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null
+    },
+    {
+      "inbox_id": "INB-20260614-091",
+      "headline": "Adobe Q2 2026 earnings: CFO Dan Durn exits, stock falls",
+      "url": "https://finance.yahoo.com/markets/stocks/articles/adobe-q2-2026-earnings-cfo-113128426.html",
+      "source_name": "Yahoo Finance",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-14T04:26:39Z",
+      "prelim_note": "Adobe reported record Q2 revenue $6.62B (+13% YoY) and raised FY26 guidance, but CFO Dan Durn departs June 15 to Marvell while CEO Narayen exit is also already announced — dual leadership gap compounds uncertainty despite strong AI-driven results (materiality: affects management credibility and shifts analyst expectations)",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null
+    }
+  ]
+}

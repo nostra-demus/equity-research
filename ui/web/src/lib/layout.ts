@@ -139,10 +139,18 @@ function computeFlowLayout(graph: SwarmGraph, W: number, H: number): Layout {
   const N = Math.max(1, graph.modules.length)
   const padL = 0.10
   const padR = 0.22 // room for the switchyard + exit rails on the right
-  const bandY = H * 0.40 // the pipeline's spine
-  const core = { x: W * (1 - padR) + 56, y: bandY, r: 26 } // the switchyard occupies the core slot
   const colGap = Math.min(34, Math.max(24, W / 60))
   const rowGap = 33
+  // Reserve the top band for the run-status header (.scsignal): an absolute overlay at 0.055H down,
+  // ~211px tall at most (2-line headline + meta + hint + the Stop/Continue actions row). The deepest
+  // module's stack-half ADDS to minBandY and SUBTRACTS at the label, so it cancels: the deepest label
+  // always lands at 0.055H + RESERVE - 34, giving a fixed gap of (RESERVE - 34 - headerHeight) ≈ 55px
+  // to the header — independent of stage size AND stack depth. Bulletproof; no fixed-fraction guess.
+  const maxLayers = Math.max(1, ...graph.modules.map((m) => Object.keys(m.layers).length))
+  const HEADER_RESERVE = 300 // header max-height (~211 incl. Stop/Continue) + label offset (34) + ~55px clearance
+  const minBandY = H * 0.055 + HEADER_RESERVE + ((maxLayers - 1) * rowGap) / 2
+  const bandY = Math.max(H * 0.40, minBandY) // the pipeline's spine, pushed down to clear the header
+  const core = { x: W * (1 - padR) + 56, y: bandY, r: 26 } // the switchyard occupies the core slot
 
   const nodes: PlacedNode[] = []
   const clusters: PlacedCluster[] = []

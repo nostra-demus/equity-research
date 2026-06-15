@@ -68,6 +68,17 @@ export function ThemesView() {
 
 // ---------------- the MAP ----------------
 
+// The §4 source tiers, top-of-hierarchy first. Which lanes actually render is DATA-DRIVEN: only tiers we
+// genuinely collect appear (news is always shown), sized + labelled by their real share — so dead tiers
+// (e.g. rumour, which is ~0% of the real feed) never show as empty lanes.
+const TIER_LANES = [
+  { id: 'primary_filing', label: 'Filings' },
+  { id: 'official_data', label: 'Official' },
+  { id: 'company', label: 'Company' },
+  { id: 'news', label: 'News' },
+  { id: 'unconfirmed', label: 'Rumour' },
+]
+
 function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) => void }) {
   const ref = useRef<HTMLDivElement>(null)
   const [box, setBox] = useState({ w: 900, h: 560 })
@@ -79,64 +90,168 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
     return () => ro.disconnect()
   }, [])
 
-  const layout = useMemo(() => computeMapLayout(themes, box.w, box.h), [themes, box.w, box.h])
+  // the LIVE source-tier mix of what we ACTUALLY collect (from the wire backfill) — drives the lane
+  // sizing/labels AND the inbound dot distribution, so the lanes reflect REALITY (e.g. ~73% news, ~17%
+  // filings), never a hardcoded guess. Empty tiers (e.g. rumour) drop out; real ones flow proportionally.
+  const newsItems = useStore((s) => s.newsItems)
+  const tierMix = useMemo(() => {
+    const counts: Record<string, number> = {}
+    for (const it of newsItems) { const t = (it.source_tier as string) || 'news'; counts[t] = (counts[t] || 0) + 1 }
+    return counts
+  }, [newsItems])
+  const tierMixRef = useRef(tierMix); tierMixRef.current = tierMix
+
+  const layout = useMemo(() => computeMapLayout(themes, box.w, box.h, tierMix), [themes, box.w, box.h, tierMix])
   const hoveredRelated = useMemo(() => {
     if (!hover) return new Set<string>()
     const t = themes.find((x) => x.theme_id === hover)
     return new Set((t?.related_themes || []).map((r) => r.theme_id))
   }, [hover, themes])
 
-  // ---- TRUTHFUL flow: a dot is emitted ONLY for a real event. An OUTBOUND dot (ranking → theme) is
-  //      one news item just assigned to that theme — its landing ticks that theme's count up by one.
-  //      An INBOUND dot (source lane → ranking) is one item just read off the wire, from its real
-  //      source tier. No dots for no reason — between real events the map is calm. ----
-  type Emit = { id: number; d: string; cls: string; tier?: Theme['tier']; dur: number; delay?: number; target?: string }
-  const newsItems = useStore((s) => s.newsItems)
+  // ---- LIVE FLOW (paced + truthful) — the scanner reads ~N real items each cycle (one every ~second:
+  //      300 items / 300s). The data ARRIVES in a 5-minute burst, but every item in it is real, so we
+  //      RE-PACE that burst into a steady stream over the inter-cycle window — the map is alive
+  //      continuously instead of clumping for 2s then dying. INBOUND dot = one item read off the wire
+  //      (from its real source tier) → Ranking. OUTBOUND dot = one item assigned to a theme → its
+  //      basin, ticking that theme's count up by one as it lands. No invented events; only real ones,
+  //      shown at their true average cadence. ----
+  type Emit = { id: number; d: string; cls: string; tier?: Theme['tier']; dur: number; target?: string; tag?: { text: string; kind: 'in' | 'out' } }
+  type Pending = { kind: 'in'; sourceTier?: string } | { kind: 'out'; themeId: string; tier: Theme['tier'] }
+  const MAX_QUEUE = 4000 // generous — a real scan's full volume drives the rate; this is only a runaway guard
+  // At most this many in-flight packets carry a visible payload tag at once — a calm, legible sample of
+  // the stream (every tag names the theme bubble its packet is being filed into), never a wall of labels.
+  const MAX_TAGS = 3
+  const lastScan = useStore((s) => s.lastScan)
+  const intervalMin = useStore((s) => s.newsStatus?.intervalMin) || 5
   const prevCounts = useRef<Map<string, number>>(new Map())
-  const prevWireLen = useRef<number | null>(null)
+  const prevScanSeq = useRef<number | null>(null)
+  const seenThemes = useRef<Set<string>>(new Set())
   const seq = useRef(0)
+  const queue = useRef<Pending[]>([])
+  const acc = useRef(0)
+  const rateRef = useRef(0) // live emission rate (items/sec) — FIXED at each scan = pending ÷ cadence, NO clamp
   const [emits, setEmits] = useState<Emit[]>([])
   const [shown, setShown] = useState<Record<string, number>>({})
+  const [absorbing, setAbsorbing] = useState<Set<string>>(new Set()) // theme_ids briefly lit as a dot lands
+  const [born, setBorn] = useState<Set<string>>(new Set()) // theme_ids that just appeared on the map
+  const [rate, setRate] = useState(0) // live items/sec being released — the real backlog drain rate
+  const [laneFired, setLaneFired] = useState<Record<string, number>>({}) // per-lane dots fired THIS scan — drives the lane fire-pulse + the live "filled" count
   const nodeById = useMemo(() => new Map(layout.nodes.map((n) => [n.id, n])), [layout])
   const reduceMotion = typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
 
-  // OUTBOUND — diff each theme's real member_count; one capped dot per new member, count ticks on landing
+  // stable refs so the single pacer loop always reads the current layout / window without resetting
+  const layoutRef = useRef(layout); layoutRef.current = layout
+  const nodeByIdRef = useRef(nodeById); nodeByIdRef.current = nodeById
+  const windowRef = useRef(intervalMin * 60_000); windowRef.current = intervalMin * 60_000
+
+  // ENQUEUE outbound — diff each theme's real member_count; one pending dot per new member. HOLD the
+  // shown count at the old value (landings tick it up). A theme appearing for the first time is "born".
   useEffect(() => {
     const pc = prevCounts.current
-    const add: Emit[] = []
+    const seeding = pc.size === 0
     const sync: Record<string, number> = {}
+    const newborn: string[] = []
     for (const t of themes) {
+      if (!seenThemes.current.has(t.theme_id)) { seenThemes.current.add(t.theme_id); if (!seeding) newborn.push(t.theme_id) }
       const prev = pc.get(t.theme_id)
       pc.set(t.theme_id, t.member_count)
-      if (prev === undefined) { sync[t.theme_id] = t.member_count; continue } // first sight — show real, no burst
+      if (prev === undefined) { sync[t.theme_id] = t.member_count; continue } // first sight — show truth
       const delta = t.member_count - prev
-      const node = nodeById.get(t.theme_id)
-      if (delta <= 0 || !node || reduceMotion) { if (delta !== 0) sync[t.theme_id] = t.member_count; continue }
-      const d = hcurve(layout.core.x + layout.core.r, layout.core.y, node.x - node.r, node.y)
-      const n = Math.min(delta, 8)
-      sync[t.theme_id] = prev // HOLD the old number on screen; each landing dot ticks it up by one
-      for (let k = 0; k < n; k++) add.push({ id: ++seq.current, d, cls: 'thememap__pulse--out', tier: t.tier, dur: 2.0, delay: k * 0.32, target: t.theme_id })
-      const tid = t.theme_id // converge to truth once the staggered dots have landed (covers delta > cap + any race)
-      window.setTimeout(() => setShown((s) => ({ ...s, [tid]: prevCounts.current.get(tid) ?? 0 })), 2000 + n * 320 + 700)
+      if (delta > 0 && !reduceMotion) {
+        for (let k = 0; k < Math.min(delta, 40); k++) queue.current.push({ kind: 'out', themeId: t.theme_id, tier: t.tier })
+        sync[t.theme_id] = prev // hold the old number; each landing dot ticks it up by one
+      } else if (delta !== 0) sync[t.theme_id] = t.member_count // merge/retire — jump straight to truth
     }
-    if (add.length) setEmits((e) => [...e, ...add].slice(-60)) // safety cap — never accumulate unbounded particles
+    if (queue.current.length > MAX_QUEUE) queue.current = queue.current.slice(-MAX_QUEUE)
+    if (!reduceMotion) { rateRef.current = queue.current.length / Math.max(60, windowRef.current / 1000); setRate(rateRef.current) }
     if (Object.keys(sync).length) setShown((s) => ({ ...s, ...sync }))
-  }, [themes, nodeById, layout, reduceMotion])
-
-  // INBOUND — diff the wire; one dot per newly-read item, from its source-tier lane into ranking
-  useEffect(() => {
-    if (prevWireLen.current === null || reduceMotion) { prevWireLen.current = newsItems.length; return }
-    const added = newsItems.length - prevWireLen.current
-    prevWireLen.current = newsItems.length
-    if (added <= 0) return
-    const add: Emit[] = []
-    for (const it of newsItems.slice(0, Math.min(added, 8))) {
-      const lane = layout.lanes.find((l) => l.id === it.source_tier) || layout.lanes.find((l) => l.id === 'news') || layout.lanes[0]
-      if (!lane) continue
-      add.push({ id: ++seq.current, d: hcurve(lane.x + 18, lane.y, layout.core.x - layout.core.r, layout.core.y), cls: 'thememap__pulse--in', dur: 2.8 })
+    if (newborn.length && !reduceMotion) {
+      setBorn((b) => { const n = new Set(b); newborn.forEach((id) => n.add(id)); return n })
+      window.setTimeout(() => setBorn((b) => { const n = new Set(b); newborn.forEach((id) => n.delete(id)); return n }), 1500)
     }
-    if (add.length) setEmits((e) => [...e, ...add].slice(-60)) // safety cap — never accumulate unbounded particles
-  }, [newsItems, layout, reduceMotion])
+  }, [themes, reduceMotion])
+
+  // ENQUEUE inbound — the cycle's RAW FETCH volume (`fetched` ≈ 200 articles/scan) is the true "data
+  // coming in" intensity the user wants to gauge — not the ~5 new-after-dedup items, which look like
+  // nothing. On mount it SEEDS from the most recent scan (alive on open, not dead until the next 5-min
+  // cycle); each new scan tops it up. The filtered bulk doesn't carry a per-article source tier, so dots
+  // are spread across the lanes by a news-heavy mix — the COUNT (fetched) is exact; only the lane split
+  // is modelled. These are the "scanning" pulse (source → Ranking); they don't tick theme counts.
+  useEffect(() => {
+    if (reduceMotion || !lastScan || lastScan.seq === prevScanSeq.current) return
+    prevScanSeq.current = lastScan.seq
+    const n = Math.max(0, Math.min(lastScan.fetched, MAX_QUEUE))
+    // spread the n scanning dots across the source lanes by the REAL collected mix (stratified, so they
+    // interleave evenly instead of clumping) — filings, company, etc. flow in proportion to reality.
+    const entries = Object.entries(tierMixRef.current)
+    const totalC = entries.reduce((a, [, c]) => a + c, 0)
+    if (totalC && entries.length) {
+      const assigned: Record<string, number> = {}
+      for (let i = 0; i < n; i++) {
+        let best = entries[0][0], bestDef = -Infinity
+        for (const [t, c] of entries) { const def = ((i + 1) * c) / totalC - (assigned[t] || 0); if (def > bestDef) { bestDef = def; best = t } }
+        assigned[best] = (assigned[best] || 0) + 1
+        queue.current.push({ kind: 'in', sourceTier: best })
+      }
+    } else {
+      for (let i = 0; i < n; i++) queue.current.push({ kind: 'in', sourceTier: 'news' })
+    }
+    if (queue.current.length > MAX_QUEUE) queue.current = queue.current.slice(-MAX_QUEUE)
+    setLaneFired({}) // fresh scan — restart each lane's "filled this scan" counter from zero
+    // the rate IS the intensity: fetched ÷ scan cadence, dynamic + uncapped (200/scan ≈ 0.7/s, 1000 ≈ 3.3/s)
+    rateRef.current = queue.current.length / Math.max(60, windowRef.current / 1000)
+    setRate(rateRef.current)
+  }, [lastScan, reduceMotion])
+
+  // PACER — one stable loop. It releases dots at the FIXED per-scan rate (rateRef, = scraped ÷ cadence),
+  // held steady across the window so the whole scan's volume spreads evenly: 1000 items over 300s reads
+  // as a dense ~3.3/s, 100 items as a sparse ~0.3/s. NO clamp — the dot density IS the intensity gauge.
+  // A fractional accumulator handles any rate (sub-1/s to tens/s). On drain it goes idle until next scan.
+  useEffect(() => {
+    if (reduceMotion) return
+    const TICK = 200
+    const emitOne = (p: Pending) => {
+      const L = layoutRef.current
+      if (p.kind === 'in') {
+        const lane = L.lanes.find((l) => l.id === p.sourceTier) || L.lanes.find((l) => l.id === 'news') || L.lanes[0]
+        if (!lane) return
+        const d = hcurve(lane.x + 18, lane.y, L.core.x - L.core.r, L.core.y)
+        setEmits((e) => [...e, { id: ++seq.current, d, cls: 'thememap__pulse--in', dur: 2.4 }].slice(-120))
+        setLaneFired((f) => ({ ...f, [lane.id]: (f[lane.id] || 0) + 1 })) // the lane FIRES — pulses + its count ticks up
+      } else {
+        const node = nodeByIdRef.current.get(p.themeId)
+        if (!node) { setShown((s) => ({ ...s, [p.themeId]: Math.min((s[p.themeId] ?? 0) + 1, prevCounts.current.get(p.themeId) ?? Infinity) })); return }
+        const d = hcurve(L.core.x + L.core.r, L.core.y, node.x - node.r, node.y)
+        const name = node.theme.name
+        // tag a capped sample of outbound packets with their destination theme — "what this packet carries":
+        // a real news item being filed into that bubble. Cap keeps the stream legible (see MAX_TAGS).
+        setEmits((e) => {
+          const labeled = e.reduce((n, x) => n + (x.tag ? 1 : 0), 0)
+          const tag = labeled < MAX_TAGS && name ? { text: name, kind: 'out' as const } : undefined
+          return [...e, { id: ++seq.current, d, cls: 'thememap__pulse--out', tier: p.tier, dur: 1.7, target: p.themeId, tag }].slice(-120)
+        })
+      }
+    }
+    let last = performance.now()
+    const id = window.setInterval(() => {
+      const now = performance.now()
+      const elapsed = Math.min(2, (now - last) / 1000) // REAL elapsed (throttle-proof: background tabs clamp
+      last = now                                       // setInterval to ~1/s, so the fixed TICK lies); capped
+      const q = queue.current                          // at 2s so a backgrounded tab can't dump a huge catch-up burst
+      if (q.length && rateRef.current > 0) {
+        acc.current += rateRef.current * elapsed
+        let released = 0
+        while (acc.current >= 1 && q.length && released < 40) { acc.current -= 1; emitOne(q.shift()!); released++ }
+      }
+      if (!q.length) {
+        acc.current = 0
+        if (rateRef.current !== 0) { rateRef.current = 0; setRate(0) } // drained — idle until the next scan re-measures
+        const pc = prevCounts.current // converge any held counts to the truth
+        setShown((s) => { let ch = false; const n = { ...s }; for (const [tid, c] of pc) if (n[tid] !== c) { n[tid] = c; ch = true } return ch ? n : s })
+      }
+    }, TICK)
+    return () => window.clearInterval(id)
+  }, [reduceMotion])
 
   return (
     <div className="thememap" ref={ref}>
@@ -156,7 +271,7 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
           <i
             key={p.id}
             className={`thememap__pulse ${p.cls}`}
-            style={{ offsetPath: `path("${p.d}")`, animationDuration: `${p.dur}s`, animationDelay: p.delay ? `${p.delay}s` : undefined, ...(p.tier ? { ['--tier' as any]: tierColorVar(p.tier) } : {}) }}
+            style={{ offsetPath: `path("${p.d}")`, animationDuration: `${p.dur}s`, ...(p.tier ? { ['--tier' as any]: tierColorVar(p.tier) } : {}) }}
             onAnimationEnd={() => {
               setEmits((e) => e.filter((x) => x.id !== p.id))
               if (p.cls === 'thememap__pulse--out' && p.target) {
@@ -165,25 +280,45 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
                   const real = prevCounts.current.get(tid) ?? s[tid] ?? 0
                   return { ...s, [tid]: Math.min((s[tid] ?? real) + 1, real) }
                 })
+                // the basin "absorbs" the landing — a brief glow/scale (re-armed if more land)
+                setAbsorbing((a) => { if (a.has(tid)) return a; const n = new Set(a); n.add(tid); return n })
+                window.setTimeout(() => setAbsorbing((a) => { if (!a.has(tid)) return a; const n = new Set(a); n.delete(tid); return n }), 480)
               }
             }}
-          />
+          >
+            {/* the payload this packet is carrying — rides along with the dot (inherits its GPU motion +
+                stream fade), trailing to the left so it never overlaps the bubble it's heading into */}
+            {p.tag && (
+              <span className={`thememap__tag thememap__tag--${p.tag.kind}`}>
+                <span className="thememap__tag-dot" aria-hidden />
+                <span className="thememap__tag-text">{p.tag.text}</span>
+              </span>
+            )}
+          </i>
         ))}
       </div>
 
-      {/* source-tier lanes */}
+      {/* source-tier lanes — only the ones we actually collect, each labelled with its REAL share */}
       <div className="thememap__lanes">
         {layout.lanes.map((l) => (
-          <div key={l.id} className="thememap__lane" style={{ left: l.x, top: l.y - 12 }}>
+          <div key={l.id} className={`thememap__lane${laneFired[l.id] ? ' is-firing' : ''}`} style={{ left: l.x, top: l.y - 12 }} title={`${(l as any).count?.toLocaleString?.() || 0} of the last ${newsItems.length} reads${laneFired[l.id] ? ` · ${laneFired[l.id]} this scan` : ''}`}>
+            {laneFired[l.id] ? <span key={laneFired[l.id]} className="thememap__lane-fire" aria-hidden /> : null}
             <span className="thememap__lane-label">{l.label}</span>
+            {(l as any).share > 0 && <span className="thememap__lane-share">{Math.max(1, Math.round((l as any).share * 100))}%{laneFired[l.id] ? ` · ${laneFired[l.id]}` : ''}</span>}
           </div>
         ))}
       </div>
 
-      {/* the ranking lens */}
-      <div className="thememap__core" style={{ left: layout.core.x - layout.core.r, top: layout.core.y - layout.core.r, width: layout.core.r * 2, height: layout.core.r * 2 }}>
+      {/* the ranking lens — emits harder the heavier the flow (--rate drives the glow), so intensity reads
+          at a glance; a live readout beneath it shows the real per-scan volume + rate (the intensity gauge) */}
+      <div className={`thememap__core${rate > 0 ? ' is-emitting' : ''}`} style={{ left: layout.core.x - layout.core.r, top: layout.core.y - layout.core.r, width: layout.core.r * 2, height: layout.core.r * 2, ['--rate' as any]: Math.min(1, rate / 4) }}>
         <span>Ranking</span>
       </div>
+      {rate > 0 && (
+        <div className="thememap__rate" style={{ left: layout.core.x, top: layout.core.y + layout.core.r + 13, ['--rate' as any]: Math.min(1, rate / 4) }}>
+          <span className="thememap__rate-dot" aria-hidden /> {Math.round(rate * Math.max(60, intervalMin * 60)).toLocaleString()} this scan · {rate >= 0.1 ? `~${rate.toFixed(1)}/s` : '<0.1/s'}
+        </div>
+      )}
 
       {/* theme basins */}
       {layout.nodes.map((n) => {
@@ -192,7 +327,7 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
           <button
             key={n.id}
             type="button"
-            className={`themenode themenode--${t.tier}${t.tier === 'hot' ? ' is-pulsing' : ''}${hover && hover !== n.id && !hoveredRelated.has(n.id) ? ' is-dim' : ''}`}
+            className={`themenode themenode--${t.tier}${t.tier === 'hot' ? ' is-pulsing' : ''}${absorbing.has(n.id) ? ' is-absorbing' : ''}${born.has(n.id) ? ' is-born' : ''}${hover && hover !== n.id && !hoveredRelated.has(n.id) ? ' is-dim' : ''}`}
             style={{ left: n.x - n.r, top: n.y - n.r, width: n.r * 2, height: n.r * 2, ['--tier' as any]: tierColorVar(t.tier) }}
             onMouseEnter={() => setHover(n.id)}
             onMouseLeave={() => setHover(null)}
@@ -222,17 +357,14 @@ function MapTooltip({ theme }: { theme: Theme }) {
 }
 
 interface MapNode { id: string; x: number; y: number; r: number; flow: boolean; labelW: number; theme: Theme }
-function computeMapLayout(themes: Theme[], W: number, H: number) {
+function computeMapLayout(themes: Theme[], W: number, H: number, tierCounts: Record<string, number> = {}) {
   const coreX = W * 0.26, coreY = H * 0.5, coreR = Math.min(32, H * 0.06)
-  const laneTiers = [
-    { id: 'primary_filing', label: 'Filings' },
-    { id: 'official_data', label: 'Official' },
-    { id: 'company', label: 'Company' },
-    { id: 'news', label: 'News' },
-    { id: 'unconfirmed', label: 'Rumour' },
-  ]
+  // lanes are DATA-DRIVEN: only tiers we actually collect (news always shown), each carrying its real
+  // count + share so the lane labels read the true source mix.
+  const totalT = Object.values(tierCounts).reduce((a, b) => a + b, 0)
+  const activeTiers = TIER_LANES.map((t) => ({ ...t, count: tierCounts[t.id] || 0, share: totalT ? (tierCounts[t.id] || 0) / totalT : 0 })).filter((t) => t.share >= 0.005 || t.id === 'news')
   const laneX = W * 0.05
-  const lanes = laneTiers.map((t, i) => ({ ...t, x: laneX, y: H * 0.18 + (i * (H * 0.64)) / (laneTiers.length - 1) }))
+  const lanes = activeTiers.map((t, i) => ({ ...t, x: laneX, y: H * 0.18 + (i * (H * 0.64)) / Math.max(1, activeTiers.length - 1) }))
 
   // Each theme gets a wide label box (up to 3 lines) so the FULL name shows, and a matching tall
   // vertical SLOT so the name never collides with the orb beneath it. The basin band is inset on the

@@ -68,6 +68,45 @@ await check('parseFeed: CDATA-wrapped <link> + <guid> permalink fallback; non-pe
   assert.equal(items[2].link, 'https://cnbctv18.com/guid-b') // guid with default isPermaLink=true
 })
 
+// EIA-style: item links are root-relative ("/pressroom/…"). Without a baseUrl they were silently
+// dropped (not absolute); with the feed URL they resolve. Anchors / non-http schemes stay dropped.
+const RELATIVE = `<?xml version="1.0"?><rss version="2.0"><channel><title>EIA</title>
+<item><title>EIA expects an oil-demand drop</title><link>/pressroom/releases/press589.php</link><pubDate>Fri, 12 Jun 2026 09:00:00 GMT</pubDate></item>
+<item><title>Anchor-only link is not a story</title><link>#top</link><pubDate>Fri, 12 Jun 2026 09:01:00 GMT</pubDate></item>
+</channel></rss>`
+await check('parseFeed: relative item links resolve against the feed URL (EIA class); anchors dropped', () => {
+  assert.equal(parseFeed(RELATIVE).length, 0) // no baseUrl → relative link unusable (unchanged old behavior)
+  const items = parseFeed(RELATIVE, 60, 'https://www.eia.gov/rss/press_rss.xml')
+  assert.equal(items.length, 1) // the anchor-only item is still dropped
+  assert.equal(items[0].link, 'https://www.eia.gov/pressroom/releases/press589.php')
+})
+
+// Atlanta-Fed-GDPNow class: a valid link but an EMPTY <title>, with the headline in the body. Synthesize
+// a title from the lede rather than dropping the item.
+const EMPTY_TITLE = `<?xml version="1.0"?><rss version="2.0"><channel><title>GDPNow</title>
+<item><title></title><link>https://atlantafed.org/gdpnow</link><description>The GDPNow model estimate for real GDP growth is 2.4 percent.</description><pubDate>Fri, 12 Jun 2026 09:00:00 GMT</pubDate></item>
+<item><title></title><link>https://atlantafed.org/empty</link><pubDate>Fri, 12 Jun 2026 09:01:00 GMT</pubDate></item>
+</channel></rss>`
+// FERC class: every item's <link> is the site root (https://ferc.gov/) and the real per-item URL is an
+// href in the (entity-encoded) <description>. Without recovering it, all items dedup-collapse to one.
+const ROOT_LINK = `<?xml version="1.0"?><rss version="2.0"><channel><title>FERC</title>
+<item><title>Tri-States NGL Pipeline</title><link>https://ferc.gov/</link><guid>uuid-1</guid><description>Form 6&lt;br/&gt;&lt;a href='https://ecollection.ferc.gov/api/DownloadDocument/430346/1?f=a'&gt;doc&lt;/a&gt;</description></item>
+<item><title>Chugach Electric</title><link>https://ferc.gov/</link><guid>uuid-2</guid><description>Form 3Q&lt;br/&gt;&lt;a href='https://ecollection.ferc.gov/api/DownloadDocument/430333/1?f=b'&gt;doc&lt;/a&gt;</description></item>
+</channel></rss>`
+await check('parseFeed: bare site-root <link> → recover the per-item href from the body (FERC class)', () => {
+  const items = parseFeed(ROOT_LINK, 60, 'https://ecollection.ferc.gov/api/rssfeed')
+  assert.equal(items.length, 2)
+  assert.equal(new Set(items.map((i) => i.link)).size, 2, 'two distinct per-item links (no homepage collapse)')
+  assert.equal(items[0].link, 'https://ecollection.ferc.gov/api/DownloadDocument/430346/1?f=a')
+})
+
+await check('parseFeed: empty <title> with a body lede → synthesize a title (GDPNow class)', () => {
+  const items = parseFeed(EMPTY_TITLE)
+  assert.equal(items.length, 1) // the second item has no title AND no body → still dropped
+  assert.match(items[0].title, /^The GDPNow model estimate for real GDP growth/)
+  assert.equal(items[0].link, 'https://atlantafed.org/gdpnow')
+})
+
 await check('fetchRss: per-feed isolation (a 500 feed never hurts the others) + URL dedupe across feeds', async () => {
   const state = tmp()
   const feedsPath = path.join(tmp(), 'feeds.json')
@@ -83,6 +122,25 @@ await check('fetchRss: per-feed isolation (a 500 feed never hurts the others) + 
   assert.equal(arts.length, 2) // a + b once each, despite two feeds carrying them and one feed failing
   assert.ok(arts.every((a) => a.via === 'rss'))
   assert.equal(arts[0].domain, 'reuters.com')
+})
+
+await check('fetchRss: WAF-cloak self-heal — a 403 on the browser UA auto-retries with the contact UA', async () => {
+  const state = tmp()
+  const feedsPath = path.join(tmp(), 'feeds.json')
+  fs.writeFileSync(feedsPath, JSON.stringify({ feeds: [{ url: 'https://bls.test/cpi.rss' }] })) // no per-feed override
+  const now = () => new Date('2026-06-12T09:30:00Z')
+  const seenUas: string[] = []
+  const fetchFn = (async (_url: string, init: any) => {
+    const ua = init?.headers?.['user-agent'] || ''
+    seenUas.push(ua)
+    // Akamai cloak: 403 to the spoofed browser UA, 200 to the honest contact UA
+    if (/Mozilla|Chrome/.test(ua)) return { ok: false, status: 403, text: async () => 'Access Denied', headers: { get: () => null } }
+    return { ok: true, status: 200, text: async () => RSS2, headers: { get: () => null } }
+  }) as unknown as typeof fetch
+  const arts = await fetchRss({ feedsPath, lookbackMin: 40, timeoutMs: 2000, stateDir: state }, { fetchFn, sleep: noSleep, now })
+  assert.equal(arts.length, 2) // recovered via the fallback — items flow
+  assert.ok(/Mozilla|Chrome/.test(seenUas[0]), 'first tried the browser UA')
+  assert.ok(seenUas.some((u) => u.includes('nostra-demus-screener')), 'fell back to the contact UA')
 })
 
 await check('fetchRss: conditional GET — a 304 feed contributes nothing and costs nothing', async () => {

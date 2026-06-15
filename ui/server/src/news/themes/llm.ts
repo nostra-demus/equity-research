@@ -77,6 +77,7 @@ async function callClaude(cfg: NamerCfg, user: string, fetchFn: typeof fetch): P
   const res = await fetchFn(`${cfg.themesClaudeBaseUrl}/v1/messages`, {
     method: 'POST',
     headers: { 'content-type': 'application/json', 'x-api-key': cfg.themesClaudeApiKey || '', 'anthropic-version': '2023-06-01' },
+    signal: AbortSignal.timeout(30_000), // never let a hung connection stall the themes cycle
     body: JSON.stringify({ model: cfg.themesClaudeModel || 'claude-haiku-4-5', max_tokens: 1200, system: SYSTEM, messages: [{ role: 'user', content: user }] }),
   })
   if (!res.ok) throw new Error(`claude HTTP ${res.status}`)
@@ -89,6 +90,7 @@ async function callGroq(cfg: NamerCfg, user: string, fetchFn: typeof fetch): Pro
   const res = await fetchFn(`${cfg.groqBaseUrl}/chat/completions`, {
     method: 'POST',
     headers: { 'content-type': 'application/json', authorization: `Bearer ${cfg.groqApiKey}` },
+    signal: AbortSignal.timeout(30_000), // never let a hung connection stall the themes cycle
     body: JSON.stringify({ model: cfg.groqModel, temperature: 0.2, max_tokens: 1200, response_format: { type: 'json_object' }, messages: [{ role: 'system', content: SYSTEM }, { role: 'user', content: user }] }),
   })
   if (!res.ok) throw new Error(`groq HTTP ${res.status}`)

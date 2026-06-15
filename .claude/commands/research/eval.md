@@ -38,7 +38,8 @@ Run the embedded check script below via Bash. It applies, per run, the following
 - **Q. Per-module three tiers present in post-landing runs** (forward-looking) — for a run whose `decision_date` is on/after the module-tiers landing date (`2026-06-08`), every module subfolder that has a `99_*-synthesis.md` must also carry a `*_memo.md` (the module memo) and a `*_dossier.md` (the module dossier) — the module-level equivalent of the run-level three tiers. Runs that predate the feature are **N/A**, so the suite still passes; the check activates automatically for every new run.
 - **R. Memo-delta contract** (forward-looking; landing `2026-06-10`) — every review JSON filed on/after the landing date must carry the `DECISION_LEDGER` §8 `memo_delta` block, and any review that carries one must satisfy it: the paired `*_memo_delta*.md` exists on disk at `memo_delta_file` and stays a delta (≤ ~2,500 words — the 2–3-page discipline); `thesis_delta_verdict` is in-enum; every `changed_sections` entry cites an `evidence_source`; and any `rerun_recommended` names impacted module(s) that exist in the discovered agent roster. Pre-landing reviews and runs with no reviews are **N/A**.
 - **S. Pre-mortem haircut propagated** (forward-looking; landing `2026-06-12`) — for a run whose `decision_date` is on/after the landing date, if `pre_mortem.json` exists and applied a haircut > 0, the decision_record must carry `post_review_confidence_score == pre_mortem.recommended_confidence` and `confidence_haircut`; `pre_mortem_verdict` must always be set (even at zero haircut). Older fixtures → **N/A**.
-- **T. Post-mortem rating-cap consistency** (forward-looking; `fix F28b`; landing `2026-06-12`) — for a run dated on/after the landing date where `pre_mortem_verdict` is a terminal verdict ("Thesis broken" or "Does not survive — downgrade"), the finish-gate must have written `post_mortem_decision` and `post_mortem_basket`, and `post_mortem_basket` must NOT be "Selected" or "Short" — those verdicts mean the thesis does not hold as a conviction position. Closes the logical-contradiction gap where a "Strong Buy" decision coexists with a "Thesis broken" red-team verdict in the same committed record. The original `decision` / `basket` fields are preserved (the synthesizer's immutable call, required by check I); only the additive post-mortem fields are validated here. Older fixtures, and runs with non-terminal pre-mortem verdicts, → **N/A**.
+- **T. Forecast-ledger entry quality** (forward-looking; landing `2026-06-13` / fix F-FL-1) — for a run dated on/after the landing date with a non-empty `forecast_ledger`, every entry must carry `prediction`, `confirmation_trigger`, `falsification_trigger`, and `time_window` (all non-empty strings), and `status` ∈ {open, confirmed, falsified, expired}. An entry missing a required field cannot be resolved in Phase 3 (`review-decisions`) and breaks Phase 4 calibration (no Brier-score data from that forecast). An empty `[]` is allowed per §19 (when no forecast has enough evidence). Runs that predate the gate, and runs with `forecast_ledger: []`, are **N/A**.
+- **U. Post-mortem rating-cap consistency** (forward-looking; `fix F28b`; landing `2026-06-12`) — for a run dated on/after the landing date where `pre_mortem_verdict` is a terminal verdict ("Thesis broken" or "Does not survive — downgrade"), the finish-gate must have written `post_mortem_decision` and `post_mortem_basket`, and `post_mortem_basket` must NOT be "Selected" or "Short" — those verdicts mean the thesis does not hold as a conviction position. Closes the logical-contradiction gap where a "Strong Buy" decision coexists with a "Thesis broken" red-team verdict in the same committed record. The original `decision` / `basket` fields are preserved (the synthesizer's immutable call, required by check I); only the additive post-mortem fields are validated here. Older fixtures, and runs with non-terminal pre-mortem verdicts, → **N/A**.
 
 The script also notes (WARN, not FAIL) any **non-schema artifact** in a run folder (a stray file that is not a known schema / versioned-audit / review artifact) so coverage gaps and strays surface.
 
@@ -369,7 +370,32 @@ for drp in runs:
             add("S_haircut_propagated",True,"no pre_mortem.json — N/A",na=True)
     else:
         add("S_haircut_propagated",True,f"run predates haircut-propagation gate ({ddte}) — N/A",na=True)
-    # T post-mortem rating-cap consistency (forward-looking; landing 2026-06-12 / fix F28b)
+    # T forecast_ledger entry quality (forward-looking; landing 2026-06-13 / fix F-FL-1)
+    #   The calibration loop (Phase 3 review + Phase 4 Brier score) depends on each forecast
+    #   being resolvable. A forecast missing confirmation_trigger / falsification_trigger /
+    #   time_window can never be confirmed or falsified — it stays "open" forever and
+    #   contributes nothing to the Brier score. Implements DECISION_LEDGER §6 / CLAUDE.md §19.
+    #   An empty forecast_ledger ([]) is allowed — §19 permits omitting forecasts when evidence is thin.
+    FL_DATE="2026-06-13"
+    if isdate(ddte) and ddte>=FL_DATE:
+        fl=d.get("forecast_ledger") or []
+        fdet=[]
+        for i,entry in enumerate(fl):
+            if not isinstance(entry,dict):
+                fdet.append(f"forecast_ledger[{i}] is not an object"); continue
+            for req in ["prediction","confirmation_trigger","falsification_trigger","time_window"]:
+                if not str(entry.get(req) or "").strip():
+                    fdet.append(f"forecast_ledger[{i}] missing or empty: {req}")
+            st=str(entry.get("status") or "open").lower()
+            if st not in {"open","confirmed","falsified","expired"}:
+                fdet.append(f"forecast_ledger[{i}].status={entry.get('status')!r} not in allowed enum")
+        add("T_forecast_ledger_quality",not fdet,
+            "; ".join(fdet) or
+            (f"all {len(fl)} forecast_ledger entries have required fields + valid status" if fl
+             else "forecast_ledger is [] — no forecasts (allowed per §19)"))
+    else:
+        add("T_forecast_ledger_quality",True,f"run predates forecast-ledger quality gate ({ddte}) — N/A",na=True)
+    # U post-mortem rating-cap consistency (forward-looking; landing 2026-06-12 / fix F28b)
     #   If the finish-gate's pre-mortem returned a terminal verdict ("Thesis broken" or "Does not
     #   survive — downgrade") on a Selected/Short run, the propagation step must have written
     #   post_mortem_decision + post_mortem_basket, and post_mortem_basket must NOT be "Selected"
@@ -391,10 +417,10 @@ for drp in runs:
         # type-check when present (catches a finish-gate bug that writes the wrong type)
         if pmd is not None and not isinstance(pmd,str): det_t.append(f"post_mortem_decision wrong type ({type(pmd).__name__})")
         if pmb is not None and not isinstance(pmb,str): det_t.append(f"post_mortem_basket wrong type ({type(pmb).__name__})")
-        add("T_postMortem_cap",not det_t,
+        add("U_postMortem_cap",not det_t,
             "; ".join(det_t) or f"pre_mortem_verdict={pv!r}; post_mortem_decision={pmd!r}; post_mortem_basket={pmb!r}")
     else:
-        add("T_postMortem_cap",True,f"run predates post-mortem cap gate ({ddte}) — N/A",na=True)
+        add("U_postMortem_cap",True,f"run predates post-mortem cap gate ({ddte}) — N/A",na=True)
     # WARN non-schema files
     # [review fix] suppress only genuine versioned/audit/review artifacts via PRECISE patterns — the old naive
     # `"_v" not in name` / `"review" not in name` substring tests hid real strays (preview.md, *_v*-named scratch).
@@ -447,6 +473,7 @@ FRAMEWORK_CONTRACTS={
  ".claude/hooks/review_due.py":["review_schedule","research:review-decisions due"],
  "frameworks/DECISION_LEDGER.md":["Memo delta","memo_delta","thesis_delta_verdict","stage_one_comment","rerun_command","_memo_delta.md"],
  ".claude/commands/research/review-decisions.md":["memo_delta","stage_one_comment","rerun_command","Pool first","_memo_delta"],
+ ".claude/commands/research/eval.md":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger"],
 }
 jchecks=[]
 for jf,subs in FRAMEWORK_CONTRACTS.items():

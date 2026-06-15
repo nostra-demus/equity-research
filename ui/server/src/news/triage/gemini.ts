@@ -9,7 +9,7 @@
 
 import type { NewsItem, Triage } from '../types'
 import type { RateInfo } from './budget'
-import { buildUserMessage, coerceTriage, durToMs, estimateTokens, SYSTEM, type TriageOptions, type TriageResult } from './groq'
+import { ARTICLE_SYSTEM, type ArticleBrief, buildUserMessage, coerceArticleBrief, coerceTriage, durToMs, estimateTokens, SYSTEM, type TriageOptions, type TriageResult } from './groq'
 
 /** Pull Gemini's RetryInfo.retryDelay (e.g. "35s") out of a 429/RESOURCE_EXHAUSTED error body → ms. */
 function parseGeminiRetry(body: any): RateInfo {
@@ -57,11 +57,13 @@ export async function triageBatchGemini(
   let tokens = 0
   let lastNote = 'gemini fetch error'
   const url = `${opts.baseUrl}/models/${opts.model}:generateContent`
-  for (let attempt = 1; attempt <= 2; attempt++) {
+  const maxAttempts = opts.maxAttempts ?? 2
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
     try {
       const res = await fetchFn(url, {
         method: 'POST',
         headers: { 'content-type': 'application/json', 'x-goog-api-key': opts.apiKey },
+        signal: AbortSignal.timeout(opts.timeoutMs ?? 30_000), // a hung connection must never block the cycle
         body: JSON.stringify({
           system_instruction: { parts: [{ text: SYSTEM }] },
           contents: [{ role: 'user', parts: [{ text: buildUserMessage(items) }] }],
@@ -81,7 +83,7 @@ export async function triageBatchGemini(
         lastNote = `gemini HTTP ${res.status}${perDay ? ' PerDay-quota-exhausted' : ''}${raw ? ': ' + raw.slice(0, 100) : ''}`
         // a per-DAY 429 won't clear by retrying this cycle — surface it so the caller skips this model
         const transient = (res.status === 429 && !perDay) || res.status >= 500
-        if (transient && attempt < 2) {
+        if (transient && attempt < maxAttempts) {
           await sleep(rate.retryAfterMs || 1500 * attempt)
           continue
         }
@@ -107,9 +109,72 @@ export async function triageBatchGemini(
       return { byIndex, requests, tokens, ok: true }
     } catch (e: any) {
       requests++
-      lastNote = e?.message || 'gemini fetch error'
-      if (attempt < 2) await sleep(1500 * attempt)
+      lastNote = e?.name === 'TimeoutError' ? 'gemini: request timed out' : e?.message || 'gemini fetch error'
+      if (attempt < maxAttempts) await sleep(1500 * attempt)
     }
   }
   return { byIndex, requests, tokens, ok: false, note: lastNote }
+}
+
+/**
+ * Article-BODY read via Gemini — the generateContent twin of analyzeArticle (groq.ts). Same ARTICLE_SYSTEM
+ * prompt, same ArticleBrief contract and coercion, so the on-demand reader can't tell which brain produced
+ * the brief. This is the FALLBACK that keeps "THE STORY" populated when Groq is paced, rate-limited, or
+ * down. Never throws; bounded by timeoutMs; honours maxAttempts (the reader passes 1 — one shot, then fall
+ * through to the next provider). FREE TIER ONLY.
+ */
+export async function analyzeArticleGemini(
+  body: string,
+  headline: string,
+  opts: TriageOptions,
+  fetchFn: typeof fetch = fetch,
+  sleep: (ms: number) => Promise<void> = (ms) => new Promise((r) => setTimeout(r, ms)),
+): Promise<{ brief: ArticleBrief | null; tokens: number; note?: string; rate?: RateInfo }> {
+  if (!opts.apiKey) return { brief: null, tokens: 0, note: 'no GEMINI_API_KEY' }
+  const text = String(body || '').slice(0, 6000)
+  if (text.replace(/\s+/g, ' ').trim().length < 80) return { brief: null, tokens: 0, note: 'body too thin to read' }
+  const user = `HEADLINE: ${headline}\n\nARTICLE BODY:\n${text}`
+  const url = `${opts.baseUrl}/models/${opts.model}:generateContent`
+  let tokens = 0
+  let lastNote = 'gemini fetch error'
+  const maxAttempts = opts.maxAttempts ?? 2
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    try {
+      const res = await fetchFn(url, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'x-goog-api-key': opts.apiKey },
+        signal: AbortSignal.timeout(opts.timeoutMs ?? 30_000),
+        body: JSON.stringify({
+          system_instruction: { parts: [{ text: ARTICLE_SYSTEM }] },
+          contents: [{ role: 'user', parts: [{ text: user }] }],
+          generationConfig: { temperature: 0.1, maxOutputTokens: opts.maxTokens ?? 900, responseMimeType: 'application/json', thinkingConfig: { thinkingBudget: 0 } },
+        }),
+      })
+      if (!res.ok) {
+        const raw = await res.text().catch(() => '')
+        let parsedErr: any
+        try { parsedErr = JSON.parse(raw) } catch { parsedErr = null }
+        const rate = res.status === 429 ? parseGeminiRetry(parsedErr) : {}
+        const perDay = res.status === 429 && isPerDayQuota(parsedErr)
+        lastNote = `gemini HTTP ${res.status}${perDay ? ' PerDay-quota-exhausted' : ''}`
+        const transient = (res.status === 429 && !perDay) || res.status >= 500
+        if (transient && attempt < maxAttempts) { await sleep(rate.retryAfterMs || 1200 * attempt); continue }
+        return { brief: null, tokens, note: lastNote, rate }
+      }
+      const data: any = await res.json()
+      tokens += Number(data?.usageMetadata?.totalTokenCount) || 0
+      const cand = data?.candidates?.[0]
+      if (data?.promptFeedback?.blockReason) return { brief: null, tokens, note: `gemini blocked: ${data.promptFeedback.blockReason}` }
+      if (cand?.finishReason && cand.finishReason !== 'STOP') return { brief: null, tokens, note: `gemini: finishReason ${cand.finishReason}` }
+      const content = Array.isArray(cand?.content?.parts) ? cand.content.parts.map((p: any) => (typeof p?.text === 'string' ? p.text : '')).join('') : ''
+      if (!content) return { brief: null, tokens, note: 'gemini: empty content' }
+      let parsed: any
+      try { parsed = JSON.parse(content) } catch { return { brief: null, tokens, note: 'gemini: non-JSON content' } }
+      return { brief: coerceArticleBrief(parsed), tokens }
+    } catch (e: any) {
+      lastNote = e?.name === 'TimeoutError' ? 'gemini: request timed out' : e?.message || 'gemini fetch error'
+      if (attempt < maxAttempts) await sleep(1200 * attempt)
+    }
+  }
+  return { brief: null, tokens, note: lastNote }
 }

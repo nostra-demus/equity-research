@@ -45,6 +45,7 @@ export interface RunState {
   // proceedSpawn->spawnEngine buildArgs window); spawnEngine honors it and bails before creating the child.
   // (The running-child cancel + SIGKILL fallback gate on endedAt — see finalizeRunOnClose / cancel().)
   onFinish?: (status: RunStatus) => void // chained full run: advance to the next step when this one ends
+  chained?: boolean // this run is a step of a chained full run — cancelling it must also halt the chain
   startedAt: number
   endedAt?: number
   costUsd?: number

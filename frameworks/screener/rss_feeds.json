@@ -193,18 +193,6 @@
       "source_name": "USDA NASS — Agricultural Statistics Board (ASB) Notices"
     },
     {
-      "url": "https://publicreporting.cftc.gov/api/views/6dca-aqww/rows.rss",
-      "source_name": "CFTC Commitments of Traders — Legacy (Futures Only)"
-    },
-    {
-      "url": "https://publicreporting.cftc.gov/api/views/72hh-3qpy/rows.rss",
-      "source_name": "CFTC Commitments of Traders — Disaggregated (Futures Only)"
-    },
-    {
-      "url": "https://publicreporting.cftc.gov/api/views/gpe5-46if/rows.rss",
-      "source_name": "CFTC Commitments of Traders — Traders in Financial Futures (TFF)"
-    },
-    {
       "url": "https://www.federalreserve.gov/feeds/press_all.xml",
       "source_name": "Federal Reserve Board — All Press Releases"
     },
@@ -238,27 +226,33 @@
     },
     {
       "url": "https://www.bls.gov/feed/empsit.rss",
-      "source_name": "Bureau of Labor Statistics — Employment Situation (jobs report)"
+      "source_name": "Bureau of Labor Statistics — Employment Situation (jobs report)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
     },
     {
       "url": "https://www.bls.gov/feed/cpi.rss",
-      "source_name": "Bureau of Labor Statistics — Consumer Price Index (CPI)"
+      "source_name": "Bureau of Labor Statistics — Consumer Price Index (CPI)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
     },
     {
       "url": "https://www.bls.gov/feed/ppi.rss",
-      "source_name": "Bureau of Labor Statistics — Producer Price Index (PPI)"
+      "source_name": "Bureau of Labor Statistics — Producer Price Index (PPI)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
     },
     {
       "url": "https://www.bls.gov/feed/jolts.rss",
-      "source_name": "Bureau of Labor Statistics — Job Openings & Labor Turnover (JOLTS)"
+      "source_name": "Bureau of Labor Statistics — Job Openings & Labor Turnover (JOLTS)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
     },
     {
       "url": "https://www.bls.gov/feed/eci.rss",
-      "source_name": "Bureau of Labor Statistics — Employment Cost Index (ECI)"
+      "source_name": "Bureau of Labor Statistics — Employment Cost Index (ECI)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
     },
     {
       "url": "https://www.bls.gov/feed/ximpim.rss",
-      "source_name": "Bureau of Labor Statistics — U.S. Import & Export Prices"
+      "source_name": "Bureau of Labor Statistics — U.S. Import & Export Prices",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
     },
     {
       "url": "https://apps.bea.gov/rss/rss.xml",
@@ -631,15 +625,18 @@
     },
     {
       "url": "https://www.fda.gov/about-fda/contact-fda/stay-informed/rss-feeds/press-releases/rss.xml",
-      "source_name": "U.S. Food & Drug Administration (Press Releases)"
+      "source_name": "U.S. Food & Drug Administration (Press Releases)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
     },
     {
       "url": "https://www.fda.gov/about-fda/contact-fda/stay-informed/rss-feeds/recalls/rss.xml",
-      "source_name": "U.S. Food & Drug Administration (Recalls)"
+      "source_name": "U.S. Food & Drug Administration (Recalls)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
     },
     {
       "url": "https://www.fda.gov/about-fda/contact-fda/stay-informed/rss-feeds/medwatch/rss.xml",
-      "source_name": "U.S. Food & Drug Administration (MedWatch Safety Alerts)"
+      "source_name": "U.S. Food & Drug Administration (MedWatch Safety Alerts)",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
     },
     {
       "url": "https://www.ftc.gov/feeds/press-release.xml",
@@ -716,7 +713,8 @@
     },
     {
       "url": "https://www.dol.gov/rss/releases.xml",
-      "source_name": "DOL — U.S. Department of Labor News Releases"
+      "source_name": "DOL — U.S. Department of Labor News Releases",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
     },
     {
       "url": "https://economictimes.indiatimes.com/markets/rssfeeds/1977021501.cms",
@@ -1052,7 +1050,8 @@
     },
     {
       "url": "https://www.rba.gov.au/rss/rss-cb-media-releases.xml",
-      "source_name": "Reserve Bank of Australia — Media Releases"
+      "source_name": "Reserve Bank of Australia — Media Releases",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
     },
     {
       "url": "https://connect2.euronext.com/en/rss.xml",
@@ -1443,10 +1442,6 @@
       "source_name": "South Africa JSE / SENS — via Sharenet or Moneyweb (Africa completeness)"
     },
     {
-      "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcurrent&type=8-K&company=&dateb=&owner=include&count=40&output=atom",
-      "source_name": "SEC EDGAR"
-    },
-    {
       "url": "https://www.jpx.co.jp/english/rss/markets_news.xml",
       "source_name": "Japan Exchange Group (JPX) — Market News"
     },
@@ -1515,10 +1510,6 @@
       "source_name": "Outlook Business"
     },
     {
-      "url": "https://www.outlookmoney.com/stories.rss",
-      "source_name": "Outlook Money"
-    },
-    {
       "url": "https://www.freepressjournal.in/stories.rss",
       "source_name": "Free Press Journal"
     },
@@ -1572,7 +1563,8 @@
     },
     {
       "url": "https://www.bls.gov/feed/bls_latest.rss",
-      "source_name": "U.S. Bureau of Labor Statistics (BLS) — Latest News Releases"
+      "source_name": "U.S. Bureau of Labor Statistics (BLS) — Latest News Releases",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
     },
     {
       "url": "https://www.cftc.gov/RSS/RSSGP/rssgp.xml/all",
@@ -1613,6 +1605,96 @@
     {
       "url": "https://www.kedglobal.com/rss/MarketsFinance.xml",
       "source_name": "KED Global — Markets & Finance"
+    },
+    {
+      "url": "https://news.cision.com/se/ListItems?format=rss",
+      "source_name": "Cision — Sweden Regulatory & Company News"
+    },
+    {
+      "url": "https://news.cision.com/no/ListItems?format=rss",
+      "source_name": "Cision — Norway Regulatory & Company News"
+    },
+    {
+      "url": "https://news.cision.com/fi/ListItems?format=rss",
+      "source_name": "Cision — Finland Regulatory & Company News"
+    },
+    {
+      "url": "https://news.cision.com/dk/ListItems?format=rss",
+      "source_name": "Cision — Denmark Regulatory & Company News"
+    },
+    {
+      "url": "https://www.consumerfinance.gov/about-us/newsroom/feed/",
+      "source_name": "CFPB — Newsroom",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.bok.or.kr/eng/bbs/E0000634/news.rss?menuNo=400220",
+      "source_name": "Bank of Korea — Press Releases"
+    },
+    {
+      "url": "https://www.rbnz.govt.nz/feeds/news",
+      "source_name": "Reserve Bank of New Zealand — News"
+    },
+    {
+      "url": "https://decrypt.co/feed",
+      "source_name": "Decrypt — Crypto News"
+    },
+    {
+      "url": "https://blockworks.co/feed",
+      "source_name": "Blockworks — Digital Asset Capital Markets"
+    },
+    {
+      "url": "https://www.nhc.noaa.gov/index-at.xml",
+      "source_name": "National Hurricane Center — Atlantic"
+    },
+    {
+      "url": "https://www.nhc.noaa.gov/index-ep.xml",
+      "source_name": "National Hurricane Center — East Pacific"
+    },
+    {
+      "url": "https://api.weather.gov/alerts/active.atom?severity=Extreme,Severe&urgency=Immediate,Expected",
+      "source_name": "NWS — Active Severe/Extreme Alerts"
+    },
+    {
+      "url": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.atom",
+      "source_name": "USGS — Significant Earthquakes (month)"
+    },
+    {
+      "url": "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.atom",
+      "source_name": "USGS — M4.5+ Earthquakes (week)"
+    },
+    {
+      "url": "https://www.datacenterdynamics.com/en/rss/",
+      "source_name": "DataCenterDynamics"
+    },
+    {
+      "url": "https://insights.trendforce.com/feed",
+      "source_name": "TrendForce — Insights"
+    },
+    {
+      "url": "https://www.fda.gov/about-fda/contact-fda/stay-informed/rss-feeds/drugs/rss.xml",
+      "source_name": "FDA — What's New: Drugs",
+      "user_agent": "nostra-demus-screener/1.0 (ceekay@muns.io)"
+    },
+    {
+      "url": "https://www.drugs.com/feeds/new_drug_approvals.xml",
+      "source_name": "Drugs.com — New Drug Approvals"
+    },
+    {
+      "url": "https://www.drugs.com/feeds/medical_news.xml",
+      "source_name": "Drugs.com — Daily MedNews"
+    },
+    {
+      "url": "https://dailymed.nlm.nih.gov/dailymed/rss.cfm",
+      "source_name": "DailyMed — Drug Label Updates (NIH/NLM)"
+    },
+    {
+      "url": "https://www.atlantafed.org/rss/GDPNow",
+      "source_name": "Atlanta Fed — GDPNow"
+    },
+    {
+      "url": "https://www.federalregister.gov/api/v1/documents.rss?per_page=50&order=newest",
+      "source_name": "Federal Register — Latest Documents"
     }
   ]
 }

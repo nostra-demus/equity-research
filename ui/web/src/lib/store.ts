@@ -3,7 +3,7 @@ import { api, isStatic } from './api'
 import { downstreamCascade, type CascadeNode } from './cascade'
 import { plainRoute, plainStage } from './plain'
 import type { Theme, ThemeDetail } from './themes'
-import type { ActiveRunLite, AgentNode, BoardInboxRow, DataStatus, EventEnrichment, FeedItem, HealthState, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
+import type { ActiveRunLite, AgentNode, BoardInboxRow, ConvictionDetail, DataStatus, EventEnrichment, FeedItem, HealthState, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
 
 // A company the user drilled into from an event (the COMPANIES NAMED chips) — the main stage then
 // shows every wire story about it. listing_country/exchange ride along from the article-body read.
@@ -86,6 +86,7 @@ interface State {
   chainTickers: Set<string> // tickers whose full run is a per-module CHAIN — defer the "complete" celebration to the master step
   selectToken: number
   runStream: StreamRow[]
+  dismissRunStream: () => void // clear the persisted last-run rows (closes the run-stream side panel)
   coreBloom: boolean
   decision: any | null
   runRoot: string | null
@@ -113,7 +114,7 @@ interface State {
   scRouted: Record<string, { route: string; terminal: boolean }> // module -> latest routing (lights the switchyard)
   signalIntakeOpen: boolean
   pipelineOpen: boolean
-  scThesisDetail: { thesis: any; candidates: any; handoffs: any[] } | null
+  scThesisDetail: { thesis: any; candidates: any; handoffs: any[]; conviction?: ConvictionDetail | null } | null
   scSelectedEvent: FeedItem | null // a wire event the user clicked to read in the main stage (before deciding to run it)
   scFocusedCompany: FocusedCompany | null // a company the user drilled into — the main stage shows all its wire news
 
@@ -168,7 +169,7 @@ interface State {
   scNodeStatus: (key: string) => NodeStatus
   openSignalIntake: () => void
   closeSignalIntake: () => void
-  submitSignal: (intake: SignalIntakeInput) => Promise<void>
+  submitSignal: (intake: SignalIntakeInput, until?: string) => Promise<void>
   relaunchSignal: (sigId: string) => Promise<void>
   // resume a stopped/partial signal run from where it left off — reuses the finished orbs on disk and
   // only runs the remaining ones (the gauntlet command skips completed modules). NOT a fresh restart.
@@ -186,7 +187,7 @@ interface State {
   scEnsureNewsStream: () => Promise<void>
   scSelectEvent: (it: FeedItem | null) => void
   scFocusCompany: (c: FocusedCompany | null) => void
-  runEventChecks: (it: FeedItem) => Promise<void>
+  runEventChecks: (it: FeedItem, until?: string) => Promise<void>
   // shelving: set an event aside (or bring it back) — local, persisted, filters the rail
   shelvedEvents: Set<string>
   toggleShelve: (eventId: string) => void
@@ -198,7 +199,12 @@ interface State {
   newsFeedOpen: boolean
   newsItems: FeedItem[]
   freshEvents: Set<string> // event_ids that just streamed in over SSE — drive the "new detected" glow
+  newsArrivedTotal: number // monotonic count of items read off the wire (survives the 1000 cap) — paces the live themes map
+  lastScan: { fetched: number; candidates: number; seq: number } | null // the latest ingest cycle's RAW fetch volume — the true "data coming in" intensity that drives the live themes-map flow
   newsStatus: NewsStatus | null
+  feedWindowDays: number // the time-travel window the wire is showing (2 = live; 14/30/90/180/370 = history)
+  feedWindowLoading: boolean
+  setFeedWindow: (days: number) => Promise<void>
   globalActive: ActiveRunLite[]
   stopListOpen: boolean
   openNewsFeed: () => Promise<void>
@@ -208,6 +214,7 @@ interface State {
   dismissInbox: (inboxId: string) => Promise<void>
   restoreInbox: (inboxId: string) => Promise<void>
   moveThesis: (thesisId: string, to: 'watchlist' | 'provisional' | 'full_machine' | 'engine', reason?: string) => Promise<void>
+  restoreConviction: (thesisId: string) => Promise<void>
   setStopListOpen: (open: boolean) => void
   stopEverything: () => Promise<void>
   _handleNewsEvent: (e: any) => void
@@ -287,6 +294,10 @@ export const useStore = create<State>((set, get) => ({
   newsFeedOpen: false,
   newsItems: [],
   freshEvents: new Set(),
+  newsArrivedTotal: 0,
+  lastScan: null,
+  feedWindowDays: 2,
+  feedWindowLoading: false,
   newsStatus: null,
   themes: [],
   themesView: null,
@@ -546,6 +557,8 @@ export const useStore = create<State>((set, get) => ({
   },
 
   cancelLaunch: () => set({ launchConfirm: null }),
+
+  dismissRunStream: () => set({ runStream: [] }),
 
   cancelRun: async (runId) => {
     try {
@@ -925,10 +938,15 @@ export const useStore = create<State>((set, get) => ({
   // so we never clobber items already streamed in. Drives the persistent left-rail feed.
   scEnsureNewsStream: async () => {
     void get().refreshNewsStatus()
-    if (!get().newsItems.length) {
+    if (!get().newsItems.length || !get().lastScan) {
       try {
-        const { items } = await api.newsFeed(2)
-        if (!get().newsItems.length) set({ newsItems: items })
+        const { items, cycles } = await api.newsFeed(2)
+        const patch: Partial<State> = {}
+        if (!get().newsItems.length) patch.newsItems = items
+        // seed the live map from the most recent scan's RAW fetch volume so it's alive on open (not dead
+        // until the next 5-min cycle). cycles come back newest-first from readFeed.
+        if (cycles?.length && !get().lastScan) patch.lastScan = { fetched: cycles[0].fetched || 0, candidates: cycles[0].candidates || 0, seq: (get().lastScan?.seq || 0) + 1 }
+        if (Object.keys(patch).length) set(patch)
       } catch {}
     }
     if (!get().staticMode) connectNewsStream(get)
@@ -991,17 +1009,28 @@ export const useStore = create<State>((set, get) => ({
       const enrichment = await api.enrichEvent(it)
       set({ enrichCache: { ...get().enrichCache, [it.event_id]: enrichment } })
     } catch (e: any) {
-      // drop the in-flight sentinel rather than cache a sticky failure — the next open retries
-      const next = { ...get().enrichCache }
-      delete next[it.event_id]
-      set({ enrichCache: next })
+      // The server always returns SOMETHING within its budget, so a throw here means the request itself
+      // failed (timeout / network / tunnel blip). DON'T drop the entry back to undefined — that re-renders
+      // the "Reading the article…" shimmer with no fetch in flight, i.e. it hangs forever (the original
+      // bug). Cache an honest headline-only fallback so THE STORY always shows something; ok:false keeps it
+      // non-sticky, so reopening the event re-fires the fetch (the human's retry actually retries).
+      const fallback: EventEnrichment = {
+        event_id: it.event_id,
+        ok: false,
+        fetched_at: new Date().toISOString(),
+        prior_coverage: [],
+        related: [],
+        summary: it.headline ? `Couldn’t reach the reader just now. From the headline: ${it.headline}` : undefined,
+        note: 'The article read timed out or the source was unreachable — open the source to read it. Reopening this event retries the read.',
+      }
+      set({ enrichCache: { ...get().enrichCache, [it.event_id]: fallback } })
     }
   },
 
   // Run the paid gauntlet straight from a wire event: map the FeedItem to the intake schema and reuse
   // submitSignal (which selects the new signal + animates the orbs). Clearing the read view first means
   // the main stage swaps from the event detail to the constellation as soon as the run begins.
-  runEventChecks: async (it) => {
+  runEventChecks: async (it, until) => {
     // bail BEFORE tearing down the reader — submitSignal no-ops (toast only) in static/offline, and clearing
     // first would drop the user back to the empty constellation on a confusing no-op, losing their place.
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' })
@@ -1013,7 +1042,7 @@ export const useStore = create<State>((set, get) => ({
       source_name: it.source_name || undefined,
       input_nature: it.input_nature || 'news_headline',
       body_text: it.triage_reason || undefined,
-    })
+    }, until) // until = target module to run THROUGH then stop (undefined = the full gauntlet)
   },
 
   scRefreshBoard: async () => {
@@ -1056,11 +1085,11 @@ export const useStore = create<State>((set, get) => ({
   openSignalIntake: () => set({ signalIntakeOpen: true }),
   closeSignalIntake: () => set({ signalIntakeOpen: false }),
 
-  submitSignal: async (intake) => {
+  submitSignal: async (intake, until) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — signals run on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
     try {
-      const { runId, preflight } = await api.launchSignal({ intake })
+      const { runId, preflight } = await api.launchSignal({ intake, until })
       set({ signalIntakeOpen: false })
       const sigId = preflight.ticker
       set({ scSelectedSignal: sigId, scRuntime: {}, scRouted: {} })
@@ -1137,6 +1166,22 @@ export const useStore = create<State>((set, get) => ({
   },
   closeThesisDetail: () => set({ scThesisDetail: null }),
 
+  // One-click un-discard: re-open an archived (killed/expired) idea onto the live book. The discard is
+  // a SOFT discard — the engine flips its snapshot back and records the recover; the board rebuilds.
+  restoreConviction: async (thesisId) => {
+    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — restores run on your machine via npm run dev', tone: 'info' })
+    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — try again once it reconnects.', tone: 'info' })
+    try {
+      await api.convictionRestore(thesisId)
+      get().setToast({ msg: 'Idea restored to the live book', tone: 'good' })
+      await get().scRefreshBoard()
+      const d = get().scThesisDetail
+      if (d?.thesis?.meta?.thesis_id === thesisId) await get().openThesisDetail(thesisId)
+    } catch (e: any) {
+      get().setToast({ msg: e?.message || 'Could not restore', tone: 'bad' })
+    }
+  },
+
   // The handoff: seed data/<TICKER>/ from the locked thesis (idempotent server-side), then warp to
   // the research swarm with the ticker preselected. The research run itself stays a separate,
   // human-confirmed launch — if the pool already has filings we open the full-run confirm on landing.
@@ -1173,14 +1218,26 @@ export const useStore = create<State>((set, get) => ({
     set({ newsFeedOpen: true, pipelineOpen: false, scThesisDetail: null })
     void get().refreshNewsStatus()
     try {
-      const { items } = await api.newsFeed(2)
+      const { items } = await api.newsFeed(get().feedWindowDays || 2)
       set({ newsItems: items })
     } catch {
       set({ newsItems: [] })
     }
     if (!get().staticMode) connectNewsStream(get)
   },
-  closeNewsFeed: () => set({ newsFeedOpen: false }),
+  // Switch the wire's time window. 2 = live (SSE keeps appending); bigger = a historical snapshot pulled
+  // from the daily firehose archive (newest items in that range). Live items still prepend on top.
+  setFeedWindow: async (days: number) => {
+    set({ feedWindowDays: days, feedWindowLoading: true })
+    try {
+      const { items } = await api.newsFeed(days)
+      set({ newsItems: items })
+    } catch {
+      // keep whatever's shown on failure
+    }
+    set({ feedWindowLoading: false })
+  },
+  closeNewsFeed: () => set({ newsFeedOpen: false, feedWindowDays: 2 }),
   refreshNewsStatus: async () => {
     try {
       set({ newsStatus: await api.newsStatus() })
@@ -1191,13 +1248,17 @@ export const useStore = create<State>((set, get) => ({
   _handleNewsEvent: (e) => {
     if (e?.type === 'news-item' && e.item) {
       const it = e.item as FeedItem
+      // when a HISTORICAL time-window is showing (feedWindowDays > 2), keep that archive snapshot stable —
+      // a live prepend + slice(1000) would collapse a 6-month view back to 1000. Still tick the live
+      // counter so the themes map keeps pulsing; the snapshot refreshes when the user returns to Live·2d.
+      if (get().feedWindowDays > 2) { set({ newsArrivedTotal: get().newsArrivedTotal + 1 }); return }
       // a refresh that read the file in the append→emit window may already hold this item
       if (get().newsItems.some((x) => x.event_id === it.event_id && x.ts === it.ts)) return
       // mark it FRESH so the rail glows it in ("new detected"); the glow self-expires after FRESH_MS so
       // it never lingers and never fires on backfill (only genuine live SSE arrivals pass through here)
       const fresh = new Set(get().freshEvents)
       fresh.add(it.event_id)
-      set({ newsItems: [it, ...get().newsItems].slice(0, 1000), freshEvents: fresh })
+      set({ newsItems: [it, ...get().newsItems].slice(0, 1000), freshEvents: fresh, newsArrivedTotal: get().newsArrivedTotal + 1 })
       const prev = freshTimers.get(it.event_id)
       if (prev) clearTimeout(prev)
       freshTimers.set(it.event_id, setTimeout(() => {
@@ -1208,6 +1269,9 @@ export const useStore = create<State>((set, get) => ({
       }, FRESH_MS))
     } else if (e?.type === 'news-cycle') {
       void get().refreshNewsStatus()
+      // the cycle's RAW fetch volume drives the live themes map's scanning flow — top it up each scan
+      const sum = (e as any).summary
+      if (sum && typeof sum.fetched === 'number') set({ lastScan: { fetched: sum.fetched, candidates: sum.candidates || 0, seq: (get().lastScan?.seq || 0) + 1 } })
       if (get().activeSwarm === 'screener') void get().scRefreshBoard() // the board is screener UI — don't refetch it from the research swarm every cycle
     } else if (e?.type === 'theme-update' && e.theme) {
       // upsert the changed theme; the map/board re-rank from the array. Only when the themes view is

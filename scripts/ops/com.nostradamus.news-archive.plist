@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Versioned template for the news cloud-archive agent. Install: copy to ~/Library/LaunchAgents/ and
+     `launchctl bootstrap gui/$(id -u) <path>`. Every 3 hours (and once at load) it COPIES the raw-news
+     firehose files into a Google Drive for Desktop mount folder (Drive uploads them to the cloud — no
+     rclone/API needed) and prunes local copies older than the retention window, keeping disk bounded. -->
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>com.nostradamus.news-archive</string>
+	<key>EnvironmentVariables</key>
+	<dict>
+		<key>REPO</key>
+		<string>/Users/chiraagkapil/equity-research</string>
+		<key>NEWS_ARCHIVE_DIR</key>
+		<string>/Users/chiraagkapil/Library/CloudStorage/GoogleDrive-ceekay@muns.io/My Drive/equity-research-data/news-archive</string>
+		<key>NEWS_LOCAL_RETENTION_DAYS</key>
+		<string>30</string>
+		<key>HOME</key>
+		<string>/Users/chiraagkapil</string>
+		<key>PATH</key>
+		<string>/Users/chiraagkapil/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
+	</dict>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/bin/bash</string>
+		<string>/Users/chiraagkapil/equity-research/scripts/ops/news-archive.sh</string>
+	</array>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>StartInterval</key>
+	<integer>10800</integer>
+	<key>StandardOutPath</key>
+	<string>/Users/chiraagkapil/Library/Logs/nostradamus-news-archive.log</string>
+	<key>StandardErrorPath</key>
+	<string>/Users/chiraagkapil/Library/Logs/nostradamus-news-archive.log</string>
+	<key>ThrottleInterval</key>
+	<integer>60</integer>
+</dict>
+</plist>

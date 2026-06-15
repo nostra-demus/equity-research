@@ -27,7 +27,7 @@ const DOMAINS: Record<string, SourceMeta> = {
   // global wires
   'reuters.com': { source_name: 'Reuters', region: 'GLOBAL', input_nature: 'news_headline' },
   'apnews.com': { source_name: 'Associated Press', region: 'GLOBAL', input_nature: 'news_headline' },
-  'ap.org': { source_name: 'Associated Press', region: 'GLOBAL', input_nature: 'news_headline' },
+  'ap.org': { source_name: 'Associated Press', region: 'GLOBAL', input_nature: 'news_headline', gdelt: false }, // GDELT indexes AP under apnews.com, not ap.org (verified empty) — keep approved, drop the wasted query slot
   'bloomberg.com': { source_name: 'Bloomberg', region: 'GLOBAL', input_nature: 'news_headline' },
   'afp.com': { source_name: 'AFP', region: 'GLOBAL', input_nature: 'news_headline' },
   'ft.com': { source_name: 'Financial Times', region: 'GLOBAL', input_nature: 'news_headline' },
@@ -51,7 +51,7 @@ const DOMAINS: Record<string, SourceMeta> = {
   'eia.gov': { source_name: 'US EIA', region: 'US', input_nature: 'macro_data_release' },
   'argusmedia.com': { source_name: 'Argus Media', region: 'GLOBAL', input_nature: 'commodity_price_move' },
   // other agency on the list
-  'tasnimnews.com': { source_name: 'Tasnim News Agency', region: 'OTHER', input_nature: 'news_headline' },
+  'tasnimnews.com': { source_name: 'Tasnim News Agency', region: 'OTHER', input_nature: 'news_headline', gdelt: false }, // GDELT returns nothing for tasnimnews.com (verified empty) — drop the wasted query slot
 
   // ============================================================================================
   // Expanded coverage — verified-live feeds wired into frameworks/screener/rss_feeds.json and the
@@ -144,6 +144,9 @@ const DOMAINS: Record<string, SourceMeta> = {
   'bankofcanada.ca': { source_name: 'Bank of Canada', region: 'GLOBAL', input_nature: 'macro_data_release', gdelt: false },
   'bankofengland.co.uk': { source_name: 'Bank of England', region: 'GB', input_nature: 'macro_data_release', gdelt: false },
   'bbc.com': { source_name: 'BBC News', region: 'GB', input_nature: 'news_headline', gdelt: false },
+  // BBC's RSS items link to BOTH bbc.com and bbc.co.uk — without this entry the bbc.co.uk items were
+  // silently dropped at the gate (~5 of every ~85 BBC items/cycle). Same source_name for clean dedup.
+  'bbc.co.uk': { source_name: 'BBC News', region: 'GB', input_nature: 'news_headline', gdelt: false },
   'bis.org': { source_name: 'Bank for International Settlements', region: 'GLOBAL', input_nature: 'macro_data_release', gdelt: false },
   'boj.or.jp': { source_name: 'Bank of Japan', region: 'JP', input_nature: 'macro_data_release', gdelt: false },
   'businesstimes.com.sg': { source_name: 'The Business Times (Singapore)', region: 'GLOBAL', input_nature: 'news_headline', gdelt: false },
@@ -185,7 +188,7 @@ const DOMAINS: Record<string, SourceMeta> = {
   'theloadstar.com': { source_name: 'The Loadstar', region: 'GLOBAL', input_nature: 'shipping_rate_move', gdelt: false },
   'theregister.com': { source_name: 'The Register', region: 'GLOBAL', input_nature: 'news_headline', gdelt: false },
   'tomshardware.com': { source_name: 'Tom\'s Hardware', region: 'GLOBAL', input_nature: 'news_headline', gdelt: false },
-  'worldbank.org': { source_name: 'World Bank Group', region: 'GLOBAL', input_nature: 'macro_data_release', gdelt: false },
+  'worldbank.org': { source_name: 'World Bank Group', region: 'GLOBAL', input_nature: 'macro_data_release' }, // no free RSS exists (verified) — let GDELT cover its headlines (it indexes them) instead of an empty promise
   'worldsteel.org': { source_name: 'World Steel Association (worldsteel)', region: 'GLOBAL', input_nature: 'macro_data_release', gdelt: false },
   'wto.org': { source_name: 'World Trade Organization', region: 'GLOBAL', input_nature: 'geopolitical_event', gdelt: false },
   // --- Other markets (new) ---
@@ -231,8 +234,48 @@ const DOMAINS: Record<string, SourceMeta> = {
   'deccanherald.com': { source_name: 'Deccan Herald', region: 'IN', input_nature: 'news_headline', gdelt: false },
   'freepressjournal.in': { source_name: 'Free Press Journal', region: 'IN', input_nature: 'news_headline', gdelt: false },
   'outlookbusiness.com': { source_name: 'Outlook Business', region: 'IN', input_nature: 'news_headline', gdelt: false },
-  'outlookmoney.com': { source_name: 'Outlook Money', region: 'IN', input_nature: 'news_headline', gdelt: false },
+  'outlookmoney.com': { source_name: 'Outlook Money', region: 'IN', input_nature: 'news_headline' },
   'theprint.in': { source_name: 'The Print', region: 'IN', input_nature: 'news_headline', gdelt: false },
+  // --- Genuinely-new high-edge expansion (Jun 2026): primary regulatory/recall feeds, new exchange
+  //     regions, central banks, crypto/datacenter/semi trade press, weather catastrophe. All carry
+  //     their own RSS/JSON (gdelt:false → keep the GDELT query lean). Verified live by verify-feeds.ts.
+  'cision.com': { source_name: 'Cision (Nordic regulatory wire)', region: 'OTHER', input_nature: 'company_press_release', gdelt: false },
+  'bok.or.kr': { source_name: 'Bank of Korea', region: 'KR', input_nature: 'macro_data_release', gdelt: false },
+  'rbnz.govt.nz': { source_name: 'Reserve Bank of New Zealand', region: 'OTHER', input_nature: 'macro_data_release', gdelt: false },
+  'trendforce.com': { source_name: 'TrendForce', region: 'OTHER', input_nature: 'news_headline', gdelt: false },
+  'consumerfinance.gov': { source_name: 'CFPB', region: 'US', input_nature: 'regulatory_filing', gdelt: false },
+  'drugs.com': { source_name: 'Drugs.com', region: 'US', input_nature: 'regulatory_filing', gdelt: false },
+  'nih.gov': { source_name: 'DailyMed (NIH/NLM)', region: 'US', input_nature: 'regulatory_filing', gdelt: false },
+  'noaa.gov': { source_name: 'NOAA / National Hurricane Center', region: 'US', input_nature: 'macro_data_release', gdelt: false },
+  'weather.gov': { source_name: 'US National Weather Service', region: 'US', input_nature: 'macro_data_release', gdelt: false },
+  'atlantafed.org': { source_name: 'Atlanta Fed (GDPNow)', region: 'US', input_nature: 'macro_data_release', gdelt: false },
+  'blockworks.com': { source_name: 'Blockworks', region: 'US', input_nature: 'news_headline', gdelt: false },
+  'decrypt.co': { source_name: 'Decrypt', region: 'GLOBAL', input_nature: 'news_headline', gdelt: false },
+  'datacenterdynamics.com': { source_name: 'DataCenterDynamics', region: 'GLOBAL', input_nature: 'news_headline', gdelt: false },
+  'usgs.gov': { source_name: 'USGS Earthquakes', region: 'GLOBAL', input_nature: 'macro_data_release', gdelt: false },
+  // --- GDELT-queried global financial press (Jun 2026): high-quality, genuinely-additive outlets we
+  //     have no direct feed for, covering regions/sectors beyond our existing wires. NO gdelt:false →
+  //     GDELT pulls their headlines (it indexes these reliably). Kept conservative (+15) so the GDELT
+  //     query stays short and few-chunked; expand only while watching for 429 / "query too long".
+  'barrons.com': { source_name: "Barron's", region: 'US', input_nature: 'news_headline' },
+  'economist.com': { source_name: 'The Economist', region: 'GB', input_nature: 'news_headline' },
+  'caixinglobal.com': { source_name: 'Caixin Global', region: 'CN', input_nature: 'news_headline' },
+  'investors.com': { source_name: "Investor's Business Daily", region: 'US', input_nature: 'news_headline' },
+  'semafor.com': { source_name: 'Semafor Business', region: 'US', input_nature: 'news_headline' },
+  'theblock.co': { source_name: 'The Block (crypto)', region: 'GLOBAL', input_nature: 'news_headline' },
+  'finextra.com': { source_name: 'Finextra', region: 'GB', input_nature: 'news_headline' },
+  'lesechos.fr': { source_name: 'Les Echos', region: 'OTHER', input_nature: 'news_headline' },
+  'ilsole24ore.com': { source_name: 'Il Sole 24 Ore', region: 'OTHER', input_nature: 'news_headline' },
+  'expansion.com': { source_name: 'Expansión', region: 'OTHER', input_nature: 'news_headline' },
+  'thenationalnews.com': { source_name: 'The National (UAE)', region: 'OTHER', input_nature: 'news_headline' },
+  'arabnews.com': { source_name: 'Arab News', region: 'OTHER', input_nature: 'news_headline' },
+  'bangkokpost.com': { source_name: 'Bangkok Post', region: 'OTHER', input_nature: 'news_headline' },
+  'businesslive.co.za': { source_name: 'Business Day (BusinessLive)', region: 'OTHER', input_nature: 'news_headline' },
+  'dealstreetasia.com': { source_name: 'DealStreetAsia', region: 'OTHER', input_nature: 'news_headline' },
+  // --- International exchange primary-disclosure JSON adapters (exchange-intl.ts) — items pass the
+  //     firewall on these link domains (the API hosts differ). gdelt:false: read directly, not via GDELT.
+  'hkexnews.hk': { source_name: 'HKEXnews (HK Exchange Filing)', region: 'CN', input_nature: 'exchange_announcement', gdelt: false },
+  'asx.com.au': { source_name: 'ASX (Australia Exchange Filing)', region: 'OTHER', input_nature: 'exchange_announcement', gdelt: false },
 }
 
 /** Lowercase, strip a leading www., and keep only the host (no scheme/path) — GDELT gives a bare host already. */

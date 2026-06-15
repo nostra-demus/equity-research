@@ -18,6 +18,7 @@ export function RunStreamPanel() {
   const activeRuns = useStore((s) => s.activeRuns)
   const runStream = useStore((s) => s.runStream)
   const cancelRun = useStore((s) => s.cancelRun)
+  const dismissRunStream = useStore((s) => s.dismissRunStream)
   const ticker = useStore((s) => s.selectedTicker)
   const nodeRuntime = useStore((s) => s.nodeRuntime)
   const nodesByKey = useStore((s) => s.nodesByKey)
@@ -50,6 +51,10 @@ export function RunStreamPanel() {
           <div className="sidepanel__title">{runs.length ? `${runs.length} run${runs.length > 1 ? 's' : ''}` : 'Last run'}</div>
           <div className="sidepanel__meta">{ticker}{runs.length ? ` · ${aggDone}/${aggTotal} orbs` : ''}</div>
         </div>
+        {/* close the panel — only when nothing is live (clearing a running stream would just re-populate) */}
+        {!runs.length && (
+          <button type="button" className="sidepanel__close" onClick={dismissRunStream} aria-label="Close run panel" title="Close">✕</button>
+        )}
       </div>
 
       <div className="sidepanel__body">

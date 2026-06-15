@@ -18,8 +18,14 @@ import type { RawArticle } from '../types'
 // SEC/.gov endpoints instead REQUIRE a descriptive UA with a contact, and reject look-alike contact
 // suffixes elsewhere (Moneycontrol 403s on a contact-tagged UA) — so SEC feeds set a per-feed
 // `user_agent` override in rss_feeds.json rather than forcing one global UA to please everyone.
-const DEFAULT_UA =
+// The production request shape — EXPORTED so the feed-health checker (scripts/feed-health.ts) probes
+// every feed byte-for-byte the way the live ingester does, and can never drift from it.
+export const DEFAULT_UA =
   'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
+// The honest descriptive contact UA. Used (a) as a per-feed override for sources whose WAF cloaks the
+// browser UA (SEC, BLS, FDA, …), and (b) as the AUTOMATIC fallback when a browser-UA fetch is blocked.
+export const CONTACT_UA = 'nostra-demus-screener/1.0 (ceekay@muns.io)'
+export const RSS_ACCEPT = 'application/rss+xml, application/atom+xml, application/xml, text/xml, */*'
 
 export interface RssOptions {
   feedsPath: string // absolute path to the versioned feed list (frameworks/screener/rss_feeds.json)
@@ -93,12 +99,28 @@ function textOf(block: string, tag: string): string | null {
  *  - a <guid> that is itself a permalink URL — many RSS feeds (LiveMint, CNBC-TV18, The Hindu
  *    BusinessLine and other Indian/wire feeds) leave <link> empty and carry the canonical article
  *    URL only in <guid isPermaLink="true">. Without this fallback those feeds parse to ZERO items. */
-function linkOf(block: string): string | null {
+// Absolute http(s) URL, resolving a RELATIVE link/guid against the feed's own URL when we have it.
+// Some feeds (e.g. EIA press releases) emit item links as "/pressroom/releases/…" — rejecting those
+// outright silently drops every item; resolving them against the feed URL recovers them. Anchors and
+// non-http schemes (mailto:, javascript:) are still rejected.
+function absOf(v: string, baseUrl?: string): string | null {
+  if (!v || v.startsWith('#')) return null
+  if (/^https?:\/\//i.test(v)) return v
+  if (!baseUrl) return null
+  try {
+    const u = new URL(v, baseUrl)
+    return u.protocol === 'http:' || u.protocol === 'https:' ? u.href : null
+  } catch {
+    return null
+  }
+}
+
+function linkOf(block: string, baseUrl?: string): string | null {
   // RSS <link>…</link> — tolerate CDATA + entities, not just a bare URL
   const rssText = /<link[^>]*>([\s\S]*?)<\/link>/i.exec(block)
   if (rssText) {
-    const v = decodeEntities(stripCdata(rssText[1]).trim())
-    if (/^https?:\/\//i.test(v)) return v
+    const v = absOf(decodeEntities(stripCdata(rssText[1]).trim()), baseUrl)
+    if (v) return v
   }
   // Atom <link href="…"> — prefer rel="alternate"; keep any href as a fallback
   const linkTags = block.match(/<link\b[^>]*>/gi) || []
@@ -107,16 +129,16 @@ function linkOf(block: string): string | null {
     const href = /href\s*=\s*["']([^"']+)["']/i.exec(tag)?.[1]
     if (!href) continue
     const rel = /rel\s*=\s*["']([^"']+)["']/i.exec(tag)?.[1]
-    const v = decodeEntities(href)
-    if ((!rel || rel === 'alternate') && /^https?:\/\//i.test(v)) return v
+    const v = absOf(decodeEntities(href), baseUrl)
+    if ((!rel || rel === 'alternate') && v) return v
     if (!hrefFallback) hrefFallback = v
   }
-  if (hrefFallback && /^https?:\/\//i.test(hrefFallback)) return hrefFallback
+  if (hrefFallback) return hrefFallback
   // <guid> permalink fallback (skip when isPermaLink="false")
   const guid = /<guid\b([^>]*)>([\s\S]*?)<\/guid>/i.exec(block)
   if (guid && !/ispermalink\s*=\s*["']?\s*false/i.test(guid[1] || '')) {
-    const v = decodeEntities(stripCdata(guid[2]).trim())
-    if (/^https?:\/\//i.test(v)) return v
+    const v = absOf(decodeEntities(stripCdata(guid[2]).trim()), baseUrl)
+    if (v) return v
   }
   return null
 }
@@ -132,18 +154,44 @@ function snippetOf(block: string): string | null {
   return textOf(block, 'content:encoded') || textOf(block, 'description') || textOf(block, 'summary') || textOf(block, 'content')
 }
 
+// A bare site root ("https://ferc.gov/", no path/query) — useless as a per-item link and, when every
+// item shares it, collapses the whole feed to one row at dedup time.
+function isRootUrl(u: string): boolean {
+  try { const x = new URL(u); return (x.pathname === '/' || x.pathname === '') && !x.search && !x.hash } catch { return false }
+}
+// First real article href inside a body/description (FERC, TreasuryDirect put the per-item URL there).
+function firstHttpHref(html: string | null): string | null {
+  if (!html) return null
+  const m = /href\s*=\s*["']?(https?:\/\/[^"'\s>]+)/i.exec(decodeEntities(html))
+  return m ? m[1] : null
+}
+
 /** Parse one RSS 2.0 or Atom document into raw articles. Tolerant by construction: a malformed
  *  entry yields nothing rather than an error. Exported for the test suite. */
-export function parseFeed(xml: string, maxItems = 60): { title: string; link: string; date: string | null; snippet: string | null }[] {
+export function parseFeed(xml: string, maxItems = 60, baseUrl?: string): { title: string; link: string; date: string | null; snippet: string | null }[] {
   const out: { title: string; link: string; date: string | null; snippet: string | null }[] = []
   // entry blocks: RSS <item>…</item>, Atom <entry>…</entry>
   const blocks = xml.split(/<(?:item|entry)[\s>]/i).slice(1)
   for (const rawBlock of blocks.slice(0, maxItems)) {
     const block = rawBlock.split(/<\/(?:item|entry)>/i)[0]
-    const title = textOf(block, 'title')
-    const link = linkOf(block)
-    if (!title || !link || !/^https?:\/\//i.test(link)) continue
-    out.push({ title, link, date: dateOf(block), snippet: snippetOf(block) })
+    let link = linkOf(block, baseUrl)
+    if (!link || !/^https?:\/\//i.test(link)) continue
+    let title = textOf(block, 'title')
+    const snippet = snippetOf(block)
+    // Some data feeds (e.g. Atlanta Fed GDPNow) ship an EMPTY <title> with the real headline in the
+    // body — synthesize a title from the lede rather than silently dropping the item.
+    if (!title && snippet) {
+      title = decodeEntities(snippet.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()).slice(0, 140).trim()
+    }
+    if (!title) continue
+    // FERC/TreasuryDirect class: every item's <link> is the site root and the real per-item URL is an
+    // href in the body. Without this, all items dedup-collapse to one. Prefer the body href when the
+    // link is a bare root and the body carries a deeper URL.
+    if (isRootUrl(link)) {
+      const href = firstHttpHref(snippet)
+      if (href && !isRootUrl(href)) link = href
+    }
+    out.push({ title, link, date: dateOf(block), snippet })
   }
   return out
 }
@@ -177,23 +225,40 @@ export async function fetchRss(opts: RssOptions, deps: RssDeps = {}): Promise<Ra
   // One feed → its fresh, on-window articles. Self-contained and total: every failure path returns []
   // (per-feed isolation), so one bad feed never affects another and the scheduler need not guard.
   const fetchOneFeed = async (feed: FeedEntry): Promise<RawArticle[]> => {
-    const ua = feed.user_agent || defaultUa
+    let ua = feed.user_agent || defaultUa
+    // WAF-cloak self-heal: a great many regulator/.gov feeds (BLS, SEC, DOL, FDA, CFPB, RBA, …) sit
+    // behind Akamai/edge WAFs that 403/404/302 a spoofed browser UA but honor the honest contact UA.
+    // Rather than hand-maintain a per-feed override for each, we AUTO-fall back to the contact UA once
+    // on a cloak-shaped status — so every current AND future such feed self-heals with zero config.
+    let triedContact = ua === CONTACT_UA
     for (let attempt = 1; attempt <= 3; attempt++) {
       const ctrl = new AbortController()
       const timer = setTimeout(() => ctrl.abort(), opts.timeoutMs)
       try {
-        const headers: Record<string, string> = { 'user-agent': ua, accept: 'application/rss+xml, application/atom+xml, application/xml, text/xml' }
+        // The trailing */* matters: some content-negotiation-strict origins (e.g. Eurostat) return 406 to
+        // the explicit-only list — verified live, Eurostat 406s on the strict list but 200s with */* — and
+        // a feed that serves a generic content-type would otherwise be rejected. Keeps the specific types
+        // first (preferred) while never hard-failing a valid feed on the Accept header alone.
+        const headers: Record<string, string> = { 'user-agent': ua, accept: RSS_ACCEPT }
         const cond = cache[feed.url]
         if (cond?.etag) headers['if-none-match'] = cond.etag
         if (cond?.lastModified) headers['if-modified-since'] = cond.lastModified
         const res = await fetchFn(feed.url, { headers, signal: ctrl.signal })
         if (res.status === 304) return [] // unchanged since last cycle
-        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        if (!res.ok) {
+          // cloak-shaped block → retry IMMEDIATELY with the honest contact UA before counting a failure
+          if (!triedContact && (res.status === 403 || res.status === 404 || res.status === 302 || res.status === 410 || res.status === 451)) {
+            triedContact = true
+            ua = CONTACT_UA
+            continue // the finally clears this attempt's timer; next iteration retries with the contact UA
+          }
+          throw new Error(`HTTP ${res.status}`)
+        }
         const xml = await res.text()
         const etag = res.headers.get('etag')
         const lastModified = res.headers.get('last-modified')
         if (etag || lastModified) cache[feed.url] = { etag: etag || undefined, lastModified: lastModified || undefined }
-        const items = parseFeed(xml)
+        const items = parseFeed(xml, 60, feed.url)
         const arts: RawArticle[] = []
         for (const it of items) {
           const d = it.date ? new Date(it.date) : null
