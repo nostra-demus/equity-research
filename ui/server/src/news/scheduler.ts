@@ -17,6 +17,18 @@ import type { CycleSummary } from './types'
 
 const PACE = { targetTokens: NEWS.groqDailyTokenTarget, floorFrac: NEWS.groqPaceFloorFrac }
 
+// BULLETPROOF cycle guard: no single ingest cycle may run longer than this. If a cycle ever hangs
+// (e.g. a future no-timeout fetch on a dead socket), the race rejects, the `finally` releases the
+// `running` lock, and the NEXT tick proceeds — the ingester can never wedge itself permanently again.
+// The leaked hung promise (if any) is harmless; every real cycle finishes in well under this.
+const CYCLE_TIMEOUT_MS = NEWS.cycleTimeoutMs
+function withCycleGuard<T>(p: Promise<T>): Promise<T> {
+  return Promise.race([
+    p,
+    new Promise<T>((_, reject) => setTimeout(() => reject(new Error(`cycle exceeded ${Math.round(CYCLE_TIMEOUT_MS / 1000)}s guard — aborted so the next cycle can run`)), CYCLE_TIMEOUT_MS)),
+  ])
+}
+
 let timer: ReturnType<typeof setInterval> | null = null
 let drainTimer: ReturnType<typeof setInterval> | null = null
 let running = false
@@ -194,7 +206,7 @@ export function startNewsIngester(): void {
     // next fire is interval-anchored from the tick START (matches setInterval's cadence)
     nextCycleAt = new Date(Date.now() + NEWS.pollIntervalMin * 60_000).toISOString().replace(/\.\d{3}Z$/, 'Z')
     try {
-      const summary = await runIngestCycle({ log })
+      const summary = await withCycleGuard(runIngestCycle({ log }))
       lastNote = summary.note || null
     } catch (e: any) {
       log(`cycle error: ${e?.message || e}`)
@@ -211,7 +223,7 @@ export function startNewsIngester(): void {
     if (running || backlogCount() === 0 || !budgetHasHeadroom()) return
     running = true
     try {
-      const summary = await runIngestCycle({ log, skipFetch: true })
+      const summary = await withCycleGuard(runIngestCycle({ log, skipFetch: true }))
       lastNote = summary.note || lastNote
     } catch (e: any) {
       log(`drain error: ${e?.message || e}`)

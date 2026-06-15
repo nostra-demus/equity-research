@@ -206,6 +206,10 @@ export const NEWS = {
   // excess, so a tighter fetch can't bust limits; the binding floor is RSS source politeness (a full
   // 351-feed sweep is ~30-50s, so 5 min keeps it well-spaced). Tune with NEWS_POLL_INTERVAL_MIN.
   pollIntervalMin: capNum(process.env.NEWS_POLL_INTERVAL_MIN, 5),
+  // Hard ceiling on a single ingest cycle (fetch+triage+themes). A safety net well ABOVE any legitimate
+  // cycle (a normal fetch is ~1-3 min): if one ever hangs, the scheduler aborts it and runs the next, so
+  // the ingester can never wedge permanently. Tune with NEWS_CYCLE_TIMEOUT_MS.
+  cycleTimeoutMs: capNum(process.env.NEWS_CYCLE_TIMEOUT_MS, 480_000),
   // Daily Groq budget guards. A cycle refuses to call Groq past either cap; unscored items defer to
   // the next cycle (never lost, never zero-scored). The REQUEST cap matches Groq's real free-tier RPD
   // for 8b-instant — 14,400/day (verified Jun 2026) — set to 13,000 to hold a safety margin. It was

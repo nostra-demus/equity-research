@@ -16,6 +16,7 @@ export interface GdeltOptions {
   maxRecords?: number // GDELT caps at 250
   chunkSize?: number // domains OR-ed per query (keeps each query well under GDELT's length limit)
   chunkGapMs?: number // pause between queries — GDELT enforces "one request every 5 seconds"
+  timeoutMs?: number // per-request hard timeout (a hung GDELT socket must never block the cycle)
   // Multi-cycle penalty backoff. When set (production passes both), a 429 puts GDELT to sleep for
   // backoffCyclesOn429 whole cycles — i.e. we stop poking it entirely for ~that long — so its IP
   // penalty-box can actually DECAY (a compliant 1-poke-per-5-min still kept it alive). Absent in unit
@@ -93,7 +94,9 @@ export async function fetchGdelt(opts: GdeltOptions, deps: GdeltDeps = {}): Prom
     // still gets up to 3 backed-off retries on that single chunk.
     for (;;) {
       try {
-        const res = await fetchFn(url, { headers: { 'user-agent': 'screener-news-ingester/1' } })
+        // HARD timeout: this was the ONE fetch in the pipeline with no abort signal — a hung GDELT
+        // socket (no response, no FIN) blocked the whole cycle forever, wedging the ingester. Never again.
+        const res = await fetchFn(url, { headers: { 'user-agent': 'screener-news-ingester/1' }, signal: AbortSignal.timeout(opts.timeoutMs ?? 20_000) })
         if (res.status === 429) {
           if (backoffEnabled) gdeltSkipUntilMs = Date.now() + opts.cycleMs! * opts.backoffCyclesOn429!
           log(`gdelt chunk ${qi}: 429${backoffEnabled ? ` — backing off GDELT for ${opts.backoffCyclesOn429} cycles` : ' — backing off for this cycle'}`)
