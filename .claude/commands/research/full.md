@@ -392,6 +392,23 @@ orig_conf  = dr.get("confidence_score")
 dr["confidence_haircut"]        = haircut
 dr["pre_mortem_verdict"]        = verdict
 dr["post_review_confidence_score"] = rec_conf
+# Post-mortem rating-cap propagation — fix F28b.
+# A terminal pre-mortem verdict ("Thesis broken" / "Does not survive — downgrade") means the thesis
+# does not hold as a conviction position. The original `decision` and `basket` fields (the synthesizer's
+# immutable call, locked to final_thesis.md) stay unchanged so eval check I still passes; we instead
+# add the two new additive fields `post_mortem_decision` + `post_mortem_basket` that the calibration,
+# size, and track commands should prefer when present. Eval check T asserts these are set consistently.
+TERMINAL = {"Thesis broken", "Does not survive — downgrade"}
+orig_dec  = dr.get("decision") or ""
+orig_bask = dr.get("basket")   or ""
+if verdict in TERMINAL and orig_bask in ("Selected", "Short"):
+    dr["post_mortem_decision"] = "Watchlist"
+    dr["post_mortem_basket"]   = "Watchlist"
+    print(f"RATING-CAP: terminal pre-mortem '{verdict}' on '{orig_dec}' ({orig_bask}) → post_mortem_decision=Watchlist")
+else:
+    dr["post_mortem_decision"] = orig_dec
+    dr["post_mortem_basket"]   = orig_bask
+    print(f"RATING-CAP: non-terminal or already-conservative pre-mortem ('{verdict}') — post_mortem_decision={orig_dec!r}")
 with open(dr_path, "w", encoding="utf-8") as f:
     json.dump(dr, f, indent=2, ensure_ascii=False)
 if isinstance(haircut, (int, float)) and haircut > 0:
@@ -401,7 +418,7 @@ else:
 PY
 ```
 
-Record the `HAIRCUT:` line for step 11 ("Integrity gate"). If the pre-mortem applied a haircut, the RUN_METADATA integrity-gate entry should read e.g. `pre-mortem: Survives with haircut (confidence 70 → 64)`.
+Record BOTH the `RATING-CAP:` and `HAIRCUT:` lines for step 11 ("Integrity gate"). If the pre-mortem applied a haircut and/or a rating cap, the RUN_METADATA integrity-gate entry should read e.g. `pre-mortem: Survives with haircut (confidence 70 → 64); RATING-CAP: non-terminal` or `pre-mortem: Thesis broken (confidence 65 → 20); RATING-CAP: terminal → post_mortem_decision=Watchlist`.
 
 - If `verification_report.json`'s verdict is `Failed` (or `Material issues`), treat it like a PROVISIONAL gate result: surface it loudly in step 13 (the deterministic validator may already have stamped the thesis).
 

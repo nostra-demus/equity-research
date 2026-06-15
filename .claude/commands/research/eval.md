@@ -37,7 +37,9 @@ Run the embedded check script below via Bash. It applies, per run, the following
 - **P. Disconfirmation / edge quality** (forward-looking; `fix F39`) — for a run dated on/after `2026-06-08`, the variant perception must be **non-tautological** (`what_market_may_be_missing` ≠ `what_everyone_knows`; an explicitly-empty "no proven edge yet" is allowed per §7) and `kill_criteria` must carry at least one concrete falsification trigger. `kill_criteria` elements may be plain strings **or** objects (`{condition, what_it_means, …}` — the live synthesizer's format); both forms count. Catches a perfunctory bear case / a restated-consensus "edge" that the old field-presence check waved through. Older fixtures → **N/A**.
 - **Q. Per-module three tiers present in post-landing runs** (forward-looking) — for a run whose `decision_date` is on/after the module-tiers landing date (`2026-06-08`), every module subfolder that has a `99_*-synthesis.md` must also carry a `*_memo.md` (the module memo) and a `*_dossier.md` (the module dossier) — the module-level equivalent of the run-level three tiers. Runs that predate the feature are **N/A**, so the suite still passes; the check activates automatically for every new run.
 - **R. Memo-delta contract** (forward-looking; landing `2026-06-10`) — every review JSON filed on/after the landing date must carry the `DECISION_LEDGER` §8 `memo_delta` block, and any review that carries one must satisfy it: the paired `*_memo_delta*.md` exists on disk at `memo_delta_file` and stays a delta (≤ ~2,500 words — the 2–3-page discipline); `thesis_delta_verdict` is in-enum; every `changed_sections` entry cites an `evidence_source`; and any `rerun_recommended` names impacted module(s) that exist in the discovered agent roster. Pre-landing reviews and runs with no reviews are **N/A**.
+- **S. Pre-mortem haircut propagated** (forward-looking; landing `2026-06-12`) — for a run whose `decision_date` is on/after the landing date, if `pre_mortem.json` exists and applied a haircut > 0, the decision_record must carry `post_review_confidence_score == pre_mortem.recommended_confidence` and `confidence_haircut`; `pre_mortem_verdict` must always be set (even at zero haircut). Older fixtures → **N/A**.
 - **T. Forecast-ledger entry quality** (forward-looking; landing `2026-06-13` / fix F-FL-1) — for a run dated on/after the landing date with a non-empty `forecast_ledger`, every entry must carry `prediction`, `confirmation_trigger`, `falsification_trigger`, and `time_window` (all non-empty strings), and `status` ∈ {open, confirmed, falsified, expired}. An entry missing a required field cannot be resolved in Phase 3 (`review-decisions`) and breaks Phase 4 calibration (no Brier-score data from that forecast). An empty `[]` is allowed per §19 (when no forecast has enough evidence). Runs that predate the gate, and runs with `forecast_ledger: []`, are **N/A**.
+- **U. Post-mortem rating-cap consistency** (forward-looking; `fix F28b`; landing `2026-06-12`) — for a run dated on/after the landing date where `pre_mortem_verdict` is a terminal verdict ("Thesis broken" or "Does not survive — downgrade"), the finish-gate must have written `post_mortem_decision` and `post_mortem_basket`, and `post_mortem_basket` must NOT be "Selected" or "Short" — those verdicts mean the thesis does not hold as a conviction position. Closes the logical-contradiction gap where a "Strong Buy" decision coexists with a "Thesis broken" red-team verdict in the same committed record. The original `decision` / `basket` fields are preserved (the synthesizer's immutable call, required by check I); only the additive post-mortem fields are validated here. Older fixtures, and runs with non-terminal pre-mortem verdicts, → **N/A**.
 
 The script also notes (WARN, not FAIL) any **non-schema artifact** in a run folder (a stray file that is not a known schema / versioned-audit / review artifact) so coverage gaps and strays surface.
 
@@ -99,6 +101,11 @@ for drp in runs:
             v=d.get(_k)
             if _k in d and v is not None and not (isinstance(v,_t) and not isinstance(v,bool)): badtype.append(_k)
         if "pre_mortem_verdict" in d and not isinstance(d.get("pre_mortem_verdict"),str): badtype.append("pre_mortem_verdict")
+        # [fix F28b] post_mortem_decision + post_mortem_basket are additive string fields written by the
+        # finish-gate's rating-cap propagation step; type-check when present (never require presence —
+        # pre-gate runs omit them; the forward-looking check T validates the content).
+        for _ak in ("post_mortem_decision","post_mortem_basket"):
+            if _ak in d and not isinstance(d.get(_ak),str): badtype.append(_ak)
         okB = parsed and not missing and not badtype and d.get("schema_version")=="1.0"
         add("B_schema", okB, f"missing={missing}; badtype={badtype}; schema_version={d.get('schema_version')}")
     # B2 [review fix] decision_date VALUE must be a real ISO date — not merely present (B only checks presence). A
@@ -388,6 +395,32 @@ for drp in runs:
              else "forecast_ledger is [] — no forecasts (allowed per §19)"))
     else:
         add("T_forecast_ledger_quality",True,f"run predates forecast-ledger quality gate ({ddte}) — N/A",na=True)
+    # U post-mortem rating-cap consistency (forward-looking; landing 2026-06-12 / fix F28b)
+    #   If the finish-gate's pre-mortem returned a terminal verdict ("Thesis broken" or "Does not
+    #   survive — downgrade") on a Selected/Short run, the propagation step must have written
+    #   post_mortem_decision + post_mortem_basket, and post_mortem_basket must NOT be "Selected"
+    #   or "Short" — those verdicts mean the thesis does not hold as a conviction position. Eval
+    #   check S ensures the haircut is propagated; this check ensures the RATING CAP is also
+    #   propagated, closing the logical-contradiction gap where "Strong Buy" coexists with "Thesis
+    #   broken". Shares the same landing date as S (both from the finish-gate haircut pass).
+    if isdate(ddte) and ddte>=HAIRCUT_DATE:
+        pv=d.get("pre_mortem_verdict") or ""
+        pmd=d.get("post_mortem_decision")
+        pmb=d.get("post_mortem_basket")
+        TERMINAL_V={"Thesis broken","Does not survive — downgrade"}
+        det_t=[]
+        if pv in TERMINAL_V:
+            if pmd is None:
+                det_t.append(f"pre_mortem_verdict={pv!r} but post_mortem_decision absent — finish-gate must propagate the rating cap (fix F28b)")
+            elif pmb in ("Selected","Short"):
+                det_t.append(f"pre_mortem_verdict={pv!r} but post_mortem_basket={pmb!r} — a terminal verdict should cap to Watchlist or lower, not a conviction position")
+        # type-check when present (catches a finish-gate bug that writes the wrong type)
+        if pmd is not None and not isinstance(pmd,str): det_t.append(f"post_mortem_decision wrong type ({type(pmd).__name__})")
+        if pmb is not None and not isinstance(pmb,str): det_t.append(f"post_mortem_basket wrong type ({type(pmb).__name__})")
+        add("U_postMortem_cap",not det_t,
+            "; ".join(det_t) or f"pre_mortem_verdict={pv!r}; post_mortem_decision={pmd!r}; post_mortem_basket={pmb!r}")
+    else:
+        add("U_postMortem_cap",True,f"run predates post-mortem cap gate ({ddte}) — N/A",na=True)
     # WARN non-schema files
     # [review fix] suppress only genuine versioned/audit/review artifacts via PRECISE patterns — the old naive
     # `"_v" not in name` / `"review" not in name` substring tests hid real strays (preview.md, *_v*-named scratch).
@@ -431,7 +464,7 @@ FRAMEWORK_CONTRACTS={
  ".claude/agents/catalyst/01_catalyst-calendar.md":["12-Month Catalyst Calendar","Bullish Trigger","Bearish Trigger"],
  ".claude/agents/catalyst/99_catalyst-synthesis.md":["Catalyst strength /100","No proven catalyst yet","depends_on"],
  ".claude/agents/memo-writer.md":["memo.md","colleague","~10"],
- ".claude/commands/research/full.md":["audit_dossier.md","memo.md","memo-writer"],
+ ".claude/commands/research/full.md":["audit_dossier.md","memo.md","memo-writer","post_mortem_decision","RATING-CAP","TERMINAL"],
  ".claude/agents/module-memo-writer.md":["_memo.md","module synthesis","condenser"],
  "frameworks/MODULE_PIPELINE.md":["Step 4.9","module-memo-writer","_memo.md","_dossier.md"],
  ".claude/commands/research/rerun.md":["module-memo-writer","_dossier.md"],
