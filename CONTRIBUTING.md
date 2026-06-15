@@ -38,6 +38,8 @@ These are the enforcement layer — they bind every contributor. Do them once in
    - **Bypass list → the engine's push identity ONLY** — do **not** choose "block all bypassing": the cockpit auto-publishes research **data** to `main` (`commit-run.sh`) and must keep its bypass, per §28. Every push that is not the engine then goes through a PR.
 
    > **The engine identity (no extra paid seat).** A **GitHub App** with `Contents: write` is the clean choice — a GitHub App does not consume a member seat, and it gates every human (including the owner) for code. Lighter alternative: bypass the account the engine already pushes as (zero setup, but that one human is then not gated for code). Either way the engine still cannot push *code* — `commit-run.sh` stages only data paths (§28).
+   >
+   > **Step-by-step runbook:** [`scripts/ops/GH_APP_ENGINE_IDENTITY.md`](scripts/ops/GH_APP_ENGINE_IDENTITY.md) — create + install the App, wire the Mac with `scripts/ops/setup-gh-app.sh`, and flip the ruleset bypass (Admin role → App) in two zero-downtime steps. Tooling: `gh-app-token.sh` mints a short-lived installation token; `gh-app-credential.sh` is the git credential helper `commit-run.sh` uses for engine pushes only.
 3. **Settings → General → Pull Requests → Enable "Merge queue"** (or in the same ruleset: **Require merge queue**). Set the queue to use the `merge_group` CI (already wired in `ci.yml`).
 4. **Settings → Code security and analysis** — enable for production-level safety:
    - **Dependabot alerts** + **Dependabot security updates**.
