@@ -1,5 +1,5 @@
 import { staticPromptPath } from './prompts'
-import type { ActivityQuery, ActivityResult, CallsResult, DataStatus, EventEnrichment, FeedItem, LaunchPreflight, NewsCycle, NewsStatus, ScreenerBoard, SignalIntakeInput, SwarmGraph, SwarmMeta, TickerSummary, Usage, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, CallsResult, DataStatus, EventEnrichment, FeedItem, LaunchPreflight, NewsCycle, NewsStatus, ScreenerBoard, SignalIntakeInput, SourcesReport, SwarmGraph, SwarmMeta, TickerSummary, Usage, Whoami } from './types'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -118,6 +118,10 @@ export const api = {
     if ((await ensureMode()) === 'static')
       return { enabled: false, running: false, intervalMin: 15, model: '', rssEnabled: false, lastCycleAt: null, nextCycleAt: null, lastNote: null, today: { read: 0, kept: 0, dropped: 0, cycles: 0 }, budget: { requests: 0, tokens: 0, reqCap: 0, tokenCap: 0 } }
     return get(`/api/news/status`)
+  },
+  newsSources: async (): Promise<SourcesReport> => {
+    if ((await ensureMode()) === 'static') return { updated_at: new Date().toISOString(), counts: { total: 0, healthy: 0, quiet: 0, failing: 0, idle: 0 }, sources: [] }
+    return get(`/api/news/sources`)
   },
   newsFeed: async (days = 2): Promise<{ items: FeedItem[]; cycles: NewsCycle[] }> => {
     if ((await ensureMode()) === 'static') return { items: [], cycles: [] }
