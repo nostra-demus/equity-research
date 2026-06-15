@@ -24,6 +24,24 @@ if [ -z "$MSG" ] || [ "$#" -eq 0 ]; then
 fi
 
 TOP="$(git rev-parse --show-toplevel 2>/dev/null)" || { echo "commit-run: not a git repo" >&2; exit 2; }
+
+# ---- engine push identity: authenticate as the GitHub App, if wired ----
+# §28 two-lane contract: the engine publishes research DATA straight to `main` as
+# its own App identity (the `main` ruleset's SOLE bypass actor), while every human/
+# AI CODE push goes through a PR. When the App is configured locally, route git's
+# credentials — for THIS process only — through the App credential helper, so this
+# push lands as the engine and not as whatever human account git would otherwise
+# use. We never touch global/repo git config, so interactive git is unaffected (and
+# therefore stays gated for code). If the App is not configured, we leave git's
+# default credentials in place — safe both before the App exists and on dev boxes.
+ENGINE_APP_ENV="${NOSTRA_ENGINE_CONFIG_DIR:-$HOME/.config/nostra-engine}/github-app.env"
+ENGINE_CRED_HELPER="$TOP/scripts/ops/gh-app-credential.sh"
+if [ -f "$ENGINE_APP_ENV" ] && [ -x "$ENGINE_CRED_HELPER" ]; then
+  export GIT_CONFIG_COUNT=2
+  export GIT_CONFIG_KEY_0="credential.helper" GIT_CONFIG_VALUE_0=""              # reset the helper list…
+  export GIT_CONFIG_KEY_1="credential.helper" GIT_CONFIG_VALUE_1="!$ENGINE_CRED_HELPER"  # …to the App only
+fi
+
 REPO_ID="$(printf '%s' "$TOP" | shasum | awk '{print $1}')"
 LOCK="${TMPDIR:-/tmp}/equity-research-git-${REPO_ID}.lock"
 STALE_SECS=900   # generous on purpose — a slow push/rebase is NOT a stale lock
