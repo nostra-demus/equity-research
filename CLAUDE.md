@@ -441,7 +441,7 @@ Two different kinds of commit reach `main`, and they follow opposite rules. Tell
 
 **Enforcement lives in the tooling, not in trust:**
 1. `commit-run.sh` stages only data pathspecs, so the code stream cannot leak through it by accident.
-2. A GitHub push ruleset blocks the code paths above on any direct push to `main`, **including the engine's own identity** — so even a buggy caller cannot land code unreviewed. The require-pull-request ruleset names the engine identity as its only bypass actor, so the engine keeps publishing data while every human and AI contributor must open a PR. The exact GitHub settings and the contributor workflow live in `CONTRIBUTING.md`.
+2. A GitHub branch ruleset on `main` requires a pull request, with the engine's push identity as the **only** bypass actor — so the engine keeps publishing data directly while every other push, human or AI, must go through a reviewed PR. The engine cannot itself push code (see point 1): landing code through its bypass would mean editing a caller of `commit-run.sh`, which is itself a reviewed code change. The exact GitHub settings and the contributor workflow live in `CONTRIBUTING.md`.
 
 **Precedence.** When §25 and this section appear to conflict, **§28 wins for code and §25 wins for data.** §25's "commit directly to `main`" is the data contract; it does not authorise pushing code to `main`.
 
