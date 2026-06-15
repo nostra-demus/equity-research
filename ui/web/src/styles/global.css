@@ -1522,7 +1522,9 @@ a { color: inherit; }
 .themes__shimmer { width: 200px; height: 8px; border-radius: var(--r-pill); background: linear-gradient(90deg, var(--surface-2), var(--surface-3), var(--surface-2)); background-size: 200% 100%; animation: themeshimmer 1.4s linear infinite; }
 
 /* ---- the map ---- */
-.thememap { position: relative; flex: 1; min-height: 0; overflow: hidden; border: 1px solid var(--hairline); border-radius: var(--r-lg); background: radial-gradient(circle at 30% 50%, var(--accent-wash-soft), transparent 60%); }
+/* --theme-stagger / --theme-reveal drive the size-ranked entrance cascade: each bubble + its edge wait
+   (rank × stagger) before revealing, so the map assembles biggest-bubble-first, descending by size. */
+.thememap { position: relative; flex: 1; min-height: 0; overflow: hidden; border: 1px solid var(--hairline); border-radius: var(--r-lg); background: radial-gradient(circle at 30% 50%, var(--accent-wash-soft), transparent 60%); --theme-stagger: 64ms; --theme-reveal: 560ms; }
 .thememap__edges { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
 .thememap__lane-edge { fill: none; stroke: var(--hairline-strong); stroke-width: 1; opacity: 0.42; stroke-dasharray: 2 8; }
 .thememap__edge { fill: none; stroke: var(--hairline-strong); stroke-width: 1.25; opacity: 0.38; stroke-dasharray: 2 8; transition: stroke var(--dur) var(--ease), opacity var(--dur) var(--ease); }
@@ -1556,7 +1558,16 @@ a { color: inherit; }
 /* the ranking core "pumps" — a radar ping expands out of it on a loop */
 .thememap__core::before { content: ''; position: absolute; inset: 0; border-radius: 50%; border: 1px solid var(--accent); opacity: 0; animation: thememap-ping 2.8s var(--ease-out) infinite; }
 
-.themenode { position: absolute; border: 0; background: transparent; padding: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; will-change: transform; transition: transform var(--dur) var(--ease-out), opacity var(--dur) var(--ease); animation: themepop var(--dur-slow) var(--ease-out) both; }
+.themenode { position: absolute; border: 0; background: transparent; padding: 0; cursor: pointer; display: flex; align-items: center; justify-content: center; will-change: transform; transition: transform var(--dur) var(--ease-out), opacity var(--dur) var(--ease); }
+/* The epic ONE-TIME entrance — gated behind `.thememap.is-entering` (set on the first map mount per
+   session, removed once the cascade finishes). Each basin materialises (scale-up from small + de-blur,
+   brief overshoot) on a delay set by its size rank, so the biggest bubble lands first and the rest
+   cascade in, descending by size; the core blooms first and each edge fades in just behind its bubble.
+   `backwards` holds each element hidden during its delay, then hands cleanly back to the resting state.
+   Because it lives only under `.is-entering`, it never re-fires on hover, tier-filter, or Map<->Board. */
+.thememap.is-entering .thememap__core { animation: themecore-in var(--dur-slow) var(--ease-out) backwards; }
+.thememap.is-entering .themenode { animation: themereveal var(--theme-reveal) var(--ease-out) backwards; animation-delay: calc(var(--enter, 0) * var(--theme-stagger) + 90ms); }
+.thememap.is-entering .thememap__edge { animation: themeedgein var(--dur-slow) var(--ease) backwards; animation-delay: calc(var(--enter, 0) * var(--theme-stagger) + 140ms); }
 .themenode__core { position: absolute; inset: 0; border-radius: 50%; border: 1.5px solid var(--tier); background: color-mix(in srgb, var(--tier) 14%, transparent); transition: background var(--dur) var(--ease), box-shadow var(--dur) var(--ease); }
 .themenode--hot .themenode__core { background: color-mix(in srgb, var(--tier) 26%, transparent); box-shadow: 0 0 18px -2px var(--accent-glow); }
 .themenode--parked .themenode__core { background: transparent; }
@@ -1671,7 +1682,18 @@ a { color: inherit; }
 
 @keyframes themepulse { 0% { opacity: 0.5; transform: scale(1); } 100% { opacity: 0; transform: scale(1.5); } }
 @keyframes themeflow { to { stroke-dashoffset: -20; } }
-@keyframes themepop { from { opacity: 0; transform: scale(0.92); } to { opacity: 1; transform: scale(1); } }
+/* size-ranked entrance — never from scale(0); a small overshoot + de-blur reads as the bubble
+   "materialising" out of the ranking core. transform/opacity/filter only (GPU), one-shot per mount. */
+@keyframes themereveal {
+  0%   { opacity: 0; transform: scale(0.46); filter: blur(3px); }
+  55%  { opacity: 1; transform: scale(1.12); filter: blur(0); }
+  72%  { transform: scale(0.97); }
+  100% { opacity: 1; transform: scale(1); filter: blur(0); }
+}
+/* the edge that links the core to each bubble fades in just after the bubble starts to land */
+@keyframes themeedgein { from { opacity: 0; } }
+/* the ranking core blooms in first, so the cascade reads as emanating from it */
+@keyframes themecore-in { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: scale(1); } }
 @keyframes themebreathe { 0%,100% { opacity: 0.55; } 50% { opacity: 1; } }
 @keyframes themeshimmer { to { background-position: -200% 0; } }
 @keyframes thememap-stream { 0% { offset-distance: 0%; opacity: 0; } 12% { opacity: 1; } 85% { opacity: 1; } 100% { offset-distance: 100%; opacity: 0; } }
