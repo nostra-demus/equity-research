@@ -32,6 +32,7 @@ export interface HealDeps {
   sleep?: (ms: number) => Promise<void>
   maxPerCycle?: number // how many degraded reads to re-attempt per call (default NEWS.enrichHealMaxPerCycle)
   maxAgeMs?: number // skip entries degraded longer than this — structural failures, not transient (default NEWS.enrichHealMaxAgeMs)
+  totalBudgetMs?: number // hard wall-clock cap for the WHOLE pass — it runs under the cycle lock, so this bounds how much it can extend a cycle (default 120s)
   gapMs?: number // pause between re-reads, so a heal burst doesn't spike the source hosts (default 400)
   hasBudget?: () => boolean // skip the whole pass when no free LLM budget is left (gate from the scheduler)
   log?: (m: string) => void
@@ -67,6 +68,7 @@ export async function healEnrichCache(deps: HealDeps = {}): Promise<HealSummary>
   const sleep = deps.sleep ?? ((ms: number) => new Promise<void>((r) => setTimeout(r, ms)))
   const maxPerCycle = deps.maxPerCycle ?? NEWS.enrichHealMaxPerCycle
   const maxAgeMs = deps.maxAgeMs ?? NEWS.enrichHealMaxAgeMs
+  const totalBudgetMs = deps.totalBudgetMs ?? 120_000
   const gapMs = deps.gapMs ?? 400
   const log = deps.log ?? (() => {})
 
@@ -94,9 +96,11 @@ export async function healEnrichCache(deps: HealDeps = {}): Promise<HealSummary>
 
   const degraded = candidates.length
   const batch = candidates.slice(0, maxPerCycle)
+  const deadline = now().getTime() + totalBudgetMs
   let attempted = 0
   let healed = 0
   for (const [id] of batch) {
+    if (now().getTime() >= deadline) break // hard wall-clock cap so the pass can't extend the cycle lock
     attempted++
     try {
       const r = await enrichEvent(
