@@ -35,7 +35,9 @@ These are the enforcement layer — they bind every contributor. Do them once in
    - **Require status checks to pass** → add **`ui/server — typecheck + tests`**.
    - **Require branches to be up to date before merging** (the merge queue satisfies this automatically).
    - **Require linear history** (optional, keeps `main` clean).
-   - **Do not allow bypassing** / block direct pushes to `main`.
+   - **Bypass list → the engine's push identity ONLY** — do **not** choose "block all bypassing": the cockpit auto-publishes research **data** to `main` (`commit-run.sh`) and must keep its bypass, per §28. Every push that is not the engine then goes through a PR.
+
+   > **The engine identity (no extra paid seat).** A **GitHub App** with `Contents: write` is the clean choice — a GitHub App does not consume a member seat, and it gates every human (including the owner) for code. Lighter alternative: bypass the account the engine already pushes as (zero setup, but that one human is then not gated for code). Either way the engine still cannot push *code* — `commit-run.sh` stages only data paths (§28).
 3. **Settings → General → Pull Requests → Enable "Merge queue"** (or in the same ruleset: **Require merge queue**). Set the queue to use the `merge_group` CI (already wired in `ci.yml`).
 4. **Settings → Code security and analysis** — enable for production-level safety:
    - **Dependabot alerts** + **Dependabot security updates**.
