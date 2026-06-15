@@ -176,7 +176,6 @@ export function EventRail() {
   const openThemes = useStore((s) => s.openThemes)
   const closeThemes = useStore((s) => s.closeThemes)
   const openNewsFeed = useStore((s) => s.openNewsFeed)
-  const openSources = useStore((s) => s.openSources)
   const runSweep = useStore((s) => s.runSweep)
   const staticMode = useStore((s) => s.staticMode)
   const [view, setView] = useState<View>('ranked')
@@ -317,9 +316,6 @@ export function EventRail() {
           <div className="evrail__scan">
             <button type="button" className="evrail__scanbtn" onClick={() => void openNewsFeed()} title="The live wire — everything the scanner read today, kept and dropped, with the reason for each">
               watch live ▸
-            </button>
-            <button type="button" className="evrail__scanbtn" onClick={openSources} title="Every source we pull from — when its data last arrived and whether it's healthy, quiet, failing or idle">
-              sources ▸
             </button>
             {!staticMode && (
               <button

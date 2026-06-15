@@ -11,7 +11,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import type { RawArticle } from '../types'
-import { recordRssHealth, type FetchStatus } from '../source-health'
 
 // Default User-Agent: a real browser string. Many publishers (LiveMint, Moneycontrol, several India/
 // EU sites) soft-block non-browser agents — they answer 200 with an empty challenge page, so a
@@ -209,9 +208,6 @@ export async function fetchRss(opts: RssOptions, deps: RssDeps = {}): Promise<Ra
   const defaultUa = opts.userAgent || DEFAULT_UA
   const concurrency = Math.max(1, opts.concurrency ?? 8)
   const perHostGapMs = opts.perHostGapMs ?? 700
-  // per-feed fetch outcome this cycle → persisted for the cockpit's Sources health panel
-  const health = new Map<string, { status: FetchStatus; items: number; note?: string }>()
-  const rec = (feed: FeedEntry, status: FetchStatus, items: number, note?: string) => health.set(feed.source_name || feed.url, { status, items, note })
 
   let feeds: FeedEntry[]
   try {
@@ -248,7 +244,7 @@ export async function fetchRss(opts: RssOptions, deps: RssDeps = {}): Promise<Ra
         if (cond?.etag) headers['if-none-match'] = cond.etag
         if (cond?.lastModified) headers['if-modified-since'] = cond.lastModified
         const res = await fetchFn(feed.url, { headers, signal: ctrl.signal })
-        if (res.status === 304) { rec(feed, 'unchanged', 0); return [] } // unchanged since last cycle
+        if (res.status === 304) return [] // unchanged since last cycle
         if (!res.ok) {
           // cloak-shaped block → retry IMMEDIATELY with the honest contact UA before counting a failure
           if (!triedContact && (res.status === 403 || res.status === 404 || res.status === 302 || res.status === 410 || res.status === 451)) {
@@ -283,13 +279,10 @@ export async function fetchRss(opts: RssOptions, deps: RssDeps = {}): Promise<Ra
             snippet: it.snippet || undefined,
           })
         }
-        rec(feed, arts.length ? 'ok' : 'empty', arts.length)
         return arts
       } catch (e: any) {
         if (attempt === 3) {
-          const note = e?.name === 'AbortError' ? 'timeout' : e?.message || String(e)
-          log(`rss ${feed.source_name || feed.url}: ${note}, gave up`)
-          rec(feed, 'error', 0, note)
+          log(`rss ${feed.source_name || feed.url}: ${e?.name === 'AbortError' ? 'timeout' : e?.message || e}, gave up`)
           return []
         }
         await sleep(1000 * attempt)
@@ -333,7 +326,6 @@ export async function fetchRss(opts: RssOptions, deps: RssDeps = {}): Promise<Ra
   await Promise.all(Array.from({ length: Math.min(concurrency, hostKeys.length) }, worker))
 
   saveCache(opts.stateDir, cache)
-  recordRssHealth(opts.stateDir, health, now().toISOString().replace(/\.\d{3}Z$/, 'Z'))
 
   // dedup across feeds by URL (first occurrence wins) — unchanged contract
   const out: RawArticle[] = []
