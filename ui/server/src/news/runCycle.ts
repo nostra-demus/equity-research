@@ -406,16 +406,22 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         region: t.region,
       }))
       const n = bumpCycleCounter(stateDir)
-      const res = await runThemesCycle({
-        repoRoot,
-        stateDir,
-        items: themeItems,
-        runDiscovery: n % Math.max(1, cfg.themesDiscoverEveryCycles) === 0,
-        minScore: cfg.themesMinScore,
-        now,
-        cfg: themesConfigFromNews(cfg),
-        llmNamer: makeThemeNamer(cfg, fetchFn, stateDir, log),
-      })
+      // Hard time-bound: themes runs AFTER the core write, so it must NEVER eat the cycle. Even though
+      // every LLM call inside has its own 30s timeout, bound the whole stage as a belt-and-suspenders
+      // (a slow clustering pass or a retry loop can't stall the ingester) — the catch below logs + skips.
+      const res = await Promise.race([
+        runThemesCycle({
+          repoRoot,
+          stateDir,
+          items: themeItems,
+          runDiscovery: n % Math.max(1, cfg.themesDiscoverEveryCycles) === 0,
+          minScore: cfg.themesMinScore,
+          now,
+          cfg: themesConfigFromNews(cfg),
+          llmNamer: makeThemeNamer(cfg, fetchFn, stateDir, log),
+        }),
+        new Promise<never>((_, rej) => setTimeout(() => rej(new Error('themes stage exceeded 90s — skipped')), 90_000)),
+      ])
       for (const s of res.changed) newsBus.emit({ type: 'theme-update', theme: s })
       if (res.changed.length) log(`themes: ${res.changed.length} updated`)
     } catch (e: any) {
