@@ -10,17 +10,17 @@
     "ingest:once": "tsx src/news/ingest-once.ts",
     "enrich:eval": "tsx src/news/enrich-eval.ts",
     "typecheck": "tsc --noEmit",
-    "test": "tsx test/admission.test.ts && tsx test/watcher.test.ts && tsx test/data-readiness.test.ts && tsx test/readiness-gate.test.ts && tsx test/swarm.test.ts && tsx test/finalize.test.ts && tsx test/news.test.ts && tsx test/scope.test.ts && tsx test/rss.test.ts && tsx test/nse.test.ts && tsx test/exchange-intl.test.ts && tsx test/gov-data.test.ts && tsx test/rank.test.ts && tsx test/themes.test.ts && tsx test/dedup.test.ts && tsx test/story-floor.test.ts && tsx test/enrich.test.ts && tsx test/screener-actions.test.ts && tsx test/cancel-all.test.ts && tsx test/full-chain-schedule.test.ts",
+    "test": "node test/run-all.mjs",
     "feeds:health": "tsx ../../scripts/feed-health.ts --strict",
     "enrich:health": "tsx ../../scripts/news-enrich-health.ts"
   },
   "dependencies": {
-    "@fastify/cors": "^9.0.1",
-    "@fastify/static": "^7.0.4",
+    "@fastify/cors": "^10.0.1",
+    "@fastify/static": "^8.0.3",
     "chokidar": "^3.6.0",
     "execa": "^9.5.1",
     "fast-glob": "^3.3.2",
-    "fastify": "^4.28.1",
+    "fastify": "^5.8.5",
     "gray-matter": "^4.0.3",
     "marked": "^12.0.2",
     "zod": "^3.23.8"

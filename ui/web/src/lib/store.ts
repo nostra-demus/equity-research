@@ -930,6 +930,10 @@ export const useStore = create<State>((set, get) => ({
       for (const l of live) if (!scRunSources.has(l.runId)) connectScreenerRun(get, l.runId)
       // the event rail is part of the screener stage now — keep the wire backfilled + streaming live
       void get().scEnsureNewsStream()
+      // Themes is the screener's default landing view — open it on entry (the user can switch to
+      // Ranked/Latest/Everything from the rail, which closes it). Guarded so it never clobbers a
+      // deep-link into a specific event/company already in focus.
+      if (get().themesView === null && !get().scSelectedEvent && !get().scFocusedCompany) void get().openThemes('map')
     } catch {}
   },
 
