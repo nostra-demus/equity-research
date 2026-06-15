@@ -371,7 +371,10 @@ function saveCache(stateDir: string, cache: Record<string, EventEnrichment>): vo
     // BACKUP: copy the current good file aside BEFORE overwriting, so a crash mid-write leaves a recoverable
     // copy. Then write to a temp file and rename (atomic on POSIX) so a reader never sees a half-written file.
     try { if (fs.existsSync(main)) fs.copyFileSync(main, path.join(stateDir, CACHE_BACKUP_FILE)) } catch {}
-    const tmp = `${main}.tmp`
+    // per-process temp name so a second writer (e.g. the enrich-eval CLI racing the live engine) can't tear
+    // a shared tmp; the rename is atomic so a reader never sees a half-written main. main is only ever
+    // produced by this atomic path, so the copy-to-.bak above always copies a complete file, never a torn one.
+    const tmp = `${main}.${process.pid}.tmp`
     fs.writeFileSync(tmp, json)
     fs.renameSync(tmp, main)
   } catch {}
@@ -399,12 +402,17 @@ function ttlFor(r: EventEnrichment): number {
  *  ignore"); the RSS lede is frequently the real opening paragraph. Prefer the longest genuine prose of the
  *  two, falling back to the deterministic story floor. (A filing has no readable body → straight to floor.) */
 export function bestFallbackSummary(pageHtml: string, snippet: string, filingInput: StoryFloorInput, bodylessFiling: boolean): string {
-  if (bodylessFiling) return storyFloor(filingInput).summary
+  const floor = storyFloor(filingInput).summary
+  if (bodylessFiling) return floor
   const cands = [String(snippet || ''), pageHtml ? extractSummary(pageHtml) || '' : '']
     .map((s) => s.trim())
     .filter((s) => s.length >= 40 && /[a-z][a-z ,;:'"-]{12,}/i.test(s)) // real prose, not a code/stub
-    .sort((a, b) => b.length - a.length)
-  return (cands[0] || storyFloor(filingInput).summary).slice(0, 600)
+  // The deterministic floor (an honest "couldn't open the body — from the headline: …" restatement) is
+  // ALWAYS a candidate, so a vague short og:description dek ("one overriding theme you can't ignore") can
+  // never become the frozen story — only a genuinely more substantial lede (a real RSS/page opening) wins.
+  cands.push(floor)
+  cands.sort((a, b) => b.length - a.length)
+  return cands[0].slice(0, 600)
 }
 
 /**
@@ -615,7 +623,8 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
     else fetchNote = r.note || 'source blocked'
   }
 
-  let attempted = false // did we run the LLM body read this call? (drives read_attempts bookkeeping)
+  let attempted = false // did a provider actually RUN the LLM body read this call? (drives read_attempts; a skip is false)
+  let bodyReadable = false // was there enough body text to ever produce a read? (false → converge to floor, don't churn)
   if (isSec && pageHtml) {
     // an EDGAR filing index: the parsed item block IS the meaning; its page "summary" is header boilerplate.
     const sec = parseSecFiling(pageHtml)
@@ -637,9 +646,12 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
       : deps.groq?.apiKey
         ? [{ id: 'groq', kind: 'openai', apiKey: deps.groq.apiKey, baseUrl: deps.groq.baseUrl, model: deps.groq.model, maxTokens: deps.groq.maxTokens, rpm: deps.groq.rpm ?? 28, tpm: deps.groq.tpm ?? 6000, dailyReqCap: deps.groq.dailyReqCap ?? Number.MAX_SAFE_INTEGER, dailyTokenCap: deps.groq.dailyTokenCap ?? Number.MAX_SAFE_INTEGER, budgetFile: 'groq-budget.json', limiter: 'groq' }]
         : []
+    // Is there enough text to ever feed an LLM read? An off-list / unfetchable page with no usable RSS lede,
+    // or a body too thin to read, can NEVER produce a brief — retrying is pointless, so we converge it to the
+    // floor below instead of letting the heal pass re-fetch it forever (≈ the analyzeArticle min-body bar).
+    bodyReadable = body.replace(/\s+/g, ' ').trim().length >= 80
     let brief = null
     if (body && !bodylessFiling && providers.length) {
-      attempted = true // a real LLM read was tried — counts toward read_attempts so retries are bounded
       const r = await readArticleBrief(body, headline, providers, {
         stateDir: deps.stateDir,
         fetchFn,
@@ -649,6 +661,10 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
         limiterWaitMs: deps.limiterWaitMs,
       })
       brief = r.brief
+      // count this toward read_attempts ONLY if a provider actually ran an LLM call. A SKIP (all providers
+      // rate-limited / out of daily budget / past the deadline) is transient — counting it would let
+      // MAX_READ_ATTEMPTS freeze a readable article on the dek under the exact saturation that caused the bug.
+      attempted = r.attempted
     }
     if (brief && (brief.gist.length || brief.companies.length || brief.beneficiaries.length || brief.exposed.length)) {
       if (brief.gist.length) result.gist = brief.gist
@@ -682,6 +698,12 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
   // article that yielded a brief is complete via isEnrichmentComplete; one that didn't stays degraded
   // (short TTL → self-heals) until MAX_READ_ATTEMPTS, which commitEnrichment then accepts as final.
   if (result.sec || bodylessFiling) result.complete = true
+  // A NON-filing article with no readable body to feed an LLM (off-list / unfetchable page AND no usable
+  // snippet, or a body too thin to read) can never produce a brief — the deterministic floor IS the best
+  // obtainable read, so accept it as final NOW. Without this the entry never reaches MAX_READ_ATTEMPTS (a
+  // no-body read is a skip, not an attempt) and the heal pass + on-demand reopens churn it forever. A
+  // transient SKIP differs: there the body IS readable, so this doesn't fire — it stays degraded and retries.
+  else if (!bodyReadable && !isEnrichmentComplete(result)) result.complete = true
 
   // Commit through the no-clobber + attempt-bookkeeping guard (never overwrite a fresh good read with a
   // degraded one; bound retries). Returns the entry actually stored, which is what the client sees.

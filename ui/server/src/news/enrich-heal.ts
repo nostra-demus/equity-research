@@ -31,6 +31,7 @@ export interface HealDeps {
   now?: () => Date
   sleep?: (ms: number) => Promise<void>
   maxPerCycle?: number // how many degraded reads to re-attempt per call (default NEWS.enrichHealMaxPerCycle)
+  maxAgeMs?: number // skip entries degraded longer than this — structural failures, not transient (default NEWS.enrichHealMaxAgeMs)
   gapMs?: number // pause between re-reads, so a heal burst doesn't spike the source hosts (default 400)
   hasBudget?: () => boolean // skip the whole pass when no free LLM budget is left (gate from the scheduler)
   log?: (m: string) => void
@@ -65,6 +66,7 @@ export async function healEnrichCache(deps: HealDeps = {}): Promise<HealSummary>
   const now = deps.now ?? (() => new Date())
   const sleep = deps.sleep ?? ((ms: number) => new Promise<void>((r) => setTimeout(r, ms)))
   const maxPerCycle = deps.maxPerCycle ?? NEWS.enrichHealMaxPerCycle
+  const maxAgeMs = deps.maxAgeMs ?? NEWS.enrichHealMaxAgeMs
   const gapMs = deps.gapMs ?? 400
   const log = deps.log ?? (() => {})
 
@@ -83,8 +85,11 @@ export async function healEnrichCache(deps: HealDeps = {}): Promise<HealSummary>
     for (const it of feed.items as any[]) scoreById.set(it.event_id, Number(it.triage_score) || 0)
   } catch {}
 
+  const nowMs = now().getTime()
   const candidates = Object.entries(cache)
-    .filter(([id, e]) => !isEnrichmentComplete(e) && scoreById.has(id))
+    // degraded, still on the wire, and not so old it's clearly a structural failure (those keep the on-demand
+    // retry but stop occupying the capped background slots, so fresher degraded stories get healed instead).
+    .filter(([id, e]) => !isEnrichmentComplete(e) && scoreById.has(id) && nowMs - new Date(e.fetched_at).getTime() < maxAgeMs)
     .sort((a, b) => (scoreById.get(b[0]) || 0) - (scoreById.get(a[0]) || 0) || String(b[1].fetched_at).localeCompare(String(a[1].fetched_at)))
 
   const degraded = candidates.length

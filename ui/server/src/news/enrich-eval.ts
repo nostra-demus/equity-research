@@ -13,10 +13,15 @@
 // It is a CLI tool, NOT part of the unit suite (it needs the live Groq key + network). Cache-aware, so
 // re-runs are cheap. This is the "read the articles and check we're right" loop, automated.
 
+import path from 'node:path'
 import { NEWS, REPO_ROOT, STATE_DIR } from '../config'
 import { readFeed } from './feed'
 import { enrichEvent } from './enrich'
 import { isCompanyName } from './entities'
+
+// This dev CLI force-writes enrichment results; keep them OUT of the live engine's STATE_DIR so two writers
+// (this CLI + the running engine) never race the shared cache file. Override with ENRICH_EVAL_STATE_DIR.
+const EVAL_STATE_DIR = process.env.ENRICH_EVAL_STATE_DIR || path.join(STATE_DIR, 'enrich-eval')
 
 // did we actually read the article body? (a gist or a parsed SEC filing). Many sources paywall/403
 // the server fetch — those legitimately degrade to a summary + triage theme, and the body-only checks
@@ -55,7 +60,7 @@ async function main() {
   console.log(`enrich-eval: scoring ${sample.length} events (fresh read)…\n`)
   for (const it of sample) {
     // force a fresh read — an eval must test CURRENT behavior, not a stale cache entry
-    const e = await enrichEvent({ event_id: it.event_id, url: it.url, headline: it.headline, companies: it.companies, event_types: it.event_types, scope: it.scope }, { repoRoot: REPO_ROOT, stateDir: STATE_DIR, groq, force: true })
+    const e = await enrichEvent({ event_id: it.event_id, url: it.url, headline: it.headline, companies: it.companies, event_types: it.event_types, scope: it.scope }, { repoRoot: REPO_ROOT, stateDir: EVAL_STATE_DIR, groq, force: true })
     const read = wasRead(e)
     if (read) readCount++
     const failed: string[] = []

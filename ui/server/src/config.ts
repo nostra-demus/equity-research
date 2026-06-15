@@ -370,6 +370,10 @@ export const NEWS = {
   // story fixes itself even if no human reopens it. Capped + budget-gated so it never starves the title
   // triage. 0 disables the pass (the short degraded TTL still self-heals on the next manual open).
   enrichHealMaxPerCycle: capNum(process.env.NEWS_ENRICH_HEAL_MAX_PER_CYCLE, 6),
+  // Stop the BACKGROUND heal from re-fetching an entry that has stayed degraded this long (default 6h). By
+  // then it's had many heal cycles; a still-degraded item is a structural read failure, not a transient one,
+  // so keep re-trying it on demand (a human reopen) but free the capped heal slots for fresher stories.
+  enrichHealMaxAgeMs: capNum(process.env.NEWS_ENRICH_HEAL_MAX_AGE_MS, 6 * 60 * 60 * 1000),
 }
 
 /**

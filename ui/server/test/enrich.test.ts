@@ -55,7 +55,7 @@ const SNIPPET =
   'International cannabis revenue grew 73% but is only 12% of total revenue, and the company remains unprofitable at $206.7 million in sales.'
 const PAGE_HTML = '<html><head><meta property="og:description" content="There is one overriding theme you cannot ignore."><meta property="article:published_time" content="2026-06-14T10:45:00Z"></head><body><p>short</p></body></html>'
 
-function tmpRepo(): { repoRoot: string; stateDir: string } {
+function tmpRepo(snippet: string = SNIPPET): { repoRoot: string; stateDir: string } {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'enrich-test-'))
   const inbox = path.join(root, 'screener', 'inbox')
   fs.mkdirSync(inbox, { recursive: true })
@@ -63,7 +63,7 @@ function tmpRepo(): { repoRoot: string; stateDir: string } {
     kind: 'item', event_id: EVENT_ID, ts: NOW_ISO,
     headline: 'Tilray Is Growing 73% Internationally. Is That a Mistake?',
     url: 'https://www.fool.com/investing/2026/06/14/tilray/', source_name: 'The Motley Fool',
-    region: 'US', input_nature: 'news_headline', snippet: SNIPPET,
+    region: 'US', input_nature: 'news_headline', snippet,
     companies: [{ name: 'Tilray', ticker: 'TLRY', listing_country: 'US' }], event_types: ['earnings_revenue_margin'], triage_score: 98,
   }
   fs.writeFileSync(path.join(inbox, `${TODAY}_firehose.ndjson`), JSON.stringify(item) + '\n')
@@ -94,6 +94,11 @@ const PROVIDER: ArticleReadProvider = {
   id: 'test', kind: 'openai', apiKey: 'k', baseUrl: 'https://provider.test', model: 'm', maxTokens: 900,
   rpm: 10_000, tpm: 100_000_000, dailyReqCap: 1_000_000, dailyTokenCap: 1_000_000_000, budgetFile: 'test-budget.json', limiter: 'test',
 }
+// a provider whose daily budget is exhausted (cap 0) → readArticleBrief SKIPS it without any LLM call
+// (attempted=false). Models the exact provider-saturation that caused the original bug.
+const SKIP_PROVIDER: ArticleReadProvider = { ...PROVIDER, id: 'skip', budgetFile: 'skip-budget.json', limiter: 'skip', dailyReqCap: 0, dailyTokenCap: 0 }
+// a fetch that 403s the article page (no body) and is never asked for an LLM read
+const fetchPage403: typeof fetch = (async () => new Response('blocked', { status: 403 })) as typeof fetch
 const baseDeps = (repoRoot: string, stateDir: string, brief: ArticleBrief) => ({
   repoRoot, stateDir, force: true, articleProviders: [PROVIDER], fetchFn: makeFetch(brief),
 })
@@ -145,6 +150,35 @@ await check('e2e: the cache writes a recoverable .bak backup on save', async () 
   await enrichEvent({ event_id: EVENT_ID }, baseDeps(repoRoot, stateDir, GOOD_BRIEF))
   await enrichEvent({ event_id: EVENT_ID }, baseDeps(repoRoot, stateDir, GOOD_BRIEF)) // second save → .bak is written from the prior good file
   assert.ok(fs.existsSync(path.join(stateDir, 'news-enrich-cache.bak.json')), 'a backup copy exists after a second save')
+})
+
+// ---- regression tests for the adversarial-review findings ----
+
+await check('regression(F1): a SKIP (provider saturated, no LLM call) never counts as a read attempt or freezes the article', async () => {
+  const { repoRoot, stateDir } = tmpRepo() // readable body (snippet present)
+  let last: EventEnrichment | null = null
+  // even after MANY skips, the read must stay degraded (short TTL → self-heals when capacity returns),
+  // NOT promote to complete=true on the floor — that was the exact saturation that caused the original bug.
+  for (let i = 0; i < 4; i++) last = await enrichEvent({ event_id: EVENT_ID }, { repoRoot, stateDir, force: true, articleProviders: [SKIP_PROVIDER], fetchFn: makeFetch(GOOD_BRIEF) })
+  assert.equal(last!.complete, false, 'a pure skip never accepts the floor as final')
+  assert.equal(last!.degraded, true, 'stays degraded so it keeps retrying')
+  assert.ok(!last!.read_attempts, `skips do not increment read_attempts (got ${last!.read_attempts})`)
+  assert.ok(last!.summary && last!.summary.includes('$206.7 million'), 'still shows the rich lede while degraded')
+})
+
+await check('regression(F4/F5): a no-readable-body article (unfetchable page, no snippet) converges to complete (no infinite churn)', async () => {
+  const { repoRoot, stateDir } = tmpRepo('') // NO snippet
+  const r = await enrichEvent({ event_id: EVENT_ID }, { repoRoot, stateDir, force: true, articleProviders: [PROVIDER], fetchFn: fetchPage403 })
+  assert.equal(r.complete, true, 'no body to ever read → floor accepted as final (stops the heal pass churning it)')
+  assert.equal(r.degraded, false, 'not flagged degraded')
+  assert.ok(r.summary && /headline/i.test(r.summary), `shows the honest floor restatement, got: ${r.summary}`)
+})
+
+await check('regression(F2): a short vague og:description dek never out-ranks the honest floor', () => {
+  const dekHtml = '<html><head><meta property="og:description" content="There is one overriding theme you cannot ignore."></head><body><p>x</p></body></html>'
+  const out = bestFallbackSummary(dekHtml, '', { headline: 'Tilray Is Growing 73% Internationally. The Market Is Paying Almost No Attention. Is That a Mistake?' }, false)
+  assert.ok(!/one overriding theme/i.test(out), `the vague dek must not be the story, got: ${out}`)
+  assert.ok(/headline/i.test(out), 'falls back to the honest headline restatement when there is no real lede')
 })
 
 console.log(`\n${passed} checks passed`)

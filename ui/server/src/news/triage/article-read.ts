@@ -60,6 +60,11 @@ export interface ArticleReadResult {
   brief: ArticleBrief | null
   provider?: string // which provider/model answered (for logs/telemetry)
   note?: string // why no brief, when brief is null
+  // true iff a provider actually EXECUTED an LLM call. A SKIP — every provider rate-limited, daily budget
+  // reached, or the wall-clock deadline hit before any call ran — is false. The caller must NOT count a skip
+  // as a read attempt: doing so would let MAX_READ_ATTEMPTS freeze a perfectly-readable article on the floor
+  // under the exact provider-saturation that caused the original "frozen dek" bug.
+  attempted: boolean
 }
 
 const EST_TOKENS = 3500 // a body read's rough input+output cost (capped); used for budget + limiter sizing
@@ -86,6 +91,7 @@ export async function readArticleBrief(
   const limiterWaitMs = deps.limiterWaitMs ?? 2500
   const log = deps.log || (() => {})
   let lastNote = 'no LLM provider configured'
+  let attempted = false // flips true the instant any provider actually executes an LLM call (not a skip)
 
   for (const p of providers) {
     if (now() >= deadline) { lastNote = 'deadline reached before a provider answered'; break }
@@ -112,10 +118,11 @@ export async function readArticleBrief(
         if (!budget.canSpend(EST_TOKENS)) { lastNote = `${p.id}:${m.model} daily budget reached`; continue }
         const got = await limiter.acquire(EST_TOKENS, sleep, now, waitBudget())
         if (!got) { lastNote = `${p.id} rate-limited — skipped`; break } // shared minute window busy → next provider
+        attempted = true // an LLM call is about to run — this counts as a genuine read attempt
         const r = await analyzeArticleGemini(body, headline, { model: m.model, baseUrl: p.baseUrl, apiKey: p.apiKey, maxTokens: p.maxTokens, timeoutMs: callTimeout, maxAttempts: 1 }, fetchFn, sleep)
         budget.record(1, r.tokens || EST_TOKENS); budget.save()
         limiter.learn(r.rate, now)
-        if (r.brief && hasContent(r.brief)) { log(`article read via ${p.id}:${m.model}`); return { brief: r.brief, provider: `${p.id}:${m.model}` } }
+        if (r.brief && hasContent(r.brief)) { log(`article read via ${p.id}:${m.model}`); return { brief: r.brief, provider: `${p.id}:${m.model}`, attempted } }
         lastNote = r.note || `${p.id}:${m.model} returned no usable brief`
         if (r.note && /PerDay/i.test(r.note)) { budget.exhaust(); budget.save(); continue } // this model's day is spent → next pool model
         break // a non-quota miss: don't churn the pool — fall through to the next provider
@@ -125,15 +132,16 @@ export async function readArticleBrief(
       if (!budget.canSpend(EST_TOKENS)) { lastNote = `${p.id} daily budget reached`; continue }
       const got = await limiter.acquire(EST_TOKENS, sleep, now, waitBudget())
       if (!got) { lastNote = `${p.id} rate-limited — skipped`; continue } // minute window busy → next provider
+      attempted = true // an LLM call is about to run — this counts as a genuine read attempt
       const r = await analyzeArticle(body, headline, { model: p.model, models: p.models, baseUrl: p.baseUrl, apiKey: p.apiKey, maxTokens: p.maxTokens, headers: p.headers, extraBody: p.extraBody, timeoutMs: callTimeout, maxAttempts: 1 }, fetchFn, sleep)
       budget.record(1, r.tokens || EST_TOKENS); budget.save()
       limiter.learn(r.rate, now)
-      if (r.brief && hasContent(r.brief)) { log(`article read via ${p.id}`); return { brief: r.brief, provider: p.id } }
+      if (r.brief && hasContent(r.brief)) { log(`article read via ${p.id}`); return { brief: r.brief, provider: p.id, attempted } }
       lastNote = r.note || `${p.id} returned no usable brief`
       // a 4xx (auth / out-of-credits / quota) won't recover today — exhaust the daily budget so the chain
       // skips this provider across reads until the daily reset, exactly like the ingester does.
       if (r.note && /HTTP (400|401|402|403|404|413|429)/.test(r.note)) { budget.exhaust(); budget.save() }
     }
   }
-  return { brief: null, note: lastNote }
+  return { brief: null, note: lastNote, attempted }
 }
