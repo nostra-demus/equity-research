@@ -10,7 +10,6 @@ import { CompanyView } from './components/screener/CompanyView'
 import { ThemesView } from './components/screener/ThemesView'
 import { SignalIntake } from './components/screener/SignalIntake'
 import { LiveFeed } from './components/screener/LiveFeed'
-import { SourcesPanel } from './components/screener/SourcesPanel'
 import { PipelineBoard } from './components/screener/PipelineBoard'
 import { SwarmWarp } from './components/SwarmWarp'
 import { RunStreamPanel } from './components/RunStreamPanel'
@@ -62,7 +61,6 @@ export function App() {
   const callsOpen = useStore((s) => s.callsOpen)
   const pipelineOpen = useStore((s) => s.pipelineOpen)
   const newsFeedOpen = useStore((s) => s.newsFeedOpen)
-  const sourcesOpen = useStore((s) => s.sourcesOpen)
   const toast = useStore((s) => s.toast)
   const activeSwarm = useStore((s) => s.activeSwarm)
   const warp = useStore((s) => s.warp)
@@ -91,7 +89,6 @@ export function App() {
           freeze a framer exit mid-slide — instant close is deterministic (and exits should be
           faster than enters anyway); the entry slide still runs via initial/animate */}
       {newsFeedOpen && <LiveFeed />}
-      {sourcesOpen && <SourcesPanel />}
       <SignalIntake />
       <LaunchConfirm />
       <ReadinessWarnings />
