@@ -376,6 +376,8 @@ Modules implement the specifics (signals, factors, score caps, red-flag IDs) in 
 
 ## 25. Git Policy
 
+> **Scope — research-data output only.** This section is the *data* contract: it governs the engine's autonomous research commits (`analyses/**`, `screener/**`, `analyses/tracking/**`), which `commit-run.sh` writes and pushes straight to `main`. **Code changes do not follow this section** — engine source, the prompt-program under `.claude/`, `frameworks/`, the doctrine files, scripts, and CI go through branch → PR → CI → review → merge queue. See §28, which takes precedence for code.
+
 For ALL work in this repository:
 - Commit directly to the `main` branch.
 - Do NOT create working branches (no `claude/...`, no feature branches).
@@ -383,7 +385,7 @@ For ALL work in this repository:
 - Push every commit immediately to `origin/main`.
 - After making changes, report back: what changed, the commit SHA, and confirmation it pushed.
 
-This rule overrides any default session policy. Apply it to all work — scaffolding, agent edits, research runs, anything. The only exception: if I explicitly say "open a PR for this," then do so.
+This rule overrides any default session policy **for data commits**. Code — engine source, the prompt-program under `.claude/`, `frameworks/`, the doctrine files, scripts, and CI — does NOT follow this rule; it goes through a pull request (see §28, which takes precedence for code). The only exception: if I explicitly say "open a PR for this," then do so.
 
 ---
 
@@ -425,3 +427,22 @@ This engine covers companies in any market — the United States, India, and oth
 - Use the company's own fiscal year. An Indian "FY24" usually ends 31 March; a US "FY24" may end 31 December or otherwise — never assume a calendar of convenience, and never mix periods without reconciliation (§15).
 
 Each module's MODULE_RULES.md applies this map and may add its own regime-specific source list and sector overlays on top (management-governance already does). The citation format (§5) is unchanged: name the local document and its period.
+
+---
+
+## 28. Code vs Data Commit Streams
+
+Two different kinds of commit reach `main`, and they follow opposite rules. Telling them apart is what lets the engine publish research on its own while keeping all hand-written code — human or AI — under review.
+
+- **Data — the engine's research output.** The files `scripts/commit-run.sh` writes — `analyses/**`, `screener/**`, `analyses/tracking/**` — are produced by the running cockpit and pushed straight to `main`. **This is the stream §25 governs.** It is data-only by construction: `commit-run.sh` stages only the exact pathspecs it is handed (`git add -- "$@"`), and every caller hands it data paths. A caller that passes a code path is a bug, not a new allowance.
+- **Code — everything else.** Engine source (`ui/server/src/**`, `ui/web/**`), the prompt-program (`.claude/agents/**`, `.claude/commands/**`, `frameworks/**`), the doctrine files (`CLAUDE.md` and its twin), build, CI, and scripts (`scripts/**`, `.github/**`), and root `*.md`. **Code MUST go through branch → pull request → green CI → review → merge queue. It may NOT be pushed directly to `main` by any contributor, human or AI.** The agent, command, and framework `.md` files ARE the program — a bad edit changes research behaviour with no compiler to catch it — so they are gated exactly like source code.
+
+**Why two streams.** Research data is high in volume, low in risk, and machine-generated; gating it behind human review would stall the engine and train reviewers to rubber-stamp. Code is low in volume, high in risk, and changes behaviour for every future run; it has to be reviewed and tested. One repository, two rules.
+
+**Enforcement lives in the tooling, not in trust:**
+1. `commit-run.sh` stages only data pathspecs, so the code stream cannot leak through it by accident.
+2. A GitHub push ruleset blocks the code paths above on any direct push to `main`, **including the engine's own identity** — so even a buggy caller cannot land code unreviewed. The require-pull-request ruleset names the engine identity as its only bypass actor, so the engine keeps publishing data while every human and AI contributor must open a PR. The exact GitHub settings and the contributor workflow live in `CONTRIBUTING.md`.
+
+**Precedence.** When §25 and this section appear to conflict, **§28 wins for code and §25 wins for data.** §25's "commit directly to `main`" is the data contract; it does not authorise pushing code to `main`.
+
+**The twins must match.** This doctrine is maintained as two files — this one (`CLAUDE.md`) and its counterpart read by the other assistant — and they must stay identical except for each file's own name. Derive one from the other instead of hand-editing both; drift between them is a defect, and a CI check may enforce that they match.
