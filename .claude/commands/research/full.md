@@ -436,12 +436,14 @@ Record BOTH the `RATING-CAP:` and `HAIRCUT:` lines for step 11 ("Integrity gate"
 
 ```bash
 python3 - "<RUN_ROOT>" <<'PY'
-import json, glob, os, sys
+import json, glob, os, re, sys
 run = sys.argv[1]
 ft = os.path.join(run, "final_thesis.md")
 MARK = "PROVISIONAL — the automated finish-gate"
 # Latest truth-integrity report (versioned _v2/_v3…). MISSING or NOT-clean => PROVISIONAL.
-vrs = sorted(glob.glob(os.path.join(run, "verification_report*.json")))
+# Sort by VERSION NUMBER, not lexically, so verification_report_v10 lands after _v2 (not before).
+_vn = lambda p: int(re.search(r"_v(\d+)\.json$", p).group(1)) if re.search(r"_v(\d+)\.json$", p) else 1
+vrs = sorted(glob.glob(os.path.join(run, "verification_report*.json")), key=_vn)
 verify_reason = None
 if not vrs:
     verify_reason = "truth-integrity audit did NOT run (no verification_report.json) — citations, anchors, and §10/§15 math are unverified"
@@ -449,8 +451,10 @@ else:
     try:
         v = json.load(open(vrs[-1], encoding="utf-8"))
         verdict = (v.get("verdict") or "").strip()
-        if verdict in ("Material issues", "Failed"):
-            verify_reason = f"verify-evidence verdict = {verdict} (integrity {v.get('integrity_score')}/100, see {os.path.basename(vrs[-1])})"
+        # fail-CLOSED: anything that is not an explicit Clean / Minor-issues pass is PROVISIONAL —
+        # that covers Material issues, Failed, AND any blank / Error / Aborted / schema-drift verdict.
+        if verdict not in ("Clean", "Minor issues"):
+            verify_reason = f"verify-evidence verdict = {verdict or '(blank/unknown)'} (not Clean/Minor — integrity {v.get('integrity_score')}/100, see {os.path.basename(vrs[-1])})"
     except Exception as e:
         verify_reason = f"verification_report.json unreadable ({e}) — truth-integrity not confirmed"
 # Strip any existing finish-gate banner (from 10B.1), recover its reasons, merge, re-stamp (idempotent).
