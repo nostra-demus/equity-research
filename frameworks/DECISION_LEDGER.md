@@ -149,6 +149,8 @@ The canonical `decision_record.json` the synthesizer emits — one per final the
   "what_everyone_knows": "",
   "what_is_priced_in": "",
   "what_market_may_be_missing": "",
+  "edge_score": null,
+  "edge_proof": "",
   "killer_risk": "",
   "kill_criteria": [],
   "forecast_ledger": [],
@@ -205,6 +207,8 @@ The three `post_review_*` fields are **additive and optional** — the synthesiz
 | `what_everyone_knows` | Recommended | Consensus view. | Part I variant perception |
 | `what_is_priced_in` | Recommended | What the price implies. | Part I variant perception |
 | `what_market_may_be_missing` | Recommended | The claimed edge. | Part I variant perception |
+| `edge_score` | Additive (required for runs ≥ 2026-06-15) | Strength of *proven* variant perception, 0–100 (`CLAUDE.md` §7) — how well evidence proves the engine is genuinely different, not whether an edge story can be told. Near 0 when `what_market_may_be_missing` is consensus restated; high only when `edge_proof` is falsifiable and evidence-backed. **Binds the confidence cap** (synthesizer Confidence Scoring Rules): confidence may not exceed 60 unless `edge_score` ≥ 50 on a falsifiable `edge_proof`. | Part I Headline Scorecard / variant perception |
+| `edge_proof` | Additive (required for runs ≥ 2026-06-15) | `CLAUDE.md` §7 item 4 — the specific, falsifiable evidence that would prove the edge is real (and is therefore checkable at a later review). `""` when no edge is claimed. | Part I variant perception |
 | `killer_risk` | Yes | The single risk most likely to break the thesis. | Part I |
 | `kill_criteria` | Yes | Array of conditions that would invalidate the thesis. | Thesis Kill Criteria table |
 | `forecast_ledger` | Conditional | Array of forecast objects (§6); `[]` if none reliable. | Forecast Ledger |
@@ -219,6 +223,8 @@ The three `post_review_*` fields are **additive and optional** — the synthesiz
 | `pre_mortem_verdict` | Additive | The pre-mortem's verdict string (e.g. "Survives with haircut", "Does not survive — downgrade"). `""` if no pre-mortem ran. | Finish-gate patch (fix F28) |
 
 Rules: keep field names exactly as above. Absent values are `null` (numbers), `""` (strings), or `[]`/`{}` — never fabricated.
+
+**`edge_score` / `edge_proof` are additive** (introduced 2026-06-15) — they complete the `CLAUDE.md` §7 variant structure (consensus → priced-in → edge → *proof of edge*) and make the edge mechanical, so the confidence cap can bind to a number and the review loop can later grade it. Records dated before 2026-06-15 omit them; downstream consumers fall back to the narrative `variant_perception_*` fields and `confidence_score`. `schema_version` stays "1.0" — the same additive convention as `scenarios[]` and the `post_review_*` fields.
 
 ---
 
