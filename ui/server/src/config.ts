@@ -1,3 +1,4 @@
+import './load-env' // FIRST: load provider keys from the out-of-repo secret dir before any process.env read below
 import fs from 'node:fs'
 import os from 'node:os'
 import { fileURLToPath } from 'node:url'

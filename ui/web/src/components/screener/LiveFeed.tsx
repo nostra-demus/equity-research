@@ -145,18 +145,24 @@ export function LiveFeed() {
                 color="--accent"
                 title={`Groq daily token budget — paced evenly across the day so it never runs dry by noon. ${kfmt(status.budget.tokens)} of ${kfmt(status.budget.tokenTarget || status.budget.tokenCap)} tokens used today${status.budget.paceCeiling ? ` · ${kfmt(status.budget.paceCeiling)} released so far on the clock schedule` : ''}.`}
               />
-              {(status.overflow || []).map((o) => (
-                <BudgetChip
-                  key={o.id}
-                  label={`${o.label} overflow`}
-                  used={o.requests}
-                  cap={o.reqCap}
-                  unit="req"
-                  color={o.color}
-                  active={o.requests > 0}
-                  title={`Free-tier overflow (${o.model}) — picks up triage when Groq is paced or capped, so the day's throughput is Groq + every free pool. ${o.requests} of ${o.reqCap} requests used today.`}
-                />
-              ))}
+              {(status.overflow || []).map((o) => {
+                // TOKEN-gated providers (Cerebras) bind on tokens, not requests — show the chip in its
+                // binding unit so the bar is ground truth, not a non-binding request proxy. Request-gated
+                // providers (OpenRouter/NVIDIA, Gemini) have no tokenCap → show requests, exactly as before.
+                const tokenGated = typeof o.tokenCap === 'number' && o.tokenCap > 0
+                return (
+                  <BudgetChip
+                    key={o.id}
+                    label={`${o.label} overflow`}
+                    used={tokenGated ? o.tokens : o.requests}
+                    cap={tokenGated ? o.tokenCap! : o.reqCap}
+                    unit={tokenGated ? 'tok' : 'req'}
+                    color={o.color}
+                    active={(tokenGated ? o.tokens : o.requests) > 0}
+                    title={`Free-tier overflow (${o.model}) — picks up triage when Groq is paced or capped, so the day's throughput is Groq + every free pool. ${tokenGated ? `${kfmt(o.tokens)} of ${kfmt(o.tokenCap!)} tokens used today (token-gated — the binding limit; ${o.requests} requests).` : `${o.requests} of ${o.reqCap} requests used today.`}`}
+                  />
+                )
+              })}
             </div>
           )}
         </div>
