@@ -28,3 +28,13 @@ The first half of the Phase 1 assembly line. It turns a PROMOTED signal into the
 - The synthesis assembles the DRAFT thesis record (meta + M0_1..M0_5) at `{RUN_ROOT}/thesis_record.json` with `locked: false`, `status: active` (or the terminal status), and `version: 1`. Field names follow `frameworks/screener/thesis_record.schema.json` exactly.
 - Every agent report ends with a labelled `Verdict:` line; the synthesis ends with `## Machine Output` + `## Routing` (greppable `Routing:` line).
 - §5 citations on every fact: `[Source, Date, Section]`. Every magnitude has a baseline. Banned without quantification: "could benefit", "may be impacted", bare "significant"/"material", "market hasn't realized".
+
+## Writing Standard
+
+SWARM.md §8 plain-English rules apply to every prose section in this module's output files. Machine-facing fields (JSON field names, M0.x codes, DIR-/IND-/HARM- party IDs, routing lines, `## Machine Output`) stay technical.
+
+- **M0.1 event statement**: already has its own gate (sterile, no causal language) — the gate language check does not conflict with §21; both apply. The statement itself stays sterile. The explanatory prose around the gate results must be plain English.
+- **M0.2 world-change rows**: the table format stays. The "Deferred Items" rationale column: 1–2 plain sentences per row — why this change is hypothetical, not yet confirmed.
+- **M0.3 beneficiary map scoring notes**: 2–3 sentences per party explaining the score in plain English. Avoid academic phrasing like "exogenous demand-supply dynamics"; prefer "the event cuts supply, raising prices for everyone buying in the spot market."
+- **M0.4 / M0.5**: these are short fields by design — keep them crisp. The M0.5 falsification sentence must be plain enough to monitor without a finance background.
+- **Synthesis Abstract**: 2–4 sentences. What the event was, what the key world changes are, what the blast radius looks like, and what the routing is. No M0.x codes in the abstract prose.

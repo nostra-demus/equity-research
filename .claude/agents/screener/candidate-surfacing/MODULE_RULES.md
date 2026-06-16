@@ -31,3 +31,12 @@ The first place in the entire pipeline where tickers are allowed. Given a LOCKED
 - `candidates.json` per `frameworks/screener/candidates.schema.json`, copied to `screener/ledger/candidates/<thesis_id>.json`; board index refreshed.
 - The synthesis report ends with `## Machine Output` + `## Routing` (the routing here restates the thesis routing — this module never changes it).
 - §5 citations on exposure claims. Banned: "well positioned", "best play", "pure play" without the number that makes it pure.
+
+## Writing Standard
+
+SWARM.md §8 plain-English rules apply to every prose section in this module's output files. Machine-facing fields (JSON field names, party IDs like DIR-001, routing lines, `## Machine Output`) stay technical.
+
+- **Candidate cards** in the synthesis deck: the "Why" line is one plain sentence explaining how this company makes money from the thesis mechanism. "Flex LNG earns a daily charter rate for renting its LNG tankers; those rates just tripled" is right. "FLNG captures spot-rate uplift through contracted and market-rate voyages on its 174,000 cbm vessels" is not.
+- **Ranking Rationale paragraph**: 3–4 sentences. Why this order, what separates #1 from #2 — in plain English.
+- **Synthesis Abstract**: 2–4 sentences. The thesis in a phrase, how many names express it, the top pick and why, and what the human should do next.
+- **Caveats**: one plain sentence per caveat. What the risk is and why it matters — no acronyms without expansion on first use.

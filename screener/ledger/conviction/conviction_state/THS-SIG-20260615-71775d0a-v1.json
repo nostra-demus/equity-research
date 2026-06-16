@@ -1,0 +1,34 @@
+{
+  "thesis_id": "THS-SIG-20260615-71775d0a-v1",
+  "state": "provisional",
+  "sell_side_rating": "Starter Position Only",
+  "edge_locked": 71,
+  "edge_score_live": 71,
+  "conviction": 71,
+  "data_sufficiency_factor": 1.0,
+  "upgrade_velocity": 0.0,
+  "trajectory_enum": "steady",
+  "rank_score": 50.5,
+  "proximity_pct": 0.0,
+  "progress_confirmed": 0,
+  "progress_total": 11,
+  "validated": false,
+  "trajectory": [
+    {
+      "at": "2026-06-15T18:30:00Z",
+      "edge": 71
+    }
+  ],
+  "next_checkpoint": {
+    "checkpoint_id": "CHK-71775d0a-07",
+    "metric_name": "HONA regular-way opening price on Nasdaq",
+    "kind": "secondary_trigger",
+    "due_at": "2026-06-29"
+  },
+  "stale": false,
+  "insufficient": false,
+  "archived": false,
+  "plain_note": "Locked at edge 71 (Starter Position Only). 11 proof points scheduled; first up: HONA regular-way opening price on Nasdaq by 2026-06-29.",
+  "history": [],
+  "updated_at": "2026-06-15T18:15:02Z"
+}
