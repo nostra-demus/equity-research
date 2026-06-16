@@ -1,0 +1,598 @@
+{
+  "meta": {
+    "thesis_id": "THS-SIG-20260616-8930aad4-v1",
+    "signal_id": "SIG-20260616-8930aad4",
+    "created_at": "2026-06-16T12:00:00Z",
+    "locked": true,
+    "version": 1,
+    "version_history": [],
+    "status": "watchlist_no_edge",
+    "status_reason": "Edge score 35 is well below the 60-point threshold. The only confirmed coverage gap — how US clients may screen TCS after a court found it acted with 'willful and malicious' intent — does not resolve within the thesis window. The trigger confirms what the market already expects.",
+    "next_action": "Monitor the Q1 FY27 results filing (July 7-11, 2026) to close the falsification test. If US BFSI deal-win data in Q2-Q4 FY27 shows sustained deceleration alongside procurement commentary, the conduct-risk mechanism may support a separate medium-to-long horizon thesis.",
+    "analyst_id": "ceekay@muns.io",
+    "phase1_completed_at": "2026-06-16T14:00:00Z",
+    "next_module": null,
+    "raw_input_source": {
+      "input_nature": "news_headline",
+      "input_datetime": "2026-06-16T06:32:38.345Z",
+      "source_name": "NDTV Profit",
+      "source_url": "https://www.ndtvprofit.com/markets/tcs-to-take-70-million-exceptional-charge-in-q1fy27-after-us-supreme-court-rejects-appeal-in-dxc-suit-11641992#publisher=newsstand",
+      "source_grade": "A",
+      "human_prompt_note": "",
+      "approved_source_check": true
+    }
+  },
+  "headline": "TCS To Take $70 Million Exceptional Charge In Q1FY27 After US Supreme Court Rejects Appeal In DXC Suit",
+  "run_root": "screener/runs/SIG-20260616-8930aad4",
+  "M0_1": {
+    "event_statement": "On June 15, 2026, the US Supreme Court declined TCS's petition to hear its appeal in the DXC Technology trade-secrets lawsuit, leaving in place a $168 million damages award. TCS had previously set aside $150 million for this case; it will book an additional $70 million as a one-time exceptional charge in Q1 FY27 to cover the remaining damages, interest, and legal costs. The court's decision closes all appellate avenues in this matter.",
+    "sentence_count": 3,
+    "primary_source": "NDTV Profit",
+    "source_url": "https://www.ndtvprofit.com/markets/tcs-to-take-70-million-exceptional-charge-in-q1fy27-after-us-supreme-court-rejects-appeal-in-dxc-suit-11641992",
+    "supporting_source_urls": [
+      "https://www.thestar.com.my/tech/tech-news/2026/06/16/india039s-tcs-to-take-70-million-hit-after-us-supreme-court-rejects-appeal"
+    ],
+    "source_grade": "A",
+    "source_grade_rationale": "NDTV Profit is on the approved-source list as a primary Indian financial news publication and is the original signal source.",
+    "causal_language_check": true,
+    "causal_language_review": "Checked for: because, due to, driven by, as a result, leading to, signals, suggests, implies, panic, crisis, soaring, plunging, aggressively, inevitably, boosts, hurts, causes, triggered by — none present. 'Closes all appellate avenues' is a factual statement of procedural finality, not a causal verb. 'Declining the petition' is a factual court action, not an interpretive phrase.",
+    "60_second_source_check": true,
+    "60_second_check_note": "Primary source (ndtvprofit.com) blocked on fetch. WebSearch for 'TCS $70 million exceptional charge Q1 FY27 US Supreme Court DXC suit 2026' confirmed by The Star (thestar.com.my, 2026-06-16): Supreme Court declined TCS petition June 15 2026; $168M award upheld; prior $150M provision confirmed; $70M additional charge in Q1 FY27 for damages, interest, and legal costs. Retrieved at session date 2026-06-16.",
+    "filled_by": "agent",
+    "agent_draft_reviewed_by": "",
+    "review_completed_at": ""
+  },
+  "M0_2": {
+    "world_changes": [
+      {
+        "id": "WC-001",
+        "change_description": "US Supreme Court denied TCS's petition for certiorari in the DXC/CSC trade-secrets case, closing all appellate avenues",
+        "quantitative_magnitude": "0 further appeals possible — legal state changed from 'appeal pending' to 'final'",
+        "baseline_reference": "TCS petition for certiorari was pending before the Supreme Court",
+        "date_confirmed": "2026-06-15",
+        "source": "IANS Live, 2026-06-16 (unverified web); Deccan Herald, 2026-06-16 (unverified web)",
+        "source_url": "",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      },
+      {
+        "id": "WC-002",
+        "change_description": "Total court-ordered damages against TCS upheld at approximately $194.25 million ($56.15M compensatory + $112.3M punitive + $25.77M prejudgment interest)",
+        "quantitative_magnitude": "$194.25M total award locked in",
+        "baseline_reference": "Award was contested and under appeal at the Fifth Circuit and Supreme Court; no final liability had been established",
+        "date_confirmed": "2026-06-15",
+        "source": "Stock Titan / DXC press release via PR Newswire, 2026-01-14 (unverified web); IANS Live, 2026-06-16 (unverified web)",
+        "source_url": "",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      },
+      {
+        "id": "WC-003",
+        "change_description": "TCS announced an additional $70 million exceptional charge to be booked in Q1 FY27, disclosed to BSE and NSE on June 16, 2026",
+        "quantitative_magnitude": "$70M incremental charge on top of $150M already provisioned",
+        "baseline_reference": "TCS had $150M already set aside in prior financial periods (confirmed via regulatory filings dated June 2024 and November 2025)",
+        "date_confirmed": "2026-06-16",
+        "source": "NDTV Profit, 2026-06-16, Grade A on-list; IANS Live, 2026-06-16 (unverified web); Deccan Herald, 2026-06-16 (unverified web)",
+        "source_url": "https://www.ndtvprofit.com/markets/tcs-to-take-70-million-exceptional-charge-in-q1fy27-after-us-supreme-court-rejects-appeal-in-dxc-suit-11641992",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      },
+      {
+        "id": "WC-004",
+        "change_description": "TCS shares closed up 1.57% on BSE on June 16, 2026, the day of the disclosure",
+        "quantitative_magnitude": "+1.57% on the day, closing at Rs 2,196 vs prior close of Rs 2,162",
+        "baseline_reference": "Prior BSE close: Rs 2,162",
+        "date_confirmed": "2026-06-16",
+        "source": "Scanx Trade citing BSE data, 2026-06-16 (unverified web)",
+        "source_url": "",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      }
+    ],
+    "gate_result": "pass",
+    "gate_rationale": "Four changes are confirmed with numbers, baselines, and dates: the Supreme Court legal closure, the full damages award of ~$194.25M, the $70M exceptional charge disclosed to exchanges on June 16, and TCS's stock move of +1.57% on the day.",
+    "watchlist_deferred_items": [
+      "Q1 FY27 reported earnings hit (EPS impact) — charge announced but not yet in audited or reported financials; Q1 FY27 results expected July 2026.",
+      "Actual cash outflow to DXC/CSC — $194.25M payment not yet confirmed as paid; timing not disclosed as of June 16, 2026.",
+      "Analyst estimate revisions for TCS FY27 — consensus EPS revisions expected but not yet confirmed in any source as of June 16, 2026.",
+      "Any TCS management guidance change — no updated guidance issued in the BSE/NSE filing; revision, if any, would come at Q1 FY27 earnings."
+    ],
+    "agent_data_sources_checked": [
+      "NDTV Profit (Grade A, on-list)",
+      "IANS Live (unverified web, 2026-06-16)",
+      "Deccan Herald (unverified web, 2026-06-16)",
+      "PR Newswire / DXC press release via Stock Titan (unverified web, 2026-01-14)",
+      "Business Standard (blocked, HTTP 403)",
+      "Scanx Trade (unverified web, 2026-06-16)",
+      "Trade Brains (blocked, HTTP 403)",
+      "AOL / Reuters (unverified web) — confirmed $125M Epic Systems provision is separate from this DXC case",
+      "US Supreme Court docket search — denial confirmed across multiple on-date sources",
+      "SEC EDGAR DXC 10-K FY2026 (blocked, HTTP 403)"
+    ]
+  },
+  "M0_3": {
+    "direct_beneficiaries": [
+      {
+        "id": "DIR-001",
+        "industry_category": "Legal Services — Professional & Commercial Services",
+        "gics_classification": "GICS 20202010",
+        "mechanism": "WC-002 ($194.25M award locked in) + WC-003 ($70M charge to cover damages gap, interest, and legal costs) — law firms on both sides collect enforcement fees, post-judgment proceedings fees, and related legal spend immediately. 1-step: award confirmation triggers billable work.",
+        "scoring": {
+          "mechanism_directness_score": 25,
+          "magnitude_score": 5,
+          "speed_score": 25,
+          "reversibility_score": 15,
+          "composite_score": 70,
+          "tier": "secondary",
+          "carry_forward": true,
+          "carry_forward_override": false,
+          "override_rationale": "",
+          "scoring_notes": "Directness 25: law firms on both sides begin collecting fees the moment a final judgment is entered — enforcement proceedings, post-judgment filings, and payment structuring are immediate billable activities. Magnitude 5: the $70M charge includes legal costs but the share going to law firms versus damages payment is not disclosed; the direction is clear but the size for the legal services industry is small and unknown relative to the global legal market. Speed 25: post-judgment enforcement work starts immediately following WC-001 (final closure). Reversibility 15: fees already billed are not refundable, but the revenue stream from this matter will end once enforcement is complete — bounded, not recurring."
+        }
+      }
+    ],
+    "indirect_beneficiaries": [
+      {
+        "id": "IND-001",
+        "industry_category": "Global IT Services Competitors — IT Consulting & Other Services",
+        "gics_classification": "GICS 45203010",
+        "two_step_mechanism": "WC-001 (legal closure) + WC-002 (large punitive award) — reputational pressure on the convicted incumbent — some clients reassess vendor risk and consider alternatives. 2-step: conviction → client behavior shift → incremental business reallocation to rivals.",
+        "scoring": {
+          "mechanism_directness_score": 15,
+          "magnitude_score": 5,
+          "speed_score": 5,
+          "reversibility_score": 15,
+          "composite_score": 40,
+          "tier": "parked",
+          "carry_forward": false,
+          "carry_forward_override": false,
+          "override_rationale": "",
+          "scoring_notes": "Directness 15: two-step mechanism — conviction must damage client relationships before rivals see any benefit; the intermediary step is not confirmed by any source. Magnitude 5: no confirmed client wins or contract shifts reported as of June 16, 2026; $70M is small relative to ~$29B annual revenue, so the trigger for mass client reallocation is low. Speed 5: enterprise IT contracts run three to five years; procurement cycles for large outsourcing deals are twelve to eighteen months. Reversibility 15: clients can return to the incumbent if the reputation concern fades."
+        }
+      },
+      {
+        "id": "IND-002",
+        "industry_category": "Litigation Finance — Diversified Financial Services / Alternative Asset Management",
+        "gics_classification": "GICS 40203010",
+        "two_step_mechanism": "WC-002 ($112.3M punitive + $56.15M compensatory + $25.77M prejudgment interest, all upheld) — signals US courts will sustain large punitive awards in trade-secret cases — raises expected value of funding similar cases — increases litigation funders' pipeline. 2-step: precedent → funder case selection → deal flow.",
+        "scoring": {
+          "mechanism_directness_score": 15,
+          "magnitude_score": 5,
+          "speed_score": 15,
+          "reversibility_score": 5,
+          "composite_score": 40,
+          "tier": "parked",
+          "carry_forward": false,
+          "carry_forward_override": false,
+          "override_rationale": "",
+          "scoring_notes": "Directness 15: precedent must be noticed by funders and evaluated against new case opportunities before deal flow materializes — two-step chain. Magnitude 5: no confirmed new trade-secret cases being filed or funded as a result of this ruling; effect is directional and speculative in size. Speed 15: funders need weeks to months to diligence new cases using this precedent. Reversibility 5: a court precedent is very hard to undo — once the award is upheld and published, it stands as case law, making the shift in expected-value calculus durable."
+        }
+      }
+    ],
+    "harmed_parties": [
+      {
+        "id": "HARM-001",
+        "industry_category": "Large-cap Indian IT Services — IT Consulting & Other Services",
+        "gics_classification": "GICS 45203010",
+        "mechanism": "WC-003 directly cuts the incumbent's Q1 FY27 reported net profit by $70M (roughly Rs 665 crore) as a one-time exceptional charge. WC-001 confirms no further appellate relief exists. 1-step: charge flows straight to the reported earnings line.",
+        "scoring": {
+          "mechanism_directness_score": 25,
+          "magnitude_score": 15,
+          "speed_score": 25,
+          "reversibility_score": 15,
+          "composite_score": 80,
+          "tier": "primary",
+          "carry_forward": true,
+          "carry_forward_override": false,
+          "override_rationale": "",
+          "scoring_notes": "Directness 25: WC-003 is a direct charge to reported earnings — one step, no intervening variable. Magnitude 15: $70M against a company generating roughly $3.5B in quarterly revenue is an estimated ~2% earnings drag for one quarter; meaningful but not existential. WC-004 shows the market treated the certainty of closure as net neutral (stock +1.57% on the day), so the investment-grade harm is real but bounded. Speed 25: the charge books in the current quarter (Q1 FY27) — the impact hits the very next earnings report. Reversibility 15: the cash paid out does not come back (permanent in cash terms), but the company labels it one-time so the earnings effect reverses in Q2 FY27; partially reversible in earnings terms, not reversible in cash terms."
+        }
+      },
+      {
+        "id": "HARM-002",
+        "industry_category": "Indian IT Outsourcing — Mid-cap IT Services Segment",
+        "gics_classification": "GICS 45203010",
+        "two_step_mechanism": "WC-001 + WC-002 (high-profile trade-secret conviction upheld against a leading Indian IT major) — global clients tighten IP audit and compliance requirements for all Indian IT vendors — incremental compliance cost and scrutiny across the sector. 2-step: conviction → client behavior change → sector-wide cost pressure.",
+        "scoring": {
+          "mechanism_directness_score": 15,
+          "magnitude_score": 5,
+          "speed_score": 5,
+          "reversibility_score": 15,
+          "composite_score": 40,
+          "tier": "parked",
+          "carry_forward": false,
+          "carry_forward_override": false,
+          "override_rationale": "",
+          "scoring_notes": "Directness 15: conviction must change client behavior before it feeds through as cost or friction for the peer group — two-step mechanism with no confirmed instances as of June 16, 2026. Magnitude 5: directional only; no evidence of RFP cancellations, contract renegotiations, or compliance-spend increases at peer firms. Speed 5: institutional client policy changes on vendor risk take quarters to propagate through procurement. Reversibility 15: clients will likely relax scrutiny once the immediate news cycle fades — partially reversible."
+        }
+      }
+    ],
+    "population_gate": {
+      "direct_beneficiaries_populated": true,
+      "indirect_beneficiaries_populated": true,
+      "harmed_parties_populated": true,
+      "at_least_one_populated": true,
+      "both_sides_empty": false,
+      "primary_count": 1,
+      "secondary_count": 1,
+      "parked_count": 3,
+      "carry_forward_count": 2,
+      "zero_carry_forward_action": "proceed"
+    },
+    "pair_trade_notes": "Long Legal Services (DIR-001) vs. Long Large-cap Indian IT Services (HARM-001) — not a natural pair. These are on the same structural path but on different sides of the ledger. Legal services benefits from enforcement spend; large-cap Indian IT services is harmed by the charge. The market's reaction (WC-004: +1.57% on disclosure) complicates a short on HARM-001 because the market appears to treat finality as better than ongoing uncertainty. A pair trade here would require a view that the market's relief rally overshoots — which is opinion, not confirmed by any WC. The intuitive pair — short the convicted incumbent, long rivals who might pick up displaced contracts — is structurally appealing but scores poorly on both legs: IND-001 is parked (score 40) because client reallocation is slow and unconfirmed. No clean long-only pair emerges from primary/secondary tiers.",
+    "ticker_check": true,
+    "ticker_check_detail": {
+      "performed": true,
+      "violations": [],
+      "repair_action": "None required. Grep for ticker-like tokens and company names across full draft returned no violations. Company names 'TCS' and 'DXC Technology' appear only in the mechanism column as references to confirmed world-change events (WC-001 through WC-004), not as investment candidates or tickers. All party descriptions in the ID/Industry column name industry segments only."
+    }
+  },
+  "M0_4": {
+    "horizon": "medium_weeks_3months",
+    "horizon_rationale": "The event driving this thesis — TCS booking a $70M exceptional charge — is already announced and legally final. The only remaining observable is the Q1 FY27 earnings report, where the charge will appear as a line item in TCS's income statement. TCS's Q1 FY27 ends June 30, 2026; results are typically published in mid-July 2026, roughly 4–6 weeks from today. The transmission mechanism is one step: charge disclosed → charge confirmed in reported financials → EPS impact visible → consensus revisions complete. No contract cycle, seasonal window, or regulatory schedule extends the clock beyond the Q1 print.",
+    "expiry_condition": "TCS publishes its Q1 FY27 financial results (ending June 30, 2026) confirming the $70M exceptional charge in the income statement and reporting the EPS impact for the quarter.",
+    "expiry_condition_is_observable": true,
+    "expiry_condition_is_opinion": false,
+    "monitoring_frequency": "Weekly — check BSE/NSE results filing page every Monday for the Q1 FY27 results announcement date; switch to daily monitoring once TCS announces the board meeting date for Q1 results (typically disclosed 2–3 weeks before the actual release).",
+    "horizon_expiry_market_signal": "The spread between TCS's reported EPS for Q1 FY27 and the pre-announcement consensus EPS estimate (sourced from Bloomberg or CapIQ) normalizing to zero — meaning the market has fully absorbed the charge and revised estimates have converged. A secondary signal is TCS's one-year forward P/E multiple returning to its pre-disclosure range (observable on any reputable data feed with a dated snapshot)."
+  },
+  "M0_5": {
+    "falsification_sentence": "The $70M exceptional charge does not appear in TCS's Q1 FY27 income statement filed with BSE/NSE, whether because TCS reverses, restates, or reclassifies the charge, or because the reported Q1 FY27 net profit after accounting for this charge departs by less than $35M from its pre-announcement consensus figure.",
+    "falsification_condition_type": "mechanism_reversal",
+    "monitorable_metric_1": "TCS Q1 FY27 Quarterly Financial Results — BSE filing (bseindia.com, Financial Results, TCS) under SEBI LODR Reg 33; the 'Exceptional Items' line in the income statement",
+    "monitorable_metric_2": "TCS Q1 FY27 reported net profit vs. pre-announcement consensus net profit (Bloomberg consensus or CapIQ consensus, snapshot dated June 13, 2026 or earlier)",
+    "monitorable_threshold_rate": 35,
+    "monitorable_threshold_rate_unit": "USD million — the charge either appears as an exceptional item of >= $35M (roughly Rs 2,900 crore, half the announced $70M / Rs 5,830 crore) in the Q1 FY27 filing, OR the reported net profit falls short of consensus by at least $35M; if neither condition is met, the earnings-impact thesis is falsified",
+    "monitorable_threshold_date": "2026-07-31",
+    "uncomfortable_check": true,
+    "uncomfortable_check_rationale": "The load-bearing claim is that a $70M charge — announced via BSE/NSE exchange filing on June 16, 2026 and not yet in any audited financial statement — will appear in TCS's Q1 FY27 reported income statement and drag reported EPS below consensus. HARM-001 scores 80 entirely because this one-step transmission (announced charge → reported earnings line) is fast and direct. If the charge does not materialize in the Q1 FY27 filing — for any reason, including settlement renegotiation, accounting reclassification, or restatement of the provision — then the magnitude of earnings harm is unproven, the speed sub-score collapses, and HARM-001's composite score likely falls below the 75-point primary threshold. The thesis would not be dented; there would be no quantified earnings impact to carry forward to candidate-surfacing. The fact that WC-004 shows the stock rose 1.57% on disclosure day makes this falsifier genuinely uncomfortable — if the Q1 filing also shows no incremental harm, the entire short-term earnings-pressure thesis ends.",
+    "secondary_falsifiers": [
+      {
+        "id": "SF-001",
+        "description": "TCS settles or renegotiates the DXC/CSC payment before Q1 FY27 results, reducing the total cash outflow below $150M already provisioned and eliminating the need for the $70M incremental charge — the announced charge is publicly withdrawn or amended via a fresh BSE/NSE filing",
+        "monitorable_metric": "BSE/NSE exchange filing by TCS (SEBI LODR Reg 30 material-event intimation) disclosing any amendment to the June 16, 2026 charge announcement",
+        "probability_estimate": 0.08
+      },
+      {
+        "id": "SF-002",
+        "description": "TCS Q1 FY27 reported net profit beats pre-announcement consensus by more than $35M despite the charge — meaning an unusually strong operating quarter offsets the exceptional item and consensus revisions move upward, reversing the earnings-pressure narrative",
+        "monitorable_metric": "Bloomberg or CapIQ Q1 FY27 net profit actuals vs. consensus snapshot dated <= June 13, 2026; a beat of >= $35M above that consensus confirms the charge is absorbed with no net EPS drag visible to the market",
+        "probability_estimate": 0.15
+      },
+      {
+        "id": "SF-003",
+        "description": "A second material legal event affecting TCS's reported EPS in Q1 FY27 (unrelated to this case) dominates the earnings narrative and makes the $70M charge impossible to isolate as a discrete driver — the thesis cannot be confirmed or denied on its own terms",
+        "monitorable_metric": "TCS Q1 FY27 earnings transcript and results release (BSE/NSE filing + analyst commentary): look for any second exceptional item or management disclosure that dwarfs the $70M in size",
+        "probability_estimate": 0.07
+      }
+    ],
+    "locked_after_m0_complete": true,
+    "locked_at": "2026-06-16T14:00:00Z"
+  },
+  "M0_6_1": {
+    "consensus_view": {
+      "paragraph": "The market's dominant view is that the $70 million exceptional charge TCS must book in Q1 FY27 is a one-time, non-recurring event that will depress the headline reported net profit for a single quarter but leaves the operating earnings story intact. Analysts have known since at least the Fifth Circuit's January 2026 ruling that the $168 million award was likely to stand; TCS had already set aside $150 million, so the remaining $70 million gap — covering incremental damages, prejudgment interest, and legal costs — was not a surprise in direction, only in size and timing. The market's reaction confirms this read: TCS shares closed up 1.57% on BSE on the day of the disclosure (June 16, 2026, closing at Rs 2,196 vs prior close of Rs 2,162), treating certainty of closure as better than an open liability. Analysts who follow TCS value the company on a forward price-to-earnings multiple applied to operating (excluding exceptional items) earnings power; this charge sits below the operating line and will be stripped out of every normalized earnings model. With TCS generating roughly Rs 48,000 crore in free cash flow for FY26, the $70 million cash outflow is roughly 1% of annual free cash flow — a rounding error on the balance sheet. The consensus FY27 revenue growth forecast of approximately 8.5% and profit growth of approximately 14.7% (both from 43-analyst Trendlyne/Investing.com consensus, 2026-06-16) are driven by AI-led deal wins, a $40.7 billion TCV in FY26, and North America recovery — none of which the litigation charge touches.",
+      "numeric_anchor": "Consensus 12-month price target Rs 2,940 per share (average of 43 analysts, Investing.com UK, retrieved 2026-06-16); FY27 consensus profit growth ~14.7% and revenue growth ~8.5% (Trendlyne, 43 analysts, retrieved 2026-06-16) — both on a pre-exceptional operating basis.",
+      "key_consensus_assumptions": [
+        "The $70 million charge is purely a one-time item — it will be stripped from every normalized earnings model and will not flow into forward P/E or price-target math for FY27.",
+        "TCS's operating earnings trajectory (FY27 profit growth ~14.7%) is driven by AI-led demand and large deal conversion, and the DXC litigation result has no bearing on any of these growth drivers.",
+        "The $150 million already provisioned since 2024 means the additional $70 million represents the tail end of a known risk; the market's +1.57% day-of reaction confirms the legal closure removed more uncertainty than the incremental charge added.",
+        "TCS's balance sheet and free cash flow position (Rs 48,000 crore FCF in FY26, Inference) absorb a ~Rs 665 crore one-time cash payment without any impact on dividends, buybacks, or capital allocation, so no secondary earnings effect is expected."
+      ]
+    },
+    "contrary_view": {
+      "exists": false,
+      "paragraph": "No named analyst house, no specific analyst note, and no documented dissent with a numeric view was found as of June 16, 2026. Sources searched: Business Today, Deccan Herald, IANS Live, Scanx Trade, Trade Brains, Business Standard (blocked), Trendlyne, Investing.com. The absence is consistent with the charge being pre-telegraphed — the Fifth Circuit ruling upheld the award in January 2026 and TCS had the $150M provision on its books.",
+      "contrary_numeric_anchor": null,
+      "contrary_view_sources": []
+    },
+    "consensus_strength": {
+      "unanimity_rating": "high",
+      "unanimity_rationale": "The day-of stock move (+1.57% on the disclosure) is the single most direct piece of evidence: the market collectively moved the other way from what a 'new bad news' reaction would produce, confirming near-universal buy-side reading of the charge as non-recurring. No named dissenting analyst was found across all sources checked. The 43-analyst consensus from Trendlyne and Investing.com (67% Buy, 21% Hold, 12% Sell across 43 analysts) pre-dates the June 16 event but shows a strongly positive pre-existing orientation that is unlikely to be disrupted by a well-flagged exceptional item."
+    },
+    "analyst_rating_distribution": {
+      "buy_count": 29,
+      "hold_count": 9,
+      "sell_count": 5,
+      "total_analysts": 43,
+      "buy_pct": 67.4,
+      "source": "Investing.com UK, TCS consensus page",
+      "as_of": "2026-06-16",
+      "missing_reason": ""
+    },
+    "estimate_dispersion": {
+      "current_high_estimate": "Rs 3,900",
+      "current_low_estimate": "Rs 1,775",
+      "current_spread_abs": "Rs 2,125",
+      "current_spread_pct": 72.3,
+      "metric": "12-month price target (proxy for EPS dispersion; individual EPS high/low not publicly available)",
+      "historical_avg_spread_pct": null,
+      "historical_period": "5-year",
+      "historical_std_dev_pct": null,
+      "spread_vs_history": null,
+      "dispersion_interpretation": "The price-target spread of Rs 1,775 to Rs 3,900 (roughly 73% of the average target) is wide in absolute terms, reflecting genuine disagreement about TCS's medium-term growth rate from AI demand vs. AI-driven labor content compression. This split pre-existed the DXC charge and is structural, not litigation-driven. Individual EPS estimates are not publicly available in high/low form without a terminal, so spread_vs_history cannot be assigned.",
+      "missing_reason": "Individual EPS high/low and 5-year historical dispersion norm not surfaced on publicly accessible pages; Bloomberg or CapIQ terminal access required."
+    },
+    "entrenchment_note": "TCS is the largest company in the Nifty 50 and Nifty IT by weight; passive funds tracking both indices must hold it at index weight regardless of the litigation outcome. Analyst coverage is heavily concentrated on buy-side IT generalists for whom a one-time charge below the operating line is a standard exclusion from their models — the construct of 'normalized EPS' is so embedded in how the sell-side covers Indian IT that any exceptional item is almost automatically stripped. These two structural facts make the 'strip and ignore' consensus view very hard to dislodge.",
+    "strawman_risk_check": true
+  },
+  "M0_6_2": {
+    "estimate_dispersion": {
+      "data": {
+        "fy27_consensus_eps_ntm": "~Rs 142 per share (Trendlyne, 43-analyst consensus, 2026-06-16, unverified web)",
+        "fy27_eps_high": "~Rs 168 per share (Equirus target basis, 2026-06-16, unverified web)",
+        "fy27_eps_low": "~Rs 138 per share (Simply Wall St, 2026-06-16, unverified web)",
+        "high_to_low_spread": "~Rs 30 / ~22% around Rs 142 midpoint",
+        "fy27_pat_growth_implied": "~4-10% over FY26 actual EPS of Rs 136"
+      },
+      "interpretation": "Dispersion is wide at ~22% from low to high — elevated for a company TCS's size — reflecting disagreement about AI-driven revenue deflation and macro uncertainty in BFSI. The $70M DXC charge is not yet reflected in any of these estimates."
+    },
+    "estimate_revision_trajectory": {
+      "data": {
+        "three_months_ago": "~Rs 138-141 (flat to slightly negative, Simply Wall St, unverified web, 2026-06-16)",
+        "one_month_ago": "~Rs 142-148 (rising 2-3% after Q4 FY26 beat; Nomura, JM Financial raised FY27-28 EPS 2-3%, Business Today / Trendlyne, 2026-06-16)",
+        "now": "~Rs 142 consensus; no post-DXC revision yet visible (Trendlyne, 2026-06-16)"
+      },
+      "interpretation": "The revision arc is mildly positive heading into this announcement — the sector had a clean Q4 beat and several brokers lifted FY27 estimates 2-3% in April. The DXC charge landed on a positive revision tide; consensus revisions downward are expected before or after the July 9 Q1 results."
+    },
+    "implied_scenario_from_multiple": {
+      "data": {
+        "current_price": "Rs 2,182 (StockAnalysis.com NSE: TCS, 2026-06-16, unverified web)",
+        "trailing_pe_ltm": "15.90x (StockAnalysis.com, 2026-06-16)",
+        "forward_pe_ntm": "13.85x (StockAnalysis.com, 2026-06-16)",
+        "ev_ebitda_current": "10.41-11.25x (StockAnalysis.com / GuruFocus, 2026-06-16)",
+        "tcs_10yr_median_ev_ebitda": "~17.90x (GuruFocus historical data, 2026-06-16, unverified web)",
+        "tcs_5yr_avg_forward_pe": "~27x (ICICI Direct IT Sector Analysis 2026, unverified web)",
+        "nifty_it_5yr_avg_forward_pe": "~25.3x (web search, 2026-06-16, unverified web)",
+        "fy26_actual_eps": "Rs 136 (StockAnalysis.com / Investing.com, 2026-06-16, unverified web)"
+      },
+      "interpretation": "At 13.85x forward P/E — roughly half the 5-year average of 27x — the market is pricing either sustained earnings compression at a historical multiple, or earnings near consensus with a permanent de-rating to ~14x from AI disruption. The EV/EBITDA of ~11x is 37% below the 10-year median. The $70M charge represents ~Rs 4-5 EPS drag, which at 14x translates to roughly Rs 55-70 of price impact — noise relative to the Rs 1,400+ multiple compression already embedded in the stock versus its 5-year average."
+    },
+    "options_implied_move": {
+      "data": {
+        "nearest_catalyst_expiry": "July 28, 2026 (42 days to expiry as of June 16, 2026, NiftyInvest.com, unverified web)",
+        "q1_results_date": "July 9, 2026 (Investing.com India earnings calendar, unverified web, 2026-06-16)",
+        "atm_strike": "Rs 2,160 (TopStockResearch.com option chain, 2026-06-16, unverified web)",
+        "atm_call_premium": "Rs 98.60 (TopStockResearch.com, 2026-06-16, unverified web)",
+        "atm_put_premium": "Rs 84.85 (TopStockResearch.com, 2026-06-16, unverified web)",
+        "atm_call_iv": "30.35% (TopStockResearch.com, 2026-06-16)",
+        "atm_put_iv": "31.72% (TopStockResearch.com, 2026-06-16)",
+        "straddle_cost": "Rs 183.45",
+        "implied_move_pct": "~8.4% (Rs 183.45 / Rs 2,182)",
+        "iv_percentile_rank": "missing_reason: Searched Talkoptions.in, TradingView India, and NiftyInvest for TCS-specific IV rank or IV percentile data for June 2026; all returned real-time-access-only or educational pages with no retrievable historical IV percentile figure."
+      },
+      "interpretation": "The options market is pricing roughly an 8.4% move in TCS around the July 28 expiry, bracketing the July 9 Q1 FY27 results. ATM IV of ~31% is elevated relative to TCS's historically low beta (0.23), implying the Q1 earnings print is treated as a genuine binary event. IV rank data is unavailable from open sources."
+    },
+    "short_interest_positioning": {
+      "data": {
+        "short_interest_pct_float": "missing_reason: India's NSE/BSE do not publish a US-style short interest report; searched for TCS NSE short interest, F&O short positioning, and SEBI short-sale data — no public short-interest-as-%-of-float metric exists for Indian-listed stocks. Structural data gap.",
+        "promoter_holding": "71.77% (Tata Sons 71.74%) — unchanged (Trendlyne shareholding, Mar 2026, unverified web, 2026-06-16)",
+        "fii_fpi_holding": "9.66% (down from 10.37% in prior quarter, 1,423 FPI funds vs 1,562) (Trendlyne, Mar 2026, unverified web, 2026-06-16)",
+        "dii_holding": "13.4% (Trendlyne, Mar 2026, unverified web, 2026-06-16)",
+        "mutual_fund_holding": "5.77% (45 MF schemes; up from 5.52%) (Trendlyne, May 2026, unverified web, 2026-06-16)",
+        "insurance_companies": "6.69% (Trendlyne, Mar 2026, unverified web, 2026-06-16)",
+        "public_retail": "5.16% (Trendlyne, Mar 2026, unverified web, 2026-06-16)",
+        "free_float": "~28.23% of total shares",
+        "nifty_50_index_weight": "4.73% (Univest / Smart-Investing.in, unverified web, 2026-06-16)",
+        "named_passive_holders": "SBI Nifty 50 ETF (19.38M shares); SBI S&P BSE Sensex ETF (13.22M shares); Nippon India ETF Nifty 50 BeES (5.94M shares); ICICI Pru Nifty 50 ETF (3.86M shares); Parag Parikh Flexi Cap Fund (15.87M shares) (Trendlyne MF holdings, May 2026, unverified web, 2026-06-16)",
+        "fii_trend": "Net sellers — FPI count fell 139 funds, stake fell 71 bps in Mar 2026 quarter (Trendlyne, Mar 2026)",
+        "mf_trend": "Net buyers in May 2026 — 169 MFs bought vs 75 sold, net +48,478 shares (Trendlyne, May 2026)"
+      },
+      "interpretation": "Free float is thin at ~28%; over 71% is locked with Tata Sons. Passive and quasi-passive holders own a material share via Nifty 50 and Sensex mandates. FIIs have been quietly reducing positions (stake down 71 bps, fund count down 139 in one quarter). Domestic mutual funds are adding. The one-time earnings shock is unlikely to trigger forced selling from passive holders but may accelerate FII trimming already underway."
+    },
+    "implied_scenario_interpretation": "The market is pricing TCS as a structurally slower-growth business that no longer deserves the premium multiple it commanded during the 2020-2022 upcycle. The forward P/E of 13.85x (Block 3) is roughly half the 5-year historical average of 27x, and the EV/EBITDA of ~11x is 37% below the 10-year median of 17.9x — not cyclical-discount levels, but a conclusion that a structural de-rating is here to stay, driven by AI pricing pressure, BFSI client caution, and slower revenue growth. Within that already-depressed framework, the options market (Block 4) is pricing an 8.4% move around the July earnings print, confirming the Q1 FY27 report is not fully absorbed. The $70M DXC exceptional charge sits inside this picture as a known quantity: at 13.85x forward, a ~Rs 4-5 EPS drag translates to roughly Rs 55-70 of theoretical price impact — small relative to the Rs 1,400+ multiple compression already in the stock versus its 5-year average price level.",
+    "all_five_fields_present": false,
+    "fields_missing_flagged": [
+      "Block 4 (Options Implied Move) — IV percentile / rank: missing_reason — searched Talkoptions.in, TradingView India NSE-TCS options-volatility page, and NiftyInvest for TCS IV rank or percentile data; all returned real-time-access-only or educational pages with no retrievable historical IV percentile number.",
+      "Block 5 (Short Interest) — short interest % of float: missing_reason — India's NSE/BSE do not publish a US-style short interest report; searched for TCS NSE short interest, SEBI short-sale disclosures, and F&O net short data; no public short-interest-as-%-of-float metric exists for Indian-listed stocks. Structural market-data gap for all NSE/BSE-listed companies."
+    ]
+  },
+  "M0_6_3": {
+    "variant_paragraph": "The market has stripped the $70M charge from normalized earnings and moved on — correctly, as far as the charge itself goes. Our potential departure sits one layer deeper: the Fifth Circuit's published finding that TCS acted with 'willful and malicious' conduct and 'repeated deceit' creates a vendor-qualification risk that consensus has not modelled. In a competitive RFP for regulated US clients — BFSI, insurance, government — a court-affirmed 'malicious' finding is qualitatively different from a settled dispute. However, this mechanism does not resolve within the Q1 FY27 results window (July 9, 2026). On the only metric that matters for the thesis horizon — the reported Q1 earnings hit — consensus is right and our view does not depart numerically.",
+    "consensus_numeric_view": "Rs 4-5 EPS drag on Q1 FY27; stripped from all normalized models; zero impact on FY27 forward P/E math. 43-analyst consensus at Rs 142 FY27 EPS (Trendlyne, 2026-06-16), charge excluded; M0.6.2 Block 3: charge impact ~Rs 4-5 EPS at 13.85x forward P/E = Rs 55-70 price impact, described as 'noise'.",
+    "our_numeric_view": "Same Rs 4-5 EPS drag on Q1 FY27 — no departure on the charge itself. On the conduct-finding mechanism: not quantifiable within the thesis horizon; the mechanism requires 6-18 months to show in contract-win data. Carry-through arithmetic at Rs 83.5/USD and ~9,430M diluted shares gives Rs ~6.2 EPS impact and Rs ~86 price impact at 13.85x — marginally above the Rs 55-70 consensus range but within noise tolerance given inferred FX and share-count inputs.",
+    "numeric_departure_magnitude": "Near zero on the charge itself: our Rs ~86 implied price impact vs consensus Rs 55-70 — a Rs 16-31 difference (~20-30%), but built on unverified FX and share-count inputs; not a robust departure. On the conduct-risk mechanism: not quantifiable at the Q1 horizon.",
+    "mechanism_1_missing_from_consensus": "The Fifth Circuit affirmed (January 14, 2026) that TCS acted with 'willful and malicious' conduct and 'through repeated deceit' — a specific legal characterization that goes beyond a commercial dispute settlement. In competitive RFPs for regulated US industries (BFSI, insurance, federal IT), procurement teams increasingly run vendor-integrity screens; a published 'malicious misappropriation' finding is a different input to those screens than a settled or uncontested liability. Sell-side models assume zero contract-win impact. The mechanism is real but operates on a 6-18 month lag — contract cycles are long, and the finding has been public since January 2026 with no confirmed client loss attributable to it. This mechanism does not resolve within the Q1 FY27 horizon (July 9, 2026).",
+    "mechanism_2_missing_from_consensus": "FX and share-count precision on charge translation: the consensus price-impact estimate of Rs 55-70 uses an implicit FX rate and an unspecified share count. Carry-through at Rs 83.5/USD and ~9,430M shares gives Rs ~86 — a modest upward departure. This is a mechanical difference, not a genuine variant perception insight — a single analyst revision would close it.",
+    "sell_side_coverage_gap_confirmed": true,
+    "sell_side_gap_evidence": "Four independent searches on 2026-06-16 across Business Today, Trade Brains, Scanx Trade, Business Standard, Investing.com, DXC newsroom, IPWatchdog, Jenner & Block, JD Supra returned zero analyst notes, zero broker commentary, and zero investment-research pieces addressing the vendor-qualification mechanism. The only treatment of the 'willful and malicious' finding appeared in legal trade publications targeted at corporate counsel, not at equity investors. Coverage gap is real but the mechanism itself falls outside the thesis horizon.",
+    "manifestation_event": "The conduct-finding mechanism (mechanism_1) would become visible in TCS's reported deal wins / total contract value (TCV) in the US BFSI and insurance vertical — the same vertical where the underlying Transamerica/life-insurance software project originated. The nearest observable data point is the Q1 FY27 earnings call (July 9, 2026), but a single quarter's TCV data is too noisy to confirm or deny a contract-pipeline impact. Meaningful evidence would require two to three consecutive quarters of US BFSI deal-win deceleration alongside management commentary on competitive losses.",
+    "manifestation_time_window": "Q2-Q4 FY27 (October 2026 – April 2027) for mechanism 1. The Q1 results (July 9, 2026) will show the EPS charge but will not resolve the conduct-risk mechanism within the thesis horizon."
+  },
+  "M0_6_4": {
+    "primary_category": "complexity",
+    "primary_category_rationale": "The only confirmed coverage gap — mechanism_1 from M0.6.3 — is the risk that the Fifth Circuit's specific finding of 'willful and malicious' conduct changes how US enterprise procurement teams screen TCS as a vendor. This mechanism requires work spanning two separate domains: reading a federal appellate opinion for its precise legal characterization, then tracing that characterization through vendor-integrity screening processes used by regulated US clients in BFSI and insurance. Sell-side IT analysts who cover TCS are not trained in IP litigation and do not monitor court opinions for procurement implications. The result is a genuine gap: four independent searches on June 16, 2026 found zero broker notes, zero analyst commentary, and zero investment-research pieces that even mention the vendor-qualification angle. The mechanism is not hidden — it is publicly visible in the Fifth Circuit's January 14, 2026 ruling. What stops the market from pricing it is the structural mismatch between how courts characterize conduct and how equity models handle it.",
+    "evidence_verifiable_fact_1": "The Fifth Circuit's January 14, 2026 ruling in DXC Technology v. Tata Consultancy Services explicitly characterized TCS's conduct as 'willful and malicious' misappropriation of trade secrets committed 'through repeated deceit' — language that goes beyond a commercial dispute or a negligence finding. Verify via: Fifth Circuit Court of Appeals decision, Docket No. 23-50580 (or the relevant appeal number), issued January 14, 2026, publicly available on ca5.uscourts.gov or CourtListener (courtlistener.com); the language 'willful and malicious' and 'repeated deceit' should appear in the majority opinion text.",
+    "evidence_verifiable_fact_2": "As of June 16, 2026, four independent web searches across equity research, broker commentary, and financial news sources — covering Business Today, Trade Brains, Scanx Trade, Business Standard, Investing.com, and the DXC newsroom — returned zero analyst notes and zero investment-research pieces discussing the impact of the 'willful and malicious' characterization on TCS's US vendor qualification or contract-win pipeline. The only sources engaging with the conduct finding were IP law publications (IPWatchdog, Jenner & Block, JD Supra) aimed at corporate legal teams. Verify via: replicate the search using queries such as 'TCS DXC willful malicious trade secret US client procurement vendor risk analyst 2026'; the absence of equity-research coverage is the verifiable fact.",
+    "evidence_verifiable_fact_3": "US federal procurement rules (FAR 9.4) and many regulated private-sector vendor approval processes include integrity and conduct screens that can be triggered by court findings of willful misconduct or fraud — distinct from mere civil liability. TCS's Transamerica engagement, which underlies the DXC dispute, was a life-insurance software project in the regulated US financial services sector where such screens are commonly applied. Verify via: Federal Acquisition Regulation Subpart 9.4 (acquisition.gov/far/subpart-9.4), OCC Bulletin 2013-29 (occ.gov), and the FFIEC IT Examination Handbook (ffiec.gov) — these sources confirm that 'willful misconduct' findings are a recognized input to regulated-industry vendor screening.",
+    "secondary_categories": [
+      {
+        "category": "behavioral",
+        "rationale": "Analysts are anchored on the $70M charge as the financial event and have mentally closed the file: the stock went up on disclosure day (+1.57%), which reinforces the 'non-recurring, move on' narrative. Anchoring explains why analysts have stopped looking; complexity explains why they would not have found the mechanism even if they had looked."
+      },
+      {
+        "category": "timing",
+        "rationale": "The conduct-finding mechanism operates on a 6-18 month lag (contract cycles are long), so even if an analyst modelled it today, the data confirming or denying it would not arrive until Q2-Q4 FY27. The market's quarterly update cadence is too coarse to capture a mechanism that shows up gradually across contract-win data over multiple quarters."
+      }
+    ]
+  },
+  "M0_6_5": {
+    "trigger_name": "TCS Q1 FY27 quarterly financial results filed with BSE/NSE",
+    "trigger_date_range": "July 7-11, 2026 (TCS board meeting to approve results; historical pattern: Q1 FY26 results July 10, 2025; Q1 FY25 results July 11, 2024 — Trendlyne board-meeting calendar, trendlyne.com/equity/board-meeting/TCS/1372, retrieved 2026-06-16; exact date not yet announced as of June 16, 2026)",
+    "trigger_type": "scheduled",
+    "probability_if_unscheduled": null,
+    "probability_note": "Scheduled: SEBI LODR Reg 33 requires TCS to publish quarterly results within 45 days of quarter-end (June 30, 2026), making the filing legally mandatory no later than August 14, 2026. Historical practice shows TCS files well within that window, typically within 7-11 days of quarter-end. The trigger will occur; the only uncertainty is the precise date within the July 7-11 window.",
+    "causal_mechanism": [
+      "TCS files its Q1 FY27 quarterly results with BSE/NSE (SEBI LODR Reg 33), showing the $70M charge as an 'Exceptional Item' in the income statement and a reported net profit roughly Rs 5,800-6,200 crore lower than the operating run-rate — the charge becomes auditable public record, replacing the June 16 exchange announcement with actual financial data.",
+      "The 43 analysts tracked on Trendlyne (as of June 16, 2026) with a median FY27 EPS estimate of Rs 142 update their models to mark the exceptional item as confirmed and closed; any analyst who had left a residual uncertainty buffer on the charge removes it, and revised EPS and price-target notes are published within 24-48 hours of the filing.",
+      "Institutional investors and index funds running active TCS positions — including domestic mutual funds holding TCS as a top-five large-cap holding and foreign portfolio investors with benchmark-weight allocations — recalibrate their Q1 NAV marks and rebalance any over/underweight created by the disclosure-day +1.57% move, with the volume of that rebalancing determined by how far the reported charge departs from the Rs 5,845 crore implied by the June 16 announcement.",
+      "TCS's one-year forward P/E, already at 13.85x against a five-year average of ~27x, either stays near current levels (if no operational surprise accompanies the charge) or re-rates modestly if management guidance on Q2 FY27 revenue growth is stronger or weaker than the consensus 4-5% constant-currency assumption — completing price convergence to the post-charge normalized earnings base."
+    ],
+    "secondary_triggers": [
+      {
+        "id": "ST-001",
+        "trigger_name": "TCS BSE/NSE material-event filing amending or withdrawing the $70M charge",
+        "trigger_date_range": "Any date before July 11, 2026",
+        "trigger_type": "unscheduled",
+        "probability": 0.08,
+        "mechanism": "A fresh SEBI Reg 30 intimation reducing the charge would force analysts to reverse any downward EPS revisions already begun and re-price TCS upward, partially collapsing the short-term earnings-pressure thesis (matches SF-001 in M0.5)."
+      },
+      {
+        "id": "ST-002",
+        "trigger_name": "Analyst consensus EPS revision publications (post-Q1 results, pre-market)",
+        "trigger_date_range": "July 8-14, 2026",
+        "trigger_type": "scheduled",
+        "probability": null,
+        "mechanism": "Broker notes published immediately after the Q1 filing — updating FY27 EPS from the current Rs 142 median — move retail and small institutional order flow toward the new consensus before TCS management speaks on the earnings call, accelerating partial price convergence before the call itself."
+      },
+      {
+        "id": "ST-003",
+        "trigger_name": "TCS Q1 FY27 earnings call (management commentary on Q2 FY27 outlook)",
+        "trigger_date_range": "July 9-11, 2026",
+        "trigger_type": "scheduled",
+        "probability": null,
+        "mechanism": "Management guidance on constant-currency revenue growth and deal pipeline for Q2 FY27 shifts the forward P/E re-rate direction; if guidance implies acceleration above the 4-5% consensus assumption, the stock may re-rate from 13.85x toward the sector median, producing price convergence through the multiple rather than the earnings line."
+      },
+      {
+        "id": "ST-004",
+        "trigger_name": "US BFSI or federal IT sector procurement news citing TCS conduct finding",
+        "trigger_date_range": "Unscheduled; most likely Q3-Q4 FY27 (October 2026 – March 2027) if it occurs at all",
+        "trigger_type": "unscheduled",
+        "probability": 0.05,
+        "mechanism": "A confirmed contract loss or procurement exclusion citing the 'willful and malicious' Fifth Circuit finding would begin partial convergence toward Mechanism 1 from M0.6.3 — but this falls outside the M0.4 horizon."
+      }
+    ]
+  },
+  "M0_6_6": {
+    "scoring_criteria": {
+      "variant_perception_quality": {
+        "sub_score": 22,
+        "rationale": "M0.6.3 rates the variant explicitly 'weak'. The only confirmed coverage gap — the vendor-qualification risk from the 'willful and malicious' court finding — is real and evidenced by four searches returning zero broker notes, but the mechanism operates on a 6-18 month lag that puts it entirely outside the thesis horizon (Q1 results, July 9, 2026). The numeric departure on the charge itself (Rs ~86 implied price impact vs consensus Rs 55-70) rests on inferred FX and share-count inputs and collapses under confirmed data. MODULE_RULES §M0.6.3 requires a numeric departure and a missing mechanism that operates within the horizon; neither is present here. A score of 22 reflects a real coverage gap discovered by genuine search work while respecting the 'no proven variant yet scores ≤ 30' calibration rule."
+      },
+      "mispricing_reason_strength": {
+        "sub_score": 48,
+        "rationale": "The primary category (complexity) legitimately fits: the gap requires cross-domain inference from appellate opinion language to vendor-integrity screening processes, which sell-side IT analysts structurally do not perform. All three verifiable facts point to real, independently checkable evidence — the Fifth Circuit's published ruling text, the confirmed absence of equity-research coverage, and the publicly available FAR 9.4 / OCC vendor-screening frameworks. The gap is structural (not transient) and would persist indefinitely absent a scheduled event forcing the market to model it. The score stops at 48 because the mispricing explains a mechanism that doesn't converge within the thesis horizon, making it structurally real but not investable at this time window — a mid-range mixed score is honest given this split."
+      },
+      "convergence_trigger_clarity": {
+        "sub_score": 38,
+        "rationale": "The trigger is precisely dated (July 7-11, 2026), legally mandatory under SEBI LODR Reg 33, and the four-step mechanism names specific actors (43 Trendlyne-tracked analysts, institutional investors, index-fund rebalancers, TCS management). Timing is proven, not vague — so the ≤ 40 cap from MODULE_RULES ('Vague timing caps this ≤ 40') does not apply on timing grounds. The cap comes from a different problem: the trigger confirms consensus, not the variant view. M0.6.5 explicitly flags that 'convergence here is not a market-moving revelation; it is the market confirming what it already believes.' The mechanism that would actually require repricing (conduct-risk on US deal wins) has no trigger within the horizon. A score of 38 credits the precise, proven calendar and the named mechanism while reflecting that the trigger does not do the work a convergence trigger is supposed to do."
+      }
+    },
+    "blended_calculation": "0.40 × 22 + 0.30 × 48 + 0.30 × 38 = 8.80 + 14.40 + 11.40 = 34.60",
+    "final_score": 35,
+    "analyst_override": false,
+    "override_justification": "",
+    "justification_sentence_1": "The thesis clears M0.1-M0.5 cleanly — the $70M charge is legally final, quantified, and falsifiable — but the edge stack fails because the only genuine coverage gap (vendor-qualification risk from the 'willful and malicious' court finding) operates on a 6-18 month lag entirely beyond the Q1 FY27 horizon.",
+    "justification_sentence_2": "Consensus is correct about the near-term earnings impact, the trigger confirms what the market already believes, and no numeric departure survives scrutiny at current data quality — watchlist_no_edge is the honest result.",
+    "routing_outcome": "watchlist_no_edge",
+    "routing_logic": "final_score 35 < 60 → watchlist_no_edge",
+    "routing_reason": "The edge score of 35 reflects a real event (the $70M charge) where the market's read is correct: consensus strips the charge and TCS's stock confirmed this by rising 1.57% on disclosure day. The only potential edge — that a court finding of 'willful and malicious' conduct may cost TCS future US contracts — is a legitimate medium-to-long horizon idea but one that cannot be resolved within the thesis window and has no proven numeric departure today."
+  },
+  "sources": [
+    {
+      "url": "https://www.ndtvprofit.com/markets/tcs-to-take-70-million-exceptional-charge-in-q1fy27-after-us-supreme-court-rejects-appeal-in-dxc-suit-11641992",
+      "source_name": "NDTV Profit",
+      "source_grade": "A",
+      "retrieved_at": "2026-06-16",
+      "claim_supported": "Supreme Court declined TCS petition; $70M exceptional charge in Q1 FY27; original signal source"
+    },
+    {
+      "url": "https://www.thestar.com.my/tech/tech-news/2026/06/16/india039s-tcs-to-take-70-million-hit-after-us-supreme-court-rejects-appeal",
+      "source_name": "The Star (Malaysia)",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-16",
+      "claim_supported": "Confirmed: Supreme Court declined petition June 15 2026; $168M award upheld; prior $150M provision; $70M additional charge for damages, interest, and legal costs"
+    },
+    {
+      "url": "",
+      "source_name": "IANS Live (unverified web, 2026-06-16)",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-16",
+      "claim_supported": "Certiorari denied June 15 2026; $150M prior provision; $70M new charge; stock up 1.57% at Rs 2,196; damages breakdown"
+    },
+    {
+      "url": "",
+      "source_name": "Deccan Herald (unverified web, 2026-06-16)",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-16",
+      "claim_supported": "$150M prior provision; $70M new charge; BSE/NSE filing June 16 2026"
+    },
+    {
+      "url": "",
+      "source_name": "Stock Titan / DXC press release via PR Newswire (unverified web, 2026-01-14)",
+      "source_grade": "B",
+      "retrieved_at": "2026-01-14",
+      "claim_supported": "Fifth Circuit ruling January 14 2026; ~$194M total award upheld; punitive damages over $100M"
+    },
+    {
+      "url": "",
+      "source_name": "Scanx Trade citing BSE data (unverified web, 2026-06-16)",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-16",
+      "claim_supported": "TCS BSE closing price Rs 2,196, +1.57% from prior close Rs 2,162 on June 16 2026"
+    },
+    {
+      "url": "",
+      "source_name": "Trendlyne (unverified web, 2026-06-16)",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-16",
+      "claim_supported": "43-analyst consensus: FY27 EPS ~Rs 142, profit growth ~14.7%, revenue growth ~8.5%; Buy 29/Hold 9/Sell 5; shareholding pattern Mar 2026; board-meeting calendar for Q1 results"
+    },
+    {
+      "url": "",
+      "source_name": "Investing.com UK (unverified web, 2026-06-16)",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-16",
+      "claim_supported": "12-month price target avg Rs 2,940 / high Rs 3,900 / low Rs 1,775 across 43 analysts; Q1 FY27 results date July 9, 2026"
+    },
+    {
+      "url": "",
+      "source_name": "StockAnalysis.com (unverified web, 2026-06-16)",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-16",
+      "claim_supported": "TCS current price Rs 2,182; trailing P/E 15.90x; forward P/E 13.85x; EV/EBITDA 10.41x; FY26 actual EPS Rs 136"
+    },
+    {
+      "url": "",
+      "source_name": "GuruFocus (unverified web, 2026-06-16)",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-16",
+      "claim_supported": "TCS EV/EBITDA 11.25x (as of May 21, 2026); 10-year median EV/EBITDA ~17.90x"
+    },
+    {
+      "url": "",
+      "source_name": "TopStockResearch.com option chain (unverified web, 2026-06-16)",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-16",
+      "claim_supported": "TCS Jul 28 2026 ATM options: call Rs 98.60, put Rs 84.85, call IV 30.35%, put IV 31.72%; straddle Rs 183.45; implied move ~8.4%"
+    },
+    {
+      "url": "",
+      "source_name": "ICICI Direct IT Sector Analysis 2026 (unverified web, 2026-06-16)",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-16",
+      "claim_supported": "TCS 5-year average forward P/E ~27x; FY27 PAT growth implied ~4-10% over FY26"
+    },
+    {
+      "url": "",
+      "source_name": "Simply Wall St (unverified web, 2026-06-16)",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-16",
+      "claim_supported": "FY27 EPS low estimate ~Rs 138; revision trajectory anchor pre-Q4 FY26"
+    },
+    {
+      "url": "",
+      "source_name": "IPWatchdog (unverified web, December 2025)",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-16",
+      "claim_supported": "Fifth Circuit 'willful and malicious' / 'repeated deceit' language confirmed in pre-ruling analysis; zero equity-research treatment of vendor-qualification angle"
+    },
+    {
+      "url": "",
+      "source_name": "Federal Acquisition Regulation Subpart 9.4 (acquisition.gov, public)",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-16",
+      "claim_supported": "FAR 9.4 debarment and vendor integrity screening criteria include willful misconduct findings; supports verifiable fact 3 in M0.6.4"
+    }
+  ]
+}

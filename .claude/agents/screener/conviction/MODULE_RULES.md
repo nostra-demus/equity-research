@@ -47,6 +47,8 @@ under §12, not weaker.)
 - A missed by-date freezes the rating (`stale`) — a rotting idea never looks alive (§1, §8).
 - `unresolved` is honest and valid — refuse to fabricate a value (§3, §11).
 - Plain English on every surface the board shows (§21): the `plain_note` is one jargon-free sentence
-  that cites the real number.
+  that cites the real number. SWARM.md §8 applies to all validator prose beyond the `plain_note` too —
+  the "note" field in the JSON verdict is one plain sentence; any surrounding reasoning is 2–3 sentences
+  maximum. Write for someone who can read the number but doesn't know what a checkpoint is.
 - Engine moves are written to the conviction ledgers, **not** through the human override path
   (`overrides.ndjson` / `moveThesis`) — a human's move always wins and is never confused with the engine's.
