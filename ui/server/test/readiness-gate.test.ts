@@ -2,11 +2,20 @@
 // a real CLI (deferredSpawn is stubbed): a blocked run can't proceed, a degraded run can, cancel/404/409.
 import assert from 'node:assert'
 import fs from 'node:fs'
+import os from 'node:os'
 import path from 'node:path'
 import { IN_FLIGHT_STATUSES, createRun, inFlightRunsForTicker, setActiveTickerRun, type RunState } from '../src/registry'
 import { cancel, decideReadiness, finalizeRunOnClose } from '../src/launcher'
 import { REPO_ROOT } from '../src/config'
 import type { ReadinessReport } from '../src/types'
+
+// Every fixture this test writes (the readiness_override.json traces) lands in a private os.tmpdir()
+// sandbox, never under the repo's analyses/. writeReadinessOverride() builds its path as
+// path.join(REPO_ROOT, run.runRoot), so a run's runRoot is expressed as a path RELATIVE to REPO_ROOT that
+// escapes out to the temp dir — path.join(REPO_ROOT, runRootFor(sub)) round-trips to path.join(TMP_ROOT,
+// sub). Removed in teardown, so a failed check can never leave an untracked analyses/TEST_X/ behind.
+const TMP_ROOT = fs.mkdtempSync(path.join(os.tmpdir(), 'readiness-gate-'))
+const runRootFor = (sub: string) => path.relative(REPO_ROOT, path.join(TMP_ROOT, sub))
 
 let pass = 0
 function ok(cond: boolean, msg: string) {
@@ -28,7 +37,7 @@ function mkAwaiting(rep: ReadinessReport): { run: RunState; spawned: () => boole
   let spawned = false
   const run = createRun({
     kind: 'full', ticker: 'TEST', model: 'haiku', prompt: 'x', user: 'local', userVia: 'local',
-    runRoot: 'analyses/TEST_X', willCommitToMain: true, writeTargetsAbs: [], coveredModules: [], readDepsAbs: [],
+    runRoot: runRootFor('TEST_X'), willCommitToMain: true, writeTargetsAbs: [], coveredModules: [], readDepsAbs: [],
   })
   run.status = 'awaiting-readiness-decision'
   run.readiness = rep
@@ -69,21 +78,19 @@ async function main() {
   }
 
   // ---- A.4: override (typed-ack) + the indelible trace sidecar ----
-  const TEST_ROOT = 'analyses/.test_readiness_gate'
-  const traceFile = (sub: string) => path.join(REPO_ROOT, TEST_ROOT, sub, 'readiness_override.json')
-  fs.rmSync(path.join(REPO_ROOT, TEST_ROOT), { recursive: true, force: true })
+  const traceFile = (sub: string) => path.join(TMP_ROOT, sub, 'readiness_override.json')
 
   // 7. override a BLOCKER without the typed ticker -> 412; not spawned; no trace
   {
     const { run, spawned } = mkAwaiting(report('blocked', true))
-    run.runRoot = `${TEST_ROOT}/r7`
+    run.runRoot = runRootFor('r7')
     const res = await decideReadiness(run.runId, 'override', 'admin', 'WRONG')
     ok(!res.ok && res.httpStatus === 412 && !spawned() && !fs.existsSync(traceFile('r7')), 'override without the typed ticker is 412; no spawn, no trace written')
   }
   // 8. override a BLOCKER WITH the ticker (case-insensitive) -> proceeds + writes the trace
   {
     const { run, spawned } = mkAwaiting(report('blocked', true))
-    run.runRoot = `${TEST_ROOT}/r8`
+    run.runRoot = runRootFor('r8')
     const res = await decideReadiness(run.runId, 'override', 'admin@x', 'test')
     const t = fs.existsSync(traceFile('r8')) ? JSON.parse(fs.readFileSync(traceFile('r8'), 'utf8')) : null
     ok(res.ok && spawned() && t?.action === 'override-blocker' && t?.decided_by === 'admin@x' && t?.issues.length === 1,
@@ -92,7 +99,7 @@ async function main() {
   // 9. proceed on a DEGRADED gate -> also records a trace (a human accepted the gaps)
   {
     const { run, spawned } = mkAwaiting(report('degraded'))
-    run.runRoot = `${TEST_ROOT}/r9`
+    run.runRoot = runRootFor('r9')
     const res = await decideReadiness(run.runId, 'proceed', 'local')
     const t = fs.existsSync(traceFile('r9')) ? JSON.parse(fs.readFileSync(traceFile('r9'), 'utf8')) : null
     ok(res.ok && spawned() && t?.action === 'proceed-degraded', 'proceed on a degraded gate records a proceed-degraded trace')
@@ -102,7 +109,7 @@ async function main() {
   {
     let spawns = 0
     const { run } = mkAwaiting(report('degraded'))
-    run.runRoot = `${TEST_ROOT}/r10`
+    run.runRoot = runRootFor('r10')
     run.deferredSpawn = async () => { await Promise.resolve(); spawns++; run.status = 'running' }
     const results = await Promise.all([
       decideReadiness(run.runId, 'proceed', 'local'),
@@ -111,7 +118,6 @@ async function main() {
     const okCount = results.filter((r) => r.ok).length
     ok(spawns === 1 && okCount === 1, 'concurrent decisions spawn the engine exactly once (no double-spawn race)')
   }
-  fs.rmSync(path.join(REPO_ROOT, TEST_ROOT), { recursive: true, force: true })
 
   // 11. a gate-paused run is IN-FLIGHT for admission (HIGH-severity audit fix) — both pre-spawn gate
   //     states must be in IN_FLIGHT_STATUSES so a paused run still holds its ticker claim + a slot
@@ -166,14 +172,12 @@ async function main() {
   //     line of defense (Reviewer A: "a user can POST proceed to the phantom; it passes the status guard").
   //     RED before the fix: proceedSpawn set status='running' + spawned the deferred engine.
   {
-    const TEST_ROOT15 = 'analyses/.test_readiness_gate'
     const { run, spawned } = mkAwaiting(report('degraded'))
-    run.runRoot = `${TEST_ROOT15}/r15`
+    run.runRoot = runRootFor('r15')
     run.endedAt = Date.now() // cancel() finalized it during the gate's async window; status still reads awaiting
     const res = await decideReadiness(run.runId, 'proceed', 'local')
     ok(!res.ok && !spawned() && res.status === 'cancelled',
       'a finalized run is not revived/spawned by a late proceed (no phantom in-flight run)')
-    fs.rmSync(path.join(REPO_ROOT, TEST_ROOT15), { recursive: true, force: true })
   }
   // 16. AUDIT FIX (single terminal event) — cancel() on a run still in the pre-spawn gate check
   //     (status 'readiness-checking', no child) finalizes with EXACTLY ONE run-error(cancelled) emit and
@@ -194,17 +198,17 @@ async function main() {
   //     passing it and each spawning an engine CLI for one run. RED before the fix: recheck left status
   //     'awaiting-readiness-decision' across the await, so the concurrent proceed reached proceedSpawn.
   {
-    const TEST_ROOT17 = 'analyses/.test_readiness_gate'
     const { run, spawned } = mkAwaiting(report('degraded'))
-    run.runRoot = `${TEST_ROOT17}/r17`
+    run.runRoot = runRootFor('r17')
     const p = decideReadiness(run.runId, 'recheck', 'local') // claims status synchronously, then awaits the real check
     ok(run.status === 'readiness-checking', 'recheck claims the run synchronously (readiness-checking) before its async re-check')
     const concurrent = await decideReadiness(run.runId, 'proceed', 'local') // sees readiness-checking -> entry guard
     ok(!concurrent.ok && concurrent.httpStatus === 409 && !spawned(), 'a concurrent decision during the recheck window is rejected — no second spawn')
     await p.catch(() => {}) // drain the recheck (runReadiness on the no-data TEST ticker -> blocker -> re-opens)
-    fs.rmSync(path.join(REPO_ROOT, TEST_ROOT17), { recursive: true, force: true })
   }
 
   console.log(`\n  ${pass} checks passed`)
 }
-main().catch((e) => { console.error(e); process.exit(1) })
+main()
+  .then(() => fs.rmSync(TMP_ROOT, { recursive: true, force: true }))
+  .catch((e) => { fs.rmSync(TMP_ROOT, { recursive: true, force: true }); console.error(e); process.exit(1) })
