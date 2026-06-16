@@ -43,3 +43,18 @@ jobs:
 
       - name: Tests
         run: npm test
+
+  eval-contracts:
+    name: eval — decision-record contracts + framework anchors
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Run eval harness (all committed runs + J framework-contract checks)
+        run: python3 scripts/eval.py all
