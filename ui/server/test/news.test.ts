@@ -392,6 +392,41 @@ await check('triage falls back to OVERFLOW when Groq fails — the batch is scor
   assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 0, 'nothing deferred — overflow handled it')
 })
 
+// ---- a token-gated overflow provider (Cerebras) paces on its daily TOKEN cap, not just requests ----
+await check('overflow paces on the daily TOKEN cap, not just requests (token-gated free tier like Cerebras)', async () => {
+  const root = tmp()
+  const state = tmp()
+  // each scored item is a clear 'pick'; every overflow call reports 600 tokens of usage
+  const goodTriage = { usage: { total_tokens: 600 }, choices: [{ message: { content: JSON.stringify({ items: [
+    { i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'A rate move shifts funding costs.', companies: [], size_bucket: 'unknown' },
+  ] }) } }] }
+  let gdeltServed = false
+  let cbHits = 0
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('groq')) return res('upstream sad', 503) // Groq DOWN all cycle → everything routes to overflow
+    if (u.includes('cerebras.test')) { cbHits++; return res(goodTriage) } // token-gated overflow, 600 tok/call
+    if (u.includes('reuters.com') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: [
+        { url: 'https://reuters.com/a', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' },
+        { url: 'https://reuters.com/b', title: 'Fed signals one more hike as inflation proves sticky', domain: 'reuters.com', seendate: '20260612T090100Z' },
+      ] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  // dailyReqCap is huge (would NOT bind), but dailyTokenCap (900) fits only ONE 600-token call: the 2nd item's
+  // canSpend(est≈595) sees 600 already spent (600+595>900) and is gated BEFORE any call. A request-only cap
+  // (the prior hardcoded 50M) would have scored both — so this proves runCycle honors p.dailyTokenCap.
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, triageBatch: 1,
+    overflowProviders: [{ id: 'cerebras', label: 'Cerebras', color: '--provider-cb', kind: 'openai', apiKey: 'k', baseUrl: 'https://cerebras.test/v1', model: 'llama-3.3-70b', maxTokens: 2500, rpm: 6000, tpm: 55_000, dailyReqCap: 14_400, dailyTokenCap: 900, budgetFile: 'cerebras-budget.json', limiter: 'cerebras' }] } as any
+  const now = () => new Date('2026-06-12T09:30:00Z')
+  const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  assert.equal(cbHits, 1, 'only ONE overflow call fit under the daily token cap (the 2nd was gated before any call)')
+  assert.equal(s.picked, 1, 'exactly one item scored before the token cap bit')
+  assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 1, 'the 2nd item deferred on the TOKEN cap — a request-only cap would not have stopped it')
+})
+
 await check('a failed Groq batch is DEFERRED (not zero-scored-and-seen) and is scored on the next cycle from spillover', async () => {
   const root = tmp()
   const state = tmp()

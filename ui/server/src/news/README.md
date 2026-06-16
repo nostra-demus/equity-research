@@ -82,6 +82,25 @@ check that reuses the production parser and reports the real item-link domains),
 `frameworks/screener/rss_feeds.json`, and ensure its **link** domain is on the `approved-domains.ts`
 firewall + the `SWARM.md` allow-list. `scripts/gen-wiring.py` automates the firewall/allow-list rows.
 
+## Free overflow brains (when Groq is paced/capped)
+
+When Groq's paced daily budget is spent, a batch routes to a free **overflow** pool instead of
+deferring, so the day's throughput = Groq + every free pool. Each pool keeps its own daily budget
+file + isolated per-minute limiter, and is **off unless its key is set** (secrets live in env, never
+in source). Adding an OpenAI-compatible key is a single entry in `buildOverflowProviders()` — it then
+auto-appears in routing, the article-read chain, the drain gate, status, and as a cockpit chip (§26).
+
+- **Gemini** (`GEMINI_API_KEY`) — a rotation pool of free models (`generateContent`), each its own
+  per-day bucket, resetting midnight Pacific.
+- **Cerebras** (`CEREBRAS_API_KEY`) — leads the chain: the biggest + fastest free pool (llama-3.3-70b
+  at ~2,000 tok/s). Its free tier is **token-gated** (≈1M tokens/day, ≈60k/min, 30 req/min), so it
+  paces on the binding limit (a daily **token** cap, not a request cap): `NEWS_CEREBRAS_MODEL` ·
+  `NEWS_CEREBRAS_DAILY_TOKEN_CAP` (default 900k, ~10% under 1M) · `NEWS_CEREBRAS_TPM` (55k) ·
+  `NEWS_CEREBRAS_RPM` (28) · `NEWS_CEREBRAS_DAILY_REQ_CAP` (loose backstop) · `NEWS_CEREBRAS_MAX_TOKENS`
+  · `CEREBRAS_BASE_URL` · `NEWS_CEREBRAS_ENABLED=0` to force off.
+- **OpenRouter** (`OPENROUTER_API_KEY`) / **NVIDIA NIM** (`NVIDIA_API_KEY`) — request-gated free pools,
+  tried after Cerebras.
+
 ## What this is not
 
 The Groq score is a cheap **pre-read** that decides inbox membership and ranking only — it is not the

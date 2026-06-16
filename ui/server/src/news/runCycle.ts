@@ -187,12 +187,14 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     ? cfg.geminiModels.map((e) => ({ model: e.model, budget: Budget.load(stateDir, e.dailyReqCap, cfg.geminiDailyTokenCap, now().getTime(), `gemini-budget-${e.model.replace(/[^a-z0-9]+/gi, '-')}.json`, cfg.geminiDayTz) }))
     : []
   const geminiLimiter = geminiOn ? getSharedGeminiLimiter(cfg.geminiRpm, cfg.geminiTpm) : null
-  // OpenAI-compatible OVERFLOW registry (OpenRouter, NVIDIA, …) — each its own budget + per-minute limiter,
-  // tried in config order after Groq. Adding a provider is a config entry; this loop needs no change.
+  // OpenAI-compatible OVERFLOW registry (Cerebras, OpenRouter, NVIDIA, …) — each its own budget + per-minute
+  // limiter, tried in config order after Groq. Adding a provider is a config entry; this loop needs no change.
+  // A token-gated provider (Cerebras) sets dailyTokenCap + tpm so it paces on its BINDING limit (tokens); a
+  // request-gated one omits them → a non-binding 50M token cap + tpm 0 (request-spacing only), as before.
   const overflow = cfg.overflowProviders.map((p) => ({
     p,
-    budget: Budget.load(stateDir, p.dailyReqCap, 50_000_000, now().getTime(), p.budgetFile, p.dayTz),
-    limiter: getNamedLimiter(p.id, p.rpm, 0),
+    budget: Budget.load(stateDir, p.dailyReqCap, p.dailyTokenCap ?? 50_000_000, now().getTime(), p.budgetFile, p.dayTz),
+    limiter: getNamedLimiter(p.id, p.rpm, p.tpm ?? 0),
     requests: 0,
     tokens: 0,
     failed: false, // set when a call errors this cycle → skip it so the batch flows to the next provider
