@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-16T07:22:50Z",
+  "generated_at": "2026-06-16T11:33:24Z",
   "inbox": [
     {
       "inbox_id": "INB-20260616-001",
@@ -8239,6 +8239,22 @@
       "thesis_id": "THS-SIG-20260616-8930aad4-v1"
     },
     {
+      "signal_id": "SIG-20260616-eae0b41e",
+      "event_id": "EVT-74fc26154504",
+      "headline": "Norben Tea & Exports Limited",
+      "source_name": "BSE / NSE Exchange Filing",
+      "source_grade": "A",
+      "processed_at": "2026-06-16T11:23:51Z",
+      "run_root": "screener/runs/SIG-20260616-eae0b41e",
+      "materiality_score": 36,
+      "novelty_score": 0.85,
+      "pair_label": "new_event",
+      "action": "keep_separate",
+      "status": "LOG",
+      "status_reason": "Routine AGM notice for a micro-cap tea company with no analyst coverage and no material agenda item identified — materiality 36 is below the 40-point LOG threshold.",
+      "thesis_id": null
+    },
+    {
       "signal_id": "SIG-20260615-71775d0a",
       "event_id": "",
       "headline": "",
@@ -8730,16 +8746,16 @@
   "handoffs": [],
   "counts": {
     "inbox_unconsumed": 202,
-    "signals_total": 5,
+    "signals_total": 6,
     "parked": 0,
-    "logged": 0,
+    "logged": 1,
     "watchlist": 1,
     "provisional": 4,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 38206,
-    "news_picked_today": 1247,
-    "news_dropped_today": 3163
+    "news_seen_today": 43563,
+    "news_picked_today": 3212,
+    "news_dropped_today": 5334
   },
   "book_momentum": {
     "live_count": 5,
