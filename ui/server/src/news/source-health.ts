@@ -28,7 +28,15 @@ export function recordRssHealth(stateDir: string, outcomes: Map<string, { status
       const prev = cur[name] || ({} as HealthEntry)
       const e: HealthEntry = { ...prev, status: o.status, items: o.items, at: nowIso }
       if (o.status === 'error') { e.lastErrAt = nowIso; e.lastError = o.note }
-      else { e.lastOkAt = nowIso } // ok / unchanged / empty all mean the fetch itself succeeded
+      else {
+        e.lastOkAt = nowIso // ok / unchanged / empty all mean the fetch itself succeeded
+        // RECOVERED: the fetch worked this cycle, so any earlier error is no longer the current state —
+        // clear it. Without this, one bad cycle (e.g. a momentary network blip that makes every feed's
+        // fetch throw at once) leaves a "fetch failed" note pinned on every feed forever, so a now-healthy
+        // feed keeps reading as broken in the Sources panel.
+        delete e.lastError
+        delete e.lastErrAt
+      }
       if (o.items > 0) e.lastItemsAt = nowIso // the last time this feed actually delivered news
       cur[name] = e
     }
@@ -131,7 +139,12 @@ export function buildSourcesReport(repoRoot: string, stateDir: string, opts: { n
       } else {
         const h = health[name]
         fetch_status = h?.status || null
-        last_error = h?.lastError || null
+        // Surface the error ONLY when the LATEST fetch errored. A feed that has since recovered
+        // (status ok / unchanged / empty) must never show a stale error from an earlier bad cycle —
+        // that is the bug where one network blip left every recovered feed reading "fetch failed" under
+        // Healthy. recordRssHealth now clears the error on recovery too; this stays as a defensive gate
+        // (the report is recomputed on every request, so it also heals a health file written before that fix).
+        last_error = fetch_status === 'error' ? (h?.lastError || null) : null
         last_ok_at = h?.lastOkAt || null
         lastData = h?.lastItemsAt || null // when this feed last actually delivered news
         const okMs = h?.lastOkAt ? Date.parse(h.lastOkAt) : NaN
