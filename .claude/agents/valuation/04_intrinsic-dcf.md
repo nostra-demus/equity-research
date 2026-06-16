@@ -21,7 +21,7 @@ You DO NOT:
 # RUNTIME INPUTS
 
 - `TICKER`, `DATA_PATH`, `OUTPUT_PATH = analyses/{TICKER}_{DATE}/valuation/04_intrinsic-dcf.md`, `DATE`
-- `UPSTREAM_INPUTS` — `01_price-and-capital-structure.md` (net debt, shares for the equity bridge). Optionally cross-module: `earnings/01_historical-financials.md` (FCF base), `earnings/03_margin-drivers.md` (margin path), `earnings/04_guidance-consensus.md` (near-term forecast), `earnings/06_earnings-quality.md` (DSO/DIO/DPO days for the working-capital driver), `earnings/07_earnings-sensitivity.md` (assumption ranges), `business-model/10_external-dependency.md` (cyclicality → terminal assumption), `business-model/09_moat.md` (cost-of-capital cross-check for the WACC, and durability of any terminal excess return).
+- `UPSTREAM_INPUTS` — `01_price-and-capital-structure.md` (net debt, shares for the equity bridge). Optionally cross-module: `earnings/01_historical-financials.md` (FCF base), `earnings/03_margin-drivers.md` (margin path), `earnings/04_guidance-consensus.md` (near-term forecast), `earnings/06_earnings-quality.md` (DSO/DIO/DPO days for the working-capital driver), `earnings/07_earnings-sensitivity.md` (assumption ranges), `business-model/10_external-dependency.md` (cyclicality → terminal assumption), `business-model/09_moat.md` (cost-of-capital cross-check for the WACC, and durability of any terminal excess return), `business-model/07_business-quality.md` (rate-of-change / disruption → the §5 declining-perpetuity terminal trigger).
 
 # PARTIAL-DATA RULE
 
@@ -56,6 +56,7 @@ Whatever method you use, keep this agent's discipline (every assumption sourced,
 - **earnings/03_margin-drivers.md, 07_earnings-sensitivity.md** — margin path and ranges
 - **earnings/06_earnings-quality.md** — DSO/DIO/DPO days for the working-capital driver (where available)
 - **business-model/10_external-dependency.md** — cyclicality for the terminal assumption
+- **business-model/09_moat.md, 07_business-quality.md** — moat durability + rate-of-change/disruption for the §5 declining-perpetuity / runoff terminal trigger
 - **Latest annual / interim filing** (10-K/10-Q for US; Annual Report & quarterly results for India; local equivalent) — cash flow statement, capex, tax rate, debt cost
 - **Web** — current risk-free rate and equity-risk premium (label as web-sourced)
 
@@ -115,6 +116,7 @@ Show the **executed** command and its raw output (a fenced code block) for the P
 - Terminal value (undiscounted): ...
 - PV of terminal value: ...
 - **Terminal value as % of total EV: ...** (flag if >75% → terminal-dominated, low confidence)
+- **Structural-decline / runoff trigger (avoid-ruin, `CLAUDE.md` §24 Filter 5).** A Gordon `g` floored at nominal / financeable growth *assumes the franchise survives in perpetuity* — it cannot represent a business eroding structurally while still solvent (the Kodak/Nokia case). When `business-model/09_moat.md` returns the verdict **No moat proven** (and, once the P5b moat-trajectory row lands, an *eroding* moat), OR `business-model/07_business-quality.md` scores its **rate-of-change / disruption** row **≤ ~40** (high disruption — the orb's own §24 Filter-5 threshold), do NOT use a positive perpetuity growth: make a **declining-perpetuity / runoff terminal** the primary case (sub-GDP or negative `g`, or an explicit fade of the terminal margin and excess returns to a new lower base), and show the standard-Gordon terminal alongside it, labelled, for contrast. State which trigger fired and cite the upstream row. This is the DCF half of the permanent-impairment read — the equity-side counterpart to balance-sheet-survival's debt-solvency test — and its bear output feeds `07_scenario-and-fair-value` and the master synthesizer's §24 / Kill Criteria.
 
 ## 6. DCF Output
 
