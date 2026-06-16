@@ -427,6 +427,44 @@ await check('overflow paces on the daily TOKEN cap, not just requests (token-gat
   assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 1, 'the 2nd item deferred on the TOKEN cap — a request-only cap would not have stopped it')
 })
 
+// ---- the overflow CHAIN: a failed/exhausted first provider falls through to the next (Cerebras → Mistral) ----
+await check('the overflow chain falls through to the NEXT provider when the first is exhausted (Cerebras → Mistral)', async () => {
+  const root = tmp()
+  const state = tmp()
+  const goodTriage = { usage: { total_tokens: 200 }, choices: [{ message: { content: JSON.stringify({ items: [
+    { i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'A rate move shifts funding costs.', companies: [], size_bucket: 'unknown' },
+  ] }) } }] }
+  let gdeltServed = false
+  let cbHits = 0
+  let mlHits = 0
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('groq')) return res('upstream sad', 503) // Groq down all cycle → route to the overflow chain
+    if (u.includes('cerebras.test')) { cbHits++; return res('unauthorized', 401) } // 1st overflow: auth-fail → exhausted + skipped
+    if (u.includes('mistral.test')) { mlHits++; return res(goodTriage) } // 2nd overflow: picks up the batch
+    if (u.includes('reuters.com') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: [
+        { url: 'https://reuters.com/a', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' },
+        { url: 'https://reuters.com/b', title: 'Fed signals one more hike as inflation proves sticky', domain: 'reuters.com', seendate: '20260612T090100Z' },
+      ] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  // two overflow providers in order: a token-gated one (Cerebras) that 401s, then a request-gated one
+  // (Mistral). The chain must not stall at the dead first provider — the batch flows to the next that's up.
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, triageBatch: 1,
+    overflowProviders: [
+      { id: 'cerebras', label: 'Cerebras', color: '--provider-cb', kind: 'openai', apiKey: 'k', baseUrl: 'https://cerebras.test/v1', model: 'm', maxTokens: 900, rpm: 6000, tpm: 55_000, dailyReqCap: 14_400, dailyTokenCap: 900_000, budgetFile: 'cerebras-budget.json', limiter: 'cerebras' },
+      { id: 'mistral', label: 'Mistral', color: '--provider-ml', kind: 'openai', apiKey: 'k', baseUrl: 'https://mistral.test/v1', model: 'm', maxTokens: 900, rpm: 6000, dailyReqCap: 2000, budgetFile: 'mistral-budget.json', limiter: 'mistral' },
+    ] } as any
+  const now = () => new Date('2026-06-12T09:30:00Z')
+  const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  assert.ok(cbHits >= 1, 'the first overflow provider (Cerebras) was tried')
+  assert.ok(mlHits >= 1, 'the chain fell through to the SECOND overflow provider (Mistral) after the first was exhausted')
+  assert.equal(s.picked, 1, 'the batch the second provider handled was scored, not lost to the dead first provider')
+})
+
 await check('a failed Groq batch is DEFERRED (not zero-scored-and-seen) and is scored on the next cycle from spillover', async () => {
   const root = tmp()
   const state = tmp()

@@ -138,6 +138,24 @@ function buildOverflowProviders(): OverflowProvider[] {
       budgetFile: 'cerebras-budget.json',
     })
   }
+  // Mistral La Plateforme free ("Experiment") tier — RATE-gated, not token-gated: ~1 request/SECOND, with a
+  // ~1B-tokens/MONTH budget that is non-binding for our overflow volume. So it's wired like the other
+  // request-gated pools (NO daily token cap → the chip reads requests, its real lever): the binding control
+  // is request SPACING. rpm sits well under 1 req/s (≈1.3s gap) with margin, and a 429 still backs off on
+  // retry-after. mistral-small is fast, strong, and speaks clean JSON mode. OpenAI-compatible
+  // (/chat/completions, Bearer auth). Secret lives in env. Off when no key or NEWS_MISTRAL_ENABLED=0.
+  const mlKey = process.env.MISTRAL_API_KEY || ''
+  if (mlKey && process.env.NEWS_MISTRAL_ENABLED !== '0') {
+    out.push({
+      id: 'mistral', label: 'Mistral', color: '--provider-ml',
+      apiKey: mlKey, baseUrl: process.env.MISTRAL_BASE_URL || 'https://api.mistral.ai/v1',
+      model: process.env.NEWS_MISTRAL_MODEL || 'mistral-small-latest',
+      dailyReqCap: capNum(process.env.NEWS_MISTRAL_DAILY_REQ_CAP, 2000), // soft daily backstop — the 1 req/s rate is the real limit
+      rpm: capNum(process.env.NEWS_MISTRAL_RPM, 45), // under the ~1 req/s free ceiling (≈1.3s spacing) with margin
+      maxTokens: capNum(process.env.NEWS_MISTRAL_MAX_TOKENS, 2500),
+      budgetFile: 'mistral-budget.json',
+    })
+  }
   const orKey = process.env.OPENROUTER_API_KEY || ''
   if (orKey && process.env.NEWS_OPENROUTER_ENABLED !== '0') {
     // OpenRouter: strongest free models (gpt-oss-120b…). Free = ~20 RPM, ~50/day pooled (no credits) →

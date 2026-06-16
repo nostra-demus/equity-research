@@ -98,8 +98,13 @@ auto-appears in routing, the article-read chain, the drain gate, status, and as 
   `NEWS_CEREBRAS_DAILY_TOKEN_CAP` (default 900k, ~10% under 1M) · `NEWS_CEREBRAS_TPM` (55k) ·
   `NEWS_CEREBRAS_RPM` (28) · `NEWS_CEREBRAS_DAILY_REQ_CAP` (loose backstop) · `NEWS_CEREBRAS_MAX_TOKENS`
   · `CEREBRAS_BASE_URL` · `NEWS_CEREBRAS_ENABLED=0` to force off.
+- **Mistral** (`MISTRAL_API_KEY`) — La Plateforme free tier, **rate-gated** (~1 req/s; the ~1B-tokens/month
+  budget is non-binding for overflow), so it paces on request spacing, not a token cap, and its chip reads
+  requests: `NEWS_MISTRAL_MODEL` (default `mistral-small-latest`) · `NEWS_MISTRAL_RPM` (45, ≈1.3s spacing,
+  under 1 req/s) · `NEWS_MISTRAL_DAILY_REQ_CAP` (2000 soft backstop) · `NEWS_MISTRAL_MAX_TOKENS` ·
+  `MISTRAL_BASE_URL` · `NEWS_MISTRAL_ENABLED=0` to force off.
 - **OpenRouter** (`OPENROUTER_API_KEY`) / **NVIDIA NIM** (`NVIDIA_API_KEY`) — request-gated free pools,
-  tried after Cerebras.
+  tried after Cerebras + Mistral.
 
 ## What this is not
 
