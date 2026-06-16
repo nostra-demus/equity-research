@@ -89,7 +89,12 @@ export interface Theme {
   scores: ThemeScores
   tier: ThemeTier
   fresh_flow: number // # members added in the last freshness window (for the UI sparkline tip)
-  flow_series: number[] // recent per-window member counts (the sparkline data; bounded)
+  flow_series: number[] // recent per-HOUR member counts (the sparkline data; bounded, last sparkWindows h)
+  // The long-horizon DAILY accumulator (one bucket per UTC day, newest last, bounded ring) that powers
+  // the "last 7d / 1m / 3m" time-window views. Maintained by score.ts (ensureDaily/rollDaily/bumpDaily);
+  // optional so old ledger entries load and get seeded on the next cycle. See score.ts DAILY_WINDOWS.
+  flow_daily?: number[]
+  flow_daily_day?: string // UTC date (YYYY-MM-DD) of the newest flow_daily bucket
   related_themes: RelatedTheme[]
   // lifecycle
   status: ThemeStatus
@@ -108,7 +113,8 @@ export interface ThemeSummary {
   tier: ThemeTier
   composite: number
   fresh_flow: number
-  flow_series: number[]
+  flow_series: number[] // hourly (last sparkWindows h)
+  flow_daily: number[] // daily (last DAILY_WINDOWS days, newest last) — drives the long time-window views
   member_count: number
   top_companies: { name: string; ticker: string | null; order: OrderTier; side: ImpactSide }[]
   related_themes: { theme_id: string; name: string; kind: 'related' | 'opposite' }[]
@@ -120,6 +126,7 @@ export interface ThemesIndex {
   generated_at: string
   themes: ThemeSummary[]
   counts: { hot: number; active: number; cooling: number; parked: number; retired: number; total: number }
+  history_days: number // how many days of real daily-flow history exist (caps how far the window selector can honestly reach)
 }
 
 export interface CompaniesByOrder {

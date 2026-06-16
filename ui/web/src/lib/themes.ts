@@ -27,7 +27,8 @@ export interface Theme {
   tier: ThemeTier
   composite: number
   fresh_flow: number
-  flow_series: number[]
+  flow_series: number[] // hourly (newest last) — powers the short windows + the sparkline
+  flow_daily?: number[] // daily (newest last) — the long-horizon memory the 7d/1m/3m windows read
   member_count: number
   top_companies: ThemeCompanyLite[]
   related_themes: RelatedThemeLite[]
@@ -38,6 +39,7 @@ export interface ThemesIndex {
   generated_at: string
   themes: Theme[]
   counts: { hot: number; active: number; cooling: number; parked: number; retired: number; total: number }
+  history_days: number // days of real daily-flow history available (caps how far the window selector reaches)
 }
 export interface ThemeCompany extends ThemeCompanyLite {
   listing_country: string | null
@@ -135,3 +137,87 @@ export function sparklinePoints(series: number[], w: number, h: number, pad = 1)
 }
 
 export const orderLabel = (o: OrderTier): string => (o === 1 ? 'Direct' : o === 2 ? 'Ripple' : 'Read-across')
+
+// ---- time-window selector ----
+// The user scrubs the SAME live themes through different lookbacks: "what's hottest in the last hour"
+// vs "...the last 3 months". A window re-ranks + re-sizes themes by the news flow WITHIN it. Short
+// windows (≤ the hourly series length, ~48h) read off flow_series (hourly); longer ones read off
+// flow_daily (the server's daily accumulator). Every number is a real item count — never fabricated
+// (§3): a window the engine has no history for is shown but disabled, not faked.
+
+export interface ThemeWindow {
+  id: string
+  label: string // the pill label
+  full: string // spoken form for captions + empty states ("the last 7 days")
+  hours: number | null // null = Live (the real-time view); otherwise the lookback in hours
+}
+
+export const THEME_WINDOWS: ThemeWindow[] = [
+  { id: 'live', label: 'Live', full: 'right now', hours: null },
+  { id: '1h', label: '1H', full: 'the last hour', hours: 1 },
+  { id: '6h', label: '6H', full: 'the last 6 hours', hours: 6 },
+  { id: '24h', label: '24H', full: 'the last 24 hours', hours: 24 },
+  { id: '7d', label: '7D', full: 'the last 7 days', hours: 24 * 7 },
+  { id: '2w', label: '2W', full: 'the last 2 weeks', hours: 24 * 14 },
+  { id: '1m', label: '1M', full: 'the last month', hours: 24 * 30 },
+  { id: '3m', label: '3M', full: 'the last 3 months', hours: 24 * 90 },
+]
+
+// The hourly series (server sparkWindows) always covers at least this far back off the member ring, so
+// windows this short are real the moment the engine starts — no daily history needed.
+const HOURLY_FLOOR_H = 48
+
+type FlowLike = Pick<Theme, 'flow_series' | 'flow_daily' | 'member_count' | 'composite'>
+
+/** News items that landed in a theme within the last `hours`. Reads the hourly series when the window
+ *  fits it, else the daily accumulator. `null` = Live → the all-time member count. A real item count. */
+export function flowInWindow(t: Pick<Theme, 'flow_series' | 'flow_daily' | 'member_count'>, hours: number | null): number {
+  if (hours == null) return t.member_count
+  const hourly = t.flow_series || []
+  if (hours <= hourly.length) return recentFlow(hourly, hours)
+  const daily = t.flow_daily || []
+  const days = Math.ceil(hours / 24)
+  return daily.slice(Math.max(0, daily.length - days)).reduce((a, b) => a + b, 0)
+}
+
+/** The flow series to sparkline for a window — hourly buckets for short windows, daily for long ones. */
+export function windowSeries(t: Pick<Theme, 'flow_series' | 'flow_daily'>, hours: number | null): number[] {
+  const hourly = t.flow_series || []
+  if (hours == null || hours <= hourly.length) return hours == null ? hourly : hourly.slice(Math.max(0, hourly.length - hours))
+  const daily = t.flow_daily || []
+  const days = Math.ceil(hours / 24)
+  return daily.slice(Math.max(0, daily.length - days))
+}
+
+/** Ranking + sizing heat for a window: dominated by the windowed volume (what's hot in THIS window),
+ *  with a small composite tiebreak so quality breaks ties. Order is what matters, so the scale is rough. */
+export function heatInWindow(t: FlowLike, hours: number | null): number {
+  if (hours == null) return heatOf(t)
+  const f = flowInWindow(t, hours)
+  const vol = clamp(f / (f + 8), 0, 1) // saturating, monotonic in volume (8 ≈ a meaningful burst)
+  return clamp(0.85 * vol + 0.15 * clamp(t.composite / 100, 0, 1), 0, 1)
+}
+
+export interface WindowCoverage {
+  selectable: boolean // can we honestly show this window at all?
+  coveredDays: number // days of real data we have for it
+  neededDays: number // days the window asks for
+  partial: boolean // some, but not the full window, of history exists
+}
+
+/** Given how many days of daily history the engine actually has, decide whether a window is honestly
+ *  showable and whether it's fully or only partially covered. Short windows (≤48h) are always backed by
+ *  the hourly ring; long ones need accrued daily history and light up as the engine runs. */
+export function windowCoverage(w: ThemeWindow, historyDays: number): WindowCoverage {
+  if (w.hours == null || w.hours <= HOURLY_FLOOR_H) return { selectable: true, coveredDays: 0, neededDays: 0, partial: false }
+  const neededDays = Math.ceil(w.hours / 24)
+  const coveredDays = Math.min(neededDays, Math.max(0, Math.floor(historyDays)))
+  return { selectable: coveredDays >= 1, coveredDays, neededDays, partial: coveredDays < neededDays }
+}
+
+/** The spoken window label, qualified when only PART of it is backed by real history — so a label never
+ *  claims more span than the engine actually has (the badge/card stay honest, not just the ribbon). */
+export function windowLabel(win: ThemeWindow, cov: WindowCoverage | null): string {
+  if (!cov || !cov.partial) return win.full
+  return `${win.full} · ${cov.coveredDays} of ${cov.neededDays}d so far`
+}

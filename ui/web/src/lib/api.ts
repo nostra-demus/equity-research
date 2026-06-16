@@ -130,7 +130,7 @@ export const api = {
   newsStreamUrl: () => `/api/news/stream`,
   // the living themes the firehose is bucketed into (ranked index + one theme's deep-dive)
   newsThemes: async (): Promise<import('./themes').ThemesIndex> => {
-    if ((await ensureMode()) === 'static') return { generated_at: '', themes: [], counts: { hot: 0, active: 0, cooling: 0, parked: 0, retired: 0, total: 0 } }
+    if ((await ensureMode()) === 'static') return { generated_at: '', themes: [], counts: { hot: 0, active: 0, cooling: 0, parked: 0, retired: 0, total: 0 }, history_days: 0 }
     return get(`/api/news/themes`)
   },
   newsTheme: async (id: string): Promise<import('./themes').ThemeDetail | null> => {
