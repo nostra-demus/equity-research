@@ -117,7 +117,9 @@ def main():
             host = urlparse(r["feed_url"]).hostname or ""
         except Exception:
             pass
-        if host.endswith("sec.gov"):
+        # exact host or a real subdomain — NOT a substring/suffix match (endswith("sec.gov")
+        # would also match "evilsec.gov"). Clears CodeQL py/incomplete-url-substring-sanitization.
+        if host == "sec.gov" or host.endswith(".sec.gov"):
             entry["user_agent"] = SEC_UA
         feeds.append(entry)
     json.dump({"feeds": feeds}, open(os.path.join(out_dir, "wiring-rss-feeds.json"), "w"), indent=2)
