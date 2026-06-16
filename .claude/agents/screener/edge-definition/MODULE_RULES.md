@@ -34,3 +34,14 @@ On completion, the synthesis sets `meta.locked: true`, `meta.status` = the routi
 - The synthesis updates `{RUN_ROOT}/thesis_record.json` (now complete with M0_6_1..M0_6_6), copies it to `screener/ledger/theses/<thesis_id>.json`, appends the updated status to the events ledger, and refreshes the board index.
 - Every agent report ends with a `Verdict:` line; the synthesis ends with `## Machine Output` + `## Routing` (greppable `Routing:` and `Edge score:` lines).
 - §5 citations; banned without quantification: "could benefit", "may be impacted", bare "significant"/"material", "market hasn't realized" (the coverage-gap evidence IS the only licence to say what the market is missing).
+
+## Writing Standard
+
+SWARM.md §8 plain-English rules apply to every prose section in this module's output files. This is the densest module in the pipeline — the §21 discipline matters most here.
+
+- **M0.6.1 (consensus view)**: the consensus-holder's voice must be plain, not academic. "Analysts expect revenue to grow 10% next year on new contract wins" beats "consensus models incremental topline growth of approximately 10% YoY predicated on awarded contract pipeline execution."
+- **M0.6.2 (market-implied dashboard)**: each block is data + one plain interpretation sentence. "IV is in the 80th percentile — the options market is pricing a bigger move than normal for this company" is the right length. Keep the `missing_reason` honest and brief (1 sentence).
+- **M0.6.3 (variant perception)**: the "The Variant" opening paragraph is 3–4 sentences maximum. The coverage-gap evidence section summarises what was searched and what was absent in 2–3 sentences per search — do not dump raw query strings or list every result individually. The mechanisms sections are 3–5 sentences each.
+- **M0.6.4 (mispricing reason)**: the primary-category rationale is 3–4 sentences. The three verifiable facts are 2–3 sentences each — enough to locate and verify the fact, not a full proof. Secondary-category rationale is 1–2 sentences.
+- **M0.6.5 (convergence trigger)**: the four-step mechanism is four numbered steps of 1–2 sentences each. Not four paragraphs.
+- **M0.6.6 (edge score)**: each sub-score rationale is 2–3 sentences saying what the evidence shows and why the score landed where it did. The blend line is one line of arithmetic.
