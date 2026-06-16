@@ -82,6 +82,8 @@ State exactly what was held fixed and what was solved for.
 
 In 2–4 sentences, judge whether the market's implied expectations are conservative, fair, or aggressive — cite the historical growth rate and the earnings-module driver evidence.
 
+**Market-ceiling sanity check (one-directional — it can only raise the bar).** Translate the implied FCF/revenue CAGR into the absolute size the business must reach by the horizon, and compare it to a cited estimate of the addressable market (or a defensible proxy — segment TAM, category revenue, installed base) and plausible market growth. If hitting the priced-in number requires the company to capture an implausible share of its market (e.g. >~100% of plausible incremental market, or a share no peer has ever held), that is a kill signal — flag the implied expectation as *aggressive / unachievable* on market-ceiling grounds **regardless of the company's own history**. This check may only make implied growth look HARDER; it can never justify upside or lift a fair value. Market size is a low-tier input (CLAUDE.md §4) — cite the source, and if the market cannot be credibly sized, say so and omit the check rather than invent a TAM.
+
 ## 4. Robustness
 
 | Discount Rate | Implied FCF CAGR to Justify Price |

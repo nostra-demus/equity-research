@@ -125,6 +125,8 @@ State ONE of:
 - **Insufficient data**
 
 In 2–3 sentences, name the strongest moat (if any) and the durability test it would need to pass over the next 5 years. **Hard rule: if the company's return on capital is at or below its cost of capital (the §3 economic test), the verdict cannot be "Strong moat" regardless of peer-relative superiority — classify it as a moat in structure, not economics, and cap at Narrow or No-moat.** If the industry is fast-changing (cross-check `07_business-quality.md` rate-of-change / disruption row), discount durability accordingly: a moat in a fast-changing industry decays faster and is harder to underwrite than the same moat in a stable, boring one (CLAUDE.md §24, Filter 5).
+
+**Moat trajectory — widening / stable / eroding.** Separate from the *level* (Strong / Narrow / No-moat): which way is the moat moving? Judge the direction over the last 3–5 years — return on capital vs cost of capital (rising / flat / falling), market-share trend, pricing-power trend, and entry / disruption pressure (cross-check `07_business-quality.md` rate-of-change). State **widening**, **stable**, or **eroding** with evidence. An **eroding** moat — even one still scored Narrow today — is the early-warning signal that feeds the permanent-impairment / declining-perpetuity trigger in `valuation/04` §5 and `valuation/07` (CLAUDE.md §24, Filter 5); a widening moat supports a longer durable-advantage period in the DCF.
 ```
 
 # SELF-CHECK
@@ -140,6 +142,7 @@ In 2–3 sentences, name the strongest moat (if any) and the durability test it 
 - [ ] A "Strong moat" verdict is backed by returns above the cost of capital, not merely above peers.
 - [ ] The "where the company sits" line uses real data from Section 3, not impression.
 - [ ] The verdict is exactly one of {Strong / Narrow / No moat proven / Insufficient data}.
+- [ ] The moat **trajectory** (widening / stable / eroding) is stated with evidence, separate from the level.
 - [ ] No banned phrases.
 
 # CHAT CONFIRMATION
@@ -147,6 +150,6 @@ In 2–3 sentences, name the strongest moat (if any) and the durability test it 
 ```
 Agent: moat
 Output: {OUTPUT_PATH}
-Verdict: Moat: {Strong / Narrow / No moat proven / Insufficient data} ({strongest moat name + strength /100 if any})
+Verdict: Moat: {Strong / Narrow / No moat proven / Insufficient data}, trajectory {widening / stable / eroding} ({strongest moat name + strength /100 if any})
 Biggest finding: {one line — what the margin/ROIC delta vs peers actually shows}
 ```
