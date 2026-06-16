@@ -61,10 +61,11 @@ for drp in runs:
         badtype=[k for k in ARRAYS if not isinstance(d.get(k),list)]+[k for k in OBJECTS if not isinstance(d.get(k),dict)]
         # [review fix] additive fields: validate TYPE when present (never require presence — older records omit them).
         # `scenarios` (the array check M consumes) and the post-review numerics were previously type-unchecked.
-        for _k,_t in [("scenarios",list),("post_review_confidence_score",(int,float)),("confidence_haircut",(int,float))]:
+        for _k,_t in [("scenarios",list),("post_review_confidence_score",(int,float)),("confidence_haircut",(int,float)),("edge_score",(int,float))]:
             v=d.get(_k)
             if _k in d and v is not None and not (isinstance(v,_t) and not isinstance(v,bool)): badtype.append(_k)
         if "pre_mortem_verdict" in d and not isinstance(d.get("pre_mortem_verdict"),str): badtype.append("pre_mortem_verdict")
+        if "edge_proof" in d and not isinstance(d.get("edge_proof"),str): badtype.append("edge_proof")
         # [fix F28b] post_mortem_decision + post_mortem_basket are additive string fields written by the
         # finish-gate's rating-cap propagation step; type-check when present (never require presence —
         # pre-gate runs omit them; the forward-looking check T validates the content).
@@ -385,6 +386,20 @@ for drp in runs:
             "; ".join(det_t) or f"pre_mortem_verdict={pv!r}; post_mortem_decision={pmd!r}; post_mortem_basket={pmb!r}")
     else:
         add("U_postMortem_cap",True,f"run predates post-mortem cap gate ({ddte}) — N/A",na=True)
+    # V edge gate [CLAUDE.md §7 mechanical] — the edge_score cap on confidence. Forward-looking (landing
+    #   2026-06-15); older fixtures (BG/HCG/TMCV, pre-feature) N/A. edge_score/edge_proof are additive
+    #   (type-checked in B). (1) edge_score, when present, is 0-100; (2) a claimed real edge (edge_score >= 50)
+    #   needs a non-empty edge_proof (the falsifiable §7 item-4 test); (3) confidence_score > 60 requires a
+    #   proven edge (edge_score >= 50 on a non-empty edge_proof) — restated consensus is not an edge.
+    EDGE_DATE="2026-06-15"
+    if isdate(ddte) and ddte>=EDGE_DATE:
+        es=d.get("edge_score"); ep=(d.get("edge_proof") or "").strip(); cf=d.get("confidence_score"); det_v=[]
+        if es is not None and not (isnum(es) and 0<=es<=100): det_v.append(f"edge_score={es!r} not a 0-100 number")
+        if isnum(es) and es>=50 and not ep: det_v.append(f"edge_score={es} >=50 but edge_proof empty — a proven edge needs a falsifiable test")
+        if isnum(cf) and cf>60 and not (isnum(es) and es>=50 and ep): det_v.append(f"confidence_score={cf} >60 but edge not proven (edge_score={es!r}, edge_proof {'set' if ep else 'empty'}) — §7 edge gate")
+        add("V_edge_gate", not det_v, "; ".join(det_v) or f"edge_score={es!r}; edge_proof={'set' if ep else 'empty'}; confidence={cf}")
+    else:
+        add("V_edge_gate", True, f"run predates the §7 edge gate ({ddte}) — N/A", na=True)
     # WARN non-schema files
     # [review fix] suppress only genuine versioned/audit/review artifacts via PRECISE patterns — the old naive
     # `"_v" not in name` / `"review" not in name` substring tests hid real strays (preview.md, *_v*-named scratch).
