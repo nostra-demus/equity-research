@@ -7,7 +7,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { fmtStampLocal } from '../../lib/format'
 import { useStore } from '../../lib/store'
-import { heatOf, momentumOf, recentFlow, radiusFor, sparklinePoints, tierColorVar, tierLabel, orderLabel, type Theme, type ThemeCompany } from '../../lib/themes'
+import { heatOf, momentumOf, recentFlow, radiusFor, sparklinePoints, tierColorVar, tierLabel, orderLabel, THEME_WINDOWS, flowInWindow, windowSeries, heatInWindow, windowCoverage, windowLabel, type Theme, type ThemeCompany, type ThemeWindow, type WindowCoverage } from '../../lib/themes'
 import type { FeedItem } from '../../lib/types'
 
 const TIERS = ['all', 'hot', 'active', 'cooling', 'parked'] as const
@@ -20,20 +20,45 @@ export function ThemesView() {
   const view = useStore((s) => s.themesView)
   const status = useStore((s) => s.themesStatus)
   const selectedTheme = useStore((s) => s.selectedTheme)
+  const themesWindow = useStore((s) => s.themesWindow)
+  const historyDays = useStore((s) => s.themesHistoryDays)
   const setThemesView = useStore((s) => s.setThemesView)
+  const setThemesWindow = useStore((s) => s.setThemesWindow)
   const selectTheme = useStore((s) => s.selectTheme)
   const [tier, setTier] = useState<(typeof TIERS)[number]>('all')
 
-  const shown = useMemo(() => (tier === 'all' ? themes : themes.filter((t) => t.tier === tier)), [themes, tier])
+  // the active window (null = Live). When a window is set, themes are RE-RANKED + RE-SIZED by the news
+  // flow within it — "what's hottest in the last hour" vs "...the last 3 months" — and a theme with no
+  // flow in the window drops out. Live keeps the server's composite ranking + the real-time map.
+  const win = useMemo<ThemeWindow | null>(() => (themesWindow == null ? null : THEME_WINDOWS.find((w) => w.hours === themesWindow) ?? null), [themesWindow])
+  const windowHours = win?.hours ?? null
+
+  const shown = useMemo(() => {
+    const byTier = tier === 'all' ? themes : themes.filter((t) => t.tier === tier)
+    if (windowHours == null) return byTier
+    return byTier.filter((t) => flowInWindow(t, windowHours) > 0).sort((a, b) => heatInWindow(b, windowHours) - heatInWindow(a, windowHours))
+  }, [themes, tier, windowHours])
+
+  // don't strand the user on a window that stops being honestly backed (history shrank — e.g. an engine
+  // restart lost the in-memory rings): a still-selected but now-locked pill would show an empty view. Fall
+  // back to Live instead.
+  useEffect(() => {
+    if (win && !windowCoverage(win, historyDays).selectable) setThemesWindow(null)
+  }, [win, historyDays, setThemesWindow])
 
   if (selectedTheme) return <ThemeDeepDive />
+
+  const cov = win ? windowCoverage(win, historyDays) : null
+  const windowedTotal = win ? shown.reduce((n, t) => n + flowInWindow(t, windowHours), 0) : 0
 
   return (
     <div className="themes">
       <header className="themes__head">
         <div className="themes__title">
           <span className="themes__titlemain">Themes</span>
-          <span className="themes__sub">{themes.length ? `${themes.length} live · the wire, clustered into what you can play` : 'forming…'}</span>
+          <span className="themes__sub">
+            {!themes.length ? 'forming…' : win ? `Hottest themes by news flow · ${win.full}` : `${themes.length} live · the wire, clustered into what you can play`}
+          </span>
         </div>
         <div className="themes__controls">
           <div className="themes__tiers" role="tablist" aria-label="Filter by heat">
@@ -50,6 +75,52 @@ export function ThemesView() {
         </div>
       </header>
 
+      {/* the time-window ribbon — scrub the same themes through different lookbacks (1h … 3m). Windows
+          the engine has no history for are shown but disabled (never faked, §3); partially-covered ones
+          stay usable and say how many days actually exist. */}
+      <div className="themes__timeline">
+        <span className="themes__tllabel">When</span>
+        <div className="themes__windows" role="radiogroup" aria-label="Time window">
+          {THEME_WINDOWS.map((w) => {
+            const c = windowCoverage(w, historyDays)
+            const on = themesWindow === w.hours
+            const tip = !c.selectable
+              ? `Needs ${c.neededDays} days of history — ${Math.floor(historyDays)} so far`
+              : c.partial
+                ? `Showing ${c.coveredDays} of ${c.neededDays} days — fills in as the engine runs`
+                : w.hours == null
+                  ? 'Live — the real-time wire'
+                  : `Rank themes by news flow over ${w.full}`
+            return (
+              <button
+                key={w.id}
+                type="button"
+                role="radio"
+                aria-checked={on}
+                aria-label={tip}
+                disabled={!c.selectable}
+                title={tip}
+                className={`themes__winbtn${on ? ' is-on' : ''}${c.partial && c.selectable ? ' is-partial' : ''}${!c.selectable ? ' is-locked' : ''}`}
+                onClick={() => c.selectable && setThemesWindow(w.hours)}
+              >
+                {w.label}
+              </button>
+            )
+          })}
+        </div>
+        <span className="themes__tlnote">
+          {win ? (
+            cov?.partial ? (
+              <><span className="themes__tldot themes__tldot--build" aria-hidden /> {cov.coveredDays} of {cov.neededDays} days of history</>
+            ) : (
+              <>{windowedTotal.toLocaleString()} items · {win.full}</>
+            )
+          ) : (
+            <><span className="themes__tldot themes__tldot--live" aria-hidden /> live</>
+          )}
+        </span>
+      </div>
+
       {status === 'loading' && !themes.length ? (
         <div className="themes__empty"><div className="themes__shimmer" /><p>Reading the wire and clustering it into themes…</p></div>
       ) : !themes.length ? (
@@ -57,10 +128,15 @@ export function ThemesView() {
           <div className="themes__emptyorb" />
           <p>No themes have formed yet. As related news clusters across companies, living themes appear here — the strongest float to the top.</p>
         </div>
+      ) : win && !shown.length ? (
+        <div className="themes__empty">
+          <div className="themes__emptyorb" />
+          <p>No theme took news in {win.full}. Try a longer window — or switch to Live to watch the wire in real time.</p>
+        </div>
       ) : view === 'map' ? (
-        <ThemeMap themes={shown} onPick={selectTheme} />
+        <ThemeMap themes={shown} onPick={selectTheme} win={win} cov={cov} />
       ) : (
-        <ThemeBoard themes={shown} onPick={selectTheme} />
+        <ThemeBoard themes={shown} onPick={selectTheme} win={win} cov={cov} />
       )}
     </div>
   )
@@ -84,10 +160,14 @@ const TIER_LANES = [
 // survives ThemeMap unmount/remount within the session; a full page reload resets it (fresh reveal).
 let themeMapRevealed = false
 
-function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) => void }) {
+function ThemeMap({ themes, onPick, win, cov }: { themes: Theme[]; onPick: (id: string) => void; win: ThemeWindow | null; cov: WindowCoverage | null }) {
   const ref = useRef<HTMLDivElement>(null)
   const [box, setBox] = useState({ w: 900, h: 560 })
   const [hover, setHover] = useState<string | null>(null)
+  // a historical window is a FROZEN snapshot — the live scanning flow (inbound/outbound dots, lane
+  // firing, rate readout) is suppressed and the basins are sized by flow WITHIN the window instead.
+  const windowHours = win?.hours ?? null
+  const historical = windowHours != null
   useEffect(() => {
     if (!ref.current) return
     const ro = new ResizeObserver((e) => { const r = e[0].contentRect; setBox({ w: Math.max(420, r.width), h: Math.max(360, r.height) }) })
@@ -106,7 +186,7 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
   }, [newsItems])
   const tierMixRef = useRef(tierMix); tierMixRef.current = tierMix
 
-  const layout = useMemo(() => computeMapLayout(themes, box.w, box.h, tierMix), [themes, box.w, box.h, tierMix])
+  const layout = useMemo(() => computeMapLayout(themes, box.w, box.h, tierMix, windowHours), [themes, box.w, box.h, tierMix, windowHours])
   const hoveredRelated = useMemo(() => {
     if (!hover) return new Set<string>()
     const t = themes.find((x) => x.theme_id === hover)
@@ -163,6 +243,7 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
   // ENQUEUE outbound — diff each theme's real member_count; one pending dot per new member. HOLD the
   // shown count at the old value (landings tick it up). A theme appearing for the first time is "born".
   useEffect(() => {
+    if (historical) return // frozen snapshot — no live landings to animate
     const pc = prevCounts.current
     const seeding = pc.size === 0
     const sync: Record<string, number> = {}
@@ -185,7 +266,7 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
       setBorn((b) => { const n = new Set(b); newborn.forEach((id) => n.add(id)); return n })
       window.setTimeout(() => setBorn((b) => { const n = new Set(b); newborn.forEach((id) => n.delete(id)); return n }), 1500)
     }
-  }, [themes, reduceMotion])
+  }, [themes, reduceMotion, historical])
 
   // ENQUEUE inbound — the cycle's RAW FETCH volume (`fetched` ≈ 200 articles/scan) is the true "data
   // coming in" intensity the user wants to gauge — not the ~5 new-after-dedup items, which look like
@@ -194,7 +275,7 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
   // are spread across the lanes by a news-heavy mix — the COUNT (fetched) is exact; only the lane split
   // is modelled. These are the "scanning" pulse (source → Ranking); they don't tick theme counts.
   useEffect(() => {
-    if (reduceMotion || !lastScan || lastScan.seq === prevScanSeq.current) return
+    if (reduceMotion || historical || !lastScan || lastScan.seq === prevScanSeq.current) return
     prevScanSeq.current = lastScan.seq
     const n = Math.max(0, Math.min(lastScan.fetched, MAX_QUEUE))
     // spread the n scanning dots across the source lanes by the REAL collected mix (stratified, so they
@@ -217,14 +298,14 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
     // the rate IS the intensity: fetched ÷ scan cadence, dynamic + uncapped (200/scan ≈ 0.7/s, 1000 ≈ 3.3/s)
     rateRef.current = queue.current.length / Math.max(60, windowRef.current / 1000)
     setRate(rateRef.current)
-  }, [lastScan, reduceMotion])
+  }, [lastScan, reduceMotion, historical])
 
   // PACER — one stable loop. It releases dots at the FIXED per-scan rate (rateRef, = scraped ÷ cadence),
   // held steady across the window so the whole scan's volume spreads evenly: 1000 items over 300s reads
   // as a dense ~3.3/s, 100 items as a sparse ~0.3/s. NO clamp — the dot density IS the intensity gauge.
   // A fractional accumulator handles any rate (sub-1/s to tens/s). On drain it goes idle until next scan.
   useEffect(() => {
-    if (reduceMotion) return
+    if (reduceMotion || historical) return
     const TICK = 200
     const emitOne = (p: Pending) => {
       const L = layoutRef.current
@@ -267,10 +348,27 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
       }
     }, TICK)
     return () => window.clearInterval(id)
-  }, [reduceMotion])
+  }, [reduceMotion, historical])
+
+  // entering a historical window — drain the live stream so no in-flight dot or rate readout lingers
+  // over the frozen snapshot; the pacer is idle while `historical`, so nothing refills the queue.
+  useEffect(() => {
+    if (!historical) return
+    queue.current = []
+    acc.current = 0
+    rateRef.current = 0
+    setEmits([])
+    setRate(0)
+    setLaneFired({})
+  }, [historical])
 
   return (
-    <div className={`thememap${entering ? ' is-entering' : ''}`} ref={ref}>
+    <div className={`thememap${entering ? ' is-entering' : ''}${historical ? ' is-historical' : ''}`} ref={ref}>
+      {historical && win && (
+        <div className="thememap__asof" aria-hidden>
+          <span className="thememap__asof-dot" /> {windowLabel(win, cov)}
+        </div>
+      )}
       <svg className="thememap__edges" viewBox={`0 0 ${box.w} ${box.h}`} preserveAspectRatio="none" aria-hidden>
         {layout.lanes.map((l) => (
           <path key={l.id} d={hcurve(l.x + 18, l.y, layout.core.x - layout.core.r, layout.core.y)} className="thememap__lane-edge" />
@@ -351,7 +449,7 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
             title={t.description}
           >
             <span className="themenode__core" />
-            <span className="themenode__count">{shown[t.theme_id] ?? t.member_count}</span>
+            <span className="themenode__count">{(historical ? flowInWindow(t, windowHours as number) : (shown[t.theme_id] ?? t.member_count)).toLocaleString()}</span>
             <span className="themenode__label" style={{ width: n.labelW, WebkitLineClamp: 3, color: 'var(--text)' }}>{t.name}</span>
           </button>
         )
@@ -373,7 +471,7 @@ function MapTooltip({ theme }: { theme: Theme }) {
 }
 
 interface MapNode { id: string; x: number; y: number; r: number; flow: boolean; labelW: number; enterRank: number; theme: Theme }
-function computeMapLayout(themes: Theme[], W: number, H: number, tierCounts: Record<string, number> = {}) {
+function computeMapLayout(themes: Theme[], W: number, H: number, tierCounts: Record<string, number> = {}, windowHours: number | null = null) {
   const coreX = W * 0.26, coreY = H * 0.5, coreR = Math.min(32, H * 0.06)
   // lanes are DATA-DRIVEN: only tiers we actually collect (news always shown), each carrying its real
   // count + share so the lane labels read the true source mix.
@@ -390,8 +488,12 @@ function computeMapLayout(themes: Theme[], W: number, H: number, tierCounts: Rec
   const LABEL_H = 46, GAP = 16, TOP = H * 0.06, BOT = H * 0.05
   const usable = Math.max(150, H - TOP - BOT)
   const maxR = Math.min(34, H * 0.066)
-  const ranked = [...themes].sort((a, b) => heatOf(b) - heatOf(a)).slice(0, 16)
-  const items = ranked.map((t) => ({ t, r: radiusFor(t.member_count, 13, maxR), flow: recentFlow(t.flow_series, 2) > 0 }))
+  // Live ranks/sizes by all-time heat + member volume; a window ranks/sizes by the news flow WITHIN it
+  // (the biggest mover of the last 7d need not be the biggest all-time theme).
+  const heat = (t: Theme) => (windowHours == null ? heatOf(t) : heatInWindow(t, windowHours))
+  const sizeCount = (t: Theme) => (windowHours == null ? t.member_count : flowInWindow(t, windowHours))
+  const ranked = [...themes].sort((a, b) => heat(b) - heat(a)).slice(0, 16)
+  const items = ranked.map((t) => ({ t, r: radiusFor(sizeCount(t), 13, maxR), flow: recentFlow(t.flow_series, 2) > 0 }))
   const slotH = (it: { r: number }) => it.r * 2 + LABEL_H + GAP
 
   const basinL = Math.max(W * 0.44, coreX + coreR + 96)
@@ -431,7 +533,7 @@ function computeMapLayout(themes: Theme[], W: number, H: number, tierCounts: Rec
   // Entrance order — biggest bubble first, then strictly descending by size (member_count, which also
   // sets the radius). Independent of the spatial packing above; this rank alone drives the staggered
   // reveal cascade (see --enter / --theme-stagger in global.css), so the map assembles largest → smallest.
-  ;[...nodes].sort((a, b) => b.theme.member_count - a.theme.member_count || b.r - a.r).forEach((n, i) => { n.enterRank = i })
+  ;[...nodes].sort((a, b) => sizeCount(b.theme) - sizeCount(a.theme) || b.r - a.r).forEach((n, i) => { n.enterRank = i })
   return { lanes, core: { x: coreX, y: coreY, r: coreR }, nodes }
 }
 
@@ -442,16 +544,18 @@ function hcurve(x1: number, y1: number, x2: number, y2: number): string {
 
 // ---------------- the BOARD ----------------
 
-function ThemeBoard({ themes, onPick }: { themes: Theme[]; onPick: (id: string) => void }) {
+function ThemeBoard({ themes, onPick, win, cov }: { themes: Theme[]; onPick: (id: string) => void; win: ThemeWindow | null; cov: WindowCoverage | null }) {
   return (
     <div className="themeboard">
-      {themes.map((t) => <ThemeCard key={t.theme_id} t={t} onPick={onPick} />)}
+      {themes.map((t) => <ThemeCard key={t.theme_id} t={t} onPick={onPick} win={win} cov={cov} />)}
     </div>
   )
 }
 
-function ThemeCard({ t, onPick }: { t: Theme; onPick: (id: string) => void }) {
+function ThemeCard({ t, onPick, win, cov }: { t: Theme; onPick: (id: string) => void; win: ThemeWindow | null; cov: WindowCoverage | null }) {
   const scoreTone = t.composite >= 70 ? 'var(--live)' : t.composite >= 45 ? 'var(--accent-bright)' : 'var(--text-faint)'
+  const windowHours = win?.hours ?? null
+  const series = windowHours == null ? t.flow_series : windowSeries(t, windowHours)
   return (
     <button type="button" className="themecard" onClick={() => onPick(t.theme_id)}>
       <div className="themecard__top">
@@ -462,8 +566,12 @@ function ThemeCard({ t, onPick }: { t: Theme; onPick: (id: string) => void }) {
       </div>
       <p className="themecard__desc">{t.description}</p>
       <div className="themecard__flow">
-        <Sparkline series={t.flow_series} />
-        <span className="themecard__flowmeta">{momentumOf(t)}{t.fresh_flow ? ` · +${t.fresh_flow} fresh` : ''} · {t.member_count} items</span>
+        <Sparkline series={series} />
+        <span className="themecard__flowmeta">
+          {win
+            ? `${flowInWindow(t, windowHours).toLocaleString()} items · ${windowLabel(win, cov)}`
+            : `${momentumOf(t)}${t.fresh_flow ? ` · +${t.fresh_flow} fresh` : ''} · ${t.member_count} items`}
+        </span>
       </div>
       {real(t.top_companies).length > 0 && (
         <div className="themecard__cos">
