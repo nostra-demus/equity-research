@@ -1,141 +1,61 @@
 {
-  "generated_at": "2026-06-14T10:27:42Z",
+  "generated_at": "2026-06-16T11:33:10Z",
   "themes": [
-    {
-      "theme_id": "THM-c70eca6b",
-      "name": "US AI Export Restrictions",
-      "description": "The US imposes restrictions on foreign access to AI models, sparking a global AI arms race.",
-      "tier": "hot",
-      "composite": 87,
-      "fresh_flow": 0,
-      "flow_series": [
-        1,
-        0,
-        0,
-        3,
-        1,
-        4,
-        0,
-        1,
-        1,
-        0,
-        1,
-        0
-      ],
-      "member_count": 25,
-      "top_companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "order": 1,
-          "side": "beneficiary"
-        },
-        {
-          "name": "Amazon",
-          "ticker": "AMZN",
-          "order": 1,
-          "side": "harmed"
-        },
-        {
-          "name": "Apple",
-          "ticker": "AAPL",
-          "order": 2,
-          "side": "mixed"
-        },
-        {
-          "name": "Mythos",
-          "ticker": null,
-          "order": 2,
-          "side": "mixed"
-        },
-        {
-          "name": "Anduril",
-          "ticker": null,
-          "order": 3,
-          "side": "mixed"
-        }
-      ],
-      "related_themes": [],
-      "last_flow": "2026-06-14T09:00:00Z",
-      "rev": 18
-    },
-    {
-      "theme_id": "THM-a09772ee",
-      "name": "Russian shadow fleet oil tanker",
-      "description": "Recurring news around Russian shadow fleet oil tanker.",
-      "tier": "hot",
-      "composite": 86,
-      "fresh_flow": 0,
-      "flow_series": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        11,
-        5,
-        0
-      ],
-      "member_count": 16,
-      "top_companies": [
-        {
-          "name": "Russian shadow fleet oil tanker",
-          "ticker": null,
-          "order": 1,
-          "side": "harmed"
-        },
-        {
-          "name": "Russian oil tanker",
-          "ticker": null,
-          "order": 1,
-          "side": "harmed"
-        },
-        {
-          "name": "British military",
-          "ticker": null,
-          "order": 3,
-          "side": "mixed"
-        }
-      ],
-      "related_themes": [],
-      "last_flow": "2026-06-14T09:17:37Z",
-      "rev": 5
-    },
     {
       "theme_id": "THM-e78bdeba",
       "name": "SpaceX IPO Mania",
       "description": "SpaceX's historic IPO makes Elon Musk a trillionaire",
       "tier": "hot",
-      "composite": 83,
-      "fresh_flow": 3,
+      "composite": 93,
+      "fresh_flow": 9,
       "flow_series": [
-        0,
-        0,
-        0,
         1,
         0,
         2,
         0,
         1,
-        1,
         3,
-        1,
-        3
+        0,
+        0,
+        0,
+        6,
+        6,
+        9
       ],
-      "member_count": 29,
+      "member_count": 96,
       "top_companies": [
         {
           "name": "SpaceX",
+          "ticker": null,
+          "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Cursor",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "OpenAI",
           "ticker": null,
           "order": 1,
           "side": "harmed"
         },
         {
           "name": "Tesla",
+          "ticker": "TSLA",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "xAI",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Anysphere",
           "ticker": null,
           "order": 1,
           "side": "mixed"
@@ -145,34 +65,2392 @@
           "ticker": null,
           "order": 1,
           "side": "mixed"
+        },
+        {
+          "name": "Mirae Asset",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
         }
       ],
       "related_themes": [],
-      "last_flow": "2026-06-14T09:30:00Z",
+      "last_flow": "2026-06-16T11:21:41Z",
+      "rev": 88
+    },
+    {
+      "theme_id": "THM-73554c18",
+      "name": "AI cost containment",
+      "description": "Companies seek cost-effective AI solutions to avoid pricing walls",
+      "tier": "hot",
+      "composite": 93,
+      "fresh_flow": 4,
+      "flow_series": [
+        1,
+        0,
+        1,
+        1,
+        1,
+        2,
+        1,
+        1,
+        0,
+        2,
+        5,
+        4
+      ],
+      "member_count": 59,
+      "top_companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "Amazon.com, Inc.",
+          "ticker": "AMZN",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Becton, Dickinson and Company",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "Upstage",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Alibaba",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Amazon",
+          "ticker": "AMZN",
+          "order": 2,
+          "side": "beneficiary"
+        },
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Nvidia",
+          "ticker": "NVDA",
+          "order": 2,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T11:24:15Z",
+      "rev": 57
+    },
+    {
+      "theme_id": "THM-a60a5238",
+      "name": "US-Iran Diplomatic Tensions",
+      "description": "The US and Iran negotiate a peace deal to end their war.",
+      "tier": "hot",
+      "composite": 92,
+      "fresh_flow": 4,
+      "flow_series": [
+        5,
+        4,
+        6,
+        4,
+        5,
+        2,
+        5,
+        3,
+        0,
+        7,
+        6,
+        4
+      ],
+      "member_count": 292,
+      "top_companies": [
+        {
+          "name": "ConocoPhillips",
+          "ticker": "COP",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "IndiGo",
+          "ticker": null,
+          "order": 3,
+          "side": "harmed"
+        },
+        {
+          "name": "Reliance Industries",
+          "ticker": null,
+          "order": 3,
+          "side": "mixed"
+        },
+        {
+          "name": "ONGC",
+          "ticker": null,
+          "order": 3,
+          "side": "mixed"
+        },
+        {
+          "name": "BPCL",
+          "ticker": null,
+          "order": 3,
+          "side": "mixed"
+        },
+        {
+          "name": "HPCL",
+          "ticker": null,
+          "order": 3,
+          "side": "mixed"
+        },
+        {
+          "name": "IOC",
+          "ticker": null,
+          "order": 3,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T11:16:11Z",
+      "rev": 263
+    },
+    {
+      "theme_id": "THM-9437631f",
+      "name": "Public Company Securities Fraud Lawsuits",
+      "description": "Multiple public companies face securities fraud class action lawsuits.",
+      "tier": "hot",
+      "composite": 91,
+      "fresh_flow": 0,
+      "flow_series": [
+        5,
+        0,
+        1,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        2,
+        4,
+        0
+      ],
+      "member_count": 33,
+      "top_companies": [
+        {
+          "name": "Badger Meter, Inc.",
+          "ticker": "BMI",
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "GeneDx Holdings Corp.",
+          "ticker": "WGS",
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "Veritone",
+          "ticker": "VERI",
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "BitGo Holdings, Inc.",
+          "ticker": "BTGO",
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "Verra Mobility Corporation",
+          "ticker": "VRRM",
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "POET Technologies Inc.",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "Babcock & Wilcox Enterprises, Inc.",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "Zillow Group, Inc.",
+          "ticker": "ZG",
+          "order": 1,
+          "side": "harmed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T10:16:00Z",
+      "rev": 32
+    },
+    {
+      "theme_id": "THM-a4d92906",
+      "name": "Airtel Africa Consolidation",
+      "description": "Bharti Airtel secures shareholder backing for Africa stake consolidation.",
+      "tier": "hot",
+      "composite": 91,
+      "fresh_flow": 2,
+      "flow_series": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        3,
+        2,
+        0,
+        0,
+        5,
+        2
+      ],
+      "member_count": 53,
+      "top_companies": [
+        {
+          "name": "Terra Innovatum Global",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Nutraplus India Ltd",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "BitVentures Limited",
+          "ticker": "BVC",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Krishna Institute of Medical Sciences Limited",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Alphabet Inc.",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "Future Consumer Limited",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Airtel",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Bharti Airtel",
+          "ticker": null,
+          "order": 1,
+          "side": "beneficiary"
+        }
+      ],
+      "related_themes": [
+        {
+          "theme_id": "THM-e2f37709",
+          "name": "Omkar Speciality Chemicals Ltd · financial",
+          "kind": "related"
+        }
+      ],
+      "last_flow": "2026-06-16T11:30:05Z",
+      "rev": 51
+    },
+    {
+      "theme_id": "THM-2341b1e0",
+      "name": "PTC-Bandwidth Convertible Notes",
+      "description": "PTC Therapeutics and Bandwidth Inc. issue convertible notes",
+      "tier": "hot",
+      "composite": 91,
+      "fresh_flow": 8,
+      "flow_series": [
+        3,
+        2,
+        0,
+        4,
+        2,
+        0,
+        2,
+        2,
+        0,
+        0,
+        0,
+        8
+      ],
+      "member_count": 43,
+      "top_companies": [
+        {
+          "name": "PTC Therapeutics",
+          "ticker": "PTCT",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Bandwidth Inc.",
+          "ticker": "BAND",
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "Seadrill",
+          "ticker": "SDRL",
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "PAVS",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Hybar",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "Clip Money Inc.",
+          "ticker": "CLPMF",
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "Macerich",
+          "ticker": "MAC",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Yorkville International Capital Corp",
+          "ticker": "YICCU",
+          "order": 1,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T11:30:00Z",
+      "rev": 42
+    },
+    {
+      "theme_id": "THM-c70eca6b",
+      "name": "US AI Export Restrictions",
+      "description": "The US imposes restrictions on foreign access to AI models, sparking a global AI arms race.",
+      "tier": "hot",
+      "composite": 90,
+      "fresh_flow": 3,
+      "flow_series": [
+        0,
+        0,
+        0,
+        1,
+        1,
+        2,
+        1,
+        1,
+        0,
+        1,
+        4,
+        3
+      ],
+      "member_count": 64,
+      "top_companies": [
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "Amazon",
+          "ticker": "AMZN",
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "Becton, Dickinson and Company",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "Upstage",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Alibaba",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Meta Platforms",
+          "ticker": "META",
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Wipro Ltd",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T11:02:01Z",
+      "rev": 57
+    },
+    {
+      "theme_id": "THM-e2f37709",
+      "name": "Omkar Speciality Chemicals Ltd · financial",
+      "description": "Recurring news around Omkar Speciality Chemicals Ltd · financial.",
+      "tier": "hot",
+      "composite": 90,
+      "fresh_flow": 2,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        2,
+        0,
+        0,
+        5,
+        2
+      ],
+      "member_count": 54,
+      "top_companies": [
+        {
+          "name": "Omkar Speciality Chemicals Ltd",
+          "ticker": "533317",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Cafe de Coral",
+          "ticker": "00341",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Terra Innovatum Global",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Nutraplus India Ltd",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "BitVentures Limited",
+          "ticker": "BVC",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Krishna Institute of Medical Sciences Limited",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Future Consumer Limited",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Laddu Gopal Online Services Ltd",
+          "ticker": null,
+          "order": 1,
+          "side": "beneficiary"
+        }
+      ],
+      "related_themes": [
+        {
+          "theme_id": "THM-a4d92906",
+          "name": "Airtel Africa Consolidation",
+          "kind": "related"
+        }
+      ],
+      "last_flow": "2026-06-16T11:30:05Z",
+      "rev": 49
+    },
+    {
+      "theme_id": "THM-db00b3e2",
+      "name": "Indian Corporate Governance",
+      "description": "Indian companies disclose substantial share acquisitions under SEBI regulations.",
+      "tier": "hot",
+      "composite": 90,
+      "fresh_flow": 5,
+      "flow_series": [
+        0,
+        1,
+        0,
+        1,
+        1,
+        0,
+        1,
+        1,
+        0,
+        0,
+        4,
+        5
+      ],
+      "member_count": 32,
+      "top_companies": [
+        {
+          "name": "Bharti Airtel Ltd",
+          "ticker": "532454",
+          "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Zydus Lifesciences Limited",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Assertio Holdings",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Airtel",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Cyient Ltd",
+          "ticker": null,
+          "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Sudarshan Chemical Industries Limited",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Pine Labs Limited",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "RateGain",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T11:00:11Z",
+      "rev": 26
+    },
+    {
+      "theme_id": "THM-52ccc1e6",
+      "name": "Digital Infrastructure Buildout",
+      "description": "SWI Group expands its transatlantic digital infrastructure platform through strategic acquisitions.",
+      "tier": "hot",
+      "composite": 88,
+      "fresh_flow": 2,
+      "flow_series": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3,
+        2
+      ],
+      "member_count": 46,
+      "top_companies": [
+        {
+          "name": "SWI Group",
+          "ticker": null,
+          "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "GDA",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "American Express",
+          "ticker": "AXP",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Westlake",
+          "ticker": "WLK",
+          "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "IREN",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "InterCure",
+          "ticker": "INCR",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Botanico",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Imperial Dade Canada",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T11:30:00Z",
+      "rev": 34
+    },
+    {
+      "theme_id": "THM-7e41db43",
+      "name": "AI Data Center Infrastructure",
+      "description": "Schneider Electric and Hon Hai Technology Group (Foxconn) collaborate to accelerate next-generation AI data centers.",
+      "tier": "hot",
+      "composite": 88,
+      "fresh_flow": 7,
+      "flow_series": [
+        0,
+        0,
+        2,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        3,
+        7
+      ],
+      "member_count": 37,
+      "top_companies": [
+        {
+          "name": "Schneider Electric Infrastructure Ltd",
+          "ticker": "534139",
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "SailPoint",
+          "ticker": "SAIL",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Entro",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Schneider Electric",
+          "ticker": "SU",
+          "order": 2,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Foxconn",
+          "ticker": "2317",
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Adani Enterprises",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Jabil",
+          "ticker": "JBL",
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Tachyon9",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T11:06:33Z",
+      "rev": 35
+    },
+    {
+      "theme_id": "THM-b28e8d95",
+      "name": "Indian Corporate Governance",
+      "description": "Multiple companies disclose director changes and takeovers in India",
+      "tier": "hot",
+      "composite": 88,
+      "fresh_flow": 4,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        4,
+        2,
+        0,
+        1,
+        0,
+        0,
+        0,
+        4
+      ],
+      "member_count": 65,
+      "top_companies": [
+        {
+          "name": "AVG Logistics Ltd",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "HP Cotton Textile Mills Ltd",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Poojawestern Metaliks Ltd",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Vishnu Prakash R Punglia Ltd",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Fluidomat Ltd",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Umiya Buildcon Ltd",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Kati Patang Lifestyle Ltd",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Virtual Software & Training Pvt Ltd",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T11:01:08Z",
+      "rev": 61
+    },
+    {
+      "theme_id": "THM-2079e45a",
+      "name": "AI Investment",
+      "description": "HCL Technologies invests in Sarvam AI, a company in the AI sector.",
+      "tier": "hot",
+      "composite": 87,
+      "fresh_flow": 1,
+      "flow_series": [
+        0,
+        0,
+        1,
+        3,
+        2,
+        2,
+        1,
+        0,
+        0,
+        1,
+        2,
+        1
+      ],
+      "member_count": 21,
+      "top_companies": [
+        {
+          "name": "Sarvam AI",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "HCLTech",
+          "ticker": "HCLTECH",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "A10 Networks",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "TrojAI Inc.",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Salesforce",
+          "ticker": "CRM",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Fin",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Ripple",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Flutterwave",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T11:00:00Z",
+      "rev": 20
+    },
+    {
+      "theme_id": "THM-8e222047",
+      "name": "Rhythm Pharmaceuticals · positive",
+      "description": "Recurring news around Rhythm Pharmaceuticals · positive.",
+      "tier": "hot",
+      "composite": 86,
+      "fresh_flow": 8,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        8
+      ],
+      "member_count": 47,
+      "top_companies": [
+        {
+          "name": "Celldex",
+          "ticker": "CLDX",
+          "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Incyte",
+          "ticker": "INCY",
+          "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Invivyd",
+          "ticker": "IVVD",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Rhythm Pharmaceuticals",
+          "ticker": "RYTM",
+          "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Intellia Therapeutics",
+          "ticker": "NTLA",
+          "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Crinetics",
+          "ticker": "CRNX",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Mirum Pharmaceuticals",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Edgewise Therapeutics",
+          "ticker": "EWTX",
+          "order": 1,
+          "side": "beneficiary"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T11:01:00Z",
+      "rev": 44
+    },
+    {
+      "theme_id": "THM-4225531e",
+      "name": "Vedanta demerger listing",
+      "description": "Vedanta's subsidiaries list on the stock exchange after a major demerger.",
+      "tier": "hot",
+      "composite": 85,
+      "fresh_flow": 2,
+      "flow_series": [
+        0,
+        2,
+        0,
+        0,
+        0,
+        3,
+        0,
+        0,
+        1,
+        0,
+        2,
+        2
+      ],
+      "member_count": 39,
+      "top_companies": [
+        {
+          "name": "Vedanta Limited",
+          "ticker": null,
+          "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Vedanta Aluminium",
+          "ticker": "VAA",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Vedanta Power",
+          "ticker": "VAP",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "GMR Power and Urban Infra Ltd",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Craftsman Automation Ltd",
+          "ticker": null,
+          "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Schneider Electric Infrastructure Ltd",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "Vedanta Aluminium Metal Ltd",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Vedanta Resources Limited",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T10:40:07Z",
+      "rev": 28
+    },
+    {
+      "theme_id": "THM-ca83b625",
+      "name": "Huntsman-Olin Merger",
+      "description": "Huntsman and Olin merge to create a $12+ billion chemicals leader",
+      "tier": "hot",
+      "composite": 85,
+      "fresh_flow": 3,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        7,
+        3
+      ],
+      "member_count": 10,
+      "top_companies": [
+        {
+          "name": "OLIN",
+          "ticker": "0000074303",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "HUNTSMAN",
+          "ticker": "0001307954",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Aareal Bank",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Ucore Rare Metals",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Sumitomo Corporation of Americas",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T10:57:14Z",
+      "rev": 6
+    },
+    {
+      "theme_id": "THM-4b2de8c8",
+      "name": "Paints Industry Rally",
+      "description": "Asian Paints and Berger Paints rally on oil price drop",
+      "tier": "hot",
+      "composite": 83,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        1,
+        3,
+        2,
+        1,
+        1,
+        1,
+        0,
+        4,
+        1,
+        0
+      ],
+      "member_count": 53,
+      "top_companies": [
+        {
+          "name": "Reliance Industries",
+          "ticker": null,
+          "order": 3,
+          "side": "mixed"
+        },
+        {
+          "name": "ONGC",
+          "ticker": null,
+          "order": 3,
+          "side": "mixed"
+        },
+        {
+          "name": "Asian Paints",
+          "ticker": null,
+          "order": 3,
+          "side": "mixed"
+        },
+        {
+          "name": "Berger Paints",
+          "ticker": null,
+          "order": 3,
+          "side": "mixed"
+        },
+        {
+          "name": "[Industry Analysis]",
+          "ticker": null,
+          "order": 3,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T10:00:31Z",
+      "rev": 52
+    },
+    {
+      "theme_id": "THM-8c927605",
+      "name": "Indian Fintech IPOs",
+      "description": "Razorpay and NSE prepare for large-scale IPOs in India",
+      "tier": "hot",
+      "composite": 82,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        2,
+        2,
+        1,
+        0,
+        2,
+        4,
+        1,
+        0,
+        0,
+        1,
+        0
+      ],
+      "member_count": 22,
+      "top_companies": [
+        {
+          "name": "Razorpay",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Xiaohongshu",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Turtlemint Fintech",
+          "ticker": null,
+          "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "HomeLane",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Sify Infinit",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Ant International",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Patsnap",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "GCash",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T10:05:53Z",
+      "rev": 18
+    },
+    {
+      "theme_id": "THM-1d595da3",
+      "name": "ASX Regulatory Issues",
+      "description": "ASX faces regulatory issues and penalties for misleading investors.",
+      "tier": "hot",
+      "composite": 82,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        1,
+        1,
+        0,
+        0,
+        3,
+        2,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "member_count": 28,
+      "top_companies": [
+        {
+          "name": "ASX Limited",
+          "ticker": "ASX",
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "MBH",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "TAH",
+          "ticker": "TAH",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "ENN",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "JIN",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "CMB",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "BAP",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "LGP",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T07:01:27Z",
+      "rev": 17
+    },
+    {
+      "theme_id": "THM-37957ded",
+      "name": "Yes Bank Ltd",
+      "description": "Recurring news around Yes Bank Ltd.",
+      "tier": "hot",
+      "composite": 81,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "member_count": 45,
+      "top_companies": [
+        {
+          "name": "Yes Bank Ltd",
+          "ticker": "532648",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Cyient Ltd",
+          "ticker": null,
+          "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Maiden Forgings Ltd",
+          "ticker": "543874",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "State Bank of India",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "Bodhi Tree Multimedia Limited",
+          "ticker": "NULL",
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "RBL Bank Limited",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "DIC India Limited",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Zenith Exports Limited",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T07:12:44Z",
+      "rev": 41
+    },
+    {
+      "theme_id": "THM-21f5e7fe",
+      "name": "Fintech Consolidation",
+      "description": "Nuvei acquires Payoneer, creating a leading global platform for local and cross-border commerce, potentially disrupting the fintech industry.",
+      "tier": "hot",
+      "composite": 81,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        2,
+        0
+      ],
+      "member_count": 22,
+      "top_companies": [
+        {
+          "name": "Nuvei",
+          "ticker": "NVEE",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Payoneer",
+          "ticker": "PAYO",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Fox Corporation",
+          "ticker": "FOX",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Roku, Inc.",
+          "ticker": "ROKU",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Payoneer Global Inc.",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "ITT",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Splash Beverage Group",
+          "ticker": "SBEV",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Salesforce",
+          "ticker": "CRM",
+          "order": 1,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T10:30:00Z",
       "rev": 21
+    },
+    {
+      "theme_id": "THM-e759968c",
+      "name": "Medical Device and Tech",
+      "description": "Boston Scientific and Meta Platforms receive positive analyst ratings.",
+      "tier": "hot",
+      "composite": 80,
+      "fresh_flow": 1,
+      "flow_series": [
+        0,
+        0,
+        0,
+        2,
+        1,
+        1,
+        0,
+        0,
+        0,
+        1,
+        4,
+        1
+      ],
+      "member_count": 17,
+      "top_companies": [
+        {
+          "name": "HCL Technologies",
+          "ticker": "HCL",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Sarvam AI",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Visa",
+          "ticker": "V",
+          "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Mastercard",
+          "ticker": "MA",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Mobavenue AI Tech Ltd",
+          "ticker": "539682",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "TSMC",
+          "ticker": null,
+          "order": 2,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Cendyn",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Radware",
+          "ticker": "RDWR",
+          "order": 2,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T11:00:00Z",
+      "rev": 16
+    },
+    {
+      "theme_id": "THM-fbc9c6a6",
+      "name": "Asian Mergers and Acquisitions",
+      "description": "Tianjin Port Development Holdings and Aeon Stores engage in connected transactions",
+      "tier": "hot",
+      "composite": 80,
+      "fresh_flow": 0,
+      "flow_series": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0
+      ],
+      "member_count": 26,
+      "top_companies": [
+        {
+          "name": "American Express",
+          "ticker": "AXP",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Tianjin Port Development Holdings Ltd",
+          "ticker": "03382",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Jet.AI",
+          "ticker": "JTAI",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "China International Capital Corporation",
+          "ticker": "03908",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Dongxing Securities",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Cinda Securities",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "KINGWORLD",
+          "ticker": "01110",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Road King Infra",
+          "ticker": "01098",
+          "order": 1,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T10:18:00Z",
+      "rev": 25
+    },
+    {
+      "theme_id": "THM-5746909b",
+      "name": "Fox-Roku Merger",
+      "description": "Fox acquires Roku in a major media deal",
+      "tier": "hot",
+      "composite": 79,
+      "fresh_flow": 0,
+      "flow_series": [
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "member_count": 48,
+      "top_companies": [
+        {
+          "name": "Roku, Inc.",
+          "ticker": "ROKU",
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "Fox Corporation",
+          "ticker": "FOXA",
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "Murdoch",
+          "ticker": "NWSA",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "News Corp",
+          "ticker": "NWS",
+          "order": 1,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T09:20:05Z",
+      "rev": 46
+    },
+    {
+      "theme_id": "THM-418706bf",
+      "name": "Embassy Developments · embassydevelopments",
+      "description": "Recurring news around Embassy Developments · embassydevelopments.",
+      "tier": "hot",
+      "composite": 78,
+      "fresh_flow": 1,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        1,
+        3,
+        1
+      ],
+      "member_count": 18,
+      "top_companies": [
+        {
+          "name": "Apple Inc.",
+          "ticker": "AAPL",
+          "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Embassy Developments",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Ucore Rare Metals",
+          "ticker": "UURAF",
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Sumitomo Corporation of Americas",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Dana-Eaton",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Oklo",
+          "ticker": "OKLO",
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Standard Nuclear",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Meta Platforms",
+          "ticker": "META",
+          "order": 2,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T10:57:14Z",
+      "rev": 15
+    },
+    {
+      "theme_id": "THM-7d3194f7",
+      "name": "OpenAI",
+      "description": "Recurring news around OpenAI.",
+      "tier": "hot",
+      "composite": 78,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        3,
+        0,
+        0,
+        0,
+        2,
+        3,
+        0
+      ],
+      "member_count": 18,
+      "top_companies": [
+        {
+          "name": "OpenAI",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "xAI",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Tesla",
+          "ticker": "TSLA",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "SpaceX",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Visa",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Nvidia",
+          "ticker": null,
+          "order": 3,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T10:30:09Z",
+      "rev": 16
+    },
+    {
+      "theme_id": "THM-3d2e03d3",
+      "name": "JPMorgan European Expansion",
+      "description": "JPMorgan plans expansion into Europe's largest markets",
+      "tier": "hot",
+      "composite": 78,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        8,
+        0
+      ],
+      "member_count": 9,
+      "top_companies": [
+        {
+          "name": "JPMorgan Chase & Co.",
+          "ticker": "JPM",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "JPMorgan Chase Financial Co. LLC",
+          "ticker": "0001665650",
+          "order": 1,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T10:07:23Z",
+      "rev": 8
+    },
+    {
+      "theme_id": "THM-9e775a2a",
+      "name": "Healthcare Venture Funding",
+      "description": "Companies in the healthcare sector receive significant funding from investors.",
+      "tier": "hot",
+      "composite": 77,
+      "fresh_flow": 2,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        2
+      ],
+      "member_count": 14,
+      "top_companies": [
+        {
+          "name": "Enhanced Group",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "VAYK",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Home Engineering",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "HMNC Brain Health",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Domo",
+          "ticker": "DOMO",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Affle",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "WHK",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Acumen Pharmaceuticals",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T11:30:00Z",
+      "rev": 12
+    },
+    {
+      "theme_id": "THM-5926f8be",
+      "name": "Infosys-Valmet AI Partnership",
+      "description": "Infosys and Valmet collaborate on AI accelerated transformation",
+      "tier": "hot",
+      "composite": 77,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        7,
+        0
+      ],
+      "member_count": 9,
+      "top_companies": [
+        {
+          "name": "Infosys Limited",
+          "ticker": "INFY",
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Valmet",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Adani Ports and Special Economic Zone",
+          "ticker": null,
+          "order": 3,
+          "side": "beneficiary"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T10:29:09Z",
+      "rev": 6
+    },
+    {
+      "theme_id": "THM-2a6c1a7f",
+      "name": "ai · networking · case",
+      "description": "Recurring news around ai · networking · case.",
+      "tier": "hot",
+      "composite": 76,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        3,
+        0
+      ],
+      "member_count": 18,
+      "top_companies": [
+        {
+          "name": "HPE",
+          "ticker": "HPE",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Rocket One",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Broadcom",
+          "ticker": "AVGO",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Adani Enterprises",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Jabil",
+          "ticker": "JBL",
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Tachyon9",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Nidar Infrastructure",
+          "ticker": "NIXX",
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Schneider Electric Infrastructure Limited",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T10:30:00Z",
+      "rev": 16
+    },
+    {
+      "theme_id": "THM-63de303e",
+      "name": "Mortgage Finance Innovation",
+      "description": "Companies innovate in mortgage financing, including 3D-printed homes.",
+      "tier": "hot",
+      "composite": 76,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        6,
+        0
+      ],
+      "member_count": 14,
+      "top_companies": [
+        {
+          "name": "BofA Finance LLC",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "JPMorgan Chase Financial Co. LLC",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "JPMORGAN CHASE & CO",
+          "ticker": "JPM",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Wells Fargo Finance LLC",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "GS Finance Corp",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Wells Fargo",
+          "ticker": "WFC",
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "ICON",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T10:02:42Z",
+      "rev": 8
+    },
+    {
+      "theme_id": "THM-d87a2d2a",
+      "name": "Leadership Changes",
+      "description": "Forsys Metals, Amcor, and Celltaxis announce strategic leadership changes.",
+      "tier": "hot",
+      "composite": 74,
+      "fresh_flow": 4,
+      "flow_series": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4
+      ],
+      "member_count": 14,
+      "top_companies": [
+        {
+          "name": "SailPoint",
+          "ticker": "SAIL",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Entro",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Securitas AB",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "F&G Annuities & Life",
+          "ticker": "FG",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Forsys Metals",
+          "ticker": "FOSYF",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Patriot Rail",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Amcor",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Chronograph",
+          "ticker": null,
+          "order": 2,
+          "side": "beneficiary"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T11:00:00Z",
+      "rev": 12
+    },
+    {
+      "theme_id": "THM-e6f14635",
+      "name": "Indian IT Sector AI Investment",
+      "description": "Indian IT companies are investing in AI, with HCLTech's Sarvam AI bet attracting attention.",
+      "tier": "hot",
+      "composite": 74,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        4,
+        2,
+        1,
+        0,
+        0,
+        1,
+        2,
+        0
+      ],
+      "member_count": 10,
+      "top_companies": [
+        {
+          "name": "HCL Technologies",
+          "ticker": "HCLTECH",
+          "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Sarvam AI",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "HCLTech",
+          "ticker": "HCLTECH",
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Public Sector Pension Investment Board",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Adani Ports and Special Economic Zone",
+          "ticker": null,
+          "order": 2,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Bajaj Finance",
+          "ticker": null,
+          "order": 3,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T10:19:16Z",
+      "rev": 8
+    },
+    {
+      "theme_id": "THM-890dcda4",
+      "name": "Rackspace-AI Infrastructure",
+      "description": "Rackspace and AMD partner for AI compute deployment.",
+      "tier": "hot",
+      "composite": 74,
+      "fresh_flow": 5,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        5
+      ],
+      "member_count": 6,
+      "top_companies": [
+        {
+          "name": "Rackspace Technology, Inc.",
+          "ticker": "0001810019",
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "AMD",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Intel",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Adani Group",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Jabil",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T11:06:33Z",
+      "rev": 4
     },
     {
       "theme_id": "THM-74234e98",
       "name": "CAR-T Cancer Treatment Advancements",
       "description": "Companies developing off-the-shelf CAR-T treatments are gaining ground on traditional autologous drugs.",
       "tier": "hot",
-      "composite": 82,
+      "composite": 72,
       "fresh_flow": 0,
       "flow_series": [
         0,
         0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
         2,
-        2,
-        1,
-        1,
-        0,
-        0,
-        1,
-        0,
-        0,
         0
       ],
-      "member_count": 25,
+      "member_count": 41,
       "top_companies": [
         {
           "name": "Takeda",
@@ -211,99 +2489,580 @@
           "side": "mixed"
         },
         {
+          "name": "Merck & Co.",
+          "ticker": "MRK",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
           "name": "null",
           "ticker": null,
-          "order": 2,
-          "side": "mixed"
-        },
-        {
-          "name": "Amgen",
-          "ticker": null,
-          "order": 2,
-          "side": "mixed"
-        }
-      ],
-      "related_themes": [],
-      "last_flow": "2026-06-14T07:17:40Z",
-      "rev": 15
-    },
-    {
-      "theme_id": "THM-a60a5238",
-      "name": "US-Iran Diplomatic Tensions",
-      "description": "The US and Iran negotiate a peace deal to end their war.",
-      "tier": "hot",
-      "composite": 80,
-      "fresh_flow": 0,
-      "flow_series": [
-        0,
-        2,
-        1,
-        1,
-        1,
-        1,
-        2,
-        2,
-        1,
-        6,
-        2,
-        0
-      ],
-      "member_count": 64,
-      "top_companies": [],
-      "related_themes": [],
-      "last_flow": "2026-06-14T09:05:14Z",
-      "rev": 35
-    },
-    {
-      "theme_id": "THM-73554c18",
-      "name": "AI cost containment",
-      "description": "Companies seek cost-effective AI solutions to avoid pricing walls",
-      "tier": "hot",
-      "composite": 78,
-      "fresh_flow": 0,
-      "flow_series": [
-        1,
-        0,
-        0,
-        2,
-        0,
-        2,
-        0,
-        2,
-        0,
-        1,
-        3,
-        0
-      ],
-      "member_count": 15,
-      "top_companies": [
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "order": 1,
-          "side": "harmed"
-        },
-        {
-          "name": "Amazon.com, Inc.",
-          "ticker": "AMZN",
-          "order": 1,
-          "side": "mixed"
-        },
-        {
-          "name": "Amazon",
-          "ticker": "AMZN",
           "order": 2,
           "side": "beneficiary"
         }
       ],
       "related_themes": [],
-      "last_flow": "2026-06-14T09:04:03Z",
-      "rev": 13
+      "last_flow": "2026-06-16T10:05:53Z",
+      "rev": 31
     },
     {
-      "theme_id": "THM-8e222047",
-      "name": "Rhythm Pharmaceuticals · positive",
-      "description": "Recurring news around Rhythm Pharmaceuticals · positive.",
+      "theme_id": "THM-5f05c295",
+      "name": "Satellite Communications Consolidation",
+      "description": "Comtech and Gilat merge satellite and space communications businesses to create a leading provider of defense and satellite solutions.",
+      "tier": "hot",
+      "composite": 71,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        2,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "member_count": 20,
+      "top_companies": [
+        {
+          "name": "Forward Industries",
+          "ticker": "FWDI",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Comtech Telecommunications",
+          "ticker": "CMTL",
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "Comtech",
+          "ticker": "CMTL",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Gilat",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Solana Company",
+          "ticker": "HSDT",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "SkyAI, Inc.",
+          "ticker": "SKYA",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Gilat Satellite Networks",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Salesforce",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T03:50:43Z",
+      "rev": 18
+    },
+    {
+      "theme_id": "THM-3a7bd3e2",
+      "name": "Apple",
+      "description": "Recurring news around Apple.",
+      "tier": "hot",
+      "composite": 70,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0
+      ],
+      "member_count": 23,
+      "top_companies": [
+        {
+          "name": "Goldman Sachs",
+          "ticker": "GS",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Berkshire Hathaway",
+          "ticker": "BRK.B",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Novo",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Alphabet",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Apple",
+          "ticker": "AAPL",
+          "order": 2,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Google",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T09:07:00Z",
+      "rev": 16
+    },
+    {
+      "theme_id": "THM-59a7935e",
+      "name": "Gold and Copper Exploration",
+      "description": "AbraSilver and Spanish Mountain Gold report promising drill results, potentially impacting the gold and copper mining industries.",
+      "tier": "hot",
+      "composite": 70,
+      "fresh_flow": 3,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        3,
+        3
+      ],
+      "member_count": 10,
+      "top_companies": [
+        {
+          "name": "Newcore Gold",
+          "ticker": "NCAUF",
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "ICG Silver & Gold",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Regency Silver Corp.",
+          "ticker": "RSMXF",
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Silverco Mining",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Spanish Mountain Gold",
+          "ticker": "SPAUF",
+          "order": 3,
+          "side": "mixed"
+        },
+        {
+          "name": "NexGold Mining",
+          "ticker": null,
+          "order": 3,
+          "side": "mixed"
+        },
+        {
+          "name": "AbraSilver",
+          "ticker": "ABBRF",
+          "order": 3,
+          "side": "mixed"
+        },
+        {
+          "name": "Earthwise Minerals",
+          "ticker": "EWISF",
+          "order": 3,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T11:00:00Z",
+      "rev": 9
+    },
+    {
+      "theme_id": "THM-2bae19ad",
+      "name": "Defense Contract Awards",
+      "description": "Parsons and Castellum win defense contracts from the US Navy.",
+      "tier": "hot",
+      "composite": 70,
+      "fresh_flow": 2,
+      "flow_series": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        2,
+        2
+      ],
+      "member_count": 12,
+      "top_companies": [
+        {
+          "name": "Road King Infra",
+          "ticker": "01098",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Parsons",
+          "ticker": null,
+          "order": 2,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Verra Mobility",
+          "ticker": "VRRM",
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Castellum",
+          "ticker": null,
+          "order": 2,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Gujarat Inject Kerala",
+          "ticker": null,
+          "order": 2,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Leighton Asia",
+          "ticker": null,
+          "order": 2,
+          "side": "beneficiary"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T10:58:20Z",
+      "rev": 10
+    },
+    {
+      "theme_id": "THM-81286876",
+      "name": "European Air Defense Alliance",
+      "description": "Rheinmetall and LIG D&A partner to supply air defense systems to Europe.",
+      "tier": "hot",
+      "composite": 70,
+      "fresh_flow": 1,
+      "flow_series": [
+        0,
+        1,
+        2,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        2,
+        1
+      ],
+      "member_count": 8,
+      "top_companies": [
+        {
+          "name": "Rheinmetall AG",
+          "ticker": "RHM",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "LIG D&A-라인메탈",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Hyundai Rotem",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Teledyne FLIR Defense",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Clean Energy",
+          "ticker": null,
+          "order": 2,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Clean Energy Fuels",
+          "ticker": null,
+          "order": 3,
+          "side": "beneficiary"
+        },
+        {
+          "name": "GXO Logistics",
+          "ticker": "GXO",
+          "order": 3,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T11:00:00Z",
+      "rev": 7
+    },
+    {
+      "theme_id": "THM-d65158dd",
+      "name": "Banking Facility Updates",
+      "description": "RBB Bancorp and Accord announce updates to their banking facilities and debt.",
+      "tier": "active",
+      "composite": 69,
+      "fresh_flow": 0,
+      "flow_series": [
+        2,
+        2,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "member_count": 13,
+      "top_companies": [
+        {
+          "name": "RBB Bancorp",
+          "ticker": "RBB",
+          "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Macerich",
+          "ticker": "MAC",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "STMicroelectronics",
+          "ticker": "STM",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Arch Capital Group Ltd.",
+          "ticker": "ACGL",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "The Ensign Group, Inc.",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Accord",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "Cliq Digital AG",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T05:35:00Z",
+      "rev": 12
+    },
+    {
+      "theme_id": "THM-8b611085",
+      "name": "AI-Powered Payments",
+      "description": "Visa and Mastercard leverage AI for payment innovations.",
+      "tier": "active",
+      "composite": 67,
+      "fresh_flow": 2,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        2,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        2
+      ],
+      "member_count": 12,
+      "top_companies": [
+        {
+          "name": "Meta Platforms",
+          "ticker": "META",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Boston Scientific",
+          "ticker": "BSX",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Kingboard Laminates",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Anthropic",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Twitter",
+          "ticker": "TWTR",
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "ByteDance",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Alphabet",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T11:00:00Z",
+      "rev": 11
+    },
+    {
+      "theme_id": "THM-6feed06f",
+      "name": "German Satellite Industry Funding",
+      "description": "OHB seeks €500 million to fuel growth in the German satellite industry",
+      "tier": "active",
+      "composite": 66,
+      "fresh_flow": 1,
+      "flow_series": [
+        1,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        2,
+        0,
+        1,
+        0,
+        1
+      ],
+      "member_count": 10,
+      "top_companies": [
+        {
+          "name": "OHB SE",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Tata Motors",
+          "ticker": "TTM",
+          "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Equinor",
+          "ticker": null,
+          "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "KKR",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Go Digit General Insurance",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "NNB Nutrition",
+          "ticker": null,
+          "order": 2,
+          "side": "beneficiary"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T10:48:00Z",
+      "rev": 9
+    },
+    {
+      "theme_id": "THM-31168c38",
+      "name": "Real Estate Trust Offerings",
+      "description": "Multiple real estate trusts file for public offerings or updates",
       "tier": "active",
       "composite": 65,
       "fresh_flow": 0,
@@ -311,8 +3070,84 @@
         0,
         0,
         0,
+        0,
         1,
         0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "member_count": 9,
+      "top_companies": [
+        {
+          "name": "IPC Alternative Real Estate Income Trust, Inc.",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Ford Motor Credit Co LLC",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Apollo Commercial Real Estate Finance, Inc.",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Invesco Commercial Real Estate Finance Trust, Inc.",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Hines Global Income Trust, Inc.",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Go Digit General Insurance",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Brookfield Real Estate Income Trust Inc.",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Chalet Hotels",
+          "ticker": null,
+          "order": 3,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T09:00:00Z",
+      "rev": 7
+    },
+    {
+      "theme_id": "THM-1dd0aecd",
+      "name": "China Wealth Management",
+      "description": "Hong Kong firms tap into China's growing wealth",
+      "tier": "active",
+      "composite": 65,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        2,
+        2,
         0,
         0,
         0,
@@ -321,55 +3156,153 @@
         2,
         0
       ],
-      "member_count": 10,
+      "member_count": 7,
       "top_companies": [
         {
-          "name": "Rhythm Pharmaceuticals",
-          "ticker": "RYTM",
-          "order": 1,
-          "side": "beneficiary"
-        },
-        {
-          "name": "Intellia Therapeutics",
-          "ticker": "NTLA",
-          "order": 1,
-          "side": "beneficiary"
-        },
-        {
-          "name": "Celldex",
-          "ticker": "CLDX",
-          "order": 1,
-          "side": "beneficiary"
-        },
-        {
-          "name": "Novo",
+          "name": "China Evergrande Group",
           "ticker": null,
           "order": 1,
-          "side": "harmed"
+          "side": "mixed"
         },
         {
-          "name": "Incyte",
-          "ticker": "INCY",
+          "name": "PwC Hong Kong",
+          "ticker": null,
           "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Huatai Financial Holdings (Hong Kong) Limited",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Kingboard Laminates",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "AIA",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Prudential",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "null",
+          "ticker": null,
+          "order": 3,
           "side": "beneficiary"
         },
         {
-          "name": "Genmab",
-          "ticker": "GMAB",
-          "order": 1,
+          "name": "CPN",
+          "ticker": null,
+          "order": 3,
           "side": "mixed"
         }
       ],
       "related_themes": [],
-      "last_flow": "2026-06-14T09:15:00Z",
-      "rev": 7
+      "last_flow": "2026-06-16T10:29:44Z",
+      "rev": 6
     },
     {
-      "theme_id": "THM-560132a3",
-      "name": "Healthcare AI and Data Analytics",
-      "description": "Companies are leveraging AI and data analytics to transform healthcare and pharmaceuticals.",
+      "theme_id": "THM-cc86f231",
+      "name": "Energy Dome-SRP-Google Energy Storage",
+      "description": "Energy Dome and SRP partner with Google on long-duration energy storage",
       "tier": "active",
-      "composite": 58,
+      "composite": 65,
+      "fresh_flow": 1,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        5,
+        0,
+        1
+      ],
+      "member_count": 6,
+      "top_companies": [
+        {
+          "name": "Energy Dome",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Google",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "SRP",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T10:38:32Z",
+      "rev": 3
+    },
+    {
+      "theme_id": "THM-5388a5a5",
+      "name": "Blackstone Expansion",
+      "description": "Blackstone launches new unit to expand asset-based lending capabilities.",
+      "tier": "active",
+      "composite": 65,
+      "fresh_flow": 2,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        2,
+        2
+      ],
+      "member_count": 6,
+      "top_companies": [
+        {
+          "name": "Pickles",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Blackstone",
+          "ticker": "BX",
+          "order": 2,
+          "side": "beneficiary"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T11:00:00Z",
+      "rev": 3
+    },
+    {
+      "theme_id": "THM-9e25fe6a",
+      "name": "Pharmaceutical Quality Control Issues",
+      "description": "FDA recalls various pharmaceutical products due to quality control issues.",
+      "tier": "active",
+      "composite": 64,
       "fresh_flow": 0,
       "flow_series": [
         0,
@@ -380,12 +3313,466 @@
         0,
         0,
         0,
-        2,
+        0,
         0,
         0,
         0
       ],
-      "member_count": 9,
+      "member_count": 105,
+      "top_companies": [
+        {
+          "name": "Guardian Drug Co. Inc.",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "Becton Dickinson",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "B Braun Medical Inc",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "PHILIPS MEDICAL SYSTEMS NEDERLAND B.V.",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "CareFusion 303, Inc.",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "Covidien LLC",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "Huons Co, Ltd.",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Kico Knee Innovation Company",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-15T05:28:58Z",
+      "rev": 80
+    },
+    {
+      "theme_id": "THM-4224c599",
+      "name": "Debt Market Activity",
+      "description": "Orange and Alm. Brand A/S engage in debt market transactions",
+      "tier": "active",
+      "composite": 64,
+      "fresh_flow": 0,
+      "flow_series": [
+        2,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        2,
+        0,
+        0,
+        0,
+        0
+      ],
+      "member_count": 11,
+      "top_companies": [
+        {
+          "name": "Orange",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Alm. Brand A/S",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Arch Capital Group Ltd.",
+          "ticker": "ACGL",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Oak‑Eagle AcquireCo",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Electronic Arts Inc.",
+          "ticker": "EA",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Fiserv",
+          "ticker": "FISV",
+          "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "ICBC",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T07:14:00Z",
+      "rev": 9
+    },
+    {
+      "theme_id": "THM-c21ddf6b",
+      "name": "Rare Earth Element Production",
+      "description": "Companies commission demonstration facilities for rare earth element production.",
+      "tier": "active",
+      "composite": 64,
+      "fresh_flow": 2,
+      "flow_series": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        2
+      ],
+      "member_count": 10,
+      "top_companies": [
+        {
+          "name": "IperionX",
+          "ticker": "IPX",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Resouro",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "USA Rare Earth",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Ucore Rare Metals",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Sumitomo Corporation of Americas",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "E3 Lithium",
+          "ticker": "EEMMF",
+          "order": 3,
+          "side": "mixed"
+        },
+        {
+          "name": "Magnes Rare Earths",
+          "ticker": null,
+          "order": 3,
+          "side": "mixed"
+        },
+        {
+          "name": "Cove Kaz Capital Group",
+          "ticker": null,
+          "order": 3,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T11:24:00Z",
+      "rev": 9
+    },
+    {
+      "theme_id": "THM-caf27e54",
+      "name": "Indivior · sold",
+      "description": "Recurring news around Indivior · sold.",
+      "tier": "active",
+      "composite": 63,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "member_count": 14,
+      "top_companies": [
+        {
+          "name": "Goosehead Insurance, Inc.",
+          "ticker": "GSHD",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Indivior",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Galantas",
+          "ticker": null,
+          "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Constellis",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "CITIC BANK",
+          "ticker": "00998",
+          "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "CAOCAO INC",
+          "ticker": "02643",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Zevia",
+          "ticker": "ZVIA",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "HOME HELPERS HOME CARE",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T10:00:00Z",
+      "rev": 12
+    },
+    {
+      "theme_id": "THM-472d81ed",
+      "name": "Commerzbank-UniCredit Merger Bid",
+      "description": "UniCredit makes a €39 billion offer for Commerzbank",
+      "tier": "active",
+      "composite": 63,
+      "fresh_flow": 2,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0,
+        1,
+        0,
+        2
+      ],
+      "member_count": 5,
+      "top_companies": [
+        {
+          "name": "Commerzbank",
+          "ticker": "CBK",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "UniCredit",
+          "ticker": "UCG",
+          "order": 1,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T10:54:00Z",
+      "rev": 4
+    },
+    {
+      "theme_id": "THM-0153691b",
+      "name": "Australian Copper-Gold Discoveries",
+      "description": "Companies in Australia discover copper-gold deposits",
+      "tier": "active",
+      "composite": 61,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "member_count": 7,
+      "top_companies": [
+        {
+          "name": "Gold Royalty",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "LGM",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "DLI",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "HCH",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "PC2",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Regency Silver Corp.",
+          "ticker": "RSMXF",
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "NES",
+          "ticker": null,
+          "order": 3,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T08:00:00Z",
+      "rev": 6
+    },
+    {
+      "theme_id": "THM-9cf50f2c",
+      "name": "Inflation Impact on Auto Insurers",
+      "description": "Inflation heats up again, affecting auto insurers Progressive and Allstate.",
+      "tier": "active",
+      "composite": 60,
+      "fresh_flow": 4,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4
+      ],
+      "member_count": 4,
+      "top_companies": [
+        {
+          "name": "Perion Network Ltd.",
+          "ticker": "0001338940",
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Best Buy",
+          "ticker": "BBY",
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "PAR Technology",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T11:30:00Z",
+      "rev": 3
+    },
+    {
+      "theme_id": "THM-560132a3",
+      "name": "Healthcare AI and Data Analytics",
+      "description": "Companies are leveraging AI and data analytics to transform healthcare and pharmaceuticals.",
+      "tier": "active",
+      "composite": 59,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "member_count": 18,
       "top_companies": [
         {
           "name": "Sharon AI",
@@ -409,6 +3796,12 @@
           "name": "Nvidia",
           "ticker": "NVDA",
           "order": 2,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Amazon",
+          "ticker": "AMZN",
+          "order": 2,
           "side": "mixed"
         },
         {
@@ -419,15 +3812,1341 @@
         }
       ],
       "related_themes": [],
-      "last_flow": "2026-06-14T07:25:08Z",
+      "last_flow": "2026-06-16T09:04:00Z",
+      "rev": 17
+    },
+    {
+      "theme_id": "THM-3ccbd910",
+      "name": "AI M&A",
+      "description": "Salesforce acquires AI customer service firm Fin for $3.6 billion.",
+      "tier": "active",
+      "composite": 59,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "member_count": 12,
+      "top_companies": [
+        {
+          "name": "Salesforce",
+          "ticker": "CRM",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Fin",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "SailPoint",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Entro",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "HCLTech",
+          "ticker": "HCLTECH",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Sarvam AI",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Johnson & Johnson",
+          "ticker": "JNJ",
+          "order": 2,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-15T18:53:40Z",
+      "rev": 11
+    },
+    {
+      "theme_id": "THM-e8b5a556",
+      "name": "TCS · supreme",
+      "description": "Recurring news around TCS · supreme.",
+      "tier": "active",
+      "composite": 59,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        3,
+        1,
+        2,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "member_count": 7,
+      "top_companies": [
+        {
+          "name": "Tata Consultancy Services",
+          "ticker": "TCS",
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "TCS",
+          "ticker": "TCS",
+          "order": 1,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T09:19:53Z",
+      "rev": 4
+    },
+    {
+      "theme_id": "THM-cafe6e0a",
+      "name": "Autonomous Robotaxis",
+      "description": "Mobileye and Intel collaborate on vertically integrated robotaxi business.",
+      "tier": "active",
+      "composite": 59,
+      "fresh_flow": 4,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4
+      ],
+      "member_count": 4,
+      "top_companies": [
+        {
+          "name": "Mobileye",
+          "ticker": "MBLY",
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Intel",
+          "ticker": "INTC",
+          "order": 2,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T11:00:00Z",
+      "rev": 2
+    },
+    {
+      "theme_id": "THM-415662eb",
+      "name": "Active Safety Tech",
+      "description": "Aeva partners with Bendix on next-generation active safety production system for commercial vehicles.",
+      "tier": "active",
+      "composite": 59,
+      "fresh_flow": 4,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        4
+      ],
+      "member_count": 4,
+      "top_companies": [
+        {
+          "name": "Aeva",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Bendix",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Aeva Technologies",
+          "ticker": "AEVA",
+          "order": 2,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T11:00:00Z",
+      "rev": 2
+    },
+    {
+      "theme_id": "THM-b09f42e3",
+      "name": "AI Secure Access Layer",
+      "description": "Companies building secure access layers for AI agents and machines.",
+      "tier": "active",
+      "composite": 56,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "member_count": 8,
+      "top_companies": [
+        {
+          "name": "1Password",
+          "ticker": null,
+          "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Apono",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Arcade",
+          "ticker": null,
+          "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Arcade.dev",
+          "ticker": null,
+          "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "NewCore",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Qualcomm",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Netradyne",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T10:30:00Z",
+      "rev": 6
+    },
+    {
+      "theme_id": "THM-d5e15ccf",
+      "name": "Travel and Restaurant Mergers",
+      "description": "American Express acquires TheFork, a leading European restaurant booking platform, from Tripadvisor.",
+      "tier": "active",
+      "composite": 54,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "member_count": 12,
+      "top_companies": [
+        {
+          "name": "American Express",
+          "ticker": "AXP",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Tripadvisor",
+          "ticker": "TRIP",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "TheFork",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Mach Travel Solutions Ltd",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T04:32:19Z",
+      "rev": 9
+    },
+    {
+      "theme_id": "THM-59719e65",
+      "name": "AI M&A",
+      "description": "Nebius acquires Eigen AI to enhance its AI capabilities.",
+      "tier": "active",
+      "composite": 54,
+      "fresh_flow": 3,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3
+      ],
+      "member_count": 3,
+      "top_companies": [
+        {
+          "name": "Nebius",
+          "ticker": "NBIS",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Eigen AI",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T11:00:00Z",
+      "rev": 2
+    },
+    {
+      "theme_id": "THM-b8d8d24d",
+      "name": "Indian Coal Scandal",
+      "description": "The Indian government investigates the disappearance of 40 lakh tonnes of coal.",
+      "tier": "active",
+      "composite": 53,
+      "fresh_flow": 2,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        2
+      ],
+      "member_count": 8,
+      "top_companies": [
+        {
+          "name": "Coal India Limited",
+          "ticker": "533278",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "SCCL",
+          "ticker": null,
+          "order": 2,
+          "side": "harmed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T10:37:59Z",
+      "rev": 7
+    },
+    {
+      "theme_id": "THM-b2808c94",
+      "name": "Automotive Recalls",
+      "description": "Multiple major automakers face recalls for popular models.",
+      "tier": "active",
+      "composite": 53,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "member_count": 43,
+      "top_companies": [
+        {
+          "name": "Medtronic",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "PHILIPS MEDICAL SYSTEMS NEDERLAND B.V.",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "B Braun Medical Inc",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "Philips Medical Systems",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "Siemens Medical Solutions USA, Inc",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "Ferndale Laboratories, Inc.",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Philips",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "Draeger, Inc.",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-15T12:32:59Z",
+      "rev": 42
+    },
+    {
+      "theme_id": "THM-9c8ae69b",
+      "name": "China AI Chip Ecosystem Growth",
+      "description": "Tencent-backed Enflame and Techtronic Industries participate in China's AI chip wave through IPO and share buybacks",
+      "tier": "active",
+      "composite": 51,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        2,
+        0
+      ],
+      "member_count": 7,
+      "top_companies": [
+        {
+          "name": "Tencent",
+          "ticker": "00700",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Sipai Health",
+          "ticker": "00314",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Enflame",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Techtronic Industries",
+          "ticker": "00669",
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "TECHTRONIC IND",
+          "ticker": "00669",
+          "order": 2,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T10:17:00Z",
+      "rev": 6
+    },
+    {
+      "theme_id": "THM-779a6028",
+      "name": "Beer M&A and Buybacks",
+      "description": "Heineken and Heineken Holding engage in share buyback programs and potential M&A activity.",
+      "tier": "active",
+      "composite": 51,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "member_count": 10,
+      "top_companies": [
+        {
+          "name": "Heineken N.V.",
+          "ticker": null,
+          "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "LECTRA",
+          "ticker": null,
+          "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Heineken Holding N.V.",
+          "ticker": "HKHHY",
+          "order": 2,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Universal Music Group N.V.",
+          "ticker": null,
+          "order": 2,
+          "side": "beneficiary"
+        },
+        {
+          "name": "ASML",
+          "ticker": "ASML",
+          "order": 2,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Aalberts",
+          "ticker": null,
+          "order": 2,
+          "side": "beneficiary"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T10:00:00Z",
+      "rev": 7
+    },
+    {
+      "theme_id": "THM-499552fc",
+      "name": "Social Media Regulation",
+      "description": "UK government plans to ban under-16s from using certain social media apps.",
+      "tier": "active",
+      "composite": 51,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0
+      ],
+      "member_count": 7,
+      "top_companies": [
+        {
+          "name": "Apple",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Alphabet",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "TikTok",
+          "ticker": null,
+          "order": 2,
+          "side": "harmed"
+        },
+        {
+          "name": "ByteDance",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Meta Platforms",
+          "ticker": "META",
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Twitter",
+          "ticker": "TWTR",
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "YouTube",
+          "ticker": null,
+          "order": 3,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T07:35:51Z",
+      "rev": 6
+    },
+    {
+      "theme_id": "THM-a4c095d0",
+      "name": "GANESH HOUSING LIMITED",
+      "description": "Recurring news around GANESH HOUSING LIMITED.",
+      "tier": "active",
+      "composite": 50,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "member_count": 9,
+      "top_companies": [
+        {
+          "name": "GANESH HOUSING LIMITED",
+          "ticker": "526367",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Rajasthan Cylinders & Containers Ltd",
+          "ticker": "538707",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Rajapalayam Mills Ltd",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Surana Telecom and Power Ltd",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "HealthCare Global Enterprises Ltd",
+          "ticker": null,
+          "order": 3,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T10:09:11Z",
+      "rev": 4
+    },
+    {
+      "theme_id": "THM-703c1b0e",
+      "name": "Electrification of locomotives",
+      "description": "Forsee Power and Wabtec collaborate to equip locomotives with advanced battery systems.",
+      "tier": "active",
+      "composite": 50,
+      "fresh_flow": 1,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1
+      ],
+      "member_count": 7,
+      "top_companies": [
+        {
+          "name": "Shimadzu Medical Systems",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "Ballard Power Systems Inc.",
+          "ticker": "0001453015",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Forsee Power",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Wabtec",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Google",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Energy Dome",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T10:38:32Z",
+      "rev": 5
+    },
+    {
+      "theme_id": "THM-9fbf261b",
+      "name": "Microsoft AI Expansion",
+      "description": "Microsoft is expanding its AI cloud capabilities with a significant GPU financing facility secured by IREN.",
+      "tier": "active",
+      "composite": 49,
+      "fresh_flow": 0,
+      "flow_series": [
+        1,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "member_count": 9,
+      "top_companies": [
+        {
+          "name": "Microsoft",
+          "ticker": "MSFT",
+          "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "IREN",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Tencent",
+          "ticker": "0700",
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Datadog",
+          "ticker": "DDOG",
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Wix.com Ltd.",
+          "ticker": "WIX",
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Google",
+          "ticker": "GOOGL",
+          "order": 3,
+          "side": "mixed"
+        },
+        {
+          "name": "Amazon",
+          "ticker": "AMZN",
+          "order": 3,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T02:45:09Z",
+      "rev": 8
+    },
+    {
+      "theme_id": "THM-a1c5abba",
+      "name": "Dixon Tech-Vivo JV Approval",
+      "description": "Government likely to approve Vivo JV with Dixon Tech, boosting shares",
+      "tier": "active",
+      "composite": 49,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        1,
+        0
+      ],
+      "member_count": 3,
+      "top_companies": [
+        {
+          "name": "Dixon Technologies",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Vivo",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T09:41:08Z",
+      "rev": 2
+    },
+    {
+      "theme_id": "THM-3174980f",
+      "name": "Jio Platforms",
+      "description": "Recurring news around Jio Platforms.",
+      "tier": "active",
+      "composite": 48,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0
+      ],
+      "member_count": 8,
+      "top_companies": [
+        {
+          "name": "Jio Platforms",
+          "ticker": null,
+          "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Reliance Industries Limited",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Jio",
+          "ticker": null,
+          "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Repono",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "ONGC",
+          "ticker": null,
+          "order": 3,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T10:06:05Z",
+      "rev": 4
+    },
+    {
+      "theme_id": "THM-84bccf73",
+      "name": "AI Trading Platforms",
+      "description": "LTX integrates Agentic AI into BondGPT for trading insights.",
+      "tier": "active",
+      "composite": 48,
+      "fresh_flow": 3,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        3
+      ],
+      "member_count": 3,
+      "top_companies": [
+        {
+          "name": "LTX",
+          "ticker": null,
+          "order": 2,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Broadridge Financial Solutions",
+          "ticker": "BR",
+          "order": 2,
+          "side": "beneficiary"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T11:05:00Z",
+      "rev": 2
+    },
+    {
+      "theme_id": "THM-9328b082",
+      "name": "Novartis",
+      "description": "Recurring news around Novartis.",
+      "tier": "active",
+      "composite": 47,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "member_count": 10,
+      "top_companies": [
+        {
+          "name": "Sigma Healthcare",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Avidity",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Boots",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "null",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Jazz",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "PharmaMar",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Novartis",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Orionis",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-15T12:26:00Z",
+      "rev": 8
+    },
+    {
+      "theme_id": "THM-9e7a5853",
+      "name": "U.S. CPSC",
+      "description": "Recurring news around U.S. CPSC.",
+      "tier": "active",
+      "composite": 47,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "member_count": 26,
+      "top_companies": [
+        {
+          "name": "U.S. CPSC",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "CPSC",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Amazon.com",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T05:35:53Z",
+      "rev": 2
+    },
+    {
+      "theme_id": "THM-fa5d8be5",
+      "name": "Retail M&A",
+      "description": "Frasers Group makes £166m offer to acquire Accent Group",
+      "tier": "active",
+      "composite": 46,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "member_count": 8,
+      "top_companies": [
+        {
+          "name": "Frasers Group",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Accent Group",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Novonix",
+          "ticker": null,
+          "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "HYD",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T01:55:25Z",
+      "rev": 6
+    },
+    {
+      "theme_id": "THM-1cc93205",
+      "name": "Woodside Inpex Gas Venture",
+      "description": "Woodside is attempting to buy into a gas venture with Inpex, with implications for the fuel crisis.",
+      "tier": "active",
+      "composite": 45,
+      "fresh_flow": 0,
+      "flow_series": [
+        1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "member_count": 8,
+      "top_companies": [
+        {
+          "name": "Woodside",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Inpex",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Road King Infra",
+          "ticker": "01098",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "ExxonMobil",
+          "ticker": "XOM",
+          "order": 1,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T01:52:13Z",
+      "rev": 7
+    },
+    {
+      "theme_id": "THM-a09772ee",
+      "name": "Russian shadow fleet oil tanker",
+      "description": "Recurring news around Russian shadow fleet oil tanker.",
+      "tier": "active",
+      "composite": 45,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "member_count": 21,
+      "top_companies": [
+        {
+          "name": "Russian shadow fleet oil tanker",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "Russian oil tanker",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "British forces",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "British military",
+          "ticker": null,
+          "order": 3,
+          "side": "mixed"
+        },
+        {
+          "name": "null",
+          "ticker": null,
+          "order": 3,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-15T05:00:06Z",
+      "rev": 10
+    },
+    {
+      "theme_id": "THM-ee9021c8",
+      "name": "Adobe",
+      "description": "Recurring news around Adobe.",
+      "tier": "cooling",
+      "composite": 44,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0
+      ],
+      "member_count": 11,
+      "top_companies": [
+        {
+          "name": "Adobe",
+          "ticker": "ADBE",
+          "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Marvell",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "LinkedIn",
+          "ticker": "LNKD",
+          "order": 2,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T07:00:00Z",
       "rev": 8
     },
     {
       "theme_id": "THM-db635c2b",
       "name": "Continental Seeds and Chemicals Limited · scrip",
       "description": "Recurring news around Continental Seeds and Chemicals Limited · scrip.",
-      "tier": "active",
-      "composite": 57,
+      "tier": "cooling",
+      "composite": 43,
       "fresh_flow": 0,
       "flow_series": [
         0,
@@ -487,11 +5206,69 @@
       "rev": 1
     },
     {
-      "theme_id": "THM-418706bf",
-      "name": "Embassy Developments · embassydevelopments",
-      "description": "Recurring news around Embassy Developments · embassydevelopments.",
-      "tier": "active",
-      "composite": 57,
+      "theme_id": "THM-065425e2",
+      "name": "Steel Tyre Cord Demand",
+      "description": "Bansal Wire Industries Ltd receives a trial purchase order for its steel tyre cord product from a major tyre maker.",
+      "tier": "cooling",
+      "composite": 43,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "member_count": 10,
+      "top_companies": [
+        {
+          "name": "Bansal Wire Industries Ltd",
+          "ticker": "544209",
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Gujarat Inject Kerala Ltd",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Ceinsys Tech Ltd",
+          "ticker": null,
+          "order": 3,
+          "side": "mixed"
+        },
+        {
+          "name": "TSecond Inc",
+          "ticker": null,
+          "order": 3,
+          "side": "mixed"
+        },
+        {
+          "name": "Bansal Wire",
+          "ticker": null,
+          "order": 3,
+          "side": "beneficiary"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T05:26:38Z",
+      "rev": 6
+    },
+    {
+      "theme_id": "THM-f1e1f8b6",
+      "name": "Cohance Lifesciences Limited · results",
+      "description": "Recurring news around Cohance Lifesciences Limited · results.",
+      "tier": "cooling",
+      "composite": 43,
       "fresh_flow": 0,
       "flow_series": [
         0,
@@ -503,35 +5280,145 @@
         0,
         0,
         0,
-        3,
-        1,
+        0,
+        0,
         0
       ],
-      "member_count": 4,
+      "member_count": 10,
       "top_companies": [
         {
-          "name": "Embassy Developments",
+          "name": "Cohance Lifesciences Limited",
           "ticker": null,
           "order": 1,
           "side": "mixed"
         },
         {
-          "name": "Dana-Eaton",
+          "name": "Acme Solar Holdings Limited",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Future Consumer Limited",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "SMM",
           "ticker": null,
           "order": 2,
           "side": "mixed"
         }
       ],
       "related_themes": [],
-      "last_flow": "2026-06-14T08:51:32Z",
-      "rev": 1
+      "last_flow": "2026-06-15T22:17:54Z",
+      "rev": 3
+    },
+    {
+      "theme_id": "THM-add40f2f",
+      "name": "FSSAI cracks down on food claims",
+      "description": "FSSAI issues notices to food companies for misleading 'healthy' claims on packaging and labels.",
+      "tier": "cooling",
+      "composite": 41,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0
+      ],
+      "member_count": 9,
+      "top_companies": [
+        {
+          "name": "FSSAI",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "Walmart",
+          "ticker": "WMT",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Nestle",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T09:31:49Z",
+      "rev": 6
+    },
+    {
+      "theme_id": "THM-cc34a22b",
+      "name": "Renewable Energy Consolidation",
+      "description": "Waaree Renewable Technologies and Vedanta Power Ltd engage in acquisition and restructuring efforts",
+      "tier": "cooling",
+      "composite": 41,
+      "fresh_flow": 1,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "member_count": 5,
+      "top_companies": [
+        {
+          "name": "Waaree Renewable Technologies Limited",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "GMR Power and Urban Infra Ltd",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Vedanta Power Ltd",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Vedanta Oil and Gas Limited",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T11:30:05Z",
+      "rev": 4
     },
     {
       "theme_id": "THM-e1062c68",
       "name": "SonoThera · fierce",
       "description": "Recurring news around SonoThera · fierce.",
-      "tier": "active",
-      "composite": 55,
+      "tier": "cooling",
+      "composite": 40,
       "fresh_flow": 0,
       "flow_series": [
         0,
@@ -597,69 +5484,201 @@
       "rev": 6
     },
     {
-      "theme_id": "THM-9437631f",
-      "name": "Public Company Securities Fraud Lawsuits",
-      "description": "Multiple public companies face securities fraud class action lawsuits.",
-      "tier": "active",
-      "composite": 54,
+      "theme_id": "THM-80b3d0e9",
+      "name": "Aditya Birla Lifestyle Brands · reebok",
+      "description": "Recurring news around Aditya Birla Lifestyle Brands · reebok.",
+      "tier": "cooling",
+      "composite": 40,
       "fresh_flow": 0,
       "flow_series": [
-        1,
-        1,
-        0,
-        0,
-        1,
         0,
         0,
         0,
-        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
         0,
         0,
         0
       ],
-      "member_count": 5,
+      "member_count": 9,
       "top_companies": [
         {
-          "name": "Verra Mobility Corporation",
-          "ticker": "VRRM",
-          "order": 1,
-          "side": "harmed"
-        },
-        {
-          "name": "POET Technologies Inc.",
+          "name": "Aditya Birla Fashion and Retail",
           "ticker": null,
           "order": 1,
-          "side": "harmed"
+          "side": "mixed"
         },
         {
-          "name": "Babcock & Wilcox Enterprises, Inc.",
+          "name": "Aditya Birla Lifestyle Brands",
           "ticker": null,
           "order": 1,
-          "side": "harmed"
+          "side": "mixed"
         },
         {
-          "name": "Zillow Group, Inc.",
-          "ticker": "ZG",
-          "order": 1,
-          "side": "harmed"
-        },
-        {
-          "name": "Pyramid Saimira",
+          "name": "Shell",
           "ticker": null,
           "order": 1,
-          "side": "harmed"
+          "side": "mixed"
+        },
+        {
+          "name": "Aditya Birla",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Reebok",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Amazon",
+          "ticker": null,
+          "order": 3,
+          "side": "mixed"
         }
       ],
       "related_themes": [],
-      "last_flow": "2026-06-14T07:05:33Z",
-      "rev": 4
+      "last_flow": "2026-06-15T10:27:38Z",
+      "rev": 7
     },
     {
-      "theme_id": "THM-065425e2",
-      "name": "Steel Tyre Cord Demand",
-      "description": "Bansal Wire Industries Ltd receives a trial purchase order for its steel tyre cord product from a major tyre maker.",
-      "tier": "active",
-      "composite": 47,
+      "theme_id": "THM-520df4e2",
+      "name": "Defense Industry Supply Chain",
+      "description": "Companies collaborate on defense contracts and parts supply",
+      "tier": "cooling",
+      "composite": 40,
+      "fresh_flow": 0,
+      "flow_series": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "member_count": 3,
+      "top_companies": [
+        {
+          "name": "Lockheed Martin",
+          "ticker": "LMT",
+          "order": 2,
+          "side": "beneficiary"
+        },
+        {
+          "name": "General Motors",
+          "ticker": "GM",
+          "order": 2,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T05:51:39Z",
+      "rev": 2
+    },
+    {
+      "theme_id": "THM-6aae8445",
+      "name": "Airport development and airline growth",
+      "description": "Noida International Airport begins operations, and IndiGo and SpiceJet experience a surge in stock prices.",
+      "tier": "cooling",
+      "composite": 39,
+      "fresh_flow": 1,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "member_count": 8,
+      "top_companies": [
+        {
+          "name": "Noida International Airport",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "IndiGo",
+          "ticker": null,
+          "order": 3,
+          "side": "harmed"
+        },
+        {
+          "name": "SpiceJet",
+          "ticker": null,
+          "order": 3,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T10:49:52Z",
+      "rev": 6
+    },
+    {
+      "theme_id": "THM-ce749e84",
+      "name": "Bank M&A and Dividends",
+      "description": "HSBC's Singapore insurance arm is up for sale, and the company declares a dividend, potentially impacting investors.",
+      "tier": "cooling",
+      "composite": 37,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "member_count": 6,
+      "top_companies": [
+        {
+          "name": "HSBC",
+          "ticker": "00005",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Allianz",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-16T04:20:00Z",
+      "rev": 5
+    },
+    {
+      "theme_id": "THM-943c3eeb",
+      "name": "US Retail Competition",
+      "description": "Walmart and Amazon engage in price wars and marketing strategies",
+      "tier": "cooling",
+      "composite": 36,
       "fresh_flow": 0,
       "flow_series": [
         0,
@@ -678,242 +5697,40 @@
       "member_count": 8,
       "top_companies": [
         {
-          "name": "Bansal Wire Industries Ltd",
-          "ticker": "544209",
+          "name": "Walmart",
+          "ticker": "WMT",
           "order": 2,
           "side": "mixed"
         },
         {
-          "name": "Ceinsys Tech Ltd",
+          "name": "Amazon",
           "ticker": null,
-          "order": 3,
+          "order": 2,
           "side": "mixed"
         },
         {
-          "name": "TSecond Inc",
-          "ticker": null,
-          "order": 3,
+          "name": "Kroger",
+          "ticker": "KR",
+          "order": 2,
           "side": "mixed"
         },
         {
-          "name": "Bansal Wire",
+          "name": "Costco",
           "ticker": null,
           "order": 3,
           "side": "mixed"
         }
       ],
       "related_themes": [],
-      "last_flow": "2026-06-13T16:23:42Z",
-      "rev": 4
+      "last_flow": "2026-06-15T20:17:00Z",
+      "rev": 6
     },
     {
-      "theme_id": "THM-e759968c",
-      "name": "Medical Device and Tech",
-      "description": "Boston Scientific and Meta Platforms receive positive analyst ratings.",
-      "tier": "active",
-      "composite": 47,
-      "fresh_flow": 0,
-      "flow_series": [
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1,
-        0,
-        0,
-        0
-      ],
-      "member_count": 6,
-      "top_companies": [
-        {
-          "name": "Visa",
-          "ticker": "V",
-          "order": 1,
-          "side": "beneficiary"
-        },
-        {
-          "name": "Mastercard",
-          "ticker": "MA",
-          "order": 1,
-          "side": "mixed"
-        },
-        {
-          "name": "Anthropic",
-          "ticker": null,
-          "order": 3,
-          "side": "harmed"
-        }
-      ],
-      "related_themes": [],
-      "last_flow": "2026-06-14T06:59:42Z",
-      "rev": 5
-    },
-    {
-      "theme_id": "THM-b2808c94",
-      "name": "Automotive Recalls",
-      "description": "Multiple major automakers face recalls for popular models.",
+      "theme_id": "THM-91ce1363",
+      "name": "Indian Auto Stocks Surge",
+      "description": "Indian auto stocks experience a surge in value due to new regulations and data releases.",
       "tier": "cooling",
-      "composite": 44,
-      "fresh_flow": 0,
-      "flow_series": [
-        0,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "member_count": 5,
-      "top_companies": [
-        {
-          "name": "Ford",
-          "ticker": null,
-          "order": 1,
-          "side": "harmed"
-        },
-        {
-          "name": "Tesla",
-          "ticker": "TSLA",
-          "order": 2,
-          "side": "mixed"
-        },
-        {
-          "name": "GM",
-          "ticker": null,
-          "order": 2,
-          "side": "mixed"
-        },
-        {
-          "name": "General Motors",
-          "ticker": "GM",
-          "order": 3,
-          "side": "mixed"
-        },
-        {
-          "name": "Ford Motor Company",
-          "ticker": "F",
-          "order": 3,
-          "side": "mixed"
-        }
-      ],
-      "related_themes": [],
-      "last_flow": "2026-06-14T01:02:00Z",
-      "rev": 4
-    },
-    {
-      "theme_id": "THM-37957ded",
-      "name": "Yes Bank Ltd",
-      "description": "Recurring news around Yes Bank Ltd.",
-      "tier": "cooling",
-      "composite": 43,
-      "fresh_flow": 0,
-      "flow_series": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "member_count": 6,
-      "top_companies": [
-        {
-          "name": "Yes Bank Ltd",
-          "ticker": "532648",
-          "order": 1,
-          "side": "mixed"
-        },
-        {
-          "name": "Maiden Forgings Ltd",
-          "ticker": "543874",
-          "order": 1,
-          "side": "mixed"
-        },
-        {
-          "name": "LICI",
-          "ticker": null,
-          "order": 2,
-          "side": "mixed"
-        },
-        {
-          "name": "M&M",
-          "ticker": null,
-          "order": 2,
-          "side": "mixed"
-        },
-        {
-          "name": "IOB",
-          "ticker": null,
-          "order": 2,
-          "side": "mixed"
-        }
-      ],
-      "related_themes": [],
-      "last_flow": "2026-06-13T16:03:56Z",
-      "rev": 2
-    },
-    {
-      "theme_id": "THM-caf27e54",
-      "name": "Indivior · sold",
-      "description": "Recurring news around Indivior · sold.",
-      "tier": "cooling",
-      "composite": 43,
-      "fresh_flow": 0,
-      "flow_series": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        2,
-        0,
-        1,
-        0,
-        0,
-        0,
-        0
-      ],
-      "member_count": 3,
-      "top_companies": [
-        {
-          "name": "Indivior",
-          "ticker": null,
-          "order": 1,
-          "side": "mixed"
-        },
-        {
-          "name": "Nayax",
-          "ticker": null,
-          "order": 2,
-          "side": "mixed"
-        }
-      ],
-      "related_themes": [],
-      "last_flow": "2026-06-14T06:02:02Z",
-      "rev": 1
-    },
-    {
-      "theme_id": "THM-a4c095d0",
-      "name": "GANESH HOUSING LIMITED",
-      "description": "Recurring news around GANESH HOUSING LIMITED.",
-      "tier": "cooling",
-      "composite": 42,
+      "composite": 36,
       "fresh_flow": 0,
       "flow_series": [
         0,
@@ -932,34 +5749,46 @@
       "member_count": 7,
       "top_companies": [
         {
-          "name": "GANESH HOUSING LIMITED",
-          "ticker": "526367",
+          "name": "IFCI",
+          "ticker": null,
           "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Maruti Suzuki",
+          "ticker": null,
+          "order": 2,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Ashok Leyland",
+          "ticker": null,
+          "order": 3,
           "side": "mixed"
         },
         {
-          "name": "Rajasthan Cylinders & Containers Ltd",
-          "ticker": "538707",
-          "order": 1,
+          "name": "Force Motors",
+          "ticker": null,
+          "order": 3,
           "side": "mixed"
         },
         {
-          "name": "HealthCare Global Enterprises Ltd",
+          "name": "Tata Motors",
           "ticker": null,
           "order": 3,
           "side": "mixed"
         }
       ],
       "related_themes": [],
-      "last_flow": "2026-06-13T13:33:43Z",
-      "rev": 2
+      "last_flow": "2026-06-15T10:25:41Z",
+      "rev": 5
     },
     {
-      "theme_id": "THM-9328b082",
-      "name": "Novartis",
-      "description": "Recurring news around Novartis.",
+      "theme_id": "THM-573abb3c",
+      "name": "Defense Industry Partnerships",
+      "description": "Renault and Thales partner on militarized vehicles for defense applications.",
       "tier": "cooling",
-      "composite": 41,
+      "composite": 35,
       "fresh_flow": 0,
       "flow_series": [
         0,
@@ -975,55 +5804,55 @@
         0,
         0
       ],
-      "member_count": 5,
+      "member_count": 6,
       "top_companies": [
         {
-          "name": "Avidity",
-          "ticker": null,
-          "order": 1,
-          "side": "mixed"
-        },
-        {
-          "name": "null",
-          "ticker": null,
-          "order": 1,
-          "side": "mixed"
-        },
-        {
-          "name": "Jazz",
-          "ticker": null,
-          "order": 1,
-          "side": "mixed"
-        },
-        {
-          "name": "PharmaMar",
-          "ticker": null,
-          "order": 1,
-          "side": "mixed"
-        },
-        {
-          "name": "Novartis",
+          "name": "Thales",
           "ticker": null,
           "order": 2,
           "side": "mixed"
         },
         {
-          "name": "Orionis",
+          "name": "Renault",
           "ticker": null,
           "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Rack Attack",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "RealTruck",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "BMW",
+          "ticker": null,
+          "order": 3,
+          "side": "mixed"
+        },
+        {
+          "name": "Ford",
+          "ticker": null,
+          "order": 3,
           "side": "mixed"
         }
       ],
       "related_themes": [],
-      "last_flow": "2026-06-13T19:14:19Z",
-      "rev": 3
+      "last_flow": "2026-06-15T13:09:00Z",
+      "rev": 5
     },
     {
-      "theme_id": "THM-ee9021c8",
-      "name": "Adobe",
-      "description": "Recurring news around Adobe.",
+      "theme_id": "THM-3aee697a",
+      "name": "Cannabis Mergers and Acquisitions",
+      "description": "Vireo Growth Inc. and C21 Investments Inc. announce a definitive arrangement agreement.",
       "tier": "cooling",
-      "composite": 41,
+      "composite": 35,
       "fresh_flow": 0,
       "flow_series": [
         1,
@@ -1039,31 +5868,89 @@
         0,
         0
       ],
+      "member_count": 5,
+      "top_companies": [
+        {
+          "name": "Vireo Growth Inc.",
+          "ticker": "VREOF",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "C21 Investments Inc.",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "NNB Nutrition",
+          "ticker": null,
+          "order": 2,
+          "side": "beneficiary"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-15T23:49:00Z",
+      "rev": 3
+    },
+    {
+      "theme_id": "THM-a25c8b33",
+      "name": "ETF and SPAC Innovation",
+      "description": "ProShares and REX Shares launch new ETFs targeting SpaceX, potentially driving innovation in the financial industry.",
+      "tier": "cooling",
+      "composite": 34,
+      "fresh_flow": 1,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
       "member_count": 4,
       "top_companies": [
         {
-          "name": "Adobe",
-          "ticker": "ADBE",
-          "order": 1,
-          "side": "harmed"
+          "name": "REX Shares",
+          "ticker": null,
+          "order": 2,
+          "side": "beneficiary"
         },
         {
-          "name": "Marvell",
+          "name": "ProShares",
           "ticker": null,
-          "order": 1,
+          "order": 2,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Frankie's Organic Snacks",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Target",
+          "ticker": null,
+          "order": 2,
           "side": "mixed"
         }
       ],
       "related_themes": [],
-      "last_flow": "2026-06-13T22:50:40Z",
-      "rev": 1
+      "last_flow": "2026-06-16T11:05:00Z",
+      "rev": 3
     },
     {
-      "theme_id": "THM-80b3d0e9",
-      "name": "Aditya Birla Lifestyle Brands · reebok",
-      "description": "Recurring news around Aditya Birla Lifestyle Brands · reebok.",
+      "theme_id": "THM-f60681da",
+      "name": "Emmvee Photovoltaic Power Limited · change",
+      "description": "Recurring news around Emmvee Photovoltaic Power Limited · change.",
       "tier": "cooling",
-      "composite": 40,
+      "composite": 34,
       "fresh_flow": 0,
       "flow_series": [
         0,
@@ -1073,37 +5960,43 @@
         0,
         0,
         0,
-        3,
         0,
+        1,
         0,
         0,
         0
       ],
-      "member_count": 3,
+      "member_count": 4,
       "top_companies": [
         {
-          "name": "Aditya Birla Lifestyle Brands",
+          "name": "Emmvee Photovoltaic Power Limited",
           "ticker": null,
           "order": 1,
           "side": "mixed"
         },
         {
-          "name": "Reebok",
+          "name": "Cipla Ltd",
           "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Mazagon Dock Shipbuilders Ltd",
+          "ticker": "MAZDOCK",
           "order": 2,
           "side": "mixed"
         }
       ],
       "related_themes": [],
-      "last_flow": "2026-06-14T06:26:28Z",
-      "rev": 1
+      "last_flow": "2026-06-16T07:38:11Z",
+      "rev": 2
     },
     {
-      "theme_id": "THM-943c3eeb",
-      "name": "US Retail Competition",
-      "description": "Walmart and Amazon engage in price wars and marketing strategies",
+      "theme_id": "THM-75a6507e",
+      "name": "Compound Semiconductor Supply Agreements",
+      "description": "IQE and Tower Semiconductor announce multi-year InP epiwafer supply agreements.",
       "tier": "cooling",
-      "composite": 33,
+      "composite": 32,
       "fresh_flow": 0,
       "flow_series": [
         0,
@@ -1122,32 +6015,38 @@
       "member_count": 5,
       "top_companies": [
         {
-          "name": "Walmart",
-          "ticker": "WMT",
-          "order": 2,
-          "side": "mixed"
-        },
-        {
-          "name": "Amazon",
+          "name": "IQE",
           "ticker": null,
           "order": 2,
           "side": "mixed"
         },
         {
-          "name": "Costco",
+          "name": "Tower Semiconductor",
+          "ticker": "TSEM",
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Ucore Rare Metals",
+          "ticker": "UURAF",
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Sumitomo Corporation of Americas",
           "ticker": null,
-          "order": 3,
+          "order": 2,
           "side": "mixed"
         }
       ],
       "related_themes": [],
-      "last_flow": "2026-06-13T17:15:00Z",
+      "last_flow": "2026-06-15T12:19:00Z",
       "rev": 3
     },
     {
-      "theme_id": "THM-1cc93205",
-      "name": "Woodside Inpex Gas Venture",
-      "description": "Woodside is attempting to buy into a gas venture with Inpex, with implications for the fuel crisis.",
+      "theme_id": "THM-0bc84f9b",
+      "name": "AI-Powered Security Growth",
+      "description": "Taiwan Semiconductor and Fortinet benefit from strong security and AI growth outlooks.",
       "tier": "cooling",
       "composite": 32,
       "fresh_flow": 0,
@@ -1156,7 +6055,7 @@
         0,
         0,
         0,
-        2,
+        0,
         0,
         0,
         0,
@@ -1165,31 +6064,43 @@
         0,
         0
       ],
-      "member_count": 3,
+      "member_count": 5,
       "top_companies": [
         {
-          "name": "Woodside",
+          "name": "Powerfleet",
           "ticker": null,
           "order": 1,
           "side": "mixed"
         },
         {
-          "name": "Inpex",
-          "ticker": null,
+          "name": "Taiwan Semiconductor",
+          "ticker": "TSM",
           "order": 1,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Fortinet",
+          "ticker": "FTNT",
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Copperlane",
+          "ticker": null,
+          "order": 3,
           "side": "mixed"
         }
       ],
       "related_themes": [],
-      "last_flow": "2026-06-14T02:50:41Z",
-      "rev": 2
+      "last_flow": "2026-06-15T18:45:12Z",
+      "rev": 4
     },
     {
-      "theme_id": "THM-639e88cb",
-      "name": "Paramount-Warner Bros. merger",
-      "description": "Paramount's acquisition of Warner Bros. Discovery receives US antitrust approval",
+      "theme_id": "THM-025c41cb",
+      "name": "Digital Media Growth",
+      "description": "QYOU Media and Cizzle Brands report strong revenue growth and positive adjusted EBITDA.",
       "tier": "cooling",
-      "composite": 29,
+      "composite": 31,
       "fresh_flow": 0,
       "flow_series": [
         0,
@@ -1205,35 +6116,35 @@
         0,
         0
       ],
-      "member_count": 3,
+      "member_count": 4,
       "top_companies": [
         {
-          "name": "Warner Bros. Discovery",
-          "ticker": "WBD",
-          "order": 1,
-          "side": "mixed"
-        },
-        {
-          "name": "Paramount",
+          "name": "QYOU Media",
           "ticker": null,
           "order": 1,
-          "side": "mixed"
+          "side": "beneficiary"
         },
         {
-          "name": "Paramount Global",
-          "ticker": "PARA",
-          "order": 1,
+          "name": "Cizzle Brands Corporation",
+          "ticker": "CZZLF",
+          "order": 2,
+          "side": "beneficiary"
+        },
+        {
+          "name": "High Tide",
+          "ticker": null,
+          "order": 2,
           "side": "mixed"
         }
       ],
       "related_themes": [],
-      "last_flow": "2026-06-13T21:11:46Z",
-      "rev": 2
+      "last_flow": "2026-06-15T20:00:00Z",
+      "rev": 3
     },
     {
-      "theme_id": "THM-8b611085",
-      "name": "AI-Powered Payments",
-      "description": "Visa and Mastercard leverage AI for payment innovations.",
+      "theme_id": "THM-dbf9ae46",
+      "name": "India Electricity Price Hike",
+      "description": "Delhi electricity distributors BRPL, BYPL, and TPDDL announce a bill hike for consumers.",
       "tier": "cooling",
       "composite": 28,
       "fresh_flow": 0,
@@ -1247,131 +6158,11 @@
         0,
         0,
         0,
-        0,
-        0,
-        0
-      ],
-      "member_count": 3,
-      "top_companies": [
-        {
-          "name": "Meta Platforms",
-          "ticker": "META",
-          "order": 1,
-          "side": "mixed"
-        },
-        {
-          "name": "Boston Scientific",
-          "ticker": "BSX",
-          "order": 1,
-          "side": "mixed"
-        }
-      ],
-      "related_themes": [],
-      "last_flow": "2026-06-13T17:59:50Z",
-      "rev": 2
-    },
-    {
-      "theme_id": "THM-9fbf261b",
-      "name": "Microsoft AI Expansion",
-      "description": "Microsoft is expanding its AI cloud capabilities with a significant GPU financing facility secured by IREN.",
-      "tier": "cooling",
-      "composite": 27,
-      "fresh_flow": 0,
-      "flow_series": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
+        1,
         0,
         0
       ],
-      "member_count": 3,
-      "top_companies": [
-        {
-          "name": "Microsoft",
-          "ticker": "MSFT",
-          "order": 1,
-          "side": "mixed"
-        },
-        {
-          "name": "IREN",
-          "ticker": null,
-          "order": 1,
-          "side": "mixed"
-        }
-      ],
-      "related_themes": [],
-      "last_flow": "2026-06-13T18:38:30Z",
-      "rev": 2
-    },
-    {
-      "theme_id": "THM-b8d8d24d",
-      "name": "Indian Coal Scandal",
-      "description": "The Indian government investigates the disappearance of 40 lakh tonnes of coal.",
-      "tier": "cooling",
-      "composite": 25,
-      "fresh_flow": 0,
-      "flow_series": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "member_count": 3,
-      "top_companies": [
-        {
-          "name": "Coal Minister Reddy",
-          "ticker": null,
-          "order": 1,
-          "side": "mixed"
-        },
-        {
-          "name": "SCCL",
-          "ticker": null,
-          "order": 3,
-          "side": "mixed"
-        }
-      ],
-      "related_themes": [],
-      "last_flow": "2026-06-13T17:17:49Z",
-      "rev": 2
-    },
-    {
-      "theme_id": "THM-dbf9ae46",
-      "name": "India Electricity Price Hike",
-      "description": "Delhi electricity distributors BRPL, BYPL, and TPDDL announce a bill hike for consumers.",
-      "tier": "cooling",
-      "composite": 24,
-      "fresh_flow": 0,
-      "flow_series": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "member_count": 3,
+      "member_count": 4,
       "top_companies": [
         {
           "name": "BRPL",
@@ -1393,13 +6184,105 @@
         }
       ],
       "related_themes": [],
-      "last_flow": "2026-06-13T14:03:28Z",
-      "rev": 2
+      "last_flow": "2026-06-16T09:20:19Z",
+      "rev": 3
     },
     {
-      "theme_id": "THM-93babfec",
-      "name": "Humana Gentiva Healthcare",
-      "description": "Humana to sell minority stake in Gentiva, a healthcare provider",
+      "theme_id": "THM-639e88cb",
+      "name": "Paramount-Warner Bros. merger",
+      "description": "Paramount's acquisition of Warner Bros. Discovery receives US antitrust approval",
+      "tier": "cooling",
+      "composite": 28,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "member_count": 4,
+      "top_companies": [
+        {
+          "name": "Paramount",
+          "ticker": "PARA",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Warner Bros. Discovery",
+          "ticker": "WBD",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Paramount Global",
+          "ticker": "PARA",
+          "order": 1,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-15T20:12:00Z",
+      "rev": 3
+    },
+    {
+      "theme_id": "THM-4a7c41d2",
+      "name": "Al Shams Investments",
+      "description": "Recurring news around Al Shams Investments.",
+      "tier": "cooling",
+      "composite": 27,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "member_count": 3,
+      "top_companies": [
+        {
+          "name": "Al Shams Investments",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Braemar",
+          "ticker": "BHR",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Braemar Hotels & Resorts",
+          "ticker": "BHR",
+          "order": 1,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-15T13:00:00Z",
+      "rev": 1
+    },
+    {
+      "theme_id": "THM-2bd96cb4",
+      "name": "Cell Therapy Funding",
+      "description": "Companies in the cell therapy sector receive significant funding from investors.",
       "tier": "cooling",
       "composite": 24,
       "fresh_flow": 0,
@@ -1420,10 +6303,170 @@
       "member_count": 3,
       "top_companies": [
         {
+          "name": "Cellares",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Prime Radiant Partners",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-15T13:00:00Z",
+      "rev": 2
+    },
+    {
+      "theme_id": "THM-47c33058",
+      "name": "US Midstream Capital Spending",
+      "description": "Plains All American Pipeline and Plains GP Holdings update capital spending guidance for 2026.",
+      "tier": "cooling",
+      "composite": 23,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "member_count": 3,
+      "top_companies": [
+        {
+          "name": "Plains All American Pipeline",
+          "ticker": "PAA",
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Plains GP Holdings",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-15T11:30:49Z",
+      "rev": 2
+    },
+    {
+      "theme_id": "THM-36a79f06",
+      "name": "European Retail Consolidation",
+      "description": "Kesko acquires Dahl Scandinavia operations from Saint-Gobain in a major deal.",
+      "tier": "cooling",
+      "composite": 22,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "member_count": 3,
+      "top_companies": [
+        {
+          "name": "Kesko",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Saint-Gobain",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-15T07:48:00Z",
+      "rev": 2
+    },
+    {
+      "theme_id": "THM-73c4b480",
+      "name": "Korean Media Crisis",
+      "description": "JTBC files for corporate rehabilitation amid liquidity crisis",
+      "tier": "cooling",
+      "composite": 22,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "member_count": 3,
+      "top_companies": [
+        {
+          "name": "JTBC",
+          "ticker": null,
+          "order": 1,
+          "side": "harmed"
+        },
+        {
+          "name": "JoongAng Group",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-15T08:44:48Z",
+      "rev": 2
+    },
+    {
+      "theme_id": "THM-93babfec",
+      "name": "Humana Gentiva Healthcare",
+      "description": "Humana to sell minority stake in Gentiva, a healthcare provider",
+      "tier": "cooling",
+      "composite": 21,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "member_count": 4,
+      "top_companies": [
+        {
           "name": "Humana",
           "ticker": "HUM",
           "order": 1,
-          "side": "mixed"
+          "side": "harmed"
         },
         {
           "name": "Gentiva",
@@ -1433,16 +6476,176 @@
         }
       ],
       "related_themes": [],
-      "last_flow": "2026-06-13T17:17:49Z",
+      "last_flow": "2026-06-15T17:38:00Z",
+      "rev": 3
+    },
+    {
+      "theme_id": "THM-52297a3f",
+      "name": "Resort Redevelopment",
+      "description": "VICI Properties and Club Med partner to redevelop resorts in strategic locations.",
+      "tier": "cooling",
+      "composite": 21,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "member_count": 3,
+      "top_companies": [
+        {
+          "name": "VICI Properties",
+          "ticker": null,
+          "order": 1,
+          "side": "mixed"
+        },
+        {
+          "name": "Club Med",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-15T12:15:00Z",
+      "rev": 2
+    },
+    {
+      "theme_id": "THM-8a3395f0",
+      "name": "QSR Brand Revamp",
+      "description": "KFC launches a new menu and branding to regain market share.",
+      "tier": "parked",
+      "composite": 18,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "member_count": 3,
+      "top_companies": [
+        {
+          "name": "KFC",
+          "ticker": null,
+          "order": 2,
+          "side": "beneficiary"
+        },
+        {
+          "name": "Yum! Brands",
+          "ticker": "YUM",
+          "order": 2,
+          "side": "beneficiary"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-15T11:00:49Z",
+      "rev": 2
+    },
+    {
+      "theme_id": "THM-91b2c9be",
+      "name": "Travel Tech Collaboration",
+      "description": "SUNRATE and Sabre strengthen their strategic collaboration for end-to-end payment solutions in the travel industry.",
+      "tier": "parked",
+      "composite": 17,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "member_count": 3,
+      "top_companies": [
+        {
+          "name": "SUNRATE",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        },
+        {
+          "name": "Sabre",
+          "ticker": null,
+          "order": 2,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-15T08:00:00Z",
+      "rev": 2
+    },
+    {
+      "theme_id": "THM-a1859783",
+      "name": "Starbucks Brand Crisis",
+      "description": "Starbucks Korea faces backlash over 'Tank Day' incident, leading to store closures and staff training",
+      "tier": "parked",
+      "composite": 17,
+      "fresh_flow": 0,
+      "flow_series": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "member_count": 3,
+      "top_companies": [
+        {
+          "name": "Starbucks Korea",
+          "ticker": null,
+          "order": 3,
+          "side": "mixed"
+        },
+        {
+          "name": "Starbucks",
+          "ticker": "SBUX",
+          "order": 3,
+          "side": "mixed"
+        }
+      ],
+      "related_themes": [],
+      "last_flow": "2026-06-15T08:26:59Z",
       "rev": 2
     }
   ],
   "counts": {
-    "hot": 6,
-    "active": 8,
-    "cooling": 15,
-    "parked": 0,
+    "hot": 40,
+    "active": 38,
+    "cooling": 29,
+    "parked": 3,
     "retired": 0,
-    "total": 29
+    "total": 110
   }
 }

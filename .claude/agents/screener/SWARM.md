@@ -349,6 +349,21 @@ These bands are doctrine, not engine code. Changing them is a one-line edit here
 - Banned in screener outputs (machine-checkable per module rules): "could benefit", "may be impacted", bare "significant"/"material" without a quantified basis, "the market hasn't realized" without coverage-gap evidence, causal verbs inside the M0.1 event statement.
 - Numbers over adjectives. A magnitude is a number with a baseline, not a direction.
 
+**Plain English in all human-readable prose — CLAUDE.md §21 applies to the whole screener swarm, not just board surfaces.**
+
+Every output file has two kinds of text. Keep them separate:
+
+- **Machine-facing — keep technical:** JSON field names, section-header codes (M0.1, M0.2, DIR-001, HARM-001, IND-002), routing-value lines (`Routing: PROMOTE`), SELF-CHECK bullets, and the `## Machine Output` block. Code reads these — do not rewrite them as plain English.
+- **Human-facing — apply §21 strictly:** the Abstract, all narrative paragraphs, scoring-note text in tables, rationale text in table cells, the Decision or Routing Decision paragraph, "one line" summaries, and every sentence a reader's eye falls on.
+
+§21 rules for human-facing prose:
+
+1. **Use the simplest word that keeps the meaning.** Prefer: "sends to the thesis pipeline" (not "routes to the gauntlet"); "how much the market has already moved" (not "what is priced in"); "covered by analysts" (not "modelled by the sell-side"); "stops" (not "curtails"); "roughly" (not "approximately"); "forces the price higher" (not "catalyses upside repricing").
+2. **Explain jargon in place on first use.** Keep the term and add a short plain meaning in a clause or parentheses. Example: "JKM (Japan-Korea Marker — Asia's main spot LNG price) rose 51%". Example: "TTF (Europe's main gas benchmark) settled at €45/MWh". After the first use, the bare term is fine.
+3. **No investment-banking fluff.** Ban (in addition to the evidence-quality bans above): "well-positioned", "attractive opportunity", "robust", "robust growth", "meaningful impact" without a number, "aggressively", "synergies" without the specific amount, bare "headwinds"/"tailwinds" without naming the specific mechanism, "structural" as a filler adjective doing no real work, "the market hasn't priced this in" without the search-confirmed gap.
+4. **Short sentences and short paragraphs.** Evidence lives in tables; prose explains what the evidence means. A rationale paragraph is 2–4 sentences — 5 is the maximum before cutting. A prose block that runs more than 6 sentences is almost always too long. A coverage-gap search description is 2–3 sentences (what was searched, what was found, what was absent) — not a full query dump.
+5. **Write for a smart adult who has not worked in finance.** If a non-specialist would not follow a sentence, rewrite the sentence, not the analysis. Plain is not vague — every other §8 rule (numbers with baselines, §5 citations, no unsupported claims) still applies in full.
+
 ## 9. Adaptation note (NLP stack)
 
 The source framework specifies an ML ingestion stack (FAISS embeddings, DeBERTa classification, FinBERT sentiment, FinGPT extraction, LightGBM ranking). This swarm encodes the SAME deterministic logic — thresholds, bands, matrices, penalties, overrides — as agent rubrics over an append-only ledger memory. The ML stack remains the documented productionization path for a future live-feed ingestion layer; nothing in the scoring logic changes if that layer is added in front.
