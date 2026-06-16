@@ -423,7 +423,16 @@ function evaluateModules(files: ClassifiedFile[], moduleNames: string[]): Record
 }
 
 export function analyzeTicker(ticker: string): DataStatus {
-  const dir = path.join(DATA_DIR, ticker)
+  // Containment: the /api/data-status route validates TICKER_RE, but that allows dots — a lone '..'
+  // slips through path.join and escapes DATA_DIR. Resolve and confine to DATA_DIR; an escaping ticker
+  // returns the empty (no-data) status. EARLY return so the guard dominates every read below (incl.
+  // classifyFile), never just the readdir — that's what makes `dir` safe at every sink. (Clears CodeQL
+  // js/path-injection.)
+  const dir = path.resolve(DATA_DIR, ticker)
+  if (dir !== DATA_DIR && !dir.startsWith(DATA_DIR + path.sep)) {
+    const modules = Object.fromEntries(listModuleNames().map((m) => [m, { status: 'Insufficient' as Sufficiency, reasons: ['no data uploaded'], caps: [] }]))
+    return { ticker, hasAnyData: false, fileCount: 0, files: [], recentByType: {}, modules, overallReady: false, dataDir: DATA_DIR, ts: Date.now() }
+  }
   let filenames: string[] = []
   try {
     filenames = fs.readdirSync(dir).filter((n) => !n.startsWith('.') && fs.statSync(path.join(dir, n)).isFile())

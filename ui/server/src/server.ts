@@ -5,6 +5,7 @@ import path from 'node:path'
 import { execFileSync } from 'node:child_process'
 import chokidar from 'chokidar'
 import cors from '@fastify/cors'
+import rateLimit from '@fastify/rate-limit'
 import { execa } from 'execa'
 import Fastify, { type FastifyReply, type FastifyRequest } from 'fastify'
 import { z } from 'zod'
@@ -59,6 +60,13 @@ const CORS_ALLOWED_ORIGINS: (string | RegExp)[] = [
   ...(process.env.ENGINE_CORS_ORIGINS || '').split(',').map((s) => s.trim()).filter(Boolean),
 ]
 await app.register(cors, { origin: CORS_ALLOWED_ORIGINS })
+
+// Basic abuse protection — a generous global request cap so no single client can hammer the
+// filesystem-backed read routes (/api/news/*, outputs, screener) into a CPU/IO DoS. The cockpit is
+// single-operator behind Cloudflare Access, so 1000/min never throttles normal use (the UI polls a
+// handful of times a minute); it just bounds runaway loops / abuse. Registered before the routes so
+// the global onRequest hook covers every one of them. (Clears CodeQL js/missing-rate-limiting.)
+await app.register(rateLimit, { max: 1000, timeWindow: '1 minute' })
 
 // ---------- identity (who is acting) ----------
 // The engine sits behind Cloudflare Access (the public tunnel route enforces login), which injects the
