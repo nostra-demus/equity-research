@@ -105,6 +105,8 @@ Label every cell as company-guided, peer-derived, or analyst assumption.
 | Year | Revenue | EBIT | NOPAT | Capex | ΔWC | FCF | Discount Factor | PV of FCF |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
 
+**Working-capital sign — check before summing FCF.** In `FCFF = NOPAT + D&A − Capex − ΔNWC`, take the sign of the working-capital term from the *direction of the cash effect*, not from a fixed column convention: when net working capital **falls** (shrinks, or becomes more negative) it **releases** cash and **ADDS** to FCF; when it **rises** it absorbs cash and subtracts. This is decisive for a **negative-working-capital business** (cash-conversion cycle < 0 — payables fund growth, common in distribution, retail, and parts of autos): as revenue grows, NWC becomes *more negative* every year, a recurring cash **source** that must INCREASE FCF. Sanity-check it explicitly — if revenue is growing at a negative-WC company yet the working-capital line is *cutting* FCF, the sign is inverted; fix it. Show the per-year WC cash effect with its sign and confirm it matches the direction of the NWC change.
+
 Sum of PV of explicit FCFs: ...
 
 Show the **executed** command and its raw output (a fenced code block) for the PV-of-FCF sum, the terminal value, and the EV → equity → per-share bridge — do not present these numbers without the snippet that produced them (the self-check requires it).
@@ -154,6 +156,7 @@ WACC across columns, terminal growth (or exit multiple) down rows:
 - [ ] Terminal value is disclosed as a % of EV and flagged if >75%.
 - [ ] For a cyclical business, the terminal/normalized margin is benchmarked against peer-normal AND the company's own prior-trough — each cited — not merely set "below the recent peak" (Cyclicality Gate).
 - [ ] The working-capital change is forecast from a revenue-linked driver (% of revenue or days-of-sales), not a flat absolute held constant — unless the company discloses a different driver.
+- [ ] The working-capital cash effect carries the correct sign — a falling / more-negative NWC (a release) ADDS to FCF, a rising NWC subtracts; for a negative-working-capital business, growth releases cash and must INCREASE FCF (sign sanity-checked, not inverted).
 - [ ] The financeable-growth cross-check (Gate 2) is run; if implied growth (ROIC × reinvestment) differs from modeled terminal g by more than ~1.5pp and the bridge is not quantified, terminal g is lowered to the financeable level OR intrinsic confidence is capped and the grid is shown at the financeable g.
 - [ ] EV → equity → per-share bridge uses `01`'s net debt and share count.
 - [ ] The discounting convention is stated and defaults to mid-year (t−0.5); any use of end-of-year is justified.
