@@ -432,9 +432,53 @@ PY
 
 Record BOTH the `RATING-CAP:` and `HAIRCUT:` lines for step 11 ("Integrity gate"). If the pre-mortem applied a haircut and/or a rating cap, the RUN_METADATA integrity-gate entry should read e.g. `pre-mortem: Survives with haircut (confidence 70 → 64); RATING-CAP: non-terminal` or `pre-mortem: Thesis broken (confidence 65 → 20); RATING-CAP: terminal → post_mortem_decision=Watchlist`.
 
-- If `verification_report.json`'s verdict is `Failed` (or `Material issues`), treat it like a PROVISIONAL gate result: surface it loudly in step 13 (the deterministic validator may already have stamped the thesis).
+**Stamp the thesis PROVISIONAL on a missing or non-clean truth-integrity audit (finish-gate F30).** A `Failed` / `Material issues` verdict — OR a verify-evidence that did not run at all — must mark the published thesis UNVERIFIED, not merely be noted in step 13. This is the exact hole the TMCV 2026-06-14 run fell through: no `verification_report.json` was produced and the thesis shipped clean, so all of its citation/anchor/math defects went unflagged. Run this deterministic stamp AFTER verify-evidence + pre-mortem complete; it composes with the 10B.1 banner (merges reasons) and is idempotent across re-runs:
 
-If either audit cannot complete, record it as `not run` in the Integrity gate field and continue — a missing deeper audit does not abort the run, but the run is then not "clean".
+```bash
+python3 - "<RUN_ROOT>" <<'PY'
+import json, glob, os, sys
+run = sys.argv[1]
+ft = os.path.join(run, "final_thesis.md")
+MARK = "PROVISIONAL — the automated finish-gate"
+# Latest truth-integrity report (versioned _v2/_v3…). MISSING or NOT-clean => PROVISIONAL.
+vrs = sorted(glob.glob(os.path.join(run, "verification_report*.json")))
+verify_reason = None
+if not vrs:
+    verify_reason = "truth-integrity audit did NOT run (no verification_report.json) — citations, anchors, and §10/§15 math are unverified"
+else:
+    try:
+        v = json.load(open(vrs[-1], encoding="utf-8"))
+        verdict = (v.get("verdict") or "").strip()
+        if verdict in ("Material issues", "Failed"):
+            verify_reason = f"verify-evidence verdict = {verdict} (integrity {v.get('integrity_score')}/100, see {os.path.basename(vrs[-1])})"
+    except Exception as e:
+        verify_reason = f"verification_report.json unreadable ({e}) — truth-integrity not confirmed"
+# Strip any existing finish-gate banner (from 10B.1), recover its reasons, merge, re-stamp (idempotent).
+reasons, body = [], open(ft, encoding="utf-8").read()
+lines = body.split("\n"); i = 0
+while i < len(lines) and lines[i].strip() == "": i += 1
+if i < len(lines) and lines[i].startswith(">") and MARK in "\n".join(lines[i:i+6]):
+    blk = []
+    while i < len(lines) and lines[i].startswith(">"): blk.append(lines[i]); i += 1
+    while i < len(lines) and lines[i].strip() == "": i += 1
+    body = "\n".join(lines[i:])
+    # Keep 10B.1's freshly-derived math reasons; DROP any stale verify-reason (re-derived below) so re-runs don't accumulate.
+    if len(blk) >= 2:
+        reasons = [r.strip() for r in blk[1].lstrip("> ").split(";")
+                   if r.strip() and not any(t in r for t in ("verify-evidence", "truth-integrity audit", "verification_report"))]
+if verify_reason and verify_reason not in reasons: reasons.append(verify_reason)
+if reasons:
+    banner = ("> ⚠️ **PROVISIONAL — the automated finish-gate found an integrity issue; this thesis was committed UNVERIFIED.**\n> "
+              + "; ".join(reasons) + "\n>\n> Resolve the flagged items — re-run the synthesizer §14 math and/or the truth-integrity audit (`/research:verify-evidence`) — and re-publish before relying on these numbers. (CLAUDE.md §5/§10/§15; finish-gate F01/F17/F30.)\n\n")
+    open(ft, "w", encoding="utf-8").write(banner + body)
+    print("GATE-VERIFY: PROVISIONAL — " + "; ".join(reasons))
+else:
+    open(ft, "w", encoding="utf-8").write(body)
+    print("GATE-VERIFY: PASS — truth-integrity audit cleared (verdict Clean/Minor)")
+PY
+```
+
+Record the printed `GATE-VERIFY:` line for step 11 ("Integrity gate") and step 13. A `PROVISIONAL` result here carries the same weight as a 10B.1 math break — the published thesis is UNVERIFIED until the flagged items are resolved. The deeper audits still never *abort* the run (a thesis is always produced), but a run that did not clear truth-integrity is **published with the PROVISIONAL banner, never clean** — "not run" is no longer a silent pass.
 
 ---
 

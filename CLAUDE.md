@@ -423,7 +423,7 @@ This engine covers companies in any market — the United States, India, and oth
 
 **Accounting standard, currency, and fiscal year** travel with the numbers:
 - State the reporting standard (US GAAP / IFRS / Ind AS). It changes how leases, revenue, provisions, and consolidation read — never compare across standards silently.
-- Report in the company's own currency (USD, INR, …). Any cross-currency figure carries its FX date and rate (§15). Local scale (lakh/crore) is fine, but always give the absolute number too.
+- Report in the company's own currency (USD, INR, …). Any cross-currency figure carries its FX date and rate (§15). Local scale (lakh/crore) is fine, but always give the absolute number too. **When a filing states a foreign-currency amount together with its home-currency (reporting-currency) equivalent — e.g. "€3.8 billion (₹41,691 crore)" — use the filing's stated home-currency figure verbatim; do NOT re-derive it.** If you must convert (no filed equivalent), state the rate inline and use the filing's period-end rate, and sanity-check that the implied rate matches the stated currency's spot — never apply a different currency's rate (a EUR amount at the USD rate is the recurring error: €3.8bn is ~₹41,700 cr at ~₹110/EUR, not ~₹34,000 cr at the ~₹86/USD rate).
 - Use the company's own fiscal year. An Indian "FY24" usually ends 31 March; a US "FY24" may end 31 December or otherwise — never assume a calendar of convenience, and never mix periods without reconciliation (§15).
 
 Each module's MODULE_RULES.md applies this map and may add its own regime-specific source list and sector overlays on top (management-governance already does). The citation format (§5) is unchanged: name the local document and its period.
