@@ -157,8 +157,12 @@ function TickerPicker() {
   const activeRunsByTicker = useStore((s) => s.activeRunsByTicker)
   const connected = useStore((s) => s.connected)
   const dataDir = useStore((s) => s.dataDir)
+  const driveEnabled = useStore((s) => s.driveEnabled)
+  const staticMode = useStore((s) => s.staticMode)
+  const openAddCompany = useStore((s) => s.openAddCompany)
   const [open, setOpen] = useState(false)
   const sel = tickers.find((t) => t.ticker === selected)
+  const canAdd = driveEnabled && !staticMode
   return (
     <div className="tickerpick">
       <button className="tickerpick__btn" onClick={() => setOpen((o) => !o)}>
@@ -212,6 +216,9 @@ function TickerPicker() {
                   </>
                 )}
               </div>
+            )}
+            {canAdd && (
+              <button className="tickerpick__add" onClick={() => { openAddCompany(); setOpen(false) }}>+ Add a company</button>
             )}
           </div>
         </>
