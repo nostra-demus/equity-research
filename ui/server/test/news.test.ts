@@ -462,7 +462,11 @@ await check('the overflow chain falls through to the NEXT provider when the firs
   const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
   assert.ok(cbHits >= 1, 'the first overflow provider (Cerebras) was tried')
   assert.ok(mlHits >= 1, 'the chain fell through to the SECOND overflow provider (Mistral) after the first was exhausted')
-  assert.equal(s.picked, 1, 'the batch the second provider handled was scored, not lost to the dead first provider')
+  // BOTH items score: the chain advances to Mistral for the SAME batch the moment Cerebras fails, so the
+  // first batch is no longer lost to defer (the old find()-only code deferred batch 0 and only scored
+  // batch 1 once Cerebras was marked failed — that one-batch loss was the retry-trap codex flagged).
+  assert.equal(s.picked, 2, 'every batch flowed to Mistral the same cycle — nothing lost to the dead first provider')
+  assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 0, 'nothing deferred — the chain advanced past the dead first provider for every batch')
 })
 
 // ---- overflow chain advances on a NON-TERMINAL first-provider failure (503) WITHIN the same batch ----
