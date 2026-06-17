@@ -114,6 +114,30 @@ export function fmtStampLocal(iso?: string): string {
   return isNaN(d.getTime()) ? '' : d.toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false })
 }
 
+// Stable per-CALENDAR-DAY key in the VIEWER's timezone — lets a list that only shows HH:MM insert a
+// date divider whenever the day changes. Built from local y/m/d (not a UTC string slice, which would
+// bucket by UTC midnight and split a viewer's day in two).
+export function dayKeyLocal(iso?: string): string {
+  if (!iso) return ''
+  const d = new Date(iso)
+  return isNaN(d.getTime()) ? iso.slice(0, 10) : `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`
+}
+
+// Human label for a date divider above a day's rows: "Today" / "Yesterday" / "Sat, 14 Jun"
+// (year appended only when it isn't the current year). Viewer's own timezone, same as hhmmLocal.
+export function dayDividerLabel(iso?: string, now: Date = new Date()): string {
+  if (!iso) return ''
+  const d = new Date(iso)
+  if (isNaN(d.getTime())) return ''
+  if (dayKeyLocal(iso) === dayKeyLocal(now.toISOString())) return 'Today'
+  const y = new Date(now)
+  y.setDate(now.getDate() - 1)
+  if (dayKeyLocal(iso) === dayKeyLocal(y.toISOString())) return 'Yesterday'
+  const opts: Intl.DateTimeFormatOptions = { weekday: 'short', day: 'numeric', month: 'short' }
+  if (d.getFullYear() !== now.getFullYear()) opts.year = 'numeric'
+  return d.toLocaleDateString(undefined, opts)
+}
+
 export function nodeStatusColor(status: string): string {
   switch (status) {
     case 'running':

@@ -13,7 +13,10 @@ import { readFeed } from './feed'
 const HEALTH_FILE = 'news-source-health.json'
 
 export type FetchStatus = 'ok' | 'unchanged' | 'empty' | 'error'
-interface HealthEntry { status: FetchStatus; lastOkAt?: string; lastErrAt?: string; lastError?: string; lastItemsAt?: string; items?: number; at: string }
+// `fails` = consecutive error cycles (reset to 0 on any successful fetch). It is what keeps a single
+// transient blip — undici's network-wide "fetch failed" that hits ~every feed at once for one cycle and
+// recovers the next — from flipping the whole board to "failing".
+interface HealthEntry { status: FetchStatus; lastOkAt?: string; lastErrAt?: string; lastError?: string; lastItemsAt?: string; items?: number; fails?: number; at: string }
 type HealthFile = Record<string, HealthEntry>
 
 /** Merge this cycle's RSS fetch outcomes into the persisted health file (never throws). Keeps the last
@@ -27,9 +30,10 @@ export function recordRssHealth(stateDir: string, outcomes: Map<string, { status
     for (const [name, o] of outcomes) {
       const prev = cur[name] || ({} as HealthEntry)
       const e: HealthEntry = { ...prev, status: o.status, items: o.items, at: nowIso }
-      if (o.status === 'error') { e.lastErrAt = nowIso; e.lastError = o.note }
+      if (o.status === 'error') { e.lastErrAt = nowIso; e.lastError = o.note; e.fails = (prev.fails || 0) + 1 }
       else {
-        e.lastOkAt = nowIso // ok / unchanged / empty all mean the fetch itself succeeded
+        e.lastOkAt = nowIso // ok / unchanged / empty all mean the fetch itself succeeded → streak resets
+        e.fails = 0
         // RECOVERED: the fetch worked this cycle, so any earlier error is no longer the current state —
         // clear it. Without this, one bad cycle (e.g. a momentary network blip that makes every feed's
         // fetch throw at once) leaves a "fetch failed" note pinned on every feed forever, so a now-healthy
@@ -68,6 +72,13 @@ export interface SourcesReport {
 }
 
 const MS_H = 3_600_000
+// "Failing" must mean a SUSTAINED problem, not one unlucky cycle. undici raises a generic "fetch failed"
+// for transient host-level network blips (a momentary DNS/connectivity hiccup, the laptop waking), and
+// when one lands it tends to hit ~every feed in the same cycle — then the next cycle recovers. So a feed
+// is only failing once it has either errored for ≥2 cycles in a row OR not fetched OK in 2h (genuinely
+// dark). A feed that errored once but succeeded minutes ago stays healthy/quiet — no false red board.
+const FAIL_STREAK = 2
+const STALE_OK_MS = 2 * MS_H
 // rss_feeds.json carries no explicit nature field, so classify an RSS feed by its source_name.
 // HIGH-PRECISION only: reclassify the unambiguous filing / recall feeds (SEC EDGAR, exchange
 // filings, FDA/CPSC recalls); everything else stays 'news' to avoid mislabelling general news.
@@ -150,8 +161,11 @@ export function buildSourcesReport(repoRoot: string, stateDir: string, opts: { n
         const okMs = h?.lastOkAt ? Date.parse(h.lastOkAt) : NaN
         const errMs = h?.lastErrAt ? Date.parse(h.lastErrAt) : NaN
         const itemMs = lastData ? Date.parse(lastData) : NaN
-        if (fetch_status === 'error' && (Number.isNaN(okMs) || errMs >= okMs)) {
-          healthV = 'failing' // last fetch errored and hasn't recovered
+        // sustained: ≥2 error cycles in a row, OR no successful fetch in the last 2h (also covers a
+        // pre-existing health file written before `fails` was tracked, where the streak is still 0).
+        const sustained = (h?.fails || 0) >= FAIL_STREAK || Number.isNaN(okMs) || nowMs - okMs > STALE_OK_MS
+        if (fetch_status === 'error' && (Number.isNaN(okMs) || errMs >= okMs) && sustained) {
+          healthV = 'failing' // last fetch errored, hasn't recovered, and the failure is sustained
         } else if (!fetch_status) {
           healthV = 'idle' // engine hasn't fetched it yet (fresh start / just wired)
         } else if (fetch_status === 'ok' || fetch_status === 'unchanged' || (h?.items || 0) > 0 || (!Number.isNaN(itemMs) && nowMs - itemMs <= 3 * 24 * MS_H)) {

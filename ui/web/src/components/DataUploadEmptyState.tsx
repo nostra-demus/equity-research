@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { Uploader } from './Uploader'
+import { DataCoverage } from './DataCoverage'
 
 // Single source of truth for "what's going on with this ticker's data" — so the cockpit is never a
 // silent black box. Covers: nothing selected yet (the cockpit no longer auto-selects), unusable folder
@@ -15,6 +16,7 @@ export function DataUploadEmptyState() {
   const driveEnabled = useStore((s) => s.driveEnabled)
   const staticMode = useStore((s) => s.staticMode)
   const openAddCompany = useStore((s) => s.openAddCompany)
+  const defaultCoverage = useStore((s) => s.defaultCoverage)
 
   const sel = tickers.find((t) => t.ticker === selectedTicker)
   const noTickers = emptyState && !selectedTicker
@@ -24,6 +26,12 @@ export function DataUploadEmptyState() {
   const syncing = !!selectedTicker && !invalid && !!sel?.syncing && !hasData
   const reading = !!selectedTicker && !invalid && !syncing && dataLoading && !dataStatus
   const tickerNoData = !!selectedTicker && !invalid && !!dataStatus && !hasData
+  // Show the source-document upload guide (all unmet) whenever the engine has NO data to work with —
+  // a selected-but-empty ticker (its per-ticker coverage) OR zero ticker folders at all (defaultCoverage
+  // from /api/tickers). The most important onboarding moment gets the itemised "upload these first" list,
+  // not a generic sentence.
+  const guideCoverage = dataStatus?.coverage?.length ? dataStatus.coverage : defaultCoverage
+  const showGuide = (tickerNoData || noTickers) && !!guideCoverage?.length
 
   if (!noTickers && !noSelection && !invalid && !syncing && !reading && !tickerNoData) return null
 
@@ -111,7 +119,7 @@ export function DataUploadEmptyState() {
           )}
         </div>
         <div className="empty__title">{title}</div>
-        <div className="empty__body">{body}</div>
+        {showGuide ? <DataCoverage coverage={guideCoverage} mode="guide" /> : <div className="empty__body">{body}</div>}
         {actions && <div className="empty__actions">{actions}</div>}
         {dir && <div className="empty__path">{dir}</div>}
         <div className="empty__watch">{foot}</div>

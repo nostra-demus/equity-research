@@ -3,11 +3,11 @@
 // dropped (and why). Backfills from disk (restart-proof) and streams new items over SSE the moment
 // a cycle scores them. A drop here is a result, not a failure — most news should die at this stage.
 
-import { useEffect, useMemo, useState } from 'react'
+import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { groupByDedup, type StoryGroup } from '../../lib/dedup'
 import { plainBand, plainSize, plainTheme } from '../../lib/plain'
-import { hhmmLocal } from '../../lib/format'
+import { dayDividerLabel, dayKeyLocal, hhmmLocal } from '../../lib/format'
 import { useStore } from '../../lib/store'
 import type { FeedItem } from '../../lib/types'
 import { emptyFilters, FeedFilters, matchesFilters, type FeedFilterState } from './FeedFilters'
@@ -27,6 +27,12 @@ const FEED_WINDOWS: { d: number; label: string }[] = [
 
 // compact 405000 → "405k", 14 → "14"
 const kfmt = (n: number): string => (n >= 1000 ? `${(n / 1000).toFixed(n >= 100_000 ? 0 : 1)}k` : `${Math.round(n)}`)
+
+// A historical look-back window can hold up to ~6,000 items; painting all of them on every filter
+// toggle is what made the wire feel slow. We render in PAGE-sized chunks and reveal the next chunk as a
+// bottom sentinel scrolls into view, so a filter click only ever paints ~PAGE rows — independent of how
+// deep the archive in range is — while every row stays reachable by scrolling.
+const PAGE = 60
 
 // A small daily-budget pool readout: a label, a fill bar, used/cap. The fill animates with a GPU transform
 // (scaleX) so the poll-driven update never triggers layout. `color` is a CSS var name (per provider), so a
@@ -121,6 +127,37 @@ export function LiveFeed() {
   const sources = useMemo(() => [...new Set(items.map((i) => i.source_name).filter(Boolean))].sort(), [items])
   // filter first, then collapse near-duplicate stories so the wire shows one row per story (newest-first)
   const visibleGroups = useMemo(() => groupByDedup(items.filter((i) => matchesFilters(i, filters))), [items, filters])
+
+  // Incremental render: show the first `shownCount` stories, grow as a bottom sentinel scrolls into
+  // view, and snap back to the top + first page whenever the filtered set changes (a filter toggle or a
+  // new look-back window). This is what keeps a filter click snappy on a multi-thousand-item archive.
+  const listRef = useRef<HTMLDivElement | null>(null)
+  const sentinelRef = useRef<HTMLDivElement | null>(null)
+  const [shownCount, setShownCount] = useState(PAGE)
+  // Reset to the first page DURING render whenever the filter set or look-back window changes — NOT in a
+  // post-render effect. Otherwise the first render after a filter toggle still slices the old (large)
+  // shownCount over the NEW filtered set, mapping thousands of rows before snapping back to PAGE — the
+  // exact slow filter-click this incremental view exists to avoid. `items` is deliberately excluded so a
+  // live SSE append never yanks the scroll back to the top.
+  const [pagedFor, setPagedFor] = useState<{ f: FeedFilterState; w: number }>({ f: filters, w: feedWindowDays })
+  if (pagedFor.f !== filters || pagedFor.w !== feedWindowDays) {
+    setPagedFor({ f: filters, w: feedWindowDays })
+    setShownCount(PAGE)
+  }
+  useEffect(() => { listRef.current?.scrollTo?.({ top: 0 }) }, [filters, feedWindowDays])
+  const shown = useMemo(() => visibleGroups.slice(0, shownCount), [visibleGroups, shownCount])
+  const hasMore = shownCount < visibleGroups.length
+  useEffect(() => {
+    const el = sentinelRef.current
+    if (!el) return
+    const io = new IntersectionObserver(
+      (entries) => { if (entries.some((e) => e.isIntersecting)) setShownCount((c) => Math.min(c + PAGE, visibleGroups.length)) },
+      { root: listRef.current, rootMargin: '900px 0px' },
+    )
+    io.observe(el)
+    return () => io.disconnect()
+  }, [visibleGroups.length, hasMore])
+
   const ago = agoMin(status?.lastCycleAt)
 
   const statusLine = status
@@ -190,10 +227,32 @@ export function LiveFeed() {
 
       <FeedFilters value={filters} onChange={setFilters} sources={sources} />
 
-      <div className="wire__list">
-        {visibleGroups.map((g) => (
-          <WireRow key={g.group} group={g} />
-        ))}
+      <div className="wire__list" ref={listRef}>
+        {shown.map((g, i) => {
+          // a sticky date divider whenever the calendar day changes — so a list that only shows HH:MM
+          // stays legible across a 14-day (or longer) window as you scroll. Date by the group's NEWEST
+          // member (members[0] is newest-first) — that's what sets its scroll position; g.rep is the
+          // highest-tier source, which can be older and would mis-date a story that spans midnight.
+          const gTs = g.members[0]?.ts ?? g.rep.ts
+          const prevTs = i > 0 ? (shown[i - 1].members[0]?.ts ?? shown[i - 1].rep.ts) : ''
+          const showDay = i === 0 || dayKeyLocal(gTs) !== dayKeyLocal(prevTs)
+          const dayLabel = showDay ? dayDividerLabel(gTs) : ''
+          return (
+            <Fragment key={g.group}>
+              {dayLabel && (
+                <div className="wire__daydiv">
+                  <span>{dayLabel}</span>
+                </div>
+              )}
+              <WireRow group={g} />
+            </Fragment>
+          )
+        })}
+        {hasMore && (
+          <div ref={sentinelRef} className="wire__more">
+            showing {shown.length.toLocaleString()} of {visibleGroups.length.toLocaleString()} — scroll for more
+          </div>
+        )}
         {!visibleGroups.length && (
           <div className="plane__empty wire__empty">
             {items.length

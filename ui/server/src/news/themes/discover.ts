@@ -7,6 +7,7 @@
 import { createHash } from 'node:crypto'
 import { companyKeys, topicTokens, intersectionSize, jaccard } from '../text-match'
 import { rebuildThemeCompanies } from './assign'
+import { ensureDaily } from './score'
 import type { Theme, ThemeItemView, ThemeMember, RelatedTheme } from './types'
 
 export interface DiscoverConfig {
@@ -216,6 +217,14 @@ export function mergeAndRetire(themes: Theme[], now: Date, cfg: DiscoverConfig =
         keep.keywords = [...new Set([...keep.keywords, ...drop.keywords])].slice(0, 14)
         keep.company_keys = [...new Set([...keep.company_keys, ...drop.company_keys])].slice(0, 16)
         if (drop.last_flow > keep.last_flow) keep.last_flow = drop.last_flow
+        // re-seed keep's daily ring from the combined, de-duplicated member ring so a merge neither loses
+        // the folded-in theme's flow nor double-counts events that were members of BOTH themes (an item
+        // can belong to up to maxThemesPerItem themes). Recent-day truth comes from the member ring; daily
+        // history older than the ring is bounded-loss on the rare merge, which is acceptable (§3 — never
+        // over-report). The hourly series self-heals the same way (it's rebuilt from members each cycle).
+        keep.flow_daily = undefined
+        keep.flow_daily_day = undefined
+        ensureDaily(keep, now.getTime())
         keep.rev++
         rebuildThemeCompanies(keep)
         drop.status = 'merged'

@@ -146,9 +146,16 @@ export function getNewsStatus(): NewsStatus {
     for (const c of cycles as CycleSummary[]) {
       if ((c.ts || '').slice(0, 10) !== todayDate) continue
       today.cycles++
-      today.read += c.candidates || 0
+      // read = items the scanner actually READ AND SCORED today = kept + dropped. We deliberately do
+      // NOT sum c.candidates here: candidates is the triage QUEUE size (this cycle's fresh items PLUS
+      // the deferred backlog re-queued from earlier cycles), so a budget-deferred item is re-counted in
+      // candidates on every cycle until it's finally scored. That made "read" balloon far above
+      // kept+dropped on busy/budget-capped days, so the three numbers no longer reconciled. picked +
+      // watched + dropped counts each item exactly once — in the one cycle it's scored — so read always
+      // ties out as kept + dropped.
       today.kept += (c.picked || 0) + (c.watched || 0)
       today.dropped += c.dropped || 0
+      today.read += (c.picked || 0) + (c.watched || 0) + (c.dropped || 0)
     }
   } catch {
     // a status read never throws

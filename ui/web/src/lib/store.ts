@@ -3,7 +3,7 @@ import { api, isStatic } from './api'
 import { downstreamCascade, type CascadeNode } from './cascade'
 import { plainRoute, plainStage } from './plain'
 import type { Theme, ThemeDetail } from './themes'
-import type { ActiveRunLite, AgentNode, BoardInboxRow, ConvictionDetail, DataStatus, EventEnrichment, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
+import type { ActiveRunLite, AgentNode, BoardInboxRow, ConvictionDetail, CoverageGroup, DataStatus, EventEnrichment, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
 
 // A company the user drilled into from an event (the COMPANIES NAMED chips) — the main stage then
 // shows every wire story about it. listing_country/exchange ride along from the article-body read.
@@ -74,6 +74,7 @@ interface State {
   tickers: TickerSummary[]
   emptyState: boolean
   driveEnabled: boolean // true when the server has a Drive destination + credential — gates add-company/upload UI
+  defaultCoverage: CoverageGroup[] // upload-guide groups (all unmet), for the zero-folders onboarding state
   selectedTicker: string | null
   graph: SwarmGraph | null
   nodesByKey: Map<string, AgentNode>
@@ -241,6 +242,8 @@ interface State {
   // ---- dynamic themes (the firehose bucketed into living, ranked investment themes) ----
   themes: Theme[]
   themesView: 'map' | 'board' | null // null = themes view closed (gauntlet/idle canvas shows)
+  themesWindow: number | null // the selected time-window lookback in HOURS; null = Live (real-time)
+  themesHistoryDays: number // days of real daily-flow history the engine has (gates the long windows)
   selectedTheme: string | null // open deep-dive
   themeDetail: ThemeDetail | null // the open theme's resolved members + companies-by-order
   themesStatus: 'idle' | 'loading' | 'ready' | 'error'
@@ -248,6 +251,7 @@ interface State {
   openThemes: (view: 'map' | 'board') => Promise<void>
   closeThemes: () => void
   setThemesView: (view: 'map' | 'board') => void
+  setThemesWindow: (hours: number | null) => void
   selectTheme: (id: string | null) => Promise<void>
   refreshThemes: () => Promise<void>
 }
@@ -268,6 +272,7 @@ export const useStore = create<State>((set, get) => ({
   tickers: [],
   emptyState: false,
   driveEnabled: false,
+  defaultCoverage: [],
   addCompanyOpen: false,
   uploadTarget: null,
   uploadProgress: {},
@@ -329,6 +334,8 @@ export const useStore = create<State>((set, get) => ({
   newsStatus: null,
   themes: [],
   themesView: null,
+  themesWindow: null,
+  themesHistoryDays: 0,
   selectedTheme: null,
   themeDetail: null,
   themesStatus: 'idle',
@@ -340,7 +347,7 @@ export const useStore = create<State>((set, get) => ({
     try {
       const [graph, tk, credit] = await Promise.all([api.swarm(), api.tickers(), api.credit().catch(() => null)])
       const stat = isStatic()
-      set({ connected: true, staticMode: stat, graph, nodesByKey: flatten(graph), tickers: tk.tickers, emptyState: tk.emptyState, dataDir: (tk as any).dataDir ?? null, driveEnabled: (tk as any).driveEnabled ?? false, credit })
+      set({ connected: true, staticMode: stat, graph, nodesByKey: flatten(graph), tickers: tk.tickers, emptyState: tk.emptyState, defaultCoverage: tk.coverage ?? [], dataDir: (tk as any).dataDir ?? null, driveEnabled: (tk as any).driveEnabled ?? false, credit })
       api.swarms().then((swarms) => set({ swarms })).catch(() => set({ swarms: [{ id: 'research', label: 'Research', color: '#c0851d', unit: 'ticker', order: 1, layout: 'constellation' }] }))
       if (!stat) get().startHealth() // begin the engine heartbeat (live mode only); idempotent across reconnects
       // live data-folder watcher (Drive sync) — backend only
@@ -1042,7 +1049,7 @@ export const useStore = create<State>((set, get) => ({
   refreshThemes: async () => {
     try {
       const idx = await api.newsThemes()
-      set({ themes: idx.themes, themesStatus: 'ready' })
+      set({ themes: idx.themes, themesHistoryDays: idx.history_days || 0, themesStatus: 'ready' })
     } catch {
       set({ themesStatus: 'error' })
     }
@@ -1061,6 +1068,7 @@ export const useStore = create<State>((set, get) => ({
     } catch { /* keep the prior reading */ }
   },
   setThemesView: (view) => set({ themesView: view, selectedTheme: null }),
+  setThemesWindow: (hours) => set({ themesWindow: hours }),
   closeThemes: () => set({ themesView: null, selectedTheme: null, themeDetail: null }),
   selectTheme: async (id) => {
     if (!id) { set({ selectedTheme: null, themeDetail: null }); return }
@@ -1613,7 +1621,7 @@ function refreshTickersSoon(get: () => State, set: (p: Partial<State>) => void) 
   api
     .tickers()
     .then((t) => {
-      set({ tickers: t.tickers, emptyState: t.emptyState, dataDir: (t as any).dataDir ?? get().dataDir, driveEnabled: (t as any).driveEnabled ?? get().driveEnabled })
+      set({ tickers: t.tickers, emptyState: t.emptyState, defaultCoverage: t.coverage ?? get().defaultCoverage, dataDir: (t as any).dataDir ?? get().dataDir, driveEnabled: (t as any).driveEnabled ?? get().driveEnabled })
       const removed = reconcileSelection(get, set)
       if (removed) get().setToast({ msg: `${removed} is no longer in the data folder — pick a ticker`, tone: 'info' })
       if (tickersSyncTimer) { clearTimeout(tickersSyncTimer); tickersSyncTimer = null }

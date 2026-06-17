@@ -1,5 +1,5 @@
 import { staticPromptPath } from './prompts'
-import type { ActivityQuery, ActivityResult, CallsResult, DataStatus, EventEnrichment, FeedItem, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ScreenerBoard, SignalIntakeInput, SourcesReport, SwarmGraph, SwarmMeta, TickerSummary, UploadResult, Usage, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, CallsResult, CoverageGroup, DataStatus, EventEnrichment, FeedItem, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ScreenerBoard, SignalIntakeInput, SourcesReport, SwarmGraph, SwarmMeta, TickerSummary, UploadResult, Usage, Whoami } from './types'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -130,7 +130,7 @@ export const api = {
   newsStreamUrl: () => `/api/news/stream`,
   // the living themes the firehose is bucketed into (ranked index + one theme's deep-dive)
   newsThemes: async (): Promise<import('./themes').ThemesIndex> => {
-    if ((await ensureMode()) === 'static') return { generated_at: '', themes: [], counts: { hot: 0, active: 0, cooling: 0, parked: 0, retired: 0, total: 0 } }
+    if ((await ensureMode()) === 'static') return { generated_at: '', themes: [], counts: { hot: 0, active: 0, cooling: 0, parked: 0, retired: 0, total: 0 }, history_days: 0 }
     return get(`/api/news/themes`)
   },
   newsTheme: async (id: string): Promise<import('./themes').ThemeDetail | null> => {
@@ -181,8 +181,8 @@ export const api = {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/screener/handoff`, { thesisId, ticker })
   },
-  tickers: async (): Promise<{ tickers: TickerSummary[]; emptyState: boolean; dataDir?: string; driveEnabled?: boolean }> => {
-    if ((await ensureMode()) === 'static') return { tickers: snap.tickers, emptyState: snap.emptyState, dataDir: snap.dataDir, driveEnabled: false }
+  tickers: async (): Promise<{ tickers: TickerSummary[]; emptyState: boolean; dataDir?: string; driveEnabled?: boolean; coverage?: CoverageGroup[] }> => {
+    if ((await ensureMode()) === 'static') return { tickers: snap.tickers, emptyState: snap.emptyState, dataDir: snap.dataDir, driveEnabled: false, coverage: snap.defaultCoverage || [] }
     return get(`/api/tickers`)
   },
   // Create a company = a <TICKER> folder in the shared Drive (the server writes it; it syncs back down to
@@ -218,7 +218,7 @@ export const api = {
     return get(`/api/screener/intensity?window=${encodeURIComponent(window)}`)
   },
   dataStatus: async (ticker: string): Promise<DataStatus> => {
-    if ((await ensureMode()) === 'static') return snap.dataStatus[ticker] || { ticker, hasAnyData: false, fileCount: 0, files: [], recentByType: {}, modules: {}, overallReady: false, dataDir: snap.dataDir }
+    if ((await ensureMode()) === 'static') return snap.dataStatus[ticker] || { ticker, hasAnyData: false, fileCount: 0, files: [], recentByType: {}, modules: {}, coverage: [], overallReady: false, dataDir: snap.dataDir }
     return get(`/api/data-status/${encodeURIComponent(ticker)}`)
   },
   credit: async (): Promise<Usage> => {

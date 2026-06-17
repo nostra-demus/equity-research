@@ -611,6 +611,32 @@ a { color: inherit; }
 .datafiles__tab { display: flex; align-items: baseline; gap: 8px; }
 .datafiles__tabname { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-muted); }
 .datafiles__tabdim { flex: none; font-size: 10px; color: var(--text-faint); font-variant-numeric: tabular-nums; white-space: nowrap; }
+/* data-coverage — source-document groups in tiers (present + named vs could-add); panel + empty guide */
+.cov { border-top: 1px solid var(--hairline); }
+.cov[data-mode="guide"] { border-top: none; margin-top: 6px; text-align: left; }
+.cov__head { display: flex; align-items: center; gap: 8px; padding: 8px 12px 3px; }
+.cov__title { font-weight: 600; color: var(--text-muted); font-size: 11px; letter-spacing: 0.2px; }
+.cov__count { margin-left: auto; font-size: 11px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.cov__rows { max-height: 40vh; overflow-y: auto; padding: 2px 4px 4px; display: flex; flex-direction: column; gap: 1px; }
+.cov__row { display: flex; align-items: flex-start; gap: 8px; padding: 3px 8px; border-radius: var(--r-sm); }
+.cov__row[data-present="false"] { opacity: 0.92; } /* keep readable in dark mode — don't stack dim colours under a low opacity */
+.cov__row[data-crit="true"] { opacity: 1; }
+.cov__mark { flex: none; width: 13px; text-align: center; font-size: 11px; line-height: 1.4; color: var(--text-muted); }
+.cov__row[data-present="true"] .cov__mark { color: var(--accent-bright); }
+.cov__row[data-crit="true"] .cov__mark { color: var(--bad); }
+.cov__main { flex: 1; min-width: 0; }
+.cov__top { display: flex; align-items: center; gap: 6px; }
+.cov__label { font-size: 12.5px; color: var(--text); white-space: nowrap; }
+/* tier chips: every tier gets a fill + readable text so it stays legible on the dark surface */
+.cov__tier { flex: none; font-size: 8.5px; text-transform: uppercase; letter-spacing: 0.4px; padding: 0 5px; line-height: 1.55; border-radius: var(--r-pill); border: 1px solid var(--hairline-strong); background: var(--surface-3); color: var(--text-muted); }
+.cov__tier[data-tier="critical"] { color: var(--bad); border-color: color-mix(in srgb, var(--bad) 50%, transparent); background: color-mix(in srgb, var(--bad) 16%, transparent); }
+.cov__tier[data-tier="core"] { color: var(--accent-bright); border-color: color-mix(in srgb, var(--accent) 48%, transparent); background: var(--accent-wash); }
+.cov__tier[data-tier="optional"] { color: var(--text-muted); background: transparent; }
+.cov__age { margin-left: auto; flex: none; font-size: 10px; color: var(--text-muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.cov__age[data-stale="true"] { color: var(--bad); }
+.cov__sub { font-size: 10.5px; color: var(--text-muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cov__row[data-crit="true"] .cov__sub { color: var(--bad); }
+.cov__foot { padding: 5px 12px 9px; font-size: 10.5px; color: var(--text-muted); }
 
 /* ================= swarm switcher (CommandBar) ================= */
 .swarmswitch { display: flex; align-items: center; gap: 2px; margin-left: 12px; padding: 3px; border: 1px solid var(--hairline); border-radius: var(--r-pill); background: var(--surface-1); }
@@ -1050,6 +1076,20 @@ a { color: inherit; }
 .wire__company { color: var(--text-muted); text-transform: none; letter-spacing: 0.2px; max-width: 320px; }
 .wire__why { font-size: 11px; color: var(--text-muted); line-height: 1.45; margin-top: 3px; }
 .wire__empty { padding: 28px 4px; }
+/* sticky per-day divider — keeps an HH:MM-only wire legible across a 14-day+ look-back as you scroll */
+.wire__daydiv {
+  position: sticky; top: 0; z-index: 2;
+  display: flex; align-items: center; gap: 10px;
+  padding: 7px 2px 6px;
+  background: linear-gradient(var(--surface-1) 70%, transparent);
+}
+.wire__daydiv span {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase;
+  color: var(--text-muted); white-space: nowrap;
+}
+.wire__daydiv::after { content: ''; flex: 1; height: 1px; background: var(--hairline); }
+/* bottom sentinel of the incremental render — the scroll-to-reveal-more marker */
+.wire__more { padding: 16px 2px 24px; font-size: 11px; color: var(--text-faint); text-align: center; font-variant-numeric: tabular-nums; }
 
 /* ---- moved-by-you marker (the thesis deep-dive override chip) ---- */
 .pcard__chip--moved { color: var(--accent-bright); border-color: var(--accent-deep); text-transform: none; letter-spacing: 0.2px; }
@@ -1516,6 +1556,27 @@ a { color: inherit; }
 .themes__tierbtn:active, .themes__vbtn:active { transform: scale(0.97); }
 .themes__tierbtn.is-on, .themes__vbtn.is-on { background: var(--accent-wash); color: var(--accent-bright); }
 
+/* ---- the time-window ribbon — scrub the same themes through different lookbacks (1h … 3m) ---- */
+.themes__timeline { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.themes__tllabel { font-size: 10px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-faint); flex: none; }
+.themes__windows { display: inline-flex; flex-wrap: wrap; gap: 2px; background: var(--surface-2); border: 1px solid var(--hairline); border-radius: var(--r-pill); padding: 2px; }
+.themes__winbtn { position: relative; appearance: none; border: 0; background: transparent; color: var(--text-muted); font-size: 11.5px; font-weight: 600; font-variant-numeric: tabular-nums; letter-spacing: 0.01em; padding: 5px 11px; border-radius: var(--r-pill); cursor: pointer; transition: color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease); }
+@media (hover: hover) and (pointer: fine) { .themes__winbtn:not(.is-on):not(:disabled):hover { color: var(--text); } }
+.themes__winbtn:active { transform: scale(0.97); }
+.themes__winbtn.is-on { background: var(--accent-wash); color: var(--accent-bright); }
+/* a partially-covered window stays usable but carries a small accent tick — "history still filling in" */
+.themes__winbtn.is-partial::after { content: ''; position: absolute; top: 4px; right: 5px; width: 4px; height: 4px; border-radius: 50%; background: var(--accent-bright); box-shadow: 0 0 5px var(--accent-glow); }
+.themes__winbtn.is-locked { color: var(--text-faint); opacity: 0.4; cursor: not-allowed; }
+.themes__winbtn:disabled { cursor: not-allowed; }
+.themes__winbtn.is-locked:active { transform: none; }
+/* keyboard focus ring — match the codebase idiom (appearance:none strips the native one) */
+.themes__winbtn:focus-visible, .themes__tierbtn:focus-visible, .themes__vbtn:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--accent); }
+.themes__tlnote { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; font-size: 11px; color: var(--text-faint); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.themes__tldot { width: 6px; height: 6px; border-radius: 50%; flex: none; }
+.themes__tldot--live { background: var(--live); box-shadow: 0 0 6px var(--live); animation: evpulse 1.5s var(--ease-out) infinite; }
+.themes__tldot--build { background: var(--accent-bright); box-shadow: 0 0 6px var(--accent-glow); }
+@media (prefers-reduced-motion: reduce) { .themes__tldot--live { animation: none; } }
+
 .themes__empty { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px; color: var(--text-muted); text-align: center; }
 .themes__empty p { max-width: 460px; font-size: 13px; line-height: 1.6; }
 .themes__emptyorb { width: 54px; height: 54px; border-radius: 50%; border: 1px solid var(--hairline-strong); background: radial-gradient(circle at 50% 38%, var(--accent-wash), transparent 70%); animation: themebreathe 3.2s var(--ease) infinite; }
@@ -1602,6 +1663,15 @@ a { color: inherit; }
 /* live throughput readout under the lens — proof the stream is real, not decoration */
 .thememap__rate { position: absolute; transform: translateX(-50%); display: inline-flex; align-items: center; gap: 5px; font-size: 9.5px; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; color: var(--accent-bright); white-space: nowrap; pointer-events: none; z-index: 4; font-variant-numeric: tabular-nums; }
 .thememap__rate-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--live); box-shadow: 0 0 6px var(--live); animation: evpulse 1.4s var(--ease-out) infinite; }
+
+/* historical-window badge — the map is a frozen snapshot, not the live wire; this names the lookback.
+   Capitalised first letter via ::first-letter so "the last 7 days" reads as a tidy label. */
+.thememap.is-historical { background: radial-gradient(circle at 30% 50%, color-mix(in srgb, var(--accent-wash-soft) 60%, transparent), transparent 60%); }
+.thememap__asof { position: absolute; top: 12px; right: 14px; display: inline-flex; align-items: center; gap: 7px; padding: 4px 11px; border-radius: var(--r-pill); background: color-mix(in srgb, var(--surface-1) 86%, transparent); border: 1px solid var(--hairline-strong); font-size: 10.5px; font-weight: 600; letter-spacing: 0.03em; color: var(--accent-bright); white-space: nowrap; z-index: 5; pointer-events: none; animation: themeasof-in var(--dur) var(--ease-out); }
+.thememap__asof::first-letter { text-transform: uppercase; }
+.thememap__asof-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent-bright); box-shadow: 0 0 6px var(--accent-glow); flex: none; }
+@keyframes themeasof-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) { .thememap__asof { animation: none; } }
 
 .thememap__tip { position: absolute; left: 16px; bottom: 14px; max-width: 320px; background: var(--surface-1); border: 1px solid var(--hairline-strong); border-radius: var(--r-md); padding: 10px 12px; box-shadow: 0 8px 28px -8px rgba(0,0,0,0.5); pointer-events: none; z-index: 5; }
 .thememap__tip-name { font-size: 13px; font-weight: 600; color: var(--text); margin-bottom: 3px; }
