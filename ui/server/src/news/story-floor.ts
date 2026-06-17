@@ -10,6 +10,7 @@
 
 import { cleanText } from './clean'
 import { isCompanyName } from './entities'
+import { secFilingStory } from './sec-forms'
 
 // junk the cheap triage sometimes emits as a "company" name — never a real issuer
 const JUNK_NAME = /^(?:null|undefined|n\/?a|none|nil|-+|\.+|the company|company|unknown)$/i
@@ -182,6 +183,14 @@ export function storyFloor(i: StoryFloorInput): StoryFloorResult {
   const snippet = cleanText(i.snippet)
 
   if (isFilingEvent(i)) {
+    // An SEC EDGAR filing carries its form code IN the title ("424B2 - GOLDMAN SACHS GROUP INC (Filer)").
+    // Explain it in plain English from the dictionary instead of the bland "Exchange disclosure by X" —
+    // this is what makes a routine bank prospectus legible to a non-specialist.
+    const edgarSrc = /(^|\.)sec\.gov$/i.test(String(i.domain || '')) || /edgar/i.test(String(i.source_name || ''))
+    if (edgarSrc) {
+      const edgarStory = secFilingStory(headline)
+      if (edgarStory) return { summary: edgarStory.slice(0, 600), kind: 'filing' }
+    }
     const { company, rest } = splitCompany(headline, i.companies)
     let subject = company ? stripRepeatedCompany(rest, company) : rest
     subject = cleanEntity(stripCoverLetter(subject)).replace(/\s+/g, ' ').trim()

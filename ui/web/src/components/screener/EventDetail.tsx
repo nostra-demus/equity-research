@@ -40,7 +40,10 @@ function StoryBlock({ enr }: { enr: EventEnrichment | 'loading' | undefined }) {
             <span className="evdetail__form mono">{sec.form}</span>
             {sec.form_label && <span className="evdetail__formlabel">{sec.form_label}</span>}
             {sec.filer && <span className="evdetail__filer">{sec.filer}</span>}
+            {sec.routine && <span className="evdetail__routine" title="A high-volume filing that rarely moves the stock on its own">routine</span>}
           </div>
+          {/* What this form IS, in plain English — the answer to "what am I even looking at" */}
+          {sec.form_meaning && <p className="evdetail__formmeaning">{sec.form_meaning}</p>}
           {!!sec.items.length && (
             <ul className="evdetail__items">
               {sec.items.map((i) => (

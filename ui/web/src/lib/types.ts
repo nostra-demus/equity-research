@@ -131,6 +131,8 @@ export interface PriorCoverage {
 export interface SecFiling {
   form: string
   form_label?: string
+  form_meaning?: string // one plain-English sentence: what this form IS
+  routine?: boolean // a high-volume filing that rarely moves the stock on its own
   items: { code: string; label: string }[]
   filer?: string
   period?: string
