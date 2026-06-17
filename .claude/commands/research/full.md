@@ -441,9 +441,11 @@ run = sys.argv[1]
 ft = os.path.join(run, "final_thesis.md")
 MARK = "PROVISIONAL — the automated finish-gate"
 # Latest truth-integrity report (versioned _v2/_v3…). MISSING or NOT-clean => PROVISIONAL.
-# Sort by VERSION NUMBER, not lexically, so verification_report_v10 lands after _v2 (not before).
+# Exact-name match only (verification_report.json or _v<n>), so an auxiliary like verification_report_summary_v2.json
+# is NOT mistaken for a report version; then sort by VERSION NUMBER, not lexically, so _v10 lands after _v2.
 _vn = lambda p: int(re.search(r"_v(\d+)\.json$", p).group(1)) if re.search(r"_v(\d+)\.json$", p) else 1
-vrs = sorted(glob.glob(os.path.join(run, "verification_report*.json")), key=_vn)
+vrs = sorted([p for p in glob.glob(os.path.join(run, "verification_report*.json"))
+              if re.fullmatch(r"verification_report(_v\d+)?", os.path.basename(p)[:-5])], key=_vn)
 verify_reason = None
 if not vrs:
     verify_reason = "truth-integrity audit did NOT run (no verification_report.json) — citations, anchors, and §10/§15 math are unverified"
