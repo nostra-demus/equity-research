@@ -117,13 +117,16 @@ export interface OverflowProvider {
 // (Gemini is separate — it uses generateContent, not chat/completions). Order = priority (best first).
 function buildOverflowProviders(): OverflowProvider[] {
   const out: OverflowProvider[] = []
-  // Cerebras Inference — placed FIRST: the biggest + fastest free pool here. Its free tier is TOKEN-gated
-  // (≈1,000,000 tokens/DAY, ≈60k tokens/min, 30 req/min; token-bucketed), NOT request-gated, and it serves
-  // llama-3.3-70b at ~2,000 tok/s — so it both absorbs the most ingester overflow and answers the on-demand
-  // article read fastest. We pace it on its BINDING limit (tokens): a daily token cap held ~10% under 1M, a
-  // TPM under 60k, an RPM under 30 — so it runs to its real ceiling without ever tripping a limit. Use the
-  // fast NON-reasoning llama-3.3-70b (the gpt-oss/qwen reasoning models burn the output budget thinking →
-  // truncated JSON — the same call NVIDIA made). OpenAI-compatible (/chat/completions). Secret lives in env.
+  // Cerebras Inference — placed FIRST: the biggest + fastest free pool here, token-gated. Per Cerebras'
+  // CURRENT docs the Free-Trial tier is 5 req/min, 30k tokens/min, 1M tokens/day (whichever binds first),
+  // so the defaults pace UNDER those (RPM < 5, TPM < 30k, daily token cap ~10% under 1M) and are overridable
+  // UPWARD (NEWS_CEREBRAS_RPM/TPM/…) on a paid Pay-as-you-go key. OpenAI-compatible (/chat/completions).
+  // Secret lives in env.
+  // ⚠️ MODEL CAVEAT (needs a live key to resolve): `llama-3.3-70b` has been RETIRED on Cerebras. The only
+  // current models (gpt-oss-120b, zai-glm-4.7) are REASONING models — exactly what burns the output budget
+  // thinking → truncated JSON, the failure this provider was added to avoid. Switching the default safely
+  // needs reasoning_effort:'low' + Cerebras' `max_completion_tokens` field (NOT max_tokens) + a higher token
+  // budget, validated against a real key. Until then set NEWS_CEREBRAS_MODEL to a working model per-deploy.
   const cbKey = process.env.CEREBRAS_API_KEY || ''
   if (cbKey && process.env.NEWS_CEREBRAS_ENABLED !== '0') {
     out.push({
@@ -131,8 +134,8 @@ function buildOverflowProviders(): OverflowProvider[] {
       apiKey: cbKey, baseUrl: process.env.CEREBRAS_BASE_URL || 'https://api.cerebras.ai/v1',
       model: process.env.NEWS_CEREBRAS_MODEL || 'llama-3.3-70b',
       dailyReqCap: capNum(process.env.NEWS_CEREBRAS_DAILY_REQ_CAP, 14_400), // loose backstop — the token cap binds first
-      rpm: capNum(process.env.NEWS_CEREBRAS_RPM, 28), // under the 30 req/min ceiling
-      tpm: capNum(process.env.NEWS_CEREBRAS_TPM, 55_000), // under the ~60k tokens/min ceiling
+      rpm: capNum(process.env.NEWS_CEREBRAS_RPM, 4), // under the free-trial 5 req/min ceiling (override up on a paid key)
+      tpm: capNum(process.env.NEWS_CEREBRAS_TPM, 28_000), // under the free-trial 30k tokens/min ceiling
       dailyTokenCap: capNum(process.env.NEWS_CEREBRAS_DAILY_TOKEN_CAP, 900_000), // ~10% under the 1M tokens/day free tier
       maxTokens: capNum(process.env.NEWS_CEREBRAS_MAX_TOKENS, 2500),
       budgetFile: 'cerebras-budget.json',

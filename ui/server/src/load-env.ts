@@ -11,6 +11,12 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 
+// The provider-secret keys this module injected from providers.env (NOT keys already present in the real
+// environment — those are skipped below). Exported so a process that SPAWNS child runs can scrub these
+// news-only secrets out of the child's env (a research/screener Claude run never needs them). See
+// launcher.ts (childEnv).
+export const providerEnvKeys: string[] = []
+
 function loadProviderEnv(): void {
   try {
     const cfgDir = process.env.NOSTRA_ENGINE_CONFIG_DIR || path.join(os.homedir(), '.config', 'nostra-engine')
@@ -27,6 +33,7 @@ function loadProviderEnv(): void {
       let val = body.slice(eq + 1).trim()
       if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) val = val.slice(1, -1)
       process.env[key] = val
+      providerEnvKeys.push(key)
     }
   } catch {
     // no file / unreadable → silent no-op (keys then come from the real environment only, as before)
