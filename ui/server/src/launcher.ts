@@ -319,8 +319,11 @@ export function estimate(kind: RunKind, ticker: string, module?: string, agent?:
   let estCostUsdRange: [number, number]
   let estMinutesRange: [number, number]
   if (kind === 'full') {
-    estCostUsdRange = [25, 60]
-    estMinutesRange = [20, 40]
+    // Calibrated to the one metered full run (TMCV, 2026-06-14): 60 orbs, $88.99, 153 min WALL-CLOCK
+    // (the summed per-orb duration was ~257 min, but pipelined modules overlap, so the user waits ~153).
+    // Ranged for ticker / data-volume / cache variance — an honest "~" band, not a single false-precise point.
+    estCostUsdRange = [55, 130]
+    estMinutesRange = [110, 210]
   } else if (kind === 'signal') {
     // a PROMOTE-to-candidates path runs every module; a Gate-0/LOG stop costs a fraction of this
     estCostUsdRange = [8, 45]

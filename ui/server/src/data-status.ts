@@ -5,7 +5,7 @@ import { DATA_DIR, ANALYSES_DIR, REPO_ROOT } from './config'
 import { syncingState } from './data-activity'
 import { listModuleNames, moduleReadinessDecls } from './roster'
 import { suggestTicker, tickerInvalidReason } from './sandbox'
-import type { ClassifiedFile, DataReadinessDecl, DataStatus, FileType, ModuleReadiness, Sufficiency, TickerSummary, WorkbookSheet } from './types'
+import type { ClassifiedFile, CoverageGroup, DataReadinessDecl, DataStatus, FileType, ModuleReadiness, Sufficiency, TickerSummary, WorkbookSheet } from './types'
 
 // ---- persistent extract cache ----
 // Reading workbook tabs / pdf-rtf content spawns python over the Google Drive mount,
@@ -181,14 +181,14 @@ function classify(filename: string, sniff: string): { type: FileType; confidence
 
   if (test(/\.gdoc$/)) return { type: 'user_note', confidence: 'high', basis: 'filename' }
   if (test(/annual\s?report|10-?k|integrated annual/)) return { type: 'annual_filing', confidence: 'high', basis: 'filename' }
-  if (test(/10-?q|quarterly|q[1-4][\s\-_]?20\d{2}/)) return { type: 'quarterly_filing', confidence: 'high', basis: 'filename' }
+  if (test(/10-?q|quarterly|interim[\s_]?(results?|report|financ|statement)|half[\s\-]?year|q[1-4][\s\-_]?20\d{2}/)) return { type: 'quarterly_filing', confidence: 'high', basis: 'filename' }
   if (test(/transcript|conference[\s\-_]?call|earnings[\s\-_]?call|_call\b/)) return { type: 'transcript', confidence: 'high', basis: 'filename' }
   if (test(/estimates?|consensus/)) return { type: 'consensus_estimates', confidence: 'high', basis: 'filename' }
   if (test(/revision|surprise|recent changes|trends/)) return { type: 'consensus_estimates', confidence: 'medium', basis: 'filename' }
   if (test(/analyst[\s_]?coverage|research[\s_]?coverage|broker[\s_]?(recommendation|rating)/)) return { type: 'consensus_estimates', confidence: 'high', basis: 'filename' }
   if (test(/multiples/)) return { type: 'multiples_export', confidence: 'high', basis: 'filename' }
   if (test(/comparable|comps|peer/)) return { type: 'peer_comps', confidence: 'high', basis: 'filename' }
-  if (test(/ownership|insider/)) return { type: 'ownership_insider', confidence: 'high', basis: 'filename' }
+  if (test(/ownership|insider|shareholding|public[\s_]?holding|holding[\s_]?pattern/)) return { type: 'ownership_insider', confidence: 'high', basis: 'filename' }
   if (test(/proxy|def[\s_]?14a|compensation|remuneration|professionals/)) return { type: 'proxy_comp', confidence: 'medium', basis: 'filename' }
   if (test(/guidance/)) return { type: 'guidance', confidence: 'high', basis: 'filename' }
   if (test(/financials|income|balance|cash[\s_]?flow/)) return { type: 'financials', confidence: 'high', basis: 'filename' }
@@ -198,7 +198,7 @@ function classify(filename: string, sniff: string): { type: FileType; confidence
   // content sniff for opaque names (UUID PDFs)
   if (sniff) {
     if (testC(/ANNUAL REPORT|Form 10-K|Independent Auditor|Integrated Annual/i)) return { type: 'annual_filing', confidence: 'medium', basis: 'content' }
-    if (testC(/Form 10-Q|three months ended|unaudited condensed/i)) return { type: 'quarterly_filing', confidence: 'medium', basis: 'content' }
+    if (testC(/Form 10-Q|three months ended|unaudited condensed|interim (results|report|financial)|half[\s-]?year/i)) return { type: 'quarterly_filing', confidence: 'medium', basis: 'content' }
     if (testC(/prepared remarks|Question-and-Answer|Operator[,:]|Thank you for joining|earnings call/i)) return { type: 'transcript', confidence: 'medium', basis: 'content' }
     if (testC(/investor presentation|earnings presentation/i)) return { type: 'investor_deck', confidence: 'medium', basis: 'content' }
     if (testC(/Equity Analyst Coverage|Recommendation[\s\S]{0,60}Target Price|Target Price[\s\S]{0,60}Recommendation|broker recommendation/i)) return { type: 'consensus_estimates', confidence: 'medium', basis: 'content' }
@@ -284,7 +284,14 @@ function evaluateModules(files: ClassifiedFile[], moduleNames: string[]): Record
   const hasPeerComps = has('peer_comps')
   const hasOwnership = has('ownership_insider')
   const hasProxyComp = has('proxy_comp') || hasAnnual
-  const hasCurrentPrice = hasConsensus || hasMultiples
+  // A pool-verified CURRENT price is valuation's #1 gate (reverse-DCF + margin-of-safety). It is NOT a
+  // consensus/multiples export, an analyst TARGET-price, or a stale quote. PRICE_RE matches a real quote
+  // signal and excludes target/analyst/estimate names; the age check rejects a quote dated older than
+  // ~1 month (the same freshness the price coverage group flags). (Was faked as `hasConsensus ||
+  // hasMultiples`, which overstated valuation readiness on every pool with a vendor export.)
+  const hasCurrentPrice = files.some(
+    (f) => (PRICE_RE.test(f.filename) || (f.sheets ?? []).some((s) => PRICE_RE.test(s.name))) && (f.ageMonths == null || f.ageMonths <= 1),
+  )
   const hasDebtNote = hasAnnual || hasQuarterly
   const hasGovernance = hasAnnual || hasProxyComp || hasOwnership
 
@@ -422,6 +429,130 @@ function evaluateModules(files: ClassifiedFile[], moduleNames: string[]): Record
   return out
 }
 
+// ---- source-document coverage (the upload-aligned view) ----
+// A human uploads SOURCE DOCUMENTS, not internal FileTypes. These groups model the actual upload set,
+// derived from what each module's triage DECLARES it needs (audited from the orbs/MODULE_RULES). Each
+// group carries a TIER (how much a gap costs) and a precise quantity/recency in `helps` (e.g. "3-5yr +
+// 8 quarters", "latest only ≤18mo"), so the guide says exactly what to drop in — not a vague "filings".
+//
+// Presence is detected file-type / filename / tab-aware: a group is satisfied by a file of a matching
+// type, OR a filename pattern (so a "Credit Health Panel" / "Events Calendar" lands in the right group
+// even though classify() left it generic), OR a workbook TAB whose name matches (so a "Multiples" tab
+// inside a 'financials' workbook still counts). Each present group names the file/tab that satisfies it
+// and flags staleness. deriveCoverage([]) yields all-absent groups — the empty-state upload guide.
+type CoverageTier = 'critical' | 'core' | 'recommended' | 'optional'
+interface CoverageSpec {
+  types?: FileType[] // file-level types that satisfy it
+  name?: RegExp // a filename pattern that satisfies it (for docs classify() leaves generic)
+  tab?: RegExp // a workbook tab name that satisfies it (tab-aware)
+  prefer?: RegExp // among same-type matches, name the file whose filename matches this (else the freshest)
+}
+interface CoverageGroupDef extends CoverageSpec {
+  key: string
+  label: string
+  tier: CoverageTier
+  helps: string // precise: how much / how recent + the consequence if absent
+  staleAfterMonths?: number // present-but-old threshold; omitted => never flagged stale
+  covers?: ({ key: string; label: string } & CoverageSpec)[]
+}
+
+// A current-price signal — IBKR / tear-sheet / a quote / "<qualifier> price" / a trading summary — but
+// NOT an analyst TARGET-price, coverage, or estimate export (those carry a "price" word without being a
+// live quote). Shared by the price coverage group AND the valuation hasCurrentPrice readiness gate so the
+// two never disagree.
+const PRICE_RE = /^(?!.*(?:target|estimate|consensus|analyst|forecast|coverage|recommendation)).*(?:ibkr|tear[\s_]?sheet|\bquote\b|(?:current|last|live|spot|market|closing)[\s_]?price|price[\s_]?(?:quote|snapshot)|trading[\s_]?summary)/i
+
+const COVERAGE_GROUPS: CoverageGroupDef[] = [
+  { key: 'price', label: 'Current price', tier: 'critical',
+    helps: 'a dated quote, ≤ a few days old — reverse-DCF + margin-of-safety; without it valuation confidence caps at 55',
+    name: PRICE_RE, tab: PRICE_RE, staleAfterMonths: 1 },
+  { key: 'annual', label: 'Annual report', tier: 'core',
+    helps: 'the latest audited annual only (≤18mo) — the spine every module reads; more annuals optional (history)',
+    types: ['annual_filing'], staleAfterMonths: 18 },
+  { key: 'interim', label: 'Interim / quarterly', tier: 'core',
+    helps: 'the latest interim/quarterly (≤~6mo) — recent trend & earnings',
+    types: ['quarterly_filing'], tab: /quarter|interim/i, staleAfterMonths: 6 },
+  { key: 'transcript', label: 'Earnings transcript', tier: 'core',
+    helps: 'the latest earnings call — guidance & candor; more quarters optional (trend)',
+    types: ['transcript'], staleAfterMonths: 6 },
+  { key: 'estimates', label: 'Consensus estimates', tier: 'core',
+    helps: 'current consensus + revisions (90/60/30d) — the bar to beat; without it earnings consensus caps at 30',
+    types: ['consensus_estimates'], tab: /consensus|estimate|revision|trend|surprise|analyst[\s_]?coverage/i },
+  { key: 'governance', label: 'Ownership & governance', tier: 'core',
+    helps: 'latest proxy/AGM + shareholding + insider trades (12mo) — pay, board, holdings',
+    types: ['proxy_comp', 'ownership_insider'], name: /professional|holding|ownership|insider|proxy/i,
+    tab: /ownership|insider|holding|board|director|remuneration/i,
+    covers: [
+      { key: 'board', label: 'board/pros', types: ['proxy_comp'], name: /professional|board|director/i },
+      { key: 'holdings', label: 'shareholding', types: ['ownership_insider'], name: /holding|ownership|shareholding/i },
+      { key: 'insider', label: 'insider', name: /insider/i },
+    ] },
+  { key: 'financials', label: 'Financials extract', tier: 'recommended',
+    helps: '3–5yr annual + last 8 quarters (income · balance sheet · cash flow) — earnings & valuation base',
+    types: ['financials'], prefer: /financ/i, tab: /income|balance|cash[\s_]?flow|p&l|profit[\s_]?&[\s_]?loss/i },
+  { key: 'peers', label: 'Peer comps & multiples', tier: 'recommended',
+    helps: 'current peer multiples + 3–5yr own-history bands — relative & own-history valuation',
+    types: ['peer_comps', 'multiples_export'], tab: /peer|comparable|comps|multiple/i },
+  { key: 'balance-credit', label: 'Balance-sheet & credit', tier: 'recommended',
+    helps: 'debt note + maturity schedule (5yr) + covenants + latest rating — leverage & solvency',
+    name: /credit[\s_]?health|credit[\s_]?rating|rating[\s_]?rationale|covenant|debenture|indenture|credit[\s_]?agreement|crisil|icra|moody|fitch/i,
+    tab: /solvency|liquidity[\s_]?metric|credit[\s_]?health|covenant|maturit/i,
+    covers: [
+      { key: 'credit-health', label: 'credit health', name: /credit[\s_]?health/i, tab: /solvency|liquidity/i },
+      // credit-AGENCY rating only — bare /rating/ matched broker buy/hold/sell exports (classify routes
+      // those to consensus estimates), which would falsely hide a missing debt/covenant/agency doc.
+      { key: 'rating', label: 'rating', name: /credit[\s_]?rating|rating[\s_]?rationale|crisil|icra|moody|fitch|care[\s_]?rating|s&p[\s_]?global/i },
+      { key: 'debt-terms', label: 'debt terms', name: /covenant|debenture|indenture|credit[\s_]?agreement/i, tab: /maturit|covenant/i },
+    ] },
+  { key: 'catalyst', label: 'Catalyst calendar', tier: 'optional',
+    helps: 'dated events over the next 12 months — results, AGM, dividend, maturities',
+    name: /events?[\s_]?calendar|calendar/i, tab: /events?[\s_]?calendar|calendar/i },
+  { key: 'deck', label: 'Investor deck', tier: 'optional',
+    helps: 'clearer segment splits & KPI slides than the filings',
+    types: ['investor_deck'] },
+]
+
+// Match a group against the pool: prefer a whole-file match (file-type, then filename), else a tab match.
+function matchCoverage(files: ClassifiedFile[], spec: CoverageSpec): { via: 'file' | 'tab' | null; file: ClassifiedFile | null; sheet: string | null } {
+  const { types = [], name, tab, prefer } = spec
+  // 1. file-type match (strongest) — a filename-hinted file wins (so "Financials extract" names the
+  //    Financials.xls, not a same-typed Credit Health Panel), then the freshest.
+  let fileHit: ClassifiedFile | null = null
+  for (const f of files) {
+    if (!types.includes(f.type)) continue
+    if (!fileHit) { fileHit = f; continue }
+    const fp = prefer ? prefer.test(f.filename) : false
+    const hp = prefer ? prefer.test(fileHit.filename) : false
+    if (fp !== hp) { if (fp) fileHit = f; continue }
+    if ((f.ageMonths ?? 9999) < (fileHit.ageMonths ?? 9999)) fileHit = f
+  }
+  if (fileHit) return { via: 'file', file: fileHit, sheet: null }
+  // 2. filename match (for docs classify() leaves generic — credit health, events calendar, a price quote)
+  if (name) {
+    for (const f of files) if (name.test(f.filename)) return { via: 'file', file: f, sheet: null }
+  }
+  // 3. tab match (data lives inside a workbook tab)
+  if (tab) {
+    for (const f of files) for (const s of f.sheets ?? []) if (tab.test(s.name)) return { via: 'tab', file: f, sheet: s.name }
+  }
+  return { via: null, file: null, sheet: null }
+}
+
+// Build the upload-aligned coverage view from the classified pool (empty pool => the upload guide).
+export function deriveCoverage(files: ClassifiedFile[]): CoverageGroup[] {
+  return COVERAGE_GROUPS.map((g) => {
+    const m = matchCoverage(files, g)
+    const ageMonths = m.file?.ageMonths ?? null
+    const stale = m.via != null && g.staleAfterMonths != null && ageMonths != null && ageMonths > g.staleAfterMonths
+    const covers = g.covers?.map((c) => ({ key: c.key, label: c.label, present: matchCoverage(files, c).via != null }))
+    return {
+      key: g.key, label: g.label, tier: g.tier, helps: g.helps,
+      present: m.via != null, via: m.via,
+      filename: m.file?.filename ?? null, sheet: m.sheet, ageMonths, stale, covers,
+    }
+  })
+}
+
 export function analyzeTicker(ticker: string): DataStatus {
   // Containment: the /api/data-status route validates TICKER_RE, but that allows dots — a lone '..'
   // slips through path.join and escapes DATA_DIR. Resolve and confine to DATA_DIR; an escaping ticker
@@ -431,7 +562,7 @@ export function analyzeTicker(ticker: string): DataStatus {
   const dir = path.resolve(DATA_DIR, ticker)
   if (dir !== DATA_DIR && !dir.startsWith(DATA_DIR + path.sep)) {
     const modules = Object.fromEntries(listModuleNames().map((m) => [m, { status: 'Insufficient' as Sufficiency, reasons: ['no data uploaded'], caps: [] }]))
-    return { ticker, hasAnyData: false, fileCount: 0, files: [], recentByType: {}, modules, overallReady: false, dataDir: DATA_DIR, ts: Date.now() }
+    return { ticker, hasAnyData: false, fileCount: 0, files: [], recentByType: {}, modules, coverage: deriveCoverage([]), overallReady: false, dataDir: DATA_DIR, ts: Date.now() }
   }
   let filenames: string[] = []
   try {
@@ -459,6 +590,7 @@ export function analyzeTicker(ticker: string): DataStatus {
     files,
     recentByType,
     modules,
+    coverage: deriveCoverage(files),
     overallReady,
     dataDir: dir,
     ts: Date.now(),
@@ -466,7 +598,7 @@ export function analyzeTicker(ticker: string): DataStatus {
 }
 
 // ---- tickers list ----
-export function listTickers(): { tickers: TickerSummary[]; emptyState: boolean; dataDir: string } {
+export function listTickers(): { tickers: TickerSummary[]; emptyState: boolean; dataDir: string; coverage: CoverageGroup[] } {
   let names: string[] = []
   try {
     names = fs.readdirSync(DATA_DIR).filter((n) => {
@@ -508,7 +640,10 @@ export function listTickers(): { tickers: TickerSummary[]; emptyState: boolean; 
   try {
     dataDir = fs.realpathSync(DATA_DIR)
   } catch {}
-  return { tickers, emptyState: tickers.length === 0, dataDir }
+  // coverage = the default upload guide (all unmet), so the cockpit can show "upload these first"
+  // even with ZERO ticker folders — the most important onboarding moment, where there is no ticker
+  // (and so no per-ticker dataStatus) to derive it from.
+  return { tickers, emptyState: tickers.length === 0, dataDir, coverage: deriveCoverage([]) }
 }
 
 function latestDecision(ticker: string): TickerSummary['latestRun'] {
