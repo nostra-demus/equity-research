@@ -99,7 +99,15 @@ function overflowUsage(p: (typeof NEWS.overflowProviders)[number]): { id: string
 
 /** Free room left on ANY OpenAI-compatible overflow provider today? */
 function overflowHasHeadroom(): boolean {
-  return NEWS.overflowProviders.some((p) => { const u = overflowUsage(p); return u.used < u.cap })
+  return NEWS.overflowProviders.some((p) => {
+    const u = overflowUsage(p)
+    // A TOKEN-gated provider (Cerebras) binds on tokens, not requests: once it spends its daily token cap
+    // its request count can still be low, so a requests-only test would wrongly report headroom and the
+    // drain loop would busy-wait every tick running skipFetch cycles that can't actually score anything.
+    // Count it out of headroom when EITHER limit is reached (requests OR, where it has one, tokens).
+    if (p.dailyTokenCap != null && u.tokens >= p.dailyTokenCap) return false
+    return u.used < u.cap
+  })
 }
 
 /**
