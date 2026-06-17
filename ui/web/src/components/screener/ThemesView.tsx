@@ -12,16 +12,10 @@ import type { FeedItem, IntensityWindow } from '../../lib/types'
 
 const TIERS = ['all', 'hot', 'active', 'cooling', 'parked'] as const
 
-// The screener intensity time window — how far back the ThemeMap's central readout + lane mix look.
-// 'scan' keeps the live per-cycle readout; the rest pull a small server-side rollup over the window.
-const INTENSITY_WINDOWS: { id: IntensityWindow; label: string }[] = [
-  { id: 'scan', label: 'Scan' },
-  { id: '1h', label: '1h' },
-  { id: '4h', label: '4h' },
-  { id: 'day', label: 'Today' },
-  { id: '7d', label: '7d' },
-]
-const WINDOW_LABEL: Record<IntensityWindow, string> = { scan: 'this scan', '1h': 'last hour', '4h': 'last 4h', day: 'today', '7d': 'last 7 days' }
+// The map's central readout + source-lane mix are labelled by the active intensity-rollup window, which
+// the single "When" ribbon drives (see intensityWindowForHours) — there is no separate intensity picker.
+// 'scan' = the live per-cycle readout; the rest are small server-side rollups over the window.
+const WINDOW_LABEL: Record<IntensityWindow, string> = { scan: 'this scan', '1h': 'last hour', '4h': 'last 4h', day: 'last 24h', '7d': 'last 7 days' }
 
 // guard against empty / placeholder company guesses leaking into chips
 const real = <T extends { name?: string }>(cos: T[]): T[] => cos.filter((c) => c.name && !/^(null|undefined|n\/a)$/i.test(c.name.trim()))
@@ -36,8 +30,6 @@ export function ThemesView() {
   const setThemesView = useStore((s) => s.setThemesView)
   const setThemesWindow = useStore((s) => s.setThemesWindow)
   const selectTheme = useStore((s) => s.selectTheme)
-  const intensityWindow = useStore((s) => s.scIntensityWindow)
-  const setIntensityWindow = useStore((s) => s.setIntensityWindow)
   const [tier, setTier] = useState<(typeof TIERS)[number]>('all')
 
   // the active window (null = Live). When a window is set, themes are RE-RANKED + RE-SIZED by the news
@@ -81,13 +73,6 @@ export function ThemesView() {
               </button>
             ))}
           </div>
-          {view === 'map' && (
-            <div className="themes__window" role="radiogroup" aria-label="Intensity time window" title="How far back the intensity readout looks — Scan = the latest cycle">
-              {INTENSITY_WINDOWS.map((w) => (
-                <button key={w.id} type="button" role="radio" aria-checked={intensityWindow === w.id} className={`themes__wbtn${intensityWindow === w.id ? ' is-on' : ''}`} onClick={() => void setIntensityWindow(w.id)}>{w.label}</button>
-              ))}
-            </div>
-          )}
           <div className="themes__viewtoggle" role="radiogroup" aria-label="Map or board">
             <button type="button" role="radio" aria-checked={view === 'map'} className={`themes__vbtn${view === 'map' ? ' is-on' : ''}`} onClick={() => setThemesView('map')}>Map</button>
             <button type="button" role="radio" aria-checked={view === 'board'} className={`themes__vbtn${view === 'board' ? ' is-on' : ''}`} onClick={() => setThemesView('board')}>Board</button>
