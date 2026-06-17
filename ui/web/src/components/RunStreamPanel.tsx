@@ -20,6 +20,8 @@ export function RunStreamPanel() {
   const cancelRun = useStore((s) => s.cancelRun)
   const dismissRunStream = useStore((s) => s.dismissRunStream)
   const ticker = useStore((s) => s.selectedTicker)
+  const activeSwarm = useStore((s) => s.activeSwarm)
+  const scSelectedSignal = useStore((s) => s.scSelectedSignal)
   const nodeRuntime = useStore((s) => s.nodeRuntime)
   const nodesByKey = useStore((s) => s.nodesByKey)
   const now = useStore((s) => s.now) // the shared 1s clock owned by SwarmField; ticks only while orbs run
@@ -33,6 +35,11 @@ export function RunStreamPanel() {
     .sort((a, b) => (a.startedAt ?? 0) - (b.startedAt ?? 0))
 
   if (!runs.length && runStream.length === 0) return null
+
+  // The panel is shared across swarms; its scope label must follow the active swarm — not the
+  // research-side selectedTicker, which would otherwise leak a stale ticker (e.g. "BG") into the
+  // screener view, where the unit of work is a signal, not a company.
+  const scope = activeSwarm === 'screener' ? (scSelectedSignal ? `Screener · ${scSelectedSignal}` : 'Screener') : ticker
 
   const perRun = runs.map((run) => {
     const rows = runStream.filter((r) => r.runId === run.runId)
@@ -49,7 +56,7 @@ export function RunStreamPanel() {
       <div className="sidepanel__head">
         <div>
           <div className="sidepanel__title">{runs.length ? `${runs.length} run${runs.length > 1 ? 's' : ''}` : 'Last run'}</div>
-          <div className="sidepanel__meta">{ticker}{runs.length ? ` · ${aggDone}/${aggTotal} orbs` : ''}</div>
+          <div className="sidepanel__meta">{scope}{runs.length ? ` · ${aggDone}/${aggTotal} orbs` : ''}</div>
         </div>
         {/* close the panel — only when nothing is live (clearing a running stream would just re-populate) */}
         {!runs.length && (
