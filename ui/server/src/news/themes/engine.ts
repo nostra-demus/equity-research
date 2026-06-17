@@ -13,7 +13,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { assignThemes, DEFAULT_ASSIGN_CONFIG, type AssignConfig } from './assign'
 import { discoverDeterministic, linkThemes, mergeAndRetire, DEFAULT_DISCOVER_CONFIG, type DiscoverConfig } from './discover'
-import { scoreTheme, DEFAULT_THEME_SCORE_CONFIG, type ThemeScoreConfig } from './score'
+import { scoreTheme, ensureDaily, rollDaily, DEFAULT_THEME_SCORE_CONFIG, type ThemeScoreConfig } from './score'
 import { appendThemeMutations, buildSummary, loadThemes, readRecentThemeItems, writeThemesIndex } from './store'
 import type { Theme, ThemeItemView, ThemeSummary } from './types'
 
@@ -66,11 +66,16 @@ export interface StepResult {
 export async function stepThemes(input: StepInput): Promise<StepResult> {
   const cfg = input.cfg || DEFAULT_THEMES_CONFIG
   const { now } = input
+  const nowMs = now.getTime()
   const themes = input.themes
   const changedIds = new Set<string>()
 
-  // 1. assignment (every cycle)
-  const a = assignThemes(input.items, themes, cfg.assign)
+  // 0. seed each existing live theme's daily ring from its CURRENT (pre-assignment) member ring, so the
+  //    per-member bumps below don't double-count this cycle's items. New ledgers / fresh themes only.
+  for (const t of themes) if (t.status === 'live') ensureDaily(t, nowMs)
+
+  // 1. assignment (every cycle) — also bumps each touched theme's daily ring per new member landed
+  const a = assignThemes(input.items, themes, cfg.assign, now)
   for (const id of a.touched) changedIds.add(id)
   let pool = [...input.pool, ...a.unclustered]
 
@@ -95,9 +100,11 @@ export async function stepThemes(input: StepInput): Promise<StepResult> {
     for (const id of mergeAndRetire(themes, now, cfg.discover)) changedIds.add(id)
   }
 
-  // 3. rescore EVERY live theme (drives decay); a tier flip counts as a material change
+  // 3. rescore EVERY live theme (drives decay); a tier flip counts as a material change. Also roll its
+  //    daily ring forward to today (zero-pads quiet days; seeds any theme discovered in step 2).
   for (const t of themes) {
     if (t.status !== 'live') continue
+    rollDaily(t, nowMs)
     const before = t.tier
     const s = scoreTheme(t, now, cfg.score)
     t.scores = s.scores

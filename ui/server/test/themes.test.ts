@@ -3,11 +3,12 @@
 // no network, no LLM. Run: npx tsx test/themes.test.ts
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
-import { scoreTheme } from '../src/news/themes/score'
+import { scoreTheme, ensureDaily, rollDaily, bumpDaily, DAILY_WINDOWS } from '../src/news/themes/score'
 import { companyImpact, orderTierFor } from '../src/news/themes/order'
 import { assignThemes } from '../src/news/themes/assign'
 import { clusterItems, discoverDeterministic, createTheme, mergeAndRetire } from '../src/news/themes/discover'
 import { stepThemes } from '../src/news/themes/engine'
+import { buildSummary, buildThemesIndex } from '../src/news/themes/store'
 import type { Theme, ThemeItemView } from '../src/news/themes/types'
 
 let passed = 0
@@ -161,6 +162,91 @@ await check('makeThemeNamer returns undefined when no key / model off (stays det
   const { makeThemeNamer } = await import('../src/news/themes/llm')
   assert.equal(makeThemeNamer({ themesDiscoverModel: 'off' }, fetch, '/tmp'), undefined)
   assert.equal(makeThemeNamer({ themesDiscoverModel: 'claude-haiku' }, fetch, '/tmp'), undefined) // no key
+})
+
+// ---- the daily flow ring (long-horizon history for the time-window selector) ----
+const DAY_MS = Date.parse('2026-06-13T12:00:00Z')
+
+await check('ensureDaily: seeds the ring from the member ring, newest bucket = today, idempotent', () => {
+  const t: any = { members: [{ found_at: '2026-06-13T09:00:00Z' }, { found_at: '2026-06-13T11:00:00Z' }, { found_at: '2026-06-12T10:00:00Z' }] }
+  ensureDaily(t, DAY_MS, 5)
+  assert.equal(t.flow_daily.length, 5)
+  assert.equal(t.flow_daily[4], 2, 'two items today (06-13) in the newest bucket')
+  assert.equal(t.flow_daily[3], 1, 'one item yesterday (06-12)')
+  assert.equal(t.flow_daily_day, '2026-06-13')
+  ensureDaily(t, DAY_MS, 5) // present + correctly sized → untouched
+  assert.equal(t.flow_daily[4], 2)
+})
+
+await check('bumpDaily: counts a landing at its own day; drops items older than the ring', () => {
+  const t: any = {}
+  bumpDaily(t, '2026-06-13T08:00:00Z', DAY_MS, 5)
+  assert.equal(t.flow_daily[4], 1, 'today += 1')
+  bumpDaily(t, '2026-06-12T08:00:00Z', DAY_MS, 5)
+  assert.equal(t.flow_daily[3], 1, 'yesterday += 1')
+  bumpDaily(t, '2026-06-01T00:00:00Z', DAY_MS, 5) // beyond the 5-day ring
+  assert.equal(t.flow_daily.reduce((a: number, b: number) => a + b, 0), 2, 'the out-of-range item is dropped')
+})
+
+await check('bumpDaily: as the engine clock advances a day, the anchor rolls forward, preserving older buckets', () => {
+  const t: any = {}
+  bumpDaily(t, '2026-06-13T08:00:00Z', DAY_MS, 5)
+  bumpDaily(t, '2026-06-14T08:00:00Z', Date.parse('2026-06-14T12:00:00Z'), 5) // a real 06-14 cycle (now advanced)
+  assert.equal(t.flow_daily_day, '2026-06-14')
+  assert.equal(t.flow_daily[4], 1, '06-14 in the newest bucket')
+  assert.equal(t.flow_daily[3], 1, '06-13 preserved, shifted left by one')
+})
+
+await check('rollDaily: zero-pads quiet days yet KEEPS accumulated history (survives member eviction)', () => {
+  const t: any = {}
+  bumpDaily(t, '2026-06-13T08:00:00Z', DAY_MS, 5) // history that the member ring will later forget
+  rollDaily(t, Date.parse('2026-06-15T12:00:00Z'), 5) // 2 days later, no new flow
+  assert.equal(t.flow_daily_day, '2026-06-15')
+  assert.equal(t.flow_daily[4], 0, 'today (06-15) is quiet')
+  assert.equal(t.flow_daily[3], 0, '06-14 is quiet')
+  assert.equal(t.flow_daily[2], 1, 'the 06-13 flow is preserved, shifted by two — NOT lost')
+  rollDaily(t, Date.parse('2026-08-01T00:00:00Z'), 5) // far future → ring fully rolls past the history
+  assert.equal(t.flow_daily.reduce((a: number, b: number) => a + b, 0), 0, 'history older than the ring ages out')
+})
+
+await check('bumpDaily: a FUTURE-dated item is clamped to today — anchor + history_days stay honest', () => {
+  const t: any = {}
+  bumpDaily(t, '2026-06-13T08:00:00Z', DAY_MS, 5) // today
+  bumpDaily(t, '2026-06-20T08:00:00Z', DAY_MS, 5) // a week in the FUTURE relative to DAY_MS (clock-skewed feed)
+  assert.equal(t.flow_daily_day, '2026-06-13', 'anchor never rolls past the engine clock')
+  assert.equal(t.flow_daily[4], 2, 'the future-dated item counts in TODAY, not a future bucket')
+  assert.equal(t.flow_daily.reduce((a: number, b: number) => a + b, 0), 2, 'no history inflation from the future date')
+})
+
+await check('mergeAndRetire: the merged theme re-seeds its daily ring from DE-DUPLICATED members (no double-count)', () => {
+  const shared = item('shared1', 'Nvidia AMD chip race heats up', { companies: [co('Nvidia', 'NVDA'), co('AMD', 'AMD')] })
+  const t1 = createTheme([item('g1', 'Nvidia AMD AI demand', { companies: [co('Nvidia', 'NVDA'), co('AMD', 'AMD')] }), item('g2', 'Nvidia AMD GPU race', { companies: [co('Nvidia', 'NVDA'), co('AMD', 'AMD')] }), shared], NOW)
+  const t2 = createTheme([item('h1', 'AMD Nvidia accelerator war', { companies: [co('AMD', 'AMD'), co('Nvidia', 'NVDA')] }), item('h2', 'Nvidia AMD chips', { companies: [co('Nvidia'), co('AMD')] }), shared], NOW)
+  t2.theme_id = t1.theme_id + '-x' // force two distinct themes that then merge on shared companies
+  ensureDaily(t1, NOW.getTime()); ensureDaily(t2, NOW.getTime())
+  assert.equal(t1.flow_daily![DAILY_WINDOWS - 1], 3, "each theme starts with 3 'today' members")
+  for (const t of [t1, t2]) t.scores.composite = 50
+  mergeAndRetire([t1, t2], NOW)
+  const survivor = [t1, t2].find((t) => t.status === 'live')!
+  // distinct today members across both = g1,g2,h1,h2,shared1 = 5 (shared1 belongs to BOTH but counts once);
+  // element-wise ring addition would wrongly give 6.
+  assert.equal(survivor.flow_daily![DAILY_WINDOWS - 1], 5, 'merged today bucket = distinct members, shared event counted once')
+})
+
+await check('stepThemes + index: themes carry the daily ring; history_days + summary flow_daily are exposed', async () => {
+  const items = [
+    item('d1', 'AI data center buildout drives Nvidia orders', { companies: [co('Nvidia', 'NVDA')], event_types: ['commercial'], triage_score: 85, source_tier: 'company' }),
+    item('d2', 'Nvidia data center demand lifts AI chip outlook', { companies: [co('Nvidia', 'NVDA')], event_types: ['guidance_change'], triage_score: 80 }),
+    item('d3', 'Vertiv wins AI data center cooling contracts', { companies: [co('Vertiv', 'VRT')], event_types: ['commercial'], triage_score: 75 }),
+    item('d4', 'AI data center power demand strains the grid for Vertiv and peers', { companies: [co('Vertiv', 'VRT')], event_types: ['operations'], triage_score: 70 }),
+  ]
+  const res = await stepThemes({ themes: [], pool: [], items, runDiscovery: true, now: NOW })
+  const t = res.themes[0]
+  assert.equal(t.flow_daily?.length, DAILY_WINDOWS, 'the discovered theme is born with a full-length daily ring')
+  assert.equal((t.flow_daily as number[])[DAILY_WINDOWS - 1], t.members.length, "today's bucket holds the members that just landed")
+  const idx = buildThemesIndex(res.themes, () => NOW)
+  assert.ok(idx.history_days >= 1, 'the index reports at least one day of history')
+  assert.equal(buildSummary(t).flow_daily.length, DAILY_WINDOWS, 'the compact summary carries flow_daily for the cockpit')
 })
 
 console.log(`\n${passed} checks passed`)

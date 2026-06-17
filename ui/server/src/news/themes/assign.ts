@@ -8,6 +8,7 @@
 import type { CompanyGuess } from '../types'
 import { companyKeys, topicTokens, intersectionSize } from '../text-match'
 import { companyImpact } from './order'
+import { bumpDaily } from './score'
 import type { Theme, ThemeItemView, ThemeMember, ThemeCompany } from './types'
 
 export interface AssignConfig {
@@ -81,8 +82,9 @@ export interface AssignResult {
 /** Assign a batch of material items to existing themes. Mutates the themes in place (members ring,
  *  companies, last_flow, rev). Returns the per-item theme_ids, the unclustered pool, and which themes
  *  changed (so the caller can rescore + emit only those). */
-export function assignThemes(items: ThemeItemView[], themes: Theme[], cfg: AssignConfig = DEFAULT_ASSIGN_CONFIG): AssignResult {
+export function assignThemes(items: ThemeItemView[], themes: Theme[], cfg: AssignConfig = DEFAULT_ASSIGN_CONFIG, now: Date = new Date()): AssignResult {
   const live = themes.filter((t) => t.status === 'live')
+  const nowMs = now.getTime()
   const assignments = new Map<string, string[]>()
   const unclustered: ThemeItemView[] = []
   const touched = new Set<string>()
@@ -121,6 +123,7 @@ export function assignThemes(items: ThemeItemView[], themes: Theme[], cfg: Assig
       theme.members.push(member)
       if (theme.members.length > cfg.maxMembers) theme.members.splice(0, theme.members.length - cfg.maxMembers)
       theme.member_count_total++
+      bumpDaily(theme, it.found_at, nowMs) // record this landing in the long-horizon daily ring (survives member eviction)
       if (it.found_at > theme.last_flow) theme.last_flow = it.found_at
       theme.rev++
       touched.add(theme.theme_id)
