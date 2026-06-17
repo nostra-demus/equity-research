@@ -58,6 +58,16 @@ check('validateNewTicker rejects with the right reason + suggestion', () => {
   const rv = validateNewTicker('NEWS-ARCHIVE') // valid shape, but a reserved system name
   assert.equal(rv.ok, false); assert.match((rv as any).reason, /reserved/)
 })
+check('validateNewTicker / isValidTicker reject all-punctuation names (., .., ---)', () => {
+  for (const bad of ['.', '..', '---', '-.-']) {
+    const r = validateNewTicker(bad)
+    assert.equal(r.ok, false, `${bad} must be rejected`)
+    assert.match((r as any).reason, /letter or number/)
+    assert.equal(isValidTicker(bad), false, `isValidTicker(${bad}) must be false`)
+  }
+  // genuine symbols (incl. dot/hyphen + alphanumerics) still pass
+  for (const ok of ['A', 'AAPL', 'BRK-B', 'RELIANCE.NS']) assert.equal(isValidTicker(ok), true, `${ok}`)
+})
 
 // ---- upload filename sanitization ----
 check('sanitizeUploadFilename accepts allowed docs (case-insensitive extension)', () => {

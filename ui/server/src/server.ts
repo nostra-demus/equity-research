@@ -35,7 +35,7 @@ import { dataPoolPresent, readCandidates, readConviction, readConvictionCalibrat
 import { listSwarms } from './swarms'
 import { getNewsStatus, startNewsIngester } from './news/scheduler'
 import { startConvictionLoop } from './conviction-dispatch'
-import { AGENT_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE, validateNewTicker, sanitizeUploadFilename } from './sandbox'
+import { AGENT_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE, isValidTicker, validateNewTicker, sanitizeUploadFilename } from './sandbox'
 import type { RunKind } from './types'
 
 const app = Fastify({ logger: false })
@@ -85,6 +85,18 @@ function identify(req: FastifyRequest): { user: string; userVia: 'cf-access' | '
   const email = Array.isArray(raw) ? raw[0] : raw
   if (typeof email === 'string' && email.trim()) return { user: email.trim().toLowerCase(), userVia: 'cf-access' }
   return { user: 'local', userVia: 'local' }
+}
+
+// CSRF guard for non-preflighted writes. multipart/form-data is a CORS "simple request" (no preflight),
+// so a hostile cross-origin page could POST one carrying the operator's Access cookie and write to Drive
+// (CORS only blocks reading the response, not the write). Reject when an Origin header is present and not
+// on the CORS allow-list. A MISSING Origin = same-origin browser request or a non-browser client (curl,
+// which doesn't carry the victim's cookie) → allowed; the CSRF vector always sends Origin cross-origin.
+function originAllowed(req: FastifyRequest): boolean {
+  const raw = req.headers.origin
+  const origin = Array.isArray(raw) ? raw[0] : raw
+  if (!origin) return true
+  return CORS_ALLOWED_ORIGINS.some((o) => (o instanceof RegExp ? o.test(origin) : o === origin))
 }
 
 // ---------- SSE helper ----------
@@ -152,6 +164,7 @@ app.get('/api/tickers', { config: { rateLimit: { max: 1000, timeWindow: '1 minut
 // engine keeps reading the local mount, so the new company surfaces in the picker once Drive syncs the
 // folder back down (a few seconds). Validation reuses the exact ticker rules + reserved-name guard.
 app.post('/api/tickers', async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
   if (!GDRIVE_ENABLED) return reply.code(400).send({ error: 'Drive uploads are not configured on this server' })
   const parsed = z.object({ ticker: z.string() }).safeParse(req.body)
   if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
@@ -173,9 +186,10 @@ app.post('/api/tickers', async (req, reply) => {
 // (path-stripped, dotfiles/oversized/unsupported rejected) and streamed straight to Drive; rejected
 // files are skipped and reported, never written. Returns per-file results (HTTP 200 when well-formed).
 app.post('/api/tickers/:ticker/files', async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
   if (!GDRIVE_ENABLED) return reply.code(400).send({ error: 'Drive uploads are not configured on this server' })
   const ticker = (req.params as any).ticker as string
-  if (!TICKER_RE.test(ticker) || isReservedDataFolder(ticker)) return reply.code(400).send({ error: 'bad ticker' })
+  if (!isValidTicker(ticker) || isReservedDataFolder(ticker)) return reply.code(400).send({ error: 'bad ticker' })
   const { user, userVia } = identify(req)
   const written: string[] = []
   const errors: { filename: string; reason: string }[] = []

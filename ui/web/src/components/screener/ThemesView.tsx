@@ -128,7 +128,9 @@ function ThemeMap({ themes, onPick }: { themes: Theme[]; onPick: (id: string) =>
   }, [newsItems])
   // When a time window is chosen, the lane mix + central readout come from the server's windowed rollup
   // (tiny aggregates) instead of the loaded newsItems — so a full day never needs thousands of rows here.
-  const windowed = intensityWindow !== 'scan' && !!scIntensity
+  // only treat the rollup as "windowed" once the LOADED aggregate matches the selected window — otherwise a
+  // slow/failed fetch would render the previous window's totals + lane mix under the new label (mislabeled).
+  const windowed = intensityWindow !== 'scan' && !!scIntensity && scIntensity.window === intensityWindow
   const effectiveTierMix = windowed ? (scIntensity!.byTier || {}) : tierMix
   const tierMixRef = useRef(effectiveTierMix); tierMixRef.current = effectiveTierMix
 

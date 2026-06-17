@@ -65,7 +65,9 @@ export const SIG_RE = /^SIG-[0-9]{8}-[a-f0-9]{8}$/
 export const THESIS_RE = /^THS-SIG-[0-9]{8}-[a-f0-9]{8}-v[0-9]+$/
 
 export function isValidTicker(name: string): boolean {
-  return TICKER_RE.test(name)
+  // a real symbol needs at least one letter/digit — reject all-punctuation names like ".", "..", "---"
+  // (which would otherwise create junk / path-segment-like folders in Drive).
+  return TICKER_RE.test(name) && /[A-Z0-9]/.test(name)
 }
 
 // A usable ticker symbol derived from a folder name (uppercase, drop spaces/illegal chars, cap length).
@@ -81,6 +83,7 @@ export function tickerInvalidReason(name: string): string | null {
   if (/\s/.test(name)) return 'ticker names can’t contain spaces'
   if (/[a-z]/.test(name)) return 'ticker names must be uppercase'
   if (name.length > 15) return 'ticker name is too long (max 15 characters)'
+  if (!/[A-Z0-9]/.test(name)) return 'ticker needs at least one letter or number'
   return 'ticker names allow only A–Z, 0–9, dot and hyphen'
 }
 
