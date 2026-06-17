@@ -307,7 +307,12 @@ export const useStore = create<State>((set, get) => ({
   toast: null,
 
   swarms: [],
-  activeSwarm: 'research',
+  // Default landing view = the screener (the live idea-generation wire). Seeded from the live-engine
+  // marker (the server injects window.__ENGINE_LIVE__ into the HTML it serves) so the production app
+  // paints the screener on the very first frame with no flash, while a static/read-only showcase — which
+  // has no marker and can't load the live wire — seeds research and never flashes cyan→amber. init()
+  // makes the authoritative decision once the mode + swarm list resolve.
+  activeSwarm: typeof window !== 'undefined' && (window as any).__ENGINE_LIVE__ === true ? 'screener' : 'research',
   warp: null,
   scGraph: null,
   scNodesByKey: new Map(),
@@ -349,7 +354,23 @@ export const useStore = create<State>((set, get) => ({
       const [graph, tk, credit] = await Promise.all([api.swarm(), api.tickers(), api.credit().catch(() => null)])
       const stat = isStatic()
       set({ connected: true, staticMode: stat, graph, nodesByKey: flatten(graph), tickers: tk.tickers, emptyState: tk.emptyState, defaultCoverage: tk.coverage ?? [], dataDir: (tk as any).dataDir ?? null, driveEnabled: (tk as any).driveEnabled ?? false, credit })
-      api.swarms().then((swarms) => set({ swarms })).catch(() => set({ swarms: [{ id: 'research', label: 'Research', color: '#c0851d', unit: 'ticker', order: 1, layout: 'constellation' }] }))
+      // Landing view: the screener is the default, but ONLY when the live engine actually SERVES it
+      // (CLAUDE.md §26 — research is the only guaranteed swarm; the screener is discovered, never
+      // assumed) and we're live (a static/read-only showcase can't load the screener wire). Decided here
+      // off the RESOLVED swarm list, so the swarms:[] seed can never misfire and a research-only engine
+      // never strands the user on an empty, unswitchable screener. scInit is idempotent + self-guarded.
+      api.swarms()
+        .then((swarms) => {
+          set({ swarms })
+          const screenerDefault = !stat && swarms.some((s) => s.id === 'screener')
+          set({ activeSwarm: screenerDefault ? 'screener' : 'research' })
+          if (screenerDefault) void get().scInit()
+        })
+        .catch(() => {
+          // couldn't load the swarm list → only research is reachable (the switcher hides with one
+          // swarm), so the active view MUST be research or the user is stranded with no way back
+          set({ swarms: [{ id: 'research', label: 'Research', color: '#c0851d', unit: 'ticker', order: 1, layout: 'constellation' }], activeSwarm: 'research' })
+        })
       if (!stat) get().startHealth() // begin the engine heartbeat (live mode only); idempotent across reconnects
       // live data-folder watcher (Drive sync) — backend only
       if (!stat && !dataSource) {
@@ -364,7 +385,8 @@ export const useStore = create<State>((set, get) => ({
       }
       reconcileSelection(get, set) // a reconnect may carry a now-removed selection — drop it
       // No auto-select: the cockpit opens on the "Select a company" placeholder so nothing is read or
-      // classified until the user picks (or adds) a company.
+      // classified until the user picks (or adds) a company. (The screener-vs-research landing decision
+      // is made in the api.swarms() handler above, off the resolved swarm list.)
       // one cheap usage probe on first connect (backend only)
       if (!stat && !creditProbed) {
         creditProbed = true
@@ -1669,6 +1691,10 @@ const FRESH_MS = 2600
 const freshTimers = new Map<string, ReturnType<typeof setTimeout>>()
 let newsSource: EventSource | null = null
 function connectNewsStream(get: () => State) {
+  // never open a live SSE on a static/read-only deploy: the screener stage can briefly mount on first
+  // paint, and on Cloudflare Pages this would open an EventSource that errors + reconnects forever. The
+  // resolved api-level isStatic() is authoritative here (every caller reaches this after an api.* await).
+  if (isStatic()) return
   if (newsSource) return
   const es = new EventSource(api.newsStreamUrl())
   for (const t of ['news-item', 'news-cycle', 'theme-update']) {
