@@ -1,6 +1,6 @@
 import path from 'node:path'
 import fs from 'node:fs'
-import { AGENTS_DIR, ANALYSES_DIR, REPO_ROOT } from './config'
+import { AGENTS_DIR, ANALYSES_DIR, REPO_ROOT, isReservedDataFolder } from './config'
 
 // Resolve a requested path and assert it lives inside analyses/ (defeats ../ and symlink escapes).
 export function resolveInsideAnalyses(reqPath: string): string {
@@ -82,4 +82,36 @@ export function tickerInvalidReason(name: string): string | null {
   if (/[a-z]/.test(name)) return 'ticker names must be uppercase'
   if (name.length > 15) return 'ticker name is too long (max 15 characters)'
   return 'ticker names allow only A–Z, 0–9, dot and hyphen'
+}
+
+// ---- in-app upload validation ----
+// Document types the cockpit uploader accepts into a company's Drive folder (lowercase, no leading dot).
+export const UPLOAD_ALLOWED_EXTS = ['pdf', 'xlsx', 'xls', 'csv', 'doc', 'docx', 'ppt', 'pptx', 'txt', 'md', 'json', 'png', 'jpg', 'jpeg']
+
+// Make an uploaded filename safe to write into a Drive folder: strip any path components (defeats ../,
+// absolute paths, and Windows backslashes — Node's POSIX path.basename does NOT split on '\', so split
+// first), reject dotfiles/sentinels (e.g. .nostradamus_output, .DS_Store), cap length, reject control
+// chars, and enforce the extension allow-list. Returns the cleaned basename or a plain-English reason.
+export function sanitizeUploadFilename(name: string): { ok: true; name: string } | { ok: false; reason: string } {
+  const base = path.basename(String(name ?? '').split(/[\\/]/).pop() || '')
+  if (!base || base === '.' || base === '..') return { ok: false, reason: 'missing or invalid filename' }
+  if (base.startsWith('.')) return { ok: false, reason: 'hidden / system files aren’t accepted' }
+  if (base.length > 180) return { ok: false, reason: 'filename too long (max 180 characters)' }
+  if (/[\x00-\x1f\x7f]/.test(base)) return { ok: false, reason: 'filename has control characters' }
+  const ext = base.includes('.') ? (base.split('.').pop() || '').toLowerCase() : ''
+  if (!ext || !UPLOAD_ALLOWED_EXTS.includes(ext)) {
+    return { ok: false, reason: `unsupported file type — allowed: ${UPLOAD_ALLOWED_EXTS.join(', ')}` }
+  }
+  return { ok: true, name: base }
+}
+
+// Validate a NEW company ticker the user typed in the cockpit. Pure (no filesystem / no Drive): reuses the
+// same rules + messages as the Drive-folder rename hint, plus the reserved-folder guard. The server route
+// turns this into a 400 {error, suggested}; folder existence (409) is checked separately against Drive.
+export function validateNewTicker(name: string): { ok: true; ticker: string } | { ok: false; reason: string; suggested?: string } {
+  const ticker = String(name ?? '').trim()
+  const reason = tickerInvalidReason(ticker)
+  if (reason) return { ok: false, reason, suggested: suggestTicker(ticker) || undefined }
+  if (isReservedDataFolder(ticker)) return { ok: false, reason: 'that name is reserved for a system folder' }
+  return { ok: true, ticker }
 }

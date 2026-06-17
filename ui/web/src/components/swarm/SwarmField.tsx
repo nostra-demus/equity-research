@@ -86,7 +86,9 @@ export function SwarmField() {
   }, [hover, hoverModule, hoverCore, activeModules, layout])
   const anyHover = !!(hover || hoverModule || hoverCore)
 
-  if (!graph || !layout) return <div className="swarm" ref={ref} />
+  // No company selected → keep the stage empty (DataUploadEmptyState shows the "Select a company"
+  // prompt). Without this the idle constellation renders and looks live before anything is chosen.
+  if (!graph || !layout || !selectedTicker) return <div className="swarm" ref={ref} />
 
   const onEnter = (n: PlacedNode) => {
     const rect = ref.current?.getBoundingClientRect()

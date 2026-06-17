@@ -24,23 +24,30 @@ const TYPE_LABEL: Record<string, string> = {
 // Populated only in live mode (the static showcase ships an empty file list).
 export function DataFilesPanel() {
   const dataStatus = useStore((s) => s.dataStatus)
+  const driveEnabled = useStore((s) => s.driveEnabled)
+  const staticMode = useStore((s) => s.staticMode)
+  const openUploader = useStore((s) => s.openUploader)
   const [open, setOpen] = useState(true)
   const [expanded, setExpanded] = useState<Record<string, boolean>>({})
 
   if (!dataStatus || !dataStatus.hasAnyData || !dataStatus.files?.length) return null
   const files = dataStatus.files
   const tabTotal = files.reduce((n, f) => n + (f.sheets?.length || 0), 0)
+  const canAdd = driveEnabled && !staticMode
 
   return (
     <motion.div className="datafiles" initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}>
-      <button className="datafiles__head" onClick={() => setOpen((o) => !o)}>
-        <span className="datafiles__chev" data-open={open}>▸</span>
-        <span className="datafiles__title">Data pool</span>
-        <span className="datafiles__count">
-          {files.length} file{files.length === 1 ? '' : 's'}
-          {tabTotal ? ` · ${tabTotal} tabs` : ''}
-        </span>
-      </button>
+      <div className="datafiles__headrow">
+        <button className="datafiles__head" onClick={() => setOpen((o) => !o)}>
+          <span className="datafiles__chev" data-open={open}>▸</span>
+          <span className="datafiles__title">Data pool</span>
+          <span className="datafiles__count">
+            {files.length} file{files.length === 1 ? '' : 's'}
+            {tabTotal ? ` · ${tabTotal} tabs` : ''}
+          </span>
+        </button>
+        {canAdd && <button className="datafiles__add" title="Upload more documents to this company's Drive folder" onClick={() => openUploader(dataStatus.ticker)}>＋ Add files</button>}
+      </div>
 
       {open && (
         <div className="datafiles__list">

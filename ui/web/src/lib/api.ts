@@ -1,5 +1,5 @@
 import { staticPromptPath } from './prompts'
-import type { ActivityQuery, ActivityResult, CallsResult, DataStatus, EventEnrichment, FeedItem, LaunchPreflight, NewsCycle, NewsStatus, ScreenerBoard, SignalIntakeInput, SourcesReport, SwarmGraph, SwarmMeta, TickerSummary, Usage, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, CallsResult, DataStatus, EventEnrichment, FeedItem, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ScreenerBoard, SignalIntakeInput, SourcesReport, SwarmGraph, SwarmMeta, TickerSummary, UploadResult, Usage, Whoami } from './types'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -181,9 +181,41 @@ export const api = {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/screener/handoff`, { thesisId, ticker })
   },
-  tickers: async (): Promise<{ tickers: TickerSummary[]; emptyState: boolean; dataDir?: string }> => {
-    if ((await ensureMode()) === 'static') return { tickers: snap.tickers, emptyState: snap.emptyState, dataDir: snap.dataDir }
+  tickers: async (): Promise<{ tickers: TickerSummary[]; emptyState: boolean; dataDir?: string; driveEnabled?: boolean }> => {
+    if ((await ensureMode()) === 'static') return { tickers: snap.tickers, emptyState: snap.emptyState, dataDir: snap.dataDir, driveEnabled: false }
     return get(`/api/tickers`)
+  },
+  // Create a company = a <TICKER> folder in the shared Drive (the server writes it; it syncs back down to
+  // the local mount the engine reads). Throws with e.body.{error,suggested} on a bad/duplicate name.
+  addCompany: async (ticker: string): Promise<{ ok: boolean; ticker: string }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/tickers`, { ticker })
+  },
+  // Upload documents into a company's Drive folder. Uses XHR (not fetch) so the dropzone can show upload
+  // progress; onProgress reports 0..1 of the whole request body. Resolves with per-file {written,errors}.
+  uploadFiles: async (ticker: string, files: File[], onProgress?: (frac: number) => void): Promise<UploadResult> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    const fd = new FormData()
+    for (const f of files) fd.append('files', f, f.name)
+    return new Promise<UploadResult>((resolve, reject) => {
+      const xhr = new XMLHttpRequest()
+      xhr.open('POST', `/api/tickers/${encodeURIComponent(ticker)}/files`)
+      // do NOT set content-type — the browser sets the multipart boundary itself
+      xhr.upload.onprogress = (e) => { if (e.lengthComputable && onProgress) onProgress(e.loaded / e.total) }
+      xhr.onload = () => {
+        let body: any = {}
+        try { body = JSON.parse(xhr.responseText || '{}') } catch {}
+        if (xhr.status >= 200 && xhr.status < 300) resolve(body as UploadResult)
+        else reject(Object.assign(new Error(body?.error || `${xhr.status}`), { status: xhr.status, body }))
+      }
+      xhr.onerror = () => reject(new Error('network error during upload'))
+      xhr.send(fd)
+    })
+  },
+  // Time-windowed intake intensity for the screener ThemeMap (small server-side aggregates).
+  screenerIntensity: async (window: IntensityWindow): Promise<IntensityStats> => {
+    if ((await ensureMode()) === 'static') return { window, from: null, to: new Date().toISOString(), scans: 0, totalFetched: 0, ratePerSec: 0, byTier: {}, hourly: [] }
+    return get(`/api/screener/intensity?window=${encodeURIComponent(window)}`)
   },
   dataStatus: async (ticker: string): Promise<DataStatus> => {
     if ((await ensureMode()) === 'static') return snap.dataStatus[ticker] || { ticker, hasAnyData: false, fileCount: 0, files: [], recentByType: {}, modules: {}, overallReady: false, dataDir: snap.dataDir }

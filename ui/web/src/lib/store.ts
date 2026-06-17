@@ -3,7 +3,7 @@ import { api, isStatic } from './api'
 import { downstreamCascade, type CascadeNode } from './cascade'
 import { plainRoute, plainStage } from './plain'
 import type { Theme, ThemeDetail } from './themes'
-import type { ActiveRunLite, AgentNode, BoardInboxRow, ConvictionDetail, DataStatus, EventEnrichment, FeedItem, HealthState, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
+import type { ActiveRunLite, AgentNode, BoardInboxRow, ConvictionDetail, DataStatus, EventEnrichment, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
 
 // A company the user drilled into from an event (the COMPANIES NAMED chips) — the main stage then
 // shows every wire story about it. listing_country/exchange ride along from the article-body read.
@@ -34,6 +34,7 @@ let dataSource: EventSource | null = null
 let bloomTimer: any = null
 let reconnectTimer: any = null
 let pollTimer: any = null
+let intensityRefetchTimer: any = null // debounces the screener intensity re-fetch on each news cycle
 let selectGen = 0 // bumped on every selectTicker; async work bails if it changed (fast-switch guard)
 let creditProbed = false
 
@@ -72,6 +73,7 @@ interface State {
   dataDir: string | null
   tickers: TickerSummary[]
   emptyState: boolean
+  driveEnabled: boolean // true when the server has a Drive destination + credential — gates add-company/upload UI
   selectedTicker: string | null
   graph: SwarmGraph | null
   nodesByKey: Map<string, AgentNode>
@@ -125,6 +127,17 @@ interface State {
   _tickHealth: () => Promise<void>
   selectTicker: (t: string) => Promise<void>
   refreshData: () => Promise<void>
+  // ---- in-app add-company + Drive upload (Change C) ----
+  addCompanyOpen: boolean
+  uploadTarget: string | null // ticker the uploader writes into (a new company, or the selected one)
+  uploadProgress: Record<string, number> // filename -> 0..1 live upload progress
+  uploadErrors: { filename: string; reason: string }[]
+  uploading: boolean
+  openAddCompany: () => void
+  closeAddCompany: () => void
+  openUploader: (ticker: string) => void
+  addCompany: (ticker: string) => Promise<boolean>
+  uploadFiles: (ticker: string, files: File[]) => Promise<void>
   refreshActiveRuns: () => Promise<void>
   checkCredit: () => Promise<void>
   selectNode: (key: string | null) => void
@@ -202,6 +215,9 @@ interface State {
   freshEvents: Set<string> // event_ids that just streamed in over SSE — drive the "new detected" glow
   newsArrivedTotal: number // monotonic count of items read off the wire (survives the 1000 cap) — paces the live themes map
   lastScan: { fetched: number; candidates: number; seq: number } | null // the latest ingest cycle's RAW fetch volume — the true "data coming in" intensity that drives the live themes-map flow
+  scIntensity: IntensityStats | null // windowed intake rollup for the ThemeMap (small server aggregates)
+  scIntensityWindow: IntensityWindow // the chosen intensity window (default full day); 'scan' = the live per-cycle path
+  setIntensityWindow: (w: IntensityWindow) => Promise<void>
   newsStatus: NewsStatus | null
   feedWindowDays: number // the time-travel window the wire is showing (2 = live; 14/30/90/180/370 = history)
   feedWindowLoading: boolean
@@ -251,6 +267,12 @@ export const useStore = create<State>((set, get) => ({
   dataDir: null,
   tickers: [],
   emptyState: false,
+  driveEnabled: false,
+  addCompanyOpen: false,
+  uploadTarget: null,
+  uploadProgress: {},
+  uploadErrors: [],
+  uploading: false,
   selectedTicker: null,
   graph: null,
   nodesByKey: new Map(),
@@ -300,6 +322,8 @@ export const useStore = create<State>((set, get) => ({
   freshEvents: new Set(),
   newsArrivedTotal: 0,
   lastScan: null,
+  scIntensity: null,
+  scIntensityWindow: 'day',
   feedWindowDays: 2,
   feedWindowLoading: false,
   newsStatus: null,
@@ -316,7 +340,7 @@ export const useStore = create<State>((set, get) => ({
     try {
       const [graph, tk, credit] = await Promise.all([api.swarm(), api.tickers(), api.credit().catch(() => null)])
       const stat = isStatic()
-      set({ connected: true, staticMode: stat, graph, nodesByKey: flatten(graph), tickers: tk.tickers, emptyState: tk.emptyState, dataDir: (tk as any).dataDir ?? null, credit })
+      set({ connected: true, staticMode: stat, graph, nodesByKey: flatten(graph), tickers: tk.tickers, emptyState: tk.emptyState, dataDir: (tk as any).dataDir ?? null, driveEnabled: (tk as any).driveEnabled ?? false, credit })
       api.swarms().then((swarms) => set({ swarms })).catch(() => set({ swarms: [{ id: 'research', label: 'Research', color: '#c0851d', unit: 'ticker', order: 1, layout: 'constellation' }] }))
       if (!stat) get().startHealth() // begin the engine heartbeat (live mode only); idempotent across reconnects
       // live data-folder watcher (Drive sync) — backend only
@@ -330,8 +354,9 @@ export const useStore = create<State>((set, get) => ({
           } catch {}
         })
       }
-      reconcileSelection(get, set) // a reconnect may carry a now-removed selection — drop it so auto-select picks a live ticker
-      if (tk.tickers.length && !get().selectedTicker) await get().selectTicker(tk.tickers[0].ticker)
+      reconcileSelection(get, set) // a reconnect may carry a now-removed selection — drop it
+      // No auto-select: the cockpit opens on the "Select a company" placeholder so nothing is read or
+      // classified until the user picks (or adds) a company.
       // one cheap usage probe on first connect (backend only)
       if (!stat && !creditProbed) {
         creditProbed = true
@@ -403,6 +428,51 @@ export const useStore = create<State>((set, get) => ({
       // leave dataStatus as-is; the loading flag clears below so the UI stops showing "reading…"
     } finally {
       if (get().selectToken === token) set({ dataLoading: false })
+    }
+  },
+
+  // ---- in-app add-company + Drive upload ----
+  // Uploads write into the shared Google Drive folder (the server holds one app credential). The engine
+  // keeps reading the local Drive mount, so a new company/file appears in the cockpit once Drive syncs it
+  // back down (a few seconds) — surfaced by refreshTickersSoon + the data watcher, not an optimistic insert.
+  openAddCompany: () => set({ addCompanyOpen: true, uploadTarget: null, uploadErrors: [], uploadProgress: {} }),
+  closeAddCompany: () => set({ addCompanyOpen: false, uploadTarget: null, uploadErrors: [], uploadProgress: {} }),
+  openUploader: (ticker) => set({ uploadTarget: ticker, uploadErrors: [], uploadProgress: {} }),
+  addCompany: async (ticker) => {
+    if (get().staticMode) { get().setToast({ msg: 'Read-only showcase — add companies on your machine via npm run dev', tone: 'info' }); return false }
+    try {
+      await api.addCompany(ticker)
+      refreshTickersSoon(get, set) // the new folder surfaces once Drive syncs it down; this keeps polling
+      // target the uploader at the new ticker STRING (don't selectTicker yet — the folder isn't on the local
+      // mount until Drive syncs it down, and reconcileSelection would drop a not-yet-present selection)
+      set({ uploadTarget: ticker, uploadErrors: [], uploadProgress: {} })
+      get().setToast({ msg: `Created ${ticker} in Drive — add its documents below`, tone: 'good' })
+      return true
+    } catch (e: any) {
+      const sug = e?.body?.suggested ? ` (try ${e.body.suggested})` : ''
+      get().setToast({ msg: `${e?.body?.error || e?.message || 'could not create the company'}${sug}`, tone: 'bad' })
+      return false
+    }
+  },
+  uploadFiles: async (ticker, files) => {
+    if (get().staticMode) { get().setToast({ msg: 'Read-only showcase — uploads happen on your machine via npm run dev', tone: 'info' }); return }
+    if (!files.length) return
+    set({ uploading: true, uploadErrors: [], uploadProgress: Object.fromEntries(files.map((f) => [f.name, 0])) })
+    try {
+      const res = await api.uploadFiles(ticker, files, (frac) => {
+        // xhr reports progress for the whole request body — reflect it on every file in the batch
+        set({ uploadProgress: Object.fromEntries(files.map((f) => [f.name, frac])) })
+      })
+      set({ uploadErrors: res.errors || [] })
+      const okN = res.written?.length || 0
+      if (okN) get().setToast({ msg: `Uploaded ${okN} file${okN === 1 ? '' : 's'} to ${ticker} in Drive — they appear here once Drive syncs (a few seconds)`, tone: 'good' })
+      else if (res.errors?.length) get().setToast({ msg: `Upload failed: ${res.errors[0].reason}`, tone: 'bad' })
+      refreshTickersSoon(get, set) // nudge the live file counts
+      if (get().selectedTicker === ticker) setTimeout(() => get().refreshData(), 1500)
+    } catch (e: any) {
+      get().setToast({ msg: e?.body?.error || e?.message || 'upload failed', tone: 'bad' })
+    } finally {
+      set({ uploading: false })
     }
   },
 
@@ -979,8 +1049,16 @@ export const useStore = create<State>((set, get) => ({
   },
   openThemes: async (view) => {
     set({ themesView: view, scSelectedEvent: null, themesStatus: get().themes.length ? 'ready' : 'loading' })
+    void get().setIntensityWindow(get().scIntensityWindow) // load the windowed intake rollup for the ThemeMap
     await get().refreshThemes()
     if (!get().staticMode) connectNewsStream(get) // reuse the one news EventSource; theme-update flows on it
+  },
+  setIntensityWindow: async (w) => {
+    set({ scIntensityWindow: w })
+    try {
+      const s = await api.screenerIntensity(w)
+      if (get().scIntensityWindow === w) set({ scIntensity: s }) // ignore a stale response after a fast switch
+    } catch { /* keep the prior reading */ }
   },
   setThemesView: (view) => set({ themesView: view, selectedTheme: null }),
   closeThemes: () => set({ themesView: null, selectedTheme: null, themeDetail: null }),
@@ -1286,6 +1364,11 @@ export const useStore = create<State>((set, get) => ({
       // the cycle's RAW fetch volume drives the live themes map's scanning flow — top it up each scan
       const sum = (e as any).summary
       if (sum && typeof sum.fetched === 'number') set({ lastScan: { fetched: sum.fetched, candidates: sum.candidates || 0, seq: (get().lastScan?.seq || 0) + 1 } })
+      // keep the chosen intensity window live as cycles land (debounced; the rollup is a tiny aggregate)
+      if (get().themesView && get().scIntensityWindow !== 'scan') {
+        if (intensityRefetchTimer) clearTimeout(intensityRefetchTimer)
+        intensityRefetchTimer = setTimeout(() => void get().setIntensityWindow(get().scIntensityWindow), 1200)
+      }
       if (get().activeSwarm === 'screener') void get().scRefreshBoard() // the board is screener UI — don't refetch it from the research swarm every cycle
     } else if (e?.type === 'theme-update' && e.theme) {
       // upsert the changed theme; the map/board re-rank from the array. Only when the themes view is
@@ -1530,7 +1613,7 @@ function refreshTickersSoon(get: () => State, set: (p: Partial<State>) => void) 
   api
     .tickers()
     .then((t) => {
-      set({ tickers: t.tickers, emptyState: t.emptyState, dataDir: (t as any).dataDir ?? get().dataDir })
+      set({ tickers: t.tickers, emptyState: t.emptyState, dataDir: (t as any).dataDir ?? get().dataDir, driveEnabled: (t as any).driveEnabled ?? get().driveEnabled })
       const removed = reconcileSelection(get, set)
       if (removed) get().setToast({ msg: `${removed} is no longer in the data folder — pick a ticker`, tone: 'info' })
       if (tickersSyncTimer) { clearTimeout(tickersSyncTimer); tickersSyncTimer = null }

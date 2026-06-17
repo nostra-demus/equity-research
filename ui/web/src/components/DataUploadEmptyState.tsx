@@ -1,35 +1,50 @@
 import { motion } from 'framer-motion'
 import { useStore } from '../lib/store'
+import { Uploader } from './Uploader'
 
 // Single source of truth for "what's going on with this ticker's data" — so the cockpit is never a
-// silent black box. Covers: unusable folder name (rename), Drive still syncing, files being read/parsed,
-// folder genuinely empty, and no tickers at all.
+// silent black box. Covers: nothing selected yet (the cockpit no longer auto-selects), unusable folder
+// name, Drive still syncing, files being read/parsed, folder genuinely empty, and no companies at all.
+// When Drive uploads are configured it also surfaces the in-app add-company / drag-and-drop uploader.
 export function DataUploadEmptyState() {
   const selectedTicker = useStore((s) => s.selectedTicker)
   const dataStatus = useStore((s) => s.dataStatus)
   const dataLoading = useStore((s) => s.dataLoading)
   const emptyState = useStore((s) => s.emptyState)
   const tickers = useStore((s) => s.tickers)
+  const driveEnabled = useStore((s) => s.driveEnabled)
+  const staticMode = useStore((s) => s.staticMode)
+  const openAddCompany = useStore((s) => s.openAddCompany)
 
   const sel = tickers.find((t) => t.ticker === selectedTicker)
   const noTickers = emptyState && !selectedTicker
+  const noSelection = !selectedTicker && !emptyState && tickers.length > 0
   const invalid = !!selectedTicker && sel?.valid === false
   const hasData = !!dataStatus?.hasAnyData
   const syncing = !!selectedTicker && !invalid && !!sel?.syncing && !hasData
   const reading = !!selectedTicker && !invalid && !syncing && dataLoading && !dataStatus
   const tickerNoData = !!selectedTicker && !invalid && !!dataStatus && !hasData
 
-  if (!noTickers && !invalid && !syncing && !reading && !tickerNoData) return null
+  if (!noTickers && !noSelection && !invalid && !syncing && !reading && !tickerNoData) return null
 
-  const dir = dataStatus?.dataDir || (selectedTicker ? `…/equity-research-data/${selectedTicker}/` : '…/equity-research-data/<TICKER>/')
+  const canAdd = driveEnabled && !staticMode // in-app add/upload only when the server has Drive configured
+  const dir = dataStatus?.dataDir || (selectedTicker ? `…/equity-research-data/${selectedTicker}/` : null)
   const count = sel?.fileCount ?? 0
+  const addBtn = canAdd ? <button className="empty__btn" onClick={() => openAddCompany()}>+ Add a company</button> : null
 
-  // pick the message for the current state
+  // pick the message + actions for the current state
   let icon: 'upload' | 'sync' | 'warn'
   let title: string
   let body: React.ReactNode
   let foot: React.ReactNode
-  if (invalid) {
+  let actions: React.ReactNode = null
+  if (noSelection) {
+    icon = 'upload'
+    title = 'Select a company'
+    body = <>Pick a company from the menu (top right) to see its data, readiness and run the swarm{canAdd ? ' — or add a new one and upload its documents right here' : ''}.</>
+    foot = <><span className="pulsedot" /> nothing is running — choose a company to begin</>
+    actions = addBtn
+  } else if (invalid) {
     icon = 'warn'
     title = `“${selectedTicker}” can’t be used as a ticker`
     body = (
@@ -65,13 +80,22 @@ export function DataUploadEmptyState() {
   } else if (tickerNoData) {
     icon = 'upload'
     title = `No data for ${selectedTicker} yet`
-    body = <>Drop the filings, transcripts, decks and Capital IQ exports into the synced Google Drive folder. The swarm wakes up the moment they land.</>
+    if (canAdd) {
+      body = <>Drop {selectedTicker}’s filings, transcripts, decks and Capital IQ exports below — they upload straight into its Google Drive folder and the swarm wakes up the moment they land.</>
+      actions = <Uploader ticker={selectedTicker!} />
+    } else {
+      body = <>Drop the filings, transcripts, decks and Capital IQ exports into the synced Google Drive folder. The swarm wakes up the moment they land.</>
+    }
     foot = <><span className="pulsedot" /> watching Google Drive for files…</>
   } else {
+    // noTickers
     icon = 'upload'
-    title = 'No data uploaded yet'
-    body = <>Drop the filings, transcripts, decks and Capital IQ exports into the synced Google Drive folder. The swarm wakes up the moment they land.</>
+    title = 'No companies yet'
+    body = canAdd
+      ? <>Add your first company — a folder is created in your shared Google Drive and you can drop its documents right here.</>
+      : <>Drop the filings, transcripts, decks and Capital IQ exports into the synced Google Drive folder. The swarm wakes up the moment they land.</>
     foot = <><span className="pulsedot" /> watching Google Drive for files…</>
+    actions = addBtn
   }
 
   return (
@@ -88,7 +112,8 @@ export function DataUploadEmptyState() {
         </div>
         <div className="empty__title">{title}</div>
         <div className="empty__body">{body}</div>
-        <div className="empty__path">{dir}</div>
+        {actions && <div className="empty__actions">{actions}</div>}
+        {dir && <div className="empty__path">{dir}</div>}
         <div className="empty__watch">{foot}</div>
       </motion.div>
     </div>
