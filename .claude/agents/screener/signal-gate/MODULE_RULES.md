@@ -90,3 +90,12 @@ Inputs: relevance, event severity, computed novelty, source confidence, issuer d
 - `signal_payload.json` must validate against `frameworks/screener/signal_payload.schema.json`.
 - §5 citations everywhere; every source row carries `retrieved_at`.
 - Banned without a quantified basis (machine check: grep your own draft before saving): "could benefit", "may be impacted", bare "significant", bare "material" outside the relevance label, "market hasn't realized".
+
+## Writing Standard
+
+SWARM.md §8 plain-English rules apply to every prose section in this module's output files. Machine-facing fields (routing-value lines, JSON field names, section-header codes like `Gate 0`, `## Machine Output`) stay technical.
+
+- **Abstract**: 2–4 sentences. What the event is, how new it is, the score, and where it goes — in plain English. No internal code names ("gauntlet", "Phase 0.1", "pairwise classification").
+- **Decision paragraph** (Step 10): 2–3 sentences. The routing decision and the one most important reason for it.
+- **Table cells** in the Gauntlet Summary: one plain phrase per cell — no multi-clause explanations inside a table cell.
+- **Materiality arithmetic line**: state the math in one line (`Base 70 (major filing, direct issuer) + novelty 10 − no penalties = 80/100`) — do not add surrounding paragraphs explaining the arithmetic.

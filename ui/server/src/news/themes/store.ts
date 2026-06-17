@@ -61,6 +61,7 @@ export function buildSummary(t: Theme): ThemeSummary {
     composite: t.scores.composite,
     fresh_flow: t.fresh_flow,
     flow_series: t.flow_series,
+    flow_daily: t.flow_daily || [],
     member_count: t.member_count_total,
     top_companies: top(t.companies, 8).map((c) => ({ name: c.name, ticker: c.ticker, order: c.order, side: c.side })),
     related_themes: top(t.related_themes, 5).map((r) => ({ theme_id: r.theme_id, name: r.name, kind: r.kind })),
@@ -80,7 +81,17 @@ export function buildThemesIndex(themes: Theme[], now: () => Date = () => new Da
       counts[t.tier as ThemeTier]++
     }
   }
-  return { generated_at: now().toISOString().replace(/\.\d{3}Z$/, 'Z'), themes: live.map(buildSummary), counts }
+  // how many days of real daily-flow history exist = the furthest-back non-zero daily bucket across
+  // live themes. This is what the UI's window selector honestly reaches: a "last 7d" view is only fully
+  // backed once history_days ≥ 7. Grows one real day per day; the firehose is high-volume, so every past
+  // accrued day has flow in at least one theme, making this a truthful lower bound on coverage.
+  let history_days = 0
+  for (const t of live) {
+    const fd = t.flow_daily || []
+    const firstNonZero = fd.findIndex((v) => v > 0)
+    if (firstNonZero >= 0) history_days = Math.max(history_days, fd.length - firstNonZero)
+  }
+  return { generated_at: now().toISOString().replace(/\.\d{3}Z$/, 'Z'), themes: live.map(buildSummary), counts, history_days }
 }
 
 /** Atomically write the live themes index the cockpit reads. */
@@ -89,7 +100,9 @@ export function writeThemesIndex(repoRoot: string, themes: Theme[], now: () => D
   try {
     fs.mkdirSync(path.dirname(fp), { recursive: true })
     const tmp = `${fp}.tmp.${process.pid}`
-    fs.writeFileSync(tmp, JSON.stringify(buildThemesIndex(themes, now), null, 2) + '\n')
+    // compact (not pretty) — the index is machine-read by the cockpit, and the per-theme flow_series[48] +
+    // flow_daily[120] rings make indented JSON ~3× larger for zero benefit.
+    fs.writeFileSync(tmp, JSON.stringify(buildThemesIndex(themes, now)) + '\n')
     fs.renameSync(tmp, fp)
   } catch {
     // best-effort; the cockpit keeps the prior index
@@ -100,11 +113,11 @@ export function writeThemesIndex(repoRoot: string, themes: Theme[], now: () => D
 export function readThemesIndex(repoRoot: string): ThemesIndex {
   try {
     const o = JSON.parse(fs.readFileSync(indexPath(repoRoot), 'utf8'))
-    if (o && Array.isArray(o.themes)) return o
+    if (o && Array.isArray(o.themes)) return { history_days: 0, ...o }
   } catch {
     // none yet
   }
-  return { generated_at: '', themes: [], counts: { hot: 0, active: 0, cooling: 0, parked: 0, retired: 0, total: 0 } }
+  return { generated_at: '', themes: [], counts: { hot: 0, active: 0, cooling: 0, parked: 0, retired: 0, total: 0 }, history_days: 0 }
 }
 
 /** Recent MATERIAL firehose items as ThemeItemViews — the cold-start / comprehensiveness pool for a
