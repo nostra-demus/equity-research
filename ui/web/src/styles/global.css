@@ -1050,6 +1050,20 @@ a { color: inherit; }
 .wire__company { color: var(--text-muted); text-transform: none; letter-spacing: 0.2px; max-width: 320px; }
 .wire__why { font-size: 11px; color: var(--text-muted); line-height: 1.45; margin-top: 3px; }
 .wire__empty { padding: 28px 4px; }
+/* sticky per-day divider — keeps an HH:MM-only wire legible across a 14-day+ look-back as you scroll */
+.wire__daydiv {
+  position: sticky; top: 0; z-index: 2;
+  display: flex; align-items: center; gap: 10px;
+  padding: 7px 2px 6px;
+  background: linear-gradient(var(--surface-1) 70%, transparent);
+}
+.wire__daydiv span {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase;
+  color: var(--text-muted); white-space: nowrap;
+}
+.wire__daydiv::after { content: ''; flex: 1; height: 1px; background: var(--hairline); }
+/* bottom sentinel of the incremental render — the scroll-to-reveal-more marker */
+.wire__more { padding: 16px 2px 24px; font-size: 11px; color: var(--text-faint); text-align: center; font-variant-numeric: tabular-nums; }
 
 /* ---- moved-by-you marker (the thesis deep-dive override chip) ---- */
 .pcard__chip--moved { color: var(--accent-bright); border-color: var(--accent-deep); text-transform: none; letter-spacing: 0.2px; }
