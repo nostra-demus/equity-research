@@ -144,7 +144,9 @@ app.get('/api/swarm', async (req, reply) => {
 // ---------- tickers ----------
 // driveEnabled tells the cockpit whether the in-app add-company / upload UI can work (a Drive
 // destination folder + a credential are both configured); the UI hides those controls otherwise.
-app.get('/api/tickers', async () => ({ ...listTickers(), driveEnabled: GDRIVE_ENABLED }))
+// explicit per-route rate-limit (same budget as the global cap) so CodeQL recognizes the limiter on this
+// filesystem-reading handler (js/missing-rate-limiting); the global @fastify/rate-limit still applies too.
+app.get('/api/tickers', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async () => ({ ...listTickers(), driveEnabled: GDRIVE_ENABLED }))
 
 // Add a company = create a <TICKER> folder in the shared Drive (the cloud twin of local data/). The
 // engine keeps reading the local mount, so the new company surfaces in the picker once Drive syncs the
@@ -668,7 +670,7 @@ app.get('/api/news/status', async () => getNewsStatus())
 // Time-windowed intake intensity for the screener ThemeMap. Returns small AGGREGATES only (per-tier
 // counts + totals + a ≤48-point hourly histogram) over the chosen window (last scan … full day … 7d),
 // so the map can show a real sense of intensity without the browser ever loading thousands of raw items.
-app.get('/api/screener/intensity', async (req, reply) => {
+app.get('/api/screener/intensity', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async (req, reply) => {
   const w = (req.query as any)?.window as string | undefined
   if (w && !(INTENSITY_WINDOWS as string[]).includes(w)) return reply.code(400).send({ error: `unknown window ${w}` })
   return getIntensity((w as IntensityWindow) || 'day')
