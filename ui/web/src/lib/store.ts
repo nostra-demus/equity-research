@@ -225,6 +225,8 @@ interface State {
   // ---- dynamic themes (the firehose bucketed into living, ranked investment themes) ----
   themes: Theme[]
   themesView: 'map' | 'board' | null // null = themes view closed (gauntlet/idle canvas shows)
+  themesWindow: number | null // the selected time-window lookback in HOURS; null = Live (real-time)
+  themesHistoryDays: number // days of real daily-flow history the engine has (gates the long windows)
   selectedTheme: string | null // open deep-dive
   themeDetail: ThemeDetail | null // the open theme's resolved members + companies-by-order
   themesStatus: 'idle' | 'loading' | 'ready' | 'error'
@@ -232,6 +234,7 @@ interface State {
   openThemes: (view: 'map' | 'board') => Promise<void>
   closeThemes: () => void
   setThemesView: (view: 'map' | 'board') => void
+  setThemesWindow: (hours: number | null) => void
   selectTheme: (id: string | null) => Promise<void>
   refreshThemes: () => Promise<void>
 }
@@ -305,6 +308,8 @@ export const useStore = create<State>((set, get) => ({
   newsStatus: null,
   themes: [],
   themesView: null,
+  themesWindow: null,
+  themesHistoryDays: 0,
   selectedTheme: null,
   themeDetail: null,
   themesStatus: 'idle',
@@ -972,7 +977,7 @@ export const useStore = create<State>((set, get) => ({
   refreshThemes: async () => {
     try {
       const idx = await api.newsThemes()
-      set({ themes: idx.themes, themesStatus: 'ready' })
+      set({ themes: idx.themes, themesHistoryDays: idx.history_days || 0, themesStatus: 'ready' })
     } catch {
       set({ themesStatus: 'error' })
     }
@@ -983,6 +988,7 @@ export const useStore = create<State>((set, get) => ({
     if (!get().staticMode) connectNewsStream(get) // reuse the one news EventSource; theme-update flows on it
   },
   setThemesView: (view) => set({ themesView: view, selectedTheme: null }),
+  setThemesWindow: (hours) => set({ themesWindow: hours }),
   closeThemes: () => set({ themesView: null, selectedTheme: null, themeDetail: null }),
   selectTheme: async (id) => {
     if (!id) { set({ selectedTheme: null, themeDetail: null }); return }
