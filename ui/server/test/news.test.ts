@@ -380,7 +380,7 @@ await check('triage falls back to OVERFLOW when Groq fails — the batch is scor
     const u = String(url)
     if (u.includes('groq')) return res('upstream sad', 503) // Groq DOWN all cycle
     if (u.includes('overflow.test')) { ovHits++; return res(goodTriage) } // overflow UP
-    if (u.includes('reuters.com') && !gdeltServed) { gdeltServed = true; return res({ articles: [{ url: 'https://reuters.com/ov', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] }) }
+    if (u.includes('gdelt') && !gdeltServed) { gdeltServed = true; return res({ articles: [{ url: 'https://reuters.com/ov', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] }) }
     return res({ articles: [] })
   }) as unknown as typeof fetch
   const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false,
@@ -406,7 +406,7 @@ await check('overflow paces on the daily TOKEN cap, not just requests (token-gat
     const u = String(url)
     if (u.includes('groq')) return res('upstream sad', 503) // Groq DOWN all cycle → everything routes to overflow
     if (u.includes('cerebras.test')) { cbHits++; return res(goodTriage) } // token-gated overflow, 600 tok/call
-    if (u.includes('reuters.com') && !gdeltServed) {
+    if (u.includes('gdelt') && !gdeltServed) {
       gdeltServed = true
       return res({ articles: [
         { url: 'https://reuters.com/a', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' },
@@ -442,7 +442,7 @@ await check('the overflow chain falls through to the NEXT provider when the firs
     if (u.includes('groq')) return res('upstream sad', 503) // Groq down all cycle → route to the overflow chain
     if (u.includes('cerebras.test')) { cbHits++; return res('unauthorized', 401) } // 1st overflow: auth-fail → exhausted + skipped
     if (u.includes('mistral.test')) { mlHits++; return res(goodTriage) } // 2nd overflow: picks up the batch
-    if (u.includes('reuters.com') && !gdeltServed) {
+    if (u.includes('gdelt') && !gdeltServed) {
       gdeltServed = true
       return res({ articles: [
         { url: 'https://reuters.com/a', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' },
@@ -488,7 +488,7 @@ await check('the overflow chain advances to the next provider on a NON-terminal 
     if (u.includes('groq')) return res('upstream sad', 503) // Groq down all cycle → route to the overflow chain
     if (u.includes('cerebras.test')) { cbHits++; return res('busy', 503) } // 1st overflow: NON-terminal fail (no budget exhaust)
     if (u.includes('mistral.test')) { mlHits++; return res(goodTriage) } // 2nd overflow: picks up the batch in the SAME cycle
-    if (u.includes('reuters.com') && !gdeltServed) {
+    if (u.includes('gdelt') && !gdeltServed) {
       gdeltServed = true
       return res({ articles: [{ url: 'https://reuters.com/a', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
     }
@@ -521,7 +521,7 @@ await check('a failed Groq batch is DEFERRED (not zero-scored-and-seen) and is s
   const fetchFn = (async (url: string) => {
     const u = String(url)
     if (u.includes('groq')) return groqUp ? res(goodGroq) : res('upstream sad', 503)
-    if (u.includes('reuters.com') && !gdeltServed) {
+    if (u.includes('gdelt') && !gdeltServed) {
       gdeltServed = true // GDELT hands the article over ONCE — cycle 2 must rely on the spillover
       return res({ articles: [{ url: 'https://reuters.com/once', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
     }
