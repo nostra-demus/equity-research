@@ -35,10 +35,24 @@ export function SourcesPanel() {
   const [filter, setFilter] = useState<SourceHealth | 'all'>('all')
   const [q, setQ] = useState('')
 
-  const load = useMemo(() => async () => {
-    try { setReport(await api.newsSources()); setErr(false) } catch { setErr(true) }
+  // Poll: fast on first paint / recovery (the engine can be briefly busy mid-scan, so a 60s wait on a
+  // transient miss reads as "broken"), settling to a calm 60s refresh once a report is in hand. A failed
+  // refresh keeps the last good report on screen — only a never-loaded panel shows the wait notice.
+  useEffect(() => {
+    let alive = true
+    let timer: ReturnType<typeof setTimeout>
+    let miss = 0
+    const run = async () => {
+      if (!alive) return
+      let ok = false
+      try { setReport(await api.newsSources()); setErr(false); ok = true } catch { setErr(true) }
+      if (!alive) return
+      miss = ok ? 0 : miss + 1
+      timer = setTimeout(run, ok || miss > 5 ? 60_000 : 4_000) // fast-retry a few times, then back off
+    }
+    void run()
+    return () => { alive = false; clearTimeout(timer) }
   }, [])
-  useEffect(() => { void load(); const id = setInterval(() => void load(), 60_000); return () => clearInterval(id) }, [load])
   // close on Escape
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') close() }
@@ -84,7 +98,7 @@ export function SourcesPanel() {
 
         <div className="srcpanel__body">
           {err && !report ? (
-            <div className="srcpanel__empty">Couldn’t reach the engine. Retrying every 60s…</div>
+            <div className="srcpanel__empty">Waiting on the engine — it may be mid-scan. Retrying…</div>
           ) : !report ? (
             <div className="srcpanel__empty">Reading source health…</div>
           ) : rows.length === 0 ? (
