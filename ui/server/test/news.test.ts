@@ -14,6 +14,7 @@ import { coerceTriage, estimateTokens, scoreToBand, triageBatch } from '../src/n
 import { appendFeedItems, readFeed } from '../src/news/feed'
 import { mergeInbox } from '../src/news/write-inbox'
 import { runIngestCycle } from '../src/news/runCycle'
+import { buildOverflowProviders } from '../src/config'
 import type { FeedItem, RawArticle, TriagedItem } from '../src/news/types'
 
 let passed = 0
@@ -570,6 +571,28 @@ await check('mergeInbox: dismissed rows are preserved like consumed (never evict
   const live = after.rows.filter((r: any) => !r.dismissed && !r.consumed)
   assert.equal(live.length, 1) // the cap applies only to the live pool
   assert.deepEqual(m2.event_types, ['mna']) // theme fields persisted on rows
+})
+
+// ---- Cerebras overflow config: lock the verified-live defaults so a retired/broken model can't sneak back ----
+await check('Cerebras overflow defaults are the verified-live values (model + reasoning_effort + caps under the free-tier ceilings)', () => {
+  const prev = process.env.CEREBRAS_API_KEY
+  process.env.CEREBRAS_API_KEY = 'k'
+  try {
+    const cb = buildOverflowProviders().find((p) => p.id === 'cerebras')
+    assert.ok(cb, 'Cerebras provider materializes when the key is present')
+    // the retired llama-3.3-70b must NEVER be the default again; gpt-oss-120b is verified-live working
+    assert.equal(cb!.model, 'gpt-oss-120b', 'default model is the current working one, not the retired llama-3.3-70b')
+    // gpt-oss-120b is a reasoning model — reasoning_effort:low keeps thinking from burning the output budget → truncated JSON
+    assert.equal((cb!.extraBody as Record<string, unknown> | undefined)?.reasoning_effort, 'low', 'reasoning_effort=low so content stays whole JSON')
+    // every cap paces UNDER the live-verified free-tier ceilings (5 rpm / 30k tpm / 1M tok-day / 2400 req-day)
+    assert.ok(cb!.rpm <= 5, 'rpm under the 5 req/min ceiling')
+    assert.ok((cb!.tpm ?? 0) > 0 && (cb!.tpm ?? 0) <= 30_000, 'tpm set and under the 30k tokens/min ceiling')
+    assert.ok((cb!.dailyTokenCap ?? 0) > 0 && (cb!.dailyTokenCap ?? 0) <= 1_000_000, 'daily token cap set and under 1M')
+    assert.ok(cb!.dailyReqCap <= 2_400, 'daily request backstop under the 2400 req/day ceiling')
+  } finally {
+    if (prev === undefined) delete process.env.CEREBRAS_API_KEY
+    else process.env.CEREBRAS_API_KEY = prev
+  }
 })
 
 console.log(`\n${passed} checks passed`)

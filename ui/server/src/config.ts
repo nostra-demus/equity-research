@@ -115,29 +115,33 @@ export interface OverflowProvider {
 
 // Build the overflow chain from whatever keys are present. ONLY OpenAI-compatible providers belong here
 // (Gemini is separate — it uses generateContent, not chat/completions). Order = priority (best first).
-function buildOverflowProviders(): OverflowProvider[] {
+export function buildOverflowProviders(): OverflowProvider[] {
   const out: OverflowProvider[] = []
-  // Cerebras Inference — placed FIRST: the biggest + fastest free pool here, token-gated. Per Cerebras'
-  // CURRENT docs the Free-Trial tier is 5 req/min, 30k tokens/min, 1M tokens/day (whichever binds first),
-  // so the defaults pace UNDER those (RPM < 5, TPM < 30k, daily token cap ~10% under 1M) and are overridable
-  // UPWARD (NEWS_CEREBRAS_RPM/TPM/…) on a paid Pay-as-you-go key. OpenAI-compatible (/chat/completions).
-  // Secret lives in env.
-  // ⚠️ MODEL CAVEAT (needs a live key to resolve): `llama-3.3-70b` has been RETIRED on Cerebras. The only
-  // current models (gpt-oss-120b, zai-glm-4.7) are REASONING models — exactly what burns the output budget
-  // thinking → truncated JSON, the failure this provider was added to avoid. Switching the default safely
-  // needs reasoning_effort:'low' + Cerebras' `max_completion_tokens` field (NOT max_tokens) + a higher token
-  // budget, validated against a real key. Until then set NEWS_CEREBRAS_MODEL to a working model per-deploy.
+  // Cerebras Inference — placed FIRST: the biggest + fastest free pool here, token-gated. OpenAI-compatible
+  // (/chat/completions). Secret lives in env (out-of-repo providers.env via load-env, never committed).
+  // Free-Trial limits VERIFIED LIVE against a real key (2026-06-17): 5 req/min, 30k tokens/min, 150 req/hr,
+  // 1M tokens/day, 2400 req/day (whichever binds first). The defaults pace UNDER each and are overridable
+  // UPWARD (NEWS_CEREBRAS_RPM/TPM/…) on a paid Pay-as-you-go key. For typical triage (~1.6k tok/call) the
+  // 1M-tokens/day cap binds first, as intended.
+  // MODEL: the only current Cerebras models are REASONING models — `llama-3.3-70b` is RETIRED. We use
+  // `gpt-oss-120b`, verified live to (a) return its thinking in a SEPARATE `reasoning` field so `content`
+  // stays clean JSON, and (b) honour `reasoning_effort:'low'` (~75-150 reasoning tok/call) so thinking can't
+  // eat the output budget and truncate the JSON. Plain `max_tokens` is accepted (no max_completion_tokens
+  // needed) and json_object mode works. Do NOT default to `zai-glm-4.7`: it ignores the effort cap and burns
+  // the whole budget on reasoning → empty/truncated content. extraBody carries reasoning_effort and flows to
+  // BOTH the triage and article-read calls (groq.ts spreads it into each body).
   const cbKey = process.env.CEREBRAS_API_KEY || ''
   if (cbKey && process.env.NEWS_CEREBRAS_ENABLED !== '0') {
     out.push({
       id: 'cerebras', label: 'Cerebras', color: '--provider-cb',
       apiKey: cbKey, baseUrl: process.env.CEREBRAS_BASE_URL || 'https://api.cerebras.ai/v1',
-      model: process.env.NEWS_CEREBRAS_MODEL || 'llama-3.3-70b',
-      dailyReqCap: capNum(process.env.NEWS_CEREBRAS_DAILY_REQ_CAP, 14_400), // loose backstop — the token cap binds first
-      rpm: capNum(process.env.NEWS_CEREBRAS_RPM, 4), // under the free-trial 5 req/min ceiling (override up on a paid key)
-      tpm: capNum(process.env.NEWS_CEREBRAS_TPM, 28_000), // under the free-trial 30k tokens/min ceiling
-      dailyTokenCap: capNum(process.env.NEWS_CEREBRAS_DAILY_TOKEN_CAP, 900_000), // ~10% under the 1M tokens/day free tier
-      maxTokens: capNum(process.env.NEWS_CEREBRAS_MAX_TOKENS, 2500),
+      model: process.env.NEWS_CEREBRAS_MODEL || 'gpt-oss-120b',
+      dailyReqCap: capNum(process.env.NEWS_CEREBRAS_DAILY_REQ_CAP, 2_300), // under the verified 2400 req/day backstop (token cap binds first)
+      rpm: capNum(process.env.NEWS_CEREBRAS_RPM, 4), // under the verified 5 req/min ceiling (override up on a paid key)
+      tpm: capNum(process.env.NEWS_CEREBRAS_TPM, 28_000), // under the verified 30k tokens/min ceiling
+      dailyTokenCap: capNum(process.env.NEWS_CEREBRAS_DAILY_TOKEN_CAP, 900_000), // ~10% under the verified 1M tokens/day
+      maxTokens: capNum(process.env.NEWS_CEREBRAS_MAX_TOKENS, 3_500), // headroom for reasoning tokens + JSON output → never truncate
+      extraBody: { reasoning_effort: process.env.NEWS_CEREBRAS_REASONING_EFFORT || 'low' }, // cap thinking so content stays whole JSON
       budgetFile: 'cerebras-budget.json',
     })
   }
