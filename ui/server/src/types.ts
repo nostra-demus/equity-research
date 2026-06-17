@@ -118,6 +118,33 @@ export interface ModuleReadiness {
   caps: string[]
 }
 
+// A sub-category a vendor export bundles in (estimates / multiples / peers / financials), so the
+// UI can say "covers estimates · multiples" instead of listing each as its own absent row.
+export interface CoverageSub {
+  key: string
+  label: string
+  present: boolean
+}
+
+// One SOURCE-DOCUMENT group — what a human actually uploads (annual report, interim, transcript,
+// vendor export, ...), not an internal FileType. Presence is detected tab/content-aware: a group can
+// be satisfied by a file of a matching type OR a workbook TAB whose name matches (so a vendor
+// workbook's "Multiples" tab counts even though the file classified as 'financials'). Drives both
+// the populated coverage panel and the empty-state upload guide.
+export interface CoverageGroup {
+  key: string
+  label: string
+  tier: 'critical' | 'core' | 'recommended' | 'optional' // how much a gap costs (drives ordering + the chip)
+  helps: string // precise: how much / how recent to upload + the consequence if absent
+  present: boolean
+  via: 'file' | 'tab' | null // how it was satisfied (null when absent)
+  filename: string | null // the file that satisfies it (named, so "which document" is answered)
+  sheet: string | null // the tab that satisfies it, when via === 'tab'
+  ageMonths: number | null
+  stale: boolean // present but older than this group's freshness threshold
+  covers?: CoverageSub[] // sub-facets a group bundles (e.g. governance: board · shareholding · insider)
+}
+
 export interface DataStatus {
   ticker: string
   hasAnyData: boolean
@@ -125,6 +152,7 @@ export interface DataStatus {
   files: ClassifiedFile[]
   recentByType: Record<string, { filename: string; ageMonths: number | null } | undefined>
   modules: Record<string, ModuleReadiness>
+  coverage: CoverageGroup[]
   overallReady: boolean
   dataDir: string
   ts: number
