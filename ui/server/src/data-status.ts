@@ -181,7 +181,7 @@ function classify(filename: string, sniff: string): { type: FileType; confidence
 
   if (test(/\.gdoc$/)) return { type: 'user_note', confidence: 'high', basis: 'filename' }
   if (test(/annual\s?report|10-?k|integrated annual/)) return { type: 'annual_filing', confidence: 'high', basis: 'filename' }
-  if (test(/10-?q|quarterly|interim|half[\s\-]?year|q[1-4][\s\-_]?20\d{2}/)) return { type: 'quarterly_filing', confidence: 'high', basis: 'filename' }
+  if (test(/10-?q|quarterly|interim[\s_]?(results?|report|financ|statement)|half[\s\-]?year|q[1-4][\s\-_]?20\d{2}/)) return { type: 'quarterly_filing', confidence: 'high', basis: 'filename' }
   if (test(/transcript|conference[\s\-_]?call|earnings[\s\-_]?call|_call\b/)) return { type: 'transcript', confidence: 'high', basis: 'filename' }
   if (test(/estimates?|consensus/)) return { type: 'consensus_estimates', confidence: 'high', basis: 'filename' }
   if (test(/revision|surprise|recent changes|trends/)) return { type: 'consensus_estimates', confidence: 'medium', basis: 'filename' }
@@ -284,12 +284,14 @@ function evaluateModules(files: ClassifiedFile[], moduleNames: string[]): Record
   const hasPeerComps = has('peer_comps')
   const hasOwnership = has('ownership_insider')
   const hasProxyComp = has('proxy_comp') || hasAnnual
-  // A pool-verified CURRENT price is valuation's #1 gate (reverse-DCF + margin-of-safety). It is NOT
-  // a consensus/multiples export — those carry no live, dated quote. Detect a real price signal only:
-  // an IBKR/exchange/tear-sheet quote file or a price/quote workbook tab. (Was faked as
-  // `hasConsensus || hasMultiples`, which overstated valuation readiness on every pool that had a
-  // vendor export but no actual price.)
-  const hasCurrentPrice = files.some((f) => /price|quote|ibkr|tear[\s_]?sheet|snapshot[\s_]?quote/i.test(f.filename) || (f.sheets ?? []).some((s) => /price|quote|trading[\s_]?summary/i.test(s.name)))
+  // A pool-verified CURRENT price is valuation's #1 gate (reverse-DCF + margin-of-safety). It is NOT a
+  // consensus/multiples export, an analyst TARGET-price, or a stale quote. PRICE_RE matches a real quote
+  // signal and excludes target/analyst/estimate names; the age check rejects a quote dated older than
+  // ~1 month (the same freshness the price coverage group flags). (Was faked as `hasConsensus ||
+  // hasMultiples`, which overstated valuation readiness on every pool with a vendor export.)
+  const hasCurrentPrice = files.some(
+    (f) => (PRICE_RE.test(f.filename) || (f.sheets ?? []).some((s) => PRICE_RE.test(s.name))) && (f.ageMonths == null || f.ageMonths <= 1),
+  )
   const hasDebtNote = hasAnnual || hasQuarterly
   const hasGovernance = hasAnnual || hasProxyComp || hasOwnership
 
@@ -454,10 +456,16 @@ interface CoverageGroupDef extends CoverageSpec {
   covers?: ({ key: string; label: string } & CoverageSpec)[]
 }
 
+// A current-price signal — IBKR / tear-sheet / a quote / "<qualifier> price" / a trading summary — but
+// NOT an analyst TARGET-price, coverage, or estimate export (those carry a "price" word without being a
+// live quote). Shared by the price coverage group AND the valuation hasCurrentPrice readiness gate so the
+// two never disagree.
+const PRICE_RE = /^(?!.*(?:target|estimate|consensus|analyst|forecast|coverage|recommendation)).*(?:ibkr|tear[\s_]?sheet|\bquote\b|(?:current|last|live|spot|market|closing)[\s_]?price|price[\s_]?(?:quote|snapshot)|trading[\s_]?summary)/i
+
 const COVERAGE_GROUPS: CoverageGroupDef[] = [
   { key: 'price', label: 'Current price', tier: 'critical',
     helps: 'a dated quote, ≤ a few days old — reverse-DCF + margin-of-safety; without it valuation confidence caps at 55',
-    name: /price|quote|ibkr|tear[\s_]?sheet|snapshot[\s_]?quote/i, tab: /price|quote|trading[\s_]?summary/i, staleAfterMonths: 1 },
+    name: PRICE_RE, tab: PRICE_RE, staleAfterMonths: 1 },
   { key: 'annual', label: 'Annual report', tier: 'core',
     helps: 'the latest audited annual only (≤18mo) — the spine every module reads; more annuals optional (history)',
     types: ['annual_filing'], staleAfterMonths: 18 },
@@ -487,11 +495,13 @@ const COVERAGE_GROUPS: CoverageGroupDef[] = [
     types: ['peer_comps', 'multiples_export'], tab: /peer|comparable|comps|multiple/i },
   { key: 'balance-credit', label: 'Balance-sheet & credit', tier: 'recommended',
     helps: 'debt note + maturity schedule (5yr) + covenants + latest rating — leverage & solvency',
-    name: /credit[\s_]?health|rating|covenant|debenture|indenture|credit[\s_]?agreement/i,
+    name: /credit[\s_]?health|credit[\s_]?rating|rating[\s_]?rationale|covenant|debenture|indenture|credit[\s_]?agreement|crisil|icra|moody|fitch/i,
     tab: /solvency|liquidity[\s_]?metric|credit[\s_]?health|covenant|maturit/i,
     covers: [
       { key: 'credit-health', label: 'credit health', name: /credit[\s_]?health/i, tab: /solvency|liquidity/i },
-      { key: 'rating', label: 'rating', name: /rating|crisil|icra|moody|fitch|s&p|care[\s_]?rating/i },
+      // credit-AGENCY rating only — bare /rating/ matched broker buy/hold/sell exports (classify routes
+      // those to consensus estimates), which would falsely hide a missing debt/covenant/agency doc.
+      { key: 'rating', label: 'rating', name: /credit[\s_]?rating|rating[\s_]?rationale|crisil|icra|moody|fitch|care[\s_]?rating|s&p[\s_]?global/i },
       { key: 'debt-terms', label: 'debt terms', name: /covenant|debenture|indenture|credit[\s_]?agreement/i, tab: /maturit|covenant/i },
     ] },
   { key: 'catalyst', label: 'Catalyst calendar', tier: 'optional',
