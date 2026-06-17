@@ -380,6 +380,22 @@ export interface TickerSummary {
   latestRun: { runRoot: string; decision: string | null; decisionDate: string | null; confidence: number | null } | null
 }
 
+// ---- in-app upload (POST /api/tickers/:ticker/files) — per-file result ----
+export interface UploadResult { ok: boolean; written: string[]; errors: { filename: string; reason: string }[] }
+
+// ---- screener intake intensity (GET /api/screener/intensity) — time-windowed aggregates for the ThemeMap ----
+export type IntensityWindow = 'scan' | '1h' | '4h' | 'day' | '7d'
+export interface IntensityStats {
+  window: IntensityWindow
+  from: string | null
+  to: string
+  scans: number
+  totalFetched: number
+  ratePerSec: number
+  byTier: Record<string, number>
+  hourly: { t: string; fetched: number }[]
+}
+
 export interface LaunchPreflight {
   kind: 'full' | 'module' | 'agent' | 'rerun' | 'signal' | 'sweep' | 'screener-agent' | 'handoff'
   ticker: string

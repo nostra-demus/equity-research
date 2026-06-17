@@ -1,10 +1,10 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { execFileSync } from 'node:child_process'
-import { DATA_DIR, ANALYSES_DIR, REPO_ROOT } from './config'
+import { DATA_DIR, ANALYSES_DIR, REPO_ROOT, isReservedDataFolder } from './config'
 import { syncingState } from './data-activity'
 import { listModuleNames, moduleReadinessDecls } from './roster'
-import { suggestTicker, tickerInvalidReason } from './sandbox'
+import { isValidTicker, suggestTicker, tickerInvalidReason } from './sandbox'
 import type { ClassifiedFile, CoverageGroup, DataReadinessDecl, DataStatus, FileType, ModuleReadiness, Sufficiency, TickerSummary, WorkbookSheet } from './types'
 
 // ---- persistent extract cache ----
@@ -560,7 +560,9 @@ export function analyzeTicker(ticker: string): DataStatus {
   // classifyFile), never just the readdir — that's what makes `dir` safe at every sink. (Clears CodeQL
   // js/path-injection.)
   const dir = path.resolve(DATA_DIR, ticker)
-  if (dir !== DATA_DIR && !dir.startsWith(DATA_DIR + path.sep)) {
+  // Reserved system folders (e.g. the news-archive mirror) are never companies — refuse to classify them
+  // even if hit directly, alongside the path-containment guard ('..' slips through TICKER_RE's dots).
+  if (isReservedDataFolder(ticker) || (dir !== DATA_DIR && !dir.startsWith(DATA_DIR + path.sep))) {
     const modules = Object.fromEntries(listModuleNames().map((m) => [m, { status: 'Insufficient' as Sufficiency, reasons: ['no data uploaded'], caps: [] }]))
     return { ticker, hasAnyData: false, fileCount: 0, files: [], recentByType: {}, modules, coverage: deriveCoverage([]), overallReady: false, dataDir: DATA_DIR, ts: Date.now() }
   }
@@ -603,7 +605,12 @@ export function listTickers(): { tickers: TickerSummary[]; emptyState: boolean; 
   try {
     names = fs.readdirSync(DATA_DIR).filter((n) => {
       try {
-        return !n.startsWith('.') && fs.statSync(path.join(DATA_DIR, n)).isDirectory()
+        // Only valid UPPERCASE tickers are companies. Hide non-ticker folder names (lowercase, spaces,
+        // too long) AND reserved system folders (the news-archive mirror) — so the picker lists only real
+        // companies. A genuinely mis-named company folder is no longer surfaced here (per product choice);
+        // it must be renamed in Drive to a valid symbol to appear.
+        if (n.startsWith('.') || isReservedDataFolder(n) || !isValidTicker(n)) return false
+        return fs.statSync(path.join(DATA_DIR, n)).isDirectory()
       } catch {
         return false
       }

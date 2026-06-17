@@ -8,9 +8,20 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { fmtStampLocal } from '../../lib/format'
 import { useStore } from '../../lib/store'
 import { heatOf, momentumOf, recentFlow, radiusFor, sparklinePoints, tierColorVar, tierLabel, orderLabel, THEME_WINDOWS, flowInWindow, windowSeries, heatInWindow, windowCoverage, windowLabel, type Theme, type ThemeCompany, type ThemeWindow, type WindowCoverage } from '../../lib/themes'
-import type { FeedItem } from '../../lib/types'
+import type { FeedItem, IntensityWindow } from '../../lib/types'
 
 const TIERS = ['all', 'hot', 'active', 'cooling', 'parked'] as const
+
+// The screener intensity time window — how far back the ThemeMap's central readout + lane mix look.
+// 'scan' keeps the live per-cycle readout; the rest pull a small server-side rollup over the window.
+const INTENSITY_WINDOWS: { id: IntensityWindow; label: string }[] = [
+  { id: 'scan', label: 'Scan' },
+  { id: '1h', label: '1h' },
+  { id: '4h', label: '4h' },
+  { id: 'day', label: 'Today' },
+  { id: '7d', label: '7d' },
+]
+const WINDOW_LABEL: Record<IntensityWindow, string> = { scan: 'this scan', '1h': 'last hour', '4h': 'last 4h', day: 'today', '7d': 'last 7 days' }
 
 // guard against empty / placeholder company guesses leaking into chips
 const real = <T extends { name?: string }>(cos: T[]): T[] => cos.filter((c) => c.name && !/^(null|undefined|n\/a)$/i.test(c.name.trim()))
@@ -25,6 +36,8 @@ export function ThemesView() {
   const setThemesView = useStore((s) => s.setThemesView)
   const setThemesWindow = useStore((s) => s.setThemesWindow)
   const selectTheme = useStore((s) => s.selectTheme)
+  const intensityWindow = useStore((s) => s.scIntensityWindow)
+  const setIntensityWindow = useStore((s) => s.setIntensityWindow)
   const [tier, setTier] = useState<(typeof TIERS)[number]>('all')
 
   // the active window (null = Live). When a window is set, themes are RE-RANKED + RE-SIZED by the news
@@ -68,6 +81,13 @@ export function ThemesView() {
               </button>
             ))}
           </div>
+          {view === 'map' && (
+            <div className="themes__window" role="radiogroup" aria-label="Intensity time window" title="How far back the intensity readout looks — Scan = the latest cycle">
+              {INTENSITY_WINDOWS.map((w) => (
+                <button key={w.id} type="button" role="radio" aria-checked={intensityWindow === w.id} className={`themes__wbtn${intensityWindow === w.id ? ' is-on' : ''}`} onClick={() => void setIntensityWindow(w.id)}>{w.label}</button>
+              ))}
+            </div>
+          )}
           <div className="themes__viewtoggle" role="radiogroup" aria-label="Map or board">
             <button type="button" role="radio" aria-checked={view === 'map'} className={`themes__vbtn${view === 'map' ? ' is-on' : ''}`} onClick={() => setThemesView('map')}>Map</button>
             <button type="button" role="radio" aria-checked={view === 'board'} className={`themes__vbtn${view === 'board' ? ' is-on' : ''}`} onClick={() => setThemesView('board')}>Board</button>
@@ -179,14 +199,22 @@ function ThemeMap({ themes, onPick, win, cov }: { themes: Theme[]; onPick: (id: 
   // sizing/labels AND the inbound dot distribution, so the lanes reflect REALITY (e.g. ~73% news, ~17%
   // filings), never a hardcoded guess. Empty tiers (e.g. rumour) drop out; real ones flow proportionally.
   const newsItems = useStore((s) => s.newsItems)
+  const scIntensity = useStore((s) => s.scIntensity)
+  const intensityWindow = useStore((s) => s.scIntensityWindow)
   const tierMix = useMemo(() => {
     const counts: Record<string, number> = {}
     for (const it of newsItems) { const t = (it.source_tier as string) || 'news'; counts[t] = (counts[t] || 0) + 1 }
     return counts
   }, [newsItems])
-  const tierMixRef = useRef(tierMix); tierMixRef.current = tierMix
+  // When a time window is chosen, the lane mix + central readout come from the server's windowed rollup
+  // (tiny aggregates) instead of the loaded newsItems — so a full day never needs thousands of rows here.
+  // only treat the rollup as "windowed" once the LOADED aggregate matches the selected window — otherwise a
+  // slow/failed fetch would render the previous window's totals + lane mix under the new label (mislabeled).
+  const windowed = intensityWindow !== 'scan' && !!scIntensity && scIntensity.window === intensityWindow
+  const effectiveTierMix = windowed ? (scIntensity!.byTier || {}) : tierMix
+  const tierMixRef = useRef(effectiveTierMix); tierMixRef.current = effectiveTierMix
 
-  const layout = useMemo(() => computeMapLayout(themes, box.w, box.h, tierMix, windowHours), [themes, box.w, box.h, tierMix, windowHours])
+  const layout = useMemo(() => computeMapLayout(themes, box.w, box.h, effectiveTierMix, windowHours), [themes, box.w, box.h, effectiveTierMix, windowHours])
   const hoveredRelated = useMemo(() => {
     if (!hover) return new Set<string>()
     const t = themes.find((x) => x.theme_id === hover)
@@ -418,7 +446,7 @@ function ThemeMap({ themes, onPick, win, cov }: { themes: Theme[]; onPick: (id: 
           <div key={l.id} className={`thememap__lane${laneFired[l.id] ? ' is-firing' : ''}`} style={{ left: l.x, top: l.y - 12 }} title={`${(l as any).count?.toLocaleString?.() || 0} of the last ${newsItems.length} reads${laneFired[l.id] ? ` · ${laneFired[l.id]} this scan` : ''}`}>
             {laneFired[l.id] ? <span key={laneFired[l.id]} className="thememap__lane-fire" aria-hidden /> : null}
             <span className="thememap__lane-label">{l.label}</span>
-            {(l as any).share > 0 && <span className="thememap__lane-share">{Math.max(1, Math.round((l as any).share * 100))}%{laneFired[l.id] ? ` · ${laneFired[l.id]}` : ''}</span>}
+            {(l as any).share > 0 && <span className="thememap__lane-share">{Math.max(1, Math.round((l as any).share * 100))}%{windowed ? ((l as any).count ? ` · ${((l as any).count as number).toLocaleString()}` : '') : (laneFired[l.id] ? ` · ${laneFired[l.id]}` : '')}</span>}
           </div>
         ))}
       </div>
@@ -428,11 +456,21 @@ function ThemeMap({ themes, onPick, win, cov }: { themes: Theme[]; onPick: (id: 
       <div className={`thememap__core${rate > 0 ? ' is-emitting' : ''}`} style={{ left: layout.core.x - layout.core.r, top: layout.core.y - layout.core.r, width: layout.core.r * 2, height: layout.core.r * 2, ['--rate' as any]: Math.min(1, rate / 4) }}>
         <span>Ranking</span>
       </div>
-      {rate > 0 && (
+      {windowed ? (
+        // windowed readout: the chosen window's total intake + scans + average rate, plus an hourly
+        // intensity histogram — a real sense of intensity over the window, from a tiny server aggregate.
+        // The flowing particles stay LIVE (driven by the latest cycle); the numbers describe the window.
+        <div className="thememap__rate thememap__rate--window" style={{ left: layout.core.x, top: layout.core.y + layout.core.r + 13, ['--rate' as any]: Math.min(1, rate / 4) }}>
+          <div className="thememap__rate-line">
+            <span className="thememap__rate-dot" aria-hidden /> {scIntensity!.totalFetched.toLocaleString()} {WINDOW_LABEL[intensityWindow]} · {scIntensity!.scans.toLocaleString()} scan{scIntensity!.scans === 1 ? '' : 's'} · {scIntensity!.ratePerSec >= 0.1 ? `~${scIntensity!.ratePerSec.toFixed(1)}/s avg` : '<0.1/s'}
+          </div>
+          {scIntensity!.hourly.length > 1 && <div className="thememap__hist"><Sparkline series={scIntensity!.hourly.map((h) => h.fetched)} w={156} h={22} /></div>}
+        </div>
+      ) : rate > 0 ? (
         <div className="thememap__rate" style={{ left: layout.core.x, top: layout.core.y + layout.core.r + 13, ['--rate' as any]: Math.min(1, rate / 4) }}>
           <span className="thememap__rate-dot" aria-hidden /> {Math.round(rate * Math.max(60, intervalMin * 60)).toLocaleString()} this scan · {rate >= 0.1 ? `~${rate.toFixed(1)}/s` : '<0.1/s'}
         </div>
-      )}
+      ) : null}
 
       {/* theme basins */}
       {layout.nodes.map((n) => {
