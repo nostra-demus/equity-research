@@ -187,12 +187,14 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     ? cfg.geminiModels.map((e) => ({ model: e.model, budget: Budget.load(stateDir, e.dailyReqCap, cfg.geminiDailyTokenCap, now().getTime(), `gemini-budget-${e.model.replace(/[^a-z0-9]+/gi, '-')}.json`, cfg.geminiDayTz) }))
     : []
   const geminiLimiter = geminiOn ? getSharedGeminiLimiter(cfg.geminiRpm, cfg.geminiTpm) : null
-  // OpenAI-compatible OVERFLOW registry (OpenRouter, NVIDIA, …) — each its own budget + per-minute limiter,
-  // tried in config order after Groq. Adding a provider is a config entry; this loop needs no change.
+  // OpenAI-compatible OVERFLOW registry (Cerebras, OpenRouter, NVIDIA, …) — each its own budget + per-minute
+  // limiter, tried in config order after Groq. Adding a provider is a config entry; this loop needs no change.
+  // A token-gated provider (Cerebras) sets dailyTokenCap + tpm so it paces on its BINDING limit (tokens); a
+  // request-gated one omits them → a non-binding 50M token cap + tpm 0 (request-spacing only), as before.
   const overflow = cfg.overflowProviders.map((p) => ({
     p,
-    budget: Budget.load(stateDir, p.dailyReqCap, 50_000_000, now().getTime(), p.budgetFile, p.dayTz),
-    limiter: getNamedLimiter(p.id, p.rpm, 0),
+    budget: Budget.load(stateDir, p.dailyReqCap, p.dailyTokenCap ?? 50_000_000, now().getTime(), p.budgetFile, p.dayTz),
+    limiter: getNamedLimiter(p.id, p.rpm, p.tpm ?? 0),
     requests: 0,
     tokens: 0,
     failed: false, // set when a call errors this cycle → skip it so the batch flows to the next provider
@@ -237,19 +239,25 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       if (!res.ok) groqDownThisCycle = true // Groq is having a bad cycle → skip it for the rest, save the cap
     }
     if (!res || !res.ok) {
-      const ovPick = overflow.find((o) => !o.failed && o.budget.canSpend(est)) // first overflow provider with daily room
-      if (ovPick) {
-        await ovPick.limiter.acquire(est, sleep, () => now().getTime())
-        res = await triageBatch(batch, { model: ovPick.p.model, models: ovPick.p.models, baseUrl: ovPick.p.baseUrl, apiKey: ovPick.p.apiKey, maxTokens: ovPick.p.maxTokens, headers: ovPick.p.headers, extraBody: ovPick.p.extraBody }, fetchFn, sleep)
-        ovPick.requests += res.requests
-        ovPick.tokens += res.tokens
-        ovPick.budget.record(res.requests, res.tokens)
-        if (!res.ok) {
-          ovPick.failed = true // skip this provider for the rest of the cycle so the batch can flow to the next
-          // a terminal 4xx (auth / out-of-credits / quota) won't recover today — exhaust its daily budget so it's
-          // skipped across cycles too (e.g. NVIDIA's finite credit pool running dry), until the daily reset.
-          if (/HTTP (400|401|402|403|404|413)/.test(res.note || '')) ovPick.budget.exhaust()
-        }
+      // Walk the overflow chain for THIS SAME batch: a failing/exhausted provider advances to the NEXT one
+      // in order, rather than stopping at the first pick. Without this, a one-batch backlog could trap on a
+      // dead first provider — its in-cycle `failed` flag resets on the next drain, so the rebuilt chain
+      // picks the same dead provider again and never reaches Mistral/OpenRouter (the drain just re-cycles
+      // news-deferred.json). The 4xx-exhaust below persists the skip across drains; this loop covers the
+      // non-terminal failures (429 / 5xx / network) that don't exhaust, by trying the rest in the same batch.
+      for (const ov of overflow) {
+        if (ov.failed || !ov.budget.canSpend(est)) continue // skip already-failed / out-of-budget providers
+        await ov.limiter.acquire(est, sleep, () => now().getTime())
+        res = await triageBatch(batch, { model: ov.p.model, models: ov.p.models, baseUrl: ov.p.baseUrl, apiKey: ov.p.apiKey, maxTokens: ov.p.maxTokens, headers: ov.p.headers, extraBody: ov.p.extraBody }, fetchFn, sleep)
+        ov.requests += res.requests
+        ov.tokens += res.tokens
+        ov.budget.record(res.requests, res.tokens)
+        if (res.ok) break // scored — stop walking the chain
+        ov.failed = true // skip this provider for the rest of the cycle so the batch can flow to the next
+        // a terminal 4xx (auth / out-of-credits / quota) won't recover today — exhaust its daily budget so it's
+        // skipped across cycles too (e.g. NVIDIA's finite credit pool running dry), until the daily reset.
+        if (/HTTP (400|401|402|403|404|413)/.test(res.note || '')) ov.budget.exhaust()
+        // not terminal (429 / 5xx / network): fall through to the NEXT overflow provider for this same batch
       }
     }
     if ((!res || !res.ok) && geminiOn) {

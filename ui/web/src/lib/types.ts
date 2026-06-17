@@ -196,7 +196,9 @@ export interface NewsStatus {
   budget: { requests: number; tokens: number; reqCap: number; tokenCap: number; tokenTarget?: number; paceCeiling?: number }
   // every free OVERFLOW pool (Gemini + each OpenAI-compatible provider) — one entry per provider; the
   // cockpit renders a chip per entry, so a newly-wired key appears automatically. color = a CSS var name.
-  overflow?: { id: string; label: string; color: string; model: string; requests: number; reqCap: number; tokens: number }[]
+  // tokenCap is present only for TOKEN-gated providers (Cerebras) — the chip then reads tokens (its
+  // binding limit) instead of requests, so the number shown is ground truth.
+  overflow?: { id: string; label: string; color: string; model: string; requests: number; reqCap: number; tokens: number; tokenCap?: number }[]
 }
 
 export interface ActiveRunLite {

@@ -14,6 +14,7 @@ import { coerceTriage, estimateTokens, scoreToBand, triageBatch } from '../src/n
 import { appendFeedItems, readFeed } from '../src/news/feed'
 import { mergeInbox } from '../src/news/write-inbox'
 import { runIngestCycle } from '../src/news/runCycle'
+import { buildOverflowProviders } from '../src/config'
 import type { FeedItem, RawArticle, TriagedItem } from '../src/news/types'
 
 let passed = 0
@@ -380,7 +381,7 @@ await check('triage falls back to OVERFLOW when Groq fails — the batch is scor
     const u = String(url)
     if (u.includes('groq')) return res('upstream sad', 503) // Groq DOWN all cycle
     if (u.includes('overflow.test')) { ovHits++; return res(goodTriage) } // overflow UP
-    if (u.includes('reuters.com') && !gdeltServed) { gdeltServed = true; return res({ articles: [{ url: 'https://reuters.com/ov', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] }) }
+    if (u.includes('gdelt') && !gdeltServed) { gdeltServed = true; return res({ articles: [{ url: 'https://reuters.com/ov', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] }) }
     return res({ articles: [] })
   }) as unknown as typeof fetch
   const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false,
@@ -390,6 +391,121 @@ await check('triage falls back to OVERFLOW when Groq fails — the batch is scor
   assert.ok(ovHits >= 1, 'overflow provider was tried after Groq failed')
   assert.equal(s.picked, 1, 'the item was SCORED via overflow, not deferred')
   assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 0, 'nothing deferred — overflow handled it')
+})
+
+// ---- a token-gated overflow provider (Cerebras) paces on its daily TOKEN cap, not just requests ----
+await check('overflow paces on the daily TOKEN cap, not just requests (token-gated free tier like Cerebras)', async () => {
+  const root = tmp()
+  const state = tmp()
+  // each scored item is a clear 'pick'; every overflow call reports 600 tokens of usage
+  const goodTriage = { usage: { total_tokens: 600 }, choices: [{ message: { content: JSON.stringify({ items: [
+    { i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'A rate move shifts funding costs.', companies: [], size_bucket: 'unknown' },
+  ] }) } }] }
+  let gdeltServed = false
+  let cbHits = 0
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('groq')) return res('upstream sad', 503) // Groq DOWN all cycle → everything routes to overflow
+    if (u.includes('cerebras.test')) { cbHits++; return res(goodTriage) } // token-gated overflow, 600 tok/call
+    if (u.includes('gdelt') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: [
+        { url: 'https://reuters.com/a', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' },
+        { url: 'https://reuters.com/b', title: 'Fed signals one more hike as inflation proves sticky', domain: 'reuters.com', seendate: '20260612T090100Z' },
+      ] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  // dailyReqCap is huge (would NOT bind), but dailyTokenCap (900) fits only ONE 600-token call: the 2nd item's
+  // canSpend(est≈595) sees 600 already spent (600+595>900) and is gated BEFORE any call. A request-only cap
+  // (the prior hardcoded 50M) would have scored both — so this proves runCycle honors p.dailyTokenCap.
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, triageBatch: 1,
+    overflowProviders: [{ id: 'cerebras', label: 'Cerebras', color: '--provider-cb', kind: 'openai', apiKey: 'k', baseUrl: 'https://cerebras.test/v1', model: 'llama-3.3-70b', maxTokens: 2500, rpm: 6000, tpm: 55_000, dailyReqCap: 14_400, dailyTokenCap: 900, budgetFile: 'cerebras-budget.json', limiter: 'cerebras' }] } as any
+  const now = () => new Date('2026-06-12T09:30:00Z')
+  const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  assert.equal(cbHits, 1, 'only ONE overflow call fit under the daily token cap (the 2nd was gated before any call)')
+  assert.equal(s.picked, 1, 'exactly one item scored before the token cap bit')
+  assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 1, 'the 2nd item deferred on the TOKEN cap — a request-only cap would not have stopped it')
+})
+
+// ---- the overflow CHAIN: a failed/exhausted first provider falls through to the next (Cerebras → Mistral) ----
+await check('the overflow chain falls through to the NEXT provider when the first is exhausted (Cerebras → Mistral)', async () => {
+  const root = tmp()
+  const state = tmp()
+  const goodTriage = { usage: { total_tokens: 200 }, choices: [{ message: { content: JSON.stringify({ items: [
+    { i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'A rate move shifts funding costs.', companies: [], size_bucket: 'unknown' },
+  ] }) } }] }
+  let gdeltServed = false
+  let cbHits = 0
+  let mlHits = 0
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('groq')) return res('upstream sad', 503) // Groq down all cycle → route to the overflow chain
+    if (u.includes('cerebras.test')) { cbHits++; return res('unauthorized', 401) } // 1st overflow: auth-fail → exhausted + skipped
+    if (u.includes('mistral.test')) { mlHits++; return res(goodTriage) } // 2nd overflow: picks up the batch
+    if (u.includes('gdelt') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: [
+        { url: 'https://reuters.com/a', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' },
+        { url: 'https://reuters.com/b', title: 'Fed signals one more hike as inflation proves sticky', domain: 'reuters.com', seendate: '20260612T090100Z' },
+      ] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  // two overflow providers in order: a token-gated one (Cerebras) that 401s, then a request-gated one
+  // (Mistral). The chain must not stall at the dead first provider — the batch flows to the next that's up.
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, triageBatch: 1,
+    overflowProviders: [
+      { id: 'cerebras', label: 'Cerebras', color: '--provider-cb', kind: 'openai', apiKey: 'k', baseUrl: 'https://cerebras.test/v1', model: 'm', maxTokens: 900, rpm: 6000, tpm: 55_000, dailyReqCap: 14_400, dailyTokenCap: 900_000, budgetFile: 'cerebras-budget.json', limiter: 'cerebras' },
+      { id: 'mistral', label: 'Mistral', color: '--provider-ml', kind: 'openai', apiKey: 'k', baseUrl: 'https://mistral.test/v1', model: 'm', maxTokens: 900, rpm: 6000, dailyReqCap: 2000, budgetFile: 'mistral-budget.json', limiter: 'mistral' },
+    ] } as any
+  const now = () => new Date('2026-06-12T09:30:00Z')
+  const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  assert.ok(cbHits >= 1, 'the first overflow provider (Cerebras) was tried')
+  assert.ok(mlHits >= 1, 'the chain fell through to the SECOND overflow provider (Mistral) after the first was exhausted')
+  // BOTH items score: the chain advances to Mistral for the SAME batch the moment Cerebras fails, so the
+  // first batch is no longer lost to defer (the old find()-only code deferred batch 0 and only scored
+  // batch 1 once Cerebras was marked failed — that one-batch loss was the retry-trap codex flagged).
+  assert.equal(s.picked, 2, 'every batch flowed to Mistral the same cycle — nothing lost to the dead first provider')
+  assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 0, 'nothing deferred — the chain advanced past the dead first provider for every batch')
+})
+
+// ---- overflow chain advances on a NON-TERMINAL first-provider failure (503) WITHIN the same batch ----
+// Guards the cross-drain retry-trap: a 503/429/network failure does NOT exhaust the provider's daily budget
+// (only a 4xx does), so the next drain rebuilds the chain with it un-failed. If the chain only tried the
+// first provider per batch, a one-batch backlog would re-pick the dead first provider every drain and never
+// reach the second. The chain must advance to the next provider in the SAME batch on a non-terminal failure.
+await check('the overflow chain advances to the next provider on a NON-terminal (503) first-provider failure', async () => {
+  const root = tmp()
+  const state = tmp()
+  const goodTriage = { usage: { total_tokens: 200 }, choices: [{ message: { content: JSON.stringify({ items: [
+    { i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'A rate move shifts funding costs.', companies: [], size_bucket: 'unknown' },
+  ] }) } }] }
+  let gdeltServed = false
+  let cbHits = 0
+  let mlHits = 0
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('groq')) return res('upstream sad', 503) // Groq down all cycle → route to the overflow chain
+    if (u.includes('cerebras.test')) { cbHits++; return res('busy', 503) } // 1st overflow: NON-terminal fail (no budget exhaust)
+    if (u.includes('mistral.test')) { mlHits++; return res(goodTriage) } // 2nd overflow: picks up the batch in the SAME cycle
+    if (u.includes('gdelt') && !gdeltServed) {
+      gdeltServed = true
+      return res({ articles: [{ url: 'https://reuters.com/a', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, triageBatch: 1,
+    overflowProviders: [
+      { id: 'cerebras', label: 'Cerebras', color: '--provider-cb', kind: 'openai', apiKey: 'k', baseUrl: 'https://cerebras.test/v1', model: 'm', maxTokens: 900, rpm: 6000, tpm: 55_000, dailyReqCap: 14_400, dailyTokenCap: 900_000, budgetFile: 'cerebras-budget.json', limiter: 'cerebras' },
+      { id: 'mistral', label: 'Mistral', color: '--provider-ml', kind: 'openai', apiKey: 'k', baseUrl: 'https://mistral.test/v1', model: 'm', maxTokens: 900, rpm: 6000, dailyReqCap: 2000, budgetFile: 'mistral-budget.json', limiter: 'mistral' },
+    ] } as any
+  const now = () => new Date('2026-06-12T09:30:00Z')
+  const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  assert.ok(cbHits >= 1, 'the first overflow provider (Cerebras) was tried')
+  assert.ok(mlHits >= 1, 'the chain advanced to Mistral in the SAME batch after Cerebras 503 — not deferred to re-trap next drain')
+  assert.equal(s.picked, 1, 'the item was scored via the second provider, not lost to the dead first provider')
+  assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 0, 'nothing deferred — the chain advanced past the 503')
 })
 
 await check('a failed Groq batch is DEFERRED (not zero-scored-and-seen) and is scored on the next cycle from spillover', async () => {
@@ -406,7 +522,7 @@ await check('a failed Groq batch is DEFERRED (not zero-scored-and-seen) and is s
   const fetchFn = (async (url: string) => {
     const u = String(url)
     if (u.includes('groq')) return groqUp ? res(goodGroq) : res('upstream sad', 503)
-    if (u.includes('reuters.com') && !gdeltServed) {
+    if (u.includes('gdelt') && !gdeltServed) {
       gdeltServed = true // GDELT hands the article over ONCE — cycle 2 must rely on the spillover
       return res({ articles: [{ url: 'https://reuters.com/once', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
     }
@@ -455,6 +571,28 @@ await check('mergeInbox: dismissed rows are preserved like consumed (never evict
   const live = after.rows.filter((r: any) => !r.dismissed && !r.consumed)
   assert.equal(live.length, 1) // the cap applies only to the live pool
   assert.deepEqual(m2.event_types, ['mna']) // theme fields persisted on rows
+})
+
+// ---- Cerebras overflow config: lock the verified-live defaults so a retired/broken model can't sneak back ----
+await check('Cerebras overflow defaults are the verified-live values (model + reasoning_effort + caps under the free-tier ceilings)', () => {
+  const prev = process.env.CEREBRAS_API_KEY
+  process.env.CEREBRAS_API_KEY = 'k'
+  try {
+    const cb = buildOverflowProviders().find((p) => p.id === 'cerebras')
+    assert.ok(cb, 'Cerebras provider materializes when the key is present')
+    // the retired llama-3.3-70b must NEVER be the default again; gpt-oss-120b is verified-live working
+    assert.equal(cb!.model, 'gpt-oss-120b', 'default model is the current working one, not the retired llama-3.3-70b')
+    // gpt-oss-120b is a reasoning model — reasoning_effort:low keeps thinking from burning the output budget → truncated JSON
+    assert.equal((cb!.extraBody as Record<string, unknown> | undefined)?.reasoning_effort, 'low', 'reasoning_effort=low so content stays whole JSON')
+    // every cap paces UNDER the live-verified free-tier ceilings (5 rpm / 30k tpm / 1M tok-day / 2400 req-day)
+    assert.ok(cb!.rpm <= 5, 'rpm under the 5 req/min ceiling')
+    assert.ok((cb!.tpm ?? 0) > 0 && (cb!.tpm ?? 0) <= 30_000, 'tpm set and under the 30k tokens/min ceiling')
+    assert.ok((cb!.dailyTokenCap ?? 0) > 0 && (cb!.dailyTokenCap ?? 0) <= 1_000_000, 'daily token cap set and under 1M')
+    assert.ok(cb!.dailyReqCap <= 2_400, 'daily request backstop under the 2400 req/day ceiling')
+  } finally {
+    if (prev === undefined) delete process.env.CEREBRAS_API_KEY
+    else process.env.CEREBRAS_API_KEY = prev
+  }
 })
 
 console.log(`\n${passed} checks passed`)
