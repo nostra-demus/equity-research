@@ -134,10 +134,17 @@ export function LiveFeed() {
   const listRef = useRef<HTMLDivElement | null>(null)
   const sentinelRef = useRef<HTMLDivElement | null>(null)
   const [shownCount, setShownCount] = useState(PAGE)
-  useEffect(() => {
+  // Reset to the first page DURING render whenever the filter set or look-back window changes — NOT in a
+  // post-render effect. Otherwise the first render after a filter toggle still slices the old (large)
+  // shownCount over the NEW filtered set, mapping thousands of rows before snapping back to PAGE — the
+  // exact slow filter-click this incremental view exists to avoid. `items` is deliberately excluded so a
+  // live SSE append never yanks the scroll back to the top.
+  const [pagedFor, setPagedFor] = useState<{ f: FeedFilterState; w: number }>({ f: filters, w: feedWindowDays })
+  if (pagedFor.f !== filters || pagedFor.w !== feedWindowDays) {
+    setPagedFor({ f: filters, w: feedWindowDays })
     setShownCount(PAGE)
-    listRef.current?.scrollTo?.({ top: 0 })
-  }, [filters, feedWindowDays])
+  }
+  useEffect(() => { listRef.current?.scrollTo?.({ top: 0 }) }, [filters, feedWindowDays])
   const shown = useMemo(() => visibleGroups.slice(0, shownCount), [visibleGroups, shownCount])
   const hasMore = shownCount < visibleGroups.length
   useEffect(() => {
@@ -223,9 +230,13 @@ export function LiveFeed() {
       <div className="wire__list" ref={listRef}>
         {shown.map((g, i) => {
           // a sticky date divider whenever the calendar day changes — so a list that only shows HH:MM
-          // stays legible across a 14-day (or longer) window as you scroll
-          const showDay = i === 0 || dayKeyLocal(g.rep.ts) !== dayKeyLocal(shown[i - 1].rep.ts)
-          const dayLabel = showDay ? dayDividerLabel(g.rep.ts) : ''
+          // stays legible across a 14-day (or longer) window as you scroll. Date by the group's NEWEST
+          // member (members[0] is newest-first) — that's what sets its scroll position; g.rep is the
+          // highest-tier source, which can be older and would mis-date a story that spans midnight.
+          const gTs = g.members[0]?.ts ?? g.rep.ts
+          const prevTs = i > 0 ? (shown[i - 1].members[0]?.ts ?? shown[i - 1].rep.ts) : ''
+          const showDay = i === 0 || dayKeyLocal(gTs) !== dayKeyLocal(prevTs)
+          const dayLabel = showDay ? dayDividerLabel(gTs) : ''
           return (
             <Fragment key={g.group}>
               {dayLabel && (
