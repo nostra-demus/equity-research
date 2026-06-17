@@ -1880,15 +1880,7 @@ a { color: inherit; }
 }
 .datafiles__add:hover { background: var(--surface-3); color: var(--accent-bright); border-color: var(--accent); }
 
-/* ---- screener intensity time-window selector + windowed readout (Change D) ---- */
-.themes__window { display: inline-flex; gap: 2px; padding: 2px; border-radius: var(--r-sm); background: var(--surface-2); border: 1px solid var(--hairline); }
-.themes__wbtn {
-  appearance: none; cursor: pointer; font: inherit; font-size: 11px; font-weight: 600;
-  padding: 3px 8px; border-radius: var(--r-sm); border: none; background: transparent;
-  color: var(--text-faint); letter-spacing: 0.02em;
-}
-.themes__wbtn:hover { color: var(--text-muted); }
-.themes__wbtn.is-on { background: var(--accent-wash); color: var(--accent-bright); }
+/* ---- ThemeMap windowed intensity readout (driven by the single "When" ribbon — no separate picker) ---- */
 .thememap__rate--window { flex-direction: column; align-items: center; gap: 4px; }
 .thememap__rate-line { display: inline-flex; align-items: center; gap: 5px; }
 .thememap__hist { opacity: 0.85; }
