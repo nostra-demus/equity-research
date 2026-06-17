@@ -6,18 +6,21 @@ import { execFileSync } from 'node:child_process'
 import chokidar from 'chokidar'
 import cors from '@fastify/cors'
 import rateLimit from '@fastify/rate-limit'
+import multipart from '@fastify/multipart'
 import { execa } from 'execa'
 import Fastify, { type FastifyReply, type FastifyRequest } from 'fastify'
 import { z } from 'zod'
 import { readActivity } from './activity-log'
 import { recordDataChange } from './data-activity'
 import { buildReportHtml, parseMeta, safeName } from './export'
-import { ARTICLE_READ_PROVIDERS, DATA_DIR, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, WEB_DIST } from './config'
+import { ARTICLE_READ_PROVIDERS, DATA_DIR, GDRIVE, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, WEB_DIST, isReservedDataFolder } from './config'
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
+import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED } from './drive'
 import { cancel, cancelAll, creditCheck, decideReadiness, estimate, launch } from './launcher'
 import { newsBus } from './news/bus'
 import { readFeed } from './news/feed'
+import { getIntensity, INTENSITY_WINDOWS, type IntensityWindow } from './news/intensity'
 import { buildSourcesReport } from './news/source-health'
 import { readThemesIndex, loadTheme, buildThemeDetail } from './news/themes/store'
 import { enrichEvent } from './news/enrich'
@@ -32,7 +35,7 @@ import { dataPoolPresent, readCandidates, readConviction, readConvictionCalibrat
 import { listSwarms } from './swarms'
 import { getNewsStatus, startNewsIngester } from './news/scheduler'
 import { startConvictionLoop } from './conviction-dispatch'
-import { AGENT_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE } from './sandbox'
+import { AGENT_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE, isValidTicker, validateNewTicker, sanitizeUploadFilename } from './sandbox'
 import type { RunKind } from './types'
 
 const app = Fastify({ logger: false })
@@ -68,6 +71,11 @@ await app.register(cors, { origin: CORS_ALLOWED_ORIGINS })
 // the global onRequest hook covers every one of them. (Clears CodeQL js/missing-rate-limiting.)
 await app.register(rateLimit, { max: 1000, timeWindow: '1 minute' })
 
+// In-app document uploads stream through @fastify/multipart (it registers its OWN multipart/form-data
+// parser — the custom application/json parser above is untouched). Per-file size + per-request file-count
+// caps come from GDRIVE config; the upload route additionally validates + sanitizes every filename.
+await app.register(multipart, { limits: { fileSize: GDRIVE.uploadMaxBytes, files: GDRIVE.uploadMaxFiles } })
+
 // ---------- identity (who is acting) ----------
 // The engine sits behind Cloudflare Access (the public tunnel route enforces login), which injects the
 // authenticated email on every forwarded request. The origin binds to 127.0.0.1, reachable only via the
@@ -77,6 +85,18 @@ function identify(req: FastifyRequest): { user: string; userVia: 'cf-access' | '
   const email = Array.isArray(raw) ? raw[0] : raw
   if (typeof email === 'string' && email.trim()) return { user: email.trim().toLowerCase(), userVia: 'cf-access' }
   return { user: 'local', userVia: 'local' }
+}
+
+// CSRF guard for non-preflighted writes. multipart/form-data is a CORS "simple request" (no preflight),
+// so a hostile cross-origin page could POST one carrying the operator's Access cookie and write to Drive
+// (CORS only blocks reading the response, not the write). Reject when an Origin header is present and not
+// on the CORS allow-list. A MISSING Origin = same-origin browser request or a non-browser client (curl,
+// which doesn't carry the victim's cookie) → allowed; the CSRF vector always sends Origin cross-origin.
+function originAllowed(req: FastifyRequest): boolean {
+  const raw = req.headers.origin
+  const origin = Array.isArray(raw) ? raw[0] : raw
+  if (!origin) return true
+  return CORS_ALLOWED_ORIGINS.some((o) => (o instanceof RegExp ? o.test(origin) : o === origin))
 }
 
 // ---------- SSE helper ----------
@@ -134,7 +154,72 @@ app.get('/api/swarm', async (req, reply) => {
 })
 
 // ---------- tickers ----------
-app.get('/api/tickers', async () => listTickers())
+// driveEnabled tells the cockpit whether the in-app add-company / upload UI can work (a Drive
+// destination folder + a credential are both configured); the UI hides those controls otherwise.
+// explicit per-route rate-limit (same budget as the global cap) so CodeQL recognizes the limiter on this
+// filesystem-reading handler (js/missing-rate-limiting); the global @fastify/rate-limit still applies too.
+app.get('/api/tickers', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async () => ({ ...listTickers(), driveEnabled: GDRIVE_ENABLED }))
+
+// Add a company = create a <TICKER> folder in the shared Drive (the cloud twin of local data/). The
+// engine keeps reading the local mount, so the new company surfaces in the picker once Drive syncs the
+// folder back down (a few seconds). Validation reuses the exact ticker rules + reserved-name guard.
+app.post('/api/tickers', async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  if (!GDRIVE_ENABLED) return reply.code(400).send({ error: 'Drive uploads are not configured on this server' })
+  const parsed = z.object({ ticker: z.string() }).safeParse(req.body)
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  const v = validateNewTicker(parsed.data.ticker)
+  if (!v.ok) return reply.code(400).send({ error: v.reason, suggested: v.suggested })
+  const { ticker } = v
+  const { user, userVia } = identify(req)
+  try {
+    if (await companyFolderExists(ticker)) return reply.code(409).send({ error: `${ticker} already exists` })
+    await ensureCompanyFolder(ticker)
+    console.log(`[upload] ${user} (${userVia}) created company ${ticker} in Drive`)
+    return { ok: true, ticker }
+  } catch (e: any) {
+    return reply.code(502).send({ error: driveErrorMessage(e) })
+  }
+})
+
+// Upload one or more documents into a company's Drive folder (multipart). Each file is sanitized
+// (path-stripped, dotfiles/oversized/unsupported rejected) and streamed straight to Drive; rejected
+// files are skipped and reported, never written. Returns per-file results (HTTP 200 when well-formed).
+app.post('/api/tickers/:ticker/files', async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  if (!GDRIVE_ENABLED) return reply.code(400).send({ error: 'Drive uploads are not configured on this server' })
+  const ticker = (req.params as any).ticker as string
+  if (!isValidTicker(ticker) || isReservedDataFolder(ticker)) return reply.code(400).send({ error: 'bad ticker' })
+  const { user, userVia } = identify(req)
+  const written: string[] = []
+  const errors: { filename: string; reason: string }[] = []
+  try {
+    for await (const part of req.parts()) {
+      if (part.type !== 'file') continue
+      const raw = part.filename || ''
+      const safe = sanitizeUploadFilename(raw)
+      if (!safe.ok) { part.file.resume(); errors.push({ filename: raw || '(unnamed)', reason: safe.reason }); continue }
+      try {
+        const up = await uploadToCompany(ticker, safe.name, part.mimetype, part.file)
+        if (part.file.truncated) {
+          // exceeded the per-file size limit mid-stream — remove the partial Drive file we just wrote
+          await deleteDriveFile(up.id)
+          errors.push({ filename: safe.name, reason: `file exceeds the ${Math.round(GDRIVE.uploadMaxBytes / (1024 * 1024))} MB limit` })
+        } else {
+          written.push(up.name)
+        }
+      } catch (e: any) {
+        part.file.resume()
+        errors.push({ filename: safe.name, reason: driveErrorMessage(e) })
+      }
+    }
+  } catch (e: any) {
+    // a multipart-level failure (too many files, malformed body) — return what landed plus the reason
+    return reply.code(400).send({ error: e?.message || 'upload failed', written, errors })
+  }
+  console.log(`[upload] ${user} (${userVia}) uploaded ${written.length} file(s) to ${ticker} (${errors.length} skipped)`)
+  return { ok: true, written, errors }
+})
 
 // ---------- data status ----------
 app.get('/api/data-status/:ticker', async (req, reply) => {
@@ -595,6 +680,15 @@ app.post('/api/screener/handoff', async (req, reply) => {
 
 // Scanner status for the cockpit's auto-scan chip: on/off, last/next cycle, today's counts.
 app.get('/api/news/status', async () => getNewsStatus())
+
+// Time-windowed intake intensity for the screener ThemeMap. Returns small AGGREGATES only (per-tier
+// counts + totals + a ≤48-point hourly histogram) over the chosen window (last scan … full day … 7d),
+// so the map can show a real sense of intensity without the browser ever loading thousands of raw items.
+app.get('/api/screener/intensity', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const w = (req.query as any)?.window as string | undefined
+  if (w && !(INTENSITY_WINDOWS as string[]).includes(w)) return reply.code(400).send({ error: `unknown window ${w}` })
+  return getIntensity((w as IntensityWindow) || 'day')
+})
 
 // Per-source health for the Sources panel: every wired feed + adapter, when its data last arrived, and
 // whether it's healthy / quiet / failing / idle (fetch outcome + firehose recency). Read-only, never throws.

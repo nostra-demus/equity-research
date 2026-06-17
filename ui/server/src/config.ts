@@ -413,3 +413,57 @@ export function buildArticleReadProviders(cfg: typeof NEWS = NEWS): ArticleReadP
 
 // Built once at startup from the present keys; consumed by the /api/news/enrich route.
 export const ARTICLE_READ_PROVIDERS: ArticleReadProvider[] = buildArticleReadProviders()
+
+// ---- reserved (non-company) folders under data/ ----
+// Folders under data/ that are NOT companies — never list or treat them as tickers (case-insensitive).
+// 'news-archive' is the news-ingester's Drive mirror; BOTH its raw and uppercased ("renamed") forms are
+// reserved, so the cockpit's rename hint can never turn the mirror into a fake valid ticker. And if
+// NEWS_ARCHIVE_DIR resolves to a folder that lives INSIDE data/, that folder's basename is reserved too
+// — derived from config, never a second hardcoded name (§26). Pure + injectable so it unit-tests without
+// touching the real mount.
+export const RESERVED_DATA_FOLDERS = new Set(['news-archive', 'NEWS-ARCHIVE'])
+
+export function isReservedDataFolder(name: string, dataDir: string = DATA_DIR, archiveDir: string = NEWS.newsArchiveDir): boolean {
+  const lower = name.toLowerCase()
+  for (const r of RESERVED_DATA_FOLDERS) if (r.toLowerCase() === lower) return true
+  if (archiveDir) {
+    try {
+      // reuse analyzeTicker's containment idiom: only reserve the archive's basename when it really
+      // resolves INSIDE data/ (NEWS_ARCHIVE_DIR is usually a SEPARATE Drive mount, so this is normally a no-op)
+      const real = fs.realpathSync(path.resolve(archiveDir))
+      const baseReal = fs.realpathSync(dataDir)
+      if ((real === baseReal || real.startsWith(baseReal + path.sep)) && path.basename(real).toLowerCase() === lower) return true
+    } catch { /* archive dir missing / unreadable / not under data — ignore */ }
+  }
+  return false
+}
+
+// ---- in-app uploads to the shared Google Drive folder ----
+// Users drag-drop documents in the cockpit; the server uploads each into the <TICKER> sub-folder of the
+// shared Drive folder using ONE app credential (a service account, or one connected account's OAuth refresh
+// token) — no per-user sign-in. The engine keeps READING the local Drive-for-Desktop mount; uploaded files
+// appear in the cockpit once Drive syncs them back down. Uploads are OFF (UI hidden) unless a destination
+// folder id AND a credential are both present.
+export const GDRIVE = {
+  // the Drive folder whose children are the per-company <TICKER> folders — the cloud twin of local data/.
+  dataFolderId: process.env.GDRIVE_DATA_FOLDER_ID || '',
+  // service-account credentials: a path to the JSON key file, or the JSON inline.
+  saKeyFile: process.env.GOOGLE_APPLICATION_CREDENTIALS || '',
+  saJson: process.env.GDRIVE_SA_JSON || '',
+  // OR a connected Google account's OAuth (files owned by that account; counts against ITS Drive quota).
+  oauthClientId: process.env.GDRIVE_OAUTH_CLIENT_ID || '',
+  oauthClientSecret: process.env.GDRIVE_OAUTH_CLIENT_SECRET || '',
+  oauthRefreshToken: process.env.GDRIVE_OAUTH_REFRESH_TOKEN || '',
+  // the Shared Drive id the folder lives in. STRONGLY recommended with a service account: an SA has NO
+  // personal storage quota, so writing into a plain My Drive folder fails — but it CAN write to a Shared
+  // Drive it's a member of (files are owned by the Shared Drive). Leave empty ONLY when using an OAuth
+  // refresh token for a real account.
+  sharedDriveId: process.env.GDRIVE_SHARED_DRIVE_ID || '',
+  uploadMaxBytes: capNum(process.env.ENGINE_UPLOAD_MAX_BYTES, 40 * 1024 * 1024), // 40 MB per file
+  uploadMaxFiles: capNum(process.env.ENGINE_UPLOAD_MAX_FILES, 20), // files per upload request
+}
+// Uploads are available iff we know WHERE to write AND have SOME credential to write with.
+export const GDRIVE_ENABLED = Boolean(
+  GDRIVE.dataFolderId &&
+    (GDRIVE.saKeyFile || GDRIVE.saJson || (GDRIVE.oauthClientId && GDRIVE.oauthClientSecret && GDRIVE.oauthRefreshToken)),
+)
