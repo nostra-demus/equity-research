@@ -10,6 +10,7 @@ import { startRunWatcher, sweepRunOutputs } from './fs-watcher'
 import { createRun, emit, finishRun, getRun, IN_FLIGHT_STATUSES, listRuns, setActiveSubjectRun, type ExpectedAgent, type RunState } from './registry'
 import { resolveRunRoot } from './outputs'
 import { runReadiness } from './readiness'
+import { providerEnvKeys } from './load-env'
 import { buildSwarmGraph, downstreamCascade } from './roster'
 import { swarmById } from './swarms'
 import { finalPaths, handleStreamLine } from './stream-parser'
@@ -777,6 +778,17 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
 // Spawn the engine CLI for an admitted, gate-cleared run and wire its lifecycle. Extracted from launch()
 // so the readiness gate can defer the spawn (until the user proceeds) without duplicating this logic.
 // onClose delegates to finalizeRunOnClose — the single endedAt-gated finalizer (PR12 review).
+// Build the child env for a spawned engine run: the full server env MINUS the news-ingester provider
+// secrets that load-env injected from providers.env (Groq/Cerebras/Mistral/OpenRouter/NVIDIA/Gemini). A
+// research/screener run is a Claude (Anthropic) process and never needs them; handing them to every child
+// widens secret exposure and lets a run spend news quotas. ANTHROPIC_API_KEY is kept (the CLI's own auth);
+// keys set in the REAL environment (launchd/shell) are not in providerEnvKeys, so they pass through.
+function childEnv(): NodeJS.ProcessEnv {
+  const e: NodeJS.ProcessEnv = { ...process.env }
+  for (const k of providerEnvKeys) if (k !== 'ANTHROPIC_API_KEY') delete e[k]
+  return e
+}
+
 async function spawnEngine(run: RunState): Promise<void> {
   const args = await buildArgs(run.prompt, run.kind, run.model)
   if (run.cancelRequested) {
@@ -792,7 +804,7 @@ async function spawnEngine(run: RunState): Promise<void> {
   try {
     child = execa(CLAUDE_BIN, args, {
       cwd: REPO_ROOT,
-      env: process.env,
+      env: childEnv(), // news-provider secrets scrubbed — see childEnv()
       stdin: 'ignore',
       stdout: 'pipe',
       stderr: 'pipe',

@@ -81,6 +81,8 @@ Bargaining power bands:
 
 One paragraph. Does the company pass input cost increases to customers? With what lag? Are there contractual pass-throughs (escalators, indexed pricing)?
 
+**Supplier / input concentration (quantify).** Beyond pass-through, size the supply-side dependency — the share of COGS or purchases from the largest supplier and the top 3 (where disclosed), any single-source / sole-source inputs or key components, and concentration in a critical raw material. Flag a single supplier or input that is a *material* dependency: this is the supply-side parallel to customer concentration, and a material single-source dependency is itself a bargaining risk to carry into §5. Where the disclosure does not quantify it, say so — do not invent a percentage.
+
 ## 3. Customer Pricing Power
 
 One paragraph. Can the company raise prices without losing volume? Cite any explicit pricing actions in the last 24 months and the volume reaction.

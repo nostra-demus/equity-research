@@ -3,11 +3,12 @@ data
 .DS_Store
 **/.DS_Store
 
-# Engine GitHub App identity secrets (§28) — the real ones live in
-# ~/.config/nostra-engine (outside the repo); this is a guard so a stray copy of a
-# private key or the App env can never be committed by accident.
+# Engine secrets (§28) — GitHub App identity AND LLM provider API keys. The real ones live in
+# ~/.config/nostra-engine (outside the repo, loaded by src/load-env.ts); these are guards so a stray
+# copy of a private key, the App env, or a provider-keys file can never be committed by accident.
 *.pem
 github-app.env
+providers.env
 .token-cache
 nostra-engine/
 

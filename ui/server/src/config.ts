@@ -1,3 +1,4 @@
+import './load-env' // FIRST: load provider keys from the out-of-repo secret dir before any process.env read below
 import fs from 'node:fs'
 import os from 'node:os'
 import { fileURLToPath } from 'node:url'
@@ -100,6 +101,11 @@ export interface OverflowProvider {
   models?: string[] // optional fallback chain (OpenRouter only; OpenAI standard ignores it)
   dailyReqCap: number
   rpm: number
+  // Token-gated free tiers (e.g. Cerebras: ~1M tokens/DAY, ~60k tokens/min) bind on TOKENS, not requests —
+  // set these to pace on the BINDING limit: tpm feeds the per-minute limiter, dailyTokenCap the daily budget.
+  // Request-gated providers (OpenRouter/NVIDIA) omit them → tpm 0 + a non-binding token cap (prior behaviour).
+  tpm?: number
+  dailyTokenCap?: number
   maxTokens: number
   extraBody?: Record<string, unknown> // provider-specific body fields (e.g. OpenRouter reasoning effort)
   headers?: Record<string, string> // provider-specific headers (e.g. OpenRouter ranking)
@@ -109,8 +115,54 @@ export interface OverflowProvider {
 
 // Build the overflow chain from whatever keys are present. ONLY OpenAI-compatible providers belong here
 // (Gemini is separate — it uses generateContent, not chat/completions). Order = priority (best first).
-function buildOverflowProviders(): OverflowProvider[] {
+export function buildOverflowProviders(): OverflowProvider[] {
   const out: OverflowProvider[] = []
+  // Cerebras Inference — placed FIRST: the biggest + fastest free pool here, token-gated. OpenAI-compatible
+  // (/chat/completions). Secret lives in env (out-of-repo providers.env via load-env, never committed).
+  // Free-Trial limits VERIFIED LIVE against a real key (2026-06-17): 5 req/min, 30k tokens/min, 150 req/hr,
+  // 1M tokens/day, 2400 req/day (whichever binds first). The defaults pace UNDER each and are overridable
+  // UPWARD (NEWS_CEREBRAS_RPM/TPM/…) on a paid Pay-as-you-go key. For typical triage (~1.6k tok/call) the
+  // 1M-tokens/day cap binds first, as intended.
+  // MODEL: the only current Cerebras models are REASONING models — `llama-3.3-70b` is RETIRED. We use
+  // `gpt-oss-120b`, verified live to (a) return its thinking in a SEPARATE `reasoning` field so `content`
+  // stays clean JSON, and (b) honour `reasoning_effort:'low'` (~75-150 reasoning tok/call) so thinking can't
+  // eat the output budget and truncate the JSON. Plain `max_tokens` is accepted (no max_completion_tokens
+  // needed) and json_object mode works. Do NOT default to `zai-glm-4.7`: it ignores the effort cap and burns
+  // the whole budget on reasoning → empty/truncated content. extraBody carries reasoning_effort and flows to
+  // BOTH the triage and article-read calls (groq.ts spreads it into each body).
+  const cbKey = process.env.CEREBRAS_API_KEY || ''
+  if (cbKey && process.env.NEWS_CEREBRAS_ENABLED !== '0') {
+    out.push({
+      id: 'cerebras', label: 'Cerebras', color: '--provider-cb',
+      apiKey: cbKey, baseUrl: process.env.CEREBRAS_BASE_URL || 'https://api.cerebras.ai/v1',
+      model: process.env.NEWS_CEREBRAS_MODEL || 'gpt-oss-120b',
+      dailyReqCap: capNum(process.env.NEWS_CEREBRAS_DAILY_REQ_CAP, 2_300), // under the verified 2400 req/day backstop (token cap binds first)
+      rpm: capNum(process.env.NEWS_CEREBRAS_RPM, 4), // under the verified 5 req/min ceiling (override up on a paid key)
+      tpm: capNum(process.env.NEWS_CEREBRAS_TPM, 28_000), // under the verified 30k tokens/min ceiling
+      dailyTokenCap: capNum(process.env.NEWS_CEREBRAS_DAILY_TOKEN_CAP, 900_000), // ~10% under the verified 1M tokens/day
+      maxTokens: capNum(process.env.NEWS_CEREBRAS_MAX_TOKENS, 3_500), // headroom for reasoning tokens + JSON output → never truncate
+      extraBody: { reasoning_effort: process.env.NEWS_CEREBRAS_REASONING_EFFORT || 'low' }, // cap thinking so content stays whole JSON
+      budgetFile: 'cerebras-budget.json',
+    })
+  }
+  // Mistral La Plateforme free ("Experiment") tier — RATE-gated, not token-gated: ~1 request/SECOND, with a
+  // ~1B-tokens/MONTH budget that is non-binding for our overflow volume. So it's wired like the other
+  // request-gated pools (NO daily token cap → the chip reads requests, its real lever): the binding control
+  // is request SPACING. rpm sits well under 1 req/s (≈1.3s gap) with margin, and a 429 still backs off on
+  // retry-after. mistral-small is fast, strong, and speaks clean JSON mode. OpenAI-compatible
+  // (/chat/completions, Bearer auth). Secret lives in env. Off when no key or NEWS_MISTRAL_ENABLED=0.
+  const mlKey = process.env.MISTRAL_API_KEY || ''
+  if (mlKey && process.env.NEWS_MISTRAL_ENABLED !== '0') {
+    out.push({
+      id: 'mistral', label: 'Mistral', color: '--provider-ml',
+      apiKey: mlKey, baseUrl: process.env.MISTRAL_BASE_URL || 'https://api.mistral.ai/v1',
+      model: process.env.NEWS_MISTRAL_MODEL || 'mistral-small-latest',
+      dailyReqCap: capNum(process.env.NEWS_MISTRAL_DAILY_REQ_CAP, 2000), // soft daily backstop — the 1 req/s rate is the real limit
+      rpm: capNum(process.env.NEWS_MISTRAL_RPM, 45), // under the ~1 req/s free ceiling (≈1.3s spacing) with margin
+      maxTokens: capNum(process.env.NEWS_MISTRAL_MAX_TOKENS, 2500),
+      budgetFile: 'mistral-budget.json',
+    })
+  }
   const orKey = process.env.OPENROUTER_API_KEY || ''
   if (orKey && process.env.NEWS_OPENROUTER_ENABLED !== '0') {
     // OpenRouter: strongest free models (gpt-oss-120b…). Free = ~20 RPM, ~50/day pooled (no credits) →
@@ -404,9 +456,11 @@ export function buildArticleReadProviders(cfg: typeof NEWS = NEWS): ArticleReadP
     out.push({ id: 'gemini', kind: 'gemini', apiKey: cfg.geminiApiKey, baseUrl: cfg.geminiBaseUrl, model: cfg.geminiModel, pool: cfg.geminiModels, maxTokens: cfg.geminiMaxTokens, rpm: cfg.geminiRpm, tpm: cfg.geminiTpm, dailyReqCap: cfg.geminiDailyReqCap, dailyTokenCap: cfg.geminiDailyTokenCap, budgetFile: 'gemini-budget-{model}.json', dayTz: cfg.geminiDayTz, limiter: 'gemini' })
   }
   for (const p of cfg.overflowProviders) {
-    // OpenAI-compatible overflow: its own named limiter (rpm spacing only, tpm 0) + daily budget file, exactly
-    // as runCycle uses it. The non-binding token cap mirrors the ingester (free models gate on RPM/RPD).
-    out.push({ id: p.id, kind: 'openai', apiKey: p.apiKey, baseUrl: p.baseUrl, model: p.model, models: p.models, maxTokens: p.maxTokens, rpm: p.rpm, tpm: 0, dailyReqCap: p.dailyReqCap, dailyTokenCap: 50_000_000, budgetFile: p.budgetFile, dayTz: p.dayTz, headers: p.headers, extraBody: p.extraBody, limiter: p.id })
+    // OpenAI-compatible overflow: its own named limiter + daily budget file, exactly as runCycle uses it. A
+    // TOKEN-gated provider (Cerebras) carries its own tpm + daily token cap, so the read paces on the SAME
+    // binding limit as the ingester (they share the budget file + limiter); request-gated providers
+    // (OpenRouter/NVIDIA) omit them → tpm 0 + a non-binding token cap, the prior behaviour byte-for-byte.
+    out.push({ id: p.id, kind: 'openai', apiKey: p.apiKey, baseUrl: p.baseUrl, model: p.model, models: p.models, maxTokens: p.maxTokens, rpm: p.rpm, tpm: p.tpm ?? 0, dailyReqCap: p.dailyReqCap, dailyTokenCap: p.dailyTokenCap ?? 50_000_000, budgetFile: p.budgetFile, dayTz: p.dayTz, headers: p.headers, extraBody: p.extraBody, limiter: p.id })
   }
   return out
 }
