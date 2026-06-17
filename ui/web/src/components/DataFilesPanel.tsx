@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { useStore } from '../lib/store'
+import { DataCoverage } from './DataCoverage'
 
 // short label per classified file type (server FileType)
 const TYPE_LABEL: Record<string, string> = {
@@ -20,7 +21,10 @@ const TYPE_LABEL: Record<string, string> = {
 }
 
 // The data-pool inspector. Lists every file the cockpit classified, and — the point —
-// expands a multi-tab workbook into its tabs so you can see nothing was left behind.
+// expands a multi-tab workbook into its tabs so you can see nothing was left behind. Below the
+// file list, the source-document coverage (DataCoverage) shows what's present (with the satisfying
+// file named, tab/content-aware) vs what could be added — proactive and non-gating, so a thin pool
+// is caught before the run, not after.
 // Populated only in live mode (the static showcase ships an empty file list).
 export function DataFilesPanel() {
   const dataStatus = useStore((s) => s.dataStatus)
@@ -43,39 +47,43 @@ export function DataFilesPanel() {
       </button>
 
       {open && (
-        <div className="datafiles__list">
-          {files.map((f, i) => {
-            const tabs = f.sheets ?? []
-            const hasTabs = tabs.length > 0
-            const isOpen = !!expanded[f.filename]
-            return (
-              <div className="datafiles__file" key={`${f.filename}:${i}`}>
-                <div
-                  className={`datafiles__row${hasTabs ? ' datafiles__row--btn' : ''}`}
-                  onClick={hasTabs ? () => setExpanded((e) => ({ ...e, [f.filename]: !e[f.filename] })) : undefined}
-                >
-                  <span className="datafiles__badge" data-conf={f.confidence}>{TYPE_LABEL[f.type] || f.type}</span>
-                  <span className="datafiles__name" title={f.filename}>{f.filename}</span>
-                  {hasTabs ? (
-                    <span className="datafiles__tabsn">{tabs.length} tabs {isOpen ? '▾' : '▸'}</span>
-                  ) : (
-                    f.periodHint && <span className="datafiles__period">{f.periodHint}</span>
+        <>
+          <div className="datafiles__list">
+            {files.map((f, i) => {
+              const tabs = f.sheets ?? []
+              const hasTabs = tabs.length > 0
+              const isOpen = !!expanded[f.filename]
+              return (
+                <div className="datafiles__file" key={`${f.filename}:${i}`}>
+                  <div
+                    className={`datafiles__row${hasTabs ? ' datafiles__row--btn' : ''}`}
+                    onClick={hasTabs ? () => setExpanded((e) => ({ ...e, [f.filename]: !e[f.filename] })) : undefined}
+                  >
+                    <span className="datafiles__badge" data-conf={f.confidence}>{TYPE_LABEL[f.type] || f.type}</span>
+                    <span className="datafiles__name" title={f.filename}>{f.filename}</span>
+                    {hasTabs ? (
+                      <span className="datafiles__tabsn">{tabs.length} tabs {isOpen ? '▾' : '▸'}</span>
+                    ) : (
+                      f.periodHint && <span className="datafiles__period">{f.periodHint}</span>
+                    )}
+                  </div>
+                  {hasTabs && isOpen && (
+                    <div className="datafiles__tabs">
+                      {tabs.map((s, j) => (
+                        <div className="datafiles__tab" key={`${s.name}:${j}`}>
+                          <span className="datafiles__tabname">{s.name}</span>
+                          <span className="datafiles__tabdim">{s.rows}×{s.cols} · {s.cells} cells</span>
+                        </div>
+                      ))}
+                    </div>
                   )}
                 </div>
-                {hasTabs && isOpen && (
-                  <div className="datafiles__tabs">
-                    {tabs.map((s, j) => (
-                      <div className="datafiles__tab" key={`${s.name}:${j}`}>
-                        <span className="datafiles__tabname">{s.name}</span>
-                        <span className="datafiles__tabdim">{s.rows}×{s.cols} · {s.cells} cells</span>
-                      </div>
-                    ))}
-                  </div>
-                )}
-              </div>
-            )
-          })}
-        </div>
+              )
+            })}
+          </div>
+
+          <DataCoverage coverage={dataStatus.coverage} mode="panel" />
+        </>
       )}
     </motion.div>
   )

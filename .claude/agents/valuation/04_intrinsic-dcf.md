@@ -21,7 +21,7 @@ You DO NOT:
 # RUNTIME INPUTS
 
 - `TICKER`, `DATA_PATH`, `OUTPUT_PATH = analyses/{TICKER}_{DATE}/valuation/04_intrinsic-dcf.md`, `DATE`
-- `UPSTREAM_INPUTS` — `01_price-and-capital-structure.md` (net debt, shares for the equity bridge). Optionally cross-module: `earnings/01_historical-financials.md` (FCF base), `earnings/03_margin-drivers.md` (margin path), `earnings/04_guidance-consensus.md` (near-term forecast), `earnings/06_earnings-quality.md` (DSO/DIO/DPO days for the working-capital driver), `earnings/07_earnings-sensitivity.md` (assumption ranges), `business-model/10_external-dependency.md` (cyclicality → terminal assumption), `business-model/09_moat.md` (cost-of-capital cross-check for the WACC, and durability of any terminal excess return).
+- `UPSTREAM_INPUTS` — `01_price-and-capital-structure.md` (net debt, shares for the equity bridge). Optionally cross-module: `earnings/01_historical-financials.md` (FCF base), `earnings/03_margin-drivers.md` (margin path), `earnings/04_guidance-consensus.md` (near-term forecast), `earnings/06_earnings-quality.md` (DSO/DIO/DPO days for the working-capital driver), `earnings/07_earnings-sensitivity.md` (assumption ranges), `business-model/10_external-dependency.md` (cyclicality → terminal assumption), `business-model/09_moat.md` (cost-of-capital cross-check for the WACC, and durability of any terminal excess return), `business-model/07_business-quality.md` (rate-of-change / disruption → the §5 declining-perpetuity terminal trigger).
 
 # PARTIAL-DATA RULE
 
@@ -56,6 +56,7 @@ Whatever method you use, keep this agent's discipline (every assumption sourced,
 - **earnings/03_margin-drivers.md, 07_earnings-sensitivity.md** — margin path and ranges
 - **earnings/06_earnings-quality.md** — DSO/DIO/DPO days for the working-capital driver (where available)
 - **business-model/10_external-dependency.md** — cyclicality for the terminal assumption
+- **business-model/09_moat.md, 07_business-quality.md** — moat durability + rate-of-change/disruption for the §5 declining-perpetuity / runoff terminal trigger
 - **Latest annual / interim filing** (10-K/10-Q for US; Annual Report & quarterly results for India; local equivalent) — cash flow statement, capex, tax rate, debt cost
 - **Web** — current risk-free rate and equity-risk premium (label as web-sourced)
 
@@ -105,6 +106,8 @@ Label every cell as company-guided, peer-derived, or analyst assumption.
 | Year | Revenue | EBIT | NOPAT | Capex | ΔWC | FCF | Discount Factor | PV of FCF |
 |---|---:|---:|---:|---:|---:|---:|---:|---:|
 
+**Working-capital sign — check before summing FCF.** In `FCFF = NOPAT + D&A − Capex − ΔNWC`, take the sign of the working-capital term from the *direction of the cash effect*, not from a fixed column convention: when net working capital **falls** (shrinks, or becomes more negative) it **releases** cash and **ADDS** to FCF; when it **rises** it absorbs cash and subtracts. This is decisive for a **negative-working-capital business** (cash-conversion cycle < 0 — payables fund growth, common in distribution, retail, and parts of autos): **while the NWC-to-revenue ratio is held (or grows more negative)**, revenue growth pushes NWC *more negative* every year — a recurring cash **source** that INCREASES FCF. But never infer the sign from "growth" or "ratio direction" alone — **compute the actual modeled `ΔNWC = NWC_t − NWC_{t-1}` from the forecast NWC path and read the sign off that.** A mean-reverting ratio (payable terms normalize, a supplier-advance unwinds) does NOT by itself flip the cash effect: if revenue growth outpaces the ratio's drift toward zero, NWC can still become *more* negative (a release); only when the ratio shrinks faster than revenue grows does NWC turn *less* negative and **absorb** cash. The net `ΔNWC` decides it. Sanity-check explicitly — if revenue is growing and the NWC ratio is held at a negative-WC company yet the working-capital line is *cutting* FCF, the sign is inverted; fix it. Show the per-year WC cash effect with its sign and confirm it matches the direction of the modeled NWC change.
+
 Sum of PV of explicit FCFs: ...
 
 Show the **executed** command and its raw output (a fenced code block) for the PV-of-FCF sum, the terminal value, and the EV → equity → per-share bridge — do not present these numbers without the snippet that produced them (the self-check requires it).
@@ -115,6 +118,7 @@ Show the **executed** command and its raw output (a fenced code block) for the P
 - Terminal value (undiscounted): ...
 - PV of terminal value: ...
 - **Terminal value as % of total EV: ...** (flag if >75% → terminal-dominated, low confidence)
+- **Structural-decline / runoff trigger (avoid-ruin, `CLAUDE.md` §24 Filter 5).** A Gordon `g` floored at nominal / financeable growth *assumes the franchise survives in perpetuity* — it cannot represent a business eroding structurally while still solvent (the Kodak/Nokia case). When `business-model/09_moat.md` returns the verdict **No moat proven** (and, once the P5b moat-trajectory row lands, an *eroding* moat), OR `business-model/07_business-quality.md` scores its **rate-of-change / disruption** row **≤ ~40** (high disruption — the orb's own §24 Filter-5 threshold), do NOT use a positive perpetuity growth: make a **declining-perpetuity / runoff terminal** the primary case (sub-GDP or negative `g`, or an explicit fade of the terminal margin and excess returns to a new lower base), and show the standard-Gordon terminal alongside it, labelled, for contrast. State which trigger fired and cite the upstream row. This is the DCF half of the permanent-impairment read — the equity-side counterpart to balance-sheet-survival's debt-solvency test — and its bear output feeds `07_scenario-and-fair-value` and the master synthesizer's §24 / Kill Criteria.
 
 ## 6. DCF Output
 
@@ -154,6 +158,7 @@ WACC across columns, terminal growth (or exit multiple) down rows:
 - [ ] Terminal value is disclosed as a % of EV and flagged if >75%.
 - [ ] For a cyclical business, the terminal/normalized margin is benchmarked against peer-normal AND the company's own prior-trough — each cited — not merely set "below the recent peak" (Cyclicality Gate).
 - [ ] The working-capital change is forecast from a revenue-linked driver (% of revenue or days-of-sales), not a flat absolute held constant — unless the company discloses a different driver.
+- [ ] The working-capital cash effect carries the correct sign — a falling / more-negative NWC (a release) ADDS to FCF, a rising NWC subtracts; for a negative-working-capital business with a held NWC ratio, growth releases cash and increases FCF (but if the modeled ratio mean-reverts, growth absorbs cash) — the sign is read off the actual modeled ΔNWC, sanity-checked, not inverted.
 - [ ] The financeable-growth cross-check (Gate 2) is run; if implied growth (ROIC × reinvestment) differs from modeled terminal g by more than ~1.5pp and the bridge is not quantified, terminal g is lowered to the financeable level OR intrinsic confidence is capped and the grid is shown at the financeable g.
 - [ ] EV → equity → per-share bridge uses `01`'s net debt and share count.
 - [ ] The discounting convention is stated and defaults to mid-year (t−0.5); any use of end-of-year is justified.

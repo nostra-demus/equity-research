@@ -341,6 +341,22 @@ export interface SignalIntakeInput {
 }
 
 export interface ModuleReadiness { status: Sufficiency; reasons: string[]; caps: string[] }
+// A sub-category a vendor export bundles in (estimates / multiples / peers / financials).
+export interface CoverageSub { key: string; label: string; present: boolean }
+// One source-document group — what a human uploads, detected tab/content-aware (see server data-status.ts).
+export interface CoverageGroup {
+  key: string
+  label: string
+  tier: 'critical' | 'core' | 'recommended' | 'optional'
+  helps: string
+  present: boolean
+  via: 'file' | 'tab' | null
+  filename: string | null
+  sheet: string | null
+  ageMonths: number | null
+  stale: boolean
+  covers?: CoverageSub[]
+}
 export interface DataStatus {
   ticker: string
   hasAnyData: boolean
@@ -348,6 +364,7 @@ export interface DataStatus {
   files: { filename: string; type: string; periodHint: string | null; ageMonths: number | null; confidence: string; sheets?: { name: string; rows: number; cols: number; cells: number }[] }[]
   recentByType: Record<string, { filename: string; ageMonths: number | null } | undefined>
   modules: Record<string, ModuleReadiness>
+  coverage: CoverageGroup[]
   overallReady: boolean
   dataDir: string
 }

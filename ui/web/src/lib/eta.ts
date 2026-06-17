@@ -15,11 +15,14 @@
 import type { NodeRuntime } from './types'
 
 // Three orb classes with very different runtimes — lumping them would bias every estimate. Gate orbs are
-// the fast fail-fast / data-triage checks (~20s); specialists are the analytical workhorses (~50s);
-// synthesis is the heavy module writer that reads all its specialists (~95s). Seeds are used until the
-// run produces its own evidence, then the observed median of each class takes over within one finished orb.
+// the data-triage / fail-fast checks; specialists are the analytical workhorses; synthesis is the heavy
+// module writer (and the master synthesizer) that reads everything upstream. Seeds are calibrated to the
+// one metered run (TMCV, 2026-06-14): per-orb durations ran ~2-5 min, the master synthesizer ~10.5 min — so
+// the seeds are ~150s / ~180s / ~300s, NOT the old 20/50/95s that under-projected every in-flight run by
+// 3-5x. Seeds are used only until the run produces its own evidence, then the observed median of each class
+// takes over within one finished orb (so the seed just sets the first projection, before self-calibration).
 export type OrbClass = 'gate' | 'specialist' | 'synthesis'
-const SEED: Record<OrbClass, number> = { gate: 20_000, specialist: 50_000, synthesis: 95_000 }
+const SEED: Record<OrbClass, number> = { gate: 150_000, specialist: 180_000, synthesis: 300_000 }
 const MIN_SAMPLE = 1 // one finished orb of a class is enough to start trusting observation over the seed
 
 export interface OrbSample {

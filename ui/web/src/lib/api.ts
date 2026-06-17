@@ -1,5 +1,5 @@
 import { staticPromptPath } from './prompts'
-import type { ActivityQuery, ActivityResult, CallsResult, DataStatus, EventEnrichment, FeedItem, LaunchPreflight, NewsCycle, NewsStatus, ScreenerBoard, SignalIntakeInput, SourcesReport, SwarmGraph, SwarmMeta, TickerSummary, Usage, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, CallsResult, CoverageGroup, DataStatus, EventEnrichment, FeedItem, LaunchPreflight, NewsCycle, NewsStatus, ScreenerBoard, SignalIntakeInput, SourcesReport, SwarmGraph, SwarmMeta, TickerSummary, Usage, Whoami } from './types'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -181,12 +181,12 @@ export const api = {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/screener/handoff`, { thesisId, ticker })
   },
-  tickers: async (): Promise<{ tickers: TickerSummary[]; emptyState: boolean; dataDir?: string }> => {
-    if ((await ensureMode()) === 'static') return { tickers: snap.tickers, emptyState: snap.emptyState, dataDir: snap.dataDir }
+  tickers: async (): Promise<{ tickers: TickerSummary[]; emptyState: boolean; dataDir?: string; coverage?: CoverageGroup[] }> => {
+    if ((await ensureMode()) === 'static') return { tickers: snap.tickers, emptyState: snap.emptyState, dataDir: snap.dataDir, coverage: snap.defaultCoverage || [] }
     return get(`/api/tickers`)
   },
   dataStatus: async (ticker: string): Promise<DataStatus> => {
-    if ((await ensureMode()) === 'static') return snap.dataStatus[ticker] || { ticker, hasAnyData: false, fileCount: 0, files: [], recentByType: {}, modules: {}, overallReady: false, dataDir: snap.dataDir }
+    if ((await ensureMode()) === 'static') return snap.dataStatus[ticker] || { ticker, hasAnyData: false, fileCount: 0, files: [], recentByType: {}, modules: {}, coverage: [], overallReady: false, dataDir: snap.dataDir }
     return get(`/api/data-status/${encodeURIComponent(ticker)}`)
   },
   credit: async (): Promise<Usage> => {
