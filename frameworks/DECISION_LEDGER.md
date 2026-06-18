@@ -167,7 +167,9 @@ The canonical `decision_record.json` the synthesizer emits — one per final the
   "notes": "",
   "post_review_confidence_score": null,
   "confidence_haircut": null,
-  "pre_mortem_verdict": ""
+  "pre_mortem_verdict": "",
+  "business_type": "",
+  "primary_valuation_method": ""
 }
 ```
 
@@ -221,10 +223,14 @@ The three `post_review_*` fields are **additive and optional** — the synthesiz
 | `post_review_confidence_score` | Additive | Confidence /100 after the in-path pre-mortem red-team. Set by the finish-gate (step 10B.2) — never by the synthesizer. `null` when no pre-mortem ran or no haircut applied. Downstream tools (calibrate, track) prefer this over `confidence_score` when present: it is the engine's best estimate of its own conviction after adversarial stress-testing. | Finish-gate patch (fix F28) |
 | `confidence_haircut` | Additive | Points of confidence removed by the pre-mortem (`confidence_score − post_review_confidence_score`). 0 if the thesis survived without haircut; `null` if no pre-mortem ran. | Finish-gate patch (fix F28) |
 | `pre_mortem_verdict` | Additive | The pre-mortem's verdict string (e.g. "Survives with haircut", "Does not survive — downgrade"). `""` if no pre-mortem ran. | Finish-gate patch (fix F28) |
+| `business_type` | Additive (required for runs ≥ 2026-06-18) | The sector overlay classification from `SECTOR_OVERLAYS.md` (e.g. "Bank / lender", "SaaS / subscription software", "Generic operating company"). Enables Phase 4 calibration to slice accuracy by sector and allows the eval harness (check W) to mechanically verify the valuation method is not forbidden for this type. `""` when business-identity output is absent. | Business-model `02_business-identity` output |
+| `primary_valuation_method` | Additive (required for runs ≥ 2026-06-18) | The primary valuation method the valuation module applied (e.g. "DDM / residual income", "NAV + DDM", "FCFF DCF", "mid-cycle FCFF DCF"). Must not be a method that `SECTOR_OVERLAYS.md` forbids for the classified `business_type`. | Valuation module synthesis |
 
 Rules: keep field names exactly as above. Absent values are `null` (numbers), `""` (strings), or `[]`/`{}` — never fabricated.
 
 **`edge_score` / `edge_proof` are additive** (introduced 2026-06-15) — they complete the `CLAUDE.md` §7 variant structure (consensus → priced-in → edge → *proof of edge*) and make the edge mechanical, so the confidence cap can bind to a number and the review loop can later grade it. Records dated before 2026-06-15 omit them; downstream consumers fall back to the narrative `variant_perception_*` fields and `confidence_score`. `schema_version` stays "1.0" — the same additive convention as `scenarios[]` and the `post_review_*` fields.
+
+**`business_type` / `primary_valuation_method` are additive** (introduced 2026-06-18) — they make the sector overlay classification and the chosen valuation method machine-readable so Phase 4 can slice calibration by sector type and the eval harness (check W) can verify the method is not forbidden for the sector per `SECTOR_OVERLAYS.md`. Records dated before 2026-06-18 omit them; downstream consumers treat absence as `""`. `schema_version` stays "1.0".
 
 ---
 
