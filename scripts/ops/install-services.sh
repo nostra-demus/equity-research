@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 # Install / refresh the launchd supervision that keeps app.nostra-demus.com alive forever:
-#   com.nostradamus.engine    — Fastify engine on :8787   (RunAtLoad + KeepAlive)
-#   com.nostradamus.tunnel    — cloudflared tunnel run     (RunAtLoad + KeepAlive)
-#   com.nostradamus.watchdog  — self-heal, every 60s       (RunAtLoad + StartInterval)
-# Idempotent, no sudo (user LaunchAgents).
+#   com.nostradamus.engine       — Fastify engine on :8787, runs from the PROD worktree (RunAtLoad+KeepAlive)
+#   com.nostradamus.tunnel       — cloudflared tunnel run                                 (RunAtLoad+KeepAlive)
+#   com.nostradamus.deploy       — auto-deploy watcher: main -> live, every 120s          (RunAtLoad+StartInterval)
+#   com.nostradamus.watchdog     — self-heal, every 60s                                   (RunAtLoad+StartInterval)
+#   com.nostradamus.news-archive — news -> Google Drive, every 3h                         (RunAtLoad+StartInterval)
+# Idempotent, no sudo. Engine + news-archive run from PROD; watchdog + deploy shell scripts from ~/.nostra-ops.
 #
 # RELIABILITY (why this is not a naive bootout;bootstrap loop):
 #   `launchctl bootout` is ASYNC — an immediate `bootstrap` of the same label can fail with
@@ -20,25 +22,51 @@ AGENTS="$HOME/Library/LaunchAgents"
 DOMAIN="gui/$(id -u)"
 mkdir -p "$AGENTS" "$HOME/Library/Logs"
 
+# ── Production runtime topology ───────────────────────────────────────────────
+# The live engine runs from a DEDICATED worktree pinned to main (PROD), NOT this dev tree, so
+# development never disturbs production. com.nostradamus.deploy keeps PROD fast-forwarded to
+# origin/main and rebuilds ui/dist / restarts the engine on merge. The watchdog + deploy SHELL
+# scripts run from ~/.nostra-ops (stable, branch-independent); engine + news-archive run from PROD.
+# Bootstrap the PROD worktree ONCE (see scripts/ops/README.md):
+#   git worktree add -B main /Users/chiraagkapil/nostra-prod origin/main
+#   (cd /Users/chiraagkapil/nostra-prod/ui/server && npm ci)
+#   (cd /Users/chiraagkapil/nostra-prod/ui/web && npm ci && npm run build)
+#   rsync -a <devtree>/ui/server/.state/ /Users/chiraagkapil/nostra-prod/ui/server/.state/   # gitignored runtime state
+#   rsync -a <devtree>/data/             /Users/chiraagkapil/nostra-prod/data/                # gitignored research data pool
+PROD="${ENGINE_REPO_ROOT:-/Users/chiraagkapil/nostra-prod}"
+OPS="$HOME/.nostra-ops"; mkdir -p "$OPS"
+# runtime copies of the ops shell scripts that the watchdog/deploy plists point at
+for s in watchdog.sh deploy.sh; do cp "$HERE/$s" "$OPS/$s" && chmod +x "$OPS/$s"; done
+# FAIL FAST if the prod worktree is missing. The engine + news-archive RUN from PROD and deploy keeps it
+# fast-forwarded; installing the (RunAtLoad) launchd agents now would just crash-loop against a missing
+# tree. Refuse, and tell the operator to create it first (one-time setup above / in the README).
+if [ ! -e "$PROD/.git" ]; then
+  echo "ERROR: prod worktree $PROD is missing — create it FIRST, then re-run this installer:" >&2
+  echo "         git worktree add -B main \"$PROD\" origin/main   (+ npm ci / build / rsync — see README)" >&2
+  echo "       Installing the launchd agents against a missing tree would crash-loop the engine." >&2
+  exit 1
+fi
+
 loaded() { launchctl print "$DOMAIN/$1" >/dev/null 2>&1; }
 
 install_one() {
   local label="$1" src="$HERE/$1.plist" dst="$AGENTS/$1.plist" i staged key cur
   # SECRETS STAY OUT OF THE REPO: real API keys live only in the INSTALLED plists
-  # (~/Library/LaunchAgents), never in these versioned copies. When reinstalling, carry an
-  # existing GROQ_API_KEY over from the installed plist if the repo copy has none (or only the
-  # placeholder) — otherwise a routine reinstall would silently turn the news ingester off.
+  # (~/Library/LaunchAgents), never in these versioned copies. On reinstall, carry EVERY provider key
+  # over from the installed plist when the repo copy lacks it (or only has the placeholder) — otherwise
+  # a routine reinstall would silently drop keys and turn providers / the news ingester off.
   staged="$(mktemp)" && cp "$src" "$staged"
   if [ -f "$dst" ]; then
-    key="$(/usr/libexec/PlistBuddy -c 'Print :EnvironmentVariables:GROQ_API_KEY' "$dst" 2>/dev/null || true)"
-    if [ -n "$key" ] && [ "$key" != "__SET_YOUR_GROQ_API_KEY__" ]; then
-      cur="$(/usr/libexec/PlistBuddy -c 'Print :EnvironmentVariables:GROQ_API_KEY' "$staged" 2>/dev/null || true)"
+    for sk in GROQ_API_KEY GEMINI_API_KEY OPENROUTER_API_KEY NVIDIA_API_KEY CEREBRAS_API_KEY MISTRAL_API_KEY; do
+      key="$(/usr/libexec/PlistBuddy -c "Print :EnvironmentVariables:$sk" "$dst" 2>/dev/null || true)"
+      { [ -z "$key" ] || [ "$key" = "__SET_YOUR_GROQ_API_KEY__" ]; } && continue
+      cur="$(/usr/libexec/PlistBuddy -c "Print :EnvironmentVariables:$sk" "$staged" 2>/dev/null || true)"
       if [ -z "$cur" ]; then
-        /usr/libexec/PlistBuddy -c "Add :EnvironmentVariables:GROQ_API_KEY string $key" "$staged" 2>/dev/null || true
+        /usr/libexec/PlistBuddy -c "Add :EnvironmentVariables:$sk string $key" "$staged" 2>/dev/null || true
       elif [ "$cur" = "__SET_YOUR_GROQ_API_KEY__" ]; then
-        /usr/libexec/PlistBuddy -c "Set :EnvironmentVariables:GROQ_API_KEY $key" "$staged" 2>/dev/null || true
+        /usr/libexec/PlistBuddy -c "Set :EnvironmentVariables:$sk $key" "$staged" 2>/dev/null || true
       fi
-    fi
+    done
   fi
   if loaded "$label" && cmp -s "$staged" "$dst"; then
     rm -f "$staged"
@@ -58,7 +86,7 @@ install_one() {
   else echo "  WARN: $label did NOT load — re-run this installer"; fi
 }
 
-for label in com.nostradamus.engine com.nostradamus.tunnel com.nostradamus.watchdog; do
+for label in com.nostradamus.engine com.nostradamus.tunnel com.nostradamus.deploy com.nostradamus.watchdog com.nostradamus.news-archive; do
   echo "installing $label"
   install_one "$label"
 done
@@ -77,4 +105,4 @@ fi
 echo
 echo "status (each should show a PID):"
 launchctl list | grep -i nostradamus || echo "  (none loaded!)"
-echo "logs: ~/Library/Logs/nostradamus-{engine,tunnel,watchdog}.log"
+echo "logs: ~/Library/Logs/nostradamus-{engine,tunnel,deploy,watchdog,news-archive}.log"
