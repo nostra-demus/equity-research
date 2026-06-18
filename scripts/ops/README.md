@@ -48,7 +48,10 @@ setup** creates the prod worktree, then installs the agents:
 git worktree add -B main /Users/chiraagkapil/nostra-prod origin/main
 (cd /Users/chiraagkapil/nostra-prod/ui/server && npm ci)
 (cd /Users/chiraagkapil/nostra-prod/ui/web && npm ci && npm run build)
-rsync -a /Users/chiraagkapil/equity-research/ui/server/.state/ /Users/chiraagkapil/nostra-prod/ui/server/.state/
+# migrate the GITIGNORED runtime dirs the fresh worktree doesn't get from git (analyses/ + screener/ are
+# tracked, so they come with the checkout; .state/ and data/ are gitignored and must be copied over):
+rsync -a /Users/chiraagkapil/equity-research/ui/server/.state/ /Users/chiraagkapil/nostra-prod/ui/server/.state/  # enrichment/news cache
+rsync -a /Users/chiraagkapil/equity-research/data/             /Users/chiraagkapil/nostra-prod/data/              # research data pool (uploads, extracts)
 
 # install / refresh all five launchd agents (idempotent, no sudo; safe to re-run)
 bash scripts/ops/install-services.sh

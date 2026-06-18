@@ -47,7 +47,40 @@ if ! mkdir "$LOCKDIR" 2>/dev/null; then
     exit 0   # another deploy in progress
   fi
 fi
-trap 'rmdir "$LOCKDIR" 2>/dev/null' EXIT
+# ---- shared git lock (mutual-exclusion with the engine's data commits) ----
+# The engine commits research data into THIS prod worktree via scripts/commit-run.sh, which serializes
+# every git mutation under a global mkdir lock at ${TMPDIR}/equity-research-git-<sha1(worktree)>.lock.
+# deploy's ff-merge mutates the same index/working-tree, so it must take the SAME lock around the merge —
+# otherwise the two collide on .git/index.lock and a data commit can be stranded (commit-run exits 4,
+# "push manually"). We mirror commit-run's path derivation + owner-file + stale-break EXACTLY so each side
+# recognizes (and can stale-break) the other's lock. Bounded wait: if the engine holds it we SKIP this
+# cycle and retry in ~120s — the watcher never blocks.
+GITLOCK=""
+gitlock_acquire() {
+  local top repo_id i created host pid age
+  top="$("$GIT" -C "$PROD" rev-parse --show-toplevel 2>/dev/null)" || return 1
+  repo_id="$(printf '%s' "$top" | shasum | awk '{print $1}')"
+  GITLOCK="${TMPDIR:-/tmp}/equity-research-git-${repo_id}.lock"
+  for i in $(seq 1 30); do                       # ~15s, then give up and retry next cycle
+    if mkdir "$GITLOCK" 2>/dev/null; then
+      printf 'pid=%s\nhost=%s\ncreated=%s\n' "$$" "$(hostname)" "$(date +%s)" > "$GITLOCK/owner" 2>/dev/null || true
+      return 0
+    fi
+    if [ -f "$GITLOCK/owner" ]; then             # honor commit-run's stale-break: old AND holder dead on THIS host
+      created="$(awk -F= '/^created=/{print $2}' "$GITLOCK/owner" 2>/dev/null)"
+      host="$(awk -F= '/^host=/{print $2}' "$GITLOCK/owner" 2>/dev/null)"
+      pid="$(awk -F= '/^pid=/{print $2}' "$GITLOCK/owner" 2>/dev/null)"
+      age=$(( $(date +%s) - ${created:-0} ))
+      if [ "$age" -gt 900 ] && [ "$host" = "$(hostname)" ] && [ -n "${pid:-}" ] && ! kill -0 "$pid" 2>/dev/null; then
+        rm -rf "$GITLOCK" 2>/dev/null; continue
+      fi
+    fi
+    sleep 0.5
+  done
+  GITLOCK=""; return 1
+}
+gitlock_release() { [ -n "$GITLOCK" ] && rm -rf "$GITLOCK" 2>/dev/null; GITLOCK=""; }
+trap 'gitlock_release; rmdir "$LOCKDIR" 2>/dev/null' EXIT
 
 cd "$PROD" 2>/dev/null || { log "FATAL cannot cd $PROD"; exit 0; }
 
@@ -75,8 +108,16 @@ if ! "$GIT" merge-base --is-ancestor HEAD origin/main 2>/dev/null; then
   exit 0
 fi
 
+# take the shared git lock so a concurrent engine data commit can't dirty the tree between this check and
+# the merge (or collide on .git/index.lock mid-merge). Skip the cycle if the engine is mid-commit.
+if ! gitlock_acquire; then
+  log "SKIP engine git commit in progress (shared lock held) — retry next cycle"
+  exit 0
+fi
+
 # don't fight an in-flight run writing tracked files (ignore the gitignored .state)
 if ! "$GIT" diff --quiet 2>/dev/null; then
+  gitlock_release
   log "SKIP working tree dirty (run in progress?) — retry next cycle"
   exit 0
 fi
@@ -84,6 +125,7 @@ fi
 CHANGED="$("$GIT" diff --name-only HEAD origin/main 2>/dev/null)"
 log "DEPLOY ${LOCAL:0:9} -> ${REMOTE:0:9}"
 "$GIT" merge --ff-only origin/main >"$OPS/.merge.out" 2>&1; mrc=$?
+gitlock_release   # merge done — release at once so the engine isn't blocked through the rebuild below
 # keep the changed-file summary, drop git's gc/maintenance noise
 grep -vE 'gc\.log|loose objects|Auto packing|git help gc|Please correct|Automatic cleanup|^warning:|^$' "$OPS/.merge.out" >> "$LOG" 2>/dev/null || true
 if [ "$mrc" -ne 0 ]; then
@@ -109,9 +151,18 @@ if [ "$web" = 1 ]; then
 fi
 
 if [ "$server" = 1 ]; then
-  if [ "$serverlock" = 1 ]; then log "  npm ci ui/server (deps changed)"; ( cd "$PROD/ui/server" && "$NPM" ci ) >>"$LOG" 2>&1 || log "  WARN ui/server npm ci failed"; fi
-  log "  restart engine (server code changed)"
-  launchctl kickstart -k "gui/$UID_NUM/com.nostradamus.engine" 2>>"$LOG" || log "  WARN engine kickstart failed"
+  ci_ok=1
+  if [ "$serverlock" = 1 ]; then
+    log "  npm ci ui/server (deps changed)"
+    # If deps fail to install, DON'T restart: a kickstart would bring the engine up against broken/half-
+    # installed node_modules and take the site DOWN. Leaving the running process untouched keeps prod UP
+    # on its current (in-memory) version until the lockfile is fixed — strictly safer than restarting blind.
+    ( cd "$PROD/ui/server" && "$NPM" ci ) >>"$LOG" 2>&1 || { ci_ok=0; log "  WARN ui/server npm ci failed — NOT restarting; engine stays up on its current deps. Fix it, then: launchctl kickstart -k gui/$UID_NUM/com.nostradamus.engine"; }
+  fi
+  if [ "$ci_ok" = 1 ]; then
+    log "  restart engine (server code changed)"
+    launchctl kickstart -k "gui/$UID_NUM/com.nostradamus.engine" 2>>"$LOG" || log "  WARN engine kickstart failed"
+  fi
 fi
 
 # self-update the installed ops scripts when they change on main (atomic temp+mv; safe mid-run)

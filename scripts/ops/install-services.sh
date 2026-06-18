@@ -31,12 +31,21 @@ mkdir -p "$AGENTS" "$HOME/Library/Logs"
 #   git worktree add -B main /Users/chiraagkapil/nostra-prod origin/main
 #   (cd /Users/chiraagkapil/nostra-prod/ui/server && npm ci)
 #   (cd /Users/chiraagkapil/nostra-prod/ui/web && npm ci && npm run build)
-#   rsync -a <devtree>/ui/server/.state/ /Users/chiraagkapil/nostra-prod/ui/server/.state/   # gitignored
+#   rsync -a <devtree>/ui/server/.state/ /Users/chiraagkapil/nostra-prod/ui/server/.state/   # gitignored runtime state
+#   rsync -a <devtree>/data/             /Users/chiraagkapil/nostra-prod/data/                # gitignored research data pool
 PROD="${ENGINE_REPO_ROOT:-/Users/chiraagkapil/nostra-prod}"
 OPS="$HOME/.nostra-ops"; mkdir -p "$OPS"
 # runtime copies of the ops shell scripts that the watchdog/deploy plists point at
 for s in watchdog.sh deploy.sh; do cp "$HERE/$s" "$OPS/$s" && chmod +x "$OPS/$s"; done
-[ -e "$PROD/.git" ] || echo "  NOTE: prod worktree $PROD missing — create it (see README) so the engine serves main"
+# FAIL FAST if the prod worktree is missing. The engine + news-archive RUN from PROD and deploy keeps it
+# fast-forwarded; installing the (RunAtLoad) launchd agents now would just crash-loop against a missing
+# tree. Refuse, and tell the operator to create it first (one-time setup above / in the README).
+if [ ! -e "$PROD/.git" ]; then
+  echo "ERROR: prod worktree $PROD is missing — create it FIRST, then re-run this installer:" >&2
+  echo "         git worktree add -B main \"$PROD\" origin/main   (+ npm ci / build / rsync — see README)" >&2
+  echo "       Installing the launchd agents against a missing tree would crash-loop the engine." >&2
+  exit 1
+fi
 
 loaded() { launchctl print "$DOMAIN/$1" >/dev/null 2>&1; }
 
@@ -48,7 +57,7 @@ install_one() {
   # a routine reinstall would silently drop keys and turn providers / the news ingester off.
   staged="$(mktemp)" && cp "$src" "$staged"
   if [ -f "$dst" ]; then
-    for sk in GROQ_API_KEY GEMINI_API_KEY OPENROUTER_API_KEY NVIDIA_API_KEY; do
+    for sk in GROQ_API_KEY GEMINI_API_KEY OPENROUTER_API_KEY NVIDIA_API_KEY CEREBRAS_API_KEY MISTRAL_API_KEY; do
       key="$(/usr/libexec/PlistBuddy -c "Print :EnvironmentVariables:$sk" "$dst" 2>/dev/null || true)"
       { [ -z "$key" ] || [ "$key" = "__SET_YOUR_GROQ_API_KEY__" ]; } && continue
       cur="$(/usr/libexec/PlistBuddy -c "Print :EnvironmentVariables:$sk" "$staged" 2>/dev/null || true)"
