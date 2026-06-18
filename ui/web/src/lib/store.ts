@@ -3,6 +3,7 @@ import { api, isStatic } from './api'
 import { downstreamCascade, type CascadeNode } from './cascade'
 import { plainRoute, plainStage } from './plain'
 import type { Theme, ThemeDetail } from './themes'
+import { intensityWindowForHours } from './themes'
 import type { ActiveRunLite, AgentNode, BoardInboxRow, ConvictionDetail, CoverageGroup, DataStatus, EventEnrichment, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
 
 // A company the user drilled into from an event (the COMPANIES NAMED chips) — the main stage then
@@ -217,8 +218,8 @@ interface State {
   newsArrivedTotal: number // monotonic count of items read off the wire (survives the 1000 cap) — paces the live themes map
   lastScan: { fetched: number; candidates: number; seq: number } | null // the latest ingest cycle's RAW fetch volume — the true "data coming in" intensity that drives the live themes-map flow
   scIntensity: IntensityStats | null // windowed intake rollup for the ThemeMap (small server aggregates)
-  scIntensityWindow: IntensityWindow // the chosen intensity window (default full day); 'scan' = the live per-cycle path
-  setIntensityWindow: (w: IntensityWindow) => Promise<void>
+  scIntensityWindow: IntensityWindow // derived from the "When" ribbon (themesWindow) — drives the map readout + lane mix; 'scan' = the live per-cycle path
+  setIntensityWindow: (w: IntensityWindow) => Promise<void> // internal — driven by setThemesWindow; not a separate user control
   newsStatus: NewsStatus | null
   feedWindowDays: number // the time-travel window the wire is showing (2 = live; 14/30/90/180/370 = history)
   feedWindowLoading: boolean
@@ -328,7 +329,7 @@ export const useStore = create<State>((set, get) => ({
   newsArrivedTotal: 0,
   lastScan: null,
   scIntensity: null,
-  scIntensityWindow: 'day',
+  scIntensityWindow: 'scan', // derived from the "When" ribbon (themesWindow) — Live → scan; the ribbon is the single window control
   feedWindowDays: 2,
   feedWindowLoading: false,
   newsStatus: null,
@@ -1056,7 +1057,7 @@ export const useStore = create<State>((set, get) => ({
   },
   openThemes: async (view) => {
     set({ themesView: view, scSelectedEvent: null, themesStatus: get().themes.length ? 'ready' : 'loading' })
-    void get().setIntensityWindow(get().scIntensityWindow) // load the windowed intake rollup for the ThemeMap
+    void get().setIntensityWindow(intensityWindowForHours(get().themesWindow)) // map readout follows the "When" window (the single control)
     await get().refreshThemes()
     if (!get().staticMode) connectNewsStream(get) // reuse the one news EventSource; theme-update flows on it
   },
@@ -1068,7 +1069,10 @@ export const useStore = create<State>((set, get) => ({
     } catch { /* keep the prior reading */ }
   },
   setThemesView: (view) => set({ themesView: view, selectedTheme: null }),
-  setThemesWindow: (hours) => set({ themesWindow: hours }),
+  setThemesWindow: (hours) => {
+    set({ themesWindow: hours })
+    void get().setIntensityWindow(intensityWindowForHours(hours)) // one control: the "When" window also drives the map readout + lane mix
+  },
   closeThemes: () => set({ themesView: null, selectedTheme: null, themeDetail: null }),
   selectTheme: async (id) => {
     if (!id) { set({ selectedTheme: null, themeDetail: null }); return }

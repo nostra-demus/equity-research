@@ -82,6 +82,34 @@ check that reuses the production parser and reports the real item-link domains),
 `frameworks/screener/rss_feeds.json`, and ensure its **link** domain is on the `approved-domains.ts`
 firewall + the `SWARM.md` allow-list. `scripts/gen-wiring.py` automates the firewall/allow-list rows.
 
+## Free overflow brains (when Groq is paced/capped)
+
+When Groq's paced daily budget is spent, a batch routes to a free **overflow** pool instead of
+deferring, so the day's throughput = Groq + every free pool. Each pool keeps its own daily budget
+file + isolated per-minute limiter, and is **off unless its key is set** (secrets live in env, never
+in source). Adding an OpenAI-compatible key is a single entry in `buildOverflowProviders()` — it then
+auto-appears in routing, the article-read chain, the drain gate, status, and as a cockpit chip (§26).
+
+- **Gemini** (`GEMINI_API_KEY`) — a rotation pool of free models (`generateContent`), each its own
+  per-day bucket, resetting midnight Pacific.
+- **Cerebras** (`CEREBRAS_API_KEY`) — leads the chain: the biggest + fastest free pool, on `gpt-oss-120b`
+  (the current model; `llama-3.3-70b` is retired). Its free tier is **token-gated**, limits verified live
+  (2026-06-17): **1M tokens/day, 30k tokens/min, 5 req/min, 2,400 req/day**, so it paces on the binding
+  limit (a daily **token** cap, not a request cap). `gpt-oss-120b` is a reasoning model but returns its
+  thinking in a separate `reasoning` field (so `content` stays clean JSON) and honours `reasoning_effort`,
+  which we default to `low` so thinking can't truncate the JSON. Knobs: `NEWS_CEREBRAS_MODEL` (default
+  `gpt-oss-120b`) · `NEWS_CEREBRAS_REASONING_EFFORT` (default `low`) · `NEWS_CEREBRAS_DAILY_TOKEN_CAP`
+  (default 900k, ~10% under 1M) · `NEWS_CEREBRAS_TPM` (default 28k, under 30k) · `NEWS_CEREBRAS_RPM`
+  (default 4, under 5) · `NEWS_CEREBRAS_DAILY_REQ_CAP` (default 2,300, under 2,400) ·
+  `NEWS_CEREBRAS_MAX_TOKENS` (default 3,500) · `CEREBRAS_BASE_URL` · `NEWS_CEREBRAS_ENABLED=0` to force off.
+- **Mistral** (`MISTRAL_API_KEY`) — La Plateforme free tier, **rate-gated** (~1 req/s; the ~1B-tokens/month
+  budget is non-binding for overflow), so it paces on request spacing, not a token cap, and its chip reads
+  requests: `NEWS_MISTRAL_MODEL` (default `mistral-small-latest`) · `NEWS_MISTRAL_RPM` (45, ≈1.3s spacing,
+  under 1 req/s) · `NEWS_MISTRAL_DAILY_REQ_CAP` (2000 soft backstop) · `NEWS_MISTRAL_MAX_TOKENS` ·
+  `MISTRAL_BASE_URL` · `NEWS_MISTRAL_ENABLED=0` to force off.
+- **OpenRouter** (`OPENROUTER_API_KEY`) / **NVIDIA NIM** (`NVIDIA_API_KEY`) — request-gated free pools,
+  tried after Cerebras + Mistral.
+
 ## What this is not
 
 The Groq score is a cheap **pre-read** that decides inbox membership and ranking only — it is not the

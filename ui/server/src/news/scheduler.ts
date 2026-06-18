@@ -99,7 +99,15 @@ function overflowUsage(p: (typeof NEWS.overflowProviders)[number]): { id: string
 
 /** Free room left on ANY OpenAI-compatible overflow provider today? */
 function overflowHasHeadroom(): boolean {
-  return NEWS.overflowProviders.some((p) => { const u = overflowUsage(p); return u.used < u.cap })
+  return NEWS.overflowProviders.some((p) => {
+    const u = overflowUsage(p)
+    // A TOKEN-gated provider (Cerebras) binds on tokens, not requests: once it spends its daily token cap
+    // its request count can still be low, so a requests-only test would wrongly report headroom and the
+    // drain loop would busy-wait every tick running skipFetch cycles that can't actually score anything.
+    // Count it out of headroom when EITHER limit is reached (requests OR, where it has one, tokens).
+    if (p.dailyTokenCap != null && u.tokens >= p.dailyTokenCap) return false
+    return u.used < u.cap
+  })
 }
 
 /**
@@ -134,7 +142,9 @@ export interface NewsStatus {
   budget: { requests: number; tokens: number; reqCap: number; tokenCap: number; tokenTarget: number; paceCeiling: number }
   // every free OVERFLOW pool (Gemini + each OpenAI-compatible provider), one entry per provider. The cockpit
   // renders a chip per entry, so a newly-added provider appears automatically. Empty when none are keyed.
-  overflow: { id: string; label: string; color: string; model: string; requests: number; reqCap: number; tokens: number }[]
+  // tokenCap is set ONLY for TOKEN-gated providers (e.g. Cerebras) — the cockpit then shows the chip in
+  // tokens (its BINDING limit) instead of requests, so the readout is ground truth, not a non-binding proxy.
+  overflow: { id: string; label: string; color: string; model: string; requests: number; reqCap: number; tokens: number; tokenCap?: number }[]
 }
 
 /** Status for the cockpit. Daily counts come from today's firehose ON DISK (restart-proof). */
@@ -183,7 +193,9 @@ export function getNewsStatus(): NewsStatus {
   for (const p of NEWS.overflowProviders) {
     const u = overflowUsage(p)
     const lead = (p.model || '').split('/').pop() || p.id
-    overflow.push({ id: p.id, label: p.label, color: p.color, model: lead, requests: u.used, reqCap: u.cap, tokens: u.tokens })
+    // token-gated providers (Cerebras) carry tokenCap so the chip reports tokens (the binding limit); a
+    // request-gated provider (OpenRouter/NVIDIA) leaves it undefined → the chip stays on requests, as before.
+    overflow.push({ id: p.id, label: p.label, color: p.color, model: lead, requests: u.used, reqCap: u.cap, tokens: u.tokens, tokenCap: p.dailyTokenCap })
   }
   return {
     enabled: NEWS.enabled,

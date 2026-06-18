@@ -2,7 +2,7 @@
 // so the themes feature stays self-contained. Mirrors the server's ThemeSummary / ThemeDetail shapes
 // (ui/server/src/news/themes/types.ts). Helpers are pure + testable: heat, tier colour, sparkline path.
 
-import type { FeedItem } from './types'
+import type { FeedItem, IntensityWindow } from './types'
 
 export type ThemeTier = 'hot' | 'active' | 'cooling' | 'parked'
 export type OrderTier = 1 | 2 | 3
@@ -220,4 +220,21 @@ export function windowCoverage(w: ThemeWindow, historyDays: number): WindowCover
 export function windowLabel(win: ThemeWindow, cov: WindowCoverage | null): string {
   if (!cov || !cov.partial) return win.full
   return `${win.full} · ${cov.coveredDays} of ${cov.neededDays}d so far`
+}
+
+// ---- one window to drive them both ----
+// The ThemeMap's central readout + source-lane mix come from a small server-side intake rollup that
+// supports a FIXED set of windows ('1h' | '4h' | 'day' | '7d', plus 'scan' = the live per-cycle path).
+// The "When" ribbon (THEME_WINDOWS) is the single time-window control, so it must drive that readout too
+// — there is no separate intensity picker. Only an EXACT match maps to a rollup window; any other lookback
+// (Live, 6H, 2W, 1M, 3M) returns 'scan', the live readout, so the centre never labels itself with a window
+// the rollup can't honestly cover (§3: never fake a number). The theme basins still re-rank + re-size by
+// the chosen window regardless — that runs off each theme's own flow rings, which span any lookback.
+export function intensityWindowForHours(hours: number | null): IntensityWindow {
+  switch (hours) {
+    case 1: return '1h'
+    case 24: return 'day'
+    case 24 * 7: return '7d'
+    default: return 'scan'
+  }
 }
