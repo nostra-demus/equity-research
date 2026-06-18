@@ -66,6 +66,8 @@ for drp in runs:
             if _k in d and v is not None and not (isinstance(v,_t) and not isinstance(v,bool)): badtype.append(_k)
         if "pre_mortem_verdict" in d and not isinstance(d.get("pre_mortem_verdict"),str): badtype.append("pre_mortem_verdict")
         if "edge_proof" in d and not isinstance(d.get("edge_proof"),str): badtype.append("edge_proof")
+        for _sk in ("business_type","primary_valuation_method"):
+            if _sk in d and not isinstance(d.get(_sk),str): badtype.append(_sk)
         # [fix F28b] post_mortem_decision + post_mortem_basket are additive string fields written by the
         # finish-gate's rating-cap propagation step; type-check when present (never require presence —
         # pre-gate runs omit them; the forward-looking check T validates the content).
@@ -400,6 +402,37 @@ for drp in runs:
         add("V_edge_gate", not det_v, "; ".join(det_v) or f"edge_score={es!r}; edge_proof={'set' if ep else 'empty'}; confidence={cf}")
     else:
         add("V_edge_gate", True, f"run predates the §7 edge gate ({ddte}) — N/A", na=True)
+    # W sector valuation-method consistency (forward-looking; landing 2026-06-18 / SECTOR_OVERLAYS.md)
+    #   When business_type and primary_valuation_method are both set, verify the method is not in the
+    #   documented forbidden list for that sector type. Derived from the explicit "NOT" declarations in
+    #   SECTOR_OVERLAYS.md: Banks/lenders must NOT use FCFF; REITs must NOT use EBITDA-DCF; Insurers
+    #   must NOT use FCFF. N/A when either field is absent (pre-gate runs or business identity missing).
+    SECTOR_DATE="2026-06-18"
+    SECTOR_FORBIDDEN={
+        # lowercase key = substring matched against business_type (case-insensitive)
+        # value = list of forbidden lowercase substrings in primary_valuation_method
+        "bank":        ["fcff"],
+        "lender":      ["fcff"],
+        "insur":       ["fcff"],
+        "reit":        ["ebitda-dcf"],
+        "real estate": ["ebitda-dcf"],
+    }
+    if isdate(ddte) and ddte>=SECTOR_DATE:
+        bt=(d.get("business_type") or "").strip()
+        pvm=(d.get("primary_valuation_method") or "").strip()
+        if not bt or not pvm:
+            add("W_sector_valuation",True,"business_type or primary_valuation_method not set — N/A",na=True)
+        else:
+            det_w=[]; bt_l=bt.lower(); pvm_l=pvm.lower()
+            for sec,fmethods in SECTOR_FORBIDDEN.items():
+                if sec in bt_l:
+                    for fm in fmethods:
+                        if fm in pvm_l:
+                            det_w.append(f"business_type={bt!r}: {fm!r} is a forbidden method for this sector (SECTOR_OVERLAYS.md)")
+            add("W_sector_valuation",not det_w,
+                "; ".join(det_w) or f"business_type={bt!r}; primary_valuation_method={pvm!r} — no forbidden method detected")
+    else:
+        add("W_sector_valuation",True,f"run predates the sector-valuation gate ({ddte}) — N/A",na=True)
     # WARN non-schema files
     # [review fix] suppress only genuine versioned/audit/review artifacts via PRECISE patterns — the old naive
     # `"_v" not in name` / `"review" not in name` substring tests hid real strays (preview.md, *_v*-named scratch).
@@ -438,7 +471,7 @@ FRAMEWORK_CONTRACTS={
  ".claude/agents/management-governance/04_ownership-and-insider-behavior.md":["RF-OWN-004","Filter 6"],
  ".claude/agents/balance-sheet-survival/MODULE_RULES.md":["Net cash is a strategic asset","Filter 3","Label the cycle position of the EBITDA","the **strict** basis (CLAUDE.md §15)"],
  ".claude/agents/valuation/MODULE_RULES.md":["RF-OWN-004","Filter 6","value trap","benchmarked against BOTH a peer-normal margin"],
- ".claude/agents/synthesizer.md":["Avoid-Big-Risks","§24","DEFER to the catalyst module","Net-cash / leverage headline disclosure"],
+ ".claude/agents/synthesizer.md":["Avoid-Big-Risks","§24","DEFER to the catalyst module","Net-cash / leverage headline disclosure","business_type","primary_valuation_method"],
  ".claude/agents/catalyst/MODULE_RULES.md":["§17 Catalyst Discipline","Catalyst Category Checklist","No proven catalyst yet"],
  ".claude/agents/catalyst/01_catalyst-calendar.md":["12-Month Catalyst Calendar","Bullish Trigger","Bearish Trigger"],
  ".claude/agents/catalyst/99_catalyst-synthesis.md":["Catalyst strength /100","No proven catalyst yet","depends_on"],
@@ -450,10 +483,10 @@ FRAMEWORK_CONTRACTS={
  ".claude/commands/research/track.md":["analyses/tracking","_calls_tracker","review_schedule","ad-hoc","memo_delta_file"],
  ".claude/settings.json":["SessionStart","review_due.py"],
  ".claude/hooks/review_due.py":["review_schedule","research:review-decisions due"],
- "frameworks/DECISION_LEDGER.md":["Memo delta","memo_delta","thesis_delta_verdict","stage_one_comment","rerun_command","_memo_delta.md"],
+ "frameworks/DECISION_LEDGER.md":["Memo delta","memo_delta","thesis_delta_verdict","stage_one_comment","rerun_command","_memo_delta.md","business_type","primary_valuation_method"],
  ".claude/commands/research/review-decisions.md":["memo_delta","stage_one_comment","rerun_command","Pool first","_memo_delta"],
  ".claude/commands/research/eval.md":["scripts/eval.py"],
- "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger"],
+ "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN"],
  ".github/workflows/ci.yml":["eval-contracts","scripts/eval.py"],
 }
 jchecks=[]
