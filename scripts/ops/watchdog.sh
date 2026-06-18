@@ -35,6 +35,16 @@ if [ -f "$LOG" ] && [ "$(wc -l < "$LOG" 2>/dev/null || echo 0)" -gt 5000 ]; then
   tail -n 1000 "$LOG" > "$LOG.tmp" 2>/dev/null && mv "$LOG.tmp" "$LOG"
 fi
 
+# Keep the timer-driven agents alive. They have no HTTP endpoint to probe, so the health checks below
+# can't cover them — but if the auto-deploy watcher or the news archiver got booted OUT (a failed
+# install, a stray bootout), nothing else would bring them back and deploys would silently stall.
+# Bootstrap-if-gone every cycle is cheap (no kickstart, no restart when already loaded), so the
+# pipeline that makes "merge to main -> live" work is itself self-healing.
+for ag in com.nostradamus.deploy com.nostradamus.news-archive; do
+  launchctl print "gui/$UID_NUM/$ag" >/dev/null 2>&1 \
+    || { launchctl bootstrap "gui/$UID_NUM" "$AGENTS_DIR/$ag.plist" 2>/dev/null && log "RECOVERED $ag (was booted out)"; }
+done
+
 problem=""; detail=""; pub=""
 
 # 1) engine process/health
