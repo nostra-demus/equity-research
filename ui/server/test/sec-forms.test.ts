@@ -77,6 +77,30 @@ check('SEC_FORM_TOKENS holds the digit+letter codes that leak, but NOT word-shap
   for (const t of SEC_FORM_TOKENS) assert.ok(/\d/.test(t) && /[a-z]/.test(t), `token is a form code: ${t}`)
 })
 
+check('EFFECT (a word-shaped form) is parsed + explained — not dropped by a shape filter', () => {
+  // EFFECT is a real form (the live "Latest EFFECT" feed emits it) but 6 letters, so the old FORM_SHAPE
+  // regex (tuned for digit codes, max 5) rejected it before the dictionary check could see it.
+  const p = parseEdgarFilingHeadline('EFFECT - SOME ISSUER CORP (0001234567) (Filer)')
+  assert.ok(p, 'parsed (the old FORM_SHAPE regex rejected it)')
+  assert.equal(p!.form, 'EFFECT')
+  const s = secFilingStory('EFFECT - SOME ISSUER CORP (0001234567) (Filer)')
+  assert.ok(s && /registration|effective/i.test(s), `explains EFFECT: ${s}`)
+})
+
+check('a Subject-role ownership title does NOT claim the named (target) company "filed"', () => {
+  // EDGAR names the SUBJECT (target) on SC 13D / SC TO-T / SC 14D9 titles ending "(Subject)". The filer
+  // is the acquirer/bidder, so "Target Company Inc filed Form SC 13D" would be a false attribution (§3).
+  const s = secFilingStory('SC 13D - TARGET COMPANY INC (0001234567) (Subject)')
+  assert.ok(s, 'a story')
+  assert.ok(!/Target Company Inc filed/i.test(s!), `no false "filed" attribution: ${s}`)
+  assert.ok(/subject company/i.test(s!), `names it as the subject instead: ${s}`)
+})
+
+check('a Filer-role ownership title DOES read as that company filing', () => {
+  const s = secFilingStory('SC 13D - ACQUIRER PARTNERS LP (0001234567) (Filer)')
+  assert.ok(/Acquirer Partners Lp filed Form SC 13D/i.test(s!), `filer attribution kept: ${s}`)
+})
+
 check('tidyFilerName title-cases ALL-CAPS but leaves brand casing alone', () => {
   assert.equal(tidyFilerName('GOLDMAN SACHS GROUP INC'), 'Goldman Sachs Group Inc')
   assert.equal(tidyFilerName('BofA Finance LLC'), 'BofA Finance LLC') // already mixed-case → untouched

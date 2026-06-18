@@ -115,12 +115,6 @@ export interface EdgarFilingHeadline {
   role?: string // the EDGAR role tag (Filer / Subject / …), when present
 }
 
-// A form code shaped like EDGAR emits: an optional multi-word prefix (SC / NT / DEF / DEFA / PRE / S /
-// F), digits and letters, optional internal hyphen, optional "/A" amendment. Used only to confirm that
-// the left side of a "<FORM> - <FILER>" title really is a form code (so we never mangle an ordinary
-// "Acme - Q2 beats" headline).
-const FORM_SHAPE = /^(?:SC|NT|DEF|DEFA|PRE|S|F|N|T|U|POS)?\s?[0-9A-Z]{1,5}(?:[-/][0-9A-Z]{1,4})*(?:\/A)?$/i
-
 /**
  * Parse an EDGAR "getcurrent" feed title — "424B2 - GOLDMAN SACHS GROUP INC (0000886982) (Filer)" —
  * back into its parts. Splits on the FIRST " - " (the form/filer separator; form codes carry their own
@@ -133,8 +127,11 @@ export function parseEdgarFilingHeadline(headline: string): EdgarFilingHeadline 
   const m = /^(.+?)\s-\s(.+)$/.exec(h)
   if (!m) return undefined
   const form = m[1].trim()
-  if (!FORM_SHAPE.test(form)) return undefined
-  // require the form to be one we actually understand — guards against false positives on real headlines
+  // The dictionary is the authority on what counts as a form, and is itself the guard against reading an
+  // ordinary "Acme - Q2 beats" headline as a filing (the caller also gates on the source being EDGAR):
+  // require a dictionary hit. We no longer pre-filter on a form-SHAPE regex — it was tuned for digit codes
+  // and silently rejected word-shaped codes like "EFFECT" (a real form the live EFFECT feed emits) before
+  // this check could ever see them.
   if (!lookupSecForm(form)) return undefined
   let rest = m[2].trim()
   let role: string | undefined
@@ -177,9 +174,16 @@ export function secFilingStory(headline: string): string | undefined {
   const info = lookupSecForm(parsed.form)
   if (!info) return undefined
   const who = tidyFilerName(parsed.filer)
-  // "filed Form 424B2" avoids the a/an pronunciation trap ("an 8-K" vs "a 10-K") and matches how
-  // filings are conventionally referenced.
-  const lead = who ? `${who} filed Form ${info.code} with the SEC` : `Form ${info.code} was filed with the SEC`
+  // For ownership / tender forms (SC 13D, SC TO-T, SC 14D9) an EDGAR title can name the SUBJECT — the
+  // target — rather than the filer ("… (Subject)"). Saying that company "filed" the form would be a false
+  // attribution (§3): the filer is the acquirer / bidder, not the named target. So for a Subject role we
+  // name it as the subject; otherwise it's the filer. ("filed Form 424B2" also dodges the a/an trap.)
+  const isSubject = !!parsed.role && /subject/i.test(parsed.role)
+  const lead = !who
+    ? `Form ${info.code} was filed with the SEC`
+    : isSubject
+      ? `Form ${info.code} was filed with the SEC naming ${who} as the subject company`
+      : `${who} filed Form ${info.code} with the SEC`
   const parts = [`${lead} — ${info.meaning}`]
   if (info.routine) parts.push('These filings come in high volume and rarely move the stock on their own.')
   return parts.join(' ')

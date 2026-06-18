@@ -152,7 +152,7 @@ export function createTheme(items: ThemeItemView[], now: Date, generation: Theme
  * every member still matches (idempotent). Mutates the theme in place. Returns whether it changed and
  * whether it has decayed below the cluster minimums (caller retires it).
  */
-export function refreshThemeIdentity(theme: Theme, cfg: DiscoverConfig = DEFAULT_DISCOVER_CONFIG): { changed: boolean; retire: boolean } {
+export function refreshThemeIdentity(theme: Theme, cfg: DiscoverConfig = DEFAULT_DISCOVER_CONFIG, now?: Date): { changed: boolean; retire: boolean } {
   if (theme.status !== 'live' || !theme.members.length) return { changed: false, retire: false }
   const before = { count: theme.members.length, kw: theme.keywords.join('|') }
   // 1. recompute identity from the current members (clean tokenizer)
@@ -172,6 +172,15 @@ export function refreshThemeIdentity(theme: Theme, cfg: DiscoverConfig = DEFAULT
   theme.company_keys = id2.company_keys
   theme.event_type_affinity = id2.affinity
   rebuildThemeCompanies(theme)
+  // dropping members invalidated the flow accounting derived from them: recompute last_flow from the kept
+  // set, and reset+reseed the daily ring (mirrors the merge path above). Without this, purging the NEWEST
+  // members leaves last_flow too recent — dodging mergeAndRetire's `parked && last_flow < cutoff` retire
+  // test — and flow_daily keeps the purged events' counts, over-reporting the 7d/1m/3m window flow (§3,
+  // never over-report). kept is non-empty here (an under-min cluster already retired above).
+  theme.last_flow = kept.reduce((mx, m) => (m.found_at > mx ? m.found_at : mx), kept[0].found_at)
+  theme.flow_daily = undefined
+  theme.flow_daily_day = undefined
+  if (now) ensureDaily(theme, now.getTime()) // engine always passes now; without it the next cycle's ensureDaily/rollDaily reseeds
   const changed = kept.length !== before.count || theme.keywords.join('|') !== before.kw
   if (changed) theme.rev++
   return { changed, retire: false }

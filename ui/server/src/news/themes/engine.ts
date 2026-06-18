@@ -86,7 +86,7 @@ export async function stepThemes(input: StepInput): Promise<StepResult> {
   if (input.runDiscovery) {
     for (const t of themes) {
       if (t.status !== 'live') continue
-      const { changed, retire } = refreshThemeIdentity(t, cfg.discover)
+      const { changed, retire } = refreshThemeIdentity(t, cfg.discover, now)
       if (retire) { t.status = 'retired'; t.rev++; changedIds.add(t.theme_id) }
       else if (changed) changedIds.add(t.theme_id)
     }

@@ -662,8 +662,16 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
     // Annotate the parsed form with its plain-English meaning; if the index didn't parse, fall back to the
     // headline-derived form (the title still carries the code), then to a raw summary.
     const sec = parseSecFiling(pageHtml)
-    if (sec) result.sec = annotateSecForm(sec)
-    else if (headlineSec) result.sec = headlineSec
+    if (sec) {
+      const annotated = annotateSecForm(sec)
+      // parseSecFiling's form regex stops at the first space, so a multi-word code ("SC 13D", "DEF 14A",
+      // "NT 10-K") parses to just its first token ("SC") — which has no dictionary meaning. The EDGAR
+      // headline carries the FULL code, so when the page parse yielded no meaning but the headline did,
+      // take the headline's form + meaning and KEEP the page-only fields (items / period / filed).
+      result.sec = !annotated.form_meaning && headlineSec?.form_meaning
+        ? { ...annotated, form: headlineSec.form, form_label: headlineSec.form_label ?? annotated.form_label, form_meaning: headlineSec.form_meaning, routine: headlineSec.routine }
+        : annotated
+    } else if (headlineSec) result.sec = headlineSec
     else { const s = extractSummary(pageHtml); if (s) result.summary = s }
   } else if (headlineSec) {
     // an EDGAR filing whose index page we couldn't fetch (SEC.gov rate-limited us) — the headline still

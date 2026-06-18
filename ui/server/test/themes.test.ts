@@ -288,6 +288,35 @@ check('refreshThemeIdentity heals a poisoned theme: drains form-code keywords, p
   assert.ok(!ids.has('jpm') && !ids.has('c') && !ids.has('gs'), 'the cross-bank prospectus noise is purged')
 })
 
+check('refreshThemeIdentity recomputes last_flow + flow_daily after a purge (no stale over-report)', () => {
+  // genuine mortgage core dated OLD; the cross-bank 424B2 noise that will be purged is the NEWEST flow —
+  // so a purge that left the temporal fields untouched would keep claiming recent flow that's gone (§3).
+  const members = [
+    item('wf1', 'Wells Fargo expands its mortgage lending program', { companies: [co('Wells Fargo', 'WFC')], event_types: ['operations'], found_at: hoursAgo(72) }),
+    item('wf2', 'Wells Fargo cuts mortgage rates to win share', { companies: [co('Wells Fargo', 'WFC')], event_types: ['operations'], found_at: hoursAgo(72) }),
+    item('rk1', 'Rocket grows mortgage origination volume', { companies: [co('Rocket', 'RKT')], event_types: ['operations'], found_at: hoursAgo(48) }),
+    item('rk2', 'Rocket launches a new mortgage product', { companies: [co('Rocket', 'RKT')], event_types: ['product'], found_at: hoursAgo(48) }),
+    item('jpm', '424B2 - JPMORGAN CHASE & CO (0000019617) (Filer)', { companies: [co('JPMorgan Chase & Co')], event_types: ['capital_actions'], source_tier: 'primary_filing', found_at: hoursAgo(1) }),
+    item('gs', '424B2 - GOLDMAN SACHS GROUP INC (0000886982) (Filer)', { companies: [co('Goldman Sachs Group Inc')], event_types: ['capital_actions'], source_tier: 'primary_filing', found_at: hoursAgo(1) }),
+  ]
+  const theme = createTheme(members, NOW)
+  theme.keywords = ['mortgage', 'finance', 'innovation', '424b2', 'filer', 'wells', 'fargo']
+  ensureDaily(theme, NOW.getTime())
+  // before: last_flow + today's bucket reflect the 2 newest (about-to-be-purged) prospectus filings
+  assert.equal(theme.last_flow, hoursAgo(1), 'before: last_flow is the newest (poison) member')
+  assert.equal(theme.flow_daily![theme.flow_daily!.length - 1], 2, 'before: today bucket counts the 2 newest poison members')
+
+  const { retire } = refreshThemeIdentity(theme, undefined, NOW)
+  assert.equal(retire, false, 'the genuine two-company core survives')
+  const keptIds = new Set(theme.members.map((m) => m.event_id))
+  assert.ok(!keptIds.has('jpm') && !keptIds.has('gs'), 'the cross-bank prospectus noise is purged')
+  // after: last_flow falls back to the newest KEPT member (Rocket, 48h ago) — not the purged one
+  assert.equal(theme.last_flow, hoursAgo(48), 'last_flow recomputed to the newest KEPT member')
+  // after: the daily ring is reseeded from kept members only — no leftover poison counts, today is quiet
+  assert.equal(theme.flow_daily!.reduce((a: number, b: number) => a + b, 0), theme.members.length, 'ring counts only kept members')
+  assert.equal(theme.flow_daily![theme.flow_daily!.length - 1], 0, 'today bucket no longer over-reports the purged flow')
+})
+
 check('refreshThemeIdentity is idempotent on a healthy theme (no spurious purge)', () => {
   const members = [
     item('h1', 'Nvidia ramps AI data center GPU shipments', { companies: [co('Nvidia', 'NVDA')], event_types: ['product'] }),
