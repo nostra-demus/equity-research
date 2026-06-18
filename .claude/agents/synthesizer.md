@@ -1042,7 +1042,9 @@ The exact object to emit (mirrors `frameworks/DECISION_LEDGER.md` §5 — that f
     "365d": ""
   },
   "created_by": "synthesizer",
-  "notes": ""
+  "notes": "",
+  "business_type": "",
+  "primary_valuation_method": ""
 }
 ```
 
@@ -1093,6 +1095,8 @@ Populate each field as follows. All of these come from work you have already don
 | review_schedule | 30d, 90d, 180d, 365d dates from decision_date |
 | created_by | hardcode `"synthesizer"` |
 | notes | any caveats about missing price, missing data, or no paper trade |
+| business_type | Business-model `02_business-identity` output — the sector overlay classification from `SECTOR_OVERLAYS.md` (e.g. "Bank / lender", "SaaS / subscription software", "Generic operating company"); `""` when the identity output is absent |
+| primary_valuation_method | Valuation module synthesis — the primary method applied (e.g. "DDM / residual income", "NAV + DDM", "FCFF DCF", "mid-cycle FCFF DCF"); must not be a forbidden method for the classified `business_type` per `SECTOR_OVERLAYS.md`; `""` when valuation output is absent |
 
 ## Basket and paper treatment mapping
 
