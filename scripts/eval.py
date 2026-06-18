@@ -26,6 +26,74 @@ def isdate(s):
     except: return False
 def isnum(v): return isinstance(v,(int,float)) and not isinstance(v,bool)  # bool is an int subclass — exclude it [review fix]
 
+# ── Check W (sector ↔ valuation-method consistency) — module-level so the `selftest` scope can drive it ──
+# Method substrings SECTOR_OVERLAYS.md forbids per sector type, matched against a SEPARATOR-STRIPPED,
+# lowercased primary_valuation_method so "EBITDA-DCF" / "EBITDA DCF" / "ebitdadcf" all collapse to one
+# token (the old hyphen-literal list silently missed the spaced spellings). Banks / lenders / insurers are
+# balance-sheet-funded financials: SECTOR_OVERLAYS.md values them on equity-side methods (DDM / residual
+# income / P-B / embedded value) and says "NOT FCFF/EV ... never net-debt/EBITDA" — so EVERY enterprise-
+# value / unlevered-cashflow method is a category error, not just FCFF (the old list caught only "fcff").
+# REITs explicitly forbid EBITDA-DCF (depreciation non-economic); FCFF is NOT listed forbidden for a REIT
+# there, so the gate does not invent that ban. Tokens are separator-free — "evebit" matches both EV/EBIT
+# and EV/EBITDA; bare "ev" is deliberately NOT a token (it would false-match "revenue"/"leverage"/"level").
+SECTOR_DATE="2026-06-18"
+_FIN_INSTITUTION_FORBIDDEN=["fcff","evebit","evsales","ebitdadcf","netdebtebitda","enterprisevalue"]
+SECTOR_FORBIDDEN={
+    # lowercase key = substring matched against business_type (case-insensitive)
+    # value = forbidden tokens, matched against the separator-stripped primary_valuation_method
+    "bank":_FIN_INSTITUTION_FORBIDDEN,"lender":_FIN_INSTITUTION_FORBIDDEN,"insur":_FIN_INSTITUTION_FORBIDDEN,
+    "reit":["ebitdadcf"],"real estate":["ebitdadcf"],
+}
+def eval_w_sector_valuation(business_type, primary_valuation_method):
+    """Core of check W. Returns None when N/A (either field blank), else the list of forbidden-method
+    tokens present (empty list = clean). Separator-stripped substring match so hyphen/space spellings
+    collapse. Side-effect-free + module-level so `eval.py selftest` can exercise it without a run fixture."""
+    bt=(business_type or "").strip(); pvm=(primary_valuation_method or "").strip()
+    if not bt or not pvm: return None
+    bt_l=bt.lower(); pvm_norm=re.sub(r'[^a-z0-9]+','',pvm.lower())
+    hits=[]
+    for sec,fmethods in SECTOR_FORBIDDEN.items():
+        if sec in bt_l:
+            for fm in fmethods:
+                if fm in pvm_norm and fm not in hits: hits.append(fm)
+    return hits
+
+if scope=="selftest":
+    # Fixture-free coverage for check W — the golden suite can't exercise it (every committed run is
+    # pre-gate / blank-fielded, so W is always N/A there). Asserts forbidden combos FAIL, correct combos
+    # PASS (incl. REIT-on-FCFF, which SECTOR_OVERLAYS.md does NOT forbid), and N/A when a field is unset.
+    W=eval_w_sector_valuation
+    cases=[  # (business_type, primary_valuation_method, expect: "fail"|"clean"|"na")
+        ("Bank / lender","FCFF DCF","fail"),
+        ("Bank / lender","EV/EBITDA vs peers","fail"),
+        ("Bank / lender","EV/EBIT","fail"),
+        ("Bank / lender","EV/Sales","fail"),
+        ("Bank / lender","EBITDA-DCF","fail"),
+        ("Bank / lender","EBITDA DCF","fail"),                 # hyphen-robustness (space spelling)
+        ("Bank / lender","net-debt/EBITDA screen","fail"),
+        ("Bank / lender","Enterprise value / EBITDA","fail"),
+        ("Insurer","mid-cycle FCFF DCF","fail"),
+        ("Insurer","EV/EBITDA","fail"),                        # EV is a category error for a financial
+        ("REIT / real estate","EBITDA-DCF","fail"),
+        ("REIT / real estate","EBITDA DCF","fail"),            # hyphen-robustness
+        ("Bank / lender","DDM / residual income","clean"),
+        ("Bank / lender","P/B vs ROE","clean"),
+        ("Insurer","embedded value / VNB","clean"),            # must NOT false-match 'enterprisevalue'
+        ("REIT / real estate","NAV + DDM on FFO/AFFO","clean"),
+        ("REIT / real estate","FCFF DCF","clean"),             # doctrine does NOT forbid FCFF for a REIT
+        ("Generic operating company","FCFF DCF","clean"),      # untracked sector — no constraint
+        ("Commodity producer / miner","mid-cycle FCFF DCF","clean"),
+        ("","FCFF DCF","na"),
+        ("Bank / lender","","na"),
+    ]
+    bad=0
+    for bt,pvm,exp in cases:
+        h=W(bt,pvm); got=("na" if h is None else ("fail" if h else "clean")); ok=(got==exp)
+        if not ok: bad+=1
+        print(f"  [{'ok' if ok else 'XX'}] W({bt!r},{pvm!r}) -> {got}"+(f" {h}" if h else "")+("" if ok else f"  EXPECTED {exp}"))
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W cases")
+    sys.exit(0 if not bad else 1)
+
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
 if scope not in ("all",""):
     # [review fix] precise scope match — NOT a raw `scope in r` substring, which over-matched
@@ -66,6 +134,8 @@ for drp in runs:
             if _k in d and v is not None and not (isinstance(v,_t) and not isinstance(v,bool)): badtype.append(_k)
         if "pre_mortem_verdict" in d and not isinstance(d.get("pre_mortem_verdict"),str): badtype.append("pre_mortem_verdict")
         if "edge_proof" in d and not isinstance(d.get("edge_proof"),str): badtype.append("edge_proof")
+        for _sk in ("business_type","primary_valuation_method"):
+            if _sk in d and not isinstance(d.get(_sk),str): badtype.append(_sk)
         # [fix F28b] post_mortem_decision + post_mortem_basket are additive string fields written by the
         # finish-gate's rating-cap propagation step; type-check when present (never require presence —
         # pre-gate runs omit them; the forward-looking check T validates the content).
@@ -400,6 +470,22 @@ for drp in runs:
         add("V_edge_gate", not det_v, "; ".join(det_v) or f"edge_score={es!r}; edge_proof={'set' if ep else 'empty'}; confidence={cf}")
     else:
         add("V_edge_gate", True, f"run predates the §7 edge gate ({ddte}) — N/A", na=True)
+    # W sector ↔ valuation-method consistency (forward-looking; landing SECTOR_DATE / SECTOR_OVERLAYS.md).
+    #   When business_type AND primary_valuation_method are both set, verify the method is not one
+    #   SECTOR_OVERLAYS.md forbids for that sector type (logic + forbidden list live in SECTOR_FORBIDDEN /
+    #   eval_w_sector_valuation, hoisted module-level so `eval.py selftest` covers it). N/A when either
+    #   field is absent (pre-gate runs or business identity missing).
+    if isdate(ddte) and ddte>=SECTOR_DATE:
+        bt=(d.get("business_type") or "").strip(); pvm=(d.get("primary_valuation_method") or "").strip()
+        hits=eval_w_sector_valuation(bt,pvm)
+        if hits is None:
+            add("W_sector_valuation",True,"business_type or primary_valuation_method not set — N/A",na=True)
+        else:
+            det_w=[f"business_type={bt!r}: forbidden method token {fm!r} present in primary_valuation_method={pvm!r} (SECTOR_OVERLAYS.md)" for fm in hits]
+            add("W_sector_valuation",not hits,
+                "; ".join(det_w) or f"business_type={bt!r}; primary_valuation_method={pvm!r} — no forbidden method detected")
+    else:
+        add("W_sector_valuation",True,f"run predates the sector-valuation gate ({ddte}) — N/A",na=True)
     # WARN non-schema files
     # [review fix] suppress only genuine versioned/audit/review artifacts via PRECISE patterns — the old naive
     # `"_v" not in name` / `"review" not in name` substring tests hid real strays (preview.md, *_v*-named scratch).
@@ -438,7 +524,7 @@ FRAMEWORK_CONTRACTS={
  ".claude/agents/management-governance/04_ownership-and-insider-behavior.md":["RF-OWN-004","Filter 6"],
  ".claude/agents/balance-sheet-survival/MODULE_RULES.md":["Net cash is a strategic asset","Filter 3","Label the cycle position of the EBITDA","the **strict** basis (CLAUDE.md §15)"],
  ".claude/agents/valuation/MODULE_RULES.md":["RF-OWN-004","Filter 6","value trap","benchmarked against BOTH a peer-normal margin"],
- ".claude/agents/synthesizer.md":["Avoid-Big-Risks","§24","DEFER to the catalyst module","Net-cash / leverage headline disclosure"],
+ ".claude/agents/synthesizer.md":["Avoid-Big-Risks","§24","DEFER to the catalyst module","Net-cash / leverage headline disclosure","business_type","primary_valuation_method"],
  ".claude/agents/catalyst/MODULE_RULES.md":["§17 Catalyst Discipline","Catalyst Category Checklist","No proven catalyst yet"],
  ".claude/agents/catalyst/01_catalyst-calendar.md":["12-Month Catalyst Calendar","Bullish Trigger","Bearish Trigger"],
  ".claude/agents/catalyst/99_catalyst-synthesis.md":["Catalyst strength /100","No proven catalyst yet","depends_on"],
@@ -450,10 +536,10 @@ FRAMEWORK_CONTRACTS={
  ".claude/commands/research/track.md":["analyses/tracking","_calls_tracker","review_schedule","ad-hoc","memo_delta_file"],
  ".claude/settings.json":["SessionStart","review_due.py"],
  ".claude/hooks/review_due.py":["review_schedule","research:review-decisions due"],
- "frameworks/DECISION_LEDGER.md":["Memo delta","memo_delta","thesis_delta_verdict","stage_one_comment","rerun_command","_memo_delta.md"],
+ "frameworks/DECISION_LEDGER.md":["Memo delta","memo_delta","thesis_delta_verdict","stage_one_comment","rerun_command","_memo_delta.md","business_type","primary_valuation_method"],
  ".claude/commands/research/review-decisions.md":["memo_delta","stage_one_comment","rerun_command","Pool first","_memo_delta"],
  ".claude/commands/research/eval.md":["scripts/eval.py"],
- "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger"],
+ "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN"],
  ".github/workflows/ci.yml":["eval-contracts","scripts/eval.py"],
 }
 jchecks=[]
