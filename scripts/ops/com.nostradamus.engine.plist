@@ -3,11 +3,13 @@
 <plist version="1.0"><dict>
   <key>Label</key><string>com.nostradamus.engine</string>
   <key>ProgramArguments</key><array><string>/opt/homebrew/bin/npm</string><string>start</string></array>
-  <key>WorkingDirectory</key><string>/Users/chiraagkapil/equity-research/ui/server</string>
+  <key>WorkingDirectory</key><string>/Users/chiraagkapil/nostra-prod/ui/server</string>
   <key>EnvironmentVariables</key><dict>
     <key>PATH</key><string>/Users/chiraagkapil/.local/bin:/opt/homebrew/bin:/usr/bin:/bin:/usr/sbin:/sbin</string>
     <key>HOME</key><string>/Users/chiraagkapil</string>
-    <key>ENGINE_FULL_PER_MODULE</key><string>1</string></dict>
+    <key>ENGINE_FULL_PER_MODULE</key><string>1</string>
+    <key>ENGINE_REPO_ROOT</key><string>/Users/chiraagkapil/nostra-prod</string>
+    <key>ENGINE_STATE_DIR</key><string>/Users/chiraagkapil/nostra-prod/ui/server/.state</string></dict>
   <key>RunAtLoad</key><true/><key>KeepAlive</key><true/><key>ThrottleInterval</key><integer>5</integer>
   <key>StandardOutPath</key><string>/Users/chiraagkapil/Library/Logs/nostradamus-engine.log</string>
   <key>StandardErrorPath</key><string>/Users/chiraagkapil/Library/Logs/nostradamus-engine.log</string>

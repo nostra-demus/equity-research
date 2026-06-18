@@ -1,0 +1,132 @@
+#!/usr/bin/env bash
+# ─────────────────────────────────────────────────────────────────────────────
+# Auto-deploy watcher for app.nostra-demus.com  (com.nostradamus.deploy, ~every 120s)
+#
+# Keeps the PRODUCTION checkout fast-forwarded to origin/main and rebuilds/restarts
+# ONLY what changed:
+#   • ui/web/**     -> rebuild ui/dist  (served instantly by the running engine; no restart)
+#   • ui/server/**  -> restart the engine (it runs `tsx src/server.ts` straight from source)
+#   • package-lock  -> npm ci in that package first
+#   • data/docs only (analyses, screener, *.md) -> nothing to rebuild
+#
+# Safe by construction:
+#   • ff-only      — never reset/discard; if HEAD is ahead (an unpushed data commit) it SKIPS
+#   • skip-if-dirty — never fights a research/screener run mid-write
+#   • single-flight — mkdir lock with a 30-min staleness breaker
+#   • always exit 0 — incidents live in the log, not the launchd exit code
+# Canonical source: scripts/ops/deploy.sh (installed to ~/.nostra-ops by install-services.sh).
+# ─────────────────────────────────────────────────────────────────────────────
+set -uo pipefail
+
+PROD="${ENGINE_REPO_ROOT:-/Users/chiraagkapil/nostra-prod}"
+UID_NUM="$(id -u)"
+NPM=/opt/homebrew/bin/npm
+GIT="$(command -v git || echo /usr/bin/git)"
+OPS="$HOME/.nostra-ops"
+LOG="$HOME/Library/Logs/nostradamus-deploy.log"
+LOCKDIR="$OPS/.deploy.lock.d"
+HEARTBEAT=3300   # log an "up-to-date" proof-of-life at most ~hourly
+mkdir -p "$OPS" "$(dirname "$LOG")"
+
+ts()  { date '+%Y-%m-%d %H:%M:%S'; }
+log() { echo "$(ts) $*" >> "$LOG"; }
+
+# keep the log bounded
+if [ -f "$LOG" ] && [ "$(wc -l < "$LOG" 2>/dev/null || echo 0)" -gt 4000 ]; then
+  tail -n 800 "$LOG" > "$LOG.tmp" 2>/dev/null && mv "$LOG.tmp" "$LOG"
+fi
+
+# ---- single-flight lock (macOS has no flock) ----
+if ! mkdir "$LOCKDIR" 2>/dev/null; then
+  age=$(( $(date +%s) - $(stat -f %m "$LOCKDIR" 2>/dev/null || echo 0) ))
+  if [ "$age" -gt 1800 ]; then
+    rmdir "$LOCKDIR" 2>/dev/null || true
+    mkdir "$LOCKDIR" 2>/dev/null || exit 0
+    log "WARN broke stale lock (${age}s old)"
+  else
+    exit 0   # another deploy in progress
+  fi
+fi
+trap 'rmdir "$LOCKDIR" 2>/dev/null' EXIT
+
+cd "$PROD" 2>/dev/null || { log "FATAL cannot cd $PROD"; exit 0; }
+
+# ---- fetch (no working-tree mutation, no index lock) ----
+# route fetch stderr to a side file so git's gc/maintenance warnings never pollute the deploy log;
+# only surface it when the fetch actually fails.
+"$GIT" fetch --quiet origin main 2>"$OPS/.fetch.err" || { log "WARN git fetch failed: $(tail -1 "$OPS/.fetch.err" 2>/dev/null)"; exit 0; }
+
+LOCAL="$("$GIT" rev-parse HEAD 2>/dev/null)"
+REMOTE="$("$GIT" rev-parse origin/main 2>/dev/null)"
+[ -n "$LOCAL" ] && [ -n "$REMOTE" ] || { log "WARN cannot resolve revs"; exit 0; }
+
+if [ "$LOCAL" = "$REMOTE" ]; then
+  # up to date — heartbeat at most ~hourly so the log proves the watcher is alive
+  hb_age=999999
+  [ -f "$LOG" ] && hb_age=$(( $(date +%s) - $(stat -f %m "$LOG" 2>/dev/null || echo 0) ))
+  [ "$hb_age" -ge "$HEARTBEAT" ] && log "OK up-to-date ${LOCAL:0:9}"
+  exit 0
+fi
+
+# origin/main must CONTAIN HEAD (pure fast-forward). If HEAD is ahead — a local data commit not
+# yet pushed — skip; the next push reconciles. Never reset.
+if ! "$GIT" merge-base --is-ancestor HEAD origin/main 2>/dev/null; then
+  log "SKIP HEAD not an ancestor of origin/main (unpushed local commit?) local=${LOCAL:0:9} remote=${REMOTE:0:9}"
+  exit 0
+fi
+
+# don't fight an in-flight run writing tracked files (ignore the gitignored .state)
+if ! "$GIT" diff --quiet 2>/dev/null; then
+  log "SKIP working tree dirty (run in progress?) — retry next cycle"
+  exit 0
+fi
+
+CHANGED="$("$GIT" diff --name-only HEAD origin/main 2>/dev/null)"
+log "DEPLOY ${LOCAL:0:9} -> ${REMOTE:0:9}"
+"$GIT" merge --ff-only origin/main >"$OPS/.merge.out" 2>&1; mrc=$?
+# keep the changed-file summary, drop git's gc/maintenance noise
+grep -vE 'gc\.log|loose objects|Auto packing|git help gc|Please correct|Automatic cleanup|^warning:|^$' "$OPS/.merge.out" >> "$LOG" 2>/dev/null || true
+if [ "$mrc" -ne 0 ]; then
+  log "WARN ff-only merge failed (rc=$mrc) — retry next cycle"
+  exit 0
+fi
+
+web=0; server=0; weblock=0; serverlock=0
+while IFS= read -r f; do
+  [ -z "$f" ] && continue
+  case "$f" in
+    ui/web/package-lock.json|ui/web/package.json)        weblock=1; web=1 ;;
+    ui/server/package-lock.json|ui/server/package.json)  serverlock=1; server=1 ;;
+    ui/web/*)     web=1 ;;
+    ui/server/*)  server=1 ;;
+  esac
+done <<< "$CHANGED"
+
+if [ "$web" = 1 ]; then
+  if [ "$weblock" = 1 ]; then log "  npm ci ui/web (deps changed)"; ( cd "$PROD/ui/web" && "$NPM" ci ) >>"$LOG" 2>&1 || log "  WARN ui/web npm ci failed"; fi
+  log "  rebuild ui/dist"
+  if ( cd "$PROD/ui/web" && "$NPM" run build ) >>"$LOG" 2>&1; then log "  ui/dist rebuilt — live"; else log "  WARN ui/web build failed"; fi
+fi
+
+if [ "$server" = 1 ]; then
+  if [ "$serverlock" = 1 ]; then log "  npm ci ui/server (deps changed)"; ( cd "$PROD/ui/server" && "$NPM" ci ) >>"$LOG" 2>&1 || log "  WARN ui/server npm ci failed"; fi
+  log "  restart engine (server code changed)"
+  launchctl kickstart -k "gui/$UID_NUM/com.nostradamus.engine" 2>>"$LOG" || log "  WARN engine kickstart failed"
+fi
+
+# self-update the installed ops scripts when they change on main (atomic temp+mv; safe mid-run)
+case "$CHANGED" in
+  *scripts/ops/watchdog.sh*)
+    sed 's#^REPO="/Users/chiraagkapil/equity-research"#REPO="${ENGINE_REPO_ROOT:-/Users/chiraagkapil/equity-research}"#' \
+      "$PROD/scripts/ops/watchdog.sh" > "$OPS/watchdog.sh.tmp" 2>/dev/null \
+      && chmod +x "$OPS/watchdog.sh.tmp" && mv "$OPS/watchdog.sh.tmp" "$OPS/watchdog.sh" && log "  refreshed ops/watchdog.sh" ;;
+esac
+case "$CHANGED" in
+  *scripts/ops/deploy.sh*)
+    cp "$PROD/scripts/ops/deploy.sh" "$OPS/deploy.sh.tmp" 2>/dev/null \
+      && chmod +x "$OPS/deploy.sh.tmp" && mv "$OPS/deploy.sh.tmp" "$OPS/deploy.sh" && log "  refreshed ops/deploy.sh (self-update)" ;;
+esac
+
+[ "$web" = 0 ] && [ "$server" = 0 ] && log "  (data/docs only — no rebuild)"
+log "DONE ${REMOTE:0:9}"
+exit 0

@@ -8,7 +8,7 @@
 # and logs every check/incident/repair to ~/Library/Logs/nostradamus-watchdog.log ("keep a track").
 set -uo pipefail
 
-REPO="/Users/chiraagkapil/equity-research"
+REPO="${ENGINE_REPO_ROOT:-/Users/chiraagkapil/equity-research}"
 PORT=8787
 UID_NUM="$(id -u)"
 AGENTS_DIR="$HOME/Library/LaunchAgents"

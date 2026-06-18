@@ -11,7 +11,7 @@
 	<key>EnvironmentVariables</key>
 	<dict>
 		<key>REPO</key>
-		<string>/Users/chiraagkapil/equity-research</string>
+		<string>/Users/chiraagkapil/nostra-prod</string>
 		<key>NEWS_ARCHIVE_DIR</key>
 		<string>/Users/chiraagkapil/Library/CloudStorage/GoogleDrive-ceekay@muns.io/My Drive/equity-research-data/news-archive</string>
 		<key>NEWS_LOCAL_RETENTION_DAYS</key>
@@ -24,7 +24,7 @@
 	<key>ProgramArguments</key>
 	<array>
 		<string>/bin/bash</string>
-		<string>/Users/chiraagkapil/equity-research/scripts/ops/news-archive.sh</string>
+		<string>/Users/chiraagkapil/nostra-prod/scripts/ops/news-archive.sh</string>
 	</array>
 	<key>RunAtLoad</key>
 	<true/>
