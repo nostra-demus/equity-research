@@ -89,9 +89,13 @@ check('attachment hint adapts to the link type', () => {
 
 // ---- regressions for the four must-fix defect classes the firehose audit surfaced ----
 
-check('audit fix: SEC "8-K - Company (CIK) (Filer)" — no CIK/(Filer)/form leak', () => {
+check('audit fix: SEC "8-K - Company (CIK) (Filer)" — names + explains the form, no CIK/(Filer)/prefix leak', () => {
   const r = storyFloor({ source_tier: 'primary_filing', domain: 'www.sec.gov', headline: '8-K - Genprex, Inc. (0001595248) (Filer)', url: 'https://www.sec.gov/x-index.htm' })
   assert.ok(/Genprex, Inc\./.test(r.summary), r.summary)
+  // the form is now deliberately named + explained in plain English (the whole point of the fix)…
+  assert.ok(/8-K/.test(r.summary), 'names the form')
+  assert.ok(/material|tell investors|flagging/i.test(r.summary), 'explains what an 8-K is')
+  // …but the raw EDGAR junk (CIK, role tag, the "FORM - " prefix shape) must STILL never leak
   assert.ok(!/0001595248|\(Filer\)|8-K -/.test(r.summary), `leaked EDGAR junk: ${r.summary}`)
 })
 
@@ -151,6 +155,23 @@ check('NEVER empty and NEVER fabricated — fuzz over odd inputs', () => {
     assert.ok(!/undefined|null|\[object/.test(r.summary), `leaked a JS artifact: ${r.summary}`)
     assert.ok(r.summary.length <= 600)
   }
+})
+
+check('SEC EDGAR filing: the form code is explained in plain English, not a bland "exchange disclosure"', () => {
+  const r = storyFloor({
+    input_nature: 'regulatory_filing',
+    source_tier: 'primary_filing',
+    source_name: 'SEC EDGAR',
+    domain: 'www.sec.gov',
+    headline: '424B2 - WELLS FARGO & COMPANY/MN (0000072971) (Filer)',
+    url: 'https://www.sec.gov/Archives/edgar/data/72971/000.../x-index.htm',
+  })
+  assert.equal(r.kind, 'filing')
+  assert.ok(/424B2/.test(r.summary), 'names the form')
+  assert.ok(/prospectus|shelf/i.test(r.summary), 'explains what a 424B2 actually is')
+  assert.ok(/Wells Fargo/i.test(r.summary), 'names the filer (tidied from ALL CAPS)')
+  assert.ok(!/Exchange disclosure by/.test(r.summary), 'replaces the bland generic filing line')
+  assert.ok(!/\(Filer\)|0000072971/.test(r.summary), 'drops the CIK + EDGAR role tag noise')
 })
 
 console.log(`\n${passed} checks passed`)

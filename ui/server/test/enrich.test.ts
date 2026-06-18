@@ -181,4 +181,27 @@ await check('regression(F2): a short vague og:description dek never out-ranks th
   assert.ok(/headline/i.test(out), 'falls back to the honest headline restatement when there is no real lede')
 })
 
+await check('e2e: a multi-word EDGAR form (SC 13D) gets the FULL code + meaning, not the truncated "SC"', async () => {
+  // parseSecFiling's form regex stops at the first space → "Form SC 13D" parses to "SC" (no dictionary
+  // meaning). The headline carries the full code, so the reader must still get "SC 13D" + its meaning.
+  const headline = 'SC 13D - SOME ACQUIRER LLC (0001234567) (Filer)'
+  const url = 'https://www.sec.gov/Archives/edgar/data/1234567/000123456726000001/0001234567-26-000001-index.html'
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'enrich-edgar-'))
+  fs.mkdirSync(path.join(root, 'screener', 'inbox'), { recursive: true })
+  const item = { kind: 'item', event_id: EVENT_ID, ts: NOW_ISO, headline, url, source_name: 'SEC EDGAR', region: 'US', input_nature: 'news_headline', snippet: '', companies: [{ name: 'Some Acquirer LLC', ticker: null, listing_country: 'US' }], event_types: ['capital_actions'], triage_score: 90 }
+  fs.writeFileSync(path.join(root, 'screener', 'inbox', `${TODAY}_firehose.ndjson`), JSON.stringify(item) + '\n')
+  const stateDir = fs.mkdtempSync(path.join(os.tmpdir(), 'enrich-edgar-state-'))
+  // an EDGAR index page whose formName div carries the FULL multi-word code "Form SC 13D"
+  const indexHtml = '<html><body><div id="formName"><strong>Form SC 13D</strong> - Statement of beneficial ownership</div></body></html>'
+  const fetchFn = (async (input: any) => {
+    const u = String(input?.url || input)
+    if (u.includes('/chat/completions')) return new Response('{}', { status: 200, headers: { 'content-type': 'application/json' } })
+    return new Response(indexHtml, { status: 200, headers: { 'content-type': 'text/html' } })
+  }) as typeof fetch
+  const r = await enrichEvent({ event_id: EVENT_ID }, { repoRoot: root, stateDir, force: true, articleProviders: [PROVIDER], fetchFn })
+  assert.ok(r.sec, 'an sec block was produced')
+  assert.equal(r.sec!.form, 'SC 13D', 'the FULL multi-word code, not the truncated "SC"')
+  assert.ok(r.sec!.form_meaning && /stake|5%|activist/i.test(r.sec!.form_meaning), `carries the plain-English meaning: ${r.sec!.form_meaning}`)
+})
+
 console.log(`\n${passed} checks passed`)

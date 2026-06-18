@@ -6,7 +6,7 @@
 
 import { createHash } from 'node:crypto'
 import { companyKeys, topicTokens, intersectionSize, jaccard } from '../text-match'
-import { rebuildThemeCompanies } from './assign'
+import { rebuildThemeCompanies, overlapScore } from './assign'
 import { ensureDaily } from './score'
 import type { Theme, ThemeItemView, ThemeMember, RelatedTheme } from './types'
 
@@ -140,6 +140,50 @@ export function createTheme(items: ThemeItemView[], now: Date, generation: Theme
   }
   rebuildThemeCompanies(theme)
   return theme
+}
+
+/**
+ * SELF-HEAL a live theme: re-derive its keyword/company identity from its CURRENT members using the
+ * up-to-date tokenizer, then drop members that no longer match (a company hit OR ≥2 shared topic tokens —
+ * the same bar assignment uses). This drains themes that were seeded before the tokenizer learned to
+ * ignore SEC form codes ("424b2"/"filer"): the universal-magnet keywords disappear, and the routine
+ * prospectus filings from unrelated banks that only ever attached THROUGH that magnet fall away. Healthy
+ * themes are unaffected — recomputing identity from their own members reproduces the same keywords and
+ * every member still matches (idempotent). Mutates the theme in place. Returns whether it changed and
+ * whether it has decayed below the cluster minimums (caller retires it).
+ */
+export function refreshThemeIdentity(theme: Theme, cfg: DiscoverConfig = DEFAULT_DISCOVER_CONFIG, now?: Date): { changed: boolean; retire: boolean } {
+  if (theme.status !== 'live' || !theme.members.length) return { changed: false, retire: false }
+  const before = { count: theme.members.length, kw: theme.keywords.join('|') }
+  // 1. recompute identity from the current members (clean tokenizer)
+  const id = clusterIdentity(theme.members as unknown as ThemeItemView[])
+  const probe: Theme = { ...theme, keywords: id.keywords, company_keys: id.company_keys, event_type_affinity: id.affinity }
+  // 2. keep only members that still clear the assignment bar against the refreshed identity
+  const kept = theme.members.filter((m) => overlapScore(companyKeys(m.companies), topicTokens(m.headline, m.companies), m.event_types || [], probe).matched)
+  // 3. retire if too little real signal is left to be a multi-company theme
+  const distinct = new Set<string>()
+  for (const m of kept) for (const k of companyKeys(m.companies)) distinct.add(k)
+  const retire = kept.length < cfg.minClusterItems || distinct.size < cfg.minClusterCompanies
+  if (retire) return { changed: true, retire: true }
+  // 4. commit: kept members + refreshed identity, then a second identity pass tightened to the kept set
+  theme.members = kept
+  const id2 = clusterIdentity(kept as unknown as ThemeItemView[])
+  theme.keywords = id2.keywords
+  theme.company_keys = id2.company_keys
+  theme.event_type_affinity = id2.affinity
+  rebuildThemeCompanies(theme)
+  // dropping members invalidated the flow accounting derived from them: recompute last_flow from the kept
+  // set, and reset+reseed the daily ring (mirrors the merge path above). Without this, purging the NEWEST
+  // members leaves last_flow too recent — dodging mergeAndRetire's `parked && last_flow < cutoff` retire
+  // test — and flow_daily keeps the purged events' counts, over-reporting the 7d/1m/3m window flow (§3,
+  // never over-report). kept is non-empty here (an under-min cluster already retired above).
+  theme.last_flow = kept.reduce((mx, m) => (m.found_at > mx ? m.found_at : mx), kept[0].found_at)
+  theme.flow_daily = undefined
+  theme.flow_daily_day = undefined
+  if (now) ensureDaily(theme, now.getTime()) // engine always passes now; without it the next cycle's ensureDaily/rollDaily reseeds
+  const changed = kept.length !== before.count || theme.keywords.join('|') !== before.kw
+  if (changed) theme.rev++
+  return { changed, retire: false }
 }
 
 /** Discover new themes from the unclustered pool. Returns newly-created themes (status live) plus the

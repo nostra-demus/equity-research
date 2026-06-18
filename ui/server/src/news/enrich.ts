@@ -23,6 +23,7 @@ import { lookupSource } from './sources/approved-domains'
 import { readFeed } from './feed'
 import { cleanText } from './clean'
 import { storyFloor, isFilingEvent, type StoryFloorInput } from './story-floor'
+import { SEC_FORM_TOKENS, lookupSecForm, parseEdgarFilingHeadline, tidyFilerName } from './sec-forms'
 import { filterCompanies, isCompanyName } from './entities'
 import type { ArticleCompany, ArticleParty } from './triage/groq'
 import { type ArticleReadProvider, readArticleBrief } from './triage/article-read'
@@ -63,10 +64,32 @@ export interface PriorCoverage {
 export interface SecFiling {
   form: string // "8-K", "10-Q", …
   form_label?: string // "Current report", when known
+  form_meaning?: string // ONE plain-English sentence: what this form IS (from the sec-forms dictionary)
+  routine?: boolean // true for a high-volume filing that rarely moves the stock on its own (424B2, 13F-HR, …)
   items: { code: string; label: string }[] // 8-K item codes mapped to plain meaning
   filer?: string
   period?: string // period of report (YYYY-MM-DD)
   filed?: string // filing date (YYYY-MM-DD)
+}
+
+/** Attach the plain-English form meaning + routine flag from the sec-forms dictionary to a parsed
+ *  filing, in place. Unknown forms are left as-is (no invented meaning). */
+function annotateSecForm(sec: SecFiling): SecFiling {
+  const info = lookupSecForm(sec.form)
+  if (info) { sec.form_meaning = info.meaning; sec.routine = info.routine; if (!sec.form_label) sec.form_label = info.label }
+  return sec
+}
+
+/** Build a SecFiling straight from an EDGAR feed headline ("424B2 - GOLDMAN SACHS GROUP INC (CIK)
+ *  (Filer)") — no fetch needed. Used as the floor when the index page can't be fetched (SEC.gov rate-
+ *  limits hard), so the reader STILL sees "What was filed" with a plain-English meaning instead of a
+ *  bare "couldn't open the body". Returns undefined when the headline isn't a recognized EDGAR form. */
+function secFromHeadline(headline: string): SecFiling | undefined {
+  const parsed = parseEdgarFilingHeadline(headline)
+  if (!parsed) return undefined
+  const info = lookupSecForm(parsed.form)
+  if (!info) return undefined
+  return { form: parsed.form, form_label: info.label, form_meaning: info.meaning, routine: info.routine, items: [], filer: tidyFilerName(parsed.filer) }
 }
 export interface RelatedEvent {
   event_id: string
@@ -292,7 +315,10 @@ const STOP_WORDS = new Set(
     // time / number / news-finance filler
     'year years week weeks month months day days today week quarter data news report reports update updates live ' +
     'global market markets stock stocks share shares firm firms group price prices cost costs percent pct rate rates ' +
-    'two three four five ten billion bn million mn trillion crore lakh amid says brand place lesson promises proverb'
+    'two three four five ten billion bn million mn trillion crore lakh amid says brand place lesson promises proverb ' +
+    // SEC EDGAR role tags (every "getcurrent" filing title ends in "(Filer)") — see text-match.ts; form
+    // codes like "424b2" are dropped via SEC_FORM_TOKENS below
+    'filer filers registrant'
   ).split(/\s+/),
 )
 // short-but-meaningful topic anchors (skipped by the ≥4-char rule but worth matching on)
@@ -304,6 +330,7 @@ function topicTokens(headline?: string, companies?: CompanyGuess[]): Set<string>
   const out = new Set<string>()
   for (const w of String(headline || '').toLowerCase().replace(/[^a-z0-9 ]+/g, ' ').split(/\s+/)) {
     if (!w || STOP_WORDS.has(w)) continue
+    if (SEC_FORM_TOKENS.has(w)) continue // SEC form codes ("424b2", "defa14a") are not a topic — see sec-forms.ts
     if (w.length >= 4 || SHORT_TOPICS.has(w)) out.add(w)
   }
   for (const c of companies || []) {
@@ -610,6 +637,11 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
   // SEC item parsing applies ONLY to an actual EDGAR filing INDEX page — sec.gov press releases /
   // litigation bulletins are ordinary articles and fall through to the summary extractor.
   const isSec = /(^|\.)sec\.gov$/.test(host) && /\/Archives\/edgar\//i.test(url) && /-index\.html?($|[?#])/i.test(url)
+  // The form code is RIGHT THERE in an EDGAR feed title ("424B2 - GOLDMAN SACHS GROUP INC (CIK) (Filer)"),
+  // so we can explain the filing with zero fetch — the floor when SEC.gov rate-limits the index page (it
+  // does, hard). Gated on the source actually being SEC EDGAR (§27: this dictionary is US-SEC-only).
+  const isEdgarSource = /(^|\.)sec\.gov$/.test(host) || /edgar/i.test(sourceName)
+  const headlineSec = isEdgarSource ? secFromHeadline(headline) : undefined
 
   // Fetch the source page (best effort). A block (403 / paywall / JS-rendered shell) is NOT fatal:
   // most of the wire is RSS, and the feed's own lede (`snippet`) gives the body read a fetch-free input.
@@ -627,9 +659,25 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
   let bodyReadable = false // was there enough body text to ever produce a read? (false → converge to floor, don't churn)
   if (isSec && pageHtml) {
     // an EDGAR filing index: the parsed item block IS the meaning; its page "summary" is header boilerplate.
+    // Annotate the parsed form with its plain-English meaning; if the index didn't parse, fall back to the
+    // headline-derived form (the title still carries the code), then to a raw summary.
     const sec = parseSecFiling(pageHtml)
-    if (sec) result.sec = sec
+    if (sec) {
+      const annotated = annotateSecForm(sec)
+      // parseSecFiling's form regex stops at the first space, so a multi-word code ("SC 13D", "DEF 14A",
+      // "NT 10-K") parses to just its first token ("SC") — which has no dictionary meaning. The EDGAR
+      // headline carries the FULL code, so when the page parse yielded no meaning but the headline did,
+      // take the headline's form + meaning and KEEP the page-only fields (items / period / filed).
+      result.sec = !annotated.form_meaning && headlineSec?.form_meaning
+        ? { ...annotated, form: headlineSec.form, form_label: headlineSec.form_label ?? annotated.form_label, form_meaning: headlineSec.form_meaning, routine: headlineSec.routine }
+        : annotated
+    } else if (headlineSec) result.sec = headlineSec
     else { const s = extractSummary(pageHtml); if (s) result.summary = s }
+  } else if (headlineSec) {
+    // an EDGAR filing whose index page we couldn't fetch (SEC.gov rate-limited us) — the headline still
+    // carries the form code, so the reader STILL gets "What was filed" + a plain-English meaning instead of
+    // a bare "couldn't open the body". A filing has no article body to read, so we stop here.
+    result.sec = headlineSec
   } else {
     if (pageHtml) { const pub = extractPublished(pageHtml); if (pub) result.published = pub }
     // the body for the read: the feed's lede + any fetched page text (snippet first — it's the cleanest).

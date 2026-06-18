@@ -12,7 +12,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { assignThemes, DEFAULT_ASSIGN_CONFIG, type AssignConfig } from './assign'
-import { discoverDeterministic, linkThemes, mergeAndRetire, DEFAULT_DISCOVER_CONFIG, type DiscoverConfig } from './discover'
+import { discoverDeterministic, linkThemes, mergeAndRetire, refreshThemeIdentity, DEFAULT_DISCOVER_CONFIG, type DiscoverConfig } from './discover'
 import { scoreTheme, ensureDaily, rollDaily, DEFAULT_THEME_SCORE_CONFIG, type ThemeScoreConfig } from './score'
 import { appendThemeMutations, buildSummary, loadThemes, readRecentThemeItems, writeThemesIndex } from './store'
 import type { Theme, ThemeItemView, ThemeSummary } from './types'
@@ -78,6 +78,19 @@ export async function stepThemes(input: StepInput): Promise<StepResult> {
   const a = assignThemes(input.items, themes, cfg.assign, now)
   for (const id of a.touched) changedIds.add(id)
   let pool = [...input.pool, ...a.unclustered]
+
+  // 1b. self-heal existing themes (periodic): re-derive each live theme's identity from its members with
+  //     the current tokenizer and purge members that no longer match — draining themes mis-seeded before
+  //     SEC form codes were excluded (the "Mortgage Finance Innovation" magnet bug). Retire any that
+  //     decayed below the cluster minimums. Idempotent for healthy themes. Runs on the discovery cadence.
+  if (input.runDiscovery) {
+    for (const t of themes) {
+      if (t.status !== 'live') continue
+      const { changed, retire } = refreshThemeIdentity(t, cfg.discover, now)
+      if (retire) { t.status = 'retired'; t.rev++; changedIds.add(t.theme_id) }
+      else if (changed) changedIds.add(t.theme_id)
+    }
+  }
 
   // 2. discovery (periodic)
   if (input.runDiscovery && pool.length) {

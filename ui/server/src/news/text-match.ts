@@ -7,6 +7,7 @@
 
 import type { CompanyGuess } from './types'
 import { isCompanyName } from './entities'
+import { SEC_FORM_TOKENS } from './sec-forms'
 
 /** Uppercased, trimmed ticker — the exact-match key. */
 export const tickerKey = (t?: string | null): string => String(t || '').trim().toUpperCase()
@@ -46,6 +47,10 @@ const STOP_WORDS = new Set(
     'solutions international company companies group co sa ag nv bhd berhad pvt private public ' +
     // exchange / regulatory FILING boilerplate (NSE/BSE/SEC) — the action scaffolding, not the subject
     'informed exchange intimation intimations regarding pursuant regulation regulations disclosure disclosures ' +
+    // SEC EDGAR role tags — every "getcurrent" feed title ends in "(Filer)"; these would otherwise be a
+    // universal magnet chaining every filer's routine prospectus into one fake theme (form codes like
+    // "424b2" are handled separately via SEC_FORM_TOKENS, since they carry digits)
+    'filer filers registrant ' +
     'compliance certificate submission outcome board meeting meetings announcement announcements filing filings ' +
     'filed notice notices copy newspaper publication scrutinizer voting agm egm postal ballot circular letter ' +
     'sebi lodr nse bse act reg under regulation76 schedule annexure ' +
@@ -70,6 +75,7 @@ export function topicTokens(headline?: string | null, companies?: CompanyGuess[]
   for (const w of String(headline || '').toLowerCase().replace(/[^a-z0-9 ]+/g, ' ').split(/\s+/)) {
     if (!w || STOP_WORDS.has(w)) continue
     if (/^\d+$/.test(w)) continue // pure numbers (years, counts) never anchor a theme
+    if (SEC_FORM_TOKENS.has(w)) continue // SEC form codes ("424b2", "defa14a") are not a topic — see sec-forms.ts
     if (w.length >= 4 || SHORT_TOPICS.has(w)) out.add(w)
   }
   for (const c of companies || []) {

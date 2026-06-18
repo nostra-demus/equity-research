@@ -6,7 +6,8 @@ import assert from 'node:assert/strict'
 import { scoreTheme, ensureDaily, rollDaily, bumpDaily, DAILY_WINDOWS } from '../src/news/themes/score'
 import { companyImpact, orderTierFor } from '../src/news/themes/order'
 import { assignThemes } from '../src/news/themes/assign'
-import { clusterItems, discoverDeterministic, createTheme, mergeAndRetire } from '../src/news/themes/discover'
+import { clusterItems, discoverDeterministic, createTheme, mergeAndRetire, refreshThemeIdentity } from '../src/news/themes/discover'
+import { topicTokens } from '../src/news/text-match'
 import { stepThemes } from '../src/news/themes/engine'
 import { buildSummary, buildThemesIndex } from '../src/news/themes/store'
 import type { Theme, ThemeItemView } from '../src/news/themes/types'
@@ -247,6 +248,86 @@ await check('stepThemes + index: themes carry the daily ring; history_days + sum
   const idx = buildThemesIndex(res.themes, () => NOW)
   assert.ok(idx.history_days >= 1, 'the index reports at least one day of history')
   assert.equal(buildSummary(t).flow_daily.length, DAILY_WINDOWS, 'the compact summary carries flow_daily for the cockpit')
+})
+
+check('SEC form codes + the "Filer" role tag are NOT topic tokens (the theme-poisoning root cause)', () => {
+  const toks = topicTokens('424B2 - GOLDMAN SACHS GROUP INC (0000886982) (Filer)', [co('Goldman Sachs Group Inc')])
+  assert.ok(!toks.has('424b2'), 'the form code must not anchor a theme')
+  assert.ok(!toks.has('filer'), 'the EDGAR role tag must not anchor a theme')
+  assert.ok(toks.has('goldman') && toks.has('sachs'), 'the real company words still anchor')
+  // two different banks’ routine prospectuses now share NO meaningful token → they cannot cluster
+  const a = topicTokens('424B2 - JPMORGAN CHASE & CO (0000019617) (Filer)', [co('JPMorgan Chase & Co')])
+  const b = topicTokens('424B2 - CITIGROUP INC (0000831001) (Filer)', [co('Citigroup Inc')])
+  const shared = [...a].filter((t) => b.has(t))
+  assert.deepEqual(shared, [], `cross-bank prospectuses share no token now, got: ${shared}`)
+})
+
+check('refreshThemeIdentity heals a poisoned theme: drains form-code keywords, purges cross-bank noise', () => {
+  // a genuine mortgage core (Wells Fargo + Rocket) plus routine cross-bank 424B2 prospectuses that only
+  // ever attached through the "424b2"/"filer" magnet — the exact "Mortgage Finance Innovation" shape.
+  const members = [
+    item('wf1', 'Wells Fargo expands its mortgage lending program', { companies: [co('Wells Fargo', 'WFC')], event_types: ['operations'] }),
+    item('wf2', 'Wells Fargo cuts mortgage rates to win share', { companies: [co('Wells Fargo', 'WFC')], event_types: ['operations'] }),
+    item('rk1', 'Rocket grows mortgage origination volume', { companies: [co('Rocket', 'RKT')], event_types: ['operations'] }),
+    item('rk2', 'Rocket launches a new mortgage product', { companies: [co('Rocket', 'RKT')], event_types: ['product'] }),
+    item('jpm', '424B2 - JPMORGAN CHASE & CO (0000019617) (Filer)', { companies: [co('JPMorgan Chase & Co')], event_types: ['capital_actions'], source_tier: 'primary_filing' }),
+    item('c', '424B2 - CITIGROUP INC (0000831001) (Filer)', { companies: [co('Citigroup Inc')], event_types: ['capital_actions'], source_tier: 'primary_filing' }),
+    item('gs', '424B2 - GOLDMAN SACHS GROUP INC (0000886982) (Filer)', { companies: [co('Goldman Sachs Group Inc')], event_types: ['capital_actions'], source_tier: 'primary_filing' }),
+  ]
+  const theme = createTheme(members, NOW)
+  // simulate the persisted PRE-FIX state: the poisoned keyword set that vacuumed the cross-bank filings in
+  theme.keywords = ['mortgage', 'finance', 'innovation', '424b2', 'filer', 'wells', 'fargo']
+
+  const { changed, retire } = refreshThemeIdentity(theme)
+  assert.equal(retire, false, 'a genuine two-company core survives')
+  assert.equal(changed, true, 'the theme changed (keywords + membership)')
+  assert.ok(!theme.keywords.includes('424b2') && !theme.keywords.includes('filer'), 'form-code keywords are drained')
+  assert.ok(theme.keywords.includes('mortgage'), 'the real recurring topic is kept')
+  const ids = new Set(theme.members.map((m) => m.event_id))
+  assert.ok(ids.has('wf1') && ids.has('rk1'), 'the genuine mortgage core is kept')
+  assert.ok(!ids.has('jpm') && !ids.has('c') && !ids.has('gs'), 'the cross-bank prospectus noise is purged')
+})
+
+check('refreshThemeIdentity recomputes last_flow + flow_daily after a purge (no stale over-report)', () => {
+  // genuine mortgage core dated OLD; the cross-bank 424B2 noise that will be purged is the NEWEST flow —
+  // so a purge that left the temporal fields untouched would keep claiming recent flow that's gone (§3).
+  const members = [
+    item('wf1', 'Wells Fargo expands its mortgage lending program', { companies: [co('Wells Fargo', 'WFC')], event_types: ['operations'], found_at: hoursAgo(72) }),
+    item('wf2', 'Wells Fargo cuts mortgage rates to win share', { companies: [co('Wells Fargo', 'WFC')], event_types: ['operations'], found_at: hoursAgo(72) }),
+    item('rk1', 'Rocket grows mortgage origination volume', { companies: [co('Rocket', 'RKT')], event_types: ['operations'], found_at: hoursAgo(48) }),
+    item('rk2', 'Rocket launches a new mortgage product', { companies: [co('Rocket', 'RKT')], event_types: ['product'], found_at: hoursAgo(48) }),
+    item('jpm', '424B2 - JPMORGAN CHASE & CO (0000019617) (Filer)', { companies: [co('JPMorgan Chase & Co')], event_types: ['capital_actions'], source_tier: 'primary_filing', found_at: hoursAgo(1) }),
+    item('gs', '424B2 - GOLDMAN SACHS GROUP INC (0000886982) (Filer)', { companies: [co('Goldman Sachs Group Inc')], event_types: ['capital_actions'], source_tier: 'primary_filing', found_at: hoursAgo(1) }),
+  ]
+  const theme = createTheme(members, NOW)
+  theme.keywords = ['mortgage', 'finance', 'innovation', '424b2', 'filer', 'wells', 'fargo']
+  ensureDaily(theme, NOW.getTime())
+  // before: last_flow + today's bucket reflect the 2 newest (about-to-be-purged) prospectus filings
+  assert.equal(theme.last_flow, hoursAgo(1), 'before: last_flow is the newest (poison) member')
+  assert.equal(theme.flow_daily![theme.flow_daily!.length - 1], 2, 'before: today bucket counts the 2 newest poison members')
+
+  const { retire } = refreshThemeIdentity(theme, undefined, NOW)
+  assert.equal(retire, false, 'the genuine two-company core survives')
+  const keptIds = new Set(theme.members.map((m) => m.event_id))
+  assert.ok(!keptIds.has('jpm') && !keptIds.has('gs'), 'the cross-bank prospectus noise is purged')
+  // after: last_flow falls back to the newest KEPT member (Rocket, 48h ago) — not the purged one
+  assert.equal(theme.last_flow, hoursAgo(48), 'last_flow recomputed to the newest KEPT member')
+  // after: the daily ring is reseeded from kept members only — no leftover poison counts, today is quiet
+  assert.equal(theme.flow_daily!.reduce((a: number, b: number) => a + b, 0), theme.members.length, 'ring counts only kept members')
+  assert.equal(theme.flow_daily![theme.flow_daily!.length - 1], 0, 'today bucket no longer over-reports the purged flow')
+})
+
+check('refreshThemeIdentity is idempotent on a healthy theme (no spurious purge)', () => {
+  const members = [
+    item('h1', 'Nvidia ramps AI data center GPU shipments', { companies: [co('Nvidia', 'NVDA')], event_types: ['product'] }),
+    item('h2', 'Nvidia data center revenue jumps on AI demand', { companies: [co('Nvidia', 'NVDA')], event_types: ['earnings_revenue_margin'] }),
+    item('h3', 'AMD chases Nvidia in the AI data center market', { companies: [co('AMD', 'AMD'), co('Nvidia', 'NVDA')], event_types: ['product'] }),
+  ]
+  const theme = createTheme(members, NOW)
+  const before = theme.members.length
+  const { retire } = refreshThemeIdentity(theme)
+  assert.equal(retire, false)
+  assert.equal(theme.members.length, before, 'a healthy theme keeps all its members')
 })
 
 console.log(`\n${passed} checks passed`)
