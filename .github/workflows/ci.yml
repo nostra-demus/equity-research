@@ -59,7 +59,7 @@ jobs:
       - name: Run eval harness (all committed runs + J framework-contract checks)
         run: python3 scripts/eval.py all
 
-      - name: Check W selftest (sector ↔ valuation-method gate — fixture-free)
+      - name: Check W + X selftest (sector-valuation + evidence-integrity gates — fixture-free)
         run: python3 scripts/eval.py selftest
 
   ui-web:
