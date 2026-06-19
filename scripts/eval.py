@@ -470,6 +470,30 @@ for drp in runs:
         add("V_edge_gate", not det_v, "; ".join(det_v) or f"edge_score={es!r}; edge_proof={'set' if ep else 'empty'}; confidence={cf}")
     else:
         add("V_edge_gate", True, f"run predates the §7 edge gate ({ddte}) — N/A", na=True)
+    # X conviction-run evidence integrity (forward-looking; landing 2026-06-19)
+    #   Check G fails on verdict=="Failed" (fabricated numbers driving the rating).
+    #   Check O ensures conviction runs (Selected/Short, dated>=2026-06-08) CARRY a report.
+    #   Gap: the verify-evidence report may say "Material issues" — explicitly warning the rating
+    #   is provisional until blocking_findings are resolved — yet no gate enforced that warning.
+    #   A Strong Buy committed while the evidence audit is unresolved is a false-confidence defect.
+    #   This check closes the trilogy: G (not-fabricated) + O (exists) + X (acceptable verdict).
+    VERIFY_FLOOR_DATE="2026-06-19"; ACCEPTABLE_VERDICTS={"Clean","Minor issues"}
+    if isdate(ddte) and ddte>=VERIFY_FLOOR_DATE and DECISIONS.get(dec) in ("Selected","Short"):
+        vp=_latest("verification_report.json")
+        if vp:
+            try:
+                vr=json.load(open(vp)); vverdict=(vr.get("verdict") or "").strip()
+                det_x=[]
+                if vverdict not in ACCEPTABLE_VERDICTS:
+                    det_x.append(f"verdict={vverdict!r} — conviction run requires 'Clean' or 'Minor issues'; resolve blocking_findings in {os.path.basename(vp)} before committing the thesis")
+                add("X_verify_floor", not det_x,
+                    "; ".join(det_x) or f"verdict={vverdict!r} — evidence integrity gate cleared for conviction run")
+            except Exception as e:
+                add("X_verify_floor", False, f"parse error: {e}")
+        else:
+            add("X_verify_floor", True, "no verification_report.json — N/A (existence gated by check O for runs dated>=2026-06-08)", na=True)
+    else:
+        add("X_verify_floor", True, f"N/A (not a post-{VERIFY_FLOOR_DATE} conviction run)", na=True)
     # W sector ↔ valuation-method consistency (forward-looking; landing SECTOR_DATE / SECTOR_OVERLAYS.md).
     #   When business_type AND primary_valuation_method are both set, verify the method is not one
     #   SECTOR_OVERLAYS.md forbids for that sector type (logic + forbidden list live in SECTOR_FORBIDDEN /
@@ -539,7 +563,7 @@ FRAMEWORK_CONTRACTS={
  "frameworks/DECISION_LEDGER.md":["Memo delta","memo_delta","thesis_delta_verdict","stage_one_comment","rerun_command","_memo_delta.md","business_type","primary_valuation_method"],
  ".claude/commands/research/review-decisions.md":["memo_delta","stage_one_comment","rerun_command","Pool first","_memo_delta"],
  ".claude/commands/research/eval.md":["scripts/eval.py"],
- "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN"],
+ "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS"],
  ".github/workflows/ci.yml":["eval-contracts","scripts/eval.py"],
 }
 jchecks=[]
