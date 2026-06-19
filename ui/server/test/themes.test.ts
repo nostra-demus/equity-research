@@ -3,13 +3,16 @@
 // no network, no LLM. Run: npx tsx test/themes.test.ts
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
+import fs from 'node:fs'
+import os from 'node:os'
+import path from 'node:path'
 import { scoreTheme, ensureDaily, rollDaily, bumpDaily, DAILY_WINDOWS } from '../src/news/themes/score'
 import { companyImpact, orderTierFor } from '../src/news/themes/order'
 import { assignThemes } from '../src/news/themes/assign'
 import { clusterItems, discoverDeterministic, createTheme, mergeAndRetire, refreshThemeIdentity } from '../src/news/themes/discover'
 import { topicTokens } from '../src/news/text-match'
 import { stepThemes } from '../src/news/themes/engine'
-import { buildSummary, buildThemesIndex } from '../src/news/themes/store'
+import { buildSummary, buildThemesIndex, loadThemes, maybeCompactThemesLedger } from '../src/news/themes/store'
 import type { Theme, ThemeItemView } from '../src/news/themes/types'
 
 let passed = 0
@@ -328,6 +331,45 @@ check('refreshThemeIdentity is idempotent on a healthy theme (no spurious purge)
   const { retire } = refreshThemeIdentity(theme)
   assert.equal(retire, false)
   assert.equal(theme.members.length, before, 'a healthy theme keeps all its members')
+})
+
+// ---- ledger compaction (store.maybeCompactThemesLedger) ----
+function writeLedger(repoRoot: string, lines: string[]): string {
+  const fp = path.join(repoRoot, 'screener', 'ledger', 'themes.ndjson')
+  fs.mkdirSync(path.dirname(fp), { recursive: true })
+  fs.writeFileSync(fp, lines.join('\n') + (lines.length ? '\n' : ''))
+  return fp
+}
+const themeLine = (id: string, rev: number) => JSON.stringify({ kind: 'theme', ts: hoursAgo(rev), theme: { theme_id: id, name: id, rev } })
+
+await check('maybeCompactThemesLedger: over threshold → one line per theme_id, identical loadThemes result (lossless)', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'themes-compact-'))
+  // 6 mutation lines across 3 theme_ids; last-per-id wins (A→rev3, B→rev2, C→rev1)
+  const fp = writeLedger(root, [
+    themeLine('A', 1), themeLine('B', 1), themeLine('A', 2),
+    themeLine('C', 1), themeLine('A', 3), themeLine('B', 2),
+  ])
+  const before = loadThemes(root)
+  maybeCompactThemesLedger(root, () => NOW, 1) // threshold 1 byte → force compaction
+  const after = loadThemes(root)
+  // lossless: same set of themes, same last-state per id
+  const norm = (ts: Theme[]) => [...ts].map((t) => JSON.stringify(t)).sort()
+  assert.deepEqual(norm(after), norm(before), 'compaction must not change what loadThemes returns')
+  assert.equal(after.length, 3, 'three distinct theme_ids survive')
+  assert.equal((after.find((t) => t.theme_id === 'A') as any).rev, 3, 'last mutation per id wins')
+  // bounded: exactly one physical line per theme_id now
+  const lines = fs.readFileSync(fp, 'utf8').split('\n').filter((l) => l.trim())
+  assert.equal(lines.length, 3, 'ledger collapses to one line per theme_id')
+  fs.rmSync(root, { recursive: true, force: true })
+})
+
+await check('maybeCompactThemesLedger: under threshold → no-op (leaves the ledger byte-for-byte)', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'themes-compact-'))
+  const fp = writeLedger(root, [themeLine('A', 1), themeLine('A', 2)])
+  const raw = fs.readFileSync(fp, 'utf8')
+  maybeCompactThemesLedger(root, () => NOW) // default 4MB threshold; tiny file → untouched
+  assert.equal(fs.readFileSync(fp, 'utf8'), raw, 'a small ledger is left exactly as-is')
+  fs.rmSync(root, { recursive: true, force: true })
 })
 
 console.log(`\n${passed} checks passed`)

@@ -49,6 +49,37 @@ export function appendThemeMutations(repoRoot: string, themes: Theme[], now: () 
   }
 }
 
+/** Rewrite the ledger to its compact projection — one line per theme_id, exactly what `loadThemes`
+ *  returns — once it grows past `thresholdBytes`. The ledger is append-only, so a theme that mutates N
+ *  times leaves N-1 superseded lines that only cost load time and git-push bytes. In prod on 2026-06-19
+ *  this file reached 32MB; because git pushes the whole blob, every screener data commit re-uploaded 32MB
+ *  and GitHub timed the push out (HTTP 408), stranding the data lane and jamming the auto-deploy.
+ *  Compaction is LOSSLESS for every consumer (all read through loadThemes → last-line-per-theme_id) and
+ *  atomic (temp + rename). The TS layer is the ledger's single writer, so re-reading right after the
+ *  cycle's append captures this cycle's mutations too. Rewritten lines carry a fresh `ts`; no reader uses
+ *  the mutation `ts` (loadThemes ignores it), so that is harmless. Best-effort: a failure just leaves the
+ *  larger ledger in place — still correct, only bigger. */
+export function maybeCompactThemesLedger(
+  repoRoot: string,
+  now: () => Date = () => new Date(),
+  thresholdBytes = 4 * 1024 * 1024,
+): void {
+  const fp = ledgerPath(repoRoot)
+  try {
+    if (fs.statSync(fp).size < thresholdBytes) return
+    const themes = loadThemes(repoRoot) // last-per-id — identical to what every reader already sees
+    const ts = now().toISOString().replace(/\.\d{3}Z$/, 'Z')
+    const body = themes.length
+      ? themes.map((theme) => JSON.stringify({ kind: 'theme', ts, theme } satisfies ThemeMutation)).join('\n') + '\n'
+      : ''
+    const tmp = `${fp}.compact.${process.pid}`
+    fs.writeFileSync(tmp, body)
+    fs.renameSync(tmp, fp)
+  } catch {
+    // best-effort — a failed compaction is harmless; the next over-threshold cycle retries
+  }
+}
+
 const top = <T>(arr: T[], n: number): T[] => arr.slice(0, n)
 
 /** Compact projection: Theme → ThemeSummary (no member arrays) for the index + SSE bus. */
