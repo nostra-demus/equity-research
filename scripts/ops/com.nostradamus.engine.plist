@@ -10,6 +10,11 @@
     <key>ENGINE_FULL_PER_MODULE</key><string>1</string>
     <key>ENGINE_REPO_ROOT</key><string>/Users/chiraagkapil/nostra-prod</string>
     <key>ENGINE_STATE_DIR</key><string>/Users/chiraagkapil/nostra-prod/ui/server/.state</string></dict>
+  <!-- The data pool lives in Google Drive (Stream mode): ticker files are dataless placeholders that
+       download on read. A launchd job inherits the materialize-dataless policy OFF by default, so the
+       engine's reads of streamed filings would fail (0 bytes + EDEADLK). This opts the engine in so it
+       downloads file contents on access. See launchd.plist(5) / setiopolicy_np(3). -->
+  <key>MaterializeDatalessFiles</key><true/>
   <key>RunAtLoad</key><true/><key>KeepAlive</key><true/><key>ThrottleInterval</key><integer>5</integer>
   <key>StandardOutPath</key><string>/Users/chiraagkapil/Library/Logs/nostradamus-engine.log</string>
   <key>StandardErrorPath</key><string>/Users/chiraagkapil/Library/Logs/nostradamus-engine.log</string>
