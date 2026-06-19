@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-19T07:55:28Z",
+  "generated_at": "2026-06-19T11:38:50Z",
   "inbox": [
     {
       "inbox_id": "INB-20260619-001",
@@ -7488,6 +7488,22 @@
   ],
   "signals": [
     {
+      "signal_id": "SIG-20260619-755ea4d0",
+      "event_id": "EVT-64fc2697662937d0",
+      "headline": "Barry Diller and other members of management have been buying MGM shares, and Barry Diller proposed an all-cash deal at a premium to the floor price. MGM is actively working to open its IR in Osaka, Japan, in 2030.",
+      "source_name": "Human prompt (banks@alloc8.xyz)",
+      "source_grade": "B",
+      "processed_at": "2026-06-19T11:28:45Z",
+      "run_root": "screener/runs/SIG-20260619-755ea4d0",
+      "materiality_score": 45,
+      "novelty_score": 0.85,
+      "pair_label": "new_event",
+      "action": "keep_separate",
+      "status": "PARK",
+      "status_reason": "Materiality 45 is in the PARK band. The Osaka IR project is real but the Barry Diller deal and insider-buying claims are unverified rumors with no on-list source.",
+      "thesis_id": null
+    },
+    {
       "signal_id": "SIG-20260616-8930aad4",
       "event_id": "",
       "headline": "",
@@ -8011,16 +8027,16 @@
   "handoffs": [],
   "counts": {
     "inbox_unconsumed": 187,
-    "signals_total": 6,
-    "parked": 0,
+    "signals_total": 7,
+    "parked": 1,
     "logged": 1,
     "watchlist": 1,
     "provisional": 4,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 22877,
-    "news_picked_today": 1424,
-    "news_dropped_today": 2950
+    "news_seen_today": 22901,
+    "news_picked_today": 1427,
+    "news_dropped_today": 2971
   },
   "book_momentum": {
     "live_count": 5,

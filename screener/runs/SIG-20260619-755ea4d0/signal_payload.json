@@ -1,0 +1,44 @@
+{
+  "signal_id": "SIG-20260619-755ea4d0",
+  "event_id": "EVT-64fc2697662937d0",
+  "processed_at": "2026-06-19T12:00:00Z",
+  "gate0": {
+    "approved_source_check": false,
+    "source_grade": "B",
+    "source_grade_rationale": "Human prompt input. Gate 0 passes on the verbatim note per swarm doctrine; the M0.1 source check found no on-list source corroborating the Barry Diller deal proposal, insider buying claim, or any new Osaka IR development. The Osaka IR project is real and publicly known but long-dated stale news. approved_source_check is false for the material claims.",
+    "dedup_url_hash": ""
+  },
+  "relevance_label": "relevant_non_material",
+  "relevance_confidence": 0.30,
+  "event_types": ["mna", "management", "commercial", "rumor"],
+  "entities": {
+    "primary_issuers": ["MGM Resorts International (NYSE: MGM)"],
+    "secondary_issuers": [],
+    "sector": "Consumer Discretionary — Hotels, Resorts & Cruise Lines (GICS 25301040)",
+    "geography": "United States (primary listing); Japan (Osaka IR project); UAE/Dubai (speculative note only)",
+    "commodity": ""
+  },
+  "issuer_linkage": "primary_issuer",
+  "similarity_score": 0.00,
+  "similar_event_ids": [],
+  "pair_label": "new_event",
+  "fact_delta": 0.00,
+  "fact_delta_fields": [],
+  "confirmation_upgrade": false,
+  "novelty_score": 0.85,
+  "action": "keep_separate",
+  "materiality_score": 45,
+  "materiality_math": "Base 32 (relevant_non_material, confidence 0.30, no on-list source for M&A/insider claims, one real but stale commercial catalyst, primary_issuer scope) + novelty 13 (0.85 × 15) − penalties 0 (new_event) + overrides 0 = 45/100",
+  "routing": "PARK",
+  "routing_reason": "Materiality 45 is in the 40–69 PARK band. The Osaka integrated-resort project is real and investable, but the most material claims — Barry Diller deal proposal and insider buying — are unverified rumors with no on-list source. No human override_promote flag is set.",
+  "next_action": "Human review required. If on-list sourcing is later found for the deal or insider-buying claim, re-submit for promotion. The Osaka IR story alone is a long-dated commercial catalyst worth monitoring.",
+  "sources": [
+    {
+      "url": "",
+      "source_name": "Human prompt (banks@alloc8.xyz)",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-19T11:28:45Z",
+      "claim_supported": "All claims in this signal originate from an unsourced human prompt. No on-list source was found at M0.1 for the Barry Diller deal proposal, insider buying, or new Osaka IR timeline. The Osaka IR project is publicly known long-dated news. The UAE/Dubai angle is speculative and unsourced."
+    }
+  ]
+}
