@@ -37,6 +37,7 @@ export interface RankFactors {
   event: number // strongest event-type bonus
   size: number // company-size bonus
   recency: number // freshness bonus
+  boost_weight?: number // global multiplier applied to (source_tier+scope+event+size+recency) for THIS score (1 = none); always set on output, optional on input (records predating the field)
   scope_id: ScopeId
   source_tier_id: SourceTierId
 }
@@ -100,7 +101,7 @@ export function rankScore(it: RankInput, now: Date = new Date(), weights: RankWe
 
   return {
     rank_score,
-    rank_factors: { materiality, source_tier, scope, event, size, recency, scope_id, source_tier_id },
+    rank_factors: { materiality, source_tier, scope, event, size, recency, boost_weight: w, scope_id, source_tier_id },
   }
 }
 
@@ -129,7 +130,7 @@ export function reRankFromFactors(
 
   return {
     rank_score,
-    rank_factors: { materiality, source_tier, scope, event, size, recency, scope_id: rf.scope_id, source_tier_id: rf.source_tier_id },
+    rank_factors: { materiality, source_tier, scope, event, size, recency, boost_weight: w, scope_id: rf.scope_id, source_tier_id: rf.source_tier_id },
   }
 }
 
