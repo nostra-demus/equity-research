@@ -510,7 +510,9 @@ export interface ActivityRow {
   user: string
   userVia: 'cf-access' | 'local'
   kind: RunKind
-  ticker: string
+  ticker: string // the run's subject id: a ticker for research, a SIG-… id (or thesisId::TICKER) for swarm runs
+  subjectLabel?: string // human-readable Company-column label when the raw ticker is an opaque subject id
+  runRoot?: string // repo-relative run folder (from the launched event) — drives the row's "open reports" menu
   module?: string
   agent?: string
   model?: string
@@ -538,6 +540,7 @@ export interface ActivityResult {
   allTime: number
   users: string[]
   tickers: string[]
+  tickerLabels?: Record<string, string> // subject id -> readable label (for the rows/dropdown that have one)
   earliest: number | null
 }
 

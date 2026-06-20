@@ -115,11 +115,43 @@ if ! gitlock_acquire; then
   exit 0
 fi
 
-# don't fight an in-flight run writing tracked files (ignore the gitignored .state)
+# Don't fight an in-flight run — but don't get PERMANENTLY stuck on stale engine-written data either.
+# The engine writes TRACKED data (screener board/ledger) into this same worktree, so the old "skip on ANY
+# dirty tracked file" guard would jam the deploy forever the moment one such write sat uncommitted (seen
+# 2026-06-19: prod stuck 3 commits behind for hours while board/ledger were dirty, because the engine
+# couldn't push them). Refine it: skip ONLY when the dirty tree looks like a real reason to wait —
+#   • a dirty file that is NOT engine-written data (any code/ops/doc/config edit) — never fast-forward
+#     over an unreviewed local edit: the ff + rebuild/restart below would bake it into the live deploy,
+#     defeating CLAUDE.md §28 (code must go through PR → CI → review). The engine only ever writes the
+#     §28 data pathspecs (analyses/**, screener/**, analyses/tracking/**), so anything outside them is
+#     unexpected and must keep the conservative skip, OR
+#   • a dirty DATA file the incoming fast-forward would ALSO change (a genuine merge collision), OR
+#   • a dirty DATA file written within RUN_QUIET_SECS (a run is probably mid-write).
+# A stale, non-overlapping, data-ONLY dirty tree is safe to fast-forward over: `git merge --ff-only`
+# itself refuses to clobber a locally-modified file, so it stays the backstop if this heuristic is wrong.
+RUN_QUIET_SECS="${DEPLOY_RUN_QUIET_SECS:-900}"   # 15 min with no writes ⇒ no run is mid-write
+is_data_path() { case "$1" in analyses/tracking/*|analyses/*|screener/*) return 0 ;; *) return 1 ;; esac; }
 if ! "$GIT" diff --quiet 2>/dev/null; then
-  gitlock_release
-  log "SKIP working tree dirty (run in progress?) — retry next cycle"
-  exit 0
+  dirty="$("$GIT" diff --name-only 2>/dev/null)"
+  incoming="$("$GIT" diff --name-only HEAD origin/main 2>/dev/null)"
+  overlap="$(comm -12 <(printf '%s\n' "$dirty" | sort -u) <(printf '%s\n' "$incoming" | sort -u) 2>/dev/null)"
+  recent=0; nondata=0
+  while IFS= read -r f; do
+    [ -z "$f" ] && continue
+    is_data_path "$f" || { nondata=1; break; }
+    [ -e "$f" ] || continue
+    age=$(( $(date +%s) - $(stat -f %m "$f" 2>/dev/null || echo 0) ))
+    [ "$age" -lt "$RUN_QUIET_SECS" ] && { recent=1; break; }
+  done <<< "$dirty"
+  if [ "$nondata" = 1 ] || [ -n "$overlap" ] || [ "$recent" = 1 ]; then
+    gitlock_release
+    if   [ "$nondata" = 1 ]; then why="dirty non-data (code/ops) file present — refusing to bake unreviewed local code into a release (§28)"
+    elif [ -n "$overlap" ];  then why="incoming ff also changes a dirty file"
+    else why="run mid-write (<${RUN_QUIET_SECS}s)"; fi
+    log "SKIP working tree dirty — $why — retry next cycle"
+    exit 0
+  fi
+  log "PROCEED tree dirty but all dirty files are stale & non-overlapping engine data — ff is safe (ff-only refuses to clobber)"
 fi
 
 CHANGED="$("$GIT" diff --name-only HEAD origin/main 2>/dev/null)"

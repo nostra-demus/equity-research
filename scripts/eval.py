@@ -58,6 +58,45 @@ def eval_w_sector_valuation(business_type, primary_valuation_method):
                 if fm in pvm_norm and fm not in hits: hits.append(fm)
     return hits
 
+# ── Check X (conviction-run evidence-integrity floor) — module-level so `eval.py selftest` can drive it ──
+# A run in a conviction basket (Selected/Short) dated >= VERIFY_FLOOR_DATE must carry a verify-evidence
+# verdict in ACCEPTABLE_VERDICTS. "Material issues" / "Failed" mean the audit is unresolved, so committing
+# a conviction position is false confidence (closes the G/O/X trilogy). verify-evidence's 4-value enum is
+# Clean / Minor issues / Material issues / Failed (see .claude/commands/research/verify-evidence.md).
+VERIFY_FLOOR_DATE="2026-06-19"
+ACCEPTABLE_VERDICTS={"Clean","Minor issues"}
+def eval_x_verify_floor(decision, decision_date, verdict):
+    """Core of check X. Returns 'pass' | 'fail' | 'na'. `verdict` is the verification_report verdict
+    string, or None when there is no report. Side-effect-free + module-level so the selftest can drive
+    the full date / basket / verdict logic without a run fixture."""
+    if not (isdate(decision_date) and decision_date>=VERIFY_FLOOR_DATE and DECISIONS.get(decision) in ("Selected","Short")):
+        return "na"
+    if verdict is None: return "na"
+    return "pass" if str(verdict).strip() in ACCEPTABLE_VERDICTS else "fail"
+
+# ── Check Y (§11 data-sufficiency cap) — module-level so `eval.py selftest` can drive it ──
+# CLAUDE.md §11 / synthesizer.md Rating Cap Rules: data_sufficiency_score < 30 → the decision MUST be the
+# §18 "Insufficient Data — Refuse To Rate"; 30–49 → maximum rating "Watchlist", so NO conviction position
+# may be emitted. A "conviction position" is the Selected long basket AND a Short — matching how checks
+# O/U/X define it (DECISIONS basket in {"Selected","Short"}); check U caps a broken thesis to "Watchlist
+# or lower" by forbidding BOTH, so check Y must too (a thin-data short is a capital-at-risk position with
+# unbounded downside — §24). Pair Trade is intentionally left out: a market-neutral hedge carries no
+# directional capital at risk, and the §-distress rule (synthesizer.md) already governs it. A null/non-
+# numeric score on a conviction rating FAILs — data_sufficiency_score is a required /100 field
+# (DECISION_LEDGER.md §5); a null must not buy a free pass a low score would not.
+INSUF_THRESHOLD=30
+DATASUF_CONVICTION_FLOOR=50
+INSUF_DECISION="Insufficient Data — Refuse To Rate"
+HIGH_CONVICTION_DECISIONS={"Strong Buy","Buy","Starter Position Only","Short Candidate"}  # conviction positions (Selected longs + Short), per checks O/U/X
+def eval_y_data_sufficiency(decision, ds):
+    """Core of check Y. Returns 'fail' | 'na' | 'pass'. `ds` is data_sufficiency_score (number) or
+    None/non-numeric. Side-effect-free + module-level so the selftest drives every branch fixture-free."""
+    if isnum(ds):
+        if ds<INSUF_THRESHOLD and decision!=INSUF_DECISION: return "fail"  # <30 → must be Refuse-To-Rate
+        if INSUF_THRESHOLD<=ds<DATASUF_CONVICTION_FLOOR and decision in HIGH_CONVICTION_DECISIONS: return "fail"  # 30-49 caps conviction
+        return "pass"
+    return "fail" if decision in HIGH_CONVICTION_DECISIONS else "na"  # null score: fail a conviction rating, else N/A
+
 if scope=="selftest":
     # Fixture-free coverage for check W — the golden suite can't exercise it (every committed run is
     # pre-gate / blank-fielded, so W is always N/A there). Asserts forbidden combos FAIL, correct combos
@@ -91,7 +130,53 @@ if scope=="selftest":
         h=W(bt,pvm); got=("na" if h is None else ("fail" if h else "clean")); ok=(got==exp)
         if not ok: bad+=1
         print(f"  [{'ok' if ok else 'XX'}] W({bt!r},{pvm!r}) -> {got}"+(f" {h}" if h else "")+("" if ok else f"  EXPECTED {exp}"))
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W cases")
+    # check X — the golden suite can't reach it (every committed fixture predates the floor → always N/A),
+    # so drive the full date / basket / verdict gate here: conviction + acceptable verdict PASSes; conviction
+    # + "Material issues"/"Failed"/blank/wrong-case FAILs; non-conviction, no-report, and pre-floor are N/A.
+    X=eval_x_verify_floor
+    xcases=[  # (decision, decision_date, verdict-or-None, expect: "pass"|"fail"|"na")
+        ("Strong Buy","2026-06-19","Clean","pass"),
+        ("Buy","2026-06-19","Minor issues","pass"),
+        ("Starter Position Only","2026-06-19","Clean","pass"),    # also a Selected basket
+        ("Short Candidate","2026-06-19","Clean","pass"),          # Short is a conviction basket too
+        ("Strong Buy","2026-06-19","Material issues","fail"),
+        ("Short Candidate","2026-06-19","Failed","fail"),
+        ("Strong Buy","2026-06-19","","fail"),                    # empty verdict is not acceptable
+        ("Strong Buy","2026-06-19","Minor Issues","fail"),        # wrong casing → case-sensitive, not acceptable
+        ("Strong Buy","2026-06-19",None,"na"),                    # no verification_report.json
+        ("Watchlist","2026-06-19","Material issues","na"),        # non-conviction basket
+        ("Avoid","2026-06-19","Material issues","na"),            # non-conviction basket
+        ("Strong Buy","2026-06-18","Material issues","na"),       # predates the floor
+        ("Strong Buy","not-a-date","Material issues","na"),       # unparseable decision_date
+    ]
+    for dec_,dt_,vd_,exp in xcases:
+        got=X(dec_,dt_,vd_); ok=(got==exp)
+        if not ok: bad+=1
+        print(f"  [{'ok' if ok else 'XX'}] X({dec_!r},{dt_!r},{vd_!r}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
+    # check Y — the golden suite can't reach the cap branches (every fixture is score 68-69 / Watchlist-Avoid
+    # → trivial pass), so drive the full §11 gate here. Note the F1 cases: weak data caps a Short (matching
+    # checks O/U/X), but a Pair hedge is intentionally exempt.
+    Y=eval_y_data_sufficiency
+    ycases=[  # (decision, data_sufficiency_score-or-None, expect: "pass"|"fail"|"na")
+        ("Strong Buy",68,"pass"), ("Short Candidate",68,"pass"),          # good data → conviction OK either side
+        ("Strong Buy",50,"pass"), ("Strong Buy",49,"fail"),                # band edge: 50 ok, 49 weak
+        ("Strong Buy",35,"fail"), ("Starter Position Only",35,"fail"),     # weak data caps the long basket
+        ("Short Candidate",35,"fail"),                                     # F1: weak data caps a Short too
+        ("Pair Trade / Hedge Required",35,"pass"),                        # F1: Pair hedge intentionally exempt
+        ("Avoid",35,"pass"), ("Watchlist",35,"pass"),                      # at/below the Watchlist ceiling → allowed
+        ("Strong Buy",20,"fail"), ("Short Candidate",20,"fail"),          # <30 must be Refuse-To-Rate
+        ("Avoid",20,"fail"),                                               # <30 caps ANY non-Refuse decision
+        ("Insufficient Data — Refuse To Rate",20,"pass"),                 # <30 with the correct refuse token
+        ("Strong Buy",None,"fail"),                                       # null score on a conviction long → FAIL
+        ("Short Candidate",None,"fail"),                                   # null score on a Short → FAIL (F1)
+        ("Watchlist",None,"na"), ("Pair Trade / Hedge Required",None,"na"),# null on a non-conviction rating → N/A
+        ("Strong Buy","not-a-number","fail"),                             # non-numeric score on conviction → FAIL
+    ]
+    for dec_,ds_,exp in ycases:
+        got=Y(dec_,ds_); ok=(got==exp)
+        if not ok: bad+=1
+        print(f"  [{'ok' if ok else 'XX'}] Y({dec_!r},{ds_!r}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y cases")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -477,17 +562,15 @@ for drp in runs:
     #   is provisional until blocking_findings are resolved — yet no gate enforced that warning.
     #   A Strong Buy committed while the evidence audit is unresolved is a false-confidence defect.
     #   This check closes the trilogy: G (not-fabricated) + O (exists) + X (acceptable verdict).
-    VERIFY_FLOOR_DATE="2026-06-19"; ACCEPTABLE_VERDICTS={"Clean","Minor issues"}
     if isdate(ddte) and ddte>=VERIFY_FLOOR_DATE and DECISIONS.get(dec) in ("Selected","Short"):
         vp=_latest("verification_report.json")
         if vp:
             try:
                 vr=json.load(open(vp)); vverdict=(vr.get("verdict") or "").strip()
-                det_x=[]
-                if vverdict not in ACCEPTABLE_VERDICTS:
-                    det_x.append(f"verdict={vverdict!r} — conviction run requires 'Clean' or 'Minor issues'; resolve blocking_findings in {os.path.basename(vp)} before committing the thesis")
-                add("X_verify_floor", not det_x,
-                    "; ".join(det_x) or f"verdict={vverdict!r} — evidence integrity gate cleared for conviction run")
+                if eval_x_verify_floor(dec, ddte, vverdict)=="fail":
+                    add("X_verify_floor", False, f"verdict={vverdict!r} — conviction run requires 'Clean' or 'Minor issues'; resolve blocking_findings in {os.path.basename(vp)} before committing the thesis")
+                else:
+                    add("X_verify_floor", True, f"verdict={vverdict!r} — evidence integrity gate cleared for conviction run")
             except Exception as e:
                 add("X_verify_floor", False, f"parse error: {e}")
         else:
@@ -510,6 +593,21 @@ for drp in runs:
                 "; ".join(det_w) or f"business_type={bt!r}; primary_valuation_method={pvm!r} — no forbidden method detected")
     else:
         add("W_sector_valuation",True,f"run predates the sector-valuation gate ({ddte}) — N/A",na=True)
+    # Y §11 data-sufficiency ↔ decision cap — always-apply (CLAUDE.md §11, no landing date). Logic +
+    # thresholds live in eval_y_data_sufficiency / the constants above (hoisted module-level so
+    # `eval.py selftest` covers them). The committed fixtures (score 68-69, Watchlist/Avoid) pass trivially.
+    ds=d.get("data_sufficiency_score")
+    ystatus=eval_y_data_sufficiency(dec, ds)
+    if ystatus=="na":
+        add("Y_data_sufficiency_cap",True,f"data_sufficiency_score absent or non-numeric ({ds!r}); decision={dec!r} not a conviction rating — N/A",na=True)
+    elif ystatus=="pass":
+        add("Y_data_sufficiency_cap",True,f"data_sufficiency_score={ds}; decision={dec!r} — §11 thresholds satisfied")
+    elif not isnum(ds):
+        add("Y_data_sufficiency_cap",False,f"data_sufficiency_score absent/non-numeric ({ds!r}) but decision={dec!r} is a conviction rating — §11 requires a /100 sufficiency score (DECISION_LEDGER.md required field) to support conviction")
+    elif ds<INSUF_THRESHOLD:
+        add("Y_data_sufficiency_cap",False,f"data_sufficiency_score={ds} < {INSUF_THRESHOLD} (§11 insufficient) but decision={dec!r} — must be {INSUF_DECISION!r} (§18)")
+    else:
+        add("Y_data_sufficiency_cap",False,f"data_sufficiency_score={ds} in [{INSUF_THRESHOLD},{DATASUF_CONVICTION_FLOOR}) (§11 weak) but decision={dec!r} — max rating Watchlist; a conviction rating requires data_sufficiency_score >= {DATASUF_CONVICTION_FLOOR} (§11)")
     # WARN non-schema files
     # [review fix] suppress only genuine versioned/audit/review artifacts via PRECISE patterns — the old naive
     # `"_v" not in name` / `"review" not in name` substring tests hid real strays (preview.md, *_v*-named scratch).
@@ -563,7 +661,7 @@ FRAMEWORK_CONTRACTS={
  "frameworks/DECISION_LEDGER.md":["Memo delta","memo_delta","thesis_delta_verdict","stage_one_comment","rerun_command","_memo_delta.md","business_type","primary_valuation_method"],
  ".claude/commands/research/review-decisions.md":["memo_delta","stage_one_comment","rerun_command","Pool first","_memo_delta"],
  ".claude/commands/research/eval.md":["scripts/eval.py"],
- "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS"],
+ "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS"],
  ".github/workflows/ci.yml":["eval-contracts","scripts/eval.py"],
 }
 jchecks=[]

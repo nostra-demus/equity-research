@@ -1,9 +1,10 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState, type MouseEvent } from 'react'
 import { motion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { api, isStatic } from '../lib/api'
 import { fmtAbsolute, fmtAgo, fmtCost, fmtDuration, moduleLabel } from '../lib/format'
 import type { ActivityResult, ActivityRow, RunKind, Whoami } from '../lib/types'
+import { ActivityReportMenu, type ReportMenuAnchor } from './ActivityReportMenu'
 
 type RangeKey = 'all' | '24h' | '7d' | '30d' | 'custom'
 const RANGES: { key: RangeKey; label: string }[] = [
@@ -27,6 +28,19 @@ function targetOf(r: ActivityRow): string {
   if (r.kind === 'handoff') return 'idea memo → company data folder'
   return `${moduleLabel(r.module || '')} › ${r.agent || '?'}`
 }
+// The Company column: research runs carry a real ticker; swarm runs carry an opaque subject id that
+// the server resolves to a readable label (the company/headline a SIG-… event concerns). A sweep is a
+// market-wide scan, not about one company, so it shows a dash.
+function companyOf(r: ActivityRow): string {
+  if (r.kind === 'sweep') return '—'
+  return r.subjectLabel || r.ticker
+}
+// Hover reveals the underlying subject id (the audit anchor) whenever we've replaced it with a label.
+function companyTitle(r: ActivityRow): string | undefined {
+  if (r.kind === 'sweep') return 'Market-wide news scan'
+  if (r.subjectLabel && r.subjectLabel !== r.ticker) return r.ticker
+  return undefined
+}
 function statusTone(s: string): { color: string; label: string } {
   switch (s) {
     case 'done': return { color: 'var(--accent-bright)', label: 'done' }
@@ -38,11 +52,31 @@ function statusTone(s: string): { color: string; label: string } {
   }
 }
 
+// Which rows get an "open reports" button: a run that FINISHED with outputs (done / incomplete — never
+// error, cancelled, or still in flight) AND whose kind produces a per-run report folder.
+const REPORT_KINDS = new Set<string>(['signal', 'screener-agent', 'full', 'module', 'agent', 'rerun', 'review'])
+const REPORT_STATUSES = new Set<string>(['done', 'incomplete'])
+function hasReport(r: ActivityRow): boolean {
+  return REPORT_KINDS.has(r.kind) && REPORT_STATUSES.has(r.status)
+}
+
 export function ActivityLog() {
   const close = useStore((s) => s.closeActivity)
   const [data, setData] = useState<ActivityResult | null>(null)
   const [loading, setLoading] = useState(true)
   const [whoami, setWhoami] = useState<Whoami | null>(null)
+  // the per-row report chooser (manifest-driven popup), anchored to the clicked button
+  const [menu, setMenu] = useState<{ row: ActivityRow; anchor: ReportMenuAnchor } | null>(null)
+  const openReports = (e: MouseEvent<HTMLButtonElement>, row: ActivityRow) => {
+    e.stopPropagation()
+    if (menu?.row.runId === row.runId) { setMenu(null); return } // clicking the same button toggles it closed
+    const r = e.currentTarget.getBoundingClientRect()
+    const right = Math.max(8, window.innerWidth - r.right) // right-align under the button (it sits near the panel's right edge)
+    const anchor: ReportMenuAnchor = window.innerHeight - r.bottom < 320
+      ? { right, bottom: Math.max(8, window.innerHeight - r.top + 6) } // flip up near the viewport bottom
+      : { right, top: r.bottom + 6 }
+    setMenu({ row, anchor })
+  }
 
   // filters
   const [range, setRange] = useState<RangeKey>('all')
@@ -155,7 +189,7 @@ export function ActivityLog() {
             )}
             <select className="fld" value={ticker} onChange={(e) => setTicker(e.target.value)} aria-label="Company">
               <option value="">All companies</option>
-              {(data?.tickers ?? []).map((t) => <option key={t} value={t}>{t}</option>)}
+              {(data?.tickers ?? []).map((t) => <option key={t} value={t}>{data?.tickerLabels?.[t] ?? t}</option>)}
             </select>
             <select className="fld" value={kind} onChange={(e) => setKind(e.target.value)} aria-label="Type">
               <option value="">All types</option>
@@ -200,7 +234,7 @@ export function ActivityLog() {
               <table className="atable">
                 <thead>
                   <tr>
-                    <th>When</th><th>Who</th><th>Action</th><th>Company</th><th>Target</th><th>Status</th><th className="atable__num">Cost</th><th className="atable__num">Duration</th>
+                    <th>When</th><th>Who</th><th>Action</th><th>Company</th><th>Target</th><th>Status</th><th className="atable__num">Cost</th><th className="atable__num">Duration</th><th className="atable__num">Reports</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -211,11 +245,24 @@ export function ActivityLog() {
                         <td title={fmtAbsolute(r.launchedAt)} style={{ whiteSpace: 'nowrap', color: 'var(--text-muted)' }}>{fmtAgo(r.launchedAt)}</td>
                         <td className="atable__who" title={r.userVia === 'cf-access' ? 'Cloudflare Access identity' : 'local / direct access'}>{r.user}</td>
                         <td><span className={`akind akind--${r.kind}`}>{KIND_LABEL[r.kind]}</span></td>
-                        <td style={{ fontWeight: 600 }}>{r.ticker}</td>
+                        <td className="atable__company"><span title={companyTitle(r)} className={r.kind === 'sweep' ? 'atable__company--none' : undefined}>{companyOf(r)}</span></td>
                         <td style={{ color: 'var(--text-muted)' }}>{targetOf(r)}</td>
                         <td title={r.note || undefined}><span className="apill" style={{ color: tone.color }}><span className="apill__dot" style={{ background: tone.color }} />{tone.label}{r.note ? ' ⚠' : ''}</span></td>
                         <td className="atable__num">{fmtCost(r.costUsd)}</td>
                         <td className="atable__num">{fmtDuration(r.durationMs)}</td>
+                        <td className="atable__num">
+                          {hasReport(r) ? (
+                            <button
+                              className="btn"
+                              style={{ height: 24, minWidth: 30, padding: '0 8px', fontSize: 16, lineHeight: 1, fontWeight: 700 }}
+                              aria-label="Open reports for this run"
+                              title="Open run reports"
+                              onClick={(e) => openReports(e, r)}
+                            >⋯</button>
+                          ) : (
+                            <span style={{ color: 'var(--text-faint)' }}>—</span>
+                          )}
+                        </td>
                       </tr>
                     )
                   })}
@@ -223,6 +270,7 @@ export function ActivityLog() {
               </table>
             )}
           </div>
+          {menu && <ActivityReportMenu row={menu.row} anchor={menu.anchor} onClose={() => setMenu(null)} />}
         </>
       )}
     </motion.div>
