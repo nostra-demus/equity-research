@@ -20,6 +20,7 @@ export interface ActivityEvent {
   userVia: 'cf-access' | 'local'
   kind: RunKind // full | module | agent | rerun
   ticker: string
+  runRoot?: string // repo-relative run folder (launched event) — lets the activity row open the run's reports
   module?: string
   agent?: string
   model?: string
@@ -37,7 +38,10 @@ export interface ActivityRow {
   user: string
   userVia: 'cf-access' | 'local'
   kind: RunKind
-  ticker: string
+  ticker: string // the run's SUBJECT id: a ticker for research, a SIG-… id (or thesisId::TICKER) for swarm runs
+  subjectLabel?: string // human-readable subject for the Company column — the company/headline a SIG-… run
+  // concerns, or the target ticker of a handoff. Absent when the raw ticker is already the best label.
+  runRoot?: string // repo-relative run folder (from the launched event) — drives the row's "open reports" menu
   module?: string
   agent?: string
   model?: string
@@ -86,8 +90,22 @@ export interface ActivityResult {
   total: number // rows matching the filter (before limit)
   allTime: number // total runs ever recorded
   users: string[] // distinct users (for the filter dropdown)
-  tickers: string[] // distinct tickers
+  tickers: string[] // distinct subject ids (the Company filter dropdown's values)
+  tickerLabels: Record<string, string> // subject id -> human-readable label, for the rows/dropdown that have one
   earliest: number | null // ts of the first record ever (perpetual-history anchor)
+}
+
+// Translate a run's raw SUBJECT id into a human-readable label for the Company column. Research runs
+// already carry a real ticker (returns undefined — the ticker is the label). Swarm runs carry an
+// opaque subject id: a SIG-… signal id, resolved via `sigLabels` (the company/headline it concerns,
+// built by the caller from the swarm's event ledger), or a `thesisId::TICKER` handoff id, whose
+// company is the part after "::". Returns undefined when nothing better than the raw id is known.
+export function resolveSubjectLabel(ticker: string, sigLabels?: Map<string, string>): string | undefined {
+  const fromLedger = sigLabels?.get(ticker)
+  if (fromLedger) return fromLedger
+  const sep = ticker.indexOf('::')
+  if (sep >= 0) return ticker.slice(sep + 2) || undefined
+  return undefined
 }
 
 function readAllEvents(): ActivityEvent[] {
@@ -123,6 +141,7 @@ function foldRows(events: ActivityEvent[]): ActivityRow[] {
         userVia: ev.userVia,
         kind: ev.kind,
         ticker: ev.ticker,
+        runRoot: ev.runRoot,
         module: ev.module,
         agent: ev.agent,
         model: ev.model,
@@ -138,6 +157,7 @@ function foldRows(events: ActivityEvent[]): ActivityRow[] {
       row.userVia = ev.userVia
       row.kind = ev.kind
       row.ticker = ev.ticker
+      row.runRoot = ev.runRoot
       row.module = ev.module
       row.agent = ev.agent
       row.model = ev.model
@@ -153,12 +173,25 @@ function foldRows(events: ActivityEvent[]): ActivityRow[] {
   return [...byRun.values()]
 }
 
-export function readActivity(query: ActivityQuery = {}): ActivityResult {
+// `sigLabels` maps a swarm subject id (a SIG-… signal id) to the company/headline it concerns. The
+// caller (server) builds it from the swarm's event ledger and injects it here so this module stays
+// free of any swarm-specific path or schema. With it, swarm runs show a readable Company name instead
+// of the opaque subject id, and free-text search matches that name too.
+export function readActivity(query: ActivityQuery = {}, sigLabels?: Map<string, string>): ActivityResult {
   const events = readAllEvents()
   const allRows = foldRows(events).sort((a, b) => b.launchedAt - a.launchedAt)
+  for (const r of allRows) {
+    const label = resolveSubjectLabel(r.ticker, sigLabels)
+    if (label) r.subjectLabel = label
+  }
 
   const users = [...new Set(allRows.map((r) => r.user))].sort()
   const tickers = [...new Set(allRows.map((r) => r.ticker))].sort()
+  const tickerLabels: Record<string, string> = {}
+  for (const t of tickers) {
+    const label = resolveSubjectLabel(t, sigLabels)
+    if (label) tickerLabels[t] = label
+  }
   const earliest = events.length ? Math.min(...events.map((e) => e.ts)) : null
 
   const q = query.q?.trim().toLowerCase()
@@ -170,7 +203,7 @@ export function readActivity(query: ActivityQuery = {}): ActivityResult {
     if (query.user && r.user !== query.user) return false
     if (query.status && r.status !== query.status) return false
     if (q) {
-      const hay = `${r.user} ${r.ticker} ${r.module ?? ''} ${r.agent ?? ''} ${r.kind}`.toLowerCase()
+      const hay = `${r.user} ${r.ticker} ${r.subjectLabel ?? ''} ${r.module ?? ''} ${r.agent ?? ''} ${r.kind}`.toLowerCase()
       if (!hay.includes(q)) return false
     }
     return true
@@ -183,6 +216,7 @@ export function readActivity(query: ActivityQuery = {}): ActivityResult {
     allTime: allRows.length,
     users,
     tickers,
+    tickerLabels,
     earliest,
   }
 }

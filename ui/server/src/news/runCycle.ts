@@ -86,6 +86,9 @@ export interface RunCycleDeps {
   // drain-only mode: skip the FETCH layers and just triage the deferred backlog (the scheduler runs
   // this between fetch cycles so Groq never sits idle while there's a backlog + daily budget left).
   skipFetch?: boolean
+  // the cycle's abort signal (from runAbortableCycle's wall-clock guard). When it fires, the triage loop
+  // stops starting new batches/provider calls instead of grinding the whole backlog — see the break below.
+  signal?: AbortSignal
 }
 
 export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSummary> {
@@ -215,6 +218,15 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const pace = { targetTokens: cfg.groqDailyTokenTarget, floorFrac: cfg.groqPaceFloorFrac }
 
   for (let i = 0; i < items.length; i += cfg.triageBatch) {
+    // The wall-clock guard fired: stop starting new batches. The wrapped fetchFn already fails fast, but
+    // without this the loop walks every remaining batch retrying each provider (burning daily LLM quota on
+    // doomed calls and holding the cycle lock past the abort). Requeue the untriaged remainder to the
+    // deferred backlog FIRST (same as the budget-exhausted path below) so the abort loses nothing, then stop.
+    if (deps.signal?.aborted) {
+      deferred.push(...items.slice(i))
+      log(`cycle aborted — deferring ${items.length - i} remaining item(s) to the next cycle`)
+      break
+    }
     const batch = items.slice(i, i + cfg.triageBatch)
     const est = estimateTokens(batch.length)
     // PROVIDER PICK. Prefer Groq while it's on-schedule (the pacer keeps it spread across the day); when

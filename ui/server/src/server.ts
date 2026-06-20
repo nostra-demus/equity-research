@@ -32,7 +32,7 @@ import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
 import { agentNamesForModule, buildSwarmGraph, graphForSubject, graphForTicker, listModuleNames } from './roster'
 import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, resolveRunRoot, runManifest } from './outputs'
-import { dataPoolPresent, readCandidates, readConviction, readConvictionCalibration, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest } from './screener'
+import { dataPoolPresent, readCandidates, readConviction, readConvictionCalibration, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest, screenerSubjectLabels } from './screener'
 import { listSwarms } from './swarms'
 import { getNewsStatus, startNewsIngester } from './news/scheduler'
 import { startConvictionLoop } from './conviction-dispatch'
@@ -255,6 +255,8 @@ app.get('/api/activity', async (req) => {
   }
   const kinds = ['full', 'module', 'agent', 'rerun', 'review', 'track', 'signal', 'sweep', 'screener-agent', 'handoff']
   const statuses = ['starting', 'running', 'done', 'error', 'cancelled', 'incomplete']
+  // Swarm runs are keyed by an opaque subject id (a SIG-… signal id); resolve each to the company /
+  // headline it concerns so the Company column reads as a name, not an id. Falls back to the raw id.
   return readActivity({
     from: num(q.from),
     to: num(q.to),
@@ -264,7 +266,7 @@ app.get('/api/activity', async (req) => {
     status: statuses.includes(q.status) ? q.status : undefined,
     q: typeof q.q === 'string' ? q.q.slice(0, 100) : undefined,
     limit: num(q.limit),
-  })
+  }, screenerSubjectLabels())
 })
 
 // ---------- launch estimate ----------
@@ -779,6 +781,9 @@ app.get('/api/news/enrich', async (req, reply) => {
         articleProviders: ARTICLE_READ_PROVIDERS,
         llmBudgetMs: NEWS.enrichLlmBudgetMs,
         limiterWaitMs: NEWS.enrichLimiterWaitMs,
+        // when the publisher blocks the direct read, corroborate the event from the secondary wire (GDELT
+        // keyword search → same read chain). Shares the firehose's GDELT endpoint + penalty backoff.
+        corroborate: { enabled: NEWS.enrichCorroborate, baseUrl: NEWS.gdeltBaseUrl, timeoutMs: NEWS.enrichCorroborateTimeoutMs },
       },
     )
     return enrichment

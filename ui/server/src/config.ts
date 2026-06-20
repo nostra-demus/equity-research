@@ -423,6 +423,12 @@ export const NEWS = {
   // one provider's rate limiter before skipping it. Past the budget the read degrades to the story floor.
   enrichLlmBudgetMs: capNum(process.env.NEWS_ENRICH_LLM_BUDGET_MS, 14_000),
   enrichLimiterWaitMs: capNum(process.env.NEWS_ENRICH_LIMITER_WAIT_MS, 2500),
+  // On-demand corroboration: when an opened article's publisher blocks the direct read, ask GDELT who ELSE
+  // reported the event and synthesise the story from the secondary wire (the server-side version of a human
+  // checking other outlets). Default ON; shares the firehose's GDELT endpoint + penalty backoff so it can
+  // never reignite the ingester's IP penalty. Set NEWS_ENRICH_CORROBORATE=0 to disable.
+  enrichCorroborate: process.env.NEWS_ENRICH_CORROBORATE === '0' ? false : true,
+  enrichCorroborateTimeoutMs: capNum(process.env.NEWS_ENRICH_CORROBORATE_TIMEOUT_MS, 6000),
   // Background self-heal (news/enrich-heal.ts): each ingest cycle, re-read this many DEGRADED stories (a
   // readable article whose on-demand LLM read momentarily missed) that are still on the live wire, so a
   // story fixes itself even if no human reopens it. Capped + budget-gated so it never starves the title
