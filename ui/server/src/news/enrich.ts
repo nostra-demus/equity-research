@@ -198,11 +198,12 @@ export function extractSummary(html: string): string | undefined {
 export function extractReadable(html: string): string {
   if (!html) return ''
   const stripped = html
-    // whitespace-tolerant end tags (</script >, </style\n>) so a crafted page can't slip script/style text
-    // past the strip (CodeQL js/bad-tag-filter); \b so <scriptx> isn't mistaken for an opening <script>.
-    .replace(/<script\b[\s\S]*?<\/script\s*>/gi, ' ')
-    .replace(/<style\b[\s\S]*?<\/style\s*>/gi, ' ')
-    .replace(/<(nav|header|footer|aside|form|figure|figcaption)\b[\s\S]*?<\/\1\s*>/gi, ' ')
+    // end tags matched the way browsers accept them — </script>, </script >, and even </script\t\n bar>
+    // (whitespace + junk before >) — so a crafted page can't slip script/style text past the strip
+    // (CodeQL js/bad-tag-filter); \b so <scriptx>/</scriptx> isn't mistaken for a real script tag.
+    .replace(/<script\b[\s\S]*?<\/script\b[^>]*>/gi, ' ')
+    .replace(/<style\b[\s\S]*?<\/style\b[^>]*>/gi, ' ')
+    .replace(/<(nav|header|footer|aside|form|figure|figcaption)\b[\s\S]*?<\/\1\b[^>]*>/gi, ' ')
     .replace(/<!--[\s\S]*?-->/g, ' ')
   const seen = new Set<string>()
   const paras: string[] = []
@@ -787,7 +788,7 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
     // the body for the read: the feed's lede + the fetched ARTICLE text. Prefer the readability extraction
     // (just the article paragraphs — cleaner signal, fewer tokens than the whole page); fall back to the
     // de-chromed full page when a template hides its prose outside <p> tags.
-    const pageBody = pageHtml ? (extractReadable(pageHtml) || cleanText(pageHtml.replace(/<script\b[\s\S]*?<\/script\s*>/gi, ' ').replace(/<style\b[\s\S]*?<\/style\s*>/gi, ' '))) : ''
+    const pageBody = pageHtml ? (extractReadable(pageHtml) || cleanText(pageHtml.replace(/<script\b[\s\S]*?<\/script\b[^>]*>/gi, ' ').replace(/<style\b[\s\S]*?<\/style\b[^>]*>/gi, ' '))) : ''
     const body = [snippet, pageBody].filter(Boolean).join('\n\n').trim()
     // The article-body read — through the multi-provider fallback chain (Groq → OpenAI-compatible overflow
     // → Gemini), each sharing the ingester's daily budget + per-minute limiter, with a HARD wall-clock

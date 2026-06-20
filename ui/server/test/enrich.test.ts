@@ -209,7 +209,7 @@ await check('e2e: a multi-word EDGAR form (SC 13D) gets the FULL code + meaning,
 
 await check('extractReadable: keeps the article paragraphs, drops nav/footer/cookie chrome', () => {
   const html = '<html><body><nav><p>Home About Contact</p></nav>' +
-    '<script type="text/javascript">var leak = "EVIL_SCRIPT_TEXT should never reach the reader.";</script >' + // whitespace end tag
+    '<script type="text/javascript">var leak = "EVIL_SCRIPT_TEXT should never reach the reader.";</script\t\n bar>' + // junk-trailing end tag browsers still accept
     '<article>' +
     '<p>Vantage Drilling shareholders approved the $257.6 million all-cash takeover by Eldorado Drilling at a special meeting in Bermuda.</p>' +
     '<p>The transaction is expected to close in the third quarter of 2026, subject to customary conditions.</p>' +
@@ -218,7 +218,7 @@ await check('extractReadable: keeps the article paragraphs, drops nav/footer/coo
   const out = extractReadable(html)
   assert.ok(out.includes('$257.6 million') && out.includes('third quarter'), `keeps the real article prose, got: ${out}`)
   assert.ok(!/cookies|rights reserved|Home About/i.test(out), `drops nav/cookie/footer boilerplate, got: ${out}`)
-  assert.ok(!/EVIL_SCRIPT_TEXT/.test(out), `strips script even with a whitespace end tag </script >, got: ${out}`)
+  assert.ok(!/EVIL_SCRIPT_TEXT/.test(out), `strips script even with a junk-trailing end tag </script\\t\\n bar>, got: ${out}`)
 })
 
 await check('bestFallbackSummary: real article prose beats a vague og:description dek', () => {
