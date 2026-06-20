@@ -628,6 +628,38 @@ function distinctiveTokens(headline: string, n: number): string[] {
   return [...new Set(toks)].sort((a, b) => b.length - a.length).slice(0, n)
 }
 
+/** Does a secondary headline plausibly describe the SAME event as the original? The GDELT keyword query is
+ *  loose (it matches article BODIES over a 14-day window), so it readily returns a DIFFERENT story about the
+ *  same company (an earnings piece for a lawsuit event) or a same-topic story about a different entity (an
+ *  ECB story for a Fed story). Corroborating on those fabricates cross-outlet confidence the engine never
+ *  earned (§3). So gate every returned title: it must share THIS event's distinctive words, anchored to the
+ *  named company when there is one. Strict on purpose — a missed corroboration just falls back to the honest
+ *  floor, while a false one is a fabricated source. */
+function corroboratesSameEvent(headline: string, companies: CompanyGuess[], title: string): boolean {
+  const tl = String(title || '').toLowerCase()
+  if (tl.length < 16) return false
+  const titleWords = tl.replace(/[^a-z0-9 ]+/g, ' ').split(/\s+/).filter(Boolean)
+  // a title word "matches" a target if equal, or one is a full prefix of the other with the shorter ≥5 chars
+  // (so "international"≈"internationally", "disclosure"≈"disclosures" — but NOT "interest"≈"international",
+  // which only share a generic prefix). Catches plural/adverb variants without loose prefix collisions.
+  const wordMatches = (target: string) => titleWords.some((w) => w === target || (Math.min(w.length, target.length) >= 5 && (w.startsWith(target) || target.startsWith(w))))
+  const companyWords = new Set((companies || []).flatMap((c) => String(c?.name || '').toLowerCase().replace(/[^a-z0-9 ]+/g, ' ').split(/\s+/)).filter((w) => w.length >= 4 && !STOP_WORDS.has(w)))
+  // event-defining words = the headline's distinctive tokens MINUS the company's own words, so the company
+  // name alone can NEVER satisfy the event-word test (that was the lawsuit-vs-earnings hole: both share
+  // "Tilray", neither shares the actual event).
+  const tokenHits = distinctiveTokens(headline, 8).filter((tok) => !companyWords.has(tok) && wordMatches(tok)).length
+  const names = (companies || []).map((c) => c?.name).filter((nm): nm is string => isCompanyName(nm))
+  if (names.length) {
+    // a corroborating outlet must name the same company AND share a (non-company) event word
+    const companyHit = names.some((nm) => {
+      const key = nm.toLowerCase().replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim()
+      return (!!key && tl.includes(key)) || [...companyWords].some(wordMatches)
+    })
+    return companyHit && tokenHits >= 1
+  }
+  return tokenHits >= 2 // no named entity (macro/topic event): require a real topical overlap, not one stray word
+}
+
 /** A GDELT free-text query that targets THIS event: the named companies (quoted, precise) plus a distinctive
  *  headline token or two. Empty when there's nothing distinctive enough — we'd rather not corroborate at all
  *  than pull random same-topic noise and pass it off as this story. */
@@ -664,6 +696,7 @@ async function corroborateFromWire(headline: string, companies: CompanyGuess[], 
     const title = (a.title || '').trim()
     if (!d || title.length < 16) continue
     if (ex && (d === ex || d.endsWith('.' + ex) || ex.endsWith('.' + d))) continue // not the blocked publisher itself
+    if (!corroboratesSameEvent(headline, companies, title)) continue // SAME-EVENT GATE: drop different-event noise the loose query pulled in (§3)
     if (!byDomain.has(d)) byDomain.set(d, { ...a, title })
   }
   return [...byDomain.values()].slice(0, 8)

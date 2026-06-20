@@ -293,6 +293,22 @@ await check('corroboration: the blocked publisher is excluded from its own corro
   assert.ok(r.corroborated!.domains.some((d) => d === 'reuters.com'), 'genuine other outlets are kept')
 })
 
+await check('corroboration: a DIFFERENT event about the same company is NOT corroborated (same-event gate, §3)', async () => {
+  resetGdeltBackoff()
+  const { repoRoot, stateDir } = tmpRepo('') // event = the Tilray international-growth story
+  // GDELT's loose query (company + a token, 14-day window, body match) pulls Tilray stories about an
+  // UNRELATED event (a lawsuit) — same company, different event. Before the gate these were passed off as
+  // "corroboration" and a growth story got a lawsuit brief; now they must be dropped → honest floor stands.
+  const wrongEvent = [
+    { domain: 'reuters.com', title: 'Tilray sued by investors over alleged accounting fraud', url: 'https://www.reuters.com/x' },
+    { domain: 'benzinga.com', title: 'Tilray faces a shareholder lawsuit over disclosure failures', url: 'https://www.benzinga.com/y' },
+  ]
+  const r = await enrichEvent({ event_id: EVENT_ID }, { repoRoot, stateDir, force: true, articleProviders: [PROVIDER], fetchFn: makeCorroborFetch(wrongEvent, CORROB_BRIEF), corroborate: CORROBORATE })
+  assert.ok(!r.corroborated, `a different-event set must not corroborate, got: ${JSON.stringify(r.corroborated)}`)
+  assert.ok(!r.gist?.length, 'no fabricated gist synthesised from a different event')
+  assert.ok(r.summary && /headline/i.test(r.summary), `falls back to the honest headline floor, got: ${r.summary}`)
+})
+
 // omitting the corroborate dep must leave the exact legacy floor behaviour — NOT the production default
 // (production sets NEWS.enrichCorroborate ON unless NEWS_ENRICH_CORROBORATE=0; server.ts always passes it).
 await check('corroboration: omitting the corroborate dep leaves the legacy floor untouched (function default off)', async () => {
