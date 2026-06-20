@@ -827,7 +827,7 @@ async function spawnEngine(run: RunState): Promise<void> {
   emit(run, { type: 'run-started', runId: run.runId, kind: run.kind, ticker: run.ticker, runRoot: run.runRoot, willCommitToMain: run.willCommitToMain, ...(run.swarmId !== 'research' ? { swarm: run.swarmId } : {}), ts: Date.now() })
 
   // perpetual audit record: who launched what, when, on which company (finish is logged in finishRun)
-  logLaunch({ runId: run.runId, user: run.user, userVia: run.userVia, kind: run.kind, ticker: run.ticker, module: run.module, agent: run.agent, model: run.model })
+  logLaunch({ runId: run.runId, user: run.user, userVia: run.userVia, kind: run.kind, ticker: run.ticker, runRoot: run.runRoot ?? undefined, module: run.module, agent: run.agent, model: run.model })
 
   // line-buffered stdout -> stream parser
   let buf = ''

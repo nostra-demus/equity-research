@@ -512,6 +512,7 @@ export interface ActivityRow {
   kind: RunKind
   ticker: string // the run's subject id: a ticker for research, a SIG-… id (or thesisId::TICKER) for swarm runs
   subjectLabel?: string // human-readable Company-column label when the raw ticker is an opaque subject id
+  runRoot?: string // repo-relative run folder (from the launched event) — drives the row's "open reports" menu
   module?: string
   agent?: string
   model?: string

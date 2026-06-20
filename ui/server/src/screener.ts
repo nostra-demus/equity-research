@@ -142,6 +142,7 @@ export function screenerRunManifest(sigId: string) {
   return {
     runRoot,
     modules,
+    runMetadata: has('RUN_METADATA.md'), // the whole-run summary — offered as the top "Run summary" report when present
     intake: has('intake.json') ? readJson(`${runRoot}/intake.json`) : null,
     signalPayload: has('signal_payload.json') ? readJson(`${runRoot}/signal_payload.json`) : null,
     thesisRecord: has('thesis_record.json') ? readJson(`${runRoot}/thesis_record.json`) : null,

@@ -14,7 +14,7 @@ import path from 'node:path'
 import { assignThemes, DEFAULT_ASSIGN_CONFIG, type AssignConfig } from './assign'
 import { discoverDeterministic, linkThemes, mergeAndRetire, refreshThemeIdentity, DEFAULT_DISCOVER_CONFIG, type DiscoverConfig } from './discover'
 import { scoreTheme, ensureDaily, rollDaily, DEFAULT_THEME_SCORE_CONFIG, type ThemeScoreConfig } from './score'
-import { appendThemeMutations, buildSummary, loadThemes, readRecentThemeItems, writeThemesIndex } from './store'
+import { appendThemeMutations, buildSummary, loadThemes, maybeCompactThemesLedger, readRecentThemeItems, writeThemesIndex } from './store'
 import type { Theme, ThemeItemView, ThemeSummary } from './types'
 
 export interface ThemesConfig {
@@ -211,6 +211,7 @@ export async function runThemesCycle(input: RunThemesInput): Promise<{ changed: 
   // persist: append only the changed themes to the ledger; rewrite the full live index
   const changedThemes = res.themes.filter((t) => res.changed.some((c) => c.theme_id === t.theme_id))
   appendThemeMutations(input.repoRoot, changedThemes, now)
+  maybeCompactThemesLedger(input.repoRoot, now) // keep the append-only ledger from ballooning (→ git-push 408s)
   savePool(input.stateDir, res.pool, cfg.poolCap)
   writeThemesIndex(input.repoRoot, res.themes, now)
   return { changed: res.changed, assignments: res.assignments }
