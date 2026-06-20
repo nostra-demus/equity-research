@@ -167,13 +167,24 @@ function ScoreWhy({ it, anchorRef }: { it: FeedItem; anchorRef: React.RefObject<
   const base = rf.materiality
   const tier = sourceTierDef(rf.source_tier_id)
   const scopeDef = SCOPES[rf.scope_id as keyof typeof SCOPES]
-  const rows = [
+  const adjRows = [
     { k: 'Source', v: tier?.label ?? rf.source_tier_id, why: tier?.meaning, pts: rf.source_tier },
     { k: 'Focus', v: scopeDef?.label ?? rf.scope_id, why: scopeDef?.meaning, pts: rf.scope },
     { k: 'Event', v: it.event_types?.length ? it.event_types.map(plainTheme).join(', ') : '—', why: 'The biggest event named in the headline counts.', pts: rf.event },
     { k: 'Size', v: plainSize(it.size_bucket), why: undefined as string | undefined, pts: rf.size },
     { k: 'Freshness', v: freshnessLabel(it.ts), why: 'Newer news counts for a little more.', pts: rf.recency },
   ]
+  // The §4 adjustments are summed, then scaled by the GLOBAL boost — the Scoring panel's own formula
+  // ("the AI's headline read + these adjustments × overall boost"); see rank.ts:
+  // boost = (source_tier+scope+event+size+recency) × boost_weight. The boost_weight that produced THIS
+  // score travels with it in rank_factors, so the ledger reconciles exactly even after a panel edit.
+  // Show the boost as its own row only when it actually moves the total (weight ≠ 1).
+  const w = typeof rf.boost_weight === 'number' ? rf.boost_weight : 1
+  const adjSum = adjRows.reduce((s, r) => s + r.pts, 0)
+  const boostDelta = Math.round(adjSum * w) - adjSum
+  const rows = boostDelta !== 0
+    ? [...adjRows, { k: 'Overall boost', v: `×${w.toFixed(2)} on the adjustments above`, why: undefined as string | undefined, pts: boostDelta }]
+    : adjRows
   const raw = base + rows.reduce((s, r) => s + r.pts, 0)
   const capped = raw > score && score >= 100
   const floored = raw < score && score <= 0
