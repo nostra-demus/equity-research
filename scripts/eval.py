@@ -58,6 +58,22 @@ def eval_w_sector_valuation(business_type, primary_valuation_method):
                 if fm in pvm_norm and fm not in hits: hits.append(fm)
     return hits
 
+# ── Check X (conviction-run evidence-integrity floor) — module-level so `eval.py selftest` can drive it ──
+# A run in a conviction basket (Selected/Short) dated >= VERIFY_FLOOR_DATE must carry a verify-evidence
+# verdict in ACCEPTABLE_VERDICTS. "Material issues" / "Failed" mean the audit is unresolved, so committing
+# a conviction position is false confidence (closes the G/O/X trilogy). verify-evidence's 4-value enum is
+# Clean / Minor issues / Material issues / Failed (see .claude/commands/research/verify-evidence.md).
+VERIFY_FLOOR_DATE="2026-06-19"
+ACCEPTABLE_VERDICTS={"Clean","Minor issues"}
+def eval_x_verify_floor(decision, decision_date, verdict):
+    """Core of check X. Returns 'pass' | 'fail' | 'na'. `verdict` is the verification_report verdict
+    string, or None when there is no report. Side-effect-free + module-level so the selftest can drive
+    the full date / basket / verdict logic without a run fixture."""
+    if not (isdate(decision_date) and decision_date>=VERIFY_FLOOR_DATE and DECISIONS.get(decision) in ("Selected","Short")):
+        return "na"
+    if verdict is None: return "na"
+    return "pass" if str(verdict).strip() in ACCEPTABLE_VERDICTS else "fail"
+
 # ── Check Y (§11 data-sufficiency cap) — module-level so `eval.py selftest` can drive it ──
 # CLAUDE.md §11 / synthesizer.md Rating Cap Rules: data_sufficiency_score < 30 → the decision MUST be the
 # §18 "Insufficient Data — Refuse To Rate"; 30–49 → maximum rating "Watchlist", so NO conviction position
@@ -114,6 +130,29 @@ if scope=="selftest":
         h=W(bt,pvm); got=("na" if h is None else ("fail" if h else "clean")); ok=(got==exp)
         if not ok: bad+=1
         print(f"  [{'ok' if ok else 'XX'}] W({bt!r},{pvm!r}) -> {got}"+(f" {h}" if h else "")+("" if ok else f"  EXPECTED {exp}"))
+    # check X — the golden suite can't reach it (every committed fixture predates the floor → always N/A),
+    # so drive the full date / basket / verdict gate here: conviction + acceptable verdict PASSes; conviction
+    # + "Material issues"/"Failed"/blank/wrong-case FAILs; non-conviction, no-report, and pre-floor are N/A.
+    X=eval_x_verify_floor
+    xcases=[  # (decision, decision_date, verdict-or-None, expect: "pass"|"fail"|"na")
+        ("Strong Buy","2026-06-19","Clean","pass"),
+        ("Buy","2026-06-19","Minor issues","pass"),
+        ("Starter Position Only","2026-06-19","Clean","pass"),    # also a Selected basket
+        ("Short Candidate","2026-06-19","Clean","pass"),          # Short is a conviction basket too
+        ("Strong Buy","2026-06-19","Material issues","fail"),
+        ("Short Candidate","2026-06-19","Failed","fail"),
+        ("Strong Buy","2026-06-19","","fail"),                    # empty verdict is not acceptable
+        ("Strong Buy","2026-06-19","Minor Issues","fail"),        # wrong casing → case-sensitive, not acceptable
+        ("Strong Buy","2026-06-19",None,"na"),                    # no verification_report.json
+        ("Watchlist","2026-06-19","Material issues","na"),        # non-conviction basket
+        ("Avoid","2026-06-19","Material issues","na"),            # non-conviction basket
+        ("Strong Buy","2026-06-18","Material issues","na"),       # predates the floor
+        ("Strong Buy","not-a-date","Material issues","na"),       # unparseable decision_date
+    ]
+    for dec_,dt_,vd_,exp in xcases:
+        got=X(dec_,dt_,vd_); ok=(got==exp)
+        if not ok: bad+=1
+        print(f"  [{'ok' if ok else 'XX'}] X({dec_!r},{dt_!r},{vd_!r}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
     # check Y — the golden suite can't reach the cap branches (every fixture is score 68-69 / Watchlist-Avoid
     # → trivial pass), so drive the full §11 gate here. Note the F1 cases: weak data caps a Short (matching
     # checks O/U/X), but a Pair hedge is intentionally exempt.
@@ -137,7 +176,7 @@ if scope=="selftest":
         got=Y(dec_,ds_); ok=(got==exp)
         if not ok: bad+=1
         print(f"  [{'ok' if ok else 'XX'}] Y({dec_!r},{ds_!r}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(ycases)} check-Y cases")
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y cases")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -523,17 +562,15 @@ for drp in runs:
     #   is provisional until blocking_findings are resolved — yet no gate enforced that warning.
     #   A Strong Buy committed while the evidence audit is unresolved is a false-confidence defect.
     #   This check closes the trilogy: G (not-fabricated) + O (exists) + X (acceptable verdict).
-    VERIFY_FLOOR_DATE="2026-06-19"; ACCEPTABLE_VERDICTS={"Clean","Minor issues"}
     if isdate(ddte) and ddte>=VERIFY_FLOOR_DATE and DECISIONS.get(dec) in ("Selected","Short"):
         vp=_latest("verification_report.json")
         if vp:
             try:
                 vr=json.load(open(vp)); vverdict=(vr.get("verdict") or "").strip()
-                det_x=[]
-                if vverdict not in ACCEPTABLE_VERDICTS:
-                    det_x.append(f"verdict={vverdict!r} — conviction run requires 'Clean' or 'Minor issues'; resolve blocking_findings in {os.path.basename(vp)} before committing the thesis")
-                add("X_verify_floor", not det_x,
-                    "; ".join(det_x) or f"verdict={vverdict!r} — evidence integrity gate cleared for conviction run")
+                if eval_x_verify_floor(dec, ddte, vverdict)=="fail":
+                    add("X_verify_floor", False, f"verdict={vverdict!r} — conviction run requires 'Clean' or 'Minor issues'; resolve blocking_findings in {os.path.basename(vp)} before committing the thesis")
+                else:
+                    add("X_verify_floor", True, f"verdict={vverdict!r} — evidence integrity gate cleared for conviction run")
             except Exception as e:
                 add("X_verify_floor", False, f"parse error: {e}")
         else:
