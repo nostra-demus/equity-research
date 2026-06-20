@@ -372,4 +372,14 @@ await check('maybeCompactThemesLedger: under threshold → no-op (leaves the led
   fs.rmSync(root, { recursive: true, force: true })
 })
 
+await check('maybeCompactThemesLedger: already one-line-per-id → no-op even over threshold (no ts churn / re-dirty)', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'themes-compact-'))
+  // already compact: exactly one line per theme_id, no superseded cruft to collapse
+  const fp = writeLedger(root, [themeLine('A', 3), themeLine('B', 2), themeLine('C', 1)])
+  const raw = fs.readFileSync(fp, 'utf8')
+  maybeCompactThemesLedger(root, () => NOW, 1) // threshold 1 byte → over threshold, but nothing to collapse
+  assert.equal(fs.readFileSync(fp, 'utf8'), raw, 'an already-compact ledger is left byte-for-byte even over threshold')
+  fs.rmSync(root, { recursive: true, force: true })
+})
+
 console.log(`\n${passed} checks passed`)
