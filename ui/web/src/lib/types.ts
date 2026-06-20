@@ -511,6 +511,7 @@ export interface ActivityRow {
   userVia: 'cf-access' | 'local'
   kind: RunKind
   ticker: string
+  runRoot?: string // repo-relative run folder (from the launched event) — drives the row's "open reports" menu
   module?: string
   agent?: string
   model?: string

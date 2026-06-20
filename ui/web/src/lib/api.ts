@@ -277,9 +277,11 @@ export const api = {
     if ((await ensureMode()) === 'static') return snap.decisions[ticker]
     return get(`/api/output/decision?ticker=${encodeURIComponent(ticker)}`)
   },
-  runManifest: async (ticker: string): Promise<any> => {
+  runManifest: async (ticker: string, runRoot?: string): Promise<any> => {
     if ((await ensureMode()) === 'static') return snap.runs[ticker]
-    return get(`/api/output/run?ticker=${encodeURIComponent(ticker)}`)
+    // a runRoot targets that EXACT run folder (older activity rows); ticker resolves the latest run
+    const qs = runRoot ? `runRoot=${encodeURIComponent(runRoot)}` : `ticker=${encodeURIComponent(ticker)}`
+    return get(`/api/output/run?${qs}`)
   },
   // cross-ticker call ledger + since-the-call timelines (the Calls Tracker). Static -> bundled snapshot.
   calls: async (): Promise<CallsResult> => {
