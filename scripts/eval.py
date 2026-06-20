@@ -511,31 +511,40 @@ for drp in runs:
     else:
         add("W_sector_valuation",True,f"run predates the sector-valuation gate ({ddte}) — N/A",na=True)
     # Y §11 data-sufficiency ↔ decision cap — always-apply (CLAUDE.md §11, no landing date).
-    #   §11 mandates two hard thresholds that no existing check enforces mechanically:
+    #   §11 mandates two hard thresholds that no existing check enforces mechanically. synthesizer.md's
+    #   Rating Cap Rules make them concrete: "<30 → must be 'Insufficient Data — Refuse To Rate'";
+    #   "30–49 → maximum rating 'Watchlist'".
     #   (1) score < INSUF_THRESHOLD (30): "insufficient — refuse to rate" → decision MUST be the §18
     #       refuse token; any other decision claims conviction the data cannot support.
-    #   (2) score in [INSUF_THRESHOLD, DATASUF_CONVICTION_FLOOR): "weak — cap the opinion" →
-    #       HIGH_CONVICTION_DECISIONS (Strong Buy, Buy) are forbidden; those ratings presuppose
-    #       strong evidence the data cannot supply. Watchlist, Avoid, Starter Position Only, Short
-    #       Candidate, Pair Trade, and Insufficient Data are all allowed at this band (Watchlist and
-    #       Avoid work with limited data; Starter Position Only is explicitly a cautious partial entry;
-    #       Short Candidate can be warranted by a clear negative picture even with incomplete filings).
-    #   All three committed fixtures (score 68-69) pass trivially, so no forward-looking landing date
-    #   is needed. N/A only when data_sufficiency_score is absent or non-numeric (blank/legacy record).
+    #   (2) score in [INSUF_THRESHOLD, DATASUF_CONVICTION_FLOOR): "weak — cap the opinion" → the max
+    #       rating is "Watchlist", so NO rating above it may be emitted. The ratings above Watchlist are
+    #       exactly the "Selected" long basket — HIGH_CONVICTION_DECISIONS (Strong Buy, Buy, Starter
+    #       Position Only); a starter long is still a long that presupposes data the band lacks. Avoid,
+    #       Short Candidate, Pair Trade, Watchlist and Insufficient Data sit at/below the Watchlist
+    #       ceiling and stay allowed (a clear negative or a hedge can stand on incomplete filings — §18/§24).
+    #   (3) score absent / non-numeric on a long-conviction rating (HIGH_CONVICTION_DECISIONS) → FAIL:
+    #       data_sufficiency_score is a required /100 field (DECISION_LEDGER.md §5), and you cannot claim
+    #       a conviction long with no sufficiency score at all (a null score must not buy a free pass that
+    #       a low score would not — §11). A blank score on any non-long rating stays N/A.
+    #   All three committed fixtures (score 68-69, Watchlist/Avoid) pass trivially, so no forward-looking
+    #   landing date is needed.
     INSUF_THRESHOLD=30; DATASUF_CONVICTION_FLOOR=50
     INSUF_DECISION="Insufficient Data — Refuse To Rate"
-    HIGH_CONVICTION_DECISIONS={"Strong Buy","Buy"}
+    HIGH_CONVICTION_DECISIONS={"Strong Buy","Buy","Starter Position Only"}  # the "Selected" basket — ratings above the Watchlist ceiling
     ds=d.get("data_sufficiency_score")
     if isnum(ds):
         det_y=[]
         if ds<INSUF_THRESHOLD and dec!=INSUF_DECISION:
             det_y.append(f"data_sufficiency_score={ds} < {INSUF_THRESHOLD} (§11 insufficient) but decision={dec!r} — must be {INSUF_DECISION!r} (§18)")
         elif INSUF_THRESHOLD<=ds<DATASUF_CONVICTION_FLOOR and dec in HIGH_CONVICTION_DECISIONS:
-            det_y.append(f"data_sufficiency_score={ds} in [{INSUF_THRESHOLD},{DATASUF_CONVICTION_FLOOR}) (§11 weak) but decision={dec!r} — cap to Watchlist-or-lower; high-conviction ratings require data_sufficiency_score >= {DATASUF_CONVICTION_FLOOR} (§11)")
+            det_y.append(f"data_sufficiency_score={ds} in [{INSUF_THRESHOLD},{DATASUF_CONVICTION_FLOOR}) (§11 weak) but decision={dec!r} — max rating Watchlist; a long-conviction rating requires data_sufficiency_score >= {DATASUF_CONVICTION_FLOOR} (§11)")
         add("Y_data_sufficiency_cap",not det_y,
             "; ".join(det_y) or f"data_sufficiency_score={ds}; decision={dec!r} — §11 thresholds satisfied")
+    elif dec in HIGH_CONVICTION_DECISIONS:
+        add("Y_data_sufficiency_cap",False,
+            f"data_sufficiency_score absent/non-numeric ({ds!r}) but decision={dec!r} is a long-conviction rating — §11 requires a /100 sufficiency score (DECISION_LEDGER.md required field) to support conviction")
     else:
-        add("Y_data_sufficiency_cap",True,"data_sufficiency_score absent or non-numeric — N/A",na=True)
+        add("Y_data_sufficiency_cap",True,f"data_sufficiency_score absent or non-numeric ({ds!r}); decision={dec!r} not a long-conviction rating — N/A",na=True)
     # WARN non-schema files
     # [review fix] suppress only genuine versioned/audit/review artifacts via PRECISE patterns — the old naive
     # `"_v" not in name` / `"review" not in name` substring tests hid real strays (preview.md, *_v*-named scratch).

@@ -140,6 +140,11 @@
           "check": "W_sector_valuation",
           "status": "N/A",
           "detail": "run predates the sector-valuation gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "Y_data_sufficiency_cap",
+          "status": "PASS",
+          "detail": "data_sufficiency_score=68; decision='Watchlist' — §11 thresholds satisfied"
         }
       ],
       "warn_nonschema_files": []
@@ -279,6 +284,11 @@
           "check": "W_sector_valuation",
           "status": "N/A",
           "detail": "run predates the sector-valuation gate (2026-06-01) — N/A"
+        },
+        {
+          "check": "Y_data_sufficiency_cap",
+          "status": "PASS",
+          "detail": "data_sufficiency_score=69; decision='Avoid' — §11 thresholds satisfied"
         }
       ],
       "warn_nonschema_files": [
@@ -420,6 +430,11 @@
           "check": "W_sector_valuation",
           "status": "N/A",
           "detail": "run predates the sector-valuation gate (2026-06-07) — N/A"
+        },
+        {
+          "check": "Y_data_sufficiency_cap",
+          "status": "PASS",
+          "detail": "data_sufficiency_score=68; decision='Watchlist' — §11 thresholds satisfied"
         }
       ],
       "warn_nonschema_files": []
