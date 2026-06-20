@@ -12,7 +12,7 @@ import type { CycleSummary, FeedItem } from './types'
 import { deriveScope, deriveSourceTier } from './scope'
 import { cleanText } from './clean'
 import { assignDedupGroups, type DedupConfig } from './dedup'
-import { reRankFromFactors, capSocialBand } from './rank'
+import { reRankFromFactors, capSocialBand, capSocialScore } from './rank'
 import { getRankWeights } from './rank-weights'
 import { scoreToBand } from './triage/groq'
 import { NEWS } from '../config'
@@ -42,12 +42,13 @@ function withActiveWeights(items: FeedItem[]): void {
   for (const it of items) {
     if (!it.rank_factors) continue // older line with no breakdown — leave its persisted score as-is
     const r = reRankFromFactors(it.rank_factors, it, w)
-    it.triage_score = r.rank_score
+    // §4/§24 doctrine cap on the DISPLAY path too — same rule the ingest path applies in runCycle.ts: a
+    // weight edit that re-ranks a Reddit/`social` item above the pick threshold must never show it as a
+    // top pick, and capSocialScore keeps its priority below the picks so the wire ordering honors the cap.
+    const capped = capSocialScore(r.rank_score, r.rank_factors.source_tier_id, NEWS.pickThreshold)
+    it.triage_score = capped
     it.rank_factors = r.rank_factors
-    // capSocialBand keeps the §4/§24 doctrine cap on the DISPLAY path too: a weight edit that re-ranks a
-    // Reddit/`social` item above the pick threshold must still never show it as a top pick (same rule the
-    // ingest path applies in runCycle.ts).
-    it.band = capSocialBand(scoreToBand(r.rank_score, NEWS.pickThreshold, NEWS.watchThreshold), r.rank_factors.source_tier_id)
+    it.band = capSocialBand(scoreToBand(capped, NEWS.pickThreshold, NEWS.watchThreshold), r.rank_factors.source_tier_id)
   }
 }
 

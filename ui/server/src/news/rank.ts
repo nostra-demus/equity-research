@@ -152,6 +152,20 @@ export function capSocialBand(band: Band, sourceTierId: SourceTierId): Band {
   return sourceTierId === 'social' && band === 'pick' ? 'watch' : band
 }
 
+/**
+ * DOCTRINE CAP (CLAUDE.md §4/§24) — the SCORE twin of capSocialBand. capSocialBand stops a `social`
+ * item DISPLAYING as a top `pick`, but the inbox and the wire ORDER by triage_score (write-inbox
+ * mergeInbox sorts by it; the ranked wire reads it), so an uncapped high score still lets a Reddit post
+ * float above filings/news and eat a scarce inbox slot — the cap on the band alone doesn't reach the
+ * ordering. Clamp a social item's priority to just below the pick threshold so its ORDER honors the cap
+ * too: it can never sort among the picks. The raw Groq read survives in rank_factors.materiality for the
+ * audit trail; only the composite priority is clamped. Every other tier passes through unchanged.
+ */
+export function capSocialScore(score: number, sourceTierId: SourceTierId, pickThreshold: number): number {
+  if (sourceTierId !== 'social') return score
+  return Math.min(score, Math.max(0, Math.round(pickThreshold) - 1))
+}
+
 // High-value terms a buy-side PM would jump on — cheap to scan on the title BEFORE the LLM runs.
 // Substrings (not whole-word) on purpose: 'acqui' catches acquire/acquisition/acquired; 'investigat'
 // catches investigation/investigated. Used only to ORDER the triage queue, never to score.

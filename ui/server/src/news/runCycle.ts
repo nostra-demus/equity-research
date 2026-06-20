@@ -20,7 +20,7 @@ import { SeenCache } from './seen-cache'
 import { Budget, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter } from './triage/budget'
 import { triageBatchGemini } from './triage/gemini'
 import { estimateTokens, scoreToBand, triageBatch } from './triage/groq'
-import { rankScore, preTriagePriority, capSocialBand } from './rank'
+import { rankScore, preTriagePriority, capSocialBand, capSocialScore } from './rank'
 import { deriveScope, deriveSourceTier } from './scope'
 import { appendFirehoseSummary, mergeInbox, refreshBoard } from './write-inbox'
 import { runThemesCycle, bumpCycleCounter, themesConfigFromNews } from './themes/engine'
@@ -148,6 +148,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
             mirrorTemplate: cfg.redditMirrorTemplate || undefined,
             cycleMs: cfg.pollIntervalMin * 60_000,
             backoffCyclesOn429: cfg.redditBackoffCyclesOn429,
+            overallBudgetMs: cfg.redditOverallBudgetMs,
           },
           { fetchFn, sleep, now, log },
         )
@@ -330,12 +331,15 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         { materiality_pre_score: score, issuer_linkage: t?.issuer_linkage, companies: t?.companies, event_types: t?.event_types, input_nature: it.input_nature, headline: it.headline, size_bucket: t?.size_bucket, found_at: it.found_at },
         now(),
       )
-      // capSocialBand enforces the §4/§24 doctrine cap: a Reddit/`social` item can never be a top pick.
-      const band = capSocialBand(scoreToBand(ranked.rank_score, cfg.pickThreshold, cfg.watchThreshold), ranked.rank_factors.source_tier_id)
+      // §4/§24 doctrine cap: a Reddit/`social` item can never be a top pick NOR out-rank filings for a
+      // scarce inbox slot. capSocialScore clamps the composite priority below the pick threshold so the
+      // band cap AND the score-ordering both hold; capSocialBand is then belt-and-suspenders on the band.
+      const cappedScore = capSocialScore(ranked.rank_score, ranked.rank_factors.source_tier_id, cfg.pickThreshold)
+      const band = capSocialBand(scoreToBand(cappedScore, cfg.pickThreshold, cfg.watchThreshold), ranked.rank_factors.source_tier_id)
       seen.add(it.event_id, score)
       triaged.push({
         ...it,
-        triage_score: ranked.rank_score,
+        triage_score: cappedScore,
         triage_reason: t?.why || 'not material',
         relevance: t?.relevance || 'irrelevant',
         materiality_pre_score: score,

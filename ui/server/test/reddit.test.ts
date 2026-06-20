@@ -11,7 +11,7 @@ import os from 'node:os'
 import path from 'node:path'
 import { fetchReddit, canonicalRedditUrl, resetRedditBackoff } from '../src/news/sources/reddit'
 import { deriveSourceTier } from '../src/news/scope'
-import { capSocialBand } from '../src/news/rank'
+import { capSocialBand, capSocialScore } from '../src/news/rank'
 
 let passed = 0
 async function check(name: string, fn: () => void | Promise<void>) {
@@ -212,6 +212,70 @@ await check('capSocialBand: a social pick is clamped to watch; other tiers pass 
   assert.equal(capSocialBand('drop', 'social'), 'drop')
   assert.equal(capSocialBand('pick', 'news'), 'pick', 'non-social tiers untouched')
   assert.equal(capSocialBand('pick', 'primary_filing'), 'pick')
+})
+
+// Regression (PR #71 Codex finding): the inbox + wire ORDER by triage_score (write-inbox mergeInbox /
+// the ranked wire), so the band cap alone lets a high-scoring social item float above filings into a
+// scarce slot. capSocialScore is the score twin — clamp a `social` item below the pick threshold so its
+// ORDER honors the cap. Expected values pinned to CLAUDE.md §4/§24 + parity with capSocialBand (a social
+// item can never sit in the pick band: pick = score ≥ pickThreshold, so the cap is pickThreshold-1).
+await check('capSocialScore: a social item is clamped below the pick threshold; other tiers pass through', () => {
+  assert.equal(capSocialScore(92, 'social', 70), 69, 'social clamped to pickThreshold-1')
+  assert.equal(capSocialScore(70, 'social', 70), 69, 'exactly at the threshold is still pushed below')
+  assert.equal(capSocialScore(40, 'social', 70), 40, 'already below → untouched')
+  assert.equal(capSocialScore(92, 'news', 70), 92, 'non-social tiers untouched')
+  assert.equal(capSocialScore(92, 'primary_filing', 70), 92)
+})
+
+// Regression (PR #71 Codex finding): the firewall (normalizeAndFilter) gates on RawArticle.domain, which
+// the adapter forces to reddit.com — so a mirror entry whose link is NOT a recoverable reddit permalink
+// would be smuggled onto the wire under an off-site URL. Expected behaviour pinned to CLAUDE.md §4 (the
+// source firewall): an item is accepted only when its canonical URL is genuinely a reddit.com host.
+await check('fetchReddit: a mirror entry with an off-site (non-reddit) link is DROPPED, not stamped reddit.com', async () => {
+  resetRedditBackoff()
+  const feeds = writeFeeds([{ subreddit: 'sysadmin' }])
+  // a mirror feed with TWO entries: one a real reddit permalink (kept), one an arbitrary off-site link
+  // that canonicalRedditUrl can't recover (must be dropped, NOT carried as domain reddit.com).
+  const mirrorBody =
+    `<?xml version="1.0" encoding="UTF-8"?>\n<feed xmlns="http://www.w3.org/2005/Atom"><title>sysadmin</title>` +
+    `<entry><title>Real reddit post</title><link href="https://old.reddit.com/r/sysadmin/comments/ok1/x/" /><published>${FRESH}</published><id>t3_ok1</id></entry>` +
+    `<entry><title>Smuggled off-site item</title><link href="https://evil.test/phishing/article" /><published>${FRESH}</published><id>t3_bad1</id></entry>` +
+    `</feed>`
+  const { fn } = mkFetch((url) => {
+    if (isReddit(url)) return { status: 403, body: '<html>blocked</html>' } // force the mirror
+    if (isMirror(url)) return { status: 200, body: mirrorBody }
+    return { status: 404, body: '' }
+  })
+  const out = await fetchReddit(
+    { feedsPath: feeds, lookbackHours: 24, timeoutMs: 5000, mirrorTemplate: 'https://mirror.example/{sub}/new' },
+    { fetchFn: fn, sleep: noSleep, now },
+  )
+  assert.equal(out.length, 1, 'only the genuine reddit-permalink item survives; the off-site link is dropped')
+  assert.equal(new URL(out[0].url).hostname, 'www.reddit.com')
+  assert.ok(!out.some((a) => a.url.includes('evil.test')), 'no off-site URL is stamped reddit.com')
+})
+
+// Regression (PR #71 Codex finding): runIngestCycle awaits fetchReddit in Promise.allSettled BEFORE it
+// can normalize ANY source, and skipRedditHosts only trips on a block STATUS — a silent network timeout
+// makes every endpoint burn ~timeoutMs, so the whole social layer can hold the cycle for minutes. The
+// overall wall-clock budget stops starting new subreddits once spent. Driven with a logical clock that
+// advances per fetch; expected: with a budget < (all subs × endpoints × step), the tail of subs is skipped.
+await check('fetchReddit: overall budget stops starting new subreddits once the wall-clock cap is spent', async () => {
+  resetRedditBackoff()
+  const feeds = writeFeeds([{ subreddit: 'aaa' }, { subreddit: 'bbb' }, { subreddit: 'ccc' }, { subreddit: 'ddd' }, { subreddit: 'eee' }])
+  let clk = Date.parse('2026-06-14T12:00:00Z')
+  const clock = () => new Date(clk)
+  // every fetch advances the logical clock by 5s (a stand-in for a per-endpoint timeout); 404 forces the
+  // full per-sub endpoint walk (no mirror configured → 2 reddit endpoints per sub = 10s of "time" per sub).
+  const calls: string[] = []
+  const fn = (async (url: string) => { calls.push(String(url)); clk += 5000; return res(404, '') }) as unknown as typeof fetch
+  await fetchReddit(
+    { feedsPath: feeds, lookbackHours: 24, timeoutMs: 5000, perHostGapMs: 0, overallBudgetMs: 12_000 },
+    { fetchFn: fn, sleep: noSleep, now: clock },
+  )
+  const touched = (sub: string) => calls.some((u) => pathHas(u, `/r/${sub}/`))
+  assert.ok(touched('aaa') && touched('bbb'), 'the first subs within budget were fetched')
+  assert.ok(!touched('ccc') && !touched('ddd') && !touched('eee'), 'subs past the spent budget were skipped (cycle not stalled)')
 })
 
 console.log(`\n${passed} checks passed`)

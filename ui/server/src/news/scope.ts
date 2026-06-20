@@ -198,10 +198,14 @@ export interface SourceTierInput {
 /** Map the intake's input_nature (+ a rumor event-type override) to the §4 source tier. */
 export function deriveSourceTier(it: SourceTierInput): SourceTierId {
   const types = (it.event_types || []).map(lc)
+  const nature = lc(it.input_nature)
+  // A social/forum post (Reddit) is the FLOOR tier and must STAY `social` — checked BEFORE the rumor
+  // override (CLAUDE.md §4/§24). Otherwise a Reddit post the triage also tags `rumor` resolves to
+  // `unconfirmed`, which (a) is a HIGHER tier than `social` and (b) slips past the social-only caps
+  // (capSocialBand / capSocialScore key on `social`), letting a low-trust post reach the `pick` band.
+  if (nature === 'social_discussion') return 'social'
   if (types.includes('rumor')) return 'unconfirmed'
-  switch (lc(it.input_nature)) {
-    case 'social_discussion':
-      return 'social'
+  switch (nature) {
     case 'regulatory_filing':
     case 'exchange_announcement':
       return 'primary_filing'

@@ -23,6 +23,7 @@ export interface RedditOptions {
   mirrorTemplate?: string // public-mirror URL with a {sub} placeholder, used as the last fallback
   cycleMs?: number // length of one ingest cycle (for the 429 penalty-box); production-only
   backoffCyclesOn429?: number // cycles to skip the reddit.com hosts after a 429
+  overallBudgetMs?: number // wall-clock cap on the WHOLE social layer (stop starting new subs past it); 0/absent = unbounded
 }
 
 export interface RedditDeps {
@@ -107,6 +108,13 @@ export async function fetchReddit(opts: RedditOptions, deps: RedditDeps = {}): P
 
   const mirrorOf = (sub: string): string | null => (opts.mirrorTemplate ? opts.mirrorTemplate.replace('{sub}', sub) : null)
   const oldestMs = now().getTime() - Math.max(1, opts.lookbackHours) * 3_600_000
+  // Overall wall-clock budget for the whole social layer. runIngestCycle awaits fetchReddit inside
+  // Promise.allSettled BEFORE it can normalize ANY source, so a Reddit outage where every endpoint times
+  // out (~timeoutMs each × subs × endpoints — minutes with the default ~11 subs + 3-endpoint chain) must
+  // never hold primary filings/news ingestion hostage. The block/penalty guards cover an HTTP block, but
+  // NOT a silent network timeout (skipRedditHosts only trips on a block STATUS), so this is the backstop:
+  // stop starting new subreddits once the budget is spent — the next cycle re-pulls what we skipped.
+  const deadlineMs = opts.overallBudgetMs && opts.overallBudgetMs > 0 ? now().getTime() + opts.overallBudgetMs : Infinity
 
   const out: RawArticle[] = []
   const seen = new Set<string>()
@@ -116,6 +124,10 @@ export async function fetchReddit(opts: RedditOptions, deps: RedditDeps = {}): P
   let skipRedditHosts = redditBlocked
 
   for (let i = 0; i < subs.length; i++) {
+    if (now().getTime() >= deadlineMs) {
+      log(`reddit: overall budget (${opts.overallBudgetMs}ms) spent — stopping after ${i}/${subs.length} sub(s); next cycle resumes`)
+      break
+    }
     const feed = subs[i]
     const sub = feed.subreddit.trim()
     const sourceName = feed.source_name || `Reddit r/${sub}`
@@ -171,6 +183,13 @@ export async function fetchReddit(opts: RedditOptions, deps: RedditDeps = {}): P
         const fresh = !d || Number.isNaN(d.getTime()) || d.getTime() >= oldestMs
         if (!fresh) continue
         const url = canonicalRedditUrl(it.link)
+        // FIREWALL on the link, not just the forced domain. normalizeAndFilter gates on RawArticle.domain
+        // (forced to reddit.com below), so a mirror entry whose link is NOT a recoverable reddit permalink
+        // — a malformed or compromised public mirror (the default mirror is third-party rsshub.app) — would
+        // otherwise be smuggled onto the wire under an off-site URL stamped reddit.com. Only accept an item
+        // whose canonical URL is genuinely a reddit.com host; drop anything else (CLAUDE.md §4).
+        const urlHost = (() => { try { return new URL(url).hostname } catch { return '' } })()
+        if (!(urlHost === 'reddit.com' || urlHost.endsWith('.reddit.com'))) continue
         if (seen.has(url)) continue
         seen.add(url)
         out.push({

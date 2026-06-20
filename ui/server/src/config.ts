@@ -394,6 +394,7 @@ export const NEWS = {
   redditPerHostGapMs: capNum(process.env.NEWS_REDDIT_PER_HOST_GAP_MS, 2000), // all subs share one host (reddit.com)
   redditBackoffCyclesOn429: capNum(process.env.NEWS_REDDIT_BACKOFF_CYCLES, 4), // cycles to skip Reddit after a 429
   redditMirrorTemplate: process.env.NEWS_REDDIT_MIRROR_TEMPLATE || 'https://rsshub.app/reddit/subreddit/{sub}/new', // {sub} placeholder; public-mirror fallback (overridable / self-hostable)
+  redditOverallBudgetMs: capNum(process.env.NEWS_REDDIT_OVERALL_BUDGET_MS, 45_000), // wall-clock cap on the whole social layer so a Reddit outage can't stall the cycle (low-trust layer; next cycle resumes)
   // Live-feed per-item records (firehose kind:"item") — the daily cap bounds file growth.
   feedItemsDailyCap: capNum(process.env.NEWS_FEED_ITEMS_DAILY_CAP, 5000),
   // Groq output budget per triage call (the per-item payload grew with companies/size_bucket).
