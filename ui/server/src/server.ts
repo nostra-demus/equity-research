@@ -21,6 +21,7 @@ import { cancel, cancelAll, creditCheck, decideReadiness, estimate, launch } fro
 import { newsBus } from './news/bus'
 import { readFeed } from './news/feed'
 import { getIntensity, INTENSITY_WINDOWS, type IntensityWindow } from './news/intensity'
+import { getRankWeights, defaultRankWeights, saveRankWeights, resetRankWeights, rankWeightsCustomised, type RankWeights } from './news/rank-weights'
 import { buildSourcesReport } from './news/source-health'
 import { readThemesIndex, loadTheme, buildThemeDetail } from './news/themes/store'
 import { enrichEvent } from './news/enrich'
@@ -704,6 +705,34 @@ app.get('/api/news/feed', async (req) => {
   const days = Math.min(370, Math.max(1, Math.floor(Number(q?.days) || 2))) // 'all' → the client sends 370
   const maxItems = days <= 2 ? 1000 : 6000 // deep windows return the newest 6k items in range (readFeed early-stops)
   return readFeed(REPO_ROOT, days, { maxItems, archiveDir: NEWS.newsArchiveDir }) // read pruned days from the Drive archive
+})
+
+// SCORING WEIGHTS — the knobs behind every event's triage score (rank.ts). The cockpit Scoring panel
+// reads these to render the controls + live preview, and writes them back. The change is GLOBAL (one
+// shared config drives all scoring), never per-event: a save re-scores the whole wire on the next load.
+// explicit per-route rate-limit (same budget as the global cap) so CodeQL recognizes the limiter on these
+// filesystem-touching handlers (js/missing-rate-limiting); the global @fastify/rate-limit still applies too.
+app.get('/api/news/rank-weights', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async () => ({ active: getRankWeights(), defaults: defaultRankWeights(), customised: rankWeightsCustomised() }))
+
+// Each group is an open numeric map (a new event type / source tier auto-falls-back to its default, §26);
+// saveRankWeights() clamps every value and drops unknown keys, so a malformed body degrades to "no change"
+// rather than corrupting scoring. `{ reset: true }` restores the shipped defaults and removes the override.
+const numMap = z.record(z.string(), z.number())
+const RankWeightsBody = z.object({
+  reset: z.boolean().optional(),
+  source_tier: numMap.optional(),
+  scope: numMap.optional(),
+  event: numMap.optional(),
+  size: numMap.optional(),
+  recency: numMap.optional(),
+  boost_weight: z.number().optional(),
+}).strip()
+app.put('/api/news/rank-weights', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const parsed = RankWeightsBody.safeParse(req.body ?? {})
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid weights', detail: parsed.error.flatten() })
+  const { reset, ...over } = parsed.data
+  const active = reset ? resetRankWeights() : saveRankWeights(over as Partial<RankWeights>)
+  return { active, defaults: defaultRankWeights(), customised: rankWeightsCustomised() }
 })
 
 // THEMES — the living, ranked investment themes the firehose is bucketed into.

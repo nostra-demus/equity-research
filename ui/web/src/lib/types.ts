@@ -94,6 +94,20 @@ export interface CompanyGuess {
   listing_country: string | null
 }
 
+// The per-component build-up behind triage_score (ui/server/src/news/rank.ts). The Groq title-read is
+// the anchor (`materiality`); the rest are deterministic §4-hierarchy adjustments, summed then clamped
+// to 0–100. Persisted on every firehose item so the cockpit can show the WHY, not just the number.
+export interface RankFactors {
+  materiality: number // the Groq title read (0–100) — the anchor
+  source_tier: number // §4 source-hierarchy bonus (filing > official > company > news > rumour)
+  scope: number // company-specific vs broad/macro bonus
+  event: number // strongest event-type bonus
+  size: number // company-size bonus
+  recency: number // freshness bonus
+  scope_id: string // which scope won (single_name / sector / macro …)
+  source_tier_id: string // which §4 tier won (primary_filing / news …)
+}
+
 // One triaged item on the live news wire (a firehose kind:"item" record).
 export interface FeedItem {
   kind: 'item'
@@ -116,6 +130,7 @@ export interface FeedItem {
   size_bucket: string
   scope?: string // derived company-vs-broad bucket (news/scope.ts) — present on every served item
   source_tier?: string // derived §4 source tier (Filing / Official data / Company / News / Unconfirmed)
+  rank_factors?: RankFactors // the per-component score build-up — present on every firehose item (drives "Why this score")
   dedup_status: string
   dedup_group?: string // story-cluster id (news/dedup.ts) — the wire shows one row per group
   inboxed: boolean

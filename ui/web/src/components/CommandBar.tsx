@@ -322,6 +322,7 @@ export function CommandBar() {
   const decision = useStore((s) => s.decision)
   const openThesis = useStore((s) => s.openThesis)
   const openActivity = useStore((s) => s.openActivity)
+  const openScoring = useStore((s) => s.openScoring)
   const openCalls = useStore((s) => s.openCalls)
   const requestFull = useStore((s) => s.requestFull)
   const anyRun = useStore((s) => s.anyRunForTicker(s.selectedTicker))
@@ -351,6 +352,7 @@ export function CommandBar() {
           <StopControl />
           <AutoScanChip />
           <EngineStatusPill />
+          <button className="btn btn--ghost" onClick={openScoring} title="Scoring weights — tune how every event is scored, for the whole wire">Scoring</button>
           <button className="btn btn--ghost" onClick={openActivity} title="Activity log — who ran what, when">Activity</button>
           <ScreenerControls />
           <CreditBadge />
