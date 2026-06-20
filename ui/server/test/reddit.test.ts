@@ -1,9 +1,9 @@
 // Reddit DISCOVERY/SENTIMENT adapter (sources/reddit.ts). Tests: Atom parse via the reused parseFeed →
 // RawArticle (via:'reddit', domain forced to reddit.com, per-sub source_name), the www→old.reddit→mirror
-// fallback chain, the cross-cycle 429 penalty-box (reddit.com hosts skipped, mirror still tried), URL
-// canonicalization, the lookback freshness filter, the caution_only snippet tag, the social source tier,
-// and the hard `social` → never-`pick` band cap. All with mocked fetch, no network.
-// Run: npx tsx test/reddit.test.ts
+// fallback chain, the cross-cycle 403/429 penalty-box (reddit.com hosts skipped, mirror still tried), the
+// within-cycle "stop poking a blocked IP" guard, URL canonicalization, the lookback freshness filter, the
+// caution_only snippet tag, the social source tier, and the hard `social` → never-`pick` band cap. All
+// with mocked fetch, no network. Run: npx tsx test/reddit.test.ts
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
@@ -31,6 +31,17 @@ const now = () => new Date('2026-06-14T12:00:00Z')
 function res(status: number, body: string) {
   return { ok: status >= 200 && status < 300, status, text: async () => body } as unknown as Response
 }
+
+// URL checks via the PARSED host — `u.includes('reddit.com')` on the whole URL is the "incomplete URL
+// substring sanitization" anti-pattern (CodeQL js/incomplete-url-substring-sanitization), so the routers
+// and assertions below compare the exact host (and path) instead.
+const hostOf = (u: string) => { try { return new URL(u).hostname } catch { return '' } }
+const isReddit = (u: string) => { const h = hostOf(u); return h === 'reddit.com' || h.endsWith('.reddit.com') }
+const isWww = (u: string) => hostOf(u) === 'www.reddit.com'
+const isOld = (u: string) => hostOf(u) === 'old.reddit.com'
+const isMirror = (u: string) => hostOf(u) === 'mirror.example'
+const hitMirrorSub = (u: string, sub: string) => isMirror(u) && new URL(u).pathname === `/${sub}/new`
+const pathHas = (u: string, s: string) => { try { return new URL(u).pathname.includes(s) } catch { return false } }
 
 // A minimal Reddit-style Atom feed. `host` controls the permalink host (www/old.reddit, or a mirror that
 // preserves the reddit permalink path), so we can prove the URL canonicalizes back to www.reddit.com.
@@ -81,7 +92,7 @@ await check('canonicalRedditUrl: old.reddit / mirror permalink → www.reddit.co
 await check('fetchReddit: www Atom → RawArticle (via:reddit, domain reddit.com, per-sub source_name, canonical url)', async () => {
   resetRedditBackoff()
   const feeds = writeFeeds([{ subreddit: 'Layoffs', source_name: 'Reddit r/Layoffs' }])
-  const { fn } = mkFetch((url) => (url.includes('www.reddit.com') ? { status: 200, body: atom('Layoffs', [{ title: 'Acme cuts 500', id: 'a1', published: FRESH }]) } : { status: 404, body: '' }))
+  const { fn } = mkFetch((url) => (isWww(url) ? { status: 200, body: atom('Layoffs', [{ title: 'Acme cuts 500', id: 'a1', published: FRESH }]) } : { status: 404, body: '' }))
   const out = await fetchReddit({ feedsPath: feeds, lookbackHours: 24, timeoutMs: 5000 }, { fetchFn: fn, sleep: noSleep, now })
   assert.equal(out.length, 1)
   assert.equal(out[0].via, 'reddit')
@@ -96,24 +107,24 @@ await check('fetchReddit: www 429 → falls back to old.reddit (url still canoni
   resetRedditBackoff()
   const feeds = writeFeeds([{ subreddit: 'Frugal' }])
   const { fn, calls } = mkFetch((url) => {
-    if (url.includes('www.reddit.com')) return { status: 429, body: '' }
-    if (url.includes('old.reddit.com')) return { status: 200, body: atom('Frugal', [{ title: 'Trading down', id: 'f1', published: FRESH, host: 'old.reddit.com' }]) }
+    if (isWww(url)) return { status: 429, body: '' }
+    if (isOld(url)) return { status: 200, body: atom('Frugal', [{ title: 'Trading down', id: 'f1', published: FRESH, host: 'old.reddit.com' }]) }
     return { status: 404, body: '' }
   })
   const out = await fetchReddit({ feedsPath: feeds, lookbackHours: 24, timeoutMs: 5000 }, { fetchFn: fn, sleep: noSleep, now }) // no backoff cfg → 429 just falls through
   assert.equal(out.length, 1, 'old.reddit served the item after www 429')
   assert.equal(out[0].source_name, 'Reddit r/Frugal', 'falls back to default per-sub name')
   assert.equal(new URL(out[0].url).hostname, 'www.reddit.com', 'old.reddit link canonicalized')
-  assert.ok(calls.some((u) => u.includes('www.reddit.com')) && calls.some((u) => u.includes('old.reddit.com')))
+  assert.ok(calls.some(isWww) && calls.some(isOld))
 })
 
 await check('fetchReddit: www 403 block page + old 429 → public mirror serves it (current sub runs full chain)', async () => {
   resetRedditBackoff()
   const feeds = writeFeeds([{ subreddit: 'sysadmin' }])
   const { fn, calls } = mkFetch((url) => {
-    if (url.includes('www.reddit.com')) return { status: 403, body: '<html>blocked network security</html>' } // the real block shape
-    if (url.includes('old.reddit.com')) return { status: 429, body: '' } // still tried for THIS sub, then falls through
-    if (url.includes('mirror.example')) return { status: 200, body: atom('sysadmin', [{ title: 'Cisco license revolt', id: 's1', published: FRESH }]) }
+    if (isWww(url)) return { status: 403, body: '<html>blocked network security</html>' } // the real block shape
+    if (isOld(url)) return { status: 429, body: '' } // still tried for THIS sub, then falls through
+    if (isMirror(url)) return { status: 200, body: atom('sysadmin', [{ title: 'Cisco license revolt', id: 's1', published: FRESH }]) }
     return { status: 404, body: '' }
   })
   const out = await fetchReddit(
@@ -122,16 +133,16 @@ await check('fetchReddit: www 403 block page + old 429 → public mirror serves 
   )
   assert.equal(out.length, 1)
   assert.equal(out[0].domain, 'reddit.com', 'domain forced to reddit.com even from the mirror')
-  assert.ok(calls.some((u) => u.includes('mirror.example/sysadmin/new')), 'mirror template {sub} filled')
-  assert.ok(calls.some((u) => u.includes('old.reddit.com')), 'the current sub still tried old.reddit before the mirror')
+  assert.ok(calls.some((u) => hitMirrorSub(u, 'sysadmin')), 'mirror template {sub} filled')
+  assert.ok(calls.some(isOld), 'the current sub still tried old.reddit before the mirror')
 })
 
 await check('fetchReddit: within a cycle, after one sub is blocked the rest skip reddit hosts (mirror only)', async () => {
   resetRedditBackoff()
   const feeds = writeFeeds([{ subreddit: 'Layoffs' }, { subreddit: 'Frugal' }])
   const { fn, calls } = mkFetch((url) => {
-    if (url.includes('reddit.com')) return { status: 403, body: '<html>blocked</html>' }
-    if (url.includes('mirror.example')) return { status: 200, body: atom('x', [{ title: 'mirror item', id: 'q1', published: FRESH }]) }
+    if (isReddit(url)) return { status: 403, body: '<html>blocked</html>' }
+    if (isMirror(url)) return { status: 200, body: atom('x', [{ title: 'mirror item', id: 'q1', published: FRESH }]) }
     return { status: 404, body: '' }
   })
   await fetchReddit(
@@ -139,14 +150,14 @@ await check('fetchReddit: within a cycle, after one sub is blocked the rest skip
     { fetchFn: fn, sleep: noSleep, now },
   ) // no backoff cfg → this is the WITHIN-cycle guard, not the cross-cycle box
   // The second subreddit (Frugal) must never touch reddit.com once the first (Layoffs) was blocked.
-  assert.ok(!calls.some((u) => u.includes('reddit.com') && u.includes('Frugal')), 'second sub skipped reddit hosts')
-  assert.ok(calls.some((u) => u.includes('mirror.example/Frugal/new')), 'second sub went straight to the mirror')
+  assert.ok(!calls.some((u) => isReddit(u) && pathHas(u, 'Frugal')), 'second sub skipped reddit hosts')
+  assert.ok(calls.some((u) => hitMirrorSub(u, 'Frugal')), 'second sub went straight to the mirror')
 })
 
 await check('fetchReddit: lookback drops stale posts', async () => {
   resetRedditBackoff()
   const feeds = writeFeeds([{ subreddit: 'pharmacy' }])
-  const { fn } = mkFetch((url) => (url.includes('www.reddit.com') ? { status: 200, body: atom('pharmacy', [
+  const { fn } = mkFetch((url) => (isWww(url) ? { status: 200, body: atom('pharmacy', [
     { title: 'Fresh shortage', id: 'p1', published: FRESH },
     { title: 'Old news', id: 'p2', published: STALE },
   ]) } : { status: 404, body: '' }))
@@ -158,7 +169,7 @@ await check('fetchReddit: lookback drops stale posts', async () => {
 await check('fetchReddit: caution_only sub tags the snippet (crowding/euphoria caution)', async () => {
   resetRedditBackoff()
   const feeds = writeFeeds([{ subreddit: 'wallstreetbets', source_name: 'Reddit r/wallstreetbets', caution_only: true }])
-  const { fn } = mkFetch((url) => (url.includes('www.reddit.com') ? { status: 200, body: atom('wallstreetbets', [{ title: 'YOLO calls', id: 'w1', published: FRESH }]) } : { status: 404, body: '' }))
+  const { fn } = mkFetch((url) => (isWww(url) ? { status: 200, body: atom('wallstreetbets', [{ title: 'YOLO calls', id: 'w1', published: FRESH }]) } : { status: 404, body: '' }))
   const out = await fetchReddit({ feedsPath: feeds, lookbackHours: 24, timeoutMs: 5000 }, { fetchFn: fn, sleep: noSleep, now })
   assert.equal(out.length, 1)
   assert.match(String(out[0].snippet), /caution input, not a source/)
@@ -170,16 +181,16 @@ await check('fetchReddit: 429 penalty-box — next cycle skips reddit.com hosts,
   const opts = { feedsPath: feeds, lookbackHours: 24, timeoutMs: 5000, mirrorTemplate: 'https://mirror.example/{sub}/new', cycleMs: 900_000, backoffCyclesOn429: 4 }
   // cycle 1: www 403 block page → sets the cross-cycle box; mirror serves.
   const c1 = mkFetch((url) => {
-    if (url.includes('reddit.com')) return { status: 403, body: '<html>blocked</html>' }
+    if (isReddit(url)) return { status: 403, body: '<html>blocked</html>' }
     return { status: 200, body: atom('msp', [{ title: 'Pax8 pricing', id: 'm1', published: FRESH }]) }
   })
   await fetchReddit(opts, { fetchFn: c1.fn, sleep: noSleep, now })
-  assert.ok(c1.calls.some((u) => u.includes('reddit.com')), 'cycle 1 did poke reddit.com')
+  assert.ok(c1.calls.some(isReddit), 'cycle 1 did poke reddit.com')
   // cycle 2 (same clock, inside the backoff window): reddit.com hosts must be skipped entirely.
   const c2 = mkFetch(() => ({ status: 200, body: atom('msp', [{ title: 'Pax8 pricing 2', id: 'm2', published: FRESH }]) }))
   const out2 = await fetchReddit(opts, { fetchFn: c2.fn, sleep: noSleep, now })
-  assert.ok(!c2.calls.some((u) => u.includes('reddit.com')), 'cycle 2 skipped reddit.com hosts')
-  assert.ok(c2.calls.every((u) => u.includes('mirror.example')), 'cycle 2 used the mirror only')
+  assert.ok(!c2.calls.some(isReddit), 'cycle 2 skipped reddit.com hosts')
+  assert.ok(c2.calls.every(isMirror), 'cycle 2 used the mirror only')
   assert.equal(out2.length, 1, 'mirror still delivered an item under the penalty box')
   resetRedditBackoff()
 })

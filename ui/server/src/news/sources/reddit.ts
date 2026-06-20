@@ -128,9 +128,10 @@ export async function fetchReddit(opts: RedditOptions, deps: RedditDeps = {}): P
 
     let got: ReturnType<typeof parseFeed> | null = null
     for (const url of endpoints) {
-      const isRedditHost = url.includes('reddit.com')
-      if (skipReddit && isRedditHost) continue // a prior sub already hit an IP block — don't re-poke reddit
       const host = (() => { try { return new URL(url).hostname } catch { return url } })()
+      // proper host check (not a substring of the whole URL) — a mirror like reddit.com.evil.test is NOT reddit
+      const isRedditHost = host === 'reddit.com' || host.endsWith('.reddit.com')
+      if (skipReddit && isRedditHost) continue // a prior sub already hit an IP block — don't re-poke reddit
       // Explicit abort timer (the rss.ts pattern) so the signal stays armed through BOTH the fetch and
       // the res.text() body read — a mirror that sends headers then stalls the body can't hang the cycle.
       const ctrl = new AbortController()
