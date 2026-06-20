@@ -20,6 +20,7 @@ export interface ActivityEvent {
   userVia: 'cf-access' | 'local'
   kind: RunKind // full | module | agent | rerun
   ticker: string
+  runRoot?: string // repo-relative run folder (launched event) — lets the activity row open the run's reports
   module?: string
   agent?: string
   model?: string
@@ -38,6 +39,7 @@ export interface ActivityRow {
   userVia: 'cf-access' | 'local'
   kind: RunKind
   ticker: string
+  runRoot?: string // repo-relative run folder (from the launched event) — drives the row's "open reports" menu
   module?: string
   agent?: string
   model?: string
@@ -123,6 +125,7 @@ function foldRows(events: ActivityEvent[]): ActivityRow[] {
         userVia: ev.userVia,
         kind: ev.kind,
         ticker: ev.ticker,
+        runRoot: ev.runRoot,
         module: ev.module,
         agent: ev.agent,
         model: ev.model,
@@ -138,6 +141,7 @@ function foldRows(events: ActivityEvent[]): ActivityRow[] {
       row.userVia = ev.userVia
       row.kind = ev.kind
       row.ticker = ev.ticker
+      row.runRoot = ev.runRoot
       row.module = ev.module
       row.agent = ev.agent
       row.model = ev.model
