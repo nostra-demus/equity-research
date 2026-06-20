@@ -87,6 +87,7 @@ await check('source tier maps input_nature to the §4 ladder; rumor overrides', 
   assert.equal(deriveSourceTier({ input_nature: 'company_press_release' }), 'company')
   assert.equal(deriveSourceTier({ input_nature: 'news_headline' }), 'news')
   assert.equal(deriveSourceTier({ input_nature: 'news_headline', event_types: ['rumor'] }), 'unconfirmed')
+  assert.equal(deriveSourceTier({ input_nature: 'social_discussion' }), 'social')
 })
 
 // ---- summary extraction ----

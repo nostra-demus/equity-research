@@ -267,7 +267,7 @@ sources:
       - "DealStreetAsia"
   thesis_structure:
     reject_if_unapproved: false
-    note: "Prefer the signal_gate list plus primary data (filings, exchange data, official statistics). An off-list source must be dated and labelled, and never outranks an on-list source on the same fact."
+    note: "Prefer the signal_gate list plus primary data (filings, exchange data, official statistics). An off-list source must be dated and labelled, and never outranks an on-list source on the same fact. A social / Reddit (discovery-tier) item may corroborate a fact or surface a lead, but it does NOT satisfy M0.1's 60-second on-list source check on its own — find an on-list source before the thesis proceeds."
   edge_definition:
     missing_reason_required: true
     preferred:
@@ -283,6 +283,22 @@ sources:
       - NASDAQ
       - LSE
       - Other recognised national exchanges
+  discovery:
+    reject_if_unapproved: false
+    promotion_eligible: false
+    note: "DISCOVERY / SENTIMENT tier — low-trust, user-generated social sources (Reddit). Ingested into the news wire as the `social` source tier and HARD-CAPPED to the watch band: never a top pick, never an independent thesis driver (CLAUDE.md §4/§24). A social item may CORROBORATE an on-list source or flag an early lead, but it does NOT satisfy M0.1's 60-second on-list source check on its own. reddit.com is on the INGESTION firewall (approved-domains.ts) but deliberately NOT on signal_gate.allowed, and `social_discussion` is deliberately absent from intake.schema.json's input_nature enum — so a Reddit-only signal can never be promoted into a thesis. r/wallstreetbets is a crowding/euphoria caution input only, weighted lowest."
+    subreddits:
+      - "r/Layoffs — workforce-cut early-warning (margin & management-credibility)"
+      - "r/cybersecurity — breach / operational-risk monitor for named public companies"
+      - "r/Frugal — consumer trade-down thermometer (discretionary vs staples)"
+      - "r/wallstreetbets — retail crowding / euphoria CAUTION input only (never a source)"
+      - "r/ValueInvesting — contrarian / bear-case disconfirmation on named stocks"
+      - "r/REBubble — housing / rates / consumer bear case (homebuilders, Home Depot / Lowe's, REITs, banks)"
+      - "r/sysadmin — enterprise-IT vendor health (MSFT, Dell, Cisco, CrowdStrike)"
+      - "r/msp — SMB-IT vendor health (Cisco/Meraki, SonicWall, Ubiquiti, CrowdStrike/SentinelOne, Pax8)"
+      - "r/electricvehicles — EV adoption + Tesla / BYD sentiment"
+      - "r/LocalLLaMA — AI / semis (open-weight model race + GPU demand, NVDA)"
+      - "r/pharmacy — healthcare retail / PBM (CVS / Walgreens + drug shortages)"
 ---
 
 # SCREENER SWARM — Idea-Generation Doctrine

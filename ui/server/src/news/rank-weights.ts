@@ -16,7 +16,7 @@ import { STATE_DIR, NEWS } from '../config'
 // the Groq base, then clamps). recency is the points per fixed freshness bucket (thresholds stay fixed
 // in rank.ts; only the points are tunable). boost_weight scales the whole adjustment (0 = pure Groq).
 export interface RankWeights {
-  source_tier: Record<string, number> // §4 hierarchy: primary_filing / official_data / company / news / unconfirmed
+  source_tier: Record<string, number> // §4 hierarchy: primary_filing / official_data / company / news / unconfirmed / social
   scope: Record<string, number> // single_name / multi_name / policy / commodity / sector / macro / unknown
   event: Record<string, number> // mna / guidance_change / … / rumor — the strongest matching type counts
   size: Record<string, number> // mega / large / mid / small / unknown
@@ -27,7 +27,7 @@ export interface RankWeights {
 // The shipped defaults — identical to rank.ts's original const tables. Changing a value here changes the
 // out-of-the-box scoring; changing it via the panel overrides it per-engine in the saved JSON.
 export const DEFAULT_RANK_WEIGHTS: RankWeights = {
-  source_tier: { primary_filing: 8, official_data: 5, company: 3, news: 0, unconfirmed: -8 },
+  source_tier: { primary_filing: 8, official_data: 5, company: 3, news: 0, unconfirmed: -8, social: -12 },
   scope: { single_name: 6, multi_name: 5, policy: 2, commodity: 1, sector: 0, macro: -4, unknown: -2 },
   event: { mna: 9, guidance_change: 7, debt_credit: 7, capital_actions: 6, litigation_enforcement: 6, earnings_revenue_margin: 5, management: 4, regulatory: 4, cybersecurity: 4, product: 3, commercial: 3, operations: 2, macro_sector: 1, rumor: -3 },
   size: { mega: 2, large: 2, mid: 1, small: -1, unknown: 0 },

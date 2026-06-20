@@ -158,6 +158,7 @@ const TIER_LANES = [
   { id: 'company', label: 'Company' },
   { id: 'news', label: 'News' },
   { id: 'unconfirmed', label: 'Rumour' },
+  { id: 'social', label: 'Social' },
 ]
 
 // One-time entrance: the size-ranked reveal cascade plays once per page session (a single "assembly"

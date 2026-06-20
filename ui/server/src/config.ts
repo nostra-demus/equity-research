@@ -383,6 +383,17 @@ export const NEWS = {
   // fda.gov link domain. Default ON; NEWS_GOV_DATA_ENABLED=0 off. lookbackDays bounds the first-run backlog.
   govDataEnabled: process.env.NEWS_GOV_DATA_ENABLED === '0' ? false : true,
   govDataLookbackDays: capNum(process.env.NEWS_GOV_DATA_LOOKBACK_DAYS, 21),
+  // REDDIT — a DISCOVERY/SENTIMENT layer (sources/reddit.ts): named subreddits read via their no-auth
+  // Atom feeds (frameworks/screener/reddit_feeds.json). Items pass the firewall on the reddit.com link
+  // domain, land in the `social` source tier, and are hard-capped to `watch` (never a pick — §4/§24).
+  // Default ON; NEWS_REDDIT_ENABLED=0 off. Reddit blocks aggressively, so the adapter runs a fallback
+  // chain (www → old.reddit → public mirror) with a 429 penalty-box and slow per-host pacing.
+  redditEnabled: process.env.NEWS_REDDIT_ENABLED === '0' ? false : true,
+  redditFeedsPath: process.env.NEWS_REDDIT_FEEDS_PATH || 'frameworks/screener/reddit_feeds.json',
+  redditLookbackHours: capNum(process.env.NEWS_REDDIT_LOOKBACK_HOURS, 6),
+  redditPerHostGapMs: capNum(process.env.NEWS_REDDIT_PER_HOST_GAP_MS, 2000), // all subs share one host (reddit.com)
+  redditBackoffCyclesOn429: capNum(process.env.NEWS_REDDIT_BACKOFF_CYCLES, 4), // cycles to skip Reddit after a 429
+  redditMirrorTemplate: process.env.NEWS_REDDIT_MIRROR_TEMPLATE || 'https://rsshub.app/reddit/subreddit/{sub}/new', // {sub} placeholder; public-mirror fallback (overridable / self-hostable)
   // Live-feed per-item records (firehose kind:"item") — the daily cap bounds file growth.
   feedItemsDailyCap: capNum(process.env.NEWS_FEED_ITEMS_DAILY_CAP, 5000),
   // Groq output budget per triage call (the per-item payload grew with companies/size_bucket).

@@ -171,7 +171,7 @@ export function deriveScope(it: ScopeInput): ScopeId {
 
 // ---- source tier — CLAUDE.md §4 hierarchy, made visible on the wire ----
 
-export type SourceTierId = 'primary_filing' | 'official_data' | 'company' | 'news' | 'unconfirmed'
+export type SourceTierId = 'primary_filing' | 'official_data' | 'company' | 'news' | 'unconfirmed' | 'social'
 
 export interface SourceTierDef {
   id: SourceTierId
@@ -187,6 +187,7 @@ export const SOURCE_TIERS: Record<SourceTierId, SourceTierDef> = {
   company: { id: 'company', label: 'Company', rank: 3, meaning: "The company's own release — useful, but management's framing, not an independent check." },
   news: { id: 'news', label: 'News', rank: 2, meaning: 'A reputable newswire report — secondary; verify against the primary source before relying on it.' },
   unconfirmed: { id: 'unconfirmed', label: 'Unconfirmed', rank: 1, meaning: 'Sourced to unnamed people — a rumour. Lowest weight until confirmed.' },
+  social: { id: 'social', label: 'Social', rank: 0, meaning: 'A social/forum post (Reddit) — user-generated, low-trust. Discovery and corroboration only; never independently drives a thesis or a top pick (CLAUDE.md §4/§24).' },
 }
 
 export interface SourceTierInput {
@@ -199,6 +200,8 @@ export function deriveSourceTier(it: SourceTierInput): SourceTierId {
   const types = (it.event_types || []).map(lc)
   if (types.includes('rumor')) return 'unconfirmed'
   switch (lc(it.input_nature)) {
+    case 'social_discussion':
+      return 'social'
     case 'regulatory_filing':
     case 'exchange_announcement':
       return 'primary_filing'

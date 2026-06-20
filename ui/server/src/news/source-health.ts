@@ -108,6 +108,7 @@ export function buildSourcesReport(repoRoot: string, stateDir: string, opts: { n
       { name: 'HKEXnews (HK Exchange Filing)', via: 'hkex', feed_type: 'filing', region: 'HK' },
       { name: 'ASX (Australia Exchange Filing)', via: 'asx', feed_type: 'filing', region: 'AU' },
       { name: 'openFDA — drug/device recalls + clearances', via: 'gov', feed_type: 'recall', region: 'US' },
+      { name: 'Reddit — social discovery (capped)', via: 'reddit', feed_type: 'social', region: 'GLOBAL' },
     ]
     for (const a of ADAPTERS) roster.set(a.name, { region: a.region, feed_type: a.feed_type, via: a.via })
 

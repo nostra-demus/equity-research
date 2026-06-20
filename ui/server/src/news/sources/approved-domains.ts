@@ -276,6 +276,13 @@ const DOMAINS: Record<string, SourceMeta> = {
   //     firewall on these link domains (the API hosts differ). gdelt:false: read directly, not via GDELT.
   'hkexnews.hk': { source_name: 'HKEXnews (HK Exchange Filing)', region: 'CN', input_nature: 'exchange_announcement', gdelt: false },
   'asx.com.au': { source_name: 'ASX (Australia Exchange Filing)', region: 'OTHER', input_nature: 'exchange_announcement', gdelt: false },
+  // --- DISCOVERY / SENTIMENT (sources/reddit.ts). reddit.com is on the INGESTION firewall so social
+  //     posts reach the wire, but it is DELIBERATELY NOT mirrored into SWARM.md signal_gate.allowed nor
+  //     intake.schema.json — keeping that promotion gate closed is what stops a Reddit-only signal from
+  //     ever becoming a thesis (it must find an on-list corroborating source, M0.1). input_nature
+  //     'social_discussion' routes these to the `social` source tier (scope.ts), hard-capped to `watch`
+  //     in runCycle.ts (never a pick; CLAUDE.md §4/§24). www./old.reddit.com match by the suffix rule.
+  'reddit.com': { source_name: 'Reddit', region: 'GLOBAL', input_nature: 'social_discussion', gdelt: false },
 }
 
 /** Lowercase, strip a leading www., and keep only the host (no scheme/path) — GDELT gives a bare host already. */

@@ -18,6 +18,7 @@
 
 import { deriveScope, deriveSourceTier, familyOf, SOURCE_TIERS, type ScopeId, type SourceTierId } from './scope'
 import { getRankWeights, type RankWeights } from './rank-weights'
+import type { Band } from './types'
 
 export interface RankInput {
   materiality_pre_score?: number | null
@@ -137,6 +138,18 @@ export function reRankFromFactors(
 /** Family (company vs broad) for the winning scope — handy for the UI without re-deriving. */
 export function rankFamily(f: RankFactors): 'company' | 'broad' | 'unknown' {
   return familyOf(f.scope_id)
+}
+
+/**
+ * DOCTRINE CAP (CLAUDE.md §4/§24): a `social` item (Reddit) is discovery / corroboration only and can
+ * NEVER reach the top `pick` band — corroborate, never drive. The strongly-negative social source-tier
+ * weight already pushes it down, but a weight alone isn't a guarantee (a Scoring-panel edit, or a high
+ * Groq read on a real-looking post, could still clear the pick threshold), so this clamps it hard.
+ * Applied in runCycle right after scoreToBand; exported so the rule is independently testable. Every
+ * other tier passes through unchanged.
+ */
+export function capSocialBand(band: Band, sourceTierId: SourceTierId): Band {
+  return sourceTierId === 'social' && band === 'pick' ? 'watch' : band
 }
 
 // High-value terms a buy-side PM would jump on — cheap to scan on the title BEFORE the LLM runs.

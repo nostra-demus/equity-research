@@ -14,12 +14,13 @@ import { fetchRss } from './sources/rss'
 import { fetchNse } from './sources/nse'
 import { fetchExchangeIntl } from './sources/exchange-intl'
 import { fetchGovData } from './sources/gov-data'
+import { fetchReddit } from './sources/reddit'
 import { loadLedgerEventIds, normalizeAndFilter } from './normalize'
 import { SeenCache } from './seen-cache'
 import { Budget, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter } from './triage/budget'
 import { triageBatchGemini } from './triage/gemini'
 import { estimateTokens, scoreToBand, triageBatch } from './triage/groq'
-import { rankScore, preTriagePriority } from './rank'
+import { rankScore, preTriagePriority, capSocialBand } from './rank'
 import { deriveScope, deriveSourceTier } from './scope'
 import { appendFirehoseSummary, mergeInbox, refreshBoard } from './write-inbox'
 import { runThemesCycle, bumpCycleCounter, themesConfigFromNews } from './themes/engine'
@@ -136,6 +137,20 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       : Promise.resolve([] as RawArticle[]),
     cfg.govDataEnabled
       ? fetchGovData({ lookbackDays: cfg.govDataLookbackDays, timeoutMs: cfg.rssTimeoutMs }, { fetchFn, sleep, now, log })
+      : Promise.resolve([] as RawArticle[]),
+    cfg.redditEnabled
+      ? fetchReddit(
+          {
+            feedsPath: path.join(repoRoot, cfg.redditFeedsPath),
+            lookbackHours: cfg.redditLookbackHours,
+            timeoutMs: cfg.rssTimeoutMs,
+            perHostGapMs: cfg.redditPerHostGapMs,
+            mirrorTemplate: cfg.redditMirrorTemplate || undefined,
+            cycleMs: cfg.pollIntervalMin * 60_000,
+            backoffCyclesOn429: cfg.redditBackoffCyclesOn429,
+          },
+          { fetchFn, sleep, now, log },
+        )
       : Promise.resolve([] as RawArticle[]),
   ])
   const raws: RawArticle[] = []
@@ -315,7 +330,8 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         { materiality_pre_score: score, issuer_linkage: t?.issuer_linkage, companies: t?.companies, event_types: t?.event_types, input_nature: it.input_nature, headline: it.headline, size_bucket: t?.size_bucket, found_at: it.found_at },
         now(),
       )
-      const band = scoreToBand(ranked.rank_score, cfg.pickThreshold, cfg.watchThreshold)
+      // capSocialBand enforces the §4/§24 doctrine cap: a Reddit/`social` item can never be a top pick.
+      const band = capSocialBand(scoreToBand(ranked.rank_score, cfg.pickThreshold, cfg.watchThreshold), ranked.rank_factors.source_tier_id)
       seen.add(it.event_id, score)
       triaged.push({
         ...it,
