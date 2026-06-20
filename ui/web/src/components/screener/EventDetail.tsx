@@ -138,9 +138,17 @@ export function EventDetail({ it }: { it: FeedItem }) {
   // else a minimal stand-in (the reader re-fetches its detail by event_id either way).
   const wrapRef = useRef<HTMLDivElement>(null)
   useEffect(() => { wrapRef.current?.scrollTo({ top: 0 }) }, [it.event_id])
-  // Esc backs out to the events list — the keyboard twin of the back button (this view fully owns the stage).
+  // Esc backs out to the events list — the keyboard twin of the back button. But a panel layered ON TOP of
+  // the reader (Sources / Calls / Activity / Output / pipeline / news-feed) also closes on its own Escape;
+  // don't STEAL that — only back out when nothing is open over the reader. Read the store non-reactively so
+  // the listener isn't re-bound on every panel toggle.
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') close(null) }
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return
+      const s = useStore.getState()
+      if (s.activityOpen || s.callsOpen || s.sourcesOpen || s.pipelineOpen || s.newsFeedOpen || s.openOutput) return
+      close(null)
+    }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [close])
