@@ -510,6 +510,32 @@ for drp in runs:
                 "; ".join(det_w) or f"business_type={bt!r}; primary_valuation_method={pvm!r} — no forbidden method detected")
     else:
         add("W_sector_valuation",True,f"run predates the sector-valuation gate ({ddte}) — N/A",na=True)
+    # Y §11 data-sufficiency ↔ decision cap — always-apply (CLAUDE.md §11, no landing date).
+    #   §11 mandates two hard thresholds that no existing check enforces mechanically:
+    #   (1) score < INSUF_THRESHOLD (30): "insufficient — refuse to rate" → decision MUST be the §18
+    #       refuse token; any other decision claims conviction the data cannot support.
+    #   (2) score in [INSUF_THRESHOLD, DATASUF_CONVICTION_FLOOR): "weak — cap the opinion" →
+    #       HIGH_CONVICTION_DECISIONS (Strong Buy, Buy) are forbidden; those ratings presuppose
+    #       strong evidence the data cannot supply. Watchlist, Avoid, Starter Position Only, Short
+    #       Candidate, Pair Trade, and Insufficient Data are all allowed at this band (Watchlist and
+    #       Avoid work with limited data; Starter Position Only is explicitly a cautious partial entry;
+    #       Short Candidate can be warranted by a clear negative picture even with incomplete filings).
+    #   All three committed fixtures (score 68-69) pass trivially, so no forward-looking landing date
+    #   is needed. N/A only when data_sufficiency_score is absent or non-numeric (blank/legacy record).
+    INSUF_THRESHOLD=30; DATASUF_CONVICTION_FLOOR=50
+    INSUF_DECISION="Insufficient Data — Refuse To Rate"
+    HIGH_CONVICTION_DECISIONS={"Strong Buy","Buy"}
+    ds=d.get("data_sufficiency_score")
+    if isnum(ds):
+        det_y=[]
+        if ds<INSUF_THRESHOLD and dec!=INSUF_DECISION:
+            det_y.append(f"data_sufficiency_score={ds} < {INSUF_THRESHOLD} (§11 insufficient) but decision={dec!r} — must be {INSUF_DECISION!r} (§18)")
+        elif INSUF_THRESHOLD<=ds<DATASUF_CONVICTION_FLOOR and dec in HIGH_CONVICTION_DECISIONS:
+            det_y.append(f"data_sufficiency_score={ds} in [{INSUF_THRESHOLD},{DATASUF_CONVICTION_FLOOR}) (§11 weak) but decision={dec!r} — cap to Watchlist-or-lower; high-conviction ratings require data_sufficiency_score >= {DATASUF_CONVICTION_FLOOR} (§11)")
+        add("Y_data_sufficiency_cap",not det_y,
+            "; ".join(det_y) or f"data_sufficiency_score={ds}; decision={dec!r} — §11 thresholds satisfied")
+    else:
+        add("Y_data_sufficiency_cap",True,"data_sufficiency_score absent or non-numeric — N/A",na=True)
     # WARN non-schema files
     # [review fix] suppress only genuine versioned/audit/review artifacts via PRECISE patterns — the old naive
     # `"_v" not in name` / `"review" not in name` substring tests hid real strays (preview.md, *_v*-named scratch).
@@ -563,7 +589,7 @@ FRAMEWORK_CONTRACTS={
  "frameworks/DECISION_LEDGER.md":["Memo delta","memo_delta","thesis_delta_verdict","stage_one_comment","rerun_command","_memo_delta.md","business_type","primary_valuation_method"],
  ".claude/commands/research/review-decisions.md":["memo_delta","stage_one_comment","rerun_command","Pool first","_memo_delta"],
  ".claude/commands/research/eval.md":["scripts/eval.py"],
- "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS"],
+ "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS"],
  ".github/workflows/ci.yml":["eval-contracts","scripts/eval.py"],
 }
 jchecks=[]
