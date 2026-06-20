@@ -17,6 +17,7 @@
 // lot. Every component is returned in rank_factors so the cockpit can show the WHY.
 
 import { deriveScope, deriveSourceTier, familyOf, SOURCE_TIERS, type ScopeId, type SourceTierId } from './scope'
+import { getRankWeights, type RankWeights } from './rank-weights'
 
 export interface RankInput {
   materiality_pre_score?: number | null
@@ -45,90 +46,90 @@ export interface Ranked {
   rank_factors: RankFactors
 }
 
-// --- weights (all additive points on the 0–100 scale; tune via NEWS_RANK_BOOST_WEIGHT) ---
+// --- weights ---
+// The additive-points tables (source tier, scope, event, size, recency) and the global boost multiplier
+// now live in rank-weights.ts (DEFAULT_RANK_WEIGHTS = the original consts) so the cockpit Scoring panel
+// can tune them at runtime. Everything below READS the active set; the defaults reproduce prior scoring.
 
-// §4 source hierarchy — the bias fix. A primary filing/exchange disclosure earns the most lift
-// because the title-only Groq read most under-rates it; a rumour is pushed down hard.
-const TIER_BONUS: Record<SourceTierId, number> = {
-  primary_filing: 8,
-  official_data: 5,
-  company: 3,
-  news: 0,
-  unconfirmed: -8,
+const clamp = (n: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, n))
+
+// Strongest event in the headline (we take the MAX, never the sum — one big event drives priority). The
+// rumor penalty is negative, so Math.max(0, …) would normally drop it; let it show only when rumor is the
+// ONLY signal (every type non-positive), so a bare rumour is pushed down rather than scored neutral.
+function eventBonus(eventTypes: (string | null | undefined)[] | null | undefined, ev: Record<string, number>): number {
+  const types = (eventTypes || []).map((t) => String(t || '').toLowerCase()).filter(Boolean)
+  if (!types.length) return 0
+  const positive = Math.max(0, ...types.map((t) => ev[t] ?? 0))
+  if (types.includes('rumor') && types.every((t) => (ev[t] ?? 0) <= 0)) return ev.rumor ?? 0
+  return positive
 }
 
-// Actionability — a specific listed name can become a single-stock idea; macro is context, not a stock.
-const SCOPE_BONUS: Record<ScopeId, number> = {
-  single_name: 6,
-  multi_name: 5,
-  policy: 2,
-  commodity: 1,
-  sector: 0,
-  macro: -4,
-  unknown: -2,
-}
-
-// Strongest event in the headline (we take the MAX, never the sum — one big event drives priority).
-const EVENT_BONUS: Record<string, number> = {
-  mna: 9,
-  guidance_change: 7,
-  debt_credit: 7,
-  capital_actions: 6,
-  litigation_enforcement: 6,
-  earnings_revenue_margin: 5,
-  management: 4,
-  regulatory: 4,
-  cybersecurity: 4,
-  product: 3,
-  commercial: 3,
-  operations: 2,
-  macro_sector: 1,
-  rumor: -3,
-}
-
-const SIZE_BONUS: Record<string, number> = { mega: 2, large: 2, mid: 1, small: -1, unknown: 0 }
-
-function recencyBonus(foundAt: string | null | undefined, now: Date): number {
+// Freshness → points. The thresholds are fixed; the points per bucket are tunable (weights.recency).
+function recencyBonus(foundAt: string | null | undefined, now: Date, pts: Record<string, number>): number {
   if (!foundAt) return 0
   const t = new Date(foundAt).getTime()
   if (Number.isNaN(t)) return 0
   const hrs = (now.getTime() - t) / 3_600_000
-  if (hrs < 0) return 5 // future-stamped (clock skew) — treat as brand new
-  if (hrs < 1) return 5
-  if (hrs < 3) return 4
-  if (hrs < 6) return 3
-  if (hrs < 12) return 2
-  if (hrs < 24) return 1
-  return 0
+  if (hrs < 1) return pts['1'] ?? 0 // includes future-stamped (clock skew) — treat as brand new
+  if (hrs < 3) return pts['3'] ?? 0
+  if (hrs < 6) return pts['6'] ?? 0
+  if (hrs < 12) return pts['12'] ?? 0
+  if (hrs < 24) return pts['24'] ?? 0
+  return pts.more ?? 0
 }
 
-const clamp = (n: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, n))
-
 /**
- * Compute the composite priority for one item. `boostWeight` scales the deterministic adjustment
- * (1 = full; 0 = pure Groq score) so the blend is tunable without a code change.
+ * Compute the composite priority for one item from scratch (used at INGEST). Reads the active weight set
+ * (rank-weights.ts) so a panel edit changes future scoring with no redeploy; pass `weights` to score
+ * against a specific set (tests, what-if). boost_weight scales the adjustment (1 = full; 0 = pure Groq).
  */
-export function rankScore(it: RankInput, now: Date = new Date(), boostWeight = 1): Ranked {
+export function rankScore(it: RankInput, now: Date = new Date(), weights: RankWeights = getRankWeights()): Ranked {
   const materiality = clamp(Math.round(Number(it.materiality_pre_score) || 0), 0, 100)
   const scope_id = deriveScope(it)
   const source_tier_id = deriveSourceTier(it)
 
-  const source_tier = TIER_BONUS[source_tier_id] ?? 0
-  const scope = SCOPE_BONUS[scope_id] ?? 0
-  const types = (it.event_types || []).map((t) => String(t).toLowerCase())
-  const event = types.length ? Math.max(0, ...types.map((t) => EVENT_BONUS[t] ?? 0), ...(types.includes('rumor') ? [EVENT_BONUS.rumor] : [])) : 0
-  // include the rumor penalty even though it's negative (Math.max with 0 would drop it) — only when rumor is the ONLY signal
-  const eventAdj = types.includes('rumor') && types.every((t) => (EVENT_BONUS[t] ?? 0) <= 0) ? EVENT_BONUS.rumor : event
-  const size = SIZE_BONUS[String(it.size_bucket || 'unknown').toLowerCase()] ?? 0
-  const recency = recencyBonus(it.found_at, now)
+  const source_tier = weights.source_tier[source_tier_id] ?? 0
+  const scope = weights.scope[scope_id] ?? 0
+  const event = eventBonus(it.event_types, weights.event)
+  const size = weights.size[String(it.size_bucket || 'unknown').toLowerCase()] ?? 0
+  const recency = recencyBonus(it.found_at, now, weights.recency)
 
-  const w = clamp(boostWeight, 0, 2)
-  const boost = (source_tier + scope + eventAdj + size + recency) * w
+  const w = clamp(weights.boost_weight, 0, 2)
+  const boost = (source_tier + scope + event + size + recency) * w
   const rank_score = clamp(Math.round(materiality + boost), 0, 100)
 
   return {
     rank_score,
-    rank_factors: { materiality, source_tier, scope, event: eventAdj, size, recency, scope_id, source_tier_id },
+    rank_factors: { materiality, source_tier, scope, event, size, recency, scope_id, source_tier_id },
+  }
+}
+
+/**
+ * Re-score an ALREADY-RANKED item under a (possibly new) weight set, for the live wire display. Reuses
+ * the breakdown captured at ingest — the Groq base (materiality), the won scope/source-tier ids, and the
+ * freshness points — and recomputes the tier/scope/event/size adjustments + boost from `weights`. Keeping
+ * the persisted recency makes the re-rank a pure function of the WEIGHTS (not the clock), so at default
+ * weights the wire is unchanged and a panel edit is the only thing that moves a score.
+ */
+export function reRankFromFactors(
+  rf: RankFactors,
+  item: { event_types?: (string | null)[] | null; size_bucket?: string | null },
+  weights: RankWeights = getRankWeights(),
+): Ranked {
+  const materiality = clamp(Math.round(Number(rf.materiality) || 0), 0, 100)
+  const source_tier = weights.source_tier[rf.source_tier_id] ?? 0
+  const scope = weights.scope[rf.scope_id] ?? 0
+  const event = eventBonus(item.event_types, weights.event)
+  const size = weights.size[String(item.size_bucket || 'unknown').toLowerCase()] ?? 0
+  const recency = Number(rf.recency) || 0 // freshness as captured at ingest — clock-independent
+
+  const w = clamp(weights.boost_weight, 0, 2)
+  const boost = (source_tier + scope + event + size + recency) * w
+  const rank_score = clamp(Math.round(materiality + boost), 0, 100)
+
+  return {
+    rank_score,
+    rank_factors: { materiality, source_tier, scope, event, size, recency, scope_id: rf.scope_id, source_tier_id: rf.source_tier_id },
   }
 }
 
@@ -161,7 +162,7 @@ export function preTriagePriority(it: { input_nature?: string | null; headline?:
   const tier = sourceTierRank(deriveSourceTier({ input_nature: it.input_nature })) // 5 (filing) … 2 (news); no event_types pre-triage
   const hay = ' ' + String(it.headline || '').toLowerCase() + ' '
   const material = PRE_KEYWORDS.some((k) => hay.includes(k)) ? 12 : 0 // bigger than the filing↔news tier gap (3×3=9)
-  return tier * 3 + material + recencyBonus(it.found_at, now)
+  return tier * 3 + material + recencyBonus(it.found_at, now, getRankWeights().recency)
 }
 
 // re-export the tier rank for any caller that wants the raw §4 number

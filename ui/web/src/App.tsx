@@ -16,6 +16,7 @@ import { SwarmWarp } from './components/SwarmWarp'
 import { RunStreamPanel } from './components/RunStreamPanel'
 import { OutputReader } from './components/OutputReader'
 import { ActivityLog } from './components/ActivityLog'
+import { ScoringPanel } from './components/screener/ScoringPanel'
 import { CallsTracker } from './components/CallsTracker'
 import { LaunchConfirm } from './components/LaunchConfirm'
 import { AddCompany } from './components/AddCompany'
@@ -60,6 +61,7 @@ export function App() {
   const init = useStore((s) => s.init)
   const openOutput = useStore((s) => s.openOutput)
   const activityOpen = useStore((s) => s.activityOpen)
+  const scoringOpen = useStore((s) => s.scoringOpen)
   const callsOpen = useStore((s) => s.callsOpen)
   const pipelineOpen = useStore((s) => s.pipelineOpen)
   const newsFeedOpen = useStore((s) => s.newsFeedOpen)
@@ -86,6 +88,7 @@ export function App() {
 
       <AnimatePresence>{openOutput && <OutputReader key={openOutput.path || openOutput.nodeKey || 'panel'} output={openOutput} />}</AnimatePresence>
       <AnimatePresence>{activityOpen && <ActivityLog />}</AnimatePresence>
+      <AnimatePresence>{scoringOpen && <ScoringPanel />}</AnimatePresence>
       <AnimatePresence>{callsOpen && <CallsTracker />}</AnimatePresence>
       <AnimatePresence>{pipelineOpen && <PipelineBoard />}</AnimatePresence>
       {/* no exit animation by design: the wire re-renders on live news/status ticks, which can

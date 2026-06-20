@@ -12,6 +12,9 @@ import type { CycleSummary, FeedItem } from './types'
 import { deriveScope, deriveSourceTier } from './scope'
 import { cleanText } from './clean'
 import { assignDedupGroups, type DedupConfig } from './dedup'
+import { reRankFromFactors } from './rank'
+import { getRankWeights } from './rank-weights'
+import { scoreToBand } from './triage/groq'
 import { NEWS } from '../config'
 
 /** Hydrate a feed item on read: clean any HTML/markup left in the headline (older firehose lines were
@@ -26,6 +29,22 @@ function withScope(it: FeedItem): FeedItem {
     headline: headline || it.headline,
     scope: it.scope || deriveScope({ ...it, headline }),
     source_tier: it.source_tier || deriveSourceTier(it),
+  }
+}
+
+/** Re-score the served window under the CURRENTLY-active scoring weights (rank-weights.ts), so a Scoring
+ *  panel edit applies to the WHOLE existing wire on the next load — not only to items ingested afterward.
+ *  Display-only: this never touches the persisted firehose, so the audit trail keeps each item's score as
+ *  it was at ingest. Uses the breakdown captured at ingest (so it's a pure function of the weights, not the
+ *  clock); at default weights every score is unchanged. Skips any pre-breakdown line. Mutates in place. */
+function withActiveWeights(items: FeedItem[]): void {
+  const w = getRankWeights()
+  for (const it of items) {
+    if (!it.rank_factors) continue // older line with no breakdown — leave its persisted score as-is
+    const r = reRankFromFactors(it.rank_factors, it, w)
+    it.triage_score = r.rank_score
+    it.rank_factors = r.rank_factors
+    it.band = scoreToBand(r.rank_score, NEWS.pickThreshold, NEWS.watchThreshold)
   }
 }
 
@@ -83,7 +102,7 @@ export interface FeedSnapshot {
  * Read the last `days` firehose files (today first) and split records by kind. Items come back
  * newest-first, capped, corrupt lines skipped — same tolerance discipline as the ledger readers.
  */
-export function readFeed(repoRoot: string, days = 2, opts: { now?: () => Date; maxItems?: number; archiveDir?: string } = {}): FeedSnapshot {
+export function readFeed(repoRoot: string, days = 2, opts: { now?: () => Date; maxItems?: number; archiveDir?: string; applyActiveWeights?: boolean } = {}): FeedSnapshot {
   const now = opts.now || (() => new Date())
   const maxItems = opts.maxItems && opts.maxItems > 0 ? opts.maxItems : 1000
   const archiveDir = opts.archiveDir || '' // Google Drive mount folder — read older days from here after local prune
@@ -119,6 +138,11 @@ export function readFeed(repoRoot: string, days = 2, opts: { now?: () => Date; m
   items.sort((a, b) => (b.ts || '').localeCompare(a.ts || ''))
   cycles.sort((a, b) => (b.ts || '').localeCompare(a.ts || ''))
   const capped = items.slice(0, maxItems)
+  // Re-score under the CURRENT weights so a panel edit reaches the served wire — but ONLY for the display
+  // path. Theme discovery (readRecentThemeItems) opts OUT so a weight edit can't retroactively change which
+  // items qualify for clustering: it uses the persisted ingest-time scores (which already reflect the
+  // weights in force when each item was ingested). Default on, so every display consumer is unaffected.
+  if (opts.applyActiveWeights !== false) withActiveWeights(capped)
   withDedup(capped) // story-cluster the served window so the wire shows one row per story
   return { items: capped, cycles }
 }
