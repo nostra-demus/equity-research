@@ -134,3 +134,70 @@ export async function fetchGdelt(opts: GdeltOptions, deps: GdeltDeps = {}): Prom
   }
   return [...byUrl.values()]
 }
+
+export interface GdeltDocOptions {
+  baseUrl: string
+  timeoutMs?: number // per-request hard timeout (the on-demand reader must never hang on a stuck socket)
+  maxRecords?: number // GDELT caps at 250; corroboration needs only a handful of outlets
+  lookbackMin?: number // how far back to look for the same event (default ~14 days)
+}
+
+/**
+ * ONE free-text DOC query — the corroboration probe. Where fetchGdelt sweeps our approved DOMAINS for the
+ * firehose, this asks GDELT "who ELSE is reporting THIS event?" by keyword, so a publisher that blocked our
+ * direct read can be pieced together from the secondary wire (the server-side version of a human checking
+ * other outlets). It SHARES the module-level penalty backoff with the firehose so an on-demand probe can
+ * never reignite the ingester's IP penalty: if GDELT recently 429'd we skip entirely, and a fresh 429 here
+ * backs the shared IP off for a few minutes too. One shot, no retry, hard timeout. Never throws — any
+ * failure (429, non-200, non-JSON, network) returns [] and the caller degrades to the story floor.
+ */
+export async function fetchGdeltDoc(query: string, opts: GdeltDocOptions, deps: GdeltDeps = {}): Promise<RawArticle[]> {
+  const fetchFn = deps.fetchFn || fetch
+  const log = deps.log || (() => {})
+  const q = String(query || '').trim()
+  if (!q) return []
+  if (Date.now() < gdeltSkipUntilMs) { log('gdelt-doc: penalty backoff — skipping corroboration'); return [] }
+  const p = new URLSearchParams({
+    query: q,
+    mode: 'ArtList',
+    format: 'json',
+    maxrecords: String(Math.min(250, opts.maxRecords ?? 25)),
+    timespan: `${Math.max(1, Math.round(opts.lookbackMin ?? 20_160))}min`,
+    sort: 'datedesc',
+  })
+  const url = `${opts.baseUrl}?${p.toString()}`
+  try {
+    const res = await fetchFn(url, { headers: { 'user-agent': 'screener-news-ingester/1' }, signal: AbortSignal.timeout(opts.timeoutMs ?? 6000) })
+    if (res.status === 429) {
+      // protect the shared IP for the firehose AT LEAST as strongly as the firehose protects itself: match
+      // its ~20-min recovery (4 cycles of true quiet — a shorter window would let the ingester walk straight
+      // back into a still-penalised IP). Math.max so an on-demand probe can never SHORTEN a longer live backoff.
+      gdeltSkipUntilMs = Math.max(gdeltSkipUntilMs, Date.now() + 20 * 60_000)
+      log('gdelt-doc: 429 — backing the shared GDELT IP off for ~20 min')
+      return []
+    }
+    if (!res.ok) { log(`gdelt-doc: HTTP ${res.status}`); return [] }
+    const text = await res.text()
+    let data: any
+    try { data = JSON.parse(text) } catch { log('gdelt-doc: non-JSON body'); return [] }
+    const out: RawArticle[] = []
+    const seen = new Set<string>()
+    for (const a of data?.articles || []) {
+      const u = String(a?.url || '').trim()
+      if (!u || seen.has(u)) continue
+      seen.add(u)
+      out.push({
+        title: String(a?.title || '').trim(),
+        url: u,
+        domain: String(a?.domain || '').trim(),
+        seendate: String(a?.seendate || '').trim(),
+        language: a?.language ? String(a.language) : undefined,
+        sourcecountry: a?.sourcecountry ? String(a.sourcecountry) : undefined,
+      })
+    }
+    return out
+  } catch (e: any) {
+    log(`gdelt-doc: ${e?.message || 'fetch error'}`)
+    return []
+  }
+}

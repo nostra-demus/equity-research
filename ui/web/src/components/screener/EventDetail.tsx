@@ -33,6 +33,15 @@ function StoryBlock({ enr }: { enr: EventEnrichment | 'loading' | undefined }) {
   const sec = enr.sec
   return (
     <>
+      {!sec && enr.corroborated && (
+        <div className="evdetail__corrob" title="The original publisher blocked our reader, so this brief is pieced together from other outlets reporting the same event — verify against the source before relying on it.">
+          <span className="evdetail__corrob-tag">Corroborated</span>
+          <span className="evdetail__corrob-text">
+            Publisher blocked the direct read — pieced together from {enr.corroborated.count} other outlet{enr.corroborated.count === 1 ? '' : 's'}
+            {enr.corroborated.domains.length ? ` · ${enr.corroborated.domains.slice(0, 4).join(', ')}` : ''}.
+          </span>
+        </div>
+      )}
       {sec && (
         <div className="evdetail__block">
           <div className="evdetail__label">What was filed</div>
@@ -144,6 +153,9 @@ export function EventDetail({ it }: { it: FeedItem }) {
   const s = scopeOf(it)
   const fam = familyOf(s)
   const tier = sourceTierDef(it.source_tier)
+  // when the publisher blocked the direct read, the read-through (who gains / companies) was pieced together
+  // from OTHER outlets, NOT read from THIS article — so the attribution copy must say so (CLAUDE.md §3).
+  const corroborated = !!enrichment?.corroborated
 
   // companies: prefer the body-read firms (with role + where they're listed); else the headline guess
   const companies = enrichment?.companies?.length
@@ -216,11 +228,11 @@ export function EventDetail({ it }: { it: FeedItem }) {
             <div className="evdetail__pc">
               <div className="evdetail__pccol evdetail__pccol--pro">
                 <div className="evdetail__pchead">Who gains</div>
-                {benefits.length ? <PartyList parties={benefits} /> : <div className="evdetail__pcnone">No specific winners named in the article.</div>}
+                {benefits.length ? <PartyList parties={benefits} /> : <div className="evdetail__pcnone">No specific winners named {corroborated ? 'across the corroborating outlets' : 'in the article'}.</div>}
               </div>
               <div className="evdetail__pccol evdetail__pccol--con">
                 <div className="evdetail__pchead">Who’s exposed</div>
-                {exposed.length ? <PartyList parties={exposed} /> : <div className="evdetail__pcnone">No specific losers named in the article.</div>}
+                {exposed.length ? <PartyList parties={exposed} /> : <div className="evdetail__pcnone">No specific losers named {corroborated ? 'across the corroborating outlets' : 'in the article'}.</div>}
               </div>
             </div>
           </div>
@@ -240,7 +252,7 @@ export function EventDetail({ it }: { it: FeedItem }) {
                       <span className="evdetail__chip-go" aria-hidden>›</span>
                     </button>
                     {(c.listing_country || c.exchange) && (
-                      <span className="evdetail__listingtag" title="Where it's listed (from the article read)">{[c.listing_country, c.exchange].filter(Boolean).join(' · ')}</span>
+                      <span className="evdetail__listingtag" title={corroborated ? "Where it's listed (from the corroborating wire)" : "Where it's listed (from the article read)"}>{[c.listing_country, c.exchange].filter(Boolean).join(' · ')}</span>
                     )}
                     {c.role && c.role !== 'mentioned' && <span className="evdetail__role">{roleLabel(c.role)}</span>}
                     {cov ? (

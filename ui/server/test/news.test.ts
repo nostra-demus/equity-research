@@ -6,7 +6,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { approvedDomains, lookupSource, normalizeDomain } from '../src/news/sources/approved-domains'
-import { buildQueries, fetchGdelt, resetGdeltBackoff } from '../src/news/sources/gdelt'
+import { buildQueries, fetchGdelt, fetchGdeltDoc, resetGdeltBackoff } from '../src/news/sources/gdelt'
 import { eventIdFor, loadLedgerEventIds, normalizeAndFilter, parseSeendate } from '../src/news/normalize'
 import { SeenCache } from '../src/news/seen-cache'
 import { Budget, RateLimiter } from '../src/news/triage/budget'
@@ -130,6 +130,35 @@ await check('fetchGdelt: a 429 with the cycle config arms a MULTI-CYCLE backoff 
   assert.equal(got.length, 0)
   assert.equal(calls, callsAfterFirst, 'no GDELT request made while the backoff window is open')
   resetGdeltBackoff() // don't leak into later cases
+})
+
+// ---- corroboration probe (fetchGdeltDoc) SHARES the firehose's penalty backoff (the core safety promise) ----
+
+await check('fetchGdeltDoc: a 429 backs the SHARED GDELT IP off — the firehose then skips its next cycle', async () => {
+  resetGdeltBackoff()
+  let docCalls = 0
+  const doc429 = (async () => { docCalls++; return res('Please limit requests to one every 5 seconds', 429) }) as unknown as typeof fetch
+  const got = await fetchGdeltDoc('"Acme Corp" merger', { baseUrl: 'https://gdelt.test/doc' }, { fetchFn: doc429 })
+  assert.deepEqual(got, [], 'a 429 yields no corroboration')
+  assert.equal(docCalls, 1, 'one shot, no retry')
+  // the on-demand 429 must protect the firehose: its next cycle finds the shared backoff armed and SKIPS
+  let fhCalls = 0
+  const fh = (async () => { fhCalls++; return res({ articles: [] }) }) as unknown as typeof fetch
+  const fhGot = await fetchGdelt({ lookbackMin: 30, baseUrl: 'https://gdelt.test', chunkSize: 11, cycleMs: 300_000, backoffCyclesOn429: 4 }, { fetchFn: fh, sleep: noSleep })
+  assert.equal(fhGot.length, 0, 'firehose returned nothing')
+  assert.equal(fhCalls, 0, 'the on-demand 429 protected the firehose — it made NO GDELT request')
+  resetGdeltBackoff()
+})
+
+await check('fetchGdeltDoc: skips entirely while a firehose backoff is live (never pokes a penalised IP)', async () => {
+  resetGdeltBackoff()
+  // arm the shared backoff via a FIREHOSE 429
+  await fetchGdelt({ lookbackMin: 30, baseUrl: 'https://gdelt.test', chunkSize: 11, cycleMs: 300_000, backoffCyclesOn429: 4 }, { fetchFn: (async () => res('limit', 429)) as unknown as typeof fetch, sleep: noSleep })
+  let docCalls = 0
+  const got = await fetchGdeltDoc('"Acme Corp" merger', { baseUrl: 'https://gdelt.test/doc' }, { fetchFn: (async () => { docCalls++; return res({ articles: [] }) }) as unknown as typeof fetch })
+  assert.deepEqual(got, [], 'corroboration skipped while the IP is penalised')
+  assert.equal(docCalls, 0, 'fetchGdeltDoc made NO request while the firehose backoff is live')
+  resetGdeltBackoff()
 })
 
 // ---- budget + throttle ----
