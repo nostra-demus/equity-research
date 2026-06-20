@@ -18,16 +18,41 @@ import type { CycleSummary } from './types'
 
 const PACE = { targetTokens: NEWS.groqDailyTokenTarget, floorFrac: NEWS.groqPaceFloorFrac }
 
-// BULLETPROOF cycle guard: no single ingest cycle may run longer than this. If a cycle ever hangs
-// (e.g. a future no-timeout fetch on a dead socket), the race rejects, the `finally` releases the
-// `running` lock, and the NEXT tick proceeds — the ingester can never wedge itself permanently again.
-// The leaked hung promise (if any) is harmless; every real cycle finishes in well under this.
+// BULLETPROOF cycle guard: no single ingest cycle may run longer than this. The OLD guard was a
+// Promise.race against a timeout — but a race only ABANDONS the slow promise, it doesn't stop it: the
+// `finally` released the `running` lock while the real cycle was still in-flight, so the next tick started
+// a SECOND concurrent runIngestCycle. Two cycles then double-fetched every source and stomped module-level
+// state (e.g. gdelt.ts's gdeltSkipUntilMs → bursts of 429s with no backoff between), worsening the single-
+// thread starvation. Fix: ABORT instead of abandon. Every fetch a cycle makes flows through one injected
+// fetchFn, so a cycle-level AbortSignal cancels them all at once; the cycle then settles fail-soft, and the
+// caller AWAITS it to settlement before releasing `running` — so a slow/timed-out cycle can never overlap
+// the next tick. (No wedge either: every fetch is individually timeout-bounded AND the guard aborts them.)
 const CYCLE_TIMEOUT_MS = NEWS.cycleTimeoutMs
-function withCycleGuard<T>(p: Promise<T>): Promise<T> {
-  return Promise.race([
-    p,
-    new Promise<T>((_, reject) => setTimeout(() => reject(new Error(`cycle exceeded ${Math.round(CYCLE_TIMEOUT_MS / 1000)}s guard — aborted so the next cycle can run`)), CYCLE_TIMEOUT_MS)),
-  ])
+
+/** Wrap a fetchFn so every request it makes is also cancelled by `signal`, WITHOUT touching any adapter:
+ *  each adapter sets its own per-request signal (its timeout); we AbortSignal.any() it with the cycle's. */
+export function withCycleSignal(base: typeof fetch, signal: AbortSignal): typeof fetch {
+  return ((url: Parameters<typeof fetch>[0], init?: Parameters<typeof fetch>[1]) =>
+    base(url, { ...init, signal: init?.signal ? AbortSignal.any([init.signal, signal]) : signal })) as typeof fetch
+}
+
+/** Run an abortable cycle: start it with a fresh AbortController, abort it (and call onTimeout once) if it
+ *  overruns timeoutMs, and AWAIT it to settlement either way. Resolves/rejects ONLY once the underlying
+ *  work has finished, so the caller's `running` lock is released only when nothing is in-flight — no
+ *  overlap. Exported for tests. */
+export async function runAbortableCycle<T>(
+  run: (signal: AbortSignal) => Promise<T>,
+  timeoutMs: number = CYCLE_TIMEOUT_MS,
+  onTimeout?: () => void,
+): Promise<T> {
+  const ac = new AbortController()
+  const guard = setTimeout(() => { onTimeout?.(); ac.abort() }, timeoutMs)
+  ;(guard as { unref?: () => void }).unref?.()
+  try {
+    return await run(ac.signal)
+  } finally {
+    clearTimeout(guard)
+  }
 }
 
 let timer: ReturnType<typeof setInterval> | null = null
@@ -275,12 +300,17 @@ export function startNewsIngester(): void {
     // next fire is interval-anchored from the tick START (matches setInterval's cadence)
     nextCycleAt = new Date(Date.now() + NEWS.pollIntervalMin * 60_000).toISOString().replace(/\.\d{3}Z$/, 'Z')
     try {
-      const summary = await withCycleGuard(runIngestCycle({ log }))
+      const summary = await runAbortableCycle(
+        (signal) => runIngestCycle({ log, fetchFn: withCycleSignal(fetch, signal) }),
+        CYCLE_TIMEOUT_MS,
+        () => log(`cycle exceeded ${Math.round(CYCLE_TIMEOUT_MS / 1000)}s guard — aborting in-flight work`),
+      )
       lastNote = summary.note || null
       // AUTO-FIX (under the SAME cycle lock so it can't overlap a drain and double-spend a budget file):
       // re-read any degraded THE STORY entries still on the wire, so a momentarily-missed article fixes
-      // itself without a human reopening it. Budget-gated, capped, guarded, and it never throws.
-      if (budgetHasHeadroom()) await withCycleGuard(healEnrichCache({ hasBudget: budgetHasHeadroom, log }))
+      // itself without a human reopening it. Budget-gated, capped, never throws, and bounded by its own
+      // per-fetch timeouts — AWAITED to completion (not raced) so it can't overlap the next tick either.
+      if (budgetHasHeadroom()) await healEnrichCache({ hasBudget: budgetHasHeadroom, log })
     } catch (e: any) {
       log(`cycle error: ${e?.message || e}`)
       lastNote = `cycle error: ${e?.message || e}`
@@ -296,7 +326,11 @@ export function startNewsIngester(): void {
     if (running || backlogCount() === 0 || !budgetHasHeadroom()) return
     running = true
     try {
-      const summary = await withCycleGuard(runIngestCycle({ log, skipFetch: true }))
+      const summary = await runAbortableCycle(
+        (signal) => runIngestCycle({ log, skipFetch: true, fetchFn: withCycleSignal(fetch, signal) }),
+        CYCLE_TIMEOUT_MS,
+        () => log(`drain exceeded ${Math.round(CYCLE_TIMEOUT_MS / 1000)}s guard — aborting in-flight work`),
+      )
       lastNote = summary.note || lastNote
     } catch (e: any) {
       log(`drain error: ${e?.message || e}`)
