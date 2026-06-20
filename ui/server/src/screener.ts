@@ -181,6 +181,14 @@ function cleanIssuer(s: unknown): string | undefined {
   return t || undefined
 }
 
+/** The display label for one event-ledger record: the cleaned primary issuer, else the event headline.
+ *  Exported + pure so a test locks the field name — the ledger names issuers under `issuers` (per the
+ *  signal-gate synthesis schema); reading `primary_issuers` (which lives only in signal_payload.json,
+ *  nested under entities) always missed and silently fell back to the raw, often-truncated headline. */
+export function subjectLabelFromEvent(d: any): string {
+  return cleanIssuer((d?.issuers || [])[0]) || (typeof d?.headline === 'string' ? d.headline.trim() : '')
+}
+
 // Map every signal id the engine has processed -> the company/headline it concerns, for the activity
 // log's Company column (which otherwise shows the opaque SIG-… subject id). Source: the swarm's
 // append-only event ledger (named issuer when present, else the event headline). Cached by ledger
@@ -217,7 +225,7 @@ export function screenerSubjectLabels(): Map<string, string> {
         continue
       }
       if (!d?.signal_id) continue
-      const label = cleanIssuer((d.primary_issuers || [])[0]) || (typeof d.headline === 'string' ? d.headline.trim() : '')
+      const label = subjectLabelFromEvent(d)
       if (label) map.set(d.signal_id, label) // later lines (richer / corrected) win; empty labels never overwrite
     }
   } catch {

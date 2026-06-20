@@ -13,6 +13,7 @@ import path from 'node:path'
 const STATE = fs.mkdtempSync(path.join(os.tmpdir(), 'actlog-'))
 process.env.ENGINE_STATE_DIR = STATE
 const { readActivity, resolveSubjectLabel } = await import('../src/activity-log')
+const { subjectLabelFromEvent } = await import('../src/screener')
 
 let passed = 0
 function check(name: string, fn: () => void) {
@@ -43,6 +44,20 @@ check('a research ticker has no override label (the ticker IS the label)', () =>
 })
 check('an unknown SIG id falls back to undefined — caller shows the raw id', () => {
   assert.equal(resolveSubjectLabel('SIG-20260619-755ea4d0', sigLabels), undefined)
+})
+
+// ---- the ledger-line label derivation (locks the field name — this is the path the bug shipped in) ----
+check('subjectLabelFromEvent reads the ledger `issuers` field and cleans the role parenthetical', () => {
+  assert.equal(subjectLabelFromEvent({ signal_id: 'SIG-x', issuers: ['Reserve Bank of India (policy authority)'], headline: 'RBI cuts repo rate by 50 bps' }), 'Reserve Bank of India')
+  assert.equal(subjectLabelFromEvent({ issuers: ['MGM Resorts International (NYSE: MGM)'], headline: 'Barry Diller and others buy MGM shares' }), 'MGM Resorts International')
+})
+check('subjectLabelFromEvent falls back to the headline when no issuer is named', () => {
+  assert.equal(subjectLabelFromEvent({ issuers: [], headline: 'A macro headline with no issuer' }), 'A macro headline with no issuer')
+  assert.equal(subjectLabelFromEvent({ headline: 'No issuers field at all' }), 'No issuers field at all')
+})
+check('subjectLabelFromEvent does NOT read `primary_issuers` (the old bug) — that field never existed on the ledger line', () => {
+  // a record carrying only the wrong field must fall back to the headline, not surface the wrong-field value
+  assert.equal(subjectLabelFromEvent({ primary_issuers: ['Wrong Field Co'], headline: 'The headline wins, not the wrong field' }), 'The headline wins, not the wrong field')
 })
 
 // ---- end-to-end over a temp audit log ----
