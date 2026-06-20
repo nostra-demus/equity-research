@@ -750,6 +750,9 @@ app.get('/api/news/enrich', async (req, reply) => {
         articleProviders: ARTICLE_READ_PROVIDERS,
         llmBudgetMs: NEWS.enrichLlmBudgetMs,
         limiterWaitMs: NEWS.enrichLimiterWaitMs,
+        // when the publisher blocks the direct read, corroborate the event from the secondary wire (GDELT
+        // keyword search → same read chain). Shares the firehose's GDELT endpoint + penalty backoff.
+        corroborate: { enabled: NEWS.enrichCorroborate, baseUrl: NEWS.gdeltBaseUrl, timeoutMs: NEWS.enrichCorroborateTimeoutMs },
       },
     )
     return enrichment

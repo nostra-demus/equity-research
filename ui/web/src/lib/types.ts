@@ -171,6 +171,9 @@ export interface EventEnrichment {
   complete?: boolean
   degraded?: boolean
   read_attempts?: number
+  // set when the publisher blocked the direct read and the story was pieced together from OTHER outlets
+  // reporting the same event (secondary-wire corroboration, NOT a direct read — labelled honestly).
+  corroborated?: { count: number; domains: string[] }
 }
 
 export interface NewsCycle {

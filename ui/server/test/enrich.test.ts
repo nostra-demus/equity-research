@@ -9,7 +9,8 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { bestFallbackSummary, enrichEvent, isEnrichmentComplete, type EventEnrichment } from '../src/news/enrich'
+import { bestFallbackSummary, enrichEvent, extractReadable, isEnrichmentComplete, type EventEnrichment } from '../src/news/enrich'
+import { resetGdeltBackoff } from '../src/news/sources/gdelt'
 import type { ArticleReadProvider } from '../src/news/triage/article-read'
 import type { ArticleBrief } from '../src/news/triage/groq'
 
@@ -202,6 +203,101 @@ await check('e2e: a multi-word EDGAR form (SC 13D) gets the FULL code + meaning,
   assert.ok(r.sec, 'an sec block was produced')
   assert.equal(r.sec!.form, 'SC 13D', 'the FULL multi-word code, not the truncated "SC"')
   assert.ok(r.sec!.form_meaning && /stake|5%|activist/i.test(r.sec!.form_meaning), `carries the plain-English meaning: ${r.sec!.form_meaning}`)
+})
+
+// ---- readability extraction: the no-LLM guarantee that a fetched page yields real prose ----
+
+await check('extractReadable: keeps the article paragraphs, drops nav/footer/cookie chrome', () => {
+  const html = '<html><body><nav><p>Home About Contact</p></nav><article>' +
+    '<p>Vantage Drilling shareholders approved the $257.6 million all-cash takeover by Eldorado Drilling at a special meeting in Bermuda.</p>' +
+    '<p>The transaction is expected to close in the third quarter of 2026, subject to customary conditions.</p>' +
+    '<p>We use cookies to improve your experience on this site.</p>' +
+    '</article><footer><p>All rights reserved 2026.</p></footer></body></html>'
+  const out = extractReadable(html)
+  assert.ok(out.includes('$257.6 million') && out.includes('third quarter'), `keeps the real article prose, got: ${out}`)
+  assert.ok(!/cookies|rights reserved|Home About/i.test(out), `drops nav/cookie/footer boilerplate, got: ${out}`)
+})
+
+await check('bestFallbackSummary: real article prose beats a vague og:description dek', () => {
+  const html = '<html><head><meta property="og:description" content="One theme today."></head><body>' +
+    '<p>Vantage Drilling shareholders approved a $257.6 million cash takeover by Eldorado Drilling, with the deal set to close in the third quarter of 2026.</p></body></html>'
+  const out = bestFallbackSummary(html, '', { headline: 'Vantage votes on merger' }, false)
+  assert.ok(out.includes('$257.6 million'), `surfaces the real article lede, got: ${out}`)
+})
+
+// ---- corroboration: a blocked publisher is pieced together from the secondary wire ----
+
+const SECONDARIES = [
+  { domain: 'reuters.com', title: 'Tilray international cannabis revenue jumps 73% in fiscal third quarter', url: 'https://www.reuters.com/a' },
+  { domain: 'benzinga.com', title: 'Tilray Q3 sales reach $206.7M but the company stays unprofitable', url: 'https://www.benzinga.com/b' },
+  { domain: 'globenewswire.com', title: 'Tilray Brands reports record international growth, narrower loss', url: 'https://www.globenewswire.com/c' },
+]
+const CORROB_BRIEF: ArticleBrief = {
+  gist: ['Tilray international cannabis revenue grew 73%; Q3 sales were $206.7M and the company remains unprofitable.'],
+  companies: [{ name: 'Tilray Brands', ticker: 'TLRY', role: 'subject', listing_country: 'United States', exchange: 'NASDAQ' }],
+  beneficiaries: [], exposed: [], theme: 'earnings_revenue_margin',
+}
+// a fetch that BLOCKS the source page (403), serves the GDELT keyword query, and (optionally) an LLM brief
+function makeCorroborFetch(secondaries: { domain: string; title: string; url: string }[], brief: ArticleBrief | null): typeof fetch {
+  return (async (input: any) => {
+    const url = String(input?.url || input)
+    if (url.includes('/chat/completions')) {
+      if (!brief) return new Response('{}', { status: 503 }) // no LLM capacity
+      return new Response(JSON.stringify({ choices: [{ message: { content: JSON.stringify(brief) }, finish_reason: 'stop' }], usage: { total_tokens: 120 } }), { status: 200, headers: { 'content-type': 'application/json' } })
+    }
+    if (url.includes('gdelt.test')) {
+      return new Response(JSON.stringify({ articles: secondaries.map((s) => ({ url: s.url, domain: s.domain, title: s.title, seendate: '20260619T120000Z' })) }), { status: 200, headers: { 'content-type': 'application/json' } })
+    }
+    return new Response('blocked', { status: 403 }) // the publisher refuses the direct read
+  }) as typeof fetch
+}
+const CORROBORATE = { enabled: true, baseUrl: 'https://gdelt.test/api/v2/doc/doc' }
+
+await check('corroboration: a blocked publisher is synthesised from the secondary wire (with LLM) and flagged', async () => {
+  resetGdeltBackoff()
+  const { repoRoot, stateDir } = tmpRepo('') // no snippet → no body → the block path
+  const r = await enrichEvent({ event_id: EVENT_ID }, { repoRoot, stateDir, force: true, articleProviders: [PROVIDER], fetchFn: makeCorroborFetch(SECONDARIES, CORROB_BRIEF), corroborate: CORROBORATE })
+  assert.ok(r.gist && r.gist.length, 'synthesised a gist from the secondary wire')
+  assert.ok(r.gist![0].includes('$206.7M'), `the gist carries the corroborated facts, got: ${r.gist}`)
+  assert.ok(r.corroborated && r.corroborated.count >= 2, `flagged corroborated with the outlet count, got: ${JSON.stringify(r.corroborated)}`)
+  assert.ok(r.corroborated!.domains.includes('reuters.com'), `names the corroborating outlets, got: ${JSON.stringify(r.corroborated)}`)
+})
+
+await check('corroboration: no LLM budget → still names the corroborating outlets (beats the bare floor)', async () => {
+  resetGdeltBackoff()
+  const { repoRoot, stateDir } = tmpRepo('')
+  const r = await enrichEvent({ event_id: EVENT_ID }, { repoRoot, stateDir, force: true, articleProviders: [], fetchFn: makeCorroborFetch(SECONDARIES, null), corroborate: CORROBORATE })
+  assert.ok(r.corroborated && r.corroborated.count >= 2, 'flagged corroborated even without an LLM')
+  assert.ok(r.summary && /other outlet/i.test(r.summary) && /reporting this/i.test(r.summary), `the summary names the corroboration, got: ${r.summary}`)
+  assert.ok(!r.gist?.length, 'never a fabricated gist without an LLM read')
+})
+
+await check('corroboration: a single outlet is NOT corroboration — the honest floor stands', async () => {
+  resetGdeltBackoff()
+  const { repoRoot, stateDir } = tmpRepo('')
+  const r = await enrichEvent({ event_id: EVENT_ID }, { repoRoot, stateDir, force: true, articleProviders: [PROVIDER], fetchFn: makeCorroborFetch([SECONDARIES[0]], CORROB_BRIEF), corroborate: CORROBORATE })
+  assert.ok(!r.corroborated, 'one outlet does not clear the ≥2 corroboration bar')
+  assert.ok(r.summary && /headline/i.test(r.summary), `keeps the deterministic headline floor, got: ${r.summary}`)
+})
+
+await check('corroboration: the blocked publisher is excluded from its own corroboration (no self-counting)', async () => {
+  resetGdeltBackoff()
+  const { repoRoot, stateDir } = tmpRepo('') // the event url is www.fool.com → that publisher blocked us
+  const withSelf = [{ domain: 'www.fool.com', title: 'The blocked publisher reporting its own blocked story here', url: 'https://www.fool.com/self' }, ...SECONDARIES]
+  const r = await enrichEvent({ event_id: EVENT_ID }, { repoRoot, stateDir, force: true, articleProviders: [], fetchFn: makeCorroborFetch(withSelf, null), corroborate: CORROBORATE })
+  assert.ok(r.corroborated, 'corroborated from the OTHER outlets')
+  assert.ok(!r.corroborated!.domains.includes('fool.com'), `the blocked publisher is never counted as its own corroboration, got: ${JSON.stringify(r.corroborated!.domains)}`)
+  assert.ok(r.corroborated!.domains.includes('reuters.com'), 'genuine other outlets are kept')
+})
+
+// omitting the corroborate dep must leave the exact legacy floor behaviour — NOT the production default
+// (production sets NEWS.enrichCorroborate ON unless NEWS_ENRICH_CORROBORATE=0; server.ts always passes it).
+await check('corroboration: omitting the corroborate dep leaves the legacy floor untouched (function default off)', async () => {
+  resetGdeltBackoff()
+  const { repoRoot, stateDir } = tmpRepo('')
+  const r = await enrichEvent({ event_id: EVENT_ID }, { repoRoot, stateDir, force: true, articleProviders: [PROVIDER], fetchFn: makeCorroborFetch(SECONDARIES, CORROB_BRIEF) })
+  assert.ok(!r.corroborated, 'corroboration never runs unless explicitly enabled by the caller')
+  assert.ok(r.complete === true && r.summary && /headline/i.test(r.summary), 'the no-body floor is accepted as final, exactly as before')
 })
 
 console.log(`\n${passed} checks passed`)

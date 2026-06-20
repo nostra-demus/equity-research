@@ -27,7 +27,8 @@ import { SEC_FORM_TOKENS, lookupSecForm, parseEdgarFilingHeadline, tidyFilerName
 import { filterCompanies, isCompanyName } from './entities'
 import type { ArticleCompany, ArticleParty } from './triage/groq'
 import { type ArticleReadProvider, readArticleBrief } from './triage/article-read'
-import type { CompanyGuess } from './types'
+import { fetchGdeltDoc } from './sources/gdelt'
+import type { CompanyGuess, RawArticle } from './types'
 
 const CACHE_FILE = 'news-enrich-cache.json'
 const CACHE_BACKUP_FILE = 'news-enrich-cache.bak.json' // last-known-good copy, written before each overwrite
@@ -126,6 +127,10 @@ export interface EventEnrichment {
   // how many times the LLM body read has been attempted for this event (across opens + heal passes). Caps
   // retries so a genuinely unreadable article (hard paywall, JS shell) isn't re-read forever.
   read_attempts?: number
+  // CORROBORATION — set when the publisher blocked the direct read and the story (gist/summary) was instead
+  // pieced together from OTHER outlets reporting the same event (GDELT keyword search). The UI labels it
+  // honestly: this is secondary-wire corroboration, NOT a direct read of the source (CLAUDE.md §3).
+  corroborated?: { count: number; domains: string[] }
 }
 
 // ---- 8-K item-code dictionary (SEC §13/15(d) current-report items) — plain meanings ----
@@ -181,6 +186,34 @@ export function extractSummary(html: string): string | undefined {
   const paras = [...html.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)].map((m) => clean(m[1].replace(/<[^>]+>/g, '')))
   const lede = paras.find((p) => p.length >= 80 && /[.!?]/.test(p))
   return lede ? lede.slice(0, 600) : meta?.slice(0, 600)
+}
+
+/** Pull the readable ARTICLE TEXT (not the page chrome) deterministically — the no-LLM guarantee that a
+ *  FETCHED page always yields real prose, not just the headline floor (the reported "Couldn't reach the
+ *  reader" the moment the free LLM budget is spent). Strips non-content regions (script/style/nav/header/
+ *  footer/aside/figure/form), keeps the substantive <p> paragraphs in document order, drops cookie/
+ *  subscribe/share boilerplate, de-dupes repeats. Tolerant regex (no DOM lib), capped. Empty when the page
+ *  carries no real prose (a paywall stub, a JS shell). Feeds the LLM read AND the deterministic fallback.
+ *  Exported for the test suite. */
+export function extractReadable(html: string): string {
+  if (!html) return ''
+  const stripped = html
+    .replace(/<script[\s\S]*?<\/script>/gi, ' ')
+    .replace(/<style[\s\S]*?<\/style>/gi, ' ')
+    .replace(/<(nav|header|footer|aside|form|figure|figcaption)[\s\S]*?<\/\1>/gi, ' ')
+    .replace(/<!--[\s\S]*?-->/g, ' ')
+  const seen = new Set<string>()
+  const paras: string[] = []
+  for (const m of stripped.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)) {
+    const p = clean(m[1].replace(/<[^>]+>/g, ' '))
+    if (p.length < 60 || !/[a-z]/i.test(p) || !/[.!?]/.test(p)) continue // real prose, not a label/stub
+    if (/^(cookie|we use cookies|sign in|sign up|subscribe|advertis|read more|share this|all rights reserved|follow us|by using this)/i.test(p)) continue
+    const k = p.slice(0, 80).toLowerCase()
+    if (seen.has(k)) continue // some templates repeat the lede
+    seen.add(k)
+    paras.push(p)
+  }
+  return paras.join('\n\n').slice(0, 4000)
 }
 
 export function extractPublished(html: string): string | undefined {
@@ -431,7 +464,10 @@ function ttlFor(r: EventEnrichment): number {
 export function bestFallbackSummary(pageHtml: string, snippet: string, filingInput: StoryFloorInput, bodylessFiling: boolean): string {
   const floor = storyFloor(filingInput).summary
   if (bodylessFiling) return floor
-  const cands = [String(snippet || ''), pageHtml ? extractSummary(pageHtml) || '' : '']
+  // the real article prose (extractReadable) is preferred over the often-vague og:description dek — so a
+  // fetched page shows its genuine opening even when no LLM was available to summarise it.
+  const readable = pageHtml ? extractReadable(pageHtml) : ''
+  const cands = [String(snippet || ''), readable, pageHtml ? extractSummary(pageHtml) || '' : '']
     .map((s) => s.trim())
     .filter((s) => s.length >= 40 && /[a-z][a-z ,;:'"-]{12,}/i.test(s)) // real prose, not a code/stub
   // The deterministic floor (an honest "couldn't open the body — from the headline: …" restatement) is
@@ -564,12 +600,78 @@ export interface EnrichDeps {
   // legacy single-Groq shape — still honoured (tests / older callers). When articleProviders is absent but
   // this is set, it's promoted to a one-element chain so behaviour is unchanged.
   groq?: { apiKey: string; model: string; baseUrl: string; maxTokens?: number; rpm?: number; tpm?: number; dailyReqCap?: number; dailyTokenCap?: number }
+  // CORROBORATION fallback: when the publisher blocks the direct read (no body, no usable lede), ask GDELT
+  // who else reported the event and synthesise the story from the secondary wire. Omit/disabled → off (the
+  // legacy floor behaviour). baseUrl is the GDELT DOC endpoint (shared with the firehose). Wired in server.ts.
+  corroborate?: { enabled: boolean; baseUrl: string; timeoutMs?: number }
 }
 
 // Scrub a Groq-returned party list: drop a NAMED party that's actually a country/index/agency (per the
 // entity denylist); keep inferred groups (named_in_article=false) as-is — those are the honest "(sector)".
 function scrubParties(parties: ArticleParty[] | undefined): ArticleParty[] {
   return (parties || []).filter((p) => p && p.name && (!p.named_in_article || isCompanyName(p.name)))
+}
+
+// ---- corroboration: when the publisher blocks the direct read, piece the event together from the wire ----
+
+/** The N most distinctive (longest, non-stopword, non-form-code) tokens in a headline — the words that
+ *  actually identify THIS event, for a precise corroboration query (no scaffolding words). */
+function distinctiveTokens(headline: string, n: number): string[] {
+  const toks = String(headline || '')
+    .toLowerCase()
+    .replace(/[^a-z0-9 ]+/g, ' ')
+    .split(/\s+/)
+    .filter((w) => w && !STOP_WORDS.has(w) && !SEC_FORM_TOKENS.has(w) && (w.length >= 4 || SHORT_TOPICS.has(w)))
+  return [...new Set(toks)].sort((a, b) => b.length - a.length).slice(0, n)
+}
+
+/** A GDELT free-text query that targets THIS event: the named companies (quoted, precise) plus a distinctive
+ *  headline token or two. Empty when there's nothing distinctive enough — we'd rather not corroborate at all
+ *  than pull random same-topic noise and pass it off as this story. */
+function buildCorroborationQuery(headline: string, companies: CompanyGuess[]): string {
+  const names = (companies || []).map((c) => c?.name).filter((nm): nm is string => isCompanyName(nm)).slice(0, 2)
+  const quoted = names.map((nm) => `"${nm.replace(/["\\]/g, '').trim().slice(0, 48)}"`).filter((q) => q.length > 2)
+  if (quoted.length >= 2) return quoted.join(' ')
+  if (quoted.length === 1) {
+    const extra = distinctiveTokens(headline, 2).filter((t) => !quoted[0].toLowerCase().includes(t))
+    return [quoted[0], ...extra.slice(0, 1).map((t) => `"${t}"`)].join(' ')
+  }
+  const toks = distinctiveTokens(headline, 4)
+  return toks.length >= 2 ? toks.slice(0, 3).map((t) => `"${t}"`).join(' ') : ''
+}
+
+/** Ask the wire who ELSE is reporting this event (GDELT keyword search), filtered to OTHER outlets than the
+ *  one that blocked us, one article per outlet (breadth across outlets = corroboration strength). Never
+ *  throws; returns [] on any failure (the caller then keeps the deterministic floor). */
+async function corroborateFromWire(headline: string, companies: CompanyGuess[], excludeHost: string, deps: EnrichDeps, budgetMs: number): Promise<RawArticle[]> {
+  if (!deps.corroborate?.enabled || !deps.corroborate.baseUrl) return []
+  if (budgetMs < 1500) return [] // not enough wall-clock left in the reader's budget to corroborate
+  const query = buildCorroborationQuery(headline, companies)
+  if (!query) return []
+  let arts: RawArticle[] = []
+  try {
+    // bound the GDELT probe by BOTH its own timeout and what remains of the shared read budget
+    const timeoutMs = Math.min(deps.corroborate.timeoutMs ?? 6000, budgetMs)
+    arts = await fetchGdeltDoc(query, { baseUrl: deps.corroborate.baseUrl, timeoutMs, maxRecords: 25, lookbackMin: 20_160 }, { fetchFn: deps.fetchFn })
+  } catch { return [] }
+  const ex = (excludeHost || '').toLowerCase().replace(/^www\./, '')
+  const byDomain = new Map<string, RawArticle>()
+  for (const a of arts) {
+    const d = (a.domain || '').toLowerCase().replace(/^www\./, '')
+    const title = (a.title || '').trim()
+    if (!d || title.length < 16) continue
+    if (ex && (d === ex || d.endsWith('.' + ex) || ex.endsWith('.' + d))) continue // not the blocked publisher itself
+    if (!byDomain.has(d)) byDomain.set(d, { ...a, title })
+  }
+  return [...byDomain.values()].slice(0, 8)
+}
+
+/** The synthetic "body" fed to the read chain: the secondary headlines, clearly labelled as corroboration so
+ *  the model states only facts that recur across them and invents nothing (the ARTICLE_SYSTEM rule that every
+ *  number must appear in the body does the rest). */
+function buildCorroborationBody(headline: string, secondaries: RawArticle[]): string {
+  const lines = secondaries.map((s) => `- [${s.domain}] ${s.title}`).join('\n')
+  return `The original publisher's page could not be read. Below are headlines from OTHER news outlets reporting the SAME event, gathered for corroboration. Treat these as the only source text: state only facts that appear here, and invent nothing.\n\nORIGINAL HEADLINE: ${headline}\n\nSECONDARY REPORTS (other outlets, same event):\n${lines}`
 }
 
 /**
@@ -680,8 +782,10 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
     result.sec = headlineSec
   } else {
     if (pageHtml) { const pub = extractPublished(pageHtml); if (pub) result.published = pub }
-    // the body for the read: the feed's lede + any fetched page text (snippet first — it's the cleanest).
-    const pageBody = pageHtml ? cleanText(pageHtml.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' ')) : ''
+    // the body for the read: the feed's lede + the fetched ARTICLE text. Prefer the readability extraction
+    // (just the article paragraphs — cleaner signal, fewer tokens than the whole page); fall back to the
+    // de-chromed full page when a template hides its prose outside <p> tags.
+    const pageBody = pageHtml ? (extractReadable(pageHtml) || cleanText(pageHtml.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' '))) : ''
     const body = [snippet, pageBody].filter(Boolean).join('\n\n').trim()
     // The article-body read — through the multi-provider fallback chain (Groq → OpenAI-compatible overflow
     // → Gemini), each sharing the ingester's daily budget + per-minute limiter, with a HARD wall-clock
@@ -698,6 +802,11 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
     // or a body too thin to read, can NEVER produce a brief — retrying is pointless, so we converge it to the
     // floor below instead of letting the heal pass re-fetch it forever (≈ the analyzeArticle min-body bar).
     bodyReadable = body.replace(/\s+/g, ' ').trim().length >= 80
+    // ONE wall-clock budget for ALL the LLM work on this open — the direct read AND any corroboration read,
+    // plus the GDELT probe between them — so the total can never exceed what the client waits for. A fresh
+    // budget per leg would stack (direct 14s + GDELT 6s + corroboration 14s ≈ over the client's 28s abort,
+    // which would discard the very work corroboration just paid for). Both reads + the probe draw from this.
+    const readDeadline = now().getTime() + (deps.llmBudgetMs ?? 14_000)
     let brief = null
     if (body && !bodylessFiling && providers.length) {
       const r = await readArticleBrief(body, headline, providers, {
@@ -705,7 +814,7 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
         fetchFn,
         sleep: deps.sleep,
         now: () => now().getTime(),
-        deadlineMs: now().getTime() + (deps.llmBudgetMs ?? 14_000),
+        deadlineMs: readDeadline,
         limiterWaitMs: deps.limiterWaitMs,
       })
       brief = r.brief
@@ -732,6 +841,42 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
       // the deterministic floor (never empty, never fabricated). The raw fetch reason is demoted to a hint.
       result.summary = bestFallbackSummary(pageHtml, snippet, filingInput, bodylessFiling)
       if (fetchNote) result.note = fetchNote
+    }
+
+    // CORROBORATION — the publisher blocked the direct read (no fetched body, no usable RSS lede) and this
+    // is a real article (not a bodyless filing) for which we got no brief. Do what a human does when a page
+    // won't open: ask the wire "who ELSE is reporting this?", gather the secondary headlines, and synthesise
+    // the story FROM THEM — honestly flagged, never passed off as a direct read (CLAUDE.md §3). Best-effort:
+    // any failure (GDELT 429/penalty, <2 outlets, no LLM budget) leaves the deterministic floor as it was.
+    if (!bodyReadable && !bodylessFiling && !(result.gist && result.gist.length) && deps.corroborate?.enabled) {
+      const secondaries = await corroborateFromWire(headline, companies, host, deps, readDeadline - now().getTime())
+      if (secondaries.length >= 2) {
+        const domains = [...new Set(secondaries.map((s) => s.domain.toLowerCase().replace(/^www\./, '')).filter(Boolean))].slice(0, 6)
+        // synthesise a real brief from the secondary headlines (same LLM chain, same anti-fabrication rules,
+        // same shared deadline so the whole on-demand read stays inside one wall-clock budget)
+        if (providers.length) {
+          const r = await readArticleBrief(buildCorroborationBody(headline, secondaries), headline, providers, {
+            stateDir: deps.stateDir, fetchFn, sleep: deps.sleep,
+            now: () => now().getTime(), deadlineMs: readDeadline, limiterWaitMs: deps.limiterWaitMs,
+          })
+          if (r.attempted) attempted = true
+          const b = r.brief
+          if (b && (b.gist.length || b.companies.length || b.beneficiaries.length || b.exposed.length)) {
+            if (b.gist.length) result.gist = b.gist
+            const co = filterCompanies(b.companies); if (co.length) result.companies = co
+            const ben = scrubParties(b.beneficiaries); if (ben.length) result.beneficiaries = ben
+            const exp = scrubParties(b.exposed); if (exp.length) result.exposed = exp
+            if (b.theme) result.theme = b.theme
+          }
+        }
+        // record corroboration so the UI labels it honestly; if the LLM couldn't synthesise (no budget), show
+        // a real, sourced fallback that names the outlets — still better than the bare headline floor.
+        result.corroborated = { count: secondaries.length, domains }
+        if (!(result.gist && result.gist.length)) {
+          result.summary = `The publisher blocked the direct read. ${secondaries.length} other outlet${secondaries.length === 1 ? '' : 's'} are reporting this${domains.length ? ` — ${domains.slice(0, 4).join(', ')}` : ''}. Open the source, or run the checks to read it in full.`
+        }
+        result.note = 'publisher blocked the direct read — corroborated from the secondary wire'
+      }
     }
   }
 
