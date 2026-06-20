@@ -27,6 +27,19 @@ function targetOf(r: ActivityRow): string {
   if (r.kind === 'handoff') return 'idea memo → company data folder'
   return `${moduleLabel(r.module || '')} › ${r.agent || '?'}`
 }
+// The Company column: research runs carry a real ticker; swarm runs carry an opaque subject id that
+// the server resolves to a readable label (the company/headline a SIG-… event concerns). A sweep is a
+// market-wide scan, not about one company, so it shows a dash.
+function companyOf(r: ActivityRow): string {
+  if (r.kind === 'sweep') return '—'
+  return r.subjectLabel || r.ticker
+}
+// Hover reveals the underlying subject id (the audit anchor) whenever we've replaced it with a label.
+function companyTitle(r: ActivityRow): string | undefined {
+  if (r.kind === 'sweep') return 'Market-wide news scan'
+  if (r.subjectLabel && r.subjectLabel !== r.ticker) return r.ticker
+  return undefined
+}
 function statusTone(s: string): { color: string; label: string } {
   switch (s) {
     case 'done': return { color: 'var(--accent-bright)', label: 'done' }
@@ -155,7 +168,7 @@ export function ActivityLog() {
             )}
             <select className="fld" value={ticker} onChange={(e) => setTicker(e.target.value)} aria-label="Company">
               <option value="">All companies</option>
-              {(data?.tickers ?? []).map((t) => <option key={t} value={t}>{t}</option>)}
+              {(data?.tickers ?? []).map((t) => <option key={t} value={t}>{data?.tickerLabels?.[t] ?? t}</option>)}
             </select>
             <select className="fld" value={kind} onChange={(e) => setKind(e.target.value)} aria-label="Type">
               <option value="">All types</option>
@@ -211,7 +224,7 @@ export function ActivityLog() {
                         <td title={fmtAbsolute(r.launchedAt)} style={{ whiteSpace: 'nowrap', color: 'var(--text-muted)' }}>{fmtAgo(r.launchedAt)}</td>
                         <td className="atable__who" title={r.userVia === 'cf-access' ? 'Cloudflare Access identity' : 'local / direct access'}>{r.user}</td>
                         <td><span className={`akind akind--${r.kind}`}>{KIND_LABEL[r.kind]}</span></td>
-                        <td style={{ fontWeight: 600 }}>{r.ticker}</td>
+                        <td className="atable__company"><span title={companyTitle(r)} className={r.kind === 'sweep' ? 'atable__company--none' : undefined}>{companyOf(r)}</span></td>
                         <td style={{ color: 'var(--text-muted)' }}>{targetOf(r)}</td>
                         <td title={r.note || undefined}><span className="apill" style={{ color: tone.color }}><span className="apill__dot" style={{ background: tone.color }} />{tone.label}{r.note ? ' ⚠' : ''}</span></td>
                         <td className="atable__num">{fmtCost(r.costUsd)}</td>

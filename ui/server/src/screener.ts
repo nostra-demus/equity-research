@@ -172,3 +172,57 @@ export function screenerRunRoot(sigId: string): string | null {
   const rel = m.runRootTemplate.replace(`{${m.placeholder}}`, sigId)
   return fs.existsSync(path.join(REPO_ROOT, rel)) ? rel : null
 }
+
+// Drop a trailing "(Exchange: TICKER)" qualifier so the table shows the company name, not the listing
+// (e.g. "Schneider Electric SE (Euronext Paris: SU)" -> "Schneider Electric SE").
+function cleanIssuer(s: unknown): string | undefined {
+  if (typeof s !== 'string') return undefined
+  const t = s.replace(/\s*\([^)]*\)\s*$/, '').trim()
+  return t || undefined
+}
+
+// Map every signal id the engine has processed -> the company/headline it concerns, for the activity
+// log's Company column (which otherwise shows the opaque SIG-… subject id). Source: the swarm's
+// append-only event ledger (named issuer when present, else the event headline). Cached by ledger
+// mtime+size — the file is small but the activity log polls every 15s. Pure read; never throws (a
+// missing ledger just yields an empty map, so the column falls back to the raw subject id).
+let _sigLabelCache: { key: string; map: Map<string, string> } | null = null
+export function screenerSubjectLabels(): Map<string, string> {
+  const m = swarmById('screener')
+  if (!m) return new Map()
+  const ledgerRel = `${m.ledgerRoot || 'screener/ledger'}/events.ndjson`
+  let real: string
+  try {
+    real = resolveInsideScreener(ledgerRel)
+  } catch {
+    return new Map()
+  }
+  let key: string
+  try {
+    const st = fs.statSync(real)
+    key = `${st.mtimeMs}:${st.size}`
+  } catch {
+    return new Map() // no ledger yet
+  }
+  if (_sigLabelCache && _sigLabelCache.key === key) return _sigLabelCache.map
+  const map = new Map<string, string>()
+  try {
+    for (const ln of fs.readFileSync(real, 'utf8').split('\n')) {
+      const t = ln.trim()
+      if (!t) continue
+      let d: any
+      try {
+        d = JSON.parse(t)
+      } catch {
+        continue
+      }
+      if (!d?.signal_id) continue
+      const label = cleanIssuer((d.primary_issuers || [])[0]) || (typeof d.headline === 'string' ? d.headline.trim() : '')
+      if (label) map.set(d.signal_id, label) // later lines (richer / corrected) win; empty labels never overwrite
+    }
+  } catch {
+    /* unreadable ledger = empty map */
+  }
+  _sigLabelCache = { key, map }
+  return map
+}
