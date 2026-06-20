@@ -286,8 +286,14 @@ export async function fetchRss(opts: RssOptions, deps: RssDeps = {}): Promise<Ra
         rec(feed, arts.length ? 'ok' : 'empty', arts.length)
         return arts
       } catch (e: any) {
-        if (attempt === 3) {
-          const note = e?.name === 'AbortError' ? 'timeout' : e?.message || String(e)
+        // A TIMEOUT (AbortError) does not retry: a feed that didn't answer within timeoutMs almost never
+        // answers on an immediate 2nd/3rd try — that just burns another 1-2× timeoutMs per dead feed every
+        // cycle (the dominant cost behind the 480s cycle-guard aborts). The next ~5-min cycle retries it
+        // anyway (conditional-GET, so a recovered feed costs one 304). Transient connection/HTTP errors
+        // ('fetch failed', HTTP 5xx) still get the full 3-attempt backoff.
+        const isTimeout = e?.name === 'AbortError'
+        if (isTimeout || attempt === 3) {
+          const note = isTimeout ? 'timeout' : e?.message || String(e)
           log(`rss ${feed.source_name || feed.url}: ${note}, gave up`)
           rec(feed, 'error', 0, note)
           return []

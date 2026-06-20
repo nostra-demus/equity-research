@@ -190,4 +190,32 @@ await check('rss_feeds.json: valid, every feed has an http url + source_name, no
   }
 })
 
+await check('fetchRss: a TIMEOUT (AbortError) is NOT retried — gives up on the first attempt (no wasted timeouts)', async () => {
+  const state = tmp()
+  const feedsPath = path.join(tmp(), 'feeds.json')
+  fs.writeFileSync(feedsPath, JSON.stringify({ feeds: [{ url: 'https://slow.test/rss' }] }))
+  let fetchCalls = 0
+  let sleeps = 0
+  const fetchFn = (async () => { fetchCalls++; const e: any = new Error('aborted'); e.name = 'AbortError'; throw e }) as unknown as typeof fetch
+  const sleep = async () => { sleeps++ }
+  const arts = await fetchRss({ feedsPath, lookbackMin: 40, timeoutMs: 2000, stateDir: state }, { fetchFn, sleep, now: () => new Date('2026-06-12T09:30:00Z') })
+  assert.equal(arts.length, 0)
+  assert.equal(fetchCalls, 1, 'timeout gives up immediately — exactly one attempt, not three')
+  assert.equal(sleeps, 0, 'no backoff sleep on a timeout')
+})
+
+await check('fetchRss: a transient connection error (fetch failed) STILL gets the full 3-attempt backoff', async () => {
+  const state = tmp()
+  const feedsPath = path.join(tmp(), 'feeds.json')
+  fs.writeFileSync(feedsPath, JSON.stringify({ feeds: [{ url: 'https://flaky.test/rss' }] }))
+  let fetchCalls = 0
+  let sleeps = 0
+  const fetchFn = (async () => { fetchCalls++; throw new TypeError('fetch failed') }) as unknown as typeof fetch
+  const sleep = async () => { sleeps++ }
+  const arts = await fetchRss({ feedsPath, lookbackMin: 40, timeoutMs: 2000, stateDir: state }, { fetchFn, sleep, now: () => new Date('2026-06-12T09:30:00Z') })
+  assert.equal(arts.length, 0)
+  assert.equal(fetchCalls, 3, 'a transient error retries up to 3 times')
+  assert.equal(sleeps, 2, 'backoff sleeps between the 3 attempts')
+})
+
 console.log(`\n${passed} checks passed`)

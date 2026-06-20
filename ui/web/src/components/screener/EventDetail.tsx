@@ -308,33 +308,41 @@ export function EventDetail({ it }: { it: FeedItem }) {
         )}
 
         <div className="evdetail__actions">
-          <span className="evdetail__est mono">about $8–45 · stops early (and cheaper) if a check says no</span>
-          <button className="btn btn--ghost evdetail__shelfbtn" onClick={() => toggleShelve(it.event_id)} title={shelved ? 'Bring this back to the wire' : 'Set this aside — not worth a check right now'}>
-            {shelved ? 'Bring back' : 'Set aside'}
-          </button>
-          {it.url && (
-            <a className="btn btn--ghost" href={it.url} target="_blank" rel="noreferrer">Open source ↗</a>
-          )}
-          <button className="btn btn--amber" onClick={() => void run(it)} title={staticMode ? 'Runs on your local machine (npm run dev)' : 'Run the full gauntlet — every stage'}>
-            Run the checks ▸
-          </button>
-        </div>
-        {scStages.length > 1 && (
-          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: 8, marginTop: 12 }}>
-            <span className="evdetail__est mono">or run only through:</span>
-            {scStages.slice(0, -1).map((m) => (
-              <button
-                key={m.name}
-                type="button"
-                className="evdetail__chip evdetail__chip--btn"
-                onClick={() => void run(it, m.name)}
-                title={`Run the gauntlet through "${plainStage(m.name)}" and stop there — finished checks are saved, and you can Continue the rest later`}
-              >
-                {plainStage(m.name)}
+          <div className="evdetail__actions-bar">
+            <div className="evdetail__run">
+              <button className="btn btn--amber evdetail__runbtn" onClick={() => void run(it)} title={staticMode ? 'Runs on your local machine (npm run dev)' : 'Run the full gauntlet — every stage'}>
+                Run the checks ▸
               </button>
-            ))}
+              <span className="evdetail__est mono">about $8–45 · stops early (and cheaper) if a check says no</span>
+            </div>
+            <div className="evdetail__utility">
+              <button className="btn btn--ghost evdetail__shelfbtn" onClick={() => toggleShelve(it.event_id)} title={shelved ? 'Bring this back to the wire' : 'Set this aside — not worth a check right now'}>
+                {shelved ? 'Bring back' : 'Set aside'}
+              </button>
+              {it.url && (
+                <a className="btn btn--ghost" href={it.url} target="_blank" rel="noreferrer">Open source ↗</a>
+              )}
+            </div>
           </div>
-        )}
+          {scStages.length > 1 && (
+            <div className="evdetail__through">
+              <span className="evdetail__through-label mono">or run only through</span>
+              <div className="evdetail__through-chips">
+                {scStages.slice(0, -1).map((m) => (
+                  <button
+                    key={m.name}
+                    type="button"
+                    className="evdetail__chip evdetail__chip--btn"
+                    onClick={() => void run(it, m.name)}
+                    title={`Run the gauntlet through "${plainStage(m.name)}" and stop there — finished checks are saved, and you can Continue the rest later`}
+                  >
+                    {plainStage(m.name)}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </article>
     </div>
   )
