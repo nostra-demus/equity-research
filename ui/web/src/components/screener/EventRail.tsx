@@ -11,7 +11,7 @@
 // Click a row to read the whole event; set aside the ones not worth a check.
 
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { groupByDedup, type StoryGroup } from '../../lib/dedup'
+import { groupByDedup, groupRegions, type StoryGroup } from '../../lib/dedup'
 import { plainRegion, plainSize, plainTheme } from '../../lib/plain'
 import { BROAD_SCOPES, COMPANY_SCOPES, familyOf, isCompanyNameClient, SCOPES, scopeLabel, scopeOf, type ScopeId } from '../../lib/scope'
 import { hhmmLocal } from '../../lib/format'
@@ -241,17 +241,21 @@ export function EventRail() {
 
   // the region list for the Geography dropdown — every region present under the current refine, newest-
   // count first. Computed over `refined` (NOT the geo-narrowed set) so picking one region never hides the
-  // others from the menu. `geoTotal` = items carrying a known region (the "All regions" tally).
+  // others from the menu. A story is counted toward EVERY region its sources touch (groupRegions), not
+  // just the representative row's — a dedup group spans regions (region is per-source, stories merge
+  // across sources), so rep-only counts undercount. `geoTotal` = stories carrying any known region.
   const geoOptions = useMemo(() => {
     const c: Record<string, number> = {}
-    for (const g of refined) { const r = g.rep.region; if (r) c[r] = (c[r] || 0) + 1 }
+    for (const g of refined) for (const r of groupRegions(g)) c[r] = (c[r] || 0) + 1
     return Object.entries(c).sort((a, b) => b[1] - a[1]) as [string, number][]
   }, [refined])
-  const geoTotal = useMemo(() => geoOptions.reduce((n, [, c]) => n + c, 0), [geoOptions])
+  const geoTotal = useMemo(() => refined.reduce((n, g) => n + (groupRegions(g).length > 0 ? 1 : 0), 0), [refined])
 
   // geography applied FIRST (it composes with the scope chips): picking "US + India" narrows everything
-  // downstream — the scope counts, the Sector/Commodity menus, and the list itself.
-  const geoApplied = useMemo(() => (geoNarrow ? refined.filter((g) => geoSel.picks.has(g.rep.region)) : refined), [refined, geoSel, geoNarrow])
+  // downstream — the scope counts, the Sector/Commodity menus, and the list itself. Matches on the whole
+  // group's regions (groupRegions), so a story present in the picked market is kept even when its
+  // representative row is a different-region (e.g. GLOBAL) wire.
+  const geoApplied = useMemo(() => (geoNarrow ? refined.filter((g) => groupRegions(g).some((r) => geoSel.picks.has(r))) : refined), [refined, geoSel, geoNarrow])
 
   // per-scope counts over the geo-narrowed groups — drive the filter chips + the at-a-glance split
   const counts = useMemo(() => {
