@@ -99,6 +99,7 @@ interface State {
   moduleReports: Record<string, { synthesis?: string; memo?: string; dossier?: string }>
   openOutput: { path?: string; title: string; verdict?: string | null; nodeKey?: string; pending?: boolean } | null
   activityOpen: boolean
+  scoringOpen: boolean
   callsOpen: boolean
   selectedNodeKey: string | null
   launchConfirm: { kind: 'full' | 'rerun'; preflight: LaunchPreflight; cascade?: CascadeNode[]; node?: { module: string; name: string; key: string } } | null
@@ -166,6 +167,8 @@ interface State {
   closeOutput: () => void
   openActivity: () => void
   closeActivity: () => void
+  openScoring: () => void
+  closeScoring: () => void
   openCalls: () => void
   closeCalls: () => void
   openCallFile: (path: string, title: string) => void
@@ -300,6 +303,7 @@ export const useStore = create<State>((set, get) => ({
   moduleReports: {},
   openOutput: null,
   activityOpen: false,
+  scoringOpen: false,
   callsOpen: false,
   selectedNodeKey: null,
   launchConfirm: null,
@@ -735,6 +739,8 @@ export const useStore = create<State>((set, get) => ({
   closeOutput: () => set({ openOutput: null, selectedNodeKey: null }),
   openActivity: () => set({ activityOpen: true }),
   closeActivity: () => set({ activityOpen: false }),
+  openScoring: () => set({ scoringOpen: true }),
+  closeScoring: () => set({ scoringOpen: false }),
   openCalls: () => set({ callsOpen: true }),
   closeCalls: () => set({ callsOpen: false }),
   // open any analyses/ file (review JSON / thesis md / dashboard md) in the OutputReader (renders text).

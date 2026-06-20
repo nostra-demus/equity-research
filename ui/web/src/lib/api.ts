@@ -1,4 +1,5 @@
 import { staticPromptPath } from './prompts'
+import { DEFAULT_RANK_WEIGHTS, type RankWeights, type RankWeightsState } from './rankWeights'
 import type { ActivityQuery, ActivityResult, CallsResult, CoverageGroup, DataStatus, EventEnrichment, FeedItem, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ScreenerBoard, SignalIntakeInput, SourcesReport, SwarmGraph, SwarmMeta, TickerSummary, UploadResult, Usage, Whoami } from './types'
 
 const BASE = import.meta.env.BASE_URL
@@ -59,6 +60,17 @@ async function post<T>(url: string, body?: any): Promise<T> {
   // before the route even runs — the real cause of the "cancel didn't work" bug.
   const r = await fetch(url, {
     method: 'POST',
+    headers: body !== undefined ? { 'content-type': 'application/json' } : undefined,
+    body: body !== undefined ? JSON.stringify(body) : undefined,
+  })
+  const j = await r.json().catch(() => ({}))
+  if (!r.ok) throw Object.assign(new Error((j as any)?.error || `${r.status}`), { status: r.status, body: j })
+  return j as T
+}
+
+async function put<T>(url: string, body?: any): Promise<T> {
+  const r = await fetch(url, {
+    method: 'PUT',
     headers: body !== undefined ? { 'content-type': 'application/json' } : undefined,
     body: body !== undefined ? JSON.stringify(body) : undefined,
   })
@@ -128,6 +140,16 @@ export const api = {
     return get(`/api/news/feed?days=${Math.max(1, Math.floor(days))}`)
   },
   newsStreamUrl: () => `/api/news/stream`,
+  // the global scoring weights behind every event's triage score (the Scoring panel reads + writes these).
+  // Static showcase: no engine → hand back the bundled defaults so the panel still renders + previews.
+  rankWeights: async (): Promise<RankWeightsState> => {
+    if ((await ensureMode()) === 'static') return { active: DEFAULT_RANK_WEIGHTS, defaults: DEFAULT_RANK_WEIGHTS, customised: false }
+    return get<RankWeightsState>(`/api/news/rank-weights`)
+  },
+  saveRankWeights: async (body: Partial<RankWeights> | { reset: true }): Promise<RankWeightsState> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return put<RankWeightsState>(`/api/news/rank-weights`, body)
+  },
   // the living themes the firehose is bucketed into (ranked index + one theme's deep-dive)
   newsThemes: async (): Promise<import('./themes').ThemesIndex> => {
     if ((await ensureMode()) === 'static') return { generated_at: '', themes: [], counts: { hot: 0, active: 0, cooling: 0, parked: 0, retired: 0, total: 0 }, history_days: 0 }

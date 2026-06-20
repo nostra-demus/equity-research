@@ -4,6 +4,7 @@
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
 import { rankScore, preTriagePriority } from '../src/news/rank'
+import { DEFAULT_RANK_WEIGHTS } from '../src/news/rank-weights'
 
 let passed = 0
 function check(name: string, fn: () => void) {
@@ -54,8 +55,8 @@ check('macro print is demoted vs a single-name company event of equal Groq score
   assert.equal(macro.rank_factors.scope, -4) // macro penalty
 })
 
-check('boostWeight 0 → rank_score equals the raw Groq materiality (pure pre-score)', () => {
-  const r = rankScore({ materiality_pre_score: 73, input_nature: 'regulatory_filing', issuer_linkage: 'primary', companies: [{ name: 'X' }], event_types: ['mna'], found_at: fresh }, NOW, 0)
+check('boost_weight 0 → rank_score equals the raw Groq materiality (pure pre-score)', () => {
+  const r = rankScore({ materiality_pre_score: 73, input_nature: 'regulatory_filing', issuer_linkage: 'primary', companies: [{ name: 'X' }], event_types: ['mna'], found_at: fresh }, NOW, { ...DEFAULT_RANK_WEIGHTS, boost_weight: 0 })
   assert.equal(r.rank_score, 73)
 })
 

@@ -297,10 +297,11 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       // scope, strongest event, size and recency — the deterministic, no-extra-cost re-rank that
       // stops terse primary filings being buried under verbose news (see rank.ts). triage_score
       // becomes this priority; materiality_pre_score keeps the raw Groq read for transparency.
+      // reads the active weight set (rank-weights.ts) — boost_weight included — so a Scoring-panel edit
+      // changes ingest scoring with no redeploy. cfg.rankBoostWeight still seeds the default boost.
       const ranked = rankScore(
         { materiality_pre_score: score, issuer_linkage: t?.issuer_linkage, companies: t?.companies, event_types: t?.event_types, input_nature: it.input_nature, headline: it.headline, size_bucket: t?.size_bucket, found_at: it.found_at },
         now(),
-        cfg.rankBoostWeight,
       )
       const band = scoreToBand(ranked.rank_score, cfg.pickThreshold, cfg.watchThreshold)
       seen.add(it.event_id, score)
