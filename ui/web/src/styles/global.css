@@ -1298,8 +1298,19 @@ a { color: inherit; }
 @media (hover: hover) and (pointer: fine) { .coview__row:hover .coview__go { color: var(--accent-bright); transform: translateX(3px); } }
 .coview__empty { padding: 40px 6px; font-size: 13px; line-height: 1.6; color: var(--text-muted); }
 .evdetail__hint { font-size: 10.5px; color: var(--text-faint); margin-top: 7px; line-height: 1.4; }
-.evdetail__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin-top: 26px; padding-top: 18px; border-top: 1px solid var(--hairline); }
-.evdetail__est { font-size: 11px; color: var(--text-faint); margin-right: auto; }
+/* action footer — three tiers: primary run (CTA + cost caption), utility (set aside / open source),
+   and the optional stage-refinement chips. Was one flat wrapping row; now grouped by intent. */
+.evdetail__actions { display: flex; flex-direction: column; gap: 16px; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--hairline); }
+.evdetail__actions-bar { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.evdetail__run { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
+.evdetail__runbtn { height: 38px; padding: 0 18px; }
+.evdetail__est { font-size: 11px; color: var(--text-faint); line-height: 1.45; }
+.evdetail__utility { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.evdetail__through { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.evdetail__through-label { font-size: 11px; color: var(--text-faint); white-space: nowrap; }
+.evdetail__through-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+/* press feedback consistent with the chips above (scale, not the global .btn translate) */
+.evdetail__actions .btn:active { transform: scale(0.97); }
 
 /* keyboard focus — the rail is now the main way to move through events, so it must be visibly traversable.
    box-shadow ring (token-scoped to cyan) matches the .intake__input:focus idiom; inset on the full-width row. */
