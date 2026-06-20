@@ -125,7 +125,7 @@ export function readThemesIndex(repoRoot: string): ThemesIndex {
 export function readRecentThemeItems(repoRoot: string, minScore: number): ThemeItemView[] {
   const out: ThemeItemView[] = []
   try {
-    const feed = readFeed(repoRoot, 2)
+    const feed = readFeed(repoRoot, 2, { applyActiveWeights: false }) // discovery uses persisted ingest-time scores, not the display re-rank — a weight edit must not retroactively change clustering membership
     for (const it of feed.items as FeedItem[]) {
       if (it.band === 'drop' || (it.triage_score || 0) < minScore) continue
       out.push({

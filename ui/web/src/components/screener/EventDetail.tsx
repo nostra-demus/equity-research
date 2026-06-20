@@ -115,7 +115,20 @@ function PartyList({ parties }: { parties: ArticleParty[] }) {
 // adjustments (source / focus / event / size / freshness) sum and clamp to it. Each row shows the
 // exact value that won and the points it added — so the score is explainable from evidence rows, not
 // vibes (CLAUDE.md §12), and the levers are visible to anyone tuning the weights.
-const FRESH_LABEL: Record<number, string> = { 5: 'under an hour old', 4: 'under 3 hours old', 3: 'under 6 hours old', 2: 'under 12 hours old', 1: 'under a day old', 0: 'over a day old' }
+// Freshness label from the item's actual age — NOT from the recency POINTS (which the weight panel makes
+// tunable; keying the label on points showed a blank/wrong bucket after any edit). Mirrors the fixed
+// thresholds in the server's recencyBonus (rank.ts), which are tunable in points but fixed in buckets.
+function freshnessLabel(ts: string): string {
+  const t = new Date(ts).getTime()
+  if (Number.isNaN(t)) return ''
+  const hrs = (Date.now() - t) / 3_600_000
+  if (hrs < 1) return 'under an hour old'
+  if (hrs < 3) return 'under 3 hours old'
+  if (hrs < 6) return 'under 6 hours old'
+  if (hrs < 12) return 'under 12 hours old'
+  if (hrs < 24) return 'under a day old'
+  return 'over a day old'
+}
 const signed = (n: number) => (n > 0 ? `+${n}` : `${n}`)
 const ptsClass = (n: number) => (n > 0 ? 'scorewhy__pts--pos' : n < 0 ? 'scorewhy__pts--neg' : 'scorewhy__pts--zero')
 
@@ -150,7 +163,7 @@ function ScoreWhy({ it, anchorRef }: { it: FeedItem; anchorRef: React.RefObject<
     { k: 'Focus', v: scopeDef?.label ?? rf.scope_id, why: scopeDef?.meaning, pts: rf.scope },
     { k: 'Event', v: it.event_types?.length ? it.event_types.map(plainTheme).join(', ') : '—', why: 'The biggest event named in the headline counts.', pts: rf.event },
     { k: 'Size', v: plainSize(it.size_bucket), why: undefined as string | undefined, pts: rf.size },
-    { k: 'Freshness', v: FRESH_LABEL[rf.recency] ?? '', why: 'Newer news counts for a little more.', pts: rf.recency },
+    { k: 'Freshness', v: freshnessLabel(it.ts), why: 'Newer news counts for a little more.', pts: rf.recency },
   ]
   const raw = base + rows.reduce((s, r) => s + r.pts, 0)
   const capped = raw > score && score >= 100

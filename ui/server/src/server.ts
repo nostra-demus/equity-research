@@ -708,7 +708,9 @@ app.get('/api/news/feed', async (req) => {
 // SCORING WEIGHTS — the knobs behind every event's triage score (rank.ts). The cockpit Scoring panel
 // reads these to render the controls + live preview, and writes them back. The change is GLOBAL (one
 // shared config drives all scoring), never per-event: a save re-scores the whole wire on the next load.
-app.get('/api/news/rank-weights', async () => ({ active: getRankWeights(), defaults: defaultRankWeights(), customised: rankWeightsCustomised() }))
+// explicit per-route rate-limit (same budget as the global cap) so CodeQL recognizes the limiter on these
+// filesystem-touching handlers (js/missing-rate-limiting); the global @fastify/rate-limit still applies too.
+app.get('/api/news/rank-weights', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async () => ({ active: getRankWeights(), defaults: defaultRankWeights(), customised: rankWeightsCustomised() }))
 
 // Each group is an open numeric map (a new event type / source tier auto-falls-back to its default, §26);
 // saveRankWeights() clamps every value and drops unknown keys, so a malformed body degrades to "no change"
@@ -723,7 +725,7 @@ const RankWeightsBody = z.object({
   recency: numMap.optional(),
   boost_weight: z.number().optional(),
 }).strip()
-app.put('/api/news/rank-weights', async (req, reply) => {
+app.put('/api/news/rank-weights', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async (req, reply) => {
   const parsed = RankWeightsBody.safeParse(req.body ?? {})
   if (!parsed.success) return reply.code(400).send({ error: 'invalid weights', detail: parsed.error.flatten() })
   const { reset, ...over } = parsed.data

@@ -102,7 +102,7 @@ export interface FeedSnapshot {
  * Read the last `days` firehose files (today first) and split records by kind. Items come back
  * newest-first, capped, corrupt lines skipped — same tolerance discipline as the ledger readers.
  */
-export function readFeed(repoRoot: string, days = 2, opts: { now?: () => Date; maxItems?: number; archiveDir?: string } = {}): FeedSnapshot {
+export function readFeed(repoRoot: string, days = 2, opts: { now?: () => Date; maxItems?: number; archiveDir?: string; applyActiveWeights?: boolean } = {}): FeedSnapshot {
   const now = opts.now || (() => new Date())
   const maxItems = opts.maxItems && opts.maxItems > 0 ? opts.maxItems : 1000
   const archiveDir = opts.archiveDir || '' // Google Drive mount folder — read older days from here after local prune
@@ -138,7 +138,11 @@ export function readFeed(repoRoot: string, days = 2, opts: { now?: () => Date; m
   items.sort((a, b) => (b.ts || '').localeCompare(a.ts || ''))
   cycles.sort((a, b) => (b.ts || '').localeCompare(a.ts || ''))
   const capped = items.slice(0, maxItems)
-  withActiveWeights(capped) // re-score under the current weights so a panel edit reaches the whole wire
+  // Re-score under the CURRENT weights so a panel edit reaches the served wire — but ONLY for the display
+  // path. Theme discovery (readRecentThemeItems) opts OUT so a weight edit can't retroactively change which
+  // items qualify for clustering: it uses the persisted ingest-time scores (which already reflect the
+  // weights in force when each item was ingested). Default on, so every display consumer is unaffected.
+  if (opts.applyActiveWeights !== false) withActiveWeights(capped)
   withDedup(capped) // story-cluster the served window so the wire shows one row per story
   return { items: capped, cycles }
 }
