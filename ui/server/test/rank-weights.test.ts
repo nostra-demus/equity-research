@@ -30,7 +30,7 @@ const SBI = { materiality_pre_score: 85, issuer_linkage: 'primary', companies: [
 
 await check('rankScore at defaults: SBI-style filing builds 85 +8 +6 +5 +0 +2 → capped 100', () => {
   const r = rankScore(SBI, NOW, DEFAULT_RANK_WEIGHTS)
-  assert.deepEqual(r.rank_factors, { materiality: 85, source_tier: 8, scope: 6, event: 5, size: 0, recency: 2, scope_id: 'single_name', source_tier_id: 'primary_filing' })
+  assert.deepEqual(r.rank_factors, { materiality: 85, source_tier: 8, scope: 6, event: 5, size: 0, recency: 2, boost_weight: 1, scope_id: 'single_name', source_tier_id: 'primary_filing' })
   assert.equal(r.rank_score, 100) // 85 + 21 = 106, clamped to 100
 })
 
@@ -80,6 +80,27 @@ await check('reRankFromFactors applies new weights to an existing item', () => {
   assert.equal(def.rank_score, 61)
   const tuned = reRankFromFactors(rf, { event_types: ['earnings_revenue_margin'], size_bucket: 'unknown' }, { ...DEFAULT_RANK_WEIGHTS, source_tier: { ...DEFAULT_RANK_WEIGHTS.source_tier, primary_filing: 0 } })
   assert.equal(tuned.rank_score, 53) // -8 from zeroing the filing bonus
+})
+
+// ---- rank_factors carries the boost_weight that produced the score (so the "Why this score"
+//      ledger can reconcile its rows to the number — CLAUDE.md §12: every score explainable from rows) ----
+
+await check('rank_factors stamps the boost_weight used, and materiality + round(adjSum·boost) === rank_score', () => {
+  // default: boost_weight 1
+  const def = rankScore({ ...SBI, materiality_pre_score: 40 }, NOW, DEFAULT_RANK_WEIGHTS)
+  assert.equal(def.rank_factors.boost_weight, 1)
+  // tuned: a user moves the Overall-boost slider to 1.5 (ScoringPanel: "adjustments × overall boost")
+  const up = rankScore({ ...SBI, materiality_pre_score: 40 }, NOW, { ...DEFAULT_RANK_WEIGHTS, boost_weight: 1.5 })
+  assert.equal(up.rank_factors.boost_weight, 1.5)
+  const f = up.rank_factors
+  const adjSum = f.source_tier + f.scope + f.event + f.size + f.recency // 8+6+5+0+2 = 21
+  // the exact identity the client ledger reconciles to (base is integer ⇒ round(base+x)=base+round(x))
+  assert.equal(f.materiality + Math.round(adjSum * (f.boost_weight ?? 1)), up.rank_score) // 40 + round(31.5)=40+32 = 72
+  assert.equal(up.rank_score, 72)
+  // reRankFromFactors stamps the ACTIVE boost_weight (the one matching the served score), not the input's
+  const rr = reRankFromFactors({ ...f }, { event_types: SBI.event_types, size_bucket: SBI.size_bucket }, { ...DEFAULT_RANK_WEIGHTS, boost_weight: 0.5 })
+  assert.equal(rr.rank_factors.boost_weight, 0.5)
+  assert.equal(rr.rank_score, 40 + Math.round(adjSum * 0.5)) // 40 + round(10.5)=40+11 = 51 (clock-independent)
 })
 
 // ---- the store: load / save / reset / validate ----

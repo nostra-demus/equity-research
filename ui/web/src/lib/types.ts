@@ -104,6 +104,7 @@ export interface RankFactors {
   event: number // strongest event-type bonus
   size: number // company-size bonus
   recency: number // freshness bonus
+  boost_weight?: number // global multiplier applied to the summed adjustments for THIS score (1 = none); absent on pre-field items
   scope_id: string // which scope won (single_name / sector / macro …)
   source_tier_id: string // which §4 tier won (primary_filing / news …)
 }
