@@ -1308,13 +1308,20 @@ a { color: inherit; }
 .evdetail__band { font-size: 10px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-faint); border: 1px solid var(--hairline); border-radius: var(--r-pill); padding: 3px 9px; }
 .evdetail__band--kept { color: var(--live); border-color: var(--live); }
 .evdetail__when { font-size: 11px; color: var(--text-faint); font-variant-numeric: tabular-nums; }
-.evdetail__close {
-  margin-left: auto; width: 28px; height: 28px; display: grid; place-items: center; flex-shrink: 0;
-  border: 1px solid var(--hairline); background: var(--surface-2); color: var(--text-muted); cursor: pointer;
-  border-radius: var(--r-pill); font-size: 12px; transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), transform 140ms var(--ease-out);
+/* BACK — the clear way out of the reader, top-left where navigation lives (Esc is its twin) */
+.evdetail__back {
+  display: inline-flex; align-items: center; gap: 4px; margin-bottom: 16px;
+  padding: 6px 13px 6px 10px; border: 1px solid var(--hairline); background: var(--surface-2);
+  color: var(--text-muted); cursor: pointer; appearance: none; border-radius: var(--r-pill);
+  font: inherit; font-size: 12.5px; font-weight: 500;
+  transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out), transform 140ms var(--ease-out);
 }
-@media (hover: hover) and (pointer: fine) { .evdetail__close:hover { color: var(--text); border-color: var(--hairline-strong); } }
-.evdetail__close:active { transform: scale(0.92); }
+.evdetail__back-arrow { font-size: 17px; line-height: 1; margin-top: -1px; transition: transform 160ms var(--ease-out); }
+@media (hover: hover) and (pointer: fine) {
+  .evdetail__back:hover { color: var(--text); border-color: var(--hairline-strong); background: var(--surface-3); }
+  .evdetail__back:hover .evdetail__back-arrow { transform: translateX(-3px); }
+}
+.evdetail__back:active { transform: scale(0.97); }
 .evdetail__headline { font-size: 22px; font-weight: 600; line-height: 1.3; letter-spacing: -0.2px; color: var(--text); margin: 14px 0 0; }
 .evdetail__source { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; margin-top: 9px; font-size: 12px; color: var(--text-muted); }
 .evdetail__sep { color: var(--text-faint); }
@@ -1384,7 +1391,7 @@ a { color: inherit; }
 /* keyboard focus — the rail is now the main way to move through events, so it must be visibly traversable.
    box-shadow ring (token-scoped to cyan) matches the .intake__input:focus idiom; inset on the full-width row. */
 .evrow__hit:focus-visible { outline: none; box-shadow: inset 0 0 0 2px var(--accent); }
-.evrail__segbtn:focus-visible, .evdetail__close:focus-visible, .evscope__chip:focus-visible, .evrow__shelve:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--accent); }
+.evrail__segbtn:focus-visible, .evdetail__back:focus-visible, .evscope__chip:focus-visible, .evrow__shelve:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--accent); }
 
 @keyframes evpulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
 @keyframes evrowin { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
@@ -1392,7 +1399,7 @@ a { color: inherit; }
 
 @media (prefers-reduced-motion: reduce) {
   .evrow, .evdetail { animation: none; }
-  .evrow__hit:active, .evrail__segbtn:active, .evdetail__close:active, .evrow__shelve:active, .evscope__chip:active { transform: none; }
+  .evrow__hit:active, .evrail__segbtn:active, .evdetail__back:active, .evrow__shelve:active, .evscope__chip:active { transform: none; }
   .evrail__dot--live, .evrail__segpulse { animation: none; }
   .evrow__glow { animation: none; opacity: 0; }
   .evdetail__shimmer::after { animation: none; }

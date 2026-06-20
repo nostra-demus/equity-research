@@ -247,6 +247,20 @@ export function EventDetail({ it }: { it: FeedItem }) {
   const wrapRef = useRef<HTMLDivElement>(null)
   const whyRef = useRef<HTMLDivElement>(null)
   useEffect(() => { wrapRef.current?.scrollTo({ top: 0 }) }, [it.event_id])
+  // Esc backs out to the events list — the keyboard twin of the back button. But a panel layered ON TOP of
+  // the reader (Sources / Calls / Activity / Output / pipeline / news-feed) also closes on its own Escape;
+  // don't STEAL that — only back out when nothing is open over the reader. Read the store non-reactively so
+  // the listener isn't re-bound on every panel toggle.
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return
+      const s = useStore.getState()
+      if (s.activityOpen || s.callsOpen || s.sourcesOpen || s.pipelineOpen || s.newsFeedOpen || s.openOutput) return
+      close(null)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [close])
   const jumpToWhy = () => whyRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
   const openRelated = (r: RelatedEvent) => {
     const full = newsItems.find((n) => n.event_id === r.event_id)
@@ -288,6 +302,11 @@ export function EventDetail({ it }: { it: FeedItem }) {
   return (
     <div className="evdetail-wrap" ref={wrapRef}>
       <article className="evdetail" key={`${it.event_id}-${it.ts}`}>
+        <button type="button" className="evdetail__back" onClick={() => close(null)} title="Back to events (Esc)">
+          <span className="evdetail__back-arrow" aria-hidden>‹</span>
+          Back to events
+        </button>
+
         <div className="evdetail__top">
           <button type="button" className="evdetail__score evdetail__score--btn mono" style={{ color: tone, borderColor: tone }} onClick={jumpToWhy} title="Quick score out of 100 — a first read by the free scanner. Click to see why.">
             {it.triage_score}
@@ -299,7 +318,6 @@ export function EventDetail({ it }: { it: FeedItem }) {
           )}
           {tier && <span className="evdetail__tier" title={tier.meaning}>{tier.label}</span>}
           <span className="evdetail__when">{fmtTime(it.ts)}</span>
-          <button type="button" className="evdetail__close" onClick={() => close(null)} aria-label="Back to events" title="Back to events">✕</button>
         </div>
 
         <h1 className="evdetail__headline">{it.headline}</h1>
