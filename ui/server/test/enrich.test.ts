@@ -9,7 +9,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { bestFallbackSummary, enrichEvent, extractReadable, isEnrichmentComplete, type EventEnrichment } from '../src/news/enrich'
+import { bestFallbackSummary, corroboratesSameEvent, enrichEvent, extractReadable, isEnrichmentComplete, type EventEnrichment } from '../src/news/enrich'
 import { resetGdeltBackoff } from '../src/news/sources/gdelt'
 import type { ArticleReadProvider } from '../src/news/triage/article-read'
 import type { ArticleBrief } from '../src/news/triage/groq'
@@ -226,6 +226,25 @@ await check('bestFallbackSummary: real article prose beats a vague og:descriptio
     '<p>Vantage Drilling shareholders approved a $257.6 million cash takeover by Eldorado Drilling, with the deal set to close in the third quarter of 2026.</p></body></html>'
   const out = bestFallbackSummary(html, '', { headline: 'Vantage votes on merger' }, false)
   assert.ok(out.includes('$257.6 million'), `surfaces the real article lede, got: ${out}`)
+})
+
+// ---- corroboration same-event gate (pure): the §3 guard against false cross-outlet confidence ----
+await check('corroboratesSameEvent: rejects a DIFFERENT event about the same company, accepts the genuine one', () => {
+  const tilray = [{ name: 'Tilray', ticker: 'TLRY', listing_country: 'US' }] as any
+  const lawsuit = 'Tilray sued by shareholders over disclosure fraud'
+  assert.equal(corroboratesSameEvent(lawsuit, tilray, 'Tilray Q3 sales reach $206.7M but stays unprofitable'), false) // same company, DIFFERENT event
+  assert.equal(corroboratesSameEvent(lawsuit, tilray, 'Tilray faces a shareholder lawsuit over disclosure failures'), true) // same event
+})
+await check('corroboratesSameEvent: a short company name matches WHOLE-WORD only (no "itc" inside "switch")', () => {
+  const itc = [{ name: 'ITC', ticker: null, listing_country: 'IN' }] as any
+  const div = 'ITC raises its dividend payout'
+  assert.equal(corroboratesSameEvent(div, itc, 'Companies switch dividend strategy amid payout pressure'), false) // "itc" only inside "switch" → not the company
+  assert.equal(corroboratesSameEvent(div, itc, 'ITC hikes its dividend in a surprise payout move'), true) // "ITC" as a real word
+})
+await check('corroboratesSameEvent: a macro (no-company) story needs ≥2 distinctive tokens, not one', () => {
+  const macro = 'Federal Reserve holds interest rates steady, signals patience'
+  assert.equal(corroboratesSameEvent(macro, [], 'European Central Bank cuts rates as inflation cools'), false) // a different central bank
+  assert.equal(corroboratesSameEvent(macro, [], 'Federal Reserve keeps interest rates unchanged in June'), true) // same event
 })
 
 // ---- corroboration: a blocked publisher is pieced together from the secondary wire ----

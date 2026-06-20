@@ -635,7 +635,7 @@ function distinctiveTokens(headline: string, n: number): string[] {
  *  earned (§3). So gate every returned title: it must share THIS event's distinctive words, anchored to the
  *  named company when there is one. Strict on purpose — a missed corroboration just falls back to the honest
  *  floor, while a false one is a fabricated source. */
-function corroboratesSameEvent(headline: string, companies: CompanyGuess[], title: string): boolean {
+export function corroboratesSameEvent(headline: string, companies: CompanyGuess[], title: string): boolean {
   const tl = String(title || '').toLowerCase()
   if (tl.length < 16) return false
   const titleWords = tl.replace(/[^a-z0-9 ]+/g, ' ').split(/\s+/).filter(Boolean)
@@ -653,7 +653,12 @@ function corroboratesSameEvent(headline: string, companies: CompanyGuess[], titl
     // a corroborating outlet must name the same company AND share a (non-company) event word
     const companyHit = names.some((nm) => {
       const key = nm.toLowerCase().replace(/[^a-z0-9 ]+/g, ' ').replace(/\s+/g, ' ').trim()
-      return (!!key && tl.includes(key)) || [...companyWords].some(wordMatches)
+      if (!key) return false
+      // long / multi-word names: a substring hit is safe. A SHORT single-word name (e.g. "ITC", "TCS") must
+      // hit as a WHOLE WORD so a 3-letter name can't coincidentally match inside an unrelated word
+      // ("itc" ⊂ "switch", "bp" ⊂ "bpcl"). companyWords (≥4 chars) already match at word level via wordMatches.
+      const nameHit = key.length >= 5 || key.includes(' ') ? tl.includes(key) : titleWords.includes(key)
+      return nameHit || [...companyWords].some(wordMatches)
     })
     return companyHit && tokenHits >= 1
   }
