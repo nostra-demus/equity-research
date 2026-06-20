@@ -208,7 +208,9 @@ await check('e2e: a multi-word EDGAR form (SC 13D) gets the FULL code + meaning,
 // ---- readability extraction: the no-LLM guarantee that a fetched page yields real prose ----
 
 await check('extractReadable: keeps the article paragraphs, drops nav/footer/cookie chrome', () => {
-  const html = '<html><body><nav><p>Home About Contact</p></nav><article>' +
+  const html = '<html><body><nav><p>Home About Contact</p></nav>' +
+    '<script type="text/javascript">var leak = "EVIL_SCRIPT_TEXT should never reach the reader.";</script >' + // whitespace end tag
+    '<article>' +
     '<p>Vantage Drilling shareholders approved the $257.6 million all-cash takeover by Eldorado Drilling at a special meeting in Bermuda.</p>' +
     '<p>The transaction is expected to close in the third quarter of 2026, subject to customary conditions.</p>' +
     '<p>We use cookies to improve your experience on this site.</p>' +
@@ -216,6 +218,7 @@ await check('extractReadable: keeps the article paragraphs, drops nav/footer/coo
   const out = extractReadable(html)
   assert.ok(out.includes('$257.6 million') && out.includes('third quarter'), `keeps the real article prose, got: ${out}`)
   assert.ok(!/cookies|rights reserved|Home About/i.test(out), `drops nav/cookie/footer boilerplate, got: ${out}`)
+  assert.ok(!/EVIL_SCRIPT_TEXT/.test(out), `strips script even with a whitespace end tag </script >, got: ${out}`)
 })
 
 await check('bestFallbackSummary: real article prose beats a vague og:description dek', () => {
@@ -260,7 +263,7 @@ await check('corroboration: a blocked publisher is synthesised from the secondar
   assert.ok(r.gist && r.gist.length, 'synthesised a gist from the secondary wire')
   assert.ok(r.gist![0].includes('$206.7M'), `the gist carries the corroborated facts, got: ${r.gist}`)
   assert.ok(r.corroborated && r.corroborated.count >= 2, `flagged corroborated with the outlet count, got: ${JSON.stringify(r.corroborated)}`)
-  assert.ok(r.corroborated!.domains.includes('reuters.com'), `names the corroborating outlets, got: ${JSON.stringify(r.corroborated)}`)
+  assert.ok(r.corroborated!.domains.some((d) => d === 'reuters.com'), `names the corroborating outlets, got: ${JSON.stringify(r.corroborated)}`)
 })
 
 await check('corroboration: no LLM budget → still names the corroborating outlets (beats the bare floor)', async () => {
@@ -286,8 +289,8 @@ await check('corroboration: the blocked publisher is excluded from its own corro
   const withSelf = [{ domain: 'www.fool.com', title: 'The blocked publisher reporting its own blocked story here', url: 'https://www.fool.com/self' }, ...SECONDARIES]
   const r = await enrichEvent({ event_id: EVENT_ID }, { repoRoot, stateDir, force: true, articleProviders: [], fetchFn: makeCorroborFetch(withSelf, null), corroborate: CORROBORATE })
   assert.ok(r.corroborated, 'corroborated from the OTHER outlets')
-  assert.ok(!r.corroborated!.domains.includes('fool.com'), `the blocked publisher is never counted as its own corroboration, got: ${JSON.stringify(r.corroborated!.domains)}`)
-  assert.ok(r.corroborated!.domains.includes('reuters.com'), 'genuine other outlets are kept')
+  assert.ok(!r.corroborated!.domains.some((d) => d === 'fool.com'), `the blocked publisher is never counted as its own corroboration, got: ${JSON.stringify(r.corroborated!.domains)}`)
+  assert.ok(r.corroborated!.domains.some((d) => d === 'reuters.com'), 'genuine other outlets are kept')
 })
 
 // omitting the corroborate dep must leave the exact legacy floor behaviour — NOT the production default
