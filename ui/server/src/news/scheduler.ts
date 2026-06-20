@@ -301,7 +301,7 @@ export function startNewsIngester(): void {
     nextCycleAt = new Date(Date.now() + NEWS.pollIntervalMin * 60_000).toISOString().replace(/\.\d{3}Z$/, 'Z')
     try {
       const summary = await runAbortableCycle(
-        (signal) => runIngestCycle({ log, fetchFn: withCycleSignal(fetch, signal) }),
+        (signal) => runIngestCycle({ log, signal, fetchFn: withCycleSignal(fetch, signal) }),
         CYCLE_TIMEOUT_MS,
         () => log(`cycle exceeded ${Math.round(CYCLE_TIMEOUT_MS / 1000)}s guard — aborting in-flight work`),
       )
@@ -327,7 +327,7 @@ export function startNewsIngester(): void {
     running = true
     try {
       const summary = await runAbortableCycle(
-        (signal) => runIngestCycle({ log, skipFetch: true, fetchFn: withCycleSignal(fetch, signal) }),
+        (signal) => runIngestCycle({ log, signal, skipFetch: true, fetchFn: withCycleSignal(fetch, signal) }),
         CYCLE_TIMEOUT_MS,
         () => log(`drain exceeded ${Math.round(CYCLE_TIMEOUT_MS / 1000)}s guard — aborting in-flight work`),
       )

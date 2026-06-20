@@ -290,6 +290,31 @@ await check('runIngestCycle: fetch → triage → ranked inbox; second run skips
   assert.equal(s2.groq_requests, 0)
 })
 
+// ---- abort: the wall-clock guard stops triage WITHOUT grinding providers or losing items ----
+await check('runIngestCycle: an aborted cycle skips triage (no provider grind) and defers the whole backlog (no loss)', async () => {
+  const root = tmp()
+  const state = tmp()
+  let groqCalls = 0
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('groq')) { groqCalls++; return res({ usage: { total_tokens: 1 }, choices: [{ message: { content: '{"items":[]}' } }] }) }
+    if (u.includes('reuters.com')) return res({ articles: [
+      { url: 'https://reuters.com/x', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' },
+      { url: 'https://cnbc.com/y', title: 'Federal Reserve holds rates steady amid inflation concerns', domain: 'cnbc.com', seendate: '20260612T090100Z' },
+    ] })
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40 } as any
+  const now = () => new Date('2026-06-12T09:30:00Z')
+  // pre-aborted signal = the wall-clock guard already fired before triage
+  const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now, signal: AbortSignal.abort() })
+  assert.equal(groqCalls, 0, 'an aborted cycle makes NO triage provider calls (no grind)')
+  assert.equal(s.picked, 0, 'nothing is triaged or picked under an abort')
+  // every fetched candidate is requeued to the deferred backlog — the abort must lose nothing
+  const deferred = JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8'))
+  assert.equal(deferred.length, 2, `the untriaged candidates are deferred, not dropped, got ${deferred.length}`)
+})
+
 // ---- the company/size guess: every new field coerces to a safe default (model drift ≠ crash) ----
 await check('coerceTriage: companies/size_bucket hard-coerce (bogus ticker → null, bad bucket → unknown)', () => {
   const t = coerceTriage({
