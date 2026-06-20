@@ -138,6 +138,12 @@ export function EventDetail({ it }: { it: FeedItem }) {
   // else a minimal stand-in (the reader re-fetches its detail by event_id either way).
   const wrapRef = useRef<HTMLDivElement>(null)
   useEffect(() => { wrapRef.current?.scrollTo({ top: 0 }) }, [it.event_id])
+  // Esc backs out to the events list — the keyboard twin of the back button (this view fully owns the stage).
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') close(null) }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [close])
   const openRelated = (r: RelatedEvent) => {
     const full = newsItems.find((n) => n.event_id === r.event_id)
     selectEvent(
@@ -178,6 +184,11 @@ export function EventDetail({ it }: { it: FeedItem }) {
   return (
     <div className="evdetail-wrap" ref={wrapRef}>
       <article className="evdetail" key={`${it.event_id}-${it.ts}`}>
+        <button type="button" className="evdetail__back" onClick={() => close(null)} title="Back to events (Esc)">
+          <span className="evdetail__back-arrow" aria-hidden>‹</span>
+          Back to events
+        </button>
+
         <div className="evdetail__top">
           <span className="evdetail__score mono" style={{ color: tone, borderColor: tone }} title="Quick score out of 100 — a first read by the free scanner, not the full check">
             {it.triage_score}
@@ -189,7 +200,6 @@ export function EventDetail({ it }: { it: FeedItem }) {
           )}
           {tier && <span className="evdetail__tier" title={tier.meaning}>{tier.label}</span>}
           <span className="evdetail__when">{fmtTime(it.ts)}</span>
-          <button type="button" className="evdetail__close" onClick={() => close(null)} aria-label="Back to events" title="Back to events">✕</button>
         </div>
 
         <h1 className="evdetail__headline">{it.headline}</h1>
