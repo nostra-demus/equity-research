@@ -12,7 +12,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { groupByDedup, type StoryGroup } from '../../lib/dedup'
-import { plainSize, plainTheme } from '../../lib/plain'
+import { plainRegion, plainSize, plainTheme } from '../../lib/plain'
 import { BROAD_SCOPES, COMPANY_SCOPES, familyOf, isCompanyNameClient, SCOPES, scopeLabel, scopeOf, type ScopeId } from '../../lib/scope'
 import { hhmmLocal } from '../../lib/format'
 import { extractCommodities, extractSectors } from '../../lib/taxonomy'
@@ -24,7 +24,7 @@ import { emptyFilters, FeedFilters, filtersActive, matchesFilters, type FeedFilt
 // the whole scope; specific picks narrow to those. Closes on outside-click / Escape.
 type SubSel = { all: boolean; picks: Set<string> }
 const subActive = (s: SubSel) => s.all || s.picks.size > 0
-function ScopeDropdown({ label, total, options, sel, onChange, open, onOpen }: { label: string; total: number; options: [string, number][]; sel: SubSel; onChange: (s: SubSel) => void; open: boolean; onOpen: (o: boolean) => void }) {
+function ScopeDropdown({ label, total, options, sel, onChange, open, onOpen, display }: { label: string; total: number; options: [string, number][]; sel: SubSel; onChange: (s: SubSel) => void; open: boolean; onOpen: (o: boolean) => void; display?: (name: string) => string }) {
   const ref = useRef<HTMLDivElement>(null)
   useEffect(() => {
     if (!open) return
@@ -60,7 +60,7 @@ function ScopeDropdown({ label, total, options, sel, onChange, open, onOpen }: {
           {options.map(([name, n]) => (
             <button key={name} type="button" className={`evscope__opt${sel.picks.has(name) ? ' evscope__opt--on' : ''}`} onClick={() => togglePick(name)}>
               <span className="evscope__optcheck" aria-hidden>{sel.picks.has(name) ? '✓' : ''}</span>
-              <span className="evscope__optlabel">{name}</span>
+              <span className="evscope__optlabel">{display ? display(name) : name}</span>
               <span className="evscope__optn">{n}</span>
             </button>
           ))}
@@ -192,7 +192,11 @@ export function EventRail() {
   // Sector & Commodity drill into specific sub-values (dynamic multi-select); openDrop = which menu is open
   const [sectorSel, setSectorSel] = useState<SubSel>({ all: false, picks: new Set() })
   const [commSel, setCommSel] = useState<SubSel>({ all: false, picks: new Set() })
-  const [openDrop, setOpenDrop] = useState<'sector' | 'commodity' | null>(null)
+  // Geography is a CROSS-CUTTING dimension (where the event is), independent of the scope chips: a US
+  // company name and a US macro print are both "US". Multi-select region codes (empty = every region).
+  const [geoSel, setGeoSel] = useState<SubSel>({ all: false, picks: new Set() })
+  const geoNarrow = geoSel.picks.size > 0
+  const [openDrop, setOpenDrop] = useState<'sector' | 'commodity' | 'geo' | null>(null)
   const [armScan, setArmScan] = useState(false) // two-click arm for the paid top-up sweep
   const clearBroad = () => { setScopeFilter(new Set()); setSectorSel({ all: false, picks: new Set() }); setCommSel({ all: false, picks: new Set() }) }
   const broadActive = scopeFilter.size > 0 || subActive(sectorSel) || subActive(commSel)
@@ -235,38 +239,53 @@ export function EventRail() {
   // what is actually available under the current refine.
   const refined = useMemo(() => baseGroups.filter((g) => matchesFilters(g.rep, filters)), [baseGroups, filters])
 
-  // per-scope counts over the refined groups — drive the filter chips + the at-a-glance split
+  // the region list for the Geography dropdown — every region present under the current refine, newest-
+  // count first. Computed over `refined` (NOT the geo-narrowed set) so picking one region never hides the
+  // others from the menu. `geoTotal` = items carrying a known region (the "All regions" tally).
+  const geoOptions = useMemo(() => {
+    const c: Record<string, number> = {}
+    for (const g of refined) { const r = g.rep.region; if (r) c[r] = (c[r] || 0) + 1 }
+    return Object.entries(c).sort((a, b) => b[1] - a[1]) as [string, number][]
+  }, [refined])
+  const geoTotal = useMemo(() => geoOptions.reduce((n, [, c]) => n + c, 0), [geoOptions])
+
+  // geography applied FIRST (it composes with the scope chips): picking "US + India" narrows everything
+  // downstream — the scope counts, the Sector/Commodity menus, and the list itself.
+  const geoApplied = useMemo(() => (geoNarrow ? refined.filter((g) => geoSel.picks.has(g.rep.region)) : refined), [refined, geoSel, geoNarrow])
+
+  // per-scope counts over the geo-narrowed groups — drive the filter chips + the at-a-glance split
   const counts = useMemo(() => {
     const c: Record<string, number> = {}
-    for (const g of refined) c[scopeOf(g.rep)] = (c[scopeOf(g.rep)] || 0) + 1
+    for (const g of geoApplied) c[scopeOf(g.rep)] = (c[scopeOf(g.rep)] || 0) + 1
     return c
-  }, [refined])
+  }, [geoApplied])
   const companyTotal = COMPANY_SCOPES.reduce((n, s) => n + (counts[s] || 0), 0)
   const broadTotal = BROAD_SCOPES.reduce((n, s) => n + (counts[s] || 0), 0)
 
   // dynamic sub-value lists for the Sector / Commodity dropdowns — only what's actually on the wire, with counts
   const sectorOptions = useMemo(() => {
     const c: Record<string, number> = {}
-    for (const g of refined) if (scopeOf(g.rep) === 'sector') for (const x of extractSectors(g.rep.headline)) c[x] = (c[x] || 0) + 1
+    for (const g of geoApplied) if (scopeOf(g.rep) === 'sector') for (const x of extractSectors(g.rep.headline)) c[x] = (c[x] || 0) + 1
     return Object.entries(c).sort((a, b) => b[1] - a[1]) as [string, number][]
-  }, [refined])
+  }, [geoApplied])
   const commodityOptions = useMemo(() => {
     const c: Record<string, number> = {}
-    for (const g of refined) if (scopeOf(g.rep) === 'commodity') for (const x of extractCommodities(g.rep.headline)) c[x] = (c[x] || 0) + 1
+    for (const g of geoApplied) if (scopeOf(g.rep) === 'commodity') for (const x of extractCommodities(g.rep.headline)) c[x] = (c[x] || 0) + 1
     return Object.entries(c).sort((a, b) => b[1] - a[1]) as [string, number][]
-  }, [refined])
+  }, [geoApplied])
 
-  // the broad filter: a UNION of the picked scope chips + the Sector/Commodity sub-selections
+  // the broad filter: a UNION of the picked scope chips + the Sector/Commodity sub-selections, applied on
+  // top of the geo-narrowed set
   const visibleGroups = useMemo(() => {
-    if (!broadActive) return refined
-    return refined.filter((g) => {
+    if (!broadActive) return geoApplied
+    return geoApplied.filter((g) => {
       const sc = scopeOf(g.rep)
       if (scopeFilter.has(sc)) return true
       if (sc === 'sector' && (sectorSel.all || extractSectors(g.rep.headline).some((x) => sectorSel.picks.has(x)))) return true
       if (sc === 'commodity' && (commSel.all || extractCommodities(g.rep.headline).some((x) => commSel.picks.has(x)))) return true
       return false
     })
-  }, [refined, scopeFilter, sectorSel, commSel, broadActive])
+  }, [geoApplied, scopeFilter, sectorSel, commSel, broadActive])
   const isFresh = (g: StoryGroup) => g.members.some((m) => freshEvents.has(m.event_id))
 
   const shelvedInBand = useMemo(() => groups.reduce((n, g) => n + (shelvedEvents.has(g.rep.event_id) ? 1 : 0), 0), [groups, shelvedEvents])
@@ -361,7 +380,7 @@ export function EventRail() {
         <div className="evscope" role="group" aria-label="Filter by what the event is about — tap to add or remove">
           <button type="button" className={`evscope__chip evscope__chip--all${!broadActive ? ' evscope__chip--on' : ''}`} onClick={clearBroad} aria-pressed={!broadActive} title="Show every category">
             {!broadActive && <span className="evscope__tick" aria-hidden>✓</span>}
-            All<span className="evscope__n">{refined.length}</span>
+            All<span className="evscope__n">{geoApplied.length}</span>
           </button>
           {(companyTotal > 0 || COMPANY_SCOPES.some((s) => scopeFilter.has(s))) && (
             <span className="evscope__group" title="A specific listed company is in play — a potential single-stock idea">
@@ -384,6 +403,15 @@ export function EventRail() {
         </div>
         {scopeFilter.size === 1 && <div className="evscope__meaning">{SCOPES[[...scopeFilter][0]].meaning}</div>}
         {scopeFilter.size > 1 && <div className="evscope__meaning">Showing {scopeFilter.size} categories together — tap All to reset.</div>}
+
+        {/* GEOGRAPHY — where the event is. A cross-cutting dimension (a US company AND a US macro print
+            are both "US"), so it sits on its own row and composes with the category chips above. */}
+        {(geoOptions.length > 0 || geoNarrow) && (
+          <div className="evscope evscope--geo" role="group" aria-label="Filter by geography — the market the event is about">
+            <span className="evscope__dim" aria-hidden>Where</span>
+            <ScopeDropdown label="Geography" total={geoTotal} options={geoOptions} sel={geoSel} onChange={setGeoSel} open={openDrop === 'geo'} onOpen={(o) => setOpenDrop(o ? 'geo' : null)} display={plainRegion} />
+          </div>
+        )}
 
         {/* secondary filters — collapsible (remembers your choice); badge shows the active count when hidden */}
         <div className="evrefine">
@@ -415,7 +443,7 @@ export function EventRail() {
         ))}
         {!visibleGroups.length && (
           <div className="evrail__empty">
-            {broadActive || filtersActive(filters)
+            {broadActive || geoNarrow || filtersActive(filters)
               ? 'Nothing matches these filters right now — tap All or clear the filters to see the rest.'
               : items.length
                 ? view === 'ranked'

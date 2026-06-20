@@ -64,7 +64,7 @@ export function FeedFilters({
   value: FeedFilterState
   onChange: (f: FeedFilterState) => void
   sources: string[] // distinct source names present in the data
-  compact?: boolean // the Inbox-lane variant: themes + text + region + size (no band/source/linkage)
+  compact?: boolean // the rail variant: themes + text + size (no band/source/linkage; region lives in the rail's own Geography dropdown)
 }) {
   const set = (patch: Partial<FeedFilterState>) => onChange({ ...value, ...patch })
   const toggleTheme = (t: string) => {
@@ -94,14 +94,16 @@ export function FeedFilters({
             ))}
           </select>
         )}
-        <select className="ffilters__sel" value={value.region} onChange={(e) => set({ region: e.target.value })} title="Region">
-          <option value="">all regions</option>
-          {REGIONS.map((r) => (
-            <option key={r} value={r}>
-              {plainRegion(r)}
-            </option>
-          ))}
-        </select>
+        {!compact && (
+          <select className="ffilters__sel" value={value.region} onChange={(e) => set({ region: e.target.value })} title="Region">
+            <option value="">all regions</option>
+            {REGIONS.map((r) => (
+              <option key={r} value={r}>
+                {plainRegion(r)}
+              </option>
+            ))}
+          </select>
+        )}
         {!compact && (
           <select className="ffilters__sel" value={value.source} onChange={(e) => set({ source: e.target.value })} title="Source">
             <option value="">all sources</option>
