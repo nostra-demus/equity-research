@@ -24,6 +24,20 @@ const tsv = (it: FeedItem): string => it.ts || ''
 /** Multi-source corroboration nudges a story up the Ranked list: +3 per extra source, capped at +10. */
 export const corroborationBonus = (distinctSources: number): number => Math.min(10, 3 * Math.max(0, distinctSources - 1))
 
+/**
+ * The distinct regions a story touches. A dedup group can SPAN regions: `region` is stamped per source
+ * (Reuters → GLOBAL, WSJ → US, The Economic Times → IN — see news/sources/approved-domains.ts), and a
+ * story is merged ACROSS sources (this file's header: "Reuters + FT + CNBC"). So the representative row's
+ * region alone under-represents the story — a story an Indian outlet carried can have a GLOBAL wire as its
+ * rep. The Geography filter and its counts use this whole-group set so picking "IN" keeps that story
+ * instead of hiding it (empty/blank regions dropped; rep is itself a member, so it is included).
+ */
+export function groupRegions(g: StoryGroup): string[] {
+  const seen = new Set<string>()
+  for (const m of g.members) { const r = (m.region || '').trim(); if (r) seen.add(r) }
+  return [...seen]
+}
+
 /** Best representative of a story: best §4 source tier → highest quick-score → earliest seen. */
 function pickRep(members: FeedItem[]): FeedItem {
   return members.slice().sort((a, b) => tierRank(b) - tierRank(a) || b.triage_score - a.triage_score || (tsv(a) < tsv(b) ? -1 : 1))[0]

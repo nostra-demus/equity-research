@@ -1450,6 +1450,10 @@ a { color: inherit; }
 .evscope__chip--on .evscope__n { color: var(--accent-bright); }
 .evscope__meaning { font-size: 10.5px; color: var(--text-muted); margin-top: 7px; line-height: 1.45; }
 
+/* Geography — a cross-cutting "where" dimension on its own row, set apart from the "what" category chips */
+.evscope--geo { margin-top: 9px; }
+.evscope__dim { font-size: 9px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text-faint); align-self: center; }
+
 /* Sector / Commodity multi-select dropdowns (dynamic sub-values, live counts) */
 .evscope__dropwrap { position: relative; display: inline-flex; }
 .evscope__chip--drop { gap: 4px; }
