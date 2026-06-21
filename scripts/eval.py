@@ -122,24 +122,35 @@ EXTERNAL_TYPES = {
     "FX / rates", "Liquidity / positioning",
 }
 THESIS_Z_DATE = "2026-06-21"
-ABOVE_STARTER_POSITION = {"Strong Buy", "Buy"}   # decisions that exceed the external-variable cap ceiling
+# Decisions that EXCEED the "maximum Starter Position Only" cap ceiling for an unproven external-variable
+# thesis. Both the conviction longs (Strong Buy, Buy) AND the conviction short (Short Candidate) are
+# capital-at-risk directional ratings: eval.py already treats Short Candidate as a conviction position in
+# HIGH_CONVICTION_DECISIONS (checks O/U/X) and caps it on weak data exactly like a Buy (check Y), so a
+# no-edge macro/commodity/policy SHORT is the same false-confidence defect as a no-edge Buy and must be
+# capped identically (synthesizer.md Rating Cap Rules + CLAUDE.md §14 "downgrade conviction").
+ABOVE_STARTER_POSITION = {"Strong Buy", "Buy", "Short Candidate"}
 
 def eval_z_thesis_type_cap(thesis_type, decision, edge_score):
     """Core of check Z. Returns 'pass' | 'fail' | 'na'. Side-effect-free so the selftest can drive
     every branch fixture-free.
-    (1) Every thesis_type value must be in THESIS_TYPE_ENUM (CLAUDE.md §14, case-exact).
-    (2) If ANY value is external-variable-dominant (EXTERNAL_TYPES) and edge is not proven
+    (1) thesis_type must be a NON-EMPTY list; CLAUDE.md §14 requires every thesis to classify itself
+        as one of the closed-set types (an empty array = no classification = FAIL, not a free pass).
+    (2) Every element must be a string in THESIS_TYPE_ENUM (CLAUDE.md §14, case-exact). A non-string
+        element (dict/number) is an enum violation, NOT a crash — membership is tested string-first so
+        an unhashable element can never raise TypeError and abort the harness.
+    (3) If ANY value is external-variable-dominant (EXTERNAL_TYPES) and edge is not proven
         (edge_score < 50 or absent), the decision must be ≤ 'Starter Position Only'
         (synthesizer.md Rating Cap Rules: 'Macro / commodity / policy-driven thesis with weak
         company-specific edge: maximum Starter Position Only').
     """
     if not isinstance(thesis_type, list):
-        return "na"   # type check belongs to B; skip Z when thesis_type isn't a list
+        return "na"   # type check belongs to B (ARRAYS); skip Z when thesis_type isn't a list
     if not thesis_type:
-        return "na"   # empty array — nothing to validate
-    unknown = [t for t in thesis_type if t not in THESIS_TYPE_ENUM]
+        return "fail"  # empty array — §14 requires a classification; missing one is a defect
+    # string-first guard: a non-string element is unhashable-safe and counts as an enum violation
+    unknown = [t for t in thesis_type if not isinstance(t, str) or t not in THESIS_TYPE_ENUM]
     if unknown:
-        return "fail"  # enum violation
+        return "fail"  # enum violation (wrong casing / unknown value / non-string element)
     has_external = any(t in EXTERNAL_TYPES for t in thesis_type)
     if not has_external:
         return "pass"   # no external-variable-dominant type → no conviction cap applies
@@ -231,10 +242,10 @@ if scope=="selftest":
     # fixtures predate the gate, so Z is always N/A there). Drive every branch here:
     # (a) valid enum + no external type → pass regardless of conviction level;
     # (b) invalid/lowercase value → enum-violation fail;
-    # (c) external type + no proven edge + conviction decision → cap-violation fail;
+    # (c) external type + no proven edge + conviction decision (incl. Short Candidate) → cap-violation fail;
     # (d) external type + no proven edge + at/below Starter Position → pass;
     # (e) external type + proven edge → cap exception, any conviction allowed;
-    # (f) empty / non-list → N/A.
+    # (f) empty list → fail (§14 requires a classification); non-list → N/A; non-string element → fail (no crash).
     Z=eval_z_thesis_type_cap
     zcases=[  # (thesis_type, decision, edge_score, expect: "pass"|"fail"|"na")
         # (a) valid enum, no external-variable type → pass at any conviction level
@@ -255,6 +266,8 @@ if scope=="selftest":
         (["FX / rates"],"Strong Buy",0,"fail"),
         (["Liquidity / positioning"],"Buy",49,"fail"),     # 49 < 50 → not proven
         (["Company-specific","Policy-conditional"],"Buy",None,"fail"),  # mixed: external type present
+        (["Macro-conditional"],"Short Candidate",None,"fail"),    # SHORT on a no-edge macro bet → capped too
+        (["Commodity-conditional"],"Short Candidate",30,"fail"),  # weak-edge commodity short → capped
         # (d) external-variable type + no proven edge + at/below ceiling → pass
         (["Commodity-conditional"],"Starter Position Only",None,"pass"),  # at the ceiling
         (["Commodity-conditional"],"Watchlist",None,"pass"),
@@ -266,10 +279,13 @@ if scope=="selftest":
         (["Commodity-conditional"],"Buy",50,"pass"),       # exactly at threshold
         (["Policy-conditional"],"Strong Buy",75,"pass"),
         (["Macro-conditional","Company-specific"],"Buy",51,"pass"),
-        # (f) empty / non-list → N/A
-        ([],"Buy",None,"na"),
+        (["Commodity-conditional"],"Short Candidate",50,"pass"),  # proven-edge short → cap exception
+        # (f) empty list → fail; non-list → N/A; non-string element → fail (no crash)
+        ([],"Buy",None,"fail"),                            # empty array — no §14 classification
         (None,"Buy",None,"na"),                            # not a list → N/A (B check handles type)
-        ("Company-specific","Buy",None,"na"),              # string instead of list
+        ("Company-specific","Buy",None,"na"),              # string instead of list → N/A (B handles type)
+        ([{"t":"Macro"}],"Buy",None,"fail"),               # non-string (dict) element → enum violation, must NOT raise TypeError
+        ([123],"Watchlist",None,"fail"),                   # non-string (int) element → enum violation
     ]
     for tt_,dec_,es_,exp in zcases:
         got=Z(tt_,dec_,es_); ok=(got==exp)
@@ -719,12 +735,16 @@ for drp in runs:
         tt=d.get("thesis_type"); es=d.get("edge_score")
         zresult=eval_z_thesis_type_cap(tt, dec, es)
         if zresult=="na":
-            add("Z_thesis_type_cap",True,f"thesis_type={tt!r} — empty or non-list → N/A",na=True)
+            add("Z_thesis_type_cap",True,f"thesis_type={tt!r} — not a list → N/A (schema check B validates the type)",na=True)
         elif zresult=="fail":
-            unknown=[t for t in (tt or []) if t not in THESIS_TYPE_ENUM] if isinstance(tt,list) else []
-            has_ext=any(t in EXTERNAL_TYPES for t in (tt or [])) if isinstance(tt,list) else False
+            unknown=[t for t in (tt or []) if not isinstance(t,str) or t not in THESIS_TYPE_ENUM] if isinstance(tt,list) else []
+            has_ext=any(isinstance(t,str) and t in EXTERNAL_TYPES for t in (tt or [])) if isinstance(tt,list) else False
             proven_e=isnum(es) and es>=50
-            if unknown:
+            if isinstance(tt,list) and not tt:
+                add("Z_thesis_type_cap",False,
+                    "thesis_type is empty — CLAUDE.md §14 requires every thesis to classify itself as one "
+                    "of the closed-set types (e.g. 'Insufficient data' when it cannot rate); see DECISION_LEDGER.md §5")
+            elif unknown:
                 add("Z_thesis_type_cap",False,
                     f"thesis_type contains value(s) not in the CLAUDE.md §14 closed enum: {unknown} — "
                     f"use exact canonical strings (case-sensitive); see DECISION_LEDGER.md §5")

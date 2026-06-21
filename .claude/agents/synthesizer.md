@@ -242,15 +242,21 @@ Never publish inconsistent scenario math.
 
 ## Step 5 — Identify Whether This Is Really a Macro Bet
 
-Explicitly decide whether the thesis is:
+Explicitly decide whether the thesis is one (or more) of these. **Write the value into `thesis_type[]`
+using the exact, case-sensitive `CLAUDE.md` §14 string — these labels are validated by eval.py check Z
+and any other casing/wording silently breaks Phase 4 Brier-score calibration:**
 
 - Company-specific
-- Sector/cycle-driven
+- Sector-cycle
 - Macro-conditional
 - Policy-conditional
-- Commodity-price-driven
-- FX/rate-driven
-- Liquidity/positioning-driven
+- Commodity-conditional
+- FX / rates
+- Liquidity / positioning
+- Governance turnaround
+- Balance-sheet survival
+- Pair trade / hedge
+- Insufficient data
 
 If one external variable dominates the thesis, say so clearly.
 
