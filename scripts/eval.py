@@ -97,6 +97,57 @@ def eval_y_data_sufficiency(decision, ds):
         return "pass"
     return "fail" if decision in HIGH_CONVICTION_DECISIONS else "na"  # null score: fail a conviction rating, else N/A
 
+# ── Check Z (§14 thesis_type enum + external-variable conviction cap) ─────────────────────────────
+# CLAUDE.md §14 defines a closed set of thesis-type strings. The decision-record schema requires
+# thesis_type[] be populated from this set; DECISION_LEDGER.md §5 lists the exact canonical casing.
+# Without this gate, the synthesizer has produced inconsistent values (e.g. "sector-cycle" instead
+# of "Sector-cycle"), silently breaking Phase 4 Brier-score calibration by thesis type.
+#
+# The synthesizer's Rating Cap Rules add a second constraint: a thesis with ANY external-variable-
+# dominant type (Macro-conditional, Policy-conditional, Commodity-conditional, FX/rates, Liquidity/
+# positioning) and NO proven edge (edge_score < 50 or absent) must NOT exceed "Starter Position Only".
+# "Strong Buy" and "Buy" sit above that ceiling; committing one on an unproven external-variable bet
+# is a false-confidence defect identical in kind to the data-sufficiency gap check Y closes.
+#
+# Landing date: 2026-06-21 (forward-looking; existing pre-gate runs are N/A so the golden suite stays green).
+THESIS_TYPE_ENUM = {
+    "Company-specific", "Sector-cycle", "Macro-conditional",
+    "Policy-conditional", "Commodity-conditional", "FX / rates",
+    "Liquidity / positioning", "Governance turnaround",
+    "Balance-sheet survival", "Pair trade / hedge", "Insufficient data",
+}
+# External-variable-dominant types per the synthesizer.md Rating Cap Rules
+EXTERNAL_TYPES = {
+    "Macro-conditional", "Policy-conditional", "Commodity-conditional",
+    "FX / rates", "Liquidity / positioning",
+}
+THESIS_Z_DATE = "2026-06-21"
+ABOVE_STARTER_POSITION = {"Strong Buy", "Buy"}   # decisions that exceed the external-variable cap ceiling
+
+def eval_z_thesis_type_cap(thesis_type, decision, edge_score):
+    """Core of check Z. Returns 'pass' | 'fail' | 'na'. Side-effect-free so the selftest can drive
+    every branch fixture-free.
+    (1) Every thesis_type value must be in THESIS_TYPE_ENUM (CLAUDE.md §14, case-exact).
+    (2) If ANY value is external-variable-dominant (EXTERNAL_TYPES) and edge is not proven
+        (edge_score < 50 or absent), the decision must be ≤ 'Starter Position Only'
+        (synthesizer.md Rating Cap Rules: 'Macro / commodity / policy-driven thesis with weak
+        company-specific edge: maximum Starter Position Only').
+    """
+    if not isinstance(thesis_type, list):
+        return "na"   # type check belongs to B; skip Z when thesis_type isn't a list
+    if not thesis_type:
+        return "na"   # empty array — nothing to validate
+    unknown = [t for t in thesis_type if t not in THESIS_TYPE_ENUM]
+    if unknown:
+        return "fail"  # enum violation
+    has_external = any(t in EXTERNAL_TYPES for t in thesis_type)
+    if not has_external:
+        return "pass"   # no external-variable-dominant type → no conviction cap applies
+    proven_edge = isnum(edge_score) and edge_score >= 50
+    if not proven_edge and decision in ABOVE_STARTER_POSITION:
+        return "fail"   # conviction rating on an external-variable bet with no proven edge
+    return "pass"
+
 if scope=="selftest":
     # Fixture-free coverage for check W — the golden suite can't exercise it (every committed run is
     # pre-gate / blank-fielded, so W is always N/A there). Asserts forbidden combos FAIL, correct combos
@@ -176,7 +227,55 @@ if scope=="selftest":
         got=Y(dec_,ds_); ok=(got==exp)
         if not ok: bad+=1
         print(f"  [{'ok' if ok else 'XX'}] Y({dec_!r},{ds_!r}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y cases")
+    # check Z — the golden suite can't reach the enum-violation or cap-violation branches (all committed
+    # fixtures predate the gate, so Z is always N/A there). Drive every branch here:
+    # (a) valid enum + no external type → pass regardless of conviction level;
+    # (b) invalid/lowercase value → enum-violation fail;
+    # (c) external type + no proven edge + conviction decision → cap-violation fail;
+    # (d) external type + no proven edge + at/below Starter Position → pass;
+    # (e) external type + proven edge → cap exception, any conviction allowed;
+    # (f) empty / non-list → N/A.
+    Z=eval_z_thesis_type_cap
+    zcases=[  # (thesis_type, decision, edge_score, expect: "pass"|"fail"|"na")
+        # (a) valid enum, no external-variable type → pass at any conviction level
+        (["Company-specific"],"Strong Buy",None,"pass"),
+        (["Company-specific","Sector-cycle"],"Buy",None,"pass"),
+        (["Balance-sheet survival"],"Short Candidate",None,"pass"),
+        (["Governance turnaround"],"Starter Position Only",None,"pass"),
+        # (b) invalid / wrong-case values → enum violation
+        (["sector-cycle"],"Watchlist",None,"fail"),        # lowercase — TMCV-pattern defect
+        (["company-specific"],"Avoid",None,"fail"),        # lowercase
+        (["Commodity conditional"],"Watchlist",None,"fail"),  # missing hyphen
+        (["Company-specific","macro"],"Watchlist",None,"fail"),  # one bad in a mixed list
+        # (c) external-variable type + no proven edge + conviction above ceiling → cap fail
+        (["Commodity-conditional"],"Buy",None,"fail"),
+        (["Commodity-conditional"],"Strong Buy",None,"fail"),
+        (["Policy-conditional"],"Buy",None,"fail"),
+        (["Macro-conditional"],"Buy",30,"fail"),           # edge_score 30 < 50 → not proven
+        (["FX / rates"],"Strong Buy",0,"fail"),
+        (["Liquidity / positioning"],"Buy",49,"fail"),     # 49 < 50 → not proven
+        (["Company-specific","Policy-conditional"],"Buy",None,"fail"),  # mixed: external type present
+        # (d) external-variable type + no proven edge + at/below ceiling → pass
+        (["Commodity-conditional"],"Starter Position Only",None,"pass"),  # at the ceiling
+        (["Commodity-conditional"],"Watchlist",None,"pass"),
+        (["Policy-conditional"],"Avoid",None,"pass"),
+        (["FX / rates"],"Watchlist",None,"pass"),
+        (["Liquidity / positioning"],"Avoid",0,"pass"),
+        (["Macro-conditional"],"Insufficient Data — Refuse To Rate",None,"pass"),
+        # (e) external-variable type + proven edge → exception, any conviction allowed
+        (["Commodity-conditional"],"Buy",50,"pass"),       # exactly at threshold
+        (["Policy-conditional"],"Strong Buy",75,"pass"),
+        (["Macro-conditional","Company-specific"],"Buy",51,"pass"),
+        # (f) empty / non-list → N/A
+        ([],"Buy",None,"na"),
+        (None,"Buy",None,"na"),                            # not a list → N/A (B check handles type)
+        ("Company-specific","Buy",None,"na"),              # string instead of list
+    ]
+    for tt_,dec_,es_,exp in zcases:
+        got=Z(tt_,dec_,es_); ok=(got==exp)
+        if not ok: bad+=1
+        print(f"  [{'ok' if ok else 'XX'}] Z({tt_!r},{dec_!r},{es_!r}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z cases")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -608,6 +707,42 @@ for drp in runs:
         add("Y_data_sufficiency_cap",False,f"data_sufficiency_score={ds} < {INSUF_THRESHOLD} (§11 insufficient) but decision={dec!r} — must be {INSUF_DECISION!r} (§18)")
     else:
         add("Y_data_sufficiency_cap",False,f"data_sufficiency_score={ds} in [{INSUF_THRESHOLD},{DATASUF_CONVICTION_FLOOR}) (§11 weak) but decision={dec!r} — max rating Watchlist; a conviction rating requires data_sufficiency_score >= {DATASUF_CONVICTION_FLOOR} (§11)")
+    # Z §14 thesis_type enum + external-variable conviction cap (forward-looking; landing THESIS_Z_DATE).
+    #   Two gates: (1) every thesis_type value must come from the CLAUDE.md §14 closed set (case-exact);
+    #   (2) when ANY value is external-variable-dominant (EXTERNAL_TYPES) and no edge is proven
+    #   (edge_score < 50 or absent), the decision must be ≤ 'Starter Position Only' per the synthesizer's
+    #   Rating Cap Rules. Without gate (1) the thesis_type array is unconstrained, silently breaking
+    #   Phase 4 Brier-score calibration by thesis type (TMCV shows the defect: 'sector-cycle' vs
+    #   'Sector-cycle'). Without gate (2) a conviction Buy on an unproven macro/commodity/policy bet
+    #   ships unchecked. Logic + constants live in eval_z_thesis_type_cap / the block above.
+    if isdate(ddte) and ddte>=THESIS_Z_DATE:
+        tt=d.get("thesis_type"); es=d.get("edge_score")
+        zresult=eval_z_thesis_type_cap(tt, dec, es)
+        if zresult=="na":
+            add("Z_thesis_type_cap",True,f"thesis_type={tt!r} — empty or non-list → N/A",na=True)
+        elif zresult=="fail":
+            unknown=[t for t in (tt or []) if t not in THESIS_TYPE_ENUM] if isinstance(tt,list) else []
+            has_ext=any(t in EXTERNAL_TYPES for t in (tt or [])) if isinstance(tt,list) else False
+            proven_e=isnum(es) and es>=50
+            if unknown:
+                add("Z_thesis_type_cap",False,
+                    f"thesis_type contains value(s) not in the CLAUDE.md §14 closed enum: {unknown} — "
+                    f"use exact canonical strings (case-sensitive); see DECISION_LEDGER.md §5")
+            else:
+                add("Z_thesis_type_cap",False,
+                    f"thesis_type={tt} includes external-variable-dominant type(s) but no proven edge "
+                    f"(edge_score={es!r} < 50) and decision={dec!r} exceeds 'Starter Position Only' cap "
+                    f"(synthesizer.md Rating Cap Rules: max Starter Position Only for macro/commodity/"
+                    f"policy thesis without proven edge)")
+        else:
+            has_ext=any(t in EXTERNAL_TYPES for t in (tt or [])) if isinstance(tt,list) else False
+            proven_e=isnum(es) and es>=50
+            add("Z_thesis_type_cap",True,
+                f"thesis_type={tt}; all values in CLAUDE.md §14 enum; "
+                f"has_external={has_ext}; proven_edge={'yes ('+str(es)+')' if proven_e else 'no ('+str(es)+')'}; "
+                f"decision={dec!r} — within §14 constraints")
+    else:
+        add("Z_thesis_type_cap",True,f"run predates thesis-type gate ({ddte}) — N/A",na=True)
     # WARN non-schema files
     # [review fix] suppress only genuine versioned/audit/review artifacts via PRECISE patterns — the old naive
     # `"_v" not in name` / `"review" not in name` substring tests hid real strays (preview.md, *_v*-named scratch).
@@ -661,7 +796,7 @@ FRAMEWORK_CONTRACTS={
  "frameworks/DECISION_LEDGER.md":["Memo delta","memo_delta","thesis_delta_verdict","stage_one_comment","rerun_command","_memo_delta.md","business_type","primary_valuation_method"],
  ".claude/commands/research/review-decisions.md":["memo_delta","stage_one_comment","rerun_command","Pool first","_memo_delta"],
  ".claude/commands/research/eval.md":["scripts/eval.py"],
- "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS"],
+ "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE"],
  ".github/workflows/ci.yml":["eval-contracts","scripts/eval.py"],
 }
 jchecks=[]
