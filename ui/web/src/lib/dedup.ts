@@ -63,11 +63,20 @@ export function groupByDedup(items: FeedItem[]): StoryGroup[] {
     const others = members.filter((m) => !(m.event_id === rep.event_id && m.ts === rep.ts))
     const sources: string[] = []
     const seen = new Set<string>()
+    // Corroboration must reflect INDEPENDENT, on-list outlets. A `social` (Reddit) member is discovery-
+    // only (CLAUDE.md §4/§24): the same low-trust story cross-posted to several subreddits carries a
+    // DISTINCT per-subreddit source_name ("Reddit r/Layoffs", "Reddit r/ValueInvesting", …), which would
+    // otherwise inflate the corroboration count and lift an all-social story as if several real outlets
+    // had confirmed it — bypassing the server's capSocialScore cap (a 69 story would sort at 72 ≥ the
+    // pick threshold). Count only NON-social distinct sources toward the bonus (an all-social group gets
+    // zero), while still LISTING every distinct source under `sources` so the wire shows the chatter.
+    const corroborating = new Set<string>()
     for (const m of [rep, ...members]) {
       const s = (m.source_name || '').trim()
       if (s && !seen.has(s)) { seen.add(s); sources.push(s) }
+      if (s && (m.source_tier || '') !== 'social') corroborating.add(s)
     }
-    out.push({ group: g, rep, members, others, sources, distinctSources: sources.length, effectiveScore: rep.triage_score + corroborationBonus(sources.length) })
+    out.push({ group: g, rep, members, others, sources, distinctSources: sources.length, effectiveScore: rep.triage_score + corroborationBonus(corroborating.size) })
   }
   return out
 }

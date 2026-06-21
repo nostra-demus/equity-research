@@ -85,4 +85,22 @@ check('preTriagePriority orders the Groq queue: material-first, then primary fil
   assert.ok(routineFiling > routineNews, `routine filing ${routineFiling} > routine news ${routineNews}`)
 })
 
+// CLAUDE.md §4 (source hierarchy: filings > … > news > rumour, social is the FLOOR) + §24 (social is
+// discovery/corroboration only, never ahead of trusted sources). A Reddit post packed with hot keywords
+// must NOT jump the scarce triage queue ahead of a routine trusted item. Expected pinned to that rule,
+// not to current code: social must rank strictly below every trusted-tier item.
+check('preTriagePriority: a keyword-loaded social (Reddit) item never out-ranks trusted sources for the budget', () => {
+  // r/Layoffs-style post: matches PRE_KEYWORDS ('layoffs', 'fraud') AND is freshest possible
+  const socialHot = preTriagePriority({ input_nature: 'social_discussion', headline: 'Mass layoffs and fraud rumors at MegaCorp', found_at: fresh }, NOW)
+  const routineNews = preTriagePriority({ input_nature: 'news_headline', headline: 'A quiet day in the markets', found_at: fresh }, NOW)
+  const routineCompany = preTriagePriority({ input_nature: 'company_press_release', headline: 'Widget Inc opens a new office', found_at: fresh }, NOW)
+  const routineFiling = preTriagePriority({ input_nature: 'regulatory_filing', headline: 'Delta Ltd: Newspaper Publication', found_at: fresh }, NOW)
+  // Pre-fix this FAILED: socialHot = tier0*3 + material12 + recency5 = 17, beating routineNews(6+5=11),
+  // routineCompany(9+5=14) and even routineFiling(15+5=20 — only filing survived). Now material is
+  // suppressed for social → socialHot ≤ max recency (5) < every trusted floor.
+  assert.ok(socialHot < routineNews, `social ${socialHot} must rank below routine news ${routineNews}`)
+  assert.ok(socialHot < routineCompany, `social ${socialHot} must rank below routine company ${routineCompany}`)
+  assert.ok(socialHot < routineFiling, `social ${socialHot} must rank below routine filing ${routineFiling}`)
+})
+
 console.log(`\n${passed} checks passed`)

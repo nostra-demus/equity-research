@@ -187,9 +187,17 @@ const PRE_KEYWORDS = [
  * outranks routine news — material-first, then primary sources, then the rest.
  */
 export function preTriagePriority(it: { input_nature?: string | null; headline?: string | null; found_at?: string | null }, now: Date = new Date()): number {
-  const tier = sourceTierRank(deriveSourceTier({ input_nature: it.input_nature })) // 5 (filing) … 2 (news); no event_types pre-triage
+  const tierId = deriveSourceTier({ input_nature: it.input_nature })
+  const tier = sourceTierRank(tierId) // 5 (filing) … 2 (news) … 0 (social); no event_types pre-triage
   const hay = ' ' + String(it.headline || '').toLowerCase() + ' '
-  const material = PRE_KEYWORDS.some((k) => hay.includes(k)) ? 12 : 0 // bigger than the filing↔news tier gap (3×3=9)
+  // §4/§24 DOCTRINE CAP, at the triage QUEUE. A `social` (Reddit) item is discovery/corroboration only
+  // and must never jump AHEAD of a trusted source for the scarce Groq budget. r/Layoffs etc. are full of
+  // PRE_KEYWORDS ('layoffs', 'default', 'fraud', 'resign'…), so without this a low-trust post would score
+  // tier 0 + material 12 = 12+ and out-rank routine news (2×3=6) and even company items (3×3=9) in the
+  // queue, spending paid triage on Reddit before filings/news. Suppress the keyword lift for social: with
+  // tier 0 and no material bonus a social item scores ≤ max recency (5) < the news floor (2×3=6), so every
+  // trusted tier is triaged first and social gets only the budget left over.
+  const material = tierId !== 'social' && PRE_KEYWORDS.some((k) => hay.includes(k)) ? 12 : 0 // bigger than the filing↔news tier gap (3×3=9)
   return tier * 3 + material + recencyBonus(it.found_at, now, getRankWeights().recency)
 }
 
