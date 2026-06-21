@@ -19,6 +19,7 @@ export interface RawArticle {
   via?: 'gdelt' | 'rss' | 'nse' | 'hkex' | 'asx' | 'gov' | 'reddit' // which fetcher found it (provenance for the live feed)
   source_name?: string // adapter-supplied display name (e.g. "Reddit r/Layoffs"); when present, normalize prefers it over the firewall's canonical name (the firewall still gates the domain)
   snippet?: string // the feed's own description/lede (RSS) — fetch-free article text for enrichment
+  caution?: boolean // caution_only social feed (e.g. r/wallstreetbets): crowding/euphoria flag, "weighted lowest" — capped below every other social item (CLAUDE.md §4/§24; reddit_feeds.json / SWARM.md)
 }
 
 // A company the cheap brain THINKS the headline is about — a guess from the title alone, never
@@ -47,6 +48,7 @@ export interface NewsItem {
   dedup_status: 'new' | 'possible_duplicate'
   via?: 'gdelt' | 'rss' | 'nse' | 'hkex' | 'asx' | 'gov' | 'reddit' // which fetcher found it
   snippet?: string // the feed's own lede (cleaned), carried for fetch-free enrichment
+  caution?: boolean // carried from a caution_only social feed (reddit.ts) so rank/cap can weight it lowest
 }
 
 // The cheap brain's verdict on one item.
@@ -139,6 +141,7 @@ export interface FeedItem {
   dedup_status: 'new' | 'possible_duplicate'
   dedup_group?: string // story-cluster id (news/dedup.ts) — earliest member's event_id; one row per story
   inboxed: boolean // band !== 'drop'
+  caution?: boolean // caution_only social item (r/wallstreetbets): weighted lowest, capped to drop on the display re-rank too (feed.ts)
 }
 
 // One ingest cycle's outcome — returned to the caller and logged as a firehose summary line.

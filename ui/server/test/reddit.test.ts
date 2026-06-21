@@ -227,6 +227,51 @@ await check('capSocialScore: a social item is clamped below the pick threshold; 
   assert.equal(capSocialScore(92, 'primary_filing', 70), 92)
 })
 
+// Regression (PR #71 Codex finding): a caution_only feed (r/wallstreetbets) is "caution input only, never
+// a source, weighted lowest" (reddit_feeds.json role + _doc; SWARM.md social-tier note). Before the fix it
+// got the SAME social tier, the SAME pickThreshold-1 score cap, and the SAME watch band as every other
+// subreddit — only a snippet prefix differed — so it could occupy a `watch` inbox slot like an ordinary
+// Reddit lead. Expected values pinned to that manifest contract: a caution item is capped BELOW the watch
+// line (→ drop band, never inbox-eligible since inboxed = band !== 'drop'), strictly lower than a regular
+// social item. The 2-/3-arg call shapes still behave exactly as before (caution defaults false).
+await check('capSocialBand: a caution_only social item is weighted lowest — capped to drop, below regular social', () => {
+  assert.equal(capSocialBand('pick', 'social', true), 'drop', 'caution social can never even be a watch lead')
+  assert.equal(capSocialBand('watch', 'social', true), 'drop', 'a watch-band caution item is pushed to drop')
+  assert.equal(capSocialBand('pick', 'social', false), 'watch', 'control: regular social still caps to watch')
+  assert.equal(capSocialBand('pick', 'social'), 'watch', 'back-compat: 2-arg call unchanged (caution defaults false)')
+  assert.equal(capSocialBand('pick', 'news', true), 'pick', 'caution flag never touches a non-social tier')
+})
+
+await check('capSocialScore: a caution_only social item is clamped below the WATCH line, lower than regular social', () => {
+  assert.equal(capSocialScore(92, 'social', 70, 40, true), 39, 'caution clamped to watchThreshold-1 (→ drop band)')
+  assert.equal(capSocialScore(92, 'social', 70, 40, false), 69, 'control: regular social still clamped to pickThreshold-1')
+  assert.equal(capSocialScore(92, 'social', 70), 69, 'back-compat: 3-arg call unchanged')
+  assert.equal(capSocialScore(30, 'social', 70, 40, true), 30, 'a caution item already below the watch line is untouched')
+  assert.equal(capSocialScore(92, 'news', 70, 40, true), 92, 'caution flag never touches a non-social tier')
+})
+
+// Regression (PR #71 Codex finding): the caution_only flag must be carried STRUCTURALLY (not just in the
+// snippet text) so rank/cap can act on it. Expected: a caution_only feed stamps RawArticle.caution=true;
+// an ordinary feed leaves it unset.
+await check('fetchReddit: a caution_only feed stamps RawArticle.caution=true; an ordinary feed does not', async () => {
+  resetRedditBackoff()
+  const feeds = writeFeeds([
+    { subreddit: 'wallstreetbets', source_name: 'Reddit r/wallstreetbets', caution_only: true },
+    { subreddit: 'Layoffs', source_name: 'Reddit r/Layoffs' },
+  ])
+  const { fn } = mkFetch((url) =>
+    isWww(url)
+      ? { status: 200, body: atom(url.includes('wallstreetbets') ? 'wallstreetbets' : 'Layoffs', [{ title: url.includes('wallstreetbets') ? 'YOLO calls' : 'Acme cuts 500', id: url.includes('wallstreetbets') ? 'w1' : 'a1', published: FRESH }]) }
+      : { status: 404, body: '' },
+  )
+  const out = await fetchReddit({ feedsPath: feeds, lookbackHours: 24, timeoutMs: 5000 }, { fetchFn: fn, sleep: noSleep, now })
+  const wsb = out.find((o) => o.source_name === 'Reddit r/wallstreetbets')
+  const lay = out.find((o) => o.source_name === 'Reddit r/Layoffs')
+  assert.ok(wsb && lay, 'both subreddits produced an item')
+  assert.equal(wsb!.caution, true, 'caution_only feed → RawArticle.caution=true')
+  assert.equal(lay!.caution, undefined, 'ordinary feed leaves caution unset')
+})
+
 // Regression (PR #71 Codex finding): the firewall (normalizeAndFilter) gates on RawArticle.domain, which
 // the adapter forces to reddit.com — so a mirror entry whose link is NOT a recoverable reddit permalink
 // would be smuggled onto the wire under an off-site URL. Expected behaviour pinned to CLAUDE.md §4 (the

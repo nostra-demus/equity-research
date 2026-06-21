@@ -148,8 +148,14 @@ export function rankFamily(f: RankFactors): 'company' | 'broad' | 'unknown' {
  * Applied in runCycle right after scoreToBand; exported so the rule is independently testable. Every
  * other tier passes through unchanged.
  */
-export function capSocialBand(band: Band, sourceTierId: SourceTierId): Band {
-  return sourceTierId === 'social' && band === 'pick' ? 'watch' : band
+export function capSocialBand(band: Band, sourceTierId: SourceTierId, caution = false): Band {
+  if (sourceTierId !== 'social') return band
+  // caution_only feeds (r/wallstreetbets) are a crowding/euphoria flag — "caution input only, never a
+  // source, weighted lowest" (reddit_feeds.json / SWARM.md). A regular social item may still be a `watch`
+  // lead (an r/Layoffs early-warning); a caution item must never even be a watch lead, so it caps to
+  // `drop` — visible chatter in the wire, but never inbox-eligible (inboxed = band !== 'drop').
+  if (caution) return 'drop'
+  return band === 'pick' ? 'watch' : band
 }
 
 /**
@@ -160,9 +166,14 @@ export function capSocialBand(band: Band, sourceTierId: SourceTierId): Band {
  * ordering. Clamp a social item's priority to just below the pick threshold so its ORDER honors the cap
  * too: it can never sort among the picks. The raw Groq read survives in rank_factors.materiality for the
  * audit trail; only the composite priority is clamped. Every other tier passes through unchanged.
+ *
+ * A caution_only social item (r/wallstreetbets) is "weighted lowest": when watchThreshold is supplied,
+ * its score is clamped below the WATCH line (not just the pick line), so it can never out-sort a real
+ * watch lead for a scarce inbox slot and its band lands in `drop`, in lockstep with capSocialBand.
  */
-export function capSocialScore(score: number, sourceTierId: SourceTierId, pickThreshold: number): number {
+export function capSocialScore(score: number, sourceTierId: SourceTierId, pickThreshold: number, watchThreshold?: number, caution = false): number {
   if (sourceTierId !== 'social') return score
+  if (caution && watchThreshold != null) return Math.min(score, Math.max(0, Math.round(watchThreshold) - 1))
   return Math.min(score, Math.max(0, Math.round(pickThreshold) - 1))
 }
 

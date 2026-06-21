@@ -45,10 +45,12 @@ function withActiveWeights(items: FeedItem[]): void {
     // §4/§24 doctrine cap on the DISPLAY path too — same rule the ingest path applies in runCycle.ts: a
     // weight edit that re-ranks a Reddit/`social` item above the pick threshold must never show it as a
     // top pick, and capSocialScore keeps its priority below the picks so the wire ordering honors the cap.
-    const capped = capSocialScore(r.rank_score, r.rank_factors.source_tier_id, NEWS.pickThreshold)
+    // caution_only social (r/wallstreetbets) stays "weighted lowest" on the display re-rank too.
+    const caution = it.caution === true
+    const capped = capSocialScore(r.rank_score, r.rank_factors.source_tier_id, NEWS.pickThreshold, NEWS.watchThreshold, caution)
     it.triage_score = capped
     it.rank_factors = r.rank_factors
-    it.band = capSocialBand(scoreToBand(capped, NEWS.pickThreshold, NEWS.watchThreshold), r.rank_factors.source_tier_id)
+    it.band = capSocialBand(scoreToBand(capped, NEWS.pickThreshold, NEWS.watchThreshold), r.rank_factors.source_tier_id, caution)
   }
 }
 

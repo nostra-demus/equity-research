@@ -334,8 +334,10 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       // §4/§24 doctrine cap: a Reddit/`social` item can never be a top pick NOR out-rank filings for a
       // scarce inbox slot. capSocialScore clamps the composite priority below the pick threshold so the
       // band cap AND the score-ordering both hold; capSocialBand is then belt-and-suspenders on the band.
-      const cappedScore = capSocialScore(ranked.rank_score, ranked.rank_factors.source_tier_id, cfg.pickThreshold)
-      const band = capSocialBand(scoreToBand(cappedScore, cfg.pickThreshold, cfg.watchThreshold), ranked.rank_factors.source_tier_id)
+      // caution_only social (r/wallstreetbets) is "weighted lowest" — clamp below the watch line / to `drop`.
+      const caution = it.caution === true
+      const cappedScore = capSocialScore(ranked.rank_score, ranked.rank_factors.source_tier_id, cfg.pickThreshold, cfg.watchThreshold, caution)
+      const band = capSocialBand(scoreToBand(cappedScore, cfg.pickThreshold, cfg.watchThreshold), ranked.rank_factors.source_tier_id, caution)
       seen.add(it.event_id, score)
       triaged.push({
         ...it,
@@ -416,6 +418,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     dedup_status: t.dedup_status,
     dedup_group: t.dedup_group, // story-cluster id (news/dedup.ts) — the live wire collapses on it
     inboxed: t.band !== 'drop',
+    caution: t.caution, // caution_only social — preserved so the display re-rank (feed.ts) re-applies the lowest cap
   }))
   // emit exactly what was persisted, so the live wire and a later backfill agree
   const written = appendFeedItems(repoRoot, date, feedItems, cfg.feedItemsDailyCap)

@@ -199,6 +199,10 @@ export async function fetchReddit(opts: RedditOptions, deps: RedditDeps = {}): P
           seendate: d && !Number.isNaN(d.getTime()) ? d.toISOString().replace(/\.\d{3}Z$/, 'Z') : now().toISOString().replace(/\.\d{3}Z$/, 'Z'),
           via: 'reddit',
           source_name: sourceName,
+          // caution_only feeds (r/wallstreetbets) are "weighted lowest" (reddit_feeds.json / SWARM.md):
+          // carry the flag structurally, not just in the snippet prefix, so rank/cap can push it below
+          // every other social item instead of treating it as an ordinary Reddit lead.
+          caution: feed.caution_only ? true : undefined,
           snippet: feed.caution_only
             ? `[retail crowding / euphoria — caution input, not a source] ${it.snippet || ''}`.trim()
             : it.snippet || undefined,

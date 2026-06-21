@@ -61,20 +61,25 @@ export function groupByDedup(items: FeedItem[]): StoryGroup[] {
     const members = byGroup.get(g)!.slice().sort((a, b) => (tsv(b) < tsv(a) ? -1 : 1)) // newest-first
     const rep = pickRep(members)
     const others = members.filter((m) => !(m.event_id === rep.event_id && m.ts === rep.ts))
-    const sources: string[] = []
-    const seen = new Set<string>()
     // Corroboration must reflect INDEPENDENT, on-list outlets. A `social` (Reddit) member is discovery-
     // only (CLAUDE.md §4/§24): the same low-trust story cross-posted to several subreddits carries a
-    // DISTINCT per-subreddit source_name ("Reddit r/Layoffs", "Reddit r/ValueInvesting", …), which would
-    // otherwise inflate the corroboration count and lift an all-social story as if several real outlets
-    // had confirmed it — bypassing the server's capSocialScore cap (a 69 story would sort at 72 ≥ the
-    // pick threshold). Count only NON-social distinct sources toward the bonus (an all-social group gets
-    // zero), while still LISTING every distinct source under `sources` so the wire shows the chatter.
+    // DISTINCT per-subreddit source_name ("Reddit r/Layoffs", "Reddit r/ValueInvesting", …). Counting
+    // those toward the bonus OR listing them in `sources` both present cross-posted chatter as if several
+    // real outlets had confirmed the story: `sources` drives the "+N sources" / "Same story also reported
+    // by" corroboration badge (LiveFeed/EventRail/CompanyView all render `sources.slice(1)`), so a social
+    // member left in that list is phantom corroboration even with the bonus already zeroed. EXCLUDE social
+    // members from BOTH the badge list and the bonus: the rep's own name leads `sources` (it is sliced off
+    // the badge), and the social posts stay visible as story members under `others` (the expandable list).
+    const sources: string[] = []
+    const seen = new Set<string>()
     const corroborating = new Set<string>()
-    for (const m of [rep, ...members]) {
+    const repName = (rep.source_name || '').trim()
+    if (repName) { seen.add(repName); sources.push(repName) } // rep label first; sources.slice(1) is the corroboration badge
+    for (const m of members) {
       const s = (m.source_name || '').trim()
-      if (s && !seen.has(s)) { seen.add(s); sources.push(s) }
-      if (s && (m.source_tier || '') !== 'social') corroborating.add(s)
+      if (!s || (m.source_tier || '') === 'social') continue // social chatter is never outlet corroboration
+      if (!seen.has(s)) { seen.add(s); sources.push(s) }
+      corroborating.add(s)
     }
     out.push({ group: g, rep, members, others, sources, distinctSources: sources.length, effectiveScore: rep.triage_score + corroborationBonus(corroborating.size) })
   }

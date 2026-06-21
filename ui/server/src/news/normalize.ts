@@ -88,6 +88,7 @@ export function normalizeAndFilter(raws: RawArticle[], deps: NormalizeDeps): New
       via: a.via || 'gdelt',
       // the feed's own lede, cleaned of markup + capped — fetch-free body for enrichment
       snippet: a.snippet ? cleanText(a.snippet).slice(0, 2500) || undefined : undefined,
+      caution: a.caution || undefined, // carry the caution_only social flag through to rank/cap
     })
   }
   return out
