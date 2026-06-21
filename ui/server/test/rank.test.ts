@@ -103,4 +103,25 @@ check('preTriagePriority: a keyword-loaded social (Reddit) item never out-ranks 
   assert.ok(socialHot < routineFiling, `social ${socialHot} must rank below routine filing ${routineFiling}`)
 })
 
+// CLAUDE.md §4/§24 again, under a TUNED weight set. The freshness points are panel-tunable up to +50
+// (rank-weights PT_MAX). Suppressing only the keyword lift left the recency lift on social, so once an
+// operator raised the freshness weight a FRESH Reddit post could leapfrog an OLDER trusted item in the
+// scarce triage queue. Expected pinned to the rule (social strictly below every trusted tier), not to
+// code: that must hold at ANY recency weight, so the freshness lift is suppressed for social too.
+check('preTriagePriority: a fresh social item never out-ranks a stale trusted item even with recency cranked up', () => {
+  const stale = '2026-06-11T12:00:00Z' // 2 days old → 'more' bucket
+  // freshness weight raised to its max on every recent bucket; the day-plus bucket stays 0
+  const tuned = { ...DEFAULT_RANK_WEIGHTS, recency: { '1': 50, '3': 50, '6': 50, '12': 50, '24': 50, more: 0 } }
+  const socialFresh = preTriagePriority({ input_nature: 'social_discussion', headline: 'MegaCorp layoffs thread', found_at: fresh }, NOW, tuned)
+  const staleNews = preTriagePriority({ input_nature: 'news_headline', headline: 'A quiet day in the markets', found_at: stale }, NOW, tuned)
+  const staleFiling = preTriagePriority({ input_nature: 'regulatory_filing', headline: 'Delta Ltd: Newspaper Publication', found_at: stale }, NOW, tuned)
+  // Pre-fix: socialFresh = tier0*3 + 0 + recency50 = 50, beating staleNews(6+0=6) and staleFiling(15+0=15).
+  // Post-fix: the freshness lift is suppressed for social → socialFresh = 0 < every trusted floor.
+  assert.ok(socialFresh < staleNews, `fresh social ${socialFresh} must rank below stale news ${staleNews}`)
+  assert.ok(socialFresh < staleFiling, `fresh social ${socialFresh} must rank below stale filing ${staleFiling}`)
+  // control: recency still works for TRUSTED tiers — a fresh news item still beats a stale one under tuning
+  const freshNews = preTriagePriority({ input_nature: 'news_headline', headline: 'A quiet day in the markets', found_at: fresh }, NOW, tuned)
+  assert.ok(freshNews > staleNews, `fresh news ${freshNews} should still beat stale news ${staleNews} under recency tuning`)
+})
+
 console.log(`\n${passed} checks passed`)

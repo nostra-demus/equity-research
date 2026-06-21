@@ -197,7 +197,7 @@ const PRE_KEYWORDS = [
  * item (a takeover/default/guidance keyword) outranks a routine filing of any tier, which in turn
  * outranks routine news — material-first, then primary sources, then the rest.
  */
-export function preTriagePriority(it: { input_nature?: string | null; headline?: string | null; found_at?: string | null }, now: Date = new Date()): number {
+export function preTriagePriority(it: { input_nature?: string | null; headline?: string | null; found_at?: string | null }, now: Date = new Date(), weights: RankWeights = getRankWeights()): number {
   const tierId = deriveSourceTier({ input_nature: it.input_nature })
   const tier = sourceTierRank(tierId) // 5 (filing) … 2 (news) … 0 (social); no event_types pre-triage
   const hay = ' ' + String(it.headline || '').toLowerCase() + ' '
@@ -205,11 +205,16 @@ export function preTriagePriority(it: { input_nature?: string | null; headline?:
   // and must never jump AHEAD of a trusted source for the scarce Groq budget. r/Layoffs etc. are full of
   // PRE_KEYWORDS ('layoffs', 'default', 'fraud', 'resign'…), so without this a low-trust post would score
   // tier 0 + material 12 = 12+ and out-rank routine news (2×3=6) and even company items (3×3=9) in the
-  // queue, spending paid triage on Reddit before filings/news. Suppress the keyword lift for social: with
-  // tier 0 and no material bonus a social item scores ≤ max recency (5) < the news floor (2×3=6), so every
-  // trusted tier is triaged first and social gets only the budget left over.
+  // queue, spending paid triage on Reddit before filings/news. Suppress the keyword lift for social.
   const material = tierId !== 'social' && PRE_KEYWORDS.some((k) => hay.includes(k)) ? 12 : 0 // bigger than the filing↔news tier gap (3×3=9)
-  return tier * 3 + material + recencyBonus(it.found_at, now, getRankWeights().recency)
+  // ALSO suppress the freshness lift for social. recency points are panel-tunable up to +50 (rank-weights
+  // PT_MAX), so leaving the recency bonus on a social item would let a fresh Reddit post score 0 + 0 +
+  // recency and leapfrog an OLDER trusted item (e.g. day-old news at 2×3 + 0 = 6) the moment the freshness
+  // weight is raised above the tier gap — re-opening the exact queue-jump this cap closes. With both the
+  // keyword AND freshness lifts removed, a social item's queue priority is a flat tier×3 = 0, strictly
+  // below every non-social tier's floor (unconfirmed 1×3 = 3) no matter how recency is tuned.
+  const fresh = tierId === 'social' ? 0 : recencyBonus(it.found_at, now, weights.recency)
+  return tier * 3 + material + fresh
 }
 
 // re-export the tier rank for any caller that wants the raw §4 number

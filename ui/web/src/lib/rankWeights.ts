@@ -112,3 +112,17 @@ export function scoreUnderWeights(item: FeedItem, w: RankWeights): number {
 }
 
 export const rankWeightsEqual = (a: RankWeights, b: RankWeights): boolean => JSON.stringify(a) === JSON.stringify(b)
+
+// The "Why this score" ledger must reconcile to the SHOWN score (CLAUDE.md §12 — a score is explainable
+// from evidence rows, not vibes). A `social` (Reddit/discovery) item carries its UNcapped rank_factors,
+// but the server holds its displayed triage_score below the pick/watch line (capSocialScore, §4/§24). So
+// for a capped social item the factor build-up (base + adjustments) overshoots the shown score, and the
+// ledger silently fails to add up. This returns the (negative) discovery-tier hold-down to surface as an
+// explicit cut row so the rows sum to the shown score. 0 when no social hold-down applies — the ordinary
+// 0/100 clamp is a different case the panel already labels ("capped at 100" / "held at 0").
+export function discoveryCapDelta(rawBuildup: number, shownScore: number, sourceTierId: string): number {
+  if (sourceTierId !== 'social') return 0
+  if (shownScore >= rawBuildup) return 0           // not held down (cap only ever lowers)
+  if (rawBuildup > 100 || shownScore <= 0) return 0 // the 0/100 clamp, not the discovery cap
+  return shownScore - rawBuildup                    // negative — the points the discovery cap removed
+}
