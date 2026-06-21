@@ -12,8 +12,16 @@
 // (forced to reddit.com here), so an off-list mirror can never smuggle a non-Reddit item onto the wire.
 
 import fs from 'node:fs'
-import type { RawArticle } from '../types'
+import type { RawArticle, Region } from '../types'
 import { parseFeed, CONTACT_UA, RSS_ACCEPT } from './rss'
+
+// Valid Region enum values (mirrors the Region union in ../types). A per-subreddit `region` from
+// reddit_feeds.json is config-controlled but free text, so it is validated here before it is stamped
+// onto a RawArticle (RawArticle.region is typed Region); an absent or unrecognized value falls back
+// to the domain registry's region (GLOBAL for reddit.com) in normalizeAndFilter.
+const REGIONS = new Set<Region>(['US', 'IN', 'JP', 'GB', 'CN', 'KR', 'GLOBAL', 'OTHER'])
+const asRegion = (r: string | undefined): Region | undefined =>
+  typeof r === 'string' && REGIONS.has(r as Region) ? (r as Region) : undefined
 
 export interface RedditOptions {
   feedsPath: string // absolute path to frameworks/screener/reddit_feeds.json
@@ -199,6 +207,11 @@ export async function fetchReddit(opts: RedditOptions, deps: RedditDeps = {}): P
           seendate: d && !Number.isNaN(d.getTime()) ? d.toISOString().replace(/\.\d{3}Z$/, 'Z') : now().toISOString().replace(/\.\d{3}Z$/, 'Z'),
           via: 'reddit',
           source_name: sourceName,
+          // per-subreddit region from reddit_feeds.json (e.g. r/Layoffs = 'US'), validated to the
+          // Region enum. normalizeAndFilter prefers this over reddit.com's domain region (GLOBAL), so
+          // a US-only subreddit is labelled a US lead for the geography filter/counts and the triage
+          // prompt's market context — not silently GLOBAL. Invalid/absent → undefined → GLOBAL fallback.
+          region: asRegion(feed.region),
           // caution_only feeds (r/wallstreetbets) are "weighted lowest" (reddit_feeds.json / SWARM.md):
           // carry the flag structurally, not just in the snippet prefix, so rank/cap can push it below
           // every other social item instead of treating it as an ordinary Reddit lead.

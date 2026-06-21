@@ -12,6 +12,7 @@ import path from 'node:path'
 import { fetchReddit, canonicalRedditUrl, resetRedditBackoff } from '../src/news/sources/reddit'
 import { deriveSourceTier } from '../src/news/scope'
 import { capSocialBand, capSocialScore } from '../src/news/rank'
+import { normalizeAndFilter } from '../src/news/normalize'
 
 let passed = 0
 async function check(name: string, fn: () => void | Promise<void>) {
@@ -57,7 +58,7 @@ function atom(sub: string, entries: { title: string; id: string; published: stri
 }
 
 let tmpSeq = 0
-function writeFeeds(subs: { subreddit: string; source_name?: string; caution_only?: boolean }[]): string {
+function writeFeeds(subs: { subreddit: string; source_name?: string; caution_only?: boolean; region?: string }[]): string {
   const p = path.join(os.tmpdir(), `reddit_feeds_test_${process.pid}_${tmpSeq++}.json`)
   fs.writeFileSync(p, JSON.stringify({ subreddits: subs }))
   return p
@@ -321,6 +322,42 @@ await check('fetchReddit: overall budget stops starting new subreddits once the 
   const touched = (sub: string) => calls.some((u) => pathHas(u, `/r/${sub}/`))
   assert.ok(touched('aaa') && touched('bbb'), 'the first subs within budget were fetched')
   assert.ok(!touched('ccc') && !touched('ddd') && !touched('eee'), 'subs past the spent budget were skipped (cycle not stalled)')
+})
+
+// Regression (PR #71 Codex finding): reddit_feeds.json sets a per-subreddit `region` (r/Layoffs = 'US'),
+// but the adapter dropped it and normalizeAndFilter assigned reddit.com's DOMAIN region (always GLOBAL),
+// so US-only social leads were mislabelled GLOBAL — missed by the geography filter/counts and shown to
+// the triage prompt (groq.ts builds `[source_name · region]`) with the wrong market context. Expected
+// value pinned to reddit_feeds.json's declared region + CLAUDE.md §27 (region/market context travels with
+// the data), NOT to current code behaviour.
+await check('fetchReddit + normalize: per-subreddit region is preserved (US), not flattened to reddit.com GLOBAL', async () => {
+  resetRedditBackoff()
+  const feeds = writeFeeds([
+    { subreddit: 'Layoffs', region: 'US' },
+    { subreddit: 'cybersecurity', region: 'GLOBAL' },
+    { subreddit: 'bogusregion', region: 'Atlantis' }, // invalid enum value → dropped → GLOBAL fallback (validation control)
+  ])
+  const { fn } = mkFetch((url) => {
+    if (isWww(url) && pathHas(url, '/r/Layoffs/')) return { status: 200, body: atom('Layoffs', [{ title: 'Acme cuts 500 US jobs', id: 'l1', published: FRESH }]) }
+    if (isWww(url) && pathHas(url, '/r/cybersecurity/')) return { status: 200, body: atom('cybersecurity', [{ title: 'Globex breach disclosed today', id: 'c1', published: FRESH }]) }
+    if (isWww(url) && pathHas(url, '/r/bogusregion/')) return { status: 200, body: atom('bogusregion', [{ title: 'A post mentioning some company', id: 'b1', published: FRESH }]) }
+    return { status: 404, body: '' }
+  })
+  const raws = await fetchReddit({ feedsPath: feeds, lookbackHours: 24, timeoutMs: 5000, perHostGapMs: 0 }, { fetchFn: fn, sleep: noSleep, now })
+  const rLay = raws.find((a) => a.source_name === 'Reddit r/Layoffs')
+  const rCyber = raws.find((a) => a.source_name === 'Reddit r/cybersecurity')
+  const rBogus = raws.find((a) => a.source_name === 'Reddit r/bogusregion')
+  assert.ok(rLay && rCyber && rBogus, 'all three subreddits produced an item')
+  assert.equal(rLay!.region, 'US', 'adapter stamps the configured US region onto the RawArticle')           // RED on pre-fix: region was undefined
+  assert.equal(rCyber!.region, 'GLOBAL', 'adapter stamps the configured GLOBAL region')
+  assert.equal(rBogus!.region, undefined, 'an invalid config region is dropped, not stamped')               // validation control
+  // end-to-end: normalize must prefer the adapter region over reddit.com's domain region (GLOBAL)
+  const items = normalizeAndFilter(raws, { ledgerEventIds: new Set<string>(), seen: new Set<string>() })
+  const nLay = items.find((i) => i.source_name === 'Reddit r/Layoffs')
+  const nBogus = items.find((i) => i.source_name === 'Reddit r/bogusregion')
+  assert.ok(nLay && nBogus, 'both items survived normalization')
+  assert.equal(nLay!.region, 'US', 'normalize prefers the per-subreddit US region over reddit.com GLOBAL')   // RED on pre-fix: was GLOBAL
+  assert.equal(nBogus!.region, 'GLOBAL', 'an unset adapter region falls back to the domain registry (GLOBAL)')
 })
 
 console.log(`\n${passed} checks passed`)

@@ -18,6 +18,7 @@ export interface RawArticle {
   sourcecountry?: string // FIPS 2-letter from GDELT, when present
   via?: 'gdelt' | 'rss' | 'nse' | 'hkex' | 'asx' | 'gov' | 'reddit' // which fetcher found it (provenance for the live feed)
   source_name?: string // adapter-supplied display name (e.g. "Reddit r/Layoffs"); when present, normalize prefers it over the firewall's canonical name (the firewall still gates the domain)
+  region?: Region // adapter-supplied region (e.g. a per-subreddit region from reddit_feeds.json); when present, normalize prefers it over the domain registry's region — reddit.com is GLOBAL there, but a US-only subreddit is a US lead. Like source_name, this refines the label only; the firewall still gates the domain.
   snippet?: string // the feed's own description/lede (RSS) — fetch-free article text for enrichment
   caution?: boolean // caution_only social feed (e.g. r/wallstreetbets): crowding/euphoria flag, "weighted lowest" — capped below every other social item (CLAUDE.md §4/§24; reddit_feeds.json / SWARM.md)
 }

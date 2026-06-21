@@ -81,7 +81,11 @@ export function normalizeAndFilter(raws: RawArticle[], deps: NormalizeDeps): New
       // an adapter may supply a more specific display name (e.g. "Reddit r/Layoffs"); the firewall
       // (lookupSource above) still gated the domain, so this only refines the label, never the gate.
       source_name: a.source_name || meta.source_name,
-      region: meta.region,
+      // an adapter may supply a more specific region (e.g. a per-subreddit region) than the domain
+      // registry — reddit.com is GLOBAL there, but a US-only subreddit is a US lead. Prefer the
+      // adapter's region when present (it is already validated to the Region enum by the adapter),
+      // parallel to source_name above; the firewall (lookupSource) still gated the domain.
+      region: a.region || meta.region,
       input_nature: meta.input_nature,
       found_at: parseSeendate(a.seendate, now),
       dedup_status: deps.ledgerEventIds.has(event_id) ? 'possible_duplicate' : 'new',
