@@ -17,6 +17,7 @@ import { fetchGovData } from './sources/gov-data'
 import { fetchReddit } from './sources/reddit'
 import { loadLedgerEventIds, normalizeAndFilter } from './normalize'
 import { pickTranslation } from './lang'
+import { resolveEventRegion } from './geo'
 import { SeenCache } from './seen-cache'
 import { Budget, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter } from './triage/budget'
 import { triageBatchGemini } from './triage/gemini'
@@ -355,6 +356,11 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         // English translation of a non-English headline — only kept when the original is a non-Latin
         // script AND the model actually rendered it in English (news/lang.ts); else null → UI shows original
         headline_en: pickTranslation(it.headline, t?.headline_en),
+        // Geography = where the EVENT is, not where it was published: re-derive region from the triage
+        // read (news/geo.ts), keeping the publisher's domain region as source_region. Falls back to the
+        // domain region when the read gives no signal, so an unscored/omitted item never regresses.
+        region: resolveEventRegion(t, it.region),
+        source_region: it.region,
       })
     }
   }
@@ -405,7 +411,10 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     domain: t.domain,
     source_name: t.source_name,
     via: t.via || 'gdelt',
-    region: t.region,
+    region: t.region, // the EVENT's market (news/geo.ts)
+    // the publisher's region, persisted only when it differs from the event region (e.g. an SCMP/CN
+    // domain piece about Bangladesh → region OTHER, source_region CN) — the override's audit trail
+    ...(t.source_region && t.source_region !== t.region ? { source_region: t.source_region } : {}),
     input_nature: t.input_nature,
     triage_score: t.triage_score,
     band: t.band,
