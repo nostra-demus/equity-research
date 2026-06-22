@@ -15,6 +15,7 @@ import { groupByDedup, type StoryGroup } from '../../lib/dedup'
 import { plainSize, plainTheme } from '../../lib/plain'
 import { BROAD_SCOPES, COMPANY_SCOPES, familyOf, isCompanyNameClient, SCOPES, scopeLabel, scopeOf, type ScopeId } from '../../lib/scope'
 import { hhmmLocal } from '../../lib/format'
+import { displayHeadline, isTranslated, translatedLabel } from '../../lib/lang'
 import { extractCommodities, extractSectors } from '../../lib/taxonomy'
 import { useStore } from '../../lib/store'
 import type { FeedItem } from '../../lib/types'
@@ -103,7 +104,7 @@ function EventRow({ group, selected, shelved, fresh, onPick, onShelve }: { group
   return (
     <div className={`evrow${selected ? ' evrow--on' : ''}${kept ? '' : ' evrow--dropped'}${shelved ? ' evrow--shelved' : ''}${fresh ? ' evrow--fresh' : ''}`}>
       {fresh && <span className="evrow__glow" aria-hidden />}
-      <button type="button" className="evrow__hit" onClick={() => onPick(it)} title={it.headline}>
+      <button type="button" className="evrow__hit" onClick={() => onPick(it)} title={isTranslated(it) ? `${translatedLabel(it)} · original: ${it.headline}` : it.headline}>
         <span className="evrow__rail" aria-hidden style={{ background: tone }} />
         <span className="evrow__top">
           <span className="evrow__score mono" style={{ color: tone, borderColor: tone }}>
@@ -113,8 +114,9 @@ function EventRow({ group, selected, shelved, fresh, onPick, onShelve }: { group
           <span className="evrow__src">{it.source_name}</span>
           {it.via === 'rss' && <span className="evrow__tag evrow__tag--rss">RSS</span>}
         </span>
-        <span className="evrow__headline">{it.headline}</span>
+        <span className="evrow__headline">{displayHeadline(it)}</span>
         <span className="evrow__meta">
+          {isTranslated(it) && <span className="evrow__tag evrow__tag--xlate" title={translatedLabel(it)}>EN</span>}
           <ScopeChip it={it} />
           {it.event_types.slice(0, 2).map((t) => (
             <span key={t} className="evrow__tag evrow__tag--theme">
@@ -149,10 +151,10 @@ function EventRow({ group, selected, shelved, fresh, onPick, onShelve }: { group
         <ul className="evrow__duplist">
           {group.others.map((m) => (
             <li key={`${m.event_id}-${m.ts}`}>
-              <button type="button" className="evrow__dup" onClick={() => onPick(m)} title={m.headline}>
+              <button type="button" className="evrow__dup" onClick={() => onPick(m)} title={isTranslated(m) ? `${translatedLabel(m)} · original: ${m.headline}` : m.headline}>
                 <span className="evrow__dup-score mono">{m.triage_score}</span>
                 <span className="evrow__dup-src">{m.source_name}</span>
-                <span className="evrow__dup-hl">{m.headline}</span>
+                <span className="evrow__dup-hl">{displayHeadline(m)}</span>
               </button>
             </li>
           ))}

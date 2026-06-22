@@ -10,7 +10,9 @@ import { buildQueries, fetchGdelt, resetGdeltBackoff } from '../src/news/sources
 import { eventIdFor, loadLedgerEventIds, normalizeAndFilter, parseSeendate } from '../src/news/normalize'
 import { SeenCache } from '../src/news/seen-cache'
 import { Budget, RateLimiter } from '../src/news/triage/budget'
-import { coerceTriage, estimateTokens, scoreToBand, triageBatch } from '../src/news/triage/groq'
+import { coerceArticleBrief, coerceTriage, estimateTokens, scoreToBand, triageBatch } from '../src/news/triage/groq'
+import { isEnglishLang, keepTranslation } from '../src/news/lang'
+import { looksLikeHeadline } from '../src/news/clean'
 import { appendFeedItems, readFeed } from '../src/news/feed'
 import { mergeInbox } from '../src/news/write-inbox'
 import { runIngestCycle } from '../src/news/runCycle'
@@ -309,6 +311,43 @@ await check('coerceTriage: companies/size_bucket hard-coerce (bogus ticker → n
   const empty = coerceTriage({ relevance: 'material', materiality_pre_score: 50 })
   assert.deepEqual(empty.companies, [])
   assert.equal(empty.size_bucket, 'unknown')
+})
+
+// ---- English-only display: headline translation (news/lang.ts) ----
+await check('coerceTriage + coerceArticleBrief carry headline_en/headline_lang through (sanitized)', () => {
+  const t = coerceTriage({ relevance: 'material', materiality_pre_score: 70, headline_en: '  Insider info: cash offer for Citycon  ', headline_lang: 'Finnish' })
+  assert.equal(t.headline_en, 'Insider info: cash offer for Citycon')
+  assert.equal(t.headline_lang, 'Finnish')
+  const en = coerceTriage({ relevance: 'material', materiality_pre_score: 70 }) // absent → undefined (not echoed)
+  assert.equal(en.headline_en, undefined)
+  assert.equal(en.headline_lang, undefined)
+  const b = coerceArticleBrief({ gist: ['x'], headline_en: 'Bank cuts rate', headline_lang: 'Japanese' })
+  assert.equal(b.headline_en, 'Bank cuts rate')
+  assert.equal(b.headline_lang, 'Japanese')
+})
+await check('keepTranslation: keeps a real non-English translation, drops English paraphrases + echoes', () => {
+  // a genuine non-English source → keep the translation + language
+  const ok = keepTranslation('Sisäpiiritieto: G City Ltd käteisostotarjous', 'Insider information: G City Ltd cash offer', 'Finnish')
+  assert.equal(ok.headline_en, 'Insider information: G City Ltd cash offer')
+  assert.equal(ok.headline_lang, 'Finnish')
+  // model says the source is English → never keep (would be a paraphrase that loses the verbatim headline)
+  assert.deepEqual(keepTranslation('Apple beats estimates, raises guidance', 'Apple tops estimates and lifts its outlook', 'English'), {})
+  // no language named → don't risk a paraphrase
+  assert.deepEqual(keepTranslation('Reuters: RBI cuts rates', 'RBI lowers rates', ''), {})
+  // translation echoes the original (just whitespace/case) → not a translation
+  assert.deepEqual(keepTranslation('RBI cuts rates', '  rbi cuts rates ', 'Hindi'), {})
+  // empty candidate → nothing
+  assert.deepEqual(keepTranslation('foo bar baz', '', 'German'), {})
+  assert.equal(isEnglishLang('en-US'), true)
+  assert.equal(isEnglishLang('Finnish'), false)
+  assert.equal(isEnglishLang(''), true)
+})
+await check('looksLikeHeadline accepts non-Latin scripts (so foreign headlines are not dropped before translation)', () => {
+  assert.equal(looksLikeHeadline('日本銀行は政策金利を据え置いた'), true) // Japanese — real headline, kept
+  assert.equal(looksLikeHeadline('Россия сократила добычу нефти'), true) // Russian — kept
+  assert.equal(looksLikeHeadline('Sisäpiiritieto: Citycon'), true) // Finnish (Latin) — kept
+  assert.equal(looksLikeHeadline('— · —'), false) // punctuation-only debris — still dropped
+  assert.equal(looksLikeHeadline('short'), false) // below the length floor — still dropped
 })
 
 // ---- the live wire's persistence: per-item records for kept AND dropped ----

@@ -59,11 +59,12 @@ Be skeptical: most headlines are 0-44. Reserve 70+ for genuinely decision-changi
 
 event_types: choose from ${EVENT_TYPES.join(', ')}.
 issuer_linkage: primary (names one company), secondary (a supplier/customer/peer), sector (an industry), macro (economy-wide).
-why: ONE plain sentence, with a number where the headline gives one. No hype words.
+why: ONE plain sentence IN ENGLISH, with a number where the headline gives one. No hype words.
 companies: up to 3 companies the headline is mainly about, each {"name":"...","ticker":"..."|null,"listing_country":"XX"|null}. These are GUESSES from the headline alone — use null whenever unsure; use [] for macro/sector items that name no company. Never invent a ticker.
 size_bucket: rough size of the MAIN company: "mega" (>$200B market value) | "large" ($10-200B) | "mid" ($2-10B) | "small" (<$2B) | "unknown". Use "unknown" when no company is named or you are unsure.
+headline_en, headline_lang: the reader only reads English. If the headline is NOT in English, set headline_en to a faithful, literal English translation of it (keep company names, tickers and numbers exactly) and headline_lang to the source language in English (e.g. "Finnish", "Japanese", "German"). If the headline IS already in English, set BOTH to null — never paraphrase or rewrite an English headline.
 
-Return ONLY JSON: {"items":[{"i":<index>,"relevance":"material|relevant_non_material|irrelevant","materiality_pre_score":<int>,"event_types":[...],"issuer_linkage":"primary|secondary|sector|macro","why":"...","companies":[{"name":"...","ticker":null,"listing_country":null}],"size_bucket":"unknown"}]}. Include every index exactly once.`
+Return ONLY JSON: {"items":[{"i":<index>,"relevance":"material|relevant_non_material|irrelevant","materiality_pre_score":<int>,"event_types":[...],"issuer_linkage":"primary|secondary|sector|macro","why":"...","companies":[{"name":"...","ticker":null,"listing_country":null}],"size_bucket":"unknown","headline_en":null,"headline_lang":null}]}. Include every index exactly once.`
 
 export interface TriageOptions {
   model: string
@@ -136,6 +137,11 @@ export function coerceTriage(raw: any): Triage {
     })
     .filter((c: CompanyGuess | null): c is CompanyGuess => c !== null)
   const size: SizeBucket = SIZE_BUCKETS.includes(raw?.size_bucket) ? raw.size_bucket : 'unknown'
+  // English translation of a non-English headline (optional). Sanitized here; the DECISION to trust it
+  // (drop English paraphrases / echoes of the original) is news/lang.ts keepTranslation, applied in runCycle
+  // where the original headline is in hand. So we keep a raw candidate now and gate it there.
+  const headline_en = typeof raw?.headline_en === 'string' && raw.headline_en.trim() ? raw.headline_en.trim().slice(0, 500) : undefined
+  const headline_lang = typeof raw?.headline_lang === 'string' && raw.headline_lang.trim() ? raw.headline_lang.trim().slice(0, 32) : undefined
   return {
     relevance: rel,
     materiality_pre_score: score,
@@ -144,6 +150,8 @@ export function coerceTriage(raw: any): Triage {
     why: typeof raw?.why === 'string' ? raw.why.trim().slice(0, 280) : '',
     companies,
     size_bucket: size,
+    ...(headline_en ? { headline_en } : {}),
+    ...(headline_lang ? { headline_lang } : {}),
   }
 }
 
@@ -240,15 +248,19 @@ export interface ArticleBrief {
   beneficiaries: ArticleParty[] // who gains (named firm or an inferred group, flagged)
   exposed: ArticleParty[] // who's at risk
   theme: string // corrected single event-type
+  headline_en?: string // English translation of a non-English headline (null when already English)
+  headline_lang?: string // the source language named, for the "translated from X" label
 }
 
-export const ARTICLE_SYSTEM = `You are a buy-side analyst's reading assistant. You are given the BODY TEXT of one news article (not just its headline). Extract a compact, decision-ready brief.
+export const ARTICLE_SYSTEM = `You are a buy-side analyst's reading assistant. You are given the BODY TEXT of one news article (not just its headline). Extract a compact, decision-ready brief. The reader only reads English: write EVERYTHING you return — every gist bullet, every basis clause — in English, even when the article and headline are in another language.
 
 Return ONLY this JSON:
-{"gist":["...","..."],"companies":[{"name":"...","ticker":null,"listing_country":null,"exchange":null,"role":"subject|acquirer|target|forecaster|mentioned"}],"beneficiaries":[{"name":"...","named_in_article":true,"basis":"..."}],"exposed":[{"name":"...","named_in_article":true,"basis":"..."}],"theme":"<tag>"}
+{"gist":["...","..."],"companies":[{"name":"...","ticker":null,"listing_country":null,"exchange":null,"role":"subject|acquirer|target|forecaster|mentioned"}],"beneficiaries":[{"name":"...","named_in_article":true,"basis":"..."}],"exposed":[{"name":"...","named_in_article":true,"basis":"..."}],"theme":"<tag>","headline_en":null,"headline_lang":null}
 
 GIST — 2 to 4 short bullets carrying the REAL crux a portfolio manager needs: the number, threshold, call, or change that is the point of the story. Lead with the punchline, not the setup (e.g. "sees 50-75bp of rate hikes and 5% FY27 CPI", not the CPI sub-components). Plain English, short sentences. Every number you state must be in the body. No hype words (robust, strong, well-positioned, attractive, best-in-class). If the body is boilerplate, a cookie/ad notice, an "about us" page, or a login wall with no story, return gist [] and set theme to your best guess.
 If a story is contested or two-sided, the gist must state BOTH sides (do not echo a one-sided headline).
+
+HEADLINE_EN / HEADLINE_LANG — if the HEADLINE given to you is NOT in English, set headline_en to a faithful, literal English translation of it (keep company names, tickers and numbers exactly) and headline_lang to the source language in English (e.g. "Finnish", "Japanese"). If the headline is already English, set BOTH to null — never paraphrase an English headline.
 
 COMPANIES — INVESTABLE FIRMS ONLY. A company issues equity or debt. NEVER list: a country, nationality, region, state or city (India, China, Thailand, Haryana); a market index or rate (S&P 500, Nifty, Euribor); a government body, regulator, central bank or agency (Fed, ECB, RBI, SEBI, ESMA, SEC, DOJ, European Commission, OPEC, Ministry of X); a generic placeholder ("major tyre maker", "startups"). Give each firm a role: subject (the firm the story is about) | acquirer/target (M&A) | forecaster (a bank/analyst MAKING a call — NOT a party that gains) | mentioned.
 For each firm also give listing_country (the FULL English name of the country of its primary stock listing, e.g. "Brazil", "United States", "India", "Japan", "South Korea") and exchange (the primary exchange where it trades, with its ticker if you are confident, e.g. "B3: PETR3", "NYSE: PBR", "NSE: RELIANCE", "LSE", "Tokyo (TSE)"; if a well-known dual listing / ADR also applies you may add it, e.g. "B3 (NYSE ADR: PBR)"). These come from your own knowledge of the company, not the article. Use null for listing_country and/or exchange whenever you are not confident — NEVER guess a listing, ticker or exchange you are unsure of.
@@ -285,7 +297,10 @@ export function coerceArticleBrief(raw: any): ArticleBrief {
   const beneficiaries = (Array.isArray(raw?.beneficiaries) ? raw.beneficiaries : []).map(coerceParty).filter(Boolean).slice(0, 6) as ArticleParty[]
   const exposed = (Array.isArray(raw?.exposed) ? raw.exposed : []).map(coerceParty).filter(Boolean).slice(0, 6) as ArticleParty[]
   const theme = typeof raw?.theme === 'string' ? raw.theme.trim().toLowerCase().replace(/[^a-z_]/g, '') : ''
-  return { gist, companies, beneficiaries, exposed, theme }
+  // translated headline (optional) — sanitized here; trusted via news/lang.ts keepTranslation in enrich.ts
+  const headline_en = typeof raw?.headline_en === 'string' && raw.headline_en.trim() ? raw.headline_en.trim().slice(0, 500) : undefined
+  const headline_lang = typeof raw?.headline_lang === 'string' && raw.headline_lang.trim() ? raw.headline_lang.trim().slice(0, 32) : undefined
+  return { gist, companies, beneficiaries, exposed, theme, ...(headline_en ? { headline_en } : {}), ...(headline_lang ? { headline_lang } : {}) }
 }
 
 /**

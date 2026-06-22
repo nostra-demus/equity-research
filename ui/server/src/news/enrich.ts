@@ -24,6 +24,7 @@ import { readFeed } from './feed'
 import { cleanText } from './clean'
 import { storyFloor, isFilingEvent, type StoryFloorInput } from './story-floor'
 import { filterCompanies, isCompanyName } from './entities'
+import { keepTranslation, displayHeadline } from './lang'
 import type { ArticleCompany, ArticleParty } from './triage/groq'
 import { type ArticleReadProvider, readArticleBrief } from './triage/article-read'
 import type { CompanyGuess } from './types'
@@ -82,6 +83,10 @@ export interface EventEnrichment {
   fetched_at: string
   note?: string // why a section is thin (off-list domain, fetch failed, …)
   summary?: string // regex fallback: the real story beyond the headline (used when the Groq read is unavailable)
+  // English-only display: when the source headline is non-English, the translation we trust for this event
+  // (from the firehose triage, or — defence in depth — re-derived by the body read). Original kept verbatim.
+  headline_en?: string
+  headline_lang?: string // the source language named, for the "translated from X" label
   published?: string
   sec?: SecFiling
   prior_coverage: PriorCoverage[]
@@ -343,7 +348,8 @@ export function findRelatedEvents(repoRoot: string, self: { event_id: string; he
       // same-company first, then strongest topical overlap, then most recent
       .sort((a: any, b: any) => Number(b.sameCo) - Number(a.sameCo) || b.overlap - a.overlap || String(b.it.ts).localeCompare(String(a.it.ts)))
       .slice(0, 6)
-      .map(({ it }: any) => ({ event_id: it.event_id, ts: it.ts, headline: it.headline, source_name: it.source_name, triage_score: it.triage_score, scope: it.scope }))
+      // show the English headline on related rows too (the reader only reads English)
+      .map(({ it }: any) => ({ event_id: it.event_id, ts: it.ts, headline: displayHeadline(it), source_name: it.source_name, triage_score: it.triage_score, scope: it.scope }))
   } catch {}
   return items
 }
@@ -401,9 +407,13 @@ function ttlFor(r: EventEnrichment): number {
  *  comes first. The og:description is frequently a vague marketing dek ("there's one theme you can't
  *  ignore"); the RSS lede is frequently the real opening paragraph. Prefer the longest genuine prose of the
  *  two, falling back to the deterministic story floor. (A filing has no readable body → straight to floor.) */
-export function bestFallbackSummary(pageHtml: string, snippet: string, filingInput: StoryFloorInput, bodylessFiling: boolean): string {
+export function bestFallbackSummary(pageHtml: string, snippet: string, filingInput: StoryFloorInput, bodylessFiling: boolean, preferFloorOnly = false): string {
   const floor = storyFloor(filingInput).summary
   if (bodylessFiling) return floor
+  // For a NON-English source, the only English text we can show without an LLM read is the (translated)
+  // headline restated by the floor — the raw page/RSS prose is in the source language, which the reader
+  // can't read. So skip the prose candidates and return the floor (built from the English headline).
+  if (preferFloorOnly) return floor
   const cands = [String(snippet || ''), pageHtml ? extractSummary(pageHtml) || '' : '']
     .map((s) => s.trim())
     .filter((s) => s.length >= 40 && /[a-z][a-z ,;:'"-]{12,}/i.test(s)) // real prose, not a code/stub
@@ -570,6 +580,8 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
   let event_types = input.event_types || []
   let scope = input.scope
   let headline = (input.headline || '').trim()
+  let headlineEn = '' // trusted English translation of a non-English headline (from the firehose triage)
+  let headlineLang = '' // the source language named, for the UI label
   let snippet = '' // the feed's own lede (RSS) — a fetch-free body when the source page blocks us
   // carried so the story floor can tell a regulatory/exchange filing (headline IS the disclosure) from
   // an article (body is the story) — see story-floor.ts. Pulled from the event's OWN stored record.
@@ -584,6 +596,8 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
       event_types = stored.event_types || event_types
       scope = (stored as any).scope || scope
       headline = cleanText(stored.headline) || headline // the stored headline is authoritative + cleaned
+      headlineEn = (stored as any).headline_en || ''
+      headlineLang = (stored as any).headline_lang || ''
       snippet = (stored as any).snippet || ''
       inputNature = (stored as any).input_nature || ''
       sourceTier = (stored as any).source_tier || ''
@@ -591,17 +605,30 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
     }
   } catch {}
   if (!headline) headline = (input.headline || '').trim()
+  const origHeadline = headline // keep the verbatim source headline for the translation-trust gate
+  // The reader only reads English. Everything downstream (the story floor, the body-read context, the
+  // related-event rows) uses the English headline when we have a trusted translation; the original is
+  // retained above only to gate a body-read-derived translation (never paraphrase an English headline).
+  if (headlineEn) headline = headlineEn
+  const foreignStored = !!headlineEn // the firehose triage flagged this headline as non-English
 
   // local, always-available sections first (use the reconciled companies/types)
   const prior_coverage = findPriorCoverage(deps.repoRoot, companies)
   const related = findRelatedEvents(deps.repoRoot, { event_id: input.event_id, headline, companies, event_types, scope }, now)
 
   const result: EventEnrichment = { event_id: input.event_id, ok: true, fetched_at: nowIso, prior_coverage, related }
+  // surface the trusted firehose translation immediately, so every branch (SEC, filing floor, fallback)
+  // carries the English headline for the reader. The body read may refine it below for items the cheap
+  // triage didn't translate (older lines, a triage miss).
+  if (foreignStored) { result.headline_en = headlineEn; if (headlineLang) result.headline_lang = headlineLang }
 
   const host = url ? (() => { try { return new URL(url).hostname.toLowerCase() } catch { return '' } })() : ''
   // classify once: a regulatory/exchange filing's meaning lives in the headline (its body is a PDF/
   // attachment), so we never try to "read" it — we synthesize the story from what we hold (story-floor.ts).
-  const filingInput = { headline, url, snippet, input_nature: inputNature, source_tier: sourceTier, source_name: sourceName, domain: host, companies }
+  // The floor restates the headline (now English) and may append the feed lede. For a non-English source that
+  // lede is in the source language, which the reader can't read — so withhold it from the floor (the article
+  // body read still receives the raw snippet below, so the translated gist is unaffected).
+  const filingInput = { headline, url, snippet: foreignStored ? '' : snippet, input_nature: inputNature, source_tier: sourceTier, source_name: sourceName, domain: host, companies }
   const filing = isFilingEvent(filingInput)
   // …but only a BSE/NSE exchange filing or a PDF/attachment is genuinely body-LESS. A regulator press
   // release (FCA / SEC press / etc.) is a readable article — still read its body. So we skip the read
@@ -666,6 +693,21 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
       // MAX_READ_ATTEMPTS freeze a readable article on the dek under the exact saturation that caused the bug.
       attempted = r.attempted
     }
+    // defence in depth: if the cheap triage didn't translate this headline (older line / triage miss) but the
+    // body read identified a non-English source, trust THAT translation (gated the same way — never an English
+    // paraphrase). This keeps the opened event's headline + story English even when the firehose row wasn't.
+    if (!result.headline_en && brief?.headline_en) {
+      const x = keepTranslation(origHeadline, brief.headline_en, brief.headline_lang)
+      if (x.headline_en) {
+        result.headline_en = x.headline_en
+        if (x.headline_lang) result.headline_lang = x.headline_lang
+        // the floor (built below + in the final guarantee) must restate the ENGLISH headline and not the
+        // original-language lede — so retarget its inputs now that the body read revealed a non-English source.
+        filingInput.headline = x.headline_en
+        filingInput.snippet = ''
+      }
+    }
+    const foreign = foreignStored || !!result.headline_en // a non-English source → don't surface raw source prose
     if (brief && (brief.gist.length || brief.companies.length || brief.beneficiaries.length || brief.exposed.length)) {
       if (brief.gist.length) result.gist = brief.gist
       const co = filterCompanies(brief.companies) // denylist safety-net on top of the prompt rule
@@ -676,13 +718,13 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
       if (exp.length) result.exposed = exp
       if (brief.theme) result.theme = brief.theme
       // read succeeded but produced no gist bullets → back it with the most substantial text we hold, never blank
-      if (!brief.gist.length) result.summary = bestFallbackSummary(pageHtml, snippet, filingInput, bodylessFiling)
+      if (!brief.gist.length) result.summary = bestFallbackSummary(pageHtml, snippet, filingInput, bodylessFiling, foreign)
     } else {
       // NO readable body (a PDF/attachment filing, a JS shell, a paywall, an off-list link) OR the LLM read
       // momentarily missed. Guarantee a meaningful, accurate THE STORY rather than a raw fetch error — and
       // prefer the MOST substantial real text we hold (the RSS lede over the vague og:description dek), then
       // the deterministic floor (never empty, never fabricated). The raw fetch reason is demoted to a hint.
-      result.summary = bestFallbackSummary(pageHtml, snippet, filingInput, bodylessFiling)
+      result.summary = bestFallbackSummary(pageHtml, snippet, filingInput, bodylessFiling, foreign)
       if (fetchNote) result.note = fetchNote
     }
   }

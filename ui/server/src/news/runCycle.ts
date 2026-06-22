@@ -15,6 +15,7 @@ import { fetchNse } from './sources/nse'
 import { fetchExchangeIntl } from './sources/exchange-intl'
 import { fetchGovData } from './sources/gov-data'
 import { loadLedgerEventIds, normalizeAndFilter } from './normalize'
+import { keepTranslation } from './lang'
 import { SeenCache } from './seen-cache'
 import { Budget, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter } from './triage/budget'
 import { triageBatchGemini } from './triage/gemini'
@@ -296,6 +297,9 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       )
       const band = scoreToBand(ranked.rank_score, cfg.pickThreshold, cfg.watchThreshold)
       seen.add(it.event_id, score)
+      // English-only display: keep the model's translation only when it named a non-English source language
+      // and actually differs from the original — never an English-to-English paraphrase (news/lang.ts).
+      const xlate = keepTranslation(it.headline, t?.headline_en, t?.headline_lang)
       triaged.push({
         ...it,
         triage_score: ranked.rank_score,
@@ -306,6 +310,8 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         issuer_linkage: t?.issuer_linkage || 'sector',
         companies: t?.companies || [],
         size_bucket: t?.size_bucket || 'unknown',
+        ...(xlate.headline_en ? { headline_en: xlate.headline_en } : {}),
+        ...(xlate.headline_lang ? { headline_lang: xlate.headline_lang } : {}),
         band,
         rank_factors: ranked.rank_factors,
       })
@@ -353,6 +359,8 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     ts,
     event_id: t.event_id,
     headline: t.headline,
+    ...(t.headline_en ? { headline_en: t.headline_en } : {}),
+    ...(t.headline_lang ? { headline_lang: t.headline_lang } : {}),
     url: t.url,
     domain: t.domain,
     source_name: t.source_name,

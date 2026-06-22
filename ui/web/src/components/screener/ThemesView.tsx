@@ -6,6 +6,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { fmtStampLocal } from '../../lib/format'
+import { displayHeadline, isTranslated, translatedLabel } from '../../lib/lang'
 import { useStore } from '../../lib/store'
 import { heatOf, momentumOf, recentFlow, radiusFor, sparklinePoints, tierColorVar, tierLabel, orderLabel, THEME_WINDOWS, flowInWindow, windowSeries, heatInWindow, windowCoverage, windowLabel, type Theme, type ThemeCompany, type ThemeWindow, type WindowCoverage } from '../../lib/themes'
 import type { FeedItem, IntensityWindow } from '../../lib/types'
@@ -731,9 +732,9 @@ function ThemeDeepDive() {
       <div className="themedd__newshead">The news in this theme</div>
       <div className="themedd__news">
         {detail.members.slice(0, 24).map((m) => (
-          <button key={`${m.event_id}-${m.ts}`} type="button" className="themedd__row" onClick={() => scSelectEvent(m as FeedItem)}>
+          <button key={`${m.event_id}-${m.ts}`} type="button" className="themedd__row" onClick={() => scSelectEvent(m as FeedItem)} title={isTranslated(m) ? `${translatedLabel(m)} · original: ${m.headline}` : undefined}>
             <span className="themedd__rowscore mono" style={{ color: m.triage_score >= 70 ? 'var(--live)' : m.triage_score >= 40 ? 'var(--accent-bright)' : 'var(--text-faint)' }}>{m.triage_score}</span>
-            <span className="themedd__rowhead">{m.headline}</span>
+            <span className="themedd__rowhead">{displayHeadline(m)}</span>
             <span className="themedd__rowsrc mono" title="When this was published (your local time)">{fmtStampLocal(m.ts)}</span>
             <span className="themedd__rowsrc">{m.source_name}</span>
           </button>

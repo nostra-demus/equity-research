@@ -57,6 +57,11 @@ export interface Triage {
   why: string // one plain sentence, ideally with a number (§21)
   companies: CompanyGuess[] // ≤3, guessed from the headline alone (may be empty)
   size_bucket: SizeBucket // rough size of the main company — a guess, 'unknown' when unsure
+  // English-only display: when the headline is NOT in English, the model returns a faithful translation
+  // here plus the source language. Trusted via news/lang.ts keepTranslation (never an English paraphrase),
+  // then carried through as an ADDITIVE field — the original `headline` is always preserved verbatim.
+  headline_en?: string
+  headline_lang?: string // the source language the model named (e.g. "Finnish") — for the honest UI label
 }
 
 export interface TriagedItem extends NewsItem {
@@ -68,6 +73,8 @@ export interface TriagedItem extends NewsItem {
   issuer_linkage: Triage['issuer_linkage']
   companies: CompanyGuess[]
   size_bucket: SizeBucket
+  headline_en?: string // English translation of a non-English headline (news/lang.ts); original kept verbatim
+  headline_lang?: string // source language the model named, for the "translated from X" UI label
   band: Band
   rank_factors?: import('./rank').RankFactors // the composite-priority breakdown (the WHY)
   via?: 'gdelt' | 'rss' | 'nse' | 'hkex' | 'asx' | 'gov'
@@ -79,6 +86,8 @@ export interface TriagedItem extends NewsItem {
 export interface InboxRow {
   inbox_id: string
   headline: string
+  headline_en?: string // English translation of a non-English headline (news/lang.ts); original kept verbatim
+  headline_lang?: string // source language the model named, for the "translated from X" UI label
   url: string
   source_name: string
   input_nature: string
@@ -115,6 +124,8 @@ export interface FeedItem {
   ts: string // ISO 8601 — when triaged
   event_id: string
   headline: string
+  headline_en?: string // English translation of a non-English headline (news/lang.ts); original kept verbatim
+  headline_lang?: string // source language the model named, for the "translated from X" UI label
   url: string
   domain: string
   source_name: string

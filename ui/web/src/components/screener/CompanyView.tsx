@@ -5,6 +5,7 @@
 
 import { useMemo } from 'react'
 import { groupByDedup } from '../../lib/dedup'
+import { displayHeadline, isTranslated, translatedLabel } from '../../lib/lang'
 import { fmtStampLocal } from '../../lib/format'
 import { plainTheme } from '../../lib/plain'
 import { useStore } from '../../lib/store'
@@ -86,10 +87,10 @@ export function CompanyView() {
           const tone = it.triage_score >= 70 ? 'var(--live)' : it.triage_score >= 40 ? 'var(--accent-bright)' : 'var(--text-faint)'
           const others = g.sources.slice(1)
           return (
-            <button key={g.group} type="button" className="coview__row" onClick={() => openEvent(it)} title={it.headline}>
+            <button key={g.group} type="button" className="coview__row" onClick={() => openEvent(it)} title={isTranslated(it) ? `${translatedLabel(it)} · original: ${it.headline}` : it.headline}>
               <span className="coview__score mono" style={{ color: tone, borderColor: tone }}>{it.triage_score}</span>
               <span className="coview__rowmain">
-                <span className="coview__rowhead">{it.headline}</span>
+                <span className="coview__rowhead">{displayHeadline(it)}{isTranslated(it) && <span className="coview__xlate" title={translatedLabel(it)}>EN</span>}</span>
                 <span className="coview__rowmeta">
                   <span className="coview__when mono">{fmtStampLocal(it.ts)}</span>
                   <span className="coview__src">{it.source_name}</span>

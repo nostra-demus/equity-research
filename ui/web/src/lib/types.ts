@@ -63,6 +63,8 @@ export interface SwarmMeta { id: string; label: string; color: string; unit: str
 export interface BoardInboxRow {
   inbox_id: string
   headline: string
+  headline_en?: string // English translation of a non-English headline (server news/lang.ts)
+  headline_lang?: string
   url?: string
   source_name: string
   input_nature?: string
@@ -100,6 +102,8 @@ export interface FeedItem {
   ts: string
   event_id: string
   headline: string
+  headline_en?: string // English translation of a non-English headline (server news/lang.ts); original kept verbatim
+  headline_lang?: string // source language named (e.g. "Finnish") — for the "translated from X" label
   url: string
   domain: string
   source_name: string
@@ -153,6 +157,8 @@ export interface EventEnrichment {
   fetched_at: string
   note?: string
   summary?: string // regex fallback when the article-body read is unavailable
+  headline_en?: string // English translation of a non-English headline (server-trusted); original kept verbatim
+  headline_lang?: string // source language named, for the "translated from X" label
   published?: string
   sec?: SecFiling
   prior_coverage: PriorCoverage[]

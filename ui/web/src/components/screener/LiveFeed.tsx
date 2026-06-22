@@ -7,6 +7,7 @@ import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { groupByDedup, type StoryGroup } from '../../lib/dedup'
 import { plainBand, plainSize, plainTheme } from '../../lib/plain'
+import { displayHeadline, isTranslated, translatedLabel } from '../../lib/lang'
 import { dayDividerLabel, dayKeyLocal, hhmmLocal } from '../../lib/format'
 import { useStore } from '../../lib/store'
 import type { FeedItem } from '../../lib/types'
@@ -82,11 +83,12 @@ function WireRow({ group }: { group: StoryGroup }) {
         {plainBand(it.band)}
       </span>
       <div className="wire__main">
-        <a className="wire__headline" href={it.url} target="_blank" rel="noreferrer" title={it.url}>
-          {it.headline}
+        <a className="wire__headline" href={it.url} target="_blank" rel="noreferrer" title={isTranslated(it) ? `${translatedLabel(it)} · original: ${it.headline}` : it.url}>
+          {displayHeadline(it)}
         </a>
         <div className="wire__meta">
           <span>{it.source_name}</span>
+          {isTranslated(it) && <span className="pcard__chip wire__via" title={translatedLabel(it)}>EN</span>}
           {it.via === 'rss' && <span className="pcard__chip wire__via">RSS</span>}
           {it.region && <span>{it.region}</span>}
           {otherSources.length > 0 && (

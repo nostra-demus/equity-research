@@ -5,6 +5,7 @@
 // corrected theme. Triage metadata sits in the header, not in the way. Then: run / open / shelve.
 
 import { useEffect, useRef } from 'react'
+import { displayHeadline, isTranslated, translatedLabel } from '../../lib/lang'
 import { plainStage, plainTheme } from '../../lib/plain'
 import { familyOf, isCompanyNameClient, roleLabel, SCOPES, scopeOf, sourceTierDef } from '../../lib/scope'
 import { useStore } from '../../lib/store'
@@ -136,6 +137,10 @@ export function EventDetail({ it }: { it: FeedItem }) {
 
   const enr = enrichCache[it.event_id]
   const enrichment = enr && enr !== 'loading' ? enr : undefined
+  // English-only display: prefer the firehose triage translation, else the body read's (defence in depth for
+  // older lines / a triage miss). The original headline stays reachable on hover + labelled below.
+  const xlate = { headline: it.headline, headline_en: it.headline_en || enrichment?.headline_en, headline_lang: it.headline_lang || enrichment?.headline_lang }
+  const translated = isTranslated(xlate)
   const shelved = shelvedEvents.has(it.event_id)
   const tone = it.triage_score >= 70 ? 'var(--live)' : it.triage_score >= 40 ? 'var(--accent-bright)' : 'var(--text-faint)'
   const s = scopeOf(it)
@@ -177,7 +182,14 @@ export function EventDetail({ it }: { it: FeedItem }) {
           <button type="button" className="evdetail__close" onClick={() => close(null)} aria-label="Back to events" title="Back to events">✕</button>
         </div>
 
-        <h1 className="evdetail__headline">{it.headline}</h1>
+        <h1 className="evdetail__headline" title={translated ? it.headline : undefined}>{displayHeadline(xlate)}</h1>
+
+        {translated && (
+          <div className="evdetail__xlate" title={`Original: ${it.headline}`}>
+            <span className="evdetail__xlate-badge">EN</span>
+            <span>{translatedLabel(xlate)} — machine translation; the original headline is shown on hover.</span>
+          </div>
+        )}
 
         <div className="evdetail__source">
           <span>{it.source_name}</span>

@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { api, isStatic } from './api'
 import { downstreamCascade, type CascadeNode } from './cascade'
+import { displayHeadline } from './lang'
 import { plainRoute, plainStage } from './plain'
 import type { Theme, ThemeDetail } from './themes'
 import type { ActiveRunLite, AgentNode, BoardInboxRow, ConvictionDetail, CoverageGroup, DataStatus, EventEnrichment, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
@@ -1118,7 +1119,7 @@ export const useStore = create<State>((set, get) => ({
         fetched_at: new Date().toISOString(),
         prior_coverage: [],
         related: [],
-        summary: it.headline ? `Couldn’t reach the reader just now. From the headline: ${it.headline}` : undefined,
+        summary: it.headline ? `Couldn’t reach the reader just now. From the headline: ${displayHeadline(it)}` : undefined,
         note: 'The article read timed out or the source was unreachable — open the source to read it. Reopening this event retries the read.',
       }
       set({ enrichCache: { ...get().enrichCache, [it.event_id]: fallback } })

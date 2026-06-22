@@ -29,7 +29,9 @@ export function cleanText(raw: unknown): string {
   return s.replace(/\s+/g, ' ').trim()
 }
 
-/** True if the cleaned text still looks like usable prose (a real headline), not empty markup debris. */
+/** True if the cleaned text still looks like usable prose (a real headline), not empty markup debris.
+ *  Accepts ANY Unicode letter/number, not just ASCII — a non-Latin headline (Japanese, Chinese, Arabic,
+ *  Cyrillic, …) is a real headline that the triage/reader will translate to English, not debris to drop. */
 export function looksLikeHeadline(cleaned: string): boolean {
-  return cleaned.length >= 8 && /[a-zA-Z0-9]/.test(cleaned)
+  return cleaned.length >= 8 && /[\p{L}\p{N}]/u.test(cleaned)
 }
