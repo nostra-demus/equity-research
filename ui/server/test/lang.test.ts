@@ -118,7 +118,7 @@ await check('runIngestCycle: a non-English headline is stored translated on the 
   const fetchFn = (async (url: string) => {
     const u = String(url)
     if (u.includes('groq')) return res(groqBody)
-    if (u.includes('reuters.com')) return res({ articles: [
+    if (u.includes('gdelt')) return res({ articles: [
       { url: 'https://reuters.com/lg', title: korean, domain: 'reuters.com', seendate: '20260612T090000Z', language: 'Korean' },
     ] })
     return res({ articles: [] })
@@ -157,7 +157,7 @@ await check('runIngestCycle: an English headline stores headline_en = null (no n
   const fetchFn = (async (url: string) => {
     const u = String(url)
     if (u.includes('groq')) return res(groqBody)
-    if (u.includes('reuters.com')) return res({ articles: [
+    if (u.includes('gdelt')) return res({ articles: [
       { url: 'https://reuters.com/a', title: 'Apple unveils a new chip', domain: 'reuters.com', seendate: '20260612T090000Z' },
     ] })
     return res({ articles: [] })
