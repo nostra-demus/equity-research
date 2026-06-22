@@ -204,7 +204,7 @@ The three `post_review_*` fields are **additive and optional** — the synthesiz
 | `confidence_score` | Yes | Confidence /100. | Part I |
 | `data_sufficiency_score` | Yes | Data sufficiency /100 (`CLAUDE.md` §11). | Part I / gate |
 | `rating_cap` | Conditional | Any rating cap applied, else "". | Rating Cap Rules |
-| `thesis_type` | Yes | Array of thesis types (`CLAUDE.md` §14). | Part I |
+| `thesis_type` | Yes | Array of thesis types (`CLAUDE.md` §14). Values must come from the closed set, case-exact (the eval harness enforces this from 2026-06-21): `"Company-specific"`, `"Sector-cycle"`, `"Macro-conditional"`, `"Policy-conditional"`, `"Commodity-conditional"`, `"FX / rates"`, `"Liquidity / positioning"`, `"Governance turnaround"`, `"Balance-sheet survival"`, `"Pair trade / hedge"`, `"Insufficient data"`. When ANY value is external-variable-dominant (Macro/Policy/Commodity/FX/Liquidity) and `edge_score` < 50, the synthesizer caps the rating at `"Starter Position Only"` or below. | Part I |
 | `variant_perception_summary` | Yes | One-paragraph variant perception. | Part I |
 | `what_everyone_knows` | Recommended | Consensus view. | Part I variant perception |
 | `what_is_priced_in` | Recommended | What the price implies. | Part I variant perception |
