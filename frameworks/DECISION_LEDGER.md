@@ -254,7 +254,7 @@ Each element of `decision_record.forecast_ledger` — the machine-readable form 
 
 Rules:
 - Only include forecasts with enough evidence.
-- `probability` must follow the `CLAUDE.md` §10 probability bands.
+- `probability` must be a **number in [0, 100]** using the §10 percentage-point scale — Remote: 0–10, Very unlikely: 10–25, Unlikely: 25–45, Toss-up: 45–60, Likely: 60–75, Very likely: 75–90, Almost certain: 90–100. A decimal-fraction value (e.g. `0.6` instead of `60`) is a defect: it looks like a correct probability but silently corrupts Phase 4 Brier-score computation, which treats the input as a percentage (60% becomes 0.6%). `null` is allowed when no reliable probability estimate can be made, but the entry cannot contribute to Brier-score calibration. Eval check T2 (landing 2026-06-22) enforces this: non-numeric values, values outside [0, 100], and values in the open interval (0, 1) all FAIL.
 - Every forecast must have a **confirmation** trigger and a **falsification** trigger.
 - Forecasts must be reviewable later (resolved only via review records, §8 — `status` ∈ {open, confirmed, falsified, expired}).
 - If no reliable forecast can be created, say why (and leave `forecast_ledger` as `[]`).
