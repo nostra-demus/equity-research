@@ -1,0 +1,585 @@
+{
+  "meta": {
+    "thesis_id": "THS-SIG-20260620-e420a56a-v1",
+    "signal_id": "SIG-20260620-e420a56a",
+    "created_at": "2026-06-22T00:00:00Z",
+    "locked": true,
+    "version": 1,
+    "version_history": [],
+    "status": "provisional",
+    "status_reason": "Edge score 70 — a real, numerically anchored variant (15–20% Airtel EV compression risk confirmed absent from all retrieved sell-side research) with a legally calendared trigger, held to provisional by an unconfirmed Jio pricing-aggression step and SEBI outcome uncertainty.",
+    "next_action": "Surface candidate companies in the five carry-forward industries for provisional thesis.",
+    "analyst_id": "ceekay@muns.io",
+    "phase1_completed_at": "2026-06-22T00:00:00Z",
+    "next_module": "candidate-surfacing",
+    "raw_input_source": {
+      "input_nature": "news_headline",
+      "input_datetime": "2026-06-20T11:31:54.179Z",
+      "source_name": "Outlook Business",
+      "source_url": "https://www.outlookbusiness.com/markets/jio-files-for-mega-ipo-debt-reduction-ai-ambitions-and-a-new-valuation-story",
+      "source_grade": "B",
+      "human_prompt_note": "",
+      "approved_source_check": true
+    }
+  },
+  "headline": "Jio Files For Mega IPO: Debt Reduction, AI Ambitions And A New Valuation Story",
+  "run_root": "screener/runs/SIG-20260620-e420a56a",
+  "M0_1": {
+    "event_statement": "On 20 June 2026, Jio Platforms Limited filed a Draft Red Herring Prospectus (DRHP) with the Securities and Exchange Board of India (SEBI) for a fresh issue of up to 27 crore equity shares, with a stated issue size of approximately Rs 37,700 crore. The filing contains no offer-for-sale component. Approximately Rs 27,500 crore of the proceeds is designated for repayment or prepayment of existing borrowings. At the time of filing, Reliance Industries Limited held a 66.43% pre-IPO stake in Jio Platforms.",
+    "sentence_count": 4,
+    "primary_source": "Outlook Business",
+    "source_url": "https://www.outlookbusiness.com/markets/jio-files-for-mega-ipo-debt-reduction-ai-ambitions-and-a-new-valuation-story",
+    "supporting_source_urls": [
+      "https://sebi.gov.in/filings/public-issues/jun-2026/jio-platforms-ltd-drhp_102248.html"
+    ],
+    "source_grade": "B",
+    "source_grade_rationale": "Outlook Business is Indian business financial press (approved list, Jun 2026 expansion block); secondary aggregator reporting on the SEBI DRHP filing — not the primary SEBI/exchange filing itself, so Grade B.",
+    "causal_language_check": true,
+    "causal_language_review": "Checked and removed: 'targeting proceeds of' (interpretive framing removed); 'mega IPO' (adjective stripped); 'significantly impact' (from body_text, interpretive — not carried into statement); 'debt reduction, AI ambitions' (motivational framing stripped). Retained: 'designated' (describes the DRHP's own stated use-of-proceeds allocation — not a causal inference). Confirmed absent: because, due to, driven by, as a result, leading to, signals, suggests, implies, panic, crisis, soaring, plunging, aggressively, inevitably, robust, strong.",
+    "60_second_source_check": true,
+    "60_second_check_note": "WebFetch of primary source URL at retrieved_at 2026-06-20T12:00:00Z confirmed: (1) fresh issue of up to 27 crore equity shares — confirmed; (2) stated issue size approximately Rs 37,700 crore — confirmed; (3) approximately Rs 27,500 crore designated for repayment or prepayment — confirmed; (4) no offer-for-sale component — confirmed; (5) RIL 66.43% pre-IPO stake — confirmed. All five facts appear verbatim or in direct equivalent form in the on-list source.",
+    "filled_by": "agent"
+  },
+  "M0_2": {
+    "world_changes": [
+      {
+        "id": "WC-001",
+        "change_description": "Jio Platforms formally entered the SEBI IPO pipeline: DRHP lodged for a fresh issue of 27 crore equity shares at a stated issue size of ~Rs 37,700 crore.",
+        "quantitative_magnitude": "27 crore shares / ~Rs 37,700 crore stated issue size",
+        "baseline_reference": "0 shares in a public offering pipeline (company was wholly private, no SEBI filing existed)",
+        "date_confirmed": "2026-06-19",
+        "source": "[SEBI public-issues register, DRHP filed 19 Jun 2026; Outlook Business, 20 Jun 2026]",
+        "source_url": "https://sebi.gov.in/filings/public-issues/jun-2026/jio-platforms-ltd-drhp_102248.html",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      },
+      {
+        "id": "WC-002",
+        "change_description": "Jio Platforms net debt fell from Rs 45,273 crore (March 2025) to Rs 27,579 crore (March 2026), a reduction of Rs 17,694 crore, confirmed and publicly disclosed in the DRHP.",
+        "quantitative_magnitude": "Rs -17,694 crore (-39.1% YoY)",
+        "baseline_reference": "Rs 45,273 crore net debt as of March 2025",
+        "date_confirmed": "2026-06-19",
+        "source": "[DRHP, Jio Platforms Ltd, filed SEBI 19 Jun 2026, Use of Proceeds / Financial Statements section; Outlook Business 20 Jun 2026]",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      },
+      {
+        "id": "WC-003",
+        "change_description": "RJIL (Reliance Jio Infocomm Ltd, material subsidiary) outstanding borrowings disclosed publicly for the first time: Rs 71,529 crore as of March 2026.",
+        "quantitative_magnitude": "Rs 71,529 crore of outstanding borrowings",
+        "baseline_reference": "Previously undisclosed (Jio Platforms was unlisted; no prior public filing of this figure)",
+        "date_confirmed": "2026-06-19",
+        "source": "[DRHP, Jio Platforms Ltd, filed SEBI 19 Jun 2026]",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      },
+      {
+        "id": "WC-004",
+        "change_description": "Jio Platforms FY26 revenue confirmed at Rs 1,46,885 crore — a Rs 18,667 crore increase over FY25's Rs 1,28,218 crore (+14.6% YoY) — and publicly disclosed in the DRHP.",
+        "quantitative_magnitude": "+Rs 18,667 crore (+14.6% YoY)",
+        "baseline_reference": "Rs 1,28,218 crore revenue in FY25",
+        "date_confirmed": "2026-06-19",
+        "source": "[DRHP, Jio Platforms Ltd, filed SEBI 19 Jun 2026, Financial Statements; Outlook Business, 20 Jun 2026]",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      },
+      {
+        "id": "WC-005",
+        "change_description": "Jio Platforms FY26 EBITDA confirmed at Rs 76,255 crore, up from Rs 64,170 crore in FY25 (+Rs 12,085 crore, +18.8% YoY), with EBITDA margin rising 190 bps to 51.9%.",
+        "quantitative_magnitude": "+Rs 12,085 crore (+18.8% YoY); margin +190 bps to 51.9%",
+        "baseline_reference": "Rs 64,170 crore EBITDA / 50.1% margin in FY25",
+        "date_confirmed": "2026-06-19",
+        "source": "[DRHP, Jio Platforms Ltd, filed SEBI 19 Jun 2026, Financial Statements; Outlook Business, 20 Jun 2026]",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      },
+      {
+        "id": "WC-006",
+        "change_description": "Jio Platforms total subscriber base reached 524.4 million as of March 2026, up from 488.2 million in March 2025 (+36.2 million, +7.4% YoY), confirmed in DRHP.",
+        "quantitative_magnitude": "+36.2 million subscribers (+7.4% YoY)",
+        "baseline_reference": "488.2 million total subscribers as of March 2025",
+        "date_confirmed": "2026-06-19",
+        "source": "[DRHP, Jio Platforms Ltd, filed SEBI 19 Jun 2026; Jio Q4 FY25 results, Business Standard, Apr 2025]",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      }
+    ],
+    "gate_result": "pass",
+    "gate_rationale": "Six already-occurred, quantified changes with numbers, baselines, dates, and sourcing are confirmed — all from DRHP disclosure or corroborated financial results.",
+    "watchlist_deferred_items": [
+      "IPO proceeds used to repay Rs 27,500 crore of RJIL borrowings — DRHP states intended use; actual repayment cannot happen until IPO closes and funds are received.",
+      "27 crore new shares issued and allotted to public shareholders — share allotment occurs at IPO closing, after SEBI observations, price discovery, and subscription.",
+      "Listing of Jio Platforms shares on NSE and BSE — contingent on SEBI approval, price band, subscription, and allotment.",
+      "Post-IPO RIL stake dilution below 66.43% — RIL's stake will fall only after allotment.",
+      "Valuation confirmation at $130-170 billion range — analyst/banker estimates, not a market-determined clearing price; no price band set in the DRHP.",
+      "Public float and index eligibility — requires listing and sufficient free-float.",
+      "SEBI approval / observations letter — SEBI had not issued its observations letter as of 20 Jun 2026."
+    ],
+    "agent_data_sources_checked": [
+      "SEBI public-issues register (sebi.gov.in/filings/public-issues/jun-2026/jio-platforms-ltd-drhp_102248.html)",
+      "Outlook Business (primary intake source), 20 Jun 2026",
+      "Groww blog, 20 Jun 2026 (unverified, secondary)",
+      "News9Live, 20 Jun 2026 (unverified, secondary)",
+      "The Week, 20 Jun 2026 (unverified, secondary)",
+      "Upstox liveblog (RIL AGM 2026, 19 Jun 2026)",
+      "Business Standard / Jio Q4 FY25 results article, Apr 2025"
+    ]
+  },
+  "M0_3": {
+    "direct_beneficiaries": [
+      {
+        "id": "DIR-001",
+        "industry_category": "Capital Markets & Investment Banking (India)",
+        "gics_classification": "GICS 40301010 / 40301020",
+        "mechanism": "WC-001: A DRHP filing of ~Rs 37,700 crore creates immediate, contracted fee revenue for book-running lead managers, legal advisors, registrars, and rating agencies. The relationship is 1-step: a SEBI-filed IPO of this size directly pays this industry.",
+        "scoring": {
+          "mechanism_directness_score": 25,
+          "magnitude_score": 25,
+          "speed_score": 25,
+          "reversibility_score": 15,
+          "composite_score": 90,
+          "tier": "primary",
+          "carry_forward": true,
+          "scoring_notes": "Directness 25/25 — DRHP filing directly contracts fee relationships; no intermediate link. Magnitude 25/25 — Rs 37,700 crore gross proceeds implies total IPO fees typically in the 1.5–2.5% range (~Rs 565–940 crore); a large, quantified number tied directly to WC-001. Speed 25/25 — fee mandates and ancillary work are already engaged at DRHP stage; revenue begins accruing within weeks of filing. Reversibility 15/25 — if SEBI rejects or Jio withdraws the DRHP, fee income stops and some work is written off; partially reversible, but the filing is already lodged so near-term fee work has begun."
+        }
+      },
+      {
+        "id": "DIR-002",
+        "industry_category": "Equity Retail Brokerage & Wealth Management (India)",
+        "gics_classification": "GICS 40201020 / 40201040",
+        "mechanism": "WC-001, WC-004, WC-005: A large-cap tech IPO at a disclosed FY26 revenue of Rs 1,46,885 crore and EBITDA of Rs 76,255 crore draws new retail and HNI account openings, subscription-driven brokerage commissions, and distribution fees on unit-size allotments. One-step: IPO subscription flows directly through brokers and distributors.",
+        "scoring": {
+          "mechanism_directness_score": 25,
+          "magnitude_score": 20,
+          "speed_score": 25,
+          "reversibility_score": 10,
+          "composite_score": 80,
+          "tier": "primary",
+          "carry_forward": true,
+          "scoring_notes": "Directness 25/25 — retail subscription to an IPO flows 1-step through brokers and wealth managers on the ASBA/UPI platform. Magnitude 20/25 — the disclosed financial metrics make this a marquee listing that will drive outsized account openings and subscription volumes; estimated rather than precisely quantified for this industry. Speed 25/25 — subscription activity occurs within the IPO open/close window, typically 3 days; impact is near-immediate once SEBI issues its observations letter. Reversibility 10/25 — account openings and brokerage revenues from subscription are largely one-directional; if the IPO is postponed, the benefit is delayed rather than destroyed."
+        }
+      }
+    ],
+    "indirect_beneficiaries": [
+      {
+        "id": "IND-001",
+        "industry_category": "Telecom Infrastructure & Tower Operators (India)",
+        "gics_classification": "GICS 50101010",
+        "two_step_mechanism": "WC-002, WC-006: Jio's net debt fell Rs 17,694 crore (-39.1%) and subscriber base grew 7.4% to 524.4 million (including 268.5 million 5G users per secondary sources). A financially strengthened Jio is likely — but not certain — to accelerate 5G network densification, which requires tower co-locations and passive infrastructure. Two-step: (1) Jio balance-sheet improves → (2) capex on tower co-locations flows to tower operators.",
+        "scoring": {
+          "mechanism_directness_score": 15,
+          "magnitude_score": 15,
+          "speed_score": 15,
+          "reversibility_score": 15,
+          "composite_score": 60,
+          "tier": "secondary",
+          "carry_forward": true,
+          "scoring_notes": "Directness 15/25 — 2-step mechanism: balance-sheet improvement must first translate into an investment decision before tower operators benefit. Magnitude 15/25 — 5G densification spending at this scale is large but the incremental benefit to tower operators from IPO-enabled capex is an estimate rather than a confirmed figure. Speed 15/25 — tower co-location ramp takes quarters, not weeks; likely within a medium 3–6 month horizon. Reversibility 15/25 — co-location contracts tend to be long-term once signed, but the initial investment decision is still conditional."
+        }
+      },
+      {
+        "id": "IND-002",
+        "industry_category": "Handset & Consumer Electronics Retail / Distribution (India)",
+        "gics_classification": "GICS 45202030",
+        "two_step_mechanism": "WC-006: 524.4 million total subscribers with 36.2 million net adds in FY26, and a 5G user base requiring compatible handsets, creates ongoing device upgrade demand channelled through handset retail and distribution. Two-step: (1) subscriber growth and 5G penetration confirmed → (2) device upgrade cycle benefits distributors and retail chains.",
+        "scoring": {
+          "mechanism_directness_score": 15,
+          "magnitude_score": 15,
+          "speed_score": 10,
+          "reversibility_score": 10,
+          "composite_score": 50,
+          "tier": "parked",
+          "carry_forward": false,
+          "scoring_notes": "Directness 15/25 — subscriber growth feeds device upgrade cycles indirectly; the IPO filing itself does not directly drive handset sales. Magnitude 15/25 — 36.2 million net adds is a real number but the share captured by any one distribution segment is uncertain. Speed 10/25 — device upgrade cycles lag subscriber events by months. Reversibility 10/25 — easily substituted via competitor handsets and e-commerce channels; benefit is diffuse."
+        }
+      },
+      {
+        "id": "IND-003",
+        "industry_category": "Indian Debt Capital Markets & Credit Institutions",
+        "gics_classification": "GICS 40101010",
+        "two_step_mechanism": "WC-002, WC-003: Rs 27,579 crore remaining net debt and Rs 71,529 crore of RJIL borrowings are now publicly disclosed for the first time (WC-003). Post-IPO, if Rs 27,500 crore of deferred proceeds are applied to RJIL debt repayment, incumbent lenders receive early principal recovery. Two-step: (1) DRHP discloses debt structure → (2) if IPO closes, lender book improves.",
+        "scoring": {
+          "mechanism_directness_score": 15,
+          "magnitude_score": 10,
+          "speed_score": 10,
+          "reversibility_score": 20,
+          "composite_score": 55,
+          "tier": "parked",
+          "carry_forward": false,
+          "scoring_notes": "Directness 15/25 — two steps from the IPO event to improved lender book quality; WC-003's public disclosure is the confirmed piece while actual repayment remains a deferred item. Magnitude 10/25 — benefit to credit institutions is directional but unquantified at this stage. Speed 10/25 — actual debt repayment depends on IPO closing, lagged by the full SEBI review + subscription + allotment timeline. Reversibility 20/25 — if IPO does not close, the disclosed debt remains in place; lenders' position is unchanged."
+        }
+      }
+    ],
+    "harmed_parties": [
+      {
+        "id": "HARM-001",
+        "industry_category": "Incumbent Indian Telecom Operators (excluding the filer)",
+        "gics_classification": "GICS 50101010",
+        "mechanism": "WC-001, WC-004, WC-005, WC-006: A publicly filed, SEBI-registered IPO transforms Jio from an unlisted, privately-funded entity into an imminently public company with equity-market access for future capital raises. Combined with FY26 revenue growth of 14.6%, EBITDA margin of 51.9%, and a subscriber base of 524.4 million, the competitive position of the filing entity versus remaining incumbents is reinforced. One-step: IPO financing access plus disclosed financial scale directly signals intensified competitive pressure on market-share and average revenue per user for the rest of the industry.",
+        "scoring": {
+          "mechanism_directness_score": 25,
+          "magnitude_score": 20,
+          "speed_score": 20,
+          "reversibility_score": 5,
+          "composite_score": 70,
+          "tier": "secondary",
+          "carry_forward": true,
+          "scoring_notes": "Directness 25/25 — DRHP filing plus disclosed financials directly reveal Jio's competitive firepower; one-step competitive signal. Magnitude 20/25 — Rs 1,46,885 crore revenue and 524.4 million subscribers at a 51.9% EBITDA margin is confirmed large; the marginal increment from IPO filing versus pre-filing knowledge is estimated. Speed 20/25 — market re-pricing of competitor risk happens quickly once financials are public. Reversibility 5/25 — IPO-enabled capital access for the filer is structurally difficult to reverse; incumbents cannot easily undo the disclosed competitive gap."
+        }
+      },
+      {
+        "id": "HARM-002",
+        "industry_category": "Private Equity & Unlisted Indian Tech / Telecom Funds",
+        "gics_classification": "GICS 40203010",
+        "mechanism": "WC-001: A mega-scale DRHP filing of ~Rs 37,700 crore from a single issuer competes with PE and unlisted-tech funds for domestic institutional and retail capital. Subscription money locked in the Jio IPO window is unavailable for competing private placements and pre-IPO rounds. One-step supply-side: capital supply for other unlisted opportunities is reduced by the amount subscribed to this IPO.",
+        "scoring": {
+          "mechanism_directness_score": 25,
+          "magnitude_score": 15,
+          "speed_score": 25,
+          "reversibility_score": 20,
+          "composite_score": 85,
+          "tier": "primary",
+          "carry_forward": true,
+          "scoring_notes": "Directness 25/25 — a Rs 37,700 crore IPO directly competes for the same domestic institutional and retail capital pool (1-step supply compression). Magnitude 15/25 — estimated capital crowding-out rather than a precisely quantifiable figure; IPO subscription period typically runs 3 days but pre-allocation of institutional capital begins well in advance. Speed 25/25 — capital crowding-out begins from the date of DRHP filing as institutional investors begin reserving allocations; immediate within the current horizon. Reversibility 20/25 — crowding-out is time-bounded: once IPO closes and allotment is complete, locked capital is returned or deployed; competing PE deal timelines simply shift rather than disappear permanently."
+        }
+      }
+    ],
+    "population_gate": {
+      "direct_beneficiaries_populated": true,
+      "indirect_beneficiaries_populated": true,
+      "harmed_parties_populated": true,
+      "at_least_one_populated": true,
+      "both_sides_empty": false,
+      "primary_count": 3,
+      "secondary_count": 2,
+      "parked_count": 2,
+      "carry_forward_count": 5,
+      "zero_carry_forward_action": "proceed",
+      "beneficiaries_only_note": "N/A — harmed side is populated.",
+      "harmed_only_note": "N/A — beneficiary sides are populated."
+    },
+    "pair_trade_notes": "Pair A — Capital Markets / Investment Banking (long) vs Incumbent Telecom Operators (short): The IPO pipeline creates direct, near-term fee income for capital-markets intermediaries at the same time it reinforces the competitive position of the filing entity against incumbent telecom peers. The long leg (DIR-001) is a primary carry; the short leg (HARM-001) is secondary carry. Pair B — Equity Retail Brokerage / Wealth Management (long) vs PE & Unlisted Tech Funds (short): A large public IPO subscription pulls retail and institutional money into the equity brokerage channel while compressing capital available for concurrent private placements. Both sides are near-term, time-bounded effects tied directly to WC-001. Both carry forward (primary / primary). Pair C — Telecom Infrastructure / Tower Operators (long) vs Incumbent Telecom Operators (short): A financially strengthened filing entity (WC-002) is likely to accelerate 5G densification, benefiting tower co-location providers, while the same strengthened position harms the incumbents it competes against. The tower benefit is lagged (secondary carry); the incumbent harm is more immediate (secondary carry). Both legs are secondary; this pairing is weaker than Pairs A and B.",
+    "ticker_check": true,
+    "ticker_check_detail": {
+      "performed": true,
+      "violations": [],
+      "repair_action": "None required. Draft scan of all party names and mechanism text found no $-prefixed cashtags, no NSE:/BSE:/NYSE:/NASDAQ: exchange-prefixed symbols, no .NS/.BO/.L exchange-suffix tokens, and no specific company names. All parties are described as industries or business models with GICS codes only."
+    },
+    "agent_contribution": "agent"
+  },
+  "M0_4": {
+    "horizon": "medium_long_3_6months",
+    "horizon_rationale": "The DRHP was filed with SEBI on 19 Jun 2026. Under SEBI's standard IPO process, the regulator has 30–75 days to issue its observations letter; the issuer then has 12 months to act on it, but in practice major Indian IPOs proceed to an RHP and listing within 3–5 months of DRHP filing. The six world changes are anchored to the DRHP information event — their investable impact does not resolve until the price band is set and the subscription window opens, which will not happen until at least August 2026 and realistically September–November 2026. A 3–6 month window (DRHP filing to listing) is the mechanically grounded estimate based on SEBI's publicly stated 30–75 day observations window plus the post-observations road-show and subscription timeline.",
+    "expiry_condition": "SEBI issues its formal observations letter on the Jio Platforms DRHP (the statutory notice that clears the DRHP and permits the issuer to file the Red Herring Prospectus), OR Jio Platforms files the RHP with a price band on the NSE/BSE exchange platforms — whichever comes first.",
+    "expiry_condition_is_observable": true,
+    "expiry_condition_is_opinion": false,
+    "monitoring_frequency": "Weekly — check the SEBI public-issues register and NSE/BSE filings page every Friday, plus an immediate check on any Monday following a reported Jio Platforms market event.",
+    "horizon_expiry_market_signal": "Reliance Industries Limited share price premium or discount versus its 30-day trailing average narrows to within 1% and daily volume reverts to the 20-day median — indicating that the market has absorbed the DRHP information and is no longer repricing the parent for the Jio listing event. RIL was trading at Rs 1,329–1,335 on the DRHP filing date (19 Jun 2026, per Upstox AGM liveblog); a sustained return to that trading range on normal volume signals the market has priced in the available information and is waiting for the next data point."
+  },
+  "M0_5": {
+    "falsification_sentence": "If SEBI has not issued its formal observations letter on the Jio Platforms DRHP AND Jio Platforms has not filed a Red Herring Prospectus with a price band on NSE or BSE by 2026-11-30, the IPO pipeline has effectively stalled or been withdrawn, which destroys the fee income, subscription brokerage revenue, and capital crowding-out mechanisms that all three primary carry-forward parties depend on.",
+    "falsification_condition_type": "speed_failure",
+    "monitorable_metric_1": "SEBI public-issues register (sebi.gov.in/filings/public-issues/) — status field for Jio Platforms Ltd DRHP filed 19 Jun 2026: tracks from 'filed / under processing' to 'observations issued' or 'returned / withdrawn / lapsed'",
+    "monitorable_metric_2": "NSE corporate filings (nseindia.com/companies-listing/corporate-filings/all-other-filings) and BSE XBRL portal (bseindia.com/corporates/List_Scrips.aspx) — presence or absence of an RHP document filing for Jio Platforms Ltd with a price band stated",
+    "monitorable_threshold_rate": 0,
+    "monitorable_threshold_rate_unit": "observations letters issued OR RHP filings completed (count must reach >= 1 to avoid falsification; remaining at 0 by the threshold date confirms falsification)",
+    "monitorable_threshold_date": "2026-11-30",
+    "uncomfortable_check": true,
+    "uncomfortable_check_rationale": "The falsifier attacks the single mechanism every primary party depends on: the IPO progressing to a live subscription event. If SEBI blocks or returns the DRHP, or if Jio withdraws it, the following all collapse simultaneously — DIR-001 (investment banking fee income vanishes because the transaction does not close), DIR-002 (no subscription window means no brokerage commissions and no account-opening wave), and HARM-002 (capital crowding-out of PE/unlisted funds fully reverses because no retail or institutional capital is locked into the Jio subscription). The secondary carry-forwards (IND-001 tower operators, HARM-001 incumbent telecom harm) are also weakened. This falsifier does not merely dent the thesis — it removes the investable mechanism for every primary party.",
+    "secondary_falsifiers": [
+      {
+        "id": "SF-001",
+        "description": "Jio Platforms or RIL officially announces a deferral or postponement of the IPO after receiving SEBI observations — the observations letter arrives but the RHP is not filed within the permitted 12-month window and management signals a delay beyond the M0.4 horizon (post December 2026). This kills the near-term brokerage and fee timing for DIR-001 and DIR-002 even though the DRHP information event (WC-001 through WC-006) remains valid.",
+        "monitorable_metric": "NSE/BSE exchange intimation (Reg 30 SEBI LODR) from Jio Platforms or RIL disclosing a deferral; or absence of RHP filing within 4 months of SEBI observations letter",
+        "probability_estimate": 0.15
+      },
+      {
+        "id": "SF-002",
+        "description": "A second mega-IPO (stated gross issue size >= Rs 25,000 crore) files a DRHP or RHP with SEBI before Jio's subscription window opens, splitting the domestic institutional and retail capital pool and materially reducing the crowding-out effect on PE/unlisted tech funds (HARM-002).",
+        "monitorable_metric": "SEBI public-issues register: count of concurrent IPO filings with gross issue size >= Rs 25,000 crore in the same subscription window as Jio Platforms",
+        "probability_estimate": 0.20
+      },
+      {
+        "id": "SF-003",
+        "description": "Jio Platforms monthly net subscriber additions turn negative (subscriber count falls month-on-month) in any two consecutive TRAI or company-disclosed months before the listing date, signaling competitive deterioration that undermines the financial scale narrative (WC-004, WC-005, WC-006) and weakens the valuation anchor for DIR-002 and HARM-001.",
+        "monitorable_metric": "TRAI Monthly Subscriber Report (trai.gov.in/reports-publications) — Jio net additions column; or Jio Platforms interim quarterly results filed to NSE/BSE post-listing",
+        "probability_estimate": 0.10
+      }
+    ],
+    "locked_after_m0_complete": true,
+    "locked_at": "2026-06-22T00:00:00Z"
+  },
+  "M0_6_1": {
+    "consensus_view": {
+      "paragraph": "The dominant market view holds that the Jio Platforms DRHP marks a structural positive for India's capital markets ecosystem and a clarifying moment for the telecom and technology sector. Analysts across investment banks place Jio's enterprise value at $131–180 billion — reflecting not a traditional carrier but a vertically integrated digital platform with 268.5 million 5G users, a digital services layer at 215.9 million monthly active users, and a 51.9% EBITDA margin that global telcos cannot match. The consensus holds that the IPO will be India's largest fee event for investment banking in 2026 (IPO fee pool Rs 565–940 crore), will trigger a new wave of demat account openings and subscription-brokerage revenue for retail brokers, and will benefit tower operators through continued 5G densification capex from a financially stronger Jio. For incumbent telecom operators, the consensus sees the duopoly as locked in with Airtel maintaining ARPU leadership, expecting continued expansion to Rs 280 by FY27 with 25+ analyst Buy ratings and a 12-month consensus target of Rs 1,900.",
+      "numeric_anchor": "Jio Platforms consensus EV range $131–180 billion (Elara Capital 13x FY28E EV/EBITDA / Rs 12–13 lakh crore; Citi $135bn standalone); implied total IPO fee pool Rs 565–940 crore; Indus Towers 12m consensus target Rs 390–450; Airtel 12m consensus target Rs 1,900 (25+ buys).",
+      "key_consensus_assumptions": [
+        "Jio Platforms deserves a technology/platform EV multiple (13–17x EV/EBITDA) materially above the 6–9x range at which global pure-play telecom peers trade, because its digital services, 5G user base, and AI infrastructure warrant reclassification away from a traditional carrier.",
+        "The Jio IPO will proceed to listing within the 3–6 month post-DRHP window (Sep–Nov 2026) without a material SEBI objection or management withdrawal, locking in investment banking fee revenues and brokerage subscription volumes within the current thesis horizon.",
+        "Jio's financial strength (51.9% EBITDA margin, accelerating net-debt reduction) will flow through to sustained 5G densification capex, benefiting tower operators through rising tenancy ratios and co-location volumes — not be redirected to AI infrastructure or spectrum acquisition instead.",
+        "The capital crowding-out effect on PE/unlisted tech funds is temporary and bounded to the IPO subscription window, so it does not represent a structural shift in private-capital availability."
+      ]
+    },
+    "contrary_view": {
+      "exists": true,
+      "paragraph": "BofA Securities warns of a holding company discount on RIL's stake in Jio — existing RIL shareholders do not gain direct exposure to the newly listed Jio entity, and the absence of a demerger plan means the Jio value sits behind a parent-level conglomerate discount. BNP Paribas applies a 10% holding company discount in its RIL valuation. RIL's stock fell approximately 2.21% on the day Mukesh Ambani announced the IPO plan at the AGM (19 Jun 2026). The bear case contends that at $170–180 billion Jio would be priced at roughly 17x FY26 EV/EBITDA — priced to perfection with no margin for AI monetisation disappointment or ARPU growth shortfall — and that the absence of a free-float demerger limits the re-rating catalyst for existing RIL holders. On tower operators, the contrary view notes that 5G capex could be redirected to AI data-centre infrastructure rather than passive tower densification.",
+      "contrary_numeric_anchor": "BNP Paribas: 10% holding company discount on RIL's Jio stake. Bear-case IPO valuation: ~$130–133 billion (~13x FY26 EV/EBITDA). [Capital.com / multiple secondary sources, Jun 2026, unverified]",
+      "contrary_view_sources": [
+        "Capital.com / BofA cite, Jun 2026, unverified",
+        "ScanX / Livelong Wealth cite, Jun 2026, unverified",
+        "Business Standard, 22 Jun 2026, unverified"
+      ]
+    },
+    "consensus_strength": {
+      "unanimity_rating": "moderate",
+      "unanimity_rationale": "The core view that the Jio IPO is a net positive for Indian capital markets and that Jio deserves a premium above traditional telecom multiples is shared by a clear majority (Goldman Sachs, Jefferies, Citi, Elara Capital all in the $131–180 billion range), but BofA Securities, BNP Paribas, and a documented group of RIL shareholders are on record with a contrary position centred on the holding-company structure and valuation ceiling, preventing a high rating."
+    },
+    "analyst_rating_distribution": {
+      "buy_count": null,
+      "hold_count": null,
+      "sell_count": null,
+      "total_analysts": null,
+      "buy_pct": null,
+      "source": "Univest analyst consensus table, 2026, unverified; stockanalysis.com, 22 Jun 2026",
+      "as_of": "2026-06-22",
+      "missing_reason": "Jio Platforms is not yet listed; no formal sell-side rating distribution exists. Searched CapIQ equivalent for unlisted Indian pre-IPO names and SEBI-DRHP registry on 22 Jun 2026 — no listing-stage consensus. Bharti Airtel proxy: buy ~71% (25+ of ~35 analysts); Indus Towers proxy: buy ~65%."
+    },
+    "estimate_dispersion": {
+      "current_high_estimate": "$180bn",
+      "current_low_estimate": "$131bn",
+      "current_spread_abs": "$49bn",
+      "current_spread_pct": 27,
+      "metric": "Jio Platforms enterprise value (pre-IPO analyst estimates)",
+      "historical_avg_spread_pct": null,
+      "historical_period": "no comparable India mega-cap pre-IPO (>$100bn EV) in the last 5 years",
+      "historical_std_dev_pct": null,
+      "spread_vs_history": null,
+      "dispersion_interpretation": "The 27% spread across the EV range ($49 billion on a ~$155 billion midpoint) is driven entirely by the debate over the appropriate multiple — 13x (traditional platform telecom) vs 17x (pure tech). Operating metrics (revenue, EBITDA, subscribers) are DRHP-disclosed and uncontested; the re-rating narrative is not.",
+      "missing_reason": "No comparable India mega-cap pre-IPO (>$100bn EV) exists in the last 5 years to establish a historical norm; searched CapIQ pre-IPO estimate databases and Indian ECM research notes on 22 Jun 2026 — no 5-year historical series found."
+    },
+    "entrenchment_note": "The consensus is moderately entrenched for two structural reasons. First, Jio's 524.4 million subscriber base, 51.9% EBITDA margin, and the 'platform premium' narrative have been in the analyst community for years (Meta, Alphabet, KKR, and others invested at private valuations above $50 billion in the 2020 funding rounds, anchoring expectations). Second, once a DRHP is filed and the SEBI review clock is running, institutional investors begin reserving allocations and investment banks begin accruing fee work — sunk institutional momentum makes a consensus reversal expensive before the observations letter arrives.",
+    "strawman_risk_check": true
+  },
+  "M0_6_2": {
+    "estimate_dispersion": {
+      "data": {
+        "angel_one_trailing_pe": "35.9x (stockanalysis.com/nse/ANGELONE, 22 Jun 2026)",
+        "angel_one_forward_pe": "24.7x NTM (stockanalysis.com/nse/ANGELONE, 22 Jun 2026)",
+        "angel_one_fy27_eps_consensus": "Rs 14.31 from 4 analysts (stockanalysis.com/nse/ANGELONE/forecast, 22 Jun 2026)",
+        "angel_one_12m_target": "Rs 353.64 from 11 analysts (stockanalysis.com/nse/ANGELONE, 22 Jun 2026)",
+        "airtel_fy27_eps_consensus": "Rs 63.84 from 32 analysts (stockanalysis.com/nse/BHARTIARTL/forecast, May 2026)",
+        "airtel_12m_target": "Rs 2,287 +19.4% from 32 analysts Buy (stockanalysis.com/nse/BHARTIARTL, 22 Jun 2026)",
+        "indus_towers_fy27_eps": "Rs 28.66 from 25 analysts (stockanalysis.com/nse/INDUSTOWER/forecast, Feb 2026)",
+        "nuvama_fy27_eps": "Rs 67.22 from 7–8 analysts (stockanalysis.com/nse/NUVAMA/forecast, May 2026)"
+      },
+      "interpretation": "Angel One's forward PE of 24.7x sits 20% below the sector average of 31x, pricing a FY27 recovery but not yet crediting the Jio IPO subscription wave. Airtel has 32 near-unanimous Buy analysts; Indus Towers has a flat Hold consensus despite the 5G densification thesis."
+    },
+    "estimate_revision_trajectory": {
+      "data": {
+        "nuvama_fy27_eps_3m_ago": "Rs 49.86 (Mar 2026, web source unverified)",
+        "nuvama_fy27_eps_now": "Rs 67.22 (Jun 2026, stockanalysis.com)",
+        "nuvama_delta": "+Rs 17.36 / +34% over 3 months",
+        "angel_one_direction": "FY27 estimates marked Upgrade vs prior (stockanalysis.com/nse/ANGELONE/forecast, 22 Jun 2026)",
+        "airtel_direction": "Upward — FY27 EPS consensus +31.3% growth; ARPU trajectory to Rs 280 by FY27",
+        "indus_towers_revision": "Flat to modest-upward; data last updated Feb 2026; no intra-period revision history available"
+      },
+      "interpretation": "Capital markets / IB space is already re-pricing for the IPO pipeline (Nuvama FY27 EPS +34% over 3 months). Angel One FY27 estimates are directionally upgraded but the 3-month-ago figure is not retrievable. Indus Towers revisions are stale — no upgrade wave has been priced in for the 5G densification thesis.",
+      "missing_reason": "Angel One 3-month-ago EPS estimate not retrievable from available web sources (smart-investing.in returned only trailing PE, not forward EPS). Indus Towers revision history stale — last updated Feb 2026, no intra-period data."
+    },
+    "implied_scenario_from_multiple": {
+      "data": {
+        "airtel_trailing_ev_ebitda": "11.3x (EV Rs 13.61 trillion; TTM EBITDA Rs 1.20 trillion; stockanalysis.com/nse/BHARTIARTL, 22 Jun 2026)",
+        "airtel_sector_10yr_avg": "~9x EV/EBITDA (businesstoday.in, Nov 2025, unverified)",
+        "airtel_bear_scenario": "9x → implied EBITDA Rs 151,222 cr (+24.7% from FY26) — only makes sense if EBITDA grows 25%, which requires Jio pricing discipline to hold",
+        "airtel_base_scenario": "11.3x current → flat to FY26 EBITDA growth; prices in 15–17% EBITDA compounding through FY28",
+        "angel_one_base_scenario": "24.7x forward PE → Rs 14.31 FY27 EPS recovery (+45% from FY26 trough of Rs 9.85)",
+        "angel_one_bull_scenario": "sector avg 31x → would only require Rs 11.45 EPS — already beat by FY26 actual"
+      },
+      "interpretation": "Airtel's 11.3x trailing EV/EBITDA — 26% above the sector 10-year average — encodes no pricing disruption from Jio: the consensus narrative is that Jio will monetise up-market, and the current multiple takes that as a given. Angel One's 24.7x prices the FY27 earnings recovery but at a 20% discount to sector average, implying residual uncertainty about the F&O volume trajectory — and the Jio listing pipeline has not yet entered the 4-analyst FY27 consensus estimate."
+    },
+    "options_implied_move": {
+      "missing_reason": "Searched for ATM call/put premiums and IV percentile/rank for BHARTIARTL, ANGELONE, INDUSTOWER, NUVAMA, 360ONE via NiftyTrader, TradingView options chain, NSE derivatives page, and Yahoo Finance options chain (22 Jun 2026). Yahoo Finance returned HTTP 503. NiftyTrader and TradingView confirmed options exist for BHARTIARTL and ANGELONE but ATM premium prices and IV percentile rank for nearest catalyst expiry (August–September 2026) were not returned in structured form from non-paywalled web searches. A live broker terminal (NSE derivatives, IBKR, or Kotak Neo) is required to populate this block accurately."
+    },
+    "short_interest_positioning": {
+      "data": {
+        "airtel_promoter_holding": "48.87% (choiceindia.com, Jun 2026, unverified)",
+        "airtel_fii_holding": "27.79% (choiceindia.com, Jun 2026, unverified)",
+        "airtel_dii_holding": "2.43% (choiceindia.com, Jun 2026, unverified)",
+        "angel_one_promoter_holding": "28.79% (choiceindia.com, Jun 2026, unverified)",
+        "angel_one_fii_holding": "12.80% (choiceindia.com, Jun 2026, unverified)",
+        "angel_one_retail_float": "39.52% (choiceindia.com, Jun 2026, unverified)",
+        "indus_towers_promoter": "~50–51% Bharti Airtel (trendlyne.com, Apr 2026, unverified)",
+        "indus_towers_fii": "~25.9–26.4% (trendlyne.com/choiceindia.com, Apr 2026, unverified)"
+      },
+      "interpretation": "Airtel's FII ownership of 27.8% is the primary marginal seller given the ~51% promoter lock-up. Angel One's 39.5% retail float is unusually high for a capital-markets stock, making it more sensitive to retail sentiment around the IPO pipeline — retail investors own the platform that benefits from their own subscription activity.",
+      "missing_reason": "India exchanges do not publish a standardised short interest report analogous to US FINRA data. F&O net short positions are the proxy but were not returned in structured form from available web searches. Named passive/ETF holders not individually identified in retrieved shareholding filings."
+    },
+    "implied_scenario_interpretation": "Blocks 1 and 3 together show that Airtel's trailing EV/EBITDA of 11.3x — already 26% above the 10-year sector average of 9x — prices in uninterrupted ARPU compounding at 15–17% annually through FY28 with zero allowance for Jio pricing disruption, while Block 1 shows Angel One's forward PE of 24.7x prices the FY27 earnings recovery but at a 20% discount to the sector average, meaning the Jio listing pipeline and its IPO subscription upside are not yet in the 4-analyst FY27 consensus estimate. Block 4 (options) could not be populated — if IV is low, options would be the cheapest directional expression on capital-markets beneficiaries; if IV is elevated, the event is already priced. This gap is material for position sizing.",
+    "all_five_fields_present": false,
+    "fields_missing_flagged": [
+      "Block 4 (Options Implied Move) — missing entirely across all five representative names; ATM premiums, implied move %, and IV percentile for the SEBI observations letter catalyst window (Aug–Sep 2026 expiry) not available from non-paywalled web searches.",
+      "Block 5 (Short Interest % float) — missing for all names; India exchanges do not publish a standardised short-interest series.",
+      "Block 2 (Revision Trajectory) — Angel One 3-month-ago estimate not retrievable; Indus Towers revision history stale (last update Feb 2026).",
+      "PE & Unlisted Funds (HARM-002) — no single-issuer subject; Blocks 1–5 not applicable at this stage."
+    ]
+  },
+  "M0_6_3": {
+    "variant_paragraph": "Consensus treats Jio Platforms as a platform business monetising up-market — and on that basis gives Bharti Airtel a near-unanimous Buy rating anchored to uninterrupted ARPU compounding. What consensus has not modelled is that the DRHP's own use-of-proceeds confirms Jio will zero out its net debt (~Rs 27,579 crore remaining as of March 2026, with ~Rs 27,500 crore IPO proceeds earmarked entirely for debt repayment). A net-cash Jio, with public equity capital access and a 51.9% EBITDA margin, has more room to run a targeted pricing cycle than at any point since its 2016 launch. The 32-analyst consensus on Airtel prices in 15–17% annual EBITDA compounding with zero pricing disruption; we believe that assumption carries a 15–20% EV compression risk that has not been separately modelled in any retrieved research note.",
+    "consensus_numeric_view": "Airtel trailing EV/EBITDA 11.3x; implied FY28 EBITDA compounding 15–17% p.a.; 32-analyst consensus 12m target Rs 2,287 (+19.4%). [M0.6.1 anchor; stockanalysis.com Airtel consensus, 22 Jun 2026, unverified; M0.6.2 Block 3 back-out arithmetic]",
+    "our_numeric_view": "Airtel trailing EV/EBITDA re-rates toward 9–10x (the sector 10-year average) in a Jio-pricing-disruption scenario; implied EV compression Rs 1.83–3.02 lakh crore (15–27% of current EV ~Rs 13.61 lakh crore). Post-IPO Jio net debt: Rs 27,579 cr − Rs 27,500 cr = ~Rs 79 cr (effectively net-cash). With Rs 76,255 cr annual EBITDA and no debt service, pricing capacity is unconstrained. At 9x mean-reversion on FY26 EBITDA Rs 121,268 cr: EV = Rs 1,091,412 cr vs current Rs 13,61,000 cr — a ~20% EV shortfall.",
+    "numeric_departure_magnitude": "~15–20% EV compression in Airtel vs consensus's zero-disruption base; absolute: Rs 2.0–2.7 lakh crore of EV at risk, translating to ~Rs 300–450 stock price downside from the Rs 1,917 current price (consensus is at Rs 2,287 upside target). Arithmetic: 11.3x current − 9x mean-reversion = 2.3x multiple compression; 2.3 ÷ 11.3 = 20.4% EV contraction applied to Rs 13.61 lakh crore EV = Rs 2.77 lakh crore.",
+    "mechanism_1_missing_from_consensus": "Jio post-IPO near-zero net debt removes the last constraint on pricing aggression. The DRHP shows IPO proceeds eliminating substantially all remaining net debt (Rs 27,500 cr of Rs 27,579 cr). A Jio with zero net debt and Rs 76,255 cr annual EBITDA (WC-005) faces no financial constraint on pricing — it can cut entry-level ARPU or add high-value bundles at below-Airtel pricing without affecting its solvency. The 32 Airtel analysts are modelling continued ARPU expansion to Rs 280+ by FY27 without crediting this structural change. Six web searches on 22 Jun 2026 confirmed no sell-side note models the combined effect of Jio achieving near-zero net debt plus gaining public equity capital access and what that means for the competitive pricing equilibrium.",
+    "mechanism_2_missing_from_consensus": "Angel One's FY27 EPS consensus (Rs 14.31 from 4 analysts) contains no estimate of IPO subscription distribution revenue from a Rs 37,700 crore mega-IPO. Four separate web searches confirmed no analyst note quantifies what the Jio subscription window adds to Angel One's distribution fee income, ASBA processing fees, or new demat account openings. The LIC IPO in 2022 (Rs 20,557 crore — smaller than the Jio issue) drove an estimated 1.5–2 million new account openings industry-wide; the mechanism is empirically precedented but not modelled for Angel One.",
+    "sell_side_coverage_gap_confirmed": true,
+    "sell_side_gap_evidence": "Six web searches on 22 Jun 2026 found no published analyst note, research piece, or earnings model revision that (a) models Airtel's EV at a mean-reversion multiple conditional on Jio post-IPO near-zero net debt (searches 5–6: 'Airtel analyst model Jio debt reduction Rs 27,000 crore IPO proceeds pricing aggression risk modelled 2026' and 'Bharti Airtel ARPU price war risk Jio balance sheet debt reduction IPO 2026 analyst note concern' — Business Standard acknowledges the generic risk verbally but no analyst attaches a price or EV table to it), or (b) quantifies the Angel One FY27 EPS uplift from Jio IPO subscription processing fees and new demat account openings (searches 1–4). The gap is most material for mechanism_1, where the departure magnitude is 15–20% of EV.",
+    "manifestation_event": "SEBI issues its formal observations letter on the Jio Platforms DRHP, clearing the path to RHP filing and subscription — at which point Jio's post-IPO balance sheet becomes a confirmed, dated reality, forcing the 32 Airtel analysts to model whether a newly near-zero-debt Jio changes the ARPU trajectory.",
+    "manifestation_time_window": "August–November 2026. SEBI's standard observations window is 30–75 days from the 19 Jun 2026 filing date — earliest mid-July 2026, realistic August–September 2026. Post-observations, an RHP filing and subscription window follows within 4–8 weeks in a normal large-IPO cadence. The thesis horizon (M0.4: medium_long_3_6months) places the manifestation window at September–November 2026, consistent with the monitoring calendar in M0.5."
+  },
+  "M0_6_4": {
+    "primary_category": "complexity",
+    "primary_category_rationale": "The mispricing requires three sequential steps that cross two separate analyst silos. Step one: read the Jio Platforms DRHP (filed 19 Jun 2026) to extract the use-of-proceeds detail confirming that Rs 27,500 crore of the Rs 37,700 crore fresh issue is earmarked specifically for RJIL debt repayment, leaving Jio at near-zero net debt (~Rs 79 crore residual). Step two: translate that balance-sheet change into a claim about Jio's post-IPO pricing capacity — removing Rs 76,255 crore of annual EBITDA from any debt-service obligation gives Jio unconstrained room to run a targeted price cycle. Step three: back-solve Airtel's EV at a mean-reversion multiple (9x vs current 11.3x) to quantify what a single pricing cycle does to the Airtel equity story. No single sell-side team does all three steps: Jio DRHP coverage sits in ECM/IPO desks, Airtel equity coverage sits in a separate telecom team, and the cross-domain connection is precisely what six web searches on 22 Jun 2026 confirmed has not appeared in any published research note.",
+    "evidence_verifiable_fact_1": "The Jio Platforms DRHP, filed with SEBI on 19 June 2026, discloses that Rs 27,500 crore of the Rs 37,700 crore fresh-issue proceeds are earmarked for repayment or prepayment of borrowings at RJIL, and that Jio's net debt as of 31 March 2026 was Rs 27,579 crore — meaning the IPO would reduce net debt to approximately Rs 79 crore. These two figures appear in the DRHP's Objects of the Issue and Financial Statements sections and are publicly available on SEBI's website. Verify via: Jio Platforms Limited DRHP, filed SEBI 19 Jun 2026, Objects of the Issue section and Consolidated Financial Statements, Note on Borrowings; retrieved 22 Jun 2026.",
+    "evidence_verifiable_fact_2": "Bharti Airtel's 32-analyst sell-side consensus (12-month price target Rs 2,287; stockanalysis.com, May–Jun 2026) is arithmetically consistent only with 15–17% annual EBITDA compounding through FY28 and no pricing disruption from Jio — yet the search query 'Airtel analyst model Jio debt reduction Rs 27,000 crore IPO proceeds pricing aggression risk modelled 2026' (run 22 Jun 2026) returned zero results of a published note modelling Airtel's EV at a mean-reversion multiple (9x) conditional on a Jio pricing cycle. Verify via: (a) Airtel consensus: stockanalysis.com/nse/BHARTIARTL, consensus tab, as of 22 Jun 2026; (b) absence of quantified Airtel EV compression model: reproduce the search 'Bharti Airtel ARPU price war risk Jio balance sheet debt reduction IPO 2026 analyst note concern' on any major web search engine and confirm no retrieved result contains a back-solved EV table at 9x mean-reversion conditional on Jio net-zero debt — as of 22 Jun 2026, none exists.",
+    "evidence_verifiable_fact_3": "Angel One's FY27 EPS consensus of Rs 14.31 is set by only 4 analysts (stockanalysis.com/nse/ANGELONE/forecast, 22 Jun 2026), and four separate web searches (22 Jun 2026) returned no analyst note quantifying what the Jio IPO subscription window adds to Angel One's distribution fee income or demat account openings. The LIC IPO in May 2022 (Rs 20,557 crore issue size) drove an industry-wide estimate of 1.5–2 million new demat account openings, suggesting a mechanism that is both material and empirically precedented; yet the 4-analyst Angel One consensus contains no line item for this effect. Verify via: (a) Angel One FY27 EPS analyst count: stockanalysis.com/nse/ANGELONE/forecast, 22 Jun 2026; (b) LIC IPO account openings: SEBI/NSDL/CDSL data, May–Jun 2022 (Economic Times and Business Standard, 2022); (c) absence of Jio distribution revenue: reproduce search 'Angel One FY27 earnings estimate upgrade Jio IPO impact analyst report 2026' and confirm no returned result contains a per-application fee model or demat account uplift for Angel One.",
+    "secondary_categories": [
+      {
+        "category": "timing",
+        "rationale": "The DRHP was filed 19 Jun 2026 — three days before this report. Most sell-side estimate revision cycles run monthly or quarterly; Airtel coverage teams have not yet had a standard revision-cycle opportunity to incorporate the DRHP's debt repayment data into published models. This timing lag is real but secondary: the mechanism is complex enough that a standard revision cycle alone would not produce the required cross-domain analysis."
+      },
+      {
+        "category": "behavioral",
+        "rationale": "The Airtel analyst community has held 25+ Buy ratings for multiple consecutive quarters (Motilal Oswal and CLSA both at Rs 2,000–2,100), anchored to a duopoly ARPU-upgrade narrative that has been consensus since the 2023 tariff hikes. Entrenchment noted in M0.6.1 makes analysts less likely to seek out disconfirming cross-domain evidence even when it is available — a secondary amplifier of the complexity barrier, not the root cause."
+      }
+    ]
+  },
+  "M0_6_5": {
+    "trigger_name": "SEBI formal observations letter on Jio Platforms DRHP",
+    "trigger_date_range": "19 Jul 2026 – 2 Sep 2026 (30–75 days after DRHP filing date 19 Jun 2026, per SEBI ICDR Regulations 2018 Reg 25(5); the 30-day floor and 75-day typical ceiling confirmed in SEBI's own IPO process documentation)",
+    "trigger_type": "scheduled",
+    "probability_if_unscheduled": null,
+    "probability_note": "Scheduled: SEBI is legally required under ICDR Reg 25(5) to issue its observations (or return/query the DRHP) within 30 days of satisfactory exchange no-objection; by market practice the window extends to 75 days for complex mega-cap filings. The event is mandatory. What is unscheduled is the outcome (clearance vs return with queries vs substantive objection), but the issuing of some formal response is a scheduled regulatory act.",
+    "causal_mechanism": [
+      "SEBI issues its observations letter, converting the Jio IPO from a DRHP-only event into a live RHP pipeline — at this point Jio can set a price band, schedule a subscription window, and confirm its post-IPO balance sheet to the market. The near-zero net debt (Rs ~79 crore post-repayment, per DRHP use-of-proceeds) and Rs 76,255 crore annual EBITDA are now a month away from being a public-company reality, not a prospectus promise.",
+      "The 32 Airtel sell-side analysts — who have named a generic Jio pricing-disruption risk verbally but modelled zero quantified impact (search gap confirmed in M0.6.3, 22 Jun 2026) — face a direct trigger to revise: the standard post-observations note cycle (Kotak Securities, Nuvama, CLSA, Motilal Oswal, and ICICI Securities typically publish a fresh sector note within 2–3 weeks of a landmark IPO milestone for a direct competitor) will require analysts to state whether a zero-net-debt Jio changes the ARPU trajectory. The four-analyst Angel One consensus (FY27 EPS Rs 14.31, no Jio subscription revenue modelled) also faces upgrade pressure as the subscription window becomes a confirmed, dated event.",
+      "FII holders of Airtel (27.8% of float, per choiceindia.com, Jun 2026) and domestic mutual fund holders begin trimming positions to de-risk against the Jio pricing scenario: FII desks running India telecom pair trades are structurally the fastest movers on a SEBI-milestone catalyst. Simultaneously, domestic retail and institutional capital rotates into Angel One and capital-markets names (Nuvama, 360ONE) ahead of the confirmed subscription window — a pattern already visible in Nuvama's ~34% FY27 EPS revision over the prior three months (M0.6.2 Block 2).",
+      "Airtel's trailing EV/EBITDA compresses from the current 11.3x back toward the 10-year sector average of 9–10x as the zero-disruption assumption embedded in the multiple is discarded; the arithmetic (M0.6.3 Step 4) puts the central EV de-rating at 13–20%, implying a Rs 1,500–1,650 Airtel stock price range vs the current Rs 1,917. Angel One re-rates toward the sector average forward PE of ~31x as the Jio subscription commission and account-opening uplift enters the FY27 consensus, lifting EPS from Rs 14.31 toward Rs 14.60–15.00 and closing the 20% discount to the sector-average multiple."
+    ],
+    "secondary_triggers": [
+      {
+        "id": "ST-001",
+        "trigger_name": "Angel One Q1 FY27 results — board meeting",
+        "trigger_date_range": "15 Jul 2026",
+        "trigger_type": "scheduled",
+        "probability": null,
+        "mechanism": "Q1 FY27 results will show whether new demat account openings and IPO pipeline anticipation have already lifted brokerage volumes, prompting the four-analyst consensus to upgrade FY27 EPS ahead of the SEBI observations letter; partial convergence on the Angel One leg only."
+      },
+      {
+        "id": "ST-002",
+        "trigger_name": "Bharti Airtel Q1 FY27 results — board meeting",
+        "trigger_date_range": "Early Aug 2026 (historically ~Aug 5 per Airtel quarterly calendar)",
+        "trigger_type": "scheduled",
+        "probability": null,
+        "mechanism": "Airtel Q1 FY27 commentary on ARPU trajectory and management's stated view on Jio competitive risk post-DRHP will be the first mandatory analyst note cycle after the DRHP filing; if ARPU growth is below the Rs 280 FY27 consensus pace, the multiple begins compressing on evidence rather than waiting for the full SEBI milestone."
+      },
+      {
+        "id": "ST-003",
+        "trigger_name": "Jio Platforms RHP filing and price band announcement",
+        "trigger_date_range": "Sep–Oct 2026 (4–8 weeks post-observations letter, per large-IPO cadence)",
+        "trigger_type": "scheduled",
+        "probability": null,
+        "mechanism": "RHP with a stated price band confirms the IPO is pricing — at this point every brokerage platform activates account-opening campaigns, all 32 Airtel analysts must publish a fresh sector note, and capital formally begins to move; full convergence follows the primary trigger."
+      },
+      {
+        "id": "ST-004",
+        "trigger_name": "SEBI issues queries or returns Jio DRHP (adverse outcome on primary trigger)",
+        "trigger_date_range": "19 Jul – 2 Sep 2026",
+        "trigger_type": "scheduled",
+        "probability": null,
+        "mechanism": "A SEBI return-with-queries outcome partially reverses the short leg (Airtel pricing risk deferred) — Airtel's multiple holds at 11.3x and the EV compression scenario loses near-term timing; Angel One subscription upside is pushed beyond the M0.4 horizon; thesis confidence falls toward the watchlist_no_edge band."
+      }
+    ]
+  },
+  "M0_6_6": {
+    "scoring_criteria": {
+      "variant_perception_quality": {
+        "sub_score": 68,
+        "rationale": "The variant carries a specific numeric departure — 15–20% Airtel EV compression (Rs 1.5–2.7 lakh crore) vs consensus zero-disruption 11.3x trailing EV/EBITDA — with carry-through arithmetic shown step-by-step. The foundation is a primary SEBI filing (DRHP use-of-proceeds confirming Rs ~79 crore residual net debt post-IPO), and the coverage gap is evidenced by six confirmed-absent web searches on 22 Jun 2026. Two mechanisms are identified, the primary being structurally sound. The score does not reach 75 because the mechanism requires Jio to act on its new financial flexibility — an unconstrained Jio can price aggressively, but whether it will is a probability judgment without a confirmed forward plan, introducing an intervening behavioral step."
+      },
+      "mispricing_reason_strength": {
+        "sub_score": 72,
+        "rationale": "Primary category is complexity (three sequential steps across two analyst silos that have not yet been connected in any published note), supported by three independently verifiable facts — DRHP use-of-proceeds and net debt on SEBI's public register, Airtel's 32-analyst consensus with zero EV-compression model confirmed by a reproducible search, and Angel One's 4-analyst thin coverage confirmed by four separate searches. Two secondary categories (timing and behavioral anchoring) reinforce the primary without being the root cause. The score does not reach 80 because the timing barrier is transient (evaporates within 1–3 months as revision cycles run) and a well-resourced analyst could close the cross-domain gap in a single note — the barrier is not a permanent structural one like a mandate constraint."
+      },
+      "convergence_trigger_clarity": {
+        "sub_score": 70,
+        "rationale": "The SEBI observations letter has a date range computed from statute (ICDR Reg 25(5): 19 Jul – 2 Sep 2026), sits entirely inside the M0.4 horizon, and the four-step mechanism has named actors at each stage (SEBI → 32 named analyst firms → FII holders at 27.8% → Airtel multiple compression). Two pre-primary partial checkpoints are dated (Angel One Q1 on 15 Jul 2026; Airtel Q1 in early August 2026). The score does not reach 80 because the trigger's outcome (clearance vs return with queries) is unscheduled — ST-004 explicitly models the adverse case, which would defer the thesis — and step two of the mechanism rests on analyst behavior (making the cross-domain connection) that has not yet occurred despite the DRHP having been public for three days."
+      }
+    },
+    "blended_calculation": "0.40 × 68 + 0.30 × 72 + 0.30 × 70 = 27.2 + 21.6 + 21.0 = 69.8",
+    "final_score": 70,
+    "analyst_override": false,
+    "override_justification": null,
+    "justification_sentence_1": "The score reflects a genuine, numerically anchored variant — a 15–20% Airtel EV compression scenario confirmed absent from all retrieved sell-side research — supported by three independently verifiable facts and a legally calendared trigger, but held back from the full_machine band by an intervening behavioral step (Jio must choose to act on its new financial capacity) and a trigger whose adverse outcome (SEBI queries) would defer the thesis beyond the horizon.",
+    "justification_sentence_2": "All three sub-scores fall in the 68–72 range, showing a consistent level of evidence quality across the three dimensions — no single leg is strong enough to lift the composite above 80, and none is weak enough to drag it below 60.",
+    "routing_outcome": "provisional",
+    "routing_logic": "final_score 70 falls in the 60–80 band → provisional",
+    "routing_reason": "The edge is real — a numerically specific variant with confirmed sell-side coverage gap and a legally dated primary trigger — but it is not strong enough for a full machine spend because the primary mechanism has one behavioral step (Jio choosing to price aggressively post-IPO) that is probable but unconfirmed, and the primary trigger's outcome (SEBI clearance vs return with queries) introduces timing uncertainty that could defer convergence beyond the M0.4 horizon."
+  },
+  "sources": [
+    {
+      "url": "https://www.outlookbusiness.com/markets/jio-files-for-mega-ipo-debt-reduction-ai-ambitions-and-a-new-valuation-story",
+      "source_name": "Outlook Business",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-20T11:31:54.179Z",
+      "claim_supported": "Jio Platforms filed DRHP with SEBI for a fresh issue of up to 27 crore shares (~Rs 37,700 crore); Rs 27,500 crore earmarked for debt repayment; RIL 66.43% pre-IPO stake; AI investment narrative stated as strategic rationale; DRHP filing date 20 Jun 2026."
+    },
+    {
+      "url": "https://sebi.gov.in/filings/public-issues/jun-2026/jio-platforms-ltd-drhp_102248.html",
+      "source_name": "SEBI public-issues register (DRHP filing page)",
+      "source_grade": "A",
+      "retrieved_at": "2026-06-20T12:00:00Z",
+      "claim_supported": "Filing date 19 Jun 2026, DRHP confirmed lodged; WC-001 through WC-006 financial figures originate from this primary regulatory filing. M0.6.4 verifiable facts 1–3 traced to Objects of the Issue and Financial Statements sections."
+    },
+    {
+      "url": "https://www.business-standard.com/article/companies/jio-q4-results",
+      "source_name": "Business Standard (Jio Q4 FY25 results, Apr 2025)",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-20T12:00:00Z",
+      "claim_supported": "March 2025 subscriber baseline: 488.2 million total subscribers as of March 2025 — used as baseline for WC-006 magnitude calculation."
+    },
+    {
+      "url": "https://stockanalysis.com/nse/BHARTIARTL/",
+      "source_name": "stockanalysis.com — Bharti Airtel consensus data",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-22T00:00:00Z",
+      "claim_supported": "Airtel trailing EV/EBITDA 11.3x; FY27 EPS consensus Rs 63.84 from 32 analysts; 12-month consensus target Rs 2,287; consensus rating Buy. Used in M0.6.2 Blocks 1 and 3 and M0.6.3 numeric departure."
+    },
+    {
+      "url": "https://stockanalysis.com/nse/ANGELONE/",
+      "source_name": "stockanalysis.com — Angel One consensus data",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-22T00:00:00Z",
+      "claim_supported": "Angel One trailing PE 35.9x; forward PE 24.7x; FY26 EPS Rs 9.85 (-22.3% YoY); FY27 EPS consensus Rs 14.31 from 4 analysts; 12m target Rs 353.64 from 11 analysts. Used in M0.6.2 Blocks 1 and 3 and M0.6.4 verifiable fact 3."
+    },
+    {
+      "url": "https://stockanalysis.com/nse/INDUSTOWER/",
+      "source_name": "stockanalysis.com — Indus Towers consensus data",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-22T00:00:00Z",
+      "claim_supported": "Indus Towers FY27 EPS consensus Rs 28.66 from 25 analysts; forward PE ~14.4x; trailing EV/EBITDA ~6.9x. Used in M0.6.2 Block 1."
+    },
+    {
+      "url": "https://stockanalysis.com/nse/NUVAMA/forecast/",
+      "source_name": "stockanalysis.com — Nuvama Wealth Management forecast data",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-22T00:00:00Z",
+      "claim_supported": "Nuvama FY27 EPS consensus Rs 67.22 from 7–8 analysts (data updated May 2026); 3-month revision from Rs 49.86 to Rs 67.22 (~+34%). Used in M0.6.2 Block 2 revision trajectory."
+    },
+    {
+      "url": "https://choiceindia.com/",
+      "source_name": "choiceindia.com — shareholding pattern data",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-22T00:00:00Z",
+      "claim_supported": "Airtel FII holding 27.79%, promoter 48.87%, DII 2.43%; Angel One promoter 28.79%, FII 12.80%, retail 39.52%. Jun 2026. Unverified, labelled. Used in M0.6.2 Block 5 and M0.6.5 convergence mechanism step 3."
+    }
+  ]
+}
