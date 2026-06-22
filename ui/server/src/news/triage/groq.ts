@@ -4,6 +4,7 @@
 // and ranking only — the authoritative materiality score still comes from the Claude gauntlet when a
 // human promotes the row. GDELT gives titles (no body), so triage is title-only by design.
 
+import { isRegion } from '../geo'
 import type { Band, CompanyGuess, NewsItem, SizeBucket, Triage } from '../types'
 import type { RateInfo } from './budget'
 
@@ -63,8 +64,9 @@ why: ONE plain sentence, with a number where the headline gives one. No hype wor
 companies: up to 3 companies the headline is mainly about, each {"name":"...","ticker":"..."|null,"listing_country":"XX"|null}. These are GUESSES from the headline alone — use null whenever unsure; use [] for macro/sector items that name no company. Never invent a ticker.
 size_bucket: rough size of the MAIN company: "mega" (>$200B market value) | "large" ($10-200B) | "mid" ($2-10B) | "small" (<$2B) | "unknown". Use "unknown" when no company is named or you are unsure.
 headline_en: if the headline is NOT written in English, a faithful, concise English translation of it — keep company names, tickers and numbers exactly as written, translate only, add no commentary. If the headline IS already English, use null.
+event_region: the market the event is ABOUT — where the affected, tradable parties are listed or operate, NOT where the news outlet is based. A South China Morning Post story about Bangladesh and Malaysia is "OTHER", not "CN". One of: "US" | "IN" | "JP" | "GB" | "CN" | "KR" | "GLOBAL" (a worldwide / multi-region event with no single market) | "OTHER" (a real market outside those listed). Use null when the headline gives no location and names no company you can place.
 
-Return ONLY JSON: {"items":[{"i":<index>,"relevance":"material|relevant_non_material|irrelevant","materiality_pre_score":<int>,"event_types":[...],"issuer_linkage":"primary|secondary|sector|macro","why":"...","companies":[{"name":"...","ticker":null,"listing_country":null}],"size_bucket":"unknown","headline_en":null}]}. Include every index exactly once.`
+Return ONLY JSON: {"items":[{"i":<index>,"relevance":"material|relevant_non_material|irrelevant","materiality_pre_score":<int>,"event_types":[...],"issuer_linkage":"primary|secondary|sector|macro","why":"...","companies":[{"name":"...","ticker":null,"listing_country":null}],"size_bucket":"unknown","headline_en":null,"event_region":null}]}. Include every index exactly once.`
 
 export interface TriageOptions {
   model: string
@@ -140,6 +142,11 @@ export function coerceTriage(raw: any): Triage {
   // raw model text only; whether to KEEP it (non-Latin original, actually rendered to English) is
   // decided downstream by news/lang.ts pickTranslation, which has both the original and this candidate.
   const headline_en = typeof raw?.headline_en === 'string' && raw.headline_en.trim() ? raw.headline_en.trim().slice(0, 200) : null
+  // the market the event is about; a valid Region code or null (unsure). Uppercased first so a lowercase
+  // model reply ("other") still validates. news/geo.ts resolveEventRegion decides whether to use it over
+  // the domain region at the merge site (runCycle.ts).
+  const erRaw = typeof raw?.event_region === 'string' ? raw.event_region.trim().toUpperCase() : raw?.event_region
+  const event_region = isRegion(erRaw) ? erRaw : null
   return {
     relevance: rel,
     materiality_pre_score: score,
@@ -149,6 +156,7 @@ export function coerceTriage(raw: any): Triage {
     companies,
     size_bucket: size,
     headline_en,
+    event_region,
   }
 }
 
