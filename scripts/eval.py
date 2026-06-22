@@ -159,6 +159,31 @@ def eval_z_thesis_type_cap(thesis_type, decision, edge_score):
         return "fail"   # conviction rating on an external-variable bet with no proven edge
     return "pass"
 
+# ── Check T probability-scale (extended T gate) — module-level so `eval.py selftest` can drive it ──
+# DECISION_LEDGER §6 / CLAUDE.md §10 require forecast_ledger[].probability to use the §10 percentage-
+# point scale (Remote: 0–10, Very unlikely: 10–25, Unlikely: 25–45, Toss-up: 45–60, Likely: 60–75,
+# Very likely: 75–90, Almost certain: 90–100). A value in the open interval (0, 1) is a decimal
+# fraction — e.g. 0.6 instead of 60 — and silently breaks Phase 4 Brier-score computation because
+# the calibration code will treat a 60% forecast as a 0.6% forecast. null is allowed per §19 (when
+# no reliable probability estimate can be made), but the entry cannot contribute to Brier scoring.
+PROB_DATE="2026-06-22"
+def eval_t_probability(entry):
+    """Validate a single forecast_ledger entry's probability field per §10 / DECISION_LEDGER §6.
+    Returns None if the field is absent/null (allowed, entry is not Brier-scorable) or has a valid
+    0–100 numeric value. Returns an error string when the value is non-numeric, out of [0, 100],
+    or lies in the open interval (0, 1) — a decimal fraction that would corrupt Brier scoring.
+    Side-effect-free + module-level so the selftest drives all branches fixture-free (every
+    committed fixture predates PROB_DATE → N/A in the main run loop)."""
+    prob=entry.get("probability")
+    if prob is None: return None               # null or missing key: allowed
+    if not isnum(prob):
+        return f"probability={prob!r} is not numeric — use a 0–100 number per §10 bands or null"
+    if prob<0 or prob>100:
+        return f"probability={prob} is out of [0, 100] — §10 bands are 0–100 percentage points"
+    if 0<prob<1:
+        return f"probability={prob} looks like a decimal fraction — use the 0–100 scale per §10 (write {round(prob*100)} not {prob})"
+    return None                                # valid: 0 (Remote floor), or any value in [1, 100]
+
 if scope=="selftest":
     # Fixture-free coverage for check W — the golden suite can't exercise it (every committed run is
     # pre-gate / blank-fielded, so W is always N/A there). Asserts forbidden combos FAIL, correct combos
@@ -291,7 +316,39 @@ if scope=="selftest":
         got=Z(tt_,dec_,es_); ok=(got==exp)
         if not ok: bad+=1
         print(f"  [{'ok' if ok else 'XX'}] Z({tt_!r},{dec_!r},{es_!r}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z cases")
+    # check T2 (forecast_ledger probability-scale) — every committed fixture predates PROB_DATE
+    # → N/A in the main loop; the selftest drives the validator directly for full branch coverage.
+    T2=eval_t_probability
+    t2cases=[  # (entry_dict, expected: None=ok/null, str-fragment=error must contain that fragment)
+        ({"probability":60},    None),            # valid: 60% = Likely band
+        ({"probability":75.5},  None),            # valid: 75.5% = between Likely and Very likely
+        ({"probability":0},     None),            # valid: 0% = Remote floor
+        ({"probability":0.0},   None),            # valid: 0.0==0, not in open (0,1)
+        ({"probability":1.0},   None),            # valid: 1.0==1%, not in open (0,1)
+        ({"probability":100},   None),            # valid: 100% = Almost certain ceiling
+        ({"probability":None},  None),            # null: allowed, not Brier-scorable
+        ({},                    None),            # missing key: same as null, allowed
+        ({"probability":0.6},   "0.6"),           # fraction form: should be 60
+        ({"probability":0.55},  "0.55"),          # fraction form: should be 55
+        ({"probability":0.45},  "0.45"),          # fraction form: should be 45
+        ({"probability":0.1},   "0.1"),           # fraction form: should be 10
+        ({"probability":0.999}, "0.999"),         # fraction form near ceiling: should be 100
+        ({"probability":"likely"},"not numeric"), # string, not numeric
+        ({"probability":"60%"}, "not numeric"),   # string with % sign, not numeric
+        ({"probability":True},  "not numeric"),   # bool (int subclass, excluded by isnum)
+        ({"probability":-5},    "out of [0, 100]"),  # negative, out of range
+        ({"probability":-0.5},  "out of [0, 100]"),  # negative fraction
+        ({"probability":101},   "out of [0, 100]"),  # > 100
+        ({"probability":150},   "out of [0, 100]"),  # clearly > 100
+    ]
+    t2bad=0
+    for entry_,exp in t2cases:
+        got=T2(entry_)
+        ok=(got is None if exp is None else (got is not None and exp in got))
+        if not ok: t2bad+=1
+        print(f"  [{'ok' if ok else 'XX'}] T2({entry_!r}) -> {got!r}"+("" if ok else f"  EXPECTED fragment {exp!r}"))
+    bad+=t2bad
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 cases")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -624,9 +681,12 @@ for drp in runs:
             st=str(entry.get("status") or "open").lower()
             if st not in {"open","confirmed","falsified","expired"}:
                 fdet.append(f"forecast_ledger[{i}].status={entry.get('status')!r} not in allowed enum")
+            if isdate(ddte) and ddte>=PROB_DATE:
+                perr=eval_t_probability(entry)
+                if perr: fdet.append(f"forecast_ledger[{i}] {perr}")
         add("T_forecast_ledger_quality",not fdet,
             "; ".join(fdet) or
-            (f"all {len(fl)} forecast_ledger entries have required fields + valid status" if fl
+            (f"all {len(fl)} forecast_ledger entries have required fields + valid status + valid probability" if fl
              else "forecast_ledger is [] — no forecasts (allowed per §19)"))
     else:
         add("T_forecast_ledger_quality",True,f"run predates forecast-ledger quality gate ({ddte}) — N/A",na=True)
@@ -816,7 +876,7 @@ FRAMEWORK_CONTRACTS={
  "frameworks/DECISION_LEDGER.md":["Memo delta","memo_delta","thesis_delta_verdict","stage_one_comment","rerun_command","_memo_delta.md","business_type","primary_valuation_method"],
  ".claude/commands/research/review-decisions.md":["memo_delta","stage_one_comment","rerun_command","Pool first","_memo_delta"],
  ".claude/commands/research/eval.md":["scripts/eval.py"],
- "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE"],
+ "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE"],
  ".github/workflows/ci.yml":["eval-contracts","scripts/eval.py"],
 }
 jchecks=[]
