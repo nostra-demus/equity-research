@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { motion } from 'framer-motion'
-import { plainRoute } from '../../lib/plain'
+import { displayHeadline, originalHeadline, plainRoute } from '../../lib/plain'
 import { useStore } from '../../lib/store'
 import type { BoardThesis } from '../../lib/types'
 import { BookMomentumBanner, CheckpointTimeline, ConvictionStrip, TrackRecord } from './ConvictionCard'
@@ -63,7 +63,7 @@ function ThesisDetail() {
         {typeof m066.final_score === 'number' && <EdgeDial score={m066.final_score} />}
         <span className="tdetail__id">{meta.thesis_id}</span>
       </div>
-      <div className="tdetail__headline">{t.headline}</div>
+      <div className="tdetail__headline" title={originalHeadline(t) || undefined}>{displayHeadline(t)}</div>
       {bt?.conviction && <ConvictionStrip conv={bt.conviction} />}
       {detail.conviction?.checkpoints?.length ? (
         <section className="tdetail__cptl">
@@ -215,7 +215,7 @@ function RecentChecks({ onOpen, onReplay }: { onOpen: (thesisId: string) => void
       <div key={s.signal_id} className="recentrow">
         <EdgeDial score={t?.conviction?.edge_score_live ?? t?.edge_score} />
         <div className="recentrow__main">
-          <div className="recentrow__headline">{s.headline}</div>
+          <div className="recentrow__headline" title={originalHeadline(s) || undefined}>{displayHeadline(s)}</div>
           <div className="recentrow__meta">
             {s.source_name && <span className="recentrow__src">{s.source_name}</span>}
             <span>{fmtWhen(s.processed_at)}</span>
@@ -247,7 +247,7 @@ function RecentChecks({ onOpen, onReplay }: { onOpen: (thesisId: string) => void
             <div key={s.signal_id} className="archivedrow">
               <EdgeDial score={t?.conviction?.edge_score_live ?? t?.edge_score} />
               <div className="recentrow__main">
-                <div className="recentrow__headline">{s.headline}</div>
+                <div className="recentrow__headline" title={originalHeadline(s) || undefined}>{displayHeadline(s)}</div>
                 <div className="archivedrow__note">{t?.conviction?.plain_note || (t?.conviction?.state === 'expired_unproven' ? 'The window closed without proof.' : 'Killed by its own rule.')}</div>
               </div>
               <div className="recentrow__actions">
