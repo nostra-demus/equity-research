@@ -59,11 +59,11 @@ install_one() {
   if [ -f "$dst" ]; then
     for sk in GROQ_API_KEY GEMINI_API_KEY OPENROUTER_API_KEY NVIDIA_API_KEY CEREBRAS_API_KEY MISTRAL_API_KEY; do
       key="$(/usr/libexec/PlistBuddy -c "Print :EnvironmentVariables:$sk" "$dst" 2>/dev/null || true)"
-      { [ -z "$key" ] || [ "$key" = "__SET_YOUR_GROQ_API_KEY__" ]; } && continue
+      { [ -z "$key" ] || [ "$key" = "__SET_YOUR_${sk}__" ]; } && continue   # each provider has its OWN placeholder
       cur="$(/usr/libexec/PlistBuddy -c "Print :EnvironmentVariables:$sk" "$staged" 2>/dev/null || true)"
       if [ -z "$cur" ]; then
         /usr/libexec/PlistBuddy -c "Add :EnvironmentVariables:$sk string $key" "$staged" 2>/dev/null || true
-      elif [ "$cur" = "__SET_YOUR_GROQ_API_KEY__" ]; then
+      elif [ "$cur" = "__SET_YOUR_${sk}__" ]; then
         /usr/libexec/PlistBuddy -c "Set :EnvironmentVariables:$sk $key" "$staged" 2>/dev/null || true
       fi
     done
