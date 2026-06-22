@@ -325,7 +325,7 @@ export const NEWS = {
   // each, exhausted in minutes) a per-minute 429 just backs off — not worth a per-model limiter.
   geminiRpm: capNum(process.env.NEWS_GEMINI_RPM, 14),
   geminiTpm: capNum(process.env.NEWS_GEMINI_TPM, 240_000),
-  geminiMaxTokens: capNum(process.env.NEWS_GEMINI_MAX_TOKENS, 2000),
+  geminiMaxTokens: capNum(process.env.NEWS_GEMINI_MAX_TOKENS, 2400), // headroom for headline_en on non-English batches (mirrors triageMaxTokens)
   geminiDayTz: process.env.NEWS_GEMINI_DAY_TZ || 'America/Los_Angeles', // RPD resets midnight Pacific
   // OpenAI-compatible OVERFLOW providers (OpenRouter, NVIDIA NIM, …) — a registry, tried in order after
   // Groq is paced/capped, each with its own free daily budget + limiter. Their free models are far stronger
@@ -397,8 +397,10 @@ export const NEWS = {
   redditOverallBudgetMs: capNum(process.env.NEWS_REDDIT_OVERALL_BUDGET_MS, 45_000), // wall-clock cap on the whole social layer so a Reddit outage can't stall the cycle (low-trust layer; next cycle resumes)
   // Live-feed per-item records (firehose kind:"item") — the daily cap bounds file growth.
   feedItemsDailyCap: capNum(process.env.NEWS_FEED_ITEMS_DAILY_CAP, 5000),
-  // Groq output budget per triage call (the per-item payload grew with companies/size_bucket).
-  triageMaxTokens: capNum(process.env.NEWS_TRIAGE_MAX_TOKENS, 2000),
+  // Groq output budget per triage call (the per-item payload grew with companies/size_bucket, then
+  // headline_en for non-English items) — 2400 keeps headroom so a batch of long foreign-script
+  // headlines can't truncate (a truncated batch is safely deferred, but would otherwise re-defer).
+  triageMaxTokens: capNum(process.env.NEWS_TRIAGE_MAX_TOKENS, 2400),
   // THEMES layer (news/themes/*): buckets the ranked firehose into living investment themes, scores +
   // ranks them (hot/active/cooling/parked, auto-decaying), and assigns 1st/2nd/3rd-order companies.
   // Assignment runs every cycle (deterministic, $0); discovery runs every Nth cycle. The discovery

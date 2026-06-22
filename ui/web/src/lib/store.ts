@@ -1,7 +1,7 @@
 import { create } from 'zustand'
 import { api, isStatic } from './api'
 import { downstreamCascade, type CascadeNode } from './cascade'
-import { plainRoute, plainStage } from './plain'
+import { displayHeadline, originalHeadline, plainRoute, plainStage } from './plain'
 import type { Theme, ThemeDetail } from './themes'
 import { intensityWindowForHours } from './themes'
 import type { ActiveRunLite, AgentNode, BoardInboxRow, ConvictionDetail, CoverageGroup, DataStatus, EventEnrichment, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
@@ -1150,7 +1150,7 @@ export const useStore = create<State>((set, get) => ({
         fetched_at: new Date().toISOString(),
         prior_coverage: [],
         related: [],
-        summary: it.headline ? `Couldn’t reach the reader just now. From the headline: ${it.headline}` : undefined,
+        summary: it.headline ? `Couldn’t reach the reader just now. From the headline: ${displayHeadline(it)}` : undefined,
         note: 'The article read timed out or the source was unreachable — open the source to read it. Reopening this event retries the read.',
       }
       set({ enrichCache: { ...get().enrichCache, [it.event_id]: fallback } })
@@ -1166,12 +1166,15 @@ export const useStore = create<State>((set, get) => ({
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
     set({ scSelectedEvent: null })
+    // keep the ORIGINAL headline as the signal headline so the Gate-0 event_id matches the wire item
+    // (the recipe hashes headline|url); hand the English translation to the gauntlet as body context.
+    const orig = originalHeadline(it)
     await get().submitSignal({
       headline: it.headline,
       source_url: it.url || undefined,
       source_name: it.source_name || undefined,
       input_nature: it.input_nature || 'news_headline',
-      body_text: it.triage_reason || undefined,
+      body_text: [orig ? `English translation of the headline: ${displayHeadline(it)}` : null, it.triage_reason].filter(Boolean).join('\n') || undefined,
     }, until) // until = target module to run THROUGH then stop (undefined = the full gauntlet)
   },
 

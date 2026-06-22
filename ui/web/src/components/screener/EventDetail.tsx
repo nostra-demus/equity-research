@@ -5,7 +5,7 @@
 // corrected theme. Triage metadata sits in the header, not in the way. Then: run / open / shelve.
 
 import { useEffect, useRef } from 'react'
-import { plainSize, plainStage, plainTheme } from '../../lib/plain'
+import { displayHeadline, originalHeadline, plainSize, plainStage, plainTheme } from '../../lib/plain'
 import { familyOf, isCompanyNameClient, roleLabel, SCOPES, scopeOf, sourceTierDef } from '../../lib/scope'
 import { discoveryCapDelta } from '../../lib/rankWeights'
 import { useStore } from '../../lib/store'
@@ -286,7 +286,7 @@ export function EventDetail({ it }: { it: FeedItem }) {
     const full = newsItems.find((n) => n.event_id === r.event_id)
     selectEvent(
       full ||
-        ({ kind: 'item', ts: r.ts, event_id: r.event_id, headline: r.headline, url: '', domain: '', source_name: r.source_name, via: 'rss', region: '', input_nature: '', triage_score: r.triage_score, band: 'pick', triage_reason: '', relevance: '', event_types: [], issuer_linkage: '', companies: [], size_bucket: 'unknown', scope: r.scope, dedup_status: '', inboxed: false } as FeedItem),
+        ({ kind: 'item', ts: r.ts, event_id: r.event_id, headline: r.headline, headline_en: r.headline_en, url: '', domain: '', source_name: r.source_name, via: 'rss', region: '', input_nature: '', triage_score: r.triage_score, band: 'pick', triage_reason: '', relevance: '', event_types: [], issuer_linkage: '', companies: [], size_bucket: 'unknown', scope: r.scope, dedup_status: '', inboxed: false } as FeedItem),
     )
   }
 
@@ -297,6 +297,7 @@ export function EventDetail({ it }: { it: FeedItem }) {
   const s = scopeOf(it)
   const fam = familyOf(s)
   const tier = sourceTierDef(it.source_tier)
+  const origHeadline = originalHeadline(it) // source-language original, shown under the English when translated
   // when the publisher blocked the direct read, the read-through (who gains / companies) was pieced together
   // from OTHER outlets, NOT read from THIS article — so the attribution copy must say so (CLAUDE.md §3).
   const corroborated = !!enrichment?.corroborated
@@ -340,7 +341,13 @@ export function EventDetail({ it }: { it: FeedItem }) {
           <span className="evdetail__when">{fmtTime(it.ts)}</span>
         </div>
 
-        <h1 className="evdetail__headline">{it.headline}</h1>
+        <h1 className="evdetail__headline">{displayHeadline(it)}</h1>
+        {origHeadline && (
+          <div className="evdetail__headline-orig" title="The headline as the source published it, before translation to English">
+            <span className="evdetail__headline-orig-tag">original</span>
+            {origHeadline}
+          </div>
+        )}
 
         <div className="evdetail__source">
           <span>{it.source_name}</span>
@@ -443,9 +450,9 @@ export function EventDetail({ it }: { it: FeedItem }) {
               <ul className="evdetail__related">
                 {enrichment.related.map((r) => (
                   <li key={`${r.event_id}-${r.ts}`}>
-                    <button type="button" className="evdetail__rel evdetail__rel--btn" onClick={() => openRelated(r)} title="Open this event to check it">
+                    <button type="button" className="evdetail__rel evdetail__rel--btn" onClick={() => openRelated(r)} title={originalHeadline(r) ? `original: ${originalHeadline(r)}` : 'Open this event to check it'}>
                       <span className="evdetail__rel-score mono">{r.triage_score}</span>
-                      <span className="evdetail__rel-hl">{r.headline}</span>
+                      <span className="evdetail__rel-hl">{displayHeadline(r)}</span>
                       <span className="evdetail__rel-src">{r.source_name}</span>
                       <span className="evdetail__rel-go" aria-hidden>↗</span>
                     </button>

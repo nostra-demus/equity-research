@@ -208,7 +208,7 @@ export function buildThemeDetail(repoRoot: string, theme: Theme): ThemeDetail {
       if (f) return f
       // minimal fallback so a member older than the 2-day feed still shows
       return {
-        kind: 'item', ts: m.found_at, event_id: m.event_id, headline: m.headline, url: '', domain: '',
+        kind: 'item', ts: m.found_at, event_id: m.event_id, headline: m.headline, headline_en: m.headline_en, url: '', domain: '',
         source_name: '', via: 'gdelt', region: 'GLOBAL', input_nature: 'news_headline',
         triage_score: m.score, band: 'watch', triage_reason: '', relevance: 'relevant_non_material',
         event_types: m.event_types || [], issuer_linkage: (m.issuer_linkage as any) || 'sector',

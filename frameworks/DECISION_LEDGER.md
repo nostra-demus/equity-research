@@ -204,7 +204,7 @@ The three `post_review_*` fields are **additive and optional** — the synthesiz
 | `confidence_score` | Yes | Confidence /100. | Part I |
 | `data_sufficiency_score` | Yes | Data sufficiency /100 (`CLAUDE.md` §11). | Part I / gate |
 | `rating_cap` | Conditional | Any rating cap applied, else "". | Rating Cap Rules |
-| `thesis_type` | Yes | Array of thesis types (`CLAUDE.md` §14). | Part I |
+| `thesis_type` | Yes | Array of thesis types (`CLAUDE.md` §14). Values must come from the closed set, case-exact (the eval harness enforces this from 2026-06-21): `"Company-specific"`, `"Sector-cycle"`, `"Macro-conditional"`, `"Policy-conditional"`, `"Commodity-conditional"`, `"FX / rates"`, `"Liquidity / positioning"`, `"Governance turnaround"`, `"Balance-sheet survival"`, `"Pair trade / hedge"`, `"Insufficient data"`. When ANY value is external-variable-dominant (Macro/Policy/Commodity/FX/Liquidity) and `edge_score` < 50, the synthesizer caps the rating at `"Starter Position Only"` or below. | Part I |
 | `variant_perception_summary` | Yes | One-paragraph variant perception. | Part I |
 | `what_everyone_knows` | Recommended | Consensus view. | Part I variant perception |
 | `what_is_priced_in` | Recommended | What the price implies. | Part I variant perception |
@@ -254,7 +254,7 @@ Each element of `decision_record.forecast_ledger` — the machine-readable form 
 
 Rules:
 - Only include forecasts with enough evidence.
-- `probability` must follow the `CLAUDE.md` §10 probability bands.
+- `probability` must be a **number in [0, 100]** using the §10 percentage-point scale — Remote: 0–10, Very unlikely: 10–25, Unlikely: 25–45, Toss-up: 45–60, Likely: 60–75, Very likely: 75–90, Almost certain: 90–100. A decimal-fraction value (e.g. `0.6` instead of `60`) is a defect: it looks like a correct probability but silently corrupts Phase 4 Brier-score computation, which treats the input as a percentage (60% becomes 0.6%). `null` is allowed when no reliable probability estimate can be made, but the entry cannot contribute to Brier-score calibration. Eval check T2 (landing 2026-06-22) enforces this: non-numeric values, values outside [0, 100], and values in the open interval (0, 1) all FAIL.
 - Every forecast must have a **confirmation** trigger and a **falsification** trigger.
 - Forecasts must be reviewable later (resolved only via review records, §8 — `status` ∈ {open, confirmed, falsified, expired}).
 - If no reliable forecast can be created, say why (and leave `forecast_ledger` as `[]`).

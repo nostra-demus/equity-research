@@ -61,11 +61,15 @@ export interface Triage {
   why: string // one plain sentence, ideally with a number (§21)
   companies: CompanyGuess[] // ≤3, guessed from the headline alone (may be empty)
   size_bucket: SizeBucket // rough size of the main company — a guess, 'unknown' when unsure
+  // an English translation of the headline when the original is not English, else null — validated +
+  // gated to non-Latin-script originals by news/lang.ts before it's stored (the wire shows it).
+  headline_en?: string | null
 }
 
 export interface TriagedItem extends NewsItem {
   triage_score: number // composite PRIORITY (rank.ts): Groq materiality + §4 source-tier/scope/event/size/recency
   triage_reason: string
+  headline_en?: string | null // English translation of a non-English headline (news/lang.ts); null/absent when the original is English
   relevance: Triage['relevance']
   materiality_pre_score: number // the RAW Groq title read, before the composite re-rank
   event_types: string[]
@@ -83,6 +87,7 @@ export interface TriagedItem extends NewsItem {
 export interface InboxRow {
   inbox_id: string
   headline: string
+  headline_en?: string | null // English translation of a non-English headline (news/lang.ts) — the cockpit shows it
   url: string
   source_name: string
   input_nature: string
@@ -119,6 +124,7 @@ export interface FeedItem {
   ts: string // ISO 8601 — when triaged
   event_id: string
   headline: string
+  headline_en?: string | null // English translation of a non-English headline (news/lang.ts); absent/null when the original is English
   url: string
   domain: string
   source_name: string

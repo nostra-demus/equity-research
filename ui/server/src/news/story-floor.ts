@@ -59,6 +59,7 @@ const CORP_SUFFIX = /\b(?:ltd|limited|inc|inc\.|corp|corporation|plc|llc|llp|co|
 
 export interface StoryFloorInput {
   headline?: string | null
+  headline_en?: string | null // English translation of a non-English headline (news/lang.ts) — restated in preference to the original
   url?: string | null
   snippet?: string | null // the feed's own lede, when an adapter carries one
   input_nature?: string | null
@@ -179,7 +180,10 @@ function stripCoverLetter(subject: string): string {
  * For an article: the feed lede, else an honest "from the headline: …".
  */
 export function storyFloor(i: StoryFloorInput): StoryFloorResult {
-  const headline = (cleanText(i.headline) || String(i.headline || '')).trim()
+  // restate the English translation when we have one (non-English filings), else the original — so the
+  // guaranteed "THE STORY" text reads in English too. English items pass no headline_en → unchanged.
+  const src = (i.headline_en && i.headline_en.trim()) || i.headline
+  const headline = (cleanText(src) || String(src || '')).trim()
   const snippet = cleanText(i.snippet)
 
   if (isFilingEvent(i)) {

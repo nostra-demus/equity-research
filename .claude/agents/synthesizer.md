@@ -242,15 +242,21 @@ Never publish inconsistent scenario math.
 
 ## Step 5 — Identify Whether This Is Really a Macro Bet
 
-Explicitly decide whether the thesis is:
+Explicitly decide whether the thesis is one (or more) of these. **Write the value into `thesis_type[]`
+using the exact, case-sensitive `CLAUDE.md` §14 string — these labels are validated by eval.py check Z
+and any other casing/wording silently breaks Phase 4 Brier-score calibration:**
 
 - Company-specific
-- Sector/cycle-driven
+- Sector-cycle
 - Macro-conditional
 - Policy-conditional
-- Commodity-price-driven
-- FX/rate-driven
-- Liquidity/positioning-driven
+- Commodity-conditional
+- FX / rates
+- Liquidity / positioning
+- Governance turnaround
+- Balance-sheet survival
+- Pair trade / hedge
+- Insufficient data
 
 If one external variable dominates the thesis, say so clearly.
 
@@ -879,7 +885,7 @@ The final rating is capped by data sufficiency and unresolved risk. Apply the MO
 - **Data sufficiency < 30:** rating must be "Insufficient Data — Refuse To Rate."
 - **Data sufficiency 30–49:** maximum rating "Watchlist" (unless an explicit, evidence-backed exception is justified).
 - **Unresolved Critical red flag** (governance, solvency, accounting, fraud, going-concern): maximum "Avoid" or "Watchlist" by severity, unless resolved by primary evidence.
-- **Macro / commodity / policy-driven thesis with weak company-specific edge:** maximum "Starter Position Only," unless risk/reward is exceptional and evidence-backed.
+- **Macro / commodity / policy-driven thesis with weak company-specific edge:** maximum "Starter Position Only." This cap lifts **only** when a proven, falsifiable company-specific edge is established — Pre-Write Gate `edge_score` ≥ 50 resting on a real `edge_proof` (the Edge gate above) — which is the exact exemption the deterministic Check Z gate (`scripts/eval.py`) enforces, so a compliant `decision_record.json` never fails it. Exceptional risk/reward **alone** does NOT lift the cap: on a macro/commodity/policy bet the asymmetry is itself part of the external call unless a company-specific edge explains it (§7 — no proven variant perception, no high conviction). If the asymmetry truly is company-specific, prove it as the edge and carry `edge_score`/`edge_proof`; do not exceed the cap on unquantified "exceptional risk/reward."
 - **Valuation module missing** and current price / fair value cannot be reliably established elsewhere: maximum "Watchlist."
 - **Balance-sheet-survival flags "Distress risk":** maximum "Avoid" or "Pair Trade / Hedge Required," unless the thesis is explicitly a distressed / security-selection setup.
 - **Management-governance flags Critical governance risk or a hard disqualifier:** maximum "Avoid" / "Watchlist," unless resolved by primary evidence.
