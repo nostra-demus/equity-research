@@ -340,6 +340,9 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       const cappedScore = capSocialScore(ranked.rank_score, ranked.rank_factors.source_tier_id, cfg.pickThreshold, cfg.watchThreshold, caution)
       const band = capSocialBand(scoreToBand(cappedScore, cfg.pickThreshold, cfg.watchThreshold), ranked.rank_factors.source_tier_id, caution)
       seen.add(it.event_id, score)
+      // English translation of a non-English headline — kept for a non-Latin original OR a model-named
+      // non-English source language (news/lang.ts pickTranslation); else null → the UI shows the original.
+      const headline_en = pickTranslation(it.headline, t?.headline_en, t?.headline_lang)
       triaged.push({
         ...it,
         triage_score: cappedScore,
@@ -352,9 +355,9 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         size_bucket: t?.size_bucket || 'unknown',
         band,
         rank_factors: ranked.rank_factors,
-        // English translation of a non-English headline — only kept when the original is a non-Latin
-        // script AND the model actually rendered it in English (news/lang.ts); else null → UI shows original
-        headline_en: pickTranslation(it.headline, t?.headline_en),
+        headline_en,
+        // the source language named — only when a translation was actually kept (for the "original · X" label)
+        ...(headline_en && t?.headline_lang ? { headline_lang: t.headline_lang } : {}),
       })
     }
   }
@@ -401,6 +404,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     event_id: t.event_id,
     headline: t.headline,
     headline_en: t.headline_en, // English translation of a non-English headline (news/lang.ts); null when English
+    ...(t.headline_lang ? { headline_lang: t.headline_lang } : {}),
     url: t.url,
     domain: t.domain,
     source_name: t.source_name,

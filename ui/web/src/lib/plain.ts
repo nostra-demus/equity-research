@@ -21,6 +21,13 @@ export const originalHeadline = (it: Headlined): string | null => {
   const orig = it?.headline && it.headline.trim()
   return en && orig && en !== orig ? orig : null
 }
+/** The source language to name in the "original · <language>" affordance — only when a translation is
+ *  actually being shown AND the server named the language; else null (so the label stays a plain "original"). */
+export const translatedFromLang = (it: { headline_en?: string | null; headline?: string | null; headline_lang?: string | null } | null | undefined): string | null => {
+  if (!originalHeadline(it)) return null
+  const l = it?.headline_lang && it.headline_lang.trim()
+  return l || null
+}
 
 // Routing / status values (the SWARM.md routing contract + thesis statuses), in plain words.
 const ROUTES: Record<string, string> = {

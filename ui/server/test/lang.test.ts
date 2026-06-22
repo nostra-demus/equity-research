@@ -7,7 +7,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { hasNonLatinScript, pickTranslation, headlineForScan } from '../src/news/lang'
+import { hasNonLatinScript, isEnglishLang, pickTranslation, headlineForScan } from '../src/news/lang'
 import { cleanText, looksLikeHeadline } from '../src/news/clean'
 import { deriveScope } from '../src/news/scope'
 import { coerceTriage } from '../src/news/triage/groq'
@@ -72,6 +72,23 @@ await check('pickTranslation: trims + caps the kept translation to 200 chars', (
   const long = 'A'.repeat(500)
   const got = pickTranslation('비야디 실적', `  ${long}  `)
   assert.equal(got!.length, 200)
+})
+// ---- widened policy (2026-06-22): also translate LATIN-script headlines when the model NAMES a non-English language ----
+await check('pickTranslation: Latin-script original + named non-English language → kept (the Finnish case)', () => {
+  assert.equal(
+    pickTranslation('Sisäpiiritieto: G City Ltd käteisostotarjous Cityconista', 'Insider information: G City Ltd cash offer for Citycon', 'Finnish'),
+    'Insider information: G City Ltd cash offer for Citycon',
+  )
+  assert.equal(pickTranslation('Bayer hebt Prognose an', 'Bayer raises its outlook', 'German'), 'Bayer raises its outlook')
+})
+await check('pickTranslation: Latin-script original + English / blank / absent language → null (never reword English)', () => {
+  assert.equal(pickTranslation('Apple beats on iPhone sales', 'Apple tops iPhone estimates', 'English'), null) // model says English → no reword
+  assert.equal(pickTranslation('Apple beats on iPhone sales', 'Apple tops iPhone estimates', ''), null) // no language named → assume English
+  assert.equal(pickTranslation('Apple beats on iPhone sales', 'Apple tops iPhone estimates'), null) // no language arg → unchanged behaviour
+})
+await check('isEnglishLang: English / locale / blank → true; any named foreign language → false', () => {
+  for (const l of ['English', 'english', 'en', 'en-US', 'EN_GB', '']) assert.equal(isEnglishLang(l), true, `${l} should read as English`)
+  for (const l of ['Finnish', 'German', 'Japanese', 'Korean', 'Spanish']) assert.equal(isEnglishLang(l), false, `${l} should read as non-English`)
 })
 await check('headlineForScan: prefers the English translation, else the original', () => {
   assert.equal(headlineForScan({ headline: '비야디 실적', headline_en: 'BYD earnings' }), 'BYD earnings')
@@ -141,6 +158,38 @@ await check('runIngestCycle: a non-English headline is stored translated on the 
   const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json'), 'utf8'))
   assert.equal(doc.rows[0].headline, korean)
   assert.equal(doc.rows[0].headline_en, english)
+})
+
+// ---- end to end: a LATIN-script (Finnish) headline is translated when the model names the language ----
+await check('runIngestCycle: a Latin-script Finnish headline is stored translated + tagged with its language', async () => {
+  const root = tmp()
+  const state = tmp()
+  const finnish = 'Sisäpiiritieto: G City Ltd on julkistanut käteisostotarjouksen Cityconista'
+  const english = 'Insider information: G City Ltd has announced a cash offer for Citycon'
+  const groqBody = {
+    usage: { total_tokens: 200 },
+    choices: [{ message: { content: JSON.stringify({ items: [
+      { i: 0, relevance: 'material', materiality_pre_score: 82, event_types: ['mna'], issuer_linkage: 'primary', why: 'A cash tender offer.', companies: [{ name: 'Citycon', ticker: null, listing_country: 'FI' }], size_bucket: 'mid', headline_en: english, headline_lang: 'Finnish' },
+    ] }) } }],
+  }
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('groq')) return res(groqBody)
+    if (u.includes('gdelt')) return res({ articles: [
+      { url: 'https://reuters.com/citycon', title: finnish, domain: 'reuters.com', seendate: '20260612T090000Z', language: 'Finnish' },
+    ] })
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, pickThreshold: 60, watchThreshold: 40 } as any
+  const now = () => new Date('2026-06-12T09:30:00Z')
+
+  const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  assert.equal(s.picked, 1)
+  const fh = fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_firehose.ndjson'), 'utf8')
+  const itemLine = fh.split('\n').map((l) => l.trim()).filter(Boolean).map((l) => JSON.parse(l)).find((o) => o.kind === 'item')
+  assert.equal(itemLine.headline, finnish, 'the original Finnish headline is preserved on the wire')
+  assert.equal(itemLine.headline_en, english, 'the English translation is stamped on the wire (Latin script now translated)')
+  assert.equal(itemLine.headline_lang, 'Finnish', 'the source language is tagged for the UI label')
 })
 
 // ---- an English headline never gets a needless translation field set ----

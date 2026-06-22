@@ -5,7 +5,7 @@
 // corrected theme. Triage metadata sits in the header, not in the way. Then: run / open / shelve.
 
 import { useEffect, useRef } from 'react'
-import { displayHeadline, originalHeadline, plainSize, plainStage, plainTheme } from '../../lib/plain'
+import { displayHeadline, originalHeadline, translatedFromLang, plainSize, plainStage, plainTheme } from '../../lib/plain'
 import { familyOf, isCompanyNameClient, roleLabel, SCOPES, scopeOf, sourceTierDef } from '../../lib/scope'
 import { discoveryCapDelta } from '../../lib/rankWeights'
 import { useStore } from '../../lib/store'
@@ -298,6 +298,7 @@ export function EventDetail({ it }: { it: FeedItem }) {
   const fam = familyOf(s)
   const tier = sourceTierDef(it.source_tier)
   const origHeadline = originalHeadline(it) // source-language original, shown under the English when translated
+  const origLang = translatedFromLang(it) // the named source language (e.g. "Finnish"), when we have it
   // when the publisher blocked the direct read, the read-through (who gains / companies) was pieced together
   // from OTHER outlets, NOT read from THIS article — so the attribution copy must say so (CLAUDE.md §3).
   const corroborated = !!enrichment?.corroborated
@@ -343,8 +344,8 @@ export function EventDetail({ it }: { it: FeedItem }) {
 
         <h1 className="evdetail__headline">{displayHeadline(it)}</h1>
         {origHeadline && (
-          <div className="evdetail__headline-orig" title="The headline as the source published it, before translation to English">
-            <span className="evdetail__headline-orig-tag">original</span>
+          <div className="evdetail__headline-orig" title={`The headline as the source published it${origLang ? ` (${origLang})` : ''}, before translation to English`}>
+            <span className="evdetail__headline-orig-tag">{origLang ? `original · ${origLang}` : 'original'}</span>
             {origHeadline}
           </div>
         )}

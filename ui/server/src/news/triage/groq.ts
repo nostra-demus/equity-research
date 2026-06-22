@@ -63,8 +63,9 @@ why: ONE plain sentence, with a number where the headline gives one. No hype wor
 companies: up to 3 companies the headline is mainly about, each {"name":"...","ticker":"..."|null,"listing_country":"XX"|null}. These are GUESSES from the headline alone — use null whenever unsure; use [] for macro/sector items that name no company. Never invent a ticker.
 size_bucket: rough size of the MAIN company: "mega" (>$200B market value) | "large" ($10-200B) | "mid" ($2-10B) | "small" (<$2B) | "unknown". Use "unknown" when no company is named or you are unsure.
 headline_en: if the headline is NOT written in English, a faithful, concise English translation of it — keep company names, tickers and numbers exactly as written, translate only, add no commentary. If the headline IS already English, use null.
+headline_lang: when headline_en is non-null, the source language of the original headline, named in English (e.g. "Finnish", "German", "Japanese", "Korean"). If the headline is already English, use null. Be honest: only name a non-English language when the headline genuinely is in it.
 
-Return ONLY JSON: {"items":[{"i":<index>,"relevance":"material|relevant_non_material|irrelevant","materiality_pre_score":<int>,"event_types":[...],"issuer_linkage":"primary|secondary|sector|macro","why":"...","companies":[{"name":"...","ticker":null,"listing_country":null}],"size_bucket":"unknown","headline_en":null}]}. Include every index exactly once.`
+Return ONLY JSON: {"items":[{"i":<index>,"relevance":"material|relevant_non_material|irrelevant","materiality_pre_score":<int>,"event_types":[...],"issuer_linkage":"primary|secondary|sector|macro","why":"...","companies":[{"name":"...","ticker":null,"listing_country":null}],"size_bucket":"unknown","headline_en":null,"headline_lang":null}]}. Include every index exactly once.`
 
 export interface TriageOptions {
   model: string
@@ -140,6 +141,9 @@ export function coerceTriage(raw: any): Triage {
   // raw model text only; whether to KEEP it (non-Latin original, actually rendered to English) is
   // decided downstream by news/lang.ts pickTranslation, which has both the original and this candidate.
   const headline_en = typeof raw?.headline_en === 'string' && raw.headline_en.trim() ? raw.headline_en.trim().slice(0, 200) : null
+  // the source language the model named (for the reader's "original · <language>" affordance). Whether the
+  // translation is KEPT at all is still decided downstream by news/lang.ts pickTranslation.
+  const headline_lang = typeof raw?.headline_lang === 'string' && raw.headline_lang.trim() ? raw.headline_lang.trim().slice(0, 32) : null
   return {
     relevance: rel,
     materiality_pre_score: score,
@@ -149,6 +153,7 @@ export function coerceTriage(raw: any): Triage {
     companies,
     size_bucket: size,
     headline_en,
+    headline_lang,
   }
 }
 

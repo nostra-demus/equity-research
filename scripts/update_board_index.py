@@ -23,7 +23,6 @@ from __future__ import annotations
 import glob
 import json
 import os
-import re
 import sys
 from datetime import datetime, timezone
 
@@ -67,24 +66,6 @@ def read_ndjson(path: str) -> list[dict]:
             except Exception:
                 continue  # a corrupt line never breaks the board
     return out
-
-
-# Non-Latin script ranges (CJK, Hangul, Cyrillic, Arabic, Hebrew, Thai, Devanagari, Greek) — the
-# clear "a Latin-reading desk can't read this" case. Mirrors ui/server/src/news/lang.ts so the board
-# only ever attaches an English translation to a headline that actually needs one (never overriding an
-# already-English thesis statement). A coarse subset is plenty for the gating decision.
-_NON_LATIN = re.compile(
-    "[　-鿿"   # CJK symbols + Hiragana/Katakana + Han
-    "가-힯ᄀ-ᇿ"   # Hangul syllables + Jamo
-    "Ѐ-ԯ"   # Cyrillic
-    "؀-ۿ֐-׿"   # Arabic + Hebrew
-    "฀-๿ऀ-ॿঀ-৿"   # Thai + Devanagari + Bengali
-    "Ͱ-Ͽ]"   # Greek
-)
-
-
-def needs_translation(s: str | None) -> bool:
-    return bool(s) and bool(_NON_LATIN.search(s))
 
 
 def firehose_translations(max_files: int = 5) -> dict[str, str]:
@@ -295,11 +276,12 @@ def build() -> dict:
     for sid, e in by_signal.items():
         linked = thesis_by_signal.get(sid)
         status = (linked or {}).get("status") or e.get("status") or e.get("routing") or "LOG"
-        # surface the wire's English translation when this signal's headline is non-Latin; also lift it
-        # onto the linked thesis (its headline is the same event carried forward) so both read in English.
+        # surface the wire's English translation — already gated server-side by news/lang.ts (a real
+        # non-English headline only, Latin-script included), so trust the firehose value directly; also lift
+        # it onto the linked thesis (same event carried forward) so both read in English.
         ev_headline = e.get("headline") or ""
-        headline_en = xlate.get(e.get("event_id")) if needs_translation(ev_headline) else None
-        if linked is not None and not linked.get("headline_en") and needs_translation(linked.get("headline")):
+        headline_en = xlate.get(e.get("event_id"))
+        if headline_en and linked is not None and not linked.get("headline_en"):
             linked["headline_en"] = headline_en
         signals.append({
             "signal_id": sid,
