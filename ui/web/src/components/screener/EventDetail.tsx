@@ -7,6 +7,7 @@
 import { useEffect, useRef } from 'react'
 import { displayHeadline, originalHeadline, plainSize, plainStage, plainTheme } from '../../lib/plain'
 import { familyOf, isCompanyNameClient, roleLabel, SCOPES, scopeOf, sourceTierDef } from '../../lib/scope'
+import { discoveryCapDelta } from '../../lib/rankWeights'
 import { useStore } from '../../lib/store'
 import type { ArticleParty, EventEnrichment, FeedItem, RelatedEvent } from '../../lib/types'
 
@@ -182,9 +183,17 @@ function ScoreWhy({ it, anchorRef }: { it: FeedItem; anchorRef: React.RefObject<
   const w = typeof rf.boost_weight === 'number' ? rf.boost_weight : 1
   const adjSum = adjRows.reduce((s, r) => s + r.pts, 0)
   const boostDelta = Math.round(adjSum * w) - adjSum
-  const rows = boostDelta !== 0
+  const baseRows = boostDelta !== 0
     ? [...adjRows, { k: 'Overall boost', v: `×${w.toFixed(2)} on the adjustments above`, why: undefined as string | undefined, pts: boostDelta }]
     : adjRows
+  // A `social` (Reddit/discovery) item carries its UNcapped factors, but the server holds its displayed
+  // score below the pick/watch line (capSocialScore, §4/§24). Surface that hold-down as an explicit cut so
+  // the ledger reconciles to the shown score (CLAUDE.md §12) instead of the rows silently overshooting it.
+  const buildup = base + baseRows.reduce((s, r) => s + r.pts, 0)
+  const capDelta = discoveryCapDelta(buildup, score, rf.source_tier_id)
+  const rows = capDelta !== 0
+    ? [...baseRows, { k: 'Discovery cap', v: 'Reddit / social — held below the pick line', why: 'Low-trust chatter can surface a story but never lead the wire.', pts: capDelta }]
+    : baseRows
   const raw = base + rows.reduce((s, r) => s + r.pts, 0)
   const capped = raw > score && score >= 100
   const floored = raw < score && score <= 0

@@ -141,6 +141,26 @@ await check('stepThemes: items get assigned, discovery forms a theme, everything
   assert.ok(res.changed.length >= 1, 'changed summaries returned for SSE/persist')
 })
 
+// Regression (PR #71 Codex finding): a `social` (Reddit) item must NEVER independently drive a theme —
+// a theme is a thesis precursor (CLAUDE.md §4/§24). The band/score caps keep social out of the top pick,
+// but a non-drop social item still reaches the themes layer, which has no source-tier guard (score.ts
+// counts an unrecognised tier at full news-level magnitude), so Reddit-only posts could form and rank a
+// theme. Expected: a cluster of social-only items yields NO theme; the SAME cluster on a real source does.
+await check('stepThemes: social-only items NEVER form a theme; the same cluster on a real source does (§4/§24)', async () => {
+  const mk = (tier: string) => [
+    item('z1', 'Acme mass layoffs hit 5000 staff', { companies: [co('Acme', 'ACME')], event_types: ['management'], triage_score: 88, source_tier: tier }),
+    item('z2', 'Acme layoffs deepen as restructuring widens', { companies: [co('Acme', 'ACME')], event_types: ['operations'], triage_score: 84, source_tier: tier }),
+    item('z3', 'Beta joins Acme in the mass layoffs wave', { companies: [co('Beta', 'BETA'), co('Acme', 'ACME')], event_types: ['management'], triage_score: 80, source_tier: tier }),
+  ]
+  const social = await stepThemes({ themes: [], pool: [], items: mk('social'), runDiscovery: true, now: NOW })
+  assert.equal(social.themes.filter((t) => t.status === 'live').length, 0, 'no theme is discovered from social-only items')
+  assert.equal(social.assignments.size, 0, 'social items are not even assigned')
+  // control: identical cluster from a real (news) source DOES form a theme — proving the filter is
+  // social-specific, not a general break of discovery.
+  const news = await stepThemes({ themes: [], pool: [], items: mk('news'), runDiscovery: true, now: NOW })
+  assert.ok(news.themes.some((t) => t.status === 'live'), 'the same cluster on a real source forms a theme')
+})
+
 // ---- the LLM naming/validation pass (mocked fetch, no network) ----
 await check('makeThemeNamer (groq path): renames a real theme, retires a non-theme, never throws', async () => {
   const { makeThemeNamer } = await import('../src/news/themes/llm')

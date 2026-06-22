@@ -18,6 +18,7 @@
 
 import { deriveScope, deriveSourceTier, familyOf, SOURCE_TIERS, type ScopeId, type SourceTierId } from './scope'
 import { getRankWeights, type RankWeights } from './rank-weights'
+import type { Band } from './types'
 
 export interface RankInput {
   materiality_pre_score?: number | null
@@ -139,6 +140,43 @@ export function rankFamily(f: RankFactors): 'company' | 'broad' | 'unknown' {
   return familyOf(f.scope_id)
 }
 
+/**
+ * DOCTRINE CAP (CLAUDE.md §4/§24): a `social` item (Reddit) is discovery / corroboration only and can
+ * NEVER reach the top `pick` band — corroborate, never drive. The strongly-negative social source-tier
+ * weight already pushes it down, but a weight alone isn't a guarantee (a Scoring-panel edit, or a high
+ * Groq read on a real-looking post, could still clear the pick threshold), so this clamps it hard.
+ * Applied in runCycle right after scoreToBand; exported so the rule is independently testable. Every
+ * other tier passes through unchanged.
+ */
+export function capSocialBand(band: Band, sourceTierId: SourceTierId, caution = false): Band {
+  if (sourceTierId !== 'social') return band
+  // caution_only feeds (r/wallstreetbets) are a crowding/euphoria flag — "caution input only, never a
+  // source, weighted lowest" (reddit_feeds.json / SWARM.md). A regular social item may still be a `watch`
+  // lead (an r/Layoffs early-warning); a caution item must never even be a watch lead, so it caps to
+  // `drop` — visible chatter in the wire, but never inbox-eligible (inboxed = band !== 'drop').
+  if (caution) return 'drop'
+  return band === 'pick' ? 'watch' : band
+}
+
+/**
+ * DOCTRINE CAP (CLAUDE.md §4/§24) — the SCORE twin of capSocialBand. capSocialBand stops a `social`
+ * item DISPLAYING as a top `pick`, but the inbox and the wire ORDER by triage_score (write-inbox
+ * mergeInbox sorts by it; the ranked wire reads it), so an uncapped high score still lets a Reddit post
+ * float above filings/news and eat a scarce inbox slot — the cap on the band alone doesn't reach the
+ * ordering. Clamp a social item's priority to just below the pick threshold so its ORDER honors the cap
+ * too: it can never sort among the picks. The raw Groq read survives in rank_factors.materiality for the
+ * audit trail; only the composite priority is clamped. Every other tier passes through unchanged.
+ *
+ * A caution_only social item (r/wallstreetbets) is "weighted lowest": when watchThreshold is supplied,
+ * its score is clamped below the WATCH line (not just the pick line), so it can never out-sort a real
+ * watch lead for a scarce inbox slot and its band lands in `drop`, in lockstep with capSocialBand.
+ */
+export function capSocialScore(score: number, sourceTierId: SourceTierId, pickThreshold: number, watchThreshold?: number, caution = false): number {
+  if (sourceTierId !== 'social') return score
+  if (caution && watchThreshold != null) return Math.min(score, Math.max(0, Math.round(watchThreshold) - 1))
+  return Math.min(score, Math.max(0, Math.round(pickThreshold) - 1))
+}
+
 // High-value terms a buy-side PM would jump on — cheap to scan on the title BEFORE the LLM runs.
 // Substrings (not whole-word) on purpose: 'acqui' catches acquire/acquisition/acquired; 'investigat'
 // catches investigation/investigated. Used only to ORDER the triage queue, never to score.
@@ -159,11 +197,24 @@ const PRE_KEYWORDS = [
  * item (a takeover/default/guidance keyword) outranks a routine filing of any tier, which in turn
  * outranks routine news — material-first, then primary sources, then the rest.
  */
-export function preTriagePriority(it: { input_nature?: string | null; headline?: string | null; found_at?: string | null }, now: Date = new Date()): number {
-  const tier = sourceTierRank(deriveSourceTier({ input_nature: it.input_nature })) // 5 (filing) … 2 (news); no event_types pre-triage
+export function preTriagePriority(it: { input_nature?: string | null; headline?: string | null; found_at?: string | null }, now: Date = new Date(), weights: RankWeights = getRankWeights()): number {
+  const tierId = deriveSourceTier({ input_nature: it.input_nature })
+  const tier = sourceTierRank(tierId) // 5 (filing) … 2 (news) … 0 (social); no event_types pre-triage
   const hay = ' ' + String(it.headline || '').toLowerCase() + ' '
-  const material = PRE_KEYWORDS.some((k) => hay.includes(k)) ? 12 : 0 // bigger than the filing↔news tier gap (3×3=9)
-  return tier * 3 + material + recencyBonus(it.found_at, now, getRankWeights().recency)
+  // §4/§24 DOCTRINE CAP, at the triage QUEUE. A `social` (Reddit) item is discovery/corroboration only
+  // and must never jump AHEAD of a trusted source for the scarce Groq budget. r/Layoffs etc. are full of
+  // PRE_KEYWORDS ('layoffs', 'default', 'fraud', 'resign'…), so without this a low-trust post would score
+  // tier 0 + material 12 = 12+ and out-rank routine news (2×3=6) and even company items (3×3=9) in the
+  // queue, spending paid triage on Reddit before filings/news. Suppress the keyword lift for social.
+  const material = tierId !== 'social' && PRE_KEYWORDS.some((k) => hay.includes(k)) ? 12 : 0 // bigger than the filing↔news tier gap (3×3=9)
+  // ALSO suppress the freshness lift for social. recency points are panel-tunable up to +50 (rank-weights
+  // PT_MAX), so leaving the recency bonus on a social item would let a fresh Reddit post score 0 + 0 +
+  // recency and leapfrog an OLDER trusted item (e.g. day-old news at 2×3 + 0 = 6) the moment the freshness
+  // weight is raised above the tier gap — re-opening the exact queue-jump this cap closes. With both the
+  // keyword AND freshness lifts removed, a social item's queue priority is a flat tier×3 = 0, strictly
+  // below every non-social tier's floor (unconfirmed 1×3 = 3) no matter how recency is tuned.
+  const fresh = tierId === 'social' ? 0 : recencyBonus(it.found_at, now, weights.recency)
+  return tier * 3 + material + fresh
 }
 
 // re-export the tier rank for any caller that wants the raw §4 number

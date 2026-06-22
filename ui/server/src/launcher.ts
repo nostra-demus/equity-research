@@ -36,6 +36,29 @@ export interface SignalIntakeInput {
   override_promote?: boolean
 }
 
+// The input_nature values the Phase 0.1 intake contract accepts. MUST mirror the enum in
+// frameworks/screener/intake.schema.json — intake-input-nature.test.ts asserts they stay in lockstep, so
+// a schema edit that isn't reflected here fails CI rather than silently writing an invalid intake.json.
+const INTAKE_INPUT_NATURES = new Set([
+  'human_prompt', 'news_headline', 'price_alert', 'regulatory_filing', 'earnings_release',
+  'earnings_call_transcript', 'company_press_release', 'exchange_announcement', 'commodity_price_move',
+  'shipping_rate_move', 'options_flow_alert', 'chart_pattern', 'geopolitical_event', 'macro_data_release',
+])
+
+/**
+ * Clamp an incoming intake.input_nature to a value the intake schema accepts. A wire row can carry an
+ * ingest-only nature that is NOT a valid intake value — most importantly 'social_discussion' (the Reddit/
+ * `social` tier from approved-domains.ts), which the cockpit forwards when a user clicks "Run the checks"
+ * on a Reddit row. Writing it verbatim makes intake.json schema-invalid (validate_screener_json.py rejects
+ * it) instead of cleanly failing Gate 0 as an off-list source. The source_name/source_url (reddit.com)
+ * are preserved on the intake, so Gate 0 still rejects it off-list — we only normalize the nature label to
+ * the generic default so the intake stays schema-valid. An unset/unknown nature falls back per `isHuman`.
+ */
+export function sanitizeIntakeInputNature(raw: string | undefined, isHuman: boolean): string {
+  if (raw && INTAKE_INPUT_NATURES.has(raw)) return raw
+  return isHuman ? 'human_prompt' : 'news_headline'
+}
+
 // THE canonical signal identity: normalized headline | source URL (empty when none) | date.
 // Exported so tests can pin it; `.claude/commands/screener/signal.md` step B.1 documents the SAME
 // recipe for the CLI path — the two must never drift, or the same event gets two SIG folders.
@@ -643,7 +666,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
         path: path.join(REPO_ROOT, runRoot, 'intake.json'),
         body: {
           signal_id: subjectId,
-          input_nature: intake.input_nature || (isHuman ? 'human_prompt' : 'news_headline'),
+          input_nature: sanitizeIntakeInputNature(intake.input_nature, isHuman),
           input_datetime: new Date().toISOString(),
           headline: intake.headline.trim().slice(0, 500),
           body_text: intake.body_text || '',

@@ -70,14 +70,24 @@ export async function stepThemes(input: StepInput): Promise<StepResult> {
   const themes = input.themes
   const changedIds = new Set<string>()
 
+  // CLAUDE.md §4/§24: a `social` (Reddit) item is discovery/corroboration only and must NEVER independently
+  // drive an investment narrative — a theme is a thesis precursor. The band/score caps keep social out of
+  // the top `pick`, but a non-drop social item still lands in `picks` (and the discovery cold-start pool),
+  // and the themes layer has NO source-tier guard (score.ts even counts an unrecognised tier at full
+  // news-level magnitude). So drop social items at the door: they neither seed a new theme nor inflate an
+  // existing one's magnitude/breadth. Both entry points are covered here — this cycle's `items` and the
+  // accumulated/back-filled `pool` (runThemesCycle seeds it from readRecentThemeItems).
+  const notSocial = (v: ThemeItemView) => (v.source_tier || '') !== 'social'
+  const items = input.items.filter(notSocial)
+
   // 0. seed each existing live theme's daily ring from its CURRENT (pre-assignment) member ring, so the
   //    per-member bumps below don't double-count this cycle's items. New ledgers / fresh themes only.
   for (const t of themes) if (t.status === 'live') ensureDaily(t, nowMs)
 
   // 1. assignment (every cycle) — also bumps each touched theme's daily ring per new member landed
-  const a = assignThemes(input.items, themes, cfg.assign, now)
+  const a = assignThemes(items, themes, cfg.assign, now)
   for (const id of a.touched) changedIds.add(id)
-  let pool = [...input.pool, ...a.unclustered]
+  let pool = [...input.pool.filter(notSocial), ...a.unclustered]
 
   // 1b. self-heal existing themes (periodic): re-derive each live theme's identity from its members with
   //     the current tokenizer and purge members that no longer match — draining themes mis-seeded before

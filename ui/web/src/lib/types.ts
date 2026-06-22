@@ -120,7 +120,7 @@ export interface FeedItem {
   url: string
   domain: string
   source_name: string
-  via: 'gdelt' | 'rss'
+  via: 'gdelt' | 'rss' | 'nse' | 'hkex' | 'asx' | 'gov' | 'reddit'
   region: string
   input_nature: string
   triage_score: number

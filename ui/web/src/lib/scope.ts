@@ -37,7 +37,7 @@ export const scopeLabel = (s?: string | null): string => scopeDef(s).label
 export const familyOf = (s?: string | null): ScopeFamily => scopeDef(s).family
 
 // ---- source tier (CLAUDE.md §4 hierarchy) ----
-export type SourceTierId = 'primary_filing' | 'official_data' | 'company' | 'news' | 'unconfirmed'
+export type SourceTierId = 'primary_filing' | 'official_data' | 'company' | 'news' | 'unconfirmed' | 'social'
 export interface SourceTierDef { id: SourceTierId; label: string; rank: number; meaning: string }
 export const SOURCE_TIERS: Record<SourceTierId, SourceTierDef> = {
   primary_filing: { id: 'primary_filing', label: 'Filing', rank: 5, meaning: 'A regulatory filing or exchange disclosure — primary, top-of-the-ladder evidence.' },
@@ -45,6 +45,7 @@ export const SOURCE_TIERS: Record<SourceTierId, SourceTierDef> = {
   company: { id: 'company', label: 'Company', rank: 3, meaning: "The company's own release — useful, but management's framing, not an independent check." },
   news: { id: 'news', label: 'News', rank: 2, meaning: 'A reputable newswire report — secondary; verify against the primary source before relying on it.' },
   unconfirmed: { id: 'unconfirmed', label: 'Unconfirmed', rank: 1, meaning: 'Sourced to unnamed people — a rumour. Lowest weight until confirmed.' },
+  social: { id: 'social', label: 'Social', rank: 0, meaning: 'A social/forum post (Reddit) — user-generated, low-trust. Discovery and corroboration only; never independently drives a thesis or a top pick (CLAUDE.md §4/§24).' },
 }
 export const sourceTierDef = (t?: string | null): SourceTierDef | null => (t ? SOURCE_TIERS[(t as SourceTierId)] || null : null)
 

@@ -174,7 +174,7 @@ export function deriveScope(it: ScopeInput): ScopeId {
 
 // ---- source tier — CLAUDE.md §4 hierarchy, made visible on the wire ----
 
-export type SourceTierId = 'primary_filing' | 'official_data' | 'company' | 'news' | 'unconfirmed'
+export type SourceTierId = 'primary_filing' | 'official_data' | 'company' | 'news' | 'unconfirmed' | 'social'
 
 export interface SourceTierDef {
   id: SourceTierId
@@ -190,6 +190,7 @@ export const SOURCE_TIERS: Record<SourceTierId, SourceTierDef> = {
   company: { id: 'company', label: 'Company', rank: 3, meaning: "The company's own release — useful, but management's framing, not an independent check." },
   news: { id: 'news', label: 'News', rank: 2, meaning: 'A reputable newswire report — secondary; verify against the primary source before relying on it.' },
   unconfirmed: { id: 'unconfirmed', label: 'Unconfirmed', rank: 1, meaning: 'Sourced to unnamed people — a rumour. Lowest weight until confirmed.' },
+  social: { id: 'social', label: 'Social', rank: 0, meaning: 'A social/forum post (Reddit) — user-generated, low-trust. Discovery and corroboration only; never independently drives a thesis or a top pick (CLAUDE.md §4/§24).' },
 }
 
 export interface SourceTierInput {
@@ -200,8 +201,14 @@ export interface SourceTierInput {
 /** Map the intake's input_nature (+ a rumor event-type override) to the §4 source tier. */
 export function deriveSourceTier(it: SourceTierInput): SourceTierId {
   const types = (it.event_types || []).map(lc)
+  const nature = lc(it.input_nature)
+  // A social/forum post (Reddit) is the FLOOR tier and must STAY `social` — checked BEFORE the rumor
+  // override (CLAUDE.md §4/§24). Otherwise a Reddit post the triage also tags `rumor` resolves to
+  // `unconfirmed`, which (a) is a HIGHER tier than `social` and (b) slips past the social-only caps
+  // (capSocialBand / capSocialScore key on `social`), letting a low-trust post reach the `pick` band.
+  if (nature === 'social_discussion') return 'social'
   if (types.includes('rumor')) return 'unconfirmed'
-  switch (lc(it.input_nature)) {
+  switch (nature) {
     case 'regulatory_filing':
     case 'exchange_announcement':
       return 'primary_filing'

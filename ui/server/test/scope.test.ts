@@ -87,6 +87,19 @@ await check('source tier maps input_nature to the §4 ladder; rumor overrides', 
   assert.equal(deriveSourceTier({ input_nature: 'company_press_release' }), 'company')
   assert.equal(deriveSourceTier({ input_nature: 'news_headline' }), 'news')
   assert.equal(deriveSourceTier({ input_nature: 'news_headline', event_types: ['rumor'] }), 'unconfirmed')
+  assert.equal(deriveSourceTier({ input_nature: 'social_discussion' }), 'social')
+})
+
+// Regression (PR #71 Codex finding): the rumor override must NOT lift a Reddit post out of `social`.
+// Expected value pinned to CLAUDE.md §4/§24 (a social/forum post is the FLOOR tier — discovery only,
+// never independently drives a thesis/top pick): a social_discussion item stays `social` even when the
+// triage also tags it `rumor`. Pre-fix this returned `unconfirmed`, which is a HIGHER tier AND slips the
+// item past capSocialBand/capSocialScore (both key on `social`) so a Reddit rumor could become a `pick`.
+await check('source tier: a social_discussion post stays `social` even when also tagged rumor (§4/§24 cap must hold)', () => {
+  assert.equal(deriveSourceTier({ input_nature: 'social_discussion', event_types: ['rumor'] }), 'social')
+  assert.equal(deriveSourceTier({ input_nature: 'social_discussion', event_types: ['rumor', 'mna'] }), 'social')
+  // a NON-social rumor still demotes to unconfirmed — the override is unchanged for every other tier
+  assert.equal(deriveSourceTier({ input_nature: 'company_press_release', event_types: ['rumor'] }), 'unconfirmed')
 })
 
 // ---- summary extraction ----
@@ -456,6 +469,36 @@ await check('drain mode (skipFetch) triages the deferred backlog WITHOUT re-fetc
   assert.equal(feedFetches, 0, 'skipFetch must not hit GDELT/RSS/NSE')
   assert.equal(s.candidates, 1, 'the deferred backlog item was triaged')
   assert.equal(groqCalls, 1)
+})
+
+// Regression (PR #71 Codex findings) — END-TO-END social cap at INGEST. A Reddit (`social_discussion`)
+// post the triage scores HIGH and also tags `rumor` must land in the `watch` band with a priority BELOW
+// the pick threshold, never a `pick`, and never out-ranking a filing for an inbox slot. Expected values
+// pinned to CLAUDE.md §4/§24 (a social item is discovery only — never a top pick) and the synthesizer
+// band rule (pick = score ≥ pickThreshold). Pre-fix the rumor tag flipped the tier to `unconfirmed`
+// (escaping capSocialBand) → band `pick`, and the score was the uncapped 95 → it sorted among the picks.
+await check('ingest: a high-scoring Reddit rumor is capped to `watch` with a sub-pick score (§4/§24)', async () => {
+  const root = tmp(), state = tmp()
+  resetSharedLimiters()
+  // a deferred Reddit post (firewall already stamped domain reddit.com + input_nature social_discussion)
+  fs.writeFileSync(path.join(state, 'news-deferred.json'), JSON.stringify([{ event_id: 'EVT-rdt', headline: 'Acme rumored to be cutting 5000 jobs, insiders say', url: 'https://www.reddit.com/r/Layoffs/comments/abc/acme', domain: 'reddit.com', source_name: 'Reddit r/Layoffs', region: 'GLOBAL', input_nature: 'social_discussion', found_at: '2026-06-13T10:30:00Z', dedup_status: 'new', via: 'reddit' }]))
+  // the model reads it as highly material AND a rumor, with a named company (so scope = single_name)
+  const triageJson = JSON.stringify({ items: [{ i: 0, relevance: 'material', materiality_pre_score: 95, event_types: ['rumor'], issuer_linkage: 'primary', why: 'mass layoffs rumor', companies: [{ name: 'Acme', ticker: 'ACME', listing_country: 'US' }], size_bucket: 'mid' }] })
+  const fetchFn = (async (u: string) => {
+    if (String(u).includes('/chat/completions')) return res(JSON.stringify({ choices: [{ finish_reason: 'stop', message: { content: triageJson } }], usage: { total_tokens: 200 } }))
+    return res('', 200)
+  }) as unknown as typeof fetch
+  const cfg: any = { groqApiKey: 'k', groqModel: 'm', groqBaseUrl: 'https://api.groq.com/openai/v1', groqRpm: 0, groqTpm: 0, triageBatch: 12, groqDailyReqCap: 9999, groqDailyTokenCap: 9e9, pickThreshold: 70, watchThreshold: 40, rankBoostWeight: 1, inboxMaxRows: 40, feedItemsDailyCap: 5000, triageMaxTokens: 900, rssEnabled: false, nseEnabled: false, gdeltLookbackMin: 40, gdeltBaseUrl: 'https://gdelt.test' }
+  const s = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: async () => {}, now: () => new Date('2026-06-13T11:00:00Z'), skipFetch: true })
+  assert.equal(s.picked, 0, 'a social rumor is NEVER a pick (§4/§24)')
+  assert.equal(s.watched, 1, 'it lands in the watch band instead')
+  const inbox = JSON.parse(fs.readFileSync(path.join(root, 'screener', 'inbox', '2026-06-13_sweep.json'), 'utf8'))
+  const row = (inbox.rows || []).find((r: any) => r.url.includes('/r/Layoffs/'))
+  assert.ok(row, 'the social item is in the inbox')
+  // s.picked===0 / s.watched===1 above already prove the BAND cap (those counts come from triaged[].band);
+  // the inbox row itself carries the tier + the clamped composite score.
+  assert.equal(row.source_tier, 'social', 'tier stays social despite the rumor tag')
+  assert.ok(row.triage_score <= cfg.pickThreshold - 1, `score clamped below the pick threshold (got ${row.triage_score})`)
 })
 
 console.log(`\nscope + enrich: ${passed} checks passed`)

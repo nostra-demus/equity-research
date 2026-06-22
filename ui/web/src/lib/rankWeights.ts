@@ -27,7 +27,7 @@ export interface RankWeightsState {
 
 // Mirror of the server's DEFAULT_RANK_WEIGHTS — keep the two in sync (a test asserts the server set).
 export const DEFAULT_RANK_WEIGHTS: RankWeights = {
-  source_tier: { primary_filing: 8, official_data: 5, company: 3, news: 0, unconfirmed: -8 },
+  source_tier: { primary_filing: 8, official_data: 5, company: 3, news: 0, unconfirmed: -8, social: -12 },
   scope: { single_name: 6, multi_name: 5, policy: 2, commodity: 1, sector: 0, macro: -4, unknown: -2 },
   event: { mna: 9, guidance_change: 7, debt_credit: 7, capital_actions: 6, litigation_enforcement: 6, earnings_revenue_margin: 5, management: 4, regulatory: 4, cybersecurity: 4, product: 3, commercial: 3, operations: 2, macro_sector: 1, rumor: -3 },
   size: { mega: 2, large: 2, mid: 1, small: -1, unknown: 0 },
@@ -112,3 +112,17 @@ export function scoreUnderWeights(item: FeedItem, w: RankWeights): number {
 }
 
 export const rankWeightsEqual = (a: RankWeights, b: RankWeights): boolean => JSON.stringify(a) === JSON.stringify(b)
+
+// The "Why this score" ledger must reconcile to the SHOWN score (CLAUDE.md §12 — a score is explainable
+// from evidence rows, not vibes). A `social` (Reddit/discovery) item carries its UNcapped rank_factors,
+// but the server holds its displayed triage_score below the pick/watch line (capSocialScore, §4/§24). So
+// for a capped social item the factor build-up (base + adjustments) overshoots the shown score, and the
+// ledger silently fails to add up. This returns the (negative) discovery-tier hold-down to surface as an
+// explicit cut row so the rows sum to the shown score. 0 when no social hold-down applies — the ordinary
+// 0/100 clamp is a different case the panel already labels ("capped at 100" / "held at 0").
+export function discoveryCapDelta(rawBuildup: number, shownScore: number, sourceTierId: string): number {
+  if (sourceTierId !== 'social') return 0
+  if (shownScore >= rawBuildup) return 0           // not held down (cap only ever lowers)
+  if (rawBuildup > 100 || shownScore <= 0) return 0 // the 0/100 clamp, not the discovery cap
+  return shownScore - rawBuildup                    // negative — the points the discovery cap removed
+}

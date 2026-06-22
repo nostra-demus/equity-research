@@ -1,0 +1,82 @@
+{
+  "_doc": "DISCOVERY/SENTIMENT layer of the screener's news ingestion (CLAUDE.md-versioned doctrine, not engine code): named subreddits read every cycle via Reddit's no-auth Atom feeds by sources/reddit.ts. These are LOW-TRUST, user-generated inputs. Per CLAUDE.md §4 (source hierarchy) and §24 (avoid big risks — unverified 'buzz' must be investigated, not acted on), Reddit is a corroboration/early-warning signal ONLY: items land in the `social` source tier and are hard-capped to the `watch` band — they can NEVER reach a top `pick` or independently drive a thesis. reddit.com is on the ingestion firewall (approved-domains.ts) but is deliberately NOT on the gauntlet's Gate-0 promotion list (SWARM.md signal_gate.allowed / intake.schema.json), so a Reddit-only signal cannot become a promotable thesis — it must find an on-list corroborating source (M0.1). `caution_only:true` (r/wallstreetbets) is a crowding/euphoria caution input, weighted even lower. Reddit blocks automated access aggressively; the adapter uses a descriptive contact User-Agent and a fallback chain (www.reddit -> old.reddit -> a public mirror set by NEWS_REDDIT_MIRROR_TEMPLATE) with a 429 penalty-box and slow per-host pacing. To add a subreddit: add a row here (subreddit, source_name, role, region, caution_only); no engine-code edit is needed.",
+  "subreddits": [
+    {
+      "subreddit": "Layoffs",
+      "source_name": "Reddit r/Layoffs",
+      "role": "Workforce-cut early-warning: named/numbered layoffs and pre-disclosure rumors — a margin and management-credibility lead signal.",
+      "region": "US",
+      "caution_only": false
+    },
+    {
+      "subreddit": "cybersecurity",
+      "source_name": "Reddit r/cybersecurity",
+      "role": "Security/breach-event monitor tied to named public companies — operational-risk lead signal.",
+      "region": "GLOBAL",
+      "caution_only": false
+    },
+    {
+      "subreddit": "Frugal",
+      "source_name": "Reddit r/Frugal",
+      "role": "Consumer trade-down thermometer: dining-out, protein, warehouse-club, telecom, rideshare demand shifts — discretionary vs staples.",
+      "region": "US",
+      "caution_only": false
+    },
+    {
+      "subreddit": "wallstreetbets",
+      "source_name": "Reddit r/wallstreetbets",
+      "role": "Retail crowding / euphoria risk-flag — a CAUTION input only, never a source. Weighted lowest.",
+      "region": "US",
+      "caution_only": true
+    },
+    {
+      "subreddit": "ValueInvesting",
+      "source_name": "Reddit r/ValueInvesting",
+      "role": "Contrarian / bear-case debate on named stocks — the disconfirming view to consensus.",
+      "region": "GLOBAL",
+      "caution_only": false
+    },
+    {
+      "subreddit": "REBubble",
+      "source_name": "Reddit r/REBubble",
+      "role": "Housing / rates / consumer bear case — homebuilders, Home Depot / Lowe's, REITs, banks.",
+      "region": "US",
+      "caution_only": false
+    },
+    {
+      "subreddit": "sysadmin",
+      "source_name": "Reddit r/sysadmin",
+      "role": "Enterprise-IT vendor health: MSFT, Dell, Cisco, CrowdStrike — license churn, product revolts, pricing.",
+      "region": "GLOBAL",
+      "caution_only": false
+    },
+    {
+      "subreddit": "msp",
+      "source_name": "Reddit r/msp",
+      "role": "SMB-IT vendor health: Cisco/Meraki, SonicWall, Ubiquiti, CrowdStrike/SentinelOne, Pax8 — vendor switching and pricing.",
+      "region": "GLOBAL",
+      "caution_only": false
+    },
+    {
+      "subreddit": "electricvehicles",
+      "source_name": "Reddit r/electricvehicles",
+      "role": "EV adoption and Tesla / BYD sentiment — autos.",
+      "region": "GLOBAL",
+      "caution_only": false
+    },
+    {
+      "subreddit": "LocalLLaMA",
+      "source_name": "Reddit r/LocalLLaMA",
+      "role": "AI / semis: open-weight model race and GPU demand — NVDA.",
+      "region": "GLOBAL",
+      "caution_only": false
+    },
+    {
+      "subreddit": "pharmacy",
+      "source_name": "Reddit r/pharmacy",
+      "role": "Healthcare retail / PBM: CVS / Walgreens economics and drug shortages (borderline).",
+      "region": "US",
+      "caution_only": false
+    }
+  ]
+}
