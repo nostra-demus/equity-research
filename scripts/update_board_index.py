@@ -299,6 +299,10 @@ def build() -> dict:
             "status": status,
             "status_reason": e.get("status_reason") or e.get("routing_reason") or "",
             "thesis_id": (linked or {}).get("thesis_id"),
+            # carry the scanner's theme tags + named issuers through so the live book can filter by
+            # theme/company (already on the event ledger row; the UI's theme chips self-activate once present).
+            "event_types": e.get("event_types") if isinstance(e.get("event_types"), list) else [],
+            "issuers": e.get("issuers") if isinstance(e.get("issuers"), list) else [],
         })
     signals.sort(key=lambda s: s.get("processed_at") or "", reverse=True)
 

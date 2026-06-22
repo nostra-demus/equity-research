@@ -654,6 +654,13 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
       if (!fs.existsSync(path.join(REPO_ROOT, runRoot, 'intake.json'))) {
         throw Object.assign(new Error(`No intake.json for ${subjectId} — submit the signal form instead.`), { statusCode: 400 })
       }
+      // a deliberate relaunch (manual Continue / Re-run) clears any prior user-abort marker, so the run
+      // becomes live again rather than staying excluded from the resumable scan.
+      try {
+        fs.rmSync(path.join(REPO_ROOT, runRoot, '.aborted'), { force: true })
+      } catch {
+        /* best-effort */
+      }
     } else {
       const intake = params.intake
       if (!intake?.headline || intake.headline.trim().length < 8) {
@@ -904,6 +911,17 @@ export async function cancel(runId: string): Promise<boolean> {
   const run = getRun(runId)
   if (!run || run.endedAt !== undefined) return false // gone, or already finalized
   run.cancelRequested = true // honored by spawnEngine if the child isn't up yet (the gate-proceed buildArgs window)
+  // A user-initiated cancel of a screener signal is a deliberate stop, NOT a breakage. Drop a marker in
+  // its run folder so the auto-resume scan (listResumableSignals) never resurrects it on the next reconnect.
+  if (run.kind === 'signal' && run.runRoot) {
+    try {
+      const abs = path.isAbsolute(run.runRoot) ? run.runRoot : path.join(REPO_ROOT, run.runRoot)
+      fs.mkdirSync(abs, { recursive: true })
+      fs.writeFileSync(path.join(abs, '.aborted'), JSON.stringify({ at: new Date().toISOString(), reason: 'cancelled' }))
+    } catch {
+      /* best-effort marker; a missing marker only risks one auto-resume the user can re-cancel */
+    }
+  }
   // A chained full-run step: halt the chain HERE (any cancel path) so the next module can never launch —
   // not only on the stop-everything kill switch. Without this, cancelling one step could still advance.
   if (run.chained) haltAllChains()

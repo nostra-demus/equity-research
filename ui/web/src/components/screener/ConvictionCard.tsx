@@ -3,9 +3,10 @@ import { api } from '../../lib/api'
 import type { BoardConviction, BookMomentum, ConvictionCheckpoint, ConvictionDetail, ConvictionEventRow, TrajectoryEnum } from '../../lib/types'
 
 // Phase 3 live book — the conviction surface. Reads ONLY the board's engine-owned conviction
-// snapshot (no client math beyond formatting). Shows, per idea: its sell-side rung, a conviction
-// sparkline (the literal "basic → great" shape), the plain "passed N of M proof points" progress,
-// and the precise rate-of-upgrade (+N/30d) — both, per the owner's call. Flat until the loop runs.
+// snapshot (no client math beyond formatting). The strip is split into small composable pieces
+// (StancePill / ProofProgress / VelocityBadge / NextCheck) so the idea card can lay them into its
+// grid in priority order, while ThesisDetail still gets the one flat <ConvictionStrip/>. Honest
+// "awaiting first check" stays calm, never broken-looking.
 
 const TRAJ_WORD: Record<TrajectoryEnum, string> = {
   accelerating: 'climbing fast',
@@ -14,7 +15,8 @@ const TRAJ_WORD: Record<TrajectoryEnum, string> = {
   decaying: 'cooling',
 }
 
-function daysUntil(iso: string | null): number | null {
+// Exported as the single source of truth for "days until an ISO date" (the filter reuses it).
+export function daysUntil(iso: string | null): number | null {
   if (!iso) return null
   const t = new Date(iso).getTime()
   if (isNaN(t)) return null
@@ -29,10 +31,20 @@ function dueWord(iso: string | null): string {
   return `${-d}d ago`
 }
 
+// Which way the idea is moving — drives the score ring colour on the card.
+export function convDir(conv?: BoardConviction | null): 'up' | 'down' | 'await' | 'flat' {
+  if (!conv) return 'flat'
+  if (conv.archived) return conv.state === 'falsified_discarded' ? 'down' : 'flat'
+  if (!conv.validated) return 'await'
+  if (conv.upgrade_velocity > 0) return 'up'
+  if (conv.upgrade_velocity < 0) return 'down'
+  return 'flat'
+}
+
 // A pure-SVG conviction sparkline — edge_score_live (0–100) over time. No chart library; the line
-// is static SVG and only opacity/transform ever animate (the dot pulse). A single point (never-yet
-// validated) renders as a faint baseline + a dot, an honest "awaiting first check" empty state.
-function Sparkline({ conv, w = 116, h = 30 }: { conv: BoardConviction; w?: number; h?: number }) {
+// is static SVG and only opacity/transform ever animate (the dot pulse). Render this ONLY when
+// there is a real shape to draw (validated && >1 point); the awaiting state is shown calmly elsewhere.
+export function Sparkline({ conv, w = 116, h = 28 }: { conv: BoardConviction; w?: number; h?: number }) {
   const pad = 4
   const pts = conv.trajectory?.length ? conv.trajectory : [{ at: '', edge: conv.edge_score_live }]
   const xy = (edge: number, i: number) => {
@@ -43,6 +55,7 @@ function Sparkline({ conv, w = 116, h = 30 }: { conv: BoardConviction; w?: numbe
   const coords = pts.map((p, i) => xy(p.edge, i))
   const path = coords.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ')
   const [lx, ly] = coords[coords.length - 1]
+  const climbing = conv.validated && conv.upgrade_velocity > 0
   const tone = !conv.validated
     ? 'var(--text-faint)'
     : conv.upgrade_velocity > 0
@@ -55,23 +68,84 @@ function Sparkline({ conv, w = 116, h = 30 }: { conv: BoardConviction; w?: numbe
       <line x1={pad} y1={h - pad} x2={w - pad} y2={h - pad} stroke="var(--hairline)" strokeWidth="1" />
       {pts.length > 1 && <polyline points={path} fill="none" stroke={tone} strokeWidth="1.6" strokeLinejoin="round" strokeLinecap="round" />}
       {pts.length === 1 && <line x1={pad} y1={ly} x2={lx} y2={ly} stroke="var(--hairline-strong)" strokeWidth="1.4" strokeDasharray="2 3" />}
-      <circle className="conv__sparkdot" cx={lx} cy={ly} r="2.4" fill={tone} />
+      <circle className={`conv__sparkdot${climbing ? ' conv__sparkdot--live' : ''}`} cx={lx} cy={ly} r="2.4" fill={tone} />
     </svg>
   )
 }
 
-function VelocityBadge({ conv }: { conv: BoardConviction }) {
-  if (!conv.validated) return <span className="conv__vel conv__vel--new">not yet tested</span>
-  const v = Math.round(conv.upgrade_velocity)
-  const dir = v > 0 ? 'up' : v < 0 ? 'down' : 'flat'
-  const arrow = v > 0 ? '▲' : v < 0 ? '▼' : '±'
+// The §18 stance / sell-side rung pill (colour-coded per conviction state).
+export function StancePill({ conv }: { conv: BoardConviction }) {
   return (
-    <span className={`conv__vel conv__vel--${dir}`} title="Rate of upgrade — change in idea strength per 30 days">
-      {arrow} {v > 0 ? '+' : ''}{v}/30d
+    <span className={`conv__rating conv__rating--${conv.state}`} title={`Live idea strength ${conv.edge_score_live}/100 (locked at ${conv.edge_locked})`}>
+      {conv.sell_side_rating}
     </span>
   )
 }
 
+// "N of M proof points" + the thin progress bar. For the awaiting majority the bar track shows with
+// no fill (a plan, not a failure) — the calm styling lives in the --await modifier.
+export function ProofProgress({ conv }: { conv: BoardConviction }) {
+  const word = conv.validated ? TRAJ_WORD[conv.trajectory_enum] : 'awaiting first check'
+  const frac = Math.max(0, Math.min(1, conv.proximity_pct / 100))
+  return (
+    <div className={`conv__prog${conv.validated ? '' : ' conv__prog--await'}`}>
+      <div className="conv__progline">
+        <span>
+          {conv.progress_confirmed} of {conv.progress_total} proof points
+        </span>
+        <span className="conv__traj">{word}</span>
+      </div>
+      <div className="conv__bar">
+        <span className="conv__barfill" style={{ transform: `scaleX(${frac})` }} />
+      </div>
+    </div>
+  )
+}
+
+// "not yet tested" (calm) or the signed rate of upgrade. `compact` is the tight card-cluster form.
+export function VelocityBadge({ conv, compact = false }: { conv: BoardConviction; compact?: boolean }) {
+  const cls = `conv__vel${compact ? ' conv__vel--compact' : ''}`
+  if (!conv.validated) return <span className={`${cls} conv__vel--await`}>{compact ? 'awaiting' : 'not yet tested'}</span>
+  const v = Math.round(conv.upgrade_velocity)
+  const dir = v > 0 ? 'up' : v < 0 ? 'down' : 'flat'
+  const arrow = v > 0 ? '▲' : v < 0 ? '▼' : '±'
+  return (
+    <span className={`${cls} conv__vel--${dir}`} title="Rate of upgrade — change in idea strength per 30 days">
+      {arrow} {v > 0 ? '+' : ''}
+      {v}
+      {compact ? '' : '/30d'}
+    </span>
+  )
+}
+
+// The next dated proof point + any attention flags (stale / needs a source).
+export function NextCheck({ conv }: { conv: BoardConviction }) {
+  const nc = conv.next_checkpoint
+  if (!nc && !conv.stale && !conv.insufficient) return null
+  return (
+    <div className="conv__nextrow">
+      {nc && (
+        <span className="conv__next" title={nc.metric_name}>
+          <span className="conv__nextlabel">next</span>
+          <span className="conv__nextmetric">{nc.metric_name}</span>
+          <span className="conv__due">{dueWord(nc.due_at)}</span>
+        </span>
+      )}
+      {conv.stale && (
+        <span className="conv__flag conv__flag--stale" title="A check's due date passed with no result on record — rating frozen.">
+          stale
+        </span>
+      )}
+      {conv.insufficient && (
+        <span className="conv__flag conv__flag--insuff" title="The check ran but no approved source gave the number — we refuse to fake it.">
+          needs a source
+        </span>
+      )}
+    </div>
+  )
+}
+
+// The flat strip, kept for ThesisDetail — composes the same pieces the card lays out in its grid.
 export function ConvictionStrip({ conv }: { conv: BoardConviction }) {
   if (conv.archived) {
     return (
@@ -81,30 +155,18 @@ export function ConvictionStrip({ conv }: { conv: BoardConviction }) {
       </div>
     )
   }
-  const word = conv.validated ? TRAJ_WORD[conv.trajectory_enum] : 'awaiting first check'
-  const nc = conv.next_checkpoint
   return (
     <div className="conv">
-      <span className={`conv__rating conv__rating--${conv.state}`} title={`Live idea strength ${conv.edge_score_live}/100 (locked at ${conv.edge_locked})`}>
-        {conv.sell_side_rating}
-      </span>
-      <Sparkline conv={conv} />
-      <div className="conv__prog">
-        <div className="conv__progline">
-          <span>{conv.progress_confirmed} of {conv.progress_total} proof points</span>
-          <span className="conv__traj">{word}</span>
-        </div>
-        <div className="conv__bar"><span className="conv__barfill" style={{ transform: `scaleX(${Math.max(0, Math.min(1, conv.proximity_pct / 100))})` }} /></div>
-      </div>
+      <StancePill conv={conv} />
+      {conv.validated && (conv.trajectory?.length ?? 0) > 1 && <Sparkline conv={conv} />}
+      <ProofProgress conv={conv} />
       <VelocityBadge conv={conv} />
-      {nc && (
-        <span className="conv__next" title={nc.metric_name}>
-          next: {nc.metric_name.length > 40 ? nc.metric_name.slice(0, 40) + '…' : nc.metric_name} · <span className="conv__due">{dueWord(nc.due_at)}</span>
-        </span>
+      <NextCheck conv={conv} />
+      {conv.validated && conv.plain_note && (
+        <div className="conv__why" title="Why it last moved">
+          {conv.plain_note}
+        </div>
       )}
-      {conv.stale && <span className="conv__flag conv__flag--stale" title="A check's due date passed with no result on record — rating frozen.">stale</span>}
-      {conv.insufficient && <span className="conv__flag conv__flag--insuff" title="The check ran but no approved source gave the number — we refuse to fake it.">needs a source</span>}
-      {conv.validated && conv.plain_note && <div className="conv__why" title="Why it last moved">{conv.plain_note}</div>}
     </div>
   )
 }
@@ -214,61 +276,65 @@ export function CheckpointTimeline({ detail }: { detail: ConvictionDetail }) {
   )
 }
 
-// The track record strip — the proof the loop works. Reads /screener:calibrate's latest output;
-// shows an honest "building" state until enough checks resolve (never fabricates a metric).
-export function TrackRecord() {
-  const [c, setC] = useState<any | null>(null)
-  useEffect(() => {
-    let on = true
-    api.screenerCalibration().then((r) => { if (on) setC(r) }).catch(() => {})
-    return () => { on = false }
-  }, [])
-  if (!c) return null
+// The track-record fragment — honest "building" until enough checks resolve; never fabricates a metric.
+function TrackRecordInline({ c }: { c: any }) {
   if (!c.sufficient) {
     return (
-      <div className="trackrec trackrec--building" title={c.verdict}>
-        <span className="trackrec__label">Track record</span>
-        <span className="trackrec__note">building — {c.n_resolved}/{c.min_resolved_for_calibration} checks resolved across {c.n_theses} idea{c.n_theses === 1 ? '' : 's'}; fills in as they hit their dates</span>
-      </div>
+      <span className="bookhealth__track" title={c.verdict}>
+        <span className="bookhealth__tracklabel">Track record</span> building — {c.n_resolved}/{c.min_resolved_for_calibration} checks resolved across {c.n_theses} idea{c.n_theses === 1 ? '' : 's'}
+      </span>
     )
   }
   return (
-    <div className="trackrec" title={c.verdict}>
-      <span className="trackrec__label">Track record</span>
-      <span className="trackrec__stats">
-        {c.hit_rate != null && <b>{Math.round(c.hit_rate * 100)}% hit-rate</b>}
-        <span>{c.brier != null ? `Brier ${c.brier}` : 'Brier pending'}</span>
-        <span>{c.n_resolved} checks resolved</span>
-        {c.median_days_lock_to_confirm != null && <span>~{c.median_days_lock_to_confirm}d to confirm</span>}
-        {c.false_discard_rate != null && <span>{Math.round(c.false_discard_rate * 100)}% discards reversed</span>}
-      </span>
-    </div>
+    <span className="bookhealth__track" title={c.verdict}>
+      <span className="bookhealth__tracklabel">Track record</span>
+      {c.hit_rate != null && <b> {Math.round(c.hit_rate * 100)}% hit-rate</b>}
+      {c.brier != null ? ` · Brier ${c.brier}` : ''} · {c.n_resolved} checks resolved
+      {c.median_days_lock_to_confirm != null ? ` · ~${c.median_days_lock_to_confirm}d to confirm` : ''}
+    </span>
   )
 }
 
-export function BookMomentumBanner({ m }: { m: BookMomentum }) {
-  if (!m || m.live_count === 0) return null
-  const anyTested = m.upgrading_count + m.decaying_count > 0
-  const v = Math.round(m.mean_upgrade_velocity)
-  const tone = !anyTested ? 'new' : v > 0 ? 'up' : v < 0 ? 'down' : 'flat'
-  const detail = [
-    `${m.live_count} live`,
-    m.upgrading_count ? `${m.upgrading_count} climbing` : null,
-    m.confirmed_count ? `${m.confirmed_count} confirmed` : null,
-    m.fading_count ? `${m.fading_count} cooling` : null,
-    m.archived_count ? `${m.archived_count} archived` : null,
-  ].filter(Boolean).join(' · ')
+// One "book health" row: book momentum (left) + a hairline + the track record (right). Both keep
+// their honest awaiting/building states. Renders nothing until at least one half has something to say.
+export function BookHealth({ m }: { m?: BookMomentum | null }) {
+  const [cal, setCal] = useState<any | null>(null)
+  useEffect(() => {
+    let on = true
+    api.screenerCalibration().then((r) => { if (on) setCal(r) }).catch(() => {})
+    return () => { on = false }
+  }, [])
+  const hasMom = !!m && m.live_count > 0
+  if (!hasMom && !cal) return null
+  const anyTested = hasMom && m!.upgrading_count + m!.decaying_count > 0
+  const v = hasMom ? Math.round(m!.mean_upgrade_velocity) : 0
+  const tone = !hasMom ? 'flat' : !anyTested ? 'new' : v > 0 ? 'up' : v < 0 ? 'down' : 'flat'
+  const detail = hasMom
+    ? [
+        `${m!.live_count} live`,
+        m!.upgrading_count ? `${m!.upgrading_count} climbing` : null,
+        m!.confirmed_count ? `${m!.confirmed_count} confirmed` : null,
+        m!.fading_count ? `${m!.fading_count} cooling` : null,
+        m!.archived_count ? `${m!.archived_count} archived` : null,
+      ].filter(Boolean).join(' · ')
+    : ''
   return (
-    <div className={`bookmom bookmom--${tone}`}>
-      {anyTested ? (
-        <>
-          <span className="bookmom__num">{v > 0 ? '▲ +' : v < 0 ? '▼ ' : '± '}{v}/30d</span>
-          <span className="bookmom__label">book {v > 0 ? 'upgrading' : v < 0 ? 'cooling' : 'flat'} this week</span>
-        </>
-      ) : (
-        <span className="bookmom__label">Tracking {m.live_count} live idea{m.live_count === 1 ? '' : 's'} · awaiting their first checks</span>
+    <div className={`bookhealth bookhealth--${tone}`}>
+      {hasMom && (
+        <div className="bookhealth__mom">
+          {anyTested ? (
+            <>
+              <span className="bookhealth__num">{v > 0 ? '▲ +' : v < 0 ? '▼ ' : '± '}{v}/30d</span>
+              <span className="bookhealth__label">book {v > 0 ? 'upgrading' : v < 0 ? 'cooling' : 'flat'} this week</span>
+            </>
+          ) : (
+            <span className="bookhealth__label">Tracking {m!.live_count} live idea{m!.live_count === 1 ? '' : 's'} · awaiting their first checks</span>
+          )}
+        </div>
       )}
-      <span className="bookmom__detail">{detail}</span>
+      {hasMom && cal && <span className="bookhealth__div" aria-hidden="true" />}
+      {cal && <TrackRecordInline c={cal} />}
+      {hasMom && detail && <span className="bookhealth__detail">{detail}</span>}
     </div>
   )
 }
