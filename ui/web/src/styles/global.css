@@ -1551,13 +1551,22 @@ a { color: inherit; }
 .scorewhy {
   padding: 13px 15px 15px; border: 1px solid var(--hairline); border-left: 3px solid var(--accent-deep);
   border-radius: var(--r-md); background: var(--accent-wash-soft);
-  /* opacity-only fade is safe under reduced-motion; the transform variant is added below */
-  animation: scorewhy-fade 200ms var(--ease) both;
 }
 .scorewhy .evdetail__label { color: var(--accent-bright); margin-bottom: 9px; }
-.scorewhy__head { display: flex; align-items: baseline; gap: 9px; margin-bottom: 8px; }
+/* the header row IS the collapse toggle — the score + band stay visible; the build-up folds away under it */
+.scorewhy__toggle {
+  display: flex; align-items: center; gap: 9px; width: 100%;
+  padding: 0; margin: 0; border: 0; background: none; font: inherit; color: inherit;
+  text-align: left; cursor: pointer; transition: transform var(--dur-fast) var(--ease-out);
+}
+.scorewhy__toggle:active { transform: scale(0.985); }
+.scorewhy .scorewhy__toggle .evdetail__label { margin-bottom: 0; }
+.scorewhy__caret { flex: none; margin-left: auto; font-size: 10px; color: var(--text-muted); transition: transform 180ms var(--ease-out), color var(--dur-fast) var(--ease-out); }
+.scorewhy--open .scorewhy__caret { transform: rotate(180deg); }
+@media (hover: hover) and (pointer: fine) { .scorewhy__toggle:hover .scorewhy__caret { color: var(--text); } }
 .scorewhy__num { font-size: 15px; font-weight: 700; padding: 2px 8px; border: 1px solid; border-radius: var(--r-sm); font-variant-numeric: tabular-nums; }
-.scorewhy__band { font-size: 12.5px; font-weight: 600; }
+.scorewhy__band { font-size: 12.5px; font-weight: 600; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.scorewhy__body { margin-top: 12px; }
 .scorewhy__reason { font-size: 12.5px; line-height: 1.55; color: var(--text-muted); margin: 0 0 13px; }
 
 /* the build-up meter — base read, then the §4 adjustment that lifted (green) or trimmed (red) it */
@@ -1590,11 +1599,15 @@ a { color: inherit; }
 @keyframes scorewhy-fade { from { opacity: 0; } to { opacity: 1; } }
 @keyframes scorewhy-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
 @keyframes scorewhy-grow { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+/* the build-up reveals on expand: opacity-only by default (safe under reduced motion), upgraded to a
+   short slide-and-fade when motion is allowed; the meter segments grow from the left as it opens */
+.scorewhy__body { animation: scorewhy-fade var(--dur) var(--ease) both; }
 @media (prefers-reduced-motion: no-preference) {
-  .scorewhy { animation: scorewhy-in var(--dur) var(--ease-out) both; }
+  .scorewhy__body { animation: scorewhy-in var(--dur) var(--ease-out) both; }
   .scorewhy__seg { transform-origin: left center; animation: scorewhy-grow 280ms var(--ease-out) both; }
   .scorewhy__seg--add, .scorewhy__seg--cut { animation-delay: 80ms; }
 }
+@media (prefers-reduced-motion: reduce) { .scorewhy__caret, .scorewhy__toggle { transition: none; } .scorewhy__toggle:active { transform: none; } }
 
 /* ---- at-a-glance stat strip ---- */
 .evdetail__glance {
