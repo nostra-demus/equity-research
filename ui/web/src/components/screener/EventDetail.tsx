@@ -4,7 +4,7 @@
 // article, the real companies (firms only, with their role) and whether we've analysed them, and the
 // corrected theme. Triage metadata sits in the header, not in the way. Then: run / open / shelve.
 
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { displayHeadline, originalHeadline, translatedFromLang, plainSize, plainStage, plainTheme } from '../../lib/plain'
 import { familyOf, isCompanyNameClient, roleLabel, SCOPES, scopeOf, sourceTierDef } from '../../lib/scope'
 import { discoveryCapDelta } from '../../lib/rankWeights'
@@ -142,25 +142,44 @@ function freshnessLabel(ts: string): string {
 const signed = (n: number) => (n > 0 ? `+${n}` : `${n}`)
 const ptsClass = (n: number) => (n > 0 ? 'scorewhy__pts--pos' : n < 0 ? 'scorewhy__pts--neg' : 'scorewhy__pts--zero')
 
-function ScoreWhy({ it, anchorRef }: { it: FeedItem; anchorRef: React.RefObject<HTMLDivElement> }) {
+function ScoreWhy({ it, anchorRef, open, onToggle }: { it: FeedItem; anchorRef: React.RefObject<HTMLDivElement>; open: boolean; onToggle: () => void }) {
   const score = it.triage_score
   const tone = score >= 70 ? 'var(--live)' : score >= 40 ? 'var(--accent-bright)' : 'var(--text-faint)'
   const band = score >= 70 ? 'High — a real candidate' : score >= 40 ? 'Medium — worth a look' : 'Low — probably noise'
   const rf = it.rank_factors
 
+  // Nothing to explain at all — no breakdown AND no reason → render nothing, never an empty card.
+  if (!rf && !it.triage_reason) return null
+
+  // The header doubles as the toggle: the score + band stay visible (the answer at a glance), the
+  // build-up collapses underneath. Collapsed by default — the reader opens it on demand.
+  const header = (
+    <button
+      type="button"
+      className="scorewhy__toggle"
+      onClick={onToggle}
+      aria-expanded={open}
+      title={open ? 'Hide the score breakdown' : 'See why this score — the headline read and the §4 adjustments'}
+    >
+      <span className="evdetail__label scorewhy__label">Why this score</span>
+      <span className="scorewhy__num mono" style={{ color: tone, borderColor: tone }}>{score}</span>
+      <span className="scorewhy__band" style={{ color: tone }}>{band}</span>
+      <span className="scorewhy__caret" aria-hidden>▾</span>
+    </button>
+  )
+
   // No breakdown on this item (an older wire line, or a related-event stand-in) — show the plain
-  // reason alone rather than a broken card. Never a blank section.
+  // reason alone rather than a broken card.
   if (!rf) {
-    if (!it.triage_reason) return null
     return (
-      <div className="evdetail__block scorewhy" ref={anchorRef}>
-        <div className="evdetail__label">Why this score</div>
-        <div className="scorewhy__head">
-          <span className="scorewhy__num mono" style={{ color: tone, borderColor: tone }}>{score}</span>
-          <span className="scorewhy__band" style={{ color: tone }}>{band}</span>
-        </div>
-        <p className="scorewhy__reason">{it.triage_reason}</p>
-        <div className="scorewhy__foot">A quick first read of the headline only — running the checks scores it properly with the full evidence.</div>
+      <div className={`evdetail__block scorewhy${open ? ' scorewhy--open' : ''}`} ref={anchorRef}>
+        {header}
+        {open && (
+          <div className="scorewhy__body">
+            {it.triage_reason && <p className="scorewhy__reason">{it.triage_reason}</p>}
+            <div className="scorewhy__foot">A quick first read of the headline only — running the checks scores it properly with the full evidence.</div>
+          </div>
+        )}
       </div>
     )
   }
@@ -202,47 +221,47 @@ function ScoreWhy({ it, anchorRef }: { it: FeedItem; anchorRef: React.RefObject<
   const hi = Math.max(base, score)
 
   return (
-    <div className="evdetail__block scorewhy" ref={anchorRef}>
-      <div className="evdetail__label">Why this score</div>
-      <div className="scorewhy__head">
-        <span className="scorewhy__num mono" style={{ color: tone, borderColor: tone }}>{score}</span>
-        <span className="scorewhy__band" style={{ color: tone }}>{band}</span>
-      </div>
-      {it.triage_reason && <p className="scorewhy__reason">{it.triage_reason}</p>}
+    <div className={`evdetail__block scorewhy${open ? ' scorewhy--open' : ''}`} ref={anchorRef}>
+      {header}
+      {open && (
+        <div className="scorewhy__body">
+          {it.triage_reason && <p className="scorewhy__reason">{it.triage_reason}</p>}
 
-      {/* meter: the title read got it most of the way; the §4 adjustments pushed it the rest */}
-      <div className="scorewhy__meter" role="img" aria-label={`Headline read ${base}, final score ${score}`}>
-        <span className="scorewhy__seg scorewhy__seg--base" style={{ width: `${lo}%` }} />
-        <span className={`scorewhy__seg scorewhy__seg--${isAdd ? 'add' : 'cut'}`} style={{ width: `${hi - lo}%` }} />
-      </div>
-      <div className="scorewhy__metercap">
-        <span>Headline read <b>{base}</b></span>
-        <span className="scorewhy__arrow" aria-hidden>→</span>
-        <span>{isAdd ? 'lifted to' : 'trimmed to'} <b style={{ color: tone }}>{score}</b></span>
-      </div>
-
-      {/* the ledger — every parameter considered, the value that won, and the points it moved */}
-      <div className="scorewhy__ledger">
-        <div className="scorewhy__row scorewhy__row--base">
-          <span className="scorewhy__rk">Headline read</span>
-          <span className="scorewhy__rv">A quick AI scan of the title — how big a deal it looks</span>
-          <span className="scorewhy__pts">{base}</span>
-        </div>
-        {rows.map((r) => (
-          <div className="scorewhy__row" key={r.k}>
-            <span className="scorewhy__rk">{r.k}</span>
-            <span className="scorewhy__rv">{r.v}{r.why && <span className="scorewhy__rwhy">{r.why}</span>}</span>
-            <span className={`scorewhy__pts ${ptsClass(r.pts)}`}>{signed(r.pts)}</span>
+          {/* meter: the title read got it most of the way; the §4 adjustments pushed it the rest */}
+          <div className="scorewhy__meter" role="img" aria-label={`Headline read ${base}, final score ${score}`}>
+            <span className="scorewhy__seg scorewhy__seg--base" style={{ width: `${lo}%` }} />
+            <span className={`scorewhy__seg scorewhy__seg--${isAdd ? 'add' : 'cut'}`} style={{ width: `${hi - lo}%` }} />
           </div>
-        ))}
-        <div className="scorewhy__row scorewhy__row--total">
-          <span className="scorewhy__rk">Score</span>
-          <span className="scorewhy__rv">{capped ? `adds to ${raw}, capped at 100` : floored ? `adds to ${raw}, held at 0` : 'out of 100'}</span>
-          <span className="scorewhy__pts scorewhy__pts--total mono" style={{ color: tone }}>{score}</span>
-        </div>
-      </div>
+          <div className="scorewhy__metercap">
+            <span>Headline read <b>{base}</b></span>
+            <span className="scorewhy__arrow" aria-hidden>→</span>
+            <span>{isAdd ? 'lifted to' : 'trimmed to'} <b style={{ color: tone }}>{score}</b></span>
+          </div>
 
-      <div className="scorewhy__foot">A first read of the headline only — running the checks re-scores it with the full evidence.</div>
+          {/* the ledger — every parameter considered, the value that won, and the points it moved */}
+          <div className="scorewhy__ledger">
+            <div className="scorewhy__row scorewhy__row--base">
+              <span className="scorewhy__rk">Headline read</span>
+              <span className="scorewhy__rv">A quick AI scan of the title — how big a deal it looks</span>
+              <span className="scorewhy__pts">{base}</span>
+            </div>
+            {rows.map((r) => (
+              <div className="scorewhy__row" key={r.k}>
+                <span className="scorewhy__rk">{r.k}</span>
+                <span className="scorewhy__rv">{r.v}{r.why && <span className="scorewhy__rwhy">{r.why}</span>}</span>
+                <span className={`scorewhy__pts ${ptsClass(r.pts)}`}>{signed(r.pts)}</span>
+              </div>
+            ))}
+            <div className="scorewhy__row scorewhy__row--total">
+              <span className="scorewhy__rk">Score</span>
+              <span className="scorewhy__rv">{capped ? `adds to ${raw}, capped at 100` : floored ? `adds to ${raw}, held at 0` : 'out of 100'}</span>
+              <span className="scorewhy__pts scorewhy__pts--total mono" style={{ color: tone }}>{score}</span>
+            </div>
+          </div>
+
+          <div className="scorewhy__foot">A first read of the headline only — running the checks re-scores it with the full evidence.</div>
+        </div>
+      )}
     </div>
   )
 }
@@ -266,7 +285,10 @@ export function EventDetail({ it }: { it: FeedItem }) {
   // else a minimal stand-in (the reader re-fetches its detail by event_id either way).
   const wrapRef = useRef<HTMLDivElement>(null)
   const whyRef = useRef<HTMLDivElement>(null)
-  useEffect(() => { wrapRef.current?.scrollTo({ top: 0 }) }, [it.event_id])
+  // "Why this score" is collapsed by default and resets to collapsed on every newly-opened event —
+  // the breakdown is on-demand, not in the way (the score + band stay visible in its header).
+  const [whyOpen, setWhyOpen] = useState(false)
+  useEffect(() => { wrapRef.current?.scrollTo({ top: 0 }); setWhyOpen(false) }, [it.event_id])
   // Esc backs out to the events list — the keyboard twin of the back button. But a panel layered ON TOP of
   // the reader (Sources / Calls / Activity / Output / pipeline / news-feed) also closes on its own Escape;
   // don't STEAL that — only back out when nothing is open over the reader. Read the store non-reactively so
@@ -281,7 +303,12 @@ export function EventDetail({ it }: { it: FeedItem }) {
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [close])
-  const jumpToWhy = () => whyRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' })
+  // the header score chip is the "see why" affordance — open the breakdown, then scroll it into view
+  // (next frame, so the now-expanded panel is measured before centering)
+  const jumpToWhy = () => {
+    setWhyOpen(true)
+    requestAnimationFrame(() => whyRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }))
+  }
   const openRelated = (r: RelatedEvent) => {
     const full = newsItems.find((n) => n.event_id === r.event_id)
     selectEvent(
@@ -375,8 +402,8 @@ export function EventDetail({ it }: { it: FeedItem }) {
           </div>
         )}
 
-        {/* WHY THIS SCORE — open the box on the triage number right where the reader looked for it */}
-        <ScoreWhy it={it} anchorRef={whyRef} />
+        {/* WHY THIS SCORE — collapsed by default; the header (score + band) is the toggle */}
+        <ScoreWhy it={it} anchorRef={whyRef} open={whyOpen} onToggle={() => setWhyOpen((v) => !v)} />
 
         {/* THE STORY — the crux, read from the article body */}
         <StoryBlock enr={enr} />

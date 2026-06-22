@@ -65,6 +65,11 @@ export interface Triage {
   // gated by news/lang.ts before it's stored (the wire shows it).
   headline_en?: string | null
   headline_lang?: string | null // the source language the model named (e.g. "Finnish") — for the "original · X" label
+  // the market the event is ABOUT / where the affected, tradable parties are listed or operate — NOT
+  // where the news outlet is based. One of the Region enum, or null when unsure. Resolved against the
+  // domain region by news/geo.ts (resolveEventRegion) at the merge site, and the result becomes the
+  // item's `region` so the Geography filter means "where the event is", not "where it was published".
+  event_region?: Region | null
 }
 
 export interface TriagedItem extends NewsItem {
@@ -72,6 +77,7 @@ export interface TriagedItem extends NewsItem {
   triage_reason: string
   headline_en?: string | null // English translation of a non-English headline (news/lang.ts); null/absent when the original is English
   headline_lang?: string | null // the source language named, for the "original · X" label
+  source_region?: Region // the PUBLISHER's region (the domain-registry value) — kept after `region` is overridden with the event region (news/geo.ts), so the override stays debuggable
   relevance: Triage['relevance']
   materiality_pre_score: number // the RAW Groq title read, before the composite re-rank
   event_types: string[]
@@ -133,7 +139,8 @@ export interface FeedItem {
   domain: string
   source_name: string
   via: 'gdelt' | 'rss' | 'nse' | 'hkex' | 'asx' | 'gov' | 'reddit'
-  region: Region
+  region: Region // the EVENT's market (news/geo.ts resolveEventRegion) — "where the event is", the Geography filter's key
+  source_region?: Region // the PUBLISHER's region (domain registry) — present when it differs from the resolved event region; absent on older lines / when they match
   input_nature: string
   triage_score: number
   band: Band
