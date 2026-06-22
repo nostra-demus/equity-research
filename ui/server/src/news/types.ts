@@ -62,8 +62,9 @@ export interface Triage {
   companies: CompanyGuess[] // ≤3, guessed from the headline alone (may be empty)
   size_bucket: SizeBucket // rough size of the main company — a guess, 'unknown' when unsure
   // an English translation of the headline when the original is not English, else null — validated +
-  // gated to non-Latin-script originals by news/lang.ts before it's stored (the wire shows it).
+  // gated by news/lang.ts before it's stored (the wire shows it).
   headline_en?: string | null
+  headline_lang?: string | null // the source language the model named (e.g. "Finnish") — for the "original · X" label
   // the market the event is ABOUT / where the affected, tradable parties are listed or operate — NOT
   // where the news outlet is based. One of the Region enum, or null when unsure. Resolved against the
   // domain region by news/geo.ts (resolveEventRegion) at the merge site, and the result becomes the
@@ -75,6 +76,7 @@ export interface TriagedItem extends NewsItem {
   triage_score: number // composite PRIORITY (rank.ts): Groq materiality + §4 source-tier/scope/event/size/recency
   triage_reason: string
   headline_en?: string | null // English translation of a non-English headline (news/lang.ts); null/absent when the original is English
+  headline_lang?: string | null // the source language named, for the "original · X" label
   source_region?: Region // the PUBLISHER's region (the domain-registry value) — kept after `region` is overridden with the event region (news/geo.ts), so the override stays debuggable
   relevance: Triage['relevance']
   materiality_pre_score: number // the RAW Groq title read, before the composite re-rank
@@ -94,6 +96,7 @@ export interface InboxRow {
   inbox_id: string
   headline: string
   headline_en?: string | null // English translation of a non-English headline (news/lang.ts) — the cockpit shows it
+  headline_lang?: string | null // the source language named, for the "original · X" label
   url: string
   source_name: string
   input_nature: string
@@ -131,6 +134,7 @@ export interface FeedItem {
   event_id: string
   headline: string
   headline_en?: string | null // English translation of a non-English headline (news/lang.ts); absent/null when the original is English
+  headline_lang?: string | null // the source language named, for the "original · X" label
   url: string
   domain: string
   source_name: string

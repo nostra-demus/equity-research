@@ -82,6 +82,7 @@ export function mergeInbox(repoRoot: string, date: string, items: TriagedItem[],
       triage_score: it.triage_score,
       triage_reason: it.triage_reason,
       headline_en: it.headline_en, // English translation of a non-English headline (news/lang.ts)
+      headline_lang: it.headline_lang, // the source language named, for the "original · X" label
       region: it.region,
       relevance: it.relevance,
       materiality_pre_score: it.materiality_pre_score,

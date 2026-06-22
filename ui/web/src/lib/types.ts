@@ -117,6 +117,7 @@ export interface FeedItem {
   event_id: string
   headline: string
   headline_en?: string | null // English translation of a non-English headline (server news/lang.ts); absent/null when the original is English
+  headline_lang?: string | null // source language named (e.g. "Finnish") — for the "original · X" affordance
   url: string
   domain: string
   source_name: string
