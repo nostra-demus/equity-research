@@ -113,6 +113,7 @@ export function assignThemes(items: ThemeItemView[], themes: Theme[], cfg: Assig
       const member: ThemeMember = {
         event_id: it.event_id,
         headline: it.headline,
+        headline_en: it.headline_en, // carry the translation so a member older than the feed window still renders in English
         found_at: it.found_at,
         score: typeof it.triage_score === 'number' ? it.triage_score : it.materiality_pre_score || 0,
         tier: it.source_tier || 'news',

@@ -81,6 +81,7 @@ export function mergeInbox(repoRoot: string, date: string, items: TriagedItem[],
     const triageFields = {
       triage_score: it.triage_score,
       triage_reason: it.triage_reason,
+      headline_en: it.headline_en, // English translation of a non-English headline (news/lang.ts)
       region: it.region,
       relevance: it.relevance,
       materiality_pre_score: it.materiality_pre_score,

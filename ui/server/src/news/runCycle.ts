@@ -15,6 +15,7 @@ import { fetchNse } from './sources/nse'
 import { fetchExchangeIntl } from './sources/exchange-intl'
 import { fetchGovData } from './sources/gov-data'
 import { loadLedgerEventIds, normalizeAndFilter } from './normalize'
+import { pickTranslation } from './lang'
 import { SeenCache } from './seen-cache'
 import { Budget, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter } from './triage/budget'
 import { triageBatchGemini } from './triage/gemini'
@@ -329,6 +330,9 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         size_bucket: t?.size_bucket || 'unknown',
         band,
         rank_factors: ranked.rank_factors,
+        // English translation of a non-English headline — only kept when the original is a non-Latin
+        // script AND the model actually rendered it in English (news/lang.ts); else null → UI shows original
+        headline_en: pickTranslation(it.headline, t?.headline_en),
       })
     }
   }
@@ -374,6 +378,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     ts,
     event_id: t.event_id,
     headline: t.headline,
+    headline_en: t.headline_en, // English translation of a non-English headline (news/lang.ts); null when English
     url: t.url,
     domain: t.domain,
     source_name: t.source_name,
@@ -432,6 +437,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         .map((t) => ({
         event_id: t.event_id,
         headline: t.headline,
+        headline_en: t.headline_en, // carry the translation so theme members render in English too
         found_at: t.found_at,
         companies: t.companies,
         event_types: t.event_types,

@@ -29,7 +29,10 @@ export function cleanText(raw: unknown): string {
   return s.replace(/\s+/g, ' ').trim()
 }
 
-/** True if the cleaned text still looks like usable prose (a real headline), not empty markup debris. */
+/** True if the cleaned text still looks like usable prose (a real headline), not empty markup debris.
+ *  Accepts ANY letter or digit, not just ASCII — a pure Korean/Japanese/Chinese/Cyrillic headline (no
+ *  Latin char) is real prose and must reach triage, where it gets translated to English. Gating on
+ *  /[a-zA-Z0-9]/ silently dropped those foreign-script headlines before they could be read. */
 export function looksLikeHeadline(cleaned: string): boolean {
-  return cleaned.length >= 8 && /[a-zA-Z0-9]/.test(cleaned)
+  return cleaned.length >= 8 && /[\p{L}\p{N}]/u.test(cleaned)
 }

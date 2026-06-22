@@ -6,11 +6,11 @@
 import { useMemo } from 'react'
 import { groupByDedup } from '../../lib/dedup'
 import { fmtStampLocal } from '../../lib/format'
-import { plainTheme } from '../../lib/plain'
+import { displayHeadline, originalHeadline, plainTheme } from '../../lib/plain'
 import { useStore } from '../../lib/store'
 import type { FeedItem } from '../../lib/types'
 
-const norm = (s?: string) => (s || '').toLowerCase().replace(/[^a-z0-9]/g, '')
+const norm = (s?: string | null) => (s || '').toLowerCase().replace(/[^a-z0-9]/g, '')
 
 export function CompanyView() {
   const focus = useStore((s) => s.scFocusedCompany)
@@ -28,7 +28,7 @@ export function CompanyView() {
     const hit = (it: FeedItem) => {
       if (tkr && (it.companies || []).some((c) => (c.ticker || '').toUpperCase() === tkr)) return true
       if ((it.companies || []).some((c) => norm(c.name) === target)) return true
-      if (target.length >= 4 && norm(it.headline).includes(target)) return true
+      if (target.length >= 4 && (norm(it.headline).includes(target) || norm(it.headline_en).includes(target))) return true
       return false
     }
     return groupByDedup(newsItems.filter(hit)).sort((a, b) => (a.rep.ts < b.rep.ts ? 1 : -1))
@@ -86,10 +86,10 @@ export function CompanyView() {
           const tone = it.triage_score >= 70 ? 'var(--live)' : it.triage_score >= 40 ? 'var(--accent-bright)' : 'var(--text-faint)'
           const others = g.sources.slice(1)
           return (
-            <button key={g.group} type="button" className="coview__row" onClick={() => openEvent(it)} title={it.headline}>
+            <button key={g.group} type="button" className="coview__row" onClick={() => openEvent(it)} title={[displayHeadline(it), originalHeadline(it) && `original: ${originalHeadline(it)}`].filter(Boolean).join('\n')}>
               <span className="coview__score mono" style={{ color: tone, borderColor: tone }}>{it.triage_score}</span>
               <span className="coview__rowmain">
-                <span className="coview__rowhead">{it.headline}</span>
+                <span className="coview__rowhead">{displayHeadline(it)}</span>
                 <span className="coview__rowmeta">
                   <span className="coview__when mono">{fmtStampLocal(it.ts)}</span>
                   <span className="coview__src">{it.source_name}</span>

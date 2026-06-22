@@ -112,6 +112,7 @@ export interface ScopeInput {
   event_types?: string[] | null
   input_nature?: string | null
   headline?: string | null
+  headline_en?: string | null // English translation (news/lang.ts) — scanned in preference to a non-English headline
 }
 
 /**
@@ -127,7 +128,9 @@ export interface ScopeInput {
  * Everything degrades to the linkage-only mapping if the headline gives nothing.
  */
 export function deriveScope(it: ScopeInput): ScopeId {
-  const hay = ' ' + lc(it.headline) + ' '
+  // scan the English translation when we have one, so a foreign-language commodity/policy/macro story is
+  // bucketed by the same English lexicons as an English one (the keyword tables below are English-only)
+  const hay = ' ' + lc((it.headline_en && it.headline_en.trim()) || it.headline) + ' '
   const link = normLinkage(it.issuer_linkage)
   const nature = lc(it.input_nature)
   const types = (it.event_types || []).map(lc)

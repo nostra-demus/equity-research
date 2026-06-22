@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { computeLayout, type PlacedNode } from '../../lib/layout'
 import { collectSamples, expectedDurations, expectedFor, fmtClock, fmtEtaLeft, orbClass, scopeTiming, type ScopeOrb } from '../../lib/eta'
-import { plainRoute, plainStage } from '../../lib/plain'
+import { displayHeadline, originalHeadline, plainRoute, plainStage } from '../../lib/plain'
 import { useStore } from '../../lib/store'
 import { AgentNode } from '../swarm/AgentNode'
 import { EdgeLayer } from '../swarm/EdgeLayer'
@@ -133,7 +133,7 @@ export function ScreenerField() {
                 'Most recent check'
               )}
             </div>
-            {sig?.headline && <div className="scsignal__headline">{sig.headline}</div>}
+            {sig?.headline && <div className="scsignal__headline" title={originalHeadline(sig) || undefined}>{displayHeadline(sig)}</div>}
             <div className="scsignal__meta">
               {sig?.source_name && <span className="scsignal__src">{sig.source_name}</span>}
               {sigDate && <span>{sigDate}</span>}

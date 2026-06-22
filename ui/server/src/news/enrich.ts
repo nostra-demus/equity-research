@@ -96,6 +96,7 @@ export interface RelatedEvent {
   event_id: string
   ts: string
   headline: string
+  headline_en?: string | null // English translation (news/lang.ts) — the reader's related list renders it
   source_name: string
   triage_score: number
   scope?: string
@@ -406,7 +407,7 @@ export function findRelatedEvents(repoRoot: string, self: { event_id: string; he
       // same-company first, then strongest topical overlap, then most recent
       .sort((a: any, b: any) => Number(b.sameCo) - Number(a.sameCo) || b.overlap - a.overlap || String(b.it.ts).localeCompare(String(a.it.ts)))
       .slice(0, 6)
-      .map(({ it }: any) => ({ event_id: it.event_id, ts: it.ts, headline: it.headline, source_name: it.source_name, triage_score: it.triage_score, scope: it.scope }))
+      .map(({ it }: any) => ({ event_id: it.event_id, ts: it.ts, headline: it.headline, headline_en: it.headline_en, source_name: it.source_name, triage_score: it.triage_score, scope: it.scope }))
   } catch {}
   return items
 }
@@ -740,6 +741,7 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
   let event_types = input.event_types || []
   let scope = input.scope
   let headline = (input.headline || '').trim()
+  let headlineEn: string | null = null // English translation of a non-English headline (news/lang.ts), from the stored record
   let snippet = '' // the feed's own lede (RSS) — a fetch-free body when the source page blocks us
   // carried so the story floor can tell a regulatory/exchange filing (headline IS the disclosure) from
   // an article (body is the story) — see story-floor.ts. Pulled from the event's OWN stored record.
@@ -754,6 +756,7 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
       event_types = stored.event_types || event_types
       scope = (stored as any).scope || scope
       headline = cleanText(stored.headline) || headline // the stored headline is authoritative + cleaned
+      headlineEn = (stored as any).headline_en ? cleanText((stored as any).headline_en) || null : null
       snippet = (stored as any).snippet || ''
       inputNature = (stored as any).input_nature || ''
       sourceTier = (stored as any).source_tier || ''
@@ -771,7 +774,7 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
   const host = url ? (() => { try { return new URL(url).hostname.toLowerCase() } catch { return '' } })() : ''
   // classify once: a regulatory/exchange filing's meaning lives in the headline (its body is a PDF/
   // attachment), so we never try to "read" it — we synthesize the story from what we hold (story-floor.ts).
-  const filingInput = { headline, url, snippet, input_nature: inputNature, source_tier: sourceTier, source_name: sourceName, domain: host, companies }
+  const filingInput = { headline, headline_en: headlineEn, url, snippet, input_nature: inputNature, source_tier: sourceTier, source_name: sourceName, domain: host, companies }
   const filing = isFilingEvent(filingInput)
   // …but only a BSE/NSE exchange filing or a PDF/attachment is genuinely body-LESS. A regulator press
   // release (FCA / SEC press / etc.) is a readable article — still read its body. So we skip the read
@@ -848,9 +851,12 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
     // budget per leg would stack (direct 14s + GDELT 6s + corroboration 14s ≈ over the client's 28s abort,
     // which would discard the very work corroboration just paid for). Both reads + the probe draw from this.
     const readDeadline = now().getTime() + (deps.llmBudgetMs ?? 14_000)
+    // give the reader the English headline as its hint when we have one (the body is in the source
+    // language; the brief comes back in English either way) — a clearer anchor, no behaviour change for English
+    const readHeadline = headlineEn || headline
     let brief = null
     if (body && !bodylessFiling && providers.length) {
-      const r = await readArticleBrief(body, headline, providers, {
+      const r = await readArticleBrief(body, readHeadline, providers, {
         stateDir: deps.stateDir,
         fetchFn,
         sleep: deps.sleep,
@@ -896,7 +902,7 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
         // synthesise a real brief from the secondary headlines (same LLM chain, same anti-fabrication rules,
         // same shared deadline so the whole on-demand read stays inside one wall-clock budget)
         if (providers.length) {
-          const r = await readArticleBrief(buildCorroborationBody(headline, secondaries), headline, providers, {
+          const r = await readArticleBrief(buildCorroborationBody(headline, secondaries), readHeadline, providers, {
             stateDir: deps.stateDir, fetchFn, sleep: deps.sleep,
             now: () => now().getTime(), deadlineMs: readDeadline, limiterWaitMs: deps.limiterWaitMs,
           })

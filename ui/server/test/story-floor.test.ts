@@ -174,4 +174,22 @@ check('SEC EDGAR filing: the form code is explained in plain English, not a blan
   assert.ok(!/\(Filer\)|0000072971/.test(r.summary), 'drops the CIK + EDGAR role tag noise')
 })
 
+check('a non-English filing restates the ENGLISH translation, not the source-language headline', () => {
+  const r = storyFloor({
+    ...FILING,
+    headline: '삼성전자: 자기주식 취득 결정', // Korean original
+    headline_en: 'Samsung Electronics: decision to acquire treasury shares',
+    url: 'https://www.bseindia.com/x.pdf',
+  })
+  assert.ok(/Samsung Electronics/.test(r.summary), `restates the English translation: ${r.summary}`)
+  assert.ok(!/삼성전자/.test(r.summary), 'does not surface the untranslated source-language headline')
+})
+
+check('an English filing (no headline_en) is byte-for-byte unchanged by the translation branch', () => {
+  const headline = 'Patanjali Foods Limited: Outcome of Board Meeting'
+  const withNull = storyFloor({ ...FILING, headline, headline_en: null, url: 'x.pdf' })
+  const withoutField = storyFloor({ ...FILING, headline, url: 'x.pdf' })
+  assert.equal(withNull.summary, withoutField.summary)
+})
+
 console.log(`\n${passed} checks passed`)

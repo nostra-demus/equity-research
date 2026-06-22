@@ -22,6 +22,7 @@ export const filtersActive = (f: FeedFilterState): boolean =>
 // The minimal shape both FeedItem and BoardInboxRow satisfy.
 export interface Filterable {
   headline: string
+  headline_en?: string | null // English translation (server news/lang.ts) — searched alongside the original
   source_name?: string
   region?: string
   band?: string
@@ -44,7 +45,7 @@ export function matchesFilters(it: Filterable, f: FeedFilterState): boolean {
   if (f.linkage && (it.issuer_linkage || '') !== f.linkage) return false
   if (f.text.trim()) {
     const q = f.text.trim().toLowerCase()
-    const hay = `${it.headline} ${(it.companies || []).map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase()
+    const hay = `${it.headline} ${it.headline_en || ''} ${(it.companies || []).map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase()
     if (!hay.includes(q)) return false
   }
   return true

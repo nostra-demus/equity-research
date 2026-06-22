@@ -62,8 +62,9 @@ issuer_linkage: primary (names one company), secondary (a supplier/customer/peer
 why: ONE plain sentence, with a number where the headline gives one. No hype words.
 companies: up to 3 companies the headline is mainly about, each {"name":"...","ticker":"..."|null,"listing_country":"XX"|null}. These are GUESSES from the headline alone — use null whenever unsure; use [] for macro/sector items that name no company. Never invent a ticker.
 size_bucket: rough size of the MAIN company: "mega" (>$200B market value) | "large" ($10-200B) | "mid" ($2-10B) | "small" (<$2B) | "unknown". Use "unknown" when no company is named or you are unsure.
+headline_en: if the headline is NOT written in English, a faithful, concise English translation of it — keep company names, tickers and numbers exactly as written, translate only, add no commentary. If the headline IS already English, use null.
 
-Return ONLY JSON: {"items":[{"i":<index>,"relevance":"material|relevant_non_material|irrelevant","materiality_pre_score":<int>,"event_types":[...],"issuer_linkage":"primary|secondary|sector|macro","why":"...","companies":[{"name":"...","ticker":null,"listing_country":null}],"size_bucket":"unknown"}]}. Include every index exactly once.`
+Return ONLY JSON: {"items":[{"i":<index>,"relevance":"material|relevant_non_material|irrelevant","materiality_pre_score":<int>,"event_types":[...],"issuer_linkage":"primary|secondary|sector|macro","why":"...","companies":[{"name":"...","ticker":null,"listing_country":null}],"size_bucket":"unknown","headline_en":null}]}. Include every index exactly once.`
 
 export interface TriageOptions {
   model: string
@@ -136,6 +137,9 @@ export function coerceTriage(raw: any): Triage {
     })
     .filter((c: CompanyGuess | null): c is CompanyGuess => c !== null)
   const size: SizeBucket = SIZE_BUCKETS.includes(raw?.size_bucket) ? raw.size_bucket : 'unknown'
+  // raw model text only; whether to KEEP it (non-Latin original, actually rendered to English) is
+  // decided downstream by news/lang.ts pickTranslation, which has both the original and this candidate.
+  const headline_en = typeof raw?.headline_en === 'string' && raw.headline_en.trim() ? raw.headline_en.trim().slice(0, 200) : null
   return {
     relevance: rel,
     materiality_pre_score: score,
@@ -144,6 +148,7 @@ export function coerceTriage(raw: any): Triage {
     why: typeof raw?.why === 'string' ? raw.why.trim().slice(0, 280) : '',
     companies,
     size_bucket: size,
+    headline_en,
   }
 }
 
