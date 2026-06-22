@@ -6,6 +6,22 @@
 
 const human = (s: string) => String(s || '').replace(/_/g, ' ')
 
+// ---- headline display ----
+// The scanner reads global wires; a non-English headline (Korean, Japanese, Chinese, Cyrillic, …) gets a
+// validated English translation stamped on it at ingest (server news/lang.ts → `headline_en`). Every place
+// that shows a headline to a person renders `displayHeadline`, so the wire/reader/themes always read in
+// English; the original is still available via `originalHeadline` for an honest "this is a translation"
+// affordance (tooltip / muted subline). Falls back to the original whenever no translation was stored.
+type Headlined = { headline_en?: string | null; headline?: string | null } | null | undefined
+export const displayHeadline = (it: Headlined): string => ((it?.headline_en && it.headline_en.trim()) || it?.headline || '')
+/** The source-language original — returned ONLY when a different English translation is what's being shown
+ *  (so the UI can reveal the original without duplicating it for already-English headlines). Else null. */
+export const originalHeadline = (it: Headlined): string | null => {
+  const en = it?.headline_en && it.headline_en.trim()
+  const orig = it?.headline && it.headline.trim()
+  return en && orig && en !== orig ? orig : null
+}
+
 // Routing / status values (the SWARM.md routing contract + thesis statuses), in plain words.
 const ROUTES: Record<string, string> = {
   PROMOTE: 'passed — on to the next check',

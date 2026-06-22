@@ -23,6 +23,7 @@ from __future__ import annotations
 import glob
 import json
 import os
+import re
 import sys
 from datetime import datetime, timezone
 
@@ -66,6 +67,44 @@ def read_ndjson(path: str) -> list[dict]:
             except Exception:
                 continue  # a corrupt line never breaks the board
     return out
+
+
+# Non-Latin script ranges (CJK, Hangul, Cyrillic, Arabic, Hebrew, Thai, Devanagari, Greek) — the
+# clear "a Latin-reading desk can't read this" case. Mirrors ui/server/src/news/lang.ts so the board
+# only ever attaches an English translation to a headline that actually needs one (never overriding an
+# already-English thesis statement). A coarse subset is plenty for the gating decision.
+_NON_LATIN = re.compile(
+    "[　-鿿"   # CJK symbols + Hiragana/Katakana + Han
+    "가-힯ᄀ-ᇿ"   # Hangul syllables + Jamo
+    "Ѐ-ԯ"   # Cyrillic
+    "؀-ۿ֐-׿"   # Arabic + Hebrew
+    "฀-๿ऀ-ॿঀ-৿"   # Thai + Devanagari + Bengali
+    "Ͱ-Ͽ]"   # Greek
+)
+
+
+def needs_translation(s: str | None) -> bool:
+    return bool(s) and bool(_NON_LATIN.search(s))
+
+
+def firehose_translations(max_files: int = 5) -> dict[str, str]:
+    """event_id -> English translation (headline_en), read from the recent firehose item lines.
+
+    The wire stores headline_en on every triaged non-English item (ui/server/src/news); a promoted
+    signal/thesis links back by event_id, so we surface the SAME translation on the board without
+    re-translating. Bounded to the most recent firehose files (active signals/theses are recent); an
+    aged-out event simply has no entry and the UI falls back to the original headline. Newest file
+    wins (reverse-sorted + setdefault)."""
+    xlate: dict[str, str] = {}
+    files = sorted(glob.glob(os.path.join(INBOX, "*_firehose.ndjson")), reverse=True)[:max_files]
+    for fp in files:
+        for o in read_ndjson(fp):
+            if o.get("kind") != "item":
+                continue
+            eid, en = o.get("event_id"), o.get("headline_en")
+            if eid and isinstance(en, str) and en.strip():
+                xlate.setdefault(eid, en.strip())
+    return xlate
 
 
 def conviction_resolved_ids() -> set[str]:
@@ -112,6 +151,7 @@ def build() -> dict:
             inbox_rows.append({
                 "inbox_id": row.get("inbox_id") or "",
                 "headline": row.get("headline") or "",
+                "headline_en": row.get("headline_en"),  # English translation of a non-English headline (ui news/lang.ts); null when English
                 "url": row.get("url") or "",
                 "source_name": row.get("source_name") or "",
                 "input_nature": row.get("input_nature") or "news_headline",
@@ -146,6 +186,10 @@ def build() -> dict:
     for line in read_ndjson(os.path.join(LEDGER, "overrides.ndjson")):
         if line.get("kind") == "thesis_status" and line.get("thesis_id"):
             latest_override[line["thesis_id"]] = line
+
+    # event_id -> English headline, sourced from the wire's own translation (never re-translated here);
+    # attached to any non-Latin signal/thesis below so the board reads in English like the events rail.
+    xlate = firehose_translations()
 
     # ---- theses (read first so signals can link to them) ----
     theses: list[dict] = []
@@ -190,6 +234,9 @@ def build() -> dict:
             "thesis_id": thesis_id,
             "signal_id": meta.get("signal_id") or "",
             "headline": rec.get("headline") or meta.get("headline") or "",
+            # English translation (from the wire) for a non-Latin headline; set via the linked signal's
+            # event_id in the signals pass below, so the board reader matches the events rail.
+            "headline_en": None,
             "status": meta.get("status") or "active",
             "status_reason": meta.get("status_reason") or "",
             "routing_reason": (m066.get("routing_reason") or m066.get("routing_logic") or ""),
@@ -248,10 +295,17 @@ def build() -> dict:
     for sid, e in by_signal.items():
         linked = thesis_by_signal.get(sid)
         status = (linked or {}).get("status") or e.get("status") or e.get("routing") or "LOG"
+        # surface the wire's English translation when this signal's headline is non-Latin; also lift it
+        # onto the linked thesis (its headline is the same event carried forward) so both read in English.
+        ev_headline = e.get("headline") or ""
+        headline_en = xlate.get(e.get("event_id")) if needs_translation(ev_headline) else None
+        if linked is not None and not linked.get("headline_en") and needs_translation(linked.get("headline")):
+            linked["headline_en"] = headline_en
         signals.append({
             "signal_id": sid,
             "event_id": e.get("event_id") or "",
-            "headline": e.get("headline") or "",
+            "headline": ev_headline,
+            "headline_en": headline_en,
             "source_name": e.get("source_name") or "",
             "source_grade": e.get("source_grade") or "",
             "processed_at": e.get("processed_at") or e.get("ts") or "",

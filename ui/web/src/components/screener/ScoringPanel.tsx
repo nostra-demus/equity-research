@@ -7,6 +7,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useStore } from '../../lib/store'
+import { displayHeadline } from '../../lib/plain'
 import { api, isStatic } from '../../lib/api'
 import { DEFAULT_RANK_WEIGHTS, WEIGHT_SECTIONS, rankWeightsEqual, scoreUnderWeights, type RankWeights, type RankWeightsState } from '../../lib/rankWeights'
 
@@ -171,7 +172,7 @@ export function ScoringPanel() {
                         <span className="scoring__moverarrow" aria-hidden>→</span>
                         <span className="scoring__moverto" style={{ color: ptTone(m.delta) }}>{m.after}</span>
                       </span>
-                      <span className="scoring__moverhl" title={m.i.headline}>{m.i.headline}</span>
+                      <span className="scoring__moverhl" title={m.i.headline}>{displayHeadline(m.i)}</span>
                       <span className="scoring__moverdelta mono" style={{ color: ptTone(m.delta) }}>{signed(m.delta)}</span>
                     </div>
                   ))}

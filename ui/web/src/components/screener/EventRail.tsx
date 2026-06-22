@@ -12,7 +12,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { groupByDedup, groupRegions, type StoryGroup } from '../../lib/dedup'
-import { plainRegion, plainSize, plainTheme } from '../../lib/plain'
+import { displayHeadline, originalHeadline, plainRegion, plainSize, plainTheme } from '../../lib/plain'
 import { BROAD_SCOPES, COMPANY_SCOPES, familyOf, isCompanyNameClient, SCOPES, scopeLabel, scopeOf, type ScopeId } from '../../lib/scope'
 import { hhmmLocal } from '../../lib/format'
 import { extractCommodities, extractSectors } from '../../lib/taxonomy'
@@ -90,6 +90,7 @@ function ScopeChip({ it }: { it: FeedItem }) {
 function EventRow({ group, selected, shelved, fresh, onPick, onShelve }: { group: StoryGroup; selected: boolean; shelved: boolean; fresh: boolean; onPick: (it: FeedItem) => void; onShelve: (id: string) => void }) {
   const it = group.rep
   const [expanded, setExpanded] = useState(false)
+  const origHl = originalHeadline(it) // source-language original, only when an English translation is shown
   const kept = it.band !== 'drop'
   const tone = it.triage_score >= 70 ? 'var(--live)' : it.triage_score >= 40 ? 'var(--accent-bright)' : 'var(--text-faint)'
   const company = (it.companies || []).find((c) => isCompanyNameClient(c.name)) // skip a country/agency guess
@@ -103,7 +104,7 @@ function EventRow({ group, selected, shelved, fresh, onPick, onShelve }: { group
   return (
     <div className={`evrow${selected ? ' evrow--on' : ''}${kept ? '' : ' evrow--dropped'}${shelved ? ' evrow--shelved' : ''}${fresh ? ' evrow--fresh' : ''}`}>
       {fresh && <span className="evrow__glow" aria-hidden />}
-      <button type="button" className="evrow__hit" onClick={() => onPick(it)} title={it.headline}>
+      <button type="button" className="evrow__hit" onClick={() => onPick(it)} title={[displayHeadline(it), origHl && `original: ${origHl}`].filter(Boolean).join('\n')}>
         <span className="evrow__rail" aria-hidden style={{ background: tone }} />
         <span className="evrow__top">
           <span className="evrow__score mono" style={{ color: tone, borderColor: tone }}>
@@ -112,8 +113,9 @@ function EventRow({ group, selected, shelved, fresh, onPick, onShelve }: { group
           <span className="evrow__time mono">{hhmmLocal(it.ts)}</span>
           <span className="evrow__src">{it.source_name}</span>
           {it.via === 'rss' && <span className="evrow__tag evrow__tag--rss">RSS</span>}
+          {origHl && <span className="evrow__tag evrow__tag--xlate" title={`Translated to English — original: ${origHl}`}>EN</span>}
         </span>
-        <span className="evrow__headline">{it.headline}</span>
+        <span className="evrow__headline">{displayHeadline(it)}</span>
         <span className="evrow__meta">
           <ScopeChip it={it} />
           {it.event_types.slice(0, 2).map((t) => (
@@ -149,10 +151,10 @@ function EventRow({ group, selected, shelved, fresh, onPick, onShelve }: { group
         <ul className="evrow__duplist">
           {group.others.map((m) => (
             <li key={`${m.event_id}-${m.ts}`}>
-              <button type="button" className="evrow__dup" onClick={() => onPick(m)} title={m.headline}>
+              <button type="button" className="evrow__dup" onClick={() => onPick(m)} title={[displayHeadline(m), originalHeadline(m) && `original: ${originalHeadline(m)}`].filter(Boolean).join('\n')}>
                 <span className="evrow__dup-score mono">{m.triage_score}</span>
                 <span className="evrow__dup-src">{m.source_name}</span>
-                <span className="evrow__dup-hl">{m.headline}</span>
+                <span className="evrow__dup-hl">{displayHeadline(m)}</span>
               </button>
             </li>
           ))}
@@ -269,12 +271,12 @@ export function EventRail() {
   // dynamic sub-value lists for the Sector / Commodity dropdowns — only what's actually on the wire, with counts
   const sectorOptions = useMemo(() => {
     const c: Record<string, number> = {}
-    for (const g of geoApplied) if (scopeOf(g.rep) === 'sector') for (const x of extractSectors(g.rep.headline)) c[x] = (c[x] || 0) + 1
+    for (const g of geoApplied) if (scopeOf(g.rep) === 'sector') for (const x of extractSectors(displayHeadline(g.rep))) c[x] = (c[x] || 0) + 1
     return Object.entries(c).sort((a, b) => b[1] - a[1]) as [string, number][]
   }, [geoApplied])
   const commodityOptions = useMemo(() => {
     const c: Record<string, number> = {}
-    for (const g of geoApplied) if (scopeOf(g.rep) === 'commodity') for (const x of extractCommodities(g.rep.headline)) c[x] = (c[x] || 0) + 1
+    for (const g of geoApplied) if (scopeOf(g.rep) === 'commodity') for (const x of extractCommodities(displayHeadline(g.rep))) c[x] = (c[x] || 0) + 1
     return Object.entries(c).sort((a, b) => b[1] - a[1]) as [string, number][]
   }, [geoApplied])
 
@@ -285,8 +287,8 @@ export function EventRail() {
     return geoApplied.filter((g) => {
       const sc = scopeOf(g.rep)
       if (scopeFilter.has(sc)) return true
-      if (sc === 'sector' && (sectorSel.all || extractSectors(g.rep.headline).some((x) => sectorSel.picks.has(x)))) return true
-      if (sc === 'commodity' && (commSel.all || extractCommodities(g.rep.headline).some((x) => commSel.picks.has(x)))) return true
+      if (sc === 'sector' && (sectorSel.all || extractSectors(displayHeadline(g.rep)).some((x) => sectorSel.picks.has(x)))) return true
+      if (sc === 'commodity' && (commSel.all || extractCommodities(displayHeadline(g.rep)).some((x) => commSel.picks.has(x)))) return true
       return false
     })
   }, [geoApplied, scopeFilter, sectorSel, commSel, broadActive])

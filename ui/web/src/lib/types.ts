@@ -63,6 +63,7 @@ export interface SwarmMeta { id: string; label: string; color: string; unit: str
 export interface BoardInboxRow {
   inbox_id: string
   headline: string
+  headline_en?: string | null // English translation of a non-English headline (server news/lang.ts)
   url?: string
   source_name: string
   input_nature?: string
@@ -115,6 +116,7 @@ export interface FeedItem {
   ts: string
   event_id: string
   headline: string
+  headline_en?: string | null // English translation of a non-English headline (server news/lang.ts); absent/null when the original is English
   url: string
   domain: string
   source_name: string
@@ -158,6 +160,7 @@ export interface RelatedEvent {
   event_id: string
   ts: string
   headline: string
+  headline_en?: string | null // English translation of a non-English headline (server news/lang.ts)
   source_name: string
   triage_score: number
   scope?: string
@@ -233,6 +236,7 @@ export interface BoardSignal {
   signal_id: string
   event_id?: string
   headline: string
+  headline_en?: string | null // English translation of a non-Latin headline (from the wire) — render via displayHeadline()
   source_name?: string
   source_grade?: string
   processed_at?: string
@@ -319,6 +323,7 @@ export interface BoardThesis {
   thesis_id: string
   signal_id: string
   headline?: string
+  headline_en?: string | null // English translation of a non-Latin headline (from the wire) — render via displayHeadline()
   status: string
   status_reason?: string
   routing_reason?: string

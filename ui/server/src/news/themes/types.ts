@@ -52,6 +52,7 @@ export interface ThemeScores {
 export interface ThemeMember {
   event_id: string
   headline: string
+  headline_en?: string | null // English translation (news/lang.ts) — kept so a member older than the feed window still renders in English
   found_at: string // ISO
   score: number // the item's composite triage_score (0–100)
   tier: string // source_tier (primary_filing … unconfirmed)
@@ -151,6 +152,7 @@ export interface ThemeDetail {
 export interface ThemeItemView {
   event_id: string
   headline: string
+  headline_en?: string | null // English translation (news/lang.ts) — carried onto the member so themes render in English
   found_at: string // ISO
   companies?: CompanyGuess[]
   event_types?: string[]

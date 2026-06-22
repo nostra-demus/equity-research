@@ -6,7 +6,7 @@
 import { Fragment, useEffect, useMemo, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
 import { groupByDedup, type StoryGroup } from '../../lib/dedup'
-import { plainBand, plainSize, plainTheme } from '../../lib/plain'
+import { displayHeadline, originalHeadline, plainBand, plainSize, plainTheme } from '../../lib/plain'
 import { dayDividerLabel, dayKeyLocal, hhmmLocal } from '../../lib/format'
 import { useStore } from '../../lib/store'
 import type { FeedItem } from '../../lib/types'
@@ -72,6 +72,7 @@ function CompanyChip({ it }: { it: FeedItem }) {
 
 function WireRow({ group }: { group: StoryGroup }) {
   const it = group.rep
+  const origHl = originalHeadline(it)
   const kept = it.band !== 'drop'
   const otherSources = group.sources.slice(1)
   return (
@@ -82,12 +83,13 @@ function WireRow({ group }: { group: StoryGroup }) {
         {plainBand(it.band)}
       </span>
       <div className="wire__main">
-        <a className="wire__headline" href={it.url} target="_blank" rel="noreferrer" title={it.url}>
-          {it.headline}
+        <a className="wire__headline" href={it.url} target="_blank" rel="noreferrer" title={origHl ? `original: ${origHl}` : it.url}>
+          {displayHeadline(it)}
         </a>
         <div className="wire__meta">
           <span>{it.source_name}</span>
           {it.via === 'rss' && <span className="pcard__chip wire__via">RSS</span>}
+          {origHl && <span className="pcard__chip wire__via" title={`Translated to English — original: ${origHl}`}>EN</span>}
           {it.region && <span>{it.region}</span>}
           {otherSources.length > 0 && (
             <span className="pcard__chip wire__dups" title={`Same story also reported by: ${otherSources.join(', ')}`}>

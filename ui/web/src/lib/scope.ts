@@ -53,11 +53,12 @@ const COMMODITY_RE = /\b(oil|crude|brent|wti|opec|gasoline|petrol|diesel|natural
 const POLICY_RE = /\b(tariffs?|sanctions?|embargo|antitrust|anti-trust|central bank|federal reserve|fomc|rate (?:cut|hike|decision)|interest rate|reserve bank|rbi|ecb|monetary policy|regulator|sebi|court|ruling|tribunal|trade deal|free trade|fta|ban on)\b/i
 const MACRO_RE = /\b(inflation|cpi|wpi|ppi|gdp|recession|payrolls|unemployment|retail sales|pmi|bond yield|treasury yield|economy|currency)\b/i
 
-export function deriveScopeClient(it: { issuer_linkage?: string | null; companies?: { name?: string }[] | null; event_types?: string[] | null; headline?: string | null }): ScopeId {
+export function deriveScopeClient(it: { issuer_linkage?: string | null; companies?: { name?: string }[] | null; event_types?: string[] | null; headline?: string | null; headline_en?: string | null }): ScopeId {
   const link = String(it.issuer_linkage || '')
   const named = (it.companies || []).filter((c) => c && String(c.name || '').trim()).length
   const types = it.event_types || []
-  const hl = String(it.headline || '')
+  // scan the English translation when present, so the English-only lexicons below classify a foreign headline too
+  const hl = String((it.headline_en && it.headline_en.trim()) || it.headline || '')
   const subjectIsOneCompany = link.startsWith('primary') && named === 1
   if (!subjectIsOneCompany && (POLICY_RE.test(hl) || ((types.includes('regulatory') || types.includes('litigation_enforcement')) && (link.startsWith('sector') || link.startsWith('macro') || named === 0)))) return 'policy'
   if (COMMODITY_RE.test(hl) && !subjectIsOneCompany) return 'commodity'
@@ -70,7 +71,7 @@ export function deriveScopeClient(it: { issuer_linkage?: string | null; companie
 }
 
 /** The scope of a feed item — its stamped value, or a fallback derive if it predates the field. */
-export const scopeOf = (it: { scope?: string | null; issuer_linkage?: string | null; companies?: { name?: string }[] | null; event_types?: string[] | null; headline?: string | null }): ScopeId =>
+export const scopeOf = (it: { scope?: string | null; issuer_linkage?: string | null; companies?: { name?: string }[] | null; event_types?: string[] | null; headline?: string | null; headline_en?: string | null }): ScopeId =>
   (it.scope as ScopeId) || deriveScopeClient(it)
 
 // ---- client mirror of the entity denylist (server: news/entities.ts) — so a country/agency guessed
