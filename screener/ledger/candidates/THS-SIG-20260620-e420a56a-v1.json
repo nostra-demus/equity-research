@@ -1,0 +1,196 @@
+{
+  "thesis_id": "THS-SIG-20260620-e420a56a-v1",
+  "signal_id": "SIG-20260620-e420a56a",
+  "generated_at": "2026-06-22T00:00:00Z",
+  "routing": "provisional",
+  "candidates": [
+    {
+      "candidate_id": "CND-001",
+      "ticker": "BHARTIARTL",
+      "company_name": "Bharti Airtel Limited",
+      "exchange": "NSE",
+      "side": "pair_short_leg",
+      "beneficiary_ref": "HARM-001",
+      "exposure_score": 88,
+      "exposure_rationale": "Bharti Airtel is the most direct, listed expression of the HARM-001 thesis leg: India mobile telecom contributed ~55% of consolidated FY25 EBITDA (Rs 25,818 cr of Rs 46,948 cr group EBITDA per FY25 Annual Report), and the variant's core mechanism \u2014 a 15\u201320% EV compression from Jio pricing disruption \u2014 applies directly to this segment. The 32-analyst consensus targets Rs 2,287 (+19.4%) at an 11.3x trailing EV/EBITDA vs the 10-year sector average of ~9x; mean-reversion at 9x implies a Rs 300\u2013450 stock-price downside from the Rs 1,917 current price. No other listed Indian operator has comparable pure-play exposure: Vi is deeply distressed and carries a different risk profile; there is no other investable NSE/BSE pure-play on Indian mobile ARPU risk. [stockanalysis.com, BHARTIARTL consensus, 22 Jun 2026; Airtel FY25 Annual Report, Segment Results, FY25]",
+      "liquidity_note": "NSE daily median volume ~10\u201320 million shares; total market cap ~Rs 11\u201312 lakh crore; highly liquid. FII ownership ~27.8% of float (choiceindia.com, Jun 2026, unverified); promoter lock-up ~48.9%. No liquidity concern.",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run_root": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "pair_with": "CND-002",
+      "caveats": "Airtel also owns ~50% of Indus Towers, which is the long leg of Pair C \u2014 any Airtel short partially offsets the IND-001 long thesis via the subsidiary exposure. The promoter structure (Sunil Bharti Mittal group ~48.9%) creates a large overhang; a controlling-shareholder structure (CLAUDE.md \u00a724 filter 6) is noted but does not disqualify \u2014 the research swarm owns the full governance assessment. Vi's distress could paradoxically support Airtel ARPU if customers migrate, which is a partial bull-case offset the short thesis must survive.",
+      "sources": [
+        {
+          "url": "https://stockanalysis.com/nse/BHARTIARTL/",
+          "source_name": "stockanalysis.com \u2014 Bharti Airtel consensus data",
+          "source_grade": "B",
+          "retrieved_at": "2026-06-22T00:00:00Z",
+          "claim_supported": "Trailing EV/EBITDA 11.3x; 32-analyst consensus Buy; 12m target Rs 2,287; FII holding 27.8%."
+        },
+        {
+          "url": "https://sebi.gov.in/filings/public-issues/jun-2026/jio-platforms-ltd-drhp_102248.html",
+          "source_name": "SEBI public-issues register \u2014 Jio Platforms DRHP",
+          "source_grade": "A",
+          "retrieved_at": "2026-06-20T12:00:00Z",
+          "claim_supported": "Jio FY26 EBITDA Rs 76,255 crore at 51.9% margin; net debt Rs 27,579 crore; use-of-proceeds Rs 27,500 crore for RJIL debt repayment \u2014 the source of the pricing-disruption mechanism."
+        }
+      ]
+    },
+    {
+      "candidate_id": "CND-002",
+      "ticker": "NUVAMA",
+      "company_name": "Nuvama Wealth and Investment Limited",
+      "exchange": "NSE",
+      "side": "pair_long_leg",
+      "beneficiary_ref": "DIR-001",
+      "exposure_score": 82,
+      "exposure_rationale": "Nuvama Wealth and Investment is an integrated capital-markets and wealth firm (institutional broking, ECM, investment banking, and wealth management) where ECM/investment banking and institutional equities contribute the majority of institutional revenue. It is one of the named investment banking intermediaries most directly positioned to earn fees on a Rs 37,700 crore IPO mandate. FY27 EPS estimates have already risen ~34% over three months (from Rs 49.86 in Mar 2026 to Rs 67.22 in Jun 2026 per stockanalysis.com/nse/NUVAMA/forecast), making it the only name in this thesis set that has already started repricing for the IPO pipeline. Forward PE ~9\u201310x NTM at the current price is below the wealth/capital-markets peer group. [stockanalysis.com, NUVAMA forecast, May 2026]",
+      "liquidity_note": "NSE mid-cap; daily volumes are lower than large-caps \u2014 liquidity is adequate for a position sized appropriately, but not comparable to Airtel or Indus Towers. Market cap roughly Rs 12,000\u201315,000 crore range. Check live depth before sizing.",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run_root": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "pair_with": "CND-001",
+      "caveats": "Nuvama has a controlling promoter (Edelweiss Financial Services; the ownership structure carries a conglomerate-parent overhang \u2014 \u00a724 filter 6). ECM revenue is lumpy: Nuvama's fee income is concentrated in large transactions, so a single quarter without a marquee mandate can disappoint. The 34% EPS revision in three months could itself signal the Jio IPO thesis is already partially priced in \u2014 the research swarm must assess whether the upgrade cycle is exhausted or still early.",
+      "sources": [
+        {
+          "url": "https://stockanalysis.com/nse/NUVAMA/forecast/",
+          "source_name": "stockanalysis.com \u2014 Nuvama forecast data",
+          "source_grade": "B",
+          "retrieved_at": "2026-06-22T00:00:00Z",
+          "claim_supported": "FY27 EPS Rs 67.22 from 7\u20138 analysts; prior estimate Rs 49.86 (Mar 2026); +34% revision. Forward PE approximately 9\u201310x NTM."
+        }
+      ]
+    },
+    {
+      "candidate_id": "CND-003",
+      "ticker": "ANGELONE",
+      "company_name": "Angel One Limited",
+      "exchange": "NSE",
+      "side": "long",
+      "beneficiary_ref": "DIR-002",
+      "exposure_score": 78,
+      "exposure_rationale": "Angel One is India's largest retail-facing digital broker by active client count (~7.5 million, unverified web sources Jun 2026) and processes IPO subscriptions via ASBA/UPI for millions of retail participants. The Dir-002 mechanism \u2014 subscription-driven brokerage commissions, new demat account openings, and distribution fees from a marquee IPO \u2014 flows directly through Angel One's platform. FY27 EPS consensus is Rs 14.31 from 4 analysts (stockanalysis.com, 22 Jun 2026) with no analyst having modelled the Jio subscription window's contribution to distribution fee income or account openings. The LIC IPO in May 2022 (Rs 20,557 crore \u2014 smaller than the Jio issue) drove an estimated 1.5\u20132 million new demat account openings industry-wide. Angel One's 24.7x forward PE sits 20% below the sector average (~31x), leaving multiple-re-rating room if the Jio subscription uplift enters consensus. [stockanalysis.com, ANGELONE, 22 Jun 2026]",
+      "liquidity_note": "NSE mid-cap; daily volumes sufficient for a moderately sized position. Market cap approximately Rs 10,000\u201313,000 crore range. Retail float is high at ~39.5% (choiceindia.com, Jun 2026, unverified), making the stock sensitive to retail sentiment \u2014 a feature, not a flaw, for the DIR-002 thesis.",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run_root": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "pair_with": null,
+      "caveats": "Angel One's FY26 EPS fell 22.3% YoY to Rs 9.85 (stockanalysis.com, 22 Jun 2026), driven by F&O regulation changes \u2014 the business has a recent earnings-quality setback that the research swarm must interrogate before sizing. The 4-analyst coverage is thin, meaning any single estimate revision moves the consensus number sharply, creating noise around the signal. Equity brokerage commission pools are structurally compressing as discount brokers compete on zero-commission products.",
+      "sources": [
+        {
+          "url": "https://stockanalysis.com/nse/ANGELONE/",
+          "source_name": "stockanalysis.com \u2014 Angel One consensus data",
+          "source_grade": "B",
+          "retrieved_at": "2026-06-22T00:00:00Z",
+          "claim_supported": "Trailing PE 35.9x; forward PE 24.7x NTM; FY26 EPS Rs 9.85 (-22.3% YoY); FY27 EPS consensus Rs 14.31 from 4 analysts; 12m target Rs 353.64 from 11 analysts."
+        },
+        {
+          "url": "https://choiceindia.com/",
+          "source_name": "choiceindia.com \u2014 Angel One shareholding pattern",
+          "source_grade": "B",
+          "retrieved_at": "2026-06-22T00:00:00Z",
+          "claim_supported": "Retail float ~39.5%; promoter ~28.8%; FII ~12.8%. Jun 2026, unverified."
+        }
+      ]
+    },
+    {
+      "candidate_id": "CND-004",
+      "ticker": "INDUSTOWER",
+      "company_name": "Indus Towers Limited",
+      "exchange": "NSE",
+      "side": "pair_long_leg",
+      "beneficiary_ref": "IND-001",
+      "exposure_score": 72,
+      "exposure_rationale": "Indus Towers is India's largest telecom tower company (~235,000 towers, passive infrastructure shared by Jio, Airtel, and Vi); it earns a long-term rental fee for every active co-location. The IND-001 mechanism \u2014 a financially stronger Jio accelerating 5G densification \u2014 flows through Indus Towers' co-location business: each incremental Jio 5G site requires a tower, an antenna, and an energy supply contract. Tenancy ratio improvements drive margin and EBITDA growth in a fixed-cost business. FY27 EPS consensus Rs 28.66 from 25 analysts (stockanalysis.com, Feb 2026); trailing EV/EBITDA ~6.9x \u2014 below its own 5-year average, reflecting the Vi receivables overhang. If Vi's distress resolves (also an indirect benefit from Jio's IPO stabilising the competitive landscape), Indus re-rates materially. [stockanalysis.com, INDUSTOWER, 22 Jun 2026]",
+      "liquidity_note": "NSE large-cap; highly liquid. ~50% promoter holding (Bharti Airtel); FII ~25.9\u201326.4% (trendlyne.com, Apr 2026, unverified). Note: Bharti Airtel owns ~50% \u2014 so being long Indus Towers while short Airtel creates a partial structural offset that a pair trader must account for in sizing.",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run_root": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "pair_with": "CND-001",
+      "caveats": "Indus Towers is ~50% owned by Bharti Airtel \u2014 being long INDUSTOWER while short BHARTIARTL creates a structural cross-ownership conflict that the pair sizing must address explicitly. Vi (Vodafone Idea) owes Indus Towers a large outstanding receivable; a Vi default would hit Indus more than any Jio benefit would offset. 5G capex could also be redirected to Jio's own AI data-centre infrastructure rather than passive tower co-locations, weakening the IND-001 causal chain.",
+      "sources": [
+        {
+          "url": "https://stockanalysis.com/nse/INDUSTOWER/",
+          "source_name": "stockanalysis.com \u2014 Indus Towers consensus data",
+          "source_grade": "B",
+          "retrieved_at": "2026-06-22T00:00:00Z",
+          "claim_supported": "FY27 EPS Rs 28.66 from 25 analysts; forward PE ~14.4x; trailing EV/EBITDA ~6.9x."
+        }
+      ]
+    },
+    {
+      "candidate_id": "CND-005",
+      "ticker": "ISEC",
+      "company_name": "ICICI Securities Limited",
+      "exchange": "NSE",
+      "side": "long",
+      "beneficiary_ref": "DIR-001",
+      "exposure_score": 68,
+      "exposure_rationale": "ICICI Securities is one of India's leading capital-markets intermediaries, generating revenue from institutional broking, equity research, investment banking, and retail distribution. As one of the largest book-running managers named in similar-scale Indian IPOs, it has a structural claim on fee income from a Rs 37,700 crore mandate. Its retail distribution network also makes it a dual beneficiary of DIR-001 (investment banking) and DIR-002 (retail subscription). However, ICICI Bank holds ~74% of ICICI Securities; the parent's ownership means a significant portion of the economic benefit flows to the banking parent rather than the listed subsidiary minority. This structural dilution caps the exposure score below Nuvama, which has a more independent capital-markets revenue base. [Inference from Indian capital-markets sector knowledge, labelled; stockanalysis.com cross-check not retrieved for ISEC as of 22 Jun 2026]",
+      "liquidity_note": "NSE mid-cap; liquidity adequate. However, the ICICI Bank controlling stake (~74%) means this is a thinly floated subsidiary \u2014 a CLAUDE.md \u00a724 filter 6 item the research swarm must assess.",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run_root": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "pair_with": null,
+      "caveats": "ICICI Bank's ~74% ownership makes ICICI Securities a subsidiary play \u2014 much of the economic benefit of the Jio IPO mandate accrues to the parent. The research swarm must assess whether the minority is priced fairly or is a structural value trap (\u00a724 filter 6). Exposure score here is driven by inference from sector knowledge, not from a filed ICICI Securities revenue breakdown; the research swarm must verify the actual investment-banking revenue share from filings before sizing.",
+      "sources": [
+        {
+          "url": "https://sebi.gov.in/filings/public-issues/jun-2026/jio-platforms-ltd-drhp_102248.html",
+          "source_name": "SEBI public-issues register \u2014 Jio Platforms DRHP",
+          "source_grade": "A",
+          "retrieved_at": "2026-06-20T12:00:00Z",
+          "claim_supported": "Rs 37,700 crore IPO fee pool context: the mechanism that drives capital-markets fee income for book-runners."
+        }
+      ]
+    },
+    {
+      "candidate_id": "CND-006",
+      "ticker": "360ONE",
+      "company_name": "360 ONE WAM Limited",
+      "exchange": "NSE",
+      "side": "long",
+      "beneficiary_ref": "DIR-002",
+      "exposure_score": 60,
+      "exposure_rationale": "360 ONE WAM (formerly IIFL Wealth) operates in the high-net-worth individual (HNI) wealth management and alternative asset distribution space \u2014 directly in the path of the DIR-002 mechanism. A marquee IPO of Jio Platforms drives HNI and ultra-HNI subscription activity, distribution fee income, and AUM inflows that 360 ONE captures through its private wealth platform. FY27 EPS consensus Rs 67.22 previously noted is for Nuvama; 360 ONE's own consensus was not retrieved separately as of 22 Jun 2026 \u2014 exposure claim here rests on the business model and sector inference, not on filed revenue splits. Ranked below Nuvama and Angel One because (a) HNI distribution is one layer removed from the retail subscription pipeline and (b) the EPS revision evidence for 360 ONE in the current cycle is not in hand. [Inference from sector knowledge, labelled]",
+      "liquidity_note": "NSE mid-cap; daily volumes moderate; adequate for a smaller position. Market cap approximately Rs 30,000\u201335,000 crore range. Promoter holding stable; no unusual liquidity flag.",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run_root": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "pair_with": null,
+      "caveats": "The exposure rationale for 360 ONE is based on business-model inference rather than filed revenue data \u2014 the research swarm must verify what fraction of AUM and fee income is distribution-event-driven vs recurring advisory. Ranked last among the long candidates because the evidence is weakest for this name specifically.",
+      "sources": [
+        {
+          "url": "https://sebi.gov.in/filings/public-issues/jun-2026/jio-platforms-ltd-drhp_102248.html",
+          "source_name": "SEBI public-issues register \u2014 Jio Platforms DRHP",
+          "source_grade": "A",
+          "retrieved_at": "2026-06-20T12:00:00Z",
+          "claim_supported": "Rs 37,700 crore IPO creates the HNI distribution fee pool that 360 ONE captures \u2014 the mechanism sourced from the DRHP's use-of-proceeds and issue size."
+        }
+      ]
+    }
+  ],
+  "dropped_candidates": [
+    {
+      "party": "HARM-002",
+      "reason": "Private Equity & Unlisted Indian Tech / Telecom Funds (HARM-002) \u2014 no pure-play listed vehicle exists on NSE or BSE. PE fund management companies that are listed (e.g. HDFC AMC, Nippon AMC) derive the overwhelming majority of their revenue from mutual funds, not from PE/unlisted tech capital deployment, giving them near-zero direct HARM-002 exposure. Attempting to map HARM-002 to a listed stock would require an exposure score so low (<20) as to fail the 'expresses the thesis mechanism' standard. Noted, not mapped."
+    }
+  ]
+}

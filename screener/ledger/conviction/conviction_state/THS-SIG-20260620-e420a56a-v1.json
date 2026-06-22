@@ -1,0 +1,34 @@
+{
+  "thesis_id": "THS-SIG-20260620-e420a56a-v1",
+  "state": "provisional",
+  "sell_side_rating": "Starter Position Only",
+  "edge_locked": 70,
+  "edge_score_live": 70,
+  "conviction": 70,
+  "data_sufficiency_factor": 1.0,
+  "upgrade_velocity": 0.0,
+  "trajectory_enum": "steady",
+  "rank_score": 50.0,
+  "proximity_pct": 0.0,
+  "progress_confirmed": 0,
+  "progress_total": 11,
+  "validated": false,
+  "trajectory": [
+    {
+      "at": "2026-06-22T00:00:00Z",
+      "edge": 70
+    }
+  ],
+  "next_checkpoint": {
+    "checkpoint_id": "CHK-e420a56a-01",
+    "metric_name": "SEBI public-issues register (sebi.gov.in/filings/public-issues/) — status field for Jio Platforms Ltd DRHP filed 19 Jun 2026: tracks from 'filed / under processing' to 'observations issued' or 'returned / withdrawn / lapsed'",
+    "kind": "kill_metric",
+    "due_at": "2026-11-30"
+  },
+  "stale": false,
+  "insufficient": false,
+  "archived": false,
+  "plain_note": "Locked at edge 70 (Starter Position Only). 11 proof points scheduled; first up: SEBI public-issues register (sebi.gov.in/filings/public-issu by 2026-11-30.",
+  "history": [],
+  "updated_at": "2026-06-22T12:09:02Z"
+}
