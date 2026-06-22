@@ -289,15 +289,16 @@ export function EventDetail({ it }: { it: FeedItem }) {
   // the breakdown is on-demand, not in the way (the score + band stay visible in its header).
   const [whyOpen, setWhyOpen] = useState(false)
   useEffect(() => { wrapRef.current?.scrollTo({ top: 0 }); setWhyOpen(false) }, [it.event_id])
-  // Esc backs out to the events list — the keyboard twin of the back button. But a panel layered ON TOP of
-  // the reader (Sources / Calls / Activity / Output / pipeline / news-feed) also closes on its own Escape;
-  // don't STEAL that — only back out when nothing is open over the reader. Read the store non-reactively so
-  // the listener isn't re-bound on every panel toggle.
+  // Esc backs out to the events list — the keyboard twin of the back button. But a panel/modal layered ON
+  // TOP of the reader (Sources / Calls / Activity / Output / pipeline / news-feed / Scoring / signal-intake /
+  // stop-list) owns Escape — Scoring and the others close on their own Escape, and the modals should swallow
+  // it rather than let the reader vanish from under them. Don't STEAL that — only back out when nothing is
+  // open over the reader. Read the store non-reactively so the listener isn't re-bound on every panel toggle.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key !== 'Escape') return
       const s = useStore.getState()
-      if (s.activityOpen || s.callsOpen || s.sourcesOpen || s.pipelineOpen || s.newsFeedOpen || s.openOutput) return
+      if (s.activityOpen || s.callsOpen || s.sourcesOpen || s.pipelineOpen || s.newsFeedOpen || s.openOutput || s.scoringOpen || s.signalIntakeOpen || s.stopListOpen) return
       close(null)
     }
     window.addEventListener('keydown', onKey)

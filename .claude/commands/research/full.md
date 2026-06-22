@@ -397,10 +397,20 @@ try:
     pm = json.load(open(pms[-1], encoding="utf-8"))
     dr = json.load(open(dr_path, encoding="utf-8"))
 except Exception as e: print(f"HAIRCUT: read error ({e}) — skipping"); sys.exit(0)
-haircut    = pm.get("confidence_haircut") or 0
 rec_conf   = pm.get("recommended_confidence")
 verdict    = pm.get("verdict") or ""
 orig_conf  = dr.get("confidence_score")
+def _isnum(x): return isinstance(x, (int, float)) and not isinstance(x, bool)
+# DERIVE the haircut from the confidence delta this propagation exists to enforce — do NOT trust a
+# possibly-null/zeroed self-reported `confidence_haircut` to decide whether a haircut happened. A null
+# field paired with a lowered `recommended_confidence` is a REAL cut, and `… or 0` would silently bury it
+# (writing confidence_haircut=0 while post_review_confidence_score reflects the real cut). Mirrors
+# scripts/eval.py check S exactly, so full.md writes the same haircut the gate re-derives (fix F28).
+pm_orig    = pm.get("original_confidence")
+if not _isnum(pm_orig): pm_orig = orig_conf
+haircut    = pm.get("confidence_haircut")
+if not _isnum(haircut):
+    haircut = (pm_orig - rec_conf) if (_isnum(pm_orig) and _isnum(rec_conf)) else 0
 dr["confidence_haircut"]        = haircut
 dr["pre_mortem_verdict"]        = verdict
 dr["post_review_confidence_score"] = rec_conf
@@ -408,8 +418,9 @@ dr["post_review_confidence_score"] = rec_conf
 # A terminal pre-mortem verdict ("Thesis broken" / "Does not survive — downgrade") means the thesis
 # does not hold as a conviction position. The original `decision` and `basket` fields (the synthesizer's
 # immutable call, locked to final_thesis.md) stay unchanged so eval check I still passes; we instead
-# add the two new additive fields `post_mortem_decision` + `post_mortem_basket` that the calibration,
-# size, and track commands should prefer when present. Eval check T asserts these are set consistently.
+# add the two new additive fields `post_mortem_decision` + `post_mortem_basket` that the calibration and
+# track commands prefer when present (size already gates long-eligibility on the pre-mortem verdict
+# directly, so it needs no separate basket override). Eval check U asserts these are set consistently.
 TERMINAL = {"Thesis broken", "Does not survive — downgrade"}
 orig_dec  = dr.get("decision") or ""
 orig_bask = dr.get("basket")   or ""

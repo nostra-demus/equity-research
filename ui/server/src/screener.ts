@@ -190,6 +190,37 @@ export function subjectLabelFromEvent(d: any): string {
   return cleanIssuer((d?.issuers || [])[0]) || (typeof d?.headline === 'string' ? d.headline.trim() : '')
 }
 
+/** Build the `signal_id -> best display label` map from the raw events.ndjson text. Pure + exported so a
+ *  test can exercise the multi-line-per-signal path: a signal accrues several ledger lines, and the common
+ *  shape is that the FIRST names the issuer while later corrections carry only a headline. A named-issuer
+ *  label must NOT be clobbered by a later headline-only line (the bug this fixes); among same-quality
+ *  labels the later (richer / corrected) line still wins. */
+export function subjectLabelsFromLedger(text: string): Map<string, string> {
+  const map = new Map<string, string>()
+  const fromIssuer = new Set<string>() // signal_ids whose current label came from a NAMED issuer
+  for (const ln of text.split('\n')) {
+    const t = ln.trim()
+    if (!t) continue
+    let d: any
+    try {
+      d = JSON.parse(t)
+    } catch {
+      continue
+    }
+    if (!d?.signal_id) continue
+    const issuer = cleanIssuer((d.issuers || [])[0])
+    const label = issuer || (typeof d.headline === 'string' ? d.headline.trim() : '')
+    if (!label) continue
+    if (issuer) {
+      map.set(d.signal_id, label) // a named issuer is the best label and locks it against later headline-only lines
+      fromIssuer.add(d.signal_id)
+    } else if (!fromIssuer.has(d.signal_id)) {
+      map.set(d.signal_id, label) // headline fallback — only while no issuer line has been seen for this signal
+    }
+  }
+  return map
+}
+
 // Map every signal id the engine has processed -> the company/headline it concerns, for the activity
 // log's Company column (which otherwise shows the opaque SIG-… subject id). Source: the swarm's
 // append-only event ledger (named issuer when present, else the event headline). Cached by ledger
@@ -214,23 +245,11 @@ export function screenerSubjectLabels(): Map<string, string> {
     return new Map() // no ledger yet
   }
   if (_sigLabelCache && _sigLabelCache.key === key) return _sigLabelCache.map
-  const map = new Map<string, string>()
+  let map: Map<string, string>
   try {
-    for (const ln of fs.readFileSync(real, 'utf8').split('\n')) {
-      const t = ln.trim()
-      if (!t) continue
-      let d: any
-      try {
-        d = JSON.parse(t)
-      } catch {
-        continue
-      }
-      if (!d?.signal_id) continue
-      const label = subjectLabelFromEvent(d)
-      if (label) map.set(d.signal_id, label) // later lines (richer / corrected) win; empty labels never overwrite
-    }
+    map = subjectLabelsFromLedger(fs.readFileSync(real, 'utf8'))
   } catch {
-    /* unreadable ledger = empty map */
+    map = new Map() // unreadable ledger = empty map
   }
   _sigLabelCache = { key, map }
   return map
