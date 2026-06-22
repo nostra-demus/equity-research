@@ -1,0 +1,68 @@
+# External Dependency Check — EMAR
+
+**Emaar Properties PJSC | DFM:EMAAR | UAE / IFRS / AED | FY ends Dec-31**
+
+---
+
+## 1. Dependency Table
+
+*Score direction: HIGHER = WORSE (inverted from default module convention)*
+
+| External Variable | Dependency Level | Why It Matters | Evidence |
+|---|---|---|---|
+| **Interest rates** | Low | AED is pegged to USD at a fixed rate of 3.6725, so Emaar carries no AED/USD FX risk and inherits UAE monetary policy directly from the US Fed. Most group sukuk are fixed-rate (3.64%–3.875%, maturing 2026–2031). The FY2024 interest-rate sensitivity table shows a ±100bps swing on fixed-rate financial liabilities produces only AED 29,875k impact on pre-tax profit — negligible relative to FY2024 NPBT of AED 18,900 million. Floating-rate EIBOR-linked facilities exist but are small and partially offset by large interest income on AED 38.6 Bn cash (FY2024). EBITDA/interest coverage was 49x in FY2025. | FY2024 Annual Report (Integrated Report, IFRS, filed Feb-14-2025), Note 34 (Market Risk / Interest Rate Risk), p.191; Capital IQ Annual Financials, Income Statement, FY2025 |
+| **FX** | Mid | The AED-USD peg eliminates the group's largest potential FX risk. However, Emaar operates in Egypt (Emaar Misr, EGX-listed, 73.79% stake), India (Emaar India, ~77% stake), Turkey (100%), Pakistan, and Saudi Arabia. International revenues were AED 3,404 million in FY2025 (~7% of group), but the EGP collapsed sharply: the exchange rate moved from AED 0.0835/EGP (Dec-2024) to AED 0.0746/EGP (Dec-2025). The FY2024 Annual Report discloses that a 10% depreciation in the EGP reduces comprehensive income by AED 323,807k; a 10% INR move impacts by AED 82,879k. Emaar Misr EBITDA swung from AED 1,559 million (FY2024, which included AED ~650 Mn forex gain) to AED 479 million (FY2025, including AED ~170 Mn forex loss) — a 69% drop. Management partially mitigates via local-currency financing (EGP revolving facilities, INR term loans) but does not use cross-currency hedges. International also carries Turkish lira exposure; the filings note Turkey experienced severe inflation and discuss IAS 29 hyperinflation accounting. FX is a real P&L lever, but is contained by the small international revenue share. | FY2024 Annual Report, Note 34 (FX Sensitivity table), p.191; FY2025 Investor Presentation (Feb-12-2026), pp.20-21 (Emaar Misr Key Highlights, exchange rate footnote); Capital IQ Annual Segments, FY2025 |
+| **Government policy / land supply** | High | Emaar's entire UAE land bank and masterplan pipeline depends on Dubai government approvals — zoning, plot allocation, road/utility infrastructure, and masterplan sign-off. The Dubai government (through Ruler's Court / Dubai Holding and related GREs) is both a partner (JV co-developer in Dubai Creek Harbour, Emaar South, and others) and the implicit regulator of supply. Emaar holds 344+ million sq ft of UAE land bank; the pace and price at which it can develop and sell this bank is a government-controlled variable. UAE corporate tax (9%) was introduced in 2024 and domestic minimum top-up tax (DMTT, 15%) applied from 2025 — both government-imposed changes that cut net margin from 49% (FY2024) to 45% (FY2025). International operations (Egypt, India, Turkey, Pakistan) each face their own government counterparts for project approvals and regulatory clearances. The FY2024 annual report notes that Emaar's activities are governed by UAE Federal Law No. 32 of 2021 and UAE Companies Law. | FY2025 Investor Presentation, p.5 (JV structure noting GRE partners), p.16 (UAE land bank 344 Mn sqft); FY2024 Annual Report, Board of Directors Report, p.137; Note 9 (Taxation), p.151; Capital IQ Annual Income Statement (effective tax rate rose from 7.7% in FY2024 to 13.0% in FY2025) |
+| **Regulation** | Mid | Beyond land-policy, Emaar faces sector-specific regulation: Dubai's real estate regulatory authority (RERA/DLD) governs off-plan sales, escrow rules, and project registration. AED ~43 Bn of the AED 52.6 Bn cash balance at end-FY2025 sits in project escrow accounts, not under lien but not freely deployable until milestones are met — a regulatory construct. International subsidiaries face local property and securities regulators (Egypt: EGX and NUCA; India: RERA state authorities; Turkey: CMB). Credit ratings (S&P BBB+ / Moody's Baa1, both with stable outlook, upgraded in 2025) depend in part on regulatory environment. UAE is generally developer-friendly; risk is more in international markets. | FY2025 Investor Presentation, p.14 (cash note — AED 43 Bn escrow), p.11 (credit ratings); FY2024 Annual Report, Note 2.1 (Basis of Preparation — reference to Federal Decree-Law 32/2021) |
+| **Consumer cycle** | High | ~79% of FY2025 group revenue (AED 39,550 million of AED 49,557 million from the Real Estate segment) and ~73% of EBITDA come from selling and delivering residential and commercial units, a classic consumer cycle business. Property sales volumes and prices track buyer confidence, which in turn tracks Dubai's economic cycle, income growth, and the willingness of wealthy domestic and international buyers to commit. The 2020 Covid shock cut group revenue by 8% and EBITDA from AED 9.4 Bn (FY2019) to AED 5.5 Bn (FY2020). The AED 154.8 Bn global revenue backlog (AED 134.3 Bn UAE only) as of Dec-31-2025 provides ~3–4 years of locked-in development revenue, materially softening near-term cycle risk. Customer default rate is disclosed at c.0.5% of sales value — low but it rises in downturns. Recurring revenues (malls, hospitality, entertainment) are 21% of revenue and 32% of EBITDA, providing a partial buffer. | FY2025 Investor Presentation, pp.12-13 (revenue breakdown, recurring contribution), p.16 (revenue backlog AED 134.3 Bn UAE, AED 154.8 Bn global; customer default 0.5%); Capital IQ Annual Segments, FY2025; FY2024 Annual Report, Board Report, p.137 (FY2020 performance reference) |
+| **Industrial / construction-cost cycle** | Mid | Emaar's development business has a multi-year cost-at-completion exposure: land is acquired, units are sold off-plan, and delivery happens 3–6 years later. Construction cost inflation (labour, steel, cement, glass) erodes gross margin if costs rise faster than contracted selling prices. Gross margin on UAE development fell from 52% (FY2024) to 50% (FY2025). The preliminary FY2025 report notes the group has 50,800+ units under construction in UAE alone. Turkey hyperinflation is explicitly flagged in the FY2024 filings (IAS 29 applied). Emaar manages this via fixed-price construction contracts and cost monitoring, but cannot fully insulate itself from a broad construction-cost surge. International operations in Egypt (EGP inflation, steel and materials costs) add further exposure. | FY2025 Investor Presentation, pp.15-16 (units under construction, gross margins by project); FY2024 Annual Report, Note 2.2 (IAS 29 Turkey hyperinflation), p.150; Capital IQ Annual Segments, Real Estate gross margin trend |
+| **Geopolitics** | Mid | International development contributes ~5% of FY2025 group revenue but carries outsized geopolitical risk: Egypt (political stability, currency controls, IMF program dependency), Turkey (geopolitical position, lira volatility, bilateral tensions), India (regulatory and land-acquisition risk), Pakistan (macroeconomic fragility, KIBOR-linked debt). Emaar Misr's revenue backlog is AED 15.4 Bn (~10% of group backlog), meaning a disruption in Egypt would have a visible impact. The FY2024 annual report references a substantial litigation exposure in India (Andraa Pradesh court proceedings involving Emaar India, multiple claims). Saudi Arabia operations are expanding (Entertainment/hospitality in KSA and Bahrain mentioned). The AED-USD peg itself is geopolitically-backed by UAE's stable governance and oil revenues. | FY2025 Investor Presentation, pp.20-21 (Emaar Misr highlights, AED 15.4 Bn backlog), p.37 (international markets overview); FY2024 Annual Report, Note 30 (Contingent Liabilities — India litigation), pp.187-188 |
+| **Commodity prices** | Low | Emaar does not purchase bulk commodities as an end-user — its construction contractors do. Steel, cement, and fuel price changes flow through indirectly via contractor bids and fixed-price construction contracts. No direct commodity pass-through to the income statement is disclosed. The FY2024 annual report and FY2025 investor presentation contain no commodity sensitivity disclosure, consistent with this being an indirect and contractually buffered exposure. | FY2024 Annual Report, Note 34 (Market Risk section lists credit, market, and liquidity risks — no commodity sensitivity table), p.189; FY2025 Investor Presentation, Business Model section |
+| **Freight / logistics rates** | Low | Not applicable. Emaar is a real estate developer and operator, not a goods manufacturer or distributor. Supply-chain freight costs are embedded in contractor bills and are an indirect, small component of overall construction cost. No disclosure or materiality threshold for freight is present in any filing. | Not proven from available data; skipped as immaterial |
+| **Weather** | Low | Dubai's climate is stable and construction-friendly year-round. No weather-related disruptions to development timelines are flagged in any filing. The FY2024 April flood event in Dubai (heavy rainfall) is not mentioned as a material risk or cost item in the filings reviewed. Hospitality and mall operations in UAE could theoretically see minor seasonal softness, but occupancy at 98%+ in malls and 82% in hotels shows no evidence of weather sensitivity. | FY2025 Investor Presentation, pp.22 (98%+ mall occupancy), p.32 (82% hotel occupancy); Not proven from filings that weather is a material risk |
+
+---
+
+## 2. Sensitivity, If Disclosed
+
+Emaar's FY2024 Annual Report (Note 34, Market Risk, p.191) discloses the following quantified sensitivities:
+
+| Variable | Shock | P&L / OCI Impact (FY2024) | P&L / OCI Impact (FY2023) | Source |
+|---|---|---|---|---|
+| EGP / AED exchange rate | 10% change in exchange rate | AED 323,807k | AED 368,108k | FY2024 Annual Report, Note 34, p.191 |
+| INR / AED exchange rate | 10% change in exchange rate | AED 82,879k | AED 64,621k | FY2024 Annual Report, Note 34, p.191 |
+| Other non-USD currencies | 10% change in exchange rate | AED (43,560)k | AED (32,356)k | FY2024 Annual Report, Note 34, p.191 |
+| Interest rate (fixed-rate liabilities) | ±100 basis points | AED 29,875k on financial liabilities | AED 22,049k | FY2024 Annual Report, Note 34, p.191 |
+| Equity price (investments) | 10% change | AED 106,302k on equity | AED 135,052k | FY2024 Annual Report, Note 34, p.192 |
+
+**Context on scale:** FY2024 group net profit attributable to parent shareholders was AED 13,514 million. The EGP sensitivity of AED 324 million represents ~2.4% of that net profit. Interest rate sensitivity of AED 30 million is less than 0.2%. FX is the only externally-driven variable with a disclosed sensitivity above 1% of net profit.
+
+---
+
+## 3. Classification
+
+**Partly externally driven** — material exposure exists across the property cycle (consumer demand), Dubai government land and tax policy, and international FX (particularly EGP), but management has real levers: locking in sales before building starts (93% of units under development already sold), maintaining a multi-year revenue backlog (AED 154.8 Bn), pricing properties in AED (USD-pegged), managing a 21%/32% recurring revenue base, selectively choosing international markets and using local-currency debt as a natural hedge, and owning an irreplaceable land bank in a supply-constrained city.
+
+---
+
+## 4. External Dependency Risk Score
+
+**42 / 100** (higher = worse)
+
+**Rationale:**
+
+- The dominant external variable — Dubai property demand cycle — is material but substantially pre-funded through the backlog. Management can and does accelerate or defer launches, adjust product mix (villas vs apartments vs plots), and price flexibly. This is not a pure pass-through.
+- The AED-USD peg eliminates the largest potential FX risk for a company selling in the UAE.
+- International FX (EGP, INR, TRY, PKR) is a real risk but affects only ~7% of group revenue.
+- Government policy is structurally high — Emaar cannot operate without Dubai government partnership — but the relationship has been stable and supportive for 25+ years, limiting the practical risk.
+- Interest rates carry very low dependency: coverage ratio of 49x, fixed-rate sukuk portfolio, large net cash position (AED 61.7 Bn net cash as of Dec-31-2025).
+- One genuine concern: UAE corporate tax (9%) introduced 2024 and DMTT (15%) introduced 2025 are government-controlled changes that clipped net margin by ~400 basis points. Management cannot offset tax policy.
+- Overall, the business is partly externally driven but is better buffered than a typical developer because of the backlog mechanic, the land bank, and the recurring revenue base.
+
+**Band: 41–60 — Material external exposure, mixed mitigation**
+
+---
+
+## 5. The Single Biggest Lever
+
+**Dubai residential property demand**: if buyer demand fell 20% in a sustained downturn (similar to or worse than the 2019–2020 period), new sales would drop, the forward backlog would stop refilling, and recognized revenue would decline with a 3–4 year lag as in-construction projects are delivered into a weaker market — compressing margins, reducing cash generation, and potentially forcing land bank write-downs. This single variable controls roughly 73% of group EBITDA, and no amount of hedging, pricing power, or recurring-revenue expansion fully offsets a demand collapse of that magnitude.
