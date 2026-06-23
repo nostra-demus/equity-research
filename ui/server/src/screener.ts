@@ -45,11 +45,14 @@ export function screenerBoard() {
 
 // A screener signal run is RESUMABLE when its folder shows a partial gauntlet that neither finished
 // nor stopped on purpose. We classify from disk (no registry): a run is NOT resumable if the user
-// aborted it (`.aborted` marker), if any module reached a TERMINAL routing (LOG / PARK / suppress /
-// watchlist_* / return_to_m0_2 — a real, recorded outcome, not a breakage), or if it ran to the end
-// (candidates.json written). Everything else that was launched (intake.json present) but is missing
-// its final artifact is an interruption we can pick up — the gauntlet command skips the modules whose
-// `99_*-synthesis.md` already exists, so a relaunch only runs the rest.
+// aborted it (`.aborted` marker), if it was launched to deliberately STOP at a target module (`.target`
+// marker — a `--until` partial the user means to continue manually, NOT an interruption; auto-resume
+// can't honor the target, so resurrecting it would over-run past the deferred stop), if any module
+// reached a TERMINAL routing (LOG / PARK / suppress / watchlist_* / return_to_m0_2 — a real, recorded
+// outcome, not a breakage), or if it ran to the end (candidates.json written). Everything else that was
+// launched (intake.json present) but is missing its final artifact is an interruption we can pick up —
+// the gauntlet command skips the modules whose `99_*-synthesis.md` already exists, so a relaunch only
+// runs the rest.
 export function listResumableSignals(liveSubjectIds: Set<string>): { sigId: string; headline: string; doneCount: number; totalCount: number }[] {
   const m = manifest()
   const tmpl = m.runRootTemplate || 'screener/runs/{signal_id}'
@@ -110,6 +113,7 @@ export function listResumableSignals(liveSubjectIds: Set<string>): { sigId: stri
     }
     if (!fs.existsSync(path.join(absRoot, 'intake.json'))) continue // never actually launched
     if (fs.existsSync(path.join(absRoot, '.aborted'))) continue // user cancelled on purpose
+    if (fs.existsSync(path.join(absRoot, '.target'))) continue // launched to STOP at a target (`--until`) — a deliberate partial, continued manually; never auto-resume (would over-run the deferred stop)
     if (fs.existsSync(path.join(absRoot, 'candidates.json'))) continue // ran to the end
     if (hitTerminal(absRoot)) continue // stopped at a gate — a valid outcome, not a breakage
     const doneCount = modules.filter((mod) => synthesisPresent(absRoot, mod)).length

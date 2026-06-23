@@ -12,6 +12,7 @@ import { resolveRunRoot } from './outputs'
 import { runReadiness } from './readiness'
 import { providerEnvKeys } from './load-env'
 import { buildSwarmGraph, downstreamCascade } from './roster'
+import { resolveInsideScreener } from './sandbox'
 import { swarmById } from './swarms'
 import { finalPaths, handleStreamLine } from './stream-parser'
 import type { AdmissionRejection, LaunchPreflight, ReadinessDecision, ReadinessReport, RunKind, RunStatus } from './types'
@@ -758,6 +759,28 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     fs.writeFileSync(pendingIntake.path, JSON.stringify(pendingIntake.body, null, 2) + '\n')
   }
 
+  // Record (or clear) the deliberate-stop TARGET for a signal run. A `--until` partial run stops the
+  // gauntlet at `module` on purpose ("run through here, continue the rest later"). That target is
+  // otherwise never persisted — it lives only in the prompt string and free-text RUN_METADATA.md, and
+  // intake.json's schema carries no `until`/`module` field — so on disk a deliberate partial is
+  // indistinguishable from a run broken mid-flight. Without this marker the auto-resume scan
+  // (listResumableSignals) classifies the staged run "resumable" and relaunches it WITHOUT the target,
+  // running the full gauntlet the user explicitly deferred — locking a thesis_record.json, surfacing
+  // candidates they chose not to surface yet, and spending unbudgeted CLI. The marker makes a staged
+  // stop self-identifying. A relaunch WITHOUT a target (a manual "Continue the rest") clears it — the
+  // user has now chosen to run the remainder — mirroring the .aborted clear in the relaunch branch above.
+  // Path written through the screener sandbox guard (containment-checked) like every other run-folder write.
+  if (kind === 'signal') {
+    try {
+      const dir = resolveInsideScreener(runRoot) // run folder exists by here (intake just materialized, or a relaunch of an existing signal)
+      const marker = path.join(dir, '.target')
+      if (module) fs.writeFileSync(marker, JSON.stringify({ module, at: new Date().toISOString() }) + '\n')
+      else fs.rmSync(marker, { force: true })
+    } catch {
+      /* best-effort marker; a missing marker only risks one auto-resume the user can re-cancel */
+    }
+  }
+
   const run = createRun({
     kind,
     ticker,
@@ -917,7 +940,9 @@ export async function cancel(runId: string): Promise<boolean> {
     try {
       const abs = path.isAbsolute(run.runRoot) ? run.runRoot : path.join(REPO_ROOT, run.runRoot)
       fs.mkdirSync(abs, { recursive: true })
-      fs.writeFileSync(path.join(abs, '.aborted'), JSON.stringify({ at: new Date().toISOString(), reason: 'cancelled' }))
+      // route the write through the screener sandbox guard (realpath + containment) before touching disk
+      const dir = resolveInsideScreener(abs)
+      fs.writeFileSync(path.join(dir, '.aborted'), JSON.stringify({ at: new Date().toISOString(), reason: 'cancelled' }))
     } catch {
       /* best-effort marker; a missing marker only risks one auto-resume the user can re-cancel */
     }
