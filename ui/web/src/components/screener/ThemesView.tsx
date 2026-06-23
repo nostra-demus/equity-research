@@ -246,7 +246,11 @@ function ThemeMap({ themes, onPick, win, cov }: { themes: Theme[]; onPick: (id: 
   useEffect(() => {
     themeMapRevealed = true
     if (!entering) return
-    const id = window.setTimeout(() => setEntering(false), 1800) // > the bounded cascade (~1.6s for ≤16 bubbles)
+    // Hold `is-entering` until the slowest (last-ranked) bubble has finished landing, so a map with many
+    // themes never has its tail snapped in / cut off at a fixed deadline. Mirrors the cascade timing in
+    // global.css: delay = enterRank·(--theme-stagger 64ms) + 90ms, duration = --theme-reveal 560ms; + buffer.
+    const cascadeMs = Math.max(0, layout.nodes.length - 1) * 64 + 90 + 560 + 160
+    const id = window.setTimeout(() => setEntering(false), cascadeMs)
     return () => window.clearTimeout(id)
   }, []) // once, on mount
 

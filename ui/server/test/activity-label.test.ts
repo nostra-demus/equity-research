@@ -13,7 +13,7 @@ import path from 'node:path'
 const STATE = fs.mkdtempSync(path.join(os.tmpdir(), 'actlog-'))
 process.env.ENGINE_STATE_DIR = STATE
 const { readActivity, resolveSubjectLabel } = await import('../src/activity-log')
-const { subjectLabelFromEvent } = await import('../src/screener')
+const { subjectLabelFromEvent, subjectLabelsFromLedger } = await import('../src/screener')
 
 let passed = 0
 function check(name: string, fn: () => void) {
@@ -58,6 +58,38 @@ check('subjectLabelFromEvent falls back to the headline when no issuer is named'
 check('subjectLabelFromEvent does NOT read `primary_issuers` (the old bug) — that field never existed on the ledger line', () => {
   // a record carrying only the wrong field must fall back to the headline, not surface the wrong-field value
   assert.equal(subjectLabelFromEvent({ primary_issuers: ['Wrong Field Co'], headline: 'The headline wins, not the wrong field' }), 'The headline wins, not the wrong field')
+})
+
+// ---- the map build over a multi-line-per-signal ledger (the clobber regression) ----
+// The ledger accrues several lines per signal; the first usually names the issuer, later corrections often
+// carry only a headline. A named-issuer label must survive a later headline-only line for the same signal.
+check('subjectLabelsFromLedger keeps the named issuer when a LATER line for the same signal has only a headline', () => {
+  const text = [
+    JSON.stringify({ signal_id: 'SIG-A', issuers: ['Reserve Bank of India (policy authority)'], headline: 'RBI cuts repo rate by 50 bps' }),
+    JSON.stringify({ signal_id: 'SIG-A', headline: 'RBI cuts repo rate by 50 bps — markets react' }), // later line, issuer dropped
+  ].join('\n')
+  assert.equal(subjectLabelsFromLedger(text).get('SIG-A'), 'Reserve Bank of India')
+})
+check('subjectLabelsFromLedger lets a later ISSUER line win over an earlier one (richer / corrected)', () => {
+  const text = [
+    JSON.stringify({ signal_id: 'SIG-B', issuers: ['Intel Corp (NASDAQ: INTC)'], headline: 'Intel upgraded' }),
+    JSON.stringify({ signal_id: 'SIG-B', issuers: ['Intel Corporation'], headline: 'Intel upgraded by BofA' }),
+  ].join('\n')
+  assert.equal(subjectLabelsFromLedger(text).get('SIG-B'), 'Intel Corporation')
+})
+check('subjectLabelsFromLedger: an earlier issuer line is not undone by a later headline-only line, even with a headline-first line', () => {
+  const text = [
+    JSON.stringify({ signal_id: 'SIG-D', headline: 'first sight, no issuer yet' }),
+    JSON.stringify({ signal_id: 'SIG-D', issuers: ['Honeywell International Inc.'], headline: 'Honeywell names new CFO' }),
+    JSON.stringify({ signal_id: 'SIG-D', headline: 'follow-up with no issuer' }),
+  ].join('\n')
+  assert.equal(subjectLabelsFromLedger(text).get('SIG-D'), 'Honeywell International Inc.')
+})
+check('subjectLabelsFromLedger: a headline-only signal falls back to the headline; blanks and bad JSON are skipped', () => {
+  const text = ['', 'not json{', JSON.stringify({ signal_id: 'SIG-E', issuers: [], headline: 'A macro headline with no issuer' }), ''].join('\n')
+  const m = subjectLabelsFromLedger(text)
+  assert.equal(m.get('SIG-E'), 'A macro headline with no issuer')
+  assert.equal(m.size, 1)
 })
 
 // ---- end-to-end over a temp audit log ----
