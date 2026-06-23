@@ -230,6 +230,17 @@ def eval_aa_module_verdict_lock(decision, decision_date, bss_verdict, mg_verdict
             )
     return violations
 
+def extract_synthesis_verdict(text):
+    """Pull the verdict category from a module 99_*-synthesis.md body. The synthesis renders it as
+    `- **Verdict:** <category>` — the colon is INSIDE the bold, and the value may itself be double-
+    bolded (e.g. `- **Verdict:** **Adequate**`). Returns the verdict text (surrounding markdown left
+    in place — callers substring-match the §18 category) or None. Module-level + pure so the selftest
+    drives the ACTUAL regex over real rendered lines (a helper-only test can't catch a regex bug)."""
+    if not isinstance(text, str):
+        return None
+    m = re.search(r'\*\*Verdict:?\*\*\s*:?\s*([^\n]+)', text)
+    return m.group(1).strip() if m else None
+
 if scope=="selftest":
     # Fixture-free coverage for check W — the golden suite can't exercise it (every committed run is
     # pre-gate / blank-fielded, so W is always N/A there). Asserts forbidden combos FAIL, correct combos
@@ -441,7 +452,30 @@ if scope=="selftest":
         if not ok: aabad+=1
         print(f"  [{'ok' if ok else 'XX'}] AA({dec_!r},{dt_!r},{bss_!r},{mg_!r},{tt_!r}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
     bad+=aabad
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(aacases)} check-AA cases")
+    # check AA EXTRACTOR — drive the ACTUAL verdict regex over real rendered lines. The aacases above
+    # pass pre-parsed strings and so CANNOT catch a regex bug; these lock the `- **Verdict:** <cat>`
+    # rendering contract (colon INSIDE the bold; value optionally double-bolded) the synthesis emits.
+    EV=extract_synthesis_verdict
+    evcases=[  # (markdown, expected substring in result, or None for "no verdict extracted")
+        ("- **Verdict:** Distress risk", "Distress risk"),
+        ("- **Verdict:** **Adequate** — leverage elevated", "Adequate"),
+        ("- **Verdict:** Fortress balance sheet *(pre-Iveco)*", "Fortress balance sheet"),
+        ("- **Verdict:** Serious governance concerns", "Serious governance concerns"),
+        ("- **Verdict:** **Aligned & competent** (watch flag)", "Aligned & competent"),
+        ("## 1. Solvency Verdict\n\n- **Verdict:** Distress risk\n- Net leverage 5x", "Distress risk"),
+        ("- **Verdict**: Standard / mixed", "Standard / mixed"),  # tolerate colon OUTSIDE the bold too
+        ("## 6. What Would Change The Solvency Verdict?", None),  # a header is NOT the bolded verdict line
+        ("no verdict here at all", None),
+        (None, None),  # non-string input → None, no crash
+    ]
+    evbad=0
+    for txt_,exp in evcases:
+        got=EV(txt_)
+        ok=(got is None if exp is None else (got is not None and exp in got))
+        if not ok: evbad+=1
+        print(f"  [{'ok' if ok else 'XX'}] EV({(txt_ or '')[:42]!r}) -> {got!r}"+("" if ok else f"  EXPECTED contains {exp!r}"))
+    bad+=evbad
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(aacases)} check-AA + {len(evcases)} AA-extractor cases")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -928,8 +962,7 @@ for drp in runs:
             if not ss: return None
             try: txt=open(ss[0],encoding="utf-8").read()
             except: return None
-            m=re.search(r'\*\*Verdict\*\*[^:\n]*:([^\n]+)',txt)
-            return m.group(1).strip() if m else None
+            return extract_synthesis_verdict(txt)
         bss_v=_read_synthesis_verdict("balance-sheet-survival")
         mg_v =_read_synthesis_verdict("management-governance")
         aaresult=eval_aa_module_verdict_lock(dec,ddte,bss_v,mg_v,d.get("thesis_type"))
@@ -996,7 +1029,7 @@ FRAMEWORK_CONTRACTS={
  "frameworks/DECISION_LEDGER.md":["Memo delta","memo_delta","thesis_delta_verdict","stage_one_comment","rerun_command","_memo_delta.md","business_type","primary_valuation_method"],
  ".claude/commands/research/review-decisions.md":["memo_delta","stage_one_comment","rerun_command","Pool first","_memo_delta"],
  ".claude/commands/research/eval.md":["scripts/eval.py"],
- "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock"],
+ "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict"],
  ".github/workflows/ci.yml":["eval-contracts","scripts/eval.py"],
 }
 jchecks=[]
