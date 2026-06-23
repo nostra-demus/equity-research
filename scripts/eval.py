@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Deterministic eval harness for the equity-research engine.
 
-Checks invariants A-U and J (framework-source contracts) against every committed
+Checks invariants A-Z, AA, and J (framework-source contracts) against every committed
 decision record in analyses/. Called by /research:eval and by CI.
 
 Usage:
@@ -184,6 +184,52 @@ def eval_t_probability(entry):
         return f"probability={prob} looks like a decimal fraction — use the 0–100 scale per §10 (write {round(prob*100)} not {prob})"
     return None                                # valid: 0 (Remote floor), or any value in [1, 100]
 
+# ── Check AA (§18 module verdict-lock caps) — module-level so `eval.py selftest` can drive it ──
+# CLAUDE.md §18 mandates two hard verdict-lock caps that the master synthesizer's PROMPT states but
+# nothing mechanically verifies. Gap: when the balance-sheet-survival (BSS) module synthesis contains
+# "Distress risk", or the management-governance (MG) synthesis contains "Serious governance concerns",
+# the final decision must NOT be in HIGH_CONVICTION_DECISIONS — unless the BSS cap's §18 exception
+# applies (thesis_type includes "Balance-sheet survival"). The MG cap has no exception.
+# This check reads the committed synthesis files, extracts the first **Verdict:** line via regex,
+# and returns a list of violations (empty list = pass) or None (N/A).
+# Landing date: 2026-06-23 (forward-looking; pre-gate runs are N/A so the golden suite stays green).
+AA_DATE = "2026-06-23"
+BSS_CAP_VERDICT = "Distress risk"
+MG_CAP_VERDICT  = "Serious governance concerns"
+
+def eval_aa_module_verdict_lock(decision, decision_date, bss_verdict, mg_verdict, thesis_type):
+    """Core of check AA. Returns list of violations (empty=pass) or None (N/A).
+    bss_verdict: extracted Solvency Verdict string from BSS 99_*-synthesis.md, or None (absent).
+    mg_verdict:  extracted Stewardship Verdict string from MG 99_*-synthesis.md, or None (absent).
+    thesis_type: decision_record.thesis_type list (the §14 classification).
+    Side-effect-free + module-level so `eval.py selftest` can exercise it without run fixtures."""
+    if not (isdate(decision_date) and decision_date >= AA_DATE):
+        return None  # forward-looking; pre-gate runs are N/A
+    if bss_verdict is None and mg_verdict is None:
+        return None  # neither module synthesis present; N/A
+    violations = []
+    if bss_verdict and BSS_CAP_VERDICT in bss_verdict:
+        # §18: "A balance-sheet 'Distress risk' verdict caps the headline at Watchlist or lower,
+        # unless the thesis is an explicit distressed or special-situation play."
+        is_distress_play = isinstance(thesis_type, list) and "Balance-sheet survival" in thesis_type
+        if decision in HIGH_CONVICTION_DECISIONS and not is_distress_play:
+            violations.append(
+                f"BSS synthesis verdict contains '{BSS_CAP_VERDICT}' but decision={decision!r} "
+                f"is a conviction rating — §18 caps the headline at Watchlist or lower "
+                f"(exception applies only when thesis_type includes 'Balance-sheet survival'; "
+                f"got {thesis_type!r})"
+            )
+    if mg_verdict and MG_CAP_VERDICT in mg_verdict:
+        # §18: "A governance hard disqualifier or critical flag caps the headline at Watchlist or lower."
+        # No exception: the governance cap applies regardless of thesis type.
+        if decision in HIGH_CONVICTION_DECISIONS:
+            violations.append(
+                f"MG synthesis verdict contains '{MG_CAP_VERDICT}' but decision={decision!r} "
+                f"is a conviction rating — §18 caps the headline at Watchlist or lower "
+                f"(no exception: the governance cap applies regardless of thesis type)"
+            )
+    return violations
+
 if scope=="selftest":
     # Fixture-free coverage for check W — the golden suite can't exercise it (every committed run is
     # pre-gate / blank-fielded, so W is always N/A there). Asserts forbidden combos FAIL, correct combos
@@ -348,7 +394,54 @@ if scope=="selftest":
         if not ok: t2bad+=1
         print(f"  [{'ok' if ok else 'XX'}] T2({entry_!r}) -> {got!r}"+("" if ok else f"  EXPECTED fragment {exp!r}"))
     bad+=t2bad
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 cases")
+    # check AA — §18 module verdict-lock caps. The golden suite can't reach the cap branches
+    # (all committed fixtures predate AA_DATE → N/A); drive every branch here.
+    # Expected values: "na" (N/A), "pass" (no violations), "fail" (one or more violations).
+    AA=eval_aa_module_verdict_lock
+    aacases=[  # (decision, decision_date, bss_verdict, mg_verdict, thesis_type, expect: "na"|"pass"|"fail")
+        # pre-gate: always N/A regardless of verdict
+        ("Strong Buy","2026-06-22","Distress risk","Serious governance concerns",["Company-specific"],"na"),
+        ("Strong Buy","not-a-date","Distress risk",None,["Company-specific"],"na"),
+        # both modules absent: N/A (neither ran, so neither cap can fire)
+        ("Strong Buy","2026-06-23",None,None,["Company-specific"],"na"),
+        # BSS "Distress risk" + conviction decision → fail
+        ("Strong Buy","2026-06-23","Distress risk",None,["Company-specific"],"fail"),
+        ("Buy","2026-06-23","Distress risk",None,["Company-specific"],"fail"),
+        ("Starter Position Only","2026-06-23","Distress risk",None,["Company-specific"],"fail"),
+        ("Short Candidate","2026-06-23","Distress risk",None,["Company-specific"],"fail"),
+        # BSS "Distress risk" substring in a longer verdict string → fail (substring match)
+        ("Buy","2026-06-23","Stretched / Distress risk",None,["Company-specific"],"fail"),
+        # BSS "Distress risk" + distress-play exception → pass
+        ("Strong Buy","2026-06-23","Distress risk",None,["Balance-sheet survival"],"pass"),
+        ("Buy","2026-06-23","Distress risk",None,["Balance-sheet survival","Company-specific"],"pass"),
+        # BSS "Distress risk" + non-conviction decision → pass (below the Watchlist ceiling)
+        ("Watchlist","2026-06-23","Distress risk",None,["Company-specific"],"pass"),
+        ("Avoid","2026-06-23","Distress risk",None,["Company-specific"],"pass"),
+        # MG "Serious governance concerns" + conviction decision → fail
+        ("Strong Buy","2026-06-23",None,"Serious governance concerns",["Company-specific"],"fail"),
+        ("Buy","2026-06-23",None,"Serious governance concerns",["Company-specific"],"fail"),
+        ("Short Candidate","2026-06-23",None,"Serious governance concerns",["Company-specific"],"fail"),
+        # MG "Serious governance concerns" + non-conviction decision → pass
+        ("Watchlist","2026-06-23",None,"Serious governance concerns",["Company-specific"],"pass"),
+        ("Avoid","2026-06-23",None,"Serious governance concerns",["Company-specific"],"pass"),
+        # both capping verdicts + conviction → fail (two violations)
+        ("Strong Buy","2026-06-23","Distress risk","Serious governance concerns",["Company-specific"],"fail"),
+        # BSS exception BUT MG still caps (MG has no exception)
+        ("Strong Buy","2026-06-23","Distress risk","Serious governance concerns",["Balance-sheet survival"],"fail"),
+        # clean verdicts on both modules → pass
+        ("Strong Buy","2026-06-23","Fortress balance sheet","Standard / mixed",["Company-specific"],"pass"),
+        ("Buy","2026-06-23","Solid",None,["Company-specific"],"pass"),
+        ("Strong Buy","2026-06-23",None,"Strong governance",["Company-specific"],"pass"),
+    ]
+    aabad=0
+    for dec_,dt_,bss_,mg_,tt_,exp in aacases:
+        raw=AA(dec_,dt_,bss_,mg_,tt_)
+        got="na" if raw is None else ("pass" if not raw else "fail")
+        ok=(got==exp)
+        if not ok: aabad+=1
+        print(f"  [{'ok' if ok else 'XX'}] AA({dec_!r},{dt_!r},{bss_!r},{mg_!r},{tt_!r}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
+    bad+=aabad
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(aacases)} check-AA cases")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -823,6 +916,33 @@ for drp in runs:
                 f"decision={dec!r} — within §14 constraints")
     else:
         add("Z_thesis_type_cap",True,f"run predates thesis-type gate ({ddte}) — N/A",na=True)
+    # AA §18 module verdict-lock caps (forward-looking; landing AA_DATE)
+    #   CLAUDE.md §18 states two hard caps: "Distress risk" BSS verdict caps headline at Watchlist or lower;
+    #   "Serious governance concerns" MG verdict caps headline at Watchlist or lower (§18 exception: BSS cap
+    #   does not apply when thesis_type includes "Balance-sheet survival"). These caps live only in the
+    #   synthesizer's PROMPT — this check closes the gap by reading the committed module synthesis files
+    #   and FAILing when a capping verdict coexists with a conviction decision that §18 forbids.
+    if isdate(ddte) and ddte>=AA_DATE:
+        def _read_synthesis_verdict(mod_dir):
+            ss=glob.glob(os.path.join(run,mod_dir,"99_*-synthesis.md"))
+            if not ss: return None
+            try: txt=open(ss[0],encoding="utf-8").read()
+            except: return None
+            m=re.search(r'\*\*Verdict\*\*[^:\n]*:([^\n]+)',txt)
+            return m.group(1).strip() if m else None
+        bss_v=_read_synthesis_verdict("balance-sheet-survival")
+        mg_v =_read_synthesis_verdict("management-governance")
+        aaresult=eval_aa_module_verdict_lock(dec,ddte,bss_v,mg_v,d.get("thesis_type"))
+        if aaresult is None:
+            add("AA_module_verdict_lock",True,
+                f"BSS verdict={bss_v!r}; MG verdict={mg_v!r}; neither module ran — N/A",na=True)
+        elif not aaresult:
+            add("AA_module_verdict_lock",True,
+                f"BSS verdict={bss_v!r}; MG verdict={mg_v!r}; decision={dec!r} — §18 caps satisfied")
+        else:
+            add("AA_module_verdict_lock",False,"; ".join(aaresult))
+    else:
+        add("AA_module_verdict_lock",True,f"run predates §18 module-verdict-lock gate ({ddte}) — N/A",na=True)
     # WARN non-schema files
     # [review fix] suppress only genuine versioned/audit/review artifacts via PRECISE patterns — the old naive
     # `"_v" not in name` / `"review" not in name` substring tests hid real strays (preview.md, *_v*-named scratch).
@@ -876,7 +996,7 @@ FRAMEWORK_CONTRACTS={
  "frameworks/DECISION_LEDGER.md":["Memo delta","memo_delta","thesis_delta_verdict","stage_one_comment","rerun_command","_memo_delta.md","business_type","primary_valuation_method"],
  ".claude/commands/research/review-decisions.md":["memo_delta","stage_one_comment","rerun_command","Pool first","_memo_delta"],
  ".claude/commands/research/eval.md":["scripts/eval.py"],
- "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE"],
+ "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock"],
  ".github/workflows/ci.yml":["eval-contracts","scripts/eval.py"],
 }
 jchecks=[]
