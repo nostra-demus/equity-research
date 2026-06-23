@@ -106,7 +106,11 @@ for drp in sorted(glob.glob("analyses/*/decision_record.json")):
     implied = round(entry * (1 + exp / 100.0), 2) if isinstance(entry, (int, float)) and isinstance(exp, (int, float)) else None
     calls.append({
         "ticker": d.get("ticker"), "company": d.get("company_name"), "decision_date": d.get("decision_date"),
-        "decision": d.get("decision"), "basket": d.get("basket"),
+        # the standing call the engine actually holds: a terminal pre-mortem caps a Selected/Strong-Buy run
+        # to Watchlist (full.md fix F28b), recorded additively as post_mortem_*. Show the capped call so the
+        # tracker can't display "Strong Buy" next to a broken thesis; flag it when it differs from the original.
+        "decision": d.get("post_mortem_decision") or d.get("decision"), "basket": d.get("post_mortem_basket") or d.get("basket"),
+        "decision_is_post_mortem_capped": (d.get("post_mortem_decision") is not None and d.get("post_mortem_decision") != d.get("decision")),
         # prefer post_review_confidence_score (post-red-team) over the raw synthesizer number when present (fix F28)
         "confidence": d.get("post_review_confidence_score") if d.get("post_review_confidence_score") is not None else d.get("confidence_score"),
         "confidence_is_post_review": d.get("post_review_confidence_score") is not None,

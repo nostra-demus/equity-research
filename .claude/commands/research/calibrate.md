@@ -20,11 +20,11 @@ Discover with `Glob analyses/*/decision_record.json`. For each run, also gather 
 
 ## 2. Build the ledger inventory
 
-One row per decision: ticker, run_date, decision, basket (§3 mapping), confidence_score, data_sufficiency_score, thesis_type, plus the audit roll-up where present (verification verdict + integrity_score; pre-mortem verdict + confidence_haircut; expectations-gap direction + edge_score), and the count/status of its reviews. **For the confidence calibration (§4), prefer `post_review_confidence_score` over `confidence_score` when the former is present** — it is the post-red-team estimate the engine stands behind, and calibrating against the raw pre-red-team number would systematically overstate the engine's raw confidence (fix F28). Record which was used in the inventory row.
+One row per decision: ticker, run_date, decision, basket (§3 mapping — **prefer `post_mortem_decision` / `post_mortem_basket` when present**, the §18-capped standing call: a terminal pre-mortem ("Thesis broken" / "Does not survive") caps a Selected/Strong-Buy run to Watchlist, and calibrating it under its pre-cap basket would credit a basket the engine no longer holds), confidence_score, data_sufficiency_score, thesis_type, plus the audit roll-up where present (verification verdict + integrity_score; pre-mortem verdict + confidence_haircut; expectations-gap direction + edge_score), and the count/status of its reviews. **For the confidence calibration (§4), prefer `post_review_confidence_score` over `confidence_score` when the former is present** — it is the post-red-team estimate the engine stands behind, and calibrating against the raw pre-red-team number would systematically overstate the engine's raw confidence (fix F28). Record which was used in the inventory row.
 
 ## 3. Cohort performance (only where reviews with returns exist)
 
-Per `DECISION_LEDGER` §2/§11, group decisions by basket (Selected / Rejected / Watchlist / Short / Insufficient) and compute, from the **review records** that carry returns:
+Per `DECISION_LEDGER` §2/§11, group decisions by basket (Selected / Rejected / Watchlist / Short / Insufficient — using `post_mortem_basket` when present, per §2 above) and compute, from the **review records** that carry returns:
 - basket returns at each horizon (30/90/180/365d), benchmark- and sector-relative;
 - **Selected − Rejected spread** (the North Star), and Selected − Watchlist;
 - hit rate, false-positive rate (selected losers), false-negative rate (rejected winners).
