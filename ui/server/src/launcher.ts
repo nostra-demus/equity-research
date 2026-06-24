@@ -12,6 +12,7 @@ import { resolveRunRoot } from './outputs'
 import { runReadiness } from './readiness'
 import { providerEnvKeys } from './load-env'
 import { buildSwarmGraph, downstreamCascade } from './roster'
+import { resolveInsideScreener } from './sandbox'
 import { swarmById } from './swarms'
 import { finalPaths, handleStreamLine } from './stream-parser'
 import type { AdmissionRejection, LaunchPreflight, ReadinessDecision, ReadinessReport, RunKind, RunStatus } from './types'
@@ -253,6 +254,25 @@ const ROOT_ARTIFACTS_SIGNAL = ['intake.json', 'signal_payload.json', 'thesis_rec
 // Subject-id shapes (mirrored in sandbox.ts for route validation).
 const SIG_ID_RE = /^SIG-[0-9]{8}-[a-f0-9]{8}$/
 const THESIS_ID_RE = /^THS-SIG-[0-9]{8}-[a-f0-9]{8}-v[0-9]+$/
+
+// Resolve a screener signal run folder to a CONTAINED absolute path, REBUILT from a shape-validated SIG
+// id. The id is asserted against the anchored SIG_ID_RE (`^SIG-[0-9]{8}-[a-f0-9]{8}$` — no '.' or '/',
+// so no '..' or path separator can appear) BEFORE it is spliced into the run-root template, then the
+// result is realpath + containment-checked by the screener sandbox guard. Validating the id component in
+// the SAME scope as the marker write is the form a CWE-22 (path-injection) check recognises as a barrier:
+// the sandbox guard's realpath + startsWith containment does NOT propagate across its return, so routing a
+// raw request-derived `runRoot` string through resolveInsideScreener alone still left the .target / .aborted
+// writes flagged. Returns null when the id isn't a valid SIG id or the swarm is absent — the caller then
+// skips the best-effort marker (the same harmless failure mode as the surrounding try/catch). Used by every
+// run-folder marker write so a request-derived id can never steer a write outside the screener store.
+export function screenerMarkerDir(swarmId: string | undefined, sigId: string): string | null {
+  if (!SIG_ID_RE.test(sigId)) return null
+  const m = swarmById(swarmId)
+  if (!m?.runRootTemplate || !m.placeholder) return null
+  const abs = path.join(REPO_ROOT, m.runRootTemplate.replace(`{${m.placeholder}}`, sigId))
+  fs.mkdirSync(abs, { recursive: true })
+  return resolveInsideScreener(abs)
+}
 
 function admissionMessage(r: AdmissionRejection, ticker: string): string {
   switch (r.code) {
@@ -654,6 +674,15 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
       if (!fs.existsSync(path.join(REPO_ROOT, runRoot, 'intake.json'))) {
         throw Object.assign(new Error(`No intake.json for ${subjectId} — submit the signal form instead.`), { statusCode: 400 })
       }
+      // a deliberate relaunch (manual Continue / Re-run) clears any prior user-abort marker, so the run
+      // becomes live again rather than staying excluded from the resumable scan. Path rebuilt from the
+      // SIG_ID_RE-validated subject id (same CWE-22 barrier as the .target / .aborted writes), not the raw path.
+      try {
+        const dir = screenerMarkerDir(swarmId, subjectId)
+        if (dir) fs.rmSync(path.join(dir, '.aborted'), { force: true })
+      } catch {
+        /* best-effort */
+      }
     } else {
       const intake = params.intake
       if (!intake?.headline || intake.headline.trim().length < 8) {
@@ -749,6 +778,31 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   if (pendingIntake) {
     fs.mkdirSync(path.dirname(pendingIntake.path), { recursive: true })
     fs.writeFileSync(pendingIntake.path, JSON.stringify(pendingIntake.body, null, 2) + '\n')
+  }
+
+  // Record (or clear) the deliberate-stop TARGET for a signal run. A `--until` partial run stops the
+  // gauntlet at `module` on purpose ("run through here, continue the rest later"). That target is
+  // otherwise never persisted — it lives only in the prompt string and free-text RUN_METADATA.md, and
+  // intake.json's schema carries no `until`/`module` field — so on disk a deliberate partial is
+  // indistinguishable from a run broken mid-flight. Without this marker the auto-resume scan
+  // (listResumableSignals) classifies the staged run "resumable" and relaunches it WITHOUT the target,
+  // running the full gauntlet the user explicitly deferred — locking a thesis_record.json, surfacing
+  // candidates they chose not to surface yet, and spending unbudgeted CLI. The marker makes a staged
+  // stop self-identifying. A relaunch WITHOUT a target (a manual "Continue the rest") clears it — the
+  // user has now chosen to run the remainder — mirroring the .aborted clear in the relaunch branch above.
+  // Path rebuilt from the anchored-regex-validated subject id (not the raw `runRoot` string) and
+  // containment-checked, so a request-derived id can never steer the write outside the run folder.
+  if (kind === 'signal') {
+    try {
+      const dir = screenerMarkerDir(swarmId, subjectId)
+      if (dir) {
+        const marker = path.join(dir, '.target')
+        if (module) fs.writeFileSync(marker, JSON.stringify({ module, at: new Date().toISOString() }) + '\n')
+        else fs.rmSync(marker, { force: true })
+      }
+    } catch {
+      /* best-effort marker; a missing marker only risks one auto-resume the user can re-cancel */
+    }
   }
 
   const run = createRun({
@@ -904,6 +958,19 @@ export async function cancel(runId: string): Promise<boolean> {
   const run = getRun(runId)
   if (!run || run.endedAt !== undefined) return false // gone, or already finalized
   run.cancelRequested = true // honored by spawnEngine if the child isn't up yet (the gate-proceed buildArgs window)
+  // A user-initiated cancel of a screener signal is a deliberate stop, NOT a breakage. Drop a marker in
+  // its run folder so the auto-resume scan (listResumableSignals) never resurrects it on the next reconnect.
+  if (run.kind === 'signal') {
+    try {
+      // rebuild + containment-check the run dir from the validated subject id (same CWE-22 barrier as .target)
+      const dir = screenerMarkerDir(run.swarmId, run.subjectId)
+      if (dir) {
+        fs.writeFileSync(path.join(dir, '.aborted'), JSON.stringify({ at: new Date().toISOString(), reason: 'cancelled' }))
+      }
+    } catch {
+      /* best-effort marker; a missing marker only risks one auto-resume the user can re-cancel */
+    }
+  }
   // A chained full-run step: halt the chain HERE (any cancel path) so the next module can never launch —
   // not only on the stop-everything kill switch. Without this, cancelling one step could still advance.
   if (run.chained) haltAllChains()

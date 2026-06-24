@@ -249,6 +249,11 @@ export interface BoardSignal {
   status: string
   status_reason?: string
   thesis_id?: string | null
+  // additive: the scanner's event-type tags (the ALL_THEMES vocabulary) + named issuers, carried
+  // through from the event ledger so the live book can filter by theme. Optional → older board JSON
+  // (generated before the passthrough) still type-checks, and the theme filter self-activates once present.
+  event_types?: string[]
+  issuers?: string[]
 }
 export interface BoardCandidate { candidate_id: string; ticker: string; company_name: string; side: string; exposure_score: number; handed_off?: boolean }
 
@@ -355,6 +360,27 @@ export interface ScreenerBoard {
   counts: Record<string, number>
   book_momentum?: BookMomentum
   live?: { runId: string; kind: string; subjectId: string; runRoot: string | null; startedAt: number }[]
+  // interrupted partial runs (broken by a closed laptop / dropped connection) the cockpit auto-resumes.
+  resumable?: { sigId: string; headline: string; doneCount: number; totalCount: number }[]
+}
+
+// ---- live-book filter + sort (the Recent-runs drawer) ----
+// Defined here (not in BookFilters.tsx) so the store can hold this state without a
+// component→store→component import cycle. Helpers + the predicate live in BookFilters.tsx.
+export type BookSort = 'rank' | 'edge' | 'velocity' | 'checkpoint' | 'proven' | 'newest'
+export interface BookFilterState {
+  stage: string // '' = all | watching | provisional | full_machine | handed_off
+  themes: Set<string> // event_types, OR-matched (self-activates once the board carries them)
+  climbing: boolean
+  cooling: boolean // mutually exclusive with climbing
+  proven: boolean // has at least one confirmed proof point
+  strong: boolean // edge_score_live >= 80
+  needsAttention: boolean // stale | needs-a-source | next checkpoint overdue
+  hasCompanies: boolean // candidate_count > 0
+  horizon: string // '' | short | medium | long (bucketed)
+  checkpoint: string // '' | overdue | soon (<=7d) | month (<=30d)
+  source: string // '' = all
+  text: string
 }
 
 export interface SignalIntakeInput {

@@ -2,6 +2,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { DATA_DIR, REPO_ROOT } from './config'
 import { listRuns } from './registry'
+import { listModuleNames } from './roster'
 import { resolveInsideScreener } from './sandbox'
 import { swarmById } from './swarms'
 import { extractRouting, extractVerdict } from './verdict'
@@ -35,7 +36,96 @@ export function screenerBoard() {
   const live = listRuns()
     .filter((r) => r.swarmId === 'screener' && (r.status === 'starting' || r.status === 'running'))
     .map((r) => ({ runId: r.runId, kind: r.kind, subjectId: r.subjectId, runRoot: r.runRoot, startedAt: r.startedAt }))
-  return { ...index, live }
+  // interrupted runs the cockpit can auto-resume (a partial gauntlet broken by a closed laptop /
+  // dropped connection). Computed fresh from disk every fetch — the in-memory registry is wiped on
+  // an engine restart, so the run folders are the only surviving truth.
+  const resumable = listResumableSignals(new Set(live.map((r) => r.subjectId)))
+  return { ...index, live, resumable }
+}
+
+// A screener signal run is RESUMABLE when its folder shows a partial gauntlet that neither finished
+// nor stopped on purpose. We classify from disk (no registry): a run is NOT resumable if the user
+// aborted it (`.aborted` marker), if it was launched to deliberately STOP at a target module (`.target`
+// marker — a `--until` partial the user means to continue manually, NOT an interruption; auto-resume
+// can't honor the target, so resurrecting it would over-run past the deferred stop), if any module
+// reached a TERMINAL routing (LOG / PARK / suppress / watchlist_* / return_to_m0_2 — a real, recorded
+// outcome, not a breakage), or if it ran to the end (candidates.json written). Everything else that was
+// launched (intake.json present) but is missing its final artifact is an interruption we can pick up —
+// the gauntlet command skips the modules whose `99_*-synthesis.md` already exists, so a relaunch only
+// runs the rest.
+export function listResumableSignals(liveSubjectIds: Set<string>): { sigId: string; headline: string; doneCount: number; totalCount: number }[] {
+  const m = manifest()
+  const tmpl = m.runRootTemplate || 'screener/runs/{signal_id}'
+  const runsRel = tmpl.slice(0, tmpl.indexOf('{')).replace(/\/+$/, '') || 'screener/runs'
+  const verdictField = m.routing?.verdictField || 'Routing'
+  const terminal = new Set((m.routing?.terminal || []).map((s: string) => s.toLowerCase().trim()))
+  let modules: string[] = []
+  try {
+    modules = listModuleNames('screener')
+  } catch {
+    /* no screener swarm graph yet */
+  }
+  let entries: string[] = []
+  try {
+    entries = fs.readdirSync(resolveInsideScreener(runsRel))
+  } catch {
+    return []
+  }
+  const synthesisPresent = (absRoot: string, mod: string): boolean => {
+    try {
+      return fs.statSync(path.join(absRoot, mod, `99_${mod}-synthesis.md`)).size > 0
+    } catch {
+      return false
+    }
+  }
+  // any module file (the 00 intake gate OR the 99 synthesis) carrying a terminal routing = a real,
+  // recorded stop, not a breakage. Reading only those two files per module keeps the scan cheap.
+  const hitTerminal = (absRoot: string): boolean => {
+    for (const mod of modules) {
+      const dir = path.join(absRoot, mod)
+      let files: string[] = []
+      try {
+        files = fs.readdirSync(dir).filter((f) => /^(00|99)_.*\.md$/.test(f))
+      } catch {
+        continue
+      }
+      for (const f of files) {
+        try {
+          const r = extractRouting(fs.readFileSync(path.join(dir, f), 'utf8'), verdictField)
+          if (r && terminal.has(r.toLowerCase().trim())) return true
+        } catch {
+          /* unreadable file = ignore */
+        }
+      }
+    }
+    return false
+  }
+  const out: { sigId: string; headline: string; doneCount: number; totalCount: number }[] = []
+  for (const sigId of entries) {
+    if (!/^SIG-/.test(sigId)) continue
+    if (liveSubjectIds.has(sigId)) continue // currently running — not interrupted
+    let absRoot: string
+    try {
+      absRoot = resolveInsideScreener(`${runsRel}/${sigId}`)
+      if (!fs.statSync(absRoot).isDirectory()) continue
+    } catch {
+      continue
+    }
+    if (!fs.existsSync(path.join(absRoot, 'intake.json'))) continue // never actually launched
+    if (fs.existsSync(path.join(absRoot, '.aborted'))) continue // user cancelled on purpose
+    if (fs.existsSync(path.join(absRoot, '.target'))) continue // launched to STOP at a target (`--until`) — a deliberate partial, continued manually; never auto-resume (would over-run the deferred stop)
+    if (fs.existsSync(path.join(absRoot, 'candidates.json'))) continue // ran to the end
+    if (hitTerminal(absRoot)) continue // stopped at a gate — a valid outcome, not a breakage
+    const doneCount = modules.filter((mod) => synthesisPresent(absRoot, mod)).length
+    let headline = sigId
+    try {
+      headline = JSON.parse(fs.readFileSync(path.join(absRoot, 'intake.json'), 'utf8')).headline || sigId
+    } catch {
+      /* keep the id */
+    }
+    out.push({ sigId, headline, doneCount, totalCount: modules.length })
+  }
+  return out
 }
 
 export function readThesis(thesisId: string) {

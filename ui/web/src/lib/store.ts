@@ -4,7 +4,8 @@ import { downstreamCascade, type CascadeNode } from './cascade'
 import { displayHeadline, originalHeadline, plainRoute, plainStage } from './plain'
 import type { Theme, ThemeDetail } from './themes'
 import { intensityWindowForHours } from './themes'
-import type { ActiveRunLite, AgentNode, BoardInboxRow, ConvictionDetail, CoverageGroup, DataStatus, EventEnrichment, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
+import type { ActiveRunLite, AgentNode, BoardInboxRow, BookFilterState, BookSort, ConvictionDetail, CoverageGroup, DataStatus, EventEnrichment, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
+import { emptyBookFilters } from '../components/screener/BookFilters'
 
 // A company the user drilled into from an event (the COMPANIES NAMED chips) — the main stage then
 // shows every wire story about it. listing_country/exchange ride along from the article-body read.
@@ -54,6 +55,15 @@ const HEALTH_DEGRADED_MS = 5000 // faster while down — snappy detection + reco
 const HEALTH_TIMEOUT_MS = 4000 // a sleeping laptop must register quickly
 const OFFLINE_THRESHOLD = 2 // consecutive fails before declaring the engine offline (anti-flicker)
 const HARD_DOWN = new Set<HealthState>(['engine-offline', 'your-network', 'session-expired'])
+
+// Auto-resume of interrupted screener runs (a closed laptop / dropped connection): per-signal attempt
+// bookkeeping so we never spin a persistently-failing run forever, and never double-launch one already
+// resuming. Module-level (not store state) so re-attempts don't churn React. A capacity/exclusivity
+// reject doesn't count as a try — it just means "wait for a slot", retried on the next board fetch.
+const autoResumeTries = new Map<string, { count: number; lastAt: number }>()
+const AUTO_RESUME_MAX = 3 // give up after this many real failures → fall back to the manual Continue
+const AUTO_RESUME_COOLDOWN_MS = 30_000 // min gap between re-attempts of the SAME signal
+const AUTO_RESUME_BATCH = 4 // most to kick off per cycle (the server's own cap gates the rest)
 
 export interface StreamRow { runId: string; ticker: string; key: string; name: string; module: string; layer: number; status: NodeStatus; verdict?: string | null; ts: number }
 export interface ActiveRun { runId: string; ticker: string; kind: string; module?: string; agent?: string; status: string; costUsd?: number; willCommitToMain?: boolean; plannedCount?: number; startedAt?: number }
@@ -119,6 +129,11 @@ interface State {
   scRouted: Record<string, { route: string; terminal: boolean }> // module -> latest routing (lights the switchyard)
   signalIntakeOpen: boolean
   pipelineOpen: boolean
+  // live-book (Recent-runs drawer) filter + sort + archived-tray state — held here, not in the panel,
+  // because the panel unmounts on close (a glance-leave-return surface; filters should survive reopen)
+  scBookFilters: BookFilterState
+  scBookSort: BookSort
+  scBookArchivedOpen: boolean
   scThesisDetail: { thesis: any; candidates: any; handoffs: any[]; conviction?: ConvictionDetail | null } | null
   scSelectedEvent: FeedItem | null // a wire event the user clicked to read in the main stage (before deciding to run it)
   scFocusedCompany: FocusedCompany | null // a company the user drilled into — the main stage shows all its wire news
@@ -183,6 +198,7 @@ interface State {
   _advanceWarp: () => void
   scInit: () => Promise<void>
   scRefreshBoard: () => Promise<void>
+  _maybeAutoResume: (resumable: ScreenerBoard['resumable']) => Promise<void>
   scSelectSignal: (sigId: string | null) => Promise<void>
   scNodeStatus: (key: string) => NodeStatus
   openSignalIntake: () => void
@@ -195,6 +211,9 @@ interface State {
   runSweep: () => Promise<void>
   openPipeline: () => void
   closePipeline: () => void
+  setBookFilters: (f: BookFilterState) => void
+  setBookSort: (s: BookSort) => void
+  setBookArchivedOpen: (v: boolean) => void
   openThesisDetail: (thesisId: string) => Promise<void>
   closeThesisDetail: () => void
   sendToResearch: (thesisId: string, ticker: string, poolPresent: boolean) => Promise<void>
@@ -326,6 +345,9 @@ export const useStore = create<State>((set, get) => ({
   scRouted: {},
   signalIntakeOpen: false,
   pipelineOpen: false,
+  scBookFilters: emptyBookFilters(),
+  scBookSort: 'rank',
+  scBookArchivedOpen: false,
   scThesisDetail: null,
   scSelectedEvent: null,
   scFocusedCompany: null,
@@ -847,7 +869,11 @@ export const useStore = create<State>((set, get) => ({
     }
 
     if (outcome === 'ok') {
+      const reconnected = get().health !== 'online' // down → up (or the first connect)
       set({ health: 'online', healthFailCount: 0, lastHealthOkAt: Date.now(), connected: true })
+      // connection is back — re-pull the screener board so any run the engine forgot during the break
+      // resumes on its own (scRefreshBoard → _maybeAutoResume). The cooldown/live guards stop doubles.
+      if (reconnected && get().activeSwarm === 'screener') void get().scRefreshBoard()
     } else if (outcome === 'session') {
       set({ health: 'session-expired', connected: false })
     } else {
@@ -1182,7 +1208,60 @@ export const useStore = create<State>((set, get) => ({
     try {
       const scBoard = await api.screenerBoard()
       set({ scBoard })
+      // a partial run the engine forgot (it came back after a break) shows up here as resumable — pick
+      // it back up on its own so the user never has to hunt for a "failed" run and click Continue.
+      void get()._maybeAutoResume(scBoard.resumable)
     } catch {}
+  },
+
+  // Auto-resume every interrupted (non-terminal, non-aborted) partial run the server surfaced. Fires on
+  // each board fetch (cockpit open, reconnect, the live-book's 30s tick), so a run resumes the moment the
+  // connection is back. Capped + cooled-down so a genuinely-broken run can't loop, and capacity rejects
+  // are retried (not counted) on the next fetch. The selected run animates; the rest run in the background.
+  _maybeAutoResume: async (resumable) => {
+    if (get().staticMode || HARD_DOWN.has(get().health) || get().activeSwarm !== 'screener') return
+    const list = (resumable || []).filter((r) => {
+      const t = autoResumeTries.get(r.sigId)
+      if (t && t.count >= AUTO_RESUME_MAX) return false // gave up — manual Continue from here
+      if (t && Date.now() - t.lastAt < AUTO_RESUME_COOLDOWN_MS) return false // still cooling down
+      return true
+    })
+    if (!list.length) return
+    let resumed = 0
+    for (const r of list.slice(0, AUTO_RESUME_BATCH)) {
+      const prev = autoResumeTries.get(r.sigId)
+      autoResumeTries.set(r.sigId, { count: (prev?.count || 0) + 1, lastAt: Date.now() })
+      try {
+        const { runId } = await api.launchSignal({ sigId: r.sigId })
+        // if this is the run the user is watching, keep its finished orbs and re-queue the rest so the
+        // constellation animates exactly where it stopped (mirrors continueSignal). Background runs just
+        // run server-side; the board reflects them on the next fetch (we don't wire their SSE into the
+        // selected constellation, whose orb keys are module-relative and would collide).
+        if (get().scSelectedSignal === r.sigId) {
+          const done = { ...get().scRuntime }
+          const rt: Record<string, NodeRuntime> = {}
+          for (const k of get().scNodesByKey.keys()) rt[k] = done[k]?.status === 'done' ? done[k] : { status: 'queued', runId }
+          set({ scRuntime: rt })
+          connectScreenerRun(get, runId)
+        }
+        resumed++
+      } catch (e: any) {
+        // no slot right now (cap) or it's already in flight — not a real failure; un-count so the next
+        // board fetch retries it as soon as capacity frees, instead of burning a try.
+        const code = e?.body?.code
+        if (code === 'capacity' || code === 'exclusivity') {
+          if (prev) autoResumeTries.set(r.sigId, prev)
+          else autoResumeTries.delete(r.sigId)
+        }
+      }
+    }
+    if (resumed) {
+      void get().refreshActiveRuns()
+      get().setToast({
+        msg: resumed === 1 ? 'Resuming an interrupted run — picking up where the connection dropped' : `Resuming ${resumed} interrupted runs — picking up where they left off`,
+        tone: 'good',
+      })
+    }
   },
 
   // load one signal's run folder onto the gauntlet: seed orb states from its saved outputs
@@ -1288,6 +1367,9 @@ export const useStore = create<State>((set, get) => ({
     void get().scRefreshBoard()
   },
   closePipeline: () => set({ pipelineOpen: false, scThesisDetail: null }),
+  setBookFilters: (f) => set({ scBookFilters: f }),
+  setBookSort: (s) => set({ scBookSort: s }),
+  setBookArchivedOpen: (v) => set({ scBookArchivedOpen: v }),
 
   openThesisDetail: async (thesisId) => {
     try {
@@ -1569,9 +1651,13 @@ export const useStore = create<State>((set, get) => ({
         const sig = get().scSelectedSignal
         if (sig) void get().scSelectSignal(sig)
         const stopped = /cancel/i.test(String(e.reason || ''))
+        // A user STOP reads as a calm pause. An interruption (connection drop / killed mid-run) is NOT a
+        // failure: the finished checks are saved and scRefreshBoard above re-pulls the board, so the run
+        // surfaces as resumable and _maybeAutoResume picks it up on its own (its "Resuming…" toast then
+        // replaces this one). No scary error — exactly what the engine just did, said plainly.
         get().setToast(stopped
           ? { msg: 'Stopped — your finished checks are saved. Press Continue to resume from here.', tone: 'info' }
-          : { msg: `The checks stopped with a problem (${e.reason}) — your finished checks are saved; Continue picks up from there.`, tone: 'bad' })
+          : { msg: 'The run paused — your finished checks are saved; it resumes on its own when the connection is back.', tone: 'info' })
         break
       }
     }
