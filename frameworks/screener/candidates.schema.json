@@ -37,6 +37,36 @@
           },
           "pair_with": { "type": ["string", "null"], "description": "candidate_id of the other leg, for pair expressions." },
           "caveats": { "type": "string" },
+          "news_impact": {
+            "type": "object",
+            "description": "OPTIONAL — the News-Impact Estimation read (frameworks/screener/NEWS_IMPACT.md) folded in from screener-news-impact-sizing. Sizes the move the originating news JUSTIFIES on fundamentals (ΔValue / Market Cap, or (1+ΔE)(1+ΔM)−1 in primary mode) and compares it to the observed move. A fundamentals FLOOR, not a verdict: it never changes routing or the exposure/edge score.",
+            "properties": {
+              "applicable": { "type": "boolean", "description": "False for a diffuse macro/policy/commodity signal with no single issuer to size." },
+              "mode": { "type": "string", "enum": ["primary", "fallback", "not_applicable"], "description": "primary = consensus base AND forward multiple available; fallback = single-criterion ΔValue/MktCap, multiple held constant." },
+              "missing_reason": { "type": ["string", "null"], "description": "When fallback or not_applicable: which feed was missing / why no sizing." },
+              "recurrence": { "type": "string", "enum": ["one_off", "permanent_step_change", "finite_life", "not_applicable"], "description": "The swing input — decides how the earnings delta becomes a value (after-tax cash / capitalise at the multiple / NPV)." },
+              "event_quantification": { "type": "string", "description": "Revenue after pass-throughs → after-tax margin → annual after-tax earnings delta, with a §5 citation." },
+              "delta_value": { "type": "string", "description": "ΔValue in the company's own currency, with the conversion method (after-tax cash / capitalised at Mx / NPV n-yr @ r%)." },
+              "implied_move_pct": { "type": ["number", "null"], "description": "ΔValue / Market Cap (fallback) or (1+ΔE)(1+ΔM)−1 (primary), in percent." },
+              "observed_move_pct": { "type": ["number", "null"], "description": "The dated stock reaction to the news, in percent." },
+              "gap_read": { "type": "string", "enum": ["priced", "underpriced_candidate", "re_rate_to_judge", "not_applicable"], "description": "priced = observed ≈ implied; underpriced_candidate = observed ≪ implied; re_rate_to_judge = observed ≫ implied (a re-rate handed to the analyst)." },
+              "caveats": { "type": "string", "description": "Duration-trap check, scope blind-spots (optionality / momentum re-rate), and the fundamentals-floor reminder." },
+              "sources": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "required": ["source_name", "retrieved_at", "claim_supported"],
+                  "properties": {
+                    "url": { "type": "string" },
+                    "source_name": { "type": "string" },
+                    "source_grade": { "type": "string", "enum": ["A", "B"] },
+                    "retrieved_at": { "type": "string" },
+                    "claim_supported": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
           "sources": {
             "type": "array",
             "items": {
