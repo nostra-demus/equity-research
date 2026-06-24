@@ -111,6 +111,24 @@ const LINKAGE: Record<string, string> = {
 }
 export const plainLinkage = (l?: string | null): string => (l ? LINKAGE[l] || human(l) : '')
 
+// Thesis time-horizon (M0.4 enum) → plain words, plus a 3-way bucket for the live-book filter.
+const HORIZON: Record<string, string> = {
+  short_days_weeks: 'days–weeks',
+  medium_weeks_3months: 'weeks–3 months',
+  medium_long_3_6months: '3–6 months',
+  long_6months_plus: '6 months+',
+}
+export const plainHorizon = (h?: string | null): string => (h ? HORIZON[h] || human(h) : '')
+// Collapse the raw horizon enum to short / medium / long so one dropdown covers any new enum value.
+export const horizonBucket = (h?: string | null): '' | 'short' | 'medium' | 'long' => {
+  if (!h) return ''
+  const s = h.toLowerCase()
+  if (s.startsWith('short')) return 'short'
+  if (s.includes('6month') || s.startsWith('long')) return 'long'
+  if (s.startsWith('medium')) return 'medium'
+  return ''
+}
+
 // Score bands → what the scanner did with the item on the wire: kept it for a look, or dropped it.
 export const plainBand = (b?: string | null): string => (b === 'pick' ? 'kept' : b === 'watch' ? 'kept (borderline)' : b === 'drop' ? 'dropped' : human(b || ''))
 

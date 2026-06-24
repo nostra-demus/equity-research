@@ -781,9 +781,13 @@ a { color: inherit; }
 /* ================= idea pipeline board ================= */
 .pipeline { position: absolute; top: 0; right: 0; bottom: 0; width: min(1040px, 96%); z-index: 50; background: var(--surface-1); border-left: 1px solid var(--hairline-strong); box-shadow: var(--shadow-2); display: flex; flex-direction: column; }
 .pipeline__head { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 16px 20px; border-bottom: 1px solid var(--hairline); }
+.pipeline__titlewrap { min-width: 0; }
 .pipeline__title { font-size: 15px; font-weight: 600; letter-spacing: 0.2px; }
-.pipeline__sub { font-size: 11.5px; color: var(--text-faint); margin-top: 3px; font-variant-numeric: tabular-nums; }
+.pipeline__sub { font-size: 11.5px; color: var(--text-faint); margin-top: 3px; }
 .pipeline__tools { display: flex; gap: 8px; flex-shrink: 0; }
+.pipeline__refresh { width: 32px; padding: 0; font-size: 14px; }
+.pipeline__refresh.is-spinning { animation: spin 0.6s var(--ease-out); }
+@media (prefers-reduced-motion: reduce) { .pipeline__refresh.is-spinning { animation: none; } }
 
 /* daily-budget pool readout — Groq (paced primary) + Gemini + OpenRouter (free-tier overflow) */
 .pipeline__pools { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 8px; }
@@ -807,29 +811,94 @@ a { color: inherit; }
 .wirewindow__chip.is-active { background: color-mix(in srgb, var(--accent) 14%, var(--surface-2)); border-color: color-mix(in srgb, var(--accent) 55%, var(--hairline)); color: var(--accent-bright); font-weight: 600; }
 @media (hover: hover) and (pointer: fine) { .wirewindow__chip:not(.is-active):not(:disabled):hover { border-color: color-mix(in srgb, var(--accent) 40%, var(--hairline)); color: var(--text); } }
 .wirewindow__note { margin-left: auto; font-size: 11px; color: var(--text-faint); font-variant-numeric: tabular-nums; }
-/* "Recent" history view — revisit every past check, newest first */
-.recent { flex: 1; min-height: 0; overflow-y: auto; padding: 14px 18px 28px; display: flex; flex-direction: column; gap: 10px; }
-.recent__lead { font-size: 12px; color: var(--text-muted); line-height: 1.5; margin-bottom: 2px; }
-.recent__empty { flex: 1; display: grid; place-items: center; text-align: center; max-width: 460px; margin: 0 auto; padding: 64px 24px; color: var(--text-muted); font-size: 13px; line-height: 1.65; }
-.recentrow { display: flex; align-items: center; flex-wrap: wrap; row-gap: 11px; gap: 14px; padding: 13px 15px; border: 1px solid var(--hairline); border-radius: var(--r-md); background: var(--surface-2); transition: border-color var(--dur-fast) var(--ease); animation: evrowin var(--dur) var(--ease-out) both; }
-@media (hover: hover) and (pointer: fine) { .recentrow:hover { border-color: var(--hairline-strong); } }
-.recentrow__main { flex: 1; min-width: 0; }
-.recentrow__headline { font-size: 13.5px; font-weight: 600; color: var(--text); line-height: 1.4; }
-.recentrow__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; margin-top: 5px; font-size: 11px; color: var(--text-faint); }
-.recentrow__src { color: var(--text-muted); }
-.recentrow__outcome { color: var(--accent-bright); font-weight: 600; text-transform: capitalize; }
-.recentrow__actions { display: flex; align-items: center; gap: 7px; flex-shrink: 0; }
-.recentrow__act { height: 28px; padding: 0 11px; font-size: 12px; }
-@media (prefers-reduced-motion: reduce) { .recentrow { animation: none; } }
+/* "Recent" live book — the control band (funnel + filters), then the scrolling card list. */
+.bookctl { flex-shrink: 0; border-bottom: 1px solid var(--hairline); }
+.bookfunnel { margin: 12px 20px 0; }
+.bookfunnel .seg__btn { display: inline-flex; align-items: baseline; gap: 5px; }
+.bookfunnel .seg__btn:disabled { opacity: 0.4; cursor: default; }
+.bookfunnel__n { font-size: 11px; font-variant-numeric: tabular-nums; opacity: 0.7; }
+.ffilters--book { padding: 10px 20px; border-bottom: none; }
+.ffilters__lead { font-size: 11px; color: var(--text-faint); }
 
-/* ---- Phase 3 conviction loop: the live book on each idea card + the book-momentum banner ---- */
-.bookmom { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 12px; padding: 11px 14px; border: 1px solid var(--hairline); border-radius: var(--r-md); background: var(--surface-2); animation: evrowin var(--dur) var(--ease-out) both; }
-.bookmom__num { font-size: 16px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: 0.2px; color: var(--text-muted); }
-.bookmom--up .bookmom__num { color: var(--accent-bright); }
-.bookmom--down .bookmom__num { color: var(--bad); }
-.bookmom__label { font-size: 12px; font-weight: 600; color: var(--text); }
-.bookmom__detail { margin-left: auto; font-size: 11px; color: var(--text-faint); font-variant-numeric: tabular-nums; }
-@media (prefers-reduced-motion: reduce) { .bookmom { animation: none; } }
+.recent { flex: 1; min-height: 0; overflow-y: auto; padding: 14px 18px 28px; display: flex; flex-direction: column; gap: 10px; }
+.recent--center { align-items: center; justify-content: center; }
+.recent--skel { gap: 12px; }
+.recent__lead { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
+.recent__count { font-size: 11.5px; color: var(--text-faint); font-variant-numeric: tabular-nums; }
+
+/* empty states — a calm "no checks yet", and the distinct filtered-to-nothing */
+.bookempty { max-width: 460px; margin: 24px auto; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 28px 24px; }
+.bookempty__icon { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; border: 1px dashed var(--hairline-strong); color: var(--text-faint); font-size: 18px; margin-bottom: 6px; }
+.bookempty__title { font-size: 15px; font-weight: 600; color: var(--text); }
+.bookempty__body { font-size: 12.5px; color: var(--text-muted); line-height: 1.6; }
+.bookempty--filtered { margin: 6px auto 10px; gap: 6px; padding: 18px 24px; }
+.bookempty--filtered .btn { margin-top: 4px; }
+
+/* the idea card — a 3-col grid: score+momentum cluster · content stack · open-chevron */
+.ideacard {
+  display: grid; grid-template-columns: 50px 1fr 16px; align-items: start; column-gap: 13px;
+  padding: 13px 15px; border: 1px solid var(--hairline); border-radius: var(--r-md); background: var(--surface-2); text-align: left;
+  transition: transform var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), background-color var(--dur-fast) var(--ease-out);
+  animation: evrowin var(--dur) var(--ease-out) both;
+}
+.ideacard[role='button'] { cursor: pointer; }
+@media (hover: hover) and (pointer: fine) {
+  .ideacard[role='button']:hover { border-color: var(--hairline-strong); background: var(--surface-3); transform: translateY(-1px); }
+  .ideacard[role='button']:hover .ideacard__chev { transform: translateX(2px); color: var(--text-muted); }
+  .ideacard[role='button']:hover .ideacard__replay { opacity: 1; }
+}
+.ideacard[role='button']:active { transform: scale(0.985); }
+.ideacard:focus-visible { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-wash); }
+/* entrance stagger — capped at the 5th so a long tail doesn't crawl in */
+.ideacard:nth-child(1) { animation-delay: 0ms; }
+.ideacard:nth-child(2) { animation-delay: 45ms; }
+.ideacard:nth-child(3) { animation-delay: 90ms; }
+.ideacard:nth-child(4) { animation-delay: 135ms; }
+.ideacard:nth-child(5) { animation-delay: 180ms; }
+.ideacard:nth-child(n+6) { animation-delay: 200ms; }
+.ideacard__cluster { display: flex; flex-direction: column; align-items: center; gap: 6px; padding-top: 1px; }
+.ideacard__body { min-width: 0; display: flex; flex-direction: column; gap: 7px; }
+.ideacard__topline { display: flex; align-items: flex-start; gap: 10px; }
+.ideacard__headline { flex: 1; min-width: 0; font-size: 14px; font-weight: 600; color: var(--text); line-height: 1.35; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.ideacard__replay { height: 26px; padding: 0 10px; font-size: 11.5px; flex-shrink: 0; opacity: 0.55; transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out); }
+.ideacard__replay:active { transform: scale(0.97); }
+.ideacard__stance { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; }
+.ideacard__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 12px; font-size: 11px; color: var(--text-faint); }
+.ideacard__src { color: var(--text-muted); }
+.ideacard__note { font-size: 11.5px; color: var(--text-faint); font-style: italic; line-height: 1.45; }
+.ideacard__chev { align-self: center; font-size: 17px; color: var(--text-faint); transition: transform var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out); }
+.ideacard--archived { opacity: 0.82; grid-template-columns: 32px 1fr; }
+.ideacard--archived .ideacard__body { gap: 4px; }
+
+/* skeleton — three placeholder cards swept by a transform-only sheen (compositor-friendly) */
+.ideacard--skeleton { animation: none; align-items: center; }
+.skel { position: relative; overflow: hidden; border-radius: var(--r-sm); background: var(--surface-3); }
+.skel::after { content: ''; position: absolute; inset: 0; transform: translateX(-100%); background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--text-faint) 16%, transparent), transparent); animation: evshimmer 1.4s var(--ease) infinite; }
+.skel--dial { width: 38px; height: 38px; border-radius: 50%; }
+.skel--line { height: 12px; margin-bottom: 8px; }
+.skel--bar { height: 8px; width: 60%; }
+.skel--w70 { width: 70%; }
+.skel--w45 { width: 45%; }
+@media (prefers-reduced-motion: reduce) {
+  .ideacard { animation: none; }
+  .ideacard[role='button']:hover, .ideacard[role='button']:active { transform: none; }
+  .ideacard[role='button']:hover .ideacard__chev { transform: none; }
+  .skel::after { animation: none; }
+}
+
+/* ---- Phase 3 conviction loop: one "book health" row (momentum + track record), then each card ---- */
+.bookhealth { display: flex; align-items: center; flex-wrap: wrap; gap: 4px 12px; padding: 10px 14px; border: 1px solid var(--hairline); border-radius: var(--r-md); background: var(--surface-2); font-size: 11.5px; color: var(--text-muted); animation: evrowin var(--dur) var(--ease-out) both; }
+.bookhealth__mom { display: flex; align-items: baseline; gap: 8px; }
+.bookhealth__num { font-size: 15px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: 0.2px; color: var(--text-muted); }
+.bookhealth--up .bookhealth__num { color: var(--accent-bright); }
+.bookhealth--down .bookhealth__num { color: var(--bad); }
+.bookhealth__label { font-size: 12px; font-weight: 600; color: var(--text); }
+.bookhealth__div { width: 1px; align-self: stretch; min-height: 16px; background: var(--hairline); }
+.bookhealth__track { color: var(--text-faint); font-variant-numeric: tabular-nums; }
+.bookhealth__track b { color: var(--accent-bright); font-weight: 700; }
+.bookhealth__tracklabel { font-size: 9.5px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-faint); margin-right: 5px; }
+.bookhealth__detail { margin-left: auto; font-size: 11px; color: var(--text-faint); font-variant-numeric: tabular-nums; }
+@media (prefers-reduced-motion: reduce) { .bookhealth { animation: none; } }
 
 .conv { flex-basis: 100%; width: 100%; display: flex; align-items: center; flex-wrap: wrap; gap: 8px 12px; padding-top: 11px; border-top: 1px dashed var(--hairline); }
 .conv--archived { opacity: 0.74; }
@@ -851,14 +920,25 @@ a { color: inherit; }
 .conv__vel--up { color: var(--accent-bright); background: var(--accent-wash); }
 .conv__vel--down { color: var(--bad); background: var(--bad-wash); }
 .conv__vel--flat { color: var(--text-muted); }
-.conv__vel--new { color: var(--text-faint); font-weight: 600; border: 1px dashed var(--hairline-strong); }
-.conv__next { font-size: 11px; color: var(--text-faint); flex-basis: 100%; }
-.conv__due { color: var(--text-muted); font-weight: 600; }
+/* awaiting first check — a calm soft chip, NOT an alarming dashed pill */
+.conv__vel--await { color: var(--text-muted); background: var(--surface-3); font-weight: 600; }
+.conv__vel--compact { font-size: 9.5px; padding: 1px 5px; max-width: 100%; white-space: nowrap; }
+/* awaiting: the bar track shows as a "to be filled" plan, not an empty 0% */
+.conv__prog--await .conv__bar { background: transparent; border: 1px dashed color-mix(in srgb, var(--text-faint) 32%, transparent); }
+.conv__nextrow { display: flex; align-items: center; flex-wrap: wrap; gap: 6px 10px; flex-basis: 100%; width: 100%; }
+.conv__next { display: flex; align-items: baseline; gap: 6px; min-width: 0; flex: 1 1 auto; font-size: 11px; color: var(--text-faint); }
+.conv__nextlabel { font-size: 9.5px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-faint); flex-shrink: 0; }
+.conv__nextmetric { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: var(--text-muted); }
+.conv__due { flex-shrink: 0; color: var(--text-muted); font-weight: 600; }
 .conv__flag { font-size: 9.5px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; padding: 2px 7px; border-radius: var(--r-pill); flex: none; }
 .conv__flag--stale { color: var(--bad); border: 1px solid color-mix(in srgb, var(--bad) 45%, transparent); }
 .conv__flag--insuff { color: var(--text-muted); border: 1px solid var(--hairline-strong); }
 .conv__archived-note { font-size: 11.5px; color: var(--text-faint); font-style: italic; }
 .conv__why { flex-basis: 100%; font-size: 11.5px; color: var(--text-muted); line-height: 1.5; }
+/* only a living, climbing idea's dot breathes (opacity only) */
+.conv__sparkdot--live { animation: convdot 1.6s var(--ease) infinite; }
+@keyframes convdot { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
+@media (prefers-reduced-motion: reduce) { .conv__sparkdot--live { animation: none; } }
 
 /* the proof-point timeline — ONE connected thread: resolved (green/amber/red) → today → coming up */
 .tdetail__cptl { margin: 8px 0 4px; }
@@ -904,43 +984,49 @@ a { color: inherit; }
 @media (hover: hover) and (pointer: fine) { .archived__head:hover { color: var(--text-muted); } }
 .archived__chev { display: inline-block; transition: transform var(--dur-fast) var(--ease-out); }
 .archived__chev[data-open='true'] { transform: rotate(90deg); }
-.archivedrow { display: flex; align-items: center; gap: 14px; padding: 11px 15px; border: 1px solid var(--hairline); border-radius: var(--r-md); background: var(--surface-2); opacity: 0.8; margin-top: 8px; animation: evrowin var(--dur) var(--ease-out) both; }
-@media (prefers-reduced-motion: reduce) { .archivedrow { animation: none; } }
-.archivedrow__note { font-size: 11.5px; color: var(--text-faint); font-style: italic; margin-top: 4px; line-height: 1.45; }
+.archived__list { display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
 
-/* track record strip — the proof the loop works (honest "building" state until checks resolve) */
-.trackrec { display: flex; align-items: baseline; flex-wrap: wrap; gap: 6px 12px; padding: 9px 14px; border: 1px dashed var(--hairline-strong); border-radius: var(--r-md); font-size: 11.5px; color: var(--text-muted); }
-.trackrec__label { font-size: 9.5px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-faint); }
-.trackrec__note { color: var(--text-faint); }
-.trackrec__stats { display: flex; flex-wrap: wrap; gap: 4px 12px; font-variant-numeric: tabular-nums; }
-.trackrec__stats b { color: var(--accent-bright); font-weight: 700; }
 /* still shared with the live scanner feed (LiveFeed) — kept after the funnel was removed */
 .plane__empty { color: var(--text-faint); font-size: 11.5px; padding: 14px 4px; }
 .pcard__chip { font-size: 9.5px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-faint); border: 1px solid var(--hairline); border-radius: var(--r-pill); padding: 2px 7px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .pcard__chip--num { color: var(--accent-bright); border-color: var(--accent-deep); font-family: var(--font-mono); }
-.edgedial { width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0; display: grid; place-items: center; background: conic-gradient(var(--accent) var(--deg), var(--surface-3) 0); position: relative; }
+/* register --deg so the conic ring can SWEEP to the score on first paint (GPU, graceful static fallback) */
+@property --deg { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+.edgedial { width: var(--dial-size, 30px); height: var(--dial-size, 30px); border-radius: 50%; flex-shrink: 0; display: grid; place-items: center; position: relative;
+  background: conic-gradient(var(--ring, var(--accent)) var(--deg), var(--surface-3) 0); transition: --deg var(--dur) var(--ease-out); }
 .edgedial::before { content: ''; position: absolute; inset: 3px; border-radius: 50%; background: var(--surface-2); }
 .edgedial__num { position: relative; font-size: 10.5px; font-weight: 700; font-family: var(--font-mono); color: var(--text); }
+/* the ring colour encodes which way the idea is moving */
+.edgedial--up { --ring: var(--accent); }
+.edgedial--down { --ring: var(--bad); }
+.edgedial--flat { --ring: color-mix(in srgb, var(--accent) 60%, var(--text-faint)); }
+.edgedial--await { --ring: var(--hairline-strong); }
+.edgedial--await .edgedial__num { color: var(--text-muted); }
+@media (prefers-reduced-motion: reduce) { .edgedial { transition: none; } }
 .pooldot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; }
 .mono { font-family: var(--font-mono); }
 
 /* thesis detail (inside the pipeline panel) */
-.tdetail { flex: 1; overflow-y: auto; padding: 14px 20px 24px; }
+.tdetail { flex: 1; overflow-y: auto; padding: 16px 20px 28px; }
 .tdetail__top { display: flex; align-items: center; gap: 10px; }
+.tdetail__back { height: 28px; padding: 0 11px; font-size: 12px; flex-shrink: 0; }
+.tdetail__back:active { transform: scale(0.97); }
 .tdetail__status { text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
 .tdetail__status--provisional, .tdetail__status--full_machine { color: var(--accent-bright); border-color: var(--accent-deep); }
 .tdetail__id { font-size: 10.5px; color: var(--text-faint); font-family: var(--font-mono); margin-left: auto; }
-.tdetail__headline { font-size: 16px; font-weight: 600; margin: 12px 0 4px; line-height: 1.45; }
-.tdetail__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6px 22px; margin-top: 8px; }
-.tdetail__grid section { min-width: 0; }
-.tdetail__grid h4, .tdetail__cands-title { font-size: 10.5px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text-muted); margin: 14px 0 5px; }
+.tdetail__headline { font-size: 17px; font-weight: 600; margin: 14px 0 6px; line-height: 1.4; }
+.tdetail__grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 28px; margin-top: 10px; }
+.tdetail__grid section { min-width: 0; padding-top: 12px; border-top: 1px solid var(--hairline); }
+.tdetail__grid h4, .tdetail__cands-title { font-size: 10.5px; font-weight: 700; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text-muted); margin: 0 0 6px; }
+.tdetail__cands-title { margin: 18px 0 6px; }
 .tdetail__grid p, .tdetail__grid li { font-size: 12.5px; line-height: 1.55; color: var(--text); margin: 0 0 4px; }
 .tdetail__grid ul { margin: 0; padding-left: 16px; }
 .tdetail__dim { color: var(--text-faint); font-size: 11px; }
-.tdetail__cands { width: 100%; border-collapse: collapse; margin-top: 4px; }
-.tdetail__cands th { text-align: left; font-size: 10px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-faint); padding: 6px 8px; border-bottom: 1px solid var(--hairline-strong); }
-.tdetail__cands td { font-size: 12px; padding: 9px 8px; border-bottom: 1px solid var(--hairline); vertical-align: top; }
-.tdetail__foot { display: flex; gap: 8px; margin-top: 14px; }
+/* the candidates table adopts the app's standard .atable (sticky head, row hover) */
+.tdetail__cands { margin-top: 4px; }
+.tdetail__cands td, .tdetail__cands th { vertical-align: top; }
+.tdetail__foot { display: flex; gap: 8px; margin-top: 16px; flex-wrap: wrap; }
+@media (max-width: 620px) { .tdetail__grid { grid-template-columns: 1fr; } }
 
 /* ================= the WARP (swarm travel) ================= */
 /* Phase classes land on .app (app--warp-collapse / traverse / bloom) and on the overlay (.warp--*).
@@ -1159,10 +1245,11 @@ a { color: inherit; }
 
 /* ---- moved-by-you marker (the thesis deep-dive override chip) ---- */
 .pcard__chip--moved { color: var(--accent-bright); border-color: var(--accent-deep); text-transform: none; letter-spacing: 0.2px; }
-.tdetail__move { display: flex; align-items: center; flex-wrap: wrap; gap: 7px; margin: 10px 0 2px; }
+.tdetail__move { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 10px; margin: 14px 0 2px; }
 .tdetail__move-label { font-size: 11px; color: var(--text-faint); }
-.tdetail__move-btn { height: 25px; padding: 0 10px; font-size: 11px; }
-.tdetail__move-btn--here { color: var(--text-faint); border-color: var(--hairline); cursor: default; opacity: 0.55; }
+.tdetail__lanes .seg__btn { height: 28px; font-size: 11.5px; }
+.tdetail__lanes .seg__btn:disabled { cursor: default; }
+.tdetail__follow { height: 28px; padding: 0 10px; font-size: 11.5px; }
 
 /* ============================================================================
    Screener stage: persistent left event rail + main stage (read / orbs)
