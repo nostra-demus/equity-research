@@ -283,6 +283,10 @@ sources:
       - NASDAQ
       - LSE
       - Other recognised national exchanges
+    # News-impact sizing (screener-news-impact-sizing, NEWS_IMPACT.md) reads two further classes,
+    # both dated and labelled, every unfilled field carrying a missing_reason (mirrors edge_definition):
+    primary_source_for_event: "The company's own filing that quantifies the originating event — a SEBI LODR quarterly result / exchange intimation or annual-report Note (India), an 8-K / 10-Q (US), or the local equivalent (CLAUDE.md §27). This is the §4-preferred source for the event size; a vendor figure never substitutes for it (§5)."
+    allowed_market_data: "Reputable market-data sites are allowed for the consensus forward base, forward/peer multiples, and the observed price move — every such input dated and labelled, every unfilled field carrying a missing_reason. Gate-0 strictness does NOT apply here. Prefer reusing edge_definition's already-gathered market-implied (M0.6.2) data over re-fetching (CLAUDE.md §2)."
   discovery:
     reject_if_unapproved: false
     promotion_eligible: false
@@ -341,6 +345,7 @@ These bands are doctrine, not engine code. Changing them is a one-line edit here
 
 - M0.3 (beneficiary map) names industries and business models (with GICS), never companies or tickers. This is machine-checked (`ticker_check` object in the record: `performed`, `violations`, `repair_action`).
 - `candidate-surfacing` is the FIRST module allowed to name companies. It runs only when routing is `provisional` or `full_machine` — watchlist records keep their industry map visible on the board without spending on ticker mapping.
+- Once tickers exist, `screener-news-impact-sizing` (layer 3) sizes the move the originating news *justifies on fundamentals* for the named candidates (`frameworks/screener/NEWS_IMPACT.md`): ΔValue → implied vs observed. It is a fundamentals floor, not a verdict — it never changes routing or the exposure/edge score, and issues no price target (CLAUDE.md §16).
 
 ## 6. Memory, ledger, and board state (canonical machine records)
 

@@ -26,6 +26,17 @@ The first place in the entire pipeline where tickers are allowed. Given a LOCKED
 - 3–8 candidates total is the useful shortlist size. More than 8 = the map was too loose; fewer than 3 deserves an explanation (e.g. the industry has two listed pure plays).
 - Caveats are mandatory where real: FX/listing-access constraints, pending corporate actions, controlling-shareholder structures (§24 filter 6 awareness — flag, don't analyze deeply; the research swarm owns that).
 
+## News-impact sizing discipline (`screener-news-impact-sizing`)
+
+Governs the layer-3 agent that sizes the move the originating news justifies. The full method is `frameworks/screener/NEWS_IMPACT.md` (read it in full); the binding rules here:
+
+- **Recurrence is the swing input.** Classify every sized event as one-off / permanent step-change / finite-life and convert accordingly: after-tax cash (one-off) / capitalise at the company's OWN forward multiple (permanent) / NPV at the cost of equity (finite). The same headline differs by an order of magnitude across that boundary (NEWS_IMPACT.md §2, §8).
+- **The duration trap is a hard error.** Never capitalise a finite-life stream at the earnings multiple — NPV it. Show the trap check (what capitalising would wrongly give, and the overstatement multiple) on every finite-life event.
+- **Revenue and margin discipline (§15).** Strip pass-through taxes (GST and the like) before counting revenue; apply the business's actual after-tax margin (reported vs adjusted separated, basis points). Market cap is fully-diluted and dated; cross-currency figures carry an FX date+rate (§27) — a filing's stated ₹ equivalent is used verbatim.
+- **A fundamentals floor, not a verdict.** The output never changes `M0_6_6.routing_outcome`, the exposure score, or the ranking, and issues no price target (CLAUDE.md §16). Observed ≫ implied is a re-rate handed to the human/research swarm, not a Buy.
+- **Honest mode + applicability.** Record `primary` vs `fallback` and name the missing feed; a diffuse macro/policy/commodity signal with no single issuer to size is `not_applicable` with a reason — not a forced number.
+- **§5 citations** on every quantification; banned: "the move is justified/unjustified" stated as fact without the implied-vs-observed numbers beside it.
+
 ## Output discipline
 
 - `candidates.json` per `frameworks/screener/candidates.schema.json`, copied to `screener/ledger/candidates/<thesis_id>.json`; board index refreshed.
