@@ -241,6 +241,46 @@ def extract_synthesis_verdict(text):
     m = re.search(r'\*\*Verdict:?\*\*\s*:?\s*([^\n]+)', text)
     return m.group(1).strip() if m else None
 
+# ── Check AB (§13 BM disqualifier verdict-lock) — module-level so `eval.py selftest` drives it ──
+# CLAUDE.md §13 hard rule: "a critical governance, solvency, accounting, fraud, or going-concern
+# red flag must cap the final rating." The disqualifier-scan (01_disqualifier-scan.md) checks 8
+# hard facts that — when triggered — lock the BM synthesis verdict to
+# "Low-quality business — avoid deeper work". Check AA covers BSS ("Distress risk") and MG
+# ("Serious governance concerns"); AB closes the gap by covering the BM disqualifier verdict-lock,
+# completing the module verdict-lock trilogy.
+#
+# No exception: unlike the BSS cap (which the distressed-play thesis_type can bypass), the BM
+# disqualifier cap has no exception — a disqualified company cannot receive conviction in any
+# direction. The disqualifier identifies companies where data quality or fraud/going-concern risk is
+# severe enough that the analysis base is unreliable; conviction in either direction must not ship.
+# This matches the MG cap treatment (no exception, consistent with HIGH_CONVICTION_DECISIONS logic).
+#
+# Landing date: 2026-06-24 (forward-looking; pre-gate golden fixtures predate → N/A → suite green).
+AB_DATE = "2026-06-24"
+BM_CAP_VERDICT = "Low-quality business"
+
+def eval_ab_bm_verdict_lock(decision, decision_date, bm_verdict):
+    """Core of check AB. Returns list of violations (empty=pass) or None (N/A).
+    bm_verdict: extracted Business-model Verdict string from BM 99_*-synthesis.md, or None (absent).
+    Side-effect-free + module-level so `eval.py selftest` exercises it without run fixtures."""
+    if not (isdate(decision_date) and decision_date >= AB_DATE):
+        return None  # forward-looking; pre-gate runs are N/A
+    if bm_verdict is None:
+        return None  # BM module did not run; cap cannot fire — N/A
+    violations = []
+    if BM_CAP_VERDICT in bm_verdict:
+        # Disqualifier-scan verdict-lock fired: BM synthesis says "Low-quality business".
+        # CLAUDE.md §13 caps conviction — no thesis-type exception (contrast BSS cap §18).
+        if decision in HIGH_CONVICTION_DECISIONS:
+            violations.append(
+                f"BM synthesis verdict contains '{BM_CAP_VERDICT}' (disqualifier-scan verdict-lock) "
+                f"but decision={decision!r} is a conviction rating — a disqualified business must "
+                f"not receive a conviction rating; CLAUDE.md §13 caps at Watchlist or lower "
+                f"regardless of thesis type (disqualifier-scan: 'Low-quality business — avoid "
+                f"deeper work')"
+            )
+    return violations
+
 if scope=="selftest":
     # Fixture-free coverage for check W — the golden suite can't exercise it (every committed run is
     # pre-gate / blank-fielded, so W is always N/A there). Asserts forbidden combos FAIL, correct combos
@@ -475,7 +515,44 @@ if scope=="selftest":
         if not ok: evbad+=1
         print(f"  [{'ok' if ok else 'XX'}] EV({(txt_ or '')[:42]!r}) -> {got!r}"+("" if ok else f"  EXPECTED contains {exp!r}"))
     bad+=evbad
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(aacases)} check-AA + {len(evcases)} AA-extractor cases")
+    # check AB — BM disqualifier verdict-lock. Every committed fixture predates AB_DATE → N/A in
+    # the main loop; drive all branches here: disqualifier BM verdict + conviction → fail;
+    # non-conviction → pass; absent BM module (None) → N/A; pre-gate → N/A; clean verdict → pass.
+    AB=eval_ab_bm_verdict_lock
+    abcases=[  # (decision, decision_date, bm_verdict, expect: "na"|"pass"|"fail")
+        # pre-gate: always N/A regardless of verdict
+        ("Strong Buy","2026-06-23","Low-quality business — avoid deeper work","na"),
+        ("Strong Buy","not-a-date","Low-quality business","na"),
+        # BM module absent (did not run in this analysis): N/A — cap cannot fire
+        ("Strong Buy","2026-06-24",None,"na"),
+        ("Watchlist","2026-06-24",None,"na"),
+        # "Low-quality business" + conviction decision → fail (no exception for any thesis type)
+        ("Strong Buy","2026-06-24","Low-quality business — avoid deeper work","fail"),
+        ("Buy","2026-06-24","Low-quality business — avoid deeper work","fail"),
+        ("Starter Position Only","2026-06-24","Low-quality business — avoid deeper work","fail"),
+        ("Short Candidate","2026-06-24","Low-quality business — avoid deeper work","fail"),  # no exception
+        # substring match inside a longer or markdown-decorated verdict string
+        ("Buy","2026-06-24","**Low-quality business** — avoid deeper work","fail"),
+        ("Strong Buy","2026-06-24","Verdict: Low-quality business. Disqualifier: promoter pledge.","fail"),
+        # "Low-quality business" + non-conviction decision → pass
+        ("Watchlist","2026-06-24","Low-quality business — avoid deeper work","pass"),
+        ("Avoid","2026-06-24","Low-quality business — avoid deeper work","pass"),
+        ("Insufficient Data — Refuse To Rate","2026-06-24","Low-quality business — avoid deeper work","pass"),
+        ("Pair Trade / Hedge Required","2026-06-24","Low-quality business — avoid deeper work","pass"),
+        # clean BM verdict + conviction → pass (no "Low-quality business" substring)
+        ("Strong Buy","2026-06-24","High-quality franchise — proceed","pass"),
+        ("Buy","2026-06-24","Cyclical business — worth deeper work only with timing edge","pass"),
+        ("Strong Buy","2026-06-24","","pass"),  # empty verdict → no substring match → pass
+    ]
+    abbad=0
+    for dec_,dt_,bm_,exp in abcases:
+        raw=AB(dec_,dt_,bm_)
+        got="na" if raw is None else ("pass" if not raw else "fail"); ok=(got==exp)
+        if not ok: abbad+=1
+        bm_r=(bm_[:40]+"…" if isinstance(bm_,str) and len(bm_)>40 else bm_)
+        print(f"  [{'ok' if ok else 'XX'}] AB({dec_!r},{dt_!r},{bm_r!r}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
+    bad+=abbad
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB cases")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -976,6 +1053,29 @@ for drp in runs:
             add("AA_module_verdict_lock",False,"; ".join(aaresult))
     else:
         add("AA_module_verdict_lock",True,f"run predates §18 module-verdict-lock gate ({ddte}) — N/A",na=True)
+    # AB §13 BM disqualifier verdict-lock (forward-looking; landing AB_DATE)
+    #   Completes the module verdict-lock trilogy: AA covers BSS ("Distress risk") and MG
+    #   ("Serious governance concerns"); AB covers BM ("Low-quality business" from the
+    #   disqualifier-scan). When the business-model synthesis verdict contains "Low-quality
+    #   business" the disqualifier-scan has fired, and CLAUDE.md §13 requires this cap the
+    #   headline conviction rating. Unlike the BSS cap (which the distressed-play thesis_type
+    #   can bypass), this cap has no exception — a disqualified company cannot receive conviction
+    #   in any direction; the analysis base is unreliable and deeper work must come first.
+    #   Since AB_DATE > AA_DATE, any run where ddte >= AB_DATE has already entered the AA block
+    #   above, so _read_synthesis_verdict() is defined and accessible here.
+    if isdate(ddte) and ddte>=AB_DATE:
+        bm_v=_read_synthesis_verdict("business-model")
+        abresult=eval_ab_bm_verdict_lock(dec,ddte,bm_v)
+        if abresult is None:
+            add("AB_bm_disqualifier_lock",True,
+                f"BM verdict={bm_v!r}; BM module absent — N/A",na=True)
+        elif not abresult:
+            add("AB_bm_disqualifier_lock",True,
+                f"BM verdict={bm_v!r}; decision={dec!r} — BM disqualifier cap satisfied")
+        else:
+            add("AB_bm_disqualifier_lock",False,"; ".join(abresult))
+    else:
+        add("AB_bm_disqualifier_lock",True,f"run predates BM disqualifier gate ({ddte}) — N/A",na=True)
     # WARN non-schema files
     # [review fix] suppress only genuine versioned/audit/review artifacts via PRECISE patterns — the old naive
     # `"_v" not in name` / `"review" not in name` substring tests hid real strays (preview.md, *_v*-named scratch).
@@ -1029,7 +1129,7 @@ FRAMEWORK_CONTRACTS={
  "frameworks/DECISION_LEDGER.md":["Memo delta","memo_delta","thesis_delta_verdict","stage_one_comment","rerun_command","_memo_delta.md","business_type","primary_valuation_method"],
  ".claude/commands/research/review-decisions.md":["memo_delta","stage_one_comment","rerun_command","Pool first","_memo_delta"],
  ".claude/commands/research/eval.md":["scripts/eval.py"],
- "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict"],
+ "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock"],
  ".github/workflows/ci.yml":["eval-contracts","scripts/eval.py"],
 }
 jchecks=[]
