@@ -144,13 +144,17 @@ Use the Write tool to create `<RUN_ROOT>/RUN_METADATA.md` with the following con
 
 ## 8. Run each module sequentially
 
+**This step is RESUMABLE.** A re-launched run reuses every module a prior attempt already finished, so a run broken by a plan-limit pause, a dropped connection, or a reboot picks up where it stopped instead of redoing paid work. A fresh run has an empty run root, so nothing is skipped and the whole pipeline runs. (The server's per-module chaining seeds the same skip from disk; this keeps the monolithic path consistent.)
+
 For each module in `<MODULES_PLANNED>` (in the order from step 4):
+
+- **Already finished? Skip it.** If `<RUN_ROOT>/<MODULE>/99_<MODULE>-synthesis.md` exists and is non-empty (`test -s`), this module completed in a prior attempt — do NOT re-dispatch it. Treat it as completed for the cross-module context of later modules (8A), and move to the next module. (A partial, half-written module — anything short of a non-empty `99_<MODULE>-synthesis.md` — is NOT trusted: re-run it.)
 
 ### 8A. Build cross-module context
 
-Build `<CROSS_MODULE_CONTEXT>` for this module from its `depends_on` list (captured in step 4), naming only dependencies that **completed in THIS run**:
+Build `<CROSS_MODULE_CONTEXT>` for this module from its `depends_on` list (captured in step 4), naming only dependencies that **completed in this run root** (whether just run, or reused from a prior interrupted attempt — same run folder either way):
 
-1. For each module name `<dep>` in this module's `depends_on`, check whether `<RUN_ROOT>/<dep>/99_<dep>-synthesis.md` exists (i.e. it completed in this run).
+1. For each module name `<dep>` in this module's `depends_on`, check whether `<RUN_ROOT>/<dep>/99_<dep>-synthesis.md` exists (i.e. it is finished in this run root).
 2. For each `<dep>` that completed, produce the sentence: `<Dep> cross-module path: <RUN_ROOT>/<dep>/.` — where `<Dep>` is the dependency name with its first letter capitalized (`business-model` → `Business-model`, `earnings` → `Earnings`). This is the label format every dependent agent parses.
 3. Join the sentences with a single space to form `<CROSS_MODULE_CONTEXT>`.
 4. If this module has no `depends_on`, or none of its dependencies completed in this run, set `<CROSS_MODULE_CONTEXT>` to the literal string `none`.

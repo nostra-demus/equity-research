@@ -31,6 +31,55 @@ export function resolveRunRoot(opts: { runRoot?: string; ticker?: string; date?:
   return null
 }
 
+// ---- durable run-root markers (research runs) ----
+// Small on-disk flags written into a research run folder so a run's lifecycle survives the engine being
+// killed/restarted (the in-memory run registry is wiped on restart — disk is the only surviving truth,
+// the same philosophy as the screener's .aborted/.target markers). Used by the resume supervisor:
+//   .interrupted — this run was broken by a plan-limit hit / a dropped connection / an external kill
+//                  (NOT a clean budget-truncation, which is the honest `incomplete` outcome). Carries
+//                  the rate-limit resetsAt so a paused run knows when it may continue, even across a
+//                  reboot. Cleared when the run completes or is deliberately cancelled.
+//   .aborted     — the user deliberately stopped this run; never auto-resume it.
+// Containment: the marker path is rebuilt under ANALYSES_DIR and rejected if it escapes (a request-derived
+// runRoot can never steer a write outside analyses/). Every write/read is best-effort and never throws
+// into the run lifecycle.
+function analysesMarkerPath(runRoot: string, name: string): string | null {
+  if (!/^\.[a-z_]+$/.test(name)) return null // fixed marker names only
+  const abs = path.isAbsolute(runRoot) ? runRoot : path.join(REPO_ROOT, runRoot)
+  const realRoot = path.resolve(abs)
+  if (realRoot !== ANALYSES_DIR && !realRoot.startsWith(ANALYSES_DIR + path.sep)) return null
+  return path.join(realRoot, name)
+}
+
+export function writeRunMarker(runRoot: string | null, name: string, body: Record<string, unknown> = {}): void {
+  if (!runRoot) return
+  const p = analysesMarkerPath(runRoot, name)
+  if (!p) return
+  try {
+    fs.mkdirSync(path.dirname(p), { recursive: true })
+    fs.writeFileSync(p, JSON.stringify({ ...body, at: new Date().toISOString() }) + '\n')
+  } catch { /* best-effort marker */ }
+}
+
+export function clearRunMarker(runRoot: string | null, name: string): void {
+  if (!runRoot) return
+  const p = analysesMarkerPath(runRoot, name)
+  if (!p) return
+  try { fs.rmSync(p, { force: true }) } catch { /* best-effort */ }
+}
+
+export function readRunMarker(runRoot: string, name: string): Record<string, any> | null {
+  const p = analysesMarkerPath(runRoot, name)
+  if (!p) return null
+  try { return JSON.parse(fs.readFileSync(p, 'utf8')) } catch { return null }
+}
+
+export function hasRunMarker(runRoot: string, name: string): boolean {
+  const p = analysesMarkerPath(runRoot, name)
+  if (!p) return false
+  try { return fs.existsSync(p) } catch { return false }
+}
+
 export function readDecision(runRoot: string): any {
   const p = resolveInsideAnalyses(`${runRoot}/decision_record.json`)
   return JSON.parse(fs.readFileSync(p, 'utf8'))

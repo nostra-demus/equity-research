@@ -10,6 +10,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { NEWS, REPO_ROOT, STATE_DIR } from '../config'
+import { acquireSingletonLock, releaseSingletonLock } from '../singleton-lock'
 import { readFeed } from './feed'
 import { runIngestCycle } from './runCycle'
 import { healEnrichCache } from './enrich-heal'
@@ -243,39 +244,16 @@ const INGESTER_LOCK_FILE = 'news-ingester.lock'
  *  SECOND engine pointed at the SAME data dir — e.g. a stray manual `npm start` on another port — from
  *  running a DUPLICATE ingester, which doubles every feed/GDELT/LLM fetch and races every write (the
  *  2026-06-20 ":8799" incident: a forgotten manual instance double-loaded the machine for ~2 days).
- *  Returns true iff THIS process now owns the lock. FAILS OPEN: any unexpected fs error returns true, so
- *  the guard can never stop the legitimate sole engine from ingesting — it returns false ONLY when it
- *  positively confirms another LIVE owner. A crashed holder leaves a stale lock the next start steals via
- *  the liveness check (a SIGTERM/SIGKILL never fires the clean-exit release). */
+ *  Thin wrapper over the shared atomic PID lock (singleton-lock.ts); the resume supervisor uses the same
+ *  helper with its own lock file, so the two never block each other. Behavior unchanged. */
 export function acquireIngesterLock(stateDir: string): boolean {
-  const fp = path.join(stateDir, INGESTER_LOCK_FILE)
-  for (let attempt = 0; attempt < 2; attempt++) {
-    try {
-      fs.mkdirSync(stateDir, { recursive: true })
-      const fd = fs.openSync(fp, 'wx') // atomic create-exclusive: win the race, or throw EEXIST
-      try { fs.writeSync(fd, String(process.pid)) } finally { fs.closeSync(fd) }
-      return true
-    } catch (e: any) {
-      if (e?.code !== 'EEXIST') return true // unexpected fs error → never block the sole engine
-      let holder = 0
-      try { holder = parseInt(fs.readFileSync(fp, 'utf8').trim(), 10) || 0 } catch { /* unreadable */ }
-      if (holder === process.pid) return true // re-entrant: we already own it
-      if (holder > 0) {
-        let alive = false
-        try { process.kill(holder, 0); alive = true } catch (err: any) { alive = err?.code === 'EPERM' } // EPERM = exists, not ours
-        if (alive) return false // another LIVE engine owns the ingester for this data dir
-      }
-      try { fs.unlinkSync(fp) } catch { /* cleared elsewhere */ } // stale (dead/zero/unreadable) → drop, retry create
-    }
-  }
-  return true // couldn't prove a live owner after stealing a stale lock → fail open
+  return acquireSingletonLock(stateDir, INGESTER_LOCK_FILE)
 }
 
 /** Best-effort release of OUR lock (clean exit only). A crash leaves a stale lock that the next start
  *  steals via acquireIngesterLock's liveness check, so this is a courtesy, not a correctness requirement. */
 export function releaseIngesterLock(stateDir: string): void {
-  const fp = path.join(stateDir, INGESTER_LOCK_FILE)
-  try { if (fs.readFileSync(fp, 'utf8').trim() === String(process.pid)) fs.unlinkSync(fp) } catch { /* nothing to release */ }
+  releaseSingletonLock(stateDir, INGESTER_LOCK_FILE)
 }
 
 export function startNewsIngester(): void {

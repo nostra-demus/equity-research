@@ -36,6 +36,7 @@ import { dataPoolPresent, readCandidates, readConviction, readConvictionCalibrat
 import { listSwarms } from './swarms'
 import { getNewsStatus, startNewsIngester } from './news/scheduler'
 import { startConvictionLoop } from './conviction-dispatch'
+import { startResumeSupervisor } from './resume-supervisor'
 import { AGENT_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE, isValidTicker, validateNewTicker, sanitizeUploadFilename } from './sandbox'
 import type { RunKind } from './types'
 
@@ -999,6 +1000,10 @@ app
     // conviction loop (Phase 3): auto-fire /screener:validate on due checkpoints + on matching wire
     // items. OFF unless CONVICTION_LOOP_ENABLED=1 — auto-spawning paid checks is opt-in.
     startConvictionLoop()
+    // forever-living resume supervisor: server-side, no browser needed — continues runs interrupted by a
+    // plan-limit reset / dropped connection / reboot. OFF unless RESUME_SUPERVISOR_ENABLED=1 (the cloud
+    // host sets it; a dev laptop stays dark). Never spends overage; waits for the plan limit to reset.
+    startResumeSupervisor()
   })
   .catch((err) => {
     // eslint-disable-next-line no-console
