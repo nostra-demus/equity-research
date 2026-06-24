@@ -255,6 +255,25 @@ const ROOT_ARTIFACTS_SIGNAL = ['intake.json', 'signal_payload.json', 'thesis_rec
 const SIG_ID_RE = /^SIG-[0-9]{8}-[a-f0-9]{8}$/
 const THESIS_ID_RE = /^THS-SIG-[0-9]{8}-[a-f0-9]{8}-v[0-9]+$/
 
+// Resolve a screener signal run folder to a CONTAINED absolute path, REBUILT from a shape-validated SIG
+// id. The id is asserted against the anchored SIG_ID_RE (`^SIG-[0-9]{8}-[a-f0-9]{8}$` — no '.' or '/',
+// so no '..' or path separator can appear) BEFORE it is spliced into the run-root template, then the
+// result is realpath + containment-checked by the screener sandbox guard. Validating the id component in
+// the SAME scope as the marker write is the form a CWE-22 (path-injection) check recognises as a barrier:
+// the sandbox guard's realpath + startsWith containment does NOT propagate across its return, so routing a
+// raw request-derived `runRoot` string through resolveInsideScreener alone still left the .target / .aborted
+// writes flagged. Returns null when the id isn't a valid SIG id or the swarm is absent — the caller then
+// skips the best-effort marker (the same harmless failure mode as the surrounding try/catch). Used by every
+// run-folder marker write so a request-derived id can never steer a write outside the screener store.
+export function screenerMarkerDir(swarmId: string | undefined, sigId: string): string | null {
+  if (!SIG_ID_RE.test(sigId)) return null
+  const m = swarmById(swarmId)
+  if (!m?.runRootTemplate || !m.placeholder) return null
+  const abs = path.join(REPO_ROOT, m.runRootTemplate.replace(`{${m.placeholder}}`, sigId))
+  fs.mkdirSync(abs, { recursive: true })
+  return resolveInsideScreener(abs)
+}
+
 function admissionMessage(r: AdmissionRejection, ticker: string): string {
   switch (r.code) {
     case 'exclusivity':
@@ -656,9 +675,11 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
         throw Object.assign(new Error(`No intake.json for ${subjectId} — submit the signal form instead.`), { statusCode: 400 })
       }
       // a deliberate relaunch (manual Continue / Re-run) clears any prior user-abort marker, so the run
-      // becomes live again rather than staying excluded from the resumable scan.
+      // becomes live again rather than staying excluded from the resumable scan. Path rebuilt from the
+      // SIG_ID_RE-validated subject id (same CWE-22 barrier as the .target / .aborted writes), not the raw path.
       try {
-        fs.rmSync(path.join(REPO_ROOT, runRoot, '.aborted'), { force: true })
+        const dir = screenerMarkerDir(swarmId, subjectId)
+        if (dir) fs.rmSync(path.join(dir, '.aborted'), { force: true })
       } catch {
         /* best-effort */
       }
@@ -769,13 +790,16 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   // candidates they chose not to surface yet, and spending unbudgeted CLI. The marker makes a staged
   // stop self-identifying. A relaunch WITHOUT a target (a manual "Continue the rest") clears it — the
   // user has now chosen to run the remainder — mirroring the .aborted clear in the relaunch branch above.
-  // Path written through the screener sandbox guard (containment-checked) like every other run-folder write.
+  // Path rebuilt from the anchored-regex-validated subject id (not the raw `runRoot` string) and
+  // containment-checked, so a request-derived id can never steer the write outside the run folder.
   if (kind === 'signal') {
     try {
-      const dir = resolveInsideScreener(runRoot) // run folder exists by here (intake just materialized, or a relaunch of an existing signal)
-      const marker = path.join(dir, '.target')
-      if (module) fs.writeFileSync(marker, JSON.stringify({ module, at: new Date().toISOString() }) + '\n')
-      else fs.rmSync(marker, { force: true })
+      const dir = screenerMarkerDir(swarmId, subjectId)
+      if (dir) {
+        const marker = path.join(dir, '.target')
+        if (module) fs.writeFileSync(marker, JSON.stringify({ module, at: new Date().toISOString() }) + '\n')
+        else fs.rmSync(marker, { force: true })
+      }
     } catch {
       /* best-effort marker; a missing marker only risks one auto-resume the user can re-cancel */
     }
@@ -936,13 +960,13 @@ export async function cancel(runId: string): Promise<boolean> {
   run.cancelRequested = true // honored by spawnEngine if the child isn't up yet (the gate-proceed buildArgs window)
   // A user-initiated cancel of a screener signal is a deliberate stop, NOT a breakage. Drop a marker in
   // its run folder so the auto-resume scan (listResumableSignals) never resurrects it on the next reconnect.
-  if (run.kind === 'signal' && run.runRoot) {
+  if (run.kind === 'signal') {
     try {
-      const abs = path.isAbsolute(run.runRoot) ? run.runRoot : path.join(REPO_ROOT, run.runRoot)
-      fs.mkdirSync(abs, { recursive: true })
-      // route the write through the screener sandbox guard (realpath + containment) before touching disk
-      const dir = resolveInsideScreener(abs)
-      fs.writeFileSync(path.join(dir, '.aborted'), JSON.stringify({ at: new Date().toISOString(), reason: 'cancelled' }))
+      // rebuild + containment-check the run dir from the validated subject id (same CWE-22 barrier as .target)
+      const dir = screenerMarkerDir(run.swarmId, run.subjectId)
+      if (dir) {
+        fs.writeFileSync(path.join(dir, '.aborted'), JSON.stringify({ at: new Date().toISOString(), reason: 'cancelled' }))
+      }
     } catch {
       /* best-effort marker; a missing marker only risks one auto-resume the user can re-cancel */
     }
