@@ -8,7 +8,7 @@ import { CLAUDE_BIN, DATA_DIR, DEFAULT_MODEL, ESTIMATES, FULL_PER_MODULE, LAUNCH
 import { getCreditStatus, setCreditStatus } from './credit'
 import { startRunWatcher, sweepRunOutputs } from './fs-watcher'
 import { createRun, emit, finishRun, getRun, IN_FLIGHT_STATUSES, listRuns, setActiveSubjectRun, type ExpectedAgent, type RunState } from './registry'
-import { resolveRunRoot } from './outputs'
+import { clearRunMarker, resolveRunRoot, writeRunMarker } from './outputs'
 import { runReadiness } from './readiness'
 import { providerEnvKeys } from './load-env'
 import { buildSwarmGraph, downstreamCascade } from './roster'
@@ -136,10 +136,18 @@ function todayDate(): string {
 
 // The deliverables a completed full/rerun MUST have written (the master synthesizer's primary outputs).
 // Their absence after a clean exit means the run was truncated before the master finished.
-function finalDeliverablesPresent(runRoot: string | null): boolean {
+export function finalDeliverablesPresent(runRoot: string | null): boolean {
   if (!runRoot) return false
   const root = path.isAbsolute(runRoot) ? runRoot : path.join(REPO_ROOT, runRoot)
   return fs.existsSync(path.join(root, 'final_thesis.md')) && fs.existsSync(path.join(root, 'decision_record.json'))
+}
+
+// A full company run (monolithic `full`, or any step of a chained full) is the unit the resume
+// supervisor relaunches. We mark its run folder on disk when it breaks, so the supervisor — which has
+// NO in-memory state after a restart — can find and continue it. Solo `module`/`agent` runs are
+// deliberate single pieces (the user ran exactly that), so a break there is NOT auto-resumed.
+function isResumableResearchRun(run: RunState): boolean {
+  return run.swarmId === 'research' && (run.kind === 'full' || run.chained === true)
 }
 
 // The SINGLE place a run's final status is decided on process close (exported for tests).
@@ -157,14 +165,26 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
   // (and a killed handoff toast "memo seeded ✓" for a memo never written). `killed` kept for safety.
   const terminated = res?.isTerminated === true || res?.killed === true || !!res?.signal
   if ((run.status as string) === 'cancelled') {
+    if (isResumableResearchRun(run)) clearRunMarker(run.runRoot, '.interrupted') // a deliberate stop — cancel() wrote .aborted; never auto-resume
     emit(run, { type: 'run-error', runId: run.runId, status: 'cancelled', reason: 'cancelled', ts: Date.now() })
     finishRun(run, 'cancelled')
   } else if (terminated) {
-    // killed from OUTSIDE cancel() (OOM killer, manual kill, parent shutdown) — an error, not a success
+    // killed from OUTSIDE cancel() (OOM killer, manual kill, parent shutdown, a dropped connection that
+    // tears the process down) — an error, not a success. Mark the folder so the resume supervisor can pick
+    // the broken full run back up and continue it (forever-living: a closed laptop / lost network resumes).
+    if (isResumableResearchRun(run)) writeRunMarker(run.runRoot, '.interrupted', { reason: `terminated_${res?.signal || 'signal'}` })
     emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason: `terminated_${res?.signal || 'signal'}`, message: stderr.slice(-400) || undefined, ts: Date.now() })
     finishRun(run, 'error')
   } else if ((code && code !== 0) || res?.failed === true) {
     const reason = /credit|rate limit/i.test(stderr) ? 'out_of_credits' : 'nonzero_exit'
+    // Mark the broken full run for the resume supervisor. For an out_of_credits stop (the plan's usage
+    // limit), stamp the rate-limit resetsAt so the paused run knows when it may continue WITHOUT spending
+    // overage — durable on disk, so the wait survives a reboot. (A connection break shows up here as
+    // nonzero_exit; it resumes on the next tick.)
+    if (isResumableResearchRun(run)) {
+      const resetsAt = reason === 'out_of_credits' ? getCreditStatus().resetsAt : undefined
+      writeRunMarker(run.runRoot, '.interrupted', { reason, resetsAt })
+    }
     emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason, message: stderr.slice(-400) || undefined, ts: Date.now() })
     finishRun(run, 'error')
   } else if ((run.kind === 'full' || run.kind === 'rerun') && !finalDeliverablesPresent(run.runRoot)) {
@@ -174,11 +194,19 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
     // the truth and the user can finish it / raise the cap.
     const msg = 'Run ended without the final thesis & memo — likely budget- or turn-truncated before the master synthesizer finished. Re-run from the master (or any late orb) to finish; the cap is now higher.'
     run.note = 'incomplete: no final thesis/decision (likely budget/turn truncation)'
+    // A clean budget/turn truncation is a DELIBERATE cap, not an interruption — auto-resuming would just
+    // re-hit the same cap and loop. Clear any interrupted-marker so the supervisor leaves it for the human.
+    if (isResumableResearchRun(run)) clearRunMarker(run.runRoot, '.interrupted')
     emit(run, { type: 'run-error', runId: run.runId, status: 'incomplete', reason: 'incomplete_deliverables', message: msg, ts: Date.now() })
     finishRun(run, 'incomplete')
   } else {
     // a completed full/rerun has the 3 memos — copy them into the company's Drive folder (timestamped)
     if (run.kind === 'full' || run.kind === 'rerun') saveMemosToCompanyFolder(run.ticker, run.runRoot)
+    // Clear the interrupted-marker only when the WHOLE run is finished (final thesis + decision record on
+    // disk). A single chained MODULE finishing 'done' must NOT clear a marker a FAILED sibling just wrote
+    // — that would lose a genuine interruption and strand the run unresumable. Final deliverables are
+    // present only after the master synthesis, so this fires once, at true completion.
+    if (isResumableResearchRun(run) && finalDeliverablesPresent(run.runRoot)) clearRunMarker(run.runRoot, '.interrupted')
     emit(run, { type: 'run-done', runId: run.runId, status: 'done', costUsd: run.costUsd, durationMs: run.durationMs, numTurns: run.numTurns, ...finalPaths(run), ts: Date.now() })
     finishRun(run, 'done')
   }
@@ -517,6 +545,23 @@ export async function launchFullChained(ticker: string, user: string, userVia: '
   const done = new Set<string>()
   const started = new Set<string>()
   const inflight = new Set<string>()
+  // RESUME (forever-living): if today's run folder already holds finished modules from a prior attempt
+  // that broke (a plan-limit pause, a dropped connection, a reboot), seed them as done so this relaunch
+  // CONTINUES from where it stopped instead of redoing the whole pipeline. A first run finds nothing here;
+  // a complete folder is left alone (this is then a fresh full, not a resume). Module = its 99 synthesis
+  // present and non-empty (the same "module finished" test the screener resume uses).
+  const resumeRoot = `analyses/${ticker}_${todayDate()}`
+  if (fs.existsSync(path.join(REPO_ROOT, resumeRoot)) && !finalDeliverablesPresent(resumeRoot)) {
+    for (const name of names) {
+      try {
+        if (fs.statSync(path.join(REPO_ROOT, resumeRoot, name, `99_${name}-synthesis.md`)).size > 0) { done.add(name); started.add(name) }
+      } catch { /* this module isn't finished yet */ }
+    }
+    clearRunMarker(resumeRoot, '.interrupted') // a deliberate (re)launch; a fresh break will re-mark it
+    clearRunMarker(resumeRoot, '.aborted')
+    // eslint-disable-next-line no-console
+    if (done.size) console.log(`[full-chain] ${ticker}: resuming — ${done.size}/${total} modules already on disk, running the rest`)
+  }
   let stopped = false
   let masterLaunched = false
   let retryScheduled = false
@@ -611,7 +656,9 @@ export async function launchFullChained(ticker: string, user: string, userVia: '
     }
   }
 
-  if (total === 0) { launchMaster(); return { runId: '', preflight: estimate('full', ticker), chained: true } }
+  // No modules to run — either an empty graph, or a resume where every module was already finished and
+  // only the master synthesis remains. Launch the master directly (firstReady would never resolve here).
+  if (total === 0 || done.size === total) { launchMaster(); return { runId: '', preflight: estimate('full', ticker), chained: true } }
   pump()
   // business-model has no deps, so something is always runnable; if not, the graph has a cycle — fail loud
   // rather than hang on the firstReady promise below.
@@ -970,6 +1017,13 @@ export async function cancel(runId: string): Promise<boolean> {
     } catch {
       /* best-effort marker; a missing marker only risks one auto-resume the user can re-cancel */
     }
+  }
+  // The research equivalent: a deliberately-stopped full company run must never be auto-resumed by the
+  // supervisor. Drop .aborted in its run folder and clear any interrupted-marker. (Marker writes are
+  // contained under analyses/ by writeRunMarker; best-effort, never throws into cancel.)
+  if (isResumableResearchRun(run)) {
+    writeRunMarker(run.runRoot, '.aborted', { reason: 'cancelled' })
+    clearRunMarker(run.runRoot, '.interrupted')
   }
   // A chained full-run step: halt the chain HERE (any cancel path) so the next module can never launch —
   // not only on the stop-everything kill switch. Without this, cancelling one step could still advance.
