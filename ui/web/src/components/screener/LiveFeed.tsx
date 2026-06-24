@@ -10,7 +10,7 @@ import { displayHeadline, originalHeadline, plainBand, plainSize, plainTheme } f
 import { dayDividerLabel, dayKeyLocal, hhmmLocal } from '../../lib/format'
 import { useStore } from '../../lib/store'
 import type { FeedItem } from '../../lib/types'
-import { emptyFilters, FeedFilters, matchesFilters, type FeedFilterState } from './FeedFilters'
+import { emptyFilters, FeedFilters, gicsEmptyMessage, matchesFilters, type FeedFilterState } from './FeedFilters'
 
 const agoMin = (iso?: string | null) => (iso ? Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 60_000)) : null)
 
@@ -264,7 +264,7 @@ export function LiveFeed() {
         {!visibleGroups.length && (
           <div className="plane__empty wire__empty">
             {items.length
-              ? 'Nothing matches these filters — clear them to see everything again.'
+              ? gicsEmptyMessage(filters) || 'Nothing matches these filters — clear them to see everything again.'
               : status?.enabled
                 ? `Nothing read yet today. The scanner looks every ${status.intervalMin} minutes; items appear here the moment they are scored.`
                 : 'The auto-scan is off, so there is nothing to show. It needs a free Groq key in the engine.'}

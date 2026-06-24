@@ -1203,8 +1203,11 @@ a { color: inherit; }
 .ffilters__text:focus { outline: none; border-color: var(--hairline-strong); }
 .ffilters__sel {
   height: 28px; padding: 0 6px; font-size: 11.5px; background: var(--bg-2);
-  border: 1px solid var(--hairline); border-radius: var(--r-md); color: var(--text-muted);
+  border: 1px solid var(--hairline); border-radius: var(--r-md); color: var(--text-muted); max-width: 100%;
+  transition: border-color var(--dur-fast), opacity var(--dur-fast);
 }
+.ffilters__sel:focus { outline: none; border-color: var(--hairline-strong); }
+.ffilters__sel:disabled { opacity: 0.4; cursor: not-allowed; }
 .ffilters__clear { height: 28px; padding: 0 10px; font-size: 11px; }
 
 /* ---- the News wire (live scanner view) ---- */
