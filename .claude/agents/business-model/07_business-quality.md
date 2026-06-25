@@ -22,6 +22,7 @@ You DO NOT:
 
 - `TICKER`, `DATA_PATH`, `OUTPUT_PATH = analyses/{TICKER}_{DATE}/business-model/07_business-quality.md`, `DATE`
 - `UPSTREAM_INPUTS`:
+  - `analyses/{TICKER}_{DATE}/business-model/02_business-identity.md` — REQUIRED *(classified business type — drives the sector overlay, step 2b)*
   - `analyses/{TICKER}_{DATE}/business-model/03_segment-map.md` — REQUIRED
   - `analyses/{TICKER}_{DATE}/business-model/05_customer-geography.md` — REQUIRED
 
@@ -42,7 +43,8 @@ If either upstream is missing, note it explicitly at the top:
     - **REIT / real estate**: "Capital intensity" = asset-heaviness and LTV (high LTV = capital risk = lower score). "Recurring revenue" = WALE and lease-renewal visibility. "Cyclicality" = property cycle severity in the relevant geography and asset class. "Margin stability" = same-store NOI margin stability.
     - **SaaS / subscription software**: "Recurring revenue" is the dominant factor — track ARR / RPO-based visibility vs one-time services mix. "Margin stability" requires GAAP gross margin (SBC charged), not non-GAAP; a widening GAAP vs non-GAAP gap is a margin-stability warning. "Capital intensity" = low (high score) unless server/data-center capex is material.
     - **Commodity producer / miner**: "Pricing power" = nil for a price-taker; score 0–20 unless the company produces a differentiated product or controls scarce infrastructure. "Commodity dependence" = dominant factor (score conservatively). "Cyclicality" = price cycle amplitude for the commodity.
-    - **Generic operating company** (no matching row) → generic 11-factor scoring applies.
+    - **Any other type that matches a `SECTOR_OVERLAYS.md` row** (insurer, oil & gas, retail / consumer, telecom, asset manager, pharma / biotech): read the matched row and map its KPIs / red-flags onto the relevant factors — e.g. an insurer's "margin stability" = combined-ratio + reserve-development stability (not gross-margin variance) and "cyclicality" = underwriting / reserve cycle; a telecom's "capital intensity" = network-capex/sales + spectrum/tower obligations; an asset manager's "recurring revenue" = AUM stickiness / net-flow durability and fee-rate resilience; a pharma's "recurring revenue" = patent-cliff (LOE) exposure + pipeline depth. The four worked examples above are illustrative, not exhaustive.
+    - **Generic operating company** — ONLY when the business type matches NO `SECTOR_OVERLAYS.md` row → generic 11-factor scoring applies.
 
     State the overlay result explicitly: *"Sector overlay applied: {type} — factors {X, Y, Z} use sector-specific lens."* Or *"No sector overlay for {type} — generic 11-factor scoring applies."* Do NOT silently skip this step — a sector-specific business scored purely on generic factors produces a misleading quality read (SECTOR_OVERLAYS.md).
 

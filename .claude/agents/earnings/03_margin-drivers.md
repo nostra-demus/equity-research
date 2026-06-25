@@ -55,7 +55,8 @@ If `01_historical-financials.md` is missing, write at the top:
     - **REIT / real estate** → NOI margin, same-store NOI growth, property opex ratio. Note that D&A is non-economic for a REIT (back it out for operating margin purposes); the margin table shows property opex and NOI margin, not COGS.
     - **SaaS / subscription software** → GAAP gross margin charged for SBC in full; cloud/hosting as % of revenue; S&M and R&D as leverage metrics. The gap between GAAP and non-GAAP gross margin is itself a margin driver (SBC amortisation) — make it visible.
     - **Commodity producer / miner** → AISC or unit cash cost, price-cost spread; energy/consumables dominate the variable cost stack. Margin table: AISC components, not generic COGS.
-    - **Generic operating company** (no matching row) → use the default candidate list below.
+    - **Any other type that matches a `SECTOR_OVERLAYS.md` row** (insurer, oil & gas, retail / consumer, telecom, asset manager, pharma / biotech) → use that row's margin/cost grammar from the framework: e.g. an insurer's combined ratio (loss + expense) + investment yield; an E&P's netback / unit opex + F&D cost; a retailer's gross margin, SSSG + inventory turns; a telecom's ARPU + network-capex/sales; an asset manager's fee rate / revenue yield + operating margin; a pharma's gross margin net of R&D with patent-cliff exposure. The four worked examples above are illustrative, not exhaustive.
+    - **Generic operating company** — ONLY a type that matches NO `SECTOR_OVERLAYS.md` row → use the default candidate list below.
 
     State the overlay result explicitly: *"Sector overlay applied: {type} — margin analysis uses {sector metric grammar}."* Or *"No sector overlay for {type} — generic cost stack applies."*
 
@@ -105,6 +106,8 @@ Not all apply to every company. Use only those that are relevant:
 
 ## 2. Cost Stack
 
+> **Sector-overlay businesses (step 3b):** REPLACE the generic rows below with the matched sector's cost/margin grammar from `SECTOR_OVERLAYS.md` — a bank shows NIM spread, credit-cost rate (provisions / avg loans), cost-to-income; a REIT shows property opex and NOI margin (D&A backed out); SaaS shows GAAP gross margin (SBC charged), hosting %, S&M/R&D; a miner shows AISC components; an insurer the combined-ratio split. The generic rows below apply ONLY to a generic operating company with no matching sector row.
+
 | Cost Line | % of Revenue or Amount | Direction | Evidence | Margin Risk |
 |---|---:|---|---|---|
 | Raw materials / COGS | | | | |
@@ -119,6 +122,8 @@ Not all apply to every company. Use only those that are relevant:
 Use only disclosed cost lines. If a line is not disclosed, write "Not disclosed."
 
 ## 3. Gross Margin → EBITDA Margin → EBIT Margin Walk
+
+> **Sector-overlay businesses:** for a bank / insurer / asset manager (no COGS → no gross-margin concept), replace this walk with the sector's margin ladder — e.g. a bank's NIM → pre-provision operating profit → credit costs → ROA/ROE; an insurer's underwriting (combined-ratio) result + investment income. For a REIT use the NOI-margin walk (D&A non-economic). Keep the generic gross→EBITDA→EBIT walk only where those margins are meaningful.
 
 | Margin Level | Latest | Prior Year | Change bps | Main Reason | Evidence |
 |---|---:|---:|---:|---|---|
