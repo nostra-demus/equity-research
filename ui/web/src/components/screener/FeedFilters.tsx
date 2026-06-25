@@ -3,6 +3,7 @@
 // is exported so both views filter identically.
 
 import { ALL_THEMES, plainBand, plainLinkage, plainRegion, plainSize, plainTheme } from '../../lib/plain'
+import { GICS_SECTORS, gicsOf, gicsSubSectorsFor } from '../../lib/gics'
 
 export interface FeedFilterState {
   themes: Set<string>
@@ -11,13 +12,25 @@ export interface FeedFilterState {
   band: string // '' = all | pick | watch | drop
   size: string // '' = all
   linkage: string // '' = all
+  gicsSector: string // '' = all — a GICS sector (the 11 top-level industries)
+  gicsSubSector: string // '' = all — a sub-sector within gicsSector (only meaningful when a sector is picked)
   text: string
 }
 
-export const emptyFilters = (): FeedFilterState => ({ themes: new Set(), region: '', source: '', band: '', size: '', linkage: '', text: '' })
+export const emptyFilters = (): FeedFilterState => ({ themes: new Set(), region: '', source: '', band: '', size: '', linkage: '', gicsSector: '', gicsSubSector: '', text: '' })
 
 export const filtersActive = (f: FeedFilterState): boolean =>
-  f.themes.size > 0 || !!f.region || !!f.source || !!f.band || !!f.size || !!f.linkage || !!f.text.trim()
+  f.themes.size > 0 || !!f.region || !!f.source || !!f.band || !!f.size || !!f.linkage || !!f.gicsSector || !!f.gicsSubSector || !!f.text.trim()
+
+// A tailored empty-wire line when a GICS filter is active and nothing shows. GICS tags are matched from
+// the headline, so a thinly-covered sector reads empty even on a busy wire — say so, instead of the
+// generic "nothing matches" which can't tell "no such news" from "nothing got tagged". Null when no GICS
+// filter is set (the caller falls back to its generic message). Caller gates this on the wire being non-empty.
+export const gicsEmptyMessage = (f: FeedFilterState): string | null => {
+  if (!f.gicsSector && !f.gicsSubSector) return null
+  const label = `${f.gicsSector}${f.gicsSubSector ? ` → ${f.gicsSubSector}` : ''}`
+  return `Nothing here matches ${label} right now — GICS tags are read from the headline, so a quiet corner of the market can read empty even when the rest of the wire is busy.`
+}
 
 // The minimal shape both FeedItem and BoardInboxRow satisfy.
 export interface Filterable {
@@ -43,6 +56,13 @@ export function matchesFilters(it: Filterable, f: FeedFilterState): boolean {
   }
   if (f.size && (it.size_bucket || 'unknown') !== f.size) return false
   if (f.linkage && (it.issuer_linkage || '') !== f.linkage) return false
+  // GICS: classify lazily — only when a sector/sub-sector filter is actually set (keeps the common,
+  // unfiltered path free of any work over a multi-thousand-item archive).
+  if (f.gicsSector || f.gicsSubSector) {
+    const g = gicsOf(it)
+    if (f.gicsSector && !g.sectors.has(f.gicsSector)) return false
+    if (f.gicsSubSector && !g.subSectors.has(f.gicsSubSector)) return false
+  }
   if (f.text.trim()) {
     const q = f.text.trim().toLowerCase()
     const hay = `${it.headline} ${it.headline_en || ''} ${(it.companies || []).map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase()
@@ -115,6 +135,35 @@ export function FeedFilters({
             ))}
           </select>
         )}
+        {/* GICS sector → sub-sector drill-down. Picking a sector unlocks its sub-sectors; changing the
+            sector clears the sub-sector so the pair is never inconsistent. */}
+        <select
+          className="ffilters__sel"
+          value={value.gicsSector}
+          onChange={(e) => set({ gicsSector: e.target.value, gicsSubSector: '' })}
+          title="GICS sector — the 11 standard industry groups"
+        >
+          <option value="">any sector</option>
+          {GICS_SECTORS.map((s) => (
+            <option key={s} value={s}>
+              {s}
+            </option>
+          ))}
+        </select>
+        <select
+          className="ffilters__sel"
+          value={value.gicsSubSector}
+          onChange={(e) => set({ gicsSubSector: e.target.value })}
+          disabled={!value.gicsSector}
+          title={value.gicsSector ? `Sub-sector within ${value.gicsSector}` : 'Pick a sector first to narrow by sub-sector'}
+        >
+          <option value="">{value.gicsSector ? 'all sub-sectors' : 'sub-sector…'}</option>
+          {gicsSubSectorsFor(value.gicsSector).map((s) => (
+            <option key={s} value={s}>
+              {s}
+            </option>
+          ))}
+        </select>
         <select className="ffilters__sel" value={value.size} onChange={(e) => set({ size: e.target.value })} title="Guessed company size">
           <option value="">any size</option>
           {SIZES.map((s) => (

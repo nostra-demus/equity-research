@@ -18,7 +18,7 @@ import { hhmmLocal } from '../../lib/format'
 import { extractCommodities, extractSectors } from '../../lib/taxonomy'
 import { useStore } from '../../lib/store'
 import type { FeedItem } from '../../lib/types'
-import { emptyFilters, FeedFilters, filtersActive, matchesFilters, type FeedFilterState } from './FeedFilters'
+import { emptyFilters, FeedFilters, filtersActive, gicsEmptyMessage, matchesFilters, type FeedFilterState } from './FeedFilters'
 
 // a multi-select dropdown for a broad scope with dynamic sub-values (Sector, Commodity). "All X" =
 // the whole scope; specific picks narrow to those. Closes on outside-click / Escape.
@@ -185,12 +185,12 @@ export function EventRail() {
   // multi-select: empty = show everything; otherwise show the UNION of the picked scopes
   const [scopeFilter, setScopeFilter] = useState<Set<ScopeId>>(new Set())
   const [showShelved, setShowShelved] = useState(false)
-  // the secondary filters (theme / search / region / size) — now always visible
+  // the secondary filters (theme / search / sector / size) — now always visible
   const [filters, setFilters] = useState<FeedFilterState>(emptyFilters())
   // collapse toggle for the secondary filters — COLLAPSED by default; opens only if you've opened it before (per browser)
   const [filtersOpen, setFiltersOpen] = useState<boolean>(() => { try { return localStorage.getItem('nsw.filtersOpen') === '1' } catch { return false } })
   const toggleFilters = () => setFiltersOpen((v) => { const n = !v; try { localStorage.setItem('nsw.filtersOpen', n ? '1' : '0') } catch {} return n })
-  const refineCount = filters.themes.size + (filters.region ? 1 : 0) + (filters.size ? 1 : 0) + (filters.text.trim() ? 1 : 0)
+  const refineCount = filters.themes.size + (filters.region ? 1 : 0) + (filters.size ? 1 : 0) + (filters.gicsSector ? 1 : 0) + (filters.gicsSubSector ? 1 : 0) + (filters.text.trim() ? 1 : 0)
   // Sector & Commodity drill into specific sub-values (dynamic multi-select); openDrop = which menu is open
   const [sectorSel, setSectorSel] = useState<SubSel>({ all: false, picks: new Set() })
   const [commSel, setCommSel] = useState<SubSel>({ all: false, picks: new Set() })
@@ -295,6 +295,11 @@ export function EventRail() {
   const isFresh = (g: StoryGroup) => g.members.some((m) => freshEvents.has(m.event_id))
 
   const shelvedInBand = useMemo(() => groups.reduce((n, g) => n + (shelvedEvents.has(g.rep.event_id) ? 1 : 0), 0), [groups, shelvedEvents])
+
+  // The GICS-specific empty line applies ONLY when GICS is the sole structured narrower: if the scope chips
+  // (broadActive) or Geography (geoNarrow) also narrowed, the empty list may be theirs, so we fall through
+  // to the generic line rather than wrongly blaming GICS. Computed once (the helper is pure).
+  const gicsEmptyLine = items.length && !broadActive && !geoNarrow ? gicsEmptyMessage(filters) : null
 
   const ago = agoMin(status?.lastCycleAt)
   const statusLine = status
@@ -426,7 +431,7 @@ export function EventRail() {
             className={`evrefine__toggle${filtersOpen ? ' evrefine__toggle--on' : ''}${!filtersOpen && refineCount ? ' evrefine__toggle--active' : ''}`}
             onClick={toggleFilters}
             aria-expanded={filtersOpen}
-            title={filtersOpen ? 'Collapse the news-type / region / size / search filters' : 'Show the news-type / region / size / search filters'}
+            title={filtersOpen ? 'Collapse the news-type / sector / size / search filters' : 'Show the news-type / sector / size / search filters'}
           >
             <span className="evrefine__label">Filters</span>
             {!filtersOpen && refineCount > 0 && <span className="evrefine__badge">{refineCount}</span>}
@@ -449,7 +454,9 @@ export function EventRail() {
         ))}
         {!visibleGroups.length && (
           <div className="evrail__empty">
-            {broadActive || geoNarrow || filtersActive(filters)
+            {gicsEmptyLine
+              ? gicsEmptyLine
+              : broadActive || geoNarrow || filtersActive(filters)
               ? 'Nothing matches these filters right now — tap All or clear the filters to see the rest.'
               : items.length
                 ? view === 'ranked'
