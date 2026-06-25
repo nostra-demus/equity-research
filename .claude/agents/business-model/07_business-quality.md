@@ -22,6 +22,7 @@ You DO NOT:
 
 - `TICKER`, `DATA_PATH`, `OUTPUT_PATH = analyses/{TICKER}_{DATE}/business-model/07_business-quality.md`, `DATE`
 - `UPSTREAM_INPUTS`:
+  - `analyses/{TICKER}_{DATE}/business-model/02_business-identity.md` — REQUIRED *(classified business type — drives the sector overlay, step 2b)*
   - `analyses/{TICKER}_{DATE}/business-model/03_segment-map.md` — REQUIRED
   - `analyses/{TICKER}_{DATE}/business-model/05_customer-geography.md` — REQUIRED
 
@@ -34,6 +35,19 @@ If either upstream is missing, note it explicitly at the top:
 
 1. Read the repo root `CLAUDE.md` (cross-cutting rules including git policy and global investing standards), then read `.claude/agents/business-model/MODULE_RULES.md` (operating rules specific to this module), and apply both. Pay special attention to the scoring rules — bands and direction notes.
 2. Read upstream outputs (segment-map, customer-geography).
+2b. **Sector overlay *(fix F-SECTOR-1)*.** Read `frameworks/SECTOR_OVERLAYS.md` and the same-module upstream `02_business-identity.md` (layer 1, already complete) for the classified business type. If the type matches a sector row, apply sector-specific interpretations to the relevant quality factors. Scoring a bank's "capital intensity" or a REIT's "margin stability" with a generic manufacturing lens produces a misleading read.
+
+    Apply sector-appropriate factor interpretations:
+
+    - **Bank / lender**: "Capital intensity" = regulatory capital intensity — CET1/CAR constraint and loan-to-deposit ratio (higher required capital per unit of earnings = lower score). "Margin stability" = NIM stability across credit cycles, not gross-margin variance. "Cyclicality" = credit cycle / NPL cycle severity, not volume cycle. "Commodity dependence" = rate cycle / NIM sensitivity.
+    - **REIT / real estate**: "Capital intensity" = asset-heaviness and LTV (high LTV = capital risk = lower score). "Recurring revenue" = WALE and lease-renewal visibility. "Cyclicality" = property cycle severity in the relevant geography and asset class. "Margin stability" = same-store NOI margin stability.
+    - **SaaS / subscription software**: "Recurring revenue" is the dominant factor — track ARR / RPO-based visibility vs one-time services mix. "Margin stability" requires GAAP gross margin (SBC charged), not non-GAAP; a widening GAAP vs non-GAAP gap is a margin-stability warning. "Capital intensity" = low (high score) unless server/data-center capex is material.
+    - **Commodity producer / miner**: "Pricing power" = nil for a price-taker; score 0–20 unless the company produces a differentiated product or controls scarce infrastructure. "Commodity dependence" = dominant factor (score conservatively). "Cyclicality" = price cycle amplitude for the commodity.
+    - **Any other type that matches a `SECTOR_OVERLAYS.md` row** (insurer, oil & gas, retail / consumer, telecom, asset manager, pharma / biotech): read the matched row and map its KPIs / red-flags onto the relevant factors — e.g. an insurer's "margin stability" = combined-ratio + reserve-development stability (not gross-margin variance) and "cyclicality" = underwriting / reserve cycle; a telecom's "capital intensity" = network-capex/sales + spectrum/tower obligations; an asset manager's "recurring revenue" = AUM stickiness / net-flow durability and fee-rate resilience; a pharma's "recurring revenue" = patent-cliff (LOE) exposure + pipeline depth. The four worked examples above are illustrative, not exhaustive.
+    - **Generic operating company** — ONLY when the business type matches NO `SECTOR_OVERLAYS.md` row → generic 11-factor scoring applies.
+
+    State the overlay result explicitly: *"Sector overlay applied: {type} — factors {X, Y, Z} use sector-specific lens."* Or *"No sector overlay for {type} — generic 11-factor scoring applies."* Do NOT silently skip this step — a sector-specific business scored purely on generic factors produces a misleading quality read (SECTOR_OVERLAYS.md).
+
 3. For each of the 11 factors, score /100 and cite evidence in the same row. *(fix F40 — this said "10"; the §1 table has 11 rows incl. the §24 Filter-5 rate-of-change row. The miscount risked silently dropping the 11th factor.)*
 4. Be strict — high scores require evidence.
 5. Use the Write tool to save your complete report (formatted exactly as described in the REPORT STRUCTURE section above) to the path given in OUTPUT_PATH. This file is what downstream agents and the orchestrator will read — do NOT skip this step, and do NOT return your report only as a chat message. After writing the file, return only the CHAT CONFIRMATION block.
@@ -111,6 +125,8 @@ In 2–4 sentences: what kind of business is this — durable compounder, cyclic
 - [ ] If industry rate-of-change scored ≤40, Section 4 flags the thesis as a sector / technology-cycle bet (§24 Filter 5).
 - [ ] No 90+ score appears without strong, specific evidence.
 - [ ] The aggregate score is consistent with the row-level scores — not contradicted.
+- [ ] Sector overlay step 2b completed — overlay status stated (either *"Sector overlay applied: {type} — factors {X, Y, Z} use sector-specific lens"* or *"No sector overlay for {type} — generic 11-factor scoring applies"*).
+- [ ] For sector-specific businesses (bank, REIT, SaaS, miner, …), the relevant quality factors (capital intensity, margin stability, cyclicality, etc.) use the sector-specific lens from SECTOR_OVERLAYS.md — not the generic manufacturing interpretation.
 - [ ] No banned phrases.
 
 # CHAT CONFIRMATION

@@ -26,9 +26,11 @@ You DO NOT:
 
 # CROSS-MODULE INPUTS (optional)
 
+- `{BUSINESS_MODEL_PATH}/02_business-identity.md` — classified business type and §3a sector KPI checklist; needed for the sector overlay step
 - `{BUSINESS_MODEL_PATH}/03_segment-map.md` — segment structure
 - `{BUSINESS_MODEL_PATH}/06_value-chain.md` — pricing power context
 - `{BUSINESS_MODEL_PATH}/10_external-dependency.md` — cyclical/policy exposure, for the cycle-position read (Cycle-Position Rule in MODULE_RULES)
+- `frameworks/SECTOR_OVERLAYS.md` — sector-specific metric grammar (margin KPIs, cost drivers, red flags); read directly if `02_business-identity.md` is unavailable
 
 If the business-model segment-map exists, read it and decompose margin drivers by segment.
 If the company is single-segment (>85% from one segment), state that and proceed at consolidated level.
@@ -45,6 +47,19 @@ If `01_historical-financials.md` is missing, write at the top:
 1. Read the repo root `CLAUDE.md` (cross-cutting rules including git policy and global investing standards), then read `.claude/agents/earnings/MODULE_RULES.md` (operating rules specific to this module), and apply both.
 2. Read the upstream historical-financials output for the margin baseline.
 3. Read the business-model segment-map and value-chain if available.
+3b. **Sector overlay *(fix F-SECTOR-1)*.** Read `frameworks/SECTOR_OVERLAYS.md` and match the classified business type — from `02_business-identity.md` §3a if available, otherwise infer from the pool. If the type matches a sector row, the sector's metric grammar **replaces** the generic cost stack for the primary margin analysis. Do not build a raw-material/freight/SGA table for a bank or REIT — those are the wrong numbers.
+
+    Apply the sector-appropriate margin grammar:
+
+    - **Bank / lender** → NIM (net interest margin), credit costs (provisions / average loans), cost-to-income ratio, net interest income vs fee income split. Margin table: NIM spread, credit cost rate, operating cost ratio — not COGS or freight.
+    - **REIT / real estate** → NOI margin, same-store NOI growth, property opex ratio. Note that D&A is non-economic for a REIT (back it out for operating margin purposes); the margin table shows property opex and NOI margin, not COGS.
+    - **SaaS / subscription software** → GAAP gross margin charged for SBC in full; cloud/hosting as % of revenue; S&M and R&D as leverage metrics. The gap between GAAP and non-GAAP gross margin is itself a margin driver (SBC amortisation) — make it visible.
+    - **Commodity producer / miner** → AISC or unit cash cost, price-cost spread; energy/consumables dominate the variable cost stack. Margin table: AISC components, not generic COGS.
+    - **Any other type that matches a `SECTOR_OVERLAYS.md` row** (insurer, oil & gas, retail / consumer, telecom, asset manager, pharma / biotech) → use that row's margin/cost grammar from the framework: e.g. an insurer's combined ratio (loss + expense) + investment yield; an E&P's netback / unit opex + F&D cost; a retailer's gross margin, SSSG + inventory turns; a telecom's ARPU + network-capex/sales; an asset manager's fee rate / revenue yield + operating margin; a pharma's gross margin net of R&D with patent-cliff exposure. The four worked examples above are illustrative, not exhaustive.
+    - **Generic operating company** — ONLY a type that matches NO `SECTOR_OVERLAYS.md` row → use the default candidate list below.
+
+    State the overlay result explicitly: *"Sector overlay applied: {type} — margin analysis uses {sector metric grammar}."* Or *"No sector overlay for {type} — generic cost stack applies."*
+
 4. Identify the company-specific margin drivers from MD&A, transcripts, and cost disclosures.
 5. For each driver, assess the current direction and magnitude.
 6. If segment data exists, decompose drivers per segment.
@@ -61,6 +76,8 @@ If `01_historical-financials.md` is missing, write at the top:
 - **Business-model value-chain** if available — pricing power context
 
 # MARGIN DRIVER CANDIDATES
+
+> **Sector override**: For sector-specific businesses (bank, insurer, REIT, miner, oil & gas, SaaS, telecom, retailer, asset manager, pharma), step 3b's sector overlay defines the priority margin KPIs from `frameworks/SECTOR_OVERLAYS.md` — use those in place of the generic list below where they apply. The generic candidates below apply when no sector overlay matches or as supplementary items for generic operating companies.
 
 Not all apply to every company. Use only those that are relevant:
 
@@ -89,6 +106,8 @@ Not all apply to every company. Use only those that are relevant:
 
 ## 2. Cost Stack
 
+> **Sector-overlay businesses (step 3b):** REPLACE the generic rows below with the matched sector's cost/margin grammar from `SECTOR_OVERLAYS.md` — a bank shows NIM spread, credit-cost rate (provisions / avg loans), cost-to-income; a REIT shows property opex and NOI margin (D&A backed out); SaaS shows GAAP gross margin (SBC charged), hosting %, S&M/R&D; a miner shows AISC components; an insurer the combined-ratio split. The generic rows below apply ONLY to a generic operating company with no matching sector row.
+
 | Cost Line | % of Revenue or Amount | Direction | Evidence | Margin Risk |
 |---|---:|---|---|---|
 | Raw materials / COGS | | | | |
@@ -103,6 +122,8 @@ Not all apply to every company. Use only those that are relevant:
 Use only disclosed cost lines. If a line is not disclosed, write "Not disclosed."
 
 ## 3. Gross Margin → EBITDA Margin → EBIT Margin Walk
+
+> **Sector-overlay businesses:** for a bank / insurer / asset manager (no COGS → no gross-margin concept), replace this walk with the sector's margin ladder — e.g. a bank's NIM → pre-provision operating profit → credit costs → ROA/ROE; an insurer's underwriting (combined-ratio) result + investment income. For a REIT use the NOI-margin walk (D&A non-economic). Keep the generic gross→EBITDA→EBIT walk only where those margins are meaningful.
 
 | Margin Level | Latest | Prior Year | Change bps | Main Reason | Evidence |
 |---|---:|---:|---:|---|---|
@@ -173,6 +194,8 @@ One paragraph: which driver, if it moved adversely, would compress margins the m
 - [ ] Pass-through lag is stated if input costs are a material driver.
 - [ ] Segment mix is treated as a margin driver, not buried in prose.
 - [ ] For a cyclical/policy-exposed business, the cycle position (peak/mid/trough) is stated with evidence and any one-time policy tailwind is labelled non-run-rate (Cycle-Position Rule).
+- [ ] Sector overlay step 3b completed — overlay status stated (either *"Sector overlay applied: {type} — {metric grammar}"* or *"No sector overlay for {type} — generic cost stack applies"*).
+- [ ] For sector-specific businesses (bank, REIT, SaaS, miner, …), the cost stack and margin bridge use sector-appropriate KPIs (NIM/credit costs for a bank; NOI/same-store NOI for a REIT; GAAP gross margin for SaaS), not a generic COGS/freight/labor table.
 - [ ] No banned phrases.
 
 # CHAT CONFIRMATION
