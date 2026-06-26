@@ -332,7 +332,7 @@ Run this via Bash. It re-derives the §10 scenario math from `decision_record.js
 
 ```bash
 python3 - "<RUN_ROOT>" <<'PY'
-import json, os, re, sys
+import json, os, re, sys, datetime
 run = sys.argv[1]
 dr = os.path.join(run, "decision_record.json"); ft = os.path.join(run, "final_thesis.md")
 viol = []
@@ -358,6 +358,9 @@ for k in ("confidence_score", "data_sufficiency_score"):
 # A conviction decision on thin data ships as confidently as one on strong data — the synthesizer is
 # instructed to enforce this cap, but without a gate the instruction has no teeth.
 _isnum = lambda v: isinstance(v, (int, float)) and not isinstance(v, bool)
+def _isdate(s):  # mirrors eval.py isdate(): a non-string / malformed value fails closed (False) instead of crashing the ship gate
+    try: datetime.date.fromisoformat(s); return True
+    except Exception: return False
 _CONVICTION = {"Strong Buy", "Buy", "Starter Position Only", "Short Candidate"}
 dec = d.get("decision") or ""; ds = d.get("data_sufficiency_score")
 if _isnum(ds):
@@ -367,23 +370,43 @@ if _isnum(ds):
         viol.append(f"data_sufficiency_score={ds} in 30–49 (§11 weak) but decision={dec!r} is conviction — §11 caps at Watchlist; conviction requires score ≥ 50")
 elif dec in _CONVICTION:
     viol.append(f"data_sufficiency_score absent/non-numeric ({ds!r}) but decision={dec!r} is conviction — §11 requires a /100 sufficiency score")
-# check V — §7 edge gate: confidence >60 requires proven edge; forward-looking from 2026-06-15;
-# mirrors eval.py check V. Restated consensus is not an edge. High confidence without edge_score ≥ 50
-# and a falsifiable edge_proof is false confidence — the most common path to a bad investment decision.
-ddte = d.get("decision_date") or ""
-if ddte >= "2026-06-15":
-    es = d.get("edge_score"); ep = (d.get("edge_proof") or "").strip(); cf = d.get("confidence_score")
+# check V — §7 edge gate; forward-looking from 2026-06-15; mirrors ALL THREE eval.py check-V conditions.
+# (1) edge_score, when present, must be 0–100; (2) a claimed edge (edge_score ≥ 50) needs a non-empty,
+# falsifiable edge_proof; (3) confidence >60 requires a proven edge — restated consensus is not an edge.
+# A non-string decision_date or non-string edge_proof fails closed (PROVISIONAL), never crashes the ship path.
+ddte = d.get("decision_date")
+# B2 mirror (eval.py:607-609, always-apply): decision_date must be a real ISO date. _isdate() stops a malformed
+# truthy date from crashing the §7/§14 forward gates, but a missing/invalid date must still FAIL CLOSED here —
+# eval B2 rejects it post-commit, so flag it rather than silently skip the gates and print PASS.
+if not _isdate(ddte):
+    viol.append(f"decision_date={ddte!r} is not a valid ISO date (YYYY-MM-DD) — eval B2 requires a real date; the §7/§14 forward-looking gates cannot be evaluated without it")
+if _isdate(ddte) and ddte >= "2026-06-15":
+    es = d.get("edge_score"); _ep = d.get("edge_proof"); ep = _ep.strip() if isinstance(_ep, str) else ""; cf = d.get("confidence_score")
+    if es is not None and not (_isnum(es) and 0 <= es <= 100):
+        viol.append(f"edge_score={es!r} not a 0–100 number — §7 edge gate")
+    if _isnum(es) and es >= 50 and not ep:
+        viol.append(f"edge_score={es} ≥50 but edge_proof empty/non-string — a proven edge needs a falsifiable test (§7)")
     if _isnum(cf) and cf > 60 and not (_isnum(es) and es >= 50 and ep):
         viol.append(f"confidence_score={cf} >60 but edge not proven (edge_score={es!r}, edge_proof={'set' if ep else 'empty'}) — §7 edge gate: confidence >60 requires edge_score ≥ 50 + non-empty edge_proof")
-# check Z — §14 external-variable conviction cap; forward-looking from 2026-06-21; mirrors eval.py check Z.
-# A macro/commodity/policy/FX/liquidity thesis without a proven company-specific edge must not carry a
-# conviction rating above 'Starter Position Only' — it is a market bet, not a stock call.
-if ddte >= "2026-06-21":
-    tt = d.get("thesis_type") or []; es_z = d.get("edge_score")
+# check Z — §14 thesis_type enum + external-variable conviction cap; forward-looking from 2026-06-21;
+# mirrors ALL of eval.py eval_z_thesis_type_cap: an empty array, or an off-enum / non-string / wrong-casing
+# value, FAILs (it breaks thesis-type calibration); and an external-variable thesis with no proven edge must
+# not carry a conviction rating above 'Starter Position Only'. A non-list thesis_type is N/A (schema check B owns the type).
+if _isdate(ddte) and ddte >= "2026-06-21":
+    tt = d.get("thesis_type"); es_z = d.get("edge_score")
+    _ENUM = {"Company-specific", "Sector-cycle", "Macro-conditional", "Policy-conditional",
+             "Commodity-conditional", "FX / rates", "Liquidity / positioning", "Governance turnaround",
+             "Balance-sheet survival", "Pair trade / hedge", "Insufficient data"}
     _EXTERNAL = {"Macro-conditional", "Policy-conditional", "Commodity-conditional", "FX / rates", "Liquidity / positioning"}
     _ABOVE_STARTER = {"Strong Buy", "Buy", "Short Candidate"}
-    if isinstance(tt, list) and any(t in _EXTERNAL for t in tt) and dec in _ABOVE_STARTER and not (_isnum(es_z) and es_z >= 50):
-        viol.append(f"thesis_type={tt} includes external-variable type(s) but edge_score={es_z!r} <50 and decision={dec!r} exceeds 'Starter Position Only' — §14 cap")
+    if isinstance(tt, list):
+        _unknown = [t for t in tt if not isinstance(t, str) or t not in _ENUM]
+        if not tt:
+            viol.append("thesis_type is empty — CLAUDE.md §14 requires every thesis to classify itself as one of the closed-set types (e.g. 'Insufficient data')")
+        elif _unknown:
+            viol.append(f"thesis_type contains value(s) not in the CLAUDE.md §14 closed enum: {_unknown} — use exact canonical strings (case-sensitive)")
+        elif any(t in _EXTERNAL for t in tt) and dec in _ABOVE_STARTER and not (_isnum(es_z) and es_z >= 50):
+            viol.append(f"thesis_type={tt} includes external-variable type(s) but edge_score={es_z!r} <50 and decision={dec!r} exceeds 'Starter Position Only' — §14 cap")
 # [PR#9 review fix] idempotent banner: ALWAYS strip any prior finish-gate banner first, then re-stamp
 # fresh if still failing, or write the clean thesis if it now passes. The old code only prepended-if-
 # absent, so a fixed re-run in the same folder kept a stale PROVISIONAL banner with outdated reasons.
