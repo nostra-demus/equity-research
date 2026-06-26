@@ -351,13 +351,21 @@ elif d.get("expected_return_pct") is not None:
     viol.append("expected_return_pct is set but scenarios[] is missing — the math cannot be re-derived")
 if d.get("entry_price") is None and not re.search(r"(price|not assessable|paper trade)", (d.get("notes") or "").lower()):
     viol.append("entry_price is null but notes do not flag the missing/indicative price (margin of safety must be Not assessable)")
+# _isnum mirrors eval.py isnum() (numeric, bool excluded); shared by the score-range, data-sufficiency,
+# edge, and external-variable checks below — defined here, before its first use in the score-range loop.
+_isnum = lambda v: isinstance(v, (int, float)) and not isinstance(v, bool)
 for k in ("confidence_score", "data_sufficiency_score"):
     v = d.get(k)
-    if isinstance(v, (int, float)) and not (0 <= v <= 100): viol.append(f"{k}={v} outside 0–100")
+    # [review fix r3481332826] mirror eval.py check E (numeric hygiene, always-apply): a present-but-non-numeric
+    # score (e.g. the JSON string "75") must FAIL CLOSED. The old test only caught numeric-out-of-range, so a
+    # string score slipped past BOTH this loop and the _isnum-guarded edge gate below and printed GATE: PASS —
+    # while eval check E rejects the same record post-commit. bool is excluded (eval isnum excludes it too).
+    if v is not None and not _isnum(v):
+        viol.append(f"{k}={v!r} is present but not a number — eval check E requires a numeric /100 score; a non-numeric value fails closed (PROVISIONAL)")
+    elif _isnum(v) and not (0 <= v <= 100): viol.append(f"{k}={v} outside 0–100")
 # check Y — §11 data-sufficiency ↔ decision cap (always-apply; mirrors eval.py check Y).
 # A conviction decision on thin data ships as confidently as one on strong data — the synthesizer is
 # instructed to enforce this cap, but without a gate the instruction has no teeth.
-_isnum = lambda v: isinstance(v, (int, float)) and not isinstance(v, bool)
 def _isdate(s):  # mirrors eval.py isdate(): a non-string / malformed value fails closed (False) instead of crashing the ship gate
     try: datetime.date.fromisoformat(s); return True
     except Exception: return False
@@ -399,8 +407,9 @@ if _isdate(ddte) and ddte >= "2026-06-15":
 # mirrors ALL of eval.py eval_z_thesis_type_cap: an empty array, or an off-enum / non-string / wrong-casing
 # value, FAILs (it breaks thesis-type calibration); and an external-variable thesis with no proven edge must
 # not carry a conviction rating above 'Starter Position Only'. [review fix r3479582208] a present-but-non-list
-# thesis_type (e.g. the string "Macro-conditional") FAILS CLOSED here: eval schema check B (thesis_type ∈
-# ARRAYS) rejects it post-commit, so the gate must not skip the §14 cap and print PASS on a record eval fails.
+# thesis_type (e.g. the string "Macro-conditional"), AND an absent/null thesis_type [review fix r3481332820],
+# FAIL CLOSED here: eval schema check B (thesis_type ∈ REQ ∩ ARRAYS) rejects a missing/null/non-list value
+# post-commit, so the gate must not skip the §14 cap and print PASS on a record eval fails.
 if _isdate(ddte) and ddte >= "2026-06-21":
     tt = d.get("thesis_type"); es_z = d.get("edge_score")
     _ENUM = {"Company-specific", "Sector-cycle", "Macro-conditional", "Policy-conditional",
@@ -408,8 +417,8 @@ if _isdate(ddte) and ddte >= "2026-06-21":
              "Balance-sheet survival", "Pair trade / hedge", "Insufficient data"}
     _EXTERNAL = {"Macro-conditional", "Policy-conditional", "Commodity-conditional", "FX / rates", "Liquidity / positioning"}
     _ABOVE_STARTER = {"Strong Buy", "Buy", "Short Candidate"}
-    if tt is not None and not isinstance(tt, list):
-        viol.append(f"thesis_type={tt!r} is not a list — CLAUDE.md §14 requires an array classification and eval schema check B rejects a non-list thesis_type; the §14 external-variable cap cannot be evaluated on a mis-typed value")
+    if not isinstance(tt, list):
+        viol.append(f"thesis_type={tt!r} is absent or not a list — CLAUDE.md §14 requires an array classification and eval schema check B (thesis_type ∈ REQ ∩ ARRAYS) rejects a missing/null/non-list thesis_type; the §14 external-variable cap cannot be evaluated on a mis-typed value")
     elif isinstance(tt, list):
         _unknown = [t for t in tt if not isinstance(t, str) or t not in _ENUM]
         if not tt:
