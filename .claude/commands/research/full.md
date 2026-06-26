@@ -328,7 +328,7 @@ Run this step only if `<RUN_ROOT>/final_thesis.md` and `<RUN_ROOT>/decision_reco
 
 ### 10B.1 — Deterministic validator (always runs; can stamp the thesis PROVISIONAL)
 
-Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (the same identities the `eval` harness check M asserts) and the missing-price / score-range caps, and prepends a PROVISIONAL banner to `final_thesis.md` if a hard inconsistency is found:
+Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (same identities as `eval` harness check M), the missing-price / score-range caps, the §11 data-sufficiency ↔ decision cap (check Y), the §7 edge gate (check V), and the §14 external-variable conviction cap (check Z). Prepends a PROVISIONAL banner to `final_thesis.md` if any inconsistency is found:
 
 ```bash
 python3 - "<RUN_ROOT>" <<'PY'
@@ -354,6 +354,36 @@ if d.get("entry_price") is None and not re.search(r"(price|not assessable|paper 
 for k in ("confidence_score", "data_sufficiency_score"):
     v = d.get(k)
     if isinstance(v, (int, float)) and not (0 <= v <= 100): viol.append(f"{k}={v} outside 0–100")
+# check Y — §11 data-sufficiency ↔ decision cap (always-apply; mirrors eval.py check Y).
+# A conviction decision on thin data ships as confidently as one on strong data — the synthesizer is
+# instructed to enforce this cap, but without a gate the instruction has no teeth.
+_isnum = lambda v: isinstance(v, (int, float)) and not isinstance(v, bool)
+_CONVICTION = {"Strong Buy", "Buy", "Starter Position Only", "Short Candidate"}
+dec = d.get("decision") or ""; ds = d.get("data_sufficiency_score")
+if _isnum(ds):
+    if ds < 30 and dec != "Insufficient Data — Refuse To Rate":
+        viol.append(f"data_sufficiency_score={ds} < 30 (§11 insufficient) but decision={dec!r} — §18 requires 'Insufficient Data — Refuse To Rate'")
+    elif 30 <= ds < 50 and dec in _CONVICTION:
+        viol.append(f"data_sufficiency_score={ds} in 30–49 (§11 weak) but decision={dec!r} is conviction — §11 caps at Watchlist; conviction requires score ≥ 50")
+elif dec in _CONVICTION:
+    viol.append(f"data_sufficiency_score absent/non-numeric ({ds!r}) but decision={dec!r} is conviction — §11 requires a /100 sufficiency score")
+# check V — §7 edge gate: confidence >60 requires proven edge; forward-looking from 2026-06-15;
+# mirrors eval.py check V. Restated consensus is not an edge. High confidence without edge_score ≥ 50
+# and a falsifiable edge_proof is false confidence — the most common path to a bad investment decision.
+ddte = d.get("decision_date") or ""
+if ddte >= "2026-06-15":
+    es = d.get("edge_score"); ep = (d.get("edge_proof") or "").strip(); cf = d.get("confidence_score")
+    if _isnum(cf) and cf > 60 and not (_isnum(es) and es >= 50 and ep):
+        viol.append(f"confidence_score={cf} >60 but edge not proven (edge_score={es!r}, edge_proof={'set' if ep else 'empty'}) — §7 edge gate: confidence >60 requires edge_score ≥ 50 + non-empty edge_proof")
+# check Z — §14 external-variable conviction cap; forward-looking from 2026-06-21; mirrors eval.py check Z.
+# A macro/commodity/policy/FX/liquidity thesis without a proven company-specific edge must not carry a
+# conviction rating above 'Starter Position Only' — it is a market bet, not a stock call.
+if ddte >= "2026-06-21":
+    tt = d.get("thesis_type") or []; es_z = d.get("edge_score")
+    _EXTERNAL = {"Macro-conditional", "Policy-conditional", "Commodity-conditional", "FX / rates", "Liquidity / positioning"}
+    _ABOVE_STARTER = {"Strong Buy", "Buy", "Short Candidate"}
+    if isinstance(tt, list) and any(t in _EXTERNAL for t in tt) and dec in _ABOVE_STARTER and not (_isnum(es_z) and es_z >= 50):
+        viol.append(f"thesis_type={tt} includes external-variable type(s) but edge_score={es_z!r} <50 and decision={dec!r} exceeds 'Starter Position Only' — §14 cap")
 # [PR#9 review fix] idempotent banner: ALWAYS strip any prior finish-gate banner first, then re-stamp
 # fresh if still failing, or write the clean thesis if it now passes. The old code only prepended-if-
 # absent, so a fixed re-run in the same folder kept a stale PROVISIONAL banner with outdated reasons.
@@ -366,12 +396,12 @@ if i < len(lines) and lines[i].startswith(">") and "PROVISIONAL — the automate
     body = "\n".join(lines[i:])
 if viol:
     banner = ("> ⚠️ **PROVISIONAL — the automated finish-gate found an integrity issue; this thesis was committed UNVERIFIED.**\n> "
-              + "; ".join(viol) + "\n>\n> Re-run the synthesizer Step 4 / §14 math and re-publish before relying on these numbers. (CLAUDE.md §10; finish-gate F01/F17.)\n\n")
+              + "; ".join(viol) + "\n>\n> Resolve the flagged issue(s) before relying on these numbers — see each violation above for the required action. (CLAUDE.md §7/§10/§11/§14; finish-gate.)\n\n")
     open(ft, "w", encoding="utf-8").write(banner + body)
     print("GATE: PROVISIONAL — " + "; ".join(viol))
 else:
     open(ft, "w", encoding="utf-8").write(body)   # write back the cleaned thesis (strips any now-stale banner)
-    print("GATE: PASS — scenario math reconciles; missing-price and score-range caps satisfied")
+    print("GATE: PASS — scenario math, score ranges, §11 data-sufficiency cap, §7 edge gate, and §14 external-variable cap all satisfied")
 PY
 ```
 
