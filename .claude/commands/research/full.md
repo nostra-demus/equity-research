@@ -362,7 +362,14 @@ def _isdate(s):  # mirrors eval.py isdate(): a non-string / malformed value fail
     try: datetime.date.fromisoformat(s); return True
     except Exception: return False
 _CONVICTION = {"Strong Buy", "Buy", "Starter Position Only", "Short Candidate"}
-dec = d.get("decision") or ""; ds = d.get("data_sufficiency_score")
+# [review fix r3479582220] a truthy non-string `decision` (list/dict) is coerced to "" so the membership
+# tests below (`dec in _CONVICTION` / `dec in _ABOVE_STARTER`, both against sets) can never raise
+# TypeError: unhashable type and crash the ship path — the same fail-closed treatment already given to
+# edge_proof / decision_date. A present-but-non-string decision is malformed and FAILS CLOSED (PROVISIONAL),
+# never a crash and never a silent PASS.
+_dec = d.get("decision"); dec = _dec if isinstance(_dec, str) else ""; ds = d.get("data_sufficiency_score")
+if _dec is not None and not isinstance(_dec, str):
+    viol.append(f"decision={_dec!r} is not a string — §18 requires one of the allowed decision strings; a non-string decision is malformed and fails closed (PROVISIONAL)")
 if _isnum(ds):
     if ds < 30 and dec != "Insufficient Data — Refuse To Rate":
         viol.append(f"data_sufficiency_score={ds} < 30 (§11 insufficient) but decision={dec!r} — §18 requires 'Insufficient Data — Refuse To Rate'")
@@ -391,7 +398,9 @@ if _isdate(ddte) and ddte >= "2026-06-15":
 # check Z — §14 thesis_type enum + external-variable conviction cap; forward-looking from 2026-06-21;
 # mirrors ALL of eval.py eval_z_thesis_type_cap: an empty array, or an off-enum / non-string / wrong-casing
 # value, FAILs (it breaks thesis-type calibration); and an external-variable thesis with no proven edge must
-# not carry a conviction rating above 'Starter Position Only'. A non-list thesis_type is N/A (schema check B owns the type).
+# not carry a conviction rating above 'Starter Position Only'. [review fix r3479582208] a present-but-non-list
+# thesis_type (e.g. the string "Macro-conditional") FAILS CLOSED here: eval schema check B (thesis_type ∈
+# ARRAYS) rejects it post-commit, so the gate must not skip the §14 cap and print PASS on a record eval fails.
 if _isdate(ddte) and ddte >= "2026-06-21":
     tt = d.get("thesis_type"); es_z = d.get("edge_score")
     _ENUM = {"Company-specific", "Sector-cycle", "Macro-conditional", "Policy-conditional",
@@ -399,7 +408,9 @@ if _isdate(ddte) and ddte >= "2026-06-21":
              "Balance-sheet survival", "Pair trade / hedge", "Insufficient data"}
     _EXTERNAL = {"Macro-conditional", "Policy-conditional", "Commodity-conditional", "FX / rates", "Liquidity / positioning"}
     _ABOVE_STARTER = {"Strong Buy", "Buy", "Short Candidate"}
-    if isinstance(tt, list):
+    if tt is not None and not isinstance(tt, list):
+        viol.append(f"thesis_type={tt!r} is not a list — CLAUDE.md §14 requires an array classification and eval schema check B rejects a non-list thesis_type; the §14 external-variable cap cannot be evaluated on a mis-typed value")
+    elif isinstance(tt, list):
         _unknown = [t for t in tt if not isinstance(t, str) or t not in _ENUM]
         if not tt:
             viol.append("thesis_type is empty — CLAUDE.md §14 requires every thesis to classify itself as one of the closed-set types (e.g. 'Insufficient data')")
