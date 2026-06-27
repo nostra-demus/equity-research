@@ -10,7 +10,7 @@ let mode: 'live' | 'static' | null = null
 let snap: any = null
 let modeProbe: Promise<'live' | 'static'> | null = null
 
-async function ensureMode(): Promise<'live' | 'static'> {
+export async function ensureMode(): Promise<'live' | 'static'> {
   if (mode) return mode
   if (modeProbe) return modeProbe
   modeProbe = (async () => {
@@ -49,8 +49,13 @@ export function isStatic(): boolean {
   return mode === 'static'
 }
 
-async function get<T>(url: string): Promise<T> {
-  const r = await fetch(url)
+// Every control-plane GET is time-bounded. A bare fetch with no timeout can hang forever on a dead
+// socket (tunnel dropped, laptop asleep mid-request) and, when it gates boot (swarm/tickers), pin the
+// whole UI at "connecting". AbortSignal.timeout makes a hang a bounded failure the caller can retry —
+// the same pattern the enrich call already uses. Default ~15s covers a cold engine + the tunnel hop +
+// heavy JSON; pass a shorter budget for small, frequently-polled endpoints (e.g. news status).
+async function get<T>(url: string, timeoutMs = 15_000): Promise<T> {
+  const r = await fetch(url, { signal: AbortSignal.timeout(timeoutMs) })
   if (!r.ok) throw new Error(`${r.status} ${url}`)
   return r.json() as Promise<T>
 }
@@ -129,7 +134,7 @@ export const api = {
   newsStatus: async (): Promise<NewsStatus> => {
     if ((await ensureMode()) === 'static')
       return { enabled: false, running: false, intervalMin: 15, model: '', rssEnabled: false, lastCycleAt: null, nextCycleAt: null, lastNote: null, today: { read: 0, kept: 0, dropped: 0, cycles: 0 }, budget: { requests: 0, tokens: 0, reqCap: 0, tokenCap: 0 } }
-    return get(`/api/news/status`)
+    return get(`/api/news/status`, 8_000) // small + polled every 60s — a short budget keeps the rail snappy
   },
   newsSources: async (): Promise<SourcesReport> => {
     if ((await ensureMode()) === 'static') return { updated_at: new Date().toISOString(), counts: { total: 0, healthy: 0, quiet: 0, failing: 0, idle: 0 }, sources: [] }
@@ -245,7 +250,7 @@ export const api = {
   },
   credit: async (): Promise<Usage> => {
     if ((await ensureMode()) === 'static') return { ok: true, checked: false }
-    return get(`/api/credit`)
+    return get(`/api/credit`, 8_000)
   },
   creditCheck: async (): Promise<Usage> => {
     if ((await ensureMode()) === 'static') return { ok: true, checked: false }
