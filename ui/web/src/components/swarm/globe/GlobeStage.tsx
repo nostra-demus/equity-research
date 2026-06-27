@@ -22,6 +22,8 @@ export default function GlobeStage() {
   const nodeRuntime = useStore((s) => s.nodeRuntime)
   const now = useStore((s) => s.now)
   const setNow = useStore((s) => s.setNow)
+  const exiting = useStore((s) => s.globeExiting)
+  const finishExit = useStore((s) => s._finishGlobeExit)
   const colors = useGlobeColors()
   const { onNodeClick, openThesis, modulePop, setModulePop } = useNodeInteractions()
   const [hover, setHover] = useState<{ node: GlobeNode; x: number; y: number } | null>(null)
@@ -85,6 +87,8 @@ export default function GlobeStage() {
           nodeStatus={nodeStatus}
           colors={colors}
           reducedMotion={reducedMotion}
+          exiting={exiting}
+          onExitComplete={finishExit}
           hoverKey={hover?.node.key ?? null}
           onHover={(n, x, y) => setHover(n ? { node: n, x, y } : null)}
           onPick={(n, x, y) => onNodeClick(n, () => ({ cx: x, top: y - 14 }))}

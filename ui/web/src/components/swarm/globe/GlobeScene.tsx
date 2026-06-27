@@ -1,6 +1,6 @@
-import { useLayoutEffect, useMemo, useRef } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { AdditiveBlending, type BufferAttribute, Color, type Group, type InstancedMesh, Object3D, type Points, QuadraticBezierCurve3, Vector3 } from 'three'
+import { AdditiveBlending, BackSide, type BufferAttribute, Color, type Group, type InstancedMesh, Object3D, type Points, QuadraticBezierCurve3, type ShaderMaterial, Vector3 } from 'three'
 import { Html, Line, OrbitControls } from '@react-three/drei'
 import type { GlobeEdge, GlobeLayout, GlobeNode } from '../../../lib/globe-layout'
 import type { NodeStatus } from '../../../lib/types'
@@ -71,11 +71,40 @@ function DataFlow({ curves, color }: { curves: QuadraticBezierCurve3[]; color: C
   )
 }
 
+// A dependency/core/feeds arc rendered as a dashed line whose dashes MARCH toward the target — the 3D
+// analog of the constellation's .edge--flow. Every visible globe edge flows, giving the whole web motion.
+function FlowLine({ points, color, opacity, width, speed = 1.4 }: { points: Vector3[]; color: Color; opacity: number; width: number; speed?: number }) {
+  const ref = useRef<any>(null)
+  useFrame((_, delta) => {
+    const m = ref.current?.material
+    if (m) m.dashOffset -= delta * speed // negative offset = dashes travel toward the line's end (the target)
+  })
+  return <Line ref={ref} points={points} color={color} lineWidth={width} transparent opacity={opacity} dashed dashSize={0.32} gapSize={0.26} />
+}
+
+// Soft fresnel atmosphere rim so the globe READS as a lit sphere in dark mode (the classic Earth-glow
+// shader: a slightly larger back-side sphere, additive, brightest at the silhouette). Recolors with theme.
+const ATMO_VERT = 'varying vec3 vN; void main(){ vN = normalize(normalMatrix * normal); gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }'
+const ATMO_FRAG = 'uniform vec3 uColor; varying vec3 vN; void main(){ float i = clamp(pow(0.55 - dot(vN, vec3(0.0, 0.0, 1.0)), 4.2), 0.0, 1.0); gl_FragColor = vec4(uColor * i, i * 0.55); }'
+function Atmosphere({ color }: { color: Color }) {
+  const mat = useRef<ShaderMaterial>(null)
+  const uniforms = useMemo(() => ({ uColor: { value: color.clone() } }), []) // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { const m = mat.current; if (m) (m.uniforms.uColor.value as Color).copy(color) }, [color])
+  return (
+    <mesh scale={1.04}>
+      <sphereGeometry args={[GLOBE.R, 48, 48]} />
+      <shaderMaterial ref={mat} uniforms={uniforms} vertexShader={ATMO_VERT} fragmentShader={ATMO_FRAG} transparent depthWrite={false} blending={AdditiveBlending} side={BackSide} />
+    </mesh>
+  )
+}
+
 export function GlobeScene({
   layout,
   nodeStatus,
   colors,
   reducedMotion,
+  exiting,
+  onExitComplete,
   hoverKey,
   onHover,
   onPick,
@@ -85,6 +114,8 @@ export function GlobeScene({
   nodeStatus: (key: string) => NodeStatus
   colors: GlobeColors
   reducedMotion: boolean
+  exiting: boolean
+  onExitComplete: () => void
   hoverKey: string | null
   onHover: (n: GlobeNode | null, clientX: number, clientY: number) => void
   onPick: (n: GlobeNode, clientX: number, clientY: number) => void
@@ -112,18 +143,41 @@ export function GlobeScene({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nodes, colors, statusSig, hoverKey])
 
-  // The flat→sphere "wrap" morph: the whole globe starts squashed almost flat (a disc facing the camera)
-  // and inflates to a full sphere over ~850ms. Animating the content group's scale.z (with a slight x/y
-  // overshoot) gives the "system wrapping into a globe" read with zero per-frame geometry rebuild — the
-  // nodes, arcs and core inflate together. Skipped under reduced-motion (mounts as a sphere).
+  // The flat↔sphere "wrap" morph. The whole globe starts squashed almost flat (a disc facing the camera)
+  // and slowly inflates to a full sphere (~1.6s) — the "system wrapping into a globe" read — and on exit
+  // deflates back to flat before handing control to the constellation (the unwrap). Animating the content
+  // group's scale.z (with a slight x/y overshoot), eased both ways, so nodes/arcs/core wrap together with
+  // zero per-frame geometry rebuild. Skipped under reduced-motion (mounts/leaves instantly).
+  const MORPH_DUR = 2.6 // seconds each way — a slow, luxurious wrap/unwrap you can watch
   const groupRef = useRef<Group>(null)
   const morph = useRef(reducedMotion ? 1 : 0)
-  useFrame((_, delta) => {
-    if (morph.current >= 1) return
-    morph.current = Math.min(1, morph.current + delta / 0.85)
-    const e = 1 - Math.pow(1 - morph.current, 4) // easeOutQuart — confident settle
-    const lp = (a: number, b: number) => a + (b - a) * e
-    groupRef.current?.scale.set(lp(1.18, 1), lp(1.18, 1), lp(0.04, 1))
+  const startT = useRef<number | null>(null) // absolute render-clock time the current morph began
+  const startVal = useRef(morph.current)
+  const exitDone = useRef(false)
+  useEffect(() => { startT.current = null }, [exiting]) // new direction → recapture start time + value
+  useFrame((state) => {
+    const g = groupRef.current
+    if (!g) return
+    const target = exiting ? 0 : 1
+    const setScale = (m: number) => {
+      const e = m < 0.5 ? 4 * m * m * m : 1 - Math.pow(-2 * m + 2, 3) / 2 // easeInOutCubic — smooth both ways
+      const lp = (a: number, b: number) => a + (b - a) * e
+      g.scale.set(lp(1.18, 1), lp(1.18, 1), lp(0.04, 1))
+    }
+    if (morph.current === target) {
+      setScale(target)
+      if (exiting && !exitDone.current) { exitDone.current = true; onExitComplete() }
+      return
+    }
+    if (startT.current === null) { startT.current = state.clock.elapsedTime; startVal.current = morph.current }
+    // time-based progress → exactly MORPH_DUR seconds regardless of frame rate (delta accumulation drifted)
+    const p = Math.min(1, (state.clock.elapsedTime - startT.current) / MORPH_DUR)
+    morph.current = startVal.current + (target - startVal.current) * p
+    setScale(morph.current)
+    if (p >= 1) {
+      morph.current = target
+      if (exiting && !exitDone.current) { exitDone.current = true; onExitComplete() }
+    }
   })
 
   // ---- live status grammar: smooth scale pulse on queued/running orbs (render clock, not the 1s tick) ----
@@ -194,28 +248,30 @@ export function GlobeScene({
       />
 
       <group ref={groupRef} scale={reducedMotion ? 1 : [1.18, 1.18, 0.04]}>
-      {/* occluder shell: opaque bg sphere just inside R so far-side arcs/nodes are truly hidden (depth) */}
+      {/* soft fresnel atmosphere rim — makes the globe read as a lit sphere, especially in dark mode */}
+      <Atmosphere color={colors.accent} />
+      {/* body sphere: a tinted dark orb lifted off the page bg, which ALSO occludes far-side arcs/nodes */}
       <mesh>
-        <sphereGeometry args={[GLOBE.R * 0.985, 48, 48]} />
-        <meshBasicMaterial color={colors.bg} />
+        <sphereGeometry args={[GLOBE.R * 0.99, 48, 48]} />
+        <meshBasicMaterial color={colors.bg.clone().lerp(colors.hairline, 0.55)} />
       </mesh>
-      {/* faint wireframe so the volume reads as a globe */}
+      {/* lat/long grid — a warm, clearly-visible wireframe so the volume reads as a globe */}
       <mesh>
-        <sphereGeometry args={[GLOBE.R, 24, 18]} />
-        <meshBasicMaterial color={colors.hairline} wireframe transparent opacity={0.12} />
+        <sphereGeometry args={[GLOBE.R, 32, 20]} />
+        <meshBasicMaterial color={colors.hairline.clone().lerp(colors.accentDeep, 0.6)} wireframe transparent opacity={0.22} />
       </mesh>
 
-      {/* edges */}
+      {/* edges — every arc FLOWS (dashes march toward the target), the 3D analog of .edge--flow */}
       {visibleEdges.map((e) => {
         const lit = hoverKey != null && (e.fromKey === hoverKey || e.toKey === hoverKey)
         return (
-          <Line
+          <FlowLine
             key={e.id}
             points={edgePoints(e)}
-            color={lit ? colors.accentBright : e.kind === 'core' ? colors.accentDeep : colors.accentDeep}
-            lineWidth={lit ? 1.8 : 1}
-            transparent
-            opacity={lit ? 0.95 : e.kind === 'core' ? 0.5 : 0.32}
+            color={lit ? colors.accentBright : colors.accentDeep}
+            width={lit ? 2 : 1.1}
+            opacity={lit ? 0.95 : e.kind === 'core' ? 0.6 : 0.42}
+            speed={lit ? 2.4 : 1.4}
           />
         )
       })}

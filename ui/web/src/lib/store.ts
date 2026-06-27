@@ -27,13 +27,13 @@ function saveShelf(s: Set<string>): void {
   try { localStorage.setItem(SHELF_KEY, JSON.stringify([...s].slice(-500))) } catch {}
 }
 
-// The research stage's renderer: the flat 2D constellation (default) or the 3D globe. A per-browser
-// presentation preference like the theme — persisted to localStorage, never leaves the machine. Defaults
-// to 'constellation'; any unset/garbled value falls back to flat, so the heavier WebGL view is strictly
-// opt-in. init() coerces a stored 'globe' back to 'constellation' when WebGL is unavailable (no strand).
+// The research stage's renderer: the 3D globe (default) or the flat 2D constellation. A per-browser
+// presentation preference like the theme — persisted to localStorage, never leaves the machine. Globe is
+// the default; only an explicit 'constellation' choice opts out. init() coerces a stored/default 'globe'
+// back to 'constellation' when WebGL is unavailable (no strand).
 const VIEW_KEY = 'nsw.researchView'
 function loadView(): 'constellation' | 'globe' {
-  try { return localStorage.getItem(VIEW_KEY) === 'globe' ? 'globe' : 'constellation' } catch { return 'constellation' }
+  try { return localStorage.getItem(VIEW_KEY) === 'constellation' ? 'constellation' : 'globe' } catch { return 'globe' }
 }
 // One-time, cached WebGL capability probe (a context creation, immediately released). The globe needs it;
 // the toggle disables the Globe option and we coerce away from it when this is false.
@@ -154,10 +154,15 @@ interface State {
   // ---- swarms (multi-swarm cockpit; research is the grandfathered default) ----
   swarms: SwarmMeta[]
   activeSwarm: string // 'research' | 'screener' | future swarms
-  // research stage renderer: flat 2D constellation (default) or the 3D globe. Persisted; opt-in.
+  // research stage renderer: the 3D globe (default) or the flat 2D constellation. Persisted.
   researchView: 'constellation' | 'globe'
   setResearchView: (v: 'constellation' | 'globe') => void
   webglOK: boolean // WebGL available — gates the globe option (probed once in init)
+  // true while the globe plays its UNWRAP (deflate) before handing back to the constellation, so leaving
+  // the globe is a slow reverse-morph rather than an instant cut.
+  globeExiting: boolean
+  requestConstellation: () => void // toggle → start the unwrap (or switch instantly under reduced-motion)
+  _finishGlobeExit: () => void // the globe calls this when the unwrap completes
   // the warp transition between swarms; landing carries an optional research ticker to preselect
   warp: { from: string; to: string; payloadTicker?: string; landTicker?: string; phase: 'collapse' | 'traverse' | 'bloom' } | null
   // screener slice (self-contained so the research paths stay untouched)
@@ -382,6 +387,7 @@ export const useStore = create<State>((set, get) => ({
   activeSwarm: typeof window !== 'undefined' && (window as any).__ENGINE_LIVE__ === true ? 'screener' : 'research',
   researchView: loadView(),
   webglOK: true, // optimistic; init() probes and corrects + coerces the view if WebGL is missing
+  globeExiting: false,
   warp: null,
   scGraph: null,
   scNodesByKey: new Map(),
@@ -622,8 +628,22 @@ export const useStore = create<State>((set, get) => ({
   setResearchView: (v) => {
     if (v === 'globe' && !get().webglOK) return // never strand into a view WebGL can't render
     try { localStorage.setItem(VIEW_KEY, v) } catch {}
-    set({ researchView: v })
+    set({ researchView: v, globeExiting: false })
   },
+
+  // Going globe → constellation: play the globe's unwrap (deflate) first, THEN switch — unless reduced
+  // motion (or we're not actually on the globe), in which case switch instantly. Persist the choice now so
+  // a reload respects it even mid-unwrap.
+  requestConstellation: () => {
+    const reduce = typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    try { localStorage.setItem(VIEW_KEY, 'constellation') } catch {}
+    if (get().researchView !== 'globe' || reduce) {
+      set({ researchView: 'constellation', globeExiting: false })
+    } else {
+      set({ globeExiting: true }) // the globe deflates, then calls _finishGlobeExit
+    }
+  },
+  _finishGlobeExit: () => set({ researchView: 'constellation', globeExiting: false }),
 
   selectNode: (key) => set({ selectedNodeKey: key }),
   setNow: (n) => set({ now: n }),
