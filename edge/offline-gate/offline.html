@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta http-equiv="refresh" content="60" />
+<meta http-equiv="refresh" content="15" />
 <title>System offline · Nostradamus</title>
 <style>
   :root {
@@ -54,26 +54,33 @@
     </svg>
     <h1>System offline</h1>
     <p>The research engine’s machine is asleep or offline. This page will reconnect automatically when the engine is back online.</p>
-    <div class="status"><span class="dot"></span><span id="s">Checking every 10 seconds…</span></div>
+    <div class="status"><span class="dot"></span><span id="s">Checking every few seconds…</span></div>
     <div class="brandname">Nostradamus Swarm</div>
-    <noscript><p style="margin-top:16px; color:#56565f;">Auto-refreshing every 60 seconds.</p></noscript>
+    <noscript><p style="margin-top:16px; color:#56565f;">Auto-refreshing every 15 seconds.</p></noscript>
   </main>
   <script>
     var s = document.getElementById('s');
+    var reloading = false;
     // Reload ONLY on a real healthy engine ({ok:true} JSON) — never on the Worker's own 503 marker
     // or a Cloudflare/Access HTML page, which would cause a reload loop.
     async function check() {
+      if (reloading) return;
       try {
         var r = await fetch('/api/health', { cache: 'no-store', headers: { accept: 'application/json' } });
         var ct = r.headers.get('content-type') || '';
         if (r.ok && ct.indexOf('application/json') !== -1) {
           var j = await r.json().catch(function () { return null; });
-          if (j && j.ok === true) { s.textContent = 'Back online — reloading…'; location.reload(); return; }
+          if (j && j.ok === true) { reloading = true; s.textContent = 'Back online — reloading…'; location.reload(); return; }
         }
       } catch (e) { /* still offline */ }
     }
-    setInterval(check, 10000);
-    setTimeout(check, 2000);
+    // Poll fast so the page jumps back the instant the engine returns, and probe IMMEDIATELY whenever the
+    // visitor refocuses the tab or their network comes back — no waiting for the next interval.
+    setInterval(check, 3000);
+    setTimeout(check, 600);
+    document.addEventListener('visibilitychange', function () { if (!document.hidden) check(); });
+    window.addEventListener('focus', check);
+    window.addEventListener('online', check);
   </script>
 </body>
 </html>
