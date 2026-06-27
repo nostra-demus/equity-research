@@ -328,11 +328,11 @@ Run this step only if `<RUN_ROOT>/final_thesis.md` and `<RUN_ROOT>/decision_reco
 
 ### 10B.1 — Deterministic validator (always runs; can stamp the thesis PROVISIONAL)
 
-Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (the same identities the `eval` harness check M asserts) and the missing-price / score-range caps, and prepends a PROVISIONAL banner to `final_thesis.md` if a hard inconsistency is found:
+Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (same identities as `eval` harness check M), the missing-price / score-range caps, the §11 data-sufficiency ↔ decision cap (check Y), the §7 edge gate (check V), and the §14 external-variable conviction cap (check Z). Prepends a PROVISIONAL banner to `final_thesis.md` if any inconsistency is found:
 
 ```bash
 python3 - "<RUN_ROOT>" <<'PY'
-import json, os, re, sys
+import json, os, re, sys, datetime
 run = sys.argv[1]
 dr = os.path.join(run, "decision_record.json"); ft = os.path.join(run, "final_thesis.md")
 viol = []
@@ -351,9 +351,82 @@ elif d.get("expected_return_pct") is not None:
     viol.append("expected_return_pct is set but scenarios[] is missing — the math cannot be re-derived")
 if d.get("entry_price") is None and not re.search(r"(price|not assessable|paper trade)", (d.get("notes") or "").lower()):
     viol.append("entry_price is null but notes do not flag the missing/indicative price (margin of safety must be Not assessable)")
+# _isnum mirrors eval.py isnum() (numeric, bool excluded); shared by the score-range, data-sufficiency,
+# edge, and external-variable checks below — defined here, before its first use in the score-range loop.
+_isnum = lambda v: isinstance(v, (int, float)) and not isinstance(v, bool)
 for k in ("confidence_score", "data_sufficiency_score"):
     v = d.get(k)
-    if isinstance(v, (int, float)) and not (0 <= v <= 100): viol.append(f"{k}={v} outside 0–100")
+    # [review fix r3481332826] mirror eval.py check E (numeric hygiene, always-apply): a present-but-non-numeric
+    # score (e.g. the JSON string "75") must FAIL CLOSED. The old test only caught numeric-out-of-range, so a
+    # string score slipped past BOTH this loop and the _isnum-guarded edge gate below and printed GATE: PASS —
+    # while eval check E rejects the same record post-commit. bool is excluded (eval isnum excludes it too).
+    if v is not None and not _isnum(v):
+        viol.append(f"{k}={v!r} is present but not a number — eval check E requires a numeric /100 score; a non-numeric value fails closed (PROVISIONAL)")
+    elif _isnum(v) and not (0 <= v <= 100): viol.append(f"{k}={v} outside 0–100")
+# check Y — §11 data-sufficiency ↔ decision cap (always-apply; mirrors eval.py check Y).
+# A conviction decision on thin data ships as confidently as one on strong data — the synthesizer is
+# instructed to enforce this cap, but without a gate the instruction has no teeth.
+def _isdate(s):  # mirrors eval.py isdate(): a non-string / malformed value fails closed (False) instead of crashing the ship gate
+    try: datetime.date.fromisoformat(s); return True
+    except Exception: return False
+_CONVICTION = {"Strong Buy", "Buy", "Starter Position Only", "Short Candidate"}
+# [review fix r3479582220] a truthy non-string `decision` (list/dict) is coerced to "" so the membership
+# tests below (`dec in _CONVICTION` / `dec in _ABOVE_STARTER`, both against sets) can never raise
+# TypeError: unhashable type and crash the ship path — the same fail-closed treatment already given to
+# edge_proof / decision_date. A present-but-non-string decision is malformed and FAILS CLOSED (PROVISIONAL),
+# never a crash and never a silent PASS.
+_dec = d.get("decision"); dec = _dec if isinstance(_dec, str) else ""; ds = d.get("data_sufficiency_score")
+if _dec is not None and not isinstance(_dec, str):
+    viol.append(f"decision={_dec!r} is not a string — §18 requires one of the allowed decision strings; a non-string decision is malformed and fails closed (PROVISIONAL)")
+if _isnum(ds):
+    if ds < 30 and dec != "Insufficient Data — Refuse To Rate":
+        viol.append(f"data_sufficiency_score={ds} < 30 (§11 insufficient) but decision={dec!r} — §18 requires 'Insufficient Data — Refuse To Rate'")
+    elif 30 <= ds < 50 and dec in _CONVICTION:
+        viol.append(f"data_sufficiency_score={ds} in 30–49 (§11 weak) but decision={dec!r} is conviction — §11 caps at Watchlist; conviction requires score ≥ 50")
+elif dec in _CONVICTION:
+    viol.append(f"data_sufficiency_score absent/non-numeric ({ds!r}) but decision={dec!r} is conviction — §11 requires a /100 sufficiency score")
+# check V — §7 edge gate; forward-looking from 2026-06-15; mirrors ALL THREE eval.py check-V conditions.
+# (1) edge_score, when present, must be 0–100; (2) a claimed edge (edge_score ≥ 50) needs a non-empty,
+# falsifiable edge_proof; (3) confidence >60 requires a proven edge — restated consensus is not an edge.
+# A non-string decision_date or non-string edge_proof fails closed (PROVISIONAL), never crashes the ship path.
+ddte = d.get("decision_date")
+# B2 mirror (eval.py:607-609, always-apply): decision_date must be a real ISO date. _isdate() stops a malformed
+# truthy date from crashing the §7/§14 forward gates, but a missing/invalid date must still FAIL CLOSED here —
+# eval B2 rejects it post-commit, so flag it rather than silently skip the gates and print PASS.
+if not _isdate(ddte):
+    viol.append(f"decision_date={ddte!r} is not a valid ISO date (YYYY-MM-DD) — eval B2 requires a real date; the §7/§14 forward-looking gates cannot be evaluated without it")
+if _isdate(ddte) and ddte >= "2026-06-15":
+    es = d.get("edge_score"); _ep = d.get("edge_proof"); ep = _ep.strip() if isinstance(_ep, str) else ""; cf = d.get("confidence_score")
+    if es is not None and not (_isnum(es) and 0 <= es <= 100):
+        viol.append(f"edge_score={es!r} not a 0–100 number — §7 edge gate")
+    if _isnum(es) and es >= 50 and not ep:
+        viol.append(f"edge_score={es} ≥50 but edge_proof empty/non-string — a proven edge needs a falsifiable test (§7)")
+    if _isnum(cf) and cf > 60 and not (_isnum(es) and es >= 50 and ep):
+        viol.append(f"confidence_score={cf} >60 but edge not proven (edge_score={es!r}, edge_proof={'set' if ep else 'empty'}) — §7 edge gate: confidence >60 requires edge_score ≥ 50 + non-empty edge_proof")
+# check Z — §14 thesis_type enum + external-variable conviction cap; forward-looking from 2026-06-21;
+# mirrors ALL of eval.py eval_z_thesis_type_cap: an empty array, or an off-enum / non-string / wrong-casing
+# value, FAILs (it breaks thesis-type calibration); and an external-variable thesis with no proven edge must
+# not carry a conviction rating above 'Starter Position Only'. [review fix r3479582208] a present-but-non-list
+# thesis_type (e.g. the string "Macro-conditional"), AND an absent/null thesis_type [review fix r3481332820],
+# FAIL CLOSED here: eval schema check B (thesis_type ∈ REQ ∩ ARRAYS) rejects a missing/null/non-list value
+# post-commit, so the gate must not skip the §14 cap and print PASS on a record eval fails.
+if _isdate(ddte) and ddte >= "2026-06-21":
+    tt = d.get("thesis_type"); es_z = d.get("edge_score")
+    _ENUM = {"Company-specific", "Sector-cycle", "Macro-conditional", "Policy-conditional",
+             "Commodity-conditional", "FX / rates", "Liquidity / positioning", "Governance turnaround",
+             "Balance-sheet survival", "Pair trade / hedge", "Insufficient data"}
+    _EXTERNAL = {"Macro-conditional", "Policy-conditional", "Commodity-conditional", "FX / rates", "Liquidity / positioning"}
+    _ABOVE_STARTER = {"Strong Buy", "Buy", "Short Candidate"}
+    if not isinstance(tt, list):
+        viol.append(f"thesis_type={tt!r} is absent or not a list — CLAUDE.md §14 requires an array classification and eval schema check B (thesis_type ∈ REQ ∩ ARRAYS) rejects a missing/null/non-list thesis_type; the §14 external-variable cap cannot be evaluated on a mis-typed value")
+    elif isinstance(tt, list):
+        _unknown = [t for t in tt if not isinstance(t, str) or t not in _ENUM]
+        if not tt:
+            viol.append("thesis_type is empty — CLAUDE.md §14 requires every thesis to classify itself as one of the closed-set types (e.g. 'Insufficient data')")
+        elif _unknown:
+            viol.append(f"thesis_type contains value(s) not in the CLAUDE.md §14 closed enum: {_unknown} — use exact canonical strings (case-sensitive)")
+        elif any(t in _EXTERNAL for t in tt) and dec in _ABOVE_STARTER and not (_isnum(es_z) and es_z >= 50):
+            viol.append(f"thesis_type={tt} includes external-variable type(s) but edge_score={es_z!r} <50 and decision={dec!r} exceeds 'Starter Position Only' — §14 cap")
 # [PR#9 review fix] idempotent banner: ALWAYS strip any prior finish-gate banner first, then re-stamp
 # fresh if still failing, or write the clean thesis if it now passes. The old code only prepended-if-
 # absent, so a fixed re-run in the same folder kept a stale PROVISIONAL banner with outdated reasons.
@@ -366,12 +439,12 @@ if i < len(lines) and lines[i].startswith(">") and "PROVISIONAL — the automate
     body = "\n".join(lines[i:])
 if viol:
     banner = ("> ⚠️ **PROVISIONAL — the automated finish-gate found an integrity issue; this thesis was committed UNVERIFIED.**\n> "
-              + "; ".join(viol) + "\n>\n> Re-run the synthesizer Step 4 / §14 math and re-publish before relying on these numbers. (CLAUDE.md §10; finish-gate F01/F17.)\n\n")
+              + "; ".join(viol) + "\n>\n> Resolve the flagged issue(s) before relying on these numbers — see each violation above for the required action. (CLAUDE.md §7/§10/§11/§14; finish-gate.)\n\n")
     open(ft, "w", encoding="utf-8").write(banner + body)
     print("GATE: PROVISIONAL — " + "; ".join(viol))
 else:
     open(ft, "w", encoding="utf-8").write(body)   # write back the cleaned thesis (strips any now-stale banner)
-    print("GATE: PASS — scenario math reconciles; missing-price and score-range caps satisfied")
+    print("GATE: PASS — scenario math, score ranges, §11 data-sufficiency cap, §7 edge gate, and §14 external-variable cap all satisfied")
 PY
 ```
 
