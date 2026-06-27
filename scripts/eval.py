@@ -281,6 +281,36 @@ def eval_ab_bm_verdict_lock(decision, decision_date, bm_verdict):
             )
     return violations
 
+# ── Check AC (§24 Filter 2 turnaround conviction cap) ────────────────────────────────────
+# The synthesizer's Rating Cap Rules document that a "Governance turnaround" thesis_type is
+# capped at "Starter Position Only" or below (CLAUDE.md §24 Filter 2: "the base rate of
+# turnaround success is low ... a turnaround thesis without [≥2–3 yrs delivered improvement]
+# carries a base-rate penalty and a conviction cap, and is classified honestly as a governance-
+# turnaround thesis"). That cap lived only in the synthesizer's prompt — this check closes the
+# mechanical enforcement gap by reading thesis_type from the committed decision_record.json.
+#
+# No edge exception: unlike the external-variable cap (Z), the turnaround cap has no edge-score
+# bypass. If delivered improvement was proven, the thesis reclassifies away from "Governance
+# turnaround" — so the type is self-declaring the inflection unproven. "Short Candidate" is
+# intentionally excluded from ABOVE_STARTER_AC: shorting a failing turnaround is a distinct,
+# valid high-conviction thesis.
+#
+# Landing date: 2026-06-27 (forward-looking; all three golden fixtures predate → N/A → suite green).
+AC_DATE = "2026-06-27"
+TURNAROUND_TYPE = "Governance turnaround"
+ABOVE_STARTER_AC = {"Strong Buy", "Buy"}  # decisions that exceed the turnaround cap ceiling
+
+def eval_ac_turnaround_cap(decision, decision_date, thesis_type):
+    """Core of check AC. Returns 'pass' | 'fail' | 'na'.
+    Side-effect-free + module-level so the selftest exercises the logic without run fixtures."""
+    if not (isdate(decision_date) and decision_date >= AC_DATE):
+        return "na"   # forward-looking; pre-gate runs N/A
+    if not isinstance(thesis_type, list):
+        return "na"   # type mismatch → check B handles it
+    if TURNAROUND_TYPE not in thesis_type:
+        return "pass"  # no governance-turnaround type → cap not triggered
+    return "fail" if decision in ABOVE_STARTER_AC else "pass"
+
 if scope=="selftest":
     # Fixture-free coverage for check W — the golden suite can't exercise it (every committed run is
     # pre-gate / blank-fielded, so W is always N/A there). Asserts forbidden combos FAIL, correct combos
@@ -552,7 +582,41 @@ if scope=="selftest":
         bm_r=(bm_[:40]+"…" if isinstance(bm_,str) and len(bm_)>40 else bm_)
         print(f"  [{'ok' if ok else 'XX'}] AB({dec_!r},{dt_!r},{bm_r!r}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
     bad+=abbad
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB cases")
+    # check AC — §24 Filter 2 turnaround conviction cap. All golden fixtures predate AC_DATE
+    # → always N/A in the main loop; drive every branch here.
+    AC=eval_ac_turnaround_cap
+    accases=[  # (decision, decision_date, thesis_type, expect: "na"|"pass"|"fail")
+        # pre-gate: always N/A
+        ("Strong Buy","2026-06-26",["Governance turnaround"],"na"),
+        ("Strong Buy","not-a-date",["Governance turnaround"],"na"),
+        # non-list thesis_type: N/A (check B handles type errors)
+        ("Strong Buy","2026-06-27",None,"na"),
+        ("Strong Buy","2026-06-27","Governance turnaround","na"),  # string not list
+        # Governance turnaround + Buy/Strong Buy → fail (cap violation)
+        ("Strong Buy","2026-06-27",["Governance turnaround"],"fail"),
+        ("Buy","2026-06-27",["Governance turnaround"],"fail"),
+        # mixed list: Governance turnaround + another type → still caps
+        ("Buy","2026-06-27",["Governance turnaround","Company-specific"],"fail"),
+        # Governance turnaround + at/below ceiling → pass
+        ("Starter Position Only","2026-06-27",["Governance turnaround"],"pass"),
+        ("Watchlist","2026-06-27",["Governance turnaround"],"pass"),
+        ("Avoid","2026-06-27",["Governance turnaround"],"pass"),
+        ("Insufficient Data — Refuse To Rate","2026-06-27",["Governance turnaround"],"pass"),
+        # Short Candidate intentionally not capped (shorting a failing turnaround is valid)
+        ("Short Candidate","2026-06-27",["Governance turnaround"],"pass"),
+        # non-turnaround type → cap not triggered, any conviction allowed
+        ("Strong Buy","2026-06-27",["Company-specific"],"pass"),
+        ("Buy","2026-06-27",["Sector-cycle","Company-specific"],"pass"),
+        # empty list: cap not triggered (Z handles empty-list enum; AC only cares about TURNAROUND_TYPE presence)
+        ("Strong Buy","2026-06-27",[],"pass"),
+    ]
+    acbad=0
+    for dec_,dt_,tt_,exp in accases:
+        got=AC(dec_,dt_,tt_); ok=(got==exp)
+        if not ok: acbad+=1
+        print(f"  [{'ok' if ok else 'XX'}] AC({dec_!r},{dt_!r},{tt_!r}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
+    bad+=acbad
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC cases")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -1076,6 +1140,32 @@ for drp in runs:
             add("AB_bm_disqualifier_lock",False,"; ".join(abresult))
     else:
         add("AB_bm_disqualifier_lock",True,f"run predates BM disqualifier gate ({ddte}) — N/A",na=True)
+    # AC §24 Filter 2 turnaround conviction cap (forward-looking; landing AC_DATE)
+    #   CLAUDE.md §24 Filter 2 states the base rate of turnaround success is low and that a
+    #   turnaround thesis without ≥2–3 yrs delivered improvement carries a conviction cap and
+    #   must be classified honestly as a "Governance turnaround" thesis. The synthesizer's
+    #   Rating Cap Rules document this: "turnaround without ≥2–3 yrs delivered inflection →
+    #   no better than 'Starter Position Only'". This check closes the mechanical enforcement
+    #   gap: when decision_record.json declares thesis_type includes "Governance turnaround"
+    #   and the decision is "Buy" or "Strong Buy", that is a doctrine violation. Short Candidate
+    #   is intentionally excluded (shorting a failing turnaround is a valid high-conviction
+    #   thesis). No edge-score bypass: if delivered improvement was proven, the thesis would
+    #   reclassify away from "Governance turnaround", so the type is self-declaring the cap.
+    if isdate(ddte) and ddte>=AC_DATE:
+        tt=d.get("thesis_type")
+        acresult=eval_ac_turnaround_cap(dec,ddte,tt)
+        if acresult=="na":
+            add("AC_turnaround_cap",True,f"thesis_type={tt!r} — not a list or no '{TURNAROUND_TYPE}' → N/A",na=True)
+        elif acresult=="pass":
+            add("AC_turnaround_cap",True,
+                f"thesis_type={tt!r}; decision={dec!r} — §24 Filter 2 turnaround cap satisfied")
+        else:
+            add("AC_turnaround_cap",False,
+                f"thesis_type={tt!r} includes '{TURNAROUND_TYPE}' but decision={dec!r} exceeds the cap "
+                f"(synthesizer.md Rating Cap Rules: max 'Starter Position Only' for turnaround thesis "
+                f"without ≥2–3 yrs delivered inflection; CLAUDE.md §24 Filter 2)")
+    else:
+        add("AC_turnaround_cap",True,f"run predates turnaround-cap gate ({ddte}) — N/A",na=True)
     # WARN non-schema files
     # [review fix] suppress only genuine versioned/audit/review artifacts via PRECISE patterns — the old naive
     # `"_v" not in name` / `"review" not in name` substring tests hid real strays (preview.md, *_v*-named scratch).
@@ -1130,7 +1220,7 @@ FRAMEWORK_CONTRACTS={
  "frameworks/DECISION_LEDGER.md":["Memo delta","memo_delta","thesis_delta_verdict","stage_one_comment","rerun_command","_memo_delta.md","business_type","primary_valuation_method"],
  ".claude/commands/research/review-decisions.md":["memo_delta","stage_one_comment","rerun_command","Pool first","_memo_delta"],
  ".claude/commands/research/eval.md":["scripts/eval.py"],
- "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock"],
+ "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap"],
  ".github/workflows/ci.yml":["eval-contracts","scripts/eval.py"],
 }
 jchecks=[]
