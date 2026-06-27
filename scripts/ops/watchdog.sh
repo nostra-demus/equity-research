@@ -64,16 +64,46 @@ else
   fi
 fi
 
-# 3) tunnel / public reachability (only checked when the engine is locally healthy)
+# Kill a STRAY second engine on a non-:8787 port (a duplicate node doubling filesystem/LLM load — the
+# :8799 incident). Bounded to known stray ports, never :8787 (launchd owns that). Skipped only when the
+# engine is locally DOWN this cycle, so we never fight a real engine-down repair.
+if [ "$problem" != "engine-down" ]; then
+  extra="$(lsof -nP -iTCP -sTCP:LISTEN 2>/dev/null | awk '/node/ && /:(8788|8789|879[0-9])/{print $2}' | sort -u)"
+  if [ -n "$extra" ]; then
+    log "DUP-ENGINE strays on non-8787 ports pids=$(echo "$extra" | tr '\n' ' ')— killing"
+    echo "$extra" | xargs kill -9 2>/dev/null || true
+  fi
+fi
+
+# 3) tunnel / public reachability (only checked when the engine is locally healthy). Capture the HTTP
+#    code, total time, AND the x-engine-status header so we can tell apart three distinct states:
+#      - dead tunnel       (code 000, or a Cloudflare 5xx >= 520)        -> re-kick the tunnel
+#      - public-offline    (edge serving offline while local /api/health is fast: x-engine-status:offline
+#                           or a 503) -> the tunnel dropped or the edge can't reach the origin; re-kick it.
+#                           (The OLD check only caught code==000, so this whole class self-healed never.)
+#      - slow-but-working  (200, just slow) -> LOG only, never heal (healing a working path = churn).
 if [ -z "$problem" ]; then
-  pub="$(curl -s -o /dev/null -w '%{http_code}' --max-time 8 "https://app.nostra-demus.com/api/health" 2>/dev/null || echo 000)"
-  [ "$pub" = "000" ] && { problem="tunnel-down"; detail="pub=$pub"; }
+  hdr="$STATE_DIR/pub.hdr"
+  pub_meta="$(curl -s -o /dev/null -D "$hdr" -w '%{http_code} %{time_total}' --max-time 12 "https://app.nostra-demus.com/api/health" 2>/dev/null || echo '000 0')"
+  pub="${pub_meta%% *}"; pub_time="${pub_meta##* }"
+  pub_engine="$(awk -F': *' 'tolower($1)=="x-engine-status"{gsub(/\r/,"",$2);print tolower($2)}' "$hdr" 2>/dev/null)"
+  if [ "$pub" = "000" ] || { [ "$pub" -ge 520 ] 2>/dev/null; }; then
+    problem="tunnel-down"; detail="pub=$pub"
+  elif [ "$pub_engine" = "offline" ] || [ "$pub" = "503" ]; then
+    problem="public-offline"; detail="pub=$pub engine=${pub_engine:-?}"
+  else
+    awk "BEGIN{exit !(${pub_time:-0} > 8.0)}" 2>/dev/null && log "SLOW pub=$pub ${pub_time}s"
+  fi
 fi
 
 if [ -n "$problem" ]; then
   n=$(( $(get_fails) + 1 )); set_fails "$n"
   log "FAIL($n) $problem${detail:+ [$detail]}"
-  if [ "$n" -ge 2 ]; then
+  # Tunnel/public failures are unambiguous and cheap to heal idempotently → act on the FIRST fail so the
+  # public URL recovers fast. Engine/bundle wait for 2 (a single transient local blip shouldn't trigger a
+  # rebuild/restart).
+  thresh=2; case "$problem" in tunnel-down|public-offline) thresh=1;; esac
+  if [ "$n" -ge "$thresh" ]; then
     log "HEAL $problem"
     case "$problem" in
       bundle-not-js|no-bundle-ref)
@@ -88,7 +118,10 @@ if [ -n "$problem" ]; then
         lsof -ti:"$PORT" 2>/dev/null | xargs kill -9 2>/dev/null || true
         ensure_up com.nostradamus.engine
         ;;
-      tunnel-down)
+      tunnel-down|public-offline)
+        # the local engine is fine but the public path isn't — re-kick the tunnel (the lever we own). The
+        # edge Worker is stateless, so if public-offline persists after this the only remaining cause is the
+        # edge timeout (a code fix), and it just keeps getting logged each cycle.
         ensure_up com.nostradamus.tunnel
         ;;
     esac
