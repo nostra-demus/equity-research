@@ -1,5 +1,6 @@
 import { useLayoutEffect, useMemo, useRef } from 'react'
-import { Color, type InstancedMesh, Object3D, QuadraticBezierCurve3, Vector3 } from 'three'
+import { useFrame } from '@react-three/fiber'
+import { AdditiveBlending, type BufferAttribute, Color, type Group, type InstancedMesh, Object3D, type Points, QuadraticBezierCurve3, Vector3 } from 'three'
 import { Html, Line, OrbitControls } from '@react-three/drei'
 import type { GlobeEdge, GlobeLayout, GlobeNode } from '../../../lib/globe-layout'
 import type { NodeStatus } from '../../../lib/types'
@@ -29,6 +30,45 @@ function nodeColor(status: NodeStatus, isSynthesis: boolean, c: GlobeColors): Co
 function edgePoints(e: GlobeEdge): Vector3[] {
   const curve = new QuadraticBezierCurve3(v3(e.from), v3(e.mid), v3(e.to))
   return curve.getPoints(e.kind === 'feeds' ? 14 : 26)
+}
+
+// Light pulses travelling each ACTIVE edge toward its target — the 3D analog of the flat view's flowing
+// dashes. One additive Points draw call for all pulses across all active edges; positions are advanced
+// along the precomputed bezier each frame by the render clock. Fog dims the far-side pulses for free.
+const FLOW_TMP = new Vector3()
+const TMP_OBJ = new Object3D()
+function DataFlow({ curves, color }: { curves: QuadraticBezierCurve3[]; color: Color }) {
+  const K = 5 // pulses per edge
+  const count = curves.length * K
+  const ref = useRef<Points>(null)
+  const positions = useMemo(() => new Float32Array(Math.max(1, count) * 3), [count])
+  useFrame((state) => {
+    const pts = ref.current
+    if (!pts || !curves.length) return
+    const t = state.clock.elapsedTime
+    const attr = pts.geometry.attributes.position as BufferAttribute
+    const arr = attr.array as Float32Array
+    for (let ci = 0; ci < curves.length; ci++) {
+      for (let k = 0; k < K; k++) {
+        const phase = (t * 0.22 + k / K + ci * 0.13) % 1 // travels from→to, staggered per pulse/edge
+        curves[ci].getPoint(phase, FLOW_TMP)
+        const idx = (ci * K + k) * 3
+        arr[idx] = FLOW_TMP.x
+        arr[idx + 1] = FLOW_TMP.y
+        arr[idx + 2] = FLOW_TMP.z
+      }
+    }
+    attr.needsUpdate = true
+  })
+  if (!curves.length) return null
+  return (
+    <points ref={ref}>
+      <bufferGeometry>
+        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
+      </bufferGeometry>
+      <pointsMaterial color={color} size={0.5} sizeAttenuation transparent opacity={0.95} depthWrite={false} blending={AdditiveBlending} toneMapped={false} />
+    </points>
+  )
 }
 
 export function GlobeScene({
@@ -72,6 +112,58 @@ export function GlobeScene({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nodes, colors, statusSig, hoverKey])
 
+  // The flat→sphere "wrap" morph: the whole globe starts squashed almost flat (a disc facing the camera)
+  // and inflates to a full sphere over ~850ms. Animating the content group's scale.z (with a slight x/y
+  // overshoot) gives the "system wrapping into a globe" read with zero per-frame geometry rebuild — the
+  // nodes, arcs and core inflate together. Skipped under reduced-motion (mounts as a sphere).
+  const groupRef = useRef<Group>(null)
+  const morph = useRef(reducedMotion ? 1 : 0)
+  useFrame((_, delta) => {
+    if (morph.current >= 1) return
+    morph.current = Math.min(1, morph.current + delta / 0.85)
+    const e = 1 - Math.pow(1 - morph.current, 4) // easeOutQuart — confident settle
+    const lp = (a: number, b: number) => a + (b - a) * e
+    groupRef.current?.scale.set(lp(1.18, 1), lp(1.18, 1), lp(0.04, 1))
+  })
+
+  // ---- live status grammar: smooth scale pulse on queued/running orbs (render clock, not the 1s tick) ----
+  const statuses = useMemo(() => nodes.map((n) => nodeStatus(n.key)), [nodes, statusSig]) // eslint-disable-line react-hooks/exhaustive-deps
+  const liveIdx = useMemo(() => statuses.map((s, i) => (s === 'running' || s === 'queued' ? i : -1)).filter((i) => i >= 0), [statuses])
+  useFrame((state) => {
+    const mesh = meshRef.current
+    if (!mesh || !liveIdx.length) return
+    const t = state.clock.elapsedTime
+    for (const i of liveIdx) {
+      const n = nodes[i]
+      const running = statuses[i] === 'running'
+      const period = running ? 1.3 : 1.7 // running feels urgent, queued feels like waiting (matches the CSS)
+      const amp = running ? 0.3 : 0.16
+      const s = n.r * (1 + amp * (0.5 + 0.5 * Math.sin((t * 2 * Math.PI) / period)))
+      TMP_OBJ.position.set(n.pos.x, n.pos.y, n.pos.z)
+      TMP_OBJ.scale.setScalar(s)
+      TMP_OBJ.updateMatrix()
+      mesh.setMatrixAt(i, TMP_OBJ.matrix)
+    }
+    mesh.instanceMatrix.needsUpdate = true
+  })
+
+  // ---- active edges (data flowing): upstream module done feeding a live downstream / the Memo ----
+  const moduleDone = useMemo(() => {
+    const s = new Set<string>()
+    for (const a of layout.moduleAnchors) if (a.synthKey && nodeStatus(a.synthKey) === 'done') s.add(a.module)
+    return s
+  }, [layout.moduleAnchors, statusSig]) // eslint-disable-line react-hooks/exhaustive-deps
+  const activeMods = useMemo(() => new Set(nodes.filter((n, i) => statuses[i] === 'running' || statuses[i] === 'queued').map((n) => n.module)), [nodes, statuses])
+  const activeCurves = useMemo(() => {
+    const out: QuadraticBezierCurve3[] = []
+    for (const e of layout.edges) {
+      if (e.kind === 'feeds') continue
+      const flow = (e.kind === 'dep' && moduleDone.has(e.fromModule) && activeMods.has(e.toModule)) || (e.kind === 'core' && moduleDone.has(e.fromModule))
+      if (flow) out.push(new QuadraticBezierCurve3(v3(e.from), v3(e.mid), v3(e.to)))
+    }
+    return out
+  }, [layout.edges, moduleDone, activeMods])
+
   // dependency + core arcs always show (faint); feeds stay hidden until hover (like the flat EdgeLayer)
   const visibleEdges = useMemo(
     () => layout.edges.filter((e) => e.kind !== 'feeds' || (hoverKey && (e.fromKey === hoverKey || e.toKey === hoverKey))),
@@ -101,6 +193,7 @@ export function GlobeScene({
         autoRotateSpeed={0.4}
       />
 
+      <group ref={groupRef} scale={reducedMotion ? 1 : [1.18, 1.18, 0.04]}>
       {/* occluder shell: opaque bg sphere just inside R so far-side arcs/nodes are truly hidden (depth) */}
       <mesh>
         <sphereGeometry args={[GLOBE.R * 0.985, 48, 48]} />
@@ -164,6 +257,10 @@ export function GlobeScene({
           <div className="globelabel">{a.module.replace(/-/g, ' ')}</div>
         </Html>
       ))}
+
+      {/* data-flow pulses along the edges that are actively carrying results during a run */}
+      <DataFlow curves={activeCurves} color={colors.accentBright} />
+      </group>
     </>
   )
 }
