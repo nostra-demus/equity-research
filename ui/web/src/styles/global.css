@@ -153,6 +153,9 @@ a { color: inherit; }
 /* ---------- main split ---------- */
 .main { position: relative; z-index: 1; flex: 1; display: flex; min-height: 0; }
 .stage { position: relative; flex: 1; min-width: 0; overflow: hidden; }
+/* crossfade wrapper for the constellation⇄globe handoff — both renderers stack here (each is inset:0) and
+   animate on transform/opacity only; transform-origin centered so the constellation scales from the middle */
+.stageview { position: absolute; inset: 0; transform-origin: center center; will-change: transform, opacity; }
 
 /* ---------- swarm ---------- */
 .swarm { position: absolute; inset: 0; }

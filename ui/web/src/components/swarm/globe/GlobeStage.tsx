@@ -92,9 +92,9 @@ export default function GlobeStage() {
           dataStatus={dataStatus}
           hoverKey={hover?.node.key ?? null}
           onHover={(n, x, y) => setHover(n ? { node: n, x, y } : null)}
-          onPick={(n, x, y) => onNodeClick(n, () => ({ cx: x, top: y - 14 }))}
-          onCoreClick={openThesis}
+          onNodeClick={onNodeClick}
           onClusterClick={onClusterClick}
+          openThesis={openThesis}
         />
       </Canvas>
       )}
