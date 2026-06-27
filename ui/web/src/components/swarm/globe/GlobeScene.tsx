@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import { AdditiveBlending, BackSide, type BufferAttribute, Color, type Group, type LineSegments, type Mesh, type PerspectiveCamera, type ShaderMaterial, Vector3 } from 'three'
 import { Html, OrbitControls } from '@react-three/drei'
@@ -22,7 +22,7 @@ import type { GlobeColors } from './useGlobeColors'
 // A single `morph` value (0 = flat columns, 1 = sphere) lerps every position so entering/leaving the globe
 // is a smooth wrap/unwrap that the App crossfades against the constellation.
 
-const MORPH_DUR = 1.7 // seconds for the wrap / unwrap — slow enough to enjoy, fast enough to read in the crossfade
+const MORPH_DUR = GLOBE.WRAP_SECONDS // seconds for the wrap / unwrap — shared with App's crossfade so the exit lasts the full unwrap
 const FLAT_CAM = new Vector3(0, 0, 64)
 const SPHERE_CAM = new Vector3(0, 2.5, 27)
 const FLAT_FOV = 20 // narrow + far ≈ orthographic → the flat state reads 2D under the crossfade
@@ -198,6 +198,7 @@ export function GlobeScene({
   const startVal = useRef(morphRef.current)
   const camStart = useRef(new Vector3())
   const fovStart = useRef(SPHERE_FOV)
+  const [hoverModule, setHoverModule] = useState<string | null>(null) // hovering a module label lights its flows (parity with the constellation)
 
   // project a world point to screen px — for the hover tooltip + module-tier popup anchors
   const project = (p: Vector3) => {
@@ -223,12 +224,16 @@ export function GlobeScene({
     for (const a of layout.moduleAnchors) if (a.synthKey && nodeStatus(a.synthKey) === 'done') moduleDone.add(a.module)
     return depCoreEdges.filter((e) => (e.kind === 'dep' && moduleDone.has(e.fromModule) && activeModules.has(e.toModule)) || (e.kind === 'core' && moduleDone.has(e.fromModule)))
   }, [depCoreEdges, layout.moduleAnchors, activeModules, statusSig]) // eslint-disable-line react-hooks/exhaustive-deps
-  // hovered node lights its own flows (feeds to its synthesis, plus any dep/core it touches) — the globe
-  // analog of the constellation's "hover an orb, its connections light up"
+  // hover lights the connections — an orb lights its own flows (feeds to its synthesis + any dep/core it
+  // touches); a module label lights every edge into/out of that module. Same grammar as the flat view.
   const hoverEdges = useMemo(() => {
-    if (!hoverKey) return [] as GlobeEdge[]
-    return layout.edges.filter((e) => e.fromKey === hoverKey || e.toKey === hoverKey)
-  }, [hoverKey, layout.edges])
+    if (!hoverKey && !hoverModule) return [] as GlobeEdge[]
+    return layout.edges.filter(
+      (e) =>
+        (hoverKey && (e.fromKey === hoverKey || e.toKey === hoverKey)) ||
+        (hoverModule && (e.fromModule === hoverModule || e.toModule === hoverModule)),
+    )
+  }, [hoverKey, hoverModule, layout.edges])
 
   // ---- driver: advance morph, then lerp orb groups / labels / core / camera / controls ----
   useFrame((state) => {
@@ -367,7 +372,13 @@ export function GlobeScene({
         return (
           <group key={a.module} ref={(el) => { labelRefs.current[i] = el }}>
             <Html zIndexRange={[12, 0]}>
-              <div className={`cluster__label${live ? ' cluster__label--live' : ''}`} onClick={(ev) => { ev.stopPropagation(); onClusterClick(a.module) }}>
+              <div
+                className={`cluster__label${live ? ' cluster__label--live' : ''}`}
+                style={{ whiteSpace: 'nowrap' }}
+                onMouseEnter={() => setHoverModule(a.module)}
+                onMouseLeave={() => setHoverModule(null)}
+                onClick={(ev) => { ev.stopPropagation(); onClusterClick(a.module) }}
+              >
                 <div className="cluster__name">{a.module.replace(/-/g, ' ')}</div>
                 {ms && <div className="cluster__status" style={{ color: sufficiencyColor(ms) }}>{ms}</div>}
                 {live && mt ? (
