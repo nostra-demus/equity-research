@@ -1813,6 +1813,39 @@ a { color: inherit; }
 .themes__tierbtn:active, .themes__vbtn:active { transform: scale(0.97); }
 .themes__tierbtn.is-on, .themes__vbtn.is-on { background: var(--accent-wash); color: var(--accent-bright); }
 
+/* ---- research stage view toggle (Constellation | Globe) — stage-anchored, clones themes__viewtoggle ---- */
+.viewtoggle {
+  position: absolute; top: 14px; right: 14px; z-index: 21; /* above DataFilesPanel/DecisionBanner (z20), below overlays */
+  display: inline-flex; gap: 0; background: var(--surface-2); border: 1px solid var(--hairline);
+  border-radius: var(--r-pill); padding: 2px; box-shadow: var(--shadow-1);
+}
+.viewtoggle__btn {
+  appearance: none; border: 0; background: transparent; color: var(--text-muted); font-size: 12px;
+  padding: 5px 12px; border-radius: var(--r-pill); cursor: pointer;
+  transition: color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease-out);
+}
+.viewtoggle__btn:active { transform: scale(0.97); } /* instant press feedback */
+.viewtoggle__btn.is-on { background: var(--accent-wash); color: var(--accent-bright); }
+.viewtoggle__btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.viewtoggle__btn:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+/* ---- globe: Suspense fallback while the three.js chunk downloads, + PR1 scaffold placeholder ---- */
+.globeloading, .globestub {
+  position: absolute; inset: 0; display: grid; place-items: center; gap: 14px; z-index: 1;
+  animation: fade var(--dur) var(--ease-out) both; /* calm fade-in, no pop */
+}
+.globeloading__label, .globestub__text { color: var(--text-muted); font-size: 13px; letter-spacing: 0.2px; }
+.globestub__ring {
+  width: 120px; height: 120px; border-radius: 50%;
+  border: 1px dashed var(--hairline-strong);
+  box-shadow: inset 0 0 60px var(--accent-wash-soft), 0 0 40px var(--accent-wash-soft);
+}
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  .viewtoggle__btn:active { transform: none; }
+  .globeloading, .globestub { animation: none; }
+}
+
 /* ---- the time-window ribbon — scrub the same themes through different lookbacks (1h … 3m) ---- */
 .themes__timeline { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .themes__tllabel { font-size: 10px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-faint); flex: none; }

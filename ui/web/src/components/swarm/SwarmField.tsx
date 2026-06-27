@@ -8,6 +8,7 @@ import { CoreOrb } from './CoreOrb'
 import { ModuleReportPopup } from './ModuleReportPopup'
 import { EdgeLayer } from './EdgeLayer'
 import { AgentTooltip } from '../AgentTooltip'
+import { useNodeInteractions } from './useNodeInteractions'
 
 export function SwarmField() {
   const graph = useStore((s) => s.graph)
@@ -17,22 +18,18 @@ export function SwarmField() {
   const decision = useStore((s) => s.decision)
   const coreBloom = useStore((s) => s.coreBloom)
   const nodeStatus = useStore((s) => s.nodeStatus)
-  const launchModule = useStore((s) => s.launchModule)
-  const openThesis = useStore((s) => s.openThesis)
-  const openOutputForNode = useStore((s) => s.openOutputForNode)
-  const moduleReports = useStore((s) => s.moduleReports)
-  const selectNodeForRun = useStore((s) => s.selectNodeForRun)
   const selectedNodeKey = useStore((s) => s.selectedNodeKey)
-  const setToast = useStore((s) => s.setToast)
   const now = useStore((s) => s.now)
   const setNow = useStore((s) => s.setNow)
+
+  // Click/decision logic shared with the 3D globe view (no drift); see useNodeInteractions.
+  const { onNodeClick, onClusterClick, openThesis, modulePop, setModulePop } = useNodeInteractions()
 
   const ref = useRef<HTMLDivElement>(null)
   const [size, setSize] = useState({ w: 1200, h: 760 })
   const [hover, setHover] = useState<{ node: PlacedNode; x: number; y: number } | null>(null)
   const [hoverModule, setHoverModule] = useState<string | null>(null)
   const [hoverCore, setHoverCore] = useState(false)
-  const [modulePop, setModulePop] = useState<{ module: string; cx: number; top: number } | null>(null)
 
   useEffect(() => {
     if (!ref.current) return
@@ -97,30 +94,13 @@ export function SwarmField() {
   }
   const onLeave = () => setHover(null)
 
-  // click any orb -> select it and open the side panel. Done -> its output (with Re-run);
-  // not-yet-run -> a pending panel whose button runs/re-runs it. The panel owns the action.
-  // A finished module-synthesis orb opens the module's 3-tier chooser (synthesis / memo / dossier)
-  // when more than one tier exists — the module-level mirror of the Memo orb's run-level popup.
-  const onNodeClick = (n: PlacedNode) => {
-    if (nodeStatus(n.key) !== 'done') return selectNodeForRun(n)
-    if (n.isSynthesis) {
-      const r = moduleReports[n.module]
-      const tierCount = [r?.synthesis, r?.memo, r?.dossier].filter(Boolean).length
-      if (tierCount > 1) {
-        const rect = ref.current?.getBoundingClientRect()
-        if (rect) return setModulePop({ module: n.module, cx: rect.left + n.x, top: rect.top + n.y - 14 })
-      }
-    }
-    return openOutputForNode(n)
-  }
-
-  const onClusterClick = (module: string) => {
-    const ms = dataStatus?.modules[module]?.status
-    if (ms === 'Insufficient') return setToast({ msg: `No data for ${module} — upload to Drive`, tone: 'info' })
-    const mod = moduleByName.get(module)
-    if (mod?.depsComplete === false) return setToast({ msg: `${module} needs ${mod.missingDeps?.join(', ') || 'upstream'} complete first`, tone: 'info' })
-    launchModule(module) // launchModule also guards if this module is already in flight; the server is authoritative
-  }
+  // onNodeClick/onClusterClick live in useNodeInteractions (shared with the globe). The only flat-specific
+  // bit is the module-tier popup anchor — the orb's DOM rect (the globe projects its 3D position instead).
+  const handleNodeClick = (n: PlacedNode) =>
+    onNodeClick(n, () => {
+      const rect = ref.current?.getBoundingClientRect()
+      return rect ? { cx: rect.left + n.x, top: rect.top + n.y - 14 } : null
+    })
 
   return (
     <div className="swarm" ref={ref} onClick={() => setHover(null)}>
@@ -188,7 +168,7 @@ export function SwarmField() {
               tNow={running ? now : undefined}
               onEnter={onEnter}
               onLeave={onLeave}
-              onClick={onNodeClick}
+              onClick={handleNodeClick}
             />
           )
         })}
