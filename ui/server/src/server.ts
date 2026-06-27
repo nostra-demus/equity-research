@@ -988,6 +988,44 @@ if (fs.existsSync(WEB_DIST)) {
   })
 }
 
+// ── Single-instance lock ──────────────────────────────────────────────────────
+// The OS already blocks two binds to the SAME :8787 (the second gets EADDRINUSE, handled in .catch below).
+// The real hazard is a SECOND engine started with a DIFFERENT PORT (the :8799 incident): it shares this
+// checkout's data + state and doubles all ingester / filesystem / LLM load. A repo-keyed pidfile makes one
+// engine per checkout regardless of PORT. process.kill(pid, 0) sends NO signal — it's a liveness probe; a
+// stale pidfile (owner gone → throws ESRCH) is reclaimed automatically.
+const ENGINE_PIDFILE = path.join(STATE_DIR, 'engine.pid')
+function claimSingleInstanceLock() {
+  try {
+    const prev = Number(fs.readFileSync(ENGINE_PIDFILE, 'utf8').trim())
+    if (prev && prev !== process.pid) {
+      try {
+        process.kill(prev, 0) // throws if that pid is gone; succeeds (no signal sent) if it's alive
+        // eslint-disable-next-line no-console
+        console.error(`[swarm-cockpit] another engine is already running for this checkout (pid ${prev}); exiting`)
+        process.exit(1)
+      } catch {
+        /* stale pidfile (owner gone) — fall through and claim it */
+      }
+    }
+  } catch {
+    /* no pidfile yet — claim it */
+  }
+  try {
+    fs.mkdirSync(path.dirname(ENGINE_PIDFILE), { recursive: true })
+    fs.writeFileSync(ENGINE_PIDFILE, String(process.pid))
+    // release on a clean exit (best-effort; a hard kill leaves a stale file the liveness probe handles)
+    process.on('exit', () => {
+      try {
+        if (Number(fs.readFileSync(ENGINE_PIDFILE, 'utf8').trim()) === process.pid) fs.unlinkSync(ENGINE_PIDFILE)
+      } catch {}
+    })
+  } catch {
+    /* non-fatal: if the pidfile can't be written, don't block startup */
+  }
+}
+claimSingleInstanceLock()
+
 app
   .listen({ host: HOST, port: PORT })
   .then(() => {
@@ -1005,8 +1043,10 @@ app
     // host sets it; a dev laptop stays dark). Never spends overage; waits for the plan limit to reset.
     startResumeSupervisor()
   })
-  .catch((err) => {
+  .catch((err: any) => {
     // eslint-disable-next-line no-console
-    console.error('[swarm-cockpit] failed to start', err)
+    if (err?.code === 'EADDRINUSE') console.error(`[swarm-cockpit] port ${PORT} is already in use — another engine owns it; exiting`)
+    // eslint-disable-next-line no-console
+    else console.error('[swarm-cockpit] failed to start', err)
     process.exit(1)
   })
