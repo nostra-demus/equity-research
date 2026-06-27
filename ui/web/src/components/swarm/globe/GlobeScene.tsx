@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useMemo, useRef } from 'react'
 import { useFrame } from '@react-three/fiber'
-import { AdditiveBlending, BackSide, type BufferAttribute, Color, type Group, type InstancedMesh, Object3D, type Points, QuadraticBezierCurve3, type ShaderMaterial, Vector3 } from 'three'
+import { AdditiveBlending, BackSide, type BufferAttribute, CatmullRomCurve3, Color, type Group, type InstancedMesh, Object3D, type Points, type ShaderMaterial, Vector3 } from 'three'
 import { Html, Line, OrbitControls } from '@react-three/drei'
 import type { GlobeEdge, GlobeLayout, GlobeNode } from '../../../lib/globe-layout'
 import type { NodeStatus } from '../../../lib/types'
@@ -27,9 +27,42 @@ function nodeColor(status: NodeStatus, isSynthesis: boolean, c: GlobeColors): Co
   }
 }
 
+// How high an edge lifts off the surface at its midpoint (world units). Longer cross-globe deps bow more.
+function edgeBow(e: GlobeEdge): number {
+  const dx = e.to.x - e.from.x, dy = e.to.y - e.from.y, dz = e.to.z - e.from.z
+  const chord = Math.hypot(dx, dy, dz)
+  if (e.kind === 'feeds') return 0.25
+  if (e.kind === 'core') return 0.4 + 0.06 * chord
+  return 0.6 + 0.1 * chord
+}
+
+// A surface-hugging arc between two shell points: SLERP the direction (great circle) and lift the radius
+// in the middle (a flight-path bow). Because every sampled point sits at radius >= the endpoints' radius,
+// the line can NEVER pass through the globe interior — it rides on/above the surface like a route on Earth.
+function arcPoints(from: { x: number; y: number; z: number }, to: { x: number; y: number; z: number }, bow: number, segs: number): Vector3[] {
+  const a = v3(from)
+  const b = v3(to)
+  const ra = a.length() || 1
+  const rb = b.length() || 1
+  const da = a.clone().normalize()
+  const db = b.clone().normalize()
+  const omega = Math.acos(Math.max(-1, Math.min(1, da.dot(db))))
+  const sinO = Math.sin(omega)
+  const pts: Vector3[] = []
+  for (let i = 0; i <= segs; i++) {
+    const t = i / segs
+    const dir =
+      sinO < 1e-4
+        ? da.clone()
+        : da.clone().multiplyScalar(Math.sin((1 - t) * omega) / sinO).add(db.clone().multiplyScalar(Math.sin(t * omega) / sinO))
+    const r = ra + (rb - ra) * t + bow * Math.sin(Math.PI * t) // endpoint radii + a midpoint lift
+    pts.push(dir.normalize().multiplyScalar(r))
+  }
+  return pts
+}
+
 function edgePoints(e: GlobeEdge): Vector3[] {
-  const curve = new QuadraticBezierCurve3(v3(e.from), v3(e.mid), v3(e.to))
-  return curve.getPoints(e.kind === 'feeds' ? 14 : 26)
+  return arcPoints(e.from, e.to, edgeBow(e), e.kind === 'feeds' ? 16 : 30)
 }
 
 // Light pulses travelling each ACTIVE edge toward its target — the 3D analog of the flat view's flowing
@@ -37,7 +70,7 @@ function edgePoints(e: GlobeEdge): Vector3[] {
 // along the precomputed bezier each frame by the render clock. Fog dims the far-side pulses for free.
 const FLOW_TMP = new Vector3()
 const TMP_OBJ = new Object3D()
-function DataFlow({ curves, color }: { curves: QuadraticBezierCurve3[]; color: Color }) {
+function DataFlow({ curves, color }: { curves: CatmullRomCurve3[]; color: Color }) {
   const K = 5 // pulses per edge
   const count = curves.length * K
   const ref = useRef<Points>(null)
@@ -209,11 +242,11 @@ export function GlobeScene({
   }, [layout.moduleAnchors, statusSig]) // eslint-disable-line react-hooks/exhaustive-deps
   const activeMods = useMemo(() => new Set(nodes.filter((n, i) => statuses[i] === 'running' || statuses[i] === 'queued').map((n) => n.module)), [nodes, statuses])
   const activeCurves = useMemo(() => {
-    const out: QuadraticBezierCurve3[] = []
+    const out: CatmullRomCurve3[] = []
     for (const e of layout.edges) {
       if (e.kind === 'feeds') continue
       const flow = (e.kind === 'dep' && moduleDone.has(e.fromModule) && activeMods.has(e.toModule)) || (e.kind === 'core' && moduleDone.has(e.fromModule))
-      if (flow) out.push(new QuadraticBezierCurve3(v3(e.from), v3(e.mid), v3(e.to)))
+      if (flow) out.push(new CatmullRomCurve3(arcPoints(e.from, e.to, edgeBow(e), 30))) // same surface-hugging arc
     }
     return out
   }, [layout.edges, moduleDone, activeMods])
