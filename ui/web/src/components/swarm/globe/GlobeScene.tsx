@@ -1,5 +1,6 @@
 import { useLayoutEffect, useMemo, useRef } from 'react'
-import { Color, type InstancedMesh, Object3D, QuadraticBezierCurve3, Vector3 } from 'three'
+import { useFrame } from '@react-three/fiber'
+import { Color, type Group, type InstancedMesh, Object3D, QuadraticBezierCurve3, Vector3 } from 'three'
 import { Html, Line, OrbitControls } from '@react-three/drei'
 import type { GlobeEdge, GlobeLayout, GlobeNode } from '../../../lib/globe-layout'
 import type { NodeStatus } from '../../../lib/types'
@@ -72,6 +73,20 @@ export function GlobeScene({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [nodes, colors, statusSig, hoverKey])
 
+  // The flat→sphere "wrap" morph: the whole globe starts squashed almost flat (a disc facing the camera)
+  // and inflates to a full sphere over ~850ms. Animating the content group's scale.z (with a slight x/y
+  // overshoot) gives the "system wrapping into a globe" read with zero per-frame geometry rebuild — the
+  // nodes, arcs and core inflate together. Skipped under reduced-motion (mounts as a sphere).
+  const groupRef = useRef<Group>(null)
+  const morph = useRef(reducedMotion ? 1 : 0)
+  useFrame((_, delta) => {
+    if (morph.current >= 1) return
+    morph.current = Math.min(1, morph.current + delta / 0.85)
+    const e = 1 - Math.pow(1 - morph.current, 4) // easeOutQuart — confident settle
+    const lp = (a: number, b: number) => a + (b - a) * e
+    groupRef.current?.scale.set(lp(1.18, 1), lp(1.18, 1), lp(0.04, 1))
+  })
+
   // dependency + core arcs always show (faint); feeds stay hidden until hover (like the flat EdgeLayer)
   const visibleEdges = useMemo(
     () => layout.edges.filter((e) => e.kind !== 'feeds' || (hoverKey && (e.fromKey === hoverKey || e.toKey === hoverKey))),
@@ -101,6 +116,7 @@ export function GlobeScene({
         autoRotateSpeed={0.4}
       />
 
+      <group ref={groupRef} scale={reducedMotion ? 1 : [1.18, 1.18, 0.04]}>
       {/* occluder shell: opaque bg sphere just inside R so far-side arcs/nodes are truly hidden (depth) */}
       <mesh>
         <sphereGeometry args={[GLOBE.R * 0.985, 48, 48]} />
@@ -164,6 +180,7 @@ export function GlobeScene({
           <div className="globelabel">{a.module.replace(/-/g, ' ')}</div>
         </Html>
       ))}
+      </group>
     </>
   )
 }

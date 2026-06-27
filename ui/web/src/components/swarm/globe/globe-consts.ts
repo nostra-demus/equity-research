@@ -9,13 +9,13 @@ export const GLOBE = {
   POLE_BIAS: 0.18, // bias module band into the upper hemisphere, leaving the south cap for the Memo core
   Y_CLAMP_TOP: 0.94,
   Y_CLAMP_BOTTOM: -0.72,
-  LAYER_GAP: 0.95, // tangent-plane ring radius step per layer (pre-projection, world units)
-  ARC_MAX: 1.35, // max arc span (rad) a layer's agents spread across within a module patch
-  ARC_PER_NODE: 0.4,
-  BUMP_SYNTH: 0.7, // synthesis hub pushed out along the surface normal (crowns the patch)
+  LAYER_GAP: 1.12, // tangent-plane ring radius step per layer (pre-projection, world units)
+  ARC_MAX: 1.45, // max arc span (rad) a layer's agents spread across within a module patch
+  ARC_PER_NODE: 0.46,
+  BUMP_SYNTH: 0.75, // synthesis hub pushed out along the surface normal (crowns the patch)
   BUMP_SURFACE: 0.16, // agents lifted just off the surface so they never z-fight the shell
   CORE_BUMP: 1.7, // Memo node sits this far below the south pole, outside the shell
-  R_AGENT: 0.24, // orb radius
+  R_AGENT: 0.22, // orb radius
   R_SYNTH: 0.4,
   R_CORE: 0.82,
 }
