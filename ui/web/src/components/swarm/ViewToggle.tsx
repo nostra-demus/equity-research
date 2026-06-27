@@ -1,9 +1,9 @@
 import { useStore } from '../../lib/store'
 
-// Stage-anchored segmented control to switch the research stage between the flat 2D constellation
-// (default) and the 3D globe. Mounted only inside ResearchStage, so it's research-only by construction.
-// Modeled on the screener's themes__viewtoggle radiogroup (same a11y + token styling). The Globe option
-// is disabled when WebGL is unavailable so a no-WebGL browser is never offered a view it can't render.
+// Stage-anchored segmented control to switch the research stage between the 3D globe (default) and the flat
+// constellation. Both are the SAME WebGL scene at morph 1 / 0 — clicking just changes the morph target and
+// the scene animates one continuous wrap/unwrap (no renderer swap). The Globe option is disabled when WebGL
+// is unavailable (then the flat DOM constellation is shown instead).
 export function ViewToggle() {
   const view = useStore((s) => s.researchView)
   const setView = useStore((s) => s.setResearchView)

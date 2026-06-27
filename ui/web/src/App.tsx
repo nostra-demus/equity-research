@@ -43,15 +43,15 @@ function GlobeLoading() {
 }
 
 // Per-swarm stage shells: the research stage keeps its chrome (data files, decision banner,
-// upload empty-state) exactly as before; the screener stage mounts the gauntlet. No research
-// component learns about swarms — the shell swap is the only branch point. The research stage itself
-// renders EITHER the flat constellation (default) OR the 3D globe, chosen by researchView — mutually
-// exclusive mounts over the same store state (the globe is a second renderer, not a fork).
+// upload empty-state) exactly as before; the screener stage mounts the gauntlet. The research stage is now
+// a SINGLE WebGL scene (GlobeStage) that renders BOTH the flat constellation and the globe as morph states
+// of the same nodes — the toggle just changes the morph target, so wrapping/unwrapping is one continuous
+// animation with no renderer swap. The DOM SwarmField is the fallback only when WebGL is unavailable.
 function ResearchStage() {
-  const view = useStore((s) => s.researchView)
+  const webglOK = useStore((s) => s.webglOK)
   return (
     <>
-      {view === 'globe' ? (
+      {webglOK ? (
         <Suspense fallback={<GlobeLoading />}>
           <GlobeStage />
         </Suspense>

@@ -1,18 +1,18 @@
 import type { AgentNode, SwarmGraph } from './types'
 import { GLOBE, GOLDEN_ANGLE, add, cross, dot, normalize, onSphere, scale, v, type V3 } from '../components/swarm/globe/globe-consts'
 
-// Spherical layout for the research swarm — the 3D analog of computeLayout() in layout.ts. Pure math:
-// reuses the exact graph traversal (modules → sorted layers → agents, isSynthesis, dependsOn) and returns
-// plain {x,y,z} points (no three.js), which GlobeScene lifts to THREE.Vector3.
+// Unified research layout for the WebGL scene. Every node/edge/label carries BOTH a FLAT position (the
+// constellation's columnar arrangement, in the z=0 plane) and a SPHERE position (the globe). GlobeScene
+// lerps between them by a single morph value, so the flat constellation and the globe are two states of the
+// SAME elements — wrapping/unwrapping is one continuous animation, no renderer swap, no breaks.
 //
-// Modules become distinct REGIONS on the sphere (Fibonacci/golden-spiral distribution — even spacing for
-// any N, no pole-bunching). Within a module, agents sit in the patch's tangent plane around the synthesis
-// hub (layer index → ring radius → gate/specialist/synthesis read as radial depth) and are re-projected
-// onto the shell so the cluster curves with the surface. The Memo/master sits just below the south pole,
-// so cross-module dependency arcs and module→Memo arcs read like meridians.
+// Flat = the 3D analog of computeLayout() (modules in two rows of columns, agents stacked by layer,
+// synthesis at the column foot, Memo at the bottom). Sphere = modules as Fibonacci-distributed regions,
+// agents arc'd around each synthesis hub on the shell, Memo just below the south pole.
 
 export interface GlobeNode extends AgentNode {
-  pos: V3 // final position on/near the sphere shell
+  pos: V3 // sphere position (morph = 1)
+  flatPos: V3 // constellation position in the z=0 plane (morph = 0)
   r: number // orb radius (world units)
 }
 export interface GlobeEdge {
@@ -20,7 +20,8 @@ export interface GlobeEdge {
   kind: 'feeds' | 'dep' | 'core'
   from: V3
   to: V3
-  mid: V3 // bezier control point, bowed out along the surface normal
+  flatFrom: V3
+  flatTo: V3
   fromKey: string
   toKey: string
   fromModule: string
@@ -28,7 +29,8 @@ export interface GlobeEdge {
 }
 export interface ModuleAnchor {
   module: string
-  center: V3
+  center: V3 // sphere patch center (label anchor at morph = 1)
+  flatLabel: V3 // label anchor at morph = 0 (above the column)
   normal: V3
   synthKey: string | null
   synthPos: V3
@@ -38,7 +40,7 @@ export interface GlobeLayout {
   nodes: GlobeNode[]
   edges: GlobeEdge[]
   moduleAnchors: ModuleAnchor[]
-  core: { pos: V3; r: number }
+  core: { pos: V3; flatPos: V3; r: number }
 }
 
 const WORLD_UP: V3 = { x: 0, y: 1, z: 0 }
@@ -52,18 +54,51 @@ function tangentBasis(n: V3): { u: V3; v: V3 } {
   return { u, v: vv }
 }
 
+// flat (constellation) layout dims, in world units, centered on the origin in the z=0 plane
+const FW = 34 // overall width
+const FH = 22 // overall height
+const FCOL = 1.7 // horizontal gap between agents in a layer
+const FROW = 2.0 // vertical gap between layers
+
 export function computeGlobeLayout(graph: SwarmGraph): GlobeLayout {
   const { R } = GLOBE
   const modules = graph.modules
   const N = Math.max(1, modules.length)
-  const core = { pos: v(0, -(R + GLOBE.CORE_BUMP), 0), r: GLOBE.R_CORE }
 
+  // ---------- FLAT layout (constellation columns in the z=0 plane) ----------
+  const topCount = N > 3 ? Math.floor(N / 2) : N
+  const flatRows = [
+    { mods: modules.slice(0, topCount), topY: FH * 0.34, padX: 0.18 },
+    { mods: modules.slice(topCount), topY: -FH * 0.02, padX: 0.12 },
+  ]
+  const flatPosByKey = new Map<string, V3>()
+  const flatAnchorByModule = new Map<string, { x: number; topY: number }>()
+  for (const row of flatRows) {
+    const k = row.mods.length
+    row.mods.forEach((m, i) => {
+      const t = k === 1 ? 0.5 : i / (k - 1)
+      const anchorX = -FW / 2 + (row.padX + t * (1 - 2 * row.padX)) * FW
+      flatAnchorByModule.set(m.name, { x: anchorX, topY: row.topY })
+      const layerKeys = Object.keys(m.layers).map(Number).sort((a, b) => a - b)
+      layerKeys.forEach((lk, li) => {
+        const agents = m.layers[String(lk)] || []
+        const yy = row.topY - li * FROW
+        const nn = agents.length
+        agents.forEach((a, j) => {
+          flatPosByKey.set(a.key, { x: anchorX + (j - (nn - 1) / 2) * FCOL, y: yy, z: 0 })
+        })
+      })
+    })
+  }
+  const flatCore: V3 = { x: 0, y: -FH * 0.5, z: 0 }
+
+  // ---------- SPHERE layout (Fibonacci module regions) + attach flat positions ----------
+  const core = { pos: v(0, -(R + GLOBE.CORE_BUMP), 0), flatPos: flatCore, r: GLOBE.R_CORE }
   const nodes: GlobeNode[] = []
   const edges: GlobeEdge[] = []
   const anchors: ModuleAnchor[] = []
 
   modules.forEach((m, i) => {
-    // --- module region center via Fibonacci sphere (south cap reserved for the core) ---
     let y = 1 - ((i + 0.5) / N) * (1 + GLOBE.POLE_BIAS)
     y = Math.max(GLOBE.Y_CLAMP_BOTTOM, Math.min(GLOBE.Y_CLAMP_TOP, y))
     const rAtY = Math.sqrt(Math.max(0, 1 - y * y))
@@ -72,10 +107,7 @@ export function computeGlobeLayout(graph: SwarmGraph): GlobeLayout {
     const normal = normalize(center)
     const { u: tU, v: tV } = tangentBasis(normal)
 
-    // --- place agents: synthesis at the patch hub, others on concentric arcs by layer ---
-    const layerKeys = Object.keys(m.layers)
-      .map(Number)
-      .sort((a, b) => a - b)
+    const layerKeys = Object.keys(m.layers).map(Number).sort((a, b) => a - b)
     let synthKey: string | null = null
     let synthPos: V3 = onSphere(center, R + GLOBE.BUMP_SYNTH)
 
@@ -85,26 +117,42 @@ export function computeGlobeLayout(graph: SwarmGraph): GlobeLayout {
       const n = agents.length
       const span = Math.min(GLOBE.ARC_MAX, n * GLOBE.ARC_PER_NODE)
       agents.forEach((a: AgentNode, j) => {
+        const flatPos = flatPosByKey.get(a.key) || { x: 0, y: 0, z: 0 }
         if (a.isSynthesis) {
           synthKey = a.key
           synthPos = onSphere(center, R + GLOBE.BUMP_SYNTH)
-          nodes.push({ ...a, pos: synthPos, r: GLOBE.R_SYNTH })
+          nodes.push({ ...a, pos: synthPos, flatPos, r: GLOBE.R_SYNTH })
           return
         }
         const ang = (n === 1 ? 0 : j / (n - 1) - 0.5) * span
         const local = add(scale(tU, Math.cos(ang) * ringR), scale(tV, Math.sin(ang) * ringR))
         const pos = onSphere(add(center, local), R + GLOBE.BUMP_SURFACE)
-        nodes.push({ ...a, pos, r: GLOBE.R_AGENT })
+        nodes.push({ ...a, pos, flatPos, r: GLOBE.R_AGENT })
       })
     })
 
-    anchors.push({ module: m.name, center, normal, synthKey, synthPos, dependsOn: m.dependsOn || [] })
+    const fa = flatAnchorByModule.get(m.name) || { x: 0, topY: 0 }
+    anchors.push({
+      module: m.name,
+      center,
+      flatLabel: { x: fa.x, y: fa.topY + 1.7, z: 0 },
+      normal,
+      synthKey,
+      synthPos,
+      dependsOn: m.dependsOn || [],
+    })
   })
 
   const anchorByModule = new Map(anchors.map((a) => [a.module, a]))
-  const bowedMid = (from: V3, to: V3, bow: number): V3 => onSphere(scale(add(from, to), 0.5), R + bow)
+  const flatSynth = (module: string): V3 => {
+    const a = anchorByModule.get(module)
+    return (a?.synthKey && flatPosByKey.get(a.synthKey)) || flatCore
+  }
+  const flatAnchorV = (module: string): V3 => {
+    const fa = flatAnchorByModule.get(module) || { x: 0, topY: 0 }
+    return { x: fa.x, y: fa.topY, z: 0 }
+  }
 
-  // --- edges (same three kinds as the flat view) ---
   for (const a of anchors) {
     // feeds: each non-synthesis agent → this module's synthesis hub (hidden until hover, like flat)
     for (const node of nodes) {
@@ -114,38 +162,39 @@ export function computeGlobeLayout(graph: SwarmGraph): GlobeLayout {
         kind: 'feeds',
         from: node.pos,
         to: a.synthPos,
-        mid: bowedMid(node.pos, a.synthPos, GLOBE.BUMP_SYNTH + 0.1),
+        flatFrom: node.flatPos,
+        flatTo: a.synthKey ? flatPosByKey.get(a.synthKey) || flatAnchorV(a.module) : flatAnchorV(a.module),
         fromKey: node.key,
         toKey: a.synthKey || a.module,
         fromModule: a.module,
         toModule: a.module,
       })
     }
-    // dep: upstream module synthesis → this module's center (arcs across the globe)
+    // dep: upstream module synthesis → this module (arcs across the globe; flat curves between columns)
     for (const dep of a.dependsOn) {
       const src = anchorByModule.get(dep)
       if (!src) continue
-      const chord = Math.hypot(a.center.x - src.synthPos.x, a.center.y - src.synthPos.y, a.center.z - src.synthPos.z)
       edges.push({
         id: `dep:${dep}->${a.module}`,
         kind: 'dep',
         from: src.synthPos,
         to: a.center,
-        mid: bowedMid(src.synthPos, a.center, 0.12 * chord + 0.7),
+        flatFrom: flatSynth(dep),
+        flatTo: flatAnchorV(a.module),
         fromKey: src.synthKey || dep,
         toKey: a.synthKey || a.module,
         fromModule: dep,
         toModule: a.module,
       })
     }
-    // core: this module's synthesis → the Memo node (converge at the south pole)
-    const chordC = Math.hypot(a.synthPos.x - core.pos.x, a.synthPos.y - core.pos.y, a.synthPos.z - core.pos.z)
+    // core: this module's synthesis → the Memo node
     edges.push({
       id: `core:${a.module}`,
       kind: 'core',
       from: a.synthPos,
       to: core.pos,
-      mid: bowedMid(a.synthPos, core.pos, 0.08 * chordC + 0.5),
+      flatFrom: flatSynth(a.module),
+      flatTo: flatCore,
       fromKey: a.synthKey || a.module,
       toKey: 'core',
       fromModule: a.module,

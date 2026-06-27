@@ -1,21 +1,31 @@
-import { useLayoutEffect, useMemo, useRef } from 'react'
-import { useFrame } from '@react-three/fiber'
-import { AdditiveBlending, type BufferAttribute, Color, type Group, type InstancedMesh, Object3D, type Points, QuadraticBezierCurve3, Vector3 } from 'three'
-import { Html, Line, OrbitControls } from '@react-three/drei'
+import { useEffect, useMemo, useRef } from 'react'
+import { useFrame, useThree } from '@react-three/fiber'
+import { AdditiveBlending, BackSide, type BufferAttribute, Color, type Group, type InstancedMesh, type LineSegments, Object3D, type PerspectiveCamera, type ShaderMaterial, Vector3 } from 'three'
+import { Html, OrbitControls } from '@react-three/drei'
 import type { GlobeEdge, GlobeLayout, GlobeNode } from '../../../lib/globe-layout'
-import type { NodeStatus } from '../../../lib/types'
+import type { DataStatus, NodeStatus } from '../../../lib/types'
 import { GLOBE } from './globe-consts'
+import { sufficiencyColor } from '../../../lib/format'
 import type { GlobeColors } from './useGlobeColors'
 
-// Everything INSIDE the <Canvas>: the sphere shell + occluder, instanced agent orbs, dependency/feed/core
-// edges as depth-correct bezier arcs, module-name billboards, the Memo core, and grab-to-rotate controls.
-// A second renderer of the same swarm state — node colors come from the shared nodeStatus resolver, so the
-// globe reads the same statuses as the flat view. (The full live status grammar + data-flow is PR4.)
+// THE unified research renderer. The flat constellation and the globe are two MORPH STATES of the same
+// nodes/edges/labels: a single `morph` value (0 = flat columns in the z=0 plane, 1 = sphere) lerps every
+// position, and a camera dolly/zoom flattens the perspective at 0 so the flat state reads as a clean 2D
+// constellation. Toggling animates `morph` — one continuous wrap/unwrap, no renderer swap, no breaks.
+
+const MORPH_DUR = 2.4 // seconds for the wrap / unwrap
+const FLAT_CAM = new Vector3(0, 0, 64)
+const SPHERE_CAM = new Vector3(0, 2.5, 27)
+const FLAT_FOV = 20 // narrow + far ≈ orthographic → the flat constellation looks 2D
+const SPHERE_FOV = 45
+const TMP_OBJ = new Object3D()
+const TMP_A = new Vector3()
+const TMP_B = new Vector3()
 
 const v3 = (p: { x: number; y: number; z: number }) => new Vector3(p.x, p.y, p.z)
+const easeInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2)
+const lerp = (a: number, b: number, t: number) => a + (b - a) * t
 
-// PR2: a calm static status tint (done = accent, running = bright, failed = red, else dim). PR4 replaces
-// this with the animated emissive/pulse grammar driven by orbProgress.
 function nodeColor(status: NodeStatus, isSynthesis: boolean, c: GlobeColors): Color {
   switch (status) {
     case 'done': return c.accent
@@ -23,244 +33,332 @@ function nodeColor(status: NodeStatus, isSynthesis: boolean, c: GlobeColors): Co
     case 'queued': return c.accentDeep
     case 'failed': return c.bad
     case 'ready': return c.accentDeep
-    default: return isSynthesis ? c.hairline.clone().lerp(c.accent, 0.4) : c.faint
+    default: return isSynthesis ? c.hairline.clone().lerp(c.accent, 0.45) : c.faint
   }
 }
 
-function edgePoints(e: GlobeEdge): Vector3[] {
-  const curve = new QuadraticBezierCurve3(v3(e.from), v3(e.mid), v3(e.to))
-  return curve.getPoints(e.kind === 'feeds' ? 14 : 26)
+// surface-hugging great-circle arc between two shell points (never enters the interior)
+function arcPoints(from: V3In, to: V3In, bow: number, segs: number): Vector3[] {
+  const a = v3(from)
+  const b = v3(to)
+  const ra = a.length() || 1
+  const rb = b.length() || 1
+  const da = a.clone().normalize()
+  const db = b.clone().normalize()
+  const omega = Math.acos(Math.max(-1, Math.min(1, da.dot(db))))
+  const sinO = Math.sin(omega)
+  const out: Vector3[] = []
+  for (let i = 0; i <= segs; i++) {
+    const t = i / segs
+    const dir = sinO < 1e-4 ? da.clone() : da.clone().multiplyScalar(Math.sin((1 - t) * omega) / sinO).add(db.clone().multiplyScalar(Math.sin(t * omega) / sinO))
+    out.push(dir.normalize().multiplyScalar(ra + (rb - ra) * t + bow * Math.sin(Math.PI * t)))
+  }
+  return out
+}
+type V3In = { x: number; y: number; z: number }
+
+function flatLine(from: V3In, to: V3In, segs: number): Vector3[] {
+  const a = v3(from), b = v3(to)
+  const out: Vector3[] = []
+  for (let i = 0; i <= segs; i++) out.push(a.clone().lerp(b, i / segs))
+  return out
 }
 
-// Light pulses travelling each ACTIVE edge toward its target — the 3D analog of the flat view's flowing
-// dashes. One additive Points draw call for all pulses across all active edges; positions are advanced
-// along the precomputed bezier each frame by the render clock. Fog dims the far-side pulses for free.
-const FLOW_TMP = new Vector3()
-const TMP_OBJ = new Object3D()
-function DataFlow({ curves, color }: { curves: QuadraticBezierCurve3[]; color: Color }) {
-  const K = 5 // pulses per edge
-  const count = curves.length * K
-  const ref = useRef<Points>(null)
-  const positions = useMemo(() => new Float32Array(Math.max(1, count) * 3), [count])
-  useFrame((state) => {
-    const pts = ref.current
-    if (!pts || !curves.length) return
-    const t = state.clock.elapsedTime
-    const attr = pts.geometry.attributes.position as BufferAttribute
-    const arr = attr.array as Float32Array
-    for (let ci = 0; ci < curves.length; ci++) {
-      for (let k = 0; k < K; k++) {
-        const phase = (t * 0.22 + k / K + ci * 0.13) % 1 // travels from→to, staggered per pulse/edge
-        curves[ci].getPoint(phase, FLOW_TMP)
-        const idx = (ci * K + k) * 3
-        arr[idx] = FLOW_TMP.x
-        arr[idx + 1] = FLOW_TMP.y
-        arr[idx + 2] = FLOW_TMP.z
+function edgeBow(e: GlobeEdge): number {
+  const chord = Math.hypot(e.to.x - e.from.x, e.to.y - e.from.y, e.to.z - e.from.z)
+  if (e.kind === 'feeds') return 0.25
+  if (e.kind === 'core') return 0.4 + 0.06 * chord
+  return 0.6 + 0.1 * chord
+}
+
+// ---- morphing, flowing, dashed edge set (one draw call) ----
+// Each edge is sampled into K points in BOTH the flat plane and the sphere arc; positions lerp by `morph`.
+// A dash shader marches dashes along each edge by `uTime` — the 3D analog of the constellation's edge-flow.
+const EDGE_VERT = 'attribute float aT; varying float vT; void main(){ vT = aT; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }'
+const EDGE_FRAG = 'uniform vec3 uColor; uniform float uTime; uniform float uDashes; uniform float uDuty; uniform float uOpacity; uniform float uSpeed; varying float vT; void main(){ float f = fract(vT * uDashes - uTime * uSpeed); if (f > uDuty) discard; gl_FragColor = vec4(uColor, uOpacity); }'
+const K_SEG = 26 // samples per edge
+
+function MorphEdges({ edges, color, opacity, speed, morphRef }: { edges: GlobeEdge[]; color: Color; opacity: number; speed: number; morphRef: { current: number }; }) {
+  const ref = useRef<LineSegments>(null)
+  // precompute flat + sphere vertex arrays (segment pairs) and the dash param per vertex
+  const { positions, aT, flatV, sphereV, count } = useMemo(() => {
+    const flatPts: Vector3[][] = edges.map((e) => flatLine(e.flatFrom, e.flatTo, K_SEG))
+    const sphPts: Vector3[][] = edges.map((e) => arcPoints(e.from, e.to, edgeBow(e), K_SEG))
+    const segsPerEdge = K_SEG // (K_SEG+1 points → K_SEG segments)
+    const verts = edges.length * segsPerEdge * 2
+    const positions = new Float32Array(verts * 3)
+    const aT = new Float32Array(verts)
+    const flatV = new Float32Array(verts * 3)
+    const sphereV = new Float32Array(verts * 3)
+    let o = 0
+    edges.forEach((_e, ei) => {
+      const fp = flatPts[ei], sp = sphPts[ei]
+      for (let s = 0; s < segsPerEdge; s++) {
+        for (const idx of [s, s + 1]) {
+          flatV[o * 3] = fp[idx].x; flatV[o * 3 + 1] = fp[idx].y; flatV[o * 3 + 2] = fp[idx].z
+          sphereV[o * 3] = sp[idx].x; sphereV[o * 3 + 1] = sp[idx].y; sphereV[o * 3 + 2] = sp[idx].z
+          aT[o] = idx / segsPerEdge
+          o++
+        }
       }
-    }
-    attr.needsUpdate = true
+    })
+    return { positions, aT, flatV, sphereV, count: verts }
+  }, [edges])
+
+  useFrame((state) => {
+    const ls = ref.current
+    if (!ls) return
+    const mat = ls.material as ShaderMaterial
+    mat.uniforms.uTime.value = state.clock.elapsedTime
+    const e = easeInOut(morphRef.current)
+    const posAttr = ls.geometry.attributes.position as BufferAttribute
+    const arr = posAttr.array as Float32Array
+    for (let i = 0; i < arr.length; i++) arr[i] = flatV[i] + (sphereV[i] - flatV[i]) * e
+    posAttr.needsUpdate = true
   })
-  if (!curves.length) return null
+
+  const uniforms = useMemo(() => ({ uColor: { value: color.clone() }, uTime: { value: 0 }, uDashes: { value: 16 }, uDuty: { value: 0.5 }, uOpacity: { value: opacity }, uSpeed: { value: speed } }), []) // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { (uniforms.uColor.value as Color).copy(color); uniforms.uOpacity.value = opacity; uniforms.uSpeed.value = speed }, [color, opacity, speed, uniforms])
+
+  if (!edges.length) return null
   return (
-    <points ref={ref}>
+    <lineSegments ref={ref}>
       <bufferGeometry>
-        <bufferAttribute attach="attributes-position" args={[positions, 3]} />
+        <bufferAttribute attach="attributes-position" args={[positions, 3]} count={count} />
+        <bufferAttribute attach="attributes-aT" args={[aT, 1]} count={count} />
       </bufferGeometry>
-      <pointsMaterial color={color} size={0.5} sizeAttenuation transparent opacity={0.95} depthWrite={false} blending={AdditiveBlending} toneMapped={false} />
-    </points>
+      <shaderMaterial vertexShader={EDGE_VERT} fragmentShader={EDGE_FRAG} uniforms={uniforms} transparent depthWrite={false} />
+    </lineSegments>
   )
 }
+
+// fresnel atmosphere rim so the globe reads as a lit sphere (esp. dark mode); fades out as it flattens
+const ATMO_VERT = 'varying vec3 vN; void main(){ vN = normalize(normalMatrix * normal); gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }'
+const ATMO_FRAG = 'uniform vec3 uColor; uniform float uM; varying vec3 vN; void main(){ float i = clamp(pow(0.55 - dot(vN, vec3(0.0,0.0,1.0)), 4.2), 0.0, 1.0); gl_FragColor = vec4(uColor * i, i * 0.55 * uM); }'
 
 export function GlobeScene({
   layout,
   nodeStatus,
   colors,
   reducedMotion,
+  morphTarget,
+  dataStatus,
   hoverKey,
   onHover,
   onPick,
   onCoreClick,
+  onClusterClick,
 }: {
   layout: GlobeLayout
   nodeStatus: (key: string) => NodeStatus
   colors: GlobeColors
   reducedMotion: boolean
+  morphTarget: number // 0 = flat constellation, 1 = sphere
+  dataStatus: DataStatus | null
   hoverKey: string | null
   onHover: (n: GlobeNode | null, clientX: number, clientY: number) => void
   onPick: (n: GlobeNode, clientX: number, clientY: number) => void
   onCoreClick: () => void
+  onClusterClick: (module: string) => void
 }) {
-  const meshRef = useRef<InstancedMesh>(null)
   const nodes = layout.nodes
-
-  // a status signature so the instance colors refresh when any node's status changes
   const statusSig = nodes.map((n) => nodeStatus(n.key)).join('')
+  const meshRef = useRef<InstancedMesh>(null)
+  const bodyRef = useRef<Group>(null) // sphere shell (occluder + grid + atmosphere) — fades/scales with morph
+  const labelRefs = useRef<Group[]>([])
+  const coreRef = useRef<Group>(null)
+  const atmoMat = useRef<ShaderMaterial>(null)
+  const controlsRef = useRef<any>(null)
+  const { camera } = useThree()
 
-  useLayoutEffect(() => {
+  // ---- morph driver state ----
+  const morphRef = useRef(reducedMotion ? morphTarget : morphTarget) // current eased-input 0..1
+  const targetRef = useRef(morphTarget)
+  const startT = useRef<number | null>(null)
+  const startVal = useRef(morphRef.current)
+  const camStart = useRef(new Vector3())
+  const fovStart = useRef(SPHERE_FOV)
+
+  // position the camera correctly for the initial state on mount (no animation on first load)
+  useEffect(() => {
+    const cam = camera as PerspectiveCamera
+    const at1 = morphRef.current >= 0.5
+    cam.position.copy(at1 ? SPHERE_CAM : FLAT_CAM)
+    cam.fov = at1 ? SPHERE_FOV : FLAT_FOV
+    cam.lookAt(0, 0, 0)
+    cam.updateProjectionMatrix()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  // instance COLORS (cheap; only on status / theme / hover change)
+  useEffect(() => {
     const mesh = meshRef.current
     if (!mesh) return
-    const dummy = new Object3D()
-    nodes.forEach((n, i) => {
-      dummy.position.set(n.pos.x, n.pos.y, n.pos.z)
-      dummy.scale.setScalar(n.r * (hoverKey === n.key ? 1.5 : 1))
-      dummy.updateMatrix()
-      mesh.setMatrixAt(i, dummy.matrix)
-      mesh.setColorAt(i, nodeColor(nodeStatus(n.key), n.isSynthesis, colors))
-    })
-    mesh.instanceMatrix.needsUpdate = true
+    nodes.forEach((n, i) => mesh.setColorAt(i, nodeColor(nodeStatus(n.key), n.isSynthesis, colors)))
     if (mesh.instanceColor) mesh.instanceColor.needsUpdate = true
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [nodes, colors, statusSig, hoverKey])
+  }, [nodes, colors, statusSig])
 
-  // The flat→sphere "wrap" morph: the whole globe starts squashed almost flat (a disc facing the camera)
-  // and inflates to a full sphere over ~850ms. Animating the content group's scale.z (with a slight x/y
-  // overshoot) gives the "system wrapping into a globe" read with zero per-frame geometry rebuild — the
-  // nodes, arcs and core inflate together. Skipped under reduced-motion (mounts as a sphere).
-  const groupRef = useRef<Group>(null)
-  const morph = useRef(reducedMotion ? 1 : 0)
-  useFrame((_, delta) => {
-    if (morph.current >= 1) return
-    morph.current = Math.min(1, morph.current + delta / 0.85)
-    const e = 1 - Math.pow(1 - morph.current, 4) // easeOutQuart — confident settle
-    const lp = (a: number, b: number) => a + (b - a) * e
-    groupRef.current?.scale.set(lp(1.18, 1), lp(1.18, 1), lp(0.04, 1))
-  })
-
-  // ---- live status grammar: smooth scale pulse on queued/running orbs (render clock, not the 1s tick) ----
+  // live pulse indices
   const statuses = useMemo(() => nodes.map((n) => nodeStatus(n.key)), [nodes, statusSig]) // eslint-disable-line react-hooks/exhaustive-deps
-  const liveIdx = useMemo(() => statuses.map((s, i) => (s === 'running' || s === 'queued' ? i : -1)).filter((i) => i >= 0), [statuses])
-  useFrame((state) => {
-    const mesh = meshRef.current
-    if (!mesh || !liveIdx.length) return
-    const t = state.clock.elapsedTime
-    for (const i of liveIdx) {
-      const n = nodes[i]
-      const running = statuses[i] === 'running'
-      const period = running ? 1.3 : 1.7 // running feels urgent, queued feels like waiting (matches the CSS)
-      const amp = running ? 0.3 : 0.16
-      const s = n.r * (1 + amp * (0.5 + 0.5 * Math.sin((t * 2 * Math.PI) / period)))
-      TMP_OBJ.position.set(n.pos.x, n.pos.y, n.pos.z)
-      TMP_OBJ.scale.setScalar(s)
-      TMP_OBJ.updateMatrix()
-      mesh.setMatrixAt(i, TMP_OBJ.matrix)
-    }
-    mesh.instanceMatrix.needsUpdate = true
-  })
 
-  // ---- active edges (data flowing): upstream module done feeding a live downstream / the Memo ----
+  // ---- active edges (data flowing) ----
   const moduleDone = useMemo(() => {
     const s = new Set<string>()
     for (const a of layout.moduleAnchors) if (a.synthKey && nodeStatus(a.synthKey) === 'done') s.add(a.module)
     return s
   }, [layout.moduleAnchors, statusSig]) // eslint-disable-line react-hooks/exhaustive-deps
-  const activeMods = useMemo(() => new Set(nodes.filter((n, i) => statuses[i] === 'running' || statuses[i] === 'queued').map((n) => n.module)), [nodes, statuses])
-  const activeCurves = useMemo(() => {
-    const out: QuadraticBezierCurve3[] = []
-    for (const e of layout.edges) {
-      if (e.kind === 'feeds') continue
-      const flow = (e.kind === 'dep' && moduleDone.has(e.fromModule) && activeMods.has(e.toModule)) || (e.kind === 'core' && moduleDone.has(e.fromModule))
-      if (flow) out.push(new QuadraticBezierCurve3(v3(e.from), v3(e.mid), v3(e.to)))
-    }
-    return out
-  }, [layout.edges, moduleDone, activeMods])
-
-  // dependency + core arcs always show (faint); feeds stay hidden until hover (like the flat EdgeLayer)
-  const visibleEdges = useMemo(
-    () => layout.edges.filter((e) => e.kind !== 'feeds' || (hoverKey && (e.fromKey === hoverKey || e.toKey === hoverKey))),
-    [layout.edges, hoverKey],
+  const activeMods = useMemo(() => new Set(nodes.filter((_n, i) => statuses[i] === 'running' || statuses[i] === 'queued').map((n) => n.module)), [nodes, statuses])
+  const depCoreEdges = useMemo(() => layout.edges.filter((e) => e.kind !== 'feeds'), [layout.edges])
+  const activeEdges = useMemo(
+    () => depCoreEdges.filter((e) => (e.kind === 'dep' && moduleDone.has(e.fromModule) && activeMods.has(e.toModule)) || (e.kind === 'core' && moduleDone.has(e.fromModule))),
+    [depCoreEdges, moduleDone, activeMods],
   )
 
-  const ev = (e: any): [number, number] => {
-    const n = e.nativeEvent as PointerEvent
+  // ---- the driver: advance morph, then lerp nodes / labels / core / camera / controls ----
+  useFrame((state) => {
+    const cam = camera as PerspectiveCamera
+    // advance morph (time-based → exact duration; reduced-motion snaps)
+    if (targetRef.current !== morphTarget) {
+      targetRef.current = morphTarget
+      startT.current = state.clock.elapsedTime
+      startVal.current = morphRef.current
+      camStart.current.copy(cam.position)
+      fovStart.current = cam.fov
+    }
+    if (reducedMotion) morphRef.current = morphTarget
+    else if (morphRef.current !== morphTarget) {
+      const p = Math.min(1, (state.clock.elapsedTime - (startT.current ?? state.clock.elapsedTime)) / MORPH_DUR)
+      morphRef.current = startVal.current + (morphTarget - startVal.current) * p
+      if (p >= 1) morphRef.current = morphTarget
+    }
+    const m = morphRef.current
+    const e = easeInOut(m)
+    const t = state.clock.elapsedTime
+
+    // nodes: lerp flat↔sphere + live pulse
+    const mesh = meshRef.current
+    if (mesh) {
+      for (let i = 0; i < nodes.length; i++) {
+        const n = nodes[i]
+        TMP_A.set(n.flatPos.x, n.flatPos.y, n.flatPos.z)
+        TMP_B.set(n.pos.x, n.pos.y, n.pos.z)
+        TMP_A.lerp(TMP_B, e)
+        let s = n.r * (hoverKey === n.key ? 1.5 : 1)
+        const st = statuses[i]
+        if (st === 'running' || st === 'queued') {
+          const period = st === 'running' ? 1.3 : 1.7
+          const amp = st === 'running' ? 0.3 : 0.16
+          s *= 1 + amp * (0.5 + 0.5 * Math.sin((t * 2 * Math.PI) / period))
+        }
+        TMP_OBJ.position.copy(TMP_A)
+        TMP_OBJ.scale.setScalar(s)
+        TMP_OBJ.updateMatrix()
+        mesh.setMatrixAt(i, TMP_OBJ.matrix)
+      }
+      mesh.instanceMatrix.needsUpdate = true
+    }
+
+    // labels: lerp flat (above column) ↔ sphere (lifted patch center)
+    layout.moduleAnchors.forEach((a, i) => {
+      const g = labelRefs.current[i]
+      if (!g) return
+      g.position.set(lerp(a.flatLabel.x, a.center.x * 1.06, e), lerp(a.flatLabel.y, a.center.y * 1.06, e), lerp(a.flatLabel.z, a.center.z * 1.06, e))
+    })
+    // core
+    if (coreRef.current) coreRef.current.position.set(lerp(layout.core.flatPos.x, layout.core.pos.x, e), lerp(layout.core.flatPos.y, layout.core.pos.y, e), lerp(layout.core.flatPos.z, layout.core.pos.z, e))
+
+    // sphere shell only exists near the sphere state: fade + scale in as it wraps
+    if (bodyRef.current) {
+      const shell = Math.max(0, (e - 0.35) / 0.65) // 0 until 35% wrapped, 1 at sphere
+      bodyRef.current.scale.setScalar(0.0001 + shell)
+      bodyRef.current.visible = shell > 0.01
+    }
+    if (atmoMat.current) atmoMat.current.uniforms.uM.value = Math.max(0, (e - 0.5) / 0.5)
+
+    // camera: drive during the morph (flatten perspective at 0); hand to OrbitControls at the sphere
+    const settledSphere = m >= 0.999 && morphTarget === 1
+    if (controlsRef.current) {
+      controlsRef.current.enabled = settledSphere
+      controlsRef.current.autoRotate = settledSphere && !reducedMotion
+    }
+    if (!settledSphere) {
+      const p = startT.current == null ? 1 : Math.min(1, (state.clock.elapsedTime - startT.current) / MORPH_DUR)
+      const targetCam = morphTarget === 1 ? SPHERE_CAM : FLAT_CAM
+      const targetFov = morphTarget === 1 ? SPHERE_FOV : FLAT_FOV
+      cam.position.lerpVectors(camStart.current, targetCam, reducedMotion ? 1 : easeInOut(p))
+      cam.fov = lerp(fovStart.current, targetFov, reducedMotion ? 1 : easeInOut(p))
+      cam.lookAt(0, 0, 0)
+      cam.updateProjectionMatrix()
+    }
+  })
+
+  const ev = ( x: any): [number, number] => {
+    const n = x.nativeEvent as PointerEvent
     return [n.clientX, n.clientY]
   }
 
   return (
     <>
-      <fogExp2 attach="fog" args={[colors.bg.getHex(), 0.018]} />
+      <fogExp2 attach="fog" args={[colors.bg.getHex(), 0.016]} />
       <ambientLight intensity={1} />
+      <OrbitControls ref={controlsRef} makeDefault enabled={false} enablePan={false} enableDamping dampingFactor={0.08} rotateSpeed={0.6} zoomSpeed={0.6} minDistance={16} maxDistance={44} autoRotateSpeed={0.35} />
 
-      <OrbitControls
-        makeDefault
-        enablePan={false}
-        enableDamping
-        dampingFactor={0.08}
-        rotateSpeed={0.6}
-        zoomSpeed={0.6}
-        minDistance={15}
-        maxDistance={42}
-        autoRotate={!reducedMotion}
-        autoRotateSpeed={0.4}
-      />
+      {/* sphere shell — only present near the globe state (scales/fades in as it wraps) */}
+      <group ref={bodyRef}>
+        <mesh>
+          <sphereGeometry args={[GLOBE.R * 0.99, 48, 48]} />
+          <meshBasicMaterial color={colors.bg.clone().lerp(colors.hairline, 0.55)} />
+        </mesh>
+        <mesh>
+          <sphereGeometry args={[GLOBE.R, 32, 20]} />
+          <meshBasicMaterial color={colors.hairline.clone().lerp(colors.accentDeep, 0.6)} wireframe transparent opacity={0.22} />
+        </mesh>
+        <mesh scale={1.04}>
+          <sphereGeometry args={[GLOBE.R, 48, 48]} />
+          <shaderMaterial ref={atmoMat} uniforms={useMemo(() => ({ uColor: { value: colors.accent.clone() }, uM: { value: 1 } }), [])} vertexShader={ATMO_VERT} fragmentShader={ATMO_FRAG} transparent depthWrite={false} blending={AdditiveBlending} side={BackSide} />
+        </mesh>
+      </group>
 
-      <group ref={groupRef} scale={reducedMotion ? 1 : [1.18, 1.18, 0.04]}>
-      {/* occluder shell: opaque bg sphere just inside R so far-side arcs/nodes are truly hidden (depth) */}
-      <mesh>
-        <sphereGeometry args={[GLOBE.R * 0.985, 48, 48]} />
-        <meshBasicMaterial color={colors.bg} />
-      </mesh>
-      {/* faint wireframe so the volume reads as a globe */}
-      <mesh>
-        <sphereGeometry args={[GLOBE.R, 24, 18]} />
-        <meshBasicMaterial color={colors.hairline} wireframe transparent opacity={0.12} />
-      </mesh>
+      {/* edges — morphing, flowing, dashed (dep+core always; a brighter set for active data-flow) */}
+      <MorphEdges edges={depCoreEdges} color={colors.accentDeep} opacity={0.5} speed={0.14} morphRef={morphRef} />
+      {activeEdges.length > 0 && <MorphEdges edges={activeEdges} color={colors.accentBright} opacity={0.95} speed={0.4} morphRef={morphRef} />}
 
-      {/* edges */}
-      {visibleEdges.map((e) => {
-        const lit = hoverKey != null && (e.fromKey === hoverKey || e.toKey === hoverKey)
-        return (
-          <Line
-            key={e.id}
-            points={edgePoints(e)}
-            color={lit ? colors.accentBright : e.kind === 'core' ? colors.accentDeep : colors.accentDeep}
-            lineWidth={lit ? 1.8 : 1}
-            transparent
-            opacity={lit ? 0.95 : e.kind === 'core' ? 0.5 : 0.32}
-          />
-        )
-      })}
-
-      {/* agent orbs — one instanced draw call */}
+      {/* agent orbs — one instanced draw call; positions/scale driven per-frame in the driver */}
       <instancedMesh
         ref={meshRef}
         args={[undefined as any, undefined as any, nodes.length]}
-        onPointerMove={(e) => {
-          e.stopPropagation()
-          if (e.instanceId != null) { const [x, y] = ev(e); onHover(nodes[e.instanceId], x, y) }
-        }}
+        onPointerMove={(x) => { x.stopPropagation(); if (x.instanceId != null) { const [cx, cy] = ev(x); onHover(nodes[x.instanceId], cx, cy) } }}
         onPointerOut={() => onHover(null, 0, 0)}
-        onClick={(e) => {
-          e.stopPropagation()
-          if (e.instanceId != null) { const [x, y] = ev(e); onPick(nodes[e.instanceId], x, y) }
-        }}
+        onClick={(x) => { x.stopPropagation(); if (x.instanceId != null) { const [cx, cy] = ev(x); onPick(nodes[x.instanceId], cx, cy) } }}
       >
         <sphereGeometry args={[1, 16, 16]} />
         <meshBasicMaterial toneMapped={false} />
       </instancedMesh>
 
-      {/* Memo core at the south pole */}
-      <mesh position={[layout.core.pos.x, layout.core.pos.y, layout.core.pos.z]} onClick={(e) => { e.stopPropagation(); onCoreClick() }}>
-        <sphereGeometry args={[layout.core.r, 24, 24]} />
-        <meshBasicMaterial color={colors.accent} toneMapped={false} />
-      </mesh>
-
-      {/* module-name billboards — only the front-facing ones (occlude hides the back) */}
-      {layout.moduleAnchors.map((a) => (
-        <Html
-          key={a.module}
-          position={[a.center.x * 1.06, a.center.y * 1.06, a.center.z * 1.06]}
-          center
-          distanceFactor={30}
-          occlude
-          zIndexRange={[10, 0]}
-        >
-          <div className="globelabel">{a.module.replace(/-/g, ' ')}</div>
-        </Html>
-      ))}
-
-      {/* data-flow pulses along the edges that are actively carrying results during a run */}
-      <DataFlow curves={activeCurves} color={colors.accentBright} />
+      {/* Memo core */}
+      <group ref={coreRef}>
+        <mesh onClick={(x) => { x.stopPropagation(); onCoreClick() }}>
+          <sphereGeometry args={[layout.core.r, 24, 24]} />
+          <meshBasicMaterial color={colors.accent} toneMapped={false} />
+        </mesh>
       </group>
+
+      {/* module labels — name + status + "run module"; morph position flat(above column) ↔ sphere(patch) */}
+      {layout.moduleAnchors.map((a, i) => {
+        const ms = dataStatus?.modules[a.module]?.status
+        return (
+          <group key={a.module} ref={(el) => { if (el) labelRefs.current[i] = el }}>
+            <Html center distanceFactor={26} occlude zIndexRange={[12, 0]}>
+              <div className="globelabel" onClick={(ev2) => { ev2.stopPropagation(); onClusterClick(a.module) }}>
+                <div className="globelabel__name">{a.module.replace(/-/g, ' ')}</div>
+                {ms && <div className="globelabel__status" style={{ color: sufficiencyColor(ms) }}>{ms}</div>}
+                <div className="globelabel__run">▸ run module</div>
+              </div>
+            </Html>
+          </group>
+        )
+      })}
     </>
   )
 }

@@ -20,10 +20,13 @@ export default function GlobeStage() {
   const selectedTicker = useStore((s) => s.selectedTicker)
   const nodeStatus = useStore((s) => s.nodeStatus)
   const nodeRuntime = useStore((s) => s.nodeRuntime)
+  const dataStatus = useStore((s) => s.dataStatus)
   const now = useStore((s) => s.now)
   const setNow = useStore((s) => s.setNow)
+  const researchView = useStore((s) => s.researchView)
   const colors = useGlobeColors()
-  const { onNodeClick, openThesis, modulePop, setModulePop } = useNodeInteractions()
+  const { onNodeClick, onClusterClick, openThesis, modulePop, setModulePop } = useNodeInteractions()
+  const morphTarget = researchView === 'globe' ? 1 : 0
   const [hover, setHover] = useState<{ node: GlobeNode; x: number; y: number } | null>(null)
   const reducedMotion = useMemo(prefersReduced, [])
 
@@ -85,10 +88,13 @@ export default function GlobeStage() {
           nodeStatus={nodeStatus}
           colors={colors}
           reducedMotion={reducedMotion}
+          morphTarget={morphTarget}
+          dataStatus={dataStatus}
           hoverKey={hover?.node.key ?? null}
           onHover={(n, x, y) => setHover(n ? { node: n, x, y } : null)}
           onPick={(n, x, y) => onNodeClick(n, () => ({ cx: x, top: y - 14 }))}
           onCoreClick={openThesis}
+          onClusterClick={onClusterClick}
         />
       </Canvas>
       )}
