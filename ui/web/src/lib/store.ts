@@ -157,12 +157,7 @@ interface State {
   // research stage renderer: the 3D globe (default) or the flat 2D constellation. Persisted.
   researchView: 'constellation' | 'globe'
   setResearchView: (v: 'constellation' | 'globe') => void
-  webglOK: boolean // WebGL available — gates the globe option (probed once in init)
-  // true while the globe plays its UNWRAP (deflate) before handing back to the constellation, so leaving
-  // the globe is a slow reverse-morph rather than an instant cut.
-  globeExiting: boolean
-  requestConstellation: () => void // toggle → start the unwrap (or switch instantly under reduced-motion)
-  _finishGlobeExit: () => void // the globe calls this when the unwrap completes
+  webglOK: boolean // WebGL available — gates the globe; when false the flat DOM constellation is shown instead
   // the warp transition between swarms; landing carries an optional research ticker to preselect
   warp: { from: string; to: string; payloadTicker?: string; landTicker?: string; phase: 'collapse' | 'traverse' | 'bloom' } | null
   // screener slice (self-contained so the research paths stay untouched)
@@ -387,7 +382,6 @@ export const useStore = create<State>((set, get) => ({
   activeSwarm: typeof window !== 'undefined' && (window as any).__ENGINE_LIVE__ === true ? 'screener' : 'research',
   researchView: loadView(),
   webglOK: true, // optimistic; init() probes and corrects + coerces the view if WebGL is missing
-  globeExiting: false,
   warp: null,
   scGraph: null,
   scNodesByKey: new Map(),
@@ -625,25 +619,13 @@ export const useStore = create<State>((set, get) => ({
     }
   },
 
+  // The flat constellation and the globe are the SAME WebGL scene at morph 0 / 1 — switching just changes
+  // the morph target, which the scene animates as one continuous wrap/unwrap. No renderer swap.
   setResearchView: (v) => {
     if (v === 'globe' && !get().webglOK) return // never strand into a view WebGL can't render
     try { localStorage.setItem(VIEW_KEY, v) } catch {}
-    set({ researchView: v, globeExiting: false })
+    set({ researchView: v })
   },
-
-  // Going globe → constellation: play the globe's unwrap (deflate) first, THEN switch — unless reduced
-  // motion (or we're not actually on the globe), in which case switch instantly. Persist the choice now so
-  // a reload respects it even mid-unwrap.
-  requestConstellation: () => {
-    const reduce = typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
-    try { localStorage.setItem(VIEW_KEY, 'constellation') } catch {}
-    if (get().researchView !== 'globe' || reduce) {
-      set({ researchView: 'constellation', globeExiting: false })
-    } else {
-      set({ globeExiting: true }) // the globe deflates, then calls _finishGlobeExit
-    }
-  },
-  _finishGlobeExit: () => set({ researchView: 'constellation', globeExiting: false }),
 
   selectNode: (key) => set({ selectedNodeKey: key }),
   setNow: (n) => set({ now: n }),

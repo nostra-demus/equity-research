@@ -1856,10 +1856,18 @@ a { color: inherit; }
   background: radial-gradient(120% 90% at 50% 46%, transparent 56%, rgba(0, 0, 0, 0.34) 100%);
 }
 .globelabel {
-  font-size: 11px; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-muted);
-  white-space: nowrap; pointer-events: none; user-select: none; text-shadow: 0 1px 8px var(--bg);
+  text-align: center; white-space: nowrap; user-select: none; pointer-events: auto; cursor: pointer;
+  text-shadow: 0 1px 8px var(--bg);
 }
-@media (prefers-reduced-motion: reduce) { .globe { animation: none; } }
+.globelabel__name { font-size: 11px; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-muted); transition: color var(--dur-fast) var(--ease); }
+.globelabel__status { font-size: 10px; margin-top: 1px; }
+.globelabel__run { font-size: 10px; color: var(--text-faint); margin-top: 1px; opacity: 0; transition: opacity var(--dur-fast) var(--ease); }
+.globelabel:active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) {
+  .globelabel:hover .globelabel__name { color: var(--accent-bright); }
+  .globelabel:hover .globelabel__run { opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) { .globe { animation: none; } .globelabel:active { transform: none; } }
 
 /* ---- the time-window ribbon — scrub the same themes through different lookbacks (1h … 3m) ---- */
 .themes__timeline { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
