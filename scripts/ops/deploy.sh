@@ -18,8 +18,10 @@
 #
 # Safe by construction:
 #   • ff-only      — never reset/discard; if HEAD is ahead (an unpushed data commit) it SKIPS
-#   • skip-if-dirty — never fights a research/screener run mid-write (the ff path); the marker SYNC path
-#                     needs no clean tree — it only rebuilds already-present source into ui/dist
+#   • skip-if-conflict — the ff path skips only when an incoming commit overlaps a dirty file, or any
+#                     non-data (code/ops) file is dirty; it does NOT block on how recently engine DATA was
+#                     written (that jammed it against the 24/7 screener). The marker SYNC path needs no
+#                     clean tree — it only rebuilds already-present source into ui/dist
 #   • marker-gated — rebuild iff the built artifacts are behind HEAD; advance the marker only on success
 #   • single-flight — mkdir lock with a 30-min staleness breaker
 #   • always exit 0 — incidents live in the log, not the launchd exit code
@@ -292,29 +294,30 @@ if has_nondata_dirty; then
   log "SKIP working tree dirty — non-data (code/ops) file present (incl. untracked) — refusing to bake unreviewed code into a release (§28) — retry next cycle"
   exit 0
 fi
-# (2) All dirty paths are engine DATA now. Still skip when the incoming ff would COLLIDE with a dirty data
-#     file (a real merge conflict), or when a data file was written within RUN_QUIET_SECS (a run is probably
-#     mid-write). Otherwise a stale, non-overlapping, data-only dirty tree is safe to fast-forward over —
-#     `git merge --ff-only` itself refuses to clobber a locally-modified file, the backstop if this is wrong.
-RUN_QUIET_SECS="${DEPLOY_RUN_QUIET_SECS:-900}"   # 15 min with no writes ⇒ no run is mid-write
+# (2) All dirty paths are engine DATA now. The only real hazard to a CODE fast-forward is an incoming
+#     commit that ALSO touches a file currently dirty in the tree — a genuine ff conflict. Skip exactly that.
+#     A non-overlapping, data-only dirty tree is ALWAYS safe to fast-forward over, EVEN while the engine is
+#     actively writing it: `git merge --ff-only` only updates files in the incoming diff (never the dirty
+#     data files) and refuses to clobber a locally-modified tracked file as the backstop; and the rebuild
+#     compiles ui/web SOURCE, not data — a half-written data file can't reach the bundle.
+#
+#     We deliberately do NOT also gate on "a dirty data file was written in the last N seconds" (the old
+#     RUN_QUIET_SECS guard). The 24/7 screener rewrites TRACKED data (screener/board/*.json,
+#     screener/ledger/themes.ndjson) on essentially every cycle, so a dirty data file is PERMANENTLY a few
+#     minutes old — that guard never saw its 15-min quiet window and jammed the deploy indefinitely
+#     (2026-06-27: the whole globe set + engine PRs sat merged-but-not-live for ~an hour, prod stuck behind
+#     main, because board/ledger were continuously dirty). Overlap + ff-only's own refusal-to-clobber are
+#     the correct and sufficient guards; recency added no safety a code ff actually needs, only the jam.
 if ! "$GIT" diff --quiet 2>/dev/null; then
   dirty="$("$GIT" diff --name-only 2>/dev/null)"
   incoming="$("$GIT" diff --name-only HEAD origin/main 2>/dev/null)"
   overlap="$(comm -12 <(printf '%s\n' "$dirty" | sort -u) <(printf '%s\n' "$incoming" | sort -u) 2>/dev/null)"
-  recent=0
-  while IFS= read -r f; do
-    [ -z "$f" ] && continue
-    [ -e "$f" ] || continue
-    age=$(( $(date +%s) - $(stat -f %m "$f" 2>/dev/null || echo 0) ))
-    [ "$age" -lt "$RUN_QUIET_SECS" ] && { recent=1; break; }
-  done <<< "$dirty"
-  if [ -n "$overlap" ] || [ "$recent" = 1 ]; then
+  if [ -n "$overlap" ]; then
     gitlock_release
-    if [ -n "$overlap" ]; then why="incoming ff also changes a dirty file"; else why="run mid-write (<${RUN_QUIET_SECS}s)"; fi
-    log "SKIP working tree dirty — $why — retry next cycle"
+    log "SKIP working tree dirty — incoming ff also changes a dirty file — retry next cycle"
     exit 0
   fi
-  log "PROCEED tree dirty but all dirty files are stale & non-overlapping engine data — ff is safe (ff-only refuses to clobber)"
+  log "PROCEED tree dirty but all dirty files are non-overlapping engine data — ff is safe (ff-only refuses to clobber)"
 fi
 
 log "DEPLOY ${LOCAL:0:9} -> ${REMOTE:0:9}"
