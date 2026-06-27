@@ -168,6 +168,7 @@ export function EventRail() {
   const items = useStore((s) => s.newsItems)
   const freshEvents = useStore((s) => s.freshEvents)
   const status = useStore((s) => s.newsStatus)
+  const streamOnline = useStore((s) => s.newsStreamOnline)
   const selected = useStore((s) => s.scSelectedEvent)
   const ensure = useStore((s) => s.scEnsureNewsStream)
   const refreshStatus = useStore((s) => s.refreshNewsStatus)
@@ -302,11 +303,16 @@ export function EventRail() {
   const gicsEmptyLine = items.length && !broadActive && !geoNarrow ? gicsEmptyMessage(filters) : null
 
   const ago = agoMin(status?.lastCycleAt)
+  // The config truth (`status.enabled`) is checked first so "Auto-scan off" is never confused with offline.
+  // Only when we have no status yet does the live-stream flag decide: an OPEN wire reads "Connected…"
+  // (the status fetch just hasn't landed), and only a genuinely unreachable wire reads "connecting…".
   const statusLine = status
     ? status.enabled
       ? `Watching · last look ${ago != null ? `${ago}m ago` : 'soon'}`
       : 'Auto-scan off — add a free Groq key to watch the wire'
-    : 'connecting to the scanner…'
+    : streamOnline
+      ? 'Connected · waiting for the next scan…'
+      : 'connecting to the scanner…'
   const today = status?.today
 
   const scopeChip = (s: ScopeId) => {

@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { api, isStatic } from './api'
+import { api, ensureMode, isStatic } from './api'
 import { downstreamCascade, type CascadeNode } from './cascade'
 import { displayHeadline, originalHeadline, plainRoute, plainStage } from './plain'
 import type { Theme, ThemeDetail } from './themes'
@@ -34,11 +34,18 @@ const RUN_EVENT_TYPES = ['run-started', 'agent-started', 'agent-done', 'agent-fa
 const runSources = new Map<string, EventSource>()
 let dataSource: EventSource | null = null
 let bloomTimer: any = null
-let reconnectTimer: any = null
 let pollTimer: any = null
 let intensityRefetchTimer: any = null // debounces the screener intensity re-fetch on each news cycle
 let selectGen = 0 // bumped on every selectTicker; async work bails if it changed (fast-switch guard)
 let creditProbed = false
+// ---- resilient core-data load (decoupled from the heartbeat) ----
+// init() loads the heavy graph + ticker list AFTER starting the heartbeat, so a slow/failing swarm or
+// tickers can never pin the UI. These track which parts have loaded so the background retry refetches
+// only what's still missing, and stops once both are in. `connected`/`health` are owned solely by the
+// heartbeat — loadCore never touches them (in live mode).
+let coreGraphLoaded = false
+let coreTickersLoaded = false
+let coreRetryTimer: any = null
 
 // ---- engine heartbeat (the real source of truth for the online/offline indicator) ----
 // `connected` (below) only flips false on the INITIAL load failure; SSE onerror keeps run streams open,
@@ -51,9 +58,16 @@ let healthLoopRunning = false
 let healthListenersBound = false
 let healthGen = 0
 const HEALTH_OK_MS = 20000 // healthy cadence
-const HEALTH_DEGRADED_MS = 5000 // faster while down — snappy detection + recovery
-const HEALTH_TIMEOUT_MS = 4000 // a sleeping laptop must register quickly
-const OFFLINE_THRESHOLD = 2 // consecutive fails before declaring the engine offline (anti-flicker)
+const HEALTH_DEGRADED_MS = 2500 // poll fast while down so recovery is near-instant
+// Tolerate a tunnel/cold-start spike. The edge Worker gives /api/health an 8s budget, so the client must
+// not give up first — a 4s client timeout was a cause of false "engine offline" while the wire was live.
+const HEALTH_TIMEOUT_MS = 7000
+const OFFLINE_THRESHOLD = 3 // consecutive GENUINE fails before the red bar (anti-flicker; ~5s end-to-end)
+// A news/run SSE event within this window proves the engine is up — the live data plane is the ground
+// truth, so a slow/failed health probe is overridden while the wire is demonstrably alive. Updated on every
+// SSE message by _noteStreamLive(); paired with newsSource.readyState===OPEN for the event-quiet gaps.
+const STREAM_LIVE_MS = 20000
+let lastStreamActivityAt = 0
 const HARD_DOWN = new Set<HealthState>(['engine-offline', 'your-network', 'session-expired'])
 
 // Auto-resume of interrupted screener runs (a closed laptop / dropped connection): per-signal attempt
@@ -243,6 +257,7 @@ interface State {
   scIntensityWindow: IntensityWindow // derived from the "When" ribbon (themesWindow) — drives the map readout + lane mix; 'scan' = the live per-cycle path
   setIntensityWindow: (w: IntensityWindow) => Promise<void> // internal — driven by setThemesWindow; not a separate user control
   newsStatus: NewsStatus | null
+  newsStreamOnline: boolean // the live news SSE is open — proves the wire is reachable even if the status fetch failed
   feedWindowDays: number // the time-travel window the wire is showing (2 = live; 14/30/90/180/370 = history)
   feedWindowLoading: boolean
   setFeedWindow: (days: number) => Promise<void>
@@ -253,6 +268,9 @@ interface State {
   openSources: () => void
   closeSources: () => void
   refreshNewsStatus: () => Promise<void>
+  revive: () => void // wake/focus/network-return: force a health re-check + status refresh + stream reconnect
+  _setNewsStreamOnline: (v: boolean) => void // internal — flips the wire-reachable flag from SSE open/close
+  _noteStreamLive: () => void // internal — any SSE event proves the engine is up → flip health online instantly
   checkInboxItem: (row: BoardInboxRow) => Promise<void>
   dismissInbox: (inboxId: string) => Promise<void>
   restoreInbox: (inboxId: string) => Promise<void>
@@ -364,6 +382,7 @@ export const useStore = create<State>((set, get) => ({
   feedWindowDays: 2,
   feedWindowLoading: false,
   newsStatus: null,
+  newsStreamOnline: false,
   themes: [],
   themesView: null,
   themesWindow: null,
@@ -376,30 +395,21 @@ export const useStore = create<State>((set, get) => ({
   stopListOpen: false,
 
   init: async () => {
+    // Resolve live/static FIRST — independent of the heavy company data — and start the engine heartbeat
+    // immediately in live mode. The heartbeat (not these data loads) owns `connected`/`health`, so a slow
+    // or failing /api/swarm or /api/tickers can no longer pin the whole UI at "connecting"/"offline".
+    // ensureMode has its own 6s probe and an __ENGINE_LIVE__ fast-path, and never throws.
+    let stat: boolean
     try {
-      const [graph, tk, credit] = await Promise.all([api.swarm(), api.tickers(), api.credit().catch(() => null)])
-      const stat = isStatic()
-      set({ connected: true, staticMode: stat, graph, nodesByKey: flatten(graph), tickers: tk.tickers, emptyState: tk.emptyState, defaultCoverage: tk.coverage ?? [], dataDir: (tk as any).dataDir ?? null, driveEnabled: (tk as any).driveEnabled ?? false, credit })
-      // Landing view: the screener is the default, but ONLY when the live engine actually SERVES it
-      // (CLAUDE.md §26 — research is the only guaranteed swarm; the screener is discovered, never
-      // assumed) and we're live (a static/read-only showcase can't load the screener wire). Decided here
-      // off the RESOLVED swarm list, so the swarms:[] seed can never misfire and a research-only engine
-      // never strands the user on an empty, unswitchable screener. scInit is idempotent + self-guarded.
-      api.swarms()
-        .then((swarms) => {
-          set({ swarms })
-          const screenerDefault = !stat && swarms.some((s) => s.id === 'screener')
-          set({ activeSwarm: screenerDefault ? 'screener' : 'research' })
-          if (screenerDefault) void get().scInit()
-        })
-        .catch(() => {
-          // couldn't load the swarm list → only research is reachable (the switcher hides with one
-          // swarm), so the active view MUST be research or the user is stranded with no way back
-          set({ swarms: [{ id: 'research', label: 'Research', color: '#c0851d', unit: 'ticker', order: 1, layout: 'constellation' }], activeSwarm: 'research' })
-        })
-      if (!stat) get().startHealth() // begin the engine heartbeat (live mode only); idempotent across reconnects
+      stat = (await ensureMode()) === 'static'
+    } catch {
+      stat = isStatic()
+    }
+    set({ staticMode: stat })
+    if (!stat) {
+      get().startHealth() // begin the engine heartbeat (live mode only); idempotent across reconnects
       // live data-folder watcher (Drive sync) — backend only
-      if (!stat && !dataSource) {
+      if (!dataSource) {
         dataSource = new EventSource(api.dataStreamUrl())
         dataSource.addEventListener('data-changed', (ev: MessageEvent) => {
           try {
@@ -409,21 +419,35 @@ export const useStore = create<State>((set, get) => ({
           } catch {}
         })
       }
-      reconcileSelection(get, set) // a reconnect may carry a now-removed selection — drop it
-      // No auto-select: the cockpit opens on the "Select a company" placeholder so nothing is read or
-      // classified until the user picks (or adds) a company. (The screener-vs-research landing decision
-      // is made in the api.swarms() handler above, off the resolved swarm list.)
       // one cheap usage probe on first connect (backend only)
-      if (!stat && !creditProbed) {
+      if (!creditProbed) {
         creditProbed = true
         get().checkCredit()
       }
-    } catch {
-      // control plane unreachable — show offline and keep retrying so the UI auto-recovers when it starts
-      set({ connected: false })
-      if (reconnectTimer) clearTimeout(reconnectTimer)
-      reconnectTimer = setTimeout(() => get().init(), 2500)
     }
+    // Landing view: the screener is the default, but ONLY when the live engine actually SERVES it
+    // (CLAUDE.md §26 — research is the only guaranteed swarm; the screener is discovered, never assumed)
+    // and we're live (a static/read-only showcase can't load the screener wire). Decided off the RESOLVED
+    // swarm list, so the swarms:[] seed can never misfire and a research-only engine never strands the
+    // user on an empty, unswitchable screener. Independent of the heavy company data, so a slow graph/
+    // tickers load never delays the landing decision. scInit is idempotent + self-guarded.
+    api.swarms()
+      .then((swarms) => {
+        set({ swarms })
+        const screenerDefault = !stat && swarms.some((s) => s.id === 'screener')
+        set({ activeSwarm: screenerDefault ? 'screener' : 'research' })
+        if (screenerDefault) void get().scInit()
+      })
+      .catch(() => {
+        // couldn't load the swarm list → only research is reachable (the switcher hides with one
+        // swarm), so the active view MUST be research or the user is stranded with no way back
+        set({ swarms: [{ id: 'research', label: 'Research', color: '#c0851d', unit: 'ticker', order: 1, layout: 'constellation' }], activeSwarm: 'research' })
+      })
+    // Load the heavy core data (graph + ticker list) resiliently: each part sets as it resolves, the
+    // still-missing parts retry in the background, and NONE of it touches connected/health (the heartbeat
+    // owns those). No auto-select — the cockpit opens on the "Select a company" placeholder until the user
+    // picks (or adds) a company.
+    void loadCore(get, set, stat, true)
   },
 
   selectTicker: async (t) => {
@@ -815,10 +839,11 @@ export const useStore = create<State>((set, get) => ({
     healthLoopRunning = true
     if (!healthListenersBound && typeof window !== 'undefined') {
       healthListenersBound = true
-      // re-check instantly when the visitor's own network returns or the tab refocuses
-      window.addEventListener('online', () => get().checkHealthNow())
-      window.addEventListener('offline', () => set({ health: 'your-network', connected: false }))
-      document.addEventListener('visibilitychange', () => { if (!document.hidden) get().checkHealthNow() })
+      // bring EVERYTHING back to live the instant the visitor's network returns or the tab refocuses —
+      // health probe + scanner status + a news-stream reconnect, not just the health probe.
+      window.addEventListener('online', () => get().revive())
+      window.addEventListener('offline', () => set({ health: 'your-network', connected: false, newsStreamOnline: false }))
+      document.addEventListener('visibilitychange', () => { if (!document.hidden) get().revive() })
     }
     pumpHealth(get)
   },
@@ -877,10 +902,22 @@ export const useStore = create<State>((set, get) => ({
     } else if (outcome === 'session') {
       set({ health: 'session-expired', connected: false })
     } else {
-      const n = get().healthFailCount + 1
-      const health: HealthState = n >= OFFLINE_THRESHOLD ? 'engine-offline' : 'reconnecting'
-      // back-fill legacy `connected` (online/reconnecting = true) so the TickerPicker dot stays consistent
-      set({ health, healthFailCount: n, connected: health === 'reconnecting' })
+      // The SSE data plane is the ground truth. If a stream event arrived very recently, OR the news
+      // stream socket is still OPEN (the server's 15s keep-alive holds it open and the browser would flip
+      // readyState on a real drop), the engine is provably up — a slow or failed /api/health probe is a
+      // false alarm, so DON'T flap to offline. This is the fix for the red "Engine offline" bar appearing
+      // while the wire is plainly still streaming events.
+      const wireAlive = Date.now() - lastStreamActivityAt < STREAM_LIVE_MS || newsSource?.readyState === 1
+      if (wireAlive) {
+        const reconnected = get().health !== 'online'
+        set({ health: 'online', healthFailCount: 0, lastHealthOkAt: Date.now(), connected: true })
+        if (reconnected && get().activeSwarm === 'screener') void get().scRefreshBoard()
+      } else {
+        const n = get().healthFailCount + 1
+        const health: HealthState = n >= OFFLINE_THRESHOLD ? 'engine-offline' : 'reconnecting'
+        // back-fill legacy `connected` (online/reconnecting = true) so the TickerPicker dot stays consistent
+        set({ health, healthFailCount: n, connected: health === 'reconnecting' })
+      }
     }
   },
 
@@ -1459,10 +1496,36 @@ export const useStore = create<State>((set, get) => ({
     try {
       set({ newsStatus: await api.newsStatus() })
     } catch {
-      /* status is decoration — never toast for it */
+      /* status is decoration — never toast for it. Keep the last-known status; a transient failure must
+         not blank the rail. The news SSE's `news-connected` flag (newsStreamOnline) covers the case where
+         this fetch failed at boot but the stream is actually open. */
     }
   },
+  _setNewsStreamOnline: (v) => set({ newsStreamOnline: v }),
+  _noteStreamLive: () => {
+    lastStreamActivityAt = Date.now()
+    if (get().staticMode) return
+    // a live SSE event is the data plane proving itself — flip to online INSTANTLY (don't wait for the next
+    // health poll). This is what makes recovery feel instant and stops a false "offline" while events flow.
+    // Guarded so it only writes state on an actual transition (no re-render churn when already online).
+    if (get().health !== 'online') set({ health: 'online', healthFailCount: 0, lastHealthOkAt: Date.now(), connected: true })
+  },
+  // Wake / tab-refocus / network-return: pull everything back to live at once instead of waiting for the
+  // next 20s health beat (and, for the news status + stream, which had no wake hook at all, ever).
+  revive: () => {
+    if (get().staticMode) return
+    get().checkHealthNow() // force an immediate /api/health probe (no-op if the loop isn't running)
+    void get().refreshNewsStatus() // re-pull the scanner status (bounded fetch — always settles)
+    reviveNewsStream(get) // re-create the news SSE if it died (CLOSED) — browser auto-reconnect can give up
+  },
   _handleNewsEvent: (e) => {
+    // The server emits this the instant the SSE opens — it proves the wire is reachable even before any
+    // item arrives, so the rail can leave "connecting to the scanner…" without waiting on the status fetch.
+    if (e?.type === 'news-connected') {
+      set({ newsStreamOnline: true })
+      void get().refreshNewsStatus() // a status fetch that failed at boot recovers the moment the stream opens
+      return
+    }
     if (e?.type === 'news-item' && e.item) {
       const it = e.item as FeedItem
       // when a HISTORICAL time-window is showing (feedWindowDays > 2), keep that archive snapshot stable —
@@ -1692,6 +1755,7 @@ function connectRun(get: () => State, runId: string) {
   const es = new EventSource(api.runStreamUrl(runId))
   for (const t of RUN_EVENT_TYPES) {
     es.addEventListener(t, (ev: MessageEvent) => {
+      get()._noteStreamLive() // run traffic also proves the engine is up — keep the indicator green
       try {
         get()._handleEvent(JSON.parse(ev.data))
       } catch {}
@@ -1718,6 +1782,41 @@ async function reconnectRun(set: any, get: () => State, runId: string, token: nu
     set({ activeRuns, nodeRuntime: rt, runStream: stream })
     connectRun(get, runId)
   } catch {}
+}
+
+// Load the heavy boot data (graph + ticker list, + usage on the first call) WITHOUT ever gating the UI on
+// it. Each part sets as it resolves; whatever fails is retried in the background until both the graph and
+// the tickers are in. connected/health are owned by the heartbeat — loadCore never writes them in live
+// mode (in static mode there's no heartbeat, so it marks `connected` once the data is reachable). This is
+// what lets a slow /api/swarm or /api/tickers degrade to "data still loading" instead of "whole app
+// offline" (the old Promise.all in init() rejected the entire boot on either one failing).
+async function loadCore(get: () => State, set: (p: Partial<State>) => void, stat: boolean, withCredit = false) {
+  const jobs: Promise<void>[] = []
+  if (!coreGraphLoaded)
+    jobs.push(
+      api
+        .swarm()
+        .then((g) => { coreGraphLoaded = true; set({ graph: g, nodesByKey: flatten(g) }) })
+        .catch(() => {}),
+    )
+  if (!coreTickersLoaded)
+    jobs.push(
+      api
+        .tickers()
+        .then((tk) => {
+          coreTickersLoaded = true
+          set({ tickers: tk.tickers, emptyState: tk.emptyState, defaultCoverage: tk.coverage ?? [], dataDir: (tk as any).dataDir ?? null, driveEnabled: (tk as any).driveEnabled ?? false })
+          reconcileSelection(get, set) // a reconnect may carry a now-removed selection — drop it
+        })
+        .catch(() => {}),
+    )
+  if (withCredit) jobs.push(api.credit().then((c) => set({ credit: c })).catch(() => {}))
+  await Promise.all(jobs) // every job is .catch'd → this never rejects
+  if (stat) set({ connected: true }) // static showcase has no heartbeat — mark reachable once data is in
+  if (coreRetryTimer) { clearTimeout(coreRetryTimer); coreRetryTimer = null }
+  // Retry ONLY the still-missing parts; stop once both are loaded. Never in static mode (no engine to wait
+  // for). The heartbeat already reports reachability, so this loop is purely about backfilling data.
+  if (!stat && (!coreGraphLoaded || !coreTickersLoaded)) coreRetryTimer = setTimeout(() => void loadCore(get, set, stat, false), 3000)
 }
 
 // If the currently-selected company's folder was renamed or removed (so it's no longer in the list),
@@ -1785,6 +1884,13 @@ function closeRunSource(runId?: string) {
 const FRESH_MS = 2600
 const freshTimers = new Map<string, ReturnType<typeof setTimeout>>()
 let newsSource: EventSource | null = null
+// App-level reconnect for the news wire. The browser's native EventSource auto-reconnect gives up
+// permanently on some errors (a 4xx, or a Cloudflare Access redirect when the session expires) — leaving
+// the wire dead with no recovery. So once the source goes CLOSED we own the reconnect with capped backoff,
+// and reviveNewsStream() re-creates it immediately on wake/focus/network-return.
+const NEWS_BACKOFF_MS = [1000, 2000, 5000, 10000, 20000]
+let newsRetry = 0
+let newsRetryTimer: any = null
 function connectNewsStream(get: () => State) {
   // never open a live SSE on a static/read-only deploy: the screener stage can briefly mount on first
   // paint, and on Cloudflare Pages this would open an EventSource that errors + reconnects forever. The
@@ -1792,17 +1898,47 @@ function connectNewsStream(get: () => State) {
   if (isStatic()) return
   if (newsSource) return
   const es = new EventSource(api.newsStreamUrl())
-  for (const t of ['news-item', 'news-cycle', 'theme-update']) {
+  // 'news-connected' is sent immediately on open — handled in _handleNewsEvent to flip the rail online.
+  for (const t of ['news-connected', 'news-item', 'news-cycle', 'theme-update']) {
     es.addEventListener(t, (ev: MessageEvent) => {
+      get()._noteStreamLive() // any wire byte = the engine is up → flip health online instantly
       try {
         get()._handleNewsEvent(JSON.parse(ev.data))
       } catch {}
     })
   }
+  es.onopen = () => {
+    newsRetry = 0 // a clean open resets the backoff ladder
+    if (newsRetryTimer) { clearTimeout(newsRetryTimer); newsRetryTimer = null }
+  }
   es.onerror = () => {
-    /* keep open; EventSource auto-reconnects */
+    // readyState 2 = CLOSED: the browser gave up — we reconnect with backoff. readyState 0 = CONNECTING:
+    // the browser is already retrying, so leave it (don't stack a second source).
+    if (es.readyState === 2) {
+      try { es.close() } catch {}
+      if (newsSource === es) newsSource = null
+      get()._setNewsStreamOnline(false)
+      scheduleNewsReconnect(get)
+    }
   }
   newsSource = es
+}
+function scheduleNewsReconnect(get: () => State) {
+  if (newsRetryTimer || isStatic()) return
+  if (typeof navigator !== 'undefined' && navigator.onLine === false) return // wait for the 'online' event
+  const delay = NEWS_BACKOFF_MS[Math.min(newsRetry, NEWS_BACKOFF_MS.length - 1)]
+  newsRetry++
+  newsRetryTimer = setTimeout(() => { newsRetryTimer = null; connectNewsStream(get) }, delay)
+}
+// Wake / focus / network-return: re-create the news stream if it died (CLOSED) or was never opened. A
+// healthy or still-connecting source is left untouched so a focus event never stacks a duplicate stream.
+function reviveNewsStream(get: () => State) {
+  if (isStatic()) return
+  if (newsSource && newsSource.readyState !== 2) return
+  if (newsSource) { try { newsSource.close() } catch {} ; newsSource = null }
+  if (newsRetryTimer) { clearTimeout(newsRetryTimer); newsRetryTimer = null }
+  newsRetry = 0
+  connectNewsStream(get)
 }
 
 // ---- screener run streams (separate map so research streams are never disturbed) ----
@@ -1826,6 +1962,7 @@ function connectScreenerRun(get: () => State, runId: string) {
   const es = new EventSource(api.runStreamUrl(runId))
   for (const t of RUN_EVENT_TYPES) {
     es.addEventListener(t, (ev: MessageEvent) => {
+      get()._noteStreamLive() // screener run traffic also proves the engine is up — keep the indicator green
       try {
         get()._handleScreenerEvent(JSON.parse(ev.data))
       } catch {}
