@@ -1,9 +1,8 @@
-import type { PlacedNode } from '../lib/layout'
-import type { NodeStatus } from '../lib/types'
+import type { AgentNode, NodeStatus } from '../lib/types'
 import { fmtClock, fmtEtaLeft, fmtSpan, orbProgress } from '../lib/eta'
 
 interface Props {
-  node: PlacedNode
+  node: AgentNode
   status: NodeStatus
   verdict?: string | null
   startedAt?: number
@@ -14,7 +13,7 @@ interface Props {
   screenY: number
 }
 
-function hint(node: PlacedNode, status: NodeStatus): { text: string; go: boolean } {
+function hint(node: AgentNode, status: NodeStatus): { text: string; go: boolean } {
   switch (status) {
     case 'ready':
       return { text: 'Click to launch · runs instantly', go: true }
