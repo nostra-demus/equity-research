@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import type { PlacedNode } from '../../lib/layout'
+import type { AgentNode } from '../../lib/types'
 import { useStore } from '../../lib/store'
 
 // The click/decision logic shared by BOTH research renderers (flat SwarmField + the 3D globe), so a node
@@ -25,7 +25,7 @@ export function useNodeInteractions() {
   // Click any orb -> select it and open the side panel. Done -> its output (with Re-run); not-yet-run -> a
   // pending panel whose button runs/re-runs it. A finished module-synthesis orb with >1 saved tier opens
   // the module's 3-tier chooser (synthesis / memo / dossier), anchored at `anchor()`.
-  const onNodeClick = (n: PlacedNode, anchor?: () => { cx: number; top: number } | null) => {
+  const onNodeClick = (n: AgentNode, anchor?: () => { cx: number; top: number } | null) => {
     if (nodeStatus(n.key) !== 'done') return selectNodeForRun(n)
     if (n.isSynthesis) {
       const r = moduleReports[n.module]
