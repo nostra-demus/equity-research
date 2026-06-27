@@ -7,9 +7,21 @@ origin is down, serves an honest **"System offline"** response instead.
 
 ## Behavior
 
-Per request, the Worker proxies to the tunnel origin with a 4s timeout:
+Per request, the Worker proxies to the tunnel origin with a **per-request-class** timeout (so a
+healthy-but-slow engine is never falsely called offline):
+- **SSE** (`Accept: text/event-stream`) → **no abort timer** (the timer only bounds time-to-headers; a
+  stream that the engine keeps alive every 15s must never be guillotined).
+- **`/api/health`** → **8s** (kept `>=` the app's own probes — 4s heartbeat, 6s `ensureMode` — so the
+  Worker is never the first layer to give up on a reachable engine).
+- **everything else** (other `/api/*`, documents, assets) → **15s** (covers a cold engine start + the
+  tunnel hop + heavy control-plane JSON like `/api/swarm` and `/api/tickers` under load).
+
+Then:
 - **origin up** → pass the response through **unchanged** (SPA, hashed assets, SSE streams, `POST /api/launch` — all identical to today).
-- **origin down** (Cloudflare `>= 520`, incl. `530`/`1033` tunnel-down, or a timeout) → an **intent-aware** offline response:
+- **transient fast throw** (connection reset/refused) on an idempotent `GET`/`HEAD` → **one quick retry**
+  before declaring offline (a budget *timeout* does **not** retry — the origin is alive but slow, so
+  retrying only doubles the wait; `POST` and SSE are never retried).
+- **origin down** (Cloudflare `>= 520`, incl. `530`/`1033` tunnel-down — instant, no wait; or a budget timeout) → an **intent-aware** offline response:
   | Request | Response |
   |---|---|
   | document navigation (`GET`, `Accept: text/html`) | `200` branded **offline HTML** (`offline.html`) that auto-reloads when the engine returns |
