@@ -1846,6 +1846,21 @@ a { color: inherit; }
   .globeloading, .globestub { animation: none; }
 }
 
+/* ---- the 3D globe canvas: full-bleed backdrop under the stage overlays ---- */
+.globe { position: absolute; inset: 0; z-index: 1; animation: fade var(--dur-slow) var(--ease-out) both; }
+.globe canvas { display: block; outline: none; cursor: grab; }
+.globe canvas:active { cursor: grabbing; }
+/* subtle vignette to seat the sphere in the scene (cheap CSS, themed via --bg) */
+.globe::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 2;
+  background: radial-gradient(120% 90% at 50% 46%, transparent 56%, rgba(0, 0, 0, 0.34) 100%);
+}
+.globelabel {
+  font-size: 11px; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-muted);
+  white-space: nowrap; pointer-events: none; user-select: none; text-shadow: 0 1px 8px var(--bg);
+}
+@media (prefers-reduced-motion: reduce) { .globe { animation: none; } }
+
 /* ---- the time-window ribbon — scrub the same themes through different lookbacks (1h … 3m) ---- */
 .themes__timeline { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
 .themes__tllabel { font-size: 10px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-faint); flex: none; }
