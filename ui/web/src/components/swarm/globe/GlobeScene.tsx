@@ -22,7 +22,7 @@ import type { GlobeColors } from './useGlobeColors'
 // A single `morph` value (0 = flat columns, 1 = sphere) lerps every position so entering/leaving the globe
 // is a smooth wrap/unwrap that the App crossfades against the constellation.
 
-const MORPH_DUR = 1.7 // seconds for the wrap / unwrap — slow enough to enjoy, fast enough to read in the crossfade
+const MORPH_DUR = GLOBE.WRAP_SECONDS // seconds for the wrap / unwrap — shared with App's crossfade so the exit lasts the full unwrap
 const FLAT_CAM = new Vector3(0, 0, 64)
 const SPHERE_CAM = new Vector3(0, 2.5, 27)
 const FLAT_FOV = 20 // narrow + far ≈ orthographic → the flat state reads 2D under the crossfade
