@@ -1,0 +1,38 @@
+# Cloudflare Tunnel config TEMPLATE for app.nostra-demus.com.
+#
+# The LIVE config is ~/.cloudflared/config.yml and is OPERATOR-OWNED — it holds the tunnel UUID and the
+# path to the credentials JSON, which never go in the repo. install-services.sh does NOT touch it. To apply
+# this hardening, copy the `originRequest` block below into your ~/.cloudflared/config.yml (keep your real
+# `tunnel:` / `credentials-file:` lines), then restart the tunnel:
+#
+#     launchctl kickstart -k gui/$(id -u)/com.nostradamus.tunnel
+#
+# Verify: `cloudflared tunnel info <name>` is healthy, and an idle SSE stream (the news wire) survives well
+# past 90s without a drop.
+#
+# ── Why these settings ────────────────────────────────────────────────────────
+# protocol http2 : QUIC (UDP 7844) is blocked on this network (confirmed — QUIC never registers), so http2
+#                  (TCP) is the only working transport. It is full-duplex and good for SSE; keep it.
+# The originRequest block reduces FALSE origin-down reports and stops idle SSE streams being reaped when the
+# tunnel reuses upstream connections — both contribute to the "stays online" goal.
+
+tunnel: REPLACE_WITH_TUNNEL_UUID
+credentials-file: /Users/REPLACE_ME/.cloudflared/REPLACE_WITH_TUNNEL_UUID.json
+protocol: http2
+
+originRequest:
+  connectTimeout: 30s            # tolerate a cold engine start (npm/tsx warmup) instead of reporting origin-down
+  tlsTimeout: 10s
+  tcpKeepAlive: 30s              # probe the upstream socket so a silently-dead one is replaced, not reused
+  keepAliveConnections: 100      # reuse upstream conns -> fewer reconnect stalls under burst
+  keepAliveTimeout: 90s          # > the engine's 15s SSE keep-alive, so a pooled idle conn isn't reaped mid-stream
+  noHappyEyeballs: true          # the localhost origin is single-stack IPv4 — skip dual-stack racing
+  httpHostHeader: localhost
+  disableChunkedEncoding: false  # MUST stay false — SSE needs streamed (chunked) responses
+
+ingress:
+  # the live cockpit (UI + API) served by the local fastify server
+  - hostname: app.nostra-demus.com
+    service: http://localhost:8787
+  # everything else -> 404
+  - service: http_status:404

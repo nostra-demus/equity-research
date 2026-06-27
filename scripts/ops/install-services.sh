@@ -5,6 +5,7 @@
 #   com.nostradamus.deploy       — auto-deploy watcher: main -> live, every 120s          (RunAtLoad+StartInterval)
 #   com.nostradamus.watchdog     — self-heal, every 60s                                   (RunAtLoad+StartInterval)
 #   com.nostradamus.news-archive — news -> Google Drive, every 3h                         (RunAtLoad+StartInterval)
+#   com.nostradamus.caffeinate   — keep the Mac awake while on AC power (no idle sleep)    (RunAtLoad+KeepAlive)
 # Idempotent, no sudo. Engine + news-archive run from PROD; watchdog + deploy shell scripts from ~/.nostra-ops.
 #
 # RELIABILITY (why this is not a naive bootout;bootstrap loop):
@@ -86,7 +87,7 @@ install_one() {
   else echo "  WARN: $label did NOT load — re-run this installer"; fi
 }
 
-for label in com.nostradamus.engine com.nostradamus.tunnel com.nostradamus.deploy com.nostradamus.watchdog com.nostradamus.news-archive; do
+for label in com.nostradamus.engine com.nostradamus.tunnel com.nostradamus.deploy com.nostradamus.watchdog com.nostradamus.news-archive com.nostradamus.caffeinate; do
   echo "installing $label"
   install_one "$label"
 done
@@ -105,4 +106,4 @@ fi
 echo
 echo "status (each should show a PID):"
 launchctl list | grep -i nostradamus || echo "  (none loaded!)"
-echo "logs: ~/Library/Logs/nostradamus-{engine,tunnel,deploy,watchdog,news-archive}.log"
+echo "logs: ~/Library/Logs/nostradamus-{engine,tunnel,deploy,watchdog,news-archive,caffeinate}.log"

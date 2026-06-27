@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Keeps the Mac awake so the engine + tunnel never die from idle sleep while the system is ON AC POWER.
+     `caffeinate -s` holds the PreventSystemSleep assertion, which macOS honours ONLY while running on AC
+     power — so a plugged-in laptop with the lid OPEN stays awake forever, but an UNPLUGGED laptop can still
+     sleep to save battery (exactly the "AC only" behaviour we want; do NOT add -i, which is not AC-gated and
+     would keep it awake on battery too). A CLOSED lid still sleeps unless on AC + an external display.
+     caffeinate runs forever holding the assertion; KeepAlive relaunches it if it is ever killed; RunAtLoad
+     starts it at login. Verify: `pmset -g assertions` shows PreventSystemSleep present on AC, absent on
+     battery. Versioned template — installed by scripts/ops/install-services.sh into ~/Library/LaunchAgents. -->
+<plist version="1.0"><dict>
+  <key>Label</key><string>com.nostradamus.caffeinate</string>
+  <key>ProgramArguments</key><array><string>/usr/bin/caffeinate</string><string>-s</string></array>
+  <key>RunAtLoad</key><true/><key>KeepAlive</key><true/><key>ThrottleInterval</key><integer>5</integer>
+  <key>StandardOutPath</key><string>/Users/chiraagkapil/Library/Logs/nostradamus-caffeinate.log</string>
+  <key>StandardErrorPath</key><string>/Users/chiraagkapil/Library/Logs/nostradamus-caffeinate.log</string>
+</dict></plist>
