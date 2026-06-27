@@ -27,6 +27,28 @@ function saveShelf(s: Set<string>): void {
   try { localStorage.setItem(SHELF_KEY, JSON.stringify([...s].slice(-500))) } catch {}
 }
 
+// The research stage's renderer: the flat 2D constellation (default) or the 3D globe. A per-browser
+// presentation preference like the theme — persisted to localStorage, never leaves the machine. Defaults
+// to 'constellation'; any unset/garbled value falls back to flat, so the heavier WebGL view is strictly
+// opt-in. init() coerces a stored 'globe' back to 'constellation' when WebGL is unavailable (no strand).
+const VIEW_KEY = 'nsw.researchView'
+function loadView(): 'constellation' | 'globe' {
+  try { return localStorage.getItem(VIEW_KEY) === 'globe' ? 'globe' : 'constellation' } catch { return 'constellation' }
+}
+// One-time, cached WebGL capability probe (a context creation, immediately released). The globe needs it;
+// the toggle disables the Globe option and we coerce away from it when this is false.
+let webglProbe: boolean | null = null
+function detectWebGL(): boolean {
+  if (webglProbe !== null) return webglProbe
+  try {
+    const c = document.createElement('canvas')
+    webglProbe = !!(window.WebGLRenderingContext && (c.getContext('webgl2') || c.getContext('webgl')))
+  } catch {
+    webglProbe = false
+  }
+  return webglProbe
+}
+
 const RUN_EVENT_TYPES = ['run-started', 'agent-started', 'agent-done', 'agent-failed', 'layer-advanced', 'module-done', 'module-routed', 'cost-tick', 'run-done', 'run-error', 'readiness-checking', 'readiness-report', 'readiness-blocked', 'readiness-resolved']
 
 // Live SSE streams for the SELECTED ticker only, keyed by runId. A ticker switch closes them all;
@@ -132,6 +154,10 @@ interface State {
   // ---- swarms (multi-swarm cockpit; research is the grandfathered default) ----
   swarms: SwarmMeta[]
   activeSwarm: string // 'research' | 'screener' | future swarms
+  // research stage renderer: flat 2D constellation (default) or the 3D globe. Persisted; opt-in.
+  researchView: 'constellation' | 'globe'
+  setResearchView: (v: 'constellation' | 'globe') => void
+  webglOK: boolean // WebGL available — gates the globe option (probed once in init)
   // the warp transition between swarms; landing carries an optional research ticker to preselect
   warp: { from: string; to: string; payloadTicker?: string; landTicker?: string; phase: 'collapse' | 'traverse' | 'bloom' } | null
   // screener slice (self-contained so the research paths stay untouched)
@@ -354,6 +380,8 @@ export const useStore = create<State>((set, get) => ({
   // has no marker and can't load the live wire — seeds research and never flashes cyan→amber. init()
   // makes the authoritative decision once the mode + swarm list resolve.
   activeSwarm: typeof window !== 'undefined' && (window as any).__ENGINE_LIVE__ === true ? 'screener' : 'research',
+  researchView: loadView(),
+  webglOK: true, // optimistic; init() probes and corrects + coerces the view if WebGL is missing
   warp: null,
   scGraph: null,
   scNodesByKey: new Map(),
@@ -395,6 +423,10 @@ export const useStore = create<State>((set, get) => ({
   stopListOpen: false,
 
   init: async () => {
+    // WebGL capability gates the 3D globe. Probe once; if it's unavailable, disable the option and coerce
+    // a previously-persisted 'globe' back to the flat constellation so a no-WebGL browser is never stranded.
+    const webglOK = detectWebGL()
+    set({ webglOK, ...(webglOK ? {} : { researchView: 'constellation' as const }) })
     // Resolve live/static FIRST — independent of the heavy company data — and start the engine heartbeat
     // immediately in live mode. The heartbeat (not these data loads) owns `connected`/`health`, so a slow
     // or failing /api/swarm or /api/tickers can no longer pin the whole UI at "connecting"/"offline".
@@ -585,6 +617,12 @@ export const useStore = create<State>((set, get) => ({
     } finally {
       set({ creditChecking: false })
     }
+  },
+
+  setResearchView: (v) => {
+    if (v === 'globe' && !get().webglOK) return // never strand into a view WebGL can't render
+    try { localStorage.setItem(VIEW_KEY, v) } catch {}
+    set({ researchView: v })
   },
 
   selectNode: (key) => set({ selectedNodeKey: key }),

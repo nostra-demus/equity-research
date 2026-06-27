@@ -1,8 +1,9 @@
-import { useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useStore } from './lib/store'
 import { CommandBar } from './components/CommandBar'
 import { SwarmField } from './components/swarm/SwarmField'
+import { ViewToggle } from './components/swarm/ViewToggle'
 import { ScreenerField } from './components/screener/ScreenerField'
 import { EventRail } from './components/screener/EventRail'
 import { EventDetail } from './components/screener/EventDetail'
@@ -26,13 +27,38 @@ import { DataFilesPanel } from './components/DataFilesPanel'
 import { DecisionBanner } from './components/DecisionBanner'
 import { OfflineBanner } from './components/EngineStatus'
 
+// The 3D globe view is lazy-loaded: this dynamic import is the chunk boundary that keeps three.js out of
+// the main bundle — it (and its three.js deps) only download when the user first opens the globe.
+const GlobeStage = lazy(() => import('./components/swarm/globe/GlobeStage'))
+
+// Polished Suspense fallback while the globe chunk downloads — a calm fade-in, never a blank flash.
+// Reuses the existing spinner idiom (.empty__spin, already reduced-motion-aware).
+function GlobeLoading() {
+  return (
+    <div className="globeloading">
+      <div className="empty__spin" aria-hidden />
+      <div className="globeloading__label">Spinning up the globe…</div>
+    </div>
+  )
+}
+
 // Per-swarm stage shells: the research stage keeps its chrome (data files, decision banner,
 // upload empty-state) exactly as before; the screener stage mounts the gauntlet. No research
-// component learns about swarms — the shell swap is the only branch point.
+// component learns about swarms — the shell swap is the only branch point. The research stage itself
+// renders EITHER the flat constellation (default) OR the 3D globe, chosen by researchView — mutually
+// exclusive mounts over the same store state (the globe is a second renderer, not a fork).
 function ResearchStage() {
+  const view = useStore((s) => s.researchView)
   return (
     <>
-      <SwarmField />
+      {view === 'globe' ? (
+        <Suspense fallback={<GlobeLoading />}>
+          <GlobeStage />
+        </Suspense>
+      ) : (
+        <SwarmField />
+      )}
+      <ViewToggle />
       <DataUploadEmptyState />
       <DataFilesPanel />
       <DecisionBanner />
