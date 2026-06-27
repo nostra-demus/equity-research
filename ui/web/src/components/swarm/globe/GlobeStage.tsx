@@ -21,10 +21,21 @@ export default function GlobeStage() {
   const nodeStatus = useStore((s) => s.nodeStatus)
   const nodeRuntime = useStore((s) => s.nodeRuntime)
   const now = useStore((s) => s.now)
+  const setNow = useStore((s) => s.setNow)
   const colors = useGlobeColors()
   const { onNodeClick, openThesis, modulePop, setModulePop } = useNodeInteractions()
   const [hover, setHover] = useState<{ node: GlobeNode; x: number; y: number } | null>(null)
   const reducedMotion = useMemo(prefersReduced, [])
+
+  // the shared 1s clock (same as SwarmField) — ticks only while a run is live, so the tooltip's elapsed/ETA
+  // line and any time-based readouts stay current. Smooth orb pulses use the render clock, not this.
+  const anyLive = useMemo(() => Object.values(nodeRuntime).some((v) => v.status === 'running' || v.status === 'queued'), [nodeRuntime])
+  useEffect(() => {
+    if (!anyLive) return
+    setNow(Date.now())
+    const id = setInterval(() => setNow(Date.now()), 1000)
+    return () => clearInterval(id)
+  }, [anyLive, setNow])
 
   // R3F measures its container once on mount; mounting inside Suspense races the layout flush and can leave
   // the canvas stuck at its 300×150 fallback (a real resize is needed to clear it). So gate the <Canvas> on
