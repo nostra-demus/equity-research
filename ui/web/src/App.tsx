@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect } from 'react'
+import { lazy, Suspense, useEffect, useMemo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useStore } from './lib/store'
 import { CommandBar } from './components/CommandBar'
@@ -42,22 +42,52 @@ function GlobeLoading() {
   )
 }
 
-// Per-swarm stage shells: the research stage keeps its chrome (data files, decision banner,
-// upload empty-state) exactly as before; the screener stage mounts the gauntlet. The research stage is now
-// a SINGLE WebGL scene (GlobeStage) that renders BOTH the flat constellation and the globe as morph states
-// of the same nodes — the toggle just changes the morph target, so wrapping/unwrapping is one continuous
-// animation with no renderer swap. The DOM SwarmField is the fallback only when WebGL is unavailable.
+// The research stage shows ONE of two SEPARATE renderers, chosen by researchView: the DOM constellation
+// (SwarmField — the original, fully-accessible flat view, untouched) or the lazy 3D globe (GlobeStage). The
+// constellation is NEVER rebuilt in WebGL. Switching is a coordinated crossfade, not a hard cut: the
+// constellation fades + scales out as the globe fades in and WRAPS flat→sphere — and on the way back the
+// globe UNWRAPS toward flat as it dissolves into the constellation. AnimatePresence keeps the outgoing
+// renderer mounted through its exit, so the globe's wrap/unwrap can finish before it unmounts and the two
+// views overlap (both are position:absolute inset:0) for one continuous motion. Reduced-motion → instant
+// swap. No WebGL → only the constellation (the Globe toggle is disabled).
 function ResearchStage() {
+  const view = useStore((s) => s.researchView)
   const webglOK = useStore((s) => s.webglOK)
+  const reduced = useMemo(
+    () => typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches,
+    [],
+  )
+  const onGlobe = webglOK && view === 'globe'
+  const ease = [0.23, 1, 0.32, 1] as const
   return (
     <>
-      {webglOK ? (
-        <Suspense fallback={<GlobeLoading />}>
-          <GlobeStage />
-        </Suspense>
-      ) : (
-        <SwarmField />
-      )}
+      <AnimatePresence>
+        {onGlobe ? (
+          <motion.div
+            key="globe"
+            className="stageview"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: reduced ? 0 : 0.9, ease }}
+          >
+            <Suspense fallback={<GlobeLoading />}>
+              <GlobeStage />
+            </Suspense>
+          </motion.div>
+        ) : (
+          <motion.div
+            key="constellation"
+            className="stageview"
+            initial={{ opacity: 0, scale: 1.04 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.04 }}
+            transition={{ duration: reduced ? 0 : 0.55, ease }}
+          >
+            <SwarmField />
+          </motion.div>
+        )}
+      </AnimatePresence>
       <ViewToggle />
       <DataUploadEmptyState />
       <DataFilesPanel />

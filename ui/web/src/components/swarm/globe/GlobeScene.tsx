@@ -13,7 +13,7 @@ import type { GlobeColors } from './useGlobeColors'
 // position, and a camera dolly/zoom flattens the perspective at 0 so the flat state reads as a clean 2D
 // constellation. Toggling animates `morph` — one continuous wrap/unwrap, no renderer swap, no breaks.
 
-const MORPH_DUR = 2.4 // seconds for the wrap / unwrap
+const MORPH_DUR = 1.7 // seconds for the wrap / unwrap — slow enough to enjoy, fast enough to read in the crossfade
 const FLAT_CAM = new Vector3(0, 0, 64)
 const SPHERE_CAM = new Vector3(0, 2.5, 27)
 const FLAT_FOV = 20 // narrow + far ≈ orthographic → the flat constellation looks 2D
@@ -172,8 +172,11 @@ export function GlobeScene({
   const { camera } = useThree()
 
   // ---- morph driver state ----
-  const morphRef = useRef(reducedMotion ? morphTarget : morphTarget) // current eased-input 0..1
-  const targetRef = useRef(morphTarget)
+  // Two-renderer mode: the globe MOUNTS when you switch to it, so it always begins FLAT (morph 0) and wraps
+  // in to the sphere — the visual rhyme with the constellation that just dissolved. On exit (morphTarget→0,
+  // while AnimatePresence holds it mounted) it unwraps back toward flat. Reduced-motion snaps to the target.
+  const morphRef = useRef(reducedMotion ? morphTarget : 0) // current eased-input 0..1
+  const targetRef = useRef(reducedMotion ? morphTarget : 0)
   const startT = useRef<number | null>(null)
   const startVal = useRef(morphRef.current)
   const camStart = useRef(new Vector3())
