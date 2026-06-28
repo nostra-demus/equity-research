@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { Uploader } from './Uploader'
 import { DataCoverage } from './DataCoverage'
+import { CompanyPicker } from './CompanyPicker'
 
 // Single source of truth for "what's going on with this ticker's data" — so the cockpit is never a
 // silent black box. Covers: nothing selected yet (the cockpit no longer auto-selects), unusable folder
@@ -34,6 +35,10 @@ export function DataUploadEmptyState() {
   const showGuide = (tickerNoData || noTickers) && !!guideCoverage?.length
 
   if (!noTickers && !noSelection && !invalid && !syncing && !reading && !tickerNoData) return null
+
+  // Companies exist but none chosen → the in-stage company picker (search-first, keyboard-driven), so the
+  // user selects right here instead of hunting to the top-right menu. Other states keep the guidance card.
+  if (noSelection) return <div className="empty"><CompanyPicker /></div>
 
   const canAdd = driveEnabled && !staticMode // in-app add/upload only when the server has Drive configured
   const dir = dataStatus?.dataDir || (selectedTicker ? `…/equity-research-data/${selectedTicker}/` : null)
