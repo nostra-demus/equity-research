@@ -2240,7 +2240,22 @@ a { color: inherit; }
 .themedd__score-sub { font-size: 11px; color: var(--text-faint); font-weight: 400; }
 .themedd__flow { font-size: 11px; color: var(--text-faint); }
 .themedd__name { font-size: 22px; font-weight: 600; color: var(--text); letter-spacing: -0.015em; margin: 2px 0 0; }
-.themedd__desc { font-size: 13.5px; color: var(--text-muted); line-height: 1.6; max-width: 720px; }
+/* the plain-English brief — the hero explainer under the title. Read it and you understand the theme.
+   (Also the home of the one-line description fallback when no brief object exists, e.g. the static showcase.) */
+.themedd__brief { display: flex; flex-direction: column; gap: 7px; max-width: 660px; margin: 4px 0 2px; }
+.themedd__brieftext { font-size: 14.5px; color: var(--text); line-height: 1.62; letter-spacing: -0.003em; margin: 0; text-wrap: pretty; animation: themebrief-in var(--dur) var(--ease-out); }
+.themedd__briefmeta { display: flex; align-items: center; gap: 8px; min-height: 18px; }
+.themedd__briefnote { font-size: 10.5px; color: var(--text-faint); border: 1px solid var(--hairline); border-radius: var(--r-pill); padding: 1px 8px; cursor: default; }
+.themedd__briefrefresh { appearance: none; display: inline-flex; align-items: center; justify-content: center; width: 22px; height: 22px; padding: 0; border: 1px solid var(--hairline); background: var(--surface-2); color: var(--text-faint); border-radius: var(--r-pill); cursor: pointer; transition: transform var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease); }
+.themedd__briefrefresh:active { transform: scale(0.9); }
+.themedd__briefrefresh:disabled { cursor: default; }
+@media (hover: hover) and (pointer: fine) { .themedd__briefrefresh:hover:not(:disabled) { color: var(--text-muted); border-color: var(--text-faint); } }
+.themedd__briefrefresh-i { font-size: 12px; line-height: 1; display: inline-block; }
+.themedd__briefrefresh.is-on .themedd__briefrefresh-i { animation: themespin 0.9s linear infinite; }
+/* loading skeleton — calm 3-line shimmer (never a spinner), matched to the brief's rhythm */
+.themedd__briefline { height: 11px; border-radius: var(--r-pill); background: linear-gradient(90deg, var(--surface-2), var(--surface-3), var(--surface-2)); background-size: 200% 100%; animation: themeshimmer 1.4s linear infinite; }
+.themedd__briefline:nth-child(2) { animation-delay: 0.18s; }
+.themedd__briefline--short { width: 52%; animation-delay: 0.36s; }
 .themedd__sparkrow { display: flex; align-items: center; gap: 12px; }
 .themedd__scores { font-size: 11px; color: var(--text-faint); }
 .themedd__orders { display: flex; flex-direction: column; gap: 8px; margin-top: 6px; }
@@ -2280,6 +2295,9 @@ a { color: inherit; }
 @keyframes themecore-in { from { opacity: 0; transform: scale(0.6); } to { opacity: 1; transform: scale(1); } }
 @keyframes themebreathe { 0%,100% { opacity: 0.55; } 50% { opacity: 1; } }
 @keyframes themeshimmer { to { background-position: -200% 0; } }
+/* the brief settles in — a short fade + rise, transform/opacity only, under 300ms (UI-animation bar) */
+@keyframes themebrief-in { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes themespin { to { transform: rotate(360deg); } }
 @keyframes thememap-stream { 0% { offset-distance: 0%; opacity: 0; } 12% { opacity: 1; } 85% { opacity: 1; } 100% { offset-distance: 100%; opacity: 0; } }
 @keyframes thememap-ping { 0% { transform: scale(1); opacity: 0.5; } 100% { transform: scale(2.5); opacity: 0; } }
 @keyframes thememap-node { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.07); } }
@@ -2288,6 +2306,7 @@ a { color: inherit; }
   .themenode.is-absorbing .themenode__core, .themenode.is-absorbing::after, .themenode.is-absorbing .themenode__count, .themenode.is-born, .thememap__rate-dot { animation: none !important; }
   .thememap__particles, .thememap__rate, .thememap__lane-fire { display: none; }
   .themecard, .themenode, .themedd__back, .themedd__relchip { transition: none !important; }
+  .themedd__brieftext, .themedd__briefline, .themedd__briefrefresh.is-on .themedd__briefrefresh-i { animation: none !important; }
 }
 
 /* ── Sources health panel — every feed the scanner pulls from: last data + health ───────────── */

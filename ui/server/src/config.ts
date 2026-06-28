@@ -441,6 +441,12 @@ export const NEWS = {
   themesClaudeApiKey: process.env.THEMES_CLAUDE_API_KEY || process.env.ANTHROPIC_API_KEY || '',
   themesClaudeBaseUrl: process.env.THEMES_CLAUDE_BASE_URL || 'https://api.anthropic.com',
   themesClaudeDailyCap: capNum(process.env.NEWS_THEMES_CLAUDE_DAILY_CAP, 60), // max Claude discovery calls/day
+  // On-demand deep-dive BRIEF (news/themes/brief.ts): the few-sentence plain-English explainer built when
+  // a human opens a theme. Free Groq only, on the SAME shared daily budget + per-minute limiter as the
+  // firehose (a per-click brief is deliberately NOT a Claude-metered seam — same posture as the on-demand
+  // article read). 'off' forces the deterministic headline synthesis; it also degrades to deterministic
+  // whenever Groq is unreachable or the day's free budget is spent.
+  themeBriefModel: process.env.NEWS_THEME_BRIEF_MODEL || 'groq', // 'groq' | 'off'
   // DEDUP layer (news/dedup.ts): collapse near-duplicate STORIES on the wire into one row (the same
   // event reworded, or the same story across sources) — the reader sees one row per story with a
   // "+N sources" badge, and multi-source corroboration lifts the rank. TIGHT by design (same event
