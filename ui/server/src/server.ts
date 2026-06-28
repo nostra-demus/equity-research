@@ -638,7 +638,11 @@ app.post('/api/chat', async (req, reply) => {
   const { res, send, ping } = startSSE(reply)
   const ac = new AbortController()
   let closed = false
-  req.raw.on('close', () => { closed = true; clearInterval(ping); ac.abort() })
+  // Detect a real client disconnect on the RESPONSE socket, NOT req.raw: for a POST, req 'close' fires
+  // as soon as the request BODY is consumed (the request side is done) — which would abort the turn
+  // instantly, before any token. The response stream closes only on an actual disconnect (or our own
+  // res.end()), which is the correct cancel signal for streamed POST output.
+  res.on('close', () => { closed = true; clearInterval(ping); ac.abort() })
   send({ type: 'chat-meta', scopeResolved: assembled.label, sourcePath: assembled.sourcePath, degraded: assembled.degraded, degradeNote: assembled.degradeNote })
   const { system, user } = buildChatPrompts({ assembled, messages, subject })
   try {
