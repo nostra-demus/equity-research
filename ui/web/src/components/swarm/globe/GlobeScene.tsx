@@ -276,15 +276,26 @@ export function GlobeScene({
     for (const a of layout.moduleAnchors) if (a.synthKey && nodeStatus(a.synthKey) === 'done') moduleDone.add(a.module)
     return depCoreEdges.filter((e) => (e.kind === 'dep' && moduleDone.has(e.fromModule) && activeModules.has(e.toModule)) || (e.kind === 'core' && moduleDone.has(e.fromModule)))
   }, [depCoreEdges, layout.moduleAnchors, activeModules, statusSig]) // eslint-disable-line react-hooks/exhaustive-deps
-  // hover lights only the INTER-module connections (module→module deps + module→Memo) touching the hovered
-  // orb/module. Intra-module feeds (every agent→synthesis) are deliberately never drawn on the globe — as
-  // comets they fan into an ugly starburst at the synthesis hub, and the north-aligned column already shows
-  // the gate→synthesis hierarchy. So the globe's flow story stays clean: data moving BETWEEN islands.
+  // Hover reveals two layers, like the constellation: the prominent INTER-module flows (module→module deps +
+  // module→Memo) touching the hovered orb/module…
   const hoverEdges = useMemo(() => {
     if (!hoverKey && !hoverModule) return [] as GlobeEdge[]
     return layout.edges.filter(
       (e) =>
         e.kind !== 'feeds' &&
+        ((hoverKey && (e.fromKey === hoverKey || e.toKey === hoverKey)) ||
+          (hoverModule && (e.fromModule === hoverModule || e.toModule === hoverModule))),
+    )
+  }, [hoverKey, hoverModule, layout.edges])
+
+  // …and the subtle INTERNAL flow — the agent→synthesis feeds within the hovered module — rendered very thin
+  // and dim (not bright comets) so they read as the quiet data flow inside a module, exactly like the faint
+  // feed curves the constellation shows on hover. Thin is the whole point: thick is what made it a starburst.
+  const hoverFeeds = useMemo(() => {
+    if (!hoverKey && !hoverModule) return [] as GlobeEdge[]
+    return layout.edges.filter(
+      (e) =>
+        e.kind === 'feeds' &&
         ((hoverKey && (e.fromKey === hoverKey || e.toKey === hoverKey)) ||
           (hoverModule && (e.fromModule === hoverModule || e.toModule === hoverModule))),
     )
@@ -377,6 +388,7 @@ export function GlobeScene({
       <MorphEdges edges={depCoreEdges} color={colors.accent} opacity={0.6} speed={1.4} width={0.05} morphRef={morphRef} />
       {activeEdges.length > 0 && <MorphEdges edges={activeEdges} color={colors.accentBright} opacity={0.95} speed={2.8} width={0.085} morphRef={morphRef} />}
       {hoverEdges.length > 0 && <MorphEdges edges={hoverEdges} color={colors.accentBright} opacity={0.95} speed={2.3} width={0.075} morphRef={morphRef} />}
+      {hoverFeeds.length > 0 && <MorphEdges edges={hoverFeeds} color={colors.accentDeep} opacity={0.6} speed={1.6} width={0.032} morphRef={morphRef} />}
 
       {/* agent orbs — the SAME DOM AgentNode the constellation uses, billboarded at each 3D position. Occludes
           against the shell so back-of-globe orbs hide; click runs/opens it; hover lights its edges + tooltip. */}
