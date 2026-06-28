@@ -15,20 +15,24 @@ import { assignDedupGroups, type DedupConfig } from './dedup'
 import { reRankFromFactors, capSocialBand, capSocialScore } from './rank'
 import { getRankWeights } from './rank-weights'
 import { scoreToBand } from './triage/groq'
+import { resolveCountry } from './geography'
 import { NEWS } from '../config'
 
 /** Hydrate a feed item on read: clean any HTML/markup left in the headline (older firehose lines were
- *  stored before ingest-time cleaning — e.g. "<a href=…>Title</a>"), and fill scope/source_tier so the
- *  whole backlog is classified like a fresh item. Idempotent; never drops the real text. */
-function withScope(it: FeedItem): FeedItem {
+ *  stored before ingest-time cleaning — e.g. "<a href=…>Title</a>"), fill scope/source_tier, and derive
+ *  the country-level geography (news/geography.ts) for lines that predate the `country` field — so the
+ *  WHOLE backlog is classified like a fresh item without any backfill. Idempotent; never drops real text. */
+function hydrate(it: FeedItem): FeedItem {
   const headline = cleanText(it.headline)
   const needsClean = headline !== it.headline
-  if (it.scope && it.source_tier && !needsClean) return it
+  const needsGeo = it.country === undefined // older firehose line, written before the country field existed
+  if (it.scope && it.source_tier && !needsClean && !needsGeo) return it
   return {
     ...it,
     headline: headline || it.headline,
     scope: it.scope || deriveScope({ ...it, headline }),
     source_tier: it.source_tier || deriveSourceTier(it),
+    ...(needsGeo ? { country: resolveCountry(headline || it.headline, it.headline_en, it.companies, it.region, it.issuer_linkage) } : {}),
   }
 }
 
@@ -66,6 +70,57 @@ function withDedup(items: FeedItem[]): void {
 
 function firehosePath(repoRoot: string, date: string): string {
   return path.join(repoRoot, 'screener', 'inbox', `${date}_firehose.ndjson`)
+}
+
+/** Read one day's firehose text — local inbox first, then the cloud archive (Drive mount) after a local
+ *  prune. Returns null when the day is on neither (a real gap, or never ingested). Never throws. */
+function readFirehoseText(repoRoot: string, date: string, archiveDir: string): string | null {
+  try {
+    return fs.readFileSync(firehosePath(repoRoot, date), 'utf8')
+  } catch {
+    if (archiveDir) {
+      try { return fs.readFileSync(path.join(archiveDir, `${date}_firehose.ndjson`), 'utf8') } catch { /* fall through */ }
+    }
+    return null
+  }
+}
+
+/** Read + hydrate one day's `kind:"item"` lines (newest-first within the day is NOT guaranteed — the
+ *  caller sorts). Returns the items and how many lines were parsed (the scan-budget unit). Corrupt lines
+ *  skipped. Shared by searchFeed and the facet index so they read the archive identically to the wire. */
+export function readDayItems(repoRoot: string, date: string, archiveDir: string): { items: FeedItem[]; lines: number } {
+  const text = readFirehoseText(repoRoot, date, archiveDir)
+  if (text == null) return { items: [], lines: 0 }
+  const items: FeedItem[] = []
+  let lines = 0
+  for (const ln of text.split('\n')) {
+    const t = ln.trim()
+    if (!t) continue
+    lines++
+    try {
+      const o = JSON.parse(t)
+      if (o?.kind === 'item') items.push(hydrate(o as FeedItem))
+    } catch { /* corrupt line — skip, never break the scan */ }
+  }
+  return { items, lines }
+}
+
+/** Every date (YYYY-MM-DD) that has a firehose file, across the local inbox AND the cloud archive,
+ *  newest-first. The floor for an archive-spanning scan: searchFeed walks these so it knows when there
+ *  is genuinely no older data (exhausted) vs when it stopped on a budget. */
+export function listFirehoseDates(repoRoot: string, archiveDir = ''): string[] {
+  const dates = new Set<string>()
+  const scan = (dir: string) => {
+    try {
+      for (const f of fs.readdirSync(dir)) {
+        const m = /^(\d{4}-\d{2}-\d{2})_firehose\.ndjson$/.exec(f)
+        if (m) dates.add(m[1])
+      }
+    } catch { /* dir missing — skip */ }
+  }
+  scan(path.join(repoRoot, 'screener', 'inbox'))
+  if (archiveDir) scan(archiveDir)
+  return [...dates].sort((a, b) => (a < b ? 1 : -1)) // newest-first
 }
 
 function countItemLines(fp: string): number {
@@ -116,21 +171,14 @@ export function readFeed(repoRoot: string, days = 2, opts: { now?: () => Date; m
   const cycles: CycleSummary[] = []
   for (let d = 0; d < Math.max(1, days); d++) {
     const date = new Date(now().getTime() - d * 86_400_000).toISOString().slice(0, 10)
-    let text: string
-    try {
-      text = fs.readFileSync(firehosePath(repoRoot, date), 'utf8')
-    } catch {
-      // not on local disk (pruned or never here) → fall back to the cloud archive (Drive mount) if set
-      if (archiveDir) {
-        try { text = fs.readFileSync(path.join(archiveDir, `${date}_firehose.ndjson`), 'utf8') } catch { continue }
-      } else continue
-    }
+    const text = readFirehoseText(repoRoot, date, archiveDir)
+    if (text == null) continue // not on local disk or in the archive (pruned, gap, or never here)
     for (const ln of text.split('\n')) {
       const t = ln.trim()
       if (!t) continue
       try {
         const o = JSON.parse(t)
-        if (o?.kind === 'item') items.push(withScope(o as FeedItem))
+        if (o?.kind === 'item') items.push(hydrate(o as FeedItem))
         else if (o?.kind === 'cycle_summary') cycles.push(o as CycleSummary)
       } catch {
         // corrupt line — skip, never break the wire
@@ -151,4 +199,125 @@ export function readFeed(repoRoot: string, days = 2, opts: { now?: () => Date; m
   if (opts.applyActiveWeights !== false) withActiveWeights(capped)
   withDedup(capped) // story-cluster the served window so the wire shows one row per story
   return { items: capped, cycles }
+}
+
+// ---- archive-spanning filtered search ----------------------------------------------------------------
+// Unlike readFeed (which returns the newest N items in a day-window and early-stops at maxItems REGARDLESS
+// of any filter), searchFeed keeps walking OLDER days until it has filled a page of items that actually
+// MATCH the predicate — or it reaches the archive floor / a scan budget. That is what kills the "false
+// nothing": a sparse filter (e.g. Aerospace & Defense in the UAE) finds matches buried deep in history
+// instead of stopping at the newest 6,000 items. Paging is a stable compound (ts, event_id) cursor, so
+// same-minute items are never skipped or duplicated across pages.
+
+export interface SearchCursor {
+  ts: string
+  id: string // idKey (event_id, url fallback) — breaks ts ties so paging is loss-free at minute granularity
+}
+export interface SearchOpts {
+  predicate: (it: FeedItem) => boolean
+  now?: () => Date
+  archiveDir?: string
+  limit?: number // page size (matches to return); default 60
+  maxDaysScan?: number // hard ceiling on calendar days walked; default 400 (~archive depth)
+  maxLinesScan?: number // hard ceiling on lines parsed per call (the fs-read DoS guard); default 300k
+  fromDate?: string // YYYY-MM-DD inclusive older bound; omit = walk to the archive floor
+  toDate?: string // YYYY-MM-DD inclusive newer bound; omit = today
+  cursor?: SearchCursor | null // resume strictly AFTER this (ts,id) in (ts desc, id desc) order
+  applyActiveWeights?: boolean // re-score the returned page under current weights (default on, like readFeed)
+}
+export interface SearchSnapshot {
+  items: FeedItem[]
+  nextCursor: SearchCursor | null // null = no more pages (archive floor reached within budget)
+  scannedThroughDate: string | null // the OLDEST day actually parsed — what "searched all history back to <date>" shows
+  exhausted: boolean // true = reached the archive floor / fromDate; false = stopped on a page or a budget
+}
+
+const dayKey = (now: () => Date) => now().toISOString().slice(0, 10)
+// The cursor's tie-break key: the event_id (always set on real firehose items — EVT-<sha256-12 of
+// headline|url>), falling back to url so the (ts, key) ordering stays a TOTAL order even on an
+// out-of-contract line with an empty event_id. Without the fallback, >limit same-ts items that all had
+// an empty event_id would collapse to one indistinguishable cursor and silently drop every one past the
+// first across a page boundary (a "false nothing").
+const idKey = (it: FeedItem): string => it.event_id || it.url || ''
+// the calendar day immediately before `d` (YYYY-MM-DD). Used to advance a budget-stop resume cursor
+// strictly past a day already fully scanned, so paging can never stall re-reading the same boundary day.
+const dayBefore = (d: string): string => new Date(new Date(`${d}T00:00:00Z`).getTime() - 86_400_000).toISOString().slice(0, 10)
+// item is strictly AFTER the cursor in (ts desc, idKey desc) order → belongs on a later page
+function afterCursor(it: FeedItem, c: SearchCursor | null | undefined): boolean {
+  if (!c) return true
+  if (it.ts !== c.ts) return it.ts < c.ts
+  return idKey(it) < c.id
+}
+
+export function searchFeed(repoRoot: string, opts: SearchOpts): SearchSnapshot {
+  const now = opts.now || (() => new Date())
+  const archiveDir = opts.archiveDir || ''
+  const limit = opts.limit && opts.limit > 0 ? opts.limit : 60
+  const maxDaysScan = opts.maxDaysScan && opts.maxDaysScan > 0 ? opts.maxDaysScan : 400
+  const maxLinesScan = opts.maxLinesScan && opts.maxLinesScan > 0 ? opts.maxLinesScan : 300_000
+  // Guard the start day against a malformed cursor.ts / toDate (e.g. "abc", or an impossible "2026-13-45"):
+  // it feeds the date arithmetic below, and new Date(NaN).toISOString() THROWS — which would otherwise
+  // surface as an unhandled 500 (and a raw-error leak) from the /api/news/search route. Fall back to today.
+  const rawStart = opts.cursor?.ts.slice(0, 10) || opts.toDate || dayKey(now)
+  const startDate = Number.isNaN(Date.parse(`${rawStart}T00:00:00Z`)) ? dayKey(now) : rawStart
+  // The real archive floor: the OLDEST day that actually has a firehose file (local or in the cloud
+  // archive). Bounding the walk to it makes `exhausted` honest — we know when there is genuinely no older
+  // data, instead of walking maxDaysScan empty days and reporting a false "maybe more".
+  const available = listFirehoseDates(repoRoot, archiveDir)
+  const floorDate = opts.fromDate || available[available.length - 1] || startDate
+
+  const matches: FeedItem[] = []
+  let linesScanned = 0
+  let scannedThroughDate: string | null = null
+  let reachedFloor = false
+  let budgetStop = false
+
+  for (let d = 0; d < maxDaysScan; d++) {
+    const date = new Date(new Date(`${startDate}T00:00:00Z`).getTime() - d * 86_400_000).toISOString().slice(0, 10)
+    if (date < floorDate) { reachedFloor = true; break }
+    const { items, lines } = readDayItems(repoRoot, date, archiveDir)
+    linesScanned += lines
+    if (lines > 0) scannedThroughDate = date // the oldest day we actually parsed
+    for (const it of items) {
+      if (afterCursor(it, opts.cursor) && opts.predicate(it)) matches.push(it)
+    }
+    // Stop AFTER fully parsing a day (never mid-file) so newest-first ordering is exact: older days can
+    // only add items older than everything scanned, so once we have a full page it is complete + correct.
+    // Break on `> limit` (overflow by at least one), NOT `>= limit`: landing EXACTLY on `limit` must keep
+    // walking older days, otherwise a day that brings the running total to exactly `limit` while older
+    // matching days remain would stop here with `matches.length === limit` and report nextCursor=null —
+    // silently hiding the deeper matches (the very "false nothing" this function exists to kill). Overflowing
+    // by one guarantees "more exists ⟺ matches.length > limit"; landing exactly on `limit` instead continues
+    // until the next match (→ overflow → cursor) or the archive floor (→ exhausted).
+    if (matches.length > limit) break
+    if (linesScanned >= maxLinesScan) { budgetStop = true; break }
+    if (d === maxDaysScan - 1) budgetStop = true // walked the whole window without filling a page
+  }
+
+  // newest-first, ties broken by idKey desc — the same total order the cursor encodes
+  matches.sort((a, b) => (a.ts !== b.ts ? (a.ts < b.ts ? 1 : -1) : idKey(a) < idKey(b) ? 1 : -1))
+  const page = matches.slice(0, limit)
+  if (opts.applyActiveWeights !== false) withActiveWeights(page)
+  withDedup(page)
+
+  const hasMore = matches.length > limit || (budgetStop && !reachedFloor)
+  const last = page[page.length - 1]
+  const fullPage = page.length >= limit
+  // A PARTIAL page that stopped on budget resumes STRICTLY OLDER than the oldest day we fully scanned — at
+  // the day BEFORE scannedThroughDate, never at scannedThroughDate itself. Resuming at the same day would
+  // re-read (and re-count toward the budget) that day; when one day's line count alone exceeds maxLinesScan,
+  // the budget would trip again at d=0 before advancing, returning an IDENTICAL cursor forever — an infinite
+  // client paging loop that permanently hides every older match (the very "false nothing" this kills). The
+  // day was fully parsed, so all its matches are already in `matches`; skipping it on resume is loss-free.
+  const budgetCursor: SearchCursor | null =
+    budgetStop && page.length < limit && scannedThroughDate
+      ? { ts: `${dayBefore(scannedThroughDate)}T23:59:59Z`, id: '￿' } // high sentinel → includes every item on the resume day
+      : null
+  // A FULL page always resumes strictly AFTER its last (oldest) item — every match beyond the page is by
+  // construction older than it, so this is loss-free. This also covers a full page that stopped on budget
+  // (matches.length === limit exactly): without it, budgetCursor would be null (it requires a partial page)
+  // and the deeper data would be unreachable. A PARTIAL page that stopped on budget resumes from the day
+  // before the oldest scanned day instead.
+  const nextCursor = !hasMore ? null : fullPage && last ? { ts: last.ts, id: idKey(last) } : budgetCursor
+  return { items: page, nextCursor, scannedThroughDate, exhausted: reachedFloor && matches.length <= limit }
 }

@@ -19,7 +19,9 @@ import { analyzeTicker, listTickers } from './data-status'
 import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED } from './drive'
 import { cancel, cancelAll, creditCheck, decideReadiness, estimate, launch } from './launcher'
 import { newsBus } from './news/bus'
-import { readFeed } from './news/feed'
+import { readFeed, searchFeed } from './news/feed'
+import { matchesFeedFilters, parseFeedFilterQuery } from './news/feed-filter'
+import { computeFacets } from './news/facets'
 import { getIntensity, INTENSITY_WINDOWS, type IntensityWindow } from './news/intensity'
 import { getRankWeights, defaultRankWeights, saveRankWeights, resetRankWeights, rankWeightsCustomised, type RankWeights } from './news/rank-weights'
 import { buildSourcesReport } from './news/source-health'
@@ -782,6 +784,39 @@ app.get('/api/news/feed', async (req) => {
   const days = Math.min(370, Math.max(1, Math.floor(Number(q?.days) || 2))) // 'all' → the client sends 370
   const maxItems = days <= 2 ? 1000 : 6000 // deep windows return the newest 6k items in range (readFeed early-stops)
   return readFeed(REPO_ROOT, days, { maxItems, archiveDir: NEWS.newsArchiveDir }) // read pruned days from the Drive archive
+})
+
+// ARCHIVE SEARCH — filter the WHOLE since-inception archive, not just the loaded window. Unlike /feed
+// (newest-N-in-window, no filtering), this applies every filter SERVER-SIDE and keeps scanning older days
+// until it fills a page of MATCHES or hits the archive floor — so a sparse filter (Aerospace & Defense in
+// the UAE) finds matches buried deep in history instead of falsely reading "nothing". Recency-ordered,
+// (ts,event_id) cursor paging. Rate-limited (the fs-read DoS guard) like the other filesystem routes.
+app.get('/api/news/search', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req) => {
+  const q = req.query as any
+  const filters = parseFeedFilterQuery(q || {})
+  const limit = Math.min(200, Math.max(1, Math.floor(Number(q?.limit) || 60)))
+  // Validate dates before they reach searchFeed's date arithmetic: a shape-only regex admits impossible
+  // values like "2026-13-45", and a non-date cursorTs ("abc") both make new Date(NaN).toISOString() throw
+  // (an unhandled 500 + raw-error leak — there is no global error handler). searchFeed now also guards this,
+  // but dropping malformed optional inputs here keeps results sane (an ignored filter, not a silent "today").
+  const realDate = (s: any): s is string => typeof s === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(s) && !Number.isNaN(Date.parse(`${s}T00:00:00Z`))
+  const cursor = typeof q?.cursorTs === 'string' && q.cursorTs && !Number.isNaN(Date.parse(q.cursorTs)) ? { ts: String(q.cursorTs), id: String(q?.cursorId || '') } : null
+  const from = realDate(q?.from) ? q.from : undefined
+  const to = realDate(q?.to) ? q.to : undefined
+  const snap = searchFeed(REPO_ROOT, {
+    predicate: (it) => matchesFeedFilters(it, filters),
+    archiveDir: NEWS.newsArchiveDir, limit, cursor, fromDate: from, toDate: to,
+  })
+  return { items: snap.items, nextCursor: snap.nextCursor, scannedThroughDate: snap.scannedThroughDate, exhausted: snap.exhausted }
+})
+
+// FACETS — the available geographies (country + continent) / sectors / sub-sectors / sources / themes,
+// WITH COUNTS, over the whole archive, honouring the active filter context. This is what makes the
+// cockpit dropdowns show the archive truth (e.g. "United Arab Emirates (3)"), not just the 2-day window.
+// Backed by a TTL-cached index (news/facets.ts), so a dropdown open is cheap.
+app.get('/api/news/facets', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req) => {
+  const filters = parseFeedFilterQuery((req.query as any) || {})
+  return computeFacets(REPO_ROOT, filters, { archiveDir: NEWS.newsArchiveDir })
 })
 
 // SCORING WEIGHTS — the knobs behind every event's triage score (rank.ts). The cockpit Scoring panel

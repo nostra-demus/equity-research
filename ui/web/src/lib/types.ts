@@ -122,7 +122,8 @@ export interface FeedItem {
   domain: string
   source_name: string
   via: 'gdelt' | 'rss' | 'nse' | 'hkex' | 'asx' | 'gov' | 'reddit'
-  region: string
+  region: string // legacy 8-bucket region (US/IN/JP/GB/CN/KR/GLOBAL/OTHER) — kept for back-compat
+  country?: string | null // ISO 3166-1 alpha-2 (news/geography.ts) — the country-level Geography filter's key
   input_nature: string
   triage_score: number
   band: 'pick' | 'watch' | 'drop'

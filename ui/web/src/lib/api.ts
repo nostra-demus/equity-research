@@ -88,6 +88,54 @@ const STATIC_ERR = () => Object.assign(new Error('static-deploy'), { static: tru
 
 const EMPTY_BOARD: ScreenerBoard = { generated_at: null, inbox: [], signals: [], theses: [], handoffs: [], counts: {}, live: [] }
 
+// ---- archive search + facets (the whole-history filtered read) ----
+/** The structured filter sent to /api/news/search + /api/news/facets. Geography is country-level. */
+export interface ArchiveQuery {
+  themes?: string[]
+  country?: string // ISO alpha-2
+  geoRegion?: string // continent group
+  source?: string
+  band?: string
+  size?: string
+  linkage?: string
+  gicsSector?: string
+  gicsSubSector?: string
+  text?: string
+}
+export interface SearchCursor { ts: string; id: string }
+export interface FeedSearchResponse {
+  items: FeedItem[]
+  nextCursor: SearchCursor | null
+  scannedThroughDate: string | null // oldest day scanned — "searched all history back to <date>"
+  exhausted: boolean // true = reached the archive floor (genuinely nothing older)
+}
+export interface FacetCount { key: string; label: string; count: number; parent?: string }
+export interface FeedFacets {
+  countries: FacetCount[] // parent = continent
+  regions: FacetCount[] // continents
+  sectors: FacetCount[]
+  subSectors: FacetCount[] // parent = sector
+  sources: FacetCount[]
+  themes: FacetCount[]
+  total: number
+  builtThroughDate: string | null
+  builtAt: string
+}
+function archiveQueryParams(q: ArchiveQuery): URLSearchParams {
+  const p = new URLSearchParams()
+  if (q.themes?.length) p.set('themes', q.themes.join(','))
+  if (q.country) p.set('country', q.country)
+  if (q.geoRegion) p.set('geoRegion', q.geoRegion)
+  if (q.source) p.set('source', q.source)
+  if (q.band) p.set('band', q.band)
+  if (q.size) p.set('size', q.size)
+  if (q.linkage) p.set('linkage', q.linkage)
+  if (q.gicsSector) p.set('gicsSector', q.gicsSector)
+  if (q.gicsSubSector) p.set('gicsSubSector', q.gicsSubSector)
+  if (q.text?.trim()) p.set('text', q.text.trim())
+  return p
+}
+
 export const api = {
   swarm: async (ticker?: string): Promise<SwarmGraph> => {
     if ((await ensureMode()) === 'static') return snap.swarmGraph
@@ -143,6 +191,21 @@ export const api = {
   newsFeed: async (days = 2): Promise<{ items: FeedItem[]; cycles: NewsCycle[] }> => {
     if ((await ensureMode()) === 'static') return { items: [], cycles: [] }
     return get(`/api/news/feed?days=${Math.max(1, Math.floor(days))}`)
+  },
+  // Archive-spanning, server-filtered search over the WHOLE since-inception archive (not the 2-day wire).
+  // Recency-ordered, (ts,event_id) cursor paging. Empty in static showcase mode (no engine).
+  newsSearch: async (q: ArchiveQuery, opts: { cursor?: SearchCursor | null; limit?: number } = {}): Promise<FeedSearchResponse> => {
+    if ((await ensureMode()) === 'static') return { items: [], nextCursor: null, scannedThroughDate: null, exhausted: true }
+    const p = archiveQueryParams(q)
+    if (opts.cursor) { p.set('cursorTs', opts.cursor.ts); p.set('cursorId', opts.cursor.id) }
+    if (opts.limit) p.set('limit', String(opts.limit))
+    return get(`/api/news/search?${p.toString()}`)
+  },
+  // The available geographies (country + continent) / sectors / sub-sectors / sources / themes WITH COUNTS
+  // over the whole archive, honouring the active filter — what populates the dropdowns with archive truth.
+  newsFacets: async (q: ArchiveQuery = {}): Promise<FeedFacets> => {
+    if ((await ensureMode()) === 'static') return { countries: [], regions: [], sectors: [], subSectors: [], sources: [], themes: [], total: 0, builtThroughDate: null, builtAt: '' }
+    return get(`/api/news/facets?${archiveQueryParams(q).toString()}`)
   },
   newsStreamUrl: () => `/api/news/stream`,
   // the global scoring weights behind every event's triage score (the Scoring panel reads + writes these).

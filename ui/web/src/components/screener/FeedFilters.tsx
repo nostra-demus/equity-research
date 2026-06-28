@@ -7,7 +7,9 @@ import { GICS_SECTORS, gicsOf, gicsSubSectorsFor } from '../../lib/gics'
 
 export interface FeedFilterState {
   themes: Set<string>
-  region: string // '' = all
+  region: string // '' = all — LEGACY 8-bucket region (still used by the full "watch live" wire)
+  country: string // '' = all — ISO alpha-2; the leaf of the rail's Continent → Country geography drill-down
+  geoRegion: string // '' = all — a continent group; the branch of the geography drill-down
   source: string // '' = all
   band: string // '' = all | pick | watch | drop
   size: string // '' = all
@@ -17,10 +19,16 @@ export interface FeedFilterState {
   text: string
 }
 
-export const emptyFilters = (): FeedFilterState => ({ themes: new Set(), region: '', source: '', band: '', size: '', linkage: '', gicsSector: '', gicsSubSector: '', text: '' })
+export const emptyFilters = (): FeedFilterState => ({ themes: new Set(), region: '', country: '', geoRegion: '', source: '', band: '', size: '', linkage: '', gicsSector: '', gicsSubSector: '', text: '' })
 
 export const filtersActive = (f: FeedFilterState): boolean =>
-  f.themes.size > 0 || !!f.region || !!f.source || !!f.band || !!f.size || !!f.linkage || !!f.gicsSector || !!f.gicsSubSector || !!f.text.trim()
+  f.themes.size > 0 || !!f.region || !!f.country || !!f.geoRegion || !!f.source || !!f.band || !!f.size || !!f.linkage || !!f.gicsSector || !!f.gicsSubSector || !!f.text.trim()
+
+// The structured filter that triggers ARCHIVE search (the whole-history, server-side read) — everything
+// except the legacy `region` (which only narrows the live wire). When none of these is set, the rail
+// stays in LIVE mode (the 2-day SSE wire). Mirrors the server-side dimensions in news/feed-filter.ts.
+export const archiveFiltersActive = (f: FeedFilterState): boolean =>
+  f.themes.size > 0 || !!f.country || !!f.geoRegion || !!f.source || !!f.size || !!f.linkage || !!f.gicsSector || !!f.gicsSubSector || !!f.text.trim()
 
 // A tailored empty-wire line when a GICS filter is active and nothing shows. GICS tags are matched from
 // the headline, so a thinly-covered sector reads empty even on a busy wire — say so, instead of the

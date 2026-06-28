@@ -18,6 +18,8 @@ import { fetchReddit } from './sources/reddit'
 import { loadLedgerEventIds, normalizeAndFilter } from './normalize'
 import { pickTranslation } from './lang'
 import { resolveEventRegion } from './geo'
+import { resolveCountry } from './geography'
+import { invalidateFacets } from './facets'
 import { SeenCache } from './seen-cache'
 import { Budget, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter } from './triage/budget'
 import { triageBatchGemini } from './triage/gemini'
@@ -415,10 +417,13 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     domain: t.domain,
     source_name: t.source_name,
     via: t.via || 'gdelt',
-    region: t.region, // the EVENT's market (news/geo.ts)
+    region: t.region, // the EVENT's market (news/geo.ts) — the legacy 8-bucket region
     // the publisher's region, persisted only when it differs from the event region (e.g. an SCMP/CN
     // domain piece about Bangladesh → region OTHER, source_region CN) — the override's audit trail
     ...(t.source_region && t.source_region !== t.region ? { source_region: t.source_region } : {}),
+    // the EVENT's country (ISO alpha-2, news/geography.ts) — the country-level Geography filter's key.
+    // null when no confident signal ("Global / unspecified"). Re-derived on read for older lines (feed.ts).
+    country: resolveCountry(t.headline, t.headline_en, t.companies, t.region, t.issuer_linkage),
     input_nature: t.input_nature,
     triage_score: t.triage_score,
     band: t.band,
@@ -440,6 +445,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   }))
   // emit exactly what was persisted, so the live wire and a later backfill agree
   const written = appendFeedItems(repoRoot, date, feedItems, cfg.feedItemsDailyCap)
+  if (written) invalidateFacets() // a fresh cycle changed the archive — drop the facet index so new items/countries show up before the TTL
   for (const fi of feedItems.slice(0, written)) newsBus.emit({ type: 'news-item', item: fi })
 
   const overflowReq = overflow.reduce((s, o) => s + o.requests, 0)

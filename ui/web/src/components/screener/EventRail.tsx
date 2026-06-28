@@ -11,14 +11,15 @@
 // Click a row to read the whole event; set aside the ones not worth a check.
 
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { groupByDedup, groupRegions, type StoryGroup } from '../../lib/dedup'
-import { displayHeadline, originalHeadline, plainRegion, plainSize, plainTheme } from '../../lib/plain'
+import { groupByDedup, type StoryGroup } from '../../lib/dedup'
+import { displayHeadline, originalHeadline, plainSize, plainTheme } from '../../lib/plain'
 import { BROAD_SCOPES, COMPANY_SCOPES, familyOf, isCompanyNameClient, SCOPES, scopeLabel, scopeOf, type ScopeId } from '../../lib/scope'
 import { hhmmLocal } from '../../lib/format'
 import { extractCommodities, extractSectors } from '../../lib/taxonomy'
 import { useStore } from '../../lib/store'
 import type { FeedItem } from '../../lib/types'
-import { emptyFilters, FeedFilters, filtersActive, gicsEmptyMessage, matchesFilters, type FeedFilterState } from './FeedFilters'
+import { archiveFiltersActive, emptyFilters, FeedFilters, filtersActive, gicsEmptyMessage, matchesFilters, type FeedFilterState } from './FeedFilters'
+import type { ArchiveQuery } from '../../lib/api'
 
 // a multi-select dropdown for a broad scope with dynamic sub-values (Sector, Commodity). "All X" =
 // the whole scope; specific picks narrow to those. Closes on outside-click / Escape.
@@ -74,6 +75,8 @@ function ScopeDropdown({ label, total, options, sel, onChange, open, onOpen, dis
 type View = 'ranked' | 'latest' | 'all'
 
 const agoMin = (iso?: string | null) => (iso ? Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 60_000)) : null)
+// a friendly label for a YYYY-MM-DD archive day — e.g. "11 Jun 2026"
+const dateLabel = (d?: string | null) => (d ? new Date(`${d}T00:00:00`).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }) : '')
 const inGroup = (sel: FeedItem | null, g: StoryGroup) => !!sel && g.members.some((m) => m.event_id === sel.event_id && m.ts === sel.ts)
 
 function ScopeChip({ it }: { it: FeedItem }) {
@@ -165,7 +168,7 @@ function EventRow({ group, selected, shelved, fresh, onPick, onShelve }: { group
 }
 
 export function EventRail() {
-  const items = useStore((s) => s.newsItems)
+  const liveItems = useStore((s) => s.newsItems)
   const freshEvents = useStore((s) => s.freshEvents)
   const status = useStore((s) => s.newsStatus)
   const streamOnline = useStore((s) => s.newsStreamOnline)
@@ -182,6 +185,17 @@ export function EventRail() {
   const openSources = useStore((s) => s.openSources)
   const runSweep = useStore((s) => s.runSweep)
   const staticMode = useStore((s) => s.staticMode)
+  // archive search — the whole-history, server-filtered read the rail switches to when a filter is set
+  const archiveResults = useStore((s) => s.scArchiveResults)
+  const archiveLoading = useStore((s) => s.scArchiveLoading)
+  const archiveLoadingMore = useStore((s) => s.scArchiveLoadingMore)
+  const archiveCursor = useStore((s) => s.scArchiveCursor)
+  const archiveScannedThrough = useStore((s) => s.scArchiveScannedThrough)
+  const archiveExhausted = useStore((s) => s.scArchiveExhausted)
+  const facets = useStore((s) => s.scFacets)
+  const runArchiveSearch = useStore((s) => s.scRunArchiveSearch)
+  const loadMoreArchive = useStore((s) => s.scLoadMoreArchive)
+  const loadFacets = useStore((s) => s.scLoadFacets)
   const [view, setView] = useState<View>('ranked')
   // multi-select: empty = show everything; otherwise show the UNION of the picked scopes
   const [scopeFilter, setScopeFilter] = useState<Set<ScopeId>>(new Set())
@@ -191,15 +205,11 @@ export function EventRail() {
   // collapse toggle for the secondary filters — COLLAPSED by default; opens only if you've opened it before (per browser)
   const [filtersOpen, setFiltersOpen] = useState<boolean>(() => { try { return localStorage.getItem('nsw.filtersOpen') === '1' } catch { return false } })
   const toggleFilters = () => setFiltersOpen((v) => { const n = !v; try { localStorage.setItem('nsw.filtersOpen', n ? '1' : '0') } catch {} return n })
-  const refineCount = filters.themes.size + (filters.region ? 1 : 0) + (filters.size ? 1 : 0) + (filters.gicsSector ? 1 : 0) + (filters.gicsSubSector ? 1 : 0) + (filters.text.trim() ? 1 : 0)
+  const refineCount = filters.themes.size + (filters.country || filters.geoRegion ? 1 : 0) + (filters.size ? 1 : 0) + (filters.gicsSector ? 1 : 0) + (filters.gicsSubSector ? 1 : 0) + (filters.text.trim() ? 1 : 0)
   // Sector & Commodity drill into specific sub-values (dynamic multi-select); openDrop = which menu is open
   const [sectorSel, setSectorSel] = useState<SubSel>({ all: false, picks: new Set() })
   const [commSel, setCommSel] = useState<SubSel>({ all: false, picks: new Set() })
-  // Geography is a CROSS-CUTTING dimension (where the event is), independent of the scope chips: a US
-  // company name and a US macro print are both "US". Multi-select region codes (empty = every region).
-  const [geoSel, setGeoSel] = useState<SubSel>({ all: false, picks: new Set() })
-  const geoNarrow = geoSel.picks.size > 0
-  const [openDrop, setOpenDrop] = useState<'sector' | 'commodity' | 'geo' | null>(null)
+  const [openDrop, setOpenDrop] = useState<'sector' | 'commodity' | null>(null)
   const [armScan, setArmScan] = useState(false) // two-click arm for the paid top-up sweep
   const clearBroad = () => { setScopeFilter(new Set()); setSectorSel({ all: false, picks: new Set() }); setCommSel({ all: false, picks: new Set() }) }
   const broadActive = scopeFilter.size > 0 || subActive(sectorSel) || subActive(commSel)
@@ -209,6 +219,45 @@ export function EventRail() {
     setScopeFilter(next)
   }
   const pickView = (v: View) => { setView(v); if (themesOpen) closeThemes() }
+
+  // ARCHIVE MODE: any structured filter (geography / sector / theme / size / text) flips the rail from the
+  // live 2-day SSE wire to a server-side search over the WHOLE since-inception archive — so a sparse
+  // filter finds matches buried deep in history instead of falsely reading "nothing".
+  const archiveMode = archiveFiltersActive(filters)
+  const archiveQuery = useMemo<ArchiveQuery>(() => ({
+    themes: filters.themes.size ? [...filters.themes] : undefined,
+    country: filters.country || undefined,
+    geoRegion: filters.geoRegion || undefined,
+    size: filters.size || undefined,
+    gicsSector: filters.gicsSector || undefined,
+    gicsSubSector: filters.gicsSubSector || undefined,
+    text: filters.text.trim() || undefined,
+  }), [filters])
+  const archiveKey = JSON.stringify(archiveQuery)
+  // fire the search when the filter changes (debounced so typing in the search box doesn't spam the server);
+  // an empty filter returns the rail to LIVE mode. The store guards against a stale slow response winning.
+  useEffect(() => {
+    const id = setTimeout(() => { void runArchiveSearch(archiveMode ? archiveQuery : {}) }, 220)
+    return () => clearTimeout(id)
+  }, [archiveKey, archiveMode, archiveQuery, runArchiveSearch])
+  // populate the Geography dropdown from the ARCHIVE (every country that has any archived match), not the
+  // loaded window — so "United Arab Emirates" appears even when nothing is in the last two days.
+  useEffect(() => { void loadFacets({}) }, [loadFacets])
+
+  // the rendered set: the archive matches in archive mode, the live wire otherwise
+  const items = archiveMode ? archiveResults : liveItems
+
+  // archive paging: pull the next page when a bottom sentinel scrolls into view (same pattern as the
+  // full wire). Only armed in archive mode while there is a next cursor.
+  const listRef = useRef<HTMLDivElement | null>(null)
+  const moreRef = useRef<HTMLDivElement | null>(null)
+  useEffect(() => {
+    const el = moreRef.current
+    if (!el || !archiveMode || !archiveCursor) return
+    const io = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) void loadMoreArchive() }, { root: listRef.current, rootMargin: '600px 0px' })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [archiveMode, archiveCursor, archiveLoadingMore, loadMoreArchive])
 
   // backfill + attach the live stream the moment the rail mounts (self-healing if scInit raced)
   useEffect(() => {
@@ -242,65 +291,57 @@ export function EventRail() {
   // what is actually available under the current refine.
   const refined = useMemo(() => baseGroups.filter((g) => matchesFilters(g.rep, filters)), [baseGroups, filters])
 
-  // the region list for the Geography dropdown — every region present under the current refine, newest-
-  // count first. Computed over `refined` (NOT the geo-narrowed set) so picking one region never hides the
-  // others from the menu. A story is counted toward EVERY region its sources touch (groupRegions), not
-  // just the representative row's — a dedup group spans regions (region is per-source, stories merge
-  // across sources), so rep-only counts undercount. `geoTotal` = stories carrying any known region.
-  const geoOptions = useMemo(() => {
-    const c: Record<string, number> = {}
-    for (const g of refined) for (const r of groupRegions(g)) c[r] = (c[r] || 0) + 1
-    return Object.entries(c).sort((a, b) => b[1] - a[1]) as [string, number][]
-  }, [refined])
-  const geoTotal = useMemo(() => refined.reduce((n, g) => n + (groupRegions(g).length > 0 ? 1 : 0), 0), [refined])
-
-  // geography applied FIRST (it composes with the scope chips): picking "US + India" narrows everything
-  // downstream — the scope counts, the Sector/Commodity menus, and the list itself. Matches on the whole
-  // group's regions (groupRegions), so a story present in the picked market is kept even when its
-  // representative row is a different-region (e.g. GLOBAL) wire.
-  const geoApplied = useMemo(() => (geoNarrow ? refined.filter((g) => groupRegions(g).some((r) => geoSel.picks.has(r))) : refined), [refined, geoSel, geoNarrow])
-
-  // per-scope counts over the geo-narrowed groups — drive the filter chips + the at-a-glance split
+  // per-scope counts over the refined set — drive the filter chips + the at-a-glance split
   const counts = useMemo(() => {
     const c: Record<string, number> = {}
-    for (const g of geoApplied) c[scopeOf(g.rep)] = (c[scopeOf(g.rep)] || 0) + 1
+    for (const g of refined) c[scopeOf(g.rep)] = (c[scopeOf(g.rep)] || 0) + 1
     return c
-  }, [geoApplied])
+  }, [refined])
   const companyTotal = COMPANY_SCOPES.reduce((n, s) => n + (counts[s] || 0), 0)
   const broadTotal = BROAD_SCOPES.reduce((n, s) => n + (counts[s] || 0), 0)
 
-  // dynamic sub-value lists for the Sector / Commodity dropdowns — only what's actually on the wire, with counts
+  // dynamic sub-value lists for the Sector / Commodity dropdowns — only what's actually shown, with counts
   const sectorOptions = useMemo(() => {
     const c: Record<string, number> = {}
-    for (const g of geoApplied) if (scopeOf(g.rep) === 'sector') for (const x of extractSectors(displayHeadline(g.rep))) c[x] = (c[x] || 0) + 1
+    for (const g of refined) if (scopeOf(g.rep) === 'sector') for (const x of extractSectors(displayHeadline(g.rep))) c[x] = (c[x] || 0) + 1
     return Object.entries(c).sort((a, b) => b[1] - a[1]) as [string, number][]
-  }, [geoApplied])
+  }, [refined])
   const commodityOptions = useMemo(() => {
     const c: Record<string, number> = {}
-    for (const g of geoApplied) if (scopeOf(g.rep) === 'commodity') for (const x of extractCommodities(displayHeadline(g.rep))) c[x] = (c[x] || 0) + 1
+    for (const g of refined) if (scopeOf(g.rep) === 'commodity') for (const x of extractCommodities(displayHeadline(g.rep))) c[x] = (c[x] || 0) + 1
     return Object.entries(c).sort((a, b) => b[1] - a[1]) as [string, number][]
-  }, [geoApplied])
+  }, [refined])
+
+  // the Continent → Country geography options come from the ARCHIVE facets (counts across ALL history),
+  // narrowed to the picked continent when one is set — so the menu reflects the archive, not the 2-day
+  // window. This is what makes "United Arab Emirates" appear even when nothing landed in the last two days.
+  const countryOptions = useMemo(() => (facets?.countries || []).filter((c) => !filters.geoRegion || c.parent === filters.geoRegion), [facets, filters.geoRegion])
+  const countryParent = (cc: string) => facets?.countries.find((c) => c.key === cc)?.parent || ''
+  const setGeo = (patch: Partial<Pick<FeedFilterState, 'country' | 'geoRegion'>>) => setFilters({ ...filters, country: '', geoRegion: '', ...patch })
+  const countryLabel = filters.country ? facets?.countries.find((c) => c.key === filters.country)?.label || filters.country : ''
+  // a plain-English summary of the active filter, for the honest "nothing matches X" archive line
+  const filterSummary = [filters.gicsSubSector || filters.gicsSector, countryLabel || filters.geoRegion, filters.text.trim() ? `“${filters.text.trim()}”` : ''].filter(Boolean).join(' · ')
 
   // the broad filter: a UNION of the picked scope chips + the Sector/Commodity sub-selections, applied on
-  // top of the geo-narrowed set
+  // top of the refined set
   const visibleGroups = useMemo(() => {
-    if (!broadActive) return geoApplied
-    return geoApplied.filter((g) => {
+    if (!broadActive) return refined
+    return refined.filter((g) => {
       const sc = scopeOf(g.rep)
       if (scopeFilter.has(sc)) return true
       if (sc === 'sector' && (sectorSel.all || extractSectors(displayHeadline(g.rep)).some((x) => sectorSel.picks.has(x)))) return true
       if (sc === 'commodity' && (commSel.all || extractCommodities(displayHeadline(g.rep)).some((x) => commSel.picks.has(x)))) return true
       return false
     })
-  }, [geoApplied, scopeFilter, sectorSel, commSel, broadActive])
+  }, [refined, scopeFilter, sectorSel, commSel, broadActive])
   const isFresh = (g: StoryGroup) => g.members.some((m) => freshEvents.has(m.event_id))
 
   const shelvedInBand = useMemo(() => groups.reduce((n, g) => n + (shelvedEvents.has(g.rep.event_id) ? 1 : 0), 0), [groups, shelvedEvents])
 
   // The GICS-specific empty line applies ONLY when GICS is the sole structured narrower: if the scope chips
-  // (broadActive) or Geography (geoNarrow) also narrowed, the empty list may be theirs, so we fall through
-  // to the generic line rather than wrongly blaming GICS. Computed once (the helper is pure).
-  const gicsEmptyLine = items.length && !broadActive && !geoNarrow ? gicsEmptyMessage(filters) : null
+  // (broadActive) also narrowed, the empty list may be theirs, so we fall through to the generic line
+  // rather than wrongly blaming GICS. In archive mode an empty list is reported honestly below instead.
+  const gicsEmptyLine = !archiveMode && items.length && !broadActive ? gicsEmptyMessage(filters) : null
 
   const ago = agoMin(status?.lastCycleAt)
   // The config truth (`status.enabled`) is checked first so "Auto-scan off" is never confused with offline.
@@ -397,7 +438,7 @@ export function EventRail() {
         <div className="evscope" role="group" aria-label="Filter by what the event is about — tap to add or remove">
           <button type="button" className={`evscope__chip evscope__chip--all${!broadActive ? ' evscope__chip--on' : ''}`} onClick={clearBroad} aria-pressed={!broadActive} title="Show every category">
             {!broadActive && <span className="evscope__tick" aria-hidden>✓</span>}
-            All<span className="evscope__n">{geoApplied.length}</span>
+            All<span className="evscope__n">{refined.length}</span>
           </button>
           {(companyTotal > 0 || COMPANY_SCOPES.some((s) => scopeFilter.has(s))) && (
             <span className="evscope__group" title="A specific listed company is in play — a potential single-stock idea">
@@ -421,12 +462,43 @@ export function EventRail() {
         {scopeFilter.size === 1 && <div className="evscope__meaning">{SCOPES[[...scopeFilter][0]].meaning}</div>}
         {scopeFilter.size > 1 && <div className="evscope__meaning">Showing {scopeFilter.size} categories together — tap All to reset.</div>}
 
-        {/* GEOGRAPHY — where the event is. A cross-cutting dimension (a US company AND a US macro print
-            are both "US"), so it sits on its own row and composes with the category chips above. */}
-        {(geoOptions.length > 0 || geoNarrow) && (
-          <div className="evscope evscope--geo" role="group" aria-label="Filter by geography — the market the event is about">
-            <span className="evscope__dim" aria-hidden>Where</span>
-            <ScopeDropdown label="Geography" total={geoTotal} options={geoOptions} sel={geoSel} onChange={setGeoSel} open={openDrop === 'geo'} onOpen={(o) => setOpenDrop(o ? 'geo' : null)} display={plainRegion} />
+        {/* GEOGRAPHY — country-level, Continent → Country, fed by the ARCHIVE facets (every country with any
+            archived match, with counts), NOT the loaded window. Picking either flips the rail to a
+            whole-history search, so "Aerospace & Defense in the United Arab Emirates" actually returns. */}
+        <div className="evscope evscope--geo" role="group" aria-label="Filter by geography — the country the event is about">
+          <span className="evscope__dim" aria-hidden>Where</span>
+          <select
+            className="ffilters__sel"
+            value={filters.geoRegion}
+            onChange={(e) => setGeo({ geoRegion: e.target.value })}
+            title="Continent / region — narrows the country list below"
+          >
+            <option value="">any continent</option>
+            {(facets?.regions || []).map((r) => (
+              <option key={r.key} value={r.key}>{r.label} · {r.count}</option>
+            ))}
+          </select>
+          <select
+            className="ffilters__sel"
+            value={filters.country}
+            onChange={(e) => { const cc = e.target.value; setGeo({ country: cc, geoRegion: cc ? countryParent(cc) || filters.geoRegion : filters.geoRegion }) }}
+            disabled={!facets}
+            title={facets ? 'Country — every country that has any archived match' : 'loading the archive’s countries…'}
+          >
+            <option value="">{filters.geoRegion ? `all of ${filters.geoRegion}` : 'any country'}</option>
+            {countryOptions.map((c) => (
+              <option key={c.key} value={c.key}>{c.label} · {c.count}</option>
+            ))}
+          </select>
+        </div>
+        {/* honest scope line: in archive mode say plainly that we are reading ALL history, and how far back */}
+        {archiveMode && (
+          <div className="evscope__meaning evrail__archline" aria-live="polite">
+            {archiveLoading
+              ? 'Searching all history…'
+              : archiveScannedThrough
+                ? `Searched all history back to ${dateLabel(archiveScannedThrough)}${archiveExhausted ? '' : ' (more loads as you scroll)'}`
+                : 'Searching the whole archive — not just the last two days.'}
           </div>
         )}
 
@@ -454,15 +526,27 @@ export function EventRail() {
         )}
       </header>
 
-      <div className="evrail__list">
+      <div className="evrail__list" ref={listRef}>
         {visibleGroups.map((g) => (
           <EventRow key={g.group} group={g} selected={inGroup(selected, g)} shelved={shelvedEvents.has(g.rep.event_id)} fresh={isFresh(g)} onPick={pick} onShelve={toggleShelve} />
         ))}
-        {!visibleGroups.length && (
+        {/* Render the paging sentinel whenever a next cursor remains — even when THIS page filtered to zero
+            visible rows (e.g. a page of all band='drop' items hidden in Ranked/Latest). Gating it on
+            visibleGroups.length stalled paging: the IntersectionObserver had no element to observe, so the
+            buried kept matches on later pages were unreachable and the empty-state below falsely claimed
+            "genuinely nothing matches" while more archive remained to scan. */}
+        {archiveMode && archiveCursor && (
+          <div ref={moreRef} className="evrail__more">{archiveLoadingMore ? 'loading more of all history…' : 'scanning deeper into the whole archive…'}</div>
+        )}
+        {!visibleGroups.length && !(archiveMode && archiveCursor) && (
           <div className="evrail__empty">
-            {gicsEmptyLine
+            {archiveMode
+              ? archiveLoading
+                ? 'Searching all history…'
+                : `Searched all history${archiveScannedThrough ? ` back to ${dateLabel(archiveScannedThrough)}` : ''} — genuinely nothing matches ${filterSummary || 'these filters'}. This is the WHOLE archive, not just the last two days.`
+              : gicsEmptyLine
               ? gicsEmptyLine
-              : broadActive || geoNarrow || filtersActive(filters)
+              : broadActive || filtersActive(filters)
               ? 'Nothing matches these filters right now — tap All or clear the filters to see the rest.'
               : items.length
                 ? view === 'ranked'
