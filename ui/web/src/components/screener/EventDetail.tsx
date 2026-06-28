@@ -99,23 +99,38 @@ function StoryBlock({ enr }: { enr: EventEnrichment | 'loading' | undefined }) {
   )
 }
 
-// WHO GAINS / WHO'S EXPOSED — the value the reader actually asked for: WHICH names, from the article.
-// Named firms render solid; an inferred sector/group renders muted with a "(sector)" tag; never invented.
+// WHO GAINS / WHO'S EXPOSED — the transmission read a PM actually wants: not just WHICH name, but HOW the
+// event reaches its economics (mechanism), roughly how big (magnitude), when it bites (horizon), and whether
+// it's directly hit (first-order) or a downstream/substitute (second-order). A named listed firm renders
+// solid and clickable; an inferred tradable sector/group renders with a "sector" tag. Never invented.
 function PartyList({ parties }: { parties: ArticleParty[] }) {
   const focusCompany = useStore((s) => s.scFocusCompany)
   return (
     <ul className="evdetail__pclist">
-      {parties.map((p, i) => (
-        <li key={`${p.name}-${i}`} className="evdetail__party">
-          {p.named_in_article ? (
-            <button type="button" className="evdetail__party-name evdetail__party-name--btn" onClick={() => focusCompany({ name: p.name, ticker: null })} title={`See all wire news on ${p.name}`}>{p.name}</button>
-          ) : (
-            <span className="evdetail__party-name">{p.name}</span>
-          )}
-          {!p.named_in_article && <span className="evdetail__party-tag">sector</span>}
-          {p.basis && <span className="evdetail__party-basis"> — {p.basis}</span>}
-        </li>
-      ))}
+      {parties.map((p, i) => {
+        const mech = p.mechanism || p.basis || '' // `mechanism` is the live field; `basis` is the legacy cache fallback
+        return (
+          <li key={`${p.name}-${i}`} className="evdetail__party">
+            <div className="evdetail__party-top">
+              {p.named_in_article ? (
+                <button type="button" className="evdetail__party-name evdetail__party-name--btn" onClick={() => focusCompany({ name: p.name, ticker: p.ticker ?? null })} title={`See all wire news on ${p.name}`}>{p.name}</button>
+              ) : (
+                <span className="evdetail__party-name">{p.name}</span>
+              )}
+              {p.listing && <span className="evdetail__party-listing" title="Where this name trades — the investability cue">{p.listing}</span>}
+              {!p.named_in_article && <span className="evdetail__party-tag">sector</span>}
+              {p.order === 'second' && <span className="evdetail__party-order" title="A second-order effect — a downstream, supplier, substitute or competitor party, not directly named">2nd-order</span>}
+            </div>
+            {mech && <div className="evdetail__party-mech">{mech}</div>}
+            {(p.magnitude || p.horizon) && (
+              <div className="evdetail__party-meta">
+                {p.magnitude && <span className="evdetail__party-mag" title="Rough size of the effect — only where the article supports it">{p.magnitude}</span>}
+                {p.horizon && <span className="evdetail__party-hz" title="When the effect bites">{p.horizon}</span>}
+              </div>
+            )}
+          </li>
+        )
+      })}
     </ul>
   )
 }
@@ -343,6 +358,11 @@ export function EventDetail({ it }: { it: FeedItem }) {
   const benefits = enrichment?.beneficiaries || []
   const exposed = enrichment?.exposed || []
   const themeKey = enrichment?.theme || it.event_types?.[0]
+  // the smart-read additions — the transmission to markets, the priced-vs-edge call, and the one thing to watch
+  const marketAngle = enrichment?.market_angle
+  const whatsPriced = enrichment?.whats_priced
+  const theEdge = enrichment?.the_edge
+  const watchItem = enrichment?.watch_item
 
   const coverageFor = (name: string, ticker: string | null) => {
     const tk = (ticker || '').toUpperCase()
@@ -409,19 +429,58 @@ export function EventDetail({ it }: { it: FeedItem }) {
         {/* THE STORY — the crux, read from the article body */}
         <StoryBlock enr={enr} />
 
-        {/* WHO GAINS / WHO'S EXPOSED — the named read-through (only once we've read the body) */}
+        {/* WHY IT MATTERS — the transmission to markets: event → what changes → which tradable asset moves.
+            The "so what" a PM reads first; the centre of gravity for a macro/policy/commodity story. */}
+        {marketAngle && (
+          <div className="evdetail__angle evdetail__reveal">
+            <div className="evdetail__angle-k">Why it matters</div>
+            <p className="evdetail__angle-v">{marketAngle}</p>
+          </div>
+        )}
+
+        {/* WHO GAINS / WHO'S EXPOSED — the transmission read-through (only once we've read the body) */}
         {didRead && (
-          <div className="evdetail__verdict">
+          <div className="evdetail__verdict evdetail__reveal">
             <div className="evdetail__pc">
               <div className="evdetail__pccol evdetail__pccol--pro">
                 <div className="evdetail__pchead">Who gains</div>
-                {benefits.length ? <PartyList parties={benefits} /> : <div className="evdetail__pcnone">No specific winners named {corroborated ? 'across the corroborating outlets' : 'in the article'}.</div>}
+                {benefits.length ? <PartyList parties={benefits} /> : <div className="evdetail__pcnone">No tradable winner the article supports {corroborated ? 'across the corroborating outlets' : ''}.</div>}
               </div>
               <div className="evdetail__pccol evdetail__pccol--con">
                 <div className="evdetail__pchead">Who’s exposed</div>
-                {exposed.length ? <PartyList parties={exposed} /> : <div className="evdetail__pcnone">No specific losers named {corroborated ? 'across the corroborating outlets' : 'in the article'}.</div>}
+                {exposed.length ? <PartyList parties={exposed} /> : <div className="evdetail__pcnone">No tradable loser the article supports {corroborated ? 'across the corroborating outlets' : ''}.</div>}
               </div>
             </div>
+          </div>
+        )}
+
+        {/* PRICED IN vs THE EDGE — the §7 read: the obvious take the market likely holds, and the
+            non-obvious angle the body supports. Either line can stand alone; absent when neither is found. */}
+        {(whatsPriced || theEdge) && (
+          <div className="evdetail__block evdetail__reveal">
+            <div className="evdetail__label">Priced in vs the edge</div>
+            <div className="evdetail__edge">
+              {whatsPriced && (
+                <div className="evdetail__edge-row evdetail__edge-row--priced">
+                  <span className="evdetail__edge-k">Likely priced</span>
+                  <span className="evdetail__edge-v">{whatsPriced}</span>
+                </div>
+              )}
+              {theEdge && (
+                <div className="evdetail__edge-row evdetail__edge-row--edge">
+                  <span className="evdetail__edge-k">Possible edge</span>
+                  <span className="evdetail__edge-v">{theEdge}</span>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* WATCH — the single next data point / number that confirms or kills the read */}
+        {watchItem && (
+          <div className="evdetail__watch evdetail__reveal">
+            <span className="evdetail__watch-k">Watch</span>
+            <span className="evdetail__watch-v">{watchItem}</span>
           </div>
         )}
 

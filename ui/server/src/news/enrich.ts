@@ -113,9 +113,13 @@ export interface EventEnrichment {
   related: RelatedEvent[]
   // --- the article-body read (one Groq pass over the fetched body; absent on failure/no-key) ---
   gist?: string[] // 2-4 bullets: the real crux
+  market_angle?: string // the single market-moving thread + transmission to asset prices (the "so what")
   companies?: ArticleCompany[] // investable firms only (denylist-scrubbed), each with its role
-  beneficiaries?: ArticleParty[] // who gains — named firms or an inferred group (flagged)
+  beneficiaries?: ArticleParty[] // who gains — named firms or an inferred tradable group (flagged), each with its transmission
   exposed?: ArticleParty[] // who's at risk
+  whats_priced?: string // the obvious read the market likely already holds (§7 consensus)
+  the_edge?: string // a non-obvious angle the body supports that consensus may miss — absent if none
+  watch_item?: string // the single next data point / number that confirms or kills the read
   theme?: string // corrected single event-type (replaces the mis-tagged triage theme)
   // ---- read-quality bookkeeping (the anti-poisoning layer) ----
   // complete = this is the BEST obtainable read: a rich brief, an SEC parse, a filing floor (the headline
@@ -610,10 +614,27 @@ export interface EnrichDeps {
   corroborate?: { enabled: boolean; baseUrl: string; timeoutMs?: number }
 }
 
-// Scrub a Groq-returned party list: drop a NAMED party that's actually a country/index/agency (per the
-// entity denylist); keep inferred groups (named_in_article=false) as-is — those are the honest "(sector)".
-function scrubParties(parties: ArticleParty[] | undefined): ArticleParty[] {
-  return (parties || []).filter((p) => p && p.name && (!p.named_in_article || isCompanyName(p.name)))
+// Obviously NON-TRADABLE "parties" a model still occasionally emits as an inferred group — a sports team,
+// a population, a generic rate-setter. This regex catches the sports-team / population / generic-rate-setter
+// shapes the entity denylist does NOT enumerate (it knows named countries/indices/regulators, not "world
+// cup" or "the public"). Kept deliberately TIGHT so a real tradable sector ("oil producers", "Indian
+// private banks", "gold", "Treasuries", "airlines") is never caught — the prompt's INVESTABILITY GATE is
+// the primary filter; this is the deterministic backstop (§24).
+const NON_TRADABLE_PARTY_RE = /\b(world cup|national team|national side|olympic team|football club|soccer team|cricket team|sports team)\b|\b(citizens|voters|taxpayers|tourists|spectators|fans|pensioners|migrants|refugees|the public|general public)\b|\b(central bank|reserve bank|federal reserve|the regulator|ministry of|parliament|congress)\b/i
+
+// Scrub a Groq-returned party list. Drop, in BOTH the named and the inferred-group path: (1) anything the
+// entity denylist rejects — a country / index / regulator / central bank / named individual (isCompanyName),
+// and (2) anything matching the non-tradable backstop above (sports teams / populations). A legitimate
+// inferred sector/group ("oil producers", "gold") is NOT in the denylist, so isCompanyName keeps it as the
+// honest "(sector)" row. Earlier this required isCompanyName only on the NAMED path — an inferred group
+// (named_in_article=false) short-circuited past it, so "the Fed" / "India" / "S&P 500" / "SOFR" sailed
+// straight through. Exported for the test suite.
+export function scrubParties(parties: ArticleParty[] | undefined): ArticleParty[] {
+  return (parties || []).filter((p) => {
+    if (!p || !p.name) return false
+    if (NON_TRADABLE_PARTY_RE.test(p.name)) return false
+    return isCompanyName(p.name)
+  })
 }
 
 // ---- corroboration: when the publisher blocks the direct read, piece the event together from the wire ----
@@ -872,12 +893,16 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
     }
     if (brief && (brief.gist.length || brief.companies.length || brief.beneficiaries.length || brief.exposed.length)) {
       if (brief.gist.length) result.gist = brief.gist
+      if (brief.market_angle) result.market_angle = brief.market_angle
       const co = filterCompanies(brief.companies) // denylist safety-net on top of the prompt rule
       if (co.length) result.companies = co
       const ben = scrubParties(brief.beneficiaries)
       if (ben.length) result.beneficiaries = ben
       const exp = scrubParties(brief.exposed)
       if (exp.length) result.exposed = exp
+      if (brief.whats_priced) result.whats_priced = brief.whats_priced
+      if (brief.the_edge) result.the_edge = brief.the_edge
+      if (brief.watch_item) result.watch_item = brief.watch_item
       if (brief.theme) result.theme = brief.theme
       // read succeeded but produced no gist bullets → back it with the most substantial text we hold, never blank
       if (!brief.gist.length) result.summary = bestFallbackSummary(pageHtml, snippet, filingInput, bodylessFiling)
@@ -910,9 +935,13 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
           const b = r.brief
           if (b && (b.gist.length || b.companies.length || b.beneficiaries.length || b.exposed.length)) {
             if (b.gist.length) result.gist = b.gist
+            if (b.market_angle) result.market_angle = b.market_angle
             const co = filterCompanies(b.companies); if (co.length) result.companies = co
             const ben = scrubParties(b.beneficiaries); if (ben.length) result.beneficiaries = ben
             const exp = scrubParties(b.exposed); if (exp.length) result.exposed = exp
+            if (b.whats_priced) result.whats_priced = b.whats_priced
+            if (b.the_edge) result.the_edge = b.the_edge
+            if (b.watch_item) result.watch_item = b.watch_item
             if (b.theme) result.theme = b.theme
           }
         }

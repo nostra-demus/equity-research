@@ -9,7 +9,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { bestFallbackSummary, corroboratesSameEvent, enrichEvent, extractReadable, isEnrichmentComplete, type EventEnrichment } from '../src/news/enrich'
+import { bestFallbackSummary, corroboratesSameEvent, enrichEvent, extractReadable, isEnrichmentComplete, scrubParties, type EventEnrichment } from '../src/news/enrich'
 import { resetGdeltBackoff } from '../src/news/sources/gdelt'
 import type { ArticleReadProvider } from '../src/news/triage/article-read'
 import type { ArticleBrief } from '../src/news/triage/groq'
@@ -19,6 +19,41 @@ async function check(name: string, fn: () => void | Promise<void>) {
   try { await fn(); passed++; console.log(`  ok  ${name}`) }
   catch (e: any) { console.error(`FAIL  ${name}\n      ${e?.stack || e?.message || e}`); process.exitCode = 1 }
 }
+
+// ---- pure: scrubParties drops non-tradable groups in BOTH the named and inferred paths ----
+await check('scrubParties keeps tradable sectors/firms, drops non-tradable groups (the "World Cup soccer team" backstop)', () => {
+  const kept = scrubParties([
+    { name: 'Reliance Industries', named_in_article: true, mechanism: 'higher refining margins' }, // named firm → kept
+    { name: 'oil & gas producers', named_in_article: false, mechanism: 'higher crude realisations' }, // tradable sector → kept
+    { name: 'Indian private banks', named_in_article: false, mechanism: 'wider NIMs' }, // tradable sector → kept
+    { name: 'gold', named_in_article: false, mechanism: 'safe-haven bid' }, // tradable asset → kept
+    { name: 'Iranian World Cup soccer team', named_in_article: false, mechanism: 'missed the finals' }, // non-tradable → dropped
+    { name: 'taxpayers', named_in_article: false, mechanism: 'foot the bill' }, // population → dropped
+    { name: 'the Federal Reserve', named_in_article: false, mechanism: 'sets the rate' }, // rate-setter → dropped
+    { name: 'India', named_in_article: true, mechanism: 'country, not a firm' }, // named non-firm → dropped by isCompanyName
+  ])
+  const names = kept.map((p) => p.name)
+  assert.deepEqual(names, ['Reliance Industries', 'oil & gas producers', 'Indian private banks', 'gold'])
+})
+
+// ---- regression: an INFERRED non-tradable party caught ONLY by the entity denylist (not the
+// NON_TRADABLE_PARTY_RE backstop) must be dropped too. Pre-fix, the inferred path short-circuited past
+// isCompanyName (`!named_in_article || isCompanyName`), so a country / index / rate / regulator / named
+// individual emitted as an inferred group sailed straight through — the prompt's INVESTABILITY GATE
+// (groq.ts ARTICLE_SYSTEM: "NEVER list a country, a government, a central bank, a regulator, a market
+// index, or a rate") + CLAUDE.md §24 say all of these must be dropped. ----
+await check('scrubParties drops INFERRED denylist entities the regex backstop does not enumerate (Fed/index/rate/person)', () => {
+  const kept = scrubParties([
+    { name: 'gold', named_in_article: false, mechanism: 'safe-haven bid' }, // tradable asset → kept (control)
+    { name: 'the Fed', named_in_article: false, mechanism: 'sets the rate' }, // abbrev not in the regex → denylist → dropped
+    { name: 'India', named_in_article: false, mechanism: 'sovereign' }, // inferred country → dropped
+    { name: 'S&P 500', named_in_article: false, mechanism: 'index level' }, // index → dropped
+    { name: 'SOFR', named_in_article: false, mechanism: 'reference rate' }, // rate → dropped
+    { name: 'Donald Trump', named_in_article: false, mechanism: 'policy' }, // person → dropped
+    { name: 'European Commission', named_in_article: false, mechanism: 'antitrust' }, // regulator → dropped
+  ])
+  assert.deepEqual(kept.map((p) => p.name), ['gold'])
+})
 
 // ---- pure: completeness classification (drives the TTL tier) ----
 await check('isEnrichmentComplete: a rich brief / SEC parse / accepted floor is complete; a thin summary is not', () => {
@@ -74,7 +109,7 @@ function tmpRepo(snippet: string = SNIPPET): { repoRoot: string; stateDir: strin
 const GOOD_BRIEF: ArticleBrief = {
   gist: ['Tilray reported $206.7M in Q3 sales; international cannabis grew 73% but is only 12% of revenue.', 'The company remains unprofitable.'],
   companies: [{ name: 'Tilray Brands', ticker: 'TLRY', role: 'subject', listing_country: 'United States', exchange: 'NASDAQ' }],
-  beneficiaries: [], exposed: [{ name: 'Tilray Brands', named_in_article: true, basis: 'persistent unprofitability' }], theme: 'earnings_revenue_margin',
+  beneficiaries: [], exposed: [{ name: 'Tilray Brands', named_in_article: true, mechanism: 'persistent unprofitability' }], theme: 'earnings_revenue_margin',
 }
 const EMPTY_BRIEF: ArticleBrief = { gist: [], companies: [], beneficiaries: [], exposed: [], theme: '' }
 

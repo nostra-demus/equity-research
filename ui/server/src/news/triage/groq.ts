@@ -250,28 +250,58 @@ export async function triageBatch(
 // ============================================================================
 
 export type CompanyRole = 'subject' | 'acquirer' | 'target' | 'forecaster' | 'mentioned'
+export type PartyOrder = 'first' | 'second'
 export interface ArticleCompany { name: string; ticker: string | null; role: CompanyRole; listing_country: string | null; exchange: string | null }
-export interface ArticleParty { name: string; named_in_article: boolean; basis: string }
+// A gainer / exposed party — upgraded from a bare name+blurb to a real transmission read: HOW the event
+// reaches its economics (mechanism), roughly how big (magnitude), when it bites (horizon), and whether it's
+// directly hit (first-order) or a downstream/substitute (second-order). `mechanism` supersedes the old
+// `basis`; coerceParty still reads `basis` so a 12h-old cached brief degrades cleanly, never crashes.
+export interface ArticleParty {
+  name: string
+  named_in_article: boolean
+  ticker?: string | null // when the model is confident — makes the row clickable to that name's wire
+  listing?: string | null // exchange/country anchor ("NSE: RELIANCE", "United States") — the investability cue
+  mechanism: string // the transmission: HOW the event hits this party's revenue / margin / cash flow / cost of capital
+  magnitude?: string | null // rough size ONLY where the body supports it ("~12% of revenue", "₹1,800cr"), else null
+  horizon?: string | null // when it bites ("this quarter", "12-18m"), else null
+  order?: PartyOrder | null // first = directly hit/named; second = downstream/supplier/substitute
+}
 export interface ArticleBrief {
   gist: string[] // 2-4 plain bullets, the crux
+  market_angle?: string // the single market-moving thread + transmission to asset prices (the "so what")
   companies: ArticleCompany[] // investable firms only, each with its role
-  beneficiaries: ArticleParty[] // who gains (named firm or an inferred group, flagged)
+  beneficiaries: ArticleParty[] // who gains (named firm or an inferred tradable group, flagged)
   exposed: ArticleParty[] // who's at risk
+  whats_priced?: string // the obvious read the market likely already holds (§7 consensus)
+  the_edge?: string // a non-obvious angle the body genuinely supports that consensus may miss — empty if none
+  watch_item?: string // the single next data point / number that confirms or kills the read
   theme: string // corrected single event-type
 }
 
-export const ARTICLE_SYSTEM = `You are a buy-side analyst's reading assistant. You are given the BODY TEXT of one news article (not just its headline). Extract a compact, decision-ready brief.
+export const ARTICLE_SYSTEM = `You are a buy-side analyst reading ONE news article for a portfolio manager. You are given the article's BODY TEXT (not just the headline). Produce a sharp, decision-ready brief that thinks in TRANSMISSION: event -> what changes in the real economy or a business -> which LISTED, TRADABLE asset moves, in what direction, by roughly how much, over what horizon. Second-level thinking, never a plain summary.
 
-Return ONLY this JSON:
-{"gist":["...","..."],"companies":[{"name":"...","ticker":null,"listing_country":null,"exchange":null,"role":"subject|acquirer|target|forecaster|mentioned"}],"beneficiaries":[{"name":"...","named_in_article":true,"basis":"..."}],"exposed":[{"name":"...","named_in_article":true,"basis":"..."}],"theme":"<tag>"}
+Return ONLY this JSON (use [] or "" or null whenever the body does not support a field — NEVER invent to fill it):
+{"gist":["...","..."],"market_angle":"...","companies":[{"name":"...","ticker":null,"listing_country":null,"exchange":null,"role":"subject|acquirer|target|forecaster|mentioned"}],"beneficiaries":[{"name":"...","named_in_article":true,"ticker":null,"listing":null,"mechanism":"...","magnitude":null,"horizon":null,"order":"first|second"}],"exposed":[{"name":"...","named_in_article":true,"ticker":null,"listing":null,"mechanism":"...","magnitude":null,"horizon":null,"order":"first|second"}],"whats_priced":"...","the_edge":"...","watch_item":"...","theme":"<tag>"}
 
-GIST — 2 to 4 short bullets carrying the REAL crux a portfolio manager needs: the number, threshold, call, or change that is the point of the story. Lead with the punchline, not the setup (e.g. "sees 50-75bp of rate hikes and 5% FY27 CPI", not the CPI sub-components). Plain English, short sentences. Every number you state must be in the body. No hype words (robust, strong, well-positioned, attractive, best-in-class). If the body is boilerplate, a cookie/ad notice, an "about us" page, or a login wall with no story, return gist [] and set theme to your best guess.
-If a story is contested or two-sided, the gist must state BOTH sides (do not echo a one-sided headline).
+GIST — 2 to 4 short bullets carrying the REAL crux: the number, threshold, call, or change that is the point. Lead with the punchline, not the setup (e.g. "sees 50-75bp of rate hikes and 5% FY27 CPI", not the CPI sub-components). Plain English, short sentences. Every number you state must appear in the body. No hype words (robust, strong, well-positioned, attractive, best-in-class). If the story is contested or two-sided, state BOTH sides. If the body is boilerplate, a cookie/ad notice, an "about us" page, or a login wall with no story, return gist [] and set theme to your best guess.
+For results, separate reported from adjusted and name any one-off behind a beat/miss (tax credit, disposal gain, customer advance) — lead with the underlying number, not the flattered one; margin moves in basis points.
+DIGEST RULE: if the article bundles several unrelated items (a wire round-up, a "morning briefing"), lock onto the SINGLE most market-moving thread and brief only that. Ignore the trivia (sport, lifestyle, human-interest) — never let it drive a beneficiary or an exposed party.
 
-COMPANIES — INVESTABLE FIRMS ONLY. A company issues equity or debt. NEVER list: a country, nationality, region, state or city (India, China, Thailand, Haryana); a market index or rate (S&P 500, Nifty, Euribor); a government body, regulator, central bank or agency (Fed, ECB, RBI, SEBI, ESMA, SEC, DOJ, European Commission, OPEC, Ministry of X); a generic placeholder ("major tyre maker", "startups"). Give each firm a role: subject (the firm the story is about) | acquirer/target (M&A) | forecaster (a bank/analyst MAKING a call — NOT a party that gains) | mentioned.
-For each firm also give listing_country (the FULL English name of the country of its primary stock listing, e.g. "Brazil", "United States", "India", "Japan", "South Korea") and exchange (the primary exchange where it trades, with its ticker if you are confident, e.g. "B3: PETR3", "NYSE: PBR", "NSE: RELIANCE", "LSE", "Tokyo (TSE)"; if a well-known dual listing / ADR also applies you may add it, e.g. "B3 (NYSE ADR: PBR)"). These come from your own knowledge of the company, not the article. Use null for listing_country and/or exchange whenever you are not confident — NEVER guess a listing, ticker or exchange you are unsure of.
+MARKET_ANGLE — one or two sentences: the "so what" for a market. Trace the transmission from the event to asset prices. For a macro / policy / commodity / geopolitics story this is the MOST important field (e.g. "A wider Middle-East war risks a crude supply shock: oil producers and tanker owners gain, while oil-importing economies, airlines and paint/tyre makers are squeezed on input costs."). Leave "" only if the story genuinely cannot move any tradable asset.
 
-BENEFICIARIES / EXPOSED — who GAINS and who's AT RISK. If the article NAMES specific firms, list them with named_in_article=true and a one-clause basis. If it points only to a sector/group, give the group with named_in_article=false. If it supports neither, return []. NEVER invent a named beneficiary the body doesn't support (do not guess "Capital One" off a generic consumer-credit piece). A forecaster (ICICI, JPMorgan, Pimco, Goldman) is never a beneficiary.
+COMPANIES — INVESTABLE FIRMS ONLY. A firm issues equity or debt. NEVER list: a country, nationality, region, state, city or sports team (India, China, Haryana, "Iran's national team"); a person; a market index or rate (S&P 500, Nifty, Euribor); a government body, regulator, central bank or agency (Fed, ECB, RBI, SEBI, SEC, DOJ, European Commission, OPEC, Ministry of X); a generic placeholder ("major tyre maker", "startups"). Give each firm a role: subject (the firm the story is about) | acquirer/target (M&A) | forecaster (a bank/analyst MAKING a call — NOT a party that gains) | mentioned.
+For each firm also give listing_country (the FULL English name of the country of its primary stock listing, e.g. "Brazil", "United States", "India", "Japan", "South Korea") and exchange (the primary exchange where it trades, with its ticker if you are confident, e.g. "B3: PETR3", "NYSE: PBR", "NSE: RELIANCE", "LSE", "Tokyo (TSE)"; a well-known dual listing/ADR may be added, e.g. "B3 (NYSE ADR: PBR)"). These come from your own knowledge of the company, not the article. Use null whenever you are not confident — NEVER guess a listing, ticker or exchange you are unsure of.
+
+BENEFICIARIES / EXPOSED — who GAINS and who is AT RISK, framed as an INVESTMENT with the transmission spelled out:
+- INVESTABILITY GATE: every entry must be something a fund can actually hold — a named listed firm, or a tradable sector / group / asset ("oil & gas producers", "Indian private banks", "gold", "US Treasuries"). NEVER list (in EITHER column) a sports team, an individual, a country's citizens, a government, a central bank, a regulator or agency, a market index, or a rate — these are causes or context, not positions. The central bank/regulator is the CAUSE; translate it into the tradable sectors it moves. If only non-tradable parties are affected, return [].
+- DIRECTION DISCIPLINE: a beneficiary's economics IMPROVE; an exposed party's economics WORSEN. A fine, penalty, tax, cost increase, ban, recall, or lost revenue is EXPOSURE — it is NEVER a gain. Check the sign before you place a party in a column. When a rule, tax, tariff, or penalty applies to a WHOLE sector, there is no beneficiary — put the sector under exposed and leave beneficiaries []. Only name a rival as a beneficiary when the action is firm-specific AND share genuinely shifts to that named rival. Never invent a winner just to fill the column.
+- mechanism: ONE clause stating HOW the event reaches that party's revenue / margin / cash flow / cost of capital — a real causal chain, not a label ("higher crude lifts upstream realisations", not "oil").
+- magnitude: a rough size ONLY if the body supports it ("~12% of revenue", "₹1,800cr"), else null. horizon: when it bites ("this quarter", "12-18m"), else null. order: "first" if directly hit/named, "second" if a downstream / supplier / substitute / competitor effect.
+- named_in_article=true for a firm the body names; false for an inferred sector/group (still put it in listing as a market where relevant). If the body supports neither side, return []. NEVER invent a named party the body doesn't support (do not guess "Capital One" off a generic consumer-credit piece). A forecaster (ICICI, JPMorgan, Pimco, Goldman) is never a beneficiary.
+
+WHATS_PRICED — one sentence: the obvious read the market has likely already taken (consensus). "" if you can't tell.
+THE_EDGE — one sentence: a non-obvious angle the body genuinely supports that consensus may be under-weighting (a second-order beneficiary, an over-reaction, a mis-attributed cause, a wrongly-grouped name). Leave "" rather than force one — most stories have no real edge, and a fabricated edge is worse than none.
+WATCH_ITEM — the single next data point or number that would confirm or kill the read ("Q2 volume guidance on the 28th", "Brent holding above $90", "the covenant test at year-end"). "" if none is clear.
 
 THEME — choose exactly one, by what the story IS: earnings_revenue_margin | guidance_change | mna | capital_actions | debt_credit | litigation_enforcement | regulatory | management | product | commercial | operations | cybersecurity | macro_sector | policy | rumor.
 Rules: guidance_change ONLY means a company changing its OWN forecast — a central-bank rate path, inflation/GDP print, war/geopolitics, oil move, country capex or trade-bloc story is macro_sector. An IPO/SPAC/listing/buyback/dividend/raise is capital_actions, NOT mna ("Acquisition" in a shell's name does not make an 8-K an M&A event). A government/regulator/court action that sets rules (sanctions, tariffs, antitrust, trade pacts, scheme approvals) is regulatory or policy. Use rumor only when the article itself cites unnamed sources.`
@@ -282,10 +312,24 @@ const str = (v: unknown, max = 200): string => (typeof v === 'string' ? v.trim()
 function coerceParty(raw: any): ArticleParty | null {
   const name = str(raw?.name, 120)
   if (!name) return null
-  return { name, named_in_article: raw?.named_in_article !== false, basis: str(raw?.basis, 160) }
+  const ticker = typeof raw?.ticker === 'string' && TICKER_RE.test(raw.ticker.trim()) ? raw.ticker.trim().toUpperCase() : null
+  const order: PartyOrder | null = raw?.order === 'second' ? 'second' : raw?.order === 'first' ? 'first' : null
+  return {
+    name,
+    named_in_article: raw?.named_in_article !== false,
+    ticker,
+    listing: str(raw?.listing, 48) || null,
+    // `mechanism` is the new field; fall back to the legacy `basis` so a brief produced before this change
+    // (still in cache, or a stale fixture) keeps its blurb instead of going blank.
+    mechanism: str(raw?.mechanism ?? raw?.basis, 200),
+    magnitude: str(raw?.magnitude, 48) || null,
+    horizon: str(raw?.horizon, 48) || null,
+    order,
+  }
 }
 
-/** Coerce the model's JSON into a safe ArticleBrief. Exported for tests. */
+/** Coerce the model's JSON into a safe ArticleBrief. Every field defaults safely, so model drift degrades
+ *  to an empty/typed value — never a crash, never a half-parsed brief. Exported for tests. */
 export function coerceArticleBrief(raw: any): ArticleBrief {
   const gist = (Array.isArray(raw?.gist) ? raw.gist : []).map((g: any) => str(g, 280)).filter(Boolean).slice(0, 4)
   const companies: ArticleCompany[] = (Array.isArray(raw?.companies) ? raw.companies : [])
@@ -303,7 +347,17 @@ export function coerceArticleBrief(raw: any): ArticleBrief {
   const beneficiaries = (Array.isArray(raw?.beneficiaries) ? raw.beneficiaries : []).map(coerceParty).filter(Boolean).slice(0, 6) as ArticleParty[]
   const exposed = (Array.isArray(raw?.exposed) ? raw.exposed : []).map(coerceParty).filter(Boolean).slice(0, 6) as ArticleParty[]
   const theme = typeof raw?.theme === 'string' ? raw.theme.trim().toLowerCase().replace(/[^a-z_]/g, '') : ''
-  return { gist, companies, beneficiaries, exposed, theme }
+  return {
+    gist,
+    market_angle: str(raw?.market_angle, 320),
+    companies,
+    beneficiaries,
+    exposed,
+    whats_priced: str(raw?.whats_priced, 320),
+    the_edge: str(raw?.the_edge, 320),
+    watch_item: str(raw?.watch_item, 240),
+    theme,
+  }
 }
 
 /**
@@ -334,7 +388,11 @@ export async function analyzeArticle(
           model: opts.model,
           ...(opts.models?.length ? { models: opts.models } : {}), // OpenRouter fallback chain (Groq omits)
           temperature: 0.1,
-          max_tokens: opts.maxTokens ?? 900,
+          // the richer transmission brief (market angle, edge, per-party mechanism/magnitude/horizon) needs
+          // headroom — floor at 3000 so a worst-case rich brief (up to 8 firms + 12 parties × several fields)
+          // can't truncate (finish_reason 'length' drops the WHOLE brief, not just the tail), while a provider
+          // that asks for more (Cerebras 3500) keeps its larger budget. Sized to the EST_TOKENS reservation.
+          max_tokens: Math.max(opts.maxTokens ?? 3000, 3000),
           response_format: { type: 'json_object' },
           messages: [
             { role: 'system', content: ARTICLE_SYSTEM },

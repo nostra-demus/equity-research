@@ -67,7 +67,7 @@ export interface ArticleReadResult {
   attempted: boolean
 }
 
-const EST_TOKENS = 3500 // a body read's rough input+output cost (capped); used for budget + limiter sizing
+const EST_TOKENS = 4200 // a body read's rough input+output cost (capped); used for budget + limiter sizing — bumped for the richer transmission brief's larger JSON output
 
 function hasContent(b: ArticleBrief): boolean {
   return !!(b.gist.length || b.companies.length || b.beneficiaries.length || b.exposed.length)
