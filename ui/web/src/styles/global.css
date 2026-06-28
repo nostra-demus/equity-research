@@ -1697,6 +1697,11 @@ a { color: inherit; }
 .evscope__n { font-size: 9px; font-variant-numeric: tabular-nums; color: var(--text-muted); font-weight: 700; }
 .evscope__chip--on .evscope__n { color: var(--accent-bright); }
 .evscope__meaning { font-size: 10.5px; color: var(--text-muted); margin-top: 7px; line-height: 1.45; }
+/* archive-mode status line: signals the rail is reading ALL history, not the 2-day window */
+.evrail__archline { display: flex; align-items: center; gap: 6px; color: color-mix(in srgb, var(--accent-bright) 70%, var(--text-muted)); }
+.evrail__archline::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background: var(--accent-bright); flex: none; }
+/* bottom paging sentinel for the whole-history scroll */
+.evrail__more { padding: 14px 18px 18px; text-align: center; font-size: 10px; color: var(--text-faint); letter-spacing: 0.2px; }
 
 /* Geography — a cross-cutting "where" dimension on its own row, set apart from the "what" category chips */
 .evscope--geo { margin-top: 9px; }

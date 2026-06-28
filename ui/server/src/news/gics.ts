@@ -1,32 +1,26 @@
-// GICS classification for the news wire — powers the Sector / Sub-sector dropdown filters.
-//
-// CLIENT MIRROR of the canonical server taxonomy (ui/server/src/news/gics.ts). The browser can't import
-// server code, so the taxonomy lives here too; the server's gics-sync test deep-compares the two `GICS`
-// arrays so they can never drift. Edit the server copy first, then mirror the change here.
+// GICS classification for the news wire — the CANONICAL copy (server-side), so the archive search +
+// facets (server.ts) can filter/count by sector & sub-sector. The browser keeps a byte-for-byte mirror
+// at ui/web/src/lib/gics.ts (it can't import server code); the gics-sync test deep-compares the two
+// taxonomies so they can never drift.
 //
 // The Global Industry Classification Standard (GICS, S&P + MSCI) has 11 sectors at the top; each holds
-// a set of industries below it. This file is the canonical client copy of that hierarchy: every
-// sub-sector belongs to EXACTLY ONE parent sector (the official mapping — no sub-sector floats free),
-// so picking a sector and then narrowing to one of its sub-sectors is always a strict, correct drill-down.
+// a set of industries below it. Every sub-sector belongs to EXACTLY ONE parent sector (the official
+// mapping — no sub-sector floats free), so picking a sector and then narrowing to one of its sub-sectors
+// is always a strict, correct drill-down.
 //
 // An item is classified by reading its headline (original + English translation) and its guessed company
-// names against each industry's keyword vocabulary — the same whole-word match the Sector/Commodity
-// scope dropdowns use (lib/taxonomy.ts), so "oil" never matches "boiler". A keyword hit tags the item with
-// that sub-sector AND its parent sector, so the two filters stay consistent: every sub-sector match is
-// also a match for its sector. A headline that names no industry simply carries no GICS tag (it falls
-// through the filter when one is set) — a miss is honest, not a forced bucket.
-//
-// The engine's research side speaks GICS too (the screener beneficiary-map maps the blast radius as GICS
-// industries); this is the cockpit-side vocabulary for the live wire. Keep the sector names identical to
-// the official 11 so the two never drift.
+// names against each industry's keyword vocabulary — the same whole-word match the Sector/Commodity scope
+// dropdowns use, so "oil" never matches "boiler". A keyword hit tags the item with that sub-sector AND its
+// parent sector, so the two filters stay consistent. A headline that names no industry simply carries no
+// GICS tag (it falls through the filter when one is set) — a miss is honest, not a forced bucket.
 
-interface Industry {
+export interface Industry {
   /** the sub-sector label shown in the dropdown — globally unique across the taxonomy */
   name: string
   /** whole-word keywords that classify a headline/company into this sub-sector */
   keywords: readonly string[]
 }
-interface Sector {
+export interface Sector {
   name: string
   /** sector-level keywords (broad industry talk that isn't specific to one sub-sector) */
   keywords?: readonly string[]
@@ -34,13 +28,10 @@ interface Sector {
 }
 
 // The 11 GICS sectors, in the standard order, each with its industries (sub-sectors) and keyword vocab.
-// KEEP THIS IDENTICAL to ui/server/src/news/gics.ts (the server gics-sync test enforces it).
+// KEEP THIS IDENTICAL to ui/web/src/lib/gics.ts (the gics-sync test enforces it).
 export const GICS: readonly Sector[] = [
   {
     name: 'Energy',
-    // sector-level catch terms for oil-market macro that names no specific company. 'opec' also matches
-    // "OPEC+" (the '+' is a word boundary); bare 'oil'/'crude' are deliberately avoided (ambiguous), but
-    // the two-word 'crude oil' is safe.
     keywords: ['opec', 'crude oil'],
     industries: [
       { name: 'Integrated Oil & Gas', keywords: ['oil and gas', 'oil & gas', 'integrated oil', 'oil major', 'oil majors', 'oil giant'] },
@@ -113,9 +104,6 @@ export const GICS: readonly Sector[] = [
   {
     name: 'Financials',
     industries: [
-      // Known trade-off: bare 'bank' also matches central-bank / 'World Bank' macro headlines that name no
-      // commercial lender. We keep it — most real bank stories say only "<Name> Bank" — and accept that
-      // monetary-policy news (highly relevant to banks) also surfaces under Financials.
       { name: 'Banks', keywords: ['bank', 'banks', 'banking', 'lender', 'lenders', 'commercial bank'] },
       { name: 'Capital Markets', keywords: ['investment bank', 'stockbroker', 'securities broker', 'brokerage', 'asset manager', 'asset management', 'exchange operator', 'wealth manager'] },
       { name: 'Insurance', keywords: ['insurer', 'insurers', 'insurance', 'reinsurer', 'reinsurance', 'life insurer'] },
@@ -147,8 +135,6 @@ export const GICS: readonly Sector[] = [
   },
   {
     name: 'Utilities',
-    // 'utility stocks/sector' are unambiguous power references; bare 'utility'/'utilities' are NOT kept —
-    // they fire on "utility vehicle" (autos), "utility software" (IT), "utility token" (crypto), etc.
     keywords: ['utility stocks', 'utility sector', 'utilities sector'],
     industries: [
       { name: 'Electric Utilities', keywords: ['electric utility', 'power utility', 'power producer', 'grid operator', 'electricity provider', 'power company'] },
@@ -172,7 +158,7 @@ const SUBSECTORS_BY_SECTOR = new Map(GICS.map((s) => [s.name, s.industries.map((
 /** The sub-sectors (industries) under a sector, in canonical order. Empty for an unknown sector. */
 export const gicsSubSectorsFor = (sector: string): readonly string[] => SUBSECTORS_BY_SECTOR.get(sector) || []
 
-// ---- whole-word matcher (mirrors lib/taxonomy.ts) ----
+// ---- whole-word matcher (mirrors taxonomy.ts / geography.ts) ----
 const reCache = new Map<string, RegExp>()
 function hasWord(hay: string, kw: string): boolean {
   let re = reCache.get(kw)
@@ -189,10 +175,8 @@ export interface GicsTags {
 }
 const EMPTY: GicsTags = { sectors: new Set(), subSectors: new Set() }
 
-// Classification is only ever run when a GICS filter is actually set (matchesFilters early-outs otherwise),
-// but the same headline gets re-tested across renders and across the two views — so cache by haystack.
 const cache = new Map<string, GicsTags>()
-const CACHE_CAP = 20_000
+const CACHE_CAP = 50_000 // server scans the whole archive, so a roomier cache than the browser's
 
 function classifyText(hay: string): GicsTags {
   const cached = cache.get(hay)
@@ -210,7 +194,7 @@ function classifyText(hay: string): GicsTags {
     if (sectorHit) sectors.add(sector.name)
   }
   const tags: GicsTags = { sectors, subSectors }
-  if (cache.size >= CACHE_CAP) cache.clear() // simple bound — the wire rarely holds more than this
+  if (cache.size >= CACHE_CAP) cache.clear()
   cache.set(hay, tags)
   return tags
 }

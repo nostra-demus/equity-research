@@ -139,8 +139,12 @@ export interface FeedItem {
   domain: string
   source_name: string
   via: 'gdelt' | 'rss' | 'nse' | 'hkex' | 'asx' | 'gov' | 'reddit'
-  region: Region // the EVENT's market (news/geo.ts resolveEventRegion) — "where the event is", the Geography filter's key
+  region: Region // the EVENT's market (news/geo.ts resolveEventRegion) — the legacy 8-bucket region, kept for trading-market logic + as a coarse floor
   source_region?: Region // the PUBLISHER's region (domain registry) — present when it differs from the resolved event region; absent on older lines / when they match
+  // The EVENT's country (ISO 3166-1 alpha-2, news/geography.ts resolveCountry) — the country-level
+  // Geography filter's key. Present on fresh items; re-derived on read for older lines (feed.ts withGeo).
+  // null/absent when no confident signal ("Global / unspecified") — honest, never a forced bucket.
+  country?: string | null
   input_nature: string
   triage_score: number
   band: Band

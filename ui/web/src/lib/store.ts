@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { api, ensureMode, isStatic } from './api'
+import type { ArchiveQuery, FeedFacets, SearchCursor } from './api'
 import { downstreamCascade, type CascadeNode } from './cascade'
 import { displayHeadline, originalHeadline, plainRoute, plainStage } from './plain'
 import type { Theme, ThemeDetail } from './themes'
@@ -69,6 +70,8 @@ let bloomTimer: any = null
 let pollTimer: any = null
 let intensityRefetchTimer: any = null // debounces the screener intensity re-fetch on each news cycle
 let selectGen = 0 // bumped on every selectTicker; async work bails if it changed (fast-switch guard)
+let archiveToken = 0 // bumped on every archive search; a stale slow response bails if it changed (last-write-wins)
+let facetsToken = 0 // same guard for a standalone facets load (contextless / on dropdown open)
 let creditProbed = false
 // ---- resilient core-data load (decoupled from the heartbeat) ----
 // init() loads the heavy graph + ticker list AFTER starting the heartbeat, so a slow/failing swarm or
@@ -319,6 +322,19 @@ interface State {
   feedWindowDays: number // the time-travel window the wire is showing (2 = live; 14/30/90/180/370 = history)
   feedWindowLoading: boolean
   setFeedWindow: (days: number) => Promise<void>
+  // ---- archive search (the rail's whole-history filtered read) ----
+  scArchiveQuery: ArchiveQuery // the active structured filter; empty = LIVE mode (the 2-day SSE wire)
+  scArchiveResults: FeedItem[] // server-filtered matches over the WHOLE archive (recency-ordered, paged)
+  scArchiveCursor: SearchCursor | null // resume cursor for the next page (null = no more)
+  scArchiveLoading: boolean // a search is in flight (first page)
+  scArchiveLoadingMore: boolean // a follow-up page is in flight
+  scArchiveScannedThrough: string | null // oldest day searched — "searched all history back to <date>"
+  scArchiveExhausted: boolean // reached the archive floor (genuinely nothing older)
+  scFacets: FeedFacets | null // archive-wide facet counts that populate the dropdowns
+  scFacetsLoading: boolean
+  scRunArchiveSearch: (q: ArchiveQuery) => Promise<void> // set the filter + fetch page 1 (+ facets); empty q → LIVE mode
+  scLoadMoreArchive: () => Promise<void> // fetch the next page and append
+  scLoadFacets: (q: ArchiveQuery) => Promise<void> // populate the dropdowns from the archive (e.g. on mount, contextless)
   globalActive: ActiveRunLite[]
   stopListOpen: boolean
   openNewsFeed: () => Promise<void>
@@ -465,6 +481,15 @@ export const useStore = create<State>((set, get) => ({
   scIntensityWindow: 'scan', // derived from the "When" ribbon (themesWindow) — Live → scan; the ribbon is the single window control
   feedWindowDays: 2,
   feedWindowLoading: false,
+  scArchiveQuery: {},
+  scArchiveResults: [],
+  scArchiveCursor: null,
+  scArchiveLoading: false,
+  scArchiveLoadingMore: false,
+  scArchiveScannedThrough: null,
+  scArchiveExhausted: false,
+  scFacets: null,
+  scFacetsLoading: false,
   newsStatus: null,
   newsStreamOnline: false,
   themes: [],
@@ -1664,6 +1689,55 @@ export const useStore = create<State>((set, get) => ({
     set({ feedWindowLoading: false })
   },
   closeNewsFeed: () => set({ newsFeedOpen: false, feedWindowDays: 2 }),
+  // ARCHIVE SEARCH — when the rail has a structured filter set, read the WHOLE archive server-side instead
+  // of filtering the 2-day wire. An empty query returns the rail to LIVE mode (the SSE wire). A monotonic
+  // token guards against a stale slow response overwriting a newer search (last-write-wins by query).
+  scRunArchiveSearch: async (q: ArchiveQuery) => {
+    const active = !!(q.themes?.length || q.country || q.geoRegion || q.source || q.band || q.size || q.linkage || q.gicsSector || q.gicsSubSector || (q.text && q.text.trim()))
+    if (!active) { // back to LIVE mode — drop the archive snapshot, keep the live wire
+      archiveToken++
+      set({ scArchiveQuery: {}, scArchiveResults: [], scArchiveCursor: null, scArchiveLoading: false, scArchiveLoadingMore: false, scArchiveScannedThrough: null, scArchiveExhausted: false })
+      return
+    }
+    const token = ++archiveToken
+    facetsToken++ // this contextful facets load supersedes any in-flight contextless scLoadFacets
+    set({ scArchiveQuery: q, scArchiveLoading: true, scFacetsLoading: true })
+    try {
+      const [res, facets] = await Promise.all([api.newsSearch(q, { limit: 60 }), api.newsFacets(q)])
+      if (token !== archiveToken) return // a newer search superseded this one
+      set({ scArchiveResults: res.items, scArchiveCursor: res.nextCursor, scArchiveScannedThrough: res.scannedThroughDate, scArchiveExhausted: res.exhausted, scArchiveLoading: false, scFacets: facets, scFacetsLoading: false })
+    } catch {
+      if (token !== archiveToken) return
+      set({ scArchiveResults: [], scArchiveCursor: null, scArchiveExhausted: true, scArchiveLoading: false, scFacetsLoading: false })
+    }
+  },
+  scLoadFacets: async (q: ArchiveQuery) => {
+    const token = ++facetsToken
+    set({ scFacetsLoading: true })
+    try {
+      const f = await api.newsFacets(q)
+      if (token !== facetsToken) return
+      set({ scFacets: f, scFacetsLoading: false })
+    } catch {
+      if (token !== facetsToken) return
+      set({ scFacetsLoading: false })
+    }
+  },
+  scLoadMoreArchive: async () => {
+    const { scArchiveCursor, scArchiveQuery, scArchiveLoadingMore } = get()
+    if (!scArchiveCursor || scArchiveLoadingMore) return
+    const token = archiveToken
+    set({ scArchiveLoadingMore: true })
+    try {
+      const res = await api.newsSearch(scArchiveQuery, { cursor: scArchiveCursor, limit: 60 })
+      if (token !== archiveToken) return // the filter changed mid-page — discard this page
+      const seen = new Set(get().scArchiveResults.map((i) => i.event_id))
+      const fresh = res.items.filter((i) => !seen.has(i.event_id))
+      set({ scArchiveResults: [...get().scArchiveResults, ...fresh], scArchiveCursor: res.nextCursor, scArchiveScannedThrough: res.scannedThroughDate, scArchiveExhausted: res.exhausted, scArchiveLoadingMore: false })
+    } catch {
+      set({ scArchiveLoadingMore: false })
+    }
+  },
   openSources: () => set({ sourcesOpen: true }),
   closeSources: () => set({ sourcesOpen: false }),
   refreshNewsStatus: async () => {
