@@ -19,6 +19,23 @@ export interface ChatMessage {
   content: string
 }
 
+// ---- narration style: HOW the answer is phrased (the closed-book + citation rules never change) ----
+export type ChatStyle = 'simple' | 'analyst' | 'detailed'
+export const DEFAULT_CHAT_STYLE: ChatStyle = 'simple'
+const CHAT_STYLE_INSTRUCTIONS: Record<ChatStyle, string> = {
+  simple:
+    'NARRATION STYLE — Explain it simply, as if to a sharp 18-year-old with zero finance background. Use plain ' +
+    'everyday words and short sentences. The first time any technical term appears (EBITDA, net debt, margin of ' +
+    'safety, …) give its meaning in a quick parenthesis. No jargon, no buzzwords, no hedging. Lead with the bottom ' +
+    'line; a short bold heading or two is welcome. (Every citation and the never-invent-a-number rule still apply.)',
+  analyst:
+    "NARRATION STYLE — Write like a buy-side analyst's private notes: terse, dense, precise. Lead with the answer, " +
+    'keep it tight, assume the reader knows the finance terms. No preamble; every figure cited.',
+  detailed:
+    'NARRATION STYLE — Give a thorough, well-structured walkthrough with short headings, covering the key nuances ' +
+    'and caveats and how the numbers connect. Plain English where possible; cite throughout.',
+}
+
 // rough token estimate — ~4 chars/token is close enough to size the context cap (we never bill on it).
 const estTokens = (s: string): number => Math.ceil(s.length / 4)
 
@@ -266,8 +283,10 @@ export function buildChatPrompts(args: {
   assembled: AssembledContext
   messages: ChatMessage[]
   subject: string
+  style?: ChatStyle
 }): { system: string; user: string } {
   const { assembled, messages, subject } = args
+  const styleInstruction = CHAT_STYLE_INSTRUCTIONS[args.style ?? DEFAULT_CHAT_STYLE]
   const degradeRule = assembled.degraded
     ? '\n6. NOTE: the CONTEXT was trimmed to fit, so some orb-level detail may be missing. If a question needs more depth than the CONTEXT holds, tell the user to narrow the chat to that single module or orb.'
     : ''
@@ -280,6 +299,8 @@ export function buildChatPrompts(args: {
     '3. Cite as you go. After a fact, name the heading it came from, e.g. "(Valuation — module synthesis)" or "(Earnings · 03_margin-drivers)", so every number is traceable.',
     '4. Plain English, short sentences (doctrine §21). Keep technical terms (EBITDA, FCF, net debt, ROIC, …) but add a short plain meaning the first time one appears. Lead with the answer; be concise and specific.',
     "5. Numbers must match the CONTEXT exactly — do not recompute or round away precision, and keep the company's own currency and units." + degradeRule,
+    '',
+    styleInstruction,
   ].join('\n')
 
   const prior = messages.slice(0, -1)

@@ -3,7 +3,7 @@ import { motion, useReducedMotion } from 'framer-motion'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
 import { useStore } from '../lib/store'
-import type { ChatScope } from '../lib/types'
+import type { ChatScope, ChatStyle } from '../lib/types'
 
 const titleize = (s: string) => s.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
 
@@ -20,6 +20,13 @@ const MODELS: { id: string; label: string; sub: string }[] = [
   { id: 'haiku', label: 'Haiku', sub: 'fastest · lightest' },
 ]
 
+// narration style — HOW the answer is phrased (the closed-book + citation rules never change)
+const STYLES: { id: ChatStyle; label: string; sub: string }[] = [
+  { id: 'simple', label: 'Simple', sub: 'plain English, like you’re 18 — no jargon' },
+  { id: 'analyst', label: 'Analyst', sub: 'terse, technical buy-side notes' },
+  { id: 'detailed', label: 'Detailed', sub: 'thorough, structured walkthrough' },
+]
+
 export function ChatPanel() {
   const reduce = useReducedMotion()
   const close = useStore((s) => s.closeChat)
@@ -32,9 +39,11 @@ export function ChatPanel() {
   const error = useStore((s) => s.chatError)
   const source = useStore((s) => s.chatSource)
   const model = useStore((s) => s.chatModel)
+  const style = useStore((s) => s.chatStyle)
   const send = useStore((s) => s.sendChatMessage)
   const setScope = useStore((s) => s.setChatScope)
   const setModel = useStore((s) => s.setChatModel)
+  const setStyle = useStore((s) => s.setChatStyle)
   const clear = useStore((s) => s.clearChat)
   const staticMode = useStore((s) => s.staticMode)
   const nodesByKey = useStore((s) => s.nodesByKey)
@@ -53,6 +62,7 @@ export function ChatPanel() {
   const [draft, setDraft] = useState('')
   const [scopeMenu, setScopeMenu] = useState(false)
   const [modelMenu, setModelMenu] = useState(false)
+  const [styleMenu, setStyleMenu] = useState(false)
   const [copied, setCopied] = useState<number | null>(null)
   const inputRef = useRef<HTMLTextAreaElement | null>(null)
   const threadRef = useRef<HTMLDivElement | null>(null)
@@ -68,10 +78,10 @@ export function ChatPanel() {
   useEffect(() => { inputRef.current?.focus() }, [])
   // Esc closes (also aborts any in-flight stream via closeChat)
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') { if (scopeMenu || modelMenu) { setScopeMenu(false); setModelMenu(false) } else close() } }
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') { if (scopeMenu || modelMenu || styleMenu) { setScopeMenu(false); setModelMenu(false); setStyleMenu(false) } else close() } }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [close, scopeMenu, modelMenu])
+  }, [close, scopeMenu, modelMenu, styleMenu])
 
   // auto-scroll to the newest token while locked; lock releases when the user scrolls up
   useLayoutEffect(() => {
@@ -136,7 +146,7 @@ export function ChatPanel() {
         <div style={{ display: 'flex', gap: 6, alignItems: 'center', flexShrink: 0 }}>
           {/* scope selector */}
           <div style={{ position: 'relative' }}>
-            <button className="btn" style={{ height: 30 }} aria-expanded={scopeMenu} onClick={() => { setScopeMenu((o) => !o); setModelMenu(false) }} title="Choose what to chat with">
+            <button className="btn" style={{ height: 30 }} aria-expanded={scopeMenu} onClick={() => { setScopeMenu((o) => !o); setModelMenu(false); setStyleMenu(false) }} title="Choose what to chat with">
               Scope ▾
             </button>
             {scopeMenu && (
@@ -160,7 +170,7 @@ export function ChatPanel() {
           </div>
           {/* model selector */}
           <div style={{ position: 'relative' }}>
-            <button className="btn" style={{ height: 30 }} aria-expanded={modelMenu} onClick={() => { setModelMenu((o) => !o); setScopeMenu(false) }} title="Model used for the answer">
+            <button className="btn" style={{ height: 30 }} aria-expanded={modelMenu} onClick={() => { setModelMenu((o) => !o); setScopeMenu(false); setStyleMenu(false) }} title="Model used for the answer">
               {MODELS.find((m) => m.id === model)?.label ?? model} ▾
             </button>
             {modelMenu && (
@@ -170,6 +180,25 @@ export function ChatPanel() {
                   {MODELS.map((m) => (
                     <button key={m.id} className="dlmenu__item" onClick={() => { setModel(m.id); setModelMenu(false) }}>
                       <b>{m.label}{m.id === model ? ' ✓' : ''}</b><span>{m.sub}</span>
+                    </button>
+                  ))}
+                </div>
+              </>
+            )}
+          </div>
+          {/* narration-style selector — HOW the answer is phrased (default: Simple) */}
+          <div style={{ position: 'relative' }}>
+            <button className="btn" style={{ height: 30 }} aria-expanded={styleMenu} onClick={() => { setStyleMenu((o) => !o); setScopeMenu(false); setModelMenu(false) }} title="How answers are explained">
+              {STYLES.find((s) => s.id === style)?.label ?? 'Style'} ▾
+            </button>
+            {styleMenu && (
+              <>
+                <div style={{ position: 'fixed', inset: 0, zIndex: 51 }} onClick={() => setStyleMenu(false)} />
+                <div className="dlmenu">
+                  <div className="pmenu__label">Explain answers as…</div>
+                  {STYLES.map((s) => (
+                    <button key={s.id} className="dlmenu__item" onClick={() => { setStyle(s.id); setStyleMenu(false) }}>
+                      <b>{s.label}{s.id === style ? ' ✓' : ''}</b><span>{s.sub}</span>
                     </button>
                   ))}
                 </div>
@@ -193,10 +222,21 @@ export function ChatPanel() {
         ) : messages.length === 0 ? (
           <div className="chatpanel__empty">
             <div className="chatpanel__greet">Ask anything about <b>{title.replace(/^Ask · /, '')}</b>.<br />Every answer is drawn only from what the engine already wrote — with the orb or module it came from cited.</div>
-            <div className="chatpanel__suggest">
-              {SUGGESTIONS[scope].map((s) => (
-                <button key={s} className="chatpanel__chip" onClick={() => doSend(s)} disabled={staticMode}>{s}</button>
-              ))}
+            <div className="chatpanel__stylepick">
+              <div className="chatpanel__picklabel">How should I explain it?</div>
+              <div className="chatpanel__suggest">
+                {STYLES.map((s) => (
+                  <button key={s.id} className={`chatpanel__chip${style === s.id ? ' chatpanel__chip--on' : ''}`} onClick={() => setStyle(s.id)} title={s.sub} aria-pressed={style === s.id}>{s.label}</button>
+                ))}
+              </div>
+            </div>
+            <div className="chatpanel__stylepick">
+              <div className="chatpanel__picklabel">Or jump in</div>
+              <div className="chatpanel__suggest">
+                {SUGGESTIONS[scope].map((s) => (
+                  <button key={s} className="chatpanel__chip" onClick={() => doSend(s)} disabled={staticMode}>{s}</button>
+                ))}
+              </div>
             </div>
           </div>
         ) : (

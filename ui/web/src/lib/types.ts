@@ -512,6 +512,7 @@ export interface NodeRuntime { status: NodeStatus; verdict?: string | null; outp
 
 // ---- chat with your data (closed-book Q&A over a run's synthesized output) ----
 export type ChatScope = 'run' | 'module' | 'orb'
+export type ChatStyle = 'simple' | 'analyst' | 'detailed' // narration style — HOW the answer is phrased
 export interface ChatMessage { role: 'user' | 'assistant'; content: string }
 export interface ChatRequest {
   ticker?: string
@@ -520,6 +521,7 @@ export interface ChatRequest {
   module?: string
   orbPath?: string
   model?: string
+  style?: ChatStyle
   messages: ChatMessage[]
 }
 export interface ChatScopes {
