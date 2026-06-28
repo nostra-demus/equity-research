@@ -46,6 +46,21 @@ a { color: inherit; }
 .brand__sub { font-size: 11px; color: var(--text-faint); letter-spacing: 0.4px; text-transform: uppercase; }
 .topbar__spacer { flex: 1; }
 
+/* Keep the command bar on ONE row at any zoom / width. By default the flex children shrink and their
+   labels wrap to two lines when space is tight (the 100%-zoom bug: "Run full" / "usage · check" / "Ask"
+   breaking). Here: no top-bar control wraps its label or gets squished; the spacer yields space first,
+   then the brand subtitle drops on tight widths, then the brand name truncates — so the right-hand
+   controls stay crisp and never wrap or clip. */
+.topbar { gap: 12px; }
+.topbar > * { flex-shrink: 0; }
+.topbar :where(button, .chip, .readiness__label, .tickerpick__ticker, .creditbadge, .autoscan, .brand__name, .brand__sub) { white-space: nowrap; }
+.topbar .btn { padding: 0 12px; }
+.topbar__spacer { flex: 1 1 0; }
+.brand { flex-shrink: 1; min-width: 0; }
+.brand > div { min-width: 0; overflow: hidden; }
+.brand__name { overflow: hidden; text-overflow: ellipsis; }
+@media (max-width: 1240px) { .brand__sub { display: none; } }
+
 /* ticker picker */
 .tickerpick { position: relative; }
 .tickerpick__btn {
