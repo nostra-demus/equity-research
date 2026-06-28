@@ -311,6 +311,73 @@ def eval_ac_turnaround_cap(decision, decision_date, thesis_type):
         return "pass"  # no governance-turnaround type → cap not triggered
     return "fail" if decision in ABOVE_STARTER_AC else "pass"
 
+# ── Check AD (§24 Filters 4 + 6 conviction cap) ─────────────────────────────────────────────
+# §24 Filter 4 (serial acquirers) and Filter 6 (unaligned owners) both carry a conviction cap
+# that the synthesizer's Rating Cap Rules make explicit: "serial-acquirer pattern (RF-CAP-004)
+# or unaligned controlling owner (RF-OWN-004) → maximum 'Watchlist'." That cap lived only in
+# the synthesizer's prompt — this check closes the mechanical enforcement gap.
+#
+# Detection: agents embed standardised red-flag tags in their synthesis outputs per MODULE_RULES.
+#   RF-CAP-004 (serial acquirer, §24 Filter 4) is emitted by the management-governance module's
+#     02_capital-allocation-scorecard agent and surfaces in management-governance/99_*-synthesis.md.
+#     The business-model module caps the Filter-4 score via its 11_capital-allocation-governance
+#     agent but emits NO RF-CAP-004 tag string — so the tag is read primarily from the MG
+#     synthesis, and the BM synthesis is also scanned defensively in case a future BM agent ever
+#     surfaces it. (Reading RF-CAP-004 from the BM synthesis ALONE was a bug: the tag never lands
+#     there, so the Filter-4 cap could never fire — see the TMCV_2026-06-07 fixture, which fired
+#     RF-CAP-004 in its MG synthesis only.)
+#   RF-OWN-004 (unaligned owner, §24 Filter 6) is emitted by the management-governance module's
+#     04_ownership-and-insider-behavior agent and surfaces in management-governance/99_*-synthesis.md.
+# Either tag present in a module synthesis + a conviction decision = a doctrine violation
+# (synthesizer.md Rating Cap Rules; CLAUDE.md §24 Filters 4 and 6).
+#
+# No bypass clause: unlike the BSS "Distress risk" cap (which the "Balance-sheet survival"
+# thesis type can bypass for a distressed-play run), both Filter 4 and Filter 6 caps fire
+# regardless of thesis type — a serial acquirer or misaligned-owner thesis cannot receive a
+# conviction long regardless of classification. "Short Candidate" IS intentionally included:
+# HIGH_CONVICTION_DECISIONS covers shorts, and the cap doctrine does not carve out an exception
+# for shorting these companies — a value-trap short is a market-neutral thesis (Pair Trade /
+# Hedge Required); a conviction short against an unaligned owner or serial acquirer still
+# requires overriding the standard "max Watchlist" cap.
+#
+# Filter 4 (RF-CAP-004) is scanned in BOTH the BM and MG synthesis; Filter 6 (RF-OWN-004) in the
+# MG synthesis only. When the MG module is absent, RF-OWN-004 cannot be detected (Filter 6 N/A)
+# and RF-CAP-004 falls back to the BM synthesis. When BOTH module syntheses are absent: full N/A.
+# Landing date: 2026-06-28 (forward-looking; all golden fixtures predate → N/A → suite green).
+AD_DATE = "2026-06-28"
+CAP4_TAG = "RF-CAP-004"  # serial acquirer (§24 Filter 4)
+CAP6_TAG = "RF-OWN-004"  # unaligned owner (§24 Filter 6)
+
+def eval_ad_filter_4_6_cap(decision, decision_date, bm_txt, mg_txt):
+    """Check AD: §24 Filters 4 (RF-CAP-004 serial acquirer) + 6 (RF-OWN-004 unaligned owner).
+    Returns None (N/A — pre-gate or both module syntheses absent), or a list of violation strings
+    (empty list = pass). Side-effect-free + module-level so eval.py selftest can drive it.
+    RF-CAP-004 and RF-OWN-004 are both management-governance synthesis tags; RF-CAP-004 is also
+    scanned in the business-model synthesis defensively (the BM module emits no such tag today)."""
+    if not (isdate(decision_date) and decision_date >= AD_DATE):
+        return None  # forward-looking; pre-gate runs N/A
+    # If both module synthesis texts are absent the check is N/A — modules didn't run
+    if bm_txt is None and mg_txt is None:
+        return None
+    conviction = decision in HIGH_CONVICTION_DECISIONS
+    violations = []
+    # RF-CAP-004 (serial acquirer) is surfaced in the management-governance synthesis; scan the BM
+    # synthesis too so the Filter-4 cap fires wherever the tag is surfaced.
+    cap4_src = "\n".join(t for t in (bm_txt, mg_txt) if t is not None)
+    if CAP4_TAG in cap4_src and conviction:
+        violations.append(
+            f"§24 Filter 4 (RF-CAP-004 serial-acquirer) present in module synthesis "
+            f"but decision={decision!r} exceeds the Watchlist cap "
+            f"(synthesizer.md Rating Cap Rules: max Watchlist for serial-acquirer pattern; "
+            f"CLAUDE.md §24 Filter 4)")
+    if mg_txt is not None and CAP6_TAG in mg_txt and conviction:
+        violations.append(
+            f"§24 Filter 6 (RF-OWN-004 unaligned owner) present in MG synthesis "
+            f"but decision={decision!r} exceeds the Watchlist cap "
+            f"(synthesizer.md Rating Cap Rules: max Watchlist for unaligned controlling owner; "
+            f"CLAUDE.md §24 Filter 6)")
+    return violations  # empty list = all caps satisfied
+
 if scope=="selftest":
     # Fixture-free coverage for check W — the golden suite can't exercise it (every committed run is
     # pre-gate / blank-fielded, so W is always N/A there). Asserts forbidden combos FAIL, correct combos
@@ -616,7 +683,73 @@ if scope=="selftest":
         if not ok: acbad+=1
         print(f"  [{'ok' if ok else 'XX'}] AC({dec_!r},{dt_!r},{tt_!r}) -> {got}"+("" if ok else f"  EXPECTED {exp}"))
     bad+=acbad
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC cases")
+    # check AD — §24 Filters 4 + 6 conviction cap. All golden fixtures predate AD_DATE
+    # → always N/A in the main loop; drive every branch here.
+    AD=eval_ad_filter_4_6_cap
+    # bm_txt / mg_txt with RF-CAP-004 / RF-OWN-004 to simulate fired tags
+    BM_WITH_CAP4 = "... RF-CAP-004 [Critical]: serial-acquirer pattern detected — three debt-funded deals ..."
+    BM_CLEAN     = "Capital allocation: disciplined; no serial-acquirer pattern."
+    MG_WITH_CAP6 = "... RF-OWN-004 [High]: government-controlled entity; minority interests structurally deprioritised ..."
+    # RF-CAP-004 is actually surfaced in the MANAGEMENT-GOVERNANCE synthesis (02_capital-allocation-
+    # scorecard), as in the real TMCV_2026-06-07 fixture — NOT the business-model synthesis.
+    MG_WITH_CAP4 = "... RF-CAP-004 [High]: serial-acquirer / very-large-deal pattern — deal at 3.3x book equity ..."
+    MG_WITH_BOTH = "... RF-CAP-004 [High]: very-large-deal pattern ... RF-OWN-004 [High]: structurally unaligned controlling owner ..."
+    MG_CLEAN     = "Ownership: founder-led; strong alignment with minorities."
+    adcases=[  # (decision, decision_date, bm_txt, mg_txt, expect: None|[]|[viol])
+        # pre-gate: always None (N/A)
+        ("Strong Buy","2026-06-27",BM_WITH_CAP4,MG_WITH_CAP6,None),
+        ("Strong Buy","not-a-date",BM_WITH_CAP4,None,None),
+        # both modules absent: N/A
+        ("Strong Buy","2026-06-28",None,None,None),
+        # BM absent (None), MG clean: N/A for F4; MG no tag → pass for F6 → empty list
+        ("Strong Buy","2026-06-28",None,MG_CLEAN,[]),
+        # BM clean, MG absent: empty list (no tag in BM; MG absent → F6 N/A for that sub-check)
+        ("Buy","2026-06-28",BM_CLEAN,None,[]),
+        # BM has RF-CAP-004 + conviction → F4 violation
+        ("Strong Buy","2026-06-28",BM_WITH_CAP4,None,["RF-CAP-004"]),
+        ("Buy","2026-06-28",BM_WITH_CAP4,MG_CLEAN,["RF-CAP-004"]),
+        # MG has RF-OWN-004 + conviction → F6 violation
+        ("Strong Buy","2026-06-28",BM_CLEAN,MG_WITH_CAP6,["RF-OWN-004"]),
+        ("Starter Position Only","2026-06-28",None,MG_WITH_CAP6,["RF-OWN-004"]),
+        # Both tags + conviction → two violations
+        ("Strong Buy","2026-06-28",BM_WITH_CAP4,MG_WITH_CAP6,["RF-CAP-004","RF-OWN-004"]),
+        ("Buy","2026-06-28",BM_WITH_CAP4,MG_WITH_CAP6,["RF-CAP-004","RF-OWN-004"]),
+        # REGRESSION — the fixed bug. RF-CAP-004 is surfaced in the MG synthesis (not BM), as in the
+        # real TMCV_2026-06-07 fixture. Pre-fix code read RF-CAP-004 from bm_txt ONLY, so Filter 4
+        # silently never fired on a real run. Expected: a fired RF-CAP-004 + conviction = a Filter 4
+        # violation regardless of which synthesis carries the tag (synthesizer.md Rating Cap Rules:
+        # max Watchlist for a serial-acquirer pattern; CLAUDE.md §24 Filter 4).
+        ("Buy","2026-06-28",BM_CLEAN,MG_WITH_CAP4,["RF-CAP-004"]),
+        ("Strong Buy","2026-06-28",None,MG_WITH_CAP4,["RF-CAP-004"]),
+        # TMCV-shape: BOTH §24 caps fire in the MG synthesis, BM clean → both violations (pre-fix
+        # code returned ONLY RF-OWN-004, silently dropping the serial-acquirer Filter-4 cap).
+        ("Buy","2026-06-28",BM_CLEAN,MG_WITH_BOTH,["RF-CAP-004","RF-OWN-004"]),
+        # Non-conviction decisions → always pass (empty list), even with fired tags
+        ("Watchlist","2026-06-28",BM_WITH_CAP4,MG_WITH_CAP6,[]),
+        ("Avoid","2026-06-28",BM_WITH_CAP4,MG_WITH_CAP6,[]),
+        ("Insufficient Data — Refuse To Rate","2026-06-28",BM_WITH_CAP4,MG_WITH_CAP6,[]),
+        # Clean synthesis + conviction → pass
+        ("Strong Buy","2026-06-28",BM_CLEAN,MG_CLEAN,[]),
+        ("Buy","2026-06-28",BM_CLEAN,MG_CLEAN,[]),
+    ]
+    adbad=0
+    for dec_,dt_,bm_,mg_,exp in adcases:
+        got=AD(dec_,dt_,bm_,mg_)
+        # Normalise: None stays None; list match on tag substrings so test strings don't need to be exact
+        if exp is None:
+            ok=(got is None)
+        elif isinstance(exp,list) and not exp:
+            ok=(isinstance(got,list) and len(got)==0)
+        else:
+            # exp is a non-empty list of expected tag substrings; each must appear in some violation
+            ok=(isinstance(got,list) and len(got)>=len(exp) and all(any(tag in v for v in got) for tag in exp))
+        if not ok: adbad+=1
+        bm_r=(bm_[:30]+"…" if isinstance(bm_,str) and len(bm_)>30 else bm_)
+        mg_r=(mg_[:30]+"…" if isinstance(mg_,str) and len(mg_)>30 else mg_)
+        print(f"  [{'ok' if ok else 'XX'}] AD({dec_!r},{dt_!r},bm={bm_r!r},mg={mg_r!r}) -> {got}"
+              +("" if ok else f"  EXPECTED exp={exp}"))
+    bad+=adbad
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD cases")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -1166,6 +1299,42 @@ for drp in runs:
                 f"without ≥2–3 yrs delivered inflection; CLAUDE.md §24 Filter 2)")
     else:
         add("AC_turnaround_cap",True,f"run predates turnaround-cap gate ({ddte}) — N/A",na=True)
+    # AD §24 Filters 4 (RF-CAP-004 serial acquirer) + 6 (RF-OWN-004 unaligned owner) conviction cap
+    #   (forward-looking; landing AD_DATE)
+    #   Closes the final gap in the §24 mechanical enforcement family (AA BSS+MG / AB BM / AC §24-F2).
+    #   CLAUDE.md §24 Filter 4: serial-acquirer pattern is "close to a disqualifier," caps capital-
+    #   allocation score and conviction. Filter 6: a structurally unaligned controller makes
+    #   persistent cheapness a value trap, not a margin of safety — caps valuation attractiveness.
+    #   synthesizer.md Rating Cap Rules: both tags → "maximum 'Watchlist'." Detection: the
+    #   standardised RF-CAP-004 / RF-OWN-004 tags in module syntheses indicate cap-level flags
+    #   (agents embed them per MODULE_RULES.md; a conviction decision alongside a fired tag is
+    #   a doctrine violation). No bypass clause: these caps fire regardless of thesis type.
+    if isdate(ddte) and ddte>=AD_DATE:
+        def _read_synth_text(mod_dir):
+            ss=glob.glob(os.path.join(run,mod_dir,"99_*-synthesis.md"))
+            if not ss: return None
+            try: return open(ss[0],encoding="utf-8").read()
+            except: return None
+        bm_txt_ad=_read_synth_text("business-model")
+        mg_txt_ad=_read_synth_text("management-governance")
+        adresult=eval_ad_filter_4_6_cap(dec,ddte,bm_txt_ad,mg_txt_ad)
+        if adresult is None:
+            f4_absent=(bm_txt_ad is None); f6_absent=(mg_txt_ad is None)
+            if f4_absent and f6_absent:
+                add("AD_filter_4_6_cap",True,"both BM and MG modules absent — N/A",na=True)
+            else:
+                add("AD_filter_4_6_cap",True,
+                    f"run predates §24 Filter 4+6 gate ({ddte}) — N/A",na=True)
+        elif adresult:
+            add("AD_filter_4_6_cap",False,"; ".join(adresult))
+        else:
+            f4=CAP4_TAG in ((bm_txt_ad or "")+"\n"+(mg_txt_ad or "")); f6=CAP6_TAG in (mg_txt_ad or "")
+            add("AD_filter_4_6_cap",True,
+                f"RF-CAP-004 (BM/MG)={'present' if f4 else 'absent'}; "
+                f"MG RF-OWN-004={'present' if f6 else 'absent'}; "
+                f"decision={dec!r} — §24 Filter 4+6 caps satisfied")
+    else:
+        add("AD_filter_4_6_cap",True,f"run predates §24 Filter 4+6 gate ({ddte}) — N/A",na=True)
     # WARN non-schema files
     # [review fix] suppress only genuine versioned/audit/review artifacts via PRECISE patterns — the old naive
     # `"_v" not in name` / `"review" not in name` substring tests hid real strays (preview.md, *_v*-named scratch).
@@ -1220,7 +1389,7 @@ FRAMEWORK_CONTRACTS={
  "frameworks/DECISION_LEDGER.md":["Memo delta","memo_delta","thesis_delta_verdict","stage_one_comment","rerun_command","_memo_delta.md","business_type","primary_valuation_method"],
  ".claude/commands/research/review-decisions.md":["memo_delta","stage_one_comment","rerun_command","Pool first","_memo_delta"],
  ".claude/commands/research/eval.md":["scripts/eval.py"],
- "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap"],
+ "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap"],
  ".github/workflows/ci.yml":["eval-contracts","scripts/eval.py"],
 }
 jchecks=[]
