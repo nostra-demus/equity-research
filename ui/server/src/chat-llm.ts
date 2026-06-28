@@ -7,28 +7,24 @@
 //                             files, run bash, or spawn subagents. The closed book is enforced, not asked.
 //   --max-turns 1           -> a single answer; no agentic loop.
 //   --system-prompt <...>   -> replaces the default Claude Code agent persona with the closed-book one.
-//   cwd = a neutral dir     -> no project CLAUDE.md / project hooks load (the repo's doctrine + hooks are
-//                             irrelevant noise for a finance Q&A, and we don't want hooks firing).
 //   prompt via STDIN        -> a whole-run context can be ~90k tokens; piping avoids any ARG_MAX limit.
 // The prompt itself carries the context + the closed-book instruction, so even the model's own knowledge
 // is fenced off by instruction on top of the tool lockdown.
-import fs from 'node:fs'
-import path from 'node:path'
+//
+// cwd = REPO_ROOT and NO `--settings` override: this exactly matches the auth context of the engine's
+// research spawn, which authenticates via the host keychain OAuth. A neutral cwd + `--settings '{"hooks":{}}'`
+// (an earlier attempt to suppress the harmless review-due SessionStart hook) broke that keychain auth — the
+// chat child reported apiKeySource:"none" and 401'd while research runs on the same host succeeded. The
+// SessionStart hook is benign and `--tools ""` + `--max-turns 1` already neutralize any agentic behaviour,
+// so running from REPO_ROOT (loading the doctrine CLAUDE.md as harmless context) is the safe, working setup.
 import { execa, type ResultPromise } from 'execa'
-import { CHAT, CLAUDE_BIN, STATE_DIR } from './config'
+import { CHAT, CLAUDE_BIN, REPO_ROOT } from './config'
 import { childEnv, detectFlags } from './launcher'
 
 // light backstop so a stuck UI can't spawn dozens of CLIs at once (chat is cheap, but each is a process)
 let activeChatTurns = 0
 export function chatTurnsInFlight(): number {
   return activeChatTurns
-}
-
-// a stable empty working dir so project CLAUDE.md auto-discovery + project hooks never apply to chat.
-function chatCwd(): string {
-  const d = path.join(STATE_DIR, 'chat-cwd')
-  try { fs.mkdirSync(d, { recursive: true }) } catch { /* fall back to STATE_DIR */ }
-  return fs.existsSync(d) ? d : STATE_DIR
 }
 
 function friendlyResultError(o: any): string {
@@ -74,14 +70,12 @@ export async function runChatTurn(opts: {
     if (flags.has('--model')) args.push('--model', opts.model)
     if (flags.has('--max-turns')) args.push('--max-turns', '1')
     if (flags.has('--max-budget-usd')) args.push('--max-budget-usd', String(CHAT.budgetUsd))
-    // best-effort: don't fire any user-level hooks for a chat turn (project hooks are already out via cwd)
-    if (flags.has('--settings')) args.push('--settings', '{"hooks":{}}')
     if (flags.has('--permission-mode')) args.push('--permission-mode', 'bypassPermissions')
 
     let child: ResultPromise
     try {
       child = execa(CLAUDE_BIN, args, {
-        cwd: chatCwd(),
+        cwd: REPO_ROOT, // match the research spawn's auth context (host keychain OAuth)
         env: childEnv(), // news-provider secrets scrubbed; ANTHROPIC_API_KEY (if any) + keychain OAuth kept
         stdin: 'pipe',
         stdout: 'pipe',
