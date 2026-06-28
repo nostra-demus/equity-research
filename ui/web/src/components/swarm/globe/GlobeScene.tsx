@@ -74,8 +74,12 @@ function edgeBow(e: GlobeEdge): number {
 
 // ---- morphing, flowing, dashed edge set (one draw call) — the 3D analog of the constellation's edge-flow ----
 const EDGE_VERT = 'attribute float aT; varying float vT; void main(){ vT = aT; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }'
-const EDGE_FRAG = 'uniform vec3 uColor; uniform float uTime; uniform float uDashes; uniform float uDuty; uniform float uOpacity; uniform float uSpeed; varying float vT; void main(){ float f = fract(vT * uDashes - uTime * uSpeed); if (f > uDuty) discard; gl_FragColor = vec4(uColor, uOpacity); }'
-const K_SEG = 26 // samples per edge
+// Each dash is a directional COMET, not a symmetric tick: alpha ramps from a faint tail (source side) to a
+// bright sharp head (toward the target), so the flow direction is obvious from SHAPE, not just motion. Many
+// short dashes (high uDashes) + the marching uTime read as a "stream of arrows" pointing the way data flows.
+const EDGE_FRAG = 'uniform vec3 uColor; uniform float uTime; uniform float uDashes; uniform float uDuty; uniform float uOpacity; uniform float uSpeed; varying float vT; void main(){ float f = fract(vT * uDashes - uTime * uSpeed); if (f > uDuty) discard; float a = f / uDuty; a = a * a; gl_FragColor = vec4(uColor, uOpacity * (0.08 + 0.92 * a)); }'
+const K_SEG = 40 // samples per edge — denser so the short comet dashes stay smooth on the curved arcs
+const DASHES = 30 // dashes per edge — short, arrow-like streaks (was 16 long dashes)
 
 function MorphEdges({ edges, color, opacity, speed, morphRef }: { edges: GlobeEdge[]; color: Color; opacity: number; speed: number; morphRef: { current: number }; }) {
   const ref = useRef<LineSegments>(null)
@@ -115,7 +119,7 @@ function MorphEdges({ edges, color, opacity, speed, morphRef }: { edges: GlobeEd
     posAttr.needsUpdate = true
   })
 
-  const uniforms = useMemo(() => ({ uColor: { value: color.clone() }, uTime: { value: 0 }, uDashes: { value: 16 }, uDuty: { value: 0.5 }, uOpacity: { value: opacity }, uSpeed: { value: speed } }), []) // eslint-disable-line react-hooks/exhaustive-deps
+  const uniforms = useMemo(() => ({ uColor: { value: color.clone() }, uTime: { value: 0 }, uDashes: { value: DASHES }, uDuty: { value: 0.5 }, uOpacity: { value: opacity }, uSpeed: { value: speed } }), []) // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => { (uniforms.uColor.value as Color).copy(color); uniforms.uOpacity.value = opacity; uniforms.uSpeed.value = speed }, [color, opacity, speed, uniforms])
 
   if (!edges.length) return null
@@ -125,7 +129,7 @@ function MorphEdges({ edges, color, opacity, speed, morphRef }: { edges: GlobeEd
         <bufferAttribute attach="attributes-position" args={[positions, 3]} count={count} />
         <bufferAttribute attach="attributes-aT" args={[aT, 1]} count={count} />
       </bufferGeometry>
-      <shaderMaterial vertexShader={EDGE_VERT} fragmentShader={EDGE_FRAG} uniforms={uniforms} transparent depthWrite={false} />
+      <shaderMaterial vertexShader={EDGE_VERT} fragmentShader={EDGE_FRAG} uniforms={uniforms} transparent depthWrite={false} blending={AdditiveBlending} />
     </lineSegments>
   )
 }
@@ -317,9 +321,10 @@ export function GlobeScene({
 
       {/* connections — morphing, flowing, dashed 3D arcs: backbone (dep+core), brighter for live data-flow,
           brightest for the hovered orb's own flows (incl. its otherwise-hidden feeds) */}
-      <MorphEdges edges={depCoreEdges} color={colors.accentDeep} opacity={0.5} speed={0.14} morphRef={morphRef} />
-      {activeEdges.length > 0 && <MorphEdges edges={activeEdges} color={colors.accentBright} opacity={0.95} speed={0.4} morphRef={morphRef} />}
-      {hoverEdges.length > 0 && <MorphEdges edges={hoverEdges} color={colors.accentBright} opacity={0.95} speed={0.3} morphRef={morphRef} />}
+      {/* speed = dashes/sec: one comet passes a point every 1/speed seconds → ~0.7s baseline, brisk when live */}
+      <MorphEdges edges={depCoreEdges} color={colors.accent} opacity={0.72} speed={1.4} morphRef={morphRef} />
+      {activeEdges.length > 0 && <MorphEdges edges={activeEdges} color={colors.accentBright} opacity={1} speed={2.8} morphRef={morphRef} />}
+      {hoverEdges.length > 0 && <MorphEdges edges={hoverEdges} color={colors.accentBright} opacity={1} speed={2.3} morphRef={morphRef} />}
 
       {/* agent orbs — the SAME DOM AgentNode the constellation uses, billboarded at each 3D position. Occludes
           against the shell so back-of-globe orbs hide; click runs/opens it; hover lights its edges + tooltip. */}
