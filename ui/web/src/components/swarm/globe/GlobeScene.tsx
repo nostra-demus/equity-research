@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
-import { AdditiveBlending, BackSide, type BufferAttribute, Color, type Group, type LineSegments, type Mesh, type PerspectiveCamera, type ShaderMaterial, Vector3 } from 'three'
+import { AdditiveBlending, BackSide, Color, DoubleSide, type Group, type Mesh, type PerspectiveCamera, type ShaderMaterial, Vector3 } from 'three'
 import { Html, OrbitControls } from '@react-three/drei'
 import type { GlobeEdge, GlobeLayout, GlobeNode } from '../../../lib/globe-layout'
 import type { PlacedNode } from '../../../lib/layout'
@@ -72,8 +72,11 @@ function edgeBow(e: GlobeEdge): number {
   return 0.6 + 0.1 * chord
 }
 
-// ---- morphing, flowing, dashed edge set (one draw call) — the 3D analog of the constellation's edge-flow ----
-const EDGE_VERT = 'attribute float aT; varying float vT; void main(){ vT = aT; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }'
+// ---- morphing, flowing, dashed edge RIBBONS — thick, directional, one draw call per set ----
+// WebGL lines are stuck at 1px, so each edge is a camera-facing RIBBON: every segment is a quad whose two
+// side-vertices are pushed perpendicular to the screen-projected segment direction (in view space) by a
+// world-space half-width, giving a genuinely thick, prominent stroke that still always faces the camera.
+const EDGE_VERT = 'attribute vec3 aOther; attribute float aSide; attribute float aT; uniform float uHalf; varying float vT; void main(){ vT = aT; vec4 pv = modelViewMatrix * vec4(position, 1.0); vec4 ov = modelViewMatrix * vec4(aOther, 1.0); vec2 d = ov.xy - pv.xy; float L = length(d); vec2 dir = L > 1e-5 ? d / L : vec2(1.0, 0.0); vec2 perp = vec2(-dir.y, dir.x); pv.xy += perp * aSide * uHalf; gl_Position = projectionMatrix * pv; }'
 // Each dash is a directional COMET, not a symmetric tick: alpha ramps from a faint tail (source side) to a
 // bright sharp head (toward the target), so the flow direction is obvious from SHAPE, not just motion. Many
 // short dashes (high uDashes) + the marching uTime read as a "stream of arrows" pointing the way data flows.
@@ -81,56 +84,68 @@ const EDGE_FRAG = 'uniform vec3 uColor; uniform float uTime; uniform float uDash
 const K_SEG = 40 // samples per edge — denser so the short comet dashes stay smooth on the curved arcs
 const DASHES = 30 // dashes per edge — short, arrow-like streaks (was 16 long dashes)
 
-function MorphEdges({ edges, color, opacity, speed, morphRef }: { edges: GlobeEdge[]; color: Color; opacity: number; speed: number; morphRef: { current: number }; }) {
-  const ref = useRef<LineSegments>(null)
-  const { positions, aT, flatV, sphereV, count } = useMemo(() => {
+function MorphEdges({ edges, color, opacity, speed, width, morphRef }: { edges: GlobeEdge[]; color: Color; opacity: number; speed: number; width: number; morphRef: { current: number }; }) {
+  const ref = useRef<Mesh>(null)
+  // Each segment → 2 triangles (6 verts). Per vertex: its own centerline point (`position`, morphed), the
+  // segment's OTHER endpoint (`aOther`, morphed — gives the screen direction), a side (±1), and the dash
+  // param aT. flat/sphere copies of both endpoints are lerped on the CPU each frame, like the old line set.
+  const { posBuf, otherBuf, flatA, sphereA, flatB, sphereB, side, aT, count } = useMemo(() => {
     const flatPts: Vector3[][] = edges.map((e) => flatLine(e.flatFrom, e.flatTo, K_SEG))
     const sphPts: Vector3[][] = edges.map((e) => arcPoints(e.from, e.to, edgeBow(e), K_SEG))
-    const segsPerEdge = K_SEG
-    const verts = edges.length * segsPerEdge * 2
-    const positions = new Float32Array(verts * 3)
-    const aT = new Float32Array(verts)
-    const flatV = new Float32Array(verts * 3)
-    const sphereV = new Float32Array(verts * 3)
+    const verts = edges.length * K_SEG * 6
+    const flatA = new Float32Array(verts * 3), sphereA = new Float32Array(verts * 3)
+    const flatB = new Float32Array(verts * 3), sphereB = new Float32Array(verts * 3)
+    const side = new Float32Array(verts), aT = new Float32Array(verts)
     let o = 0
+    const put = (fp: Vector3[], sp: Vector3[], iThis: number, iOther: number, sd: number) => {
+      flatA[o * 3] = fp[iThis].x; flatA[o * 3 + 1] = fp[iThis].y; flatA[o * 3 + 2] = fp[iThis].z
+      sphereA[o * 3] = sp[iThis].x; sphereA[o * 3 + 1] = sp[iThis].y; sphereA[o * 3 + 2] = sp[iThis].z
+      flatB[o * 3] = fp[iOther].x; flatB[o * 3 + 1] = fp[iOther].y; flatB[o * 3 + 2] = fp[iOther].z
+      sphereB[o * 3] = sp[iOther].x; sphereB[o * 3 + 1] = sp[iOther].y; sphereB[o * 3 + 2] = sp[iOther].z
+      side[o] = sd; aT[o] = iThis / K_SEG; o++
+    }
     edges.forEach((_e, ei) => {
       const fp = flatPts[ei], sp = sphPts[ei]
-      for (let s = 0; s < segsPerEdge; s++) {
-        for (const idx of [s, s + 1]) {
-          flatV[o * 3] = fp[idx].x; flatV[o * 3 + 1] = fp[idx].y; flatV[o * 3 + 2] = fp[idx].z
-          sphereV[o * 3] = sp[idx].x; sphereV[o * 3 + 1] = sp[idx].y; sphereV[o * 3 + 2] = sp[idx].z
-          aT[o] = idx / segsPerEdge
-          o++
-        }
+      for (let s = 0; s < K_SEG; s++) {
+        const a = s, b = s + 1
+        put(fp, sp, a, b, -1); put(fp, sp, b, a, -1); put(fp, sp, b, a, 1) // tri 1
+        put(fp, sp, a, b, -1); put(fp, sp, b, a, 1); put(fp, sp, a, b, 1) // tri 2
       }
     })
-    return { positions, aT, flatV, sphereV, count: verts }
+    return { posBuf: new Float32Array(verts * 3), otherBuf: new Float32Array(verts * 3), flatA, sphereA, flatB, sphereB, side, aT, count: verts }
   }, [edges])
 
   useFrame((state) => {
-    const ls = ref.current
-    if (!ls) return
-    const mat = ls.material as ShaderMaterial
+    const m = ref.current
+    if (!m) return
+    const mat = m.material as ShaderMaterial
     mat.uniforms.uTime.value = state.clock.elapsedTime
     const e = easeInOut(morphRef.current)
-    const posAttr = ls.geometry.attributes.position as BufferAttribute
-    const arr = posAttr.array as Float32Array
-    for (let i = 0; i < arr.length; i++) arr[i] = flatV[i] + (sphereV[i] - flatV[i]) * e
-    posAttr.needsUpdate = true
+    const g = m.geometry
+    const pos = g.attributes.position.array as Float32Array
+    const oth = g.attributes.aOther.array as Float32Array
+    for (let i = 0; i < pos.length; i++) {
+      pos[i] = flatA[i] + (sphereA[i] - flatA[i]) * e
+      oth[i] = flatB[i] + (sphereB[i] - flatB[i]) * e
+    }
+    g.attributes.position.needsUpdate = true
+    g.attributes.aOther.needsUpdate = true
   })
 
-  const uniforms = useMemo(() => ({ uColor: { value: color.clone() }, uTime: { value: 0 }, uDashes: { value: DASHES }, uDuty: { value: 0.5 }, uOpacity: { value: opacity }, uSpeed: { value: speed } }), []) // eslint-disable-line react-hooks/exhaustive-deps
-  useEffect(() => { (uniforms.uColor.value as Color).copy(color); uniforms.uOpacity.value = opacity; uniforms.uSpeed.value = speed }, [color, opacity, speed, uniforms])
+  const uniforms = useMemo(() => ({ uColor: { value: color.clone() }, uTime: { value: 0 }, uDashes: { value: DASHES }, uDuty: { value: 0.5 }, uOpacity: { value: opacity }, uSpeed: { value: speed }, uHalf: { value: width / 2 } }), []) // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { (uniforms.uColor.value as Color).copy(color); uniforms.uOpacity.value = opacity; uniforms.uSpeed.value = speed; uniforms.uHalf.value = width / 2 }, [color, opacity, speed, width, uniforms])
 
   if (!edges.length) return null
   return (
-    <lineSegments ref={ref} frustumCulled={false}>
+    <mesh ref={ref} frustumCulled={false}>
       <bufferGeometry>
-        <bufferAttribute attach="attributes-position" args={[positions, 3]} count={count} />
+        <bufferAttribute attach="attributes-position" args={[posBuf, 3]} count={count} />
+        <bufferAttribute attach="attributes-aOther" args={[otherBuf, 3]} count={count} />
+        <bufferAttribute attach="attributes-aSide" args={[side, 1]} count={count} />
         <bufferAttribute attach="attributes-aT" args={[aT, 1]} count={count} />
       </bufferGeometry>
-      <shaderMaterial vertexShader={EDGE_VERT} fragmentShader={EDGE_FRAG} uniforms={uniforms} transparent depthWrite={false} blending={AdditiveBlending} />
-    </lineSegments>
+      <shaderMaterial vertexShader={EDGE_VERT} fragmentShader={EDGE_FRAG} uniforms={uniforms} transparent depthWrite={false} blending={AdditiveBlending} side={DoubleSide} />
+    </mesh>
   )
 }
 
@@ -321,10 +336,11 @@ export function GlobeScene({
 
       {/* connections — morphing, flowing, dashed 3D arcs: backbone (dep+core), brighter for live data-flow,
           brightest for the hovered orb's own flows (incl. its otherwise-hidden feeds) */}
-      {/* speed = dashes/sec: one comet passes a point every 1/speed seconds → ~0.7s baseline, brisk when live */}
-      <MorphEdges edges={depCoreEdges} color={colors.accent} opacity={0.72} speed={1.4} morphRef={morphRef} />
-      {activeEdges.length > 0 && <MorphEdges edges={activeEdges} color={colors.accentBright} opacity={1} speed={2.8} morphRef={morphRef} />}
-      {hoverEdges.length > 0 && <MorphEdges edges={hoverEdges} color={colors.accentBright} opacity={1} speed={2.3} morphRef={morphRef} />}
+      {/* speed = dashes/sec: one comet passes a point every 1/speed seconds → ~0.7s baseline, brisk when live.
+          width = ribbon thickness in world units (R=10) — live/hover edges are thicker so they stand out. */}
+      <MorphEdges edges={depCoreEdges} color={colors.accent} opacity={0.72} speed={1.4} width={0.11} morphRef={morphRef} />
+      {activeEdges.length > 0 && <MorphEdges edges={activeEdges} color={colors.accentBright} opacity={1} speed={2.8} width={0.2} morphRef={morphRef} />}
+      {hoverEdges.length > 0 && <MorphEdges edges={hoverEdges} color={colors.accentBright} opacity={1} speed={2.3} width={0.18} morphRef={morphRef} />}
 
       {/* agent orbs — the SAME DOM AgentNode the constellation uses, billboarded at each 3D position. Occludes
           against the shell so back-of-globe orbs hide; click runs/opens it; hover lights its edges + tooltip. */}
