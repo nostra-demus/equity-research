@@ -607,6 +607,7 @@ const ChatBody = z.object({
   module: z.string().regex(MODULE_RE).optional(),
   orbPath: z.string().max(300).optional(),
   model: z.string().max(60).optional(),
+  style: z.enum(['simple', 'analyst', 'detailed']).optional(),
   messages: z.array(z.object({ role: z.enum(['user', 'assistant']), content: z.string().max(20000) })).min(1).max(40),
 })
 app.post('/api/chat', async (req, reply) => {
@@ -644,7 +645,7 @@ app.post('/api/chat', async (req, reply) => {
   // res.end()), which is the correct cancel signal for streamed POST output.
   res.on('close', () => { closed = true; clearInterval(ping); ac.abort() })
   send({ type: 'chat-meta', scopeResolved: assembled.label, sourcePath: assembled.sourcePath, degraded: assembled.degraded, degradeNote: assembled.degradeNote })
-  const { system, user } = buildChatPrompts({ assembled, messages, subject })
+  const { system, user } = buildChatPrompts({ assembled, messages, subject, style: parsed.data.style })
   try {
     const out = await runChatTurn({ system, user, model, signal: ac.signal, onToken: (t) => send({ type: 'chat-token', content: t }) })
     if (out.error && out.error !== 'aborted') send({ type: 'chat-error', message: out.error })

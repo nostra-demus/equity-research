@@ -4,7 +4,7 @@ import { downstreamCascade, type CascadeNode } from './cascade'
 import { displayHeadline, originalHeadline, plainRoute, plainStage } from './plain'
 import type { Theme, ThemeDetail } from './themes'
 import { intensityWindowForHours } from './themes'
-import type { ActiveRunLite, AgentNode, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ConvictionDetail, CoverageGroup, DataStatus, EventEnrichment, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
+import type { ActiveRunLite, AgentNode, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, DataStatus, EventEnrichment, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
 import { emptyBookFilters } from '../components/screener/BookFilters'
 
 // A company the user drilled into from an event (the COMPANIES NAMED chips) — the main stage then
@@ -57,6 +57,13 @@ const runSources = new Map<string, EventSource>()
 // in-flight chat turn's aborter (module-level so closeChat / scope-change / ticker-switch can cancel it
 // without threading it through React state). Chat is ephemeral — one conversation at a time.
 let chatAbort: AbortController | null = null
+// narration style is a STICKY preference (persisted) — unlike the ephemeral conversation, the user's
+// "explain it like X" choice should survive across companies and reloads. Default = plain-English 'simple'.
+const CHAT_STYLE_KEY = 'nsw.chatStyle'
+function loadChatStyle(): ChatStyle {
+  try { const v = localStorage.getItem(CHAT_STYLE_KEY); if (v === 'simple' || v === 'analyst' || v === 'detailed') return v } catch { /* SSR / blocked storage */ }
+  return 'simple'
+}
 let dataSource: EventSource | null = null
 let bloomTimer: any = null
 let pollTimer: any = null
@@ -155,6 +162,7 @@ interface State {
   chatOrbKey?: string
   chatTitle: string
   chatModel: string
+  chatStyle: ChatStyle // narration style — sticky preference, default 'simple'
   chatMessages: ChatMessage[]
   chatStreaming: boolean
   chatError?: string
@@ -241,6 +249,7 @@ interface State {
   closeChat: () => void
   setChatScope: (scope: ChatScope, opts?: { module?: string; orbPath?: string; orbKey?: string }) => void
   setChatModel: (m: string) => void
+  setChatStyle: (s: ChatStyle) => void
   sendChatMessage: (text: string) => Promise<void>
   clearChat: () => void
   openActivity: () => void
@@ -407,6 +416,7 @@ export const useStore = create<State>((set, get) => ({
   chatOrbKey: undefined,
   chatTitle: '',
   chatModel: 'sonnet',
+  chatStyle: loadChatStyle(),
   chatMessages: [],
   chatStreaming: false,
   chatError: undefined,
@@ -908,6 +918,7 @@ export const useStore = create<State>((set, get) => ({
     })
   },
   setChatModel: (m) => set({ chatModel: m }),
+  setChatStyle: (s) => { try { localStorage.setItem(CHAT_STYLE_KEY, s) } catch { /* blocked storage */ } set({ chatStyle: s }) },
   clearChat: () => { chatAbort?.abort(); chatAbort = null; set({ chatMessages: [], chatError: undefined, chatStreaming: false, chatSource: undefined }) },
   sendChatMessage: async (text) => {
     const q = text.trim()
@@ -924,7 +935,7 @@ export const useStore = create<State>((set, get) => ({
     await api.chatStream(
       {
         ticker, runRoot: get().runRoot ?? undefined, scope: get().chatScope,
-        module: get().chatModule, orbPath: get().chatOrbPath, model: get().chatModel,
+        module: get().chatModule, orbPath: get().chatOrbPath, model: get().chatModel, style: get().chatStyle,
         messages: [...baseline, { role: 'user', content: q }],
       },
       {

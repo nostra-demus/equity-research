@@ -414,14 +414,18 @@ a { color: inherit; }
 @media (hover: hover) and (pointer: fine) { .chatpanel__scoperow:not([aria-disabled="true"]):hover { background: var(--surface-3); } }
 
 /* empty state — greeting + suggestion chips */
-.chatpanel__empty { padding: 28px 24px; display: flex; flex-direction: column; gap: 16px; }
+.chatpanel__empty { padding: 28px 24px; display: flex; flex-direction: column; gap: 18px; }
 .chatpanel__greet { font-size: 13px; line-height: 1.6; color: var(--text-muted); }
 .chatpanel__greet b { color: var(--text); }
+.chatpanel__stylepick { display: flex; flex-direction: column; gap: 8px; }
+.chatpanel__picklabel { font-size: 10px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-faint); }
 .chatpanel__suggest { display: flex; flex-wrap: wrap; gap: 8px; }
 .chatpanel__chip { padding: 7px 12px; border-radius: var(--r-pill); font-size: 12px; background: var(--surface-3); border: 1px solid var(--hairline-strong); color: var(--text-muted); transition: background var(--dur-fast), color var(--dur-fast), transform var(--dur-fast); }
 .chatpanel__chip:active { transform: scale(0.97); }
 .chatpanel__chip:disabled { opacity: 0.5; }
-@media (hover: hover) and (pointer: fine) { .chatpanel__chip:not(:disabled):hover { background: var(--accent-wash); color: var(--text); border-color: var(--accent-deep); } }
+/* the selected narration-style chip — clearly "on" so the default (Simple) reads as chosen */
+.chatpanel__chip--on { background: var(--accent); color: #1a1206; border-color: var(--accent-deep); font-weight: 600; }
+@media (hover: hover) and (pointer: fine) { .chatpanel__chip:not(:disabled):not(.chatpanel__chip--on):hover { background: var(--accent-wash); color: var(--text); border-color: var(--accent-deep); } }
 
 /* run-this-first state */
 .chatpanel__runfirst { padding: 28px 24px; display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
