@@ -905,11 +905,16 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
 // Build the child env for a spawned engine run: the full server env MINUS the news-ingester provider
 // secrets that load-env injected from providers.env (Groq/Cerebras/Mistral/OpenRouter/NVIDIA/Gemini). A
 // research/screener run is a Claude (Anthropic) process and never needs them; handing them to every child
-// widens secret exposure and lets a run spend news quotas. ANTHROPIC_API_KEY is kept (the CLI's own auth);
-// keys set in the REAL environment (launchd/shell) are not in providerEnvKeys, so they pass through.
+// widens secret exposure and lets a run spend news quotas. The CLI's OWN auth secrets are kept even when
+// they come from providers.env — ANTHROPIC_API_KEY and CLAUDE_CODE_OAUTH_TOKEN (the long-lived headless
+// subscription token from `claude setup-token`). Without this, a token dropped in providers.env (the
+// install-survivable secret store) would be scrubbed before the claude child could authenticate with it.
+// Keys set in the REAL environment (launchd plist / shell) aren't in providerEnvKeys, so they pass through
+// regardless — this only matters for the providers.env path.
+const CLAUDE_AUTH_ENV_KEYS = new Set(['ANTHROPIC_API_KEY', 'CLAUDE_CODE_OAUTH_TOKEN'])
 export function childEnv(): NodeJS.ProcessEnv {
   const e: NodeJS.ProcessEnv = { ...process.env }
-  for (const k of providerEnvKeys) if (k !== 'ANTHROPIC_API_KEY') delete e[k]
+  for (const k of providerEnvKeys) if (!CLAUDE_AUTH_ENV_KEYS.has(k)) delete e[k]
   return e
 }
 
