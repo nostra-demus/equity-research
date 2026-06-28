@@ -615,21 +615,25 @@ export interface EnrichDeps {
 }
 
 // Obviously NON-TRADABLE "parties" a model still occasionally emits as an inferred group — a sports team,
-// a population, a rate-setter. The isCompanyName denylist only guards NAMED firms, so an inferred group
-// (named_in_article=false) would otherwise sail straight through (the exact path that produced the absurd
-// "Iranian World Cup soccer team" exposure). Deny these in BOTH paths. Kept deliberately TIGHT so a real
-// tradable sector ("oil producers", "Indian private banks", "gold", "Treasuries", "airlines") is never
-// caught — the prompt's INVESTABILITY GATE is the primary filter; this is the deterministic backstop (§24).
+// a population, a generic rate-setter. This regex catches the sports-team / population / generic-rate-setter
+// shapes the entity denylist does NOT enumerate (it knows named countries/indices/regulators, not "world
+// cup" or "the public"). Kept deliberately TIGHT so a real tradable sector ("oil producers", "Indian
+// private banks", "gold", "Treasuries", "airlines") is never caught — the prompt's INVESTABILITY GATE is
+// the primary filter; this is the deterministic backstop (§24).
 const NON_TRADABLE_PARTY_RE = /\b(world cup|national team|national side|olympic team|football club|soccer team|cricket team|sports team)\b|\b(citizens|voters|taxpayers|tourists|spectators|fans|pensioners|migrants|refugees|the public|general public)\b|\b(central bank|reserve bank|federal reserve|the regulator|ministry of|parliament|congress)\b/i
 
-// Scrub a Groq-returned party list: drop a NAMED party that's actually a country/index/agency (per the
-// entity denylist); drop any party (named OR inferred group) matching the non-tradable backstop above;
-// keep a legitimate inferred sector/group as the honest "(sector)" row. Exported for the test suite.
+// Scrub a Groq-returned party list. Drop, in BOTH the named and the inferred-group path: (1) anything the
+// entity denylist rejects — a country / index / regulator / central bank / named individual (isCompanyName),
+// and (2) anything matching the non-tradable backstop above (sports teams / populations). A legitimate
+// inferred sector/group ("oil producers", "gold") is NOT in the denylist, so isCompanyName keeps it as the
+// honest "(sector)" row. Earlier this required isCompanyName only on the NAMED path — an inferred group
+// (named_in_article=false) short-circuited past it, so "the Fed" / "India" / "S&P 500" / "SOFR" sailed
+// straight through. Exported for the test suite.
 export function scrubParties(parties: ArticleParty[] | undefined): ArticleParty[] {
   return (parties || []).filter((p) => {
     if (!p || !p.name) return false
     if (NON_TRADABLE_PARTY_RE.test(p.name)) return false
-    return !p.named_in_article || isCompanyName(p.name)
+    return isCompanyName(p.name)
   })
 }
 

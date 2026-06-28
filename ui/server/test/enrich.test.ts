@@ -36,6 +36,25 @@ await check('scrubParties keeps tradable sectors/firms, drops non-tradable group
   assert.deepEqual(names, ['Reliance Industries', 'oil & gas producers', 'Indian private banks', 'gold'])
 })
 
+// ---- regression: an INFERRED non-tradable party caught ONLY by the entity denylist (not the
+// NON_TRADABLE_PARTY_RE backstop) must be dropped too. Pre-fix, the inferred path short-circuited past
+// isCompanyName (`!named_in_article || isCompanyName`), so a country / index / rate / regulator / named
+// individual emitted as an inferred group sailed straight through — the prompt's INVESTABILITY GATE
+// (groq.ts ARTICLE_SYSTEM: "NEVER list a country, a government, a central bank, a regulator, a market
+// index, or a rate") + CLAUDE.md §24 say all of these must be dropped. ----
+await check('scrubParties drops INFERRED denylist entities the regex backstop does not enumerate (Fed/index/rate/person)', () => {
+  const kept = scrubParties([
+    { name: 'gold', named_in_article: false, mechanism: 'safe-haven bid' }, // tradable asset → kept (control)
+    { name: 'the Fed', named_in_article: false, mechanism: 'sets the rate' }, // abbrev not in the regex → denylist → dropped
+    { name: 'India', named_in_article: false, mechanism: 'sovereign' }, // inferred country → dropped
+    { name: 'S&P 500', named_in_article: false, mechanism: 'index level' }, // index → dropped
+    { name: 'SOFR', named_in_article: false, mechanism: 'reference rate' }, // rate → dropped
+    { name: 'Donald Trump', named_in_article: false, mechanism: 'policy' }, // person → dropped
+    { name: 'European Commission', named_in_article: false, mechanism: 'antitrust' }, // regulator → dropped
+  ])
+  assert.deepEqual(kept.map((p) => p.name), ['gold'])
+})
+
 // ---- pure: completeness classification (drives the TTL tier) ----
 await check('isEnrichmentComplete: a rich brief / SEC parse / accepted floor is complete; a thin summary is not', () => {
   assert.equal(isEnrichmentComplete({ gist: ['x'] } as EventEnrichment), true, 'gist → complete')
