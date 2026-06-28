@@ -9,7 +9,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { bestFallbackSummary, corroboratesSameEvent, enrichEvent, extractReadable, isEnrichmentComplete, type EventEnrichment } from '../src/news/enrich'
+import { bestFallbackSummary, corroboratesSameEvent, enrichEvent, extractReadable, isEnrichmentComplete, scrubParties, type EventEnrichment } from '../src/news/enrich'
 import { resetGdeltBackoff } from '../src/news/sources/gdelt'
 import type { ArticleReadProvider } from '../src/news/triage/article-read'
 import type { ArticleBrief } from '../src/news/triage/groq'
@@ -19,6 +19,22 @@ async function check(name: string, fn: () => void | Promise<void>) {
   try { await fn(); passed++; console.log(`  ok  ${name}`) }
   catch (e: any) { console.error(`FAIL  ${name}\n      ${e?.stack || e?.message || e}`); process.exitCode = 1 }
 }
+
+// ---- pure: scrubParties drops non-tradable groups in BOTH the named and inferred paths ----
+await check('scrubParties keeps tradable sectors/firms, drops non-tradable groups (the "World Cup soccer team" backstop)', () => {
+  const kept = scrubParties([
+    { name: 'Reliance Industries', named_in_article: true, mechanism: 'higher refining margins' }, // named firm → kept
+    { name: 'oil & gas producers', named_in_article: false, mechanism: 'higher crude realisations' }, // tradable sector → kept
+    { name: 'Indian private banks', named_in_article: false, mechanism: 'wider NIMs' }, // tradable sector → kept
+    { name: 'gold', named_in_article: false, mechanism: 'safe-haven bid' }, // tradable asset → kept
+    { name: 'Iranian World Cup soccer team', named_in_article: false, mechanism: 'missed the finals' }, // non-tradable → dropped
+    { name: 'taxpayers', named_in_article: false, mechanism: 'foot the bill' }, // population → dropped
+    { name: 'the Federal Reserve', named_in_article: false, mechanism: 'sets the rate' }, // rate-setter → dropped
+    { name: 'India', named_in_article: true, mechanism: 'country, not a firm' }, // named non-firm → dropped by isCompanyName
+  ])
+  const names = kept.map((p) => p.name)
+  assert.deepEqual(names, ['Reliance Industries', 'oil & gas producers', 'Indian private banks', 'gold'])
+})
 
 // ---- pure: completeness classification (drives the TTL tier) ----
 await check('isEnrichmentComplete: a rich brief / SEC parse / accepted floor is complete; a thin summary is not', () => {
@@ -74,7 +90,7 @@ function tmpRepo(snippet: string = SNIPPET): { repoRoot: string; stateDir: strin
 const GOOD_BRIEF: ArticleBrief = {
   gist: ['Tilray reported $206.7M in Q3 sales; international cannabis grew 73% but is only 12% of revenue.', 'The company remains unprofitable.'],
   companies: [{ name: 'Tilray Brands', ticker: 'TLRY', role: 'subject', listing_country: 'United States', exchange: 'NASDAQ' }],
-  beneficiaries: [], exposed: [{ name: 'Tilray Brands', named_in_article: true, basis: 'persistent unprofitability' }], theme: 'earnings_revenue_margin',
+  beneficiaries: [], exposed: [{ name: 'Tilray Brands', named_in_article: true, mechanism: 'persistent unprofitability' }], theme: 'earnings_revenue_margin',
 }
 const EMPTY_BRIEF: ArticleBrief = { gist: [], companies: [], beneficiaries: [], exposed: [], theme: '' }
 

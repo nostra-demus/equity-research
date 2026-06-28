@@ -147,7 +147,9 @@ export async function analyzeArticleGemini(
         body: JSON.stringify({
           system_instruction: { parts: [{ text: ARTICLE_SYSTEM }] },
           contents: [{ role: 'user', parts: [{ text: user }] }],
-          generationConfig: { temperature: 0.1, maxOutputTokens: opts.maxTokens ?? 900, responseMimeType: 'application/json', thinkingConfig: { thinkingBudget: 0 } },
+          // floor at 3000 output tokens so a worst-case rich transmission brief can't truncate (a length-cut
+          // drops the whole brief); a provider asking for more keeps its larger budget. Matches groq.ts + EST_TOKENS.
+          generationConfig: { temperature: 0.1, maxOutputTokens: Math.max(opts.maxTokens ?? 3000, 3000), responseMimeType: 'application/json', thinkingConfig: { thinkingBudget: 0 } },
         }),
       })
       if (!res.ok) {

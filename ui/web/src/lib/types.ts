@@ -167,8 +167,21 @@ export interface RelatedEvent {
   scope?: string
 }
 export type CompanyRole = 'subject' | 'acquirer' | 'target' | 'forecaster' | 'mentioned'
+export type PartyOrder = 'first' | 'second'
 export interface ArticleCompany { name: string; ticker: string | null; role: CompanyRole; listing_country?: string | null; exchange?: string | null }
-export interface ArticleParty { name: string; named_in_article: boolean; basis: string }
+// A gainer / exposed party with its transmission read. `mechanism` is the live field; `basis` is kept
+// optional so a ≤12h-old cached enrichment (produced before the upgrade) still renders its blurb.
+export interface ArticleParty {
+  name: string
+  named_in_article: boolean
+  ticker?: string | null
+  listing?: string | null // exchange/country anchor — the investability cue
+  mechanism?: string // HOW the event hits this party's economics (the transmission)
+  basis?: string // legacy field name for mechanism (back-compat with cached briefs)
+  magnitude?: string | null // rough size where the body supports it
+  horizon?: string | null // when it bites
+  order?: PartyOrder | null // first = directly hit; second = downstream/substitute
+}
 export interface EventEnrichment {
   event_id: string
   ok: boolean
@@ -181,9 +194,13 @@ export interface EventEnrichment {
   related: RelatedEvent[]
   // the article-body read (one Groq pass)
   gist?: string[]
+  market_angle?: string // the single market-moving thread + transmission to asset prices (the "so what")
   companies?: ArticleCompany[]
   beneficiaries?: ArticleParty[]
   exposed?: ArticleParty[]
+  whats_priced?: string // the obvious read the market likely already holds
+  the_edge?: string // a non-obvious angle the body supports — absent if none
+  watch_item?: string // the single next data point / number that confirms or kills the read
   theme?: string
   // read-quality flags from the server: `complete` = the best obtainable read (rich brief, SEC parse, filing
   // floor, or retries exhausted). A degraded read (complete falsy) self-heals — reopening the event re-fires

@@ -337,16 +337,33 @@ await check('isCompanyName rejects countries / agencies / indices / junk, keeps 
 await check('coerceArticleBrief shapes gist/companies/parties safely; bad roles default to mentioned', () => {
   const b = coerceArticleBrief({
     gist: ['a', '', 'b', 'c', 'd', 'e'], // dirty: empties dropped, capped at 4
+    market_angle: 'A crude supply shock lifts oil names and squeezes importers.',
     companies: [{ name: 'Perrigo', ticker: 'prgo', role: 'subject' }, { name: 'X', role: 'bogus' }, { name: '' }],
-    beneficiaries: [{ name: 'Woodside', named_in_article: true, basis: 'target +14%' }],
-    exposed: [{ name: 'Shell', named_in_article: false }],
+    // the rich transmission shape: mechanism/magnitude/horizon/order/listing/ticker
+    beneficiaries: [{ name: 'Woodside', named_in_article: true, ticker: 'wds', listing: 'ASX: WDS', mechanism: 'higher realised crude prices', magnitude: '~10% to EPS', horizon: '6-12m', order: 'first' }],
+    // a legacy party (pre-upgrade cache / fixture) carries `basis`, which must map into mechanism
+    exposed: [{ name: 'Shell', named_in_article: false, order: 'bogus', basis: 'fuel-cost squeeze' }],
+    whats_priced: 'The market reads this as a one-off.',
+    the_edge: 'Second-order tanker beneficiaries are under-owned.',
+    watch_item: 'Brent holding above $90.',
     theme: 'M&A!!',
   })
   assert.deepEqual(b.gist, ['a', 'b', 'c', 'd'])
+  assert.equal(b.market_angle, 'A crude supply shock lifts oil names and squeezes importers.')
   assert.equal(b.companies[0].ticker, 'PRGO')
   assert.equal(b.companies[1].role, 'mentioned') // bogus role coerced
   assert.equal(b.companies.length, 2) // empty-name dropped
   assert.equal(b.beneficiaries[0].name, 'Woodside')
+  assert.equal(b.beneficiaries[0].mechanism, 'higher realised crude prices')
+  assert.equal(b.beneficiaries[0].ticker, 'WDS') // ticker upper-cased
+  assert.equal(b.beneficiaries[0].magnitude, '~10% to EPS')
+  assert.equal(b.beneficiaries[0].horizon, '6-12m')
+  assert.equal(b.beneficiaries[0].order, 'first')
+  assert.equal(b.exposed[0].mechanism, 'fuel-cost squeeze') // legacy `basis` mapped into mechanism
+  assert.equal(b.exposed[0].order, null) // bogus order → null
+  assert.equal(b.whats_priced, 'The market reads this as a one-off.')
+  assert.equal(b.the_edge, 'Second-order tanker beneficiaries are under-owned.')
+  assert.equal(b.watch_item, 'Brent holding above $90.')
   assert.equal(b.theme, 'ma') // non-letters stripped
 })
 

@@ -1590,8 +1590,10 @@ a { color: inherit; }
 .evdetail__chip--btn:active { transform: scale(0.97); }
 .evdetail__chip-go { font-size: 12px; color: var(--text-faint); transition: transform 140ms var(--ease-out), color var(--dur-fast); }
 @media (hover: hover) and (pointer: fine) { .evdetail__chip--btn:hover .evdetail__chip-go { color: var(--accent-bright); transform: translateX(2px); } }
-.evdetail__party-name--btn { appearance: none; background: none; border: 0; padding: 0; font: inherit; cursor: pointer; text-align: left; border-bottom: 1px dotted var(--hairline-strong); transition: color var(--dur-fast), border-color var(--dur-fast); }
+.evdetail__party-name--btn { appearance: none; background: none; border: 0; padding: 0; font: inherit; cursor: pointer; text-align: left; border-bottom: 1px dotted var(--hairline-strong); transition: color var(--dur-fast), border-color var(--dur-fast), transform var(--dur-fast) var(--ease); }
 @media (hover: hover) and (pointer: fine) { .evdetail__party-name--btn:hover { color: var(--accent-bright); border-color: var(--accent-deep); } }
+/* keyboard focus ring — match the panel's convention (appearance:none strips the UA outline) */
+.evdetail__party-name--btn:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--accent); border-radius: var(--r-sm); }
 .evdetail__chip--theme { color: var(--accent-bright); border-color: var(--accent-deep); }
 
 /* ---- company drill-down (CompanyView): everything the wire knows about one company ---- */
@@ -1645,7 +1647,7 @@ a { color: inherit; }
 
 @media (prefers-reduced-motion: reduce) {
   .evrow, .evdetail { animation: none; }
-  .evrow__hit:active, .evrail__segbtn:active, .evdetail__back:active, .evrow__shelve:active, .evscope__chip:active { transform: none; }
+  .evrow__hit:active, .evrail__segbtn:active, .evdetail__back:active, .evrow__shelve:active, .evscope__chip:active, .evdetail__party-name--btn:active { transform: none; }
   .evrail__dot--live, .evrail__segpulse { animation: none; }
   .evrow__glow { animation: none; opacity: 0; }
   .evdetail__shimmer::after { animation: none; }
@@ -1924,12 +1926,49 @@ a { color: inherit; }
 .evdetail__gist { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 7px; }
 .evdetail__gist li { font-size: 13.5px; line-height: 1.55; color: var(--text); }
 
-/* ---- who-gains / who's-exposed party rows (reuse the +/- marked pclist) ---- */
+/* ---- WHY IT MATTERS — the transmission to markets (the "so what") ---- */
+.evdetail__angle { margin-top: 16px; padding: 12px 14px; border: 1px solid var(--hairline); border-left: 2px solid var(--accent-deep); border-radius: var(--r-md); background: var(--accent-wash-soft); }
+.evdetail__angle-k { font-size: 9.5px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--accent-bright); margin-bottom: 5px; }
+.evdetail__angle-v { margin: 0; font-size: 13.5px; line-height: 1.55; color: var(--text); }
+
+/* ---- who-gains / who's-exposed transmission rows (multi-line; reuse the +/- marker from pclist) ---- */
+.evdetail__pclist li.evdetail__party { padding-top: 2px; }
+.evdetail__party-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 7px; }
 .evdetail__party-name { font-weight: 600; color: var(--text); }
-.evdetail__party-tag { font-size: 8.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; color: var(--text-faint); border: 1px solid var(--hairline-strong); border-radius: var(--r-pill); padding: 0 5px; margin-left: 6px; vertical-align: middle; }
+.evdetail__party-name--btn:active { transform: scale(0.97); }
+.evdetail__party-listing { font-size: 9.5px; font-weight: 600; color: var(--text-faint); font-variant-numeric: tabular-nums; }
+.evdetail__party-tag { font-size: 8.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; color: var(--text-faint); border: 1px solid var(--hairline-strong); border-radius: var(--r-pill); padding: 0 5px; vertical-align: middle; }
+.evdetail__party-order { font-size: 8.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.3px; color: var(--text-faint); border: 1px solid var(--hairline); border-radius: var(--r-pill); padding: 0 5px; }
+.evdetail__party-mech { font-size: 12px; line-height: 1.45; color: var(--text-muted); margin-top: 3px; }
+.evdetail__party-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 5px; }
+.evdetail__party-mag { font-size: 10px; font-weight: 600; color: var(--text); background: var(--surface-2); border-radius: var(--r-pill); padding: 1px 7px; font-variant-numeric: tabular-nums; }
+.evdetail__party-hz { font-size: 10px; font-weight: 600; color: var(--text-muted); border: 1px solid var(--hairline); border-radius: var(--r-pill); padding: 1px 7px; }
+/* legacy back-compat: a ≤12h-old cached party still rendered inline via .evdetail__party-basis */
 .evdetail__party-basis { color: var(--text-muted); }
 /* role tag beside a named company (acquirer / target / forecaster …) */
 .evdetail__role { font-size: 10px; font-weight: 600; color: var(--text-faint); }
+
+/* ---- PRICED IN vs THE EDGE — the §7 consensus-vs-variant read ---- */
+.evdetail__edge { display: flex; flex-direction: column; gap: 8px; }
+.evdetail__edge-row { display: grid; grid-template-columns: 86px 1fr; gap: 10px; align-items: baseline; padding: 9px 12px; border: 1px solid var(--hairline); border-radius: var(--r-sm); }
+.evdetail__edge-row--edge { border-left: 2px solid var(--accent-deep); background: var(--accent-wash-soft); }
+.evdetail__edge-k { font-size: 9.5px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-faint); }
+.evdetail__edge-row--edge .evdetail__edge-k { color: var(--accent-bright); }
+.evdetail__edge-v { font-size: 12.5px; line-height: 1.5; color: var(--text); }
+@media (max-width: 560px) { .evdetail__edge-row { grid-template-columns: 1fr; gap: 3px; } }
+
+/* ---- WATCH — the one number / next data point that confirms or kills the read ---- */
+.evdetail__watch { margin-top: 16px; display: flex; align-items: baseline; gap: 9px; padding: 9px 12px; border: 1px dashed var(--hairline-strong); border-radius: var(--r-sm); }
+.evdetail__watch-k { flex-shrink: 0; font-size: 9.5px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-muted); }
+.evdetail__watch-v { font-size: 12.5px; line-height: 1.45; color: var(--text); }
+
+/* ---- entrance for the lazily-arriving smart-read blocks (transform+opacity only, off the main thread) ---- */
+.evdetail__reveal { animation: evReveal 260ms var(--ease-out) both; }
+@keyframes evReveal { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) {
+  .evdetail__reveal { animation: evRevealRM 200ms ease both; }
+  @keyframes evRevealRM { from { opacity: 0; } to { opacity: 1; } }
+}
 
 /* ---- related recent events ---- */
 .evdetail__related { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
