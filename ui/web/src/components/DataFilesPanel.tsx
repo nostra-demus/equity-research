@@ -31,7 +31,7 @@ export function DataFilesPanel() {
   const driveEnabled = useStore((s) => s.driveEnabled)
   const staticMode = useStore((s) => s.staticMode)
   const openUploader = useStore((s) => s.openUploader)
-  const [open, setOpen] = useState(true)
+  const [open, setOpen] = useState(false) // collapsed by default — just the pill; click the header to expand
   const [expanded, setExpanded] = useState<Record<string, boolean>>({})
 
   if (!dataStatus || !dataStatus.hasAnyData || !dataStatus.files?.length) return null
