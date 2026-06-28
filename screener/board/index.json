@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-06-28T09:22:54Z",
+  "generated_at": "2026-06-28T12:51:58Z",
   "inbox": [
     {
       "inbox_id": "INB-20260628-001",
@@ -88,51 +88,6 @@
         }
       ],
       "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260628-010",
-      "headline": "Iran launches strikes after Trump’s threats",
-      "headline_en": null,
-      "url": "https://www.afr.com/politics/federal/tanker-struck-in-hormuz-as-iran-us-trade-attacks-escalate-20260628-p60amx?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-06-28T01:00:13Z",
-      "sweep_file": "screener/inbox/2026-06-28_sweep.json",
-      "prelim_note": "Iran launches strikes after Trump's threats.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 100,
-      "triage_reason": "Iran launches strikes after Trump's threats.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 90,
-      "rank_factors": {
-        "materiality": 90,
-        "source_tier": 0,
-        "scope": -4,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [
-        {
-          "name": "Iran",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -621,6 +576,368 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260628-126",
+      "headline": "PTC Industries Plans ₹1,800 Crore Fund Raise, Board Also Seeks Shareholder Approval To Raise Borrowing Limit To ₹600 Crore",
+      "headline_en": null,
+      "url": "https://www.freepressjournal.in/business/ptc-industries-plans-1800-crore-fund-raise-board-also-seeks-shareholder-approval-to-raise-borrowing-limit-to-600-crore",
+      "source_name": "Free Press Journal",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-28T07:27:47Z",
+      "sweep_file": "screener/inbox/2026-06-28_sweep.json",
+      "prelim_note": "PTC Industries plans ₹1,800 crore fund raise, board also seeks shareholder approval to raise borrowing limit to ₹600 crore.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "PTC Industries plans ₹1,800 crore fund raise, board also seeks shareholder approval to raise borrowing limit to ₹600 crore.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PTC Industries",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260628-127",
+      "headline": "TRANSTECH (09963): CONNECTED TRANSACTION ( PROPOSED AMENDMENTS TO ORIGINAL DEED OF NON-COMPETITION); MAJOR AND CONNECTED TRANSACTION IN RELATION TO ACQUISITION OF EQUITY INTEREST IN THE TARGET COMPANY; AND CONTINUING CONNECTED TRANSACTIONS (THE MASTER SALE AGREEMENT)",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0628/2026062800021.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-06-28T10:09:00Z",
+      "sweep_file": "screener/inbox/2026-06-28_sweep.json",
+      "prelim_note": "Proposed amendments to non-competition deed and acquisition of equity interest in the target company.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Proposed amendments to non-competition deed and acquisition of equity interest in the target company.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing"
+      },
+      "event_types": [
+        "capital_actions",
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "TRANSTECH",
+          "ticker": "09963",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260628-142",
+      "headline": "PROSPER CONS (06816): RECTIFICATION OF A MAJOR ACQUISITION AND NOTICE OF EXTRAORDINARY GENERAL MEETING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0628/2026062800061.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-06-28T10:41:00Z",
+      "sweep_file": "screener/inbox/2026-06-28_sweep.json",
+      "prelim_note": "Notice of Extraordinary General Meeting to rectify a major acquisition.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Notice of Extraordinary General Meeting to rectify a major acquisition.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing"
+      },
+      "event_types": [
+        "guidance_change",
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PROSPER CONS",
+          "ticker": "06816",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260628-146",
+      "headline": "CHI KINGSTONE (01380): (1) DISCLOSEABLE TRANSACTION IN RELATION TO THE PROPOSED ACQUISITION OF 85% EQUITY INTEREST IN THE TARGET COMPANY INVOLVING ISSUE OF A PROMISSORY NOTE AND (2) APPOINTMENT OF CHAIRMAN OF THE BOARD",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0628/2026062800047.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-06-28T10:21:00Z",
+      "sweep_file": "screener/inbox/2026-06-28_sweep.json",
+      "prelim_note": "Disclosure of a major acquisition of 85% equity interest in the target company involving issue of a promissory note and appointment of chairman of the board.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Disclosure of a major acquisition of 85% equity interest in the target company involving issue of a promissory note and appointment of chairman of the board.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CHI KINGSTONE",
+          "ticker": "01380",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260628-149",
+      "headline": "PROSPER CONS (06816): Form of Proxy for the Extraordinary General Meeting to be held on Friday, 17 July 2026 (or any adjournment thereof)",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0628/2026062800067.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-06-28T10:46:00Z",
+      "sweep_file": "screener/inbox/2026-06-28_sweep.json",
+      "prelim_note": "Form of proxy for the Extraordinary General Meeting to be held on Friday, 17 July 2026.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Form of proxy for the Extraordinary General Meeting to be held on Friday, 17 July 2026.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "PROSPER CONS",
+          "ticker": "06816",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260628-157",
+      "headline": "CHINA HONGBAO (08316): ANNUAL RESULTS ANNOUNCEMENT FOR THE YEAR ENDED 31 MARCH 2026",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/gem/2026/0628/2026062800127.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-06-28T11:46:00Z",
+      "sweep_file": "screener/inbox/2026-06-28_sweep.json",
+      "prelim_note": "China Hongbao has announced annual results with a revenue of $X billion.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "China Hongbao has announced annual results with a revenue of $X billion.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 5,
+        "size": 2,
+        "recency": 5,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing"
+      },
+      "event_types": [
+        "earnings_revenue_margin"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "China Hongbao",
+          "ticker": "08316",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260628-159",
+      "headline": "MODERN INNO DT (02322): PROFIT WARNING",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0628/2026062800071.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-06-28T11:08:00Z",
+      "sweep_file": "screener/inbox/2026-06-28_sweep.json",
+      "prelim_note": "Modern Inno DT has issued a profit warning.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Modern Inno DT has issued a profit warning.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 7,
+        "size": -1,
+        "recency": 5,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Modern Inno DT",
+          "ticker": "02322",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260628-160",
+      "headline": "YUSEI (00096): Cash Dividend Announcement (Updated)",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0628/2026062800069.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-06-28T11:02:00Z",
+      "sweep_file": "screener/inbox/2026-06-28_sweep.json",
+      "prelim_note": "Yusei has announced a cash dividend of $X.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Yusei has announced a cash dividend of $X.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 6,
+        "size": -1,
+        "recency": 5,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Yusei",
+          "ticker": "00096",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "small",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260628-004",
       "headline": "Mitsubishi Heavy to invest over $618m in Japan, US gas turbine operations",
       "headline_en": null,
@@ -806,6 +1123,96 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260628-120",
+      "headline": "Square Yards Taps Bankers for $300 Mn IPO at $2 Bn Valuation",
+      "headline_en": null,
+      "url": "https://www.outlookbusiness.com/corporate/square-yards-taps-bankers-for-300-mn-ipo-at-2-bn-valuation",
+      "source_name": "Outlook Business",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-28T06:55:38Z",
+      "sweep_file": "screener/inbox/2026-06-28_sweep.json",
+      "prelim_note": "Square Yards is tapping bankers for a $300 Mn IPO at $2 Bn valuation.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "Square Yards is tapping bankers for a $300 Mn IPO at $2 Bn valuation.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 0,
+        "recency": 4,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Square Yards",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260628-121",
+      "headline": "Mcap of 6 of top-10 most valued firms surges by ₹88,678 crore; ICICI Bank biggest gainer",
+      "headline_en": null,
+      "url": "https://www.livemint.com/market/stock-market-news/mcap-of-6-of-top-10-most-valued-firms-surges-by-88-678-crore-icici-bank-biggest-gainer-11782630290683.html",
+      "source_name": "LiveMint",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-28T07:27:46Z",
+      "sweep_file": "screener/inbox/2026-06-28_sweep.json",
+      "prelim_note": "₹88,678 crore market capitalization surge for 6 of top-10 most valued firms.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "₹88,678 crore market capitalization surge for 6 of top-10 most valued firms.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 2,
+        "recency": 4,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ICICI Bank",
+          "ticker": "ICICIBANK",
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260628-079",
       "headline": "Samsung eyes record investment spanning affiliates, regions",
       "headline_en": null,
@@ -935,50 +1342,175 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260628-101",
-      "headline": "Canadian pensions giant courts Brookfield’s $3b La Trobe Financial",
+      "inbox_id": "INB-20260628-124",
+      "headline": "Former Delhi health services chief Dr Vatsala Agarwal arrested in multi-crore medical procurement corruption case",
       "headline_en": null,
-      "url": "https://www.afr.com/street-talk/canadian-pensions-giant-courts-brookfield-s-3b-la-trobe-financial-20260628-p60apc?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
+      "url": "https://www.livemint.com/news/india/former-delhi-health-services-chief-dr-vatsala-agarwal-arrested-in-multi-crore-medical-procurement-corruption-case-11782630045663.html",
+      "source_name": "LiveMint",
       "input_nature": "news_headline",
-      "found_at": "2026-06-28T06:58:52Z",
+      "found_at": "2026-06-28T07:32:42Z",
       "sweep_file": "screener/inbox/2026-06-28_sweep.json",
-      "prelim_note": "Canadian pensions giant courts Brookfield's $3b La Trobe Financial",
+      "prelim_note": "Former Delhi health services chief Dr Vatsala Agarwal arrested in multi-crore medical procurement corruption case.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
       "triage_score": 96,
-      "triage_reason": "Canadian pensions giant courts Brookfield's $3b La Trobe Financial",
+      "triage_reason": "Former Delhi health services chief Dr Vatsala Agarwal arrested in multi-crore medical procurement corruption case.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 6,
+        "size": 0,
+        "recency": 4,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news"
+      },
+      "event_types": [
+        "litigation_enforcement"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Dr Vatsala Agarwal",
+          "ticker": null,
+          "listing_country": "IN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260628-153",
+      "headline": "Controversial emissions tax nets the Treasury £20 billion",
+      "headline_en": null,
+      "url": "https://www.thisismoney.co.uk/money/markets/article-15936061/Controversial-emissions-tax-nets-Treasury-20-billion.html?ns_mchannel=rss&ns_campaign=1490&ito=1490",
+      "source_name": "This is Money (Daily Mail)",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-28T10:17:52Z",
+      "sweep_file": "screener/inbox/2026-06-28_sweep.json",
+      "prelim_note": "The UK Treasury collected £20 billion from an emissions tax.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "The UK Treasury collected £20 billion from an emissions tax.",
       "region": "GB",
       "relevance": "material",
       "materiality_pre_score": 80,
       "rank_factors": {
         "materiality": 80,
         "source_tier": 0,
-        "scope": 5,
+        "scope": 6,
         "event": 6,
         "size": 0,
-        "recency": 5,
+        "recency": 4,
         "boost_weight": 1,
-        "scope_id": "multi_name",
+        "scope_id": "single_name",
         "source_tier_id": "news"
       },
       "event_types": [
         "capital_actions"
       ],
-      "issuer_linkage": "secondary",
+      "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Brookfield",
+          "name": "null",
           "ticker": null,
-          "listing_country": null
-        },
+          "listing_country": "GB"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260628-161",
+      "headline": "My resignation a call of conscience, not an allegation requiring legal review: HDF​C's Atanu Chakraborty",
+      "headline_en": null,
+      "url": "https://economictimes.indiatimes.com/industry/banking/finance/banking/my-resignation-a-call-of-conscience-not-an-allegation-requiring-legal-review-hdfcs-atanu-chakraborty/articleshow/132049599.cms",
+      "source_name": "The Economic Times",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-28T10:54:33Z",
+      "sweep_file": "screener/inbox/2026-06-28_sweep.json",
+      "prelim_note": "HDFC's Atanu Chakraborty has resigned due to a call of conscience.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "HDFC's Atanu Chakraborty has resigned due to a call of conscience.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 4,
+        "size": 2,
+        "recency": 4,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news"
+      },
+      "event_types": [
+        "management"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
         {
-          "name": "La Trobe Financial",
+          "name": "HDFC",
           "ticker": null,
           "listing_country": null
         }
       ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260628-162",
+      "headline": "Iran attacks Gulf nations, threatens 'complete halt' to talks with US",
+      "headline_en": null,
+      "url": "https://thehill.com/policy/international/5944311-iran-retaliatory-strikes-kuwait-bahrain/",
+      "source_name": "The Hill",
+      "input_nature": "news_headline",
+      "found_at": "2026-06-28T11:52:47Z",
+      "sweep_file": "screener/inbox/2026-06-28_sweep.json",
+      "prelim_note": "Iran threatens 'complete halt' to talks with US.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 96,
+      "triage_reason": "Iran threatens 'complete halt' to talks with US.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news"
+      },
+      "event_types": [
+        "regulatory",
+        "cybersecurity"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
       "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
@@ -1160,21 +1692,21 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260628-057",
-      "headline": "Adani Power Limited",
+      "inbox_id": "INB-20260628-128",
+      "headline": "APAC RESOURCES APAC RES W2712 (01104 02478): TERMINATION OF RIGHTS ISSUE AND UNDERWRITING AGREEMENT",
       "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/xbrl/APLintimationofBM22072026_PRIOR_INTIMATION_WebXMLFile_20260628_101923398.xml",
-      "source_name": "BSE / NSE Exchange Filing",
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0628/2026062800019.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
       "input_nature": "exchange_announcement",
-      "found_at": "2026-06-28T04:49:24Z",
+      "found_at": "2026-06-28T10:08:00Z",
       "sweep_file": "screener/inbox/2026-06-28_sweep.json",
-      "prelim_note": "Adani Power Limited board meeting",
+      "prelim_note": "Termination of rights issue and underwriting agreement.",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Adani Power Limited board meeting",
-      "region": "IN",
+      "triage_score": 95,
+      "triage_reason": "Termination of rights issue and underwriting agreement.",
+      "region": "CN",
       "relevance": "material",
       "materiality_pre_score": 70,
       "rank_factors": {
@@ -1183,7 +1715,7 @@
         "scope": 6,
         "event": 6,
         "size": 0,
-        "recency": 4,
+        "recency": 5,
         "boost_weight": 1,
         "scope_id": "single_name",
         "source_tier_id": "primary_filing"
@@ -1194,9 +1726,9 @@
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Adani Power Limited",
+          "name": "APAC RESOURCES APAC RES W2712",
           "ticker": null,
-          "listing_country": "IN"
+          "listing_country": "CN"
         }
       ],
       "size_bucket": "unknown",
@@ -1205,28 +1737,28 @@
       "dismissed_by": ""
     },
     {
-      "inbox_id": "INB-20260628-073",
-      "headline": "Waaree Energies says US probe found no Chinese cells in its solar panels; operations unaffected",
+      "inbox_id": "INB-20260628-150",
+      "headline": "Athulya Senior Care eyes $30 million fund raise to fuel senior care expansion",
       "headline_en": null,
-      "url": "https://economictimes.indiatimes.com/industry/renewables/waaree-energies-says-us-probe-found-no-chinese-cells-in-its-solar-panels-operations-unaffected/articleshow/132045529.cms",
-      "source_name": "The Economic Times",
+      "url": "https://www.thehindubusinessline.com/companies/athulya-senior-care-eyes-30-million-fund-raise-to-fuel-senior-care-expansion/article71157549.ece",
+      "source_name": "The Hindu BusinessLine",
       "input_nature": "news_headline",
-      "found_at": "2026-06-28T04:43:25Z",
+      "found_at": "2026-06-28T10:45:58Z",
       "sweep_file": "screener/inbox/2026-06-28_sweep.json",
-      "prelim_note": "US probe found no Chinese cells in its solar panels",
+      "prelim_note": "Athulya Senior Care eyes $30 million fund raise to fuel senior care expansion",
       "dedup_status": "new",
       "consumed": false,
       "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "US probe found no Chinese cells in its solar panels",
-      "region": "US",
+      "triage_score": 95,
+      "triage_reason": "Athulya Senior Care eyes $30 million fund raise to fuel senior care expansion",
+      "region": "IN",
       "relevance": "material",
       "materiality_pre_score": 80,
       "rank_factors": {
         "materiality": 80,
         "source_tier": 0,
         "scope": 6,
-        "event": 4,
+        "event": 5,
         "size": -1,
         "recency": 5,
         "boost_weight": 1,
@@ -1234,533 +1766,17 @@
         "source_tier_id": "news"
       },
       "event_types": [
-        "regulatory"
+        "earnings_revenue_margin"
       ],
       "issuer_linkage": "primary",
       "companies": [
         {
-          "name": "Waaree Energies",
+          "name": "Athulya Senior Care",
           "ticker": null,
           "listing_country": null
         }
       ],
       "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260628-060",
-      "headline": "Alok Industries Ltd (521070)",
-      "headline_en": null,
-      "url": "https://www.bseindia.com/xml-data/corpfiling/AttachLive/eff1dd21-a881-4432-adaf-b4d2e8e9bfc6.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-06-28T04:50:25Z",
-      "sweep_file": "screener/inbox/2026-06-28_sweep.json",
-      "prelim_note": "Alok Industries Ltd annual general meeting",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Alok Industries Ltd annual general meeting",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alok Industries Ltd",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260628-093",
-      "headline": "Rossari Biotech Limited",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/ROSSARI_28062026122706_20260628_Newspaper_Publication_for_17th_AGM_20072026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-06-28T06:57:35Z",
-      "sweep_file": "screener/inbox/2026-06-28_sweep.json",
-      "prelim_note": "Rossari Biotech Limited quarterly results",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Rossari Biotech Limited quarterly results",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Rossari Biotech Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260628-094",
-      "headline": "Waaree Energies Limited",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/WAAREE_28062026121840_WSAMediaStatement28June2026.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-06-28T06:48:50Z",
-      "sweep_file": "screener/inbox/2026-06-28_sweep.json",
-      "prelim_note": "Waaree Energies Limited quarterly results",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Waaree Energies Limited quarterly results",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 5,
-        "size": 0,
-        "recency": 5,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing"
-      },
-      "event_types": [
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Waaree Energies Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260628-097",
-      "headline": "Alok Industries Limited: Alok Industries Limited has informed the Exchange regarding Notice of Annual General Meeting to be held on July 24, 2026",
-      "headline_en": null,
-      "url": "https://nsearchives.nseindia.com/corporate/ALOKIND_28062026103531_AGM_Pre-dispatch_Intimation.pdf",
-      "source_name": "BSE / NSE Exchange Filing",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-06-28T05:11:16Z",
-      "sweep_file": "screener/inbox/2026-06-28_sweep.json",
-      "prelim_note": "Alok Industries Limited annual general meeting",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Alok Industries Limited annual general meeting",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Alok Industries Limited",
-          "ticker": null,
-          "listing_country": "IN"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260628-007",
-      "headline": "US military attacks Iranian missile and drone facilities, Trump warns ‘…will no longer exist’",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/world/us-military-attacks-iranian-missile-and-drone-facilities-trump-warns-will-no-longer-exist-11782605697582.html",
-      "source_name": "LiveMint",
-      "input_nature": "news_headline",
-      "found_at": "2026-06-28T00:21:18Z",
-      "sweep_file": "screener/inbox/2026-06-28_sweep.json",
-      "prelim_note": "US military attacks Iranian missile and drone facilities.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "US military attacks Iranian missile and drone facilities.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [
-        {
-          "name": "Iran",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260628-015",
-      "headline": "US-Iran war news LIVE: ‘New aggression will be met with a crushing response,’ warns Tehran after Washington strikes",
-      "headline_en": null,
-      "url": "https://www.livemint.com/news/world/us-iran-war-news-live-updates-ceasefire-hezbollah-israel-lebanon-oil-donald-trump-strait-of-hormuz-peace-deal-28-june-11782610164776.html",
-      "source_name": "LiveMint",
-      "input_nature": "news_headline",
-      "found_at": "2026-06-28T01:58:00Z",
-      "sweep_file": "screener/inbox/2026-06-28_sweep.json",
-      "prelim_note": "US and Iran may engage in war, potentially affecting global markets.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "US and Iran may engage in war, potentially affecting global markets.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260628-019",
-      "headline": "Iran warns US bases ‘will experience hell’ after fresh strikes",
-      "headline_en": null,
-      "url": "https://www.afr.com/world/south-america/baby-pulled-alive-from-rubble-32-hours-after-venezuela-quake-20260628-p60ane?ref=rss&utm_medium=rss&utm_source=rss_feed",
-      "source_name": "Australian Financial Review",
-      "input_nature": "news_headline",
-      "found_at": "2026-06-28T02:56:53Z",
-      "sweep_file": "screener/inbox/2026-06-28_sweep.json",
-      "prelim_note": "Iran warns US bases 'will experience hell' after fresh strikes, implying potential escalation of conflict.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Iran warns US bases 'will experience hell' after fresh strikes, implying potential escalation of conflict.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260628-021",
-      "headline": "The Openness That Powered Germany’s Economy Is Now Its Biggest Weakness",
-      "headline_en": null,
-      "url": "https://www.wsj.com/world/europe/the-openness-that-powered-germanys-economy-is-now-its-biggest-weakness-33918619",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-06-28T03:00:00Z",
-      "sweep_file": "screener/inbox/2026-06-28_sweep.json",
-      "prelim_note": "Germany's economy is now its biggest weakness due to openness",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Germany's economy is now its biggest weakness due to openness",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "null",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260628-022",
-      "headline": "A Rising Star’s Abrupt Fall Shows Xi’s Crackdown on Overambitious Officials",
-      "headline_en": null,
-      "url": "https://www.wsj.com/world/china/a-rising-stars-abrupt-fall-shows-xis-crackdown-on-overambitious-officials-3d7dfb92",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-06-28T03:00:00Z",
-      "sweep_file": "screener/inbox/2026-06-28_sweep.json",
-      "prelim_note": "Xi's crackdown on overambitious officials",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Xi's crackdown on overambitious officials",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "sector",
-      "companies": [
-        {
-          "name": "null",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260628-023",
-      "headline": "U.S., Iran Carry Out New Strikes, Testing Fragile Ceasefire",
-      "headline_en": null,
-      "url": "https://www.wsj.com/world/middle-east/mideast-fighting-widens-with-attacks-on-bahrain-hormuz-tanker-30a313a8",
-      "source_name": "The Wall Street Journal",
-      "input_nature": "news_headline",
-      "found_at": "2026-06-28T02:52:00Z",
-      "sweep_file": "screener/inbox/2026-06-28_sweep.json",
-      "prelim_note": "U.S., Iran carry out new strikes, testing fragile ceasefire",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "U.S., Iran carry out new strikes, testing fragile ceasefire",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [
-        {
-          "name": "null",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260628-027",
-      "headline": "Iran, US continue escalating attacks, recriminations over peace deal",
-      "headline_en": null,
-      "url": "https://www.cnbctv18.com/world/iran-us-continue-escalating-attacks-recriminations-over-peace-deal-19933563.htm",
-      "source_name": "CNBC-TV18",
-      "input_nature": "news_headline",
-      "found_at": "2026-06-28T03:15:27Z",
-      "sweep_file": "screener/inbox/2026-06-28_sweep.json",
-      "prelim_note": "Iran and US continue escalating attacks and recriminations over peace deal",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "Iran and US continue escalating attacks and recriminations over peace deal",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260628-033",
-      "headline": "U.S. and Iran clash, putting fragile deal under growing strain",
-      "headline_en": null,
-      "url": "https://www.japantimes.co.jp/news/2026/06/28/world/us-iran-clash-deal-under-strain/",
-      "source_name": "The Japan Times",
-      "input_nature": "news_headline",
-      "found_at": "2026-06-28T02:51:00Z",
-      "sweep_file": "screener/inbox/2026-06-28_sweep.json",
-      "prelim_note": "U.S. and Iran clash, putting fragile deal under growing strain",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 91,
-      "triage_reason": "U.S. and Iran clash, putting fragile deal under growing strain",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 80,
-      "rank_factors": {
-        "materiality": 80,
-        "source_tier": 0,
-        "scope": 2,
-        "event": 4,
-        "size": 0,
-        "recency": 5,
-        "boost_weight": 1,
-        "scope_id": "policy",
-        "source_tier_id": "news"
-      },
-      "event_types": [
-        "regulatory"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -23796,23 +23812,56 @@
   ],
   "signals": [
     {
-      "signal_id": "SIG-20260620-e420a56a",
-      "event_id": "",
-      "headline": "",
+      "signal_id": "SIG-20260628-af776402",
+      "event_id": "EVT-a06dfba81a31",
+      "headline": "Gold hotshot Forrestania buys Ramelius's Edna May for $300m",
       "headline_en": null,
-      "source_name": "",
-      "source_grade": "",
-      "processed_at": "2026-06-22T00:00:00Z",
+      "source_name": "Australian Financial Review",
+      "source_grade": "A",
+      "processed_at": "2026-06-28T13:00:00Z",
+      "run_root": "screener/runs/SIG-20260628-af776402",
+      "materiality_score": 85,
+      "novelty_score": 0.85,
+      "pair_label": "new_event",
+      "action": "keep_separate",
+      "status": "watchlist_no_source",
+      "status_reason": "AFR article paywalled and unreadable; ten targeted searches found no independent on-list corroboration of the A$300m Edna May transaction — 60-second source check failed at M0.1",
+      "thesis_id": "THS-SIG-20260628-af776402-v1",
+      "event_types": [
+        "mna",
+        "capital_actions",
+        "operations"
+      ],
+      "issuers": [
+        "Ramelius Resources",
+        "Forrestania"
+      ]
+    },
+    {
+      "signal_id": "SIG-20260620-e420a56a",
+      "event_id": "EVT-1afb1afeddc5",
+      "headline": "Jio Files For Mega IPO: Debt Reduction, AI Ambitions And A New Valuation Story",
+      "headline_en": null,
+      "source_name": "Outlook Business",
+      "source_grade": "B",
+      "processed_at": "2026-06-20T11:31:54.179Z",
       "run_root": "screener/runs/SIG-20260620-e420a56a",
-      "materiality_score": null,
-      "novelty_score": null,
-      "pair_label": null,
-      "action": null,
+      "materiality_score": 90,
+      "novelty_score": 0.85,
+      "pair_label": "new_event",
+      "action": "keep_separate",
       "status": "provisional",
-      "status_reason": "Edge score 70 — real numerically anchored variant (15-20% Airtel EV compression risk confirmed absent from sell-side research) with legally calendared trigger; held provisional by unconfirmed Jio pricing-aggression step and SEBI outcome uncertainty",
+      "status_reason": "Materiality 90 clears the 70-point PROMOTE threshold; first-seen SEBI DRHP filing for what may be India largest-ever IPO with full debt-repayment use of proceeds",
       "thesis_id": "THS-SIG-20260620-e420a56a-v1",
-      "event_types": [],
-      "issuers": []
+      "event_types": [
+        "capital_actions",
+        "debt_credit",
+        "regulatory",
+        "product"
+      ],
+      "issuers": [
+        "Jio Platforms Limited"
+      ]
     },
     {
       "signal_id": "SIG-20260619-755ea4d0",
@@ -23841,25 +23890,6 @@
       ]
     },
     {
-      "signal_id": "SIG-20260616-8930aad4",
-      "event_id": "",
-      "headline": "",
-      "headline_en": null,
-      "source_name": "",
-      "source_grade": "",
-      "processed_at": "2026-06-16T14:00:00Z",
-      "run_root": "screener/runs/SIG-20260616-8930aad4",
-      "materiality_score": null,
-      "novelty_score": 0.85,
-      "pair_label": null,
-      "action": null,
-      "status": "watchlist_no_edge",
-      "status_reason": "Edge score 35 is well below the 60-point threshold. The only confirmed coverage gap — how US clients may screen TCS after a court found it acted with willful and malicious intent — does not resolve within the thesis window. The trigger confirms what the market already expects.",
-      "thesis_id": "THS-SIG-20260616-8930aad4-v1",
-      "event_types": [],
-      "issuers": []
-    },
-    {
       "signal_id": "SIG-20260616-eae0b41e",
       "event_id": "EVT-74fc26154504",
       "headline": "Norben Tea & Exports Limited",
@@ -23883,42 +23913,80 @@
       ]
     },
     {
-      "signal_id": "SIG-20260615-71775d0a",
-      "event_id": "",
-      "headline": "",
+      "signal_id": "SIG-20260616-8930aad4",
+      "event_id": "EVT-4ac284fe8b11",
+      "headline": "TCS To Take $70 Million Exceptional Charge In Q1FY27 After US Supreme Court Rejects Appeal In DXC Suit",
       "headline_en": null,
-      "source_name": "",
-      "source_grade": "",
-      "processed_at": "2026-06-15T19:00:00Z",
+      "source_name": "NDTV Profit",
+      "source_grade": "A",
+      "processed_at": "2026-06-16T06:32:38Z",
+      "run_root": "screener/runs/SIG-20260616-8930aad4",
+      "materiality_score": 85,
+      "novelty_score": 0.85,
+      "pair_label": "new_event",
+      "action": "keep_separate",
+      "status": "watchlist_no_edge",
+      "status_reason": "TCS will book a $70 million charge against Q1 FY27 earnings after losing its final legal appeal — first appearance in ledger, definitive outcome, charge large enough to move reported earnings",
+      "thesis_id": "THS-SIG-20260616-8930aad4-v1",
+      "event_types": [
+        "litigation_enforcement",
+        "earnings_revenue_margin"
+      ],
+      "issuers": [
+        "Tata Consultancy Services (TCS)"
+      ]
+    },
+    {
+      "signal_id": "SIG-20260615-71775d0a",
+      "event_id": "EVT-2a8fccbcc040",
+      "headline": "HONEYWELL BOARD OF DIRECTORS APPROVES SPIN-OFF OF HONEYWELL AEROSPACE",
+      "headline_en": null,
+      "source_name": "PR Newswire",
+      "source_grade": "A",
+      "processed_at": "2026-06-15T17:25:12Z",
       "run_root": "screener/runs/SIG-20260615-71775d0a",
-      "materiality_score": null,
-      "novelty_score": null,
-      "pair_label": null,
-      "action": null,
+      "materiality_score": 93,
+      "novelty_score": 0.85,
+      "pair_label": "new_event",
+      "action": "keep_separate",
       "status": "provisional",
-      "status_reason": "Edge score 71 in the 60-80 band. Variant is evidenced with a 27% numeric departure and confirmed coverage gap, but HONA has no standalone trading history yet — the mechanism is pre-confirmation.",
+      "status_reason": "Board-approved spin-off of Honeywell Aerospace into a separately listed company is a first-seen, major structural event; materiality 93 clears the 70-point threshold",
       "thesis_id": "THS-SIG-20260615-71775d0a-v1",
-      "event_types": [],
-      "issuers": []
+      "event_types": [
+        "capital_actions",
+        "mna",
+        "management"
+      ],
+      "issuers": [
+        "Honeywell International Inc.",
+        "Honeywell Aerospace (HONA)",
+        "Honeywell Technologies (HON)"
+      ]
     },
     {
       "signal_id": "SIG-20260613-4bbcdeae",
       "event_id": "EVT-e453d65c1cc5",
-      "headline": "Intel Just Got a Rare Double Upgrade From Bank of America. Here is the AI Shift Behind the Call.",
+      "headline": "Intel Just Got a Rare Double Upgrade From Bank of America. Here's the AI Shift Behind the Call.",
       "headline_en": null,
       "source_name": "The Motley Fool",
       "source_grade": "B",
-      "processed_at": "2026-06-14T00:00:00Z",
+      "processed_at": "2026-06-13T17:39:50.949Z",
       "run_root": "screener/runs/SIG-20260613-4bbcdeae",
-      "materiality_score": null,
+      "materiality_score": 72,
       "novelty_score": 0.85,
-      "pair_label": null,
-      "action": null,
+      "pair_label": "new_event",
+      "action": "keep_separate",
       "status": "provisional",
-      "status_reason": "Edge score 64 in the 60-80 band; confirmed Q2 2026 earnings catalyst dated 2026-07-23; timing mispricing grounded in three verifiable facts; sell-side gross margin gap only partially confirmed from public sources",
+      "status_reason": "Materiality 72 clears the 70-point PROMOTE threshold; new analyst call shifting Intel consensus view with high novelty",
       "thesis_id": "THS-SIG-20260613-4bbcdeae-v1",
-      "event_types": [],
-      "issuers": []
+      "event_types": [
+        "guidance_change",
+        "macro_sector",
+        "product"
+      ],
+      "issuers": [
+        "Intel Corporation"
+      ]
     },
     {
       "signal_id": "SIG-20260612-dd716589",
@@ -23952,20 +24020,48 @@
       "headline_en": null,
       "source_name": "Reuters",
       "source_grade": "A",
-      "processed_at": "2026-06-10T07:05:00Z",
+      "processed_at": "2026-06-10T05:40:00Z",
       "run_root": "screener/runs/SIG-20260610-a3f2c81d",
       "materiality_score": 84,
       "novelty_score": 0.85,
       "pair_label": "new_event",
       "action": "keep_separate",
       "status": "provisional",
-      "status_reason": "Edge score 79 in the 60-80 band",
+      "status_reason": "Materiality 84 >= 70",
       "thesis_id": "THS-SIG-20260610-a3f2c81d-v1",
-      "event_types": [],
-      "issuers": []
+      "event_types": [
+        "macro_sector",
+        "regulatory"
+      ],
+      "issuers": [
+        "Reserve Bank of India (policy authority)"
+      ]
     }
   ],
   "theses": [
+    {
+      "thesis_id": "THS-SIG-20260628-af776402-v1",
+      "signal_id": "SIG-20260628-af776402",
+      "headline": "Gold hotshot Forrestania buys Ramelius's Edna May for $300m",
+      "headline_en": null,
+      "status": "watchlist_no_source",
+      "status_reason": "The AFR source article is paywalled and could not be read; ten targeted searches found no independent on-list corroboration of the A$300m Edna May transaction, so the 60-second source check failed at M0.1.",
+      "routing_reason": "",
+      "next_action": "Hold on watchlist. If an ASX exchange announcement or a second approved-source article confirms the deal, re-run M0.1 with that source.",
+      "edge_score": null,
+      "horizon": "medium_weeks_3months",
+      "falsification_sentence": "Not determined — M0.5 was not run. Pipeline halted at M0.1 watchlist_no_source.",
+      "convergence_trigger": null,
+      "trigger_date_range": null,
+      "locked": false,
+      "run_root": "screener/runs/SIG-20260628-af776402",
+      "candidate_count": 0,
+      "candidates": [],
+      "effective_status": "watchlist_no_source",
+      "override": null,
+      "override_stale": false,
+      "conviction": null
+    },
     {
       "thesis_id": "THS-SIG-20260620-e420a56a-v1",
       "signal_id": "SIG-20260620-e420a56a",
@@ -24559,16 +24655,16 @@
   "handoffs": [],
   "counts": {
     "inbox_unconsumed": 547,
-    "signals_total": 8,
+    "signals_total": 9,
     "parked": 1,
     "logged": 1,
-    "watchlist": 1,
+    "watchlist": 2,
     "provisional": 5,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 35382,
-    "news_picked_today": 160,
-    "news_dropped_today": 740
+    "news_seen_today": 46059,
+    "news_picked_today": 300,
+    "news_dropped_today": 1428
   },
   "book_momentum": {
     "live_count": 6,

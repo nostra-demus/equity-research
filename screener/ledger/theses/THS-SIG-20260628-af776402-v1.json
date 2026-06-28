@@ -1,0 +1,124 @@
+{
+  "meta": {
+    "thesis_id": "THS-SIG-20260628-af776402-v1",
+    "signal_id": "SIG-20260628-af776402",
+    "created_at": "2026-06-28T13:00:00Z",
+    "locked": false,
+    "version": 1,
+    "version_history": [],
+    "status": "watchlist_no_source",
+    "status_reason": "The AFR source article is paywalled and could not be read; ten targeted searches found no independent on-list corroboration of the A$300m Edna May transaction, so the 60-second source check failed at M0.1.",
+    "next_action": "Hold on watchlist. If an ASX exchange announcement or a second approved-source article confirms the deal, re-run M0.1 with that source.",
+    "analyst_id": "nvaz51000@gmail.com",
+    "phase1_completed_at": null,
+    "next_module": null,
+    "raw_input_source": {
+      "input_nature": "news_headline",
+      "input_datetime": "2026-06-28T12:36:49.365Z",
+      "source_name": "Australian Financial Review",
+      "source_url": "https://www.afr.com/street-talk/gold-hotshot-forrestania-buys-ramelius-s-edna-may-for-300m-20260628-p60aq7?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_grade": "A",
+      "human_prompt_note": "",
+      "approved_source_check": true
+    }
+  },
+  "headline": "Gold hotshot Forrestania buys Ramelius's Edna May for $300m",
+  "run_root": "screener/runs/SIG-20260628-af776402",
+  "M0_1": {
+    "event_statement": "The Australian Financial Review reported on 28 June 2026 that Forrestania agreed to acquire the Edna May gold mine from Ramelius Resources for A$300 million. The Edna May mine, located near Westonia in Western Australia, had been on care and maintenance since April 2025 following the end of underground mining operations in May 2024. No additional on-list source has been located to independently confirm the headline facts of this transaction.",
+    "sentence_count": 3,
+    "primary_source": "Australian Financial Review — Gold hotshot Forrestania buys Ramelius's Edna May for $300m, 2026-06-28",
+    "source_url": "https://www.afr.com/street-talk/gold-hotshot-forrestania-buys-ramelius-s-edna-may-for-300m-20260628-p60aq7",
+    "supporting_source_urls": [],
+    "source_grade": "A",
+    "source_grade_rationale": "Australian Financial Review is on the approved sources list as a primary financial newspaper. The article is paywalled; WebFetch returned an access error and the facts could not be confirmed from the source itself.",
+    "causal_language_check": true,
+    "causal_language_review": "Checked: 'acquires' and 'agreed to acquire' retained as observable transactional facts, not causal verbs. No use of: because, due to, driven by, as a result, leading to, signals, suggests, implies, panic, crisis, soaring, plunging, aggressively, inevitably.",
+    "60_second_source_check": false,
+    "60_second_check_note": "WebFetch of the primary AFR URL returned an access error (paywalled). Ten targeted searches — across Yahoo Finance, Australian Mining, Business News, MarketScreener, Stockhead, ASX announcement feeds, TipRanks, Kalkine, and the Ramelius / Forrestania investor-relations pages — found no independent on-list corroboration of the A$300m Edna May transaction as of 2026-06-28. Gate: FAIL → watchlist_no_source.",
+    "filled_by": "agent",
+    "agent_draft_reviewed_by": "screener-thesis-synthesis",
+    "review_completed_at": "2026-06-28T13:00:00Z"
+  },
+  "M0_2": {
+    "world_changes": [],
+    "gate_result": "watchlist_no_world_change",
+    "gate_rationale": "M0.2 was not run. Pipeline halted at M0.1 watchlist_no_source — no verified world changes can be asserted without an on-list source confirming the underlying transaction.",
+    "watchlist_deferred_items": [
+      "Ramelius Resources receives A$300m cash proceeds from Edna May disposal — magnitude and baseline unverifiable without confirmed source.",
+      "Ramelius loses Edna May gold production and related reserves — quantum unverifiable without confirmed source.",
+      "Forrestania acquires an operating-asset mine on care and maintenance — consideration and terms unverifiable without confirmed source."
+    ],
+    "agent_data_sources_checked": [
+      "Australian Financial Review (paywalled, unreadable)",
+      "Yahoo Finance — Ramelius Resources (RMS.AX)",
+      "ASX announcements feed (asx.com.au)",
+      "Ramelius Resources investor relations page (rameliusresources.com.au)",
+      "Forrestania Resources ASX announcement page",
+      "Australian Mining (australianmining.com.au)",
+      "Business News (businessnews.com.au)",
+      "MarketScreener — Ramelius Resources",
+      "Stockhead (stockhead.com.au)",
+      "Kalkine (kalkine.com.au)",
+      "TipRanks — Ramelius Resources",
+      "Investing.com — Ramelius Q3 2026 earnings call transcript (April 2026)"
+    ]
+  },
+  "M0_3": {
+    "direct_beneficiaries": [],
+    "indirect_beneficiaries": [],
+    "harmed_parties": [],
+    "population_gate": {
+      "direct_beneficiaries_populated": false,
+      "indirect_beneficiaries_populated": false,
+      "harmed_parties_populated": false,
+      "at_least_one_populated": true,
+      "both_sides_empty": false,
+      "primary_count": 0,
+      "secondary_count": 0,
+      "parked_count": 0,
+      "carry_forward_count": 0,
+      "zero_carry_forward_action": "return_to_m0_2",
+      "beneficiaries_only_note": "M0.3 was not run. Pipeline halted at M0.1 watchlist_no_source. Impact-map population requires confirmed world changes from M0.2."
+    },
+    "ticker_check": true,
+    "ticker_check_detail": {
+      "performed": true,
+      "violations": [],
+      "repair_action": "No violations found. M0.3 impact map is empty because the module was not run; no ticker-like tokens present."
+    },
+    "agent_contribution": "Not executed — pipeline stopped at M0.1."
+  },
+  "M0_4": {
+    "horizon": "medium_weeks_3months",
+    "horizon_rationale": "Not determined. M0.4 was not run; placeholder horizon recorded for schema compliance only.",
+    "expiry_condition": "Not determined — M0.4 was not run. Pipeline halted at M0.1 watchlist_no_source.",
+    "expiry_condition_is_observable": true,
+    "expiry_condition_is_opinion": false,
+    "monitoring_frequency": "Not determined.",
+    "horizon_expiry_market_signal": "Not determined."
+  },
+  "M0_5": {
+    "falsification_sentence": "Not determined — M0.5 was not run. Pipeline halted at M0.1 watchlist_no_source.",
+    "falsification_condition_type": "not_run",
+    "monitorable_metric_1": "Not determined",
+    "monitorable_metric_2": "Not determined",
+    "monitorable_threshold_rate": "N/A",
+    "monitorable_threshold_rate_unit": "N/A",
+    "monitorable_threshold_date": "N/A",
+    "uncomfortable_check": true,
+    "uncomfortable_check_rationale": "Not evaluated — M0.5 was not run. The uncomfortable_check boolean is set to true here only to satisfy schema structure; it carries no substantive meaning for this record.",
+    "secondary_falsifiers": [],
+    "locked_after_m0_complete": false,
+    "locked_at": null
+  },
+  "sources": [
+    {
+      "url": "https://www.afr.com/street-talk/gold-hotshot-forrestania-buys-ramelius-s-edna-may-for-300m-20260628-p60aq7?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "source_grade": "A",
+      "retrieved_at": "2026-06-28T12:36:49.365Z",
+      "claim_supported": "Forrestania acquires Edna May gold mine from Ramelius Resources for A$300 million [AFR, 2026-06-28] — headline only; article paywalled, facts unverified by WebFetch."
+    }
+  ]
+}
