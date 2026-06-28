@@ -153,6 +153,26 @@ function MorphEdges({ edges, color, opacity, speed, width, morphRef }: { edges: 
 const ATMO_VERT = 'varying vec3 vN; void main(){ vN = normalize(normalMatrix * normal); gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }'
 const ATMO_FRAG = 'uniform vec3 uColor; uniform float uM; varying vec3 vN; void main(){ float i = clamp(pow(0.55 - dot(vN, vec3(0.0,0.0,1.0)), 4.2), 0.0, 1.0); gl_FragColor = vec4(uColor * i, i * 0.55 * uM); }'
 
+// CONTINENTS painted directly on the globe shell: each module sits on its own soft island. For every
+// fragment we take the angle to the nearest module center (unit dirs in uCenters) over its island radius —
+// inside that radius is land, with a feathered, slightly wobbly coastline (a faint warm rim). One shader on
+// the existing shell mesh, so the landmasses hug the surface perfectly and cost no extra geometry.
+const CONT_VERT = 'varying vec3 vDir; void main(){ vDir = normalize(position); gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }'
+const CONT_FRAG = [
+  'uniform vec3 uOcean; uniform vec3 uLand; uniform vec3 uCoast; uniform vec3 uCenters[16]; uniform int uCount; uniform float uRadius;',
+  'varying vec3 vDir;',
+  'void main(){',
+  '  vec3 d = normalize(vDir);',
+  '  float best = 9.0;',
+  '  for (int i = 0; i < 16; i++) { if (i >= uCount) break; float a = acos(clamp(dot(d, uCenters[i]), -1.0, 1.0)); best = min(best, a / uRadius); }',
+  '  best += 0.04 * sin(d.x * 9.0) * cos(d.y * 7.0 + 1.3) * sin(d.z * 8.0);', // organic coastline wobble
+  '  float land = 1.0 - smoothstep(0.9, 1.0, best);', // calm, slightly-lighter land with a soft-but-defined edge
+  '  float coast = smoothstep(0.86, 0.96, best) - smoothstep(0.96, 1.02, best);', // THIN coastline rim only
+  '  vec3 col = mix(uOcean, uLand, land) + uCoast * coast * 0.28;',
+  '  gl_FragColor = vec4(col, 1.0);',
+  '}',
+].join('\n')
+
 export function GlobeScene({
   layout,
   nodeStatus,
@@ -218,6 +238,19 @@ export function GlobeScene({
   const camStart = useRef(new Vector3())
   const fovStart = useRef(SPHERE_FOV)
   const [hoverModule, setHoverModule] = useState<string | null>(null) // hovering a module label lights its flows (parity with the constellation)
+
+  // continent shader uniforms: each module center → a unit dir, padded to 16. Stable across theme changes
+  // (colors are copied into the uniforms in an effect) so the shell material is never recreated.
+  const contUniforms = useMemo(() => {
+    const centers = layout.moduleAnchors.map((a) => new Vector3(a.center.x, a.center.y, a.center.z).normalize())
+    const uCenters = Array.from({ length: 16 }, (_, i) => centers[i] ?? new Vector3())
+    return { uOcean: { value: new Color() }, uLand: { value: new Color() }, uCoast: { value: new Color() }, uCenters: { value: uCenters }, uCount: { value: Math.min(16, centers.length) }, uRadius: { value: GLOBE.ISLAND_RADIUS } }
+  }, [layout.moduleAnchors])
+  useEffect(() => {
+    contUniforms.uOcean.value.copy(colors.bg).lerp(colors.hairline, 0.5)
+    contUniforms.uLand.value.copy(colors.bg).lerp(colors.hairline, 0.95).lerp(colors.accentDeep, 0.12)
+    contUniforms.uCoast.value.copy(colors.accentDeep)
+  }, [colors, contUniforms])
 
   // project a world point to screen px — for the hover tooltip + module-tier popup anchors
   const project = (p: Vector3) => {
@@ -321,8 +354,8 @@ export function GlobeScene({
       {/* sphere shell — only present near the globe state (scales/fades in as it wraps) */}
       <group ref={bodyRef}>
         <mesh ref={shellRef}>
-          <sphereGeometry args={[GLOBE.R * 0.99, 48, 48]} />
-          <meshBasicMaterial color={colors.bg.clone().lerp(colors.hairline, 0.55)} />
+          <sphereGeometry args={[GLOBE.R * 0.99, 96, 96]} />
+          <shaderMaterial vertexShader={CONT_VERT} fragmentShader={CONT_FRAG} uniforms={contUniforms} />
         </mesh>
         <mesh>
           <sphereGeometry args={[GLOBE.R, 32, 20]} />

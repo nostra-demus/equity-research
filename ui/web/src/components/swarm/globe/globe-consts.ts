@@ -13,11 +13,14 @@ export const GLOBE = {
   POLE_BIAS: 0.18, // bias module band into the upper hemisphere, leaving the south cap for the Memo core
   Y_CLAMP_TOP: 0.94,
   Y_CLAMP_BOTTOM: -0.72,
-  LAYER_GAP: 1.12, // tangent-plane ring radius step per layer (pre-projection, world units)
-  ARC_MAX: 1.45, // max arc span (rad) a layer's agents spread across within a module patch
-  ARC_PER_NODE: 0.46,
-  BUMP_SYNTH: 0.75, // synthesis hub pushed out along the surface normal (crowns the patch)
-  BUMP_SURFACE: 0.16, // agents lifted just off the surface so they never z-fight the shell
+  // Each module is a NORTH-ALIGNED COLUMN on the surface (like a constellation column): layers stack along
+  // the meridian toward the pole (gate at the top/north, synthesis at the foot/south), agents in a layer
+  // spread east-west. Tidy and consistent at every longitude — no more arbitrary radial flowers.
+  ROW_GAP: 0.82, // vertical (meridian) gap between layers, world units pre-projection
+  COL_GAP: 0.72, // horizontal (parallel) gap between agents in a layer
+  ISLAND_RADIUS: 0.28, // angular radius (rad) of each module's island/continent on the shell — distinct, not merged
+  BUMP_SYNTH: 0.42, // synthesis orb pushed out a touch prouder along the surface normal
+  BUMP_SURFACE: 0.16, // agents lifted just off the surface so they never z-fight the shell/continents
   CORE_BUMP: 1.7, // Memo node sits this far below the south pole, outside the shell
   R_AGENT: 0.22, // orb radius
   R_SYNTH: 0.4,

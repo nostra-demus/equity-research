@@ -46,11 +46,14 @@ export interface GlobeLayout {
 const WORLD_UP: V3 = { x: 0, y: 1, z: 0 }
 const WORLD_X: V3 = { x: 1, y: 0, z: 0 }
 
-// a tangent-plane basis at a surface point with outward normal n (degenerate near the poles → use X ref)
-function tangentBasis(n: V3): { u: V3; v: V3 } {
-  const ref = Math.abs(dot(n, WORLD_UP)) > 0.94 ? WORLD_X : WORLD_UP
-  const u = normalize(cross(ref, n))
-  const vv = cross(n, u)
+// East/North tangent frame at a surface point with outward normal n: u = east (along the parallel),
+// v = north (up the meridian toward the +Y pole). Laying every module's column along v makes them all read
+// upright and tidy at any longitude — "with respect to true north". Degenerate only at the actual poles.
+function northBasis(n: V3): { u: V3; v: V3 } {
+  const ref = Math.abs(dot(n, WORLD_UP)) > 0.985 ? WORLD_X : WORLD_UP
+  let u = normalize(cross(ref, n))
+  let vv = normalize(cross(n, u))
+  if (dot(vv, WORLD_UP) < 0) { vv = scale(vv, -1); u = scale(u, -1) } // keep "up" pointing to true north
   return { u, v: vv }
 }
 
@@ -117,29 +120,29 @@ export function computeGlobeLayout(graph: SwarmGraph, flat?: FlatOverride): Glob
     const theta = GOLDEN_ANGLE * i
     const center = scale({ x: Math.cos(theta) * rAtY, y, z: Math.sin(theta) * rAtY }, R)
     const normal = normalize(center)
-    const { u: tU, v: tV } = tangentBasis(normal)
+    const { u: tU, v: tV } = northBasis(normal)
 
+    // North-aligned COLUMN (mirrors the constellation): layers stack down the meridian — the first layer
+    // (gate) sits highest/north, the synthesis layer lands at the foot/south (nearest the Memo at the pole);
+    // agents within a layer spread east-west, centered. The tangent-plane grid is then projected onto the
+    // shell so it curves cleanly onto the surface.
     const layerKeys = Object.keys(m.layers).map(Number).sort((a, b) => a - b)
+    const L = layerKeys.length
     let synthKey: string | null = null
     let synthPos: V3 = onSphere(center, R + GLOBE.BUMP_SYNTH)
 
     layerKeys.forEach((lk, li) => {
       const agents = m.layers[String(lk)] || []
-      const ringR = GLOBE.LAYER_GAP * (li + 1)
-      const n = agents.length
-      const span = Math.min(GLOBE.ARC_MAX, n * GLOBE.ARC_PER_NODE)
+      const yOff = ((L - 1) / 2 - li) * GLOBE.ROW_GAP // li=0 (gate) → north/top; last layer (synth) → south/foot
+      const nn = agents.length
       agents.forEach((a: AgentNode, j) => {
         const flatPos = flatPosByKey.get(a.key) || { x: 0, y: 0, z: 0 }
-        if (a.isSynthesis) {
-          synthKey = a.key
-          synthPos = onSphere(center, R + GLOBE.BUMP_SYNTH)
-          nodes.push({ ...a, pos: synthPos, flatPos, r: GLOBE.R_SYNTH })
-          return
-        }
-        const ang = (n === 1 ? 0 : j / (n - 1) - 0.5) * span
-        const local = add(scale(tU, Math.cos(ang) * ringR), scale(tV, Math.sin(ang) * ringR))
-        const pos = onSphere(add(center, local), R + GLOBE.BUMP_SURFACE)
-        nodes.push({ ...a, pos, flatPos, r: GLOBE.R_AGENT })
+        const xOff = (nn === 1 ? 0 : j - (nn - 1) / 2) * GLOBE.COL_GAP
+        const local = add(scale(tU, xOff), scale(tV, yOff))
+        const bump = a.isSynthesis ? GLOBE.BUMP_SYNTH : GLOBE.BUMP_SURFACE
+        const pos = onSphere(add(center, local), R + bump)
+        if (a.isSynthesis) { synthKey = a.key; synthPos = pos }
+        nodes.push({ ...a, pos, flatPos, r: a.isSynthesis ? GLOBE.R_SYNTH : GLOBE.R_AGENT })
       })
     })
 
