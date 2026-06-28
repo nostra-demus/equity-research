@@ -1,6 +1,6 @@
 import { staticPromptPath } from './prompts'
 import { DEFAULT_RANK_WEIGHTS, type RankWeights, type RankWeightsState } from './rankWeights'
-import type { ActivityQuery, ActivityResult, CallsResult, CoverageGroup, DataStatus, EventEnrichment, FeedItem, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ScreenerBoard, SignalIntakeInput, SourcesReport, SwarmGraph, SwarmMeta, TickerSummary, UploadResult, Usage, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, CallsResult, ChatRequest, ChatScopes, CoverageGroup, DataStatus, EventEnrichment, FeedItem, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ScreenerBoard, SignalIntakeInput, SourcesReport, SwarmGraph, SwarmMeta, TickerSummary, UploadResult, Usage, Whoami } from './types'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -329,6 +329,70 @@ export const api = {
   },
   runStreamUrl: (runId: string) => `/api/runs/${runId}/stream`,
   dataStreamUrl: () => `/api/data-status/stream`,
+
+  // ---- chat with your data (closed-book Q&A over a run's synthesized output) ----
+  // which scopes are present (chat-able) vs not-yet-run. Static showcase: nothing chat-able (no engine).
+  chatScopes: async (ticker: string): Promise<ChatScopes> => {
+    if ((await ensureMode()) === 'static') return { ticker, runRoot: null, run: { present: false }, modules: [], orbs: [] }
+    return get(`/api/chat/scopes?ticker=${encodeURIComponent(ticker)}`, 8_000)
+  },
+  // POST one chat turn and read the streamed SSE body. Runs use EventSource (GET-only) elsewhere; chat is
+  // a POST, so it needs the fetch + ReadableStream reader. AbortError-silent: the user's own close (signal
+  // abort) is not surfaced as an error. Frames: chat-meta -> chat-token* -> chat-done | chat-error.
+  chatStream: async (
+    body: ChatRequest,
+    cb: {
+      onMeta?: (m: { scopeResolved: string; sourcePath?: string; degraded?: boolean; degradeNote?: string }) => void
+      onToken: (t: string) => void
+      onDone: (d: { costUsd?: number }) => void
+      onError: (msg: string) => void
+      signal: AbortSignal
+    },
+  ): Promise<void> => {
+    if ((await ensureMode()) === 'static') { cb.onError('static-deploy'); return }
+    let res: Response
+    try {
+      res = await fetch('/api/chat', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body), signal: cb.signal })
+    } catch (e: any) {
+      if (e?.name !== 'AbortError') cb.onError(e?.message || 'network error')
+      return
+    }
+    if (!res.ok || !res.body) {
+      let msg = `${res.status}`
+      try { const j = await res.json(); msg = (j as any)?.hint || (j as any)?.error || msg } catch {}
+      cb.onError(msg)
+      return
+    }
+    const reader = res.body.getReader()
+    const decoder = new TextDecoder()
+    let buf = ''
+    try {
+      for (;;) {
+        const { value, done } = await reader.read()
+        if (done) break
+        buf += decoder.decode(value, { stream: true })
+        const frames = buf.split('\n\n')
+        buf = frames.pop() ?? '' // keep the trailing partial frame
+        for (const frame of frames) {
+          let ev = 'message'
+          let data = ''
+          for (const line of frame.split('\n')) {
+            if (line.startsWith('event:')) ev = line.slice(6).trim()
+            else if (line.startsWith('data:')) data += line.slice(5).trim()
+          }
+          if (!data) continue
+          let parsed: any
+          try { parsed = JSON.parse(data) } catch { continue }
+          if (ev === 'chat-meta') cb.onMeta?.(parsed)
+          else if (ev === 'chat-token') cb.onToken(parsed.content ?? '')
+          else if (ev === 'chat-done') { cb.onDone(parsed); return }
+          else if (ev === 'chat-error') { cb.onError(parsed.message || 'chat failed'); return }
+        }
+      }
+    } catch (e: any) {
+      if (e?.name !== 'AbortError') cb.onError(e?.message || 'stream interrupted')
+    }
+  },
 
   // who is signed in (Cloudflare Access email) — live only
   whoami: async (): Promise<Whoami> => {

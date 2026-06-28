@@ -26,6 +26,7 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
   const launchRerun = useStore((s) => s.launchRerun)
   const launchAgent = useStore((s) => s.launchAgent)
   const launchModule = useStore((s) => s.launchModule)
+  const openChat = useStore((s) => s.openChat)
   const setToast = useStore((s) => s.setToast)
   const [md, setMd] = useState<string>('')
   const [loading, setLoading] = useState(false)
@@ -179,6 +180,21 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
     return <button className="btn btn--amber" style={{ height: 30 }} disabled={busy} onClick={() => launchRerun(rerunTarget)} title="Re-run this orb and everything downstream of it, to the Memo">Re-run ↻</button>
   }
 
+  // Chat about THIS output — opens the side panel pre-scoped to the open orb / module / run, answered
+  // only from what the engine already wrote. Research-only (the chat feature covers the research swarm);
+  // never shown for a pending (not-yet-run) output, since there's nothing to chat with.
+  function chatButton() {
+    if (activeSwarm !== 'research' || output.pending) return null
+    const onClick = () => {
+      if (isMaster) return openChat('run')
+      if (agentNode?.isSynthesis) return openChat('module', { module: agentNode.module })
+      if (output.nodeKey && /\/99_.*-synthesis$/.test(output.nodeKey)) return openChat('module', { module: moduleOfNodeKey(output.nodeKey) || undefined })
+      if (agentNode) return openChat('orb', { module: agentNode.module, orbPath: output.path, orbKey: agentNode.key, title: `Ask · ${output.title}` })
+      return openChat('run')
+    }
+    return <button className="btn" style={{ height: 30 }} onClick={onClick} title="Ask questions about this output — answered only from what the engine wrote">Chat ▸</button>
+  }
+
   // the Prompt control — view/download the exact instructions this orb + its module run on, so anyone
   // can read them and send back a sharper version. Sits right of the run control, left of Download.
   function promptButton() {
@@ -284,6 +300,7 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
         </div>
         <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexShrink: 0 }}>
           {runButton()}
+          {chatButton()}
           {promptButton()}
           {!output.pending && (
             <div style={{ position: 'relative' }}>

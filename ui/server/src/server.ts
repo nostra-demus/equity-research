@@ -13,7 +13,7 @@ import { z } from 'zod'
 import { readActivity } from './activity-log'
 import { recordDataChange } from './data-activity'
 import { buildReportHtml, parseMeta, safeName } from './export'
-import { ARTICLE_READ_PROVIDERS, DATA_DIR, GDRIVE, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, WEB_DIST, isReservedDataFolder } from './config'
+import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, GDRIVE, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, WEB_DIST, isReservedDataFolder } from './config'
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
 import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED } from './drive'
@@ -32,6 +32,8 @@ import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
 import { agentNamesForModule, buildSwarmGraph, graphForSubject, graphForTicker, listModuleNames } from './roster'
 import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, resolveRunRoot, runManifest } from './outputs'
+import { assembleContext, buildChatPrompts, scopeAvailability } from './chat-context'
+import { chatTurnsInFlight, runChatTurn } from './chat-llm'
 import { dataPoolPresent, readCandidates, readConviction, readConvictionCalibration, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest, screenerSubjectLabels } from './screener'
 import { listSwarms } from './swarms'
 import { getNewsStatus, startNewsIngester } from './news/scheduler'
@@ -580,6 +582,74 @@ app.get('/api/output/run', async (req, reply) => {
     return runManifest(runRoot)
   } catch (e: any) {
     return reply.code(400).send({ error: 'cannot read run', detail: String(e?.message || e) })
+  }
+})
+
+// ---------- chat with your data (closed-book Q&A over a run's synthesized output) ----------
+// Which scopes are present (chat-able) vs not-yet-run, so the panel can disable + annotate "run first".
+app.get('/api/chat/scopes', async (req, reply) => {
+  const ticker = (req.query as any)?.ticker as string
+  if (!ticker || !TICKER_RE.test(ticker)) return reply.code(400).send({ error: 'ticker required' })
+  try {
+    return scopeAvailability(ticker, resolveRunRoot({ ticker }))
+  } catch (e: any) {
+    return reply.code(400).send({ error: 'cannot read scopes', detail: String(e?.message || e) })
+  }
+})
+
+// One chat turn. Stateless: the client resends the whole conversation each turn (ephemeral by design).
+// Streams Server-Sent-Events in the POST response body: chat-meta (what we're answering from), then
+// chat-token per delta, then a terminal chat-done {costUsd} or chat-error {message}.
+const ChatBody = z.object({
+  ticker: z.string().regex(TICKER_RE).optional(),
+  runRoot: z.string().max(300).optional(),
+  scope: z.enum(['run', 'module', 'orb']),
+  module: z.string().regex(MODULE_RE).optional(),
+  orbPath: z.string().max(300).optional(),
+  model: z.string().max(60).optional(),
+  messages: z.array(z.object({ role: z.enum(['user', 'assistant']), content: z.string().max(20000) })).min(1).max(40),
+})
+app.post('/api/chat', async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
+  const parsed = ChatBody.safeParse(req.body)
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid chat request', detail: parsed.error.issues?.[0]?.message })
+  const { scope, module, orbPath, messages } = parsed.data
+  const model = CHAT.allowedModels.includes(parsed.data.model || '') ? parsed.data.model! : CHAT.defaultModel
+
+  const last = messages[messages.length - 1]
+  if (last.role !== 'user' || !last.content.trim()) return reply.code(400).send({ error: 'the last message must be a non-empty user question' })
+  if (chatTurnsInFlight() >= CHAT.maxConcurrent) return reply.code(429).send({ error: 'chat is busy — try again in a moment' })
+
+  // Resolve the run root and confine reads to it (orbPath is re-validated against the manifest inside
+  // assembleContext, so a request-supplied path can never read outside this run).
+  const runRoot = resolveRunRoot({ runRoot: parsed.data.runRoot, ticker: parsed.data.ticker })
+  if (!runRoot) return reply.code(404).send({ error: 'no run found for this company yet — run the engine first' })
+  const subject = parsed.data.ticker || runRoot.replace(/^analyses\//, '').replace(/_\d{4}-\d{2}-\d{2}$/, '')
+
+  let assembled
+  try {
+    assembled = assembleContext({ scope, runRoot, module, orbPath })
+  } catch (e: any) {
+    return reply.code(400).send({ error: 'cannot assemble context', detail: String(e?.message || e) })
+  }
+  if (!assembled.present) return reply.code(409).send({ error: 'not_run', hint: assembled.missingHint })
+
+  // Hijack into an SSE stream for the answer.
+  const { res, send, ping } = startSSE(reply)
+  const ac = new AbortController()
+  let closed = false
+  req.raw.on('close', () => { closed = true; clearInterval(ping); ac.abort() })
+  send({ type: 'chat-meta', scopeResolved: assembled.label, sourcePath: assembled.sourcePath, degraded: assembled.degraded, degradeNote: assembled.degradeNote })
+  const { system, user } = buildChatPrompts({ assembled, messages, subject })
+  try {
+    const out = await runChatTurn({ system, user, model, signal: ac.signal, onToken: (t) => send({ type: 'chat-token', content: t }) })
+    if (out.error && out.error !== 'aborted') send({ type: 'chat-error', message: out.error })
+    else if (!out.error) send({ type: 'chat-done', costUsd: out.costUsd, model })
+  } catch (e: any) {
+    if (!closed) send({ type: 'chat-error', message: String(e?.message || e) })
+  } finally {
+    clearInterval(ping)
+    try { res.end() } catch { /* already closed */ }
   }
 })
 

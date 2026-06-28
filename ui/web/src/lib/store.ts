@@ -4,7 +4,7 @@ import { downstreamCascade, type CascadeNode } from './cascade'
 import { displayHeadline, originalHeadline, plainRoute, plainStage } from './plain'
 import type { Theme, ThemeDetail } from './themes'
 import { intensityWindowForHours } from './themes'
-import type { ActiveRunLite, AgentNode, BoardInboxRow, BookFilterState, BookSort, ConvictionDetail, CoverageGroup, DataStatus, EventEnrichment, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
+import type { ActiveRunLite, AgentNode, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ConvictionDetail, CoverageGroup, DataStatus, EventEnrichment, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
 import { emptyBookFilters } from '../components/screener/BookFilters'
 
 // A company the user drilled into from an event (the COMPANIES NAMED chips) — the main stage then
@@ -54,6 +54,9 @@ const RUN_EVENT_TYPES = ['run-started', 'agent-started', 'agent-done', 'agent-fa
 // Live SSE streams for the SELECTED ticker only, keyed by runId. A ticker switch closes them all;
 // background runs keep executing server-side and are rediscovered via /api/runs on return.
 const runSources = new Map<string, EventSource>()
+// in-flight chat turn's aborter (module-level so closeChat / scope-change / ticker-switch can cancel it
+// without threading it through React state). Chat is ephemeral — one conversation at a time.
+let chatAbort: AbortController | null = null
 let dataSource: EventSource | null = null
 let bloomTimer: any = null
 let pollTimer: any = null
@@ -144,6 +147,18 @@ interface State {
   // per-module three tiers (run-root-relative paths), keyed by module folder name. Generic — any module lights up.
   moduleReports: Record<string, { synthesis?: string; memo?: string; dossier?: string }>
   openOutput: { path?: string; title: string; verdict?: string | null; nodeKey?: string; pending?: boolean } | null
+  // ---- chat with your data (closed-book Q&A over a scope's synthesized output) ----
+  chatOpen: boolean
+  chatScope: ChatScope
+  chatModule?: string
+  chatOrbPath?: string
+  chatOrbKey?: string
+  chatTitle: string
+  chatModel: string
+  chatMessages: ChatMessage[]
+  chatStreaming: boolean
+  chatError?: string
+  chatSource?: string // sourcePath from chat-meta — "answering from …"
   activityOpen: boolean
   scoringOpen: boolean
   callsOpen: boolean
@@ -220,6 +235,14 @@ interface State {
   openReport: (tier: 'memo' | 'thesis' | 'dossier') => Promise<void>
   openModuleReport: (module: string, tier: 'synthesis' | 'memo' | 'dossier') => void
   closeOutput: () => void
+  // ---- chat with your data ----
+  chatScopesAvailable: () => { run: boolean; modules: { module: string; present: boolean }[]; orbs: { key: string; module: string; path?: string; title: string; present: boolean }[] }
+  openChat: (scope: ChatScope, opts?: { module?: string; orbPath?: string; orbKey?: string; title?: string }) => void
+  closeChat: () => void
+  setChatScope: (scope: ChatScope, opts?: { module?: string; orbPath?: string; orbKey?: string }) => void
+  setChatModel: (m: string) => void
+  sendChatMessage: (text: string) => Promise<void>
+  clearChat: () => void
   openActivity: () => void
   closeActivity: () => void
   openScoring: () => void
@@ -329,6 +352,18 @@ function flatten(graph: SwarmGraph): Map<string, AgentNode> {
   return m
 }
 
+// default header title for the chat panel given a scope + the company
+function defaultChatTitle(scope: ChatScope, ticker: string, opts?: { module?: string; title?: string }): string {
+  if (opts?.title) return opts.title
+  if (scope === 'run') return `Ask · ${ticker} — whole run`
+  if (scope === 'module') return `Ask · ${ticker} — ${(opts?.module || '').replace(/-/g, ' ')}`
+  return `Ask · ${ticker}`
+}
+
+// the chat-panel scope state cleared on every teardown (ticker switch, swarm switch) so a conversation
+// never bleeds across companies. Mirrors how openOutput is nulled alongside it.
+const CHAT_RESET = { chatOpen: false, chatStreaming: false, chatMessages: [] as ChatMessage[], chatError: undefined as string | undefined, chatSource: undefined as string | undefined }
+
 export const useStore = create<State>((set, get) => ({
   connected: true,
   health: 'connecting',
@@ -365,6 +400,17 @@ export const useStore = create<State>((set, get) => ({
   reports: { memo: false, thesis: false, dossier: false },
   moduleReports: {},
   openOutput: null,
+  chatOpen: false,
+  chatScope: 'run',
+  chatModule: undefined,
+  chatOrbPath: undefined,
+  chatOrbKey: undefined,
+  chatTitle: '',
+  chatModel: 'sonnet',
+  chatMessages: [],
+  chatStreaming: false,
+  chatError: undefined,
+  chatSource: undefined,
   activityOpen: false,
   scoringOpen: false,
   callsOpen: false,
@@ -487,7 +533,8 @@ export const useStore = create<State>((set, get) => ({
     const token = ++selectGen
     // keep only still-live runs across tickers (drop finished); the new ticker rebuilds from snapshots
     const activeRuns = Object.fromEntries(Object.entries(get().activeRuns).filter(([, r]) => LIVE_RUN.has(r.status)))
-    set({ selectToken: token, selectedTicker: t, dataStatus: null, dataLoading: true, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], activeRuns, openOutput: null })
+    chatAbort?.abort(); chatAbort = null // a new company → drop any in-flight chat + its thread
+    set({ selectToken: token, selectedTicker: t, dataStatus: null, dataLoading: true, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], activeRuns, openOutput: null, ...CHAT_RESET })
     const graph = await api.swarm(t)
     if (get().selectToken !== token) return // a newer selection superseded this one
     set({ graph, nodesByKey: flatten(graph) })
@@ -823,6 +870,81 @@ export const useStore = create<State>((set, get) => ({
   },
 
   closeOutput: () => set({ openOutput: null, selectedNodeKey: null }),
+
+  // ---- chat with your data ----
+  // which scopes are present (chat-able) vs not-yet-run — derived LIVE from the store, so the picker
+  // updates the instant an orb/module finishes over the run SSE (no extra fetch needed).
+  chatScopesAvailable: () => {
+    const { reports, moduleReports, nodeRuntime, nodesByKey, graph } = get()
+    const anySynth = Object.values(moduleReports).some((r) => !!r?.synthesis)
+    const modules = (graph?.modules ?? []).map((m) => ({ module: m.name, present: !!moduleReports[m.name]?.synthesis }))
+    const orbs = [...nodesByKey.values()].map((n) => {
+      const rt = nodeRuntime[n.key]
+      return { key: n.key, module: n.module, path: rt?.outputPath, title: n.name, present: rt?.status === 'done' && !!rt?.outputPath }
+    })
+    return { run: reports.thesis || anySynth, modules, orbs }
+  },
+  openChat: (scope, opts) => {
+    const t = get().selectedTicker
+    if (!t) { get().setToast({ msg: 'Select a company first', tone: 'info' }); return }
+    // reopening the SAME scope keeps the thread; a different scope target starts fresh
+    const sameScope = get().chatOpen && get().chatScope === scope && get().chatModule === opts?.module && get().chatOrbKey === opts?.orbKey
+    chatAbort?.abort(); chatAbort = null
+    set({
+      chatOpen: true, chatScope: scope,
+      chatModule: opts?.module, chatOrbPath: opts?.orbPath, chatOrbKey: opts?.orbKey,
+      chatTitle: defaultChatTitle(scope, t, opts),
+      chatError: undefined, chatSource: undefined, chatStreaming: false,
+      ...(sameScope ? {} : { chatMessages: [] }),
+    })
+  },
+  closeChat: () => { chatAbort?.abort(); chatAbort = null; set({ chatOpen: false, chatStreaming: false }) },
+  setChatScope: (scope, opts) => {
+    chatAbort?.abort(); chatAbort = null
+    set({
+      chatScope: scope, chatModule: opts?.module, chatOrbPath: opts?.orbPath, chatOrbKey: opts?.orbKey,
+      chatMessages: [], chatStreaming: false, chatError: undefined, chatSource: undefined,
+      chatTitle: defaultChatTitle(scope, get().selectedTicker || '', opts),
+    })
+  },
+  setChatModel: (m) => set({ chatModel: m }),
+  clearChat: () => { chatAbort?.abort(); chatAbort = null; set({ chatMessages: [], chatError: undefined, chatStreaming: false, chatSource: undefined }) },
+  sendChatMessage: async (text) => {
+    const q = text.trim()
+    if (!q || get().chatStreaming) return
+    if (get().staticMode) { set({ chatError: 'static-deploy' }); return }
+    const ticker = get().selectedTicker
+    if (!ticker) return
+    const baseline = get().chatMessages
+    // optimistic: append the user turn + an empty assistant turn we grow token-by-token
+    set({ chatMessages: [...baseline, { role: 'user', content: q }, { role: 'assistant', content: '' }], chatStreaming: true, chatError: undefined, chatSource: undefined })
+    const idx = baseline.length + 1 // index of the assistant turn we mutate
+    chatAbort?.abort()
+    chatAbort = new AbortController()
+    await api.chatStream(
+      {
+        ticker, runRoot: get().runRoot ?? undefined, scope: get().chatScope,
+        module: get().chatModule, orbPath: get().chatOrbPath, model: get().chatModel,
+        messages: [...baseline, { role: 'user', content: q }],
+      },
+      {
+        signal: chatAbort.signal,
+        onMeta: (m) => set({ chatSource: m.sourcePath }),
+        onToken: (tok) => {
+          const msgs = get().chatMessages.slice()
+          if (msgs[idx]?.role === 'assistant') { msgs[idx] = { role: 'assistant', content: msgs[idx].content + tok }; set({ chatMessages: msgs }) }
+        },
+        onDone: () => set({ chatStreaming: false }),
+        onError: (msg) => {
+          // drop the empty assistant bubble if nothing streamed, then surface the error + retry
+          const msgs = get().chatMessages.slice()
+          if (msgs[idx]?.role === 'assistant' && msgs[idx].content === '') msgs.splice(idx, 1)
+          set({ chatMessages: msgs, chatStreaming: false, chatError: msg })
+        },
+      },
+    )
+  },
+
   openActivity: () => set({ activityOpen: true }),
   closeActivity: () => set({ activityOpen: false }),
   openScoring: () => set({ scoringOpen: true }),
@@ -1095,13 +1217,14 @@ export const useStore = create<State>((set, get) => ({
     if (to === from || get().warp) return
     if (!get().swarms.some((s) => s.id === to)) return
     const reduced = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    chatAbort?.abort(); chatAbort = null // chat is research-only — leaving the swarm closes it
     if (reduced) {
-      set({ activeSwarm: to, warp: null, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, scFocusedCompany: null, newsFeedOpen: false })
+      set({ activeSwarm: to, warp: null, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, scFocusedCompany: null, newsFeedOpen: false, ...CHAT_RESET })
       if (to !== 'research') void get().scInit()
       if (opts?.landTicker) void get().selectTicker(opts.landTicker)
       return
     }
-    set({ warp: { from, to, payloadTicker: opts?.payloadTicker, landTicker: opts?.landTicker, phase: 'collapse' }, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, scFocusedCompany: null, newsFeedOpen: false })
+    set({ warp: { from, to, payloadTicker: opts?.payloadTicker, landTicker: opts?.landTicker, phase: 'collapse' }, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, scFocusedCompany: null, newsFeedOpen: false, ...CHAT_RESET })
     if (warpTimer) clearTimeout(warpTimer)
     warpTimer = setTimeout(() => get()._advanceWarp(), 420) // collapse -> traverse
   },

@@ -324,6 +324,7 @@ export function CommandBar() {
   const openActivity = useStore((s) => s.openActivity)
   const openScoring = useStore((s) => s.openScoring)
   const openCalls = useStore((s) => s.openCalls)
+  const openChat = useStore((s) => s.openChat)
   const requestFull = useStore((s) => s.requestFull)
   const anyRun = useStore((s) => s.anyRunForTicker(s.selectedTicker))
   const selectedTicker = useStore((s) => s.selectedTicker)
@@ -367,6 +368,9 @@ export function CommandBar() {
           {decision?.final_thesis_path !== undefined || decision?.decision ? (
             <button className="btn btn--ghost" onClick={openThesis}>Thesis</button>
           ) : null}
+          <button className="btn cmdbar__ask" disabled={!selectedTicker} onClick={() => openChat('run')} title={selectedTicker ? 'Ask questions about this run’s output — answered only from what the engine wrote' : 'Select a company first'}>
+            Ask ▸
+          </button>
           <button className="btn btn--amber" disabled={!selectedTicker || anyRun || engineDown} onClick={requestFull} title={staticMode ? 'Runs on your local machine (npm run dev)' : engineDown ? 'Engine offline — live runs are paused until it reconnects' : anyRun ? 'A run is in flight — a full run needs exclusive access' : 'Run the full pipeline'}>
             Run full ▸
           </button>
