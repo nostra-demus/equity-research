@@ -667,10 +667,46 @@ function Sparkline({ series, w = 88, h = 18, interactive = false }: { series: nu
 
 // ---------------- the DEEP-DIVE ----------------
 
+// The plain-English explainer under the title: read these few sentences and you understand the theme.
+// Loading shows a calm 3-line skeleton (never a spinner); once written it reads as a comfortable
+// paragraph. `canRefresh` (a real brief object exists) gates the rewrite affordance, so the bare
+// one-line-description fallback — e.g. the static showcase, where a rewrite would be a no-op — shows no
+// button. An in-place refresh keeps the old text and spins the icon; aria-busy + aria-live announce it.
+function ThemeBriefBlock({ brief, note, loading, refreshing, canRefresh, onRefresh }: { brief: string; note?: string; loading: boolean; refreshing: boolean; canRefresh: boolean; onRefresh: () => void }) {
+  if (loading) {
+    return (
+      <div className="themedd__brief" aria-busy="true" aria-label="Writing a brief on this theme…">
+        <span className="themedd__briefline" />
+        <span className="themedd__briefline" />
+        <span className="themedd__briefline themedd__briefline--short" />
+      </div>
+    )
+  }
+  if (!brief) return null
+  return (
+    <div className="themedd__brief" aria-busy={refreshing}>
+      <p className="themedd__brieftext" aria-live="polite">{brief}</p>
+      {(note || canRefresh) && (
+        <div className="themedd__briefmeta">
+          {note && <span className="themedd__briefnote" title={note}>from headlines</span>}
+          {canRefresh && (
+            <button type="button" className={`themedd__briefrefresh${refreshing ? ' is-on' : ''}`} onClick={onRefresh} disabled={refreshing} aria-busy={refreshing} title="Rewrite this brief from the latest news" aria-label="Rewrite this brief">
+              <span className="themedd__briefrefresh-i" aria-hidden>↻</span>
+            </button>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
+
 function ThemeDeepDive() {
   const detail = useStore((s) => s.themeDetail)
   const loading = useStore((s) => s.themesLoading)
+  const brief = useStore((s) => s.themeBrief)
+  const briefLoading = useStore((s) => s.themeBriefLoading)
   const selectTheme = useStore((s) => s.selectTheme)
+  const regenerateThemeBrief = useStore((s) => s.regenerateThemeBrief)
   const scSelectEvent = useStore((s) => s.scSelectEvent)
   const runEventChecks = useStore((s) => s.runEventChecks)
 
@@ -694,7 +730,9 @@ function ThemeDeepDive() {
         <span className="themedd__flow">{momentumOf(t)}{t.fresh_flow ? ` · +${t.fresh_flow} fresh` : ''} · {t.member_count} items</span>
       </div>
       <h2 className="themedd__name">{t.name}</h2>
-      <p className="themedd__desc">{t.description}</p>
+      {/* the plain-English brief — read these few sentences and you understand the theme; loads in its
+          own slot (a first-time read takes a beat) so the rest of the deep-dive never waits on it. */}
+      <ThemeBriefBlock brief={brief?.brief?.trim() || (briefLoading ? '' : t.description)} note={brief?.generation === 'deterministic' ? brief?.note : undefined} loading={briefLoading && !brief} refreshing={briefLoading} canRefresh={!!brief} onRefresh={regenerateThemeBrief} />
       <div className="themedd__sparkrow"><Sparkline series={t.flow_series} w={220} h={36} interactive /><span className="themedd__scores">freshness {detail.scores.freshness} · breadth {detail.scores.breadth} · staying power {detail.scores.persistence}</span></div>
 
       <div className="themedd__orders">

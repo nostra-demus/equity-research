@@ -24,6 +24,7 @@ import { getIntensity, INTENSITY_WINDOWS, type IntensityWindow } from './news/in
 import { getRankWeights, defaultRankWeights, saveRankWeights, resetRankWeights, rankWeightsCustomised, type RankWeights } from './news/rank-weights'
 import { buildSourcesReport } from './news/source-health'
 import { readThemesIndex, loadTheme, buildThemeDetail } from './news/themes/store'
+import { buildThemeBrief } from './news/themes/brief'
 import { enrichEvent } from './news/enrich'
 import { markInboxConsumed, setDismissed } from './news/inbox-actions'
 import { refreshBoard } from './news/write-inbox'
@@ -820,6 +821,25 @@ app.get('/api/news/themes/:id', async (req, reply) => {
   const theme = loadTheme(REPO_ROOT, id)
   if (!theme) return reply.code(404).send({ error: 'theme not found' })
   return buildThemeDetail(REPO_ROOT, theme)
+})
+// On-demand BRIEF for ONE opened theme — the few-sentence plain-English explainer of what the theme is
+// about and what's happening. Built from the theme's own member headlines by one free Groq pass, cached
+// by content signature, degrading to a deterministic synthesis. Loaded separately from the deep-dive so
+// the members/companies render instantly while the brief streams in. Never throws (always 200).
+app.get('/api/news/themes/:id/brief', async (req, reply) => {
+  const id = String((req.params as any)?.id || '')
+  if (!THEME_RE.test(id)) return reply.code(400).send({ error: 'bad theme id' })
+  const theme = loadTheme(REPO_ROOT, id)
+  if (!theme) return reply.code(404).send({ error: 'theme not found' })
+  const force = String((req.query as any)?.force || '') === '1'
+  try {
+    return await buildThemeBrief(theme, NEWS, STATE_DIR, fetch, { force })
+  } catch (e: any) {
+    // buildThemeBrief never throws; keep the route honest if something upstream does — without leaking
+    // raw internal error text into the user-facing note.
+    req.log?.warn?.({ err: String(e?.message || e), theme: id }, 'theme brief failed')
+    return { theme_id: id, brief: '', generation: 'deterministic', generated_at: new Date().toISOString(), note: 'Couldn’t build a brief just now.' }
+  }
 })
 
 // On-demand enrichment for ONE event the human opened: the real story (approved-domain fetch),

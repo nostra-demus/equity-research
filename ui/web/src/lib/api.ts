@@ -164,6 +164,13 @@ export const api = {
     if ((await ensureMode()) === 'static') return null
     return get(`/api/news/themes/${encodeURIComponent(id)}`)
   },
+  // The opened theme's plain-English brief — a few sentences on what it's about and what's happening.
+  // Generated on the host by one free Groq pass (cached, degrading to a headline synthesis); the static
+  // showcase has no model, so it returns null and the deep-dive falls back to the one-line description.
+  newsThemeBrief: async (id: string, force = false): Promise<import('./themes').ThemeBrief | null> => {
+    if ((await ensureMode()) === 'static') return null
+    return get(`/api/news/themes/${encodeURIComponent(id)}/brief${force ? '?force=1' : ''}`)
+  },
   // On-demand enrichment for ONE opened event: the real story (read from the article body by one free
   // Groq pass), parsed SEC filing items, prior coverage of the named companies, and related events.
   // No CLAUDE spend (the body-read uses the free Groq key, paced + budgeted alongside the scanner).

@@ -59,6 +59,17 @@ export interface ThemeDetail {
   keywords: string[]
 }
 
+// /api/news/themes/:id/brief → the few-sentence plain-English explainer of what the theme is about and
+// what's happening (loaded separately from the deep-dive so members render instantly). Mirrors the
+// server's ThemeBrief (ui/server/src/news/themes/brief.ts).
+export interface ThemeBrief {
+  theme_id: string
+  brief: string
+  generation: 'groq' | 'deterministic'
+  generated_at: string
+  note?: string // present when degraded (built from headlines rather than the model)
+}
+
 // ---- pure visual helpers ----
 
 const clamp = (n: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, n))
