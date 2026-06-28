@@ -1,0 +1,501 @@
+{
+  "meta": {
+    "thesis_id": "THS-SIG-20260628-2c8cfc21-v1",
+    "signal_id": "SIG-20260628-2c8cfc21",
+    "created_at": "2026-06-28T16:00:00Z",
+    "locked": true,
+    "version": 1,
+    "version_history": [],
+    "status": "watchlist_no_edge",
+    "status_reason": "Edge score 53 is below the 60-point threshold for provisional routing. The variant is real in concept but unproven — no second money-lender filing has confirmed the sector-wide ECL mechanism, and the convergence chain lacks institutional actors to transmit price discovery.",
+    "next_action": "Monitor falsifiers: check HKEXnews for 2322.HK FY2026 annual results (by 31 July 2026) and for peer money-lender profit warnings or results citing ECL provisions on property-backed receivables (by 25 August 2026, per M0.5 SF-002). No deep research work is warranted until one peer confirms the sector mechanism.",
+    "analyst_id": "nvaz51000@gmail.com",
+    "phase1_completed_at": "2026-06-28T17:00:00Z",
+    "next_module": null,
+    "raw_input_source": {
+      "input_nature": "exchange_announcement",
+      "input_datetime": "2026-06-28T15:12:09.613Z",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0628/2026062800071.pdf",
+      "source_grade": "A",
+      "human_prompt_note": "",
+      "approved_source_check": true
+    }
+  },
+  "headline": "MODERN INNO DT (02322): PROFIT WARNING",
+  "run_root": "screener/runs/SIG-20260628-2c8cfc21",
+  "M0_1": {
+    "event_statement": "Modern Innovative Digital Technology Company Limited (Stock Code: 2322), a Bermuda-incorporated entity listed in Hong Kong, filed a profit warning announcement on 26 June 2026 under HKEX Listing Rule 13.09. The filing states that the Group's net loss for the year ended 31 March 2026 is expected to be in the range of HK$220 million to HK$260 million, compared with a net loss of approximately HK$88.9 million for the year ended 31 March 2025. The filing states that the increase in net loss is attributable to an increase in provision for expected credit losses on receivables from clients in the Group's trading and money lending businesses, and that those accounts are unaudited and subject to adjustment.",
+    "sentence_count": 3,
+    "primary_source": "HKEXnews (HK Exchange Filing) — Profit Warning announcement, 26 June 2026",
+    "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0628/2026062800071.pdf",
+    "supporting_source_urls": [],
+    "source_grade": "A",
+    "source_grade_rationale": "Official mandatory disclosure filed directly on the Hong Kong Stock Exchange's primary disclosure platform under HKEX Listing Rule 13.09; equivalent to a Tier 2 exchange filing in the §4 source hierarchy.",
+    "causal_language_check": true,
+    "causal_language_review": "Phrases checked and their dispositions: 'attributable to' — retained only as a direct quotation of the filing's own stated language, prefaced by 'The filing states that', removing M0.1 editorial assertion; 'driven by' — absent from the event statement; 'because', 'due to', 'leading to', 'signals', 'suggests', 'implies', 'soaring', 'plunging', 'panic', 'crisis' — all absent. No editorial causal verb added by M0.1. Gate: PASS.",
+    "60_second_source_check": true,
+    "60_second_check_note": "HKEXnews PDF at https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0628/2026062800071.pdf fetched and read in full. Confirmed verbatim: company name 'Modern Innovative Digital Technology Company Limited', Stock Code 2322; net loss range HK$220M–HK$260M for year ended 31 March 2026; prior-year net loss ~HK$88.9M for year ended 31 March 2025; filing under HKEX Listing Rule 13.09; dated 26 June 2026; accounts unaudited and subject to adjustment. All numbers in the event statement appear verbatim in the retrieved document. Retrieved at: 2026-06-28T15:45Z.",
+    "filled_by": "agent",
+    "agent_draft_reviewed_by": "screener-thesis-synthesis",
+    "review_completed_at": "2026-06-28T16:00:00Z"
+  },
+  "M0_2": {
+    "world_changes": [
+      {
+        "id": "WC-001",
+        "change_description": "Group net loss for FY ended 31 March 2026 is disclosed in management accounts as HK$220M–HK$260M (midpoint HK$240M); the preliminary assessment is complete and has been filed as a mandatory HKEX disclosure.",
+        "quantitative_magnitude": "HK$240M midpoint (range: HK$220M–HK$260M)",
+        "baseline_reference": "Net loss of HK$88.9M for FY ended 31 March 2025",
+        "date_confirmed": "2026-06-26",
+        "source": "[HKEXnews Profit Warning, 26 June 2026, full text]",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0628/2026062800071.pdf",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      },
+      {
+        "id": "WC-002",
+        "change_description": "Net loss has widened by approximately HK$131M–HK$171M versus the prior year; the midpoint increase is HK$151M, equal to approximately 170% wider than FY2025.",
+        "quantitative_magnitude": "+170% increase in net loss (range: +148% to +193%)",
+        "baseline_reference": "Net loss HK$88.9M for FY ended 31 March 2025",
+        "date_confirmed": "2026-06-26",
+        "source": "[HKEXnews Profit Warning, 26 June 2026, full text — derived from the two stated figures]",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0628/2026062800071.pdf",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      },
+      {
+        "id": "WC-003",
+        "change_description": "Management has recognised full expected credit loss (ECL) provisions on receivables from a subset of trading and money lending clients — described in the filing as 'provided for full expected credit losses for such clients' — a write-down recorded in the unaudited management accounts as of 31 March 2026. The quantum drives the HK$131M–HK$171M loss increment above baseline.",
+        "quantitative_magnitude": "Full provisioning on identified client receivables; ECL increment drives HK$131M–HK$171M above prior-year loss (exact ECL line-item not separately disclosed in profit warning)",
+        "baseline_reference": "Prior year: ECL provision small enough that net loss was HK$88.9M; FY2026 ECL increment is in the range HK$131M–HK$171M above that level",
+        "date_confirmed": "2026-06-26",
+        "source": "[HKEXnews Profit Warning, 26 June 2026, full text]",
+        "source_url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0628/2026062800071.pdf",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      },
+      {
+        "id": "WC-004",
+        "change_description": "Revenue declined ~49% from FY2024 to FY2025 (most recent audited period), falling from HK$144.95M to HK$73.71M, reflecting the ongoing contraction of the Group's trading and money lending business prior to the FY2026 loss spike.",
+        "quantitative_magnitude": "-49% revenue decline; HK$71.24M absolute drop",
+        "baseline_reference": "HK$144.95M for FY ended 31 March 2024",
+        "date_confirmed": "2026",
+        "source": "[Modern Innovative Digital Technology FY2025 Annual Results, year ended 31 March 2025 — per secondary reporting of audited results: Web: TipRanks / Minichart summaries of HKEX filing, dated 2026 (unverified, labelled)]",
+        "source_url": "",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      }
+    ],
+    "gate_result": "pass",
+    "gate_rationale": "Four world changes confirmed with numbers, baselines, and dates — two directly from the primary HKEX filing (net loss range and percentage increase), one inferred from the same filing (ECL provisioning has occurred and drives the quantified loss increment), and one from secondary reporting of audited prior-year data (revenue decline). WC-001/002/003 are from a Grade A primary source; WC-004 from unverified secondary sources labelled per §5.",
+    "watchlist_deferred_items": [
+      "Final audited net loss for FY2026 — management accounts are under audit and may be subject to adjustments; the audited figure is not yet determined.",
+      "Exact ECL provision line-item for FY2026 — the profit warning does not disclose the specific ECL amount separately; the audited breakdown will appear in the FY2026 annual results.",
+      "Stock price movement following the profit warning — no confirmed pre/post price with a specific dated baseline was retrievable from an on-list source.",
+      "Impact on the money lending loan book recovery rate — whether recoveries are ultimately made is future-state and not yet quantified.",
+      "Any dividend decision for FY2026 — board meeting to approve final results was scheduled for 29 June 2026; outcome not yet known."
+    ],
+    "agent_data_sources_checked": [
+      "HKEXnews Profit Warning PDF (www1.hkexnews.hk/listedco/listconews/sehk/2026/0628/2026062800071.pdf) — Grade A",
+      "HKEXnews FY2025 annual results PDF (hkexnews.hk, 2025/0620/2025062001312.pdf) — matched different company (Nameson, 1982)",
+      "HKEXnews FY2025 annual results PDF (hkexnews.hk, 2026/0327/2026032701220.pdf) — matched different company (Haitong Unitrust)",
+      "Minichart.com.sg — 2025 annual report summary (partial: impairment detail only)",
+      "Web search: TipRanks / Minichart — FY2025 financial results summaries (secondary, unverified)",
+      "Yahoo Finance — HTTP 503",
+      "StockEvents 2322.HK — approximate recent price HK$0.09, no dated announcement-day history",
+      "Stockopedia HKG:2322 — chart locked behind account",
+      "Simply Wall St — January 2026 article; stock down ~84% over prior year as of early Jan 2026",
+      "Minichart.com.sg — board meeting announcement June 2026 (board meeting 29 June 2026 to approve FY2026 results)"
+    ]
+  },
+  "M0_3": {
+    "direct_beneficiaries": [
+      {
+        "id": "DIR-001",
+        "industry_category": "Audit & Accounting Services — Forensic and Provision-Review Engagements",
+        "gics_classification": "Industrials / Professional Services; GICS 2020",
+        "mechanism": "WC-001, WC-003: The profit warning explicitly states the accounts are unaudited and under active audit. A full ECL provision review on a trading and money lending receivables book requires substantive auditor work to validate provision adequacy, assess collateral values, and verify recoverability assumptions. Audit firms engaged in the HK financial-services sector benefit directly from the increased scope of provision-validation work. The absolute dollar size of this engagement is very small.",
+        "scoring": {
+          "mechanism_directness_score": 20,
+          "magnitude_score": 5,
+          "speed_score": 25,
+          "reversibility_score": 20,
+          "composite_score": 70,
+          "tier": "secondary",
+          "carry_forward": true,
+          "scoring_notes": "Directness 20 — one-step: filing explicitly flags active audit work on the provision, making audit demand a direct consequence. Speed 25 — the audit is in progress now. Magnitude 5 — one small firm's audit engagement; negligible revenue impact on the audit sector overall. Reversibility 20 — once the audit scope expands, it does not shrink back within the engagement."
+        }
+      }
+    ],
+    "indirect_beneficiaries": [
+      {
+        "id": "IND-001",
+        "industry_category": "Distressed Debt Advisory & Restructuring Services",
+        "gics_classification": "Financials / Capital Markets / Investment Banking & Brokerage; GICS 4020",
+        "two_step_mechanism": "WC-001, WC-002, WC-003: A lender disclosing full ECL provisions on a client book, with accounts under audit and final results pending, creates demand for restructuring advisors, insolvency practitioners, and distressed-asset recovery specialists. Two-step: (1) lender records full provisions → (2) affected borrowers/collateral require workout, recovery negotiation, and restructuring counsel. Immediate demand is modest given the small absolute size of the firm.",
+        "scoring": {
+          "mechanism_directness_score": 15,
+          "magnitude_score": 5,
+          "speed_score": 15,
+          "reversibility_score": 15,
+          "composite_score": 50,
+          "tier": "parked",
+          "carry_forward": false,
+          "scoring_notes": "Directness 15 — two-step mechanism. Magnitude 5 — the absolute scale of this firm's impaired book is too small to move advisory revenues at any material level. Speed 15 — restructuring mandates follow provision recognition but take months to materialise. Reversibility 15 — restructuring demand persists until workout concludes. Composite 50 — parked: real mechanism, too small to carry forward."
+        }
+      }
+    ],
+    "harmed_parties": [
+      {
+        "id": "HARM-001",
+        "industry_category": "Consumer Finance — Non-Bank Money Lenders",
+        "gics_classification": "Financials / Diversified Financials / Consumer Finance; GICS 4020",
+        "mechanism": "WC-001, WC-002, WC-003: The firm, a licensed money lender, has recorded full ECL provisions on client receivables; the net loss has widened ~170% to a midpoint of HK$240M. The disclosed mechanism — clients unable to refinance, collateral property values falling — signals active credit deterioration inside this business model. Peer firms operating money lending books with similar collateral (property-backed receivables from trading and retail clients in Hong Kong) face the same deterioration in collateral quality, the same borrower stress, and an elevated probability of provisions on their own books.",
+        "scoring": {
+          "mechanism_directness_score": 20,
+          "magnitude_score": 15,
+          "speed_score": 20,
+          "reversibility_score": 20,
+          "composite_score": 75,
+          "tier": "primary",
+          "carry_forward": true,
+          "scoring_notes": "Directness 20 — direct one-step hit to the industry: a firm inside the industry has reported full ECL provisions and disclosed the mechanism. Not 25 because the connection to industry-wide impairment requires one inference step (peer firms have similar books). Magnitude 15 — HK$240M midpoint is material relative to the firm's own scale but small relative to the total Hong Kong consumer finance market. Speed 20 — provisions already recorded; re-rating of credit quality for money lending peers happens within weeks of a filed profit warning at this severity. Reversibility 20 — property value declines and borrower refinancing stress do not reverse quickly; the ECL cycle in Hong Kong property-backed lending has been multi-quarter to multi-year historically."
+        }
+      },
+      {
+        "id": "HARM-002",
+        "industry_category": "Real Estate — Hong Kong Residential & Commercial Property",
+        "gics_classification": "Real Estate / Real Estate Management & Development; GICS 6010",
+        "mechanism": "WC-003: The profit warning directly states that property values are declining and borrowers in the trading/money lending book cannot obtain re-financing. Declining property collateral values harm the real estate sector by signalling price weakness and tightening refinancing access for property owners — the same mechanism that caused the provisions now feeds back into property demand and pricing.",
+        "scoring": {
+          "mechanism_directness_score": 15,
+          "magnitude_score": 15,
+          "speed_score": 15,
+          "reversibility_score": 15,
+          "composite_score": 60,
+          "tier": "secondary",
+          "carry_forward": true,
+          "scoring_notes": "Directness 15 — two-step: lender discloses declining property collateral → market reads this as a property price weakness signal. Magnitude 15 — one small lender's provisions are a data point, not a market-moving quantum for the HK real estate sector overall. Speed 15 — re-rating of property sector sentiment from a single lender profit warning lags. Reversibility 15 — if the underlying property cycle turns, the harm partially reverses, but the near-term credit tightening effect is real and not quickly undone."
+        }
+      }
+    ],
+    "population_gate": {
+      "direct_beneficiaries_populated": true,
+      "indirect_beneficiaries_populated": true,
+      "harmed_parties_populated": true,
+      "at_least_one_populated": true,
+      "both_sides_empty": false,
+      "primary_count": 1,
+      "secondary_count": 2,
+      "parked_count": 1,
+      "carry_forward_count": 3,
+      "zero_carry_forward_action": "proceed",
+      "beneficiaries_only_note": "N/A",
+      "harmed_only_note": "N/A"
+    },
+    "pair_trade_notes": "HARM-001 vs HARM-002: both are on the harmed side of the same mechanism (property collateral decline → lender provisions) — they move in the same direction, not a long-short pair. HARM-001 vs broader HK financial sector: a pair between Hong Kong money lending/consumer finance (short) and geographies with lower property-credit linkage (long) is implied by the mechanism but is unsupported by the confirmed world changes alone — flagged speculative, not carried forward. No industry-vs-industry long-short pair is cleanly supported by the confirmed world changes.",
+    "ticker_check": true,
+    "ticker_check_detail": {
+      "performed": true,
+      "violations": [],
+      "repair_action": "No violations found. Draft checked for $-prefixed cashtags, exchange-prefixed symbols (NSE:, BSE:, NYSE:, NASDAQ:, LSE:, HKEX:), bare exchange-suffixed symbols (.NS, .BO, .HK), and well-known company names as investment candidates. The company name 'Modern Innovative Digital Technology Company Limited' appears only in the context of identifying the event source issuer, not as a candidate."
+    }
+  },
+  "M0_4": {
+    "horizon": "short_days_weeks",
+    "horizon_rationale": "The three confirmed world changes (HK$220M–HK$260M net loss in unaudited management accounts, ~170% loss widening, full ECL provisioning on money lending receivables) all turn on a single upcoming event: the release of the FY2026 audited or preliminary annual results. The board meeting to approve those results was scheduled for 29 June 2026 — one day after this run — meaning the audited figures will be filed on HKEXnews within days to a few weeks at most. HKEX listing rules require preliminary results within three months of the financial year-end (31 March 2026). The provisioning mechanism is already recorded in management accounts; audit confirmation or revision completes the transmission, which is a short-cycle accounting event.",
+    "expiry_condition": "The FY2026 preliminary annual results announcement or full annual report is published by Modern Innovative Digital Technology Company (Stock Code: 2322) on HKEXnews — confirming, revising, or expanding the unaudited HK$220M–HK$260M net loss range and disclosing the exact ECL provision line item for FY ended 31 March 2026. Checkable at: HKEXnews filing search https://www1.hkexnews.hk/listedco/listconews/advancedsearch/search_active_main.aspx, Stock Code 2322, document type 'Annual Results / Preliminary Results Announcement'.",
+    "expiry_condition_is_observable": true,
+    "expiry_condition_is_opinion": false,
+    "monitoring_frequency": "Daily — check HKEXnews filings page for Stock Code 2322 each morning until the annual results announcement appears.",
+    "horizon_expiry_market_signal": "The bid-ask spread on 2322.HK normalises and daily trading volume reverts toward its 30-day average after the results are filed — an unusually wide spread or elevated volume relative to the thinly-traded baseline indicates the market is still pricing in unresolved uncertainty; compression of spread and volume back to pre-announcement levels is the market-side confirmation that the event has resolved."
+  },
+  "M0_5": {
+    "falsification_sentence": "The FY2026 audited net loss for Stock Code 2322 is confirmed below HK$180M (i.e., the management-account ECL provision is reversed or materially reduced at audit), AND the Centaline City Leading Index for Hong Kong residential property prints above 155 (recovering above the level at which the filing's stated collateral-decline mechanism would still apply), together signalling that the ECL write-down was idiosyncratic and the property-collateral stress mechanism does not apply to the broader Hong Kong non-bank money lending sector.",
+    "falsification_condition_type": "magnitude_decay",
+    "monitorable_metric_1": "HKEXnews Annual Results / Preliminary Results Announcement for Stock Code 2322 — confirmed audited net loss figure for FY ended 31 March 2026 (free, filed under HKEX Listing Rule 13.49; searchable at www1.hkexnews.hk stock code 2322, document type 'Annual Results')",
+    "monitorable_metric_2": "Centaline City Leading Index (CCLI) — weekly Hong Kong residential property price index published by Centaline Property Agency at hk.centadata.com; the figure in force on the date the 2322 audited results are filed",
+    "monitorable_threshold_rate": "180 AND 155",
+    "monitorable_threshold_rate_unit": "HK$M for metric 1 (audited net loss below HK$180M); index points for metric 2 (CCLI above 155)",
+    "monitorable_threshold_date": "2026-09-30",
+    "uncomfortable_check": true,
+    "uncomfortable_check_rationale": "The thesis's load-bearing claim — carried in HARM-001 (Consumer Finance / Non-Bank Money Lenders, composite 75, primary tier) — is that the ECL provision mechanism (Hong Kong property collateral declining, borrowers unable to refinance) is real and applies to the sector, not just this one firm. If the audited net loss comes in below HK$180M, the management accounts overstated provisions by at least HK$40M–HK$80M versus the HK$220M–HK$260M range — a material reversal removing the quantitative basis for WC-001, WC-002, and WC-003. If the CCLI simultaneously recovers above 155, the specific collateral-decline mechanism stated verbatim in the filing no longer holds as an ongoing sector stress. Together, these two conditions mean the original ECL write-down was a one-firm accounting event, not a signal of broader industry credit deterioration. The falsifier is genuinely uncomfortable because the unaudited management accounts are explicitly flagged as preliminary and subject to revision, and HK property sentiment has been subject to policy-driven swings. Both risks are live.",
+    "secondary_falsifiers": [
+      {
+        "id": "SF-001",
+        "description": "Hong Kong Monetary Authority (HKMA) or government announces a property market support measure (e.g., further stamp duty cuts, relaxation of LTV caps on mortgage lending) that materially re-opens refinancing for distressed borrowers — directly reversing the 'clients unable to obtain re-financing' mechanism stated in WC-003. Monitor: HKMA press releases at hkma.gov.hk/eng/news-and-media/press-releases/ and Hong Kong government budget/housing-policy announcements.",
+        "monitorable_metric": "HKMA or Finance Bureau official announcement of LTV relaxation or stamp-duty removal, dated within the horizon",
+        "probability_estimate": 0.20
+      },
+      {
+        "id": "SF-002",
+        "description": "No comparable ECL provision disclosures from other listed Hong Kong non-bank money lenders or consumer finance companies within 60 days of the 2322.HK profit warning — the absence of peer confirmations means the harm mechanism does not generalise to the sector; HARM-001 primary-tier status is unsupported and the thesis collapses to a single-name accounting event. Monitor: HKEXnews filings for Consumer Finance / Diversified Finance segment of HKEX Main Board and GEM, specifically profit warnings and results announcements; also scan the Hong Kong Money Lenders Ordinance licensee list.",
+        "monitorable_metric": "Count of HKEXnews profit warnings or results filings from peer non-bank money lenders citing ECL provisions on property-backed receivables, within 60 days of 26 June 2026 (by 25 August 2026)",
+        "probability_estimate": 0.35
+      },
+      {
+        "id": "SF-003",
+        "description": "The FY2026 preliminary results filed by 2322.HK disclose that the ECL provision was entirely reversed at audit (full recovery of previously provisioned receivables), reducing the audited net loss to within 20% of the FY2025 level (i.e., below HK$107M); this would mean the world change itself is retracted in the company's own audited record. Monitor: HKEXnews Annual Results / Preliminary Results Announcement, Stock Code 2322.",
+        "monitorable_metric": "Audited net loss below HK$107M (within 20% of FY2025's HK$88.9M) as stated in the FY2026 preliminary results filing",
+        "probability_estimate": 0.10
+      }
+    ],
+    "locked_after_m0_complete": true,
+    "locked_at": "2026-06-28T17:00:00Z"
+  },
+  "M0_6_1": {
+    "consensus_view": {
+      "paragraph": "The consensus holds that Hong Kong's non-bank consumer finance and money lending sector has turned a corner. The residential property market — the collateral base underpinning most property-backed money lending books — bottomed in mid-2025 and has risen for nine consecutive months through February 2026, with the Centaline City Leading Index (CCL) reaching approximately 159–160 by late June 2026, up roughly 8% from its trough. Morgan Stanley forecasts a further 10% rise in residential values in 2026; CBRE and JLL both project 5% gains and call the six-year correction over. Against that backdrop, the view is that the 2322.HK profit warning is a single-firm accounting event at an extremely small, illiquid lender — not a read-through to the sector. The sector's best-covered public proxy, AEON Credit Service (Asia) (0900.HK), reported profit attributable to shareholders up 17% to HK$468.2 million for its year ended 28 February 2026, with impairment losses and allowances lower than the prior year, signalling that credit quality is improving, not deteriorating. The HKMA, in its Half-Yearly Monetary and Financial Stability Report (March 2026), characterises CRE credit risk as 'manageable' and notes that provision coverage of banking-sector NPLs stood at 145% as of March 2025. In this reading, a loss widening at an obscure micro-cap lender carrying pre-existing revenue declines of 49% is noise: the sector is in credit-cycle improvement, collateral values are recovering, and the policy environment — with all market-cooling stamp-duty measures removed — is constructive.",
+      "numeric_anchor": "Centaline City Leading Index (CCL) approximately 159–160 as of week ended 21 June 2026, up ~8% from mid-2025 trough [Trading Economics / Futunn News / MacroMicro CCL series, dated 21 June 2026 — Web, unverified]; AEON Credit Service (Asia) FY2026 net profit HK$468.2 million, +17% year-on-year [Globe and Mail / TipRanks, dated 2026 — Web, unverified]",
+      "key_consensus_assumptions": [
+        "The residential property collateral cycle has turned: nine consecutive months of CCL price gains through February 2026 mean the 'declining property collateral' mechanism stated in the 2322.HK filing describes a past condition, not a current or worsening one.",
+        "The 2322.HK profit warning is idiosyncratic to that firm — pre-existing revenue collapse (−49% FY2024→FY2025), pre-existing equity losses (HK$88.9M in FY2025), and a narrow, already-stressed client book — and does not indicate sector-wide credit deterioration in money lending receivables.",
+        "AEON Credit (the main listed sector proxy) is the right read-through: improving credit performance and 17% profit growth in FY2026 show the sector is not experiencing the same ECL pressures disclosed by 2322.HK.",
+        "The HKMA's 'manageable' characterisation of CRE-linked credit risk and the 145% provision coverage ratio in the banking system mean even the commercial property side of collateral risk is contained, let alone the residential side that has already recovered."
+      ]
+    },
+    "contrary_view": {
+      "exists": true,
+      "paragraph": "The HKMA's own Half-Yearly Monetary and Financial Stability Report (March 2026) notes that the classified loan ratio 'continues to face upward pressure, primarily driven by commercial real estate loans,' and that credit risks will remain 'complex' in 2026. Fitch Ratings projected Hong Kong banking-sector NPLs rising to 2.3% by end-2025 (up from 1.96% at end-2024), one of the fastest deteriorations in Asia-Pacific. For the non-bank money lending sub-segment, the ION Analytics / Debtwire distressed-property tracker (2025) documented weaker Hong Kong property developers as forced sellers amid refinancing difficulties. The HKEX itself issued a guidance note in May 2024 flagging 'red flags in questionable loans and lending arrangements,' directly targeting small listed HKEX entities in the consumer finance and money lending space. The contrary view is primarily framed around the banking sector and commercial real estate, not specifically at non-bank money lenders in the consumer/trading receivables space. No named analyst or house was found taking a public negative sector call on HKEX-listed non-bank money lenders as a class in 2025–2026.",
+      "contrary_numeric_anchor": "NPL ratio forecast to rise to 2.0–2.5% for Hong Kong banks over the next two years from 1.96% at end-2024 [Fitch, via secondary reporting, 2025 — Web, unverified]; classified loan ratio at banking sector facing continued upward pressure as of March 2026 [HKMA Half-Yearly Report March 2026 — Web, unverified]",
+      "contrary_view_sources": [
+        "HKMA Half-Yearly Monetary and Financial Stability Report, March 2026 — Web, unverified",
+        "Fitch Ratings HK banking NPL forecast, 2025 — Web, unverified (secondary reporting)",
+        "ION Analytics / Debtwire distressed-property tracker, 2025 — Web, unverified",
+        "Sidley Austin / HKEX guidance note on questionable loans in money lending space, May 2024 — Web, unverified"
+      ]
+    },
+    "consensus_strength": {
+      "unanimity_rating": "moderate",
+      "unanimity_rationale": "The consensus that HK residential property has bottomed and the sector is improving is near-universal among sell-side property researchers (CBRE, JLL, Morgan Stanley all cite price recovery), and AEON Credit's improving credit metrics corroborate it; however, the HKMA's own public language acknowledges 'complex' credit risks and rising classified loans, preventing a 'high' rating. No coverage of the micro-cap money lending sub-sector (firms like 2322.HK) was found at all — the consensus is written about the better-covered proxies, and small, property-backed money lenders with stressed books are essentially outside the analyst universe."
+    },
+    "analyst_rating_distribution": {
+      "buy_count": null,
+      "hold_count": null,
+      "sell_count": null,
+      "total_analysts": null,
+      "buy_pct": null,
+      "source": "Searched MarketScreener, Yahoo Finance, TipRanks, MarketBeat for listed HK non-bank money lender ratings",
+      "as_of": "2026-06-28",
+      "missing_reason": "The sector has no widely-covered dedicated names. 2322.HK has zero analyst coverage found. No aggregate consensus rating data available for the HK non-bank money lending peer group. AEON Credit (0900.HK) has one analyst HOLD at HK$7.50 price target."
+    },
+    "estimate_dispersion": {
+      "current_high_estimate": null,
+      "current_low_estimate": null,
+      "current_spread_abs": null,
+      "current_spread_pct": null,
+      "metric": "NTM EPS — 2322.HK and 0900.HK peer set",
+      "historical_avg_spread_pct": null,
+      "historical_period": "5-year historical norm",
+      "historical_std_dev_pct": null,
+      "spread_vs_history": null,
+      "dispersion_interpretation": "Estimate dispersion cannot be formally assessed for this thesis. The primary harmed industry (HK non-bank money lenders) is almost entirely outside the sell-side's covered universe: the event issuer (2322.HK) has zero analyst coverage, and the only listed sector proxy with any coverage (AEON 0900.HK) has a single-analyst HOLD at HK$7.50. The absence of dispersion data is itself informative: the market has not formed a consensus view on this micro-cap sub-sector in quantitative terms.",
+      "missing_reason": "Searched Yahoo Finance, TipRanks, Stockopedia, MarketBeat, MarketScreener 2026-06-28. Zero analyst estimates for 2322.HK; single-analyst data point for 0900.HK (no spread computable from one estimate). Historical 5-year dispersion not available from any accessible web source."
+    },
+    "entrenchment_note": "The consensus is partially anchored by a structural recovery narrative — nine months of rising property prices, full removal of stamp-duty cooling measures, policy tailwinds from the mainland — that has attracted renewed buy-side interest in HK property-adjacent names. Any reversal of the property recovery story would require significant macro or policy deterioration to dislodge, and the current positive momentum creates inertia. The very small market capitalisation and negligible analyst coverage of the micro-cap money lending sub-sector means there is almost no institutional research infrastructure to surface contra-consensus views in this space.",
+    "strawman_risk_check": true
+  },
+  "M0_6_2": {
+    "estimate_dispersion": {
+      "data": {
+        "event_issuer_2322_analyst_count": 0,
+        "proxy_0900_analyst_count": 1,
+        "proxy_0900_ntm_eps_consensus": "HK$1.30",
+        "proxy_0900_ntm_eps_spread": "0% (single-analyst; no spread computable)"
+      },
+      "interpretation": "The primary harmed industry is essentially invisible to the sell-side. Zero estimates exist for 2322.HK, and only a single-analyst stub covers the sector proxy (0900.HK), making formal dispersion analysis impossible. Absence of coverage is itself a market-implied signal: no institutional analyst is pricing in a sector-level ECL cycle for non-bank Hong Kong money lenders.",
+      "missing_reason": "NTM estimate dispersion (high/low/spread) not available for 2322.HK (zero analyst coverage) or for 0900.HK peer set (single-analyst consensus, no spread computable). Historical spread vs 5-year norm not found. Searched Yahoo Finance, TipRanks, Stockopedia, MarketScreener 2026-06-28."
+    },
+    "estimate_revision_trajectory": {
+      "data": {
+        "proxy_0900_ttm_eps_sep2025": "HK$0.89",
+        "proxy_0900_ttm_eps_mar2026": "HK$1.14",
+        "proxy_0900_ttm_eps_jun2026": "HK$1.11",
+        "proxy_0900_ntm_eps_now": "HK$1.30",
+        "proxy_0900_forward_growth": "+7.6–9.7% per annum"
+      },
+      "interpretation": "The proxy's earnings trajectory has been upward over the past nine months, and the single covering analyst's forward growth forecast is unchanged — no downward revision pressure since the 2322.HK profit warning was filed.",
+      "missing_reason": "Point-in-time NTM estimates for 0900.HK 3 months ago and 1 month ago not available from Yahoo Finance, Stockopedia, Simply Wall St, or Perplexity Finance searched 2026-06-28."
+    },
+    "implied_scenario_from_multiple": {
+      "data": {
+        "event_issuer_2322_price": "HK$0.09",
+        "event_issuer_2322_52w_high": "HK$0.465",
+        "event_issuer_2322_ytd_change": "-78.05%",
+        "event_issuer_2322_market_cap": "HK$370.85M",
+        "proxy_0900_price": "HK$8.38",
+        "proxy_0900_trailing_pe": "6.38x",
+        "proxy_0900_forward_pe": "6.45x",
+        "proxy_0900_pb": "0.78x",
+        "hsi_trailing_pe": "11.3x",
+        "implied_scenario": "Continued-stress / no-improvement scenario: the sector does not re-rate because credit risk (property-backed receivables deterioration) is seen as persistent. 0.78x P/B below book implies return on equity expected to remain below cost of equity for several years."
+      },
+      "interpretation": "At 6.38x forward P/E and 0.78x book, the proxy is pricing a subdued-to-stressed credit environment — well below the HSI average — consistent with the market treating the sector as carrying unresolved property-collateral risk. The market is not pricing an imminent credit-cycle normalisation.",
+      "missing_reason": "P/B for 2322.HK not computable (book value per share not retrievable). Sector normal P/B range for HK consumer finance sub-sector not found. Searched HKEX, GuruFocus, Siblis Research, worldperatio.com 2026-06-28."
+    },
+    "options_implied_move": {
+      "data": {},
+      "interpretation": "No options market pricing exists for either the event issuer or the sector proxy — the market is literally not hedging or speculating through derivatives on this catalyst.",
+      "missing_reason": "2322.HK is a micro-cap not on the HKEX designated securities eligible for short selling / options list. 0900.HK at HK$3.51bn market cap is also not in the HKEX individual stock options universe (~130+ designated names). No OTC implied vol data retrievable. Searched HKEX designated securities page, Yahoo Finance options chains, CBOE Asia, 2026-06-28."
+    },
+    "short_interest_positioning": {
+      "data": {},
+      "interpretation": "Neither the event issuer nor the sector proxy has meaningful short interest or passive/ETF ownership that can be quantified. The absence of a short interest position means there is no covering-of-shorts dynamic that would mechanically buffer a price decline on bad news — and no ETF redemption pressure that would amplify it.",
+      "missing_reason": "2322.HK is not a designated security for regulated short selling (SFC aggregated short position reports do not cover it). 0900.HK short data not found in SFC aggregated short positions, Yahoo Finance, or Stock Events. Neither name is in major ETFs (iShares EWH, MSCI HK Small Cap). Searched SFC sfc.hk, HKEX designated securities list, iShares EWH fact sheet, MSCI HK Small Cap fact sheet, 2026-06-28."
+    },
+    "implied_scenario_interpretation": "Combining Block 3 (the multiple) and Block 1 (estimate absence), the market is pricing a prolonged, low-return stasis for Hong Kong's non-bank consumer finance sector — not an acute crisis, but not recovery either. The sector proxy (0900.HK) trades at 6.38x forward P/E and 0.78x book value: both below the broader HSI multiple (11.3x trailing) and below book, which implies the market expects return on equity to stay below the cost of equity for several years. The Block 1 finding reinforces this: zero analyst coverage of the event issuer and only one-analyst coverage of the proxy means the market has made no active bet in either direction. There is no priced-in 'sector-wide ECL cycle' — the current multiple just embeds a structural no-re-rate view, where HK consumer finance is cheap because it is seen as low-growth, property-correlated, and capital-intensive under a difficult credit environment. Block 4 and Block 5 confirm that no derivatives or institutional short positioning exists to signal any divergent market view. In short: the price discovery process for the primary harmed party in this thesis is nearly non-existent — the market has not priced a sector-wide ECL shock, nor has it explicitly priced one away.",
+    "all_five_fields_present": false,
+    "fields_missing_flagged": [
+      "Block 1 — Estimate Dispersion: NTM estimate dispersion (high/low/spread) not available for 2322.HK (zero analyst coverage) or for 0900.HK peer set (single-analyst consensus, no spread computable). Historical spread vs 5-year norm not found.",
+      "Block 2 — Revision Trajectory: Point-in-time NTM estimate for 0900.HK 3 months ago and 1 month ago not available. Direction read derived from reported TTM EPS series only.",
+      "Block 3 — Implied Scenario: P/B for 2322.HK not computable; sector normal P/B range for HK consumer finance sub-sector not found; sector-specific forward P/E range not available (broader HSI used as reference).",
+      "Block 4 — Options Implied Move: No listed options exist for 2322.HK or proxy 0900.HK. ATM premiums, implied move %, and IV percentile all not applicable.",
+      "Block 5 — Short Interest & Positioning: No short interest data for 2322.HK or 0900.HK from SFC aggregated short positions or any secondary web source. No ETF or passive ownership data for either name."
+    ]
+  },
+  "M0_6_3": {
+    "variant_paragraph": "The consensus treats the Centaline City Leading Index (CCL) recovery to ~159–160 as proof that the property-collateral stress mechanism is over. It is not. The CCL measures whole-market median residential prices; the 2322.HK filing specifically describes borrowers in its trading and money lending book who cannot refinance despite the headline index rising. The stress is concentrated in weaker, lower-quality borrower segments and non-prime collateral — exactly the pool that small licensed HK money lenders hold, and exactly the pool the CCL does not measure. The market is pricing zero additional ECL burden at peer money lenders in FY2026; we think the number is materially above zero.",
+    "consensus_numeric_view": "0% additional ECL burden at HK non-bank money lending peers in FY2026; proxy AEON Credit (0900.HK) forward NTM EPS of HK$1.30, flat year-on-year; forward P/E 6.38x unchanged post-profit-warning [M0.6.1 anchor: CCL ~159–160 and AEON Credit FY2026 net profit +17%; M0.6.2 Block 1–2: single-analyst NTM consensus HK$1.30, no downward revision since profit warning filed]",
+    "our_numeric_view": "~20–30% compression in forward EPS at peer property-backed money lenders if they absorb even a partial ECL impact proportional to 2322.HK [carry-through: WC-003 ECL increment HK$131M–HK$171M above prior-year loss × HARM-001 mechanism; peer firm absorbing 20% of proportional ECL load on comparable book → ~30–40% EPS compression relative to consensus; departure from market's 0% = ~20–30pp]",
+    "numeric_departure_magnitude": "~20–30 percentage points on forward EPS at peer money lenders vs the market's priced 0% [arithmetic: 0% market-implied EPS revision vs ~20–30% EPS compression engine view; range reflects uncertainty of extrapolating single-firm ECL event to sector book without peer filings]",
+    "mechanism_1_missing_from_consensus": "CCL headline recovery masks sub-prime collateral deterioration still ongoing in non-bank money lending books. The CCL is a volume-weighted index of all HK residential transactions across all quality tiers — it does not measure collateral quality for sub-prime, non-mainstream, or trading-account borrowers that small licensed money lenders serve. A headline CCL of 159–160 is consistent with prime-district and new-development prices recovering while weaker collateral remains stressed. The 2322.HK profit warning was filed on 26 June 2026, after nine months of CCL gains, with the stated mechanism still active ('clients unable to obtain re-financing'), proving the CCL did not capture the ongoing stress. No sell-side research found frames this sub-prime / non-bank collateral divergence as a live ECL risk.",
+    "mechanism_2_missing_from_consensus": "AEON Credit is the wrong benchmark for the micro-cap sub-segment. AEON Credit (0900.HK) operates primarily in the personal-credit-card / instalment-finance space, with a broader and better-diversified borrower base than a small licensed money lender whose book is concentrated in trading-account and property-backed loans to a narrow client list. AEON's lower impairment charges in FY2026 describe its own product mix and borrower pool — not the property-backed money lending sub-segment. Using AEON's credit metrics to dismiss a profit warning from a lender with a structurally different book is a product-mix error. The consensus has no alternative sector benchmark: coverage of the small licensed-money-lender sub-segment is zero.",
+    "sell_side_coverage_gap_confirmed": true,
+    "sell_side_gap_evidence": "Four searches across web-accessible research and news on 2026-06-28 returned no published analyst or sell-side research treating property-backed ECL provisioning risk specifically in HKEX-listed micro-cap money lenders as a class. Coverage of the broader HK property-collateral credit risk is entirely concentrated in the banking sector and does not extend to the unlisted or micro-cap listed money lending sub-segment. The M0.6.2 Block 1 finding corroborates this: zero analyst coverage of 2322.HK, single-analyst stub on AEON Credit (0900.HK) with no downward EPS revision since the profit warning was filed. The sub-prime property-collateral divergence mechanism is absent from all search results.",
+    "manifestation_event": "The FY2026 preliminary annual results announcement for Modern Innovative Digital Technology Company Limited (HKEX: 2322) filed on HKEXnews following the board meeting scheduled 29 June 2026. This filing will confirm, revise, or expand the unaudited HK$220M–HK$260M net loss range and disclose the exact ECL provision line item. A secondary manifestation window opens 30–60 days later if peer HK money lenders file their own results or profit warnings citing similar collateral conditions, per M0.5 SF-002 (monitored by 25 August 2026).",
+    "manifestation_time_window": "Primary: 29 June – 31 July 2026 (FY2026 annual/preliminary results filing for 2322.HK; HKEX Listing Rule 13.49 requires preliminary results within three months of financial year-end, i.e. by 30 June 2026). Secondary: 25 August 2026 (60-day window for peer profit warnings or results disclosures from HKEX-listed non-bank money lenders, per M0.5 SF-002). Both windows are consistent with the M0.4 horizon of 'short — days to weeks.'"
+  },
+  "M0_6_4": {
+    "primary_category": "complexity",
+    "primary_category_rationale": "Pricing the variant correctly requires three non-obvious steps that each demand a different domain. Step one: recognise that the CCL measures all HK residential transactions by volume, not the collateral quality of sub-prime, trading-account receivables held by small licensed money lenders — a category distinction invisible to a sell-side analyst running a standard 'HK property recovery' screen. Step two: recognise that AEON Credit (0900.HK), the only listed sector proxy, operates in personal credit cards and instalment finance — a structurally different product mix with a different borrower pool — and therefore its improving credit metrics cannot be read across to property-backed money lending books. Step three: connect a single-firm HK micro-cap profit warning (2322.HK) to a sub-segment-wide ECL mechanism by reading the filing's stated collateral mechanism as a market condition, not a firm-specific event. No part of this chain is difficult in isolation; together, they require cross-domain work — property collateral granularity, product-mix analysis, and sub-sector contagion mapping — that the sell-side never performs for a zero-coverage micro-cap space.",
+    "evidence_verifiable_fact_1": "The primary harmed sub-segment (HKEX-listed micro-cap non-bank money lenders) has zero analyst coverage for the event issuer (2322.HK) and only a single-analyst stub for the only listed proxy (AEON Credit, 0900.HK), with no estimate dispersion computable from a single data point — verify via Stockopedia, Simply Wall St, and TipRanks consensus pages for HKEX: 2322 and HKEX: 0900, searched 2026-06-28.",
+    "evidence_verifiable_fact_2": "The CCL (Centaline City Leading Index) is a volume-weighted index of all HK residential transactions across all quality tiers; it does not separately track collateral values for sub-prime, non-mainstream, or trading-account borrowers. The 2322.HK profit warning was filed on 26 June 2026, after nine months of CCL gains, with the stated mechanism still active ('clients unable to obtain re-financing') — verify via Centaline Group's published CCL methodology (centaline.com.hk) and the 2322.HK profit warning exchange announcement filed on HKEXnews 2026-06-26.",
+    "evidence_verifiable_fact_3": "AEON Credit Service (Asia) (0900.HK), the only listed sector proxy with analyst coverage, derives its business primarily from personal credit cards, instalment lending, and hire-purchase finance — a broader, more diversified borrower base than a small licensed money lender with a concentrated property-backed book. AEON Credit reported impairment losses lower in FY2026 than FY2025 and net profit up 17% to HK$468.2M, yet its product mix makes this an invalid read-through to property-backed money lending credit quality — verify via AEON Credit Service (Asia) FY2026 Annual Results announcement on HKEXnews (0900.HK results announcement, year ended 28 February 2026).",
+    "secondary_categories": [
+      {
+        "category": "behavioral",
+        "rationale": "The nine-month CCL recovery narrative (August 2025 – June 2026) has created an anchoring effect: investors who saw HK property-adjacent names recover have set their 'collateral stress is over' prior based on the index headline and on AEON Credit's improving results. This narrative momentum makes it harder to accept that a sub-prime, non-mainstream segment can still be in stress while the headline index rises. The behavioral bias amplifies the complexity barrier but does not cause it."
+      },
+      {
+        "category": "mandate_constraint",
+        "rationale": "Neither 2322.HK nor 0900.HK is on the HKEX designated securities list eligible for regulated short selling; neither has listed options; neither sits in any major ETF or index. Institutional investors with mandate floors (index membership, minimum market cap, minimum liquidity, short-selling eligibility) literally cannot act on the sub-segment in either direction. This structural exclusion eliminates the arbitrage force that would otherwise compress the gap once the complexity work is done — but it is a barrier to correction, not the cause of the initial mispricing."
+      }
+    ]
+  },
+  "M0_6_5": {
+    "trigger_name": "Modern Innovative Digital Technology (HKEX: 2322) FY2026 Preliminary / Annual Results Announcement filed on HKEXnews",
+    "trigger_date_range": "29 June – 31 July 2026 (board meeting to approve results was 29 June 2026 per the 16 June 2026 board-meeting announcement on HKEXnews, mirrored by Minichart.com.sg 2026-06-17; HKEX Listing Rule 13.49(1) requires publication not later than three months after financial year-end of 31 March 2026, i.e. by 30 June 2026; practical outside limit is mid-July under Rule 13.49(3) if auditors need additional time)",
+    "trigger_type": "scheduled",
+    "probability_if_unscheduled": null,
+    "probability_note": "Scheduled: HKEX Listing Rule 13.49(1) is a mandatory regulatory deadline — the company has no legal option to skip this filing. The board meeting to approve the results was already convened 29 June 2026. Probability of the filing occurring is effectively 1.0; the only variable is the exact date within the window and the final audited number versus the unaudited range.",
+    "causal_mechanism": [
+      "The FY2026 preliminary/annual results filing on HKEXnews confirms (or adjusts) the audited net loss of HK$220M–HK$260M and discloses the exact ECL provision line item against property-backed trading and money lending receivables — the first time the full scale and breakdown of the write-down is on the public record in a company-verified, audited form, rather than as unaudited management accounts.",
+      "The single analyst covering the closest proxy (AEON Credit, 0900.HK), plus any generalist HKEX small-cap / HK financials monitors who track the sub-segment, revise their credit-quality assumptions for the HK non-bank money lending space; the audited ECL figure forces a re-examination of whether the 'CCL recovery = collateral stress over' assumption still holds, as a borrower who cannot refinance nine months into a headline index recovery cannot be explained away as a lagging data artefact.",
+      "Momentum and event-driven funds holding or considering positions in HKEX-listed consumer-finance and money lending names (AEON Credit being the only liquid listed proxy) sell or cut exposure as the audited figure removes ambiguity about both the magnitude of the ECL event and the sector mechanism; short sellers covering the sub-segment increase positions in the one liquid name (0900.HK) where the re-rating can be expressed; passive HKEX small-cap trackers that hold 2322.HK re-weight on the audited results in the next index rebalance.",
+      "AEON Credit (0900.HK) forward NTM EPS estimates — currently priced at flat year-on-year (HK$1.30, the consensus anchor per M0.6.2) — are revised downward by analysts repricing the sub-prime property-collateral ECL risk into their models; the stock's forward P/E multiple de-rates as the no-ECL-risk assumption is no longer defensible; prices move toward the variant's implied ~20–30% EPS compression scenario, closing part of the ~20–30 percentage point gap between market-implied 0% ECL burden and the engine's estimate."
+    ],
+    "secondary_triggers": [
+      {
+        "id": "ST-001",
+        "trigger_name": "A second HKEX-listed non-bank money lender (Main Board or GEM) files a profit warning or results announcement citing ECL provisions on property-backed receivables",
+        "trigger_date_range": "By 25 August 2026 (60-day window from 26 June 2026, per M0.5 SF-002)",
+        "trigger_type": "unscheduled",
+        "probability": 0.35,
+        "mechanism": "A peer disclosure removes the 'single-firm idiosyncratic event' read: two data points from two separate lenders force sector-level ECL risk into analyst models and accelerate capital reallocation from the sub-segment."
+      },
+      {
+        "id": "ST-002",
+        "trigger_name": "Centaline City Leading Index (CCLI) prints below 150 in a weekly release between now and 31 August 2026",
+        "trigger_date_range": "Weekly, by 31 August 2026",
+        "trigger_type": "unscheduled",
+        "probability": 0.20,
+        "mechanism": "A CCLI print below 150 would confirm that sub-prime collateral continues to deteriorate even as the headline has held 159–160, directly corroborating the filing's stated 'declining property values' mechanism and forcing analysts to revisit the collateral-stress assumption for the sector."
+      },
+      {
+        "id": "ST-003",
+        "trigger_name": "HKMA announces easing of LTV caps or removal of remaining stamp-duty restrictions on residential property",
+        "trigger_date_range": "By 31 August 2026 (monitor: hkma.gov.hk press releases)",
+        "trigger_type": "unscheduled",
+        "probability": 0.20,
+        "mechanism": "An HKMA easing measure would partially re-open refinancing for distressed borrowers, narrowing the convergence gap — this is a partial-convergence event in the wrong direction, reducing the variant's force and moving the price back toward consensus rather than toward our view. (Inference, not from filings.)"
+      }
+    ]
+  },
+  "M0_6_6": {
+    "scoring_criteria": {
+      "variant_perception_quality": {
+        "sub_score": 48,
+        "rationale": "The variant identifies a real numeric departure — ~20–30pp EPS compression at peer money lenders vs. the market's priced-in 0% — and evidences two mechanisms missing from consensus (CCL headline masking sub-prime collateral stress; AEON Credit as a product-mix-incorrect benchmark). Four searches confirm a genuine coverage gap: zero sell-side research addresses property-backed ECL risk in HKEX-listed micro-cap money lenders. However, M0.6.3's own verdict labels the variant 'weak': no peer firm has yet filed comparable ECL disclosures, so the departure from a single-firm event to a sector-level claim relies on an inference step the filing alone cannot carry. The scoring rules cap 'no proven variant yet' at ≤30, but the variant here does have a numeric departure and evidenced mechanisms — it clears the decorative threshold. The 48 reflects that the sector-level magnitude is a credible carry-through, not yet a proven observation, and the departure range (20–30pp) is wide enough to be uncertain."
+      },
+      "mispricing_reason_strength": {
+        "sub_score": 62,
+        "rationale": "The primary category (complexity) fits well: three separately stated, independently verifiable facts support it — zero analyst coverage of 2322.HK on Stockopedia/TipRanks (2026-06-28), the CCL's published methodology showing it is a volume-weighted all-tier index not tracking sub-prime collateral (verifiable at centaline.com.hk), and AEON Credit's disclosed business lines in personal credit cards and instalment finance being structurally different from a property-backed trading book (verifiable from AEON's own HKEX annual results). Secondary categories (behavioral anchoring on the CCL recovery narrative; mandate constraints blocking institutional action) add structural depth but do not independently verify. The category fits a structural mispricing — the analytical complexity is enduring, not transient — which scores better than a timing or behavioral mispricing alone. Docked from higher because the mandate constraint and behavioral factors are partly circular (the complexity IS the cause; the mandate bars merely prevent correction), and because none of the three facts is drawn from an audited primary filing directly verifying the ECL quantum at a second firm."
+      },
+      "convergence_trigger_clarity": {
+        "sub_score": 52,
+        "rationale": "The primary trigger is a mandatory HKEX filing (Rule 13.49) with proven timing: board meeting already held 29 June 2026, deadline by 30 June 2026 under Rule 13.49(1). The trigger is scheduled, observable (HKEXnews, stock code 2322), and lands inside the M0.4 'short — days to weeks' horizon. The four-step causal mechanism names specific actors at each step. However, the mechanism breaks down at Steps 3 and 4: the only analyst covering the proxy (one, at AEON Credit) may not revise based on a micro-cap filing they likely don't monitor; no options market exists; short sellers cannot act because the names are not designated short-selling securities; and passive trackers hold the micro-cap at negligible weight. The trigger will fire (the filing will be published) but the chain from filing to price convergence at the proxy is thin given the near-total absence of institutional market participants. Vague causal steps cap this at ≤40 per MODULE_RULES.md; the trigger here has a specific date from a real calendar (not vague), so the cap does not apply — but the mechanism weakness holds the score to 52."
+      }
+    },
+    "blended_calculation": "0.40 × 48 + 0.30 × 62 + 0.30 × 52 = 19.2 + 18.6 + 15.6 = 53.4",
+    "final_score": 53,
+    "analyst_override": false,
+    "override_justification": null,
+    "justification_sentence_1": "The thesis identifies a real and evidenced coverage gap — no analyst has written about property-backed ECL risk in HKEX-listed micro-cap money lenders — but the variant's sector-level claim rests on a single-firm filing, and no peer disclosure has yet confirmed the mechanism, leaving the departure credible but unproven.",
+    "justification_sentence_2": "The convergence trigger fires with certainty (a mandatory scheduled filing), but the chain from that filing to price convergence is structurally thin: one analyst covers the only liquid proxy, no derivatives market exists, and no short-selling mechanism is available — leaving the market impact of the trigger uncertain even if the data confirms the thesis.",
+    "routing_outcome": "watchlist_no_edge",
+    "routing_logic": "Final score 53 is below the 60-point threshold for provisional; routes to watchlist_no_edge.",
+    "routing_reason": "The variant's sector-level claim is inference from a single firm's filing rather than proven across peers, and the convergence mechanism lacks the institutional actors needed to transmit price discovery even if the FY2026 audited results confirm the ECL range."
+  },
+  "sources": [
+    {
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0628/2026062800071.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "source_grade": "A",
+      "retrieved_at": "2026-06-28T15:45:00Z",
+      "claim_supported": "Modern Innovative Digital Technology (HKEX: 2322) profit warning filed 2026-06-26 under HKEX Listing Rule 13.09; net loss expected HK$220M–HK$260M for FY ended 31 March 2026 vs. net loss HK$88.9M for FY ended 31 March 2025; management recognised full ECL provisions on trading and money lending client receivables; accounts unaudited and subject to adjustment; board meeting to approve final FY2026 results scheduled 29 June 2026."
+    },
+    {
+      "url": "",
+      "source_name": "Web: TipRanks / Minichart summaries of HKEX annual results filing (unverified, labelled)",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-28T15:45:00Z",
+      "claim_supported": "Revenue HK$73.71M (FY2025) vs HK$144.95M (FY2024) — secondary reporting of audited FY2025 results; used only for WC-004; labelled unverified per §5."
+    },
+    {
+      "url": "",
+      "source_name": "Web: Trading Economics / Futunn News / MacroMicro CCL series (unverified, labelled)",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-28T16:30:00Z",
+      "claim_supported": "Centaline City Leading Index (CCL) approximately 159–160 as of week ended 21 June 2026, up ~8% from mid-2025 trough — used as numeric anchor for consensus view and for CCL methodology characterisation in M0.6.3 and M0.6.4."
+    },
+    {
+      "url": "",
+      "source_name": "Web: Globe and Mail / TipRanks AEON Credit Service (Asia) FY2026 results summary (unverified, labelled)",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-28T16:30:00Z",
+      "claim_supported": "AEON Credit Service (Asia) (HKEX: 0900) FY2026 net profit HK$468.2 million, +17% year-on-year; impairment losses and allowances lower than prior year — used as consensus anchor and mispricing fact 3 in M0.6.4."
+    },
+    {
+      "url": "",
+      "source_name": "Web: Stockopedia / Simply Wall St for HKEX: 0900 and HKEX: 2322 (unverified, labelled)",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-28T16:30:00Z",
+      "claim_supported": "AEON Credit (0900.HK) trailing P/E 6.38x, P/B 0.78x, NTM EPS consensus HK$1.30, forward growth +7.6–9.7% per annum; price HK$8.38; 2322.HK zero analyst coverage confirmed; 2322.HK price HK$0.09, market cap HK$370.85M, 52w high HK$0.465."
+    },
+    {
+      "url": "",
+      "source_name": "Web: HKMA Half-Yearly Monetary and Financial Stability Report March 2026 (unverified, labelled)",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-28T16:30:00Z",
+      "claim_supported": "HKMA characterises CRE credit risk as 'manageable'; provision coverage of banking-sector NPLs at 145% as of March 2025; classified loan ratio 'continues to face upward pressure, primarily driven by commercial real estate loans'; credit risks will remain 'complex' in 2026 — used in consensus view (M0.6.1) and contrary view (M0.6.1)."
+    },
+    {
+      "url": "",
+      "source_name": "Web: Minichart.com.sg board meeting announcement (unverified, labelled)",
+      "source_grade": "B",
+      "retrieved_at": "2026-06-28T16:30:00Z",
+      "claim_supported": "Board meeting of Modern Innovative Digital Technology (HKEX: 2322) scheduled 29 June 2026 to approve FY2026 final results and dividend recommendation — used to confirm primary trigger timing in M0.6.5."
+    }
+  ]
+}

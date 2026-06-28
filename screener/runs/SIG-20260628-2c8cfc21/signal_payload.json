@@ -1,0 +1,50 @@
+{
+  "signal_id": "SIG-20260628-2c8cfc21",
+  "event_id": "EVT-0c55880b61c5",
+  "processed_at": "2026-06-28T15:30:00Z",
+  "gate0": {
+    "approved_source_check": true,
+    "source_grade": "A",
+    "source_grade_rationale": "HKEXnews is the Hong Kong Stock Exchange's official primary disclosure platform; the filing is a direct exchange announcement under HKEX Listing Rule 13.09, not a secondary aggregator.",
+    "dedup_url_hash": "2026062800071"
+  },
+  "relevance_label": "material",
+  "relevance_confidence": 0.97,
+  "event_types": [
+    "earnings_revenue_margin",
+    "debt_credit",
+    "macro_sector"
+  ],
+  "entities": {
+    "primary_issuers": [
+      "Modern Innovative Digital Technology Company Limited (HKEX: 2322)"
+    ],
+    "secondary_issuers": [],
+    "sector": "Financial services — trading and money lending (Hong Kong-listed, China-exposed)",
+    "geography": "Hong Kong (listed entity); Mainland China (underlying client base and credit exposure)",
+    "commodity": "None"
+  },
+  "issuer_linkage": "primary_issuer",
+  "similarity_score": 0.0,
+  "similar_event_ids": [],
+  "pair_label": "new_event",
+  "fact_delta": 0.0,
+  "fact_delta_fields": [],
+  "confirmation_upgrade": false,
+  "novelty_score": 0.85,
+  "action": "keep_separate",
+  "materiality_score": 77,
+  "materiality_math": "Base 55 (material, official exchange filing, primary issuer, company-specific scope, small HK cap) + novelty 17 (0.85 × 20) − penalties 0 (new_event, no duplicate) + override 5 (official HKEX filing / Grade A primary) = 77/100",
+  "routing": "PROMOTE",
+  "routing_reason": "Materiality 77 clears the 70-point threshold; this is a first-seen official profit warning filed directly on HKEXnews disclosing a 148–193% deterioration in net loss for a primary issuer with no prior ledger entry.",
+  "next_action": "thesis-structure",
+  "sources": [
+    {
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0628/2026062800071.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "source_grade": "A",
+      "retrieved_at": "2026-06-28T15:12:09Z",
+      "claim_supported": "Modern Innovative Digital Technology (HKEX: 2322) profit warning filed 2026-06-26 under HKEX Listing Rule 13.09; net loss expected HK$220M–HK$260M for FY ended 31 March 2026 vs. net loss HK$88.9M for FY ended 31 March 2025; primary cause is increased provisions for expected credit losses driven by China macroeconomic weakness."
+    }
+  ]
+}
