@@ -3,7 +3,7 @@ import { api, ensureMode, isStatic } from './api'
 import type { ArchiveQuery, FeedFacets, SearchCursor } from './api'
 import { downstreamCascade, type CascadeNode } from './cascade'
 import { displayHeadline, originalHeadline, plainRoute, plainStage } from './plain'
-import type { Theme, ThemeDetail } from './themes'
+import type { Theme, ThemeDetail, ThemeBrief } from './themes'
 import { intensityWindowForHours } from './themes'
 import type { ActiveRunLite, AgentNode, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, DataStatus, EventEnrichment, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
 import { emptyBookFilters } from '../components/screener/BookFilters'
@@ -361,6 +361,8 @@ interface State {
   themesHistoryDays: number // days of real daily-flow history the engine has (gates the long windows)
   selectedTheme: string | null // open deep-dive
   themeDetail: ThemeDetail | null // the open theme's resolved members + companies-by-order
+  themeBrief: ThemeBrief | null // the open theme's plain-English explainer (loaded separately, may lag the detail)
+  themeBriefLoading: boolean
   themesStatus: 'idle' | 'loading' | 'ready' | 'error'
   themesLoading: boolean
   openThemes: (view: 'map' | 'board') => Promise<void>
@@ -368,6 +370,7 @@ interface State {
   setThemesView: (view: 'map' | 'board') => void
   setThemesWindow: (hours: number | null) => void
   selectTheme: (id: string | null) => Promise<void>
+  regenerateThemeBrief: () => Promise<void>
   refreshThemes: () => Promise<void>
 }
 
@@ -498,6 +501,8 @@ export const useStore = create<State>((set, get) => ({
   themesHistoryDays: 0,
   selectedTheme: null,
   themeDetail: null,
+  themeBrief: null,
+  themeBriefLoading: false,
   themesStatus: 'idle',
   themesLoading: false,
   globalActive: [],
@@ -1363,15 +1368,32 @@ export const useStore = create<State>((set, get) => ({
     set({ themesWindow: hours })
     void get().setIntensityWindow(intensityWindowForHours(hours)) // one control: the "When" window also drives the map readout + lane mix
   },
-  closeThemes: () => set({ themesView: null, selectedTheme: null, themeDetail: null }),
+  closeThemes: () => set({ themesView: null, selectedTheme: null, themeDetail: null, themeBrief: null, themeBriefLoading: false }),
   selectTheme: async (id) => {
-    if (!id) { set({ selectedTheme: null, themeDetail: null }); return }
-    set({ selectedTheme: id, themeDetail: null, themesLoading: true })
+    if (!id) { set({ selectedTheme: null, themeDetail: null, themeBrief: null, themeBriefLoading: false }); return }
+    set({ selectedTheme: id, themeDetail: null, themeBrief: null, themesLoading: true, themeBriefLoading: true })
+    // members/companies + the plain-English brief load in PARALLEL — the deep-dive renders instantly while
+    // the brief (a first-time Groq read can take a beat) streams into its own slot. Each guards on the
+    // still-open id so a fast click-through never lands a stale result on the new theme.
+    void api.newsTheme(id).then(
+      (detail) => { if (get().selectedTheme === id) set({ themeDetail: detail, themesLoading: false }) },
+      () => { if (get().selectedTheme === id) set({ themesLoading: false }) },
+    )
+    void api.newsThemeBrief(id).then(
+      (brief) => { if (get().selectedTheme === id) set({ themeBrief: brief, themeBriefLoading: false }) },
+      () => { if (get().selectedTheme === id) set({ themeBriefLoading: false }) },
+    )
+  },
+  // force a fresh read of the open theme's brief (the deep-dive "↻" — useful when new news has landed)
+  regenerateThemeBrief: async () => {
+    const id = get().selectedTheme
+    if (!id || get().themeBriefLoading) return
+    set({ themeBriefLoading: true })
     try {
-      const detail = await api.newsTheme(id)
-      if (get().selectedTheme === id) set({ themeDetail: detail, themesLoading: false })
+      const brief = await api.newsThemeBrief(id, true)
+      if (get().selectedTheme === id) set({ themeBrief: brief, themeBriefLoading: false })
     } catch {
-      set({ themesLoading: false })
+      if (get().selectedTheme === id) set({ themeBriefLoading: false })
     }
   },
 
