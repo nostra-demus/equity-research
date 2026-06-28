@@ -109,6 +109,16 @@ await check('representativeMembers: dedups, prefers headline_en, bounds the set'
   assert.ok(rep.some((m) => m.event_id === 'mx'), 'the top-scored item is represented')
 })
 
+// regression: a member kept ONLY as a translated headline_en (raw `headline` empty) must still represent
+// the theme. Earlier the dedup loop skipped on `!m.headline` and dropped it, while signatureHeadlines
+// (which uses headlineOf) still counted it — an inconsistency. Fix: skip on headlineOf(m), which prefers
+// headline_en. (A foreign-language member older than the feed window is kept only as headline_en.)
+await check('representativeMembers: keeps a member that has only a translated headline_en (empty raw headline)', () => {
+  const ms = [member('t1', '', { headline_en: 'Translated-only headline', score: 88 }), member('t2', 'Plain English headline', { score: 40 })]
+  assert.ok(representativeMembers(theme({ members: ms }), 12).some((m) => m.event_id === 't1'), 'translated-only member is represented, not dropped on an empty raw headline')
+  assert.ok(/Translated-only headline/.test(deterministicBrief(theme({ members: ms }))), 'its translated headline surfaces in the deterministic brief')
+})
+
 // ---- never-throws contract on malformed data ----
 await check('buildThemeBrief: never throws on a malformed theme (undefined members)', async () => {
   const dir = tmpState()
@@ -122,6 +132,17 @@ await check('buildThemeBrief: never throws on a member with a missing headline (
   // a member whose headline/headline_en are both empty would throw in headlineOf if unguarded — and
   // signatureHeadlines maps it over EVERY member, ahead of any try/catch
   const bad = [{ event_id: 'b1', headline: undefined as any, found_at: hoursAgo(0), score: 99, tier: 'news' } as ThemeMember, member('b2', 'A real headline here', { score: 50 })]
+  const out = await buildThemeBrief(theme({ members: bad }), { themeBriefModel: 'off' }, dir, throwingFetch)
+  assert.equal(out.generation, 'deterministic')
+  assert.ok(out.brief.length > 0)
+})
+
+// regression: a NON-STRING headline (out-of-contract data) is truthy, so it slipped past the old `|| ''`
+// guard and threw in .trim() — inside briefSig, BEFORE buildThemeBrief's own try/catch — breaking the
+// never-throws contract. headlineOf must coerce both fields via String() first.
+await check('buildThemeBrief: never throws on a member with a NON-STRING headline (out-of-contract data)', async () => {
+  const dir = tmpState()
+  const bad = [{ event_id: 'n1', headline: 12345 as any, found_at: hoursAgo(0), score: 99, tier: 'news' } as ThemeMember, member('n2', 'A real headline', { score: 50 })]
   const out = await buildThemeBrief(theme({ members: bad }), { themeBriefModel: 'off' }, dir, throwingFetch)
   assert.equal(out.generation, 'deterministic')
   assert.ok(out.brief.length > 0)

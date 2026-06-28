@@ -79,9 +79,12 @@ function saveBrief(stateDir: string, themeId: string, entry: CachedBrief): void 
 // ---- which member stories represent the theme ----
 
 const realName = (s?: string | null): boolean => !!s && !/^(null|undefined|n\/a)$/i.test(s.trim())
-// null-safe: a member with neither headline nor headline_en (malformed/legacy data) yields '' rather than
-// throwing — signatureHeadlines maps this over EVERY member, so it must never throw (the never-throws contract).
-const headlineOf = (m: ThemeMember) => ((m.headline_en?.trim() ? m.headline_en : m.headline) || '').trim()
+const asStr = (v: unknown): string => (typeof v === 'string' ? v : '')
+// null-safe AND type-safe: a member with neither headline nor headline_en (malformed/legacy data), OR a
+// non-string in either field (out-of-contract data), yields '' rather than throwing — signatureHeadlines
+// maps this over EVERY member and runs inside briefSig BEFORE buildThemeBrief's own guards, so it must
+// never throw (the never-throws contract). Coerce both fields through asStr before calling .trim().
+const headlineOf = (m: ThemeMember) => (asStr(m.headline_en).trim() ? asStr(m.headline_en) : asStr(m.headline)).trim()
 
 /** The handful of member stories that best characterise the theme — the union of its highest-scored and
  *  its most-recent items, deduped. Both lenses matter: score captures prominence, recency captures a
@@ -94,7 +97,10 @@ export function representativeMembers(theme: Theme, n = 12): ThemeMember[] {
   const seen = new Set<string>()
   const out: ThemeMember[] = []
   for (const m of [...byScore, ...byRecency]) {
-    if (seen.has(m.event_id) || !m.headline) continue
+    // skip on the EFFECTIVE headline (headlineOf, which prefers a translated headline_en), not the raw
+    // `headline` field — otherwise a foreign-language member kept only as headline_en (a legitimate case)
+    // is dropped from the prompt and the deterministic read, while signatureHeadlines still counts it.
+    if (seen.has(m.event_id) || !headlineOf(m)) continue
     seen.add(m.event_id)
     out.push(m)
   }
