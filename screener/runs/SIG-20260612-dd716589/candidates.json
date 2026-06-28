@@ -1,0 +1,405 @@
+{
+  "thesis_id": "THS-SIG-20260612-dd716589-v1",
+  "signal_id": "SIG-20260612-dd716589",
+  "generated_at": "2026-06-28T00:00:00Z",
+  "routing": "provisional",
+  "candidates": [
+    {
+      "candidate_id": "CND-001",
+      "ticker": "FLNG",
+      "company_name": "Flex LNG Ltd.",
+      "exchange": "NYSE",
+      "side": "long",
+      "beneficiary_ref": "DIR-001",
+      "exposure_score": 85,
+      "exposure_rationale": "100% of revenue from LNG carrier operations across 13 vessels; 3 vessels currently trading spot at ~$158k/day vs. a pre-disruption baseline of $42k/day; 2–3 charter renewals due within the thesis horizon expected to reprice from ~$73k/day to $100k+/day, adding a quantified $20M–$42M EBITDA step-up (7.5–16% above the $267.5M guidance midpoint) that no current sell-side model reflects. The only name where the specific charter-renewal variant mechanism flows directly through 100% of the business with no diluting segment.",
+      "liquidity_note": "NYSE mid-cap, market cap ~$1.59B at signal date. Active listing confirmed [StockAnalysis.com, 2026-06-26]. 14.5% short interest as of 2026-06-12 creates squeeze potential but also a real borrow cost for hedging. Average daily volume adequate for institutional sizing.",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run_root": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "pair_with": "CND-007",
+      "caveats": "Sell consensus (4 Strong Sell, 2 Hold; target $24.92 vs ~$29.48 current) — sell-side already underwater vs. the stock, which is the variant's point. If Qatar Trains 4 and 6 restart early, large downside risk as the stock trades above all analyst targets. Falsifier SF-003 (shipping rate collapse below $100k/day) hits FLNG hardest among all candidates — monitor via Spark Commodities or Baltic Exchange LNG Index. 14.5% short interest means real borrow cost for hedging.",
+      "news_impact": {
+        "applicable": true,
+        "mode": "primary",
+        "missing_reason": null,
+        "recurrence": "finite_life",
+        "event_quantification": "Two components. Component A (finite-life spot windfall): 3 vessels × $116k/day incremental rate × 70 days = $24.36M incremental revenue; after-tax at 24% margin [Flex LNG 6-K Q1 2026, SEC EDGAR, 2026-05-13] = $5.85M ΔE. Component B (permanent step-change, charter renewal): 2 vessels × $42k/day rate uplift ($115k renewal mid vs. $73k prior) × 365 days × 24% after-tax = $7.36M/yr ΔE [Flex LNG 6-K Q1 2026, SEC EDGAR, 2026-05-13; Hellenic Shipping News, 2026-06-28, unverified web, labelled]. Duration-trap check shown: capitalising Component A at 24.7× P/E would give $144.5M vs. correct NPV of $5.79M — 25× overstatement; NPV method mandatory.",
+        "delta_value": "Component A: NPV $5.79M (discounted at 12% cost of equity, received mid-window). Component B: $7.36M/yr × 15.1× forward P/E = $111.1M. Total ΔValue = $116.9M.",
+        "implied_move_pct": 7.0,
+        "observed_move_pct": 5.3,
+        "gap_read": "priced",
+        "caveats": "Gap read is 'priced' at signal date (+5.3% observed vs. +7–12% implied range; ranges overlap). At peak (circa May 5, 2026: +11.3%), observed move sits within the fundamental implied range. As of 2026-06-28 the stock has largely retraced to ~$29.40 (+0.8% from pre-disruption $29.17), consistent with falling spot rates ($158k/day, cooling). Component B (charter renewal step-up, +$111M / +6.7%) is the real value at stake and has not yet been confirmed in any filed contract announcement. Duration trap shown explicitly: Component A finite-life NPV is $5.79M; capitalising it at the earnings multiple would overstate by 25×. This is a fundamentals floor, not a verdict — no price target issued. The charter renewal rate ($115k/day) is inferred, not contracted.",
+        "sources": [
+          {
+            "url": "https://www.flexlng.com/flex-lng-first-quarter-2026-earnings-release/",
+            "source_name": "Flex LNG First Quarter 2026 Earnings Release (6-K, SEC EDGAR)",
+            "source_grade": "A",
+            "retrieved_at": "2026-05-13",
+            "claim_supported": "Q1 2026 net income $19.5M; revenue $80.5M; 24% after-tax margin; FY2026 EBITDA guidance $255–280M; 91% fleet days fixed at $73–78k/day TCE; shares outstanding 54.09M"
+          },
+          {
+            "url": "https://stockanalysis.com/stocks/flng/",
+            "source_name": "StockAnalysis.com — FLNG Statistics",
+            "source_grade": "B",
+            "retrieved_at": "2026-06-12",
+            "claim_supported": "FLNG price $30.71; NTM EPS consensus $2.03; consensus rating Sell ($24.92 target); forward EV/EBITDA 11.5×; forward P/E 15.1× derived"
+          },
+          {
+            "url": "https://www.hellenicshippingnews.com/lng-shipping-rates-cooling-off/",
+            "source_name": "Hellenic Shipping News, LNG Shipping Rates Cooling Off",
+            "source_grade": "B",
+            "retrieved_at": "2026-06-28",
+            "claim_supported": "BLNG1 174k cbm spot rate ~$158,000/day; 1-year TC ~$94,600/day"
+          },
+          {
+            "url": "https://www.chartmill.com/stock/quote/FLNG/profile",
+            "source_name": "ChartMill.com — FLNG historical price",
+            "source_grade": "B",
+            "retrieved_at": "2026-06-28",
+            "claim_supported": "FLNG pre-disruption close $29.17 (March 17, 2026); all-time high close ~$32.46 (circa May 5, 2026); current ~$29.40"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "url": "https://www.flexlng.com/flex-lng-first-quarter-2026-earnings-release/",
+          "source_name": "Flex LNG 6-K Q1 2026, SEC EDGAR",
+          "source_grade": "A",
+          "retrieved_at": "2026-05-13",
+          "claim_supported": "91% fleet days fixed at $73–78k/day TCE; Q1 2026 revenue $80.5M; net income $19.5M; EBITDA guidance $255–280M; shares 54.09M"
+        },
+        {
+          "url": "https://stockanalysis.com/stocks/flng/",
+          "source_name": "StockAnalysis.com — FLNG",
+          "source_grade": "B",
+          "retrieved_at": "2026-06-26",
+          "claim_supported": "NYSE active listing confirmed; price $29.48; market cap ~$1.59B; short interest 14.53%"
+        }
+      ]
+    },
+    {
+      "candidate_id": "CND-002",
+      "ticker": "GLNG",
+      "company_name": "Golar LNG Ltd.",
+      "exchange": "NASDAQ",
+      "side": "long",
+      "beneficiary_ref": "DIR-002",
+      "exposure_score": 72,
+      "exposure_rationale": "100% of total operating revenue from LNG infrastructure after exiting legacy LNG carrier operations in 2025 — Q1 2026 total operating revenue $137.6M, of which liquefaction services $56.2M (FLNG Hilli) + FLNG Gimi sales-type lease revenue $50.0M [Golar LNG 6-K Q1 2026, SEC EDGAR, 2026-05-20]. As the only purely listed FLNG operator, GLNG captures the DIR-002 mechanism (non-Qatar liquefaction at elevated JKM/TTF prices) through a commodity-linked tolling fee on FLNG Hilli. Mechanism reach is slower and partially buffered versus FLNG's direct spot rate exposure.",
+      "liquidity_note": "NASDAQ mid-cap, market cap ~$5.07B. Active listing confirmed [StockAnalysis.com, 2026-06-26]. Strong Buy consensus; 6.05% short interest as of 2026-05-29, recently showing covering activity.",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run_root": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "pair_with": null,
+      "caveats": "The exact pass-through rate from TTF to GLNG's EBITDA is not publicly disclosed — the Hilli tolling fee commodity-link slope ($ per MMBtu increment above the floor) is not stated in public filings. GLNG Gimi's revenue is a sales-type finance lease largely insensitive to spot LNG prices (only Hilli carries variable component). GLNG's ongoing strategic review is a confounding factor in the observed move — isolating the Qatar-specific earnings impact requires extracting the Hilli tolling contract terms from the 20-F. Observed +13.6% move vs. implied +0.1–3% is mostly strategic/narrative re-rating, not quantifiable earnings impact.",
+      "news_impact": {
+        "applicable": true,
+        "mode": "primary",
+        "missing_reason": null,
+        "recurrence": "finite_life",
+        "event_quantification": "Hilli variable tariff uplift estimated at $5–10M per quarter at elevated TTF levels (benchmarked to ~$8.2M Brent-linked fee swing disclosed in Q1 2026 filing as comparable magnitude). Disruption window ~2 quarters = $10–20M total ΔE before tax. After-tax at 61% reported net margin [Golar LNG 6-K Q1 2026, SEC EDGAR, 2026-05-20]: ΔE ≈ $6.1–12.2M. NOTE: reported 61% margin includes non-cash finance-lease accounting; true operating margin on Hilli tolling is higher but unconfirmed. The commodity-link slope is not disclosed — this is a fallback estimate. Precise sizing requires the Hilli tolling agreement or the 20-F.",
+        "delta_value": "ΔValue (fallback): $6–12M NPV over the disruption window. Upper-bound EPS route: ΔE ~$10M / 101.8M shares = $0.10/share vs. Q1 annualised EPS $3.28 → ΔE ratio 3%; implied move ~+3% upper bound.",
+        "implied_move_pct": 3.0,
+        "observed_move_pct": 13.6,
+        "gap_read": "re_rate_to_judge",
+        "caveats": "Observed +13.6% substantially exceeds implied +0.1–3%. The gap is driven by: (1) thematic flows into 'beneficiary of Qatar disruption' names; (2) GLNG's ongoing strategic review / potential M&A; (3) market repricing FLNG operator optionality at a higher multiple. The actual commodity-linked earnings impact from the Qatar disruption is small relative to the observed move. The research swarm must extract Hilli contract terms from the 20-F to quantify this precisely. This is a fundamentals floor only — no price target issued.",
+        "sources": [
+          {
+            "url": "https://www.globenewswire.com/news-release/2026/05/20/3298304/0/en/golar-lng-limited-interim-results-for-the-period-ended-march-31-2026.html",
+            "source_name": "Golar LNG Q1 2026 6-K (SEC EDGAR / GlobeNewswire)",
+            "source_grade": "A",
+            "retrieved_at": "2026-05-20",
+            "claim_supported": "Q1 2026 total operating revenue $137.554M; liquefaction services $56.2M; Gimi lease revenue $50.0M; net income attributable to Golar LNG Ltd $83.578M; Brent-linked fee swing $8.2M; commodity-linked tariff description"
+          },
+          {
+            "url": "https://companiesmarketcap.com/gola-lng/marketcap/",
+            "source_name": "companiesmarketcap.com — GLNG",
+            "source_grade": "B",
+            "retrieved_at": "2026-06-28",
+            "claim_supported": "Shares outstanding ~101.8M; current price $49.60 (June 19, 2026); market cap ~$5.0B; pre-disruption price $44.46 (Feb 27, 2026)"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "url": "https://www.globenewswire.com/news-release/2026/05/20/3298304/0/en/golar-lng-limited-interim-results-for-the-period-ended-march-31-2026.html",
+          "source_name": "Golar LNG 6-K Q1 2026, SEC EDGAR",
+          "source_grade": "A",
+          "retrieved_at": "2026-05-20",
+          "claim_supported": "Q1 2026 total operating revenue $137.6M; FLNG Hilli and Gimi revenue breakdown; net income $83.578M; company fully exited legacy LNG carrier shipping in 2025"
+        },
+        {
+          "url": "https://stockanalysis.com/stocks/glng/",
+          "source_name": "StockAnalysis.com — GLNG",
+          "source_grade": "B",
+          "retrieved_at": "2026-06-26",
+          "claim_supported": "NASDAQ active listing confirmed; market cap ~$5.07B; Strong Buy consensus"
+        }
+      ]
+    },
+    {
+      "candidate_id": "CND-003",
+      "ticker": "WDS",
+      "company_name": "Woodside Energy Group Ltd.",
+      "exchange": "NYSE",
+      "side": "long",
+      "beneficiary_ref": "DIR-002",
+      "exposure_score": 58,
+      "exposure_rationale": "~51% of Q1 2026 LNG sold on gas-hub index pricing, capturing spot-price uplift from JKM/TTF elevation caused by the Qatar supply gap [Rigzone, 2026-04-29, unverified web, labelled; Woodside Q1 2026 ASX quarterly report]. Scarborough first cargo targeted Q4 2026, bringing additional volume into the elevated market. The remaining 49% is sold under long-term price-linked contracts, diluting the mechanism. Company deliberately insulated from shipping rate spike (term shipping strategy, no Strait of Hormuz routing exposure) — WDS captures the price uplift (DIR-002) but not the rate premium (DIR-001).",
+      "liquidity_note": "NYSE large-cap, market cap ~$36.3B. Dual-listed NYSE and ASX (primary listing ASX). Highly liquid. No suspension found.",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run_root": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "pair_with": null,
+      "caveats": "49% of volumes not directly spot-linked — large dilution from the long-term contract book. AUD/USD FX exposure; any model needs the rate. Falsifier SF-002 (European demand collapses, TTF falls below $10.96/MMBtu) hits WDS's gas-hub-indexed volumes directly. News-impact sizing marked not_applicable because the spot-linked segment margin cannot be separated from the long-term contract book at the rigour §5 requires without the Q2 2026 ASX quarterly filing.",
+      "news_impact": {
+        "applicable": false,
+        "mode": "not_applicable",
+        "missing_reason": "51% gas-hub-indexed volume confirmed from Rigzone (unverified web), not from a filed quarterly result with a precise revenue-per-cargo breakdown by pricing basis. The after-tax margin on the spot-linked portion cannot be separated from the long-term contract book without the Q2 2026 ASX quarterly filing. Sizing deferred to research swarm once that filing is available.",
+        "recurrence": "not_applicable",
+        "event_quantification": "Not sized — see missing_reason.",
+        "delta_value": "Not sized.",
+        "implied_move_pct": null,
+        "observed_move_pct": null,
+        "gap_read": "not_applicable",
+        "caveats": "Research swarm should size Woodside once Q2 2026 ASX quarterly filing (with realised price per unit for spot-linked vs. long-term volumes) is available. This is a fundamentals floor reminder only — no sizing performed.",
+        "sources": []
+      },
+      "sources": [
+        {
+          "url": "https://www.rigzone.com/news/wire/woodside_lng_trading_shielded_from_iran_war-29-apr-2026/",
+          "source_name": "Rigzone, Woodside LNG Trading Shielded from Iran War",
+          "source_grade": "B",
+          "retrieved_at": "2026-04-29",
+          "claim_supported": "~51% of Q1 2026 LNG sold on gas-hub index pricing; term shipping strategy, no Strait of Hormuz routing exposure"
+        },
+        {
+          "url": "https://stockanalysis.com/stocks/wds/",
+          "source_name": "StockAnalysis.com — WDS",
+          "source_grade": "B",
+          "retrieved_at": "2026-06-26",
+          "claim_supported": "NYSE active listing confirmed; market cap ~$36.3B; FY2025 revenue $12.98B; net income $2.72B; Scarborough first cargo targeted Q4 2026"
+        }
+      ]
+    },
+    {
+      "candidate_id": "CND-004",
+      "ticker": "LNG",
+      "company_name": "Cheniere Energy, Inc.",
+      "exchange": "NYSE",
+      "side": "long",
+      "beneficiary_ref": "DIR-002",
+      "exposure_score": 42,
+      "exposure_rationale": "Largest US LNG exporter (Sabine Pass + Corpus Christi). Only ~5% of production is uncontracted optimization volume that sells at JKM/TTF + basis, capturing the spot-price uplift. The remaining 95% is under long-term SPAs with ~15-year average remaining life, both diluting the spot-mechanism exposure and insulating the business from thesis downside. Management explicitly raised FY2026 Consolidated Adjusted EBITDA guidance by $500M at midpoint to $7.25–7.75B, citing the Qatar disruption [Cheniere Energy 8-K Q1 2026, SEC EDGAR, 2026-05-07].",
+      "liquidity_note": "NYSE large-cap, market cap ~$50.6B. Most liquid name in the set. Strong Buy consensus (21 analysts Buy/Strong Buy). No liquidity concern.",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run_root": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "pair_with": null,
+      "caveats": "Near-pure long-term-contract book means only the marginal ~5% optimization volume captures the spot uplift — thesis impact is real but small relative to total EBITDA ($7.25–7.75B guided). Management has already guided for the Qatar windfall in the FY2026 EBITDA raise. News-impact sizing shows observed move (+27% from pre-disruption trough to signal date; +59% at peak) substantially exceeds the fundamental implied move (+5–10%), flagged as re_rate_to_judge. The majority of the observed move is multiple expansion and narrative re-rating, not directly attributable to the quantifiable earnings uplift alone. Incremental variant signal here is thin compared to FLNG.",
+      "news_impact": {
+        "applicable": true,
+        "mode": "primary",
+        "missing_reason": null,
+        "recurrence": "permanent_step_change",
+        "event_quantification": "FY2026 Consolidated Adjusted EBITDA guidance raised $500M at midpoint (from $6.75–7.25B to $7.25–7.75B); DCF guidance raised $500M at midpoint to $4.75–5.25B [Cheniere Energy 8-K Q1 2026, SEC EDGAR, 2026-05-07]. ΔE on DCF/share basis: $500M / 209.55M shares = $2.39/share; DCF/share base $23.86 (FY2026 midpoint $5.0B / 209.55M shares); ΔE ratio = +10.0%. EV/EBITDA 10.2× at midpoint of sector normal range (8–12×); ΔM = 0.",
+        "delta_value": "ΔValue route 1 (DCF/EPS): +10.0% implied move. ΔValue route 2 (ΔValue/MarketCap): $500M × 75% after-tax × 10.2× / (EV/MktCap ratio 1.55) = $2,469M equity increment / $49,540M market cap = +5.0%. Disclosed range: +5.0% to +10.0%; midpoint +7.5% used for gap read.",
+        "implied_move_pct": 7.5,
+        "observed_move_pct": 27.0,
+        "gap_read": "re_rate_to_judge",
+        "caveats": "Observed +27% (signal date vs. pre-disruption trough $186.20) and +59% at peak ($296.22 on March 27, 2026) substantially exceed the implied +5–10%. The excess reflects: (1) market pricing a longer Qatar disruption than the FY2026 guidance captures (IEA 120 bcm scenario); (2) multiple re-rating from EV/EBITDA ~7.3× trough (March 2026) to 10.2× at signal date; (3) momentum flows into the 'US LNG exporter beneficiary' narrative. The research swarm must judge how much of the multiple expansion is durable vs. mean-reverting. Cheniere's reported EPS is distorted by large non-cash derivative marks ($4.8B unfavorable Q1 2026) — DCF/share is the correct proxy for real cash earnings; research swarm should use the tax provision from FY2026 interim filings when available. Duration trap: not applicable (classified as permanent step-change within the FY2026 horizon, based on management's full-year guidance revision). This is a fundamentals floor only — no price target issued.",
+        "sources": [
+          {
+            "url": "https://lngir.cheniere.com/news-events/press-releases/detail/339/cheniere-reports-first-quarter-2026-results-and-raises-full",
+            "source_name": "Cheniere Energy 8-K Q1 2026 (SEC EDGAR)",
+            "source_grade": "A",
+            "retrieved_at": "2026-05-07",
+            "claim_supported": "FY2026 Consolidated Adjusted EBITDA guidance raised $500M at midpoint to $7.25–7.75B; DCF guidance raised to $4.75–5.25B; explicitly cites Qatar disruption and elevated spot LNG pricing"
+          },
+          {
+            "url": "https://stockanalysis.com/stocks/lng/",
+            "source_name": "StockAnalysis.com — LNG",
+            "source_grade": "B",
+            "retrieved_at": "2026-06-12",
+            "claim_supported": "Price $236.49; EV $76.86B; NTM EPS $17.91 mean; Strong Buy consensus (21 Buy/Strong Buy); target $302.64; EV/EBITDA 10.2× derived"
+          },
+          {
+            "url": "https://companiesmarketcap.com/cheniere-energy/stock-price-history/",
+            "source_name": "companiesmarketcap.com — LNG price history",
+            "source_grade": "B",
+            "retrieved_at": "2026-06-28",
+            "claim_supported": "Shares outstanding 209.55M; current price $242.84; 52-week low $186.20; all-time high $296.22 (March 27, 2026)"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "url": "https://lngir.cheniere.com/news-events/press-releases/detail/339/cheniere-reports-first-quarter-2026-results-and-raises-full",
+          "source_name": "Cheniere Energy 8-K Q1 2026, SEC EDGAR",
+          "source_grade": "A",
+          "retrieved_at": "2026-05-07",
+          "claim_supported": "FY2026 EBITDA guidance raised to $7.25–7.75B; ~5% uncontracted optimization volumes; 95% under long-term SPAs; explicit Qatar disruption attribution"
+        },
+        {
+          "url": "https://stockanalysis.com/stocks/lng/",
+          "source_name": "StockAnalysis.com — LNG",
+          "source_grade": "B",
+          "retrieved_at": "2026-06-26",
+          "claim_supported": "NYSE active listing confirmed; market cap ~$50.6B; NTM EPS $17.91; Strong Buy consensus; revenue TTM $20.77B"
+        }
+      ]
+    },
+    {
+      "candidate_id": "CND-005",
+      "ticker": "EE",
+      "company_name": "Excelerate Energy, Inc.",
+      "exchange": "NYSE",
+      "side": "long",
+      "beneficiary_ref": "IND-002",
+      "exposure_score": 38,
+      "exposure_rationale": "Operates a fleet of FSRUs (floating storage and regasification units) under fixed-rate take-or-pay time charters. IND-002 mechanism (higher structural LNG import demand supporting FSRU re-contracting at higher rates) reaches P&L only at contract renewal, not through current cashflows. Q1 2026 revenue $433M; FY2026 Adjusted EBITDA guidance $515–545M [Excelerate Energy 10-Q Q1 2026, SEC EDGAR, 2026]. Existing revenue stream is structurally insulated from spot LNG prices — the thesis mechanism is real over a 12–24 month re-contracting window but may not resolve within the current thesis expiry (mid-August 2026).",
+      "liquidity_note": "NYSE mid-cap, market cap ~$4.29B. ~1M shares average daily volume (adequate for institutional sizing). 99.8% fleet reliability in Q1 2026. Active listing confirmed [StockAnalysis.com, 2026-06-26].",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run_root": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "pair_with": null,
+      "caveats": "Low exposure score because existing contracts are fixed-rate — the thesis reaches earnings only at re-contracting. The re-contracting timeline within the M0.4 horizon (medium, weeks to 3 months) is uncertain; this is a longer-horizon expression of the same LNG import demand story. News-impact sizing not applicable because there is no observable current-period earnings change from the Qatar disruption to size.",
+      "news_impact": {
+        "applicable": false,
+        "mode": "not_applicable",
+        "missing_reason": "EE's existing contracts are fixed-rate take-or-pay time charters — the IND-002 mechanism (higher LNG import demand supporting FSRU re-contracting) reaches EE's P&L only at contract renewal, not through current cashflows [Excelerate Energy 10-Q Q1 2026, SEC EDGAR]. There is no observable current-period earnings change from the Qatar disruption to size. This is a forward re-contracting optionality story.",
+        "recurrence": "not_applicable",
+        "event_quantification": "Not sized — see missing_reason.",
+        "delta_value": "Not sized.",
+        "implied_move_pct": null,
+        "observed_move_pct": null,
+        "gap_read": "not_applicable",
+        "caveats": "Not applicable. The fundamentals-floor framework applies only to current-period earnings impacts; this name's thesis resolution is a re-contracting event with an uncertain date beyond the M0.4 horizon.",
+        "sources": []
+      },
+      "sources": [
+        {
+          "url": "https://stockanalysis.com/stocks/ee/",
+          "source_name": "StockAnalysis.com — EE",
+          "source_grade": "B",
+          "retrieved_at": "2026-06-26",
+          "claim_supported": "NYSE active listing confirmed; market cap ~$4.29B; FY2026 Adjusted EBITDA guidance $515–545M"
+        },
+        {
+          "source_name": "Excelerate Energy 10-Q Q1 2026, SEC EDGAR",
+          "source_grade": "A",
+          "retrieved_at": "2026-01-01",
+          "claim_supported": "Q1 2026 revenue $433M; contracts are fixed-rate take-or-pay time charters"
+        }
+      ]
+    },
+    {
+      "candidate_id": "CND-006",
+      "ticker": "BME:ENG",
+      "company_name": "Enagás S.A.",
+      "exchange": "Madrid Stock Exchange (BME)",
+      "side": "long",
+      "beneficiary_ref": "DIR-003",
+      "exposure_score": 35,
+      "exposure_rationale": "Spain's regulated gas transmission system operator; also operates three regasification terminals along the Spanish coast and three underground storage facilities (33 TWh working capacity). Both the DIR-003 storage mechanism and the IND-002 regasification throughput mechanism reach this company's P&L through regulated throughput tariffs and capacity reservation fees. FY2025 recurring EBITDA €675.7M; demand for transported gas +7.4% in 2025 to 372 TWh [Enagás FY2025 results press release, enagas.es, 2026]. Storage segment revenue not separately quantified from filed segment disclosure — mark as 'not yet quantified from segment disclosure'.",
+      "liquidity_note": "Active BME listing (ticker: ENG) confirmed [StockAnalysis.com BME:ENG, 2026-06-26; Investing.com, June 2026]. Price €17.61; market cap ~€4.58B. Hold consensus (target €16.85, slight downside from current €17.61); 20 analysts. No US ADR found — US investors need BME access or European broker. Adequate European trading volume.",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run_root": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "pair_with": null,
+      "caveats": "Access constraint: no US ADR means US institutional investors must use a European broker or BME access, reducing the investable universe for many accounts. Regulated Spanish tariff framework caps the storage and regasification upside the thesis relies on — spot-spread income is partially absorbed by regulation. Enagás also holds a stake in Tallgrass Energy (US pipeline) — irrelevant to the thesis but adds non-thesis dilution. Storage segment revenue not confirmed from filed segment tables — exposure is directional only until the FY2025 Annual Report segment tables are reviewed. News-impact sizing not applicable (regulated tariffs, storage revenue not quantified).",
+      "news_impact": {
+        "applicable": false,
+        "mode": "not_applicable",
+        "missing_reason": "Enagás' storage segment revenue is not separately confirmed from a filed segment disclosure. All storage and regasification revenue is regulated under Spanish tariff framework — any spot-spread uplift is capped by regulation. The causal chain from TTF elevation to regulated tariff income requires a longer chain and the earnings delta cannot be estimated without the specific tariff review schedule. Mark as not_applicable pending the FY2025 Annual Report segment tables.",
+        "recurrence": "not_applicable",
+        "event_quantification": "Not sized — see missing_reason.",
+        "delta_value": "Not sized.",
+        "implied_move_pct": null,
+        "observed_move_pct": null,
+        "gap_read": "not_applicable",
+        "caveats": "Not applicable. Fundamentals-floor sizing requires a confirmable earnings delta from the event; regulated tariffs and unconfirmed segment revenue prevent this.",
+        "sources": []
+      },
+      "sources": [
+        {
+          "source_name": "Enagás FY2025 results press release, enagas.es",
+          "source_grade": "B",
+          "retrieved_at": "2026-01-01",
+          "claim_supported": "FY2025 recurring EBITDA €675.7M; recurring EAT €266.3M; demand for transported gas +7.4% to 372 TWh; 33 TWh underground storage capacity"
+        },
+        {
+          "source_name": "StockAnalysis.com BME:ENG",
+          "source_grade": "B",
+          "retrieved_at": "2026-06-26",
+          "claim_supported": "BME active listing confirmed; price €17.61; market cap ~€4.58B; Hold consensus; 20 analysts; target €16.85"
+        }
+      ]
+    },
+    {
+      "candidate_id": "CND-007",
+      "ticker": "ENLAY",
+      "company_name": "Enel S.p.A. (OTC ADR)",
+      "exchange": "OTC (primary: Borsa Italiana BIT:ENEL)",
+      "side": "short",
+      "beneficiary_ref": "HARM-002",
+      "exposure_score": 18,
+      "exposure_rationale": "Enel's Italian CCGT (combined cycle gas turbine) generation faces the HARM-002 mechanism — gas sets the marginal electricity price in ~89% of hours in Italy in 2026, so TTF/PSV spot price increases (+35% from $10.96 to $14.80/MMBtu) transmit directly to Enel's fuel procurement cost for unhedged volumes. However, Enel is a $115.6B diversified utility with 60%+ of MW capacity in renewables, plus international networks and retail operations — the unhedged Italian CCGT gas procurement is a small fraction of group earnings. Unhedged gas procurement volume and hedge ratio are not retrieved from the FY2025 Annual Report (BIT:ENEL). Exposure is directional only.",
+      "liquidity_note": "OTC ADR (ENLAY) has low liquidity and wide spreads — ENLAY price $11.44. Primary listing BIT:ENEL is large-cap and liquid ($115.6B market cap, Borsa Italiana). US investors accessing via OTC ADR face practical constraints; primary access is through BIT:ENEL or a European broker.",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run_root": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "pair_with": "CND-001",
+      "caveats": "Low exposure score (18/100) because the HARM-002 mechanism is not quantified at the issuer level — mark as 'directional exposure, not filing-level confirmed.' Heavy diversification (renewables, grids, international) means the gas-cost squeeze is a small fraction of group EBITDA. OTC ADR (ENLAY) has low liquidity; BIT:ENEL is the practical access route. Treat as an illustrative short leg only unless segment-level hedge disclosure from the FY2025 Annual Report confirms material unhedged CCGT gas exposure. The HARM-001 short thesis (spot LNG importers) has no investable listed expression — ENEL is the best available short despite poor quantification. The pair trade (FLNG long / ENEL short) is weak on the short side; research swarm should size the short leg carefully or treat it as a sector hedge. News-impact sizing not applicable (exposure not quantified from filings).",
+      "news_impact": {
+        "applicable": false,
+        "mode": "not_applicable",
+        "missing_reason": "Enel's unhedged Italian CCGT gas procurement volume and hedge ratio are not retrieved from the FY2025 Annual Report (BIT:ENEL, Borsa Italiana). Without the specific CCGT-fired generation volume, hedge ratio, and TTF reference price in Enel's procurement contracts, the cost-harm ΔE cannot be quantified. Flagged as 'exposure not yet quantified' in both upstream agents.",
+        "recurrence": "not_applicable",
+        "event_quantification": "Not sized — see missing_reason.",
+        "delta_value": "Not sized.",
+        "implied_move_pct": null,
+        "observed_move_pct": null,
+        "gap_read": "not_applicable",
+        "caveats": "Not applicable. Research swarm should pull the CCGT segment from Enel's 2025 Annual Report before sizing this name.",
+        "sources": []
+      },
+      "sources": [
+        {
+          "source_name": "StockAnalysis.com — ENLAY OTC",
+          "source_grade": "B",
+          "retrieved_at": "2026-06-26",
+          "claim_supported": "OTC ADR (ENLAY) active listing confirmed; ENLAY price $11.44; market cap $115.6B (primary BIT:ENEL)"
+        },
+        {
+          "source_name": "Ember Energy European Electricity Review 2026 (unverified web, labelled)",
+          "source_grade": "B",
+          "retrieved_at": "2026-06-28",
+          "claim_supported": "Gas sets marginal electricity price in ~89% of hours in Italy in 2026"
+        }
+      ]
+    }
+  ]
+}
