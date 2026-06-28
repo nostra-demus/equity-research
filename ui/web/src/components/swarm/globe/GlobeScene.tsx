@@ -23,9 +23,9 @@ import type { GlobeColors } from './useGlobeColors'
 // is a smooth wrap/unwrap that the App crossfades against the constellation.
 
 const MORPH_DUR = GLOBE.WRAP_SECONDS // seconds for the wrap / unwrap — shared with App's crossfade so the exit lasts the full unwrap
-const FLAT_CAM = new Vector3(0, 0, 64)
+const FLAT_CAM = new Vector3(0, 0, GLOBE.FLAT_CAM_Z)
 const SPHERE_CAM = new Vector3(0, 2.5, 27)
-const FLAT_FOV = 20 // narrow + far ≈ orthographic → the flat state reads 2D under the crossfade
+const FLAT_FOV = GLOBE.FLAT_FOV // shared with GlobeStage's un-project so the flat layout overlays the constellation exactly
 const SPHERE_FOV = 45
 const TMP_A = new Vector3()
 const TMP_B = new Vector3()

@@ -7,6 +7,8 @@ export type V3 = { x: number; y: number; z: number }
 export const GLOBE = {
   WRAP_SECONDS: 1.7, // duration of the flat↔sphere wrap/unwrap — shared by GlobeScene's morph AND App's
   // crossfade exit, so leaving the globe stays mounted long enough to flatten ALL the way into the constellation
+  FLAT_CAM_Z: 64, // flat-state camera distance on +z (looking at origin) — shared with GlobeStage's un-project
+  FLAT_FOV: 20, // flat-state vertical FOV (deg); narrow+far ≈ orthographic so the flat layout reads 2D
   R: 10, // sphere radius (world units)
   POLE_BIAS: 0.18, // bias module band into the upper hemisphere, leaving the south cap for the Memo core
   Y_CLAMP_TOP: 0.94,

@@ -60,7 +60,17 @@ const FH = 22 // overall height
 const FCOL = 1.7 // horizontal gap between agents in a layer
 const FROW = 2.0 // vertical gap between layers
 
-export function computeGlobeLayout(graph: SwarmGraph): GlobeLayout {
+// Optional flat-position override: when the host (GlobeStage) knows the REAL constellation layout, it passes
+// world positions (one per node key, per module label, and the core) obtained by un-projecting the
+// constellation's on-screen positions onto the flat camera's z=0 plane. The morph then starts from the EXACT
+// constellation, so wrapping into the globe is seamless — no intermediate "globe-flat" layout is ever shown.
+export interface FlatOverride {
+  node: (key: string) => V3 | undefined
+  label: (module: string) => V3 | undefined
+  core?: V3
+}
+
+export function computeGlobeLayout(graph: SwarmGraph, flat?: FlatOverride): GlobeLayout {
   const { R } = GLOBE
   const modules = graph.modules
   const N = Math.max(1, modules.length)
@@ -90,7 +100,9 @@ export function computeGlobeLayout(graph: SwarmGraph): GlobeLayout {
       })
     })
   }
-  const flatCore: V3 = { x: 0, y: -FH * 0.5, z: 0 }
+  // override the column fallback with the REAL constellation positions when provided → seamless wrap
+  if (flat) for (const key of [...flatPosByKey.keys()]) { const o = flat.node(key); if (o) flatPosByKey.set(key, o) }
+  const flatCore: V3 = flat?.core ?? { x: 0, y: -FH * 0.5, z: 0 }
 
   // ---------- SPHERE layout (Fibonacci module regions) + attach flat positions ----------
   const core = { pos: v(0, -(R + GLOBE.CORE_BUMP), 0), flatPos: flatCore, r: GLOBE.R_CORE }
@@ -135,7 +147,7 @@ export function computeGlobeLayout(graph: SwarmGraph): GlobeLayout {
     anchors.push({
       module: m.name,
       center,
-      flatLabel: { x: fa.x, y: fa.topY + 1.7, z: 0 },
+      flatLabel: flat?.label(m.name) ?? { x: fa.x, y: fa.topY + 1.7, z: 0 },
       normal,
       synthKey,
       synthPos,
@@ -149,6 +161,8 @@ export function computeGlobeLayout(graph: SwarmGraph): GlobeLayout {
     return (a?.synthKey && flatPosByKey.get(a.synthKey)) || flatCore
   }
   const flatAnchorV = (module: string): V3 => {
+    const o = flat?.label(module)
+    if (o) return o
     const fa = flatAnchorByModule.get(module) || { x: 0, topY: 0 }
     return { x: fa.x, y: fa.topY, z: 0 }
   }
