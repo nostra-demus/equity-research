@@ -98,7 +98,7 @@ function swarmStoreTargets(kind: RunKind, subjectId: string): string[] {
 
 // ---- claude CLI flag capability detection (so we never pass an unknown flag) ----
 let supportedFlags: Set<string> | null = null
-async function detectFlags(): Promise<Set<string>> {
+export async function detectFlags(): Promise<Set<string>> {
   if (supportedFlags) return supportedFlags
   const flags = new Set<string>()
   try {
@@ -907,7 +907,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
 // research/screener run is a Claude (Anthropic) process and never needs them; handing them to every child
 // widens secret exposure and lets a run spend news quotas. ANTHROPIC_API_KEY is kept (the CLI's own auth);
 // keys set in the REAL environment (launchd/shell) are not in providerEnvKeys, so they pass through.
-function childEnv(): NodeJS.ProcessEnv {
+export function childEnv(): NodeJS.ProcessEnv {
   const e: NodeJS.ProcessEnv = { ...process.env }
   for (const k of providerEnvKeys) if (k !== 'ANTHROPIC_API_KEY') delete e[k]
   return e

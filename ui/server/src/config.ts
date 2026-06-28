@@ -232,6 +232,28 @@ export const ESTIMATES = {
   perAgentMin: [3, 5] as [number, number],
 }
 
+// ---- in-cockpit "chat with your data" (closed-book Q&A over a run's synthesized output) ----
+// A side-panel chat answers questions using ONLY the engine's own output for a chosen scope (the whole
+// run / one module / one orb), via the SAME local subscription Claude the engine reasons with — the
+// `claude` CLI, authed by the host keychain (no API key). It is NOT a research run: it bypasses the run
+// registry + admission and carries its own light guards. Every knob is env-tunable.
+export const CHAT = {
+  // default model + the allow-list the panel's model switcher may pick from. Validated server-side so a
+  // tampered request can't pass an arbitrary `--model`. 'sonnet' matches the engine default.
+  defaultModel: process.env.ENGINE_CHAT_MODEL || 'sonnet',
+  allowedModels: (process.env.ENGINE_CHAT_MODELS_ALLOWED || 'sonnet,opus,haiku').split(',').map((s) => s.trim()).filter(Boolean),
+  // HARD per-turn ceiling (the CLI stops at it). A whole-run context is ~90k input tokens; $3 leaves
+  // headroom across sonnet/opus/haiku for a multi-turn conversation while still capping any runaway.
+  budgetUsd: capNum(process.env.ENGINE_CHAT_BUDGET_USD, 3),
+  // wall-clock cap on one turn — past it the child is killed and the turn errors (so it can never hang).
+  timeoutMs: capNum(process.env.ENGINE_CHAT_TIMEOUT_MS, 120_000),
+  // most chat turns in flight at once (a light backstop; chat is cheap but each spawns a CLI).
+  maxConcurrent: capNum(process.env.ENGINE_CHAT_MAX_CONCURRENT, 3),
+  // assembled-context cap (approx tokens). Above it, module/run scopes degrade to syntheses and SAY SO,
+  // keeping the prompt within the model's window with room left for the answer.
+  contextMaxTokens: capNum(process.env.ENGINE_CHAT_CONTEXT_MAX_TOKENS, 150_000),
+}
+
 // ---- autonomous news ingester (screener swarm) ----
 // The "forever-living" front door of the screener: pull a free news firehose (GDELT, keyless),
 // score each item with a FREE LLM (Groq) as a cheap brain, and fill a RANKED inbox — all at ~$0.

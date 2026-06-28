@@ -510,6 +510,26 @@ export type SseEvent =
 // dispatches the orb — "the data reaching the orb" — which is when its live timer starts.
 export interface NodeRuntime { status: NodeStatus; verdict?: string | null; outputPath?: string; runId?: string; startedAt?: number; endedAt?: number }
 
+// ---- chat with your data (closed-book Q&A over a run's synthesized output) ----
+export type ChatScope = 'run' | 'module' | 'orb'
+export interface ChatMessage { role: 'user' | 'assistant'; content: string }
+export interface ChatRequest {
+  ticker?: string
+  runRoot?: string
+  scope: ChatScope
+  module?: string
+  orbPath?: string
+  model?: string
+  messages: ChatMessage[]
+}
+export interface ChatScopes {
+  ticker: string
+  runRoot: string | null
+  run: { present: boolean }
+  modules: { module: string; label: string; present: boolean }[]
+  orbs: { module: string; path: string; title: string; present: boolean }[]
+}
+
 // ---- calls tracker (the engine's call ledger + since-the-call outcomes) ----
 export interface CallTimelineEntry {
   window: string
