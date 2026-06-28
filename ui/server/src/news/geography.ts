@@ -5,8 +5,10 @@
 // (gics.ts). This replaces the old 8-bucket `Region` enum (geo.ts) as the geography filter's vocabulary;
 // the legacy `region` field is retained on the wire for the trading-market logic and as a coarse floor.
 //
-// Pure + dependency-free (like rank.ts / scope.ts / geo.ts) so it is trivially unit-testable, and the
-// browser keeps a byte-for-byte mirror at ui/web/src/lib/geography.ts — a sync test enforces no drift.
+// Pure + dependency-free (like rank.ts / scope.ts / geo.ts) so it is trivially unit-testable. Geography is
+// server-only canonical: the browser does NOT import this module — it renders the Continent → Country
+// drill-down from the server-computed `/api/news/facets` response, so there is no web mirror to keep in
+// sync (unlike gics.ts, whose taxonomy the web copies and a gics-sync test deep-compares).
 //
 // `resolveCountry` says WHERE an event is, most-confident-first: (a) the listing country of the single
 // company a primary-linkage headline is about; (b) a curated gazetteer matched whole-word over the

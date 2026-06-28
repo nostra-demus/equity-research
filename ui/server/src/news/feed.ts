@@ -270,7 +270,13 @@ export function searchFeed(repoRoot: string, opts: SearchOpts): SearchSnapshot {
     }
     // Stop AFTER fully parsing a day (never mid-file) so newest-first ordering is exact: older days can
     // only add items older than everything scanned, so once we have a full page it is complete + correct.
-    if (matches.length >= limit) break
+    // Break on `> limit` (overflow by at least one), NOT `>= limit`: landing EXACTLY on `limit` must keep
+    // walking older days, otherwise a day that brings the running total to exactly `limit` while older
+    // matching days remain would stop here with `matches.length === limit` and report nextCursor=null —
+    // silently hiding the deeper matches (the very "false nothing" this function exists to kill). Overflowing
+    // by one guarantees "more exists ⟺ matches.length > limit"; landing exactly on `limit` instead continues
+    // until the next match (→ overflow → cursor) or the archive floor (→ exhausted).
+    if (matches.length > limit) break
     if (linesScanned >= maxLinesScan) { budgetStop = true; break }
     if (d === maxDaysScan - 1) budgetStop = true // walked the whole window without filling a page
   }
@@ -283,8 +289,14 @@ export function searchFeed(repoRoot: string, opts: SearchOpts): SearchSnapshot {
 
   const hasMore = matches.length > limit || (budgetStop && !reachedFloor)
   const last = page[page.length - 1]
+  const fullPage = page.length >= limit
   // when we stopped on budget with a partial page, resume from the oldest day we scanned so older data is reachable
   const budgetCursor: SearchCursor | null = budgetStop && page.length < limit && scannedThroughDate ? { ts: `${scannedThroughDate}T00:00:00Z`, id: '' } : null
-  const nextCursor = !hasMore ? null : matches.length > limit && last ? { ts: last.ts, id: last.event_id || '' } : budgetCursor
+  // A FULL page always resumes strictly AFTER its last (oldest) item — every match beyond the page is by
+  // construction older than it, so this is loss-free. This also covers a full page that stopped on budget
+  // (matches.length === limit exactly): without it, budgetCursor would be null (it requires a partial page)
+  // and the deeper data would be unreachable. A PARTIAL page that stopped on budget resumes from the oldest
+  // scanned day instead.
+  const nextCursor = !hasMore ? null : fullPage && last ? { ts: last.ts, id: last.event_id || '' } : budgetCursor
   return { items: page, nextCursor, scannedThroughDate, exhausted: reachedFloor && matches.length <= limit }
 }

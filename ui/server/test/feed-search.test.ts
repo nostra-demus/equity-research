@@ -118,4 +118,41 @@ check('computeFacets surfaces UAE with a count, under Middle East, plus the sub-
   assert.ok(fAe.subSectors.find((s) => s.key === 'Aerospace & Defense'))
 })
 
+// ---- 5. exact-full-page boundary: a page that lands EXACTLY on `limit` must still expose older matches ----
+// Regression for the cursor-loss bug: when the days scanned to reach the page brought the running match
+// total to EXACTLY `limit`, the loop stopped with `matches.length === limit`, computed hasMore=false and
+// nextCursor=null while older matching days were never scanned — silently hiding them (the "false nothing"
+// this function exists to kill). The scan must overflow by one (or reach the floor) before declaring done.
+check('searchFeed does not drop older matches when a page fills to EXACTLY the limit', () => {
+  const repo = tmp()
+  const day0 = dayAgo(0)
+  // exactly `limit` (=2) matches on the newest day…
+  writeDay(repo, day0, [
+    item({ ts: `${day0}T10:00:00Z`, country: 'AE', headline: 'UAE defense firm A wins order' }),
+    item({ ts: `${day0}T09:00:00Z`, country: 'AE', headline: 'UAE defense firm B wins order' }),
+  ])
+  // …and one MORE match five days older, which must remain reachable
+  const deep = item({ ts: `${dayAgo(5)}T08:00:00Z`, country: 'AE', headline: 'UAE missile maker deep match' })
+  writeDay(repo, dayAgo(5), [deep])
+
+  const pred = (it: FeedItem) => matchesFeedFilters(it, { gicsSubSector: 'Aerospace & Defense', country: 'AE' })
+  // single call: a full page at exactly the limit must NOT claim to be done while older data exists
+  const first = searchFeed(repo, { now, predicate: pred, limit: 2 })
+  assert.equal(first.items.length, 2, 'returns a full page')
+  assert.ok(first.nextCursor, 'a full page with older matches remaining must expose a cursor, not a silent dead-end')
+  assert.equal(first.exhausted, false, 'not exhausted — an older match remains')
+
+  // page through: the deep match must be reachable, exactly once, ending in an honest exhausted state
+  const seen = new Set<string>()
+  let cursor: any = null
+  for (let page = 0; page < 10; page++) {
+    const snap = searchFeed(repo, { now, predicate: pred, limit: 2, cursor })
+    for (const it of snap.items) { assert.ok(!seen.has(it.event_id), `no duplicate ${it.event_id}`); seen.add(it.event_id) }
+    if (!snap.nextCursor) { assert.equal(snap.exhausted, true, 'final page reports exhausted'); break }
+    cursor = snap.nextCursor
+  }
+  assert.ok(seen.has(deep.event_id), 'the older match buried behind an exactly-full page is reachable via paging')
+  assert.equal(seen.size, 3, 'all three matches returned exactly once')
+})
+
 console.log(`\nfeed-search.test.ts: ${passed} passed`)
