@@ -2,6 +2,8 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { useStore } from '../../../lib/store'
 import { computeGlobeLayout, type GlobeNode } from '../../../lib/globe-layout'
+import { computeLayout } from '../../../lib/layout'
+import { GLOBE } from './globe-consts'
 import { GlobeScene } from './GlobeScene'
 import { useGlobeColors } from './useGlobeColors'
 import { useNodeInteractions } from '../useNodeInteractions'
@@ -74,7 +76,24 @@ export default function GlobeStage() {
     return () => clearInterval(id)
   }, [size])
 
-  const layout = useMemo(() => (graph ? computeGlobeLayout(graph) : null), [graph])
+  // Seamless wrap: feed the globe the REAL constellation layout as its flat state. Compute the exact same
+  // computeLayout(graph, W, H) SwarmField uses, then un-project each screen position onto the flat camera's
+  // z=0 plane so the globe's orbs/labels/core sit on TOP of the constellation at morph 0 — wrapping then
+  // lifts the actual constellation into the sphere (no separate "globe-flat" layout is ever shown). Falls
+  // back to the globe's own columns until the stage is measured.
+  const layout = useMemo(() => {
+    if (!graph) return null
+    if (!size) return computeGlobeLayout(graph)
+    const W = Math.max(640, size.w), H = Math.max(480, size.h)
+    const c = computeLayout(graph, W, H)
+    const halfH = GLOBE.FLAT_CAM_Z * Math.tan((GLOBE.FLAT_FOV / 2) * (Math.PI / 180))
+    const halfW = halfH * (W / H)
+    const toWorld = (x: number, y: number) => ({ x: ((x / W) * 2 - 1) * halfW, y: (1 - (y / H) * 2) * halfH, z: 0 })
+    const nodePos = new Map(c.nodes.map((n) => [n.key, toWorld(n.x, n.y)]))
+    const labelPos = new Map(c.clusters.map((cl) => [cl.module, toWorld(cl.labelX, cl.labelY)]))
+    const corePos = toWorld(c.core.x, c.core.y)
+    return computeGlobeLayout(graph, { node: (k) => nodePos.get(k), label: (m) => labelPos.get(m), core: corePos })
+  }, [graph, size])
   // mirror SwarmField: nothing renders until a company is selected (an empty globe would mislead)
   if (!graph || !layout || !selectedTicker) return <div className="globe" ref={wrapRef} />
 

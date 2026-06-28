@@ -65,14 +65,16 @@ function ResearchStage() {
     <>
       <AnimatePresence>
         {onGlobe ? (
-          // Entering = WRAP: fade in (0.7s) while GlobeScene wraps flat→sphere. Exiting = UNWRAP: stay fully
-          // visible through the whole flatten (held mounted for W), then fade only at the very end — so the
-          // globe is seen unwrapping ALL the way down to flat before it hands off, mirroring the wrap-in.
+          // The globe's FLAT state is the EXACT constellation (GlobeStage feeds it as the flat override), so
+          // at morph 0 the globe orbs sit pixel-on-pixel over the constellation. Entering = WRAP: cross-fade
+          // over the SAME duration the constellation fades out (identical pixels → invisible swap) while the
+          // scene wraps flat→sphere. Exiting = UNWRAP: held mounted for the full flatten, opaque until it has
+          // unwrapped back onto the constellation, then a brief end-fade hand-off (no scale → no drift).
           <motion.div
             key="globe"
             className="stageview"
             initial={{ opacity: 0 }}
-            animate={{ opacity: 1, transition: { duration: reduced ? 0 : 0.7, ease } }}
+            animate={{ opacity: 1, transition: { duration: reduced ? 0 : 0.6, ease } }}
             exit={reduced ? { opacity: 0, transition: { duration: 0 } } : { opacity: [1, 1, 0], transition: { duration: W, times: [0, 0.72, 1], ease } }}
           >
             <Suspense fallback={<GlobeLoading />}>
@@ -80,14 +82,15 @@ function ResearchStage() {
             </Suspense>
           </motion.div>
         ) : (
-          // Entering after an UNWRAP: hold off, then fade+settle in as the globe reaches flat (delay ≈ 0.6·W)
-          // so the constellation appears to be what the globe flattened INTO. Exiting on a wrap: quick fade out.
+          // Opacity ONLY (no scale) so the constellation stays pixel-aligned with the globe's matched flat
+          // state through the cross-fade. Entering after an UNWRAP: held until the globe has flattened back
+          // onto it (delay ≈ 0.72·W), then a brief fade-in that complements the globe's end-fade.
           <motion.div
             key="constellation"
             className="stageview"
-            initial={{ opacity: 0, scale: 1.04 }}
-            animate={{ opacity: 1, scale: 1, transition: { duration: reduced ? 0 : 0.6, delay: reduced ? 0 : W * 0.6, ease } }}
-            exit={{ opacity: 0, scale: 1.04, transition: { duration: reduced ? 0 : 0.5, ease } }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, transition: { duration: reduced ? 0 : W * 0.28, delay: reduced ? 0 : W * 0.72, ease } }}
+            exit={{ opacity: 0, transition: { duration: reduced ? 0 : 0.6, ease } }}
           >
             <SwarmField />
           </motion.div>
