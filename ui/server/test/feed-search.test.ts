@@ -155,4 +155,82 @@ check('searchFeed does not drop older matches when a page fills to EXACTLY the l
   assert.equal(seen.size, 3, 'all three matches returned exactly once')
 })
 
+// ---- 6. budget-stop cursor must ADVANCE past a single day that alone exhausts the line budget ----
+// Regression: when one day's line count >= maxLinesScan while it yields a partial page, the resume cursor
+// used to be that same day's midnight ({ts:`<day>T00:00:00Z`,id:''}). The next call re-read that day,
+// afterCursor excluded all of it, the budget tripped again at d=0, and an IDENTICAL cursor was returned
+// forever — an infinite client paging loop that permanently hid every older match (the "false nothing").
+// Contract (feed.ts searchFeed): paging is loss-free and the cursor strictly advances toward the floor.
+check('searchFeed advances the budget cursor past a fat day so deeper matches stay reachable (no stall)', () => {
+  const repo = tmp()
+  const day0 = dayAgo(0)
+  // newest day: 2 AE matches (10:00, 09:00) + 15 newer US filler lines → 17 lines, alone over a small budget
+  writeDay(repo, day0, [
+    item({ ts: `${day0}T10:00:00Z`, country: 'AE', headline: 'UAE defense firm A wins order' }),
+    item({ ts: `${day0}T09:00:00Z`, country: 'AE', headline: 'UAE defense firm B wins order' }),
+    ...Array.from({ length: 15 }, () => item({ ts: `${day0}T11:00:00Z`, country: 'US', headline: 'Retailer posts quarterly sales' })),
+  ])
+  // a deeper AE match five days older — only reachable if the cursor advances past the fat day0
+  const deep = item({ ts: `${dayAgo(5)}T08:00:00Z`, country: 'AE', headline: 'UAE missile maker deep match' })
+  writeDay(repo, dayAgo(5), [deep])
+
+  const pred = (it: FeedItem) => matchesFeedFilters(it, { gicsSubSector: 'Aerospace & Defense', country: 'AE' })
+  const seen = new Set<string>()
+  const cursorsSeen = new Set<string>()
+  let cursor: any = null
+  let pages = 0
+  for (; pages < 12; pages++) {
+    const snap = searchFeed(repo, { now, predicate: pred, limit: 2, maxLinesScan: 10, cursor })
+    for (const it of snap.items) { assert.ok(!seen.has(it.event_id), `no duplicate ${it.event_id}`); seen.add(it.event_id) }
+    if (!snap.nextCursor) { assert.equal(snap.exhausted, true, 'final page reports exhausted'); break }
+    const key = `${snap.nextCursor.ts}|${snap.nextCursor.id}`
+    assert.ok(!cursorsSeen.has(key), `cursor must strictly advance, not repeat (${key}) — a repeat is the infinite-loop bug`)
+    cursorsSeen.add(key)
+    cursor = snap.nextCursor
+  }
+  assert.ok(pages < 12, 'paging terminated (did not spin to the page cap)')
+  assert.ok(seen.has(deep.event_id), 'the deep match behind a budget-exhausting day is reachable')
+  assert.equal(seen.size, 3, 'all three AE matches returned exactly once')
+})
+
+// ---- 7. malformed cursor.ts / impossible toDate must NOT throw (would be an unhandled route 500 + leak) ----
+// Regression: startDate flowed straight into new Date(`${startDate}T00:00:00Z`) — new Date(NaN).toISOString()
+// throws RangeError, and /api/news/search has no try/catch or global error handler, so "abc"/"2026-13-45"
+// returned HTTP 500 leaking "Invalid time value". searchFeed must be total over any string input.
+check('searchFeed does not throw on a malformed cursor.ts or an impossible toDate', () => {
+  const repo = tmp()
+  writeDay(repo, dayAgo(0), [item({ ts: `${dayAgo(0)}T10:00:00Z`, country: 'AE', headline: 'UAE defense order' })])
+  const pred = () => true
+  assert.doesNotThrow(() => searchFeed(repo, { now, predicate: pred, cursor: { ts: 'abc', id: '' } }), 'a non-date cursor.ts must not crash')
+  assert.doesNotThrow(() => searchFeed(repo, { now, predicate: pred, toDate: '2026-13-45' }), 'an impossible toDate must not crash')
+  const snap = searchFeed(repo, { now, predicate: pred, cursor: { ts: 'abc', id: '' } })
+  assert.ok(Array.isArray(snap.items), 'still returns a usable snapshot (falls back to today)')
+})
+
+// ---- 8. loss-free paging when >limit same-ts items have an EMPTY event_id (url tiebreak) ----
+// Regression: the cursor tie-break was event_id only; out-of-contract items with an empty event_id sharing
+// a ts collapsed to one indistinguishable cursor and every one past the first was dropped across the page
+// boundary. Real items always carry both event_id and url; the idKey fallback to url keeps the (ts,key)
+// order total. Contract (feed.ts SearchCursor / idKey): paging is loss-free at minute granularity.
+check('searchFeed pages without loss when same-ts items have an empty event_id (url disambiguates)', () => {
+  const repo = tmp()
+  const day = dayAgo(1)
+  // three matches, identical ts, empty event_id, but distinct url (the realistic out-of-contract case)
+  writeDay(repo, day, [
+    item({ ts: `${day}T09:00:00Z`, event_id: '', url: 'https://ex.com/aaa', country: 'AE', headline: 'UAE missile maker a' }),
+    item({ ts: `${day}T09:00:00Z`, event_id: '', url: 'https://ex.com/bbb', country: 'AE', headline: 'UAE missile maker b' }),
+    item({ ts: `${day}T09:00:00Z`, event_id: '', url: 'https://ex.com/ccc', country: 'AE', headline: 'UAE missile maker c' }),
+  ])
+  const pred = (it: FeedItem) => matchesFeedFilters(it, { gicsSubSector: 'Aerospace & Defense', country: 'AE' })
+  const seen = new Set<string>()
+  let cursor: any = null
+  for (let page = 0; page < 10; page++) {
+    const snap = searchFeed(repo, { now, predicate: pred, limit: 2, cursor })
+    for (const it of snap.items) { assert.ok(!seen.has(it.url), `no duplicate ${it.url}`); seen.add(it.url) }
+    if (!snap.nextCursor) break
+    cursor = snap.nextCursor
+  }
+  assert.equal(seen.size, 3, 'all three empty-event_id matches returned exactly once across the page boundary')
+})
+
 console.log(`\nfeed-search.test.ts: ${passed} passed`)

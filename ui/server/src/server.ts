@@ -794,9 +794,14 @@ app.get('/api/news/search', { config: { rateLimit: { max: 600, timeWindow: '1 mi
   const q = req.query as any
   const filters = parseFeedFilterQuery(q || {})
   const limit = Math.min(200, Math.max(1, Math.floor(Number(q?.limit) || 60)))
-  const cursor = typeof q?.cursorTs === 'string' && q.cursorTs ? { ts: String(q.cursorTs), id: String(q?.cursorId || '') } : null
-  const from = typeof q?.from === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(q.from) ? q.from : undefined
-  const to = typeof q?.to === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(q.to) ? q.to : undefined
+  // Validate dates before they reach searchFeed's date arithmetic: a shape-only regex admits impossible
+  // values like "2026-13-45", and a non-date cursorTs ("abc") both make new Date(NaN).toISOString() throw
+  // (an unhandled 500 + raw-error leak — there is no global error handler). searchFeed now also guards this,
+  // but dropping malformed optional inputs here keeps results sane (an ignored filter, not a silent "today").
+  const realDate = (s: any): s is string => typeof s === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(s) && !Number.isNaN(Date.parse(`${s}T00:00:00Z`))
+  const cursor = typeof q?.cursorTs === 'string' && q.cursorTs && !Number.isNaN(Date.parse(q.cursorTs)) ? { ts: String(q.cursorTs), id: String(q?.cursorId || '') } : null
+  const from = realDate(q?.from) ? q.from : undefined
+  const to = realDate(q?.to) ? q.to : undefined
   const snap = searchFeed(REPO_ROOT, {
     predicate: (it) => matchesFeedFilters(it, filters),
     archiveDir: NEWS.newsArchiveDir, limit, cursor, fromDate: from, toDate: to,

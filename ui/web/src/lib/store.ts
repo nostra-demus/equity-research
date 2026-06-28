@@ -1697,6 +1697,10 @@ export const useStore = create<State>((set, get) => ({
     if (!active) { // back to LIVE mode — drop the archive snapshot, keep the live wire
       archiveToken++
       set({ scArchiveQuery: {}, scArchiveResults: [], scArchiveCursor: null, scArchiveLoading: false, scArchiveLoadingMore: false, scArchiveScannedThrough: null, scArchiveExhausted: false })
+      // Restore the FULL-archive facets so the Geography (and other) dropdowns show every option again.
+      // A prior active search overwrote scFacets with filter-narrowed facets; without this reload, clearing
+      // a non-geo filter (e.g. a sector) would leave the country dropdown stuck on that sector's subset.
+      void get().scLoadFacets({})
       return
     }
     const token = ++archiveToken

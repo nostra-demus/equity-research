@@ -530,10 +530,15 @@ export function EventRail() {
         {visibleGroups.map((g) => (
           <EventRow key={g.group} group={g} selected={inGroup(selected, g)} shelved={shelvedEvents.has(g.rep.event_id)} fresh={isFresh(g)} onPick={pick} onShelve={toggleShelve} />
         ))}
-        {archiveMode && archiveCursor && !!visibleGroups.length && (
-          <div ref={moreRef} className="evrail__more">{archiveLoadingMore ? 'loading more of all history…' : 'scroll for more — searching the whole archive'}</div>
+        {/* Render the paging sentinel whenever a next cursor remains — even when THIS page filtered to zero
+            visible rows (e.g. a page of all band='drop' items hidden in Ranked/Latest). Gating it on
+            visibleGroups.length stalled paging: the IntersectionObserver had no element to observe, so the
+            buried kept matches on later pages were unreachable and the empty-state below falsely claimed
+            "genuinely nothing matches" while more archive remained to scan. */}
+        {archiveMode && archiveCursor && (
+          <div ref={moreRef} className="evrail__more">{archiveLoadingMore ? 'loading more of all history…' : 'scanning deeper into the whole archive…'}</div>
         )}
-        {!visibleGroups.length && (
+        {!visibleGroups.length && !(archiveMode && archiveCursor) && (
           <div className="evrail__empty">
             {archiveMode
               ? archiveLoading

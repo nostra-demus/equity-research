@@ -211,7 +211,7 @@ export function readFeed(repoRoot: string, days = 2, opts: { now?: () => Date; m
 
 export interface SearchCursor {
   ts: string
-  id: string // event_id — breaks ts ties so paging is loss-free at minute granularity
+  id: string // idKey (event_id, url fallback) — breaks ts ties so paging is loss-free at minute granularity
 }
 export interface SearchOpts {
   predicate: (it: FeedItem) => boolean
@@ -233,11 +233,20 @@ export interface SearchSnapshot {
 }
 
 const dayKey = (now: () => Date) => now().toISOString().slice(0, 10)
-// item is strictly AFTER the cursor in (ts desc, event_id desc) order → belongs on a later page
+// The cursor's tie-break key: the event_id (always set on real firehose items — EVT-<sha256-12 of
+// headline|url>), falling back to url so the (ts, key) ordering stays a TOTAL order even on an
+// out-of-contract line with an empty event_id. Without the fallback, >limit same-ts items that all had
+// an empty event_id would collapse to one indistinguishable cursor and silently drop every one past the
+// first across a page boundary (a "false nothing").
+const idKey = (it: FeedItem): string => it.event_id || it.url || ''
+// the calendar day immediately before `d` (YYYY-MM-DD). Used to advance a budget-stop resume cursor
+// strictly past a day already fully scanned, so paging can never stall re-reading the same boundary day.
+const dayBefore = (d: string): string => new Date(new Date(`${d}T00:00:00Z`).getTime() - 86_400_000).toISOString().slice(0, 10)
+// item is strictly AFTER the cursor in (ts desc, idKey desc) order → belongs on a later page
 function afterCursor(it: FeedItem, c: SearchCursor | null | undefined): boolean {
   if (!c) return true
   if (it.ts !== c.ts) return it.ts < c.ts
-  return (it.event_id || '') < c.id
+  return idKey(it) < c.id
 }
 
 export function searchFeed(repoRoot: string, opts: SearchOpts): SearchSnapshot {
@@ -246,7 +255,11 @@ export function searchFeed(repoRoot: string, opts: SearchOpts): SearchSnapshot {
   const limit = opts.limit && opts.limit > 0 ? opts.limit : 60
   const maxDaysScan = opts.maxDaysScan && opts.maxDaysScan > 0 ? opts.maxDaysScan : 400
   const maxLinesScan = opts.maxLinesScan && opts.maxLinesScan > 0 ? opts.maxLinesScan : 300_000
-  const startDate = opts.cursor?.ts.slice(0, 10) || opts.toDate || dayKey(now)
+  // Guard the start day against a malformed cursor.ts / toDate (e.g. "abc", or an impossible "2026-13-45"):
+  // it feeds the date arithmetic below, and new Date(NaN).toISOString() THROWS — which would otherwise
+  // surface as an unhandled 500 (and a raw-error leak) from the /api/news/search route. Fall back to today.
+  const rawStart = opts.cursor?.ts.slice(0, 10) || opts.toDate || dayKey(now)
+  const startDate = Number.isNaN(Date.parse(`${rawStart}T00:00:00Z`)) ? dayKey(now) : rawStart
   // The real archive floor: the OLDEST day that actually has a firehose file (local or in the cloud
   // archive). Bounding the walk to it makes `exhausted` honest — we know when there is genuinely no older
   // data, instead of walking maxDaysScan empty days and reporting a false "maybe more".
@@ -281,8 +294,8 @@ export function searchFeed(repoRoot: string, opts: SearchOpts): SearchSnapshot {
     if (d === maxDaysScan - 1) budgetStop = true // walked the whole window without filling a page
   }
 
-  // newest-first, ties broken by event_id desc — the same total order the cursor encodes
-  matches.sort((a, b) => (a.ts !== b.ts ? (a.ts < b.ts ? 1 : -1) : (a.event_id || '') < (b.event_id || '') ? 1 : -1))
+  // newest-first, ties broken by idKey desc — the same total order the cursor encodes
+  matches.sort((a, b) => (a.ts !== b.ts ? (a.ts < b.ts ? 1 : -1) : idKey(a) < idKey(b) ? 1 : -1))
   const page = matches.slice(0, limit)
   if (opts.applyActiveWeights !== false) withActiveWeights(page)
   withDedup(page)
@@ -290,13 +303,21 @@ export function searchFeed(repoRoot: string, opts: SearchOpts): SearchSnapshot {
   const hasMore = matches.length > limit || (budgetStop && !reachedFloor)
   const last = page[page.length - 1]
   const fullPage = page.length >= limit
-  // when we stopped on budget with a partial page, resume from the oldest day we scanned so older data is reachable
-  const budgetCursor: SearchCursor | null = budgetStop && page.length < limit && scannedThroughDate ? { ts: `${scannedThroughDate}T00:00:00Z`, id: '' } : null
+  // A PARTIAL page that stopped on budget resumes STRICTLY OLDER than the oldest day we fully scanned — at
+  // the day BEFORE scannedThroughDate, never at scannedThroughDate itself. Resuming at the same day would
+  // re-read (and re-count toward the budget) that day; when one day's line count alone exceeds maxLinesScan,
+  // the budget would trip again at d=0 before advancing, returning an IDENTICAL cursor forever — an infinite
+  // client paging loop that permanently hides every older match (the very "false nothing" this kills). The
+  // day was fully parsed, so all its matches are already in `matches`; skipping it on resume is loss-free.
+  const budgetCursor: SearchCursor | null =
+    budgetStop && page.length < limit && scannedThroughDate
+      ? { ts: `${dayBefore(scannedThroughDate)}T23:59:59Z`, id: '￿' } // high sentinel → includes every item on the resume day
+      : null
   // A FULL page always resumes strictly AFTER its last (oldest) item — every match beyond the page is by
   // construction older than it, so this is loss-free. This also covers a full page that stopped on budget
   // (matches.length === limit exactly): without it, budgetCursor would be null (it requires a partial page)
-  // and the deeper data would be unreachable. A PARTIAL page that stopped on budget resumes from the oldest
-  // scanned day instead.
-  const nextCursor = !hasMore ? null : fullPage && last ? { ts: last.ts, id: last.event_id || '' } : budgetCursor
+  // and the deeper data would be unreachable. A PARTIAL page that stopped on budget resumes from the day
+  // before the oldest scanned day instead.
+  const nextCursor = !hasMore ? null : fullPage && last ? { ts: last.ts, id: idKey(last) } : budgetCursor
   return { items: page, nextCursor, scannedThroughDate, exhausted: reachedFloor && matches.length <= limit }
 }
