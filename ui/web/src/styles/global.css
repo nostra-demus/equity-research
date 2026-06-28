@@ -1997,6 +1997,17 @@ a { color: inherit; }
 .globe { position: absolute; inset: 0; z-index: 1; animation: fade var(--dur-slow) var(--ease-out) both; }
 .globe canvas { display: block; outline: none; cursor: grab; }
 .globe canvas:active { cursor: grabbing; }
+/* On the globe, idle orbs were near-invisible empty rings against the busy planet — so flows looked like
+   they came from nowhere. Give every not-yet-run orb a small, calm filled core + a touch brighter ring so
+   each node clearly reads as the origin of its flow. Scoped to .globe — the constellation is untouched. */
+.globe .node--dormant .node__core,
+.globe .node--ready .node__core,
+.globe .node--notready .node__core,
+.globe .node--locked .node__core { width: 34%; height: 34%; background: var(--accent-deep); }
+.globe .node--dormant .node__ring,
+.globe .node--ready .node__ring,
+.globe .node--notready .node__ring,
+.globe .node--locked .node__ring { border-color: var(--accent-deep); }
 /* subtle vignette to seat the sphere in the scene (cheap CSS, themed via --bg) */
 .globe::after {
   content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 2;

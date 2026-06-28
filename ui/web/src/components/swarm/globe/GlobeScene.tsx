@@ -36,7 +36,7 @@ const easeInOut = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t 
 const lerp = (a: number, b: number, t: number) => a + (b - a) * t
 
 // DOM orb pixel radius — matches the constellation exactly (computeLayout: agent 7, synthesis 10)
-const orbPx = (n: GlobeNode) => (n.isSynthesis ? 10 : 7)
+const orbPx = (n: GlobeNode) => (n.isSynthesis ? 13 : 9)
 
 // surface-hugging great-circle arc between two shell points (never enters the interior)
 function arcPoints(from: V3In, to: V3In, bow: number, segs: number): Vector3[] {
@@ -371,9 +371,9 @@ export function GlobeScene({
           brightest for the hovered orb's own flows (incl. its otherwise-hidden feeds) */}
       {/* speed = dashes/sec: one comet passes a point every 1/speed seconds → ~0.7s baseline, brisk when live.
           width = ribbon thickness in world units (R=10) — live/hover edges are thicker so they stand out. */}
-      <MorphEdges edges={depCoreEdges} color={colors.accent} opacity={0.72} speed={1.4} width={0.11} morphRef={morphRef} />
-      {activeEdges.length > 0 && <MorphEdges edges={activeEdges} color={colors.accentBright} opacity={1} speed={2.8} width={0.2} morphRef={morphRef} />}
-      {hoverEdges.length > 0 && <MorphEdges edges={hoverEdges} color={colors.accentBright} opacity={1} speed={2.3} width={0.18} morphRef={morphRef} />}
+      <MorphEdges edges={depCoreEdges} color={colors.accent} opacity={0.6} speed={1.4} width={0.05} morphRef={morphRef} />
+      {activeEdges.length > 0 && <MorphEdges edges={activeEdges} color={colors.accentBright} opacity={0.95} speed={2.8} width={0.085} morphRef={morphRef} />}
+      {hoverEdges.length > 0 && <MorphEdges edges={hoverEdges} color={colors.accentBright} opacity={0.95} speed={2.3} width={0.075} morphRef={morphRef} />}
 
       {/* agent orbs — the SAME DOM AgentNode the constellation uses, billboarded at each 3D position. Occludes
           against the shell so back-of-globe orbs hide; click runs/opens it; hover lights its edges + tooltip. */}
