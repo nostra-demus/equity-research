@@ -276,14 +276,17 @@ export function GlobeScene({
     for (const a of layout.moduleAnchors) if (a.synthKey && nodeStatus(a.synthKey) === 'done') moduleDone.add(a.module)
     return depCoreEdges.filter((e) => (e.kind === 'dep' && moduleDone.has(e.fromModule) && activeModules.has(e.toModule)) || (e.kind === 'core' && moduleDone.has(e.fromModule)))
   }, [depCoreEdges, layout.moduleAnchors, activeModules, statusSig]) // eslint-disable-line react-hooks/exhaustive-deps
-  // hover lights the connections — an orb lights its own flows (feeds to its synthesis + any dep/core it
-  // touches); a module label lights every edge into/out of that module. Same grammar as the flat view.
+  // hover lights only the INTER-module connections (module→module deps + module→Memo) touching the hovered
+  // orb/module. Intra-module feeds (every agent→synthesis) are deliberately never drawn on the globe — as
+  // comets they fan into an ugly starburst at the synthesis hub, and the north-aligned column already shows
+  // the gate→synthesis hierarchy. So the globe's flow story stays clean: data moving BETWEEN islands.
   const hoverEdges = useMemo(() => {
     if (!hoverKey && !hoverModule) return [] as GlobeEdge[]
     return layout.edges.filter(
       (e) =>
-        (hoverKey && (e.fromKey === hoverKey || e.toKey === hoverKey)) ||
-        (hoverModule && (e.fromModule === hoverModule || e.toModule === hoverModule)),
+        e.kind !== 'feeds' &&
+        ((hoverKey && (e.fromKey === hoverKey || e.toKey === hoverKey)) ||
+          (hoverModule && (e.fromModule === hoverModule || e.toModule === hoverModule))),
     )
   }, [hoverKey, hoverModule, layout.edges])
 
