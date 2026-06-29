@@ -401,26 +401,63 @@ def eval_ad_filter_4_6_cap(decision, decision_date, bm_txt, mg_txt):
 AE_DATE = "2026-06-29"
 CAP5_TAG = "RF-BQ-005"  # fast-changing industry (§24 Filter 5)
 ABOVE_STARTER_AE = {"Strong Buy", "Buy"}  # decisions exceeding the "Starter Position Only" cap
+# Negative/status phrasings that, on a leading-tag line, mean the cap did NOT fire (so the tag is
+# being reported as cleared, not triggered). Keeps the detector from false-positiving on a
+# "RF-BQ-005 not triggered" status line (Codex review, P2). Deliberately narrow — only the tag's own
+# negation, never an arbitrary "not", so a genuinely-fired line ("RF-BQ-005 (… ≤40) — not the main
+# driver") still counts as fired.
+_CAP_TAG_NEGATIONS = ("not triggered", "not applicable", "n/a", "not fired", "did not fire",
+                      "none", "absent", "cleared", "no cap")
 
-def eval_ae_filter5_cap(decision, decision_date, bm_txt, edge_score):
+def _tag_fired_standalone(txt, tag):
+    """True iff `tag` appears as a FIRED standalone tag line in `txt` — a line whose first non-markup
+    token is `tag` and whose remainder is not a negation. This deliberately does NOT match:
+      • a parenthetical / table-row mention where the tag is not the leading token (e.g. the MG-style
+        cap-application rows `| Serial-acquirer pattern (… RF-CAP-004) | N | … |`, which carry the tag
+        string in EVERY synthesis regardless of whether the cap fired — bare substring matching there
+        is a false positive, the defect Codex flagged for AE);
+      • a negation/status line (`RF-BQ-005 not triggered`).
+    Matches the agent convention exactly: the business-quality specialist and the BM synthesis emit the
+    tag `as a standalone line` ONLY when the cap fires (07_business-quality.md / 99 synthesis)."""
+    if not txt:
+        return False
+    for raw in txt.splitlines():
+        line = raw.strip().lstrip("-*•>|` \t").rstrip("` \t")  # shed md bullet/table/quote/backtick cruft
+        if line.startswith(tag):
+            rest = line[len(tag):].lower()
+            if any(neg in rest for neg in _CAP_TAG_NEGATIONS):
+                continue  # status/negation mention, not a fired tag
+            return True
+    return False
+
+def eval_ae_filter5_cap(decision, decision_date, bm_txt, edge_score, bq_txt=None):
     """Check AE: §24 Filter 5 fast-changing-industry conviction cap.
-    Returns None (N/A — pre-gate or BM synthesis absent), or a list of violation strings
-    (empty list = pass). Side-effect-free + module-level so the selftest can drive it.
-    bm_txt: BM 99_*-synthesis.md text, or None (module absent → N/A).
-    edge_score: decision_record edge_score field, or None (absent → no proven edge)."""
+    Returns None (N/A — pre-gate, or BOTH the BM synthesis and the business-quality source absent),
+    or a list of violation strings (empty list = pass). Side-effect-free + module-level so the
+    selftest can drive it.
+    bm_txt: BM 99_*-synthesis.md text, or None.
+    bq_txt: 07_business-quality.md specialist text, or None. Scanned in ADDITION to the synthesis so a
+            synthesis that forgets to propagate the tag still fires the cap — RF-BQ-005's SOURCE emitter
+            is the specialist, and reading the roll-up alone lets a missed propagation silently bypass
+            the cap (CLAUDE.md §11: caps are applied, never silently overridden). This mirrors the AD
+            fix that reads RF-CAP-004 from its MG source, not the roll-up alone (Codex review, P2).
+    edge_score: decision_record edge_score field, or None (absent → no proven edge).
+    Detection requires a FIRED standalone tag line (see _tag_fired_standalone), not a bare substring,
+    so a cleared/cap-table mention of the tag does not false-positive (Codex review, P2)."""
     if not (isdate(decision_date) and decision_date >= AE_DATE):
         return None  # forward-looking; pre-gate runs N/A
-    if bm_txt is None:
-        return None  # BM module did not run; cap cannot fire — N/A
+    if bm_txt is None and bq_txt is None:
+        return None  # BM module did not run (no synthesis AND no specialist); cap cannot fire — N/A
     # Edge bypass: proven durable winner lifts the fast-changing-industry cap
     proven_edge = isnum(edge_score) and edge_score >= 50
     if proven_edge:
         return []  # edge_score ≥ 50 → cap exception; any rating allowed
     violations = []
-    if CAP5_TAG in bm_txt and decision in ABOVE_STARTER_AE:
+    cap5_fired = _tag_fired_standalone(bm_txt, CAP5_TAG) or _tag_fired_standalone(bq_txt, CAP5_TAG)
+    if cap5_fired and decision in ABOVE_STARTER_AE:
         violations.append(
-            f"§24 Filter 5 (RF-BQ-005 fast-changing industry) present in BM synthesis "
-            f"but decision={decision!r} exceeds the 'Starter Position Only' cap "
+            f"§24 Filter 5 (RF-BQ-005 fast-changing industry) fired in BM synthesis or "
+            f"business-quality specialist but decision={decision!r} exceeds the 'Starter Position Only' cap "
             f"(synthesizer.md Rating Cap Rules: fast-changing-industry thesis with no "
             f"proven durable winner → cap conviction; CLAUDE.md §24 Filter 5; "
             f"edge_score={edge_score!r} < 50 — no edge bypass)")
@@ -800,42 +837,68 @@ if scope=="selftest":
     # check AE — §24 Filter 5 fast-changing-industry conviction cap. All golden fixtures predate
     # AE_DATE → always N/A in the main loop; drive every branch here.
     AE=eval_ae_filter5_cap
-    BM_WITH_CAP5 = "... RF-BQ-005 (fast-changing industry: rate-of-change ≤40) — semiconductor foundry market disrupted by new entrants ..."
+    # FIRED form: the tag emitted "as a standalone line" exactly as 07_business-quality.md / the BM
+    # synthesis are instructed to write it when the rate-of-change row scores ≤40.
+    BM_WITH_CAP5 = ("**REJECTOR-FILTER CAPS (§24).** Filter 5 applied.\n"
+                    "RF-BQ-005 (fast-changing industry: rate-of-change ≤40)\n"
+                    "Semiconductor foundry market disrupted by new entrants.")
     BM_CLEAN_AE  = "Industry rate-of-change / disruption risk: Low. No fast-changing-industry tag emitted."
-    aecases=[  # (decision, decision_date, bm_txt, edge_score, expect: None|[]|[viol])
+    # NEGATION/STATUS mention: the tag named on a leading line but reported NOT triggered (row >40).
+    # Bare-substring matching would false-positive here (Codex P2, eval.py:420) — the standalone-line
+    # detector must NOT fire.
+    BM_NEG_CAP5  = ("## Score Cap Application\n"
+                    "RF-BQ-005 not triggered — industry rate-of-change scored 72 (Strong).")
+    # CAP-TABLE-ROW mention: the tag carried inside a table row (not the leading token), the way the MG
+    # synthesis carries RF-CAP-004/RF-OWN-004 in EVERY run regardless of fire. Must NOT false-positive.
+    BM_TABLEROW_CAP5 = "| Fast-changing industry (§24 Filter 5, RF-BQ-005) | N | Business quality | max 65 | 78 | 78 | row scored 78 (>40) |"
+    # SOURCE-ONLY: 07 specialist fired the tag but the 99 synthesis forgot to propagate it. Reading the
+    # synthesis alone (bm_txt) lets the cap silently bypass (Codex P2, eval.py:1453) — scanning the
+    # source (bq_txt) must still fire.
+    BQ_WITH_CAP5 = ("## 4. Read\nThis is a sector / technology-cycle bet rather than a durable compounder.\n"
+                    "RF-BQ-005 (fast-changing industry: rate-of-change ≤40)")
+    aecases=[  # (decision, decision_date, bm_txt, bq_txt, edge_score, expect: None|[]|[viol])
         # pre-gate: always None (N/A)
-        ("Strong Buy","2026-06-28",BM_WITH_CAP5,None,None),
-        ("Strong Buy","not-a-date",BM_WITH_CAP5,None,None),
-        # BM absent: None (N/A) even if post-gate
-        ("Strong Buy","2026-06-29",None,None,None),
-        ("Buy","2026-06-29",None,40,None),
-        # RF-BQ-005 + "Strong Buy" or "Buy" + no proven edge → violation
-        ("Strong Buy","2026-06-29",BM_WITH_CAP5,None,["RF-BQ-005"]),
-        ("Buy","2026-06-29",BM_WITH_CAP5,None,["RF-BQ-005"]),
-        ("Strong Buy","2026-06-29",BM_WITH_CAP5,0,["RF-BQ-005"]),   # edge_score 0 < 50 → not proven
-        ("Buy","2026-06-29",BM_WITH_CAP5,49,["RF-BQ-005"]),          # edge_score 49 < 50 → not proven
+        ("Strong Buy","2026-06-28",BM_WITH_CAP5,None,None,None),
+        ("Strong Buy","not-a-date",BM_WITH_CAP5,None,None,None),
+        # BM absent (no synthesis AND no specialist): None (N/A) even if post-gate
+        ("Strong Buy","2026-06-29",None,None,None,None),
+        ("Buy","2026-06-29",None,None,40,None),
+        # RF-BQ-005 fired (standalone line) + "Strong Buy" or "Buy" + no proven edge → violation
+        ("Strong Buy","2026-06-29",BM_WITH_CAP5,None,None,["RF-BQ-005"]),
+        ("Buy","2026-06-29",BM_WITH_CAP5,None,None,["RF-BQ-005"]),
+        ("Strong Buy","2026-06-29",BM_WITH_CAP5,None,0,["RF-BQ-005"]),   # edge_score 0 < 50 → not proven
+        ("Buy","2026-06-29",BM_WITH_CAP5,None,49,["RF-BQ-005"]),          # edge_score 49 < 50 → not proven
+        # Codex P2 #1 — NEGATION / cap-table-row mentions must NOT false-positive (cap NOT fired)
+        ("Strong Buy","2026-06-29",BM_NEG_CAP5,None,None,[]),
+        ("Buy","2026-06-29",BM_NEG_CAP5,None,None,[]),
+        ("Strong Buy","2026-06-29",BM_TABLEROW_CAP5,None,None,[]),
+        ("Buy","2026-06-29",BM_TABLEROW_CAP5,None,None,[]),
+        # Codex P2 #2 — source emitter (07) fired but synthesis (99) did NOT propagate → still fires
+        ("Strong Buy","2026-06-29",BM_CLEAN_AE,BQ_WITH_CAP5,None,["RF-BQ-005"]),
+        ("Buy","2026-06-29",None,BQ_WITH_CAP5,None,["RF-BQ-005"]),       # synthesis absent, source fired
+        ("Starter Position Only","2026-06-29",BM_CLEAN_AE,BQ_WITH_CAP5,None,[]),  # source fired but at ceiling → pass
         # RF-BQ-005 + "Starter Position Only" → pass (at the ceiling, not above it)
-        ("Starter Position Only","2026-06-29",BM_WITH_CAP5,None,[]),
+        ("Starter Position Only","2026-06-29",BM_WITH_CAP5,None,None,[]),
         # Short Candidate intentionally not capped (AE only caps ABOVE_STARTER_AE)
-        ("Short Candidate","2026-06-29",BM_WITH_CAP5,None,[]),
+        ("Short Candidate","2026-06-29",BM_WITH_CAP5,None,None,[]),
         # Non-conviction decisions → always pass
-        ("Watchlist","2026-06-29",BM_WITH_CAP5,None,[]),
-        ("Avoid","2026-06-29",BM_WITH_CAP5,None,[]),
-        ("Insufficient Data — Refuse To Rate","2026-06-29",BM_WITH_CAP5,None,[]),
+        ("Watchlist","2026-06-29",BM_WITH_CAP5,None,None,[]),
+        ("Avoid","2026-06-29",BM_WITH_CAP5,None,None,[]),
+        ("Insufficient Data — Refuse To Rate","2026-06-29",BM_WITH_CAP5,None,None,[]),
         # Edge bypass: proven durable winner (edge_score ≥ 50) lifts the cap entirely
-        ("Strong Buy","2026-06-29",BM_WITH_CAP5,50,[]),   # threshold: 50 is proven
-        ("Buy","2026-06-29",BM_WITH_CAP5,75,[]),
-        ("Strong Buy","2026-06-29",BM_WITH_CAP5,100,[]),
+        ("Strong Buy","2026-06-29",BM_WITH_CAP5,None,50,[]),   # threshold: 50 is proven
+        ("Buy","2026-06-29",BM_WITH_CAP5,None,75,[]),
+        ("Strong Buy","2026-06-29",BM_WITH_CAP5,BQ_WITH_CAP5,100,[]),   # edge lifts even with source fired
         # Clean BM (no RF-BQ-005) + conviction → pass regardless of edge
-        ("Strong Buy","2026-06-29",BM_CLEAN_AE,None,[]),
-        ("Buy","2026-06-29",BM_CLEAN_AE,None,[]),
+        ("Strong Buy","2026-06-29",BM_CLEAN_AE,None,None,[]),
+        ("Buy","2026-06-29",BM_CLEAN_AE,None,None,[]),
         # edge bypass: false-type edge_score (bool, string) not considered proven
-        ("Strong Buy","2026-06-29",BM_WITH_CAP5,True,["RF-BQ-005"]),   # bool excluded by isnum
-        ("Buy","2026-06-29",BM_WITH_CAP5,"high",["RF-BQ-005"]),          # string not a number
+        ("Strong Buy","2026-06-29",BM_WITH_CAP5,None,True,["RF-BQ-005"]),   # bool excluded by isnum
+        ("Buy","2026-06-29",BM_WITH_CAP5,None,"high",["RF-BQ-005"]),          # string not a number
     ]
     aebad=0
-    for dec_,dt_,bm_,es_,exp in aecases:
-        got=AE(dec_,dt_,bm_,es_)
+    for dec_,dt_,bm_,bq_,es_,exp in aecases:
+        got=AE(dec_,dt_,bm_,es_,bq_)
         if exp is None:
             ok=(got is None)
         elif isinstance(exp,list) and not exp:
@@ -844,7 +907,8 @@ if scope=="selftest":
             ok=(isinstance(got,list) and len(got)>=len(exp) and all(any(tag in v for v in got) for tag in exp))
         if not ok: aebad+=1
         bm_r=(bm_[:30]+"…" if isinstance(bm_,str) and len(bm_)>30 else bm_)
-        print(f"  [{'ok' if ok else 'XX'}] AE({dec_!r},{dt_!r},bm={bm_r!r},es={es_!r}) -> {got}"
+        bq_r=(bq_[:24]+"…" if isinstance(bq_,str) and len(bq_)>24 else bq_)
+        print(f"  [{'ok' if ok else 'XX'}] AE({dec_!r},{dt_!r},bm={bm_r!r},bq={bq_r!r},es={es_!r}) -> {got}"
               +("" if ok else f"  EXPECTED exp={exp}"))
     bad+=aebad
     print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE cases")
@@ -1440,28 +1504,36 @@ for drp in runs:
     #   the business-quality score and caps conviction, and such a thesis is flagged as a sector /
     #   technology-cycle bet rather than a durable compounder." The synthesizer's Rating Cap Rules
     #   document this but, unlike AC/AD, no eval check previously enforced it mechanically.
-    #   Detection: the business-quality agent emits RF-BQ-005 when the industry rate-of-change /
-    #   disruption row scores ≤40; the BM synthesis propagates it. When RF-BQ-005 is present in
-    #   the BM synthesis AND the decision is "Strong Buy" or "Buy", that is a doctrine violation
-    #   unless a proven durable-winner edge (edge_score ≥ 50) exists. "Starter Position Only" and
-    #   below are allowed — the cap ceiling, not above it. "Short Candidate" is not capped here
-    #   (shorting a fast-changing-industry loser is a valid distinct thesis). No bypass clause
-    #   other than the edge_score ≥ 50 exception.
+    #   Detection: the business-quality agent emits RF-BQ-005 as a standalone line when the industry
+    #   rate-of-change / disruption row scores ≤40; the BM synthesis propagates it. The cap fires when
+    #   RF-BQ-005 appears as a FIRED standalone tag line (not a cleared/cap-table mention) in EITHER the
+    #   BM synthesis OR the business-quality specialist (the source emitter — scanning the roll-up alone
+    #   lets a missed propagation silently bypass the cap; CLAUDE.md §11) AND the decision is "Strong
+    #   Buy" or "Buy", unless a proven durable-winner edge (edge_score ≥ 50) exists. "Starter Position
+    #   Only" and below are allowed — the cap ceiling, not above it. "Short Candidate" is not capped here
+    #   (shorting a fast-changing-industry loser is a valid distinct thesis). No bypass clause other than
+    #   the edge_score ≥ 50 exception. (Both detection refinements per Codex review on PR #120.)
     if isdate(ddte) and ddte>=AE_DATE:
         # _read_synth_text is defined in the AD block above; AE_DATE > AD_DATE so it is always
         # available here (any run reaching AE also entered the AD gate first).
+        def _read_specialist_text(mod_dir, prefix):
+            ss=glob.glob(os.path.join(run,mod_dir,prefix+"*.md"))
+            if not ss: return None
+            try: return open(ss[0],encoding="utf-8").read()
+            except: return None
         bm_txt_ae=_read_synth_text("business-model")
+        bq_txt_ae=_read_specialist_text("business-model","07_")  # RF-BQ-005 source emitter
         edge_score_ae=d.get("edge_score")
-        aeresult=eval_ae_filter5_cap(dec,ddte,bm_txt_ae,edge_score_ae)
+        aeresult=eval_ae_filter5_cap(dec,ddte,bm_txt_ae,edge_score_ae,bq_txt_ae)
         if aeresult is None:
-            add("AE_filter5_cap",True,"BM synthesis absent — N/A",na=True)
+            add("AE_filter5_cap",True,"BM synthesis and business-quality specialist absent — N/A",na=True)
         elif aeresult:
             add("AE_filter5_cap",False,"; ".join(aeresult))
         else:
-            cap5_fired=(bm_txt_ae is not None and CAP5_TAG in bm_txt_ae)
+            cap5_fired=_tag_fired_standalone(bm_txt_ae,CAP5_TAG) or _tag_fired_standalone(bq_txt_ae,CAP5_TAG)
             proven=isnum(edge_score_ae) and edge_score_ae>=50
             add("AE_filter5_cap",True,
-                f"RF-BQ-005 (BM)={'present' if cap5_fired else 'absent'}; "
+                f"RF-BQ-005 (BM synth/07 source)={'fired' if cap5_fired else 'not fired'}; "
                 f"edge_score={edge_score_ae!r} ({'proven' if proven else 'not proven or absent'}); "
                 f"decision={dec!r} — §24 Filter 5 cap satisfied")
     else:
@@ -1520,7 +1592,7 @@ FRAMEWORK_CONTRACTS={
  "frameworks/DECISION_LEDGER.md":["Memo delta","memo_delta","thesis_delta_verdict","stage_one_comment","rerun_command","_memo_delta.md","business_type","primary_valuation_method"],
  ".claude/commands/research/review-decisions.md":["memo_delta","stage_one_comment","rerun_command","Pool first","_memo_delta"],
  ".claude/commands/research/eval.md":["scripts/eval.py"],
- "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap"],
+ "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone"],
  ".github/workflows/ci.yml":["eval-contracts","scripts/eval.py"],
 }
 jchecks=[]
