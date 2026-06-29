@@ -417,12 +417,15 @@ def _tag_fired_standalone(txt, tag):
         string in EVERY synthesis regardless of whether the cap fired — bare substring matching there
         is a false positive, the defect Codex flagged for AE);
       • a negation/status line (`RF-BQ-005 not triggered`).
+    A standalone tag emitted as a Markdown heading (`### RF-BQ-005 (…)`) still counts as fired — the `#`
+    markers are shed alongside the bullet/quote/table cruft so a heading-styled fire is not missed (a
+    false negative would silently bypass the cap, CLAUDE.md §11; Codex review, P2).
     Matches the agent convention exactly: the business-quality specialist and the BM synthesis emit the
     tag `as a standalone line` ONLY when the cap fires (07_business-quality.md / 99 synthesis)."""
     if not txt:
         return False
     for raw in txt.splitlines():
-        line = raw.strip().lstrip("-*•>|` \t").rstrip("` \t")  # shed md bullet/table/quote/backtick cruft
+        line = raw.strip().lstrip("#-*•>|` \t").rstrip("` \t")  # shed md heading/bullet/table/quote/backtick cruft
         if line.startswith(tag):
             rest = line[len(tag):].lower()
             if any(neg in rest for neg in _CAP_TAG_NEGATIONS):
@@ -842,6 +845,14 @@ if scope=="selftest":
     BM_WITH_CAP5 = ("**REJECTOR-FILTER CAPS (§24).** Filter 5 applied.\n"
                     "RF-BQ-005 (fast-changing industry: rate-of-change ≤40)\n"
                     "Semiconductor foundry market disrupted by new entrants.")
+    # HEADING form: the same fired standalone tag emitted as a Markdown heading. The `#` markers must be
+    # shed so a heading-styled fire is still detected — a false negative would silently bypass the cap
+    # (Codex review, P2, eval.py:426). Expected = fired, pinned to synthesizer.md §24 Filter 5 + the
+    # "standalone line" emission convention (a heading IS a standalone line).
+    BM_HEADING_CAP5 = ("## Score Cap Application\n"
+                       "### RF-BQ-005 (fast-changing industry: rate-of-change ≤40)\n"
+                       "Capped to Starter Position Only.")
+    BM_HEADING_NEG_CAP5 = "### RF-BQ-005 not triggered — rate-of-change scored 72 (Strong)"
     BM_CLEAN_AE  = "Industry rate-of-change / disruption risk: Low. No fast-changing-industry tag emitted."
     # NEGATION/STATUS mention: the tag named on a leading line but reported NOT triggered (row >40).
     # Bare-substring matching would false-positive here (Codex P2, eval.py:420) — the standalone-line
@@ -873,6 +884,13 @@ if scope=="selftest":
         ("Buy","2026-06-29",BM_NEG_CAP5,None,None,[]),
         ("Strong Buy","2026-06-29",BM_TABLEROW_CAP5,None,None,[]),
         ("Buy","2026-06-29",BM_TABLEROW_CAP5,None,None,[]),
+        # Codex P2 #4 — fired tag emitted as a Markdown heading must STILL fire (no `#` false negative)
+        ("Strong Buy","2026-06-29",BM_HEADING_CAP5,None,None,["RF-BQ-005"]),
+        ("Buy","2026-06-29",BM_HEADING_CAP5,None,None,["RF-BQ-005"]),
+        ("Buy","2026-06-29",None,BM_HEADING_CAP5,None,["RF-BQ-005"]),     # heading fired in 07 source
+        # heading-styled NEGATION must NOT false-positive even after `#` stripping
+        ("Strong Buy","2026-06-29",BM_HEADING_NEG_CAP5,None,None,[]),
+        ("Buy","2026-06-29",BM_HEADING_NEG_CAP5,None,None,[]),
         # Codex P2 #2 — source emitter (07) fired but synthesis (99) did NOT propagate → still fires
         ("Strong Buy","2026-06-29",BM_CLEAN_AE,BQ_WITH_CAP5,None,["RF-BQ-005"]),
         ("Buy","2026-06-29",None,BQ_WITH_CAP5,None,["RF-BQ-005"]),       # synthesis absent, source fired
@@ -1560,7 +1578,8 @@ FRAMEWORK_CONTRACTS={
  "frameworks/SECTOR_OVERLAYS.md":["SaaS / subscription software","Bank / lender","cRPO","NIM","FFO","AISC","Generic operating company"],
  ".claude/agents/business-model/02_business-identity.md":["Sector Overlay","SECTOR_OVERLAYS.md","generic read"],
  ".claude/agents/business-model/MODULE_RULES.md":["Rejector-Filter Penalties & Caps","Serial acquirers","Fast-changing industry"],
- ".claude/agents/business-model/07_business-quality.md":["Industry rate-of-change","11 quality factors","at a cyclical peak, anchor them","SECTOR_OVERLAYS.md","sector overlay","No sector overlay"],
+ ".claude/agents/business-model/07_business-quality.md":["Industry rate-of-change","11 quality factors","at a cyclical peak, anchor them","SECTOR_OVERLAYS.md","sector overlay","No sector overlay","RF-BQ-005"],
+ ".claude/agents/business-model/99_business-model-synthesis.md":["RF-BQ-005","Filter 5"],
  ".claude/agents/earnings/03_margin-drivers.md":["SECTOR_OVERLAYS.md","sector overlay","No sector overlay"],
  ".claude/agents/business-model/09_moat.md":["Use a through-cycle return"],
  ".claude/agents/earnings/MODULE_RULES.md":["Cycle-Position Rule"],
