@@ -83,7 +83,10 @@ const EDGE_VERT = 'attribute vec3 aOther; attribute float aSide; attribute float
 // uGlow blends a soft cross-ribbon glow profile in: 0 = flat fill (the inter-module arcs, unchanged); 1 = a
 // glowing strand — bright slim core, soft halo — so a THIN feed can read as a luminous comet, not a hard
 // hairline. vEdge runs −1→+1 across the ribbon width, so |vEdge| is 0 at the centerline and 1 at the edges.
-const EDGE_FRAG = 'uniform vec3 uColor; uniform float uTime; uniform float uDashes; uniform float uDuty; uniform float uOpacity; uniform float uSpeed; uniform float uGlow; varying float vT; varying float vEdge; void main(){ float f = fract(vT * uDashes - uTime * uSpeed); if (f > uDuty) discard; float a = f / uDuty; a = a * a; float core = smoothstep(1.0, 0.0, abs(vEdge)); core *= core; float prof = mix(1.0, core, uGlow); gl_FragColor = vec4(uColor, uOpacity * (0.08 + 0.92 * a) * prof); }'
+// The core profile uses FORWARD smoothstep bounds (edge0 < edge1): GLSL leaves smoothstep undefined when
+// edge0 >= edge1, so the center-bright falloff is written as 1.0 - smoothstep(0.0, 1.0, |vEdge|) — identical
+// to smoothstep(1.0, 0.0, |vEdge|) on the valid domain (smoothstep symmetry) but deterministic on every driver.
+const EDGE_FRAG = 'uniform vec3 uColor; uniform float uTime; uniform float uDashes; uniform float uDuty; uniform float uOpacity; uniform float uSpeed; uniform float uGlow; varying float vT; varying float vEdge; void main(){ float f = fract(vT * uDashes - uTime * uSpeed); if (f > uDuty) discard; float a = f / uDuty; a = a * a; float core = 1.0 - smoothstep(0.0, 1.0, abs(vEdge)); core *= core; float prof = mix(1.0, core, uGlow); gl_FragColor = vec4(uColor, uOpacity * (0.08 + 0.92 * a) * prof); }'
 const K_SEG = 40 // samples per edge — denser so the short comet dashes stay smooth on the curved arcs
 const DASHES = 30 // dashes per edge — short, arrow-like streaks (was 16 long dashes)
 
