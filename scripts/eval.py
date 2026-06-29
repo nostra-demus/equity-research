@@ -401,22 +401,32 @@ def eval_ad_filter_4_6_cap(decision, decision_date, bm_txt, mg_txt):
 AE_DATE = "2026-06-29"
 CAP5_TAG = "RF-BQ-005"  # fast-changing industry (§24 Filter 5)
 ABOVE_STARTER_AE = {"Strong Buy", "Buy"}  # decisions exceeding the "Starter Position Only" cap
-# Negative/status phrasings that, on a leading-tag line, mean the cap did NOT fire (so the tag is
-# being reported as cleared, not triggered). Keeps the detector from false-positiving on a
-# "RF-BQ-005 not triggered" status line (Codex review, P2). Deliberately narrow — only the tag's own
-# negation, never an arbitrary "not", so a genuinely-fired line ("RF-BQ-005 (… ≤40) — not the main
-# driver") still counts as fired.
+# Negative/status phrasings that, at the START of a leading-tag line's remainder, mean the cap did
+# NOT fire (the tag is being reported as cleared). Keeps the detector from false-positiving on a
+# "RF-BQ-005 not triggered" status line (Codex review, P2). The match is STATUS-SHAPED — anchored to
+# the start of the remainder, NEVER matched anywhere inside it — so a genuinely-fired line whose
+# rationale merely contains a broad word ("RF-BQ-005 (… ≤40) — durable-winner proof absent", or
+# "… mitigants none") still counts as fired (Codex review, P2 — negations must be anchored).
 _CAP_TAG_NEGATIONS = ("not triggered", "not applicable", "n/a", "not fired", "did not fire",
                       "none", "absent", "cleared", "no cap")
+# Leading separators that can sit between the tag and a status word, so the negation check anchors to
+# the status position regardless of an em/en dash, colon, or wrapping parens ("RF-BQ-005 (not triggered)").
+_NEG_LEADING_STRIP = " \t:.–—-()"
 
 def _tag_fired_standalone(txt, tag):
     """True iff `tag` appears as a FIRED standalone tag line in `txt` — a line whose first non-markup
-    token is `tag` and whose remainder is not a negation. This deliberately does NOT match:
+    token is `tag` and whose remainder is neither a status table row nor a negation. Deliberately does
+    NOT match:
       • a parenthetical / table-row mention where the tag is not the leading token (e.g. the MG-style
         cap-application rows `| Serial-acquirer pattern (… RF-CAP-004) | N | … |`, which carry the tag
         string in EVERY synthesis regardless of whether the cap fired — bare substring matching there
         is a false positive, the defect Codex flagged for AE);
-      • a negation/status line (`RF-BQ-005 not triggered`).
+      • a FIRST-CELL status table row (`RF-BQ-005 | N | … |`), where the tag IS the leading cell but the
+        row is a cap-application status grid, not a fired standalone tag — the remainder begins with a
+        column separator `|` (Codex review, P2 — leading-tag table rows must not fire);
+      • a negation/status line whose remainder STARTS with a cleared phrasing (`RF-BQ-005 not triggered`,
+        `RF-BQ-005 (n/a)`). The negation is anchored to the start, so "absent"/"none" buried later in a
+        fired tag's rationale no longer suppresses a real fire (Codex review, P2).
     A standalone tag emitted as a Markdown heading (`### RF-BQ-005 (…)`) still counts as fired — the `#`
     markers are shed alongside the bullet/quote/table cruft so a heading-styled fire is not missed (a
     false negative would silently bypass the cap, CLAUDE.md §11; Codex review, P2).
@@ -426,11 +436,15 @@ def _tag_fired_standalone(txt, tag):
         return False
     for raw in txt.splitlines():
         line = raw.strip().lstrip("#-*•>|` \t").rstrip("` \t")  # shed md heading/bullet/table/quote/backtick cruft
-        if line.startswith(tag):
-            rest = line[len(tag):].lower()
-            if any(neg in rest for neg in _CAP_TAG_NEGATIONS):
-                continue  # status/negation mention, not a fired tag
-            return True
+        if not line.startswith(tag):
+            continue
+        rest = line[len(tag):]
+        if rest.lstrip().startswith("|"):
+            continue  # first-cell status TABLE ROW (`RF-BQ-005 | N | …`), not a fired standalone tag
+        status = rest.lstrip(_NEG_LEADING_STRIP).lower()  # anchor the negation to the status position
+        if any(status.startswith(neg) for neg in _CAP_TAG_NEGATIONS):
+            continue  # cleared/negation status line, not a fired tag
+        return True
     return False
 
 def eval_ae_filter5_cap(decision, decision_date, bm_txt, edge_score, bq_txt=None):
@@ -859,6 +873,21 @@ if scope=="selftest":
     # detector must NOT fire.
     BM_NEG_CAP5  = ("## Score Cap Application\n"
                     "RF-BQ-005 not triggered — industry rate-of-change scored 72 (Strong).")
+    # FIRST-CELL STATUS TABLE ROW (Codex P2): the tag is the leading cell of a cap-application status
+    # grid (`| RF-BQ-005 | N | … |`) reporting the cap as NOT applied. After the leading `|` is shed the
+    # line starts with the tag, so a bare startswith() false-positives — the remainder begins with a
+    # column separator `|`, marking a table row, not a fired standalone tag. Expected = NOT fired,
+    # pinned to synthesizer.md §24 Filter 5 (cap fires only when the flag is triggered) + CLAUDE.md §11.
+    BM_TABLEROW_FIRSTCELL = "| RF-BQ-005 | N | Business quality | 72 (>40) — fast-changing-industry cap not applied |"
+    # FIRED tag whose RATIONALE merely contains a broad word ("absent"/"none"). A negation matched
+    # anywhere in the remainder (Codex P2) would treat these real fires as cleared → silent cap bypass
+    # (CLAUDE.md §11). The negation is now anchored to the START of the status, so these still fire.
+    # Expected = fired, pinned to synthesizer.md §24 Filter 5 ("standalone line" emission convention).
+    BM_FIRED_ABSENT = "RF-BQ-005 (fast-changing industry: rate-of-change ≤40) — durable-winner proof absent"
+    BM_FIRED_NONE   = "RF-BQ-005 (rate-of-change 28, disruption High) — mitigants none identified"
+    # PARENTHETICAL NEGATION: a cleared status wrapped in parens immediately after the tag must STILL
+    # read as not-fired (the `(` is shed before the anchored negation check). Expected = NOT fired.
+    BM_PAREN_NEG    = "RF-BQ-005 (n/a — rate-of-change scored 81, durable winner)"
     # CAP-TABLE-ROW mention: the tag carried inside a table row (not the leading token), the way the MG
     # synthesis carries RF-CAP-004/RF-OWN-004 in EVERY run regardless of fire. Must NOT false-positive.
     BM_TABLEROW_CAP5 = "| Fast-changing industry (§24 Filter 5, RF-BQ-005) | N | Business quality | max 65 | 78 | 78 | row scored 78 (>40) |"
@@ -884,6 +913,18 @@ if scope=="selftest":
         ("Buy","2026-06-29",BM_NEG_CAP5,None,None,[]),
         ("Strong Buy","2026-06-29",BM_TABLEROW_CAP5,None,None,[]),
         ("Buy","2026-06-29",BM_TABLEROW_CAP5,None,None,[]),
+        # Codex P2 (re-review) — FIRST-CELL status table row (`| RF-BQ-005 | N | … |`) must NOT fire
+        ("Strong Buy","2026-06-29",BM_TABLEROW_FIRSTCELL,None,None,[]),
+        ("Buy","2026-06-29",BM_TABLEROW_FIRSTCELL,None,None,[]),
+        ("Buy","2026-06-29",None,BM_TABLEROW_FIRSTCELL,None,[]),   # same, in the 07 source slot
+        # Codex P2 (re-review) — a FIRED tag whose rationale merely contains "absent"/"none" must STILL
+        # fire (anchored negation): a broad word buried in rationale no longer suppresses a real fire
+        ("Strong Buy","2026-06-29",BM_FIRED_ABSENT,None,None,["RF-BQ-005"]),
+        ("Buy","2026-06-29",BM_FIRED_ABSENT,None,None,["RF-BQ-005"]),
+        ("Buy","2026-06-29",None,BM_FIRED_NONE,None,["RF-BQ-005"]),   # source-slot fire w/ "none" in rationale
+        # guard: a PARENTHETICAL cleared status `(n/a …)` immediately after the tag still reads not-fired
+        ("Strong Buy","2026-06-29",BM_PAREN_NEG,None,None,[]),
+        ("Buy","2026-06-29",BM_PAREN_NEG,None,None,[]),
         # Codex P2 #4 — fired tag emitted as a Markdown heading must STILL fire (no `#` false negative)
         ("Strong Buy","2026-06-29",BM_HEADING_CAP5,None,None,["RF-BQ-005"]),
         ("Buy","2026-06-29",BM_HEADING_CAP5,None,None,["RF-BQ-005"]),
