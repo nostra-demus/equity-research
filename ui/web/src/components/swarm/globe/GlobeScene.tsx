@@ -76,15 +76,18 @@ function edgeBow(e: GlobeEdge): number {
 // WebGL lines are stuck at 1px, so each edge is a camera-facing RIBBON: every segment is a quad whose two
 // side-vertices are pushed perpendicular to the screen-projected segment direction (in view space) by a
 // world-space half-width, giving a genuinely thick, prominent stroke that still always faces the camera.
-const EDGE_VERT = 'attribute vec3 aOther; attribute float aSide; attribute float aT; uniform float uHalf; varying float vT; void main(){ vT = aT; vec4 pv = modelViewMatrix * vec4(position, 1.0); vec4 ov = modelViewMatrix * vec4(aOther, 1.0); vec2 d = ov.xy - pv.xy; float L = length(d); vec2 dir = L > 1e-5 ? d / L : vec2(1.0, 0.0); vec2 perp = vec2(-dir.y, dir.x); pv.xy += perp * aSide * uHalf; gl_Position = projectionMatrix * pv; }'
+const EDGE_VERT = 'attribute vec3 aOther; attribute float aSide; attribute float aT; uniform float uHalf; varying float vT; varying float vEdge; void main(){ vT = aT; vEdge = aSide; vec4 pv = modelViewMatrix * vec4(position, 1.0); vec4 ov = modelViewMatrix * vec4(aOther, 1.0); vec2 d = ov.xy - pv.xy; float L = length(d); vec2 dir = L > 1e-5 ? d / L : vec2(1.0, 0.0); vec2 perp = vec2(-dir.y, dir.x); pv.xy += perp * aSide * uHalf; gl_Position = projectionMatrix * pv; }'
 // Each dash is a directional COMET, not a symmetric tick: alpha ramps from a faint tail (source side) to a
 // bright sharp head (toward the target), so the flow direction is obvious from SHAPE, not just motion. Many
 // short dashes (high uDashes) + the marching uTime read as a "stream of arrows" pointing the way data flows.
-const EDGE_FRAG = 'uniform vec3 uColor; uniform float uTime; uniform float uDashes; uniform float uDuty; uniform float uOpacity; uniform float uSpeed; varying float vT; void main(){ float f = fract(vT * uDashes - uTime * uSpeed); if (f > uDuty) discard; float a = f / uDuty; a = a * a; gl_FragColor = vec4(uColor, uOpacity * (0.08 + 0.92 * a)); }'
+// uGlow blends a soft cross-ribbon glow profile in: 0 = flat fill (the inter-module arcs, unchanged); 1 = a
+// glowing strand — bright slim core, soft halo — so a THIN feed can read as a luminous comet, not a hard
+// hairline. vEdge runs −1→+1 across the ribbon width, so |vEdge| is 0 at the centerline and 1 at the edges.
+const EDGE_FRAG = 'uniform vec3 uColor; uniform float uTime; uniform float uDashes; uniform float uDuty; uniform float uOpacity; uniform float uSpeed; uniform float uGlow; varying float vT; varying float vEdge; void main(){ float f = fract(vT * uDashes - uTime * uSpeed); if (f > uDuty) discard; float a = f / uDuty; a = a * a; float core = smoothstep(1.0, 0.0, abs(vEdge)); core *= core; float prof = mix(1.0, core, uGlow); gl_FragColor = vec4(uColor, uOpacity * (0.08 + 0.92 * a) * prof); }'
 const K_SEG = 40 // samples per edge — denser so the short comet dashes stay smooth on the curved arcs
 const DASHES = 30 // dashes per edge — short, arrow-like streaks (was 16 long dashes)
 
-function MorphEdges({ edges, color, opacity, speed, width, morphRef }: { edges: GlobeEdge[]; color: Color; opacity: number; speed: number; width: number; morphRef: { current: number }; }) {
+function MorphEdges({ edges, color, opacity, speed, width, morphRef, dashes = DASHES, glow = 0 }: { edges: GlobeEdge[]; color: Color; opacity: number; speed: number; width: number; morphRef: { current: number }; dashes?: number; glow?: number; }) {
   const ref = useRef<Mesh>(null)
   // Each segment → 2 triangles (6 verts). Per vertex: its own centerline point (`position`, morphed), the
   // segment's OTHER endpoint (`aOther`, morphed — gives the screen direction), a side (±1), and the dash
@@ -132,8 +135,8 @@ function MorphEdges({ edges, color, opacity, speed, width, morphRef }: { edges: 
     g.attributes.aOther.needsUpdate = true
   })
 
-  const uniforms = useMemo(() => ({ uColor: { value: color.clone() }, uTime: { value: 0 }, uDashes: { value: DASHES }, uDuty: { value: 0.5 }, uOpacity: { value: opacity }, uSpeed: { value: speed }, uHalf: { value: width / 2 } }), []) // eslint-disable-line react-hooks/exhaustive-deps
-  useEffect(() => { (uniforms.uColor.value as Color).copy(color); uniforms.uOpacity.value = opacity; uniforms.uSpeed.value = speed; uniforms.uHalf.value = width / 2 }, [color, opacity, speed, width, uniforms])
+  const uniforms = useMemo(() => ({ uColor: { value: color.clone() }, uTime: { value: 0 }, uDashes: { value: dashes }, uDuty: { value: 0.5 }, uOpacity: { value: opacity }, uSpeed: { value: speed }, uHalf: { value: width / 2 }, uGlow: { value: glow } }), []) // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => { (uniforms.uColor.value as Color).copy(color); uniforms.uOpacity.value = opacity; uniforms.uSpeed.value = speed; uniforms.uHalf.value = width / 2; uniforms.uDashes.value = dashes; uniforms.uGlow.value = glow }, [color, opacity, speed, width, dashes, glow, uniforms])
 
   if (!edges.length) return null
   return (
@@ -288,9 +291,9 @@ export function GlobeScene({
     )
   }, [hoverKey, hoverModule, layout.edges])
 
-  // …and the subtle INTERNAL flow — the agent→synthesis feeds within the hovered module — rendered very thin
-  // and dim (not bright comets) so they read as the quiet data flow inside a module, exactly like the faint
-  // feed curves the constellation shows on hover. Thin is the whole point: thick is what made it a starburst.
+  // …and the INTERNAL flow — the agent→synthesis feeds within the hovered module. These are drawn as glowing
+  // comet strands (a slim bright core + soft halo, see the hoverFeeds <MorphEdges/> below), so the data flow
+  // inside a module reads as elegantly as the constellation's marching feed arrows — not a weak hairline.
   const hoverFeeds = useMemo(() => {
     if (!hoverKey && !hoverModule) return [] as GlobeEdge[]
     return layout.edges.filter(
@@ -388,7 +391,10 @@ export function GlobeScene({
       <MorphEdges edges={depCoreEdges} color={colors.accent} opacity={0.6} speed={1.4} width={0.05} morphRef={morphRef} />
       {activeEdges.length > 0 && <MorphEdges edges={activeEdges} color={colors.accentBright} opacity={0.95} speed={2.8} width={0.085} morphRef={morphRef} />}
       {hoverEdges.length > 0 && <MorphEdges edges={hoverEdges} color={colors.accentBright} opacity={0.95} speed={2.3} width={0.075} morphRef={morphRef} />}
-      {hoverFeeds.length > 0 && <MorphEdges edges={hoverFeeds} color={colors.accentDeep} opacity={0.6} speed={1.6} width={0.032} morphRef={morphRef} />}
+      {/* internal feeds (agent→synthesis): a GLOWING comet stream, not a hard hairline. glow=1 gives a slim
+          bright core + soft halo so it reads as luminous data flow even on a thin strand; the feed edges are
+          SHORT, so a lower dash count (vs the global 30) keeps the comets readable instead of cramming specks. */}
+      {hoverFeeds.length > 0 && <MorphEdges edges={hoverFeeds} color={colors.accent} opacity={0.9} speed={2.0} width={0.1} dashes={12} glow={1} morphRef={morphRef} />}
 
       {/* agent orbs — the SAME DOM AgentNode the constellation uses, billboarded at each 3D position. Occludes
           against the shell so back-of-globe orbs hide; click runs/opens it; hover lights its edges + tooltip. */}
