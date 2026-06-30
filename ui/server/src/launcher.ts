@@ -7,7 +7,7 @@ import { admitRun } from './admission'
 import { CLAUDE_BIN, DATA_DIR, DEFAULT_MODEL, ESTIMATES, FULL_PER_MODULE, LAUNCH_GUARDS, MAX_CONCURRENT_RUNS, REPO_ROOT, type LaunchKind } from './config'
 import { getCreditStatus, setCreditStatus } from './credit'
 import { startRunWatcher, sweepRunOutputs } from './fs-watcher'
-import { createRun, emit, finishRun, getRun, IN_FLIGHT_STATUSES, listRuns, setActiveSubjectRun, type ExpectedAgent, type RunState } from './registry'
+import { createRun, emit, finishRun, getRun, IN_FLIGHT_STATUSES, inFlightRunsForSubject, listRuns, setActiveSubjectRun, type ExpectedAgent, type RunState } from './registry'
 import { clearRunMarker, resolveRunRoot, writeRunMarker } from './outputs'
 import { runReadiness } from './readiness'
 import { providerEnvKeys } from './load-env'
@@ -210,6 +210,40 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
     emit(run, { type: 'run-done', runId: run.runId, status: 'done', costUsd: run.costUsd, durationMs: run.durationMs, numTurns: run.numTurns, ...finalPaths(run), ts: Date.now() })
     finishRun(run, 'done')
   }
+}
+
+// Is a process id still alive? `kill(pid, 0)` sends no signal — it only probes existence. ESRCH = the
+// process is gone (dead); EPERM = it exists but isn't ours to signal (still alive). Any other outcome
+// (including success) means alive. A missing pid counts as not-alive so a child we never got a pid for
+// is treated as dead rather than pinning the subject forever.
+function pidAlive(pid: number | undefined): boolean {
+  if (!pid) return false
+  try { process.kill(pid, 0); return true } catch (e: any) { return e?.code === 'EPERM' }
+}
+
+// Reap any in-flight run on this subject whose engine CHILD PROCESS is gone but whose close handler never
+// fired — a wedged pipe, a lost 'close' event, a child the OS reaped without notifying us. Such a run
+// would hold its subject claim + write targets forever and block every future launch on that subject (the
+// "stuck forever, can never run anything again" failure). inFlightRunsForSubject already self-heals on
+// STATUS, but a dead-yet-'running' child is invisible to it — so we probe the pid and finalize the corpse
+// as an interruption (releasing the claim) the same way an external kill would. Pre-spawn gate states
+// (run.child === null: readiness-checking / awaiting-readiness-decision) are LEGITIMATELY waiting for the
+// user, not dead — left untouched (a deliberate force stops those instead). Returns the reaped run ids.
+// Called on every launch attempt so a stuck subject auto-recovers with zero user action.
+export function reapDeadSubjectRuns(subjectId: string): string[] {
+  const reaped: string[] = []
+  for (const r of inFlightRunsForSubject(subjectId)) {
+    if (!r.child) continue // pre-spawn gate — waiting on the human, not a dead process
+    if (pidAlive(r.child.pid)) continue // engine still alive — leave it running
+    // The child is gone but onClose never ran. Route it through the SINGLE finalizer as a termination so a
+    // resumable full/rerun gets its .interrupted marker (the supervisor can continue it) and the subject
+    // claim + write targets release — exactly the path an OOM/manual kill would take.
+    finalizeRunOnClose(r, { isTerminated: true, signal: 'SIGKILL' }, '')
+    reaped.push(r.runId)
+    // eslint-disable-next-line no-console
+    console.warn(`[reap] ${subjectId}: finalized a run whose engine process had died (${r.runId}) — releasing its lock`)
+  }
+  return reaped
 }
 
 function memosFolderName(): string {
@@ -457,6 +491,11 @@ export interface LaunchParams {
   thesisId?: string // kind 'handoff'
   user?: string // who launched it (from Cloudflare Access at the route); defaults to "local"
   userVia?: 'cf-access' | 'local'
+  // FORCE override (research kinds): the user explicitly chose to run despite a same-subject run-lock
+  // ("overwrite is fine — just run it"). Before admission we STOP every in-flight run on this subject so
+  // its subject claim + write targets release, then admit normally. Deliberately does NOT bypass the
+  // GLOBAL concurrency cap (other tickers' runs) or the data-readiness gate — those are orthogonal guards.
+  force?: boolean
 }
 
 // ---- chained full run (per-module budgets), DAG-PARALLEL — opt-in via FULL_PER_MODULE ----
@@ -809,6 +848,23 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   const readDepsAbs = kind === 'agent' || kind === 'screener-agent'
     ? agentRequiredUpstream(swarmId, module, agent).map((relp) => path.join(REPO_ROOT, runRoot, relp))
     : []
+
+  // Self-heal first: finalize any run on this subject whose engine process has died but never closed, so a
+  // wedged lock can never permanently block this launch (the "stuck forever" failure). Runs every launch.
+  reapDeadSubjectRuns(subjectId)
+
+  // FORCE override: the user explicitly chose to run despite a same-subject lock ("overwrite is fine").
+  // Stop every still-in-flight run on this subject — a running engine, or one parked at the readiness gate
+  // — so its claim + write targets release before we admit. cancel() flips the run out of the in-flight
+  // status set synchronously (running child: status='cancelled' + group-kill; gate-parked: finalized here),
+  // and inFlightRunsForSubject self-heals on status, so the admission below sees a clean subject and passes.
+  // We do NOT touch other tickers' runs, so the global capacity cap (D5) still binds — force overrides a
+  // LOCK, never the cost guard. await each cancel before admitting so the claim is gone by then.
+  if (params.force) {
+    for (const e of inFlightRunsForSubject(subjectId)) {
+      try { await cancel(e.runId) } catch { /* keep stopping the rest — one stuck run must not shield the others */ }
+    }
+  }
 
   // Dependency-aware admission + register in ONE synchronous block (no await before
   // setActiveSubjectRun) so the check-and-claim is atomic under Node's single-threaded loop.
