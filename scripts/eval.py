@@ -362,17 +362,22 @@ def eval_ad_filter_4_6_cap(decision, decision_date, bm_txt, mg_txt):
     conviction = decision in HIGH_CONVICTION_DECISIONS
     violations = []
     # RF-CAP-004 (serial acquirer) is surfaced in the management-governance synthesis; scan the BM
-    # synthesis too so the Filter-4 cap fires wherever the tag is surfaced.
-    cap4_src = "\n".join(t for t in (bm_txt, mg_txt) if t is not None)
-    if CAP4_TAG in cap4_src and conviction:
+    # synthesis too so the Filter-4 cap fires wherever the tag is surfaced. Detection requires a FIRED
+    # standalone tag line (_tag_fired_standalone), NOT a bare substring: every MG synthesis carries the
+    # standing §24 cap-application rows (e.g. `| Serial-acquirer pattern (… RF-CAP-004) | N |`) regardless
+    # of whether the cap fired, so a bare `in` match false-FAILs a clean conviction run (verified on the
+    # real TMCV_2026-06-14 / BG_2026-06-07 fixtures, where the tags appear only as "N — not fired" rows).
+    # Mirrors check AE's detection.
+    cap4_fired = _tag_fired_standalone(bm_txt, CAP4_TAG) or _tag_fired_standalone(mg_txt, CAP4_TAG)
+    if cap4_fired and conviction:
         violations.append(
-            f"§24 Filter 4 (RF-CAP-004 serial-acquirer) present in module synthesis "
+            f"§24 Filter 4 (RF-CAP-004 serial-acquirer) fired in module synthesis "
             f"but decision={decision!r} exceeds the Watchlist cap "
             f"(synthesizer.md Rating Cap Rules: max Watchlist for serial-acquirer pattern; "
             f"CLAUDE.md §24 Filter 4)")
-    if mg_txt is not None and CAP6_TAG in mg_txt and conviction:
+    if mg_txt is not None and _tag_fired_standalone(mg_txt, CAP6_TAG) and conviction:
         violations.append(
-            f"§24 Filter 6 (RF-OWN-004 unaligned owner) present in MG synthesis "
+            f"§24 Filter 6 (RF-OWN-004 unaligned owner) fired in MG synthesis "
             f"but decision={decision!r} exceeds the Watchlist cap "
             f"(synthesizer.md Rating Cap Rules: max Watchlist for unaligned controlling owner; "
             f"CLAUDE.md §24 Filter 6)")
@@ -789,14 +794,22 @@ if scope=="selftest":
     # → always N/A in the main loop; drive every branch here.
     AD=eval_ad_filter_4_6_cap
     # bm_txt / mg_txt with RF-CAP-004 / RF-OWN-004 to simulate fired tags
-    BM_WITH_CAP4 = "... RF-CAP-004 [Critical]: serial-acquirer pattern detected — three debt-funded deals ..."
+    # A FIRED tag is emitted as a STANDALONE line (tag is the leading token) — _tag_fired_standalone
+    # requires that, matching the agent convention (07_business-quality / 99 synthesis emit it so).
+    BM_WITH_CAP4 = "Capital allocation review.\nRF-CAP-004 [Critical]: serial-acquirer pattern — three debt-funded deals."
     BM_CLEAN     = "Capital allocation: disciplined; no serial-acquirer pattern."
-    MG_WITH_CAP6 = "... RF-OWN-004 [High]: government-controlled entity; minority interests structurally deprioritised ..."
+    MG_WITH_CAP6 = "Ownership read.\nRF-OWN-004 [High]: government-controlled entity; minority interests structurally deprioritised."
     # RF-CAP-004 is actually surfaced in the MANAGEMENT-GOVERNANCE synthesis (02_capital-allocation-
     # scorecard), as in the real TMCV_2026-06-07 fixture — NOT the business-model synthesis.
-    MG_WITH_CAP4 = "... RF-CAP-004 [High]: serial-acquirer / very-large-deal pattern — deal at 3.3x book equity ..."
-    MG_WITH_BOTH = "... RF-CAP-004 [High]: very-large-deal pattern ... RF-OWN-004 [High]: structurally unaligned controlling owner ..."
+    MG_WITH_CAP4 = "Capital-allocation scorecard.\nRF-CAP-004 [High]: serial-acquirer / very-large-deal pattern — deal at 3.3x book equity."
+    MG_WITH_BOTH = "MG synthesis.\nRF-CAP-004 [High]: very-large-deal pattern.\nRF-OWN-004 [High]: structurally unaligned controlling owner."
     MG_CLEAN     = "Ownership: founder-led; strong alignment with minorities."
+    # Cap-APPLICATION table rows — present in EVERY synthesis whether or not the cap fired ("N" = NOT
+    # fired). A bare `tag in text` substring false-FAILed these (the bug this fix closes); the tag is not
+    # the row's leading token, so _tag_fired_standalone must NOT fire on them.
+    BM_TABLEROW_CAP4 = "| Serial-acquirer pattern (§24 Filter 4, RF-CAP-004) | N — no qualifying deals | capital-allocation-scorecard |"
+    MG_TABLEROW_BOTH = ("| Serial-acquirer pattern (§24 Filter 4, RF-CAP-004) | N — one bolt-on, immaterial | scorecard |\n"
+                        "| Structurally unaligned controlling owner (§24 Filter 6, RF-OWN-004) | N — founder aligned | board-rights |")
     adcases=[  # (decision, decision_date, bm_txt, mg_txt, expect: None|[]|[viol])
         # pre-gate: always None (N/A)
         ("Strong Buy","2026-06-27",BM_WITH_CAP4,MG_WITH_CAP6,None),
@@ -833,6 +846,13 @@ if scope=="selftest":
         # Clean synthesis + conviction → pass
         ("Strong Buy","2026-06-28",BM_CLEAN,MG_CLEAN,[]),
         ("Buy","2026-06-28",BM_CLEAN,MG_CLEAN,[]),
+        # REGRESSION (fix: bare substring → _tag_fired_standalone) — the standing §24 cap-APPLICATION
+        # table rows carry the tag string in EVERY synthesis even when the cap did NOT fire ("| … N |").
+        # A bare `in` match false-FAILed a clean conviction run; a cap-table mention must NOT fire the cap
+        # (verified on the real TMCV_2026-06-14 / BG_2026-06-07 fixtures, tags present only as N rows).
+        ("Strong Buy","2026-06-28",BM_TABLEROW_CAP4,MG_TABLEROW_BOTH,[]),
+        ("Buy","2026-06-28",BM_TABLEROW_CAP4,None,[]),
+        ("Strong Buy","2026-06-28",BM_CLEAN,MG_TABLEROW_BOTH,[]),
     ]
     adbad=0
     for dec_,dt_,bm_,mg_,exp in adcases:
@@ -1549,10 +1569,11 @@ for drp in runs:
         elif adresult:
             add("AD_filter_4_6_cap",False,"; ".join(adresult))
         else:
-            f4=CAP4_TAG in ((bm_txt_ad or "")+"\n"+(mg_txt_ad or "")); f6=CAP6_TAG in (mg_txt_ad or "")
+            f4=_tag_fired_standalone(bm_txt_ad,CAP4_TAG) or _tag_fired_standalone(mg_txt_ad,CAP4_TAG)
+            f6=_tag_fired_standalone(mg_txt_ad,CAP6_TAG)
             add("AD_filter_4_6_cap",True,
-                f"RF-CAP-004 (BM/MG)={'present' if f4 else 'absent'}; "
-                f"MG RF-OWN-004={'present' if f6 else 'absent'}; "
+                f"RF-CAP-004 (BM/MG)={'fired' if f4 else 'not fired'}; "
+                f"MG RF-OWN-004={'fired' if f6 else 'not fired'}; "
                 f"decision={dec!r} — §24 Filter 4+6 caps satisfied")
     else:
         add("AD_filter_4_6_cap",True,f"run predates §24 Filter 4+6 gate ({ddte}) — N/A",na=True)
