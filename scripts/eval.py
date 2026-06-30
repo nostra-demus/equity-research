@@ -378,6 +378,59 @@ def eval_ad_filter_4_6_cap(decision, decision_date, bm_txt, mg_txt):
             f"CLAUDE.md §24 Filter 6)")
     return violations  # empty list = all caps satisfied
 
+# ── Check AE (§24 Filter 5 fast-changing-industry conviction cap) ─────────────────────────────
+# §24 Filter 5 (fast-changing industries) is the ONLY one of the six §24 rejector filters
+# that previously had NO mechanical enforcement in eval.py. Filters 1/3 are covered by check
+# AB (BM "Low-quality business" verdict-lock), Filter 2 by check AC (turnaround cap), Filter 3
+# also by check AA (BSS "Distress risk"), Filters 4+6 by check AD (RF-CAP-004/RF-OWN-004). This
+# check closes the final gap.
+#
+# CLAUDE.md §24 Filter 5: "In industries that change fast, the winners are rarely knowable in
+# advance, and value destruction from disruption is large (railway mania, dot-com). The engine
+# does not pretend to 'skate to where the puck is going.' High rate-of-change / disruption risk
+# lowers the business-quality score and caps conviction, and such a thesis is flagged as a
+# sector / technology-cycle bet rather than a durable compounder."
+#
+# Business-model MODULE_RULES.md Filter 5 cap: when the industry rate-of-change / disruption
+# row in 07_business-quality scores ≤40 (Weak or below), the agent emits RF-TECH-005 in
+# Section 4, which is surfaced in the business-model/99_*-synthesis.md text that the master
+# synthesizer reads. The synthesizer's Rating Cap Rules (below) state: "fast-changing-industry
+# thesis with no proven durable winner → max 'Starter Position Only'." This check enforces
+# that cap mechanically.
+#
+# Cap level: max "Starter Position Only" (same ceiling as Filter 2 / check AC). This is
+# intentionally softer than the Watchlist cap for Filters 4+6 (check AD) — a fast-changing
+# industry is a material conviction reducer, not a near-disqualifier like a serial acquirer or
+# a misaligned controller. ABOVE_STARTER_AE excludes "Short Candidate" (shorting a disrupted
+# industry is a distinct, valid high-conviction thesis with a different logic from owning it).
+#
+# Detection: RF-TECH-005 is read from the business-model synthesis text. When the BM module
+# did not run (bm_txt is None), the check is N/A — the tag cannot be detected.
+#
+# Landing date: 2026-06-30 (forward-looking; all three golden fixtures predate → N/A → suite green).
+AE_DATE = "2026-06-30"
+CAP5_TAG = "RF-TECH-005"  # fast-changing industry (§24 Filter 5)
+ABOVE_STARTER_AE = {"Strong Buy", "Buy"}  # decisions exceeding the fast-changing-industry cap ceiling
+
+def eval_ae_fast_changing_cap(decision, decision_date, bm_txt):
+    """Core of check AE. Returns None (N/A — pre-gate or BM synthesis absent),
+    or a list of violation strings (empty list = pass). Side-effect-free + module-level
+    so the selftest can drive it without run fixtures.
+    RF-TECH-005 is emitted by 07_business-quality when rate-of-change ≤40 and surfaced
+    in the business-model/99_*-synthesis.md that the master synthesizer reads."""
+    if not (isdate(decision_date) and decision_date >= AE_DATE):
+        return None  # forward-looking; pre-gate runs N/A
+    if bm_txt is None:
+        return None  # BM module did not run; tag cannot be detected — N/A
+    violations = []
+    if CAP5_TAG in bm_txt and decision in ABOVE_STARTER_AE:
+        violations.append(
+            f"§24 Filter 5 ({CAP5_TAG} fast-changing industry) present in BM synthesis "
+            f"but decision={decision!r} exceeds the 'Starter Position Only' cap "
+            f"(synthesizer.md Rating Cap Rules: max 'Starter Position Only' for fast-changing "
+            f"industry where long-run winners are not knowable; CLAUDE.md §24 Filter 5)")
+    return violations  # empty list = cap satisfied
+
 if scope=="selftest":
     # Fixture-free coverage for check W — the golden suite can't exercise it (every committed run is
     # pre-gate / blank-fielded, so W is always N/A there). Asserts forbidden combos FAIL, correct combos
@@ -749,7 +802,52 @@ if scope=="selftest":
         print(f"  [{'ok' if ok else 'XX'}] AD({dec_!r},{dt_!r},bm={bm_r!r},mg={mg_r!r}) -> {got}"
               +("" if ok else f"  EXPECTED exp={exp}"))
     bad+=adbad
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD cases")
+    # check AE — §24 Filter 5 fast-changing-industry conviction cap. All golden fixtures predate AE_DATE
+    # → always N/A in the main loop; drive every branch here: RF-TECH-005 in BM synthesis + conviction
+    # decision exceeding the ceiling → fail; at/below ceiling (Starter Position Only, Watchlist, Avoid,
+    # Refuse-to-Rate) → pass; Short Candidate intentionally excluded from the cap → pass; BM module
+    # absent (None) → N/A; pre-gate → N/A; clean BM synthesis → pass.
+    AE = eval_ae_fast_changing_cap
+    BM_WITH_TECH5 = "... RF-TECH-005 [High]: fast-changing industry — long-run winners not knowable ..."
+    BM_CLEAN_AE   = "Industry rate-of-change: stable, mature sector. Winners well-established."
+    aecases = [  # (decision, decision_date, bm_txt, expect: None|[]|["RF-TECH-005"])
+        # pre-gate: always None (N/A)
+        ("Strong Buy", "2026-06-29", BM_WITH_TECH5, None),
+        ("Strong Buy", "not-a-date", BM_WITH_TECH5, None),
+        # BM module absent: N/A (tag cannot be detected — module did not run)
+        ("Strong Buy", "2026-06-30", None, None),
+        ("Buy",        "2026-06-30", None, None),
+        # RF-TECH-005 + Strong Buy / Buy → fail (cap violation)
+        ("Strong Buy", "2026-06-30", BM_WITH_TECH5, ["RF-TECH-005"]),
+        ("Buy",        "2026-06-30", BM_WITH_TECH5, ["RF-TECH-005"]),
+        # RF-TECH-005 + Starter Position Only (AT the ceiling) → pass
+        ("Starter Position Only", "2026-06-30", BM_WITH_TECH5, []),
+        # RF-TECH-005 + non-conviction decisions → pass
+        ("Watchlist",  "2026-06-30", BM_WITH_TECH5, []),
+        ("Avoid",      "2026-06-30", BM_WITH_TECH5, []),
+        ("Insufficient Data — Refuse To Rate", "2026-06-30", BM_WITH_TECH5, []),
+        ("Pair Trade / Hedge Required", "2026-06-30", BM_WITH_TECH5, []),
+        # Short Candidate intentionally NOT capped (shorting a disrupted industry is a valid thesis)
+        ("Short Candidate", "2026-06-30", BM_WITH_TECH5, []),
+        # Clean BM synthesis (no RF-TECH-005 tag) + conviction → pass
+        ("Strong Buy", "2026-06-30", BM_CLEAN_AE, []),
+        ("Buy",        "2026-06-30", BM_CLEAN_AE, []),
+    ]
+    aebad = 0
+    for dec_, dt_, bm_, exp in aecases:
+        got = AE(dec_, dt_, bm_)
+        if exp is None:
+            ok = (got is None)
+        elif isinstance(exp, list) and not exp:
+            ok = (isinstance(got, list) and len(got) == 0)
+        else:
+            ok = (isinstance(got, list) and len(got) >= len(exp) and all(any(tag in v for v in got) for tag in exp))
+        if not ok: aebad += 1
+        bm_r = (bm_[:35]+"…" if isinstance(bm_, str) and len(bm_) > 35 else bm_)
+        print(f"  [{'ok' if ok else 'XX'}] AE({dec_!r},{dt_!r},bm={bm_r!r}) -> {got}"
+              + ("" if ok else f"  EXPECTED exp={exp}"))
+    bad += aebad
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE cases")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -1335,6 +1433,42 @@ for drp in runs:
                 f"decision={dec!r} — §24 Filter 4+6 caps satisfied")
     else:
         add("AD_filter_4_6_cap",True,f"run predates §24 Filter 4+6 gate ({ddte}) — N/A",na=True)
+    # AE §24 Filter 5 fast-changing-industry conviction cap (forward-looking; landing AE_DATE)
+    #   The last of the six §24 rejector filters to receive mechanical enforcement. Filters 1/3
+    #   are covered by AB (BM disqualifier), Filter 2 by AC (turnaround cap), Filter 3 also by
+    #   AA (BSS Distress risk), Filters 4+6 by AD (RF-CAP-004/RF-OWN-004). This check closes
+    #   the final gap: when the business-quality agent scores the industry rate-of-change ≤40
+    #   (Weak or below — long-run winners not knowable in advance), it emits RF-TECH-005 in
+    #   Section 4 of its output, which the business-model synthesis carries through to the
+    #   module synthesis text. The synthesizer's Rating Cap Rules cap conviction at max "Starter
+    #   Position Only" for fast-changing-industry theses (softer than Watchlist cap used for
+    #   Filters 4+6, reflecting a different severity tier). "Short Candidate" is NOT capped —
+    #   shorting a disrupted industry is a valid high-conviction thesis. The BM synthesis text
+    #   is already defined via _read_synth_text() from the AB block above (which runs for all
+    #   dates >= AB_DATE < AE_DATE; for AE_DATE runs both are in scope).
+    if isdate(ddte) and ddte>=AE_DATE:
+        # _read_synth_text is defined in the AD block; bm_txt_ad holds the BM synthesis text.
+        # Re-read the BM synthesis here in case AD block was skipped (AE_DATE > AD_DATE so this
+        # is defensive; in practice, any run dated >= AE_DATE has already defined _read_synth_text).
+        bm_txt_ae = _read_synth_text("business-model") if "_read_synth_text" in dir() else None
+        try: bm_txt_ae = _read_synth_text("business-model")
+        except NameError:
+            ss=glob.glob(os.path.join(run,"business-model","99_*-synthesis.md"))
+            try: bm_txt_ae=open(ss[0],encoding="utf-8").read() if ss else None
+            except: bm_txt_ae=None
+        aeresult = eval_ae_fast_changing_cap(dec, ddte, bm_txt_ae)
+        if aeresult is None:
+            add("AE_fast_changing_cap", True,
+                f"BM synthesis absent or run predates gate ({ddte}) — N/A", na=True)
+        elif aeresult:
+            add("AE_fast_changing_cap", False, "; ".join(aeresult))
+        else:
+            tag_present = CAP5_TAG in (bm_txt_ae or "")
+            add("AE_fast_changing_cap", True,
+                f"RF-TECH-005 {'present' if tag_present else 'absent'} in BM synthesis; "
+                f"decision={dec!r} — §24 Filter 5 fast-changing-industry cap satisfied")
+    else:
+        add("AE_fast_changing_cap",True,f"run predates §24 Filter 5 gate ({ddte}) — N/A",na=True)
     # WARN non-schema files
     # [review fix] suppress only genuine versioned/audit/review artifacts via PRECISE patterns — the old naive
     # `"_v" not in name` / `"review" not in name` substring tests hid real strays (preview.md, *_v*-named scratch).
@@ -1356,8 +1490,8 @@ FRAMEWORK_CONTRACTS={
  "CLAUDE.md":["## 24. Avoid Big Risks","Crooks and integrity","Turnarounds","High debt and the survival test","Serial acquirers","Fast-changing industries","Unaligned owners","normalised operating FCF","gross-liquidity"],
  "frameworks/SECTOR_OVERLAYS.md":["SaaS / subscription software","Bank / lender","cRPO","NIM","FFO","AISC","Generic operating company"],
  ".claude/agents/business-model/02_business-identity.md":["Sector Overlay","SECTOR_OVERLAYS.md","generic read"],
- ".claude/agents/business-model/MODULE_RULES.md":["Rejector-Filter Penalties & Caps","Serial acquirers","Fast-changing industry"],
- ".claude/agents/business-model/07_business-quality.md":["Industry rate-of-change","11 quality factors","at a cyclical peak, anchor them","SECTOR_OVERLAYS.md","sector overlay","No sector overlay"],
+ ".claude/agents/business-model/MODULE_RULES.md":["Rejector-Filter Penalties & Caps","Serial acquirers","Fast-changing industry","RF-TECH-005"],
+ ".claude/agents/business-model/07_business-quality.md":["Industry rate-of-change","11 quality factors","at a cyclical peak, anchor them","SECTOR_OVERLAYS.md","sector overlay","No sector overlay","RF-TECH-005"],
  ".claude/agents/earnings/03_margin-drivers.md":["SECTOR_OVERLAYS.md","sector overlay","No sector overlay"],
  ".claude/agents/business-model/09_moat.md":["Use a through-cycle return"],
  ".claude/agents/earnings/MODULE_RULES.md":["Cycle-Position Rule"],
@@ -1389,7 +1523,7 @@ FRAMEWORK_CONTRACTS={
  "frameworks/DECISION_LEDGER.md":["Memo delta","memo_delta","thesis_delta_verdict","stage_one_comment","rerun_command","_memo_delta.md","business_type","primary_valuation_method"],
  ".claude/commands/research/review-decisions.md":["memo_delta","stage_one_comment","rerun_command","Pool first","_memo_delta"],
  ".claude/commands/research/eval.md":["scripts/eval.py"],
- "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap"],
+ "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","AE_fast_changing_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","eval_ae_fast_changing_cap"],
  ".github/workflows/ci.yml":["eval-contracts","scripts/eval.py"],
 }
 jchecks=[]
