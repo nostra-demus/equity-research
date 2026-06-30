@@ -114,7 +114,7 @@ In 2–3 sentences, explain how the aggregate weighting works for THIS business:
 
 ## 4. Read
 
-In 2–4 sentences: what kind of business is this — durable compounder, cyclical, regulated utility-like, commodity-exposed, fast-decaying — and what's the single quality factor a buyer should keep their eye on over the next 24 months? If the industry rate-of-change / disruption row scored Weak or below (≤40), state explicitly that this looks like a sector / technology-cycle bet rather than a durable compounder (CLAUDE.md §24, Filter 5). Where the headline returns (ROCE / margins) are at a cyclical peak, anchor them: name the through-cycle level, and do not let a high peak ROCE override a low Cyclicality row — reconcile the two in the same paragraph (the moat and the DCF inherit this read).
+In 2–4 sentences: what kind of business is this — durable compounder, cyclical, regulated utility-like, commodity-exposed, fast-decaying — and what's the single quality factor a buyer should keep their eye on over the next 24 months? If the industry rate-of-change / disruption row scored Weak or below (≤40), state explicitly that this looks like a sector / technology-cycle bet rather than a durable compounder (CLAUDE.md §24, Filter 5), and emit the literal tag string `RF-BQ-005 (fast-changing industry: rate-of-change ≤40)` as a standalone line so the BM synthesis and eval harness detect it mechanically (eval check AE, analogous to RF-CAP-004 / RF-OWN-004 for Filters 4/6). Where the headline returns (ROCE / margins) are at a cyclical peak, anchor them: name the through-cycle level, and do not let a high peak ROCE override a low Cyclicality row — reconcile the two in the same paragraph (the moat and the DCF inherit this read).
 ```
 
 # SELF-CHECK
@@ -122,7 +122,7 @@ In 2–4 sentences: what kind of business is this — durable compounder, cyclic
 - [ ] All 11 rows are scored. No blanks.
 - [ ] Every row has evidence in the [Source, Period, Page] format. "Inference" labels are used where appropriate.
 - [ ] Scoring direction is correctly applied for the 6 reverse-mapped factors (capital intensity, competitive intensity, industry rate-of-change / disruption risk, regulatory dependence, commodity dependence, cyclicality).
-- [ ] If industry rate-of-change scored ≤40, Section 4 flags the thesis as a sector / technology-cycle bet (§24 Filter 5).
+- [ ] If industry rate-of-change scored ≤40, Section 4 flags the thesis as a sector / technology-cycle bet (§24 Filter 5) AND emits `RF-BQ-005 (fast-changing industry: rate-of-change ≤40)` as a standalone line.
 - [ ] No 90+ score appears without strong, specific evidence.
 - [ ] The aggregate score is consistent with the row-level scores — not contradicted.
 - [ ] Sector overlay step 2b completed — overlay status stated (either *"Sector overlay applied: {type} — factors {X, Y, Z} use sector-specific lens"* or *"No sector overlay for {type} — generic 11-factor scoring applies"*).
