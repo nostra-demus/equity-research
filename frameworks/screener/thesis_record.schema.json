@@ -71,12 +71,52 @@
         "source_grade_rationale": { "type": "string" },
         "causal_language_check": { "type": "boolean", "const": true, "description": "LOCKED: confirms no causal verbs are present." },
         "causal_language_review": { "type": "string" },
-        "60_second_source_check": { "type": "boolean", "const": true, "description": "LOCKED: source verified within 60 seconds of input." },
+        "60_second_source_check": { "type": "boolean", "description": "The M0.1 source-confirmation gate RESULT: true = PASS (event statement may proceed), false = FAIL -> watchlist_no_source. NOT a const/LOCKED-true field — a genuinely unconfirmed (or below-threshold headline_only) signal legitimately sets this false. Computed by scripts/screener_confirmation_score.py's gate_pass output from the evidence packet below and copied verbatim by the agent, never hand-asserted." },
         "60_second_check_note": { "type": "string" },
+        "paywall_detected": { "type": "boolean", "description": "true iff WebFetch of source_url failed with an access/paywall-shaped error, or returned a body with no extractable substantive prose (subscribe wall / JS shell)." },
+        "primary_read_quality": { "type": "string", "enum": ["full", "partial", "paywalled", "fetch_error", "not_attempted"], "description": "What the agent actually got from source_url. Drives scripts/screener_confirmation_score.py's base score." },
+        "extraction_confidence": { "type": "integer", "minimum": 0, "maximum": 100, "description": "CLAUDE.md §12 bands (0-20 very weak / 21-40 weak / 41-60 mixed / 61-80 strong / 81-100 very strong). Computed by scripts/screener_confirmation_score.py, never hand-estimated." },
+        "confirmation_status": { "type": "string", "enum": ["confirmed", "partially_confirmed", "headline_only", "unconfirmed"], "description": "confirmed = primary read directly or a Tier 1-3 alternate fully confirms; partially_confirmed = some corroboration short of full; headline_only = credible (Grade A) primary, unreadable, zero alternates found; unconfirmed = no credible primary and no corroboration." },
+        "alternate_sources_found": {
+          "type": "array",
+          "description": "Every alternate source actually checked during the fallback search (sources.thesis_structure.fallback_search_order), regardless of whether it corroborated.",
+          "items": {
+            "type": "object",
+            "required": ["source_name", "tier", "confirms", "retrieved_at"],
+            "properties": {
+              "source_name": { "type": "string" },
+              "url": { "type": "string" },
+              "tier": { "type": "integer", "minimum": 1, "maximum": 5, "description": "1 official company/IR/exchange, 2 regulator/filing, 3 Tier 1/2 media, 4 specialist finance blogs, 5 X/Twitter (weak, corroboration only)." },
+              "confirms": { "type": "string", "enum": ["full", "partial", "none"] },
+              "retrieved_at": { "type": "string" }
+            }
+          }
+        },
+        "fallback_search_log": {
+          "type": "array",
+          "description": "Developer/machine-facing ONLY — every WebFetch/WebSearch attempt during the fallback search. Must never appear in human-facing prose (Abstract, status_reason, next_action) — SWARM.md §8.",
+          "items": {
+            "type": "object",
+            "required": ["tool", "result", "at"],
+            "properties": {
+              "query": { "type": "string" },
+              "tool": { "type": "string", "enum": ["WebFetch", "WebSearch"] },
+              "target": { "type": "string" },
+              "result": { "type": "string", "enum": ["no_corroboration", "corroboration_found", "fetch_error", "not_relevant"] },
+              "at": { "type": "string" }
+            }
+          }
+        },
         "filled_by": { "type": "string", "enum": ["agent", "analyst", "both"] },
         "agent_draft_reviewed_by": { "type": "string" },
         "review_completed_at": { "type": "string" }
-      }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "paywall_detected": { "const": true } }, "required": ["paywall_detected"] },
+          "then": { "required": ["confirmation_status", "extraction_confidence", "alternate_sources_found"] }
+        }
+      ]
     },
     "M0_2": {
       "type": "object",
