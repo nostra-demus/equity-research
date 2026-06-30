@@ -8,7 +8,7 @@ The ten-step Phase 0.1 gauntlet. It answers ONE question about one signal:
 
 > "Is this a new, high-impact event that should change an investment decision immediately?"
 
-It prioritizes novelty, confirmation, and direct financial impact. It penalizes repetition, incremental updates, and low-information content. It is deterministic: the thresholds, matrices, and penalty tables below are not suggestions — do not override them, do not simplify them, do not skip steps.
+It prioritizes novelty, confirmation, and direct financial impact. It penalizes repetition, incremental updates, and low-information content, INCLUDING routine procedural filings dressed up in event-sounding language (see "Filing-Type Classification & Derating" below). It is deterministic: the thresholds, matrices, and penalty tables below are not suggestions — do not override them, do not simplify them, do not skip steps.
 
 ## Gate 0 (intake agent)
 
@@ -76,6 +76,36 @@ Priority for canonical record: official > source tier > fact richness > earlier 
 ## Materiality (Step 10)
 
 Inputs: relevance, event severity, computed novelty, source confidence, issuer directness, scope. Penalties: **duplicate −50; same_event_no_new_info −25; same_event_new_info −5.** Overrides: a confirmation upgrade removes the penalties; official filings / enforcement actions / defaults get a positive adjustment. Output: integer 0–100, with the arithmetic visible.
+
+## Filing-Type Classification & Derating (Step 2b / Step 10b)
+
+This is an EXTENSION of Steps 2 and 10, not an 11th step — the gauntlet stays the ten-step Phase 0.1 gauntlet. It exists because a routine listed-company filing (a board-meeting notice, a trading-window closure, a generic compliance disclosure, a results-date intimation) can otherwise pick up a real `event_type` tag and a large first-seen novelty bonus and land near 80 with no real valuation-moving content. Both the classification and the derate are deterministic code (`scripts/screener_filing_classifier.py`), never agent judgment — CLAUDE.md §12: every move explainable from a matched pattern, not vibes.
+
+**Filing-type labels** (Step 2b, run by `screener-relevance` immediately after Step 2):
+
+| filing_type | Meaning |
+|---|---|
+| `routine_board_meeting` | Notice that a board meeting will be held / was held to consider a routine agenda item (results, dividend, etc.) — the notice itself, not the outcome. |
+| `trading_window_closure` | Trading-window-closure / blackout-period notice for designated persons. |
+| `financial_results_notice` | Results-date intimation ("date of financial results") with no results content. |
+| `procedural_exchange_filing` | Generic compliance/regulatory-disclosure filing (shareholding pattern, compliance certificate, newspaper publication, record-date intimation, etc.) with no event content. |
+| `material_exchange_filing` | An override keyword (table below) fired — treat as a real event regardless of routine-sounding wrapper text. |
+| `unknown_filing` | Neither a routine pattern nor an override keyword matched. Abstain — no ceiling applied (a filing type the classifier does not recognize must never be silently suppressed). |
+
+**Override categories** (any one match anywhere in headline+body lifts a routine filing to `material_exchange_filing`, no ceiling): resignation of key management, fraud / regulatory investigation, M&A (acquisition/disposal/merger/demerger), guidance change, profit warning / expected loss, capital raise (QIP/rights/preferential/FPO), debt default / rating downgrade, litigation, auditor issue (qualified opinion/going concern/auditor resignation), material order win/loss, buyback/dividend/split WITH a stated financial term (amount, per-share price, or ratio — a bare mention with no number stays routine).
+
+**Derate ceilings** (Step 10b — applied to the FINISHED Step 10 score, after penalties and overrides; the Step 10 arithmetic itself is never altered):
+
+| filing_type | Ceiling |
+|---|---|
+| `trading_window_closure` | 30 |
+| `procedural_exchange_filing` | 30 |
+| `routine_board_meeting` | 50 |
+| `financial_results_notice` | 50 |
+| `material_exchange_filing` | none (pass through) |
+| `unknown_filing` | none (pass through) |
+
+A ceiling caps the score DOWN only — it never raises a score that already computed lower. `signal_payload.json` carries `filing_type` and `filing_type_rationale` (both optional fields, not required, so pre-existing payloads stay valid) so the derate is auditable from the JSON alone, not just the prose report.
 
 ## Promotion bands (the module's Routing)
 

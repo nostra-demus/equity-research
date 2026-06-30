@@ -88,6 +88,12 @@
     },
     "materiality_score": { "type": "integer", "minimum": 0, "maximum": 100 },
     "materiality_math": { "type": "string", "description": "The visible arithmetic: base inputs, penalties applied, overrides applied." },
+    "filing_type": {
+      "type": "string",
+      "enum": ["routine_board_meeting", "trading_window_closure", "financial_results_notice", "procedural_exchange_filing", "material_exchange_filing", "unknown_filing"],
+      "description": "Step 2b/10b classification from scripts/screener_filing_classifier.py. Optional so pre-existing payloads validate unchanged."
+    },
+    "filing_type_rationale": { "type": "string", "description": "Step 10b's derate explanation (or no-op explanation), verbatim from the classifier script." },
     "routing": { "type": "string", "enum": ["PROMOTE", "PARK", "LOG", "watchlist_no_source", "suppress"] },
     "routing_reason": { "type": "string" },
     "next_action": { "type": "string" },
