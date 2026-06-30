@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "frameworks/screener/signal_payload.schema.json",
   "title": "Phase 0.1 signal payload",
-  "description": "The structured output of the signal-gate module (the ten-step gauntlet). Written to screener/runs/<SIG_ID>/signal_payload.json by the signal-gate synthesis.",
+  "description": "The structured output of the signal-gate module (the ten-step gauntlet plus a parallel generic-media check). Written to screener/runs/<SIG_ID>/signal_payload.json by the signal-gate synthesis.",
   "type": "object",
   "required": [
     "signal_id",
@@ -18,6 +18,11 @@
     "confirmation_upgrade",
     "novelty_score",
     "action",
+    "is_generic_media",
+    "generic_media_reason",
+    "specificity_score",
+    "quantifiability_score",
+    "investability_score",
     "materiality_score",
     "routing",
     "routing_reason",
@@ -86,6 +91,11 @@
       "type": "string",
       "enum": ["replace_canonical", "suppress", "keep_linked_low_rank", "keep_linked", "keep_separate"]
     },
+    "is_generic_media": { "type": "boolean", "description": "True when the article matches one of the generic-media categories (market-cap roundup, index-movement summary, top gainers/losers, generic market-close story, many-companies-no-thesis, or lacking specificity/quantifiability) — a content/format judgment, independent of investability_score. Written by screener-generic-media-detector." },
+    "generic_media_reason": { "type": "string", "description": "One plain sentence naming the matched generic-media categories (or 'none matched') and the evidence." },
+    "specificity_score": { "type": "integer", "minimum": 0, "maximum": 100, "description": "0 = applies to the whole market/an index/10+ names with no distinguishable thesis; 100 = one company, one distinct, attributable event." },
+    "quantifiability_score": { "type": "integer", "minimum": 0, "maximum": 100, "description": "0 = adjectives only, no checkable figure; 100 = a precise figure tied to one attributable cause. An aggregate tally across many names scores low even with a real number." },
+    "investability_score": { "type": "integer", "minimum": 0, "maximum": 100, "description": "0 = a PM could not change a single position on this fact alone; 100 = the fact alone would change a PM's view of one specific name or thesis. Distinct from candidate-surfacing's later 'investability' notion (tradability/liquidity of a mapped ticker) — this field is about whether the ARTICLE carries an actionable insight, not whether a stock is easy to trade." },
     "materiality_score": { "type": "integer", "minimum": 0, "maximum": 100 },
     "materiality_math": { "type": "string", "description": "The visible arithmetic: base inputs, penalties applied, overrides applied." },
     "filing_type": {
