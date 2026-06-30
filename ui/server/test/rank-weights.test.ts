@@ -30,7 +30,7 @@ const SBI = { materiality_pre_score: 85, issuer_linkage: 'primary', companies: [
 
 await check('rankScore at defaults: SBI-style filing builds 85 +8 +6 +5 +0 +2 → capped 100', () => {
   const r = rankScore(SBI, NOW, DEFAULT_RANK_WEIGHTS)
-  assert.deepEqual(r.rank_factors, { materiality: 85, source_tier: 8, scope: 6, event: 5, size: 0, recency: 2, boost_weight: 1, scope_id: 'single_name', source_tier_id: 'primary_filing' })
+  assert.deepEqual(r.rank_factors, { materiality: 85, source_tier: 8, scope: 6, event: 5, size: 0, recency: 2, materiality_label_floor: 0, quantified: 0, boost_weight: 1, scope_id: 'single_name', source_tier_id: 'primary_filing' })
   assert.equal(r.rank_score, 100) // 85 + 21 = 106, clamped to 100
 })
 

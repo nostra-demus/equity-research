@@ -12,8 +12,13 @@
 
 import { isCompanyName } from './entities'
 
-export type ScopeId = 'single_name' | 'multi_name' | 'sector' | 'macro' | 'commodity' | 'policy' | 'unknown'
+export type ScopeId = 'single_name' | 'multi_name' | 'sector' | 'macro' | 'commodity' | 'policy' | 'geopolitical' | 'generic_media' | 'unknown'
 export type ScopeFamily = 'company' | 'broad' | 'unknown'
+
+// The event-materiality classifier's simpler external vocabulary (news/types.ts EventScope) — a
+// mapping OVER ScopeId, not a replacement. single_name + multi_name collapse to company_specific;
+// policy maps to regulatory; everything else is 1:1. See toEventScope below.
+export type EventScope = 'company_specific' | 'sector' | 'commodity' | 'macro' | 'geopolitical' | 'regulatory' | 'generic_media'
 
 export interface ScopeDef {
   id: ScopeId
@@ -33,10 +38,12 @@ export const SCOPES: Record<ScopeId, ScopeDef> = {
   macro: { id: 'macro', label: 'Macro', meaning: 'Economy-wide — rates, inflation, growth, jobs, currencies or trade. Context, not a stock.', family: 'broad' },
   commodity: { id: 'commodity', label: 'Commodity', meaning: 'A commodity or freight price/supply move — hits producers and users, not one company.', family: 'broad' },
   policy: { id: 'policy', label: 'Policy', meaning: 'A government, regulator, court or central-bank action — sets the rules of the game.', family: 'broad' },
+  geopolitical: { id: 'geopolitical', label: 'Geopolitical', meaning: 'A war, military strike, conflict escalation or similar — moves whole markets even with no company named (CLAUDE.md §24).', family: 'broad' },
+  generic_media: { id: 'generic_media', label: 'Generic media', meaning: 'A roundup, ranking or listicle naming several companies with no single event — low information, never a single-stock idea.', family: 'broad' },
   unknown: { id: 'unknown', label: 'Unclassified', meaning: "Not enough in the headline to place it — open it to see what it's about.", family: 'unknown' },
 }
 
-export const SCOPE_ORDER: ScopeId[] = ['single_name', 'multi_name', 'sector', 'macro', 'commodity', 'policy', 'unknown']
+export const SCOPE_ORDER: ScopeId[] = ['single_name', 'multi_name', 'sector', 'macro', 'commodity', 'policy', 'geopolitical', 'generic_media', 'unknown']
 export const familyOf = (s: ScopeId): ScopeFamily => SCOPES[s]?.family ?? 'unknown'
 
 // ---- keyword lexicons (lowercased, word-ish boundaries handled by the matcher) ----
@@ -74,6 +81,34 @@ const MACRO_TERMS = [
   'rupee', 'dollar index', 'yen', 'euro', 'currency', 'bond yield', 'treasury yield', 'yields',
   'consumer confidence', 'economic growth', 'economy',
 ]
+
+// War / military-conflict escalation — moves whole markets (oil, defense, safe-haven flows) even with
+// no company named (CLAUDE.md §24 "Avoid Big Risks" / §7). Multi-word / contextual phrases ON PURPOSE:
+// a bare 'strike' would false-positive on labor strikes ("workers strike at Acme plant") and idioms
+// ("strikes a deal"); 'missile' alone would false-positive on a defense contractor's own product news
+// ("Lockheed wins missile contract") — that case is still routed correctly because deriveScope only
+// checks this list when !subjectIsOneCompany, same guard as POLICY_TERMS/COMMODITY_TERMS below.
+// Deliberately EXCLUDES bare 'ceasefire' / 'truce' / 'peace deal' / 'peace treaty' — those words alone
+// describe DE-escalation (often the cause of a commodity price move, e.g. "Oil falls on peace deal")
+// and must not steal the 'commodity' scope a price-move headline already earns; only their reversal
+// (escalation breaking a truce) is a geopolitical trigger.
+const GEOPOLITICAL_TERMS = [
+  'air strike', 'airstrike', 'air strikes', 'military strike', 'military strikes', 'missile strike',
+  'missile attack', 'drone strike', 'fresh strikes', 'strikes in', 'launches strikes', 'conducts strikes',
+  'invasion', 'invades', 'declares war', 'war on', 'breaks ceasefire', 'violates ceasefire',
+  'ceasefire collapse', 'truce collapses', 'truce breaks down', 'warplane', 'shelling', 'bombardment',
+  'nuclear site', 'troops enter', 'troop surge', 'martial law', 'border clash', 'conflict escalat',
+]
+
+// A roundup / ranking / listicle — names several companies with no single event (CLAUDE.md §21: low
+// information, never a single-stock idea). Checked before the company-count branches below so a "Top 10"
+// piece naming 5+ tickers doesn't fall into multi_name purely on company count.
+const ROUNDUP_TERMS = [
+  'top 10', 'top 5', 'top 20', 'top stocks', 'top companies', 'best stocks', 'best companies',
+  'biggest companies', 'biggest gainers', 'biggest losers', "world's largest", "world's biggest",
+  'stocks to watch', 'stocks to buy', 'by market cap', 'market-cap ranking', 'richest companies',
+]
+const ROUNDUP_NUM_RE = /\btop\s*\d+\b|\branked\b.{0,20}\b(companies|stocks|firms)\b/i
 
 const lc = (s: unknown): string => String(s ?? '').toLowerCase()
 /** Whole-word(ish) match: a term must sit on BOTH a left and a right alphanumeric boundary, so "gold"
@@ -117,14 +152,16 @@ export interface ScopeInput {
 
 /**
  * Place an event on the scope axis. Precedence (first match wins):
- *  1. commodity/freight move (by source type or headline terms) → commodity
+ *  1. war / military-conflict escalation with NO single company as the subject → geopolitical
  *  2. system-level policy/regulator/court action with NO single company as the subject → policy
- *  3. one named company + a company-pointing linkage → single_name
- *  4. two-or-more named companies, or an M&A/commercial event with companies → multi_name
- *  5. a company-pointing linkage but no name guessed → single_name (still about one issuer)
- *  6. macro print/terms, or macro linkage → macro
- *  7. sector linkage, or sector-ish without a name → sector
- *  8. otherwise unknown
+ *  3. commodity/freight move (by source type or headline terms) → commodity
+ *  4. a roundup/ranking/listicle (no M&A type, no single-company subject) → generic_media
+ *  5. one named company + a company-pointing linkage → single_name
+ *  6. two-or-more named companies, or an M&A/commercial event with companies → multi_name
+ *  7. a company-pointing linkage but no name guessed → single_name (still about one issuer)
+ *  8. macro print/terms, or macro linkage → macro
+ *  9. sector linkage, or sector-ish without a name → sector
+ *  10. otherwise unknown
  * Everything degrades to the linkage-only mapping if the headline gives nothing.
  */
 export function deriveScope(it: ScopeInput): ScopeId {
@@ -142,34 +179,62 @@ export function deriveScope(it: ScopeInput): ScopeId {
   // and commodity branches, so "SEC charges Acme" / "Aramco lifts crude" stay company-scoped.
   const subjectIsOneCompany = link === 'primary' && namedCount === 1
 
-  // 1. system-level policy / regulator / court / central-bank action — checked BEFORE commodity so a
+  // 1. war / military-conflict escalation — checked FIRST so it outranks a generic macro/policy read
+  // (CLAUDE.md §24: this moves markets even with no company named). Guarded the same way as policy/
+  // commodity below, so a defense contractor's own product news ("Lockheed wins missile contract")
+  // stays company-scoped instead of being swept up by the word "missile".
+  if (!subjectIsOneCompany && anyTerm(hay, GEOPOLITICAL_TERMS)) return 'geopolitical'
+
+  // 2. system-level policy / regulator / court / central-bank action — checked BEFORE commodity so a
   // tariff/sanction/antitrust action outranks the commodity it targets ("tariffs on steel" = policy,
   // not a steel price move). Only when no single company is the SUBJECT.
   if (!subjectIsOneCompany && (anyTerm(hay, POLICY_TERMS) || ((types.includes('regulatory') || types.includes('litigation_enforcement')) && (link === 'sector' || link === 'macro' || namedCount === 0)))) {
     return 'policy'
   }
 
-  // 2. commodity / freight price or supply move (no policy action, no single-producer subject)
+  // 3. commodity / freight price or supply move (no policy action, no single-producer subject)
   if (nature === 'commodity_price_move' || nature === 'shipping_rate_move' || anyTerm(hay, COMMODITY_TERMS)) {
     if (!subjectIsOneCompany) return 'commodity'
   }
 
-  // 3. one named company, company-pointing linkage
+  // 4. a roundup / ranking / listicle — checked BEFORE the company-count branches so naming several
+  // tickers in a "Top 10" piece doesn't earn the multi_name "deal/pair" bonus it doesn't deserve.
+  if (!subjectIsOneCompany && !hasMnaType && (anyTerm(hay, ROUNDUP_TERMS) || ROUNDUP_NUM_RE.test(hay))) return 'generic_media'
+
+  // 5. one named company, company-pointing linkage
   if ((link === 'primary' || link === 'secondary') && namedCount === 1 && !hasMnaType) return 'single_name'
 
-  // 4. a deal / pair — two+ named companies, or M&A/commercial with at least one name
+  // 6. a deal / pair — two+ named companies, or M&A/commercial with at least one name
   if (namedCount >= 2 || (hasMnaType && namedCount >= 1) || (link === 'secondary' && namedCount >= 1)) return 'multi_name'
 
-  // 5. company linkage but the model named nobody — still one-issuer in spirit
+  // 7. company linkage but the model named nobody — still one-issuer in spirit
   if (link === 'primary' && namedCount <= 1) return 'single_name'
 
-  // 6. macro
+  // 8. macro
   if (link === 'macro' || anyTerm(hay, MACRO_TERMS) || types.includes('macro_sector') && link !== 'sector') return 'macro'
 
-  // 7. sector
+  // 9. sector
   if (link === 'sector' || types.includes('macro_sector')) return 'sector'
 
   return 'unknown'
+}
+
+// ---- event_scope — the classifier's simpler external vocabulary, mapped from ScopeId ----
+const EVENT_SCOPE_MAP: Record<ScopeId, EventScope> = {
+  single_name: 'company_specific',
+  multi_name: 'company_specific',
+  sector: 'sector',
+  commodity: 'commodity',
+  macro: 'macro',
+  policy: 'regulatory',
+  geopolitical: 'geopolitical',
+  generic_media: 'generic_media',
+  // an unclassifiable headline is, in spirit, the same "not a real single-stock/sector signal" bucket
+  // as a roundup — neither carries enough to act on.
+  unknown: 'generic_media',
+}
+export function toEventScope(scopeId: ScopeId): EventScope {
+  return EVENT_SCOPE_MAP[scopeId] ?? 'generic_media'
 }
 
 // ---- source tier — CLAUDE.md §4 hierarchy, made visible on the wire ----

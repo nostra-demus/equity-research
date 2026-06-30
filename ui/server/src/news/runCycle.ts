@@ -24,8 +24,8 @@ import { SeenCache } from './seen-cache'
 import { Budget, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter } from './triage/budget'
 import { triageBatchGemini } from './triage/gemini'
 import { estimateTokens, scoreToBand, triageBatch } from './triage/groq'
-import { rankScore, preTriagePriority, capSocialBand, capSocialScore } from './rank'
-import { deriveScope, deriveSourceTier } from './scope'
+import { rankScore, preTriagePriority, capSocialBand, capSocialScore, deriveMaterialityLabel } from './rank'
+import { deriveScope, deriveSourceTier, toEventScope } from './scope'
 import { appendFirehoseSummary, mergeInbox, refreshBoard } from './write-inbox'
 import { runThemesCycle, bumpCycleCounter, themesConfigFromNews } from './themes/engine'
 import { makeThemeNamer } from './themes/llm'
@@ -332,7 +332,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       // reads the active weight set (rank-weights.ts) — boost_weight included — so a Scoring-panel edit
       // changes ingest scoring with no redeploy. cfg.rankBoostWeight still seeds the default boost.
       const ranked = rankScore(
-        { materiality_pre_score: score, issuer_linkage: t?.issuer_linkage, companies: t?.companies, event_types: t?.event_types, input_nature: it.input_nature, headline: it.headline, size_bucket: t?.size_bucket, found_at: it.found_at },
+        { materiality_pre_score: score, issuer_linkage: t?.issuer_linkage, companies: t?.companies, event_types: t?.event_types, input_nature: it.input_nature, headline: it.headline, headline_en: t?.headline_en, size_bucket: t?.size_bucket, found_at: it.found_at, event_materiality_label: t?.event_materiality_label },
         now(),
       )
       // §4/§24 doctrine cap: a Reddit/`social` item can never be a top pick NOR out-rank filings for a
@@ -357,6 +357,12 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         companies: t?.companies || [],
         size_bucket: t?.size_bucket || 'unknown',
         band,
+        // the FINAL event-materiality classifier fields: the label is re-derived from cappedScore (the
+        // SHOWN score) so it can never contradict it; scope reuses the scope_id the ranker already won
+        // (ranked.rank_factors.scope_id) instead of re-deriving, so the two can't disagree.
+        event_materiality_label: deriveMaterialityLabel(cappedScore),
+        event_direction: t?.event_direction || 'unknown',
+        event_scope: toEventScope(ranked.rank_factors.scope_id),
         rank_factors: ranked.rank_factors,
         headline_en,
         // the source language named — only when a translation was actually kept (for the "original · X" label)
@@ -436,6 +442,10 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     // derived, zero-cost classification — persisted so the wire + a later backfill agree
     scope: deriveScope(t),
     source_tier: deriveSourceTier(t),
+    // event-materiality classifier's final fields — already resolved onto t in the TRIAGE loop above
+    event_materiality_label: t.event_materiality_label,
+    event_direction: t.event_direction,
+    event_scope: t.event_scope,
     snippet: t.snippet, // the feed's own lede — fetch-free body for on-open enrichment
     rank_factors: t.rank_factors, // the composite-priority breakdown (rank.ts) — for the WHY in the UI
     dedup_status: t.dedup_status,

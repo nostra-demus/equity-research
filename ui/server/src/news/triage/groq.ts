@@ -53,11 +53,13 @@ export const SYSTEM = `You are a buy-side news triage filter. For each headline 
 An item is MATERIAL only if it plausibly can: move revenue / margins / cash flow / capital structure; alter regulatory, legal or operational risk; affect management credibility; shift supply / demand; or move analyst expectations. Routine recaps, opinion, and price chatter are NOT material.
 
 Score materiality_pre_score 0-100:
-- 70-90: a clear company- or economy-moving event (rate decision, big M&A, guidance cut, default, enforcement action, supply shock) from an official or primary source.
+- 70-90: a clear company- or economy-moving event (rate decision, big M&A, guidance cut, default, enforcement action, supply shock, a military/geopolitical escalation such as a strike or a conflict resuming after a truce or peace deal, a major capex/capacity-expansion announcement) from an official or primary source.
 - 45-69: real but smaller, indirect, sector-level, or not yet confirmed.
-- 0-44: not material (recap, opinion, lifestyle, sport, generic market color).
-Be skeptical: most headlines are 0-44. Reserve 70+ for genuinely decision-changing news.
+- 0-44: not material (recap, opinion, lifestyle, sport, generic market color, a "top N companies" ranking or roundup naming several companies with no single event).
+Be skeptical: most headlines are 0-44. Reserve 70+ for genuinely decision-changing news. A war/military escalation or a major commodity supply shock can score 70+ even with NO company named — it moves whole markets.
 
+event_materiality_label: your OWN holistic severity call, independent of the numeric score above — "critical", "high", "medium", or "low". Use "critical" for: a war or military-conflict escalation (a strike, attack, or conflict resuming/escalating — ESPECIALLY right after a truce, ceasefire or peace deal); a sovereign or large-company default; a quantified profit warning, net-loss warning, or guidance cut with a number attached; a large M&A or disposal (a named deal value, or "to acquire"/"to buy"/"billion"); a major capex or capacity-investment announcement (a named plant/fab/fund size); a commodity or inventory supply shock (a named shortage, embargo, OPEC cut, mine/refinery outage); a major regulatory enforcement action with a quantified fine or sanction. Use "high" for a real, confirmed, but smaller-scale version of the same categories, or a clear single-company event with no number attached. Use "medium" for routine sector or company news with no fresh number. Use "low" for opinion, recaps, rankings, or generic market color.
+event_direction: the sentiment/impact direction — "positive" (improves an issuer's outlook), "negative" (worsens it — this INCLUDES a war/conflict escalation, a profit warning, a guidance cut, a fine, a recall, a downgrade), "mixed" (a genuine winner and loser, or beats on one line and misses on another), "neutral" (informational, no clear winner/loser), "unknown" (can't tell from the headline alone).
 event_types: choose from ${EVENT_TYPES.join(', ')}.
 issuer_linkage: primary (names one company), secondary (a supplier/customer/peer), sector (an industry), macro (economy-wide).
 why: ONE plain sentence, with a number where the headline gives one. No hype words.
@@ -67,7 +69,7 @@ headline_en: if the headline is NOT written in English, a faithful, concise Engl
 headline_lang: when headline_en is non-null, the source language of the original headline, named in English (e.g. "Finnish", "German", "Japanese", "Korean"). If the headline is already English, use null. Be honest: only name a non-English language when the headline genuinely is in it.
 event_region: the market the event is ABOUT — where the affected, tradable parties are listed or operate, NOT where the news outlet is based. A South China Morning Post story about Bangladesh and Malaysia is "OTHER", not "CN". One of: "US" | "IN" | "JP" | "GB" | "CN" | "KR" | "GLOBAL" (a worldwide / multi-region event with no single market) | "OTHER" (a real market outside those listed). Use null when the headline gives no location and names no company you can place.
 
-Return ONLY JSON: {"items":[{"i":<index>,"relevance":"material|relevant_non_material|irrelevant","materiality_pre_score":<int>,"event_types":[...],"issuer_linkage":"primary|secondary|sector|macro","why":"...","companies":[{"name":"...","ticker":null,"listing_country":null}],"size_bucket":"unknown","headline_en":null,"headline_lang":null,"event_region":null}]}. Include every index exactly once.`
+Return ONLY JSON: {"items":[{"i":<index>,"relevance":"material|relevant_non_material|irrelevant","materiality_pre_score":<int>,"event_materiality_label":"low|medium|high|critical","event_direction":"positive|negative|mixed|neutral|unknown","event_types":[...],"issuer_linkage":"primary|secondary|sector|macro","why":"...","companies":[{"name":"...","ticker":null,"listing_country":null}],"size_bucket":"unknown","headline_en":null,"headline_lang":null,"event_region":null}]}. Include every index exactly once.`
 
 export interface TriageOptions {
   model: string
@@ -125,6 +127,13 @@ const TICKER_RE = /^[A-Z0-9.\-]{1,12}$/i
 export function coerceTriage(raw: any): Triage {
   const rel = ['material', 'relevant_non_material', 'irrelevant'].includes(raw?.relevance) ? raw.relevance : 'relevant_non_material'
   const link = ['primary', 'secondary', 'sector', 'macro'].includes(raw?.issuer_linkage) ? raw.issuer_linkage : 'sector'
+  // 'low' is the only neutral default here — NOT 'medium'. materialityLabelBoost (rank.ts) is
+  // monotonically upward-only (it only ever LIFTS a score to a tier's floor, never lowers one), so
+  // defaulting an omitted/malformed field to 'medium' would silently floor-boost EVERY low-scoring item
+  // up to 45, even genuinely irrelevant ones (a real regression caught by news.test.ts). 'low' carries a
+  // 0 floor, so a missing label asserts no severity at all — the model must EARN any lift.
+  const materialityLabel = ['low', 'medium', 'high', 'critical'].includes(raw?.event_materiality_label) ? raw.event_materiality_label : 'low'
+  const direction = ['positive', 'negative', 'mixed', 'neutral', 'unknown'].includes(raw?.event_direction) ? raw.event_direction : 'unknown'
   let score = Number(raw?.materiality_pre_score)
   if (!Number.isFinite(score)) score = 0
   score = Math.max(0, Math.min(100, Math.round(score)))
@@ -154,6 +163,8 @@ export function coerceTriage(raw: any): Triage {
   return {
     relevance: rel,
     materiality_pre_score: score,
+    event_materiality_label: materialityLabel,
+    event_direction: direction,
     event_types: types,
     issuer_linkage: link,
     why: typeof raw?.why === 'string' ? raw.why.trim().slice(0, 280) : '',

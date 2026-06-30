@@ -92,6 +92,9 @@ export function mergeInbox(repoRoot: string, date: string, items: TriagedItem[],
       size_bucket: it.size_bucket,
       scope: deriveScope(it),
       source_tier: deriveSourceTier(it),
+      event_materiality_label: it.event_materiality_label,
+      event_direction: it.event_direction,
+      event_scope: it.event_scope,
       rank_factors: it.rank_factors, // composite-priority breakdown; triage_score IS the composite
       prelim_note: it.triage_reason, // keep the legacy field populated for any reader that uses it
       dedup_status: it.dedup_status,

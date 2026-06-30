@@ -18,7 +18,7 @@
 
 import { deriveScope, deriveSourceTier, familyOf, SOURCE_TIERS, type ScopeId, type SourceTierId } from './scope'
 import { getRankWeights, type RankWeights } from './rank-weights'
-import type { Band } from './types'
+import type { Band, EventMaterialityLabel } from './types'
 
 export interface RankInput {
   materiality_pre_score?: number | null
@@ -27,8 +27,10 @@ export interface RankInput {
   event_types?: string[] | null
   input_nature?: string | null
   headline?: string | null
+  headline_en?: string | null // English translation, when present — scanned for the quantified-impact bonus
   size_bucket?: string | null
   found_at?: string | null // ISO — for the recency bonus
+  event_materiality_label?: EventMaterialityLabel | string | null // the model's own raw severity call (news/triage/groq.ts) — feeds materialityLabelBoost
 }
 
 export interface RankFactors {
@@ -38,9 +40,60 @@ export interface RankFactors {
   event: number // strongest event-type bonus
   size: number // company-size bonus
   recency: number // freshness bonus
-  boost_weight?: number // global multiplier applied to (source_tier+scope+event+size+recency) for THIS score (1 = none); always set on output, optional on input (records predating the field)
+  // a FLOOR correction: when the model's own event_materiality_label says high/critical but its
+  // numeric materiality_pre_score undershoots that tier's floor, lift the score (never lower it).
+  // Computed once at ingest from event_materiality_label + the raw score (not a function of the
+  // tunable weight set) and PERSISTED — reRankFromFactors carries it through unchanged, same
+  // treatment as `recency`.
+  materiality_label_floor: number
+  // a flat bonus when the headline carries BOTH a quantified figure (currency amount, range,
+  // percentage, bps) AND an impact keyword (warns/guidance/cut/capex/fine/deal/…) — defense-in-depth
+  // for "quantified estimate/guidance/valuation impact", independent of the LLM's own number. Same
+  // persisted/pass-through treatment as materiality_label_floor.
+  quantified: number
+  boost_weight?: number // global multiplier applied to (source_tier+scope+event+size+recency+materiality_label_floor+quantified) for THIS score (1 = none); always set on output, optional on input (records predating the field)
   scope_id: ScopeId
   source_tier_id: SourceTierId
+}
+
+// Fixed severity-tier floors (aligned with the existing pickThreshold=70/watchThreshold=40 bands, plus
+// a new "critical" band above PROMOTE). Not panel-tunable — these are doctrine bands, not a preference
+// weight (CLAUDE.md §10/§12: a label must be explainable from a fixed rule, not a vibe).
+export const MATERIALITY_LABEL_FLOOR: Record<string, number> = { critical: 85, high: 70, medium: 45, low: 0 }
+
+/** The correction: how many points to add to lift rawScore up to the label's floor (0 if it's already there). */
+export function materialityLabelBoost(label: string | null | undefined, rawScore: number): number {
+  const floor = MATERIALITY_LABEL_FLOOR[String(label || '').toLowerCase()]
+  if (floor == null) return 0
+  return Math.max(0, floor - rawScore)
+}
+
+/** The FINAL, score-consistent label — re-derived from the boosted score so it can never contradict
+ *  what's shown (the inverse of materialityLabelBoost's thresholds). Exported for runCycle.ts. */
+export function deriveMaterialityLabel(score: number): EventMaterialityLabel {
+  if (score >= MATERIALITY_LABEL_FLOOR.critical) return 'critical'
+  if (score >= MATERIALITY_LABEL_FLOOR.high) return 'high'
+  if (score >= MATERIALITY_LABEL_FLOOR.medium) return 'medium'
+  return 'low'
+}
+
+// A quantified figure: a currency amount (with optional range), a percentage, or basis points. Paired
+// with an IMPACT keyword below so a bare incidental number ("opens 3rd store") doesn't trigger it.
+const QUANTIFIED_NUMBER_RE = /[$€£¥₹]\s?\d[\d,.]*(\s?[-–to]+\s?[$€£¥₹]?\s?\d[\d,.]*)?\s?(bn|billion|tn|trillion|m\b|mn|million|cr\b|crore|lakh|k\b|thousand)?|\d+(\.\d+)?\s?%|\d[\d,.]*\s?(bps|basis points)/i
+const IMPACT_KEYWORDS = [
+  'warns', 'warned', 'warning', 'net loss', 'profit warning', 'guidance', 'forecast', 'cuts', 'cut its',
+  'lowers', 'lowered', 'raises', 'raised', 'downgrade', 'upgrade', 'capex', 'invest', 'investment',
+  'fine', 'fined', 'penalty', 'settlement', 'write-down', 'writedown', 'impairment', 'default',
+  'bankrupt', 'deal valued', 'valued at', 'acquire', 'acquisition', 'to buy', 'takeover', 'misses',
+  'beats', 'shortfall', 'deficit',
+]
+const QUANTIFIED_BONUS = 6
+
+/** A flat bonus when the headline pairs a quantified figure with an impact keyword. */
+export function quantifiedImpactBonus(headline: string | null | undefined, headlineEn?: string | null): number {
+  const hay = ' ' + String((headlineEn && headlineEn.trim()) || headline || '').toLowerCase() + ' '
+  if (!QUANTIFIED_NUMBER_RE.test(hay)) return 0
+  return IMPACT_KEYWORDS.some((k) => hay.includes(k)) ? QUANTIFIED_BONUS : 0
 }
 
 export interface Ranked {
@@ -95,14 +148,16 @@ export function rankScore(it: RankInput, now: Date = new Date(), weights: RankWe
   const event = eventBonus(it.event_types, weights.event)
   const size = weights.size[String(it.size_bucket || 'unknown').toLowerCase()] ?? 0
   const recency = recencyBonus(it.found_at, now, weights.recency)
+  const materiality_label_floor = materialityLabelBoost(it.event_materiality_label, materiality)
+  const quantified = quantifiedImpactBonus(it.headline, it.headline_en)
 
   const w = clamp(weights.boost_weight, 0, 2)
-  const boost = (source_tier + scope + event + size + recency) * w
+  const boost = (source_tier + scope + event + size + recency + materiality_label_floor + quantified) * w
   const rank_score = clamp(Math.round(materiality + boost), 0, 100)
 
   return {
     rank_score,
-    rank_factors: { materiality, source_tier, scope, event, size, recency, boost_weight: w, scope_id, source_tier_id },
+    rank_factors: { materiality, source_tier, scope, event, size, recency, materiality_label_floor, quantified, boost_weight: w, scope_id, source_tier_id },
   }
 }
 
@@ -124,14 +179,18 @@ export function reRankFromFactors(
   const event = eventBonus(item.event_types, weights.event)
   const size = weights.size[String(item.size_bucket || 'unknown').toLowerCase()] ?? 0
   const recency = Number(rf.recency) || 0 // freshness as captured at ingest — clock-independent
+  // same treatment as recency: fixed at ingest (not a function of the tunable weight set), carried
+  // through unchanged. 0 for an older record that predates these fields.
+  const materiality_label_floor = Number(rf.materiality_label_floor) || 0
+  const quantified = Number(rf.quantified) || 0
 
   const w = clamp(weights.boost_weight, 0, 2)
-  const boost = (source_tier + scope + event + size + recency) * w
+  const boost = (source_tier + scope + event + size + recency + materiality_label_floor + quantified) * w
   const rank_score = clamp(Math.round(materiality + boost), 0, 100)
 
   return {
     rank_score,
-    rank_factors: { materiality, source_tier, scope, event, size, recency, boost_weight: w, scope_id: rf.scope_id, source_tier_id: rf.source_tier_id },
+    rank_factors: { materiality, source_tier, scope, event, size, recency, materiality_label_floor, quantified, boost_weight: w, scope_id: rf.scope_id, source_tier_id: rf.source_tier_id },
   }
 }
 

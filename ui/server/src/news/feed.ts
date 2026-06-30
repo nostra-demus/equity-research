@@ -9,10 +9,10 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import type { CycleSummary, FeedItem } from './types'
-import { deriveScope, deriveSourceTier } from './scope'
+import { deriveScope, deriveSourceTier, toEventScope } from './scope'
 import { cleanText } from './clean'
 import { assignDedupGroups, type DedupConfig } from './dedup'
-import { reRankFromFactors, capSocialBand, capSocialScore } from './rank'
+import { reRankFromFactors, capSocialBand, capSocialScore, deriveMaterialityLabel } from './rank'
 import { getRankWeights } from './rank-weights'
 import { scoreToBand } from './triage/groq'
 import { resolveCountry } from './geography'
@@ -26,13 +26,19 @@ function hydrate(it: FeedItem): FeedItem {
   const headline = cleanText(it.headline)
   const needsClean = headline !== it.headline
   const needsGeo = it.country === undefined // older firehose line, written before the country field existed
-  if (it.scope && it.source_tier && !needsClean && !needsGeo) return it
+  const needsClassifier = it.event_scope === undefined // older line, predates the event-materiality classifier
+  if (it.scope && it.source_tier && !needsClean && !needsGeo && !needsClassifier) return it
+  const scope = it.scope || deriveScope({ ...it, headline })
   return {
     ...it,
     headline: headline || it.headline,
-    scope: it.scope || deriveScope({ ...it, headline }),
+    scope,
     source_tier: it.source_tier || deriveSourceTier(it),
     ...(needsGeo ? { country: resolveCountry(headline || it.headline, it.headline_en, it.companies, it.region, it.issuer_linkage) } : {}),
+    // free, zero-cost backfill — event_scope derives from scope (already resolved above);
+    // event_materiality_label re-derives from the persisted triage_score so it's never stale;
+    // event_direction has no deterministic source, so an older line honestly defaults to 'unknown'.
+    ...(needsClassifier ? { event_scope: toEventScope(scope), event_materiality_label: it.event_materiality_label || deriveMaterialityLabel(it.triage_score), event_direction: it.event_direction || 'unknown' } : {}),
   }
 }
 
@@ -55,6 +61,9 @@ function withActiveWeights(items: FeedItem[]): void {
     it.triage_score = capped
     it.rank_factors = r.rank_factors
     it.band = capSocialBand(scoreToBand(capped, NEWS.pickThreshold, NEWS.watchThreshold), r.rank_factors.source_tier_id, caution)
+    // keep event_materiality_label consistent with the just-recomputed score — it must never contradict
+    // what's shown (same invariant runCycle.ts enforces at ingest)
+    it.event_materiality_label = deriveMaterialityLabel(capped)
   }
 }
 

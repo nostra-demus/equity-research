@@ -7,8 +7,12 @@
 // single-stock idea) vs BROAD (context / theme / basket — not a single name). The rail colors the
 // two families differently so "what can I actually work on?" is answerable at a glance.
 
-export type ScopeId = 'single_name' | 'multi_name' | 'sector' | 'macro' | 'commodity' | 'policy' | 'unknown'
+export type ScopeId = 'single_name' | 'multi_name' | 'sector' | 'macro' | 'commodity' | 'policy' | 'geopolitical' | 'generic_media' | 'unknown'
 export type ScopeFamily = 'company' | 'broad' | 'unknown'
+
+// The event-materiality classifier's simpler external vocabulary — a mapping OVER ScopeId, not a
+// replacement (mirrors ui/server/src/news/scope.ts EventScope / toEventScope).
+export type EventScope = 'company_specific' | 'sector' | 'commodity' | 'macro' | 'geopolitical' | 'regulatory' | 'generic_media'
 
 export interface ScopeDef {
   id: ScopeId
@@ -24,13 +28,15 @@ export const SCOPES: Record<ScopeId, ScopeDef> = {
   macro: { id: 'macro', label: 'Macro', meaning: 'Economy-wide — rates, inflation, growth, jobs, currencies or trade. Context, not a stock.', family: 'broad' },
   commodity: { id: 'commodity', label: 'Commodity', meaning: 'A commodity or freight price/supply move — hits producers and users, not one company.', family: 'broad' },
   policy: { id: 'policy', label: 'Policy', meaning: 'A government, regulator, court or central-bank action — sets the rules of the game.', family: 'broad' },
+  geopolitical: { id: 'geopolitical', label: 'Geopolitical', meaning: 'A war, military strike, conflict escalation or similar — moves whole markets even with no company named (CLAUDE.md §24).', family: 'broad' },
+  generic_media: { id: 'generic_media', label: 'Generic media', meaning: 'A roundup, ranking or listicle naming several companies with no single event — low information, never a single-stock idea.', family: 'broad' },
   unknown: { id: 'unknown', label: 'Unclassified', meaning: "Not enough in the headline to place it — open it to see what it's about.", family: 'unknown' },
 }
 
 // company-family first, then broad — the order the rail filter renders left→right
-export const SCOPE_ORDER: ScopeId[] = ['single_name', 'multi_name', 'sector', 'macro', 'commodity', 'policy']
+export const SCOPE_ORDER: ScopeId[] = ['single_name', 'multi_name', 'sector', 'macro', 'commodity', 'policy', 'geopolitical', 'generic_media']
 export const COMPANY_SCOPES: ScopeId[] = ['single_name', 'multi_name']
-export const BROAD_SCOPES: ScopeId[] = ['sector', 'macro', 'commodity', 'policy']
+export const BROAD_SCOPES: ScopeId[] = ['sector', 'macro', 'commodity', 'policy', 'geopolitical', 'generic_media']
 
 export const scopeDef = (s?: string | null): ScopeDef => SCOPES[(s as ScopeId)] || SCOPES.unknown
 export const scopeLabel = (s?: string | null): string => scopeDef(s).label
@@ -53,6 +59,13 @@ export const sourceTierDef = (t?: string | null): SourceTierDef | null => (t ? S
 const COMMODITY_RE = /\b(oil|crude|brent|wti|opec|gasoline|petrol|diesel|natural gas|lng|copper|alumini?um|zinc|nickel|cobalt|lithium|uranium|gold|silver|platinum|palladium|iron ore|steel|coal|wheat|corn|soybean|sugar|coffee|cocoa|cotton|palm oil|rubber|freight rate|baltic|tanker rate|dry bulk)\b/i
 const POLICY_RE = /\b(tariffs?|sanctions?|embargo|antitrust|anti-trust|central bank|federal reserve|fomc|rate (?:cut|hike|decision)|interest rate|reserve bank|rbi|ecb|monetary policy|regulator|sebi|court|ruling|tribunal|trade deal|free trade|fta|ban on)\b/i
 const MACRO_RE = /\b(inflation|cpi|wpi|ppi|gdp|recession|payrolls|unemployment|retail sales|pmi|bond yield|treasury yield|economy|currency)\b/i
+// mirrors server scope.ts GEOPOLITICAL_TERMS — multi-word phrases on purpose (a bare 'strike'/'missile'
+// would false-positive on labor strikes / a defense contractor's own product news). Deliberately
+// EXCLUDES bare 'ceasefire'/'truce'/'peace deal'/'peace treaty' (de-escalation language that must not
+// steal the 'commodity' scope a price-move headline already earns) — only their REVERSAL triggers.
+const GEOPOLITICAL_RE = /\b(air ?strikes?|military strikes?|missile (?:strike|attack)|drone strike|fresh strikes|strikes in|launches strikes|conducts strikes|invasion|invades|declares war|war on|breaks ceasefire|violates ceasefire|ceasefire collapse|truce collapses|truce breaks down|warplane|shelling|bombardment|nuclear site|troops? enter|troop surge|martial law|border clash|conflict escalat\w*)\b/i
+// mirrors server scope.ts ROUNDUP_TERMS/ROUNDUP_NUM_RE
+const ROUNDUP_RE = /\btop\s*\d+\b|\branked\b.{0,20}\b(companies|stocks|firms)\b|\b(top (?:10|5|20) stocks|top (?:10|5|20) companies|best stocks|best companies|biggest companies|biggest gainers|biggest losers|world'?s largest|world'?s biggest|stocks to watch|stocks to buy|by market cap|market-cap ranking|richest companies)\b/i
 
 export function deriveScopeClient(it: { issuer_linkage?: string | null; companies?: { name?: string }[] | null; event_types?: string[] | null; headline?: string | null; headline_en?: string | null }): ScopeId {
   const link = String(it.issuer_linkage || '')
@@ -60,11 +73,14 @@ export function deriveScopeClient(it: { issuer_linkage?: string | null; companie
   const types = it.event_types || []
   // scan the English translation when present, so the English-only lexicons below classify a foreign headline too
   const hl = String((it.headline_en && it.headline_en.trim()) || it.headline || '')
+  const hasMnaType = types.includes('mna')
   const subjectIsOneCompany = link.startsWith('primary') && named === 1
+  if (!subjectIsOneCompany && GEOPOLITICAL_RE.test(hl)) return 'geopolitical'
   if (!subjectIsOneCompany && (POLICY_RE.test(hl) || ((types.includes('regulatory') || types.includes('litigation_enforcement')) && (link.startsWith('sector') || link.startsWith('macro') || named === 0)))) return 'policy'
   if (COMMODITY_RE.test(hl) && !subjectIsOneCompany) return 'commodity'
-  if ((link.startsWith('primary') || link.startsWith('secondary')) && named === 1 && !types.includes('mna')) return 'single_name'
-  if (named >= 2 || (types.includes('mna') && named >= 1) || (link.startsWith('secondary') && named >= 1)) return 'multi_name'
+  if (!subjectIsOneCompany && !hasMnaType && ROUNDUP_RE.test(hl)) return 'generic_media'
+  if ((link.startsWith('primary') || link.startsWith('secondary')) && named === 1 && !hasMnaType) return 'single_name'
+  if (named >= 2 || (hasMnaType && named >= 1) || (link.startsWith('secondary') && named >= 1)) return 'multi_name'
   if (link.startsWith('primary')) return 'single_name'
   if (link.startsWith('macro') || MACRO_RE.test(hl)) return 'macro'
   if (link.startsWith('sector') || types.includes('macro_sector')) return 'sector'
@@ -74,6 +90,22 @@ export function deriveScopeClient(it: { issuer_linkage?: string | null; companie
 /** The scope of a feed item — its stamped value, or a fallback derive if it predates the field. */
 export const scopeOf = (it: { scope?: string | null; issuer_linkage?: string | null; companies?: { name?: string }[] | null; event_types?: string[] | null; headline?: string | null; headline_en?: string | null }): ScopeId =>
   (it.scope as ScopeId) || deriveScopeClient(it)
+
+// mirrors server scope.ts toEventScope
+const EVENT_SCOPE_MAP: Record<ScopeId, EventScope> = {
+  single_name: 'company_specific',
+  multi_name: 'company_specific',
+  sector: 'sector',
+  commodity: 'commodity',
+  macro: 'macro',
+  policy: 'regulatory',
+  geopolitical: 'geopolitical',
+  generic_media: 'generic_media',
+  unknown: 'generic_media',
+}
+export function toEventScope(scopeId: ScopeId): EventScope {
+  return EVENT_SCOPE_MAP[scopeId] ?? 'generic_media'
+}
 
 // ---- client mirror of the entity denylist (server: news/entities.ts) — so a country/agency guessed
 // as a "company" ("China", "Fed") never shows as one on the rail/detail before enrichment scrubs it ----
