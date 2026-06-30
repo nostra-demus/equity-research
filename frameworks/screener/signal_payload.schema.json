@@ -86,8 +86,47 @@
       "type": "string",
       "enum": ["replace_canonical", "suppress", "keep_linked_low_rank", "keep_linked", "keep_separate"]
     },
-    "materiality_score": { "type": "integer", "minimum": 0, "maximum": 100 },
-    "materiality_math": { "type": "string", "description": "The visible arithmetic: base inputs, penalties applied, overrides applied." },
+    "materiality_score": { "type": "integer", "minimum": 0, "maximum": 100, "description": "Equal to score_breakdown's clamped final_score (scripts/screener_score_breakdown.py) — kept for backward compatibility with the board index, ledger, and frontend." },
+    "materiality_math": { "type": "string", "description": "The visible arithmetic: base inputs, penalties applied, overrides applied. Auto-rendered from score_breakdown by scripts/screener_score_breakdown.py." },
+    "score_breakdown": {
+      "type": "object",
+      "description": "The named 100-point breakdown behind materiality_score. Six positive components (source_quality, event_materiality, company_relevance, specificity, estimate_impact, theme_macro) sum to a 100-pt pre-penalty subtotal; five named penalties subtract from it. Computed by scripts/screener_score_breakdown.py — never hand-edited.",
+      "properties": {
+        "source_quality": { "$ref": "#/definitions/score_component" },
+        "event_materiality": { "$ref": "#/definitions/score_component" },
+        "company_relevance": { "$ref": "#/definitions/score_component" },
+        "specificity": { "$ref": "#/definitions/score_component" },
+        "estimate_impact": { "$ref": "#/definitions/score_component" },
+        "theme_macro": { "$ref": "#/definitions/score_component" },
+        "routine_filing_penalty": { "$ref": "#/definitions/score_penalty" },
+        "generic_media_penalty": { "$ref": "#/definitions/score_penalty" },
+        "private_unlisted_irrelevance_penalty": { "$ref": "#/definitions/score_penalty" },
+        "duplicate_stale_penalty": { "$ref": "#/definitions/score_penalty" },
+        "low_confidence_extraction_penalty": { "$ref": "#/definitions/score_penalty" }
+      }
+    },
+    "final_score_reason": { "type": "string", "description": "Plain-English 1-2 sentence summary of the final score (CLAUDE.md S21) — agent-authored, citing the largest positive driver and the largest penalty (if any)." },
+    "source_tier": { "type": "integer", "minimum": 1, "maximum": 4, "description": "Refines Gate 0's A/B source_grade into 1-4 (Reuters/Bloomberg/filing class down to unknown/low-quality). Equal to score_breakdown.source_quality's basis; written by scripts/screener_score_breakdown.py." },
+    "source_quality_score": { "type": "integer", "minimum": 0, "maximum": 20, "description": "Equal to score_breakdown.source_quality.value — written once, never recomputed separately." },
+    "source_quality_reason": { "type": "string" },
+    "issuer_public_status": { "type": "string", "enum": ["public", "private_unlisted"], "description": "Describes the PRIMARY issuer. Drives which path scores company_relevance (Part A/B of the score breakdown)." },
+    "private_linkage_tags": {
+      "type": "array",
+      "description": "Evidenced links from a private/unlisted primary issuer to a public company. Non-empty means the private_unlisted_irrelevance_penalty does not apply at its full cap — a private company is never auto-zeroed just for being private.",
+      "items": {
+        "type": "string",
+        "enum": [
+          "acquisition_target_of_public_acquirer",
+          "supplier_or_customer_of_public_company",
+          "competitor_informative_to_public_company",
+          "commodity_sector_bottleneck",
+          "ai_datacenter_supply_chain",
+          "plausible_future_private_secondary_opportunity"
+        ]
+      }
+    },
+    "private_linkage_evidence": { "type": "string", "description": "One sentence naming the linked public company and how (e.g. a supplier-concentration disclosure)." },
+    "linked_public_companies": { "type": "array", "items": { "type": "string" } },
     "routing": { "type": "string", "enum": ["PROMOTE", "PARK", "LOG", "watchlist_no_source", "suppress"] },
     "routing_reason": { "type": "string" },
     "next_action": { "type": "string" },
@@ -104,6 +143,26 @@
           "retrieved_at": { "type": "string" },
           "claim_supported": { "type": "string" }
         }
+      }
+    }
+  },
+  "definitions": {
+    "score_component": {
+      "type": "object",
+      "required": ["value", "max_value", "reason"],
+      "properties": {
+        "value": { "type": "integer", "minimum": 0 },
+        "max_value": { "type": "integer", "minimum": 0 },
+        "reason": { "type": "string" }
+      }
+    },
+    "score_penalty": {
+      "type": "object",
+      "required": ["value", "max_value", "reason"],
+      "properties": {
+        "value": { "type": "integer", "maximum": 0 },
+        "max_value": { "type": "integer", "maximum": 0 },
+        "reason": { "type": "string" }
       }
     }
   }

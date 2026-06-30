@@ -158,6 +158,7 @@ sources:
       - "Seatrade Maritime News"
       - "Securities and Exchange Board of India (SEBI)"
       - "SemiWiki"
+      - "Simply Wall St"
       - "South Africa JSE / SENS"
       - "South China Morning Post"
       - "Splash247"
