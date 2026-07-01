@@ -33,12 +33,20 @@ Slice by thesis type and horizon where N allows. **If a basket has too few revie
 
 ## 4. Calibration (only where resolved forecasts exist)
 
-From resolved `forecast_results` across all review records:
+A resolved `forecast_results` entry (in the review record) carries the outcome but not the probability, `owner_module`, or `forecast_type` — those live on the *originating* `forecast_ledger` entry in the source `decision_record.json`. Match each `forecast_results` entry back to its `forecast_ledger` entry (by index, or by the prediction text reference it carries) before scoring; a `forecast_results` entry that cannot be matched back is not Brier-scorable and is excluded, not guessed.
+
+From resolved `forecast_results` across all review records, joined back to their source `forecast_ledger` entries as above:
 - bucket each resolved forecast by its stated `CLAUDE.md` §10 probability band; compute the realized hit rate per band and a **reliability** read (is "Likely 60–75%" hitting ~60–75%?);
 - compute a **Brier score** over resolved binary forecasts;
 - **confidence calibration:** do higher-confidence *decisions* realize better outcomes than lower-confidence ones?
 
 **Floor:** a Brier score or reliability curve needs a real sample (e.g. ≥ 10 resolved forecasts). Below it, report "insufficient resolved forecasts (N=k) — calibration not computed" rather than a misleading number.
+
+**Slice, don't just aggregate.** A single flat Brier score across every resolved forecast hides *which kind* of call the engine is systematically wrong about — the diagnostic that actually lets the engine improve (`CLAUDE.md` §19: "the engine must be able to learn from being wrong"). Once the ≥10-resolved-forecast floor is met overall, also slice the same Brier score / hit rate / reliability computation two ways, independently, each against its OWN floor (≥10 resolved forecasts in that slice — do not lower the floor per-slice):
+- **by `owner_module`** (`frameworks/DECISION_LEDGER.md` §6 — already present on every forecast_ledger entry, no schema gap): is the engine's earnings module better calibrated than its valuation module, its balance-sheet-survival module, etc.?
+- **by `forecast_type`** (`DECISION_LEDGER.md` §6, additive from 2026-07-01 — `revenue`, `margin_or_cost`, `earnings_eps`, `cash_flow`, `valuation_or_price_return`, `balance_sheet_or_solvency`, `governance_or_accounting`, `catalyst_or_estimate_revision`, `other`): is the engine better at calling revenue than margin, better at catalyst timing than multiple re-rating? A module can produce more than one forecast_type, so this is a genuinely different cut from `owner_module`, not a duplicate of it.
+
+Forecasts missing `owner_module` or `forecast_type` (older records, or `forecast_type` predating 2026-07-01) go in an explicit `"untagged"` bucket per slice — never dropped silently and never guessed. Below a slice's own floor, report that slice as `"insufficient (N=k)"` exactly as in the flat case; do not let a well-populated flat total imply every slice is populated too.
 
 ## 5. Process metrics (computable now, no outcomes needed)
 
@@ -83,6 +91,8 @@ Write a dated pair under `analyses/performance/` (create it): `<TODAY>_decision_
   "hit_rate": null,
   "selected_minus_rejected_pct": null,
   "calibration": {},
+  "calibration_by_module": {},
+  "calibration_by_forecast_type": {},
   "confidence_calibration": {},
   "process_metrics": {},
   "module_calibration": {},
@@ -90,6 +100,8 @@ Write a dated pair under `analyses/performance/` (create it): `<TODAY>_decision_
   "verdict": ""
 }
 ```
+
+`calibration_by_module` / `calibration_by_forecast_type` are the §4 quantitative slices (Brier score + hit rate + reliability, keyed by `owner_module` value / `forecast_type` value, each `"insufficient (N=k)"` below its own floor) — distinct from `module_calibration`, which is the §6/§13 qualitative roll-up of `module_calibration_notes` from review records (which module a reviewer judged "most predictive," not a computed score).
 
 Use `{}`/`null`/`"insufficient (N=k)"` for anything the data does not yet support. Validate: `python3 -m json.tool "<json_file>" >/tmp/calib_check.json`. Fix if invalid.
 
