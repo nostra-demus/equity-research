@@ -126,4 +126,23 @@ check('without a ledger map, handoff ids still resolve and SIG ids fall back gra
   assert.equal(res.rows.find((r) => r.runId === 'r3')!.subjectLabel, 'MSFT')
 })
 
+// ---- chained + swarm survive the fold (Resume needs both: a chained-full step resumes the WHOLE
+// pipeline, a standalone module resumes just itself; and a commodity run must route to its swarm) ----
+fs.appendFileSync(
+  path.join(STATE, 'activity-log.jsonl'),
+  logLine({ v: 1, event: 'launched', ts: t0 + 4000, runId: 'r4', user: 'u', userVia: 'local', kind: 'module', ticker: 'NVDA', module: 'earnings', chained: true, swarm: 'research' }) +
+    logLine({ v: 1, event: 'launched', ts: t0 + 5000, runId: 'r5', user: 'u', userVia: 'local', kind: 'module', ticker: 'NVDA', module: 'business-model', swarm: 'research' }) +
+    logLine({ v: 1, event: 'launched', ts: t0 + 6000, runId: 'r6', user: 'u', userVia: 'local', kind: 'full', ticker: 'GOLD', swarm: 'commodity' }),
+)
+check('foldRows preserves `chained` — a chained-full module step is distinguishable from a standalone module run', () => {
+  const res = readActivity({})
+  assert.equal(res.rows.find((r) => r.runId === 'r4')!.chained, true)
+  assert.equal(res.rows.find((r) => r.runId === 'r5')!.chained, undefined)
+})
+check('foldRows preserves `swarm` — a commodity run carries its swarm id so Resume routes to the right swarm', () => {
+  const res = readActivity({})
+  assert.equal(res.rows.find((r) => r.runId === 'r6')!.swarm, 'commodity')
+  assert.equal(res.rows.find((r) => r.runId === 'r4')!.swarm, 'research')
+})
+
 console.log(`\n${passed} checks passed`)

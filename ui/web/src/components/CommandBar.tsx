@@ -265,6 +265,33 @@ function TickerPicker() {
   )
 }
 
+// Orb-view mirror of the screener's Continue: when the SELECTED subject has an interrupted run whose
+// final thesis is missing, offer to finish it from where it stopped. Resuming skips the modules already
+// on disk, so it's cheaper than a fresh full run — the hint shows how much is already done. Hidden while
+// the subject is live (the resumable set excludes in-flight subjects) or when nothing is resumable.
+function ResumeChip() {
+  const resumableRuns = useStore((s) => s.resumableRuns)
+  const resumeRun = useStore((s) => s.resumeRun)
+  const selectedTicker = useStore((s) => s.selectedTicker)
+  const activeSwarm = useStore((s) => s.activeSwarm)
+  const health = useStore((s) => s.health)
+  const engineDown = health === 'engine-offline' || health === 'your-network' || health === 'session-expired'
+  const entry = selectedTicker
+    ? resumableRuns.find((e) => e.kind === 'full' && e.subject === selectedTicker && e.swarm === activeSwarm)
+    : undefined
+  if (!entry) return null
+  const noun = entry.unit === 'agent' ? 'check' : 'module'
+  const title = engineDown
+    ? 'Engine offline — live runs are paused until it reconnects'
+    : `This run stopped partway (${entry.doneCount}/${entry.totalCount} ${noun}s done). Resume finishes it from where it stopped — the done work is reused.`
+  return (
+    <button className="aresume aresume--bar" disabled={engineDown} onClick={() => void resumeRun(entry)} title={title}>
+      Resume<span className="aresume__glyph" aria-hidden>▸</span>
+      <span className="aresume__meta">{entry.doneCount}/{entry.totalCount}</span>
+    </button>
+  )
+}
+
 function ReadinessStrip() {
   const graph = useStore((s) => s.graph)
   const dataStatus = useStore((s) => s.dataStatus)
@@ -415,6 +442,7 @@ export function CommandBar() {
           <button className="btn cmdbar__ask" disabled={!selectedTicker} onClick={() => openChat('run')} title={selectedTicker ? 'Ask questions about this run’s output — answered only from what the engine wrote' : 'Select a company first'}>
             Ask ▸
           </button>
+          <ResumeChip />
           <button className="btn btn--amber" disabled={!selectedTicker || anyRun || engineDown} onClick={requestFull} title={staticMode ? 'Runs on your local machine (npm run dev)' : engineDown ? 'Engine offline — live runs are paused until it reconnects' : anyRun ? 'A run is in flight — a full run needs exclusive access' : 'Run the full pipeline'}>
             Run full ▸
           </button>

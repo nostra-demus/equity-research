@@ -1,6 +1,6 @@
 import { staticPromptPath } from './prompts'
 import { DEFAULT_RANK_WEIGHTS, type RankWeights, type RankWeightsState } from './rankWeights'
-import type { ActivityQuery, ActivityResult, CallsResult, ChatRequest, ChatScopes, CoverageGroup, DataStatus, EventEnrichment, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ScreenerBoard, SignalIntakeInput, SourcesReport, SwarmGraph, SwarmMeta, TickerSummary, UploadResult, Usage, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, CallsResult, ChatRequest, ChatScopes, CoverageGroup, DataStatus, EventEnrichment, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SourcesReport, SwarmGraph, SwarmMeta, TickerSummary, UploadResult, Usage, Whoami } from './types'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -431,6 +431,11 @@ export const api = {
   runSnapshot: async (runId: string): Promise<any> => {
     if ((await ensureMode()) === 'static') throw new Error('static')
     return get(`/api/runs/${encodeURIComponent(runId)}`)
+  },
+  // Every run the cockpit can resume right now (disk-truth). Static showcase has no engine → empty.
+  resumable: async (): Promise<{ runs: ResumableRunInfo[] }> => {
+    if ((await ensureMode()) === 'static') return { runs: [] }
+    return get(`/api/resumable`, 8_000)
   },
   runStreamUrl: (runId: string) => `/api/runs/${runId}/stream`,
   dataStreamUrl: () => `/api/data-status/stream`,

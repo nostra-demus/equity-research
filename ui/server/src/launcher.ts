@@ -541,6 +541,11 @@ export interface LaunchParams {
   // its subject claim + write targets release, then admit normally. Deliberately does NOT bypass the
   // GLOBAL concurrency cap (other tickers' runs) or the data-readiness gate — those are orthogonal guards.
   force?: boolean
+  // This run is a STEP of a chained full run. Set it via params (not after launch() returns) so it is on
+  // the RunState BEFORE spawnEngine's logLaunch fires — otherwise the perpetual activity-log `launched`
+  // event records chained=false for every chained module step, and the cockpit can't tell a chained-full
+  // module from a standalone module run when deciding whether Resume should continue the whole pipeline.
+  chained?: boolean
 }
 
 // ---- chained full run (per-module budgets), DAG-PARALLEL — opt-in via FULL_PER_MODULE ----
@@ -597,6 +602,8 @@ const defaultFullChainDeps: FullChainDeps = {
   launchAndWire: async (params, onFinish) => {
     const out = await launch(params)
     const run = getRun(out.runId)
+    // chained is now passed via params (set on the RunState pre-spawn so the launched-event log is
+    // correct); re-assert it here for the fake-launcher test path, and wire onFinish (not a param).
     if (run) { run.chained = true; run.onFinish = onFinish } // chained:true so cancel()/cancelAll halt the whole chain (parity with the old serial launchChainStep)
     else onFinish('error') // run vanished before we could wire onFinish — treat as a failure
     return { runId: out.runId, preflight: out.preflight }
@@ -664,7 +671,7 @@ export async function launchFullChained(ticker: string, user: string, userVia: '
     if (masterLaunched) return
     masterLaunched = true
     void deps.launchAndWire(
-      { kind: 'rerun', ticker, module: 'master', agent: 'synthesizer', user, userVia },
+      { kind: 'rerun', ticker, module: 'master', agent: 'synthesizer', user, userVia, chained: true },
       (status) => {
         deps.clearMarker(ticker) // always clear the defer-memo marker once master exits — success path: rerun.md Step 9A also rm -f's it (idempotent); this is the safety net for an abnormal 'done' before Step 9A ran, or any failure
         // eslint-disable-next-line no-console
@@ -704,7 +711,7 @@ export async function launchFullChained(ticker: string, user: string, userVia: '
     started.add(name)
     inflight.add(name) // reserve the slot synchronously so the cap holds within one pump() pass
     void deps.launchAndWire(
-      { kind: 'module', ticker, module: name, user, userVia },
+      { kind: 'module', ticker, module: name, user, userVia, chained: true },
       (status) => onModuleFinish(name, status),
     )
       .then((out) => {
@@ -1003,6 +1010,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     readDepsAbs,
     closeWatcher: undefined,
     expected,
+    chained: params.chained,
   })
 
   // seed expected agents as queued so the UI can show the planned swarm immediately
@@ -1088,7 +1096,7 @@ async function spawnEngine(run: RunState): Promise<void> {
   emit(run, { type: 'run-started', runId: run.runId, kind: run.kind, ticker: run.ticker, runRoot: run.runRoot, willCommitToMain: run.willCommitToMain, ...(run.swarmId !== 'research' ? { swarm: run.swarmId } : {}), ts: Date.now() })
 
   // perpetual audit record: who launched what, when, on which company (finish is logged in finishRun)
-  logLaunch({ runId: run.runId, user: run.user, userVia: run.userVia, kind: run.kind, ticker: run.ticker, runRoot: run.runRoot ?? undefined, module: run.module, agent: run.agent, model: run.model })
+  logLaunch({ runId: run.runId, user: run.user, userVia: run.userVia, kind: run.kind, ticker: run.ticker, runRoot: run.runRoot ?? undefined, module: run.module, agent: run.agent, model: run.model, chained: run.chained, swarm: run.swarmId })
 
   // line-buffered stdout -> stream parser
   let buf = ''
