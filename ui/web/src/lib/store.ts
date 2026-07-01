@@ -595,6 +595,12 @@ export const useStore = create<State>((set, get) => ({
     set({ staticMode: stat })
     if (!stat) {
       get().startHealth() // begin the engine heartbeat (live mode only); idempotent across reconnects
+      // Rediscover any run still executing server-side. A page refresh remounts this store with no
+      // selected ticker, so without this the picker/kill-switch would be blind to an in-flight run until
+      // the user happened to pick its company. Populating activeRunsByTicker + globalActive here lights the
+      // "resume live run" affordance on the picker (and the top-bar N-running pill), and starts the poll so
+      // the banner clears itself the moment the run ends. Self-guarded (no-op in static mode).
+      void get().refreshActiveRuns()
       // live data-folder watcher (Drive sync) — backend only
       if (!dataSource) {
         dataSource = new EventSource(api.dataStreamUrl())
