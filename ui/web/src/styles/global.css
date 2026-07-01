@@ -775,6 +775,11 @@ a { color: inherit; }
 .coco__foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--hairline); }
 .coco__footnote { font-size: 12px; color: var(--text-faint); }
 .coco__legend { font-size: 11px; color: var(--text-faint); margin-left: auto; font-variant-numeric: tabular-nums; }
+/* subject picker (non-research swarm): ids can run up to 15 chars, so let the symbol grow past the
+   fixed research width instead of clipping, and give it breathing room before the verdict slot. */
+.coco--subj .coco__sym { width: auto; min-width: 108px; padding-right: 12px; }
+.coco__loading { display: flex; align-items: center; justify-content: center; gap: 9px; padding: 28px 12px; color: var(--text-muted); font-size: 13px; }
+.coco__loading .empty__spin { color: var(--accent-bright); }
 @media (hover: hover) and (pointer: fine) { .coco__row:hover { background: var(--surface-3); } }
 @media (prefers-reduced-motion: reduce) { .coco__row:active { transform: none; } }
 .pulsedot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 0 var(--accent-glow); animation: pulse 1.8s var(--ease) infinite; }

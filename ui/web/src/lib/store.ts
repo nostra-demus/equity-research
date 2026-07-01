@@ -215,6 +215,9 @@ interface State {
   // subjects of the active NON-research constellation swarm (e.g. commodity ids GOLD/SUGAR), for its
   // subject picker; research uses `tickers`.
   swarmSubjectList: string[]
+  // true while loadSwarmSubjects is in flight — lets the subject picker show a real loading state on
+  // first entry instead of flashing "no subjects yet" before the list resolves.
+  swarmSubjectsLoading: boolean
   loadSwarmSubjects: (swarmId: string) => Promise<void>
   // research stage renderer: the 3D globe (default) or the flat 2D constellation. Persisted.
   researchView: 'constellation' | 'globe'
@@ -516,6 +519,7 @@ export const useStore = create<State>((set, get) => ({
   activeSwarm: typeof window !== 'undefined' && (window as any).__ENGINE_LIVE__ === true ? 'screener' : 'research',
   constellationSwarm: 'research',
   swarmSubjectList: [],
+  swarmSubjectsLoading: false,
   researchView: loadView(),
   webglOK: true, // optimistic; init() probes and corrects + coerces the view if WebGL is missing
   warp: null,
@@ -1403,10 +1407,12 @@ export const useStore = create<State>((set, get) => ({
   },
 
   loadSwarmSubjects: async (swarmId) => {
+    set({ swarmSubjectsLoading: true })
     try {
       const subjects = await api.swarmSubjects(swarmId)
       if (get().activeSwarm === swarmId) set({ swarmSubjectList: subjects })
     } catch { /* keep the prior list on a transient failure */ }
+    finally { if (get().activeSwarm === swarmId) set({ swarmSubjectsLoading: false }) }
   },
 
   _advanceWarp: () => {

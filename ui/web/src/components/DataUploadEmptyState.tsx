@@ -3,6 +3,7 @@ import { useStore } from '../lib/store'
 import { Uploader } from './Uploader'
 import { DataCoverage } from './DataCoverage'
 import { CompanyPicker } from './CompanyPicker'
+import { SubjectPicker } from './SubjectPicker'
 
 // Single source of truth for "what's going on with this ticker's data" — so the cockpit is never a
 // silent black box. Covers: nothing selected yet (the cockpit no longer auto-selects), unusable folder
@@ -10,6 +11,7 @@ import { CompanyPicker } from './CompanyPicker'
 // When Drive uploads are configured it also surfaces the in-app add-company / drag-and-drop uploader.
 export function DataUploadEmptyState() {
   const selectedTicker = useStore((s) => s.selectedTicker)
+  const activeSwarm = useStore((s) => s.activeSwarm)
   const dataStatus = useStore((s) => s.dataStatus)
   const dataLoading = useStore((s) => s.dataLoading)
   const emptyState = useStore((s) => s.emptyState)
@@ -18,6 +20,11 @@ export function DataUploadEmptyState() {
   const staticMode = useStore((s) => s.staticMode)
   const openAddCompany = useStore((s) => s.openAddCompany)
   const defaultCoverage = useStore((s) => s.defaultCoverage)
+
+  // Non-research constellation swarm (e.g. commodity): every branch below is keyed off research state
+  // (tickers, Drive sync, the research data pool), so short-circuit here. No subject picked → the swarm's
+  // own subject picker (GOLD/SUGAR…); a subject picked → null, and the constellation renders itself.
+  if (activeSwarm !== 'research') return selectedTicker ? null : <div className="empty"><SubjectPicker /></div>
 
   const sel = tickers.find((t) => t.ticker === selectedTicker)
   const noTickers = emptyState && !selectedTicker
