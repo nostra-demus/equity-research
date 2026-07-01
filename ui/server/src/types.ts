@@ -238,7 +238,7 @@ export interface ReadinessDecision {
 // ---- admission control (dependency-aware concurrency) ----
 // Discriminated rejection so the client can branch the toast (info vs bad) and explain precisely.
 export type AdmissionRejection =
-  | { code: 'target_conflict'; httpStatus: 409; conflictRunId: string; conflictTargets: string[] }
+  | { code: 'target_conflict'; httpStatus: 409; conflictRunId: string; conflictTargets: string[]; conflictModules: string[] }
   | { code: 'exclusivity'; httpStatus: 409; blockingRunId: string; blockingKind: RunKind }
   | {
       code: 'dependency_conflict'
