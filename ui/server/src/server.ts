@@ -305,6 +305,8 @@ const ResearchLaunchBody = z.object({
   window: z.enum(['30d', '90d', '180d', '365d', '24m', '36m', 'ad-hoc', 'post-mortem']).optional(),
   model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i).optional(),
   confirmTicker: z.string().optional(),
+  // "Run anyway": stop any in-flight run on this ticker that holds the lock, then launch (overwrite OK).
+  force: z.boolean().optional(),
 })
 
 const INB_RE = /^INB-\d{8}-\d{3,}$/
@@ -444,7 +446,7 @@ app.post('/api/launch', async (req, reply) => {
   }
 
   try {
-    const out = await launch({ kind: rkind, ticker, module, agent, window, model, user, userVia })
+    const out = await launch({ kind: rkind, ticker, module, agent, window, model, user, userVia, force: parsed.data.force })
     return out
   } catch (e: any) {
     return fail(e)
