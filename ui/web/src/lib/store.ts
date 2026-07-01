@@ -746,19 +746,31 @@ export const useStore = create<State>((set, get) => ({
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
     const t = get().selectedTicker
     if (!t) return
-    // forcing deliberately overrides the "already running" lock, so skip the client-side in-flight guard
-    if (!force && get().targetInFlight(t, [node.key])) return get().setToast({ msg: `${node.name} is already running`, tone: 'info' })
     if (!node.soloRunnable) {
       get().setToast({ msg: `${node.name} needs upstream — run the module first`, tone: 'info' })
       return
     }
-    try {
-      const { runId } = await api.launch({ kind: 'agent', ticker: t, module: node.module, agent: node.name, force })
-      beginRun(set, get, runId, { kind: 'agent', module: node.module, agent: node.name, willCommitToMain: false }, [node.key])
-      get().setToast({ msg: `${force ? 'Re-launched' : 'Launched'} ${node.name} on ${t}`, tone: 'good' })
-    } catch (e: any) {
-      launchErrorToast(get, e, t, node.name, force ? undefined : () => get().launchAgent(node, true))
+    // Local launcher capturing `t` + `node` so the "Run anyway" retry forces on the ticker that PRODUCED
+    // the lock, NOT get().selectedTicker read at click time — the user may switch companies while the
+    // toast is up (was a cross-ticker force bug).
+    const doLaunch = async (f?: boolean) => {
+      try {
+        const { runId } = await api.launch({ kind: 'agent', ticker: t, module: node.module, agent: node.name, force: f })
+        beginRun(set, get, runId, { kind: 'agent', module: node.module, agent: node.name, willCommitToMain: false }, [node.key])
+        get().setToast({ msg: `${f ? 'Re-launched' : 'Launched'} ${node.name} on ${t}`, tone: 'good' })
+      } catch (e: any) {
+        launchErrorToast(get, e, t, node.name, f ? undefined : () => doLaunch(true))
+      }
     }
+    // Client-side in-flight guard. A forced retry skips it. When it trips on a run the UI THINKS is live but
+    // whose engine process has actually died (the exact stuck-lock this patch targets), a plain
+    // "already running" toast would be a dead end — the first launch never reaches the server, so the
+    // server's reap-dead path never runs. So the guard-trip toast itself offers "Run anyway", which forces
+    // to the server (reaping the corpse and relaunching).
+    if (!force && get().targetInFlight(t, [node.key])) {
+      return get().setToast({ msg: `${node.name} is already running`, tone: 'info', action: { label: 'Run anyway', onClick: () => doLaunch(true) } })
+    }
+    await doLaunch(force)
   },
 
   launchModule: async (module, force) => {
@@ -767,15 +779,21 @@ export const useStore = create<State>((set, get) => ({
     const t = get().selectedTicker
     if (!t) return
     const planned = [...get().nodesByKey.values()].filter((n) => n.module === module).map((n) => n.key)
-    // forcing deliberately overrides the "already running" lock, so skip the client-side in-flight guard
-    if (!force && get().targetInFlight(t, planned)) return get().setToast({ msg: `${module} is already running`, tone: 'info' })
-    try {
-      const { runId } = await api.launch({ kind: 'module', ticker: t, module, force })
-      beginRun(set, get, runId, { kind: 'module', module, willCommitToMain: true }, planned)
-      get().setToast({ msg: `${force ? 'Re-launched' : 'Launched'} ${module} module on ${t}`, tone: 'good' })
-    } catch (e: any) {
-      launchErrorToast(get, e, t, `${module} module`, force ? undefined : () => get().launchModule(module, true))
+    // Local launcher capturing `t` so the "Run anyway" retry forces on the ticker that produced the lock.
+    const doLaunch = async (f?: boolean) => {
+      try {
+        const { runId } = await api.launch({ kind: 'module', ticker: t, module, force: f })
+        beginRun(set, get, runId, { kind: 'module', module, willCommitToMain: true }, planned)
+        get().setToast({ msg: `${f ? 'Re-launched' : 'Launched'} ${module} module on ${t}`, tone: 'good' })
+      } catch (e: any) {
+        launchErrorToast(get, e, t, `${module} module`, f ? undefined : () => doLaunch(true))
+      }
     }
+    // Guard-trip offers "Run anyway" too, so a UI-live-but-dead module lock isn't a dead end (see launchAgent).
+    if (!force && get().targetInFlight(t, planned)) {
+      return get().setToast({ msg: `${module} is already running`, tone: 'info', action: { label: 'Run anyway', onClick: () => doLaunch(true) } })
+    }
+    await doLaunch(force)
   },
 
   requestFull: async () => {

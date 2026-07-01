@@ -253,15 +253,38 @@ export async function awaitRunsExited(
 export function reapDeadSubjectRuns(subjectId: string): string[] {
   const reaped: string[] = []
   for (const r of inFlightRunsForSubject(subjectId)) {
-    if (!r.child) continue // pre-spawn gate — waiting on the human, not a dead process
-    if (pidAlive(r.child.pid)) continue // engine still alive — leave it running
-    // The child is gone but onClose never ran. Route it through the SINGLE finalizer as a termination so a
-    // resumable full/rerun gets its .interrupted marker (the supervisor can continue it) and the subject
-    // claim + write targets release — exactly the path an OOM/manual kill would take.
-    finalizeRunOnClose(r, { isTerminated: true, signal: 'SIGKILL' }, '')
-    reaped.push(r.runId)
-    // eslint-disable-next-line no-console
-    console.warn(`[reap] ${subjectId}: finalized a run whose engine process had died (${r.runId}) — releasing its lock`)
+    if (reapDeadRun(r)) reaped.push(r.runId)
+  }
+  return reaped
+}
+
+// Reap a single run if its engine child process is gone but onClose never fired. Returns true if it was
+// finalized. Pre-spawn gate states (run.child === null: readiness-checking / awaiting-readiness-decision)
+// are LEGITIMATELY waiting for the user, not dead — left untouched (a deliberate force stops those).
+function reapDeadRun(r: RunState): boolean {
+  if (!r.child) return false // pre-spawn gate — waiting on the human, not a dead process
+  if (pidAlive(r.child.pid)) return false // engine still alive — leave it running
+  // The child is gone but onClose never ran. Route it through the SINGLE finalizer as a termination so a
+  // resumable full/rerun gets its .interrupted marker (the supervisor can continue it) and the subject
+  // claim + write targets release — exactly the path an OOM/manual kill would take.
+  finalizeRunOnClose(r, { isTerminated: true, signal: 'SIGKILL' }, '')
+  // eslint-disable-next-line no-console
+  console.warn(`[reap] ${r.subjectId}: finalized a run whose engine process had died (${r.runId}) — releasing its lock`)
+  return true
+}
+
+// Reap EVERY in-flight run whose engine process has died, across ALL subjects. The per-subject reaper
+// releases the launch's own subject lock, but admission's GLOBAL concurrency cap (D5) counts every
+// in-flight run regardless of subject — so dead children on OTHER subjects still consume the cap and make
+// a DIFFERENT-subject launch fail `capacity` even though that capacity is held by corpses. Sweeping the
+// whole registry before admission finalizes those corpses too, so the cap reflects live runs only.
+// Same finalize path and same safety as the per-subject reaper (only genuinely-dead pids are touched).
+// Returns the reaped run ids.
+export function reapAllDeadRuns(): string[] {
+  const reaped: string[] = []
+  for (const r of listRuns()) {
+    if (!IN_FLIGHT_STATUSES.has(r.status)) continue
+    if (reapDeadRun(r)) reaped.push(r.runId)
   }
   return reaped
 }
@@ -869,9 +892,11 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     ? agentRequiredUpstream(swarmId, module, agent).map((relp) => path.join(REPO_ROOT, runRoot, relp))
     : []
 
-  // Self-heal first: finalize any run on this subject whose engine process has died but never closed, so a
-  // wedged lock can never permanently block this launch (the "stuck forever" failure). Runs every launch.
-  reapDeadSubjectRuns(subjectId)
+  // Self-heal first: finalize any run whose engine process has died but never closed, so a wedged lock can
+  // never permanently block this launch (the "stuck forever" failure). Sweep ALL subjects, not just this
+  // one: admission's global concurrency cap (D5) counts in-flight runs across every subject, so a dead
+  // child on ANOTHER subject would still fill the cap and fail this launch with `capacity`. Runs every launch.
+  reapAllDeadRuns()
 
   // FORCE override: the user explicitly chose to run despite a same-subject lock ("overwrite is fine").
   // Stop every still-in-flight run on this subject — a running engine, or one parked at the readiness gate
