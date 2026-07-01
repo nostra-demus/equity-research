@@ -71,6 +71,9 @@ jobs:
       - name: Validate screener JSON schemas against committed fixtures
         run: python3 scripts/validate_screener_json.py --fixture
 
+      - name: Screener feedback-tune selftest (recommend-only rank-weight nudges from the feedback ledger)
+        run: python3 scripts/screener_feedback_tune.py --selftest
+
   ui-web:
     name: ui/web — typecheck + build
     runs-on: ubuntu-latest
