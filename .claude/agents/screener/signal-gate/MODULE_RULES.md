@@ -4,11 +4,11 @@ These rules bind every agent in `.claude/agents/screener/signal-gate/`. The root
 
 ## What this module is
 
-The ten-step Phase 0.1 gauntlet. It answers ONE question about one signal:
+The ten-step Phase 0.1 gauntlet, plus a parallel generic-media check that runs alongside Steps 4-8. It answers ONE question about one signal:
 
 > "Is this a new, high-impact event that should change an investment decision immediately?"
 
-It prioritizes novelty, confirmation, and direct financial impact. It penalizes repetition, incremental updates, and low-information content, INCLUDING routine procedural filings dressed up in event-sounding language (see "Filing-Type Classification & Derating" below). It is deterministic: the thresholds, matrices, and penalty tables below are not suggestions — do not override them, do not simplify them, do not skip steps.
+It prioritizes novelty, confirmation, and direct financial impact. It penalizes repetition, incremental updates, low-information content, routine procedural filings dressed up in event-sounding language (see "Filing-Type Classification & Derating" below), and generic market-wide commentary with no company-specific, quantified insight. It is deterministic: the thresholds, matrices, and penalty tables below are not suggestions — do not override them, do not simplify them, do not skip steps.
 
 ## Gate 0 (intake agent)
 
@@ -69,6 +69,36 @@ ELSE:                                                  new_event
 
 Base by pair label: duplicate 0.02 / same_event_no_new_info 0.10 / same_event_new_info 0.30 / related_topic 0.55 / new_event 0.85. Then **+0.50 × fact_delta + 0.20 if confirmation upgrade. Clamp [0, 1].** Show the arithmetic.
 
+## Generic media detection (parallel check, alongside Steps 4-8)
+
+`screener-generic-media-detector` runs in parallel with `screener-novelty` (both consume only Gate 0 + relevance). It answers: "Is this generic market commentary, or does it carry a specific, investable fact?"
+
+Detect (multilabel, one line of evidence per tagged category):
+
+| Category | Meaning |
+|---|---|
+| `market_cap_roundup` | Aggregate market-cap change across 3+ companies or an index, no single causal driver. |
+| `index_movement_summary` | The subject is an index level/points/% move (Nifty, Sensex, S&P 500, Dow, etc.), not a company event. |
+| `top_gainers_losers` | A ranked gainers/losers list with no causal explanation per name. |
+| `generic_market_close` | "Markets closed higher/lower" daily-wrap framing, no specific causal event. |
+| `many_companies_no_thesis` | 4+ companies named in one undifferentiated list, no firm-specific causal claim. |
+| `lacks_specificity_quantifiability` | Generic descriptive language, no checkable number/date/cause, regardless of company count. |
+
+An article with ONE clear, attributable, quantified driver does NOT match `many_companies_no_thesis` or `lacks_specificity_quantifiability` merely because it spans a sector or several names — those two categories require the ABSENCE of an attributable, quantified driver, not a high company count by itself.
+
+**Attributable-driver exemption for index / market-wide framing.** The same principle applies to `market_cap_roundup` and `index_movement_summary`: an index or market-wide story that carries ONE concrete, attributable, quantified causal driver — a specific policy, macro, or corporate event named as the cause (e.g. "Nifty jumps 2% after RBI cuts the repo rate 50 bps") — is NOT tagged `market_cap_roundup` or `index_movement_summary`. Classify it on the UNDERLYING event, not the index-move framing: the repo-cut example is a `regulatory` / macro-policy event, and the index level is merely how it is being reported. These two categories require the index/aggregate move to be the actual subject with NO single attributable driver (a bare "Sensex closed 400 pts higher" wrap). A quantified, attributable macro-policy or corporate fact reported through an index headline keeps `is_generic_media = false` and is scored on the driver, not capped as market noise.
+
+Score (0-100 each, evidence-cited):
+
+- **specificity_score** — 0 = applies to the whole market/an index/10+ names with no distinguishable thesis; 100 = one company, one distinct, attributable event.
+- **quantifiability_score** — 0 = adjectives only ("markets rallied"); 100 = a precise, checkable figure tied to a clear causal driver. An aggregate tally across many names scores LOW here even with a real number — the figure must attach to ONE attributable cause, not a sum.
+- **investability_score** — 0 = a PM could not change a single position on this fact alone; 100 = the fact alone would change a PM's view of a specific name or thesis (a guidance cut, an import ban, a contract win, a regulatory action).
+
+Decide:
+
+- **is_generic_media** — true if ANY category above is tagged (a format/content judgment, independent of investability). False only when none of the 6 categories match. A loose stylistic "roundup" tone with no real loss of company-specific, quantified content is NOT sufficient on its own to set this true — that is a source-style observation, not a content derating trigger; reserve true for when the underlying event content itself is generic.
+- **generic_media_reason** — one plain sentence naming the matched categories (or "none matched") and the evidence.
+
 ## Canonical handling (Step 9)
 
 Priority for canonical record: official > source tier > fact richness > earlier timestamp. Actions: `replace_canonical`, `suppress`, `keep_linked_low_rank`, `keep_linked`, `keep_separate`.
@@ -76,6 +106,22 @@ Priority for canonical record: official > source tier > fact richness > earlier 
 ## Materiality (Step 10)
 
 Inputs: relevance, event severity, computed novelty, source confidence, issuer directness, scope. Penalties: **duplicate −50; same_event_no_new_info −25; same_event_new_info −5.** Overrides: a confirmation upgrade removes the penalties; official filings / enforcement actions / defaults get a positive adjustment. Output: integer 0–100, with the arithmetic visible.
+
+**Generic-media cap.** After computing the score above, apply a ceiling from the generic-media check:
+
+- `is_generic_media = false` → no ceiling. Proceed exactly as above; the genericness scores are carried in `signal_payload.json` for transparency only and are never silently subtracted elsewhere.
+- `is_generic_media = true` →
+  ```
+  avg_sq = (specificity_score + quantifiability_score) / 2
+  IF investability_score < 30:
+      ceiling = clamp(30 + round(avg_sq / 10), 30, 40)                              # no specific impact
+  ELSE:
+      ceiling = clamp(50 + round((investability_score - 30) / 70 * 10), 50, 60)      # specific anomaly present
+  materiality_score = min(<score from the formula above>, ceiling)
+  ```
+  Show the ceiling and the `min()` explicitly in the materiality arithmetic line, e.g. `... = 72/100, generic media (market_cap_roundup, investability 12) → ceiling 33 → capped to 33/100`.
+
+The generic-media ceiling is applied ONCE, as a cap via `min()` — never stacked as an additional subtraction on top of the penalty table above. It is the in-Step-10 cap; the routine-filing ceiling below (Step 10b) is a separate, later cap on the finished number, and the two compose as nested `min()` caps (each only ever lowers the score, never raises it).
 
 ## Filing-Type Classification & Derating (Step 2b / Step 10b)
 

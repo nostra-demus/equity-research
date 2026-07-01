@@ -28,21 +28,23 @@ You DO NOT:
 # WORKFLOW
 
 1. Read the repo root `CLAUDE.md`, then `.claude/agents/screener/SWARM.md`, then `.claude/agents/screener/signal-gate/MODULE_RULES.md`, and apply all three.
-2. Read every upstream output. Carry forward: gate0 record (event_id, source grade), relevance label + confidence, event types, entities + linkage, similarity, pair_label, fact_delta, confirmation_upgrade, novelty.
+2. Read every upstream output. Carry forward: gate0 record (event_id, source grade), relevance label + confidence, event types, entities + linkage, similarity, pair_label, fact_delta, confirmation_upgrade, novelty, and the generic-media check (is_generic_media, generic_media_reason, specificity_score, quantifiability_score, investability_score).
 3. **Step 9 — canonical handling.** Decide the action vs the best-matching prior ledger event using the priority order (official > source tier > fact richness > earlier timestamp): replace_canonical / suppress / keep_linked_low_rank / keep_linked / keep_separate.
 4. **Step 10 — materiality score (0–100).** Build it transparently:
    - Start from a base reflecting relevance + event severity + issuer directness + scope (state the base and the one-line reason for it).
    - Add the novelty contribution (state it).
    - Apply penalties: duplicate −50; same_event_no_new_info −25; same_event_new_info −5.
    - Apply overrides: confirmation upgrade removes the penalties; official filings / enforcement / defaults get a positive adjustment (state how much).
-   - Clamp 0–100. Print the full arithmetic line. This is the Step-10 score — do NOT apply Step 10b's ceiling inside this arithmetic; Step 10b runs after, on the finished number.
+   - Clamp 0–100.
+   - Apply the generic-media cap (MODULE_RULES): if `is_generic_media` is true, compute the ceiling from `specificity_score`/`quantifiability_score`/`investability_score` and take `min(score, ceiling)`. If false, no ceiling.
+   - Print the full arithmetic line, including the ceiling/min() clause when a cap applied. This is the Step-10 score — do NOT apply Step 10b's routine-filing ceiling inside this arithmetic; Step 10b runs after, on the finished number.
 5. **Step 10b — routine-filing derate ceiling.** Read `filing_type` / `override_hit` from the upstream `01_relevance-events-entities.md` report (Step 2b). Run:
    ```bash
    python3 scripts/screener_filing_classifier.py derate --filing-type {filing_type} --score {step10_score} [--override-hit]
    ```
    Use the printed `final_score` as the score for routing and `signal_payload.json` (it equals the Step 10 score unchanged unless `capped` is true). Print the `explanation` field verbatim as the visible derate rationale — do not paraphrase it. If `filing_type` is `unknown_filing` or `material_exchange_filing`, or `override_hit` is true, the score never changes — state that plainly rather than silently.
 6. **Route** per the promotion bands: PROMOTE (≥70) / PARK (40–69) / LOG (<40 or action=suppress), using the Step 10b final score. If `intake.json.override_promote` is true and the score lands in PARK, route PROMOTE and record the human override.
-7. **Write `{RUN_ROOT}/signal_payload.json`** — every field of `frameworks/screener/signal_payload.schema.json` (signal_id, event_id, gate0 block, relevance, event_types, entities, issuer_linkage, similarity, similar_event_ids, pair_label, fact_delta + fields, confirmation_upgrade, novelty, action, materiality_score [= the Step 10b final score], materiality_math, filing_type, filing_type_rationale [Step 10b's explanation string], routing, routing_reason, next_action, sources evidence packet).
+7. **Write `{RUN_ROOT}/signal_payload.json`** — every field of `frameworks/screener/signal_payload.schema.json` (signal_id, event_id, gate0 block, relevance, event_types, entities, issuer_linkage, similarity, similar_event_ids, pair_label, fact_delta + fields, confirmation_upgrade, novelty, action, is_generic_media, generic_media_reason, specificity_score, quantifiability_score, investability_score, materiality_score [= the Step 10b final score], materiality_math, filing_type, filing_type_rationale [Step 10b's explanation string], routing, routing_reason, next_action, sources evidence packet).
 8. **Append the ledger event** (idempotent on signal_id):
    ```bash
    bash scripts/append-ndjson.sh screener/ledger/events.ndjson '<one-line JSON: signal_id, event_id, ts, headline, source_name, source_grade, issuers, event_types, pair_label, novelty_score, materiality_score, action, status (=routing), status_reason, run_root>' signal_id {SIG_ID}
@@ -72,6 +74,7 @@ One paragraph, 60–100 words, plain English: what the event is, how new it is, 
 | Fact delta | {0.00} ({changed fields}) |
 | Confirmation upgrade | {true/false} |
 | Novelty | {0.00} |
+| Generic media | {true/false} — {matched categories or "none"} |
 
 ## 2. Step 9 — Canonical Handling
 
@@ -81,7 +84,7 @@ One paragraph, 60–100 words, plain English: what the event is, how new it is, 
 
 ## 3. Step 10 — Materiality
 
-Base {NN} ({reason}) + novelty {±NN} − penalties {NN} ({which}) + overrides {±NN} ({which}) = **{NN}/100**
+Base {NN} ({reason}) + novelty {±NN} − penalties {NN} ({which}) + overrides {±NN} ({which}) = {NN}/100 (if is_generic_media: , generic media [{matched categories}, investability {NN}] → ceiling {NN} → capped to {NN}/100) = **{NN}/100**
 
 ## 3b. Step 10b — Routine-Filing Derate
 
@@ -117,6 +120,7 @@ Next module: thesis-structure | none
 
 - [ ] The materiality arithmetic line re-adds exactly to the stated score.
 - [ ] Step 10b actually ran the classifier script's derate subcommand (Bash) — the final score and explanation are its JSON output, not invented; a derated score states the ceiling that fired.
+- [ ] When is_generic_media is true, the ceiling and the min() are shown in the arithmetic line and materiality_score never exceeds the ceiling; when false, no ceiling is applied.
 - [ ] The routing matches the bands (or records an explicit human override).
 - [ ] signal_payload.json was written and is valid JSON (run `python3 -c "import json;json.load(open('screener/runs/{SIG_ID}/signal_payload.json'))"`).
 - [ ] The ledger append used scripts/append-ndjson.sh (idempotent) and the board index was refreshed.

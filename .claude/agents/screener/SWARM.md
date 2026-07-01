@@ -325,7 +325,7 @@ The root `CLAUDE.md` constitution applies in full. Each module's `MODULE_RULES.m
 
 ## 3. Phase 0.1 — the ten-step gauntlet (module `signal-gate`)
 
-The deterministic logic is specified in the module's agents and `MODULE_RULES.md`: relevance → event types → entities/linkage → similarity vs the event ledger (48–72h window, same-issuer first) → fact delta → confirmation upgrade → pairwise classification → novelty → canonical action → materiality 0–100.
+The deterministic logic is specified in the module's agents and `MODULE_RULES.md`: relevance → event types → entities/linkage → similarity vs the event ledger (48–72h window, same-issuer first) → fact delta → confirmation upgrade → pairwise classification → novelty → canonical action → materiality 0–100. A parallel generic-media check runs alongside the similarity/novelty steps and caps materiality when the content is a market-cap roundup, index summary, gainers/losers list, or other company-unspecific commentary with no quantified, investable fact.
 
 **Promotion bands (the Phase 0.1 → Phase 1 gate):**
 - `PROMOTE` — materiality ≥ 70: the signal proceeds to `thesis-structure`.
