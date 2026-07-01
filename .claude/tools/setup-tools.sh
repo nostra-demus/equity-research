@@ -16,13 +16,14 @@ echo "[setup-tools] python deps installed in $DIR/.venv"
 # ---- system tools for PDF text + OCR (best-effort; must never abort the venv setup) ----
 install_ocr_tools() {
   if command -v brew >/dev/null 2>&1; then
-    echo "[setup-tools] installing poppler + tesseract via Homebrew…"
-    brew list poppler   >/dev/null 2>&1 || brew install poppler   || true
-    brew list tesseract >/dev/null 2>&1 || brew install tesseract || true
+    echo "[setup-tools] installing poppler + tesseract (+ language data) via Homebrew…"
+    brew list poppler       >/dev/null 2>&1 || brew install poppler       || true
+    brew list tesseract     >/dev/null 2>&1 || brew install tesseract     || true
+    brew list tesseract-lang >/dev/null 2>&1 || brew install tesseract-lang || true  # multilingual OCR floor
   elif command -v apt-get >/dev/null 2>&1; then
-    echo "[setup-tools] installing poppler-utils + tesseract-ocr via apt…"
+    echo "[setup-tools] installing poppler-utils + tesseract-ocr (+ all languages) via apt…"
     sudo apt-get update -qq || true
-    sudo apt-get install -y poppler-utils tesseract-ocr || true
+    sudo apt-get install -y poppler-utils tesseract-ocr tesseract-ocr-all || true
   else
     echo "[setup-tools] no brew/apt found — install 'poppler' and 'tesseract' manually to OCR scanned PDFs."
   fi
