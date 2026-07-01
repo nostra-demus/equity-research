@@ -1,6 +1,6 @@
 ---
 name: screener-event-statement
-description: M0.1 — writes the sterile 2-4 sentence event statement (who did what, when, where, immediate observable consequence; zero causal language), runs the causal-language gate with quoted phrases, and performs the source-confirmation gate (paywall-aware: a prioritized fallback search plus a deterministic confidence score, not a blind WebFetch-or-fail).
+description: M0.1 — writes the sterile 2-4 sentence event statement (who did what, when, where, immediate observable consequence; zero causal language), runs the causal-language gate with quoted phrases, and performs the source-confirmation gate (paywall-aware — a prioritized fallback search plus a deterministic confidence score, not a blind WebFetch-or-fail).
 tools: Read, Glob, Grep, Bash, WebFetch, WebSearch, Write
 layer: 1
 ---

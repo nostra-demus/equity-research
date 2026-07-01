@@ -102,10 +102,58 @@ class TestConfirmationScore(unittest.TestCase):
             score("A", "full", [{"tier": 6, "confirms": "full"}])
 
     def test_threshold_is_overridable(self):
-        r_default = score("A", "paywalled", [])
-        r_lenient = score("A", "paywalled", [], threshold=25)
-        self.assertFalse(r_default["gate_pass"])
-        self.assertTrue(r_lenient["gate_pass"])
+        # Overridability must be shown on an input that genuinely CLEARS the confirmation gate — i.e. one
+        # with gate-qualifying corroboration (here a tier-4 partial alternate, base 20 + 8 = 28) that sits
+        # between the lenient (25) and default (35) thresholds. Lowering the threshold rescues it; the
+        # threshold, not a missing confirmation, is what moves.
+        packet = [{"tier": 4, "confirms": "partial"}]
+        r_default = score("B", "paywalled", packet)
+        r_lenient = score("B", "paywalled", packet, threshold=25)
+        self.assertEqual(r_default["extraction_confidence"], 28)
+        self.assertFalse(r_default["gate_pass"])   # 28 < 35
+        self.assertTrue(r_lenient["gate_pass"])    # 28 >= 25 AND tier-4 corroboration qualifies
+
+    def test_threshold_drop_never_rescues_uncorroborated_headline(self):
+        # A Grade-A paywalled headline with ZERO alternates is headline_only: it has no confirmation at all,
+        # so lowering the threshold must NOT open the gate (CLAUDE.md §3 no source = no claim; MODULE_RULES
+        # "headline_only does NOT get a free pass"). Confidence 30 >= threshold 25, yet the gate stays shut.
+        r = score("A", "paywalled", [], threshold=25)
+        self.assertEqual(r["confirmation_status"], "headline_only")
+        self.assertGreaterEqual(r["extraction_confidence"], 25)
+        self.assertFalse(r["gate_pass"])
+
+    def test_tier5_only_never_opens_gate(self):
+        # Thread B: a Grade-A paywalled primary + a SINGLE tier-5 (X/Twitter) full corroboration scores
+        # 20+10+6=36, clearing the 35 threshold — but tier 5 is "weak, never sole" (SWARM.md
+        # social_corroboration). It caps at partially_confirmed AND must not open the gate: needs >=1
+        # tier 1-4 corroborating source first.
+        r = score("A", "paywalled", [{"tier": 5, "confirms": "full"}])
+        self.assertEqual(r["confirmation_status"], "partially_confirmed")
+        self.assertGreaterEqual(r["extraction_confidence"], 35)  # would have passed on points alone
+        self.assertFalse(r["gate_pass"])                          # but tier-5-only never gates
+
+    def test_tier5_plus_one_real_source_opens_gate(self):
+        # The complement: add ONE tier 1-4 corroborating source and the gate can open — tier 5 no longer
+        # stands alone. (tier-3 partial = 16, base 20 + bump 10 + 16 = 46 >= 35.)
+        r = score("A", "paywalled", [{"tier": 5, "confirms": "full"}, {"tier": 3, "confirms": "partial"}])
+        self.assertTrue(r["gate_pass"])
+
+    def test_partial_read_zero_corroboration_never_opens_gate(self):
+        # Thread D: a thin/ambiguous `partial` read of the primary with ZERO alternates scores base 45,
+        # clearing the 35 threshold and reading partially_confirmed — but nothing corroborated the fact.
+        # Per CLAUDE.md §3 (no source = no claim) the gate must stay shut until an actual alternate
+        # corroboration (tier 1-4) or a full primary read exists.
+        for grade in ("A", "B"):
+            r = score(grade, "partial", [])
+            self.assertEqual(r["confirmation_status"], "partially_confirmed")
+            self.assertGreaterEqual(r["extraction_confidence"], 35)  # points alone would have passed
+            self.assertFalse(r["gate_pass"])
+
+    def test_partial_read_with_real_corroboration_opens_gate(self):
+        # The complement to Thread D: a `partial` read PLUS a tier 1-4 corroborating alternate is a real,
+        # gate-qualifying confirmation — the gate opens.
+        r = score("B", "partial", [{"tier": 2, "confirms": "partial"}])
+        self.assertTrue(r["gate_pass"])
 
 
 if __name__ == "__main__":

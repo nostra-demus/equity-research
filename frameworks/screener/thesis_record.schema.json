@@ -4,7 +4,17 @@
   "title": "Phase 1 thesis record (M0.1-M0.6)",
   "description": "The structured thesis record assembled by thesis-structure (meta + M0_1..M0_5) and completed + LOCKED by edge-definition (M0_6, routing). Field names follow the Phase 1 schema verbatim. Booleans documented as 'locked' carry const values: an agent that cannot truthfully set them fails the gate instead of bending the field.",
   "type": "object",
-  "required": ["meta", "M0_1", "M0_2", "M0_3", "M0_4", "M0_5"],
+  "required": ["meta", "M0_1"],
+  "allOf": [
+    {
+      "if": {
+        "properties": { "M0_1": { "properties": { "60_second_source_check": { "const": false } }, "required": ["60_second_source_check"] } },
+        "required": ["M0_1"]
+      },
+      "then": { "description": "M0.1 source-confirmation gate FAILED (60_second_source_check=false): the thesis terminates at watchlist_no_source BEFORE M0.2-M0.5 are assembled, so those blocks are legitimately absent and not required." },
+      "else": { "required": ["M0_2", "M0_3", "M0_4", "M0_5"] }
+    }
+  ],
   "properties": {
     "meta": {
       "type": "object",
@@ -114,6 +124,10 @@
       "allOf": [
         {
           "if": { "properties": { "paywall_detected": { "const": true } }, "required": ["paywall_detected"] },
+          "then": { "required": ["confirmation_status", "extraction_confidence", "alternate_sources_found"] }
+        },
+        {
+          "if": { "properties": { "primary_read_quality": { "enum": ["partial", "paywalled", "fetch_error"] } }, "required": ["primary_read_quality"] },
           "then": { "required": ["confirmation_status", "extraction_confidence", "alternate_sources_found"] }
         }
       ]

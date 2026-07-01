@@ -31,11 +31,17 @@ confirmation_status (first match wins):
   far below the confirmed threshold of 30) — kept as an explicit, defense-in-depth override so a future
   point-table retune can't silently let X/Twitter alone satisfy "confirmed".
 
-gate_pass = confirmation_status != "unconfirmed" AND extraction_confidence >= threshold (default 35).
-A `headline_only` record does NOT get a free pass — it must clear the same numeric threshold as everyone
-else. This is the conservative design: a credible-but-totally-uncorroborated headline stays parked
-(watchlist_no_source) rather than auto-proceeding, but is now labelled with a real (not zero) confidence
-score and the full evidence trail, instead of an opaque boolean fail.
+gate_pass = confirmation_status != "unconfirmed" AND there is gate-qualifying confirmation
+            AND extraction_confidence >= threshold (default 35).
+Gate-qualifying confirmation means a REAL confirmation, not a point total: either the primary was read in
+full (primary_read_quality == "full"), or at least one corroborating alternate sits in tiers 1-4. A lone
+tier-5 (X/Twitter) alternate NEVER qualifies (SWARM.md social_corroboration: "weak, never sole"), and a
+thin `partial` read with zero corroboration does NOT qualify (CLAUDE.md §3: no source = no claim) — both
+stay parked at watchlist_no_source rather than opening the gate on the point score alone.
+A `headline_only` record does NOT get a free pass either — it has zero corroboration, so it never
+gate-qualifies regardless of threshold. This is the conservative design: a credible-but-totally-
+uncorroborated headline stays parked (watchlist_no_source), but is now labelled with a real (not zero)
+confidence score and the full evidence trail, instead of an opaque boolean fail.
 
   python3 scripts/screener_confirmation_score.py \
       --source-grade A --primary-read-quality paywalled \
@@ -119,7 +125,21 @@ def score(source_grade: str, primary_read_quality: str, alternate_sources: list[
     if confirmation_status == "confirmed" and corroborating and all(s[0] == 5 for s in corroborating):
         confirmation_status = "partially_confirmed"
 
-    gate_pass = confirmation_status != "unconfirmed" and extraction_confidence >= threshold
+    # Gate-qualifying confirmation: the gate opens ONLY on real confirmation — a full direct read of the
+    # primary, OR at least one corroborating alternate in tiers 1-4. A tier-5-only (X/Twitter) alternate
+    # NEVER satisfies the gate alone (SWARM.md sources.thesis_structure.social_corroboration: "weak, never
+    # sole"; MODULE_RULES M0.1), and a thin/ambiguous `partial` read with zero corroboration is not a
+    # confirmed fact (CLAUDE.md §3: no source = no claim) — both stay parked at watchlist_no_source rather
+    # than opening the gate on the point total alone.
+    gate_qualifying_confirmation = (
+        primary_read_quality == "full"
+        or any(tier <= 4 for tier, _confirms, _pts in corroborating)
+    )
+    gate_pass = (
+        confirmation_status != "unconfirmed"
+        and gate_qualifying_confirmation
+        and extraction_confidence >= threshold
+    )
 
     return {
         "confirmation_status": confirmation_status,
