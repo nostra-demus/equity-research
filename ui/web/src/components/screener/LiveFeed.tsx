@@ -159,19 +159,31 @@ export function LiveFeed() {
   }), [filters])
   const archiveKey = JSON.stringify(archiveQuery)
   const [archive, setArchive] = useState<ArchiveState>(EMPTY_ARCHIVE)
+  // A monotonic token: every new page-1 search bumps it; a page load captures it and, after its await,
+  // discards its result if the token has moved on (the filter changed mid-flight). This is the LOCAL-state
+  // mirror of the store's module-level `archiveToken` guard (scRunArchiveSearch / scLoadMoreArchive) that
+  // EventRail relies on — without it, a slow page from the OLD filter appends into (and hands its cursor
+  // to) the NEW filter's results, so the new filter resumes paging from the old cursor and skips matches.
+  const searchSeq = useRef(0)
   // fire the search when the filter changes (debounced so typing in the search box doesn't spam the
   // server); an empty/cleared filter returns the view to the loaded-window snapshot.
   useEffect(() => {
-    if (!archiveMode) { setArchive(EMPTY_ARCHIVE); return }
+    if (!archiveMode) { searchSeq.current++; setArchive(EMPTY_ARCHIVE); return }
+    const seq = ++searchSeq.current
     let cancelled = false
     setArchive((a) => ({ ...a, loading: true }))
     const id = setTimeout(async () => {
       try {
         const res = await api.newsSearch(archiveQuery, { limit: 60 })
-        if (cancelled) return
+        if (cancelled || seq !== searchSeq.current) return
         setArchive({ results: res.items, loading: false, loadingMore: false, cursor: res.nextCursor, scannedThrough: res.scannedThroughDate, exhausted: res.exhausted })
       } catch {
-        if (!cancelled) setArchive((a) => ({ ...a, loading: false }))
+        // A newer search superseded this one → let it own the state; don't clobber it.
+        if (cancelled || seq !== searchSeq.current) return
+        // Mirror the store's failure path (scRunArchiveSearch catch): drop the (now stale) snapshot and
+        // cursor and mark exhausted, so the wire doesn't keep rendering the PRIOR query's page and the next
+        // scroll can't page the NEW query from the old cursor.
+        setArchive({ ...EMPTY_ARCHIVE, exhausted: true })
       }
     }, 220)
     return () => { cancelled = true; clearTimeout(id) }
@@ -179,15 +191,18 @@ export function LiveFeed() {
   }, [archiveMode, archiveKey])
   const loadMoreArchive = async () => {
     if (!archive.cursor || archive.loadingMore) return
+    const seq = searchSeq.current
     setArchive((a) => ({ ...a, loadingMore: true }))
     try {
       const res = await api.newsSearch(archiveQuery, { cursor: archive.cursor, limit: 60 })
+      if (seq !== searchSeq.current) return // the filter changed mid-page — discard this page (mirrors scLoadMoreArchive)
       setArchive((a) => {
         const seen = new Set(a.results.map((i) => i.event_id))
         const fresh = res.items.filter((i) => !seen.has(i.event_id))
         return { results: [...a.results, ...fresh], cursor: res.nextCursor, scannedThrough: res.scannedThroughDate, exhausted: res.exhausted, loading: false, loadingMore: false }
       })
     } catch {
+      if (seq !== searchSeq.current) return
       setArchive((a) => ({ ...a, loadingMore: false }))
     }
   }
