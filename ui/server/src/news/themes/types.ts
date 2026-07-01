@@ -61,6 +61,14 @@ export interface ThemeMember {
   companies?: CompanyGuess[]
   event_types?: string[]
   issuer_linkage?: string
+  // the ISO alpha-2 country the event is ABOUT (news/geography.ts resolveCountry) — the SAME key the
+  // Geography filter + archive search use, so a geo-sliced themes view stays consistent with the wire.
+  // Optional: members written before this field existed lack it and are resolved lazily at read time.
+  country?: string | null
+  // the legacy 8-bucket market region (geo.ts) carried so the lazy country resolver can reproduce the
+  // domain-region FLOOR the archive applies (resolveCountry step c) — without it a geo slice and the geo
+  // Events list disagree for items whose only geography signal is their source region.
+  region?: string
 }
 
 export interface RelatedTheme {
@@ -161,7 +169,8 @@ export interface ThemeItemView {
   materiality_pre_score?: number
   source_tier?: string
   scope?: string
-  region?: string
+  region?: string // legacy 8-bucket market region (geo.ts) — a coarse floor
+  country?: string | null // ISO alpha-2 the event is ABOUT (geography.ts) — persisted onto the member for geo slicing
 }
 
 // One mutation line appended to screener/ledger/themes.ndjson (last-line-per-theme_id wins on rebuild).
