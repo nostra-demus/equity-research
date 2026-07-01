@@ -57,8 +57,11 @@ a { color: inherit; }
 .topbar .btn { padding: 0 12px; }
 .topbar__spacer { flex: 1 1 0; }
 .brand { flex-shrink: 1; min-width: 0; }
-.brand > div { min-width: 0; overflow: hidden; }
+.brand__title { min-width: 0; overflow: hidden; }
 .brand__name { overflow: hidden; text-overflow: ellipsis; }
+/* Primary nav — never let it get squeezed by the generic .brand > div shrink rule above (that rule is
+   scoped to .brand__title on purpose: the app name may truncate, the swarm switcher must not). */
+.swarmswitch { flex-shrink: 0; }
 @media (max-width: 1240px) { .brand__sub { display: none; } }
 
 /* ticker picker */

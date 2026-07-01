@@ -339,7 +339,7 @@ export function CommandBar() {
     <div className="topbar">
       <div className="brand">
         <BrandMark />
-        <div>
+        <div className="brand__title">
           <div className="brand__name">Nostradamus Swarm</div>
         </div>
         <span className="brand__sub">{sub}</span>
