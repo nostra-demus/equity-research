@@ -6,7 +6,7 @@
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
 import path from 'node:path'
-import { reapDeadSubjectRuns } from '../src/launcher'
+import { awaitRunsExited, reapDeadSubjectRuns } from '../src/launcher'
 import { admitRun } from '../src/admission'
 import { REPO_ROOT } from '../src/config'
 import { createRun, finishRun, inFlightRunsForSubject, setActiveTickerRun, type RunState } from '../src/registry'
@@ -40,6 +40,10 @@ function clearAll() { for (const r of tracked.splice(0)) if (r.endedAt === undef
 let passed = 0
 function check(name: string, fn: () => void) {
   try { fn(); passed++; console.log(`  ok  ${name}`) }
+  catch (e: any) { console.error(`FAIL  ${name}\n      ${e?.message || e}`); process.exitCode = 1 }
+}
+async function acheck(name: string, fn: () => Promise<void>) {
+  try { await fn(); passed++; console.log(`  ok  ${name}`) }
   catch (e: any) { console.error(`FAIL  ${name}\n      ${e?.message || e}`); process.exitCode = 1 }
 }
 
@@ -82,7 +86,20 @@ try {
   })
   clearAll()
 
-  console.log(`\n${passed}/3 reap-stuck-run checks passed`)
+  // 4-5) The FORCE double-write guard: cancel() SIGTERMs and returns BEFORE the killed engine exits, yet the
+  //   run has already left the in-flight set. awaitRunsExited (called by launch()'s force path after cancel)
+  //   must block until the child processes are actually gone — otherwise admitRun would start a SECOND engine
+  //   writing the SAME run dir concurrently. Modeled with fake children like the reap tests above.
+  await acheck('awaitRunsExited: an already-exited child (dead pid) → true immediately (force may then admit)', async () => {
+    assert.equal(await awaitRunsExited([seed('module', 'cancelled', { pid: DEAD_PID })], 1000), true)
+  })
+  clearAll()
+  await acheck('awaitRunsExited: a STILL-ALIVE child → false at the timeout (force must NOT admit — the concurrent-double-write guard)', async () => {
+    assert.equal(await awaitRunsExited([seed('module', 'cancelled', { pid: process.pid })], 120), false)
+  })
+  clearAll()
+
+  console.log(`\n${passed}/5 reap-stuck-run checks passed`)
 } finally {
   clearAll()
 }
