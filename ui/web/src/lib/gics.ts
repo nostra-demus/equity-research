@@ -29,8 +29,22 @@ interface Industry {
    *  company-guess fields (CompanyGuess.name / .ticker) — NEVER scanned as free text over the headline.
    *  Use this for a short form that's a real collision risk as free text (e.g. "BAT" collides with the
    *  English word "bat" and with BATS Global Markets, the former US exchange operator) but is safe as an
-   *  EXACT match against a company's own extracted name/ticker. Optional; most industries won't need it. */
-  companyAliases?: { names?: readonly string[]; tickers?: readonly string[] }
+   *  EXACT match against a company's own extracted name/ticker. Optional; most industries won't need it.
+   *
+   *  `names` / `tickers` are UNCONDITIONAL exact aliases (a lone match is enough). `corroboratedTickers`
+   *  is for a ticker that ALSO collides with a real DIFFERENT company at the ticker level — e.g. "BATS"
+   *  is British American Tobacco on the LSE but ALSO BATS Global Markets, the exchange operator. Such a
+   *  ticker tags this sub-sector ONLY when the SAME company guess independently corroborates it: its name
+   *  is one of `names`, its name carries a `keywords` hit, or its `listing_country` is in
+   *  `corroborateCountries`. That blocks {name:"BATS Global Markets", ticker:"BATS", listing_country:"US"}
+   *  from surfacing under Tobacco while still catching a genuine BAT guess {name:"BAT", ticker:"BATS"} or
+   *  a UK-listed one. */
+  companyAliases?: {
+    names?: readonly string[]
+    tickers?: readonly string[]
+    corroboratedTickers?: readonly string[]
+    corroborateCountries?: readonly string[]
+  }
 }
 interface Sector {
   name: string
@@ -101,7 +115,9 @@ export const GICS: readonly Sector[] = [
     industries: [
       { name: 'Food Products', keywords: ['food maker', 'packaged food', 'food producer', 'foodmaker', 'dairy', 'meatpacker', 'snack maker'] },
       { name: 'Beverages', keywords: ['beverage maker', 'soft drink', 'brewer', 'brewers', 'distiller', 'spirits maker', 'bottler'] },
-      { name: 'Tobacco', keywords: ['tobacco', 'cigarette maker'], companyAliases: { names: ['bat'], tickers: ['bats', 'bti'] } },
+      // 'bti' is BAT's NYSE ADR ticker (unambiguous). 'bats' is BAT on the LSE, but ALSO BATS Global
+      // Markets (the exchange operator) — so it only tags Tobacco with corroboration (see companyAliases).
+      { name: 'Tobacco', keywords: ['tobacco', 'cigarette maker'], companyAliases: { names: ['bat'], tickers: ['bti'], corroboratedTickers: ['bats'], corroborateCountries: ['gb'] } },
       { name: 'Household & Personal Products', keywords: ['household products', 'personal care', 'fmcg', 'consumer goods giant'] },
       { name: 'Food & Staples Retailing', keywords: ['grocer', 'grocery chain', 'supermarket', 'hypermarket', 'drugstore chain'] },
     ],
@@ -224,7 +240,15 @@ function classifyText(hay: string): GicsTags {
 // ---- company-alias matcher: EXACT match against the LLM's own structured company guess (name/ticker),
 // never scanned as free text over the headline — see Industry.companyAliases for why this is a separate,
 // narrower pass than the keyword scan above.
-interface AliasEntry { subSector: string; sector: string; names: ReadonlySet<string>; tickers: ReadonlySet<string> }
+interface AliasEntry {
+  subSector: string
+  sector: string
+  names: ReadonlySet<string>
+  tickers: ReadonlySet<string>
+  corroboratedTickers: ReadonlySet<string>
+  corroborateCountries: ReadonlySet<string>
+  keywords: readonly string[]
+}
 const ALIAS_INDEX: AliasEntry[] = []
 for (const sector of GICS) {
   for (const ind of sector.industries) {
@@ -234,21 +258,37 @@ for (const sector of GICS) {
         sector: sector.name,
         names: new Set((ind.companyAliases.names || []).map((n) => n.toLowerCase().trim())),
         tickers: new Set((ind.companyAliases.tickers || []).map((t) => t.toLowerCase().trim())),
+        corroboratedTickers: new Set((ind.companyAliases.corroboratedTickers || []).map((t) => t.toLowerCase().trim())),
+        corroborateCountries: new Set((ind.companyAliases.corroborateCountries || []).map((c) => c.toLowerCase().trim())),
+        keywords: ind.keywords,
       })
     }
   }
 }
 
-type CompanyLike = { name: string; ticker?: string | null }
+type CompanyLike = { name: string; ticker?: string | null; listing_country?: string | null }
+
+/** Does this ONE company guess independently corroborate the alias entry's sub-sector — via an exact name
+ *  alias, a keyword hit on its name, or a matching listing country? Used to accept an otherwise-ambiguous
+ *  ticker (corroboratedTickers) only when the same guess vouches for it another way. */
+function corroborates(entry: AliasEntry, nm: string, country: string): boolean {
+  if (nm && entry.names.has(nm)) return true
+  if (nm && entry.keywords.some((k) => hasWord(nm, k))) return true
+  if (country && entry.corroborateCountries.has(country)) return true
+  return false
+}
 
 function classifyCompanyAliases(companies: CompanyLike[] | undefined, sectors: Set<string>, subSectors: Set<string>): void {
   if (!companies?.length || !ALIAS_INDEX.length) return
   for (const c of companies) {
     const nm = String(c?.name || '').toLowerCase().trim()
     const tk = String(c?.ticker || '').toLowerCase().trim()
+    const country = String(c?.listing_country || '').toLowerCase().trim()
     if (!nm && !tk) continue
     for (const entry of ALIAS_INDEX) {
-      if ((nm && entry.names.has(nm)) || (tk && entry.tickers.has(tk))) {
+      const unconditional = (nm && entry.names.has(nm)) || (tk && entry.tickers.has(tk))
+      const corroborated = tk && entry.corroboratedTickers.has(tk) && corroborates(entry, nm, country)
+      if (unconditional || corroborated) {
         subSectors.add(entry.subSector)
         sectors.add(entry.sector)
       }
