@@ -1,6 +1,6 @@
 import { staticPromptPath } from './prompts'
 import { DEFAULT_RANK_WEIGHTS, type RankWeights, type RankWeightsState } from './rankWeights'
-import type { ActivityQuery, ActivityResult, CallsResult, ChatRequest, ChatScopes, CoverageGroup, DataStatus, EventEnrichment, FeedItem, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ScreenerBoard, SignalIntakeInput, SourcesReport, SwarmGraph, SwarmMeta, TickerSummary, UploadResult, Usage, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, CallsResult, ChatRequest, ChatScopes, CoverageGroup, DataStatus, EventEnrichment, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ScreenerBoard, SignalIntakeInput, SourcesReport, SwarmGraph, SwarmMeta, TickerSummary, UploadResult, Usage, Whoami } from './types'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -87,6 +87,7 @@ async function put<T>(url: string, body?: any): Promise<T> {
 const STATIC_ERR = () => Object.assign(new Error('static-deploy'), { static: true })
 
 const EMPTY_BOARD: ScreenerBoard = { generated_at: null, inbox: [], signals: [], theses: [], handoffs: [], counts: {}, live: [] }
+const EMPTY_FEEDBACK_SUMMARY: FeedbackSummary = { total: 0, active_total: 0, by_type: {} as Record<FeedbackType, number>, top_reasons: [], generated_at: '' }
 
 // ---- archive search + facets (the whole-history filtered read) ----
 /** The structured filter sent to /api/news/search + /api/news/facets. Geography is country-level. */
@@ -265,6 +266,23 @@ export const api = {
   convictionRestore: async (thesisId: string): Promise<{ ok: boolean; message?: string }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/screener/conviction/${encodeURIComponent(thesisId)}/restore`, {})
+  },
+  submitFeedback: async (input: FeedbackSubmitInput): Promise<{ ok: boolean; feedback: FeedbackRecord }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/screener/feedback`, input)
+  },
+  undoFeedback: async (feedbackId: string): Promise<{ ok: boolean; undone: FeedbackRecord }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/screener/feedback/${encodeURIComponent(feedbackId)}/undo`, {})
+  },
+  feedbackSummary: async (): Promise<FeedbackSummary> => {
+    if ((await ensureMode()) === 'static') return EMPTY_FEEDBACK_SUMMARY
+    return get<FeedbackSummary>(`/api/screener/feedback/summary`)
+  },
+  coveredTickers: async (): Promise<string[]> => {
+    if ((await ensureMode()) === 'static') return []
+    const { tickers } = await get<{ tickers: string[] }>(`/api/screener/covered-tickers`)
+    return tickers
   },
   screenerCalibration: async (): Promise<any | null> => {
     if ((await ensureMode()) === 'static') return snap.screenerCalibration || null

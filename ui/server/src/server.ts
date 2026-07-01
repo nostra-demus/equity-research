@@ -27,10 +27,11 @@ import { getRankWeights, defaultRankWeights, saveRankWeights, resetRankWeights, 
 import { buildSourcesReport } from './news/source-health'
 import { readThemesIndex, loadTheme, buildThemeDetail } from './news/themes/store'
 import { buildThemeBrief } from './news/themes/brief'
-import { enrichEvent } from './news/enrich'
+import { enrichEvent, listCoveredTickers } from './news/enrich'
 import { markInboxConsumed, setDismissed } from './news/inbox-actions'
 import { refreshBoard } from './news/write-inbox'
 import { auditInboxAction, moveThesis, MOVE_TARGETS } from './screener-actions'
+import { FEEDBACK_TYPES, readAllFeedback, submitFeedback, summarizeFeedback, undoFeedback } from './screener-feedback'
 import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
 import { agentNamesForModule, buildSwarmGraph, graphForSubject, graphForTicker, listModuleNames } from './roster'
@@ -42,7 +43,7 @@ import { listSwarms } from './swarms'
 import { getNewsStatus, startNewsIngester } from './news/scheduler'
 import { startConvictionLoop } from './conviction-dispatch'
 import { startResumeSupervisor } from './resume-supervisor'
-import { AGENT_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE, isValidTicker, validateNewTicker, sanitizeUploadFilename } from './sandbox'
+import { AGENT_RE, EVENT_ID_RE, FEEDBACK_ID_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE, isValidTicker, validateNewTicker, sanitizeUploadFilename } from './sandbox'
 import type { RunKind } from './types'
 
 const app = Fastify({ logger: false })
@@ -1012,6 +1013,56 @@ app.post('/api/screener/conviction/:id/restore', async (req, reply) => {
     return reply.code(500).send({ error: e?.message || 'restore failed' })
   }
 })
+
+// ---------- screener card feedback ("flag as irrelevant / mis-scored / …") ----------
+// The wire's cockpit lets a human flag one item as irrelevant, mis-scored, mis-tagged, a stale
+// duplicate, or under-rated, with an optional reason. Stored as a structured, append-only ledger
+// (screener/ledger/screener_feedback.ndjson, same pattern as overrides.ndjson) so a later pass — human
+// or LLM — can mine it for scoring changes. The server never validates event_id against a live wire
+// item: the wire is ephemeral SSE/feed state the server doesn't index by id, so the client sends a
+// snapshot of the card's own visible fields alongside the flag.
+const FeedbackBody = z.object({
+  event_id: z.string().regex(EVENT_ID_RE),
+  feedback_type: z.enum(FEEDBACK_TYPES),
+  feedback_reason: z.string().max(500).optional(),
+  current_score: z.number().optional(),
+  event_title: z.string().max(500).optional(),
+  source: z.string().max(200).optional(),
+  company_name: z.string().max(200).optional(),
+  company_ticker: z.string().max(20).optional(),
+  sector_theme: z.string().max(200).optional(),
+  score_breakdown: z.record(z.any()).nullable().optional(),
+}).strip()
+app.post('/api/screener/feedback', async (req, reply) => {
+  const parsed = FeedbackBody.safeParse(req.body)
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  const { user } = identify(req)
+  try {
+    const record = submitFeedback(parsed.data, user)
+    return reply.code(201).send({ ok: true, feedback: record })
+  } catch (e: any) {
+    return reply.code(500).send({ error: e?.message || 'feedback save failed' })
+  }
+})
+
+app.post('/api/screener/feedback/:id/undo', async (req, reply) => {
+  const feedbackId = (req.params as any).id as string
+  if (!FEEDBACK_ID_RE.test(feedbackId)) return reply.code(400).send({ error: 'invalid feedback id' })
+  const { user } = identify(req)
+  try {
+    const record = undoFeedback(feedbackId, user)
+    if (!record) return reply.code(404).send({ error: 'no such feedback' })
+    return { ok: true, undone: record }
+  } catch (e: any) {
+    return reply.code(500).send({ error: e?.message || 'undo failed' })
+  }
+})
+
+app.get('/api/screener/feedback/summary', async () => summarizeFeedback(readAllFeedback(REPO_ROOT)))
+
+// Tickers already under research coverage — the batch-review "portfolio companies" filter's data
+// source (a proxy: this codebase has no separate brokerage holdings list). Cheap; fetched once per panel-open.
+app.get('/api/screener/covered-tickers', async () => ({ tickers: listCoveredTickers(REPO_ROOT) }))
 
 // ---------- export a saved output as a polished document (HTML / print-PDF / Word) ----------
 app.get('/api/export', async (req, reply) => {

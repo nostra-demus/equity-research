@@ -9,7 +9,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { bestFallbackSummary, corroboratesSameEvent, enrichEvent, extractReadable, isEnrichmentComplete, scrubParties, type EventEnrichment } from '../src/news/enrich'
+import { bestFallbackSummary, corroboratesSameEvent, enrichEvent, extractReadable, isEnrichmentComplete, listCoveredTickers, scrubParties, type EventEnrichment } from '../src/news/enrich'
 import { resetGdeltBackoff } from '../src/news/sources/gdelt'
 import type { ArticleReadProvider } from '../src/news/triage/article-read'
 import type { ArticleBrief } from '../src/news/triage/groq'
@@ -371,6 +371,20 @@ await check('corroboration: omitting the corroborate dep leaves the legacy floor
   const r = await enrichEvent({ event_id: EVENT_ID }, { repoRoot, stateDir, force: true, articleProviders: [PROVIDER], fetchFn: makeCorroborFetch(SECONDARIES, CORROB_BRIEF) })
   assert.ok(!r.corroborated, 'corroboration never runs unless explicitly enabled by the caller')
   assert.ok(r.complete === true && r.summary && /headline/i.test(r.summary), 'the no-body floor is accepted as final, exactly as before')
+})
+
+// ---- listCoveredTickers: the batch-review "portfolio companies" proxy ----
+await check('listCoveredTickers: real <TICKER>_<date> run folders are picked up, non-ticker aggregate folders (eval/performance/portfolio/tracking) are not', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'covered-test-'))
+  const analyses = path.join(root, 'analyses')
+  for (const d of ['BG_2026-05-11', 'BG_2026-06-01', 'tmcv_2026-06-07', 'eval', 'performance', 'portfolio', 'tracking']) {
+    fs.mkdirSync(path.join(analyses, d), { recursive: true })
+  }
+  assert.deepEqual(listCoveredTickers(root), ['BG', 'TMCV'])
+})
+await check('listCoveredTickers: a missing analyses/ dir returns [] and never throws', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'covered-empty-'))
+  assert.deepEqual(listCoveredTickers(root), [])
 })
 
 console.log(`\n${passed} checks passed`)

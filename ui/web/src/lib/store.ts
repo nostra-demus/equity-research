@@ -5,8 +5,10 @@ import { downstreamCascade, type CascadeNode } from './cascade'
 import { displayHeadline, originalHeadline, plainRoute, plainStage } from './plain'
 import type { Theme, ThemeDetail, ThemeBrief } from './themes'
 import { intensityWindowForHours } from './themes'
-import type { ActiveRunLite, AgentNode, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, DataStatus, EventEnrichment, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
+import type { ActiveRunLite, AgentNode, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
+import { feedbackInputFromItem, feedbackLabel } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
+import { emptyReviewFilters, matchesReviewFilters, type ReviewFilterState } from '../components/screener/ReviewFilters'
 
 // A company the user drilled into from an event (the COMPANIES NAMED chips) — the main stage then
 // shows every wire story about it. listing_country/exchange ride along from the article-body read.
@@ -26,6 +28,22 @@ function loadShelf(): Set<string> {
 }
 function saveShelf(s: Set<string>): void {
   try { localStorage.setItem(SHELF_KEY, JSON.stringify([...s].slice(-500))) } catch {}
+}
+
+// --- flagged events: a local display cache of which event_ids the user has already sent feedback on
+//     this browser — the server ledger is authoritative, this only drives the row/detail indicator so
+//     it survives a reload without a network round-trip per card. Same persistence shape as the shelf. ---
+const FLAGGED_KEY = 'nsw.flaggedEvents'
+function loadFlagged(): Set<string> {
+  try {
+    const raw = JSON.parse(localStorage.getItem(FLAGGED_KEY) || '[]')
+    return new Set(Array.isArray(raw) ? raw.filter((x) => typeof x === 'string') : [])
+  } catch {
+    return new Set()
+  }
+}
+function saveFlagged(s: Set<string>): void {
+  try { localStorage.setItem(FLAGGED_KEY, JSON.stringify([...s].slice(-500))) } catch {}
 }
 
 // The research stage's renderer: the 3D globe (default) or the flat 2D constellation. A per-browser
@@ -305,6 +323,24 @@ interface State {
   // shelving: set an event aside (or bring it back) — local, persisted, filters the rail
   shelvedEvents: Set<string>
   toggleShelve: (eventId: string) => void
+  // card feedback ("flag as irrelevant / mis-scored / …") — flaggedEvents is a local display cache;
+  // the server ledger (screener/ledger/screener_feedback.ndjson) is the source of truth
+  flaggedEvents: Set<string>
+  submitFeedback: (input: FeedbackSubmitInput) => Promise<void>
+  undoFeedbackFlow: (feedbackId: string, eventId: string) => Promise<void>
+  // fast batch review mode: a focused, filtered, keyboard-driven queue over the same wire — reuses
+  // submitFeedback above, so there is exactly one storage path for both flows
+  reviewOpen: boolean
+  reviewFilters: ReviewFilterState
+  reviewQueue: FeedItem[] // snapshotted on open / filter change — NOT live-reactive mid-review
+  reviewIndex: number
+  reviewSessionCount: number // in-memory only; resets every time the panel opens (never persisted)
+  coveredTickers: Set<string> // "portfolio companies" proxy — fetched once per panel-open
+  openReview: () => void
+  closeReview: () => void
+  setReviewFilters: (f: ReviewFilterState) => void
+  reviewSubmit: (feedbackType: FeedbackType, reason: string) => Promise<void>
+  reviewSkip: () => void
   // on-demand enrichment for the opened event (the real story / SEC items / prior coverage / related)
   enrichCache: Record<string, EventEnrichment | 'loading'>
   fetchEnrichment: (it: FeedItem) => Promise<void>
@@ -475,6 +511,13 @@ export const useStore = create<State>((set, get) => ({
   scSelectedEvent: null,
   scFocusedCompany: null,
   shelvedEvents: loadShelf(),
+  flaggedEvents: loadFlagged(),
+  reviewOpen: false,
+  reviewFilters: emptyReviewFilters(),
+  reviewQueue: [],
+  reviewIndex: 0,
+  reviewSessionCount: 0,
+  coveredTickers: new Set(),
   enrichCache: {},
   newsFeedOpen: false,
   sourcesOpen: false,
@@ -1434,6 +1477,76 @@ export const useStore = create<State>((set, get) => ({
     const open = get().scSelectedEvent
     set({ shelvedEvents: next, ...(open && open.event_id === eventId && next.has(eventId) ? { scSelectedEvent: null } : {}) })
   },
+
+  // submit card feedback: mark it flagged (optimistic, local display cache), persist to the server
+  // ledger, and toast a confirmation with a short-window Undo. Rolled back on a failed save.
+  submitFeedback: async (input) => {
+    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — feedback needs a live engine.', tone: 'info' })
+    const next = new Set(get().flaggedEvents)
+    next.add(input.event_id)
+    saveFlagged(next)
+    set({ flaggedEvents: next })
+    try {
+      const { feedback } = await api.submitFeedback(input)
+      get().setToast({
+        msg: `Feedback saved — ${feedbackLabel(input.feedback_type)}`,
+        tone: 'good',
+        action: { label: 'Undo', onClick: () => void get().undoFeedbackFlow(feedback.feedback_id, input.event_id) },
+      })
+    } catch (e: any) {
+      const rollback = new Set(get().flaggedEvents)
+      rollback.delete(input.event_id)
+      saveFlagged(rollback)
+      set({ flaggedEvents: rollback })
+      get().setToast({ msg: e?.body?.error || e?.message || 'Could not save feedback', tone: 'bad' })
+    }
+  },
+  undoFeedbackFlow: async (feedbackId, eventId) => {
+    try {
+      await api.undoFeedback(feedbackId)
+      const next = new Set(get().flaggedEvents)
+      next.delete(eventId)
+      saveFlagged(next)
+      set({ flaggedEvents: next })
+      get().setToast({ msg: 'Feedback undone', tone: 'info' })
+    } catch (e: any) {
+      get().setToast({ msg: e?.body?.error || e?.message || 'Could not undo feedback', tone: 'bad' })
+    }
+  },
+
+  // fast batch review: a focused queue over the CURRENT wire, snapshotted on open (and on every filter
+  // change) so the queue stays stable while reviewing even as fresh items keep streaming into newsItems.
+  openReview: () => {
+    const filters = get().reviewFilters
+    const covered = get().coveredTickers
+    set({
+      reviewOpen: true,
+      reviewQueue: get().newsItems.filter((it) => matchesReviewFilters(it, filters, covered)),
+      reviewIndex: 0,
+      reviewSessionCount: 0,
+    })
+    if (covered.size === 0 && !get().staticMode) {
+      api.coveredTickers().then((tickers) => set({ coveredTickers: new Set(tickers) })).catch(() => {})
+    }
+  },
+  closeReview: () => set({ reviewOpen: false }),
+  setReviewFilters: (f) => {
+    set({
+      reviewFilters: f,
+      reviewIndex: 0,
+      reviewQueue: get().newsItems.filter((it) => matchesReviewFilters(it, f, get().coveredTickers)),
+    })
+  },
+  // submit feedback for the item at the front of the queue, then advance — one code path shared by
+  // both the mouse buttons and the keyboard shortcuts in ReviewPanel.
+  reviewSubmit: async (feedbackType, reason) => {
+    const it = get().reviewQueue[get().reviewIndex]
+    if (!it) return
+    await get().submitFeedback(feedbackInputFromItem(it, feedbackType, reason))
+    set({ reviewIndex: get().reviewIndex + 1, reviewSessionCount: get().reviewSessionCount + 1 })
+  },
+  // pure client-side advance — never calls the API, never counts toward the session counter
+  reviewSkip: () => set({ reviewIndex: get().reviewIndex + 1 }),
 
   // fetch (once, then cache) the on-demand enrichment for an opened event. Keyed by event_id;
   // a 'loading' sentinel prevents duplicate in-flight fetches. A FAILED or DEGRADED result is NOT cached as

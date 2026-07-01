@@ -10,6 +10,8 @@ import { familyOf, isCompanyNameClient, roleLabel, SCOPES, scopeOf, sourceTierDe
 import { discoveryCapDelta } from '../../lib/rankWeights'
 import { useStore } from '../../lib/store'
 import type { ArticleParty, EventEnrichment, FeedItem, NewsImpact, RelatedEvent } from '../../lib/types'
+import { FeedbackMenu } from './FeedbackMenu'
+import type { ReportMenuAnchor } from '../ActivityReportMenu'
 
 const fmtTime = (iso?: string) => {
   if (!iso) return ''
@@ -354,6 +356,8 @@ export function EventDetail({ it }: { it: FeedItem }) {
   const enrichCache = useStore((s) => s.enrichCache)
   const shelvedEvents = useStore((s) => s.shelvedEvents)
   const toggleShelve = useStore((s) => s.toggleShelve)
+  const flaggedEvents = useStore((s) => s.flaggedEvents)
+  const [feedbackAnchor, setFeedbackAnchor] = useState<ReportMenuAnchor | null>(null)
   const newsItems = useStore((s) => s.newsItems)
   const selectEvent = useStore((s) => s.scSelectEvent)
   const focusCompany = useStore((s) => s.scFocusCompany)
@@ -398,6 +402,7 @@ export function EventDetail({ it }: { it: FeedItem }) {
   const enr = enrichCache[it.event_id]
   const enrichment = enr && enr !== 'loading' ? enr : undefined
   const shelved = shelvedEvents.has(it.event_id)
+  const flagged = flaggedEvents.has(it.event_id)
   const tone = it.triage_score >= 70 ? 'var(--live)' : it.triage_score >= 40 ? 'var(--accent-bright)' : 'var(--text-faint)'
   const s = scopeOf(it)
   const fam = familyOf(s)
@@ -630,6 +635,17 @@ export function EventDetail({ it }: { it: FeedItem }) {
               <span className="evdetail__est mono">about $8–45 · stops early (and cheaper) if a check says no</span>
             </div>
             <div className="evdetail__utility">
+              <button
+                className="btn btn--ghost evdetail__shelfbtn"
+                onClick={(e) => {
+                  const r = e.currentTarget.getBoundingClientRect()
+                  const right = Math.max(8, window.innerWidth - r.right)
+                  setFeedbackAnchor(window.innerHeight - r.bottom < 320 ? { right, bottom: Math.max(8, window.innerHeight - r.top + 6) } : { right, top: r.bottom + 6 })
+                }}
+                title={flagged ? 'Feedback already saved for this item' : 'Flag as irrelevant / mis-scored / …'}
+              >
+                {flagged ? 'Feedback saved ✓' : 'Flag feedback'}
+              </button>
               <button className="btn btn--ghost evdetail__shelfbtn" onClick={() => toggleShelve(it.event_id)} title={shelved ? 'Bring this back to the wire' : 'Set this aside — not worth a check right now'}>
                 {shelved ? 'Bring back' : 'Set aside'}
               </button>
@@ -637,6 +653,7 @@ export function EventDetail({ it }: { it: FeedItem }) {
                 <a className="btn btn--ghost" href={it.url} target="_blank" rel="noreferrer">Open source ↗</a>
               )}
             </div>
+            {feedbackAnchor && <FeedbackMenu item={it} anchor={feedbackAnchor} onClose={() => setFeedbackAnchor(null)} />}
           </div>
           {scStages.length > 1 && (
             <div className="evdetail__through">

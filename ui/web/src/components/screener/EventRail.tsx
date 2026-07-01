@@ -20,6 +20,8 @@ import { useStore } from '../../lib/store'
 import type { FeedItem } from '../../lib/types'
 import { archiveFiltersActive, emptyFilters, FeedFilters, filtersActive, gicsEmptyMessage, matchesFilters, type FeedFilterState } from './FeedFilters'
 import type { ArchiveQuery } from '../../lib/api'
+import { FeedbackMenu } from './FeedbackMenu'
+import type { ReportMenuAnchor } from '../ActivityReportMenu'
 
 // a multi-select dropdown for a broad scope with dynamic sub-values (Sector, Commodity). "All X" =
 // the whole scope; specific picks narrow to those. Closes on outside-click / Escape.
@@ -93,6 +95,8 @@ function ScopeChip({ it }: { it: FeedItem }) {
 function EventRow({ group, selected, shelved, fresh, onPick, onShelve }: { group: StoryGroup; selected: boolean; shelved: boolean; fresh: boolean; onPick: (it: FeedItem) => void; onShelve: (id: string) => void }) {
   const it = group.rep
   const [expanded, setExpanded] = useState(false)
+  const [feedbackAnchor, setFeedbackAnchor] = useState<ReportMenuAnchor | null>(null)
+  const flagged = useStore((s) => s.flaggedEvents.has(it.event_id))
   const origHl = originalHeadline(it) // source-language original, only when an English translation is shown
   const kept = it.band !== 'drop'
   const tone = it.triage_score >= 70 ? 'var(--live)' : it.triage_score >= 40 ? 'var(--accent-bright)' : 'var(--text-faint)'
@@ -144,6 +148,21 @@ function EventRow({ group, selected, shelved, fresh, onPick, onShelve }: { group
       >
         {shelved ? '↩' : '⌄'}
       </button>
+      <button
+        type="button"
+        className={`evrow__flag${flagged ? ' evrow__flag--on' : ''}`}
+        onClick={(e) => {
+          e.stopPropagation()
+          const r = e.currentTarget.getBoundingClientRect()
+          const right = Math.max(8, window.innerWidth - r.right)
+          setFeedbackAnchor(window.innerHeight - r.bottom < 320 ? { right, bottom: Math.max(8, window.innerHeight - r.top + 6) } : { right, top: r.bottom + 6 })
+        }}
+        title={flagged ? 'Feedback already saved for this item' : 'Flag as irrelevant / mis-scored / …'}
+        aria-label="Flag feedback on this item"
+      >
+        ⚑
+      </button>
+      {feedbackAnchor && <FeedbackMenu item={it} anchor={feedbackAnchor} onClose={() => setFeedbackAnchor(null)} />}
       {group.others.length > 0 && (
         <button type="button" className={`evrow__dups${expanded ? ' evrow__dups--open' : ''}`} onClick={() => setExpanded((v) => !v)} aria-expanded={expanded} title="The same story from other sources — click to expand">
           <span className="evrow__dups-label">{dupLabel}</span>

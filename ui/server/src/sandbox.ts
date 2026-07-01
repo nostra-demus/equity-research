@@ -63,6 +63,10 @@ export const AGENT_RE = /^[a-z0-9-]{1,60}$/
 // Screener subject/record ids (shape-validated before any path is built from them).
 export const SIG_RE = /^SIG-[0-9]{8}-[a-f0-9]{8}$/
 export const THESIS_RE = /^THS-SIG-[0-9]{8}-[a-f0-9]{8}-v[0-9]+$/
+// News-wire event id (sha256-12 of headline+url) — the id a FeedItem carries on the live wire.
+export const EVENT_ID_RE = /^EVT-[0-9a-f]{12}$/
+// Feedback ledger record id.
+export const FEEDBACK_ID_RE = /^FDB-[0-9]{8}-[a-f0-9]{8}$/
 
 export function isValidTicker(name: string): boolean {
   // a real symbol needs at least one letter/digit — reject all-punctuation names like ".", "..", "---"

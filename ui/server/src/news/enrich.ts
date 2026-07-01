@@ -331,6 +331,29 @@ export function findPriorCoverage(repoRoot: string, companies: CompanyGuess[]): 
   return out.slice(0, 4)
 }
 
+// A real per-ticker run folder is always <TICKER>_<YYYY-MM-DD> (e.g. "BG_2026-05-11"). analyses/ also
+// holds a handful of BARE, non-ticker aggregate folders — eval/ performance/ portfolio/ tracking/ (the
+// /research:eval, :size, :track outputs) — with no trailing date, so this shape excludes them without
+// hardcoding their names (a future aggregate folder is excluded the same way, for free).
+const RUN_FOLDER_RE = /^(.+)_\d{4}-\d{2}-\d{2}$/
+
+/** Tickers we already have research coverage on — a real `analyses/<TICKER>_<date>` run folder — the
+ *  pragmatic proxy for "portfolio companies" used by the batch-review filter, since this codebase has
+ *  no separate brokerage holdings list. Best-effort; never throws. */
+export function listCoveredTickers(repoRoot: string): string[] {
+  let analysisDirs: string[] = []
+  try {
+    analysisDirs = fs.readdirSync(path.join(repoRoot, 'analyses'), { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name)
+  } catch {}
+  const tickers = new Set<string>()
+  for (const d of analysisDirs) {
+    const m = RUN_FOLDER_RE.exec(d)
+    const t = m ? tickerKey(m[1]) : ''
+    if (t) tickers.add(t)
+  }
+  return [...tickers].sort()
+}
+
 // ---- related recent events on the wire ----
 
 // A real English stoplist (function words + light verbs + news/finance scaffolding). A headline
