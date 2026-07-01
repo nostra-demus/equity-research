@@ -60,12 +60,35 @@ const STOP_WORDS = new Set(
     'records record transfer winning awarded receives received gets signs signing pact agreement deal deals ' +
     'listing obligations defaulter defaulters entities entity suspension suspended debarred relief managers ' +
     'trading activities special general notice meeting postal correction clarification withdrawal ' +
+    // earnings-calendar / scheduled-disclosure boilerplate ("Company X Announces Q2 2026 Earnings Release
+    // Date", NSE/BSE "board meeting — Financial Results" intimations) — a hugely common global press-
+    // release pattern; two UNRELATED companies' routine calendar notices share several of these words
+    // despite having zero real topic in common (the exact "Domino's · announces" theme-poisoning bug:
+    // STOP_WORDS already dropped the noun "announcement" but not the verb forms, and "board"/"meeting"
+    // but not the earnings-specific nouns). "first" is already covered above (line 39, ordinals).
+    'announce announces announcing announced host hosts hosting discuss discusses discussing ' +
+    'schedules scheduled scheduling earnings results result financial fiscal release releases ' +
+    'date dates webcast call calls conference second third fourth ' +
     // HTML / feed artifacts + filler
     'href hreflang https http www html amp nbsp span div utm matter various respect behalf thereof inter alia'
   ).split(/\s+/),
 )
 // short-but-meaningful topic anchors (skipped by the ≥4-char rule but worth matching on)
 const SHORT_TOPICS = new Set(['oil', 'gas', 'war', 'tax', 'fed', 'ecb', 'boj', 'rbi', 'fta', 'cpi', 'gdp', 'ppi', 'wpi', 'pmi', 'yen', 'ipo', 'ai', 'ev', '5g', '6g'])
+
+// Bounded suffix-stripping so the NEXT regular verb/noun inflection of an already-stopworded word (the
+// exact way "announces" slipped past the literal "announcement" entry) is caught without hand-listing
+// every form. Longest-match-first; only strips when the remaining stem is still ≥4 chars, so short real
+// words (e.g. "boeing", 6 chars, "-ing" would leave a 3-char stem) are never touched — a structural
+// guarantee, not a word-list judgment call. Never applied to company names (companyKeys / the companies
+// loop below) — a stemmed company name must never accidentally collide with a stopword.
+const SUFFIXES: Array<[string, number]> = [['ing', 3], ['ed', 2], ['es', 2], ['s', 1]]
+function stem(w: string): string | null {
+  for (const [suf, len] of SUFFIXES) {
+    if (w.length - len >= 4 && w.endsWith(suf)) return w.slice(0, -len)
+  }
+  return null
+}
 
 /** The set of meaningful topic tokens in a headline (+ the guessed company names/tickers) — the test
  *  for whether two events are about the same thing, not just sharing a coarse theme tag. Country/agency
@@ -74,6 +97,8 @@ export function topicTokens(headline?: string | null, companies?: CompanyGuess[]
   const out = new Set<string>()
   for (const w of String(headline || '').toLowerCase().replace(/[^a-z0-9 ]+/g, ' ').split(/\s+/)) {
     if (!w || STOP_WORDS.has(w)) continue
+    const st = w.length >= 4 ? stem(w) : null
+    if (st && STOP_WORDS.has(st)) continue
     if (/^\d+$/.test(w)) continue // pure numbers (years, counts) never anchor a theme
     if (SEC_FORM_TOKENS.has(w)) continue // SEC form codes ("424b2", "defa14a") are not a topic — see sec-forms.ts
     if (w.length >= 4 || SHORT_TOPICS.has(w)) out.add(w)
