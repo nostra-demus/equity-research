@@ -184,6 +184,27 @@ def eval_t_probability(entry):
         return f"probability={prob} looks like a decimal fraction — use the 0–100 scale per §10 (write {round(prob*100)} not {prob})"
     return None                                # valid: 0 (Remote floor), or any value in [1, 100]
 
+# forecast_type (additive, DECISION_LEDGER.md §6, introduced 2026-07-01) — the content-category tag
+# ("revenue" vs "margin_or_cost" vs "catalyst_or_estimate_revision" etc.) that /research:calibrate
+# slices Brier score / hit rate by, orthogonal to owner_module (one module produces several types).
+FORECAST_TYPE_ENUM={"revenue","margin_or_cost","earnings_eps","cash_flow","valuation_or_price_return",
+                     "balance_sheet_or_solvency","governance_or_accounting","catalyst_or_estimate_revision","other"}
+FTYPE_DATE="2026-07-01"
+
+def eval_forecast_type(entry):
+    """Validate a single forecast_ledger entry's optional forecast_type field. Returns None if
+    absent/empty (allowed — additive/optional, same convention as scenarios[]/edge_score/business_type)
+    or a valid closed-enum value; an error string if present but not an exact case-sensitive member
+    of FORECAST_TYPE_ENUM. Side-effect-free + module-level so selftest drives all branches fixture-free
+    (every committed fixture predates FTYPE_DATE -> N/A in the main run loop, mirrors eval_t_probability)."""
+    ft=entry.get("forecast_type")
+    if ft is None or ft=="": return None       # absent/empty: allowed, untagged
+    if not isinstance(ft,str):
+        return f"forecast_type={ft!r} is not a string"
+    if ft not in FORECAST_TYPE_ENUM:
+        return f"forecast_type={ft!r} not in closed enum {sorted(FORECAST_TYPE_ENUM)}"
+    return None
+
 # ── Check AA (§18 module verdict-lock caps) — module-level so `eval.py selftest` can drive it ──
 # CLAUDE.md §18 mandates two hard verdict-lock caps that the master synthesizer's PROMPT states but
 # nothing mechanically verifies. Gap: when the balance-sheet-survival (BSS) module synthesis contains
@@ -649,6 +670,35 @@ if scope=="selftest":
         if not ok: t2bad+=1
         print(f"  [{'ok' if ok else 'XX'}] T2({entry_!r}) -> {got!r}"+("" if ok else f"  EXPECTED fragment {exp!r}"))
     bad+=t2bad
+    # check T3 (forecast_ledger forecast_type closed-enum) — every committed fixture predates
+    # FTYPE_DATE -> N/A in the main run loop; the selftest drives the validator directly.
+    T3=eval_forecast_type
+    t3cases=[  # (entry_dict, expected: None=ok/null, str-fragment=error must contain that fragment)
+        ({"forecast_type":"revenue"}, None),
+        ({"forecast_type":"margin_or_cost"}, None),
+        ({"forecast_type":"earnings_eps"}, None),
+        ({"forecast_type":"cash_flow"}, None),
+        ({"forecast_type":"valuation_or_price_return"}, None),
+        ({"forecast_type":"balance_sheet_or_solvency"}, None),
+        ({"forecast_type":"governance_or_accounting"}, None),
+        ({"forecast_type":"catalyst_or_estimate_revision"}, None),
+        ({"forecast_type":"other"}, None),
+        ({"forecast_type":None}, None),           # null: allowed, untagged
+        ({}, None),                               # missing key: same as null, allowed
+        ({"forecast_type":""}, None),              # empty string: allowed, untagged
+        ({"forecast_type":"Revenue"}, "not in closed enum"),   # case mismatch — closed set is case-exact
+        ({"forecast_type":"margin"}, "not in closed enum"),    # not a member (close but wrong spelling)
+        ({"forecast_type":"macro"}, "not in closed enum"),     # plausible-sounding but not in the set
+        ({"forecast_type":123}, "is not a string"),            # wrong type
+        ({"forecast_type":["revenue"]}, "is not a string"),    # wrong type (list)
+    ]
+    t3bad=0
+    for entry_,exp in t3cases:
+        got=T3(entry_)
+        ok=(got is None if exp is None else (got is not None and exp in got))
+        if not ok: t3bad+=1
+        print(f"  [{'ok' if ok else 'XX'}] T3({entry_!r}) -> {got!r}"+("" if ok else f"  EXPECTED fragment {exp!r}"))
+    bad+=t3bad
     # check AA — §18 module verdict-lock caps. The golden suite can't reach the cap branches
     # (all committed fixtures predate AA_DATE → N/A); drive every branch here.
     # Expected values: "na" (N/A), "pass" (no violations), "fail" (one or more violations).
@@ -990,7 +1040,7 @@ if scope=="selftest":
         print(f"  [{'ok' if ok else 'XX'}] AE({dec_!r},{dt_!r},bm={bm_r!r},bq={bq_r!r},es={es_!r}) -> {got}"
               +("" if ok else f"  EXPECTED exp={exp}"))
     bad+=aebad
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE cases")
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE cases")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -1326,6 +1376,9 @@ for drp in runs:
             if isdate(ddte) and ddte>=PROB_DATE:
                 perr=eval_t_probability(entry)
                 if perr: fdet.append(f"forecast_ledger[{i}] {perr}")
+            if isdate(ddte) and ddte>=FTYPE_DATE:
+                fterr=eval_forecast_type(entry)
+                if fterr: fdet.append(f"forecast_ledger[{i}] {fterr}")
         add("T_forecast_ledger_quality",not fdet,
             "; ".join(fdet) or
             (f"all {len(fl)} forecast_ledger entries have required fields + valid status + valid probability" if fl
@@ -1658,7 +1711,7 @@ FRAMEWORK_CONTRACTS={
  ".claude/agents/management-governance/04_ownership-and-insider-behavior.md":["RF-OWN-004","Filter 6"],
  ".claude/agents/balance-sheet-survival/MODULE_RULES.md":["Net cash is a strategic asset","Filter 3","Label the cycle position of the EBITDA","the **strict** basis (CLAUDE.md §15)"],
  ".claude/agents/valuation/MODULE_RULES.md":["RF-OWN-004","Filter 6","value trap","benchmarked against BOTH a peer-normal margin"],
- ".claude/agents/synthesizer.md":["Avoid-Big-Risks","§24","DEFER to the catalyst module","Net-cash / leverage headline disclosure","business_type","primary_valuation_method"],
+ ".claude/agents/synthesizer.md":["Avoid-Big-Risks","§24","DEFER to the catalyst module","Net-cash / leverage headline disclosure","business_type","primary_valuation_method","forecast_type"],
  ".claude/agents/catalyst/MODULE_RULES.md":["§17 Catalyst Discipline","Catalyst Category Checklist","No proven catalyst yet"],
  ".claude/agents/catalyst/01_catalyst-calendar.md":["12-Month Catalyst Calendar","Bullish Trigger","Bearish Trigger"],
  ".claude/agents/catalyst/99_catalyst-synthesis.md":["Catalyst strength /100","No proven catalyst yet","depends_on"],
@@ -1670,10 +1723,11 @@ FRAMEWORK_CONTRACTS={
  ".claude/commands/research/track.md":["analyses/tracking","_calls_tracker","review_schedule","ad-hoc","memo_delta_file"],
  ".claude/settings.json":["SessionStart","review_due.py"],
  ".claude/hooks/review_due.py":["review_schedule","research:review-decisions due"],
- "frameworks/DECISION_LEDGER.md":["Memo delta","memo_delta","thesis_delta_verdict","stage_one_comment","rerun_command","_memo_delta.md","business_type","primary_valuation_method"],
+ "frameworks/DECISION_LEDGER.md":["Memo delta","memo_delta","thesis_delta_verdict","stage_one_comment","rerun_command","_memo_delta.md","business_type","primary_valuation_method","forecast_type"],
  ".claude/commands/research/review-decisions.md":["memo_delta","stage_one_comment","rerun_command","Pool first","_memo_delta"],
  ".claude/commands/research/eval.md":["scripts/eval.py"],
- "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone"],
+ ".claude/commands/research/calibrate.md":["calibration_by_module","calibration_by_forecast_type","owner_module","forecast_type"],
+ "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone"],
  ".github/workflows/ci.yml":["eval-contracts","scripts/eval.py"],
 }
 jchecks=[]

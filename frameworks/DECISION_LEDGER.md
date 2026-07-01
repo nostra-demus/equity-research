@@ -248,7 +248,8 @@ Each element of `decision_record.forecast_ledger` — the machine-readable form 
   "falsification_trigger": "",
   "owner_module": "",
   "confidence_score": null,
-  "status": "open"
+  "status": "open",
+  "forecast_type": ""
 }
 ```
 
@@ -258,6 +259,7 @@ Rules:
 - Every forecast must have a **confirmation** trigger and a **falsification** trigger.
 - Forecasts must be reviewable later (resolved only via review records, §8 — `status` ∈ {open, confirmed, falsified, expired}).
 - If no reliable forecast can be created, say why (and leave `forecast_ledger` as `[]`).
+- `forecast_type` (**additive, introduced 2026-07-01**) tags what KIND of forecast this is, from a closed set: `revenue`, `margin_or_cost`, `earnings_eps`, `cash_flow`, `valuation_or_price_return`, `balance_sheet_or_solvency`, `governance_or_accounting`, `catalyst_or_estimate_revision`, `other`. This is orthogonal to `owner_module` (which module wrote the forecast) — a single module (e.g. earnings) routinely produces more than one forecast_type (a revenue call and a margin call behave differently under Phase 4 calibration and can fail for different reasons). Its purpose is to let `/research:calibrate` answer "which KIND of forecast is the engine systematically over/under-confident on," not just which module — a flat, unsliced Brier score hides that pattern no matter how much history accumulates. `""` (empty string) or the field's absence is allowed and treated identically — records dated before 2026-07-01 omit it; downstream consumers (calibrate) bucket those as "untagged" and never fabricate a type. Eval check T (the `T_forecast_ledger_quality` check) validates it against the closed enum, case-exact, when present, for runs dated on/after 2026-07-01 — same forward-looking-gate convention as check T2 for `probability`.
 
 ---
 
