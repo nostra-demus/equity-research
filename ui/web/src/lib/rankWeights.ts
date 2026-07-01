@@ -29,7 +29,7 @@ export interface RankWeightsState {
 export const DEFAULT_RANK_WEIGHTS: RankWeights = {
   source_tier: { primary_filing: 8, official_data: 5, company: 3, news: 0, unconfirmed: -8, social: -12 },
   scope: { single_name: 6, multi_name: 5, policy: 2, commodity: 4, sector: 0, macro: -4, geopolitical: 9, generic_media: -10, unknown: -2 },
-  event: { mna: 9, guidance_change: 7, debt_credit: 7, capital_actions: 6, litigation_enforcement: 6, earnings_revenue_margin: 5, management: 4, regulatory: 4, cybersecurity: 4, product: 3, commercial: 3, operations: 2, macro_sector: 1, rumor: -3 },
+  event: { mna: 9, guidance_change: 7, debt_credit: 7, capital_actions: 6, litigation_enforcement: 6, capex: 6, earnings_revenue_margin: 5, management: 4, regulatory: 4, cybersecurity: 4, product: 3, commercial: 3, operations: 2, macro_sector: 1, rumor: -3 },
   size: { mega: 2, large: 2, mid: 1, small: -1, unknown: 0 },
   recency: { '1': 5, '3': 4, '6': 3, '12': 2, '24': 1, more: 0 },
   boost_weight: 1,

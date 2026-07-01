@@ -230,4 +230,15 @@ check('preTriagePriority: a fresh social item never out-ranks a stale trusted it
   assert.ok(freshNews > staleNews, `fresh news ${freshNews} should still beat stale news ${staleNews} under recency tuning`)
 })
 
+// A capex announcement with NO stated dollar figure (quantifiedImpactBonus can't fire — it requires a
+// quantified figure) previously had no dedicated event type and fell into weak operations/commercial.
+// "capex" is now a first-class event_types value (triage/groq.ts EVENT_TYPES) with its own weight.
+check('capex event type is recognized and weighted, independent of quantifiedImpactBonus', () => {
+  const capex = rankScore({ materiality_pre_score: 48, input_nature: 'news_headline', issuer_linkage: 'primary', companies: [{ name: 'Samsung' }, { name: 'SK Hynix' }], event_types: ['capex'], size_bucket: 'mega', headline: 'Major AI memory capex announced by Samsung/SK Hynix', found_at: fresh }, NOW)
+  const asOperations = rankScore({ materiality_pre_score: 48, input_nature: 'news_headline', issuer_linkage: 'primary', companies: [{ name: 'Samsung' }, { name: 'SK Hynix' }], event_types: ['operations'], size_bucket: 'mega', headline: 'Major AI memory capex announced by Samsung/SK Hynix', found_at: fresh }, NOW)
+  assert.equal(capex.rank_factors.event, 6)
+  assert.equal(capex.rank_factors.quantified, 0, 'no $ figure in this headline — the quantified bonus must NOT be doing the work here')
+  assert.ok(capex.rank_score > asOperations.rank_score, `capex-tagged ${capex.rank_score} should beat the same headline mistagged operations ${asOperations.rank_score}`)
+})
+
 console.log(`\n${passed} checks passed`)

@@ -33,7 +33,13 @@ export const DEFAULT_RANK_WEIGHTS: RankWeights = {
   // companies is the OPPOSITE of a single-stock idea and must not earn the old multi_name lift.
   // commodity bumped 1 → 4: a real supply/inventory shock is market-wide, not a minor footnote.
   scope: { single_name: 6, multi_name: 5, policy: 2, commodity: 4, sector: 0, macro: -4, geopolitical: 9, generic_media: -10, unknown: -2 },
-  event: { mna: 9, guidance_change: 7, debt_credit: 7, capital_actions: 6, litigation_enforcement: 6, earnings_revenue_margin: 5, management: 4, regulatory: 4, cybersecurity: 4, product: 3, commercial: 3, operations: 2, macro_sector: 1, rumor: -3 },
+  // capex (6): tied with capital_actions — a major capex plan (a new fab, a multi-billion AI-infra
+  // build) is a real capital-allocation signal, comparable to a buyback or debt raise, though less
+  // immediately estimate-moving than an M&A (9) or a guidance cut (7). Previously capex had no
+  // dedicated bucket and fell into weak operations(2)/commercial(3), under-scoring it relative to its
+  // actual materiality (the quantifiedImpactBonus above already credits a capex headline WITH a $
+  // figure; this credits the event itself, figure or not).
+  event: { mna: 9, guidance_change: 7, debt_credit: 7, capital_actions: 6, litigation_enforcement: 6, capex: 6, earnings_revenue_margin: 5, management: 4, regulatory: 4, cybersecurity: 4, product: 3, commercial: 3, operations: 2, macro_sector: 1, rumor: -3 },
   size: { mega: 2, large: 2, mid: 1, small: -1, unknown: 0 },
   recency: { '1': 5, '3': 4, '6': 3, '12': 2, '24': 1, more: 0 },
   boost_weight: 1,

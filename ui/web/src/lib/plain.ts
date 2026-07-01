@@ -81,6 +81,7 @@ const THEMES: Record<string, string> = {
   operations: 'factories & supply',
   cybersecurity: 'hacks & data leaks',
   macro_sector: 'economy & industry',
+  capex: 'new plants & factories',
   rumor: 'unconfirmed talk',
 }
 export const plainTheme = (t?: string | null): string => (t ? THEMES[t] || human(t) : '')
