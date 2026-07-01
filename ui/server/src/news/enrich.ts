@@ -458,7 +458,15 @@ export function isEnrichmentComplete(r: EventEnrichment): boolean {
     (r.gist && r.gist.length) ||
     (r.companies && r.companies.length) ||
     (r.beneficiaries && r.beneficiaries.length) ||
-    (r.exposed && r.exposed.length)
+    (r.exposed && r.exposed.length) ||
+    // a news_impact-only verdict is a real, usable read: a routine/boilerplate article correctly yields
+    // empty gist/companies/beneficiaries/exposed (the DIGEST RULE) yet still carries a decision-useful
+    // "no real impact" Impact block. analyst_takeaway is non-empty ONLY when the LLM actually read the
+    // article (coerceNewsImpact defaults it to "" on a missing/malformed block), so it is the same
+    // "the read happened" signal article-read.ts's hasContent() gates on. Without this, such a read is
+    // marked degraded → short TTL → the web store refetches it on every reopen, burning repeated LLM
+    // reads until MAX_READ_ATTEMPTS.
+    (r.news_impact && r.news_impact.analyst_takeaway.length > 0)
   )
 }
 /** A complete read is stable → 12h. A degraded one expires fast so the next look retries the real read. */
@@ -905,9 +913,10 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
       if (brief.the_edge) result.the_edge = brief.the_edge
       if (brief.watch_item) result.watch_item = brief.watch_item
       if (brief.theme) result.theme = brief.theme
-      // unconditional on content-truthiness (unlike the fields above) — coerceNewsImpact always returns a
-      // fully-populated object once brief is non-null, and a "neutral/low/no numbers" verdict for a routine
-      // notice IS the correct, decision-useful answer, not a gap to paper over.
+      // carried through whenever the model actually produced an impact verdict — a "neutral/low/no numbers"
+      // read for a routine notice IS the correct, decision-useful answer, not a gap to paper over. When the
+      // model OMITTED news_impact (older/partial schema), coerceArticleBrief leaves it absent, so this stays
+      // unset rather than caching a synthesized fake low-impact verdict.
       if (brief.news_impact) result.news_impact = brief.news_impact
       // read succeeded but produced no gist bullets → back it with the most substantial text we hold, never blank
       if (!brief.gist.length) result.summary = bestFallbackSummary(pageHtml, snippet, filingInput, bodylessFiling)

@@ -295,13 +295,18 @@ export interface ArticleBrief {
   the_edge?: string // a non-obvious angle the body genuinely supports that consensus may miss — empty if none
   watch_item?: string // the single next data point / number that confirms or kills the read
   theme: string // corrected single event-type
-  news_impact: NewsImpact // does this move earnings/guidance/valuation/thesis/risk/a portfolio decision — direction, size, numbers, confidence
+  // Optional on purpose: a valid brief may legitimately have NO impact verdict — an LLM returning the
+  // old/partial article-brief schema (a valid gist but no news_impact key) must NOT be handed a
+  // manufactured "unknown/low/no-numbers" object, because that fake verdict would render in the UI as a
+  // real low-impact read AND (via a non-empty gist) cache for the long TTL. Absent stays absent so the
+  // read is retried / the Impact block hidden. coerceArticleBrief only sets this when the model supplied it.
+  news_impact?: NewsImpact // does this move earnings/guidance/valuation/thesis/risk/a portfolio decision — direction, size, numbers, confidence
 }
 
 export const ARTICLE_SYSTEM = `You are a buy-side analyst reading ONE news article for a portfolio manager. You are given the article's BODY TEXT (not just the headline). Produce a sharp, decision-ready brief that thinks in TRANSMISSION: event -> what changes in the real economy or a business -> which LISTED, TRADABLE asset moves, in what direction, by roughly how much, over what horizon. Second-level thinking, never a plain summary.
 
 Return ONLY this JSON (use [] or "" or null whenever the body does not support a field — NEVER invent to fill it):
-{"gist":["...","..."],"market_angle":"...","companies":[{"name":"...","ticker":null,"listing_country":null,"exchange":null,"role":"subject|acquirer|target|forecaster|mentioned"}],"beneficiaries":[{"name":"...","named_in_article":true,"ticker":null,"listing":null,"mechanism":"...","magnitude":null,"horizon":null,"order":"first|second"}],"exposed":[{"name":"...","named_in_article":true,"ticker":null,"listing":null,"mechanism":"...","magnitude":null,"horizon":null,"order":"first|second"}],"whats_priced":"...","the_edge":"...","watch_item":"...","theme":"<tag>","news_impact":{"impact_direction":"positive|negative|mixed|neutral|unknown","impact_magnitude":"low|medium|high|critical","affected_metric":["revenue|ebitda|pat_net_income|eps|cash_flow|debt|capex|commodity_price|valuation_multiple|regulatory_risk|thesis_quality"],"quantified_impact_available":false,"extracted_numbers":["..."],"quick_dirty_calculation":"...","why_it_matters":"...","analyst_takeaway":"...","confidence":0}}
+{"gist":["...","..."],"market_angle":"...","companies":[{"name":"...","ticker":null,"listing_country":null,"exchange":null,"role":"subject|acquirer|target|forecaster|mentioned"}],"beneficiaries":[{"name":"...","named_in_article":true,"ticker":null,"listing":null,"mechanism":"...","magnitude":null,"horizon":null,"order":"first|second"}],"exposed":[{"name":"...","named_in_article":true,"ticker":null,"listing":null,"mechanism":"...","magnitude":null,"horizon":null,"order":"first|second"}],"whats_priced":"...","the_edge":"...","watch_item":"...","theme":"<tag>","news_impact":{"impact_direction":"positive|negative|mixed|neutral|unknown","impact_magnitude":"low|medium|high|critical","affected_metric":["<zero or more SEPARATE values, each exactly one of: revenue, ebitda, pat_net_income, eps, cash_flow, debt, capex, commodity_price, valuation_multiple, regulatory_risk, thesis_quality — e.g. [\\"revenue\\",\\"eps\\"]; NEVER a single pipe-joined string>"],"quantified_impact_available":false,"extracted_numbers":["..."],"quick_dirty_calculation":"...","why_it_matters":"...","analyst_takeaway":"...","confidence":0}}
 
 GIST — 2 to 4 short bullets carrying the REAL crux: the number, threshold, call, or change that is the point. Lead with the punchline, not the setup (e.g. "sees 50-75bp of rate hikes and 5% FY27 CPI", not the CPI sub-components). Plain English, short sentences. Every number you state must appear in the body. No hype words (robust, strong, well-positioned, attractive, best-in-class). If the story is contested or two-sided, state BOTH sides. If the body is boilerplate, a cookie/ad notice, an "about us" page, or a login wall with no story, return gist [] and set theme to your best guess.
 For results, separate reported from adjusted and name any one-off behind a beat/miss (tax credit, disposal gain, customer advance) — lead with the underlying number, not the flattered one; margin moves in basis points.
@@ -387,9 +392,14 @@ export function coerceNewsImpact(raw: any): NewsImpact {
     affected_metric,
     quantified_impact_available,
     extracted_numbers,
-    // forced "" when not quantified — a defense-in-depth backstop beyond the prompt instruction, so a
-    // model slip can never ship a calculation the extracted numbers don't actually support.
-    quick_dirty_calculation: quantified_impact_available ? str(raw?.quick_dirty_calculation, 280) : '',
+    // forced "" unless the verdict is BOTH flagged quantified AND actually retains extracted numbers — a
+    // defense-in-depth backstop beyond the prompt instruction, so a model slip can never ship a calculation
+    // the extracted numbers don't actually support. Gating on the boolean alone is not enough: a model can
+    // return quantified_impact_available:true with a calculation but omit extracted_numbers (or supply ones
+    // that all coerce away), and the UI would then render that number-less calculation as the valuation-
+    // impact line. A calculation with no retained numbers behind it is exactly the fabricated verdict this
+    // backstop exists to stop.
+    quick_dirty_calculation: quantified_impact_available && extracted_numbers.length > 0 ? str(raw?.quick_dirty_calculation, 280) : '',
     why_it_matters: str(raw?.why_it_matters, 240),
     analyst_takeaway: str(raw?.analyst_takeaway, 240),
     confidence,
@@ -415,6 +425,13 @@ export function coerceArticleBrief(raw: any): ArticleBrief {
   const beneficiaries = (Array.isArray(raw?.beneficiaries) ? raw.beneficiaries : []).map(coerceParty).filter(Boolean).slice(0, 6) as ArticleParty[]
   const exposed = (Array.isArray(raw?.exposed) ? raw.exposed : []).map(coerceParty).filter(Boolean).slice(0, 6) as ArticleParty[]
   const theme = typeof raw?.theme === 'string' ? raw.theme.trim().toLowerCase().replace(/[^a-z_]/g, '') : ''
+  // ONLY coerce a news_impact when the model actually supplied one (a non-null object). If it omitted the
+  // key — e.g. an older/partial schema that still returns a valid gist — we leave news_impact absent rather
+  // than synthesize an "unknown/low/no-numbers/zero-confidence" object. That synthesized object would render
+  // in the UI as a genuine low-impact verdict and, riding on a non-empty gist, would cache for the long TTL
+  // (isEnrichmentComplete → true). Absent stays absent so the read is retried / the Impact block hidden.
+  const rawImpact = raw?.news_impact
+  const news_impact = rawImpact && typeof rawImpact === 'object' && !Array.isArray(rawImpact) ? coerceNewsImpact(rawImpact) : undefined
   return {
     gist,
     market_angle: str(raw?.market_angle, 320),
@@ -425,7 +442,7 @@ export function coerceArticleBrief(raw: any): ArticleBrief {
     the_edge: str(raw?.the_edge, 320),
     watch_item: str(raw?.watch_item, 240),
     theme,
-    news_impact: coerceNewsImpact(raw?.news_impact),
+    ...(news_impact ? { news_impact } : {}),
   }
 }
 

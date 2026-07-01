@@ -9,9 +9,10 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { enrichEvent } from '../src/news/enrich'
+import { enrichEvent, isEnrichmentComplete } from '../src/news/enrich'
+import type { EventEnrichment } from '../src/news/enrich'
 import type { ArticleReadProvider } from '../src/news/triage/article-read'
-import type { ArticleBrief } from '../src/news/triage/groq'
+import { coerceArticleBrief, coerceNewsImpact, type ArticleBrief } from '../src/news/triage/groq'
 
 let passed = 0
 async function check(name: string, fn: () => void | Promise<void>) {
@@ -153,6 +154,91 @@ await check('scenario 4: routine board-meeting notice → news_impact still pres
   assert.equal(r.news_impact!.quantified_impact_available, false)
   assert.equal(r.news_impact!.quick_dirty_calculation, '', 'no valuation impact — the UI renders the fixed insufficient-data string')
   assert.ok(/routine/i.test(r.news_impact!.analyst_takeaway), 'takeaway correctly identifies this as routine')
+})
+
+// ---- Codex thread #3503668570 (enrich.ts): a news_impact-only verdict must count as COMPLETE ----
+// An impact-only read (empty gist/companies/beneficiaries/exposed, non-empty analyst_takeaway) is a real,
+// usable read — the DIGEST RULE's honest answer to a routine article. isEnrichmentComplete() must recognise
+// it, or commitEnrichment() marks it degraded (short TTL) and the web store (store.ts:1420 `if (cur &&
+// cur.complete) return`) refetches it on every reopen, burning repeated LLM reads until MAX_READ_ATTEMPTS.
+await check('thread 3503668570: isEnrichmentComplete() treats a news_impact-only verdict as complete', () => {
+  // the exact shape produced for a routine notice: NO gist/companies/beneficiaries/exposed, only an Impact block
+  const impactOnly: EventEnrichment = {
+    event_id: 'EVT-io', ok: true, fetched_at: NOW_ISO,
+    news_impact: {
+      impact_direction: 'neutral', impact_magnitude: 'low', affected_metric: [],
+      quantified_impact_available: false, extracted_numbers: [], quick_dirty_calculation: '',
+      why_it_matters: '', analyst_takeaway: 'A routine board-meeting notice with no stated financial impact.', confidence: 60,
+    },
+  } as any
+  assert.equal(isEnrichmentComplete(impactOnly), true, 'a news_impact verdict with a real takeaway is a complete read')
+  // a news_impact block whose takeaway is "" (coerce default on a missing/malformed model block) is NOT a
+  // read — the LLM never produced a verdict — so it must NOT count as complete (else it caches forever).
+  const emptyImpact: EventEnrichment = {
+    event_id: 'EVT-io2', ok: true, fetched_at: NOW_ISO,
+    news_impact: coerceNewsImpact(undefined), // analyst_takeaway === ''
+  } as any
+  assert.equal(isEnrichmentComplete(emptyImpact), false, 'an empty/default news_impact (no takeaway) is not a complete read')
+})
+
+// ---- Codex thread #3503668579 (groq.ts:392): gate quick_dirty_calculation on RETAINED extracted_numbers ----
+// The prompt (§NEWS_IMPACT, groq.ts) forbids a calculation without numbers behind it; coerceNewsImpact() is
+// the defense-in-depth backstop. quantified_impact_available:true + a calculation but NO retained
+// extracted_numbers must drop the calculation — otherwise the UI (EventDetail.tsx) renders a number-less
+// calculation as the valuation-impact line.
+await check('thread 3503668579: quick_dirty_calculation dropped when extracted_numbers is empty despite quantified:true', () => {
+  const ni = coerceNewsImpact({
+    impact_direction: 'negative', impact_magnitude: 'high', affected_metric: ['eps'],
+    quantified_impact_available: true, extracted_numbers: [], // model omitted / coerced away
+    quick_dirty_calculation: 'EPS falls ~30% on the guided miss.',
+    why_it_matters: 'x', analyst_takeaway: 'y', confidence: 70,
+  })
+  assert.equal(ni.quick_dirty_calculation, '', 'no retained numbers → no calculation, even though quantified_impact_available is true')
+  // and when numbers ARE retained, the calculation survives (guard is not over-broad)
+  const ni2 = coerceNewsImpact({
+    impact_direction: 'negative', impact_magnitude: 'high', affected_metric: ['eps'],
+    quantified_impact_available: true, extracted_numbers: ['EPS guidance cut 30%'],
+    quick_dirty_calculation: 'EPS falls ~30% on the guided miss.',
+    why_it_matters: 'x', analyst_takeaway: 'y', confidence: 70,
+  })
+  assert.equal(ni2.quick_dirty_calculation, 'EPS falls ~30% on the guided miss.', 'a calculation with real numbers behind it is kept')
+})
+
+// ---- Codex thread #3503668581 (groq.ts:428): do NOT synthesize a news_impact the model omitted ----
+// An LLM returning the old/partial schema (valid gist, NO news_impact key) must not be handed a
+// manufactured unknown/low/no-numbers object: that fake verdict renders as a real low-impact read and, on a
+// non-empty gist, caches for the long TTL. Absent must stay absent.
+await check('thread 3503668581: coerceArticleBrief leaves news_impact ABSENT when the model omitted it', () => {
+  const brief = coerceArticleBrief({ gist: ['Acme did a thing.'], theme: 'product' }) // no news_impact key
+  assert.equal(brief.news_impact, undefined, 'no synthesized impact object when the model omitted news_impact')
+  assert.equal('news_impact' in brief, false, 'the key is truly absent, not set to undefined-in-object')
+  // when the model DID supply a block, it is coerced and present
+  const brief2 = coerceArticleBrief({
+    gist: ['Acme cut guidance.'], theme: 'guidance_change',
+    news_impact: { impact_direction: 'negative', impact_magnitude: 'high', affected_metric: ['eps'], quantified_impact_available: false, extracted_numbers: [], quick_dirty_calculation: '', why_it_matters: 'a', analyst_takeaway: 'b', confidence: 50 },
+  })
+  assert.ok(brief2.news_impact, 'a supplied news_impact block is coerced and present')
+  assert.equal(brief2.news_impact!.impact_direction, 'negative')
+})
+
+// ---- Codex thread #3503668585 (groq.ts:304): affected_metric must be separate enum values, not one pipe string ----
+// A model that copies the skeleton literally must still produce usable metrics. The pre-fix skeleton showed
+// affected_metric as ["revenue|ebitda|...|thesis_quality"] — one pipe-joined string — which coerceNewsImpact
+// filters out entirely (it only accepts individual enum values). The fixed skeleton must NOT contain that
+// single pipe-joined metric string, so a literal-following model emits an array of separate enum values.
+await check('thread 3503668585: ARTICLE_SYSTEM skeleton no longer shows affected_metric as a single pipe-joined list', async () => {
+  const { ARTICLE_SYSTEM } = await import('../src/news/triage/groq')
+  assert.equal(
+    ARTICLE_SYSTEM.includes('revenue|ebitda|pat_net_income|eps|cash_flow|debt|capex|commodity_price|valuation_multiple|regulatory_risk|thesis_quality'),
+    false,
+    'the pipe-joined metric list (which coerceNewsImpact filters out wholesale) is gone from the skeleton',
+  )
+  // and coerceNewsImpact still accepts a proper array of separate enum values (the shape the fixed skeleton teaches)
+  const ni = coerceNewsImpact({ affected_metric: ['revenue', 'eps'], analyst_takeaway: 't' })
+  assert.deepEqual(ni.affected_metric, ['revenue', 'eps'], 'separate enum values are retained')
+  // a literal single pipe-joined string is NOT a valid enum value and yields no metrics — proving why the skeleton had to change
+  const bad = coerceNewsImpact({ affected_metric: ['revenue|eps'], analyst_takeaway: 't' })
+  assert.deepEqual(bad.affected_metric, [], 'a pipe-joined string is filtered out — the exact bug the skeleton fix avoids')
 })
 
 console.log(`\n${passed} passed`)
