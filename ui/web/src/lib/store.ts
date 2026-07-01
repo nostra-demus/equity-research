@@ -278,7 +278,7 @@ interface State {
   confirmRerun: () => Promise<void>
   cancelLaunch: () => void
   cancelRun: (runId: string) => Promise<void>
-  readinessGate: { runId: string; report: ReadinessReport } | null // pre-flight gate panel (null = hidden)
+  readinessGate: { runId: string; report: ReadinessReport; rechecking?: boolean } | null // pre-flight gate panel (null = hidden; rechecking = a re-check is running)
   decideReadiness: (runId: string, action: string, ack?: string) => Promise<void>
   selectNodeForRun: (node: AgentNode) => void
   openOutputForNode: (node: AgentNode) => Promise<void>
@@ -970,6 +970,19 @@ export const useStore = create<State>((set, get) => ({
       await api.readinessDecision(runId, action, ack)
       if (action === 'cancel') get().setToast({ msg: 'Run cancelled at the data check', tone: 'info' })
     } catch (e: any) {
+      // A STALE gate: the run already left the awaiting-decision state (409) or is gone (404) — it
+      // already proceeded/finished, or the closing SSE event was missed (edge/tunnel drop, engine
+      // restart). Don't strand the user clicking a dead dialog forever: close the panel, reconcile
+      // the active runs against the server, and say what actually happened. THIS is the fix for
+      // "clicking any button does nothing but a toast".
+      const status = e?.status as number | undefined
+      if (status === 409 || status === 404) {
+        if (get().readinessGate?.runId === runId) set({ readinessGate: null })
+        get().refreshActiveRuns()
+        get().setToast({ msg: 'This data check is no longer active — the run already started or ended.', tone: 'info' })
+        return
+      }
+      // A still-actionable rejection (bad ticker ack 412, invalid body 400) — keep the panel open.
       get().setToast({ msg: e?.message || 'Could not apply the decision', tone: 'bad' })
     }
   },
@@ -1360,8 +1373,17 @@ export const useStore = create<State>((set, get) => ({
         // ticker (authoritative from the report, not the activeRuns lookup which may not have it yet)
         if (!selected || e.report.ticker === selected) patch.readinessGate = { runId: e.runId, report: e.report }
         break
+      case 'readiness-checking': {
+        // a re-check is running for the OPEN gate — mark it so the panel shows a spinner and disables
+        // its buttons instead of looking frozen for the (up to a few minutes) OCR/extract pass. The
+        // initial pre-flight check also emits this, but the gate isn't open yet, so it's a no-op then.
+        const g = get().readinessGate
+        if (g?.runId === e.runId) patch.readinessGate = { ...g, rechecking: true }
+        break
+      }
       case 'readiness-report':
-        // refresh the open gate panel (e.g. after a recheck that came back still-not-clean)
+        // refresh the open gate panel (e.g. after a recheck that came back still-not-clean) — the new
+        // object drops `rechecking`, re-enabling the buttons.
         if (get().readinessGate?.runId === e.runId) patch.readinessGate = { runId: e.runId, report: e.report }
         break
       case 'readiness-resolved':

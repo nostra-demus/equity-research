@@ -1251,6 +1251,10 @@ export async function decideReadiness(
     // run, both committing to main). readiness-checking is an IN_FLIGHT status and cancel() treats it as
     // gate-parked, so a cancel landing mid-recheck still finalizes (caught by the endedAt re-check below).
     run.status = 'readiness-checking'
+    // Tell the open gate panel a re-check is in flight (the initial gate emits this too, at
+    // runReadinessGate). Without it the panel looks frozen for the whole check — which can be
+    // minutes when OCR runs on a fresh scanned pool — and the user clicks dead buttons.
+    emit(run, { type: 'readiness-checking', runId: run.runId, ticker: run.ticker, kind: run.kind, ts: Date.now() })
     const report = await checkReadiness(run, true)
     if (run.endedAt !== undefined) return { ok: false, status: 'cancelled', error: 'run was cancelled', httpStatus: 409 } // cancelled mid-recheck
     if (report.overall !== 'clean') {

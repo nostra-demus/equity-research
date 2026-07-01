@@ -37,6 +37,17 @@ const FIX_HINT: Record<string, string> = {
 
 const execFileAsync = promisify(execFile)
 
+// The pre-flight extracts every file — now including OCR of image-only/scanned PDFs, which is the
+// slow part on a FRESH pool (cached thereafter, so only the first check on a new scan pays it). Give
+// it a generous, env-tunable wall-clock, and bound OCR itself to a budget safely UNDER that clock so
+// python returns a result rather than being SIGKILL'd mid-OCR (a kill would surface as the "check
+// could not run" blocker). Whatever OCR completed is cached; the uncapped in-run extraction finishes
+// the rest, so a later re-check comes back clean.
+const READINESS_TIMEOUT_MS = Math.max(60_000, Number(process.env.READINESS_TIMEOUT_MS) || 300_000)
+const READINESS_OCR_BUDGET_S = Math.max(
+  30, Number(process.env.READINESS_OCR_BUDGET_S) || Math.floor(READINESS_TIMEOUT_MS / 1000) - 60,
+)
+
 // ASYNC on purpose: extract_pool extracts every file in the pool (the bulk of the gate's cost — seconds
 // on a real pool, up to the 180s timeout). execFileSync would block the whole Node event loop for that
 // time, freezing every other request (SSE, /api/runs, and crucially a cancel POST). execFile yields.
@@ -45,7 +56,13 @@ async function runPhaseAPython(dataDir: string, outDir: string, force: boolean):
     const script = path.join(REPO_ROOT, '.claude', 'tools', 'extract_pool.py')
     const args = [script, '--readiness-json', dataDir, outDir]
     if (force) args.push('--force')
-    const { stdout } = await execFileAsync('python3', args, { timeout: 180_000, maxBuffer: 32_000_000 })
+    const { stdout } = await execFileAsync('python3', args, {
+      timeout: READINESS_TIMEOUT_MS,
+      maxBuffer: 32_000_000,
+      // OCR self-limits under the Node timeout (see READINESS_OCR_BUDGET_S). The in-run extraction
+      // (the agents' own extract_pool call) sets no budget, so it OCRs the whole pool + caches it.
+      env: { ...process.env, EXTRACT_OCR_BUDGET_S: String(READINESS_OCR_BUDGET_S) },
+    })
     return JSON.parse(stdout.toString()) as PyReadiness
   } catch (e: any) {
     // never swallow silently: a failed gate check surfaces as the generic "The data-readiness check could
