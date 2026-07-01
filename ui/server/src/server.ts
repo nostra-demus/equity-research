@@ -43,6 +43,7 @@ import { listSwarms } from './swarms'
 import { getNewsStatus, startNewsIngester } from './news/scheduler'
 import { startConvictionLoop } from './conviction-dispatch'
 import { startResumeSupervisor } from './resume-supervisor'
+import { listResumableRuns } from './resumable'
 import { AGENT_RE, EVENT_ID_RE, FEEDBACK_ID_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE, isValidTicker, resolveInsideRuns, validateNewTicker, sanitizeUploadFilename } from './sandbox'
 import type { RunKind } from './types'
 
@@ -586,6 +587,13 @@ app.post('/api/runs/:runId/readiness-decision', async (req, reply) => {
   if (!res.ok) return reply.code(res.httpStatus || 400).send({ error: res.error })
   return res
 })
+
+// ---------- resumable runs (disk-truth) ----------
+// Every run the cockpit can resume right now — an interrupted run (crash / restart / cancel) whose final
+// deliverable is missing, whose subject isn't live, and which wasn't deliberately aborted. Recomputed
+// from disk each call (the in-memory registry is wiped on restart). The Activity log and the orb view
+// join their rows/subjects against this set to decide where to show a "Resume" affordance.
+app.get('/api/resumable', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async () => ({ runs: listResumableRuns() }))
 
 // ---------- active runs list ----------
 app.get('/api/runs', async (req) => {

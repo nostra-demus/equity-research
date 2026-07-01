@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { api, isStatic } from '../lib/api'
 import { fmtAbsolute, fmtAgo, fmtCost, fmtDuration, moduleLabel } from '../lib/format'
-import type { ActivityResult, ActivityRow, RunKind, Whoami } from '../lib/types'
+import type { ActivityResult, ActivityRow, ResumableRunInfo, RunKind, Whoami } from '../lib/types'
 import { ActivityReportMenu, type ReportMenuAnchor } from './ActivityReportMenu'
 
 type RangeKey = 'all' | '24h' | '7d' | '30d' | 'custom'
@@ -60,8 +60,28 @@ function hasReport(r: ActivityRow): boolean {
   return REPORT_KINDS.has(r.kind) && REPORT_STATUSES.has(r.status)
 }
 
+// Join a row to the disk-truth resumable set (GET /api/resumable): which interrupted run can it continue?
+// A chained-full step (or a full row) resumes the WHOLE pipeline; a module row resumes just that module
+// in its exact folder; a signal row resumes its gauntlet. Anything else (agent/rerun, or a folder that's
+// finished / not today's / currently live) has no matching entry and shows no Resume affordance.
+function matchResumable(r: ActivityRow, entries: ResumableRunInfo[]): ResumableRunInfo | undefined {
+  if (!entries.length) return undefined
+  if (r.kind === 'signal') return entries.find((e) => e.kind === 'signal' && e.subject === r.ticker)
+  if (r.chained || r.kind === 'full') return entries.find((e) => e.kind === 'full' && e.subject === r.ticker)
+  if (r.kind === 'module') return entries.find((e) => e.kind === 'module' && e.subject === r.ticker && e.module === r.module && e.runRoot === r.runRoot)
+  return undefined
+}
+// The plain-English "N/total done" hint for a resume — modules for a full/signal, checks for a module.
+function resumeHint(info: ResumableRunInfo): string {
+  const noun = info.unit === 'agent' ? 'check' : 'module'
+  return `Resume — ${info.doneCount}/${info.totalCount} ${noun}${info.totalCount === 1 ? '' : 's'} done, runs only the rest`
+}
+
 export function ActivityLog() {
   const close = useStore((s) => s.closeActivity)
+  const resumableRuns = useStore((s) => s.resumableRuns)
+  const resumeRun = useStore((s) => s.resumeRun)
+  const refreshResumable = useStore((s) => s.refreshResumable)
   const [data, setData] = useState<ActivityResult | null>(null)
   const [loading, setLoading] = useState(true)
   const [whoami, setWhoami] = useState<Whoami | null>(null)
@@ -115,6 +135,7 @@ export function ActivityLog() {
   useEffect(() => { mounted.current = true; return () => { mounted.current = false } }, [])
   const load = useCallback(async () => {
     const gen = ++reqGen.current
+    void refreshResumable() // keep the Resume affordances in step with the rows (cheap, independent)
     try {
       const res = await api.activity({
         from: fromTo.from,
@@ -132,7 +153,7 @@ export function ActivityLog() {
     } finally {
       if (mounted.current && gen === reqGen.current) setLoading(false)
     }
-  }, [fromTo, ticker, kind, user, status, qDebounced])
+  }, [fromTo, ticker, kind, user, status, qDebounced, refreshResumable])
 
   // (re)fetch on mount + whenever a filter changes, and auto-refresh every 15s so in-flight runs settle
   useEffect(() => {
@@ -240,6 +261,7 @@ export function ActivityLog() {
                 <tbody>
                   {rows.map((r) => {
                     const tone = statusTone(r.status)
+                    const resumable = matchResumable(r, resumableRuns)
                     return (
                       <tr key={r.runId}>
                         <td title={fmtAbsolute(r.launchedAt)} style={{ whiteSpace: 'nowrap', color: 'var(--text-muted)' }}>{fmtAgo(r.launchedAt)}</td>
@@ -251,14 +273,26 @@ export function ActivityLog() {
                         <td className="atable__num">{fmtCost(r.costUsd)}</td>
                         <td className="atable__num">{fmtDuration(r.durationMs)}</td>
                         <td className="atable__num">
-                          {hasReport(r) ? (
-                            <button
-                              className="btn"
-                              style={{ height: 24, minWidth: 30, padding: '0 8px', fontSize: 16, lineHeight: 1, fontWeight: 700 }}
-                              aria-label="Open reports for this run"
-                              title="Open run reports"
-                              onClick={(e) => openReports(e, r)}
-                            >⋯</button>
+                          {resumable || hasReport(r) ? (
+                            <div className="arow-actions">
+                              {resumable && (
+                                <button
+                                  className="aresume"
+                                  title={resumeHint(resumable)}
+                                  aria-label={resumeHint(resumable)}
+                                  onClick={(e) => { e.stopPropagation(); void resumeRun(resumable) }}
+                                >Resume<span className="aresume__glyph" aria-hidden>▸</span></button>
+                              )}
+                              {hasReport(r) && (
+                                <button
+                                  className="btn"
+                                  style={{ height: 24, minWidth: 30, padding: '0 8px', fontSize: 16, lineHeight: 1, fontWeight: 700 }}
+                                  aria-label="Open reports for this run"
+                                  title="Open run reports"
+                                  onClick={(e) => openReports(e, r)}
+                                >⋯</button>
+                              )}
+                            </div>
                           ) : (
                             <span style={{ color: 'var(--text-faint)' }}>—</span>
                           )}

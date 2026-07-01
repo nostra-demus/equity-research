@@ -5,7 +5,7 @@ import { downstreamCascade, type CascadeNode } from './cascade'
 import { displayHeadline, originalHeadline, plainRoute, plainStage } from './plain'
 import type { Theme, ThemeDetail, ThemeBrief } from './themes'
 import { intensityWindowForHours } from './themes'
-import type { ActiveRunLite, AgentNode, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
+import type { ActiveRunLite, AgentNode, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
 import { feedbackInputFromItem, feedbackLabel } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
 import { emptyReviewFilters, matchesReviewFilters, type ReviewFilterState } from '../components/screener/ReviewFilters'
@@ -173,6 +173,7 @@ interface State {
   nodeRuntime: Record<string, NodeRuntime>
   now: number // shared 1s clock for every live timer (orb/module/panel/tooltip); ticked only while orbs run
   activeRuns: Record<string, ActiveRun> // selected-ticker live runs (+ just-finished, until next switch)
+  resumableRuns: ResumableRunInfo[] // disk-truth set of interrupted runs the cockpit can resume (all swarms)
   activeRunsByTicker: Set<string>
   chainTickers: Set<string> // tickers whose full run is a per-module CHAIN — defer the "complete" celebration to the master step
   selectToken: number
@@ -259,6 +260,11 @@ interface State {
   addCompany: (ticker: string) => Promise<boolean>
   uploadFiles: (ticker: string, files: File[]) => Promise<void>
   refreshActiveRuns: () => Promise<void>
+  // disk-truth resumable set (interrupted runs across all swarms) + the manual Resume trigger. The
+  // Activity log and the orb view join their rows/subjects against `resumableRuns` to show a Resume
+  // affordance; `resumeRun` relaunches the unit into its existing folder, continuing from work on disk.
+  refreshResumable: () => Promise<void>
+  resumeRun: (info: ResumableRunInfo) => Promise<void>
   checkCredit: () => Promise<void>
   selectNode: (key: string | null) => void
   setNow: (n: number) => void
@@ -477,6 +483,7 @@ export const useStore = create<State>((set, get) => ({
   nodeRuntime: {},
   now: Date.now(),
   activeRuns: {},
+  resumableRuns: [],
   activeRunsByTicker: new Set(),
   chainTickers: new Set(),
   selectToken: 0,
@@ -652,6 +659,7 @@ export const useStore = create<State>((set, get) => ({
     const graph = isResearch ? await api.swarm(t) : await api.swarmGraph(sw, t)
     if (get().selectToken !== token) return // a newer selection superseded this one
     set({ graph, nodesByKey: flatten(graph) })
+    void get().refreshResumable() // so the orb-view Resume chip knows if this subject has an interrupted run
     if (isResearch) await get().refreshData()
     if (get().selectToken !== token) return
     // seed prior-run results into the swarm
@@ -765,6 +773,55 @@ export const useStore = create<State>((set, get) => ({
       }
       schedulePoll(get, active.length > 0)
     } catch {}
+  },
+
+  // Pull the disk-truth set of interrupted runs the cockpit can resume (all swarms). Cheap, read-only;
+  // the Activity log refreshes it alongside its rows, and the orb view refreshes it on subject select.
+  refreshResumable: async () => {
+    if (get().staticMode) return
+    try {
+      const { runs } = await api.resumable()
+      set({ resumableRuns: runs })
+    } catch {}
+  },
+
+  // Manually resume ONE interrupted run — relaunch the same unit into its existing run folder so the
+  // engine continues from the work already on disk (finished modules/agents are skipped). Mirrors the
+  // screener's continueSignal; usable from the Activity log (any subject) and the orb view (this subject).
+  resumeRun: async (info) => {
+    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' })
+    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    // Screener signals resume through their own path — it keeps the finished orbs and re-queues the rest.
+    if (info.kind === 'signal') { await get().continueSignal(info.subject); return }
+    const swarm = info.swarm && info.swarm !== 'research' ? info.swarm : undefined
+    const label = info.label || info.subject
+    const doResume = async (force?: boolean) => {
+      try {
+        const body: { kind: string; ticker: string; module?: string; confirmTicker?: string; force?: boolean; swarm?: string } =
+          { kind: info.kind, ticker: info.subject, module: info.module, force, swarm }
+        if (info.kind === 'full') body.confirmTicker = info.subject // the server requires a typed confirm for a full run
+        const { runId, chained } = await api.launch(body)
+        if (chained) set({ chainTickers: new Set(get().chainTickers).add(info.subject) })
+        // If the resumed subject is the one on screen, light up its orbs and follow live (beginRun keys off
+        // the selected ticker). Otherwise just attach the stream + refresh — the Activity log row settles on
+        // its own, and the user can select the subject to watch it run.
+        const onScreen = info.subject === get().selectedTicker && get().activeSwarm === (info.swarm || 'research')
+        if (onScreen) {
+          const planned = info.kind === 'module' && info.module
+            ? [...get().nodesByKey.values()].filter((n) => n.module === info.module).map((n) => n.key)
+            : [...get().nodesByKey.keys()]
+          beginRun(set, get, runId, { kind: info.kind, module: info.module, willCommitToMain: true }, planned)
+        } else {
+          connectRun(get, runId)
+          void get().refreshActiveRuns()
+        }
+        void get().refreshResumable()
+        get().setToast({ msg: `Resuming ${label} — picking up where it stopped`, tone: 'good' })
+      } catch (e: any) {
+        launchErrorToast(get, e, info.subject, `resume of ${label}`, force ? undefined : () => doResume(true))
+      }
+    }
+    await doResume()
   },
 
   checkCredit: async () => {

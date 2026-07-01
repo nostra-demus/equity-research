@@ -670,6 +670,8 @@ export interface ActivityRow {
   kind: RunKind
   ticker: string // the run's subject id: a ticker for research, a SIG-… id (or thesisId::TICKER) for swarm runs
   subjectLabel?: string // human-readable Company-column label when the raw ticker is an opaque subject id
+  swarm?: string // swarm id (from the launched event) — routes a Resume relaunch to the right swarm
+  chained?: boolean // this run was a step of a chained full run — Resume continues the whole pipeline
   runRoot?: string // repo-relative run folder (from the launched event) — drives the row's "open reports" menu
   module?: string
   agent?: string
@@ -681,6 +683,20 @@ export interface ActivityRow {
   durationMs?: number
   numTurns?: number
   note?: string
+}
+
+// One run the cockpit can resume right now (GET /api/resumable). The Activity log and orb view join
+// their rows/subjects against this set to decide where to show a "Resume" affordance.
+export interface ResumableRunInfo {
+  swarm: string
+  subject: string // ticker / SIG id / commodity name — the launch subject
+  runRoot: string // repo-relative run folder
+  kind: RunKind // 'full' | 'module' | 'signal' — the launch kind that continues this unit
+  module?: string // present for a module-level resume
+  doneCount: number
+  totalCount: number
+  unit: 'module' | 'agent' // whether the counts are modules-done (full/signal) or agents-done (module)
+  label?: string // human label (e.g. the signal headline) when the raw subject id isn't the best name
 }
 export interface ActivityQuery {
   from?: number

@@ -20,6 +20,8 @@ export interface ActivityEvent {
   userVia: 'cf-access' | 'local'
   kind: RunKind // full | module | agent | rerun
   ticker: string
+  swarm?: string // swarm id ('research' default, or a SWARM.md id like 'commodity') — lets Resume route the relaunch
+  chained?: boolean // this run is a step of a chained full run — Resume continues the WHOLE pipeline, not just this step
   runRoot?: string // repo-relative run folder (launched event) — lets the activity row open the run's reports
   module?: string
   agent?: string
@@ -41,6 +43,8 @@ export interface ActivityRow {
   ticker: string // the run's SUBJECT id: a ticker for research, a SIG-… id (or thesisId::TICKER) for swarm runs
   subjectLabel?: string // human-readable subject for the Company column — the company/headline a SIG-… run
   // concerns, or the target ticker of a handoff. Absent when the raw ticker is already the best label.
+  swarm?: string // swarm id (from the launched event) — routes a Resume relaunch to the right swarm
+  chained?: boolean // this run was a step of a chained full run — Resume continues the whole pipeline
   runRoot?: string // repo-relative run folder (from the launched event) — drives the row's "open reports" menu
   module?: string
   agent?: string
@@ -141,6 +145,8 @@ function foldRows(events: ActivityEvent[]): ActivityRow[] {
         userVia: ev.userVia,
         kind: ev.kind,
         ticker: ev.ticker,
+        swarm: ev.swarm,
+        chained: ev.chained,
         runRoot: ev.runRoot,
         module: ev.module,
         agent: ev.agent,
@@ -157,6 +163,8 @@ function foldRows(events: ActivityEvent[]): ActivityRow[] {
       row.userVia = ev.userVia
       row.kind = ev.kind
       row.ticker = ev.ticker
+      row.swarm = ev.swarm
+      row.chained = ev.chained
       row.runRoot = ev.runRoot
       row.module = ev.module
       row.agent = ev.agent

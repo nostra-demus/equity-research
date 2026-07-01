@@ -716,6 +716,30 @@ a { color: inherit; }
 .apill { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 600; white-space: nowrap; transition: color var(--dur-fast) var(--ease); }
 .apill__dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; transition: background-color var(--dur-fast) var(--ease); }
 
+/* per-row actions (Resume + reports ⋯) — right-aligned in the actions column */
+.arow-actions { display: inline-flex; align-items: center; justify-content: flex-end; gap: 6px; }
+/* Resume: continue an interrupted run from work already on disk. A warm pill matching the "Run anyway"
+   toast action, so the two recovery affordances read as one family. Motion is transform/opacity only. */
+.aresume {
+  display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 10px; border-radius: var(--r-pill);
+  border: 1px solid var(--accent-deep); background: var(--accent-wash); color: var(--accent-bright);
+  font: inherit; font-size: 11.5px; font-weight: 600; white-space: nowrap; cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+.aresume__glyph { font-size: 10px; line-height: 1; transition: transform var(--dur-fast) var(--ease-out); }
+@media (hover: hover) and (pointer: fine) {
+  .aresume:hover { background: var(--accent-wash-soft); border-color: var(--accent); }
+  .aresume:hover .aresume__glyph { transform: translateX(2px); }
+}
+.aresume:active { transform: scale(0.97); }
+.aresume:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* topbar variant: taller to align with the command-bar buttons, with a done/total meta count */
+.aresume--bar { height: 30px; padding: 0 12px; font-size: 12.5px; }
+.aresume--bar:disabled { opacity: 0.5; cursor: not-allowed; }
+@media (hover: hover) and (pointer: fine) { .aresume--bar:disabled:hover { background: var(--accent-wash); border-color: var(--accent-deep); } }
+.aresume--bar:disabled:active { transform: none; }
+.aresume__meta { font-family: var(--font-mono); font-size: 11px; opacity: 0.85; margin-left: 2px; }
+
 /* ---------- empty / upload state ---------- */
 .empty {
   position: absolute; inset: 0; display: grid; place-items: center; z-index: 2; padding: 24px;
