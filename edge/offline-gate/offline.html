@@ -3,8 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta http-equiv="refresh" content="15" />
-<title>System offline · Nostradamus</title>
+<title>Reconnecting · Nostradamus</title>
 <style>
   :root {
     --bg:#0e0e10; --surface:#141417; --hairline:#26262b; --hairline-strong:#34343b;
@@ -28,14 +27,18 @@
   @keyframes rise { to { opacity: 1; transform: none; } }
   .mark { width: 34px; height: 34px; margin: 0 auto 18px; display: block; }
   h1 { font-size: 18px; font-weight: 600; margin: 0 0 10px; letter-spacing: 0.2px; }
-  p { font-size: 13.5px; line-height: 1.6; color: var(--muted); margin: 0 auto; max-width: 35ch; }
+  p { font-size: 13.5px; line-height: 1.6; color: var(--muted); margin: 0 auto; max-width: 37ch; }
   .status { margin-top: 22px; font-size: 12px; color: var(--faint); display: inline-flex; align-items: center; gap: 8px; }
+  /* the pulsing dot is amber while we're merely reconnecting (a restart/redeploy is the common case), and
+     only turns red once the outage has outlasted the grace window (a genuinely asleep/offline machine). */
   .dot {
-    width: 9px; height: 9px; border-radius: 50%; background: var(--bad);
-    box-shadow: 0 0 0 0 rgba(201,81,78,0.5); animation: pulse 1.8s var(--ease-out) infinite;
+    --ring: rgba(224,163,62,0.5); width: 9px; height: 9px; border-radius: 50%; background: var(--accent);
+    box-shadow: 0 0 0 0 var(--ring); animation: pulse 1.8s var(--ease-out) infinite;
+    transition: background 240ms var(--ease-out);
   }
+  .card.down .dot { --ring: rgba(201,81,78,0.5); background: var(--bad); }
   @keyframes pulse {
-    0% { box-shadow: 0 0 0 0 rgba(201,81,78,0.45); }
+    0% { box-shadow: 0 0 0 0 var(--ring); }
     70% { box-shadow: 0 0 0 9px transparent; }
     100% { box-shadow: 0 0 0 0 transparent; }
   }
@@ -44,7 +47,7 @@
 </style>
 </head>
 <body>
-  <main class="card" role="alert" aria-live="polite">
+  <main class="card" id="card" role="alert" aria-live="polite">
     <svg class="mark" viewBox="0 0 18 18" fill="none" aria-hidden="true">
       <circle cx="9" cy="9" r="7.5" stroke="#34343b" />
       <circle cx="9" cy="9" r="2.4" fill="#e0a33e" />
@@ -52,17 +55,42 @@
       <circle cx="15.4" cy="12.6" r="1.1" fill="#56565f" />
       <circle cx="2.6" cy="12.6" r="1.1" fill="#56565f" />
     </svg>
-    <h1>System offline</h1>
-    <p>The research engine’s machine is asleep or offline. This page will reconnect automatically when the engine is back online.</p>
-    <div class="status"><span class="dot"></span><span id="s">Checking every few seconds…</span></div>
+    <h1 id="h">Reconnecting…</h1>
+    <p id="p">The research engine is briefly unreachable — it may be restarting after an update. This page will jump back automatically the moment it’s ready.</p>
+    <div class="status"><span class="dot"></span><span id="s">Trying to reconnect…</span></div>
     <div class="brandname">Nostradamus Swarm</div>
-    <noscript><p style="margin-top:16px; color:#56565f;">Auto-refreshing every 15 seconds.</p></noscript>
+    <noscript>
+      <meta http-equiv="refresh" content="15" />
+      <p style="margin-top:16px; color:#56565f;">Auto-refreshing every 15 seconds.</p>
+    </noscript>
   </main>
   <script>
-    var s = document.getElementById('s');
-    var reloading = false;
-    // Reload ONLY on a real healthy engine ({ok:true} JSON) — never on the Worker's own 503 marker
-    // or a Cloudflare/Access HTML page, which would cause a reload loop.
+    var h = document.getElementById('h'), p = document.getElementById('p'), s = document.getElementById('s');
+    var card = document.getElementById('card');
+    var reloading = false, escalated = false;
+    // Distinguish a short restart/redeploy (~15-30s) from a genuinely asleep/offline machine. We only
+    // ESCALATE the copy to the alarming "System offline" after the outage has continuously outlasted this
+    // grace window; before that we stay on the calm "Reconnecting…" wording. The first-failure time is kept
+    // in sessionStorage so a reload during the same outage keeps the clock (and escalates immediately if the
+    // outage is already old), instead of resetting the grace on every reload.
+    var GRACE_MS = 45000;
+    var since = parseInt(sessionStorage.getItem('nos_offline_since') || '', 10);
+    if (!since) { since = Date.now(); try { sessionStorage.setItem('nos_offline_since', String(since)); } catch (e) {} }
+
+    function escalate() {
+      if (escalated) return;
+      escalated = true;
+      card.classList.add('down');
+      document.title = 'System offline · Nostradamus';
+      h.textContent = 'System offline';
+      p.textContent = 'The research engine’s machine looks asleep or offline. This page will reconnect automatically the moment it’s back online.';
+      s.textContent = 'Checking every few seconds…';
+    }
+    function maybeEscalate() { if (Date.now() - since >= GRACE_MS) escalate(); }
+    maybeEscalate(); // a reload mid-outage should show the true (escalated) state at once
+
+    // Reload ONLY on a real healthy engine ({ok:true} JSON) — never on the Worker's own 503 marker or a
+    // Cloudflare/Access HTML page, which would cause a reload loop.
     async function check() {
       if (reloading) return;
       try {
@@ -70,9 +98,16 @@
         var ct = r.headers.get('content-type') || '';
         if (r.ok && ct.indexOf('application/json') !== -1) {
           var j = await r.json().catch(function () { return null; });
-          if (j && j.ok === true) { reloading = true; s.textContent = 'Back online — reloading…'; location.reload(); return; }
+          if (j && j.ok === true) {
+            reloading = true;
+            try { sessionStorage.removeItem('nos_offline_since'); } catch (e) {}
+            s.textContent = 'Back online — reloading…';
+            location.reload();
+            return;
+          }
         }
       } catch (e) { /* still offline */ }
+      maybeEscalate();
     }
     // Poll fast so the page jumps back the instant the engine returns, and probe IMMEDIATELY whenever the
     // visitor refocuses the tab or their network comes back — no waiting for the next interval.
