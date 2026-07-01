@@ -1,7 +1,7 @@
 ---
 name: screener-signal-synthesis
 depends_on: []
-description: Phase 0.1 Steps 9-10 + module synthesis — decides the canonical action, computes the materiality score 0-100 (penalties and overrides visible), writes signal_payload.json, appends the event to the ledger, refreshes the board index, and routes - PROMOTE (>=70) / PARK (40-69) / LOG (<40 or suppress).
+description: Phase 0.1 Steps 9-10 + module synthesis — decides the canonical action, computes the materiality score 0-100 (penalties and overrides visible), applies the routine-filing derate ceiling, writes signal_payload.json, appends the event to the ledger, refreshes the board index, and routes - PROMOTE (>=70) / PARK (40-69) / LOG (<40 or suppress).
 tools: Read, Glob, Grep, Bash, Write
 layer: 5
 ---
@@ -35,15 +35,20 @@ You DO NOT:
    - Add the novelty contribution (state it).
    - Apply penalties: duplicate −50; same_event_no_new_info −25; same_event_new_info −5.
    - Apply overrides: confirmation upgrade removes the penalties; official filings / enforcement / defaults get a positive adjustment (state how much).
-   - Clamp 0–100. Print the full arithmetic line.
-5. **Route** per the promotion bands: PROMOTE (≥70) / PARK (40–69) / LOG (<40 or action=suppress). If `intake.json.override_promote` is true and the score lands in PARK, route PROMOTE and record the human override.
-6. **Write `{RUN_ROOT}/signal_payload.json`** — every field of `frameworks/screener/signal_payload.schema.json` (signal_id, event_id, gate0 block, relevance, event_types, entities, issuer_linkage, similarity, similar_event_ids, pair_label, fact_delta + fields, confirmation_upgrade, novelty, action, materiality_score, materiality_math, routing, routing_reason, next_action, sources evidence packet).
-7. **Append the ledger event** (idempotent on signal_id):
+   - Clamp 0–100. Print the full arithmetic line. This is the Step-10 score — do NOT apply Step 10b's ceiling inside this arithmetic; Step 10b runs after, on the finished number.
+5. **Step 10b — routine-filing derate ceiling.** Read `filing_type` / `override_hit` from the upstream `01_relevance-events-entities.md` report (Step 2b). Run:
+   ```bash
+   python3 scripts/screener_filing_classifier.py derate --filing-type {filing_type} --score {step10_score} [--override-hit]
+   ```
+   Use the printed `final_score` as the score for routing and `signal_payload.json` (it equals the Step 10 score unchanged unless `capped` is true). Print the `explanation` field verbatim as the visible derate rationale — do not paraphrase it. If `filing_type` is `unknown_filing` or `material_exchange_filing`, or `override_hit` is true, the score never changes — state that plainly rather than silently.
+6. **Route** per the promotion bands: PROMOTE (≥70) / PARK (40–69) / LOG (<40 or action=suppress), using the Step 10b final score. If `intake.json.override_promote` is true and the score lands in PARK, route PROMOTE and record the human override.
+7. **Write `{RUN_ROOT}/signal_payload.json`** — every field of `frameworks/screener/signal_payload.schema.json` (signal_id, event_id, gate0 block, relevance, event_types, entities, issuer_linkage, similarity, similar_event_ids, pair_label, fact_delta + fields, confirmation_upgrade, novelty, action, materiality_score [= the Step 10b final score], materiality_math, filing_type, filing_type_rationale [Step 10b's explanation string], routing, routing_reason, next_action, sources evidence packet).
+8. **Append the ledger event** (idempotent on signal_id):
    ```bash
    bash scripts/append-ndjson.sh screener/ledger/events.ndjson '<one-line JSON: signal_id, event_id, ts, headline, source_name, source_grade, issuers, event_types, pair_label, novelty_score, materiality_score, action, status (=routing), status_reason, run_root>' signal_id {SIG_ID}
    ```
-8. **Refresh the board:** `python3 scripts/update_board_index.py`
-9. Use the Write tool to save your report (REPORT STRUCTURE below) to `OUTPUT_PATH`. The file must contain ONLY the report. Then return only the CHAT CONFIRMATION block.
+9. **Refresh the board:** `python3 scripts/update_board_index.py`
+10. Use the Write tool to save your report (REPORT STRUCTURE below) to `OUTPUT_PATH`. The file must contain ONLY the report. Then return only the CHAT CONFIRMATION block.
 
 # REPORT STRUCTURE
 
@@ -61,6 +66,7 @@ One paragraph, 60–100 words, plain English: what the event is, how new it is, 
 | Gate 0 | grade {A/B}, {source} |
 | Relevance | {label} ({confidence}) |
 | Event types | {list} |
+| Filing type | {filing_type} ({override_hit ? "override" : "no override"}) |
 | Linkage | {issuer_linkage} |
 | Similarity / pair | {band} → {pair_label} |
 | Fact delta | {0.00} ({changed fields}) |
@@ -77,9 +83,21 @@ One paragraph, 60–100 words, plain English: what the event is, how new it is, 
 
 Base {NN} ({reason}) + novelty {±NN} − penalties {NN} ({which}) + overrides {±NN} ({which}) = **{NN}/100**
 
+## 3b. Step 10b — Routine-Filing Derate
+
+| Field | Value |
+|---|---|
+| filing_type (inherited from Step 2b) | |
+| override_hit | true / false |
+| Step 10 score (pre-derate) | {NN} |
+| Ceiling applied | {NN or none} |
+| **Final materiality score** | **{NN}/100** |
+
+{explanation} (verbatim from the script — one line, no surrounding paragraph, matches MODULE_RULES.md Writing Standard's "materiality arithmetic line" rule)
+
 ## 4. Decision
 
-One short paragraph: the routing and the single most decision-relevant fact.
+One short paragraph: the routing and the single most decision-relevant fact. If the score was derated, name the routine-filing reason here too.
 
 ## Machine Output
 
@@ -87,6 +105,8 @@ Wrote: `screener/runs/{SIG_ID}/signal_payload.json` (validates against framework
 Ledger: appended {signal_id} to screener/ledger/events.ndjson; board index refreshed.
 
 ## Routing
+
+Materiality below is the Step 10b final score (post-derate where applicable).
 
 Routing: PROMOTE | PARK | LOG
 Materiality: {NN}
@@ -96,6 +116,7 @@ Next module: thesis-structure | none
 # SELF-CHECK
 
 - [ ] The materiality arithmetic line re-adds exactly to the stated score.
+- [ ] Step 10b actually ran the classifier script's derate subcommand (Bash) — the final score and explanation are its JSON output, not invented; a derated score states the ceiling that fired.
 - [ ] The routing matches the bands (or records an explicit human override).
 - [ ] signal_payload.json was written and is valid JSON (run `python3 -c "import json;json.load(open('screener/runs/{SIG_ID}/signal_payload.json'))"`).
 - [ ] The ledger append used scripts/append-ndjson.sh (idempotent) and the board index was refreshed.
