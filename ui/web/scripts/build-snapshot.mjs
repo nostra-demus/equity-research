@@ -20,14 +20,27 @@ const prettify = (s) => s.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCa
 const trunc = (s, n = 240) => (s.length > n ? s.slice(0, n - 1).trimEnd() + '…' : s)
 
 // ---- minimal frontmatter parser (name/description/tools/layer/fail_fast/depends_on) ----
+// Handles scalars, inline flow sequences (`depends_on: [a, b]`) AND YAML block sequences (a bare
+// `depends_on:` followed by indented `- item` lines) — the latter so this matches gray-matter, which
+// the live server uses (roster.ts). Without block-sequence support a module declaring its
+// `depends_on` in block form (e.g. commodity-thesis) would lose its dependency edges here.
 function parseFrontmatter(raw) {
   const m = raw.match(/^---\s*\n([\s\S]*?)\n---\s*\n?([\s\S]*)$/)
   if (!m) return { data: {}, body: raw }
   const data = {}
-  for (const line of m[1].split(/\r?\n/)) {
-    const kv = line.match(/^([A-Za-z_][\w-]*):\s*(.*)$/)
+  const lines = m[1].split(/\r?\n/)
+  const unq = (s) => s.replace(/^['"]|['"]$/g, '')
+  for (let i = 0; i < lines.length; i++) {
+    const kv = lines[i].match(/^([A-Za-z_][\w-]*):\s*(.*)$/)
     if (!kv) continue
     let v = kv[2].trim()
+    if (v === '') {
+      // A bare key may open a YAML block sequence: subsequent indented `- item` lines.
+      const seq = []
+      let j = i + 1
+      while (j < lines.length && /^\s+-\s+/.test(lines[j])) { seq.push(unq(lines[j].replace(/^\s+-\s+/, '').trim())); j++ }
+      if (seq.length) { data[kv[1]] = seq; i = j - 1; continue }
+    }
     if (/^\[.*\]$/.test(v)) v = v.slice(1, -1).split(',').map((x) => x.trim()).filter(Boolean)
     else if (v === 'true') v = true
     else if (v === 'false') v = false
@@ -128,16 +141,82 @@ function buildSwarmGraph(rootDir = AGENTS, swarmMeta = null) {
   return graph
 }
 
-// ---- screener swarm (static showcase): manifest, graph, board index, fixture run markdown ----
-// Mirrors the live /api/swarms + /api/swarm?swarm= + /api/screener/* readers so the Pages deploy
-// can demo the gauntlet + Pipeline board read-only. Everything is best-effort: a repo without the
-// screener simply yields a research-only snapshot.
+// ---- generic swarm discovery (static showcase) ----
+// Mirrors ui/server/src/swarms.ts (parseManifest / listSwarms) + roster.swarmSubjects so the Pages
+// deploy exposes EVERY swarm the live engine does — its SwarmMeta (the switcher), its subject ids
+// (the picker), and its built graph (the constellation). Zero-touch/self-describing per CLAUDE.md
+// §26: no swarm id is hardcoded — 'commodity' and any future swarm are picked up by convention, the
+// same way the server globs `*/SWARM.md`. 'research' stays the grandfathered flat-module default.
+const RESEARCH_SWARM = { id: 'research', label: 'Research', color: '#c0851d', unit: 'ticker', order: 1, layout: 'constellation' }
+const unquote = (s) => String(s).replace(/^['"]|['"]$/g, '')
+function discoverSwarmManifests() {
+  const out = []
+  for (const d of fs.readdirSync(AGENTS).filter((d) => isDir(path.join(AGENTS, d)))) {
+    const manifestPath = path.join(AGENTS, d, 'SWARM.md')
+    if (!isFile(manifestPath)) continue
+    const { data } = parseFrontmatter(fs.readFileSync(manifestPath, 'utf8'))
+    const id = unquote(data.id ?? d).trim()
+    if (!id || id === RESEARCH_SWARM.id) continue // 'research' is reserved for the grandfathered default
+    const runRootTemplate = unquote(data.run_root_template ?? '').trim()
+    if (!runRootTemplate) continue // a swarm without a run-root template cannot host runs
+    const str = (v, def) => (v != null && unquote(v).trim() ? unquote(v).trim() : def)
+    const runsRootDefault = path.dirname(runRootTemplate.split('{')[0].replace(/\/+$/, ''))
+    out.push({
+      dir: path.join(AGENTS, d),
+      meta: {
+        id,
+        label: str(data.label, id),
+        color: str(data.color, '#1499ab'),
+        unit: str(data.unit, 'signal'),
+        order: Number.isFinite(Number(data.order)) ? Number(data.order) : 99,
+        layout: str(data.layout, 'flow'),
+      },
+      runsRoot: str(data.runs_root, runsRootDefault),
+      subjectsSource: str(data.subjects_source, ''),
+    })
+  }
+  return out.sort((a, b) => a.meta.order - b.meta.order || a.meta.id.localeCompare(b.meta.id))
+}
+
+// Subjects of a non-research swarm (mirrors roster.swarmSubjects): the union of existing run-folder
+// names under the swarm's runsRoot and the `## <NAME>` headings in its declared subjects_source
+// markdown (so a not-yet-run subject is still selectable). Sorted, unique.
+function swarmSubjectsFor(sw) {
+  const out = new Set()
+  const runsAbs = path.join(REPO, sw.runsRoot)
+  if (isDir(runsAbs)) for (const d of fs.readdirSync(runsAbs)) { if (isDir(path.join(runsAbs, d))) out.add(d) }
+  if (sw.subjectsSource) {
+    try {
+      const txt = fs.readFileSync(path.join(REPO, sw.subjectsSource), 'utf8')
+      for (const m of txt.matchAll(/^##\s+([A-Z0-9][A-Z0-9.\-]{0,14})\s*$/gm)) out.add(m[1])
+    } catch { /* no subjects source on disk */ }
+  }
+  return [...out].sort()
+}
+
+// The full swarm surface for the snapshot: research (grandfathered default) first, then every
+// discovered non-research swarm's SwarmMeta + subject ids + built graph. What the static api.ts reads
+// as snap.swarms / snap.swarmSubjects / snap.swarmGraphs.
+function buildSwarms() {
+  const swarms = [RESEARCH_SWARM]
+  const swarmGraphs = {}
+  const swarmSubjects = {}
+  for (const sw of discoverSwarmManifests()) {
+    swarms.push(sw.meta)
+    swarmGraphs[sw.meta.id] = buildSwarmGraph(sw.dir, sw.meta)
+    swarmSubjects[sw.meta.id] = swarmSubjectsFor(sw)
+  }
+  return { swarms, swarmGraphs, swarmSubjects }
+}
+
+// ---- screener swarm (static showcase): board index + fixture run markdown ----
+// The screener's SwarmMeta + graph now come from buildSwarms() (generic). This adds only the
+// screener-SPECIFIC surface the Pipeline board demo needs (board index, per-signal run markdown,
+// ledger theses/candidates), mirroring the live /api/screener/* readers. Best-effort: a repo
+// without the screener simply omits these keys.
 function buildScreenerStatic() {
   const manifestPath = path.join(AGENTS, 'screener', 'SWARM.md')
   if (!isFile(manifestPath)) return null
-  const { data } = parseFrontmatter(fs.readFileSync(manifestPath, 'utf8'))
-  const meta = { id: String(data.id || 'screener'), label: String(data.label || 'Screener'), color: String(data.color || '#1499ab'), unit: String(data.unit || 'signal'), order: Number(data.order) || 2, layout: String(data.layout || 'flow') }
-  const graph = buildSwarmGraph(path.join(AGENTS, 'screener'), meta)
   const SCREENER = path.join(REPO, 'screener')
   let board = null
   const boardPath = path.join(SCREENER, 'board', 'index.json')
@@ -170,7 +249,7 @@ function buildScreenerStatic() {
       intake: loadJSON(path.join(runAbs, 'intake.json')), signalPayload: loadJSON(path.join(runAbs, 'signal_payload.json')),
       thesisRecord: loadJSON(path.join(runAbs, 'thesis_record.json')), candidates: loadJSON(path.join(runAbs, 'candidates.json')) }
   }
-  return { swarms: [{ id: 'research', label: 'Research', color: '#c0851d', unit: 'ticker', order: 1, layout: 'constellation' }, meta], swarmGraphs: { screener: graph }, screenerBoard: board, screenerRuns: runs, screenerTheses: theses, screenerCandidates: candidates }
+  return { screenerBoard: board, screenerRuns: runs, screenerTheses: theses, screenerCandidates: candidates }
 }
 
 // ---- per-ticker run data ----
@@ -386,8 +465,10 @@ for (const t of tickerNames) {
 }
 
 const callsData = buildCalls()
+const { swarms, swarmGraphs, swarmSubjects } = buildSwarms()
 fs.rmSync(path.join(DEST, 'screener'), { recursive: true, force: true })
 const screenerStatic = buildScreenerStatic()
-const snapshot = { static: true, swarmGraph, tickers, emptyState: tickers.length === 0, dataDir: 'bundled snapshot (static deploy)', dataStatus, runs, decisions, finalThesis, calls: callsData.calls, dashboard: callsData.dashboard, ...(screenerStatic || {}), generatedAt: new Date().toISOString() }
+const snapshot = { static: true, swarmGraph, swarms, swarmGraphs, swarmSubjects, tickers, emptyState: tickers.length === 0, dataDir: 'bundled snapshot (static deploy)', dataStatus, runs, decisions, finalThesis, calls: callsData.calls, dashboard: callsData.dashboard, ...(screenerStatic || {}), generatedAt: new Date().toISOString() }
 fs.writeFileSync(path.join(DEST, 'snapshot.json'), JSON.stringify(snapshot))
-console.log(`[build-snapshot] swarm: ${swarmGraph.totals.modules} modules / ${swarmGraph.totals.agents} agents · ${promptCount} prompts · ${callsData.calls.length} calls · tickers: ${tickers.map((t) => t.ticker).join(', ')}${screenerStatic ? ` · screener: ${screenerStatic.swarmGraphs.screener.totals.modules} modules / ${Object.keys(screenerStatic.screenerRuns).length} runs` : ''} -> ui/web/public/data/`)
+const swarmSummary = swarms.filter((s) => s.id !== 'research').map((s) => `${s.id} (${swarmGraphs[s.id]?.totals.modules ?? 0}m / ${(swarmSubjects[s.id] || []).length} subj)`).join(', ')
+console.log(`[build-snapshot] swarm: ${swarmGraph.totals.modules} modules / ${swarmGraph.totals.agents} agents · ${promptCount} prompts · ${callsData.calls.length} calls · tickers: ${tickers.map((t) => t.ticker).join(', ')}${swarmSummary ? ` · swarms: ${swarmSummary}` : ''}${screenerStatic ? ` · screener runs: ${Object.keys(screenerStatic.screenerRuns).length}` : ''} -> ui/web/public/data/`)
