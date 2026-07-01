@@ -1,0 +1,28 @@
+{
+  "swarm": "commodity",
+  "commodity": "GOLD",
+  "decision_date": "2026-06-30",
+  "action": "Hold",
+  "benchmark": "LBMA Gold Price / COMEX front-month (USD/oz)",
+  "current_price": { "value": 2320, "currency": "USD", "unit": "troy ounce", "as_of": "2026-06-30" },
+  "curve": "contango",
+  "balance": "balanced",
+  "net_macro": "mixed",
+  "positioning": "crowded long",
+  "thesis_summary": "Structural bull case (inelastic supply, high central-bank buying, safe-haven bid) is largely priced; macro mixed and positioning crowded, so hold the core hedge but do not add.",
+  "key_risks": [
+    "Rising real yields / firmer USD unwind the crowded long",
+    "Hawkish rate surprise (higher-for-longer) lifts 10y real yields",
+    "Central-bank buying slows"
+  ],
+  "key_levels": { "support": 2250, "resistance": 2430, "fair_value_range": "2150-2450 (illustrative, real-yield implied)" },
+  "relative_view": "Gold is a macro/monetary hedge with a comfortable buffer; a crowded long caps the case for adding vs a fresher, weather/policy-driven exposure like sugar.",
+  "confidence": 55,
+  "sources": [
+    "COMMODITY_PROFILES.md ## GOLD",
+    "WGC Gold Demand Trends (illustrative)",
+    "FRED DFII10 / DXY (illustrative)",
+    "CFTC COT (illustrative)"
+  ],
+  "_fixture": true
+}

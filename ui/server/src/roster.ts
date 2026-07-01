@@ -211,6 +211,28 @@ export function findRunRootForSubject(swarmId: string, subjectId: string): strin
   return fs.existsSync(abs) ? abs : null
 }
 
+// Subjects (units of work) of a NON-research swarm, for the cockpit subject picker: the union of
+// (a) existing run folders under the swarm's runsRoot, and (b) the `## <NAME>` headings in the swarm's
+// declared `subjects_source` markdown (so a not-yet-run subject is still selectable). Generic — no
+// subject or swarm name is hardcoded (CLAUDE.md §26); research uses /api/tickers instead. Sorted, unique.
+export function swarmSubjects(swarmId: string): string[] {
+  const swarm = swarmById(swarmId)
+  if (!swarm || swarm.id === RESEARCH_SWARM_ID) return []
+  const out = new Set<string>()
+  try {
+    for (const d of fs.readdirSync(path.join(REPO_ROOT, swarm.runsRoot), { withFileTypes: true })) {
+      if (d.isDirectory()) out.add(d.name)
+    }
+  } catch { /* no runs yet */ }
+  if (swarm.subjectsSource) {
+    try {
+      const txt = fs.readFileSync(path.join(REPO_ROOT, swarm.subjectsSource), 'utf8')
+      for (const m of txt.matchAll(/^##\s+([A-Z0-9][A-Z0-9.\-]{0,14})\s*$/gm)) out.add(m[1])
+    } catch { /* no subjects source on disk */ }
+  }
+  return [...out].sort()
+}
+
 // Latest dated folder that contains <module>/, mirroring the slash-command resolver
 // `ls -1d analyses/<TICKER>_*/<module>/ | sort -r | head -1`. Absolute path to the module subfolder.
 export function latestModuleFolder(ticker: string, module: string): string | null {

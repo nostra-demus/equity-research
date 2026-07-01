@@ -200,6 +200,14 @@ interface State {
   // ---- swarms (multi-swarm cockpit; research is the grandfathered default) ----
   swarms: SwarmMeta[]
   activeSwarm: string // 'research' | 'screener' | future swarms
+  // which constellation swarm currently owns the SHARED graph/selectedTicker slices (research or a
+  // constellation swarm like commodity). Both use the same constellation UI, so switching between them
+  // must reset the selection — this tracks the owner so a screener detour never clears it.
+  constellationSwarm: string
+  // subjects of the active NON-research constellation swarm (e.g. commodity ids GOLD/SUGAR), for its
+  // subject picker; research uses `tickers`.
+  swarmSubjectList: string[]
+  loadSwarmSubjects: (swarmId: string) => Promise<void>
   // research stage renderer: the 3D globe (default) or the flat 2D constellation. Persisted.
   researchView: 'constellation' | 'globe'
   setResearchView: (v: 'constellation' | 'globe') => void
@@ -290,6 +298,9 @@ interface State {
 
   // ---- swarm/screener actions ----
   switchSwarm: (to: string, opts?: { payloadTicker?: string; landTicker?: string }) => void
+  // land on a swarm: screener boots its board (scInit); a constellation swarm (research/commodity) resets
+  // the shared selection when it changes owner and loads the swarm's subjects. Called on every swarm entry.
+  _enterSwarm: (to: string) => void
   _advanceWarp: () => void
   scInit: () => Promise<void>
   scRefreshBoard: () => Promise<void>
@@ -495,6 +506,8 @@ export const useStore = create<State>((set, get) => ({
   // has no marker and can't load the live wire — seeds research and never flashes cyan→amber. init()
   // makes the authoritative decision once the mode + swarm list resolve.
   activeSwarm: typeof window !== 'undefined' && (window as any).__ENGINE_LIVE__ === true ? 'screener' : 'research',
+  constellationSwarm: 'research',
+  swarmSubjectList: [],
   researchView: loadView(),
   webglOK: true, // optimistic; init() probes and corrects + coerces the view if WebGL is missing
   warp: null,
@@ -618,19 +631,24 @@ export const useStore = create<State>((set, get) => ({
 
   selectTicker: async (t) => {
     closeAllRunSources() // stop the previous company's live streams before anything else (no event bleed)
+    // the active swarm owns this selection: research loads the research graph + data pool; a constellation
+    // swarm (e.g. commodity) loads ITS graph + resolves reads/chat by subject. Non-research subjects have
+    // no research data pool, so dataStatus stays null (its own in-run triage owns sufficiency).
+    const sw = get().activeSwarm
+    const isResearch = sw === 'research'
     const token = ++selectGen
     // keep only still-live runs across tickers (drop finished); the new ticker rebuilds from snapshots
     const activeRuns = Object.fromEntries(Object.entries(get().activeRuns).filter(([, r]) => LIVE_RUN.has(r.status)))
-    chatAbort?.abort(); chatAbort = null // a new company → drop any in-flight chat + its thread
-    set({ selectToken: token, selectedTicker: t, dataStatus: null, dataLoading: true, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], activeRuns, openOutput: null, ...CHAT_RESET })
-    const graph = await api.swarm(t)
+    chatAbort?.abort(); chatAbort = null // a new subject → drop any in-flight chat + its thread
+    set({ selectToken: token, selectedTicker: t, constellationSwarm: sw, dataStatus: null, dataLoading: isResearch, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], activeRuns, openOutput: null, ...CHAT_RESET })
+    const graph = isResearch ? await api.swarm(t) : await api.swarmGraph(sw, t)
     if (get().selectToken !== token) return // a newer selection superseded this one
     set({ graph, nodesByKey: flatten(graph) })
-    await get().refreshData()
+    if (isResearch) await get().refreshData()
     if (get().selectToken !== token) return
     // seed prior-run results into the swarm
     try {
-      const manifest = await api.runManifest(t)
+      const manifest = await api.runManifest(t, undefined, isResearch ? undefined : sw)
       if (get().selectToken !== token) return
       const seed: Record<string, NodeRuntime> = {}
       for (const [, agents] of Object.entries<any>(manifest.modules || {})) {
@@ -640,7 +658,7 @@ export const useStore = create<State>((set, get) => ({
       set({ nodeRuntime: seed, runRoot: manifest.runRoot ?? null, reports: { memo: !!manifest.memo, thesis: !!manifest.finalThesis, dossier: !!manifest.fullDossier }, moduleReports: manifest.moduleReports ?? {} })
     } catch {}
     try {
-      const decision = await api.decision(t)
+      const decision = await api.decision(t, isResearch ? undefined : sw)
       if (get().selectToken !== token) return
       set({ decision })
     } catch {
@@ -766,12 +784,16 @@ export const useStore = create<State>((set, get) => ({
   setNow: (n) => set({ now: n }),
 
   nodeStatus: (key) => {
-    const { nodeRuntime, nodesByKey, dataStatus, selectedTicker } = get()
+    const { nodeRuntime, nodesByKey, dataStatus, selectedTicker, activeSwarm } = get()
     const rt = nodeRuntime[key]
     if (rt) return rt.status
-    if (!selectedTicker || !dataStatus) return 'dormant'
+    if (!selectedTicker) return 'dormant'
     const node = nodesByKey.get(key)
     if (!node) return 'dormant'
+    // a non-research constellation swarm (e.g. commodity) has no research data pool — gate purely on
+    // whether an orb's upstream is present (soloRunnable), never on dataStatus (which is null there).
+    if (activeSwarm !== 'research') return node.soloRunnable ? 'ready' : 'notready'
+    if (!dataStatus) return 'dormant'
     const mod = dataStatus.modules[node.module]
     if (mod?.status === 'Insufficient') return 'locked'
     return node.soloRunnable ? 'ready' : 'notready'
@@ -801,7 +823,7 @@ export const useStore = create<State>((set, get) => ({
     // toast is up (was a cross-ticker force bug).
     const doLaunch = async (f?: boolean) => {
       try {
-        const { runId } = await api.launch({ kind: 'agent', ticker: t, module: node.module, agent: node.name, force: f })
+        const { runId } = await api.launch({ kind: 'agent', ticker: t, module: node.module, agent: node.name, force: f, swarm: get().activeSwarm !== 'research' ? get().activeSwarm : undefined })
         beginRun(set, get, runId, { kind: 'agent', module: node.module, agent: node.name, willCommitToMain: false }, [node.key])
         get().setToast({ msg: `${f ? 'Re-launched' : 'Launched'} ${node.name} on ${t}`, tone: 'good' })
       } catch (e: any) {
@@ -828,7 +850,7 @@ export const useStore = create<State>((set, get) => ({
     // Local launcher capturing `t` so the "Run anyway" retry forces on the ticker that produced the lock.
     const doLaunch = async (f?: boolean) => {
       try {
-        const { runId } = await api.launch({ kind: 'module', ticker: t, module, force: f })
+        const { runId } = await api.launch({ kind: 'module', ticker: t, module, force: f, swarm: get().activeSwarm !== 'research' ? get().activeSwarm : undefined })
         beginRun(set, get, runId, { kind: 'module', module, willCommitToMain: true }, planned)
         get().setToast({ msg: `${f ? 'Re-launched' : 'Launched'} ${module} module on ${t}`, tone: 'good' })
       } catch (e: any) {
@@ -848,7 +870,7 @@ export const useStore = create<State>((set, get) => ({
     const t = get().selectedTicker
     if (!t) return
     if (get().anyRunForTicker(t)) return get().setToast({ msg: `Finish the in-flight run on ${t} first — a full run needs exclusive access`, tone: 'info' })
-    const preflight = await api.estimate('full', t)
+    const preflight = await api.estimate('full', t, undefined, undefined, get().activeSwarm !== 'research' ? get().activeSwarm : undefined)
     set({ launchConfirm: { kind: 'full', preflight } })
   },
 
@@ -859,7 +881,7 @@ export const useStore = create<State>((set, get) => ({
     set({ launchConfirm: null })
     const planned = [...get().nodesByKey.keys()]
     try {
-      const { runId, chained } = await api.launch({ kind: 'full', ticker: t, confirmTicker: t })
+      const { runId, chained } = await api.launch({ kind: 'full', ticker: t, confirmTicker: t, swarm: get().activeSwarm !== 'research' ? get().activeSwarm : undefined })
       // a chained full run is a sequence of per-module runs + master; mark the ticker so run-done defers
       // the "complete" celebration to the master step and the cockpit live-follows every step.
       if (chained) set({ chainTickers: new Set(get().chainTickers).add(t) })
@@ -1035,9 +1057,12 @@ export const useStore = create<State>((set, get) => ({
     const idx = baseline.length + 1 // index of the assistant turn we mutate
     chatAbort?.abort()
     chatAbort = new AbortController()
+    const sw = get().activeSwarm
     await api.chatStream(
       {
         ticker, runRoot: get().runRoot ?? undefined, scope: get().chatScope,
+        // constellation swarm (e.g. commodity): the subject resolves the run folder server-side
+        swarm: sw !== 'research' ? sw : undefined, subject: sw !== 'research' ? ticker : undefined,
         module: get().chatModule, orbPath: get().chatOrbPath, model: get().chatModel, style: get().chatStyle,
         messages: [...baseline, { role: 'user', content: q }],
       },
@@ -1335,7 +1360,7 @@ export const useStore = create<State>((set, get) => ({
     chatAbort?.abort(); chatAbort = null // chat is research-only — leaving the swarm closes it
     if (reduced) {
       set({ activeSwarm: to, warp: null, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, scFocusedCompany: null, newsFeedOpen: false, ...CHAT_RESET })
-      if (to !== 'research') void get().scInit()
+      get()._enterSwarm(to)
       if (opts?.landTicker) void get().selectTicker(opts.landTicker)
       return
     }
@@ -1344,13 +1369,36 @@ export const useStore = create<State>((set, get) => ({
     warpTimer = setTimeout(() => get()._advanceWarp(), 420) // collapse -> traverse
   },
 
+  _enterSwarm: (to) => {
+    const layout = get().swarms.find((s) => s.id === to)?.layout
+    if (layout === 'flow') { void get().scInit(); return } // screener boots its own board + wire
+    // constellation swarm (research or commodity): both share the graph/selectedTicker slices, so reset
+    // the selection when the owner changes (a screener detour leaves constellationSwarm untouched, so
+    // returning to research keeps its selection). Then load the swarm's subject list (commodity only).
+    if (get().constellationSwarm !== to) {
+      set({
+        constellationSwarm: to, selectedTicker: null, graph: null, nodesByKey: new Map(),
+        dataStatus: null, dataLoading: false, nodeRuntime: {}, decision: null, runRoot: null,
+        reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, selectedNodeKey: null, ...CHAT_RESET,
+      })
+    }
+    if (to !== 'research') void get().loadSwarmSubjects(to)
+  },
+
+  loadSwarmSubjects: async (swarmId) => {
+    try {
+      const subjects = await api.swarmSubjects(swarmId)
+      if (get().activeSwarm === swarmId) set({ swarmSubjectList: subjects })
+    } catch { /* keep the prior list on a transient failure */ }
+  },
+
   _advanceWarp: () => {
     const w = get().warp
     if (!w) return
     if (w.phase === 'collapse') {
       // mid-flight: flip the active swarm so the target constellation mounts underneath the void
       set({ warp: { ...w, phase: 'traverse' }, activeSwarm: w.to })
-      if (w.to !== 'research') void get().scInit()
+      get()._enterSwarm(w.to)
       if (w.landTicker) void get().selectTicker(w.landTicker)
       if (warpTimer) clearTimeout(warpTimer)
       warpTimer = setTimeout(() => get()._advanceWarp(), 520)

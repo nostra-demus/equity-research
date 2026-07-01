@@ -21,7 +21,13 @@ import type { AdmissionRejection, LaunchPreflight, ReadinessDecision, ReadinessR
 // the kind->swarm mapping is the only place this file knows the screener exists, and it is driven
 // by the discovered manifest (a missing manifest fails the launch with a clear 404).
 const SCREENER_KINDS = new Set<RunKind>(['signal', 'sweep', 'screener-agent', 'handoff'])
-function swarmIdForKind(kind: RunKind): string {
+// Resolve the swarm for a launch. An explicit `swarm` (from the launch body) wins when it names a
+// discovered, non-research swarm — this is how a generic constellation swarm (e.g. commodity) routes
+// its REUSED full/module/agent kinds without inventing new per-swarm kinds. Otherwise the screener
+// kinds map to screener and everything else is the research default. No swarm id beyond the screener
+// literal is hardcoded here (CLAUDE.md §26 — a future swarm needs no engine-code edit).
+function swarmIdFor(kind: RunKind, swarm?: string): string {
+  if (swarm && swarm !== 'research' && swarmById(swarm)) return swarm
   return SCREENER_KINDS.has(kind) ? 'screener' : 'research'
 }
 
@@ -187,7 +193,7 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
     }
     emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason, message: stderr.slice(-400) || undefined, ts: Date.now() })
     finishRun(run, 'error')
-  } else if ((run.kind === 'full' || run.kind === 'rerun') && !finalDeliverablesPresent(run.runRoot)) {
+  } else if (run.swarmId === 'research' && (run.kind === 'full' || run.kind === 'rerun') && !finalDeliverablesPresent(run.runRoot)) {
     // The process exited cleanly, but a full/rerun that didn't write its final thesis + decision
     // record was almost certainly budget/turn-truncated before the master synthesizer finished.
     // Report it honestly as INCOMPLETE (not a misleading "done") so the cockpit + activity log show
@@ -200,8 +206,9 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
     emit(run, { type: 'run-error', runId: run.runId, status: 'incomplete', reason: 'incomplete_deliverables', message: msg, ts: Date.now() })
     finishRun(run, 'incomplete')
   } else {
-    // a completed full/rerun has the 3 memos — copy them into the company's Drive folder (timestamped)
-    if (run.kind === 'full' || run.kind === 'rerun') saveMemosToCompanyFolder(run.ticker, run.runRoot)
+    // a completed research full/rerun has the 3 memos — copy them into the company's Drive folder
+    // (timestamped). Constellation swarms (e.g. commodity) have no such memos, so this is research-only.
+    if ((run.kind === 'full' || run.kind === 'rerun') && run.swarmId === 'research') saveMemosToCompanyFolder(run.ticker, run.runRoot)
     // Clear the interrupted-marker only when the WHOLE run is finished (final thesis + decision record on
     // disk). A single chained MODULE finishing 'done' must NOT clear a marker a FAILED sibling just wrote
     // — that would lose a genuine interruption and strand the run unresumable. Final deliverables are
@@ -332,12 +339,11 @@ function resolveAgentRunRoot(ticker: string): string {
   return resolveRunRoot({ ticker }) ?? today
 }
 
-// Modules this run writes into (for D2b / D3 admission).
-function coveredModulesFor(kind: RunKind, module?: string, agent?: string): string[] {
-  const swarmId = swarmIdForKind(kind)
+// Modules this run writes into (for D2b / D3 admission). swarmId is resolved by the caller.
+function coveredModulesFor(swarmId: string, kind: RunKind, module?: string, agent?: string): string[] {
   const g = buildSwarmGraph(swarmId)
   if (kind === 'full' || kind === 'signal') return g.modules.map((m) => m.name)
-  if (kind === 'rerun') return [...new Set(downstreamCascade(module!, agent!).filter((c) => c.module !== 'master').map((c) => c.module))]
+  if (kind === 'rerun') return [...new Set(downstreamCascade(module!, agent!, swarmId).filter((c) => c.module !== 'master').map((c) => c.module))]
   return module ? [module] : []
 }
 
@@ -396,7 +402,15 @@ function admissionMessage(r: AdmissionRejection, ticker: string): string {
   }
 }
 
-function buildPrompt(kind: RunKind, ticker: string, module?: string, agent?: string, window?: string, extra?: { thesisId?: string }): string {
+function buildPrompt(swarmId: string, kind: RunKind, ticker: string, module?: string, agent?: string, window?: string, extra?: { thesisId?: string }): string {
+  // Generic constellation swarm (e.g. commodity): full/module/agent through the manifest's command
+  // namespace — never hardcode the swarm's literal beyond reading commandNs (CLAUDE.md §26).
+  if (swarmId !== 'research' && !SCREENER_KINDS.has(kind)) {
+    const ns = swarmById(swarmId)?.commandNs || swarmId
+    if (kind === 'module') return `/${ns}:${module} ${ticker}`
+    if (kind === 'agent') return `/${ns}:agent ${module} ${agent} ${ticker}`
+    return `/${ns}:full ${ticker}` // 'full' (default)
+  }
   if (kind === 'full') return `/research:full ${ticker}`
   if (kind === 'module') return `/research:${module} ${ticker}`
   if (kind === 'rerun') return `/research:rerun ${module} ${agent} ${ticker}`
@@ -406,7 +420,7 @@ function buildPrompt(kind: RunKind, ticker: string, module?: string, agent?: str
   if (kind === 'track') return `/research:track`
   // screener swarm — namespace from the manifest (never hardcode the literal beyond the kind map)
   if (SCREENER_KINDS.has(kind)) {
-    const ns = swarmById(swarmIdForKind(kind))?.commandNs || 'screener'
+    const ns = swarmById(swarmId)?.commandNs || 'screener'
     if (kind === 'signal') return module ? `/${ns}:signal ${ticker} ${module}` : `/${ns}:signal ${ticker}` // ticker = SIG id; optional module = target to run THROUGH then stop
     if (kind === 'sweep') return `/${ns}:sweep`
     if (kind === 'handoff') return `/${ns}:handoff ${extra?.thesisId} ${ticker}` // ticker = the handoff target
@@ -415,8 +429,8 @@ function buildPrompt(kind: RunKind, ticker: string, module?: string, agent?: str
   return `/research:agent ${module} ${agent} ${ticker}`
 }
 
-function plannedModules(kind: RunKind, module?: string): string[] {
-  const g = buildSwarmGraph(swarmIdForKind(kind))
+function plannedModules(swarmId: string, kind: RunKind, module?: string): string[] {
+  const g = buildSwarmGraph(swarmId)
   if (kind === 'full') return g.modules.map((m) => m.name)
   if (kind === 'signal') {
     // a TARGETED signal plans only modules up to & including the target, so a partial run reads as a
@@ -428,8 +442,7 @@ function plannedModules(kind: RunKind, module?: string): string[] {
   return module ? [module] : []
 }
 
-function buildExpected(kind: RunKind, module?: string, agent?: string): Map<string, ExpectedAgent> {
-  const swarmId = swarmIdForKind(kind)
+function buildExpected(swarmId: string, kind: RunKind, module?: string, agent?: string): Map<string, ExpectedAgent> {
   const g = buildSwarmGraph(swarmId)
   const map = new Map<string, ExpectedAgent>()
   if (kind === 'sweep' || kind === 'handoff') return map // no orb outputs — inbox/ledger writes only
@@ -441,12 +454,12 @@ function buildExpected(kind: RunKind, module?: string, agent?: string): Map<stri
   }
   if (kind === 'rerun') {
     // the target orb + the downstream synthesis chain to the master (so the swarm shows the planned re-run)
-    for (const c of downstreamCascade(module!, agent!)) {
+    for (const c of downstreamCascade(module!, agent!, swarmId)) {
       map.set(c.key, { key: c.key, module: c.module, name: c.name, layer: c.layer, outputRel: c.outputRel || 'final_thesis.md' })
     }
     return map
   }
-  for (const mn of plannedModules(kind, module)) {
+  for (const mn of plannedModules(swarmId, kind, module)) {
     const m = g.modules.find((x) => x.name === mn)
     if (!m) continue
     for (const a of Object.values(m.layers).flat()) {
@@ -456,8 +469,8 @@ function buildExpected(kind: RunKind, module?: string, agent?: string): Map<stri
   return map
 }
 
-export function estimate(kind: RunKind, ticker: string, module?: string, agent?: string): LaunchPreflight {
-  const swarmId = swarmIdForKind(kind)
+export function estimate(kind: RunKind, ticker: string, module?: string, agent?: string, swarm?: string): LaunchPreflight {
+  const swarmId = swarmIdFor(kind, swarm)
   const g = buildSwarmGraph(swarmId)
   let agentCount = 1
   if (kind === 'full') agentCount = g.totals.agents + 1
@@ -522,8 +535,11 @@ async function buildArgs(prompt: string, kind: LaunchKind, model: string): Promi
 
 export interface LaunchParams {
   kind: RunKind
+  // explicit swarm for a generic constellation swarm's reused full/module/agent kinds (e.g. 'commodity').
+  // Omitted for research + screener (their swarm is derived from the kind).
+  swarm?: string
   // research kinds: the ticker. signal: omit (derived SIG id) or pass an existing SIG id.
-  // screener-agent: the SIG id. handoff: the target TICKER. sweep: omit.
+  // screener-agent: the SIG id. handoff: the target TICKER. sweep: omit. constellation swarm: the subject id.
   ticker?: string
   module?: string
   agent?: string
@@ -772,7 +788,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   const model = params.model || DEFAULT_MODEL
   const user = params.user || 'local'
   const userVia = params.userVia || 'local'
-  const swarmId = swarmIdForKind(kind)
+  const swarmId = swarmIdFor(kind, params.swarm)
   const manifest = swarmById(swarmId)
   if (!manifest) {
     throw Object.assign(new Error(`swarm '${swarmId}' is not installed`), { statusCode: 404 })
@@ -856,6 +872,13 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     if (!fs.existsSync(path.join(REPO_ROOT, runRoot))) {
       throw Object.assign(new Error(`No signal run folder at ${runRoot}.`), { statusCode: 400 })
     }
+  } else if (swarmId !== 'research') {
+    // generic constellation swarm (e.g. commodity): the subject IS the run folder — one stable folder
+    // per subject (not date-stamped), resolved from the manifest template, mirroring the screener-agent
+    // branch. Reused kinds full/module/agent all write into this same folder; the slash command creates
+    // it. The subject id must already be the canonical (uppercase) folder name the command will use.
+    subjectId = params.ticker || ''
+    runRoot = manifest.runRootTemplate.replace(`{${manifest.placeholder}}`, subjectId)
   } else {
     // research kinds — unchanged behavior
     const ticker = params.ticker || ''
@@ -878,14 +901,19 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   }
 
   const ticker = subjectId // RunState display/compat field: research = the ticker; swarms = the subject id
-  const prompt = buildPrompt(kind, ticker, module, agent, window, { thesisId: params.thesisId })
-  const expected = buildExpected(kind, module, agent)
+  const prompt = buildPrompt(swarmId, kind, ticker, module, agent, window, { thesisId: params.thesisId })
+  const expected = buildExpected(swarmId, kind, module, agent)
 
   // Admission metadata — derived once here, stored on the run, reused by admitRun.
-  const coveredModules = coveredModulesFor(kind, module, agent)
+  const coveredModules = coveredModulesFor(swarmId, kind, module, agent)
+  // Root artifacts a research full/rerun writes (final_thesis / memo / decision) are research-only — a
+  // constellation swarm (e.g. commodity) has no master synthesizer, so it declares none here.
+  const rootArtifacts = swarmId === 'research' && kind === 'full' ? ROOT_ARTIFACTS_FULL
+    : swarmId === 'research' && kind === 'rerun' ? ROOT_ARTIFACTS_RERUN
+    : kind === 'signal' ? ROOT_ARTIFACTS_SIGNAL : []
   const writeTargetsAbs = [...new Set([
     ...[...expected.values()].map((e) => path.join(REPO_ROOT, runRoot, e.outputRel)),
-    ...(kind === 'full' ? ROOT_ARTIFACTS_FULL : kind === 'rerun' ? ROOT_ARTIFACTS_RERUN : kind === 'signal' ? ROOT_ARTIFACTS_SIGNAL : []).map((f) => path.join(REPO_ROOT, runRoot, f)),
+    ...rootArtifacts.map((f) => path.join(REPO_ROOT, runRoot, f)),
     ...swarmStoreTargets(kind, subjectId),
   ])]
   const readDepsAbs = kind === 'agent' || kind === 'screener-agent'
@@ -1000,16 +1028,16 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   await runReadinessGate(run)
   // cancel() can finalize the run DURING the gate's async check (it yields the loop while the check runs).
   // A finalized run is never revived or spawned — mirrors finalizeRunOnClose's endedAt guard.
-  if (run.endedAt !== undefined) return { runId: run.runId, preflight: estimate(kind, ticker, module, agent) }
+  if (run.endedAt !== undefined) return { runId: run.runId, preflight: estimate(kind, ticker, module, agent, swarmId) }
   if (run.readiness && run.readiness.overall !== 'clean') {
     run.status = 'awaiting-readiness-decision'
     run.deferredSpawn = () => spawnEngine(run)
     emit(run, { type: 'readiness-blocked', runId: run.runId, report: run.readiness, ts: Date.now() })
-    return { runId: run.runId, preflight: estimate(kind, ticker, module, agent) }
+    return { runId: run.runId, preflight: estimate(kind, ticker, module, agent, swarmId) }
   }
 
   await spawnEngine(run)
-  return { runId: run.runId, preflight: estimate(kind, ticker, module, agent) }
+  return { runId: run.runId, preflight: estimate(kind, ticker, module, agent, swarmId) }
 }
 
 // Spawn the engine CLI for an admitted, gate-cleared run and wire its lifecycle. Extracted from launch()
@@ -1195,6 +1223,10 @@ async function checkReadiness(run: RunState, force: boolean): Promise<ReadinessR
 // Pre-spawn data-readiness gate. Research data-consuming kinds only (swarm kinds skip it); sets
 // readiness-checking, then runs the check.
 async function runReadinessGate(run: RunState): Promise<void> {
+  // Research data-consuming kinds only. Screener kinds aren't in the list below; a generic constellation
+  // swarm (e.g. commodity) reuses full/module/agent but owns its sufficiency via its own in-run 00-triage
+  // (and reads live public sources, not a company data pool), so it skips this research readiness gate.
+  if (run.swarmId !== 'research') return
   if (!run.runRoot || !['full', 'module', 'agent', 'rerun'].includes(run.kind)) return
   run.status = 'readiness-checking'
   emit(run, { type: 'readiness-checking', runId: run.runId, ticker: run.ticker, kind: run.kind, ts: Date.now() })

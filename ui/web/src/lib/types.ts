@@ -599,6 +599,9 @@ export interface ChatMessage { role: 'user' | 'assistant'; content: string }
 export interface ChatRequest {
   ticker?: string
   runRoot?: string
+  // constellation swarm (e.g. commodity): its subject resolves the run folder server-side
+  swarm?: string
+  subject?: string
   scope: ChatScope
   module?: string
   orbPath?: string

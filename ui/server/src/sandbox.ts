@@ -1,6 +1,7 @@
 import path from 'node:path'
 import fs from 'node:fs'
 import { AGENTS_DIR, ANALYSES_DIR, REPO_ROOT, isReservedDataFolder } from './config'
+import { listSwarms } from './swarms'
 
 // Resolve a requested path and assert it lives inside analyses/ (defeats ../ and symlink escapes).
 export function resolveInsideAnalyses(reqPath: string): string {
@@ -11,6 +12,23 @@ export function resolveInsideAnalyses(reqPath: string): string {
     throw new Error('Path escapes the analyses sandbox')
   }
   return real
+}
+
+// Resolve a requested path and assert it lives inside ANY swarm's runs tree — research analyses/ OR a
+// discovered swarm's runsRoot (screener/runs, commodity/runs, …). Used only by the closed-book chat
+// reader so it can ground on any swarm's dossier while still being contained to a run folder. The set of
+// allowed roots is derived from the discovered manifests, so a new swarm is covered with no code edit
+// (CLAUDE.md §26). /api/output stays locked to analyses/ via resolveInsideAnalyses (unchanged).
+export function resolveInsideRuns(reqPath: string): string {
+  const abs = path.isAbsolute(reqPath) ? reqPath : path.join(REPO_ROOT, reqPath)
+  const real = fs.realpathSync(abs) // throws ENOENT for missing -> caller maps to 404
+  const roots = new Set<string>()
+  try { roots.add(fs.realpathSync(ANALYSES_DIR)) } catch { /* analyses/ may not exist yet */ }
+  for (const s of listSwarms()) {
+    try { roots.add(fs.realpathSync(path.join(REPO_ROOT, s.runsRoot))) } catch { /* runsRoot may not exist yet */ }
+  }
+  for (const base of roots) if (real === base || real.startsWith(base + path.sep)) return real
+  throw new Error('Path escapes the runs sandbox')
 }
 
 const FRAMEWORKS_DIR = path.join(REPO_ROOT, 'frameworks')
