@@ -306,7 +306,7 @@ app.get('/api/launch/estimate', async (req, reply) => {
   const swarm = q.swarm as string | undefined
   if (swarm && swarm !== 'research') {
     if (!listSwarms().some((s) => s.id === swarm)) return reply.code(400).send({ error: 'unknown swarm' })
-    if (!['full', 'module', 'agent'].includes(kind)) return reply.code(400).send({ error: 'bad kind for swarm' })
+    if (!['full', 'module', 'agent', 'rerun'].includes(kind)) return reply.code(400).send({ error: 'bad kind for swarm' })
     if (!TICKER_RE.test(q.ticker || '')) return reply.code(400).send({ error: 'bad subject' })
     return estimate(kind, q.ticker, q.module, q.agent, swarm)
   }
@@ -385,7 +385,7 @@ const HandoffLaunchBody = z.object({
 // roster below, so no swarm/module/agent name is hardcoded (CLAUDE.md §26).
 const SWARM_ID_RE = /^[a-z0-9-]{1,40}$/
 const SwarmLaunchBody = z.object({
-  kind: z.enum(['full', 'module', 'agent']),
+  kind: z.enum(['full', 'module', 'agent', 'rerun']),
   swarm: z.string().regex(SWARM_ID_RE),
   ticker: z.string().regex(TICKER_RE),
   module: z.string().regex(MODULE_RE).optional(),
@@ -468,10 +468,14 @@ app.post('/api/launch', async (req, reply) => {
     const { swarm, ticker: subject, module, agent, model, confirmTicker } = parsed.data
     const skind = parsed.data.kind
     if (!listSwarms().some((s) => s.id === swarm)) return reply.code(400).send({ error: `unknown swarm ${swarm}` })
-    if (skind === 'module' || skind === 'agent') {
+    if (skind === 'module' || skind === 'agent' || skind === 'rerun') {
       if (!module || !listModuleNames(swarm).includes(module)) return reply.code(400).send({ error: 'unknown module' })
     }
     if (skind === 'agent' && (!agent || !agentNamesForModule(module!, swarm).includes(agent))) {
+      return reply.code(400).send({ error: 'unknown agent for module' })
+    }
+    // rerun: AGENT is optional (whole-module vs single-orb) — but if given it must be valid.
+    if (skind === 'rerun' && agent && !agentNamesForModule(module!, swarm).includes(agent)) {
       return reply.code(400).send({ error: 'unknown agent for module' })
     }
     if (skind === 'full' && confirmTicker !== subject) {

@@ -921,7 +921,7 @@ export const useStore = create<State>((set, get) => ({
     if (!cascade.length) return get().setToast({ msg: `Can't resolve the downstream of ${node.name}`, tone: 'bad' })
     if (get().targetInFlight(t, cascade.map((c) => c.key))) return get().setToast({ msg: `${node.name} or its downstream is already running`, tone: 'info' })
     try {
-      const preflight = await api.estimate('rerun', t, node.module, node.name)
+      const preflight = await api.estimate('rerun', t, node.module, node.name, get().activeSwarm !== 'research' ? get().activeSwarm : undefined)
       set({ launchConfirm: { kind: 'rerun', preflight, cascade, node } })
     } catch (e: any) {
       get().setToast({ msg: `Re-run estimate failed: ${e?.message || e}`, tone: 'bad' })
@@ -940,7 +940,7 @@ export const useStore = create<State>((set, get) => ({
     // gone — node + planned are captured here, not re-read from the (now-cleared) launchConfirm.
     const doRerun = async (force?: boolean) => {
       try {
-        const { runId } = await api.launch({ kind: 'rerun', ticker: t, module: node.module, agent: node.name, force })
+        const { runId } = await api.launch({ kind: 'rerun', ticker: t, module: node.module, agent: node.name, force, swarm: get().activeSwarm !== 'research' ? get().activeSwarm : undefined })
         beginRun(set, get, runId, { kind: 'rerun', module: node.module, agent: node.name, willCommitToMain: true }, planned)
         get().setToast({ msg: `Re-running ${node.name} + downstream on ${t}`, tone: 'good' })
       } catch (e: any) {

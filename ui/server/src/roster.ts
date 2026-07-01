@@ -378,22 +378,31 @@ export function transitiveDownstreamModules(graph: SwarmGraph, moduleName: strin
   return down
 }
 
-// Ordered re-run cascade for a target orb. Three target cases:
-//  - specialist  -> [target, its module 99, ...downstream module 99s (topo), master]
-//  - module 99   -> [that 99, ...downstream module 99s (topo), master]
-//  - master      -> [master] only (regenerates thesis/memo/dossier)
+// Ordered re-run cascade for a target orb. Four target cases:
+//  - specialist   -> [target, its module 99, ...downstream module 99s (topo), master]
+//  - module 99    -> [that 99, ...downstream module 99s (topo), master]
+//  - whole module -> [that module's 99, ...downstream module 99s (topo), master]  (agentName omitted;
+//                    the module's specialists are re-run by the command — for cascade/admission the
+//                    rewritten synthesis + downstream syntheses are what matter)
+//  - master       -> [master] only (regenerates thesis/memo/dossier)
 // Swarm runs have no master orb — their cascade ends at the last downstream synthesis.
-export function downstreamCascade(moduleName: string, agentName: string, swarmId: string = RESEARCH_SWARM_ID): CascadeNode[] {
+export function downstreamCascade(moduleName: string, agentName?: string, swarmId: string = RESEARCH_SWARM_ID): CascadeNode[] {
   if (moduleName === 'master') return [MASTER_CASCADE]
   const graph = buildSwarmGraph(swarmId)
   const mod = graph.modules.find((m) => m.name === moduleName)
   if (!mod) return []
-  const target = Object.values(mod.layers).flat().find((a) => a.name === agentName || a.slug === agentName)
-  if (!target) return []
 
   const out: CascadeNode[] = []
-  out.push(cascadeEntry(target, target.isSynthesis ? 'module-synthesis' : 'agent'))
-  if (!target.isSynthesis) {
+  if (agentName) {
+    const target = Object.values(mod.layers).flat().find((a) => a.name === agentName || a.slug === agentName)
+    if (!target) return []
+    out.push(cascadeEntry(target, target.isSynthesis ? 'module-synthesis' : 'agent'))
+    if (!target.isSynthesis) {
+      const synth = synthesisOf(mod)
+      if (synth) out.push(cascadeEntry(synth, 'module-synthesis'))
+    }
+  } else {
+    // whole-module rerun: the module's own synthesis heads the cascade.
     const synth = synthesisOf(mod)
     if (synth) out.push(cascadeEntry(synth, 'module-synthesis'))
   }

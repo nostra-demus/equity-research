@@ -343,7 +343,7 @@ function resolveAgentRunRoot(ticker: string): string {
 function coveredModulesFor(swarmId: string, kind: RunKind, module?: string, agent?: string): string[] {
   const g = buildSwarmGraph(swarmId)
   if (kind === 'full' || kind === 'signal') return g.modules.map((m) => m.name)
-  if (kind === 'rerun') return [...new Set(downstreamCascade(module!, agent!, swarmId).filter((c) => c.module !== 'master').map((c) => c.module))]
+  if (kind === 'rerun') return [...new Set(downstreamCascade(module!, agent, swarmId).filter((c) => c.module !== 'master').map((c) => c.module))]
   return module ? [module] : []
 }
 
@@ -409,6 +409,9 @@ function buildPrompt(swarmId: string, kind: RunKind, ticker: string, module?: st
     const ns = swarmById(swarmId)?.commandNs || swarmId
     if (kind === 'module') return `/${ns}:${module} ${ticker}`
     if (kind === 'agent') return `/${ns}:agent ${module} ${agent} ${ticker}`
+    // rerun on a constellation swarm: AGENT is optional (whole-module vs single-orb). Never fall through
+    // to the research `/research:rerun` line below — dispatch the swarm's own command namespace (§26).
+    if (kind === 'rerun') return `/${ns}:rerun ${module}${agent ? ' ' + agent : ''} ${ticker}`
     return `/${ns}:full ${ticker}` // 'full' (default)
   }
   if (kind === 'full') return `/research:full ${ticker}`
@@ -453,8 +456,8 @@ function buildExpected(swarmId: string, kind: RunKind, module?: string, agent?: 
     return map
   }
   if (kind === 'rerun') {
-    // the target orb + the downstream synthesis chain to the master (so the swarm shows the planned re-run)
-    for (const c of downstreamCascade(module!, agent!, swarmId)) {
+    // the target orb (or whole module) + the downstream synthesis chain (so the swarm shows the planned re-run)
+    for (const c of downstreamCascade(module!, agent, swarmId)) {
       map.set(c.key, { key: c.key, module: c.module, name: c.name, layer: c.layer, outputRel: c.outputRel || 'final_thesis.md' })
     }
     return map
@@ -476,7 +479,7 @@ export function estimate(kind: RunKind, ticker: string, module?: string, agent?:
   if (kind === 'full') agentCount = g.totals.agents + 1
   else if (kind === 'signal') agentCount = g.totals.agents // gauntlet; gates mean most signals stop early
   else if (kind === 'module') agentCount = g.modules.find((m) => m.name === module)?.agentCount ?? 0
-  else if (kind === 'rerun') agentCount = downstreamCascade(module!, agent!).length
+  else if (kind === 'rerun') agentCount = downstreamCascade(module!, agent, swarmId).length
 
   let estCostUsdRange: [number, number]
   let estMinutesRange: [number, number]
@@ -879,6 +882,11 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     // it. The subject id must already be the canonical (uppercase) folder name the command will use.
     subjectId = params.ticker || ''
     runRoot = manifest.runRootTemplate.replace(`{${manifest.placeholder}}`, subjectId)
+    // A rerun refreshes an EXISTING dossier — never create one. Fail fast before spawning the paid CLI
+    // if the subject has no run folder yet (mirrors the research rerun guard).
+    if (kind === 'rerun' && !fs.existsSync(path.join(REPO_ROOT, runRoot))) {
+      throw Object.assign(new Error(`No existing run to re-run for ${subjectId}. Run the full pipeline first.`), { statusCode: 400 })
+    }
   } else {
     // research kinds — unchanged behavior
     const ticker = params.ticker || ''
