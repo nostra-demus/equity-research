@@ -15,24 +15,38 @@ import { assignDedupGroups, type DedupConfig } from './dedup'
 import { reRankFromFactors, capSocialBand, capSocialScore } from './rank'
 import { getRankWeights } from './rank-weights'
 import { scoreToBand } from './triage/groq'
-import { resolveCountry } from './geography'
+import { resolveCountry, resolveEventGeography } from './geography'
 import { NEWS } from '../config'
 
 /** Hydrate a feed item on read: clean any HTML/markup left in the headline (older firehose lines were
  *  stored before ingest-time cleaning — e.g. "<a href=…>Title</a>"), fill scope/source_tier, and derive
- *  the country-level geography (news/geography.ts) for lines that predate the `country` field — so the
- *  WHOLE backlog is classified like a fresh item without any backfill. Idempotent; never drops real text. */
+ *  the country-level geography (news/geography.ts) for lines that predate the `country` field, plus the
+ *  Globe view's multi-country geography (`geography_country` etc.) for lines that predate THAT field —
+ *  so the WHOLE backlog is classified like a fresh item without any backfill. Idempotent; never drops
+ *  real text. */
 function hydrate(it: FeedItem): FeedItem {
   const headline = cleanText(it.headline)
   const needsClean = headline !== it.headline
   const needsGeo = it.country === undefined // older firehose line, written before the country field existed
-  if (it.scope && it.source_tier && !needsClean && !needsGeo) return it
+  const needsEventGeo = it.geography_country === undefined // older firehose line, written before the Globe fields existed
+  if (it.scope && it.source_tier && !needsClean && !needsGeo && !needsEventGeo) return it
+  const eventGeo = needsEventGeo
+    ? resolveEventGeography(headline || it.headline, it.headline_en, it.companies, it.region, it.issuer_linkage)
+    : null
   return {
     ...it,
     headline: headline || it.headline,
     scope: it.scope || deriveScope({ ...it, headline }),
     source_tier: it.source_tier || deriveSourceTier(it),
     ...(needsGeo ? { country: resolveCountry(headline || it.headline, it.headline_en, it.companies, it.region, it.issuer_linkage) } : {}),
+    ...(eventGeo
+      ? {
+          geography_country: eventGeo.countries,
+          geography_region: eventGeo.region,
+          event_location_confidence: eventGeo.confidence,
+          geography_reason: eventGeo.reason,
+        }
+      : {}),
   }
 }
 

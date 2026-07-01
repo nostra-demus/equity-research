@@ -2423,3 +2423,75 @@ a { color: inherit; }
 .thememap__rate-line { display: inline-flex; align-items: center; gap: 5px; }
 .thememap__hist { opacity: 0.85; }
 .thememap__hist .sparkline { display: block; }
+
+/* ---- Screener Globe view — the wire aggregated by country on a geography globe (or a list fallback) ---- */
+.sglobe { display: flex; flex-direction: column; height: 100%; min-height: 0; padding: 16px 20px 8px; gap: 10px; }
+.sglobe__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.sglobe__titlerow { display: flex; flex-direction: column; gap: 2px; }
+.sglobe__title { font-size: 18px; font-weight: 700; letter-spacing: -0.01em; color: var(--text); }
+.sglobe__sub { font-size: 12px; color: var(--text-faint); }
+.sglobe__headctl { display: flex; align-items: center; gap: 10px; }
+.sglobe__viewtoggle { display: inline-flex; gap: 2px; background: var(--surface-2); border: 1px solid var(--hairline); border-radius: var(--r-pill); padding: 2px; }
+
+.sglobe__filters { display: flex; flex-direction: column; gap: 8px; }
+.sglobe__sincerow { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.sglobe__since { display: inline-flex; gap: 2px; background: var(--surface-2); border: 1px solid var(--hairline); border-radius: var(--r-pill); padding: 2px; }
+.sglobe__sincebtn { appearance: none; border: 0; background: transparent; color: var(--text-muted); font-size: 11.5px; font-weight: 600; padding: 5px 11px; border-radius: var(--r-pill); cursor: pointer; transition: color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease); }
+.sglobe__sincebtn:active { transform: scale(0.97); }
+.sglobe__sincebtn--on { background: var(--accent-wash); color: var(--accent-bright); }
+.sglobe__portfolio--on { color: var(--accent-bright); border-color: var(--accent-deep); background: var(--accent-wash); }
+
+.sglobe__body { position: relative; flex: 1; min-height: 0; display: flex; }
+.sglobe__canvaswrap { position: relative; flex: 1; min-height: 320px; border-radius: var(--r-md); overflow: hidden; background: var(--bg); }
+.sglobe__canvaswrap canvas { display: block; outline: none; cursor: grab; }
+.sglobe__canvaswrap canvas:active { cursor: grabbing; }
+
+/* the fallback/list read of the same snapshot the 3D scene renders */
+.sglobe__list { flex: 1; min-height: 0; overflow-y: auto; display: flex; flex-direction: column; }
+.sglobe__row { border-bottom: 1px solid var(--hairline); }
+.sglobe__row--on { background: var(--accent-wash); }
+.sglobe__row--unresolved { opacity: 0.85; }
+.sglobe__rowhit { appearance: none; border: 0; background: transparent; width: 100%; display: flex; align-items: center; gap: 10px; padding: 9px 8px; cursor: pointer; text-align: left; font: inherit; color: inherit; }
+.sglobe__rowhit:hover { background: var(--surface-2); }
+.sglobe__rowscore { flex-shrink: 0; width: 26px; text-align: right; font-size: 12px; }
+.sglobe__rowname { flex: 1; min-width: 0; font-size: 13px; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sglobe__rowregion { flex-shrink: 0; font-size: 11px; color: var(--text-faint); }
+.sglobe__rowcount { flex-shrink: 0; min-width: 24px; text-align: right; font-size: 12px; color: var(--text-muted); }
+.sglobe__empty { padding: 24px 8px; text-align: center; font-size: 12.5px; color: var(--text-faint); }
+
+/* one glowing DOM marker per country — billboarded via drei <Html>, occluding against the shell */
+.sglobe__marker { appearance: none; border: 0; background: transparent; cursor: pointer; display: grid; place-items: center; padding: 6px; }
+.sglobe__marker-core {
+  display: block; width: max(8px, var(--r, 10px)); height: max(8px, var(--r, 10px)); border-radius: 50%;
+  background: var(--tone, var(--accent)); box-shadow: 0 0 10px var(--tone, var(--accent)), 0 0 3px var(--tone, var(--accent));
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+.sglobe__marker:hover .sglobe__marker-core, .sglobe__marker--on .sglobe__marker-core { transform: scale(1.3); }
+.sglobe__marker-label {
+  position: absolute; top: calc(100% + 4px); left: 50%; transform: translateX(-50%); white-space: nowrap;
+  font-size: 11px; font-weight: 600; color: var(--text); text-shadow: 0 1px 6px var(--bg); pointer-events: none;
+}
+
+/* the click-through country panel — overlays the map/list, top-right */
+.sglobe__panel {
+  position: absolute; top: 10px; right: 10px; width: 300px; max-height: calc(100% - 20px); overflow-y: auto;
+  background: var(--surface-1); border: 1px solid var(--hairline-strong); border-radius: var(--r-md);
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.28); padding: 14px; display: flex; flex-direction: column; gap: 10px; z-index: 3;
+}
+.sglobe__panelhead { display: flex; align-items: flex-start; justify-content: space-between; gap: 8px; }
+.sglobe__panelname { font-size: 15px; font-weight: 700; color: var(--text); }
+.sglobe__panelregion { font-size: 11px; color: var(--text-faint); }
+.sglobe__panelclose { flex-shrink: 0; }
+.sglobe__panelstats { display: flex; gap: 16px; }
+.sglobe__stat { display: flex; flex-direction: column; gap: 2px; }
+.sglobe__statval { font-size: 15px; font-weight: 700; }
+.sglobe__statlabel { font-size: 10px; color: var(--text-faint); }
+.sglobe__themes { display: flex; flex-wrap: wrap; gap: 5px; }
+.sglobe__panelnewshead { font-size: 10px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-faint); }
+.sglobe__panelnews { display: flex; flex-direction: column; gap: 2px; }
+.sglobe__samplerow { width: 100%; }
+.sglobe__panelall { align-self: stretch; text-align: center; font-size: 12px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .sglobe__sincebtn:active, .sglobe__marker:active { transform: none; }
+}

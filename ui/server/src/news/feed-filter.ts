@@ -21,6 +21,17 @@ export interface FeedFilterQuery {
   gicsSector?: string // a GICS sector
   gicsSubSector?: string // a sub-sector within gicsSector
   text?: string // substring over headline / translation / company name+ticker
+  // Screener Globe view only: restrict to events whose guessed company has an existing analyses/<TICKER>
+  // run — "prior coverage" as a proxy for "portfolio relevant" (no other definition exists in the
+  // codebase). Evaluated via the `ctx.coveredTickers` set matchesFeedFilters is given below, since the
+  // filesystem check itself doesn't belong in a pure predicate — the caller resolves it once per request.
+  portfolioRelevant?: boolean
+}
+
+/** Context a caller can supply alongside the query for filter dimensions that need data outside the item
+ *  itself. Additive/optional so every existing matchesFeedFilters call site keeps compiling untouched. */
+export interface FeedFilterContext {
+  coveredTickers?: ReadonlySet<string> // uppercased tickers with at least one analyses/<TICKER>_* run folder
 }
 
 /** True when at least one structured (server-side) filter is set — the cockpit switches to archive search. */
@@ -35,8 +46,13 @@ export function hasAnyFilter(q: FeedFilterQuery): boolean {
 const bandOf = (it: FeedItem): string =>
   it.band || (typeof it.triage_score === 'number' ? (it.triage_score >= 70 ? 'pick' : it.triage_score >= 40 ? 'watch' : 'drop') : '')
 
-/** Does this item satisfy every set clause of the filter? Mirrors the web matchesFilters exactly. */
-export function matchesFeedFilters(it: FeedItem, q: FeedFilterQuery): boolean {
+/** Does this item satisfy every set clause of the filter? Mirrors the web matchesFilters exactly.
+ *  `ctx` is additive and optional (existing callers that omit it keep compiling unchanged) — it carries
+ *  data a pure per-item predicate can't derive on its own, currently just `coveredTickers` for
+ *  `portfolioRelevant`. When `q.portfolioRelevant` is set but `ctx.coveredTickers` is omitted, the clause
+ *  is skipped (an honest no-op, not a silent "everything passes" or a crash) — same "never fabricate" spirit
+ *  as the rest of the filter, just applied to a caller-supplied context instead of the item's own data. */
+export function matchesFeedFilters(it: FeedItem, q: FeedFilterQuery, ctx: FeedFilterContext = {}): boolean {
   if (q.themes && q.themes.length > 0 && !(it.event_types || []).some((t) => q.themes!.includes(t))) return false
   if (q.country && (it.country || '') !== q.country) return false
   if (q.geoRegion && regionOfCountry(it.country) !== q.geoRegion) return false
@@ -48,6 +64,9 @@ export function matchesFeedFilters(it: FeedItem, q: FeedFilterQuery): boolean {
     const g = gicsOf(it)
     if (q.gicsSector && !g.sectors.has(q.gicsSector)) return false
     if (q.gicsSubSector && !g.subSectors.has(q.gicsSubSector)) return false
+  }
+  if (q.portfolioRelevant && ctx.coveredTickers) {
+    if (!(it.companies || []).some((c) => c.ticker && ctx.coveredTickers!.has(c.ticker.toUpperCase()))) return false
   }
   if (q.text && q.text.trim()) {
     const needle = q.text.trim().toLowerCase()
@@ -75,5 +94,6 @@ export function parseFeedFilterQuery(raw: Record<string, unknown>): FeedFilterQu
     gicsSector: str(raw.gicsSector),
     gicsSubSector: str(raw.gicsSubSector),
     text: str(raw.text),
+    portfolioRelevant: raw.portfolioRelevant === 'true' || raw.portfolioRelevant === '1' || raw.portfolioRelevant === true ? true : undefined,
   }
 }

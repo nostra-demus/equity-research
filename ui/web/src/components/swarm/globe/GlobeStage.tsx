@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { useStore } from '../../../lib/store'
 import { computeGlobeLayout, type GlobeNode } from '../../../lib/globe-layout'
@@ -6,6 +6,7 @@ import { computeLayout } from '../../../lib/layout'
 import { GLOBE } from './globe-consts'
 import { GlobeScene } from './GlobeScene'
 import { useGlobeColors } from './useGlobeColors'
+import { useMeasuredCanvasSize } from '../useMeasuredCanvasSize'
 import { useNodeInteractions } from '../useNodeInteractions'
 import { AgentTooltip } from '../../AgentTooltip'
 import { ModuleReportPopup } from '../ModuleReportPopup'
@@ -46,35 +47,8 @@ export default function GlobeStage() {
   // the canvas stuck at its 300×150 fallback (a real resize is needed to clear it). So gate the <Canvas> on
   // our OWN ResizeObserver: mount it only once the container has a real size, and feed that size as explicit
   // pixels — the canvas then mounts into a settled, sized box and stays responsive as the stage resizes.
-  const wrapRef = useRef<HTMLDivElement>(null)
-  const [size, setSize] = useState<{ w: number; h: number } | null>(null)
-  useLayoutEffect(() => {
-    const el = wrapRef.current
-    if (!el) return
-    const measure = () => {
-      const r = el.getBoundingClientRect()
-      if (r.width > 0 && r.height > 0) setSize((p) => (p && p.w === r.width && p.h === r.height ? p : { w: r.width, h: r.height }))
-    }
-    measure() // synchronous, post-commit pre-paint — gets the real size immediately (no mount race)
-    const ro = new ResizeObserver(measure)
-    ro.observe(el)
-    return () => ro.disconnect()
-  }, [])
-
-  // R3F's own measure can come up stale from the lazy/Suspense mount (StrictMode double-mounts it in dev),
-  // leaving the drawing buffer at its 300×150 fallback until a real window 'resize'. Poll a resize every
-  // ~150ms until R3F snaps the canvas to the real size (buffer width > the 300 fallback), then stop — this
-  // rides out the StrictMode settle without a Canvas remount/flash. Self-terminating + idempotent.
-  useEffect(() => {
-    if (!size) return
-    let tries = 0
-    const id = setInterval(() => {
-      window.dispatchEvent(new Event('resize'))
-      const c = wrapRef.current?.querySelector('canvas')
-      if ((c && c.width > 320) || ++tries > 14) clearInterval(id)
-    }, 150)
-    return () => clearInterval(id)
-  }, [size])
+  // (shared with the screener globe host — see useMeasuredCanvasSize.ts for the full rationale)
+  const { wrapRef, size } = useMeasuredCanvasSize<HTMLDivElement>()
 
   // Seamless wrap: feed the globe the REAL constellation layout as its flat state. Compute the exact same
   // computeLayout(graph, W, H) SwarmField uses, then un-project each screen position onto the flat camera's

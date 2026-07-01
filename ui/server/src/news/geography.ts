@@ -224,3 +224,91 @@ export function resolveCountry(
   // (c) the legacy region floor
   return (domainRegion && REGION_TO_COUNTRY[domainRegion]) || null
 }
+
+// ---- resolveEventGeography: the MULTI-country sibling of resolveCountry (the Globe view's resolver) ----
+//
+// Same precedence and same inputs as resolveCountry — company listing → gazetteer → region floor — with
+// exactly one deliberate behavioral difference: the gazetteer step COLLECTS every distinct matched country
+// instead of bailing to null the moment two are named. That is what lets "US weighs sanctions on Iran"
+// resolve to ['US', 'IR'] instead of an honest-but-unhelpful miss. Everything else about the "never
+// fabricate" doctrine is unchanged: no signal at all still degrades to an empty, honestly-unresolved read.
+//
+// One small, deliberately LOCAL addition on top of the shared (case-insensitive) GAZETTEER: a bare
+// uppercase "US" token, matched CASE-SENSITIVELY against the original headline. The shared GAZETTEER
+// itself only carries 'united states' / 'u.s.' / 'american' / 'washington' / … — no bare "us" — because
+// case-INSENSITIVE "us" collides with the everyday pronoun ("... tells us ...") and would corrupt
+// resolveCountry for every other caller. A case-SENSITIVE check safely recovers just the common headline
+// shorthand ("US", always capitalized in running prose) without touching the shared table or any
+// existing resolveCountry behavior/test.
+const US_TOKEN_RE = /\bUS\b/
+
+/** The shape `resolveEventGeography` returns — the Globe view's per-event geography read. */
+export interface EventGeography {
+  /** ISO alpha-2 codes, deduped, in match order; [] = unresolved/global (never a forced guess). */
+  countries: string[]
+  /** The continent/sub-region the resolved countries roll up into, or 'Global' when countries is []. */
+  region: GeoRegion | 'Global'
+  /** How the read was reached — mirrors the confidence a human would put on the same evidence. */
+  confidence: 'high' | 'medium' | 'low'
+  /** A plain-English audit trail: which step resolved it (or why nothing did). */
+  reason: string
+}
+
+/**
+ * The ISO alpha-2 countries a story is ABOUT — the multi-country counterpart to resolveCountry. In order:
+ *   (a) the listing country of the single company a PRIMARY-linkage headline is about (confidence 'high');
+ *   (b) the gazetteer, collecting EVERY distinct country the headline (+ translation) names — one match is
+ *       confidence 'high', two or more is confidence 'medium' (still real signal, just less precise than a
+ *       single company linkage — this is the one behavioral difference from resolveCountry's ambiguous→null);
+ *   (c) the legacy domain/event region mapped to its representative country (confidence 'low' — the safe
+ *       floor, never regresses).
+ * No confident signal at all → countries: [], region: 'Global', confidence: 'low', reason states plainly
+ * that nothing resolved. Never fabricates a guess (CLAUDE.md §3/§8 — an honest miss beats a forced bucket).
+ */
+export function resolveEventGeography(
+  headline: string | null | undefined,
+  headlineEn: string | null | undefined,
+  companies: ReadonlyArray<CompanyLike> | null | undefined,
+  domainRegion?: Region | null,
+  issuerLinkage?: string | null,
+): EventGeography {
+  // (a) a primary-linkage single company's listing country
+  if (issuerLinkage === 'primary' && Array.isArray(companies) && companies.length === 1) {
+    const cc = (companies[0]?.listing_country || '').trim().toUpperCase()
+    if (isCountry(cc)) {
+      const region = regionOfCountry(cc)
+      if (region) return { countries: [cc], region, confidence: 'high', reason: `Primary company listing country: ${cc}` }
+    }
+  }
+  // (b) the gazetteer over the headline (+ translation) — collect EVERY distinct country named
+  const rawHay = [headline, headlineEn].filter(Boolean).join(' · ')
+  const hay = rawHay.toLowerCase()
+  if (hay) {
+    const hits: string[] = []
+    const seen = new Set<string>()
+    for (const [kw, cc] of GAZETTEER) {
+      if (!seen.has(cc) && hasWord(hay, kw)) { seen.add(cc); hits.push(cc) }
+    }
+    // the case-sensitive bare-"US" recovery described above — only added when the shared (lowercased)
+    // gazetteer pass didn't already find the US some other way (e.g. via "united states"/"washington")
+    if (!seen.has('US') && US_TOKEN_RE.test(rawHay)) { seen.add('US'); hits.push('US') }
+    if (hits.length === 1) {
+      const region = regionOfCountry(hits[0])
+      if (region) return { countries: hits, region, confidence: 'high', reason: `Gazetteer match: ${hits[0]}` }
+    }
+    if (hits.length >= 2) {
+      const regions = new Set(hits.map((cc) => regionOfCountry(cc)).filter((r): r is GeoRegion => !!r))
+      // multiple countries spanning one region → that region; spanning several → the honest 'Global' roll-up
+      const region: GeoRegion | 'Global' = regions.size === 1 ? [...regions][0] : 'Global'
+      return { countries: hits, region, confidence: 'medium', reason: `Gazetteer matched multiple countries: ${hits.join(', ')}` }
+    }
+  }
+  // (c) the legacy region floor
+  const floorCountry = (domainRegion && REGION_TO_COUNTRY[domainRegion]) || null
+  if (floorCountry) {
+    const region = regionOfCountry(floorCountry)
+    if (region) return { countries: [floorCountry], region, confidence: 'low', reason: `Legacy region floor: ${domainRegion} → ${floorCountry}` }
+  }
+  // no confident signal at all — honest miss, never a forced guess
+  return { countries: [], region: 'Global', confidence: 'low', reason: 'No company linkage, gazetteer match, or region floor resolved' }
+}

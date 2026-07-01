@@ -1,12 +1,40 @@
 import { create } from 'zustand'
 import { api, ensureMode, isStatic } from './api'
-import type { ArchiveQuery, FeedFacets, SearchCursor } from './api'
+import type { ArchiveQuery, FeedFacets, GlobeQuery, GlobeSnapshot, SearchCursor } from './api'
 import { downstreamCascade, type CascadeNode } from './cascade'
 import { displayHeadline, originalHeadline, plainRoute, plainStage } from './plain'
 import type { Theme, ThemeDetail, ThemeBrief } from './themes'
 import { intensityWindowForHours } from './themes'
 import type { ActiveRunLite, AgentNode, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, DataStatus, EventEnrichment, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
 import { emptyBookFilters } from '../components/screener/BookFilters'
+import { emptyFilters as emptyFeedFilters, type FeedFilterState } from '../components/screener/FeedFilters'
+
+// The Screener Globe view's filter state: every dimension FeedFilters/EventRail already knows (themes,
+// geography, sector, size, text, …) plus the two the globe adds — sinceDays (the recency window presets:
+// 24h/7d/30d/all) and portfolioRelevant (restrict to companies with an existing analyses/<TICKER> run).
+// Built ON TOP of FeedFilterState (not a parallel shape) so ScreenerGlobeFilters can reuse FeedFilters/
+// ScopeDropdown wholesale for the shared dimensions — only the two new controls are bespoke.
+export interface GlobeFilterState extends FeedFilterState {
+  sinceDays: number // 1 = 24h, 7, 30 (default), 400 = "all" (MAX_DAYS on the server)
+  portfolioRelevant: boolean
+}
+export const emptyGlobeFilters = (): GlobeFilterState => ({ ...emptyFeedFilters(), sinceDays: 30, portfolioRelevant: false })
+function globeFiltersToQuery(f: GlobeFilterState): GlobeQuery {
+  return {
+    themes: f.themes.size ? [...f.themes] : undefined,
+    country: f.country || undefined,
+    geoRegion: f.geoRegion || undefined,
+    source: f.source || undefined,
+    band: f.band || undefined,
+    size: f.size || undefined,
+    linkage: f.linkage || undefined,
+    gicsSector: f.gicsSector || undefined,
+    gicsSubSector: f.gicsSubSector || undefined,
+    text: f.text.trim() || undefined,
+    sinceDays: f.sinceDays,
+    portfolioRelevant: f.portfolioRelevant || undefined,
+  }
+}
 
 // A company the user drilled into from an event (the COMPANIES NAMED chips) — the main stage then
 // shows every wire story about it. listing_country/exchange ride along from the article-body read.
@@ -72,6 +100,8 @@ let intensityRefetchTimer: any = null // debounces the screener intensity re-fet
 let selectGen = 0 // bumped on every selectTicker; async work bails if it changed (fast-switch guard)
 let archiveToken = 0 // bumped on every archive search; a stale slow response bails if it changed (last-write-wins)
 let facetsToken = 0 // same guard for a standalone facets load (contextless / on dropdown open)
+let globeToken = 0 // same last-write-wins guard for the Screener Globe snapshot fetch
+let globeDebounce: any = null // 220ms debounce for scSetGlobeFilters — same idiom EventRail's archive search uses
 let creditProbed = false
 // ---- resilient core-data load (decoupled from the heartbeat) ----
 // init() loads the heavy graph + ticker list AFTER starting the heartbeat, so a slow/failing swarm or
@@ -372,6 +402,18 @@ interface State {
   selectTheme: (id: string | null) => Promise<void>
   regenerateThemeBrief: () => Promise<void>
   refreshThemes: () => Promise<void>
+
+  // ---- Screener Globe view (the wire aggregated by country, on a 3D geography globe) ----
+  scGlobeView: boolean // true = the globe is the open main-stage view (mirrors themesView's null-gate pattern)
+  scGlobeSnapshot: GlobeSnapshot | null
+  scGlobeLoading: boolean
+  scGlobeFilters: GlobeFilterState
+  scGlobeSelectedCountry: string | null // ISO alpha-2 of the clicked marker/row — CountryEventPanel reads its aggregate straight out of scGlobeSnapshot
+  openGlobe: () => void
+  closeGlobe: () => void
+  scLoadGlobeSnapshot: () => Promise<void>
+  scSetGlobeFilters: (f: GlobeFilterState) => void
+  scSelectGlobeCountry: (cc: string | null) => void
 }
 
 function flatten(graph: SwarmGraph): Map<string, AgentNode> {
@@ -507,6 +549,12 @@ export const useStore = create<State>((set, get) => ({
   themesLoading: false,
   globalActive: [],
   stopListOpen: false,
+
+  scGlobeView: false,
+  scGlobeSnapshot: null,
+  scGlobeLoading: false,
+  scGlobeFilters: emptyGlobeFilters(),
+  scGlobeSelectedCountry: null,
 
   init: async () => {
     // WebGL capability gates the 3D globe. Probe once; if it's unavailable, disable the option and coerce
@@ -1309,8 +1357,11 @@ export const useStore = create<State>((set, get) => ({
       void get().scEnsureNewsStream()
       // Themes is the screener's default landing view — open it on entry (the user can switch to
       // Ranked/Latest/Everything from the rail, which closes it). Guarded so it never clobbers a
-      // deep-link into a specific event/company already in focus.
-      if (get().themesView === null && !get().scSelectedEvent && !get().scFocusedCompany) void get().openThemes('map')
+      // deep-link into a specific event/company already in focus, OR a Globe view the user already
+      // opened while this async init chain was still in flight (openGlobe() also sets themesView:
+      // null, so without the scGlobeView check here this would silently clobber scGlobeView back to
+      // false — the exact race a user hits by clicking "Globe" right after the screener swarm loads).
+      if (get().themesView === null && !get().scSelectedEvent && !get().scFocusedCompany && !get().scGlobeView) void get().openThemes('map')
     } catch {}
   },
 
@@ -1334,12 +1385,12 @@ export const useStore = create<State>((set, get) => ({
   },
 
   scSelectEvent: (it) => {
-    // opening any event exits the company drill-down (the CompanyView takes main-stage precedence)
-    set({ scSelectedEvent: it, scFocusedCompany: null })
+    // opening any event exits the company drill-down and the globe (the EventDetail takes main-stage precedence)
+    set({ scSelectedEvent: it, scFocusedCompany: null, ...(it ? { scGlobeView: false } : {}) })
     if (it) void get().fetchEnrichment(it) // kick the enrichment the moment an event opens
   },
 
-  scFocusCompany: (c) => set({ scFocusedCompany: c }),
+  scFocusCompany: (c) => set({ scFocusedCompany: c, ...(c ? { scGlobeView: false } : {}) }),
 
   // ---- dynamic themes ----
   refreshThemes: async () => {
@@ -1351,7 +1402,7 @@ export const useStore = create<State>((set, get) => ({
     }
   },
   openThemes: async (view) => {
-    set({ themesView: view, scSelectedEvent: null, themesStatus: get().themes.length ? 'ready' : 'loading' })
+    set({ themesView: view, scSelectedEvent: null, scGlobeView: false, themesStatus: get().themes.length ? 'ready' : 'loading' })
     void get().setIntensityWindow(intensityWindowForHours(get().themesWindow)) // map readout follows the "When" window (the single control)
     await get().refreshThemes()
     if (!get().staticMode) connectNewsStream(get) // reuse the one news EventSource; theme-update flows on it
@@ -1396,6 +1447,38 @@ export const useStore = create<State>((set, get) => ({
       if (get().selectedTheme === id) set({ themeBriefLoading: false })
     }
   },
+
+  // ---- Screener Globe view ----
+  // Opening resets the filter to the default window (30d, no picks) — the same "reset-and-open" pattern
+  // openThemes uses — and closes Themes/an open event/company drill-down so the main stage shows exactly
+  // one view at a time (mirrors ScreenerStage's branch chain in App.tsx).
+  openGlobe: () => {
+    set({ scGlobeView: true, scSelectedEvent: null, scFocusedCompany: null, themesView: null, scGlobeSelectedCountry: null })
+    void get().scLoadGlobeSnapshot()
+  },
+  closeGlobe: () => set({ scGlobeView: false, scGlobeSelectedCountry: null }),
+  scLoadGlobeSnapshot: async () => {
+    const token = ++globeToken
+    set({ scGlobeLoading: true })
+    try {
+      const snapshot = await api.screenerGlobe(globeFiltersToQuery(get().scGlobeFilters))
+      if (token !== globeToken) return // a newer filter change superseded this fetch
+      set({ scGlobeSnapshot: snapshot, scGlobeLoading: false })
+    } catch {
+      if (token !== globeToken) return
+      set({ scGlobeLoading: false })
+    }
+  },
+  // debounced re-fetch — same 220ms idiom EventRail's archive search uses, so typing in the (shared)
+  // text filter doesn't spam the server on every keystroke.
+  scSetGlobeFilters: (f) => {
+    set({ scGlobeFilters: f })
+    if (globeDebounce) clearTimeout(globeDebounce)
+    globeDebounce = setTimeout(() => void get().scLoadGlobeSnapshot(), 220)
+  },
+  // click-to-filter: the panel reads the matching aggregate straight out of the already-fetched
+  // scGlobeSnapshot (no extra round trip) — see CountryEventPanel.
+  scSelectGlobeCountry: (cc) => set({ scGlobeSelectedCountry: cc }),
 
   // set an event aside / bring it back (local, persisted). If the shelved event is the open one, close it.
   toggleShelve: (eventId) => {

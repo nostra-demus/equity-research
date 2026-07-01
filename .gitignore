@@ -25,6 +25,10 @@ nostra-engine/
 # generated cockpit snapshot — rebuilt by `npm run build` (build-snapshot.mjs); never commit build output (footgun fix)
 ui/web/public/data/
 
+# Playwright test-run artifacts (traces/screenshots on failure, HTML report) — regenerated on every run
+ui/web/test-results/
+ui/web/playwright-report/
+
 # regenerable pool extracts (rebuilt by extract_pool.py) — never commit
 _pool_extracts/
 **/_pool_extracts/

@@ -18,8 +18,9 @@ import { fetchReddit } from './sources/reddit'
 import { loadLedgerEventIds, normalizeAndFilter } from './normalize'
 import { pickTranslation } from './lang'
 import { resolveEventRegion } from './geo'
-import { resolveCountry } from './geography'
+import { resolveCountry, resolveEventGeography } from './geography'
 import { invalidateFacets } from './facets'
+import { invalidateGlobeSnapshot } from './globe'
 import { SeenCache } from './seen-cache'
 import { Budget, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter } from './triage/budget'
 import { triageBatchGemini } from './triage/gemini'
@@ -406,46 +407,56 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
 
   // per-item feed records — for KEPT and DROPPED alike, so the live wire shows everything the
   // scanner read and why; then stream each to live listeners
-  const feedItems: FeedItem[] = triaged.map((t) => ({
-    kind: 'item',
-    ts,
-    event_id: t.event_id,
-    headline: t.headline,
-    headline_en: t.headline_en, // English translation of a non-English headline (news/lang.ts); null when English
-    ...(t.headline_lang ? { headline_lang: t.headline_lang } : {}),
-    url: t.url,
-    domain: t.domain,
-    source_name: t.source_name,
-    via: t.via || 'gdelt',
-    region: t.region, // the EVENT's market (news/geo.ts) — the legacy 8-bucket region
-    // the publisher's region, persisted only when it differs from the event region (e.g. an SCMP/CN
-    // domain piece about Bangladesh → region OTHER, source_region CN) — the override's audit trail
-    ...(t.source_region && t.source_region !== t.region ? { source_region: t.source_region } : {}),
-    // the EVENT's country (ISO alpha-2, news/geography.ts) — the country-level Geography filter's key.
-    // null when no confident signal ("Global / unspecified"). Re-derived on read for older lines (feed.ts).
-    country: resolveCountry(t.headline, t.headline_en, t.companies, t.region, t.issuer_linkage),
-    input_nature: t.input_nature,
-    triage_score: t.triage_score,
-    band: t.band,
-    triage_reason: t.triage_reason,
-    relevance: t.relevance,
-    event_types: t.event_types,
-    issuer_linkage: t.issuer_linkage,
-    companies: t.companies,
-    size_bucket: t.size_bucket,
-    // derived, zero-cost classification — persisted so the wire + a later backfill agree
-    scope: deriveScope(t),
-    source_tier: deriveSourceTier(t),
-    snippet: t.snippet, // the feed's own lede — fetch-free body for on-open enrichment
-    rank_factors: t.rank_factors, // the composite-priority breakdown (rank.ts) — for the WHY in the UI
-    dedup_status: t.dedup_status,
-    dedup_group: t.dedup_group, // story-cluster id (news/dedup.ts) — the live wire collapses on it
-    inboxed: t.band !== 'drop',
-    caution: t.caution, // caution_only social — preserved so the display re-rank (feed.ts) re-applies the lowest cap
-  }))
+  const feedItems: FeedItem[] = triaged.map((t) => {
+    // the Globe view's MULTI-country geography read (news/geography.ts) — same inputs as `country` below,
+    // but collects every distinct country a headline names (e.g. a US-Iran sanctions story → both).
+    // Re-derived on read for older lines that predate it (feed.ts hydrate()).
+    const geo = resolveEventGeography(t.headline, t.headline_en, t.companies, t.region, t.issuer_linkage)
+    return {
+      kind: 'item',
+      ts,
+      event_id: t.event_id,
+      headline: t.headline,
+      headline_en: t.headline_en, // English translation of a non-English headline (news/lang.ts); null when English
+      ...(t.headline_lang ? { headline_lang: t.headline_lang } : {}),
+      url: t.url,
+      domain: t.domain,
+      source_name: t.source_name,
+      via: t.via || 'gdelt',
+      region: t.region, // the EVENT's market (news/geo.ts) — the legacy 8-bucket region
+      // the publisher's region, persisted only when it differs from the event region (e.g. an SCMP/CN
+      // domain piece about Bangladesh → region OTHER, source_region CN) — the override's audit trail
+      ...(t.source_region && t.source_region !== t.region ? { source_region: t.source_region } : {}),
+      // the EVENT's country (ISO alpha-2, news/geography.ts) — the country-level Geography filter's key.
+      // null when no confident signal ("Global / unspecified"). Re-derived on read for older lines (feed.ts).
+      country: resolveCountry(t.headline, t.headline_en, t.companies, t.region, t.issuer_linkage),
+      geography_country: geo.countries,
+      geography_region: geo.region,
+      event_location_confidence: geo.confidence,
+      geography_reason: geo.reason,
+      input_nature: t.input_nature,
+      triage_score: t.triage_score,
+      band: t.band,
+      triage_reason: t.triage_reason,
+      relevance: t.relevance,
+      event_types: t.event_types,
+      issuer_linkage: t.issuer_linkage,
+      companies: t.companies,
+      size_bucket: t.size_bucket,
+      // derived, zero-cost classification — persisted so the wire + a later backfill agree
+      scope: deriveScope(t),
+      source_tier: deriveSourceTier(t),
+      snippet: t.snippet, // the feed's own lede — fetch-free body for on-open enrichment
+      rank_factors: t.rank_factors, // the composite-priority breakdown (rank.ts) — for the WHY in the UI
+      dedup_status: t.dedup_status,
+      dedup_group: t.dedup_group, // story-cluster id (news/dedup.ts) — the live wire collapses on it
+      inboxed: t.band !== 'drop',
+      caution: t.caution, // caution_only social — preserved so the display re-rank (feed.ts) re-applies the lowest cap
+    }
+  })
   // emit exactly what was persisted, so the live wire and a later backfill agree
   const written = appendFeedItems(repoRoot, date, feedItems, cfg.feedItemsDailyCap)
-  if (written) invalidateFacets() // a fresh cycle changed the archive — drop the facet index so new items/countries show up before the TTL
+  if (written) { invalidateFacets(); invalidateGlobeSnapshot() } // a fresh cycle changed the archive — drop the facet + globe caches so new items/countries show up before the TTL
   for (const fi of feedItems.slice(0, written)) newsBus.emit({ type: 'news-item', item: fi })
 
   const overflowReq = overflow.reduce((s, o) => s + o.requests, 0)

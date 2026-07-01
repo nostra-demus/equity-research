@@ -32,6 +32,10 @@ import { OfflineBanner } from './components/EngineStatus'
 // The 3D globe view is lazy-loaded: this dynamic import is the chunk boundary that keeps three.js out of
 // the main bundle — it (and its three.js deps) only download when the user first opens the globe.
 const GlobeStage = lazy(() => import('./components/swarm/globe/GlobeStage'))
+// Same chunk-boundary doctrine for the Screener Globe (a SEPARATE three.js scene, geography not agent
+// orbs) — its own dynamic import keeps three.js out of the main bundle until the screener's Globe button
+// is actually clicked, exactly like the research globe above.
+const ScreenerGlobeView = lazy(() => import('./components/screener/globe/ScreenerGlobeView'))
 
 // Polished Suspense fallback while the globe chunk downloads — a calm fade-in, never a blank flash.
 // Reuses the existing spinner idiom (.empty__spin, already reduced-motion-aware).
@@ -114,10 +118,17 @@ function ScreenerStage() {
   const event = useStore((s) => s.scSelectedEvent)
   const themesView = useStore((s) => s.themesView)
   const focusedCompany = useStore((s) => s.scFocusedCompany)
+  const globeView = useStore((s) => s.scGlobeView)
   return (
     <div className="scstage">
       <EventRail />
-      <div className="scstage__main">{focusedCompany ? <CompanyView /> : event ? <EventDetail it={event} /> : themesView ? <ThemesView /> : <ScreenerField />}</div>
+      <div className="scstage__main">
+        {focusedCompany ? <CompanyView /> : event ? <EventDetail it={event} /> : themesView ? <ThemesView /> : globeView ? (
+          <Suspense fallback={<GlobeLoading />}>
+            <ScreenerGlobeView />
+          </Suspense>
+        ) : <ScreenerField />}
+      </div>
     </div>
   )
 }

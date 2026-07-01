@@ -136,6 +136,58 @@ function archiveQueryParams(q: ArchiveQuery): URLSearchParams {
   return p
 }
 
+// ---- Screener Globe view (the wire aggregated by country) ----
+// Mirrors ui/server/src/news/globe.ts's GlobeQuery/GlobeSnapshot. Every ArchiveQuery filter dimension
+// applies (same server-side matchesFeedFilters predicate), plus the two the globe adds: sinceDays (a
+// bounded recency window — the globe wants "what's live now", not the whole since-inception archive) and
+// portfolioRelevant (restrict to events whose guessed company already has an analyses/<TICKER> run).
+export interface GlobeQuery extends ArchiveQuery {
+  sinceDays?: number
+  portfolioRelevant?: boolean
+}
+export interface GlobeEventRef {
+  event_id: string
+  headline: string
+  headline_en?: string | null
+  ts: string
+  triage_score: number
+  source_name: string
+}
+export interface GlobeCountryAggregate {
+  country: string // ISO alpha-2
+  countryName: string
+  region: string
+  lat: number
+  lon: number
+  count: number
+  maxScore: number
+  avgScore: number
+  topThemes: string[]
+  sample: GlobeEventRef[]
+}
+export interface GlobeRegionAggregate {
+  region: string
+  lat: number
+  lon: number
+  count: number
+  maxScore: number
+  avgScore: number
+}
+export interface GlobeSnapshot {
+  countries: GlobeCountryAggregate[]
+  regions: GlobeRegionAggregate[]
+  globalUnresolvedCount: number
+  total: number
+  sinceDays: number
+  builtAt: string
+}
+function globeQueryParams(q: GlobeQuery): URLSearchParams {
+  const p = archiveQueryParams(q)
+  if (q.sinceDays) p.set('sinceDays', String(q.sinceDays))
+  if (q.portfolioRelevant) p.set('portfolioRelevant', 'true')
+  return p
+}
+
 export const api = {
   swarm: async (ticker?: string): Promise<SwarmGraph> => {
     if ((await ensureMode()) === 'static') return snap.swarmGraph
@@ -206,6 +258,12 @@ export const api = {
   newsFacets: async (q: ArchiveQuery = {}): Promise<FeedFacets> => {
     if ((await ensureMode()) === 'static') return { countries: [], regions: [], sectors: [], subSectors: [], sources: [], themes: [], total: 0, builtThroughDate: null, builtAt: '' }
     return get(`/api/news/facets?${archiveQueryParams(q).toString()}`)
+  },
+  // Screener Globe view — country/region aggregation of the wire, windowed by sinceDays. Static showcase:
+  // no engine → an honestly empty snapshot (0 countries, 0 total) rather than a fake read.
+  screenerGlobe: async (q: GlobeQuery = {}): Promise<GlobeSnapshot> => {
+    if ((await ensureMode()) === 'static') return { countries: [], regions: [], globalUnresolvedCount: 0, total: 0, sinceDays: q.sinceDays || 30, builtAt: '' }
+    return get(`/api/screener/globe?${globeQueryParams(q).toString()}`)
   },
   newsStreamUrl: () => `/api/news/stream`,
   // the global scoring weights behind every event's triage score (the Scoring panel reads + writes these).

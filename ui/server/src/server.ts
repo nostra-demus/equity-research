@@ -22,6 +22,7 @@ import { newsBus } from './news/bus'
 import { readFeed, searchFeed } from './news/feed'
 import { matchesFeedFilters, parseFeedFilterQuery } from './news/feed-filter'
 import { computeFacets } from './news/facets'
+import { computeGlobeSnapshot, type GlobeQuery } from './news/globe'
 import { getIntensity, INTENSITY_WINDOWS, type IntensityWindow } from './news/intensity'
 import { getRankWeights, defaultRankWeights, saveRankWeights, resetRankWeights, rankWeightsCustomised, type RankWeights } from './news/rank-weights'
 import { buildSourcesReport } from './news/source-health'
@@ -817,6 +818,17 @@ app.get('/api/news/search', { config: { rateLimit: { max: 600, timeWindow: '1 mi
 app.get('/api/news/facets', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req) => {
   const filters = parseFeedFilterQuery((req.query as any) || {})
   return computeFacets(REPO_ROOT, filters, { archiveDir: NEWS.newsArchiveDir })
+})
+
+// SCREENER GLOBE — country/region aggregation of the news wire (news/globe.ts) for the Globe view: every
+// existing feed filter, plus a recency window (sinceDays) and a "prior coverage" toggle (portfolioRelevant,
+// restricts to events naming a company with an existing analyses/<TICKER> run). Backed by its own 5-minute
+// TTL-cached snapshot (fresher than facets' 10 min — the globe wants current placement, not archive counts).
+app.get('/api/screener/globe', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req) => {
+  const q = (req.query as any) || {}
+  const filters = parseFeedFilterQuery(q) // parses portfolioRelevant too — same query object, one parser
+  const query: GlobeQuery = { ...filters, sinceDays: q.sinceDays !== undefined ? Number(q.sinceDays) : undefined }
+  return computeGlobeSnapshot(REPO_ROOT, query, { archiveDir: NEWS.newsArchiveDir })
 })
 
 // SCORING WEIGHTS — the knobs behind every event's triage score (rank.ts). The cockpit Scoring panel

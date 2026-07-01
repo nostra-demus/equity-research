@@ -145,6 +145,15 @@ export interface FeedItem {
   // Geography filter's key. Present on fresh items; re-derived on read for older lines (feed.ts withGeo).
   // null/absent when no confident signal ("Global / unspecified") — honest, never a forced bucket.
   country?: string | null
+  // --- additive: the Globe view's MULTI-country geography read (news/geography.ts resolveEventGeography).
+  //     Distinct from `country` above: this can hold more than one code (e.g. a US-Iran sanctions headline
+  //     resolves to both), which is what lets the globe light up every country a story is actually about,
+  //     not just the single most-confident one. Present on fresh items; backfilled on read for older lines
+  //     that predate it (feed.ts hydrate()). Undefined on old lines only until that backfill runs. ---
+  geography_country?: string[] // ISO alpha-2, deduped; [] = unresolved/global (never a forced guess)
+  geography_region?: import('./geography').GeoRegion | 'Global' | null // the continent roll-up, or 'Global' when unresolved
+  event_location_confidence?: 'high' | 'medium' | 'low' // how the geography read was reached
+  geography_reason?: string // plain-English audit trail: which step resolved it (or why nothing did)
   input_nature: string
   triage_score: number
   band: Band

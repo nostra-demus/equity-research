@@ -1,8 +1,9 @@
 // Country-level geography: the canonical vocabulary, the resolveCountry resolver (company listing →
-// gazetteer → region floor), and the GICS server↔web sync (the two taxonomies must be byte-identical).
+// gazetteer → region floor), the resolveEventGeography MULTI-country resolver (the Globe view's read),
+// and the GICS server↔web sync (the two taxonomies must be byte-identical).
 // Pure — no key / network / install. Run: npx tsx test/geography.test.ts
 import assert from 'node:assert/strict'
-import { COUNTRIES, GEO_REGIONS, countryName, regionOfCountry, countriesInRegion, isCountry, resolveCountry } from '../src/news/geography'
+import { COUNTRIES, GEO_REGIONS, countryName, regionOfCountry, countriesInRegion, isCountry, resolveCountry, resolveEventGeography } from '../src/news/geography'
 import { GICS as serverGICS } from '../src/news/gics'
 import { GICS as webGICS } from '../../web/src/lib/gics'
 
@@ -55,6 +56,62 @@ check('resolveCountry: no signal → legacy region floor; GLOBAL/OTHER → null'
   assert.equal(resolveCountry('A generic macro print', null, [], 'GLOBAL', 'macro'), null)
   assert.equal(resolveCountry('A generic macro print', null, [], 'OTHER', 'macro'), null)
   assert.equal(resolveCountry('A generic macro print', null, [], null), null)
+})
+
+// ---- resolveEventGeography: the MULTI-country sibling (the Globe view's resolver) ----
+
+// 1. the motivating multi-country case: a headline naming two countries resolves to BOTH, not an
+//    ambiguous null (the one deliberate behavioral difference from resolveCountry's bail-to-null).
+check('resolveEventGeography: "US weighs sanctions on Iran" resolves to both US and IR', () => {
+  const g = resolveEventGeography('US weighs sanctions on Iran over missile program', null, [], 'GLOBAL', 'macro')
+  assert.equal(g.countries.length, 2, 'both countries resolved, none dropped as ambiguous')
+  assert.deepEqual([...g.countries].sort(), ['IR', 'US'])
+  assert.equal(g.confidence, 'medium', 'two-country gazetteer match is medium confidence, not high')
+  // IR (Middle East) and US (North America) span two different continents → the honest 'Global' roll-up
+  assert.equal(g.region, 'Global')
+  assert.ok(g.reason && g.reason.length > 0, 'the reason is a non-empty audit trail')
+})
+
+// 2. company-specific event, no place name in the headline → the single company's listing country wins,
+//    at 'high' confidence (mirrors resolveCountry's own primary-linkage precedence).
+check('resolveEventGeography: a company-specific headline with no place name resolves to the listing country', () => {
+  const g = resolveEventGeography(
+    'Acme Corp posts record quarterly results',
+    null,
+    [{ name: 'Acme Corp', listing_country: 'AE' }],
+    'GLOBAL',
+    'primary',
+  )
+  assert.deepEqual(g.countries, ['AE'])
+  assert.equal(g.region, 'Middle East')
+  assert.equal(g.confidence, 'high')
+  assert.match(g.reason, /AE/)
+})
+
+// 3. pure global-macro event — no company linkage, no place name, no usable region floor — must resolve
+//    to the honest 'Global' / [] read, never a forced guess.
+check('resolveEventGeography: a pure global-macro headline resolves to Global with no countries', () => {
+  const g = resolveEventGeography('Global chip shortage weighs on auto production worldwide', null, [], 'GLOBAL', 'macro')
+  assert.deepEqual(g.countries, [])
+  assert.equal(g.region, 'Global')
+  assert.equal(g.confidence, 'low')
+  assert.ok(g.reason && g.reason.length > 0, 'still carries a plain-English reason for the miss')
+})
+
+// 4. never forces a country: a non-primary company linkage (a company merely mentioned, not the
+//    headline's subject) must NOT leak its listing_country into the read when nothing else resolves —
+//    same "no signal → honest miss" contract as resolveCountry's own non-primary-linkage behavior.
+check('resolveEventGeography: a non-primary company mention never forces a country', () => {
+  const g = resolveEventGeography(
+    'A neutral headline about a merger',
+    null,
+    [{ name: 'X', listing_country: 'AE' }],
+    null,
+    'sector', // NOT 'primary' — the company linkage must not be used for the high-confidence path
+  )
+  assert.deepEqual(g.countries, [], 'a non-primary-linkage company must not force AE')
+  assert.equal(g.region, 'Global')
+  assert.equal(g.confidence, 'low')
 })
 
 // ---- GICS server ↔ web sync (no drift) ----
