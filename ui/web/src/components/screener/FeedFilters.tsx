@@ -26,9 +26,10 @@ export const filtersActive = (f: FeedFilterState): boolean =>
 
 // The structured filter that triggers ARCHIVE search (the whole-history, server-side read) — everything
 // except the legacy `region` (which only narrows the live wire). When none of these is set, the rail
-// stays in LIVE mode (the 2-day SSE wire). Mirrors the server-side dimensions in news/feed-filter.ts.
+// stays in LIVE mode (the 2-day SSE wire). Mirrors the server-side dimensions in news/feed-filter.ts
+// (hasAnyFilter) — including `band`, so a kept/dropped-only filter also searches the whole archive.
 export const archiveFiltersActive = (f: FeedFilterState): boolean =>
-  f.themes.size > 0 || !!f.country || !!f.geoRegion || !!f.source || !!f.size || !!f.linkage || !!f.gicsSector || !!f.gicsSubSector || !!f.text.trim()
+  f.themes.size > 0 || !!f.country || !!f.geoRegion || !!f.source || !!f.band || !!f.size || !!f.linkage || !!f.gicsSector || !!f.gicsSubSector || !!f.text.trim()
 
 // A tailored empty-wire line when a GICS filter is active and nothing shows. GICS tags are matched from
 // the headline, so a thinly-covered sector reads empty even on a busy wire — say so, instead of the
