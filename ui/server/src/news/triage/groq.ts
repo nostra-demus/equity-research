@@ -132,7 +132,11 @@ export function coerceTriage(raw: any): Triage {
   // defaulting an omitted/malformed field to 'medium' would silently floor-boost EVERY low-scoring item
   // up to 45, even genuinely irrelevant ones (a real regression caught by news.test.ts). 'low' carries a
   // 0 floor, so a missing label asserts no severity at all — the model must EARN any lift.
-  const materialityLabel = ['low', 'medium', 'high', 'critical'].includes(raw?.event_materiality_label) ? raw.event_materiality_label : 'low'
+  // lower-case the raw label first: a provider may return "High"/"CRITICAL" instead of exact lowercase,
+  // and without normalizing, the validation below would treat it as malformed and default to 'low' — so
+  // the materiality floor (rank.ts materialityLabelBoost) would never apply to a real high/critical event.
+  const rawLabel = typeof raw?.event_materiality_label === 'string' ? raw.event_materiality_label.trim().toLowerCase() : raw?.event_materiality_label
+  const materialityLabel = ['low', 'medium', 'high', 'critical'].includes(rawLabel) ? rawLabel : 'low'
   const direction = ['positive', 'negative', 'mixed', 'neutral', 'unknown'].includes(raw?.event_direction) ? raw.event_direction : 'unknown'
   let score = Number(raw?.materiality_pre_score)
   if (!Number.isFinite(score)) score = 0

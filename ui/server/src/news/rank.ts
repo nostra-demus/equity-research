@@ -80,20 +80,43 @@ export function deriveMaterialityLabel(score: number): EventMaterialityLabel {
 // A quantified figure: a currency amount (with optional range), a percentage, or basis points. Paired
 // with an IMPACT keyword below so a bare incidental number ("opens 3rd store") doesn't trigger it.
 const QUANTIFIED_NUMBER_RE = /[$€£¥₹]\s?\d[\d,.]*(\s?[-–to]+\s?[$€£¥₹]?\s?\d[\d,.]*)?\s?(bn|billion|tn|trillion|m\b|mn|million|cr\b|crore|lakh|k\b|thousand)?|\d+(\.\d+)?\s?%|\d[\d,.]*\s?(bps|basis points)/i
+// Matched with WHOLE-WORD boundaries (hasImpactWord), so every inflected form a headline actually uses
+// must be listed explicitly — a bare stem like 'invest' would otherwise miss 'invests', and word
+// boundaries (correctly) stop it firing inside 'investors'. This is the fix for the 'invest'→"investors"
+// false positive (Thread D) while keeping the real 'to invest'/'invests' hits AND the 'fine'/'fines'
+// coverage the substring form used to give for free.
 const IMPACT_KEYWORDS = [
   'warns', 'warned', 'warning', 'net loss', 'profit warning', 'guidance', 'forecast', 'cuts', 'cut its',
-  'lowers', 'lowered', 'raises', 'raised', 'downgrade', 'upgrade', 'capex', 'invest', 'investment',
-  'fine', 'fined', 'penalty', 'settlement', 'write-down', 'writedown', 'impairment', 'default',
+  'lowers', 'lowered', 'raises', 'raised', 'downgrade', 'upgrade', 'capex', 'invest', 'invests', 'investment',
+  'fine', 'fined', 'fines', 'penalty', 'settlement', 'write-down', 'writedown', 'impairment', 'default',
   'bankrupt', 'deal valued', 'valued at', 'acquire', 'acquisition', 'to buy', 'takeover', 'misses',
   'beats', 'shortfall', 'deficit',
 ]
 const QUANTIFIED_BONUS = 6
 
+/** Whole-word(ish) match on BOTH outer edges (mirrors scope.ts hasTerm), so a stem keyword like
+ *  'invest' fires on "invest"/"invests" but NEVER inside "investors"/"investor" (routine price-chatter
+ *  — "Shares fall 5% as investors weigh results" must not earn the +6 impact bonus). Multi-word keywords
+ *  ('cut its', 'net loss', 'to buy') are bounded at their outer edges only, so they still match. We scan
+ *  every occurrence so a real standalone hit later in the string still counts. */
+function hasImpactWord(hay: string, term: string): boolean {
+  const t = term.trim()
+  if (!t) return false
+  for (let from = 0; ; ) {
+    const i = hay.indexOf(t, from)
+    if (i < 0) return false
+    const before = i === 0 ? ' ' : hay[i - 1]
+    const after = i + t.length >= hay.length ? ' ' : hay[i + t.length]
+    if (!/[a-z0-9]/.test(before) && !/[a-z0-9]/.test(after)) return true
+    from = i + 1
+  }
+}
+
 /** A flat bonus when the headline pairs a quantified figure with an impact keyword. */
 export function quantifiedImpactBonus(headline: string | null | undefined, headlineEn?: string | null): number {
   const hay = ' ' + String((headlineEn && headlineEn.trim()) || headline || '').toLowerCase() + ' '
   if (!QUANTIFIED_NUMBER_RE.test(hay)) return 0
-  return IMPACT_KEYWORDS.some((k) => hay.includes(k)) ? QUANTIFIED_BONUS : 0
+  return IMPACT_KEYWORDS.some((k) => hasImpactWord(hay, k)) ? QUANTIFIED_BONUS : 0
 }
 
 export interface Ranked {

@@ -111,6 +111,22 @@ check('quantifiedImpactBonus fires only when a quantified figure AND an impact k
   assert.equal(quantifiedImpactBonus('foreign headline', 'Company warns net loss of HK$220-260m'), 6)
 })
 
+check('quantifiedImpactBonus uses word boundaries — "investors" does not fire the "invest" stem (Thread D)', () => {
+  // the 'invest' impact keyword matched substring-wise on "investors"/"investor" in routine price-chatter,
+  // pairing with the "%" figure to add a spurious +6. RED on old code (returned 6); GREEN after switching
+  // to word-boundary matching.
+  assert.equal(quantifiedImpactBonus('Shares fall 5% as investors weigh results'), 0)
+  assert.equal(quantifiedImpactBonus('Investor sentiment lifts the index 3%'), 0)
+  // the sibling substring collisions the same fix closes: "cuts" inside "Haircuts", "beats" inside "heartbeats"
+  assert.equal(quantifiedImpactBonus('Haircuts get pricier as salon fees rise 4%'), 0)
+  // a REAL 'invest' hit (word boundary) still fires when paired with a figure — coverage is preserved
+  assert.equal(quantifiedImpactBonus('Reliance to invest ₹75,000 crore in green energy'), 6)
+  assert.equal(quantifiedImpactBonus('Acme to invest $2bn in a new fab'), 6)
+  // multi-word impact keywords still match at their outer edges
+  assert.equal(quantifiedImpactBonus('Board approves plan to buy back 5% of shares'), 6)
+  assert.equal(quantifiedImpactBonus('Firm posts net loss of $500m'), 6)
+})
+
 check('rankScore: a war escalation with no company named now scores ABOVE a routine macro print (task test case 1)', () => {
   // BEFORE this fix this fell into the macro bucket (-4 penalty) — now it is recognized as geopolitical
   // (+9) and the model's own "critical" call lifts the raw score via the floor-boost.

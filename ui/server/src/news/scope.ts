@@ -92,9 +92,14 @@ const MACRO_TERMS = [
 // describe DE-escalation (often the cause of a commodity price move, e.g. "Oil falls on peace deal")
 // and must not steal the 'commodity' scope a price-move headline already earns; only their reversal
 // (escalation breaking a truce) is a geopolitical trigger.
+// Also deliberately EXCLUDES bare 'strikes in' — it matches ordinary labor-action headlines ("Workers
+// launch strikes in France") that carry no military actor and no company, wrongly earning the +9
+// geopolitical lift. A genuine military strike is still caught by the actor/weapon-anchored phrases
+// ('air strikes', 'missile strike', 'launches strikes', 'conducts strikes', 'drone strike'…), so the
+// only thing dropping the bare phrase loses is the labor-strike false positive.
 const GEOPOLITICAL_TERMS = [
   'air strike', 'airstrike', 'air strikes', 'military strike', 'military strikes', 'missile strike',
-  'missile attack', 'drone strike', 'fresh strikes', 'strikes in', 'launches strikes', 'conducts strikes',
+  'missile attack', 'drone strike', 'fresh strikes', 'launches strikes', 'conducts strikes',
   'invasion', 'invades', 'declares war', 'war on', 'breaks ceasefire', 'violates ceasefire',
   'ceasefire collapse', 'truce collapses', 'truce breaks down', 'warplane', 'shelling', 'bombardment',
   'nuclear site', 'troops enter', 'troop surge', 'martial law', 'border clash', 'conflict escalat',
@@ -154,8 +159,8 @@ export interface ScopeInput {
  * Place an event on the scope axis. Precedence (first match wins):
  *  1. war / military-conflict escalation with NO single company as the subject → geopolitical
  *  2. system-level policy/regulator/court action with NO single company as the subject → policy
- *  3. commodity/freight move (by source type or headline terms) → commodity
- *  4. a roundup/ranking/listicle (no M&A type, no single-company subject) → generic_media
+ *  3. a roundup/ranking/listicle (no M&A type, no single-company subject) → generic_media
+ *  4. commodity/freight move (by source type or headline terms) → commodity
  *  5. one named company + a company-pointing linkage → single_name
  *  6. two-or-more named companies, or an M&A/commercial event with companies → multi_name
  *  7. a company-pointing linkage but no name guessed → single_name (still about one issuer)
@@ -192,14 +197,17 @@ export function deriveScope(it: ScopeInput): ScopeId {
     return 'policy'
   }
 
-  // 3. commodity / freight price or supply move (no policy action, no single-producer subject)
+  // 3. a roundup / ranking / listicle — checked BEFORE both the commodity branch AND the company-count
+  // branches. A "Top 10 oil companies by market cap" piece contains a commodity word ("oil") but is a
+  // low-information listicle, not a commodity price read; the commodity branch below would otherwise
+  // return first and mis-score it (crossing `watch` on the commodity lift). It also must not earn the
+  // multi_name "deal/pair" bonus purely on naming several tickers.
+  if (!subjectIsOneCompany && !hasMnaType && (anyTerm(hay, ROUNDUP_TERMS) || ROUNDUP_NUM_RE.test(hay))) return 'generic_media'
+
+  // 4. commodity / freight price or supply move (no policy action, no single-producer subject)
   if (nature === 'commodity_price_move' || nature === 'shipping_rate_move' || anyTerm(hay, COMMODITY_TERMS)) {
     if (!subjectIsOneCompany) return 'commodity'
   }
-
-  // 4. a roundup / ranking / listicle — checked BEFORE the company-count branches so naming several
-  // tickers in a "Top 10" piece doesn't earn the multi_name "deal/pair" bonus it doesn't deserve.
-  if (!subjectIsOneCompany && !hasMnaType && (anyTerm(hay, ROUNDUP_TERMS) || ROUNDUP_NUM_RE.test(hay))) return 'generic_media'
 
   // 5. one named company, company-pointing linkage
   if ((link === 'primary' || link === 'secondary') && namedCount === 1 && !hasMnaType) return 'single_name'

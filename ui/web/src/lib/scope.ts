@@ -63,7 +63,10 @@ const MACRO_RE = /\b(inflation|cpi|wpi|ppi|gdp|recession|payrolls|unemployment|r
 // would false-positive on labor strikes / a defense contractor's own product news). Deliberately
 // EXCLUDES bare 'ceasefire'/'truce'/'peace deal'/'peace treaty' (de-escalation language that must not
 // steal the 'commodity' scope a price-move headline already earns) — only their REVERSAL triggers.
-const GEOPOLITICAL_RE = /\b(air ?strikes?|military strikes?|missile (?:strike|attack)|drone strike|fresh strikes|strikes in|launches strikes|conducts strikes|invasion|invades|declares war|war on|breaks ceasefire|violates ceasefire|ceasefire collapse|truce collapses|truce breaks down|warplane|shelling|bombardment|nuclear site|troops? enter|troop surge|martial law|border clash|conflict escalat\w*)\b/i
+// bare 'strikes in' dropped (mirrors server scope.ts): it matched labor-action headlines ("Workers
+// launch strikes in France") with no military actor / no company, wrongly earning the geopolitical
+// lift. Genuine military strikes are still caught by the actor/weapon-anchored phrases.
+const GEOPOLITICAL_RE = /\b(air ?strikes?|military strikes?|missile (?:strike|attack)|drone strike|fresh strikes|launches strikes|conducts strikes|invasion|invades|declares war|war on|breaks ceasefire|violates ceasefire|ceasefire collapse|truce collapses|truce breaks down|warplane|shelling|bombardment|nuclear site|troops? enter|troop surge|martial law|border clash|conflict escalat\w*)\b/i
 // mirrors server scope.ts ROUNDUP_TERMS/ROUNDUP_NUM_RE
 const ROUNDUP_RE = /\btop\s*\d+\b|\branked\b.{0,20}\b(companies|stocks|firms)\b|\b(top (?:10|5|20) stocks|top (?:10|5|20) companies|best stocks|best companies|biggest companies|biggest gainers|biggest losers|world'?s largest|world'?s biggest|stocks to watch|stocks to buy|by market cap|market-cap ranking|richest companies)\b/i
 
@@ -77,8 +80,10 @@ export function deriveScopeClient(it: { issuer_linkage?: string | null; companie
   const subjectIsOneCompany = link.startsWith('primary') && named === 1
   if (!subjectIsOneCompany && GEOPOLITICAL_RE.test(hl)) return 'geopolitical'
   if (!subjectIsOneCompany && (POLICY_RE.test(hl) || ((types.includes('regulatory') || types.includes('litigation_enforcement')) && (link.startsWith('sector') || link.startsWith('macro') || named === 0)))) return 'policy'
-  if (COMMODITY_RE.test(hl) && !subjectIsOneCompany) return 'commodity'
+  // roundup/listicle BEFORE commodity — a "Top 10 oil companies by market cap" piece carries a commodity
+  // word ("oil") but is a low-information listicle, not a commodity read (mirrors server scope.ts step 3)
   if (!subjectIsOneCompany && !hasMnaType && ROUNDUP_RE.test(hl)) return 'generic_media'
+  if (COMMODITY_RE.test(hl) && !subjectIsOneCompany) return 'commodity'
   if ((link.startsWith('primary') || link.startsWith('secondary')) && named === 1 && !hasMnaType) return 'single_name'
   if (named >= 2 || (hasMnaType && named >= 1) || (link.startsWith('secondary') && named >= 1)) return 'multi_name'
   if (link.startsWith('primary')) return 'single_name'

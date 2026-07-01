@@ -367,6 +367,19 @@ await check('coerceTriage: companies/size_bucket hard-coerce (bogus ticker → n
   assert.equal(empty.size_bucket, 'unknown')
 })
 
+await check('coerceTriage: a non-lowercase event_materiality_label ("High"/"CRITICAL") is normalized, not defaulted to low (Thread E)', () => {
+  // a provider that returns the severity label as "High" / "CRITICAL" (mixed/upper case) used to fail the
+  // exact-lowercase membership check and default to 'low', so the materiality floor (rank.ts) never
+  // applied to a genuine high/critical event. RED on old code (→ 'low'); GREEN after lower-casing first.
+  assert.equal(coerceTriage({ relevance: 'material', materiality_pre_score: 20, event_materiality_label: 'High' }).event_materiality_label, 'high')
+  assert.equal(coerceTriage({ relevance: 'material', materiality_pre_score: 20, event_materiality_label: 'CRITICAL' }).event_materiality_label, 'critical')
+  assert.equal(coerceTriage({ relevance: 'material', materiality_pre_score: 20, event_materiality_label: '  Medium  ' }).event_materiality_label, 'medium')
+  // exact-lowercase still works, and a genuinely malformed label still floors to 'low'
+  assert.equal(coerceTriage({ relevance: 'material', materiality_pre_score: 20, event_materiality_label: 'high' }).event_materiality_label, 'high')
+  assert.equal(coerceTriage({ relevance: 'material', materiality_pre_score: 20, event_materiality_label: 'sky-high' }).event_materiality_label, 'low')
+  assert.equal(coerceTriage({ relevance: 'material', materiality_pre_score: 20 }).event_materiality_label, 'low') // omitted → low (no unearned lift)
+})
+
 // ---- the live wire's persistence: per-item records for kept AND dropped ----
 await check('runIngestCycle writes kind:"item" feed lines for kept AND dropped, with themes + company guesses', async () => {
   const root = tmp()
