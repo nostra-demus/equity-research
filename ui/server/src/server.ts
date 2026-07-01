@@ -20,7 +20,7 @@ import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, companyFolderExi
 import { cancel, cancelAll, creditCheck, decideReadiness, estimate, launch } from './launcher'
 import { newsBus } from './news/bus'
 import { readFeed, searchFeed } from './news/feed'
-import { matchesFeedFilters, parseFeedFilterQuery } from './news/feed-filter'
+import { matchesFeedFilters, parseFeedFilterQuery, explainFeedFilterMatch, type FeedFilterQuery } from './news/feed-filter'
 import { computeFacets } from './news/facets'
 import { getIntensity, INTENSITY_WINDOWS, type IntensityWindow } from './news/intensity'
 import { getRankWeights, defaultRankWeights, saveRankWeights, resetRankWeights, rankWeightsCustomised, type RankWeights } from './news/rank-weights'
@@ -817,6 +817,20 @@ app.get('/api/news/search', { config: { rateLimit: { max: 600, timeWindow: '1 mi
 app.get('/api/news/facets', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req) => {
   const filters = parseFeedFilterQuery((req.query as any) || {})
   return computeFacets(REPO_ROOT, filters, { archiveDir: NEWS.newsArchiveDir })
+})
+
+// DEBUG — "why did/didn't this item match this filter". Accepts as much or as little of an item's fields
+// as you have (headline/companies/country/…) and a filter to test it against, and returns
+// explainFeedFilterMatch's per-clause pass/fail + detail (which GICS keyword or company alias fired, or
+// why none did). A pure function proxy — no archive lookup — so it works for a hypothetical/synthetic
+// item as easily as one already ingested. `filters` uses the SAME string-keyed shape as the /search query
+// params (parsed by the same parseFeedFilterQuery), e.g. {"gicsSubSector":"Tobacco"}.
+const DebugExplainBody = z.object({ item: z.record(z.string(), z.any()), filters: z.record(z.string(), z.any()) }).strip()
+app.post('/api/news/debug/explain', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const parsed = DebugExplainBody.safeParse(req.body ?? {})
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid body — expected {item, filters}', detail: parsed.error.flatten() })
+  const filters: FeedFilterQuery = parseFeedFilterQuery(parsed.data.filters as Record<string, unknown>)
+  return explainFeedFilterMatch(parsed.data.item as any, filters)
 })
 
 // SCORING WEIGHTS — the knobs behind every event's triage score (rank.ts). The cockpit Scoring panel

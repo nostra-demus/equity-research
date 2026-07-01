@@ -25,6 +25,12 @@ interface Industry {
   name: string
   /** whole-word keywords that classify a headline/company into this sub-sector */
   keywords: readonly string[]
+  /** Exact-match (case-insensitive, trimmed) aliases checked ONLY against the LLM's own structured
+   *  company-guess fields (CompanyGuess.name / .ticker) — NEVER scanned as free text over the headline.
+   *  Use this for a short form that's a real collision risk as free text (e.g. "BAT" collides with the
+   *  English word "bat" and with BATS Global Markets, the former US exchange operator) but is safe as an
+   *  EXACT match against a company's own extracted name/ticker. Optional; most industries won't need it. */
+  companyAliases?: { names?: readonly string[]; tickers?: readonly string[] }
 }
 interface Sector {
   name: string
@@ -95,7 +101,7 @@ export const GICS: readonly Sector[] = [
     industries: [
       { name: 'Food Products', keywords: ['food maker', 'packaged food', 'food producer', 'foodmaker', 'dairy', 'meatpacker', 'snack maker'] },
       { name: 'Beverages', keywords: ['beverage maker', 'soft drink', 'brewer', 'brewers', 'distiller', 'spirits maker', 'bottler'] },
-      { name: 'Tobacco', keywords: ['tobacco', 'cigarette maker'] },
+      { name: 'Tobacco', keywords: ['tobacco', 'cigarette maker'], companyAliases: { names: ['bat'], tickers: ['bats', 'bti'] } },
       { name: 'Household & Personal Products', keywords: ['household products', 'personal care', 'fmcg', 'consumer goods giant'] },
       { name: 'Food & Staples Retailing', keywords: ['grocer', 'grocery chain', 'supermarket', 'hypermarket', 'drugstore chain'] },
     ],
@@ -215,9 +221,51 @@ function classifyText(hay: string): GicsTags {
   return tags
 }
 
-/** Tag a wire item with its GICS sector(s) + sub-sector(s), read from its headline and guessed companies. */
-export function gicsOf(it: { headline?: string; headline_en?: string | null; companies?: { name: string }[] }): GicsTags {
+// ---- company-alias matcher: EXACT match against the LLM's own structured company guess (name/ticker),
+// never scanned as free text over the headline — see Industry.companyAliases for why this is a separate,
+// narrower pass than the keyword scan above.
+interface AliasEntry { subSector: string; sector: string; names: ReadonlySet<string>; tickers: ReadonlySet<string> }
+const ALIAS_INDEX: AliasEntry[] = []
+for (const sector of GICS) {
+  for (const ind of sector.industries) {
+    if (ind.companyAliases) {
+      ALIAS_INDEX.push({
+        subSector: ind.name,
+        sector: sector.name,
+        names: new Set((ind.companyAliases.names || []).map((n) => n.toLowerCase().trim())),
+        tickers: new Set((ind.companyAliases.tickers || []).map((t) => t.toLowerCase().trim())),
+      })
+    }
+  }
+}
+
+type CompanyLike = { name: string; ticker?: string | null }
+
+function classifyCompanyAliases(companies: CompanyLike[] | undefined, sectors: Set<string>, subSectors: Set<string>): void {
+  if (!companies?.length || !ALIAS_INDEX.length) return
+  for (const c of companies) {
+    const nm = String(c?.name || '').toLowerCase().trim()
+    const tk = String(c?.ticker || '').toLowerCase().trim()
+    if (!nm && !tk) continue
+    for (const entry of ALIAS_INDEX) {
+      if ((nm && entry.names.has(nm)) || (tk && entry.tickers.has(tk))) {
+        subSectors.add(entry.subSector)
+        sectors.add(entry.sector)
+      }
+    }
+  }
+}
+
+/** Tag a wire item with its GICS sector(s) + sub-sector(s), read from its headline, its guessed
+ *  companies' names (free-text keyword pass), AND an exact-match company-alias pass (ticker/short-name
+ *  aliases like BAT/BATS/BTI for Tobacco) — see Industry.companyAliases. */
+export function gicsOf(it: { headline?: string; headline_en?: string | null; companies?: CompanyLike[] }): GicsTags {
   const parts = [it.headline, it.headline_en, ...(it.companies || []).map((c) => c.name)].filter(Boolean)
-  if (!parts.length) return EMPTY
-  return classifyText(parts.join(' · ').toLowerCase())
+  const base = parts.length ? classifyText(parts.join(' · ').toLowerCase()) : EMPTY
+  if (!ALIAS_INDEX.length || !it.companies?.length) return base
+  const sectors = new Set(base.sectors)
+  const subSectors = new Set(base.subSectors)
+  classifyCompanyAliases(it.companies, sectors, subSectors)
+  if (sectors.size === base.sectors.size && subSectors.size === base.subSectors.size) return base
+  return { sectors, subSectors }
 }

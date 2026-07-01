@@ -7,7 +7,7 @@
 // (news/gics.ts), classified lazily only when a sector/sub-sector filter is set.
 
 import type { FeedItem } from './types'
-import { gicsOf } from './gics'
+import { gicsOf, explainGicsOf } from './gics'
 import { regionOfCountry } from './geography'
 
 export interface FeedFilterQuery {
@@ -76,4 +76,69 @@ export function parseFeedFilterQuery(raw: Record<string, unknown>): FeedFilterQu
     gicsSubSector: str(raw.gicsSubSector),
     text: str(raw.text),
   }
+}
+
+export interface FeedFilterCheck { clause: string; passed: boolean; detail: string }
+export interface FeedFilterExplanation { matched: boolean; checks: FeedFilterCheck[] }
+
+/** Name which keyword or company alias matched the requested GICS sector/sub-sector (or state plainly
+ *  that nothing did) — the GICS clause of explainFeedFilterMatch below. */
+function explainGics(it: FeedItem, wantSector?: string, wantSubSector?: string): FeedFilterCheck {
+  const details = explainGicsOf(it)
+  const relevant = details.filter((d) => (!wantSubSector || d.subSector === wantSubSector) && (!wantSector || d.sector === wantSector))
+  if (relevant.length) {
+    const named = relevant.map((d) => `${d.subSector} via ${d.via === 'keyword' ? `keyword "${d.term}"` : `company alias (${d.term})`}`).join('; ')
+    return { clause: 'gics', passed: true, detail: `matched: ${named}` }
+  }
+  const label = [wantSector, wantSubSector].filter(Boolean).join(' → ') || 'the requested GICS filter'
+  return { clause: 'gics', passed: false, detail: `nothing in the headline, translation, company name/ticker, or known aliases matched ${label}` }
+}
+
+/** DEBUG ONLY — the "why did/didn't this item match this filter" trace. Checks the exact same clauses as
+ *  matchesFeedFilters, in the same order, but records a pass/fail + human-readable detail per clause
+ *  instead of short-circuiting on the first failure, so a caller can see every reason at once. Only
+ *  clauses whose filter key is actually SET produce a check (an unset clause is vacuously true and adds
+ *  no noise). Not on the hot path — call this only when a human wants to know why. */
+export function explainFeedFilterMatch(it: FeedItem, q: FeedFilterQuery): FeedFilterExplanation {
+  const checks: FeedFilterCheck[] = []
+
+  if (q.themes && q.themes.length > 0) {
+    const hit = (it.event_types || []).filter((t) => q.themes!.includes(t))
+    checks.push({ clause: 'themes', passed: hit.length > 0, detail: hit.length ? `matched theme(s): ${hit.join(', ')}` : `item themes [${(it.event_types || []).join(', ') || 'none'}] do not include any of [${q.themes.join(', ')}]` })
+  }
+  if (q.country) {
+    const c = it.country || ''
+    checks.push({ clause: 'country', passed: c === q.country, detail: c === q.country ? `country ${c} matches` : `item country "${c || 'unset'}" ≠ requested "${q.country}"` })
+  }
+  if (q.geoRegion) {
+    const r = regionOfCountry(it.country)
+    checks.push({ clause: 'geoRegion', passed: r === q.geoRegion, detail: r === q.geoRegion ? `region ${r} matches` : `item region "${r || 'unset'}" (from country "${it.country || 'unset'}") ≠ requested "${q.geoRegion}"` })
+  }
+  if (q.source) {
+    const s = it.source_name || ''
+    checks.push({ clause: 'source', passed: s === q.source, detail: s === q.source ? 'source matches' : `item source "${s}" ≠ requested "${q.source}"` })
+  }
+  if (q.band) {
+    const b = bandOf(it)
+    checks.push({ clause: 'band', passed: b === q.band, detail: b === q.band ? `band ${b} matches` : `item band "${b || 'unset'}" ≠ requested "${q.band}"` })
+  }
+  if (q.size) {
+    const s = it.size_bucket || 'unknown'
+    checks.push({ clause: 'size', passed: s === q.size, detail: s === q.size ? `size ${s} matches` : `item size "${s}" ≠ requested "${q.size}"` })
+  }
+  if (q.linkage) {
+    const l = it.issuer_linkage || ''
+    checks.push({ clause: 'linkage', passed: l === q.linkage, detail: l === q.linkage ? `linkage ${l} matches` : `item linkage "${l || 'unset'}" ≠ requested "${q.linkage}"` })
+  }
+  if (q.gicsSector || q.gicsSubSector) {
+    checks.push(explainGics(it, q.gicsSector, q.gicsSubSector))
+  }
+  if (q.text && q.text.trim()) {
+    const needle = q.text.trim().toLowerCase()
+    const hay = `${it.headline} ${it.headline_en || ''} ${(it.companies || []).map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase()
+    const hit = hay.includes(needle)
+    checks.push({ clause: 'text', passed: hit, detail: hit ? `text "${needle}" found in headline/company blob` : `text "${needle}" not found in headline, translation, or company name/ticker` })
+  }
+
+  return { matched: checks.every((c) => c.passed), checks }
 }
