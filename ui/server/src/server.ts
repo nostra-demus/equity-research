@@ -155,15 +155,17 @@ app.get('/api/swarm', async (req, reply) => {
     const subject = q?.subject as string | undefined
     // a swarm subject is either a screener SIG id or a constellation-swarm subject (commodity id, etc.).
     // Validate-or-reject (matches /api/output/* and /api/chat/scopes): a present-but-malformed subject is a
-    // 400, never a silent fall-through — and the explicit guard is the barrier CodeQL needs (js/stored-xss).
+    // 400, never a silent fall-through. The graph is data, not markup: send it with an explicit
+    // application/json content type — that is the sanitizer barrier for js/stored-xss (a JSON response can
+    // never execute a reflected/stored value as script), on top of the regex validation above.
     if (subject !== undefined) {
       if (!SIG_RE.test(subject) && !TICKER_RE.test(subject)) return reply.code(400).send({ error: 'bad subject' })
-      return graphForSubject(swarm, subject)
+      return reply.type('application/json').send(graphForSubject(swarm, subject))
     }
     return buildSwarmGraph(swarm)
   }
   const ticker = q?.ticker as string | undefined
-  if (ticker && TICKER_RE.test(ticker)) return graphForTicker(ticker)
+  if (ticker && TICKER_RE.test(ticker)) return reply.type('application/json').send(graphForTicker(ticker))
   return buildSwarmGraph()
 })
 
