@@ -62,6 +62,9 @@ jobs:
       - name: Check W + X + Y selftest (sector-valuation + evidence-integrity + data-sufficiency gates — fixture-free)
         run: python3 scripts/eval.py selftest
 
+      - name: Score-breakdown unit tests (screener Phase 0.1 materiality)
+        run: python3 scripts/test_screener_score_breakdown.py
+
       - name: Screener filing-classifier selftest (routine-filing derate gate — fixture-free)
         run: python3 scripts/screener_filing_classifier.py selftest
 

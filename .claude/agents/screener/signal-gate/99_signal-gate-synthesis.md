@@ -1,7 +1,7 @@
 ---
 name: screener-signal-synthesis
 depends_on: []
-description: Phase 0.1 Steps 9-10 + module synthesis — decides the canonical action, computes the materiality score 0-100 (penalties and overrides visible), applies the routine-filing derate ceiling, writes signal_payload.json, appends the event to the ledger, refreshes the board index, and routes - PROMOTE (>=70) / PARK (40-69) / LOG (<40 or suppress).
+description: Phase 0.1 Steps 9-10 + module synthesis — decides the canonical action, computes the materiality score 0-100 as a named 6-component + 5-penalty breakdown (scripts/screener_score_breakdown.py) whose routine_filing_penalty and generic_media_penalty consume filing_type and is_generic_media/sub-scores directly, writes signal_payload.json, appends the event to the ledger, refreshes the board index, and routes - PROMOTE (>=70) / PARK (40-69) / LOG (<40 or suppress).
 tools: Read, Glob, Grep, Bash, Write
 layer: 5
 ---
@@ -30,21 +30,17 @@ You DO NOT:
 1. Read the repo root `CLAUDE.md`, then `.claude/agents/screener/SWARM.md`, then `.claude/agents/screener/signal-gate/MODULE_RULES.md`, and apply all three.
 2. Read every upstream output. Carry forward: gate0 record (event_id, source grade), relevance label + confidence, event types, entities + linkage, similarity, pair_label, fact_delta, confirmation_upgrade, novelty, and the generic-media check (is_generic_media, generic_media_reason, specificity_score, quantifiability_score, investability_score).
 3. **Step 9 — canonical handling.** Decide the action vs the best-matching prior ledger event using the priority order (official > source tier > fact richness > earlier timestamp): replace_canonical / suppress / keep_linked_low_rank / keep_linked / keep_separate.
-4. **Step 10 — materiality score (0–100).** Build it transparently:
-   - Start from a base reflecting relevance + event severity + issuer directness + scope (state the base and the one-line reason for it).
-   - Add the novelty contribution (state it).
-   - Apply penalties: duplicate −50; same_event_no_new_info −25; same_event_new_info −5.
-   - Apply overrides: confirmation upgrade removes the penalties; official filings / enforcement / defaults get a positive adjustment (state how much).
-   - Clamp 0–100.
-   - Apply the generic-media cap (MODULE_RULES): if `is_generic_media` is true, compute the ceiling from `specificity_score`/`quantifiability_score`/`investability_score` and take `min(score, ceiling)`. If false, no ceiling.
-   - Print the full arithmetic line, including the ceiling/min() clause when a cap applied. This is the Step-10 score — do NOT apply Step 10b's routine-filing ceiling inside this arithmetic; Step 10b runs after, on the finished number.
-5. **Step 10b — routine-filing derate ceiling.** Read `filing_type` / `override_hit` from the upstream `01_relevance-events-entities.md` report (Step 2b). Run:
+4. **Step 10a — portfolio/theme lookup.** Grep `screener/ledger/theses/*.json` and `screener/board/index.json` for an open/locked thesis on the primary issuer (or, for a private/unlisted primary issuer, on any name in `linked_public_companies`) → `portfolio_position`. Check the board's theme tags against this event's sector/commodity/event_types → `live_theme_match`. An empty ledger/board means both are `false` — state that, don't skip it.
+5. **Step 10 — materiality score breakdown.** Build ONE input JSON object covering every field MODULE_RULES.md's "Materiality (Step 10)" section lists: inherited fields (`relevance_label`, `event_types`, `issuer_linkage`, `pair_label`, `confirmation_upgrade`, `relevance_confidence`) plus your own fresh judgments reading the source — `source_name`/`source_grade`/`is_official_filing`, `paywalled`/`corroborated`, `sensational_uncorroborated`, `issuer_public_status` (+ `private_linkage_tags`/`private_linkage_evidence`/`linked_public_companies` if private/unlisted — inherit these from `01_relevance-events-entities.md` if it recorded them), `portfolio_position`/`live_theme_match` (from Step 10a), `sector_wide_move`/`commodity_rate_transmission`, `specificity_signals`, `estimate_impact_signals` — **plus two fields carried forward verbatim, never re-judged:** `filing_type` (from `01_relevance-events-entities.md` Step 2b — `scripts/screener_filing_classifier.py`) and `is_generic_media`/`specificity_score`/`quantifiability_score`/`investability_score` (from `03_generic-media-detector.md`). The score script derives `routine_filing_penalty` from `filing_type` and `generic_media_penalty` from the generic-media fields itself — do NOT also independently judge "is this routine" or "how generic is this"; that would be re-deriving evidence the classifier/detector already computed, and there is no separate ceiling step afterward (Step 10 is the only place this is applied — see MODULE_RULES.md "Materiality (Step 10)"). Write the JSON object to a file inside the run folder, then pass it with `--input-file` (NOT inline `--input-json '...'` — an approved source name may contain an apostrophe, e.g. "Tom's Hardware", "Barron's", "Investor's Business Daily", which breaks single-quote shell wrapping):
    ```bash
-   python3 scripts/screener_filing_classifier.py derate --filing-type {filing_type} --score {step10_score} [--override-hit]
+   cat > "{RUN_ROOT}/signal-gate/_score_input.json" <<'JSON'
+   <the JSON object>
+   JSON
+   python3 scripts/screener_score_breakdown.py --input-file "{RUN_ROOT}/signal-gate/_score_input.json"
    ```
-   Use the printed `final_score` as the score for routing and `signal_payload.json` (it equals the Step 10 score unchanged unless `capped` is true). Print the `explanation` field verbatim as the visible derate rationale — do not paraphrase it. If `filing_type` is `unknown_filing` or `material_exchange_filing`, or `override_hit` is true, the score never changes — state that plainly rather than silently.
-6. **Route** per the promotion bands: PROMOTE (≥70) / PARK (40–69) / LOG (<40 or action=suppress), using the Step 10b final score. If `intake.json.override_promote` is true and the score lands in PARK, route PROMOTE and record the human override.
-7. **Write `{RUN_ROOT}/signal_payload.json`** — every field of `frameworks/screener/signal_payload.schema.json` (signal_id, event_id, gate0 block, relevance, event_types, entities, issuer_linkage, similarity, similar_event_ids, pair_label, fact_delta + fields, confirmation_upgrade, novelty, action, is_generic_media, generic_media_reason, specificity_score, quantifiability_score, investability_score, materiality_score [= the Step 10b final score], materiality_math, filing_type, filing_type_rationale [Step 10b's explanation string], routing, routing_reason, next_action, sources evidence packet).
+   Parse the printed JSON. Its `final_score` IS `materiality_score`; `score_breakdown`, `materiality_math`, `source_tier`, `source_quality_score`, `source_quality_reason` fold verbatim into `signal_payload.json` — **do not hand-recompute, round, or override any of these numbers.** Write `final_score_reason` yourself: 1-2 plain-English sentences (CLAUDE.md §21) citing the single largest positive component and the single largest penalty (if any).
+6. **Route** per the promotion bands: PROMOTE (≥70) / PARK (40–69) / LOG (<40 or action=suppress). If `intake.json.override_promote` is true and the score lands in PARK, route PROMOTE and record the human override.
+7. **Write `{RUN_ROOT}/signal_payload.json`** — every field of `frameworks/screener/signal_payload.schema.json` (signal_id, event_id, gate0 block, relevance, event_types, entities, issuer_linkage, similarity, similar_event_ids, pair_label, fact_delta + fields, confirmation_upgrade, novelty, action, is_generic_media, generic_media_reason, specificity_score, quantifiability_score, investability_score, filing_type, filing_type_rationale, materiality_score, materiality_math, score_breakdown, final_score_reason, source_tier, source_quality_score, source_quality_reason, issuer_public_status (+ private_linkage_tags/private_linkage_evidence/linked_public_companies if applicable), routing, routing_reason, next_action, sources evidence packet).
 8. **Append the ledger event** (idempotent on signal_id):
    ```bash
    bash scripts/append-ndjson.sh screener/ledger/events.ndjson '<one-line JSON: signal_id, event_id, ts, headline, source_name, source_grade, issuers, event_types, pair_label, novelty_score, materiality_score, action, status (=routing), status_reason, run_root>' signal_id {SIG_ID}
@@ -84,19 +80,25 @@ One paragraph, 60–100 words, plain English: what the event is, how new it is, 
 
 ## 3. Step 10 — Materiality
 
-Base {NN} ({reason}) + novelty {±NN} − penalties {NN} ({which}) + overrides {±NN} ({which}) = {NN}/100 (if is_generic_media: , generic media [{matched categories}, investability {NN}] → ceiling {NN} → capped to {NN}/100) = **{NN}/100**
+| Component | Value | Max | Reason |
+|---|---|---|---|
+| Source quality | {v} | 20 | {reason} |
+| Event materiality | {v} | 20 | {reason} |
+| Company / portfolio relevance | {v} | 20 | {reason} |
+| Specificity | {v} | 15 | {reason} |
+| Estimate / valuation impact | {v} | 15 | {reason} |
+| Theme / macro | {v} | 10 | {reason} |
+| Routine filing penalty (from filing_type) | {v} | -20 | {reason} |
+| Generic media penalty (from is_generic_media) | {v} | -15 | {reason} |
+| Private/unlisted irrelevance penalty | {v} | -15 | {reason} |
+| Duplicate / stale penalty | {v} | -25 | {reason} |
+| Low-confidence extraction penalty | {v} | -10 | {reason} |
 
-## 3b. Step 10b — Routine-Filing Derate
+**Final score: {NN}/100** — {final_score_reason}
 
-| Field | Value |
-|---|---|
-| filing_type (inherited from Step 2b) | |
-| override_hit | true / false |
-| Step 10 score (pre-derate) | {NN} |
-| Ceiling applied | {NN or none} |
-| **Final materiality score** | **{NN}/100** |
+{materiality_math}
 
-{explanation} (verbatim from the script — one line, no surrounding paragraph, matches MODULE_RULES.md Writing Standard's "materiality arithmetic line" rule)
+Source tier: {1-4} ({source_quality_reason})
 
 ## 4. Decision
 
@@ -118,9 +120,11 @@ Next module: thesis-structure | none
 
 # SELF-CHECK
 
-- [ ] The materiality arithmetic line re-adds exactly to the stated score.
-- [ ] Step 10b actually ran the classifier script's derate subcommand (Bash) — the final score and explanation are its JSON output, not invented; a derated score states the ceiling that fired.
-- [ ] When is_generic_media is true, the ceiling and the min() are shown in the arithmetic line and materiality_score never exceeds the ceiling; when false, no ceiling is applied.
+- [ ] `score_breakdown`, `materiality_score`, `materiality_math`, `source_tier`, `source_quality_score`, `source_quality_reason` were taken verbatim from `scripts/screener_score_breakdown.py`'s stdout — none were hand-edited, rounded, or estimated.
+- [ ] `final_score_reason` is plain English (CLAUDE.md §21) and actually names the largest positive component and the largest penalty shown in the breakdown — not generic filler.
+- [ ] If `issuer_public_status: private_unlisted`, either `private_linkage_tags`/`private_linkage_evidence` are non-empty (penalty below its -15 cap) or they are empty and the penalty is the full -15 — never a private company silently scored without recording which case applied.
+- [ ] `filing_type` passed into the score script is the literal value from `01_relevance-events-entities.md` Step 2b, and `is_generic_media`/`specificity_score`/`quantifiability_score`/`investability_score` are the literal values from `03_generic-media-detector.md` — neither was re-judged or re-guessed here.
+- [ ] There is no separate routine-filing or generic-media ceiling applied anywhere else in this report — `routine_filing_penalty` and `generic_media_penalty` inside `score_breakdown` are the only place either evidence lowers the score (no double-count).
 - [ ] The routing matches the bands (or records an explicit human override).
 - [ ] signal_payload.json was written and is valid JSON (run `python3 -c "import json;json.load(open('screener/runs/{SIG_ID}/signal_payload.json'))"`).
 - [ ] The ledger append used scripts/append-ndjson.sh (idempotent) and the board index was refreshed.
