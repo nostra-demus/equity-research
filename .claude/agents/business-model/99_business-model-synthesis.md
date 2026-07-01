@@ -115,7 +115,7 @@ If any row is Y, the Verdict below is LOCKED at "Low-quality business — avoid 
 **REJECTOR-FILTER CAPS (CLAUDE.md §24).** This module owns three of the six "Avoid Big Risks" filters. Check and apply each, and state explicitly when a cap is applied:
 - **Filter 1 — Crooks / integrity.** If `01_disqualifier-scan.md` flagged proven fraud / defrauding of stakeholders, the verdict is already locked. If it flagged unverified adverse "buzz" routed to management-governance, carry it forward as a conviction-capping note, not a lock.
 - **Filter 4 — Serial acquirers.** If `11_capital-allocation-governance.md` scored the acquisition-pattern row ≥70 severity (serial-acquirer pattern, especially debt-funded deals near/above own value), the Capital allocation & governance /100 is capped at 50 and Overall usefulness at 70.
-- **Filter 5 — Fast-changing industry.** If `07_business-quality.md` scored the industry rate-of-change / disruption row ≤40, the Business quality /100 is capped at 65, and the Abstract/Read must flag the thesis as a sector / technology-cycle bet rather than a durable compounder.
+- **Filter 5 — Fast-changing industry.** If `07_business-quality.md` scored the industry rate-of-change / disruption row ≤40, the Business quality /100 is capped at 65, and the Abstract/Read must flag the thesis as a sector / technology-cycle bet rather than a durable compounder. If `07_business-quality.md` emitted `RF-BQ-005 (fast-changing industry: rate-of-change ≤40)`, propagate that tag as a standalone line in this synthesis so eval check AE can detect it mechanically (analogous to how `99_management-governance-synthesis.md` propagates RF-CAP-004 / RF-OWN-004 for eval check AD).
 
 If multiple caps affect the same score, use the most restrictive.
 
