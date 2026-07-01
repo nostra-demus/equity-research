@@ -719,6 +719,30 @@ a { color: inherit; }
 .apill { display: inline-flex; align-items: center; gap: 6px; font-size: 11.5px; font-weight: 600; white-space: nowrap; transition: color var(--dur-fast) var(--ease); }
 .apill__dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; transition: background-color var(--dur-fast) var(--ease); }
 
+/* per-row actions (Resume + reports ⋯) — right-aligned in the actions column */
+.arow-actions { display: inline-flex; align-items: center; justify-content: flex-end; gap: 6px; }
+/* Resume: continue an interrupted run from work already on disk. A warm pill matching the "Run anyway"
+   toast action, so the two recovery affordances read as one family. Motion is transform/opacity only. */
+.aresume {
+  display: inline-flex; align-items: center; gap: 4px; height: 24px; padding: 0 10px; border-radius: var(--r-pill);
+  border: 1px solid var(--accent-deep); background: var(--accent-wash); color: var(--accent-bright);
+  font: inherit; font-size: 11.5px; font-weight: 600; white-space: nowrap; cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+.aresume__glyph { font-size: 10px; line-height: 1; transition: transform var(--dur-fast) var(--ease-out); }
+@media (hover: hover) and (pointer: fine) {
+  .aresume:hover { background: var(--accent-wash-soft); border-color: var(--accent); }
+  .aresume:hover .aresume__glyph { transform: translateX(2px); }
+}
+.aresume:active { transform: scale(0.97); }
+.aresume:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* topbar variant: taller to align with the command-bar buttons, with a done/total meta count */
+.aresume--bar { height: 30px; padding: 0 12px; font-size: 12.5px; }
+.aresume--bar:disabled { opacity: 0.5; cursor: not-allowed; }
+@media (hover: hover) and (pointer: fine) { .aresume--bar:disabled:hover { background: var(--accent-wash); border-color: var(--accent-deep); } }
+.aresume--bar:disabled:active { transform: none; }
+.aresume__meta { font-family: var(--font-mono); font-size: 11px; opacity: 0.85; margin-left: 2px; }
+
 /* ---------- empty / upload state ---------- */
 .empty {
   position: absolute; inset: 0; display: grid; place-items: center; z-index: 2; padding: 24px;
@@ -749,6 +773,25 @@ a { color: inherit; }
 .coco__head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; }
 .coco__eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text-faint); }
 .coco__count { font-size: 12px; color: var(--text-muted); }
+/* resume-live-run strip: shown at the top of the picker when a run is still executing server-side (e.g.
+   after a page refresh). Accent-tinted so it reads as a call to action, distinct from the neutral list. */
+.coco__resume { margin-bottom: 12px; padding: 11px 12px; background: var(--accent-wash); border: 1px solid color-mix(in srgb, var(--accent) 32%, transparent); border-radius: var(--r-md); }
+.coco__resume-head { display: flex; align-items: center; gap: 8px; margin-bottom: 9px; }
+.coco__resume-title { font-size: 12.5px; font-weight: 600; color: var(--text); }
+.coco__resume-hint { font-size: 11.5px; color: var(--text-faint); }
+.coco__resume-rows { display: flex; flex-direction: column; gap: 6px; }
+.coco__resume-row { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 40px; padding: 0 11px; border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent); border-radius: var(--r-sm); background: color-mix(in srgb, var(--accent) 9%, var(--surface-1)); color: var(--text); text-align: left; cursor: pointer; transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease); }
+.coco__resume-sym { flex-shrink: 0; min-width: 92px; font-family: var(--font-mono); font-size: 13.5px; font-weight: 600; color: var(--accent-bright); }
+.coco__resume-meta { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 11.5px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.coco__resume-cta { margin-left: auto; flex-shrink: 0; display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; color: var(--accent-bright); }
+.coco__resume-arrow { display: inline-block; transition: transform var(--dur-fast) var(--ease); }
+.coco__resume-row:focus-visible { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-wash); }
+.coco__resume-row:active { transform: scale(0.985); }
+@media (hover: hover) and (pointer: fine) {
+  .coco__resume-row:hover { background: color-mix(in srgb, var(--accent) 16%, var(--surface-1)); border-color: color-mix(in srgb, var(--accent) 40%, transparent); }
+  .coco__resume-row:hover .coco__resume-arrow { transform: translateX(2px); }
+}
+@media (prefers-reduced-motion: reduce) { .coco__resume-row:active { transform: none; } }
 .coco__search { position: relative; display: flex; align-items: center; }
 .coco__searchicon { position: absolute; left: 13px; color: var(--text-faint); pointer-events: none; }
 .coco__search input { width: 100%; height: 44px; padding: 0 78px 0 38px; background: var(--surface-2); border: 1px solid var(--hairline); border-radius: var(--r-md); color: var(--text); font-size: 14px; transition: border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease); }
@@ -775,6 +818,11 @@ a { color: inherit; }
 .coco__foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 12px; padding-top: 12px; border-top: 1px solid var(--hairline); }
 .coco__footnote { font-size: 12px; color: var(--text-faint); }
 .coco__legend { font-size: 11px; color: var(--text-faint); margin-left: auto; font-variant-numeric: tabular-nums; }
+/* subject picker (non-research swarm): ids can run up to 15 chars, so let the symbol grow past the
+   fixed research width instead of clipping, and give it breathing room before the verdict slot. */
+.coco--subj .coco__sym { width: auto; min-width: 108px; padding-right: 12px; }
+.coco__loading { display: flex; align-items: center; justify-content: center; gap: 9px; padding: 28px 12px; color: var(--text-muted); font-size: 13px; }
+.coco__loading .empty__spin { color: var(--accent-bright); }
 @media (hover: hover) and (pointer: fine) { .coco__row:hover { background: var(--surface-3); } }
 @media (prefers-reduced-motion: reduce) { .coco__row:active { transform: none; } }
 .pulsedot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 0 var(--accent-glow); animation: pulse 1.8s var(--ease) infinite; }
@@ -812,7 +860,13 @@ a { color: inherit; }
   padding: 10px 16px; font-size: 12.5px; box-shadow: var(--shadow-2); display: flex; align-items: center; gap: 9px;
   max-width: min(560px, calc(100vw - 32px));
 }
-.toast__msg { min-width: 0; }
+/* Clamp the message so a toast can never balloon into a wall of text (e.g. a run-conflict that once
+   dumped every path). Messages are short by design; this is the backstop — the full text stays on hover
+   (title attr). line-height keeps a 3-line cap comfortably readable. */
+.toast__msg {
+  min-width: 0; line-height: 1.45;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
 /* inline recovery action (e.g. "Run anyway") — a pill button that turns a dead-end rejection into one click */
 .toast__action {
   flex: none; margin-left: 3px; padding: 4px 12px; border-radius: var(--r-pill);
@@ -1348,6 +1402,12 @@ a { color: inherit; }
 .rdg-danger__row { display: flex; gap: 9px; margin-top: 9px; align-items: center; }
 .rdg-input { flex: 1; height: 34px; padding: 0 12px; background: var(--bg-2); border: 1px solid var(--hairline-strong); border-radius: var(--r-md); color: var(--text); font-family: var(--font-mono); letter-spacing: 2px; font-size: 13px; }
 .rdg-input:focus { outline: none; border-color: var(--bad); }
+.rdg-input:disabled { opacity: 0.5; }
+/* re-check in flight: a calm status line + spinner so the panel never looks frozen during the (sometimes
+   slow, OCR-bearing) check; the action buttons render their spinner inline with the label. */
+.rdg-checking { display: flex; align-items: center; gap: 8px; margin: 10px 20px 2px; font-size: 12px; line-height: 1.45; color: var(--accent-bright); }
+.rdg-spin { flex-shrink: 0; }
+.rdg-actions .btn, .rdg-danger__row .btn { display: inline-flex; align-items: center; gap: 6px; }
 
 /* ---- auto-scan chip (top bar, screener) ---- */
 .autoscan {

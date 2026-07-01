@@ -15,6 +15,10 @@ import type { Theme, ThemeSummary, ThemesIndex, ThemeMutation, ThemeTier, ThemeD
 const ledgerPath = (repoRoot: string) => path.join(repoRoot, 'screener', 'ledger', 'themes.ndjson')
 const indexPath = (repoRoot: string) => path.join(repoRoot, 'screener', 'board', 'themes_index.json')
 
+/** The themes ledger file path — exposed so callers can stat its mtime to cache derived reads (e.g. the
+ *  on-the-fly geo-sliced index) instead of re-parsing the whole ledger on every request. */
+export const themesLedgerPath = ledgerPath
+
 /** Read the themes ledger; last line per theme_id wins (a corrupt line never breaks the load). */
 export function loadThemes(repoRoot: string): Theme[] {
   const byId = new Map<string, Theme>()
@@ -177,7 +181,7 @@ export function readRecentThemeItems(repoRoot: string, minScore: number): ThemeI
         event_id: it.event_id, headline: it.headline, found_at: it.ts,
         companies: it.companies || [], event_types: it.event_types || [], issuer_linkage: it.issuer_linkage,
         triage_score: it.triage_score, materiality_pre_score: (it as any).materiality_pre_score,
-        source_tier: it.source_tier || deriveSourceTier(it), scope: it.scope, region: it.region,
+        source_tier: it.source_tier || deriveSourceTier(it), scope: it.scope, region: it.region, country: it.country,
       })
     }
   } catch {

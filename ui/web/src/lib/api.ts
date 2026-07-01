@@ -1,6 +1,6 @@
 import { staticPromptPath } from './prompts'
 import { DEFAULT_RANK_WEIGHTS, type RankWeights, type RankWeightsState } from './rankWeights'
-import type { ActivityQuery, ActivityResult, CallsResult, ChatRequest, ChatScopes, CoverageGroup, DataStatus, EventEnrichment, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ScreenerBoard, SignalIntakeInput, SourcesReport, SwarmGraph, SwarmMeta, TickerSummary, UploadResult, Usage, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, CallsResult, ChatRequest, ChatScopes, CoverageGroup, DataStatus, EventEnrichment, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SourcesReport, SwarmGraph, SwarmMeta, TickerSummary, UploadResult, Usage, Whoami } from './types'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -226,10 +226,16 @@ export const api = {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return put<RankWeightsState>(`/api/news/rank-weights`, body)
   },
-  // the living themes the firehose is bucketed into (ranked index + one theme's deep-dive)
-  newsThemes: async (): Promise<import('./themes').ThemesIndex> => {
+  // the living themes the firehose is bucketed into (ranked index + one theme's deep-dive). An optional
+  // geography (country ISO alpha-2 and/or continent) slices the SAME themes to that geography's news flow —
+  // the server re-ranks + re-sizes them — so the "Where" picker narrows the Themes view like the Events list.
+  newsThemes: async (geo?: { country?: string; geoRegion?: string }): Promise<import('./themes').ThemesIndex> => {
     if ((await ensureMode()) === 'static') return { generated_at: '', themes: [], counts: { hot: 0, active: 0, cooling: 0, parked: 0, retired: 0, total: 0 }, history_days: 0 }
-    return get(`/api/news/themes`)
+    const p = new URLSearchParams()
+    if (geo?.country) p.set('country', geo.country)
+    if (geo?.geoRegion) p.set('geoRegion', geo.geoRegion)
+    const qs = p.toString()
+    return get(`/api/news/themes${qs ? `?${qs}` : ''}`)
   },
   newsTheme: async (id: string): Promise<import('./themes').ThemeDetail | null> => {
     if ((await ensureMode()) === 'static') return null
@@ -418,13 +424,18 @@ export const api = {
     if ((await ensureMode()) === 'static') return { history: [] }
     return get(`/api/runs?ticker=${encodeURIComponent(ticker)}`)
   },
-  activeRuns: async (): Promise<{ active: { runId: string; kind: string; ticker: string; module?: string; status: string }[] }> => {
+  activeRuns: async (): Promise<{ active: { runId: string; kind: string; ticker: string; module?: string; status: string; swarmId?: string; unit?: string; startedAt?: number }[] }> => {
     if ((await ensureMode()) === 'static') return { active: [] }
     return get(`/api/runs`)
   },
   runSnapshot: async (runId: string): Promise<any> => {
     if ((await ensureMode()) === 'static') throw new Error('static')
     return get(`/api/runs/${encodeURIComponent(runId)}`)
+  },
+  // Every run the cockpit can resume right now (disk-truth). Static showcase has no engine → empty.
+  resumable: async (): Promise<{ runs: ResumableRunInfo[] }> => {
+    if ((await ensureMode()) === 'static') return { runs: [] }
+    return get(`/api/resumable`, 8_000)
   },
   runStreamUrl: (runId: string) => `/api/runs/${runId}/stream`,
   dataStreamUrl: () => `/api/data-status/stream`,

@@ -13,14 +13,24 @@ WHY THIS EXISTS
   specialist read EVERY tab — nothing left behind (CLAUDE.md §2 reuse, §11 data
   sufficiency, §24 "leave no data behind").
 
+READS EVERY FORMAT. Workbooks (every tab), PDFs (text layer), RTF/Word, HTML/MHTML, and — when the
+text layer is absent — image-only/scanned PDFs AND standalone images (screenshots, photographed
+tables, charts). Those visual sources are transcribed to Markdown by Claude vision (best; verbatim
+tables/charts) when ANTHROPIC_API_KEY is set, else by tesseract OCR (offline floor). Results are cached
+per (file + method + model), so the cost — and any token spend — is paid once per file, ever.
+
 SINGLE SOURCE OF TRUTH. Consumers:
   - Layer-0 `*-data-triage` agents  -> run at ingestion, list every tab as a row
   - commands/research/verify-evidence.md -> post-hoc corpus build (--corpus)
   - ui/server/src/data-status.ts     -> cockpit tab listing (--list-json)
+  - ui/server/src/readiness.ts       -> pre-flight data-readiness gate (--readiness-json; vision OFF)
 
 USAGE
-  python3 extract_pool.py <DATA_PATH> <OUT_DIR> [--force] [--corpus PATH]
+  python3 extract_pool.py <DATA_PATH> <OUT_DIR> [--force] [--corpus PATH] [--vision|--no-vision]
   python3 extract_pool.py --list-json <FILE>     # print one file's sheets as JSON; no writes
+  # Vision (image-only PDFs + images) defaults to EXTRACT_VISION (=claude); the pre-flight gate forces
+  # it off (no token spend before the user proceeds). Env: EXTRACT_VISION, EXTRACT_VISION_MODEL,
+  # EXTRACT_OCR_MAX_PAGES, EXTRACT_OCR_DPI, EXTRACT_OCR_FILE_TIMEOUT_S, EXTRACT_OCR_BUDGET_S.
 
 OUTPUTS (in OUT_DIR)
   <stem>__<sheet>.txt   one per spreadsheet tab (header + TSV body)
@@ -40,8 +50,13 @@ import re
 import io
 import json
 import glob
+import shutil
+import base64
+import hashlib
 import subprocess
 import tempfile
+import urllib.request
+import urllib.error
 import time as _time  # NB: `from datetime import ... time` below would shadow a bare `import time`
 import email as _email
 import html as _htmlmod
@@ -51,6 +66,8 @@ WORKBOOK_EXTS = {"xls", "xlsx", "xlsm"}
 TEXT_EXTS = {"txt", "md", "csv", "tsv"}
 PDF_EXTS = {"pdf"}
 RTF_EXTS = {"rtf"}
+# Standalone images — screenshots (IBKR/Bloomberg), photographed tables, charts. Read via vision/OCR.
+IMAGE_EXTS = {"png", "jpg", "jpeg", "gif", "webp", "tif", "tiff", "bmp"}
 # Google Drive pointer stubs — tiny JSON, no real content
 POINTER_EXTS = {"gdoc", "gsheet", "gslides"}
 
@@ -105,6 +122,13 @@ def sniff_format(path):
         return "zip"           # zip container — .xlsx / .docx
     if head[:5] == b"%PDF-":
         return "pdf"
+    # standalone images (screenshots / photographed tables / charts) — read by vision or OCR.
+    # Unambiguous magics only (full TIFF magic, not bare "II"/"MM"); BMP/odd images are caught by
+    # extension in the extract loop, so a text file starting "BM"/"II" is never misread as an image.
+    if (head[:8] == b"\x89PNG\r\n\x1a\n" or head[:3] == b"\xff\xd8\xff" or head[:4] == b"GIF8"
+            or (head[:4] == b"RIFF" and head[8:12] == b"WEBP")
+            or head[:4] in (b"II*\x00", b"MM\x00*")):
+        return "image"
     if head[:5].lower() == b"{\\rtf":
         return "rtf"
     low = head[:1024].lower()
@@ -267,7 +291,7 @@ def _tab_text(src_name, sheet_name, idx, total, rows, ncols):
 
 # ---------- pdf / rtf ----------
 
-def _read_pdf(path, max_pages=None):
+def _read_pdf_text(path, max_pages=None):
     # pdftotext (poppler) preferred; -layout keeps tables aligned. max_pages caps
     # the scan for fast sniffing (a cover page already says "Annual Report" / "10-K").
     # Falls back to pure-Python pypdf (auto-bootstrapped in the venv, no system dep) when
@@ -311,6 +335,319 @@ def _read_pdf_py(path, max_pages=None):
         return "\n".join(out), None
     except Exception as e:
         return "", f"pypdf: {type(e).__name__}: {e}"
+
+
+# ---------- visual reading for image-only PDFs + standalone images ----------
+# A scanned PDF (e.g. a Capital IQ "Preliminary Report" saved as page images) and a standalone
+# image (a screenshot, a photographed table, a chart) carry NO text layer — pdftotext/pypdf yield
+# nothing and a filename inventory drops them. Rather than leave that data unread, TRANSCRIBE it:
+#   1. Claude vision (best; verbatim Markdown incl. tables/charts) when ANTHROPIC_API_KEY is set,
+#   2. else tesseract OCR (offline floor; garbles complex tables but better than nothing).
+# The result is cached ONCE per (file identity + method + model) under .ocr-cache, so a --force
+# re-check and every module's run reuse it — the cost (and any token spend) is paid once, ever.
+# Vision is OFF in the readiness pre-flight (it must not spend tokens before the user proceeds);
+# the in-run extraction turns it on, so the gate stays free while the actual run reads everything.
+
+def _env_int(name, default):
+    try:
+        v = int(os.environ.get(name, "") or "")
+        return v if v > 0 else default
+    except Exception:
+        return default
+
+_OCR_ENABLED = os.environ.get("EXTRACT_OCR", "1") != "0"
+_OCR_MAX_PAGES = _env_int("EXTRACT_OCR_MAX_PAGES", 30)   # first N pages carry the statements/notes we cite
+_OCR_DPI = _env_int("EXTRACT_OCR_DPI", 200)              # 200 dpi is ample for machine text, ~2x faster than 300
+_OCR_PER_FILE_TIMEOUT = _env_int("EXTRACT_OCR_FILE_TIMEOUT_S", 300)
+# Optional pool-wide visual-read wall-clock budget. The readiness pre-flight sets it (via the child
+# env) so a first check on a fresh scan can't hang past its own Node timeout; whatever completes is
+# cached, and the (uncapped) in-run extraction finishes the rest. 0 = unbounded.
+_OCR_POOL_BUDGET_S = _env_int("EXTRACT_OCR_BUDGET_S", 0)
+_OCR_CACHE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".ocr-cache")
+_ocr_deadline = None  # monotonic deadline for the pool budget; set per extract_pool() call
+
+# --- vision (Claude) config ---
+# EXTRACT_VISION: "claude" (default) reads image-only PDFs + images with Claude vision when a key is
+# present; "off"/"0"/"none" uses tesseract only. Model is tunable — default to the strongest; set
+# EXTRACT_VISION_MODEL=claude-sonnet-5 (or -haiku) to cut cost, since transcription barely differs by tier.
+_VISION_PROVIDER = os.environ.get("EXTRACT_VISION", "claude").strip().lower()
+_VISION_ON_ENV = _VISION_PROVIDER not in ("", "0", "off", "false", "none", "no")
+_VISION_MODEL = os.environ.get("EXTRACT_VISION_MODEL", "claude-opus-4-8").strip()
+_VISION_MAX_TOKENS = _env_int("EXTRACT_VISION_MAX_TOKENS", 8000)
+_VISION_BATCH_PAGES = _env_int("EXTRACT_VISION_BATCH_PAGES", 4)  # images per Messages request
+_ANTHROPIC_BASE = os.environ.get("ANTHROPIC_BASE_URL", "https://api.anthropic.com").rstrip("/")
+_ANTHROPIC_VERSION = "2023-06-01"
+_vision_on = False  # set per extract_pool() call (OFF in the readiness pre-flight; ON in-run)
+
+_VISION_SYSTEM = (
+    "You are a meticulous financial-document transcriber. Transcribe the page image(s) to clean "
+    "GitHub-flavored Markdown, VERBATIM. Reproduce every number, label, date, currency, unit, and "
+    "footnote EXACTLY as shown — never round, infer, translate, or correct. Render every table as a "
+    "Markdown table, preserving rows, columns, headers, and units. Preserve reading order and headings. "
+    "For a chart or graph, state its title, axes, and units, then read off each series as a small table. "
+    "Do NOT summarize, interpret, analyze, or add any commentary. If a value is illegible write "
+    "[illegible]. Output ONLY the Markdown transcription."
+)
+
+
+def _anthropic_key():
+    return os.environ.get("ANTHROPIC_API_KEY") or ""
+
+
+def _vision_configured():
+    """Vision requested for this pass AND a key is present."""
+    return _vision_on and _VISION_PROVIDER == "claude" and bool(_anthropic_key())
+
+
+def _read_cache_path(path, tag):
+    """Cache key = file identity (abspath|size|mtime) + method tag, so tesseract vs Claude (and
+    different models) never collide, and an upgrade from OCR to vision writes a fresh entry."""
+    try:
+        st = os.stat(path)
+        ident = f"{os.path.abspath(path)}|{st.st_size}|{int(st.st_mtime)}"
+    except Exception:
+        ident = os.path.abspath(path)
+    try:
+        os.makedirs(_OCR_CACHE_DIR, exist_ok=True)
+    except Exception:
+        return None
+    return os.path.join(_OCR_CACHE_DIR, hashlib.sha1(f"{tag}|{ident}".encode()).hexdigest() + ".txt")
+
+
+def _cache_read(cache):
+    if cache and os.path.exists(cache):
+        try:
+            t = open(cache, encoding="utf-8", errors="ignore").read()
+            if t.strip():
+                return t
+        except Exception:
+            pass
+    return None
+
+
+def _cache_write(cache, txt):
+    if cache:
+        try:
+            open(cache, "w", encoding="utf-8").write(txt)
+        except Exception:
+            pass
+
+
+def _ocr_available():
+    """pdftoppm (poppler) + tesseract present? Returns True if page-OCR can run."""
+    return bool(shutil.which("pdftoppm") and shutil.which("tesseract"))
+
+
+def _render_pdf_pages(path, out_dir):
+    """Rasterise up to _OCR_MAX_PAGES pages to PNG via pdftoppm (poppler). Shared by vision + OCR."""
+    prefix = os.path.join(out_dir, "pg")
+    subprocess.run(
+        ["pdftoppm", "-png", "-r", str(_OCR_DPI), "-f", "1", "-l", str(_OCR_MAX_PAGES), path, prefix],
+        capture_output=True, timeout=_OCR_PER_FILE_TIMEOUT,
+    )
+    return sorted(glob.glob(prefix + "*.png"))
+
+
+def _tesseract_pngs(pngs):
+    """OCR a list of pre-rendered PNGs, bounded by one wall-clock deadline across the loop."""
+    deadline = _time.monotonic() + _OCR_PER_FILE_TIMEOUT
+    parts = []
+    for png in pngs:
+        remaining = deadline - _time.monotonic()
+        if remaining < 3:
+            break  # out of time — keep what we OCR'd; the rest come on the next (cached) pass
+        try:
+            r = subprocess.run(["tesseract", png, "stdout", "--psm", "1"],
+                               capture_output=True, text=True, timeout=remaining)
+        except subprocess.TimeoutExpired:
+            break
+        if r.returncode == 0 and r.stdout.strip():
+            parts.append(r.stdout)
+    return "\n".join(parts)
+
+
+def _normalize_image_to_png(path, out_dir):
+    """Best-effort: convert/downscale any image to a vision-friendly PNG (<=1600px). Uses macOS `sips`
+    or ImageMagick if present; else returns the original when it's already a web-supported type."""
+    dst = os.path.join(out_dir, "img.png")
+    if shutil.which("sips"):
+        r = subprocess.run(["sips", "-s", "format", "png", "-Z", "1600", path, "--out", dst],
+                           capture_output=True, timeout=60)
+        if r.returncode == 0 and os.path.exists(dst):
+            return dst
+    conv = "magick" if shutil.which("magick") else ("convert" if shutil.which("convert") else "")
+    if conv:
+        r = subprocess.run([conv, path, "-resize", "1600x1600>", dst], capture_output=True, timeout=60)
+        if r.returncode == 0 and os.path.exists(dst):
+            return dst
+    head = b""
+    try:
+        head = open(path, "rb").read(16)
+    except Exception:
+        pass
+    if head[:8] == b"\x89PNG\r\n\x1a\n" or head[:3] == b"\xff\xd8\xff" or head[:4] == b"GIF8" \
+            or (head[:4] == b"RIFF"):
+        return path  # already a type the vision API accepts; send as-is
+    return ""
+
+
+def _vision_transcribe(png_paths, label=""):
+    """Transcribe rendered PNGs to Markdown via the Anthropic Messages API (vision), in page batches.
+    Returns text; raises on any API/network error so the caller can fall back to tesseract."""
+    key = _anthropic_key()
+    if not key or not png_paths:
+        return ""
+    out = []
+    for i in range(0, len(png_paths), max(1, _VISION_BATCH_PAGES)):
+        batch = png_paths[i:i + max(1, _VISION_BATCH_PAGES)]
+        content = []
+        for j, pp in enumerate(batch):
+            try:
+                b = open(pp, "rb").read()
+            except Exception:
+                continue
+            content.append({"type": "image", "source": {"type": "base64", "media_type": "image/png",
+                            "data": base64.b64encode(b).decode("ascii")}})
+            content.append({"type": "text", "text": f"— page {i + j + 1} —"})
+        if not content:
+            continue
+        content.append({"type": "text", "text": "Transcribe the page(s) above to Markdown, verbatim."})
+        body = json.dumps({
+            "model": _VISION_MODEL, "max_tokens": _VISION_MAX_TOKENS,
+            "system": _VISION_SYSTEM,
+            "messages": [{"role": "user", "content": content}],
+        }).encode()
+        req = urllib.request.Request(
+            f"{_ANTHROPIC_BASE}/v1/messages", data=body, method="POST",
+            headers={"content-type": "application/json", "x-api-key": key,
+                     "anthropic-version": _ANTHROPIC_VERSION})
+        try:
+            with urllib.request.urlopen(req, timeout=_OCR_PER_FILE_TIMEOUT) as resp:
+                data = json.loads(resp.read().decode("utf-8", "ignore"))
+        except urllib.error.HTTPError as e:
+            detail = ""
+            try:
+                detail = e.read().decode("utf-8", "ignore")[:200]
+            except Exception:
+                pass
+            raise RuntimeError(f"anthropic HTTP {e.code}: {detail}")
+        except Exception as e:  # noqa
+            raise RuntimeError(f"anthropic {type(e).__name__}: {e}")
+        blocks = data.get("content") or []
+        txt = "".join(b.get("text", "") for b in blocks if isinstance(b, dict) and b.get("type") == "text")
+        if txt.strip():
+            out.append(txt)
+    return "\n\n".join(out)
+
+
+def _no_reader_note(kind_label):
+    """Actionable note when nothing could read a visual source."""
+    if _VISION_PROVIDER == "claude" and _vision_on and not _anthropic_key():
+        return (f"{kind_label} — set ANTHROPIC_API_KEY to read it with Claude vision, "
+                "or run .claude/tools/setup-tools.sh to install tesseract as a fallback")
+    return (f"{kind_label} — no extractable text layer (needs OCR; "
+            "run .claude/tools/setup-tools.sh to install tesseract, then re-check)")
+
+
+def _read_scanned_pdf(path):
+    """Read an image-only/scanned PDF: Claude vision (if configured) else tesseract, cached.
+    Returns (text, note, err)."""
+    if not _OCR_ENABLED:
+        return "", None, None
+    tag = f"claude:{_VISION_MODEL}" if _vision_configured() else "tesseract"
+    cache = _read_cache_path(path, tag)
+    hit = _cache_read(cache)
+    if hit is not None:
+        return hit, ("read via Claude vision (was image-only scan; cached)" if tag.startswith("claude")
+                     else "OCR'd (was image-only scan; cached)"), None
+    if _ocr_deadline is not None and _time.monotonic() > _ocr_deadline:
+        return "", None, ("image-only/scanned PDF — visual read deferred (pre-flight time budget); "
+                          "it will be read automatically when the run starts")
+    if not shutil.which("pdftoppm"):
+        return "", None, None  # can't rasterise; caller shows the needs-OCR/setup-tools hint
+    try:
+        with tempfile.TemporaryDirectory() as td:
+            pages = _render_pdf_pages(path, td)
+            if not pages:
+                return "", None, "image-only/scanned PDF — could not rasterise pages"
+            if _vision_configured():
+                try:
+                    txt = _vision_transcribe(pages, os.path.basename(path))
+                    if txt.strip():
+                        _cache_write(cache, txt)
+                        return txt, "read via Claude vision (was image-only scan)", None
+                except Exception:
+                    pass  # fall through to the tesseract floor
+            if shutil.which("tesseract"):
+                txt = _tesseract_pngs(pages)
+                if txt.strip():
+                    _cache_write(_read_cache_path(path, "tesseract"), txt)
+                    return txt, "OCR'd (was image-only scan)", None
+    except subprocess.TimeoutExpired:
+        return "", None, f"image-only/scanned PDF — visual read timed out after {_OCR_PER_FILE_TIMEOUT}s"
+    except Exception as e:  # noqa
+        return "", None, f"image-only/scanned PDF — visual read failed ({type(e).__name__}: {e})"
+    # a reader ran but found nothing (blank/graphic pages) vs no reader available at all
+    if _vision_configured() or shutil.which("tesseract"):
+        return "", None, "image-only/scanned PDF — no readable text found (blank or pure-graphic pages?)"
+    return "", None, _no_reader_note("image-only/scanned PDF")
+
+
+def _read_image_file(path):
+    """Read a standalone image (screenshot / photographed table / chart): Claude vision (if configured)
+    else tesseract, cached. Returns (text, note, err)."""
+    if not _OCR_ENABLED:
+        return "", None, None
+    tag = f"claude:{_VISION_MODEL}" if _vision_configured() else "tesseract"
+    cache = _read_cache_path(path, tag)
+    hit = _cache_read(cache)
+    if hit is not None:
+        return hit, ("read via Claude vision (cached)" if tag.startswith("claude") else "OCR'd image (cached)"), None
+    if _ocr_deadline is not None and _time.monotonic() > _ocr_deadline:
+        return "", None, "image — visual read deferred (pre-flight time budget); done when the run starts"
+    try:
+        if _vision_configured():
+            try:
+                with tempfile.TemporaryDirectory() as td:
+                    png = _normalize_image_to_png(path, td)
+                    if png:
+                        txt = _vision_transcribe([png], os.path.basename(path))
+                        if txt.strip():
+                            _cache_write(cache, txt)
+                            return txt, "read via Claude vision", None
+            except Exception:
+                pass  # fall through to tesseract
+        if shutil.which("tesseract"):
+            r = subprocess.run(["tesseract", path, "stdout", "--psm", "1"],
+                               capture_output=True, text=True, timeout=_OCR_PER_FILE_TIMEOUT)
+            if r.returncode == 0 and r.stdout.strip():
+                _cache_write(_read_cache_path(path, "tesseract"), r.stdout)
+                return r.stdout, "OCR'd image", None
+    except subprocess.TimeoutExpired:
+        return "", None, f"image — visual read timed out after {_OCR_PER_FILE_TIMEOUT}s"
+    except Exception as e:  # noqa
+        return "", None, f"image — visual read failed ({type(e).__name__}: {e})"
+    # a reader ran but found nothing (a photo/logo/graphic) vs no reader available at all
+    if _vision_configured() or shutil.which("tesseract"):
+        return "", None, "image — no readable text found (a photo/logo/graphic without machine text?)"
+    return "", None, _no_reader_note("image")
+
+
+def _read_pdf(path, max_pages=None):
+    """Extract PDF text. Returns (text, err, note). Tries pdftotext -> pypdf; on a FULL read
+    (max_pages is None — not the fast header sniff) that yields nothing, transcribes the scan
+    (Claude vision or tesseract) once and caches it, so an image-only PDF becomes usable everywhere
+    instead of a permanent 'needs OCR' fail. The header-sniff path (max_pages set) never does this."""
+    txt, err = _read_pdf_text(path, max_pages)
+    if txt.strip():
+        return txt, None, None
+    if max_pages is None:
+        vtxt, note, verr = _read_scanned_pdf(path)
+        if vtxt.strip():
+            return vtxt, None, note
+        if verr:
+            err = verr
+    return "", err, None
 
 
 def _read_rtf(path):
@@ -477,18 +814,38 @@ def is_fresh(out_dir, data_path, script_path):
     return None
 
 
-def extract_pool(data_path, out_dir, force=False, corpus_path=None):
+def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None):
     script_path = os.path.abspath(__file__)
+    # Vision (Claude) reads image-only PDFs + images. OFF in the readiness pre-flight (vision=False,
+    # no token spend before the user proceeds); ON in-run (vision=None -> env default). tesseract stays
+    # the offline floor either way.
+    global _ocr_deadline, _vision_on
+    _vision_on = _VISION_ON_ENV if vision is None else bool(vision)
+    # Arm the pool-wide visual-read budget for this pass (readiness pre-flight sets EXTRACT_OCR_BUDGET_S;
+    # the in-run extraction leaves it 0 = unbounded so every scan/image gets read + cached).
+    _ocr_deadline = (_time.monotonic() + _OCR_POOL_BUDGET_S) if _OCR_POOL_BUDGET_S > 0 else None
     if not force:
         cached = is_fresh(out_dir, data_path, script_path)
         if cached:
-            t = cached.get("totals", {})
-            print(f"[extract_pool] fresh — {t.get('tabs',0)} tabs across "
-                  f"{t.get('workbooks',0)} workbook(s), {t.get('extracts_written',0)} "
-                  f"extract(s) already in {out_dir} (use --force to rebuild)")
-            if corpus_path:
-                _write_corpus(out_dir, data_path, corpus_path)
-            return cached
+            # A manifest built WITHOUT vision (e.g. the tesseract-only pre-flight gate) must be rebuilt
+            # when Claude vision is now AVAILABLE (key present) and there are visual sources to UPGRADE —
+            # otherwise the run would silently reuse the gate's tesseract text and never call vision. Gate
+            # on _vision_configured() (not just requested) so a keyless run doesn't rebuild every time for
+            # nothing (tesseract already did all it can).
+            needs_vision_upgrade = _vision_configured() and not cached.get("vision_mode") and any(
+                s.get("kind") == "image"
+                or str(s.get("note") or "").startswith("OCR")
+                or (s.get("kind") == "pdf" and s.get("status") == "fail")
+                for s in cached.get("sources", []))
+            if not needs_vision_upgrade:
+                t = cached.get("totals", {})
+                print(f"[extract_pool] fresh — {t.get('tabs',0)} tabs across "
+                      f"{t.get('workbooks',0)} workbook(s), {t.get('extracts_written',0)} "
+                      f"extract(s) already in {out_dir} (use --force to rebuild)")
+                if corpus_path:
+                    _write_corpus(out_dir, data_path, corpus_path)
+                return cached
+            print("[extract_pool] upgrading image-only/scanned sources to Claude vision (was OCR/unread)")
 
     os.makedirs(out_dir, exist_ok=True)
     used = set()
@@ -557,8 +914,9 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None):
 
         # ---- document / text formats, again by sniffed content ----
         elif fmt in ("pdf", "mime", "rtf", "html"):
+            note = None
             if fmt == "pdf":
-                txt, err = _read_pdf(p); kind = "pdf"
+                txt, err, note = _read_pdf(p); kind = "pdf"  # note set when text came from OCR
             elif fmt == "mime":
                 txt, err = _read_mhtml(p); kind = "mhtml"
             elif fmt == "rtf":
@@ -569,16 +927,41 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None):
                 out_name = _unique(used, stem) + ".txt"
                 open(os.path.join(out_dir, out_name), "w").write(txt)
                 n_written += 1
-                sources.append({"file": base, "ext": ext, "kind": kind, "status": "ok",
-                                "extract": out_name, "chars": len(txt)})
+                src = {"file": base, "ext": ext, "kind": kind, "status": "ok",
+                       "extract": out_name, "chars": len(txt)}
+                if note:
+                    src["note"] = note  # e.g. "OCR'd (was image-only scan)"
+                sources.append(src)
             else:
                 n_fail += 1
-                # [fix F35] a valid PDF that yields no text is image-only/scanned — say so explicitly
-                # (an actionable "needs OCR" row), not a generic fail that reads like a corrupt file.
-                if kind == "pdf" and "not installed" not in (err or ""):
-                    err = "image-only/scanned PDF — no extractable text layer (needs OCR; re-export as text or run ocrmypdf)"
+                # A valid PDF that yields no text is image-only/scanned. Keep any SPECIFIC visual-read
+                # reason (vision/OCR/timeout/key hint); only synthesize the generic needs-OCR row for the
+                # bare low-level "no text layer" case, so the fix is one command away.
+                if kind == "pdf":
+                    low = (err or "").lower()
+                    if not any(w in low for w in ("ocr", "vision", "anthropic_api_key", "tesseract",
+                                                   "deferred", "timed out", "rasterise")):
+                        err = ("image-only/scanned PDF — no extractable text layer (needs OCR; "
+                               "run .claude/tools/setup-tools.sh to install tesseract, then re-check)")
                 sources.append({"file": base, "ext": ext, "kind": kind,
                                 "status": "fail", "error": err})
+
+        elif fmt == "image" or ext in IMAGE_EXTS:
+            # standalone image (screenshot / photographed table / chart) — read via Claude vision or OCR
+            txt, note, err = _read_image_file(p); kind = "image"
+            if txt:
+                out_name = _unique(used, stem) + ".txt"
+                open(os.path.join(out_dir, out_name), "w").write(txt)
+                n_written += 1
+                src = {"file": base, "ext": ext or "(none)", "kind": kind, "status": "ok",
+                       "extract": out_name, "chars": len(txt)}
+                if note:
+                    src["note"] = note  # e.g. "read via Claude vision"
+                sources.append(src)
+            else:
+                n_fail += 1
+                sources.append({"file": base, "ext": ext or "(none)", "kind": kind,
+                                "status": "fail", "error": err or _no_reader_note("image")})
 
         elif ext in POINTER_EXTS:  # pointer stubs are JSON text — match by extension
             sources.append({"file": base, "ext": ext, "kind": "gdrive-pointer",
@@ -611,6 +994,7 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None):
         "data_path": os.path.abspath(data_path),
         "out_dir": os.path.abspath(out_dir),
         "generated_by": "extract_pool.py",
+        "vision_mode": bool(_vision_on and _vision_configured()),  # were visual sources read by Claude vision?
         "sources": sources,
         "totals": {"sources": len(sources), "workbooks": n_workbooks,
                    "tabs": n_tabs, "extracts_written": n_written, "failures": n_fail},
@@ -861,7 +1245,9 @@ def readiness_summary(data_path, out_dir, force=False):
     _saved_stdout = sys.stdout
     sys.stdout = sys.stderr
     try:
-        manifest = extract_pool(data_path, out_dir, force=force)   # reuses the is_fresh cache unless --force
+        # vision=False: the pre-flight gate must NOT spend tokens before the user proceeds. tesseract is
+        # still the free floor here; the in-run extraction upgrades image-only/scanned sources to Claude.
+        manifest = extract_pool(data_path, out_dir, force=force, vision=False)
         sources = manifest.get("sources", [])
         usable = [s for s in sources if s.get("status") in USABLE_STATUSES]
         issues = []
@@ -956,7 +1342,13 @@ def main(argv):
     corpus = None
     if "--corpus" in argv:
         corpus = argv[argv.index("--corpus") + 1]
-    extract_pool(data_path, out_dir, force=("--force" in argv), corpus_path=corpus)
+    # vision defaults to the env (EXTRACT_VISION); --no-vision / --vision force it for tests + tooling.
+    vision = None
+    if "--no-vision" in argv:
+        vision = False
+    elif "--vision" in argv:
+        vision = True
+    extract_pool(data_path, out_dir, force=("--force" in argv), corpus_path=corpus, vision=vision)
     return 0
 
 

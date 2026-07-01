@@ -9,7 +9,7 @@ import { REPO_ROOT } from '../src/config'
 import { createRun, finishRun, setActiveSubjectRun, type RunState } from '../src/registry'
 import { handleFile } from '../src/fs-watcher'
 import { estimate } from '../src/launcher'
-import { agentNameIndexAllSwarms, buildSwarmGraph, graphForSubject, swarmSubjects } from '../src/roster'
+import { agentNameIndexAllSwarms, buildSwarmGraph, downstreamCascade, graphForSubject, swarmSubjects } from '../src/roster'
 import { listSwarms, swarmById } from '../src/swarms'
 import { assembleContext, scopeAvailability } from '../src/chat-context'
 import type { SseEvent } from '../src/types'
@@ -98,6 +98,25 @@ check('estimate(full, GOLD, swarm=commodity) is scoped to the commodity swarm', 
   assert.equal(p.swarm, 'commodity')
   assert.ok(p.agentCount >= 13)
   assert.equal(p.requiresTypedConfirm, true)
+})
+
+// ---- rerun is swarm-scoped and cascades to the terminal thesis (no master) ----
+check('rerun on the commodity swarm: whole-module + single-orb cascade end at commodity-thesis, never master', () => {
+  // whole-module (no agent): the module 99 heads the cascade, downstream ends at commodity-thesis, no master node
+  const whole = downstreamCascade('supply-demand', undefined, 'commodity')
+  assert.ok(whole.length >= 2, 'whole-module cascade should include the module synthesis + downstream')
+  assert.ok(whole.some((c) => c.module === 'commodity-thesis'), 'cascade must reach the terminal commodity-thesis')
+  assert.ok(whole.every((c) => c.module !== 'master'), 'a constellation swarm has no master node in its cascade')
+  assert.equal(whole[whole.length - 1].module, 'commodity-thesis', 'terminal module must be last')
+  // single-orb: same downstream tail, but the orb heads it
+  const orb = downstreamCascade('supply-demand', 'commodity-supply', 'commodity')
+  assert.ok(orb.length >= 1 && orb.every((c) => c.module !== 'master'))
+  assert.ok(orb.some((c) => c.module === 'commodity-thesis'), 'single-orb cascade must also reach commodity-thesis')
+  // estimate accepts the reused rerun kind, scoped to the swarm, and is not a typed-confirm full run
+  const p = estimate('rerun', 'GOLD', 'supply-demand', undefined, 'commodity')
+  assert.equal(p.swarm, 'commodity')
+  assert.ok(p.agentCount >= 1)
+  assert.notEqual(p.requiresTypedConfirm, true)
 })
 
 // ---- closed-book chat grounds on the commodity run folder (tests 4 & 5 rely on this) ----

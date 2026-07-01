@@ -5,7 +5,7 @@ process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
-import { admitRun, type AdmissionRequest } from '../src/admission'
+import { admitRun, admissionMessage, type AdmissionRequest } from '../src/admission'
 import { ANALYSES_DIR, MAX_CONCURRENT_RUNS, REPO_ROOT } from '../src/config'
 import { createRun, finishRun, setActiveTickerRun, type RunState } from '../src/registry'
 import type { RunKind } from '../src/types'
@@ -114,13 +114,25 @@ try {
     assert.equal(d.ok, true)
   })
 
-  // D2 reject: identical absolute target
+  // D2 reject: identical absolute target — carries the human-meaningful conflicting module
   check('D2 reject identical write target', () => {
     clearAll()
     inflight('agent', T, ['valuation'], [abs(T, 'valuation/09_same.md')])
     const d = admitRun(req('agent', { coveredModules: ['valuation'], writeTargetsAbs: [abs(T, 'valuation/09_same.md')] }))
     assert.equal(d.ok, false)
     assert.equal((d as any).code, 'target_conflict')
+    assert.deepEqual((d as any).conflictModules, ['valuation'])
+  })
+
+  // D2 reject: module-vs-module same module conflicts on the whole file set — conflictModules names it
+  check('D2 module-vs-module carries conflictModules', () => {
+    clearAll()
+    const files = ['00_a.md', '01_b.md', '99_syn.md'].map((f) => abs(T, `business-model/${f}`))
+    inflight('module', T, ['business-model'], files)
+    const d = admitRun(req('module', { coveredModules: ['business-model'], writeTargetsAbs: files }))
+    assert.equal(d.ok, false)
+    assert.equal((d as any).code, 'target_conflict')
+    assert.deepEqual((d as any).conflictModules, ['business-model'])
   })
 
   // D1 reject: module while full in flight, and full while module in flight
@@ -165,6 +177,35 @@ try {
     const d = admitRun(req('module', { coveredModules: ['business-model'], writeTargetsAbs: [abs('ZZOTHER', 'business-model/00.md')], ticker: 'ZZOTHER' } as any))
     assert.equal(d.ok, false)
     assert.equal((d as any).code, 'capacity')
+  })
+
+  // ---- message compactness: a conflict must never dump a wall of paths into the toast (CLAUDE.md §21) ----
+  // A big module conflict once produced a message listing every file; now it names the module and stays short.
+  check('message: target_conflict names the module, no path dump', () => {
+    const msg = admissionMessage(
+      { code: 'target_conflict', httpStatus: 409, conflictRunId: 'r1', conflictTargets: Array.from({ length: 13 }, (_, i) => `analyses/${T}/business-model/${i}.md`), conflictModules: ['business-model'] },
+      T,
+    )
+    assert.ok(msg.includes('business model module'), `expected humanized module name, got: ${msg}`)
+    assert.ok(!msg.includes('.md'), `message must not dump file paths, got: ${msg}`)
+    assert.ok(msg.length < 120, `message must stay compact, got ${msg.length} chars`)
+  })
+
+  // No module attributable (root-artifact / cross-module overlap) → fall back to a bare count, still short.
+  check('message: target_conflict falls back to a file count', () => {
+    const msg = admissionMessage(
+      { code: 'target_conflict', httpStatus: 409, conflictRunId: 'r1', conflictTargets: ['a.md', 'b.md', 'c.md'], conflictModules: [] },
+      T,
+    )
+    assert.ok(msg.includes('3 files'), `expected a count, got: ${msg}`)
+    assert.ok(!msg.includes('.md'), `message must not dump file paths, got: ${msg}`)
+  })
+
+  // upstream_incomplete with many missing modules is capped ("+N more"), never a giant list.
+  check('message: upstream_incomplete caps a long list', () => {
+    const many = ['a', 'b', 'c', 'd', 'e', 'f']
+    const msg = admissionMessage({ code: 'upstream_incomplete', httpStatus: 400, missing: many }, T)
+    assert.ok(msg.includes('+3 more'), `expected cap marker, got: ${msg}`)
   })
 } finally {
   clearAll()

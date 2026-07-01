@@ -25,7 +25,9 @@ import { computeFacets } from './news/facets'
 import { getIntensity, INTENSITY_WINDOWS, type IntensityWindow } from './news/intensity'
 import { getRankWeights, defaultRankWeights, saveRankWeights, resetRankWeights, rankWeightsCustomised, type RankWeights } from './news/rank-weights'
 import { buildSourcesReport } from './news/source-health'
-import { readThemesIndex, loadTheme, buildThemeDetail } from './news/themes/store'
+import { readThemesIndex, loadTheme, loadThemes, buildThemeDetail, themesLedgerPath } from './news/themes/store'
+import { buildGeoThemesIndex, hasThemeGeo, type ThemeGeo } from './news/themes/geo-index'
+import type { ThemesIndex } from './news/themes/types'
 import { buildThemeBrief } from './news/themes/brief'
 import { enrichEvent, listCoveredTickers } from './news/enrich'
 import { markInboxConsumed, setDismissed } from './news/inbox-actions'
@@ -43,6 +45,7 @@ import { listSwarms } from './swarms'
 import { getNewsStatus, startNewsIngester } from './news/scheduler'
 import { startConvictionLoop } from './conviction-dispatch'
 import { startResumeSupervisor } from './resume-supervisor'
+import { listResumableRuns } from './resumable'
 import { AGENT_RE, EVENT_ID_RE, FEEDBACK_ID_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE, isValidTicker, resolveInsideRuns, validateNewTicker, sanitizeUploadFilename } from './sandbox'
 import type { RunKind } from './types'
 
@@ -304,7 +307,7 @@ app.get('/api/launch/estimate', async (req, reply) => {
   const swarm = q.swarm as string | undefined
   if (swarm && swarm !== 'research') {
     if (!listSwarms().some((s) => s.id === swarm)) return reply.code(400).send({ error: 'unknown swarm' })
-    if (!['full', 'module', 'agent'].includes(kind)) return reply.code(400).send({ error: 'bad kind for swarm' })
+    if (!['full', 'module', 'agent', 'rerun'].includes(kind)) return reply.code(400).send({ error: 'bad kind for swarm' })
     if (!TICKER_RE.test(q.ticker || '')) return reply.code(400).send({ error: 'bad subject' })
     return estimate(kind, q.ticker, q.module, q.agent, swarm)
   }
@@ -383,7 +386,7 @@ const HandoffLaunchBody = z.object({
 // roster below, so no swarm/module/agent name is hardcoded (CLAUDE.md §26).
 const SWARM_ID_RE = /^[a-z0-9-]{1,40}$/
 const SwarmLaunchBody = z.object({
-  kind: z.enum(['full', 'module', 'agent']),
+  kind: z.enum(['full', 'module', 'agent', 'rerun']),
   swarm: z.string().regex(SWARM_ID_RE),
   ticker: z.string().regex(TICKER_RE),
   module: z.string().regex(MODULE_RE).optional(),
@@ -466,10 +469,14 @@ app.post('/api/launch', async (req, reply) => {
     const { swarm, ticker: subject, module, agent, model, confirmTicker } = parsed.data
     const skind = parsed.data.kind
     if (!listSwarms().some((s) => s.id === swarm)) return reply.code(400).send({ error: `unknown swarm ${swarm}` })
-    if (skind === 'module' || skind === 'agent') {
+    if (skind === 'module' || skind === 'agent' || skind === 'rerun') {
       if (!module || !listModuleNames(swarm).includes(module)) return reply.code(400).send({ error: 'unknown module' })
     }
     if (skind === 'agent' && (!agent || !agentNamesForModule(module!, swarm).includes(agent))) {
+      return reply.code(400).send({ error: 'unknown agent for module' })
+    }
+    // rerun: AGENT is optional (whole-module vs single-orb) — but if given it must be valid.
+    if (skind === 'rerun' && agent && !agentNamesForModule(module!, swarm).includes(agent)) {
       return reply.code(400).send({ error: 'unknown agent for module' })
     }
     if (skind === 'full' && confirmTicker !== subject) {
@@ -589,6 +596,13 @@ app.post('/api/runs/:runId/readiness-decision', async (req, reply) => {
   return res
 })
 
+// ---------- resumable runs (disk-truth) ----------
+// Every run the cockpit can resume right now — an interrupted run (crash / restart / cancel) whose final
+// deliverable is missing, whose subject isn't live, and which wasn't deliberately aborted. Recomputed
+// from disk each call (the in-memory registry is wiped on restart). The Activity log and the orb view
+// join their rows/subjects against this set to decide where to show a "Resume" affordance.
+app.get('/api/resumable', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async () => ({ runs: listResumableRuns() }))
+
 // ---------- active runs list ----------
 app.get('/api/runs', async (req) => {
   const ticker = (req.query as any)?.ticker as string | undefined
@@ -596,7 +610,9 @@ app.get('/api/runs', async (req) => {
   return {
     active: listRuns()
       .filter((r) => IN_FLIGHT_STATUSES.has(r.status)) // incl. the pre-spawn gate states (shared def)
-      .map((r) => ({ runId: r.runId, kind: r.kind, ticker: r.ticker, module: r.module, status: r.status })),
+      // swarmId + unit let a caller tell a research run apart from a screener/commodity one without a
+      // name-guess (§26); startedAt drives the "running Nm" readout on the resume affordance.
+      .map((r) => ({ runId: r.runId, kind: r.kind, ticker: r.ticker, module: r.module, status: r.status, swarmId: r.swarmId, unit: r.unit, startedAt: r.startedAt })),
   }
 })
 
@@ -981,9 +997,37 @@ app.put('/api/news/rank-weights', { config: { rateLimit: { max: 1000, timeWindow
   return { active, defaults: defaultRankWeights(), customised: rankWeightsCustomised() }
 })
 
-// THEMES — the living, ranked investment themes the firehose is bucketed into.
+// THEMES — the living, ranked investment themes the firehose is bucketed into. With a `country` (ISO
+// alpha-2) or `geoRegion` (continent) query param it returns the SAME themes sliced to that geography —
+// re-ranked + re-sized by that geography's news flow — so the cockpit's "Where" picker narrows the Themes
+// view, not just the Events list. No geo param → the fast pre-built global index. The geo path reads the
+// full ledger (member rings) from disk, so it carries the same per-route limiter as the other fs routes.
 const THEME_RE = /^THM-[a-z0-9]{8}$/
-app.get('/api/news/themes', async () => readThemesIndex(REPO_ROOT))
+// Cache the geo-sliced index by (ledger mtime, geo key). The ledger only changes once per ~5-min cycle, so
+// nearly every geo request is served O(1) instead of re-parsing the whole ledger + re-running the country
+// gazetteer over every member (measured ~89ms today, ~540ms at the 32MB size prod once reached — all on the
+// single event loop). A new mtime drops the whole map, so a cycle's fresh themes show up immediately.
+let themesGeoCache: { mtime: number; byGeo: Map<string, ThemesIndex> } = { mtime: -1, byGeo: new Map() }
+function geoThemesIndex(geo: ThemeGeo): ThemesIndex {
+  let mtime = 0
+  try { mtime = fs.statSync(themesLedgerPath(REPO_ROOT)).mtimeMs } catch { /* no ledger yet → mtime 0 */ }
+  if (themesGeoCache.mtime !== mtime) themesGeoCache = { mtime, byGeo: new Map() }
+  const key = `${geo.country || ''}|${geo.geoRegion || ''}`
+  const hit = themesGeoCache.byGeo.get(key)
+  if (hit) return hit
+  const idx = buildGeoThemesIndex(loadThemes(REPO_ROOT), geo)
+  themesGeoCache.byGeo.set(key, idx)
+  return idx
+}
+app.get('/api/news/themes', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req) => {
+  const q = (req.query as any) || {}
+  const geo: ThemeGeo = {
+    country: typeof q.country === 'string' && q.country.trim() ? q.country.trim().toUpperCase() : undefined,
+    geoRegion: typeof q.geoRegion === 'string' && q.geoRegion.trim() ? q.geoRegion.trim() : undefined,
+  }
+  if (!hasThemeGeo(geo)) return readThemesIndex(REPO_ROOT)
+  return geoThemesIndex(geo)
+})
 app.get('/api/news/themes/:id', async (req, reply) => {
   const id = String((req.params as any)?.id || '')
   if (!THEME_RE.test(id)) return reply.code(400).send({ error: 'bad theme id' })

@@ -120,6 +120,8 @@ export function assignThemes(items: ThemeItemView[], themes: Theme[], cfg: Assig
         companies: (it.companies || []).slice(0, 4) as CompanyGuess[],
         event_types: evs.slice(0, 6),
         issuer_linkage: it.issuer_linkage,
+        country: it.country ?? null, // carry the event's country so the themes view can be sliced by geography
+        region: it.region, // + the domain-region floor, so the lazy resolver matches the archive exactly
       }
       theme.members.push(member)
       if (theme.members.length > cfg.maxMembers) theme.members.splice(0, theme.members.length - cfg.maxMembers)

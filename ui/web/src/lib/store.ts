@@ -5,7 +5,7 @@ import { downstreamCascade, type CascadeNode } from './cascade'
 import { displayHeadline, originalHeadline, plainRoute, plainStage } from './plain'
 import type { Theme, ThemeDetail, ThemeBrief } from './themes'
 import { intensityWindowForHours } from './themes'
-import type { ActiveRunLite, AgentNode, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
+import type { ActiveRunLite, AgentNode, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
 import { feedbackInputFromItem, feedbackLabel } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
 import { emptyReviewFilters, matchesReviewFilters, type ReviewFilterState } from '../components/screener/ReviewFilters'
@@ -87,6 +87,7 @@ let dataSource: EventSource | null = null
 let bloomTimer: any = null
 let pollTimer: any = null
 let intensityRefetchTimer: any = null // debounces the screener intensity re-fetch on each news cycle
+let themesGeoRefetchTimer: any = null // debounces the geo-sliced themes re-fetch on each theme-update
 let selectGen = 0 // bumped on every selectTicker; async work bails if it changed (fast-switch guard)
 let archiveToken = 0 // bumped on every archive search; a stale slow response bails if it changed (last-write-wins)
 let facetsToken = 0 // same guard for a standalone facets load (contextless / on dropdown open)
@@ -173,6 +174,7 @@ interface State {
   nodeRuntime: Record<string, NodeRuntime>
   now: number // shared 1s clock for every live timer (orb/module/panel/tooltip); ticked only while orbs run
   activeRuns: Record<string, ActiveRun> // selected-ticker live runs (+ just-finished, until next switch)
+  resumableRuns: ResumableRunInfo[] // disk-truth set of interrupted runs the cockpit can resume (all swarms)
   activeRunsByTicker: Set<string>
   chainTickers: Set<string> // tickers whose full run is a per-module CHAIN — defer the "complete" celebration to the master step
   selectToken: number
@@ -215,6 +217,9 @@ interface State {
   // subjects of the active NON-research constellation swarm (e.g. commodity ids GOLD/SUGAR), for its
   // subject picker; research uses `tickers`.
   swarmSubjectList: string[]
+  // true while loadSwarmSubjects is in flight — lets the subject picker show a real loading state on
+  // first entry instead of flashing "no subjects yet" before the list resolves.
+  swarmSubjectsLoading: boolean
   loadSwarmSubjects: (swarmId: string) => Promise<void>
   // research stage renderer: the 3D globe (default) or the flat 2D constellation. Persisted.
   researchView: 'constellation' | 'globe'
@@ -259,6 +264,11 @@ interface State {
   addCompany: (ticker: string) => Promise<boolean>
   uploadFiles: (ticker: string, files: File[]) => Promise<void>
   refreshActiveRuns: () => Promise<void>
+  // disk-truth resumable set (interrupted runs across all swarms) + the manual Resume trigger. The
+  // Activity log and the orb view join their rows/subjects against `resumableRuns` to show a Resume
+  // affordance; `resumeRun` relaunches the unit into its existing folder, continuing from work on disk.
+  refreshResumable: () => Promise<void>
+  resumeRun: (info: ResumableRunInfo) => Promise<void>
   checkCredit: () => Promise<void>
   selectNode: (key: string | null) => void
   setNow: (n: number) => void
@@ -274,7 +284,7 @@ interface State {
   confirmRerun: () => Promise<void>
   cancelLaunch: () => void
   cancelRun: (runId: string) => Promise<void>
-  readinessGate: { runId: string; report: ReadinessReport } | null // pre-flight gate panel (null = hidden)
+  readinessGate: { runId: string; report: ReadinessReport; rechecking?: boolean } | null // pre-flight gate panel (null = hidden; rechecking = a re-check is running)
   decideReadiness: (runId: string, action: string, ack?: string) => Promise<void>
   selectNodeForRun: (node: AgentNode) => void
   openOutputForNode: (node: AgentNode) => Promise<void>
@@ -418,6 +428,10 @@ interface State {
   themesView: 'map' | 'board' | null // null = themes view closed (gauntlet/idle canvas shows)
   themesWindow: number | null // the selected time-window lookback in HOURS; null = Live (real-time)
   themesHistoryDays: number // days of real daily-flow history the engine has (gates the long windows)
+  // the "Where" geography picker (owned by the Event rail) mirrored here so the Themes view slices by it —
+  // empty country+geoRegion = the global (un-filtered) index. `label` is the country/continent display name.
+  themesGeo: { country: string; geoRegion: string; label: string }
+  setThemesGeo: (geo: { country: string; geoRegion: string; label: string }) => void
   selectedTheme: string | null // open deep-dive
   themeDetail: ThemeDetail | null // the open theme's resolved members + companies-by-order
   themeBrief: ThemeBrief | null // the open theme's plain-English explainer (loaded separately, may lag the detail)
@@ -477,6 +491,7 @@ export const useStore = create<State>((set, get) => ({
   nodeRuntime: {},
   now: Date.now(),
   activeRuns: {},
+  resumableRuns: [],
   activeRunsByTicker: new Set(),
   chainTickers: new Set(),
   selectToken: 0,
@@ -516,6 +531,7 @@ export const useStore = create<State>((set, get) => ({
   activeSwarm: typeof window !== 'undefined' && (window as any).__ENGINE_LIVE__ === true ? 'screener' : 'research',
   constellationSwarm: 'research',
   swarmSubjectList: [],
+  swarmSubjectsLoading: false,
   researchView: loadView(),
   webglOK: true, // optimistic; init() probes and corrects + coerces the view if WebGL is missing
   warp: null,
@@ -568,6 +584,7 @@ export const useStore = create<State>((set, get) => ({
   themesView: null,
   themesWindow: null,
   themesHistoryDays: 0,
+  themesGeo: { country: '', geoRegion: '', label: '' },
   selectedTheme: null,
   themeDetail: null,
   themeBrief: null,
@@ -595,6 +612,12 @@ export const useStore = create<State>((set, get) => ({
     set({ staticMode: stat })
     if (!stat) {
       get().startHealth() // begin the engine heartbeat (live mode only); idempotent across reconnects
+      // Rediscover any run still executing server-side. A page refresh remounts this store with no
+      // selected ticker, so without this the picker/kill-switch would be blind to an in-flight run until
+      // the user happened to pick its company. Populating activeRunsByTicker + globalActive here lights the
+      // "resume live run" affordance on the picker (and the top-bar N-running pill), and starts the poll so
+      // the banner clears itself the moment the run ends. Self-guarded (no-op in static mode).
+      void get().refreshActiveRuns()
       // live data-folder watcher (Drive sync) — backend only
       if (!dataSource) {
         dataSource = new EventSource(api.dataStreamUrl())
@@ -652,6 +675,7 @@ export const useStore = create<State>((set, get) => ({
     const graph = isResearch ? await api.swarm(t) : await api.swarmGraph(sw, t)
     if (get().selectToken !== token) return // a newer selection superseded this one
     set({ graph, nodesByKey: flatten(graph) })
+    void get().refreshResumable() // so the orb-view Resume chip knows if this subject has an interrupted run
     if (isResearch) await get().refreshData()
     if (get().selectToken !== token) return
     // seed prior-run results into the swarm
@@ -765,6 +789,55 @@ export const useStore = create<State>((set, get) => ({
       }
       schedulePoll(get, active.length > 0)
     } catch {}
+  },
+
+  // Pull the disk-truth set of interrupted runs the cockpit can resume (all swarms). Cheap, read-only;
+  // the Activity log refreshes it alongside its rows, and the orb view refreshes it on subject select.
+  refreshResumable: async () => {
+    if (get().staticMode) return
+    try {
+      const { runs } = await api.resumable()
+      set({ resumableRuns: runs })
+    } catch {}
+  },
+
+  // Manually resume ONE interrupted run — relaunch the same unit into its existing run folder so the
+  // engine continues from the work already on disk (finished modules/agents are skipped). Mirrors the
+  // screener's continueSignal; usable from the Activity log (any subject) and the orb view (this subject).
+  resumeRun: async (info) => {
+    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' })
+    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    // Screener signals resume through their own path — it keeps the finished orbs and re-queues the rest.
+    if (info.kind === 'signal') { await get().continueSignal(info.subject); return }
+    const swarm = info.swarm && info.swarm !== 'research' ? info.swarm : undefined
+    const label = info.label || info.subject
+    const doResume = async (force?: boolean) => {
+      try {
+        const body: { kind: string; ticker: string; module?: string; confirmTicker?: string; force?: boolean; swarm?: string } =
+          { kind: info.kind, ticker: info.subject, module: info.module, force, swarm }
+        if (info.kind === 'full') body.confirmTicker = info.subject // the server requires a typed confirm for a full run
+        const { runId, chained } = await api.launch(body)
+        if (chained) set({ chainTickers: new Set(get().chainTickers).add(info.subject) })
+        // If the resumed subject is the one on screen, light up its orbs and follow live (beginRun keys off
+        // the selected ticker). Otherwise just attach the stream + refresh — the Activity log row settles on
+        // its own, and the user can select the subject to watch it run.
+        const onScreen = info.subject === get().selectedTicker && get().activeSwarm === (info.swarm || 'research')
+        if (onScreen) {
+          const planned = info.kind === 'module' && info.module
+            ? [...get().nodesByKey.values()].filter((n) => n.module === info.module).map((n) => n.key)
+            : [...get().nodesByKey.keys()]
+          beginRun(set, get, runId, { kind: info.kind, module: info.module, willCommitToMain: true }, planned)
+        } else {
+          connectRun(get, runId)
+          void get().refreshActiveRuns()
+        }
+        void get().refreshResumable()
+        get().setToast({ msg: `Resuming ${label} — picking up where it stopped`, tone: 'good' })
+      } catch (e: any) {
+        launchErrorToast(get, e, info.subject, `resume of ${label}`, force ? undefined : () => doResume(true))
+      }
+    }
+    await doResume()
   },
 
   checkCredit: async () => {
@@ -911,7 +984,7 @@ export const useStore = create<State>((set, get) => ({
     if (!cascade.length) return get().setToast({ msg: `Can't resolve the downstream of ${node.name}`, tone: 'bad' })
     if (get().targetInFlight(t, cascade.map((c) => c.key))) return get().setToast({ msg: `${node.name} or its downstream is already running`, tone: 'info' })
     try {
-      const preflight = await api.estimate('rerun', t, node.module, node.name)
+      const preflight = await api.estimate('rerun', t, node.module, node.name, get().activeSwarm !== 'research' ? get().activeSwarm : undefined)
       set({ launchConfirm: { kind: 'rerun', preflight, cascade, node } })
     } catch (e: any) {
       get().setToast({ msg: `Re-run estimate failed: ${e?.message || e}`, tone: 'bad' })
@@ -930,7 +1003,7 @@ export const useStore = create<State>((set, get) => ({
     // gone — node + planned are captured here, not re-read from the (now-cleared) launchConfirm.
     const doRerun = async (force?: boolean) => {
       try {
-        const { runId } = await api.launch({ kind: 'rerun', ticker: t, module: node.module, agent: node.name, force })
+        const { runId } = await api.launch({ kind: 'rerun', ticker: t, module: node.module, agent: node.name, force, swarm: get().activeSwarm !== 'research' ? get().activeSwarm : undefined })
         beginRun(set, get, runId, { kind: 'rerun', module: node.module, agent: node.name, willCommitToMain: true }, planned)
         get().setToast({ msg: `Re-running ${node.name} + downstream on ${t}`, tone: 'good' })
       } catch (e: any) {
@@ -960,6 +1033,19 @@ export const useStore = create<State>((set, get) => ({
       await api.readinessDecision(runId, action, ack)
       if (action === 'cancel') get().setToast({ msg: 'Run cancelled at the data check', tone: 'info' })
     } catch (e: any) {
+      // A STALE gate: the run already left the awaiting-decision state (409) or is gone (404) — it
+      // already proceeded/finished, or the closing SSE event was missed (edge/tunnel drop, engine
+      // restart). Don't strand the user clicking a dead dialog forever: close the panel, reconcile
+      // the active runs against the server, and say what actually happened. THIS is the fix for
+      // "clicking any button does nothing but a toast".
+      const status = e?.status as number | undefined
+      if (status === 409 || status === 404) {
+        if (get().readinessGate?.runId === runId) set({ readinessGate: null })
+        get().refreshActiveRuns()
+        get().setToast({ msg: 'This data check is no longer active — the run already started or ended.', tone: 'info' })
+        return
+      }
+      // A still-actionable rejection (bad ticker ack 412, invalid body 400) — keep the panel open.
       get().setToast({ msg: e?.message || 'Could not apply the decision', tone: 'bad' })
     }
   },
@@ -1350,8 +1436,17 @@ export const useStore = create<State>((set, get) => ({
         // ticker (authoritative from the report, not the activeRuns lookup which may not have it yet)
         if (!selected || e.report.ticker === selected) patch.readinessGate = { runId: e.runId, report: e.report }
         break
+      case 'readiness-checking': {
+        // a re-check is running for the OPEN gate — mark it so the panel shows a spinner and disables
+        // its buttons instead of looking frozen for the (up to a few minutes) OCR/extract pass. The
+        // initial pre-flight check also emits this, but the gate isn't open yet, so it's a no-op then.
+        const g = get().readinessGate
+        if (g?.runId === e.runId) patch.readinessGate = { ...g, rechecking: true }
+        break
+      }
       case 'readiness-report':
-        // refresh the open gate panel (e.g. after a recheck that came back still-not-clean)
+        // refresh the open gate panel (e.g. after a recheck that came back still-not-clean) — the new
+        // object drops `rechecking`, re-enabling the buttons.
         if (get().readinessGate?.runId === e.runId) patch.readinessGate = { runId: e.runId, report: e.report }
         break
       case 'readiness-resolved':
@@ -1403,10 +1498,12 @@ export const useStore = create<State>((set, get) => ({
   },
 
   loadSwarmSubjects: async (swarmId) => {
+    set({ swarmSubjectsLoading: true })
     try {
       const subjects = await api.swarmSubjects(swarmId)
       if (get().activeSwarm === swarmId) set({ swarmSubjectList: subjects })
     } catch { /* keep the prior list on a transient failure */ }
+    finally { if (get().activeSwarm === swarmId) set({ swarmSubjectsLoading: false }) }
   },
 
   _advanceWarp: () => {
@@ -1483,10 +1580,30 @@ export const useStore = create<State>((set, get) => ({
   // ---- dynamic themes ----
   refreshThemes: async () => {
     try {
-      const idx = await api.newsThemes()
+      const g = get().themesGeo
+      const geo = g.country || g.geoRegion ? { country: g.country || undefined, geoRegion: g.geoRegion || undefined } : undefined
+      const idx = await api.newsThemes(geo)
+      // guard a slow geo response landing after the geo changed again (last-write-wins on the current geo)
+      const now = get().themesGeo
+      if (now.country !== g.country || now.geoRegion !== g.geoRegion) return
       set({ themes: idx.themes, themesHistoryDays: idx.history_days || 0, themesStatus: 'ready' })
     } catch {
       set({ themesStatus: 'error' })
+    }
+  },
+  // the Event rail's "Where" picker calls this so the Themes map/board slice to the same geography. Only
+  // refetches when the geography (country/continent) actually changes — a late-arriving label refresh
+  // updates the display without a wasted round-trip — and only while the themes view is showing (else
+  // openThemes picks up the current geo). Debounced so scrubbing the dropdown collapses to one request.
+  setThemesGeo: (geo) => {
+    const cur = get().themesGeo
+    const geoChanged = cur.country !== geo.country || cur.geoRegion !== geo.geoRegion
+    if (!geoChanged && cur.label === geo.label) return
+    set({ themesGeo: geo })
+    if (geoChanged && get().themesView !== null) {
+      set({ themesStatus: get().themes.length ? 'ready' : 'loading' })
+      if (themesGeoRefetchTimer) clearTimeout(themesGeoRefetchTimer)
+      themesGeoRefetchTimer = setTimeout(() => void get().refreshThemes(), 300)
     }
   },
   openThemes: async (view) => {
@@ -2045,6 +2162,7 @@ export const useStore = create<State>((set, get) => ({
     if (get().staticMode) return
     get().checkHealthNow() // force an immediate /api/health probe (no-op if the loop isn't running)
     void get().refreshNewsStatus() // re-pull the scanner status (bounded fetch — always settles)
+    void get().refreshActiveRuns() // catch up on runs that started/finished while we were away (other tab / headless)
     reviveNewsStream(get) // re-create the news SSE if it died (CLOSED) — browser auto-reconnect can give up
   },
   _handleNewsEvent: (e) => {
@@ -2091,6 +2209,15 @@ export const useStore = create<State>((set, get) => ({
       // upsert the changed theme; the map/board re-rank from the array. Only when the themes view is
       // open (otherwise we'd hold stale themes until next open anyway).
       if (get().themesView === null && !get().themes.length) return
+      // in a geo-sliced view the SSE patch is a GLOBAL theme summary that doesn't match the geo projection
+      // (different member_count / flow / ranking), so recompute the whole geo index (debounced) instead of
+      // upserting a mismatched row.
+      const g = get().themesGeo
+      if (g.country || g.geoRegion) {
+        if (themesGeoRefetchTimer) clearTimeout(themesGeoRefetchTimer)
+        themesGeoRefetchTimer = setTimeout(() => void get().refreshThemes(), 1200)
+        return
+      }
       const t = e.theme as Theme
       const cur = get().themes
       const i = cur.findIndex((x) => x.theme_id === t.theme_id)
@@ -2379,9 +2506,16 @@ function refreshTickersSoon(get: () => State, set: (p: Partial<State>) => void) 
     .catch(() => {})
 }
 
-function schedulePoll(get: () => State, keepGoing: boolean) {
+// `active` = at least one run is live for the selected ticker. Poll fast (5s) while something is live so
+// the swarm stays smooth; keep a gentle 20s heartbeat while a company is merely selected so a run started
+// elsewhere (another tab, or a headless/autonomous run) surfaces in the constellation on its own — no
+// stale "▸ run module" over a module that's actually in flight. refreshActiveRuns is a cheap in-memory
+// registry read and never touches health, so the idle beat can't cause offline flapping.
+function schedulePoll(get: () => State, active: boolean) {
   if (pollTimer) { clearTimeout(pollTimer); pollTimer = null }
-  if (keepGoing && !get().staticMode) pollTimer = setTimeout(() => get().refreshActiveRuns(), 5000)
+  if (get().staticMode) return
+  if (!active && !get().selectedTicker) return
+  pollTimer = setTimeout(() => get().refreshActiveRuns(), active ? 5000 : 20000)
 }
 
 // One health probe now, then self-reschedule (20s healthy / 5s degraded). The generation guard makes a
@@ -2539,6 +2673,12 @@ function launchErrorToast(get: () => State, e: any, ticker: string, what: string
   const isLock = LOCK_CONFLICTS.has(code)
   const info = isLock || code === 'upstream_incomplete'
   const msg = e?.message ? String(e.message) : `Launch failed for ${what} on ${ticker}`
+  // A same-subject lock means a run we may not be tracking is live for this ticker — typically one
+  // started in another tab or by a headless/autonomous run, so it never entered this session's state.
+  // Reconcile now: refreshActiveRuns discovers it, attaches its stream + snapshot, and lights up the
+  // in-flight module in the constellation. The conflict becomes VISIBLE (not just a toast), and the
+  // client-side guard will catch the next attempt with a clean "already running" — no dead-end.
+  if (isLock) void get().refreshActiveRuns()
   get().setToast({
     msg,
     tone: info ? 'info' : 'bad',
