@@ -52,7 +52,7 @@ export interface Filterable {
   event_types?: string[]
   size_bucket?: string
   issuer_linkage?: string
-  companies?: { name: string; ticker: string | null }[]
+  companies?: { name: string; ticker: string | null; listing_country?: string | null }[]
 }
 
 export function matchesFilters(it: Filterable, f: FeedFilterState): boolean {
