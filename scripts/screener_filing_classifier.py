@@ -71,10 +71,16 @@ ROUTINE_PATTERNS = [
     ]),
     ("procedural_exchange_filing", [
         re.compile(r"compliance certificate", re.I),
-        re.compile(r"intimation under regulation \d+", re.I),
+        # SEBI LODR Regulation 30 is the MATERIAL-EVENT disclosure channel (CLAUDE.md §27 canonical
+        # map: the India equivalent of an 8-K), so a "Regulation 30" intimation/disclosure is NOT
+        # inherently procedural — a plant fire, shutdown, strike, or capacity commissioning is filed
+        # under Reg 30 and carries real event content. Exclude Reg 30 from the generic
+        # "under regulation N" procedural match (the \b keeps 300/301/… still matching); such a
+        # filing then abstains to unknown_filing (no ceiling) unless a specific routine sub-pattern
+        # or an override keyword matches. Other regulations (7(3), 40, 74, 62, …) stay procedural.
+        re.compile(r"intimation under regulation (?!30\b)\d+", re.I),
         re.compile(r"newspaper publication", re.I),
-        re.compile(r"disclosure under regulation \d+", re.I),
-        re.compile(r"reg(ulation)?\s*30\b.{0,30}sebi", re.I),
+        re.compile(r"disclosure under regulation (?!30\b)\d+", re.I),
         re.compile(r"shareholding pattern", re.I),
         re.compile(r"certificate under regulation", re.I),
         re.compile(r"book closure(?!.{0,30}(default|fraud|investigation))", re.I),
@@ -93,7 +99,14 @@ ROUTINE_PATTERNS = [
     ("financial_results_notice", [
         re.compile(r"date of.{0,15}(financial )?results", re.I),
         re.compile(r"results date intimation", re.I),
-        re.compile(r"intimation.{0,30}(un)?audited financial results", re.I),
+        # financial_results_notice = a results-DATE intimation with NO results content
+        # (MODULE_RULES.md "Filing-Type labels"). The bare "intimation ... (un)audited financial
+        # results" form also matches an ACTUAL results submission ("Intimation of Unaudited
+        # Financial Results for the quarter ended ...") that carries revenue/profit numbers — that
+        # is a real event, not a date notice, and must NOT be capped at 50. Require date/schedule
+        # language so only the no-content notice matches; the genuine "intimation of DATE of results"
+        # notice is already covered by the "date of ... results" pattern above.
+        re.compile(r"intimation.{0,30}\b(date|schedule|convening|convened|timing)\b.{0,20}(un)?audited financial results", re.I),
         re.compile(r"financial results.{0,30}(will be declared|to be announced|on \d)", re.I),
         re.compile(r"\bresults calendar\b", re.I),
     ]),
@@ -122,7 +135,12 @@ OVERRIDE_PATTERNS = [
         re.compile(r"\b(cbi|ed|sfio)\s+(raid|probe|investigation)", re.I),
     ]),
     ("mna", [
-        re.compile(r"\bacqui(re|res|sition|sitions)\b", re.I),
+        # "acquisition(s)" as a proper-noun entity name (SPACs: "Titan Acquisition Corp.",
+        # "Churchill Capital Acquisition Corporation") is NOT an M&A action — a routine filing that
+        # merely NAMES such a company must not be forced to material_exchange_filing. Guard the noun
+        # forms with a negative lookahead for a corporate suffix; keep the verb forms (acquire/
+        # acquires) and "acquisition of ..." unguarded so genuine deals still fire.
+        re.compile(r"\bacqui(re|res)\b|\bacquisitions?\b(?!\s+(corp|corporation|company|co|ltd|limited|inc|holdings|partners|fund|group|plc)\b)", re.I),
         re.compile(r"\bdivest(s|iture|ed)?\b", re.I),
         re.compile(r"\bmerger\b", re.I),
         re.compile(r"\bdisposal of\b.{0,30}\b(stake|business|undertaking|unit)\b", re.I),
@@ -337,6 +355,41 @@ def run_selftest() -> int:
          "routine_board_meeting", False),
         # 14. Robustness — buyback WITH financial terms overrides.
         ("Company announces buyback of equity shares at ₹450 per share, aggregating up to ₹500 crore", "",
+         "material_exchange_filing", True),
+        # 15. REGRESSION (thread A): a SEBI LODR Regulation 30 filing announcing a material
+        #     operational event (plant fire / shutdown / strike / capacity commissioning) is NOT a
+        #     procedural filing — Reg 30 is the material-event disclosure channel (CLAUDE.md §27).
+        #     It must NOT classify procedural_exchange_filing (ceiling 30). With no override keyword
+        #     it abstains to unknown_filing (no ceiling), so a real event can still PROMOTE.
+        ("Intimation under Regulation 30 of SEBI (LODR): Fire at manufacturing plant", "",
+         "unknown_filing", False),
+        # 16. REGRESSION (thread A): "Disclosure under Regulation 30 ... shutdown of plant" likewise
+        #     must not be procedural. Other regulations (7(3), 40, 74) stay procedural — case 7 pins that.
+        ("Disclosure under Regulation 30 of SEBI LODR - shutdown of manufacturing unit", "",
+         "unknown_filing", False),
+        # 16b. GUARD for the thread-A fix: a Regulation 300 (or any number that merely starts with
+        #      "30") filing must STILL match the generic procedural pattern — the exclusion is Reg 30
+        #      exactly, not any "30x". Keeps the negative lookahead from over-narrowing.
+        ("Intimation under Regulation 300 of some rulebook", "",
+         "procedural_exchange_filing", False),
+        # 17. REGRESSION (thread B): an ACTUAL results submission carrying revenue/profit numbers is
+        #     a real event, not a no-content results-DATE notice — it must NOT classify
+        #     financial_results_notice (ceiling 50). It abstains to unknown_filing so it can PROMOTE.
+        ("Intimation of Unaudited Financial Results for the quarter ended June 2026",
+         "Revenue Rs 1,200 crore, net profit Rs 500 crore.",
+         "unknown_filing", False),
+        # 18. NON-REGRESSION for the thread-B fix: a genuine results-DATE intimation (no numbers) must
+        #     STILL classify financial_results_notice via the "date of ... results" pattern.
+        ("Intimation of date of unaudited financial results for the quarter ending June 2026", "",
+         "financial_results_notice", False),
+        # 19. REGRESSION (thread D): a routine filing that merely NAMES a SPAC ("Titan Acquisition
+        #     Corp.") must NOT fire the M&A override — "Acquisition" here is part of a proper-noun
+        #     entity name, not an M&A action. It should stay the routine board-meeting notice.
+        ("Board meeting intimation to consider matters relating to Titan Acquisition Corp.", "",
+         "routine_board_meeting", False),
+        # 20. NON-REGRESSION for the thread-D fix: a genuine acquisition ("acquisition of ...") must
+        #     STILL fire the M&A override.
+        ("Company completes acquisition of XYZ Limited for ₹300 crore", "",
          "material_exchange_filing", True),
     ]
     for headline, body, exp_type, exp_override in classify_cases:
