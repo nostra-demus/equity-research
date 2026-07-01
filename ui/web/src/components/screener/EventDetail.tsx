@@ -5,11 +5,11 @@
 // corrected theme. Triage metadata sits in the header, not in the way. Then: run / open / shelve.
 
 import { useEffect, useRef, useState } from 'react'
-import { displayHeadline, originalHeadline, translatedFromLang, plainSize, plainStage, plainTheme } from '../../lib/plain'
+import { displayHeadline, originalHeadline, translatedFromLang, plainAffectedMetric, plainImpactDirection, plainImpactMagnitude, plainSize, plainStage, plainTheme } from '../../lib/plain'
 import { familyOf, isCompanyNameClient, roleLabel, SCOPES, scopeOf, sourceTierDef } from '../../lib/scope'
 import { discoveryCapDelta } from '../../lib/rankWeights'
 import { useStore } from '../../lib/store'
-import type { ArticleParty, EventEnrichment, FeedItem, RelatedEvent } from '../../lib/types'
+import type { ArticleParty, EventEnrichment, FeedItem, NewsImpact, RelatedEvent } from '../../lib/types'
 
 const fmtTime = (iso?: string) => {
   if (!iso) return ''
@@ -132,6 +132,53 @@ function PartyList({ parties }: { parties: ArticleParty[] }) {
         )
       })}
     </ul>
+  )
+}
+
+// IMPACT — the structured, quantified read: does this move earnings / guidance / valuation / the thesis /
+// risk / a portfolio decision, in which direction, how big, with what numbers, how confident. Gated by the
+// caller strictly on `enrichment?.news_impact` (never on whether gist/companies/etc. are non-empty) — a
+// routine/no-impact verdict is itself the correct, decision-useful answer and still renders here; a
+// pre-upgrade cached enrichment simply has no `news_impact` key, so the caller renders nothing, no crash.
+function ImpactBlock({ ni }: { ni: NewsImpact }) {
+  const hasNumbers = ni.extracted_numbers.length > 0
+  const hasCalc = ni.quantified_impact_available && ni.quick_dirty_calculation.trim().length > 0
+  return (
+    <div className="evdetail__block evdetail__impact evdetail__reveal">
+      <div className="evdetail__label">Impact</div>
+      <div className="evdetail__impact-head">
+        <span className={`evdetail__impact-dir evdetail__impact-dir--${ni.impact_direction}`}>{plainImpactDirection(ni.impact_direction)}</span>
+        <span className={`evdetail__impact-mag evdetail__impact-mag--${ni.impact_magnitude}`}>{plainImpactMagnitude(ni.impact_magnitude)} impact</span>
+        {ni.confidence > 0 && <span className="evdetail__impact-conf" title="How confident this read is, 0-100">{ni.confidence}% confidence</span>}
+      </div>
+      {!!ni.affected_metric.length && (
+        <div className="evdetail__impact-metrics">
+          {ni.affected_metric.map((m) => <span key={m} className="evdetail__impact-metric">{plainAffectedMetric(m)}</span>)}
+        </div>
+      )}
+      {ni.why_it_matters && <p className="evdetail__impact-why">{ni.why_it_matters}</p>}
+      {hasNumbers && (
+        <div className="evdetail__impact-nums">
+          <div className="evdetail__impact-nums-k">From the article</div>
+          <ul className="evdetail__impact-numlist">
+            {ni.extracted_numbers.map((n, i) => <li key={i}>{n}</li>)}
+          </ul>
+        </div>
+      )}
+      <div className="evdetail__impact-calc">
+        {hasCalc ? (
+          <span className="evdetail__impact-calc-v">{ni.quick_dirty_calculation}</span>
+        ) : (
+          <span className="evdetail__impact-calc-insufficient">insufficient data for valuation impact</span>
+        )}
+      </div>
+      {ni.analyst_takeaway && (
+        <div className="evdetail__impact-takeaway">
+          <span className="evdetail__impact-takeaway-k">Takeaway</span>
+          <span className="evdetail__impact-takeaway-v">{ni.analyst_takeaway}</span>
+        </div>
+      )}
+    </div>
   )
 }
 
@@ -443,6 +490,12 @@ export function EventDetail({ it }: { it: FeedItem }) {
 
         {/* THE STORY — the crux, read from the article body */}
         <StoryBlock enr={enr} />
+
+        {/* IMPACT — does this move earnings/guidance/valuation/thesis/risk/a portfolio decision, and how
+            big. Gated strictly on enrichment?.news_impact (NOT didRead) — a routine/no-impact verdict is
+            itself decision-useful and must render even when gist/companies/etc. are all empty; a
+            pre-upgrade cached enrichment simply has no news_impact key, so this renders nothing, no crash. */}
+        {enrichment?.news_impact && <ImpactBlock ni={enrichment.news_impact} />}
 
         {/* WHY IT MATTERS — the transmission to markets: event → what changes → which tradable asset moves.
             The "so what" a PM reads first; the centre of gravity for a macro/policy/commodity story. */}

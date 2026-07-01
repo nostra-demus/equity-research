@@ -132,6 +132,39 @@ export const horizonBucket = (h?: string | null): '' | 'short' | 'medium' | 'lon
 // Score bands → what the scanner did with the item on the wire: kept it for a look, or dropped it.
 export const plainBand = (b?: string | null): string => (b === 'pick' ? 'kept' : b === 'watch' ? 'kept (borderline)' : b === 'drop' ? 'dropped' : human(b || ''))
 
+// news_impact direction/magnitude/metric → plain words (the events reader's Impact block).
+const IMPACT_DIRECTIONS: Record<string, string> = {
+  positive: 'positive',
+  negative: 'negative',
+  mixed: 'mixed',
+  neutral: 'no real impact',
+  unknown: 'unclear',
+}
+export const plainImpactDirection = (d?: string | null): string => (d ? IMPACT_DIRECTIONS[d] || human(d) : '')
+
+const IMPACT_MAGNITUDES: Record<string, string> = {
+  low: 'low',
+  medium: 'medium',
+  high: 'high',
+  critical: 'critical',
+}
+export const plainImpactMagnitude = (m?: string | null): string => (m ? IMPACT_MAGNITUDES[m] || human(m) : '')
+
+const AFFECTED_METRICS_PLAIN: Record<string, string> = {
+  revenue: 'revenue',
+  ebitda: 'EBITDA',
+  pat_net_income: 'net profit',
+  eps: 'EPS',
+  cash_flow: 'cash flow',
+  debt: 'debt',
+  capex: 'capex',
+  commodity_price: 'commodity price',
+  valuation_multiple: 'valuation multiple',
+  regulatory_risk: 'regulatory risk',
+  thesis_quality: 'thesis quality',
+}
+export const plainAffectedMetric = (m?: string | null): string => (m ? AFFECTED_METRICS_PLAIN[m] || human(m) : '')
+
 // Run kinds → what's actually running (for the stop list).
 const KINDS: Record<string, string> = {
   full: 'full research run',

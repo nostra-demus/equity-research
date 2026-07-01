@@ -1981,6 +1981,29 @@ a { color: inherit; }
 .evdetail__watch-k { flex-shrink: 0; font-size: 9.5px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-muted); }
 .evdetail__watch-v { font-size: 12.5px; line-height: 1.45; color: var(--text); }
 
+/* ---- IMPACT — does this move earnings/guidance/valuation/thesis/risk/a portfolio decision ---- */
+.evdetail__impact { padding: 12px 14px; border: 1px solid var(--hairline); border-radius: var(--r-md); }
+.evdetail__impact-head { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 8px; }
+.evdetail__impact-dir { font-size: 10.5px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; padding: 3px 8px; border-radius: var(--r-pill); border: 1px solid var(--hairline); }
+.evdetail__impact-dir--positive { color: var(--live); border-color: var(--live); }
+.evdetail__impact-dir--negative { color: var(--bad); border-color: var(--bad); }
+.evdetail__impact-dir--mixed, .evdetail__impact-dir--neutral, .evdetail__impact-dir--unknown { color: var(--text-muted); }
+.evdetail__impact-mag { font-size: 10.5px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-faint); }
+.evdetail__impact-mag--high, .evdetail__impact-mag--critical { color: var(--accent-bright); }
+.evdetail__impact-conf { font-size: 11px; color: var(--text-faint); margin-left: auto; }
+.evdetail__impact-metrics { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+.evdetail__impact-metric { font-size: 11px; color: var(--text-muted); background: var(--surface-2); border: 1px solid var(--hairline); border-radius: var(--r-pill); padding: 2px 8px; }
+.evdetail__impact-why { margin: 0 0 8px; font-size: 12.5px; line-height: 1.5; color: var(--text); }
+.evdetail__impact-nums { margin-bottom: 8px; padding: 8px 10px; border-left: 2px solid var(--accent-deep); background: var(--accent-wash-soft); border-radius: var(--r-sm); }
+.evdetail__impact-nums-k { font-size: 9.5px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: var(--accent-bright); margin-bottom: 4px; }
+.evdetail__impact-numlist { margin: 0; padding-left: 16px; font-size: 12.5px; line-height: 1.6; color: var(--text); }
+.evdetail__impact-calc { margin-bottom: 8px; font-size: 12.5px; line-height: 1.5; }
+.evdetail__impact-calc-v { color: var(--text); }
+.evdetail__impact-calc-insufficient { color: var(--text-faint); font-style: italic; }
+.evdetail__impact-takeaway { display: flex; align-items: baseline; gap: 8px; padding-top: 8px; border-top: 1px dashed var(--hairline); }
+.evdetail__impact-takeaway-k { flex-shrink: 0; font-size: 9.5px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-muted); }
+.evdetail__impact-takeaway-v { font-size: 12.5px; line-height: 1.45; color: var(--text); }
+
 /* ---- entrance for the lazily-arriving smart-read blocks (transform+opacity only, off the main thread) ---- */
 .evdetail__reveal { animation: evReveal 260ms var(--ease-out) both; }
 @keyframes evReveal { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
