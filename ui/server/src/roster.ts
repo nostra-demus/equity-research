@@ -211,6 +211,28 @@ export function findRunRootForSubject(swarmId: string, subjectId: string): strin
   return fs.existsSync(abs) ? abs : null
 }
 
+// Subjects (units of work) of a NON-research swarm, for the cockpit subject picker: the union of
+// (a) existing run folders under the swarm's runsRoot, and (b) the `## <NAME>` headings in the swarm's
+// declared `subjects_source` markdown (so a not-yet-run subject is still selectable). Generic — no
+// subject or swarm name is hardcoded (CLAUDE.md §26); research uses /api/tickers instead. Sorted, unique.
+export function swarmSubjects(swarmId: string): string[] {
+  const swarm = swarmById(swarmId)
+  if (!swarm || swarm.id === RESEARCH_SWARM_ID) return []
+  const out = new Set<string>()
+  try {
+    for (const d of fs.readdirSync(path.join(REPO_ROOT, swarm.runsRoot), { withFileTypes: true })) {
+      if (d.isDirectory()) out.add(d.name)
+    }
+  } catch { /* no runs yet */ }
+  if (swarm.subjectsSource) {
+    try {
+      const txt = fs.readFileSync(path.join(REPO_ROOT, swarm.subjectsSource), 'utf8')
+      for (const m of txt.matchAll(/^##\s+([A-Z0-9][A-Z0-9.\-]{0,14})\s*$/gm)) out.add(m[1])
+    } catch { /* no subjects source on disk */ }
+  }
+  return [...out].sort()
+}
+
 // Latest dated folder that contains <module>/, mirroring the slash-command resolver
 // `ls -1d analyses/<TICKER>_*/<module>/ | sort -r | head -1`. Absolute path to the module subfolder.
 export function latestModuleFolder(ticker: string, module: string): string | null {
@@ -356,22 +378,31 @@ export function transitiveDownstreamModules(graph: SwarmGraph, moduleName: strin
   return down
 }
 
-// Ordered re-run cascade for a target orb. Three target cases:
-//  - specialist  -> [target, its module 99, ...downstream module 99s (topo), master]
-//  - module 99   -> [that 99, ...downstream module 99s (topo), master]
-//  - master      -> [master] only (regenerates thesis/memo/dossier)
+// Ordered re-run cascade for a target orb. Four target cases:
+//  - specialist   -> [target, its module 99, ...downstream module 99s (topo), master]
+//  - module 99    -> [that 99, ...downstream module 99s (topo), master]
+//  - whole module -> [that module's 99, ...downstream module 99s (topo), master]  (agentName omitted;
+//                    the module's specialists are re-run by the command — for cascade/admission the
+//                    rewritten synthesis + downstream syntheses are what matter)
+//  - master       -> [master] only (regenerates thesis/memo/dossier)
 // Swarm runs have no master orb — their cascade ends at the last downstream synthesis.
-export function downstreamCascade(moduleName: string, agentName: string, swarmId: string = RESEARCH_SWARM_ID): CascadeNode[] {
+export function downstreamCascade(moduleName: string, agentName?: string, swarmId: string = RESEARCH_SWARM_ID): CascadeNode[] {
   if (moduleName === 'master') return [MASTER_CASCADE]
   const graph = buildSwarmGraph(swarmId)
   const mod = graph.modules.find((m) => m.name === moduleName)
   if (!mod) return []
-  const target = Object.values(mod.layers).flat().find((a) => a.name === agentName || a.slug === agentName)
-  if (!target) return []
 
   const out: CascadeNode[] = []
-  out.push(cascadeEntry(target, target.isSynthesis ? 'module-synthesis' : 'agent'))
-  if (!target.isSynthesis) {
+  if (agentName) {
+    const target = Object.values(mod.layers).flat().find((a) => a.name === agentName || a.slug === agentName)
+    if (!target) return []
+    out.push(cascadeEntry(target, target.isSynthesis ? 'module-synthesis' : 'agent'))
+    if (!target.isSynthesis) {
+      const synth = synthesisOf(mod)
+      if (synth) out.push(cascadeEntry(synth, 'module-synthesis'))
+    }
+  } else {
+    // whole-module rerun: the module's own synthesis heads the cascade.
     const synth = synthesisOf(mod)
     if (synth) out.push(cascadeEntry(synth, 'module-synthesis'))
   }

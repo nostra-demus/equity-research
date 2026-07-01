@@ -10,9 +10,12 @@ import { displayHeadline, originalHeadline, plainBand, plainSize, plainTheme } f
 import { dayDividerLabel, dayKeyLocal, hhmmLocal } from '../../lib/format'
 import { useStore } from '../../lib/store'
 import type { FeedItem } from '../../lib/types'
-import { emptyFilters, FeedFilters, gicsEmptyMessage, matchesFilters, type FeedFilterState } from './FeedFilters'
+import { api, type ArchiveQuery, type SearchCursor } from '../../lib/api'
+import { archiveFiltersActive, emptyFilters, FeedFilters, gicsEmptyMessage, matchesFilters, type FeedFilterState } from './FeedFilters'
 
 const agoMin = (iso?: string | null) => (iso ? Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 60_000)) : null)
+// a friendly label for a YYYY-MM-DD archive day — e.g. "11 Jun 2026" (mirrors EventRail's dateLabel)
+const dateLabel = (d?: string | null) => (d ? new Date(`${d}T00:00:00`).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }) : '')
 
 // Time-travel windows over the on-disk news archive. 2 = the live view (SSE keeps appending); the rest
 // pull a historical snapshot (newest items in range) from the daily firehose files. 370 ≈ "all".
@@ -109,9 +112,19 @@ function WireRow({ group }: { group: StoryGroup }) {
   )
 }
 
+interface ArchiveState {
+  results: FeedItem[]
+  loading: boolean
+  loadingMore: boolean
+  cursor: SearchCursor | null
+  scannedThrough: string | null
+  exhausted: boolean
+}
+const EMPTY_ARCHIVE: ArchiveState = { results: [], loading: false, loadingMore: false, cursor: null, scannedThrough: null, exhausted: false }
+
 export function LiveFeed() {
   const close = useStore((s) => s.closeNewsFeed)
-  const items = useStore((s) => s.newsItems)
+  const liveItems = useStore((s) => s.newsItems)
   const status = useStore((s) => s.newsStatus)
   const refreshStatus = useStore((s) => s.refreshNewsStatus)
   const openFeed = useStore((s) => s.openNewsFeed)
@@ -126,8 +139,81 @@ export function LiveFeed() {
     return () => clearInterval(id)
   }, [refreshStatus])
 
-  const sources = useMemo(() => [...new Set(items.map((i) => i.source_name).filter(Boolean))].sort(), [items])
-  // filter first, then collapse near-duplicate stories so the wire shows one row per story (newest-first)
+  // ARCHIVE MODE: any structured filter (geography / sector / theme / size / source / band / linkage /
+  // text) flips the wire from the loaded time-window snapshot to a server-side search over the WHOLE
+  // since-inception archive — same escalation EventRail already does, but kept in LOCAL state here
+  // (rather than the shared store's sc* archive fields) because EventRail stays mounted underneath this
+  // overlay and would otherwise clobber/be clobbered by a concurrently-active filter on the other view.
+  const archiveMode = archiveFiltersActive(filters)
+  const archiveQuery = useMemo<ArchiveQuery>(() => ({
+    themes: filters.themes.size ? [...filters.themes] : undefined,
+    country: filters.country || undefined,
+    geoRegion: filters.geoRegion || undefined,
+    source: filters.source || undefined,
+    band: filters.band || undefined,
+    size: filters.size || undefined,
+    linkage: filters.linkage || undefined,
+    gicsSector: filters.gicsSector || undefined,
+    gicsSubSector: filters.gicsSubSector || undefined,
+    text: filters.text.trim() || undefined,
+  }), [filters])
+  const archiveKey = JSON.stringify(archiveQuery)
+  const [archive, setArchive] = useState<ArchiveState>(EMPTY_ARCHIVE)
+  // A monotonic token: every new page-1 search bumps it; a page load captures it and, after its await,
+  // discards its result if the token has moved on (the filter changed mid-flight). This is the LOCAL-state
+  // mirror of the store's module-level `archiveToken` guard (scRunArchiveSearch / scLoadMoreArchive) that
+  // EventRail relies on — without it, a slow page from the OLD filter appends into (and hands its cursor
+  // to) the NEW filter's results, so the new filter resumes paging from the old cursor and skips matches.
+  const searchSeq = useRef(0)
+  // fire the search when the filter changes (debounced so typing in the search box doesn't spam the
+  // server); an empty/cleared filter returns the view to the loaded-window snapshot.
+  useEffect(() => {
+    if (!archiveMode) { searchSeq.current++; setArchive(EMPTY_ARCHIVE); return }
+    const seq = ++searchSeq.current
+    let cancelled = false
+    setArchive((a) => ({ ...a, loading: true }))
+    const id = setTimeout(async () => {
+      try {
+        const res = await api.newsSearch(archiveQuery, { limit: 60 })
+        if (cancelled || seq !== searchSeq.current) return
+        setArchive({ results: res.items, loading: false, loadingMore: false, cursor: res.nextCursor, scannedThrough: res.scannedThroughDate, exhausted: res.exhausted })
+      } catch {
+        // A newer search superseded this one → let it own the state; don't clobber it.
+        if (cancelled || seq !== searchSeq.current) return
+        // Mirror the store's failure path (scRunArchiveSearch catch): drop the (now stale) snapshot and
+        // cursor and mark exhausted, so the wire doesn't keep rendering the PRIOR query's page and the next
+        // scroll can't page the NEW query from the old cursor.
+        setArchive({ ...EMPTY_ARCHIVE, exhausted: true })
+      }
+    }, 220)
+    return () => { cancelled = true; clearTimeout(id) }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [archiveMode, archiveKey])
+  const loadMoreArchive = async () => {
+    if (!archive.cursor || archive.loadingMore) return
+    const seq = searchSeq.current
+    setArchive((a) => ({ ...a, loadingMore: true }))
+    try {
+      const res = await api.newsSearch(archiveQuery, { cursor: archive.cursor, limit: 60 })
+      if (seq !== searchSeq.current) return // the filter changed mid-page — discard this page (mirrors scLoadMoreArchive)
+      setArchive((a) => {
+        const seen = new Set(a.results.map((i) => i.event_id))
+        const fresh = res.items.filter((i) => !seen.has(i.event_id))
+        return { results: [...a.results, ...fresh], cursor: res.nextCursor, scannedThrough: res.scannedThroughDate, exhausted: res.exhausted, loading: false, loadingMore: false }
+      })
+    } catch {
+      if (seq !== searchSeq.current) return
+      setArchive((a) => ({ ...a, loadingMore: false }))
+    }
+  }
+
+  // the rendered set: the archive matches (already server-filtered) in archive mode, the loaded window otherwise
+  const items = archiveMode ? archive.results : liveItems
+
+  const sources = useMemo(() => [...new Set(liveItems.map((i) => i.source_name).filter(Boolean))].sort(), [liveItems])
+  // filter first, then collapse near-duplicate stories so the wire shows one row per story (newest-first).
+  // Re-applying matchesFilters on top of already server-filtered archive results is redundant but harmless
+  // (defense in depth, same pattern EventRail uses) — keeps one code path instead of special-casing.
   const visibleGroups = useMemo(() => groupByDedup(items.filter((i) => matchesFilters(i, filters))), [items, filters])
 
   // Incremental render: show the first `shownCount` stories, grow as a bottom sentinel scrolls into
@@ -136,29 +222,36 @@ export function LiveFeed() {
   const listRef = useRef<HTMLDivElement | null>(null)
   const sentinelRef = useRef<HTMLDivElement | null>(null)
   const [shownCount, setShownCount] = useState(PAGE)
-  // Reset to the first page DURING render whenever the filter set or look-back window changes — NOT in a
-  // post-render effect. Otherwise the first render after a filter toggle still slices the old (large)
-  // shownCount over the NEW filtered set, mapping thousands of rows before snapping back to PAGE — the
-  // exact slow filter-click this incremental view exists to avoid. `items` is deliberately excluded so a
-  // live SSE append never yanks the scroll back to the top.
-  const [pagedFor, setPagedFor] = useState<{ f: FeedFilterState; w: number }>({ f: filters, w: feedWindowDays })
-  if (pagedFor.f !== filters || pagedFor.w !== feedWindowDays) {
-    setPagedFor({ f: filters, w: feedWindowDays })
+  // Reset to the first page DURING render whenever the filter set, look-back window, or archive-mode
+  // switch changes — NOT in a post-render effect. Otherwise the first render after a filter toggle still
+  // slices the old (large) shownCount over the NEW filtered set, mapping thousands of rows before
+  // snapping back to PAGE — the exact slow filter-click this incremental view exists to avoid. `items` is
+  // deliberately excluded so a live SSE append (or an archive page load) never yanks the scroll back to top.
+  const [pagedFor, setPagedFor] = useState<{ f: FeedFilterState; w: number; a: boolean }>({ f: filters, w: feedWindowDays, a: archiveMode })
+  if (pagedFor.f !== filters || pagedFor.w !== feedWindowDays || pagedFor.a !== archiveMode) {
+    setPagedFor({ f: filters, w: feedWindowDays, a: archiveMode })
     setShownCount(PAGE)
   }
   useEffect(() => { listRef.current?.scrollTo?.({ top: 0 }) }, [filters, feedWindowDays])
   const shown = useMemo(() => visibleGroups.slice(0, shownCount), [visibleGroups, shownCount])
   const hasMore = shownCount < visibleGroups.length
+  // The bottom sentinel does double duty: in archive mode it pulls the next SERVER page (via the cursor)
+  // once the already-fetched results are all revealed; otherwise it just reveals more of what's loaded.
   useEffect(() => {
     const el = sentinelRef.current
     if (!el) return
     const io = new IntersectionObserver(
-      (entries) => { if (entries.some((e) => e.isIntersecting)) setShownCount((c) => Math.min(c + PAGE, visibleGroups.length)) },
+      (entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return
+        if (archiveMode && archive.cursor && shownCount >= visibleGroups.length) { void loadMoreArchive(); return }
+        setShownCount((c) => Math.min(c + PAGE, visibleGroups.length))
+      },
       { root: listRef.current, rootMargin: '900px 0px' },
     )
     io.observe(el)
     return () => io.disconnect()
-  }, [visibleGroups.length, hasMore])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [visibleGroups.length, hasMore, archiveMode, archive.cursor, shownCount])
 
   const ago = agoMin(status?.lastCycleAt)
 
@@ -215,23 +308,38 @@ export function LiveFeed() {
         </div>
       </div>
 
-      <div className="wirewindow" role="group" aria-label="Time window">
-        <span className="wirewindow__label">Look back</span>
-        {FEED_WINDOWS.map((w) => (
-          <button
-            key={w.d}
-            type="button"
-            className={`wirewindow__chip${feedWindowDays === w.d ? ' is-active' : ''}`}
-            onClick={() => { if (feedWindowDays !== w.d) void setFeedWindow(w.d) }}
-            disabled={feedWindowLoading}
-          >
-            {w.label}
-          </button>
-        ))}
-        <span className="wirewindow__note">
-          {feedWindowLoading ? 'loading…' : feedWindowDays > 2 ? `historical · newest ${items.length.toLocaleString()} in range` : `live · ${items.length.toLocaleString()} loaded`}
-        </span>
-      </div>
+      {/* A structured filter supersedes the manual look-back window: it searches the WHOLE archive
+          instead (same escalation EventRail already does), so the window chips only make sense — and
+          only appear — when no such filter is active. */}
+      {archiveMode ? (
+        <div className="wirewindow" role="group" aria-label="Archive search status">
+          <span className="wirewindow__note" aria-live="polite">
+            {archive.loading
+              ? 'Searching all history…'
+              : archive.scannedThrough
+                ? `Searched all history back to ${dateLabel(archive.scannedThrough)}${archive.exhausted ? '' : ' (more loads as you scroll)'}`
+                : 'Searching the whole archive — not just the loaded window.'}
+          </span>
+        </div>
+      ) : (
+        <div className="wirewindow" role="group" aria-label="Time window">
+          <span className="wirewindow__label">Look back</span>
+          {FEED_WINDOWS.map((w) => (
+            <button
+              key={w.d}
+              type="button"
+              className={`wirewindow__chip${feedWindowDays === w.d ? ' is-active' : ''}`}
+              onClick={() => { if (feedWindowDays !== w.d) void setFeedWindow(w.d) }}
+              disabled={feedWindowLoading}
+            >
+              {w.label}
+            </button>
+          ))}
+          <span className="wirewindow__note">
+            {feedWindowLoading ? 'loading…' : feedWindowDays > 2 ? `historical · newest ${items.length.toLocaleString()} in range` : `live · ${items.length.toLocaleString()} loaded`}
+          </span>
+        </div>
+      )}
 
       <FeedFilters value={filters} onChange={setFilters} sources={sources} />
 
@@ -256,18 +364,29 @@ export function LiveFeed() {
             </Fragment>
           )
         })}
-        {hasMore && (
+        {/* Render the sentinel whenever more can be revealed — either more of the already-fetched page
+            (hasMore) OR another server page remains (archive mode with a live cursor), even if every
+            fetched result so far is already shown. Gating only on hasMore would strand archive paging
+            the moment the local reveal caught up to the current page — the exact "false nothing while
+            more archive remains" bug this view exists to avoid. */}
+        {(hasMore || (archiveMode && !!archive.cursor)) && (
           <div ref={sentinelRef} className="wire__more">
-            showing {shown.length.toLocaleString()} of {visibleGroups.length.toLocaleString()} — scroll for more
+            {archiveMode && !hasMore
+              ? archive.loadingMore ? 'loading more of all history…' : 'scanning deeper into the whole archive…'
+              : `showing ${shown.length.toLocaleString()} of ${visibleGroups.length.toLocaleString()} — scroll for more`}
           </div>
         )}
-        {!visibleGroups.length && (
+        {!visibleGroups.length && !(archiveMode && archive.cursor) && (
           <div className="plane__empty wire__empty">
-            {items.length
-              ? gicsEmptyMessage(filters) || 'Nothing matches these filters — clear them to see everything again.'
-              : status?.enabled
-                ? `Nothing read yet today. The scanner looks every ${status.intervalMin} minutes; items appear here the moment they are scored.`
-                : 'The auto-scan is off, so there is nothing to show. It needs a free Groq key in the engine.'}
+            {archiveMode
+              ? archive.loading
+                ? 'Searching all history…'
+                : `Searched all history${archive.scannedThrough ? ` back to ${dateLabel(archive.scannedThrough)}` : ''} — genuinely nothing matches these filters. This is the WHOLE archive, not just the loaded window.`
+              : items.length
+                ? gicsEmptyMessage(filters) || 'Nothing matches these filters — clear them to see everything again.'
+                : status?.enabled
+                  ? `Nothing read yet today. The scanner looks every ${status.intervalMin} minutes; items appear here the moment they are scored.`
+                  : 'The auto-scan is off, so there is nothing to show. It needs a free Groq key in the engine.'}
           </div>
         )}
       </div>

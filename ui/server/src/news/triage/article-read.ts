@@ -67,10 +67,16 @@ export interface ArticleReadResult {
   attempted: boolean
 }
 
-const EST_TOKENS = 4200 // a body read's rough input+output cost (capped); used for budget + limiter sizing — bumped for the richer transmission brief's larger JSON output
+const EST_TOKENS = 4700 // a body read's rough input+output cost (capped); used for budget + limiter sizing — bumped for the richer transmission brief's larger JSON output (news_impact added ~9 fields)
 
+// A brief "has content" when it carries real signal — gist bullets, named firms, a beneficiary/exposed
+// read, OR a genuine news_impact verdict (analyst_takeaway is only non-empty when the LLM actually read
+// the article; coerceNewsImpact defaults it to "" on a missing/malformed block). Without the news_impact
+// disjunct, a routine/boilerplate article — whose gist/companies/beneficiaries/exposed are ALL correctly
+// empty per the DIGEST RULE — would look like "no usable brief" and get discarded here, one layer before
+// enrich.ts ever sees it, even though "no financial impact" is itself the correct, decision-useful answer.
 function hasContent(b: ArticleBrief): boolean {
-  return !!(b.gist.length || b.companies.length || b.beneficiaries.length || b.exposed.length)
+  return !!(b.gist.length || b.companies.length || b.beneficiaries.length || b.exposed.length || b.news_impact?.analyst_takeaway)
 }
 
 /**

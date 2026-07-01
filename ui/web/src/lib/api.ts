@@ -1,6 +1,6 @@
 import { staticPromptPath } from './prompts'
 import { DEFAULT_RANK_WEIGHTS, type RankWeights, type RankWeightsState } from './rankWeights'
-import type { ActivityQuery, ActivityResult, CallsResult, ChatRequest, ChatScopes, CoverageGroup, DataStatus, EventEnrichment, FeedItem, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ScreenerBoard, SignalIntakeInput, SourcesReport, SwarmGraph, SwarmMeta, TickerSummary, UploadResult, Usage, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, CallsResult, ChatRequest, ChatScopes, CoverageGroup, DataStatus, EventEnrichment, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SourcesReport, SwarmGraph, SwarmMeta, TickerSummary, UploadResult, Usage, Whoami } from './types'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -87,6 +87,7 @@ async function put<T>(url: string, body?: any): Promise<T> {
 const STATIC_ERR = () => Object.assign(new Error('static-deploy'), { static: true })
 
 const EMPTY_BOARD: ScreenerBoard = { generated_at: null, inbox: [], signals: [], theses: [], handoffs: [], counts: {}, live: [] }
+const EMPTY_FEEDBACK_SUMMARY: FeedbackSummary = { total: 0, active_total: 0, by_type: {} as Record<FeedbackType, number>, top_reasons: [], generated_at: '' }
 
 // ---- archive search + facets (the whole-history filtered read) ----
 /** The structured filter sent to /api/news/search + /api/news/facets. Geography is country-level. */
@@ -154,6 +155,13 @@ export const api = {
     if (swarmId === 'research') return get<SwarmGraph>(`/api/swarm`)
     return get<SwarmGraph>(`/api/swarm?swarm=${encodeURIComponent(swarmId)}${subject ? `&subject=${encodeURIComponent(subject)}` : ''}`)
   },
+  // Subjects of a non-research constellation swarm (e.g. commodity) for its subject picker. Research
+  // uses tickers(). Static showcase: the bundled snapshot list (or empty).
+  swarmSubjects: async (swarmId: string): Promise<string[]> => {
+    if ((await ensureMode()) === 'static') return (snap.swarmSubjects?.[swarmId]) || []
+    const r = await get<{ swarm: string; subjects: string[] }>(`/api/swarm/subjects?swarm=${encodeURIComponent(swarmId)}`)
+    return r.subjects || []
+  },
   screenerBoard: async (): Promise<ScreenerBoard> => {
     if ((await ensureMode()) === 'static') return snap.screenerBoard || EMPTY_BOARD
     return get<ScreenerBoard>(`/api/screener/board`)
@@ -218,10 +226,16 @@ export const api = {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return put<RankWeightsState>(`/api/news/rank-weights`, body)
   },
-  // the living themes the firehose is bucketed into (ranked index + one theme's deep-dive)
-  newsThemes: async (): Promise<import('./themes').ThemesIndex> => {
+  // the living themes the firehose is bucketed into (ranked index + one theme's deep-dive). An optional
+  // geography (country ISO alpha-2 and/or continent) slices the SAME themes to that geography's news flow —
+  // the server re-ranks + re-sizes them — so the "Where" picker narrows the Themes view like the Events list.
+  newsThemes: async (geo?: { country?: string; geoRegion?: string }): Promise<import('./themes').ThemesIndex> => {
     if ((await ensureMode()) === 'static') return { generated_at: '', themes: [], counts: { hot: 0, active: 0, cooling: 0, parked: 0, retired: 0, total: 0 }, history_days: 0 }
-    return get(`/api/news/themes`)
+    const p = new URLSearchParams()
+    if (geo?.country) p.set('country', geo.country)
+    if (geo?.geoRegion) p.set('geoRegion', geo.geoRegion)
+    const qs = p.toString()
+    return get(`/api/news/themes${qs ? `?${qs}` : ''}`)
   },
   newsTheme: async (id: string): Promise<import('./themes').ThemeDetail | null> => {
     if ((await ensureMode()) === 'static') return null
@@ -265,6 +279,23 @@ export const api = {
   convictionRestore: async (thesisId: string): Promise<{ ok: boolean; message?: string }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/screener/conviction/${encodeURIComponent(thesisId)}/restore`, {})
+  },
+  submitFeedback: async (input: FeedbackSubmitInput): Promise<{ ok: boolean; feedback: FeedbackRecord }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/screener/feedback`, input)
+  },
+  undoFeedback: async (feedbackId: string): Promise<{ ok: boolean; undone: FeedbackRecord }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/screener/feedback/${encodeURIComponent(feedbackId)}/undo`, {})
+  },
+  feedbackSummary: async (): Promise<FeedbackSummary> => {
+    if ((await ensureMode()) === 'static') return EMPTY_FEEDBACK_SUMMARY
+    return get<FeedbackSummary>(`/api/screener/feedback/summary`)
+  },
+  coveredTickers: async (): Promise<string[]> => {
+    if ((await ensureMode()) === 'static') return []
+    const { tickers } = await get<{ tickers: string[] }>(`/api/screener/covered-tickers`)
+    return tickers
   },
   screenerCalibration: async (): Promise<any | null> => {
     if ((await ensureMode()) === 'static') return snap.screenerCalibration || null
@@ -326,11 +357,11 @@ export const api = {
     if ((await ensureMode()) === 'static') return { ok: true, checked: false }
     return post(`/api/credit-check`)
   },
-  estimate: async (kind: string, ticker: string, module?: string, agent?: string): Promise<LaunchPreflight> => {
+  estimate: async (kind: string, ticker: string, module?: string, agent?: string, swarm?: string): Promise<LaunchPreflight> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
-    return get(`/api/launch/estimate?kind=${kind}&ticker=${encodeURIComponent(ticker)}${module ? `&module=${module}` : ''}${agent ? `&agent=${agent}` : ''}`)
+    return get(`/api/launch/estimate?kind=${kind}&ticker=${encodeURIComponent(ticker)}${module ? `&module=${module}` : ''}${agent ? `&agent=${agent}` : ''}${swarm ? `&swarm=${encodeURIComponent(swarm)}` : ''}`)
   },
-  launch: async (body: { kind: string; ticker: string; module?: string; agent?: string; window?: string; model?: string; confirmTicker?: string }): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean }> => {
+  launch: async (body: { kind: string; ticker: string; module?: string; agent?: string; window?: string; model?: string; confirmTicker?: string; force?: boolean; swarm?: string }): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/launch`, body)
   },
@@ -370,14 +401,18 @@ export const api = {
     }
     return get(`/api/output/thesis?ticker=${encodeURIComponent(ticker)}`)
   },
-  decision: async (ticker: string): Promise<any> => {
+  decision: async (ticker: string, swarm?: string): Promise<any> => {
     if ((await ensureMode()) === 'static') return snap.decisions[ticker]
+    if (swarm && swarm !== 'research') return get(`/api/output/decision?swarm=${encodeURIComponent(swarm)}&subject=${encodeURIComponent(ticker)}`)
     return get(`/api/output/decision?ticker=${encodeURIComponent(ticker)}`)
   },
-  runManifest: async (ticker: string, runRoot?: string): Promise<any> => {
+  runManifest: async (ticker: string, runRoot?: string, swarm?: string): Promise<any> => {
     if ((await ensureMode()) === 'static') return snap.runs[ticker]
-    // a runRoot targets that EXACT run folder (older activity rows); ticker resolves the latest run
-    const qs = runRoot ? `runRoot=${encodeURIComponent(runRoot)}` : `ticker=${encodeURIComponent(ticker)}`
+    // a constellation swarm resolves its subject's run folder; else a runRoot targets that EXACT run
+    // folder (older activity rows) and a ticker resolves the latest research run.
+    const qs = swarm && swarm !== 'research'
+      ? `swarm=${encodeURIComponent(swarm)}&subject=${encodeURIComponent(ticker)}`
+      : runRoot ? `runRoot=${encodeURIComponent(runRoot)}` : `ticker=${encodeURIComponent(ticker)}`
     return get(`/api/output/run?${qs}`)
   },
   // cross-ticker call ledger + since-the-call timelines (the Calls Tracker). Static -> bundled snapshot.
@@ -389,7 +424,7 @@ export const api = {
     if ((await ensureMode()) === 'static') return { history: [] }
     return get(`/api/runs?ticker=${encodeURIComponent(ticker)}`)
   },
-  activeRuns: async (): Promise<{ active: { runId: string; kind: string; ticker: string; module?: string; status: string }[] }> => {
+  activeRuns: async (): Promise<{ active: { runId: string; kind: string; ticker: string; module?: string; status: string; swarmId?: string; unit?: string; startedAt?: number }[] }> => {
     if ((await ensureMode()) === 'static') return { active: [] }
     return get(`/api/runs`)
   },
@@ -397,13 +432,19 @@ export const api = {
     if ((await ensureMode()) === 'static') throw new Error('static')
     return get(`/api/runs/${encodeURIComponent(runId)}`)
   },
+  // Every run the cockpit can resume right now (disk-truth). Static showcase has no engine → empty.
+  resumable: async (): Promise<{ runs: ResumableRunInfo[] }> => {
+    if ((await ensureMode()) === 'static') return { runs: [] }
+    return get(`/api/resumable`, 8_000)
+  },
   runStreamUrl: (runId: string) => `/api/runs/${runId}/stream`,
   dataStreamUrl: () => `/api/data-status/stream`,
 
   // ---- chat with your data (closed-book Q&A over a run's synthesized output) ----
   // which scopes are present (chat-able) vs not-yet-run. Static showcase: nothing chat-able (no engine).
-  chatScopes: async (ticker: string): Promise<ChatScopes> => {
+  chatScopes: async (ticker: string, swarm?: string): Promise<ChatScopes> => {
     if ((await ensureMode()) === 'static') return { ticker, runRoot: null, run: { present: false }, modules: [], orbs: [] }
+    if (swarm && swarm !== 'research') return get(`/api/chat/scopes?swarm=${encodeURIComponent(swarm)}&subject=${encodeURIComponent(ticker)}`, 8_000)
     return get(`/api/chat/scopes?ticker=${encodeURIComponent(ticker)}`, 8_000)
   },
   // POST one chat turn and read the streamed SSE body. Runs use EventSource (GET-only) elsewhere; chat is

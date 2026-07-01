@@ -61,6 +61,10 @@ export interface SwarmManifest {
   boardIndex?: string
   inboxRoot?: string
   schemasRoot?: string
+  // repo-relative markdown whose `## <NAME>` headings enumerate this swarm's subjects (so the cockpit
+  // subject picker can list a not-yet-run subject). Generic: the engine reads it from the manifest, so
+  // no subject/swarm name is hardcoded (CLAUDE.md §26). Absent for research/screener.
+  subjectsSource?: string
   routing?: SwarmRoutingContract // absent for research (it uses triage Sufficiency semantics)
 }
 
@@ -234,7 +238,7 @@ export interface ReadinessDecision {
 // ---- admission control (dependency-aware concurrency) ----
 // Discriminated rejection so the client can branch the toast (info vs bad) and explain precisely.
 export type AdmissionRejection =
-  | { code: 'target_conflict'; httpStatus: 409; conflictRunId: string; conflictTargets: string[] }
+  | { code: 'target_conflict'; httpStatus: 409; conflictRunId: string; conflictTargets: string[]; conflictModules: string[] }
   | { code: 'exclusivity'; httpStatus: 409; blockingRunId: string; blockingKind: RunKind }
   | {
       code: 'dependency_conflict'

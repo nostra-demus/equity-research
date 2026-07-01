@@ -65,6 +65,18 @@ jobs:
       - name: Score-breakdown unit tests (screener Phase 0.1 materiality)
         run: python3 scripts/test_screener_score_breakdown.py
 
+      - name: Screener filing-classifier selftest (routine-filing derate gate — fixture-free)
+        run: python3 scripts/screener_filing_classifier.py selftest
+
+      - name: Screener confirmation-score unit tests
+        run: python3 scripts/test_screener_confirmation_score.py -v
+
+      - name: Validate screener JSON schemas against committed fixtures
+        run: python3 scripts/validate_screener_json.py --fixture
+
+      - name: Screener feedback-tune selftest (recommend-only rank-weight nudges from the feedback ledger)
+        run: python3 scripts/screener_feedback_tune.py --selftest
+
   ui-web:
     name: ui/web — typecheck + build
     runs-on: ubuntu-latest

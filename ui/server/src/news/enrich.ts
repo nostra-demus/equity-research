@@ -25,7 +25,7 @@ import { cleanText } from './clean'
 import { storyFloor, isFilingEvent, type StoryFloorInput } from './story-floor'
 import { SEC_FORM_TOKENS, lookupSecForm, parseEdgarFilingHeadline, tidyFilerName } from './sec-forms'
 import { filterCompanies, isCompanyName } from './entities'
-import type { ArticleCompany, ArticleParty } from './triage/groq'
+import type { ArticleCompany, ArticleParty, NewsImpact } from './triage/groq'
 import { type ArticleReadProvider, readArticleBrief } from './triage/article-read'
 import { fetchGdeltDoc } from './sources/gdelt'
 import type { CompanyGuess, RawArticle } from './types'
@@ -121,6 +121,7 @@ export interface EventEnrichment {
   the_edge?: string // a non-obvious angle the body supports that consensus may miss — absent if none
   watch_item?: string // the single next data point / number that confirms or kills the read
   theme?: string // corrected single event-type (replaces the mis-tagged triage theme)
+  news_impact?: NewsImpact // does this move earnings/guidance/valuation/thesis/risk/a portfolio decision — direction, size, numbers, confidence
   // ---- read-quality bookkeeping (the anti-poisoning layer) ----
   // complete = this is the BEST obtainable read: a rich brief, an SEC parse, a filing floor (the headline
   // IS the disclosure), OR a readable article where we've exhausted MAX_READ_ATTEMPTS and the floor is the
@@ -330,6 +331,29 @@ export function findPriorCoverage(repoRoot: string, companies: CompanyGuess[]): 
   return out.slice(0, 4)
 }
 
+// A real per-ticker run folder is always <TICKER>_<YYYY-MM-DD> (e.g. "BG_2026-05-11"). analyses/ also
+// holds a handful of BARE, non-ticker aggregate folders — eval/ performance/ portfolio/ tracking/ (the
+// /research:eval, :size, :track outputs) — with no trailing date, so this shape excludes them without
+// hardcoding their names (a future aggregate folder is excluded the same way, for free).
+const RUN_FOLDER_RE = /^(.+)_\d{4}-\d{2}-\d{2}$/
+
+/** Tickers we already have research coverage on — a real `analyses/<TICKER>_<date>` run folder — the
+ *  pragmatic proxy for "portfolio companies" used by the batch-review filter, since this codebase has
+ *  no separate brokerage holdings list. Best-effort; never throws. */
+export function listCoveredTickers(repoRoot: string): string[] {
+  let analysisDirs: string[] = []
+  try {
+    analysisDirs = fs.readdirSync(path.join(repoRoot, 'analyses'), { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name)
+  } catch {}
+  const tickers = new Set<string>()
+  for (const d of analysisDirs) {
+    const m = RUN_FOLDER_RE.exec(d)
+    const t = m ? tickerKey(m[1]) : ''
+    if (t) tickers.add(t)
+  }
+  return [...tickers].sort()
+}
+
 // ---- related recent events on the wire ----
 
 // A real English stoplist (function words + light verbs + news/finance scaffolding). A headline
@@ -457,7 +481,15 @@ export function isEnrichmentComplete(r: EventEnrichment): boolean {
     (r.gist && r.gist.length) ||
     (r.companies && r.companies.length) ||
     (r.beneficiaries && r.beneficiaries.length) ||
-    (r.exposed && r.exposed.length)
+    (r.exposed && r.exposed.length) ||
+    // a news_impact-only verdict is a real, usable read: a routine/boilerplate article correctly yields
+    // empty gist/companies/beneficiaries/exposed (the DIGEST RULE) yet still carries a decision-useful
+    // "no real impact" Impact block. analyst_takeaway is non-empty ONLY when the LLM actually read the
+    // article (coerceNewsImpact defaults it to "" on a missing/malformed block), so it is the same
+    // "the read happened" signal article-read.ts's hasContent() gates on. Without this, such a read is
+    // marked degraded → short TTL → the web store refetches it on every reopen, burning repeated LLM
+    // reads until MAX_READ_ATTEMPTS.
+    (r.news_impact && r.news_impact.analyst_takeaway.length > 0)
   )
 }
 /** A complete read is stable → 12h. A degraded one expires fast so the next look retries the real read. */
@@ -891,7 +923,7 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
       // MAX_READ_ATTEMPTS freeze a readable article on the dek under the exact saturation that caused the bug.
       attempted = r.attempted
     }
-    if (brief && (brief.gist.length || brief.companies.length || brief.beneficiaries.length || brief.exposed.length)) {
+    if (brief && (brief.gist.length || brief.companies.length || brief.beneficiaries.length || brief.exposed.length || brief.news_impact?.analyst_takeaway)) {
       if (brief.gist.length) result.gist = brief.gist
       if (brief.market_angle) result.market_angle = brief.market_angle
       const co = filterCompanies(brief.companies) // denylist safety-net on top of the prompt rule
@@ -904,6 +936,11 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
       if (brief.the_edge) result.the_edge = brief.the_edge
       if (brief.watch_item) result.watch_item = brief.watch_item
       if (brief.theme) result.theme = brief.theme
+      // carried through whenever the model actually produced an impact verdict — a "neutral/low/no numbers"
+      // read for a routine notice IS the correct, decision-useful answer, not a gap to paper over. When the
+      // model OMITTED news_impact (older/partial schema), coerceArticleBrief leaves it absent, so this stays
+      // unset rather than caching a synthesized fake low-impact verdict.
+      if (brief.news_impact) result.news_impact = brief.news_impact
       // read succeeded but produced no gist bullets → back it with the most substantial text we hold, never blank
       if (!brief.gist.length) result.summary = bestFallbackSummary(pageHtml, snippet, filingInput, bodylessFiling)
     } else {
@@ -933,7 +970,7 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
           })
           if (r.attempted) attempted = true
           const b = r.brief
-          if (b && (b.gist.length || b.companies.length || b.beneficiaries.length || b.exposed.length)) {
+          if (b && (b.gist.length || b.companies.length || b.beneficiaries.length || b.exposed.length || b.news_impact?.analyst_takeaway)) {
             if (b.gist.length) result.gist = b.gist
             if (b.market_angle) result.market_angle = b.market_angle
             const co = filterCompanies(b.companies); if (co.length) result.companies = co
@@ -943,6 +980,7 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
             if (b.the_edge) result.the_edge = b.the_edge
             if (b.watch_item) result.watch_item = b.watch_item
             if (b.theme) result.theme = b.theme
+            if (b.news_impact) result.news_impact = b.news_impact
           }
         }
         // record corroboration so the UI labels it honestly; if the LLM couldn't synthesise (no budget), show

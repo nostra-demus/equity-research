@@ -160,7 +160,45 @@ function TickerPicker() {
   const driveEnabled = useStore((s) => s.driveEnabled)
   const staticMode = useStore((s) => s.staticMode)
   const openAddCompany = useStore((s) => s.openAddCompany)
+  const activeSwarm = useStore((s) => s.activeSwarm)
+  const swarmSubjectList = useStore((s) => s.swarmSubjectList)
   const [open, setOpen] = useState(false)
+  // Non-research constellation swarm (e.g. commodity): a simple subject picker over the swarm's subjects.
+  // All hooks above are called unconditionally, so this early return is rules-of-hooks safe.
+  if (activeSwarm !== 'research') {
+    return (
+      <div className="tickerpick">
+        <button className="tickerpick__btn" onClick={() => setOpen((o) => !o)}>
+          {selected && activeRunsByTicker.has(selected) && <span className="pulsedot" style={{ flexShrink: 0 }} title="Run in progress" />}
+          <span className="tickerpick__ticker">{selected || 'Select commodity'}</span>
+          <span className="tickerpick__caret">▾</span>
+        </button>
+        {open && (
+          <>
+            <div style={{ position: 'fixed', inset: 0, zIndex: 39 }} onClick={() => setOpen(false)} />
+            <div className="tickerpick__menu">
+              {swarmSubjectList.map((s) => (
+                <button
+                  key={s}
+                  className={`tickerpick__item${s === selected ? ' tickerpick__item--active' : ''}`}
+                  onClick={() => { selectTicker(s); setOpen(false) }}
+                >
+                  <span className="tickerpick__sym">{s}</span>
+                  {activeRunsByTicker.has(s) && <span className="pulsedot" style={{ flexShrink: 0 }} title="Run in progress" />}
+                </button>
+              ))}
+              {!swarmSubjectList.length && (
+                <div style={{ padding: '12px', color: 'var(--text-faint)', fontSize: 12, lineHeight: 1.55 }}>
+                  No commodities yet. Add a <b style={{ color: 'var(--text-muted)' }}>## NAME</b> section to
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, wordBreak: 'break-all' }}> frameworks/commodity/COMMODITY_PROFILES.md</span>, or run <span className="kbd">/commodity:full GOLD</span>.
+                </div>
+              )}
+            </div>
+          </>
+        )}
+      </div>
+    )
+  }
   const sel = tickers.find((t) => t.ticker === selected)
   const canAdd = driveEnabled && !staticMode
   return (
@@ -224,6 +262,33 @@ function TickerPicker() {
         </>
       )}
     </div>
+  )
+}
+
+// Orb-view mirror of the screener's Continue: when the SELECTED subject has an interrupted run whose
+// final thesis is missing, offer to finish it from where it stopped. Resuming skips the modules already
+// on disk, so it's cheaper than a fresh full run — the hint shows how much is already done. Hidden while
+// the subject is live (the resumable set excludes in-flight subjects) or when nothing is resumable.
+function ResumeChip() {
+  const resumableRuns = useStore((s) => s.resumableRuns)
+  const resumeRun = useStore((s) => s.resumeRun)
+  const selectedTicker = useStore((s) => s.selectedTicker)
+  const activeSwarm = useStore((s) => s.activeSwarm)
+  const health = useStore((s) => s.health)
+  const engineDown = health === 'engine-offline' || health === 'your-network' || health === 'session-expired'
+  const entry = selectedTicker
+    ? resumableRuns.find((e) => e.kind === 'full' && e.subject === selectedTicker && e.swarm === activeSwarm)
+    : undefined
+  if (!entry) return null
+  const noun = entry.unit === 'agent' ? 'check' : 'module'
+  const title = engineDown
+    ? 'Engine offline — live runs are paused until it reconnects'
+    : `This run stopped partway (${entry.doneCount}/${entry.totalCount} ${noun}s done). Resume finishes it from where it stopped — the done work is reused.`
+  return (
+    <button className="aresume aresume--bar" disabled={engineDown} onClick={() => void resumeRun(entry)} title={title}>
+      Resume<span className="aresume__glyph" aria-hidden>▸</span>
+      <span className="aresume__meta">{entry.doneCount}/{entry.totalCount}</span>
+    </button>
   )
 }
 
@@ -323,6 +388,7 @@ export function CommandBar() {
   const openThesis = useStore((s) => s.openThesis)
   const openActivity = useStore((s) => s.openActivity)
   const openScoring = useStore((s) => s.openScoring)
+  const openReview = useStore((s) => s.openReview)
   const openCalls = useStore((s) => s.openCalls)
   const openChat = useStore((s) => s.openChat)
   const requestFull = useStore((s) => s.requestFull)
@@ -334,12 +400,16 @@ export function CommandBar() {
   const swarms = useStore((s) => s.swarms)
   const engineDown = health === 'engine-offline' || health === 'your-network' || health === 'session-expired'
   const screenerMode = activeSwarm === 'screener'
-  const sub = screenerMode ? (swarms.find((s) => s.id === activeSwarm)?.label ? 'Idea Generation — Screener' : 'Screener') : 'Equity Research Cockpit'
+  const sub = screenerMode
+    ? (swarms.find((s) => s.id === activeSwarm)?.label ? 'Idea Generation — Screener' : 'Screener')
+    : activeSwarm === 'research'
+      ? 'Equity Research Cockpit'
+      : `${swarms.find((s) => s.id === activeSwarm)?.label || 'Commodity'} Research Cockpit`
   return (
     <div className="topbar">
       <div className="brand">
         <BrandMark />
-        <div>
+        <div className="brand__title">
           <div className="brand__name">Nostradamus Swarm</div>
         </div>
         <span className="brand__sub">{sub}</span>
@@ -355,6 +425,7 @@ export function CommandBar() {
           <EngineStatusPill />
           <button className="btn btn--ghost" onClick={openScoring} title="Scoring weights — tune how every event is scored, for the whole wire">Scoring</button>
           <button className="btn btn--ghost" onClick={openActivity} title="Activity log — who ran what, when">Activity</button>
+          <button className="btn btn--ghost" onClick={openReview} title="Batch review — flag a day's worth of items fast, with keyboard shortcuts">Review</button>
           <ScreenerControls />
           <CreditBadge />
         </>
@@ -371,6 +442,7 @@ export function CommandBar() {
           <button className="btn cmdbar__ask" disabled={!selectedTicker} onClick={() => openChat('run')} title={selectedTicker ? 'Ask questions about this run’s output — answered only from what the engine wrote' : 'Select a company first'}>
             Ask ▸
           </button>
+          <ResumeChip />
           <button className="btn btn--amber" disabled={!selectedTicker || anyRun || engineDown} onClick={requestFull} title={staticMode ? 'Runs on your local machine (npm run dev)' : engineDown ? 'Engine offline — live runs are paused until it reconnects' : anyRun ? 'A run is in flight — a full run needs exclusive access' : 'Run the full pipeline'}>
             Run full ▸
           </button>

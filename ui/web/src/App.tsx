@@ -20,6 +20,7 @@ import { OutputReader } from './components/OutputReader'
 import { ChatPanel } from './components/ChatPanel'
 import { ActivityLog } from './components/ActivityLog'
 import { ScoringPanel } from './components/screener/ScoringPanel'
+import { ReviewPanel } from './components/screener/ReviewPanel'
 import { CallsTracker } from './components/CallsTracker'
 import { LaunchConfirm } from './components/LaunchConfirm'
 import { AddCompany } from './components/AddCompany'
@@ -127,14 +128,21 @@ export function App() {
   const openOutput = useStore((s) => s.openOutput)
   const activityOpen = useStore((s) => s.activityOpen)
   const scoringOpen = useStore((s) => s.scoringOpen)
+  const reviewOpen = useStore((s) => s.reviewOpen)
   const callsOpen = useStore((s) => s.callsOpen)
   const pipelineOpen = useStore((s) => s.pipelineOpen)
   const chatOpen = useStore((s) => s.chatOpen)
   const newsFeedOpen = useStore((s) => s.newsFeedOpen)
   const sourcesOpen = useStore((s) => s.sourcesOpen)
   const toast = useStore((s) => s.toast)
+  const setToast = useStore((s) => s.setToast)
   const activeSwarm = useStore((s) => s.activeSwarm)
+  const swarms = useStore((s) => s.swarms)
   const warp = useStore((s) => s.warp)
+  // Dispatch the stage by the swarm's LAYOUT, not its id: the screener is a 'flow' swarm (its bespoke
+  // rail+gauntlet stage); research and any 'constellation' swarm (e.g. commodity) share the constellation
+  // stage. Fall back to the screener/research split before the swarm list resolves (first-frame safe).
+  const activeLayout = swarms.find((s) => s.id === activeSwarm)?.layout ?? (activeSwarm === 'screener' ? 'flow' : 'constellation')
 
   useEffect(() => {
     init().catch((e) => console.error('init failed', e))
@@ -147,7 +155,7 @@ export function App() {
       <OfflineBanner />
       <div className="main">
         <div className="stage" key={activeSwarm}>
-          {activeSwarm === 'screener' ? <ScreenerStage /> : <ResearchStage />}
+          {activeLayout === 'flow' ? <ScreenerStage /> : <ResearchStage />}
         </div>
         <RunStreamPanel />
       </div>
@@ -156,6 +164,7 @@ export function App() {
       <AnimatePresence>{chatOpen && <ChatPanel />}</AnimatePresence>
       <AnimatePresence>{activityOpen && <ActivityLog />}</AnimatePresence>
       <AnimatePresence>{scoringOpen && <ScoringPanel />}</AnimatePresence>
+      <AnimatePresence>{reviewOpen && <ReviewPanel />}</AnimatePresence>
       <AnimatePresence>{callsOpen && <CallsTracker />}</AnimatePresence>
       <AnimatePresence>{pipelineOpen && <PipelineBoard />}</AnimatePresence>
       {/* no exit animation by design: the wire re-renders on live news/status ticks, which can
@@ -173,7 +182,16 @@ export function App() {
         {toast && (
           <motion.div key="toast" className="toast" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 12 }}>
             <span className="creditbadge__dot" style={{ background: toast.tone === 'good' ? 'var(--accent)' : toast.tone === 'bad' ? 'var(--bad)' : 'var(--text-muted)' }} />
-            {toast.msg}
+            <span className="toast__msg" title={toast.msg}>{toast.msg}</span>
+            {toast.action && (
+              <button
+                type="button"
+                className="toast__action"
+                onClick={() => { const a = toast.action!; setToast(null); a.onClick() }}
+              >
+                {toast.action.label}
+              </button>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

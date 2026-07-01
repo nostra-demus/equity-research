@@ -29,6 +29,9 @@ ui/web/public/data/
 _pool_extracts/
 **/_pool_extracts/
 
+# regenerable OCR cache (rebuilt by extract_pool.py from image-only/scanned PDFs) — never commit
+.claude/tools/.ocr-cache/
+
 # transient defer-module-memos marker (written by the per-module chain, removed at run end / on failure) — never commit
 **/.defer_module_memos
 

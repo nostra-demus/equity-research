@@ -273,6 +273,54 @@ await check('stepThemes + index: themes carry the daily ring; history_days + sum
   assert.equal(buildSummary(t).flow_daily.length, DAILY_WINDOWS, 'the compact summary carries flow_daily for the cockpit')
 })
 
+check("earnings-calendar boilerplate is NOT a topic token (the Domino's theme-poisoning root cause)", () => {
+  const a = topicTokens("Domino's Pizza Announces Second Quarter 2026 Earnings Release Date", [co("Domino's Pizza")])
+  const b = topicTokens('Hilton Worldwide Announces Second Quarter 2026 Earnings Release Date', [co('Hilton Worldwide')])
+  assert.ok(!a.has('announces') && !a.has('earnings') && !a.has('release') && !a.has('second'), 'the boilerplate words are not topic anchors')
+  const shared = [...a].filter((t) => b.has(t))
+  assert.deepEqual(shared, [], `two unrelated companies' routine earnings-date headlines share no token now, got: ${shared}`)
+  // the stemmer generalizes beyond the literal list: "hosted"/"discussed" are NOT hand-listed (only
+  // host/hosts/hosting and discuss/discusses/discussing are), so this only passes via stemming to the
+  // stopworded "host"/"discuss" stems
+  const c = topicTokens('Acme Corp hosted investors and discussed its outlook', [co('Acme Corp')])
+  assert.ok(!c.has('hosted') && !c.has('discussed'), 'an inflected form not in the literal list is still caught via stemming')
+})
+
+check('clusterItems: a batch of routine earnings-date announcements from unrelated companies does NOT cluster', () => {
+  const pool = [
+    item('d1', "Domino's Pizza Announces Second Quarter 2026 Earnings Release Date", { companies: [co("Domino's Pizza")] }),
+    item('d2', 'Hilton Worldwide Announces Second Quarter 2026 Earnings Release Date', { companies: [co('Hilton Worldwide')] }),
+    item('d3', 'Wingstop Announces Second Quarter 2026 Earnings Release Date', { companies: [co('Wingstop')] }),
+  ]
+  const clusters = clusterItems(pool)
+  assert.equal(clusters.length, 3, 'each unrelated earnings-date notice is its own singleton, not one fake theme')
+})
+
+check('clusterItems control: headlines sharing BOTH tokens AND a company still form one cluster (the fix is not over-broad)', () => {
+  const pool = [
+    item('n1', 'Nvidia ramps AI data center GPU shipments', { companies: [co('Nvidia', 'NVDA')] }),
+    item('n2', 'Nvidia data center GPU demand accelerates', { companies: [co('Nvidia', 'NVDA')] }),
+  ]
+  assert.equal(clusterItems(pool)[0].length, 2, 'same-company items still cluster')
+})
+
+check('refreshThemeIdentity heals a poisoned "announces/earnings" theme: drains boilerplate keywords, purges unrelated companies', () => {
+  const members = [
+    item('hil', 'Hilton Worldwide Announces Second Quarter 2026 Earnings Release Date', { companies: [co('Hilton Worldwide')], event_types: ['capital_actions'] }),
+    item('wing', 'Wingstop Announces Second Quarter 2026 Earnings Release Date', { companies: [co('Wingstop')], event_types: ['capital_actions'] }),
+    item('ppg', 'PPG Announces Second Quarter 2026 Earnings Release Date', { companies: [co('PPG')], event_types: ['capital_actions'] }),
+  ]
+  const theme = createTheme(members, NOW)
+  // simulate the persisted PRE-FIX poisoned state (each company appeared once — only the boilerplate
+  // words ever recurred ≥2 times across this "theme")
+  theme.keywords = ['announces', 'earnings', 'results', 'second', 'release', 'date']
+  const { retire } = refreshThemeIdentity(theme)
+  // there was never a real second topic linking these three unrelated companies — once the boilerplate
+  // keywords are gone, nothing recurs ≥2 times and the theme correctly dissolves (this is the realistic
+  // outcome for the actual "Domino's · announces" theme, which had no real second topic either)
+  assert.equal(retire, true, 'a theme with no real topic left after the boilerplate purge retires entirely')
+})
+
 check('SEC form codes + the "Filer" role tag are NOT topic tokens (the theme-poisoning root cause)', () => {
   const toks = topicTokens('424B2 - GOLDMAN SACHS GROUP INC (0000886982) (Filer)', [co('Goldman Sachs Group Inc')])
   assert.ok(!toks.has('424b2'), 'the form code must not anchor a theme')

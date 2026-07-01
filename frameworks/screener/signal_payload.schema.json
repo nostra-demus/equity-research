@@ -2,7 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "frameworks/screener/signal_payload.schema.json",
   "title": "Phase 0.1 signal payload",
-  "description": "The structured output of the signal-gate module (the ten-step gauntlet). Written to screener/runs/<SIG_ID>/signal_payload.json by the signal-gate synthesis.",
+  "description": "The structured output of the signal-gate module (the ten-step gauntlet plus a parallel generic-media check). Written to screener/runs/<SIG_ID>/signal_payload.json by the signal-gate synthesis.",
   "type": "object",
   "required": [
     "signal_id",
@@ -90,7 +90,7 @@
     "materiality_math": { "type": "string", "description": "The visible arithmetic: base inputs, penalties applied, overrides applied. Auto-rendered from score_breakdown by scripts/screener_score_breakdown.py." },
     "score_breakdown": {
       "type": "object",
-      "description": "The named 100-point breakdown behind materiality_score. Six positive components (source_quality, event_materiality, company_relevance, specificity, estimate_impact, theme_macro) sum to a 100-pt pre-penalty subtotal; five named penalties subtract from it. Computed by scripts/screener_score_breakdown.py — never hand-edited. The block itself stays optional for backward compatibility with pre-transparency payloads, but WHEN PRESENT it must carry all six components and all five penalties — a partial block is a defect, not a valid shorthand.",
+      "description": "The named 100-point breakdown behind materiality_score. Six positive components (source_quality, event_materiality, company_relevance, specificity, estimate_impact, theme_macro) sum to a 100-pt pre-penalty subtotal; five named penalties subtract from it. routine_filing_penalty and generic_media_penalty are DERIVED deterministically from filing_type (scripts/screener_filing_classifier.py, Step 2b) and is_generic_media/specificity_score/quantifiability_score/investability_score (screener-generic-media-detector) respectively — the same evidence fields below, not a separately-judged severity. Computed by scripts/screener_score_breakdown.py — never hand-edited. The block itself stays optional for backward compatibility with pre-transparency payloads, but WHEN PRESENT it must carry all six components and all five penalties — a partial block is a defect, not a valid shorthand.",
       "required": [
         "source_quality",
         "event_materiality",
@@ -140,6 +140,17 @@
     },
     "private_linkage_evidence": { "type": "string", "description": "One sentence naming the linked public company and how (e.g. a supplier-concentration disclosure)." },
     "linked_public_companies": { "type": "array", "items": { "type": "string" } },
+    "is_generic_media": { "type": "boolean", "description": "OPTIONAL for back-compat: payloads written before the generic-media check may omit the five generic-media fields; when present they must obey the constraints here. True when the article matches one of the generic-media categories (market-cap roundup, index-movement summary, top gainers/losers, generic market-close story, many-companies-no-thesis, or lacking specificity/quantifiability) — a content/format judgment, independent of investability_score. Written by screener-generic-media-detector and consumed directly by score_breakdown.generic_media_penalty (Materiality Step 10) — it is no longer applied as a separate post-hoc ceiling." },
+    "generic_media_reason": { "type": "string", "description": "One plain sentence naming the matched generic-media categories (or 'none matched') and the evidence." },
+    "specificity_score": { "type": "integer", "minimum": 0, "maximum": 100, "description": "0 = applies to the whole market/an index/10+ names with no distinguishable thesis; 100 = one company, one distinct, attributable event." },
+    "quantifiability_score": { "type": "integer", "minimum": 0, "maximum": 100, "description": "0 = adjectives only, no checkable figure; 100 = a precise figure tied to one attributable cause. An aggregate tally across many names scores low even with a real number." },
+    "investability_score": { "type": "integer", "minimum": 0, "maximum": 100, "description": "0 = a PM could not change a single position on this fact alone; 100 = the fact alone would change a PM's view of one specific name or thesis. Distinct from candidate-surfacing's later 'investability' notion (tradability/liquidity of a mapped ticker) — this field is about whether the ARTICLE carries an actionable insight, not whether a stock is easy to trade." },
+    "filing_type": {
+      "type": "string",
+      "enum": ["routine_board_meeting", "trading_window_closure", "financial_results_notice", "procedural_exchange_filing", "material_exchange_filing", "unknown_filing"],
+      "description": "Step 2b classification from scripts/screener_filing_classifier.py. Optional so pre-existing payloads validate unchanged. Consumed directly by score_breakdown.routine_filing_penalty (Materiality Step 10) — it is no longer applied as a separate post-hoc Step 10b ceiling."
+    },
+    "filing_type_rationale": { "type": "string", "description": "The classifier's rationale for the filing_type label, verbatim from the classifier script." },
     "routing": { "type": "string", "enum": ["PROMOTE", "PARK", "LOG", "watchlist_no_source", "suppress"] },
     "routing_reason": { "type": "string" },
     "next_action": { "type": "string" },

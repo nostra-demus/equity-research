@@ -2,11 +2,13 @@
 """Deterministically compute the Phase 0.1 signal-gate materiality score breakdown (CLAUDE.md §12).
 
 Mirrors the screener_rescore.py precedent: the LLM agent supplies the judgments only an article
-reader can make (relevance, event types, is this routine, is it paywalled, is the issuer private
-and linked to a public company, ...); THIS module applies the locked, testable arithmetic and
-returns the full named-component breakdown, so every materiality score is explainable from
-evidence rows, never vibes. Pure functions only — no ledger writes, no file writes. The caller
-(99_signal-gate-synthesis.md) folds the printed JSON verbatim into signal_payload.json.
+reader can make (relevance, event types, is it paywalled, is the issuer private and linked to a
+public company, ...) plus two fields carried forward verbatim from other deterministic code
+(filing_type from scripts/screener_filing_classifier.py, is_generic_media + its sub-scores from the
+screener-generic-media-detector agent) — never re-judged here; THIS module applies the locked,
+testable arithmetic and returns the full named-component breakdown, so every materiality score is
+explainable from evidence rows, never vibes. Pure functions only — no ledger writes, no file writes.
+The caller (99_signal-gate-synthesis.md) folds the printed JSON verbatim into signal_payload.json.
 
 The point tables below are canonical jointly with .claude/agents/screener/signal-gate/MODULE_RULES.md
 ("## Materiality (Step 10)") — a change to a weight or cap must edit both in the same PR.
@@ -82,6 +84,19 @@ SOURCE_QUALITY_PAYWALL_UNCORROBORATED = {1: 15, 2: 9, 3: 3, 4: 0}
 
 ROUTINE_SEVERITY = {"none": 0, "mild": -8, "moderate": -15, "total": -20}
 MEDIA_GENERICNESS = {"none": 0, "roundup": -6, "republished": -12, "content_farm": -15}
+
+# filing_type -> routine_filing_penalty severity (MODULE_RULES.md "Materiality (Step 10)" penalty
+# table). Derived from scripts/screener_filing_classifier.py's Step 2b classification — never a
+# separately-judged agent input, and never a second ceiling on top of this subtraction.
+FILING_TYPE_SEVERITY = {
+    "trading_window_closure": "moderate",
+    "procedural_exchange_filing": "moderate",
+    "routine_board_meeting": "mild",
+    "financial_results_notice": "mild",
+    "material_exchange_filing": "none",
+    "unknown_filing": "none",
+}
+
 PAIR_LABEL_PENALTY = {
     "duplicate": -25, "same_event_no_new_info": -12, "same_event_new_info": -3,
     "related_topic": 0, "new_event": 0,
@@ -183,20 +198,34 @@ def score_theme_macro(sector_wide_move: bool, live_theme_match: bool, commodity_
     return value, ("; ".join(bits) if bits else "No macro/theme angle — single-name event.")
 
 
-def penalty_routine_filing(is_routine_filing: bool, routine_severity: str) -> tuple[int, str]:
-    """Pure. Agents are instructed (MODULE_RULES.md) to never mark an enforcement action, default,
-    or breach as routine in the first place — there is no code override for that here."""
-    if not is_routine_filing:
-        return 0, "Not flagged as a routine filing."
-    v = ROUTINE_SEVERITY[routine_severity]
-    return v, f"Routine filing, severity '{routine_severity}'."
+def penalty_routine_filing(filing_type: str) -> tuple[int, str]:
+    """Pure. Derives the severity from filing_type (Step 2b, scripts/screener_filing_classifier.py)
+    — never a separately-judged agent input. material_exchange_filing means an override keyword
+    fired (resignation, fraud, M&A, guidance change, ...); MODULE_RULES.md instructs the classifier
+    to never let an enforcement action, default, or breach classify as a routine filing_type."""
+    severity = FILING_TYPE_SEVERITY.get(filing_type, "none")
+    if severity == "none":
+        return 0, f"filing_type '{filing_type}' — not a routine-filing derate category."
+    v = ROUTINE_SEVERITY[severity]
+    return v, f"filing_type '{filing_type}' classified {severity} routine ({v})."
 
 
-def penalty_generic_media(media_genericness: str) -> tuple[int, str]:
-    v = MEDIA_GENERICNESS[media_genericness]
-    if v == 0:
-        return 0, "Original, specific reporting — not a roundup, republish, or content farm."
-    return v, f"Media genericness '{media_genericness}'."
+def penalty_generic_media(is_generic_media: bool, specificity_score: int, quantifiability_score: int,
+                           investability_score: int) -> tuple[int, str]:
+    """Pure. Derives the severity from is_generic_media + the generic-media detector's sub-scores —
+    never a separately-judged agent input (MODULE_RULES.md "Generic media detection")."""
+    if not is_generic_media:
+        return 0, "Not flagged generic media (is_generic_media=false)."
+    avg_sq = (specificity_score + quantifiability_score) / 2
+    if investability_score >= 30:
+        genericness = "roundup"
+    elif avg_sq >= 30:
+        genericness = "republished"
+    else:
+        genericness = "content_farm"
+    v = MEDIA_GENERICNESS[genericness]
+    return v, (f"Generic media (investability {investability_score}, avg specificity/quantifiability "
+               f"{avg_sq:.0f}) classified '{genericness}' ({v}).")
 
 
 def penalty_private_unlisted(issuer_public_status: str, private_linkage_tags: list[str]) -> tuple[int, str]:
@@ -269,8 +298,11 @@ def build_score_breakdown(inputs: dict) -> dict:
         inputs["sector_wide_move"], inputs["live_theme_match"], inputs["commodity_rate_transmission"]
     )
 
-    rf_value, rf_reason = penalty_routine_filing(inputs["is_routine_filing"], inputs["routine_severity"])
-    gm_value, gm_reason = penalty_generic_media(inputs["media_genericness"])
+    rf_value, rf_reason = penalty_routine_filing(inputs["filing_type"])
+    gm_value, gm_reason = penalty_generic_media(
+        inputs["is_generic_media"], inputs["specificity_score"], inputs["quantifiability_score"],
+        inputs["investability_score"],
+    )
     pu_value, pu_reason = penalty_private_unlisted(inputs["issuer_public_status"], inputs.get("private_linkage_tags") or [])
     ds_value, ds_reason = penalty_duplicate_stale(inputs["pair_label"], inputs["confirmation_upgrade"])
     lc_value, lc_reason = penalty_low_confidence(
@@ -316,8 +348,8 @@ def build_score_breakdown(inputs: dict) -> dict:
 REQUIRED_FIELDS = [
     "relevance_label", "event_types", "issuer_linkage", "pair_label", "confirmation_upgrade",
     "relevance_confidence", "source_name", "source_grade", "is_official_filing", "paywalled",
-    "corroborated", "is_routine_filing", "routine_severity", "media_genericness",
-    "sensational_uncorroborated", "issuer_public_status", "portfolio_position",
+    "corroborated", "filing_type", "is_generic_media", "specificity_score", "quantifiability_score",
+    "investability_score", "sensational_uncorroborated", "issuer_public_status", "portfolio_position",
     "sector_wide_move", "live_theme_match", "commodity_rate_transmission",
     "specificity_signals", "estimate_impact_signals",
 ]

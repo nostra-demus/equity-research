@@ -3,11 +3,11 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { execa, type ResultPromise } from 'execa'
 import { logLaunch } from './activity-log'
-import { admitRun } from './admission'
+import { admitRun, admissionMessage } from './admission'
 import { CLAUDE_BIN, DATA_DIR, DEFAULT_MODEL, ESTIMATES, FULL_PER_MODULE, LAUNCH_GUARDS, MAX_CONCURRENT_RUNS, REPO_ROOT, type LaunchKind } from './config'
 import { getCreditStatus, setCreditStatus } from './credit'
 import { startRunWatcher, sweepRunOutputs } from './fs-watcher'
-import { createRun, emit, finishRun, getRun, IN_FLIGHT_STATUSES, listRuns, setActiveSubjectRun, type ExpectedAgent, type RunState } from './registry'
+import { createRun, emit, finishRun, getRun, IN_FLIGHT_STATUSES, inFlightRunsForSubject, listRuns, setActiveSubjectRun, type ExpectedAgent, type RunState } from './registry'
 import { clearRunMarker, resolveRunRoot, writeRunMarker } from './outputs'
 import { runReadiness } from './readiness'
 import { providerEnvKeys } from './load-env'
@@ -15,13 +15,19 @@ import { buildSwarmGraph, downstreamCascade } from './roster'
 import { resolveInsideScreener } from './sandbox'
 import { swarmById } from './swarms'
 import { finalPaths, handleStreamLine } from './stream-parser'
-import type { AdmissionRejection, LaunchPreflight, ReadinessDecision, ReadinessReport, RunKind, RunStatus } from './types'
+import type { LaunchPreflight, ReadinessDecision, ReadinessReport, RunKind, RunStatus } from './types'
 
 // Screener kinds are swarm-scoped; everything else is the research default. Generic by design:
 // the kind->swarm mapping is the only place this file knows the screener exists, and it is driven
 // by the discovered manifest (a missing manifest fails the launch with a clear 404).
 const SCREENER_KINDS = new Set<RunKind>(['signal', 'sweep', 'screener-agent', 'handoff'])
-function swarmIdForKind(kind: RunKind): string {
+// Resolve the swarm for a launch. An explicit `swarm` (from the launch body) wins when it names a
+// discovered, non-research swarm — this is how a generic constellation swarm (e.g. commodity) routes
+// its REUSED full/module/agent kinds without inventing new per-swarm kinds. Otherwise the screener
+// kinds map to screener and everything else is the research default. No swarm id beyond the screener
+// literal is hardcoded here (CLAUDE.md §26 — a future swarm needs no engine-code edit).
+function swarmIdFor(kind: RunKind, swarm?: string): string {
+  if (swarm && swarm !== 'research' && swarmById(swarm)) return swarm
   return SCREENER_KINDS.has(kind) ? 'screener' : 'research'
 }
 
@@ -187,7 +193,7 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
     }
     emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason, message: stderr.slice(-400) || undefined, ts: Date.now() })
     finishRun(run, 'error')
-  } else if ((run.kind === 'full' || run.kind === 'rerun') && !finalDeliverablesPresent(run.runRoot)) {
+  } else if (run.swarmId === 'research' && (run.kind === 'full' || run.kind === 'rerun') && !finalDeliverablesPresent(run.runRoot)) {
     // The process exited cleanly, but a full/rerun that didn't write its final thesis + decision
     // record was almost certainly budget/turn-truncated before the master synthesizer finished.
     // Report it honestly as INCOMPLETE (not a misleading "done") so the cockpit + activity log show
@@ -200,8 +206,9 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
     emit(run, { type: 'run-error', runId: run.runId, status: 'incomplete', reason: 'incomplete_deliverables', message: msg, ts: Date.now() })
     finishRun(run, 'incomplete')
   } else {
-    // a completed full/rerun has the 3 memos — copy them into the company's Drive folder (timestamped)
-    if (run.kind === 'full' || run.kind === 'rerun') saveMemosToCompanyFolder(run.ticker, run.runRoot)
+    // a completed research full/rerun has the 3 memos — copy them into the company's Drive folder
+    // (timestamped). Constellation swarms (e.g. commodity) have no such memos, so this is research-only.
+    if ((run.kind === 'full' || run.kind === 'rerun') && run.swarmId === 'research') saveMemosToCompanyFolder(run.ticker, run.runRoot)
     // Clear the interrupted-marker only when the WHOLE run is finished (final thesis + decision record on
     // disk). A single chained MODULE finishing 'done' must NOT clear a marker a FAILED sibling just wrote
     // — that would lose a genuine interruption and strand the run unresumable. Final deliverables are
@@ -210,6 +217,83 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
     emit(run, { type: 'run-done', runId: run.runId, status: 'done', costUsd: run.costUsd, durationMs: run.durationMs, numTurns: run.numTurns, ...finalPaths(run), ts: Date.now() })
     finishRun(run, 'done')
   }
+}
+
+// Is a process id still alive? `kill(pid, 0)` sends no signal — it only probes existence. ESRCH = the
+// process is gone (dead); EPERM = it exists but isn't ours to signal (still alive). Any other outcome
+// (including success) means alive. A missing pid counts as not-alive so a child we never got a pid for
+// is treated as dead rather than pinning the subject forever.
+function pidAlive(pid: number | undefined): boolean {
+  if (!pid) return false
+  try { process.kill(pid, 0); return true } catch (e: any) { return e?.code === 'EPERM' }
+}
+
+// After a FORCE cancel, block until the stopped run(s)' child processes have actually EXITED before
+// admission starts a replacement. cancel() only SIGTERMs (killProcessTree SIGKILLs the group +2s later)
+// and returns BEFORE the process dies, yet the run has already left the in-flight status set — so without
+// this wait admitRun would start a SECOND engine writing the SAME run dir concurrently. The cancelled run
+// is no longer in inFlightRunsForSubject, so callers must hold the RunState objects and pass them here.
+// Returns true once every child is gone; false if any is still alive at the timeout (caller must then NOT
+// admit). `now`/`sleep` are injectable so the unit test drives it without real time.
+const FORCE_STOP_WAIT_MS = 5000 // > killProcessTree's 2s SIGKILL fallback + OS-delivery/finalize margin
+export async function awaitRunsExited(
+  runs: RunState[],
+  timeoutMs: number = FORCE_STOP_WAIT_MS,
+  now: () => number = Date.now,
+  sleep: (ms: number) => Promise<void> = (ms) => new Promise((r) => setTimeout(r, ms)),
+): Promise<boolean> {
+  const anyAlive = () => runs.some((r) => pidAlive(r.child?.pid))
+  const deadline = now() + timeoutMs
+  while (anyAlive() && now() < deadline) await sleep(50)
+  return !anyAlive()
+}
+
+// Reap any in-flight run on this subject whose engine CHILD PROCESS is gone but whose close handler never
+// fired — a wedged pipe, a lost 'close' event, a child the OS reaped without notifying us. Such a run
+// would hold its subject claim + write targets forever and block every future launch on that subject (the
+// "stuck forever, can never run anything again" failure). inFlightRunsForSubject already self-heals on
+// STATUS, but a dead-yet-'running' child is invisible to it — so we probe the pid and finalize the corpse
+// as an interruption (releasing the claim) the same way an external kill would. Pre-spawn gate states
+// (run.child === null: readiness-checking / awaiting-readiness-decision) are LEGITIMATELY waiting for the
+// user, not dead — left untouched (a deliberate force stops those instead). Returns the reaped run ids.
+// Called on every launch attempt so a stuck subject auto-recovers with zero user action.
+export function reapDeadSubjectRuns(subjectId: string): string[] {
+  const reaped: string[] = []
+  for (const r of inFlightRunsForSubject(subjectId)) {
+    if (reapDeadRun(r)) reaped.push(r.runId)
+  }
+  return reaped
+}
+
+// Reap a single run if its engine child process is gone but onClose never fired. Returns true if it was
+// finalized. Pre-spawn gate states (run.child === null: readiness-checking / awaiting-readiness-decision)
+// are LEGITIMATELY waiting for the user, not dead — left untouched (a deliberate force stops those).
+function reapDeadRun(r: RunState): boolean {
+  if (!r.child) return false // pre-spawn gate — waiting on the human, not a dead process
+  if (pidAlive(r.child.pid)) return false // engine still alive — leave it running
+  // The child is gone but onClose never ran. Route it through the SINGLE finalizer as a termination so a
+  // resumable full/rerun gets its .interrupted marker (the supervisor can continue it) and the subject
+  // claim + write targets release — exactly the path an OOM/manual kill would take.
+  finalizeRunOnClose(r, { isTerminated: true, signal: 'SIGKILL' }, '')
+  // eslint-disable-next-line no-console
+  console.warn(`[reap] ${r.subjectId}: finalized a run whose engine process had died (${r.runId}) — releasing its lock`)
+  return true
+}
+
+// Reap EVERY in-flight run whose engine process has died, across ALL subjects. The per-subject reaper
+// releases the launch's own subject lock, but admission's GLOBAL concurrency cap (D5) counts every
+// in-flight run regardless of subject — so dead children on OTHER subjects still consume the cap and make
+// a DIFFERENT-subject launch fail `capacity` even though that capacity is held by corpses. Sweeping the
+// whole registry before admission finalizes those corpses too, so the cap reflects live runs only.
+// Same finalize path and same safety as the per-subject reaper (only genuinely-dead pids are touched).
+// Returns the reaped run ids.
+export function reapAllDeadRuns(): string[] {
+  const reaped: string[] = []
+  for (const r of listRuns()) {
+    if (!IN_FLIGHT_STATUSES.has(r.status)) continue
+    if (reapDeadRun(r)) reaped.push(r.runId)
+  }
+  return reaped
 }
 
 function memosFolderName(): string {
@@ -255,12 +339,11 @@ function resolveAgentRunRoot(ticker: string): string {
   return resolveRunRoot({ ticker }) ?? today
 }
 
-// Modules this run writes into (for D2b / D3 admission).
-function coveredModulesFor(kind: RunKind, module?: string, agent?: string): string[] {
-  const swarmId = swarmIdForKind(kind)
+// Modules this run writes into (for D2b / D3 admission). swarmId is resolved by the caller.
+function coveredModulesFor(swarmId: string, kind: RunKind, module?: string, agent?: string): string[] {
   const g = buildSwarmGraph(swarmId)
   if (kind === 'full' || kind === 'signal') return g.modules.map((m) => m.name)
-  if (kind === 'rerun') return [...new Set(downstreamCascade(module!, agent!).filter((c) => c.module !== 'master').map((c) => c.module))]
+  if (kind === 'rerun') return [...new Set(downstreamCascade(module!, agent, swarmId).filter((c) => c.module !== 'master').map((c) => c.module))]
   return module ? [module] : []
 }
 
@@ -302,24 +385,18 @@ export function screenerMarkerDir(swarmId: string | undefined, sigId: string): s
   return resolveInsideScreener(abs)
 }
 
-function admissionMessage(r: AdmissionRejection, ticker: string): string {
-  switch (r.code) {
-    case 'exclusivity':
-      return `A ${r.blockingKind} run is in progress for ${ticker} and needs exclusive access — wait for it to finish.`
-    case 'target_conflict':
-      return `That run would overwrite files a run already in progress on ${ticker} is writing (${r.conflictTargets.join(', ')}).`
-    case 'dependency_conflict':
-      if (r.reason === 'module-scope-writer') return `A run is already writing the ${r.detail.conflictModule} module for ${ticker} — wait for it before launching another ${r.detail.requestedModule} run/orb.`
-      if (r.reason === 'module-ancestry') return `Can't run yet — ${r.detail.conflictModule} (${r.detail.relation}) is in flight for ${ticker}; it would be read or written half-finished.`
-      return `A required upstream file is being rewritten by another run on ${ticker} (${(r.detail.conflictFiles ?? []).join(', ')}).`
-    case 'upstream_incomplete':
-      return `Upstream isn't complete for ${ticker}: ${r.missing.join(', ')}. Run those first, or run the full pipeline.`
-    case 'capacity':
-      return `At the concurrency cap (${r.activeCount}/${r.cap} runs in flight). Wait for one to finish.`
+function buildPrompt(swarmId: string, kind: RunKind, ticker: string, module?: string, agent?: string, window?: string, extra?: { thesisId?: string }): string {
+  // Generic constellation swarm (e.g. commodity): full/module/agent through the manifest's command
+  // namespace — never hardcode the swarm's literal beyond reading commandNs (CLAUDE.md §26).
+  if (swarmId !== 'research' && !SCREENER_KINDS.has(kind)) {
+    const ns = swarmById(swarmId)?.commandNs || swarmId
+    if (kind === 'module') return `/${ns}:${module} ${ticker}`
+    if (kind === 'agent') return `/${ns}:agent ${module} ${agent} ${ticker}`
+    // rerun on a constellation swarm: AGENT is optional (whole-module vs single-orb). Never fall through
+    // to the research `/research:rerun` line below — dispatch the swarm's own command namespace (§26).
+    if (kind === 'rerun') return `/${ns}:rerun ${module}${agent ? ' ' + agent : ''} ${ticker}`
+    return `/${ns}:full ${ticker}` // 'full' (default)
   }
-}
-
-function buildPrompt(kind: RunKind, ticker: string, module?: string, agent?: string, window?: string, extra?: { thesisId?: string }): string {
   if (kind === 'full') return `/research:full ${ticker}`
   if (kind === 'module') return `/research:${module} ${ticker}`
   if (kind === 'rerun') return `/research:rerun ${module} ${agent} ${ticker}`
@@ -329,7 +406,7 @@ function buildPrompt(kind: RunKind, ticker: string, module?: string, agent?: str
   if (kind === 'track') return `/research:track`
   // screener swarm — namespace from the manifest (never hardcode the literal beyond the kind map)
   if (SCREENER_KINDS.has(kind)) {
-    const ns = swarmById(swarmIdForKind(kind))?.commandNs || 'screener'
+    const ns = swarmById(swarmId)?.commandNs || 'screener'
     if (kind === 'signal') return module ? `/${ns}:signal ${ticker} ${module}` : `/${ns}:signal ${ticker}` // ticker = SIG id; optional module = target to run THROUGH then stop
     if (kind === 'sweep') return `/${ns}:sweep`
     if (kind === 'handoff') return `/${ns}:handoff ${extra?.thesisId} ${ticker}` // ticker = the handoff target
@@ -338,8 +415,8 @@ function buildPrompt(kind: RunKind, ticker: string, module?: string, agent?: str
   return `/research:agent ${module} ${agent} ${ticker}`
 }
 
-function plannedModules(kind: RunKind, module?: string): string[] {
-  const g = buildSwarmGraph(swarmIdForKind(kind))
+function plannedModules(swarmId: string, kind: RunKind, module?: string): string[] {
+  const g = buildSwarmGraph(swarmId)
   if (kind === 'full') return g.modules.map((m) => m.name)
   if (kind === 'signal') {
     // a TARGETED signal plans only modules up to & including the target, so a partial run reads as a
@@ -351,8 +428,7 @@ function plannedModules(kind: RunKind, module?: string): string[] {
   return module ? [module] : []
 }
 
-function buildExpected(kind: RunKind, module?: string, agent?: string): Map<string, ExpectedAgent> {
-  const swarmId = swarmIdForKind(kind)
+function buildExpected(swarmId: string, kind: RunKind, module?: string, agent?: string): Map<string, ExpectedAgent> {
   const g = buildSwarmGraph(swarmId)
   const map = new Map<string, ExpectedAgent>()
   if (kind === 'sweep' || kind === 'handoff') return map // no orb outputs — inbox/ledger writes only
@@ -363,13 +439,13 @@ function buildExpected(kind: RunKind, module?: string, agent?: string): Map<stri
     return map
   }
   if (kind === 'rerun') {
-    // the target orb + the downstream synthesis chain to the master (so the swarm shows the planned re-run)
-    for (const c of downstreamCascade(module!, agent!)) {
+    // the target orb (or whole module) + the downstream synthesis chain (so the swarm shows the planned re-run)
+    for (const c of downstreamCascade(module!, agent, swarmId)) {
       map.set(c.key, { key: c.key, module: c.module, name: c.name, layer: c.layer, outputRel: c.outputRel || 'final_thesis.md' })
     }
     return map
   }
-  for (const mn of plannedModules(kind, module)) {
+  for (const mn of plannedModules(swarmId, kind, module)) {
     const m = g.modules.find((x) => x.name === mn)
     if (!m) continue
     for (const a of Object.values(m.layers).flat()) {
@@ -379,14 +455,14 @@ function buildExpected(kind: RunKind, module?: string, agent?: string): Map<stri
   return map
 }
 
-export function estimate(kind: RunKind, ticker: string, module?: string, agent?: string): LaunchPreflight {
-  const swarmId = swarmIdForKind(kind)
+export function estimate(kind: RunKind, ticker: string, module?: string, agent?: string, swarm?: string): LaunchPreflight {
+  const swarmId = swarmIdFor(kind, swarm)
   const g = buildSwarmGraph(swarmId)
   let agentCount = 1
   if (kind === 'full') agentCount = g.totals.agents + 1
   else if (kind === 'signal') agentCount = g.totals.agents // gauntlet; gates mean most signals stop early
   else if (kind === 'module') agentCount = g.modules.find((m) => m.name === module)?.agentCount ?? 0
-  else if (kind === 'rerun') agentCount = downstreamCascade(module!, agent!).length
+  else if (kind === 'rerun') agentCount = downstreamCascade(module!, agent, swarmId).length
 
   let estCostUsdRange: [number, number]
   let estMinutesRange: [number, number]
@@ -445,8 +521,11 @@ async function buildArgs(prompt: string, kind: LaunchKind, model: string): Promi
 
 export interface LaunchParams {
   kind: RunKind
+  // explicit swarm for a generic constellation swarm's reused full/module/agent kinds (e.g. 'commodity').
+  // Omitted for research + screener (their swarm is derived from the kind).
+  swarm?: string
   // research kinds: the ticker. signal: omit (derived SIG id) or pass an existing SIG id.
-  // screener-agent: the SIG id. handoff: the target TICKER. sweep: omit.
+  // screener-agent: the SIG id. handoff: the target TICKER. sweep: omit. constellation swarm: the subject id.
   ticker?: string
   module?: string
   agent?: string
@@ -457,6 +536,16 @@ export interface LaunchParams {
   thesisId?: string // kind 'handoff'
   user?: string // who launched it (from Cloudflare Access at the route); defaults to "local"
   userVia?: 'cf-access' | 'local'
+  // FORCE override (research kinds): the user explicitly chose to run despite a same-subject run-lock
+  // ("overwrite is fine — just run it"). Before admission we STOP every in-flight run on this subject so
+  // its subject claim + write targets release, then admit normally. Deliberately does NOT bypass the
+  // GLOBAL concurrency cap (other tickers' runs) or the data-readiness gate — those are orthogonal guards.
+  force?: boolean
+  // This run is a STEP of a chained full run. Set it via params (not after launch() returns) so it is on
+  // the RunState BEFORE spawnEngine's logLaunch fires — otherwise the perpetual activity-log `launched`
+  // event records chained=false for every chained module step, and the cockpit can't tell a chained-full
+  // module from a standalone module run when deciding whether Resume should continue the whole pipeline.
+  chained?: boolean
 }
 
 // ---- chained full run (per-module budgets), DAG-PARALLEL — opt-in via FULL_PER_MODULE ----
@@ -513,6 +602,8 @@ const defaultFullChainDeps: FullChainDeps = {
   launchAndWire: async (params, onFinish) => {
     const out = await launch(params)
     const run = getRun(out.runId)
+    // chained is now passed via params (set on the RunState pre-spawn so the launched-event log is
+    // correct); re-assert it here for the fake-launcher test path, and wire onFinish (not a param).
     if (run) { run.chained = true; run.onFinish = onFinish } // chained:true so cancel()/cancelAll halt the whole chain (parity with the old serial launchChainStep)
     else onFinish('error') // run vanished before we could wire onFinish — treat as a failure
     return { runId: out.runId, preflight: out.preflight }
@@ -580,7 +671,7 @@ export async function launchFullChained(ticker: string, user: string, userVia: '
     if (masterLaunched) return
     masterLaunched = true
     void deps.launchAndWire(
-      { kind: 'rerun', ticker, module: 'master', agent: 'synthesizer', user, userVia },
+      { kind: 'rerun', ticker, module: 'master', agent: 'synthesizer', user, userVia, chained: true },
       (status) => {
         deps.clearMarker(ticker) // always clear the defer-memo marker once master exits — success path: rerun.md Step 9A also rm -f's it (idempotent); this is the safety net for an abnormal 'done' before Step 9A ran, or any failure
         // eslint-disable-next-line no-console
@@ -620,7 +711,7 @@ export async function launchFullChained(ticker: string, user: string, userVia: '
     started.add(name)
     inflight.add(name) // reserve the slot synchronously so the cap holds within one pump() pass
     void deps.launchAndWire(
-      { kind: 'module', ticker, module: name, user, userVia },
+      { kind: 'module', ticker, module: name, user, userVia, chained: true },
       (status) => onModuleFinish(name, status),
     )
       .then((out) => {
@@ -690,7 +781,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   const model = params.model || DEFAULT_MODEL
   const user = params.user || 'local'
   const userVia = params.userVia || 'local'
-  const swarmId = swarmIdForKind(kind)
+  const swarmId = swarmIdFor(kind, params.swarm)
   const manifest = swarmById(swarmId)
   if (!manifest) {
     throw Object.assign(new Error(`swarm '${swarmId}' is not installed`), { statusCode: 404 })
@@ -774,6 +865,18 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     if (!fs.existsSync(path.join(REPO_ROOT, runRoot))) {
       throw Object.assign(new Error(`No signal run folder at ${runRoot}.`), { statusCode: 400 })
     }
+  } else if (swarmId !== 'research') {
+    // generic constellation swarm (e.g. commodity): the subject IS the run folder — one stable folder
+    // per subject (not date-stamped), resolved from the manifest template, mirroring the screener-agent
+    // branch. Reused kinds full/module/agent all write into this same folder; the slash command creates
+    // it. The subject id must already be the canonical (uppercase) folder name the command will use.
+    subjectId = params.ticker || ''
+    runRoot = manifest.runRootTemplate.replace(`{${manifest.placeholder}}`, subjectId)
+    // A rerun refreshes an EXISTING dossier — never create one. Fail fast before spawning the paid CLI
+    // if the subject has no run folder yet (mirrors the research rerun guard).
+    if (kind === 'rerun' && !fs.existsSync(path.join(REPO_ROOT, runRoot))) {
+      throw Object.assign(new Error(`No existing run to re-run for ${subjectId}. Run the full pipeline first.`), { statusCode: 400 })
+    }
   } else {
     // research kinds — unchanged behavior
     const ticker = params.ticker || ''
@@ -796,19 +899,55 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   }
 
   const ticker = subjectId // RunState display/compat field: research = the ticker; swarms = the subject id
-  const prompt = buildPrompt(kind, ticker, module, agent, window, { thesisId: params.thesisId })
-  const expected = buildExpected(kind, module, agent)
+  const prompt = buildPrompt(swarmId, kind, ticker, module, agent, window, { thesisId: params.thesisId })
+  const expected = buildExpected(swarmId, kind, module, agent)
 
   // Admission metadata — derived once here, stored on the run, reused by admitRun.
-  const coveredModules = coveredModulesFor(kind, module, agent)
+  const coveredModules = coveredModulesFor(swarmId, kind, module, agent)
+  // Root artifacts a research full/rerun writes (final_thesis / memo / decision) are research-only — a
+  // constellation swarm (e.g. commodity) has no master synthesizer, so it declares none here.
+  const rootArtifacts = swarmId === 'research' && kind === 'full' ? ROOT_ARTIFACTS_FULL
+    : swarmId === 'research' && kind === 'rerun' ? ROOT_ARTIFACTS_RERUN
+    : kind === 'signal' ? ROOT_ARTIFACTS_SIGNAL : []
   const writeTargetsAbs = [...new Set([
     ...[...expected.values()].map((e) => path.join(REPO_ROOT, runRoot, e.outputRel)),
-    ...(kind === 'full' ? ROOT_ARTIFACTS_FULL : kind === 'rerun' ? ROOT_ARTIFACTS_RERUN : kind === 'signal' ? ROOT_ARTIFACTS_SIGNAL : []).map((f) => path.join(REPO_ROOT, runRoot, f)),
+    ...rootArtifacts.map((f) => path.join(REPO_ROOT, runRoot, f)),
     ...swarmStoreTargets(kind, subjectId),
   ])]
   const readDepsAbs = kind === 'agent' || kind === 'screener-agent'
     ? agentRequiredUpstream(swarmId, module, agent).map((relp) => path.join(REPO_ROOT, runRoot, relp))
     : []
+
+  // Self-heal first: finalize any run whose engine process has died but never closed, so a wedged lock can
+  // never permanently block this launch (the "stuck forever" failure). Sweep ALL subjects, not just this
+  // one: admission's global concurrency cap (D5) counts in-flight runs across every subject, so a dead
+  // child on ANOTHER subject would still fill the cap and fail this launch with `capacity`. Runs every launch.
+  reapAllDeadRuns()
+
+  // FORCE override: the user explicitly chose to run despite a same-subject lock ("overwrite is fine").
+  // Stop every still-in-flight run on this subject — a running engine, or one parked at the readiness gate
+  // — so its claim + write targets release before we admit. cancel() flips the run out of the in-flight
+  // status set synchronously (running child: status='cancelled' + group-kill; gate-parked: finalized here).
+  // BUT for a running child, cancel() only SIGTERMs and returns BEFORE the process exits (killProcessTree
+  // SIGKILLs +2s later), while the run has ALREADY left the in-flight set — so if we admit now, admitRun
+  // sees a "clean" subject and starts a SECOND engine writing the SAME run dir while the first is still
+  // alive (interleaved / lost writes). So capture the runs BEFORE cancel (they vanish from the set) and
+  // WAIT for their child processes to actually die before admitting; if any is still alive past the SIGKILL
+  // window, REFUSE to admit (throw) rather than risk a concurrent double-write. We do NOT touch other
+  // tickers' runs, so the global capacity cap (D5) still binds — force overrides a LOCK, never the cost guard.
+  if (params.force) {
+    const stopping: RunState[] = []
+    for (const e of inFlightRunsForSubject(subjectId)) {
+      const r = getRun(e.runId)
+      if (r) stopping.push(r)
+      try { await cancel(e.runId) } catch { /* keep stopping the rest — one stuck run must not shield the others */ }
+    }
+    if (!(await awaitRunsExited(stopping))) {
+      const err: any = new Error(`Could not stop the run(s) holding the lock on ${subjectId} — still alive after ${FORCE_STOP_WAIT_MS}ms. Try again shortly.`)
+      err.statusCode = 409
+      throw err
+    }
+  }
 
   // Dependency-aware admission + register in ONE synchronous block (no await before
   // setActiveSubjectRun) so the check-and-claim is atomic under Node's single-threaded loop.
@@ -871,6 +1010,7 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     readDepsAbs,
     closeWatcher: undefined,
     expected,
+    chained: params.chained,
   })
 
   // seed expected agents as queued so the UI can show the planned swarm immediately
@@ -887,16 +1027,16 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   await runReadinessGate(run)
   // cancel() can finalize the run DURING the gate's async check (it yields the loop while the check runs).
   // A finalized run is never revived or spawned — mirrors finalizeRunOnClose's endedAt guard.
-  if (run.endedAt !== undefined) return { runId: run.runId, preflight: estimate(kind, ticker, module, agent) }
+  if (run.endedAt !== undefined) return { runId: run.runId, preflight: estimate(kind, ticker, module, agent, swarmId) }
   if (run.readiness && run.readiness.overall !== 'clean') {
     run.status = 'awaiting-readiness-decision'
     run.deferredSpawn = () => spawnEngine(run)
     emit(run, { type: 'readiness-blocked', runId: run.runId, report: run.readiness, ts: Date.now() })
-    return { runId: run.runId, preflight: estimate(kind, ticker, module, agent) }
+    return { runId: run.runId, preflight: estimate(kind, ticker, module, agent, swarmId) }
   }
 
   await spawnEngine(run)
-  return { runId: run.runId, preflight: estimate(kind, ticker, module, agent) }
+  return { runId: run.runId, preflight: estimate(kind, ticker, module, agent, swarmId) }
 }
 
 // Spawn the engine CLI for an admitted, gate-cleared run and wire its lifecycle. Extracted from launch()
@@ -956,7 +1096,7 @@ async function spawnEngine(run: RunState): Promise<void> {
   emit(run, { type: 'run-started', runId: run.runId, kind: run.kind, ticker: run.ticker, runRoot: run.runRoot, willCommitToMain: run.willCommitToMain, ...(run.swarmId !== 'research' ? { swarm: run.swarmId } : {}), ts: Date.now() })
 
   // perpetual audit record: who launched what, when, on which company (finish is logged in finishRun)
-  logLaunch({ runId: run.runId, user: run.user, userVia: run.userVia, kind: run.kind, ticker: run.ticker, runRoot: run.runRoot ?? undefined, module: run.module, agent: run.agent, model: run.model })
+  logLaunch({ runId: run.runId, user: run.user, userVia: run.userVia, kind: run.kind, ticker: run.ticker, runRoot: run.runRoot ?? undefined, module: run.module, agent: run.agent, model: run.model, chained: run.chained, swarm: run.swarmId })
 
   // line-buffered stdout -> stream parser
   let buf = ''
@@ -1082,6 +1222,10 @@ async function checkReadiness(run: RunState, force: boolean): Promise<ReadinessR
 // Pre-spawn data-readiness gate. Research data-consuming kinds only (swarm kinds skip it); sets
 // readiness-checking, then runs the check.
 async function runReadinessGate(run: RunState): Promise<void> {
+  // Research data-consuming kinds only. Screener kinds aren't in the list below; a generic constellation
+  // swarm (e.g. commodity) reuses full/module/agent but owns its sufficiency via its own in-run 00-triage
+  // (and reads live public sources, not a company data pool), so it skips this research readiness gate.
+  if (run.swarmId !== 'research') return
   if (!run.runRoot || !['full', 'module', 'agent', 'rerun'].includes(run.kind)) return
   run.status = 'readiness-checking'
   emit(run, { type: 'readiness-checking', runId: run.runId, ticker: run.ticker, kind: run.kind, ts: Date.now() })
@@ -1115,6 +1259,10 @@ export async function decideReadiness(
     // run, both committing to main). readiness-checking is an IN_FLIGHT status and cancel() treats it as
     // gate-parked, so a cancel landing mid-recheck still finalizes (caught by the endedAt re-check below).
     run.status = 'readiness-checking'
+    // Tell the open gate panel a re-check is in flight (the initial gate emits this too, at
+    // runReadinessGate). Without it the panel looks frozen for the whole check — which can be
+    // minutes when OCR runs on a fresh scanned pool — and the user clicks dead buttons.
+    emit(run, { type: 'readiness-checking', runId: run.runId, ticker: run.ticker, kind: run.kind, ts: Date.now() })
     const report = await checkReadiness(run, true)
     if (run.endedAt !== undefined) return { ok: false, status: 'cancelled', error: 'run was cancelled', httpStatus: 409 } // cancelled mid-recheck
     if (report.overall !== 'clean') {

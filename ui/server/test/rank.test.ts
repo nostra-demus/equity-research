@@ -3,7 +3,7 @@
 // Run: npx tsx test/rank.test.ts
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
-import { rankScore, preTriagePriority } from '../src/news/rank'
+import { rankScore, reRankFromFactors, preTriagePriority, materialityLabelBoost, quantifiedImpactBonus, deriveMaterialityLabel, MATERIALITY_LABEL_FLOOR } from '../src/news/rank'
 import { DEFAULT_RANK_WEIGHTS } from '../src/news/rank-weights'
 
 let passed = 0
@@ -75,6 +75,112 @@ check('score clamps to 100 (no overflow) for a maxed-out item', () => {
   assert.equal(r.rank_score, 100)
 })
 
+// ---- event-materiality classifier: floor-boost, quantified bonus, final label (the under-scoring fix) ----
+
+check('materialityLabelBoost lifts a score to the label\'s floor, never lowers it', () => {
+  assert.equal(materialityLabelBoost('critical', 58), 27) // 85 - 58
+  assert.equal(materialityLabelBoost('high', 58), 12) // 70 - 58
+  assert.equal(materialityLabelBoost('critical', 90), 0) // already above the floor — no boost
+  assert.equal(materialityLabelBoost('low', 90), 0) // a low label never PULLS a score down
+  assert.equal(materialityLabelBoost('medium', 10), 35) // 45 - 10
+  assert.equal(materialityLabelBoost(undefined, 50), 0) // missing label → no-op
+  assert.equal(materialityLabelBoost('not-a-label', 50), 0) // unrecognized → no-op, never throws
+})
+
+check('deriveMaterialityLabel thresholds match MATERIALITY_LABEL_FLOOR exactly', () => {
+  assert.equal(deriveMaterialityLabel(100), 'critical')
+  assert.equal(deriveMaterialityLabel(MATERIALITY_LABEL_FLOOR.critical), 'critical')
+  assert.equal(deriveMaterialityLabel(MATERIALITY_LABEL_FLOOR.critical - 1), 'high')
+  assert.equal(deriveMaterialityLabel(MATERIALITY_LABEL_FLOOR.high), 'high')
+  assert.equal(deriveMaterialityLabel(MATERIALITY_LABEL_FLOOR.high - 1), 'medium')
+  assert.equal(deriveMaterialityLabel(MATERIALITY_LABEL_FLOOR.medium), 'medium')
+  assert.equal(deriveMaterialityLabel(MATERIALITY_LABEL_FLOOR.medium - 1), 'low')
+  assert.equal(deriveMaterialityLabel(0), 'low')
+})
+
+check('quantifiedImpactBonus fires only when a quantified figure AND an impact keyword are BOTH present', () => {
+  // task test case 2: a quantified profit warning
+  assert.equal(quantifiedImpactBonus('Company warns net loss of HK$220-260m'), 6)
+  assert.equal(quantifiedImpactBonus('Acme cuts FY guidance to $1.2bn from $1.5bn'), 6)
+  assert.equal(quantifiedImpactBonus('Regulator fines Acme 5% of global revenue'), 6)
+  // a bare number with no impact keyword must NOT trigger (avoid false positives)
+  assert.equal(quantifiedImpactBonus('Acme opens its 3rd store this year, $50 entry ticket'), 0)
+  // an impact keyword with no quantified figure must NOT trigger
+  assert.equal(quantifiedImpactBonus('Acme warns of a tough quarter ahead'), 0)
+  // checks the English translation when present, same pattern as deriveScope
+  assert.equal(quantifiedImpactBonus('foreign headline', 'Company warns net loss of HK$220-260m'), 6)
+})
+
+check('quantifiedImpactBonus uses word boundaries — "investors" does not fire the "invest" stem (Thread D)', () => {
+  // the 'invest' impact keyword matched substring-wise on "investors"/"investor" in routine price-chatter,
+  // pairing with the "%" figure to add a spurious +6. RED on old code (returned 6); GREEN after switching
+  // to word-boundary matching.
+  assert.equal(quantifiedImpactBonus('Shares fall 5% as investors weigh results'), 0)
+  assert.equal(quantifiedImpactBonus('Investor sentiment lifts the index 3%'), 0)
+  // the sibling substring collisions the same fix closes: "cuts" inside "Haircuts", "beats" inside "heartbeats"
+  assert.equal(quantifiedImpactBonus('Haircuts get pricier as salon fees rise 4%'), 0)
+  // a REAL 'invest' hit (word boundary) still fires when paired with a figure — coverage is preserved
+  assert.equal(quantifiedImpactBonus('Reliance to invest ₹75,000 crore in green energy'), 6)
+  assert.equal(quantifiedImpactBonus('Acme to invest $2bn in a new fab'), 6)
+  // multi-word impact keywords still match at their outer edges
+  assert.equal(quantifiedImpactBonus('Board approves plan to buy back 5% of shares'), 6)
+  assert.equal(quantifiedImpactBonus('Firm posts net loss of $500m'), 6)
+})
+
+check('rankScore: a war escalation with no company named now scores ABOVE a routine macro print (task test case 1)', () => {
+  // BEFORE this fix this fell into the macro bucket (-4 penalty) — now it is recognized as geopolitical
+  // (+9) and the model's own "critical" call lifts the raw score via the floor-boost.
+  const warEscalation = rankScore(
+    { materiality_pre_score: 58, issuer_linkage: 'macro', event_types: ['macro_sector'], headline: 'US conducts fresh strikes in Iran after recent peace treaty', found_at: fresh, event_materiality_label: 'critical' },
+    NOW,
+  )
+  const routineMacro = rankScore(
+    { materiality_pre_score: 55, input_nature: 'macro_data_release', issuer_linkage: 'macro', event_types: ['macro_sector'], headline: 'US CPI inflation cools to 2.3%', found_at: fresh },
+    NOW,
+  )
+  assert.equal(warEscalation.rank_factors.scope_id, 'geopolitical')
+  assert.equal(warEscalation.rank_factors.scope, 9)
+  assert.equal(warEscalation.rank_factors.materiality_label_floor, 27) // 85 - 58
+  assert.ok(warEscalation.rank_score > routineMacro.rank_score, `war escalation ${warEscalation.rank_score} should beat routine macro ${routineMacro.rank_score}`)
+  assert.ok(warEscalation.rank_score >= 85, `war escalation should clear the critical floor, got ${warEscalation.rank_score}`)
+})
+
+check('rankScore: a "Top 10" roundup does not earn the multi_name lift, even naming 5 mega-caps (task test case 4)', () => {
+  const roundup = rankScore(
+    {
+      materiality_pre_score: 30,
+      issuer_linkage: 'sector',
+      companies: [{ name: 'Apple' }, { name: 'Microsoft' }, { name: 'Nvidia' }, { name: 'Alphabet' }, { name: 'Amazon' }],
+      event_types: ['macro_sector'],
+      size_bucket: 'mega',
+      headline: 'Top 10 companies by market cap this week',
+      found_at: fresh,
+    },
+    NOW,
+  )
+  assert.equal(roundup.rank_factors.scope_id, 'generic_media')
+  assert.equal(roundup.rank_factors.scope, -10)
+  assert.ok(roundup.rank_score < 40, `generic roundup should stay well below the watch threshold, got ${roundup.rank_score}`)
+})
+
+check('reRankFromFactors carries materiality_label_floor and quantified through UNCHANGED (not a function of the weight set)', () => {
+  const r = rankScore({ materiality_pre_score: 60, issuer_linkage: 'primary', companies: [{ name: 'Acme' }], event_types: ['guidance_change'], headline: 'Acme warns of a $200m shortfall', found_at: fresh, event_materiality_label: 'high' }, NOW)
+  assert.ok(r.rank_factors.materiality_label_floor > 0)
+  assert.ok(r.rank_factors.quantified > 0)
+  const rr = reRankFromFactors(r.rank_factors, { event_types: ['guidance_change'], size_bucket: undefined }, { ...DEFAULT_RANK_WEIGHTS, scope: { ...DEFAULT_RANK_WEIGHTS.scope, single_name: 999 } })
+  assert.equal(rr.rank_factors.materiality_label_floor, r.rank_factors.materiality_label_floor)
+  assert.equal(rr.rank_factors.quantified, r.rank_factors.quantified)
+})
+
+check('boost_weight 0 → the floor-boost and quantified bonus also vanish (pure Groq score, no exceptions)', () => {
+  const r = rankScore(
+    { materiality_pre_score: 40, issuer_linkage: 'macro', headline: 'US conducts fresh strikes in Iran', found_at: fresh, event_materiality_label: 'critical' },
+    NOW,
+    { ...DEFAULT_RANK_WEIGHTS, boost_weight: 0 },
+  )
+  assert.equal(r.rank_score, 40)
+})
+
 check('preTriagePriority orders the Groq queue: material-first, then primary filings, then routine news', () => {
   const matFiling = preTriagePriority({ input_nature: 'regulatory_filing', headline: 'Acme Ltd to acquire Beta Inc', found_at: fresh }, NOW)
   const matNews = preTriagePriority({ input_nature: 'news_headline', headline: 'Gamma in merger talks, sources say', found_at: fresh }, NOW)
@@ -122,6 +228,17 @@ check('preTriagePriority: a fresh social item never out-ranks a stale trusted it
   // control: recency still works for TRUSTED tiers — a fresh news item still beats a stale one under tuning
   const freshNews = preTriagePriority({ input_nature: 'news_headline', headline: 'A quiet day in the markets', found_at: fresh }, NOW, tuned)
   assert.ok(freshNews > staleNews, `fresh news ${freshNews} should still beat stale news ${staleNews} under recency tuning`)
+})
+
+// A capex announcement with NO stated dollar figure (quantifiedImpactBonus can't fire — it requires a
+// quantified figure) previously had no dedicated event type and fell into weak operations/commercial.
+// "capex" is now a first-class event_types value (triage/groq.ts EVENT_TYPES) with its own weight.
+check('capex event type is recognized and weighted, independent of quantifiedImpactBonus', () => {
+  const capex = rankScore({ materiality_pre_score: 48, input_nature: 'news_headline', issuer_linkage: 'primary', companies: [{ name: 'Samsung' }, { name: 'SK Hynix' }], event_types: ['capex'], size_bucket: 'mega', headline: 'Major AI memory capex announced by Samsung/SK Hynix', found_at: fresh }, NOW)
+  const asOperations = rankScore({ materiality_pre_score: 48, input_nature: 'news_headline', issuer_linkage: 'primary', companies: [{ name: 'Samsung' }, { name: 'SK Hynix' }], event_types: ['operations'], size_bucket: 'mega', headline: 'Major AI memory capex announced by Samsung/SK Hynix', found_at: fresh }, NOW)
+  assert.equal(capex.rank_factors.event, 6)
+  assert.equal(capex.rank_factors.quantified, 0, 'no $ figure in this headline — the quantified bonus must NOT be doing the work here')
+  assert.ok(capex.rank_score > asOperations.rank_score, `capex-tagged ${capex.rank_score} should beat the same headline mistagged operations ${asOperations.rank_score}`)
 })
 
 console.log(`\n${passed} checks passed`)

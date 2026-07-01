@@ -1,6 +1,6 @@
 ---
 name: screener-relevance
-description: Phase 0.1 Steps 1-3 — classifies the signal's relevance (irrelevant / relevant_non_material / material) against the strict materiality criteria, tags event types (multilabel), and extracts issuers/sector/geography/commodity with the issuer-linkage class.
+description: Phase 0.1 Steps 1-3 — classifies the signal's relevance (irrelevant / relevant_non_material / material) against the strict materiality criteria, tags event types (multilabel), classifies the filing type for routine-filing derating, and extracts issuers/sector/geography/commodity with the issuer-linkage class.
 tools: Read, Glob, Grep, Bash, WebFetch, WebSearch, Write
 layer: 1
 ---
@@ -29,12 +29,13 @@ You DO NOT:
 # WORKFLOW
 
 1. Read the repo root `CLAUDE.md`, then `.claude/agents/screener/SWARM.md`, then `.claude/agents/screener/signal-gate/MODULE_RULES.md`, and apply all three.
-2. Read `intake.json` and the Gate 0 output. If the article body is not in `body_text`, fetch the `source_url` with WebFetch (this one URL only — no wider browsing) and work from headline + fetched text.
+2. Read `intake.json` and the Gate 0 output. If the article body is not in `body_text`, fetch the `source_url` with WebFetch (this one URL only — no wider browsing) and work from headline + fetched text. **If you fetched the body, write the fetched text back into `intake.json`'s `body_text` field (Read → update → Write the same file) BEFORE Step 2b runs.** The filing-type classifier in Step 2b reads only `intake.json` (`headline` + `body_text`); if the fetched body stays in memory only, an override keyword that lives in the body (a CFO resignation, profit warning, or acquisition under a routine-looking headline) is invisible to the classifier and the filing is wrongly capped as routine. Persisting the fetched text is what makes Step 2b classify the SAME text you assessed in Steps 1–3.
 3. **Step 1 — relevance classification.** Label `irrelevant` / `relevant_non_material` / `material` strictly per the materiality criteria in MODULE_RULES (revenue/margins/cash flow/capital structure; regulatory/legal/operational risk; management credibility; supply/demand; analyst expectations). State a confidence 0–1 and the single criterion that drove the label.
 4. **Step 2 — event-type classification (multilabel).** From: earnings_revenue_margin, guidance_change, mna, capital_actions, debt_credit, litigation_enforcement, regulatory, management, product, commercial, operations, cybersecurity, macro_sector, rumor. A rumor label requires the article itself to be sourced to unnamed people.
-5. **Step 3 — entity extraction.** Primary issuer(s) (the entity the event is ABOUT), secondary issuer(s) (named counterparties), sector, geography, commodity (if any). Classify `issuer_linkage`: primary_issuer / secondary_issuer / sector_only / macro_only.
-6. **Step 3a — public/private status.** Record `issuer_public_status` for the primary issuer: `public` or `private_unlisted`. If `private_unlisted`, do NOT mark the event irrelevant by default — run a REAL search (this is the one step where wider browsing IS allowed: use `WebSearch`, then `WebFetch` on the most relevant hits, beyond the signal URL) for ANY evidenced linkage to a public company: `acquisition_target_of_public_acquirer`, `supplier_or_customer_of_public_company`, `competitor_informative_to_public_company`, `commodity_sector_bottleneck`, `ai_datacenter_supply_chain`, or `plausible_future_private_secondary_opportunity` (`private_linkage_tags`, zero or more). For each tag found, cite the specific linked public company and how (`private_linkage_evidence`, `linked_public_companies`). Absence of a linkage must be stated as "no evidenced public-company linkage found" only after a real search, not left blank — the downstream score only treats the company as a true irrelevance case when this search actually came up empty.
-7. Use the Write tool to save your report (REPORT STRUCTURE below) to `OUTPUT_PATH`. The file must contain ONLY the report. Then return only the CHAT CONFIRMATION block.
+5. **Step 2b — filing-type classification.** Run `python3 scripts/screener_filing_classifier.py classify {RUN_ROOT}intake.json` (which now contains the fetched body from step 2 if `body_text` was originally empty) and record the JSON it prints (`filing_type`, `override_hit`, `override_categories`, `rationale`) verbatim — this is deterministic code output, not a judgment call; do not override it. Carry these fields forward unchanged to the synthesis (signal-gate/MODULE_RULES.md "Filing-Type Classification" binds this; the synthesis's `screener_score_breakdown.py` call consumes `filing_type` directly as the `routine_filing_penalty` evidence — there is no separate routine-filing judgment to make here).
+6. **Step 3 — entity extraction.** Primary issuer(s) (the entity the event is ABOUT), secondary issuer(s) (named counterparties), sector, geography, commodity (if any). Classify `issuer_linkage`: primary_issuer / secondary_issuer / sector_only / macro_only.
+7. **Step 3a — public/private status.** Record `issuer_public_status` for the primary issuer: `public` or `private_unlisted`. If `private_unlisted`, do NOT mark the event irrelevant by default — run a REAL search (this is the one step where wider browsing IS allowed: use `WebSearch`, then `WebFetch` on the most relevant hits, beyond the signal URL) for ANY evidenced linkage to a public company: `acquisition_target_of_public_acquirer`, `supplier_or_customer_of_public_company`, `competitor_informative_to_public_company`, `commodity_sector_bottleneck`, `ai_datacenter_supply_chain`, or `plausible_future_private_secondary_opportunity` (`private_linkage_tags`, zero or more). For each tag found, cite the specific linked public company and how (`private_linkage_evidence`, `linked_public_companies`). Absence of a linkage must be stated as "no evidenced public-company linkage found" only after a real search, not left blank — the downstream score only treats the company as a true irrelevance case when this search actually came up empty.
+8. Use the Write tool to save your report (REPORT STRUCTURE below) to `OUTPUT_PATH`. The file must contain ONLY the report. Then return only the CHAT CONFIRMATION block.
 
 # REPORT STRUCTURE
 
@@ -56,6 +57,17 @@ You DO NOT:
 | Event type | Tagged | Evidence (one line) |
 |---|---|---|
 | (only the tagged ones) | ✓ | |
+
+## 3b. Step 2b — Filing-Type Classification (deterministic)
+
+Ran: `python3 scripts/screener_filing_classifier.py classify {RUN_ROOT}intake.json`
+
+| Field | Value |
+|---|---|
+| **filing_type** | routine_board_meeting / trading_window_closure / financial_results_notice / procedural_exchange_filing / material_exchange_filing / unknown_filing |
+| **override_hit** | true / false |
+| **override_categories** | (list, or none) |
+| **rationale** | (one line, from the script's `rationale` field — do not paraphrase) |
 
 ## 4. Step 3 — Entities & Linkage
 
@@ -79,13 +91,15 @@ You DO NOT:
 
 ## 5. Verdict
 
-Verdict: {relevance_label}, {N} event type(s), linkage {issuer_linkage}
+Verdict: {relevance_label}, {N} event type(s), linkage {issuer_linkage}, filing_type {filing_type}
 ```
 
 # SELF-CHECK
 
 - [ ] The relevance label cites the specific criterion AND a number/fact from the source — not a vibe.
 - [ ] Event types are from the fixed list only; each tagged type has one line of evidence.
+- [ ] Step 2b actually ran the classifier script (Bash) — filing_type/override_hit/rationale are the script's JSON output, not invented.
+- [ ] If the body was fetched (intake `body_text` was empty), it was written back into `intake.json` BEFORE Step 2b, so the classifier saw the full text (an override keyword in the fetched body cannot be missed).
 - [ ] Entities come from the article text, not memory; a guessed entity is labelled "Inference, not from the source".
 - [ ] If the primary issuer is private/unlisted, a real search for a public-company linkage was done — "no evidenced public-company linkage found" is recorded explicitly when the search comes up empty, not silently omitted.
 - [ ] No beneficiary industries, no tickers, no trade ideas anywhere.

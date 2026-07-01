@@ -39,6 +39,14 @@ LOCKDIR="$OPS/.deploy.lock.d"
 MARK="$OPS/.deployed.sha"   # the SHA the built ui/dist + running engine were last reconciled to
 FAILMARK="$OPS/.deploy.failed"                       # "<sha> <epoch>" of the last build that failed (backoff)
 FAIL_BACKOFF="${DEPLOY_FAIL_BACKOFF_SECS:-1800}"     # don't re-attempt the SAME failing SHA more often than this
+# Debounce: each engine rebuild/restart is a ~15-30s "offline" blip in every open cockpit. When a burst of
+# code PRs merges in quick succession (a normal build session), deploying each one separately means one blip
+# per commit. Instead, hold the rebuild until the newest ui/ (code) commit has been quiet for DEBOUNCE_SECS,
+# so a burst collapses into ONE rebuild+restart of the whole delta. Liveness cap: never hold a pending code
+# change back longer than MAX_DEFER_SECS even if commits keep trickling in. Data-only deltas never debounce
+# (they don't restart the engine).
+DEBOUNCE_SECS="${DEPLOY_DEBOUNCE_SECS:-180}"
+MAX_DEFER_SECS="${DEPLOY_MAX_DEFER_SECS:-1200}"
 HEARTBEAT=3300   # log an "up-to-date" proof-of-life at most ~hourly
 mkdir -p "$OPS" "$(dirname "$LOG")"
 
@@ -111,6 +119,24 @@ has_nondata_dirty() {
     path="${path##* -> }"     # a rename prints "old -> new"; keep the destination
     is_data_path "$path" || return 0
   done < <("$GIT" status --porcelain 2>/dev/null)
+  return 1
+}
+
+# code_settling <base> <target> — rc 0 (DEFER the rebuild) when the base..target delta contains a ui/web or
+# ui/server change (the only paths that trigger a dist rebuild or engine restart — the offline blip) AND the
+# most recent such commit landed < DEBOUNCE_SECS ago. This coalesces a rapid burst of code merges into ONE
+# rebuild instead of one restart per commit. Keyed on git commit timestamps of the CODE paths only, so the
+# 24/7 engine data commits (analyses/**, screener/**) that also advance origin/main never reset the timer.
+# Liveness: once the OLDEST un-deployed code commit is >= MAX_DEFER_SECS old, stop deferring and build.
+# rc 1 (PROCEED) when the delta has no code, or the code has settled, or the liveness cap has tripped.
+code_settling() {
+  local base="$1" target="$2" newest oldest now
+  newest="$("$GIT" log -1 --format=%ct "$base".."$target" -- ui/web ui/server 2>/dev/null)"
+  [ -z "$newest" ] && return 1                                   # data/docs-only delta — nothing to debounce
+  now="$(date +%s)"
+  oldest="$("$GIT" log --format=%ct "$base".."$target" -- ui/web ui/server 2>/dev/null | tail -1)"
+  [ -n "$oldest" ] && [ "$(( now - oldest ))" -ge "$MAX_DEFER_SECS" ] && return 1   # liveness cap reached — build now
+  [ "$(( now - newest ))" -lt "$DEBOUNCE_SECS" ] && return 0     # newest code commit still within the quiet window
   return 1
 }
 
@@ -252,6 +278,12 @@ if [ "$LOCAL" = "$REMOTE" ]; then
   fi
   target="$("$GIT" rev-parse HEAD 2>/dev/null)"
   [ -n "$target" ] || { gitlock_release; log "WARN cannot resolve HEAD under lock — retry next cycle"; exit 0; }
+  # Debounce: if the code that's behind is still landing in a burst, hold the rebuild (one blip, not many).
+  if [ "$force_full" != 1 ] && code_settling "$MARKER" "$target"; then
+    gitlock_release
+    log "DEFER built ${MARKER:0:9} behind HEAD ${target:0:9} but newest ui/ commit < ${DEBOUNCE_SECS}s ago — coalescing burst, retry next cycle"
+    exit 0
+  fi
   if [ "$force_full" = 1 ]; then
     CHANGED=$'ui/web/\nui/server/'   # force both a dist rebuild and an engine restart
   else
@@ -268,6 +300,15 @@ fi
 # yet pushed — skip; the next push reconciles. Never reset.
 if ! "$GIT" merge-base --is-ancestor HEAD origin/main 2>/dev/null; then
   log "SKIP HEAD not an ancestor of origin/main (unpushed local commit?) local=${LOCAL:0:9} remote=${REMOTE:0:9}"
+  exit 0
+fi
+
+# Debounce a burst of code merges into a single rebuild+restart (each restart is a ~15-30s offline blip in
+# every open cockpit). Measured against the deployed marker when it's an ancestor of origin, else HEAD.
+# Data-only incoming deltas never defer (code_settling returns proceed) — they fast-forward as before.
+db_base="$LOCAL"; [ -n "$MARKER" ] && "$GIT" merge-base --is-ancestor "$MARKER" "$REMOTE" 2>/dev/null && db_base="$MARKER"
+if code_settling "$db_base" "$REMOTE"; then
+  log "DEFER ${LOCAL:0:9} -> ${REMOTE:0:9} — newest ui/ commit < ${DEBOUNCE_SECS}s ago; coalescing burst, retry next cycle"
   exit 0
 fi
 

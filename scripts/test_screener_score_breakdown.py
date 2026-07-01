@@ -15,7 +15,10 @@ import unittest
 from screener_score_breakdown import (
     build_score_breakdown,
     classify_source_tier,
+    penalty_generic_media,
+    penalty_routine_filing,
     score_source_quality,
+    REQUIRED_FIELDS,
 )
 
 _REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -84,9 +87,11 @@ def base_fixture(**overrides) -> dict:
         "is_official_filing": False,
         "paywalled": False,
         "corroborated": True,
-        "is_routine_filing": False,
-        "routine_severity": "none",
-        "media_genericness": "none",
+        "filing_type": "unknown_filing",
+        "is_generic_media": False,
+        "specificity_score": 0,
+        "quantifiability_score": 0,
+        "investability_score": 0,
         "sensational_uncorroborated": False,
         "issuer_public_status": "public",
         "private_linkage_tags": [],
@@ -115,7 +120,7 @@ class ScoreBreakdownScenarios(unittest.TestCase):
             relevance_label="relevant_non_material", event_types=["regulatory"],
             relevance_confidence=0.85,
             source_name="SEC EDGAR", is_official_filing=True, corroborated=True,
-            is_routine_filing=True, routine_severity="moderate",
+            filing_type="procedural_exchange_filing",
             specificity_signals={
                 "hard_number_cited": True, "corroborating_second_number": False,
                 "named_counterparty_or_instrument": False, "effective_date_stated": True,
@@ -182,7 +187,8 @@ class ScoreBreakdownScenarios(unittest.TestCase):
             issuer_linkage="sector_only", pair_label="related_topic",
             relevance_confidence=0.55,
             source_name="Investing.com", source_grade="B",
-            corroborated=False, media_genericness="content_farm",
+            corroborated=False, is_generic_media=True,
+            specificity_score=0, quantifiability_score=0, investability_score=0,
             sector_wide_move=True,
         )
         r = build_score_breakdown(fx)
@@ -249,7 +255,7 @@ class SourceQualityScenarios(unittest.TestCase):
             relevance_label="relevant_non_material", event_types=["regulatory"],
             relevance_confidence=0.85,
             source_name="SEC EDGAR", is_official_filing=True, corroborated=True,
-            is_routine_filing=True, routine_severity="moderate",
+            filing_type="procedural_exchange_filing",
             specificity_signals={
                 "hard_number_cited": True, "corroborating_second_number": False,
                 "named_counterparty_or_instrument": False, "effective_date_stated": True,
@@ -298,8 +304,9 @@ class BackwardCompatibilityAndClamping(unittest.TestCase):
     def test_final_score_never_negative_or_above_100(self):
         fx = base_fixture(
             relevance_label="irrelevant", pair_label="duplicate",
-            relevance_confidence=0.10, media_genericness="content_farm",
-            is_routine_filing=True, routine_severity="total",
+            relevance_confidence=0.10, is_generic_media=True,
+            specificity_score=0, quantifiability_score=0, investability_score=0,
+            filing_type="procedural_exchange_filing",
             issuer_public_status="private_unlisted", private_linkage_tags=[],
             source_name="RandomBlogXYZ", source_grade="B",
         )
@@ -411,6 +418,88 @@ class ScoreBreakdownSchemaRequiredKeys(unittest.TestCase):
     def test_full_breakdown_is_accepted(self):
         p = _minimal_valid_payload(score_breakdown=_full_breakdown())
         self.assertTrue(self._valid(p))
+
+
+class RoutineFilingPenaltyDerivedFromFilingType(unittest.TestCase):
+    """PR review (techmuns/ceekay-munshot, #129 hold comment): routine_filing_penalty must be
+    DERIVED from filing_type (scripts/screener_filing_classifier.py, Step 2b) — not a separately
+    agent-judged severity — so #124's Step-10b ceiling and this penalty can never double-count the
+    same evidence. filing_type is the ONLY input; there is no routine_severity/is_routine_filing
+    field anymore."""
+
+    def test_trading_window_closure_is_moderate(self):
+        v, reason = penalty_routine_filing("trading_window_closure")
+        self.assertEqual(v, -15)
+        self.assertIn("trading_window_closure", reason)
+
+    def test_procedural_exchange_filing_is_moderate(self):
+        v, _ = penalty_routine_filing("procedural_exchange_filing")
+        self.assertEqual(v, -15)
+
+    def test_routine_board_meeting_is_mild(self):
+        v, _ = penalty_routine_filing("routine_board_meeting")
+        self.assertEqual(v, -8)
+
+    def test_financial_results_notice_is_mild(self):
+        v, _ = penalty_routine_filing("financial_results_notice")
+        self.assertEqual(v, -8)
+
+    def test_material_exchange_filing_is_not_derated(self):
+        # An override keyword fired (resignation, fraud, M&A, ...) — never derated, no ceiling.
+        v, _ = penalty_routine_filing("material_exchange_filing")
+        self.assertEqual(v, 0)
+
+    def test_unknown_filing_is_not_derated(self):
+        # Abstain — an unrecognized filing type must never be silently suppressed.
+        v, _ = penalty_routine_filing("unknown_filing")
+        self.assertEqual(v, 0)
+
+
+class GenericMediaPenaltyDerivedFromDetectorScores(unittest.TestCase):
+    """PR review (#129 hold comment): generic_media_penalty must be DERIVED from is_generic_media +
+    the generic-media detector's specificity/quantifiability/investability scores — not a separately
+    agent-judged media_genericness enum — so #125's min() ceiling and this penalty can never
+    double-count the same evidence."""
+
+    def test_not_generic_media_no_penalty(self):
+        v, reason = penalty_generic_media(False, 0, 0, 0)
+        self.assertEqual(v, 0)
+        self.assertIn("false", reason)
+
+    def test_generic_but_investable_is_roundup(self):
+        # investability >= 30 despite the generic format — a specific anomaly is still present.
+        v, _ = penalty_generic_media(True, 10, 10, 40)
+        self.assertEqual(v, -6)
+
+    def test_generic_low_investability_but_some_specificity_is_republished(self):
+        v, _ = penalty_generic_media(True, 50, 50, 10)
+        self.assertEqual(v, -12)
+
+    def test_generic_no_investability_no_specificity_is_content_farm(self):
+        v, _ = penalty_generic_media(True, 0, 0, 0)
+        self.assertEqual(v, -15)
+
+
+class NoSeparateJudgmentFieldsRemain(unittest.TestCase):
+    """The old agent-judged is_routine_filing/routine_severity/media_genericness fields must not
+    exist anywhere in the required-input contract — filing_type and is_generic_media/its sub-scores
+    are the only evidence the script accepts, so there is no way to double-supply/double-count the
+    same judgment via two different fields."""
+
+    def test_required_fields_has_filing_type_and_generic_media_evidence(self):
+        for f in ("filing_type", "is_generic_media", "specificity_score",
+                  "quantifiability_score", "investability_score"):
+            self.assertIn(f, REQUIRED_FIELDS)
+
+    def test_required_fields_has_no_legacy_judgment_fields(self):
+        for f in ("is_routine_filing", "routine_severity", "media_genericness"):
+            self.assertNotIn(f, REQUIRED_FIELDS)
+
+    def test_missing_filing_type_is_rejected_by_build(self):
+        fx = base_fixture()
+        del fx["filing_type"]
+        with self.assertRaises(KeyError):
+            build_score_breakdown(fx)
 
 
 if __name__ == "__main__":

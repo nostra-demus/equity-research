@@ -93,7 +93,15 @@ Resolve each agent's expected output path once, up front: `<OUTPUT_PATH>` = `<RU
 
 Self-persistence (A or B) is preferred for scalability: a large run (dozens of agents in one pass) must not depend on the orchestrator capturing every full report inline and re-writing it. Mode C is the always-available fallback. In every mode the saved file is identical in shape and lands at the same path; the module synthesizer still reads sibling output files from disk, and the master synthesizer still reads the completed run folder from disk.
 
-For every agent in this layer, dispatch a Task tool call with:
+**Resume — skip agents already completed on disk (idempotent re-dispatch).** Before dispatching this layer, check each agent's `<OUTPUT_PATH>`: if the file already exists AND passes the **Step 4B validity checks** (non-empty; starts with a top-level `#` header; not truncated mid-section or inside an unclosed code fence; no stray chat-confirmation block in its last 20 lines), the agent finished in a prior attempt — **REUSE it and do NOT re-dispatch it**. Dispatch only the agents in this layer whose `<OUTPUT_PATH>` is missing or FAILS those checks. This makes a module that broke partway through — a crash, a machine restart, a cancelled run — continue from where it stopped instead of redoing every specialist. It is the agent-level twin of `/research:full` step 8's module-level skip ("a module whose `99_*-synthesis.md` is present is reused"), and it applies identically in every swarm (research / screener / commodity) because it is keyed only on the `<RUN_ROOT>/<MODULE>/<NN>_<slug>.md` filename pattern — no agent or module name is ever hardcoded (CLAUDE.md §26).
+
+Two invariants keep this safe:
+- **A fresh run is unaffected.** A first run has an empty module folder, so nothing matches and every agent runs. The check bites ONLY on a re-dispatch into an already-populated folder — i.e. a resume.
+- **A corrupt file is never silently kept.** A mid-write crash can leave a file that exists but is truncated or malformed; it FAILS the Step 4B checks and is re-run. Reuse requires a *valid* file, not merely a present one.
+
+To force a clean re-run of one agent (a deliberate refresh, not a resume), use `/research:rerun <MODULE> <AGENT> <TICKER>` — it dispatches its target agent directly and does NOT pass through this step, so it regenerates unconditionally — or delete that agent's `<OUTPUT_PATH>` before re-launching the module. A reused agent still counts as present for Step 4B verification (its file already passed) and for Step 4C fail-fast (which reads the triage file from disk regardless of whether it was just written or reused).
+
+For every agent in this layer that was NOT reused above, dispatch a Task tool call with:
 
 - `subagent_type: "<name>"` (the value from the frontmatter)
 - User message — assemble the body from `<CROSS_MODULE_CONTEXT>` and the agent's `<OUTPUT_PATH>`:

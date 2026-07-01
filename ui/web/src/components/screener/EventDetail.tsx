@@ -5,11 +5,13 @@
 // corrected theme. Triage metadata sits in the header, not in the way. Then: run / open / shelve.
 
 import { useEffect, useRef, useState } from 'react'
-import { displayHeadline, originalHeadline, translatedFromLang, plainSize, plainStage, plainTheme } from '../../lib/plain'
+import { displayHeadline, originalHeadline, translatedFromLang, plainAffectedMetric, plainImpactDirection, plainImpactMagnitude, plainSize, plainStage, plainTheme } from '../../lib/plain'
 import { familyOf, isCompanyNameClient, roleLabel, SCOPES, scopeOf, sourceTierDef } from '../../lib/scope'
 import { discoveryCapDelta } from '../../lib/rankWeights'
 import { useStore } from '../../lib/store'
-import type { ArticleParty, EventEnrichment, FeedItem, RelatedEvent } from '../../lib/types'
+import type { ArticleParty, EventEnrichment, FeedItem, NewsImpact, RelatedEvent } from '../../lib/types'
+import { FeedbackMenu } from './FeedbackMenu'
+import type { ReportMenuAnchor } from '../ActivityReportMenu'
 
 const fmtTime = (iso?: string) => {
   if (!iso) return ''
@@ -135,6 +137,53 @@ function PartyList({ parties }: { parties: ArticleParty[] }) {
   )
 }
 
+// IMPACT — the structured, quantified read: does this move earnings / guidance / valuation / the thesis /
+// risk / a portfolio decision, in which direction, how big, with what numbers, how confident. Gated by the
+// caller strictly on `enrichment?.news_impact` (never on whether gist/companies/etc. are non-empty) — a
+// routine/no-impact verdict is itself the correct, decision-useful answer and still renders here; a
+// pre-upgrade cached enrichment simply has no `news_impact` key, so the caller renders nothing, no crash.
+function ImpactBlock({ ni }: { ni: NewsImpact }) {
+  const hasNumbers = ni.extracted_numbers.length > 0
+  const hasCalc = ni.quantified_impact_available && ni.quick_dirty_calculation.trim().length > 0
+  return (
+    <div className="evdetail__block evdetail__impact evdetail__reveal">
+      <div className="evdetail__label">Impact</div>
+      <div className="evdetail__impact-head">
+        <span className={`evdetail__impact-dir evdetail__impact-dir--${ni.impact_direction}`}>{plainImpactDirection(ni.impact_direction)}</span>
+        <span className={`evdetail__impact-mag evdetail__impact-mag--${ni.impact_magnitude}`}>{plainImpactMagnitude(ni.impact_magnitude)} impact</span>
+        {ni.confidence > 0 && <span className="evdetail__impact-conf" title="How confident this read is, 0-100">{ni.confidence}% confidence</span>}
+      </div>
+      {!!ni.affected_metric.length && (
+        <div className="evdetail__impact-metrics">
+          {ni.affected_metric.map((m) => <span key={m} className="evdetail__impact-metric">{plainAffectedMetric(m)}</span>)}
+        </div>
+      )}
+      {ni.why_it_matters && <p className="evdetail__impact-why">{ni.why_it_matters}</p>}
+      {hasNumbers && (
+        <div className="evdetail__impact-nums">
+          <div className="evdetail__impact-nums-k">From the article</div>
+          <ul className="evdetail__impact-numlist">
+            {ni.extracted_numbers.map((n, i) => <li key={i}>{n}</li>)}
+          </ul>
+        </div>
+      )}
+      <div className="evdetail__impact-calc">
+        {hasCalc ? (
+          <span className="evdetail__impact-calc-v">{ni.quick_dirty_calculation}</span>
+        ) : (
+          <span className="evdetail__impact-calc-insufficient">insufficient data for valuation impact</span>
+        )}
+      </div>
+      {ni.analyst_takeaway && (
+        <div className="evdetail__impact-takeaway">
+          <span className="evdetail__impact-takeaway-k">Takeaway</span>
+          <span className="evdetail__impact-takeaway-v">{ni.analyst_takeaway}</span>
+        </div>
+      )}
+    </div>
+  )
+}
+
 // WHY THIS SCORE — the number is the cheap scanner's first read, and a "100" on its own tells the PM
 // nothing. This opens the box: the Groq title read is the anchor, then deterministic §4-hierarchy
 // adjustments (source / focus / event / size / freshness) sum and clamp to it. Each row shows the
@@ -202,17 +251,32 @@ function ScoreWhy({ it, anchorRef, open, onToggle }: { it: FeedItem; anchorRef: 
   const base = rf.materiality
   const tier = sourceTierDef(rf.source_tier_id)
   const scopeDef = SCOPES[rf.scope_id as keyof typeof SCOPES]
+  // materiality_label_floor / quantified are ingest-fixed corrections (see rank.ts): the floor lifts a
+  // score up to the tier its own severity label implies; the quantified bonus fires when the headline
+  // pairs a number with an impact word. Both feed the boost sum server-side, so they MUST appear in the
+  // ledger too — otherwise the rows don't add up to the shown score and the moving factor is hidden
+  // (CLAUDE.md §12: every point is explainable from an evidence row). Only shown when they actually move
+  // the score (older records predating the fields carry 0 → no clutter), but always summed.
+  const labelFloor = Number(rf.materiality_label_floor) || 0
+  const quantified = Number(rf.quantified) || 0
   const adjRows = [
     { k: 'Source', v: tier?.label ?? rf.source_tier_id, why: tier?.meaning, pts: rf.source_tier },
     { k: 'Focus', v: scopeDef?.label ?? rf.scope_id, why: scopeDef?.meaning, pts: rf.scope },
     { k: 'Event', v: it.event_types?.length ? it.event_types.map(plainTheme).join(', ') : '—', why: 'The biggest event named in the headline counts.', pts: rf.event },
     { k: 'Size', v: plainSize(it.size_bucket), why: undefined as string | undefined, pts: rf.size },
     { k: 'Freshness', v: freshnessLabel(it.ts), why: 'Newer news counts for a little more.', pts: rf.recency },
+    ...(labelFloor !== 0
+      ? [{ k: 'Severity floor', v: 'lifted to its severity tier', why: "The AI's own severity call (high / critical) sets a floor the score can't sit below.", pts: labelFloor }]
+      : []),
+    ...(quantified !== 0
+      ? [{ k: 'Quantified impact', v: 'a number + an impact word', why: 'The headline pairs a figure (a sum, %, or bps) with an impact word (guidance, fine, deal…).', pts: quantified }]
+      : []),
   ]
-  // The §4 adjustments are summed, then scaled by the GLOBAL boost — the Scoring panel's own formula
+  // The adjustments are summed, then scaled by the GLOBAL boost — the Scoring panel's own formula
   // ("the AI's headline read + these adjustments × overall boost"); see rank.ts:
-  // boost = (source_tier+scope+event+size+recency) × boost_weight. The boost_weight that produced THIS
-  // score travels with it in rank_factors, so the ledger reconciles exactly even after a panel edit.
+  // boost = (source_tier+scope+event+size+recency+materiality_label_floor+quantified) × boost_weight.
+  // The boost_weight that produced THIS score travels with it in rank_factors, so the ledger reconciles
+  // exactly even after a panel edit.
   // Show the boost as its own row only when it actually moves the total (weight ≠ 1).
   const w = typeof rf.boost_weight === 'number' ? rf.boost_weight : 1
   const adjSum = adjRows.reduce((s, r) => s + r.pts, 0)
@@ -292,6 +356,8 @@ export function EventDetail({ it }: { it: FeedItem }) {
   const enrichCache = useStore((s) => s.enrichCache)
   const shelvedEvents = useStore((s) => s.shelvedEvents)
   const toggleShelve = useStore((s) => s.toggleShelve)
+  const flaggedEvents = useStore((s) => s.flaggedEvents)
+  const [feedbackAnchor, setFeedbackAnchor] = useState<ReportMenuAnchor | null>(null)
   const newsItems = useStore((s) => s.newsItems)
   const selectEvent = useStore((s) => s.scSelectEvent)
   const focusCompany = useStore((s) => s.scFocusCompany)
@@ -336,6 +402,7 @@ export function EventDetail({ it }: { it: FeedItem }) {
   const enr = enrichCache[it.event_id]
   const enrichment = enr && enr !== 'loading' ? enr : undefined
   const shelved = shelvedEvents.has(it.event_id)
+  const flagged = flaggedEvents.has(it.event_id)
   const tone = it.triage_score >= 70 ? 'var(--live)' : it.triage_score >= 40 ? 'var(--accent-bright)' : 'var(--text-faint)'
   const s = scopeOf(it)
   const fam = familyOf(s)
@@ -428,6 +495,12 @@ export function EventDetail({ it }: { it: FeedItem }) {
 
         {/* THE STORY — the crux, read from the article body */}
         <StoryBlock enr={enr} />
+
+        {/* IMPACT — does this move earnings/guidance/valuation/thesis/risk/a portfolio decision, and how
+            big. Gated strictly on enrichment?.news_impact (NOT didRead) — a routine/no-impact verdict is
+            itself decision-useful and must render even when gist/companies/etc. are all empty; a
+            pre-upgrade cached enrichment simply has no news_impact key, so this renders nothing, no crash. */}
+        {enrichment?.news_impact && <ImpactBlock ni={enrichment.news_impact} />}
 
         {/* WHY IT MATTERS — the transmission to markets: event → what changes → which tradable asset moves.
             The "so what" a PM reads first; the centre of gravity for a macro/policy/commodity story. */}
@@ -562,6 +635,17 @@ export function EventDetail({ it }: { it: FeedItem }) {
               <span className="evdetail__est mono">about $8–45 · stops early (and cheaper) if a check says no</span>
             </div>
             <div className="evdetail__utility">
+              <button
+                className="btn btn--ghost evdetail__shelfbtn"
+                onClick={(e) => {
+                  const r = e.currentTarget.getBoundingClientRect()
+                  const right = Math.max(8, window.innerWidth - r.right)
+                  setFeedbackAnchor(window.innerHeight - r.bottom < 320 ? { right, bottom: Math.max(8, window.innerHeight - r.top + 6) } : { right, top: r.bottom + 6 })
+                }}
+                title={flagged ? 'Feedback already saved for this item' : 'Flag as irrelevant / mis-scored / …'}
+              >
+                {flagged ? 'Feedback saved ✓' : 'Flag feedback'}
+              </button>
               <button className="btn btn--ghost evdetail__shelfbtn" onClick={() => toggleShelve(it.event_id)} title={shelved ? 'Bring this back to the wire' : 'Set this aside — not worth a check right now'}>
                 {shelved ? 'Bring back' : 'Set aside'}
               </button>
@@ -569,6 +653,7 @@ export function EventDetail({ it }: { it: FeedItem }) {
                 <a className="btn btn--ghost" href={it.url} target="_blank" rel="noreferrer">Open source ↗</a>
               )}
             </div>
+            {feedbackAnchor && <FeedbackMenu item={it} anchor={feedbackAnchor} onClose={() => setFeedbackAnchor(null)} />}
           </div>
           {scStages.length > 1 && (
             <div className="evdetail__through">

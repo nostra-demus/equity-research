@@ -4,11 +4,11 @@ These rules bind every agent in `.claude/agents/screener/signal-gate/`. The root
 
 ## What this module is
 
-The ten-step Phase 0.1 gauntlet. It answers ONE question about one signal:
+The ten-step Phase 0.1 gauntlet, plus a parallel generic-media check that runs alongside Steps 4-8. It answers ONE question about one signal:
 
 > "Is this a new, high-impact event that should change an investment decision immediately?"
 
-It prioritizes novelty, confirmation, and direct financial impact. It penalizes repetition, incremental updates, and low-information content. It is deterministic: the thresholds, matrices, and penalty tables below are not suggestions — do not override them, do not simplify them, do not skip steps.
+It prioritizes novelty, confirmation, and direct financial impact. It penalizes repetition, incremental updates, low-information content, routine procedural filings dressed up in event-sounding language (see "Filing-Type Classification" below), and generic market-wide commentary with no company-specific, quantified insight. It is deterministic: the thresholds, matrices, and penalty tables below are not suggestions — do not override them, do not simplify them, do not skip steps.
 
 ## Gate 0 (intake agent)
 
@@ -69,6 +69,36 @@ ELSE:                                                  new_event
 
 Base by pair label: duplicate 0.02 / same_event_no_new_info 0.10 / same_event_new_info 0.30 / related_topic 0.55 / new_event 0.85. Then **+0.50 × fact_delta + 0.20 if confirmation upgrade. Clamp [0, 1].** Show the arithmetic.
 
+## Generic media detection (parallel check, alongside Steps 4-8)
+
+`screener-generic-media-detector` runs in parallel with `screener-novelty` (both consume only Gate 0 + relevance). It answers: "Is this generic market commentary, or does it carry a specific, investable fact?"
+
+Detect (multilabel, one line of evidence per tagged category):
+
+| Category | Meaning |
+|---|---|
+| `market_cap_roundup` | Aggregate market-cap change across 3+ companies or an index, no single causal driver. |
+| `index_movement_summary` | The subject is an index level/points/% move (Nifty, Sensex, S&P 500, Dow, etc.), not a company event. |
+| `top_gainers_losers` | A ranked gainers/losers list with no causal explanation per name. |
+| `generic_market_close` | "Markets closed higher/lower" daily-wrap framing, no specific causal event. |
+| `many_companies_no_thesis` | 4+ companies named in one undifferentiated list, no firm-specific causal claim. |
+| `lacks_specificity_quantifiability` | Generic descriptive language, no checkable number/date/cause, regardless of company count. |
+
+An article with ONE clear, attributable, quantified driver does NOT match `many_companies_no_thesis` or `lacks_specificity_quantifiability` merely because it spans a sector or several names — those two categories require the ABSENCE of an attributable, quantified driver, not a high company count by itself.
+
+**Attributable-driver exemption for index / market-wide framing.** The same principle applies to `market_cap_roundup` and `index_movement_summary`: an index or market-wide story that carries ONE concrete, attributable, quantified causal driver — a specific policy, macro, or corporate event named as the cause (e.g. "Nifty jumps 2% after RBI cuts the repo rate 50 bps") — is NOT tagged `market_cap_roundup` or `index_movement_summary`. Classify it on the UNDERLYING event, not the index-move framing: the repo-cut example is a `regulatory` / macro-policy event, and the index level is merely how it is being reported. These two categories require the index/aggregate move to be the actual subject with NO single attributable driver (a bare "Sensex closed 400 pts higher" wrap). A quantified, attributable macro-policy or corporate fact reported through an index headline keeps `is_generic_media = false` and is scored on the driver, not capped as market noise.
+
+Score (0-100 each, evidence-cited):
+
+- **specificity_score** — 0 = applies to the whole market/an index/10+ names with no distinguishable thesis; 100 = one company, one distinct, attributable event.
+- **quantifiability_score** — 0 = adjectives only ("markets rallied"); 100 = a precise, checkable figure tied to a clear causal driver. An aggregate tally across many names scores LOW here even with a real number — the figure must attach to ONE attributable cause, not a sum.
+- **investability_score** — 0 = a PM could not change a single position on this fact alone; 100 = the fact alone would change a PM's view of a specific name or thesis (a guidance cut, an import ban, a contract win, a regulatory action).
+
+Decide:
+
+- **is_generic_media** — true if ANY category above is tagged (a format/content judgment, independent of investability). False only when none of the 6 categories match. A loose stylistic "roundup" tone with no real loss of company-specific, quantified content is NOT sufficient on its own to set this true — that is a source-style observation, not a content derating trigger; reserve true for when the underlying event content itself is generic.
+- **generic_media_reason** — one plain sentence naming the matched categories (or "none matched") and the evidence.
+
 ## Canonical handling (Step 9)
 
 Priority for canonical record: official > source tier > fact richness > earlier timestamp. Actions: `replace_canonical`, `suppress`, `keep_linked_low_rank`, `keep_linked`, `keep_separate`.
@@ -78,13 +108,21 @@ Priority for canonical record: official > source tier > fact richness > earlier 
 The materiality score is a transparent, named 100-point breakdown, computed by
 `scripts/screener_score_breakdown.py` — **not** by LLM arithmetic in prose. The agent supplies one
 JSON object of judgments (relevance/event-types/issuer-linkage inherited from Steps 1–3; pair_label
-and confirmation_upgrade inherited from Steps 4–8; plus fresh judgments — source tier inputs,
-paywall/corroboration, routine-filing severity, media genericness, private/unlisted status and
+and confirmation_upgrade inherited from Steps 4–8; `filing_type` inherited verbatim from Step 2b's
+`scripts/screener_filing_classifier.py` output; `is_generic_media`/`specificity_score`/
+`quantifiability_score`/`investability_score` inherited verbatim from the generic-media check above;
+plus fresh judgments — source tier inputs, paywall/corroboration, private/unlisted status and
 linkage, specificity/estimate-impact sub-signals, theme/macro signals, portfolio-position) and the
 script returns the full `score_breakdown` + `final_score` + `materiality_math` + `source_tier` +
 `source_quality_score` + `source_quality_reason`. **The script is the canonical source of truth for
 the arithmetic; this file is the canonical source of truth for the point tables it implements — a
 change to any weight or penalty cap must edit both in the same PR, or they will silently diverge.**
+`routine_filing_penalty` and `generic_media_penalty` are DERIVED by the script from `filing_type` and
+`is_generic_media`/its sub-scores respectively — see the penalty table below and "Filing-Type
+Classification" — there is no separate agent judgment of "is this routine" or "how generic is this",
+and no ceiling applied anywhere else: this is the ONLY place either piece of evidence lowers the
+score. Folding them into the one-pass breakdown (rather than a post-hoc `min()` ceiling on the
+finished number) avoids double-penalizing the same noise twice.
 
 ### Components (sum to exactly 100 pre-penalty)
 
@@ -133,8 +171,8 @@ is correct, not a defect.
 
 | Penalty | Cap | Rule |
 |---|---|---|
-| `routine_filing_penalty` | −20 | 0 / mild −8 / moderate −15 / total −20, by `routine_severity`, only if `is_routine_filing`. **Never** mark an enforcement action, default, or breach as routine. |
-| `generic_media_penalty` | −15 | 0 / roundup −6 / republished −12 / content_farm −15, by `media_genericness`. |
+| `routine_filing_penalty` | −20 | Derived from `filing_type` (Step 2b, `scripts/screener_filing_classifier.py` — never agent judgment): `trading_window_closure` / `procedural_exchange_filing` → moderate −15; `routine_board_meeting` / `financial_results_notice` → mild −8; `material_exchange_filing` / `unknown_filing` → 0 (an override keyword or an unrecognized type is never derated — see "Filing-Type Classification"). |
+| `generic_media_penalty` | −15 | Derived from `is_generic_media`/`specificity_score`/`quantifiability_score`/`investability_score` (the generic-media check above — never agent judgment): `is_generic_media = false` → 0. `is_generic_media = true` → let `avg_sq = (specificity_score + quantifiability_score) / 2`; `investability_score ≥ 30` → roundup −6 (a specific anomaly is still present); `avg_sq ≥ 30` → republished −12; else → content_farm −15. |
 | `private_unlisted_irrelevance_penalty` | −15 | See the escape hatch below. |
 | `duplicate_stale_penalty` | −25 | duplicate −25 / same_event_no_new_info −12 / same_event_new_info −3 / related_topic / new_event 0, by `pair_label` — forced to 0 if `confirmation_upgrade`. |
 | `low_confidence_extraction_penalty` | −10 | Ordered, first match wins: confidence < 0.50 → −10; Tier 4 + uncorroborated + sensational → −10; confidence < 0.80 → −5; Tier 3/4 + uncorroborated → −5; else 0. |
@@ -178,6 +216,34 @@ the speculative "future secondary opportunity" one), and `company_relevance` ins
 on the strength of that linkage. A private company that's merely a secondary issuer/counterparty to a
 public **primary** issuer never engages this machinery at all — the event is scored normally via the
 public primary issuer.
+
+The generic-media evidence (`is_generic_media`/`specificity_score`/`quantifiability_score`/
+`investability_score`) is consumed exactly once, by `generic_media_penalty` in the penalty table
+above — see that row for the exact derivation. It is never applied a second time as a separate
+ceiling; the genericness scores are also carried in `signal_payload.json` verbatim for transparency.
+
+## Filing-Type Classification (Step 2b)
+
+This is an EXTENSION of Step 2, not an 11th step — the gauntlet stays the ten-step Phase 0.1 gauntlet. It exists because a routine listed-company filing (a board-meeting notice, a trading-window closure, a generic compliance disclosure, a results-date intimation) can otherwise pick up a real `event_type` tag and a large first-seen novelty bonus and land near 80 with no real valuation-moving content. The classification is deterministic code (`scripts/screener_filing_classifier.py`), never agent judgment — CLAUDE.md §12: every move explainable from a matched pattern, not vibes.
+
+**Filing-type labels** (Step 2b, run by `screener-relevance` immediately after Step 2):
+
+| filing_type | Meaning |
+|---|---|
+| `routine_board_meeting` | Notice that a board meeting will be held / was held to consider a routine agenda item (results, dividend, etc.) — the notice itself, not the outcome. |
+| `trading_window_closure` | Trading-window-closure / blackout-period notice for designated persons. |
+| `financial_results_notice` | Results-date intimation ("date of financial results") with no results content. |
+| `procedural_exchange_filing` | Generic compliance/regulatory-disclosure filing (shareholding pattern, compliance certificate, newspaper publication, record-date intimation, etc.) with no event content. |
+| `material_exchange_filing` | An override keyword (table below) fired — treat as a real event regardless of routine-sounding wrapper text. |
+| `unknown_filing` | Neither a routine pattern nor an override keyword matched. Abstain — no derate applied (a filing type the classifier does not recognize must never be silently suppressed). |
+
+**Override categories** (any one match anywhere in headline+body lifts a routine filing to `material_exchange_filing`, no derate): resignation of key management, fraud / regulatory investigation, M&A (acquisition/disposal/merger/demerger), guidance change, profit warning / expected loss, capital raise (QIP/rights/preferential/FPO), debt default / rating downgrade, litigation, auditor issue (qualified opinion/going concern/auditor resignation), material order win/loss, buyback/dividend/split WITH a stated financial term (amount, per-share price, or ratio — a bare mention with no number stays routine).
+
+`filing_type` is consumed exactly once, by `routine_filing_penalty` in the penalty table above — see
+that row for the exact derivation; it is never applied a second time as a separate ceiling.
+`signal_payload.json` carries `filing_type` and `filing_type_rationale` (both optional fields, not
+required, so pre-existing payloads stay valid) so the derate is auditable from the JSON alone, not
+just the prose report.
 
 ## Promotion bands (the module's Routing)
 

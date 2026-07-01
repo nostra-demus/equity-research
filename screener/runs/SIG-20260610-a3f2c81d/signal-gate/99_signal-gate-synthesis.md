@@ -18,6 +18,7 @@ An off-cycle 50 bps repo-rate cut by the RBI is a genuinely new, grade-A-sourced
 | Fact delta | 0.00 |
 | Confirmation upgrade | false |
 | Novelty | 0.85 |
+| Generic media | false — none |
 
 ## 2. Step 9 — Canonical Handling
 

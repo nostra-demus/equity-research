@@ -841,10 +841,10 @@ Note for the chat confirmation step covered in FILE OUTPUT INSTRUCTION below: al
 
 ## Forecast Ledger
 
-A trackable record so the engine can learn from being wrong. Include only forecasts backed by enough evidence; if there isn't enough, state why no reliable ledger can be created. Probabilities use the `CLAUDE.md` §10 bands.
+A trackable record so the engine can learn from being wrong. Include only forecasts backed by enough evidence; if there isn't enough, state why no reliable ledger can be created. Probabilities use the `CLAUDE.md` §10 bands. Tag each row's `Type` from the closed set in `DECISION_LEDGER.md` §6 (`revenue`, `margin_or_cost`, `earnings_eps`, `cash_flow`, `valuation_or_price_return`, `balance_sheet_or_solvency`, `governance_or_accounting`, `catalyst_or_estimate_revision`, `other`) — this is what KIND of forecast it is, distinct from which module owns it (a single module can produce more than one type); it is what lets `/research:calibrate` later diagnose which kind of call the engine is systematically miscalibrated on, not just which module.
 
-| Prediction | Probability | Time Window | Evidence Today | Confirmation Trigger | Falsification Trigger | Owner Module | Confidence /100 |
-|---|---:|---|---|---|---|---|---:|
+| Prediction | Probability | Time Window | Evidence Today | Confirmation Trigger | Falsification Trigger | Owner Module | Type | Confidence /100 |
+|---|---:|---|---|---|---|---|---|---:|
 
 ---
 
@@ -1153,6 +1153,6 @@ python3 -c "import datetime; d=datetime.date.fromisoformat('<DECISION_DATE>'); p
 - `scenarios` is an array of objects, one per §8 case: `{"label": "bull|base|bear|…", "probability": <0–100 number>, "return_pct": <number>, "price_target": <number or null>}`. Probabilities sum to 100. Copy these straight from §8; the eval harness recomputes `expected_return_pct` / `risk_reward` from them, so they must match the published numbers. Use `[]` only if no scenario model was built (then `expected_return_pct` must be null too).
 - `module_scores` is a JSON **object** keyed by module name (e.g. `{"business-model": 78, "earnings": 72}`; an object value such as `{"score": 78, "verdict": "..."}` is also acceptable).
 - `review_schedule` is a JSON **object** with `30d` / `90d` / `180d` / `365d` keys.
-- Each `forecast_ledger` element follows `frameworks/DECISION_LEDGER.md` §6: `prediction`, `probability`, `time_window`, `evidence_today`, `confirmation_trigger`, `falsification_trigger`, `owner_module`, `confidence_score`, `status` (default `"open"`). Probabilities use the `CLAUDE.md` §10 bands. If no forecast has enough evidence, use `[]`.
+- Each `forecast_ledger` element follows `frameworks/DECISION_LEDGER.md` §6: `prediction`, `probability`, `time_window`, `evidence_today`, `confirmation_trigger`, `falsification_trigger`, `owner_module`, `confidence_score`, `status` (default `"open"`), `forecast_type` (from the closed set — see the Forecast Ledger section above; `""` only if genuinely none fits, never left off). Probabilities use the `CLAUDE.md` §10 bands. If no forecast has enough evidence, use `[]`.
 - `red_flags`: carry Critical/High (and material Medium) red flags from the modules, with their Red Flag IDs where available.
 

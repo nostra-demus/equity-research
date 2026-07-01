@@ -105,6 +105,8 @@ export interface RankFactors {
   event: number // strongest event-type bonus
   size: number // company-size bonus
   recency: number // freshness bonus
+  materiality_label_floor: number // floor-correction when event_materiality_label outranks the raw score (absent on pre-field items)
+  quantified: number // bonus when the headline pairs a quantified figure with an impact keyword (absent on pre-field items)
   boost_weight?: number // global multiplier applied to the summed adjustments for THIS score (1 = none); absent on pre-field items
   scope_id: string // which scope won (single_name / sector / macro …)
   source_tier_id: string // which §4 tier won (primary_filing / news …)
@@ -135,6 +137,9 @@ export interface FeedItem {
   size_bucket: string
   scope?: string // derived company-vs-broad bucket (news/scope.ts) — present on every served item
   source_tier?: string // derived §4 source tier (Filing / Official data / Company / News / Unconfirmed)
+  event_materiality_label?: string // low / medium / high / critical — re-derived from the boosted triage_score, never contradicts it
+  event_direction?: string // positive / negative / mixed / neutral / unknown — informational only, never scored
+  event_scope?: string // company_specific / sector / commodity / macro / geopolitical / regulatory / generic_media
   rank_factors?: RankFactors // the per-component score build-up — present on every firehose item (drives "Why this score")
   dedup_status: string
   dedup_group?: string // story-cluster id (news/dedup.ts) — the wire shows one row per group
@@ -183,6 +188,25 @@ export interface ArticleParty {
   horizon?: string | null // when it bites
   order?: PartyOrder | null // first = directly hit; second = downstream/substitute
 }
+// Does this event move earnings / guidance / valuation / the thesis / risk / a portfolio decision — the
+// structured, quantified sibling of `gist` (which just states what happened). Mirrors the server shape in
+// ui/server/src/news/triage/groq.ts (this repo hand-duplicates enrichment types between server and client).
+export type ImpactDirection = 'positive' | 'negative' | 'mixed' | 'neutral' | 'unknown'
+export type ImpactMagnitude = 'low' | 'medium' | 'high' | 'critical'
+export type AffectedMetric =
+  | 'revenue' | 'ebitda' | 'pat_net_income' | 'eps' | 'cash_flow' | 'debt' | 'capex'
+  | 'commodity_price' | 'valuation_multiple' | 'regulatory_risk' | 'thesis_quality'
+export interface NewsImpact {
+  impact_direction: ImpactDirection
+  impact_magnitude: ImpactMagnitude
+  affected_metric: AffectedMetric[] // multi-select — a profit warning often hits revenue+PAT+EPS at once
+  quantified_impact_available: boolean
+  extracted_numbers: string[] // verbatim figures pulled from the body
+  quick_dirty_calculation: string // "" when not computable — the reader shows "insufficient data for valuation impact" instead
+  why_it_matters: string // ties the metric change to earnings/guidance/valuation/thesis/risk/a portfolio decision
+  analyst_takeaway: string // the one-line takeaway
+  confidence: number // 0-100
+}
 export interface EventEnrichment {
   event_id: string
   ok: boolean
@@ -203,6 +227,7 @@ export interface EventEnrichment {
   the_edge?: string // a non-obvious angle the body supports — absent if none
   watch_item?: string // the single next data point / number that confirms or kills the read
   theme?: string
+  news_impact?: NewsImpact // does this move earnings/guidance/valuation/thesis/risk/a portfolio decision — direction, size, numbers, confidence
   // read-quality flags from the server: `complete` = the best obtainable read (rich brief, SEC parse, filing
   // floor, or retries exhausted). A degraded read (complete falsy) self-heals — reopening the event re-fires
   // the read instead of freezing a useless dek for hours. See ui/server/src/news/enrich.ts.
@@ -212,6 +237,45 @@ export interface EventEnrichment {
   // set when the publisher blocked the direct read and the story was pieced together from OTHER outlets
   // reporting the same event (secondary-wire corroboration, NOT a direct read — labelled honestly).
   corroborated?: { count: number; domains: string[] }
+}
+
+// ---- screener card feedback (ui/server/src/screener-feedback.ts is the source of truth) ----
+export type FeedbackType = 'irrelevant' | 'score_too_high' | 'score_too_low' | 'wrong_company' | 'wrong_sector' | 'duplicate_stale' | 'should_be_higher' | 'other'
+export interface FeedbackSubmitInput {
+  event_id: string
+  feedback_type: FeedbackType
+  feedback_reason?: string
+  current_score?: number | null
+  event_title?: string
+  source?: string
+  company_name?: string
+  company_ticker?: string
+  sector_theme?: string
+  score_breakdown?: Record<string, unknown> | null
+}
+export interface FeedbackRecord {
+  feedback_id: string
+  kind: 'feedback' | 'feedback_undo'
+  event_id: string
+  undoes?: string
+  user_id: string
+  current_score: number | null
+  feedback_type: FeedbackType | null
+  feedback_reason: string
+  event_title: string
+  source: string
+  company_name: string | null
+  company_ticker: string | null
+  sector_theme: string | null
+  score_breakdown: Record<string, unknown> | null
+  submitted_at: string
+}
+export interface FeedbackSummary {
+  total: number
+  active_total: number
+  by_type: Record<FeedbackType, number>
+  top_reasons: { reason: string; count: number }[]
+  generated_at: string
 }
 
 export interface NewsCycle {
@@ -250,6 +314,9 @@ export interface ActiveRunLite {
   ticker: string
   module?: string
   status: string
+  swarmId?: string // 'research' (default) or a SWARM.md id — lets the UI scope a run to its swarm
+  unit?: string // 'ticker' | 'signal' | … (the swarm's unit of work)
+  startedAt?: number // epoch ms the run started — drives the live "running Nm" elapsed readout
 }
 export interface BoardSignal {
   signal_id: string
@@ -535,6 +602,9 @@ export interface ChatMessage { role: 'user' | 'assistant'; content: string }
 export interface ChatRequest {
   ticker?: string
   runRoot?: string
+  // constellation swarm (e.g. commodity): its subject resolves the run folder server-side
+  swarm?: string
+  subject?: string
   scope: ChatScope
   module?: string
   orbPath?: string
@@ -603,6 +673,8 @@ export interface ActivityRow {
   kind: RunKind
   ticker: string // the run's subject id: a ticker for research, a SIG-… id (or thesisId::TICKER) for swarm runs
   subjectLabel?: string // human-readable Company-column label when the raw ticker is an opaque subject id
+  swarm?: string // swarm id (from the launched event) — routes a Resume relaunch to the right swarm
+  chained?: boolean // this run was a step of a chained full run — Resume continues the whole pipeline
   runRoot?: string // repo-relative run folder (from the launched event) — drives the row's "open reports" menu
   module?: string
   agent?: string
@@ -614,6 +686,20 @@ export interface ActivityRow {
   durationMs?: number
   numTurns?: number
   note?: string
+}
+
+// One run the cockpit can resume right now (GET /api/resumable). The Activity log and orb view join
+// their rows/subjects against this set to decide where to show a "Resume" affordance.
+export interface ResumableRunInfo {
+  swarm: string
+  subject: string // ticker / SIG id / commodity name — the launch subject
+  runRoot: string // repo-relative run folder
+  kind: RunKind // 'full' | 'module' | 'signal' — the launch kind that continues this unit
+  module?: string // present for a module-level resume
+  doneCount: number
+  totalCount: number
+  unit: 'module' | 'agent' // whether the counts are modules-done (full/signal) or agents-done (module)
+  label?: string // human label (e.g. the signal headline) when the raw subject id isn't the best name
 }
 export interface ActivityQuery {
   from?: number

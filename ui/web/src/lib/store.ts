@@ -5,8 +5,10 @@ import { downstreamCascade, type CascadeNode } from './cascade'
 import { displayHeadline, originalHeadline, plainRoute, plainStage } from './plain'
 import type { Theme, ThemeDetail, ThemeBrief } from './themes'
 import { intensityWindowForHours } from './themes'
-import type { ActiveRunLite, AgentNode, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, DataStatus, EventEnrichment, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
+import type { ActiveRunLite, AgentNode, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
+import { feedbackInputFromItem, feedbackLabel } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
+import { emptyReviewFilters, matchesReviewFilters, type ReviewFilterState } from '../components/screener/ReviewFilters'
 
 // A company the user drilled into from an event (the COMPANIES NAMED chips) — the main stage then
 // shows every wire story about it. listing_country/exchange ride along from the article-body read.
@@ -26,6 +28,22 @@ function loadShelf(): Set<string> {
 }
 function saveShelf(s: Set<string>): void {
   try { localStorage.setItem(SHELF_KEY, JSON.stringify([...s].slice(-500))) } catch {}
+}
+
+// --- flagged events: a local display cache of which event_ids the user has already sent feedback on
+//     this browser — the server ledger is authoritative, this only drives the row/detail indicator so
+//     it survives a reload without a network round-trip per card. Same persistence shape as the shelf. ---
+const FLAGGED_KEY = 'nsw.flaggedEvents'
+function loadFlagged(): Set<string> {
+  try {
+    const raw = JSON.parse(localStorage.getItem(FLAGGED_KEY) || '[]')
+    return new Set(Array.isArray(raw) ? raw.filter((x) => typeof x === 'string') : [])
+  } catch {
+    return new Set()
+  }
+}
+function saveFlagged(s: Set<string>): void {
+  try { localStorage.setItem(FLAGGED_KEY, JSON.stringify([...s].slice(-500))) } catch {}
 }
 
 // The research stage's renderer: the 3D globe (default) or the flat 2D constellation. A per-browser
@@ -69,6 +87,7 @@ let dataSource: EventSource | null = null
 let bloomTimer: any = null
 let pollTimer: any = null
 let intensityRefetchTimer: any = null // debounces the screener intensity re-fetch on each news cycle
+let themesGeoRefetchTimer: any = null // debounces the geo-sliced themes re-fetch on each theme-update
 let selectGen = 0 // bumped on every selectTicker; async work bails if it changed (fast-switch guard)
 let archiveToken = 0 // bumped on every archive search; a stale slow response bails if it changed (last-write-wins)
 let facetsToken = 0 // same guard for a standalone facets load (contextless / on dropdown open)
@@ -97,7 +116,15 @@ const HEALTH_DEGRADED_MS = 2500 // poll fast while down so recovery is near-inst
 // Tolerate a tunnel/cold-start spike. The edge Worker gives /api/health an 8s budget, so the client must
 // not give up first — a 4s client timeout was a cause of false "engine offline" while the wire was live.
 const HEALTH_TIMEOUT_MS = 7000
-const OFFLINE_THRESHOLD = 3 // consecutive GENUINE fails before the red bar (anti-flicker; ~5s end-to-end)
+const OFFLINE_THRESHOLD = 3 // consecutive GENUINE fails before we even consider the red bar (anti-flicker)
+// A restart/redeploy of the laptop engine takes ~15-30s; a genuinely asleep/offline machine stays down. So
+// while the engine is unreachable we hold the calm 'reconnecting' state (amber pill, no alarming red bar)
+// until the outage has continuously outlasted this grace window — only then do we escalate to
+// 'engine-offline'. Without it, every routine redeploy flashed the scary "machine is asleep or offline"
+// banner for the ~20s the engine was restarting. `outageStartedAt` is the wall-clock ms the current outage
+// began (0 = not in an outage), cleared the moment the engine answers again.
+const OFFLINE_GRACE_MS = 40000
+let outageStartedAt = 0
 // A news/run SSE event within this window proves the engine is up — the live data plane is the ground
 // truth, so a slow/failed health probe is overridden while the wire is demonstrably alive. Updated on every
 // SSE message by _noteStreamLive(); paired with newsSource.readyState===OPEN for the event-quiet gaps.
@@ -116,7 +143,9 @@ const AUTO_RESUME_BATCH = 4 // most to kick off per cycle (the server's own cap 
 
 export interface StreamRow { runId: string; ticker: string; key: string; name: string; module: string; layer: number; status: NodeStatus; verdict?: string | null; ts: number }
 export interface ActiveRun { runId: string; ticker: string; kind: string; module?: string; agent?: string; status: string; costUsd?: number; willCommitToMain?: boolean; plannedCount?: number; startedAt?: number }
-export interface Toast { msg: string; tone: 'info' | 'good' | 'bad' }
+// A toast may carry ONE inline action (e.g. "Run anyway" on a run-lock conflict) so a dead-end rejection
+// becomes a one-click recovery. A toast with an action stays up longer (the user has to read + click it).
+export interface Toast { msg: string; tone: 'info' | 'good' | 'bad'; action?: { label: string; onClick: () => void } }
 
 // A run is "live" (counts for launch guards) only while starting/running. Finished runs linger in
 // activeRuns for the panel until the next ticker switch prunes them.
@@ -145,6 +174,7 @@ interface State {
   nodeRuntime: Record<string, NodeRuntime>
   now: number // shared 1s clock for every live timer (orb/module/panel/tooltip); ticked only while orbs run
   activeRuns: Record<string, ActiveRun> // selected-ticker live runs (+ just-finished, until next switch)
+  resumableRuns: ResumableRunInfo[] // disk-truth set of interrupted runs the cockpit can resume (all swarms)
   activeRunsByTicker: Set<string>
   chainTickers: Set<string> // tickers whose full run is a per-module CHAIN — defer the "complete" celebration to the master step
   selectToken: number
@@ -180,6 +210,17 @@ interface State {
   // ---- swarms (multi-swarm cockpit; research is the grandfathered default) ----
   swarms: SwarmMeta[]
   activeSwarm: string // 'research' | 'screener' | future swarms
+  // which constellation swarm currently owns the SHARED graph/selectedTicker slices (research or a
+  // constellation swarm like commodity). Both use the same constellation UI, so switching between them
+  // must reset the selection — this tracks the owner so a screener detour never clears it.
+  constellationSwarm: string
+  // subjects of the active NON-research constellation swarm (e.g. commodity ids GOLD/SUGAR), for its
+  // subject picker; research uses `tickers`.
+  swarmSubjectList: string[]
+  // true while loadSwarmSubjects is in flight — lets the subject picker show a real loading state on
+  // first entry instead of flashing "no subjects yet" before the list resolves.
+  swarmSubjectsLoading: boolean
+  loadSwarmSubjects: (swarmId: string) => Promise<void>
   // research stage renderer: the 3D globe (default) or the flat 2D constellation. Persisted.
   researchView: 'constellation' | 'globe'
   setResearchView: (v: 'constellation' | 'globe') => void
@@ -223,6 +264,11 @@ interface State {
   addCompany: (ticker: string) => Promise<boolean>
   uploadFiles: (ticker: string, files: File[]) => Promise<void>
   refreshActiveRuns: () => Promise<void>
+  // disk-truth resumable set (interrupted runs across all swarms) + the manual Resume trigger. The
+  // Activity log and the orb view join their rows/subjects against `resumableRuns` to show a Resume
+  // affordance; `resumeRun` relaunches the unit into its existing folder, continuing from work on disk.
+  refreshResumable: () => Promise<void>
+  resumeRun: (info: ResumableRunInfo) => Promise<void>
   checkCredit: () => Promise<void>
   selectNode: (key: string | null) => void
   setNow: (n: number) => void
@@ -230,15 +276,15 @@ interface State {
   activeRunsForTicker: (t: string | null) => ActiveRun[]
   anyRunForTicker: (t: string | null) => boolean
   targetInFlight: (t: string | null, keys: string[]) => boolean
-  launchAgent: (node: AgentNode) => Promise<void>
-  launchModule: (module: string) => Promise<void>
+  launchAgent: (node: AgentNode, force?: boolean) => Promise<void>
+  launchModule: (module: string, force?: boolean) => Promise<void>
   requestFull: () => Promise<void>
   confirmFull: () => Promise<void>
   launchRerun: (node: { module: string; name: string; key: string }) => Promise<void>
   confirmRerun: () => Promise<void>
   cancelLaunch: () => void
   cancelRun: (runId: string) => Promise<void>
-  readinessGate: { runId: string; report: ReadinessReport } | null // pre-flight gate panel (null = hidden)
+  readinessGate: { runId: string; report: ReadinessReport; rechecking?: boolean } | null // pre-flight gate panel (null = hidden; rechecking = a re-check is running)
   decideReadiness: (runId: string, action: string, ack?: string) => Promise<void>
   selectNodeForRun: (node: AgentNode) => void
   openOutputForNode: (node: AgentNode) => Promise<void>
@@ -270,6 +316,9 @@ interface State {
 
   // ---- swarm/screener actions ----
   switchSwarm: (to: string, opts?: { payloadTicker?: string; landTicker?: string }) => void
+  // land on a swarm: screener boots its board (scInit); a constellation swarm (research/commodity) resets
+  // the shared selection when it changes owner and loads the swarm's subjects. Called on every swarm entry.
+  _enterSwarm: (to: string) => void
   _advanceWarp: () => void
   scInit: () => Promise<void>
   scRefreshBoard: () => Promise<void>
@@ -303,6 +352,26 @@ interface State {
   // shelving: set an event aside (or bring it back) — local, persisted, filters the rail
   shelvedEvents: Set<string>
   toggleShelve: (eventId: string) => void
+  // card feedback ("flag as irrelevant / mis-scored / …") — flaggedEvents is a local display cache;
+  // the server ledger (screener/ledger/screener_feedback.ndjson) is the source of truth
+  flaggedEvents: Set<string>
+  submitFeedback: (input: FeedbackSubmitInput) => Promise<boolean>
+  undoFeedbackFlow: (feedbackId: string, eventId: string) => Promise<void>
+  // fast batch review mode: a focused, filtered, keyboard-driven queue over the same wire — reuses
+  // submitFeedback above, so there is exactly one storage path for both flows
+  reviewOpen: boolean
+  reviewFilters: ReviewFilterState
+  reviewQueue: FeedItem[] // snapshotted on open / filter change — NOT live-reactive mid-review
+  reviewIndex: number
+  reviewSessionCount: number // in-memory only; resets every time the panel opens (never persisted)
+  reviewSubmitting: boolean // in-flight guard: one review POST at a time, so a held key / double-click can't
+  // fire multiple records for the same card or advance past later cards before the save resolves
+  coveredTickers: Set<string> // "portfolio companies" proxy — fetched once per panel-open
+  openReview: () => void
+  closeReview: () => void
+  setReviewFilters: (f: ReviewFilterState) => void
+  reviewSubmit: (feedbackType: FeedbackType, reason: string) => Promise<void>
+  reviewSkip: () => void
   // on-demand enrichment for the opened event (the real story / SEC items / prior coverage / related)
   enrichCache: Record<string, EventEnrichment | 'loading'>
   fetchEnrichment: (it: FeedItem) => Promise<void>
@@ -359,6 +428,10 @@ interface State {
   themesView: 'map' | 'board' | null // null = themes view closed (gauntlet/idle canvas shows)
   themesWindow: number | null // the selected time-window lookback in HOURS; null = Live (real-time)
   themesHistoryDays: number // days of real daily-flow history the engine has (gates the long windows)
+  // the "Where" geography picker (owned by the Event rail) mirrored here so the Themes view slices by it —
+  // empty country+geoRegion = the global (un-filtered) index. `label` is the country/continent display name.
+  themesGeo: { country: string; geoRegion: string; label: string }
+  setThemesGeo: (geo: { country: string; geoRegion: string; label: string }) => void
   selectedTheme: string | null // open deep-dive
   themeDetail: ThemeDetail | null // the open theme's resolved members + companies-by-order
   themeBrief: ThemeBrief | null // the open theme's plain-English explainer (loaded separately, may lag the detail)
@@ -418,6 +491,7 @@ export const useStore = create<State>((set, get) => ({
   nodeRuntime: {},
   now: Date.now(),
   activeRuns: {},
+  resumableRuns: [],
   activeRunsByTicker: new Set(),
   chainTickers: new Set(),
   selectToken: 0,
@@ -455,6 +529,9 @@ export const useStore = create<State>((set, get) => ({
   // has no marker and can't load the live wire — seeds research and never flashes cyan→amber. init()
   // makes the authoritative decision once the mode + swarm list resolve.
   activeSwarm: typeof window !== 'undefined' && (window as any).__ENGINE_LIVE__ === true ? 'screener' : 'research',
+  constellationSwarm: 'research',
+  swarmSubjectList: [],
+  swarmSubjectsLoading: false,
   researchView: loadView(),
   webglOK: true, // optimistic; init() probes and corrects + coerces the view if WebGL is missing
   warp: null,
@@ -473,6 +550,14 @@ export const useStore = create<State>((set, get) => ({
   scSelectedEvent: null,
   scFocusedCompany: null,
   shelvedEvents: loadShelf(),
+  flaggedEvents: loadFlagged(),
+  reviewOpen: false,
+  reviewFilters: emptyReviewFilters(),
+  reviewQueue: [],
+  reviewIndex: 0,
+  reviewSessionCount: 0,
+  reviewSubmitting: false,
+  coveredTickers: new Set(),
   enrichCache: {},
   newsFeedOpen: false,
   sourcesOpen: false,
@@ -499,6 +584,7 @@ export const useStore = create<State>((set, get) => ({
   themesView: null,
   themesWindow: null,
   themesHistoryDays: 0,
+  themesGeo: { country: '', geoRegion: '', label: '' },
   selectedTheme: null,
   themeDetail: null,
   themeBrief: null,
@@ -526,6 +612,12 @@ export const useStore = create<State>((set, get) => ({
     set({ staticMode: stat })
     if (!stat) {
       get().startHealth() // begin the engine heartbeat (live mode only); idempotent across reconnects
+      // Rediscover any run still executing server-side. A page refresh remounts this store with no
+      // selected ticker, so without this the picker/kill-switch would be blind to an in-flight run until
+      // the user happened to pick its company. Populating activeRunsByTicker + globalActive here lights the
+      // "resume live run" affordance on the picker (and the top-bar N-running pill), and starts the poll so
+      // the banner clears itself the moment the run ends. Self-guarded (no-op in static mode).
+      void get().refreshActiveRuns()
       // live data-folder watcher (Drive sync) — backend only
       if (!dataSource) {
         dataSource = new EventSource(api.dataStreamUrl())
@@ -570,19 +662,25 @@ export const useStore = create<State>((set, get) => ({
 
   selectTicker: async (t) => {
     closeAllRunSources() // stop the previous company's live streams before anything else (no event bleed)
+    // the active swarm owns this selection: research loads the research graph + data pool; a constellation
+    // swarm (e.g. commodity) loads ITS graph + resolves reads/chat by subject. Non-research subjects have
+    // no research data pool, so dataStatus stays null (its own in-run triage owns sufficiency).
+    const sw = get().activeSwarm
+    const isResearch = sw === 'research'
     const token = ++selectGen
     // keep only still-live runs across tickers (drop finished); the new ticker rebuilds from snapshots
     const activeRuns = Object.fromEntries(Object.entries(get().activeRuns).filter(([, r]) => LIVE_RUN.has(r.status)))
-    chatAbort?.abort(); chatAbort = null // a new company → drop any in-flight chat + its thread
-    set({ selectToken: token, selectedTicker: t, dataStatus: null, dataLoading: true, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], activeRuns, openOutput: null, ...CHAT_RESET })
-    const graph = await api.swarm(t)
+    chatAbort?.abort(); chatAbort = null // a new subject → drop any in-flight chat + its thread
+    set({ selectToken: token, selectedTicker: t, constellationSwarm: sw, dataStatus: null, dataLoading: isResearch, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], activeRuns, openOutput: null, ...CHAT_RESET })
+    const graph = isResearch ? await api.swarm(t) : await api.swarmGraph(sw, t)
     if (get().selectToken !== token) return // a newer selection superseded this one
     set({ graph, nodesByKey: flatten(graph) })
-    await get().refreshData()
+    void get().refreshResumable() // so the orb-view Resume chip knows if this subject has an interrupted run
+    if (isResearch) await get().refreshData()
     if (get().selectToken !== token) return
     // seed prior-run results into the swarm
     try {
-      const manifest = await api.runManifest(t)
+      const manifest = await api.runManifest(t, undefined, isResearch ? undefined : sw)
       if (get().selectToken !== token) return
       const seed: Record<string, NodeRuntime> = {}
       for (const [, agents] of Object.entries<any>(manifest.modules || {})) {
@@ -592,7 +690,7 @@ export const useStore = create<State>((set, get) => ({
       set({ nodeRuntime: seed, runRoot: manifest.runRoot ?? null, reports: { memo: !!manifest.memo, thesis: !!manifest.finalThesis, dossier: !!manifest.fullDossier }, moduleReports: manifest.moduleReports ?? {} })
     } catch {}
     try {
-      const decision = await api.decision(t)
+      const decision = await api.decision(t, isResearch ? undefined : sw)
       if (get().selectToken !== token) return
       set({ decision })
     } catch {
@@ -693,6 +791,55 @@ export const useStore = create<State>((set, get) => ({
     } catch {}
   },
 
+  // Pull the disk-truth set of interrupted runs the cockpit can resume (all swarms). Cheap, read-only;
+  // the Activity log refreshes it alongside its rows, and the orb view refreshes it on subject select.
+  refreshResumable: async () => {
+    if (get().staticMode) return
+    try {
+      const { runs } = await api.resumable()
+      set({ resumableRuns: runs })
+    } catch {}
+  },
+
+  // Manually resume ONE interrupted run — relaunch the same unit into its existing run folder so the
+  // engine continues from the work already on disk (finished modules/agents are skipped). Mirrors the
+  // screener's continueSignal; usable from the Activity log (any subject) and the orb view (this subject).
+  resumeRun: async (info) => {
+    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' })
+    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    // Screener signals resume through their own path — it keeps the finished orbs and re-queues the rest.
+    if (info.kind === 'signal') { await get().continueSignal(info.subject); return }
+    const swarm = info.swarm && info.swarm !== 'research' ? info.swarm : undefined
+    const label = info.label || info.subject
+    const doResume = async (force?: boolean) => {
+      try {
+        const body: { kind: string; ticker: string; module?: string; confirmTicker?: string; force?: boolean; swarm?: string } =
+          { kind: info.kind, ticker: info.subject, module: info.module, force, swarm }
+        if (info.kind === 'full') body.confirmTicker = info.subject // the server requires a typed confirm for a full run
+        const { runId, chained } = await api.launch(body)
+        if (chained) set({ chainTickers: new Set(get().chainTickers).add(info.subject) })
+        // If the resumed subject is the one on screen, light up its orbs and follow live (beginRun keys off
+        // the selected ticker). Otherwise just attach the stream + refresh — the Activity log row settles on
+        // its own, and the user can select the subject to watch it run.
+        const onScreen = info.subject === get().selectedTicker && get().activeSwarm === (info.swarm || 'research')
+        if (onScreen) {
+          const planned = info.kind === 'module' && info.module
+            ? [...get().nodesByKey.values()].filter((n) => n.module === info.module).map((n) => n.key)
+            : [...get().nodesByKey.keys()]
+          beginRun(set, get, runId, { kind: info.kind, module: info.module, willCommitToMain: true }, planned)
+        } else {
+          connectRun(get, runId)
+          void get().refreshActiveRuns()
+        }
+        void get().refreshResumable()
+        get().setToast({ msg: `Resuming ${label} — picking up where it stopped`, tone: 'good' })
+      } catch (e: any) {
+        launchErrorToast(get, e, info.subject, `resume of ${label}`, force ? undefined : () => doResume(true))
+      }
+    }
+    await doResume()
+  },
+
   checkCredit: async () => {
     if (get().staticMode) return
     set({ creditChecking: true })
@@ -718,12 +865,16 @@ export const useStore = create<State>((set, get) => ({
   setNow: (n) => set({ now: n }),
 
   nodeStatus: (key) => {
-    const { nodeRuntime, nodesByKey, dataStatus, selectedTicker } = get()
+    const { nodeRuntime, nodesByKey, dataStatus, selectedTicker, activeSwarm } = get()
     const rt = nodeRuntime[key]
     if (rt) return rt.status
-    if (!selectedTicker || !dataStatus) return 'dormant'
+    if (!selectedTicker) return 'dormant'
     const node = nodesByKey.get(key)
     if (!node) return 'dormant'
+    // a non-research constellation swarm (e.g. commodity) has no research data pool — gate purely on
+    // whether an orb's upstream is present (soloRunnable), never on dataStatus (which is null there).
+    if (activeSwarm !== 'research') return node.soloRunnable ? 'ready' : 'notready'
+    if (!dataStatus) return 'dormant'
     const mod = dataStatus.modules[node.module]
     if (mod?.status === 'Insufficient') return 'locked'
     return node.soloRunnable ? 'ready' : 'notready'
@@ -739,39 +890,59 @@ export const useStore = create<State>((set, get) => ({
     return keys.some((k) => rt[k]?.status === 'queued' || rt[k]?.status === 'running')
   },
 
-  launchAgent: async (node) => {
+  launchAgent: async (node, force) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
     const t = get().selectedTicker
     if (!t) return
-    if (get().targetInFlight(t, [node.key])) return get().setToast({ msg: `${node.name} is already running`, tone: 'info' })
     if (!node.soloRunnable) {
       get().setToast({ msg: `${node.name} needs upstream — run the module first`, tone: 'info' })
       return
     }
-    try {
-      const { runId } = await api.launch({ kind: 'agent', ticker: t, module: node.module, agent: node.name })
-      beginRun(set, get, runId, { kind: 'agent', module: node.module, agent: node.name, willCommitToMain: false }, [node.key])
-      get().setToast({ msg: `Launched ${node.name} on ${t}`, tone: 'good' })
-    } catch (e: any) {
-      launchErrorToast(get, e, t, node.name)
+    // Local launcher capturing `t` + `node` so the "Run anyway" retry forces on the ticker that PRODUCED
+    // the lock, NOT get().selectedTicker read at click time — the user may switch companies while the
+    // toast is up (was a cross-ticker force bug).
+    const doLaunch = async (f?: boolean) => {
+      try {
+        const { runId } = await api.launch({ kind: 'agent', ticker: t, module: node.module, agent: node.name, force: f, swarm: get().activeSwarm !== 'research' ? get().activeSwarm : undefined })
+        beginRun(set, get, runId, { kind: 'agent', module: node.module, agent: node.name, willCommitToMain: false }, [node.key])
+        get().setToast({ msg: `${f ? 'Re-launched' : 'Launched'} ${node.name} on ${t}`, tone: 'good' })
+      } catch (e: any) {
+        launchErrorToast(get, e, t, node.name, f ? undefined : () => doLaunch(true))
+      }
     }
+    // Client-side in-flight guard. A forced retry skips it. When it trips on a run the UI THINKS is live but
+    // whose engine process has actually died (the exact stuck-lock this patch targets), a plain
+    // "already running" toast would be a dead end — the first launch never reaches the server, so the
+    // server's reap-dead path never runs. So the guard-trip toast itself offers "Run anyway", which forces
+    // to the server (reaping the corpse and relaunching).
+    if (!force && get().targetInFlight(t, [node.key])) {
+      return get().setToast({ msg: `${node.name} is already running`, tone: 'info', action: { label: 'Run anyway', onClick: () => doLaunch(true) } })
+    }
+    await doLaunch(force)
   },
 
-  launchModule: async (module) => {
+  launchModule: async (module, force) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
     const t = get().selectedTicker
     if (!t) return
     const planned = [...get().nodesByKey.values()].filter((n) => n.module === module).map((n) => n.key)
-    if (get().targetInFlight(t, planned)) return get().setToast({ msg: `${module} is already running`, tone: 'info' })
-    try {
-      const { runId } = await api.launch({ kind: 'module', ticker: t, module })
-      beginRun(set, get, runId, { kind: 'module', module, willCommitToMain: true }, planned)
-      get().setToast({ msg: `Launched ${module} module on ${t}`, tone: 'good' })
-    } catch (e: any) {
-      launchErrorToast(get, e, t, `${module} module`)
+    // Local launcher capturing `t` so the "Run anyway" retry forces on the ticker that produced the lock.
+    const doLaunch = async (f?: boolean) => {
+      try {
+        const { runId } = await api.launch({ kind: 'module', ticker: t, module, force: f, swarm: get().activeSwarm !== 'research' ? get().activeSwarm : undefined })
+        beginRun(set, get, runId, { kind: 'module', module, willCommitToMain: true }, planned)
+        get().setToast({ msg: `${f ? 'Re-launched' : 'Launched'} ${module} module on ${t}`, tone: 'good' })
+      } catch (e: any) {
+        launchErrorToast(get, e, t, `${module} module`, f ? undefined : () => doLaunch(true))
+      }
     }
+    // Guard-trip offers "Run anyway" too, so a UI-live-but-dead module lock isn't a dead end (see launchAgent).
+    if (!force && get().targetInFlight(t, planned)) {
+      return get().setToast({ msg: `${module} is already running`, tone: 'info', action: { label: 'Run anyway', onClick: () => doLaunch(true) } })
+    }
+    await doLaunch(force)
   },
 
   requestFull: async () => {
@@ -780,7 +951,7 @@ export const useStore = create<State>((set, get) => ({
     const t = get().selectedTicker
     if (!t) return
     if (get().anyRunForTicker(t)) return get().setToast({ msg: `Finish the in-flight run on ${t} first — a full run needs exclusive access`, tone: 'info' })
-    const preflight = await api.estimate('full', t)
+    const preflight = await api.estimate('full', t, undefined, undefined, get().activeSwarm !== 'research' ? get().activeSwarm : undefined)
     set({ launchConfirm: { kind: 'full', preflight } })
   },
 
@@ -791,7 +962,7 @@ export const useStore = create<State>((set, get) => ({
     set({ launchConfirm: null })
     const planned = [...get().nodesByKey.keys()]
     try {
-      const { runId, chained } = await api.launch({ kind: 'full', ticker: t, confirmTicker: t })
+      const { runId, chained } = await api.launch({ kind: 'full', ticker: t, confirmTicker: t, swarm: get().activeSwarm !== 'research' ? get().activeSwarm : undefined })
       // a chained full run is a sequence of per-module runs + master; mark the ticker so run-done defers
       // the "complete" celebration to the master step and the cockpit live-follows every step.
       if (chained) set({ chainTickers: new Set(get().chainTickers).add(t) })
@@ -813,7 +984,7 @@ export const useStore = create<State>((set, get) => ({
     if (!cascade.length) return get().setToast({ msg: `Can't resolve the downstream of ${node.name}`, tone: 'bad' })
     if (get().targetInFlight(t, cascade.map((c) => c.key))) return get().setToast({ msg: `${node.name} or its downstream is already running`, tone: 'info' })
     try {
-      const preflight = await api.estimate('rerun', t, node.module, node.name)
+      const preflight = await api.estimate('rerun', t, node.module, node.name, get().activeSwarm !== 'research' ? get().activeSwarm : undefined)
       set({ launchConfirm: { kind: 'rerun', preflight, cascade, node } })
     } catch (e: any) {
       get().setToast({ msg: `Re-run estimate failed: ${e?.message || e}`, tone: 'bad' })
@@ -828,13 +999,18 @@ export const useStore = create<State>((set, get) => ({
     const node = lc.node
     const planned = (lc.cascade ?? downstreamCascade(get().graph, node.module, node.name)).map((c) => c.key)
     set({ launchConfirm: null, openOutput: null })
-    try {
-      const { runId } = await api.launch({ kind: 'rerun', ticker: t, module: node.module, agent: node.name })
-      beginRun(set, get, runId, { kind: 'rerun', module: node.module, agent: node.name, willCommitToMain: true }, planned)
-      get().setToast({ msg: `Re-running ${node.name} + downstream on ${t}`, tone: 'good' })
-    } catch (e: any) {
-      launchErrorToast(get, e, t, `re-run of ${node.name}`)
+    // Local launcher so the conflict "Run anyway" retry can re-fire with force AFTER the confirm dialog is
+    // gone — node + planned are captured here, not re-read from the (now-cleared) launchConfirm.
+    const doRerun = async (force?: boolean) => {
+      try {
+        const { runId } = await api.launch({ kind: 'rerun', ticker: t, module: node.module, agent: node.name, force, swarm: get().activeSwarm !== 'research' ? get().activeSwarm : undefined })
+        beginRun(set, get, runId, { kind: 'rerun', module: node.module, agent: node.name, willCommitToMain: true }, planned)
+        get().setToast({ msg: `Re-running ${node.name} + downstream on ${t}`, tone: 'good' })
+      } catch (e: any) {
+        launchErrorToast(get, e, t, `re-run of ${node.name}`, force ? undefined : () => doRerun(true))
+      }
     }
+    await doRerun()
   },
 
   cancelLaunch: () => set({ launchConfirm: null }),
@@ -857,6 +1033,19 @@ export const useStore = create<State>((set, get) => ({
       await api.readinessDecision(runId, action, ack)
       if (action === 'cancel') get().setToast({ msg: 'Run cancelled at the data check', tone: 'info' })
     } catch (e: any) {
+      // A STALE gate: the run already left the awaiting-decision state (409) or is gone (404) — it
+      // already proceeded/finished, or the closing SSE event was missed (edge/tunnel drop, engine
+      // restart). Don't strand the user clicking a dead dialog forever: close the panel, reconcile
+      // the active runs against the server, and say what actually happened. THIS is the fix for
+      // "clicking any button does nothing but a toast".
+      const status = e?.status as number | undefined
+      if (status === 409 || status === 404) {
+        if (get().readinessGate?.runId === runId) set({ readinessGate: null })
+        get().refreshActiveRuns()
+        get().setToast({ msg: 'This data check is no longer active — the run already started or ended.', tone: 'info' })
+        return
+      }
+      // A still-actionable rejection (bad ticker ack 412, invalid body 400) — keep the panel open.
       get().setToast({ msg: e?.message || 'Could not apply the decision', tone: 'bad' })
     }
   },
@@ -962,9 +1151,12 @@ export const useStore = create<State>((set, get) => ({
     const idx = baseline.length + 1 // index of the assistant turn we mutate
     chatAbort?.abort()
     chatAbort = new AbortController()
+    const sw = get().activeSwarm
     await api.chatStream(
       {
         ticker, runRoot: get().runRoot ?? undefined, scope: get().chatScope,
+        // constellation swarm (e.g. commodity): the subject resolves the run folder server-side
+        swarm: sw !== 'research' ? sw : undefined, subject: sw !== 'research' ? ticker : undefined,
         module: get().chatModule, orbPath: get().chatOrbPath, model: get().chatModel, style: get().chatStyle,
         messages: [...baseline, { role: 'user', content: q }],
       },
@@ -1034,7 +1226,8 @@ export const useStore = create<State>((set, get) => ({
   },
   setToast: (t) => {
     set({ toast: t })
-    if (t) setTimeout(() => { if (get().toast === t) set({ toast: null }) }, 3200)
+    // An actionable toast lingers (you have to read it + reach the button); a plain one auto-clears fast.
+    if (t) setTimeout(() => { if (get().toast === t) set({ toast: null }) }, t.action ? 9000 : 3200)
   },
 
   startHealth: () => {
@@ -1068,6 +1261,7 @@ export const useStore = create<State>((set, get) => ({
     if (get().staticMode) return
     // the visitor's OWN connection is down — never blame the engine
     if (typeof navigator !== 'undefined' && navigator.onLine === false) {
+      outageStartedAt = 0 // not an engine outage — don't let it seed the grace clock
       set({ health: 'your-network', connected: false })
       return
     }
@@ -1098,11 +1292,13 @@ export const useStore = create<State>((set, get) => ({
 
     if (outcome === 'ok') {
       const reconnected = get().health !== 'online' // down → up (or the first connect)
+      outageStartedAt = 0 // engine answered — end any grace clock
       set({ health: 'online', healthFailCount: 0, lastHealthOkAt: Date.now(), connected: true })
       // connection is back — re-pull the screener board so any run the engine forgot during the break
       // resumes on its own (scRefreshBoard → _maybeAutoResume). The cooldown/live guards stop doubles.
       if (reconnected && get().activeSwarm === 'screener') void get().scRefreshBoard()
     } else if (outcome === 'session') {
+      outageStartedAt = 0 // an Access/session issue, not an engine outage
       set({ health: 'session-expired', connected: false })
     } else {
       // The SSE data plane is the ground truth. If a stream event arrived very recently, OR the news
@@ -1113,11 +1309,17 @@ export const useStore = create<State>((set, get) => ({
       const wireAlive = Date.now() - lastStreamActivityAt < STREAM_LIVE_MS || newsSource?.readyState === 1
       if (wireAlive) {
         const reconnected = get().health !== 'online'
+        outageStartedAt = 0 // the live wire proves the engine is up — end any grace clock
         set({ health: 'online', healthFailCount: 0, lastHealthOkAt: Date.now(), connected: true })
         if (reconnected && get().activeSwarm === 'screener') void get().scRefreshBoard()
       } else {
         const n = get().healthFailCount + 1
-        const health: HealthState = n >= OFFLINE_THRESHOLD ? 'engine-offline' : 'reconnecting'
+        if (!outageStartedAt) outageStartedAt = Date.now() // first genuine fail of this outage → start the grace clock
+        // Escalate to the red 'engine-offline' bar only once the outage has BOTH failed enough times
+        // (anti-flicker) AND outlasted the grace window (so a ~20s redeploy/restart stays 'reconnecting',
+        // never flashing "machine is asleep or offline"). A real sleep/outage persists and does escalate.
+        const hardDown = n >= OFFLINE_THRESHOLD && Date.now() - outageStartedAt >= OFFLINE_GRACE_MS
+        const health: HealthState = hardDown ? 'engine-offline' : 'reconnecting'
         // back-fill legacy `connected` (online/reconnecting = true) so the TickerPicker dot stays consistent
         set({ health, healthFailCount: n, connected: health === 'reconnecting' })
       }
@@ -1234,8 +1436,17 @@ export const useStore = create<State>((set, get) => ({
         // ticker (authoritative from the report, not the activeRuns lookup which may not have it yet)
         if (!selected || e.report.ticker === selected) patch.readinessGate = { runId: e.runId, report: e.report }
         break
+      case 'readiness-checking': {
+        // a re-check is running for the OPEN gate — mark it so the panel shows a spinner and disables
+        // its buttons instead of looking frozen for the (up to a few minutes) OCR/extract pass. The
+        // initial pre-flight check also emits this, but the gate isn't open yet, so it's a no-op then.
+        const g = get().readinessGate
+        if (g?.runId === e.runId) patch.readinessGate = { ...g, rechecking: true }
+        break
+      }
       case 'readiness-report':
-        // refresh the open gate panel (e.g. after a recheck that came back still-not-clean)
+        // refresh the open gate panel (e.g. after a recheck that came back still-not-clean) — the new
+        // object drops `rechecking`, re-enabling the buttons.
         if (get().readinessGate?.runId === e.runId) patch.readinessGate = { runId: e.runId, report: e.report }
         break
       case 'readiness-resolved':
@@ -1261,7 +1472,7 @@ export const useStore = create<State>((set, get) => ({
     chatAbort?.abort(); chatAbort = null // chat is research-only — leaving the swarm closes it
     if (reduced) {
       set({ activeSwarm: to, warp: null, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, scFocusedCompany: null, newsFeedOpen: false, ...CHAT_RESET })
-      if (to !== 'research') void get().scInit()
+      get()._enterSwarm(to)
       if (opts?.landTicker) void get().selectTicker(opts.landTicker)
       return
     }
@@ -1270,13 +1481,38 @@ export const useStore = create<State>((set, get) => ({
     warpTimer = setTimeout(() => get()._advanceWarp(), 420) // collapse -> traverse
   },
 
+  _enterSwarm: (to) => {
+    const layout = get().swarms.find((s) => s.id === to)?.layout
+    if (layout === 'flow') { void get().scInit(); return } // screener boots its own board + wire
+    // constellation swarm (research or commodity): both share the graph/selectedTicker slices, so reset
+    // the selection when the owner changes (a screener detour leaves constellationSwarm untouched, so
+    // returning to research keeps its selection). Then load the swarm's subject list (commodity only).
+    if (get().constellationSwarm !== to) {
+      set({
+        constellationSwarm: to, selectedTicker: null, graph: null, nodesByKey: new Map(),
+        dataStatus: null, dataLoading: false, nodeRuntime: {}, decision: null, runRoot: null,
+        reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, selectedNodeKey: null, ...CHAT_RESET,
+      })
+    }
+    if (to !== 'research') void get().loadSwarmSubjects(to)
+  },
+
+  loadSwarmSubjects: async (swarmId) => {
+    set({ swarmSubjectsLoading: true })
+    try {
+      const subjects = await api.swarmSubjects(swarmId)
+      if (get().activeSwarm === swarmId) set({ swarmSubjectList: subjects })
+    } catch { /* keep the prior list on a transient failure */ }
+    finally { if (get().activeSwarm === swarmId) set({ swarmSubjectsLoading: false }) }
+  },
+
   _advanceWarp: () => {
     const w = get().warp
     if (!w) return
     if (w.phase === 'collapse') {
       // mid-flight: flip the active swarm so the target constellation mounts underneath the void
       set({ warp: { ...w, phase: 'traverse' }, activeSwarm: w.to })
-      if (w.to !== 'research') void get().scInit()
+      get()._enterSwarm(w.to)
       if (w.landTicker) void get().selectTicker(w.landTicker)
       if (warpTimer) clearTimeout(warpTimer)
       warpTimer = setTimeout(() => get()._advanceWarp(), 520)
@@ -1344,10 +1580,30 @@ export const useStore = create<State>((set, get) => ({
   // ---- dynamic themes ----
   refreshThemes: async () => {
     try {
-      const idx = await api.newsThemes()
+      const g = get().themesGeo
+      const geo = g.country || g.geoRegion ? { country: g.country || undefined, geoRegion: g.geoRegion || undefined } : undefined
+      const idx = await api.newsThemes(geo)
+      // guard a slow geo response landing after the geo changed again (last-write-wins on the current geo)
+      const now = get().themesGeo
+      if (now.country !== g.country || now.geoRegion !== g.geoRegion) return
       set({ themes: idx.themes, themesHistoryDays: idx.history_days || 0, themesStatus: 'ready' })
     } catch {
       set({ themesStatus: 'error' })
+    }
+  },
+  // the Event rail's "Where" picker calls this so the Themes map/board slice to the same geography. Only
+  // refetches when the geography (country/continent) actually changes — a late-arriving label refresh
+  // updates the display without a wasted round-trip — and only while the themes view is showing (else
+  // openThemes picks up the current geo). Debounced so scrubbing the dropdown collapses to one request.
+  setThemesGeo: (geo) => {
+    const cur = get().themesGeo
+    const geoChanged = cur.country !== geo.country || cur.geoRegion !== geo.geoRegion
+    if (!geoChanged && cur.label === geo.label) return
+    set({ themesGeo: geo })
+    if (geoChanged && get().themesView !== null) {
+      set({ themesStatus: get().themes.length ? 'ready' : 'loading' })
+      if (themesGeoRefetchTimer) clearTimeout(themesGeoRefetchTimer)
+      themesGeoRefetchTimer = setTimeout(() => void get().refreshThemes(), 300)
     }
   },
   openThemes: async (view) => {
@@ -1405,6 +1661,122 @@ export const useStore = create<State>((set, get) => ({
     saveShelf(next)
     const open = get().scSelectedEvent
     set({ shelvedEvents: next, ...(open && open.event_id === eventId && next.has(eventId) ? { scSelectedEvent: null } : {}) })
+  },
+
+  // submit card feedback: mark it flagged (optimistic, local display cache), persist to the server
+  // ledger, and toast a confirmation with a short-window Undo. Rolled back on a failed save.
+  // Returns true only when the ledger POST actually succeeded — the batch-review path relies on this to
+  // decide whether to advance to the next card (a failed save must NOT silently skip a card).
+  submitFeedback: async (input) => {
+    if (get().staticMode) { get().setToast({ msg: 'Read-only showcase — feedback needs a live engine.', tone: 'info' }); return false }
+    const next = new Set(get().flaggedEvents)
+    next.add(input.event_id)
+    saveFlagged(next)
+    set({ flaggedEvents: next })
+    try {
+      const { feedback } = await api.submitFeedback(input)
+      get().setToast({
+        msg: `Feedback saved — ${feedbackLabel(input.feedback_type)}`,
+        tone: 'good',
+        action: { label: 'Undo', onClick: () => void get().undoFeedbackFlow(feedback.feedback_id, input.event_id) },
+      })
+      return true
+    } catch (e: any) {
+      const rollback = new Set(get().flaggedEvents)
+      rollback.delete(input.event_id)
+      saveFlagged(rollback)
+      set({ flaggedEvents: rollback })
+      get().setToast({ msg: e?.body?.error || e?.message || 'Could not save feedback', tone: 'bad' })
+      return false
+    }
+  },
+  undoFeedbackFlow: async (feedbackId, eventId) => {
+    try {
+      await api.undoFeedback(feedbackId)
+      const next = new Set(get().flaggedEvents)
+      next.delete(eventId)
+      saveFlagged(next)
+      set({ flaggedEvents: next })
+      // Rewind batch review when THIS undo tombstones the card the queue just advanced past. reviewSubmit
+      // already moved reviewIndex forward and counted the card, so an immediate Undo would otherwise leave
+      // the card skipped and still counted as flagged. Only rewind when the panel is open AND the card
+      // directly behind the cursor (reviewQueue[reviewIndex - 1]) is exactly this event — so a stray undo
+      // of some OTHER (per-card FeedbackMenu) feedback never disturbs the queue position or the counter.
+      const s = get()
+      if (s.reviewOpen && s.reviewIndex > 0 && s.reviewQueue[s.reviewIndex - 1]?.event_id === eventId) {
+        set({ reviewIndex: s.reviewIndex - 1, reviewSessionCount: Math.max(0, s.reviewSessionCount - 1) })
+      }
+      get().setToast({ msg: 'Feedback undone', tone: 'info' })
+    } catch (e: any) {
+      get().setToast({ msg: e?.body?.error || e?.message || 'Could not undo feedback', tone: 'bad' })
+    }
+  },
+
+  // fast batch review: a focused queue over the CURRENT wire, snapshotted on open (and on every filter
+  // change) so the queue stays stable while reviewing even as fresh items keep streaming into newsItems.
+  openReview: () => {
+    const filters = get().reviewFilters
+    const covered = get().coveredTickers
+    set({
+      reviewOpen: true,
+      reviewQueue: get().newsItems.filter((it) => matchesReviewFilters(it, filters, covered)),
+      reviewIndex: 0,
+      reviewSessionCount: 0,
+    })
+    if (covered.size === 0 && !get().staticMode) {
+      api.coveredTickers().then((tickers) => {
+        const coveredNow = new Set(tickers)
+        // Re-filter the snapshot against the tickers that just arrived: the queue was built while the set was
+        // still empty, so the "portfolio companies" filter would show nothing until the user toggled a filter.
+        // Rebuild ONLY when that rebuild can actually matter and can't lose the reviewer's place:
+        //   - the panel is still open, AND
+        //   - the portfolio-companies filter is on (the ONLY filter whose result depends on coveredTickers —
+        //     with it off, the queue is identical before and after, so a rebuild would just reset the index
+        //     for no reason), AND
+        //   - the reviewer is still at the initial position (reviewIndex === 0). Once they've advanced,
+        //     re-snapping to 0 would throw them back to the start and re-present already-flagged/skipped
+        //     cards, so we only refresh coveredTickers and leave their queue/position untouched.
+        const s = get()
+        if (s.reviewOpen && s.reviewFilters.portfolioCompanies && s.reviewIndex === 0) {
+          set({ coveredTickers: coveredNow, reviewQueue: s.newsItems.filter((it) => matchesReviewFilters(it, s.reviewFilters, coveredNow)), reviewIndex: 0 })
+        } else {
+          set({ coveredTickers: coveredNow })
+        }
+      }).catch(() => {})
+    }
+  },
+  closeReview: () => set({ reviewOpen: false }),
+  setReviewFilters: (f) => {
+    set({
+      reviewFilters: f,
+      reviewIndex: 0,
+      reviewQueue: get().newsItems.filter((it) => matchesReviewFilters(it, f, get().coveredTickers)),
+    })
+  },
+  // submit feedback for the item at the front of the queue, then advance — one code path shared by
+  // both the mouse buttons and the keyboard shortcuts in ReviewPanel.
+  reviewSubmit: async (feedbackType, reason) => {
+    if (get().reviewSubmitting) return // one save in flight — a held key / double-click can't stack records
+    const it = get().reviewQueue[get().reviewIndex]
+    if (!it) return
+    set({ reviewSubmitting: true })
+    try {
+      const ok = await get().submitFeedback(feedbackInputFromItem(it, feedbackType, reason))
+      // Advance + count ONLY on a real save. A failed POST leaves the same card in front (with its
+      // "could not save" toast) so the human can retry — it is never silently skipped with no ledger record.
+      if (ok) set({ reviewIndex: get().reviewIndex + 1, reviewSessionCount: get().reviewSessionCount + 1 })
+    } finally {
+      set({ reviewSubmitting: false })
+    }
+  },
+  // pure client-side advance — never calls the API, never counts toward the session counter.
+  // No-op while a feedback save is in flight: reviewSubmit advances on success, so a skip pressed BEFORE
+  // that POST returns would advance the index once here and once again when the save resolves — skipping
+  // one card with no ledger record. Blocking skip during the in-flight window keeps the queue in lockstep
+  // with the one save reviewSubmit already guards.
+  reviewSkip: () => {
+    if (get().reviewSubmitting) return
+    set({ reviewIndex: get().reviewIndex + 1 })
   },
 
   // fetch (once, then cache) the on-demand enrichment for an opened event. Keyed by event_id;
@@ -1790,6 +2162,7 @@ export const useStore = create<State>((set, get) => ({
     if (get().staticMode) return
     get().checkHealthNow() // force an immediate /api/health probe (no-op if the loop isn't running)
     void get().refreshNewsStatus() // re-pull the scanner status (bounded fetch — always settles)
+    void get().refreshActiveRuns() // catch up on runs that started/finished while we were away (other tab / headless)
     reviveNewsStream(get) // re-create the news SSE if it died (CLOSED) — browser auto-reconnect can give up
   },
   _handleNewsEvent: (e) => {
@@ -1836,6 +2209,15 @@ export const useStore = create<State>((set, get) => ({
       // upsert the changed theme; the map/board re-rank from the array. Only when the themes view is
       // open (otherwise we'd hold stale themes until next open anyway).
       if (get().themesView === null && !get().themes.length) return
+      // in a geo-sliced view the SSE patch is a GLOBAL theme summary that doesn't match the geo projection
+      // (different member_count / flow / ranking), so recompute the whole geo index (debounced) instead of
+      // upserting a mismatched row.
+      const g = get().themesGeo
+      if (g.country || g.geoRegion) {
+        if (themesGeoRefetchTimer) clearTimeout(themesGeoRefetchTimer)
+        themesGeoRefetchTimer = setTimeout(() => void get().refreshThemes(), 1200)
+        return
+      }
       const t = e.theme as Theme
       const cur = get().themes
       const i = cur.findIndex((x) => x.theme_id === t.theme_id)
@@ -2124,9 +2506,16 @@ function refreshTickersSoon(get: () => State, set: (p: Partial<State>) => void) 
     .catch(() => {})
 }
 
-function schedulePoll(get: () => State, keepGoing: boolean) {
+// `active` = at least one run is live for the selected ticker. Poll fast (5s) while something is live so
+// the swarm stays smooth; keep a gentle 20s heartbeat while a company is merely selected so a run started
+// elsewhere (another tab, or a headless/autonomous run) surfaces in the constellation on its own — no
+// stale "▸ run module" over a module that's actually in flight. refreshActiveRuns is a cheap in-memory
+// registry read and never touches health, so the idle beat can't cause offline flapping.
+function schedulePoll(get: () => State, active: boolean) {
   if (pollTimer) { clearTimeout(pollTimer); pollTimer = null }
-  if (keepGoing && !get().staticMode) pollTimer = setTimeout(() => get().refreshActiveRuns(), 5000)
+  if (get().staticMode) return
+  if (!active && !get().selectedTicker) return
+  pollTimer = setTimeout(() => get().refreshActiveRuns(), active ? 5000 : 20000)
 }
 
 // One health probe now, then self-reschedule (20s healthy / 5s degraded). The generation guard makes a
@@ -2270,11 +2659,29 @@ function closeAllRunSources() {
   runSources.clear()
 }
 
-// Map a launch failure to a clear toast. Admission rejections (expected, user can act) read as
-// info; genuine failures read as bad. The server's discriminated body.code drives the split.
-function launchErrorToast(get: () => State, e: any, ticker: string, what: string) {
+// A same-subject run-LOCK conflict — a run already holds this ticker's files. Force (stop it + relaunch)
+// resolves these. NOT upstream_incomplete (the deps genuinely aren't on disk — force won't conjure them)
+// and NOT capacity (a global cost cap across other tickers — force never bypasses it).
+const LOCK_CONFLICTS = new Set(['target_conflict', 'exclusivity', 'dependency_conflict'])
+
+// Map a launch failure to a clear toast. Admission rejections (expected, user can act) read as info;
+// genuine failures read as bad. When the rejection is a same-subject lock and an `onForce` retry was
+// supplied, the toast gets a one-click "Run anyway" that stops the blocking run and relaunches — so a
+// conflict is never a dead end (CLAUDE.md §2: the engine must always be runnable on demand).
+function launchErrorToast(get: () => State, e: any, ticker: string, what: string, onForce?: () => void) {
   const code = e?.body?.code
-  const info = code === 'target_conflict' || code === 'exclusivity' || code === 'dependency_conflict' || code === 'upstream_incomplete'
+  const isLock = LOCK_CONFLICTS.has(code)
+  const info = isLock || code === 'upstream_incomplete'
   const msg = e?.message ? String(e.message) : `Launch failed for ${what} on ${ticker}`
-  get().setToast({ msg, tone: info ? 'info' : 'bad' })
+  // A same-subject lock means a run we may not be tracking is live for this ticker — typically one
+  // started in another tab or by a headless/autonomous run, so it never entered this session's state.
+  // Reconcile now: refreshActiveRuns discovers it, attaches its stream + snapshot, and lights up the
+  // in-flight module in the constellation. The conflict becomes VISIBLE (not just a toast), and the
+  // client-side guard will catch the next attempt with a clean "already running" — no dead-end.
+  if (isLock) void get().refreshActiveRuns()
+  get().setToast({
+    msg,
+    tone: info ? 'info' : 'bad',
+    ...(isLock && onForce ? { action: { label: 'Run anyway', onClick: onForce } } : {}),
+  })
 }

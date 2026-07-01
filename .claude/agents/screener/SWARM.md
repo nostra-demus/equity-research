@@ -269,6 +269,31 @@ sources:
   thesis_structure:
     reject_if_unapproved: false
     note: "Prefer the signal_gate list plus primary data (filings, exchange data, official statistics). An off-list source must be dated and labelled, and never outranks an on-list source on the same fact. A social / Reddit (discovery-tier) item may corroborate a fact or surface a lead, but it does NOT satisfy M0.1's 60-second on-list source check on its own — find an on-list source before the thesis proceeds."
+    # Paywall-aware fallback search order for M0.1 (screener-event-statement) when the primary source is
+    # paywalled or its body extraction is weak. Tiers 1-3 reuse signal_gate.allowed (no duplication);
+    # tiers 4-5 are scoped here because they are NEVER eligible to satisfy Gate 0 on their own — they only
+    # ever corroborate an M0.1 fact, never gate a signal's intake. scripts/screener_confirmation_score.py
+    # encodes this same tier order as its point table.
+    fallback_search_order:
+      - official_ir_exchange     # tier 1 — company press release, IR page, exchange filing/announcement
+      - regulator_filing         # tier 2 — SEC EDGAR, SEBI, FCA, ASX/exchange regulator feeds, etc.
+      - tier1_2_media            # tier 3 — sources.signal_gate.allowed (reused, not duplicated)
+      - specialist_finance_blogs # tier 4 — sources.thesis_structure.specialist_blogs (below)
+      - social_corroboration     # tier 5 — sources.thesis_structure.social_corroboration (below); weak, never sole
+    specialist_blogs:
+      - "Simply Wall St"
+      - "Seeking Alpha"
+      - "Zacks"
+      - "Stockhead"
+      - "Kalkine"
+    social_corroboration:
+      reject_if_unapproved: false
+      promotion_eligible: false
+      tier: 5
+      note: "X/Twitter — corroboration-tier ONLY, modeled on sources.discovery (Reddit). NEVER sole confirmation for M0.1 (enforced in scripts/screener_confirmation_score.py: a tier-5-only alternate source can reach at most partially_confirmed, never confirmed). A verified company/IR/exchange/regulator account posting the SAME fact still only corroborates — it does not itself satisfy the source confirmation gate; find an on-list or tier-1-4 source."
+      platforms:
+        - "X (Twitter) — verified company/IR account"
+        - "X (Twitter) — verified journalist/wire account"
   edge_definition:
     missing_reason_required: true
     preferred:
@@ -326,7 +351,7 @@ The root `CLAUDE.md` constitution applies in full. Each module's `MODULE_RULES.m
 
 ## 3. Phase 0.1 — the ten-step gauntlet (module `signal-gate`)
 
-The deterministic logic is specified in the module's agents and `MODULE_RULES.md`: relevance → event types → entities/linkage → similarity vs the event ledger (48–72h window, same-issuer first) → fact delta → confirmation upgrade → pairwise classification → novelty → canonical action → materiality 0–100.
+The deterministic logic is specified in the module's agents and `MODULE_RULES.md`: relevance → event types → entities/linkage → similarity vs the event ledger (48–72h window, same-issuer first) → fact delta → confirmation upgrade → pairwise classification → novelty → canonical action → materiality 0–100. A parallel generic-media check runs alongside the similarity/novelty steps and caps materiality when the content is a market-cap roundup, index summary, gainers/losers list, or other company-unspecific commentary with no quantified, investable fact.
 
 **Promotion bands (the Phase 0.1 → Phase 1 gate):**
 - `PROMOTE` — materiality ≥ 70: the signal proceeds to `thesis-structure`.

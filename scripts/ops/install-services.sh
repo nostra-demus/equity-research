@@ -5,7 +5,7 @@
 #   com.nostradamus.deploy       — auto-deploy watcher: main -> live, every 120s          (RunAtLoad+StartInterval)
 #   com.nostradamus.watchdog     — self-heal, every 60s                                   (RunAtLoad+StartInterval)
 #   com.nostradamus.news-archive — news -> Google Drive, every 3h                         (RunAtLoad+StartInterval)
-#   com.nostradamus.caffeinate   — keep the Mac awake while on AC power (no idle sleep)    (RunAtLoad+KeepAlive)
+#   com.nostradamus.caffeinate   — keep the Mac awake (no idle sleep) on battery AND AC     (RunAtLoad+KeepAlive)
 # Idempotent, no sudo. Engine + news-archive run from PROD; watchdog + deploy shell scripts from ~/.nostra-ops.
 #
 # RELIABILITY (why this is not a naive bootout;bootstrap loop):
