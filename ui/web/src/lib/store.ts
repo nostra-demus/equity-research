@@ -115,7 +115,15 @@ const HEALTH_DEGRADED_MS = 2500 // poll fast while down so recovery is near-inst
 // Tolerate a tunnel/cold-start spike. The edge Worker gives /api/health an 8s budget, so the client must
 // not give up first — a 4s client timeout was a cause of false "engine offline" while the wire was live.
 const HEALTH_TIMEOUT_MS = 7000
-const OFFLINE_THRESHOLD = 3 // consecutive GENUINE fails before the red bar (anti-flicker; ~5s end-to-end)
+const OFFLINE_THRESHOLD = 3 // consecutive GENUINE fails before we even consider the red bar (anti-flicker)
+// A restart/redeploy of the laptop engine takes ~15-30s; a genuinely asleep/offline machine stays down. So
+// while the engine is unreachable we hold the calm 'reconnecting' state (amber pill, no alarming red bar)
+// until the outage has continuously outlasted this grace window — only then do we escalate to
+// 'engine-offline'. Without it, every routine redeploy flashed the scary "machine is asleep or offline"
+// banner for the ~20s the engine was restarting. `outageStartedAt` is the wall-clock ms the current outage
+// began (0 = not in an outage), cleared the moment the engine answers again.
+const OFFLINE_GRACE_MS = 40000
+let outageStartedAt = 0
 // A news/run SSE event within this window proves the engine is up — the live data plane is the ground
 // truth, so a slow/failed health probe is overridden while the wire is demonstrably alive. Updated on every
 // SSE message by _noteStreamLive(); paired with newsSource.readyState===OPEN for the event-quiet gaps.
@@ -1167,6 +1175,7 @@ export const useStore = create<State>((set, get) => ({
     if (get().staticMode) return
     // the visitor's OWN connection is down — never blame the engine
     if (typeof navigator !== 'undefined' && navigator.onLine === false) {
+      outageStartedAt = 0 // not an engine outage — don't let it seed the grace clock
       set({ health: 'your-network', connected: false })
       return
     }
@@ -1197,11 +1206,13 @@ export const useStore = create<State>((set, get) => ({
 
     if (outcome === 'ok') {
       const reconnected = get().health !== 'online' // down → up (or the first connect)
+      outageStartedAt = 0 // engine answered — end any grace clock
       set({ health: 'online', healthFailCount: 0, lastHealthOkAt: Date.now(), connected: true })
       // connection is back — re-pull the screener board so any run the engine forgot during the break
       // resumes on its own (scRefreshBoard → _maybeAutoResume). The cooldown/live guards stop doubles.
       if (reconnected && get().activeSwarm === 'screener') void get().scRefreshBoard()
     } else if (outcome === 'session') {
+      outageStartedAt = 0 // an Access/session issue, not an engine outage
       set({ health: 'session-expired', connected: false })
     } else {
       // The SSE data plane is the ground truth. If a stream event arrived very recently, OR the news
@@ -1212,11 +1223,17 @@ export const useStore = create<State>((set, get) => ({
       const wireAlive = Date.now() - lastStreamActivityAt < STREAM_LIVE_MS || newsSource?.readyState === 1
       if (wireAlive) {
         const reconnected = get().health !== 'online'
+        outageStartedAt = 0 // the live wire proves the engine is up — end any grace clock
         set({ health: 'online', healthFailCount: 0, lastHealthOkAt: Date.now(), connected: true })
         if (reconnected && get().activeSwarm === 'screener') void get().scRefreshBoard()
       } else {
         const n = get().healthFailCount + 1
-        const health: HealthState = n >= OFFLINE_THRESHOLD ? 'engine-offline' : 'reconnecting'
+        if (!outageStartedAt) outageStartedAt = Date.now() // first genuine fail of this outage → start the grace clock
+        // Escalate to the red 'engine-offline' bar only once the outage has BOTH failed enough times
+        // (anti-flicker) AND outlasted the grace window (so a ~20s redeploy/restart stays 'reconnecting',
+        // never flashing "machine is asleep or offline"). A real sleep/outage persists and does escalate.
+        const hardDown = n >= OFFLINE_THRESHOLD && Date.now() - outageStartedAt >= OFFLINE_GRACE_MS
+        const health: HealthState = hardDown ? 'engine-offline' : 'reconnecting'
         // back-fill legacy `connected` (online/reconnecting = true) so the TickerPicker dot stays consistent
         set({ health, healthFailCount: n, connected: health === 'reconnecting' })
       }
