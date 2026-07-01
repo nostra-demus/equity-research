@@ -3,6 +3,7 @@
 // main wire's filter bar. Several of these are stated approximations (the codebase has no per-item
 // "is this routine" flag or brokerage holdings list cheap enough to check for a whole day's queue) —
 // each is called out inline and should be shown as a tooltip wherever the control renders.
+import { SOURCE_TIERS } from '../../lib/scope'
 import type { FeedItem } from '../../lib/types'
 
 export interface ReviewFilterState {
@@ -32,6 +33,17 @@ export const emptyReviewFilters = (): ReviewFilterState => ({
 
 export const reviewFiltersActive = (f: ReviewFilterState): boolean =>
   f.highScore || f.routineFilings || f.genericMedia || f.lowConfidence || f.portfolioCompanies || f.sourceTiers.size > 0
+
+// The source-tier chip options for the review panel, derived from SOURCE_TIERS (the single source of truth
+// for tier IDs/labels) so every stamped tier gets a chip — including the lowest-trust 'social' (Reddit/forum,
+// rank 0), which reviewers need to isolate the least-trustworthy cards — and any future tier appears with no
+// hand-edit. Ordered highest-trust → lowest so the chips read down the §4 ladder. value = the SourceTierId
+// the wire stamps (deriveSourceTier, e.g. 'news'); label = the display string.
+export function buildSourceTierOptions(): { id: string; label: string }[] {
+  return Object.values(SOURCE_TIERS)
+    .sort((a, b) => b.rank - a.rank)
+    .map((t) => ({ id: t.id, label: t.label }))
+}
 
 export function matchesReviewFilters(it: FeedItem, f: ReviewFilterState, coveredTickers: Set<string>): boolean {
   if (f.highScore && !(it.triage_score >= HIGH_SCORE_THRESHOLD)) return false

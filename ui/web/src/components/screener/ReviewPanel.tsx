@@ -8,6 +8,7 @@ import { motion } from 'framer-motion'
 import { useStore } from '../../lib/store'
 import { displayHeadline } from '../../lib/plain'
 import { isCompanyNameClient, sourceTierDef } from '../../lib/scope'
+import { buildSourceTierOptions } from './ReviewFilters'
 import { api } from '../../lib/api'
 import { feedbackLabel } from '../../lib/feedbackTypes'
 import { KEY_TO_FEEDBACK, SKIP_KEY } from '../../lib/reviewKeymap'
@@ -15,13 +16,10 @@ import type { FeedbackSummary } from '../../lib/types'
 
 // value = the SourceTierId the wire actually stamps (deriveSourceTier); label = what the user sees.
 // Filtering on the label matched nothing on live data — the wire holds IDs like 'news', not 'News'.
-const SOURCE_TIER_OPTIONS: { id: string; label: string }[] = [
-  { id: 'primary_filing', label: 'Filing' },
-  { id: 'official_data', label: 'Official data' },
-  { id: 'company', label: 'Company' },
-  { id: 'news', label: 'News' },
-  { id: 'unconfirmed', label: 'Unconfirmed' },
-]
+// Derived from SOURCE_TIERS (the single source of truth) so every stamped tier — including the lowest-trust
+// 'social' (Reddit/forum, rank 0) — gets a chip, and any future tier appears automatically. The derivation
+// lives in ReviewFilters.ts (a pure, React-free module) so a bare-tsx regression test can guard it.
+const SOURCE_TIER_OPTIONS: { id: string; label: string }[] = buildSourceTierOptions()
 
 export function ReviewPanel() {
   const close = useStore((s) => s.closeReview)

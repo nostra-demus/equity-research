@@ -1,6 +1,7 @@
 // The 8 feedback types a card can be flagged with. Source of truth is the server's
 // ui/server/src/screener-feedback.ts FEEDBACK_TYPES — kept as a literal duplicate here (the client
 // can't import server code), with a test (feedbackTypes.test.ts) asserting the two stay in lockstep.
+import { isCompanyNameClient } from './scope'
 import type { FeedbackSubmitInput, FeedbackType, FeedItem } from './types'
 
 export const FEEDBACK_TYPES: FeedbackType[] = [
@@ -32,7 +33,12 @@ export function feedbackLabel(type: FeedbackType): string {
 // Shared "snapshot this card's own visible fields" builder — used by both the per-card FeedbackMenu
 // and the batch-review queue, so the two flows can never drift on what gets sent to the server.
 export function feedbackInputFromItem(item: FeedItem, feedback_type: FeedbackType, reason: string): FeedbackSubmitInput {
-  const company = item.companies?.[0]
+  // Snapshot the SAME company the rail/ReviewPanel show: when companies[0] is a country/regulator/index
+  // (fails isCompanyNameClient), the UI displays the FIRST entry passing isCompanyNameClient (EventRail.tsx
+  // and ReviewPanel.tsx both use exactly this predicate, with no fallback), so the ledger record must pin
+  // that same entry — not the raw first slot — or the saved company_name/ticker won't match what the
+  // reviewer saw. When no entry passes, the UI shows no company, so we record none too (undefined).
+  const company = (item.companies || []).find((c) => isCompanyNameClient(c.name))
   return {
     event_id: item.event_id,
     feedback_type,

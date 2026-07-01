@@ -1515,6 +1515,15 @@ export const useStore = create<State>((set, get) => ({
       next.delete(eventId)
       saveFlagged(next)
       set({ flaggedEvents: next })
+      // Rewind batch review when THIS undo tombstones the card the queue just advanced past. reviewSubmit
+      // already moved reviewIndex forward and counted the card, so an immediate Undo would otherwise leave
+      // the card skipped and still counted as flagged. Only rewind when the panel is open AND the card
+      // directly behind the cursor (reviewQueue[reviewIndex - 1]) is exactly this event — so a stray undo
+      // of some OTHER (per-card FeedbackMenu) feedback never disturbs the queue position or the counter.
+      const s = get()
+      if (s.reviewOpen && s.reviewIndex > 0 && s.reviewQueue[s.reviewIndex - 1]?.event_id === eventId) {
+        set({ reviewIndex: s.reviewIndex - 1, reviewSessionCount: Math.max(0, s.reviewSessionCount - 1) })
+      }
       get().setToast({ msg: 'Feedback undone', tone: 'info' })
     } catch (e: any) {
       get().setToast({ msg: e?.body?.error || e?.message || 'Could not undo feedback', tone: 'bad' })
@@ -1537,9 +1546,17 @@ export const useStore = create<State>((set, get) => ({
         const coveredNow = new Set(tickers)
         // Re-filter the snapshot against the tickers that just arrived: the queue was built while the set was
         // still empty, so the "portfolio companies" filter would show nothing until the user toggled a filter.
-        // Only rebuild while the panel is still open and the user hasn't since changed filters/position.
-        if (get().reviewOpen) {
-          set({ coveredTickers: coveredNow, reviewQueue: get().newsItems.filter((it) => matchesReviewFilters(it, get().reviewFilters, coveredNow)), reviewIndex: 0 })
+        // Rebuild ONLY when that rebuild can actually matter and can't lose the reviewer's place:
+        //   - the panel is still open, AND
+        //   - the portfolio-companies filter is on (the ONLY filter whose result depends on coveredTickers —
+        //     with it off, the queue is identical before and after, so a rebuild would just reset the index
+        //     for no reason), AND
+        //   - the reviewer is still at the initial position (reviewIndex === 0). Once they've advanced,
+        //     re-snapping to 0 would throw them back to the start and re-present already-flagged/skipped
+        //     cards, so we only refresh coveredTickers and leave their queue/position untouched.
+        const s = get()
+        if (s.reviewOpen && s.reviewFilters.portfolioCompanies && s.reviewIndex === 0) {
+          set({ coveredTickers: coveredNow, reviewQueue: s.newsItems.filter((it) => matchesReviewFilters(it, s.reviewFilters, coveredNow)), reviewIndex: 0 })
         } else {
           set({ coveredTickers: coveredNow })
         }
@@ -1570,8 +1587,15 @@ export const useStore = create<State>((set, get) => ({
       set({ reviewSubmitting: false })
     }
   },
-  // pure client-side advance — never calls the API, never counts toward the session counter
-  reviewSkip: () => set({ reviewIndex: get().reviewIndex + 1 }),
+  // pure client-side advance — never calls the API, never counts toward the session counter.
+  // No-op while a feedback save is in flight: reviewSubmit advances on success, so a skip pressed BEFORE
+  // that POST returns would advance the index once here and once again when the save resolves — skipping
+  // one card with no ledger record. Blocking skip during the in-flight window keeps the queue in lockstep
+  // with the one save reviewSubmit already guards.
+  reviewSkip: () => {
+    if (get().reviewSubmitting) return
+    set({ reviewIndex: get().reviewIndex + 1 })
+  },
 
   // fetch (once, then cache) the on-demand enrichment for an opened event. Keyed by event_id;
   // a 'loading' sentinel prevents duplicate in-flight fetches. A FAILED or DEGRADED result is NOT cached as
