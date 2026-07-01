@@ -65,9 +65,15 @@ check('gicsOf tags Tobacco purely from an exact ticker alias "BTI", headline nam
   assert.ok(g.subSectors.has('Tobacco'), 'BTI ticker alias must tag Tobacco even with a neutral headline')
   assert.ok(g.sectors.has('Consumer Staples'))
 })
-check('gicsOf tags Tobacco purely from an exact ticker alias "BATS", headline names no tobacco word', () => {
+check('gicsOf tags Tobacco from the corroborated ticker "BATS" when the SAME guess names "BAT"', () => {
+  // "BATS" is BAT on the LSE, but also BATS Global Markets — so it is a CORROBORATED ticker: it only tags
+  // Tobacco when the same company guess vouches for it another way. Here the name is the "bat" alias.
   const g = gicsOf({ headline: 'Board approves a new buyback program', companies: [{ name: 'BAT', ticker: 'BATS' }] })
-  assert.ok(g.subSectors.has('Tobacco'), 'BATS ticker alias must tag Tobacco even with a neutral headline')
+  assert.ok(g.subSectors.has('Tobacco'), 'corroborated BATS ticker must tag Tobacco when the name corroborates BAT')
+})
+check('gicsOf tags Tobacco from the corroborated ticker "BATS" when listing_country is GB (its LSE home)', () => {
+  const g = gicsOf({ headline: 'Board approves a new buyback program', companies: [{ name: 'Brit Am Tob', ticker: 'BATS', listing_country: 'GB' }] })
+  assert.ok(g.subSectors.has('Tobacco'), 'a GB listing corroborates the ambiguous BATS ticker as BAT')
 })
 check('gicsOf tags Tobacco purely from an exact name alias "bat" (case-insensitive), no keyword present', () => {
   const g = gicsOf({ headline: 'Guidance unchanged for the year', companies: [{ name: 'Bat', ticker: null }] })
@@ -82,6 +88,19 @@ check('gicsOf does NOT tag Tobacco when "BATS" appears only as free headline pro
 check('gicsOf does NOT tag Tobacco when the company name is "BATS Global Markets" (not an exact alias match)', () => {
   const g = gicsOf({ headline: 'Exchange operator reports monthly volumes', companies: [{ name: 'BATS Global Markets', ticker: 'CBOE' }] })
   assert.ok(!g.subSectors.has('Tobacco'), 'a longer company name containing "bats" must not exact-match the alias')
+})
+// THE TICKER-COLLISION BUG: BATS Global Markets' own ticker IS "BATS" (same string as BAT on the LSE).
+// An unconditional "bats" ticker alias tagged this exchange operator as Tobacco. The corroboration guard
+// must reject it: name is not "bat", carries no tobacco keyword, and it is US-listed (not GB).
+check('gicsOf does NOT tag Tobacco for BATS Global Markets even when its OWN ticker is "BATS" (ticker-collision guard)', () => {
+  const g = gicsOf({ headline: 'Exchange operator reports monthly volumes', companies: [{ name: 'BATS Global Markets', ticker: 'BATS', listing_country: 'US' }] })
+  assert.ok(g.subSectors.has('Capital Markets'), 'still correctly tagged its real sub-sector via "exchange operator"')
+  assert.ok(!g.subSectors.has('Tobacco'), 'the exchange operator must NOT surface under Tobacco from a bare BATS ticker match')
+  assert.ok(!g.sectors.has('Consumer Staples'), 'and its parent Consumer Staples sector must not be tagged either')
+})
+check('gicsOf does NOT tag Tobacco for a bare, uncorroborated "BATS" ticker with an unrelated name/country', () => {
+  const g = gicsOf({ headline: 'Company reports quarterly volumes', companies: [{ name: 'Some Trading Venue', ticker: 'BATS', listing_country: 'US' }] })
+  assert.ok(!g.subSectors.has('Tobacco'), 'an ambiguous BATS ticker with no BAT corroboration must not tag Tobacco')
 })
 check('gicsOf does NOT tag Tobacco from the common English word "bat" in free headline prose', () => {
   const g = gicsOf({ headline: 'Analysts bat around new estimates for the sector', companies: [] })

@@ -42,6 +42,26 @@ function hydrate(it: FeedItem): FeedItem {
   }
 }
 
+/** Re-score ONE item in place under the given weights (the per-item core of withActiveWeights). Idempotent:
+ *  reRankFromFactors is a pure function of the ingest-captured breakdown + the weights, so applying it twice
+ *  yields the same score/band. Returns early (no-op) for an older line with no breakdown. */
+function applyActiveWeightsTo(it: FeedItem, w: ReturnType<typeof getRankWeights>): void {
+  if (!it.rank_factors) return // older line with no breakdown — leave its persisted score as-is
+  const r = reRankFromFactors(it.rank_factors, it, w)
+  // §4/§24 doctrine cap on the DISPLAY path too — same rule the ingest path applies in runCycle.ts: a
+  // weight edit that re-ranks a Reddit/`social` item above the pick threshold must never show it as a
+  // top pick, and capSocialScore keeps its priority below the picks so the wire ordering honors the cap.
+  // caution_only social (r/wallstreetbets) stays "weighted lowest" on the display re-rank too.
+  const caution = it.caution === true
+  const capped = capSocialScore(r.rank_score, r.rank_factors.source_tier_id, NEWS.pickThreshold, NEWS.watchThreshold, caution)
+  it.triage_score = capped
+  it.rank_factors = r.rank_factors
+  it.band = capSocialBand(scoreToBand(capped, NEWS.pickThreshold, NEWS.watchThreshold), r.rank_factors.source_tier_id, caution)
+  // keep event_materiality_label consistent with the just-recomputed score — it must never contradict
+  // what's shown (same invariant runCycle.ts enforces at ingest)
+  it.event_materiality_label = deriveMaterialityLabel(capped)
+}
+
 /** Re-score the served window under the CURRENTLY-active scoring weights (rank-weights.ts), so a Scoring
  *  panel edit applies to the WHOLE existing wire on the next load — not only to items ingested afterward.
  *  Display-only: this never touches the persisted firehose, so the audit trail keeps each item's score as
@@ -49,22 +69,7 @@ function hydrate(it: FeedItem): FeedItem {
  *  clock); at default weights every score is unchanged. Skips any pre-breakdown line. Mutates in place. */
 function withActiveWeights(items: FeedItem[]): void {
   const w = getRankWeights()
-  for (const it of items) {
-    if (!it.rank_factors) continue // older line with no breakdown — leave its persisted score as-is
-    const r = reRankFromFactors(it.rank_factors, it, w)
-    // §4/§24 doctrine cap on the DISPLAY path too — same rule the ingest path applies in runCycle.ts: a
-    // weight edit that re-ranks a Reddit/`social` item above the pick threshold must never show it as a
-    // top pick, and capSocialScore keeps its priority below the picks so the wire ordering honors the cap.
-    // caution_only social (r/wallstreetbets) stays "weighted lowest" on the display re-rank too.
-    const caution = it.caution === true
-    const capped = capSocialScore(r.rank_score, r.rank_factors.source_tier_id, NEWS.pickThreshold, NEWS.watchThreshold, caution)
-    it.triage_score = capped
-    it.rank_factors = r.rank_factors
-    it.band = capSocialBand(scoreToBand(capped, NEWS.pickThreshold, NEWS.watchThreshold), r.rank_factors.source_tier_id, caution)
-    // keep event_materiality_label consistent with the just-recomputed score — it must never contradict
-    // what's shown (same invariant runCycle.ts enforces at ingest)
-    it.event_materiality_label = deriveMaterialityLabel(capped)
-  }
+  for (const it of items) applyActiveWeightsTo(it, w)
 }
 
 /** Recompute story-cluster ids over the whole returned window, so the wire de-dupes the EXISTING
@@ -280,6 +285,14 @@ export function searchFeed(repoRoot: string, opts: SearchOpts): SearchSnapshot {
   let scannedThroughDate: string | null = null
   let reachedFloor = false
   let budgetStop = false
+  // Re-score under the CURRENTLY-active weights BEFORE the predicate runs — not after, on the page. The
+  // wire displays each item's current-weight band (readFeed applies the same weights), and the band filter
+  // must match what the wire shows. A persisted ingest-time band can differ from the current-weight band
+  // after a Scoring-panel edit; filtering the predicate on the stale persisted band would permanently omit
+  // rows that are now in the selected band (or admit rows that no longer are). Skipped only when a caller
+  // opts out of active weights (applyActiveWeights === false) — then the predicate sees the persisted band,
+  // consistent with a non-re-scored view. The final page re-apply below is then a no-op (idempotent).
+  const weightsForPredicate = opts.applyActiveWeights !== false ? getRankWeights() : null
 
   for (let d = 0; d < maxDaysScan; d++) {
     const date = new Date(new Date(`${startDate}T00:00:00Z`).getTime() - d * 86_400_000).toISOString().slice(0, 10)
@@ -288,6 +301,7 @@ export function searchFeed(repoRoot: string, opts: SearchOpts): SearchSnapshot {
     linesScanned += lines
     if (lines > 0) scannedThroughDate = date // the oldest day we actually parsed
     for (const it of items) {
+      if (weightsForPredicate) applyActiveWeightsTo(it, weightsForPredicate)
       if (afterCursor(it, opts.cursor) && opts.predicate(it)) matches.push(it)
     }
     // Stop AFTER fully parsing a day (never mid-file) so newest-first ordering is exact: older days can
