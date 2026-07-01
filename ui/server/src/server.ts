@@ -1058,11 +1058,11 @@ app.post('/api/screener/feedback/:id/undo', async (req, reply) => {
   }
 })
 
-app.get('/api/screener/feedback/summary', async () => summarizeFeedback(readAllFeedback(REPO_ROOT)))
+app.get('/api/screener/feedback/summary', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async () => summarizeFeedback(readAllFeedback(REPO_ROOT)))
 
 // Tickers already under research coverage — the batch-review "portfolio companies" filter's data
 // source (a proxy: this codebase has no separate brokerage holdings list). Cheap; fetched once per panel-open.
-app.get('/api/screener/covered-tickers', async () => ({ tickers: listCoveredTickers(REPO_ROOT) }))
+app.get('/api/screener/covered-tickers', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async () => ({ tickers: listCoveredTickers(REPO_ROOT) }))
 
 // ---------- export a saved output as a polished document (HTML / print-PDF / Word) ----------
 app.get('/api/export', async (req, reply) => {

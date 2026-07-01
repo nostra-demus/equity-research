@@ -326,7 +326,7 @@ interface State {
   // card feedback ("flag as irrelevant / mis-scored / …") — flaggedEvents is a local display cache;
   // the server ledger (screener/ledger/screener_feedback.ndjson) is the source of truth
   flaggedEvents: Set<string>
-  submitFeedback: (input: FeedbackSubmitInput) => Promise<void>
+  submitFeedback: (input: FeedbackSubmitInput) => Promise<boolean>
   undoFeedbackFlow: (feedbackId: string, eventId: string) => Promise<void>
   // fast batch review mode: a focused, filtered, keyboard-driven queue over the same wire — reuses
   // submitFeedback above, so there is exactly one storage path for both flows
@@ -335,6 +335,8 @@ interface State {
   reviewQueue: FeedItem[] // snapshotted on open / filter change — NOT live-reactive mid-review
   reviewIndex: number
   reviewSessionCount: number // in-memory only; resets every time the panel opens (never persisted)
+  reviewSubmitting: boolean // in-flight guard: one review POST at a time, so a held key / double-click can't
+  // fire multiple records for the same card or advance past later cards before the save resolves
   coveredTickers: Set<string> // "portfolio companies" proxy — fetched once per panel-open
   openReview: () => void
   closeReview: () => void
@@ -517,6 +519,7 @@ export const useStore = create<State>((set, get) => ({
   reviewQueue: [],
   reviewIndex: 0,
   reviewSessionCount: 0,
+  reviewSubmitting: false,
   coveredTickers: new Set(),
   enrichCache: {},
   newsFeedOpen: false,
@@ -1480,8 +1483,10 @@ export const useStore = create<State>((set, get) => ({
 
   // submit card feedback: mark it flagged (optimistic, local display cache), persist to the server
   // ledger, and toast a confirmation with a short-window Undo. Rolled back on a failed save.
+  // Returns true only when the ledger POST actually succeeded — the batch-review path relies on this to
+  // decide whether to advance to the next card (a failed save must NOT silently skip a card).
   submitFeedback: async (input) => {
-    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — feedback needs a live engine.', tone: 'info' })
+    if (get().staticMode) { get().setToast({ msg: 'Read-only showcase — feedback needs a live engine.', tone: 'info' }); return false }
     const next = new Set(get().flaggedEvents)
     next.add(input.event_id)
     saveFlagged(next)
@@ -1493,12 +1498,14 @@ export const useStore = create<State>((set, get) => ({
         tone: 'good',
         action: { label: 'Undo', onClick: () => void get().undoFeedbackFlow(feedback.feedback_id, input.event_id) },
       })
+      return true
     } catch (e: any) {
       const rollback = new Set(get().flaggedEvents)
       rollback.delete(input.event_id)
       saveFlagged(rollback)
       set({ flaggedEvents: rollback })
       get().setToast({ msg: e?.body?.error || e?.message || 'Could not save feedback', tone: 'bad' })
+      return false
     }
   },
   undoFeedbackFlow: async (feedbackId, eventId) => {
@@ -1526,7 +1533,17 @@ export const useStore = create<State>((set, get) => ({
       reviewSessionCount: 0,
     })
     if (covered.size === 0 && !get().staticMode) {
-      api.coveredTickers().then((tickers) => set({ coveredTickers: new Set(tickers) })).catch(() => {})
+      api.coveredTickers().then((tickers) => {
+        const coveredNow = new Set(tickers)
+        // Re-filter the snapshot against the tickers that just arrived: the queue was built while the set was
+        // still empty, so the "portfolio companies" filter would show nothing until the user toggled a filter.
+        // Only rebuild while the panel is still open and the user hasn't since changed filters/position.
+        if (get().reviewOpen) {
+          set({ coveredTickers: coveredNow, reviewQueue: get().newsItems.filter((it) => matchesReviewFilters(it, get().reviewFilters, coveredNow)), reviewIndex: 0 })
+        } else {
+          set({ coveredTickers: coveredNow })
+        }
+      }).catch(() => {})
     }
   },
   closeReview: () => set({ reviewOpen: false }),
@@ -1540,10 +1557,18 @@ export const useStore = create<State>((set, get) => ({
   // submit feedback for the item at the front of the queue, then advance — one code path shared by
   // both the mouse buttons and the keyboard shortcuts in ReviewPanel.
   reviewSubmit: async (feedbackType, reason) => {
+    if (get().reviewSubmitting) return // one save in flight — a held key / double-click can't stack records
     const it = get().reviewQueue[get().reviewIndex]
     if (!it) return
-    await get().submitFeedback(feedbackInputFromItem(it, feedbackType, reason))
-    set({ reviewIndex: get().reviewIndex + 1, reviewSessionCount: get().reviewSessionCount + 1 })
+    set({ reviewSubmitting: true })
+    try {
+      const ok = await get().submitFeedback(feedbackInputFromItem(it, feedbackType, reason))
+      // Advance + count ONLY on a real save. A failed POST leaves the same card in front (with its
+      // "could not save" toast) so the human can retry — it is never silently skipped with no ledger record.
+      if (ok) set({ reviewIndex: get().reviewIndex + 1, reviewSessionCount: get().reviewSessionCount + 1 })
+    } finally {
+      set({ reviewSubmitting: false })
+    }
   },
   // pure client-side advance — never calls the API, never counts toward the session counter
   reviewSkip: () => set({ reviewIndex: get().reviewIndex + 1 }),

@@ -9,15 +9,17 @@ export interface ReviewFilterState {
   highScore: boolean // triage_score >= HIGH_SCORE_THRESHOLD (same cutoff the wire's own color tone uses)
   routineFilings: boolean // APPROXIMATION: relevance === 'relevant_non_material' — a true per-item "routine
   // filing" flag only exists via on-demand enrichment, too expensive to fetch for a whole day's queue
-  genericMedia: boolean // source_tier is one of the two lowest §4 tiers (News / Unconfirmed)
+  genericMedia: boolean // source_tier is one of the two lowest §4 tiers (news / unconfirmed)
   lowConfidence: boolean // band === 'drop'
   portfolioCompanies: boolean // APPROXIMATION: companies[].ticker intersects the fetched coveredTickers set
   // (tickers with an analyses/ folder) — this codebase has no separate brokerage holdings list
-  sourceTiers: Set<string> // direct multi-select on the source_tier label — no approximation
+  sourceTiers: Set<string> // direct multi-select on the source_tier ID (SourceTierId, e.g. 'news') — no approximation
 }
 
 export const HIGH_SCORE_THRESHOLD = 70
-const GENERIC_MEDIA_TIERS = new Set(['News', 'Unconfirmed'])
+// The wire stamps source_tier as the SourceTierId (deriveSourceTier in server news/scope.ts — e.g. 'news',
+// 'unconfirmed'), NOT the display label ('News'/'Unconfirmed'). Filter on the IDs; labels are for rendering.
+const GENERIC_MEDIA_TIERS = new Set(['news', 'unconfirmed'])
 
 export const emptyReviewFilters = (): ReviewFilterState => ({
   highScore: false,

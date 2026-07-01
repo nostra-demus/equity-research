@@ -65,18 +65,26 @@ check('routineFilings: relevance === relevant_non_material passes, material/irre
   assert.equal(matchesReviewFilters(mkItem({ relevance: 'irrelevant' }), f, new Set()), false)
 })
 
-check('genericMedia: News/Unconfirmed source_tier passes, Filing/Company/Official data fail', () => {
+// The wire stamps the SourceTierId (deriveSourceTier: 'news'/'unconfirmed'/'primary_filing'/…), NOT the
+// display label ('News'/'Filing'). The filters MUST compare against those IDs — a label would match nothing
+// on real data. (Regression guard for the label-vs-id bug: these assertions FAIL against the old
+// label-based filter and PASS against the id-based one.)
+check('genericMedia: news/unconfirmed source_tier IDs pass, filing/company/official_data fail', () => {
   const f = on({ genericMedia: true })
-  assert.equal(matchesReviewFilters(mkItem({ source_tier: 'News' }), f, new Set()), true)
-  assert.equal(matchesReviewFilters(mkItem({ source_tier: 'Unconfirmed' }), f, new Set()), true)
-  assert.equal(matchesReviewFilters(mkItem({ source_tier: 'Filing' }), f, new Set()), false)
-  assert.equal(matchesReviewFilters(mkItem({ source_tier: 'Company' }), f, new Set()), false)
+  assert.equal(matchesReviewFilters(mkItem({ source_tier: 'news' }), f, new Set()), true)
+  assert.equal(matchesReviewFilters(mkItem({ source_tier: 'unconfirmed' }), f, new Set()), true)
+  assert.equal(matchesReviewFilters(mkItem({ source_tier: 'primary_filing' }), f, new Set()), false)
+  assert.equal(matchesReviewFilters(mkItem({ source_tier: 'company' }), f, new Set()), false)
+  // the display LABEL must NOT match — it never appears on the wire
+  assert.equal(matchesReviewFilters(mkItem({ source_tier: 'News' }), f, new Set()), false)
 })
 
-check('sourceTiers: direct multi-select match', () => {
-  const f = on({ sourceTiers: new Set(['Filing', 'Official data']) })
-  assert.equal(matchesReviewFilters(mkItem({ source_tier: 'Filing' }), f, new Set()), true)
-  assert.equal(matchesReviewFilters(mkItem({ source_tier: 'News' }), f, new Set()), false)
+check('sourceTiers: direct multi-select match on the SourceTierId', () => {
+  const f = on({ sourceTiers: new Set(['primary_filing', 'official_data']) })
+  assert.equal(matchesReviewFilters(mkItem({ source_tier: 'primary_filing' }), f, new Set()), true)
+  assert.equal(matchesReviewFilters(mkItem({ source_tier: 'news' }), f, new Set()), false)
+  // the display LABEL 'Filing' is not the stamped value and must not match
+  assert.equal(matchesReviewFilters(mkItem({ source_tier: 'Filing' }), f, new Set()), false)
 })
 
 check('portfolioCompanies: matches when a company ticker is in the covered set', () => {

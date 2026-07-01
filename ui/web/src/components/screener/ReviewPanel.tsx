@@ -7,13 +7,21 @@ import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { useStore } from '../../lib/store'
 import { displayHeadline } from '../../lib/plain'
-import { isCompanyNameClient } from '../../lib/scope'
+import { isCompanyNameClient, sourceTierDef } from '../../lib/scope'
 import { api } from '../../lib/api'
 import { feedbackLabel } from '../../lib/feedbackTypes'
 import { KEY_TO_FEEDBACK, SKIP_KEY } from '../../lib/reviewKeymap'
 import type { FeedbackSummary } from '../../lib/types'
 
-const SOURCE_TIER_OPTIONS = ['Filing', 'Official data', 'Company', 'News', 'Unconfirmed']
+// value = the SourceTierId the wire actually stamps (deriveSourceTier); label = what the user sees.
+// Filtering on the label matched nothing on live data — the wire holds IDs like 'news', not 'News'.
+const SOURCE_TIER_OPTIONS: { id: string; label: string }[] = [
+  { id: 'primary_filing', label: 'Filing' },
+  { id: 'official_data', label: 'Official data' },
+  { id: 'company', label: 'Company' },
+  { id: 'news', label: 'News' },
+  { id: 'unconfirmed', label: 'Unconfirmed' },
+]
 
 export function ReviewPanel() {
   const close = useStore((s) => s.closeReview)
@@ -41,6 +49,10 @@ export function ReviewPanel() {
     const onKey = (e: KeyboardEvent) => {
       const tag = (document.activeElement as HTMLElement | null)?.tagName
       if (tag === 'INPUT' || tag === 'TEXTAREA') return // never fire while the reason field has focus
+      // Never hijack a browser/OS shortcut: Ctrl/Cmd+L (focus address bar), Alt+D (address bar), etc. all
+      // still carry e.key 'l'/'d', so without this a chord would submit score_too_high/duplicate_stale AND
+      // preventDefault the real shortcut. A bare letter (no modifier) is the only intended trigger.
+      if (e.ctrlKey || e.metaKey || e.altKey) return
       if (e.key === 'Escape') return close()
       if (!it) return
       const key = e.key.toLowerCase()
@@ -82,8 +94,8 @@ export function ReviewPanel() {
         <label className="review__filter" title="Approximation: the named company already has an analyses/ folder — this codebase has no separate holdings list"><input type="checkbox" checked={filters.portfolioCompanies} onChange={(e) => toggle({ portfolioCompanies: e.target.checked })} /> Portfolio companies</label>
         <span className="review__filtersep" aria-hidden />
         {SOURCE_TIER_OPTIONS.map((tier) => (
-          <button key={tier} type="button" className={`review__tierchip${filters.sourceTiers.has(tier) ? ' review__tierchip--on' : ''}`} onClick={() => toggleTier(tier)}>
-            {tier}
+          <button key={tier.id} type="button" className={`review__tierchip${filters.sourceTiers.has(tier.id) ? ' review__tierchip--on' : ''}`} onClick={() => toggleTier(tier.id)}>
+            {tier.label}
           </button>
         ))}
       </div>
@@ -100,7 +112,7 @@ export function ReviewPanel() {
               <div className="review__cardtop">
                 <span className="review__score mono">{it.triage_score}</span>
                 <span className="review__src">{it.source_name}</span>
-                {it.source_tier && <span className="review__tag">{it.source_tier}</span>}
+                {it.source_tier && <span className="review__tag">{sourceTierDef(it.source_tier)?.label ?? it.source_tier}</span>}
                 <span className="review__tag">{it.band}</span>
               </div>
               <div className="review__headline">{displayHeadline(it)}</div>
