@@ -200,6 +200,7 @@ export function EventRail() {
   const themesOpen = useStore((s) => s.themesView !== null)
   const openThemes = useStore((s) => s.openThemes)
   const closeThemes = useStore((s) => s.closeThemes)
+  const setThemesGeo = useStore((s) => s.setThemesGeo)
   const openNewsFeed = useStore((s) => s.openNewsFeed)
   const openSources = useStore((s) => s.openSources)
   const runSweep = useStore((s) => s.runSweep)
@@ -340,6 +341,12 @@ export function EventRail() {
   const countryLabel = filters.country ? facets?.countries.find((c) => c.key === filters.country)?.label || filters.country : ''
   // a plain-English summary of the active filter, for the honest "nothing matches X" archive line
   const filterSummary = [filters.gicsSubSector || filters.gicsSector, countryLabel || filters.geoRegion, filters.text.trim() ? `“${filters.text.trim()}”` : ''].filter(Boolean).join(' · ')
+
+  // mirror the geography picker into the store so the Themes map/board slice to the same country/continent
+  // (the picker lives here, but the Themes view is a sibling in the main pane — it can only read the store).
+  useEffect(() => {
+    setThemesGeo({ country: filters.country || '', geoRegion: filters.geoRegion || '', label: countryLabel || filters.geoRegion || '' })
+  }, [filters.country, filters.geoRegion, countryLabel, setThemesGeo])
 
   // the broad filter: a UNION of the picked scope chips + the Sector/Commodity sub-selections, applied on
   // top of the refined set

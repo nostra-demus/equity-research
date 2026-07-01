@@ -87,6 +87,7 @@ let dataSource: EventSource | null = null
 let bloomTimer: any = null
 let pollTimer: any = null
 let intensityRefetchTimer: any = null // debounces the screener intensity re-fetch on each news cycle
+let themesGeoRefetchTimer: any = null // debounces the geo-sliced themes re-fetch on each theme-update
 let selectGen = 0 // bumped on every selectTicker; async work bails if it changed (fast-switch guard)
 let archiveToken = 0 // bumped on every archive search; a stale slow response bails if it changed (last-write-wins)
 let facetsToken = 0 // same guard for a standalone facets load (contextless / on dropdown open)
@@ -421,6 +422,10 @@ interface State {
   themesView: 'map' | 'board' | null // null = themes view closed (gauntlet/idle canvas shows)
   themesWindow: number | null // the selected time-window lookback in HOURS; null = Live (real-time)
   themesHistoryDays: number // days of real daily-flow history the engine has (gates the long windows)
+  // the "Where" geography picker (owned by the Event rail) mirrored here so the Themes view slices by it —
+  // empty country+geoRegion = the global (un-filtered) index. `label` is the country/continent display name.
+  themesGeo: { country: string; geoRegion: string; label: string }
+  setThemesGeo: (geo: { country: string; geoRegion: string; label: string }) => void
   selectedTheme: string | null // open deep-dive
   themeDetail: ThemeDetail | null // the open theme's resolved members + companies-by-order
   themeBrief: ThemeBrief | null // the open theme's plain-English explainer (loaded separately, may lag the detail)
@@ -572,6 +577,7 @@ export const useStore = create<State>((set, get) => ({
   themesView: null,
   themesWindow: null,
   themesHistoryDays: 0,
+  themesGeo: { country: '', geoRegion: '', label: '' },
   selectedTheme: null,
   themeDetail: null,
   themeBrief: null,
@@ -1489,10 +1495,30 @@ export const useStore = create<State>((set, get) => ({
   // ---- dynamic themes ----
   refreshThemes: async () => {
     try {
-      const idx = await api.newsThemes()
+      const g = get().themesGeo
+      const geo = g.country || g.geoRegion ? { country: g.country || undefined, geoRegion: g.geoRegion || undefined } : undefined
+      const idx = await api.newsThemes(geo)
+      // guard a slow geo response landing after the geo changed again (last-write-wins on the current geo)
+      const now = get().themesGeo
+      if (now.country !== g.country || now.geoRegion !== g.geoRegion) return
       set({ themes: idx.themes, themesHistoryDays: idx.history_days || 0, themesStatus: 'ready' })
     } catch {
       set({ themesStatus: 'error' })
+    }
+  },
+  // the Event rail's "Where" picker calls this so the Themes map/board slice to the same geography. Only
+  // refetches when the geography (country/continent) actually changes — a late-arriving label refresh
+  // updates the display without a wasted round-trip — and only while the themes view is showing (else
+  // openThemes picks up the current geo). Debounced so scrubbing the dropdown collapses to one request.
+  setThemesGeo: (geo) => {
+    const cur = get().themesGeo
+    const geoChanged = cur.country !== geo.country || cur.geoRegion !== geo.geoRegion
+    if (!geoChanged && cur.label === geo.label) return
+    set({ themesGeo: geo })
+    if (geoChanged && get().themesView !== null) {
+      set({ themesStatus: get().themes.length ? 'ready' : 'loading' })
+      if (themesGeoRefetchTimer) clearTimeout(themesGeoRefetchTimer)
+      themesGeoRefetchTimer = setTimeout(() => void get().refreshThemes(), 300)
     }
   },
   openThemes: async (view) => {
@@ -2097,6 +2123,15 @@ export const useStore = create<State>((set, get) => ({
       // upsert the changed theme; the map/board re-rank from the array. Only when the themes view is
       // open (otherwise we'd hold stale themes until next open anyway).
       if (get().themesView === null && !get().themes.length) return
+      // in a geo-sliced view the SSE patch is a GLOBAL theme summary that doesn't match the geo projection
+      // (different member_count / flow / ranking), so recompute the whole geo index (debounced) instead of
+      // upserting a mismatched row.
+      const g = get().themesGeo
+      if (g.country || g.geoRegion) {
+        if (themesGeoRefetchTimer) clearTimeout(themesGeoRefetchTimer)
+        themesGeoRefetchTimer = setTimeout(() => void get().refreshThemes(), 1200)
+        return
+      }
       const t = e.theme as Theme
       const cur = get().themes
       const i = cur.findIndex((x) => x.theme_id === t.theme_id)

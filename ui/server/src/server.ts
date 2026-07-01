@@ -25,7 +25,9 @@ import { computeFacets } from './news/facets'
 import { getIntensity, INTENSITY_WINDOWS, type IntensityWindow } from './news/intensity'
 import { getRankWeights, defaultRankWeights, saveRankWeights, resetRankWeights, rankWeightsCustomised, type RankWeights } from './news/rank-weights'
 import { buildSourcesReport } from './news/source-health'
-import { readThemesIndex, loadTheme, buildThemeDetail } from './news/themes/store'
+import { readThemesIndex, loadTheme, loadThemes, buildThemeDetail, themesLedgerPath } from './news/themes/store'
+import { buildGeoThemesIndex, hasThemeGeo, type ThemeGeo } from './news/themes/geo-index'
+import type { ThemesIndex } from './news/themes/types'
 import { buildThemeBrief } from './news/themes/brief'
 import { enrichEvent, listCoveredTickers } from './news/enrich'
 import { markInboxConsumed, setDismissed } from './news/inbox-actions'
@@ -981,9 +983,37 @@ app.put('/api/news/rank-weights', { config: { rateLimit: { max: 1000, timeWindow
   return { active, defaults: defaultRankWeights(), customised: rankWeightsCustomised() }
 })
 
-// THEMES — the living, ranked investment themes the firehose is bucketed into.
+// THEMES — the living, ranked investment themes the firehose is bucketed into. With a `country` (ISO
+// alpha-2) or `geoRegion` (continent) query param it returns the SAME themes sliced to that geography —
+// re-ranked + re-sized by that geography's news flow — so the cockpit's "Where" picker narrows the Themes
+// view, not just the Events list. No geo param → the fast pre-built global index. The geo path reads the
+// full ledger (member rings) from disk, so it carries the same per-route limiter as the other fs routes.
 const THEME_RE = /^THM-[a-z0-9]{8}$/
-app.get('/api/news/themes', async () => readThemesIndex(REPO_ROOT))
+// Cache the geo-sliced index by (ledger mtime, geo key). The ledger only changes once per ~5-min cycle, so
+// nearly every geo request is served O(1) instead of re-parsing the whole ledger + re-running the country
+// gazetteer over every member (measured ~89ms today, ~540ms at the 32MB size prod once reached — all on the
+// single event loop). A new mtime drops the whole map, so a cycle's fresh themes show up immediately.
+let themesGeoCache: { mtime: number; byGeo: Map<string, ThemesIndex> } = { mtime: -1, byGeo: new Map() }
+function geoThemesIndex(geo: ThemeGeo): ThemesIndex {
+  let mtime = 0
+  try { mtime = fs.statSync(themesLedgerPath(REPO_ROOT)).mtimeMs } catch { /* no ledger yet → mtime 0 */ }
+  if (themesGeoCache.mtime !== mtime) themesGeoCache = { mtime, byGeo: new Map() }
+  const key = `${geo.country || ''}|${geo.geoRegion || ''}`
+  const hit = themesGeoCache.byGeo.get(key)
+  if (hit) return hit
+  const idx = buildGeoThemesIndex(loadThemes(REPO_ROOT), geo)
+  themesGeoCache.byGeo.set(key, idx)
+  return idx
+}
+app.get('/api/news/themes', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req) => {
+  const q = (req.query as any) || {}
+  const geo: ThemeGeo = {
+    country: typeof q.country === 'string' && q.country.trim() ? q.country.trim().toUpperCase() : undefined,
+    geoRegion: typeof q.geoRegion === 'string' && q.geoRegion.trim() ? q.geoRegion.trim() : undefined,
+  }
+  if (!hasThemeGeo(geo)) return readThemesIndex(REPO_ROOT)
+  return geoThemesIndex(geo)
+})
 app.get('/api/news/themes/:id', async (req, reply) => {
   const id = String((req.params as any)?.id || '')
   if (!THEME_RE.test(id)) return reply.code(400).send({ error: 'bad theme id' })

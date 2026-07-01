@@ -499,6 +499,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         source_tier: deriveSourceTier(t),
         scope: deriveScope(t),
         region: t.region,
+        country: resolveCountry(t.headline, t.headline_en, t.companies, t.region, t.issuer_linkage), // same resolver as the feed write (line ~432) → member country == feed-item country
       }))
       const n = bumpCycleCounter(stateDir)
       // Hard time-bound: themes runs AFTER the core write, so it must NEVER eat the cycle. Even though

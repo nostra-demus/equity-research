@@ -27,6 +27,7 @@ export function ThemesView() {
   const status = useStore((s) => s.themesStatus)
   const selectedTheme = useStore((s) => s.selectedTheme)
   const themesWindow = useStore((s) => s.themesWindow)
+  const themesGeo = useStore((s) => s.themesGeo)
   const historyDays = useStore((s) => s.themesHistoryDays)
   const setThemesView = useStore((s) => s.setThemesView)
   const setThemesWindow = useStore((s) => s.setThemesWindow)
@@ -38,6 +39,11 @@ export function ThemesView() {
   // flow in the window drops out. Live keeps the server's composite ranking + the real-time map.
   const win = useMemo<ThemeWindow | null>(() => (themesWindow == null ? null : THEME_WINDOWS.find((w) => w.hours === themesWindow) ?? null), [themesWindow])
   const windowHours = win?.hours ?? null
+
+  // the "Where" geography slice (mirrored from the Event rail's picker) — when set, the themes[] the store
+  // holds are ALREADY sliced to this geography by the server, so this drives labels/empty-copy only.
+  const geoActive = !!(themesGeo.country || themesGeo.geoRegion)
+  const geoLabel = themesGeo.label || themesGeo.country || themesGeo.geoRegion
 
   const shown = useMemo(() => {
     const byTier = tier === 'all' ? themes : themes.filter((t) => t.tier === tier)
@@ -63,7 +69,13 @@ export function ThemesView() {
         <div className="themes__title">
           <span className="themes__titlemain">Themes</span>
           <span className="themes__sub">
-            {!themes.length ? 'forming…' : win ? `Hottest themes by news flow · ${win.full}` : `${themes.length} live · the wire, clustered into what you can play`}
+            {!themes.length
+              ? geoActive ? `forming… · ${geoLabel}` : 'forming…'
+              : win
+                ? `Hottest ${geoActive ? `${geoLabel} ` : ''}themes by news flow · ${win.full}`
+                : geoActive
+                  ? `${themes.length} live in ${geoLabel} · what ${geoLabel} news is driving now`
+                  : `${themes.length} live · the wire, clustered into what you can play`}
           </span>
         </div>
         <div className="themes__controls">
@@ -132,7 +144,9 @@ export function ThemesView() {
       ) : !themes.length ? (
         <div className="themes__empty">
           <div className="themes__emptyorb" />
-          <p>No themes have formed yet. As related news clusters across companies, living themes appear here — the strongest float to the top.</p>
+          <p>{geoActive
+            ? `No themes are being driven by ${geoLabel} news right now. Clear the “Where” filter to see every market, or pick another country.`
+            : 'No themes have formed yet. As related news clusters across companies, living themes appear here — the strongest float to the top.'}</p>
         </div>
       ) : win && !shown.length ? (
         <div className="themes__empty">
@@ -140,9 +154,9 @@ export function ThemesView() {
           <p>No theme took news in {win.full}. Try a longer window — or switch to Live to watch the wire in real time.</p>
         </div>
       ) : view === 'map' ? (
-        <ThemeMap themes={shown} onPick={selectTheme} win={win} cov={cov} />
+        <ThemeMap themes={shown} onPick={selectTheme} win={win} cov={cov} geoLabel={geoActive ? geoLabel : ''} />
       ) : (
-        <ThemeBoard themes={shown} onPick={selectTheme} win={win} cov={cov} />
+        <ThemeBoard themes={shown} onPick={selectTheme} win={win} cov={cov} geoLabel={geoActive ? geoLabel : ''} />
       )}
     </div>
   )
@@ -167,7 +181,7 @@ const TIER_LANES = [
 // survives ThemeMap unmount/remount within the session; a full page reload resets it (fresh reveal).
 let themeMapRevealed = false
 
-function ThemeMap({ themes, onPick, win, cov }: { themes: Theme[]; onPick: (id: string) => void; win: ThemeWindow | null; cov: WindowCoverage | null }) {
+function ThemeMap({ themes, onPick, win, cov, geoLabel }: { themes: Theme[]; onPick: (id: string) => void; win: ThemeWindow | null; cov: WindowCoverage | null; geoLabel: string }) {
   const ref = useRef<HTMLDivElement>(null)
   const [box, setBox] = useState({ w: 900, h: 560 })
   const [hover, setHover] = useState<string | null>(null)
@@ -175,6 +189,11 @@ function ThemeMap({ themes, onPick, win, cov }: { themes: Theme[]; onPick: (id: 
   // firing, rate readout) is suppressed and the basins are sized by flow WITHIN the window instead.
   const windowHours = win?.hours ?? null
   const historical = windowHours != null
+  // a geography slice freezes the map the same way: the live inbound/outbound dots are the GLOBAL intake
+  // (not attributable to one country), so showing them filing into geo-filtered basins would misread (§3).
+  // `frozen` suppresses the whole live stream; the basins stand as a labelled geo snapshot.
+  const geoActive = !!geoLabel
+  const frozen = historical || geoActive
   useEffect(() => {
     if (!ref.current) return
     const ro = new ResizeObserver((e) => { const r = e[0].contentRect; setBox({ w: Math.max(420, r.width), h: Math.max(360, r.height) }) })
@@ -262,7 +281,7 @@ function ThemeMap({ themes, onPick, win, cov }: { themes: Theme[]; onPick: (id: 
   // ENQUEUE outbound — diff each theme's real member_count; one pending dot per new member. HOLD the
   // shown count at the old value (landings tick it up). A theme appearing for the first time is "born".
   useEffect(() => {
-    if (historical) return // frozen snapshot — no live landings to animate
+    if (frozen) return // frozen snapshot (a window or a geo slice) — no live landings to animate
     const pc = prevCounts.current
     const seeding = pc.size === 0
     const sync: Record<string, number> = {}
@@ -285,7 +304,7 @@ function ThemeMap({ themes, onPick, win, cov }: { themes: Theme[]; onPick: (id: 
       setBorn((b) => { const n = new Set(b); newborn.forEach((id) => n.add(id)); return n })
       window.setTimeout(() => setBorn((b) => { const n = new Set(b); newborn.forEach((id) => n.delete(id)); return n }), 1500)
     }
-  }, [themes, reduceMotion, historical])
+  }, [themes, reduceMotion, frozen])
 
   // ENQUEUE inbound — the cycle's RAW FETCH volume (`fetched` ≈ 200 articles/scan) is the true "data
   // coming in" intensity the user wants to gauge — not the ~5 new-after-dedup items, which look like
@@ -294,7 +313,7 @@ function ThemeMap({ themes, onPick, win, cov }: { themes: Theme[]; onPick: (id: 
   // are spread across the lanes by a news-heavy mix — the COUNT (fetched) is exact; only the lane split
   // is modelled. These are the "scanning" pulse (source → Ranking); they don't tick theme counts.
   useEffect(() => {
-    if (reduceMotion || historical || !lastScan || lastScan.seq === prevScanSeq.current) return
+    if (reduceMotion || frozen || !lastScan || lastScan.seq === prevScanSeq.current) return
     prevScanSeq.current = lastScan.seq
     const n = Math.max(0, Math.min(lastScan.fetched, MAX_QUEUE))
     // spread the n scanning dots across the source lanes by the REAL collected mix (stratified, so they
@@ -317,14 +336,14 @@ function ThemeMap({ themes, onPick, win, cov }: { themes: Theme[]; onPick: (id: 
     // the rate IS the intensity: fetched ÷ scan cadence, dynamic + uncapped (200/scan ≈ 0.7/s, 1000 ≈ 3.3/s)
     rateRef.current = queue.current.length / Math.max(60, windowRef.current / 1000)
     setRate(rateRef.current)
-  }, [lastScan, reduceMotion, historical])
+  }, [lastScan, reduceMotion, frozen])
 
   // PACER — one stable loop. It releases dots at the FIXED per-scan rate (rateRef, = scraped ÷ cadence),
   // held steady across the window so the whole scan's volume spreads evenly: 1000 items over 300s reads
   // as a dense ~3.3/s, 100 items as a sparse ~0.3/s. NO clamp — the dot density IS the intensity gauge.
   // A fractional accumulator handles any rate (sub-1/s to tens/s). On drain it goes idle until next scan.
   useEffect(() => {
-    if (reduceMotion || historical) return
+    if (reduceMotion || frozen) return
     const TICK = 200
     const emitOne = (p: Pending) => {
       const L = layoutRef.current
@@ -367,25 +386,28 @@ function ThemeMap({ themes, onPick, win, cov }: { themes: Theme[]; onPick: (id: 
       }
     }, TICK)
     return () => window.clearInterval(id)
-  }, [reduceMotion, historical])
+  }, [reduceMotion, frozen])
 
-  // entering a historical window — drain the live stream so no in-flight dot or rate readout lingers
-  // over the frozen snapshot; the pacer is idle while `historical`, so nothing refills the queue.
+  // entering a frozen snapshot (a time window OR a geography slice) — drain the live stream so no in-flight
+  // dot or rate readout lingers over it; the pacer is idle while `frozen`, so nothing refills the queue.
+  // Also reset the live diff refs so returning to Live re-seeds counts from truth (no spurious landings).
   useEffect(() => {
-    if (!historical) return
+    if (!frozen) return
     queue.current = []
     acc.current = 0
     rateRef.current = 0
+    prevCounts.current = new Map()
     setEmits([])
     setRate(0)
     setLaneFired({})
-  }, [historical])
+    setShown({})
+  }, [frozen])
 
   return (
-    <div className={`thememap${entering ? ' is-entering' : ''}${historical ? ' is-historical' : ''}`} ref={ref}>
-      {historical && win && (
+    <div className={`thememap${entering ? ' is-entering' : ''}${frozen ? ' is-historical' : ''}`} ref={ref}>
+      {frozen && (
         <div className="thememap__asof" aria-hidden>
-          <span className="thememap__asof-dot" /> {windowLabel(win, cov)}
+          <span className="thememap__asof-dot" /> {[geoActive ? geoLabel : '', win ? windowLabel(win, cov) : ''].filter(Boolean).join(' · ')}
         </div>
       )}
       <svg className="thememap__edges" viewBox={`0 0 ${box.w} ${box.h}`} preserveAspectRatio="none" aria-hidden>
@@ -478,22 +500,28 @@ function ThemeMap({ themes, onPick, win, cov }: { themes: Theme[]; onPick: (id: 
             title={t.description}
           >
             <span className="themenode__core" />
-            <span className="themenode__count">{(historical ? flowInWindow(t, windowHours as number) : (shown[t.theme_id] ?? t.member_count)).toLocaleString()}</span>
+            <span className="themenode__count">{(frozen ? (historical ? flowInWindow(t, windowHours as number) : t.member_count) : (shown[t.theme_id] ?? t.member_count)).toLocaleString()}</span>
             <span className="themenode__label" style={{ width: n.labelW, WebkitLineClamp: 3, color: 'var(--text)' }}>{t.name}</span>
           </button>
         )
       })}
-      {hover && <MapTooltip theme={themes.find((t) => t.theme_id === hover)!} />}
+      {hover && <MapTooltip theme={themes.find((t) => t.theme_id === hover)!} geoLabel={geoLabel} />}
     </div>
   )
 }
 
-function MapTooltip({ theme }: { theme: Theme }) {
+// In a geo slice the count is the RECENT items from that geography in the theme's ring, not the theme's
+// all-time total — so the noun is qualified (§21 honesty) to a number the sliced data can actually back.
+function countLabel(n: number, geoLabel: string): string {
+  return geoLabel ? `${n.toLocaleString()} recent ${geoLabel} items` : `${n.toLocaleString()} items`
+}
+
+function MapTooltip({ theme, geoLabel }: { theme: Theme; geoLabel: string }) {
   return (
     <div className="thememap__tip" role="status">
       <div className="thememap__tip-name">{theme.name}</div>
       <div className="thememap__tip-desc">{theme.description}</div>
-      <div className="thememap__tip-meta">{tierLabel(theme.tier)} · {momentumOf(theme)} · score {theme.composite} · {theme.member_count} items</div>
+      <div className="thememap__tip-meta">{tierLabel(theme.tier)} · {momentumOf(theme)} · score {theme.composite} · {countLabel(theme.member_count, geoLabel)}</div>
       {real(theme.top_companies).length > 0 && <div className="thememap__tip-cos">{real(theme.top_companies).slice(0, 5).map((c) => c.name).join(' · ')}</div>}
     </div>
   )
@@ -573,15 +601,15 @@ function hcurve(x1: number, y1: number, x2: number, y2: number): string {
 
 // ---------------- the BOARD ----------------
 
-function ThemeBoard({ themes, onPick, win, cov }: { themes: Theme[]; onPick: (id: string) => void; win: ThemeWindow | null; cov: WindowCoverage | null }) {
+function ThemeBoard({ themes, onPick, win, cov, geoLabel }: { themes: Theme[]; onPick: (id: string) => void; win: ThemeWindow | null; cov: WindowCoverage | null; geoLabel: string }) {
   return (
     <div className="themeboard">
-      {themes.map((t) => <ThemeCard key={t.theme_id} t={t} onPick={onPick} win={win} cov={cov} />)}
+      {themes.map((t) => <ThemeCard key={t.theme_id} t={t} onPick={onPick} win={win} cov={cov} geoLabel={geoLabel} />)}
     </div>
   )
 }
 
-function ThemeCard({ t, onPick, win, cov }: { t: Theme; onPick: (id: string) => void; win: ThemeWindow | null; cov: WindowCoverage | null }) {
+function ThemeCard({ t, onPick, win, cov, geoLabel }: { t: Theme; onPick: (id: string) => void; win: ThemeWindow | null; cov: WindowCoverage | null; geoLabel: string }) {
   const scoreTone = t.composite >= 70 ? 'var(--live)' : t.composite >= 45 ? 'var(--accent-bright)' : 'var(--text-faint)'
   const windowHours = win?.hours ?? null
   const series = windowHours == null ? t.flow_series : windowSeries(t, windowHours)
@@ -599,7 +627,7 @@ function ThemeCard({ t, onPick, win, cov }: { t: Theme; onPick: (id: string) => 
         <span className="themecard__flowmeta">
           {win
             ? `${flowInWindow(t, windowHours).toLocaleString()} items · ${windowLabel(win, cov)}`
-            : `${momentumOf(t)}${t.fresh_flow ? ` · +${t.fresh_flow} fresh` : ''} · ${t.member_count} items`}
+            : `${momentumOf(t)}${t.fresh_flow ? ` · +${t.fresh_flow} fresh` : ''} · ${countLabel(t.member_count, geoLabel)}`}
         </span>
       </div>
       {real(t.top_companies).length > 0 && (
