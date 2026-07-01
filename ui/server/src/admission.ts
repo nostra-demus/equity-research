@@ -3,7 +3,7 @@ import path from 'node:path'
 import { MAX_CONCURRENT_RUNS, REPO_ROOT } from './config'
 import { IN_FLIGHT_STATUSES, inFlightRunsForSubject, listRuns } from './registry'
 import { buildSwarmGraph, depsCompleteForModule, moduleAncestors, transitiveDownstreamModules } from './roster'
-import type { AdmissionDecision, RunKind } from './types'
+import type { AdmissionDecision, AdmissionRejection, RunKind } from './types'
 
 // Everything admitRun needs, computed by the launcher BEFORE createRun so the decision and the
 // register step stay in one synchronous block (no await between them => atomic under Node's loop).
@@ -53,7 +53,11 @@ export function admitRun(req: AdmissionRequest): AdmissionDecision {
   for (const e of inflight) {
     const overlap = e.writeTargetsAbs.filter((p) => targets.has(p))
     if (overlap.length) {
-      return { ok: false, code: 'target_conflict', httpStatus: 409, conflictRunId: e.runId, conflictTargets: overlap.map(rel) }
+      // The human-meaningful shape of the conflict is the MODULE(s) both runs write, not the raw file
+      // list — carry it so the toast can say "already writing the business-model module" instead of
+      // dumping a dozen paths. Empty for root-artifact / cross-module overlaps (message falls back to a count).
+      const conflictModules = coveredModules.filter((m) => e.coveredModules.includes(m))
+      return { ok: false, code: 'target_conflict', httpStatus: 409, conflictRunId: e.runId, conflictTargets: overlap.map(rel), conflictModules }
     }
   }
 
@@ -147,4 +151,40 @@ export function admitRun(req: AdmissionRequest): AdmissionDecision {
   }
 
   return { ok: true }
+}
+
+// Humanize a kebab module name for a sentence ("business-model" -> "business model").
+const humanMod = (m: string) => m.replace(/-/g, ' ')
+
+// Cap a list inside a message. A conflict can involve a whole module's worth of files (a dozen+) or
+// many missing upstreams; joining them verbatim is what produced the giant, unreadable conflict toast.
+// Show the first few, then "+N more", so no admission message can ever balloon.
+function capList(items: string[], n = 3): string {
+  if (items.length <= n) return items.join(', ')
+  return `${items.slice(0, n).join(', ')} +${items.length - n} more`
+}
+
+// Build a compact, plain-English message for a rejection (CLAUDE.md §21). Co-located with the rejection
+// shape so it stays in sync with admitRun and is unit-testable without pulling the launcher's heavy deps.
+// The wording is descriptive only — any recovery action ("Run anyway") is a caller-side affordance.
+export function admissionMessage(r: AdmissionRejection, ticker: string): string {
+  switch (r.code) {
+    case 'exclusivity':
+      return `A ${r.blockingKind} run is in progress for ${ticker} and needs exclusive access — wait for it to finish.`
+    case 'target_conflict': {
+      const mods = r.conflictModules ?? []
+      if (mods.length === 1) return `A run on ${ticker} is already writing the ${humanMod(mods[0])} module.`
+      if (mods.length > 1) return `A run on ${ticker} is already writing ${capList(mods.map(humanMod))}.`
+      const n = r.conflictTargets.length
+      return `A run on ${ticker} is already writing ${n} file${n === 1 ? '' : 's'} this run would overwrite.`
+    }
+    case 'dependency_conflict':
+      if (r.reason === 'module-scope-writer') return `A run is already writing the ${humanMod(r.detail.conflictModule || '')} module for ${ticker} — wait for it before launching another ${humanMod(r.detail.requestedModule || '')} run or orb.`
+      if (r.reason === 'module-ancestry') return `Can't run yet — ${humanMod(r.detail.conflictModule || '')} (${r.detail.relation}) is in flight for ${ticker}; it would be read or written half-finished.`
+      return `A file this run needs is being rewritten by another run on ${ticker} (${capList(r.detail.conflictFiles ?? [])}).`
+    case 'upstream_incomplete':
+      return `Upstream isn't complete for ${ticker}: ${capList(r.missing)}. Run those first, or run the full pipeline.`
+    case 'capacity':
+      return `At the concurrency cap (${r.activeCount}/${r.cap} runs in flight). Wait for one to finish.`
+  }
 }

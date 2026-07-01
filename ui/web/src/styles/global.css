@@ -817,7 +817,13 @@ a { color: inherit; }
   padding: 10px 16px; font-size: 12.5px; box-shadow: var(--shadow-2); display: flex; align-items: center; gap: 9px;
   max-width: min(560px, calc(100vw - 32px));
 }
-.toast__msg { min-width: 0; }
+/* Clamp the message so a toast can never balloon into a wall of text (e.g. a run-conflict that once
+   dumped every path). Messages are short by design; this is the backstop — the full text stays on hover
+   (title attr). line-height keeps a 3-line cap comfortably readable. */
+.toast__msg {
+  min-width: 0; line-height: 1.45;
+  display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+}
 /* inline recovery action (e.g. "Run anyway") — a pill button that turns a dead-end rejection into one click */
 .toast__action {
   flex: none; margin-left: 3px; padding: 4px 12px; border-radius: var(--r-pill);

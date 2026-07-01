@@ -2077,6 +2077,7 @@ export const useStore = create<State>((set, get) => ({
     if (get().staticMode) return
     get().checkHealthNow() // force an immediate /api/health probe (no-op if the loop isn't running)
     void get().refreshNewsStatus() // re-pull the scanner status (bounded fetch — always settles)
+    void get().refreshActiveRuns() // catch up on runs that started/finished while we were away (other tab / headless)
     reviveNewsStream(get) // re-create the news SSE if it died (CLOSED) — browser auto-reconnect can give up
   },
   _handleNewsEvent: (e) => {
@@ -2420,9 +2421,16 @@ function refreshTickersSoon(get: () => State, set: (p: Partial<State>) => void) 
     .catch(() => {})
 }
 
-function schedulePoll(get: () => State, keepGoing: boolean) {
+// `active` = at least one run is live for the selected ticker. Poll fast (5s) while something is live so
+// the swarm stays smooth; keep a gentle 20s heartbeat while a company is merely selected so a run started
+// elsewhere (another tab, or a headless/autonomous run) surfaces in the constellation on its own — no
+// stale "▸ run module" over a module that's actually in flight. refreshActiveRuns is a cheap in-memory
+// registry read and never touches health, so the idle beat can't cause offline flapping.
+function schedulePoll(get: () => State, active: boolean) {
   if (pollTimer) { clearTimeout(pollTimer); pollTimer = null }
-  if (keepGoing && !get().staticMode) pollTimer = setTimeout(() => get().refreshActiveRuns(), 5000)
+  if (get().staticMode) return
+  if (!active && !get().selectedTicker) return
+  pollTimer = setTimeout(() => get().refreshActiveRuns(), active ? 5000 : 20000)
 }
 
 // One health probe now, then self-reschedule (20s healthy / 5s degraded). The generation guard makes a
@@ -2580,6 +2588,12 @@ function launchErrorToast(get: () => State, e: any, ticker: string, what: string
   const isLock = LOCK_CONFLICTS.has(code)
   const info = isLock || code === 'upstream_incomplete'
   const msg = e?.message ? String(e.message) : `Launch failed for ${what} on ${ticker}`
+  // A same-subject lock means a run we may not be tracking is live for this ticker — typically one
+  // started in another tab or by a headless/autonomous run, so it never entered this session's state.
+  // Reconcile now: refreshActiveRuns discovers it, attaches its stream + snapshot, and lights up the
+  // in-flight module in the constellation. The conflict becomes VISIBLE (not just a toast), and the
+  // client-side guard will catch the next attempt with a clean "already running" — no dead-end.
+  if (isLock) void get().refreshActiveRuns()
   get().setToast({
     msg,
     tone: info ? 'info' : 'bad',

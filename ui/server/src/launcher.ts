@@ -3,7 +3,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { execa, type ResultPromise } from 'execa'
 import { logLaunch } from './activity-log'
-import { admitRun } from './admission'
+import { admitRun, admissionMessage } from './admission'
 import { CLAUDE_BIN, DATA_DIR, DEFAULT_MODEL, ESTIMATES, FULL_PER_MODULE, LAUNCH_GUARDS, MAX_CONCURRENT_RUNS, REPO_ROOT, type LaunchKind } from './config'
 import { getCreditStatus, setCreditStatus } from './credit'
 import { startRunWatcher, sweepRunOutputs } from './fs-watcher'
@@ -15,7 +15,7 @@ import { buildSwarmGraph, downstreamCascade } from './roster'
 import { resolveInsideScreener } from './sandbox'
 import { swarmById } from './swarms'
 import { finalPaths, handleStreamLine } from './stream-parser'
-import type { AdmissionRejection, LaunchPreflight, ReadinessDecision, ReadinessReport, RunKind, RunStatus } from './types'
+import type { LaunchPreflight, ReadinessDecision, ReadinessReport, RunKind, RunStatus } from './types'
 
 // Screener kinds are swarm-scoped; everything else is the research default. Generic by design:
 // the kind->swarm mapping is the only place this file knows the screener exists, and it is driven
@@ -383,23 +383,6 @@ export function screenerMarkerDir(swarmId: string | undefined, sigId: string): s
   const abs = path.join(REPO_ROOT, m.runRootTemplate.replace(`{${m.placeholder}}`, sigId))
   fs.mkdirSync(abs, { recursive: true })
   return resolveInsideScreener(abs)
-}
-
-function admissionMessage(r: AdmissionRejection, ticker: string): string {
-  switch (r.code) {
-    case 'exclusivity':
-      return `A ${r.blockingKind} run is in progress for ${ticker} and needs exclusive access — wait for it to finish.`
-    case 'target_conflict':
-      return `That run would overwrite files a run already in progress on ${ticker} is writing (${r.conflictTargets.join(', ')}).`
-    case 'dependency_conflict':
-      if (r.reason === 'module-scope-writer') return `A run is already writing the ${r.detail.conflictModule} module for ${ticker} — wait for it before launching another ${r.detail.requestedModule} run/orb.`
-      if (r.reason === 'module-ancestry') return `Can't run yet — ${r.detail.conflictModule} (${r.detail.relation}) is in flight for ${ticker}; it would be read or written half-finished.`
-      return `A required upstream file is being rewritten by another run on ${ticker} (${(r.detail.conflictFiles ?? []).join(', ')}).`
-    case 'upstream_incomplete':
-      return `Upstream isn't complete for ${ticker}: ${r.missing.join(', ')}. Run those first, or run the full pipeline.`
-    case 'capacity':
-      return `At the concurrency cap (${r.activeCount}/${r.cap} runs in flight). Wait for one to finish.`
-  }
 }
 
 function buildPrompt(swarmId: string, kind: RunKind, ticker: string, module?: string, agent?: string, window?: string, extra?: { thesisId?: string }): string {

@@ -182,7 +182,7 @@ export function App() {
         {toast && (
           <motion.div key="toast" className="toast" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 12 }}>
             <span className="creditbadge__dot" style={{ background: toast.tone === 'good' ? 'var(--accent)' : toast.tone === 'bad' ? 'var(--bad)' : 'var(--text-muted)' }} />
-            <span className="toast__msg">{toast.msg}</span>
+            <span className="toast__msg" title={toast.msg}>{toast.msg}</span>
             {toast.action && (
               <button
                 type="button"
