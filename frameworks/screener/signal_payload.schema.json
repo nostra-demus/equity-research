@@ -90,7 +90,20 @@
     "materiality_math": { "type": "string", "description": "The visible arithmetic: base inputs, penalties applied, overrides applied. Auto-rendered from score_breakdown by scripts/screener_score_breakdown.py." },
     "score_breakdown": {
       "type": "object",
-      "description": "The named 100-point breakdown behind materiality_score. Six positive components (source_quality, event_materiality, company_relevance, specificity, estimate_impact, theme_macro) sum to a 100-pt pre-penalty subtotal; five named penalties subtract from it. Computed by scripts/screener_score_breakdown.py — never hand-edited.",
+      "description": "The named 100-point breakdown behind materiality_score. Six positive components (source_quality, event_materiality, company_relevance, specificity, estimate_impact, theme_macro) sum to a 100-pt pre-penalty subtotal; five named penalties subtract from it. Computed by scripts/screener_score_breakdown.py — never hand-edited. The block itself stays optional for backward compatibility with pre-transparency payloads, but WHEN PRESENT it must carry all six components and all five penalties — a partial block is a defect, not a valid shorthand.",
+      "required": [
+        "source_quality",
+        "event_materiality",
+        "company_relevance",
+        "specificity",
+        "estimate_impact",
+        "theme_macro",
+        "routine_filing_penalty",
+        "generic_media_penalty",
+        "private_unlisted_irrelevance_penalty",
+        "duplicate_stale_penalty",
+        "low_confidence_extraction_penalty"
+      ],
       "properties": {
         "source_quality": { "$ref": "#/definitions/score_component" },
         "event_materiality": { "$ref": "#/definitions/score_component" },

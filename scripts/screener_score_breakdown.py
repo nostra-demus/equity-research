@@ -96,7 +96,15 @@ def classify_source_tier(source_name: str, source_grade: str, is_official_filing
         t = SOURCE_TIER_MAP[source_name]
         return t, f"{source_name} is on the Tier {t} canonical mapping."
     if source_grade == "A":
-        return 1, f"{source_name} is Gate-0 Grade A and not in the Tier-2/3 exception table — defaults to Tier 1."
+        # Grade A at Gate 0 means primary newswire / official filing / official agency cleared the
+        # firewall — but Tier 1 (MODULE_RULES "Source-quality tiers") is a CLOSED enumeration:
+        # official announcements/filings/agencies and the Reuters/Bloomberg/FT/WSJ-class global
+        # wires only. Those reach Tier 1 via is_official_filing above or their explicit SOURCE_TIER_MAP
+        # entry. A respected-but-unmapped Grade-A publisher (a reputable local business paper, a
+        # sector daily) is "respected business press" = Tier 2, NOT a global wire. Defaulting it to
+        # Tier 1 over-scored it (20 vs 13 source_quality points); Tier 2 is the correct floor for
+        # cleared-but-unrecognized Grade-A press.
+        return 2, f"{source_name} is Gate-0 Grade A but not in the Tier-1 wire/filing set — defaults to Tier 2 (respected press)."
     return 4, f"{source_name} is not in the Tier 1-3 mapping — defaults to Tier 4 (unknown/low-quality)."
 
 
@@ -285,6 +293,15 @@ def build_score_breakdown(inputs: dict) -> dict:
     subtotal = sq_value + em_value + cr_value + sp_value + ei_value + tm_value
     penalty_total = rf_value + gm_value + pu_value + ds_value + lc_value
     final_score = max(0, min(100, subtotal + penalty_total))
+
+    # Hard LOG cap for an irrelevant event (MODULE_RULES Step 1: `irrelevant` = fails the strict
+    # materiality test). Without this, the source/company/specificity/estimate/theme components
+    # still sum, so an irrelevant item from a Tier-1 wire could reach PARK (40-69) or even PROMOTE
+    # (>=70) on non-materiality points alone. An event that changes no investment decision must
+    # route to LOG (<40) regardless of how well-sourced or well-specified it is. Cap at 39 (LOG
+    # ceiling); if penalties already pushed it lower, keep the lower number.
+    if inputs["relevance_label"] == "irrelevant":
+        final_score = min(final_score, 39)
 
     return {
         "score_breakdown": breakdown,

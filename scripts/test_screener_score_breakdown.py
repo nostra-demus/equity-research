@@ -7,6 +7,9 @@ Run: python3 scripts/test_screener_score_breakdown.py
 from __future__ import annotations
 
 import copy
+import importlib.util
+import json
+import os
 import unittest
 
 from screener_score_breakdown import (
@@ -14,6 +17,58 @@ from screener_score_breakdown import (
     classify_source_tier,
     score_source_quality,
 )
+
+_REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+def _load_validator():
+    """Load the repo's dependency-free schema checker as a module (Thread C schema tests)."""
+    path = os.path.join(_REPO, "scripts", "validate_screener_json.py")
+    spec = importlib.util.spec_from_file_location("validate_screener_json", path)
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    return mod
+
+
+def _schema():
+    with open(os.path.join(_REPO, "frameworks", "screener", "signal_payload.schema.json")) as f:
+        return json.load(f)
+
+
+def _minimal_valid_payload(**overrides) -> dict:
+    p = {
+        "signal_id": "SIG-20260610-a3f2c81d",
+        "event_id": "EVT-abc123def456",
+        "processed_at": "2026-06-10",
+        "relevance_label": "material",
+        "relevance_confidence": 0.9,
+        "event_types": ["mna"],
+        "issuer_linkage": "primary_issuer",
+        "similarity_score": 0.1,
+        "pair_label": "new_event",
+        "fact_delta": 0.5,
+        "confirmation_upgrade": False,
+        "novelty_score": 0.8,
+        "action": "keep_separate",
+        "materiality_score": 75,
+        "routing": "PROMOTE",
+        "routing_reason": "test",
+        "sources": [{"source_name": "Reuters", "retrieved_at": "2026-06-10", "claim_supported": "x"}],
+    }
+    p.update(overrides)
+    return p
+
+
+def _full_breakdown() -> dict:
+    comp = lambda v, mx: {"value": v, "max_value": mx, "reason": "x"}
+    return {
+        "source_quality": comp(20, 20), "event_materiality": comp(14, 20),
+        "company_relevance": comp(16, 20), "specificity": comp(0, 15),
+        "estimate_impact": comp(0, 15), "theme_macro": comp(0, 10),
+        "routine_filing_penalty": comp(0, -20), "generic_media_penalty": comp(0, -15),
+        "private_unlisted_irrelevance_penalty": comp(0, -15),
+        "duplicate_stale_penalty": comp(0, -25), "low_confidence_extraction_penalty": comp(0, -10),
+    }
 
 
 def base_fixture(**overrides) -> dict:
@@ -257,6 +312,105 @@ class BackwardCompatibilityAndClamping(unittest.TestCase):
         fx_copy = copy.deepcopy(fx)
         build_score_breakdown(fx)
         self.assertEqual(fx, fx_copy)
+
+
+class IrrelevanceHardLogCap(unittest.TestCase):
+    """Thread A — an `irrelevant` event (MODULE_RULES Step 1: fails the strict materiality test)
+    must route to LOG (<40) no matter how well-sourced/specified it is. Before the fix, the
+    source/company/specificity/estimate/theme components still summed, so an irrelevant Tier-1
+    wire item reached PARK (66) — and with theme signals could reach PROMOTE (>=70)."""
+
+    def test_irrelevant_wire_with_full_side_signals_is_capped_to_log(self):
+        fx = base_fixture(
+            relevance_label="irrelevant", event_types=[],
+            source_name="Reuters", source_grade="A", corroborated=True,
+            portfolio_position=True,
+            specificity_signals={
+                "hard_number_cited": True, "corroborating_second_number": False,
+                "named_counterparty_or_instrument": True, "effective_date_stated": True,
+            },
+            estimate_impact_signals={
+                "moves_consensus_estimate": True, "traceable_to_valuation_driver": True,
+                "material_relative_to_size": True,
+            },
+        )
+        r = build_score_breakdown(fx)
+        # RED on old code: final_score == 66 (PARK). GREEN: capped into LOG (<40).
+        self.assertLess(r["final_score"], 40)
+
+    def test_irrelevant_cannot_reach_promote_even_with_theme_and_estimate(self):
+        fx = base_fixture(
+            relevance_label="irrelevant", event_types=[],
+            source_name="Reuters", source_grade="A", corroborated=True,
+            portfolio_position=True, sector_wide_move=True, live_theme_match=True,
+            commodity_rate_transmission=True,
+            specificity_signals={
+                "hard_number_cited": True, "corroborating_second_number": True,
+                "named_counterparty_or_instrument": True, "effective_date_stated": True,
+            },
+            estimate_impact_signals={
+                "moves_consensus_estimate": True, "traceable_to_valuation_driver": True,
+                "material_relative_to_size": True,
+            },
+        )
+        r = build_score_breakdown(fx)
+        # RED on old code: final_score == 76 (PROMOTE). GREEN: <40 (LOG).
+        self.assertLess(r["final_score"], 40)
+
+
+class UnmappedGradeADefaultsToTier2(unittest.TestCase):
+    """Thread E — MODULE_RULES "Source-quality tiers" makes Tier 1 a CLOSED set (official
+    filings/agencies + Reuters/Bloomberg/FT/WSJ-class wires). A respected-but-unmapped Grade-A
+    publisher is Tier 2 ('respected business press'), not Tier 1. Before the fix, the Grade-A
+    fallback awarded Tier 1 / 20 points."""
+
+    def test_unmapped_grade_a_press_is_tier2_not_tier1(self):
+        tier, _ = classify_source_tier("Some Respected Local Business Daily", "A", False)
+        # RED on old code: tier == 1. GREEN: tier == 2.
+        self.assertEqual(tier, 2)
+
+    def test_unmapped_grade_a_source_quality_is_13_not_20(self):
+        fx = base_fixture(source_name="Some Respected Local Business Daily", source_grade="A")
+        r = build_score_breakdown(fx)
+        # RED on old code: source_quality == 20. GREEN: 13 (Tier 2 base).
+        self.assertEqual(r["score_breakdown"]["source_quality"]["value"], 13)
+        self.assertEqual(r["source_tier"], 2)
+
+    def test_official_filing_still_tier1(self):
+        tier, _ = classify_source_tier("SEC EDGAR", "A", True)
+        self.assertEqual(tier, 1)
+
+    def test_mapped_tier1_wire_unchanged(self):
+        tier, _ = classify_source_tier("Reuters", "A", False)
+        self.assertEqual(tier, 1)
+
+
+class ScoreBreakdownSchemaRequiredKeys(unittest.TestCase):
+    """Thread C — when a `score_breakdown` block is present it must carry all 11 named
+    components/penalties. Before the fix, a partial (or single-key) breakdown validated, so a
+    payload could ship an incomplete transparency block. The block itself stays OPTIONAL at root
+    for backward-compat with the pre-transparency committed payloads (which omit it entirely)."""
+
+    def _valid(self, payload) -> bool:
+        mod = _load_validator()
+        chk = mod.Checker(_schema())
+        chk.check(_schema(), payload, "")
+        return not chk.errors
+
+    def test_no_breakdown_block_still_valid_backward_compat(self):
+        # The 10 committed payloads omit score_breakdown entirely — must keep validating.
+        self.assertTrue(self._valid(_minimal_valid_payload()))
+
+    def test_partial_breakdown_is_rejected(self):
+        p = _minimal_valid_payload(score_breakdown={
+            "source_quality": {"value": 20, "max_value": 20, "reason": "x"}
+        })
+        # RED on old schema: validated. GREEN: rejected (missing 10 required component/penalty keys).
+        self.assertFalse(self._valid(p))
+
+    def test_full_breakdown_is_accepted(self):
+        p = _minimal_valid_payload(score_breakdown=_full_breakdown())
+        self.assertTrue(self._valid(p))
 
 
 if __name__ == "__main__":
