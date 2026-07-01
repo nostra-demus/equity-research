@@ -1345,6 +1345,12 @@ a { color: inherit; }
 .rdg-danger__row { display: flex; gap: 9px; margin-top: 9px; align-items: center; }
 .rdg-input { flex: 1; height: 34px; padding: 0 12px; background: var(--bg-2); border: 1px solid var(--hairline-strong); border-radius: var(--r-md); color: var(--text); font-family: var(--font-mono); letter-spacing: 2px; font-size: 13px; }
 .rdg-input:focus { outline: none; border-color: var(--bad); }
+.rdg-input:disabled { opacity: 0.5; }
+/* re-check in flight: a calm status line + spinner so the panel never looks frozen during the (sometimes
+   slow, OCR-bearing) check; the action buttons render their spinner inline with the label. */
+.rdg-checking { display: flex; align-items: center; gap: 8px; margin: 10px 20px 2px; font-size: 12px; line-height: 1.45; color: var(--accent-bright); }
+.rdg-spin { flex-shrink: 0; }
+.rdg-actions .btn, .rdg-danger__row .btn { display: inline-flex; align-items: center; gap: 6px; }
 
 /* ---- auto-scan chip (top bar, screener) ---- */
 .autoscan {

@@ -40,6 +40,8 @@ import re
 import io
 import json
 import glob
+import shutil
+import hashlib
 import subprocess
 import tempfile
 import time as _time  # NB: `from datetime import ... time` below would shadow a bare `import time`
@@ -267,7 +269,7 @@ def _tab_text(src_name, sheet_name, idx, total, rows, ncols):
 
 # ---------- pdf / rtf ----------
 
-def _read_pdf(path, max_pages=None):
+def _read_pdf_text(path, max_pages=None):
     # pdftotext (poppler) preferred; -layout keeps tables aligned. max_pages caps
     # the scan for fast sniffing (a cover page already says "Annual Report" / "10-K").
     # Falls back to pure-Python pypdf (auto-bootstrapped in the venv, no system dep) when
@@ -311,6 +313,128 @@ def _read_pdf_py(path, max_pages=None):
         return "\n".join(out), None
     except Exception as e:
         return "", f"pypdf: {type(e).__name__}: {e}"
+
+
+# ---------- OCR fallback for image-only / scanned PDFs ----------
+# A scanned PDF (e.g. a Capital IQ "Preliminary Report" saved as page images) has NO text
+# layer — pdftotext and pypdf both yield nothing. Rather than surfacing it forever as an
+# unreadable "fail" that nags the readiness gate over a file whose content IS present (just
+# as pixels), OCR it ONCE and cache the text. The cache is keyed by the file's identity
+# (abspath + size + mtime), so a --force re-check and separate runs reuse it — the cost is
+# paid once per file, ever. Chain: pdftoppm (poppler; already required for pdftotext) renders
+# pages to PNG, tesseract OCRs each. tesseract is the only new dependency (setup-tools.sh).
+
+def _env_int(name, default):
+    try:
+        v = int(os.environ.get(name, "") or "")
+        return v if v > 0 else default
+    except Exception:
+        return default
+
+_OCR_ENABLED = os.environ.get("EXTRACT_OCR", "1") != "0"
+_OCR_MAX_PAGES = _env_int("EXTRACT_OCR_MAX_PAGES", 30)   # first N pages carry the statements/notes we cite
+_OCR_DPI = _env_int("EXTRACT_OCR_DPI", 200)              # 200 dpi is ample for machine text, ~2x faster than 300
+_OCR_PER_FILE_TIMEOUT = _env_int("EXTRACT_OCR_FILE_TIMEOUT_S", 180)
+# Optional pool-wide OCR wall-clock budget. The readiness pre-flight sets it (via the child
+# env) so a first check on a fresh scan can't hang past its own Node timeout; whatever
+# completes is cached, and the (uncapped) in-run extraction finishes the rest. 0 = unbounded.
+_OCR_POOL_BUDGET_S = _env_int("EXTRACT_OCR_BUDGET_S", 0)
+_OCR_CACHE_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".ocr-cache")
+_ocr_deadline = None  # monotonic deadline for the pool budget; set per extract_pool() call
+
+
+def _ocr_key(path):
+    try:
+        st = os.stat(path)
+        raw = f"{os.path.abspath(path)}|{st.st_size}|{int(st.st_mtime)}".encode()
+    except Exception:
+        raw = os.path.abspath(path).encode()
+    return hashlib.sha1(raw).hexdigest()
+
+
+def _ocr_available():
+    """pdftoppm (poppler) + tesseract present? Returns True if OCR can run."""
+    return bool(shutil.which("pdftoppm") and shutil.which("tesseract"))
+
+
+def _ocr_via_tesseract(path):
+    """Render up to _OCR_MAX_PAGES pages with pdftoppm and OCR each with tesseract, bounded
+    by a single per-file wall-clock deadline that covers BOTH the render and the OCR loop."""
+    deadline = _time.monotonic() + _OCR_PER_FILE_TIMEOUT
+    parts = []
+    with tempfile.TemporaryDirectory() as td:
+        prefix = os.path.join(td, "pg")
+        subprocess.run(
+            ["pdftoppm", "-png", "-r", str(_OCR_DPI), "-f", "1", "-l", str(_OCR_MAX_PAGES), path, prefix],
+            capture_output=True, timeout=_OCR_PER_FILE_TIMEOUT,
+        )
+        for png in sorted(glob.glob(prefix + "*.png")):
+            remaining = deadline - _time.monotonic()
+            if remaining < 3:
+                break  # out of time — cache the pages we did get; the rest come next pass
+            try:
+                r = subprocess.run(["tesseract", png, "stdout", "--psm", "1"],
+                                   capture_output=True, text=True, timeout=remaining)
+            except subprocess.TimeoutExpired:
+                break
+            if r.returncode == 0 and r.stdout.strip():
+                parts.append(r.stdout)
+    return "\n".join(parts)
+
+
+def _ocr_pdf(path):
+    """OCR an image-only PDF to text, cached by file identity.
+    Returns (text, note, err): text on success (+ a manifest note); err explains why OCR
+    was skipped/failed (kept as the source's error), or is None when OCR simply isn't
+    available (caller then shows the generic needs-OCR + setup-tools hint)."""
+    if not _OCR_ENABLED:
+        return "", None, None
+    try:
+        os.makedirs(_OCR_CACHE_DIR, exist_ok=True)
+        cache = os.path.join(_OCR_CACHE_DIR, _ocr_key(path) + ".txt")
+        if os.path.exists(cache):
+            t = open(cache, encoding="utf-8", errors="ignore").read()
+            if t.strip():
+                return t, "OCR'd (was image-only scan; cached)", None
+    except Exception:
+        cache = None
+    # pool budget (fresh pre-flight): if out of time, defer to the uncapped in-run extraction
+    if _ocr_deadline is not None and _time.monotonic() > _ocr_deadline:
+        return "", None, ("image-only/scanned PDF — OCR deferred (pre-flight time budget); "
+                          "it will be OCR'd automatically when the run starts")
+    if not _ocr_available():
+        return "", None, None  # no OCR tools — caller keeps the needs-OCR + setup-tools message
+    try:
+        txt = _ocr_via_tesseract(path)
+    except subprocess.TimeoutExpired:
+        return "", None, f"image-only/scanned PDF — OCR timed out after {_OCR_PER_FILE_TIMEOUT}s"
+    except Exception as e:  # noqa
+        return "", None, f"image-only/scanned PDF — OCR failed ({type(e).__name__}: {e})"
+    if txt and txt.strip():
+        if cache:
+            try:
+                open(cache, "w", encoding="utf-8").write(txt)
+            except Exception:
+                pass
+        return txt, "OCR'd (was image-only scan)", None
+    return "", None, "image-only/scanned PDF — OCR produced no text"
+
+
+def _read_pdf(path, max_pages=None):
+    """Extract PDF text. Returns (text, err, note). Tries pdftotext -> pypdf; on a FULL read
+    (max_pages is None — not the fast header sniff) that yields nothing, OCRs the scan once
+    and caches it, so an image-only PDF becomes usable everywhere instead of a permanent
+    'needs OCR' fail. The header-sniff path (max_pages set) never OCRs — it stays fast."""
+    txt, err = _read_pdf_text(path, max_pages)
+    if txt.strip():
+        return txt, None, None
+    if max_pages is None:
+        otxt, note, oerr = _ocr_pdf(path)
+        if otxt.strip():
+            return otxt, None, note
+        if oerr:
+            err = oerr
+    return "", err, None
 
 
 def _read_rtf(path):
@@ -479,6 +603,10 @@ def is_fresh(out_dir, data_path, script_path):
 
 def extract_pool(data_path, out_dir, force=False, corpus_path=None):
     script_path = os.path.abspath(__file__)
+    # Arm the pool-wide OCR budget for this pass (readiness pre-flight sets EXTRACT_OCR_BUDGET_S;
+    # the in-run extraction leaves it 0 = unbounded so every scan gets OCR'd + cached).
+    global _ocr_deadline
+    _ocr_deadline = (_time.monotonic() + _OCR_POOL_BUDGET_S) if _OCR_POOL_BUDGET_S > 0 else None
     if not force:
         cached = is_fresh(out_dir, data_path, script_path)
         if cached:
@@ -557,8 +685,9 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None):
 
         # ---- document / text formats, again by sniffed content ----
         elif fmt in ("pdf", "mime", "rtf", "html"):
+            note = None
             if fmt == "pdf":
-                txt, err = _read_pdf(p); kind = "pdf"
+                txt, err, note = _read_pdf(p); kind = "pdf"  # note set when text came from OCR
             elif fmt == "mime":
                 txt, err = _read_mhtml(p); kind = "mhtml"
             elif fmt == "rtf":
@@ -569,14 +698,20 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None):
                 out_name = _unique(used, stem) + ".txt"
                 open(os.path.join(out_dir, out_name), "w").write(txt)
                 n_written += 1
-                sources.append({"file": base, "ext": ext, "kind": kind, "status": "ok",
-                                "extract": out_name, "chars": len(txt)})
+                src = {"file": base, "ext": ext, "kind": kind, "status": "ok",
+                       "extract": out_name, "chars": len(txt)}
+                if note:
+                    src["note"] = note  # e.g. "OCR'd (was image-only scan)"
+                sources.append(src)
             else:
                 n_fail += 1
                 # [fix F35] a valid PDF that yields no text is image-only/scanned — say so explicitly
                 # (an actionable "needs OCR" row), not a generic fail that reads like a corrupt file.
-                if kind == "pdf" and "not installed" not in (err or ""):
-                    err = "image-only/scanned PDF — no extractable text layer (needs OCR; re-export as text or run ocrmypdf)"
+                # If OCR was attempted (err already carries the OCR reason) keep that; otherwise (no OCR
+                # tools installed) show the setup-tools hint so the fix is one command away.
+                if kind == "pdf" and "ocr" not in (err or "").lower() and "not installed" not in (err or "").lower():
+                    err = ("image-only/scanned PDF — no extractable text layer (needs OCR; "
+                           "run .claude/tools/setup-tools.sh to install tesseract, then re-check)")
                 sources.append({"file": base, "ext": ext, "kind": kind,
                                 "status": "fail", "error": err})
 
