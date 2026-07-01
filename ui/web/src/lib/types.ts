@@ -105,6 +105,8 @@ export interface RankFactors {
   event: number // strongest event-type bonus
   size: number // company-size bonus
   recency: number // freshness bonus
+  materiality_label_floor: number // floor-correction when event_materiality_label outranks the raw score (absent on pre-field items)
+  quantified: number // bonus when the headline pairs a quantified figure with an impact keyword (absent on pre-field items)
   boost_weight?: number // global multiplier applied to the summed adjustments for THIS score (1 = none); absent on pre-field items
   scope_id: string // which scope won (single_name / sector / macro …)
   source_tier_id: string // which §4 tier won (primary_filing / news …)
@@ -135,6 +137,9 @@ export interface FeedItem {
   size_bucket: string
   scope?: string // derived company-vs-broad bucket (news/scope.ts) — present on every served item
   source_tier?: string // derived §4 source tier (Filing / Official data / Company / News / Unconfirmed)
+  event_materiality_label?: string // low / medium / high / critical — re-derived from the boosted triage_score, never contradicts it
+  event_direction?: string // positive / negative / mixed / neutral / unknown — informational only, never scored
+  event_scope?: string // company_specific / sector / commodity / macro / geopolitical / regulatory / generic_media
   rank_factors?: RankFactors // the per-component score build-up — present on every firehose item (drives "Why this score")
   dedup_status: string
   dedup_group?: string // story-cluster id (news/dedup.ts) — the wire shows one row per group

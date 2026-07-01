@@ -34,7 +34,18 @@ export interface CompanyGuess {
 export type SizeBucket = 'mega' | 'large' | 'mid' | 'small' | 'unknown'
 
 // Re-export the scope/source-tier vocabulary so downstream modules import one news surface.
-export type { ScopeId, ScopeFamily, SourceTierId } from './scope'
+import type { EventScope } from './scope'
+export type { ScopeId, ScopeFamily, SourceTierId, EventScope } from './scope'
+
+// The event-materiality classifier's vocabulary (news/rank.ts deriveMaterialityLabel, news/scope.ts
+// toEventScope). event_materiality_label is the FINAL, score-consistent tier (re-derived from the
+// boosted triage_score downstream of Triage — never the raw LLM guess) once it reaches TriagedItem and
+// beyond; on Triage itself it is the model's own raw, independent severity call (an input to the
+// floor-boost in rank.ts, not yet reconciled with the numeric score).
+export type EventMaterialityLabel = 'low' | 'medium' | 'high' | 'critical'
+// Sentiment/impact direction — informational only, never used to adjust materiality (a profit warning
+// is exactly as material as a beat; direction must not bias the score).
+export type EventDirection = 'positive' | 'negative' | 'mixed' | 'neutral' | 'unknown'
 
 // A normalized, on-list, deduped article ready for triage.
 export interface NewsItem {
@@ -58,6 +69,12 @@ export interface Triage {
   materiality_pre_score: number // 0–100, an APPROXIMATION of the gauntlet's rubric
   event_types: string[]
   issuer_linkage: 'primary' | 'secondary' | 'sector' | 'macro'
+  // the model's OWN raw severity call, independent of materiality_pre_score — used downstream
+  // (news/rank.ts materialityLabelBoost) to lift the numeric score when the model recognizes a
+  // critical/high event but its own granular number undershoots it. Not yet reconciled with the
+  // score — see EventMaterialityLabel's doc comment.
+  event_materiality_label: EventMaterialityLabel
+  event_direction: EventDirection // sentiment/impact direction — informational only
   why: string // one plain sentence, ideally with a number (§21)
   companies: CompanyGuess[] // ≤3, guessed from the headline alone (may be empty)
   size_bucket: SizeBucket // rough size of the main company — a guess, 'unknown' when unsure
@@ -85,6 +102,13 @@ export interface TriagedItem extends NewsItem {
   companies: CompanyGuess[]
   size_bucket: SizeBucket
   band: Band
+  // the event-materiality classifier's FINAL fields — event_materiality_label is re-derived from the
+  // boosted triage_score (deriveMaterialityLabel), so it never contradicts the shown score; event_scope
+  // is the simplified external vocabulary (news/scope.ts toEventScope); event_direction passes through
+  // the raw Triage read unchanged (informational only).
+  event_materiality_label: EventMaterialityLabel
+  event_direction: EventDirection
+  event_scope: EventScope
   rank_factors?: import('./rank').RankFactors // the composite-priority breakdown (the WHY)
   via?: 'gdelt' | 'rss' | 'nse' | 'hkex' | 'asx' | 'gov' | 'reddit'
   dedup_group?: string // story-cluster id (news/dedup.ts) — earliest member's event_id; one row per story
@@ -117,6 +141,10 @@ export interface InboxRow {
   size_bucket?: SizeBucket
   scope?: import('./scope').ScopeId // derived company-vs-broad bucket (news/scope.ts)
   source_tier?: import('./scope').SourceTierId // derived §4 source tier
+  // event-materiality classifier's final fields — see TriagedItem's doc comment
+  event_materiality_label?: EventMaterialityLabel
+  event_direction?: EventDirection
+  event_scope?: EventScope
   rank_factors?: import('./rank').RankFactors // composite-priority breakdown (triage_score is the composite)
   dedup_group?: string // story-cluster id (news/dedup.ts) — collapse rows sharing it to one
   // --- additive: human state (set only via the cockpit; merge/eviction must preserve these) ---
@@ -158,6 +186,10 @@ export interface FeedItem {
   //     backfilled on read for older firehose lines that predate it (feed.ts) ---
   scope?: import('./scope').ScopeId // company-vs-broad bucket the cockpit filters + chips on
   source_tier?: import('./scope').SourceTierId // §4 source hierarchy, made visible
+  // event-materiality classifier's final fields — see TriagedItem's doc comment
+  event_materiality_label?: EventMaterialityLabel
+  event_direction?: EventDirection
+  event_scope?: EventScope
   snippet?: string // the feed's own lede — fetch-free body the enrichment reads when the page blocks
   rank_factors?: import('./rank').RankFactors // composite-priority breakdown (triage_score is the composite)
   dedup_status: 'new' | 'possible_duplicate'

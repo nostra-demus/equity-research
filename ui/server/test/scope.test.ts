@@ -5,7 +5,7 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { deriveScope, deriveSourceTier, familyOf, SCOPES } from '../src/news/scope'
+import { deriveScope, deriveSourceTier, familyOf, SCOPES, toEventScope } from '../src/news/scope'
 import { extractSummary, parseSecFiling, findPriorCoverage, findRelatedEvents, enrichEvent, isSafeFetchUrl } from '../src/news/enrich'
 import { appendFeedItems } from '../src/news/feed'
 import { runIngestCycle } from '../src/news/runCycle'
@@ -76,6 +76,81 @@ await check('macro print → macro; sector-only → sector; trade policy (FTA) �
 await check('every scope id has a definition + family; unknown is the floor', () => {
   for (const id of Object.keys(SCOPES)) assert.ok(SCOPES[id as keyof typeof SCOPES].label && SCOPES[id as keyof typeof SCOPES].meaning)
   assert.equal(deriveScope({}), 'unknown')
+})
+
+// ---- event-materiality classifier: geopolitical + generic_media (the under-scoring fix) ----
+
+await check('war/military escalation with no company named → geopolitical, not macro (CLAUDE.md §24)', () => {
+  // task test case 1: a strike resuming right after a peace treaty must score as geopolitical, not the
+  // macro bucket (which carries a PENALTY in rank-weights.ts) and not fall through to unknown
+  assert.equal(deriveScope({ issuer_linkage: 'macro', companies: [], event_types: ['macro_sector'], headline: 'US conducts fresh strikes in Iran after recent peace treaty' }), 'geopolitical')
+  assert.equal(familyOf('geopolitical'), 'broad')
+})
+
+await check('a de-escalation headline (bare peace deal / ceasefire) does NOT steal the commodity scope', () => {
+  // the existing "Oil nears two-month lows on US-Iran peace deal" case must stay commodity — a bare
+  // "peace deal"/"ceasefire" is the OPPOSITE of escalation and must not be a geopolitical trigger
+  assert.equal(deriveScope({ issuer_linkage: 'macro', companies: [], event_types: ['macro_sector'], headline: 'Oil nears two-month lows on US-Iran peace deal' }), 'commodity')
+  assert.equal(deriveScope({ issuer_linkage: 'macro', companies: [], headline: 'Markets rally as Israel and Hezbollah agree a ceasefire' }), 'macro')
+  // but the REVERSAL (a truce breaking down) is a real escalation trigger
+  assert.equal(deriveScope({ issuer_linkage: 'macro', companies: [], headline: 'Oil jumps as Israel-Hezbollah truce collapses' }), 'geopolitical')
+})
+
+await check('a defense contractor\'s own product news stays single_name despite "missile"', () => {
+  assert.equal(deriveScope({ issuer_linkage: 'primary', companies: [{ name: 'Lockheed Martin', ticker: 'LMT' }], headline: 'Lockheed Martin wins $2bn missile defense contract' }), 'single_name')
+})
+
+await check('a "Top 10" roundup naming several companies → generic_media, not multi_name (task test case 4)', () => {
+  assert.equal(
+    deriveScope({
+      issuer_linkage: 'sector',
+      companies: [{ name: 'Apple' }, { name: 'Microsoft' }, { name: 'Nvidia' }, { name: 'Alphabet' }, { name: 'Amazon' }],
+      headline: 'Top 10 companies by market cap: a generic roundup',
+    }),
+    'generic_media',
+  )
+  assert.equal(deriveScope({ issuer_linkage: 'sector', companies: [{ name: 'A' }, { name: 'B' }, { name: 'C' }], headline: 'Best stocks to buy now, ranked' }), 'generic_media')
+  assert.equal(familyOf('generic_media'), 'broad')
+})
+
+await check('a genuine 2-company merger still earns multi_name, not generic_media', () => {
+  assert.equal(deriveScope({ issuer_linkage: 'primary', companies: [{ name: 'Paramount' }, { name: 'Warner Bros' }], event_types: ['mna'], headline: 'Paramount to acquire Warner Bros in $30bn deal' }), 'multi_name')
+})
+
+await check('a listicle carrying a commodity word ("Top 10 oil companies…") → generic_media, not commodity (Thread A)', () => {
+  // the roundup guard runs BEFORE the commodity branch — the word "oil" must not make a low-information
+  // "Top 10 … by market cap" listicle read as a commodity price move (which carries a +4 lift and could
+  // cross `watch`). RED on old code (returned 'commodity'); GREEN after moving the roundup check first.
+  assert.equal(deriveScope({ issuer_linkage: 'sector', companies: [{ name: 'Exxon' }, { name: 'Shell' }, { name: 'BP' }], headline: 'Top 10 oil companies by market cap' }), 'generic_media')
+  // companions: other roundup phrasings that ALSO carry a commodity word (the collision the reorder fixes)
+  assert.equal(deriveScope({ issuer_linkage: 'sector', companies: [{ name: 'Nucor' }, { name: 'POSCO' }], headline: 'Top 5 steel stocks to buy now' }), 'generic_media')
+  assert.equal(deriveScope({ issuer_linkage: 'sector', companies: [{ name: 'Barrick' }, { name: 'Newmont' }], headline: 'Biggest gold miners by market cap' }), 'generic_media')
+  // and a GENUINE commodity price move (no roundup terms) must still classify as commodity — the reorder
+  // only intercepts listicles, it does not steal the commodity scope a real price-move headline earns
+  assert.equal(deriveScope({ issuer_linkage: 'macro', companies: [], headline: 'Crude oil jumps 4% on OPEC supply cut' }), 'commodity')
+})
+
+await check('a labor-strike headline ("Workers launch strikes in France") is NOT geopolitical (Thread C)', () => {
+  // bare 'strikes in' matched ordinary labor actions with no military actor and no company, wrongly
+  // earning the +9 geopolitical lift. RED on old code (returned 'geopolitical'); GREEN after dropping
+  // the bare phrase — a labor-action headline now falls through to its real (macro) bucket.
+  assert.notEqual(deriveScope({ issuer_linkage: 'macro', companies: [], headline: 'Workers launch strikes in France over pension reform' }), 'geopolitical')
+  assert.notEqual(deriveScope({ issuer_linkage: 'sector', companies: [], headline: 'Rail unions call strikes in Germany next week' }), 'geopolitical')
+  // a GENUINE military strike is still caught by the actor/weapon-anchored phrases — coverage is kept
+  assert.equal(deriveScope({ issuer_linkage: 'macro', companies: [], headline: 'Israel launches air strikes in Gaza' }), 'geopolitical')
+  assert.equal(deriveScope({ issuer_linkage: 'macro', companies: [], headline: 'US conducts fresh strikes in Yemen' }), 'geopolitical')
+})
+
+await check('toEventScope maps the internal ScopeId onto the classifier\'s simpler vocabulary', () => {
+  assert.equal(toEventScope('single_name'), 'company_specific')
+  assert.equal(toEventScope('multi_name'), 'company_specific')
+  assert.equal(toEventScope('sector'), 'sector')
+  assert.equal(toEventScope('commodity'), 'commodity')
+  assert.equal(toEventScope('macro'), 'macro')
+  assert.equal(toEventScope('policy'), 'regulatory')
+  assert.equal(toEventScope('geopolitical'), 'geopolitical')
+  assert.equal(toEventScope('generic_media'), 'generic_media')
+  assert.equal(toEventScope('unknown'), 'generic_media')
 })
 
 // ---- source tier (CLAUDE.md §4) ----

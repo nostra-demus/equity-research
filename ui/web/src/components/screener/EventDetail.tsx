@@ -202,17 +202,32 @@ function ScoreWhy({ it, anchorRef, open, onToggle }: { it: FeedItem; anchorRef: 
   const base = rf.materiality
   const tier = sourceTierDef(rf.source_tier_id)
   const scopeDef = SCOPES[rf.scope_id as keyof typeof SCOPES]
+  // materiality_label_floor / quantified are ingest-fixed corrections (see rank.ts): the floor lifts a
+  // score up to the tier its own severity label implies; the quantified bonus fires when the headline
+  // pairs a number with an impact word. Both feed the boost sum server-side, so they MUST appear in the
+  // ledger too — otherwise the rows don't add up to the shown score and the moving factor is hidden
+  // (CLAUDE.md §12: every point is explainable from an evidence row). Only shown when they actually move
+  // the score (older records predating the fields carry 0 → no clutter), but always summed.
+  const labelFloor = Number(rf.materiality_label_floor) || 0
+  const quantified = Number(rf.quantified) || 0
   const adjRows = [
     { k: 'Source', v: tier?.label ?? rf.source_tier_id, why: tier?.meaning, pts: rf.source_tier },
     { k: 'Focus', v: scopeDef?.label ?? rf.scope_id, why: scopeDef?.meaning, pts: rf.scope },
     { k: 'Event', v: it.event_types?.length ? it.event_types.map(plainTheme).join(', ') : '—', why: 'The biggest event named in the headline counts.', pts: rf.event },
     { k: 'Size', v: plainSize(it.size_bucket), why: undefined as string | undefined, pts: rf.size },
     { k: 'Freshness', v: freshnessLabel(it.ts), why: 'Newer news counts for a little more.', pts: rf.recency },
+    ...(labelFloor !== 0
+      ? [{ k: 'Severity floor', v: 'lifted to its severity tier', why: "The AI's own severity call (high / critical) sets a floor the score can't sit below.", pts: labelFloor }]
+      : []),
+    ...(quantified !== 0
+      ? [{ k: 'Quantified impact', v: 'a number + an impact word', why: 'The headline pairs a figure (a sum, %, or bps) with an impact word (guidance, fine, deal…).', pts: quantified }]
+      : []),
   ]
-  // The §4 adjustments are summed, then scaled by the GLOBAL boost — the Scoring panel's own formula
+  // The adjustments are summed, then scaled by the GLOBAL boost — the Scoring panel's own formula
   // ("the AI's headline read + these adjustments × overall boost"); see rank.ts:
-  // boost = (source_tier+scope+event+size+recency) × boost_weight. The boost_weight that produced THIS
-  // score travels with it in rank_factors, so the ledger reconciles exactly even after a panel edit.
+  // boost = (source_tier+scope+event+size+recency+materiality_label_floor+quantified) × boost_weight.
+  // The boost_weight that produced THIS score travels with it in rank_factors, so the ledger reconciles
+  // exactly even after a panel edit.
   // Show the boost as its own row only when it actually moves the total (weight ≠ 1).
   const w = typeof rf.boost_weight === 'number' ? rf.boost_weight : 1
   const adjSum = adjRows.reduce((s, r) => s + r.pts, 0)
