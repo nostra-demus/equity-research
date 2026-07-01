@@ -133,6 +133,7 @@ export function App() {
   const newsFeedOpen = useStore((s) => s.newsFeedOpen)
   const sourcesOpen = useStore((s) => s.sourcesOpen)
   const toast = useStore((s) => s.toast)
+  const setToast = useStore((s) => s.setToast)
   const activeSwarm = useStore((s) => s.activeSwarm)
   const warp = useStore((s) => s.warp)
 
@@ -173,7 +174,16 @@ export function App() {
         {toast && (
           <motion.div key="toast" className="toast" initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 12 }}>
             <span className="creditbadge__dot" style={{ background: toast.tone === 'good' ? 'var(--accent)' : toast.tone === 'bad' ? 'var(--bad)' : 'var(--text-muted)' }} />
-            {toast.msg}
+            <span className="toast__msg">{toast.msg}</span>
+            {toast.action && (
+              <button
+                type="button"
+                className="toast__action"
+                onClick={() => { const a = toast.action!; setToast(null); a.onClick() }}
+              >
+                {toast.action.label}
+              </button>
+            )}
           </motion.div>
         )}
       </AnimatePresence>

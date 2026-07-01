@@ -116,7 +116,9 @@ const AUTO_RESUME_BATCH = 4 // most to kick off per cycle (the server's own cap 
 
 export interface StreamRow { runId: string; ticker: string; key: string; name: string; module: string; layer: number; status: NodeStatus; verdict?: string | null; ts: number }
 export interface ActiveRun { runId: string; ticker: string; kind: string; module?: string; agent?: string; status: string; costUsd?: number; willCommitToMain?: boolean; plannedCount?: number; startedAt?: number }
-export interface Toast { msg: string; tone: 'info' | 'good' | 'bad' }
+// A toast may carry ONE inline action (e.g. "Run anyway" on a run-lock conflict) so a dead-end rejection
+// becomes a one-click recovery. A toast with an action stays up longer (the user has to read + click it).
+export interface Toast { msg: string; tone: 'info' | 'good' | 'bad'; action?: { label: string; onClick: () => void } }
 
 // A run is "live" (counts for launch guards) only while starting/running. Finished runs linger in
 // activeRuns for the panel until the next ticker switch prunes them.
@@ -230,8 +232,8 @@ interface State {
   activeRunsForTicker: (t: string | null) => ActiveRun[]
   anyRunForTicker: (t: string | null) => boolean
   targetInFlight: (t: string | null, keys: string[]) => boolean
-  launchAgent: (node: AgentNode) => Promise<void>
-  launchModule: (module: string) => Promise<void>
+  launchAgent: (node: AgentNode, force?: boolean) => Promise<void>
+  launchModule: (module: string, force?: boolean) => Promise<void>
   requestFull: () => Promise<void>
   confirmFull: () => Promise<void>
   launchRerun: (node: { module: string; name: string; key: string }) => Promise<void>
@@ -739,39 +741,59 @@ export const useStore = create<State>((set, get) => ({
     return keys.some((k) => rt[k]?.status === 'queued' || rt[k]?.status === 'running')
   },
 
-  launchAgent: async (node) => {
+  launchAgent: async (node, force) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
     const t = get().selectedTicker
     if (!t) return
-    if (get().targetInFlight(t, [node.key])) return get().setToast({ msg: `${node.name} is already running`, tone: 'info' })
     if (!node.soloRunnable) {
       get().setToast({ msg: `${node.name} needs upstream — run the module first`, tone: 'info' })
       return
     }
-    try {
-      const { runId } = await api.launch({ kind: 'agent', ticker: t, module: node.module, agent: node.name })
-      beginRun(set, get, runId, { kind: 'agent', module: node.module, agent: node.name, willCommitToMain: false }, [node.key])
-      get().setToast({ msg: `Launched ${node.name} on ${t}`, tone: 'good' })
-    } catch (e: any) {
-      launchErrorToast(get, e, t, node.name)
+    // Local launcher capturing `t` + `node` so the "Run anyway" retry forces on the ticker that PRODUCED
+    // the lock, NOT get().selectedTicker read at click time — the user may switch companies while the
+    // toast is up (was a cross-ticker force bug).
+    const doLaunch = async (f?: boolean) => {
+      try {
+        const { runId } = await api.launch({ kind: 'agent', ticker: t, module: node.module, agent: node.name, force: f })
+        beginRun(set, get, runId, { kind: 'agent', module: node.module, agent: node.name, willCommitToMain: false }, [node.key])
+        get().setToast({ msg: `${f ? 'Re-launched' : 'Launched'} ${node.name} on ${t}`, tone: 'good' })
+      } catch (e: any) {
+        launchErrorToast(get, e, t, node.name, f ? undefined : () => doLaunch(true))
+      }
     }
+    // Client-side in-flight guard. A forced retry skips it. When it trips on a run the UI THINKS is live but
+    // whose engine process has actually died (the exact stuck-lock this patch targets), a plain
+    // "already running" toast would be a dead end — the first launch never reaches the server, so the
+    // server's reap-dead path never runs. So the guard-trip toast itself offers "Run anyway", which forces
+    // to the server (reaping the corpse and relaunching).
+    if (!force && get().targetInFlight(t, [node.key])) {
+      return get().setToast({ msg: `${node.name} is already running`, tone: 'info', action: { label: 'Run anyway', onClick: () => doLaunch(true) } })
+    }
+    await doLaunch(force)
   },
 
-  launchModule: async (module) => {
+  launchModule: async (module, force) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
     const t = get().selectedTicker
     if (!t) return
     const planned = [...get().nodesByKey.values()].filter((n) => n.module === module).map((n) => n.key)
-    if (get().targetInFlight(t, planned)) return get().setToast({ msg: `${module} is already running`, tone: 'info' })
-    try {
-      const { runId } = await api.launch({ kind: 'module', ticker: t, module })
-      beginRun(set, get, runId, { kind: 'module', module, willCommitToMain: true }, planned)
-      get().setToast({ msg: `Launched ${module} module on ${t}`, tone: 'good' })
-    } catch (e: any) {
-      launchErrorToast(get, e, t, `${module} module`)
+    // Local launcher capturing `t` so the "Run anyway" retry forces on the ticker that produced the lock.
+    const doLaunch = async (f?: boolean) => {
+      try {
+        const { runId } = await api.launch({ kind: 'module', ticker: t, module, force: f })
+        beginRun(set, get, runId, { kind: 'module', module, willCommitToMain: true }, planned)
+        get().setToast({ msg: `${f ? 'Re-launched' : 'Launched'} ${module} module on ${t}`, tone: 'good' })
+      } catch (e: any) {
+        launchErrorToast(get, e, t, `${module} module`, f ? undefined : () => doLaunch(true))
+      }
     }
+    // Guard-trip offers "Run anyway" too, so a UI-live-but-dead module lock isn't a dead end (see launchAgent).
+    if (!force && get().targetInFlight(t, planned)) {
+      return get().setToast({ msg: `${module} is already running`, tone: 'info', action: { label: 'Run anyway', onClick: () => doLaunch(true) } })
+    }
+    await doLaunch(force)
   },
 
   requestFull: async () => {
@@ -828,13 +850,18 @@ export const useStore = create<State>((set, get) => ({
     const node = lc.node
     const planned = (lc.cascade ?? downstreamCascade(get().graph, node.module, node.name)).map((c) => c.key)
     set({ launchConfirm: null, openOutput: null })
-    try {
-      const { runId } = await api.launch({ kind: 'rerun', ticker: t, module: node.module, agent: node.name })
-      beginRun(set, get, runId, { kind: 'rerun', module: node.module, agent: node.name, willCommitToMain: true }, planned)
-      get().setToast({ msg: `Re-running ${node.name} + downstream on ${t}`, tone: 'good' })
-    } catch (e: any) {
-      launchErrorToast(get, e, t, `re-run of ${node.name}`)
+    // Local launcher so the conflict "Run anyway" retry can re-fire with force AFTER the confirm dialog is
+    // gone — node + planned are captured here, not re-read from the (now-cleared) launchConfirm.
+    const doRerun = async (force?: boolean) => {
+      try {
+        const { runId } = await api.launch({ kind: 'rerun', ticker: t, module: node.module, agent: node.name, force })
+        beginRun(set, get, runId, { kind: 'rerun', module: node.module, agent: node.name, willCommitToMain: true }, planned)
+        get().setToast({ msg: `Re-running ${node.name} + downstream on ${t}`, tone: 'good' })
+      } catch (e: any) {
+        launchErrorToast(get, e, t, `re-run of ${node.name}`, force ? undefined : () => doRerun(true))
+      }
     }
+    await doRerun()
   },
 
   cancelLaunch: () => set({ launchConfirm: null }),
@@ -1034,7 +1061,8 @@ export const useStore = create<State>((set, get) => ({
   },
   setToast: (t) => {
     set({ toast: t })
-    if (t) setTimeout(() => { if (get().toast === t) set({ toast: null }) }, 3200)
+    // An actionable toast lingers (you have to read it + reach the button); a plain one auto-clears fast.
+    if (t) setTimeout(() => { if (get().toast === t) set({ toast: null }) }, t.action ? 9000 : 3200)
   },
 
   startHealth: () => {
@@ -2270,11 +2298,23 @@ function closeAllRunSources() {
   runSources.clear()
 }
 
-// Map a launch failure to a clear toast. Admission rejections (expected, user can act) read as
-// info; genuine failures read as bad. The server's discriminated body.code drives the split.
-function launchErrorToast(get: () => State, e: any, ticker: string, what: string) {
+// A same-subject run-LOCK conflict — a run already holds this ticker's files. Force (stop it + relaunch)
+// resolves these. NOT upstream_incomplete (the deps genuinely aren't on disk — force won't conjure them)
+// and NOT capacity (a global cost cap across other tickers — force never bypasses it).
+const LOCK_CONFLICTS = new Set(['target_conflict', 'exclusivity', 'dependency_conflict'])
+
+// Map a launch failure to a clear toast. Admission rejections (expected, user can act) read as info;
+// genuine failures read as bad. When the rejection is a same-subject lock and an `onForce` retry was
+// supplied, the toast gets a one-click "Run anyway" that stops the blocking run and relaunches — so a
+// conflict is never a dead end (CLAUDE.md §2: the engine must always be runnable on demand).
+function launchErrorToast(get: () => State, e: any, ticker: string, what: string, onForce?: () => void) {
   const code = e?.body?.code
-  const info = code === 'target_conflict' || code === 'exclusivity' || code === 'dependency_conflict' || code === 'upstream_incomplete'
+  const isLock = LOCK_CONFLICTS.has(code)
+  const info = isLock || code === 'upstream_incomplete'
   const msg = e?.message ? String(e.message) : `Launch failed for ${what} on ${ticker}`
-  get().setToast({ msg, tone: info ? 'info' : 'bad' })
+  get().setToast({
+    msg,
+    tone: info ? 'info' : 'bad',
+    ...(isLock && onForce ? { action: { label: 'Run anyway', onClick: onForce } } : {}),
+  })
 }
