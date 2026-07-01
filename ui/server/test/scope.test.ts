@@ -11,7 +11,7 @@ import { appendFeedItems } from '../src/news/feed'
 import { runIngestCycle } from '../src/news/runCycle'
 import { cleanText, looksLikeHeadline } from '../src/news/clean'
 import { isCompanyName, filterCompanies } from '../src/news/entities'
-import { coerceArticleBrief, durToMs, parseRate } from '../src/news/triage/groq'
+import { coerceArticleBrief, coerceNewsImpact, durToMs, parseRate } from '../src/news/triage/groq'
 import { RateLimiter, resetSharedLimiters } from '../src/news/triage/budget'
 import type { FeedItem } from '../src/news/types'
 
@@ -365,6 +365,45 @@ await check('coerceArticleBrief shapes gist/companies/parties safely; bad roles 
   assert.equal(b.the_edge, 'Second-order tanker beneficiaries are under-owned.')
   assert.equal(b.watch_item, 'Brent holding above $90.')
   assert.equal(b.theme, 'ma') // non-letters stripped
+})
+
+// ---- news_impact coercion ----
+await check('coerceNewsImpact shapes a dirty news_impact safely; forces quick_dirty_calculation to "" when not quantified', () => {
+  const ni = coerceNewsImpact({
+    impact_direction: 'NEGATIVE', // wrong case → falls back to 'unknown'
+    impact_magnitude: 'high',
+    affected_metric: ['revenue', 'eps', 'bogus_metric', 'pat_net_income'],
+    quantified_impact_available: true,
+    extracted_numbers: ['guidance cut to $1.2-1.4B from $1.8B', '', 'EPS to $0.40-0.45 from $0.65'],
+    quick_dirty_calculation: 'Guidance cut implies ~25-30% below prior EPS midpoint.',
+    why_it_matters: 'The guidance cut signals a structural demand shortfall, not a one-off.',
+    analyst_takeaway: 'This is a real earnings reset, not noise.',
+    confidence: 145, // out of range → clamped to 100
+  })
+  assert.equal(ni.impact_direction, 'unknown', 'wrong-case enum value falls back to unknown')
+  assert.equal(ni.impact_magnitude, 'high')
+  assert.deepEqual(ni.affected_metric, ['revenue', 'eps', 'pat_net_income'], 'bogus metric dropped, valid ones kept')
+  assert.equal(ni.extracted_numbers.length, 2, 'empty string dropped')
+  assert.equal(ni.quick_dirty_calculation, 'Guidance cut implies ~25-30% below prior EPS midpoint.')
+  assert.equal(ni.confidence, 100, 'confidence clamped to 100')
+
+  // when quantified_impact_available is false, quick_dirty_calculation is FORCED to "" even if the model
+  // supplied one — defense in depth against a fabricated calc with no numbers behind it
+  const forced = coerceNewsImpact({
+    impact_direction: 'neutral', impact_magnitude: 'low', affected_metric: [],
+    quantified_impact_available: false,
+    quick_dirty_calculation: 'a calc the model should not have written',
+    why_it_matters: '', analyst_takeaway: 'Routine notice, no financial impact.', confidence: 20,
+  })
+  assert.equal(forced.quick_dirty_calculation, '', 'forced empty when not quantified, regardless of model output')
+
+  // missing/malformed news_impact entirely → full safe default
+  const missing = coerceNewsImpact(undefined)
+  assert.deepEqual(missing, {
+    impact_direction: 'unknown', impact_magnitude: 'low', affected_metric: [],
+    quantified_impact_available: false, extracted_numbers: [], quick_dirty_calculation: '',
+    why_it_matters: '', analyst_takeaway: '', confidence: 0,
+  })
 })
 
 // ---- enrichEvent: the article-body Groq read (gist + firms-only + theme), with denylist scrub ----

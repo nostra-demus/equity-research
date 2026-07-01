@@ -266,6 +266,25 @@ export interface ArticleParty {
   horizon?: string | null // when it bites ("this quarter", "12-18m"), else null
   order?: PartyOrder | null // first = directly hit/named; second = downstream/supplier/substitute
 }
+// Does this event move earnings / guidance / valuation / the thesis / risk / a portfolio decision — the
+// structured, quantified sibling of GIST (which just states what happened). Every enum defaults safely
+// via coerceNewsImpact so model drift degrades to "unknown/low/no numbers", never a crash or a fabrication.
+export type ImpactDirection = 'positive' | 'negative' | 'mixed' | 'neutral' | 'unknown'
+export type ImpactMagnitude = 'low' | 'medium' | 'high' | 'critical'
+export type AffectedMetric =
+  | 'revenue' | 'ebitda' | 'pat_net_income' | 'eps' | 'cash_flow' | 'debt' | 'capex'
+  | 'commodity_price' | 'valuation_multiple' | 'regulatory_risk' | 'thesis_quality'
+export interface NewsImpact {
+  impact_direction: ImpactDirection
+  impact_magnitude: ImpactMagnitude
+  affected_metric: AffectedMetric[] // multi-select — a profit warning often hits revenue+PAT+EPS at once
+  quantified_impact_available: boolean
+  extracted_numbers: string[] // verbatim figures pulled from the body — same "must appear in the body" rule as gist
+  quick_dirty_calculation: string // "" when not computable; coerceNewsImpact FORCES "" whenever quantified_impact_available is false
+  why_it_matters: string // ties the metric change to earnings/guidance/valuation/thesis/risk/a portfolio decision
+  analyst_takeaway: string // the one-line takeaway
+  confidence: number // 0-100, clamped; 0 when there's no real basis for a verdict
+}
 export interface ArticleBrief {
   gist: string[] // 2-4 plain bullets, the crux
   market_angle?: string // the single market-moving thread + transmission to asset prices (the "so what")
@@ -276,12 +295,13 @@ export interface ArticleBrief {
   the_edge?: string // a non-obvious angle the body genuinely supports that consensus may miss — empty if none
   watch_item?: string // the single next data point / number that confirms or kills the read
   theme: string // corrected single event-type
+  news_impact: NewsImpact // does this move earnings/guidance/valuation/thesis/risk/a portfolio decision — direction, size, numbers, confidence
 }
 
 export const ARTICLE_SYSTEM = `You are a buy-side analyst reading ONE news article for a portfolio manager. You are given the article's BODY TEXT (not just the headline). Produce a sharp, decision-ready brief that thinks in TRANSMISSION: event -> what changes in the real economy or a business -> which LISTED, TRADABLE asset moves, in what direction, by roughly how much, over what horizon. Second-level thinking, never a plain summary.
 
 Return ONLY this JSON (use [] or "" or null whenever the body does not support a field — NEVER invent to fill it):
-{"gist":["...","..."],"market_angle":"...","companies":[{"name":"...","ticker":null,"listing_country":null,"exchange":null,"role":"subject|acquirer|target|forecaster|mentioned"}],"beneficiaries":[{"name":"...","named_in_article":true,"ticker":null,"listing":null,"mechanism":"...","magnitude":null,"horizon":null,"order":"first|second"}],"exposed":[{"name":"...","named_in_article":true,"ticker":null,"listing":null,"mechanism":"...","magnitude":null,"horizon":null,"order":"first|second"}],"whats_priced":"...","the_edge":"...","watch_item":"...","theme":"<tag>"}
+{"gist":["...","..."],"market_angle":"...","companies":[{"name":"...","ticker":null,"listing_country":null,"exchange":null,"role":"subject|acquirer|target|forecaster|mentioned"}],"beneficiaries":[{"name":"...","named_in_article":true,"ticker":null,"listing":null,"mechanism":"...","magnitude":null,"horizon":null,"order":"first|second"}],"exposed":[{"name":"...","named_in_article":true,"ticker":null,"listing":null,"mechanism":"...","magnitude":null,"horizon":null,"order":"first|second"}],"whats_priced":"...","the_edge":"...","watch_item":"...","theme":"<tag>","news_impact":{"impact_direction":"positive|negative|mixed|neutral|unknown","impact_magnitude":"low|medium|high|critical","affected_metric":["revenue|ebitda|pat_net_income|eps|cash_flow|debt|capex|commodity_price|valuation_multiple|regulatory_risk|thesis_quality"],"quantified_impact_available":false,"extracted_numbers":["..."],"quick_dirty_calculation":"...","why_it_matters":"...","analyst_takeaway":"...","confidence":0}}
 
 GIST — 2 to 4 short bullets carrying the REAL crux: the number, threshold, call, or change that is the point. Lead with the punchline, not the setup (e.g. "sees 50-75bp of rate hikes and 5% FY27 CPI", not the CPI sub-components). Plain English, short sentences. Every number you state must appear in the body. No hype words (robust, strong, well-positioned, attractive, best-in-class). If the story is contested or two-sided, state BOTH sides. If the body is boilerplate, a cookie/ad notice, an "about us" page, or a login wall with no story, return gist [] and set theme to your best guess.
 For results, separate reported from adjusted and name any one-off behind a beat/miss (tax credit, disposal gain, customer advance) — lead with the underlying number, not the flattered one; margin moves in basis points.
@@ -304,7 +324,16 @@ THE_EDGE — one sentence: a non-obvious angle the body genuinely supports that 
 WATCH_ITEM — the single next data point or number that would confirm or kill the read ("Q2 volume guidance on the 28th", "Brent holding above $90", "the covenant test at year-end"). "" if none is clear.
 
 THEME — choose exactly one, by what the story IS: earnings_revenue_margin | guidance_change | mna | capital_actions | debt_credit | litigation_enforcement | regulatory | management | product | commercial | operations | cybersecurity | macro_sector | policy | rumor.
-Rules: guidance_change ONLY means a company changing its OWN forecast — a central-bank rate path, inflation/GDP print, war/geopolitics, oil move, country capex or trade-bloc story is macro_sector. An IPO/SPAC/listing/buyback/dividend/raise is capital_actions, NOT mna ("Acquisition" in a shell's name does not make an 8-K an M&A event). A government/regulator/court action that sets rules (sanctions, tariffs, antitrust, trade pacts, scheme approvals) is regulatory or policy. Use rumor only when the article itself cites unnamed sources.`
+Rules: guidance_change ONLY means a company changing its OWN forecast — a central-bank rate path, inflation/GDP print, war/geopolitics, oil move, country capex or trade-bloc story is macro_sector. An IPO/SPAC/listing/buyback/dividend/raise is capital_actions, NOT mna ("Acquisition" in a shell's name does not make an 8-K an M&A event). A government/regulator/court action that sets rules (sanctions, tariffs, antitrust, trade pacts, scheme approvals) is regulatory or policy. Use rumor only when the article itself cites unnamed sources.
+
+NEWS_IMPACT — does this move earnings, guidance, valuation, the thesis, risk, or a portfolio decision, in which direction, how big, with what numbers, and how confident are you.
+impact_direction / impact_magnitude: calibrate against the SUBJECT company's own fundamentals, not the news cycle's excitement. A routine or procedural item — a board-meeting notice, an earnings-date announcement, a routine regulatory filing, a scheduled dividend — is impact_magnitude "low" and impact_direction "neutral" or "unknown": there is no real economic change to size. A profit warning, a guidance cut, a large M&A deal, or a major capex commitment is "high" or "critical", with direction set by whether the SUBJECT's economics improve or worsen. Do not inflate magnitude just because the story is widely covered.
+affected_metric — multi-select from EXACTLY this list: revenue, ebitda, pat_net_income, eps, cash_flow, debt, capex, commodity_price, valuation_multiple, regulatory_risk, thesis_quality. Return [] when the story is pure market color or opinion with no real linkage to any of these.
+quantified_impact_available / extracted_numbers — set quantified_impact_available true and populate extracted_numbers ONLY when the body states actual figures tied to a metric (a stated loss range, a capex number, a guidance cut in %, a debt-raise amount, a revenue miss in currency or %). Every number in extracted_numbers must appear in the body, verbatim or near-verbatim — the same rule as GIST. NEVER invent a number to fill this field. If the body has no real figures, quantified_impact_available is false and extracted_numbers is [].
+quick_dirty_calculation — a short back-of-envelope calculation, ONLY when the body supplies enough context to compute one (e.g. a stated range against a stated prior guidance or estimate). NEVER assume a share count, market cap, or valuation multiple that is not stated in the body. If the numbers exist but there isn't enough in the body to size a per-share or valuation effect (no share count, no market cap, no current multiple), leave this "" — do not guess, and do not write a disclaimer sentence here; an empty string is the correct answer and the reader shows that honestly.
+why_it_matters — one sentence: ties the metric change to earnings, guidance, valuation, the thesis, risk, or a portfolio decision. No hype words (robust, strong fundamentals, well positioned, attractive opportunity, best-in-class).
+analyst_takeaway — one sentence: the single most decision-useful line a portfolio manager should read first. No hype words.
+confidence — integer 0 to 100. 0 when you have no real basis for a verdict (e.g. the body is too thin or off-topic). NEVER fabricate an implied confidence.`
 
 const ROLES: CompanyRole[] = ['subject', 'acquirer', 'target', 'forecaster', 'mentioned']
 const str = (v: unknown, max = 200): string => (typeof v === 'string' ? v.trim().slice(0, max) : '')
@@ -325,6 +354,45 @@ function coerceParty(raw: any): ArticleParty | null {
     magnitude: str(raw?.magnitude, 48) || null,
     horizon: str(raw?.horizon, 48) || null,
     order,
+  }
+}
+
+const IMPACT_DIRECTIONS: ImpactDirection[] = ['positive', 'negative', 'mixed', 'neutral', 'unknown']
+const IMPACT_MAGNITUDES: ImpactMagnitude[] = ['low', 'medium', 'high', 'critical']
+const AFFECTED_METRICS: AffectedMetric[] = [
+  'revenue', 'ebitda', 'pat_net_income', 'eps', 'cash_flow', 'debt', 'capex',
+  'commodity_price', 'valuation_multiple', 'regulatory_risk', 'thesis_quality',
+]
+
+/** Coerce the model's news_impact into a safe NewsImpact. Every field defaults safely — a missing/malformed
+ *  block degrades to "unknown/low/no numbers/zero confidence", never a crash, never a fabricated verdict.
+ *  `quick_dirty_calculation` is FORCED to "" whenever quantified_impact_available is false — defense in depth
+ *  so a model slip can't ship a calculation with no numbers behind it. Exported for tests. */
+export function coerceNewsImpact(raw: any): NewsImpact {
+  const impact_direction: ImpactDirection = IMPACT_DIRECTIONS.includes(raw?.impact_direction) ? raw.impact_direction : 'unknown'
+  const impact_magnitude: ImpactMagnitude = IMPACT_MAGNITUDES.includes(raw?.impact_magnitude) ? raw.impact_magnitude : 'low'
+  const affected_metric: AffectedMetric[] = (Array.isArray(raw?.affected_metric) ? raw.affected_metric : [])
+    .filter((m: any): m is AffectedMetric => AFFECTED_METRICS.includes(m))
+    .slice(0, AFFECTED_METRICS.length)
+  const quantified_impact_available = raw?.quantified_impact_available === true
+  const extracted_numbers = (Array.isArray(raw?.extracted_numbers) ? raw.extracted_numbers : [])
+    .map((n: any) => str(n, 80))
+    .filter(Boolean)
+    .slice(0, 8)
+  const confidenceNum = Number(raw?.confidence)
+  const confidence = Number.isFinite(confidenceNum) ? Math.max(0, Math.min(100, Math.round(confidenceNum))) : 0
+  return {
+    impact_direction,
+    impact_magnitude,
+    affected_metric,
+    quantified_impact_available,
+    extracted_numbers,
+    // forced "" when not quantified — a defense-in-depth backstop beyond the prompt instruction, so a
+    // model slip can never ship a calculation the extracted numbers don't actually support.
+    quick_dirty_calculation: quantified_impact_available ? str(raw?.quick_dirty_calculation, 280) : '',
+    why_it_matters: str(raw?.why_it_matters, 240),
+    analyst_takeaway: str(raw?.analyst_takeaway, 240),
+    confidence,
   }
 }
 
@@ -357,6 +425,7 @@ export function coerceArticleBrief(raw: any): ArticleBrief {
     the_edge: str(raw?.the_edge, 320),
     watch_item: str(raw?.watch_item, 240),
     theme,
+    news_impact: coerceNewsImpact(raw?.news_impact),
   }
 }
 
@@ -388,11 +457,12 @@ export async function analyzeArticle(
           model: opts.model,
           ...(opts.models?.length ? { models: opts.models } : {}), // OpenRouter fallback chain (Groq omits)
           temperature: 0.1,
-          // the richer transmission brief (market angle, edge, per-party mechanism/magnitude/horizon) needs
-          // headroom — floor at 3000 so a worst-case rich brief (up to 8 firms + 12 parties × several fields)
-          // can't truncate (finish_reason 'length' drops the WHOLE brief, not just the tail), while a provider
-          // that asks for more (Cerebras 3500) keeps its larger budget. Sized to the EST_TOKENS reservation.
-          max_tokens: Math.max(opts.maxTokens ?? 3000, 3000),
+          // the richer transmission brief (market angle, edge, per-party mechanism/magnitude/horizon, plus
+          // news_impact's ~9 fields) needs headroom — floor at 3500 so a worst-case rich brief (up to 8 firms
+          // + 12 parties × several fields + the impact block) can't truncate (finish_reason 'length' drops the
+          // WHOLE brief, not just the tail), while a provider that asks for more keeps its larger budget. Sized
+          // to the EST_TOKENS reservation (article-read.ts).
+          max_tokens: Math.max(opts.maxTokens ?? 3000, 3500),
           response_format: { type: 'json_object' },
           messages: [
             { role: 'system', content: ARTICLE_SYSTEM },

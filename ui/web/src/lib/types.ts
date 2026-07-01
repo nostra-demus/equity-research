@@ -183,6 +183,25 @@ export interface ArticleParty {
   horizon?: string | null // when it bites
   order?: PartyOrder | null // first = directly hit; second = downstream/substitute
 }
+// Does this event move earnings / guidance / valuation / the thesis / risk / a portfolio decision — the
+// structured, quantified sibling of `gist` (which just states what happened). Mirrors the server shape in
+// ui/server/src/news/triage/groq.ts (this repo hand-duplicates enrichment types between server and client).
+export type ImpactDirection = 'positive' | 'negative' | 'mixed' | 'neutral' | 'unknown'
+export type ImpactMagnitude = 'low' | 'medium' | 'high' | 'critical'
+export type AffectedMetric =
+  | 'revenue' | 'ebitda' | 'pat_net_income' | 'eps' | 'cash_flow' | 'debt' | 'capex'
+  | 'commodity_price' | 'valuation_multiple' | 'regulatory_risk' | 'thesis_quality'
+export interface NewsImpact {
+  impact_direction: ImpactDirection
+  impact_magnitude: ImpactMagnitude
+  affected_metric: AffectedMetric[] // multi-select — a profit warning often hits revenue+PAT+EPS at once
+  quantified_impact_available: boolean
+  extracted_numbers: string[] // verbatim figures pulled from the body
+  quick_dirty_calculation: string // "" when not computable — the reader shows "insufficient data for valuation impact" instead
+  why_it_matters: string // ties the metric change to earnings/guidance/valuation/thesis/risk/a portfolio decision
+  analyst_takeaway: string // the one-line takeaway
+  confidence: number // 0-100
+}
 export interface EventEnrichment {
   event_id: string
   ok: boolean
@@ -203,6 +222,7 @@ export interface EventEnrichment {
   the_edge?: string // a non-obvious angle the body supports — absent if none
   watch_item?: string // the single next data point / number that confirms or kills the read
   theme?: string
+  news_impact?: NewsImpact // does this move earnings/guidance/valuation/thesis/risk/a portfolio decision — direction, size, numbers, confidence
   // read-quality flags from the server: `complete` = the best obtainable read (rich brief, SEC parse, filing
   // floor, or retries exhausted). A degraded read (complete falsy) self-heals — reopening the event re-fires
   // the read instead of freezing a useless dek for hours. See ui/server/src/news/enrich.ts.

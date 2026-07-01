@@ -25,7 +25,7 @@ import { cleanText } from './clean'
 import { storyFloor, isFilingEvent, type StoryFloorInput } from './story-floor'
 import { SEC_FORM_TOKENS, lookupSecForm, parseEdgarFilingHeadline, tidyFilerName } from './sec-forms'
 import { filterCompanies, isCompanyName } from './entities'
-import type { ArticleCompany, ArticleParty } from './triage/groq'
+import type { ArticleCompany, ArticleParty, NewsImpact } from './triage/groq'
 import { type ArticleReadProvider, readArticleBrief } from './triage/article-read'
 import { fetchGdeltDoc } from './sources/gdelt'
 import type { CompanyGuess, RawArticle } from './types'
@@ -121,6 +121,7 @@ export interface EventEnrichment {
   the_edge?: string // a non-obvious angle the body supports that consensus may miss — absent if none
   watch_item?: string // the single next data point / number that confirms or kills the read
   theme?: string // corrected single event-type (replaces the mis-tagged triage theme)
+  news_impact?: NewsImpact // does this move earnings/guidance/valuation/thesis/risk/a portfolio decision — direction, size, numbers, confidence
   // ---- read-quality bookkeeping (the anti-poisoning layer) ----
   // complete = this is the BEST obtainable read: a rich brief, an SEC parse, a filing floor (the headline
   // IS the disclosure), OR a readable article where we've exhausted MAX_READ_ATTEMPTS and the floor is the
@@ -891,7 +892,7 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
       // MAX_READ_ATTEMPTS freeze a readable article on the dek under the exact saturation that caused the bug.
       attempted = r.attempted
     }
-    if (brief && (brief.gist.length || brief.companies.length || brief.beneficiaries.length || brief.exposed.length)) {
+    if (brief && (brief.gist.length || brief.companies.length || brief.beneficiaries.length || brief.exposed.length || brief.news_impact?.analyst_takeaway)) {
       if (brief.gist.length) result.gist = brief.gist
       if (brief.market_angle) result.market_angle = brief.market_angle
       const co = filterCompanies(brief.companies) // denylist safety-net on top of the prompt rule
@@ -904,6 +905,10 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
       if (brief.the_edge) result.the_edge = brief.the_edge
       if (brief.watch_item) result.watch_item = brief.watch_item
       if (brief.theme) result.theme = brief.theme
+      // unconditional on content-truthiness (unlike the fields above) — coerceNewsImpact always returns a
+      // fully-populated object once brief is non-null, and a "neutral/low/no numbers" verdict for a routine
+      // notice IS the correct, decision-useful answer, not a gap to paper over.
+      if (brief.news_impact) result.news_impact = brief.news_impact
       // read succeeded but produced no gist bullets → back it with the most substantial text we hold, never blank
       if (!brief.gist.length) result.summary = bestFallbackSummary(pageHtml, snippet, filingInput, bodylessFiling)
     } else {
@@ -933,7 +938,7 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
           })
           if (r.attempted) attempted = true
           const b = r.brief
-          if (b && (b.gist.length || b.companies.length || b.beneficiaries.length || b.exposed.length)) {
+          if (b && (b.gist.length || b.companies.length || b.beneficiaries.length || b.exposed.length || b.news_impact?.analyst_takeaway)) {
             if (b.gist.length) result.gist = b.gist
             if (b.market_angle) result.market_angle = b.market_angle
             const co = filterCompanies(b.companies); if (co.length) result.companies = co
@@ -943,6 +948,7 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
             if (b.the_edge) result.the_edge = b.the_edge
             if (b.watch_item) result.watch_item = b.watch_item
             if (b.theme) result.theme = b.theme
+            if (b.news_impact) result.news_impact = b.news_impact
           }
         }
         // record corroboration so the UI labels it honestly; if the LLM couldn't synthesise (no budget), show
