@@ -86,6 +86,8 @@ Detect (multilabel, one line of evidence per tagged category):
 
 An article with ONE clear, attributable, quantified driver does NOT match `many_companies_no_thesis` or `lacks_specificity_quantifiability` merely because it spans a sector or several names — those two categories require the ABSENCE of an attributable, quantified driver, not a high company count by itself.
 
+**Attributable-driver exemption for index / market-wide framing.** The same principle applies to `market_cap_roundup` and `index_movement_summary`: an index or market-wide story that carries ONE concrete, attributable, quantified causal driver — a specific policy, macro, or corporate event named as the cause (e.g. "Nifty jumps 2% after RBI cuts the repo rate 50 bps") — is NOT tagged `market_cap_roundup` or `index_movement_summary`. Classify it on the UNDERLYING event, not the index-move framing: the repo-cut example is a `regulatory` / macro-policy event, and the index level is merely how it is being reported. These two categories require the index/aggregate move to be the actual subject with NO single attributable driver (a bare "Sensex closed 400 pts higher" wrap). A quantified, attributable macro-policy or corporate fact reported through an index headline keeps `is_generic_media = false` and is scored on the driver, not capped as market noise.
+
 Score (0-100 each, evidence-cited):
 
 - **specificity_score** — 0 = applies to the whole market/an index/10+ names with no distinguishable thesis; 100 = one company, one distinct, attributable event.

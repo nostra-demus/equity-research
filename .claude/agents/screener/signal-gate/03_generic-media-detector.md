@@ -33,8 +33,8 @@ You DO NOT:
 1. Read the repo root `CLAUDE.md`, then `.claude/agents/screener/SWARM.md`, then `.claude/agents/screener/signal-gate/MODULE_RULES.md`, and apply all three — the category definitions, the score anchors, and the cap formula in MODULE_RULES are binding.
 2. Read `intake.json` for the headline/body, and the relevance report's "What Happened" restatement and entities table. Do not re-fetch the source.
 3. **Category detection (multilabel).** Test the article against each of the 6 categories below. Tag a category ONLY when the article's own content matches it — an article with one clear, attributable, quantified driver does NOT match categories 5 or 6 even if it touches a whole sector or many names.
-   - `market_cap_roundup` — aggregate market-cap change across 3+ companies or an index, with no single causal driver.
-   - `index_movement_summary` — the subject is an index level/points/% move (Nifty, Sensex, S&P 500, Dow, etc.), not a company event.
+   - `market_cap_roundup` — aggregate market-cap change across 3+ companies or an index, with no single causal driver. NOT tagged when ONE concrete, attributable, quantified driver is named as the cause (attributable-driver exemption — see MODULE_RULES).
+   - `index_movement_summary` — the subject is an index level/points/% move (Nifty, Sensex, S&P 500, Dow, etc.), not a company event. NOT tagged when the index move is attributed to ONE concrete, quantified causal event (e.g. "Nifty jumps 2% after RBI cuts repo 50 bps") — that is a macro/policy or corporate event reported through an index headline; classify it on the underlying event (here: `regulatory`/macro-policy), not the index framing, and leave `is_generic_media` false so the quantified driver is not capped as market noise.
    - `top_gainers_losers` — a ranked gainers/losers list with no causal explanation given per name.
    - `generic_market_close` — "markets closed higher/lower" daily-wrap framing with no specific causal event.
    - `many_companies_no_thesis` — 4+ companies named in one undifferentiated list, with no firm-specific causal claim tying any one of them to the headline.
@@ -81,7 +81,7 @@ Verdict: {is_generic_media}, specificity {N}, quantifiability {N}, investability
 # SELF-CHECK
 
 - [ ] Every tagged category has one line of evidence quoted or closely paraphrased from the headline/body — not a vibe.
-- [ ] A category is tagged only when the article's own content matches it; an article with one attributable, quantified driver is NOT tagged `many_companies_no_thesis` or `lacks_specificity_quantifiability` just because it spans a sector.
+- [ ] A category is tagged only when the article's own content matches it; an article with one attributable, quantified driver is NOT tagged `many_companies_no_thesis` or `lacks_specificity_quantifiability` just because it spans a sector, and — under the same attributable-driver exemption — is NOT tagged `market_cap_roundup` or `index_movement_summary` just because it is framed around an index/market-wide move when one concrete quantified cause is named (classify on the underlying event instead).
 - [ ] quantifiability_score does not conflate an aggregate tally (a number with no single cause) with a genuinely attributable figure.
 - [ ] is_generic_media is not set true on stylistic tone alone when the content itself carries a specific, quantified, company- or sector-level fact.
 - [ ] No materiality cap, score, or routing decision appears anywhere in this report — that arithmetic belongs to the synthesis only.
