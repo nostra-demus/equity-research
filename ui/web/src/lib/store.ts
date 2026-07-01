@@ -5,8 +5,10 @@ import { downstreamCascade, type CascadeNode } from './cascade'
 import { displayHeadline, originalHeadline, plainRoute, plainStage } from './plain'
 import type { Theme, ThemeDetail, ThemeBrief } from './themes'
 import { intensityWindowForHours } from './themes'
-import type { ActiveRunLite, AgentNode, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, DataStatus, EventEnrichment, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
+import type { ActiveRunLite, AgentNode, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
+import { feedbackInputFromItem, feedbackLabel } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
+import { emptyReviewFilters, matchesReviewFilters, type ReviewFilterState } from '../components/screener/ReviewFilters'
 
 // A company the user drilled into from an event (the COMPANIES NAMED chips) — the main stage then
 // shows every wire story about it. listing_country/exchange ride along from the article-body read.
@@ -26,6 +28,22 @@ function loadShelf(): Set<string> {
 }
 function saveShelf(s: Set<string>): void {
   try { localStorage.setItem(SHELF_KEY, JSON.stringify([...s].slice(-500))) } catch {}
+}
+
+// --- flagged events: a local display cache of which event_ids the user has already sent feedback on
+//     this browser — the server ledger is authoritative, this only drives the row/detail indicator so
+//     it survives a reload without a network round-trip per card. Same persistence shape as the shelf. ---
+const FLAGGED_KEY = 'nsw.flaggedEvents'
+function loadFlagged(): Set<string> {
+  try {
+    const raw = JSON.parse(localStorage.getItem(FLAGGED_KEY) || '[]')
+    return new Set(Array.isArray(raw) ? raw.filter((x) => typeof x === 'string') : [])
+  } catch {
+    return new Set()
+  }
+}
+function saveFlagged(s: Set<string>): void {
+  try { localStorage.setItem(FLAGGED_KEY, JSON.stringify([...s].slice(-500))) } catch {}
 }
 
 // The research stage's renderer: the 3D globe (default) or the flat 2D constellation. A per-browser
@@ -305,6 +323,26 @@ interface State {
   // shelving: set an event aside (or bring it back) — local, persisted, filters the rail
   shelvedEvents: Set<string>
   toggleShelve: (eventId: string) => void
+  // card feedback ("flag as irrelevant / mis-scored / …") — flaggedEvents is a local display cache;
+  // the server ledger (screener/ledger/screener_feedback.ndjson) is the source of truth
+  flaggedEvents: Set<string>
+  submitFeedback: (input: FeedbackSubmitInput) => Promise<boolean>
+  undoFeedbackFlow: (feedbackId: string, eventId: string) => Promise<void>
+  // fast batch review mode: a focused, filtered, keyboard-driven queue over the same wire — reuses
+  // submitFeedback above, so there is exactly one storage path for both flows
+  reviewOpen: boolean
+  reviewFilters: ReviewFilterState
+  reviewQueue: FeedItem[] // snapshotted on open / filter change — NOT live-reactive mid-review
+  reviewIndex: number
+  reviewSessionCount: number // in-memory only; resets every time the panel opens (never persisted)
+  reviewSubmitting: boolean // in-flight guard: one review POST at a time, so a held key / double-click can't
+  // fire multiple records for the same card or advance past later cards before the save resolves
+  coveredTickers: Set<string> // "portfolio companies" proxy — fetched once per panel-open
+  openReview: () => void
+  closeReview: () => void
+  setReviewFilters: (f: ReviewFilterState) => void
+  reviewSubmit: (feedbackType: FeedbackType, reason: string) => Promise<void>
+  reviewSkip: () => void
   // on-demand enrichment for the opened event (the real story / SEC items / prior coverage / related)
   enrichCache: Record<string, EventEnrichment | 'loading'>
   fetchEnrichment: (it: FeedItem) => Promise<void>
@@ -475,6 +513,14 @@ export const useStore = create<State>((set, get) => ({
   scSelectedEvent: null,
   scFocusedCompany: null,
   shelvedEvents: loadShelf(),
+  flaggedEvents: loadFlagged(),
+  reviewOpen: false,
+  reviewFilters: emptyReviewFilters(),
+  reviewQueue: [],
+  reviewIndex: 0,
+  reviewSessionCount: 0,
+  reviewSubmitting: false,
+  coveredTickers: new Set(),
   enrichCache: {},
   newsFeedOpen: false,
   sourcesOpen: false,
@@ -1433,6 +1479,122 @@ export const useStore = create<State>((set, get) => ({
     saveShelf(next)
     const open = get().scSelectedEvent
     set({ shelvedEvents: next, ...(open && open.event_id === eventId && next.has(eventId) ? { scSelectedEvent: null } : {}) })
+  },
+
+  // submit card feedback: mark it flagged (optimistic, local display cache), persist to the server
+  // ledger, and toast a confirmation with a short-window Undo. Rolled back on a failed save.
+  // Returns true only when the ledger POST actually succeeded — the batch-review path relies on this to
+  // decide whether to advance to the next card (a failed save must NOT silently skip a card).
+  submitFeedback: async (input) => {
+    if (get().staticMode) { get().setToast({ msg: 'Read-only showcase — feedback needs a live engine.', tone: 'info' }); return false }
+    const next = new Set(get().flaggedEvents)
+    next.add(input.event_id)
+    saveFlagged(next)
+    set({ flaggedEvents: next })
+    try {
+      const { feedback } = await api.submitFeedback(input)
+      get().setToast({
+        msg: `Feedback saved — ${feedbackLabel(input.feedback_type)}`,
+        tone: 'good',
+        action: { label: 'Undo', onClick: () => void get().undoFeedbackFlow(feedback.feedback_id, input.event_id) },
+      })
+      return true
+    } catch (e: any) {
+      const rollback = new Set(get().flaggedEvents)
+      rollback.delete(input.event_id)
+      saveFlagged(rollback)
+      set({ flaggedEvents: rollback })
+      get().setToast({ msg: e?.body?.error || e?.message || 'Could not save feedback', tone: 'bad' })
+      return false
+    }
+  },
+  undoFeedbackFlow: async (feedbackId, eventId) => {
+    try {
+      await api.undoFeedback(feedbackId)
+      const next = new Set(get().flaggedEvents)
+      next.delete(eventId)
+      saveFlagged(next)
+      set({ flaggedEvents: next })
+      // Rewind batch review when THIS undo tombstones the card the queue just advanced past. reviewSubmit
+      // already moved reviewIndex forward and counted the card, so an immediate Undo would otherwise leave
+      // the card skipped and still counted as flagged. Only rewind when the panel is open AND the card
+      // directly behind the cursor (reviewQueue[reviewIndex - 1]) is exactly this event — so a stray undo
+      // of some OTHER (per-card FeedbackMenu) feedback never disturbs the queue position or the counter.
+      const s = get()
+      if (s.reviewOpen && s.reviewIndex > 0 && s.reviewQueue[s.reviewIndex - 1]?.event_id === eventId) {
+        set({ reviewIndex: s.reviewIndex - 1, reviewSessionCount: Math.max(0, s.reviewSessionCount - 1) })
+      }
+      get().setToast({ msg: 'Feedback undone', tone: 'info' })
+    } catch (e: any) {
+      get().setToast({ msg: e?.body?.error || e?.message || 'Could not undo feedback', tone: 'bad' })
+    }
+  },
+
+  // fast batch review: a focused queue over the CURRENT wire, snapshotted on open (and on every filter
+  // change) so the queue stays stable while reviewing even as fresh items keep streaming into newsItems.
+  openReview: () => {
+    const filters = get().reviewFilters
+    const covered = get().coveredTickers
+    set({
+      reviewOpen: true,
+      reviewQueue: get().newsItems.filter((it) => matchesReviewFilters(it, filters, covered)),
+      reviewIndex: 0,
+      reviewSessionCount: 0,
+    })
+    if (covered.size === 0 && !get().staticMode) {
+      api.coveredTickers().then((tickers) => {
+        const coveredNow = new Set(tickers)
+        // Re-filter the snapshot against the tickers that just arrived: the queue was built while the set was
+        // still empty, so the "portfolio companies" filter would show nothing until the user toggled a filter.
+        // Rebuild ONLY when that rebuild can actually matter and can't lose the reviewer's place:
+        //   - the panel is still open, AND
+        //   - the portfolio-companies filter is on (the ONLY filter whose result depends on coveredTickers —
+        //     with it off, the queue is identical before and after, so a rebuild would just reset the index
+        //     for no reason), AND
+        //   - the reviewer is still at the initial position (reviewIndex === 0). Once they've advanced,
+        //     re-snapping to 0 would throw them back to the start and re-present already-flagged/skipped
+        //     cards, so we only refresh coveredTickers and leave their queue/position untouched.
+        const s = get()
+        if (s.reviewOpen && s.reviewFilters.portfolioCompanies && s.reviewIndex === 0) {
+          set({ coveredTickers: coveredNow, reviewQueue: s.newsItems.filter((it) => matchesReviewFilters(it, s.reviewFilters, coveredNow)), reviewIndex: 0 })
+        } else {
+          set({ coveredTickers: coveredNow })
+        }
+      }).catch(() => {})
+    }
+  },
+  closeReview: () => set({ reviewOpen: false }),
+  setReviewFilters: (f) => {
+    set({
+      reviewFilters: f,
+      reviewIndex: 0,
+      reviewQueue: get().newsItems.filter((it) => matchesReviewFilters(it, f, get().coveredTickers)),
+    })
+  },
+  // submit feedback for the item at the front of the queue, then advance — one code path shared by
+  // both the mouse buttons and the keyboard shortcuts in ReviewPanel.
+  reviewSubmit: async (feedbackType, reason) => {
+    if (get().reviewSubmitting) return // one save in flight — a held key / double-click can't stack records
+    const it = get().reviewQueue[get().reviewIndex]
+    if (!it) return
+    set({ reviewSubmitting: true })
+    try {
+      const ok = await get().submitFeedback(feedbackInputFromItem(it, feedbackType, reason))
+      // Advance + count ONLY on a real save. A failed POST leaves the same card in front (with its
+      // "could not save" toast) so the human can retry — it is never silently skipped with no ledger record.
+      if (ok) set({ reviewIndex: get().reviewIndex + 1, reviewSessionCount: get().reviewSessionCount + 1 })
+    } finally {
+      set({ reviewSubmitting: false })
+    }
+  },
+  // pure client-side advance — never calls the API, never counts toward the session counter.
+  // No-op while a feedback save is in flight: reviewSubmit advances on success, so a skip pressed BEFORE
+  // that POST returns would advance the index once here and once again when the save resolves — skipping
+  // one card with no ledger record. Blocking skip during the in-flight window keeps the queue in lockstep
+  // with the one save reviewSubmit already guards.
+  reviewSkip: () => {
+    if (get().reviewSubmitting) return
+    set({ reviewIndex: get().reviewIndex + 1 })
   },
 
   // fetch (once, then cache) the on-demand enrichment for an opened event. Keyed by event_id;

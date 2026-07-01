@@ -239,6 +239,45 @@ export interface EventEnrichment {
   corroborated?: { count: number; domains: string[] }
 }
 
+// ---- screener card feedback (ui/server/src/screener-feedback.ts is the source of truth) ----
+export type FeedbackType = 'irrelevant' | 'score_too_high' | 'score_too_low' | 'wrong_company' | 'wrong_sector' | 'duplicate_stale' | 'should_be_higher' | 'other'
+export interface FeedbackSubmitInput {
+  event_id: string
+  feedback_type: FeedbackType
+  feedback_reason?: string
+  current_score?: number | null
+  event_title?: string
+  source?: string
+  company_name?: string
+  company_ticker?: string
+  sector_theme?: string
+  score_breakdown?: Record<string, unknown> | null
+}
+export interface FeedbackRecord {
+  feedback_id: string
+  kind: 'feedback' | 'feedback_undo'
+  event_id: string
+  undoes?: string
+  user_id: string
+  current_score: number | null
+  feedback_type: FeedbackType | null
+  feedback_reason: string
+  event_title: string
+  source: string
+  company_name: string | null
+  company_ticker: string | null
+  sector_theme: string | null
+  score_breakdown: Record<string, unknown> | null
+  submitted_at: string
+}
+export interface FeedbackSummary {
+  total: number
+  active_total: number
+  by_type: Record<FeedbackType, number>
+  top_reasons: { reason: string; count: number }[]
+  generated_at: string
+}
+
 export interface NewsCycle {
   ts: string
   ok: boolean
