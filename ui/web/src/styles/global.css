@@ -749,6 +749,25 @@ a { color: inherit; }
 .coco__head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 12px; }
 .coco__eyebrow { font-size: 11px; font-weight: 600; letter-spacing: 0.6px; text-transform: uppercase; color: var(--text-faint); }
 .coco__count { font-size: 12px; color: var(--text-muted); }
+/* resume-live-run strip: shown at the top of the picker when a run is still executing server-side (e.g.
+   after a page refresh). Accent-tinted so it reads as a call to action, distinct from the neutral list. */
+.coco__resume { margin-bottom: 12px; padding: 11px 12px; background: var(--accent-wash); border: 1px solid color-mix(in srgb, var(--accent) 32%, transparent); border-radius: var(--r-md); }
+.coco__resume-head { display: flex; align-items: center; gap: 8px; margin-bottom: 9px; }
+.coco__resume-title { font-size: 12.5px; font-weight: 600; color: var(--text); }
+.coco__resume-hint { font-size: 11.5px; color: var(--text-faint); }
+.coco__resume-rows { display: flex; flex-direction: column; gap: 6px; }
+.coco__resume-row { display: flex; align-items: center; gap: 10px; width: 100%; min-height: 40px; padding: 0 11px; border: 1px solid color-mix(in srgb, var(--accent) 22%, transparent); border-radius: var(--r-sm); background: color-mix(in srgb, var(--accent) 9%, var(--surface-1)); color: var(--text); text-align: left; cursor: pointer; transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease); }
+.coco__resume-sym { flex-shrink: 0; min-width: 92px; font-family: var(--font-mono); font-size: 13.5px; font-weight: 600; color: var(--accent-bright); }
+.coco__resume-meta { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; font-size: 11.5px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.coco__resume-cta { margin-left: auto; flex-shrink: 0; display: inline-flex; align-items: center; gap: 5px; font-size: 12px; font-weight: 600; color: var(--accent-bright); }
+.coco__resume-arrow { display: inline-block; transition: transform var(--dur-fast) var(--ease); }
+.coco__resume-row:focus-visible { outline: none; border-color: var(--accent); box-shadow: 0 0 0 3px var(--accent-wash); }
+.coco__resume-row:active { transform: scale(0.985); }
+@media (hover: hover) and (pointer: fine) {
+  .coco__resume-row:hover { background: color-mix(in srgb, var(--accent) 16%, var(--surface-1)); border-color: color-mix(in srgb, var(--accent) 40%, transparent); }
+  .coco__resume-row:hover .coco__resume-arrow { transform: translateX(2px); }
+}
+@media (prefers-reduced-motion: reduce) { .coco__resume-row:active { transform: none; } }
 .coco__search { position: relative; display: flex; align-items: center; }
 .coco__searchicon { position: absolute; left: 13px; color: var(--text-faint); pointer-events: none; }
 .coco__search input { width: 100%; height: 44px; padding: 0 78px 0 38px; background: var(--surface-2); border: 1px solid var(--hairline); border-radius: var(--r-md); color: var(--text); font-size: 14px; transition: border-color var(--dur-fast) var(--ease), box-shadow var(--dur-fast) var(--ease); }

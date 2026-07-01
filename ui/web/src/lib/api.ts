@@ -424,7 +424,7 @@ export const api = {
     if ((await ensureMode()) === 'static') return { history: [] }
     return get(`/api/runs?ticker=${encodeURIComponent(ticker)}`)
   },
-  activeRuns: async (): Promise<{ active: { runId: string; kind: string; ticker: string; module?: string; status: string }[] }> => {
+  activeRuns: async (): Promise<{ active: { runId: string; kind: string; ticker: string; module?: string; status: string; swarmId?: string; unit?: string; startedAt?: number }[] }> => {
     if ((await ensureMode()) === 'static') return { active: [] }
     return get(`/api/runs`)
   },

@@ -314,6 +314,9 @@ export interface ActiveRunLite {
   ticker: string
   module?: string
   status: string
+  swarmId?: string // 'research' (default) or a SWARM.md id — lets the UI scope a run to its swarm
+  unit?: string // 'ticker' | 'signal' | … (the swarm's unit of work)
+  startedAt?: number // epoch ms the run started — drives the live "running Nm" elapsed readout
 }
 export interface BoardSignal {
   signal_id: string

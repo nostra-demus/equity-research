@@ -602,7 +602,9 @@ app.get('/api/runs', async (req) => {
   return {
     active: listRuns()
       .filter((r) => IN_FLIGHT_STATUSES.has(r.status)) // incl. the pre-spawn gate states (shared def)
-      .map((r) => ({ runId: r.runId, kind: r.kind, ticker: r.ticker, module: r.module, status: r.status })),
+      // swarmId + unit let a caller tell a research run apart from a screener/commodity one without a
+      // name-guess (§26); startedAt drives the "running Nm" readout on the resume affordance.
+      .map((r) => ({ runId: r.runId, kind: r.kind, ticker: r.ticker, module: r.module, status: r.status, swarmId: r.swarmId, unit: r.unit, startedAt: r.startedAt })),
   }
 })
 
