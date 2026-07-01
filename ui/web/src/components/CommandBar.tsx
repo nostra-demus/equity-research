@@ -160,7 +160,45 @@ function TickerPicker() {
   const driveEnabled = useStore((s) => s.driveEnabled)
   const staticMode = useStore((s) => s.staticMode)
   const openAddCompany = useStore((s) => s.openAddCompany)
+  const activeSwarm = useStore((s) => s.activeSwarm)
+  const swarmSubjectList = useStore((s) => s.swarmSubjectList)
   const [open, setOpen] = useState(false)
+  // Non-research constellation swarm (e.g. commodity): a simple subject picker over the swarm's subjects.
+  // All hooks above are called unconditionally, so this early return is rules-of-hooks safe.
+  if (activeSwarm !== 'research') {
+    return (
+      <div className="tickerpick">
+        <button className="tickerpick__btn" onClick={() => setOpen((o) => !o)}>
+          {selected && activeRunsByTicker.has(selected) && <span className="pulsedot" style={{ flexShrink: 0 }} title="Run in progress" />}
+          <span className="tickerpick__ticker">{selected || 'Select commodity'}</span>
+          <span className="tickerpick__caret">▾</span>
+        </button>
+        {open && (
+          <>
+            <div style={{ position: 'fixed', inset: 0, zIndex: 39 }} onClick={() => setOpen(false)} />
+            <div className="tickerpick__menu">
+              {swarmSubjectList.map((s) => (
+                <button
+                  key={s}
+                  className={`tickerpick__item${s === selected ? ' tickerpick__item--active' : ''}`}
+                  onClick={() => { selectTicker(s); setOpen(false) }}
+                >
+                  <span className="tickerpick__sym">{s}</span>
+                  {activeRunsByTicker.has(s) && <span className="pulsedot" style={{ flexShrink: 0 }} title="Run in progress" />}
+                </button>
+              ))}
+              {!swarmSubjectList.length && (
+                <div style={{ padding: '12px', color: 'var(--text-faint)', fontSize: 12, lineHeight: 1.55 }}>
+                  No commodities yet. Add a <b style={{ color: 'var(--text-muted)' }}>## NAME</b> section to
+                  <span style={{ fontFamily: 'var(--font-mono)', fontSize: 10.5, wordBreak: 'break-all' }}> frameworks/commodity/COMMODITY_PROFILES.md</span>, or run <span className="kbd">/commodity:full GOLD</span>.
+                </div>
+              )}
+            </div>
+          </>
+        )}
+      </div>
+    )
+  }
   const sel = tickers.find((t) => t.ticker === selected)
   const canAdd = driveEnabled && !staticMode
   return (
@@ -335,7 +373,11 @@ export function CommandBar() {
   const swarms = useStore((s) => s.swarms)
   const engineDown = health === 'engine-offline' || health === 'your-network' || health === 'session-expired'
   const screenerMode = activeSwarm === 'screener'
-  const sub = screenerMode ? (swarms.find((s) => s.id === activeSwarm)?.label ? 'Idea Generation — Screener' : 'Screener') : 'Equity Research Cockpit'
+  const sub = screenerMode
+    ? (swarms.find((s) => s.id === activeSwarm)?.label ? 'Idea Generation — Screener' : 'Screener')
+    : activeSwarm === 'research'
+      ? 'Equity Research Cockpit'
+      : `${swarms.find((s) => s.id === activeSwarm)?.label || 'Commodity'} Research Cockpit`
   return (
     <div className="topbar">
       <div className="brand">

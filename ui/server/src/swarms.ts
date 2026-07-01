@@ -65,6 +65,7 @@ function parseManifest(file: string): SwarmManifest | null {
     boardIndex: str(data.board_index) || undefined,
     inboxRoot: str(data.inbox_root) || undefined,
     schemasRoot: str(data.schemas_root) || undefined,
+    subjectsSource: str(data.subjects_source) || undefined,
     routing: parseRouting(data.routing),
   }
 }

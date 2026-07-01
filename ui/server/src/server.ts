@@ -34,7 +34,7 @@ import { auditInboxAction, moveThesis, MOVE_TARGETS } from './screener-actions'
 import { FEEDBACK_TYPES, readAllFeedback, submitFeedback, summarizeFeedback, undoFeedback } from './screener-feedback'
 import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
-import { agentNamesForModule, buildSwarmGraph, graphForSubject, graphForTicker, listModuleNames } from './roster'
+import { agentNamesForModule, buildSwarmGraph, findRunRootForSubject, graphForSubject, graphForTicker, listModuleNames, swarmSubjects } from './roster'
 import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, resolveRunRoot, runManifest } from './outputs'
 import { assembleContext, buildChatPrompts, scopeAvailability } from './chat-context'
 import { chatTurnsInFlight, runChatTurn } from './chat-llm'
@@ -43,7 +43,7 @@ import { listSwarms } from './swarms'
 import { getNewsStatus, startNewsIngester } from './news/scheduler'
 import { startConvictionLoop } from './conviction-dispatch'
 import { startResumeSupervisor } from './resume-supervisor'
-import { AGENT_RE, EVENT_ID_RE, FEEDBACK_ID_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE, isValidTicker, validateNewTicker, sanitizeUploadFilename } from './sandbox'
+import { AGENT_RE, EVENT_ID_RE, FEEDBACK_ID_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE, isValidTicker, resolveInsideRuns, validateNewTicker, sanitizeUploadFilename } from './sandbox'
 import type { RunKind } from './types'
 
 const app = Fastify({ logger: false })
@@ -153,12 +153,28 @@ app.get('/api/swarm', async (req, reply) => {
   if (swarm && swarm !== 'research') {
     if (!listSwarms().some((s) => s.id === swarm)) return reply.code(404).send({ error: `unknown swarm ${swarm}` })
     const subject = q?.subject as string | undefined
-    if (subject && SIG_RE.test(subject)) return graphForSubject(swarm, subject)
+    // a swarm subject is either a screener SIG id or a constellation-swarm subject (commodity id, etc.).
+    // Validate-or-reject (matches /api/output/* and /api/chat/scopes): a present-but-malformed subject is a
+    // 400, never a silent fall-through — and the explicit guard is the barrier CodeQL needs (js/stored-xss).
+    if (subject !== undefined) {
+      if (!SIG_RE.test(subject) && !TICKER_RE.test(subject)) return reply.code(400).send({ error: 'bad subject' })
+      return graphForSubject(swarm, subject)
+    }
     return buildSwarmGraph(swarm)
   }
   const ticker = q?.ticker as string | undefined
   if (ticker && TICKER_RE.test(ticker)) return graphForTicker(ticker)
   return buildSwarmGraph()
+})
+
+// ---------- swarm subjects (for a non-research swarm's subject picker) ----------
+// Research uses /api/tickers (data-pool folders). A constellation swarm (e.g. commodity) lists its
+// subjects generically from its run folders + declared subjects_source (see roster.swarmSubjects).
+app.get('/api/swarm/subjects', async (req, reply) => {
+  const swarm = (req.query as any)?.swarm as string | undefined
+  if (!swarm || swarm === 'research') return reply.code(400).send({ error: 'swarm required (research uses /api/tickers)' })
+  if (!listSwarms().some((s) => s.id === swarm)) return reply.code(404).send({ error: `unknown swarm ${swarm}` })
+  return { swarm, subjects: swarmSubjects(swarm) }
 })
 
 // ---------- tickers ----------
@@ -282,6 +298,14 @@ app.get('/api/activity', async (req) => {
 app.get('/api/launch/estimate', async (req, reply) => {
   const q = req.query as any
   const kind = q.kind as RunKind
+  // generic constellation swarm (e.g. commodity): reused full/module/agent kinds scoped by ?swarm=
+  const swarm = q.swarm as string | undefined
+  if (swarm && swarm !== 'research') {
+    if (!listSwarms().some((s) => s.id === swarm)) return reply.code(400).send({ error: 'unknown swarm' })
+    if (!['full', 'module', 'agent'].includes(kind)) return reply.code(400).send({ error: 'bad kind for swarm' })
+    if (!TICKER_RE.test(q.ticker || '')) return reply.code(400).send({ error: 'bad subject' })
+    return estimate(kind, q.ticker, q.module, q.agent, swarm)
+  }
   const researchKinds = ['full', 'module', 'agent', 'rerun', 'review', 'track']
   const screenerKinds = ['signal', 'sweep', 'screener-agent', 'handoff']
   if (![...researchKinds, ...screenerKinds].includes(kind)) return reply.code(400).send({ error: 'bad kind' })
@@ -352,6 +376,20 @@ const HandoffLaunchBody = z.object({
   model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i).optional(),
 })
 
+// A generic constellation swarm (e.g. commodity) REUSES full/module/agent, scoped by an explicit
+// `swarm`; `ticker` carries the subject id (a commodity like GOLD). Validated against the discovered
+// roster below, so no swarm/module/agent name is hardcoded (CLAUDE.md §26).
+const SWARM_ID_RE = /^[a-z0-9-]{1,40}$/
+const SwarmLaunchBody = z.object({
+  kind: z.enum(['full', 'module', 'agent']),
+  swarm: z.string().regex(SWARM_ID_RE),
+  ticker: z.string().regex(TICKER_RE),
+  module: z.string().regex(MODULE_RE).optional(),
+  agent: z.string().regex(AGENT_RE).optional(),
+  model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i).optional(),
+  confirmTicker: z.string().optional(),
+})
+
 app.post('/api/launch', async (req, reply) => {
   const kind = (req.body as any)?.kind as RunKind | undefined
   const { user, userVia } = identify(req)
@@ -411,6 +449,32 @@ app.post('/api/launch', async (req, reply) => {
     if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
     try {
       return await launch({ kind, ticker: parsed.data.ticker, thesisId: parsed.data.thesisId, model: parsed.data.model, user, userVia })
+    } catch (e: any) {
+      return fail(e)
+    }
+  }
+
+  // ---- generic constellation swarm kinds (e.g. commodity): full/module/agent with an explicit swarm ----
+  // Matched by the presence of a non-research `swarm` on the body, BEFORE the research fallthrough (which
+  // would otherwise treat the commodity subject as an unknown ticker). Validated against the swarm's roster.
+  const bodySwarm = (req.body as any)?.swarm as string | undefined
+  if (bodySwarm && bodySwarm !== 'research') {
+    const parsed = SwarmLaunchBody.safeParse(req.body)
+    if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+    const { swarm, ticker: subject, module, agent, model, confirmTicker } = parsed.data
+    const skind = parsed.data.kind
+    if (!listSwarms().some((s) => s.id === swarm)) return reply.code(400).send({ error: `unknown swarm ${swarm}` })
+    if (skind === 'module' || skind === 'agent') {
+      if (!module || !listModuleNames(swarm).includes(module)) return reply.code(400).send({ error: 'unknown module' })
+    }
+    if (skind === 'agent' && (!agent || !agentNamesForModule(module!, swarm).includes(agent))) {
+      return reply.code(400).send({ error: 'unknown agent for module' })
+    }
+    if (skind === 'full' && confirmTicker !== subject) {
+      return reply.code(412).send({ error: 'full run requires typed confirmation', detail: 'send confirmTicker === subject' })
+    }
+    try {
+      return await launch({ kind: skind, swarm, ticker: subject, module, agent, model, user, userVia })
     } catch (e: any) {
       return fail(e)
     }
@@ -537,9 +601,12 @@ app.get('/api/runs', async (req) => {
 // ---------- outputs (path-sandboxed) ----------
 app.get('/api/output', async (req, reply) => {
   const p = (req.query as any)?.path as string
-  if (!p || !p.startsWith('analyses/')) return reply.code(400).send({ error: 'path must be under analyses/' })
+  // analyses/ (research) or any discovered swarm's runsRoot (e.g. commodity/runs/); resolveInsideRuns
+  // enforces containment. Screener artifacts keep their own /api/screener/output reader (client routes them).
+  const allowed = ['analyses/', ...listSwarms().filter((s) => s.id !== 'research').map((s) => `${s.runsRoot}/`)]
+  if (!p || !allowed.some((pre) => p.startsWith(pre))) return reply.code(400).send({ error: 'path must be under a runs folder' })
   try {
-    return readMarkdown(p)
+    return readMarkdown(p, resolveInsideRuns)
   } catch (e: any) {
     return reply.code(e?.code === 'ENOENT' ? 404 : 400).send({ error: 'cannot read', detail: String(e?.message || e) })
   }
@@ -569,23 +636,40 @@ app.get('/api/output/thesis', async (req, reply) => {
   }
 })
 
+// Resolve a run root from either the research path (runRoot / ticker+date) or a constellation swarm's
+// subject (swarm + subject). Returns the repo-relative run root, its swarm id, and the reader to confine
+// with (research stays analyses-locked; a swarm reads inside any runs tree).
+function resolveOutputRun(q: any): { runRoot: string | null; swarm: string; resolve?: (p: string) => string; badSubject?: boolean; unknownSwarm?: boolean } {
+  const swarm = q?.swarm as string | undefined
+  if (swarm && swarm !== 'research') {
+    if (!listSwarms().some((s) => s.id === swarm)) return { runRoot: null, swarm, unknownSwarm: true }
+    const subject = (q?.subject || q?.ticker) as string
+    if (!subject || !TICKER_RE.test(subject)) return { runRoot: null, swarm, badSubject: true }
+    const abs = findRunRootForSubject(swarm, subject)
+    return { runRoot: abs ? path.relative(REPO_ROOT, abs) : null, swarm, resolve: resolveInsideRuns }
+  }
+  return { runRoot: resolveRunRoot({ runRoot: q?.runRoot, ticker: q?.ticker, date: q?.date }), swarm: 'research' }
+}
+
 app.get('/api/output/decision', async (req, reply) => {
-  const q = req.query as any
-  const runRoot = resolveRunRoot({ runRoot: q.runRoot, ticker: q.ticker, date: q.date })
-  if (!runRoot) return reply.code(404).send({ error: 'no run found' })
+  const r = resolveOutputRun(req.query as any)
+  if (r.unknownSwarm) return reply.code(404).send({ error: 'unknown swarm' })
+  if (r.badSubject) return reply.code(400).send({ error: 'subject required' })
+  if (!r.runRoot) return reply.code(404).send({ error: 'no run found' })
   try {
-    return readDecision(runRoot)
+    return readDecision(r.runRoot, r.resolve)
   } catch {
     return reply.code(404).send({ error: 'no decision_record.json' })
   }
 })
 
 app.get('/api/output/run', async (req, reply) => {
-  const q = req.query as any
-  const runRoot = resolveRunRoot({ runRoot: q.runRoot, ticker: q.ticker, date: q.date })
-  if (!runRoot) return reply.code(404).send({ error: 'no run found' })
+  const r = resolveOutputRun(req.query as any)
+  if (r.unknownSwarm) return reply.code(404).send({ error: 'unknown swarm' })
+  if (r.badSubject) return reply.code(400).send({ error: 'subject required' })
+  if (!r.runRoot) return reply.code(404).send({ error: 'no run found' })
   try {
-    return runManifest(runRoot)
+    return runManifest(r.runRoot, r.resolve)
   } catch (e: any) {
     return reply.code(400).send({ error: 'cannot read run', detail: String(e?.message || e) })
   }
@@ -594,7 +678,22 @@ app.get('/api/output/run', async (req, reply) => {
 // ---------- chat with your data (closed-book Q&A over a run's synthesized output) ----------
 // Which scopes are present (chat-able) vs not-yet-run, so the panel can disable + annotate "run first".
 app.get('/api/chat/scopes', async (req, reply) => {
-  const ticker = (req.query as any)?.ticker as string
+  const q = req.query as any
+  // constellation swarm (e.g. commodity): resolve the subject's single run folder from the manifest
+  const swarm = q?.swarm as string | undefined
+  if (swarm && swarm !== 'research') {
+    if (!listSwarms().some((s) => s.id === swarm)) return reply.code(404).send({ error: `unknown swarm ${swarm}` })
+    const subject = (q?.subject || q?.ticker) as string
+    if (!subject || !TICKER_RE.test(subject)) return reply.code(400).send({ error: 'subject required' })
+    const abs = findRunRootForSubject(swarm, subject)
+    const rr = abs ? path.relative(REPO_ROOT, abs) : null
+    try {
+      return scopeAvailability(subject, rr, swarm)
+    } catch (e: any) {
+      return reply.code(400).send({ error: 'cannot read scopes', detail: String(e?.message || e) })
+    }
+  }
+  const ticker = q?.ticker as string
   if (!ticker || !TICKER_RE.test(ticker)) return reply.code(400).send({ error: 'ticker required' })
   try {
     return scopeAvailability(ticker, resolveRunRoot({ ticker }))
@@ -609,6 +708,9 @@ app.get('/api/chat/scopes', async (req, reply) => {
 const ChatBody = z.object({
   ticker: z.string().regex(TICKER_RE).optional(),
   runRoot: z.string().max(300).optional(),
+  // constellation swarm (e.g. commodity): its subject resolves the run folder from the manifest
+  swarm: z.string().regex(/^[a-z0-9-]{1,40}$/).optional(),
+  subject: z.string().regex(TICKER_RE).optional(),
   scope: z.enum(['run', 'module', 'orb']),
   module: z.string().regex(MODULE_RE).optional(),
   orbPath: z.string().max(300).optional(),
@@ -622,20 +724,33 @@ app.post('/api/chat', async (req, reply) => {
   if (!parsed.success) return reply.code(400).send({ error: 'invalid chat request', detail: parsed.error.issues?.[0]?.message })
   const { scope, module, orbPath, messages } = parsed.data
   const model = CHAT.allowedModels.includes(parsed.data.model || '') ? parsed.data.model! : CHAT.defaultModel
+  const swarmId = parsed.data.swarm && parsed.data.swarm !== 'research' ? parsed.data.swarm : 'research'
 
   const last = messages[messages.length - 1]
   if (last.role !== 'user' || !last.content.trim()) return reply.code(400).send({ error: 'the last message must be a non-empty user question' })
   if (chatTurnsInFlight() >= CHAT.maxConcurrent) return reply.code(429).send({ error: 'chat is busy — try again in a moment' })
 
   // Resolve the run root and confine reads to it (orbPath is re-validated against the manifest inside
-  // assembleContext, so a request-supplied path can never read outside this run).
-  const runRoot = resolveRunRoot({ runRoot: parsed.data.runRoot, ticker: parsed.data.ticker })
-  if (!runRoot) return reply.code(404).send({ error: 'no run found for this company yet — run the engine first' })
-  const subject = parsed.data.ticker || runRoot.replace(/^analyses\//, '').replace(/_\d{4}-\d{2}-\d{2}$/, '')
+  // assembleContext, so a request-supplied path can never read outside this run). Research resolves the
+  // latest analyses/<TICKER>_* run; a constellation swarm resolves its subject's single run folder.
+  let runRoot: string | null
+  let subject: string
+  if (swarmId !== 'research') {
+    if (!listSwarms().some((s) => s.id === swarmId)) return reply.code(404).send({ error: `unknown swarm ${swarmId}` })
+    const subj = parsed.data.subject || parsed.data.ticker
+    if (!subj || !TICKER_RE.test(subj)) return reply.code(400).send({ error: 'subject required for this swarm' })
+    const abs = findRunRootForSubject(swarmId, subj)
+    runRoot = abs ? path.relative(REPO_ROOT, abs) : null
+    subject = subj
+  } else {
+    runRoot = resolveRunRoot({ runRoot: parsed.data.runRoot, ticker: parsed.data.ticker })
+    subject = parsed.data.ticker || (runRoot ? runRoot.replace(/^analyses\//, '').replace(/_\d{4}-\d{2}-\d{2}$/, '') : '')
+  }
+  if (!runRoot) return reply.code(404).send({ error: 'no run found for this subject yet — run the engine first' })
 
   let assembled
   try {
-    assembled = assembleContext({ scope, runRoot, module, orbPath })
+    assembled = assembleContext({ scope, runRoot, module, orbPath, swarmId })
   } catch (e: any) {
     return reply.code(400).send({ error: 'cannot assemble context', detail: String(e?.message || e) })
   }

@@ -4,8 +4,10 @@ import { ANALYSES_DIR, REPO_ROOT } from './config'
 import { resolveInsideAnalyses, resolveInsidePrompts } from './sandbox'
 import { extractVerdict } from './verdict'
 
-export function readMarkdown(relPath: string): { path: string; markdown: string } {
-  const real = resolveInsideAnalyses(relPath)
+// `resolve` defaults to the analyses/ sandbox (research). The chat reader passes resolveInsideRuns so it
+// can ground on any swarm's run folder; every other caller keeps the analyses-only default unchanged.
+export function readMarkdown(relPath: string, resolve: (p: string) => string = resolveInsideAnalyses): { path: string; markdown: string } {
+  const real = resolve(relPath)
   const markdown = fs.readFileSync(real, 'utf8')
   return { path: relPath, markdown }
 }
@@ -80,8 +82,8 @@ export function hasRunMarker(runRoot: string, name: string): boolean {
   try { return fs.existsSync(p) } catch { return false }
 }
 
-export function readDecision(runRoot: string): any {
-  const p = resolveInsideAnalyses(`${runRoot}/decision_record.json`)
+export function readDecision(runRoot: string, resolve: (p: string) => string = resolveInsideAnalyses): any {
+  const p = resolve(`${runRoot}/decision_record.json`)
   return JSON.parse(fs.readFileSync(p, 'utf8'))
 }
 
@@ -114,8 +116,8 @@ export function listRunsForTicker(ticker: string) {
   })
 }
 
-export function runManifest(runRoot: string) {
-  const abs = resolveInsideAnalyses(runRoot)
+export function runManifest(runRoot: string, resolve: (p: string) => string = resolveInsideAnalyses) {
+  const abs = resolve(runRoot)
   const modules: Record<string, { agentKey: string; name: string; verdict: string | null }[]> = {}
   // per-module three tiers (run-root-relative paths), mirroring the run-level memo/thesis/dossier.
   // derived generically from filename patterns — no module name is ever hardcoded (CLAUDE.md §26).

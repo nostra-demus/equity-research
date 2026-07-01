@@ -137,7 +137,12 @@ export function App() {
   const toast = useStore((s) => s.toast)
   const setToast = useStore((s) => s.setToast)
   const activeSwarm = useStore((s) => s.activeSwarm)
+  const swarms = useStore((s) => s.swarms)
   const warp = useStore((s) => s.warp)
+  // Dispatch the stage by the swarm's LAYOUT, not its id: the screener is a 'flow' swarm (its bespoke
+  // rail+gauntlet stage); research and any 'constellation' swarm (e.g. commodity) share the constellation
+  // stage. Fall back to the screener/research split before the swarm list resolves (first-frame safe).
+  const activeLayout = swarms.find((s) => s.id === activeSwarm)?.layout ?? (activeSwarm === 'screener' ? 'flow' : 'constellation')
 
   useEffect(() => {
     init().catch((e) => console.error('init failed', e))
@@ -150,7 +155,7 @@ export function App() {
       <OfflineBanner />
       <div className="main">
         <div className="stage" key={activeSwarm}>
-          {activeSwarm === 'screener' ? <ScreenerStage /> : <ResearchStage />}
+          {activeLayout === 'flow' ? <ScreenerStage /> : <ResearchStage />}
         </div>
         <RunStreamPanel />
       </div>

@@ -11,6 +11,7 @@
 import { CHAT } from './config'
 import { readDecision, readMarkdown, runManifest } from './outputs'
 import { buildSwarmGraph } from './roster'
+import { resolveInsideRuns } from './sandbox'
 
 export type ChatScope = 'run' | 'module' | 'orb'
 
@@ -62,7 +63,8 @@ export interface AssembledContext {
 
 function tryRead(relPath: string): string | null {
   try {
-    return readMarkdown(relPath).markdown
+    // swarm-agnostic: confine to ANY swarm's runs tree (analyses/, screener/runs, commodity/runs, …)
+    return readMarkdown(relPath, resolveInsideRuns).markdown
   } catch {
     return null
   }
@@ -77,7 +79,7 @@ function moduleLabel(name: string): string {
 // manifest.modules[mod] entries carry agentKey = `${mod}/${nn}_${slug}` (no .md) for EVERY 00..99 file
 // actually present; the run-root-relative path is `${runRoot}/${agentKey}.md`.
 function manifestView(runRoot: string) {
-  const man = runManifest(runRoot)
+  const man = runManifest(runRoot, resolveInsideRuns)
   const orbPaths = new Set<string>()
   const orbByModule: Record<string, { relPath: string; base: string }[]> = {}
   for (const [mod, arr] of Object.entries(man.modules)) {
@@ -124,8 +126,10 @@ export function assembleContext(opts: {
   runRoot: string
   module?: string
   orbPath?: string
+  swarmId?: string // which swarm's module graph to walk for the run scope (default research)
 }): AssembledContext {
   const { scope, runRoot } = opts
+  const swarmId = opts.swarmId ?? 'research'
   const { man, orbPaths, orbByModule } = manifestView(runRoot)
 
   // ---- ORB: one specific agent output ----
@@ -205,7 +209,7 @@ export function assembleContext(opts: {
   }
   if (man.decisionRecord) {
     try {
-      const dr = readDecision(runRoot)
+      const dr = readDecision(runRoot, resolveInsideRuns)
       pieces.push({
         heading: 'Decision record',
         relPath: `${runRoot}/decision_record.json`,
@@ -214,8 +218,8 @@ export function assembleContext(opts: {
       })
     } catch { /* unreadable decision record — skip */ }
   }
-  // every module synthesis, in discovered (topo) order
-  const g = buildSwarmGraph('research')
+  // every module synthesis, in discovered (topo) order (this swarm's graph)
+  const g = buildSwarmGraph(swarmId)
   for (const m of g.modules) {
     const synthRel = man.moduleReports[m.name]?.synthesis
     if (!synthRel) continue
@@ -252,8 +256,8 @@ export interface ScopeAvailability {
   orbs: { module: string; path: string; title: string; present: boolean }[]
 }
 
-export function scopeAvailability(ticker: string, runRoot: string | null): ScopeAvailability {
-  const g = buildSwarmGraph('research')
+export function scopeAvailability(ticker: string, runRoot: string | null, swarmId: string = 'research'): ScopeAvailability {
+  const g = buildSwarmGraph(swarmId)
   if (!runRoot) {
     return {
       ticker, runRoot: null, run: { present: false },
