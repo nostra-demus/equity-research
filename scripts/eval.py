@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Deterministic eval harness for the equity-research engine.
 
-Checks invariants A-Z, AA-AE, and J (framework-source contracts) against every committed
+Checks invariants A-Z, AA-AF, and J (framework-source contracts) against every committed
 decision record in analyses/. Called by /research:eval and by CI.
 
 Usage:
@@ -504,6 +504,67 @@ def eval_ae_filter5_cap(decision, decision_date, bm_txt, edge_score, bq_txt=None
             f"(synthesizer.md Rating Cap Rules: fast-changing-industry thesis with no "
             f"proven durable winner → cap conviction; CLAUDE.md §24 Filter 5; "
             f"edge_score={edge_score!r} < 50 — no edge bypass)")
+    return violations  # empty list = pass
+
+# ── Check AF (§24 Filter 1 crooks/integrity conviction cap) ────────────────────────────────────────
+# §24 Filter 1: "A controller or senior manager who has defrauded customers, suppliers, employees, or
+# shareholders is a reason to walk away … Soft, unverified adverse signal ('buzz') about integrity
+# must be investigated and must lower confidence — it is not discarded because a clean report
+# exists." Proven fraud is a hard disqualifier already mechanically enforced by check AB (the BM
+# disqualifier verdict-lock, since disqualifier-scan routes a proven fact to its own lock). The SOFT,
+# unresolved-"buzz" endpoint is different: business-model/01_disqualifier-scan routes it, unlocked,
+# to management-governance/01_management-and-track-record, which is instructed to record it and cap
+# conviction — but until now no standardised tag or eval check enforced that cap, unlike Filters
+# 2/4/5/6 (checks AC/AD/AE). (AE's own comment overclaimed this filter was already covered by
+# "AA/AB" — true only for the hard-fraud endpoint, not this conviction-cap-only middle case CLAUDE.md
+# §24 explicitly says must not be discarded.) This closes the last gap in the §24 family.
+#
+# Detection: 01_management-and-track-record.md emits RF-MGT-005 as a standalone line when a routed,
+# unresolved integrity signal is present and not cleared; the MG synthesis (99) propagates it.
+#
+# Ceiling: "Watchlist" — stricter than Filters 2/5's "Starter Position Only" ceiling, matching
+# Filters 4/6. CLAUDE.md §24 frames integrity as the FIRST and most severe of the six filters
+# ("Cheapness does not compensate for a dishonest operator"), so the conservative default (CLAUDE.md
+# §4) sets this cap at least as strict as the other structural-owner/capital-allocation caps.
+#
+# No edge-score bypass (unlike AE): a proven business edge does not cure an unresolved integrity
+# concern — the two are orthogonal. Short Candidate is intentionally NOT in ABOVE_WATCHLIST_AF:
+# shorting a company on credible-but-unproven integrity concerns is a distinct, valid forensic-short
+# thesis (the Chanos-style short), not the risk the cap guards against — mirrors how AC/AE exclude
+# Short Candidate for the same reason.
+#
+# Landing date: 2026-07-02 (forward-looking; all golden fixtures predate → N/A → suite green).
+AF_DATE = "2026-07-02"
+CAP1_TAG = "RF-MGT-005"  # unresolved adverse integrity signal, unproven (§24 Filter 1)
+ABOVE_WATCHLIST_AF = {"Strong Buy", "Buy", "Starter Position Only"}  # decisions exceeding the "Watchlist" cap
+
+def eval_af_filter1_integrity_cap(decision, decision_date, mg_txt, track_txt=None):
+    """Check AF: §24 Filter 1 crooks/integrity conviction cap (the unresolved-"buzz" case; proven
+    fraud is a hard disqualifier already covered by check AB). Returns None (N/A — pre-gate, or BOTH
+    the MG synthesis and the 01_management-and-track-record source specialist absent), or a list of
+    violation strings (empty list = pass). Side-effect-free + module-level so eval.py selftest can
+    drive it.
+    mg_txt: management-governance 99_*-synthesis.md text, or None.
+    track_txt: 01_management-and-track-record.md specialist text, or None. Scanned in ADDITION to
+    the synthesis so a synthesis that forgets to propagate the tag still fires the cap — RF-MGT-005's
+    SOURCE emitter is the specialist, and reading the roll-up alone lets a missed propagation silently
+    bypass the cap (CLAUDE.md §11: caps are applied, never silently overridden). This mirrors how AD
+    reads RF-CAP-004 from its MG source and AE reads RF-BQ-005 from its 07 source.
+    Detection requires a FIRED standalone tag line (see _tag_fired_standalone), not a bare substring,
+    so a cleared/cap-table mention of the tag does not false-positive."""
+    if not (isdate(decision_date) and decision_date >= AF_DATE):
+        return None  # forward-looking; pre-gate runs N/A
+    if mg_txt is None and track_txt is None:
+        return None  # management-governance module did not run; cap cannot fire — N/A
+    violations = []
+    cap1_fired = _tag_fired_standalone(mg_txt, CAP1_TAG) or _tag_fired_standalone(track_txt, CAP1_TAG)
+    if cap1_fired and decision in ABOVE_WATCHLIST_AF:
+        violations.append(
+            f"§24 Filter 1 (RF-MGT-005 unresolved integrity signal) fired in MG synthesis or "
+            f"management-and-track-record specialist but decision={decision!r} exceeds the "
+            f"'Watchlist' cap (synthesizer.md Rating Cap Rules: unresolved adverse integrity signal, "
+            f"not yet proven → maximum Watchlist; CLAUDE.md §24 Filter 1; no edge-score bypass — a "
+            f"proven business edge does not cure an unresolved integrity concern)")
     return violations  # empty list = pass
 
 if scope=="selftest":
@@ -1040,7 +1101,71 @@ if scope=="selftest":
         print(f"  [{'ok' if ok else 'XX'}] AE({dec_!r},{dt_!r},bm={bm_r!r},bq={bq_r!r},es={es_!r}) -> {got}"
               +("" if ok else f"  EXPECTED exp={exp}"))
     bad+=aebad
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE cases")
+    # check AF — §24 Filter 1 crooks/integrity conviction cap. All golden fixtures predate AF_DATE
+    # → always N/A in the main loop; drive every branch here.
+    AF=eval_af_filter1_integrity_cap
+    # FIRED form: the tag emitted "as a standalone line" exactly as 01_management-and-track-record.md
+    # is instructed to write it when a routed integrity signal remains unresolved after investigation.
+    MG_WITH_CAP1 = ("Stewardship summary.\n"
+                    "RF-MGT-005 (unresolved adverse integrity signal, unproven)\n"
+                    "Allegations of channel-stuffing raised by a short-seller report; not cleared by primary evidence.")
+    MG_CLEAN_AF  = "Stewardship summary: management read is clean; no routed integrity signal."
+    # NEGATION/STATUS mention: the tag named but reported cleared. Bare-substring matching would
+    # false-positive here — the standalone-line detector must NOT fire.
+    MG_NEG_CAP1  = "RF-MGT-005 not triggered — the routed signal was investigated and cleared by primary evidence."
+    # CAP-TABLE-ROW mention: the tag carried inside the standing Score Cap Application row, present in
+    # EVERY synthesis regardless of whether the cap fired. Must NOT false-positive.
+    MG_TABLEROW_CAP1 = "| Unresolved adverse integrity signal routed from business-model/01 (§24 Filter 1, RF-MGT-005) | N | Management quality; Disclosure candor | each max 60 | | | |"
+    # SOURCE-ONLY: the 01 specialist fired the tag but the 99 synthesis forgot to propagate it. Reading
+    # the synthesis alone lets the cap silently bypass — scanning the source must still fire.
+    TRACK_WITH_CAP1 = ("## 4A. Turnaround & Integrity Tests\nRouted integrity buzz chased and not cleared.\n"
+                       "RF-MGT-005 (unresolved adverse integrity signal, unproven)")
+    afcases=[  # (decision, decision_date, mg_txt, track_txt, expect: None|[]|[viol])
+        # pre-gate: always None (N/A)
+        ("Strong Buy","2026-07-01",MG_WITH_CAP1,None,None),
+        ("Strong Buy","not-a-date",MG_WITH_CAP1,None,None),
+        # both absent: N/A
+        ("Strong Buy","2026-07-02",None,None,None),
+        # RF-MGT-005 fired (standalone line) + conviction above Watchlist → violation
+        ("Strong Buy","2026-07-02",MG_WITH_CAP1,None,["RF-MGT-005"]),
+        ("Buy","2026-07-02",MG_WITH_CAP1,None,["RF-MGT-005"]),
+        ("Starter Position Only","2026-07-02",MG_WITH_CAP1,None,["RF-MGT-005"]),
+        # negation / cap-table-row mentions must NOT false-positive (cap NOT fired)
+        ("Strong Buy","2026-07-02",MG_NEG_CAP1,None,[]),
+        ("Strong Buy","2026-07-02",MG_TABLEROW_CAP1,None,[]),
+        ("Buy","2026-07-02",MG_TABLEROW_CAP1,None,[]),
+        # source-only fire (99 forgot to propagate) → still fires
+        ("Strong Buy","2026-07-02",MG_CLEAN_AF,TRACK_WITH_CAP1,["RF-MGT-005"]),
+        ("Buy","2026-07-02",None,TRACK_WITH_CAP1,["RF-MGT-005"]),
+        # at/below the Watchlist ceiling → pass even with a fired tag
+        ("Watchlist","2026-07-02",MG_WITH_CAP1,None,[]),
+        ("Avoid","2026-07-02",MG_WITH_CAP1,None,[]),
+        ("Pair Trade / Hedge Required","2026-07-02",MG_WITH_CAP1,None,[]),
+        ("Insufficient Data — Refuse To Rate","2026-07-02",MG_WITH_CAP1,None,[]),
+        # Short Candidate intentionally not capped (a forensic short on integrity concerns is valid)
+        ("Short Candidate","2026-07-02",MG_WITH_CAP1,None,[]),
+        # clean synthesis + conviction → pass
+        ("Strong Buy","2026-07-02",MG_CLEAN_AF,None,[]),
+        ("Buy","2026-07-02",MG_CLEAN_AF,None,[]),
+        # no edge-score bypass exists for this check (function takes no edge_score arg at all) —
+        # covered structurally by the signature, not a separate case.
+    ]
+    afbad=0
+    for dec_,dt_,mg_,track_,exp in afcases:
+        got=AF(dec_,dt_,mg_,track_)
+        if exp is None:
+            ok=(got is None)
+        elif isinstance(exp,list) and not exp:
+            ok=(isinstance(got,list) and len(got)==0)
+        else:
+            ok=(isinstance(got,list) and len(got)>=len(exp) and all(any(tag in v for v in got) for tag in exp))
+        if not ok: afbad+=1
+        mg_r=(mg_[:30]+"…" if isinstance(mg_,str) and len(mg_)>30 else mg_)
+        track_r=(track_[:24]+"…" if isinstance(track_,str) and len(track_)>24 else track_)
+        print(f"  [{'ok' if ok else 'XX'}] AF({dec_!r},{dt_!r},mg={mg_r!r},track={track_r!r}) -> {got}"
+              +("" if ok else f"  EXPECTED exp={exp}"))
+    bad+=afbad
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF cases")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -1671,6 +1796,36 @@ for drp in runs:
                 f"decision={dec!r} — §24 Filter 5 cap satisfied")
     else:
         add("AE_filter5_cap",True,f"run predates §24 Filter 5 gate ({ddte}) — N/A",na=True)
+    # AF §24 Filter 1 crooks/integrity conviction cap (forward-looking; landing AF_DATE)
+    #   Closes the last remaining gap in the §24 mechanical enforcement family (AA/AB cover Filter 1's
+    #   hard-fraud endpoint via the BSS/MG/BM verdict locks; AC/AD/AE cover Filters 2/4/5/6). This adds
+    #   the unresolved-"buzz" endpoint CLAUDE.md §24 explicitly says must not be discarded.
+    #   Detection: 01_management-and-track-record emits RF-MGT-005 as a standalone line when a routed,
+    #   unresolved integrity signal is present and not cleared; the MG synthesis propagates it. The cap
+    #   fires when RF-MGT-005 appears as a FIRED standalone tag line in EITHER the MG synthesis OR the
+    #   01_management-and-track-record specialist (the source emitter) AND the decision is "Strong Buy",
+    #   "Buy", or "Starter Position Only" — the ceiling is "Watchlist". No edge-score bypass (a proven
+    #   business edge does not cure an unresolved integrity concern). "Short Candidate" is not capped
+    #   here (a forensic short on unproven integrity concerns is a valid distinct thesis).
+    if isdate(ddte) and ddte>=AF_DATE:
+        # _read_synth_text is defined in the AD block above and _read_specialist_text in the AE block
+        # above; AF_DATE > AE_DATE > AD_DATE so both are always available here (any run reaching AF
+        # also entered the AD and AE gates first).
+        mg_txt_af=_read_synth_text("management-governance")
+        track_txt_af=_read_specialist_text("management-governance","01_")  # RF-MGT-005 source emitter
+        afresult=eval_af_filter1_integrity_cap(dec,ddte,mg_txt_af,track_txt_af)
+        if afresult is None:
+            add("AF_filter1_integrity_cap",True,
+                "MG synthesis and management-and-track-record specialist absent — N/A",na=True)
+        elif afresult:
+            add("AF_filter1_integrity_cap",False,"; ".join(afresult))
+        else:
+            cap1_fired=_tag_fired_standalone(mg_txt_af,CAP1_TAG) or _tag_fired_standalone(track_txt_af,CAP1_TAG)
+            add("AF_filter1_integrity_cap",True,
+                f"RF-MGT-005 (MG synth/01 source)={'fired' if cap1_fired else 'not fired'}; "
+                f"decision={dec!r} — §24 Filter 1 cap satisfied")
+    else:
+        add("AF_filter1_integrity_cap",True,f"run predates §24 Filter 1 gate ({ddte}) — N/A",na=True)
     # WARN non-schema files
     # [review fix] suppress only genuine versioned/audit/review artifacts via PRECISE patterns — the old naive
     # `"_v" not in name` / `"review" not in name` substring tests hid real strays (preview.md, *_v*-named scratch).
@@ -1706,12 +1861,13 @@ FRAMEWORK_CONTRACTS={
  ".claude/agents/valuation/04_intrinsic-dcf.md":["benchmarked against peer-normal AND the company","Working capital scales with revenue"],
  ".claude/agents/business-model/01_disqualifier-scan.md":["Integrity note","Filter 1"],
  ".claude/agents/business-model/11_capital-allocation-governance.md":["Filter 4","opportunity cost"],
- ".claude/agents/management-governance/MODULE_RULES.md":["RF-CAP-004","RF-OWN-004","RF-MGT-004","§24"],
- ".claude/agents/management-governance/01_management-and-track-record.md":["Turnaround","Filter 2"],
+ ".claude/agents/management-governance/MODULE_RULES.md":["RF-CAP-004","RF-OWN-004","RF-MGT-004","RF-MGT-005","§24"],
+ ".claude/agents/management-governance/01_management-and-track-record.md":["Turnaround","Filter 2","RF-MGT-005"],
+ ".claude/agents/management-governance/99_management-governance-synthesis.md":["RF-MGT-005"],
  ".claude/agents/management-governance/04_ownership-and-insider-behavior.md":["RF-OWN-004","Filter 6"],
  ".claude/agents/balance-sheet-survival/MODULE_RULES.md":["Net cash is a strategic asset","Filter 3","Label the cycle position of the EBITDA","the **strict** basis (CLAUDE.md §15)"],
  ".claude/agents/valuation/MODULE_RULES.md":["RF-OWN-004","Filter 6","value trap","benchmarked against BOTH a peer-normal margin"],
- ".claude/agents/synthesizer.md":["Avoid-Big-Risks","§24","DEFER to the catalyst module","Net-cash / leverage headline disclosure","business_type","primary_valuation_method","forecast_type"],
+ ".claude/agents/synthesizer.md":["Avoid-Big-Risks","§24","DEFER to the catalyst module","Net-cash / leverage headline disclosure","business_type","primary_valuation_method","forecast_type","RF-MGT-005"],
  ".claude/agents/catalyst/MODULE_RULES.md":["§17 Catalyst Discipline","Catalyst Category Checklist","No proven catalyst yet"],
  ".claude/agents/catalyst/01_catalyst-calendar.md":["12-Month Catalyst Calendar","Bullish Trigger","Bearish Trigger"],
  ".claude/agents/catalyst/99_catalyst-synthesis.md":["Catalyst strength /100","No proven catalyst yet","depends_on"],
@@ -1727,7 +1883,7 @@ FRAMEWORK_CONTRACTS={
  ".claude/commands/research/review-decisions.md":["memo_delta","stage_one_comment","rerun_command","Pool first","_memo_delta"],
  ".claude/commands/research/eval.md":["scripts/eval.py"],
  ".claude/commands/research/calibrate.md":["calibration_by_module","calibration_by_forecast_type","owner_module","forecast_type"],
- "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone"],
+ "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap"],
  ".github/workflows/ci.yml":["eval-contracts","scripts/eval.py"],
 }
 jchecks=[]
