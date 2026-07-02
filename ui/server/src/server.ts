@@ -420,7 +420,7 @@ app.post('/api/launch', async (req, reply) => {
       if (parsed.data.inboxId) {
         try {
           markInboxConsumed(REPO_ROOT, parsed.data.inboxId, out.preflight.ticker)
-          refreshBoard(REPO_ROOT)
+          await refreshBoard(REPO_ROOT)
         } catch {
           /* best-effort */
         }
@@ -1148,7 +1148,7 @@ app.post('/api/screener/inbox/action', async (req, reply) => {
   const row = setDismissed(REPO_ROOT, parsed.data.inboxId, parsed.data.action === 'dismiss', user)
   if (!row) return reply.code(404).send({ error: 'no such inbox row' })
   auditInboxAction(parsed.data.inboxId, parsed.data.action === 'dismiss' ? 'inbox_dismiss' : 'inbox_restore', user)
-  refreshBoard(REPO_ROOT)
+  await refreshBoard(REPO_ROOT)
   return { ok: true, row }
 })
 
@@ -1167,7 +1167,7 @@ app.post('/api/screener/thesis/:id/move', async (req, reply) => {
   try {
     const record = moveThesis(thesisId, parsed.data.to, parsed.data.reason || '', user)
     if (!record) return reply.code(404).send({ error: 'no such thesis' })
-    refreshBoard(REPO_ROOT)
+    await refreshBoard(REPO_ROOT)
     // after an 'engine' clear the effective status is the engine's own (captured as from_status)
     return { ok: true, effective_status: record.to_status ?? record.from_status, override: record }
   } catch (e: any) {
