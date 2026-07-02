@@ -72,53 +72,56 @@ function edgeBow(e: GlobeEdge): number {
   return 0.6 + 0.1 * chord
 }
 
-// ---- morphing, flowing, dashed edge RIBBONS — thick, directional, one draw call per set ----
+// ---- morphing, flowing, dashed edge RIBBONS — thin, tapered, directional, one draw call per set ----
 // WebGL lines are stuck at 1px, so each edge is a camera-facing RIBBON: every segment is a quad whose two
 // side-vertices are pushed perpendicular to the screen-projected segment direction (in view space) by a
-// world-space half-width, giving a genuinely thick, prominent stroke that still always faces the camera.
-const EDGE_VERT = 'attribute vec3 aOther; attribute float aSide; attribute float aT; uniform float uHalf; varying float vT; varying float vEdge; void main(){ vT = aT; vEdge = aSide; vec4 pv = modelViewMatrix * vec4(position, 1.0); vec4 ov = modelViewMatrix * vec4(aOther, 1.0); vec2 d = ov.xy - pv.xy; float L = length(d); vec2 dir = L > 1e-5 ? d / L : vec2(1.0, 0.0); vec2 perp = vec2(-dir.y, dir.x); pv.xy += perp * aSide * uHalf; gl_Position = projectionMatrix * pv; }'
+// world-space half-width. The half-width is FEATHERED by aT (a per-vertex 0→1 along the edge) so the ribbon
+// narrows to a point at both orbs — no blunt rectangular join — and importance is carried by glow/opacity, not
+// raw thickness. A per-edge aPhase offset staggers the dash march so comets on different edges don't sync.
+const EDGE_VERT = 'attribute vec3 aOther; attribute float aSide; attribute float aT; attribute float aPhase; uniform float uHalf; varying float vT; varying float vEdge; varying float vPhase; void main(){ vT = aT; vEdge = aSide; vPhase = aPhase; float taper = smoothstep(0.0, 0.14, aT) * (1.0 - smoothstep(0.86, 1.0, aT)); vec4 pv = modelViewMatrix * vec4(position, 1.0); vec4 ov = modelViewMatrix * vec4(aOther, 1.0); vec2 d = ov.xy - pv.xy; float L = length(d); vec2 dir = L > 1e-5 ? d / L : vec2(1.0, 0.0); vec2 perp = vec2(-dir.y, dir.x); pv.xy += perp * aSide * uHalf * taper; gl_Position = projectionMatrix * pv; }'
 // Each dash is a directional COMET, not a symmetric tick: alpha ramps from a faint tail (source side) to a
-// bright sharp head (toward the target), so the flow direction is obvious from SHAPE, not just motion. Many
-// short dashes (high uDashes) + the marching uTime read as a "stream of arrows" pointing the way data flows.
-// uGlow blends a soft cross-ribbon glow profile in: 0 = flat fill (the inter-module arcs, unchanged); 1 = a
-// glowing strand — bright slim core, soft halo — so a THIN feed can read as a luminous comet, not a hard
-// hairline. vEdge runs −1→+1 across the ribbon width, so |vEdge| is 0 at the centerline and 1 at the edges.
-// The core profile uses FORWARD smoothstep bounds (edge0 < edge1): GLSL leaves smoothstep undefined when
-// edge0 >= edge1, so the center-bright falloff is written as 1.0 - smoothstep(0.0, 1.0, |vEdge|) — identical
-// to smoothstep(1.0, 0.0, |vEdge|) on the valid domain (smoothstep symmetry) but deterministic on every driver.
-const EDGE_FRAG = 'uniform vec3 uColor; uniform float uTime; uniform float uDashes; uniform float uDuty; uniform float uOpacity; uniform float uSpeed; uniform float uGlow; varying float vT; varying float vEdge; void main(){ float f = fract(vT * uDashes - uTime * uSpeed); if (f > uDuty) discard; float a = f / uDuty; a = a * a; float core = 1.0 - smoothstep(0.0, 1.0, abs(vEdge)); core *= core; float prof = mix(1.0, core, uGlow); gl_FragColor = vec4(uColor, uOpacity * (0.08 + 0.92 * a) * prof); }'
+// bright sharp head (toward the target), so the flow direction is obvious from SHAPE, not just motion. An
+// ease-out `absorb` term fades the comet as it nears the target (vT→1) so it reads as LANDING in the orb
+// rather than marching past. uGlow blends a soft cross-ribbon glow profile in: 0 = flat fill; 1 = a glowing
+// strand — bright slim core, soft halo — so a THIN ribbon reads as a luminous comet, not a hard hairline.
+// vEdge runs −1→+1 across the ribbon width, so |vEdge| is 0 at the centerline and 1 at the edges. The core
+// profile uses FORWARD smoothstep bounds (edge0 < edge1): GLSL leaves smoothstep undefined when edge0 >= edge1,
+// so the center-bright falloff is written as 1.0 - smoothstep(0.0, 1.0, |vEdge|) — deterministic on every driver.
+const EDGE_FRAG = 'uniform vec3 uColor; uniform float uTime; uniform float uDashes; uniform float uDuty; uniform float uOpacity; uniform float uSpeed; uniform float uGlow; varying float vT; varying float vEdge; varying float vPhase; void main(){ float f = fract(vT * uDashes - uTime * uSpeed + vPhase); if (f > uDuty) discard; float a = f / uDuty; a = a * a; float core = 1.0 - smoothstep(0.0, 1.0, abs(vEdge)); core *= core; float prof = mix(1.0, core, uGlow); float absorb = 1.0 - 0.8 * smoothstep(0.8, 1.0, vT); gl_FragColor = vec4(uColor, uOpacity * (0.08 + 0.92 * a) * prof * absorb); }'
 const K_SEG = 40 // samples per edge — denser so the short comet dashes stay smooth on the curved arcs
-const DASHES = 30 // dashes per edge — short, arrow-like streaks (was 16 long dashes)
+const DASHES = 18 // dashes per edge — fewer, calmer streaks (thin+tapered reads as flow, not a picket of arrows)
 
 function MorphEdges({ edges, color, opacity, speed, width, morphRef, dashes = DASHES, glow = 0 }: { edges: GlobeEdge[]; color: Color; opacity: number; speed: number; width: number; morphRef: { current: number }; dashes?: number; glow?: number; }) {
   const ref = useRef<Mesh>(null)
   // Each segment → 2 triangles (6 verts). Per vertex: its own centerline point (`position`, morphed), the
   // segment's OTHER endpoint (`aOther`, morphed — gives the screen direction), a side (±1), and the dash
   // param aT. flat/sphere copies of both endpoints are lerped on the CPU each frame, like the old line set.
-  const { posBuf, otherBuf, flatA, sphereA, flatB, sphereB, side, aT, count } = useMemo(() => {
+  const { posBuf, otherBuf, flatA, sphereA, flatB, sphereB, side, aT, phase, count } = useMemo(() => {
     const flatPts: Vector3[][] = edges.map((e) => flatLine(e.flatFrom, e.flatTo, K_SEG))
     const sphPts: Vector3[][] = edges.map((e) => arcPoints(e.from, e.to, edgeBow(e), K_SEG))
     const verts = edges.length * K_SEG * 6
     const flatA = new Float32Array(verts * 3), sphereA = new Float32Array(verts * 3)
     const flatB = new Float32Array(verts * 3), sphereB = new Float32Array(verts * 3)
-    const side = new Float32Array(verts), aT = new Float32Array(verts)
+    const side = new Float32Array(verts), aT = new Float32Array(verts), phase = new Float32Array(verts)
     let o = 0
+    let curPhase = 0 // per-edge dash offset, set below so comets on different edges don't march in lockstep
     const put = (fp: Vector3[], sp: Vector3[], iThis: number, iOther: number, sd: number) => {
       flatA[o * 3] = fp[iThis].x; flatA[o * 3 + 1] = fp[iThis].y; flatA[o * 3 + 2] = fp[iThis].z
       sphereA[o * 3] = sp[iThis].x; sphereA[o * 3 + 1] = sp[iThis].y; sphereA[o * 3 + 2] = sp[iThis].z
       flatB[o * 3] = fp[iOther].x; flatB[o * 3 + 1] = fp[iOther].y; flatB[o * 3 + 2] = fp[iOther].z
       sphereB[o * 3] = sp[iOther].x; sphereB[o * 3 + 1] = sp[iOther].y; sphereB[o * 3 + 2] = sp[iOther].z
-      side[o] = sd; aT[o] = iThis / K_SEG; o++
+      side[o] = sd; aT[o] = iThis / K_SEG; phase[o] = curPhase; o++
     }
     edges.forEach((_e, ei) => {
       const fp = flatPts[ei], sp = sphPts[ei]
+      curPhase = (ei * 0.61803398875) % 1 // golden-ratio stagger — evenly spreads the dash phase across edges
       for (let s = 0; s < K_SEG; s++) {
         const a = s, b = s + 1
         put(fp, sp, a, b, -1); put(fp, sp, b, a, -1); put(fp, sp, b, a, 1) // tri 1
         put(fp, sp, a, b, -1); put(fp, sp, b, a, 1); put(fp, sp, a, b, 1) // tri 2
       }
     })
-    return { posBuf: new Float32Array(verts * 3), otherBuf: new Float32Array(verts * 3), flatA, sphereA, flatB, sphereB, side, aT, count: verts }
+    return { posBuf: new Float32Array(verts * 3), otherBuf: new Float32Array(verts * 3), flatA, sphereA, flatB, sphereB, side, aT, phase, count: verts }
   }, [edges])
 
   useFrame((state) => {
@@ -138,7 +141,7 @@ function MorphEdges({ edges, color, opacity, speed, width, morphRef, dashes = DA
     g.attributes.aOther.needsUpdate = true
   })
 
-  const uniforms = useMemo(() => ({ uColor: { value: color.clone() }, uTime: { value: 0 }, uDashes: { value: dashes }, uDuty: { value: 0.5 }, uOpacity: { value: opacity }, uSpeed: { value: speed }, uHalf: { value: width / 2 }, uGlow: { value: glow } }), []) // eslint-disable-line react-hooks/exhaustive-deps
+  const uniforms = useMemo(() => ({ uColor: { value: color.clone() }, uTime: { value: 0 }, uDashes: { value: dashes }, uDuty: { value: 0.42 }, uOpacity: { value: opacity }, uSpeed: { value: speed }, uHalf: { value: width / 2 }, uGlow: { value: glow } }), []) // eslint-disable-line react-hooks/exhaustive-deps
   useEffect(() => { (uniforms.uColor.value as Color).copy(color); uniforms.uOpacity.value = opacity; uniforms.uSpeed.value = speed; uniforms.uHalf.value = width / 2; uniforms.uDashes.value = dashes; uniforms.uGlow.value = glow }, [color, opacity, speed, width, dashes, glow, uniforms])
 
   if (!edges.length) return null
@@ -149,6 +152,7 @@ function MorphEdges({ edges, color, opacity, speed, width, morphRef, dashes = DA
         <bufferAttribute attach="attributes-aOther" args={[otherBuf, 3]} count={count} />
         <bufferAttribute attach="attributes-aSide" args={[side, 1]} count={count} />
         <bufferAttribute attach="attributes-aT" args={[aT, 1]} count={count} />
+        <bufferAttribute attach="attributes-aPhase" args={[phase, 1]} count={count} />
       </bufferGeometry>
       <shaderMaterial vertexShader={EDGE_VERT} fragmentShader={EDGE_FRAG} uniforms={uniforms} transparent depthWrite={false} blending={AdditiveBlending} side={DoubleSide} />
     </mesh>
@@ -425,17 +429,18 @@ export function GlobeScene({
       {/* connections — morphing, flowing, dashed 3D arcs: backbone (dep+core), brighter for live data-flow,
           brightest for the hovered orb's own flows (incl. its otherwise-hidden feeds) */}
       {/* speed = dashes/sec: one comet passes a point every 1/speed seconds → ~0.7s baseline, brisk when live.
-          width = ribbon thickness in world units (R=10) — live/hover edges are thicker so they stand out. */}
-      <MorphEdges edges={backboneEdges} color={colors.accent} opacity={0.6} speed={1.4} width={0.05} morphRef={morphRef} />
+          width = ribbon half-thickness in world units (R=10), FEATHERED to a point at the orbs. Ribbons are kept
+          thin; importance is carried by opacity + glow + motion (not raw thickness), so nothing reads as a fat arrow. */}
+      <MorphEdges edges={backboneEdges} color={colors.accent} opacity={0.6} speed={1.4} width={0.032} glow={0.35} morphRef={morphRef} />
       {/* settled: completed data paths on a finished (or non-live) run — calmer than live, brighter than the faint
           backbone and noticeably slower, so a done run reads as complete-and-legible rather than dead. */}
-      {settledEdges.length > 0 && <MorphEdges edges={settledEdges} color={colors.accent} opacity={0.72} speed={0.9} width={0.055} morphRef={morphRef} />}
-      {activeEdges.length > 0 && <MorphEdges edges={activeEdges} color={colors.accentBright} opacity={0.95} speed={2.8} width={0.085} morphRef={morphRef} />}
-      {hoverEdges.length > 0 && <MorphEdges edges={hoverEdges} color={colors.accentBright} opacity={0.95} speed={2.3} width={0.075} morphRef={morphRef} />}
+      {settledEdges.length > 0 && <MorphEdges edges={settledEdges} color={colors.accent} opacity={0.72} speed={0.9} width={0.036} glow={0.4} morphRef={morphRef} />}
+      {activeEdges.length > 0 && <MorphEdges edges={activeEdges} color={colors.accentBright} opacity={0.95} speed={2.8} width={0.052} glow={0.5} morphRef={morphRef} />}
+      {hoverEdges.length > 0 && <MorphEdges edges={hoverEdges} color={colors.accentBright} opacity={0.95} speed={2.3} width={0.05} glow={0.5} morphRef={morphRef} />}
       {/* internal feeds (agent→synthesis): a GLOWING comet stream, not a hard hairline. glow=1 gives a slim
           bright core + soft halo so it reads as luminous data flow even on a thin strand; the feed edges are
-          SHORT, so a lower dash count (vs the global 30) keeps the comets readable instead of cramming specks. */}
-      {hoverFeeds.length > 0 && <MorphEdges edges={hoverFeeds} color={colors.accent} opacity={0.9} speed={2.0} width={0.1} dashes={12} glow={1} morphRef={morphRef} />}
+          SHORT, so a lower dash count (vs the global DASHES) keeps the comets readable instead of cramming specks. */}
+      {hoverFeeds.length > 0 && <MorphEdges edges={hoverFeeds} color={colors.accent} opacity={0.9} speed={2.0} width={0.06} dashes={10} glow={1} morphRef={morphRef} />}
 
       {/* agent orbs — the SAME DOM AgentNode the constellation uses, billboarded at each 3D position. Occludes
           against the shell so back-of-globe orbs hide; click runs/opens it; hover lights its edges + tooltip. */}
