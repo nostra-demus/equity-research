@@ -28,7 +28,7 @@ BASE_BY_RELEVANCE = {"irrelevant": 0, "relevant_non_material": 4, "material": 14
 
 EVENT_TYPE_WEIGHT = {
     "guidance_change": 6, "mna": 6, "debt_credit": 6, "litigation_enforcement": 6,
-    "regulatory": 5, "earnings_revenue_margin": 5, "capital_actions": 5,
+    "regulatory": 5, "earnings_revenue_margin": 5, "capital_actions": 5, "capex": 5,
     "management": 4, "cybersecurity": 4,
     "product": 3, "commercial": 3, "operations": 3, "macro_sector": 3,
     "rumor": 1,

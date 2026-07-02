@@ -139,7 +139,7 @@ finished number) avoids double-penalizing the same noise twice.
 
 **2. `event_materiality`** — base by `relevance_label` (irrelevant 0 / relevant_non_material 4 /
 material 14) + a severity add-on summing each tagged `event_type`'s weight (guidance_change/mna/
-debt_credit/litigation_enforcement 6, regulatory/earnings_revenue_margin/capital_actions 5,
+debt_credit/litigation_enforcement 6, regulatory/earnings_revenue_margin/capital_actions/capex 5,
 management/cybersecurity 4, product/commercial/operations/macro_sector 3, rumor 1), **capped at +6**.
 Never looks at whether a filing is routine — that is penalty 7a, kept independent so a maxed
 source/official filing and a low-materiality event can coexist truthfully.

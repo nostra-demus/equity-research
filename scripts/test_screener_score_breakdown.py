@@ -17,6 +17,7 @@ from screener_score_breakdown import (
     classify_source_tier,
     penalty_generic_media,
     penalty_routine_filing,
+    score_event_materiality,
     score_source_quality,
     REQUIRED_FIELDS,
 )
@@ -500,6 +501,21 @@ class NoSeparateJudgmentFieldsRemain(unittest.TestCase):
         del fx["filing_type"]
         with self.assertRaises(KeyError):
             build_score_breakdown(fx)
+
+
+class CapexEventTypeWeighted(unittest.TestCase):
+    """PR #150 review (Codex): the gauntlet Step-2 vocabulary + signal_payload.schema.json now admit
+    `capex`, so the deterministic scorer must weight it. rank-weights.ts ties capex = capital_actions,
+    and MODULE_RULES groups capital_actions at weight 5 — so capex = 5 here too. Without it a capex-only
+    signal takes EVENT_TYPE_WEIGHT.get('capex', 0) = 0 add-on and under-scores/under-routes vs an
+    otherwise identical capital_actions signal."""
+
+    def test_capex_weighted_same_as_capital_actions(self):
+        capex_val, _ = score_event_materiality("material", ["capex"])
+        capital_val, _ = score_event_materiality("material", ["capital_actions"])
+        self.assertEqual(capex_val, capital_val, "capex must be weighted like its tied event capital_actions")
+        # base 14 (material) + add-on 5 (MODULE_RULES weight table) = 19; the pre-fix value was 14.
+        self.assertEqual(capex_val, 19)
 
 
 if __name__ == "__main__":

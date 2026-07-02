@@ -45,10 +45,14 @@ export function sideFromHeadlines(solo: string[] | undefined, dominantEvent: str
   return 'mixed'
 }
 
-const FAST_EVENTS = new Set(['mna', 'guidance_change', 'debt_credit', 'capital_actions', 'litigation_enforcement'])
+// capex sits with capital_actions in both sets: a capex/capacity commitment plays out on a comparable
+// (fast) timeline and its effect is medium-reversible — same treatment as its tied event weight
+// (rank-weights.ts: capex = capital_actions = 6). Without this a capex-dominant theme's directly-named
+// issuer falls to the generic `ev ? 8 : 12` speed / `ev ? 10 : 12` reversibility path and under-ranks.
+const FAST_EVENTS = new Set(['mna', 'guidance_change', 'debt_credit', 'capital_actions', 'capex', 'litigation_enforcement'])
 const MID_EVENTS = new Set(['earnings_revenue_margin', 'regulatory', 'management', 'product', 'commercial', 'cybersecurity'])
 const PERMANENT_EVENTS = new Set(['mna', 'debt_credit', 'litigation_enforcement', 'management', 'regulatory'])
-const MEDIUM_REV_EVENTS = new Set(['capital_actions', 'guidance_change', 'product', 'cybersecurity', 'earnings_revenue_margin'])
+const MEDIUM_REV_EVENTS = new Set(['capital_actions', 'capex', 'guidance_change', 'product', 'cybersecurity', 'earnings_revenue_margin'])
 
 const clamp25 = (n: number) => Math.max(0, Math.min(25, Math.round(n)))
 
