@@ -121,7 +121,10 @@
                 "company_name": { "type": "string" },
                 "side": { "type": "string" },
                 "exposure_score": { "type": "integer" },
-                "handed_off": { "type": "boolean" }
+                "handed_off": { "type": "boolean" },
+                "gap_read": { "type": ["string", "null"], "description": "News-impact sizing verdict (NEWS_IMPACT.md): priced | underpriced_candidate | re_rate_to_judge | not_applicable. Null when no sizing." },
+                "implied_move_pct": { "type": ["number", "null"], "description": "The move the event justifies on fundamentals, in percent." },
+                "observed_move_pct": { "type": ["number", "null"], "description": "The dated stock reaction to the news, in percent." }
               }
             }
           },

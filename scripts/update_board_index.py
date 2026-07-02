@@ -203,6 +203,7 @@ def build() -> dict:
         cands_doc = candidates_by_thesis.get(thesis_id) or {}
         cands = []
         for c in cands_doc.get("candidates", []):
+            ni = c.get("news_impact") or {}
             cands.append({
                 "candidate_id": c.get("candidate_id") or "",
                 "ticker": c.get("ticker") or "",
@@ -210,6 +211,11 @@ def build() -> dict:
                 "side": c.get("side") or "",
                 "exposure_score": int(c.get("exposure_score") or 0),
                 "handed_off": f"{thesis_id}::{c.get('ticker')}" in handed_off_keys,
+                # news-impact sizing gap (NEWS_IMPACT.md) so the live book can sort by mispricing. None when the
+                # candidate carries no sizing (a diffuse macro/policy/commodity signal) — keeps the schema honest.
+                "gap_read": ni.get("gap_read") or None,
+                "implied_move_pct": ni.get("implied_move_pct"),
+                "observed_move_pct": ni.get("observed_move_pct"),
             })
         entry = {
             "thesis_id": thesis_id,
