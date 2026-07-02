@@ -239,6 +239,10 @@ export interface EventEnrichment {
   // set when the publisher blocked the direct read and the story was pieced together from OTHER outlets
   // reporting the same event (secondary-wire corroboration, NOT a direct read — labelled honestly).
   corroborated?: { count: number; domains: string[] }
+  // provenance when the story was NOT read from the original page: the filing document itself (the
+  // exchange PDF the event announces — a better source than the page), or another approved outlet
+  // carrying the same story (used when the original blocked the read). Labelled honestly in the reader.
+  read_from?: { kind: 'filing_doc' | 'alternate'; url?: string; domain?: string; source_name?: string }
 }
 
 // ---- screener card feedback (ui/server/src/screener-feedback.ts is the source of truth) ----
