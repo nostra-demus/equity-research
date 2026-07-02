@@ -10,6 +10,28 @@
    with the theme so all four combinations resolve correctly.
    ========================================================================== */
 
+/* The three accent tokens the 3D globe reads through getComputedStyle (useGlobeColors.ts) are
+   REGISTERED so a derived, color-mix()-based swarm palette (below) resolves to a CONCRETE color
+   at computed-value time — an unregistered custom property would hand the bridge the literal
+   "color-mix(…)" string. Note the resolved form is CSS Color 4 `color(srgb r g b)`, not rgb();
+   useGlobeColors.parseCssColor exists to parse exactly that. Hand-tuned hex palettes are
+   unaffected. */
+@property --accent {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #e0a33e;
+}
+@property --accent-bright {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #f4c66b;
+}
+@property --accent-deep {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: #b9842c;
+}
+
 :root {
   color-scheme: dark;
 
@@ -114,6 +136,30 @@
   --good: #3fc6d2;
 }
 
+/* Any OTHER swarm (DARK) — research (:root amber) and screener (cyan above) keep their hand-tuned
+   palettes; every other swarm derives its whole accent family from its SWARM.md manifest color,
+   injected by App.tsx as --swarm-color on the app root. Adding a swarm therefore recolors every
+   orb, edge, glow, and the globe with ZERO engine edits (CLAUDE.md §26): declare `color:` in the
+   manifest and it flows. Mixes stay in srgb: the registered tokens (@property above) then
+   serialize as `color(srgb r g b)` — the one form useGlobeColors.parseCssColor handles; an
+   oklab/oklch mix would serialize in a space the globe's parser does not cover. Before the swarm
+   list resolves, --swarm-color is absent and the fallback keeps the research amber (fail-closed,
+   deploy-skew safe). */
+.app[data-swarm]:not([data-swarm='research']):not([data-swarm='screener']) {
+  --accent: color-mix(in srgb, var(--swarm-color, var(--swarm-research)) 85%, white);
+  --accent-bright: color-mix(in srgb, var(--swarm-color, var(--swarm-research)) 65%, white);
+  --accent-deep: color-mix(in srgb, var(--swarm-color, var(--swarm-research)) 80%, black);
+  --accent-soft: color-mix(in srgb, var(--swarm-color, var(--swarm-research)) 65%, white);
+  --accent-glow: color-mix(in srgb, var(--accent) 55%, transparent);
+  --accent-wash: color-mix(in srgb, var(--accent) 12%, transparent);
+  --accent-wash-soft: color-mix(in srgb, var(--accent) 6%, transparent);
+  --good: var(--accent);
+  --core-glow: color-mix(in srgb, var(--accent) 6%, transparent);
+  --app-bg:
+    radial-gradient(1200px 700px at 50% 120%, color-mix(in srgb, var(--accent) 5%, transparent), transparent 60%),
+    radial-gradient(900px 600px at 15% -10%, rgba(255, 255, 255, 0.018), transparent 55%);
+}
+
 /* ============================================================================
    LIGHT THEME — opt-in via <html data-theme="light">. Warm off-white paper:
    the canvas is the soft grey desktop, panels are white and float above it, and
@@ -201,4 +247,26 @@
   --accent-wash: rgba(14, 140, 156, 0.15);
   --accent-wash-soft: rgba(14, 140, 156, 0.075);
   --good: #0e8c9c;
+}
+
+/* Any OTHER swarm (LIGHT) — the manifest-derived family, following the hand-tuned light split:
+   "accent" is the readable FILL (lifted just enough that the near-black on-fill text of
+   .btn--amber / .seg__btn--on holds WCAG AA ≥4.5:1 — darkening a mid-tone manifest color here
+   would sink it below that floor), "bright" becomes the DARKEST shade (reserved for
+   high-emphasis text), "soft" stays the palest for fill-button hovers. Higher specificity than
+   the dark derived block above, so light wins when both apply. */
+[data-theme='light'] .app[data-swarm]:not([data-swarm='research']):not([data-swarm='screener']) {
+  --accent: color-mix(in srgb, var(--swarm-color, var(--swarm-research)) 92%, white);
+  --accent-bright: color-mix(in srgb, var(--swarm-color, var(--swarm-research)) 62%, black);
+  --accent-deep: color-mix(in srgb, var(--swarm-color, var(--swarm-research)) 75%, black);
+  --accent-soft: color-mix(in srgb, var(--swarm-color, var(--swarm-research)) 80%, white);
+  --accent-glow: color-mix(in srgb, var(--accent) 42%, transparent);
+  --accent-wash: color-mix(in srgb, var(--accent) 15%, transparent);
+  --accent-wash-soft: color-mix(in srgb, var(--accent) 7.5%, transparent);
+  --good: var(--accent);
+  --core-glow: color-mix(in srgb, var(--accent) 8%, transparent);
+  --ring-ready: var(--accent-deep); /* the light theme's actionable ring is accent-toned, not gold */
+  --app-bg:
+    radial-gradient(1200px 700px at 50% 120%, color-mix(in srgb, var(--accent) 6%, transparent), transparent 60%),
+    radial-gradient(900px 600px at 15% -10%, rgba(60, 66, 82, 0.035), transparent 55%);
 }
