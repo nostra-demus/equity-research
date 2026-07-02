@@ -52,6 +52,11 @@ export function handleStreamLine(run: RunState, line: string) {
       const content = obj.message?.content
       if (!Array.isArray(content)) break
       for (const block of content) {
+        // remember the orchestrator's latest tool call — the run heartbeat surfaces it as the live
+        // "what is the system doing right now" line (Task = dispatching an agent; Read/Bash/… = pipeline work)
+        if (block?.type === 'tool_use' && typeof block?.name === 'string') {
+          run.lastActivity = { tool: block.name, ts }
+        }
         if (block?.type === 'tool_use' && block?.name === 'Task') {
           const sub = block.input?.subagent_type
           const idx = sub ? getNameIndex().get(sub) : undefined

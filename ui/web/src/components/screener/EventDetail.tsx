@@ -9,6 +9,7 @@ import { displayHeadline, originalHeadline, translatedFromLang, plainAffectedMet
 import { familyOf, isCompanyNameClient, roleLabel, SCOPES, scopeOf, sourceTierDef } from '../../lib/scope'
 import { discoveryCapDelta } from '../../lib/rankWeights'
 import { useStore } from '../../lib/store'
+import { Spin } from '../Spin'
 import type { ArticleParty, EventEnrichment, FeedItem, NewsImpact, RelatedEvent } from '../../lib/types'
 import { FeedbackMenu } from './FeedbackMenu'
 import type { ReportMenuAnchor } from '../ActivityReportMenu'
@@ -364,6 +365,7 @@ function ScoreWhy({ it, anchorRef, open, onToggle }: { it: FeedItem; anchorRef: 
 export function EventDetail({ it }: { it: FeedItem }) {
   const close = useStore((s) => s.scSelectEvent)
   const run = useStore((s) => s.runEventChecks)
+  const checksStarting = useStore((s) => s.launchPending?.key === 'signal:intake')
   const scGraph = useStore((s) => s.scGraph) // the SCREENER swarm graph (signal-gate…candidate-surfacing) — NOT the research s.graph
   // the screener pipeline stages in dependency order — drives the "run only through X" picker.
   // Derived from the live screener graph (zero-touch: new modules appear automatically); plain names via plainStage.
@@ -645,8 +647,8 @@ export function EventDetail({ it }: { it: FeedItem }) {
         <div className="evdetail__actions">
           <div className="evdetail__actions-bar">
             <div className="evdetail__run">
-              <button className="btn btn--amber evdetail__runbtn" onClick={() => void run(it)} title={staticMode ? 'Runs on your local machine (npm run dev)' : 'Run the full gauntlet — every stage'}>
-                Run the checks ▸
+              <button className="btn btn--amber evdetail__runbtn" disabled={checksStarting} onClick={() => void run(it)} title={staticMode ? 'Runs on your local machine (npm run dev)' : 'Run the full gauntlet — every stage'}>
+                {checksStarting ? <><Spin /> Starting…</> : <>Run the checks ▸</>}
               </button>
               <span className="evdetail__est mono">about $8–45 · stops early (and cheaper) if a check says no</span>
             </div>
@@ -680,6 +682,7 @@ export function EventDetail({ it }: { it: FeedItem }) {
                     key={m.name}
                     type="button"
                     className="evdetail__chip evdetail__chip--btn"
+                    disabled={checksStarting}
                     onClick={() => void run(it, m.name)}
                     title={`Run the gauntlet through "${plainStage(m.name)}" and stop there — finished checks are saved, and you can Continue the rest later`}
                   >

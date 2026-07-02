@@ -280,6 +280,11 @@ export type SseEvent =
   | { type: 'readiness-report'; runId: string; report: ReadinessReport; ts: number }
   | { type: 'readiness-blocked'; runId: string; report: ReadinessReport; ts: number }
   | { type: 'readiness-resolved'; runId: string; action: ReadinessDecision['action']; ts: number }
+  // TRANSIENT liveness pulse — sent every few seconds per in-flight run so quiet stretches between
+  // agent events never look like a hang. Emitted via emitTransient (NOT recorded in eventLog, never
+  // replayed): it is ambient state, not history. lastStdoutAt = when the engine child last produced
+  // output; lastActivity = the orchestrator's most recent tool call (what the system is DOING now).
+  | { type: 'run-heartbeat'; runId: string; status: RunStatus; elapsedMs: number; agentsDone: number; agentsTotal: number; costUsd?: number; lastStdoutAt?: number; lastActivity?: { tool: string; ts: number }; ts: number }
 
 export interface CreditPreflight {
   ok: boolean

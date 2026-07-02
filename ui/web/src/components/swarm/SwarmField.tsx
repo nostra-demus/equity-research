@@ -14,6 +14,7 @@ export function SwarmField() {
   const graph = useStore((s) => s.graph)
   const dataStatus = useStore((s) => s.dataStatus)
   const nodeRuntime = useStore((s) => s.nodeRuntime)
+  const launchPending = useStore((s) => s.launchPending)
   const selectedTicker = useStore((s) => s.selectedTicker)
   const decision = useStore((s) => s.decision)
   const coreBloom = useStore((s) => s.coreBloom)
@@ -144,6 +145,9 @@ export function SwarmField() {
               </div>
             ) : depLocked ? (
               <div className="cluster__run" style={{ color: 'var(--text-faint)' }} title={`Needs ${miss} complete first`}>🔒 needs {miss}</div>
+            ) : launchPending?.key === `module:${c.module}` ? (
+              // the click was heard — the label flips in the same frame, before the server acks
+              <div className="cluster__run" style={{ color: 'var(--accent-bright)' }}>● starting…</div>
             ) : (
               <div className="cluster__run">▸ run module</div>
             )}

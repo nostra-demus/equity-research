@@ -25,6 +25,8 @@ export function ScreenerField() {
   const selectedNodeKey = useStore((s) => s.selectedNodeKey)
   const nodesByKey = useStore((s) => s.scNodesByKey)
   const cancelRun = useStore((s) => s.cancelRun)
+  const stoppingRuns = useStore((s) => s.stoppingRuns)
+  const launchPending = useStore((s) => s.launchPending)
   const continueSignal = useStore((s) => s.continueSignal)
   const now = useStore((s) => s.now)
   const setNow = useStore((s) => s.setNow)
@@ -148,13 +150,13 @@ export function ScreenerField() {
             {(anyLive && liveRunId) || resumable ? (
               <div className="scsignal__actions">
                 {anyLive && liveRunId && (
-                  <button type="button" className="scsignal__act scsignal__act--stop" onClick={() => void cancelRun(liveRunId)} title="Stop the run — finished checks are saved so you can continue later">
-                    <span className="scsignal__act-glyph" aria-hidden>■</span> Stop
+                  <button type="button" className="scsignal__act scsignal__act--stop" disabled={!!stoppingRuns[liveRunId]} onClick={() => void cancelRun(liveRunId)} title="Stop the run — finished checks are saved so you can continue later">
+                    <span className="scsignal__act-glyph" aria-hidden>■</span> {stoppingRuns[liveRunId] ? 'Stopping…' : 'Stop'}
                   </button>
                 )}
                 {resumable && (
-                  <button type="button" className="scsignal__act scsignal__act--continue" onClick={() => void continueSignal(selectedSignal)} title="Resume from where it stopped — reuses the finished checks, runs only the rest">
-                    Continue <span className="scsignal__act-glyph" aria-hidden>▸</span>
+                  <button type="button" className="scsignal__act scsignal__act--continue" disabled={launchPending?.key === `continue:${selectedSignal}`} onClick={() => void continueSignal(selectedSignal)} title="Resume from where it stopped — reuses the finished checks, runs only the rest">
+                    {launchPending?.key === `continue:${selectedSignal}` ? 'Resuming…' : 'Continue'} <span className="scsignal__act-glyph" aria-hidden>▸</span>
                   </button>
                 )}
               </div>

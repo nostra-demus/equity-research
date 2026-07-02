@@ -1036,22 +1036,45 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   setActiveSubjectRun(run.runId, subjectId) // register the in-flight run; finishRun() releases it
   startRunWatcher(run)
 
-  // Pre-spawn data-readiness gate (deterministic, no LLM). Research data-consuming kinds only (swarm
-  // kinds skip it). If the check isn't clean, BLOCK: pause in awaiting-readiness-decision and defer the
-  // spawn until the user decides (decideReadiness). No CLI is spawned while paused. Clean -> proceed.
-  await runReadinessGate(run)
-  // cancel() can finalize the run DURING the gate's async check (it yields the loop while the check runs).
-  // A finalized run is never revived or spawned — mirrors finalizeRunOnClose's endedAt guard.
-  if (run.endedAt !== undefined) return { runId: run.runId, preflight: estimate(kind, ticker, module, agent, swarmId) }
-  if (run.readiness && run.readiness.overall !== 'clean') {
-    run.status = 'awaiting-readiness-decision'
-    run.deferredSpawn = () => spawnEngine(run)
-    emit(run, { type: 'readiness-blocked', runId: run.runId, report: run.readiness, ts: Date.now() })
-    return { runId: run.runId, preflight: estimate(kind, ticker, module, agent, swarmId) }
-  }
-
-  await spawnEngine(run)
+  // EARLY ACK — respond the moment the claim is registered. Every outcome the caller can branch on
+  // synchronously (validation 4xx, admission 409/429, typed-confirm 412, CLI-missing 503, force-stop
+  // 409) has already been decided above. The readiness gate and the spawn were ALWAYS async state to
+  // the client: a gate-blocked launch returns this exact same {runId, preflight} shape, and the gate's
+  // readiness-* events reach the client via the SSE backlog replay (registry.subscribe) once it
+  // connects with the runId from this response. Holding the response through the gate added
+  // seconds-to-minutes of dead air after the click — and on a cold/scanned pool (extract timeout 300s)
+  // it could outlive the edge's ~100s proxy timeout, showing a FAILED launch for a run that started.
+  void continueLaunch(run)
   return { runId: run.runId, preflight: estimate(kind, ticker, module, agent, swarmId) }
+}
+
+// The post-ack half of launch(): readiness gate, then spawn (or park at the gate for a human decision).
+// Any hard failure here finalizes the run + emits run-error, so a fast-acked client is never left
+// watching a phantom claim. Mirrors the pattern cancel() has always used: cheap sync flip, ack, let
+// the outcome ride SSE.
+async function continueLaunch(run: RunState): Promise<void> {
+  try {
+    // Pre-spawn data-readiness gate (deterministic, no LLM). Research data-consuming kinds only (swarm
+    // kinds skip it). If the check isn't clean, BLOCK: pause in awaiting-readiness-decision and defer
+    // the spawn until the user decides (decideReadiness). No CLI is spawned while paused.
+    await runReadinessGate(run)
+    // cancel() can finalize the run DURING the gate's async check (it yields the loop while the check
+    // runs). A finalized run is never revived or spawned — mirrors finalizeRunOnClose's endedAt guard.
+    if (run.endedAt !== undefined) return
+    if (run.readiness && run.readiness.overall !== 'clean') {
+      run.status = 'awaiting-readiness-decision'
+      run.deferredSpawn = () => spawnEngine(run)
+      emit(run, { type: 'readiness-blocked', runId: run.runId, report: run.readiness, ts: Date.now() })
+      return
+    }
+    await spawnEngine(run)
+  } catch (e: any) {
+    // spawnEngine already emitted run-error + finalized on its own throw — only clean up if it didn't
+    if (run.endedAt === undefined) {
+      emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason: 'launch_failed', message: String(e?.message || e), ts: Date.now() })
+      finishRun(run, 'error')
+    }
+  }
 }
 
 // Spawn the engine CLI for an admitted, gate-cleared run and wire its lifecycle. Extracted from launch()
@@ -1071,6 +1094,17 @@ export function childEnv(): NodeJS.ProcessEnv {
   const e: NodeJS.ProcessEnv = { ...process.env }
   for (const k of providerEnvKeys) if (!CLAUDE_AUTH_ENV_KEYS.has(k)) delete e[k]
   return e
+}
+
+/** Warm the once-per-process CLI probes at server startup so the FIRST user launch doesn't pay
+ *  ~1-4s for `claude --version` + `claude --help` inside its click-to-ack window. Best-effort. */
+export async function warmLaunchProbes(): Promise<void> {
+  try {
+    await claudeAvailable()
+    await buildArgs('warmup', 'agent', 'sonnet') // triggers + caches the --help flag probe; args discarded
+  } catch {
+    /* probes re-run (and surface their real error) on the first launch */
+  }
 }
 
 async function spawnEngine(run: RunState): Promise<void> {
@@ -1117,6 +1151,7 @@ async function spawnEngine(run: RunState): Promise<void> {
   let buf = ''
   child.stdout?.setEncoding('utf8')
   child.stdout?.on('data', (chunk: string) => {
+    run.lastStdoutAt = Date.now() // any output at all = the engine is alive (heartbeat payload)
     buf += chunk
     let idx: number
     while ((idx = buf.indexOf('\n')) >= 0) {
@@ -1278,13 +1313,22 @@ export async function decideReadiness(
     // runReadinessGate). Without it the panel looks frozen for the whole check — which can be
     // minutes when OCR runs on a fresh scanned pool — and the user clicks dead buttons.
     emit(run, { type: 'readiness-checking', runId: run.runId, ticker: run.ticker, kind: run.kind, ts: Date.now() })
-    const report = await checkReadiness(run, true)
-    if (run.endedAt !== undefined) return { ok: false, status: 'cancelled', error: 'run was cancelled', httpStatus: 409 } // cancelled mid-recheck
-    if (report.overall !== 'clean') {
-      run.status = 'awaiting-readiness-decision' // still gated — re-open for another decision
-      return { ok: true, status: 'awaiting-readiness-decision', report }
-    }
-    return proceedSpawn(run, 'recheck', user) // the pool was fixed -> proceed CLEAN, no override trace
+    // EARLY ACK — this was the single slowest response-held path in the API: checkReadiness(force)
+    // re-extracts the ENTIRE pool with the cache bypassed (OCR re-budgeted — minutes on a scanned
+    // pool) while the gate panel's button spinner waited on this response. The panel already listens
+    // to the readiness-checking / readiness-report / readiness-resolved SSE events this flow emits,
+    // so the held response carried nothing it needed. Outcomes ride SSE; failures fail safe to a
+    // blocker report inside checkReadiness itself.
+    void (async () => {
+      const report = await checkReadiness(run, true)
+      if (run.endedAt !== undefined) return // cancelled mid-recheck
+      if (report.overall !== 'clean') {
+        run.status = 'awaiting-readiness-decision' // still gated — re-open for another decision
+        return
+      }
+      await proceedSpawn(run, 'recheck', user) // the pool was fixed -> proceed CLEAN, no override trace
+    })().catch(() => { /* checkReadiness never throws (fails safe); proceedSpawn returns errors */ })
+    return { ok: true, status: 'readiness-checking' }
   }
 
   // proceed / override — a human chooses to run on a STILL-non-clean gate
@@ -1311,11 +1355,15 @@ async function proceedSpawn(
   run.status = 'running'
   run.readinessDecision = { action, user, acknowledgedText, ts: Date.now() }
   emit(run, { type: 'readiness-resolved', runId: run.runId, action, ts: Date.now() })
-  try {
-    await run.deferredSpawn?.()
-  } catch (e: any) {
-    return { ok: false, status: 'error', error: `spawn failed: ${e?.message || e}`, httpStatus: 500 }
-  }
+  // EARLY ACK — the guard outcomes the client needs (404/409 wrong-state for the gate panel's button
+  // self-heal, 412 bad acknowledgment) were all decided before this point; the deferred spawn's own
+  // outcome travels as run-started / run-error SSE (spawnEngine emits + finalizes on its own failure).
+  void Promise.resolve(run.deferredSpawn?.()).catch((e: any) => {
+    if (run.endedAt === undefined) {
+      emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason: 'spawn_failed', message: String(e?.message || e), ts: Date.now() })
+      finishRun(run, 'error')
+    }
+  })
   return { ok: true, status: 'running' }
 }
 
