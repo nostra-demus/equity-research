@@ -397,7 +397,9 @@ const SwarmLaunchBody = z.object({
   confirmTicker: z.string().optional(),
 })
 
-app.post('/api/launch', async (req, reply) => {
+// explicit per-route rate limit: launches are human clicks (a handful a minute at most) and the
+// handler touches the filesystem, so cap it well above real usage but below abuse levels
+app.post('/api/launch', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
   const kind = (req.body as any)?.kind as RunKind | undefined
   const { user, userVia } = identify(req)
   const fail = (e: any) => {
