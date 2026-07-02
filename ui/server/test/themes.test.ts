@@ -10,7 +10,7 @@ import { scoreTheme, ensureDaily, rollDaily, bumpDaily, DAILY_WINDOWS } from '..
 import { companyImpact, orderTierFor } from '../src/news/themes/order'
 import { assignThemes } from '../src/news/themes/assign'
 import { clusterItems, discoverDeterministic, createTheme, mergeAndRetire, refreshThemeIdentity } from '../src/news/themes/discover'
-import { topicTokens } from '../src/news/text-match'
+import { topicTokens, themeTokens, isRoutineFiling } from '../src/news/text-match'
 import { stepThemes } from '../src/news/themes/engine'
 import { buildSummary, buildThemesIndex, loadThemes, maybeCompactThemesLedger } from '../src/news/themes/store'
 import type { Theme, ThemeItemView } from '../src/news/themes/types'
@@ -448,6 +448,181 @@ await check('maybeCompactThemesLedger: already one-line-per-id → no-op even ov
   maybeCompactThemesLedger(root, () => NOW, 1) // threshold 1 byte → over threshold, but nothing to collapse
   assert.equal(fs.readFileSync(fp, 'utf8'), raw, 'an already-compact ledger is left byte-for-byte even over threshold')
   fs.rmSync(root, { recursive: true, force: true })
+})
+
+// ---- theme-layer vocabulary + routine-filing gate (the "Yes Bank Ltd" / "poll · results · held" fix) ----
+// Live-ledger failure shapes (2026-07-02): the "Yes Bank Ltd" theme (457 members) absorbed every SAST
+// Reg 29 disclosure via {substantial, acquisition, takeovers}; the top theme was literally named
+// "poll · results · held" (1,126 members); "AI M&A" chained 229 unrelated deal completions via
+// {completes, acquisition}. These checks pin the three channels shut.
+
+check('themeTokens: calendar + event vocabulary never anchors a theme; real topic anchors survive', () => {
+  const t = themeTokens('SpaceX IPO mania builds as annual results season ended in March with a merger completed', [])
+  for (const noise of ['annual', 'ended', 'march', 'merger', 'completed']) {
+    assert.ok(!t.has(noise), `"${noise}" must not be a theme token`)
+  }
+  assert.ok(t.has('spacex') && t.has('ipo') && t.has('mania') && t.has('season'), 'real anchors survive — only the listed classes are suppressed')
+  const u = themeTokens('Strait of Hormuz closure threatens nuclear talks in Vienna', [])
+  assert.ok(u.has('hormuz') && u.has('nuclear') && u.has('vienna'), 'genuine macro anchors survive')
+  // fiscal-period tokens
+  const f = themeTokens('Acme guidance for FY26 and 1Q26 tops estimates', [co('Acme')])
+  assert.ok(!f.has('fy26') && !f.has('1q26'), 'fiscal-period tokens are dropped')
+  assert.ok(f.has('guidance') || f.has('estimates') || f.has('tops'), 'the rest of the headline still tokenizes')
+})
+
+check('themeTokens: company-derived tokens are IMMUNE to suppression (a company named after a noise word)', () => {
+  // normName('Tender Corp') → 'tender', which collides with the event-vocabulary class — the company
+  // token must survive anyway, or a hot company could be silently unclusterable.
+  const t = themeTokens('Tender Corp wins defense contract', [co('Tender Corp')])
+  assert.ok(t.has('tender'), 'the company-derived token survives the noise class')
+  // and the generic (Phase-2 DF) set obeys the same immunity
+  const g = themeTokens('Tender Corp wins defense contract', [co('Tender Corp')], 'news', new Set(['tender', 'defense']))
+  assert.ok(g.has('tender'), 'company token immune to the generic set')
+  assert.ok(!g.has('defense'), 'a non-company generic token is suppressed')
+})
+
+check('two unrelated SAST Reg 29 disclosures share ZERO theme tokens (the Yes Bank pile-up root cause)', () => {
+  const a = themeTokens('Linc Ltd-$: The Exchange has received the disclosure under Regulation 29(2) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 for Niyati Sharma', [co('Linc Ltd')], 'primary_filing')
+  const b = themeTokens('Chambal Fertilisers & Chemicals Ltd: The Exchange has received the disclosure under Regulation 29(2) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 for Sidh Enterprises Ltd', [co('Chambal Fertilisers & Chemicals Ltd')], 'primary_filing')
+  const shared = [...a].filter((t) => b.has(t))
+  assert.deepEqual(shared, [], `two SAST disclosures for different companies share no token, got: ${shared}`)
+  assert.ok(a.has('linc'), 'the routine filing still carries its OWN company token (may anchor its company theme)')
+})
+
+check('two unrelated HKEX annual-results notices share ZERO theme tokens (the "Digital Media Growth" root cause)', () => {
+  const a = themeTokens('RICHLY FIELD (00313): ANNUAL RESULTS FOR THE YEAR ENDED 31 MARCH 2026', [co('Richly Field')], 'primary_filing')
+  const b = themeTokens('LK TECH (00558): FINAL RESULTS FOR THE YEAR ENDED 31 MARCH 2026', [co('LK Tech')], 'primary_filing')
+  const shared = [...a].filter((t) => b.has(t))
+  assert.deepEqual(shared, [], `two results notices share no token, got: ${shared}`)
+})
+
+check('isRoutineFiling: paperwork shapes are routine; genuine events and election polls are NOT', () => {
+  // positives — high-volume regulatory paperwork
+  assert.ok(isRoutineFiling('Linc Ltd-$: The Exchange has received the disclosure under Regulation 29(2) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 for Bimla Devi Jalan'), 'SAST Reg 29')
+  assert.ok(isRoutineFiling('LUZHOU BANK (01983): POLL RESULTS OF THE 2025 ANNUAL GENERAL MEETING HELD ON JUNE 30, 2026 AND PAYMENT OF FINAL DIVIDENDS'), 'AGM poll results (with year)')
+  assert.ok(isRoutineFiling('KINGSOFT CLOUD (03896): POLL RESULTS OF THE ANNUAL GENERAL MEETING HELD ON JUNE 30, 2026'), 'AGM poll results')
+  assert.ok(isRoutineFiling('Nyrstar NV – Results of the annual and extraordinary general shareholders\' meetings held on 30 June 2026'), 'AGM/EGM results, flexible middle')
+  assert.ok(isRoutineFiling('RICHLY FIELD (00313): ANNUAL RESULTS FOR THE YEAR ENDED 31 MARCH 2026'), 'HKEX annual-results notice')
+  assert.ok(isRoutineFiling('CI FIN TECH GP (08029): RESULTS ANNOUNCEMENT FOR THE YEAR ENDED 31 MARCH 2026'), 'results announcement, no adjective')
+  assert.ok(isRoutineFiling('Alfavision Overseas India Ltd: Outcome of Board Meeting'), 'board-meeting outcome')
+  assert.ok(isRoutineFiling('SUN KONG HLDGS (08631): 1. DELAY IN PUBLICATION OF ANNUAL RESULTS FOR THE YEAR ENDED 31 MARCH 2026'), 'results-delay notice')
+  assert.ok(isRoutineFiling('Offer to Buy – Acquisition Window (Takeover) for PURPLE FINANCE LTD – Live Activities Schedule'), 'BSE acquisition-window schedule')
+  assert.ok(isRoutineFiling('424B2 - GOLDMAN SACHS GROUP INC (0000886982) (Filer)', 'primary_filing'), 'routine EDGAR form on the filing tier')
+  // negatives — genuine events must never be gated
+  assert.ok(!isRoutineFiling('Emirates NBD to buy controlling stake in Yes Bank'), 'a real M&A story is not routine')
+  assert.ok(!isRoutineFiling('8-K - ACME CORP (0000123456) (Filer)', 'primary_filing'), 'a non-routine form (8-K) is not gated')
+  assert.ok(!isRoutineFiling('SC 13D - ACTIVIST FUND LP (0000999999) (Filer)', 'primary_filing'), 'an activist stake is not routine')
+  assert.ok(!isRoutineFiling('424B2 - GOLDMAN SACHS GROUP INC (0000886982) (Filer)', 'news'), 'the EDGAR branch requires the filing tier')
+  assert.ok(!isRoutineFiling('Exit poll results show ruling party ahead in state elections'), 'election polls stay macro anchors')
+  assert.ok(!isRoutineFiling('KO YO GROUP (00827): UPDATES IN RELATION TO GOING CONCERN AND MITIGATION MEASURES'), 'a going-concern update is never routine')
+})
+
+check('assignThemes: a routine filing joins ONLY via its company — never via boilerplate tokens', () => {
+  const yb = createTheme(
+    [
+      item('y1', 'Emirates NBD to buy controlling stake in Yes Bank', { companies: [co('Yes Bank', 'YESBANK'), co('Emirates NBD')], event_types: ['mna'] }),
+      item('y2', 'Yes Bank stake sale to Emirates NBD clears RBI hurdle', { companies: [co('Yes Bank', 'YESBANK'), co('Emirates NBD')], event_types: ['regulatory'] }),
+    ],
+    NOW,
+  )
+  // a SAST disclosure ABOUT Yes Bank joins its company theme (company channel, by design)
+  const rYb = assignThemes([item('sast-yb', 'Yes Bank Ltd: The Exchange has received the disclosure under Regulation 29(2) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 for Emirates NBD', { companies: [co('Yes Bank', 'YESBANK')], source_tier: 'primary_filing', event_types: ['capital_actions'] })], [yb])
+  assert.deepEqual(rYb.assignments.get('sast-yb'), [yb.theme_id], 'the on-company SAST filing lands in the company theme')
+  // an unrelated company's SAST disclosure does NOT join, despite sharing the entire boilerplate text
+  const rLinc = assignThemes([item('sast-linc', 'Linc Ltd-$: The Exchange has received the disclosure under Regulation 29(2) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 for Niyati Sharma', { companies: [co('Linc Ltd')], source_tier: 'primary_filing', event_types: ['capital_actions'] })], [yb])
+  assert.equal(rLinc.assignments.size, 0, 'the off-company SAST filing is rejected')
+  assert.equal(rLinc.unclustered.length, 1)
+  // and an unrelated M&A completion PR does not join either ("stake"/"acquisition" no longer chain)
+  const rGrab = assignThemes([item('grab', 'Grab completes US$425 million acquisition of US-based Stash Financial', { companies: [co('Grab', 'GRAB')], event_types: ['mna'] })], [yb])
+  assert.equal(rGrab.assignments.size, 0, 'an unrelated deal completion is rejected')
+})
+
+check('clusterItems: unrelated "completes acquisition" PRs are singletons (the 229-item "AI M&A" blob root cause)', () => {
+  const pool = [
+    item('g', 'Grab completes US$425 million acquisition of US-based Stash Financial', { companies: [co('Grab', 'GRAB')] }),
+    item('m', 'Michelin completes the acquisition of Tex Tech Industries', { companies: [co('Michelin')] }),
+    item('w', 'California Water Service Completes Acquisition Of Palm Mutual Water Company', { companies: [co('California Water Service')] }),
+  ]
+  assert.equal(clusterItems(pool).length, 3, 'each deal completion is its own singleton, not one fake theme')
+})
+
+check('refreshThemeIdentity: a Yes-Bank-shaped theme with no real core retires entirely', () => {
+  // 1 genuine story + 4 unrelated SAST disclosures — the poisoned live shape. Once the boilerplate
+  // channel closes, nothing recurs and the theme correctly dissolves.
+  const members = [
+    item('y1', 'Emirates NBD to buy controlling stake in Yes Bank', { companies: [co('Yes Bank', 'YESBANK'), co('Emirates NBD')], event_types: ['mna'] }),
+    item('s1', 'Linc Ltd-$: The Exchange has received the disclosure under Regulation 29(2) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 for Niyati Sharma', { companies: [co('Linc Ltd')], source_tier: 'primary_filing' }),
+    item('s2', 'NINtec Systems Ltd: The Exchange has received the disclosure under Regulation 29(2) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 for Niraj Gemawat', { companies: [co('NINtec Systems Ltd')], source_tier: 'primary_filing' }),
+    item('s3', 'Transcorp International Ltd: The Exchange has received the disclosure under Regulation 29(2) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 for Ashok Kumar Agarwal', { companies: [co('Transcorp International Ltd')], source_tier: 'primary_filing' }),
+    item('s4', 'Anubhav Plast Ltd: The Exchange has received the disclosure under Regulation 29(1) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 for Craft Emerging Market Fund PCC', { companies: [co('Anubhav Plast Ltd')], source_tier: 'primary_filing' }),
+  ]
+  const theme = createTheme(members, NOW)
+  theme.keywords = ['substantial', 'acquisition', 'takeovers', 'yes', 'bank'] // the persisted PRE-FIX poisoned identity
+  const { retire } = refreshThemeIdentity(theme)
+  assert.equal(retire, true, 'no real multi-company core → the theme dissolves')
+})
+
+check('refreshThemeIdentity: a Yes Bank theme WITH a real core survives — SAST strangers purged, core kept', () => {
+  const members = [
+    item('y1', 'Emirates NBD to buy controlling stake in Yes Bank', { companies: [co('Yes Bank', 'YESBANK'), co('Emirates NBD')], event_types: ['mna'] }),
+    item('y2', 'Yes Bank stake sale to Emirates NBD clears RBI hurdle', { companies: [co('Yes Bank', 'YESBANK'), co('Emirates NBD')], event_types: ['regulatory'] }),
+    item('y3', 'Emirates NBD Yes Bank deal reshapes Indian private banking', { companies: [co('Yes Bank', 'YESBANK'), co('Emirates NBD')], event_types: ['mna'] }),
+    item('s1', 'Linc Ltd-$: The Exchange has received the disclosure under Regulation 29(2) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 for Niyati Sharma', { companies: [co('Linc Ltd')], source_tier: 'primary_filing' }),
+    item('s2', 'Chambal Fertilisers & Chemicals Ltd: The Exchange has received the disclosure under Regulation 29(2) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 for Sidh Enterprises Ltd', { companies: [co('Chambal Fertilisers & Chemicals Ltd')], source_tier: 'primary_filing' }),
+  ]
+  const theme = createTheme(members, NOW)
+  theme.keywords = ['substantial', 'acquisition', 'takeovers', 'yes', 'bank']
+  const { changed, retire } = refreshThemeIdentity(theme)
+  assert.equal(retire, false, 'the genuine Yes Bank / Emirates NBD core survives')
+  assert.equal(changed, true)
+  const ids = new Set(theme.members.map((m) => m.event_id))
+  assert.ok(ids.has('y1') && ids.has('y2') && ids.has('y3'), 'the real core is kept')
+  assert.ok(!ids.has('s1') && !ids.has('s2'), 'the cross-company SAST strangers are purged')
+  assert.ok(!theme.keywords.includes('substantial') && !theme.keywords.includes('takeovers'), 'boilerplate keywords drained')
+  assert.ok(theme.company_keys.includes('yesbank'), 'the company anchor remains')
+})
+
+check('refreshThemeIdentity: a "poll · results · held"-shaped theme (routine notices only) retires', () => {
+  const members = [
+    item('p1', 'LUZHOU BANK (01983): POLL RESULTS OF THE 2025 ANNUAL GENERAL MEETING HELD ON JUNE 30, 2026 AND PAYMENT OF FINAL DIVIDENDS', { companies: [co('Luzhou Bank')], source_tier: 'primary_filing' }),
+    item('p2', 'KINGSOFT CLOUD (03896): POLL RESULTS OF THE ANNUAL GENERAL MEETING HELD ON JUNE 30, 2026', { companies: [co('Kingsoft Cloud')], source_tier: 'primary_filing' }),
+    item('p3', 'SUNMI TECH-W (06810): POLL RESULTS OF THE ANNUAL GENERAL MEETING HELD ON JUNE 30, 2026', { companies: [co('Sunmi Tech')], source_tier: 'primary_filing' }),
+    item('p4', 'ARTINI HLDG (00789): ANNOUNCEMENT OF FINAL RESULTS FOR THE YEAR ENDED 31 MARCH 2026', { companies: [co('Artini Holding')], source_tier: 'primary_filing' }),
+  ]
+  const theme = createTheme(members, NOW)
+  theme.keywords = ['poll', 'results', 'held', 'annual', 'june'] // the live top theme's actual identity (1,126 members)
+  const { retire } = refreshThemeIdentity(theme)
+  assert.equal(retire, true, 'a theme made of routine paperwork has no identity left and retires')
+})
+
+check('discoverDeterministic guard: a cluster glued by scan-wide words is refused; a distinctive macro wave passes', () => {
+  // 12 items all sharing {insolvency, resolution, overhaul} (each a different company, none recurring)
+  // → the words are scan-wide (df 12 ≥ bar 10 in a 15-item scan), the cluster has no recurring company,
+  // so it must NOT become a theme. This is the "results · ended · march" shape with vocabulary the
+  // static lists have never seen.
+  const generic = Array.from({ length: 12 }, (_, i) =>
+    item(`g${i}`, `Company${i} begins insolvency resolution process overhaul`, { companies: [co(`Company${i} Ltd`)] }))
+  // control: a genuine macro wave — 3 shippers sharing {hormuz, strait, tanker}, distinctive in this scan
+  const wave = [
+    item('w1', 'Frontline reroutes tanker fleet as Hormuz strait risk spikes', { companies: [co('Frontline', 'FRO')] }),
+    item('w2', 'Euronav flags Hormuz strait tanker insurance surge', { companies: [co('Euronav')] }),
+    item('w3', 'Teekay pauses Hormuz strait tanker transits', { companies: [co('Teekay')] }),
+  ]
+  const { created, leftover } = discoverDeterministic([...generic, ...wave], [], NOW)
+  assert.ok(!created.some((t) => t.keywords.includes('insolvency')), 'the scan-wide cluster is refused')
+  assert.ok(generic.every((g) => leftover.some((l) => l.event_id === g.event_id)), 'refused items stay in the pool')
+  const waveTheme = created.find((t) => t.keywords.includes('hormuz') || t.keywords.includes('tanker'))
+  assert.ok(waveTheme, 'the distinctive macro wave still forms a theme (guard is not over-broad)')
+})
+
+check('dedup invariant: topicTokens (shared with story dedup) still carries the theme-noise words', () => {
+  // The theme-noise classes live ONLY in themeTokens. If someone later "cleans up" by moving them into
+  // STOP_WORDS, story dedup would collapse two DIFFERENT routine filings from the same company into one
+  // (both reduce to {company} → jaccard 1.0). This check pins the separation.
+  const t = topicTokens('Acme annual results for the year ended 31 March 2026 amid a substantial takeover', [])
+  for (const kept of ['annual', 'ended', 'march', 'substantial', 'takeover']) {
+    assert.ok(t.has(kept), `topicTokens must still carry "${kept}" — dedup depends on it (see themeTokens)`)
+  }
 })
 
 console.log(`\n${passed} checks passed`)

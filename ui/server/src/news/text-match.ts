@@ -7,7 +7,7 @@
 
 import type { CompanyGuess } from './types'
 import { isCompanyName } from './entities'
-import { SEC_FORM_TOKENS } from './sec-forms'
+import { SEC_FORM_TOKENS, lookupSecForm, parseEdgarFilingHeadline } from './sec-forms'
 
 /** Uppercased, trimmed ticker — the exact-match key. */
 export const tickerKey = (t?: string | null): string => String(t || '').trim().toUpperCase()
@@ -136,4 +136,92 @@ export function jaccard<T>(a: Set<T>, b: Set<T>): number {
   if (!a.size && !b.size) return 0
   const inter = intersectionSize(a, b)
   return inter / (a.size + b.size - inter)
+}
+
+// ── Theme-layer vocabulary (used ONLY via themeTokens, by themes/assign.ts + themes/discover.ts) ──
+// These classes must NOT move into STOP_WORDS/topicTokens: story-level dedup (dedup.ts) shares
+// topicTokens, and shrinking ITS token sets would falsely merge two DIFFERENT routine filings from the
+// same company (both would reduce to {company} → jaccard 1.0, clearing the near-verbatim bar). Themes
+// need the stricter vocabulary because membership matches on a handful of shared tokens, so calendar
+// words and event vocabulary act as universal magnets chaining unrelated items — the live "Yes Bank Ltd"
+// theme absorbing every SAST disclosure via {substantial, acquisition, takeovers}, the "annual results
+// for the year ended 31 March" HKEX pile, and the 229-item "completes acquisition" M&A blob.
+const THEME_NOISE_TOKENS = new Set(
+  (
+    // calendar scaffolding — "period ended 31 March", "AGM held on Monday". "may" is already a stopped
+    // modal; 3-letter month abbreviations fall to the ≥4-char rule; bare years to the pure-number rule.
+    'january february march april june july august september october november december sept ' +
+    'monday tuesday wednesday thursday friday saturday sunday ' +
+    'annual quarterly interim ended ending held ' +
+    // corporate-event vocabulary — the event dimension is already structured (event_types +
+    // event_type_affinity); as free-text tokens these chain every unrelated deal/exit/exit-notice
+    // worldwide into one blob. All surface forms listed: themeTokens filters topicTokens' OUTPUT,
+    // which keeps original (unstemmed) words. Deliberately KEPT as anchors: "ipo", "stake", "poll"
+    // (election polls are genuine macro anchors — AGM polls are handled by the routine-filing gate),
+    // sector nouns, and company names (immune below).
+    'acquisition acquisitions acquire acquires acquired acquiring ' +
+    'merger mergers merge merges merged merging ' +
+    'completes completed completing completion ' +
+    'takeover takeovers substantial tender proposed transaction transactions ' +
+    'divest divests divested divesting divestment divestments divestiture divestitures ' +
+    'offer offers offered offering offerings ' +
+    'connected discloseable ' + // HKEX connected-transaction boilerplate
+    'resign resignation resignations resigns resigned resigning'
+  ).split(/\s+/),
+)
+
+// fy26 / cy2025 / 1q26 / h1fy26-style fiscal-period tokens never anchor a theme ("q1".."q4" alone are
+// 2 chars and already dropped by the length rule).
+const FISCAL_TOKEN_RE = /^(?:fy|cy|h[12]|[1-4]q)\d{2,4}$/
+
+// High-volume regulatory paperwork that must never DEFINE a topic — it may join a theme only through a
+// company match (see themeTokens). Headline patterns are tier-independent (HKEX/BSE notices also arrive
+// via news adapters); the EDGAR form branch requires the primary_filing tier so an ordinary headline
+// that merely starts with a form-shaped word is never misread.
+const ROUTINE_FILING_RES: RegExp[] = [
+  /\bdisclosures?\s+under\s+reg(?:ulation)?s?\.?\s*(?:29|31)\s*\(/i, // SAST Reg 29(1)/29(2) + pledge Reg 31(x)
+  /substantial\s+acquisition\s+of\s+shares/i, // SAST long title
+  /\bpoll\s+results?\s+of\s+the\s+(?:\d{4}\s+)?(?:annual|extraordinary|general)\b/i, // AGM/EGM poll results (HKEX + India) — NOT election exit polls ("exit poll results show…" stays a real macro anchor)
+  /\bresults?\s+of\s+the\s+(?:annual|extraordinary)[\w\s',&]{0,60}meetings?\b/i, // "results of the annual (and extraordinary) general (shareholders') meeting(s)"
+  /\b(?:(?:annual|interim|final|audited)\s+)?results?\s+(?:announcement\s+)?for\s+the\s+(?:year|six\s+months|three\s+months|nine\s+months|period)\s+end(?:ed|ing)\b/i, // HKEX results-notice title shape
+  /\b(?:outcome|intimation|postponement|rescheduling)\s+of\s+(?:the\s+)?board\s+meeting\b|\bboard\s+meeting\s+intimation\b/i,
+  /\bdelay\s+in\s+(?:the\s+)?(?:publication|despatch)\s+of\s+(?:the\s+)?(?:annual|interim|audited|financial|results?|report)/i, // results-calendar delay notices
+  /\btrading\s+window\b/i, // trading-window closure/re-opening housekeeping
+  /\bscrutini[sz]er'?s?\s+report\b/i,
+  /\bshareholding\s+pattern\b/i, // quarterly shareholding-pattern filings
+  /\bbook\s+closure\b/i,
+  /\bacquisition\s+window\s*\(/i, // BSE "Offer to Buy – Acquisition Window (Takeover)" live-activity schedules
+  /\bnewspaper\s+(?:advertisement|publication)s?\b/i,
+]
+
+/** Is this item high-volume regulatory paperwork (SAST/Reg 29 stake disclosures, AGM/EGM poll results,
+ *  "results for the year ended" calendar notices, board-meeting intimations, routine EDGAR forms)?
+ *  Routine filings may anchor their COMPANY's theme but must never define a topic — a hundred unrelated
+ *  companies' Reg 29 disclosures share boilerplate words, not a narrative. */
+export function isRoutineFiling(headline?: string | null, sourceTier?: string | null): boolean {
+  const h = String(headline || '')
+  if (ROUTINE_FILING_RES.some((re) => re.test(h))) return true
+  if (String(sourceTier || '') === 'primary_filing') {
+    const p = parseEdgarFilingHeadline(h)
+    if (p && lookupSecForm(p.form)?.routine === true) return true
+  }
+  return false
+}
+
+/** Theme-layer topic tokens — what the themes engine matches and derives keywords from. Same as
+ *  topicTokens minus calendar/event noise and fiscal-period tokens, minus the caller's corpus-generic
+ *  set (the rolling document-frequency layer) — EXCEPT tokens derived from the item's own companies
+ *  (normalized names + tickers), which always survive every suppression class (a hot company name must
+ *  never be suppressed). A routine filing contributes its company tokens ONLY: it may anchor a company
+ *  theme, never a topic. Dedup keeps the ungated topicTokens — it must still merge reposts of the same
+ *  routine notice. */
+export function themeTokens(headline?: string | null, companies?: CompanyGuess[] | null, sourceTier?: string | null, generic?: Set<string>): Set<string> {
+  if (isRoutineFiling(headline, sourceTier)) return topicTokens(null, companies)
+  const out = topicTokens(headline, companies)
+  const immune = topicTokens(null, companies) // company-derived tokens (norm names + tickers)
+  for (const t of out) {
+    if (immune.has(t)) continue
+    if (THEME_NOISE_TOKENS.has(t) || FISCAL_TOKEN_RE.test(t) || generic?.has(t)) out.delete(t)
+  }
+  return out
 }
