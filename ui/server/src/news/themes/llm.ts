@@ -25,6 +25,7 @@ const SYSTEM =
   'You are a buy-side thematic analyst. You are given CLUSTERS of recent news headlines that were already grouped by topical overlap. ' +
   'For each cluster decide whether it is a coherent, investable market THEME — a multi-company narrative a portfolio manager would track and could play (e.g. "AI data-center buildout", "China stimulus rebound", "GLP-1 weight-loss drugs"). ' +
   'A single company\'s one-off news is NOT a theme. ' +
+  'A cluster that is only routine regulatory paperwork — stake-disclosure filings (SAST/Reg 29), AGM/EGM notices or poll results, board-meeting outcomes, "results for the year/period ended" calendar notices, routine prospectus takedowns — is NOT a theme: return is_theme:false for it. ' +
   'Return ONLY JSON: {"themes":[{"i":<cluster index>,"is_theme":true|false,"name":"<short narrative name, ≤6 words>","slug":"<kebab-case>","description":"<one plain-English sentence a non-specialist understands>","keywords":["<lowercase anchor terms>"]}]}. Include every cluster index exactly once. No prose outside the JSON.'
 
 const budgetPath = (stateDir: string) => path.join(stateDir, 'themes-llm-budget.json')

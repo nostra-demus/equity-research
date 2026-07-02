@@ -5,7 +5,7 @@
 // companies, so turning the LLM off degrades gracefully to this deterministic baseline.
 
 import { createHash } from 'node:crypto'
-import { companyKeys, topicTokens, intersectionSize, jaccard } from '../text-match'
+import { companyKeys, themeTokens, intersectionSize, jaccard } from '../text-match'
 import { rebuildThemeCompanies, overlapScore } from './assign'
 import { ensureDaily } from './score'
 import type { Theme, ThemeItemView, ThemeMember, RelatedTheme } from './types'
@@ -33,12 +33,12 @@ const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').repla
 const themeId = (slug: string) => 'THM-' + createHash('sha256').update(slug).digest('hex').slice(0, 8)
 const iso = (d: Date) => d.toISOString().replace(/\.\d{3}Z$/, 'Z')
 
-// memo: each item's company keys + topic tokens (computed once for the clustering graph)
+// memo: each item's company keys + theme-layer topic tokens (computed once for the clustering graph)
 function itemSig(it: ThemeItemView): { keys: Set<string>; toks: Set<string> } {
-  return { keys: companyKeys(it.companies), toks: topicTokens(it.headline, it.companies) }
+  return { keys: companyKeys(it.companies), toks: themeTokens(it.headline, it.companies, it.source_tier) }
 }
 
-/** Connected-components clustering: items i,j share an edge when they share a company OR ≥2 topic
+/** Connected-components clustering: items i,j share an edge when they share a company OR ≥3 topic
  *  tokens (the "actually about the same thing" bar). Returns clusters of indices, largest first. */
 export function clusterItems(items: ThemeItemView[]): number[][] {
   const n = items.length
@@ -83,7 +83,7 @@ function clusterIdentity(items: ThemeItemView[]): { keywords: string[]; company_
   const keyName = new Map<string, string>()
   const evFreq = new Map<string, number>()
   for (const it of items) {
-    for (const t of topicTokens(it.headline, it.companies)) tokFreq.set(t, (tokFreq.get(t) || 0) + 1)
+    for (const t of themeTokens(it.headline, it.companies, it.source_tier)) tokFreq.set(t, (tokFreq.get(t) || 0) + 1)
     for (const c of it.companies || []) {
       const k = companyKeys([c]).values().next().value as string | undefined
       if (!k) continue
@@ -98,7 +98,12 @@ function clusterIdentity(items: ThemeItemView[]): { keywords: string[]; company_
   const company_keys = companyEntries.slice(0, 12).map(([k]) => k)
   const affinity = recurring(evFreq, 2).slice(0, 4).map(([e]) => e)
   const topCompanyName = companyEntries[0] ? keyName.get(companyEntries[0][0]) || '' : ''
-  return { keywords: keywords.length ? keywords : [...tokFreq.keys()].slice(0, 6), company_keys, affinity, topCompanyName }
+  // NO fallback when nothing recurs: keywords may be EMPTY. The old "first member's tokens" fallback
+  // was the self-heal's blind spot — a theme whose junk keywords stopped recurring inherited arbitrary
+  // member tokens as its refreshed identity, its members re-matched against them, and the junk theme
+  // survived every heal pass. An empty keyword list is honest: the cluster is company-anchored or it
+  // is nothing (deterministicName already falls back to the top company / 'Emerging cluster').
+  return { keywords, company_keys, affinity, topCompanyName }
 }
 
 /** A crude deterministic name (the Claude pass replaces it with a narrative one). */
@@ -155,11 +160,14 @@ export function createTheme(items: ThemeItemView[], now: Date, generation: Theme
 export function refreshThemeIdentity(theme: Theme, cfg: DiscoverConfig = DEFAULT_DISCOVER_CONFIG, now?: Date): { changed: boolean; retire: boolean } {
   if (theme.status !== 'live' || !theme.members.length) return { changed: false, retire: false }
   const before = { count: theme.members.length, kw: theme.keywords.join('|') }
+  // members persist source_tier as `tier` — map it back so the routine-filing gate inside themeTokens
+  // applies at heal time exactly as it does at assignment time
+  const asViews = (ms: ThemeMember[]) => ms.map((m) => ({ ...m, source_tier: m.tier })) as unknown as ThemeItemView[]
   // 1. recompute identity from the current members (clean tokenizer)
-  const id = clusterIdentity(theme.members as unknown as ThemeItemView[])
+  const id = clusterIdentity(asViews(theme.members))
   const probe: Theme = { ...theme, keywords: id.keywords, company_keys: id.company_keys, event_type_affinity: id.affinity }
   // 2. keep only members that still clear the assignment bar against the refreshed identity
-  const kept = theme.members.filter((m) => overlapScore(companyKeys(m.companies), topicTokens(m.headline, m.companies), m.event_types || [], probe).matched)
+  const kept = theme.members.filter((m) => overlapScore(companyKeys(m.companies), themeTokens(m.headline, m.companies, m.tier), m.event_types || [], probe).matched)
   // 3. retire if too little real signal is left to be a multi-company theme
   const distinct = new Set<string>()
   for (const m of kept) for (const k of companyKeys(m.companies)) distinct.add(k)
@@ -167,7 +175,7 @@ export function refreshThemeIdentity(theme: Theme, cfg: DiscoverConfig = DEFAULT
   if (retire) return { changed: true, retire: true }
   // 4. commit: kept members + refreshed identity, then a second identity pass tightened to the kept set
   theme.members = kept
-  const id2 = clusterIdentity(kept as unknown as ThemeItemView[])
+  const id2 = clusterIdentity(asViews(kept))
   theme.keywords = id2.keywords
   theme.company_keys = id2.company_keys
   theme.event_type_affinity = id2.affinity
@@ -195,6 +203,12 @@ export function discoverDeterministic(pool: ThemeItemView[], existing: Theme[], 
   const created: Theme[] = []
   const leftover: ThemeItemView[] = [...skipped]
   const existingIds = new Set(existing.map((t) => t.theme_id))
+  // scan-relative document frequency: a token carried by ≥25% of the scan pool is wire-wide vocabulary
+  // this pass, not a theme identity. Used below to refuse clusters glued together ONLY by such words
+  // (the "results · ended · march" failure shape) even when future boilerplate isn't in any static list.
+  const df = new Map<string, number>()
+  for (const it of scan) for (const t of themeTokens(it.headline, it.companies, it.source_tier)) df.set(t, (df.get(t) || 0) + 1)
+  const genericBar = Math.max(10, Math.ceil(scan.length * 0.25))
   for (const idxs of clusters) {
     const items = idxs.map((i) => scan[i])
     const distinctCompanies = new Set<string>()
@@ -204,6 +218,14 @@ export function discoverDeterministic(pool: ThemeItemView[], existing: Theme[], 
       continue
     }
     const theme = createTheme(items, now)
+    // quality guard: a theme needs an anchor — a RECURRING company, or at least one keyword that is
+    // distinctive within this scan. A genuine macro wave passes (it carries a tariff target, a drug
+    // name, "hormuz" — something below the bar); a cluster of wire-wide words does not.
+    const anchored = theme.company_keys.length > 0 || theme.keywords.some((k) => (df.get(k) || 0) < genericBar)
+    if (!anchored) {
+      leftover.push(...items) // no real identity — stay in the pool until real anchors accrue
+      continue
+    }
     if (existingIds.has(theme.theme_id) || created.some((t) => t.theme_id === theme.theme_id)) {
       leftover.push(...items) // collides with a known theme id (same slug) — let assignment fold them in next cycle
       continue
