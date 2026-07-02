@@ -57,7 +57,9 @@ export interface SwarmGraph {
 }
 
 // ---- swarms (the cockpit can host multiple — research is the grandfathered default) ----
-export interface SwarmMeta { id: string; label: string; color: string; unit: string; order: number; layout: string }
+// verdictField: the swarm's self-declared routing verdict key (SWARM.md) for reading its decision
+// record generically; absent for research (whose records use `decision`) and on older engines.
+export interface SwarmMeta { id: string; label: string; color: string; unit: string; order: number; layout: string; verdictField?: string }
 
 // ---- screener board (the canonical pipeline state the Pipeline panel renders) ----
 export interface BoardInboxRow {

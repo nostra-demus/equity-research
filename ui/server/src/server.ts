@@ -36,7 +36,7 @@ import { auditInboxAction, moveThesis, MOVE_TARGETS } from './screener-actions'
 import { FEEDBACK_TYPES, readAllFeedback, submitFeedback, summarizeFeedback, undoFeedback } from './screener-feedback'
 import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
-import { agentNamesForModule, buildSwarmGraph, findRunRootForSubject, graphForSubject, graphForTicker, listModuleNames, swarmSubjects } from './roster'
+import { agentNamesForModule, buildSwarmGraph, findRunRootForSubject, graphForSubject, graphForTicker, listModuleNames, swarmSubjects, terminalModuleName } from './roster'
 import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, resolveRunRoot, runManifest } from './outputs'
 import { assembleContext, buildChatPrompts, scopeAvailability } from './chat-context'
 import { chatTurnsInFlight, runChatTurn } from './chat-llm'
@@ -143,7 +143,9 @@ app.get('/api/health', async (_req, reply) => {
 
 // ---------- swarms (manifest list for the cockpit's swarm switcher) ----------
 app.get('/api/swarms', async () =>
-  listSwarms().map((s) => ({ id: s.id, label: s.label, color: s.color, unit: s.unit, order: s.order, layout: s.layout })),
+  // verdictField: the swarm's self-declared routing verdict key (SWARM.md), lets the client read the
+  // decision record's verdict generically (research has none — its records use `decision`).
+  listSwarms().map((s) => ({ id: s.id, label: s.label, color: s.color, unit: s.unit, order: s.order, layout: s.layout, verdictField: s.routing?.verdictField })),
 )
 
 // ---------- swarm graph ----------
@@ -554,6 +556,7 @@ app.get('/api/runs/:runId', async (req, reply) => {
     module: run.module,
     agent: run.agent,
     status: run.status,
+    swarmId: run.swarmId,
     runRoot: run.runRoot,
     costUsd: run.costUsd,
     numTurns: run.numTurns,
@@ -645,10 +648,23 @@ app.get('/api/prompt', async (req, reply) => {
 
 app.get('/api/output/thesis', async (req, reply) => {
   const q = req.query as any
-  const runRoot = resolveRunRoot({ runRoot: q.runRoot, ticker: q.ticker, date: q.date })
-  if (!runRoot) return reply.code(404).send({ error: 'no run found' })
+  const r = resolveOutputRun(q)
+  if (r.unknownSwarm) return reply.code(404).send({ error: 'unknown swarm' })
+  if (r.badSubject) return reply.code(400).send({ error: 'subject required' })
+  if (!r.runRoot) return reply.code(404).send({ error: 'no run found' })
+  // A constellation swarm's final deliverable is its terminal module's synthesis (the dossier) —
+  // there is no run-root final_thesis.md outside research (CLAUDE.md §26: derived, not hardcoded).
+  if (r.swarm !== 'research') {
+    const p = runManifest(r.runRoot, r.resolve, terminalModuleName(r.swarm)).finalReport?.path
+    if (!p) return reply.code(404).send({ error: 'no final dossier yet' })
+    try {
+      return readMarkdown(p, r.resolve)
+    } catch {
+      return reply.code(404).send({ error: 'no final dossier yet' })
+    }
+  }
   try {
-    return readMarkdown(`${runRoot}/final_thesis.md`)
+    return readMarkdown(`${r.runRoot}/final_thesis.md`)
   } catch {
     return reply.code(404).send({ error: 'no final_thesis.md' })
   }
@@ -687,7 +703,7 @@ app.get('/api/output/run', async (req, reply) => {
   if (r.badSubject) return reply.code(400).send({ error: 'subject required' })
   if (!r.runRoot) return reply.code(404).send({ error: 'no run found' })
   try {
-    return runManifest(r.runRoot, r.resolve)
+    return runManifest(r.runRoot, r.resolve, r.swarm !== 'research' ? terminalModuleName(r.swarm) : null)
   } catch (e: any) {
     return reply.code(400).send({ error: 'cannot read run', detail: String(e?.message || e) })
   }

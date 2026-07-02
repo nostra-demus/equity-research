@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useStore } from '../lib/store'
-import { decisionColor, resetIn, sufficiencyColor, usageColor, usageLabel, usagePct } from '../lib/format'
+import { decisionColor, resetIn, resolveVerdict, sufficiencyColor, usageColor, usageLabel, usagePct } from '../lib/format'
 import { plainKind } from '../lib/plain'
 import { EngineStatusPill } from './EngineStatus'
 import { ThemeToggle } from './ThemeToggle'
@@ -400,6 +400,9 @@ export function CommandBar() {
   const swarms = useStore((s) => s.swarms)
   const engineDown = health === 'engine-offline' || health === 'your-network' || health === 'session-expired'
   const screenerMode = activeSwarm === 'screener'
+  // a swarm's decision record carries its own verdict field (e.g. commodity `action`) — resolve it
+  // generically so the final-report button shows for any finished constellation-swarm run too
+  const verdict = resolveVerdict(decision, swarms.find((s) => s.id === activeSwarm)?.verdictField)
   const sub = screenerMode
     ? (swarms.find((s) => s.id === activeSwarm)?.label ? 'Idea Generation — Screener' : 'Screener')
     : activeSwarm === 'research'
@@ -436,8 +439,8 @@ export function CommandBar() {
           <EngineStatusPill />
           <button className="btn btn--ghost" onClick={openCalls} title="Calls tracker — every call the engine made and what's happened since">Calls</button>
           <button className="btn btn--ghost" onClick={openActivity} title="Activity log — who ran what, when, on which company">Activity</button>
-          {decision?.final_thesis_path !== undefined || decision?.decision ? (
-            <button className="btn btn--ghost" onClick={openThesis}>Thesis</button>
+          {decision?.final_thesis_path !== undefined || verdict ? (
+            <button className="btn btn--ghost" onClick={openThesis}>{activeSwarm === 'research' ? 'Thesis' : 'Dossier'}</button>
           ) : null}
           <button className="btn cmdbar__ask" disabled={!selectedTicker} onClick={() => openChat('run')} title={selectedTicker ? 'Ask questions about this run’s output — answered only from what the engine wrote' : 'Select a company first'}>
             Ask ▸

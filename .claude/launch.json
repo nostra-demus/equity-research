@@ -9,6 +9,12 @@
       "autoPort": true
     },
     {
+      "name": "cockpit-dev-8899",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-lc", "cd ui/server && PORT=8899 GROQ_API_KEY= npx tsx src/server.ts"],
+      "port": 8899
+    },
+    {
       "name": "cockpit-web",
       "runtimeExecutable": "npm",
       "runtimeArgs": ["--prefix", "ui/web", "run", "dev"],

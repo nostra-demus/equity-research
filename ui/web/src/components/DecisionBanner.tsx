@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { useStore } from '../lib/store'
-import { decisionColor } from '../lib/format'
+import { decisionColor, resolveVerdict } from '../lib/format'
 
 // the three shareable tiers of a finished run, opened from below the Memo orb
 const TIERS = [
@@ -17,43 +17,54 @@ export function DecisionBanner() {
   const setToast = useStore((s) => s.setToast)
   const dataStatus = useStore((s) => s.dataStatus)
   const hasActiveRun = useStore((s) => s.anyRunForTicker(s.selectedTicker))
-  if (!decision?.decision) return null
+  const isResearch = useStore((s) => s.constellationSwarm === 'research')
+  const verdictField = useStore((s) => s.swarms.find((w) => w.id === s.constellationSwarm)?.verdictField)
+  // research records carry `decision`; a swarm's record carries its SWARM.md verdict field
+  const verdict = resolveVerdict(decision, verdictField)
+  if (!verdict) return null
   if (dataStatus && !dataStatus.hasAnyData) return null
   if (hasActiveRun) return null
   const er = decision.expected_return_pct as number | undefined
+  // the three memo/thesis/dossier tiers exist only for research runs — a swarm run has one final
+  // dossier (the banner itself opens it), so an all-off tier row would just be noise
+  const anyTier = TIERS.some(({ key }) => reports[key])
   return (
-    <motion.div className="decision" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }} onClick={openThesis} style={{ cursor: 'pointer' }} title="Open the Thesis — the deep-dive synthesized view">
+    <motion.div className="decision" initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }} onClick={openThesis} style={{ cursor: 'pointer' }} title={isResearch ? 'Open the Thesis — the deep-dive synthesized view' : 'Open the Dossier — the final synthesized view'}>
       <div style={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
         <span style={{ fontSize: 9, letterSpacing: '0.8px', textTransform: 'uppercase', color: 'var(--text-faint)' }}>Decision</span>
-        <span className="decision__call" style={{ color: decisionColor(decision.decision) }}>{decision.decision}</span>
+        <span className="decision__call" style={{ color: decisionColor(verdict) }}>{verdict}</span>
       </div>
       <div className="decision__divider" />
-      <span className="decision__stat">conf <b>{decision.confidence_score ?? '—'}</b></span>
+      <span className="decision__stat">conf <b>{decision.confidence_score ?? decision.confidence ?? '—'}</b></span>
       {typeof er === 'number' && (
         <span className="decision__stat">exp ret <b style={{ color: er >= 0 ? 'var(--accent-bright)' : 'var(--bad)' }}>{er > 0 ? '+' : ''}{er}%</b></span>
       )}
       {decision.entry_price && <span className="decision__stat">@ <b>{decision.currency || ''} {decision.entry_price}</b></span>}
-      <div className="decision__divider" />
-      <div className="decision__tiers">
-        {TIERS.map(({ key, label }) => {
-          const on = reports[key]
-          return (
-            <button
-              key={key}
-              type="button"
-              className={`tierbtn${on ? '' : ' tierbtn--off'}`}
-              title={on ? `Open the ${label}` : `${label} not generated for this run`}
-              onClick={(e) => {
-                e.stopPropagation()
-                if (on) openReport(key)
-                else setToast({ msg: `${label} not generated for this run`, tone: 'info' })
-              }}
-            >
-              {label}
-            </button>
-          )
-        })}
-      </div>
+      {anyTier && (
+        <>
+          <div className="decision__divider" />
+          <div className="decision__tiers">
+            {TIERS.map(({ key, label }) => {
+              const on = reports[key]
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  className={`tierbtn${on ? '' : ' tierbtn--off'}`}
+                  title={on ? `Open the ${label}` : `${label} not generated for this run`}
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    if (on) openReport(key)
+                    else setToast({ msg: `${label} not generated for this run`, tone: 'info' })
+                  }}
+                >
+                  {label}
+                </button>
+              )
+            })}
+          </div>
+        </>
+      )}
     </motion.div>
   )
 }
