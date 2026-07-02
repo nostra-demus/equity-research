@@ -12,9 +12,10 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { assignThemes, DEFAULT_ASSIGN_CONFIG, type AssignConfig } from './assign'
-import { discoverDeterministic, linkThemes, mergeAndRetire, refreshThemeIdentity, DEFAULT_DISCOVER_CONFIG, type DiscoverConfig } from './discover'
+import { coherenceOf, discoverDeterministic, linkThemes, mergeAndRetire, refreshThemeIdentity, DEFAULT_DISCOVER_CONFIG, type DiscoverConfig } from './discover'
 import { scoreTheme, ensureDaily, rollDaily, DEFAULT_THEME_SCORE_CONFIG, type ThemeScoreConfig } from './score'
 import { appendThemeMutations, buildSummary, loadThemes, maybeCompactThemesLedger, readRecentThemeItems, writeThemesIndex } from './store'
+import { buildGenericSet, loadTokenDf, saveTokenDf, updateTokenDf, DEFAULT_TOKEN_DF_CONFIG, type TokenDfConfig } from './token-df'
 import type { Theme, ThemeItemView, ThemeSummary } from './types'
 
 export interface ThemesConfig {
@@ -22,22 +23,39 @@ export interface ThemesConfig {
   assign: AssignConfig
   discover: DiscoverConfig
   poolCap: number // max unclustered items kept between discovery passes
+  df: TokenDfConfig // rolling document-frequency suppression (token-df.ts)
+  renamePerPass: number // healed-theme renames folded into an EXISTING namer call per discovery pass
+  renameIdentityShift: number // keyword-jaccard drop that flags needs_rename on an LLM-named theme
+  renamePurgeShare: number // member-purge share that flags needs_rename
+  coherenceHealBelow: number // early off-cadence heal trigger (coherenceOf below this)
 }
 export const DEFAULT_THEMES_CONFIG: ThemesConfig = {
   score: DEFAULT_THEME_SCORE_CONFIG,
   assign: DEFAULT_ASSIGN_CONFIG,
   discover: DEFAULT_DISCOVER_CONFIG,
   poolCap: 1000,
+  df: DEFAULT_TOKEN_DF_CONFIG,
+  renamePerPass: 2,
+  renameIdentityShift: 0.5,
+  renamePurgeShare: 0.3,
+  coherenceHealBelow: 0.5,
 }
 
 /** Build a ThemesConfig from the NEWS config block's themes* knobs (env-tunable). */
-export function themesConfigFromNews(news: { themesRetireHours?: number; themesMaxMembers?: number }): ThemesConfig {
+export function themesConfigFromNews(news: { themesRetireHours?: number; themesMaxMembers?: number; themesDfWindowDays?: number; themesDfDailyRatio?: number; themesDfPersistDays?: number; themesDfMinDailyDocs?: number; themesDfProtected?: string[] }): ThemesConfig {
   const maxMembers = news.themesMaxMembers || DEFAULT_THEMES_CONFIG.assign.maxMembers
   return {
-    score: DEFAULT_THEMES_CONFIG.score,
+    ...DEFAULT_THEMES_CONFIG,
     assign: { ...DEFAULT_THEMES_CONFIG.assign, maxMembers },
     discover: { ...DEFAULT_THEMES_CONFIG.discover, maxMembers, retireHours: news.themesRetireHours || DEFAULT_THEMES_CONFIG.discover.retireHours },
-    poolCap: DEFAULT_THEMES_CONFIG.poolCap,
+    df: {
+      ...DEFAULT_TOKEN_DF_CONFIG,
+      windowDays: news.themesDfWindowDays || DEFAULT_TOKEN_DF_CONFIG.windowDays,
+      dailyRatio: news.themesDfDailyRatio || DEFAULT_TOKEN_DF_CONFIG.dailyRatio,
+      persistDays: news.themesDfPersistDays || DEFAULT_TOKEN_DF_CONFIG.persistDays,
+      minDailyDocs: news.themesDfMinDailyDocs || DEFAULT_TOKEN_DF_CONFIG.minDailyDocs,
+      protected: news.themesDfProtected || DEFAULT_TOKEN_DF_CONFIG.protected,
+    },
   }
 }
 
@@ -53,6 +71,7 @@ export interface StepInput {
   now: Date
   cfg?: ThemesConfig
   llmNamer?: LlmNamer
+  generic?: Set<string> // corpus-generic tokens this cycle (token-df.ts) — suppressed by themeTokens everywhere
 }
 
 export interface StepResult {
@@ -84,8 +103,14 @@ export async function stepThemes(input: StepInput): Promise<StepResult> {
   //    per-member bumps below don't double-count this cycle's items. New ledgers / fresh themes only.
   for (const t of themes) if (t.status === 'live') ensureDaily(t, nowMs)
 
+  // when a heal shifted an LLM-named theme's identity or membership enough, its persisted narrative
+  // name/description likely describe the OLD mix — flag it for a re-name (rides an existing namer call)
+  const flagRename = (t: Theme, r: { identityShift: number; purgeShare: number }) => {
+    if (t.generation === 'claude' && (r.identityShift > cfg.renameIdentityShift || r.purgeShare > cfg.renamePurgeShare)) t.needs_rename = true
+  }
+
   // 1. assignment (every cycle) — also bumps each touched theme's daily ring per new member landed
-  const a = assignThemes(items, themes, cfg.assign, now)
+  const a = assignThemes(items, themes, cfg.assign, now, input.generic)
   for (const id of a.touched) changedIds.add(id)
   let pool = [...input.pool.filter(notSocial), ...a.unclustered]
 
@@ -96,22 +121,27 @@ export async function stepThemes(input: StepInput): Promise<StepResult> {
   if (input.runDiscovery) {
     for (const t of themes) {
       if (t.status !== 'live') continue
-      const { changed, retire } = refreshThemeIdentity(t, cfg.discover, now)
-      if (retire) { t.status = 'retired'; t.rev++; changedIds.add(t.theme_id) }
-      else if (changed) changedIds.add(t.theme_id)
+      const r = refreshThemeIdentity(t, cfg.discover, now, input.generic)
+      if (r.retire) { t.status = 'retired'; t.rev++; changedIds.add(t.theme_id) }
+      else if (r.changed) { changedIds.add(t.theme_id); flagRename(t, r) }
     }
   }
 
   // 2. discovery (periodic)
   if (input.runDiscovery && pool.length) {
-    const { created, leftover } = discoverDeterministic(pool, themes, now, cfg.discover)
+    const { created, leftover } = discoverDeterministic(pool, themes, now, cfg.discover, input.generic)
     pool = leftover
     if (created.length && input.llmNamer) {
+      // fold up to renamePerPass healed-but-stale-named themes into the SAME call (no extra budget):
+      // the namer re-grounds their name/description in the post-heal members, or retires a husk.
+      const renames = themes.filter((t) => t.status === 'live' && t.needs_rename).slice(0, cfg.renamePerPass)
       try {
-        await input.llmNamer(created, now)
+        await input.llmNamer([...created, ...renames], now)
       } catch {
         // LLM failure → keep the deterministic names (fail-soft)
       }
+      // a processed rename cleared its flag (or was retired) — persist + emit it
+      for (const t of renames) if (!t.needs_rename || t.status !== 'live') changedIds.add(t.theme_id)
     }
     for (const t of created) {
       if (t.status === 'live') {
@@ -127,6 +157,14 @@ export async function stepThemes(input: StepInput): Promise<StepResult> {
   //    daily ring forward to today (zero-pads quiet days; seeds any theme discovered in step 2).
   for (const t of themes) {
     if (t.status !== 'live') continue
+    // coherence-lite early heal (non-discovery cycles): a theme whose members have drifted from its
+    // identity gets refreshThemeIdentity NOW instead of waiting up to a full discovery cadence — the
+    // window in which a polluted theme would otherwise keep absorbing and displaying strangers.
+    if (!input.runDiscovery && t.members.length >= cfg.discover.minClusterItems && coherenceOf(t, input.generic) < cfg.coherenceHealBelow) {
+      const r = refreshThemeIdentity(t, cfg.discover, now, input.generic)
+      if (r.retire) { t.status = 'retired'; t.rev++; changedIds.add(t.theme_id); continue }
+      if (r.changed) { changedIds.add(t.theme_id); flagRename(t, r) }
+    }
     rollDaily(t, nowMs)
     const before = t.tier
     const s = scoreTheme(t, now, cfg.score)
@@ -202,6 +240,18 @@ export async function runThemesCycle(input: RunThemesInput): Promise<{ changed: 
   const cfg = input.cfg || DEFAULT_THEMES_CONFIG
   const themes = loadThemes(input.repoRoot)
   let pool = loadPool(input.stateDir)
+  // rolling token-DF: count this cycle's (non-social) items into the ring, then materialize the
+  // corpus-generic set every code path suppresses this cycle. An enhancement layer — a failure here
+  // must never block the cycle (the static classes in text-match.ts carry the load alone).
+  let generic: Set<string> | undefined
+  try {
+    const dfState = loadTokenDf(input.stateDir)
+    updateTokenDf(dfState, input.items.filter((v) => (v.source_tier || '') !== 'social'), now().getTime(), cfg.df)
+    saveTokenDf(input.stateDir, dfState)
+    generic = buildGenericSet(dfState, cfg.df)
+  } catch {
+    generic = undefined
+  }
   // on a discovery cycle, augment the pool with recent MATERIAL firehose items that aren't already a
   // member of any theme — so discovery forms from the whole recent backlog (rich cold-start), not just
   // the few items this cycle. Self-heals duplicates via mergeAndRetire.
@@ -217,7 +267,7 @@ export async function runThemesCycle(input: RunThemesInput): Promise<{ changed: 
     }
     if (pool.length > cfg.poolCap) pool = pool.slice(pool.length - cfg.poolCap)
   }
-  const res = await stepThemes({ themes, pool, items: input.items, runDiscovery: input.runDiscovery, now: now(), cfg, llmNamer: input.llmNamer })
+  const res = await stepThemes({ themes, pool, items: input.items, runDiscovery: input.runDiscovery, now: now(), cfg, llmNamer: input.llmNamer, generic })
   // persist: append only the changed themes to the ledger; rewrite the full live index
   const changedThemes = res.themes.filter((t) => res.changed.some((c) => c.theme_id === t.theme_id))
   appendThemeMutations(input.repoRoot, changedThemes, now)

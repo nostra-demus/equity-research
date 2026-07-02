@@ -441,6 +441,16 @@ export const NEWS = {
   themesClaudeApiKey: process.env.THEMES_CLAUDE_API_KEY || process.env.ANTHROPIC_API_KEY || '',
   themesClaudeBaseUrl: process.env.THEMES_CLAUDE_BASE_URL || 'https://api.anthropic.com',
   themesClaudeDailyCap: capNum(process.env.NEWS_THEMES_CLAUDE_DAILY_CAP, 60), // max Claude discovery calls/day
+  // Rolling token document-frequency (news/themes/token-df.ts): the self-learning boilerplate detector.
+  // A token over `dailyRatio` of a day's items on ≥ `persistDays` of the last `windowDays` days is
+  // corpus-generic and stops counting toward theme matches — new exchange phrasings and results-season
+  // vocabulary get suppressed without a code change. `protected` (comma-separated) is the escape hatch
+  // for a sustained genuine story word that must stay an anchor; empty by default.
+  themesDfWindowDays: capNum(process.env.NEWS_THEMES_DF_WINDOW_DAYS, 7),
+  themesDfDailyRatio: capNum(process.env.NEWS_THEMES_DF_DAILY_RATIO, 0.015),
+  themesDfPersistDays: capNum(process.env.NEWS_THEMES_DF_PERSIST_DAYS, 3),
+  themesDfMinDailyDocs: capNum(process.env.NEWS_THEMES_DF_MIN_DAILY_DOCS, 150),
+  themesDfProtected: String(process.env.NEWS_THEMES_DF_PROTECTED || '').split(',').map((s) => s.trim().toLowerCase()).filter(Boolean),
   // On-demand deep-dive BRIEF (news/themes/brief.ts): the few-sentence plain-English explainer built when
   // a human opens a theme. Free Groq only, on the SAME shared daily budget + per-minute limiter as the
   // firehose (a per-click brief is deliberately NOT a Claude-metered seam — same posture as the on-demand

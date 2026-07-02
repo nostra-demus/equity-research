@@ -82,7 +82,7 @@ export interface AssignResult {
 /** Assign a batch of material items to existing themes. Mutates the themes in place (members ring,
  *  companies, last_flow, rev). Returns the per-item theme_ids, the unclustered pool, and which themes
  *  changed (so the caller can rescore + emit only those). */
-export function assignThemes(items: ThemeItemView[], themes: Theme[], cfg: AssignConfig = DEFAULT_ASSIGN_CONFIG, now: Date = new Date()): AssignResult {
+export function assignThemes(items: ThemeItemView[], themes: Theme[], cfg: AssignConfig = DEFAULT_ASSIGN_CONFIG, now: Date = new Date(), generic?: Set<string>): AssignResult {
   const live = themes.filter((t) => t.status === 'live')
   const nowMs = now.getTime()
   const assignments = new Map<string, string[]>()
@@ -91,9 +91,10 @@ export function assignThemes(items: ThemeItemView[], themes: Theme[], cfg: Assig
 
   for (const it of items) {
     const itemCompanyKeys = companyKeys(it.companies)
-    // theme-layer tokens: calendar/event boilerplate suppressed; a routine filing contributes company
-    // tokens only, so it can join its company's theme but never chain a topic (see text-match.ts)
-    const itemTokens = themeTokens(it.headline, it.companies, it.source_tier)
+    // theme-layer tokens: calendar/event boilerplate + corpus-generic (token-df) words suppressed; a
+    // routine filing contributes company tokens only, so it can join its company's theme but never
+    // chain a topic (see text-match.ts)
+    const itemTokens = themeTokens(it.headline, it.companies, it.source_tier, generic)
     const evs = it.event_types || []
     const hits: { theme: Theme; score: number }[] = []
     for (const theme of live) {
