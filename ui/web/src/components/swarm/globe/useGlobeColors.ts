@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Color } from 'three'
+import { Color, SRGBColorSpace } from 'three'
 import { useStore } from '../../../lib/store'
 
 // Bridge the app's CSS design tokens into THREE.Color so the globe obeys the same theme/swarm palette
@@ -17,10 +17,24 @@ export interface GlobeColors {
   hairline: Color
 }
 
+// THREE.Color parses hex / rgb() / hsl(), but NOT the CSS Color 4 `color(srgb r g b)` form the
+// browser uses to serialize a registered (@property) token computed through color-mix() — which is
+// exactly what a manifest-derived swarm palette (tokens.css) resolves to. Parse that form by hand
+// (components are 0–1 sRGB floats); every other format still goes through THREE.
+function parseCssColor(raw: string, fallback: string): Color {
+  const m = raw.match(/^color\(srgb\s+([\d.]+)\s+([\d.]+)\s+([\d.]+)/)
+  if (m) return new Color().setRGB(Number(m[1]), Number(m[2]), Number(m[3]), SRGBColorSpace)
+  return new Color(raw || fallback)
+}
+
 function readColor(name: string, fallback: string): Color {
   try {
-    const raw = getComputedStyle(document.documentElement).getPropertyValue(name).trim()
-    return new Color(raw || fallback)
+    // read from the token-scope carrier: the [data-swarm] app root (App.tsx), where the per-swarm
+    // accent remaps land — <html> only carries data-theme, so reading it would miss every swarm
+    // palette (e.g. the commodity swarm's manifest-derived accents). Fallback: the doc root.
+    const el = document.querySelector('.app[data-swarm]') ?? document.documentElement
+    const raw = getComputedStyle(el).getPropertyValue(name).trim()
+    return parseCssColor(raw, fallback)
   } catch {
     return new Color(fallback)
   }

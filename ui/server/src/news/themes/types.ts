@@ -112,6 +112,10 @@ export interface Theme {
   last_flow: string // ISO of the most recent member item
   generation: 'deterministic' | 'groq' | 'claude' // provenance of the discovery/naming
   rev: number // bumped on every mutation (SSE dedup / change detection)
+  // server-only: set when a self-heal shifted an LLM-named theme's identity enough that its persisted
+  // name/description no longer describe the members (e.g. the strangers were purged). The next discovery
+  // pass folds ≤renamePerPass flagged themes into its existing namer call. Additive; ignored by readers.
+  needs_rename?: boolean
 }
 
 // A compact projection for the live SSE bus + the index list view (no member arrays).

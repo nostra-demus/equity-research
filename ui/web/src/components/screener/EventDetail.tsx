@@ -36,7 +36,23 @@ function StoryBlock({ enr }: { enr: EventEnrichment | 'loading' | undefined }) {
   const sec = enr.sec
   return (
     <>
-      {!sec && enr.corroborated && (
+      {/* provenance — say plainly WHAT was actually read, whenever it wasn't the original page */}
+      {!sec && enr.read_from?.kind === 'filing_doc' && (
+        <div className="evdetail__corrob" title="The exchange page is only a document viewer behind a terms dialog — this brief is read from the filing document itself, the primary source.">
+          <span className="evdetail__corrob-tag">From the filing</span>
+          <span className="evdetail__corrob-text">Read from the filing document itself (PDF) — the disclosure&apos;s own words, not the page around it.</span>
+        </div>
+      )}
+      {!sec && enr.read_from?.kind === 'alternate' && (
+        <div className="evdetail__corrob" title="The original publisher blocked our reader, so this brief is a full read of the same story as carried by another approved outlet — verify against the original before relying on it.">
+          <span className="evdetail__corrob-tag">Alternate outlet</span>
+          <span className="evdetail__corrob-text">
+            Original page blocked the read — read in full from {enr.read_from.source_name || enr.read_from.domain || 'another approved outlet'}
+            {enr.read_from.source_name && enr.read_from.domain ? ` (${enr.read_from.domain})` : ''}, which carries the same story.
+          </span>
+        </div>
+      )}
+      {!sec && enr.corroborated && !enr.read_from && (
         <div className="evdetail__corrob" title="The original publisher blocked our reader, so this brief is pieced together from other outlets reporting the same event — verify against the source before relying on it.">
           <span className="evdetail__corrob-tag">Corroborated</span>
           <span className="evdetail__corrob-text">

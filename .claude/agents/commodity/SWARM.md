@@ -1,7 +1,7 @@
 ---
 id: commodity
 label: Commodities
-color: "#caa43a"
+color: "#8b5cf6" # violet — must stay distinct from research amber (#c0851d) and screener teal (#1499ab); the whole cockpit accent family derives from this (ui tokens.css)
 unit: commodity
 order: 3
 layout: constellation

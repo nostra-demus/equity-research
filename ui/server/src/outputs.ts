@@ -116,7 +116,11 @@ export function listRunsForTicker(ticker: string) {
   })
 }
 
-export function runManifest(runRoot: string, resolve: (p: string) => string = resolveInsideAnalyses) {
+// `terminalModule` (a constellation swarm's DAG sink, from roster.terminalModuleName) marks which
+// module's synthesis is the run's FINAL deliverable when the run root has no final_thesis.md.
+// Research callers omit it: their booleans/paths are unchanged, and the additive `finalReport`
+// key simply mirrors final_thesis.md ({path, module: null}) or is null.
+export function runManifest(runRoot: string, resolve: (p: string) => string = resolveInsideAnalyses, terminalModule?: string | null) {
   const abs = resolve(runRoot)
   const modules: Record<string, { agentKey: string; name: string; verdict: string | null }[]> = {}
   // per-module three tiers (run-root-relative paths), mirroring the run-level memo/thesis/dossier.
@@ -151,10 +155,19 @@ export function runManifest(runRoot: string, resolve: (p: string) => string = re
     }
   }
   const has = (f: string) => fs.existsSync(path.join(abs, f))
+  // The run's final deliverable, generically: research ends on final_thesis.md at the run root; a
+  // constellation swarm ends on its terminal module's synthesis (the dossier). Null until written.
+  const terminalSynthesis = terminalModule ? moduleReports[terminalModule]?.synthesis : undefined
+  const finalReport = has('final_thesis.md')
+    ? { path: `${runRoot}/final_thesis.md`, module: null as string | null }
+    : terminalSynthesis
+      ? { path: terminalSynthesis, module: terminalModule as string }
+      : null
   return {
     runRoot,
     modules,
     moduleReports,
+    finalReport,
     memo: has('memo.md'),
     finalThesis: has('final_thesis.md'),
     fullDossier: has('audit_dossier.md'),

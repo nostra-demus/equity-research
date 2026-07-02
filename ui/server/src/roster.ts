@@ -189,6 +189,17 @@ export function buildSwarmGraph(swarmId: string = RESEARCH_SWARM_ID, force = fal
   return graph
 }
 
+// The terminal module of a swarm's DAG — the sink no other module depends on (topo-last tiebreak).
+// A constellation swarm's final deliverable is this module's 99 synthesis (e.g. the commodity
+// dossier); research's is the master synthesizer's final_thesis.md, which is not a module, so
+// research callers never ask. Derived from the discovered graph — no module name hardcoded (§26).
+export function terminalModuleName(swarmId: string): string | null {
+  const g = buildSwarmGraph(swarmId)
+  const depended = new Set(g.modules.flatMap((m) => m.dependsOn))
+  const sinks = g.modules.filter((m) => !depended.has(m.name))
+  return sinks.length ? sinks[sinks.length - 1].name : null
+}
+
 export function findLatestRunRoot(ticker: string): string | null {
   if (!fs.existsSync(ANALYSES_DIR)) return null
   const dirs = fg

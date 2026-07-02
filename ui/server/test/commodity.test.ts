@@ -8,9 +8,11 @@ import path from 'node:path'
 import { REPO_ROOT } from '../src/config'
 import { createRun, finishRun, setActiveSubjectRun, type RunState } from '../src/registry'
 import { handleFile } from '../src/fs-watcher'
-import { estimate } from '../src/launcher'
-import { agentNameIndexAllSwarms, buildSwarmGraph, downstreamCascade, graphForSubject, swarmSubjects } from '../src/roster'
+import { estimate, truncatedBeforeFinal } from '../src/launcher'
+import { agentNameIndexAllSwarms, buildSwarmGraph, downstreamCascade, graphForSubject, swarmSubjects, terminalModuleName } from '../src/roster'
 import { listSwarms, swarmById } from '../src/swarms'
+import { readMarkdown, runManifest } from '../src/outputs'
+import { resolveInsideRuns } from '../src/sandbox'
 import { assembleContext, scopeAvailability } from '../src/chat-context'
 import type { SseEvent } from '../src/types'
 
@@ -131,6 +133,45 @@ check('chat scopes + run-scope context assemble over the GOLD commodity dossier'
   assert.ok(/Action:\s*Hold/.test(ctx.context), 'action verdict missing from run context')
   assert.ok(/decision_record\.json/.test(ctx.context), 'decision record not folded into run context')
   assert.ok(/crowded/i.test(ctx.context), 'positioning reasoning (why not add) missing from context')
+})
+
+// ---- the run's FINAL deliverable resolves generically for a swarm (the "No final thesis yet" fix) ----
+check('terminalModuleName: commodity resolves to its DAG sink, commodity-thesis', () => {
+  assert.equal(terminalModuleName('commodity'), 'commodity-thesis')
+})
+
+check('runManifest(GOLD) surfaces the dossier as finalReport (no final_thesis.md needed)', () => {
+  const m = runManifest('commodity/runs/GOLD', resolveInsideRuns, terminalModuleName('commodity'))
+  assert.equal(m.finalThesis, false) // research-only file — a swarm run never writes it
+  assert.equal(m.decisionRecord, true)
+  assert.deepEqual(m.finalReport, {
+    path: 'commodity/runs/GOLD/commodity-thesis/99_commodity-thesis-synthesis.md',
+    module: 'commodity-thesis',
+  })
+  // without the terminal module (research callers), the swarm run has NO final report — unchanged shape
+  assert.equal(runManifest('commodity/runs/GOLD', resolveInsideRuns).finalReport, null)
+})
+
+check('the finalReport path reads back through the runs sandbox (what /api/output/thesis serves)', () => {
+  const m = runManifest('commodity/runs/GOLD', resolveInsideRuns, terminalModuleName('commodity'))
+  const doc = readMarkdown(m.finalReport!.path, resolveInsideRuns)
+  assert.ok(/Commodity Dossier/.test(doc.markdown), 'dossier heading missing')
+  assert.ok(/Action:\s*Hold/.test(doc.markdown), 'Action verdict missing from the dossier')
+})
+
+check('truncatedBeforeFinal: a commodity full run is judged on decision_record.json, module runs never', () => {
+  const base = { swarmId: 'commodity', runRoot: 'commodity/runs/GOLD' }
+  assert.equal(truncatedBeforeFinal({ ...base, kind: 'full' } as RunState), false) // record on disk
+  assert.equal(truncatedBeforeFinal({ ...base, kind: 'module' } as RunState), false) // solo pieces are never judged
+  const empty = path.join(REPO_ROOT, 'commodity/runs/ZZTRUNC')
+  fs.mkdirSync(empty, { recursive: true })
+  try {
+    assert.equal(truncatedBeforeFinal({ kind: 'full', swarmId: 'commodity', runRoot: 'commodity/runs/ZZTRUNC' } as RunState), true)
+  } finally {
+    fs.rmSync(empty, { recursive: true, force: true })
+  }
+  // research keeps its stricter two-file rule (final_thesis.md + decision_record.json)
+  assert.equal(truncatedBeforeFinal({ kind: 'full', swarmId: 'research', runRoot: 'analyses/ZZ_NO_SUCH_RUN_2099-01-01' } as RunState), true)
 })
 
 // ---- fs-watcher emits the Action routing verdict as a terminal module-routed event ----

@@ -393,12 +393,14 @@ export const api = {
     }
     return get(`/api/prompt?path=${encodeURIComponent(path)}`)
   },
-  thesis: async (ticker: string): Promise<{ path: string; markdown?: string }> => {
+  thesis: async (ticker: string, swarm?: string): Promise<{ path: string; markdown?: string }> => {
     if ((await ensureMode()) === 'static') {
       const p = snap.finalThesis?.[ticker]
       if (!p) throw new Error('no thesis')
       return { path: p }
     }
+    // a constellation swarm resolves its subject's terminal deliverable (the dossier) by swarm+subject
+    if (swarm && swarm !== 'research') return get(`/api/output/thesis?swarm=${encodeURIComponent(swarm)}&subject=${encodeURIComponent(ticker)}`)
     return get(`/api/output/thesis?ticker=${encodeURIComponent(ticker)}`)
   },
   decision: async (ticker: string, swarm?: string): Promise<any> => {

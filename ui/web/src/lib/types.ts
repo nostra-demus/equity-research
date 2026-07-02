@@ -57,7 +57,9 @@ export interface SwarmGraph {
 }
 
 // ---- swarms (the cockpit can host multiple — research is the grandfathered default) ----
-export interface SwarmMeta { id: string; label: string; color: string; unit: string; order: number; layout: string }
+// verdictField: the swarm's self-declared routing verdict key (SWARM.md) for reading its decision
+// record generically; absent for research (whose records use `decision`) and on older engines.
+export interface SwarmMeta { id: string; label: string; color: string; unit: string; order: number; layout: string; verdictField?: string }
 
 // ---- screener board (the canonical pipeline state the Pipeline panel renders) ----
 export interface BoardInboxRow {
@@ -237,6 +239,10 @@ export interface EventEnrichment {
   // set when the publisher blocked the direct read and the story was pieced together from OTHER outlets
   // reporting the same event (secondary-wire corroboration, NOT a direct read — labelled honestly).
   corroborated?: { count: number; domains: string[] }
+  // provenance when the story was NOT read from the original page: the filing document itself (the
+  // exchange PDF the event announces — a better source than the page), or another approved outlet
+  // carrying the same story (used when the original blocked the read). Labelled honestly in the reader.
+  read_from?: { kind: 'filing_doc' | 'alternate'; url?: string; domain?: string; source_name?: string }
 }
 
 // ---- screener card feedback (ui/server/src/screener-feedback.ts is the source of truth) ----

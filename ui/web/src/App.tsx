@@ -143,13 +143,17 @@ export function App() {
   // rail+gauntlet stage); research and any 'constellation' swarm (e.g. commodity) share the constellation
   // stage. Fall back to the screener/research split before the swarm list resolves (first-frame safe).
   const activeLayout = swarms.find((s) => s.id === activeSwarm)?.layout ?? (activeSwarm === 'screener' ? 'flow' : 'constellation')
+  // The active swarm's manifest color (SWARM.md), injected as --swarm-color so tokens.css can derive
+  // the whole accent family for swarms without a hand-tuned palette (research amber / screener teal
+  // keep theirs). Absent before the swarm list resolves → tokens fall back to the research amber.
+  const activeColor = swarms.find((s) => s.id === activeSwarm)?.color
 
   useEffect(() => {
     init().catch((e) => console.error('init failed', e))
   }, [init])
 
   return (
-    <div className={`app${warp ? ` app--warp-${warp.phase}` : ''}`} data-swarm={activeSwarm}>
+    <div className={`app${warp ? ` app--warp-${warp.phase}` : ''}`} data-swarm={activeSwarm} style={activeColor ? ({ ['--swarm-color' as any]: activeColor }) : undefined}>
       <div className="app__bg" />
       <CommandBar />
       <OfflineBanner />

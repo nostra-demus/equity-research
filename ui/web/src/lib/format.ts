@@ -27,6 +27,18 @@ export function decisionColor(decision?: string | null): string {
   return 'var(--text-faint)'
 }
 
+// The verdict of a decision record, across swarms: research records carry `decision`; a non-research
+// swarm self-declares its routing verdict key in SWARM.md (commodity: `Action` → record key `action`),
+// served per swarm as SwarmMeta.verdictField. Fail-closed: without a verdictField (research, or an
+// older engine during a deploy-skew window) only the research shape resolves.
+export function resolveVerdict(decision: any, verdictField?: string | null): string | null {
+  if (!decision) return null
+  if (typeof decision.decision === 'string' && decision.decision) return decision.decision
+  if (!verdictField) return null
+  const v = decision[verdictField] ?? decision[verdictField.toLowerCase()]
+  return typeof v === 'string' && v ? v : null
+}
+
 export function moduleLabel(name: string): string {
   return name.replace(/-/g, ' ')
 }

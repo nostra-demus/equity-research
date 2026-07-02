@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useStore } from '../../lib/store'
+import { resolveVerdict } from '../../lib/format'
 import './CoreOrb.css'
 
 interface Props {
@@ -19,10 +20,15 @@ type Tier = { tier: 'thesis' | 'memo' | 'dossier'; label: string; sub: string }
 export function CoreOrb({ x, y, r, decision, bloom, armed, onClick, onHover }: Props) {
   const reports = useStore((s) => s.reports)
   const openReport = useStore((s) => s.openReport)
+  // research's core is the Memo (master synthesizer); a constellation swarm's core is its terminal
+  // module's Dossier — verdict read via the swarm's self-declared field (e.g. commodity `action`)
+  const isResearch = useStore((s) => s.constellationSwarm === 'research')
+  const verdictField = useStore((s) => s.swarms.find((w) => w.id === s.constellationSwarm)?.verdictField)
   const ref = useRef<HTMLDivElement>(null)
   const [anchor, setAnchor] = useState<{ cx: number; top: number } | null>(null)
   const size = r * 2
-  const hasMemo = !!decision?.decision
+  const label = isResearch ? 'Memo' : 'Dossier'
+  const hasMemo = !!resolveVerdict(decision, verdictField)
 
   // a completed run writes up to three documents — show every one that exists, each opening in the
   // reader (which has read + Download for PDF/Word/HTML/Markdown). Order = most-distilled first.
@@ -50,10 +56,10 @@ export function CoreOrb({ x, y, r, decision, bloom, armed, onClick, onHover }: P
       onClick={onCoreClick}
       onMouseEnter={() => onHover?.(true)}
       onMouseLeave={() => onHover?.(false)}
-      title={hasReports ? 'Open this run’s documents — Memo, Thesis, Full Dossier' : hasMemo ? 'Open the Memo' : 'The Memo — run the full pipeline to build it'}
+      title={hasReports ? 'Open this run’s documents — Memo, Thesis, Full Dossier' : hasMemo ? `Open the ${label}` : `The ${label} — run the full pipeline to build it`}
     >
       <div className="core__ring" />
-      <div className="core__decision" style={{ color: 'var(--text)' }}>Memo</div>
+      <div className="core__decision" style={{ color: 'var(--text)' }}>{label}</div>
 
       {anchor && hasReports && createPortal(
         <>

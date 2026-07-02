@@ -148,6 +148,18 @@ export function finalDeliverablesPresent(runRoot: string | null): boolean {
   return fs.existsSync(path.join(root, 'final_thesis.md')) && fs.existsSync(path.join(root, 'decision_record.json'))
 }
 
+// Did a full/rerun exit cleanly WITHOUT its terminal deliverable? Research ends on final_thesis.md +
+// decision_record.json; a constellation swarm (e.g. commodity) ends on decision_record.json alone —
+// the same key the resume detector uses (resumable.ts). The screener (flow layout) has its own
+// terminal-routing semantics and is never judged here.
+export function truncatedBeforeFinal(run: RunState): boolean {
+  if (run.kind !== 'full' && run.kind !== 'rerun') return false
+  if (run.swarmId === 'research') return !finalDeliverablesPresent(run.runRoot)
+  if (!run.runRoot || swarmById(run.swarmId)?.layout !== 'constellation') return false
+  const root = path.isAbsolute(run.runRoot) ? run.runRoot : path.join(REPO_ROOT, run.runRoot)
+  return !fs.existsSync(path.join(root, 'decision_record.json'))
+}
+
 // A full company run (monolithic `full`, or any step of a chained full) is the unit the resume
 // supervisor relaunches. We mark its run folder on disk when it breaks, so the supervisor — which has
 // NO in-memory state after a restart — can find and continue it. Solo `module`/`agent` runs are
@@ -193,12 +205,15 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
     }
     emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason, message: stderr.slice(-400) || undefined, ts: Date.now() })
     finishRun(run, 'error')
-  } else if (run.swarmId === 'research' && (run.kind === 'full' || run.kind === 'rerun') && !finalDeliverablesPresent(run.runRoot)) {
-    // The process exited cleanly, but a full/rerun that didn't write its final thesis + decision
-    // record was almost certainly budget/turn-truncated before the master synthesizer finished.
-    // Report it honestly as INCOMPLETE (not a misleading "done") so the cockpit + activity log show
-    // the truth and the user can finish it / raise the cap.
-    const msg = 'Run ended without the final thesis & memo — likely budget- or turn-truncated before the master synthesizer finished. Re-run from the master (or any late orb) to finish; the cap is now higher.'
+  } else if (truncatedBeforeFinal(run)) {
+    // The process exited cleanly, but a full/rerun that didn't write its terminal deliverable
+    // (research: final thesis + decision record; constellation swarm: decision record) was almost
+    // certainly budget/turn-truncated before the last synthesis finished. Report it honestly as
+    // INCOMPLETE (not a misleading "done") so the cockpit + activity log show the truth and the
+    // user can finish it / raise the cap.
+    const msg = run.swarmId === 'research'
+      ? 'Run ended without the final thesis & memo — likely budget- or turn-truncated before the master synthesizer finished. Re-run from the master (or any late orb) to finish; the cap is now higher.'
+      : 'Run ended without the final dossier & decision record — likely budget- or turn-truncated before the terminal synthesis finished. Re-run the terminal module to finish.'
     run.note = 'incomplete: no final thesis/decision (likely budget/turn truncation)'
     // A clean budget/turn truncation is a DELIBERATE cap, not an interruption — auto-resuming would just
     // re-hit the same cap and loop. Clear any interrupted-marker so the supervisor leaves it for the human.

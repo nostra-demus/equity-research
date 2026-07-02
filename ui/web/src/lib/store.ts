@@ -2,6 +2,7 @@ import { create } from 'zustand'
 import { api, ensureMode, isStatic } from './api'
 import type { ArchiveQuery, FeedFacets, SearchCursor } from './api'
 import { downstreamCascade, type CascadeNode } from './cascade'
+import { resolveVerdict } from './format'
 import { displayHeadline, originalHeadline, plainRoute, plainStage } from './plain'
 import type { Theme, ThemeDetail, ThemeBrief } from './themes'
 import { intensityWindowForHours } from './themes'
@@ -142,7 +143,7 @@ const AUTO_RESUME_COOLDOWN_MS = 30_000 // min gap between re-attempts of the SAM
 const AUTO_RESUME_BATCH = 4 // most to kick off per cycle (the server's own cap gates the rest)
 
 export interface StreamRow { runId: string; ticker: string; key: string; name: string; module: string; layer: number; status: NodeStatus; verdict?: string | null; ts: number }
-export interface ActiveRun { runId: string; ticker: string; kind: string; module?: string; agent?: string; status: string; costUsd?: number; willCommitToMain?: boolean; plannedCount?: number; startedAt?: number }
+export interface ActiveRun { runId: string; ticker: string; kind: string; module?: string; agent?: string; status: string; swarmId?: string; costUsd?: number; willCommitToMain?: boolean; plannedCount?: number; startedAt?: number }
 // A toast may carry ONE inline action (e.g. "Run anyway" on a run-lock conflict) so a dead-end rejection
 // becomes a one-click recovery. A toast with an action stays up longer (the user has to read + click it).
 export interface Toast { msg: string; tone: 'info' | 'good' | 'bad'; action?: { label: string; onClick: () => void } }
@@ -1068,11 +1069,18 @@ export const useStore = create<State>((set, get) => ({
   openThesis: async () => {
     const t = get().selectedTicker
     if (!t) return
+    const sw = get().constellationSwarm
+    const isResearch = sw === 'research'
     try {
-      const res = await api.thesis(t)
-      set({ openOutput: { path: res.path, title: `Investment Thesis — ${t}`, verdict: get().decision?.decision ?? null, nodeKey: 'master/synthesizer' } })
+      const res = await api.thesis(t, isResearch ? undefined : sw)
+      const vf = get().swarms.find((w) => w.id === sw)?.verdictField
+      // a swarm's final deliverable is its terminal module's synthesis (the dossier) — derive the
+      // reader's prompt/re-run target from the returned path; research keeps the master node.
+      const runRoot = get().runRoot
+      const rel = !isResearch && runRoot && res.path.startsWith(`${runRoot}/`) ? res.path.slice(runRoot.length + 1).replace(/\.md$/, '') : null
+      set({ openOutput: { path: res.path, title: isResearch ? `Investment Thesis — ${t}` : `Dossier — ${t}`, verdict: resolveVerdict(get().decision, vf), nodeKey: isResearch ? 'master/synthesizer' : rel ?? undefined } })
     } catch {
-      get().setToast({ msg: 'No final thesis yet', tone: 'info' })
+      get().setToast({ msg: isResearch ? 'No final thesis yet' : 'No final dossier yet', tone: 'info' })
     }
   },
 
@@ -1380,8 +1388,11 @@ export const useStore = create<State>((set, get) => ({
           // a chained full run finishes once PER STEP; only the master step (the last) is "complete".
           const chained = get().chainTickers.has(r.ticker)
           const isFinal = !chained || r.module === 'master'
+          // resolve the finished run's OWN swarm (positive match only — an absent swarmId means an
+          // older engine, which only ever runs research; never default a swarm in permissively)
+          const rSw = r.swarmId && r.swarmId !== 'research' ? r.swarmId : undefined
           // keep reports/decision current as each step lands (memo/thesis stay false until the master)
-          api.runManifest(selected).then((m) => {
+          api.runManifest(selected, undefined, rSw).then((m) => {
             if (m.finalThesis) set({ nodeRuntime: { ...get().nodeRuntime, ['master/synthesizer']: { status: 'done', outputPath: `${m.runRoot}/final_thesis.md` } } })
             set({ runRoot: m.runRoot ?? get().runRoot, reports: { memo: !!m.memo, thesis: !!m.finalThesis, dossier: !!m.fullDossier }, moduleReports: m.moduleReports ?? get().moduleReports })
           }).catch(() => {})
@@ -1389,7 +1400,7 @@ export const useStore = create<State>((set, get) => ({
             patch.coreBloom = true
             if (bloomTimer) clearTimeout(bloomTimer)
             bloomTimer = setTimeout(() => set({ coreBloom: false }), 4500)
-            api.decision(selected).then((d) => set({ decision: d })).catch(() => {})
+            api.decision(selected, rSw).then((d) => set({ decision: d })).catch(() => {})
             if (chained) set({ chainTickers: new Set([...get().chainTickers].filter((x) => x !== r.ticker)) })
             get().setToast({ msg: 'Run complete', tone: 'good' })
           } else {
@@ -1422,8 +1433,9 @@ export const useStore = create<State>((set, get) => ({
           if (e.status === 'incomplete') {
             // honest signal: the process exited but the final memos weren't produced (budget/turn cut-off)
             get().setToast({ msg: e.message || 'Run finished but the final thesis & memo were not produced — re-run from the master to finish.', tone: 'bad' })
-            // surface whatever DID get written so the cockpit isn't blank
-            if (r && r.ticker === selected) api.runManifest(selected).then((m) => set({ runRoot: m.runRoot ?? get().runRoot, reports: { memo: !!m.memo, thesis: !!m.finalThesis, dossier: !!m.fullDossier }, moduleReports: m.moduleReports ?? get().moduleReports })).catch(() => {})
+            // surface whatever DID get written so the cockpit isn't blank (in the run's OWN swarm)
+            const rSw = r?.swarmId && r.swarmId !== 'research' ? r.swarmId : undefined
+            if (r && r.ticker === selected) api.runManifest(selected, undefined, rSw).then((m) => set({ runRoot: m.runRoot ?? get().runRoot, reports: { memo: !!m.memo, thesis: !!m.finalThesis, dossier: !!m.fullDossier }, moduleReports: m.moduleReports ?? get().moduleReports })).catch(() => {})
           } else {
             get().setToast({ msg: e.reason === 'out_of_credits' ? 'Out of credits — run could not execute' : `Run ${e.status}: ${e.reason}`, tone: 'bad' })
             if (e.reason === 'out_of_credits') patch.credit = { ok: false, reason: 'out_of_credits', checked: true }
@@ -2396,7 +2408,9 @@ function beginRun(set: any, get: () => State, runId: string, info: { kind: strin
   const plannedCount = plannedKeys.length + (info.kind === 'full' ? 1 : 0)
   // drop finished runs for this ticker, add the new live one (other tickers' / other runs' state kept)
   const activeRuns = Object.fromEntries(Object.entries(get().activeRuns).filter(([, r]) => r.ticker !== ticker || LIVE_RUN.has(r.status)))
-  activeRuns[runId] = { runId, ticker, ...info, status: 'running', plannedCount, startedAt: Date.now() }
+  // the run belongs to the selection's swarm (constellationSwarm at launch), so the run-done refresh
+  // can resolve the manifest/decision against the run's OWN run root (e.g. commodity/runs/<subject>)
+  activeRuns[runId] = { runId, ticker, swarmId: get().constellationSwarm, ...info, status: 'running', plannedCount, startedAt: Date.now() }
   // close the output panel so the user is dropped back to the swarm to watch the run live; keep
   // other concurrent runs' stream rows, just clear any stale rows from this runId
   set({ activeRuns, nodeRuntime: rt, runStream: get().runStream.filter((r) => r.runId !== runId), coreBloom: false, selectedNodeKey: null, openOutput: null })
@@ -2434,7 +2448,7 @@ async function reconnectRun(set: any, get: () => State, runId: string, token: nu
       if (a.status !== 'queued') stream.unshift({ runId, ticker: snap.ticker, key: a.key, name: a.name, module: a.module, layer: a.layer, status: a.status, verdict: a.verdict ?? null, ts: Date.now() })
     }
     const plannedCount = (snap.expected?.length ?? snap.agents?.length ?? 0) + (snap.kind === 'full' ? 1 : 0)
-    const activeRuns = { ...get().activeRuns, [runId]: { runId, ticker: snap.ticker, kind: snap.kind, module: snap.module, agent: snap.agent, status: snap.status, costUsd: snap.costUsd, willCommitToMain: snap.willCommitToMain, plannedCount, startedAt: snap.startedAt } }
+    const activeRuns = { ...get().activeRuns, [runId]: { runId, ticker: snap.ticker, kind: snap.kind, module: snap.module, agent: snap.agent, status: snap.status, swarmId: snap.swarmId, costUsd: snap.costUsd, willCommitToMain: snap.willCommitToMain, plannedCount, startedAt: snap.startedAt } }
     set({ activeRuns, nodeRuntime: rt, runStream: stream })
     connectRun(get, runId)
   } catch {}

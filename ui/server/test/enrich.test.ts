@@ -373,6 +373,260 @@ await check('corroboration: omitting the corroborate dep leaves the legacy floor
   assert.ok(r.complete === true && r.summary && /headline/i.test(r.summary), 'the no-body floor is accepted as final, exactly as before')
 })
 
+// ---- the two reported incidents, end-to-end ----
+// Incident 1: an ASX filing event (TON default notice). The stored URL is the ASX viewer page, which
+// serves a terms-of-use interstitial — the old reader showed THAT text as THE STORY, with a stale meta
+// date as "Published". The fix reads the filing DOCUMENT itself (the PDF behind the viewer's
+// documentKey) and never fetches the interstitial page at all.
+// Incident 2: a paywalled/bot-walled article (KPMG via Bloomberg) whose story the wire ALSO carries
+// from another approved outlet (The Business Times) in the same dedup cluster. The fix reads the
+// alternate outlet's article in full and labels the provenance.
+
+function tmpRepoItems(items: any[]): { repoRoot: string; stateDir: string } {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'enrich-scen-'))
+  const inbox = path.join(root, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  fs.writeFileSync(path.join(inbox, `${TODAY}_firehose.ndjson`), items.map((i) => JSON.stringify({ kind: 'item', ts: NOW_ISO, triage_score: 95, ...i })).join('\n') + '\n')
+  return { repoRoot: root, stateDir: fs.mkdtempSync(path.join(os.tmpdir(), 'enrich-scen-state-')) }
+}
+
+/** A minimal PDF whose text is the given lines. Parens must not appear in lines. */
+function tinyPdf(lines: string[]): Buffer {
+  const content = `BT /F1 12 Tf ${lines.map((l) => `(${l}) Tj T*`).join(' ')} ET`
+  return Buffer.from(
+    `%PDF-1.4\n1 0 obj <</Type/Catalog/Pages 2 0 R>> endobj\n4 0 obj <</Length ${content.length}>>\nstream\n${content}\nendstream\nendobj\ntrailer\n<</Size 9/Root 1 0 R>>\n%%EOF\n`,
+    'latin1',
+  )
+}
+
+const ASX_EVENT_ID = 'EVT-test-ton-asx'
+const ASX_URL = 'https://www.asx.com.au/markets/trade-our-cash-market/announcements.TON?key=2924-03106938-6A1332187'
+const ASX_DOC_URL = 'https://cdn-api.markitdigital.com/apiman-gateway/ASX/asx-research/1.0/file/2924-03106938-6A1332187'
+const ANNOUNCEMENT_TEXT =
+  'Triton Minerals said completion of the sale of its Mozambique graphite assets did not occur on 1 July 2026 ' +
+  'because NQM failed to take the steps required of it, and Triton has issued a default notice requiring completion by Thursday 9 July 2026.'
+const INTERSTITIAL_HTML =
+  '<html><head><meta property="article:published_time" content="2025-08-22T09:30:00Z"></head><body>' +
+  '<p>An email containing a verification link has been sent to {{verificationEmail}}. All company announcements are also available to view via brokers and news agencies.</p>' +
+  '<p>The access to and use of information made available on the ASX website, including Market Announcements, is subject to the terms of use. Market data is provided and copyrighted by LSEG Data and Analytics and Morningstar. Click for restrictions.</p>' +
+  '<p>By clicking agree and proceed below, you acknowledge that you have read this notice and the Terms of Use and agree to be bound by them.</p>' +
+  '</body></html>'
+const TON_BRIEF: ArticleBrief = {
+  gist: ['NQM failed to complete the Mozambique graphite asset sale by 1 July 2026; Triton issued a default notice requiring completion by 9 July 2026.'],
+  companies: [{ name: 'Triton Minerals', ticker: 'TON', role: 'subject', listing_country: 'Australia', exchange: 'ASX' }],
+  beneficiaries: [], exposed: [], theme: 'deals_takeovers',
+}
+
+await check('INCIDENT 1 e2e: an ASX filing reads the PDF document itself — the interstitial can never become THE STORY', async () => {
+  const { repoRoot, stateDir } = tmpRepoItems([{
+    event_id: ASX_EVENT_ID,
+    headline: 'TON: Completion delay and issue of default notice [price-sensitive]',
+    url: ASX_URL, source_name: 'ASX (Australia Exchange Filing)', region: 'OTHER',
+    input_nature: 'exchange_announcement', companies: [{ name: 'Triton Minerals', ticker: 'TON' }], event_types: ['forecast_changed'],
+  }])
+  const calls: string[] = []
+  const llmBodies: string[] = []
+  const fetchFn = (async (input: any, init?: any) => {
+    const url = String(input?.url || input)
+    calls.push(url)
+    if (url.includes('/chat/completions')) {
+      llmBodies.push(String(init?.body || ''))
+      return new Response(JSON.stringify({ choices: [{ message: { content: JSON.stringify(TON_BRIEF) }, finish_reason: 'stop' }], usage: { total_tokens: 200 } }), { status: 200, headers: { 'content-type': 'application/json' } })
+    }
+    if (url.startsWith(ASX_DOC_URL)) return new Response(tinyPdf(['For personal use only', ANNOUNCEMENT_TEXT]), { status: 200, headers: { 'content-type': 'application/pdf' } })
+    // the viewer page — MUST never be fetched, but if it were, this is what it serves
+    return new Response(INTERSTITIAL_HTML, { status: 200, headers: { 'content-type': 'text/html' } })
+  }) as typeof fetch
+  const r = await enrichEvent({ event_id: ASX_EVENT_ID }, { repoRoot, stateDir, force: true, articleProviders: [PROVIDER], fetchFn })
+  assert.ok(r.gist && r.gist.length, 'the filing read produced a real gist')
+  assert.deepEqual(r.read_from, { kind: 'filing_doc', url: ASX_DOC_URL }, 'provenance says: read from the filing document')
+  assert.ok(!calls.some((u) => u.includes('asx.com.au/markets')), 'the interstitial viewer page is never fetched')
+  assert.equal(r.published, undefined, 'no stale meta date leaks in as Published')
+  assert.ok(llmBodies.length === 1 && llmBodies[0].includes('Mozambique graphite'), 'the LLM read the PDF text, not page chrome')
+  assert.ok(!/verification link|terms of use/i.test(JSON.stringify([r.summary, r.gist])), 'no interstitial text anywhere in the story')
+  assert.equal(r.complete, true, 'a documented read is complete')
+})
+
+await check('INCIDENT 1 floor: when the filing PDF is unreadable, the story falls to the honest floor — never the interstitial', async () => {
+  const { repoRoot, stateDir } = tmpRepoItems([{
+    event_id: ASX_EVENT_ID,
+    headline: 'TON: Completion delay and issue of default notice [price-sensitive]',
+    url: ASX_URL, source_name: 'ASX (Australia Exchange Filing)', region: 'OTHER',
+    input_nature: 'exchange_announcement', companies: [{ name: 'Triton Minerals', ticker: 'TON' }], event_types: ['forecast_changed'],
+  }])
+  const fetchFn = (async (input: any) => {
+    const url = String(input?.url || input)
+    if (url.startsWith(ASX_DOC_URL)) return new Response('x', { status: 503 })
+    return new Response(INTERSTITIAL_HTML, { status: 200, headers: { 'content-type': 'text/html' } })
+  }) as typeof fetch
+  const r = await enrichEvent({ event_id: ASX_EVENT_ID }, { repoRoot, stateDir, force: true, articleProviders: [PROVIDER], fetchFn })
+  assert.ok(r.summary && /completion delay|default notice/i.test(r.summary), `floor restates the disclosure, got: ${r.summary}`)
+  assert.ok(!/verification link|agree and proceed|terms of use/i.test(r.summary || ''), 'interstitial text never leaks into the floor')
+  assert.equal(r.published, undefined, 'no stale meta date')
+})
+
+await check('INCIDENT 1 non-filing page: a consent interstitial on ANY site yields the floor + an honest note, no junk, no stale date', async () => {
+  const { repoRoot, stateDir } = tmpRepoItems([{
+    event_id: 'EVT-test-interstitial',
+    headline: 'Acme Industries wins large multi-year supply contract',
+    url: 'https://www.fool.com/investing/2026/07/02/acme/', source_name: 'The Motley Fool', region: 'US',
+    input_nature: 'news_headline', companies: [{ name: 'Acme Industries' }], event_types: ['contracts_customers'],
+  }])
+  const fetchFn = (async (input: any) => {
+    const url = String(input?.url || input)
+    if (url.includes('/chat/completions')) throw new Error('LLM must not be called — there is no article body')
+    return new Response(INTERSTITIAL_HTML, { status: 200, headers: { 'content-type': 'text/html' } })
+  }) as typeof fetch
+  const r = await enrichEvent({ event_id: 'EVT-test-interstitial' }, { repoRoot, stateDir, force: true, articleProviders: [PROVIDER], fetchFn })
+  assert.ok(!/verification link|agree and proceed/i.test(r.summary || ''), `no interstitial text as the story, got: ${r.summary}`)
+  assert.match(r.note || '', /interstitial/, 'the note says what the page was')
+  assert.equal(r.published, undefined, 'the stale meta date from the interstitial is not extracted')
+})
+
+const KPMG_HEADLINE = 'KPMG Australia Chair, Partners to Exit in Overhaul Amid Scandal'
+const KPMG_BRIEF: ArticleBrief = {
+  gist: ['KPMG Australia will replace its chair and several partners in a governance overhaul following the audit scandal.'],
+  companies: [], beneficiaries: [], exposed: [], theme: 'lawsuits_penalties',
+}
+const BT_ARTICLE_HTML =
+  '<html><body>' +
+  '<p>KPMG Australia said its chair and a group of senior partners will leave the firm as part of a sweeping governance overhaul following the widening audit scandal.</p>' +
+  '<p>The professional services firm has faced mounting scrutiny from regulators and clients since the misconduct came to light, and said the leadership changes would take effect within weeks.</p>' +
+  '<p>People familiar with the matter said further departures are possible as the internal review continues across the audit and consulting practices.</p>' +
+  '</body></html>'
+
+await check('INCIDENT 2 e2e: a bot-walled original is read IN FULL from the alternate outlet carrying the same story', async () => {
+  const { repoRoot, stateDir } = tmpRepoItems([
+    {
+      event_id: 'EVT-test-kpmg-bbg', headline: KPMG_HEADLINE,
+      url: 'https://www.bloomberg.com/news/articles/2026-06-23/kpmg-australia', source_name: 'Bloomberg', region: 'GLOBAL',
+      input_nature: 'news_headline', companies: [{ name: 'KPMG Australia' }], event_types: ['lawsuits_penalties'], triage_score: 99,
+    },
+    {
+      event_id: 'EVT-test-kpmg-bt', headline: 'KPMG Australia Chair and Partners to Exit in Overhaul Amid KPMG Scandal',
+      url: 'https://www.businesstimes.com.sg/companies/kpmg-australia-exit', source_name: 'The Business Times (Singapore)', region: 'GLOBAL',
+      input_nature: 'news_headline', companies: [{ name: 'KPMG Australia' }], event_types: ['lawsuits_penalties'], triage_score: 90,
+    },
+  ])
+  const llmBodies: string[] = []
+  const fetchFn = (async (input: any, init?: any) => {
+    const url = String(input?.url || input)
+    if (url.includes('/chat/completions')) {
+      llmBodies.push(String(init?.body || ''))
+      return new Response(JSON.stringify({ choices: [{ message: { content: JSON.stringify(KPMG_BRIEF) }, finish_reason: 'stop' }], usage: { total_tokens: 200 } }), { status: 200, headers: { 'content-type': 'application/json' } })
+    }
+    if (url.includes('bloomberg.com')) return new Response('blocked', { status: 403 })
+    if (url.includes('businesstimes.com.sg')) return new Response(BT_ARTICLE_HTML, { status: 200, headers: { 'content-type': 'text/html' } })
+    throw new Error(`unexpected fetch: ${url}`)
+  }) as typeof fetch
+  const r = await enrichEvent({ event_id: 'EVT-test-kpmg-bbg' }, { repoRoot, stateDir, force: true, articleProviders: [PROVIDER], fetchFn })
+  assert.ok(r.gist && r.gist.length, 'the alternate read produced a real gist')
+  assert.equal(r.read_from?.kind, 'alternate', 'provenance says: read from an alternate outlet')
+  assert.equal(r.read_from?.domain, 'businesstimes.com.sg')
+  assert.match(r.note || '', /read from The Business Times/i, 'the note names the outlet')
+  assert.ok(!r.corroborated, 'a full alternate read is not headline corroboration')
+  assert.ok(llmBodies.length === 1 && llmBodies[0].includes('governance overhaul'), 'the LLM read the alternate article body')
+})
+
+await check('INCIDENT 2 guard: when the direct read succeeds, alternates are never touched', async () => {
+  const { repoRoot, stateDir } = tmpRepoItems([
+    {
+      event_id: 'EVT-test-kpmg-ok', headline: KPMG_HEADLINE,
+      url: 'https://www.bloomberg.com/news/articles/2026-06-23/kpmg-ok', source_name: 'Bloomberg', region: 'GLOBAL',
+      input_nature: 'news_headline', companies: [{ name: 'KPMG Australia' }], event_types: ['lawsuits_penalties'], triage_score: 99,
+    },
+    {
+      event_id: 'EVT-test-kpmg-bt2', headline: 'KPMG Australia Chair and Partners to Exit in Overhaul Amid KPMG Scandal',
+      url: 'https://www.businesstimes.com.sg/companies/kpmg-exit-2', source_name: 'The Business Times (Singapore)', region: 'GLOBAL',
+      input_nature: 'news_headline', companies: [{ name: 'KPMG Australia' }], event_types: ['lawsuits_penalties'], triage_score: 90,
+    },
+  ])
+  const calls: string[] = []
+  const fetchFn = (async (input: any) => {
+    const url = String(input?.url || input)
+    calls.push(url)
+    if (url.includes('/chat/completions')) {
+      return new Response(JSON.stringify({ choices: [{ message: { content: JSON.stringify(KPMG_BRIEF) }, finish_reason: 'stop' }], usage: { total_tokens: 200 } }), { status: 200, headers: { 'content-type': 'application/json' } })
+    }
+    return new Response(BT_ARTICLE_HTML, { status: 200, headers: { 'content-type': 'text/html' } })
+  }) as typeof fetch
+  const r = await enrichEvent({ event_id: 'EVT-test-kpmg-ok' }, { repoRoot, stateDir, force: true, articleProviders: [PROVIDER], fetchFn })
+  assert.ok(r.gist && r.gist.length, 'direct read produced the gist')
+  assert.equal(r.read_from, undefined, 'no alternate provenance on a direct read')
+  assert.ok(!calls.some((u) => u.includes('businesstimes')), 'the alternate outlet is never fetched')
+})
+
+// ---- review-confirmed regressions: corroboration gating around the new read paths ----
+
+await check('REVIEW FIX: a 403-blocked page WITH a readable snippet never triggers GDELT corroboration on a transient LLM miss (the snippet lede survives)', async () => {
+  resetGdeltBackoff()
+  const richSnippet =
+    'KPMG Australia said its chair and several senior partners will leave the firm as part of a governance overhaul ' +
+    'following the audit scandal, with the changes taking effect within weeks according to the statement.'
+  const { repoRoot, stateDir } = tmpRepoItems([{
+    event_id: 'EVT-test-snippet-403', headline: KPMG_HEADLINE, snippet: richSnippet,
+    url: 'https://www.bloomberg.com/news/articles/2026-06-23/kpmg-snip', source_name: 'Bloomberg', region: 'GLOBAL',
+    input_nature: 'news_headline', companies: [{ name: 'KPMG Australia' }], event_types: ['lawsuits_penalties'],
+  }])
+  let gdeltCalled = 0
+  const fetchFn = (async (input: any) => {
+    const url = String(input?.url || input)
+    if (url.includes('/chat/completions')) {
+      // transient miss: the provider answers but with an empty brief
+      return new Response(JSON.stringify({ choices: [{ message: { content: JSON.stringify(EMPTY_BRIEF) }, finish_reason: 'stop' }], usage: { total_tokens: 50 } }), { status: 200, headers: { 'content-type': 'application/json' } })
+    }
+    if (url.includes('gdeltproject')) { gdeltCalled++; return new Response(JSON.stringify({ articles: [] }), { status: 200, headers: { 'content-type': 'application/json' } }) }
+    return new Response('blocked', { status: 403 })
+  }) as typeof fetch
+  const r = await enrichEvent({ event_id: 'EVT-test-snippet-403' }, {
+    repoRoot, stateDir, force: true, articleProviders: [PROVIDER], fetchFn,
+    corroborate: { enabled: true, baseUrl: 'https://api.gdeltproject.org/api/v2/doc/doc' },
+  })
+  assert.equal(gdeltCalled, 0, 'GDELT is never probed while a readable snippet exists (retry beats headline synthesis)')
+  assert.ok(!r.corroborated, 'not marked corroborated')
+  assert.ok(r.summary && r.summary.includes('governance overhaul'), `the snippet lede survives as the story, got: ${r.summary}`)
+  assert.ok(!/other outlets? are reporting/i.test(r.summary || ''), 'the generic corroboration stub never displaces real text')
+})
+
+await check('REVIEW FIX: after a successful gist-less alternate read, corroboration is skipped — no headline synthesis under the "read in full" label', async () => {
+  resetGdeltBackoff()
+  const GISTLESS_BRIEF: ArticleBrief = {
+    gist: [], beneficiaries: [], exposed: [], theme: 'lawsuits_penalties',
+    companies: [{ name: 'KPMG Australia', ticker: null, role: 'subject', listing_country: 'Australia', exchange: null }],
+  }
+  const { repoRoot, stateDir } = tmpRepoItems([
+    {
+      event_id: 'EVT-test-kpmg-gistless', headline: KPMG_HEADLINE,
+      url: 'https://www.bloomberg.com/news/articles/2026-06-23/kpmg-gl', source_name: 'Bloomberg', region: 'GLOBAL',
+      input_nature: 'news_headline', companies: [{ name: 'KPMG Australia' }], event_types: ['lawsuits_penalties'], triage_score: 99,
+    },
+    {
+      event_id: 'EVT-test-kpmg-bt3', headline: 'KPMG Australia Chair and Partners to Exit in Overhaul Amid KPMG Scandal',
+      url: 'https://www.businesstimes.com.sg/companies/kpmg-exit-3', source_name: 'The Business Times (Singapore)', region: 'GLOBAL',
+      input_nature: 'news_headline', companies: [{ name: 'KPMG Australia' }], event_types: ['lawsuits_penalties'], triage_score: 90,
+    },
+  ])
+  let gdeltCalled = 0
+  const fetchFn = (async (input: any) => {
+    const url = String(input?.url || input)
+    if (url.includes('/chat/completions')) {
+      return new Response(JSON.stringify({ choices: [{ message: { content: JSON.stringify(GISTLESS_BRIEF) }, finish_reason: 'stop' }], usage: { total_tokens: 80 } }), { status: 200, headers: { 'content-type': 'application/json' } })
+    }
+    if (url.includes('gdeltproject')) { gdeltCalled++; return new Response(JSON.stringify({ articles: [] }), { status: 200, headers: { 'content-type': 'application/json' } }) }
+    if (url.includes('bloomberg.com')) return new Response('blocked', { status: 403 })
+    if (url.includes('businesstimes.com.sg')) return new Response(BT_ARTICLE_HTML, { status: 200, headers: { 'content-type': 'text/html' } })
+    throw new Error(`unexpected fetch: ${url}`)
+  }) as typeof fetch
+  const r = await enrichEvent({ event_id: 'EVT-test-kpmg-gistless' }, {
+    repoRoot, stateDir, force: true, articleProviders: [PROVIDER], fetchFn,
+    corroborate: { enabled: true, baseUrl: 'https://api.gdeltproject.org/api/v2/doc/doc' },
+  })
+  assert.equal(r.read_from?.kind, 'alternate', 'the gist-less alternate read is still a real read')
+  assert.equal(gdeltCalled, 0, 'corroboration never runs on top of a successful alternate read')
+  assert.ok(!r.corroborated, 'no corroboration metadata over an alternate read')
+  assert.match(r.note || '', /read from The Business Times/i, 'the alternate provenance note is not overwritten')
+})
+
 // ---- listCoveredTickers: the batch-review "portfolio companies" proxy ----
 await check('listCoveredTickers: real <TICKER>_<date> run folders are picked up, non-ticker aggregate folders (eval/performance/portfolio/tracking) are not', () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'covered-test-'))

@@ -25,9 +25,11 @@ import { cleanText } from './clean'
 import { storyFloor, isFilingEvent, type StoryFloorInput } from './story-floor'
 import { SEC_FORM_TOKENS, lookupSecForm, parseEdgarFilingHeadline, tidyFilerName } from './sec-forms'
 import { filterCompanies, isCompanyName } from './entities'
-import type { ArticleCompany, ArticleParty, NewsImpact } from './triage/groq'
+import type { ArticleBrief, ArticleCompany, ArticleParty, NewsImpact } from './triage/groq'
 import { type ArticleReadProvider, readArticleBrief } from './triage/article-read'
 import { fetchGdeltDoc } from './sources/gdelt'
+import { classifyParagraphs, type PageTextVerdict } from './page-junk'
+import { fetchFilingDocText, resolveFilingDocUrl } from './filing-doc'
 import type { CompanyGuess, RawArticle } from './types'
 
 const CACHE_FILE = 'news-enrich-cache.json'
@@ -137,6 +139,11 @@ export interface EventEnrichment {
   // pieced together from OTHER outlets reporting the same event (GDELT keyword search). The UI labels it
   // honestly: this is secondary-wire corroboration, NOT a direct read of the source (CLAUDE.md §3).
   corroborated?: { count: number; domains: string[] }
+  // PROVENANCE — set when the story was NOT read from the original page: 'filing_doc' = the disclosure
+  // document itself (the exchange PDF the event announces — a BETTER source than the page, §4 tier 1-2);
+  // 'alternate' = another approved outlet carrying the SAME story (dedup cluster), used when the original
+  // blocked the read. The UI labels it so a reader always knows what was actually read (§3/§5).
+  read_from?: { kind: 'filing_doc' | 'alternate'; url?: string; domain?: string; source_name?: string }
 }
 
 // ---- 8-K item-code dictionary (SEC §13/15(d) current-report items) — plain meanings ----
@@ -194,15 +201,12 @@ export function extractSummary(html: string): string | undefined {
   return lede ? lede.slice(0, 600) : meta?.slice(0, 600)
 }
 
-/** Pull the readable ARTICLE TEXT (not the page chrome) deterministically — the no-LLM guarantee that a
- *  FETCHED page always yields real prose, not just the headline floor (the reported "Couldn't reach the
- *  reader" the moment the free LLM budget is spent). Strips non-content regions (script/style/nav/header/
- *  footer/aside/figure/form), keeps the substantive <p> paragraphs in document order, drops cookie/
- *  subscribe/share boilerplate, de-dupes repeats. Tolerant regex (no DOM lib), capped. Empty when the page
- *  carries no real prose (a paywall stub, a JS shell). Feeds the LLM read AND the deterministic fallback.
- *  Exported for the test suite. */
-export function extractReadable(html: string): string {
-  if (!html) return ''
+/** The substantive <p> paragraphs of a page in document order — non-content regions stripped
+ *  (script/style/nav/header/footer/aside/figure/form), prose-gated, de-duped. This is the RAW paragraph
+ *  set, BEFORE the chrome/boilerplate filter, so classifyParagraphs can measure how much of the page is
+ *  chrome (the interstitial/paywall verdict needs the dropped share, not just what survives). */
+function collectParagraphs(html: string): string[] {
+  if (!html) return []
   const stripped = html
     // end tags matched the way browsers accept them — </script>, </script >, and even </script\t\n bar>
     // (whitespace + junk before >) — so a crafted page can't slip script/style text past the strip
@@ -216,13 +220,29 @@ export function extractReadable(html: string): string {
   for (const m of stripped.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)) {
     const p = clean(m[1].replace(/<[^>]+>/g, ' '))
     if (p.length < 60 || !/[a-z]/i.test(p) || !/[.!?]/.test(p)) continue // real prose, not a label/stub
-    if (/^(cookie|we use cookies|sign in|sign up|subscribe|advertis|read more|share this|all rights reserved|follow us|by using this)/i.test(p)) continue
     const k = p.slice(0, 80).toLowerCase()
     if (seen.has(k)) continue // some templates repeat the lede
     seen.add(k)
     paras.push(p)
   }
-  return paras.join('\n\n').slice(0, 4000)
+  return paras
+}
+
+/** Pull the readable ARTICLE TEXT (not the page chrome) deterministically, PLUS the page-quality
+ *  verdict. The text is what extractReadable always returned — the substantive paragraphs with the
+ *  consent/terms/cookie/paywall chrome dropped (news/page-junk.ts). The verdict says what the page IS
+ *  when the chrome dominates: an 'interstitial' (the ASX "agree and proceed" wall), a 'paywall' stub,
+ *  or 'empty' (a JS shell) — so a caller can refuse to treat what's left as an article at all instead
+ *  of ever presenting popup text as THE STORY. Exported for the test suite. */
+export function extractArticleText(html: string): { text: string; verdict: PageTextVerdict } {
+  const r = classifyParagraphs(collectParagraphs(html))
+  return { text: r.kept.join('\n\n').slice(0, 4000), verdict: r.verdict }
+}
+
+/** Back-compat shape: just the readable text (chrome-filtered). Feeds the LLM read AND the
+ *  deterministic fallback. Empty when the page carries no real prose. Exported for the test suite. */
+export function extractReadable(html: string): string {
+  return extractArticleText(html).text
 }
 
 export function extractPublished(html: string): string | undefined {
@@ -575,8 +595,9 @@ export function isSafeFetchUrl(u: string): boolean {
 }
 
 /** Fetch with our own bounded, re-validated redirect handling (no blind redirect:'follow' to an
- *  arbitrary host), an HTML/size guard, and the request timeout. Never throws. */
-async function fetchText(url: string, fetchFn: typeof fetch): Promise<{ ok: boolean; text?: string; note?: string }> {
+ *  arbitrary host), an HTML/size guard, and the request timeout (overridable so a budgeted caller —
+ *  the alternate-outlet read — can shrink it to what remains of its wall clock). Never throws. */
+async function fetchText(url: string, fetchFn: typeof fetch, timeoutMs: number = FETCH_TIMEOUT_MS): Promise<{ ok: boolean; text?: string; note?: string }> {
   let current = url
   for (let hop = 0; hop < 4; hop++) {
     if (!isSafeFetchUrl(current)) return { ok: false, note: 'source link is not an approved, public http(s) URL' }
@@ -587,7 +608,7 @@ async function fetchText(url: string, fetchFn: typeof fetch): Promise<{ ok: bool
         // read rate sharply on public pages (no paywall circumvention — a hard paywall still serves a
         // stub, which we degrade on). SEC.gov is the exception: it REQUIRES its descriptive contact UA.
         headers: secHost(current) ? SEC_HEADERS : BROWSER_HEADERS,
-        signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
+        signal: AbortSignal.timeout(timeoutMs),
         redirect: 'manual',
       })
     } catch (e: any) {
@@ -667,6 +688,63 @@ export function scrubParties(parties: ArticleParty[] | undefined): ArticleParty[
     if (NON_TRADABLE_PARTY_RE.test(p.name)) return false
     return isCompanyName(p.name)
   })
+}
+
+/** Copy a usable brief's fields onto the enrichment (denylist-scrubbed), one implementation for the
+ *  direct, filing-document, alternate-outlet, and corroboration read paths. Returns false — and writes
+ *  nothing — when the brief carries no real signal (the caller then keeps its fallback). */
+function applyBrief(result: EventEnrichment, brief: ArticleBrief | null): boolean {
+  if (!brief) return false
+  if (!(brief.gist.length || brief.companies.length || brief.beneficiaries.length || brief.exposed.length || brief.news_impact?.analyst_takeaway)) return false
+  if (brief.gist.length) result.gist = brief.gist
+  if (brief.market_angle) result.market_angle = brief.market_angle
+  const co = filterCompanies(brief.companies) // denylist safety-net on top of the prompt rule
+  if (co.length) result.companies = co
+  const ben = scrubParties(brief.beneficiaries)
+  if (ben.length) result.beneficiaries = ben
+  const exp = scrubParties(brief.exposed)
+  if (exp.length) result.exposed = exp
+  if (brief.whats_priced) result.whats_priced = brief.whats_priced
+  if (brief.the_edge) result.the_edge = brief.the_edge
+  if (brief.watch_item) result.watch_item = brief.watch_item
+  if (brief.theme) result.theme = brief.theme
+  // carried through whenever the model actually produced an impact verdict — a "neutral/low/no numbers"
+  // read for a routine notice IS the correct, decision-useful answer, not a gap to paper over. When the
+  // model OMITTED news_impact (older/partial schema), coerceArticleBrief leaves it absent, so this stays
+  // unset rather than caching a synthesized fake low-impact verdict.
+  if (brief.news_impact) result.news_impact = brief.news_impact
+  return true
+}
+
+/** Other approved outlets carrying the SAME story (the server-stamped dedup cluster), for the
+ *  alternate-outlet read when the original page blocks us. Distinct registrable hosts only, the blocked
+ *  publisher excluded, `social` chatter excluded (§4/§24 — never a story source), best triage score
+ *  first. Exported for the test suite. */
+export function findAlternateSources(
+  feedItems: { event_id: string; dedup_group?: string; url?: string; source_name?: string; source_tier?: string; snippet?: string; headline?: string; triage_score?: number }[],
+  selfId: string,
+  dedupGroup: string,
+  excludeHost: string,
+): { url: string; domain: string; source_name: string; snippet: string; headline: string }[] {
+  if (!dedupGroup) return []
+  const ex = (excludeHost || '').toLowerCase().replace(/^www\./, '')
+  const seenHosts = new Set<string>()
+  const out: { url: string; domain: string; source_name: string; snippet: string; headline: string }[] = []
+  const cands = (feedItems || [])
+    .filter((it) => it && it.dedup_group === dedupGroup && it.event_id !== selfId && it.url && (it.source_tier || '') !== 'social')
+    .sort((a, b) => (Number(b.triage_score) || 0) - (Number(a.triage_score) || 0))
+  for (const it of cands) {
+    const u = String(it.url || '')
+    if (!isSafeFetchUrl(u)) continue
+    let h = ''
+    try { h = new URL(u).hostname.toLowerCase() } catch { continue }
+    const hh = h.replace(/^www\./, '')
+    if (!hh || hh === ex || hh.endsWith('.' + ex) || ex.endsWith('.' + hh)) continue // not the blocked publisher itself
+    if (seenHosts.has(hh)) continue
+    seenHosts.add(hh)
+    out.push({ url: u, domain: hh, source_name: String(it.source_name || ''), snippet: String(it.snippet || ''), headline: String(it.headline || '') })
+  }
+  return out.slice(0, 4)
 }
 
 // ---- corroboration: when the publisher blocks the direct read, piece the event together from the wire ----
@@ -801,9 +879,13 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
   let inputNature = ''
   let sourceTier = ''
   let sourceName = ''
+  let dedupGroup = '' // the story-cluster id — other outlets carrying the SAME story (alternate-outlet read)
+  let feedItems: ReturnType<typeof readFeed>['items'] = []
   try {
-    const stored = readFeed(deps.repoRoot, 2, { now, maxItems: 2000 }).items.find((it) => it.event_id === input.event_id)
+    feedItems = readFeed(deps.repoRoot, 2, { now, maxItems: 2000 }).items
+    const stored = feedItems.find((it) => it.event_id === input.event_id)
     if (stored) {
+      dedupGroup = (stored as any).dedup_group || ''
       url = (stored.url || '').trim()
       companies = stored.companies || companies
       event_types = stored.event_types || event_types
@@ -842,11 +924,27 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
   const isEdgarSource = /(^|\.)sec\.gov$/.test(host) || /edgar/i.test(sourceName)
   const headlineSec = isEdgarSource ? secFromHeadline(headline) : undefined
 
+  // FILING DOCUMENT first: when the URL resolves to the real disclosure — the ASX viewer's documentKey
+  // (its HTML page is a terms interstitial, never an article) or a direct PDF (HKEX/NSE/BSE attach the
+  // disclosure as one) — read THAT. The document is the primary source (§4); the page around it is a
+  // viewer shell at best, and the old path either leaked the interstitial text or fell to the floor.
+  const docRef = resolveFilingDocUrl(url)
+  let docText = ''
+  let docNote = ''
+  if (docRef) {
+    const d = await fetchFilingDocText(docRef.docUrl, { fetchFn, timeoutMs: FETCH_TIMEOUT_MS })
+    if (d.ok && d.text) docText = d.text
+    else docNote = d.note || 'filing document unavailable'
+  }
+
   // Fetch the source page (best effort). A block (403 / paywall / JS-rendered shell) is NOT fatal:
   // most of the wire is RSS, and the feed's own lede (`snippet`) gives the body read a fetch-free input.
+  // When the URL resolved to a document there is no article PAGE to fetch at all — the ASX page is a
+  // consent interstitial and a .pdf link isn't HTML — so we skip the page fetch instead of "reading" it.
   let pageHtml = ''
   let fetchNote = ''
   if (!url) fetchNote = 'no source link to fetch'
+  else if (docRef) fetchNote = docText ? '' : docNote
   else if (!isSafeFetchUrl(url)) fetchNote = 'source is off the approved list — not fetched'
   else {
     const r = await fetchText(url, fetchFn)
@@ -878,12 +976,33 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
     // a bare "couldn't open the body". A filing has no article body to read, so we stop here.
     result.sec = headlineSec
   } else {
-    if (pageHtml) { const pub = extractPublished(pageHtml); if (pub) result.published = pub }
-    // the body for the read: the feed's lede + the fetched ARTICLE text. Prefer the readability extraction
-    // (just the article paragraphs — cleaner signal, fewer tokens than the whole page); fall back to the
-    // de-chromed full page when a template hides its prose outside <p> tags.
-    const pageBody = pageHtml ? (extractReadable(pageHtml) || cleanText(pageHtml.replace(/<script\b[\s\S]*?<\/script\b[^>]*>/gi, ' ').replace(/<style\b[\s\S]*?<\/style\b[^>]*>/gi, ' '))) : ''
-    const body = [snippet, pageBody].filter(Boolean).join('\n\n').trim()
+    // What IS this page? A consent/terms interstitial or a paywall stub must never be treated as prose —
+    // not as the LLM body, not as the fallback summary, not even as the "Published" date (the reported
+    // defect: the ASX terms dialog + a stale meta date shown as THE STORY). The <p>-level read carries a
+    // verdict; when a template hides its prose outside <p> tags we de-chrome the whole page and junk-test
+    // THAT text too, so a <div>-built consent wall can't sneak in through the fallback either.
+    const pageRead = pageHtml ? extractArticleText(pageHtml) : { text: '', verdict: 'empty' as PageTextVerdict }
+    let pageVerdict = pageRead.verdict
+    let pageBody = ''
+    if (pageHtml) {
+      if (pageRead.verdict === 'ok') pageBody = pageRead.text
+      else if (pageRead.verdict === 'empty') {
+        const full = cleanText(pageHtml.replace(/<script\b[\s\S]*?<\/script\b[^>]*>/gi, ' ').replace(/<style\b[\s\S]*?<\/style\b[^>]*>/gi, ' '))
+        const c = classifyParagraphs(full.split(/(?<=[.!?])\s+/).filter((seg) => seg.length >= 40))
+        if (c.verdict === 'ok') pageBody = c.kept.join(' ').slice(0, 4000)
+        else if (c.verdict !== 'empty') pageVerdict = c.verdict
+      }
+    }
+    const pageJunk = !!pageHtml && !pageBody && (pageVerdict === 'interstitial' || pageVerdict === 'paywall')
+    if (pageHtml && !pageJunk) { const pub = extractPublished(pageHtml); if (pub) result.published = pub }
+    if (pageJunk && !fetchNote) {
+      fetchNote = pageVerdict === 'paywall'
+        ? 'the page is behind a subscription wall — no article body'
+        : 'the page served a consent/terms interstitial — no article body'
+    }
+    // the body for the read: the feed's lede + the best real text we hold — the filing DOCUMENT's own
+    // words when the URL resolved to one (the primary source), else the fetched article text.
+    const body = [snippet, docText || pageBody].filter(Boolean).join('\n\n').trim()
     // The article-body read — through the multi-provider fallback chain (Groq → OpenAI-compatible overflow
     // → Gemini), each sharing the ingester's daily budget + per-minute limiter, with a HARD wall-clock
     // budget so an opened event can NEVER hang the reader: if a provider's minute window is busy we skip it
@@ -907,8 +1026,13 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
     // give the reader the English headline as its hint when we have one (the body is in the source
     // language; the brief comes back in English either way) — a clearer anchor, no behaviour change for English
     const readHeadline = headlineEn || headline
-    let brief = null
-    if (body && !bodylessFiling && providers.length) {
+    // what the no-LLM fallback may lead with: the filing document's own opening beats the RSS lede beats
+    // the floor — all real text, never chrome (a junk page contributes NOTHING to the fallback).
+    const fallbackLede = docText ? docText.replace(/\s+/g, ' ').trim().slice(0, 600) : snippet
+    const fallbackHtml = pageJunk ? '' : pageHtml
+    const bodylessNoDoc = bodylessFiling && !docText // a filing is truly bodyless only when its document didn't read
+    let brief: ArticleBrief | null = null
+    if (body && !bodylessNoDoc && providers.length) {
       const r = await readArticleBrief(body, readHeadline, providers, {
         stateDir: deps.stateDir,
         fetchFn,
@@ -923,41 +1047,65 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
       // MAX_READ_ATTEMPTS freeze a readable article on the dek under the exact saturation that caused the bug.
       attempted = r.attempted
     }
-    if (brief && (brief.gist.length || brief.companies.length || brief.beneficiaries.length || brief.exposed.length || brief.news_impact?.analyst_takeaway)) {
-      if (brief.gist.length) result.gist = brief.gist
-      if (brief.market_angle) result.market_angle = brief.market_angle
-      const co = filterCompanies(brief.companies) // denylist safety-net on top of the prompt rule
-      if (co.length) result.companies = co
-      const ben = scrubParties(brief.beneficiaries)
-      if (ben.length) result.beneficiaries = ben
-      const exp = scrubParties(brief.exposed)
-      if (exp.length) result.exposed = exp
-      if (brief.whats_priced) result.whats_priced = brief.whats_priced
-      if (brief.the_edge) result.the_edge = brief.the_edge
-      if (brief.watch_item) result.watch_item = brief.watch_item
-      if (brief.theme) result.theme = brief.theme
-      // carried through whenever the model actually produced an impact verdict — a "neutral/low/no numbers"
-      // read for a routine notice IS the correct, decision-useful answer, not a gap to paper over. When the
-      // model OMITTED news_impact (older/partial schema), coerceArticleBrief leaves it absent, so this stays
-      // unset rather than caching a synthesized fake low-impact verdict.
-      if (brief.news_impact) result.news_impact = brief.news_impact
+    if (applyBrief(result, brief)) {
+      // the brief was read from the filing document itself — label the provenance so the reader knows
+      // the story is the announcement's own words, not the (interstitial) page around it (§3/§5)
+      if (docText && docRef) result.read_from = { kind: 'filing_doc', url: docRef.docUrl }
       // read succeeded but produced no gist bullets → back it with the most substantial text we hold, never blank
-      if (!brief.gist.length) result.summary = bestFallbackSummary(pageHtml, snippet, filingInput, bodylessFiling)
+      if (!brief!.gist.length) result.summary = bestFallbackSummary(fallbackHtml, fallbackLede, filingInput, bodylessNoDoc)
     } else {
       // NO readable body (a PDF/attachment filing, a JS shell, a paywall, an off-list link) OR the LLM read
       // momentarily missed. Guarantee a meaningful, accurate THE STORY rather than a raw fetch error — and
-      // prefer the MOST substantial real text we hold (the RSS lede over the vague og:description dek), then
-      // the deterministic floor (never empty, never fabricated). The raw fetch reason is demoted to a hint.
-      result.summary = bestFallbackSummary(pageHtml, snippet, filingInput, bodylessFiling)
+      // prefer the MOST substantial real text we hold (the filing document's opening, else the RSS lede over
+      // the vague og:description dek), then the deterministic floor (never empty, never fabricated). The raw
+      // fetch reason is demoted to a hint.
+      result.summary = bestFallbackSummary(fallbackHtml, fallbackLede, filingInput, bodylessNoDoc)
       if (fetchNote) result.note = fetchNote
     }
 
-    // CORROBORATION — the publisher blocked the direct read (no fetched body, no usable RSS lede) and this
-    // is a real article (not a bodyless filing) for which we got no brief. Do what a human does when a page
-    // won't open: ask the wire "who ELSE is reporting this?", gather the secondary headlines, and synthesise
-    // the story FROM THEM — honestly flagged, never passed off as a direct read (CLAUDE.md §3). Best-effort:
-    // any failure (GDELT 429/penalty, <2 outlets, no LLM budget) leaves the deterministic floor as it was.
-    if (!bodyReadable && !bodylessFiling && !(result.gist && result.gist.length) && deps.corroborate?.enabled) {
+    // ALTERNATE OUTLET — the original page blocked the read (bot-wall / paywall / consent interstitial /
+    // JS shell) but the wire already carries the SAME story from other outlets (the dedup cluster the
+    // feed stamps). Do what a human does when a page won't open: read another outlet's article — a FULL
+    // body read of the same story, honestly labelled with where it was read from (§3/§5). Runs inside
+    // the same wall-clock budget as the direct read; skipped the moment a real brief exists.
+    const directBlocked = !docText && (pageJunk || !!fetchNote || !bodyReadable)
+    if (!(result.gist && result.gist.length) && !bodylessNoDoc && directBlocked && providers.length) {
+      for (const alt of findAlternateSources(feedItems, input.event_id, dedupGroup, host).slice(0, 2)) {
+        // SAME-EVENT gate, belt and braces on top of the tight dedup cluster: the alternate's own
+        // headline must describe THIS event (same test the GDELT corroboration path applies), so even a
+        // transitively mis-clustered sibling can never be read and presented as this story (§3/§5).
+        if (!corroboratesSameEvent(headline, companies, alt.headline)) continue
+        const remaining = readDeadline - now().getTime()
+        if (remaining < 4000) break // must leave room for the LLM pass after the fetch
+        const rf = await fetchText(alt.url, fetchFn, Math.min(FETCH_TIMEOUT_MS, remaining - 2500))
+        if (!rf.ok || !rf.text) continue
+        const at = extractArticleText(rf.text)
+        if (at.verdict !== 'ok' || at.text.length < 200) continue // the alternate must be genuinely readable prose
+        const r = await readArticleBrief([alt.snippet, at.text].filter(Boolean).join('\n\n'), readHeadline, providers, {
+          stateDir: deps.stateDir, fetchFn, sleep: deps.sleep,
+          now: () => now().getTime(), deadlineMs: readDeadline, limiterWaitMs: deps.limiterWaitMs,
+        })
+        if (r.attempted) attempted = true
+        if (applyBrief(result, r.brief)) {
+          result.read_from = { kind: 'alternate', domain: alt.domain, url: alt.url, source_name: alt.source_name }
+          result.note = `original page blocked — read from ${alt.source_name || alt.domain}, which carries the same story`
+          const pub = extractPublished(rf.text)
+          if (pub && !result.published) result.published = pub
+          break
+        }
+      }
+    }
+
+    // CORROBORATION — no direct body could be read at all (no page prose, or the page was a consent/
+    // paywall wall), no alternate outlet produced a read either (result.read_from unset — a successful
+    // alternate read, even a gist-less DIGEST-RULE one, is a COMPLETE direct read of the story and must
+    // not be papered over with headline synthesis), and this is a real article (not a bodyless filing)
+    // with no brief. Ask the wire "who ELSE is reporting this?" (GDELT keyword search), gather the
+    // secondary headlines, and synthesise the story FROM THEM — honestly flagged, never passed off as a
+    // direct read (CLAUDE.md §3). Deliberately NOT gated on a mere fetchNote: a blocked page whose RSS
+    // snippet is readable gets its LLM read retried on the next open (degraded TTL), not a GDELT probe —
+    // headline synthesis must never displace a readable snippet over a transient LLM miss.
+    if ((!bodyReadable || pageJunk) && !result.read_from && !bodylessNoDoc && !(result.gist && result.gist.length) && deps.corroborate?.enabled) {
       const secondaries = await corroborateFromWire(headline, companies, host, deps, readDeadline - now().getTime())
       if (secondaries.length >= 2) {
         const domains = [...new Set(secondaries.map((s) => s.domain.toLowerCase().replace(/^www\./, '')).filter(Boolean))].slice(0, 6)
@@ -969,24 +1117,13 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
             now: () => now().getTime(), deadlineMs: readDeadline, limiterWaitMs: deps.limiterWaitMs,
           })
           if (r.attempted) attempted = true
-          const b = r.brief
-          if (b && (b.gist.length || b.companies.length || b.beneficiaries.length || b.exposed.length || b.news_impact?.analyst_takeaway)) {
-            if (b.gist.length) result.gist = b.gist
-            if (b.market_angle) result.market_angle = b.market_angle
-            const co = filterCompanies(b.companies); if (co.length) result.companies = co
-            const ben = scrubParties(b.beneficiaries); if (ben.length) result.beneficiaries = ben
-            const exp = scrubParties(b.exposed); if (exp.length) result.exposed = exp
-            if (b.whats_priced) result.whats_priced = b.whats_priced
-            if (b.the_edge) result.the_edge = b.the_edge
-            if (b.watch_item) result.watch_item = b.watch_item
-            if (b.theme) result.theme = b.theme
-            if (b.news_impact) result.news_impact = b.news_impact
-          }
+          applyBrief(result, r.brief)
         }
         // record corroboration so the UI labels it honestly; if the LLM couldn't synthesise (no budget), show
-        // a real, sourced fallback that names the outlets — still better than the bare headline floor.
+        // a real, sourced fallback that names the outlets — but ONLY when we hold nothing better: a readable
+        // snippet lede is real article text and must never be displaced by this generic stub.
         result.corroborated = { count: secondaries.length, domains }
-        if (!(result.gist && result.gist.length)) {
+        if (!(result.gist && result.gist.length) && !bodyReadable) {
           result.summary = `The publisher blocked the direct read. ${secondaries.length} other outlet${secondaries.length === 1 ? '' : 's'} are reporting this${domains.length ? ` — ${domains.slice(0, 4).join(', ')}` : ''}. Open the source, or run the checks to read it in full.`
         }
         result.note = 'publisher blocked the direct read — corroborated from the secondary wire'
@@ -1003,8 +1140,10 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
   // A filing's floor / an SEC parse / a bodyless event is the BEST obtainable read (the headline IS the
   // disclosure) — mark it complete so it earns the long TTL and the heal pass never re-reads it. A readable
   // article that yielded a brief is complete via isEnrichmentComplete; one that didn't stays degraded
-  // (short TTL → self-heals) until MAX_READ_ATTEMPTS, which commitEnrichment then accepts as final.
-  if (result.sec || bodylessFiling) result.complete = true
+  // (short TTL → self-heals) until MAX_READ_ATTEMPTS, which commitEnrichment then accepts as final. A
+  // filing whose DOCUMENT text did read (docText) is no longer bodyless: if its LLM read missed it stays
+  // degraded so the very next open retries the real read instead of freezing the floor.
+  if (result.sec || (bodylessFiling && !docText)) result.complete = true
   // A NON-filing article with no readable body to feed an LLM (off-list / unfetchable page AND no usable
   // snippet, or a body too thin to read) can never produce a brief — the deterministic floor IS the best
   // obtainable read, so accept it as final NOW. Without this the entry never reaches MAX_READ_ATTEMPTS (a

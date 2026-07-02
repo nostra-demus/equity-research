@@ -7,6 +7,7 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
+import { companyKeys } from '../text-match'
 import type { LlmNamer } from './engine'
 import type { Theme } from './types'
 
@@ -25,6 +26,8 @@ const SYSTEM =
   'You are a buy-side thematic analyst. You are given CLUSTERS of recent news headlines that were already grouped by topical overlap. ' +
   'For each cluster decide whether it is a coherent, investable market THEME — a multi-company narrative a portfolio manager would track and could play (e.g. "AI data-center buildout", "China stimulus rebound", "GLP-1 weight-loss drugs"). ' +
   'A single company\'s one-off news is NOT a theme. ' +
+  'A cluster that is only routine regulatory paperwork — stake-disclosure filings (SAST/Reg 29), AGM/EGM notices or poll results, board-meeting outcomes, "results for the year/period ended" calendar notices, routine prospectus takedowns — is NOT a theme: return is_theme:false for it. ' +
+  'The name and description must accurately describe the MAJORITY of the sample headlines — never a narrative the headlines do not support. If the items are unified only by a shared event type or a filing formality, return is_theme:false. ' +
   'Return ONLY JSON: {"themes":[{"i":<cluster index>,"is_theme":true|false,"name":"<short narrative name, ≤6 words>","slug":"<kebab-case>","description":"<one plain-English sentence a non-specialist understands>","keywords":["<lowercase anchor terms>"]}]}. Include every cluster index exactly once. No prose outside the JSON.'
 
 const budgetPath = (stateDir: string) => path.join(stateDir, 'themes-llm-budget.json')
@@ -64,9 +67,25 @@ function parseThemesJson(text: string): any[] {
   }
 }
 
+/** Sample member headlines STRATIFIED by company — one per distinct company first (newest first), then
+ *  fill with the rest. The naive newest-8 slice showed the namer a homogeneous wire burst and invited a
+ *  fabricated narrative ("Digital Media Growth" over a pile of results notices); a company-spread sample
+ *  shows the cluster's real breadth. */
+function sampleHeadlines(t: Theme, cap = 8): string[] {
+  const seen = new Set<string>()
+  const primary: string[] = []
+  const rest: string[] = []
+  for (let i = t.members.length - 1; i >= 0; i--) {
+    const m = t.members[i]
+    const k = companyKeys(m.companies).values().next().value as string | undefined
+    if (k && !seen.has(k)) { seen.add(k); primary.push(m.headline) } else rest.push(m.headline)
+  }
+  return [...primary, ...rest].slice(0, cap)
+}
+
 function buildUserMessage(created: Theme[]): string {
   const blocks = created.map((t, i) => {
-    const heads = t.members.slice(0, 8).map((m) => `   - ${m.headline}`).join('\n')
+    const heads = sampleHeadlines(t).map((h) => `   - ${h}`).join('\n')
     const cos = t.companies.slice(0, 8).map((c) => c.name).join(', ') || '(none named)'
     return `Cluster ${i} (companies: ${cos}):\n${heads}`
   })
@@ -108,7 +127,8 @@ function applyProposals(created: Theme[], proposals: any[]): void {
   }
   created.forEach((t, i) => {
     const p = byIndex.get(i)
-    if (!p) return // model omitted → keep deterministic name
+    if (!p) return // model omitted → keep deterministic name (a needs_rename flag stays for the next pass)
+    delete t.needs_rename // processed — either renamed below or judged not-a-theme
     if (p.is_theme === false) {
       t.status = 'retired' // not a real theme — drop it
       return
