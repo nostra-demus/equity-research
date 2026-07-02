@@ -45,13 +45,19 @@ export function rc4(key: Buffer, data: Buffer): Buffer {
 const md5 = (...parts: Buffer[]): Buffer => crypto.createHash('md5').update(Buffer.concat(parts)).digest()
 const sha256 = (...parts: Buffer[]): Buffer => crypto.createHash('sha256').update(Buffer.concat(parts)).digest()
 
-function aesCbcDecrypt(bits: 128 | 256, key: Buffer, iv: Buffer, data: Buffer): Buffer | null {
+// stripPad=true for stream/string data (PKCS#7-padded per the spec); stripPad=false for the /UE file-key
+// unwrap (ISO 32000-2 Alg. 2.A: a raw 32-byte AES-CBC block, NO padding). Stripping padding off the
+// unwrap silently truncated the key whenever its last byte landed in 1..16 (16/256 ≈ 6.25% of files) —
+// the key then read short and the whole encrypted PDF was wrongly rejected as "unsupported".
+function aesCbcDecrypt(bits: 128 | 256, key: Buffer, iv: Buffer, data: Buffer, stripPad = true): Buffer | null {
   try {
     const d = crypto.createDecipheriv(bits === 128 ? 'aes-128-cbc' : 'aes-256-cbc', key, iv)
     d.setAutoPadding(false) // PDF pads with PKCS#7 but broken producers exist — strip manually below
     let out = Buffer.concat([d.update(data), d.final()])
-    const pad = out[out.length - 1]
-    if (pad >= 1 && pad <= 16 && pad <= out.length) out = out.subarray(0, out.length - pad)
+    if (stripPad) {
+      const pad = out[out.length - 1]
+      if (pad >= 1 && pad <= 16 && pad <= out.length) out = out.subarray(0, out.length - pad)
+    }
     return out
   } catch { return null }
 }
@@ -203,7 +209,7 @@ function parseEncryption(buf: Buffer, latin: string): EncryptInfo | 'unsupported
     const check = r === 5 ? sha256(empty, valSalt) : hash2B(empty, valSalt, empty)
     if (!check.equals(U.subarray(0, 32))) return 'unsupported' // a REAL user password — we don't crack
     const ikey = r === 5 ? sha256(empty, keySalt) : hash2B(empty, keySalt, empty)
-    const fileKey = aesCbcDecrypt(256, ikey, Buffer.alloc(16), UE.subarray(0, 32))
+    const fileKey = aesCbcDecrypt(256, ikey, Buffer.alloc(16), UE.subarray(0, 32), false) // no PKCS#7 here
     if (!fileKey || fileKey.length < 32) return 'unsupported'
     return { v, r, fileKey: fileKey.subarray(0, 32), cfm: 'aes256' }
   }
@@ -480,10 +486,24 @@ export function extractPdfText(input: Buffer, opts: PdfTextOptions = {}): string
       if (input[ds] === 0x0a) ds++
       const es = latin.indexOf('endstream', ds)
       if (es < 0) continue
-      let raw = input.subarray(ds, es)
-      let end = raw.length
-      while (end > 0 && (raw[end - 1] === 0x0a || raw[end - 1] === 0x0d)) end--
-      raw = raw.subarray(0, end)
+      // The stream's exact byte length is /Length (PDF 32000-1 §7.3.8.1) — the delimiter EOL before
+      // `endstream` is NOT part of the data. Trust a plain (direct) /Length that lands at-or-before the
+      // `endstream` we found: this recovers the exact bytes even when the data itself ends in 0x0a/0x0d.
+      // Only when /Length is absent or indirect (`/Length N 0 R`) do we fall back to the endstream scan,
+      // and there strip just the SINGLE trailing EOL marker — never a greedy run of 0x0a/0x0d, which
+      // would eat a genuine final data byte and break AES-CBC alignment (→ decrypt null) or truncate the
+      // inflate buffer (→ no text). The greedy strip silently dropped ~1/256 of binary streams.
+      const declaredLen = dictNumber(latin, m.index, streamAt, 'Length')
+      let raw: Buffer
+      if (declaredLen != null && declaredLen >= 0 && ds + declaredLen <= es) {
+        raw = input.subarray(ds, ds + declaredLen)
+      } else {
+        raw = input.subarray(ds, es)
+        let end = raw.length
+        if (end >= 2 && raw[end - 2] === 0x0d && raw[end - 1] === 0x0a) end -= 2        // CRLF delimiter
+        else if (end >= 1 && (raw[end - 1] === 0x0a || raw[end - 1] === 0x0d)) end -= 1 // lone LF or CR
+        raw = raw.subarray(0, end)
+      }
       objRe.lastIndex = es + 9
       if (!raw.length || raw.length > maxBytes) continue
 
