@@ -12,6 +12,7 @@ import { useStore } from '../../lib/store'
 import type { FeedItem } from '../../lib/types'
 import { api, type ArchiveQuery, type SearchCursor } from '../../lib/api'
 import { archiveFiltersActive, emptyFilters, FeedFilters, gicsEmptyMessage, matchesFilters, type FeedFilterState } from './FeedFilters'
+import { PulseMap } from './PulseMap'
 
 const agoMin = (iso?: string | null) => (iso ? Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 60_000)) : null)
 // a friendly label for a YYYY-MM-DD archive day — e.g. "11 Jun 2026" (mirrors EventRail's dateLabel)
@@ -135,10 +136,15 @@ export function LiveFeed() {
   // wire order: 'newest' keeps the chronological stream (default — the wire is a firehose by nature); 'score'
   // floats the highest quick-score items to the top so the most material news is a glance, not a scroll.
   const [sortMode, setSortMode] = useState<'newest' | 'score'>('newest')
+  // list = the chronological/score wire; map = the same filtered firehose as a geographic PULSE (glow = serious × recent).
+  const [viewMode, setViewMode] = useState<'list' | 'map'>('list')
+  const selectEvent = useStore((s) => s.scSelectEvent)
+  // a slow clock for the map's recency decay — refreshed each minute so old blooms fade without thrashing render.
+  const [nowTick, setNowTick] = useState(() => Date.now())
 
   // keep the "last look Xm ago" line honest while the panel is open
   useEffect(() => {
-    const id = setInterval(() => void refreshStatus(), 60_000)
+    const id = setInterval(() => { void refreshStatus(); setNowTick(Date.now()) }, 60_000)
     return () => clearInterval(id)
   }, [refreshStatus])
 
@@ -223,6 +229,8 @@ export function LiveFeed() {
   const orderedGroups = useMemo(() => (
     sortMode === 'score' ? [...visibleGroups].sort((a, b) => (b.rep.triage_score ?? 0) - (a.rep.triage_score ?? 0)) : visibleGroups
   ), [visibleGroups, sortMode])
+  // flat filtered items for the pulse map — it counts individual events, not deduped stories
+  const mapItems = useMemo(() => items.filter((i) => matchesFilters(i, filters)), [items, filters])
 
   // Incremental render: show the first `shownCount` stories, grow as a bottom sentinel scrolls into
   // view, and snap back to the top + first page whenever the filtered set changes (a filter toggle or a
@@ -351,13 +359,25 @@ export function LiveFeed() {
 
       <FeedFilters value={filters} onChange={setFilters} sources={sources} />
 
-      <div className="wirewindow" role="group" aria-label="Sort order">
-        <span className="wirewindow__label">Sort</span>
-        <button type="button" className={`wirewindow__chip${sortMode === 'newest' ? ' is-active' : ''}`} onClick={() => setSortMode('newest')}>Newest first</button>
-        <button type="button" className={`wirewindow__chip${sortMode === 'score' ? ' is-active' : ''}`} onClick={() => setSortMode('score')} title="Float the highest quick-score items to the top">Top score</button>
-        {sortMode === 'score' && <span className="wirewindow__note">highest quick-score first — the most material news up top</span>}
+      <div className="wirewindow" role="group" aria-label="Wire view">
+        <span className="wirewindow__label">View</span>
+        <button type="button" className={`wirewindow__chip${viewMode === 'list' ? ' is-active' : ''}`} onClick={() => setViewMode('list')}>List</button>
+        <button type="button" className={`wirewindow__chip${viewMode === 'map' ? ' is-active' : ''}`} onClick={() => setViewMode('map')} title="See the same news as a geographic pulse — glow shows where the serious, recent stories are">Pulse map</button>
+        {viewMode === 'map' && <span className="wirewindow__note">glow = how serious &amp; recent · click a bloom to read</span>}
       </div>
 
+      {viewMode === 'list' && (
+        <div className="wirewindow" role="group" aria-label="Sort order">
+          <span className="wirewindow__label">Sort</span>
+          <button type="button" className={`wirewindow__chip${sortMode === 'newest' ? ' is-active' : ''}`} onClick={() => setSortMode('newest')}>Newest first</button>
+          <button type="button" className={`wirewindow__chip${sortMode === 'score' ? ' is-active' : ''}`} onClick={() => setSortMode('score')} title="Float the highest quick-score items to the top">Top score</button>
+          {sortMode === 'score' && <span className="wirewindow__note">highest quick-score first — the most material news up top</span>}
+        </div>
+      )}
+
+      {viewMode === 'map' ? (
+        <PulseMap items={mapItems} now={nowTick} onSelect={(it) => { selectEvent(it); close() }} />
+      ) : (
       <div className="wire__list" ref={listRef}>
         {shown.map((g, i) => {
           // a sticky date divider whenever the calendar day changes — so a list that only shows HH:MM
@@ -405,6 +425,7 @@ export function LiveFeed() {
           </div>
         )}
       </div>
+      )}
     </motion.div>
   )
 }

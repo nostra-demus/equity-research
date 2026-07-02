@@ -2567,3 +2567,27 @@ a { color: inherit; }
 .thememap__rate-line { display: inline-flex; align-items: center; gap: 5px; }
 .thememap__hist { opacity: 0.85; }
 .thememap__hist .sparkline { display: block; }
+
+/* ---- Screener pulse map (PulseMap.tsx): a geographic heat-read of the news wire ---- */
+.pulsemap { display: flex; flex-direction: column; gap: 8px; padding: 6px 2px 2px; }
+.pulsemap__svg { width: 100%; height: auto; display: block; }
+.pulsemap__ocean { fill: #0a1120; }
+.pulsemap__grid line { stroke: rgba(255, 255, 255, 0.055); stroke-width: 1; }
+.pulsemap__continents text { fill: rgba(255, 255, 255, 0.13); font-size: 11px; letter-spacing: 0.09em; text-transform: uppercase; font-weight: 500; }
+.pulsemap__bloom { cursor: pointer; outline: none; }
+.pulsemap__tag { fill: rgba(255, 255, 255, 0.85); font-size: 10px; font-weight: 500; paint-order: stroke; stroke: rgba(0, 0, 0, 0.55); stroke-width: 2px; }
+.pulsemap__halo { transition: opacity 0.18s ease; }
+.pulsemap__halo--fresh { animation: pulsemapFresh 2.4s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+@keyframes pulsemapFresh { 0%, 100% { opacity: var(--lo, 0.2); } 50% { opacity: var(--hi, 0.4); } }
+@media (prefers-reduced-motion: reduce) { .pulsemap__halo--fresh { animation: none; } }
+.pulsemap__foot { min-height: 36px; display: flex; align-items: center; }
+.pulsemap__cap { display: flex; align-items: baseline; gap: 9px; width: 100%; text-align: left; background: var(--surface-2); border: 1px solid var(--hairline); border-radius: 10px; padding: 7px 11px; cursor: pointer; transition: transform 0.12s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.14s ease; }
+@media (hover: hover) and (pointer: fine) { .pulsemap__cap:hover { border-color: var(--accent); } }
+.pulsemap__cap:active { transform: scale(0.99); }
+.pulsemap__cap-geo { font-weight: 500; color: var(--accent-bright); font-variant: small-caps; letter-spacing: 0.03em; }
+.pulsemap__cap-head { flex: 1; color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.pulsemap__cap-meta { color: var(--text-faint); font-size: 12px; white-space: nowrap; }
+.pulsemap__legend { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; color: var(--text-muted); font-size: 12px; padding: 4px; }
+.pulsemap__legend-dim { color: var(--text-faint); }
+.pulsemap__dot { display: inline-block; width: 11px; height: 11px; border-radius: 50%; vertical-align: middle; margin-right: 5px; }
+.pulsemap__dot--hot { background: radial-gradient(circle, #fff1ea 0%, #ff5a3c 72%); }
