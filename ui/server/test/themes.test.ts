@@ -9,7 +9,8 @@ import path from 'node:path'
 import { scoreTheme, ensureDaily, rollDaily, bumpDaily, DAILY_WINDOWS } from '../src/news/themes/score'
 import { companyImpact, orderTierFor } from '../src/news/themes/order'
 import { assignThemes } from '../src/news/themes/assign'
-import { clusterItems, discoverDeterministic, createTheme, mergeAndRetire, refreshThemeIdentity } from '../src/news/themes/discover'
+import { clusterItems, discoverDeterministic, createTheme, mergeAndRetire, refreshThemeIdentity, coherenceOf } from '../src/news/themes/discover'
+import { updateTokenDf, buildGenericSet, loadTokenDf, saveTokenDf, DEFAULT_TOKEN_DF_CONFIG, type TokenDfState } from '../src/news/themes/token-df'
 import { topicTokens, themeTokens, isRoutineFiling } from '../src/news/text-match'
 import { stepThemes } from '../src/news/themes/engine'
 import { buildSummary, buildThemesIndex, loadThemes, maybeCompactThemesLedger } from '../src/news/themes/store'
@@ -623,6 +624,203 @@ check('dedup invariant: topicTokens (shared with story dedup) still carries the 
   for (const kept of ['annual', 'ended', 'march', 'substantial', 'takeover']) {
     assert.ok(t.has(kept), `topicTokens must still carry "${kept}" — dedup depends on it (see themeTokens)`)
   }
+})
+
+// ---- Phase 2: rolling token-DF suppression + rename-on-heal + coherence-lite ----
+
+const DF_CFG = { ...DEFAULT_TOKEN_DF_CONFIG } // windowDays 7, ratio 0.015, persistDays 3, minDocs 150
+const dfDayMs = (d: number) => Date.parse('2026-06-01T12:00:00Z') + d * 86_400_000
+// a day's item batch: `mark` items carry the marked token; every other word is unique per item
+const dfDay = (d: number, count: number, mark: number, tok: string) =>
+  Array.from({ length: count }, (_, i) => item(`d${d}i${i}`, `${i < mark ? tok + ' ' : ''}zqx${d}a${i}unique zqx${d}b${i}filler`))
+
+await check('buildGenericSet: persistent high-DF token → generic; one-day burst → not; small days ignored; cold start empty', () => {
+  const state: TokenDfState = { v: 1, days: [] }
+  // 3 qualifying days (200 docs each) where "sastword" runs at 10% — persistent boilerplate
+  for (let d = 0; d < 3; d++) updateTokenDf(state, dfDay(d, 200, 20, 'sastword'), dfDayMs(d), DF_CFG)
+  // day 3: a genuine one-day burst — "hormuz" at 10% on a single day
+  updateTokenDf(state, dfDay(3, 200, 20, 'hormuz'), dfDayMs(3), DF_CFG)
+  // day 4: a sub-minDailyDocs day (100 docs) where "quietword" runs at 50% — must not count
+  updateTokenDf(state, dfDay(4, 100, 50, 'quietword'), dfDayMs(4), DF_CFG)
+  const generic = buildGenericSet(state, DF_CFG)
+  assert.ok(generic.has('sastword'), 'a token over the ratio on ≥3 qualifying days is generic')
+  assert.ok(!generic.has('hormuz'), 'a one-day burst stays an anchor (burst-vs-boilerplate)')
+  assert.ok(!generic.has('quietword'), 'a day below minDailyDocs neither counts for nor against')
+  // protected escape hatch
+  const shielded = buildGenericSet(state, { ...DF_CFG, protected: ['sastword'] })
+  assert.ok(!shielded.has('sastword'), 'a protected token is never generic')
+  // cold start: no history → empty set → degrades to the static classes
+  assert.equal(buildGenericSet({ v: 1, days: [] }, DF_CFG).size, 0, 'cold start yields an empty generic set')
+})
+
+await check('updateTokenDf: ring rotates + bounds to windowDays; closed days shed their singleton tail; state roundtrips', () => {
+  const state: TokenDfState = { v: 1, days: [] }
+  for (let d = 0; d < 9; d++) updateTokenDf(state, dfDay(d, 200, 20, 'sastword'), dfDayMs(d), DF_CFG)
+  assert.equal(state.days.length, 7, 'ring bounded to windowDays')
+  assert.equal(state.days[0].day, '2026-06-03', 'oldest days rolled off')
+  const closed = state.days[state.days.length - 2] // any closed (non-newest) day
+  assert.ok(!Object.keys(closed.df).some((t) => t.startsWith('zqx')), 'a closed day shed its unique-token tail')
+  assert.ok((closed.df['sastword'] || 0) >= 20, 'the recurring token survived pruning')
+  // roundtrip through the state file
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'themes-df-'))
+  saveTokenDf(tmp, state)
+  assert.deepEqual(loadTokenDf(tmp), state, 'save → load is lossless')
+  assert.deepEqual(loadTokenDf(fs.mkdtempSync(path.join(os.tmpdir(), 'themes-df-'))), { v: 1, days: [] }, 'missing file → empty state')
+  fs.rmSync(tmp, { recursive: true, force: true })
+})
+
+await check('generic tokens neither match themes nor become keywords; company tokens stay immune', () => {
+  const theme = createTheme(
+    [
+      item('L1', 'Lithium refinery capacity crunch hits Albemarle', { companies: [co('Albemarle', 'ALB')] }),
+      item('L2', 'Albemarle flags lithium refinery bottlenecks', { companies: [co('Albemarle', 'ALB')] }),
+    ],
+    NOW,
+  )
+  const probe = item('L3', 'Lithium refinery expansion planned by Ganfeng', { companies: [co('Ganfeng')] })
+  // without the generic set: joins on {lithium, refinery}
+  assert.equal(assignThemes([probe], [theme]).assignments.size, 1, 'control: joins via 2 shared tokens')
+  // with {lithium, refinery} corpus-generic (say a week of lithium-glut wire): token path closed
+  theme.members.splice(2) // undo the control join
+  const r = assignThemes([item('L4', 'Lithium refinery expansion planned by Ganfeng', { companies: [co('Ganfeng')] })], [theme], undefined, NOW, new Set(['lithium', 'refinery']))
+  assert.equal(r.assignments.size, 0, 'generic tokens no longer clear the match bar')
+  // and they are excluded from a NEW cluster's keywords
+  const t2 = createTheme(
+    [
+      item('M1', 'Lithium refinery glut deepens for Pilbara', { companies: [co('Pilbara')] }),
+      item('M2', 'Pilbara lithium refinery glut worsens', { companies: [co('Pilbara')] }),
+    ],
+    NOW, 'deterministic', new Set(['lithium', 'refinery']),
+  )
+  assert.ok(!t2.keywords.includes('lithium') && !t2.keywords.includes('refinery'), 'generic tokens cannot become identity keywords')
+  assert.ok(t2.keywords.includes('glut'), 'distinctive tokens still can')
+})
+
+await check('refreshThemeIdentity reports identityShift + purgeShare; the engine flags claude-named themes for rename', async () => {
+  const mkPoisoned = () => {
+    const t = createTheme(
+      [
+        item('y1', 'Emirates NBD to buy controlling stake in Yes Bank', { companies: [co('Yes Bank', 'YESBANK'), co('Emirates NBD')], event_types: ['mna'] }),
+        item('y2', 'Yes Bank stake sale to Emirates NBD clears RBI hurdle', { companies: [co('Yes Bank', 'YESBANK'), co('Emirates NBD')], event_types: ['regulatory'] }),
+        item('y3', 'Emirates NBD Yes Bank deal reshapes Indian private banking', { companies: [co('Yes Bank', 'YESBANK'), co('Emirates NBD')], event_types: ['mna'] }),
+        item('s1', 'Linc Ltd-$: The Exchange has received the disclosure under Regulation 29(2) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 for Niyati Sharma', { companies: [co('Linc Ltd')], source_tier: 'primary_filing' }),
+        item('s2', 'Chambal Fertilisers & Chemicals Ltd: The Exchange has received the disclosure under Regulation 29(2) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 for Sidh Enterprises Ltd', { companies: [co('Chambal Fertilisers & Chemicals Ltd')], source_tier: 'primary_filing' }),
+      ],
+      NOW,
+    )
+    t.keywords = ['substantial', 'acquisition', 'takeovers', 'yes', 'bank']
+    t.generation = 'claude'
+    t.name = 'Yes Bank Ltd'
+    return t
+  }
+  // direct unit: the heal reports how far the identity moved
+  const direct = mkPoisoned()
+  const r = refreshThemeIdentity(direct)
+  assert.ok(r.identityShift > 0.5, `keywords moved far from the poisoned set, got shift ${r.identityShift}`)
+  assert.ok(Math.abs(r.purgeShare - 2 / 5) < 1e-9, '2 of 5 members purged')
+  // engine flow: heal (1b) flags it; the rename rides the discovery pass's EXISTING namer call
+  const theme = mkPoisoned()
+  const namerSeen: string[][] = []
+  const namer = async (batch: Theme[]) => {
+    namerSeen.push(batch.map((t) => t.name))
+    const t = batch.find((x) => x.theme_id === theme.theme_id)
+    if (t) { t.name = 'Yes Bank stake sale'; t.description = 'Emirates NBD buying control of Yes Bank.'; delete t.needs_rename; t.rev++ }
+  }
+  const quantumPool = [
+    item('q1', 'Quantum computing startup raises money for new qubit chip', { companies: [co('IonQ', 'IONQ')] }),
+    item('q2', 'IonQ and Rigetti push quantum computing milestones', { companies: [co('IonQ', 'IONQ'), co('Rigetti', 'RGTI')] }),
+    item('q3', 'Rigetti unveils quantum computing roadmap and qubit gains', { companies: [co('Rigetti', 'RGTI')] }),
+  ]
+  const res = await stepThemes({ themes: [theme], pool: quantumPool, items: [], runDiscovery: true, now: NOW, llmNamer: namer })
+  assert.equal(theme.name, 'Yes Bank stake sale', 'the healed theme was re-grounded by the namer')
+  assert.ok(!theme.needs_rename, 'the flag cleared after processing')
+  assert.ok(res.changed.some((c) => c.theme_id === theme.theme_id), 'the renamed theme is persisted + emitted')
+  assert.ok(namerSeen[0].length >= 2, 'the rename rode the same call as the new cluster')
+})
+
+await check('renames are capped per pass and unprocessed flags survive for the next pass', async () => {
+  const mkClaudeTheme = (tag: string) => {
+    const t = createTheme(
+      [
+        item(`${tag}1`, `${tag}corp expands ${tag}widget factory output`, { companies: [co(`${tag}corp`)] }),
+        item(`${tag}2`, `${tag}corp doubles ${tag}widget factory capacity`, { companies: [co(`${tag}corp`)] }),
+        item(`${tag}3`, `${tag}other joins ${tag}corp on ${tag}widget factory push`, { companies: [co(`${tag}other`), co(`${tag}corp`)] }),
+      ],
+      NOW,
+    )
+    t.generation = 'claude'
+    t.needs_rename = true // flagged on a prior pass
+    return t
+  }
+  const flagged = [mkClaudeTheme('alpha'), mkClaudeTheme('beta'), mkClaudeTheme('gamma')]
+  let renamesReceived = 0
+  const namer = async (batch: Theme[]) => {
+    renamesReceived = batch.filter((t) => flagged.some((f) => f.theme_id === t.theme_id)).length
+    for (const t of batch) delete t.needs_rename
+  }
+  const quantumPool = [
+    item('qq1', 'Quantum computing startup raises money for new qubit chip', { companies: [co('IonQ', 'IONQ')] }),
+    item('qq2', 'IonQ and Rigetti push quantum computing milestones', { companies: [co('IonQ', 'IONQ'), co('Rigetti', 'RGTI')] }),
+    item('qq3', 'Rigetti unveils quantum computing roadmap and qubit gains', { companies: [co('Rigetti', 'RGTI')] }),
+  ]
+  await stepThemes({ themes: flagged, pool: quantumPool, items: [], runDiscovery: true, now: NOW, llmNamer: namer })
+  assert.equal(renamesReceived, 2, 'at most renamePerPass (2) flagged themes ride one call')
+  assert.equal(flagged.filter((t) => t.needs_rename).length, 1, 'the third stays flagged for the next pass')
+})
+
+await check('makeThemeNamer samples headlines STRATIFIED by company (breadth, not the newest wire burst)', async () => {
+  const { makeThemeNamer } = await import('../src/news/themes/llm')
+  const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'thm-strat-'))
+  // members oldest-first: Beta + Gamma first, then 8 newer Acme items — a newest-8 slice would show Acme only
+  const members = [
+    item('b1', 'Beta Corp pilots grid-scale storage rollout', { companies: [co('Beta Corp')] }),
+    item('c1', 'Gamma Inc wins grid-scale storage mandate', { companies: [co('Gamma Inc')] }),
+    ...Array.from({ length: 8 }, (_, i) => item(`a${i}`, `Acme grid-scale storage update number ${i} lands`, { companies: [co('Acme', 'ACME')] })),
+  ]
+  const theme = createTheme(members, NOW)
+  let userMsg = ''
+  const fetchFn = (async (_url: any, init: any) => {
+    const body = JSON.parse(init.body)
+    userMsg = body.messages[1].content
+    return { ok: true, status: 200, json: async () => ({ choices: [{ message: { content: JSON.stringify({ themes: [{ i: 0, is_theme: true, name: 'Grid-Scale Storage Buildout', slug: 'grid-scale-storage', description: 'x', keywords: [] }] }) } }] }) }
+  }) as unknown as typeof fetch
+  const namer = makeThemeNamer({ themesDiscoverModel: 'groq', groqApiKey: 'k', groqBaseUrl: 'https://groq.test', groqModel: 'm' }, fetchFn, tmp)
+  await namer!([theme], NOW)
+  assert.ok(userMsg.includes('Beta Corp pilots') && userMsg.includes('Gamma Inc wins'), 'every distinct company reaches the sample')
+  fs.rmSync(tmp, { recursive: true, force: true })
+})
+
+await check('coherenceOf: low on a polluted theme, 1.0 on a healthy one — and triggers the off-cadence heal', async () => {
+  const healthy = createTheme(
+    [
+      item('n1', 'Nvidia ramps AI data center GPU shipments', { companies: [co('Nvidia', 'NVDA')] }),
+      item('n2', 'Nvidia data center revenue jumps on AI demand', { companies: [co('Nvidia', 'NVDA')] }),
+      item('n3', 'AMD chases Nvidia in the AI data center market', { companies: [co('AMD', 'AMD'), co('Nvidia', 'NVDA')] }),
+    ],
+    NOW,
+  )
+  assert.equal(coherenceOf(healthy), 1, 'every member anchors on the identity')
+  const polluted = createTheme(
+    [
+      item('y1', 'Emirates NBD to buy controlling stake in Yes Bank', { companies: [co('Yes Bank', 'YESBANK'), co('Emirates NBD')] }),
+      item('s1', 'Linc Ltd-$: The Exchange has received the disclosure under Regulation 29(2) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 for Niyati Sharma', { companies: [co('Linc Ltd')], source_tier: 'primary_filing' }),
+      item('s2', 'NINtec Systems Ltd: The Exchange has received the disclosure under Regulation 29(2) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 for Niraj Gemawat', { companies: [co('NINtec Systems Ltd')], source_tier: 'primary_filing' }),
+      item('s3', 'Transcorp International Ltd: The Exchange has received the disclosure under Regulation 29(2) of SEBI (Substantial Acquisition of Shares & Takeovers) Regulations, 2011 for Ashok Kumar Agarwal', { companies: [co('Transcorp International Ltd')], source_tier: 'primary_filing' }),
+    ],
+    NOW,
+  )
+  polluted.keywords = ['substantial', 'acquisition', 'takeovers']
+  polluted.company_keys = ['yesbank']
+  assert.ok(coherenceOf(polluted) < 0.5, `strangers share nothing with the identity, got ${coherenceOf(polluted)}`)
+  // a NON-discovery cycle heals it immediately instead of waiting for the cadence
+  const res = await stepThemes({ themes: [polluted], pool: [], items: [], runDiscovery: false, now: NOW })
+  assert.equal(polluted.status, 'retired', 'the polluted theme (no real multi-company core) is healed away off-cadence')
+  assert.ok(res.changed.some((c) => c.theme_id === polluted.theme_id), 'the change is persisted + emitted')
+  // and the healthy theme is untouched by the same path
+  const before = healthy.members.length
+  await stepThemes({ themes: [healthy], pool: [], items: [], runDiscovery: false, now: NOW })
+  assert.equal(healthy.status, 'live')
+  assert.equal(healthy.members.length, before, 'no spurious off-cadence purge on a coherent theme')
 })
 
 console.log(`\n${passed} checks passed`)

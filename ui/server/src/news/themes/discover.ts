@@ -34,15 +34,15 @@ const themeId = (slug: string) => 'THM-' + createHash('sha256').update(slug).dig
 const iso = (d: Date) => d.toISOString().replace(/\.\d{3}Z$/, 'Z')
 
 // memo: each item's company keys + theme-layer topic tokens (computed once for the clustering graph)
-function itemSig(it: ThemeItemView): { keys: Set<string>; toks: Set<string> } {
-  return { keys: companyKeys(it.companies), toks: themeTokens(it.headline, it.companies, it.source_tier) }
+function itemSig(it: ThemeItemView, generic?: Set<string>): { keys: Set<string>; toks: Set<string> } {
+  return { keys: companyKeys(it.companies), toks: themeTokens(it.headline, it.companies, it.source_tier, generic) }
 }
 
 /** Connected-components clustering: items i,j share an edge when they share a company OR ≥3 topic
  *  tokens (the "actually about the same thing" bar). Returns clusters of indices, largest first. */
-export function clusterItems(items: ThemeItemView[]): number[][] {
+export function clusterItems(items: ThemeItemView[], generic?: Set<string>): number[][] {
   const n = items.length
-  const sigs = items.map(itemSig)
+  const sigs = items.map((it) => itemSig(it, generic))
   const parent = Array.from({ length: n }, (_, i) => i)
   const find = (x: number): number => (parent[x] === x ? x : (parent[x] = find(parent[x])))
   const union = (a: number, b: number) => { const ra = find(a), rb = find(b); if (ra !== rb) parent[ra] = rb }
@@ -77,13 +77,13 @@ function memberOf(it: ThemeItemView): ThemeMember {
 }
 
 /** The recurring keywords/companies/event-types that DEFINE a cluster (appear in ≥2 items). */
-function clusterIdentity(items: ThemeItemView[]): { keywords: string[]; company_keys: string[]; affinity: string[]; topCompanyName: string } {
+function clusterIdentity(items: ThemeItemView[], generic?: Set<string>): { keywords: string[]; company_keys: string[]; affinity: string[]; topCompanyName: string } {
   const tokFreq = new Map<string, number>()
   const keyFreq = new Map<string, number>()
   const keyName = new Map<string, string>()
   const evFreq = new Map<string, number>()
   for (const it of items) {
-    for (const t of themeTokens(it.headline, it.companies, it.source_tier)) tokFreq.set(t, (tokFreq.get(t) || 0) + 1)
+    for (const t of themeTokens(it.headline, it.companies, it.source_tier, generic)) tokFreq.set(t, (tokFreq.get(t) || 0) + 1)
     for (const c of it.companies || []) {
       const k = companyKeys([c]).values().next().value as string | undefined
       if (!k) continue
@@ -113,8 +113,8 @@ function deterministicName(id: ReturnType<typeof clusterIdentity>): string {
 }
 
 /** Build a fresh Theme from a cluster of items. */
-export function createTheme(items: ThemeItemView[], now: Date, generation: Theme['generation'] = 'deterministic'): Theme {
-  const id = clusterIdentity(items)
+export function createTheme(items: ThemeItemView[], now: Date, generation: Theme['generation'] = 'deterministic', generic?: Set<string>): Theme {
+  const id = clusterIdentity(items, generic)
   const name = deterministicName(id)
   const slug = slugify(name)
   const members = items.map(memberOf)
@@ -157,25 +157,26 @@ export function createTheme(items: ThemeItemView[], now: Date, generation: Theme
  * every member still matches (idempotent). Mutates the theme in place. Returns whether it changed and
  * whether it has decayed below the cluster minimums (caller retires it).
  */
-export function refreshThemeIdentity(theme: Theme, cfg: DiscoverConfig = DEFAULT_DISCOVER_CONFIG, now?: Date): { changed: boolean; retire: boolean } {
-  if (theme.status !== 'live' || !theme.members.length) return { changed: false, retire: false }
+export function refreshThemeIdentity(theme: Theme, cfg: DiscoverConfig = DEFAULT_DISCOVER_CONFIG, now?: Date, generic?: Set<string>): { changed: boolean; retire: boolean; identityShift: number; purgeShare: number } {
+  if (theme.status !== 'live' || !theme.members.length) return { changed: false, retire: false, identityShift: 0, purgeShare: 0 }
   const before = { count: theme.members.length, kw: theme.keywords.join('|') }
+  const beforeKw = new Set(theme.keywords)
   // members persist source_tier as `tier` — map it back so the routine-filing gate inside themeTokens
   // applies at heal time exactly as it does at assignment time
   const asViews = (ms: ThemeMember[]) => ms.map((m) => ({ ...m, source_tier: m.tier })) as unknown as ThemeItemView[]
   // 1. recompute identity from the current members (clean tokenizer)
-  const id = clusterIdentity(asViews(theme.members))
+  const id = clusterIdentity(asViews(theme.members), generic)
   const probe: Theme = { ...theme, keywords: id.keywords, company_keys: id.company_keys, event_type_affinity: id.affinity }
   // 2. keep only members that still clear the assignment bar against the refreshed identity
-  const kept = theme.members.filter((m) => overlapScore(companyKeys(m.companies), themeTokens(m.headline, m.companies, m.tier), m.event_types || [], probe).matched)
+  const kept = theme.members.filter((m) => overlapScore(companyKeys(m.companies), themeTokens(m.headline, m.companies, m.tier, generic), m.event_types || [], probe).matched)
   // 3. retire if too little real signal is left to be a multi-company theme
   const distinct = new Set<string>()
   for (const m of kept) for (const k of companyKeys(m.companies)) distinct.add(k)
   const retire = kept.length < cfg.minClusterItems || distinct.size < cfg.minClusterCompanies
-  if (retire) return { changed: true, retire: true }
+  if (retire) return { changed: true, retire: true, identityShift: 1, purgeShare: 1 }
   // 4. commit: kept members + refreshed identity, then a second identity pass tightened to the kept set
   theme.members = kept
-  const id2 = clusterIdentity(asViews(kept))
+  const id2 = clusterIdentity(asViews(kept), generic)
   theme.keywords = id2.keywords
   theme.company_keys = id2.company_keys
   theme.event_type_affinity = id2.affinity
@@ -191,15 +192,37 @@ export function refreshThemeIdentity(theme: Theme, cfg: DiscoverConfig = DEFAULT
   if (now) ensureDaily(theme, now.getTime()) // engine always passes now; without it the next cycle's ensureDaily/rollDaily reseeds
   const changed = kept.length !== before.count || theme.keywords.join('|') !== before.kw
   if (changed) theme.rev++
-  return { changed, retire: false }
+  // how far the identity moved — the engine flags an LLM-named theme for re-naming when the heal shifted
+  // its keywords or purged enough members that the persisted name/description likely describe the OLD mix
+  const identityShift = 1 - jaccard(beforeKw, new Set(theme.keywords))
+  const purgeShare = before.count ? 1 - kept.length / before.count : 0
+  return { changed, retire: false, identityShift, purgeShare }
+}
+
+/** Cheap deterministic purity read: the share of members that name a top-5 identity company OR share ≥2
+ *  (non-generic) identity keywords. O(members). Used by the engine as an EARLY heal trigger between
+ *  discovery cycles — a theme drifting below the bar gets refreshThemeIdentity now instead of waiting
+ *  for the cadence. Not a scoring input: the heal makes prolonged incoherence structurally impossible,
+ *  so demotion machinery would be dead weight. */
+export function coherenceOf(theme: Theme, generic?: Set<string>): number {
+  if (!theme.members.length) return 1
+  const topKeys = new Set(theme.company_keys.slice(0, 5))
+  const kw = new Set(theme.keywords)
+  let ok = 0
+  for (const m of theme.members) {
+    let hit = intersectionSize(companyKeys(m.companies), topKeys) >= 1
+    if (!hit && kw.size) hit = intersectionSize(themeTokens(m.headline, m.companies, m.tier, generic), kw) >= 2
+    if (hit) ok++
+  }
+  return ok / theme.members.length
 }
 
 /** Discover new themes from the unclustered pool. Returns newly-created themes (status live) plus the
  *  leftover items that didn't form a qualifying cluster (kept in the pool for next time). */
-export function discoverDeterministic(pool: ThemeItemView[], existing: Theme[], now: Date, cfg: DiscoverConfig = DEFAULT_DISCOVER_CONFIG): { created: Theme[]; leftover: ThemeItemView[] } {
+export function discoverDeterministic(pool: ThemeItemView[], existing: Theme[], now: Date, cfg: DiscoverConfig = DEFAULT_DISCOVER_CONFIG, generic?: Set<string>): { created: Theme[]; leftover: ThemeItemView[] } {
   const scan = pool.slice(-cfg.maxPoolScan)
   const skipped = pool.slice(0, Math.max(0, pool.length - cfg.maxPoolScan))
-  const clusters = clusterItems(scan)
+  const clusters = clusterItems(scan, generic)
   const created: Theme[] = []
   const leftover: ThemeItemView[] = [...skipped]
   const existingIds = new Set(existing.map((t) => t.theme_id))
@@ -207,7 +230,7 @@ export function discoverDeterministic(pool: ThemeItemView[], existing: Theme[], 
   // this pass, not a theme identity. Used below to refuse clusters glued together ONLY by such words
   // (the "results · ended · march" failure shape) even when future boilerplate isn't in any static list.
   const df = new Map<string, number>()
-  for (const it of scan) for (const t of themeTokens(it.headline, it.companies, it.source_tier)) df.set(t, (df.get(t) || 0) + 1)
+  for (const it of scan) for (const t of themeTokens(it.headline, it.companies, it.source_tier, generic)) df.set(t, (df.get(t) || 0) + 1)
   const genericBar = Math.max(10, Math.ceil(scan.length * 0.25))
   for (const idxs of clusters) {
     const items = idxs.map((i) => scan[i])
@@ -217,7 +240,7 @@ export function discoverDeterministic(pool: ThemeItemView[], existing: Theme[], 
       leftover.push(...items) // not yet a theme — wait for more flow
       continue
     }
-    const theme = createTheme(items, now)
+    const theme = createTheme(items, now, 'deterministic', generic)
     // quality guard: a theme needs an anchor — a RECURRING company, or at least one keyword that is
     // distinctive within this scan. A genuine macro wave passes (it carries a tariff target, a drug
     // name, "hormuz" — something below the bar); a cluster of wire-wide words does not.
