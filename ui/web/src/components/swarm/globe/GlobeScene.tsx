@@ -275,13 +275,48 @@ export function GlobeScene({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // edges: backbone (dep + core) always shown; the hovered orb/module's edges (incl. its hidden feeds) light up
+  // edges split into three layers so every edge draws exactly once: pending backbone (faint), settled-complete
+  // (calm), live-active (bright). The hovered orb/module's edges (incl. its hidden feeds) light up on top.
   const depCoreEdges = useMemo(() => layout.edges.filter((e) => e.kind !== 'feeds'), [layout.edges])
-  const activeEdges = useMemo(() => {
-    const moduleDone = new Set<string>()
-    for (const a of layout.moduleAnchors) if (a.synthKey && nodeStatus(a.synthKey) === 'done') moduleDone.add(a.module)
-    return depCoreEdges.filter((e) => (e.kind === 'dep' && moduleDone.has(e.fromModule) && activeModules.has(e.toModule)) || (e.kind === 'core' && moduleDone.has(e.fromModule)))
-  }, [depCoreEdges, layout.moduleAnchors, activeModules, statusSig]) // eslint-disable-line react-hooks/exhaustive-deps
+  // modules whose synthesis orb is done — the completion notion the flows key off (promoted from an inline set)
+  const completedModules = useMemo(() => {
+    const s = new Set<string>()
+    for (const a of layout.moduleAnchors) if (a.synthKey && nodeStatus(a.synthKey) === 'done') s.add(a.module)
+    return s
+  }, [layout.moduleAnchors, statusSig]) // eslint-disable-line react-hooks/exhaustive-deps
+  // LIVE flow — bright/fast: a completed upstream feeding a module that is running/queued right now, plus the
+  // module→Memo spokes WHILE the run is still in flight. Empty once nothing is running (i.e. a finished run),
+  // so a done run no longer shows "pretend-live" bright spokes.
+  const activeEdges = useMemo(
+    () =>
+      depCoreEdges.filter(
+        (e) =>
+          (e.kind === 'dep' && completedModules.has(e.fromModule) && activeModules.has(e.toModule)) ||
+          (e.kind === 'core' && activeModules.size > 0 && completedModules.has(e.fromModule)),
+      ),
+    [depCoreEdges, completedModules, activeModules],
+  )
+  // SETTLED flow — calm/dim/slow: completed data paths that are NOT live. THIS is what makes a finished run read
+  // as done-and-legible instead of a dead skeleton (the old code drew nothing here). During a live run it renders
+  // the already-finished history calmly while activeEdges keeps the running frontier bright.
+  const settledEdges = useMemo(
+    () =>
+      depCoreEdges.filter((e) => {
+        if (e.kind === 'dep') return completedModules.has(e.fromModule) && completedModules.has(e.toModule)
+        if (e.kind === 'core') return activeModules.size === 0 && completedModules.has(e.fromModule)
+        return false
+      }),
+    [depCoreEdges, completedModules, activeModules],
+  )
+  // pending backbone — the faint structural skeleton, minus any edge promoted to the settled/active layers above
+  const backboneEdges = useMemo(() => {
+    const promoted = (e: GlobeEdge) => {
+      if (e.kind === 'dep') return completedModules.has(e.fromModule) && (activeModules.has(e.toModule) || completedModules.has(e.toModule))
+      if (e.kind === 'core') return completedModules.has(e.fromModule)
+      return false
+    }
+    return depCoreEdges.filter((e) => !promoted(e))
+  }, [depCoreEdges, completedModules, activeModules])
   // Hover reveals two layers, like the constellation: the prominent INTER-module flows (module→module deps +
   // module→Memo) touching the hovered orb/module…
   const hoverEdges = useMemo(() => {
@@ -391,7 +426,10 @@ export function GlobeScene({
           brightest for the hovered orb's own flows (incl. its otherwise-hidden feeds) */}
       {/* speed = dashes/sec: one comet passes a point every 1/speed seconds → ~0.7s baseline, brisk when live.
           width = ribbon thickness in world units (R=10) — live/hover edges are thicker so they stand out. */}
-      <MorphEdges edges={depCoreEdges} color={colors.accent} opacity={0.6} speed={1.4} width={0.05} morphRef={morphRef} />
+      <MorphEdges edges={backboneEdges} color={colors.accent} opacity={0.6} speed={1.4} width={0.05} morphRef={morphRef} />
+      {/* settled: completed data paths on a finished (or non-live) run — calmer than live, brighter than the faint
+          backbone and noticeably slower, so a done run reads as complete-and-legible rather than dead. */}
+      {settledEdges.length > 0 && <MorphEdges edges={settledEdges} color={colors.accent} opacity={0.72} speed={0.9} width={0.055} morphRef={morphRef} />}
       {activeEdges.length > 0 && <MorphEdges edges={activeEdges} color={colors.accentBright} opacity={0.95} speed={2.8} width={0.085} morphRef={morphRef} />}
       {hoverEdges.length > 0 && <MorphEdges edges={hoverEdges} color={colors.accentBright} opacity={0.95} speed={2.3} width={0.075} morphRef={morphRef} />}
       {/* internal feeds (agent→synthesis): a GLOWING comet stream, not a hard hairline. glow=1 gives a slim
@@ -447,6 +485,12 @@ export function GlobeScene({
               now,
             )
           : null
+        // a finished module (not live) gets a calm done marker instead of a blank "run module" affordance. Elapsed
+        // is only known for modules finished in-session (SSE carries endedAt); a manifest-loaded run shows just "done".
+        const moduleDoneLabel = !live && completedModules.has(a.module)
+        const doneStarts = moduleDoneLabel ? nodes.filter((n) => n.module === a.module).map((n) => nodeRuntime[n.key]?.startedAt).filter((t): t is number => typeof t === 'number') : []
+        const doneEnds = moduleDoneLabel ? nodes.filter((n) => n.module === a.module).map((n) => nodeRuntime[n.key]?.endedAt).filter((t): t is number => typeof t === 'number') : []
+        const doneElapsed = doneStarts.length && doneEnds.length ? Math.max(...doneEnds) - Math.min(...doneStarts) : null
         return (
           <group key={a.module} ref={(el) => { labelRefs.current[i] = el }}>
             <Html zIndexRange={[12, 0]}>
@@ -474,6 +518,8 @@ export function GlobeScene({
                     </div>
                     <div className="cluster__flow"><div className="cluster__flow-fill" style={{ ['--frac' as any]: mt.total ? mt.done / mt.total : 0 }} /></div>
                   </div>
+                ) : moduleDoneLabel ? (
+                  <div className="cluster__run cluster__run--done" style={{ color: 'var(--text-secondary)' }} title="Module complete">✓ done{doneElapsed != null ? ` · ${fmtClock(doneElapsed)}` : ''}</div>
                 ) : depLocked ? (
                   <div className="cluster__run" style={{ color: 'var(--text-faint)' }} title={`Needs ${miss} complete first`}>🔒 needs {miss}</div>
                 ) : (
