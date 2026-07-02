@@ -91,7 +91,7 @@ Use specific, dated promises (guidance, synergy targets, deleveraging plans, mar
 
 **Turnaround rule (Filter 2).** The base rate of turnaround success is low. A star CEO with an impressive résumé and a slick plan is NOT evidence of inflection — IBM/Gerstner worked and JCPenney/Ron Johnson destroyed the company, and neither was predictable from the pitch. Credit a turnaround only on at least 2–3 years of *delivered* operating improvement visible in the numbers. If the thesis rests on a turnaround without that proof, say so plainly, apply the base-rate penalty to the Management Quality Score, and note the conviction cap (MODULE_RULES rejector-filter caps). Classify the thesis honestly as a governance-turnaround.
 
-**Integrity rule (Filter 1).** If `business-model/01_disqualifier-scan` routed unverified adverse integrity signal ("buzz") here, do NOT discard it because a clean report exists — chase it as far as the data pool allows, record it, and let it lower the management read and cap conviction. Proven fraud / defrauding of stakeholders is a hard disqualifier owned by the scan; this agent handles the unproven-but-unignorable spectrum below that lock.
+**Integrity rule (Filter 1).** If `business-model/01_disqualifier-scan` routed unverified adverse integrity signal ("buzz") here, do NOT discard it because a clean report exists — chase it as far as the data pool allows, record it, and let it lower the management read and cap conviction. Proven fraud / defrauding of stakeholders is a hard disqualifier owned by the scan; this agent handles the unproven-but-unignorable spectrum below that lock. If, after chasing it, the signal remains unresolved (neither cleared by primary evidence nor escalated to a proven fact), emit `RF-MGT-005 (unresolved adverse integrity signal, unproven)` as a **standalone line** in this report — this is the tag MODULE_RULES.md's Score Cap Rules and the synthesis's Score Cap Application table key off to enforce the conviction cap; a signal recorded only in prose cannot be mechanically checked. Do not emit the tag when the signal was investigated and cleared.
 
 ## 5. Management Read
 
@@ -133,7 +133,7 @@ Emit a machine-readable JSON code block per the Machine-Readable Outputs schema 
 - [ ] Promise-vs-delivery uses specific, dated prior promises — not vague impressions.
 - [ ] If no checkable promises exist, that is stated and the read is capped.
 - [ ] Turnaround test applied: if the thesis is a turnaround without ≥2–3 yrs of delivered operating inflection, the base-rate penalty and conviction cap are noted (§24 Filter 2).
-- [ ] Any routed integrity "buzz" from the disqualifier scan is recorded and reflected in the read, not discarded (§24 Filter 1).
+- [ ] Any routed integrity "buzz" from the disqualifier scan is recorded and reflected in the read, not discarded (§24 Filter 1); if it remains unresolved after investigation, `RF-MGT-005` is emitted as a standalone line.
 - [ ] Web is used only to confirm background, labeled as web-sourced.
 - [ ] The read is grounded in the record, not the narrative.
 - [ ] No banned phrases (no naked "experienced team" / "proven track record").

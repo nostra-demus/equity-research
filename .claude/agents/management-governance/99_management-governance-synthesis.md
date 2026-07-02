@@ -153,9 +153,9 @@ If specialists disagreed (e.g., good capital-allocation record but misaligned in
 | Turnaround thesis without ≥2–3 yrs delivered inflection (§24 Filter 2) | | Management quality | max 60; conviction cap | | | |
 | Serial-acquirer pattern (§24 Filter 4, RF-CAP-004) | | Capital allocation; Governance risk | CapAlloc max 50; GovRisk floor 60 | | | |
 | Structurally unaligned controlling owner (§24 Filter 6, RF-OWN-004) | | Shareholder friendliness; Governance risk | ShFriendliness max 55; GovRisk floor 55 | | | |
-| Unresolved adverse integrity signal routed from business-model/01 (§24 Filter 1) | | Management quality; Disclosure candor | each max 60; conviction cap | | | |
+| Unresolved adverse integrity signal routed from business-model/01 (§24 Filter 1, RF-MGT-005) | | Management quality; Disclosure candor | each max 60; conviction cap — no rating above "Watchlist" | | | |
 
-If multiple caps affect the same score, use the most restrictive. If a hard disqualifier is flagged, the stewardship verdict must be no better than "Serious governance concerns." The four §24 rejector-filter rows apply score penalties + conviction caps (not hard locks); reflect them in the scores above and in the Note To The Final Synthesizer.
+If multiple caps affect the same score, use the most restrictive. If a hard disqualifier is flagged, the stewardship verdict must be no better than "Serious governance concerns." The five §24 rejector-filter rows apply score penalties + conviction caps (not hard locks); reflect them in the scores above and in the Note To The Final Synthesizer. If `01_management-and-track-record` emitted `RF-MGT-005` as a standalone line, propagate it here as a standalone line too (in this table row or the Red-Flag Register below) — a synthesis that drops the tag lets the conviction cap silently bypass (CLAUDE.md §11).
 
 ## 5. Stewardship Summary
 

@@ -294,6 +294,7 @@ Every Red finding cites a Red Flag ID. Severity uses the Materiality Thresholds.
 | RF-MGT-002 | Sudden Company Secretary / Compliance Officer resignation |
 | RF-MGT-003 | Management changes a KPI after underperformance |
 | RF-MGT-004 | Turnaround claimed without ≥2–3 yrs of delivered operating inflection (§24 Filter 2) |
+| RF-MGT-005 | Unresolved adverse integrity "buzz" routed from `business-model/01_disqualifier-scan`, not cleared and not proven (§24 Filter 1) |
 | RF-OWN-001 | Promoter pledge above threshold |
 | RF-OWN-002 | Promoter pledge increased QoQ |
 | RF-OWN-003 | Promoter stake sale before weak result / adverse announcement |
@@ -363,7 +364,7 @@ When data is missing or weak, these hard caps override an agent's own scoring. T
 | **Turnaround thesis without ≥2–3 yrs of delivered operating inflection** (§24 Filter 2) | Management quality max 60; note conviction cap; classify as governance-turnaround |
 | **Serial-acquirer pattern** — multiple material deals, esp. debt-funded near/above own value (§24 Filter 4) | Capital allocation max 50; Governance risk floor 60; RF-CAP-004 |
 | **Structurally unaligned controlling owner** — government control, listed subsidiary of a value-maximizing parent, or sprawling unrelated conglomerate (§24 Filter 6) | Shareholder friendliness max 55; Governance risk floor 55; RF-OWN-004; value-trap note to valuation |
-| **Unresolved adverse integrity signal** routed from `business-model/01_disqualifier-scan` and not cleared (§24 Filter 1) | Management quality max 60; Disclosure candor max 60; note conviction cap (no hard lock unless proven) |
+| **Unresolved adverse integrity signal** routed from `business-model/01_disqualifier-scan` and not cleared (§24 Filter 1) | Management quality max 60; Disclosure candor max 60; RF-MGT-005; conviction cap — no rating above "Watchlist" until the signal is cleared by primary evidence or escalates to the hard disqualifier lock (no hard lock at this stage unless proven) |
 
 If multiple caps affect the same score, use the most restrictive.
 
