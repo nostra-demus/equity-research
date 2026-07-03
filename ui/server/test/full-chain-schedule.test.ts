@@ -6,7 +6,10 @@
 // Run: npx tsx test/full-chain-schedule.test.ts
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
+import fs from 'node:fs'
+import path from 'node:path'
 import { type FullChainDeps, haltAllChains, launchFullChained } from '../src/launcher'
+import { REPO_ROOT } from '../src/config'
 import { buildSwarmGraph } from '../src/roster'
 import type { LaunchPreflight, RunStatus } from '../src/types'
 
@@ -82,6 +85,15 @@ const sorted = (a: string[]) => [...a].sort()
     assert.deepEqual(f.mods(), ['business-model'], 'only business-model launches first')
     assert.equal(out.runId, 'run-business-model', 'caller gets the first run id to follow')
     assert.equal(out.chained, true)
+    // a FRESH full run (no prior work on disk) is not a resume: nothing skipped, every module planned —
+    // so the cockpit shows all orbs as about-to-run (the honest non-resume view).
+    assert.equal(out.resumed, false, 'a fresh full run is not a resume')
+    assert.deepEqual(out.skipped, [], 'a fresh run skips nothing')
+    assert.deepEqual(
+      sorted(out.planned ?? []),
+      sorted(['business-model', 'earnings', 'balance-sheet-survival', 'management-governance', 'valuation', 'catalyst']),
+      'a fresh run plans every module',
+    )
 
     // business-model done -> earnings (the only newly-ready module) launches
     f.finish('business-model')
@@ -178,6 +190,33 @@ const sorted = (a: string[]) => [...a].sort()
     assert.deepEqual(sorted(f.mods()), sorted(['business-model', 'earnings']), 'no module launches after haltAllChains()')
     assert.ok(!f.launches.some((l) => l.kind === 'rerun'), 'master never launches after a halt')
     assert.equal(f.wasMarkerCleared(), true, 'a halted chain clears the defer-memo marker (no orphan poisoning a later same-day standalone run)')
+  })
+
+  // RESUME (the honest-UI fix): a run folder already holding finished modules is CONTINUED — those modules
+  // are reported as `skipped` (the cockpit shows them done, not "starting") and are NOT re-launched; only
+  // the rest are `planned`. Touches a temp run folder, always cleaned up (never leak a fixture into git).
+  await check('RESUME: finished modules are skipped + reported, never re-launched', async () => {
+    const TICK = 'ZZRSMCHAIN'
+    const d = new Date()
+    const TODAY = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+    const runRootAbs = path.join(REPO_ROOT, 'analyses', `${TICK}_${TODAY}`)
+    try {
+      for (const m of ['business-model', 'earnings']) {
+        fs.mkdirSync(path.join(runRootAbs, m), { recursive: true })
+        fs.writeFileSync(path.join(runRootAbs, m, `99_${m}-synthesis.md`), '# done\n') // a non-empty 99 synthesis = module finished
+      }
+      const f = makeFake()
+      const out = await launchFullChained(TICK, 'tester', 'local', f.deps)
+      assert.equal(out.resumed, true, 'a folder with finished modules is a resume')
+      assert.deepEqual(sorted(out.skipped ?? []), sorted(['business-model', 'earnings']), 'the finished modules are reported as skipped')
+      assert.ok(!(out.planned ?? []).includes('business-model') && !(out.planned ?? []).includes('earnings'), 'a skipped module is never also planned')
+      assert.ok((out.planned ?? []).includes('valuation') && (out.planned ?? []).includes('catalyst'), 'the unfinished modules are planned')
+      assert.ok(!f.mods().includes('business-model') && !f.mods().includes('earnings'), 'a finished module is NOT re-launched (the money the user was worried about)')
+      // both deps of bss + mgov are seeded done, so they are the newly-ready wave and launch immediately
+      assert.ok(f.mods().includes('balance-sheet-survival') && f.mods().includes('management-governance'), 'the next-ready modules launch straight away on resume')
+    } finally {
+      fs.rmSync(runRootAbs, { recursive: true, force: true })
+    }
   })
 
   console.log(`\n${passed} checks passed${process.exitCode ? ' (with failures)' : ''}`)

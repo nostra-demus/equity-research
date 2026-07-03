@@ -17,7 +17,7 @@ import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, GDRIVE, HOST, NEWS, PORT, REPO_
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
 import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED } from './drive'
-import { cancel, cancelAll, creditCheck, decideReadiness, estimate, launch, warmLaunchProbes } from './launcher'
+import { cancel, cancelAll, cancelSubject, creditCheck, decideReadiness, estimate, launch, warmLaunchProbes } from './launcher'
 import { newsBus } from './news/bus'
 import { readFeed, searchFeed } from './news/feed'
 import { matchesFeedFilters, parseFeedFilterQuery, explainFeedFilterMatch, type FeedFilterQuery } from './news/feed-filter'
@@ -58,6 +58,21 @@ app.addContentTypeParser('application/json', { parseAs: 'string' }, (_req, body,
   const s = (body as string)?.trim()
   if (!s) return done(null, undefined)
   try { done(null, JSON.parse(s)) } catch (e) { done(Object.assign(e as Error, { statusCode: 400 }), undefined) }
+})
+// Belt-and-braces catch-all so a state-changing POST can NEVER be rejected 415 "Unsupported Media Type"
+// before its route runs. That 415 comes from Fastify's content-type layer when a request arrives with a
+// content-type it has no parser for — e.g. a stale client build, a proxy that stamps text/plain or
+// application/x-www-form-urlencoded onto a bodyless cancel, or any future caller — and it surfaced to the
+// user as "Couldn't cancel the run: Unsupported Media Type" with no way to stop a run. Our bodyless POSTs
+// (cancel, cancel-all, subject-cancel, credit-check) carry nothing to parse; the ones that DO need a body
+// (launch, readiness-decision) send application/json (handled above) and still validate via zod. So a
+// permissive fallback — parse JSON when the body looks like JSON, otherwise hand the route an empty body —
+// is safe. Fastify matches the specific application/json + multipart parsers ahead of this '*', so JSON
+// routes still parse and uploads are untouched (verified: only unmatched content-types fall here).
+app.addContentTypeParser('*', { parseAs: 'string' }, (_req, body, done) => {
+  const s = (body as string)?.trim()
+  if (!s) return done(null, undefined)
+  try { done(null, JSON.parse(s)) } catch { done(null, undefined) } // non-JSON body on a route that doesn't need one — ignore, never 415
 })
 // CORS allow-list (NOT `origin: true`). The cockpit SPA is served SAME-ORIGIN by this engine and the
 // web client calls the API with a RELATIVE base (dev goes through a server-side vite proxy), so NO
@@ -594,6 +609,21 @@ app.post('/api/runs/:runId/cancel', async (req, reply) => {
 // finishing mid-stop never launches its successor. Idempotent — stopping nothing returns ok.
 app.post('/api/runs/cancel-all', async () => {
   const cancelled = await cancelAll()
+  return { ok: true, cancelled, chainsHalted: true }
+})
+
+// Stop ONE subject's in-flight work (a chained full run + its live module step). The panel's Cancel
+// uses this instead of /runs/:id/cancel so a chained full stops reliably: as the chain advances the
+// followed runId may already have ended, and cancelling only that id leaves the next module running.
+// Idempotent — cancelling a subject with nothing live returns ok with an empty list. Subject+swarm are
+// bounded here; cancelSubject only ever touches runs whose subjectId already matches an in-flight run.
+const SUBJECT_RE = /^[A-Za-z0-9][A-Za-z0-9._-]{0,80}$/
+app.post('/api/runs/subject/:swarm/:subject/cancel', async (req, reply) => {
+  const swarm = String((req.params as any).swarm || '')
+  const subject = String((req.params as any).subject || '')
+  if (!listSwarms().some((s) => s.id === swarm)) return reply.code(400).send({ error: `unknown swarm ${swarm}` })
+  if (!SUBJECT_RE.test(subject)) return reply.code(400).send({ error: 'invalid subject' })
+  const cancelled = await cancelSubject(subject, swarm)
   return { ok: true, cancelled, chainsHalted: true }
 })
 
