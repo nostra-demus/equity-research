@@ -346,7 +346,13 @@ export interface BoardSignal {
   event_types?: string[]
   issuers?: string[]
 }
-export interface BoardCandidate { candidate_id: string; ticker: string; company_name: string; side: string; exposure_score: number; handed_off?: boolean }
+export interface BoardCandidate {
+  candidate_id: string; ticker: string; company_name: string; side: string; exposure_score: number; handed_off?: boolean
+  // additive: the news-impact sizing gap (NEWS_IMPACT.md) carried onto the board so the live book can sort by
+  // mispricing. gap_read = priced | underpriced_candidate | re_rate_to_judge | not_applicable. Optional → older
+  // board JSON still type-checks and the Mispricing rail self-activates once the rebuild carries it.
+  gap_read?: string | null; implied_move_pct?: number | null; observed_move_pct?: number | null
+}
 
 // ---- Phase 3 conviction loop (the live book) ----
 export type ConvictionState = 'watching' | 'provisional' | 'strong' | 'confirmed' | 'fading' | 'handed_off' | 'falsified_discarded' | 'expired_unproven'
@@ -458,7 +464,7 @@ export interface ScreenerBoard {
 // ---- live-book filter + sort (the Recent-runs drawer) ----
 // Defined here (not in BookFilters.tsx) so the store can hold this state without a
 // component→store→component import cycle. Helpers + the predicate live in BookFilters.tsx.
-export type BookSort = 'rank' | 'edge' | 'velocity' | 'checkpoint' | 'proven' | 'newest'
+export type BookSort = 'rank' | 'edge' | 'velocity' | 'materiality' | 'novelty' | 'underradar' | 'mispricing' | 'checkpoint' | 'proven' | 'newest'
 export interface BookFilterState {
   stage: string // '' = all | watching | provisional | full_machine | handed_off
   themes: Set<string> // event_types, OR-matched (self-activates once the board carries them)
@@ -591,6 +597,9 @@ export type SseEvent =
   | { type: 'cost-tick'; runId: string; costUsdSoFar?: number; rateLimit?: { ok: boolean; reason?: string }; ts: number }
   | { type: 'run-done'; runId: string; status: 'done'; costUsd?: number; durationMs?: number; numTurns?: number; finalThesisPath?: string | null; decisionRecordPath?: string | null; ts: number }
   | { type: 'run-error'; runId: string; status: 'error' | 'cancelled' | 'incomplete'; reason: string; message?: string; ts: number }
+  // transient liveness pulse (~3s per in-flight run; never replayed) — status/progress/cost between
+  // agent events plus the engine's last output time and latest tool call ("what is it doing right now")
+  | { type: 'run-heartbeat'; runId: string; status: string; elapsedMs: number; agentsDone: number; agentsTotal: number; costUsd?: number; lastStdoutAt?: number; lastActivity?: { tool: string; ts: number }; ts: number }
   | { type: 'readiness-checking'; runId: string; ticker: string; kind: string; ts: number }
   | { type: 'readiness-report'; runId: string; report: ReadinessReport; ts: number }
   | { type: 'readiness-blocked'; runId: string; report: ReadinessReport; ts: number }

@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useStore } from '../../lib/store'
+import { Spin } from '../Spin'
 
 // The Phase 0.1 intake doc's input_nature enum — kept verbatim so the agent-side schema validates.
 const NATURES = [
@@ -28,6 +29,7 @@ export function SignalIntake() {
   const open = useStore((s) => s.signalIntakeOpen)
   const close = useStore((s) => s.closeSignalIntake)
   const submit = useStore((s) => s.submitSignal)
+  const starting = useStore((s) => s.launchPending?.key === 'signal:intake')
   const [nature, setNature] = useState<string>('news_headline')
   const [headline, setHeadline] = useState('')
   const [url, setUrl] = useState('')
@@ -95,7 +97,7 @@ export function SignalIntake() {
             <div className="intake__actions">
               <span className="intake__est">costs about $8–45 · stops early (and cheaper) if a check says no</span>
               <button className="btn btn--ghost" onClick={close}>Cancel</button>
-              <button className="btn btn--amber" disabled={!valid} onClick={onSubmit}>Start the checks ▸</button>
+              <button className="btn btn--amber" disabled={!valid || starting} onClick={onSubmit}>{starting ? <><Spin /> Starting…</> : <>Start the checks ▸</>}</button>
             </div>
           </motion.div>
         </motion.div>

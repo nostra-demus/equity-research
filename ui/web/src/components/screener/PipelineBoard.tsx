@@ -48,6 +48,7 @@ function ThesisDetail() {
   const detail = useStore((s) => s.scThesisDetail)
   const close = useStore((s) => s.closeThesisDetail)
   const sendToResearch = useStore((s) => s.sendToResearch)
+  const launchPending = useStore((s) => s.launchPending)
   const openCallFile = useStore((s) => s.openCallFile)
   const board = useStore((s) => s.scBoard)
   const moveThesis = useStore((s) => s.moveThesis)
@@ -141,7 +142,7 @@ function ThesisDetail() {
       <h4 className="tdetail__cands-title">Companies this idea points to</h4>
       <table className="atable tdetail__cands">
         <thead>
-          <tr><th>#</th><th>Ticker</th><th>Company</th><th>Buy or short?</th><th className="atable__num" title="How directly this company feels the event, 0–100">Exposure</th><th title="Are its filings already in the data folder?">Filings</th><th></th></tr>
+          <tr><th>#</th><th>Ticker</th><th>Company</th><th>Buy or short?</th><th className="atable__num" title="How directly this company feels the event, 0–100">Exposure</th><th title="The market's reaction vs what the event justifies on fundamentals — under-reacted flags a possible mispricing">Gap to price</th><th title="Are its filings already in the data folder?">Filings</th><th></th></tr>
         </thead>
         <tbody>
           {cands.map((c: any, i: number) => {
@@ -154,13 +155,24 @@ function ThesisDetail() {
                 <td>{c.company_name}<div className="tdetail__dim">{c.exposure_rationale}</div></td>
                 <td>{String(c.side || '').replace(/_/g, ' ')}</td>
                 <td className="atable__num">{c.exposure_score}/100</td>
+                <td>
+                  {(() => {
+                    const ni = c.news_impact
+                    if (!ni || !ni.gap_read || ni.gap_read === 'not_applicable') return <span className="tdetail__dim">—</span>
+                    const label = ni.gap_read === 'underpriced_candidate' ? 'under-reacted' : ni.gap_read === 're_rate_to_judge' ? 'over-reacted' : 'priced'
+                    const color = ni.gap_read === 'underpriced_candidate' ? 'var(--live)' : ni.gap_read === 're_rate_to_judge' ? 'var(--accent-bright)' : 'var(--text-faint)'
+                    const pct = (n: number) => `${n > 0 ? '+' : ''}${Math.round(n)}%`
+                    const moves = typeof ni.observed_move_pct === 'number' && typeof ni.implied_move_pct === 'number' ? ` · moved ${pct(ni.observed_move_pct)}, fair ${pct(ni.implied_move_pct)}` : ''
+                    return <span style={{ color }} title={`News-impact sizing: ${label}${moves}`}>{label}</span>
+                  })()}
+                </td>
                 <td><span className="pooldot" style={{ background: pool ? 'var(--live)' : 'var(--text-faint)' }} title={pool ? 'filings are in — deep research can start' : 'no filings yet — add them before research'} /></td>
                 <td>
                   {done ? (
                     <span className="tdetail__dim">sent ✓</span>
                   ) : confirmFor === c.ticker ? (
-                    <button className="btn btn--amber" onClick={(e) => { e.stopPropagation(); void sendToResearch(meta.thesis_id, c.ticker, pool) }}>
-                      yes — send it ▸
+                    <button className="btn btn--amber" disabled={launchPending?.key === `handoff:${meta.thesis_id}:${c.ticker}`} onClick={(e) => { e.stopPropagation(); void sendToResearch(meta.thesis_id, c.ticker, pool) }}>
+                      {launchPending?.key === `handoff:${meta.thesis_id}:${c.ticker}` ? 'sending…' : 'yes — send it ▸'}
                     </button>
                   ) : (
                     <button className="btn btn--ghost" onClick={(e) => { e.stopPropagation(); setConfirmFor(c.ticker) }} title={`Copies this idea's memo into data/${c.ticker}/ for the research team. Starting the deep research run stays a separate click.`}>
@@ -172,7 +184,7 @@ function ThesisDetail() {
             )
           })}
           {!cands.length && (
-            <tr><td colSpan={7} className="tdetail__dim" style={{ padding: '10px 6px' }}>No companies listed — this idea stopped before the company-picking step.</td></tr>
+            <tr><td colSpan={8} className="tdetail__dim" style={{ padding: '10px 6px' }}>No companies listed — this idea stopped before the company-picking step.</td></tr>
           )}
         </tbody>
       </table>
@@ -325,6 +337,18 @@ function RecentChecks({ onOpen, onReplay }: { onOpen: (thesisId: string) => void
             {s.source_name && <span className="ideacard__src">{s.source_name}</span>}
             <span>{fmtWhen(s.processed_at)}</span>
             {t?.candidate_count ? <span>{t.candidate_count} compan{t.candidate_count === 1 ? 'y' : 'ies'} found</span> : null}
+            {/* surfaced signals the engine already computes (were hidden): materiality, novelty, pair relation */}
+            {typeof s.materiality_score === 'number' && (
+              <span className="pcard__chip" title="How material the full check judged this event, 0–100">M {s.materiality_score}</span>
+            )}
+            {typeof s.novelty_score === 'number' && (
+              <span className="pcard__chip" title="How new this is vs the last few days — high = nobody's covered it yet">
+                {s.novelty_score >= 0.66 ? 'fresh' : s.novelty_score >= 0.33 ? 'developing' : 'known'} {Math.round(s.novelty_score * 100)}%
+              </span>
+            )}
+            {s.pair_label && s.pair_label !== 'new_event' && (
+              <span className="pcard__chip" title="How this event relates to earlier ones on the ledger">{s.pair_label.replace(/_/g, ' ')}</span>
+            )}
           </div>
         </div>
         {clickable && !archivedCard && <span className="ideacard__chev" aria-hidden="true">›</span>}

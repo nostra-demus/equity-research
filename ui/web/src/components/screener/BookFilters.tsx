@@ -90,6 +90,28 @@ export function bookComparator(sort: BookSort): (a: BookRow, b: BookRow) => numb
       case 'edge': { const v = c?.edge_score_live ?? r.t?.edge_score; return v == null ? -Infinity : v }
       case 'velocity': return !c || !c.validated ? -Infinity : c.upgrade_velocity
       case 'proven': { const v = c?.proximity_pct; return v == null ? -Infinity : v }
+      // orthogonal surfacing rails — NOT collapsed into one score (see CLAUDE.md §16): the analyst picks the
+      // lens and finds the convergence (fresh + serious + under-reacted). Each reads a signal already computed
+      // upstream but never previously used to order the book.
+      case 'materiality': { const v = r.s.materiality_score; return v == null ? -Infinity : v }
+      case 'novelty': { const v = r.s.novelty_score; return v == null ? -Infinity : v }
+      case 'underradar': {
+        // high novelty AND low materiality — the "nobody's noticed it yet" profile. novelty is 0–1, materiality
+        // 0–100; put both on a 0–100 scale so the composite is legible.
+        const nov = r.s.novelty_score
+        if (nov == null) return -Infinity
+        return nov * 100 - (r.s.materiality_score ?? 50)
+      }
+      case 'mispricing': {
+        // the biggest under-reaction among this idea's candidates: |implied move| ≫ |observed move|.
+        let best = -Infinity
+        for (const cand of r.t?.candidates || []) {
+          if (cand.gap_read === 'underpriced_candidate' && cand.implied_move_pct != null && cand.observed_move_pct != null) {
+            best = Math.max(best, Math.abs(cand.implied_move_pct) - Math.abs(cand.observed_move_pct))
+          }
+        }
+        return best
+      }
       case 'rank':
       default: { const v = c?.rank_score; return v == null ? -Infinity : v }
     }
@@ -109,6 +131,10 @@ const SORTS: { key: BookSort; label: string }[] = [
   { key: 'rank', label: 'Conviction' },
   { key: 'edge', label: 'Strongest idea' },
   { key: 'velocity', label: 'Climbing fastest' },
+  { key: 'materiality', label: 'Most material' },
+  { key: 'novelty', label: 'Most novel' },
+  { key: 'underradar', label: 'Under the radar' },
+  { key: 'mispricing', label: 'Biggest mispricing' },
   { key: 'checkpoint', label: 'Next check soonest' },
   { key: 'proven', label: 'Most proven' },
   { key: 'newest', label: 'Newest checked' },

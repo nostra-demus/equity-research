@@ -132,6 +132,9 @@ export function LiveFeed() {
   const setFeedWindow = useStore((s) => s.setFeedWindow)
   const feedWindowLoading = useStore((s) => s.feedWindowLoading)
   const [filters, setFilters] = useState<FeedFilterState>(emptyFilters())
+  // wire order: 'newest' keeps the chronological stream (default — the wire is a firehose by nature); 'score'
+  // floats the highest quick-score items to the top so the most material news is a glance, not a scroll.
+  const [sortMode, setSortMode] = useState<'newest' | 'score'>('newest')
 
   // keep the "last look Xm ago" line honest while the panel is open
   useEffect(() => {
@@ -215,6 +218,11 @@ export function LiveFeed() {
   // Re-applying matchesFilters on top of already server-filtered archive results is redundant but harmless
   // (defense in depth, same pattern EventRail uses) — keeps one code path instead of special-casing.
   const visibleGroups = useMemo(() => groupByDedup(items.filter((i) => matchesFilters(i, filters))), [items, filters])
+  // priority ordering, opt-in: reorder the deduped stories by the representative item's quick score (same length,
+  // so paging/sentinel logic below is unaffected). 'newest' returns the untouched chronological order.
+  const orderedGroups = useMemo(() => (
+    sortMode === 'score' ? [...visibleGroups].sort((a, b) => (b.rep.triage_score ?? 0) - (a.rep.triage_score ?? 0)) : visibleGroups
+  ), [visibleGroups, sortMode])
 
   // Incremental render: show the first `shownCount` stories, grow as a bottom sentinel scrolls into
   // view, and snap back to the top + first page whenever the filtered set changes (a filter toggle or a
@@ -227,13 +235,13 @@ export function LiveFeed() {
   // slices the old (large) shownCount over the NEW filtered set, mapping thousands of rows before
   // snapping back to PAGE — the exact slow filter-click this incremental view exists to avoid. `items` is
   // deliberately excluded so a live SSE append (or an archive page load) never yanks the scroll back to top.
-  const [pagedFor, setPagedFor] = useState<{ f: FeedFilterState; w: number; a: boolean }>({ f: filters, w: feedWindowDays, a: archiveMode })
-  if (pagedFor.f !== filters || pagedFor.w !== feedWindowDays || pagedFor.a !== archiveMode) {
-    setPagedFor({ f: filters, w: feedWindowDays, a: archiveMode })
+  const [pagedFor, setPagedFor] = useState<{ f: FeedFilterState; w: number; a: boolean; s: 'newest' | 'score' }>({ f: filters, w: feedWindowDays, a: archiveMode, s: sortMode })
+  if (pagedFor.f !== filters || pagedFor.w !== feedWindowDays || pagedFor.a !== archiveMode || pagedFor.s !== sortMode) {
+    setPagedFor({ f: filters, w: feedWindowDays, a: archiveMode, s: sortMode })
     setShownCount(PAGE)
   }
-  useEffect(() => { listRef.current?.scrollTo?.({ top: 0 }) }, [filters, feedWindowDays])
-  const shown = useMemo(() => visibleGroups.slice(0, shownCount), [visibleGroups, shownCount])
+  useEffect(() => { listRef.current?.scrollTo?.({ top: 0 }) }, [filters, feedWindowDays, sortMode])
+  const shown = useMemo(() => orderedGroups.slice(0, shownCount), [orderedGroups, shownCount])
   const hasMore = shownCount < visibleGroups.length
   // The bottom sentinel does double duty: in archive mode it pulls the next SERVER page (via the cursor)
   // once the already-fetched results are all revealed; otherwise it just reveals more of what's loaded.
@@ -343,6 +351,13 @@ export function LiveFeed() {
 
       <FeedFilters value={filters} onChange={setFilters} sources={sources} />
 
+      <div className="wirewindow" role="group" aria-label="Sort order">
+        <span className="wirewindow__label">Sort</span>
+        <button type="button" className={`wirewindow__chip${sortMode === 'newest' ? ' is-active' : ''}`} onClick={() => setSortMode('newest')}>Newest first</button>
+        <button type="button" className={`wirewindow__chip${sortMode === 'score' ? ' is-active' : ''}`} onClick={() => setSortMode('score')} title="Float the highest quick-score items to the top">Top score</button>
+        {sortMode === 'score' && <span className="wirewindow__note">highest quick-score first — the most material news up top</span>}
+      </div>
+
       <div className="wire__list" ref={listRef}>
         {shown.map((g, i) => {
           // a sticky date divider whenever the calendar day changes — so a list that only shows HH:MM
@@ -351,7 +366,7 @@ export function LiveFeed() {
           // highest-tier source, which can be older and would mis-date a story that spans midnight.
           const gTs = g.members[0]?.ts ?? g.rep.ts
           const prevTs = i > 0 ? (shown[i - 1].members[0]?.ts ?? shown[i - 1].rep.ts) : ''
-          const showDay = i === 0 || dayKeyLocal(gTs) !== dayKeyLocal(prevTs)
+          const showDay = sortMode === 'newest' && (i === 0 || dayKeyLocal(gTs) !== dayKeyLocal(prevTs))
           const dayLabel = showDay ? dayDividerLabel(gTs) : ''
           return (
             <Fragment key={g.group}>
