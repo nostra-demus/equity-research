@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Machine-agnostic TEMPLATE: placeholder tokens rendered by scripts/ops/install-services.sh at install time.
+     DOER-ONLY housekeeping timer. Daily 07:10: refresh the illustrative model paper-portfolio sizing
+     (pure-local; model/process-tracking only — not investment advice, not real orders). -->
+<plist version="1.0"><dict>
+  <key>Label</key><string>com.nostradamus.hk-size</string>
+  <key>ProgramArguments</key><array>
+    <string>/bin/bash</string>
+    <string>{{HOME}}/.nostra-ops/housekeeping.sh</string>
+    <string>/research:size</string><string>all</string>
+  </array>
+  <key>EnvironmentVariables</key><dict>
+    <key>HOME</key><string>{{HOME}}</string>
+    <key>PATH</key><string>{{PLIST_PATH}}</string>
+    <key>ENGINE_REPO_ROOT</key><string>{{ENGINE_REPO_ROOT}}</string>
+  </dict>
+  <key>MaterializeDatalessFiles</key><true/>
+  <key>StartCalendarInterval</key><dict><key>Hour</key><integer>7</integer><key>Minute</key><integer>10</integer></dict>
+  <key>StandardOutPath</key><string>{{HOME}}/Library/Logs/nostradamus-housekeeping.log</string>
+  <key>StandardErrorPath</key><string>{{HOME}}/Library/Logs/nostradamus-housekeeping.log</string>
+</dict></plist>

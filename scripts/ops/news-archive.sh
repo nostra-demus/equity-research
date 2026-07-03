@@ -15,7 +15,7 @@
 #   - No-ops cleanly if the Drive folder isn't reachable (Drive app off) — logs and exits 0, prunes nothing.
 # ---------------------------------------------------------------------------------------------------
 
-REPO="${REPO:-/Users/chiraagkapil/equity-research}"
+REPO="${REPO:-$HOME/nostra-prod}"
 ARCH="${NEWS_ARCHIVE_DIR:-}"
 RETENTION_DAYS="${NEWS_LOCAL_RETENTION_DAYS:-30}"
 LOG="${ARCHIVE_LOG:-$HOME/Library/Logs/nostradamus-news-archive.log}"

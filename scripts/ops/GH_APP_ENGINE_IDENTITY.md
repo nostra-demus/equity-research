@@ -53,7 +53,7 @@ That's all the browser work. The **installation id** is auto-discovered by the s
 On the machine that runs the engine (the one with the launchd agents):
 
 ```bash
-cd /Users/chiraagkapil/equity-research
+cd "$HOME/equity-research"   # your checkout of this repo on the engine Mac (dev tree or the prod worktree)
 scripts/ops/setup-gh-app.sh --app-id <APP_ID> --key ~/Downloads/nostra-engine.*.private-key.pem
 ```
 

@@ -4,19 +4,62 @@ The public cockpit URL is a **Cloudflare Tunnel → local engine server** (Fasti
 fronted by Cloudflare Access). macOS `launchd` user agents keep it up — **and keep it on `main`** — with
 **no human in the loop**:
 
-| Agent | Runs | Auto-start at login | Auto-restart |
-|---|---|---|---|
-| `com.nostradamus.engine` | `npm start` (`tsx src/server.ts`) in **`nostra-prod/ui/server`** | ✅ `RunAtLoad` | ✅ `KeepAlive` |
-| `com.nostradamus.tunnel` | `cloudflared tunnel run nostradamus-engine` | ✅ `RunAtLoad` | ✅ `KeepAlive` |
-| `com.nostradamus.deploy` | `deploy.sh` every 120s — **auto-deploys `main`** | ✅ `RunAtLoad` | — |
-| `com.nostradamus.watchdog` | `watchdog.sh` every 30s | ✅ `RunAtLoad` | — (self-heals the others) |
-| `com.nostradamus.news-archive` | `news-archive.sh` every 3h | ✅ `RunAtLoad` | — |
-| `com.nostradamus.caffeinate` | `caffeinate -s` (no idle sleep **on AC**) | ✅ `RunAtLoad` | ✅ `KeepAlive` |
+| Agent | Runs | Role | Auto-start at login | Auto-restart |
+|---|---|---|---|---|
+| `com.nostradamus.engine` | `npm start` (`tsx src/server.ts`) in **`nostra-prod/ui/server`** | base | ✅ `RunAtLoad` | ✅ `KeepAlive` |
+| `com.nostradamus.deploy` | `deploy.sh` every 120s — **auto-deploys `main`** | base | ✅ `RunAtLoad` | — |
+| `com.nostradamus.watchdog` | `watchdog.sh` every 30s | base | ✅ `RunAtLoad` | — (self-heals the others) |
+| `com.nostradamus.caffeinate` | `caffeinate -i` (no idle sleep **on AC AND battery**) | base | ✅ `RunAtLoad` | ✅ `KeepAlive` |
+| `com.nostradamus.tunnel` | `cloudflared tunnel run nostradamus-engine` | **doer** | ✅ `RunAtLoad` | ✅ `KeepAlive` |
+| `com.nostradamus.news-archive` | `news-archive.sh` every 3h | **doer** | ✅ `RunAtLoad` | — |
+| `com.nostradamus.news-ingester` | `npm run ingest:once` every 15m (opt-in: set `GROQ_API_KEY`) | **doer** | ✅ `RunAtLoad` | — |
+| `com.nostradamus.hk-review` | `housekeeping.sh /research:review-decisions due` daily 06:10 (DUE-gated) | **doer** | — | — |
+| `com.nostradamus.hk-track` | `housekeeping.sh /research:track all` daily 06:30 | **doer** | — | — |
+| `com.nostradamus.hk-sweep` | `housekeeping.sh /screener:sweep` daily 06:50 | **doer** | — | — |
+| `com.nostradamus.hk-size` | `housekeeping.sh /research:size all` daily 07:10 | **doer** | — | — |
+| `com.nostradamus.hk-calibrate` | `housekeeping.sh /research:calibrate all` monthly (1st, 07:40) | **doer** | — | — |
+
+### Roles — one doer, N admins
+Exactly **one** machine is the **doer**: it owns the public tunnel and runs the autonomous daily jobs
+(news + the `hk-*` housekeeping timers). Install it with the default role:
+
+```
+bash scripts/ops/install-services.sh                 # role=doer (the always-on host)
+```
+
+Any **other** machine (a laptop you also use as a full admin) installs with `--role admin` — it gets the
+local engine, auto-deploy, watchdog and caffeinate, but **NOT** the tunnel, news, or timers, so the two
+machines never fight over the tunnel or double-run the paid jobs. Re-running with `--role admin` also
+**removes** any doer-only agents a machine previously had (a clean doer→admin demotion):
+
+```
+bash scripts/ops/install-services.sh --role admin    # secondary machine: engine only, no tunnel/timers
+```
+
+### Housekeeping timers (`housekeeping.sh`)
+The five `hk-*` agents run one headless Claude slash command each, from the prod worktree, under a per-run
+USD cap. `track` / `size` / `calibrate` are pure-local aggregates (near-free, seconds); `sweep` and
+`review-decisions` make at most one web pass. `review-decisions` is **DUE-gated** — the wrapper runs
+`.claude/hooks/review_due.py` first and skips entirely when nothing is due, so it costs nothing on quiet days.
+Tune the cap by adding `HOUSEKEEPING_BUDGET_USD` (default `8`) to any `hk-*` plist's `EnvironmentVariables`
+(also `HOUSEKEEPING_MODEL`, `HOUSEKEEPING_MAX_TURNS`, `HOUSEKEEPING_TIMEOUT_SEC`). All housekeeping runs log
+to `~/Library/Logs/nostradamus-housekeeping.log`. New full research runs are **never** scheduled — they stay
+human-initiated.
+
+**Auth for the doer (required).** Both the cockpit and the `hk-*` timers spawn a headless `claude` under
+launchd, which cannot prompt for an interactive login — so the doer needs Anthropic credentials available
+non-interactively. Provide them the way the engine already reads them (`ui/server/src/load-env.ts`): put
+`ANTHROPIC_API_KEY` **or** `CLAUDE_CODE_OAUTH_TOKEN` (from `claude setup-token`) in
+`~/.config/nostra-engine/providers.env` (mode 600, outside the repo). `housekeeping.sh` sources that file
+before each run, so the timers authenticate exactly like the cockpit's own spawned runs. (A `claude login`
+stored credential also works if it is reachable by the launchd GUI agent, but the token file is the reliable
+path.) `NEWS_ARCHIVE_DIR` is auto-carried from the existing install on a re-run, so you don't have to re-pass
+it every time.
 
 ### Production runs from its own tree (`nostra-prod`) — dev never touches live
 The engine does **not** serve this dev checkout. Live runs from a dedicated git worktree pinned to
-`main` at **`/Users/chiraagkapil/nostra-prod`**, so feature-branch work and uncommitted edits can never
-leak to the public site. The engine runs `tsx` straight from source there (so the live API = `main`),
+`main` at **`$HOME/nostra-prod`** (e.g. `/Users/admin/nostra-prod`), so feature-branch work and uncommitted
+edits can never leak to the public site. The engine runs `tsx` straight from source there (so the live API = `main`),
 and serves `nostra-prod/ui/dist`. Runtime state (`ui/server/.state`, gitignored) and the ops shell
 scripts (`~/.nostra-ops/{deploy,watchdog}.sh`) live outside the tree so a fast-forward never disturbs them.
 
@@ -45,10 +88,11 @@ port (the load-doubling failure mode). Every incident + repair is logged to
 `~/Library/Logs/nostradamus-watchdog.log`. **You do nothing; it fixes itself and keeps a track.**
 
 ### Keeping the Mac awake (`caffeinate`)
-`com.nostradamus.caffeinate` runs `caffeinate -s`, which prevents idle system sleep **only while on AC
-power** (lid open) — an unplugged laptop can still sleep to save battery. This stops the engine + tunnel
-dying from idle sleep mid-session. `-s` is AC-gated; `-i` is **not**, so it is deliberately omitted.
-Verify with `pmset -g assertions` (PreventSystemSleep present on AC, absent on battery).
+`com.nostradamus.caffeinate` runs `caffeinate -i`, which holds `PreventUserIdleSystemSleep` — this is
+**not** AC-gated, so the engine + tunnel stay reachable on battery as well as on AC (lid open). Trade-off:
+an unplugged machine no longer idle-sleeps to save power. `-i` does **not** override clamshell (closed-lid)
+sleep, so for guaranteed 24/7 keep the doer on AC. Verify with `pmset -g assertions`
+(`PreventUserIdleSystemSleep` present on AC **and** battery).
 
 ### Tunnel hardening (`cloudflared-config.yml.example`)
 The live tunnel config (`~/.cloudflared/config.yml`) is **operator-owned** (holds the tunnel UUID +
@@ -63,16 +107,20 @@ setup** creates the prod worktree, then installs the agents:
 
 ```
 # one-time: production checkout pinned to main (decoupled from your dev tree)
-git worktree add -B main /Users/chiraagkapil/nostra-prod origin/main
-(cd /Users/chiraagkapil/nostra-prod/ui/server && npm ci)
-(cd /Users/chiraagkapil/nostra-prod/ui/web && npm ci && npm run build)
+git worktree add -B main "$HOME/nostra-prod" origin/main
+(cd "$HOME/nostra-prod/ui/server" && npm ci)
+(cd "$HOME/nostra-prod/ui/web" && npm ci && npm run build)
 # migrate the GITIGNORED runtime dirs the fresh worktree doesn't get from git (analyses/ + screener/ are
-# tracked, so they come with the checkout; .state/ and data/ are gitignored and must be copied over):
-rsync -a /Users/chiraagkapil/equity-research/ui/server/.state/ /Users/chiraagkapil/nostra-prod/ui/server/.state/  # enrichment/news cache
-rsync -a /Users/chiraagkapil/equity-research/data/             /Users/chiraagkapil/nostra-prod/data/              # research data pool (uploads, extracts)
+# tracked, so they come with the checkout; .state/ and data/ are gitignored and must be copied from your
+# other machine or a Google Drive mirror):
+rsync -a <source>/ui/server/.state/ "$HOME/nostra-prod/ui/server/.state/"  # enrichment/news cache
+rsync -a <source>/data/             "$HOME/nostra-prod/data/"              # research data pool (uploads, extracts)
 
-# install / refresh all six launchd agents (idempotent, no sudo; safe to re-run)
-bash scripts/ops/install-services.sh
+# install / refresh the launchd agents (idempotent, no sudo; safe to re-run). --role doer on the always-on
+# host, --role admin on a secondary machine. Set NEWS_ARCHIVE_DIR to your Google Drive mount to enable the
+# cloud news archive (leave unset to skip it).
+NEWS_ARCHIVE_DIR="$HOME/Library/CloudStorage/GoogleDrive-<you>/My Drive/equity-research-data/news-archive" \
+  bash scripts/ops/install-services.sh --role doer
 ```
 
 ## Operating rules (so it never blanks or dies)
@@ -91,10 +139,13 @@ bash scripts/ops/install-services.sh
 ## Quick checks
 
 ```
-launchctl list | grep nostradamus                 # all six agents
+launchctl list | grep nostradamus                 # all agents (a doer also shows tunnel + hk-*)
 curl -s http://127.0.0.1:8787/api/health          # {"ok":true,"repoRoot":".../nostra-prod"}
+curl -s https://app.nostra-demus.com/api/health   # public path (doer only)
 tail -f ~/Library/Logs/nostradamus-deploy.log     # auto-deploy log (DEPLOY/DONE lines)
 tail -f ~/Library/Logs/nostradamus-watchdog.log   # self-heal log
+tail -f ~/Library/Logs/nostradamus-housekeeping.log   # daily housekeeping (RUN/DONE/SKIP lines)
+bash ~/.nostra-ops/housekeeping.sh /research:track all  # force one housekeeping run by hand
 ```
 
 ## Reboot behavior
