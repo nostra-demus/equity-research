@@ -2,12 +2,19 @@
 // Proves a module can declare its readiness rule in its own 00-triage frontmatter (zero edits to the
 // readiness engine) and that the interpreter behaves correctly.
 import assert from 'node:assert/strict'
-import { evalDecl } from '../src/data-status'
+import { classify, deriveCoverage, evalDecl, quoteAsOfMonths } from '../src/data-status'
 import { moduleReadinessIssues } from '../src/readiness'
 import { moduleReadinessDecls } from '../src/roster'
-import type { FileType, ModuleReadiness } from '../src/types'
+import type { ClassifiedFile, FileType, ModuleReadiness } from '../src/types'
 
 const hasOf = (present: FileType[]) => (t: FileType) => present.includes(t)
+
+// minimal ClassifiedFile for coverage tests — only filename/type/ageMonths/sheets are read by deriveCoverage
+const cf = (filename: string, type: FileType = 'other', ageMonths: number | null = 0): ClassifiedFile => ({
+  filename, ext: filename.slice(filename.lastIndexOf('.')), sizeBytes: 1, mtime: '2026-07-01T00:00:00Z',
+  type, periodHint: null, ageMonths, confidence: 'high', basis: 'filename',
+})
+const covPresent = (files: ClassifiedFile[], key: string) => deriveCoverage(files).find((g) => g.key === key)?.present === true
 
 let passed = 0
 function check(name: string, fn: () => void) {
@@ -38,6 +45,102 @@ check('a new/declared module is discovered from frontmatter via the graph (catal
   const d = moduleReadinessDecls()['catalyst']
   assert.ok(d, 'catalyst should expose a data_readiness declaration')
   assert.deepEqual(d!.sufficient, ['transcript', 'guidance'])
+})
+
+// ---- classify() + upload coverage (regression: two real misclassifications) ----
+
+// Bug: an earnings-call transcript whose filename carries a quarter token was claimed by the quarterly
+// rule and never reached the transcript rule (or the content sniff), so "Earnings transcript" showed unmet.
+check('classify: "…Q1 2026 Earnings Call…" RTF is a transcript, not a quarterly filing', () => {
+  assert.equal(classify('MGM Resorts International, Q1 2026 Earnings Call, Apr 29, 2026.rtf', '').type, 'transcript')
+  assert.equal(classify('MGM Resorts International, Q4 2025 Earnings Call, Feb 05, 2026.rtf', '').type, 'transcript')
+})
+check('classify: a genuine quarterly (no call/transcript token) is still a quarterly filing', () => {
+  assert.equal(classify('MGM Resorts International - Form 10-Q (Apr-29-2026).pdf', '').type, 'quarterly_filing')
+  assert.equal(classify('Q1 2026 Quarterly Results.pdf', '').type, 'quarterly_filing')
+})
+check('coverage: a transcript-typed file lights up the Earnings transcript group', () => {
+  assert.ok(covPresent([cf('MGM Resorts International, Q1 2026 Earnings Call, Apr 29, 2026.rtf', 'transcript')], 'transcript'))
+})
+
+// Bug: a Capital IQ "Key Developments" material-events feed quotes "Independent Auditor", so the annual
+// content-sniff mis-typed it as an audited annual filing — and it then hijacked the Annual report slot.
+check('classify: a "Key Developments" feed is NOT an annual filing even when its text names the auditor', () => {
+  assert.equal(classify('MGM Resorts International NYSE MGM Key Developments.rtf', 'MGM appoints Independent Auditor; Annual Report due').type, 'other')
+})
+// Bug (underscore vs space): filename rules used a literal space, so underscore exports slipped to 'other'.
+check('classify: underscore-named exports are still identified (annual report, recent changes)', () => {
+  const ar = classify('MGM_Annual_Report_Final_BMK.pdf', '')
+  assert.equal(ar.type, 'annual_filing')
+  assert.equal(ar.basis, 'filename') // by name now, not only rescued by content-sniff
+  assert.equal(classify('02_Recent_Changes.xls', '').type, 'consensus_estimates')
+})
+
+// Bug: the Capital IQ "Public Company Profile" tearsheet holds the dated current price but was typed
+// 'other' and did not satisfy the price signal, so "Current price" showed unmet even when uploaded.
+check('coverage: only the PUBLIC company profile tearsheet satisfies Current price', () => {
+  // the Capital IQ public-issuer tearsheet counts…
+  assert.ok(covPresent([cf('MGM Resorts International NYSE MGM Public Company Profile.rtf')], 'price'))
+  // …but a bare "Company Profile" overview (no dated quote) must NOT open the CRITICAL price gate
+  assert.equal(covPresent([cf('Acme Corp Company Profile.pdf')], 'price'), false)
+})
+// Codex C5: the exclusion is a document phrase ("target price"), so an issuer literally NAMED Target still
+// gets a price from its tearsheet, while an analyst target-price export is still rejected.
+check('coverage: an issuer named "Target" still gets Current price; an analyst target-price export does not', () => {
+  assert.ok(covPresent([cf('Target Corporation NYSE TGT Public Company Profile.rtf')], 'price'))
+  assert.equal(covPresent([cf('MGM Analyst Coverage Target Price.xls')], 'price'), false)
+})
+// Codex C4: an earnings-call PRESENTATION/slide deck is slides, not prepared remarks — it must not fill the
+// CORE Earnings transcript slot; the actual call transcript still classifies as a transcript.
+check('classify: an earnings-call presentation/slide deck is investor_deck, not a transcript', () => {
+  assert.equal(classify('MGM Q1 2026 Earnings Call Presentation.pdf', '').type, 'investor_deck')
+  assert.equal(classify('MGM Q1 2026 Earnings Call Slides.pdf', '').type, 'investor_deck')
+  assert.equal(classify('MGM Resorts International, Q1 2026 Earnings Call, Apr 29, 2026.rtf', '').type, 'transcript')
+})
+// Codex C2/C3 (tearsheet freshness): a full date counts ONLY after a quote-context phrase, so neither a bare
+// body year nor a newer UNRELATED date (upcoming earnings, ex-div) can make a stale quote read fresh.
+check('quoteAsOfMonths: only a quote-context date sets age; bare / newer-unrelated dates are ignored', () => {
+  assert.equal(quoteAsOfMonths('Jul-02-2026'), null)                     // bare date, no quote context
+  assert.equal(quoteAsOfMonths('Founded 2010; incorporated 1998'), null) // bare years
+  const jul = quoteAsOfMonths('Delayed Quote Last Updated on Jul-02-2026')
+  const jan = quoteAsOfMonths('as of Jan-02-2026')
+  assert.ok(jul !== null && jan !== null && jul < jan, 'a later quote date is fewer months old')
+  // a STALE Jan quote plus a NEWER unrelated date -> the quote date wins, not the later one
+  assert.equal(quoteAsOfMonths('Delayed Quote Last Updated Jan-02-2026. Upcoming earnings Aug-05-2026'), jan)
+  assert.equal(quoteAsOfMonths('price as of 2026-07-02'), jul)           // ISO form == Mon-DD-YYYY form
+})
+// Codex round 2: "as of" / "as at" is generic phrasing (consensus-estimate dates, filing dates, …), so a
+// STRONG quote phrase (last updated / delayed quote / real-time quote) found anywhere in the document must
+// win over a newer but weaker "as of" elsewhere — the weak phrase must never compete with a real quote
+// timestamp for "most recent qualifying date".
+check('quoteAsOfMonths: a strong quote phrase beats a newer unrelated weak "as of" date', () => {
+  const jan = quoteAsOfMonths('as of Jan-02-2026')
+  assert.equal(
+    quoteAsOfMonths('Delayed Quote Last Updated Jan-02-2026. Consensus estimates as of Jul-02-2026.'),
+    jan,
+  )
+})
+
+// Codex C8 (hyphenated target-price): the analyst-doc exclusion is a PHRASE and must match the hyphen form
+// too — a "Target-Price Quote"/"Target-Price Snapshot" export is an analyst target, NOT a live market quote,
+// so it must NOT satisfy the CRITICAL Current-price group / valuation hasCurrentPrice gate (CLAUDE.md §16:
+// "current price and its date"). An issuer literally NAMED Target must still get a price from its tearsheet.
+check('coverage: a HYPHENATED analyst target-price export does not satisfy Current price', () => {
+  assert.equal(covPresent([cf('MGM Target-Price Quote.pdf')], 'price'), false)
+  assert.equal(covPresent([cf('MGM Target-Price Snapshot.pdf')], 'price'), false)
+  // controls: issuer named Target still qualifies; the spaced form was already rejected
+  assert.ok(covPresent([cf('Target Corporation NYSE TGT Public Company Profile.rtf')], 'price'))
+  assert.equal(covPresent([cf('MGM Analyst Coverage Target Price.xls')], 'price'), false)
+})
+// Codex C7 (explicit transcript titled with a presentation-event name): "…Presentation Transcript" is
+// prepared remarks, not slides — the `transcript` token wins, so it fills the CORE Earnings-transcript slot
+// and is NOT routed to investor_deck. A plain "…Earnings Presentation" (no transcript token) stays a deck.
+check('classify: an explicit "…Presentation Transcript" is a transcript, not an investor_deck', () => {
+  assert.equal(classify('MGM Q1 2026 Earnings Presentation Transcript.rtf', '').type, 'transcript')
+  assert.equal(classify('Investor Presentation Transcript.pdf', '').type, 'transcript')
+  // controls: a slide-only deck is still a deck; a plain call transcript is still a transcript
+  assert.equal(classify('MGM Q1 2026 Earnings Call Presentation.pdf', '').type, 'investor_deck')
+  assert.equal(classify('MGM Q1 2026 Investor Presentation.pdf', '').type, 'investor_deck')
 })
 
 // ---- A.5: readiness-gate scoping by run kind ----

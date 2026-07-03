@@ -193,19 +193,80 @@ function extractPeriod(filename: string, sniff: string): { hint: string | null; 
   return { hint: null, ageMonths: null }
 }
 
+const MONTH_NUM: Record<string, number> = {
+  jan: 1, feb: 2, mar: 3, apr: 4, may: 5, jun: 6, jul: 7, aug: 8, sep: 9, oct: 10, nov: 11, dec: 12,
+}
+// Age (in months) implied by the QUOTE / as-of date of a price document — the Capital IQ "Delayed Quote …
+// Last Updated on Jul-02-2026" / "close price as of Jul-02-2026" line, an ISO 2026-07-02, etc. A full date
+// counts ONLY when it sits right after a quote-context phrase, so neither a bare body year (a founding
+// year — the stray "2010" that read a same-day tearsheet 16y stale) NOR a newer UNRELATED date elsewhere
+// in the tearsheet (an upcoming-earnings / ex-dividend / analyst-target date) can set the quote age.
+//
+// Context comes in two tiers. STRONG phrases ("last updated", "delayed quote", "real-time quote") are used
+// ONLY for an actual quote timestamp in these vendor exports. WEAK phrasing ("as of" / "as at") is generic —
+// it also introduces consensus-estimate dates, filing dates, shareholding-as-of dates, and the like. So a
+// weak "as of" must never outrank a strong quote phrase elsewhere in the same document (Codex: "consensus
+// estimates as of Jul-02-2026" sitting next to a stale "Delayed Quote Last Updated Jan-02-2026" must not
+// make the quote read as July). Weak matches are used ONLY when no strong match exists anywhere in the text;
+// within a tier, the most-recent qualifying date wins. Null when nothing qualifies.
+export function quoteAsOfMonths(sniff: string): number | null {
+  if (!sniff) return null
+  const text = sniff.slice(0, 16000)
+  const strongCtx = /(?:last[\s_]?updated|updated[\s_]?on|delayed[\s_]?quote|real[\s_-]?time[\s_]?quote)/gi
+  const weakCtx = /(?:as[\s_]?of|as[\s_]?at)/gi
+  const fullDate = /\b([A-Za-z]{3})[a-z]*[-.\s](\d{1,2})(?:st|nd|rd|th)?,?[-\s](\d{4})\b|\b(\d{4})-(\d{2})-\d{2}\b/
+
+  const scan = (re: RegExp): Array<{ y: number; mo: number }> => {
+    const hits: Array<{ y: number; mo: number }> = []
+    let ctx: RegExpExecArray | null
+    while ((ctx = re.exec(text))) {
+      // a full date in the ~50 chars immediately FOLLOWING the context phrase (else ignore it)
+      const tail = text.slice(ctx.index + ctx[0].length, ctx.index + ctx[0].length + 50)
+      const d = tail.match(fullDate)
+      if (!d) continue
+      if (d[1]) { const mo = MONTH_NUM[d[1].toLowerCase()]; if (mo) hits.push({ y: Number(d[3]), mo }) }
+      else if (d[4]) hits.push({ y: Number(d[4]), mo: Number(d[5]) })
+    }
+    return hits
+  }
+
+  const strongHits = scan(strongCtx)
+  const hits = strongHits.length ? strongHits : scan(weakCtx)
+
+  let bestKey = -1, bestY = 0, bestMo = 0
+  for (const h of hits) {
+    if (h.y < 2000 || h.y > new Date().getFullYear() + 1 || h.mo < 1 || h.mo > 12) continue
+    const key = h.y * 12 + h.mo
+    if (key > bestKey) { bestKey = key; bestY = h.y; bestMo = h.mo }
+  }
+  return bestKey < 0 ? null : Math.max(0, monthsSince(bestY, bestMo))
+}
+
 // ---- classification ----
-function classify(filename: string, sniff: string): { type: FileType; confidence: 'high' | 'medium' | 'low'; basis: 'filename' | 'content' | 'extension' } {
+export function classify(filename: string, sniff: string): { type: FileType; confidence: 'high' | 'medium' | 'low'; basis: 'filename' | 'content' | 'extension' } {
   const f = filename.toLowerCase()
   const ext = path.extname(f)
   const test = (re: RegExp) => re.test(f)
   const testC = (re: RegExp) => re.test(sniff)
 
   if (test(/\.gdoc$/)) return { type: 'user_note', confidence: 'high', basis: 'filename' }
-  if (test(/annual\s?report|10-?k|integrated annual/)) return { type: 'annual_filing', confidence: 'high', basis: 'filename' }
-  if (test(/10-?q|quarterly|interim[\s_]?(results?|report|financ|statement)|half[\s\-]?year|q[1-4][\s\-_]?20\d{2}/)) return { type: 'quarterly_filing', confidence: 'high', basis: 'filename' }
+  if (test(/annual[\s_]?report|10-?k|integrated annual/)) return { type: 'annual_filing', confidence: 'high', basis: 'filename' }
+  // A results/earnings PRESENTATION or slide deck is slides, not prepared remarks — route it to deck BEFORE
+  // the transcript rule (which matches "earnings call", a token an "…Earnings Call Presentation" deck also
+  // carries), so a deck can't fill the CORE "Earnings transcript" coverage slot. `\bdeck\b` (word-bounded)
+  // so an issuer like "Deckers" isn't swept in. BUT an explicit transcript that a vendor happens to title
+  // with a presentation-event name ("Q1 Earnings Presentation Transcript", "Investor Presentation
+  // Transcript") is prepared remarks, not slides — the `transcript` token wins, so exclude it here and let
+  // it fall through to the transcript rule below.
+  if (test(/presentation|slides|\bdeck\b/) && !test(/transcript/)) return { type: 'investor_deck', confidence: 'high', basis: 'filename' }
+  // Transcript is tested BEFORE quarterly on purpose: an earnings-call transcript filename carries a
+  // quarter token ("…Q1 2026 Earnings Call…") that the quarterly rule's `q[1-4] 20\d{2}` would otherwise
+  // claim first — and once quarterly returns, the content sniff (line ~223) never runs. The
+  // "earnings call"/"transcript"/"conference call" signal is the stronger, more specific one, so it wins.
   if (test(/transcript|conference[\s\-_]?call|earnings[\s\-_]?call|_call\b/)) return { type: 'transcript', confidence: 'high', basis: 'filename' }
+  if (test(/10-?q|quarterly|interim[\s_]?(results?|report|financ|statement)|half[\s\-]?year|q[1-4][\s\-_]?20\d{2}/)) return { type: 'quarterly_filing', confidence: 'high', basis: 'filename' }
   if (test(/estimates?|consensus/)) return { type: 'consensus_estimates', confidence: 'high', basis: 'filename' }
-  if (test(/revision|surprise|recent changes|trends/)) return { type: 'consensus_estimates', confidence: 'medium', basis: 'filename' }
+  if (test(/revision|surprise|recent[\s_]?changes|trends/)) return { type: 'consensus_estimates', confidence: 'medium', basis: 'filename' }
   if (test(/analyst[\s_]?coverage|research[\s_]?coverage|broker[\s_]?(recommendation|rating)/)) return { type: 'consensus_estimates', confidence: 'high', basis: 'filename' }
   if (test(/multiples/)) return { type: 'multiples_export', confidence: 'high', basis: 'filename' }
   if (test(/comparable|comps|peer/)) return { type: 'peer_comps', confidence: 'high', basis: 'filename' }
@@ -214,7 +275,11 @@ function classify(filename: string, sniff: string): { type: FileType; confidence
   if (test(/guidance/)) return { type: 'guidance', confidence: 'high', basis: 'filename' }
   if (test(/financials|income|balance|cash[\s_]?flow/)) return { type: 'financials', confidence: 'high', basis: 'filename' }
   if (test(/presentation|deck|investor/)) return { type: 'investor_deck', confidence: 'high', basis: 'filename' }
-  if (test(/company profile|tearsheet|landscape|suppliers|customers|products/)) return { type: 'other', confidence: 'low', basis: 'filename' }
+  // Supplementary Capital IQ landscape/reference exports — pinned to 'other' by NAME so the loose content
+  // sniff below can't mis-toptier them. "Key Developments" is a material-events/news feed that quotes
+  // phrases like "Independent Auditor" and would otherwise false-match the annual_filing content rule and
+  // hijack the "Annual report" coverage slot from the real 10-K (a §4 source-hierarchy error).
+  if (test(/company profile|tearsheet|landscape|suppliers|customers|products|key[\s_]?developments|strategic[\s_]?alliances/)) return { type: 'other', confidence: 'low', basis: 'filename' }
 
   // content sniff for opaque names (UUID PDFs)
   if (sniff) {
@@ -256,6 +321,14 @@ async function classifyFile(dir: string, filename: string): Promise<ClassifiedFi
     }
   }
 
+  // A current-price/quote doc (tearsheet, IBKR export) carries many historical years in its body, so the
+  // generic max-year age mis-reads a stray one as stale. For a PRICE_RE file (by name OR a price tab), age
+  // off the explicit quote date first; then any period parsed from the filename/content (e.g. a dated
+  // "IBKR_quote_2025-01-02" name); and only last the file mtime — so a Drive re-sync that refreshes mtime
+  // can't make a stale quote look current. Keeps the price chip AND valuation's hasCurrentPrice gate honest.
+  const isPriceDoc = PRICE_RE.test(filename) || (sheets ?? []).some((s) => PRICE_RE.test(s.name))
+  const ageMonthsFinal = isPriceDoc ? (quoteAsOfMonths(sniff) ?? ageMonths ?? mtimeAge) : (ageMonths ?? mtimeAge)
+
   return {
     filename,
     ext,
@@ -263,7 +336,7 @@ async function classifyFile(dir: string, filename: string): Promise<ClassifiedFi
     mtime: new Date(st.mtimeMs).toISOString(),
     type,
     periodHint: hint,
-    ageMonths: ageMonths ?? mtimeAge,
+    ageMonths: ageMonthsFinal,
     confidence,
     basis,
     ...(sheets && sheets.length ? { sheets } : {}),
@@ -477,11 +550,15 @@ interface CoverageGroupDef extends CoverageSpec {
   covers?: ({ key: string; label: string } & CoverageSpec)[]
 }
 
-// A current-price signal — IBKR / tear-sheet / a quote / "<qualifier> price" / a trading summary — but
-// NOT an analyst TARGET-price, coverage, or estimate export (those carry a "price" word without being a
-// live quote). Shared by the price coverage group AND the valuation hasCurrentPrice readiness gate so the
-// two never disagree.
-const PRICE_RE = /^(?!.*(?:target|estimate|consensus|analyst|forecast|coverage|recommendation)).*(?:ibkr|tear[\s_]?sheet|\bquote\b|(?:current|last|live|spot|market|closing)[\s_]?price|price[\s_]?(?:quote|snapshot)|trading[\s_]?summary)/i
+// A current-price signal — IBKR / tear-sheet / the Capital IQ "Public Company Profile" tearsheet / a quote
+// / "<qualifier> price" / a trading summary — but NOT an analyst TARGET-PRICE, coverage, or estimate export
+// (those carry a "price" word without being a live quote). Two guards keep it honest: (1) the exclusions
+// match analyst-doc PHRASES ("target price" / "target-price" — space, underscore, OR hyphen separated), not
+// bare substrings, so an issuer NAMED "Target" is not rejected while an analyst "Target-Price Quote" export
+// still is; (2) only the "PUBLIC company profile" (the public-issuer tearsheet, which always leads with the
+// dated Last / Previous Close / Delayed Quote line) counts — a bare "Company Profile" overview does not.
+// Shared by the price coverage group AND the valuation hasCurrentPrice gate so the two never disagree.
+const PRICE_RE = /^(?!.*(?:target[\s_-]?price|price[\s_-]?target|estimate|consensus|analyst|forecast|coverage|recommendation)).*(?:ibkr|tear[\s_]?sheet|public[\s_]?company[\s_]?profile|\bquote\b|(?:current|last|live|spot|market|closing)[\s_]?price|price[\s_]?(?:quote|snapshot)|trading[\s_]?summary)/i
 
 const COVERAGE_GROUPS: CoverageGroupDef[] = [
   { key: 'price', label: 'Current price', tier: 'critical',
