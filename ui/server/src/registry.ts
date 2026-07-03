@@ -51,6 +51,8 @@ export interface RunState {
   costUsd?: number
   numTurns?: number
   durationMs?: number
+  lastStdoutAt?: number // when the engine child last wrote ANY stdout — the "engine is alive" signal
+  lastActivity?: { tool: string; ts: number } // the orchestrator's most recent tool call (heartbeat payload)
   sessionId?: string
   willCommitToMain: boolean
   writeTargetsAbs: string[] // absolute paths this run writes — D2 disjointness
@@ -155,6 +157,44 @@ export function emit(run: RunState, event: SseEvent) {
   }
 }
 
+/** Send to live subscribers WITHOUT recording in eventLog — for transient/ambient events (heartbeats)
+ *  that would otherwise bloat the replay backlog every new subscriber receives. */
+export function emitTransient(run: RunState, event: SseEvent) {
+  for (const c of run.subscribers) {
+    try {
+      c.send(event)
+    } catch {
+      run.subscribers.delete(c)
+    }
+  }
+}
+
+// ---- run heartbeat pump ----
+// Every in-flight run pulses a transient run-heartbeat so the cockpit can show "the engine is alive,
+// doing X, for Ys" between agent events — the anti-"is it stuck?" signal. 3s keeps the ambient labels
+// ("2s ago") honest without meaningful load; unref() so the interval never holds the process open.
+const HEARTBEAT_MS = 3_000
+const heartbeatTimer = setInterval(() => {
+  const now = Date.now()
+  for (const run of runs.values()) {
+    if (!IN_FLIGHT_STATUSES.has(run.status) || !run.subscribers.size) continue
+    const agents = [...run.agents.values()]
+    emitTransient(run, {
+      type: 'run-heartbeat',
+      runId: run.runId,
+      status: run.status,
+      elapsedMs: now - run.startedAt,
+      agentsDone: agents.filter((a) => a.status === 'done').length,
+      agentsTotal: agents.length,
+      costUsd: run.costUsd,
+      lastStdoutAt: run.lastStdoutAt,
+      lastActivity: run.lastActivity,
+      ts: now,
+    })
+  }
+}, HEARTBEAT_MS)
+heartbeatTimer.unref()
+
 export function subscribe(run: RunState, client: SseClient) {
   // replay backlog, then live
   for (const e of run.eventLog) client.send(e)
@@ -183,6 +223,9 @@ export function finishRun(run: RunState, status: RunStatus) {
       userVia: run.userVia,
       kind: run.kind,
       ticker: run.ticker,
+      // the authoritative run folder rides the finished event too: a row folded from a finish-only
+      // event (its launched line lost) could otherwise never open its reports
+      runRoot: run.runRoot ?? undefined,
       module: run.module,
       agent: run.agent,
       model: run.model,

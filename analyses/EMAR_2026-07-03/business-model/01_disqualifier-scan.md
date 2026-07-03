@@ -1,0 +1,24 @@
+# Disqualifier Scan — EMAR
+
+## 1. Disqualifier Check
+
+| # | Disqualifier | Triggered (Y/N) | Evidence |
+|---|---|---|---|
+| 1 | Auditor qualification or going-concern note (last 3 years) | N | KPMG issued the FY2024 audit opinion; governance report section (FY2024 Annual Report, Audit Fees Table, p.112) names KPMG (partner: Siddharth Mehta, 6 years as external auditor, 3 years as engagement partner). AGM agenda (Key Developments, Mar 25, 2026) references routine approval of auditors' report with no qualification language. Audited FY2025 report not yet in pool (preliminary results only); FY2024 is the most recent full audited filing. No going-concern language found in available filings. |
+| 2 | >50% promoter / insider shares pledged | N | Public Ownership Summary (Capital IQ, data as of May–Dec 2025): Dubai government entities hold ~44.5% of shares (Investment Corporation of Dubai / Emirates Power Investment LLC ~22.27%; Dubai Holding Corporate LLC ~22.27%; Eitl Difc Spc 1 Ltd ~7.46%). No pledge or encumbrance on any of these stakes is disclosed in available data. The May 2026 transaction was a portfolio transfer between Dubai government entities, not a pledging event (Key Developments, May 11, 2026). Pledging disclosure is not required by UAE SCA in the same form as Indian promoter-pledge rules; no evidence of pledging found in any pool source. |
+| 3 | Related-party transactions >25% of revenue or expenses | N | No explicit RPT quantum is available in the pool for the last audited period; the audited FY2025 notes are not yet filed. The FY2024 audited annual report does include RPT disclosures (Notes to Accounts, Arabic text), and Capital IQ customer data shows intra-group relationships (Emaar Development PJSC, Emaar Malls PJSC, Emaar India) that are eliminated on consolidation. There is no evidence that external-party RPTs approach 25% of FY2024 revenue (AED 35,505M) or expenses. Specific RPT value not recoverable from available extracted text; marked "Not proven from available data" but no evidence of breach. |
+| 4 | Auditor changed twice in last 3 years without disclosed reason | N | FY2024 Annual Report (Audit Fees Table, p.112): KPMG has served as external auditor for 6 consecutive years. No auditor change in FY2022, FY2023, or FY2024. Secondary/component auditors for subsidiaries (EY, Grant Thornton, BDO India LLP, RSM Dahman) have been consistent with no disclosed change. |
+| 5 | Material restatement (>5% of revenue or net income) in last 2 years | N | Capital IQ Annual Financials export (FY2021–FY2025): FY2021 Balance Sheet tagged "RS" (Restated) — outside the 2-year window (FY2023–FY2024). FY2022 and FY2023 Balance Sheet tagged "RC" (Reclassified) — reclassifications are presentation adjustments, not restatements of financial results. FY2024 Income Statement and Balance Sheet both tagged "NC" (No Change). FY2025 tagged "O" (Original filing). No material restatement (>5% of revenue or net income) in FY2023 or FY2024. |
+| 6 | Active regulatory enforcement action affecting financial reporting | N | Key Developments (last 6 months, Capital IQ): no SCA, DFM, UAE Central Bank, or equivalent regulatory enforcement action disclosed. No SEC or SEBI action (not applicable to UAE company). The only notable governance event is the departure of the Group Head of Finance (Hesham Heikal, May 20, 2026) and a new appointment (Pawan Chindalia) — disclosed voluntarily and without regulatory context (Key Developments, May 22, 2026). This is a personnel change, not a regulatory enforcement action. |
+| 7 | >40% of revenue from a single customer with no long-term contract | N | Emaar is a residential and commercial real estate developer selling to thousands of individual buyers, and a mall/retail operator with hundreds of tenants. Customer data (Capital IQ Customers export) shows no external single customer with material revenue concentration; all disclosed relationships are intra-group subsidiaries eliminated on consolidation. Revenue backlog of AED 154.8 BN (FY2025 Investor Deck, p.5) is spread across thousands of property buyers. Single-customer concentration >40% is structurally impossible given the business model. |
+| 8 | Negative operating cash flow in 3 of last 4 years (excl. growth-stage) | N | Capital IQ Annual Cash Flow (FY2022–FY2025, AED millions): FY2022: +18,942; FY2023: +19,831; FY2024: +24,481; FY2025: +33,458. All four years are strongly positive. Operating cash flow has grown every year and is structurally driven by advance customer deposits on property sales (Change in Unearned Revenue: AED 8,229M in FY2025, AED 8,442M in FY2024). |
+
+## 2. Triggered Disqualifiers — Detail
+
+No disqualifier triggered.
+
+## 3. Verdict-Lock Signal
+
+- **Any disqualifier triggered:** N
+- **If Y, names:** None
+- **Action:** No verdict-lock applied. All modules proceed normally.

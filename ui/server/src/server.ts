@@ -17,7 +17,7 @@ import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, GDRIVE, HOST, NEWS, PORT, REPO_
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
 import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED } from './drive'
-import { cancel, cancelAll, creditCheck, decideReadiness, estimate, launch } from './launcher'
+import { cancel, cancelAll, creditCheck, decideReadiness, estimate, launch, warmLaunchProbes } from './launcher'
 import { newsBus } from './news/bus'
 import { readFeed, searchFeed } from './news/feed'
 import { matchesFeedFilters, parseFeedFilterQuery, explainFeedFilterMatch, type FeedFilterQuery } from './news/feed-filter'
@@ -397,7 +397,9 @@ const SwarmLaunchBody = z.object({
   confirmTicker: z.string().optional(),
 })
 
-app.post('/api/launch', async (req, reply) => {
+// explicit per-route rate limit: launches are human clicks (a handful a minute at most) and the
+// handler touches the filesystem, so cap it well above real usage but below abuse levels
+app.post('/api/launch', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
   const kind = (req.body as any)?.kind as RunKind | undefined
   const { user, userVia } = identify(req)
   const fail = (e: any) => {
@@ -416,14 +418,19 @@ app.post('/api/launch', async (req, reply) => {
     try {
       const out = await launch({ kind, ticker: parsed.data.sigId, intake: parsed.data.intake, inboxId: parsed.data.inboxId, module: parsed.data.until, model: parsed.data.model, user, userVia })
       // an Inbox-card launch marks its row consumed so it leaves the lane (best-effort: a failed
-      // mark only leaves the row visible — a duplicate click is rejected by SIG-id exclusivity)
+      // mark only leaves the row visible — a duplicate click is rejected by SIG-id exclusivity).
+      // Deferred past the reply: refreshBoard shells a synchronous python board rebuild (~0.3-2s)
+      // that used to sit inside this launch's click-to-ack window.
       if (parsed.data.inboxId) {
-        try {
-          markInboxConsumed(REPO_ROOT, parsed.data.inboxId, out.preflight.ticker)
-          await refreshBoard(REPO_ROOT)
-        } catch {
-          /* best-effort */
-        }
+        const inboxId = parsed.data.inboxId
+        setImmediate(() => {
+          try {
+            markInboxConsumed(REPO_ROOT, inboxId, out.preflight.ticker)
+            refreshBoard(REPO_ROOT)
+          } catch {
+            /* best-effort */
+          }
+        })
       }
       return out
     } catch (e: any) {
@@ -500,9 +507,13 @@ app.post('/api/launch', async (req, reply) => {
   // ignore module/agent — they follow the dep-free `full` admission path. review defaults to ad-hoc.
   const window = rkind === 'review' ? (parsed.data.window ?? 'ad-hoc') : undefined
 
-  // closed allow-list checks against the live roster + data pool
-  const tickers = listTickers().tickers.map((t) => t.ticker)
-  if (!tickers.includes(ticker)) return reply.code(400).send({ error: `unknown ticker ${ticker}` })
+  // closed allow-list check against the data pool. Membership is ALL this route needs — the old
+  // listTickers() call scanned every ticker's files + newest decision_record.json (sync fs over a
+  // Google Drive FUSE mount) just to test one folder's existence, and that scan sat inside the
+  // click-to-ack window of every launch.
+  if (!TICKER_RE.test(ticker) || isReservedDataFolder(ticker) || !fs.existsSync(path.join(DATA_DIR, ticker))) {
+    return reply.code(400).send({ error: `unknown ticker ${ticker}` })
+  }
   if (rkind === 'module' || rkind === 'agent') {
     if (!module || !listModuleNames().includes(module)) return reply.code(400).send({ error: 'unknown module' })
   }
@@ -1406,6 +1417,8 @@ app
     const g = buildSwarmGraph()
     // eslint-disable-next-line no-console
     console.log(`[swarm-cockpit] control plane on http://${HOST}:${PORT}  (${g.totals.modules} modules, ${g.totals.agents} agents)`)
+    // warm the once-per-process claude CLI probes so the FIRST launch click doesn't pay them (~1-4s)
+    void warmLaunchProbes()
     // autonomous news ingester (screener swarm): fills a ranked inbox 24/7 at ~$0 when GROQ_API_KEY
     // is set; stays dark otherwise. Never launches a paid run — promotion is the human's one click.
     startNewsIngester()

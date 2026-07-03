@@ -64,15 +64,30 @@ export function ActivityReportMenu({ row, anchor, onClose }: Props) {
       const rr: string | undefined = m?.runRoot || row.runRoot
       const out: Item[] = []
       if (rr) {
+        // The row's OWN deliverable first: an orb run's report is its agent file, which exists long
+        // before any synthesis/memo tier does. The menu must never say "no reports" while the run's
+        // actual output sits on disk (the EMAR customer-geography defect: done · $1.1 · "no reports").
+        if (row.agent && row.module) {
+          const own = ((m?.modules || {})[row.module] || []).find((a: { name?: string; agentKey?: string }) => a?.name === row.agent)
+          if (own?.agentKey) out.push({ label: `${cap(row.agent.replace(/-/g, ' '))} — orb report`, sub: "this run's output", path: `${rr}/${own.agentKey}.md` })
+        }
         if (m?.finalThesis) out.push({ label: 'Investment thesis', sub: 'final verdict & scenarios', path: `${rr}/final_thesis.md` })
         if (m?.memo) out.push({ label: 'Memo', sub: 'the plain-English colleague read', path: `${rr}/memo.md` })
         if (m?.fullDossier) out.push({ label: 'Full dossier', sub: 'every module, lossless', path: `${rr}/audit_dossier.md` })
         for (const [mod, tiers] of Object.entries(m?.moduleReports || {})) {
-          const synthesis = (tiers as any)?.synthesis
-          if (synthesis) out.push({ label: `${cap(moduleLabel(mod))} — synthesis`, sub: 'module deep-dive & verdict', path: synthesis })
+          const t = tiers as { synthesis?: string; memo?: string; dossier?: string }
+          if (t.synthesis) out.push({ label: `${cap(moduleLabel(mod))} — synthesis`, sub: 'module deep-dive & verdict', path: t.synthesis })
+          if (mod === row.module) {
+            // the row TARGETED this module — its memo/dossier are this run's documents, not clutter
+            if (t.memo) out.push({ label: `${cap(moduleLabel(mod))} — memo`, sub: 'plain-English module read', path: t.memo })
+            if (t.dossier) out.push({ label: `${cap(moduleLabel(mod))} — dossier`, sub: 'every specialist, lossless', path: t.dossier })
+          }
         }
       }
-      return { items: out, label: `${row.ticker} · ${out.length} document${out.length === 1 ? '' : 's'}` }
+      // a synthesis orb's own file is also the module's synthesis tier — list each document once
+      const seen = new Set<string>()
+      const deduped = out.filter((it) => (seen.has(it.path) ? false : (seen.add(it.path), true)))
+      return { items: deduped, label: `${row.ticker} · ${deduped.length} document${deduped.length === 1 ? '' : 's'}` }
     }
     run()
       .then((r) => { if (alive) { setItems(r.items); setLabel(r.label) } })

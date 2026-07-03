@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { resetIn, usageColor, usageLabel, usagePct } from '../lib/format'
 import { cascadeLabel } from '../lib/cascade'
+import { Spin } from './Spin'
 import type { Usage } from '../lib/types'
 
 function usageText(credit: Usage | null): string {
@@ -22,8 +23,11 @@ export function LaunchConfirm() {
   const confirmRerun = useStore((s) => s.confirmRerun)
   const cancel = useStore((s) => s.cancelLaunch)
   const credit = useStore((s) => s.credit)
+  const launchPending = useStore((s) => s.launchPending)
   const [typed, setTyped] = useState('')
   if (!lc) return null
+  // the confirm was clicked and the server hasn't acked yet — the modal stays up, its button spins
+  const starting = launchPending?.key === 'confirm'
   const p = lc.preflight
   const isRerun = lc.kind === 'rerun'
   const orbLabel = lc.node?.module === 'master' ? 'the Memo' : (lc.node?.name || 'orb').replace(/-/g, ' ')
@@ -65,12 +69,14 @@ export function LaunchConfirm() {
         {needsTyped && (
           <div className="modal__confirm">
             <div style={{ fontSize: 12.5, color: 'var(--text-muted)' }}>Type <b style={{ color: 'var(--text)' }}>{ticker}</b> to confirm</div>
-            <input className="modal__input" autoFocus value={typed} onChange={(e) => setTyped(e.target.value)} placeholder={ticker || ''} onKeyDown={(e) => { if (e.key === 'Enter' && ok) confirm() }} />
+            <input className="modal__input" autoFocus value={typed} onChange={(e) => setTyped(e.target.value)} placeholder={ticker || ''} onKeyDown={(e) => { if (e.key === 'Enter' && ok && !starting) confirm() }} />
           </div>
         )}
         <div className="modal__actions">
-          <button className="btn btn--ghost" onClick={cancel}>Cancel</button>
-          <button className="btn btn--amber" disabled={!ok} onClick={confirm}>{isRerun ? 'Re-run ↻' : 'Launch full run'}</button>
+          <button className="btn btn--ghost" disabled={starting} onClick={cancel}>Cancel</button>
+          <button className="btn btn--amber" disabled={!ok || starting} onClick={confirm}>
+            {starting ? <><Spin /> Starting…</> : isRerun ? 'Re-run ↻' : 'Launch full run'}
+          </button>
         </div>
       </motion.div>
     </div>

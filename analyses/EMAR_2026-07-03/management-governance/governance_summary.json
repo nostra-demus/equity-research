@@ -1,0 +1,51 @@
+{
+  "filename": "governance_summary.json",
+  "ticker": "EMAR",
+  "date": "2026-07-03",
+  "stewardship_verdict": "Misaligned or weak stewardship",
+  "hard_disqualifier_flagged": false,
+  "scores": {
+    "management_quality": 69,
+    "capital_allocation": 82,
+    "incentive_alignment": 34,
+    "shareholder_friendliness": 34,
+    "disclosure_candor": 60,
+    "governance_risk_inverted": 58,
+    "data_quality": 65,
+    "overall_usefulness": 65
+  },
+  "governance_score": 54,
+  "confidence_adjusted_governance_score": 32,
+  "governance_rating": "Weak",
+  "confidence_score": 60,
+  "red_flag_count": 3,
+  "critical_red_flag_count": 0,
+  "red_flags": ["RF-DISC-001", "RF-DISC-002", "RF-OWN-004"],
+  "partial_data_caps_applied": [
+    "Incentive alignment max 50 (no executive comp in English); actual 34",
+    "Disclosure candor max 65 (no transcripts); actual 60",
+    "Overall usefulness max 70 (no proxy/comp disclosure); actual 65"
+  ],
+  "section24_filters_tripped": [
+    {
+      "filter": 6,
+      "label": "Structurally unaligned controlling owner",
+      "red_flag_id": "RF-OWN-004",
+      "caps_applied": "ShFriendliness max 55; GovRisk floor 55; Governance Rating no better than Weak"
+    }
+  ],
+  "governance_score_formula_inputs": {
+    "capital_allocation": 82,
+    "incentive_alignment": 34,
+    "shareholder_friendliness": 34,
+    "disclosure_candor": 60,
+    "management_quality": 69,
+    "governance_risk": 58,
+    "100_minus_governance_risk": 42
+  },
+  "governance_score_calculation": "0.20×82 + 0.18×34 + 0.18×34 + 0.16×60 + 0.16×69 + 0.12×42 = 16.40 + 6.12 + 6.12 + 9.60 + 11.04 + 5.04 = 54.32 ≈ 54",
+  "insider_ownership_summary": "Dubai government bloc 29.73% (Dubai Holding group); individual insiders 0.03%; single share class; no pledging disclosed",
+  "biggest_governance_signal": "RF-OWN-004: Government controlling owner (Dubai Holding 29.73%) with city-building agenda; AED 200 bn masterplan at cycle peak without phased targets; founder chairs directly competing developer with no English RPT disclosure",
+  "supersedes_business_model_11": true,
+  "primary_governance_read_for_master_synthesizer": true
+}

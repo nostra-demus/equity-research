@@ -3,6 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { fmtCost } from '../lib/format'
 import { collectSamples, expectedDurations, expectedFor, fmtClock, fmtEtaLeft, fmtSpan, orbClass, orbProgress, scopeTiming, type ScopeOrb } from '../lib/eta'
+import { Spin } from './Spin'
 
 const dotColor: Record<string, string> = {
   running: 'var(--accent)',
@@ -13,6 +14,27 @@ const dotColor: Record<string, string> = {
 
 const runLabel = (r: { kind: string; module?: string; agent?: string }) =>
   r.kind === 'full' ? 'Full run' : r.kind === 'module' ? `${r.module} module` : r.kind === 'rerun' ? `Re-run · ${r.agent}` : r.agent || 'Agent'
+
+// every in-flight server status (incl. the pre-spawn gate phases the early-acked launch surfaces)
+const LIVEISH = new Set(['starting', 'readiness-checking', 'awaiting-readiness-decision', 'running'])
+
+// what the system is doing right now, in plain words — from the run's server status
+const PHASE_LABEL: Record<string, string> = {
+  starting: 'Starting the engine…',
+  'readiness-checking': 'Checking the data pool…',
+  'awaiting-readiness-decision': 'Paused — waiting for your data-check decision',
+}
+
+// plain-English gloss for the orchestrator's tool calls (heartbeat lastActivity)
+const TOOL_GLOSS: Record<string, string> = {
+  Task: 'dispatching an orb',
+  Read: 'reading outputs',
+  Write: 'writing a file',
+  Edit: 'editing a file',
+  Bash: 'running pipeline steps',
+  Glob: 'scanning the run folder',
+  Grep: 'searching outputs',
+}
 
 export function RunStreamPanel() {
   const activeRuns = useStore((s) => s.activeRuns)
@@ -25,6 +47,8 @@ export function RunStreamPanel() {
   const nodeRuntime = useStore((s) => s.nodeRuntime)
   const nodesByKey = useStore((s) => s.nodesByKey)
   const now = useStore((s) => s.now) // the shared 1s clock owned by SwarmField; ticks only while orbs run
+  const launchPending = useStore((s) => s.launchPending)
+  const stoppingRuns = useStore((s) => s.stoppingRuns)
 
   // run-adaptive expected duration per orb class (gate / specialist / synthesis), learned from finished orbs
   const exp = useMemo(() => expectedDurations(collectSamples(nodeRuntime, (k) => { const n = nodesByKey.get(k); return n ? orbClass(n) : 'specialist' })), [nodeRuntime, nodesByKey])
@@ -34,7 +58,10 @@ export function RunStreamPanel() {
     .filter((r) => r.ticker === ticker)
     .sort((a, b) => (a.startedAt ?? 0) - (b.startedAt ?? 0))
 
-  if (!runs.length && runStream.length === 0) return null
+  // a launch is pending server-ack for THIS subject — show the panel with a starting banner in the
+  // same frame as the click, so the stage is never silent while the request is in flight
+  const pendingHere = launchPending && (launchPending.ticker === ticker || activeSwarm !== 'research')
+  if (!runs.length && runStream.length === 0 && !pendingHere) return null
 
   // The panel is shared across swarms; its scope label must follow the active swarm — not the
   // research-side selectedTicker, which would otherwise leak a stale ticker (e.g. "BG") into the
@@ -45,7 +72,9 @@ export function RunStreamPanel() {
     const rows = runStream.filter((r) => r.runId === run.runId)
     const done = rows.filter((r) => r.status === 'done').length
     const total = run.plannedCount ?? rows.length
-    const running = run.status === 'running' || run.status === 'starting'
+    // every in-flight status counts as live — including the pre-spawn gate phases the early-acked
+    // launch now surfaces (a gate-parked run must keep its card, its Cancel, and its progress bar)
+    const running = run.status === 'running' || run.status === 'starting' || run.status === 'readiness-checking' || run.status === 'awaiting-readiness-decision'
     return { run, rows, done, total, running }
   })
   const aggDone = perRun.reduce((s, p) => s + p.done, 0)
@@ -65,6 +94,12 @@ export function RunStreamPanel() {
       </div>
 
       <div className="sidepanel__body">
+        {/* click→ack window: the launch was fired and the server hasn't answered yet */}
+        {pendingHere && !runs.some((r) => LIVEISH.has(r.status)) && (
+          <div className="sidepanel__empty" style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <Spin /> {launchPending!.label}
+          </div>
+        )}
         {perRun.map(({ run, rows, done, total, running }) => {
           const pct = total ? Math.min(100, Math.round((done / total) * 100)) : 0
           const elapsedMs = run.startedAt ? now - run.startedAt : 0
@@ -81,12 +116,31 @@ export function RunStreamPanel() {
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '8px 16px 4px' }}>
                 <div style={{ minWidth: 0, flex: 1 }}>
                   <div className="sidepanel__title" style={{ fontSize: 13 }}>{runLabel(run)}</div>
-                  <div className="sidepanel__meta">{done}/{total} orbs · {running ? `${fmtClock(elapsedMs)} · ${etaText}` : run.status}</div>
+                  <div className="sidepanel__meta">
+                    {PHASE_LABEL[run.status]
+                      ? PHASE_LABEL[run.status] + (running ? ` · ${fmtClock(elapsedMs)}` : '')
+                      : `${done}/${total} orbs · ${running ? `${fmtClock(elapsedMs)} · ${etaText}` : run.status}`}
+                  </div>
                 </div>
                 {run.willCommitToMain && <span className="chip" style={{ color: 'var(--accent-bright)', borderColor: 'var(--accent-deep)' }}>commits main</span>}
                 <span className="runfoot__stat">{fmtCost(run.costUsd)}</span>
-                {running && <button className="btn btn--danger" style={{ height: 26, padding: '0 9px', fontSize: 12 }} onClick={() => cancelRun(run.runId)}>Cancel</button>}
+                {running && (stoppingRuns[run.runId]
+                  ? <button className="btn" style={{ height: 26, padding: '0 9px', fontSize: 12 }} disabled><Spin /> Stopping…</button>
+                  : <button className="btn btn--danger" style={{ height: 26, padding: '0 9px', fontSize: 12 }} onClick={() => cancelRun(run.runId)}>Cancel</button>)}
               </div>
+              {/* live heartbeat: what the engine is doing + when it last spoke — the anti-"is it stuck?" line */}
+              {run.status === 'running' && (run.lastActivity || run.lastStdoutAt) && (() => {
+                const quietMs = run.lastStdoutAt ? Math.max(0, now - run.lastStdoutAt) : null
+                const stale = quietMs != null && quietMs > 45_000
+                const doing = run.lastActivity ? (TOOL_GLOSS[run.lastActivity.tool] || `using ${run.lastActivity.tool}`) : null
+                return (
+                  <div className="sidepanel__meta" style={{ padding: '0 16px 4px', color: stale ? 'var(--warn, #d8a656)' : 'var(--text-faint)' }}>
+                    {stale
+                      ? `quiet for ${fmtClock(quietMs!)} — the model is thinking; Cancel is always live`
+                      : `engine active${doing ? ` · ${doing}` : ''}${quietMs != null ? ` · ${quietMs < 3000 ? 'just now' : fmtClock(quietMs) + ' ago'}` : ''}`}
+                  </div>
+                )
+              })()}
               <div style={{ padding: '0 16px 6px' }}>
                 <div style={{ height: 5, background: 'var(--surface-3)', borderRadius: 'var(--r-pill)', overflow: 'hidden' }}>
                   <div style={{ height: '100%', width: '100%', transformOrigin: 'left', transform: `scaleX(${pct / 100})`, background: 'var(--accent)', boxShadow: running ? '0 0 8px var(--accent-glow)' : 'none', transition: 'transform 350ms var(--ease)' }} />
@@ -117,7 +171,13 @@ export function RunStreamPanel() {
                   )
                 })}
               </AnimatePresence>
-              {running && rows.length === 0 && <div className="sidepanel__empty">Starting the engine… the first orb will report in a moment.</div>}
+              {running && rows.length === 0 && (
+                <div className="sidepanel__empty">
+                  {run.status === 'readiness-checking' ? 'Checking the data pool — extracting and validating every file. The run starts the moment it passes.'
+                    : run.status === 'awaiting-readiness-decision' ? 'The data check needs your decision — see the panel that opened.'
+                    : 'Starting the engine… the first orb will report in a moment.'}
+                </div>
+              )}
             </div>
           )
         })}

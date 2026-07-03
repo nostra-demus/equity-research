@@ -275,18 +275,20 @@ function ResumeChip() {
   const selectedTicker = useStore((s) => s.selectedTicker)
   const activeSwarm = useStore((s) => s.activeSwarm)
   const health = useStore((s) => s.health)
+  const launchPending = useStore((s) => s.launchPending)
   const engineDown = health === 'engine-offline' || health === 'your-network' || health === 'session-expired'
   const entry = selectedTicker
     ? resumableRuns.find((e) => e.kind === 'full' && e.subject === selectedTicker && e.swarm === activeSwarm)
     : undefined
   if (!entry) return null
+  const resuming = launchPending?.key?.startsWith(`resume:${entry.subject}:`)
   const noun = entry.unit === 'agent' ? 'check' : 'module'
   const title = engineDown
     ? 'Engine offline — live runs are paused until it reconnects'
     : `This run stopped partway (${entry.doneCount}/${entry.totalCount} ${noun}s done). Resume finishes it from where it stopped — the done work is reused.`
   return (
-    <button className="aresume aresume--bar" disabled={engineDown} onClick={() => void resumeRun(entry)} title={title}>
-      Resume<span className="aresume__glyph" aria-hidden>▸</span>
+    <button className="aresume aresume--bar" disabled={engineDown || !!resuming} onClick={() => void resumeRun(entry)} title={title}>
+      {resuming ? 'Resuming…' : 'Resume'}<span className="aresume__glyph" aria-hidden>▸</span>
       <span className="aresume__meta">{entry.doneCount}/{entry.totalCount}</span>
     </button>
   )
@@ -393,6 +395,7 @@ export function CommandBar() {
   const openChat = useStore((s) => s.openChat)
   const requestFull = useStore((s) => s.requestFull)
   const anyRun = useStore((s) => s.anyRunForTicker(s.selectedTicker))
+  const fullPending = useStore((s) => s.launchPending?.key === 'full:request')
   const selectedTicker = useStore((s) => s.selectedTicker)
   const staticMode = useStore((s) => s.staticMode)
   const health = useStore((s) => s.health)
@@ -446,8 +449,8 @@ export function CommandBar() {
             Ask ▸
           </button>
           <ResumeChip />
-          <button className="btn btn--amber" disabled={!selectedTicker || anyRun || engineDown} onClick={requestFull} title={staticMode ? 'Runs on your local machine (npm run dev)' : engineDown ? 'Engine offline — live runs are paused until it reconnects' : anyRun ? 'A run is in flight — a full run needs exclusive access' : 'Run the full pipeline'}>
-            Run full ▸
+          <button className="btn btn--amber" disabled={!selectedTicker || anyRun || engineDown || fullPending} onClick={requestFull} title={staticMode ? 'Runs on your local machine (npm run dev)' : engineDown ? 'Engine offline — live runs are paused until it reconnects' : anyRun ? 'A run is in flight — a full run needs exclusive access' : 'Run the full pipeline'}>
+            {fullPending ? 'Preparing…' : 'Run full ▸'}
           </button>
           <CreditBadge />
           <TickerPicker />
