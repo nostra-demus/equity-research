@@ -110,6 +110,28 @@ check('quoteAsOfMonths: only a quote-context date sets age; bare / newer-unrelat
   assert.equal(quoteAsOfMonths('price as of 2026-07-02'), jul)           // ISO form == Mon-DD-YYYY form
 })
 
+// Codex C8 (hyphenated target-price): the analyst-doc exclusion is a PHRASE and must match the hyphen form
+// too — a "Target-Price Quote"/"Target-Price Snapshot" export is an analyst target, NOT a live market quote,
+// so it must NOT satisfy the CRITICAL Current-price group / valuation hasCurrentPrice gate (CLAUDE.md §16:
+// "current price and its date"). An issuer literally NAMED Target must still get a price from its tearsheet.
+check('coverage: a HYPHENATED analyst target-price export does not satisfy Current price', () => {
+  assert.equal(covPresent([cf('MGM Target-Price Quote.pdf')], 'price'), false)
+  assert.equal(covPresent([cf('MGM Target-Price Snapshot.pdf')], 'price'), false)
+  // controls: issuer named Target still qualifies; the spaced form was already rejected
+  assert.ok(covPresent([cf('Target Corporation NYSE TGT Public Company Profile.rtf')], 'price'))
+  assert.equal(covPresent([cf('MGM Analyst Coverage Target Price.xls')], 'price'), false)
+})
+// Codex C7 (explicit transcript titled with a presentation-event name): "…Presentation Transcript" is
+// prepared remarks, not slides — the `transcript` token wins, so it fills the CORE Earnings-transcript slot
+// and is NOT routed to investor_deck. A plain "…Earnings Presentation" (no transcript token) stays a deck.
+check('classify: an explicit "…Presentation Transcript" is a transcript, not an investor_deck', () => {
+  assert.equal(classify('MGM Q1 2026 Earnings Presentation Transcript.rtf', '').type, 'transcript')
+  assert.equal(classify('Investor Presentation Transcript.pdf', '').type, 'transcript')
+  // controls: a slide-only deck is still a deck; a plain call transcript is still a transcript
+  assert.equal(classify('MGM Q1 2026 Earnings Call Presentation.pdf', '').type, 'investor_deck')
+  assert.equal(classify('MGM Q1 2026 Investor Presentation.pdf', '').type, 'investor_deck')
+})
+
 // ---- A.5: readiness-gate scoping by run kind ----
 const M = (status: ModuleReadiness['status']): ModuleReadiness => ({ status, reasons: [], caps: [] })
 

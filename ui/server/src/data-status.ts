@@ -237,8 +237,11 @@ export function classify(filename: string, sniff: string): { type: FileType; con
   // A results/earnings PRESENTATION or slide deck is slides, not prepared remarks — route it to deck BEFORE
   // the transcript rule (which matches "earnings call", a token an "…Earnings Call Presentation" deck also
   // carries), so a deck can't fill the CORE "Earnings transcript" coverage slot. `\bdeck\b` (word-bounded)
-  // so an issuer like "Deckers" isn't swept in.
-  if (test(/presentation|slides|\bdeck\b/)) return { type: 'investor_deck', confidence: 'high', basis: 'filename' }
+  // so an issuer like "Deckers" isn't swept in. BUT an explicit transcript that a vendor happens to title
+  // with a presentation-event name ("Q1 Earnings Presentation Transcript", "Investor Presentation
+  // Transcript") is prepared remarks, not slides — the `transcript` token wins, so exclude it here and let
+  // it fall through to the transcript rule below.
+  if (test(/presentation|slides|\bdeck\b/) && !test(/transcript/)) return { type: 'investor_deck', confidence: 'high', basis: 'filename' }
   // Transcript is tested BEFORE quarterly on purpose: an earnings-call transcript filename carries a
   // quarter token ("…Q1 2026 Earnings Call…") that the quarterly rule's `q[1-4] 20\d{2}` would otherwise
   // claim first — and once quarterly returns, the content sniff (line ~223) never runs. The
@@ -533,11 +536,12 @@ interface CoverageGroupDef extends CoverageSpec {
 // A current-price signal — IBKR / tear-sheet / the Capital IQ "Public Company Profile" tearsheet / a quote
 // / "<qualifier> price" / a trading summary — but NOT an analyst TARGET-PRICE, coverage, or estimate export
 // (those carry a "price" word without being a live quote). Two guards keep it honest: (1) the exclusions
-// match analyst-doc PHRASES ("target price"), not bare substrings, so an issuer NAMED "Target" is not
-// rejected; (2) only the "PUBLIC company profile" (the public-issuer tearsheet, which always leads with the
+// match analyst-doc PHRASES ("target price" / "target-price" — space, underscore, OR hyphen separated), not
+// bare substrings, so an issuer NAMED "Target" is not rejected while an analyst "Target-Price Quote" export
+// still is; (2) only the "PUBLIC company profile" (the public-issuer tearsheet, which always leads with the
 // dated Last / Previous Close / Delayed Quote line) counts — a bare "Company Profile" overview does not.
 // Shared by the price coverage group AND the valuation hasCurrentPrice gate so the two never disagree.
-const PRICE_RE = /^(?!.*(?:target[\s_]?price|price[\s_]?target|estimate|consensus|analyst|forecast|coverage|recommendation)).*(?:ibkr|tear[\s_]?sheet|public[\s_]?company[\s_]?profile|\bquote\b|(?:current|last|live|spot|market|closing)[\s_]?price|price[\s_]?(?:quote|snapshot)|trading[\s_]?summary)/i
+const PRICE_RE = /^(?!.*(?:target[\s_-]?price|price[\s_-]?target|estimate|consensus|analyst|forecast|coverage|recommendation)).*(?:ibkr|tear[\s_]?sheet|public[\s_]?company[\s_]?profile|\bquote\b|(?:current|last|live|spot|market|closing)[\s_]?price|price[\s_]?(?:quote|snapshot)|trading[\s_]?summary)/i
 
 const COVERAGE_GROUPS: CoverageGroupDef[] = [
   { key: 'price', label: 'Current price', tier: 'critical',
