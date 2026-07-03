@@ -77,6 +77,178 @@ function resumeHint(info: ResumableRunInfo): string {
   return `Resume — ${info.doneCount}/${info.totalCount} ${noun}${info.totalCount === 1 ? '' : 's'} done, runs only the rest`
 }
 
+// ---- run grouping ----------------------------------------------------------------------------------
+// One RUN is many rows: a chained full run fires a separate row for every module + the master step (all
+// marked chained), and a user can also run modules one at a time into the same folder. Every one of those
+// rows writes into the SAME run folder (runRoot = analyses/<TICKER>_<date>, or a swarm's SIG folder), so
+// runRoot is the join key that turns the scatter of rows back into one run. We club a folder's rows under a
+// single expandable parent that shows the run completing — each module a dot that fills as it finishes —
+// instead of showing the pieces disjointedly. A folder holding a single row stays a plain row.
+//
+// Grouping is restricted to the kinds whose runRoot is a genuine per-run folder — the analysis-building
+// steps (full / module / rerun / agent) and the screener SIG folder (signal / screener-agent). The
+// cross-cutting kinds are deliberately NOT grouped even though the launcher stamps them a runRoot: a
+// `sweep` shares the constant `screener/inbox`, a `handoff` shares `screener/ledger`, and a `track`
+// dashboard rebuild reuses `analyses/<ticker>_<date>` — grouping those would clump unrelated runs and fold
+// a dashboard rebuild into a real research run as a phantom step. They render as plain rows, same as a row
+// with no runRoot at all.
+const GROUPABLE_KINDS = new Set<RunKind>(['full', 'module', 'rerun', 'agent', 'signal', 'screener-agent'])
+interface RunGroup {
+  key: string // the runRoot (the group's stable id)
+  runRoot: string
+  subjectId: string // the ticker / subject id
+  subjectLabel?: string // readable Company label when the subject id is opaque
+  swarm?: string
+  children: ActivityRow[] // in pipeline order (oldest launch first) — reads as the run building up
+  startedAt: number // earliest launch — when the run began
+  lastAt: number // newest launch — how fresh the run is (drives ordering)
+  isFull: boolean // holds a monolithic full OR any chained step → this is a whole-pipeline run
+  running: boolean // at least one step still in flight
+  status: string // rolled-up status
+  doneCount: number
+  totalCount: number
+  costUsd?: number // Σ of the steps' cost
+  durationMs?: number // wall-clock span (earliest launch → latest finish, or now if live)
+  users: string[] // distinct launchers (usually one)
+}
+type Unit = { kind: 'group'; group: RunGroup } | { kind: 'row'; row: ActivityRow }
+
+// Severity ranking for the rolled-up status: an in-flight step wins (the run is still going); otherwise the
+// worst terminal outcome surfaces so a failed/incomplete step is never hidden behind its done siblings.
+const STATUS_SEVERITY: Record<string, number> = { starting: 6, running: 6, error: 5, incomplete: 4, cancelled: 3, done: 2 }
+function rollupStatus(children: ActivityRow[]): { status: string; running: boolean } {
+  let worst = 'done'
+  let running = false
+  for (const c of children) {
+    if (c.status === 'running' || c.status === 'starting') running = true
+    if ((STATUS_SEVERITY[c.status] ?? 0) > (STATUS_SEVERITY[worst] ?? 0)) worst = c.status
+  }
+  return { status: running ? 'running' : worst, running }
+}
+
+// The label a step shows on its progress dot and in its child row's Target — the module it ran (the
+// chained master step is a `rerun` on the 'master' pseudo-module; name it plainly).
+function stepLabel(r: ActivityRow): string {
+  if (r.module === 'master' || r.agent === 'synthesizer') return 'Master synthesis'
+  if (r.kind === 'rerun') return `${moduleLabel(r.module || r.agent || '?')} re-run`
+  if (r.module) return moduleLabel(r.module)
+  return KIND_LABEL[r.kind]
+}
+
+// A step's dot state: filled (done), live (in flight), bad (error/incomplete/cancelled), else idle.
+function dotState(s: string): 'done' | 'run' | 'bad' | 'idle' {
+  if (s === 'done') return 'done'
+  if (s === 'running' || s === 'starting') return 'run'
+  if (s === 'error' || s === 'incomplete' || s === 'cancelled') return 'bad'
+  return 'idle'
+}
+
+function makeGroup(runRoot: string, membersNewestFirst: ActivityRow[]): RunGroup {
+  const children = [...membersNewestFirst].sort((a, b) => a.launchedAt - b.launchedAt) // oldest first = pipeline order
+  const startedAt = children[0].launchedAt
+  const lastAt = children[children.length - 1].launchedAt
+  const finishes = children.map((c) => c.finishedAt).filter((x): x is number => x != null)
+  const { status, running } = rollupStatus(children)
+  // Wall-clock span, not summed durations: a chained full run's modules overlap, so the honest "how long
+  // did this run take" is the span from first launch to last finish (or now, while it's still live).
+  const end = running ? Date.now() : finishes.length ? Math.max(...finishes) : lastAt
+  const durationMs = Math.max(0, end - startedAt)
+  const costTotal = children.reduce((s, c) => s + (c.costUsd ?? 0), 0)
+  return {
+    key: runRoot,
+    runRoot,
+    subjectId: children[0].ticker,
+    subjectLabel: children.find((c) => c.subjectLabel)?.subjectLabel,
+    swarm: children.find((c) => c.swarm)?.swarm,
+    children,
+    startedAt,
+    lastAt,
+    // "Full run" when it's a real whole-pipeline run: a monolithic full, any chained step, OR a run that
+    // reached the master synthesis (a final thesis was produced). A loose set of modules with no master
+    // stays the neutral "Run".
+    isFull: children.some((c) => c.kind === 'full' || c.chained || c.module === 'master' || c.agent === 'synthesizer'),
+    running,
+    status,
+    doneCount: children.filter((c) => c.status === 'done').length,
+    totalCount: children.length,
+    costUsd: children.some((c) => c.costUsd != null) ? costTotal : undefined,
+    durationMs,
+    users: [...new Set(children.map((c) => c.user))],
+  }
+}
+
+// Fold the flat, newest-first rows into render units: a group where a run folder holds ≥2 groupable rows,
+// a plain row otherwise. Emitted in the rows' own order — a group takes the slot of its newest row — so the
+// newest run stays on top. runCount is the number of logical runs shown (a group counts once).
+//
+// `canGroup` is false whenever a filter that can partition a run's rows by outcome or type is active
+// (status / kind / text search): the server applies those filters BEFORE the client groups, so a group
+// built from the surviving subset would assert false completeness (e.g. a "done" filter hides a run's
+// failed step, leaving a bogus "done N/N"). Under those filters we show flat rows only — an honest subset,
+// not a run rollup. Range / ticker / user filters keep a run's rows together, so grouping stays on.
+function buildUnits(rows: ActivityRow[], canGroup: boolean): { units: Unit[]; runCount: number } {
+  const groupable = (r: ActivityRow) => canGroup && !!r.runRoot && GROUPABLE_KINDS.has(r.kind)
+  const byRoot = new Map<string, ActivityRow[]>()
+  for (const r of rows) {
+    if (!groupable(r)) continue
+    const b = byRoot.get(r.runRoot!)
+    if (b) b.push(r)
+    else byRoot.set(r.runRoot!, [r])
+  }
+  const emitted = new Set<string>()
+  const units: Unit[] = []
+  let runCount = 0
+  for (const r of rows) {
+    const bucket = groupable(r) ? byRoot.get(r.runRoot!) : undefined
+    if (!bucket || bucket.length < 2) {
+      units.push({ kind: 'row', row: r })
+      runCount++
+      continue
+    }
+    if (emitted.has(r.runRoot!)) continue // this run's group was already emitted at its newest row
+    emitted.add(r.runRoot!)
+    units.push({ kind: 'group', group: makeGroup(r.runRoot!, bucket) })
+    runCount++
+  }
+  return { units, runCount }
+}
+
+// A synthetic row that stands in for the whole group when driving the run-level Resume / reports menu. Its
+// kind decides the routing: a research run poses as a chained 'full' (matchResumable finds the whole-
+// pipeline resume; the reports menu opens the run's final thesis / memo / every module synthesis under the
+// runRoot). A screener run (its steps are signal / screener-agent) poses as 'signal' instead, so the resume
+// matches the signal entry and the reports menu takes its screener branch (api.screenerRun) rather than
+// dead-ending in the research branch on a screener/ path.
+function groupProxyRow(g: RunGroup): ActivityRow {
+  const isScreener = g.children.some((c) => c.kind === 'signal' || c.kind === 'screener-agent')
+  return {
+    runId: `group:${g.key}`,
+    user: g.users[0] ?? 'local',
+    userVia: 'local',
+    kind: isScreener ? 'signal' : 'full',
+    ticker: g.subjectId,
+    subjectLabel: g.subjectLabel,
+    swarm: g.swarm,
+    chained: !isScreener,
+    runRoot: g.runRoot,
+    launchedAt: g.startedAt,
+    status: g.status as ActivityRow['status'],
+    costUsd: g.costUsd,
+    durationMs: g.durationMs,
+  }
+}
+
+// The status pill (dot + label), shared by the plain rows and the group parent so the two never drift.
+// `extra` is the plain row's trailing note glyph.
+function statusPill(status: string, extra?: string) {
+  const tone = statusTone(status)
+  return (
+    <span className="apill" style={{ color: tone.color }}>
+      <span className="apill__dot" style={{ background: tone.color }} />{tone.label}{extra}
+    </span>
+  )
+}
+
 export function ActivityLog() {
   const close = useStore((s) => s.closeActivity)
   const resumableRuns = useStore((s) => s.resumableRuns)
@@ -88,6 +260,9 @@ export function ActivityLog() {
   const [whoami, setWhoami] = useState<Whoami | null>(null)
   // the per-row report chooser (manifest-driven popup), anchored to the clicked button
   const [menu, setMenu] = useState<{ row: ActivityRow; anchor: ReportMenuAnchor } | null>(null)
+  // user overrides for group expansion; effective open = override ?? (a live run defaults open, a
+  // finished one collapsed) — so you land watching an in-flight run complete without hand-expanding it.
+  const [openGroups, setOpenGroups] = useState<Record<string, boolean>>({})
   const openReports = (e: MouseEvent<HTMLButtonElement>, row: ActivityRow) => {
     e.stopPropagation()
     if (menu?.row.runId === row.runId) { setMenu(null); return } // clicking the same button toggles it closed
@@ -174,7 +349,120 @@ export function ActivityLog() {
   const clearFilters = () => { setRange('all'); setFromDate(''); setToDate(''); setTicker(''); setKind(''); setUser(''); setStatus(''); setQ('') }
 
   const rows = data?.rows ?? []
+  // Grouping is off under any filter that can split a run's rows by outcome/type/text (status / kind /
+  // search) — those are applied server-side, so a group over the surviving subset would misreport
+  // completeness. Range / ticker / user keep a run's rows together, so they don't disable grouping.
+  const canGroup = !status && !kind && !qDebounced
+  const { units, runCount } = useMemo(() => buildUnits(rows, canGroup), [rows, canGroup])
+  const isOpen = (g: RunGroup) => openGroups[g.key] ?? g.running
+  const toggleGroup = (g: RunGroup) => setOpenGroups((m) => ({ ...m, [g.key]: !isOpen(g) }))
+  // Pin a run open the first time we see it in flight, so it STAYS open when it finishes (you keep watching
+  // the result) instead of auto-collapsing on the next 15s refetch. The `=== undefined` guard means this
+  // only seeds a group's FIRST sighting — a manual collapse (an explicit false) is never re-opened.
+  useEffect(() => {
+    const seed: Record<string, boolean> = {}
+    for (const u of units) if (u.kind === 'group' && u.group.running && openGroups[u.group.key] === undefined) seed[u.group.key] = true
+    if (Object.keys(seed).length) setOpenGroups((m) => ({ ...m, ...seed }))
+  }, [units, openGroups])
   const historySince = data?.earliest ? fmtAbsolute(data.earliest) : null
+
+  // The Resume + reports (⋯) action cell, shared by plain rows and the group parent.
+  const actionCell = (r: ActivityRow, resumable: ResumableRunInfo | undefined, showReport: boolean, reportLabel: string) => {
+    if (!resumable && !showReport) return <span style={{ color: 'var(--text-faint)' }}>—</span>
+    const resuming = !!(resumable && launchPending?.key.startsWith(`resume:${resumable.subject}:`))
+    return (
+      <div className="arow-actions">
+        {resumable && (
+          <button
+            className="aresume"
+            disabled={resuming}
+            title={resumeHint(resumable)}
+            aria-label={resumeHint(resumable)}
+            onClick={(e) => { e.stopPropagation(); void resumeRun(resumable) }}
+          >{resuming ? 'Resuming…' : 'Resume'}<span className="aresume__glyph" aria-hidden>▸</span></button>
+        )}
+        {showReport && (
+          <button
+            className="btn"
+            style={{ height: 24, minWidth: 30, padding: '0 8px', fontSize: 16, lineHeight: 1, fontWeight: 700 }}
+            aria-label={reportLabel}
+            title={reportLabel}
+            onClick={(e) => openReports(e, r)}
+          >⋯</button>
+        )}
+      </div>
+    )
+  }
+
+  // One flat row — a standalone run, or a single step inside a group (inGroup: indented under its run, with
+  // the whole-pipeline Resume left to the parent so it isn't repeated on every module).
+  const renderRow = (r: ActivityRow, inGroup = false) => {
+    const raw = matchResumable(r, resumableRuns)
+    // inside a group the whole-pipeline / signal resume lives on the parent — a child only offers a
+    // module-level resume, so it isn't repeated on every step.
+    const resumable = inGroup && (raw?.kind === 'full' || raw?.kind === 'signal') ? undefined : raw
+    return (
+      <tr key={r.runId} className={inGroup ? 'achild' : undefined}>
+        <td title={fmtAbsolute(r.launchedAt)} style={{ whiteSpace: 'nowrap', color: 'var(--text-muted)' }}>{fmtAgo(r.launchedAt)}</td>
+        <td className="atable__who" title={r.userVia === 'cf-access' ? 'Cloudflare Access identity' : 'local / direct access'}>{r.user}</td>
+        <td><span className={`akind akind--${r.kind}`}>{KIND_LABEL[r.kind]}</span></td>
+        <td className="atable__company">
+          {!inGroup && <span title={companyTitle(r)} className={r.kind === 'sweep' ? 'atable__company--none' : undefined}>{companyOf(r)}</span>}
+        </td>
+        <td style={{ color: 'var(--text-muted)' }}>{inGroup ? stepLabel(r) : targetOf(r)}</td>
+        <td title={r.note || undefined}>{statusPill(r.status, r.note ? ' ⚠' : undefined)}</td>
+        <td className="atable__num">{fmtCost(r.costUsd)}</td>
+        <td className="atable__num">{fmtDuration(r.durationMs)}</td>
+        <td className="atable__num">{actionCell(r, resumable, hasReport(r), 'Open reports for this run')}</td>
+      </tr>
+    )
+  }
+
+  // A run's parent row — the run as one unit: who/when it started, a dot per step that fills as the run
+  // completes, the rolled-up status, total cost, and wall-clock duration. Click anywhere to expand the steps.
+  const renderGroupBody = (g: RunGroup) => {
+    const open = isOpen(g)
+    const proxy = groupProxyRow(g)
+    const resumable = matchResumable(proxy, resumableRuns)
+    // Reconcile the rolled-up status with disk truth: a run that still has a whole-pipeline resume on disk
+    // is NOT finished, even when every row present reads 'done' (e.g. all modules done but the master step
+    // hasn't run yet) — show it as 'incomplete' so the pill never contradicts the Resume button beside it.
+    const displayStatus = resumable && g.status === 'done' ? 'incomplete' : g.status
+    const who = g.users.length > 1 ? `${g.users[0]} +${g.users.length - 1}` : g.users[0]
+    const toggle = () => toggleGroup(g)
+    return (
+      <tbody key={g.key} className={`agroup-body${open ? ' agroup-body--open' : ''}`}>
+        <tr className="agroup" onClick={toggle}>
+          <td title={`Run started ${fmtAbsolute(g.startedAt)}`} style={{ whiteSpace: 'nowrap', color: 'var(--text-muted)' }}>
+            <button
+              className="agroup__caret"
+              aria-expanded={open}
+              aria-label={open ? 'Collapse run steps' : 'Expand run steps'}
+              onClick={(e) => { e.stopPropagation(); toggle() }}
+            >{open ? '▾' : '▸'}</button>{fmtAgo(g.startedAt)}
+          </td>
+          <td className="atable__who" title={g.users.join(', ')}>{who}</td>
+          <td><span className={`akind ${g.isFull ? 'akind--full' : 'akind--run'}`}>{g.isFull ? 'Full run' : 'Run'}</span></td>
+          <td className="atable__company"><span title={g.subjectLabel && g.subjectLabel !== g.subjectId ? g.subjectId : undefined}>{g.subjectLabel || g.subjectId}</span></td>
+          <td>
+            <div className="aprog" title={`${g.doneCount}/${g.totalCount} ${g.isFull ? 'modules' : 'steps'} done`}>
+              <span className="aprog__dots">
+                {g.children.map((c) => (
+                  <span key={c.runId} className={`aprog__dot aprog__dot--${dotState(c.status)}`} title={`${stepLabel(c)} · ${statusTone(c.status).label}`} />
+                ))}
+              </span>
+              <span className="aprog__count">{g.doneCount}/{g.totalCount}</span>
+            </div>
+          </td>
+          <td title={g.running ? 'a step is still running' : displayStatus}>{statusPill(displayStatus)}</td>
+          <td className="atable__num">{fmtCost(g.costUsd)}</td>
+          <td className="atable__num" title="wall-clock: first launch → last finish">{fmtDuration(g.durationMs)}</td>
+          <td className="atable__num" onClick={(e) => e.stopPropagation()}>{actionCell(proxy, resumable, hasReport(proxy), 'Open this run’s reports')}</td>
+        </tr>
+        {open && g.children.map((c) => renderRow(c, true))}
+      </tbody>
+    )
+  }
 
   return (
     <motion.div className="activity" initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
@@ -242,7 +530,8 @@ export function ActivityLog() {
           <div className="activity__count">
             {loading && !data ? 'Loading…' : (
               <>
-                Showing <b>{rows.length}</b>{data && data.total > rows.length ? ` of ${data.total}` : ''} {anyFilter ? 'matching' : ''} run{rows.length === 1 ? '' : 's'}
+                Showing <b>{runCount}</b> {anyFilter ? 'matching ' : ''}run{runCount === 1 ? '' : 's'}
+                {runCount !== rows.length ? ` · ${rows.length}${data && data.total > rows.length ? ` of ${data.total}` : ''} step${rows.length === 1 ? '' : 's'}` : (data && data.total > rows.length ? ` · ${rows.length} of ${data.total}` : '')}
                 {data ? ` · ${data.allTime} total ever` : ''}
                 {historySince ? ` · history since ${historySince}` : ''}
               </>
@@ -259,50 +548,7 @@ export function ActivityLog() {
                     <th>When</th><th>Who</th><th>Action</th><th>Company</th><th>Target</th><th>Status</th><th className="atable__num">Cost</th><th className="atable__num">Duration</th><th className="atable__num">Reports</th>
                   </tr>
                 </thead>
-                <tbody>
-                  {rows.map((r) => {
-                    const tone = statusTone(r.status)
-                    const resumable = matchResumable(r, resumableRuns)
-                    return (
-                      <tr key={r.runId}>
-                        <td title={fmtAbsolute(r.launchedAt)} style={{ whiteSpace: 'nowrap', color: 'var(--text-muted)' }}>{fmtAgo(r.launchedAt)}</td>
-                        <td className="atable__who" title={r.userVia === 'cf-access' ? 'Cloudflare Access identity' : 'local / direct access'}>{r.user}</td>
-                        <td><span className={`akind akind--${r.kind}`}>{KIND_LABEL[r.kind]}</span></td>
-                        <td className="atable__company"><span title={companyTitle(r)} className={r.kind === 'sweep' ? 'atable__company--none' : undefined}>{companyOf(r)}</span></td>
-                        <td style={{ color: 'var(--text-muted)' }}>{targetOf(r)}</td>
-                        <td title={r.note || undefined}><span className="apill" style={{ color: tone.color }}><span className="apill__dot" style={{ background: tone.color }} />{tone.label}{r.note ? ' ⚠' : ''}</span></td>
-                        <td className="atable__num">{fmtCost(r.costUsd)}</td>
-                        <td className="atable__num">{fmtDuration(r.durationMs)}</td>
-                        <td className="atable__num">
-                          {resumable || hasReport(r) ? (
-                            <div className="arow-actions">
-                              {resumable && (
-                                <button
-                                  className="aresume"
-                                  disabled={!!launchPending?.key.startsWith(`resume:${resumable.subject}:`)}
-                                  title={resumeHint(resumable)}
-                                  aria-label={resumeHint(resumable)}
-                                  onClick={(e) => { e.stopPropagation(); void resumeRun(resumable) }}
-                                >{launchPending?.key.startsWith(`resume:${resumable.subject}:`) ? 'Resuming…' : 'Resume'}<span className="aresume__glyph" aria-hidden>▸</span></button>
-                              )}
-                              {hasReport(r) && (
-                                <button
-                                  className="btn"
-                                  style={{ height: 24, minWidth: 30, padding: '0 8px', fontSize: 16, lineHeight: 1, fontWeight: 700 }}
-                                  aria-label="Open reports for this run"
-                                  title="Open run reports"
-                                  onClick={(e) => openReports(e, r)}
-                                >⋯</button>
-                              )}
-                            </div>
-                          ) : (
-                            <span style={{ color: 'var(--text-faint)' }}>—</span>
-                          )}
-                        </td>
-                      </tr>
-                    )
-                  })}
-                </tbody>
+                {units.map((u) => (u.kind === 'group' ? renderGroupBody(u.group) : <tbody key={u.row.runId}>{renderRow(u.row)}</tbody>))}
               </table>
             )}
           </div>
