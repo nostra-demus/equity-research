@@ -64,7 +64,26 @@ cd "$REPO" 2>/dev/null || { log "FATAL cannot cd $REPO — is the prod worktree 
 
 # single-flight per command (mkdir lock keyed on the command hash) so a slow run can't overlap its next fire
 LOCK="${TMPDIR:-/tmp}/nostra-hk-$(printf '%s' "$CMD" | shasum 2>/dev/null | awk '{print $1}').lock.d"
-if ! mkdir "$LOCK" 2>/dev/null; then log "SKIP $CMD — a previous run is still active"; exit 0; fi
+# lock_mtime_epoch: seconds since epoch of the lock dir's mtime. Try GNU `stat -c %Y` FIRST, then BSD/macOS
+# `stat -f %m`: BSD stat rejects `-c` (exits nonzero → falls through), whereas GNU stat treats `-f` as
+# --file-system and would succeed with the WRONG value — so this order is the one that is correct on both.
+# 0 if neither can read it.
+lock_mtime_epoch() { stat -c %Y "$LOCK" 2>/dev/null || stat -f %m "$LOCK" 2>/dev/null || echo 0; }
+if ! mkdir "$LOCK" 2>/dev/null; then
+  # An existing lock normally means a prior run is still active — skip. BUT the lock is released only by the
+  # EXIT trap below, so a run killed WITHOUT running the trap (reboot / power loss / OOM / `launchctl bootout`
+  # escalating to SIGKILL) orphans the lock, and since this wrapper always exits 0, every later fire would
+  # then SKIP forever and the job would be silently dead (launchd still shows it "healthy"). No legitimate run
+  # can outlive the hard timeout, so a lock older than TIMEOUT + a margin must be an orphan — reclaim it once.
+  lock_age=$(( $(date +%s) - $(lock_mtime_epoch) ))
+  if [ "$lock_age" -gt $(( TIMEOUT + 300 )) ]; then
+    log "RECLAIM stale lock for $CMD (age ${lock_age}s > ${TIMEOUT}s hard timeout) — a prior run was killed before it could release the lock"
+    rmdir "$LOCK" 2>/dev/null || true
+    mkdir "$LOCK" 2>/dev/null || { log "SKIP $CMD — lock contended immediately after reclaim"; exit 0; }
+  else
+    log "SKIP $CMD — a previous run is still active (lock age ${lock_age}s)"; exit 0
+  fi
+fi
 trap 'rmdir "$LOCK" 2>/dev/null' EXIT
 
 # DUE gate (review-decisions only): review_due.py prints to stdout ONLY when something is due and ALWAYS
@@ -86,7 +105,11 @@ if have '--permission-mode'; then ARGS+=(--permission-mode bypassPermissions)
 elif have '--dangerously-skip-permissions'; then ARGS+=(--dangerously-skip-permissions); fi
 have '--model'          && ARGS+=(--model "$MODEL")
 have '--max-turns'      && ARGS+=(--max-turns "$MAXTURNS")
-have '--max-budget-usd' && ARGS+=(--max-budget-usd "$BUDGET")
+# The per-run USD cap is a headline safety guarantee (see the Safety note above). If the installed CLI does
+# not advertise --max-budget-usd, it is dropped SILENTLY otherwise — so log a WARN making the lost hard $ cap
+# visible in the housekeeping log (the run is then bounded only by --max-turns and the ${TIMEOUT}s timeout).
+if have '--max-budget-usd'; then ARGS+=(--max-budget-usd "$BUDGET")
+else log "WARN installed claude lacks --max-budget-usd — running $CMD WITHOUT a hard \$ cap (bounded only by --max-turns=$MAXTURNS and ${TIMEOUT}s timeout)"; fi
 
 log "RUN $CMD (budget \$$BUDGET model $MODEL timeout ${TIMEOUT}s)"
 "$BIN" "${ARGS[@]}" >> "$LOG" 2>&1 &

@@ -2,7 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <!-- Machine-agnostic TEMPLATE: placeholder tokens rendered by scripts/ops/install-services.sh at install time.
      DOER-ONLY: exactly one machine runs the tunnel for app.nostra-demus.com — two connectors on the same
-     named tunnel would flap the public route. Secondary machines install with --role admin (no tunnel). -->
+     named tunnel would flap the public route. Secondary machines install with the admin role (no tunnel). -->
 <plist version="1.0"><dict>
   <key>Label</key><string>com.nostradamus.tunnel</string>
   <key>ProgramArguments</key><array><string>{{CLOUDFLARED_BIN}}</string><string>tunnel</string><string>run</string><string>nostradamus-engine</string></array>
