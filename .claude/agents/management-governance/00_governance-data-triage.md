@@ -115,8 +115,13 @@ You DO NOT:
 | Filing regime (US SEC / India SEBI-LODR / UK / Singapore / Other) | | |
 | Sector | | |
 | Sector-specific governance overlay required? (Y/N + which) | | |
+| Document language(s) | | |
 
 Set these so later agents apply the right Jurisdiction-Aware Source Mapping and Sector Overlay (MODULE_RULES). For non-US issuers, do NOT mark US forms (DEF 14A, 10-K, Form 4) "missing" when the local equivalent exists.
+
+## Language is not a data gap (CLAUDE.md §27)
+
+Detect and record each document's language. A filing in the company's home language — Arabic, Mandarin, Japanese, or any non-English language — counts as PRESENT at the full source tier its type earns. `extract_pool.py` transcribes it verbatim into `_pool_extracts/` (scanned pages via OCR), and the downstream specialists translate the material facts as they read; figures are taken verbatim (§5/§15). Do NOT mark a non-English document "missing", "not extractable in English", or "opaque", and do NOT reduce the data-quality or data-sufficiency score for language — **a non-English filing is not a data gap.** Record the detected language in the Filing Regime block. The ONLY real gap is a document whose extraction FAILED in the pool manifest (corrupt / encrypted / illegible), which is already handled as missing.
 
 ## 5B. Source Coverage Matrix
 

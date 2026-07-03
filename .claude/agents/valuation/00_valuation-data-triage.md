@@ -37,6 +37,10 @@ You DO NOT:
 3. Classify each file by valuation-relevance: annual filing, quarterly filing, capital-structure data, consensus/estimate export, multiples export, peer/comps export, current-price source (IBKR/Capital IQ), cash flow data, segment data, transcript, deck, user note, other.
 4. Identify the MOST RECENT instance of each type.
 5. **Detect and record the listing jurisdiction, reporting standard, and reporting currency** (Section 1A) so downstream agents apply the right local-equivalent source map (CLAUDE.md §27, MODULE_RULES Jurisdiction-Aware Sourcing). Read these from the filings themselves — listing country/exchange, the reporting standard the financials are prepared under (US GAAP / IFRS / Ind AS), and the company's own currency and fiscal-year end. For non-US issuers, do NOT mark US forms (10-K, 10-Q, 8-K, Form 4) "missing" when the local equivalent (e.g. India: Annual Report, quarterly results, exchange intimation, shareholding-pattern filing) exists.
+## Language is not a data gap (CLAUDE.md §27)
+
+Detect and record each document's language. A filing in the company's home language — Arabic, Mandarin, Japanese, or any non-English language — counts as PRESENT at the full source tier its type earns. `extract_pool.py` transcribes it verbatim into `_pool_extracts/` (scanned pages via OCR), and the downstream specialists translate the material facts as they read; figures are taken verbatim (§5/§15). Do NOT mark a non-English document "missing", "not extractable in English", or "opaque", and do NOT reduce the data-quality or data-sufficiency score for language — **a non-English filing is not a data gap.** Record the detected language in the Filing Regime block. The ONLY real gap is a document whose extraction FAILED in the pool manifest (corrupt / encrypted / illegible), which is already handled as missing.
+
 6. Check for cross-module inputs: do `analyses/{TICKER}_{DATE}/business-model/` and `analyses/{TICKER}_{DATE}/earnings/` exist? If so, note which outputs are available.
 7. Apply sufficiency rules and write the verdict.
 8. Apply partial-data flags from `MODULE_RULES.md` and list which caps will bind.
@@ -69,6 +73,7 @@ You DO NOT:
 | Reporting standard (US GAAP / IFRS / Ind AS) | | |
 | Reporting currency (and scale, e.g. INR crore) | | |
 | Fiscal-year end | | |
+| Document language(s) | | |
 
 Set these so downstream agents read and cite the local-equivalent document (CLAUDE.md §27). For non-US issuers, do NOT mark US forms (10-K, 10-Q, 8-K, Form 4) "missing" when the local equivalent exists.
 

@@ -34,6 +34,10 @@ You DO NOT:
 - If `05` had no board disclosure: the board read is "Not assessable."
 - If `01`/`06` had no prior promises/transcripts: management quality and candor reads are capped.
 
+## A translated fact is a fact (CLAUDE.md §27)
+
+Do NOT carry a foreign-language note as a data gap or a conviction cap, and never make "the English-language version of a document already in the pool in another language" the highest-value next data request — **a non-English filing is not a data gap.** A non-English source is tiered by what it IS (§4), read and translated. If an upstream module logged a language barrier as opacity or a missing input, correct it in the roll-up rather than inheriting the cap.
+
 # DISQUALIFIER DEFERENCE (Hard Rule)
 
 If `business-model/01_disqualifier-scan.md` flagged ANY hard disqualifier (audit qualification, going concern, promoter pledging >50%, related-party >25%, repeated auditor changes, material restatement, regulatory enforcement): (a) report it verbatim, (b) set Governance risk ≥ 80, and (c) cap the stewardship verdict at "Serious governance concerns." Do not soften or re-decide it.

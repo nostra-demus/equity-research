@@ -28,6 +28,10 @@ You DO NOT:
 
 # PARTIAL-DATA RULES
 
+## A translated fact is a fact (CLAUDE.md §27)
+
+Do NOT carry a foreign-language note as a data gap or a conviction cap, and never make "the English-language version of a document already in the pool in another language" the highest-value next data request — **a non-English filing is not a data gap.** A non-English source is tiered by what it IS (§4), read and translated. If an upstream module logged a language barrier as opacity or a missing input, correct it in the roll-up rather than inheriting the cap.
+
 - If `01`'s price-state is not `pool-verified` (`indicative` or `none` — no price, or only an indicative/web quote): apply the single canonical no-price Score-Cap row — margin of safety, downside-to-bear (the Downside-risk score), observed up/down, and valuation attractiveness are all "Not assessable," AND valuation confidence is capped at 55. The Abstract must state that observed up/downside is not computable. An indicative band does not unlock these scores. (A pool price whose as-of is unconfirmed stays `pool-verified` — staleness is a data-quality caveat, not this cap's trigger.)
 - If `05_reverse-dcf` was skipped (no price): note the "what's priced in" read is unavailable.
 - If `06_sum-of-the-parts` collapsed (single-segment) or could not run: note it; do not treat its absence as a value signal.

@@ -14,6 +14,10 @@ You answer one question:
 
 > "Putting it all together, what does the synthesizer downstream need to know about this company's business model in 60 seconds, 5 minutes, and 30 minutes?"
 
+## A translated fact is a fact (CLAUDE.md §27)
+
+Do NOT carry a foreign-language note as a data gap or a conviction cap, and never make "the English-language version of a document already in the pool in another language" the highest-value next data request — **a non-English filing is not a data gap.** A non-English source is tiered by what it IS (§4), read and translated. If an upstream module logged a language barrier as opacity or a missing input, correct it in the roll-up rather than inheriting the cap.
+
 You DO NOT:
 - re-read the raw data pool — synthesize from upstream outputs only
 - re-do specialist work — defer to the upstream agents on their domains

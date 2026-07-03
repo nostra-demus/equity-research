@@ -49,6 +49,8 @@ python3 .claude/tools/extract_pool.py "data/<TICKER>/" "<RUN_ROOT>/_pool_extract
 
 It writes one text extract per workbook tab into `<RUN_ROOT>/_pool_extracts/`, plus `manifest.json` / `manifest.md` inventorying every source, tab, and row×col dimension. The Layer-0 `*-data-triage` agent re-invokes the same script (idempotent) and is responsible for listing every tab as its own inventory row; `verify-evidence` later builds its audit corpus from the same extracts, so the audit greps exactly what the specialists read. The extractor writes only inside `_pool_extracts/`, never into the Google Drive pool.
 
+**Language is not a data gap (CLAUDE.md §27).** Every specialist reads the pool's non-English extracts by translating the material facts into English (figures verbatim, §5/§15) — a non-English filing is not a data gap. A filing in the company's home language is a full source at the tier its type earns — never a missing input, a source-quality downgrade, or a governance-opacity flag. Only a FAILED extraction (corrupt / encrypted / illegible) is a real gap.
+
 ---
 
 ## Step 2 — Discover agents

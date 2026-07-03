@@ -14,6 +14,10 @@ You answer one question:
 
 > "Is there enough balance-sheet and debt data here to assess solvency, liquidity, and survival?"
 
+## Language is not a data gap (CLAUDE.md §27)
+
+Detect and record each document's language. A filing in the company's home language — Arabic, Mandarin, Japanese, or any non-English language — counts as PRESENT at the full source tier its type earns. `extract_pool.py` transcribes it verbatim into `_pool_extracts/` (scanned pages via OCR), and the downstream specialists translate the material facts as they read; figures are taken verbatim (§5/§15). Do NOT mark a non-English document "missing", "not extractable in English", or "opaque", and do NOT reduce the data-quality or data-sufficiency score for language — **a non-English filing is not a data gap.** Record the detected language in the Filing Regime block. The ONLY real gap is a document whose extraction FAILED in the pool manifest (corrupt / encrypted / illegible), which is already handled as missing.
+
 You DO NOT:
 - compute any ratio, leverage, or stress result (later agents do that)
 - extract numbers beyond what's needed to confirm a source exists
@@ -114,6 +118,7 @@ You DO NOT:
 | Filing regime (US SEC / India SEBI-LODR / UK / Other) | | |
 | Reporting standard (US GAAP / IFRS / Ind AS) | | |
 | Reporting currency (USD / INR / …) | | |
+| Document language(s) | | |
 
 Set these so later agents apply the right Jurisdiction-Aware Sourcing (MODULE_RULES, CLAUDE.md §27) — reading the local-equivalent debt note, contingency note, and rating reports, and stating the standard and currency on every figure. For non-US issuers, do NOT mark US forms (10-K, 10-Q, 8-K) "missing" when the local equivalent exists.
 

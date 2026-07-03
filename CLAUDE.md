@@ -73,6 +73,7 @@ Concrete forms already in use across modules, all acceptable — cite the local 
 - `CRISIL rating rationale, 2026-03-10` / `Capital IQ Multiples export, data as of 2026-05-09`
 - `IBKR screenshot, 2026-05-30`
 - `Web: exchange quote, 2026-05-31 (indicative, unverified)`
+- `FY24 Annual Report (IFRS, Arabic original), Note 34 — translated` (non-English filing; figures transcribed verbatim, labels translated — see §27)
 
 Ban vague citations: "company filings", "annual report" alone, "management said", "source", "industry data". A web-sourced input must be dated and labelled unverified, and must not be used when a pool source covers the same fact.
 
@@ -159,6 +160,8 @@ Data sufficiency score:
 - 0–29: insufficient — refuse to rate
 
 Rule: data sufficiency caps conviction and rating. Where a required input is absent, the relevant module applies a hard score cap from its own MODULE_RULES.md (for example: no consensus caps the earnings consensus read; no current price makes margin of safety "Not assessable"; no covenant disclosure makes covenant headroom "Not assessable"). Caps are applied by the synthesis layer, never silently overridden. A completed dedicated module lifts the cap it covers — do not double-penalize a gap a module has actually filled.
+
+A non-English filing is not a missing input: it is read and translated (§27) and contributes to the sufficiency score at the tier its document type earns — never discounted for language. Only a document the engine genuinely cannot read (extraction failed) counts as absent.
 
 ---
 
@@ -425,6 +428,11 @@ This engine covers companies in any market — the United States, India, and oth
 - State the reporting standard (US GAAP / IFRS / Ind AS). It changes how leases, revenue, provisions, and consolidation read — never compare across standards silently.
 - Report in the company's own currency (USD, INR, …). Any cross-currency figure carries its FX date and rate (§15). Local scale (lakh/crore) is fine, but always give the absolute number too. **When a filing states a foreign-currency amount together with its home-currency (reporting-currency) equivalent — e.g. "€3.8 billion (₹41,691 crore)" — use the filing's stated home-currency figure verbatim; do NOT re-derive it.** If you must convert (no filed equivalent), state the rate inline and use the period-appropriate rate — the closing (period-end) rate for a balance-sheet item, the period-average rate for an income-statement flow — and sanity-check that the implied rate matches the stated currency, never a different currency's rate (a EUR amount at the USD rate is the recurring error: €3.8bn is ~₹41,700 cr at ~₹110/EUR, not ~₹34,000 cr at the ~₹86/USD rate).
 - Use the company's own fiscal year. An Indian "FY24" usually ends 31 March; a US "FY24" may end 31 December or otherwise — never assume a calendar of convenience, and never mix periods without reconciliation (§15).
+
+**Language travels with the jurisdiction — a non-English filing is not a data gap.** A company files in its home language. The engine reads the source in its original language, translates the material facts into English, and analyses them. A document being in Arabic, Mandarin, Japanese, Korean, German, Portuguese, or any other language is NOT missing data, NOT a source-quality downgrade, and NOT a governance-opacity red flag. Recording a foreign-language disclosure as "not available in English", "not extractable", or "opaque" is a bad-extraction error (§20) — the exact twin of marking a non-US company's data "missing" because a US form is absent. The pool extractor already transcribes every document verbatim in its original script — including scanned or image-only PDFs, via OCR; turning that text into English is a reading-layer job the analyst does, and never a reason to drop the source.
+- **Numbers are language-independent — transcribe, never translate them.** A figure is transcribed unchanged: Eastern-Arabic (٤٥) and Devanagari (४५) numerals become Western digits (45) with nothing else altered, and the number must still literally appear in the cited source (§5, §15). Extraction stays verbatim (the transcriber never translates); translation happens only when the analyst reads the extracted text.
+- **Translate labels and narrative faithfully; flag genuine ambiguity, not the language.** Where a translated term of art — a legal, accounting, or governance clause — is materially ambiguous, surface the ambiguity and apply the conservative default (§4) to THAT residual uncertainty, never to the mere fact that the document is not in English. A related-party, covenant, compensation, or contingency note that exists only in a non-English filing must be read and translated, not logged as a gap. Opacity means a fact is genuinely undisclosed or unobtainable — not that it is disclosed in another language.
+- **The source tier is set by what the document is, never by its language.** An audited annual report is a Tier-1 source (§4) whether it is in English or Arabic — do not lower its claim-quality level (§6) or its data-sufficiency contribution (§11) because it needed translating. Cite it by its real local name and period and mark it translated — e.g. `FY24 Annual Report (IFRS, Arabic original), Note 34 (RPT) — translated`. A genuinely unreadable document (extraction FAILED in the pool manifest — corrupt, encrypted, or an illegible scan) is a real gap; a document the engine can read in any language is not.
 
 Each module's MODULE_RULES.md applies this map and may add its own regime-specific source list and sector overlays on top (management-governance already does). The citation format (§5) is unchanged: name the local document and its period.
 

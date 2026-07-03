@@ -26,6 +26,10 @@ You DO NOT:
 
 # PARTIAL-DATA RULES
 
+## A translated fact is a fact (CLAUDE.md §27)
+
+Do NOT carry a foreign-language note as a data gap or a conviction cap, and never make "the English-language version of a document already in the pool in another language" the highest-value next data request — **a non-English filing is not a data gap.** A non-English source is tiered by what it IS (§4), read and translated. If an upstream module logged a language barrier as opacity or a missing input, correct it in the roll-up rather than inheriting the cap.
+
 - If `04_guidance-consensus` had no consensus data: cap consensus setup score and note in the Abstract.
 - If `06_earnings-quality` had no cash flow data: cap earnings quality score and note in the Abstract.
 - If `05_beat-miss-setup` was capped at Unclear: reflect this in the verdict block.

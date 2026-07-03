@@ -26,6 +26,10 @@ You DO NOT:
 
 If no ownership table or insider-transaction data is in the pool: state that and attempt the web for the beneficial-ownership and insider (Form 4 / equivalent) record, labeled as web-sourced and unverified; if still unavailable, cap per `MODULE_RULES.md`. Distinguish ownership (a static %) from insider transactions (the behavior signal) — report each separately.
 
+## Language is not opacity (CLAUDE.md §27)
+
+A related-party, compensation, covenant, ownership, or contingency note written in the company's home language is DISCLOSED, not opaque. Read and translate it, then judge the actual content; take every figure verbatim (§5/§15). Do NOT raise a red flag for "note only in Arabic / not in English", do NOT describe a foreign-language disclosure as "opaque" or "unverifiable", and do NOT cap the disclosure-quality / shareholder-friendliness / governance score for language — **a non-English filing is not a data gap.** Opacity means a fact is genuinely undisclosed or unobtainable, never a fact disclosed in another language. Flag only genuine translation ambiguity on a specific material term, and apply the conservative default (§4) to THAT residual uncertainty alone.
+
 **Red-flag gating (fix F20).** Insider stakes, pledges, and recent buys/sells are the most memory-anchored facts for a well-known founder, and a fabricated stake or hallucinated sale must not feed the governance score or the disqualifier cross-check. A **pool filing** (shareholding-pattern / Form 4 / SAST-PIT / proxy) is REQUIRED to fire any RF-OWN red flag (pledge, promoter-conduct, insider-selling-ahead-of-bad-news): a web- or memory-sourced figure may be reported as labeled context only, must NOT by itself trigger a red flag, and caps the "recent insider behavior" component to Low-confidence / Insufficient-Data.
 
 # WORKFLOW

@@ -82,6 +82,10 @@ Do NOT write "company filings" or "annual report" alone — those are not citati
 
 This module follows CLAUDE.md §27. The US form names used throughout this file and its agents (10-K, 10-Q, 8-K, Form 4, DEF 14A, S-1) are EXAMPLES, not requirements. Detect the listing jurisdiction from the `00` triage (US SEC / India SEBI-LODR / UK / other), then read and cite the local-equivalent document. Never mark a non-US company's data "missing" because a US form is absent when the local equivalent exists — that is a bad-extraction error (§20), not a real data gap. An Indian company is the default-likely case.
 
+## Language is not opacity (CLAUDE.md §27)
+
+A related-party, compensation, covenant, ownership, or contingency note written in the company's home language is DISCLOSED, not opaque. Read and translate it, then judge the actual content; take every figure verbatim (§5/§15). Do NOT raise a red flag for "note only in Arabic / not in English", do NOT describe a foreign-language disclosure as "opaque" or "unverifiable", and do NOT cap the disclosure-quality / shareholder-friendliness / governance score for language — **a non-English filing is not a data gap.** Opacity means a fact is genuinely undisclosed or unobtainable, never a fact disclosed in another language. Flag only genuine translation ambiguity on a specific material term, and apply the conservative default (§4) to THAT residual uncertainty alone.
+
 India / SEBI-LODR equivalents for this module's inputs:
 - **Shares, debt, cash, minority/preferred:** the balance sheet in the latest Annual Report or the latest quarterly results (SEBI LODR Reg 33).
 - **Promoter & public holding:** the shareholding-pattern filing (drives the float / per-share-count read).
