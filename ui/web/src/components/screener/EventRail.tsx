@@ -194,6 +194,7 @@ export function EventRail() {
   const selected = useStore((s) => s.scSelectedEvent)
   const ensure = useStore((s) => s.scEnsureNewsStream)
   const refreshStatus = useStore((s) => s.refreshNewsStatus)
+  const sweepStarting = useStore((s) => s.launchPending?.key === 'sweep')
   const pick = useStore((s) => s.scSelectEvent)
   const shelvedEvents = useStore((s) => s.shelvedEvents)
   const toggleShelve = useStore((s) => s.toggleShelve)
@@ -439,7 +440,7 @@ export function EventRail() {
                 }}
                 title="A manual top-up scan by the paid engine (~$2–12). Usually unnecessary — the free auto-scan runs every 15 minutes."
               >
-                {armScan ? 'yes, scan now · ~$2–12 ▸' : 'scan now ▸'}
+                {sweepStarting ? 'starting the scan…' : armScan ? 'yes, scan now · ~$2–12 ▸' : 'scan now ▸'}
               </button>
             )}
           </div>

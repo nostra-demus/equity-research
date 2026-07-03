@@ -172,6 +172,7 @@ function foldRows(events: ActivityEvent[]): ActivityRow[] {
     } else if (ev.event === 'finished') {
       row.finishedAt = ev.ts
       row.status = ev.status ?? 'done'
+      if (ev.runRoot && !row.runRoot) row.runRoot = ev.runRoot // fallback only — launched stays authoritative
       if (ev.costUsd != null) row.costUsd = ev.costUsd
       if (ev.durationMs != null) row.durationMs = ev.durationMs
       if (ev.numTurns != null) row.numTurns = ev.numTurns

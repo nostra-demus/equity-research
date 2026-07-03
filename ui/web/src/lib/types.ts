@@ -597,6 +597,9 @@ export type SseEvent =
   | { type: 'cost-tick'; runId: string; costUsdSoFar?: number; rateLimit?: { ok: boolean; reason?: string }; ts: number }
   | { type: 'run-done'; runId: string; status: 'done'; costUsd?: number; durationMs?: number; numTurns?: number; finalThesisPath?: string | null; decisionRecordPath?: string | null; ts: number }
   | { type: 'run-error'; runId: string; status: 'error' | 'cancelled' | 'incomplete'; reason: string; message?: string; ts: number }
+  // transient liveness pulse (~3s per in-flight run; never replayed) — status/progress/cost between
+  // agent events plus the engine's last output time and latest tool call ("what is it doing right now")
+  | { type: 'run-heartbeat'; runId: string; status: string; elapsedMs: number; agentsDone: number; agentsTotal: number; costUsd?: number; lastStdoutAt?: number; lastActivity?: { tool: string; ts: number }; ts: number }
   | { type: 'readiness-checking'; runId: string; ticker: string; kind: string; ts: number }
   | { type: 'readiness-report'; runId: string; report: ReadinessReport; ts: number }
   | { type: 'readiness-blocked'; runId: string; report: ReadinessReport; ts: number }

@@ -48,6 +48,7 @@ function ThesisDetail() {
   const detail = useStore((s) => s.scThesisDetail)
   const close = useStore((s) => s.closeThesisDetail)
   const sendToResearch = useStore((s) => s.sendToResearch)
+  const launchPending = useStore((s) => s.launchPending)
   const openCallFile = useStore((s) => s.openCallFile)
   const board = useStore((s) => s.scBoard)
   const moveThesis = useStore((s) => s.moveThesis)
@@ -170,8 +171,8 @@ function ThesisDetail() {
                   {done ? (
                     <span className="tdetail__dim">sent ✓</span>
                   ) : confirmFor === c.ticker ? (
-                    <button className="btn btn--amber" onClick={(e) => { e.stopPropagation(); void sendToResearch(meta.thesis_id, c.ticker, pool) }}>
-                      yes — send it ▸
+                    <button className="btn btn--amber" disabled={launchPending?.key === `handoff:${meta.thesis_id}:${c.ticker}`} onClick={(e) => { e.stopPropagation(); void sendToResearch(meta.thesis_id, c.ticker, pool) }}>
+                      {launchPending?.key === `handoff:${meta.thesis_id}:${c.ticker}` ? 'sending…' : 'yes — send it ▸'}
                     </button>
                   ) : (
                     <button className="btn btn--ghost" onClick={(e) => { e.stopPropagation(); setConfirmFor(c.ticker) }} title={`Copies this idea's memo into data/${c.ticker}/ for the research team. Starting the deep research run stays a separate click.`}>

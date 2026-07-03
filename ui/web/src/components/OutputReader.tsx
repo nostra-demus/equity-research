@@ -6,7 +6,9 @@ import { useStore } from '../lib/store'
 import { api } from '../lib/api'
 import { buildReportHtml, parseMeta, safeName } from '../lib/export'
 import { buildDocxBlob } from '../lib/docx'
+import { fmtClock } from '../lib/eta'
 import { CONSTITUTION_PATH, moduleOfNodeKey, moduleRulesPath, promptFileName, promptPathForNodeKey, splitFrontmatter } from '../lib/prompts'
+import { Spin } from './Spin'
 
 const IMPROVE_EMAIL = 'ceekay@muns.io'
 const titleize = (s: string) => s.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
@@ -28,6 +30,9 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
   const launchModule = useStore((s) => s.launchModule)
   const openChat = useStore((s) => s.openChat)
   const setToast = useStore((s) => s.setToast)
+  const launchPending = useStore((s) => s.launchPending)
+  const nodeRuntime = useStore((s) => s.nodeRuntime)
+  const now = useStore((s) => s.now) // shared 1s clock — ticks while any orb runs
   const [md, setMd] = useState<string>('')
   const [loading, setLoading] = useState(false)
   const [menu, setMenu] = useState(false)
@@ -66,6 +71,15 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
   const targetKey = output.pending ? agentNode?.key : rerunTarget?.key
   const tstatus = targetKey ? nodeStatus(targetKey) : 'dormant'
   const busy = tstatus === 'queued' || tstatus === 'running'
+  // a launch fired FROM this panel that the server hasn't acked yet — the instant-feedback window
+  const pendingHere = !!launchPending && (
+    launchPending.key === `agent:${agentNode?.key ?? ''}` ||
+    launchPending.key === `module:${agentNode?.module ?? ''}` ||
+    launchPending.key === 'confirm'
+  )
+  // live elapsed for the header chip while THIS orb runs (server-stamped start, shared 1s clock)
+  const runStartedAt = targetKey ? nodeRuntime[targetKey]?.startedAt : undefined
+  const runElapsed = tstatus === 'running' && runStartedAt ? fmtClock(Math.max(0, now - runStartedAt)) : null
 
   // the prompt(s) reachable from this panel: the orb's own prompt, its module's shared rules (if any),
   // and the engine constitution. Derived purely from the node key (+ the active swarm's agents root,
@@ -168,15 +182,18 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
   // through /screener:agent) — never fall through to the RESEARCH launch actions from screener mode.
   function runButton() {
     if (activeSwarm !== 'research') return null
+    // the click was heard: the button spins IN THE SAME FRAME (launchPending is set before the POST)
+    if (pendingHere) return <button className="btn" style={{ height: 30 }} disabled><Spin /> Starting…</button>
     if (output.pending) {
       if (!agentNode) return null
       const status = nodeStatus(agentNode.key)
       if (status === 'ready' || status === 'failed') return <button className="btn btn--amber" style={{ height: 30 }} disabled={busy} onClick={() => launchAgent(agentNode)}>Run ▸</button>
       if (status === 'notready') return <button className="btn btn--amber" style={{ height: 30 }} disabled={busy} onClick={() => launchModule(agentNode.module)}>Run module ▸</button>
-      if (status === 'queued' || status === 'running') return <button className="btn" style={{ height: 30 }} disabled>Running…</button>
+      if (status === 'queued' || status === 'running') return <button className="btn" style={{ height: 30 }} disabled><Spin /> Running{runElapsed ? ` · ${runElapsed}` : '…'}</button>
       return null // locked / dormant: no run affordance
     }
     if (!rerunTarget) return null
+    if (busy) return <button className="btn" style={{ height: 30 }} disabled><Spin /> Running{runElapsed ? ` · ${runElapsed}` : '…'}</button>
     return <button className="btn btn--amber" style={{ height: 30 }} disabled={busy} onClick={() => launchRerun(rerunTarget)} title="Re-run this orb and everything downstream of it, to the Memo">Re-run ↻</button>
   }
 
@@ -237,17 +254,23 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
   // body for a not-yet-run orb (no markdown to show) — explains what Run will do
   function pendingBody() {
     const status = agentNode ? nodeStatus(agentNode.key) : 'dormant'
-    const hint =
-      status === 'ready' || status === 'failed' ? 'Run it to produce its output.'
-      : status === 'notready' ? `It needs upstream outputs — running its module produces them first.`
-      : status === 'queued' || status === 'running' ? 'It is running now — its output will appear when it finishes.'
-      : status === 'locked' ? `No data for ${agentNode?.module ?? 'this module'} — add files to the Drive folder, then run.`
-      : 'Select a ticker with data to run this orb.'
+    const live = status === 'queued' || status === 'running'
+    // never say "hasn't been run yet" about an orb that is running RIGHT NOW (the old contradictory copy)
+    const lead = live
+      ? status === 'running'
+        ? `This orb is running now${runElapsed ? ` — ${runElapsed} in` : ''}. Its output opens here the moment it finishes; the run panel on the left tracks it live.`
+        : 'This orb is queued — the engine will start it as soon as its turn comes. Its output opens here when it finishes.'
+      : `This orb hasn't been run yet. ${
+          status === 'ready' || status === 'failed' ? 'Run it to produce its output.'
+          : status === 'notready' ? 'It needs upstream outputs — running its module produces them first.'
+          : status === 'locked' ? `No data for ${agentNode?.module ?? 'this module'} — add files to the Drive folder, then run.`
+          : 'Select a ticker with data to run this orb.'
+        }`
     return (
       <div className="md">
-        <p style={{ color: 'var(--text-muted)' }}>This orb hasn't been run yet. {hint}</p>
+        <p style={{ color: 'var(--text-muted)' }}>{lead}</p>
         {agentNode?.description && <p style={{ color: 'var(--text-faint)' }}>{agentNode.description}</p>}
-        {promptPath && <p style={{ color: 'var(--text-faint)' }}>You can still read its prompt — use <b>Prompt ▾</b> above to see exactly what it will do.</p>}
+        {promptPath && <p style={{ color: 'var(--text-faint)' }}>You can {live ? 'read its prompt while it runs' : 'still read its prompt'} — use <b>Prompt ▾</b> above to see exactly what it {live ? 'is doing' : 'will do'}.</p>}
       </div>
     )
   }
@@ -294,7 +317,15 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
       <div className="reader__head">
         <div style={{ minWidth: 0 }}>
           <div className="reader__title">
-            {output.pending ? <span className="reader__pending">○ Not run</span> : <span className="reader__done">✓ Completed</span>} {output.title}
+            {/* the chip tells the truth about NOW: a running orb never wears a stale "Not run" */}
+            {busy || pendingHere ? (
+              <span className="reader__running">● {tstatus === 'queued' && !pendingHere ? 'Queued' : 'Running'}{runElapsed ? ` · ${runElapsed}` : ''}</span>
+            ) : output.pending ? (
+              <span className="reader__pending">○ Not run</span>
+            ) : (
+              <span className="reader__done">✓ Completed</span>
+            )}{' '}
+            {output.title}
           </div>
           {output.verdict ? <div className="reader__verdict">{output.verdict}</div> : output.path ? <div className="reader__path">{output.path}</div> : null}
         </div>
