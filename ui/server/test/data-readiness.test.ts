@@ -78,22 +78,36 @@ check('classify: underscore-named exports are still identified (annual report, r
 
 // Bug: the Capital IQ "Public Company Profile" tearsheet holds the dated current price but was typed
 // 'other' and did not satisfy the price signal, so "Current price" showed unmet even when uploaded.
-check('coverage: a Capital IQ "Public Company Profile" tearsheet satisfies Current price', () => {
+check('coverage: only the PUBLIC company profile tearsheet satisfies Current price', () => {
+  // the Capital IQ public-issuer tearsheet counts…
   assert.ok(covPresent([cf('MGM Resorts International NYSE MGM Public Company Profile.rtf')], 'price'))
+  // …but a bare "Company Profile" overview (no dated quote) must NOT open the CRITICAL price gate
+  assert.equal(covPresent([cf('Acme Corp Company Profile.pdf')], 'price'), false)
 })
-check('coverage: an analyst target-price / coverage export does NOT satisfy Current price', () => {
+// Codex C5: the exclusion is a document phrase ("target price"), so an issuer literally NAMED Target still
+// gets a price from its tearsheet, while an analyst target-price export is still rejected.
+check('coverage: an issuer named "Target" still gets Current price; an analyst target-price export does not', () => {
+  assert.ok(covPresent([cf('Target Corporation NYSE TGT Public Company Profile.rtf')], 'price'))
   assert.equal(covPresent([cf('MGM Analyst Coverage Target Price.xls')], 'price'), false)
 })
-// Bug (freshness half of the tearsheet fix): a tearsheet is full of historical years, so aging it off the
-// max body year read a same-day quote as ~16 years stale. Age off the explicit quote date instead.
-check('quoteAsOfMonths: picks the newest full date, ignores bare body years', () => {
-  const jul = quoteAsOfMonths('Jul-02-2026')
-  const mar = quoteAsOfMonths('Mar-31-2026')
-  assert.ok(jul !== null && mar !== null && jul < mar, 'a later quote date is fewer months old')
-  // founding-year noise + two as-of dates -> the newest full date wins, the bare 2010 is ignored
-  assert.equal(quoteAsOfMonths('Founded 2010. Delayed Quote Last Updated on Jul-02-2026; LTM as of Mar-31-2026'), jul)
-  assert.equal(quoteAsOfMonths('2026-07-02 close'), jul) // ISO form parses to the same month
-  assert.equal(quoteAsOfMonths('incorporated 2010; HQ since 1998'), null) // bare years -> no quote date
+// Codex C4: an earnings-call PRESENTATION/slide deck is slides, not prepared remarks — it must not fill the
+// CORE Earnings transcript slot; the actual call transcript still classifies as a transcript.
+check('classify: an earnings-call presentation/slide deck is investor_deck, not a transcript', () => {
+  assert.equal(classify('MGM Q1 2026 Earnings Call Presentation.pdf', '').type, 'investor_deck')
+  assert.equal(classify('MGM Q1 2026 Earnings Call Slides.pdf', '').type, 'investor_deck')
+  assert.equal(classify('MGM Resorts International, Q1 2026 Earnings Call, Apr 29, 2026.rtf', '').type, 'transcript')
+})
+// Codex C2/C3 (tearsheet freshness): a full date counts ONLY after a quote-context phrase, so neither a bare
+// body year nor a newer UNRELATED date (upcoming earnings, ex-div) can make a stale quote read fresh.
+check('quoteAsOfMonths: only a quote-context date sets age; bare / newer-unrelated dates are ignored', () => {
+  assert.equal(quoteAsOfMonths('Jul-02-2026'), null)                     // bare date, no quote context
+  assert.equal(quoteAsOfMonths('Founded 2010; incorporated 1998'), null) // bare years
+  const jul = quoteAsOfMonths('Delayed Quote Last Updated on Jul-02-2026')
+  const jan = quoteAsOfMonths('as of Jan-02-2026')
+  assert.ok(jul !== null && jan !== null && jul < jan, 'a later quote date is fewer months old')
+  // a STALE Jan quote plus a NEWER unrelated date -> the quote date wins, not the later one
+  assert.equal(quoteAsOfMonths('Delayed Quote Last Updated Jan-02-2026. Upcoming earnings Aug-05-2026'), jan)
+  assert.equal(quoteAsOfMonths('price as of 2026-07-02'), jul)           // ISO form == Mon-DD-YYYY form
 })
 
 // ---- A.5: readiness-gate scoping by run kind ----
