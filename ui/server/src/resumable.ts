@@ -18,7 +18,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { ANALYSES_DIR, REPO_ROOT } from './config'
-import { runManifest, hasRunMarker } from './outputs'
+import { runManifest } from './outputs'
 import { IN_FLIGHT_STATUSES, listRuns } from './registry'
 import { buildSwarmGraph } from './roster'
 import { resolveInsideAnalyses, resolveInsideRuns } from './sandbox'
@@ -47,10 +47,22 @@ function todayDate(): string {
 
 const DATE_SUFFIX = /_(\d{4}-\d{2}-\d{2})$/
 
-// Subjects with a run currently in flight (holding a subject claim). Excluded — a live run is not
-// interrupted, and resuming it would race admission.
+// Subjects with a run currently in flight (holding a subject claim), OR a run that is still finalizing.
+// Both are excluded — a live run is not interrupted, and resuming it would race admission.
+//
+// The `endedAt === undefined` half closes a real cancel→resume race: on Cancel, cancel() sets status out
+// of IN_FLIGHT *synchronously* but only SIGTERMs the child; the process may keep writing/committing until
+// the SIGKILL fallback and its close handler run (which is what sets endedAt). Now that a deliberately
+// cancelled (.aborted) run is offered for manual resume, offering it BEFORE the old child has exited would
+// let a second engine admit into the SAME analyses/<TICKER>_<DATE> folder while the first is still
+// writing — the interleaved/lost-writes hazard the force-stop path guards against. So a cancelled run
+// becomes resumable only once its child has actually exited (endedAt set).
 function liveSubjectSet(): Set<string> {
-  return new Set(listRuns().filter((r) => IN_FLIGHT_STATUSES.has(r.status)).map((r) => r.subjectId))
+  return new Set(
+    listRuns()
+      .filter((r) => IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined)
+      .map((r) => r.subjectId),
+  )
 }
 
 // The base name (without extension) of an agent output within a module folder, from its agentKey
@@ -89,7 +101,13 @@ function collectSwarmResumable(swarm: SwarmManifest, live: Set<string>, out: Res
     }
     if (!subject || live.has(subject)) continue // never launched name, or currently running
     try { if (!fs.statSync(path.join(REPO_ROOT, runRoot)).isDirectory()) continue } catch { continue }
-    if (hasRunMarker(runRoot, '.aborted')) continue // deliberately stopped (analyses-sandboxed; false for other swarms)
+    // NOTE: a `.aborted` marker (a deliberate Cancel) is NOT excluded here. Cancel = pause: it stops the
+    // run and leaves the finished modules on disk, and clicking Resume is the user's explicit choice to
+    // continue — so a cancelled-but-unfinished run must still offer Resume (that's how pause→resume works,
+    // and what this file's header intends). The AUTO resume supervisor stays conservative — it has its own
+    // `.interrupted`-only scan (resume-supervisor.ts) that never touches `.aborted`, so nothing auto-
+    // resurrects a deliberate stop; only this manual affordance offers it. launchFullChained clears the
+    // `.aborted` marker when the user does resume.
 
     let manifest: ReturnType<typeof runManifest>
     try { manifest = runManifest(runRoot, resolve) } catch { continue }

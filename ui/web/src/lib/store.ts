@@ -837,23 +837,61 @@ export const useStore = create<State>((set, get) => ({
         const body: { kind: string; ticker: string; module?: string; confirmTicker?: string; force?: boolean; swarm?: string } =
           { kind: info.kind, ticker: info.subject, module: info.module, force, swarm }
         if (info.kind === 'full') body.confirmTicker = info.subject // the server requires a typed confirm for a full run
-        const { runId, chained } = await api.launch(body)
+        // The engine reports the resume split: `skipped` = modules already finished on disk (NOT re-run),
+        // `planned` = modules this relaunch will actually run. Use it to keep the UI honest.
+        const { runId, chained, skipped, planned: plannedMods, resumed } = await api.launch(body)
         if (chained) set({ chainTickers: new Set(get().chainTickers).add(info.subject) })
         // If the resumed subject is the one on screen, light up its orbs and follow live (beginRun keys off
         // the selected ticker). Otherwise just attach the stream + refresh — the Activity log row settles on
         // its own, and the user can select the subject to watch it run.
         const onScreen = info.subject === get().selectedTicker && get().activeSwarm === (info.swarm || 'research')
-        if (onScreen) {
-          const planned = info.kind === 'module' && info.module
-            ? [...get().nodesByKey.values()].filter((n) => n.module === info.module).map((n) => n.key)
-            : [...get().nodesByKey.keys()]
-          beginRun(set, get, runId, { kind: info.kind, module: info.module, willCommitToMain: true }, planned)
+        // Compute the resume split once. `hasSplit` keys off PRESENCE of the array, not its length: the
+        // per-module engine always returns an array (even []), while a monolithic/older engine omits it —
+        // so an empty `planned: []` (every module already done, only the master synthesis remains) is a
+        // real split, NOT "no split". Keying off `.length` here would fall through to "queue all orbs" and
+        // re-show the exact false "reprocessing everything" alarm this whole change removes.
+        const nodes = [...get().nodesByKey.values()]
+        const hasSplit = Array.isArray(plannedMods)
+        const runSet = hasSplit ? new Set(plannedMods) : null
+        const doneSet = new Set(skipped || [])
+        let plannedKeys: string[]
+        let doneKeys: string[] = []
+        if (info.kind === 'module' && info.module) {
+          plannedKeys = nodes.filter((n) => n.module === info.module).map((n) => n.key)
+        } else if (hasSplit) {
+          // queue ONLY the modules that will run; show the already-finished ones as done (green), not
+          // "starting". When planned is empty (only master left) plannedKeys is [] and every module is done.
+          plannedKeys = nodes.filter((n) => runSet!.has(n.module)).map((n) => n.key)
+          doneKeys = nodes.filter((n) => doneSet.has(n.module)).map((n) => n.key)
         } else {
+          plannedKeys = nodes.map((n) => n.key) // no split (monolithic full, or an older engine) — run all
+        }
+        if (runId && onScreen) {
+          beginRun(set, get, runId, { kind: info.kind, module: info.module, willCommitToMain: true }, plannedKeys, doneKeys)
+        } else if (runId) {
           connectRun(get, runId)
+          void get().refreshActiveRuns()
+        } else {
+          // runId === '' — the engine ran the master directly (every module was already done). It runs
+          // under its OWN runId, adopted via refreshActiveRuns; NEVER open a stream to an empty id or write
+          // a phantom activeRuns[''] card. Just mark the finished modules done so the on-screen
+          // constellation is honest (not a false all-"starting").
+          if (onScreen && doneKeys.length) {
+            const rt = { ...get().nodeRuntime }
+            for (const k of doneKeys) rt[k] = { status: 'done' }
+            set({ nodeRuntime: rt })
+          }
           void get().refreshActiveRuns()
         }
         void get().refreshResumable()
-        get().setToast({ msg: `Resuming ${label} — picking up where it stopped`, tone: 'good' })
+        const skippedN = skipped?.length || 0
+        const runningLabel = hasSplit ? (plannedMods!.length ? plannedMods!.join(', ') : 'the final synthesis') : 'the rest'
+        get().setToast({
+          msg: resumed && skippedN
+            ? `Resuming ${label} — ${skippedN} module${skippedN === 1 ? '' : 's'} already done, running only ${runningLabel}`
+            : `Resuming ${label} — picking up where it stopped`,
+          tone: 'good',
+        })
       } catch (e: any) {
         launchErrorToast(get, e, info.subject, `resume of ${label}`, force ? undefined : () => doResume(true))
       } finally {
@@ -1067,11 +1105,50 @@ export const useStore = create<State>((set, get) => ({
   dismissRunStream: () => set({ runStream: [] }),
 
   cancelRun: async (runId) => {
+    const run = get().activeRuns[runId]
+    const ticker = run?.ticker
+    const swarm = run?.swarmId || 'research'
+    // A chained full run advances through a NEW runId per module. Stop the WHOLE chain by subject so the
+    // live step is cancelled no matter which id the panel is following — cancelling a single (possibly
+    // already-ended) step id could 404 while the next module keeps spending. A plain run cancels by id.
+    const chained = !!ticker && get().chainTickers.has(ticker)
     // instant "Stopping…" state; cleared by the terminal run-error/run-done SSE (or rolled back on failure)
     set({ stoppingRuns: { ...get().stoppingRuns, [runId]: true } })
     try {
-      await api.cancel(runId)
+      if (chained && ticker) {
+        // Stop the whole chain by subject. Deploy-skew guard: an OLDER engine (new bundle served off an
+        // engine mid-deploy) has no subject-cancel route and returns 404 — fall back to the single-run
+        // cancel it DOES have (which still halts the chain via run.chained when it reaches a live step).
+        // If THAT single-cancel also 404s (the followed step already ended, so it neither cancels nor
+        // halts anything), escalate to the kill switch — every engine has cancel-all and it unconditionally
+        // halts every chain. Fail CLOSED: a missing/stale route must never be read as "already stopped"
+        // while a live module keeps spending.
+        try {
+          await api.cancelSubject(swarm, ticker)
+        } catch (e: any) {
+          if (e?.status !== 404) throw e
+          try { await api.cancel(runId) }
+          catch (e2: any) { if (e2?.status === 404) await api.cancelAllRuns(); else throw e2 }
+        }
+        // The followed id may never get its OWN terminal SSE (the chain had already advanced past it), so
+        // nothing would clear its "Stopping…" spinner. The whole chain is stopping — clear it now; a
+        // genuinely-live step re-clears itself when its own run-error lands.
+        const s = { ...get().stoppingRuns }; delete s[runId]; set({ stoppingRuns: s })
+      } else {
+        await api.cancel(runId)
+      }
+      // reconcile the live set + resurface the Resume affordance for what was saved (pause → resume)
+      void get().refreshActiveRuns()
+      void get().refreshResumable()
     } catch (e: any) {
+      // A 404 means the run already ended (it finished, or its closing SSE was missed on an edge/tunnel
+      // drop) — it is already stopped, so this is success, not a failure. Reconcile and move on quietly.
+      if (e?.status === 404) {
+        const s = { ...get().stoppingRuns }; delete s[runId]; set({ stoppingRuns: s })
+        void get().refreshActiveRuns()
+        void get().refreshResumable()
+        return
+      }
       const s = { ...get().stoppingRuns }
       delete s[runId]
       set({ stoppingRuns: s })
@@ -2490,9 +2567,13 @@ export const useStore = create<State>((set, get) => ({
 // run (simulate running orbs via __store.setState). Tree-shaken out of the production build.
 if (import.meta.env.DEV && typeof window !== 'undefined') (window as any).__store = useStore
 
-function beginRun(set: any, get: () => State, runId: string, info: { kind: string; module?: string; agent?: string; willCommitToMain?: boolean }, plannedKeys: string[]) {
+function beginRun(set: any, get: () => State, runId: string, info: { kind: string; module?: string; agent?: string; willCommitToMain?: boolean }, plannedKeys: string[], doneKeys: string[] = []) {
   const ticker = get().selectedTicker || ''
   const rt = { ...get().nodeRuntime }
+  // Resume: modules already finished on disk are shown as done, NOT queued — so the constellation doesn't
+  // read as "starting… / 0-of-N" for work that isn't being redone (the "it's reprocessing everything and
+  // burning money" false alarm). Only plannedKeys are queued, and the run's orb total counts only them.
+  for (const k of doneKeys) rt[k] = { status: 'done', runId }
   for (const k of plannedKeys) rt[k] = { status: 'queued', runId }
   if (info.kind === 'full') rt['master/synthesizer'] = { status: 'queued', runId }
   const plannedCount = plannedKeys.length + (info.kind === 'full' ? 1 : 0)

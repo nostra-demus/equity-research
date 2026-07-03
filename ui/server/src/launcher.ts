@@ -635,7 +635,26 @@ const defaultFullChainDeps: FullChainDeps = {
   },
   scheduleRetry: (fn) => { setTimeout(fn, CAPACITY_RETRY_MS) },
 }
-export async function launchFullChained(ticker: string, user: string, userVia: 'cf-access' | 'local', deps: FullChainDeps = defaultFullChainDeps): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean }> {
+// A resume runs only the modules NOT already on disk (+ the master). Price and time-estimate just that
+// remaining work, not the whole pipeline — otherwise a resume that skips 4 of 6 modules still shows the
+// full "~$90 / ~150 min", which reads as "it's redoing everything" even though it isn't. Scaled from the
+// calibrated full-run band by the fraction of agents left to run (an honest "~" band, not false precision).
+function chainedResumePreflight(ticker: string, plannedModules: string[]): LaunchPreflight {
+  const g = buildSwarmGraph()
+  const agentCountOf = new Map(g.modules.map((m) => [m.name, m.agentCount]))
+  const totalAgents = g.totals.agents + 1 // + master
+  const plannedAgents = plannedModules.reduce((s, n) => s + (agentCountOf.get(n) ?? 0), 0) + 1 // + master
+  const frac = totalAgents > 0 ? Math.min(1, plannedAgents / totalAgents) : 1
+  const full = estimate('full', ticker)
+  return {
+    ...full,
+    agentCount: plannedAgents,
+    estCostUsdRange: [round1(full.estCostUsdRange[0] * frac), round1(full.estCostUsdRange[1] * frac)],
+    estMinutesRange: [Math.max(1, Math.round(full.estMinutesRange[0] * frac)), Math.max(2, Math.round(full.estMinutesRange[1] * frac))],
+  }
+}
+
+export async function launchFullChained(ticker: string, user: string, userVia: 'cf-access' | 'local', deps: FullChainDeps = defaultFullChainDeps): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean; skipped?: string[]; planned?: string[]; resumed?: boolean }> {
   const g = buildSwarmGraph()
   const names = g.modules.map((m) => m.name)
   const known = new Set(names)
@@ -668,6 +687,13 @@ export async function launchFullChained(ticker: string, user: string, userVia: '
     // eslint-disable-next-line no-console
     if (done.size) console.log(`[full-chain] ${ticker}: resuming — ${done.size}/${total} modules already on disk, running the rest`)
   }
+  // Snapshot the resume split BEFORE anything runs: what's already done (skipped) vs what this relaunch
+  // will actually run. `done` only holds seeded modules at this point. The cockpit uses this to show the
+  // finished modules as done (not "starting") and to price/ETA only the remaining work.
+  const skippedModules = [...done]
+  const plannedModules = names.filter((n) => !done.has(n))
+  const resumed = skippedModules.length > 0
+  const preflight: LaunchPreflight = resumed ? chainedResumePreflight(ticker, plannedModules) : estimate('full', ticker)
   let stopped = false
   let masterLaunched = false
   let retryScheduled = false
@@ -764,7 +790,7 @@ export async function launchFullChained(ticker: string, user: string, userVia: '
 
   // No modules to run — either an empty graph, or a resume where every module was already finished and
   // only the master synthesis remains. Launch the master directly (firstReady would never resolve here).
-  if (total === 0 || done.size === total) { launchMaster(); return { runId: '', preflight: estimate('full', ticker), chained: true } }
+  if (total === 0 || done.size === total) { launchMaster(); return { runId: '', preflight, chained: true, skipped: skippedModules, planned: plannedModules, resumed } }
   pump()
   // business-model has no deps, so something is always runnable; if not, the graph has a cycle — fail loud
   // rather than hang on the firstReady promise below.
@@ -772,7 +798,7 @@ export async function launchFullChained(ticker: string, user: string, userVia: '
   // `chained: true` -> the cockpit live-follows the WHOLE pipeline (each module + master), celebrating only
   // when the master finishes — not after each module.
   const first = await firstReady
-  return { runId: first.runId, preflight: estimate('full', ticker), chained: true }
+  return { runId: first.runId, preflight, chained: true, skipped: skippedModules, planned: plannedModules, resumed }
 }
 
 /** Stop EVERYTHING: halt every full-run chain, then cancel every in-flight run (running,
@@ -791,7 +817,28 @@ export async function cancelAll(): Promise<string[]> {
   return cancelled
 }
 
-export async function launch(params: LaunchParams): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean }> {
+/** Stop ONE subject's in-flight work — a chained full run plus whatever module step is live for it.
+ *  The run panel's Cancel needs this: a chained full launches each module under a NEW runId as it
+ *  advances, so the runId the panel is following may already have ended by the time the user clicks,
+ *  and a plain /cancel on that stale id would 404 while the next module keeps spending. Halting the
+ *  chain (so no queued module launches) + cancelling every in-flight run for the subject stops it for
+ *  real. Only this subject's runs are touched; other subjects keep running. Returns the cancelled ids. */
+export async function cancelSubject(subjectId: string, swarmId = 'research'): Promise<string[]> {
+  haltAllChains() // no queued chain step can launch after this (global epoch bump — same as any chained cancel)
+  const cancelled: string[] = []
+  for (const r of listRuns()) {
+    if (!IN_FLIGHT_STATUSES.has(r.status)) continue
+    if (r.subjectId !== subjectId || r.swarmId !== swarmId) continue
+    try {
+      if (await cancel(r.runId)) cancelled.push(r.runId)
+    } catch {
+      // keep stopping the rest — one stuck run must not shield the others
+    }
+  }
+  return cancelled
+}
+
+export async function launch(params: LaunchParams): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean; skipped?: string[]; planned?: string[]; resumed?: boolean }> {
   const { kind, module, agent, window } = params
   const model = params.model || DEFAULT_MODEL
   const user = params.user || 'local'

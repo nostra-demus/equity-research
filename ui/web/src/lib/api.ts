@@ -361,13 +361,19 @@ export const api = {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return get(`/api/launch/estimate?kind=${kind}&ticker=${encodeURIComponent(ticker)}${module ? `&module=${module}` : ''}${agent ? `&agent=${agent}` : ''}${swarm ? `&swarm=${encodeURIComponent(swarm)}` : ''}`)
   },
-  launch: async (body: { kind: string; ticker: string; module?: string; agent?: string; window?: string; model?: string; confirmTicker?: string; force?: boolean; swarm?: string }): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean }> => {
+  launch: async (body: { kind: string; ticker: string; module?: string; agent?: string; window?: string; model?: string; confirmTicker?: string; force?: boolean; swarm?: string }): Promise<{ runId: string; preflight: LaunchPreflight; chained?: boolean; skipped?: string[]; planned?: string[]; resumed?: boolean }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/launch`, body)
   },
   cancel: async (runId: string) => {
     if ((await ensureMode()) === 'static') return {}
     return post(`/api/runs/${runId}/cancel`)
+  },
+  // Stop a whole subject's in-flight work (a chained full run + its live module step). Used by the run
+  // panel's Cancel so a chain stops reliably even when the followed runId has already ended as it advanced.
+  cancelSubject: async (swarm: string, subject: string): Promise<{ ok: boolean; cancelled: string[] }> => {
+    if ((await ensureMode()) === 'static') return { ok: true, cancelled: [] }
+    return post(`/api/runs/subject/${encodeURIComponent(swarm)}/${encodeURIComponent(subject)}/cancel`)
   },
   readinessDecision: async (runId: string, action: string, acknowledgedText?: string): Promise<{ ok: boolean; status: string }> => {
     if ((await ensureMode()) === 'static') return { ok: false, status: 'static' }
