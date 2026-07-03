@@ -109,6 +109,17 @@ check('quoteAsOfMonths: only a quote-context date sets age; bare / newer-unrelat
   assert.equal(quoteAsOfMonths('Delayed Quote Last Updated Jan-02-2026. Upcoming earnings Aug-05-2026'), jan)
   assert.equal(quoteAsOfMonths('price as of 2026-07-02'), jul)           // ISO form == Mon-DD-YYYY form
 })
+// Codex round 2: "as of" / "as at" is generic phrasing (consensus-estimate dates, filing dates, …), so a
+// STRONG quote phrase (last updated / delayed quote / real-time quote) found anywhere in the document must
+// win over a newer but weaker "as of" elsewhere — the weak phrase must never compete with a real quote
+// timestamp for "most recent qualifying date".
+check('quoteAsOfMonths: a strong quote phrase beats a newer unrelated weak "as of" date', () => {
+  const jan = quoteAsOfMonths('as of Jan-02-2026')
+  assert.equal(
+    quoteAsOfMonths('Delayed Quote Last Updated Jan-02-2026. Consensus estimates as of Jul-02-2026.'),
+    jan,
+  )
+})
 
 // Codex C8 (hyphenated target-price): the analyst-doc exclusion is a PHRASE and must match the hyphen form
 // too — a "Target-Price Quote"/"Target-Price Snapshot" export is an analyst target, NOT a live market quote,

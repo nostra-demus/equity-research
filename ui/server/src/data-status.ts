@@ -198,29 +198,46 @@ const MONTH_NUM: Record<string, number> = {
 }
 // Age (in months) implied by the QUOTE / as-of date of a price document — the Capital IQ "Delayed Quote …
 // Last Updated on Jul-02-2026" / "close price as of Jul-02-2026" line, an ISO 2026-07-02, etc. A full date
-// counts ONLY when it sits right after a quote-context phrase (as of / last updated / delayed quote), so
-// neither a bare body year (a founding year — the stray "2010" that read a same-day tearsheet 16y stale)
-// NOR a newer UNRELATED date elsewhere in the tearsheet (an upcoming-earnings / ex-dividend / analyst-target
-// date) can set the quote age. Most-recent qualifying date wins. Null when none is found.
+// counts ONLY when it sits right after a quote-context phrase, so neither a bare body year (a founding
+// year — the stray "2010" that read a same-day tearsheet 16y stale) NOR a newer UNRELATED date elsewhere
+// in the tearsheet (an upcoming-earnings / ex-dividend / analyst-target date) can set the quote age.
+//
+// Context comes in two tiers. STRONG phrases ("last updated", "delayed quote", "real-time quote") are used
+// ONLY for an actual quote timestamp in these vendor exports. WEAK phrasing ("as of" / "as at") is generic —
+// it also introduces consensus-estimate dates, filing dates, shareholding-as-of dates, and the like. So a
+// weak "as of" must never outrank a strong quote phrase elsewhere in the same document (Codex: "consensus
+// estimates as of Jul-02-2026" sitting next to a stale "Delayed Quote Last Updated Jan-02-2026" must not
+// make the quote read as July). Weak matches are used ONLY when no strong match exists anywhere in the text;
+// within a tier, the most-recent qualifying date wins. Null when nothing qualifies.
 export function quoteAsOfMonths(sniff: string): number | null {
   if (!sniff) return null
   const text = sniff.slice(0, 16000)
-  const quoteCtx = /(?:as[\s_]?of|as[\s_]?at|last[\s_]?updated|updated[\s_]?on|delayed[\s_]?quote|real[\s_-]?time[\s_]?quote)/gi
+  const strongCtx = /(?:last[\s_]?updated|updated[\s_]?on|delayed[\s_]?quote|real[\s_-]?time[\s_]?quote)/gi
+  const weakCtx = /(?:as[\s_]?of|as[\s_]?at)/gi
   const fullDate = /\b([A-Za-z]{3})[a-z]*[-.\s](\d{1,2})(?:st|nd|rd|th)?,?[-\s](\d{4})\b|\b(\d{4})-(\d{2})-\d{2}\b/
-  let bestKey = -1, bestY = 0, bestMo = 0
-  const consider = (y: number, mo: number) => {
-    if (y < 2000 || y > new Date().getFullYear() + 1 || mo < 1 || mo > 12) return
-    const key = y * 12 + mo
-    if (key > bestKey) { bestKey = key; bestY = y; bestMo = mo }
+
+  const scan = (re: RegExp): Array<{ y: number; mo: number }> => {
+    const hits: Array<{ y: number; mo: number }> = []
+    let ctx: RegExpExecArray | null
+    while ((ctx = re.exec(text))) {
+      // a full date in the ~50 chars immediately FOLLOWING the context phrase (else ignore it)
+      const tail = text.slice(ctx.index + ctx[0].length, ctx.index + ctx[0].length + 50)
+      const d = tail.match(fullDate)
+      if (!d) continue
+      if (d[1]) { const mo = MONTH_NUM[d[1].toLowerCase()]; if (mo) hits.push({ y: Number(d[3]), mo }) }
+      else if (d[4]) hits.push({ y: Number(d[4]), mo: Number(d[5]) })
+    }
+    return hits
   }
-  let ctx: RegExpExecArray | null
-  while ((ctx = quoteCtx.exec(text))) {
-    // a full date in the ~50 chars immediately FOLLOWING the quote-context phrase (else ignore it)
-    const tail = text.slice(ctx.index + ctx[0].length, ctx.index + ctx[0].length + 50)
-    const d = tail.match(fullDate)
-    if (!d) continue
-    if (d[1]) { const mo = MONTH_NUM[d[1].toLowerCase()]; if (mo) consider(Number(d[3]), mo) }
-    else if (d[4]) consider(Number(d[4]), Number(d[5]))
+
+  const strongHits = scan(strongCtx)
+  const hits = strongHits.length ? strongHits : scan(weakCtx)
+
+  let bestKey = -1, bestY = 0, bestMo = 0
+  for (const h of hits) {
+    if (h.y < 2000 || h.y > new Date().getFullYear() + 1 || h.mo < 1 || h.mo > 12) continue
+    const key = h.y * 12 + h.mo
+    if (key > bestKey) { bestKey = key; bestY = h.y; bestMo = h.mo }
   }
   return bestKey < 0 ? null : Math.max(0, monthsSince(bestY, bestMo))
 }
