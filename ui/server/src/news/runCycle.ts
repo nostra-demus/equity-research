@@ -407,7 +407,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   let inboxed = 0
   if (picks.length) {
     inboxed = mergeInbox(repoRoot, date, picks, { maxRows: cfg.inboxMaxRows, now })
-    refreshBoard(repoRoot, log)
+    await refreshBoard(repoRoot, log)
   }
 
   // per-item feed records — for KEPT and DROPPED alike, so the live wire shows everything the

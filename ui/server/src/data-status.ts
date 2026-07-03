@@ -1,6 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import { execFileSync } from 'node:child_process'
+import { execFile } from 'node:child_process'
+import { promisify } from 'node:util'
 import { DATA_DIR, ANALYSES_DIR, REPO_ROOT, isReservedDataFolder } from './config'
 import { syncingState } from './data-activity'
 import { listModuleNames, moduleReadinessDecls } from './roster'
@@ -43,9 +44,24 @@ function cacheSet(key: string, val: unknown): void {
   persistCache()
 }
 
+// in-flight de-dup: the extractor calls are async (execFile, never execFileSync — a 20-30s cold read
+// over the Drive mount must not freeze the event loop; see readiness.ts for the same rule), so two
+// concurrent requests can now miss the cache together. Share one spawn per key so a file is still
+// read at most once EVER, exactly as the cache header promises.
+const inflight = new Map<string, Promise<unknown>>()
+function singleFlight<T>(key: string, fn: () => Promise<T>): Promise<T> {
+  const cur = inflight.get(key)
+  if (cur) return cur as Promise<T>
+  const p = fn().finally(() => inflight.delete(key))
+  inflight.set(key, p)
+  return p
+}
+
+const execFileAsync = promisify(execFile)
+
 // ---- light content sniffing (memoized) ----
 const sniffCache = new Map<string, string>()
-function sniffText(filePath: string, sizeBytes: number, mtimeMs: number): string {
+async function sniffText(filePath: string, sizeBytes: number, mtimeMs: number): Promise<string> {
   const key = `${filePath}:${sizeBytes}:${Math.round(mtimeMs)}`
   const hit = sniffCache.get(key)
   if (hit !== undefined) return hit
@@ -61,7 +77,7 @@ function sniffText(filePath: string, sizeBytes: number, mtimeMs: number): string
     } else if (ext === '.pdf' || ext === '.rtf') {
       // extract REAL text via the canonical extractor (pdftotext / textutil) so we
       // classify on contents, not raw bytes. Fall back to printable bytes if it fails.
-      text = extractSniffText(filePath, sizeBytes, mtimeMs).slice(0, 8000)
+      text = (await extractSniffText(filePath, sizeBytes, mtimeMs)).slice(0, 8000)
       if (!text) {
         const buf = fs.readFileSync(filePath).subarray(0, 16000).toString('latin1')
         text = buf.replace(/[^\x20-\x7e\n]/g, ' ').slice(0, 8000)
@@ -77,51 +93,56 @@ function sniffText(filePath: string, sizeBytes: number, mtimeMs: number): string
 // real text for a pdf/rtf (and any supported type) via the canonical extractor —
 // the SAME extract_pool.py the pipeline uses, so the cockpit reads pdf/rtf instead
 // of guessing from raw bytes. Returns '' on any failure (pdftotext/textutil absent).
-function extractSniffText(filePath: string, sizeBytes: number, mtimeMs: number): string {
+function extractSniffText(filePath: string, sizeBytes: number, mtimeMs: number): Promise<string> {
   const key = `sniff:${filePath}:${sizeBytes}:${Math.round(mtimeMs)}`
   const cached = cacheGet<string>(key)
-  if (cached !== undefined) return cached
-  let text = ''
-  try {
-    const script = path.join(REPO_ROOT, '.claude', 'tools', 'extract_pool.py')
-    text = execFileSync('python3', [script, '--text', filePath, '--max-chars', '16000'], { timeout: 30000, maxBuffer: 8_000_000 }).toString('utf8')
-  } catch {
-    text = ''
-  }
-  cacheSet(key, text)
-  return text
+  if (cached !== undefined) return Promise.resolve(cached)
+  return singleFlight(key, async () => {
+    let text = ''
+    try {
+      const script = path.join(REPO_ROOT, '.claude', 'tools', 'extract_pool.py')
+      const { stdout } = await execFileAsync('python3', [script, '--text', filePath, '--max-chars', '16000'], { timeout: 30000, maxBuffer: 8_000_000 })
+      text = stdout
+    } catch {
+      text = ''
+    }
+    cacheSet(key, text)
+    return text
+  })
 }
 
 // ---- workbook tab reader (memoized) ----
 // Reuses the engine's ONE canonical extractor (.claude/tools/extract_pool.py --list-json)
 // so the cockpit and the research pipeline agree on what tabs a workbook holds. A multi-tab
 // Capital IQ / NSE export must never show up as one opaque "other / low" row.
-function readWorkbookSheets(filePath: string, sizeBytes: number, mtimeMs: number): WorkbookSheet[] | undefined {
+function readWorkbookSheets(filePath: string, sizeBytes: number, mtimeMs: number): Promise<WorkbookSheet[] | undefined> {
   const key = `sheets:${filePath}:${sizeBytes}:${Math.round(mtimeMs)}`
   const cached = cacheGet<WorkbookSheet[] | null>(key)
-  if (cached !== undefined) return cached ?? undefined
-  let sheets: WorkbookSheet[] | undefined
-  try {
-    const script = path.join(REPO_ROOT, '.claude', 'tools', 'extract_pool.py')
-    const out = execFileSync('python3', [script, '--list-json', filePath], { timeout: 20000, maxBuffer: 8_000_000 }).toString('utf8')
-    const parsed = JSON.parse(out)
-    if (parsed && parsed.kind === 'workbook' && parsed.status === 'ok' && Array.isArray(parsed.sheets)) {
-      sheets = parsed.sheets.map((s: { name?: unknown; rows?: unknown; cols?: unknown; cells?: unknown }) => ({
-        name: String(s.name ?? ''),
-        rows: Number(s.rows) || 0,
-        cols: Number(s.cols) || 0,
-        cells: Number(s.cells) || 0,
-      }))
+  if (cached !== undefined) return Promise.resolve(cached ?? undefined)
+  return singleFlight(key, async () => {
+    let sheets: WorkbookSheet[] | undefined
+    try {
+      const script = path.join(REPO_ROOT, '.claude', 'tools', 'extract_pool.py')
+      const { stdout } = await execFileAsync('python3', [script, '--list-json', filePath], { timeout: 20000, maxBuffer: 8_000_000 })
+      const parsed = JSON.parse(stdout)
+      if (parsed && parsed.kind === 'workbook' && parsed.status === 'ok' && Array.isArray(parsed.sheets)) {
+        sheets = parsed.sheets.map((s: { name?: unknown; rows?: unknown; cols?: unknown; cells?: unknown }) => ({
+          name: String(s.name ?? ''),
+          rows: Number(s.rows) || 0,
+          cols: Number(s.cols) || 0,
+          cells: Number(s.cells) || 0,
+        }))
+      }
+    } catch {
+      sheets = undefined // missing python/xlrd, HTML-disguised .xls, or corrupt file — degrade gracefully
     }
-  } catch {
-    sheets = undefined // missing python/xlrd, HTML-disguised .xls, or corrupt file — degrade gracefully
-  }
-  // [fix F34] cache ONLY successful reads. A transient failure (FUSE deadlock, a momentary lock,
-  // a missing dep before bootstrap) must not be memoized as a permanent "no tabs": the disk cache
-  // persists across restarts and the key (path:size:mtime) won't change on a re-flake, so a one-off
-  // failure would stick forever. Leaving the key absent makes the next refresh re-attempt the read.
-  if (sheets !== undefined) cacheSet(key, sheets)
-  return sheets
+    // [fix F34] cache ONLY successful reads. A transient failure (FUSE deadlock, a momentary lock,
+    // a missing dep before bootstrap) must not be memoized as a permanent "no tabs": the disk cache
+    // persists across restarts and the key (path:size:mtime) won't change on a re-flake, so a one-off
+    // failure would stick forever. Leaving the key absent makes the next refresh re-attempt the read.
+    if (sheets !== undefined) cacheSet(key, sheets)
+    return sheets
+  })
 }
 
 // when a workbook's filename gave no signal, classify on the tab names we actually read
@@ -207,10 +228,10 @@ function classify(filename: string, sniff: string): { type: FileType; confidence
   return { type: 'other', confidence: 'low', basis: 'extension' }
 }
 
-function classifyFile(dir: string, filename: string): ClassifiedFile {
+async function classifyFile(dir: string, filename: string): Promise<ClassifiedFile> {
   const full = path.join(dir, filename)
   const st = fs.statSync(full)
-  const sniff = sniffText(full, st.size, st.mtimeMs)
+  const sniff = await sniffText(full, st.size, st.mtimeMs)
   let { type, confidence, basis } = classify(filename, sniff)
   const { hint, ageMonths } = extractPeriod(filename, sniff)
   // fall back to file mtime age when no period could be parsed
@@ -222,7 +243,7 @@ function classifyFile(dir: string, filename: string): ClassifiedFile {
   // classify on what's actually inside.
   let sheets: WorkbookSheet[] | undefined
   if (ext === '.xls' || ext === '.xlsx' || ext === '.xlsm') {
-    sheets = readWorkbookSheets(full, st.size, st.mtimeMs)
+    sheets = await readWorkbookSheets(full, st.size, st.mtimeMs)
     if (sheets && sheets.length) {
       if (basis === 'extension') {
         type = inferTypeFromSheets(sheets)
@@ -553,7 +574,7 @@ export function deriveCoverage(files: ClassifiedFile[]): CoverageGroup[] {
   })
 }
 
-export function analyzeTicker(ticker: string): DataStatus {
+export async function analyzeTicker(ticker: string): Promise<DataStatus> {
   // Containment: the /api/data-status route validates TICKER_RE, but that allows dots — a lone '..'
   // slips through path.join and escapes DATA_DIR. Resolve and confine to DATA_DIR; an escaping ticker
   // returns the empty (no-data) status. EARLY return so the guard dominates every read below (incl.
@@ -572,7 +593,12 @@ export function analyzeTicker(ticker: string): DataStatus {
   } catch {
     filenames = []
   }
-  const files = filenames.map((n) => classifyFile(dir, n)).sort((a, b) => a.filename.localeCompare(b.filename))
+  // sequential on purpose: one extractor spawn at a time, the same load the sync version put on the
+  // Drive mount — the win is that the loop now YIELDS between files, so SSE pings, /api/runs, and a
+  // cancel POST keep flowing through a cold 44-file classify instead of freezing 20-30s per file.
+  const files: ClassifiedFile[] = []
+  for (const n of filenames) files.push(await classifyFile(dir, n))
+  files.sort((a, b) => a.filename.localeCompare(b.filename))
 
   const recentByType: DataStatus['recentByType'] = {}
   for (const f of files) {

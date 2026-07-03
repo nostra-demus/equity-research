@@ -8,7 +8,8 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
-import { execFileSync } from 'node:child_process'
+import { execFile } from 'node:child_process'
+import { promisify } from 'node:util'
 import type { CycleSummary, InboxRow, TriagedItem } from './types'
 import { deriveScope, deriveSourceTier, SOURCE_TIERS, type SourceTierId } from './scope'
 
@@ -160,10 +161,15 @@ export function appendFirehoseSummary(repoRoot: string, date: string, summary: C
   }
 }
 
+const execFileAsync = promisify(execFile)
+
 /** Rebuild the board index using the existing python script. Best-effort; logs but never throws. */
-export function refreshBoard(repoRoot: string, log: (m: string) => void = () => {}): void {
+// async execFile (never execFileSync — a multi-second rebuild must not block the event loop; see
+// readiness.ts). Concurrent rebuilds are safe: the python script writes per-PID tmp + rename, and
+// each rebuild is deterministic from the stores, so last-rename-wins converges to the truth.
+export async function refreshBoard(repoRoot: string, log: (m: string) => void = () => {}): Promise<void> {
   try {
-    execFileSync('python3', [path.join(repoRoot, 'scripts', 'update_board_index.py')], { cwd: repoRoot, stdio: 'ignore' })
+    await execFileAsync('python3', [path.join(repoRoot, 'scripts', 'update_board_index.py')], { cwd: repoRoot, timeout: 60_000, maxBuffer: 8_000_000 })
   } catch (e: any) {
     log(`board refresh failed: ${e?.message || e}`)
   }
