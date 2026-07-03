@@ -1,0 +1,55 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "frameworks/commodity/decision_record.schema.json",
+  "title": "Commodity decision record",
+  "description": "The commodity swarm's terminal machine record — written by .claude/agents/commodity/commodity-thesis/99_commodity-thesis-synthesis.md to commodity/runs/<COMMODITY>/decision_record.json. This is the commodity-scoped twin of the research swarm's decision_record.json (frameworks/DECISION_LEDGER.md §5) — a deliberately smaller shape (no scenario/forecast ledger; CLAUDE.md §10 scenario math does not apply to the single-verdict commodity dossier). Validated by scripts/validate_screener_json.py --fixture (schemas_root, per .claude/agents/commodity/SWARM.md).",
+  "type": "object",
+  "required": [
+    "swarm", "commodity", "decision_date", "action", "benchmark", "current_price",
+    "curve", "balance", "net_macro", "positioning", "thesis_summary", "key_risks",
+    "key_levels", "relative_view", "confidence", "sources"
+  ],
+  "properties": {
+    "swarm": { "const": "commodity" },
+    "commodity": { "type": "string", "minLength": 1, "pattern": "^[A-Z0-9_]+$" },
+    "decision_date": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" },
+    "action": { "type": "string", "enum": ["Buy", "Hold", "Trim", "Avoid", "Research More"] },
+    "benchmark": { "type": "string", "minLength": 1 },
+    "current_price": {
+      "type": "object",
+      "required": ["value", "currency", "unit", "as_of"],
+      "properties": {
+        "value": { "type": "number" },
+        "currency": { "type": "string", "minLength": 1 },
+        "unit": { "type": "string", "minLength": 1 },
+        "as_of": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$" }
+      }
+    },
+    "curve": { "type": "string", "enum": ["contango", "backwardation"] },
+    "balance": { "type": "string", "enum": ["surplus", "deficit", "balanced"] },
+    "net_macro": { "type": "string", "enum": ["supportive", "mixed", "headwind"] },
+    "positioning": { "type": "string", "enum": ["crowded long", "neutral", "net short", "n.a."] },
+    "thesis_summary": { "type": "string", "minLength": 1 },
+    "key_risks": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "key_levels": {
+      "type": "object",
+      "required": ["support", "resistance", "fair_value_range"],
+      "properties": {
+        "support": { "type": ["number", "null"] },
+        "resistance": { "type": ["number", "null"] },
+        "fair_value_range": { "type": ["string", "null"] }
+      }
+    },
+    "relative_view": { "type": "string", "minLength": 1 },
+    "confidence": { "type": "number", "minimum": 0, "maximum": 100 },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    }
+  }
+}

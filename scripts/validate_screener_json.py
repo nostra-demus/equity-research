@@ -1,20 +1,31 @@
 #!/usr/bin/env python3
-"""Dependency-free JSON Schema checker for the screener's schemas (draft-07 subset).
+"""Dependency-free JSON Schema checker for the screener and commodity swarms' schemas
+(draft-07 subset).
 
-The screener schemas use a deliberate subset of JSON Schema: type, required, properties,
+The schemas use a deliberate subset of JSON Schema: type, required, properties,
 items, enum, const, minimum/maximum, minItems/maxItems, minLength/maxLength, pattern,
 $ref (#/definitions/...), and allOf with if/then/else. This validator covers exactly that
 subset, so schema conformance can be asserted on machines without the jsonschema package
 (the engine's verification step and the fixture check both call it).
 
+Also validates the commodity swarm's decision_record.json against
+frameworks/commodity/decision_record.schema.json for every committed
+commodity/runs/<COMMODITY>/ (auto-discovered — no fixture list to maintain per commodity),
+plus a structural check that its `action` field agrees with the dossier's own
+`## Routing` `Action:` line (the commodity-scoped twin of eval.py's I_decision_in_thesis
+check for the research swarm — the research swarm has no visibility into commodity/runs/,
+so this is the only place that catch is made).
+
 Usage:
     python3 scripts/validate_screener_json.py <schema.json> <doc.json> [...more pairs]
     python3 scripts/validate_screener_json.py --fixture   # validate the committed fixture set
+                                                           # + all commodity/runs/<COMMODITY>/
 
 Exit 0 = all valid; 1 = violations printed.
 """
 from __future__ import annotations
 
+import glob
 import json
 import os
 import re
@@ -135,10 +146,43 @@ FIXTURE_PAIRS = [
     ("frameworks/screener/board_index.schema.json", "screener/board/index.json"),
 ]
 
+COMMODITY_SCHEMA = "frameworks/commodity/decision_record.schema.json"
+COMMODITY_DOSSIER = "commodity-thesis/99_commodity-thesis-synthesis.md"
+ROUTING_ACTION_RE = re.compile(r"##\s*Routing[\s\S]*?^Action:\s*(.+)$", re.MULTILINE)
+
+
+def commodity_decision_records() -> list[str]:
+    """Every committed commodity/runs/<COMMODITY>/decision_record.json (repo-relative)."""
+    return sorted(
+        os.path.relpath(p, REPO)
+        for p in glob.glob(os.path.join(REPO, "commodity", "runs", "*", "decision_record.json"))
+    )
+
+
+def check_commodity_routing(doc_path: str) -> list[str]:
+    """The commodity twin of eval.py's I_decision_in_thesis: decision_record.json's `action`
+    must agree with the dossier's own `## Routing` / `Action:` line — a mismatch means the
+    machine record and the human-readable verdict silently disagree."""
+    run_dir = os.path.dirname(doc_path)
+    dossier_path = os.path.join(run_dir, COMMODITY_DOSSIER)
+    doc = json.load(open(doc_path, encoding="utf-8"))
+    action = doc.get("action")
+    if not os.path.exists(dossier_path):
+        return [f"dossier not found at {os.path.relpath(dossier_path, REPO)} — cannot cross-check Routing"]
+    dossier = open(dossier_path, encoding="utf-8").read()
+    m = ROUTING_ACTION_RE.search(dossier)
+    if not m:
+        return ["dossier has no '## Routing' / 'Action:' block to cross-check"]
+    routed_action = m.group(1).strip()
+    if routed_action != action:
+        return [f"decision_record action {action!r} != dossier Routing Action {routed_action!r}"]
+    return []
+
 
 def main(argv: list[str]) -> int:
     if len(argv) >= 2 and argv[1] == "--fixture":
         pairs = [(os.path.join(REPO, s), os.path.join(REPO, d)) for s, d in FIXTURE_PAIRS]
+        pairs += [(os.path.join(REPO, COMMODITY_SCHEMA), os.path.join(REPO, d)) for d in commodity_decision_records()]
     elif len(argv) >= 3 and len(argv) % 2 == 1:
         pairs = list(zip(argv[1::2], argv[2::2]))
     else:
@@ -148,6 +192,8 @@ def main(argv: list[str]) -> int:
     for schema_p, doc_p in pairs:
         errs = validate(schema_p, doc_p)
         rel = os.path.relpath(doc_p, REPO)
+        if os.path.abspath(schema_p) == os.path.abspath(os.path.join(REPO, COMMODITY_SCHEMA)):
+            errs = errs + check_commodity_routing(doc_p)
         if errs:
             bad += 1
             print(f"FAIL {rel}")
