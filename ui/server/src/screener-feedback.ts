@@ -5,11 +5,16 @@
 // Kept structured (event/score/source/company/sector snapshot at flag time) so a later pass — human
 // or LLM — can read the whole ledger and recommend scoring changes.
 
-import { execFileSync } from 'node:child_process'
+import { execFile } from 'node:child_process'
 import { randomUUID } from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
+import { promisify } from 'node:util'
 import { REPO_ROOT } from './config'
+
+// async execFile (never execFileSync from a request handler — a synchronous bash spawn blocks the single
+// event loop; append-ndjson.sh's own mkdir lock keeps concurrent async appends safe).
+const execFileAsync = promisify(execFile)
 
 export const FEEDBACK_TYPES = [
   'irrelevant',
@@ -72,15 +77,14 @@ function newFeedbackId(at: string): string {
   return `FDB-${at.slice(0, 10).replace(/-/g, '')}-${randomUUID().slice(0, 8)}`
 }
 
-function appendLedger(record: FeedbackRecord, repoRoot: string): void {
-  execFileSync('bash', [path.join(REPO_ROOT, 'scripts', 'append-ndjson.sh'), LEDGER(repoRoot), JSON.stringify(record), 'feedback_id', record.feedback_id], {
+async function appendLedger(record: FeedbackRecord, repoRoot: string): Promise<void> {
+  await execFileAsync('bash', [path.join(REPO_ROOT, 'scripts', 'append-ndjson.sh'), LEDGER(repoRoot), JSON.stringify(record), 'feedback_id', record.feedback_id], {
     cwd: repoRoot,
-    stdio: 'ignore',
   })
 }
 
 /** Append a feedback record. `user` is best-effort (identify()'s 'local' fallback is always safe here). */
-export function submitFeedback(input: FeedbackInput, user: string, repoRoot: string = REPO_ROOT): FeedbackRecord {
+export async function submitFeedback(input: FeedbackInput, user: string, repoRoot: string = REPO_ROOT): Promise<FeedbackRecord> {
   const submitted_at = nowIso()
   const record: FeedbackRecord = {
     feedback_id: newFeedbackId(submitted_at),
@@ -98,7 +102,7 @@ export function submitFeedback(input: FeedbackInput, user: string, repoRoot: str
     score_breakdown: input.score_breakdown ?? null,
     submitted_at,
   }
-  appendLedger(record, repoRoot)
+  await appendLedger(record, repoRoot)
   return record
 }
 
@@ -106,7 +110,7 @@ export function submitFeedback(input: FeedbackInput, user: string, repoRoot: str
  * Append a tombstone for a prior feedback record — the ledger is append-only, so this is a new line,
  * never a rewrite. Returns null when the target feedback_id doesn't exist in the ledger.
  */
-export function undoFeedback(feedbackId: string, user: string, repoRoot: string = REPO_ROOT): FeedbackRecord | null {
+export async function undoFeedback(feedbackId: string, user: string, repoRoot: string = REPO_ROOT): Promise<FeedbackRecord | null> {
   const all = readAllFeedback(repoRoot)
   const target = all.find((r) => r.feedback_id === feedbackId && r.kind === 'feedback')
   if (!target) return null
@@ -128,7 +132,7 @@ export function undoFeedback(feedbackId: string, user: string, repoRoot: string 
     score_breakdown: null,
     submitted_at,
   }
-  appendLedger(record, repoRoot)
+  await appendLedger(record, repoRoot)
   return record
 }
 

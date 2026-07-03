@@ -2,7 +2,8 @@ import { randomUUID } from 'node:crypto'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
-import { execFileSync } from 'node:child_process'
+import { execFile } from 'node:child_process'
+import { promisify } from 'node:util'
 import chokidar from 'chokidar'
 import cors from '@fastify/cors'
 import rateLimit from '@fastify/rate-limit'
@@ -49,7 +50,16 @@ import { listResumableRuns } from './resumable'
 import { AGENT_RE, EVENT_ID_RE, FEEDBACK_ID_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE, isValidTicker, resolveInsideRuns, validateNewTicker, sanitizeUploadFilename } from './sandbox'
 import type { RunKind } from './types'
 
-const app = Fastify({ logger: false })
+// async execFile (never execFileSync in a request handler — a python board rebuild takes seconds and
+// execFileSync would freeze the single event loop, stalling every other request incl. SSE pings; see
+// readiness.ts / write-inbox.ts for the same rule).
+const execFileAsync = promisify(execFile)
+
+// keepAliveTimeout MUST exceed cloudflared's (scripts/ops/cloudflared-config.yml.example: 90s) so the
+// PROXY always closes an idle pooled connection first, never the origin. Node's Fastify default (72s) is
+// SHORTER than 90s: cloudflared would reuse a socket the origin had already closed → intermittent
+// 502 Bad Gateway under low traffic. 92s clears 90s with margin (Node auto-raises headersTimeout above it).
+const app = Fastify({ logger: false, keepAliveTimeout: 92_000 })
 // Tolerate an EMPTY application/json body. A bodyless POST (cancel, credit-check) sent WITH
 // content-type: application/json is otherwise rejected 400 FST_ERR_CTP_EMPTY_JSON_BODY before the route
 // even runs. Empty -> undefined body (the route runs); non-empty -> parsed (a route needing a body still
@@ -126,6 +136,9 @@ function originAllowed(req: FastifyRequest): boolean {
 }
 
 // ---------- SSE helper ----------
+// Every live SSE response is tracked here so graceful shutdown can end them cleanly (see below). All four
+// SSE endpoints funnel through startSSE, so registering once here covers them all with no per-endpoint edit.
+const liveResponses = new Set<import('node:http').ServerResponse>()
 function startSSE(reply: FastifyReply) {
   reply.hijack()
   const res = reply.raw
@@ -135,6 +148,8 @@ function startSSE(reply: FastifyReply) {
     Connection: 'keep-alive',
     'X-Accel-Buffering': 'no',
   })
+  liveResponses.add(res)
+  res.on('close', () => liveResponses.delete(res))
   res.write(': connected\n\n')
   const send = (event: any) => {
     try {
@@ -1188,7 +1203,7 @@ app.post('/api/screener/inbox/action', async (req, reply) => {
   const { user } = identify(req)
   const row = setDismissed(REPO_ROOT, parsed.data.inboxId, parsed.data.action === 'dismiss', user)
   if (!row) return reply.code(404).send({ error: 'no such inbox row' })
-  auditInboxAction(parsed.data.inboxId, parsed.data.action === 'dismiss' ? 'inbox_dismiss' : 'inbox_restore', user)
+  await auditInboxAction(parsed.data.inboxId, parsed.data.action === 'dismiss' ? 'inbox_dismiss' : 'inbox_restore', user)
   await refreshBoard(REPO_ROOT)
   return { ok: true, row }
 })
@@ -1206,7 +1221,7 @@ app.post('/api/screener/thesis/:id/move', async (req, reply) => {
   if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
   const { user } = identify(req)
   try {
-    const record = moveThesis(thesisId, parsed.data.to, parsed.data.reason || '', user)
+    const record = await moveThesis(thesisId, parsed.data.to, parsed.data.reason || '', user)
     if (!record) return reply.code(404).send({ error: 'no such thesis' })
     await refreshBoard(REPO_ROOT)
     // after an 'engine' clear the effective status is the engine's own (captured as from_status)
@@ -1224,9 +1239,10 @@ app.post('/api/screener/conviction/:id/restore', async (req, reply) => {
   if (!THESIS_RE.test(thesisId)) return reply.code(400).send({ error: 'invalid thesis id' })
   const { user } = identify(req)
   try {
-    const out = execFileSync('python3', [path.join(REPO_ROOT, 'scripts', 'screener_restore_conviction.py'), thesisId, user], { cwd: REPO_ROOT, encoding: 'utf8' })
-    execFileSync('python3', [path.join(REPO_ROOT, 'scripts', 'update_board_index.py')], { cwd: REPO_ROOT, stdio: 'ignore' })
-    return { ok: true, message: out.trim() }
+    // sequential: the restore script flips the snapshot, THEN the board is rebuilt to reflect it.
+    const { stdout } = await execFileAsync('python3', [path.join(REPO_ROOT, 'scripts', 'screener_restore_conviction.py'), thesisId, user], { cwd: REPO_ROOT, encoding: 'utf8' })
+    await refreshBoard(REPO_ROOT) // async board rebuild (== update_board_index.py), never the sync freeze
+    return { ok: true, message: stdout.trim() }
   } catch (e: any) {
     return reply.code(500).send({ error: e?.message || 'restore failed' })
   }
@@ -1256,7 +1272,7 @@ app.post('/api/screener/feedback', async (req, reply) => {
   if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
   const { user } = identify(req)
   try {
-    const record = submitFeedback(parsed.data, user)
+    const record = await submitFeedback(parsed.data, user)
     return reply.code(201).send({ ok: true, feedback: record })
   } catch (e: any) {
     return reply.code(500).send({ error: e?.message || 'feedback save failed' })
@@ -1268,7 +1284,7 @@ app.post('/api/screener/feedback/:id/undo', async (req, reply) => {
   if (!FEEDBACK_ID_RE.test(feedbackId)) return reply.code(400).send({ error: 'invalid feedback id' })
   const { user } = identify(req)
   try {
-    const record = undoFeedback(feedbackId, user)
+    const record = await undoFeedback(feedbackId, user)
     if (!record) return reply.code(404).send({ error: 'no such feedback' })
     return { ok: true, undone: record }
   } catch (e: any) {
@@ -1440,6 +1456,41 @@ function claimSingleInstanceLock() {
   }
 }
 claimSingleInstanceLock()
+
+// ── Global safety net + graceful shutdown ─────────────────────────────────────
+// Two failure modes this closes: (1) `launchctl kickstart -k` sends SIGTERM, which by default terminates
+// the process mid-write — dropping in-flight SSE/HTTP and giving cloudflared a reset (→ a 502) instead of a
+// clean FIN. (2) An unhandled throw ANYWHERE outside a route handler (a watcher dispatch, a child stream
+// handler, a scheduler tick) crashes the whole single-process origin with Node's default behaviour. We drain
+// on a signal and, on an uncaught exception, exit non-zero so launchd cold-restarts AND the deploy health
+// gate (scripts/ops/deploy.sh) can catch a boot failure and roll back.
+let shuttingDown = false
+async function shutdown(signal: string, code = 0) {
+  if (shuttingDown) return
+  shuttingDown = true
+  // eslint-disable-next-line no-console
+  console.log(`[swarm-cockpit] ${signal} — draining ${liveResponses.size} live stream(s), exit ${code}`)
+  // hard cap: a wedged res.end()/app.close() must never hang the restart. unref so it isn't itself a reason to stay up.
+  setTimeout(() => process.exit(code), 4000).unref()
+  for (const res of liveResponses) {
+    try { res.end() } catch {} // fires each stream's own 'close' cleanup (clearInterval + unsubscribe)
+  }
+  try { await app.close() } catch {} // stop accepting, drain in-flight HTTP, close keep-alive sockets (clean FIN)
+  process.exit(code)
+}
+process.on('SIGTERM', () => { void shutdown('SIGTERM', 0) })
+process.on('SIGINT', () => { void shutdown('SIGINT', 0) })
+process.on('uncaughtException', (err) => {
+  // eslint-disable-next-line no-console
+  console.error('[swarm-cockpit] uncaughtException — draining and restarting', err)
+  void shutdown('uncaughtException', 1)
+})
+// A single rejected promise in one request must NOT take the whole single-operator cockpit down — log and
+// keep serving. (Deliberate trade-off; promote to shutdown(1) if a future audit prefers fail-fast.)
+process.on('unhandledRejection', (reason) => {
+  // eslint-disable-next-line no-console
+  console.error('[swarm-cockpit] unhandledRejection (continuing)', reason)
+})
 
 app
   .listen({ host: HOST, port: PORT })

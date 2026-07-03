@@ -66,6 +66,17 @@ export default {
         const res = await fetch(new Request(request, { signal: ac.signal }))
         // Cloudflare origin-down statuses: 521/522/523/525/526, and 530/1033 for a dead tunnel.
         if (res.status >= 520) return offline(request) // genuinely unreachable — no retry
+        // A raw 502 (origin refused the connection) / 504 (origin too slow to answer) from cloudflared is
+        // exactly what the ~15-30s engine restart looks like (`kickstart -k` kills the process; the tunnel
+        // has no origin for the cold-start window). Treat it like origin-down so the visitor sees the branded
+        // auto-reloading "reconnecting" page (documents) or an honest 503 + x-engine-status:offline (/api/*)
+        // that the in-app heartbeat understands — NOT Cloudflare's raw 502. Retry once first on an idempotent
+        // GET/HEAD (the engine may already be back). 503 is deliberately NOT intercepted: the engine can emit
+        // a legitimate 503, and offline() itself returns 503 for /api.
+        if (res.status === 502 || res.status === 504) {
+          if (idempotent && attempt < maxAttempts - 1) continue // one quick retry — catches the restart tail
+          return offline(request)
+        }
         return res // healthy (even if slow) — pass through unchanged (SSE bodies continue after headers)
       } catch {
         // threw / aborted / timed out waiting for the origin. A budget timeout means the origin is alive

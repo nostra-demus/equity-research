@@ -38,8 +38,13 @@ OPS="$HOME/.nostra-ops"
 LOG="$HOME/Library/Logs/nostradamus-deploy.log"
 LOCKDIR="$OPS/.deploy.lock.d"
 MARK="$OPS/.deployed.sha"   # the SHA the built ui/dist + running engine were last reconciled to
-FAILMARK="$OPS/.deploy.failed"                       # "<sha> <epoch>" of the last build that failed (backoff)
+FAILMARK="$OPS/.deploy.failed"                       # "<sha> <epoch>" of the last build/boot that failed (backoff)
 FAIL_BACKOFF="${DEPLOY_FAIL_BACKOFF_SECS:-1800}"     # don't re-attempt the SAME failing SHA more often than this
+# After an engine restart, poll /api/health before trusting the new code. A commit that BUILDS but throws at
+# boot/first request otherwise flaps forever under launchd KeepAlive (the build-failure breaker above never
+# sees it). HEALTH_TRIES × HEALTH_INTERVAL ≈ 60s is the boot budget; miss it → auto-rollback to last-good.
+HEALTH_TRIES="${DEPLOY_HEALTH_TRIES:-20}"
+HEALTH_INTERVAL="${DEPLOY_HEALTH_INTERVAL:-3}"
 # Debounce: each engine rebuild/restart is a ~15-30s "offline" blip in every open cockpit. When a burst of
 # code PRs merges in quick succession (a normal build session), deploying each one separately means one blip
 # per commit. Instead, hold the rebuild until the newest ui/ (code) commit has been quiet for DEBOUNCE_SECS,
@@ -141,6 +146,58 @@ code_settling() {
   return 1
 }
 
+# health_gate — after an engine (re)start, wait until it answers /api/health with ok:true. rc 0 the moment
+# it's healthy; rc 1 if it never comes up within the budget. A boot-broken commit refuses :8787 continuously
+# (launchd re-exits it every ThrottleInterval), so this returns 1 within ~HEALTH_TRIES×HEALTH_INTERVAL s. Uses
+# the same curl probe watchdog.sh does (curl is on the launchd PATH; the engine binds 127.0.0.1:8787, no Access).
+health_gate() {
+  local i
+  for i in $(seq 1 "$HEALTH_TRIES"); do
+    curl -fsS --max-time 3 "http://127.0.0.1:8787/api/health" 2>/dev/null | grep -q '"ok":true' && return 0
+    sleep "$HEALTH_INTERVAL"
+  done
+  return 1
+}
+
+# rollback_to_mark <bad-sha> — the engine failed to come healthy on <bad-sha>. Roll the prod worktree back to
+# the last-good marker ($MARK) and restart, so the SITE stays up on known-good code while a human fixes main.
+# Safe by construction — refuses unless the rewind loses NOTHING: $MARK must be an ancestor of HEAD (a true
+# rewind, not a sideways jump) AND HEAD must be an ancestor of origin/main (every commit being undone is
+# already published on the remote, so no unpushed engine DATA commit is lost — it stays on origin/main and the
+# worktree simply sits on last-good until a FIX supersedes the bad SHA). This is the ONLY `git reset --hard` in
+# the deploy path: a deliberate rollback-to-last-good, never the ff path's forbidden discard. Residual: a few
+# minutes of UNCOMMITTED dirty screener data may be reset here — acceptable to keep the public site up, and
+# regenerable from the ledgers; committed data is safe on origin. Runs AFTER the caller released the git lock,
+# so it re-takes it around the reset.
+rollback_to_mark() {
+  local bad="$1" good head
+  good="$(cat "$MARK" 2>/dev/null || true)"
+  if [ -z "$good" ] || [ "$good" = "$bad" ]; then
+    log "  ROLLBACK IMPOSSIBLE — no distinct last-good marker; the site stays on the flapping engine. FIX ${bad:0:9} on main."
+    return 1
+  fi
+  if ! gitlock_acquire; then
+    log "  ROLLBACK deferred — engine holds the git lock; retry next cycle"
+    return 1
+  fi
+  head="$("$GIT" rev-parse HEAD 2>/dev/null)"
+  if ! "$GIT" merge-base --is-ancestor "$good" "$head" 2>/dev/null \
+     || ! "$GIT" merge-base --is-ancestor "$head" origin/main 2>/dev/null; then
+    gitlock_release
+    log "  ROLLBACK REFUSED — unsafe (last-good ${good:0:9} not strictly behind HEAD ${head:0:9}, or HEAD has unpushed commits)"
+    return 1
+  fi
+  log "  ROLLBACK git reset --hard ${good:0:9} — undoing boot-broken ${bad:0:9}"
+  "$GIT" reset --hard "$good" >>"$LOG" 2>&1
+  gitlock_release
+  # rebuild the rolled-back tree and restart so the engine is immediately back on last-good code
+  ( cd "$PROD/ui/web" && "$NPM" run build ) >>"$LOG" 2>&1 || log "  WARN rebuild after rollback failed"
+  launchctl kickstart -k "gui/$UID_NUM/com.nostradamus.engine" 2>>"$LOG" || log "  WARN engine kickstart after rollback failed"
+  if health_gate; then log "  ROLLBACK ok — engine healthy on last-good ${good:0:9}"
+  else log "  ALERT engine STILL unhealthy after rollback to ${good:0:9} — manual intervention needed"; fi
+  return 0
+}
+
 # reconcile_build <changed-file-list> <target-sha> — rebuild ui/dist and/or restart the engine for the
 # changed files, self-update the installed ops scripts, then record <target-sha> as the deployed marker.
 # <target-sha> is the commit whose source the caller actually built (captured under the git lock), so the
@@ -189,7 +246,20 @@ reconcile_build() {
     fi
     if [ "$ci_ok" = 1 ]; then
       log "  restart engine (server code changed)"
-      launchctl kickstart -k "gui/$UID_NUM/com.nostradamus.engine" 2>>"$LOG" || { log "  WARN engine kickstart failed"; failed=1; }
+      if launchctl kickstart -k "gui/$UID_NUM/com.nostradamus.engine" 2>>"$LOG"; then
+        # Trust the new code only once it answers /api/health. A commit that builds but boot-fails would
+        # otherwise flap forever — instead, auto-rollback to last-good and stamp $FAILMARK (via failed=1) so
+        # the top-level guard won't re-deploy this SHA until a fix supersedes it.
+        if health_gate; then
+          log "  engine healthy after restart"
+        else
+          log "  ALERT engine failed /api/health within $(( HEALTH_TRIES * HEALTH_INTERVAL ))s of restarting onto ${target:0:9} — rolling back"
+          rollback_to_mark "$target"
+          failed=1
+        fi
+      else
+        log "  WARN engine kickstart failed"; failed=1
+      fi
     fi
   fi
 
@@ -229,6 +299,18 @@ LOCAL="$("$GIT" rev-parse HEAD 2>/dev/null)"
 REMOTE="$("$GIT" rev-parse origin/main 2>/dev/null)"
 [ -n "$LOCAL" ] && [ -n "$REMOTE" ] || { log "WARN cannot resolve revs"; exit 0; }
 MARKER="$(cat "$MARK" 2>/dev/null || true)"   # SHA the built ui/dist + running engine were last reconciled to
+
+# Don't re-deploy a SHA we just rolled back FROM. After an auto-rollback, HEAD sits on last-good while
+# origin/main still points at the boot-broken commit — the ff path below would otherwise fast-forward the
+# worktree right back onto it and re-trigger the crash-loop. If origin/main IS the recently-failed target
+# (within the backoff window), hold on last-good; a real FIX is a NEW sha, so it misses this guard and deploys.
+if [ -f "$FAILMARK" ]; then
+  read -r _fsha _fts < "$FAILMARK" 2>/dev/null || true
+  if [ "${_fsha:-}" = "$REMOTE" ] && [ "$(( $(date +%s) - ${_fts:-0} ))" -lt "$FAIL_BACKOFF" ]; then
+    log "SKIP origin/main ${REMOTE:0:9} matches a recently-failed deploy (rolled back) — staying on last-good until a fix supersedes it"
+    exit 0
+  fi
+fi
 
 if [ "$LOCAL" = "$REMOTE" ]; then
   # The checkout is level with origin/main — but that does NOT mean the BUILT artifacts are current.
