@@ -49,6 +49,8 @@ export function ChatPanel() {
   const nodesByKey = useStore((s) => s.nodesByKey)
   const launchModule = useStore((s) => s.launchModule)
   const launchAgent = useStore((s) => s.launchAgent)
+  // this panel's own launch (module or orb) is awaiting the server ack — the run-first button spins
+  const chatLaunchPending = useStore((s) => !!s.launchPending && (s.launchPending.key === `module:${s.chatModule || ''}` || s.launchPending.key === `agent:${s.chatOrbKey || ''}`))
   // Derive scope availability via useMemo over the STABLE state slices — never select a function that
   // builds fresh arrays each render (that returns a new reference every time and infinite-loops zustand's
   // getSnapshot). The store action is referentially stable, so it's safe as a memo input.
@@ -217,7 +219,7 @@ export function ChatPanel() {
             <p>Chat answers only from output the engine has already written. Run it first, then come back to ask about it.</p>
             {scope === 'run'
               ? <p className="chatpanel__hintline">Use <b>Run full ▸</b> in the top bar to run the whole pipeline.</p>
-              : <button className="btn btn--amber" disabled={staticMode} onClick={runThisScope}>{scope === 'module' ? `Run ${titleize(chatModule || '')} ▸` : 'Run this orb ▸'}</button>}
+              : <button className="btn btn--amber" disabled={staticMode || !!chatLaunchPending} onClick={runThisScope}>{chatLaunchPending ? 'Starting…' : scope === 'module' ? `Run ${titleize(chatModule || '')} ▸` : 'Run this orb ▸'}</button>}
           </div>
         ) : messages.length === 0 ? (
           <div className="chatpanel__empty">

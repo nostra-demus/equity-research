@@ -45,6 +45,7 @@ export function CallsTracker() {
     }
   }, [setToast])
   const anyRunForTicker = useStore((s) => s.anyRunForTicker)
+  const launchPending = useStore((s) => s.launchPending)
   const [data, setData] = useState<CallsResult | null>(null)
   const [loading, setLoading] = useState(true)
   const staticMode = isStatic()
@@ -100,7 +101,7 @@ export function CallsTracker() {
               <CallCard
                 key={c.run_root}
                 c={c}
-                busy={anyRunForTicker(c.ticker)}
+                busy={anyRunForTicker(c.ticker) || launchPending?.ticker === c.ticker} // pending covers the click→ack window; refreshActiveRuns covers the rest
                 staticMode={staticMode}
                 onUpdate={() => updateCall(c.ticker)}
                 onFileDue={(w) => fileDueReview(c.ticker, w)}

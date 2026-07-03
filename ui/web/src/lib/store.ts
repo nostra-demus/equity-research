@@ -69,7 +69,7 @@ function detectWebGL(): boolean {
   return webglProbe
 }
 
-const RUN_EVENT_TYPES = ['run-started', 'agent-started', 'agent-done', 'agent-failed', 'layer-advanced', 'module-done', 'module-routed', 'cost-tick', 'run-done', 'run-error', 'readiness-checking', 'readiness-report', 'readiness-blocked', 'readiness-resolved']
+const RUN_EVENT_TYPES = ['run-started', 'agent-started', 'agent-done', 'agent-failed', 'layer-advanced', 'module-done', 'module-routed', 'cost-tick', 'run-done', 'run-error', 'run-heartbeat', 'readiness-checking', 'readiness-report', 'readiness-blocked', 'readiness-resolved']
 
 // Live SSE streams for the SELECTED ticker only, keyed by runId. A ticker switch closes them all;
 // background runs keep executing server-side and are rediscovered via /api/runs on return.
@@ -143,14 +143,25 @@ const AUTO_RESUME_COOLDOWN_MS = 30_000 // min gap between re-attempts of the SAM
 const AUTO_RESUME_BATCH = 4 // most to kick off per cycle (the server's own cap gates the rest)
 
 export interface StreamRow { runId: string; ticker: string; key: string; name: string; module: string; layer: number; status: NodeStatus; verdict?: string | null; ts: number }
-export interface ActiveRun { runId: string; ticker: string; kind: string; module?: string; agent?: string; status: string; swarmId?: string; costUsd?: number; willCommitToMain?: boolean; plannedCount?: number; startedAt?: number }
+export interface ActiveRun {
+  runId: string; ticker: string; kind: string; module?: string; agent?: string; status: string; swarmId?: string; costUsd?: number; willCommitToMain?: boolean; plannedCount?: number; startedAt?: number
+  // live-heartbeat fields (run-heartbeat SSE, ~3s cadence) — all optional so an older server (deploy
+  // skew) simply renders no heartbeat line (fail closed):
+  agentsDone?: number
+  agentsTotal?: number
+  lastStdoutAt?: number // when the engine child last produced ANY output — the "alive" signal
+  lastActivity?: { tool: string; ts: number } // the orchestrator's latest tool call — what it's DOING
+}
 // A toast may carry ONE inline action (e.g. "Run anyway" on a run-lock conflict) so a dead-end rejection
 // becomes a one-click recovery. A toast with an action stays up longer (the user has to read + click it).
 export interface Toast { msg: string; tone: 'info' | 'good' | 'bad'; action?: { label: string; onClick: () => void } }
 
 // A run is "live" (counts for launch guards) only while starting/running. Finished runs linger in
 // activeRuns for the panel until the next ticker switch prunes them.
-const LIVE_RUN = new Set(['starting', 'running'])
+// Every server status a run holds while in flight — INCLUDING the pre-spawn gate states, which the
+// early-acked launch now surfaces to the client (heartbeat/snapshot) instead of hiding inside a held
+// HTTP response. Dropping them here would evict a gate-parked run from the live view.
+const LIVE_RUN = new Set(['starting', 'readiness-checking', 'awaiting-readiness-decision', 'running'])
 const runsForTicker = (runs: Record<string, ActiveRun>, t: string | null): ActiveRun[] =>
   t ? Object.values(runs).filter((r) => r.ticker === t && LIVE_RUN.has(r.status)) : []
 
@@ -206,6 +217,12 @@ interface State {
   callsOpen: boolean
   selectedNodeKey: string | null
   launchConfirm: { kind: 'full' | 'rerun'; preflight: LaunchPreflight; cascade?: CascadeNode[]; node?: { module: string; name: string; key: string } } | null
+  // Synchronous click→feedback state: set BEFORE any launch-family await so every Run control renders
+  // an instant pending state (spinner + disabled), cleared in the action's finally. `key` identifies
+  // the specific control so only IT spins; `ticker` scopes stage-level ambient indicators.
+  launchPending: { key: string; label: string; ticker: string } | null
+  // Runs the user asked to stop, before the terminal SSE lands — drives "Stopping…" button states.
+  stoppingRuns: Record<string, true>
   toast: Toast | null
 
   // ---- swarms (multi-swarm cockpit; research is the grandfathered default) ----
@@ -520,6 +537,8 @@ export const useStore = create<State>((set, get) => ({
   callsOpen: false,
   selectedNodeKey: null,
   launchConfirm: null,
+  launchPending: null,
+  stoppingRuns: {},
   readinessGate: null,
   toast: null,
 
@@ -813,6 +832,7 @@ export const useStore = create<State>((set, get) => ({
     const swarm = info.swarm && info.swarm !== 'research' ? info.swarm : undefined
     const label = info.label || info.subject
     const doResume = async (force?: boolean) => {
+      set({ launchPending: { key: `resume:${info.subject}:${info.module || ''}`, label: `Resuming ${label}…`, ticker: info.subject } })
       try {
         const body: { kind: string; ticker: string; module?: string; confirmTicker?: string; force?: boolean; swarm?: string } =
           { kind: info.kind, ticker: info.subject, module: info.module, force, swarm }
@@ -836,6 +856,8 @@ export const useStore = create<State>((set, get) => ({
         get().setToast({ msg: `Resuming ${label} — picking up where it stopped`, tone: 'good' })
       } catch (e: any) {
         launchErrorToast(get, e, info.subject, `resume of ${label}`, force ? undefined : () => doResume(true))
+      } finally {
+        set({ launchPending: null })
       }
     }
     await doResume()
@@ -904,12 +926,16 @@ export const useStore = create<State>((set, get) => ({
     // the lock, NOT get().selectedTicker read at click time — the user may switch companies while the
     // toast is up (was a cross-ticker force bug).
     const doLaunch = async (f?: boolean) => {
+      // instant feedback: the pending flag flips the button to a spinner IN THE SAME FRAME as the click
+      set({ launchPending: { key: `agent:${node.key}`, label: `Starting ${node.name}…`, ticker: t } })
       try {
         const { runId } = await api.launch({ kind: 'agent', ticker: t, module: node.module, agent: node.name, force: f, swarm: get().activeSwarm !== 'research' ? get().activeSwarm : undefined })
         beginRun(set, get, runId, { kind: 'agent', module: node.module, agent: node.name, willCommitToMain: false }, [node.key])
         get().setToast({ msg: `${f ? 'Re-launched' : 'Launched'} ${node.name} on ${t}`, tone: 'good' })
       } catch (e: any) {
         launchErrorToast(get, e, t, node.name, f ? undefined : () => doLaunch(true))
+      } finally {
+        set({ launchPending: null })
       }
     }
     // Client-side in-flight guard. A forced retry skips it. When it trips on a run the UI THINKS is live but
@@ -931,12 +957,15 @@ export const useStore = create<State>((set, get) => ({
     const planned = [...get().nodesByKey.values()].filter((n) => n.module === module).map((n) => n.key)
     // Local launcher capturing `t` so the "Run anyway" retry forces on the ticker that produced the lock.
     const doLaunch = async (f?: boolean) => {
+      set({ launchPending: { key: `module:${module}`, label: `Starting the ${module} module…`, ticker: t } })
       try {
         const { runId } = await api.launch({ kind: 'module', ticker: t, module, force: f, swarm: get().activeSwarm !== 'research' ? get().activeSwarm : undefined })
         beginRun(set, get, runId, { kind: 'module', module, willCommitToMain: true }, planned)
         get().setToast({ msg: `${f ? 'Re-launched' : 'Launched'} ${module} module on ${t}`, tone: 'good' })
       } catch (e: any) {
         launchErrorToast(get, e, t, `${module} module`, f ? undefined : () => doLaunch(true))
+      } finally {
+        set({ launchPending: null })
       }
     }
     // Guard-trip offers "Run anyway" too, so a UI-live-but-dead module lock isn't a dead end (see launchAgent).
@@ -952,25 +981,39 @@ export const useStore = create<State>((set, get) => ({
     const t = get().selectedTicker
     if (!t) return
     if (get().anyRunForTicker(t)) return get().setToast({ msg: `Finish the in-flight run on ${t} first — a full run needs exclusive access`, tone: 'info' })
-    const preflight = await api.estimate('full', t, undefined, undefined, get().activeSwarm !== 'research' ? get().activeSwarm : undefined)
-    set({ launchConfirm: { kind: 'full', preflight } })
+    set({ launchPending: { key: 'full:request', label: 'Preparing the run plan…', ticker: t } })
+    try {
+      const preflight = await api.estimate('full', t, undefined, undefined, get().activeSwarm !== 'research' ? get().activeSwarm : undefined)
+      set({ launchConfirm: { kind: 'full', preflight } })
+    } catch (e: any) {
+      // was an unhandled rejection — the button just did nothing on a failed estimate
+      get().setToast({ msg: `Couldn't prepare the run: ${e?.message || 'the estimate failed'}`, tone: 'bad' })
+    } finally {
+      set({ launchPending: null })
+    }
   },
 
   confirmFull: async () => {
     const t = get().selectedTicker
     if (!t) return
     if (HARD_DOWN.has(get().health)) { set({ launchConfirm: null }); return get().setToast({ msg: 'Engine offline — the run was not started.', tone: 'bad' }) }
-    set({ launchConfirm: null })
     const planned = [...get().nodesByKey.keys()]
+    // keep the confirm modal OPEN with its Launch button spinning until the server acks — closing it
+    // immediately read as "dismissed", not "launching" (the old dead-air window)
+    set({ launchPending: { key: 'confirm', label: `Starting the full run on ${t}…`, ticker: t } })
     try {
       const { runId, chained } = await api.launch({ kind: 'full', ticker: t, confirmTicker: t, swarm: get().activeSwarm !== 'research' ? get().activeSwarm : undefined })
       // a chained full run is a sequence of per-module runs + master; mark the ticker so run-done defers
       // the "complete" celebration to the master step and the cockpit live-follows every step.
       if (chained) set({ chainTickers: new Set(get().chainTickers).add(t) })
+      set({ launchConfirm: null })
       beginRun(set, get, runId, { kind: 'full', willCommitToMain: true }, planned)
       get().setToast({ msg: `Launched full run on ${t}${chained ? ' (per-module)' : ''}`, tone: 'good' })
     } catch (e: any) {
+      set({ launchConfirm: null }) // close so the error toast (and its "Run anyway" action) is unobstructed
       launchErrorToast(get, e, t, 'full run')
+    } finally {
+      set({ launchPending: null })
     }
   },
 
@@ -999,16 +1042,21 @@ export const useStore = create<State>((set, get) => ({
     if (HARD_DOWN.has(get().health)) { set({ launchConfirm: null }); return get().setToast({ msg: 'Engine offline — the run was not started.', tone: 'bad' }) }
     const node = lc.node
     const planned = (lc.cascade ?? downstreamCascade(get().graph, node.module, node.name)).map((c) => c.key)
-    set({ launchConfirm: null, openOutput: null })
     // Local launcher so the conflict "Run anyway" retry can re-fire with force AFTER the confirm dialog is
     // gone — node + planned are captured here, not re-read from the (now-cleared) launchConfirm.
+    // The modal stays open with its Launch button spinning until the server acks (same as confirmFull).
     const doRerun = async (force?: boolean) => {
+      set({ launchPending: { key: 'confirm', label: `Starting the re-run of ${node.name}…`, ticker: t } })
       try {
         const { runId } = await api.launch({ kind: 'rerun', ticker: t, module: node.module, agent: node.name, force, swarm: get().activeSwarm !== 'research' ? get().activeSwarm : undefined })
+        set({ launchConfirm: null })
         beginRun(set, get, runId, { kind: 'rerun', module: node.module, agent: node.name, willCommitToMain: true }, planned)
         get().setToast({ msg: `Re-running ${node.name} + downstream on ${t}`, tone: 'good' })
       } catch (e: any) {
+        set({ launchConfirm: null })
         launchErrorToast(get, e, t, `re-run of ${node.name}`, force ? undefined : () => doRerun(true))
+      } finally {
+        set({ launchPending: null })
       }
     }
     await doRerun()
@@ -1019,9 +1067,14 @@ export const useStore = create<State>((set, get) => ({
   dismissRunStream: () => set({ runStream: [] }),
 
   cancelRun: async (runId) => {
+    // instant "Stopping…" state; cleared by the terminal run-error/run-done SSE (or rolled back on failure)
+    set({ stoppingRuns: { ...get().stoppingRuns, [runId]: true } })
     try {
       await api.cancel(runId)
     } catch (e: any) {
+      const s = { ...get().stoppingRuns }
+      delete s[runId]
+      set({ stoppingRuns: s })
       // never swallow silently — a failed cancel looked exactly like "it didn't cancel"
       get().setToast({ msg: `Couldn't cancel the run: ${e?.message || 'the request failed'}`, tone: 'bad' })
     }
@@ -1200,22 +1253,30 @@ export const useStore = create<State>((set, get) => ({
   updateCall: async (ticker) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — updates run on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live updates are paused until it reconnects.', tone: 'info' })
+    set({ launchPending: { key: `review:${ticker}`, label: `Filing the review for ${ticker}…`, ticker } })
     try {
       await api.launch({ kind: 'review', ticker, window: 'ad-hoc' })
+      void get().refreshActiveRuns() // flip the card's busy state NOW, not on the next 20s idle poll
       get().setToast({ msg: `Filing an ad-hoc review for ${ticker} — see Activity; the tracker refreshes when it lands`, tone: 'good' })
     } catch (e: any) {
       launchErrorToast(get, e, ticker, `${ticker} review`)
+    } finally {
+      set({ launchPending: null })
     }
   },
   // file a specific scheduled (due/overdue) review window — never silently ad-hoc.
   fileDueReview: async (ticker, window) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — updates run on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live updates are paused until it reconnects.', tone: 'info' })
+    set({ launchPending: { key: `review:${ticker}:${window}`, label: `Filing the ${window} review…`, ticker } })
     try {
       await api.launch({ kind: 'review', ticker, window })
+      void get().refreshActiveRuns()
       get().setToast({ msg: `Filing the ${window} review for ${ticker} — see Activity`, tone: 'good' })
     } catch (e: any) {
       launchErrorToast(get, e, ticker, `${ticker} ${window} review`)
+    } finally {
+      set({ launchPending: null })
     }
   },
   // regenerate the committed markdown/JSON calls dashboard (/research:track). It is cross-ticker and
@@ -1378,8 +1439,21 @@ export const useStore = create<State>((set, get) => ({
         if (e.rateLimit) api.credit().then((c) => set({ credit: c })).catch(() => {})
         break
       }
+      case 'run-heartbeat': {
+        // transient liveness pulse (~3s): keeps status/cost/progress honest between agent events and
+        // powers the "engine active · <tool> · Xs ago" ambient line — the anti-"is it stuck?" signal
+        const r = get().activeRuns[e.runId]
+        if (r) {
+          patch.activeRuns = {
+            ...get().activeRuns,
+            [e.runId]: { ...r, status: e.status ?? r.status, costUsd: e.costUsd ?? r.costUsd, agentsDone: e.agentsDone, agentsTotal: e.agentsTotal, lastStdoutAt: e.lastStdoutAt, lastActivity: e.lastActivity },
+          }
+        }
+        break
+      }
       case 'run-done': {
         if (get().readinessGate?.runId === e.runId) patch.readinessGate = null // a terminal event always closes the gate panel
+        if (get().stoppingRuns[e.runId]) { const s = { ...get().stoppingRuns }; delete s[e.runId]; patch.stoppingRuns = s }
         get().refreshActiveRuns() // drops the finished run from the dots AND connects the next chain step
         closeRunSource(e.runId)
         const r = get().activeRuns[e.runId]
@@ -1412,6 +1486,7 @@ export const useStore = create<State>((set, get) => ({
       }
       case 'run-error': {
         if (get().readinessGate?.runId === e.runId) patch.readinessGate = null // a terminal event (incl. a generic cancel of a gate-paused run, which emits run-error not readiness-resolved) always closes the gate panel
+        if (get().stoppingRuns[e.runId]) { const s = { ...get().stoppingRuns }; delete s[e.runId]; patch.stoppingRuns = s }
         get().refreshActiveRuns()
         closeRunSource(e.runId)
         const r = get().activeRuns[e.runId]
@@ -1942,6 +2017,7 @@ export const useStore = create<State>((set, get) => ({
   submitSignal: async (intake, until) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — signals run on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    set({ launchPending: { key: 'signal:intake', label: 'Starting the checks…', ticker: '' } })
     try {
       const { runId, preflight } = await api.launchSignal({ intake, until })
       set({ signalIntakeOpen: false })
@@ -1951,6 +2027,8 @@ export const useStore = create<State>((set, get) => ({
       get().setToast({ msg: `Checks started for ${sigId} — watch them run left to right`, tone: 'good' })
     } catch (e: any) {
       get().setToast({ msg: e?.message ? String(e.message) : 'Could not start the checks', tone: e?.body?.code ? 'info' : 'bad' })
+    } finally {
+      set({ launchPending: null })
     }
   },
 
@@ -1958,6 +2036,7 @@ export const useStore = create<State>((set, get) => ({
   relaunchSignal: async (sigId) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — signals run on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    set({ launchPending: { key: `signal:${sigId}`, label: `Starting the checks for ${sigId}…`, ticker: sigId } })
     try {
       const { runId } = await api.launchSignal({ sigId })
       set({ scSelectedSignal: sigId, scRuntime: {}, scRouted: {}, pipelineOpen: false })
@@ -1965,6 +2044,8 @@ export const useStore = create<State>((set, get) => ({
       get().setToast({ msg: `Re-running the checks for ${sigId}`, tone: 'good' })
     } catch (e: any) {
       get().setToast({ msg: e?.message ? String(e.message) : 'Could not start the checks', tone: e?.body?.code ? 'info' : 'bad' })
+    } finally {
+      set({ launchPending: null })
     }
   },
 
@@ -1975,6 +2056,7 @@ export const useStore = create<State>((set, get) => ({
   continueSignal: async (sigId) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — signals run on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    set({ launchPending: { key: `continue:${sigId}`, label: `Resuming ${sigId}…`, ticker: sigId } })
     try {
       // make sure we hold the authoritative finished-orb set from disk before relaunching
       if (get().scSelectedSignal !== sigId || !Object.keys(get().scRuntime).length) await get().scSelectSignal(sigId)
@@ -1989,18 +2071,23 @@ export const useStore = create<State>((set, get) => ({
       get().setToast({ msg: `Resuming ${sigId} — picking up where it stopped`, tone: 'good' })
     } catch (e: any) {
       get().setToast({ msg: e?.message ? String(e.message) : 'Could not resume the checks', tone: e?.body?.code ? 'info' : 'bad' })
+    } finally {
+      set({ launchPending: null })
     }
   },
 
   runSweep: async () => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — sweeps run on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    set({ launchPending: { key: 'sweep', label: 'Starting the news scan…', ticker: 'sweep' } })
     try {
       const { runId } = await api.launchSweep()
       beginScreenerRun(set, get, runId, 'sweep')
       get().setToast({ msg: 'Looking for news — new items will appear in the Inbox when done', tone: 'good' })
     } catch (e: any) {
       get().setToast({ msg: e?.message ? String(e.message) : 'The news scan could not start', tone: e?.body?.code ? 'info' : 'bad' })
+    } finally {
+      set({ launchPending: null })
     }
   },
 
@@ -2045,6 +2132,7 @@ export const useStore = create<State>((set, get) => ({
   sendToResearch: async (thesisId, ticker, poolPresent) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — handoffs run on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    set({ launchPending: { key: `handoff:${thesisId}:${ticker}`, label: `Sending ${ticker} to research…`, ticker } })
     try {
       const res = await api.handoff(thesisId, ticker)
       const already = res.alreadyHandedOff
@@ -2067,6 +2155,8 @@ export const useStore = create<State>((set, get) => ({
       // admission rejections (e.g. exclusivity: this exact handoff is already running) are expected
       // and actionable — surface them as info like the sibling launchers, not as a failure
       get().setToast({ msg: e?.message ? String(e.message) : 'Handoff failed', tone: e?.body?.code ? 'info' : 'bad' })
+    } finally {
+      set({ launchPending: null })
     }
   },
 

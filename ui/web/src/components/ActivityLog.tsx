@@ -81,6 +81,7 @@ export function ActivityLog() {
   const close = useStore((s) => s.closeActivity)
   const resumableRuns = useStore((s) => s.resumableRuns)
   const resumeRun = useStore((s) => s.resumeRun)
+  const launchPending = useStore((s) => s.launchPending)
   const refreshResumable = useStore((s) => s.refreshResumable)
   const [data, setData] = useState<ActivityResult | null>(null)
   const [loading, setLoading] = useState(true)
@@ -278,10 +279,11 @@ export function ActivityLog() {
                               {resumable && (
                                 <button
                                   className="aresume"
+                                  disabled={!!launchPending?.key.startsWith(`resume:${resumable.subject}:`)}
                                   title={resumeHint(resumable)}
                                   aria-label={resumeHint(resumable)}
                                   onClick={(e) => { e.stopPropagation(); void resumeRun(resumable) }}
-                                >Resume<span className="aresume__glyph" aria-hidden>▸</span></button>
+                                >{launchPending?.key.startsWith(`resume:${resumable.subject}:`) ? 'Resuming…' : 'Resume'}<span className="aresume__glyph" aria-hidden>▸</span></button>
                               )}
                               {hasReport(r) && (
                                 <button
