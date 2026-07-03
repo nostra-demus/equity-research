@@ -39,9 +39,16 @@ write(`analyses/DONE_${TODAY}/final_thesis.md`, '# thesis\n')
 write(`analyses/DONE_${TODAY}/alpha/99_alpha-synthesis.md`, '# a\n')
 // OLD (yesterday): half-done but out of the same-day scope → NOT resumable.
 write(`analyses/OLD_${YESTERDAY}/alpha/01_alpha-thing.md`, '# a\n')
-// ABRT (today): half-done but deliberately aborted (.aborted marker) → NOT resumable.
+// ABRT (today): half-done, deliberately aborted (.aborted marker from a user Cancel) → STILL manually
+// resumable. Cancel = pause: finished work is kept and Resume is the user's explicit choice to continue.
+// (The AUTO supervisor stays conservative and never touches .aborted — see research-resume.test.ts.)
 write(`analyses/ABRT_${TODAY}/alpha/01_alpha-thing.md`, '# a\n')
 write(`analyses/ABRT_${TODAY}/.aborted`, JSON.stringify({ reason: 'cancelled' }))
+// DYING (today): half-done + aborted, but its cancelled run's child has NOT exited yet → NOT resumable
+// until the child dies. Cancel() flips status out of IN_FLIGHT synchronously but only SIGTERMs the child;
+// offering resume before it exits would let a second engine write the SAME folder (the double-write race).
+write(`analyses/DYING_${TODAY}/alpha/01_alpha-thing.md`, '# a\n')
+write(`analyses/DYING_${TODAY}/.aborted`, JSON.stringify({ reason: 'cancelled' }))
 
 const { listResumableRuns } = await import('../src/resumable')
 const { createRun, setActiveSubjectRun } = await import('../src/registry')
@@ -82,8 +89,23 @@ check('a prior-day folder is excluded (same-day scope)', () => {
   assert.equal(listResumableRuns().some((r) => r.subject === 'OLD'), false)
 })
 
-check('a deliberately-aborted run (.aborted) is excluded', () => {
-  assert.equal(listResumableRuns().some((r) => r.subject === 'ABRT'), false)
+check('a deliberately-aborted run (.aborted) is STILL offered for manual resume (Cancel = pause)', () => {
+  const runs = listResumableRuns()
+  assert.equal(runs.some((r) => r.subject === 'ABRT' && r.kind === 'full'), true) // the whole-pipeline resume
+  assert.equal(runs.some((r) => r.subject === 'ABRT' && r.kind === 'module' && r.module === 'alpha'), true) // its half-done module
+})
+
+check('a cancelled run whose child has NOT yet exited is held out of resume until it dies (double-write race guard)', () => {
+  const run = createRun({ kind: 'full', ticker: 'DYING', model: 'sonnet', prompt: '/research:full DYING', user: 'local', userVia: 'local', runRoot: `analyses/DYING_${TODAY}`, willCommitToMain: true, writeTargetsAbs: [], coveredModules: [], readDepsAbs: [] })
+  run.status = 'cancelled' // cancel() set this synchronously; the child is only SIGTERM'd, endedAt still unset
+  try {
+    assert.equal(listResumableRuns().some((r) => r.subject === 'DYING'), false, 'held out while the child is still shutting down')
+    run.endedAt = Date.now() // the close handler ran — the child is gone
+    assert.equal(listResumableRuns().some((r) => r.subject === 'DYING' && r.kind === 'full'), true, 'offered for manual resume once the child has exited')
+  } finally {
+    run.status = 'done'
+    run.endedAt = Date.now() // leave it finalized so it can't shadow later assertions
+  }
 })
 
 check('a currently-live subject is excluded (a resume would race admission)', () => {
