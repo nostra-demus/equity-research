@@ -29,9 +29,10 @@
 # ─────────────────────────────────────────────────────────────────────────────
 set -uo pipefail
 
-PROD="${ENGINE_REPO_ROOT:-/Users/chiraagkapil/nostra-prod}"
+PROD="${ENGINE_REPO_ROOT:-$HOME/nostra-prod}"
 UID_NUM="$(id -u)"
-NPM=/opt/homebrew/bin/npm
+# resolve npm to an absolute path (launchd has a minimal PATH; brew is /opt/homebrew on Apple-Silicon, /usr/local on Intel)
+NPM="$(command -v npm 2>/dev/null || true)"; [ -n "$NPM" ] || for c in /opt/homebrew/bin/npm /usr/local/bin/npm; do [ -x "$c" ] && NPM="$c" && break; done; NPM="${NPM:-/opt/homebrew/bin/npm}"
 GIT="$(command -v git || echo /usr/bin/git)"
 OPS="$HOME/.nostra-ops"
 LOG="$HOME/Library/Logs/nostradamus-deploy.log"
@@ -192,18 +193,16 @@ reconcile_build() {
     fi
   fi
 
-  # self-update the installed ops scripts when they change on main (atomic temp+mv; safe mid-run)
-  case "$changed" in
-    *scripts/ops/watchdog.sh*)
-      sed 's#^REPO="/Users/chiraagkapil/equity-research"#REPO="${ENGINE_REPO_ROOT:-/Users/chiraagkapil/equity-research}"#' \
-        "$PROD/scripts/ops/watchdog.sh" > "$OPS/watchdog.sh.tmp" 2>/dev/null \
-        && chmod +x "$OPS/watchdog.sh.tmp" && mv "$OPS/watchdog.sh.tmp" "$OPS/watchdog.sh" && log "  refreshed ops/watchdog.sh" ;;
-  esac
-  case "$changed" in
-    *scripts/ops/deploy.sh*)
-      cp "$PROD/scripts/ops/deploy.sh" "$OPS/deploy.sh.tmp" 2>/dev/null \
-        && chmod +x "$OPS/deploy.sh.tmp" && mv "$OPS/deploy.sh.tmp" "$OPS/deploy.sh" && log "  refreshed ops/deploy.sh (self-update)" ;;
-  esac
+  # self-update the installed ops shell scripts when they change on main (atomic temp+mv; safe mid-run).
+  # These scripts read their paths from env (ENGINE_REPO_ROOT/REPO) at runtime, so a straight copy is
+  # portable across machines / usernames — no per-host path rewriting is needed.
+  for opsscript in watchdog.sh deploy.sh housekeeping.sh; do
+    case "$changed" in
+      *scripts/ops/$opsscript*)
+        cp "$PROD/scripts/ops/$opsscript" "$OPS/$opsscript.tmp" 2>/dev/null \
+          && chmod +x "$OPS/$opsscript.tmp" && mv "$OPS/$opsscript.tmp" "$OPS/$opsscript" && log "  refreshed ops/$opsscript (self-update)" ;;
+    esac
+  done
 
   [ "$web" = 0 ] && [ "$server" = 0 ] && log "  (data/docs only — no rebuild)"
 

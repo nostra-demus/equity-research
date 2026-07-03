@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-<!-- Keeps the Mac awake so the engine + tunnel never die from idle sleep, ON BATTERY as well as AC.
+<!-- Machine-agnostic TEMPLATE: placeholder tokens rendered by scripts/ops/install-services.sh at install time.
+     Keeps the Mac awake so the engine + tunnel never die from idle sleep, ON BATTERY as well as AC.
      `caffeinate -i` holds the PreventUserIdleSystemSleep assertion, which is NOT AC-gated — so a laptop with
      the lid OPEN stays awake and serving whether plugged in or not. (We previously used `-s`, which macOS
      honours only on AC power; on battery it was inert, so an unplugged idle laptop slept and the cockpit went
@@ -10,11 +11,11 @@
      unless on AC + an external display. For guaranteed 24/7 uptime keep the machine on AC (or dedicate a host).
      caffeinate runs forever holding the assertion; KeepAlive relaunches it if it is ever killed; RunAtLoad
      starts it at login. Verify: `pmset -g assertions` shows PreventUserIdleSystemSleep present on AC AND on
-     battery. Versioned template — installed by scripts/ops/install-services.sh into ~/Library/LaunchAgents. -->
+     battery. -->
 <plist version="1.0"><dict>
   <key>Label</key><string>com.nostradamus.caffeinate</string>
   <key>ProgramArguments</key><array><string>/usr/bin/caffeinate</string><string>-i</string></array>
   <key>RunAtLoad</key><true/><key>KeepAlive</key><true/><key>ThrottleInterval</key><integer>5</integer>
-  <key>StandardOutPath</key><string>/Users/chiraagkapil/Library/Logs/nostradamus-caffeinate.log</string>
-  <key>StandardErrorPath</key><string>/Users/chiraagkapil/Library/Logs/nostradamus-caffeinate.log</string>
+  <key>StandardOutPath</key><string>{{HOME}}/Library/Logs/nostradamus-caffeinate.log</string>
+  <key>StandardErrorPath</key><string>{{HOME}}/Library/Logs/nostradamus-caffeinate.log</string>
 </dict></plist>

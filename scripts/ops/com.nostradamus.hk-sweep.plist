@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Machine-agnostic TEMPLATE: placeholder tokens rendered by scripts/ops/install-services.sh at install time.
+     DOER-ONLY housekeeping timer. Daily 06:50: sweep approved sources for ~24h of material events into the
+     screener inbox (one web pass; does NOT launch signals — a human still picks which inbox rows to run). -->
+<plist version="1.0"><dict>
+  <key>Label</key><string>com.nostradamus.hk-sweep</string>
+  <key>ProgramArguments</key><array>
+    <string>/bin/bash</string>
+    <string>{{HOME}}/.nostra-ops/housekeeping.sh</string>
+    <string>/screener:sweep</string>
+  </array>
+  <key>EnvironmentVariables</key><dict>
+    <key>HOME</key><string>{{HOME}}</string>
+    <key>PATH</key><string>{{PLIST_PATH}}</string>
+    <key>ENGINE_REPO_ROOT</key><string>{{ENGINE_REPO_ROOT}}</string>
+  </dict>
+  <key>MaterializeDatalessFiles</key><true/>
+  <key>StartCalendarInterval</key><dict><key>Hour</key><integer>6</integer><key>Minute</key><integer>50</integer></dict>
+  <key>StandardOutPath</key><string>{{HOME}}/Library/Logs/nostradamus-housekeeping.log</string>
+  <key>StandardErrorPath</key><string>{{HOME}}/Library/Logs/nostradamus-housekeeping.log</string>
+</dict></plist>

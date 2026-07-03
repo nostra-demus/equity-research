@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Machine-agnostic TEMPLATE: placeholder tokens rendered by scripts/ops/install-services.sh at install time.
+     DOER-ONLY housekeeping timer. Daily 06:10: file any DUE decision-outcome reviews (the wrapper skips
+     entirely when review_due reports nothing due, so this costs nothing on days with no review). -->
+<plist version="1.0"><dict>
+  <key>Label</key><string>com.nostradamus.hk-review</string>
+  <key>ProgramArguments</key><array>
+    <string>/bin/bash</string>
+    <string>{{HOME}}/.nostra-ops/housekeeping.sh</string>
+    <string>/research:review-decisions</string><string>due</string>
+  </array>
+  <key>EnvironmentVariables</key><dict>
+    <key>HOME</key><string>{{HOME}}</string>
+    <key>PATH</key><string>{{PLIST_PATH}}</string>
+    <key>ENGINE_REPO_ROOT</key><string>{{ENGINE_REPO_ROOT}}</string>
+  </dict>
+  <key>MaterializeDatalessFiles</key><true/>
+  <key>StartCalendarInterval</key><dict><key>Hour</key><integer>6</integer><key>Minute</key><integer>10</integer></dict>
+  <key>StandardOutPath</key><string>{{HOME}}/Library/Logs/nostradamus-housekeeping.log</string>
+  <key>StandardErrorPath</key><string>{{HOME}}/Library/Logs/nostradamus-housekeeping.log</string>
+</dict></plist>

@@ -8,8 +8,10 @@
 # and logs every check/incident/repair to ~/Library/Logs/nostradamus-watchdog.log ("keep a track").
 set -uo pipefail
 
-REPO="${ENGINE_REPO_ROOT:-/Users/chiraagkapil/equity-research}"
+REPO="${ENGINE_REPO_ROOT:-$HOME/nostra-prod}"
 PORT=8787
+# resolve npm to an absolute path (launchd has a minimal PATH; brew is /opt/homebrew on Apple-Silicon, /usr/local on Intel)
+NPM="$(command -v npm 2>/dev/null || true)"; [ -n "$NPM" ] || for c in /opt/homebrew/bin/npm /usr/local/bin/npm; do [ -x "$c" ] && NPM="$c" && break; done; NPM="${NPM:-/opt/homebrew/bin/npm}"
 UID_NUM="$(id -u)"
 AGENTS_DIR="$HOME/Library/LaunchAgents"
 LOG="$HOME/Library/Logs/nostradamus-watchdog.log"
@@ -41,6 +43,7 @@ fi
 # Bootstrap-if-gone every cycle is cheap (no kickstart, no restart when already loaded), so the
 # pipeline that makes "merge to main -> live" work is itself self-healing.
 for ag in com.nostradamus.deploy com.nostradamus.news-archive; do
+  [ -f "$AGENTS_DIR/$ag.plist" ] || continue   # news-archive is doer-only; an admin-role host won't have it
   launchctl print "gui/$UID_NUM/$ag" >/dev/null 2>&1 \
     || { launchctl bootstrap "gui/$UID_NUM" "$AGENTS_DIR/$ag.plist" 2>/dev/null && log "RECOVERED $ag (was booted out)"; }
 done
@@ -82,7 +85,9 @@ fi
 #                           or a 503) -> the tunnel dropped or the edge can't reach the origin; re-kick it.
 #                           (The OLD check only caught code==000, so this whole class self-healed never.)
 #      - slow-but-working  (200, just slow) -> LOG only, never heal (healing a working path = churn).
-if [ -z "$problem" ]; then
+if [ -z "$problem" ] && [ -f "$AGENTS_DIR/com.nostradamus.tunnel.plist" ]; then
+  # tunnel is DOER-ONLY: only supervise the public path on a machine that actually owns the tunnel, so an
+  # admin-role host never tries to heal a URL it doesn't serve (which would fight the real doer's tunnel).
   hdr="$STATE_DIR/pub.hdr"
   pub_meta="$(curl -s -o /dev/null -D "$hdr" -w '%{http_code} %{time_total}' --max-time 12 "https://app.nostra-demus.com/api/health" 2>/dev/null || echo '000 0')"
   pub="${pub_meta%% *}"; pub_time="${pub_meta##* }"
@@ -108,7 +113,7 @@ if [ -n "$problem" ]; then
     case "$problem" in
       bundle-not-js|no-bundle-ref)
         log "  rebuilding ui/web (dist looks corrupt/missing)"
-        ( cd "$REPO" && /opt/homebrew/bin/npm --prefix ui/web run build ) >> "$LOG" 2>&1 || log "  WARN web build failed"
+        ( cd "$REPO" && "$NPM" --prefix ui/web run build ) >> "$LOG" 2>&1 || log "  WARN web build failed"
         lsof -ti:"$PORT" 2>/dev/null | xargs kill -9 2>/dev/null || true
         ensure_up com.nostradamus.engine
         ;;
@@ -151,9 +156,9 @@ if [ -z "$problem" ]; then
   [ -f "$STATE_DIR/enrich-health.at" ] && eh_age=$(( $(date +%s) - $(stat -f %m "$STATE_DIR/enrich-health.at" 2>/dev/null || echo 0) ))
   if [ "$eh_age" -ge 1800 ]; then
     touch "$STATE_DIR/enrich-health.at"
-    if ! ( cd "$REPO" && ENGINE_STATE_DIR="$REPO/ui/server/.state" /opt/homebrew/bin/npm --prefix ui/server run --silent enrich:health -- --strict ) >/dev/null 2>&1; then
+    if ! ( cd "$REPO" && ENGINE_STATE_DIR="$REPO/ui/server/.state" "$NPM" --prefix ui/server run --silent enrich:health -- --strict ) >/dev/null 2>&1; then
       log "ENRICH-DEGRADED — article reads regressing; attempting independent heal"
-      ( cd "$REPO" && ENGINE_STATE_DIR="$REPO/ui/server/.state" /opt/homebrew/bin/npm --prefix ui/server run --silent enrich:health -- --heal ) >> "$LOG" 2>&1 || log "  WARN enrich heal failed"
+      ( cd "$REPO" && ENGINE_STATE_DIR="$REPO/ui/server/.state" "$NPM" --prefix ui/server run --silent enrich:health -- --heal ) >> "$LOG" 2>&1 || log "  WARN enrich heal failed"
     fi
   fi
 fi
