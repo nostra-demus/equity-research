@@ -45,6 +45,8 @@ export function ChatPanel() {
   const setModel = useStore((s) => s.setChatModel)
   const setStyle = useStore((s) => s.setChatStyle)
   const clear = useStore((s) => s.clearChat)
+  const openHistory = useStore((s) => s.openChatHistory)
+  const historyOpen = useStore((s) => s.chatHistoryOpen)
   const staticMode = useStore((s) => s.staticMode)
   const nodesByKey = useStore((s) => s.nodesByKey)
   const launchModule = useStore((s) => s.launchModule)
@@ -78,12 +80,13 @@ export function ChatPanel() {
 
   // focus the composer on open (occasional surface → autofocus is fine)
   useEffect(() => { inputRef.current?.focus() }, [])
-  // Esc closes (also aborts any in-flight stream via closeChat)
+  // Esc closes (also aborts any in-flight stream via closeChat). When the History panel is open ON TOP of
+  // this one, it owns Escape — ignore it here so one keypress doesn't close both.
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') { if (scopeMenu || modelMenu || styleMenu) { setScopeMenu(false); setModelMenu(false); setStyleMenu(false) } else close() } }
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') { if (scopeMenu || modelMenu || styleMenu) { setScopeMenu(false); setModelMenu(false); setStyleMenu(false) } else if (!historyOpen) close() } }
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
-  }, [close, scopeMenu, modelMenu, styleMenu])
+  }, [close, scopeMenu, modelMenu, styleMenu, historyOpen])
 
   // auto-scroll to the newest token while locked; lock releases when the user scrolls up
   useLayoutEffect(() => {
@@ -207,7 +210,8 @@ export function ChatPanel() {
               </>
             )}
           </div>
-          {messages.length > 0 && <button className="btn btn--ghost" style={{ height: 30 }} onClick={clear} title="Clear this conversation">Clear</button>}
+          <button className="btn btn--ghost" style={{ height: 30 }} onClick={openHistory} title="View and reopen saved conversations">History</button>
+          {messages.length > 0 && <button className="btn btn--ghost" style={{ height: 30 }} onClick={clear} title="Start a new conversation (this one stays saved in History)">New</button>}
           <button className="btn btn--ghost" style={{ height: 30 }} onClick={close}>Close ✕</button>
         </div>
       </div>

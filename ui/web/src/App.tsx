@@ -18,6 +18,7 @@ import { SwarmWarp } from './components/SwarmWarp'
 import { RunStreamPanel } from './components/RunStreamPanel'
 import { OutputReader } from './components/OutputReader'
 import { ChatPanel } from './components/ChatPanel'
+import { ChatHistory } from './components/ChatHistory'
 import { ActivityLog } from './components/ActivityLog'
 import { ScoringPanel } from './components/screener/ScoringPanel'
 import { ReviewPanel } from './components/screener/ReviewPanel'
@@ -132,6 +133,7 @@ export function App() {
   const callsOpen = useStore((s) => s.callsOpen)
   const pipelineOpen = useStore((s) => s.pipelineOpen)
   const chatOpen = useStore((s) => s.chatOpen)
+  const chatHistoryOpen = useStore((s) => s.chatHistoryOpen)
   const newsFeedOpen = useStore((s) => s.newsFeedOpen)
   const sourcesOpen = useStore((s) => s.sourcesOpen)
   const toast = useStore((s) => s.toast)
@@ -166,6 +168,7 @@ export function App() {
 
       <AnimatePresence>{openOutput && <OutputReader key={openOutput.path || openOutput.nodeKey || 'panel'} output={openOutput} />}</AnimatePresence>
       <AnimatePresence>{chatOpen && <ChatPanel />}</AnimatePresence>
+      <AnimatePresence>{chatHistoryOpen && <ChatHistory />}</AnimatePresence>
       <AnimatePresence>{activityOpen && <ActivityLog />}</AnimatePresence>
       <AnimatePresence>{scoringOpen && <ScoringPanel />}</AnimatePresence>
       <AnimatePresence>{reviewOpen && <ReviewPanel />}</AnimatePresence>

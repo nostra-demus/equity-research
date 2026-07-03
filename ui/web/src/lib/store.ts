@@ -77,6 +77,11 @@ const runSources = new Map<string, EventSource>()
 // in-flight chat turn's aborter (module-level so closeChat / scope-change / ticker-switch can cancel it
 // without threading it through React state). Chat is ephemeral — one conversation at a time.
 let chatAbort: AbortController | null = null
+// Most-recent turns sent to the model per request. The server's ChatBody caps the transcript at 40, so a
+// long or resumed conversation (whose full history lives in chatMessages + on disk) is windowed to the last
+// 40 here — anything larger would be rejected 400 and break "continue chatting". The closed-book CONTEXT is
+// re-sent every turn, so trimming only limits how much back-and-forth the model sees, never the evidence.
+const CHAT_MAX_SEND = 40
 // narration style is a STICKY preference (persisted) — unlike the ephemeral conversation, the user's
 // "explain it like X" choice should survive across companies and reloads. Default = plain-English 'simple'.
 const CHAT_STYLE_KEY = 'nsw.chatStyle'
@@ -212,6 +217,8 @@ interface State {
   chatStreaming: boolean
   chatError?: string
   chatSource?: string // sourcePath from chat-meta — "answering from …"
+  chatConversationId?: string // id of the persisted conversation this thread belongs to (from chat-meta)
+  chatHistoryOpen: boolean // the saved-conversation browser is open
   activityOpen: boolean
   scoringOpen: boolean
   callsOpen: boolean
@@ -319,6 +326,11 @@ interface State {
   setChatStyle: (s: ChatStyle) => void
   sendChatMessage: (text: string) => Promise<void>
   clearChat: () => void
+  // ---- saved chat history (persisted Ask conversations) ----
+  openChatHistory: () => void
+  closeChatHistory: () => void
+  resumeConversation: (id: string) => Promise<void> // reopen a saved conversation and keep chatting
+  deleteConversation: (id: string) => Promise<void>
   openActivity: () => void
   closeActivity: () => void
   openScoring: () => void
@@ -481,7 +493,7 @@ function defaultChatTitle(scope: ChatScope, ticker: string, opts?: { module?: st
 
 // the chat-panel scope state cleared on every teardown (ticker switch, swarm switch) so a conversation
 // never bleeds across companies. Mirrors how openOutput is nulled alongside it.
-const CHAT_RESET = { chatOpen: false, chatStreaming: false, chatMessages: [] as ChatMessage[], chatError: undefined as string | undefined, chatSource: undefined as string | undefined }
+const CHAT_RESET = { chatOpen: false, chatStreaming: false, chatMessages: [] as ChatMessage[], chatError: undefined as string | undefined, chatSource: undefined as string | undefined, chatConversationId: undefined as string | undefined }
 
 export const useStore = create<State>((set, get) => ({
   connected: true,
@@ -532,6 +544,8 @@ export const useStore = create<State>((set, get) => ({
   chatStreaming: false,
   chatError: undefined,
   chatSource: undefined,
+  chatConversationId: undefined,
+  chatHistoryOpen: false,
   activityOpen: false,
   scoringOpen: false,
   callsOpen: false,
@@ -1262,7 +1276,8 @@ export const useStore = create<State>((set, get) => ({
       chatModule: opts?.module, chatOrbPath: opts?.orbPath, chatOrbKey: opts?.orbKey,
       chatTitle: defaultChatTitle(scope, t, opts),
       chatError: undefined, chatSource: undefined, chatStreaming: false,
-      ...(sameScope ? {} : { chatMessages: [] }),
+      // a different scope starts a fresh thread AND a fresh saved conversation; reopening the same scope keeps both
+      ...(sameScope ? {} : { chatMessages: [], chatConversationId: undefined }),
     })
   },
   closeChat: () => { chatAbort?.abort(); chatAbort = null; set({ chatOpen: false, chatStreaming: false }) },
@@ -1270,13 +1285,71 @@ export const useStore = create<State>((set, get) => ({
     chatAbort?.abort(); chatAbort = null
     set({
       chatScope: scope, chatModule: opts?.module, chatOrbPath: opts?.orbPath, chatOrbKey: opts?.orbKey,
-      chatMessages: [], chatStreaming: false, chatError: undefined, chatSource: undefined,
+      chatMessages: [], chatStreaming: false, chatError: undefined, chatSource: undefined, chatConversationId: undefined,
       chatTitle: defaultChatTitle(scope, get().selectedTicker || '', opts),
     })
   },
   setChatModel: (m) => set({ chatModel: m }),
   setChatStyle: (s) => { try { localStorage.setItem(CHAT_STYLE_KEY, s) } catch { /* blocked storage */ } set({ chatStyle: s }) },
-  clearChat: () => { chatAbort?.abort(); chatAbort = null; set({ chatMessages: [], chatError: undefined, chatStreaming: false, chatSource: undefined }) },
+  // Clear starts a NEW conversation (fresh saved thread); the prior one stays in history — nothing is lost.
+  clearChat: () => { chatAbort?.abort(); chatAbort = null; set({ chatMessages: [], chatError: undefined, chatStreaming: false, chatSource: undefined, chatConversationId: undefined }) },
+
+  // ---- saved chat history (persisted Ask conversations) ----
+  openChatHistory: () => set({ chatHistoryOpen: true }),
+  closeChatHistory: () => set({ chatHistoryOpen: false }),
+  // Reopen a saved conversation and keep chatting: fetch its transcript, make sure the right swarm +
+  // company are selected (so the closed-book context resolves against the same run), then load the thread
+  // and its saved conversation id into the panel. The next turn appends to the SAME saved conversation.
+  resumeConversation: async (id) => {
+    if (get().staticMode) { get().setToast({ msg: 'Chat history lives on the live engine (npm run dev)', tone: 'info' }); return }
+    // stop any in-flight turn FIRST — otherwise its streaming callback keeps writing tokens into the thread
+    // we're about to replace (the same-swarm/same-ticker path below runs neither the swarm switch nor
+    // selectTicker, so nothing else would abort it).
+    chatAbort?.abort(); chatAbort = null
+    const c = await api.getChat(id).catch(() => null)
+    if (!c) { get().setToast({ msg: 'Could not open that conversation', tone: 'info' }); return }
+    const targetSwarm = c.swarm || 'research'
+    // chat only exists for constellation swarms (research / commodity), which share the selection slices.
+    // A different swarm is a deliberate jump — switch directly (no animated warp), mirroring switchSwarm's
+    // reduced-motion reset so no screener panel or in-flight warp is left dangling over the new view.
+    if (get().activeSwarm !== targetSwarm) {
+      if (!get().swarms.some((s) => s.id === targetSwarm)) { get().setToast({ msg: `The ${targetSwarm} view isn’t available here`, tone: 'info' }); return }
+      if (warpTimer) { clearTimeout(warpTimer); warpTimer = null }
+      set({ activeSwarm: targetSwarm, warp: null, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, scFocusedCompany: null, newsFeedOpen: false, ...CHAT_RESET })
+      get()._enterSwarm(targetSwarm)
+    }
+    // select the subject if we're not already on it (loads its graph/manifest; applies CHAT_RESET itself)
+    if (get().selectedTicker !== c.subject) await get().selectTicker(c.subject)
+    // an orb conversation's saved path may point at an older run folder — re-resolve it from the current
+    // run by the stable orb key, so "continue" chats against the latest output of that orb.
+    let orbPath = c.orbPath
+    if (c.scope === 'orb' && c.orbKey) {
+      const rt = get().nodeRuntime[c.orbKey]
+      if (rt?.outputPath) orbPath = rt.outputPath
+    }
+    set({
+      chatHistoryOpen: false,
+      chatOpen: true,
+      chatScope: c.scope,
+      chatModule: c.module,
+      chatOrbPath: orbPath,
+      chatOrbKey: c.orbKey,
+      chatTitle: c.title || defaultChatTitle(c.scope, c.subject, { module: c.module }),
+      chatMessages: c.messages.map((m) => ({ role: m.role, content: m.content })),
+      chatConversationId: c.id,
+      chatModel: c.model || get().chatModel,
+      chatStyle: (c.style as ChatStyle) || get().chatStyle,
+      chatStreaming: false,
+      chatError: undefined,
+      chatSource: undefined,
+    })
+  },
+  deleteConversation: async (id) => {
+    if (get().staticMode) return
+    try { await api.deleteChat(id) } catch { get().setToast({ msg: 'Could not delete that conversation', tone: 'info' }); return }
+    // if the deleted one is the thread currently open, detach so the next turn starts a fresh saved conversation
+    if (get().chatConversationId === id) set({ chatConversationId: undefined })
+  },
   sendChatMessage: async (text) => {
     const q = text.trim()
     if (!q || get().chatStreaming) return
@@ -1295,12 +1368,18 @@ export const useStore = create<State>((set, get) => ({
         ticker, runRoot: get().runRoot ?? undefined, scope: get().chatScope,
         // constellation swarm (e.g. commodity): the subject resolves the run folder server-side
         swarm: sw !== 'research' ? sw : undefined, subject: sw !== 'research' ? ticker : undefined,
-        module: get().chatModule, orbPath: get().chatOrbPath, model: get().chatModel, style: get().chatStyle,
-        messages: [...baseline, { role: 'user', content: q }],
+        module: get().chatModule, orbPath: get().chatOrbPath, orbKey: get().chatOrbKey, model: get().chatModel, style: get().chatStyle,
+        // chat-history persistence: attach to the saved conversation (server mints its id on the first turn)
+        conversationId: get().chatConversationId, title: get().chatTitle,
+        // Only the most-recent CHAT_MAX_SEND turns go to the model — the server rejects a transcript over that
+        // (ChatBody caps it), so a long or resumed thread (the full history is kept in chatMessages + on disk)
+        // must be windowed here or "continue chatting" would 400 once it grows past the cap.
+        messages: [...baseline, { role: 'user' as const, content: q }].slice(-CHAT_MAX_SEND),
       },
       {
         signal: chatAbort.signal,
-        onMeta: (m) => set({ chatSource: m.sourcePath }),
+        // capture the server-minted conversation id so later turns append to the same saved thread
+        onMeta: (m) => set({ chatSource: m.sourcePath, ...(m.conversationId ? { chatConversationId: m.conversationId } : {}) }),
         onToken: (tok) => {
           const msgs = get().chatMessages.slice()
           if (msgs[idx]?.role === 'assistant') { msgs[idx] = { role: 'assistant', content: msgs[idx].content + tok }; set({ chatMessages: msgs }) }

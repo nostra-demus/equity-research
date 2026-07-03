@@ -40,6 +40,7 @@ import { agentNamesForModule, buildSwarmGraph, findRunRootForSubject, graphForSu
 import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, resolveRunRoot, runManifest } from './outputs'
 import { assembleContext, buildChatPrompts, scopeAvailability } from './chat-context'
 import { chatTurnsInFlight, runChatTurn } from './chat-llm'
+import { deleteConversation, getConversation, isValidConversationId, listConversations, recordAssistantMessage, recordUserMessage } from './chat-store'
 import { dataPoolPresent, readCandidates, readConviction, readConvictionCalibration, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest, screenerSubjectLabels } from './screener'
 import { listSwarms } from './swarms'
 import { getNewsStatus, startNewsIngester } from './news/scheduler'
@@ -791,6 +792,11 @@ const ChatBody = z.object({
   orbPath: z.string().max(300).optional(),
   model: z.string().max(60).optional(),
   style: z.enum(['simple', 'analyst', 'detailed']).optional(),
+  // chat-history persistence: an echoed conversation id attaches this turn to an existing saved thread
+  // (server mints a fresh one when absent/unknown); orbKey + title let a saved orb conversation be reopened.
+  conversationId: z.string().max(80).optional(),
+  orbKey: z.string().max(200).optional(),
+  title: z.string().max(300).optional(),
   messages: z.array(z.object({ role: z.enum(['user', 'assistant']), content: z.string().max(20000) })).min(1).max(40),
 })
 app.post('/api/chat', async (req, reply) => {
@@ -831,6 +837,20 @@ app.post('/api/chat', async (req, reply) => {
   }
   if (!assembled.present) return reply.code(409).send({ error: 'not_run', hint: assembled.missingHint })
 
+  // Persist this turn's question under the authoritative identity (from Cloudflare Access, NOT the body),
+  // creating the conversation on the first turn. The resolved id is echoed in chat-meta so the client
+  // attaches later turns here. History is best-effort: a persistence failure must never break the answer.
+  const { user: chatUser, userVia } = identify(req)
+  let conversationId = isValidConversationId(parsed.data.conversationId) ? parsed.data.conversationId : undefined
+  try {
+    const convo = await recordUserMessage(
+      { user: chatUser, userVia, swarm: swarmId, subject, scope, module, orbPath: parsed.data.orbPath, orbKey: parsed.data.orbKey, runRoot, title: parsed.data.title || assembled.label, model, style: parsed.data.style },
+      last.content,
+      conversationId,
+    )
+    conversationId = convo.id
+  } catch { /* history write failed — answer the question anyway */ }
+
   // Hijack into an SSE stream for the answer.
   const { res, send, ping } = startSSE(reply)
   const ac = new AbortController()
@@ -840,18 +860,60 @@ app.post('/api/chat', async (req, reply) => {
   // instantly, before any token. The response stream closes only on an actual disconnect (or our own
   // res.end()), which is the correct cancel signal for streamed POST output.
   res.on('close', () => { closed = true; clearInterval(ping); ac.abort() })
-  send({ type: 'chat-meta', scopeResolved: assembled.label, sourcePath: assembled.sourcePath, degraded: assembled.degraded, degradeNote: assembled.degradeNote })
+  send({ type: 'chat-meta', conversationId, scopeResolved: assembled.label, sourcePath: assembled.sourcePath, degraded: assembled.degraded, degradeNote: assembled.degradeNote })
   const { system, user } = buildChatPrompts({ assembled, messages, subject, style: parsed.data.style })
+  let answer = '' // accumulate the streamed answer so the completed turn can be saved to history
   try {
-    const out = await runChatTurn({ system, user, model, signal: ac.signal, onToken: (t) => send({ type: 'chat-token', content: t }) })
+    const out = await runChatTurn({ system, user, model, signal: ac.signal, onToken: (t) => { answer += t; send({ type: 'chat-token', content: t }) } })
     if (out.error && out.error !== 'aborted') send({ type: 'chat-error', message: out.error })
-    else if (!out.error) send({ type: 'chat-done', costUsd: out.costUsd, model })
+    else if (!out.error) {
+      send({ type: 'chat-done', costUsd: out.costUsd, model })
+      // save the assistant answer only on a clean completion (an errored/aborted turn leaves the question
+      // in history but no half-answer). Best-effort, off the response path.
+      if (conversationId && answer) void recordAssistantMessage(conversationId, answer, { sourcePath: assembled.sourcePath, costUsd: out.costUsd }).catch(() => {})
+    }
   } catch (e: any) {
     if (!closed) send({ type: 'chat-error', message: String(e?.message || e) })
   } finally {
     clearInterval(ping)
     try { res.end() } catch { /* already closed */ }
   }
+})
+
+// ---------- chat history: saved Ask conversations (who asked, when, about which company) ----------
+// List saved conversations as summaries (no transcript), newest-updated first, with the same filter
+// surface as the activity log. Live only — the static showcase has no persisted history.
+app.get('/api/chats', async (req) => {
+  const q = req.query as any
+  const num = (v: any) => { const n = Number(v); return Number.isFinite(n) ? n : undefined }
+  const scopes = ['run', 'module', 'orb']
+  return listConversations({
+    user: typeof q.user === 'string' && q.user ? q.user.slice(0, 200) : undefined,
+    subject: typeof q.subject === 'string' && (TICKER_RE.test(q.subject) || SIG_RE.test(q.subject)) ? q.subject : undefined,
+    swarm: typeof q.swarm === 'string' && /^[a-z0-9-]{1,40}$/.test(q.swarm) ? q.swarm : undefined,
+    scope: scopes.includes(q.scope) ? q.scope : undefined,
+    q: typeof q.q === 'string' ? q.q.slice(0, 100) : undefined,
+    from: num(q.from),
+    to: num(q.to),
+    limit: num(q.limit),
+  })
+})
+
+// One saved conversation with its full transcript — drives "continue chatting" (reopen + keep going).
+app.get('/api/chats/:id', async (req, reply) => {
+  const id = (req.params as any).id as string
+  if (!isValidConversationId(id)) return reply.code(400).send({ error: 'invalid conversation id' })
+  const convo = getConversation(id)
+  if (!convo) return reply.code(404).send({ error: 'conversation not found' })
+  return convo
+})
+
+// Delete one saved conversation (history hygiene). CSRF-guarded like the other cockpit writes.
+app.delete('/api/chats/:id', async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
+  const id = (req.params as any).id as string
+  if (!isValidConversationId(id)) return reply.code(400).send({ error: 'invalid conversation id' })
+  return { deleted: deleteConversation(id) }
 })
 
 // ---------- calls tracker: cross-ticker ledger of every call + its since-the-call timeline ----------
