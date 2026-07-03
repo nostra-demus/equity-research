@@ -1106,14 +1106,70 @@ def _norm_entity(s):
     return re.sub(r"\s+", " ", s).strip()
 
 
+# Tearsheet FIELD LABELS / boilerplate that get read as fake names (a CIQ profile's "Company Type:
+# Public Company", "Named by Company", "Country/Region of Incorporation"), plus generic words that
+# do NOT make two names "related". Two roles: (1) a candidate whose EVERY normalized token is in
+# here is a label, not a company (_looks_like_entity rejects it); (2) a token from here is not
+# DISTINCTIVE, so two unrelated ".com" firms sharing only "com" still count as a conflict, not a
+# soft "related" degrade. (Corporate-form words are already stripped by _norm_entity, so they never
+# reach this set as tokens.)
+_GENERIC_ENTITY_TOKENS = {
+    "com", "co", "www", "type", "public", "private", "listed", "entity", "named", "by", "of",
+    "country", "region", "incorporation", "sector", "industry", "address", "website",
+    "currency", "employees", "status", "primary",
+}
+
+
+def _entity_key(s):
+    """Punctuation/space-INSENSITIVE canonical key for an entity name: _norm_entity with spaces
+    removed. 'Amazon.com, Inc', 'AMAZON.COM, INC', 'Amazon com Inc' and 'Amazoncom Inc' all
+    collapse to 'amazoncom' — so filesystem-sanitized filenames (which drop '.'/',') cluster with
+    the filing's own header spelling instead of reading as a different company."""
+    return _norm_entity(s).replace(" ", "")
+
+
+def _bounded_lev(a, b, max_d=2):
+    """True Levenshtein (edit) distance between two short strings, capped: returns max_d+1 as soon
+    as the whole current DP row exceeds max_d. Edit distance — not difflib's Ratcliff-Obershelp
+    ratio — is the right model for OCR glyph slips ('rn'->'m' is a clean 2-edit) and caps cleanly.
+    Entity keys are short, so this stays effectively O(len)."""
+    if abs(len(a) - len(b)) > max_d:
+        return max_d + 1
+    prev = list(range(len(b) + 1))
+    for i, ca in enumerate(a, 1):
+        cur = [i]
+        for j, cb in enumerate(b, 1):
+            cur.append(min(prev[j] + 1, cur[-1] + 1, prev[j - 1] + (ca != cb)))
+        if min(cur) > max_d:
+            return max_d + 1
+        prev = cur
+    return prev[-1]
+
+
+def _same_entity(k1, k2):
+    """True if two canonical keys are the SAME company: identical, or a tight OCR/typo apart (both
+    reasonably long, near-equal length, edit distance <= 2). Deliberately NARROW — a false 'these
+    are the same' hides real contamination, which the rejector doctrine (CLAUDE.md §24) treats as
+    worse than a false block. min-length 6 (not 5) so 'apple'/'ample' (1 edit) never fuse, while
+    the intended 'amazoncom'/'amazoncorn' (len 9-10) still do."""
+    if k1 == k2:
+        return True
+    if min(len(k1), len(k2)) < 6 or abs(len(k1) - len(k2)) > 2:
+        return False
+    return _bounded_lev(k1, k2, 2) <= 2
+
+
 def _looks_like_entity(name):
     """A registrant name LOOKS like a name, not prose or a bare suffix word: it has a real (non-suffix)
     word, is short, and isn't mostly lowercase function words ("is in fact the very purpose of ...")."""
     words = (name or "").split()
     if not (1 <= len(words) <= 8):
         return False
-    if not _norm_entity(name):                  # nothing but corporate suffixes ("Company", "The Group")
+    norm = _norm_entity(name)
+    if not norm:                                # nothing but corporate suffixes ("Company", "The Group")
         return False
+    if all(t in _GENERIC_ENTITY_TOKENS for t in norm.split()):   # a tearsheet field LABEL, not a name
+        return False                            # "Named by Company", "Company Type: Public Company", ...
     lower = sum(1 for w in words if w[:1].islower())
     return lower <= len(words) // 2             # mostly-lowercase -> prose, not a name
 
@@ -1122,25 +1178,45 @@ _MIN_FILES_FOR_CONFLICT = 2   # a different company must appear in >=2 files to 
 
 
 def _entity_clusters(entities):
-    """Group [{file,entity}] into distinct companies by EXACT normalized name. Case / punctuation /
-    corporate-suffix variants collapse (they share a normalized form via _norm_entity), but a BUSINESS-UNIT
-    qualifier does NOT — 'Tata Motors' and 'Tata Motors Passenger Vehicles' stay separate, because for a CV
-    ticker the PV demerged entity is a different company (the exact gap that read 'clean' before). Returns
-    [{tokens, name (fullest display), files:[...]}], sorted by file count desc. A file can contribute more
-    than one name (its content AND its filename)."""
-    groups = {}  # normalized name -> {name: fullest display, files: [...]}
+    """Group [{file,entity}] into distinct companies by a punctuation/space-INSENSITIVE key (_entity_key),
+    then fold in OCR/typo-apart keys. Case / punctuation / spacing / corporate-suffix variants collapse
+    ('Amazon.com, Inc' and 'Amazoncom Inc' are one company, not two), but a BUSINESS-UNIT qualifier does
+    NOT — 'Tata Motors' (key 'tatamotors') and 'Tata Motors Passenger Vehicles' (key
+    'tatamotorspassengervehicles') stay separate, because for a CV ticker the PV demerged entity is a
+    different company (the exact gap that read 'clean' before). Returns [{key, tokens, name (fullest
+    display), files:[...]}], sorted by file count desc. A file can contribute more than one name (its
+    content AND its filename)."""
+    groups = {}  # canonical key -> {key, name: fullest display, tokens: set, files: [...]}
     for e in entities:
-        nm = _norm_entity(e.get("entity", ""))
+        raw = e.get("entity", "")
+        nm = _norm_entity(raw)
         if not nm:
             continue
-        g = groups.setdefault(nm, {"name": e["entity"], "files": []})
+        key = nm.replace(" ", "")
+        g = groups.setdefault(key, {"key": key, "name": raw, "tokens": set(), "files": []})
+        g["tokens"] |= set(nm.split())               # keep the REAL (spaced) tokens for the severity test
         if e["file"] not in g["files"]:
             g["files"].append(e["file"])
-        if len(e["entity"]) > len(g["name"]):
-            g["name"] = e["entity"]                  # keep the fullest display name
-    reps = [{"tokens": set(nm.split()), "name": g["name"], "files": g["files"]} for nm, g in groups.items()]
-    reps.sort(key=lambda r: -len(r["files"]))
-    return reps
+        if len(raw) > len(g["name"]):
+            g["name"] = raw                          # keep the fullest display name
+    # Fold an OCR/typo-apart key into the LARGER surviving cluster (majority-anchored: each cluster is
+    # compared only to already-ACCEPTED anchors, never to an absorbed member, so it can't chain-merge
+    # A~B~C when A and C are unrelated). Order-stable (dict preserves first-seen; sort is stable).
+    merged = []
+    for r in sorted(groups.values(), key=lambda g: -len(g["files"])):
+        for m in merged:
+            if _same_entity(m["key"], r["key"]):
+                for f in r["files"]:
+                    if f not in m["files"]:
+                        m["files"].append(f)
+                m["tokens"] |= r["tokens"]
+                if len(r["name"]) > len(m["name"]):
+                    m["name"] = r["name"]
+                break
+        else:
+            merged.append(r)
+    merged.sort(key=lambda r: -len(r["files"]))
+    return merged
 
 
 def _entity_conflict(entities):
@@ -1148,29 +1224,32 @@ def _entity_conflict(entities):
     >=_MIN_FILES_FOR_CONFLICT files to flag — a single odd extraction is treated as NOISE, because diverse
     real pools throw off one-off garbage names (an owner on a holdings sheet, an exchange on a cover page, a
     model's cell headers). Among the companies that clear the threshold and differ from the majority:
-      - 'blocker' if one shares NO word with the majority — clearly unrelated, so the pool is contaminated
-        with another company's files (e.g. a batch of 'Tata Motors' files in a 'Salesforce' pool);
-      - 'degrade' if it still shares a word (related group / abbreviation / weak extraction)."""
+      - 'blocker' if one shares NO DISTINCTIVE word with the majority — clearly unrelated, so the pool is
+        contaminated with another company's files (e.g. a batch of 'Tata Motors' files in a 'Salesforce'
+        pool). A shared word that is only a GENERIC token ('com' between two unrelated '.com' firms) is not
+        distinctive and does NOT soften the block;
+      - 'degrade' if it still shares a real word (related group / abbreviation / weak extraction)."""
     reps = _entity_clusters(entities)
     if len(reps) < 2:
         return None
     maj = reps[0]
+    maj_tokens = maj["tokens"] - _GENERIC_ENTITY_TOKENS
     level = None
     for r in reps[1:]:
         if len(r["files"]) < _MIN_FILES_FOR_CONFLICT:
             continue                                 # singleton -> extraction noise, ignore
-        if not (maj["tokens"] & r["tokens"]):
-            return "blocker"
+        if not (maj_tokens & (r["tokens"] - _GENERIC_ENTITY_TOKENS)):
+            return "blocker"                         # no MEANINGFUL shared word -> contamination
         level = "degrade"
     return level
 
 
 def _entities_disagree(names):
     """TEST-ONLY bool used by the smoke's clustering assertions (production reads use _entity_conflict +
-    _entity_evidence). Same EXACT-normalized clustering as production — so it answers "is there more than
-    one distinct company?" ignoring the file-count threshold (which the smoke tests separately via
-    _entity_conflict). NOT token-subset: a business-unit qualifier ('Passenger Vehicles') counts as
-    distinct, exactly as the production path treats it."""
+    _entity_evidence). Same clustering as production — punctuation/space-insensitive key with a tight
+    OCR/typo fuse — so it answers "is there more than one distinct company?" ignoring the file-count
+    threshold (which the smoke tests separately via _entity_conflict). NOT token-subset: a business-unit
+    qualifier ('Passenger Vehicles') counts as distinct, exactly as the production path treats it."""
     return len(_entity_clusters([{"file": "", "entity": n} for n in names])) > 1
 
 
@@ -1217,7 +1296,7 @@ def entity_from_header(text):
     # is matched, not lost to the suffix being followed by ")".
     for line in head.splitlines():
         core = re.sub(r"\s*\([^)]*\)\s*$", "", line.strip()).strip()
-        if 3 <= len(core) <= 90 and len(core.split()) <= 8 and re.search(_CORP_SUFFIX + r"\.?\s*$", core, re.I):
+        if 3 <= len(core) <= 90 and len(core.split()) <= 8 and re.search(r"\b" + _CORP_SUFFIX + r"\.?\s*$", core, re.I):
             cands.append(core)
             break
     for c in cands:
