@@ -103,7 +103,34 @@ For **every** module folder `<RUN_ROOT>/<module>/` that has a `99_*-synthesis.md
 
 > Read `<RUN_ROOT>/<module>/99_<...>-synthesis.md` and write the module memo to `<RUN_ROOT>/<module>/<module>_memo.md`. Condense only what the synthesis already carries — do not add new analysis, numbers, or evidence, and do not change its verdict, scores, or caps. The saved file must start with its `#` header and contain no chat-confirmation block. Do not write any other file and do not run git.
 
-Each is best-effort: a module memo that fails to write is recorded as `failed` but never aborts the rerun (the `99_*-synthesis.md` is the module's decision of record). When done, **delete the marker so it is never committed**: `rm -f "<RUN_ROOT>/.defer_module_memos"`. The next step (10) then commits the whole run folder, including these newly generated memos.
+Each is best-effort: a module memo that fails to write is recorded as `failed` but never aborts the rerun (the `99_*-synthesis.md` is the module's decision of record). When done, **leave the `.defer_module_memos` marker in place** — Step 9B (below) reads it, runs the finish-gate, and removes it before the commit. The commit step (10) then commits the whole run folder including these newly generated memos, but never the marker.
+
+## 9B. Full-run finish-gate + RUN_METADATA (per-module-chain runs only)
+
+Check for the marker file `<RUN_ROOT>/.defer_module_memos` (`test -f`). If it is **absent**, skip this entire step — a standalone `/research:rerun` stays a single lightweight commit and does NOT re-run the finish-gate. If it is **present**, this master rerun is the **terminal step of a `/research:full` per-module chain**, so the chained full must ship the SAME integrity-gated, eval-complete artifact set as a monolithic `/research:full` run (a chained full is a full run — it must not skip the ship-path integrity checks the monolithic path runs). Do both, then remove the marker:
+
+1. **Backfill `RUN_METADATA.md`** — the per-module chain never ran `/research:full` step 7. If `<RUN_ROOT>/RUN_METADATA.md` is absent, create it with the Write tool (a chain writes each module in its own run, so only the essentials are known here):
+
+```
+# Run Metadata
+
+- ticker: <TICKER>
+- run_date: <DATE>
+- orchestrator: /research:full (per-module chain)
+- data_folder: data/<TICKER>/
+
+## Modules completed
+
+<one line per `<RUN_ROOT>/<module>/` that has a non-empty `99_*-synthesis.md`>
+
+## Synthesizer status
+
+completed (master re-run)
+```
+
+2. **Integrity finish-gate** — run `/research:full`'s **Step 10B verbatim** against `<RUN_ROOT>` (with `RUN_ROOT="<RUN_ROOT>"`), exactly as Step 9 above reuses `/research:full` step 10A.2: first **10B.1** (the deterministic validator that re-derives the §10 scenario math and the §7/§11/§14 caps and can stamp a PROVISIONAL banner on `final_thesis.md`), then **10B.2** (verify-evidence → `verification_report.json`, pre-mortem → `pre_mortem.json`, and the haircut propagation that patches `decision_record.json`). Produce ONLY the report JSON in each command — skip each command's own commit step; Step 10 below commits the whole run folder in one place. Record the printed `GATE:` line for the report (Step 11) — a `PROVISIONAL` result is surfaced loudly, never hidden.
+
+Then **delete the marker so it is never committed**: `rm -f "<RUN_ROOT>/.defer_module_memos"`.
 
 ## 10. Commit and push to main (one commit)
 
@@ -115,11 +142,11 @@ Commit through the serialized helper (global git lock so concurrent companies do
 bash scripts/commit-run.sh "Re-run: <TICKER> <MODULE>/<AGENT> + downstream <DATE>" -- "<RUN_ROOT>/"
 ```
 
-Capture the commit SHA (`git rev-parse HEAD`). Unlike `/research:full`, this is a single commit — do not backfill RUN_METADATA.
+Capture the commit SHA (`git rev-parse HEAD`). This is a single commit. A **standalone** `/research:rerun` does not backfill `RUN_METADATA` (Step 9B was skipped); a **per-module-chain** master step backfilled `RUN_METADATA` and ran the finish-gate in Step 9B, so its commit ships the same eval-complete artifact set as a monolithic `/research:full`.
 
 ## 11. Report
 
-Print: the resolved `<RUN_ROOT>`; the target orb that was re-run; the ordered cascade of syntheses re-run (and that each cascade module's `<M>_memo.md` + `<M>_dossier.md` tiers were refreshed); whether the master thesis, memo, and audit dossier regenerated; the master thesis's one-line decision/verdict; and the commit SHA pushed to `origin/main`.
+Print: the resolved `<RUN_ROOT>`; the target orb that was re-run; the ordered cascade of syntheses re-run (and that each cascade module's `<M>_memo.md` + `<M>_dossier.md` tiers were refreshed); whether the master thesis, memo, and audit dossier regenerated; the master thesis's one-line decision/verdict; for a per-module-chain master step, the finish-gate `GATE:` result and whether `RUN_METADATA.md` / `verification_report.json` / `pre_mortem.json` were written (Step 9B); and the commit SHA pushed to `origin/main`.
 
 ---
 
