@@ -73,6 +73,10 @@ US filing names (DEF 14A, 10-K, 10-Q, 8-K, Form 4) are EXAMPLES, not requirement
 
 For Indian companies the proxy-equivalent is the AGM Notice + Corporate Governance Report; ownership is the shareholding-pattern filing; compensation is the Board's Report / CG Report.
 
+## Language is not opacity (CLAUDE.md §27)
+
+A related-party, compensation, covenant, ownership, or contingency note written in the company's home language is DISCLOSED, not opaque. Read and translate it, then judge the actual content; take every figure verbatim (§5/§15). Do NOT raise a red flag for "note only in Arabic / not in English", do NOT describe a foreign-language disclosure as "opaque" or "unverifiable", and do NOT cap the disclosure-quality / shareholder-friendliness / governance score for language — **a non-English filing is not a data gap.** Opacity means a fact is genuinely undisclosed or unobtainable, never a fact disclosed in another language. Flag only genuine translation ambiguity on a specific material term, and apply the conservative default (§4) to THAT residual uncertainty alone.
+
 ---
 
 ## Sector-Specific Governance Overlays (Hard Rule)

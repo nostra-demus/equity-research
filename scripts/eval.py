@@ -1858,7 +1858,7 @@ for drp in runs:
 #   + the N1/C1/C2 net-cash-labelling / cyclical-normalisation wiring, in their CORRECT files —
 #   the ROCE rule must stay in the moat, never CLAUDE.md §15, or it misfires for banks/REITs)
 FRAMEWORK_CONTRACTS={
- "CLAUDE.md":["## 24. Avoid Big Risks","Crooks and integrity","Turnarounds","High debt and the survival test","Serial acquirers","Fast-changing industries","Unaligned owners","normalised operating FCF","gross-liquidity"],
+ "CLAUDE.md":["## 24. Avoid Big Risks","Crooks and integrity","Turnarounds","High debt and the survival test","Serial acquirers","Fast-changing industries","Unaligned owners","normalised operating FCF","gross-liquidity","Language travels with the jurisdiction","a non-English filing is not a data gap"],
  "frameworks/SECTOR_OVERLAYS.md":["SaaS / subscription software","Bank / lender","cRPO","NIM","FFO","AISC","Generic operating company"],
  ".claude/agents/business-model/02_business-identity.md":["Sector Overlay","SECTOR_OVERLAYS.md","generic read"],
  ".claude/agents/business-model/MODULE_RULES.md":["Rejector-Filter Penalties & Caps","Serial acquirers","Fast-changing industry"],

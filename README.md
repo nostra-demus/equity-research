@@ -78,6 +78,8 @@ The phases of the decision-ledger feedback loop and their status are tracked in 
 
 Drop source documents under `data/<TICKER>/` in the synced Google Drive folder. The orchestrator reads from there; specialists are passed the data folder path at invocation time.
 
+**Any format, any language.** `.claude/tools/extract_pool.py` reads every format — multi-tab Capital IQ / broker workbooks, PDFs (incl. scanned/image-only pages via OCR), Word/RTF, HTML — and transcribes each one verbatim. Filings in the company's home language (Arabic, Mandarin, Japanese, …) are ingested exactly like English ones: the transcriber keeps the original script, and the analyst agents translate the material facts as they read, taking every figure verbatim. A non-English document is therefore fully in scope, never a data gap or a governance-opacity flag — the doctrine for this lives in `CLAUDE.md` §27 ("Language travels with the jurisdiction").
+
 ## Where outputs land
 
 Every run writes to `analyses/<TICKER>_<DATE>/`:

@@ -39,6 +39,11 @@ You DO NOT:
    It splits each workbook into one text extract per tab and writes `_pool_extracts/manifest.md`. Then list every file in `DATA_PATH` (recursive) — and **every workbook tab from the manifest as its own inventory row** (parent file + sheet name + rows×cols). Note filename, size, and the **reporting period parsed from INSIDE the document** (period-end / "as of" / fiscal-year lines) — NOT the file's last-modified date, which for a Drive-synced pool is the sync date and makes a 2-year-old re-synced export falsely read as current (fix F23). A multi-tab workbook must NEVER appear as a single opaque row. **Treat extraction failures as MISSING data (fix F03):** read `_pool_extracts/manifest.json` — any source whose `status` is `fail`, `fallback-text`, or `missing-dependency` counts as **NOT in the pool** for the sufficiency verdict and every score cap, never "present" or "supplementary, no effect". Report the literal manifest error per failed source, and distinguish a true Drive pointer stub (`gdrive-pointer`) from an extraction failure on a real file. If a structured export the module relies on is in a failure state, downgrade to Partial/Insufficient and bind the matching cap — a hollow pool must not pass as "Sufficient".
 3. Classify each file by type: annual filing, quarterly filing, transcript, investor deck, data export, user note, other.
 4. **Detect and record the filing regime.** From the filings, identify the primary listing jurisdiction (US SEC / India SEBI-LODR / UK / Other), the reporting standard (US GAAP / IFRS / Ind AS), and the reporting currency (with fiscal-year end). Record these in Section 2A so downstream agents apply CLAUDE.md §27 and read the local-equivalent documents. For non-US issuers, do NOT mark US forms (10-K, 8-K, S-1) "missing" when the local equivalent exists.
+
+## Language is not a data gap (CLAUDE.md §27)
+
+Detect and record each document's language. A filing in the company's home language — Arabic, Mandarin, Japanese, or any non-English language — counts as PRESENT at the full source tier its type earns. `extract_pool.py` transcribes it verbatim into `_pool_extracts/` (scanned pages via OCR), and the downstream specialists translate the material facts as they read; figures are taken verbatim (§5/§15). Do NOT mark a non-English document "missing", "not extractable in English", or "opaque", and do NOT reduce the data-quality or data-sufficiency score for language — **a non-English filing is not a data gap.** Record the detected language in the Filing Regime block. The ONLY real gap is a document whose extraction FAILED in the pool manifest (corrupt / encrypted / illegible), which is already handled as missing.
+
 5. Identify the MOST RECENT instance of each filing type. State the period it covers.
 6. Apply the sufficiency rule (below) and write the verdict.
 7. Use the Write tool to save your complete report (formatted exactly as described in the REPORT STRUCTURE section above) to the path given in OUTPUT_PATH. This file is what downstream agents and the orchestrator will read — do NOT skip this step, and do NOT return your report only as a chat message. After writing the file, return only the CHAT CONFIRMATION block.
@@ -78,6 +83,7 @@ You DO NOT:
 | Filing regime (US SEC / India SEBI-LODR / UK / Other) | | |
 | Reporting standard (US GAAP / IFRS / Ind AS) | | |
 | Reporting currency + fiscal-year end | | |
+| Document language(s) | | |
 
 Set these so downstream agents apply CLAUDE.md §27 (read/cite the local-equivalent document). For non-US issuers, do NOT mark US forms (10-K, 8-K, S-1) "missing" when the local equivalent exists.
 

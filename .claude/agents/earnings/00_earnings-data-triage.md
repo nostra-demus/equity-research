@@ -43,6 +43,10 @@ You DO NOT:
 
 # SUFFICIENCY RULE
 
+## Language is not a data gap (CLAUDE.md §27)
+
+Detect and record each document's language. A filing in the company's home language — Arabic, Mandarin, Japanese, or any non-English language — counts as PRESENT at the full source tier its type earns. `extract_pool.py` transcribes it verbatim into `_pool_extracts/` (scanned pages via OCR), and the downstream specialists translate the material facts as they read; figures are taken verbatim (§5/§15). Do NOT mark a non-English document "missing", "not extractable in English", or "opaque", and do NOT reduce the data-quality or data-sufficiency score for language — **a non-English filing is not a data gap.** Record the detected language in the Filing Regime block. The ONLY real gap is a document whose extraction FAILED in the pool manifest (corrupt / encrypted / illegible), which is already handled as missing.
+
 - **Sufficient:** recent annual filing or equivalent full-year financials AND latest quarterly filing/update or transcript AND income statement, balance sheet, and cash flow statement available.
 - **Partial:** any one of the above is missing but enough data exists to analyze at least revenue, margins, and cash flow. State which partial-data caps and score caps from `MODULE_RULES.md` will apply.
 - **Insufficient:** cannot analyze revenue, margins, and cash flow from available data.
@@ -64,6 +68,7 @@ If only Capital IQ / Bloomberg / FactSet exports are available but no filing or 
 | Reporting standard (US GAAP / IFRS / Ind AS) | | |
 | Reporting currency | | |
 | Fiscal-year end | | |
+| Document language(s) | | |
 
 Set these so later agents apply CLAUDE.md §27 and read/cite the local-equivalent document. For non-US issuers, do NOT mark US forms (10-K, 10-Q, 8-K, Form 4) "missing" when the local equivalent exists (e.g. Annual Report, quarterly results to NSE/BSE).
 

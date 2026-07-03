@@ -48,6 +48,10 @@ If no scheduled-event data exists and no upstream modules ran: produce the calen
 - **business-model/10_external-dependency, 11_capital-allocation-governance** — policy/regulatory/commodity catalysts; capital-return events
 - **Data pool** — AGM notices, debt maturities, regulatory timelines, contract/lock-up/index dates. Read these in the company's own regime (per `CLAUDE.md` §27 and triage `00`): US 8-K / proxy / Form 4, or India NSE/BSE board-meeting & results intimations, AGM notices, record/ex dates, dividend declarations, SEBI / sector-regulator actions, and scheme-of-arrangement / NCLT timelines, or the local equivalent — never mark a non-US event "missing" when the local equivalent exists.
 
+## Language is not opacity (CLAUDE.md §27)
+
+A related-party, compensation, covenant, ownership, or contingency note written in the company's home language is DISCLOSED, not opaque. Read and translate it, then judge the actual content; take every figure verbatim (§5/§15). Do NOT raise a red flag for "note only in Arabic / not in English", do NOT describe a foreign-language disclosure as "opaque" or "unverifiable", and do NOT cap the disclosure-quality / shareholder-friendliness / governance score for language — **a non-English filing is not a data gap.** Opacity means a fact is genuinely undisclosed or unobtainable, never a fact disclosed in another language. Flag only genuine translation ambiguity on a specific material term, and apply the conservative default (§4) to THAT residual uncertainty alone.
+
 # REPORT STRUCTURE
 
 ```

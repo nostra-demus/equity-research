@@ -67,8 +67,13 @@ You DO NOT:
 | Listing jurisdiction (US SEC / India SEBI-LODR / UK / Other) | | |
 | Reporting standard (US GAAP / IFRS / Ind AS) | | |
 | Reporting currency (and fiscal year-end) | | |
+| Document language(s) | | |
 
 Set these so later agents read the local-equivalent scheduled-event documents (per `CLAUDE.md` §27). For non-US issuers, do NOT mark US forms (8-K, 10-K, DEF 14A) "missing" when the local equivalent (e.g. NSE/BSE intimation, AGM Notice) exists.
+
+## Language is not a data gap (CLAUDE.md §27)
+
+Detect and record each document's language. A filing in the company's home language — Arabic, Mandarin, Japanese, or any non-English language — counts as PRESENT at the full source tier its type earns. `extract_pool.py` transcribes it verbatim into `_pool_extracts/` (scanned pages via OCR), and the downstream specialists translate the material facts as they read; figures are taken verbatim (§5/§15). Do NOT mark a non-English document "missing", "not extractable in English", or "opaque", and do NOT reduce the data-quality or data-sufficiency score for language — **a non-English filing is not a data gap.** Record the detected language in the Filing Regime block. The ONLY real gap is a document whose extraction FAILED in the pool manifest (corrupt / encrypted / illegible), which is already handled as missing.
 
 ## 1. Scheduled-Event Inventory
 

@@ -26,6 +26,10 @@ You DO NOT:
 
 If there are no transcripts or prior letters in the pool: assess candor from filings only (MD&A tone, adjustment disclosure) and state the limitation. If `earnings/06_earnings-quality.md` is unavailable, assess non-GAAP aggressiveness directly from the filings and flag that the cross-check is missing.
 
+## Language is not opacity (CLAUDE.md §27)
+
+A related-party, compensation, covenant, ownership, or contingency note written in the company's home language is DISCLOSED, not opaque. Read and translate it, then judge the actual content; take every figure verbatim (§5/§15). Do NOT raise a red flag for "note only in Arabic / not in English", do NOT describe a foreign-language disclosure as "opaque" or "unverifiable", and do NOT cap the disclosure-quality / shareholder-friendliness / governance score for language — **a non-English filing is not a data gap.** Opacity means a fact is genuinely undisclosed or unobtainable, never a fact disclosed in another language. Flag only genuine translation ambiguity on a specific material term, and apply the conservative default (§4) to THAT residual uncertainty alone.
+
 # WORKFLOW
 
 1. Read the repo root `CLAUDE.md`, then read `.claude/agents/management-governance/MODULE_RULES.md`, and apply both.

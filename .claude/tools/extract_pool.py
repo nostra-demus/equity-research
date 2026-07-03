@@ -19,6 +19,13 @@ tables, charts). Those visual sources are transcribed to Markdown by Claude visi
 tables/charts) when ANTHROPIC_API_KEY is set, else by tesseract OCR (offline floor). Results are cached
 per (file + method + model), so the cost — and any token spend — is paid once per file, ever.
 
+ANY LANGUAGE, TRANSCRIBED VERBATIM. Non-English filings (Arabic, Mandarin, Japanese, …) are extracted
+exactly like English ones — the vision/OCR transcriber reproduces the ORIGINAL script verbatim and
+never translates (a filing's numbers and labels stay as filed). Translation into English is a
+reading-layer job the analyst agents do when they read these extracts, NOT an extraction step — so a
+foreign-language document is fully in the pool, never a data gap (CLAUDE.md §27). Only a genuine
+EXTRACT-FAIL row (corrupt/encrypted/illegible) is missing data.
+
 SINGLE SOURCE OF TRUTH. Consumers:
   - Layer-0 `*-data-triage` agents  -> run at ingestion, list every tab as a row
   - commands/research/verify-evidence.md -> post-hoc corpus build (--corpus)
