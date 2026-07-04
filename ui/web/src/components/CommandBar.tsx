@@ -393,6 +393,7 @@ export function CommandBar() {
   const openReview = useStore((s) => s.openReview)
   const openCalls = useStore((s) => s.openCalls)
   const openChat = useStore((s) => s.openChat)
+  const openChatHistory = useStore((s) => s.openChatHistory)
   const requestFull = useStore((s) => s.requestFull)
   const anyRun = useStore((s) => s.anyRunForTicker(s.selectedTicker))
   const fullPending = useStore((s) => s.launchPending?.key === 'full:request')
@@ -442,6 +443,7 @@ export function CommandBar() {
           <EngineStatusPill />
           <button className="btn btn--ghost" onClick={openCalls} title="Calls tracker — every call the engine made and what's happened since">Calls</button>
           <button className="btn btn--ghost" onClick={openActivity} title="Activity log — who ran what, when, on which company">Activity</button>
+          <button className="btn btn--ghost" onClick={openChatHistory} title="Chat history — reopen and continue any past Ask conversation">Chats</button>
           {decision?.final_thesis_path !== undefined || verdict ? (
             <button className="btn btn--ghost" onClick={openThesis}>{activeSwarm === 'research' ? 'Thesis' : 'Dossier'}</button>
           ) : null}

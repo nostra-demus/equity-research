@@ -1,6 +1,6 @@
 import { staticPromptPath } from './prompts'
 import { DEFAULT_RANK_WEIGHTS, type RankWeights, type RankWeightsState } from './rankWeights'
-import type { ActivityQuery, ActivityResult, CallsResult, ChatRequest, ChatScopes, CoverageGroup, DataStatus, EventEnrichment, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SourcesReport, SwarmGraph, SwarmMeta, TickerSummary, UploadResult, Usage, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CoverageGroup, DataStatus, EventEnrichment, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SourcesReport, SwarmGraph, SwarmMeta, TickerSummary, UploadResult, Usage, Whoami } from './types'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -461,7 +461,7 @@ export const api = {
   chatStream: async (
     body: ChatRequest,
     cb: {
-      onMeta?: (m: { scopeResolved: string; sourcePath?: string; degraded?: boolean; degradeNote?: string }) => void
+      onMeta?: (m: { conversationId?: string; scopeResolved: string; sourcePath?: string; degraded?: boolean; degradeNote?: string }) => void
       onToken: (t: string) => void
       onDone: (d: { costUsd?: number }) => void
       onError: (msg: string) => void
@@ -525,5 +525,25 @@ export const api = {
     for (const [k, v] of Object.entries(query)) if (v !== undefined && v !== '' && v !== null) qs.set(k, String(v))
     const s = qs.toString()
     return get(`/api/activity${s ? `?${s}` : ''}`)
+  },
+
+  // ---- saved chat history (persisted Ask conversations) — live only ----
+  // list saved conversations as summaries (who asked, when, about which company), newest-updated first.
+  listChats: async (query: ChatListQuery = {}): Promise<ChatListResult> => {
+    if ((await ensureMode()) === 'static') return { conversations: [], total: 0, allTime: 0, users: [], subjects: [], earliest: null }
+    const qs = new URLSearchParams()
+    for (const [k, v] of Object.entries(query)) if (v !== undefined && v !== '' && v !== null) qs.set(k, String(v))
+    const s = qs.toString()
+    return get(`/api/chats${s ? `?${s}` : ''}`)
+  },
+  // one saved conversation with its full transcript — the basis for continuing it
+  getChat: async (id: string): Promise<ChatConversationDetail> => get(`/api/chats/${encodeURIComponent(id)}`),
+  // delete one saved conversation
+  deleteChat: async (id: string): Promise<{ deleted: boolean }> => {
+    if ((await ensureMode()) === 'static') return { deleted: false }
+    const r = await fetch(`/api/chats/${encodeURIComponent(id)}`, { method: 'DELETE' })
+    const j = await r.json().catch(() => ({}))
+    if (!r.ok) throw Object.assign(new Error((j as any)?.error || `${r.status}`), { status: r.status })
+    return j as { deleted: boolean }
   },
 }

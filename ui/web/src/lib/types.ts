@@ -623,8 +623,11 @@ export interface ChatRequest {
   scope: ChatScope
   module?: string
   orbPath?: string
+  orbKey?: string // stable orb node key — persisted so a saved orb conversation can be reopened
   model?: string
   style?: ChatStyle
+  conversationId?: string // attaches this turn to a saved conversation (server mints one when absent)
+  title?: string // the panel's header title, stored so history rows read as a name
   messages: ChatMessage[]
 }
 export interface ChatScopes {
@@ -633,6 +636,67 @@ export interface ChatScopes {
   run: { present: boolean }
   modules: { module: string; label: string; present: boolean }[]
   orbs: { module: string; path: string; title: string; present: boolean }[]
+}
+
+// ---- saved chat history (persisted Ask conversations) ----
+// A summary row for the history browser (no transcript); mirrors the server's ConversationSummary.
+export interface ChatConversationSummary {
+  id: string
+  user: string
+  userVia: 'cf-access' | 'local'
+  swarm: string
+  subject: string
+  scope: ChatScope
+  module?: string
+  orbKey?: string
+  title: string
+  model?: string
+  createdAt: number
+  updatedAt: number
+  messageCount: number
+  costUsd: number
+  preview: string
+  lastPreview: string
+}
+export interface StoredChatMessage extends ChatMessage { ts: number; sourcePath?: string; costUsd?: number }
+// The full conversation returned by GET /api/chats/:id — drives "continue chatting".
+export interface ChatConversationDetail {
+  v: 1
+  id: string
+  user: string
+  userVia: 'cf-access' | 'local'
+  swarm: string
+  subject: string
+  scope: ChatScope
+  module?: string
+  orbPath?: string
+  orbKey?: string
+  runRoot?: string
+  title: string
+  model?: string
+  style?: ChatStyle
+  createdAt: number
+  updatedAt: number
+  costUsd: number
+  messages: StoredChatMessage[]
+}
+export interface ChatListResult {
+  conversations: ChatConversationSummary[]
+  total: number
+  allTime: number
+  users: string[]
+  subjects: string[]
+  earliest: number | null
+}
+export interface ChatListQuery {
+  user?: string
+  subject?: string
+  swarm?: string
+  scope?: ChatScope
+  q?: string
+  from?: number
+  to?: number
+  limit?: number
 }
 
 // ---- calls tracker (the engine's call ledger + since-the-call outcomes) ----
