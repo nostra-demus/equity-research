@@ -1,0 +1,71 @@
+finding_id,agent,section,question,verdict,raw_value,unit,trend,peer_verdict,score,penalty,confidence,materiality,evidence,red_flag_id,follow_up
+01-001,management-and-track-record,Key Executives,CEO tenure,Green,5,years,Stable,In line,18,0,5,High,"FY2025 10-K, p.4 (Executive Officers)",,None
+01-002,management-and-track-record,Key Executives,CFO tenure,Green,11,years,Stable,Better than typical,18,0,5,High,"FY2025 10-K, p.4 (Executive Officers)",,None
+01-003,management-and-track-record,Key Executives,Founder involvement and ownership,Green,8.8,%,Declining slowly,N/A,15,0,3,High,"FY2025 10-K Item 9B p.74; Web: 2026 proxy (unverified)",,Confirm in 2026 DEF 14A
+01-004,management-and-track-record,Management Stability,CFO turnover (3 years),Green,0,departures,Stable,N/A,20,0,5,High,"FY2025 10-K, p.4 (Executive Officers)",,None
+01-005,management-and-track-record,Management Stability,CEO turnover (3 years),Green,0,changes,Stable,N/A,20,0,5,High,"FY2025 10-K, p.4 (Executive Officers)",,None
+01-006,management-and-track-record,Management Stability,AWS CEO succession June 2024,Green,,categorical,N/A,N/A,8,0,5,Medium,"FY2025 10-K, p.4–5",,Monitor Garman FY2026
+01-007,management-and-track-record,Stated Strategy,Capex commitment to AI/AWS ~$200B FY2026,Amber,200,$B capex plan,Accelerating sharply,Comparable,,0,4,High,"FY2025 Shareholder Letter Apr 2026; Q1 2026 Earnings Call",,Track Q2/Q3 2026 actuals
+01-008,management-and-track-record,Promise vs Delivery,AWS revenue re-acceleration,Green,28,% YoY Q1 2026,Accelerating,In line,28,0,5,High,"FY2023 Annual Report (promise); Q1 2026 10-Q p.7",,None
+01-009,management-and-track-record,Promise vs Delivery,International profitability promise,Green,4.8,$B OI FY2025,Improving,N/A,25,0,5,High,"FY2023 Annual Report (promise); FY2025 10-K Note 10 p.68",,None
+01-010,management-and-track-record,Promise vs Delivery,Cost-to-serve reduction 2023 promise,Green,,categorical,Improving,N/A,25,0,4,High,"FY2023 and FY2024 Annual Reports",,None
+01-011,management-and-track-record,Promise vs Delivery,FCF compression explicitly telegraphed,Green,11.2,$B FCF FY2025,Declining as warned,N/A,20,0,5,High,"FY2024 Annual Report (warning); FY2025 10-K MD&A p.28",,Track FCF recovery FY2027
+01-012,management-and-track-record,Promise vs Delivery,Operating income trajectory,Green,79975,$M EBIT FY2025,Accelerating,N/A,28,0,5,High,"FY2022 10-K (baseline); FY2025 10-K MD&A p.24",,None
+01-013,management-and-track-record,Turnaround / Integrity,Turnaround thesis test,Not Applicable,,categorical,N/A,N/A,,,5,Medium,business-model/01_disqualifier-scan.md,,None
+01-014,management-and-track-record,Turnaround / Integrity,Adverse integrity signal routed,Not Applicable,,categorical,N/A,N/A,,,5,Medium,business-model/01_disqualifier-scan.md,,None
+01-015,management-and-track-record,Key Executives,2026 proxy not in data pool,Insufficient Data,,categorical,N/A,N/A,,,2,Medium,"FY2025 10-K, Item 10–13, p.74",,Agents 03/04/05 to apply caps
+02-001,capital-allocation-scorecard,Uses of Capital,Capex as % of 5-yr CFO,Amber,90.5,% of CFO,Accelerating,N/A,15,0,5,High,"Capital IQ Cash Flow; FY2025 10-K p.36",,Monitor FY2026 ROIC
+02-002,capital-allocation-scorecard,Uses of Capital,Acquisitions as % of 5-yr CFO,Green,6.2,% of CFO,Stable,N/A,4,0,5,Medium,"FY2025 10-K, Note 5, p.55",,None
+02-003,capital-allocation-scorecard,M&A Scorecard,MGM acquisition returns,Amber,8.6,$B economic cost,N/A,N/A,3,0,3,Medium,"FY2025 10-K Note 5 p.55; Q1 2026 transcript",,Confirm MGM attributable ad revenue
+02-004,capital-allocation-scorecard,M&A Scorecard,One Medical acquisition returns,Amber,3500,$M cost,N/A,N/A,2,0,3,Medium,"FY2025 10-K Note 5 p.55; Q1 2026 transcript",,Request standalone One Medical metrics
+02-005,capital-allocation-scorecard,M&A Scorecard,Serial-acquirer pattern §24 Filter 4,Green,2,material deals in 5 yrs,Stable,N/A,5,0,5,High,"FY2025 10-K Note 5 p.55",,None
+02-006,capital-allocation-scorecard,Buyback Scorecard,Net share count trajectory,Red,512,M shares net dilution 5yr,Persistent dilution,Worse than peers,5,5,5,High,"FY2025 10-K Note 8 p.62; Capital IQ Balance Sheet",RF-CAP-002,Why was authorization not used in FY2023?
+02-007,capital-allocation-scorecard,Buyback Scorecard,Buyback price discipline,Amber,129.87,$/share avg FY2022,N/A,N/A,4,3,4,High,"FY2024 10-K Note 8; FY2025 10-K Note 8 p.62",,Intrinsic-value discipline not assessable without valuation module
+02-008,capital-allocation-scorecard,Buyback Scorecard,SBC as dilution driver,Amber,97879,$M 5-yr SBC,Improving % of CFO,N/A,3,2,5,High,"Capital IQ Supplemental; FY2025 10-K Note 8 p.62",,Monitor SBC/CFO ratio
+02-009,capital-allocation-scorecard,Dividends / Organic Reinvestment,Dividend policy,Green,0,% payout,Stable,N/A,5,0,5,Medium,"FY2025 10-K Item 5 p.19",,None
+02-010,capital-allocation-scorecard,Dividends / Organic Reinvestment,Organic ROIC headline,Green,18.1,% ROIC FY2025,Stable,N/A,20,0,4,High,"Computed from FY2025 10-K and Capital IQ",,Recompute after FY2026
+02-011,capital-allocation-scorecard,Dividends / Organic Reinvestment,Incremental ROIC FY2025,Amber,15.9,% iROIC,Decelerating,N/A,3,0,4,High,"Computed: ΔNOPAT/ΔIC; FY2025 10-K and Capital IQ",,If <12% in FY2026 reassess thesis
+02-012,capital-allocation-scorecard,Dividends / Organic Reinvestment,FCF trend strict basis,Amber,7695,$M strict FCF FY2025,Decelerating sharply,N/A,0,2,5,High,"Capital IQ Cash Flow; FY2025 10-K p.28; Q1 2026 10-Q",,Track FCF recovery
+02-013,capital-allocation-scorecard,Balance-Sheet Prudence,Net debt trajectory,Green,0.38,x Net Debt/EBITDA FY2025,Improving,N/A,8,0,5,High,"FY2025 10-K p.39; Capital IQ Ratios",,Monitor Q1 2026 debt issuance
+02-014,capital-allocation-scorecard,Balance-Sheet Prudence,Off-balance-sheet commitments,Amber,439700,$M contractual,Deteriorating,N/A,2,1,5,High,"FY2025 10-K Note 7 p.59",,Track AWS backlog conversion
+02-015,capital-allocation-scorecard,Per-Share Value Creation,EPS growth reported diluted,Green,7.17,$/share FY2025,Accelerating,N/A,7,0,5,High,"FY2025 10-K; Capital IQ Key Stats",,Use normalized EPS $4.70
+02-016,capital-allocation-scorecard,Per-Share Value Creation,CFO per share trend,Green,12.97,$/share FY2025,Accelerating,N/A,8,0,5,High,"Capital IQ Cash Flow; FY2025 10-K p.36",,None
+03-001,incentives-and-compensation,Compensation Structure,Proxy absent — partial data,Insufficient Data,,categorical,N/A,N/A,,,2,High,"FY2025 10-K Item 11, p.74",,Add 2026 DEF 14A to pool
+03-003,incentives-and-compensation,Compensation Structure,CEO annual bonus,Green,0,USD,Stable,Better than typical,8,0,4,High,"Capital IQ Takeover Defenses; FY2025 10-K p.1596",,None
+03-005,incentives-and-compensation,Compensation Structure,CEO cash vs equity mix,Green,99.9,% equity,Stable,Better than peers,12,0,3,High,"Web: 2026 DEF 14A philosophy (unverified)",,None
+03-007,incentives-and-compensation,Performance Metrics,LTIP performance conditions,Amber,0,explicit conditions,Stable,Worse than peers,12,0,3,High,"Capital IQ Takeover Defenses; FY2025 10-K Note 1 p.44",,Request LTIP terms from DEF 14A
+03-008,incentives-and-compensation,Performance Metrics,Size-based metrics present,Green,0,size-based metrics,Stable,Better than typical,8,0,4,High,"Capital IQ Takeover Defenses; FY2025 10-K p.1596",,None
+04-001,ownership-and-insider-behavior,Ownership,Bezos founder stake,Green,8.8,% shares outstanding,Declining slowly,In line single class,20,0,3,High,"Web: 2026 DEF 14A via multiple outlets (unverified); FY2025 10-K Item 9B p.74",,Confirm in DEF 14A
+04-004,ownership-and-insider-behavior,Ownership,Bezos bought vs granted,Green,,founder equity,Stable,N/A,15,0,5,High,"FY2025 10-K p.4–5; Item 9B p.74",,None
+04-005,ownership-and-insider-behavior,Ownership,Jassy and other officers bought vs granted,Amber,,granted RSUs,Stable,In line,5,-5,5,High,"FY2025 10-K Item 9B p.74",,None
+04-007,ownership-and-insider-behavior,Insider Transactions,Bezos 10b5-1 selling plan Nov 2025,Amber,15000000,shares max planned,Continuing,N/A,,,5,High,"FY2025 10-K Item 9B p.74",,Track actual Form 4s
+04-012,ownership-and-insider-behavior,Insider Transactions,No open-market insider buys 12 months,Amber,0,open-market purchases,Stable,In line,5,-5,4,Medium,"FY2025 10-K Item 9B p.74; Q1 2026 10-Q Item 5",,Watch for open-market buys
+04-013,ownership-and-insider-behavior,Pledging,Insider share pledging,Green,0,shares pledged,Stable,In line,20,0,4,High,"FY2025 10-K Note 3 p.54; disqualifier scan",,Confirm DEF 14A anti-pledging policy
+04-014,ownership-and-insider-behavior,Control Structure,Dual-class / super-voting,Green,,None,Stable,Better than mega-cap tech,10,0,5,High,"Capital IQ Takeover Defenses Jul 2026",,None
+04-017,ownership-and-insider-behavior,Control Structure,Filter 6 controlling-owner alignment,Green,,Not triggered,Stable,N/A,,,5,High,"CLAUDE.md §24 Filter 6; Capital IQ Takeover Defenses Jul 2026",,None
+04-018,ownership-and-insider-behavior,Market Conduct,Bezos selling timing vs results,Green,,Selling preceded strong results,Stable,N/A,,,4,High,"FY2025 10-K Item 9B p.74; Capital IQ Surprise tab",,None
+05-001,board-and-shareholder-rights,Board Composition,% independent directors,Green,83.3,%,Stable,In line,18,0,3,High,"2026 DEF 14A Director Independence (web-unverified)",,Confirm from filed proxy
+05-002,board-and-shareholder-rights,Board Composition,CEO/Chair role split,Green,1,Yes,Stable,Better than peers,18,0,4,Medium,"FY2025 10-K p.4–5",,None
+05-004,board-and-shareholder-rights,Board Composition,All committees fully independent,Green,1,Yes,Stable,In line,14,0,3,High,"2026 DEF 14A Committees (web-unverified)",,Confirm from filed proxy
+05-005,board-and-shareholder-rights,Tenure / Refreshment,Average independent director tenure,Amber,10.3,years,Stable,Slightly above peers,14,2,3,Medium,"2026 DEF 14A Director dates (web-unverified)",,Does Nominating Cttee have tenure policy?
+05-006,board-and-shareholder-rights,Tenure / Refreshment,Stonesifer 29-year tenure,Amber,29,years on board,Deteriorating,Worse than benchmark,0,3,3,Medium,"2026 DEF 14A (web-unverified)",,Is Stonesifer independence reviewed annually?
+05-007,board-and-shareholder-rights,Tenure / Refreshment,Weeks overboarding Corning CEO + Amazon Audit,Amber,2,public board seats active CEO,Stable,At ISS limit,0,2,3,Medium,"2026 DEF 14A (web-unverified)",,Confirm Weeks Audit attendance
+05-008,board-and-shareholder-rights,RPT / Leakage,Material related-party transactions,Green,0,material RPTs,Stable,N/A,20,0,4,High,"FY2025 10-K Notes; disqualifier scan",,Review proxy Item 13 once in pool
+05-009,board-and-shareholder-rights,Takeover Defenses,Classified board,Green,0,No,Stable,Better than peers,15,0,5,High,"Capital IQ Takeover Defenses Jul 2026",,None
+05-010,board-and-shareholder-rights,Takeover Defenses,Dual-class structure,Green,0,No,Stable,Better than peers,15,0,5,High,"Capital IQ Takeover Defenses Jul 2026",,None
+05-012,board-and-shareholder-rights,Takeover Defenses,Majority vs plurality voting,Green,1,Majority,Stable,In line,15,0,5,High,"Capital IQ Takeover Defenses Jul 2026",,None
+05-016,board-and-shareholder-rights,Shareholder Voting,Say-on-pay 2025 % against,Amber,22,% against,Improving slowly plateau,Worse than peers,5,3,3,High,"2026 DEF 14A (web-unverified); Morningstar; SOC Group",RF-SHR-001,What steps taken post-2025 meeting?
+05-017,board-and-shareholder-rights,Shareholder Voting,RSU dilution net share count FY2023-FY2025,Amber,1.7,% per year net dilution,Deteriorating,In line,0,2,5,Medium,"FY2025 10-K Equity Stmt p.40; Note 8 p.62",,Will buyback activate post-capex?
+06-001,candor-and-disclosure-quality,Owning the Misses,Q3 2025 miss — how disclosed,Green,-4300,$M charges,N/A,Better than typical,23,0,5,High,"Q3 2025 transcript Oct 30 2025 pp.4–8",,None
+06-002,candor-and-disclosure-quality,Owning the Misses,Q4 2025 charges — how disclosed,Green,-2400,$M charges,N/A,N/A,22,0,5,High,"Q4 2025 transcript Feb 5 2026 p.9",,None
+06-003,candor-and-disclosure-quality,Owning the Misses,FCF compression pre-warned vs delivered,Green,11194,$M co-disclosed FCF FY2025,Declining as warned,N/A,23,0,5,High,"FY2024 Annual Report (warning); FY2025 10-K MD&A p.28",,Track FCF recovery
+06-004,candor-and-disclosure-quality,Owning the Misses,Recurring restructuring pattern acknowledged,Amber,4639,$M other operating exp FY2025,Deteriorating/spiking,N/A,12,3,4,Medium,"FY2025 10-K Item 7 p.27; earnings/06 §5",RF-DISC-002 borderline,Ask management for normalized baseline
+06-005,candor-and-disclosure-quality,Non-GAAP,Formal adjusted EBITDA/EBIT table,Green,,None,Stable,More conservative,18,0,5,High,"FY2025 10-K Item 7 pp.24–28",,None
+06-006,candor-and-disclosure-quality,Non-GAAP,GAAP-to-adjusted EPS gap,Amber,34.5,% gap,Recurring,N/A,10,3,5,High,"FY2025 10-K Item 7 p.27; Capital IQ",,Watch Anthropic FY2026
+06-007,candor-and-disclosure-quality,Non-GAAP,Server useful-life changes two directions two years,Amber,2,direction changes,N/A,N/A,10,3,5,High,"FY2025 10-K Note 1 p.41 p.47; earnings/06 §6",,Ask net multi-year P&L impact
+06-010,candor-and-disclosure-quality,Disclosure Transparency,Segment KPI consistency,Green,3,segments 3 yrs,Stable,N/A,18,0,5,High,"FY2025 10-K Note 10 pp.67–68",,None
+06-011,candor-and-disclosure-quality,Disclosure Transparency,AI vs core AWS revenue disclosed,Amber,,Not disclosed,Stable gap persists,Worse than peers,9,3,5,High,"Q1 2026 transcript p.10; FY2025 10-K Note 10",,Ask for AI revenue disclosure in AWS
+06-012,candor-and-disclosure-quality,Disclosure Transparency,Capex maintenance/growth split,Amber,,Not disclosed,Stable,N/A,8,3,4,Medium,"FY2025 10-K Item 7 p.28; earnings/06 §1",,None
+06-013,candor-and-disclosure-quality,Tone in Bad Times,Q3 2025 tone candid or promotional,Green,,Candid,N/A,N/A,13,0,5,High,"Q3 2025 transcript Oct 30 2025 pp.4–8",,None
+06-014,candor-and-disclosure-quality,Tone in Bad Times,Q&A directness on FCF ROIC concerns,Green,,Direct,N/A,N/A,13,0,5,High,"Q4 2025 transcript pp.10–11; Q1 2026 transcript pp.9–10",,None
+06-016,candor-and-disclosure-quality,Candor Read,Disclosure timeliness,Green,,No delay,Stable,N/A,10,0,5,High,"FY2025 10-K filed Apr 9 2026; Q1 2026 10-Q filed Apr 30 2026",,None
