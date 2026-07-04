@@ -305,7 +305,35 @@ if m.entity_from_filename("Tata_Motors_Passenger_Vehicles_Limited_-_Form_Annual_
     print("  FAIL: filename entity signal not extracted"); ok=False
 if m.entity_from_filename("Transcript Digest.pdf"):
     print("  FAIL: a cryptic filename produced a phantom entity"); ok=False
-print("  PASS: entity (content+filename signals, CIQ-header, prose/suffix rejected); zero-files blocker + entity conflict (exact-norm clusters; >=2-file threshold; unrelated=blocker / business-unit-divergence=degrade / 1-off=noise); no peer over-fire; text-usable; pure-JSON stdout" if ok else "  -> readiness test FAILED")
+# --- punctuation/typo-robust entity key + field-label rejection (the AMZN false-block incident) ---
+# punctuation/spacing variants of ONE .com name collapse to a single company (no phantom conflict)
+if m._entities_disagree(["Amazon.com, Inc","AMAZON.COM, INC","Amazon com Inc","Amazoncom Inc"]):
+    print("  FAIL: punctuation variants of one .com name tripped a false entity_disagreement"); ok=False
+if m._entity_conflict(_e(("Amazon.com, Inc",3),("Amazoncom Inc",2))) is not None:
+    print("  FAIL: 'Amazon.com, Inc' vs 'Amazoncom Inc' wrongly flagged (same company, punctuation only)"); ok=False
+# a single-glyph OCR typo ('rn'->'m') fuses into the same company (would otherwise block at >=2 files)
+if not m._same_entity(m._entity_key("Amazoncom Inc"), m._entity_key("Amazoncorn Inc")):
+    print("  FAIL: _same_entity did not fuse a <=2-edit OCR typo of a long key"); ok=False
+if m._entity_conflict(_e(("Amazoncom Inc",5),("Amazoncorn Inc",2))) is not None:
+    print("  FAIL: an OCR typo variant ('Amazoncorn') did not fuse into the majority company"); ok=False
+# GUARD: the fuzzy fuse must NOT merge genuinely different companies (a false 'same' hides contamination)
+if m._same_entity(m._entity_key("Tata Motors Limited"), m._entity_key("Tata Capital Limited")):
+    print("  FAIL: _same_entity over-merged two different companies (Tata Motors vs Tata Capital)"); ok=False
+if not m._entities_disagree(["Tata Motors Limited","Tata Capital Limited"]):
+    print("  FAIL: Tata Motors vs Tata Capital were over-merged into one company"); ok=False
+if m._same_entity("apple","ample"):
+    print("  FAIL: _same_entity fused two short look-alike words (min-length guard failed)"); ok=False
+# two DIFFERENT .com companies STILL BLOCK: their only shared token 'com' is generic, not distinctive
+if m._entity_conflict(_e(("Priceline.com Inc",3),("Overstock.com Inc",2))) != "blocker":
+    print("  FAIL: two unrelated .com companies sharing only the generic token 'com' should BLOCK"); ok=False
+# tearsheet FIELD LABELS are not company names (the CIQ label sweep-up in the incident)
+for _label in ("Named by Company","Company Type: Public Company","Country/Region of Incorporation"):
+    if m._looks_like_entity(_label):
+        print(f"  FAIL: tearsheet field label wrongly accepted as an entity: {_label!r}"); ok=False
+# 'Corporation' inside 'Incorporation' must NOT read as a cover-page registrant (leading word boundary)
+if m.entity_from_header("Country/Region of Incorporation\nUnited States\n"):
+    print("  FAIL: 'incorporation' matched the corporate-suffix cover-page rule (missing word boundary)"); ok=False
+print("  PASS: entity (content+filename signals, CIQ-header, prose/suffix/field-label rejected); zero-files blocker + entity conflict (punct-insensitive key + <=2-edit OCR fuse; >=2-file threshold; unrelated=blocker / business-unit-divergence=degrade / 1-off=noise; generic-token guard); no peer over-fire; text-usable; pure-JSON stdout" if ok else "  -> readiness test FAILED")
 sys.exit(0 if ok else 1)
 PY
 
