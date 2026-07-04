@@ -25,6 +25,10 @@ export const STATE_DIR = process.env.ENGINE_STATE_DIR
   ? path.resolve(process.env.ENGINE_STATE_DIR)
   : path.resolve(__dirname, '..', '.state')
 export const ACTIVITY_LOG_PATH = path.join(STATE_DIR, 'activity-log.jsonl')
+// Saved "chat with your data" conversations — one JSON file per conversation, so the full history of
+// every Ask conversation (who asked, when, about which company) survives restarts and can be reopened
+// and continued. Gitignored (lives under .state/). Override the parent with ENGINE_STATE_DIR.
+export const CHATS_DIR = path.join(STATE_DIR, 'chats')
 
 export const PORT = Number(process.env.PORT || 8787)
 export const HOST = '127.0.0.1'
