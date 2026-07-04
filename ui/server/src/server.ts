@@ -1197,7 +1197,7 @@ const InboxActionBody = z.object({
   inboxId: z.string().regex(INB_RE),
   action: z.enum(['dismiss', 'restore']),
 })
-app.post('/api/screener/inbox/action', async (req, reply) => {
+app.post('/api/screener/inbox/action', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async (req, reply) => {
   const parsed = InboxActionBody.safeParse(req.body)
   if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
   const { user } = identify(req)
@@ -1214,7 +1214,7 @@ const ThesisMoveBody = z.object({
   to: z.enum(MOVE_TARGETS),
   reason: z.string().max(500).optional(),
 })
-app.post('/api/screener/thesis/:id/move', async (req, reply) => {
+app.post('/api/screener/thesis/:id/move', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async (req, reply) => {
   const thesisId = (req.params as any).id as string
   if (!THESIS_RE.test(thesisId)) return reply.code(400).send({ error: 'invalid thesis id' })
   const parsed = ThesisMoveBody.safeParse(req.body)
