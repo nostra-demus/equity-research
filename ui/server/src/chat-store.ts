@@ -95,10 +95,13 @@ function newId(): string {
 }
 
 // Resolve an id to its file, asserting the result stays inside CHATS_DIR (belt-and-braces on top of ID_RE).
+// path.basename strips any directory component the id could carry, so the sink below never sees a
+// traversal-capable string even if a caller ever skipped the ID_RE check upstream.
 function fileFor(id: string): string {
-  const file = path.join(CHATS_DIR, `${id}.json`)
+  const safeId = path.basename(id)
+  const file = path.join(CHATS_DIR, `${safeId}.json`)
   const dir = path.resolve(CHATS_DIR)
-  if (path.dirname(path.resolve(file)) !== dir) throw new Error('unsafe conversation id')
+  if (safeId !== id || path.dirname(path.resolve(file)) !== dir) throw new Error('unsafe conversation id')
   return file
 }
 
