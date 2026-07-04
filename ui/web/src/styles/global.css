@@ -761,6 +761,48 @@ a { color: inherit; }
 .aresume--bar:disabled:active { transform: none; }
 .aresume__meta { font-family: var(--font-mono); font-size: 11px; opacity: 0.85; margin-left: 2px; }
 
+/* ---- grouped runs: one run (a chained full run's modules + master, or ad-hoc modules into one folder)
+   clubbed under a parent that shows it completing — step dots fill as the run finishes ---- */
+.agroup-body { border-top: 1px solid var(--hairline); }
+.agroup-body:first-of-type { border-top: none; }
+/* the parent row reads as a header band, standing slightly proud of its steps */
+.agroup { cursor: pointer; }
+.agroup > td { background: var(--surface-2); border-bottom: 1px solid var(--hairline-strong); }
+.agroup-body--open > .agroup > td { border-bottom-color: var(--hairline); }
+@media (hover: hover) and (pointer: fine) { .agroup:hover > td { background: var(--surface-3); } }
+.agroup .atable__company { font-weight: 700; }
+/* the caret is a real button so the run expands from the keyboard (Enter/Space), not just a mouse click */
+.agroup__caret { display: inline-flex; align-items: center; justify-content: center; width: 15px; margin-right: 1px;
+  background: none; border: none; padding: 0; font: inherit; font-size: 10px; line-height: 1; cursor: pointer;
+  color: var(--text-faint); transition: color var(--dur-fast) var(--ease); vertical-align: baseline; }
+.agroup:hover .agroup__caret { color: var(--accent-bright); }
+.agroup__caret:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: var(--r-sm); color: var(--accent-bright); }
+
+/* run-kind chip for an ad-hoc (non-full) grouped run — neutral, distinct from the gold "Full run" chip */
+.akind--run { color: var(--text-muted); border-color: var(--hairline-strong); }
+
+/* step-completion dots: one per step, filling as the run completes (orbs → modules → run) */
+.aprog { display: inline-flex; align-items: center; gap: 9px; }
+.aprog__dots { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 4px; max-width: 240px; }
+.aprog__dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ring-dormant); flex-shrink: 0; transition: background var(--dur-fast) var(--ease); }
+.aprog__dot--done { background: var(--accent-bright); }
+.aprog__dot--run { background: var(--accent); animation: aprog-pulse 1.2s ease-in-out infinite; }
+.aprog__dot--bad { background: var(--bad); }
+.aprog__count { font-family: var(--font-mono); font-size: 11px; color: var(--text-faint); white-space: nowrap; }
+@keyframes aprog-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+@media (prefers-reduced-motion: reduce) { .aprog__dot--run { animation: none; } }
+
+/* a step nested under its run — indented, with a vertical connector rail down the first column */
+.achild > td { background: var(--surface-1); }
+.achild > td:first-child { position: relative; padding-left: 34px; }
+.achild > td:first-child::before {
+  content: ''; position: absolute; left: 18px; top: -1px; bottom: -1px; width: 1px; background: var(--hairline-strong);
+}
+.achild:last-child > td:first-child::before { bottom: 50%; } /* the rail stops at the last step */
+.achild > td:first-child::after {
+  content: ''; position: absolute; left: 18px; top: 50%; width: 9px; height: 1px; background: var(--hairline-strong);
+}
+
 /* ---------- empty / upload state ---------- */
 .empty {
   position: absolute; inset: 0; display: grid; place-items: center; z-index: 2; padding: 24px;

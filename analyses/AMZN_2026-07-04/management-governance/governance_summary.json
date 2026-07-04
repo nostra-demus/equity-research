@@ -1,0 +1,71 @@
+{
+  "ticker": "AMZN",
+  "date": "2026-07-04",
+  "module": "management-governance",
+  "stewardship_verdict": "Aligned & competent",
+  "hard_disqualifier_flagged": false,
+  "hard_disqualifier_detail": "None — all 8 disqualifiers from business-model/01_disqualifier-scan.md are clear",
+  "scores": {
+    "management_quality": 88,
+    "capital_allocation": 73,
+    "incentive_alignment": 50,
+    "incentive_alignment_note": "Capped at 50 (max per MODULE_RULES) — no proxy / compensation disclosure in pool; pre-cap score 60",
+    "shareholder_friendliness": 60,
+    "shareholder_friendliness_note": "Capped at 60 (max per MODULE_RULES) — no complete beneficial ownership table or Form 4 log in pool; agent 05 structural score 85",
+    "disclosure_candor": 87,
+    "governance_risk": 22,
+    "governance_risk_note": "Inverted — higher = worse. 22 = low-risk profile. 2 High red flags; 0 Critical.",
+    "data_quality": 72,
+    "overall_usefulness": 70,
+    "overall_usefulness_note": "Capped at 70 (max per MODULE_RULES) — no proxy / compensation disclosure in pool"
+  },
+  "governance_score_formula": "0.20×CapAlloc + 0.18×Incentive + 0.18×ShFriendliness + 0.16×Candor + 0.16×MgmtQuality + 0.12×(100-GovRisk)",
+  "governance_score_inputs": {
+    "capital_allocation": 73,
+    "incentive_alignment": 50,
+    "shareholder_friendliness": 60,
+    "disclosure_candor": 87,
+    "management_quality": 88,
+    "governance_risk": 22,
+    "one_minus_governance_risk": 78
+  },
+  "governance_score_calculation": "0.20×73 + 0.18×50 + 0.18×60 + 0.16×87 + 0.16×88 + 0.12×78 = 14.60 + 9.00 + 10.80 + 13.92 + 14.08 + 9.36 = 71.76",
+  "governance_score": 72,
+  "confidence_score": 75,
+  "confidence_adjusted_governance_score": 54,
+  "governance_rating": "Good",
+  "governance_rating_bands": "Excellent 85-100; Good 70-84; Watchlist 55-69; Weak 40-54; Avoid <40",
+  "red_flag_count": 2,
+  "critical_red_flag_count": 0,
+  "red_flags": [
+    {
+      "id": "RF-CAP-002",
+      "trigger": "Buybacks not reducing share count",
+      "severity": "High",
+      "summary": "$6.1B of $10B authorization dormant FY2022-FY2025; net dilution +5.0% (512M shares) over 5 years"
+    },
+    {
+      "id": "RF-SHR-001",
+      "trigger": "High say-on-pay votes-against",
+      "severity": "High",
+      "summary": "22% opposition at both 2024 and 2025 Annual Meetings (threshold: >20%); improved to ~6% in 2026"
+    }
+  ],
+  "partial_data_caps_applied": [
+    "Incentive alignment capped at 50 (proxy absent)",
+    "Shareholder friendliness capped at 60 (no complete beneficial ownership table or Form 4 log in pool)",
+    "Overall usefulness capped at 70 (proxy absent)"
+  ],
+  "section_24_filter_results": {
+    "filter_1_integrity": "Not triggered — no adverse signal from disqualifier scan; RF-MGT-005 not emitted",
+    "filter_2_turnaround": "Not applicable — not a turnaround; RF-MGT-004 not applicable",
+    "filter_3_high_debt": "Not triggered — net debt/EBITDA 0.38x; EBIT/interest 35x",
+    "filter_4_serial_acquirer": "Not triggered — only 2 material deals in 5 years; RF-CAP-004 not triggered",
+    "filter_5_fast_changing_industry": "Not applied to this module",
+    "filter_6_unaligned_owner": "Not triggered — single-class, Bezos objectives aligned with per-share value; RF-OWN-004 not triggered"
+  },
+  "insider_ownership_summary": "Bezos ~8.8% (pure founder equity); all other named insiders <0.5% (RSU grants only; no open-market purchases); no pledging; single-class common stock",
+  "biggest_governance_signal": "Operating income 6.5x from $12.2B (FY2022) to $80.0B (FY2025); all multi-year promises kept or exceeded; FCF compression explicitly pre-disclosed",
+  "highest_value_missing_data": "2026 DEF 14A proxy statement — would supply compensation Discussion and Analysis, beneficial ownership table, board independence breakdown, AGM voting results, auditor fee analysis, and RPT table",
+  "supersedes": "business-model/11_capital-allocation-governance — this module is the primary governance read"
+}
