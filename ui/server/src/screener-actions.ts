@@ -5,11 +5,17 @@
 // confused. Appends route through scripts/append-ndjson.sh (atomic-mkdir lock + idempotency key),
 // the same path every other shared ledger uses.
 
-import { execFileSync } from 'node:child_process'
+import { execFile } from 'node:child_process'
 import { createHash, randomUUID } from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
+import { promisify } from 'node:util'
 import { REPO_ROOT } from './config'
+
+// async execFile (never execFileSync from a request handler — spawning bash synchronously blocks the
+// single event loop; append-ndjson.sh serializes with its own mkdir lock, so concurrent async appends
+// are as safe as the sequential sync ones were).
+const execFileAsync = promisify(execFile)
 
 export const MOVE_TARGETS = ['watchlist', 'provisional', 'full_machine', 'engine'] as const
 export type MoveTarget = (typeof MOVE_TARGETS)[number]
@@ -42,7 +48,7 @@ function readThesisStatus(thesisId: string, repoRoot: string): string | null {
  * `to: 'engine'` clears the override (to_status null); `to: 'watchlist'` lands as watchlist_manual
  * so a hand-move is never confused with the engine's own watchlist reasons.
  */
-export function moveThesis(thesisId: string, to: MoveTarget, reason: string, user: string, repoRoot: string = REPO_ROOT): ThesisOverride | null {
+export async function moveThesis(thesisId: string, to: MoveTarget, reason: string, user: string, repoRoot: string = REPO_ROOT): Promise<ThesisOverride | null> {
   const engineStatus = readThesisStatus(thesisId, repoRoot)
   if (engineStatus === null) return null
   const moved_at = new Date().toISOString().replace(/\.\d{3}Z$/, 'Z')
@@ -59,22 +65,20 @@ export function moveThesis(thesisId: string, to: MoveTarget, reason: string, use
     moved_by: user,
     moved_at,
   }
-  execFileSync('bash', [path.join(REPO_ROOT, 'scripts', 'append-ndjson.sh'), OVERRIDES(repoRoot), JSON.stringify(record), 'override_id', record.override_id], {
+  await execFileAsync('bash', [path.join(REPO_ROOT, 'scripts', 'append-ndjson.sh'), OVERRIDES(repoRoot), JSON.stringify(record), 'override_id', record.override_id], {
     cwd: repoRoot,
-    stdio: 'ignore',
   })
   return record
 }
 
 /** Append an inbox dismiss/restore audit line (best-effort; the sweep file is the ground truth). */
-export function auditInboxAction(inboxId: string, action: 'inbox_dismiss' | 'inbox_restore', user: string, repoRoot: string = REPO_ROOT): void {
+export async function auditInboxAction(inboxId: string, action: 'inbox_dismiss' | 'inbox_restore', user: string, repoRoot: string = REPO_ROOT): Promise<void> {
   const at = new Date().toISOString().replace(/\.\d{3}Z$/, 'Z')
   const hash = createHash('sha256').update(`${inboxId}|${action}|${at}`).digest('hex').slice(0, 8)
   const record = { override_id: `OVR-${at.slice(0, 10).replace(/-/g, '')}-${hash}`, kind: action, inbox_id: inboxId, by: user, at }
   try {
-    execFileSync('bash', [path.join(REPO_ROOT, 'scripts', 'append-ndjson.sh'), OVERRIDES(repoRoot), JSON.stringify(record), 'override_id', record.override_id], {
+    await execFileAsync('bash', [path.join(REPO_ROOT, 'scripts', 'append-ndjson.sh'), OVERRIDES(repoRoot), JSON.stringify(record), 'override_id', record.override_id], {
       cwd: repoRoot,
-      stdio: 'ignore',
     })
   } catch {
     // audit is best-effort

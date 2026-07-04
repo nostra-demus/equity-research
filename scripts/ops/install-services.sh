@@ -81,6 +81,10 @@ resolve_bin() { local n="$1" fallback="$2" p; p="$(command -v "$n" 2>/dev/null |
   [ -n "$p" ] || for c in "/opt/homebrew/bin/$n" "/usr/local/bin/$n"; do [ -x "$c" ] && p="$c" && break; done; \
   printf '%s' "${p:-$fallback}"; }
 NPM_BIN="$(resolve_bin npm /usr/local/bin/npm)"
+# node is launched DIRECTLY by the engine plist (not via `npm start` → tsx) so that launchctl's SIGTERM on
+# `kickstart -k` reaches the node process, whose graceful-shutdown handler then drains SSE + closes sockets
+# cleanly (npm/tsx do NOT forward the signal — the child would just be SIGKILLed, dropping connections).
+NODE_BIN="$(resolve_bin node /usr/local/bin/node)"
 CLOUDFLARED_BIN="$(resolve_bin cloudflared /usr/local/bin/cloudflared)"
 
 OPS="$HOME/.nostra-ops"; mkdir -p "$OPS"
@@ -112,15 +116,16 @@ xesc() {
   printf '%s' "$s" | sed -e 's/\\/\\\\/g' -e 's/[&#]/\\&/g'   # 2) sed-RHS escape
 }
 render() {
-  local f="$1" e_home e_prod e_state e_path e_npm e_cf e_news
+  local f="$1" e_home e_prod e_state e_path e_npm e_node e_cf e_news
   e_home="$(xesc "$HOME")"; e_prod="$(xesc "$PROD")"; e_state="$(xesc "$STATE_DIR")"; e_path="$(xesc "$PLIST_PATH")"
-  e_npm="$(xesc "$NPM_BIN")"; e_cf="$(xesc "$CLOUDFLARED_BIN")"; e_news="$(xesc "$NEWS_ARCHIVE_DIR")"
+  e_npm="$(xesc "$NPM_BIN")"; e_node="$(xesc "$NODE_BIN")"; e_cf="$(xesc "$CLOUDFLARED_BIN")"; e_news="$(xesc "$NEWS_ARCHIVE_DIR")"
   sed -i '' \
     -e "s#{{HOME}}#$e_home#g" \
     -e "s#{{ENGINE_REPO_ROOT}}#$e_prod#g" \
     -e "s#{{STATE_DIR}}#$e_state#g" \
     -e "s#{{PLIST_PATH}}#$e_path#g" \
     -e "s#{{NPM_BIN}}#$e_npm#g" \
+    -e "s#{{NODE_BIN}}#$e_node#g" \
     -e "s#{{CLOUDFLARED_BIN}}#$e_cf#g" \
     -e "s#{{NEWS_ARCHIVE_DIR}}#$e_news#g" \
     "$f"

@@ -13,9 +13,9 @@ import { markInboxConsumed, setDismissed } from '../src/news/inbox-actions'
 import { moveThesis } from '../src/screener-actions'
 
 let passed = 0
-function check(name: string, fn: () => void) {
+async function check(name: string, fn: () => void | Promise<void>) {
   try {
-    fn()
+    await fn()
     passed++
     console.log(`  ok  ${name}`)
   } catch (e: any) {
@@ -48,7 +48,7 @@ function mkRepo(): string {
   return root
 }
 
-check('inbox: dismiss → restore round-trip stamps and clears human state; file stays valid JSON', () => {
+await check('inbox: dismiss → restore round-trip stamps and clears human state; file stays valid JSON', () => {
   const root = mkRepo()
   const dismissed = setDismissed(root, 'INB-20260612-001', true, 'tester@x')
   assert.equal(dismissed?.dismissed, true)
@@ -63,7 +63,7 @@ check('inbox: dismiss → restore round-trip stamps and clears human state; file
   assert.equal(setDismissed(root, 'INB-19990101-999', true, 'x'), null) // unknown id → null, no write
 })
 
-check('inbox: markInboxConsumed sets consumed + launched_signal_id (idempotent)', () => {
+await check('inbox: markInboxConsumed sets consumed + launched_signal_id (idempotent)', () => {
   const root = mkRepo()
   const row = markInboxConsumed(root, 'INB-20260612-002', 'SIG-20260612-abcd1234')
   assert.equal(row?.consumed, true)
@@ -72,31 +72,31 @@ check('inbox: markInboxConsumed sets consumed + launched_signal_id (idempotent)'
   assert.equal(again?.consumed, true)
 })
 
-check('thesis move: override appended (engine status captured); engine thesis file untouched; unknown id → null', () => {
+await check('thesis move: override appended (engine status captured); engine thesis file untouched; unknown id → null', async () => {
   const root = mkRepo()
-  const rec = moveThesis('THS-SIG-20260612-test-v1', 'provisional', 'I think the edge is real', 'tester@x', root)
+  const rec = await moveThesis('THS-SIG-20260612-test-v1', 'provisional', 'I think the edge is real', 'tester@x', root)
   assert.ok(rec)
   assert.equal(rec!.from_status, 'watchlist_no_edge')
   assert.equal(rec!.to_status, 'provisional')
   const lines = fs.readFileSync(path.join(root, 'screener/ledger/overrides.ndjson'), 'utf8').trim().split('\n')
   assert.equal(lines.length, 1)
   // 'watchlist' maps to watchlist_manual; 'engine' clears (to_status null)
-  const w = moveThesis('THS-SIG-20260612-test-v1', 'watchlist', '', 'tester@x', root)
+  const w = await moveThesis('THS-SIG-20260612-test-v1', 'watchlist', '', 'tester@x', root)
   assert.equal(w!.to_status, 'watchlist_manual')
-  const clear = moveThesis('THS-SIG-20260612-test-v1', 'engine', '', 'tester@x', root)
+  const clear = await moveThesis('THS-SIG-20260612-test-v1', 'engine', '', 'tester@x', root)
   assert.equal(clear!.to_status, null)
   // engine-owned thesis JSON was never edited
   const thesis = JSON.parse(fs.readFileSync(path.join(root, 'screener/ledger/theses/THS-SIG-20260612-test-v1.json'), 'utf8'))
   assert.equal(thesis.meta.status, 'watchlist_no_edge')
-  assert.equal(moveThesis('THS-MISSING-v1', 'provisional', '', 'x', root), null)
+  assert.equal(await moveThesis('THS-MISSING-v1', 'provisional', '', 'x', root), null)
 })
 
-check('python board builder: effective_status + override + staleness applied; engine status untouched', () => {
+await check('python board builder: effective_status + override + staleness applied; engine status untouched', async () => {
   const root = mkRepo()
   // stage the real script into the skeleton (it roots itself from __file__)
   fs.mkdirSync(path.join(root, 'scripts'), { recursive: true })
   fs.copyFileSync(path.join(REPO_ROOT, 'scripts', 'update_board_index.py'), path.join(root, 'scripts', 'update_board_index.py'))
-  moveThesis('THS-SIG-20260612-test-v1', 'full_machine', 'promote it', 'tester@x', root)
+  await moveThesis('THS-SIG-20260612-test-v1', 'full_machine', 'promote it', 'tester@x', root)
   execFileSync('python3', [path.join(root, 'scripts', 'update_board_index.py')], { cwd: root, stdio: 'ignore' })
   const board = JSON.parse(fs.readFileSync(path.join(root, 'screener/board/index.json'), 'utf8'))
   const t = board.theses.find((x: any) => x.thesis_id === 'THS-SIG-20260612-test-v1')

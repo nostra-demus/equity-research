@@ -15,6 +15,11 @@
 #                  (TCP) is the only working transport. It is full-duplex and good for SSE; keep it.
 # The originRequest block reduces FALSE origin-down reports and stops idle SSE streams being reaped when the
 # tunnel reuses upstream connections — both contribute to the "stays online" goal.
+#
+# keep-alive pairing (prevents an intermittent 502): the ENGINE's Fastify keepAliveTimeout is set to 92s
+# (ui/server/src/server.ts) — deliberately ABOVE the 90s below. The rule is that the PROXY (cloudflared)
+# must always close an idle pooled connection first; if the origin's timeout were the shorter one, cloudflared
+# would reuse a socket the origin had already closed and return a 502 Bad Gateway. Keep origin > cloudflared.
 
 tunnel: REPLACE_WITH_TUNNEL_UUID
 credentials-file: /Users/REPLACE_ME/.cloudflared/REPLACE_WITH_TUNNEL_UUID.json
@@ -25,7 +30,9 @@ originRequest:
   tlsTimeout: 10s
   tcpKeepAlive: 30s              # probe the upstream socket so a silently-dead one is replaced, not reused
   keepAliveConnections: 100      # reuse upstream conns -> fewer reconnect stalls under burst
-  keepAliveTimeout: 90s          # > the engine's 15s SSE keep-alive, so a pooled idle conn isn't reaped mid-stream
+  keepAliveTimeout: 90s          # > the engine's 15s SSE keep-alive (idle stream not reaped) AND < the engine's
+                                 # 92s Fastify keepAliveTimeout, so cloudflared always closes an idle pooled
+                                 # conn first — never reuses one the origin already closed (that races into a 502)
   noHappyEyeballs: true          # the localhost origin is single-stack IPv4 — skip dual-stack racing
   httpHostHeader: localhost
   disableChunkedEncoding: false  # MUST stay false — SSE needs streamed (chunked) responses
