@@ -11,10 +11,14 @@ subset, so schema conformance can be asserted on machines without the jsonschema
 Also validates the commodity swarm's decision_record.json against
 frameworks/commodity/decision_record.schema.json for every committed
 commodity/runs/<COMMODITY>/ (auto-discovered — no fixture list to maintain per commodity),
-plus a structural check that its `action` field agrees with the dossier's own
-`## Routing` `Action:` line (the commodity-scoped twin of eval.py's I_decision_in_thesis
-check for the research swarm — the research swarm has no visibility into commodity/runs/,
-so this is the only place that catch is made).
+plus two structural cross-checks against the run's own upstream artifacts:
+- `action` agrees with the dossier's own `## Routing` `Action:` line (the commodity-scoped
+  twin of eval.py's I_decision_in_thesis check for the research swarm — the research swarm
+  has no visibility into commodity/runs/, so this is the only place that catch is made).
+- `action` respects the run's own `00_commodity-triage.md` Sufficiency Verdict, per
+  MODULE_RULES.md §5 ("Research More is the honest default when a module came back
+  Insufficient... never paper over a gap with false confidence") — the commodity-scoped
+  twin of eval.py's Y_data_sufficiency_cap for the research swarm.
 
 Usage:
     python3 scripts/validate_screener_json.py <schema.json> <doc.json> [...more pairs]
@@ -148,7 +152,9 @@ FIXTURE_PAIRS = [
 
 COMMODITY_SCHEMA = "frameworks/commodity/decision_record.schema.json"
 COMMODITY_DOSSIER = "commodity-thesis/99_commodity-thesis-synthesis.md"
+COMMODITY_TRIAGE = "market-structure/00_commodity-triage.md"
 ROUTING_ACTION_RE = re.compile(r"##\s*Routing[\s\S]*?^Action:\s*(.+)$", re.MULTILINE)
+TRIAGE_VERDICT_RE = re.compile(r"\*\*Verdict:\*\*\s*(Sufficient|Partial|Insufficient)\b")
 
 
 def commodity_decision_records() -> list[str]:
@@ -179,6 +185,30 @@ def check_commodity_routing(doc_path: str) -> list[str]:
     return []
 
 
+def check_commodity_data_sufficiency(doc_path: str) -> list[str]:
+    """MODULE_RULES.md §5, mechanically enforced: an `Insufficient` triage verdict must land
+    on action `Research More`, and a `Partial` verdict (one lens's primary source unreachable)
+    must not be strong enough to justify `Buy` — the commodity-scoped twin of eval.py's
+    Y_data_sufficiency_cap (CLAUDE.md §11: do not let false confidence paper over a data gap)."""
+    run_dir = os.path.dirname(doc_path)
+    triage_path = os.path.join(run_dir, COMMODITY_TRIAGE)
+    doc = json.load(open(doc_path, encoding="utf-8"))
+    action = doc.get("action")
+    if not os.path.exists(triage_path):
+        return [f"triage not found at {os.path.relpath(triage_path, REPO)} — cannot cross-check data sufficiency"]
+    triage = open(triage_path, encoding="utf-8").read()
+    m = TRIAGE_VERDICT_RE.search(triage)
+    if not m:
+        return ["triage has no '**Verdict:** Sufficient/Partial/Insufficient' line to cross-check"]
+    verdict = m.group(1)
+    if verdict == "Insufficient" and action != "Research More":
+        return [f"triage verdict 'Insufficient' but decision_record action={action!r} != 'Research More' (MODULE_RULES.md §5)"]
+    if verdict == "Partial" and action == "Buy":
+        return ["triage verdict 'Partial' (a lens's primary source unreachable) cannot support "
+                 "action='Buy' (MODULE_RULES.md §5 / CLAUDE.md §11 — no forced conviction on incomplete data)"]
+    return []
+
+
 def main(argv: list[str]) -> int:
     if len(argv) >= 2 and argv[1] == "--fixture":
         pairs = [(os.path.join(REPO, s), os.path.join(REPO, d)) for s, d in FIXTURE_PAIRS]
@@ -193,7 +223,7 @@ def main(argv: list[str]) -> int:
         errs = validate(schema_p, doc_p)
         rel = os.path.relpath(doc_p, REPO)
         if os.path.abspath(schema_p) == os.path.abspath(os.path.join(REPO, COMMODITY_SCHEMA)):
-            errs = errs + check_commodity_routing(doc_p)
+            errs = errs + check_commodity_routing(doc_p) + check_commodity_data_sufficiency(doc_p)
         if errs:
             bad += 1
             print(f"FAIL {rel}")
