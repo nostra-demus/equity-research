@@ -130,7 +130,7 @@ def test_facts(d: Path) -> None:
     present("total_debt_m", 31500)
     present("ltm_ebitda_m", 2273)
     present("ltm_ocf_m", 2550)
-    present("free_cash_flow_m", 528)
+    present("levered_fcf_m", 528)
     present("interest_coverage_x", round(2273 / 410, 1))
     present("ev_ebitda_current_x", 8.5)
     present("pe_ltm_current_x", 48.7)

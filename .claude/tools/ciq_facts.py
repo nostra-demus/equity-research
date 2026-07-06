@@ -234,7 +234,9 @@ def pe_ltm_current(bundle: ResolvedBundle) -> Sourced:
 
 
 # --- quality: Cash Flow / Income Statement / Balance Sheet ------------------------------------
-def free_cash_flow(bundle: ResolvedBundle) -> Sourced:
+def levered_fcf(bundle: ResolvedBundle) -> Sourced:
+    """CIQ's LEVERED Free Cash Flow (after interest & debt service) — NOT the engine's §15 FCF (CFO − total
+    capex, unlevered). Named + source-labelled so an agent never cites it as the canonical §15 FCF."""
     try:
         rows = bundle.sheet("financials", "Cash Flow", freq="annual")
     except CiqUnavailableError as exc:
@@ -246,7 +248,8 @@ def free_cash_flow(bundle: ResolvedBundle) -> Sourced:
     if latest is None:
         return Sourced.unknown(note="Levered Free Cash Flow has no value in any period")
     _, value, period = latest
-    return Sourced.present(round(value, 1), source_ref=f"CIQ Financials→Cash Flow 'Levered Free Cash Flow' [{period}]")
+    return Sourced.present(round(value, 1),
+                           source_ref=f"CIQ Financials→Cash Flow 'Levered Free Cash Flow' [{period}] — LEVERED FCF (after interest), NOT the §15 CFO−capex FCF")
 
 
 def interest_coverage(bundle: ResolvedBundle) -> Sourced:
@@ -297,7 +300,13 @@ def _bs_latest(bundle: ResolvedBundle, label: str) -> Sourced:
 
 
 def net_debt(bundle: ResolvedBundle) -> Sourced:
-    return _bs_latest(bundle, "Net Debt")
+    # CIQ's 'Net Debt' is a VENDOR basis (may net short-term / liquid investments) — label it so a consumer
+    # reconciles against the strict total-debt − cash-equivalents basis before publishing (§15).
+    s = _bs_latest(bundle, "Net Debt")
+    if s.status is SourceStatus.PRESENT and s.source_ref:
+        return Sourced.present(s.value, note=s.note,
+                               source_ref=s.source_ref + " — CIQ vendor basis (may net short-term/liquid investments; confirm vs the strict total-debt−cash basis, §15)")
+    return s
 
 
 def total_debt(bundle: ResolvedBundle) -> Sourced:
@@ -549,7 +558,7 @@ FACTS: dict[str, Callable[[ResolvedBundle], Sourced]] = {
     "total_debt_m": total_debt,
     "ltm_ebitda_m": ltm_ebitda,
     "ltm_ocf_m": ltm_ocf,
-    "free_cash_flow_m": free_cash_flow,
+    "levered_fcf_m": levered_fcf,
     "interest_coverage_x": interest_coverage,
     "ev_ebitda_current_x": ev_ebitda_current,
     "ev_ebitda_percentile": ev_ebitda_percentile,
