@@ -322,6 +322,41 @@ def test_ownership_missing(base: Path) -> None:
           str(f["insider_net_activity"]))
 
 
+def test_maturity_wall(base: Path) -> None:
+    # The §18 distress input. Guards the nuance an LLM botches: LEASES (no maturity) are separated from the
+    # dated refinancing wall; the '-' principal row is skipped; the next FY block does NOT leak in.
+    from datetime import date as _date
+    d = base / "maturity"
+    d.mkdir()
+    _wb(d / "Acme Financials_Annual.xlsx", {
+        "Capital Structure Details": [
+            ["Acme (NYSE:ACME) > Financials > Capital Structure Details"],
+            ["FY 2025 (Dec-31-2025) Capital Structure As Reported Details"],
+            ["Description", "Type", "Principal Due (USD)", "Coupon/Base Rate", "Floating Rate", "Maturity", "Seniority"],
+            ["5% Notes Due 2026", "Bonds and Notes", 100, "5.0%", "NA", _date(2026, 6, 1), "Senior"],
+            ["6% Notes Due 2028", "Bonds and Notes", 200, "6.0%", "NA", _date(2028, 6, 1), "Senior"],
+            ["Revolver", "Revolving Credit", 50, "NA", "SOFR + 2%", _date(2027, 6, 1), "Senior"],
+            ["Operating Lease Liabilities", "Capital Lease", 1000, "7.0%", "NA", "-", "Senior"],  # lease — no maturity
+            ["Matured Note", "Bonds and Notes", "-", "5.0%", "NA", _date(2025, 1, 1), "Senior"],  # '-' principal → skip
+            ["FY 2024 (Dec-31-2024) Capital Structure As Reported Details"],  # next block — must STOP here
+            ["Description", "Type", "Principal Due (USD)", "Coupon/Base Rate", "Floating Rate", "Maturity", "Seniority"],
+            ["Old Note", "Bonds and Notes", 9999, "5.0%", "NA", _date(2024, 6, 1), "Senior"],  # must NOT be counted
+        ],
+    })
+    f = F.build_facts(d, "ACME")["facts"]
+    mw = f["debt_maturity_wall"]
+    v = str(mw["value"])
+    # dated = 100+200+50 = 350; leases = 1,000 (separated); Matured '-' skipped; FY2024 9,999 excluded
+    check("debt_maturity_wall: dated 350 of 1,350; leases separated",
+          mw["status"] == "present" and "dated debt 350 of 1,350" in v and "leases (no refi maturity) 1,000" in v, str(mw))
+    check("debt_maturity_wall: schedule buckets 2026 100; 2027 50; 2028 200",
+          "2026 100" in v and "2027 50" in v and "2028 200" in v, str(mw))
+    check("debt_maturity_wall: 50 floating / 1,300 fixed (revolver floats; leases fixed)",
+          "50 floating / 1,300 fixed" in v, str(mw))
+    check("debt_maturity_wall: next-block (FY2024) 9,999 does NOT leak in",
+          "9,999" not in v, str(mw))
+
+
 def test_xls_fact_chain() -> None:
     # The whole chain above is exercised on synthetic .xlsx (openpyxl). But real Capital IQ exports are
     # frequently LEGACY BIFF .xls read by xlrd — a different reader with its own date/number decoding. Prove
@@ -458,6 +493,8 @@ def main() -> int:
         print("== ownership / insider facts (+ data-error sentinel guard) ==")
         test_ownership(d)
         test_ownership_missing(d)
+        print("== debt maturity wall (lease-separation + block boundary) ==")
+        test_maturity_wall(d)
         print("== legacy .xls (xlrd) fact chain ==")
         test_xls_fact_chain()
         print("== reported currency (not USD) ==")

@@ -794,6 +794,84 @@ def institutional_ownership_trend(bundle: ResolvedBundle) -> Sourced:
         source_ref="CIQ Public Ownership→History (aggregate of tracked holders, first vs last dated period)")
 
 
+# --- debt: Capital Structure Details (the maturity wall — the §18/§24 distress input) ---------
+# The per-instrument debt schedule an LLM cannot reliably bucket out of a prose debt note. The single
+# nuance it routinely botches: a company's headline "Total Debt" includes LEASE liabilities that carry NO
+# maturity date — they amortize, they do not refinance. The refinancing WALL is only the DATED bonds/loans;
+# we separate the two so a survival read never treats 25bn of amortizing leases as a refinancing cliff.
+def _capstruct_block(rows: Rows) -> tuple[int, dict[str, int | None], date | None] | None:
+    """The LATEST per-instrument 'As Reported Details' block: the FIRST 'Description' header row, its columns
+    mapped by label (order varies), and the block's as-of date parsed from the section header just above it."""
+    hdr = next((i for i, r in enumerate(rows) if r and str(r[0]).strip() == "Description"), None)
+    if hdr is None:
+        return None
+    header = [str(c).strip().lower().replace("\xa0", " ") for c in rows[hdr]]
+
+    def col(pred: Callable[[str], bool]) -> int | None:
+        return next((j for j, c in enumerate(header) if pred(c)), None)
+
+    cols = {
+        "principal": col(lambda c: "principal due" in c),
+        "type": col(lambda c: c == "type"),
+        "floating": col(lambda c: "floating" in c),
+        "maturity": col(lambda c: c == "maturity"),
+    }
+    asof = next((_label_date(rows[i][0]) for i in range(hdr - 1, max(hdr - 4, -1), -1)
+                 if rows[i] and _label_date(rows[i][0]) is not None), None)
+    return (hdr, cols, asof) if cols["principal"] is not None and cols["maturity"] is not None else None
+
+
+def debt_maturity_wall(bundle: ResolvedBundle) -> Sourced:
+    """The refinancing wall: DATED bond/loan principal by maturity year (+ nearest, weighted-avg maturity,
+    fixed vs floating), with amortizing LEASES separated out (they have no maturity to refinance)."""
+    try:
+        rows = bundle.sheet("financials", "Capital Structure Details", freq="annual")
+    except CiqUnavailableError as exc:
+        return _miss_or_unknown(bundle, "financials", exc)
+    blk = _capstruct_block(rows)
+    if blk is None:
+        return Sourced.unknown(note="Capital Structure Details grid header ('Description' + 'Principal Due' + 'Maturity') not found")
+    hdr, cols, asof = blk
+    pc, mc, fc, tc = cols["principal"], cols["maturity"], cols["floating"], cols["type"]
+    by_year: dict[int, float] = {}
+    dated = leases = floating = fixed = 0.0
+    nearest: date | None = None
+    wam_num = 0.0
+    for r in rows[hdr + 1:]:
+        desc = str(r[0]).strip() if r else ""
+        if not desc or "as reported" in desc.lower():  # end of the latest block (blank row or the next FY block)
+            break
+        p = clean_num(r[pc]) if pc < len(r) else None
+        if p is None or p <= 0:
+            continue
+        mat = excel_date(r[mc]) if mc < len(r) else None
+        typ = str(r[tc]).strip().lower() if tc is not None and tc < len(r) else ""
+        if fc is not None and fc < len(r) and str(r[fc]).strip() not in ("NA", "N/A", "-", ""):
+            floating += p
+        else:
+            fixed += p
+        if mat is None or "lease" in typ:  # leases amortize — no refinancing maturity
+            leases += p
+        else:
+            by_year[mat.year] = by_year.get(mat.year, 0.0) + p
+            dated += p
+            nearest = mat if nearest is None or mat < nearest else nearest
+            if asof is not None:
+                wam_num += p * ((mat - asof).days / 365.25)
+    if dated == 0 and leases == 0:
+        return Sourced.unknown(note="no priced instruments in Capital Structure Details")
+    sched = "; ".join(f"{y} {v:,.0f}" for y, v in sorted(by_year.items()))
+    asof_s = asof.isoformat() if asof else "the reporting date"
+    wam = f", WAM ~{wam_num / dated:.1f}y from {asof_s}" if dated and asof else ""
+    near = f"; nearest {nearest.isoformat()}" if nearest else ""
+    lease = f"; amortizing leases (no refi maturity) {leases:,.0f}" if leases else ""
+    total = dated + leases
+    return Sourced.present(
+        f"dated debt {dated:,.0f} of {total:,.0f} total principal by maturity — {sched}{near}{wam}; "
+        f"{floating:,.0f} floating / {fixed:,.0f} fixed{lease}",
+        source_ref="CIQ Financials→Capital Structure Details (latest as-reported block: Principal Due × Maturity × Floating Rate; leases carry no maturity)")
+
+
 # --- emit ------------------------------------------------------------------------------------
 # Money facts are in MILLIONS OF THE REPORTED CURRENCY (the '_m' suffix) — NOT necessarily USD. CIQ states
 # the currency as a 'Currency | USD' cell (Capital Structure / per-column) or 'Currency: | US Dollar'
@@ -849,6 +927,7 @@ FACTS: dict[str, Callable[[ResolvedBundle], Sourced]] = {
     "insider_open_market": insider_open_market,
     "top_institutional_holders": top_institutional_holders,
     "institutional_ownership_trend": institutional_ownership_trend,
+    "debt_maturity_wall": debt_maturity_wall,
 }
 
 
