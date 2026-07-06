@@ -219,5 +219,27 @@ const sorted = (a: string[]) => [...a].sort()
     }
   })
 
+  // Finding 8: a RESUME of a broken run must drop any stale RUN_FAILURE.md left by the earlier break
+  // SYNCHRONOUSLY, at the moment the relaunch starts — not only later, when the resumed attempt eventually
+  // completes (finalizeRunOnClose's clearRunFailure). rerun.md's own success-path Step 9B already `rm -f`s
+  // it before its commit, but this closes the same hole for any OTHER commit of the run root that might
+  // fire before that step ever runs.
+  await check('RESUME: a stale RUN_FAILURE.md from the earlier break is removed as soon as the relaunch starts', async () => {
+    const TICK = 'ZZRSMFAIL'
+    const d = new Date()
+    const TODAY = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+    const runRootAbs = path.join(REPO_ROOT, 'analyses', `${TICK}_${TODAY}`)
+    try {
+      fs.mkdirSync(path.join(runRootAbs, 'business-model'), { recursive: true })
+      fs.writeFileSync(path.join(runRootAbs, 'business-model', '99_business-model-synthesis.md'), '# done\n')
+      fs.writeFileSync(path.join(runRootAbs, 'RUN_FAILURE.md'), '# Run Failure\n\n- status: FAILED (from the earlier break)\n')
+      const f = makeFake()
+      await launchFullChained(TICK, 'tester', 'local', f.deps)
+      assert.ok(!fs.existsSync(path.join(runRootAbs, 'RUN_FAILURE.md')), 'the stale failure note must be gone the moment the resume starts, not just at eventual completion')
+    } finally {
+      fs.rmSync(runRootAbs, { recursive: true, force: true })
+    }
+  })
+
   console.log(`\n${passed} checks passed${process.exitCode ? ' (with failures)' : ''}`)
 })()

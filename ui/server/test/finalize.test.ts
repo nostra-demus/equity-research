@@ -210,6 +210,105 @@ try {
       __setFailureNoteCommitter(prev)
     }
   })
+
+  // 9. Finding 1: a structured stream `result` error (error_max_turns / error_during_execution / is_error)
+  //    finalizes EARLY, via handleStreamLine, before the process ever closes — finalizeRunOnClose then
+  //    returns immediately (endedAt already set) and would otherwise never write the .interrupted marker
+  //    or RUN_FAILURE.md for the single most common budget/API-error stop. Assert the SAME failure note
+  //    gets recorded from the stream path itself.
+  check('a stream-result error (error_max_turns) records the SAME failure note as a close-time error', () => {
+    const root = path.join(ANALYSES_DIR, `ZZFINI_${DATE}`)
+    cleanupDirs.push(root)
+    fs.mkdirSync(root, { recursive: true })
+    const committed: Array<{ runRoot: string; file: string; msg: string }> = []
+    const prev = __setFailureNoteCommitter((runRoot, file, msg) => committed.push({ runRoot, file, msg }))
+    try {
+      const { run } = mkRun('full', 'ZZFINI')
+      const streamError = JSON.stringify({ type: 'result', subtype: 'error_max_turns', is_error: true, result: 'ran out of turns mid-valuation' })
+      handleStreamLine(run, streamError)
+      assert.equal(run.status, 'error', 'the stream result finalizes the run early')
+      const md = fs.readFileSync(path.join(root, 'RUN_FAILURE.md'), 'utf8')
+      assert.match(md, /reason: error_max_turns/)
+      assert.match(md, /ran out of turns mid-valuation/)
+      assert.equal(committed.length, 1, 'RUN_FAILURE.md must be committed from the stream-result path too')
+      const marker = readRunMarker(`analyses/ZZFINI_${DATE}`, '.interrupted') as any
+      assert.equal(marker?.reason, 'error_max_turns')
+      assert.match(String(run.note), /error_max_turns/, 'the durable activity-log note is set too')
+      // close is now a no-op (already finalized) — mirrors the existing "error result" test
+      finalizeRunOnClose(run, { exitCode: 1 }, 'ignored')
+      assert.equal(committed.length, 1, 'close must not record a second failure note')
+    } finally {
+      __setFailureNoteCommitter(prev)
+    }
+  })
+
+  // 10. Findings 5/12/14: a SAME-DAY relaunch into a folder that already holds final_thesis.md +
+  //     decision_record.json from an EARLIER, genuinely-completed run must NOT let those stale files (a)
+  //     suppress recordRunFailure's note (Finding 5), or (b) make the run-done success-override branch
+  //     treat a fresh, real failure as done (Findings 12/14). The files are backdated well past the
+  //     shipped-by-this-attempt skew tolerance so they read as provably stale, not a timing artifact.
+  check('a same-day relaunch with STALE deliverables from an earlier run still records a fresh failure', () => {
+    const root = path.join(ANALYSES_DIR, `ZZFINJ_${DATE}`)
+    cleanupDirs.push(root)
+    fs.mkdirSync(root, { recursive: true })
+    const thesisPath = path.join(root, 'final_thesis.md')
+    const decisionPath = path.join(root, 'decision_record.json')
+    fs.writeFileSync(thesisPath, '# stale thesis from an earlier completed run\n')
+    fs.writeFileSync(decisionPath, '{}\n')
+    const anHourAgo = new Date(Date.now() - 60 * 60 * 1000)
+    fs.utimesSync(thesisPath, anHourAgo, anHourAgo)
+    fs.utimesSync(decisionPath, anHourAgo, anHourAgo)
+    const committed: Array<{ runRoot: string; file: string; msg: string }> = []
+    const prev = __setFailureNoteCommitter((runRoot, file, msg) => committed.push({ runRoot, file, msg }))
+    try {
+      const { run, events } = mkRun('full', 'ZZFINJ') // startedAt = now, well AFTER the backdated files
+      finalizeRunOnClose(run, { exitCode: 1 }, 'a fresh failure this same-day relaunch attempt')
+      assert.equal(run.status, 'error', 'stale deliverables from an earlier run must not be mistaken for THIS attempt shipping')
+      assert.ok(!events.find((e) => e.type === 'run-done'), 'no run-done for a fresh failure just because old files sit in the folder')
+      assert.ok(fs.existsSync(path.join(root, 'RUN_FAILURE.md')), 'the fresh failure must still get a RUN_FAILURE.md')
+      assert.equal(committed.length, 1)
+      const marker = readRunMarker(`analyses/ZZFINJ_${DATE}`, '.interrupted') as any
+      assert.equal(marker?.reason, 'nonzero_exit', 'the fresh failure must still mark .interrupted so the resume supervisor can find it')
+      assert.match(String(run.note), /nonzero_exit/, 'the durable note must carry the fresh failure, not be suppressed')
+    } finally {
+      __setFailureNoteCommitter(prev)
+    }
+  })
+
+  // 11. Finding 12 (bottom-else clear-guard): a SIBLING chained module finishing CLEANLY must not clear a
+  //     FRESH RUN_FAILURE.md that a DIFFERENT sibling's genuine failure just wrote for THIS SAME attempt,
+  //     just because stale final_thesis/decision_record from an earlier completed run sit in the folder.
+  check('a cleanly-finishing sibling module does not wipe a sibling failure just because stale deliverables exist', () => {
+    const root = path.join(ANALYSES_DIR, `ZZFINK_${DATE}`)
+    cleanupDirs.push(root)
+    fs.mkdirSync(root, { recursive: true })
+    const thesisPath = path.join(root, 'final_thesis.md')
+    const decisionPath = path.join(root, 'decision_record.json')
+    fs.writeFileSync(thesisPath, '# stale thesis from an earlier completed run\n')
+    fs.writeFileSync(decisionPath, '{}\n')
+    const anHourAgo = new Date(Date.now() - 60 * 60 * 1000)
+    fs.utimesSync(thesisPath, anHourAgo, anHourAgo)
+    fs.utimesSync(decisionPath, anHourAgo, anHourAgo)
+    const committed: unknown[] = []
+    const prev = __setFailureNoteCommitter((...a) => committed.push(a))
+    try {
+      // sibling A (valuation) fails first in THIS new attempt — records a fresh RUN_FAILURE.md
+      const { run: runA } = mkRun('full', 'ZZFINK')
+      runA.module = 'valuation'
+      finalizeRunOnClose(runA, { exitCode: 1 }, 'valuation broke in this fresh attempt')
+      assert.ok(fs.existsSync(path.join(root, 'RUN_FAILURE.md')), 'sibling A recorded the fresh failure')
+      const freshFailureContent = fs.readFileSync(path.join(root, 'RUN_FAILURE.md'), 'utf8')
+      // sibling B (a different chained module) finishes CLEANLY moments later
+      const { run: runB } = mkRun('module', 'ZZFINK')
+      runB.chained = true
+      finalizeRunOnClose(runB, { exitCode: 0 }, '')
+      assert.equal(runB.status, 'done', 'sibling B itself finished cleanly')
+      assert.ok(fs.existsSync(path.join(root, 'RUN_FAILURE.md')), 'sibling B must NOT delete the fresh failure note from sibling A')
+      assert.equal(fs.readFileSync(path.join(root, 'RUN_FAILURE.md'), 'utf8'), freshFailureContent, 'the failure note content is untouched')
+    } finally {
+      __setFailureNoteCommitter(prev)
+    }
+  })
 } finally {
   for (const d of cleanupDirs) fs.rmSync(d, { recursive: true, force: true })
 }
