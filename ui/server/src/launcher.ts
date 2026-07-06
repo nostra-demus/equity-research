@@ -168,36 +168,50 @@ function isResumableResearchRun(run: RunState): boolean {
   return run.swarmId === 'research' && (run.kind === 'full' || run.chained === true)
 }
 
-// --- A2: commit a diagnosable failure note WITH the run --------------------------------------------
-// When a chained/full research run BREAKS (crash / external kill / plan-limit / nonzero exit), the machine
-// reason lands only in the on-host `.interrupted` marker (read by the resume supervisor) and a transient
-// SSE event — neither survives off-host. So a broken run committed just its finished modules with NO record
-// of WHY it stopped (the exact hole that made a real MGM run un-diagnosable after the fact). This writes a
-// RUN_METADATA.md failure note INTO the run folder — modules finished, the module it broke at, the reason,
-// and the stderr tail — and best-effort commits just that ONE file via the serialized commit helper (a DATA
-// pathspec, §25/§28-clean). Fully best-effort: it never throws and never blocks run finalization. The git
-// spawn is injectable so tests assert the note is written without committing/pushing for real.
-let commitFailureNote: (runRoot: string, ticker: string, stoppedAt: string) => void = (runRoot, ticker, stoppedAt) => {
+// --- A2: commit a diagnosable failure note WITH the run (a DISTINCT file, never the success contract) ----
+// When a chained/full research run BREAKS (crash / external kill / plan-limit / nonzero exit) BEFORE it
+// ships its terminal deliverables, the machine reason lands only in the on-host `.interrupted` marker + a
+// transient SSE event — neither survives off-host. So a broken run committed just its finished modules with
+// NO record of WHY it stopped (the hole that made a real MGM run un-diagnosable). This writes RUN_FAILURE.md
+// into the run folder — modules finished, the module it broke at, the reason, the stderr tail — and
+// best-effort commits just that ONE file via the serialized commit helper (a DATA pathspec, §25/§28-clean).
+//
+// Correctness guards (do NOT remove — each closes a confirmed bug):
+//  1. DISTINCT filename RUN_FAILURE.md, NEVER RUN_METADATA.md — RUN_METADATA.md is the SUCCESS-metadata
+//     CONTRACT written by full.md/rerun.md and READ by the synthesizer + eval; a FAILED note there would
+//     corrupt it and race the master's own write. RUN_FAILURE.md has no other writer/reader.
+//  2. finalDeliverablesPresent guard — a run that shipped final_thesis + decision_record is a SUCCESS
+//     regardless of a trailing nonzero exit / late kill; never stamp it failed (mirrors the clear at ~297).
+//  3. single-shot per run folder — concurrent chained-module closes must not each write+commit the note.
+// Fully best-effort: recording never throws and never blocks run finalization. The git spawn is injectable
+// so tests assert the note without committing for real.
+const FAILURE_NOTE = 'RUN_FAILURE.md'
+const recordedFailure = new Set<string>() // runRoots already recorded this process (single-shot dedup)
+
+let commitRunFile: (runRoot: string, file: string, msg: string) => void = (runRoot, file, msg) => {
   const script = path.join(REPO_ROOT, 'scripts', 'commit-run.sh')
-  void execa('bash', [script, `Run failure note: ${ticker} (stopped at ${stoppedAt})`, '--', `${runRoot}/RUN_METADATA.md`],
-    { cwd: REPO_ROOT, timeout: 60_000 }).catch(() => { /* best-effort: a failed commit must never affect the run */ })
+  void execa('bash', [script, msg, '--', `${runRoot}/${file}`], { cwd: REPO_ROOT, timeout: 60_000 })
+    .catch(() => { /* best-effort: a failed commit must never affect the run */ })
 }
-/** Test seam — override the failure-note committer so tests never spawn real git. Returns the prior fn. */
-export function __setFailureNoteCommitter(fn: typeof commitFailureNote): typeof commitFailureNote {
-  const prev = commitFailureNote; commitFailureNote = fn; return prev
+/** Test seam — override the git committer so tests never spawn real git. Returns the prior fn. */
+export function __setFailureNoteCommitter(fn: typeof commitRunFile): typeof commitRunFile {
+  const prev = commitRunFile; commitRunFile = fn; return prev
 }
 
 function recordRunFailure(run: RunState, reason: string, stderr: string): void {
   const runRoot = run.runRoot
   if (!runRoot) return
+  if (finalDeliverablesPresent(runRoot)) return // the run actually shipped — a trailing nonzero is not a failure
+  if (recordedFailure.has(runRoot)) return       // single-shot: dedup concurrent chained-module closes
+  recordedFailure.add(runRoot)
   try {
     const abs = path.join(REPO_ROOT, runRoot)
     if (!fs.existsSync(abs)) return
-    // modules finished = run subfolders carrying a non-empty 99_*-synthesis.md (the same "module done"
-    // test the resume path uses), derived from DISK so the note reflects what actually shipped.
-    let done: string[] = []
+    // modules finished = subfolders with a non-empty 99_*-synthesis.md (the "module done" test the resume
+    // uses). Exclude the module it broke AT so it never shows as both completed and stopped-at.
+    let doneAll: string[] = []
     try {
-      done = fs.readdirSync(abs, { withFileTypes: true })
+      doneAll = fs.readdirSync(abs, { withFileTypes: true })
         .filter((d) => d.isDirectory())
         .filter((d) => {
           try {
@@ -207,27 +221,56 @@ function recordRunFailure(run: RunState, reason: string, stderr: string): void {
         })
         .map((d) => d.name).sort()
     } catch { /* best-effort inventory */ }
-    const stoppedAt = run.module || 'unknown'
+    const done = doneAll.filter((m) => m !== run.module)
+    // stopped-at: the chained step that broke; else (monolithic full, no run.module) the master if every
+    // module synthesis shipped but final_thesis didn't, else the first module still missing.
+    let stoppedAt = run.module
+    if (!stoppedAt) {
+      let allModules: string[] = []
+      try { allModules = buildSwarmGraph().modules.map((m) => m.name) } catch { /* graph unavailable */ }
+      const missing = allModules.filter((m) => !doneAll.includes(m))
+      stoppedAt = missing.length === 0 ? 'master synthesis' : (missing[0] || 'unknown')
+    }
     const md = [
-      '# Run Metadata', '',
+      '# Run Failure', '',
       `- ticker: ${run.ticker}`,
       '- orchestrator: chained full run (server)',
       '- status: FAILED — stopped mid-run before the final thesis',
-      `- stopped_at_module: ${stoppedAt}`,
+      `- stopped_at: ${stoppedAt}`,
       `- reason: ${reason}`,
       `- stopped_at_utc: ${new Date().toISOString()}`, '',
       '## Modules completed', '',
       done.length ? done.map((m) => `- ${m}`).join('\n') : '(none)', '',
-      '## Stopped at', '', `${stoppedAt} — ${reason}`, '',
       '## Error (last 2000 chars of the engine stderr)', '', '```',
       (stderr || '').slice(-2000) || '(no stderr captured)', '```', '',
       '## Resume', '',
-      'This chained run broke before the master synthesis. The machine reason (and any plan-reset time) is in the `.interrupted` marker. Re-run to continue — a same-day relaunch resumes from the finished modules; an older run is re-run fresh.', '',
+      'This run broke before the master synthesis. The machine reason (and any plan-reset time) is in the `.interrupted` marker. Re-run to continue — a same-day relaunch resumes from the finished modules; an older run is re-run fresh. This note is auto-removed if the run later completes.', '',
     ].join('\n')
-    fs.writeFileSync(path.join(abs, 'RUN_METADATA.md'), md)
-    commitFailureNote(runRoot, run.ticker, stoppedAt)
+    fs.writeFileSync(path.join(abs, FAILURE_NOTE), md)
+    commitRunFile(runRoot, FAILURE_NOTE, `Run failure note: ${run.ticker} (stopped at ${stoppedAt})`)
   } catch { /* best-effort: recording a failure must never itself fail the run */ }
 }
+
+// On genuine completion, drop a stale RUN_FAILURE.md left by an EARLIER break of the same run folder (a run
+// that broke, was resumed, then finished) so a completed run never carries a failure note. Best-effort;
+// commits the removal only when the file is actually present (a no-op for the vast majority of runs).
+function clearRunFailure(runRoot: string | null): void {
+  if (!runRoot) return
+  recordedFailure.delete(runRoot)
+  try {
+    const p = path.join(REPO_ROOT, runRoot, FAILURE_NOTE)
+    if (!fs.existsSync(p)) return
+    fs.rmSync(p, { force: true })
+    commitRunFile(runRoot, FAILURE_NOTE, `Clear stale failure note: ${path.basename(runRoot)} (run completed)`)
+  } catch { /* best-effort */ }
+}
+
+// A3: a compact one-line failure reason for the DURABLE activity log (reason + a short, whitespace-
+// collapsed stderr tail). finishRun() already forwards run.note to logFinish, and the cockpit's activity
+// row already renders it (a ⚠ pill + hover) — the same path the 'incomplete' note uses. So setting run.note
+// here surfaces WHY a run stopped both in the queryable log and the UI, with no new field or web code (A4).
+const failureNote = (reason: string, stderr: string): string =>
+  reason + (stderr?.trim() ? `: ${stderr.slice(-300).replace(/\s+/g, ' ').trim()}` : '')
 
 // The SINGLE place a run's final status is decided on process close (exported for tests).
 // Gated on `endedAt` rather than status so (a) the stream parser's early ERROR finalization is
@@ -253,9 +296,10 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
     // the broken full run back up and continue it (forever-living: a closed laptop / lost network resumes).
     const treason = `terminated_${res?.signal || 'signal'}`
     if (isResumableResearchRun(run)) {
-      writeRunMarker(run.runRoot, '.interrupted', { reason: treason, module: run.module, message: stderr.slice(-2000) || undefined })
-      recordRunFailure(run, treason, stderr) // A2: commit a diagnosable failure note with the run
+      if (!finalDeliverablesPresent(run.runRoot)) writeRunMarker(run.runRoot, '.interrupted', { reason: treason, module: run.module, message: stderr.slice(-2000) || undefined })
+      recordRunFailure(run, treason, stderr) // A2: diagnosable failure note (self-guards on deliverables + single-shot)
     }
+    run.note = failureNote(treason, stderr) // A3: durable reason in the activity log (shown on the row)
     emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason: treason, message: stderr.slice(-400) || undefined, ts: Date.now() })
     finishRun(run, 'error')
   } else if ((code && code !== 0) || res?.failed === true) {
@@ -266,9 +310,10 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
     // nonzero_exit; it resumes on the next tick.)
     if (isResumableResearchRun(run)) {
       const resetsAt = reason === 'out_of_credits' ? getCreditStatus().resetsAt : undefined
-      writeRunMarker(run.runRoot, '.interrupted', { reason, resetsAt, module: run.module, message: stderr.slice(-2000) || undefined })
-      recordRunFailure(run, reason, stderr) // A2: commit a diagnosable failure note with the run
+      if (!finalDeliverablesPresent(run.runRoot)) writeRunMarker(run.runRoot, '.interrupted', { reason, resetsAt, module: run.module, message: stderr.slice(-2000) || undefined })
+      recordRunFailure(run, reason, stderr) // A2: diagnosable failure note (self-guards on deliverables + single-shot)
     }
+    run.note = failureNote(reason, stderr) // A3: durable reason in the activity log (shown on the row)
     emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason, message: stderr.slice(-400) || undefined, ts: Date.now() })
     finishRun(run, 'error')
   } else if (truncatedBeforeFinal(run)) {
@@ -294,7 +339,10 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
     // disk). A single chained MODULE finishing 'done' must NOT clear a marker a FAILED sibling just wrote
     // — that would lose a genuine interruption and strand the run unresumable. Final deliverables are
     // present only after the master synthesis, so this fires once, at true completion.
-    if (isResumableResearchRun(run) && finalDeliverablesPresent(run.runRoot)) clearRunMarker(run.runRoot, '.interrupted')
+    if (isResumableResearchRun(run) && finalDeliverablesPresent(run.runRoot)) {
+      clearRunMarker(run.runRoot, '.interrupted')
+      clearRunFailure(run.runRoot) // drop a stale RUN_FAILURE.md from an earlier break of this now-complete run
+    }
     emit(run, { type: 'run-done', runId: run.runId, status: 'done', costUsd: run.costUsd, durationMs: run.durationMs, numTurns: run.numTurns, ...finalPaths(run), ts: Date.now() })
     finishRun(run, 'done')
   }

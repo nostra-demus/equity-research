@@ -114,35 +114,62 @@ try {
     assert.equal(inFlightRunsForSubject('ZZFIND').length, 0)
   })
 
-  // 6. A1+A2: a broken chained/full run enriches the .interrupted marker (module + stderr tail) AND
-  //    writes/commits a diagnosable RUN_METADATA failure note — modules done (from disk) + the module it
-  //    broke at + the reason + the stderr tail. The git spawn is stubbed so no real commit/push happens.
-  check('a broken chained/full run enriches the marker and commits a RUN_METADATA failure note', () => {
+  // 6. A1+A2+A3: a broken chained/full run enriches the .interrupted marker (module + stderr tail), writes
+  //    + commits a DISTINCT RUN_FAILURE.md (never the RUN_METADATA success contract) with modules-done
+  //    (excluding the broken module) + reason + stderr tail, and sets the durable activity-log note. Git
+  //    spawn stubbed.
+  check('a broken chained/full run: marker + RUN_FAILURE.md + activity note (never touches RUN_METADATA)', () => {
     const root = path.join(ANALYSES_DIR, `ZZFINF_${DATE}`)
     cleanupDirs.push(root)
     fs.mkdirSync(path.join(root, 'business-model'), { recursive: true })
     fs.writeFileSync(path.join(root, 'business-model', '99_business-model-synthesis.md'), '# done\n')
-    const committed: Array<{ runRoot: string; ticker: string; stoppedAt: string }> = []
-    const prev = __setFailureNoteCommitter((runRoot, ticker, stoppedAt) => committed.push({ runRoot, ticker, stoppedAt }))
+    const committed: Array<{ runRoot: string; file: string; msg: string }> = []
+    const prev = __setFailureNoteCommitter((runRoot, file, msg) => committed.push({ runRoot, file, msg }))
     try {
       const { run } = mkRun('full', 'ZZFINF')
       run.module = 'valuation' // the chained step that was running when it broke
       finalizeRunOnClose(run, { exitCode: 1 }, 'FATAL: something exploded in valuation')
       assert.equal(run.status, 'error')
-      // A2 — the committed failure note
-      const md = fs.readFileSync(path.join(root, 'RUN_METADATA.md'), 'utf8')
+      // A2 — a DISTINCT RUN_FAILURE.md, never the RUN_METADATA success contract
+      assert.ok(!fs.existsSync(path.join(root, 'RUN_METADATA.md')), 'must NOT write the RUN_METADATA success contract')
+      const md = fs.readFileSync(path.join(root, 'RUN_FAILURE.md'), 'utf8')
       assert.match(md, /status: FAILED/)
-      assert.match(md, /stopped_at_module: valuation/)
+      assert.match(md, /stopped_at: valuation/)
       assert.match(md, /reason: nonzero_exit/)
-      assert.match(md, /- business-model/) // finished module, derived from disk
+      assert.match(md, /- business-model/)                // finished module, from disk
+      assert.doesNotMatch(md, /^- valuation$/m)           // the broken module is NOT listed as completed
       assert.match(md, /something exploded in valuation/) // stderr tail captured
-      assert.equal(committed.length, 1, 'the failure note is committed (best-effort, stubbed here)')
+      assert.equal(committed.length, 1)
+      assert.equal(committed[0].file, 'RUN_FAILURE.md')
       assert.equal(committed[0].runRoot, `analyses/ZZFINF_${DATE}`)
-      assert.equal(committed[0].stoppedAt, 'valuation')
-      // A1 — the .interrupted marker now carries the module + stderr tail (not just the reason)
+      // A1 — the .interrupted marker carries the module + stderr tail
       const marker = readRunMarker(`analyses/ZZFINF_${DATE}`, '.interrupted') as any
       assert.equal(marker?.module, 'valuation')
       assert.match(String(marker?.message), /something exploded/)
+      // A3 — the durable activity-log note carries the reason (shown as a ⚠ pill + hover in the cockpit)
+      assert.match(String(run.note), /nonzero_exit: .*something exploded/)
+    } finally {
+      __setFailureNoteCommitter(prev)
+    }
+  })
+
+  // 7. THE audit fix: a run that SHIPPED its terminal deliverables but whose process then exits nonzero
+  //    must NOT be stamped failed — no RUN_FAILURE.md, no .interrupted marker, no commit. Never overwrite
+  //    a real success with a FAILED note (the finalDeliverablesPresent guard).
+  check('a completed run that exits nonzero is NOT recorded as failed (finalDeliverablesPresent guard)', () => {
+    const root = path.join(ANALYSES_DIR, `ZZFING_${DATE}`)
+    cleanupDirs.push(root)
+    fs.mkdirSync(root, { recursive: true })
+    fs.writeFileSync(path.join(root, 'final_thesis.md'), '# thesis\n')
+    fs.writeFileSync(path.join(root, 'decision_record.json'), '{}\n')
+    const committed: unknown[] = []
+    const prev = __setFailureNoteCommitter((...a) => committed.push(a))
+    try {
+      const { run } = mkRun('full', 'ZZFING')
+      finalizeRunOnClose(run, { exitCode: 1 }, 'trailing nonzero after a completed run')
+      assert.ok(!fs.existsSync(path.join(root, 'RUN_FAILURE.md')), 'a completed run must not get a failure note')
+      assert.ok(!readRunMarker(`analyses/ZZFING_${DATE}`, '.interrupted'), 'a completed run must not be marked interrupted')
+      assert.equal(committed.length, 0, 'no failure commit for a completed run')
     } finally {
       __setFailureNoteCommitter(prev)
     }
