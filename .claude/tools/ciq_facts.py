@@ -880,6 +880,109 @@ def debt_maturity_wall(bundle: ResolvedBundle) -> Sourced:
         source_ref="CIQ Financials→Capital Structure Details (latest as-reported block: Principal Due × Maturity × Floating Rate; leases carry no maturity)")
 
 
+# --- comps: peer relative valuation + the anchor keystones (price, shares outstanding) --------
+# The comp-set grid carries, on the SUBJECT's own row, the tier-critical current price and the diluted
+# share count — the keystone that unlocks per-share checks (§15), ownership % of shares outstanding, and a
+# relative sanity anchor for the insider sentinel — plus the peer relative multiple (§16), read from CIQ's
+# own Summary-Statistics median rather than a re-derivation.
+def _comps_grid(rows: Rows, ticker: str) -> dict[str, Any] | None:
+    """Locate a CIQ Quick-Comparable grid: the 'Company Name' header row, the SUBJECT row (the one carrying
+    the analyzed ticker, ':TICKER)'), and the Summary-Statistics stat rows (High/Low/Mean/Median)."""
+    hdr = next((i for i, r in enumerate(rows) if r and str(r[0]).strip() == "Company Name"), None)
+    if hdr is None:
+        return None
+    pat = re.compile(rf"[:(]\s*{re.escape(ticker)}\s*\)", re.I)
+    subj = summ = None
+    for i in range(hdr + 1, len(rows)):
+        c0 = str(rows[i][0]).strip() if rows[i] else ""
+        if c0.lower().startswith("summary statistics"):
+            summ = i
+            break
+        if pat.search(c0):
+            subj = i  # the subject sits after the peer set — the last self-match before Summary wins
+    if subj is None and summ is not None:  # fallback: the last non-blank row above Summary is the subject
+        j = summ - 1
+        while j > hdr and not (rows[j] and str(rows[j][0]).strip()):
+            j -= 1
+        subj = j if j > hdr else None
+    stat = {}
+    if summ is not None:
+        for i in range(summ + 1, min(summ + 8, len(rows))):
+            lbl = str(rows[i][0]).strip().lower() if rows[i] else ""
+            if lbl in ("high", "low", "mean", "median"):
+                stat[lbl] = i
+    return {"hdr": hdr, "header": [str(c).strip().lower() for c in rows[hdr]], "subj": subj, "stat": stat}
+
+
+def _comps_col(g: dict[str, Any], pred: Callable[[str], bool]) -> int | None:
+    return next((j for j, c in enumerate(g["header"]) if pred(c)), None)
+
+
+def _comps_subject_cell(bundle: ResolvedBundle, sheet: str, pred: Callable[[str], bool]) -> tuple[Rows, dict, float] | Sourced:
+    """Shared read: the subject row's value in the column matching `pred`, or an honest Sourced UNKNOWN/MISSING."""
+    try:
+        rows = bundle.sheet("comps", sheet)
+    except CiqUnavailableError as exc:
+        return _miss_or_unknown(bundle, "comps", exc)
+    g = _comps_grid(rows, bundle.ticker)
+    if g is None or g["subj"] is None:
+        return Sourced.unknown(note=f"comps {sheet}: subject (self) row not found")
+    col = _comps_col(g, pred)
+    v = clean_num(rows[g["subj"]][col]) if col is not None and col < len(rows[g["subj"]]) else None
+    if v is None:
+        return Sourced.unknown(note=f"comps {sheet}: subject column unavailable")
+    return rows, g, v
+
+
+def shares_outstanding(bundle: ResolvedBundle) -> Sourced:
+    """Diluted shares outstanding (millions) — the keystone: unlocks §15 per-share checks, ownership % of
+    shares outstanding, and the insider sentinel's relative sanity anchor."""
+    got = _comps_subject_cell(bundle, "Financial Data", lambda c: "shares outstanding" in c)
+    if isinstance(got, Sourced):
+        return got
+    _rows, _g, v = got
+    return Sourced.present(round(v, 1), source_ref="CIQ Comps→Financial Data 'Shares Outstanding Latest' (subject row)")
+
+
+def current_price(bundle: ResolvedBundle) -> Sourced:
+    """The current share price + its as-of date — the tier-critical valuation anchor (its absence caps
+    valuation confidence), read from the comp grid's subject row where present."""
+    got = _comps_subject_cell(bundle, "Financial Data", lambda c: "close price" in c)
+    if isinstance(got, Sourced):
+        return got
+    rows, _g, v = got
+    ai = next((k for k, r in enumerate(rows) if r and "as-of date" in str(r[0]).lower()), None)
+    asof = excel_date(rows[ai][1]) if ai is not None and len(rows[ai]) > 1 else None
+    asof_s = f" as-of {asof.isoformat()}" if asof else ""
+    return Sourced.present(round(v, 2), source_ref=f"CIQ Comps→Financial Data 'Day Close Price Latest' (subject row){asof_s}")
+
+
+def peer_ev_ebitda(bundle: ResolvedBundle) -> Sourced:
+    """The subject's EV/EBITDA vs the peer set — the §16 peer relative read, using CIQ's own comp-set
+    Summary-Statistics median (not a re-derivation)."""
+    try:
+        rows = bundle.sheet("comps", "Trading Multiples")
+    except CiqUnavailableError as exc:
+        return _miss_or_unknown(bundle, "comps", exc)
+    g = _comps_grid(rows, bundle.ticker)
+    if g is None or g["subj"] is None:
+        return Sourced.unknown(note="comps Trading Multiples: subject (self) row not found")
+    ec = _comps_col(g, lambda c: "tev/ebitda" in c)
+    subj = clean_num(rows[g["subj"]][ec]) if ec is not None and ec < len(rows[g["subj"]]) else None
+    if subj is None:
+        return Sourced.unknown(note="comps Trading Multiples: subject TEV/EBITDA unavailable")
+
+    def stat(name: str) -> float | None:
+        i = g["stat"].get(name)
+        return clean_num(rows[i][ec]) if i is not None and ec < len(rows[i]) else None
+
+    med, hi, lo = stat("median"), stat("high"), stat("low")
+    band = f" vs peer set median {med:.1f}x" if med is not None else ""
+    rng = f" (high {hi:.1f} / low {lo:.1f})" if hi is not None and lo is not None else ""
+    return Sourced.present(f"TEV/EBITDA {subj:.1f}x{band}{rng}",
+                           source_ref="CIQ Comps→Trading Multiples 'TEV/EBITDA LTM' (subject vs comp-set Summary Statistics)")
+
+
 # --- emit ------------------------------------------------------------------------------------
 # Money facts are in MILLIONS OF THE REPORTED CURRENCY (the '_m' suffix) — NOT necessarily USD. CIQ states
 # the currency as a 'Currency | USD' cell (Capital Structure / per-column) or 'Currency: | US Dollar'
@@ -936,6 +1039,9 @@ FACTS: dict[str, Callable[[ResolvedBundle], Sourced]] = {
     "top_institutional_holders": top_institutional_holders,
     "institutional_ownership_trend": institutional_ownership_trend,
     "debt_maturity_wall": debt_maturity_wall,
+    "shares_outstanding_m": shares_outstanding,
+    "current_price": current_price,
+    "peer_ev_ebitda": peer_ev_ebitda,
 }
 
 

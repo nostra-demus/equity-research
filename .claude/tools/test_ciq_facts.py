@@ -381,6 +381,44 @@ def test_maturity_floating_blank(base: Path) -> None:
           mw["status"] == "present" and "100 floating / 400 fixed" in str(mw["value"]), str(mw))
 
 
+def test_comps(base: Path) -> None:
+    # Peer relative valuation + the keystones (price, shares outstanding). Guards: the SUBJECT row (:ACME))
+    # is read, NOT a peer; the peer median is CIQ's own Summary-Statistics Median (not a re-derivation).
+    d = base / "comps"
+    d.mkdir()
+    _wb(d / "Company Comparable Analysis.xlsx", {
+        "Trading Multiples": [
+            ["Acme (NYSE:ACME) > Quick Comparable Analysis > Trading Multiples"],
+            ["As-Of Date:", 46206],
+            ["Company Name", "TEV/EBITDA LTM - Latest"],
+            ["Peer One (NYSE:P1)", 7.0],
+            ["Peer Two (NYSE:P2)", 9.0],
+            ["Acme Corp (NYSE:ACME)", 12.0],  # SUBJECT — premium to peers
+            ["Summary Statistics", "TEV/EBITDA LTM - Latest"],
+            ["High", 9.0], ["Low", 7.0], ["Mean", 8.0], ["Median", 8.0],
+        ],
+        "Financial Data": [
+            ["Acme (NYSE:ACME) > Quick Comparable Analysis > Financial Data"],
+            ["As-Of Date:", 46206],
+            ["Company Name", "Day Close Price Latest", "Shares Outstanding Latest", "Market Capitalization Latest"],
+            ["Peer One (NYSE:P1)", 10.0, 100.0, 1000.0],
+            ["Peer Two (NYSE:P2)", 20.0, 200.0, 4000.0],
+            ["Acme Corp (NYSE:ACME)", 55.5, 300.0, 16650.0],  # SUBJECT
+            ["Summary Statistics", "", "", ""], ["High", 20.0, 200.0, 4000.0],
+        ],
+    })
+    f = F.build_facts(d, "ACME")["facts"]
+    so = f["shares_outstanding_m"]
+    check("shares_outstanding_m: 300.0 from the SUBJECT row (not a peer's 100/200)",
+          so["status"] == "present" and abs(float(so["value"]) - 300.0) < 0.05, str(so))
+    cp = f["current_price"]
+    check("current_price: 55.5 (subject) as-of 2026-07-03",
+          cp["status"] == "present" and abs(float(cp["value"]) - 55.5) < 0.05 and "2026-07-03" in str(cp["source_ref"]), str(cp))
+    pe = f["peer_ev_ebitda"]
+    check("peer_ev_ebitda: subject 12.0x vs CIQ peer median 8.0x (not re-derived)",
+          pe["status"] == "present" and "12.0x" in str(pe["value"]) and "median 8.0x" in str(pe["value"]), str(pe))
+
+
 def test_xls_fact_chain() -> None:
     # The whole chain above is exercised on synthetic .xlsx (openpyxl). But real Capital IQ exports are
     # frequently LEGACY BIFF .xls read by xlrd — a different reader with its own date/number decoding. Prove
@@ -520,6 +558,8 @@ def main() -> int:
         print("== debt maturity wall (lease-separation + block boundary) ==")
         test_maturity_wall(d)
         test_maturity_floating_blank(d)
+        print("== comps: peer multiple + price + shares outstanding ==")
+        test_comps(d)
         print("== legacy .xls (xlrd) fact chain ==")
         test_xls_fact_chain()
         print("== reported currency (not USD) ==")
