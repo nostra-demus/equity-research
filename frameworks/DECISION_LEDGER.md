@@ -4,7 +4,7 @@ This is the **specification / doctrine layer** for turning every final thesis in
 
 It is cross-cutting doctrine, subordinate to the root `CLAUDE.md` (the Institutional Investing Constitution). It does **not** duplicate doctrine that already lives there — it references it: decision set (§18), probability bands (§10), data sufficiency (§11), thesis type (§14), forecast ledger (§19), error taxonomy (§20). On any conflict, the stricter, more conservative, more evidence-based rule wins.
 
-> **Status — Phase 2 complete, validated live.** Phase 1 (this framework) and Phase 2 (the master synthesizer emits `decision_record.json` beside `final_thesis.md`) are both done, and the chain has been validated end-to-end on a real `/research:full BG` run (`analyses/BG_2026-06-01/`). **Phase 3 — review command added, not yet run:** `.claude/commands/research/review-decisions.md` reads existing `decision_record.json` files and writes append-only review JSON, each paired (for reviews filed on/after 2026-06-10) with a human-readable **memo delta** — a 2–3 page "what changed since the memo" update (§8); it has not been run yet (no scheduled review window is due). See **Current Implementation Status** below and the **Future Integration Plan** (§15). A feedback-loop agent does not exist yet.
+> **Status — Phase 2 complete, validated live.** Phase 1 (this framework) and Phase 2 (the master synthesizer emits `decision_record.json` beside `final_thesis.md`) are both done, and the chain has been validated end-to-end on a real `/research:full BG` run (`analyses/BG_2026-06-01/`). **Phase 3 — review command added, not yet run:** `.claude/commands/research/review-decisions.md` reads existing `decision_record.json` files and writes append-only review JSON, each paired (for reviews filed on/after 2026-06-10) with a human-readable **memo delta** — a 2–3 page "what changed since the memo" update (§8); it has not been run yet (no scheduled review window is due). **Phase 6 — calibration feedback gate added, forward-looking:** the synthesizer now reads the latest `analyses/performance/*_calibration_summary.json` and, once real (non-pre-data) calibration signal exists for a module used in the current run, applies a bounded confidence haircut and records it in `decision_record.json` (§18). This closes the loop Phase 4 opened — Phase 4 could always compute calibration; nothing consumed it until now. See **Current Implementation Status** below and the **Future Integration Plan** (§15). A feedback-loop agent does not exist yet.
 
 ## Current Implementation Status
 
@@ -15,6 +15,7 @@ It is cross-cutting doctrine, subordinate to the root `CLAUDE.md` (the Instituti
 | Phase 3 — Review command | Command added — not yet run | `.claude/commands/research/review-decisions.md` | Authored this build; first review run pending (BG's earliest scheduled window is 2026-07-01) |
 | Phase 4 — Cohort + calibration | Command added — pre-data | `.claude/commands/research/calibrate.md` | Computes ledger inventory + process metrics now; selected-minus-rejected spread + Brier await resolved reviews |
 | Phase 5 — Calls tracker / viewing layer | Complete | `GET /api/calls` + `/research:track` | Read-only aggregation over records + reviews (§15 Phase 5) |
+| Phase 6 — Calibration feedback gate | Added — forward-looking, pre-data | `.claude/agents/synthesizer.md` Pre-Write Gate 4C; `scripts/eval.py` check AG | Mechanically wired now, before real calibration signal exists, so the first run to see resolved calibration data does not silently skip it (§18) |
 
 ## BG Live Validation Record
 
@@ -511,6 +512,7 @@ Purpose: over time, identify which modules deserve more weight **by sector, thes
 - **Phase 3 — Add the review command `.claude/commands/research/review-decisions.md`** — **Command added (not yet run).** Reads historical `decision_record.json` files and writes append-only review JSON (acceptance criteria below). First run is pending until a scheduled review window comes due. **Memo Delta Review (added 2026-06-10):** each review also populates the §8 `memo_delta` block and writes the paired `<REVIEW_DATE>_<WINDOW>_memo_delta.md` beside the review JSON — the 2–3 page human-readable "what changed since the memo" tier. The review JSON stays the machine source of truth; the markdown is a derived re-projection of it, append-only like the JSON.
 - **Phase 4 — Aggregate cohort + calibration reporting** (`/research:calibrate` → `analyses/performance/<DATE>_decision_performance_summary.md` + `_calibration_summary.json`) — **Command added (pre-data).** Computes ledger inventory + process metrics now; the selected-minus-rejected spread, hit rate, and the Brier/reliability calibration compute once enough resolved reviews exist (the §3/§4 floors in the command).
 - **Phase 5 — Calls-tracker dashboard / viewing layer** — **Added.** A **read-only viewing/aggregation layer** over the records and reviews — the place to see every call the engine made and what has happened to the company since, as time moves forward. Two twinned surfaces: the cockpit's live **Calls** view (`GET /api/calls`) and the downloadable **`/research:track`** command (writes dated `analyses/tracking/<DATE>_calls_tracker.{md,json}`, like Phase 4's `analyses/performance/` outputs). Both build, per call, a timeline of the scheduled review checkpoints (30d/90d/180d/365d) plus any ad-hoc reviews, each marked **done / due / overdue / upcoming** using the **same rule as `.claude/hooks/review_due.py`** and `review-decisions` Step 3 (local date, lexical ISO compare, `*_<window>_decision_review*.json` glob) — so the hook, the command, the API, and the static snapshot never disagree. **Inviolable:** this layer **never edits** any `decision_record.json`, `final_thesis.md`, or review file; it writes only the derived, regenerable dashboard under `analyses/tracking/`. The live **"Update now"** trigger delegates to Phase 3 `/research:review-decisions <ticker> ad-hoc` (it files an append-only review) — there is **no parallel review framework**. Both surfaces also carry, per done checkpoint, the review's `memo_delta_file` and `stage_one_comment` (§8), so the human-readable delta is one click from the timeline.
+- **Phase 6 — Calibration feedback gate** — **Added (forward-looking, pre-data).** Phases 1–5 make decisions recordable, reviewable, aggregable, and viewable — but until now, nothing closed the loop back into the synthesizer that writes the *next* decision. `/research:calibrate` could always compute `calibration_by_module` / `calibration_by_forecast_type`, but no agent ever read the file it wrote. The synthesizer (`.claude/agents/synthesizer.md` Pre-Write Gate 4C) now reads the latest `analyses/performance/*_calibration_summary.json` dated on/before its own run and, where a module used in the current run has a non-"insufficient" calibration slice showing poor calibration, applies a bounded confidence haircut and records the check (whether or not it fired) in a new additive `decision_record.json` field, `calibration_feedback` (§18). `scripts/eval.py` check AG guards this mechanically so the gate cannot be silently skipped once real calibration data exists. Landed intentionally while the ledger is still pre-data (0 resolved reviews) so the wiring is proven correct — always recording a `not_available`/`pre_data` status honestly — before BG's and HCG's first 30-day reviews (due 2026-07-01) produce the first real signal.
 
 ### Phase 3 — Review Command Acceptance Criteria
 
@@ -556,4 +558,49 @@ These were the Phase 2 acceptance criteria. **All are now met by the current syn
 - forecast ledger is copied into the decision record — ✓ (BG: 6 entries)
 - kill criteria are copied into the decision record — ✓
 - no original decision record is overwritten — ✓ (one record per dated run; append-only review records arrive in Phase 3)
+
+---
+
+## 18. Calibration Feedback Gate (Phase 6)
+
+Phase 4 (`/research:calibrate`) can compute whether the engine's stated confidence matches realized outcomes, sliced by `owner_module` and by `forecast_type` (§6, §13). Until this section, that computation was a dead end: it was written to `analyses/performance/<DATE>_calibration_summary.json` and never read again. A calibration loop that only measures and never acts is not a learning loop (§1, `CLAUDE.md` §19) — this section closes it.
+
+**Where it runs.** The master synthesizer (`.claude/agents/synthesizer.md`), as Pre-Write Gate step 4C, immediately after the §24 rejector-filter audit (4A) and the forensic roll-up (4B) and before the contradiction audit (5).
+
+**What it reads.** `Glob analyses/performance/*_calibration_summary.json`, filtered to files whose `<DATE>` filename prefix is **on or before the current run's own decision date** (a synthesizer can only act on calibration history that existed at the time it ran — never a future snapshot), then take the latest such file (ties broken by filename, so a `_v2` correction wins over its base file for the same date, matching the versioning convention `/research:calibrate` already uses). Call the parsed JSON (or `None`, if no qualifying file exists) the **as-of calibration summary**.
+
+**What it does.**
+
+1. If no as-of calibration summary exists: `status = "not_available"`. No adjustment. This is the expected, honest state until the first calibration snapshot lands.
+2. If one exists but its top-level `"verdict"` starts with `"Pre-data"` (§4/§7 of `/research:calibrate` — too few resolved reviews or resolved forecasts to compute a real slice): `status = "pre_data"`. No adjustment.
+3. Otherwise, for **every module whose `99_*-synthesis.md` this run actually read** (self-discovered from the run folder per `CLAUDE.md` §26 — never a hardcoded module list, so a future module is covered automatically), look up `calibration_by_module[<module folder name>]`:
+   - Skip (cannot act on) any entry that is the string `"insufficient (N=k)"` — below its own floor.
+   - A real slice **flags** the module when its Brier score is worse than the naive always-toss-up baseline (`brier > 0.25`), OR its realized hit rate for its dominant stated confidence band falls outside that band's own §10 range by more than 20 percentage points on either side.
+   - If **any** module used in this run is flagged: `status = "applied"`. Apply a single, fixed **8-point confidence haircut** (not additive per flagged module — a bounded, auditable constant, so haircuts cannot stack into an unreviewable pile) and name every flagged module plus the Brier score / hit-rate numbers that flagged it, in both the Pre-Write Gate output and the Confidence Scoring Rules "Additional downgrades" list.
+   - If checked and no module is flagged: `status = "checked_no_action"`. No haircut — but the check still ran and is recorded, so a silent skip is distinguishable from an honest clean check.
+4. The forecast-type slice (`calibration_by_forecast_type`) is read the same way for transparency (name in the rationale which forecast types this thesis leans on and whether their historical calibration is clean), but does **not** independently add to the haircut — one bounded 8-point haircut per run, triggered by module OR forecast-type evidence, never both stacked.
+
+**What it must never do.** It must never *raise* confidence. A module with unusually good historical calibration is not evidence this specific thesis is more likely correct — asymmetry matters here exactly as it does in the Confidence Scoring Rules generally (§12 `CLAUDE.md`: high scores require specific, cited evidence for THIS thesis, not a borrowed track record). It must never invent numbers: `brier`/`hit_rate` come only from the as-of calibration summary's own computed fields, never estimated.
+
+**Schema addition (`decision_record.json`, additive — the Phase 2 schema in §5 is otherwise preserved unchanged):**
+
+```json
+"calibration_feedback": {
+  "source_summary": "analyses/performance/<DATE>_calibration_summary.json",
+  "status": "not_available",
+  "haircut_points": 0,
+  "modules_flagged": [],
+  "rationale": ""
+}
+```
+
+- `source_summary`: path to the as-of calibration summary used, or `null` if `status` is `"not_available"`.
+- `status`: exactly one of `not_available` / `pre_data` / `checked_no_action` / `applied`.
+- `haircut_points`: `0` unless `status == "applied"`, in which case the fixed constant (`8`).
+- `modules_flagged`: the module folder names that triggered the haircut; `[]` unless `status == "applied"`.
+- `rationale`: one or two sentences naming the as-of summary's verdict and, when a module was checked, its Brier score / hit-rate numbers — plain enough that a reviewer can verify the haircut without opening the calibration summary.
+
+**Regression protection.** `scripts/eval.py` check AG enforces, for runs dated on/after the gate's rollout date, that `decision_record.json` carries a well-formed `calibration_feedback` object whose `status` is consistent with whether an as-of calibration summary exists and what its verdict says — the same mechanical, forward-looking-gate pattern already used for checks AC–AF (§24 filters). A run that has an as-of calibration summary available but omits `calibration_feedback` entirely fails the suite: the gate cannot be silently dropped once real calibration data exists.
+
+**Why 8 points, why not per-slice compounding.** A larger or per-module-additive haircut would let a noisy early slice (small-N, per §4/§11 floors already gating whether a slice is even "insufficient") swing confidence by more than the evidence supports. A fixed, disclosed, single-application constant keeps the adjustment auditable and prevents the gate from becoming a second, uncontrolled rating-cap mechanism alongside the Rating Cap Rules. As real calibration history accumulates (post the first 30-day reviews, due 2026-07-01), this constant should be revisited against realized Brier/hit-rate evidence — not tightened or loosened on intuition.
 - review dates are generated from the decision date — ✓ (BG: 30/90/180/365d from 2026-06-01)
