@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Deterministic eval harness for the equity-research engine.
 
-Checks invariants A-Z, AA-AF, and J (framework-source contracts) against every committed
+Checks invariants A-Z, AA-AG, and J (framework-source contracts) against every committed
 decision record in analyses/. Called by /research:eval and by CI.
 
 Usage:
@@ -20,6 +20,26 @@ PAPER_KW={"Selected":["paper long","small paper long","long"],"Watchlist":["no t
 SCHEMA_FILES={"decision_record.json","final_thesis.md","RUN_METADATA.md","verification_report.json","pre_mortem.json","expectations_gap.json","memo.md","audit_dossier.md"}
 # module roster for check R (rerun targets must be real modules) — self-discovered, never hardcoded (CLAUDE.md §26)
 ROSTER=set(os.path.basename(os.path.dirname(p)) for p in glob.glob(".claude/agents/*/99_*-synthesis.md"))
+# calibration summaries for check AG (Phase 6 calibration-feedback gate, DECISION_LEDGER.md §18) — repo-wide,
+# not per-run, so resolved once here rather than re-globbed per run.
+CALIB_SUMMARIES=sorted(glob.glob("analyses/performance/*_calibration_summary.json"))
+def _calib_summary_asof(decision_date):
+    """Latest calibration_summary.json dated on/before decision_date (a synthesizer can only act on
+    calibration history that existed when it ran), or None if none qualifies. Ties (same date, e.g. a
+    `_v2` correction) broken by filename so the versioned correction wins, matching the convention
+    /research:calibrate itself uses ("_v2 suffix if one already exists for today")."""
+    if not isdate(decision_date): return None
+    best=None; best_date=None
+    for p in CALIB_SUMMARIES:
+        m=re.match(r"(\d{4}-\d{2}-\d{2})_calibration_summary", os.path.basename(p))
+        if not m: continue
+        fdate=m.group(1)
+        if fdate>decision_date: continue
+        if best_date is None or fdate>best_date or (fdate==best_date and os.path.basename(p)>os.path.basename(best)):
+            best=p; best_date=fdate
+    if best is None: return None
+    try: return json.load(open(best))
+    except Exception: return None
 
 def isdate(s): 
     try: datetime.date.fromisoformat(s); return True
@@ -565,6 +585,57 @@ def eval_af_filter1_integrity_cap(decision, decision_date, mg_txt, track_txt=Non
             f"'Watchlist' cap (synthesizer.md Rating Cap Rules: unresolved adverse integrity signal, "
             f"not yet proven → maximum Watchlist; CLAUDE.md §24 Filter 1; no edge-score bypass — a "
             f"proven business edge does not cure an unresolved integrity concern)")
+    return violations  # empty list = pass
+
+AG_DATE = "2026-07-06"
+AG_STATUSES = {"not_available","pre_data","checked_no_action","applied"}
+def eval_ag_calibration_feedback_gate(decision_date, calibration_summary, calibration_feedback):
+    """Check AG: Phase 6 calibration-feedback gate (DECISION_LEDGER.md §18). Verifies the synthesizer
+    did not silently skip reading back its own prior calibration data — the loop Phase 4 (/research:
+    calibrate) opened but nothing consumed until now. Returns None (N/A — pre-gate) or a list of
+    violation strings (empty list = pass). Side-effect-free + module-level so eval.py selftest can
+    drive it without real analyses/performance/ fixtures.
+    decision_date: the run's decision_date.
+    calibration_summary: the parsed as-of calibration_summary.json dict (see _calib_summary_asof), or
+    None if no qualifying file exists.
+    calibration_feedback: decision_record.json's "calibration_feedback" value, or None/missing.
+    This is a presence/consistency check, not a re-derivation of Brier scores or hit rates — eval.py
+    cannot re-run the synthesizer's judgment call on which module is "flagged"; it can only verify the
+    gate ran, recorded a valid status, and that status matches what the as-of summary's own verdict
+    implies was possible (not_available / pre_data / checked-or-applied)."""
+    if not (isdate(decision_date) and decision_date >= AG_DATE):
+        return None  # forward-looking; pre-gate runs N/A
+    verdict = (calibration_summary or {}).get("verdict") or ""
+    if calibration_summary is None:
+        expected = "not_available"
+    elif verdict.startswith("Pre-data"):
+        expected = "pre_data"
+    else:
+        expected = "checked"  # covers checked_no_action / applied — eval.py can't judge which is correct
+    if not isinstance(calibration_feedback, dict):
+        return [f"as-of calibration_summary={'present (verdict='+repr(verdict)+')' if calibration_summary is not None else 'absent'} "
+                f"but decision_record.json has no calibration_feedback object — the Phase 6 calibration-"
+                f"feedback gate (DECISION_LEDGER.md §18) was silently skipped"]
+    violations=[]
+    status = calibration_feedback.get("status")
+    if status not in AG_STATUSES:
+        violations.append(f"calibration_feedback.status={status!r} is not one of {sorted(AG_STATUSES)}")
+    elif expected=="not_available" and status!="not_available":
+        violations.append(f"no as-of calibration_summary.json exists (decision_date={decision_date}) but status={status!r} (expected 'not_available')")
+    elif expected=="pre_data" and status!="pre_data":
+        violations.append(f"as-of calibration_summary verdict={verdict!r} is Pre-data but status={status!r} (expected 'pre_data')")
+    elif expected=="checked" and status not in ("checked_no_action","applied"):
+        violations.append(f"as-of calibration_summary has real signal (verdict={verdict!r}) but status={status!r} (expected 'checked_no_action' or 'applied')")
+    if status=="applied":
+        hp=calibration_feedback.get("haircut_points"); mf=calibration_feedback.get("modules_flagged")
+        if not (isnum(hp) and hp>0):
+            violations.append(f"status='applied' but haircut_points={hp!r} is not a positive number")
+        if not (isinstance(mf,list) and len(mf)>0):
+            violations.append(f"status='applied' but modules_flagged={mf!r} is empty/not a list")
+    if status=="checked_no_action":
+        mf=calibration_feedback.get("modules_flagged")
+        if isinstance(mf,list) and len(mf)>0:
+            violations.append(f"status='checked_no_action' but modules_flagged={mf!r} is non-empty")
     return violations  # empty list = pass
 
 if scope=="selftest":
@@ -1165,7 +1236,55 @@ if scope=="selftest":
         print(f"  [{'ok' if ok else 'XX'}] AF({dec_!r},{dt_!r},mg={mg_r!r},track={track_r!r}) -> {got}"
               +("" if ok else f"  EXPECTED exp={exp}"))
     bad+=afbad
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF cases")
+    # check AG — Phase 6 calibration-feedback gate (DECISION_LEDGER.md §18). No committed run reaches
+    # AG_DATE, so drive every branch here: no-summary / pre-data / checked / applied, each matched or
+    # mismatched against calibration_feedback, plus the malformed-status and applied/checked_no_action
+    # internal-consistency branches.
+    AG=eval_ag_calibration_feedback_gate
+    CS_PREDATA={"verdict":"Pre-data — awaits resolved reviews."}
+    CS_REAL={"verdict":"Emerging — 12 resolved forecasts."}
+    CF_NA={"status":"not_available","haircut_points":0,"modules_flagged":[],"rationale":"no calibration summary exists yet"}
+    CF_PD={"status":"pre_data","haircut_points":0,"modules_flagged":[],"rationale":"calibration summary is pre-data"}
+    CF_CHECKED={"status":"checked_no_action","haircut_points":0,"modules_flagged":[],"rationale":"checked; no module flagged"}
+    CF_APPLIED={"status":"applied","haircut_points":8,"modules_flagged":["valuation"],"rationale":"valuation brier=0.31"}
+    agcases=[  # (decision_date, calibration_summary, calibration_feedback, expect: None|[]|["substr"])
+        # pre-gate: always None (N/A), regardless of how malformed the other args are
+        ("2026-07-05",CS_REAL,None,None),
+        ("not-a-date",CS_REAL,None,None),
+        # no as-of summary exists → status must be not_available
+        ("2026-07-06",None,CF_NA,[]),
+        ("2026-07-06",None,CF_PD,["expected 'not_available'"]),
+        ("2026-07-06",None,None,["silently skipped"]),
+        # summary exists but is Pre-data → status must be pre_data
+        ("2026-07-06",CS_PREDATA,CF_PD,[]),
+        ("2026-07-06",CS_PREDATA,CF_NA,["expected 'pre_data'"]),
+        ("2026-07-06",CS_PREDATA,CF_APPLIED,["expected 'pre_data'"]),  # valid status, but wrong one for a Pre-data summary
+        # real signal, nothing flagged → checked_no_action
+        ("2026-07-06",CS_REAL,CF_CHECKED,[]),
+        ("2026-07-06",CS_REAL,CF_NA,["expected 'checked_no_action' or 'applied'"]),
+        # real signal, module flagged → applied, with a positive haircut and non-empty modules_flagged
+        ("2026-07-06",CS_REAL,CF_APPLIED,[]),
+        ("2026-07-06",CS_REAL,{"status":"applied","haircut_points":0,"modules_flagged":["valuation"],"rationale":"x"},["not a positive number"]),
+        ("2026-07-06",CS_REAL,{"status":"applied","haircut_points":8,"modules_flagged":[],"rationale":"x"},["empty/not a list"]),
+        ("2026-07-06",CS_REAL,{"status":"checked_no_action","haircut_points":0,"modules_flagged":["valuation"],"rationale":"x"},["non-empty"]),
+        # malformed status
+        ("2026-07-06",CS_REAL,{"status":"maybe","haircut_points":0,"modules_flagged":[],"rationale":"x"},["not one of"]),
+        ("2026-07-06",CS_REAL,{},["not one of"]),
+    ]
+    agbad=0
+    for dt_,cs_,cf_,exp in agcases:
+        got=AG(dt_,cs_,cf_)
+        if exp is None:
+            ok=(got is None)
+        elif not exp:
+            ok=(isinstance(got,list) and len(got)==0)
+        else:
+            ok=(isinstance(got,list) and len(got)>0 and all(any(s in v for v in got) for s in exp))
+        if not ok: agbad+=1
+        print(f"  [{'ok' if ok else 'XX'}] AG({dt_!r},cs_verdict={(cs_ or {}).get('verdict')!r},cf_status={(cf_ or {}).get('status')!r}) -> {got}"
+              +("" if ok else f"  EXPECTED exp={exp}"))
+    bad+=agbad
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(agcases)} check-AG cases")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -1826,6 +1945,22 @@ for drp in runs:
                 f"decision={dec!r} — §24 Filter 1 cap satisfied")
     else:
         add("AF_filter1_integrity_cap",True,f"run predates §24 Filter 1 gate ({ddte}) — N/A",na=True)
+    # AG Phase 6 calibration-feedback gate (forward-looking; landing AG_DATE) — DECISION_LEDGER.md §18.
+    #   Closes the loop Phase 4 (/research:calibrate) opened but nothing consumed: verifies the
+    #   synthesizer's decision_record.json carries a calibration_feedback object whose status is
+    #   consistent with whatever calibration_summary.json existed as of this run's decision_date, so
+    #   the gate cannot be silently dropped once real calibration data exists.
+    if isdate(ddte) and ddte>=AG_DATE:
+        calib_asof_ag=_calib_summary_asof(ddte)
+        agresult=eval_ag_calibration_feedback_gate(ddte,calib_asof_ag,d.get("calibration_feedback"))
+        if agresult:
+            add("AG_calibration_feedback_gate",False,"; ".join(agresult))
+        else:
+            add("AG_calibration_feedback_gate",True,
+                f"calibration_feedback.status={(d.get('calibration_feedback') or {}).get('status')!r} "
+                f"consistent with as-of calibration_summary (verdict={(calib_asof_ag or {}).get('verdict')!r})")
+    else:
+        add("AG_calibration_feedback_gate",True,f"run predates Phase 6 calibration-feedback gate ({ddte}) — N/A",na=True)
     # WARN non-schema files
     # [review fix] suppress only genuine versioned/audit/review artifacts via PRECISE patterns — the old naive
     # `"_v" not in name` / `"review" not in name` substring tests hid real strays (preview.md, *_v*-named scratch).
@@ -1881,7 +2016,7 @@ FRAMEWORK_CONTRACTS={
  ".claude/agents/management-governance/04_ownership-and-insider-behavior.md":["RF-OWN-004","Filter 6"],
  ".claude/agents/balance-sheet-survival/MODULE_RULES.md":["Net cash is a strategic asset","Filter 3","Label the cycle position of the EBITDA","the **strict** basis (CLAUDE.md §15)"],
  ".claude/agents/valuation/MODULE_RULES.md":["RF-OWN-004","Filter 6","value trap","benchmarked against BOTH a peer-normal margin"],
- ".claude/agents/synthesizer.md":["Avoid-Big-Risks","§24","DEFER to the catalyst module","Net-cash / leverage headline disclosure","business_type","primary_valuation_method","forecast_type","RF-MGT-005"],
+ ".claude/agents/synthesizer.md":["Avoid-Big-Risks","§24","DEFER to the catalyst module","Net-cash / leverage headline disclosure","business_type","primary_valuation_method","forecast_type","RF-MGT-005","calibration_feedback","Calibration feedback check"],
  ".claude/agents/catalyst/MODULE_RULES.md":["§17 Catalyst Discipline","Catalyst Category Checklist","No proven catalyst yet"],
  ".claude/agents/catalyst/01_catalyst-calendar.md":["12-Month Catalyst Calendar","Bullish Trigger","Bearish Trigger"],
  ".claude/agents/catalyst/99_catalyst-synthesis.md":["Catalyst strength /100","No proven catalyst yet","depends_on"],
@@ -1893,11 +2028,11 @@ FRAMEWORK_CONTRACTS={
  ".claude/commands/research/track.md":["analyses/tracking","_calls_tracker","review_schedule","ad-hoc","memo_delta_file"],
  ".claude/settings.json":["SessionStart","review_due.py"],
  ".claude/hooks/review_due.py":["review_schedule","research:review-decisions due"],
- "frameworks/DECISION_LEDGER.md":["Memo delta","memo_delta","thesis_delta_verdict","stage_one_comment","rerun_command","_memo_delta.md","business_type","primary_valuation_method","forecast_type"],
+ "frameworks/DECISION_LEDGER.md":["Memo delta","memo_delta","thesis_delta_verdict","stage_one_comment","rerun_command","_memo_delta.md","business_type","primary_valuation_method","forecast_type","Calibration Feedback Gate","calibration_feedback","calibration_by_module"],
  ".claude/commands/research/review-decisions.md":["memo_delta","stage_one_comment","rerun_command","Pool first","_memo_delta"],
  ".claude/commands/research/eval.md":["scripts/eval.py"],
- ".claude/commands/research/calibrate.md":["calibration_by_module","calibration_by_forecast_type","owner_module","forecast_type"],
- "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap"],
+ ".claude/commands/research/calibrate.md":["calibration_by_module","calibration_by_forecast_type","owner_module","forecast_type","Phase 6"],
+ "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap","eval_ag_calibration_feedback_gate","AG_DATE","AG_STATUSES","_calib_summary_asof","CALIB_SUMMARIES"],
  ".github/workflows/ci.yml":["eval-contracts","scripts/eval.py"],
 }
 jchecks=[]
