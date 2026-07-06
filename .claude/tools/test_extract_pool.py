@@ -19,6 +19,7 @@ Run: python3 test_extract_pool.py   (exit 0 = all pass; skips are not failures)
 from __future__ import annotations
 
 import importlib.util
+import shutil
 import tempfile
 from pathlib import Path
 
@@ -57,6 +58,24 @@ def _cells(tabs) -> list[str]:
     return [c for _n, _r, _c, rows in tabs for row in rows for c in row]
 
 
+# Skip a platform reader only when it is genuinely ABSENT — never on a present-but-broken reader (that must
+# FAIL). Keyed on tool/module availability, NOT on matching the reader's error string (which varies): a
+# poppler-absent + pypdf-absent box returns 'pypdf unavailable ...', not 'no text', so a substring guard
+# there false-FAILS the very no-reader case it means to skip.
+def _pdf_reader_available() -> bool:
+    if shutil.which("pdftotext"):
+        return True
+    try:
+        import pypdf  # noqa: F401
+        return True
+    except Exception:
+        return False
+
+
+def _rtf_reader_available() -> bool:
+    return bool(shutil.which("textutil"))  # extract_pool._read_rtf has no non-textutil fallback
+
+
 def test_sniff() -> None:
     # content beats extension — sniff_format keys off the magic bytes, not the suffix (the exact Capital IQ
     # mislabel case: an .xls that is really an HTML table, a .rtf that is really binary Word).
@@ -78,18 +97,19 @@ def test_readers() -> None:
     xlsx = ep.read_workbook(str(_FX / "synth.xlsx"), "xlsx")
     check("xlsx/openpyxl: 'Widget' + 'Alpha' cells extracted",
           any("Widget" in c for c in _cells(xlsx)) and any("Alpha" in c for c in _cells(xlsx)))
-    # text-layer PDF via pdftotext, falling back to pypdf — skip only if NEITHER reader is available
-    pdf_txt, pdf_err = ep._read_pdf_text(str(_FX / "textlayer.pdf"))
-    if pdf_err and "no text" in pdf_err.lower():
-        skip("pdf: text-layer extracted", f"no PDF reader available ({pdf_err})")
-    else:
+    # text-layer PDF via pdftotext, falling back to pypdf — SKIP only when neither reader is installed;
+    # if a reader IS present it must extract the text (a present-but-broken reader FAILS, never skips).
+    if _pdf_reader_available():
+        pdf_txt, pdf_err = ep._read_pdf_text(str(_FX / "textlayer.pdf"))
         check("pdf: 'Total Revenue 42' text-layer extracted", "Total Revenue 42" in pdf_txt, f"err={pdf_err!r}")
-    # .rtf via macOS textutil — skip (not fail) where textutil is absent (non-mac)
-    rtf_txt, rtf_err = ep._read_rtf(str(_FX / "transcript.rtf"))
-    if rtf_err and "not available" in rtf_err:
-        skip("rtf: text extracted", "textutil not available (macOS-only reader)")
     else:
+        skip("pdf: text-layer extracted", "no PDF reader (pdftotext/pypdf) installed")
+    # .rtf via macOS textutil — SKIP where textutil is absent (non-mac); assert where it exists
+    if _rtf_reader_available():
+        rtf_txt, rtf_err = ep._read_rtf(str(_FX / "transcript.rtf"))
         check("rtf: 'Earnings Call' text extracted", "Earnings Call" in rtf_txt, f"err={rtf_err!r}")
+    else:
+        skip("rtf: text extracted", "textutil not available (macOS-only reader)")
 
 
 # formats read with pure-Python, no external tool — MUST never fail on any platform
@@ -99,14 +119,18 @@ _PLATFORM = {"textlayer.pdf", "transcript.rtf"}
 
 
 def test_pipeline() -> None:
+    # a platform file is exempt ONLY when its reader is genuinely absent — a present-but-broken pdf/rtf
+    # reader must FAIL the pipeline check, never be waved through as a skip (keyed on availability, not on
+    # the 'fail' status, which cannot tell 'tool missing' from 'tool present but produced nothing').
+    reader_present = {"textlayer.pdf": _pdf_reader_available(), "transcript.rtf": _rtf_reader_available()}
     with tempfile.TemporaryDirectory() as td:
         manifest = ep.extract_pool(str(_FX), td, vision=False)
         by = {s["file"]: s for s in manifest["sources"]}
         for f in _ALWAYS | _PLATFORM:
             s = by.get(f, {})
             usable = s.get("status") in ("ok", "in-place")
-            if not usable and f in _PLATFORM and s.get("status") == "fail":
-                skip(f"pipeline: {f} usable", f"reader tool unavailable ({str(s.get('error', ''))[:48]})")
+            if f in _PLATFORM and not reader_present[f]:
+                skip(f"pipeline: {f} usable", "reader tool not installed")
             else:
                 check(f"pipeline: {f} status ok/in-place", usable, str(s))
         # the pure-Python formats must contribute ZERO extraction failures on every platform
