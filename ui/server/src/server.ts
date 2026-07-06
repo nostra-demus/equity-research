@@ -16,6 +16,7 @@ import { recordDataChange } from './data-activity'
 import { buildReportHtml, parseMeta, safeName } from './export'
 import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, GDRIVE, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, WEB_DIST, isReservedDataFolder } from './config'
 import { getCreditStatus } from './credit'
+import { accountsState, setActiveAccount } from './claude-accounts'
 import { analyzeTicker, listTickers } from './data-status'
 import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED } from './drive'
 import { cancel, cancelAll, cancelSubject, creditCheck, decideReadiness, estimate, launch, warmLaunchProbes } from './launcher'
@@ -302,6 +303,19 @@ app.get('/api/data-readiness/:ticker', async (req, reply) => {
 // ---------- credit ----------
 app.get('/api/credit', async () => getCreditStatus())
 app.post('/api/credit-check', async () => creditCheck())
+
+// ---------- which Claude account the engine spends (manual switch) ----------
+// The registry (with tokens) lives out-of-repo; the API only ever exposes id + label + the active choice.
+app.get('/api/claude-accounts', async () => accountsState())
+app.post('/api/claude-accounts/active', async (req, reply) => {
+  const body = (req.body ?? {}) as { id?: unknown }
+  const id = body.id === null || body.id === undefined ? null : String(body.id)
+  const res = setActiveAccount(id)
+  if (!res.ok) return reply.code(400).send({ error: res.error || 'could not switch account' })
+  // refresh the usage badge for the newly-selected account in the background (don't block the switch)
+  void creditCheck()
+  return accountsState()
+})
 
 // ---------- identity + activity log ----------
 // who am I (per Cloudflare Access) — drives the "signed in as" line in the cockpit

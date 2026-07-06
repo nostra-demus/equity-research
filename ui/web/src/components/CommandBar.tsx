@@ -385,6 +385,75 @@ function CreditBadge() {
   )
 }
 
+// The Claude-account switcher: which subscription the engine spends. Mirrors CreditBadge — a small pill +
+// dropdown. The list (id + label only, never tokens) comes from the server's out-of-repo registry; picking
+// one moves ALL engine spend (runs, the Ask panel, the usage probe) to that account. When no accounts are
+// configured yet, the dropdown shows the one-time setup steps so the button is never a dead end.
+function AccountBadge() {
+  const accounts = useStore((s) => s.accounts)
+  const switching = useStore((s) => s.accountSwitching)
+  const loadAccounts = useStore((s) => s.loadAccounts)
+  const setAccount = useStore((s) => s.setAccount)
+  const staticMode = useStore((s) => s.staticMode)
+  const [open, setOpen] = useState(false)
+  useEffect(() => { void loadAccounts() }, [loadAccounts])
+  if (staticMode) return null // read-only showcase spends nothing
+
+  const list = accounts?.accounts ?? []
+  const configured = list.length > 0
+  const activeId = accounts?.activeId ?? null
+  const label = activeId ? accounts?.activeLabel || activeId : configured ? 'Host login' : 'Account'
+
+  return (
+    <div className="tickerpick">
+      <button className="creditbadge" onClick={() => setOpen((o) => !o)} title="Which Claude account the engine spends — click to switch">
+        <span className="creditbadge__dot" style={{ background: activeId ? 'var(--accent)' : 'var(--text-faint)' }} />
+        {switching ? 'switching…' : label}
+      </button>
+      {open && (
+        <>
+          <div style={{ position: 'fixed', inset: 0, zIndex: 39 }} onClick={() => setOpen(false)} />
+          <div className="tickerpick__menu" style={{ minWidth: 320, padding: 6 }}>
+            <div style={{ padding: '4px 8px 6px', fontSize: 11, letterSpacing: '0.4px', textTransform: 'uppercase', color: 'var(--text-muted)' }}>Claude account the engine spends</div>
+            <button
+              className={`tickerpick__item${!activeId ? ' tickerpick__item--active' : ''}`}
+              onClick={() => { void setAccount(null); setOpen(false) }}
+              title="Use whatever account the host's own `claude` is logged in as"
+            >
+              <span className="tickerpick__sym">Host login (default)</span>
+              {!activeId && <span style={{ color: 'var(--accent)' }}>✓</span>}
+            </button>
+            {list.map((a) => (
+              <button
+                key={a.id}
+                className={`tickerpick__item${activeId === a.id ? ' tickerpick__item--active' : ''}`}
+                onClick={() => { void setAccount(a.id); setOpen(false) }}
+              >
+                <span className="tickerpick__sym">{a.label}</span>
+                {activeId === a.id && <span style={{ color: 'var(--accent)' }}>✓</span>}
+              </button>
+            ))}
+            {configured ? (
+              <div style={{ marginTop: 6, padding: '6px 8px 2px', fontSize: 10.5, color: 'var(--text-faint)', lineHeight: 1.5, borderTop: '1px solid var(--hairline)' }}>
+                Applies to new runs, the Ask panel, and the usage check. A run already in flight keeps the account it started on.
+              </div>
+            ) : (
+              <div style={{ marginTop: 6, padding: 8, fontSize: 11, color: 'var(--text-faint)', lineHeight: 1.55, borderTop: '1px solid var(--hairline)' }}>
+                <div style={{ color: 'var(--text-muted)', marginBottom: 4 }}>Add an account to switch to:</div>
+                <div>1. On the engine host, signed in as that account: <span className="kbd">claude setup-token</span></div>
+                <div style={{ marginTop: 3 }}>2. Put the token in this file:</div>
+                <div style={{ marginTop: 2, fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--text-muted)', wordBreak: 'break-all' }}>{accounts?.configPath || '~/.config/nostra-engine/claude-accounts.json'}</div>
+                <pre style={{ margin: '4px 0 0', fontFamily: 'var(--font-mono)', fontSize: 10, color: 'var(--text-muted)', whiteSpace: 'pre-wrap', wordBreak: 'break-all' }}>{'{ "accounts": [ { "id": "tech", "label": "tech@muns.io", "token": "sk-ant-oat01-…" } ] }'}</pre>
+                <div style={{ marginTop: 4 }}>It then appears here to pick — no restart needed.</div>
+              </div>
+            )}
+          </div>
+        </>
+      )}
+    </div>
+  )
+}
+
 export function CommandBar() {
   const decision = useStore((s) => s.decision)
   const openThesis = useStore((s) => s.openThesis)
@@ -434,6 +503,7 @@ export function CommandBar() {
           <button className="btn btn--ghost" onClick={openActivity} title="Activity log — who ran what, when">Activity</button>
           <button className="btn btn--ghost" onClick={openReview} title="Batch review — flag a day's worth of items fast, with keyboard shortcuts">Review</button>
           <ScreenerControls />
+          <AccountBadge />
           <CreditBadge />
         </>
       ) : (
@@ -454,6 +524,7 @@ export function CommandBar() {
           <button className="btn btn--amber" disabled={!selectedTicker || anyRun || engineDown || fullPending} onClick={requestFull} title={staticMode ? 'Runs on your local machine (npm run dev)' : engineDown ? 'Engine offline — live runs are paused until it reconnects' : anyRun ? 'A run is in flight — a full run needs exclusive access' : 'Run the full pipeline'}>
             {fullPending ? 'Preparing…' : 'Run full ▸'}
           </button>
+          <AccountBadge />
           <CreditBadge />
           <TickerPicker />
         </>

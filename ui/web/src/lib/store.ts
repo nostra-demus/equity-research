@@ -6,7 +6,7 @@ import { resolveVerdict } from './format'
 import { displayHeadline, originalHeadline, plainRoute, plainStage } from './plain'
 import type { Theme, ThemeDetail, ThemeBrief } from './themes'
 import { intensityWindowForHours } from './themes'
-import type { ActiveRunLite, AgentNode, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
+import type { ActiveRunLite, AgentNode, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ClaudeAccountsState, ConvictionDetail, CoverageGroup, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
 import { feedbackInputFromItem, feedbackLabel } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
 import { emptyReviewFilters, matchesReviewFilters, type ReviewFilterState } from '../components/screener/ReviewFilters'
@@ -188,6 +188,8 @@ interface State {
   dataLoading: boolean
   credit: Usage | null
   creditChecking: boolean
+  accounts: ClaudeAccountsState | null // which Claude account the engine spends (+ the switchable list)
+  accountSwitching: boolean
   nodeRuntime: Record<string, NodeRuntime>
   now: number // shared 1s clock for every live timer (orb/module/panel/tooltip); ticked only while orbs run
   activeRuns: Record<string, ActiveRun> // selected-ticker live runs (+ just-finished, until next switch)
@@ -295,6 +297,8 @@ interface State {
   refreshResumable: () => Promise<void>
   resumeRun: (info: ResumableRunInfo) => Promise<void>
   checkCredit: () => Promise<void>
+  loadAccounts: () => Promise<void>
+  setAccount: (id: string | null) => Promise<void>
   selectNode: (key: string | null) => void
   setNow: (n: number) => void
   nodeStatus: (key: string) => NodeStatus
@@ -518,6 +522,8 @@ export const useStore = create<State>((set, get) => ({
   dataLoading: false,
   credit: null,
   creditChecking: false,
+  accounts: null,
+  accountSwitching: false,
   nodeRuntime: {},
   now: Date.now(),
   activeRuns: {},
@@ -925,6 +931,28 @@ export const useStore = create<State>((set, get) => ({
       // keep last-known usage on a transient failure — don't wipe the windows we already have
     } finally {
       set({ creditChecking: false })
+    }
+  },
+
+  loadAccounts: async () => {
+    if (get().staticMode) return
+    try {
+      set({ accounts: await api.claudeAccounts() })
+    } catch {
+      // keep last-known accounts on a transient failure
+    }
+  },
+  setAccount: async (id) => {
+    if (get().staticMode) return
+    set({ accountSwitching: true })
+    try {
+      const accounts = await api.setClaudeAccount(id)
+      set({ accounts })
+      get().checkCredit() // the server kicked a fresh probe for the new account — reflect its usage here
+    } catch (e: any) {
+      get().setToast({ msg: e?.message ? `Couldn't switch account: ${e.message}` : "Couldn't switch account", tone: 'bad' })
+    } finally {
+      set({ accountSwitching: false })
     }
   },
 

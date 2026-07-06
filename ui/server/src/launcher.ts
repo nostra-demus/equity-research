@@ -6,6 +6,7 @@ import { logLaunch } from './activity-log'
 import { admitRun, admissionMessage } from './admission'
 import { CLAUDE_BIN, DATA_DIR, DEFAULT_MODEL, ESTIMATES, FULL_PER_MODULE, LAUNCH_GUARDS, MAX_CONCURRENT_RUNS, REPO_ROOT, type LaunchKind } from './config'
 import { getCreditStatus, setCreditStatus } from './credit'
+import { applyActiveClaudeAccount } from './claude-accounts'
 import { startRunWatcher, sweepRunOutputs } from './fs-watcher'
 import { createRun, emit, finishRun, getRun, IN_FLIGHT_STATUSES, inFlightRunsForSubject, listRuns, setActiveSubjectRun, type ExpectedAgent, type RunState } from './registry'
 import { clearRunMarker, resolveRunRoot, writeRunMarker } from './outputs'
@@ -1140,7 +1141,10 @@ const CLAUDE_AUTH_ENV_KEYS = new Set(['ANTHROPIC_API_KEY', 'CLAUDE_CODE_OAUTH_TO
 export function childEnv(): NodeJS.ProcessEnv {
   const e: NodeJS.ProcessEnv = { ...process.env }
   for (const k of providerEnvKeys) if (!CLAUDE_AUTH_ENV_KEYS.has(k)) delete e[k]
-  return e
+  // If the cockpit has an active named Claude account, spend THAT subscription: inject its token and drop
+  // any API key so the choice is unambiguous. No selection (host default) leaves the env untouched — so
+  // this is a pure switch, never a new requirement. One seam covers runs, the Ask chat, and creditCheck.
+  return applyActiveClaudeAccount(e)
 }
 
 /** Warm the once-per-process CLI probes at server startup so the FIRST user launch doesn't pay
@@ -1444,7 +1448,9 @@ export async function creditCheck(): Promise<ReturnType<typeof getCreditStatus>>
   if (flags.has('--permission-mode')) args.push('--permission-mode', 'bypassPermissions')
   if (flags.has('--max-turns')) args.push('--max-turns', '1')
   try {
-    const child = execa(CLAUDE_BIN, args, { cwd: REPO_ROOT, env: process.env, reject: false, timeout: 30000 })
+    // childEnv() so the usage probe reads the ACTIVE account's plan usage (same auth as the runs it gates),
+    // not the host default's — otherwise the badge could show one account while runs spend another.
+    const child = execa(CLAUDE_BIN, args, { cwd: REPO_ROOT, env: childEnv(), reject: false, timeout: 30000 })
     const { stdout } = await child
     let sawRateLimit = false
     for (const line of stdout.split('\n')) {

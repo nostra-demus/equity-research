@@ -1,6 +1,6 @@
 import { staticPromptPath } from './prompts'
 import { DEFAULT_RANK_WEIGHTS, type RankWeights, type RankWeightsState } from './rankWeights'
-import type { ActivityQuery, ActivityResult, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CoverageGroup, DataStatus, EventEnrichment, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SourcesReport, SwarmGraph, SwarmMeta, TickerSummary, UploadResult, Usage, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, ClaudeAccountsState, CoverageGroup, DataStatus, EventEnrichment, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SourcesReport, SwarmGraph, SwarmMeta, TickerSummary, UploadResult, Usage, Whoami } from './types'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -356,6 +356,16 @@ export const api = {
   creditCheck: async (): Promise<Usage> => {
     if ((await ensureMode()) === 'static') return { ok: true, checked: false }
     return post(`/api/credit-check`)
+  },
+  // which Claude account the engine spends — the switcher reads the list (id+label only) and picks one.
+  claudeAccounts: async (): Promise<ClaudeAccountsState> => {
+    if ((await ensureMode()) === 'static') return { accounts: [], activeId: null, activeLabel: null, hostDefaultAvailable: false, configPath: '' }
+    return get(`/api/claude-accounts`, 8_000)
+  },
+  // switch the active account (null = host default); the server also kicks a fresh usage probe for it.
+  setClaudeAccount: async (id: string | null): Promise<ClaudeAccountsState> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/claude-accounts/active`, { id })
   },
   estimate: async (kind: string, ticker: string, module?: string, agent?: string, swarm?: string): Promise<LaunchPreflight> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()

@@ -800,6 +800,17 @@ export interface ActivityResult {
   earliest: number | null
 }
 
+// ---- which Claude account the engine spends (manual switch) ----
+// The server holds the tokens out-of-repo; the cockpit only ever sees id + label + the active choice.
+export interface ClaudeAccount { id: string; label: string }
+export interface ClaudeAccountsState {
+  accounts: ClaudeAccount[]
+  activeId: string | null // null = host default (the host's own `claude` login)
+  activeLabel: string | null
+  hostDefaultAvailable: boolean
+  configPath: string // where to add accounts — shown in the setup hint
+}
+
 export interface UsageWindow { utilization?: number; resetsAt?: number; status?: string; isUsingOverage?: boolean }
 export interface Usage {
   ok: boolean
