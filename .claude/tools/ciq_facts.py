@@ -147,6 +147,19 @@ def _period_label(cell: Any) -> str:
     return (m.group(1) if m else s[:10]) + suffix
 
 
+_QUARTER_LABEL = re.compile(r"\bQ[1-4]\b|\b[1-4]Q\b|(?:three|3)[\s-]*months?", re.I)
+
+
+def _is_single_quarter(label: Any) -> bool:
+    """True when a Fiscal-Period label denotes a SINGLE quarter (3 months) rather than a full fiscal year
+    or LTM. Used to stop an annual/LTM money fact from ever publishing a single-quarter figure under an
+    'ltm_' key — a 4x period error (§15). 'LTM …' (twelve months) and 'FY…' both return False."""
+    s = str(label)
+    if re.search(r"\bLTM\b", s, re.I):
+        return False
+    return bool(_QUARTER_LABEL.search(s))
+
+
 def _fmt_num(v: float) -> str:
     return f"{v:,.0f}"
 
@@ -248,6 +261,9 @@ def levered_fcf(bundle: ResolvedBundle) -> Sourced:
     if latest is None:
         return Sourced.unknown(note="Levered Free Cash Flow has no value in any period")
     _, value, period = latest
+    if _is_single_quarter(period):
+        return Sourced.unknown(note=f"latest Levered Free Cash Flow column is a single quarter [{period}], not "
+                                    "LTM/annual — refusing to publish a 3-month figure as an annual fact (§15)")
     return Sourced.present(round(value, 1),
                            source_ref=f"CIQ Financials→Cash Flow 'Levered Free Cash Flow' [{period}] — LEVERED FCF (after interest), NOT the §15 CFO−capex FCF")
 
@@ -325,6 +341,9 @@ def ltm_ebitda(bundle: ResolvedBundle) -> Sourced:
     if latest is None:
         return Sourced.unknown(note="EBITDA row has no value in any period")
     _, value, period = latest
+    if _is_single_quarter(period):
+        return Sourced.unknown(note=f"latest EBITDA column is a single quarter [{period}], not LTM/annual — "
+                                    "refusing to publish a 3-month figure under an LTM key (§15)")
     return Sourced.present(round(value, 1), source_ref=f"CIQ Financials→Income Statement 'EBITDA' [{period}]")
 
 
@@ -340,6 +359,9 @@ def ltm_ocf(bundle: ResolvedBundle) -> Sourced:
     if latest is None:
         return Sourced.unknown(note="'Cash from Ops.' has no value in any period")
     _, value, period = latest
+    if _is_single_quarter(period):
+        return Sourced.unknown(note=f"latest Cash from Ops. column is a single quarter [{period}], not LTM/annual — "
+                                    "refusing to publish a 3-month figure under an LTM key (§15)")
     return Sourced.present(round(value, 1), source_ref=f"CIQ Financials→Cash Flow 'Cash from Ops.' [{period}]")
 
 

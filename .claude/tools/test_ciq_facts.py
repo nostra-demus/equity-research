@@ -289,6 +289,29 @@ def test_currency(base: Path) -> None:
           "ltm_ebitda_m" in out["facts"] and not any(k.endswith("_musd") for k in out["facts"]), str([k for k in out["facts"]][:5]))
 
 
+def test_ltm_quarter_guard(base: Path) -> None:
+    # A quarterly-ONLY financials export (no annual sibling, no _Annual token) served to an annual request
+    # must NEVER publish its single-quarter EBITDA/OCF/levered-FCF under an 'ltm_' key — a 4x period error
+    # (§15). The workbook self-declares 'Period Type: Quarterly'; the latest Fiscal-Period column is 'Q3 2025'.
+    d = base / "qonly"
+    d.mkdir()
+    _wb(d / "Acme Financials.xlsx", {
+        "Income Statement": [["Period Type:", "Quarterly"], ["Fiscal Period", "Q2 2025", "Q3 2025"],
+                             ["Total Revenue", 900, 1000], ["EBITDA", 180, 200], ["Interest Expense", 30, 40]],
+        "Cash Flow": [["Period Type:", "Quarterly"], ["Fiscal Period", "Q2 2025", "Q3 2025"],
+                      ["Cash from Ops.", 150, 170], ["Levered Free Cash Flow", 90, 110]]})
+    f = F.build_facts(d, "ACME")["facts"]
+    for key in ("ltm_ebitda_m", "ltm_ocf_m", "levered_fcf_m"):
+        v = f[key]
+        check(f"quarter-guard: {key} is UNKNOWN, not a single-quarter figure published as LTM",
+              v["status"] == "unknown" and v["value"] is None and "single quarter" in (v["note"] or ""), str(v))
+    # the pure period-label classifier: quarters trip, LTM / FY do not
+    check("_is_single_quarter('Q3 2025') is True", F._is_single_quarter("Q3 2025") is True)
+    check("_is_single_quarter('3 months Sep-2025') is True", F._is_single_quarter("3 months Sep-2025") is True)
+    check("_is_single_quarter('LTM Sep-30-2025') is False (twelve months)", F._is_single_quarter("LTM Sep-30-2025") is False)
+    check("_is_single_quarter('FY2025') is False", F._is_single_quarter("FY2025") is False)
+
+
 def test_primitives() -> None:
     # UNAVAILABLE cells -> None, NEVER coerced to 0 (the anti-fabrication primitive)
     check("clean_num('-') is None (not 0)", ciq.clean_num("-") is None)
@@ -325,6 +348,8 @@ def main() -> int:
         test_xls_fact_chain()
         print("== reported currency (not USD) ==")
         test_currency(d)
+        print("== LTM quarter-guard (no 3-month figure as LTM) ==")
+        test_ltm_quarter_guard(d)
         print("== parsing primitives ==")
         test_primitives()
     print(f"\n{_passed} passed, {_failed} failed")
