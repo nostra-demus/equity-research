@@ -252,6 +252,63 @@ def test_isolation(base: Path) -> None:
           str(f["total_debt_m"]))
 
 
+def test_ownership(base: Path) -> None:
+    # The insider/holdings numbers governance F20 says an LLM fabricates. Synthetic Public-Ownership workbook
+    # (Insider Trading + History tabs) incl. a data-error SENTINEL row that must be excluded + disclosed.
+    d = base / "ownership"
+    d.mkdir()
+    _wb(d / "Acme Public Ownership.xlsx", {
+        "Insider Trading": [
+            ["Acme (NYSE:ACME) > Public Ownership > Insider Trading"],
+            ["Insider/Individual Trades"],
+            ["Holder Name", "Trade Date Range", "Security Type", "Transacted Shares",
+             "Transaction Value Range (USD)", "Transaction Type", "Price Range (USD)", "Filed Date"],
+            ["Alice (CEO)", 45000, "Common Stock", 10000, 500000, "Open Market Purchase", 50, 45002],
+            ["Bob (Director)", 45010, "Common Stock", -4000, -200000, "Open Market Disposition", 50, 45012],
+            ["Carol (CFO)", 45020, "Common Stock", 6000, 0, "Derivative Exercise and Retained Stock", 0, 45022],
+            ["Dave (VP)", 45030, "Common Stock", 1234567891244257, 0, "Derivative Exercise", 0, 45032],  # SENTINEL
+        ],
+        "History": [
+            ["Acme (NYSE:ACME) > Public Ownership > History"],
+            ["Holders"],
+            ["Holder", "Jun-30-2025 Common Stock Equivalent Held", "Dec-31-2025 Common Stock Equivalent Held"],
+            ["Big Fund LP", 5000, 6000],
+            ["Mid Fund LLC", 3000, 2000],
+            ["Small Fund", 1000, 1500],
+        ],
+    })
+    f = F.build_facts(d, "ACME")["facts"]
+    # net of the SANE rows (+10000 −4000 +6000 = +12000); the 1.23e15 sentinel is excluded AND disclosed
+    na = f["insider_net_activity"]
+    check("insider_net_activity: net +12,000, sentinel excluded + disclosed",
+          na["status"] == "present" and "+12,000" in str(na["value"]) and "excluded" in str(na["value"]), str(na))
+    # open-market (non-derivative) only: Alice +10000 buy, Bob −4000 sell → net +6000 (Carol/Dave excluded)
+    om = f["insider_open_market"]
+    check("insider_open_market: +10,000 bought (1) / -4,000 sold (1) → net +6,000",
+          om["status"] == "present" and "+10,000 bought (1)" in str(om["value"])
+          and "-4,000 sold (1)" in str(om["value"]) and "+6,000" in str(om["value"]), str(om))
+    # top holders read the LATEST period column (Dec-31-2025), not the first
+    th = f["top_institutional_holders"]
+    check("top_institutional_holders: Big Fund LP 6,000 as-of latest period (2025-12-31)",
+          th["status"] == "present" and "Big Fund LP 6,000" in str(th["value"]) and "2025-12-31" in str(th["value"]), str(th))
+    # trend first (9,000) vs last (9,500)
+    tr = f["institutional_ownership_trend"]
+    check("institutional_ownership_trend: 9,000 → 9,500",
+          tr["status"] == "present" and "9,000" in str(tr["value"]) and "9,500" in str(tr["value"]), str(tr))
+
+
+def test_ownership_missing(base: Path) -> None:
+    # no Public-Ownership export in the folder -> the ownership facts are MISSING (never faked)
+    d = base / "own_missing"
+    d.mkdir()
+    _wb(d / "Acme Financials_Annual.xlsx", {"Income Statement": [
+        ["Period Type:", "Annual"], ["Fiscal Period", "FY2025"], ["Total Revenue", 100], ["EBITDA", 20]]})
+    f = F.build_facts(d, "ACME")["facts"]
+    check("no Ownership export -> insider_net_activity MISSING (value None)",
+          f["insider_net_activity"]["status"] == "missing" and f["insider_net_activity"]["value"] is None,
+          str(f["insider_net_activity"]))
+
+
 def test_xls_fact_chain() -> None:
     # The whole chain above is exercised on synthetic .xlsx (openpyxl). But real Capital IQ exports are
     # frequently LEGACY BIFF .xls read by xlrd — a different reader with its own date/number decoding. Prove
@@ -385,6 +442,9 @@ def main() -> int:
         test_isolation(d)
         print("== honest MISSING ==")
         test_missing(d)
+        print("== ownership / insider facts (+ data-error sentinel guard) ==")
+        test_ownership(d)
+        test_ownership_missing(d)
         print("== legacy .xls (xlrd) fact chain ==")
         test_xls_fact_chain()
         print("== reported currency (not USD) ==")
