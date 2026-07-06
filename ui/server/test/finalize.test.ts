@@ -8,7 +8,8 @@ import assert from 'node:assert/strict'
 import fs from 'node:fs'
 import path from 'node:path'
 import { ANALYSES_DIR, REPO_ROOT } from '../src/config'
-import { finalizeRunOnClose } from '../src/launcher'
+import { finalizeRunOnClose, __setFailureNoteCommitter } from '../src/launcher'
+import { readRunMarker } from '../src/outputs'
 import { createRun, finishRun, inFlightRunsForSubject, setActiveSubjectRun, type RunState } from '../src/registry'
 import { handleStreamLine } from '../src/stream-parser'
 import type { SseEvent } from '../src/types'
@@ -111,6 +112,40 @@ try {
     assert.equal(run.status, 'error')
     assert.equal(run.endedAt, endedAt, 'close must not re-finalize an already-ended run')
     assert.equal(inFlightRunsForSubject('ZZFIND').length, 0)
+  })
+
+  // 6. A1+A2: a broken chained/full run enriches the .interrupted marker (module + stderr tail) AND
+  //    writes/commits a diagnosable RUN_METADATA failure note — modules done (from disk) + the module it
+  //    broke at + the reason + the stderr tail. The git spawn is stubbed so no real commit/push happens.
+  check('a broken chained/full run enriches the marker and commits a RUN_METADATA failure note', () => {
+    const root = path.join(ANALYSES_DIR, `ZZFINF_${DATE}`)
+    cleanupDirs.push(root)
+    fs.mkdirSync(path.join(root, 'business-model'), { recursive: true })
+    fs.writeFileSync(path.join(root, 'business-model', '99_business-model-synthesis.md'), '# done\n')
+    const committed: Array<{ runRoot: string; ticker: string; stoppedAt: string }> = []
+    const prev = __setFailureNoteCommitter((runRoot, ticker, stoppedAt) => committed.push({ runRoot, ticker, stoppedAt }))
+    try {
+      const { run } = mkRun('full', 'ZZFINF')
+      run.module = 'valuation' // the chained step that was running when it broke
+      finalizeRunOnClose(run, { exitCode: 1 }, 'FATAL: something exploded in valuation')
+      assert.equal(run.status, 'error')
+      // A2 — the committed failure note
+      const md = fs.readFileSync(path.join(root, 'RUN_METADATA.md'), 'utf8')
+      assert.match(md, /status: FAILED/)
+      assert.match(md, /stopped_at_module: valuation/)
+      assert.match(md, /reason: nonzero_exit/)
+      assert.match(md, /- business-model/) // finished module, derived from disk
+      assert.match(md, /something exploded in valuation/) // stderr tail captured
+      assert.equal(committed.length, 1, 'the failure note is committed (best-effort, stubbed here)')
+      assert.equal(committed[0].runRoot, `analyses/ZZFINF_${DATE}`)
+      assert.equal(committed[0].stoppedAt, 'valuation')
+      // A1 — the .interrupted marker now carries the module + stderr tail (not just the reason)
+      const marker = readRunMarker(`analyses/ZZFINF_${DATE}`, '.interrupted') as any
+      assert.equal(marker?.module, 'valuation')
+      assert.match(String(marker?.message), /something exploded/)
+    } finally {
+      __setFailureNoteCommitter(prev)
+    }
   })
 } finally {
   for (const d of cleanupDirs) fs.rmSync(d, { recursive: true, force: true })

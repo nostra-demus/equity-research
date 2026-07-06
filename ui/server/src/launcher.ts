@@ -168,6 +168,67 @@ function isResumableResearchRun(run: RunState): boolean {
   return run.swarmId === 'research' && (run.kind === 'full' || run.chained === true)
 }
 
+// --- A2: commit a diagnosable failure note WITH the run --------------------------------------------
+// When a chained/full research run BREAKS (crash / external kill / plan-limit / nonzero exit), the machine
+// reason lands only in the on-host `.interrupted` marker (read by the resume supervisor) and a transient
+// SSE event — neither survives off-host. So a broken run committed just its finished modules with NO record
+// of WHY it stopped (the exact hole that made a real MGM run un-diagnosable after the fact). This writes a
+// RUN_METADATA.md failure note INTO the run folder — modules finished, the module it broke at, the reason,
+// and the stderr tail — and best-effort commits just that ONE file via the serialized commit helper (a DATA
+// pathspec, §25/§28-clean). Fully best-effort: it never throws and never blocks run finalization. The git
+// spawn is injectable so tests assert the note is written without committing/pushing for real.
+let commitFailureNote: (runRoot: string, ticker: string, stoppedAt: string) => void = (runRoot, ticker, stoppedAt) => {
+  const script = path.join(REPO_ROOT, 'scripts', 'commit-run.sh')
+  void execa('bash', [script, `Run failure note: ${ticker} (stopped at ${stoppedAt})`, '--', `${runRoot}/RUN_METADATA.md`],
+    { cwd: REPO_ROOT, timeout: 60_000 }).catch(() => { /* best-effort: a failed commit must never affect the run */ })
+}
+/** Test seam — override the failure-note committer so tests never spawn real git. Returns the prior fn. */
+export function __setFailureNoteCommitter(fn: typeof commitFailureNote): typeof commitFailureNote {
+  const prev = commitFailureNote; commitFailureNote = fn; return prev
+}
+
+function recordRunFailure(run: RunState, reason: string, stderr: string): void {
+  const runRoot = run.runRoot
+  if (!runRoot) return
+  try {
+    const abs = path.join(REPO_ROOT, runRoot)
+    if (!fs.existsSync(abs)) return
+    // modules finished = run subfolders carrying a non-empty 99_*-synthesis.md (the same "module done"
+    // test the resume path uses), derived from DISK so the note reflects what actually shipped.
+    let done: string[] = []
+    try {
+      done = fs.readdirSync(abs, { withFileTypes: true })
+        .filter((d) => d.isDirectory())
+        .filter((d) => {
+          try {
+            return fs.readdirSync(path.join(abs, d.name)).some((f) =>
+              /^99_.*-synthesis\.md$/.test(f) && fs.statSync(path.join(abs, d.name, f)).size > 0)
+          } catch { return false }
+        })
+        .map((d) => d.name).sort()
+    } catch { /* best-effort inventory */ }
+    const stoppedAt = run.module || 'unknown'
+    const md = [
+      '# Run Metadata', '',
+      `- ticker: ${run.ticker}`,
+      '- orchestrator: chained full run (server)',
+      '- status: FAILED — stopped mid-run before the final thesis',
+      `- stopped_at_module: ${stoppedAt}`,
+      `- reason: ${reason}`,
+      `- stopped_at_utc: ${new Date().toISOString()}`, '',
+      '## Modules completed', '',
+      done.length ? done.map((m) => `- ${m}`).join('\n') : '(none)', '',
+      '## Stopped at', '', `${stoppedAt} — ${reason}`, '',
+      '## Error (last 2000 chars of the engine stderr)', '', '```',
+      (stderr || '').slice(-2000) || '(no stderr captured)', '```', '',
+      '## Resume', '',
+      'This chained run broke before the master synthesis. The machine reason (and any plan-reset time) is in the `.interrupted` marker. Re-run to continue — a same-day relaunch resumes from the finished modules; an older run is re-run fresh.', '',
+    ].join('\n')
+    fs.writeFileSync(path.join(abs, 'RUN_METADATA.md'), md)
+    commitFailureNote(runRoot, run.ticker, stoppedAt)
+  } catch { /* best-effort: recording a failure must never itself fail the run */ }
+}
+
 // The SINGLE place a run's final status is decided on process close (exported for tests).
 // Gated on `endedAt` rather than status so (a) the stream parser's early ERROR finalization is
 // never double-applied, and (b) a cancel() — which sets status='cancelled' directly — still gets
@@ -190,8 +251,12 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
     // killed from OUTSIDE cancel() (OOM killer, manual kill, parent shutdown, a dropped connection that
     // tears the process down) — an error, not a success. Mark the folder so the resume supervisor can pick
     // the broken full run back up and continue it (forever-living: a closed laptop / lost network resumes).
-    if (isResumableResearchRun(run)) writeRunMarker(run.runRoot, '.interrupted', { reason: `terminated_${res?.signal || 'signal'}` })
-    emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason: `terminated_${res?.signal || 'signal'}`, message: stderr.slice(-400) || undefined, ts: Date.now() })
+    const treason = `terminated_${res?.signal || 'signal'}`
+    if (isResumableResearchRun(run)) {
+      writeRunMarker(run.runRoot, '.interrupted', { reason: treason, module: run.module, message: stderr.slice(-2000) || undefined })
+      recordRunFailure(run, treason, stderr) // A2: commit a diagnosable failure note with the run
+    }
+    emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason: treason, message: stderr.slice(-400) || undefined, ts: Date.now() })
     finishRun(run, 'error')
   } else if ((code && code !== 0) || res?.failed === true) {
     const reason = /credit|rate limit/i.test(stderr) ? 'out_of_credits' : 'nonzero_exit'
@@ -201,7 +266,8 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
     // nonzero_exit; it resumes on the next tick.)
     if (isResumableResearchRun(run)) {
       const resetsAt = reason === 'out_of_credits' ? getCreditStatus().resetsAt : undefined
-      writeRunMarker(run.runRoot, '.interrupted', { reason, resetsAt })
+      writeRunMarker(run.runRoot, '.interrupted', { reason, resetsAt, module: run.module, message: stderr.slice(-2000) || undefined })
+      recordRunFailure(run, reason, stderr) // A2: commit a diagnosable failure note with the run
     }
     emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason, message: stderr.slice(-400) || undefined, ts: Date.now() })
     finishRun(run, 'error')
