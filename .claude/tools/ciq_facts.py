@@ -885,26 +885,45 @@ def debt_maturity_wall(bundle: ResolvedBundle) -> Sourced:
 # share count — the keystone that unlocks per-share checks (§15), ownership % of shares outstanding, and a
 # relative sanity anchor for the insider sentinel — plus the peer relative multiple (§16), read from CIQ's
 # own Summary-Statistics median rather than a re-derivation.
+def _comps_ticker(cell: Any) -> str | None:
+    """The exchange-qualified ticker inside a '<Name> (EXCH:TICKER) > …' string, or None."""
+    m = re.search(r"\(\s*[^():]+:\s*([^)\s]+)\s*\)", str(cell))
+    return m.group(1).strip() if m else None
+
+
 def _comps_grid(rows: Rows, ticker: str) -> dict[str, Any] | None:
-    """Locate a CIQ Quick-Comparable grid: the 'Company Name' header row, the SUBJECT row (the one carrying
-    the analyzed ticker, ':TICKER)'), and the Summary-Statistics stat rows (High/Low/Mean/Median)."""
+    """Locate a CIQ Quick-Comparable grid: the 'Company Name' header row, the SUBJECT row, and the
+    Summary-Statistics stat rows (High/Low/Mean/Median). The subject is identified by the ticker the GRID
+    ITSELF declares in its title breadcrumb ('<Name> (EXCH:TICKER) > Quick Comparable …') — NOT the folder
+    name, which for non-US / dual-listed subjects (§27, the default-likely case) differs from the file's
+    exchange ticker. A peer's row must never be emitted as the subject: if the subject can't be matched by
+    ticker, we return no subject (→ UNKNOWN) rather than a positional guess that could pick a peer."""
     hdr = next((i for i, r in enumerate(rows) if r and str(r[0]).strip() == "Company Name"), None)
     if hdr is None:
         return None
-    pat = re.compile(rf"[:(]\s*{re.escape(ticker)}\s*\)", re.I)
+    # the grid's own declaration of who the subject is (folder-independent)
+    title_tkr = next((_comps_ticker(rows[i][0]) for i in range(min(hdr, 12))
+                      if rows[i] and ">" in str(rows[i][0]) and "comparable" in str(rows[i][0]).lower()
+                      and _comps_ticker(rows[i][0])), None)
+    subj_tkr = title_tkr or ticker  # prefer the title ticker; fall back to the folder ticker only if no title
+    pat = re.compile(rf"[:(]\s*{re.escape(subj_tkr)}\s*\)", re.I) if subj_tkr else None
     subj = summ = None
     for i in range(hdr + 1, len(rows)):
         c0 = str(rows[i][0]).strip() if rows[i] else ""
         if c0.lower().startswith("summary statistics"):
             summ = i
             break
-        if pat.search(c0):
+        if pat and pat.search(c0):
             subj = i  # the subject sits after the peer set — the last self-match before Summary wins
-    if subj is None and summ is not None:  # fallback: the last non-blank row above Summary is the subject
+    # last-resort positional fallback — ACCEPTED ONLY when that row's own (EXCH:TICKER) matches the title
+    # ticker, so it can never silently emit a peer's row as the subject.
+    if subj is None and summ is not None and title_tkr:
         j = summ - 1
         while j > hdr and not (rows[j] and str(rows[j][0]).strip()):
             j -= 1
-        subj = j if j > hdr else None
+        cand = _comps_ticker(rows[j][0]) if j > hdr and rows[j] else None
+        if cand and cand.upper() == title_tkr.upper():
+            subj = j
     stat = {}
     if summ is not None:
         for i in range(summ + 1, min(summ + 8, len(rows))):
@@ -935,8 +954,9 @@ def _comps_subject_cell(bundle: ResolvedBundle, sheet: str, pred: Callable[[str]
 
 
 def shares_outstanding(bundle: ResolvedBundle) -> Sourced:
-    """Diluted shares outstanding (millions) — the keystone: unlocks §15 per-share checks, ownership % of
-    shares outstanding, and the insider sentinel's relative sanity anchor."""
+    """Shares outstanding (millions; latest reported point-in-time count — NOT the weighted fully-diluted
+    figure §15 wants for EPS, but the right denominator for market cap / % of S/O). The keystone: unlocks
+    ownership % of shares outstanding and the insider sentinel's relative sanity anchor."""
     got = _comps_subject_cell(bundle, "Financial Data", lambda c: "shares outstanding" in c)
     if isinstance(got, Sourced):
         return got
@@ -947,7 +967,7 @@ def shares_outstanding(bundle: ResolvedBundle) -> Sourced:
 def current_price(bundle: ResolvedBundle) -> Sourced:
     """The current share price + its as-of date — the tier-critical valuation anchor (its absence caps
     valuation confidence), read from the comp grid's subject row where present."""
-    got = _comps_subject_cell(bundle, "Financial Data", lambda c: "close price" in c)
+    got = _comps_subject_cell(bundle, "Financial Data", lambda c: "day close price" in c)
     if isinstance(got, Sourced):
         return got
     rows, _g, v = got

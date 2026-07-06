@@ -419,6 +419,44 @@ def test_comps(base: Path) -> None:
           pe["status"] == "present" and "12.0x" in str(pe["value"]) and "median 8.0x" in str(pe["value"]), str(pe))
 
 
+def test_comps_foreign_subject(base: Path) -> None:
+    # AUDIT — the §27 default case: the FOLDER ticker (RELIANCE.NS) does NOT match the file's exchange ticker
+    # (NSEI:RELIANCE), AND the subject is NOT the last row before Summary (a peer is). The subject must be
+    # found via the grid's OWN title breadcrumb — a positional fallback would emit the PEER's numbers as the
+    # subject's (a wrong PRESENT). Before the fix this returned Coal India's price/shares/multiple.
+    d = base / "comps_foreign"
+    d.mkdir()
+    _wb(d / "Comparable Analysis.xlsx", {
+        "Financial Data": [
+            ["Reliance Industries Limited (NSEI:RELIANCE) > Quick Comparable Analysis > Financial Data"],
+            ["As-Of Date:", 46206],
+            ["Company Name", "Day Close Price Latest", "Shares Outstanding Latest"],
+            ["Reliance Industries Limited (NSEI:RELIANCE)", 1400.0, 6766.0],  # SUBJECT — NOT last
+            ["Oil & Natural Gas (NSEI:ONGC)", 250.0, 12580.0],
+            ["Coal India Limited (NSEI:COALINDIA)", 400.0, 6160.0],  # a PEER sits last before Summary
+            ["Summary Statistics", "", ""], ["High", 1400.0, 12580.0],
+        ],
+        "Trading Multiples": [
+            ["Reliance Industries Limited (NSEI:RELIANCE) > Quick Comparable Analysis > Trading Multiples"],
+            ["Company Name", "TEV/EBITDA LTM - Latest"],
+            ["Reliance Industries Limited (NSEI:RELIANCE)", 11.0],  # SUBJECT — NOT last
+            ["Oil & Natural Gas (NSEI:ONGC)", 5.0],
+            ["Coal India Limited (NSEI:COALINDIA)", 4.0],
+            ["Summary Statistics", "TEV/EBITDA LTM - Latest"], ["Median", 4.5],
+        ],
+    })
+    f = F.build_facts(d, "RELIANCE.NS")["facts"]  # folder ticker != exchange ticker; subject not last
+    so = f["shares_outstanding_m"]
+    check("comps foreign: shares from the SUBJECT (6,766 Reliance), NOT the last peer (6,160 Coal India)",
+          so["status"] == "present" and abs(float(so["value"]) - 6766.0) < 0.5, str(so))
+    cp = f["current_price"]
+    check("comps foreign: price from the SUBJECT (1,400 Reliance), NOT the last peer (400)",
+          cp["status"] == "present" and abs(float(cp["value"]) - 1400.0) < 0.5, str(cp))
+    pe = f["peer_ev_ebitda"]
+    check("comps foreign: subject 11.0x (Reliance, via title ticker), NOT the last peer 4.0x",
+          pe["status"] == "present" and "11.0x" in str(pe["value"]), str(pe))
+
+
 def test_xls_fact_chain() -> None:
     # The whole chain above is exercised on synthetic .xlsx (openpyxl). But real Capital IQ exports are
     # frequently LEGACY BIFF .xls read by xlrd — a different reader with its own date/number decoding. Prove
@@ -560,6 +598,7 @@ def main() -> int:
         test_maturity_floating_blank(d)
         print("== comps: peer multiple + price + shares outstanding ==")
         test_comps(d)
+        test_comps_foreign_subject(d)
         print("== legacy .xls (xlrd) fact chain ==")
         test_xls_fact_chain()
         print("== reported currency (not USD) ==")
