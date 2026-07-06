@@ -253,8 +253,9 @@ def test_isolation(base: Path) -> None:
 
 
 def test_ownership(base: Path) -> None:
-    # The insider/holdings numbers governance F20 says an LLM fabricates. Synthetic Public-Ownership workbook
-    # (Insider Trading + History tabs) incl. a data-error SENTINEL row that must be excluded + disclosed.
+    # The insider/holdings numbers governance F20 says an LLM fabricates. This fixture regression-guards every
+    # bug the adversarial audit found: parent/leg DOUBLE-COUNTING, the open-market WHITELIST (a 'Sale' leg is
+    # NOT open-market), the undated 'Latest' History column, and dropped-row DISCLOSURE.
     d = base / "ownership"
     d.mkdir()
     _wb(d / "Acme Public Ownership.xlsx", {
@@ -263,38 +264,50 @@ def test_ownership(base: Path) -> None:
             ["Insider/Individual Trades"],
             ["Holder Name", "Trade Date Range", "Security Type", "Transacted Shares",
              "Transaction Value Range (USD)", "Transaction Type", "Price Range (USD)", "Filed Date"],
-            ["Alice (CEO)", 45000, "Common Stock", 10000, 500000, "Open Market Purchase", 50, 45002],
+            # Event 1 — a NAMED open-market buy of 10,000 split into two blank-name LEGS (must count ONCE)
+            ["Alice (CEO)", 45000, "Common Stock", 10000, 500000, "Open Market Acquisition", 50, 45002],
+            ["", 45000, "Common Stock", 6000, 300000, "Open Market Acquisition", 50, 45002],  # leg — must be skipped
+            ["", 45000, "Common Stock", 4000, 200000, "Open Market Acquisition", 50, 45002],  # leg — must be skipped
             ["Bob (Director)", 45010, "Common Stock", -4000, -200000, "Open Market Disposition", 50, 45012],
-            ["Carol (CFO)", 45020, "Common Stock", 6000, 0, "Derivative Exercise and Retained Stock", 0, 45022],
-            ["Dave (VP)", 45030, "Common Stock", 1234567891244257, 0, "Derivative Exercise", 0, 45032],  # SENTINEL
+            # a 'Sale' (option-exercise sale leg) — NOT open-market; the old 'not derivative' filter wrongly kept it
+            ["Carol (CFO)", 45020, "Common Stock", -3000, -150000, "Sale", 50, 45022],
+            ["Dan (VP)", 45025, "Common Stock", 6000, 0, "Derivative Exercise and Retained Stock", 0, 45027],
+            ["Eve (VP)", 45030, "Common Stock", 1234567891244257, 0, "Derivative Exercise", 0, 45032],  # SENTINEL
         ],
         "History": [
             ["Acme (NYSE:ACME) > Public Ownership > History"],
             ["Holders"],
-            ["Holder", "Jun-30-2025 Common Stock Equivalent Held", "Dec-31-2025 Common Stock Equivalent Held"],
-            ["Big Fund LP", 5000, 6000],
-            ["Mid Fund LLC", 3000, 2000],
-            ["Small Fund", 1000, 1500],
+            ["Holder", "Jun-30-2025 Common Stock Equivalent Held", "Dec-31-2025 Common Stock Equivalent Held",
+             "Latest Common Stock Equivalent Held"],
+            ["Big Fund LP", 5000, 6000, 9999],  # 'Latest' 9999 must be IGNORED — bind to the dated Dec-31 column
+            ["Mid Fund LLC", 3000, 2000, 1],
+            ["Small Fund", 1000, 1500, 1],
+            ["MegaGarbage Fund", 2000000000000, 2000000000000, 5],  # sentinel — excluded + disclosed
         ],
     })
     f = F.build_facts(d, "ACME")["facts"]
-    # net of the SANE rows (+10000 −4000 +6000 = +12000); the 1.23e15 sentinel is excluded AND disclosed
+    # NAMED events only, all types: +10000 −4000 −3000 +6000 = +9000 (legs +6000/+4000 NOT re-added; sentinel out).
+    # If legs were summed the net would be +19,000 — asserting +9,000 proves de-dup.
     na = f["insider_net_activity"]
-    check("insider_net_activity: net +12,000, sentinel excluded + disclosed",
-          na["status"] == "present" and "+12,000" in str(na["value"]) and "excluded" in str(na["value"]), str(na))
-    # open-market (non-derivative) only: Alice +10000 buy, Bob −4000 sell → net +6000 (Carol/Dave excluded)
+    check("insider_net_activity: named-event net +9,000 (legs de-duped), sentinel excluded + disclosed",
+          na["status"] == "present" and "+9,000" in str(na["value"]) and "excluded" in str(na["value"])
+          and "+19,000" not in str(na["value"]), str(na))
+    # WHITELIST 'open market' only: Alice +10000 buy, Bob −4000 sell → net +6000, 1 buy / 1 sell. Carol's 'Sale'
+    # (−3000) and the split legs must NOT appear — if the old 'not derivative' filter or legs leaked, it'd be
+    # different counts / a different net.
     om = f["insider_open_market"]
-    check("insider_open_market: +10,000 bought (1) / -4,000 sold (1) → net +6,000",
-          om["status"] == "present" and "+10,000 bought (1)" in str(om["value"])
-          and "-4,000 sold (1)" in str(om["value"]) and "+6,000" in str(om["value"]), str(om))
-    # top holders read the LATEST period column (Dec-31-2025), not the first
+    check("insider_open_market: net +6,000, 1 buys / 1 sells ('Sale' + legs excluded)",
+          om["status"] == "present" and "net +6,000" in str(om["value"]) and "1 buys / 1 sells" in str(om["value"]), str(om))
+    # top holders bind to the DATED Dec-31-2025 column (6,000), NOT the undated 'Latest' (9,999); sentinel disclosed
     th = f["top_institutional_holders"]
-    check("top_institutional_holders: Big Fund LP 6,000 as-of latest period (2025-12-31)",
-          th["status"] == "present" and "Big Fund LP 6,000" in str(th["value"]) and "2025-12-31" in str(th["value"]), str(th))
-    # trend first (9,000) vs last (9,500)
+    check("top_institutional_holders: Big Fund LP 6,000 as-of 2025-12-31 (undated 'Latest' 9,999 ignored) + disclosure",
+          th["status"] == "present" and "Big Fund LP 6,000" in str(th["value"]) and "as-of 2025-12-31" in str(th["value"])
+          and "9,999" not in str(th["value"]) and "excluded" in str(th["value"]), str(th))
+    # trend over DATED columns: 9,000 (Jun) → 9,500 (Dec), sentinel disclosed
     tr = f["institutional_ownership_trend"]
-    check("institutional_ownership_trend: 9,000 → 9,500",
-          tr["status"] == "present" and "9,000" in str(tr["value"]) and "9,500" in str(tr["value"]), str(tr))
+    check("institutional_ownership_trend: 9,000 (2025-06-30) → 9,500 (2025-12-31) + disclosure",
+          tr["status"] == "present" and "9,000" in str(tr["value"]) and "9,500" in str(tr["value"])
+          and "2025-12-31" in str(tr["value"]) and "excluded" in str(tr["value"]), str(tr))
 
 
 def test_ownership_missing(base: Path) -> None:

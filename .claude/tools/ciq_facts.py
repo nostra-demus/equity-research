@@ -21,7 +21,7 @@ import re
 import statistics
 import sys
 from dataclasses import dataclass
-from datetime import date
+from datetime import date, timedelta
 from pathlib import Path
 from typing import Any, Callable
 
@@ -573,15 +573,25 @@ def revenue_revisions(bundle: ResolvedBundle) -> Sourced:
 
 
 # --- ownership: Insider Trading / History (CIQ 'Public Ownership' exports) --------------------
-# These are the numbers management-governance/04 (fix F20) REQUIRES from a pool filing precisely because an
-# LLM fabricates them — % held, net insider buy/sell. The disclosure is a grid, so we bind it deterministically.
-# We emit the TABULAR facts only; the "is the owner aligned?" judgement stays the agent's narrative call.
+# These are the numbers management-governance/04 (fix F20) REQUIRES from a pool filing precisely because an LLM
+# fabricates them — net insider buy/sell, institutional concentration/trend. The disclosure is a grid, so we bind
+# it deterministically; the "is the owner aligned?" judgement stays the agent's narrative call.
 #
-# CIQ ownership exports occasionally carry a sentinel garbage value in a share cell (e.g. the literal
-# 1234567891244257 seen on a real MGM insider row) — orders of magnitude beyond any company's float. A single
-# transaction or holding above ~1 trillion shares is physically impossible, so we EXCLUDE it and DISCLOSE the
-# drop (never let a data error blow up the sum, never hide that a row was dropped — CLAUDE.md §3/§15).
+# Two structural facts about a real CIQ Insider-Trading export, learned by reading one (do NOT undo — each
+# closes a confirmed fabrication-by-aggregation bug):
+#  - It is NOT a flat list of atomic trades: each insider EVENT is a NAMED summary row (holder in column 0)
+#    followed by its blank-name COMPONENT LEGS. Summing every row double-counts (a 1M open-market buy shows as
+#    a named 1M parent PLUS two blank +550k/+450k legs). We sum ONE row per event — the named rows only.
+#  - "Open market" is a specific Transaction Type ('Open Market Acquisition' / 'Open Market Disposition') — NOT
+#    "anything that isn't a derivative". 'Sale' (an option-exercise sale leg), 'Sale to Issuer' (buyback),
+#    'Other'/'Private' dispositions are all non-open-market. The conviction cut WHITELISTS 'open market' (the
+#    old 'not derivative' filter over-counted the real MGM open-market net by ~84x).
+#
+# A share cell above ~1 trillion is a CIQ data sentinel (a real MGM row holds the literal 1234567891244257) —
+# impossible for any float, so we EXCLUDE it and DISCLOSE the drop (never blow up a sum, never hide it — §3/§15).
+# The 1e12 cutoff only screens GROSS corruption; a plausible sub-threshold garbage value is not caught.
 _MAX_SANE_SHARES = 1e12
+_INSIDER_WINDOW_DAYS = 365  # the trailing window the "recent" net covers — what a red-flag read cares about
 
 
 def _label_date(cell: Any) -> date | None:
@@ -594,8 +604,8 @@ def _label_date(cell: Any) -> date | None:
 
 
 def _insider_table(rows: Rows) -> tuple[int, dict[str, int | None]] | None:
-    """(header_row, {shares/ttype/date: col}) for the Insider-Trading grid — columns mapped by header
-    LABEL (order varies across exports), so a reordered CIQ export still reads. None if no grid header."""
+    """(header_row, {shares/ttype/filed: col}) for the Insider-Trading grid — columns mapped by header LABEL
+    (order varies across exports), so a reordered CIQ export still reads. None if no grid header."""
     hdr = next((i for i, r in enumerate(rows) if r and str(r[0]).strip() == "Holder Name"), None)
     if hdr is None:
         return None
@@ -606,15 +616,54 @@ def _insider_table(rows: Rows) -> tuple[int, dict[str, int | None]] | None:
 
     cols = {
         "shares": col(lambda c: "transacted shares" in c),
-        "ttype": col(lambda c: c == "transaction type"),  # exact — NOT 'transaction value range'
-        "date": col(lambda c: "trade date" in c),
+        "ttype": col(lambda c: c == "transaction type"),   # exact — NOT 'transaction value range'
+        "filed": col(lambda c: "filed date" in c),          # a single reliable serial (Trade Date can be a range string)
     }
     return (hdr, cols) if cols["shares"] is not None else None
 
 
+Event = tuple[float, str, "date | None"]
+
+
+def _insider_events(rows: Rows, hdr: int, cols: dict[str, int | None]) -> tuple[list[Event], int]:
+    """One (shares, transaction_type, filed_date) tuple per insider EVENT — the NAMED summary rows only (the
+    blank-name component legs would double-count). Excludes data-error sentinels; returns the drop count."""
+    sc, tc, fc = cols["shares"], cols["ttype"], cols["filed"]
+    events: list[Event] = []
+    dropped = 0
+    for r in rows[hdr + 1:]:
+        holder = r[0] if r else None  # None (openpyxl) and '' (xlrd) are both blank — str(None) would read 'None'
+        if holder is None or not str(holder).strip():  # blank-name continuation leg — its named parent has the total
+            continue
+        v = clean_num(r[sc]) if sc is not None and sc < len(r) else None
+        if v is None:
+            continue
+        if abs(v) >= _MAX_SANE_SHARES:
+            dropped += 1
+            continue
+        ttype = str(r[tc]).strip().lower() if tc is not None and tc < len(r) else ""
+        fdate = excel_date(r[fc]) if fc is not None and fc < len(r) else None
+        events.append((v, ttype, fdate))
+    return events, dropped
+
+
+def _net_counts(evs: list[Event]) -> tuple[float, int, int]:
+    """(net signed shares, #positive, #negative) over (shares, type, date) events."""
+    return sum(v for v, _t, _d in evs), sum(v > 0 for v, _t, _d in evs), sum(v < 0 for v, _t, _d in evs)
+
+
+def _recent(evs: list[Event]) -> tuple[list[Event], date | None]:
+    """The events filed within the trailing window, anchored on the latest filed date (or [], None if undated)."""
+    dates = [d for _v, _t, d in evs if d is not None]
+    if not dates:
+        return [], None
+    cut = max(dates) - timedelta(days=_INSIDER_WINDOW_DAYS)
+    return [(v, t, d) for v, t, d in evs if d is not None and d >= cut], max(dates)
+
+
 def insider_net_activity(bundle: ResolvedBundle) -> Sourced:
-    """Net insider transacted shares over the export's window (the F20 'net insider buy/sell'): signed —
-    acquisitions +, dispositions − — with the buy/sell counts and the date range it covers."""
+    """Net insider share-position change across ALL transaction types, per event (named summary rows; legs
+    excluded). Reports the trailing ~12 months (what a red-flag read cares about) plus the full history."""
     try:
         rows = bundle.sheet("ownership", "Insider Trading")
     except CiqUnavailableError as exc:
@@ -622,87 +671,82 @@ def insider_net_activity(bundle: ResolvedBundle) -> Sourced:
     t = _insider_table(rows)
     if t is None:
         return Sourced.unknown(note="Insider-Trading grid header ('Holder Name' + 'Transacted Shares') not found")
-    hdr, cols = t
-    sc, dc = cols["shares"], cols["date"]
-    net, buys, sells, dropped = 0.0, 0, 0, 0
-    dates: list[date] = []
-    for r in rows[hdr + 1:]:
-        v = clean_num(r[sc]) if sc < len(r) else None
-        if v is None:
-            continue
-        if abs(v) >= _MAX_SANE_SHARES:  # CIQ data-error sentinel — exclude, disclose below
-            dropped += 1
-            continue
-        net += v
-        buys += v > 0
-        sells += v < 0
-        if dc is not None and dc < len(r) and (d := excel_date(r[dc])) is not None:
-            dates.append(d)
-    if buys == 0 and sells == 0:
-        return Sourced.unknown(note="no insider transactions with a share count in the grid")
-    window = f" over {min(dates).isoformat()}..{max(dates).isoformat()}" if dates else ""
-    dnote = f" [{dropped} implausible row(s) excluded as data errors]" if dropped else ""
+    events, dropped = _insider_events(rows, t[0], t[1])
+    if not events:
+        return Sourced.unknown(note="no insider events with a share count in the grid")
+    fnet, fb, fs = _net_counts(events)
+    recent, anchor = _recent(events)
+    rec = ""
+    if anchor is not None:
+        rnet, rb, rs = _net_counts(recent)
+        rec = f"trailing 12m (to {anchor.isoformat()}): net {rnet:+,.0f} ({rb} acq / {rs} disp); "
+    dn = f" [{dropped} implausible row(s) excluded as data errors]" if dropped else ""
     return Sourced.present(
-        f"net {net:+,.0f} shares{window} ({buys} acquisitions / {sells} dispositions){dnote}",
-        source_ref="CIQ Public Ownership→Insider Trading 'Transacted Shares' (signed sum; + acquire / − dispose)")
+        f"{rec}full history: net {fnet:+,.0f} ({fb} acq / {fs} disp){dn}",
+        source_ref="CIQ Public Ownership→Insider Trading 'Transacted Shares' — per-event (named summary rows, legs excluded; all types)")
 
 
 def insider_open_market(bundle: ResolvedBundle) -> Sourced:
-    """The CONVICTION cut: net insider shares from OPEN-MARKET (non-derivative) trades only — cash buys/sells,
-    separating a real purchase from an option exercise or retained-stock grant (bought vs merely granted)."""
+    """The CONVICTION cut: net insider shares from OPEN-MARKET trades only ('Open Market Acquisition' / 'Open
+    Market Disposition') — cash buys/sells, separating a real purchase from an option exercise or grant. Trailing
+    ~12 months plus full history, per event (named rows only)."""
     try:
         rows = bundle.sheet("ownership", "Insider Trading")
     except CiqUnavailableError as exc:
         return _miss_or_unknown(bundle, "ownership", exc)
     t = _insider_table(rows)
     if t is None or t[1]["ttype"] is None:
-        return Sourced.unknown(note="Insider-Trading grid has no 'Transaction Type' column to split open-market vs derivative")
-    hdr, cols = t
-    sc, tc = cols["shares"], cols["ttype"]
-    bought, sold, nb, ns = 0.0, 0.0, 0, 0
-    for r in rows[hdr + 1:]:
-        if sc >= len(r) or tc >= len(r):
-            continue
-        v, ttype = clean_num(r[sc]), str(r[tc]).strip().lower()
-        if v is None or abs(v) >= _MAX_SANE_SHARES or not ttype or "derivative" in ttype:
-            continue  # skip data-error sentinels + option exercises / retained-stock grants (not cash conviction)
-        if v > 0:
-            bought += v
-            nb += 1
-        elif v < 0:
-            sold += v
-            ns += 1
-    if nb == 0 and ns == 0:
-        return Sourced.unknown(note="no open-market (non-derivative) insider transactions in the grid")
+        return Sourced.unknown(note="Insider-Trading grid has no 'Transaction Type' column to identify open-market trades")
+    events, dropped = _insider_events(rows, t[0], t[1])
+    om = [(v, tt, d) for v, tt, d in events if "open market" in tt]
+    if not om:
+        return Sourced.unknown(note="no 'Open Market' insider transactions in the grid")
+    fnet, fb, fs = _net_counts(om)
+    recent, anchor = _recent(om)
+    rec = ""
+    if anchor is not None:
+        rnet, rb, rs = _net_counts(recent)
+        rec = f"trailing 12m (to {anchor.isoformat()}): net {rnet:+,.0f} ({rb} buys / {rs} sells); "
+    dn = f" [{dropped} implausible row(s) excluded]" if dropped else ""
     return Sourced.present(
-        f"open-market: {bought:+,.0f} bought ({nb}) / {sold:+,.0f} sold ({ns}) → net {bought + sold:+,.0f} shares",
-        source_ref="CIQ Public Ownership→Insider Trading (Transaction Type ≠ Derivative — cash trades only)")
+        f"{rec}full history: net {fnet:+,.0f} ({fb} buys / {fs} sells){dn}",
+        source_ref="CIQ Public Ownership→Insider Trading — Open Market Acq/Disp only, per-event (named summary rows, legs excluded)")
 
 
-def _history_table(rows: Rows) -> tuple[int, list[tuple[int, date | None]]] | None:
+def _history_table(rows: Rows) -> tuple[int, list[tuple[int, date]]] | None:
     """(header_row, [(col, period_date)]) for the History grid. Header = 'Holder | <date> Common Stock
-    Equivalent Held | ...'; each data column is one period's share count."""
+    Equivalent Held | ...'. Only DATED period columns are kept — CIQ appends an undated 'Latest' rolling
+    column whose figures belong to no quarter; binding to it drops the as-of stamp and mixes periods."""
     hdr = next((i for i, r in enumerate(rows)
                 if r and str(r[0]).strip().lower().startswith("holder")
-                and any("common stock" in str(c).lower() or _label_date(c) is not None for c in r[1:])), None)
+                and any(_label_date(c) is not None for c in r[1:])), None)
     if hdr is None:
         return None
-    cols = [(j, _label_date(rows[hdr][j])) for j in range(1, len(rows[hdr])) if str(rows[hdr][j]).strip()]
+    cols = [(j, d) for j in range(1, len(rows[hdr])) if (d := _label_date(rows[hdr][j])) is not None]
     return (hdr, cols) if cols else None
 
 
-def _history_holders(rows: Rows, hdr: int, col: int) -> list[tuple[str, float]]:
-    out = []
+def _history_holders(rows: Rows, hdr: int, col: int) -> tuple[list[tuple[str, float]], int]:
+    """(holders, dropped) for a period column — named holder rows with a sane positive share count; the count
+    of cells excluded by the sentinel guard is returned so the caller can DISCLOSE it (§3/§15)."""
+    out: list[tuple[str, float]] = []
+    dropped = 0
     for r in rows[hdr + 1:]:
-        name = str(r[0]).strip() if r else ""
+        holder = r[0] if r else None  # None (openpyxl) / '' (xlrd) are both blank
+        if holder is None or not str(holder).strip():
+            continue
         v = clean_num(r[col]) if col < len(r) else None
-        if name and v is not None and 0 < v < _MAX_SANE_SHARES:  # exclude data-error sentinels
-            out.append((name, v))
-    return out
+        if v is None or v <= 0:
+            continue
+        if v >= _MAX_SANE_SHARES:
+            dropped += 1
+            continue
+        out.append((str(holder).strip(), v))
+    return out, dropped
 
 
 def top_institutional_holders(bundle: ResolvedBundle) -> Sourced:
-    """Top holders at the latest period + a concentration read (top-5 as a share of all TRACKED holders'
+    """Top holders at the latest DATED period + a concentration read (top-5 as a share of all TRACKED holders'
     shares — NOT of shares outstanding; the % of S/O lives in the narrative Ownership Summary)."""
     try:
         rows = bundle.sheet("ownership", "History")
@@ -710,24 +754,25 @@ def top_institutional_holders(bundle: ResolvedBundle) -> Sourced:
         return _miss_or_unknown(bundle, "ownership", exc)
     t = _history_table(rows)
     if t is None:
-        return Sourced.unknown(note="ownership History grid header ('Holder' + period columns) not found")
+        return Sourced.unknown(note="ownership History grid header ('Holder' + dated period columns) not found")
     hdr, cols = t
     latest_col, latest_date = cols[-1]
-    holders = sorted(_history_holders(rows, hdr, latest_col), key=lambda x: x[1], reverse=True)
+    holders, dropped = _history_holders(rows, hdr, latest_col)
+    holders.sort(key=lambda x: x[1], reverse=True)
     if not holders:
         return Sourced.unknown(note="ownership History grid has no holder rows with a latest-period share count")
     total = sum(v for _n, v in holders)
     top = holders[:5]
     conc = (sum(v for _n, v in top) / total) if total else 0.0
-    asof = f" as-of {latest_date.isoformat()}" if latest_date else ""
     body = "; ".join(f"{n} {v:,.0f}" for n, v in top)
+    dn = f" [{dropped} implausible holder row(s) excluded]" if dropped else ""
     return Sourced.present(
-        f"top holders{asof}: {body} — top-5 = {conc:.0%} of {len(holders)} tracked holders' {total:,.0f} shares",
-        source_ref="CIQ Public Ownership→History (latest period, Common Stock Equivalent Held; % of tracked holders, not S/O)")
+        f"top holders as-of {latest_date.isoformat()}: {body} — top-5 = {conc:.0%} of {len(holders)} tracked holders' {total:,.0f} shares{dn}",
+        source_ref="CIQ Public Ownership→History (latest dated period, Common Stock Equivalent Held; % of tracked holders, not S/O)")
 
 
 def institutional_ownership_trend(bundle: ResolvedBundle) -> Sourced:
-    """Aggregate tracked-institutional holdings, first period vs last — is institutional ownership rising or
+    """Aggregate tracked-institutional holdings, first dated period vs last — institutional ownership rising or
     falling (conviction building or bleeding)."""
     try:
         rows = bundle.sheet("ownership", "History")
@@ -735,18 +780,18 @@ def institutional_ownership_trend(bundle: ResolvedBundle) -> Sourced:
         return _miss_or_unknown(bundle, "ownership", exc)
     t = _history_table(rows)
     if t is None or len(t[1]) < 2:
-        return Sourced.unknown(note="ownership History grid has <2 period columns — no trend")
+        return Sourced.unknown(note="ownership History grid has <2 dated period columns — no trend")
     hdr, cols = t
     (first_col, first_date), (last_col, last_date) = cols[0], cols[-1]
-    a = sum(v for _n, v in _history_holders(rows, hdr, first_col))
-    b = sum(v for _n, v in _history_holders(rows, hdr, last_col))
+    first, d1 = _history_holders(rows, hdr, first_col)
+    last, d2 = _history_holders(rows, hdr, last_col)
+    a, b = sum(v for _n, v in first), sum(v for _n, v in last)
     if not a or not b:
         return Sourced.unknown(note="ownership History grid has no aggregate share count in the first/last period")
-    fd = first_date.isoformat() if first_date else "first"
-    ld = last_date.isoformat() if last_date else "last"
+    dn = f" [{max(d1, d2)} implausible holder row(s) excluded]" if (d1 or d2) else ""
     return Sourced.present(
-        f"tracked institutional holdings {a:,.0f} ({fd}) → {b:,.0f} ({ld}), {(b - a) / a:+.1%}",
-        source_ref="CIQ Public Ownership→History (aggregate of tracked holders, first vs last period)")
+        f"tracked institutional holdings {a:,.0f} ({first_date.isoformat()}) → {b:,.0f} ({last_date.isoformat()}), {(b - a) / a:+.1%}{dn}",
+        source_ref="CIQ Public Ownership→History (aggregate of tracked holders, first vs last dated period)")
 
 
 # --- emit ------------------------------------------------------------------------------------
