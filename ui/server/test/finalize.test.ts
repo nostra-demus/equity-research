@@ -128,7 +128,10 @@ try {
     try {
       const { run } = mkRun('full', 'ZZFINF')
       run.module = 'valuation' // the chained step that was running when it broke
-      finalizeRunOnClose(run, { exitCode: 1 }, 'FATAL: something exploded in valuation')
+      // stderr carries a fake secret — it MUST be redacted everywhere it is persisted (RUN_FAILURE.md is
+      // committed to a public repo; the marker + activity note surface in the UI).
+      const SECRET = 'sk-ant-api03-SECRET1234567890abcdefg'
+      finalizeRunOnClose(run, { exitCode: 1 }, `FATAL in valuation: auth failed with key ${SECRET}`)
       assert.equal(run.status, 'error')
       // A2 — a DISTINCT RUN_FAILURE.md, never the RUN_METADATA success contract
       assert.ok(!fs.existsSync(path.join(root, 'RUN_METADATA.md')), 'must NOT write the RUN_METADATA success contract')
@@ -138,16 +141,20 @@ try {
       assert.match(md, /reason: nonzero_exit/)
       assert.match(md, /- business-model/)                // finished module, from disk
       assert.doesNotMatch(md, /^- valuation$/m)           // the broken module is NOT listed as completed
-      assert.match(md, /something exploded in valuation/) // stderr tail captured
+      assert.match(md, /FATAL in valuation/)              // non-secret context preserved
+      assert.doesNotMatch(md, /SECRET1234567890abcdefg/)  // #4: the secret is REDACTED before commit
+      assert.match(md, /REDACTED/)
       assert.equal(committed.length, 1)
       assert.equal(committed[0].file, 'RUN_FAILURE.md')
       assert.equal(committed[0].runRoot, `analyses/ZZFINF_${DATE}`)
-      // A1 — the .interrupted marker carries the module + stderr tail
+      // A1 — the .interrupted marker carries the module + (redacted) stderr tail
       const marker = readRunMarker(`analyses/ZZFINF_${DATE}`, '.interrupted') as any
       assert.equal(marker?.module, 'valuation')
-      assert.match(String(marker?.message), /something exploded/)
-      // A3 — the durable activity-log note carries the reason (shown as a ⚠ pill + hover in the cockpit)
-      assert.match(String(run.note), /nonzero_exit: .*something exploded/)
+      assert.match(String(marker?.message), /FATAL in valuation/)
+      assert.doesNotMatch(String(marker?.message), /SECRET1234567890/) // redacted in the on-host marker too
+      // A3 — the durable activity-log note carries the (redacted) reason (⚠ pill + hover in the cockpit)
+      assert.match(String(run.note), /nonzero_exit: FATAL in valuation/)
+      assert.doesNotMatch(String(run.note), /SECRET1234567890/)
     } finally {
       __setFailureNoteCommitter(prev)
     }

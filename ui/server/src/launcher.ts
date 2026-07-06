@@ -190,12 +190,31 @@ const recordedFailure = new Set<string>() // runRoots already recorded this proc
 
 let commitRunFile: (runRoot: string, file: string, msg: string) => void = (runRoot, file, msg) => {
   const script = path.join(REPO_ROOT, 'scripts', 'commit-run.sh')
-  void execa('bash', [script, msg, '--', `${runRoot}/${file}`], { cwd: REPO_ROOT, timeout: 60_000 })
+  // Timeout must EXCEED commit-run.sh's own ~15-min git-lock wait — a 60s cap would kill the helper while
+  // it legitimately waits behind a concurrent full/chained commit, so the note would never reach git
+  // (defeating the durable off-host diagnostic). commit-run.sh gives up on its own at 15m (exit 4).
+  void execa('bash', [script, msg, '--', `${runRoot}/${file}`], { cwd: REPO_ROOT, timeout: 20 * 60_000 })
     .catch(() => { /* best-effort: a failed commit must never affect the run */ })
 }
 /** Test seam — override the git committer so tests never spawn real git. Returns the prior fn. */
 export function __setFailureNoteCommitter(fn: typeof commitRunFile): typeof commitRunFile {
   const prev = commitRunFile; commitRunFile = fn; return prev
+}
+
+// Mask common secret shapes before a stderr tail is PERSISTED: RUN_FAILURE.md is committed to a public
+// repo, and the marker/activity note surface in the UI. A failing tool or auth error can print an API key,
+// token, JWT, or signed URL to stderr — this stops a transient error stream from becoming a permanent git
+// artifact. Best-effort masking (targeted shapes, not a general DLP), applied at every persist point.
+function redactSecrets(s: string): string {
+  if (!s) return s
+  return s
+    .replace(/\b(sk|rk|pk|sk-ant|xoxb|xoxp)-[A-Za-z0-9_-]{12,}/gi, '$1-***REDACTED***') // Anthropic/OpenAI/Stripe/Slack
+    .replace(/\bgh[pousr]_[A-Za-z0-9]{20,}\b/g, 'gh*_***REDACTED***')                    // GitHub tokens
+    .replace(/\bAKIA[0-9A-Z]{16}\b/g, 'AKIA***REDACTED***')                              // AWS access key id
+    .replace(/\b(?:ey[A-Za-z0-9_-]{8,}\.){2}[A-Za-z0-9_-]{8,}/g, '***JWT-REDACTED***')   // JWTs
+    .replace(/\b(Bearer|Basic)\s+[A-Za-z0-9._~+/=-]{12,}/gi, '$1 ***REDACTED***')        // Authorization headers
+    .replace(/\b(api[_-]?key|secret|token|password|passwd|auth|access[_-]?key|client[_-]?secret)(["'\s:=]{1,4})[A-Za-z0-9._~+/=-]{8,}/gi, '$1$2***REDACTED***') // key=value
+    .replace(/([?&](?:sig|signature|token|key|secret|password|api[_-]?key|access[_-]?token|x-amz-signature)=)[^&\s"']+/gi, '$1***REDACTED***') // signed URLs / query strings
 }
 
 function recordRunFailure(run: RunState, reason: string, stderr: string): void {
@@ -241,8 +260,8 @@ function recordRunFailure(run: RunState, reason: string, stderr: string): void {
       `- stopped_at_utc: ${new Date().toISOString()}`, '',
       '## Modules completed', '',
       done.length ? done.map((m) => `- ${m}`).join('\n') : '(none)', '',
-      '## Error (last 2000 chars of the engine stderr)', '', '```',
-      (stderr || '').slice(-2000) || '(no stderr captured)', '```', '',
+      '## Error (last 2000 chars of the engine stderr, secrets redacted)', '', '```',
+      redactSecrets((stderr || '').slice(-2000)) || '(no stderr captured)', '```', '',
       '## Resume', '',
       'This run broke before the master synthesis. The machine reason (and any plan-reset time) is in the `.interrupted` marker. Re-run to continue — a same-day relaunch resumes from the finished modules; an older run is re-run fresh. This note is auto-removed if the run later completes.', '',
     ].join('\n')
@@ -270,7 +289,7 @@ function clearRunFailure(runRoot: string | null): void {
 // row already renders it (a ⚠ pill + hover) — the same path the 'incomplete' note uses. So setting run.note
 // here surfaces WHY a run stopped both in the queryable log and the UI, with no new field or web code (A4).
 const failureNote = (reason: string, stderr: string): string =>
-  reason + (stderr?.trim() ? `: ${stderr.slice(-300).replace(/\s+/g, ' ').trim()}` : '')
+  reason + (stderr?.trim() ? `: ${redactSecrets(stderr.slice(-300)).replace(/\s+/g, ' ').trim()}` : '')
 
 // The SINGLE place a run's final status is decided on process close (exported for tests).
 // Gated on `endedAt` rather than status so (a) the stream parser's early ERROR finalization is
@@ -296,7 +315,7 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
     // the broken full run back up and continue it (forever-living: a closed laptop / lost network resumes).
     const treason = `terminated_${res?.signal || 'signal'}`
     if (isResumableResearchRun(run)) {
-      if (!finalDeliverablesPresent(run.runRoot)) writeRunMarker(run.runRoot, '.interrupted', { reason: treason, module: run.module, message: stderr.slice(-2000) || undefined })
+      if (!finalDeliverablesPresent(run.runRoot)) writeRunMarker(run.runRoot, '.interrupted', { reason: treason, module: run.module, message: redactSecrets(stderr.slice(-2000)) || undefined })
       recordRunFailure(run, treason, stderr) // A2: diagnosable failure note (self-guards on deliverables + single-shot)
     }
     run.note = failureNote(treason, stderr) // A3: durable reason in the activity log (shown on the row)
@@ -310,7 +329,7 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
     // nonzero_exit; it resumes on the next tick.)
     if (isResumableResearchRun(run)) {
       const resetsAt = reason === 'out_of_credits' ? getCreditStatus().resetsAt : undefined
-      if (!finalDeliverablesPresent(run.runRoot)) writeRunMarker(run.runRoot, '.interrupted', { reason, resetsAt, module: run.module, message: stderr.slice(-2000) || undefined })
+      if (!finalDeliverablesPresent(run.runRoot)) writeRunMarker(run.runRoot, '.interrupted', { reason, resetsAt, module: run.module, message: redactSecrets(stderr.slice(-2000)) || undefined })
       recordRunFailure(run, reason, stderr) // A2: diagnosable failure note (self-guards on deliverables + single-shot)
     }
     run.note = failureNote(reason, stderr) // A3: durable reason in the activity log (shown on the row)
@@ -798,6 +817,7 @@ export async function launchFullChained(ticker: string, user: string, userVia: '
     }
     clearRunMarker(resumeRoot, '.interrupted') // a deliberate (re)launch; a fresh break will re-mark it
     clearRunMarker(resumeRoot, '.aborted')
+    recordedFailure.delete(resumeRoot) // a relaunch resets the single-shot so a FRESH failure re-records RUN_FAILURE.md
     // eslint-disable-next-line no-console
     if (done.size) console.log(`[full-chain] ${ticker}: resuming — ${done.size}/${total} modules already on disk, running the rest`)
   }
