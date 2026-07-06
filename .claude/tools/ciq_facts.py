@@ -834,7 +834,7 @@ def debt_maturity_wall(bundle: ResolvedBundle) -> Sourced:
     hdr, cols, asof = blk
     pc, mc, fc, tc = cols["principal"], cols["maturity"], cols["floating"], cols["type"]
     by_year: dict[int, float] = {}
-    dated = leases = floating = fixed = 0.0
+    dated = leases = undated = floating = fixed = 0.0
     nearest: date | None = None
     wam_num = 0.0
     for r in rows[hdr + 1:]:
@@ -850,25 +850,28 @@ def debt_maturity_wall(bundle: ResolvedBundle) -> Sourced:
             floating += p
         else:
             fixed += p
-        if mat is None or "lease" in typ:  # leases amortize — no refinancing maturity
+        if "lease" in typ:  # leases amortize — no refinancing maturity
             leases += p
+        elif mat is None:  # a bond/loan with no parseable maturity — part of the wall, timing UNKNOWN; DISCLOSE
+            undated += p    # (do NOT fold into leases — that would silently understate the refinancing wall)
         else:
             by_year[mat.year] = by_year.get(mat.year, 0.0) + p
             dated += p
             nearest = mat if nearest is None or mat < nearest else nearest
             if asof is not None:
                 wam_num += p * ((mat - asof).days / 365.25)
-    if dated == 0 and leases == 0:
+    if dated == 0 and leases == 0 and undated == 0:
         return Sourced.unknown(note="no priced instruments in Capital Structure Details")
-    sched = "; ".join(f"{y} {v:,.0f}" for y, v in sorted(by_year.items()))
+    sched = "; ".join(f"{y} {v:,.0f}" for y, v in sorted(by_year.items())) or "—"
     asof_s = asof.isoformat() if asof else "the reporting date"
     wam = f", WAM ~{wam_num / dated:.1f}y from {asof_s}" if dated and asof else ""
     near = f"; nearest {nearest.isoformat()}" if nearest else ""
     lease = f"; amortizing leases (no refi maturity) {leases:,.0f}" if leases else ""
-    total = dated + leases
+    undat = f"; undated debt {undated:,.0f} (maturity not parsed — timing unknown)" if undated else ""
+    total = dated + leases + undated
     return Sourced.present(
         f"dated debt {dated:,.0f} of {total:,.0f} total principal by maturity — {sched}{near}{wam}; "
-        f"{floating:,.0f} floating / {fixed:,.0f} fixed{lease}",
+        f"{floating:,.0f} floating / {fixed:,.0f} fixed{lease}{undat}",
         source_ref="CIQ Financials→Capital Structure Details (latest as-reported block: Principal Due × Maturity × Floating Rate; leases carry no maturity)")
 
 

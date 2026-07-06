@@ -337,6 +337,7 @@ def test_maturity_wall(base: Path) -> None:
             ["6% Notes Due 2028", "Bonds and Notes", 200, "6.0%", "NA", _date(2028, 6, 1), "Senior"],
             ["Revolver", "Revolving Credit", 50, "NA", "SOFR + 2%", _date(2027, 6, 1), "Senior"],
             ["Operating Lease Liabilities", "Capital Lease", 1000, "7.0%", "NA", "-", "Senior"],  # lease — no maturity
+            ["Perp Bond", "Bonds and Notes", 300, "5.0%", "NA", "-", "Senior"],  # dated debt, maturity UNPARSED → disclose, NOT lease
             ["Matured Note", "Bonds and Notes", "-", "5.0%", "NA", _date(2025, 1, 1), "Senior"],  # '-' principal → skip
             ["FY 2024 (Dec-31-2024) Capital Structure As Reported Details"],  # next block — must STOP here
             ["Description", "Type", "Principal Due (USD)", "Coupon/Base Rate", "Floating Rate", "Maturity", "Seniority"],
@@ -346,13 +347,15 @@ def test_maturity_wall(base: Path) -> None:
     f = F.build_facts(d, "ACME")["facts"]
     mw = f["debt_maturity_wall"]
     v = str(mw["value"])
-    # dated = 100+200+50 = 350; leases = 1,000 (separated); Matured '-' skipped; FY2024 9,999 excluded
-    check("debt_maturity_wall: dated 350 of 1,350; leases separated",
-          mw["status"] == "present" and "dated debt 350 of 1,350" in v and "leases (no refi maturity) 1,000" in v, str(mw))
+    # dated=100+200+50=350; leases=1,000; undated Perp Bond=300 (NOT folded into leases); total=1,650; '-' skip; FY2024 out
+    check("debt_maturity_wall: dated 350 of 1,650; leases separated",
+          mw["status"] == "present" and "dated debt 350 of 1,650" in v and "leases (no refi maturity) 1,000" in v, str(mw))
+    check("debt_maturity_wall: an undated (unparsed-maturity) bond is DISCLOSED, not hidden in leases",
+          "undated debt 300 (maturity not parsed" in v, str(mw))
     check("debt_maturity_wall: schedule buckets 2026 100; 2027 50; 2028 200",
           "2026 100" in v and "2027 50" in v and "2028 200" in v, str(mw))
-    check("debt_maturity_wall: 50 floating / 1,300 fixed (revolver floats; leases fixed)",
-          "50 floating / 1,300 fixed" in v, str(mw))
+    check("debt_maturity_wall: 50 floating / 1,600 fixed (revolver floats; leases + fixed bonds fixed)",
+          "50 floating / 1,600 fixed" in v, str(mw))
     check("debt_maturity_wall: next-block (FY2024) 9,999 does NOT leak in",
           "9,999" not in v, str(mw))
 
