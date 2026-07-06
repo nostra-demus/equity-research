@@ -240,10 +240,18 @@ function recordRunFailure(run: RunState, reason: string, stderr: string): void {
         })
         .map((d) => d.name).sort()
     } catch { /* best-effort inventory */ }
-    const done = doneAll.filter((m) => m !== run.module)
-    // stopped-at: the chained step that broke; else (monolithic full, no run.module) the master if every
-    // module synthesis shipped but final_thesis didn't, else the first module still missing.
+    // Completed = DISK TRUTH: every module whose 99_*-synthesis.md is on disk — exactly what a resume will
+    // skip. Do NOT drop run.module: if its synthesis already shipped (a commit/handoff failed AFTER it), the
+    // module IS complete and belongs here; the failed phase is reported separately in stopped_at below.
+    const done = doneAll
+    const moduleShipped = !!run.module && doneAll.includes(run.module)
+    // stopped-at: the chained step that broke. If run.module's synthesis is already on disk, the break was on
+    // its commit/handoff AFTER the module completed — say so, so the note never contradicts the completed
+    // list. Else (monolithic full, no run.module) the master if every module synthesis shipped but
+    // final_thesis didn't, else the first module still missing.
     let stoppedAt = run.module
+      ? (moduleShipped ? `after ${run.module} (its synthesis shipped)` : run.module)
+      : undefined
     if (!stoppedAt) {
       let allModules: string[] = []
       try { allModules = buildSwarmGraph().modules.map((m) => m.name) } catch { /* graph unavailable */ }
@@ -309,6 +317,18 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
     if (isResumableResearchRun(run)) clearRunMarker(run.runRoot, '.interrupted') // a deliberate stop — cancel() wrote .aborted; never auto-resume
     emit(run, { type: 'run-error', runId: run.runId, status: 'cancelled', reason: 'cancelled', ts: Date.now() })
     finishRun(run, 'cancelled')
+  } else if (isResumableResearchRun(run) && finalDeliverablesPresent(run.runRoot)) {
+    // SHIPPED before a trailing nonzero/kill: the terminal deliverables (final_thesis + decision_record) are
+    // on disk, so the research SUCCEEDED — a nonzero exit or a late kill on the final commit/handoff does NOT
+    // un-ship it. Finalize as DONE, consistent with recordRunFailure's own finalDeliverablesPresent guard
+    // (which already skips RUN_FAILURE.md here), and never log a failure reason for a run that shipped. Only
+    // full/chained research runs qualify — a rerun's folder may hold the ORIGINAL run's deliverables, so a
+    // failed rerun must NOT be called done on their presence (it falls through to the error branches below).
+    if ((run.kind === 'full' || run.kind === 'rerun') && run.swarmId === 'research') saveMemosToCompanyFolder(run.ticker, run.runRoot)
+    clearRunMarker(run.runRoot, '.interrupted')
+    clearRunFailure(run.runRoot)
+    emit(run, { type: 'run-done', runId: run.runId, status: 'done', costUsd: run.costUsd, durationMs: run.durationMs, numTurns: run.numTurns, ...finalPaths(run), ts: Date.now() })
+    finishRun(run, 'done')
   } else if (terminated) {
     // killed from OUTSIDE cancel() (OOM killer, manual kill, parent shutdown, a dropped connection that
     // tears the process down) — an error, not a success. Mark the folder so the resume supervisor can pick
@@ -1091,6 +1111,14 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
       runRoot = resolveAgentRunRoot(ticker)
     } else {
       runRoot = `analyses/${ticker}_${todayDate()}`
+      // A deliberate same-day relaunch of a FULL run reuses this run root. The plain launch() path (the
+      // default when FULL_PER_MODULE is off) must reset the single-shot failure-note dedup — otherwise
+      // recordRunFailure() suppresses the RELAUNCH's failure and RUN_FAILURE.md keeps the first attempt's
+      // reason/stopped_at/stderr. The chained launcher already does this reset at its resume root (~820).
+      if (kind === 'full' && fs.existsSync(path.join(REPO_ROOT, runRoot)) && !finalDeliverablesPresent(runRoot)) {
+        recordedFailure.delete(runRoot)
+        clearRunMarker(runRoot, '.interrupted') // a deliberate relaunch; a fresh break will re-mark it
+      }
     }
   }
 

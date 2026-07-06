@@ -161,9 +161,10 @@ try {
   })
 
   // 7. THE audit fix: a run that SHIPPED its terminal deliverables but whose process then exits nonzero
-  //    must NOT be stamped failed — no RUN_FAILURE.md, no .interrupted marker, no commit. Never overwrite
-  //    a real success with a FAILED note (the finalDeliverablesPresent guard).
-  check('a completed run that exits nonzero is NOT recorded as failed (finalDeliverablesPresent guard)', () => {
+  //    must NOT be stamped failed — it finalizes DONE (the research succeeded; a trailing nonzero on the
+  //    final commit does not un-ship it): no RUN_FAILURE.md, no .interrupted marker, no commit, and — the
+  //    review follow-up (Codex #2) — NO failure reason in run.note polluting the durable activity log.
+  check('a completed run that exits nonzero finalizes DONE, not failed (no note, no RUN_FAILURE.md)', () => {
     const root = path.join(ANALYSES_DIR, `ZZFING_${DATE}`)
     cleanupDirs.push(root)
     fs.mkdirSync(root, { recursive: true })
@@ -172,11 +173,39 @@ try {
     const committed: unknown[] = []
     const prev = __setFailureNoteCommitter((...a) => committed.push(a))
     try {
-      const { run } = mkRun('full', 'ZZFING')
+      const { run, events } = mkRun('full', 'ZZFING')
       finalizeRunOnClose(run, { exitCode: 1 }, 'trailing nonzero after a completed run')
+      assert.equal(run.status, 'done', 'a shipped run that exits nonzero is DONE, not error')
+      assert.ok(events.find((e) => e.type === 'run-done'), 'a run-done event is emitted for the shipped run')
+      assert.doesNotMatch(String(run.note ?? ''), /nonzero_exit|terminated_/, 'no failure reason in the durable note')
       assert.ok(!fs.existsSync(path.join(root, 'RUN_FAILURE.md')), 'a completed run must not get a failure note')
       assert.ok(!readRunMarker(`analyses/ZZFING_${DATE}`, '.interrupted'), 'a completed run must not be marked interrupted')
       assert.equal(committed.length, 0, 'no failure commit for a completed run')
+      assert.equal(inFlightRunsForSubject('ZZFING').length, 0)
+    } finally {
+      __setFailureNoteCommitter(prev)
+    }
+  })
+
+  // 8. Review follow-up (Codex #3): a chained step whose 99_*-synthesis.md is already on disk when the
+  //    process exits nonzero (a commit/handoff failed AFTER the module completed) is COMPLETE and must stay
+  //    in the "Modules completed" inventory — resume will skip it — with the failed phase reported
+  //    separately in stopped_at, never contradicting the completed list.
+  check('a stopped module whose synthesis is on disk stays in the completed inventory (disk truth)', () => {
+    const root = path.join(ANALYSES_DIR, `ZZFINH_${DATE}`)
+    cleanupDirs.push(root)
+    fs.mkdirSync(path.join(root, 'valuation'), { recursive: true })
+    fs.writeFileSync(path.join(root, 'valuation', '99_valuation-synthesis.md'), '# done\n')
+    const committed: Array<{ runRoot: string; file: string; msg: string }> = []
+    const prev = __setFailureNoteCommitter((runRoot, file, msg) => committed.push({ runRoot, file, msg }))
+    try {
+      const { run } = mkRun('full', 'ZZFINH')
+      run.module = 'valuation' // broke on valuation's commit/handoff — its synthesis is already on disk
+      finalizeRunOnClose(run, { exitCode: 1 }, 'commit failed after valuation synthesis')
+      assert.equal(run.status, 'error')
+      const md = fs.readFileSync(path.join(root, 'RUN_FAILURE.md'), 'utf8')
+      assert.match(md, /^- valuation$/m, 'a module complete on disk must be listed as completed')
+      assert.match(md, /stopped_at: after valuation \(its synthesis shipped\)/, 'the failed phase is reported without contradicting the completed list')
     } finally {
       __setFailureNoteCommitter(prev)
     }
