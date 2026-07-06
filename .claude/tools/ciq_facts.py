@@ -541,10 +541,22 @@ def build_facts(data_dir: Path, ticker: str | None = None) -> dict[str, Any]:
     bundle = ResolvedBundle(pool)
     facts = {}
     for name, fn in FACTS.items():
-        s = fn(bundle)
+        # PER-FACT ISOLATION: one malformed sheet must degrade THAT fact to an honest UNKNOWN, never
+        # crash the whole sidecar and lose the other 17 facts (still no fabricated value — CLAUDE.md §3).
+        try:
+            s = fn(bundle)
+        except Exception as exc:  # noqa: BLE001 — any extractor throw becomes one honest UNKNOWN
+            s = Sourced.unknown(note=f"extractor '{name}' failed: {type(exc).__name__}: {exc}")
         facts[name] = {"value": s.value, "source_ref": s.source_ref, "status": s.status.value, "note": s.note}
+    # Surface concept CONFLICTS (>1 file resolved to the same address) so a consumer knows a fact was
+    # contested; rows() serves the FRESHEST, but the losing file(s) are named here for the human to prune.
+    conflicts = [
+        {"kind": k, "sheet": s, "freq": fr, "files": [u["file"] for u in units]}
+        for (k, s, fr), units in pool.concept_map.items() if len(units) > 1
+    ]
     return {"ticker": bundle.ticker, "facts": facts,
-            "concepts_resolved": len(pool.concept_map), "non_ciq": len(pool.non_ciq)}
+            "concepts_resolved": len(pool.concept_map), "non_ciq": len(pool.non_ciq),
+            "conflicts": conflicts}
 
 
 def main(argv: list[str]) -> int:

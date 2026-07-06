@@ -13,6 +13,7 @@ never coerced to 0 — a fabricated number is worse than an honest gap (CLAUDE.m
 from __future__ import annotations
 
 import enum
+import math
 from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any
@@ -94,7 +95,9 @@ def clean_num(cell: Any) -> float | None:
     if isinstance(cell, bool):
         return None
     if isinstance(cell, (int, float)):
-        return float(cell)
+        # a finite 0.0 is a REAL zero and survives; NaN/inf is not a number — treat as UNAVAILABLE,
+        # never let it flow into a median/percentile or get emitted as a PRESENT 'nan' (a non-honest value).
+        return float(cell) if math.isfinite(cell) else None
     s = str(cell).strip()
     if s in _UNAVAILABLE_CELLS:
         return None
