@@ -9,6 +9,7 @@ Run: python3 test_ciq_facts.py   (exit 0 = all pass)
 """
 from __future__ import annotations
 
+import shutil
 import sys
 import tempfile
 from pathlib import Path
@@ -250,6 +251,30 @@ def test_isolation(base: Path) -> None:
           str(f["total_debt_musd"]))
 
 
+def test_xls_fact_chain() -> None:
+    # The whole chain above is exercised on synthetic .xlsx (openpyxl). But real Capital IQ exports are
+    # frequently LEGACY BIFF .xls read by xlrd — a different reader with its own date/number decoding. Prove
+    # the SAME facts resolve from a committed synthetic .xls fixture, so an xlrd drift can't silently poison
+    # facts on the format real exports actually arrive as. (period_type on the Income Statement supplies the
+    # freq — the fixture has no _Annual/_Quarterly filename token.)
+    fixture = Path(__file__).resolve().parent / "testdata" / "ciq_synth.xls"
+    if not fixture.exists():
+        check("xls/xlrd fact chain: fixture present", False, f"missing {fixture}")
+        return
+    with tempfile.TemporaryDirectory() as td:  # isolate: build_facts scans a whole dir
+        shutil.copy(fixture, Path(td) / fixture.name)
+        f = F.build_facts(Path(td), "XLSFIX")["facts"]
+
+    def near(name: str, want: float) -> bool:
+        v = f[name]
+        return v["status"] == "present" and v["value"] is not None and abs(float(v["value"]) - want) < 0.5
+
+    check("xls/xlrd: net_debt resolves from a legacy .xls (250)", near("net_debt_musd", 250), str(f["net_debt_musd"]))
+    check("xls/xlrd: total_debt resolves from a legacy .xls (300)", near("total_debt_musd", 300), str(f["total_debt_musd"]))
+    check("xls/xlrd: ltm_ebitda resolves from a legacy .xls (120)", near("ltm_ebitda_musd", 120), str(f["ltm_ebitda_musd"]))
+    check("xls/xlrd: interest_coverage resolves from a legacy .xls (5.5)", near("interest_coverage_x", 5.5), str(f["interest_coverage_x"]))
+
+
 def test_primitives() -> None:
     # UNAVAILABLE cells -> None, NEVER coerced to 0 (the anti-fabrication primitive)
     check("clean_num('-') is None (not 0)", ciq.clean_num("-") is None)
@@ -282,6 +307,8 @@ def main() -> int:
         test_isolation(d)
         print("== honest MISSING ==")
         test_missing(d)
+        print("== legacy .xls (xlrd) fact chain ==")
+        test_xls_fact_chain()
         print("== parsing primitives ==")
         test_primitives()
     print(f"\n{_passed} passed, {_failed} failed")
