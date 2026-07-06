@@ -83,6 +83,8 @@ You re-run only the `99` synthesis of each cascade module (then refresh that mod
 
 ## 8. Re-run the master synthesizer
 
+**Refresh the deterministic sidecar first — this is the only refresh the master-target path gets.** A `master synthesizer` rerun skips steps 5–7 (step 1 / step 4 jump straight here), so the Step-5 refresh never runs for it; yet the synthesizer now treats `<RUN_ROOT>/_pool_extracts/ciq_facts.json` as authoritative for scorecard and `decision_record` anchors. Without this, a master-only rerun after new data lands would tie the final thesis to the ORIGINAL run's stale CIQ facts. Run `frameworks/MODULE_PIPELINE.md` Step 1.5 once now — `python3 .claude/tools/extract_pool.py "data/<TICKER>/" "<RUN_ROOT>/_pool_extracts"` — which regenerates `ciq_facts.json` when the data changed (idempotent: it skips when the manifest is newer than every source, so on the normal cascade path — where Step 5 already refreshed it — this second call costs nothing).
+
 Dispatch a single Task call (per `/research:full` step 10):
 
 - `subagent_type: "synthesizer"`
