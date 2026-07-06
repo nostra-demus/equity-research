@@ -514,12 +514,42 @@ def revenue_revisions(bundle: ResolvedBundle) -> Sourced:
 
 
 # --- emit ------------------------------------------------------------------------------------
+# Money facts are in MILLIONS OF THE REPORTED CURRENCY (the '_m' suffix) — NOT necessarily USD. CIQ states
+# the currency as a 'Currency | USD' cell (Capital Structure / per-column) or 'Currency: | US Dollar'
+# (comps); the financials sheets only say 'in millions of the reported currency'. We read and publish the
+# actual code so a non-USD figure (INR/GBP/… — the §27 default case) is never read as USD (§15/§27).
+_CURRENCY_NAMES = {
+    "us dollar": "USD", "u.s. dollar": "USD", "indian rupee": "INR", "pound sterling": "GBP",
+    "british pound": "GBP", "euro": "EUR", "japanese yen": "JPY", "chinese yuan": "CNY", "chinese renminbi": "CNY",
+    "hong kong dollar": "HKD", "canadian dollar": "CAD", "australian dollar": "AUD", "swiss franc": "CHF",
+    "singapore dollar": "SGD", "south korean won": "KRW", "brazilian real": "BRL",
+}
+
+
+def _reported_currency(pool: ResolvedPool) -> str | None:
+    """Best-effort read of the workbook's reported-currency CODE from any resolved sheet's 'Currency' header
+    — a 3-letter code cell, or a spelled-out name mapped via _CURRENCY_NAMES. 'Reported Currency' (the CIQ
+    conversion SETTING, not a code) is skipped. None if the code is never stated."""
+    for sheets in pool._cache.values():
+        for rows in sheets.values():
+            for r in rows[:16]:
+                if not r or str(r[0]).strip().lower().rstrip(":") != "currency":
+                    continue
+                for cell in r[1:]:
+                    v = str(cell).strip()
+                    if re.fullmatch(r"[A-Z]{3}", v):
+                        return v
+                    if v.lower() in _CURRENCY_NAMES:
+                        return _CURRENCY_NAMES[v.lower()]
+    return None
+
+
 FACTS: dict[str, Callable[[ResolvedBundle], Sourced]] = {
-    "net_debt_musd": net_debt,
-    "total_debt_musd": total_debt,
-    "ltm_ebitda_musd": ltm_ebitda,
-    "ltm_ocf_musd": ltm_ocf,
-    "free_cash_flow_musd": free_cash_flow,
+    "net_debt_m": net_debt,
+    "total_debt_m": total_debt,
+    "ltm_ebitda_m": ltm_ebitda,
+    "ltm_ocf_m": ltm_ocf,
+    "free_cash_flow_m": free_cash_flow,
     "interest_coverage_x": interest_coverage,
     "ev_ebitda_current_x": ev_ebitda_current,
     "ev_ebitda_percentile": ev_ebitda_percentile,
@@ -555,6 +585,7 @@ def build_facts(data_dir: Path, ticker: str | None = None) -> dict[str, Any]:
         for (k, s, fr), units in pool.concept_map.items() if len(units) > 1
     ]
     return {"ticker": bundle.ticker, "facts": facts,
+            "currency": _reported_currency(pool) or "reported currency (code not stated in the export)",
             "concepts_resolved": len(pool.concept_map), "non_ciq": len(pool.non_ciq),
             "conflicts": conflicts}
 

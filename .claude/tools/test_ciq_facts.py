@@ -126,11 +126,11 @@ def test_facts(d: Path) -> None:
     # the split standalone Surprise file resolves (the whole point) — vinci's from_files would drop it
     check("estimates.Surprise resolves from the SPLIT 05_Surprise.xlsx",
           f["surprise_history"]["status"] == "present", str(f["surprise_history"]))
-    present("net_debt_musd", 29000)
-    present("total_debt_musd", 31500)
-    present("ltm_ebitda_musd", 2273)
-    present("ltm_ocf_musd", 2550)
-    present("free_cash_flow_musd", 528)
+    present("net_debt_m", 29000)
+    present("total_debt_m", 31500)
+    present("ltm_ebitda_m", 2273)
+    present("ltm_ocf_m", 2550)
+    present("free_cash_flow_m", 528)
     present("interest_coverage_x", round(2273 / 410, 1))
     present("ev_ebitda_current_x", 8.5)
     present("pe_ltm_current_x", 48.7)
@@ -193,8 +193,8 @@ def test_conflict_freshest(base: Path) -> None:
     out = F.build_facts(d, "CONF")
     f = out["facts"]
     check("conflict: net_debt serves the FRESHEST file (29188.6), not alphabetical-first stale (99999.9)",
-          f["net_debt_musd"]["status"] == "present" and abs(float(f["net_debt_musd"]["value"]) - 29188.6) < 0.5,
-          str(f["net_debt_musd"]))
+          f["net_debt_m"]["status"] == "present" and abs(float(f["net_debt_m"]["value"]) - 29188.6) < 0.5,
+          str(f["net_debt_m"]))
     check("conflict surfaced in ciq_facts.json conflicts[] (both files named for the human to prune)",
           any(c["sheet"] == "Balance Sheet" and len(c["files"]) == 2 for c in out["conflicts"]), str(out["conflicts"]))
 
@@ -237,18 +237,18 @@ def test_isolation(base: Path) -> None:
     def boom(_bundle):
         raise ValueError("synthetic extractor crash")
 
-    orig = F.FACTS["net_debt_musd"]
-    F.FACTS["net_debt_musd"] = boom
+    orig = F.FACTS["net_debt_m"]
+    F.FACTS["net_debt_m"] = boom
     try:
         f = F.build_facts(d, "ISO")["facts"]
     finally:
-        F.FACTS["net_debt_musd"] = orig
+        F.FACTS["net_debt_m"] = orig
     check("build_facts isolates a throwing extractor -> THAT fact UNKNOWN (not a whole-sidecar crash)",
-          f["net_debt_musd"]["status"] == "unknown" and f["net_debt_musd"]["value"] is None
-          and "failed" in (f["net_debt_musd"]["note"] or ""), str(f["net_debt_musd"]))
+          f["net_debt_m"]["status"] == "unknown" and f["net_debt_m"]["value"] is None
+          and "failed" in (f["net_debt_m"]["note"] or ""), str(f["net_debt_m"]))
     check("build_facts isolation: OTHER facts still PRESENT after one extractor throws",
-          f["total_debt_musd"]["status"] == "present" and abs(float(f["total_debt_musd"]["value"]) - 31000) < 1,
-          str(f["total_debt_musd"]))
+          f["total_debt_m"]["status"] == "present" and abs(float(f["total_debt_m"]["value"]) - 31000) < 1,
+          str(f["total_debt_m"]))
 
 
 def test_xls_fact_chain() -> None:
@@ -269,10 +269,24 @@ def test_xls_fact_chain() -> None:
         v = f[name]
         return v["status"] == "present" and v["value"] is not None and abs(float(v["value"]) - want) < 0.5
 
-    check("xls/xlrd: net_debt resolves from a legacy .xls (250)", near("net_debt_musd", 250), str(f["net_debt_musd"]))
-    check("xls/xlrd: total_debt resolves from a legacy .xls (300)", near("total_debt_musd", 300), str(f["total_debt_musd"]))
-    check("xls/xlrd: ltm_ebitda resolves from a legacy .xls (120)", near("ltm_ebitda_musd", 120), str(f["ltm_ebitda_musd"]))
+    check("xls/xlrd: net_debt resolves from a legacy .xls (250)", near("net_debt_m", 250), str(f["net_debt_m"]))
+    check("xls/xlrd: total_debt resolves from a legacy .xls (300)", near("total_debt_m", 300), str(f["total_debt_m"]))
+    check("xls/xlrd: ltm_ebitda resolves from a legacy .xls (120)", near("ltm_ebitda_m", 120), str(f["ltm_ebitda_m"]))
     check("xls/xlrd: interest_coverage resolves from a legacy .xls (5.5)", near("interest_coverage_x", 5.5), str(f["interest_coverage_x"]))
+
+
+def test_currency(base: Path) -> None:
+    # Money facts are millions of the REPORTED currency, not USD — the code is read + published so an INR/GBP
+    # figure is never compared as USD (§15/§27). The keys are '_m' (reported currency), never '_musd'.
+    d = base / "curr"
+    d.mkdir()
+    _wb(d / "Acme Financials_Annual.xlsx", {"Income Statement": [
+        ["Period Type:", "Annual"], ["Currency:", "Indian Rupee"], ["Fiscal Period", "FY2025"],
+        ["Total Revenue", 1000], ["EBITDA", 200]]})
+    out = F.build_facts(d, "ACME")
+    check("reported currency read + published ('Indian Rupee' -> INR)", out.get("currency") == "INR", str(out.get("currency")))
+    check("money-fact keys are '_m' (reported currency), never '_musd' (false USD)",
+          "ltm_ebitda_m" in out["facts"] and not any(k.endswith("_musd") for k in out["facts"]), str([k for k in out["facts"]][:5]))
 
 
 def test_primitives() -> None:
@@ -309,6 +323,8 @@ def main() -> int:
         test_missing(d)
         print("== legacy .xls (xlrd) fact chain ==")
         test_xls_fact_chain()
+        print("== reported currency (not USD) ==")
+        test_currency(d)
         print("== parsing primitives ==")
         test_primitives()
     print(f"\n{_passed} passed, {_failed} failed")
