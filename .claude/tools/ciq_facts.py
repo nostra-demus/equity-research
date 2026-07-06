@@ -885,45 +885,46 @@ def debt_maturity_wall(bundle: ResolvedBundle) -> Sourced:
 # share count — the keystone that unlocks per-share checks (§15), ownership % of shares outstanding, and a
 # relative sanity anchor for the insider sentinel — plus the peer relative multiple (§16), read from CIQ's
 # own Summary-Statistics median rather than a re-derivation.
-def _comps_ticker(cell: Any) -> str | None:
-    """The exchange-qualified ticker inside a '<Name> (EXCH:TICKER) > …' string, or None."""
-    m = re.search(r"\(\s*[^():]+:\s*([^)\s]+)\s*\)", str(cell))
-    return m.group(1).strip() if m else None
+def _comps_full_id(cell: Any) -> str | None:
+    """The LAST exchange-qualified id in a string — '(EXCH:TICKER)' -> 'EXCH:TICKER'. The exchange is a
+    code shape (letters/digits/'.'), and the LAST occurrence wins (the exchange-qualified ticker is the
+    trailing parenthetical in CIQ names), so a lower-case 'word:word' earlier in a company name can't be
+    mistaken for it. Matching on the FULL EXCH:TICKER (not the bare ticker) keeps two listings of the same
+    ticker on different exchanges (NYSE:MGM vs SEHK:MGM) distinct."""
+    ms = re.findall(r"\(\s*([A-Za-z0-9.]+:[^)\s]+)\s*\)", str(cell))
+    return ms[-1].replace(" ", "").upper() if ms else None
 
 
 def _comps_grid(rows: Rows, ticker: str) -> dict[str, Any] | None:
     """Locate a CIQ Quick-Comparable grid: the 'Company Name' header row, the SUBJECT row, and the
-    Summary-Statistics stat rows (High/Low/Mean/Median). The subject is identified by the ticker the GRID
-    ITSELF declares in its title breadcrumb ('<Name> (EXCH:TICKER) > Quick Comparable …') — NOT the folder
-    name, which for non-US / dual-listed subjects (§27, the default-likely case) differs from the file's
-    exchange ticker. A peer's row must never be emitted as the subject: if the subject can't be matched by
-    ticker, we return no subject (→ UNKNOWN) rather than a positional guess that could pick a peer."""
+    Summary-Statistics stat rows (High/Low/Mean/Median). The subject is identified by the exchange-qualified
+    id the GRID ITSELF declares in its title breadcrumb ('<Name> (EXCH:TICKER) > Quick Comparable …') — NOT
+    the folder name, which for non-US / dual-listed subjects (§27, the default-likely case) differs from the
+    file's exchange ticker. A peer's row must NEVER be emitted as the subject: we match the subject on its
+    FULL exchange-qualified id (so a same-ticker peer on another exchange can't collide) and take the first
+    match (the subject leads); if no row matches, we return no subject (→ UNKNOWN), never a positional guess."""
     hdr = next((i for i, r in enumerate(rows) if r and str(r[0]).strip() == "Company Name"), None)
     if hdr is None:
         return None
-    # the grid's own declaration of who the subject is (folder-independent)
-    title_tkr = next((_comps_ticker(rows[i][0]) for i in range(min(hdr, 12))
-                      if rows[i] and ">" in str(rows[i][0]) and "comparable" in str(rows[i][0]).lower()
-                      and _comps_ticker(rows[i][0])), None)
-    subj_tkr = title_tkr or ticker  # prefer the title ticker; fall back to the folder ticker only if no title
-    pat = re.compile(rf"[:(]\s*{re.escape(subj_tkr)}\s*\)", re.I) if subj_tkr else None
+    # the grid's own subject id: the LAST 'Quick Comparable' breadcrumb before the header (closest to the
+    # data — not a decoy note earlier in the preamble), read as a full exchange-qualified id.
+    title_id = next((_comps_full_id(rows[i][0]) for i in range(hdr - 1, -1, -1)
+                     if rows[i] and ">" in str(rows[i][0]) and "quick comparable" in str(rows[i][0]).lower()
+                     and _comps_full_id(rows[i][0])), None)
+    folder_pat = re.compile(rf"[:(]\s*{re.escape(ticker)}\s*\)", re.I) if ticker else None
     subj = summ = None
     for i in range(hdr + 1, len(rows)):
         c0 = str(rows[i][0]).strip() if rows[i] else ""
         if c0.lower().startswith("summary statistics"):
             summ = i
-            break
-        if pat and pat.search(c0):
-            subj = i  # the subject sits after the peer set — the last self-match before Summary wins
-    # last-resort positional fallback — ACCEPTED ONLY when that row's own (EXCH:TICKER) matches the title
-    # ticker, so it can never silently emit a peer's row as the subject.
-    if subj is None and summ is not None and title_tkr:
-        j = summ - 1
-        while j > hdr and not (rows[j] and str(rows[j][0]).strip()):
-            j -= 1
-        cand = _comps_ticker(rows[j][0]) if j > hdr and rows[j] else None
-        if cand and cand.upper() == title_tkr.upper():
-            subj = j
+            break  # stop at the stats section — but keep scanning UNTIL here so summ is found even after subj
+        if subj is not None:
+            continue  # subject already fixed (first match wins) — keep going only to locate Summary Statistics
+        if title_id is not None:
+            if _comps_full_id(c0) == title_id:  # exact exchange-qualified match — the true subject
+                subj = i
+        elif folder_pat and folder_pat.search(c0):
+            subj = i  # no title id in the grid: best-effort fall back to the folder ticker (bare match)
     stat = {}
     if summ is not None:
         for i in range(summ + 1, min(summ + 8, len(rows))):

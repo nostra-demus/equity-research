@@ -419,6 +419,40 @@ def test_comps(base: Path) -> None:
           pe["status"] == "present" and "12.0x" in str(pe["value"]) and "median 8.0x" in str(pe["value"]), str(pe))
 
 
+def test_comps_dual_listing(base: Path) -> None:
+    # RE-AUDIT (critical): a PEER sharing the subject's BARE ticker on a different exchange (BSE:ACME vs the
+    # subject's NYSE:ACME), placed AFTER the subject, must NOT be emitted as the subject. Matching on the full
+    # EXCH:TICKER (not the bare ticker) keeps them distinct; before the fix the trailing BSE:ACME peer won.
+    d = base / "comps_dual"
+    d.mkdir()
+    _wb(d / "Comparable Analysis.xlsx", {
+        "Financial Data": [
+            ["Acme Inc. (NYSE:ACME) > Quick Comparable Analysis > Financial Data"],
+            ["As-Of Date:", 46206],
+            ["Company Name", "Day Close Price Latest", "Shares Outstanding Latest"],
+            ["Acme Inc. (NYSE:ACME)", 55.5, 300.0],  # SUBJECT (leads)
+            ["Peer One (NYSE:P1)", 10.0, 100.0],
+            ["Acme Sub Ltd (BSE:ACME)", 3.33, 999.0],  # same BARE ticker, different exchange, AFTER the subject
+            ["Summary Statistics", "", ""], ["High", 55.5, 999.0],
+        ],
+        "Trading Multiples": [
+            ["Acme Inc. (NYSE:ACME) > Quick Comparable Analysis > Trading Multiples"],
+            ["Company Name", "TEV/EBITDA LTM - Latest"],
+            ["Acme Inc. (NYSE:ACME)", 12.0],
+            ["Peer One (NYSE:P1)", 8.0],
+            ["Acme Sub Ltd (BSE:ACME)", 2.0],
+            ["Summary Statistics", "TEV/EBITDA LTM - Latest"], ["Median", 8.0],
+        ],
+    })
+    f = F.build_facts(d, "ACME")["facts"]
+    check("comps dual-listing: shares from NYSE:ACME subject (300), NOT the BSE:ACME peer (999)",
+          f["shares_outstanding_m"]["status"] == "present" and abs(float(f["shares_outstanding_m"]["value"]) - 300.0) < 0.5, str(f["shares_outstanding_m"]))
+    check("comps dual-listing: price from NYSE:ACME subject (55.5), NOT the BSE:ACME peer (3.33)",
+          f["current_price"]["status"] == "present" and abs(float(f["current_price"]["value"]) - 55.5) < 0.5, str(f["current_price"]))
+    check("comps dual-listing: subject 12.0x vs median 8.0x, NOT the BSE:ACME peer's 2.0x",
+          f["peer_ev_ebitda"]["status"] == "present" and "12.0x" in str(f["peer_ev_ebitda"]["value"]) and "median 8.0x" in str(f["peer_ev_ebitda"]["value"]), str(f["peer_ev_ebitda"]))
+
+
 def test_comps_foreign_subject(base: Path) -> None:
     # AUDIT — the §27 default case: the FOLDER ticker (RELIANCE.NS) does NOT match the file's exchange ticker
     # (NSEI:RELIANCE), AND the subject is NOT the last row before Summary (a peer is). The subject must be
@@ -598,6 +632,7 @@ def main() -> int:
         test_maturity_floating_blank(d)
         print("== comps: peer multiple + price + shares outstanding ==")
         test_comps(d)
+        test_comps_dual_listing(d)
         test_comps_foreign_subject(d)
         print("== legacy .xls (xlrd) fact chain ==")
         test_xls_fact_chain()
