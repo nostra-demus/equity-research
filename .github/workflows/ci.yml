@@ -77,6 +77,41 @@ jobs:
       - name: Screener feedback-tune selftest (recommend-only rank-weight nudges from the feedback ledger)
         run: python3 scripts/screener_feedback_tune.py --selftest
 
+  tools-tests:
+    name: tools — deterministic extractor + CIQ facts tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install extractor dependencies (xlrd/openpyxl/pypdf + poppler for PDF text)
+        run: |
+          python3 -m pip install --quiet xlrd openpyxl pypdf
+          sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+
+      # These files land with the CIQ facts sidecar and the extraction bench PRs; this job runs them the
+      # moment they reach main and, before that, records a visible skip rather than a failure. That closes
+      # the assessment gap "the deterministic-extractor test suite is invisible to CI" without depending on
+      # the whole test-tools.sh (which also carries unrelated prompt-lint blocks). textutil (.rtf) and — if
+      # poppler somehow absent — the PDF path self-SKIP on Linux; the pure-Python readers assert everywhere.
+      - name: Deterministic extractor + CIQ facts tests (skip-noted until the tools land on main)
+        run: |
+          rc=0
+          for t in test_ciq_facts.py test_extract_pool.py; do
+            if [ -f ".claude/tools/$t" ]; then
+              echo "== .claude/tools/$t =="
+              python3 ".claude/tools/$t" || rc=1
+            else
+              echo "skip: .claude/tools/$t is not on this ref yet (lands with the CIQ-facts / extraction-bench PRs)"
+            fi
+          done
+          exit $rc
+
   ui-web:
     name: ui/web — typecheck + build
     runs-on: ubuntu-latest
