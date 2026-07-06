@@ -337,5 +337,8 @@ print("  PASS: entity (content+filename signals, CIQ-header, prose/suffix/field-
 sys.exit(0 if ok else 1)
 PY
 
+echo "== ciq_facts.py + concept_resolve.py: layout-agnostic resolution + source-bound facts =="
+"$PY" "$DIR/test_ciq_facts.py" || rc=1
+
 [ $rc -eq 0 ] && echo "ALL SMOKE TESTS PASS" || echo "SMOKE TESTS FAILED"
 exit $rc
