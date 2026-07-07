@@ -32,7 +32,7 @@ If undrawn committed facilities are not disclosed: set liquidity = cash + liquid
 1. Read the repo root `CLAUDE.md`, then read `.claude/agents/balance-sheet-survival/MODULE_RULES.md`, and apply both.
 2. Assemble liquidity sources: cash + liquid short-term investments (from `01`) + committed, undrawn revolver/facility capacity (from the debt/liquidity note). Exclude uncommitted lines and flag any restricted cash.
 3. Assemble near-term (next-12-month) uses: debt maturities (from `02`), cash interest, maintenance capex, and committed dividends/buybacks.
-4. Compute the runway: liquidity ÷ net near-term cash burn (or confirm FCF covers obligations with a surplus).
+4. Compute the runway **in months** = liquidity ÷ **monthly** net cash burn, where monthly net cash burn = (the next-12-month uses from step 3 − FCF over those same 12 months) ÷ 12. Dividing liquidity by the *full 12-month* uses gives a coverage **multiple**, not months (×12 to convert). If FCF covers obligations, state the annual surplus instead of a finite runway.
 5. Build the sources-and-uses bridge.
 6. State how much of the runway depends on FCF holding up vs already-in-hand liquidity.
 
