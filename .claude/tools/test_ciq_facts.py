@@ -132,6 +132,7 @@ def test_facts(d: Path) -> None:
     present("ltm_ocf_m", 2550)
     present("levered_fcf_m", 528)
     present("interest_coverage_x", round(2273 / 410, 1))
+    present("net_debt_ebitda_x", round(29000 / 2273, 2))  # derived leverage ratio: 29000 / 2273 ≈ 12.76x
     present("ev_ebitda_current_x", 8.5)
     present("pe_ltm_current_x", 48.7)
     present("segments_revenue")
@@ -316,6 +317,42 @@ def test_ltm_quarter_guard(base: Path) -> None:
     check("_is_single_quarter('FY2025') is False", F._is_single_quarter("FY2025") is False)
 
 
+def test_net_debt_ebitda_guards(base: Path) -> None:
+    # Derived leverage ratio net_debt_ebitda_x is PRESENT only when BOTH operands are PRESENT and EBITDA > 0.
+    # (a) net CASH (negative net debt) is a valid, important PRESENT result — a negative ratio, NOT a guard trip.
+    d1 = base / "ndx_netcash"
+    d1.mkdir()
+    _wb(d1 / "Acme Financials_Annual.xlsx", {
+        "Income Statement": [["Fiscal Period", "FY2025", "LTM Mar-31-2026"], ["EBITDA", 1800, 2000]],
+        "Balance Sheet": [["Balance Sheet as of:", "Dec-31-2025", "Mar-31-2026"],
+                          ["Total Debt", 1000, 1200], ["Net Debt", -4000, -5000]]})
+    v1 = F.build_facts(d1, "ACME")["facts"]["net_debt_ebitda_x"]
+    check("net-cash: net_debt_ebitda_x PRESENT and NEGATIVE (−5000/2000 = −2.5), not a guard trip",
+          v1["status"] == "present" and v1["value"] is not None and abs(float(v1["value"]) - (-2.5)) < 0.01, str(v1))
+
+    # (b) non-positive EBITDA -> the ratio is undefined; UNKNOWN, never a fabricated leverage multiple.
+    d2 = base / "ndx_negebitda"
+    d2.mkdir()
+    _wb(d2 / "Acme Financials_Annual.xlsx", {
+        "Income Statement": [["Fiscal Period", "FY2025", "LTM Mar-31-2026"], ["EBITDA", 200, -100]],
+        "Balance Sheet": [["Balance Sheet as of:", "Dec-31-2025", "Mar-31-2026"],
+                          ["Total Debt", 5000, 5200], ["Net Debt", 4000, 4200]]})
+    v2 = F.build_facts(d2, "ACME")["facts"]["net_debt_ebitda_x"]
+    check("non-positive EBITDA: net_debt_ebitda_x UNKNOWN (no leverage against ≤0 EBITDA), value None",
+          v2["status"] == "unknown" and v2["value"] is None and "non-positive" in (v2["note"] or ""), str(v2))
+
+    # (c) net debt PRESENT but EBITDA absent -> UNKNOWN (one operand not PRESENT), never half-fabricated.
+    d3 = base / "ndx_noebitda"
+    d3.mkdir()
+    _wb(d3 / "Acme Financials_Annual.xlsx", {
+        "Income Statement": [["Fiscal Period", "FY2025", "LTM Mar-31-2026"], ["Total Revenue", 900, 1000]],
+        "Balance Sheet": [["Balance Sheet as of:", "Dec-31-2025", "Mar-31-2026"],
+                          ["Total Debt", 5000, 5200], ["Net Debt", 4000, 4200]]})
+    v3 = F.build_facts(d3, "ACME")["facts"]["net_debt_ebitda_x"]
+    check("EBITDA absent: net_debt_ebitda_x UNKNOWN (operand not PRESENT), value None",
+          v3["status"] == "unknown" and v3["value"] is None, str(v3))
+
+
 def test_primitives() -> None:
     # UNAVAILABLE cells -> None, NEVER coerced to 0 (the anti-fabrication primitive)
     check("clean_num('-') is None (not 0)", ciq.clean_num("-") is None)
@@ -354,6 +391,8 @@ def main() -> int:
         test_currency(d)
         print("== LTM quarter-guard (no 3-month figure as LTM) ==")
         test_ltm_quarter_guard(d)
+        print("== derived net debt / EBITDA guards (net cash, ≤0 EBITDA, absent operand) ==")
+        test_net_debt_ebitda_guards(d)
         print("== parsing primitives ==")
         test_primitives()
     print(f"\n{_passed} passed, {_failed} failed")

@@ -351,6 +351,28 @@ def ltm_ebitda(bundle: ResolvedBundle) -> Sourced:
     return Sourced.present(round(value, 1), source_ref=f"CIQ Financials→Income Statement 'EBITDA' [{period}]")
 
 
+def net_debt_to_ebitda(bundle: ResolvedBundle) -> Sourced:
+    """Derived leverage ratio: net debt ÷ LTM EBITDA (dimensionless ×). Computed ONLY when BOTH operands
+    are PRESENT and EBITDA > 0 — never fabricated (§3). A negative result is net cash (a valid, important
+    outcome), so only a non-positive EBITDA denominator is rejected — not a negative numerator. Inherits
+    net_debt's CIQ vendor basis, so the ratio carries the same §15 confirm-vs-strict caveat via the
+    embedded source_ref."""
+    nd = net_debt(bundle)
+    eb = ltm_ebitda(bundle)
+    if nd.status is SourceStatus.MISSING or eb.status is SourceStatus.MISSING:
+        return Sourced.missing(note="net debt / EBITDA needs the CIQ Financials export (net debt + LTM EBITDA) — pull it")
+    if nd.status is not SourceStatus.PRESENT or eb.status is not SourceStatus.PRESENT:
+        absent = "net debt" if nd.status is not SourceStatus.PRESENT else "LTM EBITDA"
+        return Sourced.unknown(note=f"cannot derive net debt / EBITDA — {absent} is not PRESENT")
+    if eb.value is None or eb.value <= 0:
+        return Sourced.unknown(note=f"LTM EBITDA is {eb.value} — net debt / EBITDA is undefined against a non-positive EBITDA")
+    return Sourced.present(
+        round(nd.value / eb.value, 2),
+        source_ref=(f"derived = net debt ÷ LTM EBITDA = {nd.value:,.1f} / {eb.value:,.1f} "
+                    f"[{nd.source_ref}; {eb.source_ref}]"),
+    )
+
+
 def ltm_ocf(bundle: ResolvedBundle) -> Sourced:
     try:
         rows = bundle.sheet("financials", "Cash Flow", freq="annual")
@@ -585,6 +607,7 @@ FACTS: dict[str, Callable[[ResolvedBundle], Sourced]] = {
     "net_debt_m": net_debt,
     "total_debt_m": total_debt,
     "ltm_ebitda_m": ltm_ebitda,
+    "net_debt_ebitda_x": net_debt_to_ebitda,
     "ltm_ocf_m": ltm_ocf,
     "levered_fcf_m": levered_fcf,
     "interest_coverage_x": interest_coverage,
