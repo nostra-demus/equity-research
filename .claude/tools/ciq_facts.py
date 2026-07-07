@@ -954,6 +954,44 @@ def _comps_subject_cell(bundle: ResolvedBundle, sheet: str, pred: Callable[[str]
     return rows, g, v
 
 
+# Comps-local currency/date helpers. Deliberately comps-scoped: CIQ converts a comp set's prices/multiples
+# to the grid's OWN display currency, which for a non-US or dual-listed subject differs from the reporting
+# currency — so the price's currency is read here, from the grid, not assumed USD (§15/§27).
+_COMPS_CCY_NAMES = {
+    "us dollar": "USD", "u.s. dollar": "USD", "indian rupee": "INR", "british pound": "GBP",
+    "pound sterling": "GBP", "euro": "EUR", "japanese yen": "JPY", "hong kong dollar": "HKD",
+    "canadian dollar": "CAD", "australian dollar": "AUD", "chinese yuan": "CNY", "chinese yuan renminbi": "CNY",
+    "swiss franc": "CHF", "singapore dollar": "SGD", "south korean won": "KRW", "brazilian real": "BRL",
+}
+
+
+def _comps_currency(rows: Rows) -> str | None:
+    """The display currency the comps grid states for its converted figures ('Currency: | US Dollar' /
+    'Currency | USD'), so a comp price/multiple is never assumed USD on a non-US comp set (§15/§27)."""
+    for r in rows[:40]:
+        if not r or str(r[0]).strip().lower().rstrip(":") != "currency":
+            continue
+        for cell in r[1:]:
+            v = str(cell).strip()
+            if re.fullmatch(r"[A-Za-z]{3}", v):
+                return v.upper()
+            if v.lower() in _COMPS_CCY_NAMES:
+                return _COMPS_CCY_NAMES[v.lower()]
+    return None
+
+
+def _comps_asof(rows: Rows) -> date | None:
+    ai = next((k for k, r in enumerate(rows) if r and "as-of date" in str(r[0]).lower()), None)
+    return excel_date(rows[ai][1]) if ai is not None and len(rows[ai]) > 1 else None
+
+
+def _round_price(v: float) -> float:
+    """2dp for a normal price, but a sub-cent price (e.g. a low-priced local listing) must NOT collapse to
+    0.00 — keep enough precision to preserve a non-zero value (§15: never fabricate a zero)."""
+    r = round(v, 2)
+    return r if r != 0 or v == 0 else round(v, 6)
+
+
 def shares_outstanding(bundle: ResolvedBundle) -> Sourced:
     """Shares outstanding (millions; latest reported point-in-time count — NOT the weighted fully-diluted
     figure §15 wants for EPS, but the right denominator for market cap / % of S/O). The keystone: unlocks
@@ -972,10 +1010,12 @@ def current_price(bundle: ResolvedBundle) -> Sourced:
     if isinstance(got, Sourced):
         return got
     rows, _g, v = got
-    ai = next((k for k, r in enumerate(rows) if r and "as-of date" in str(r[0]).lower()), None)
-    asof = excel_date(rows[ai][1]) if ai is not None and len(rows[ai]) > 1 else None
+    asof = _comps_asof(rows)
     asof_s = f" as-of {asof.isoformat()}" if asof else ""
-    return Sourced.present(round(v, 2), source_ref=f"CIQ Comps→Financial Data 'Day Close Price Latest' (subject row){asof_s}")
+    ccy = _comps_currency(rows)
+    ccy_s = f"; price in {ccy}" if ccy else "; price in the comp set's display currency (code not stated in the export)"
+    return Sourced.present(_round_price(v),
+                           source_ref=f"CIQ Comps→Financial Data 'Day Close Price Latest' (subject row){asof_s}{ccy_s}")
 
 
 def peer_ev_ebitda(bundle: ResolvedBundle) -> Sourced:
@@ -988,8 +1028,17 @@ def peer_ev_ebitda(bundle: ResolvedBundle) -> Sourced:
     g = _comps_grid(rows, bundle.ticker)
     if g is None or g["subj"] is None:
         return Sourced.unknown(note="comps Trading Multiples: subject (self) row not found")
-    ec = _comps_col(g, lambda c: "tev/ebitda" in c)
-    subj = clean_num(rows[g["subj"]][ec]) if ec is not None and ec < len(rows[g["subj"]]) else None
+    # Pick the LTM (trailing) TEV/EBITDA column, NEVER the first 'tev/ebitda' header — a comp grid usually
+    # also carries NTM / forward columns, and labelling a forward multiple 'LTM' is a §16 defect. Prefer an
+    # explicit LTM header; else an unqualified 'tev/ebitda' column that carries no forward token.
+    ec = _comps_col(g, lambda c: "tev/ebitda" in c and ("ltm" in c or "last twelve" in c or "last 12" in c))
+    if ec is None:
+        ec = _comps_col(g, lambda c: "tev/ebitda" in c
+                        and not any(t in c for t in ("ntm", "fwd", "forward", "fy+", "cy+", "+1", "+2", "next")))
+    if ec is None:
+        return Sourced.unknown(note="comps Trading Multiples: no LTM/trailing TEV/EBITDA column (only forward multiples)")
+    label = str(rows[g["hdr"]][ec]).strip() if ec < len(rows[g["hdr"]]) else "TEV/EBITDA"
+    subj = clean_num(rows[g["subj"]][ec]) if ec < len(rows[g["subj"]]) else None
     if subj is None:
         return Sourced.unknown(note="comps Trading Multiples: subject TEV/EBITDA unavailable")
 
@@ -998,10 +1047,15 @@ def peer_ev_ebitda(bundle: ResolvedBundle) -> Sourced:
         return clean_num(rows[i][ec]) if i is not None and ec < len(rows[i]) else None
 
     med, hi, lo = stat("median"), stat("high"), stat("low")
-    band = f" vs peer set median {med:.1f}x" if med is not None else ""
+    if med is None:
+        return Sourced.unknown(note="comps Trading Multiples: peer-set median absent — a PEER-relative "
+                                    "multiple needs the comp-set Summary Statistics (the subject's own multiple "
+                                    "is ev_ebitda_current_x, not this fact)")
     rng = f" (high {hi:.1f} / low {lo:.1f})" if hi is not None and lo is not None else ""
-    return Sourced.present(f"TEV/EBITDA {subj:.1f}x{band}{rng}",
-                           source_ref="CIQ Comps→Trading Multiples 'TEV/EBITDA LTM' (subject vs comp-set Summary Statistics)")
+    asof = _comps_asof(rows)
+    asof_s = f" as-of {asof.isoformat()}" if asof else ""
+    return Sourced.present(f"TEV/EBITDA {subj:.1f}x vs peer set median {med:.1f}x{rng}",
+                           source_ref=f"CIQ Comps→Trading Multiples '{label}' (subject vs comp-set Summary Statistics){asof_s}")
 
 
 # --- emit ------------------------------------------------------------------------------------

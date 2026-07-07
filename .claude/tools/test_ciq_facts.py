@@ -491,6 +491,57 @@ def test_comps_foreign_subject(base: Path) -> None:
           pe["status"] == "present" and "11.0x" in str(pe["value"]), str(pe))
 
 
+def test_comps_p2(base: Path) -> None:
+    # §15/§16 correctness on the comps facts: (1) the price carries its comp-set currency (never assumed USD);
+    # (2) peer_ev_ebitda picks the LTM column, NOT a forward NTM one it would mislabel 'LTM'; (3) a sub-cent
+    # price does not round to 0.00; (4) peer_ev_ebitda is UNKNOWN when the peer-set median is absent.
+    d = base / "comps_p2"
+    d.mkdir()
+    _wb(d / "Comparable Analysis.xlsx", {
+        "Financial Data": [
+            ["Tata Motors Limited (NSEI:TATAMOTORS) > Quick Comparable Analysis > Financial Data"],
+            ["Currency:", "Indian Rupee"], ["As-Of Date:", 46206],
+            ["Company Name", "Day Close Price Latest", "Shares Outstanding Latest"],
+            ["Tata Motors Limited (NSEI:TATAMOTORS)", 0.004, 3300.0],  # sub-cent price (must NOT become 0.00)
+            ["Peer One (NSEI:P1)", 500.0, 100.0],
+            ["Summary Statistics", "", ""], ["High", 500.0, 3300.0],
+        ],
+        "Trading Multiples": [
+            ["Tata Motors Limited (NSEI:TATAMOTORS) > Quick Comparable Analysis > Trading Multiples"],
+            ["As-Of Date:", 46206],
+            # NTM column FIRST (a naive 'first tev/ebitda' match would wrongly pick 5.0 and label it LTM)
+            ["Company Name", "TEV/EBITDA NTM", "TEV/EBITDA LTM - Latest"],
+            ["Peer One (NSEI:P1)", 4.0, 6.0],
+            ["Tata Motors Limited (NSEI:TATAMOTORS)", 5.0, 9.0],  # SUBJECT: NTM 5.0, LTM 9.0
+            ["Summary Statistics", "TEV/EBITDA NTM", "TEV/EBITDA LTM - Latest"],
+            ["Median", 4.5, 7.5],
+        ],
+    })
+    f = F.build_facts(d, "TATAMOTORS")["facts"]
+    cp = f["current_price"]
+    check("comps price carries its comp-set currency (INR), never assumed USD",
+          cp["status"] == "present" and "in INR" in str(cp["source_ref"]), str(cp))
+    check("comps sub-cent price 0.004 does NOT round to 0.00",
+          cp["status"] == "present" and float(cp["value"]) > 0, str(cp))
+    pe = f["peer_ev_ebitda"]
+    check("peer_ev_ebitda picks the LTM column (9.0x vs median 7.5x), NOT the forward NTM (5.0x)",
+          pe["status"] == "present" and "9.0x" in str(pe["value"]) and "median 7.5x" in str(pe["value"])
+          and "5.0x" not in str(pe["value"]), str(pe))
+
+    # (4) no peer-set median -> UNKNOWN (a PEER-relative fact needs the comp-set stats, not just the subject)
+    d2 = base / "comps_nomed"
+    d2.mkdir()
+    _wb(d2 / "Comparable Analysis.xlsx", {"Trading Multiples": [
+        ["Beta Co (NYSE:BETA) > Quick Comparable Analysis > Trading Multiples"],
+        ["Company Name", "TEV/EBITDA LTM - Latest"],
+        ["Beta Co (NYSE:BETA)", 10.0],
+        ["Peer One (NYSE:P1)", 8.0],
+        ["Summary Statistics", "TEV/EBITDA LTM - Latest"], ["High", 10.0], ["Low", 8.0]]})  # no Median row
+    pe2 = F.build_facts(d2, "BETA")["facts"]["peer_ev_ebitda"]
+    check("peer_ev_ebitda UNKNOWN when the peer-set median is absent (not the subject's own multiple)",
+          pe2["status"] == "unknown" and pe2["value"] is None and "median absent" in (pe2["note"] or ""), str(pe2))
+
+
 def test_xls_fact_chain() -> None:
     # The whole chain above is exercised on synthetic .xlsx (openpyxl). But real Capital IQ exports are
     # frequently LEGACY BIFF .xls read by xlrd — a different reader with its own date/number decoding. Prove
@@ -634,6 +685,7 @@ def main() -> int:
         test_comps(d)
         test_comps_dual_listing(d)
         test_comps_foreign_subject(d)
+        test_comps_p2(d)
         print("== legacy .xls (xlrd) fact chain ==")
         test_xls_fact_chain()
         print("== reported currency (not USD) ==")
