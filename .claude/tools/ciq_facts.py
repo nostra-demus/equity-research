@@ -108,8 +108,12 @@ def _reclassified_cols(header: list[Any]) -> set[int]:
     return {j for j, c in enumerate(header) if isinstance(c, str) and "Reclassified" in c}
 
 
-def _usd(v: float | None) -> str:
-    return f"${v:,.2f}" if v is not None else "—"
+def _amt(v: float | None, ccy: str | None) -> str:
+    """A money amount labelled with its currency CODE, never a hard-coded '$'. CIQ target prices are in the
+    company's own trading currency (INR/GBP/…), so asserting USD on a non-US name is a §15/§27 defect."""
+    if v is None:
+        return "—"
+    return f"{ccy} {v:,.2f}" if ccy else f"{v:,.2f}"
 
 
 def _pct1(v: float | None) -> str:
@@ -499,10 +503,11 @@ def consensus_view(bundle: ResolvedBundle) -> Sourced:
         rows = bundle.sheet("estimates", "Consensus")
     except CiqUnavailableError as exc:
         return _miss_or_unknown(bundle, "estimates", exc)
+    ccy = _reported_currency(bundle.pool)
     parts = []
     tp = _find_row_prefix(rows, "Target Price")
     if tp is not None and len(rows[tp]) > 2 and (clean_num(rows[tp][1]) is not None or clean_num(rows[tp][2]) is not None):
-        parts.append(f"Target price: mean {_usd(clean_num(rows[tp][1]))} / median {_usd(clean_num(rows[tp][2]))}")
+        parts.append(f"Target price: mean {_amt(clean_num(rows[tp][1]), ccy)} / median {_amt(clean_num(rows[tp][2]), ccy)}")
     lg = _find_row_prefix(rows, "LT Growth")
     if lg is not None and len(rows[lg]) > 2 and (clean_num(rows[lg][1]) is not None or clean_num(rows[lg][2]) is not None):
         parts.append(f"LT growth: mean {_pct1(clean_num(rows[lg][1]))} / median {_pct1(clean_num(rows[lg][2]))}")
@@ -513,7 +518,8 @@ def consensus_view(bundle: ResolvedBundle) -> Sourced:
             parts.append(f"Recommendation: {v} (CIQ score, 1=buy … 5=sell)")
     if not parts:
         return Sourced.unknown(note="no Target Price/LT Growth/Recommendation rows in Consensus")
-    return Sourced.present("; ".join(parts), source_ref="CIQ Estimates→Consensus")
+    ccy_note = f"; target price in {ccy}" if ccy else "; target price in the reported currency (code not stated in the export)"
+    return Sourced.present("; ".join(parts), source_ref="CIQ Estimates→Consensus" + ccy_note)
 
 
 def _revisions_field(bundle: ResolvedBundle, metric: str) -> Sourced:

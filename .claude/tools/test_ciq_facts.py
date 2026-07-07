@@ -283,10 +283,14 @@ def test_currency(base: Path) -> None:
     _wb(d / "Acme Financials_Annual.xlsx", {"Income Statement": [
         ["Period Type:", "Annual"], ["Currency:", "Indian Rupee"], ["Fiscal Period", "FY2025"],
         ["Total Revenue", 1000], ["EBITDA", 200]]})
+    _wb(d / "01_Consensus.xlsx", {"Consensus": [["Target Price", 3200.0, 3300.0], ["LT Growth %", 0.14, 0.14]]})
     out = F.build_facts(d, "ACME")
     check("reported currency read + published ('Indian Rupee' -> INR)", out.get("currency") == "INR", str(out.get("currency")))
     check("money-fact keys are '_m' (reported currency), never '_musd' (false USD)",
           "ltm_ebitda_m" in out["facts"] and not any(k.endswith("_musd") for k in out["facts"]), str([k for k in out["facts"]][:5]))
+    cv = out["facts"]["consensus_view"]
+    check("consensus target price is labelled INR, never a hard-coded '$'",
+          cv["status"] == "present" and "INR 3,200" in cv["value"] and "$" not in cv["value"], str(cv))
 
 
 def test_ltm_quarter_guard(base: Path) -> None:
