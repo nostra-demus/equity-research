@@ -360,6 +360,27 @@ def test_maturity_wall(base: Path) -> None:
           "9,999" not in v, str(mw))
 
 
+def test_maturity_floating_blank(base: Path) -> None:
+    # A BLANK Floating Rate cell means FIXED by CIQ convention. openpyxl returns a blank cell as None (which
+    # str()s to 'None'), so without normalising None → "" a fixed instrument with a blank cell is wrongly
+    # bucketed as FLOATING, overstating floating exposure in the §15/§18 survival read.
+    from datetime import date as _date
+    d = base / "maturity_float"
+    d.mkdir()
+    _wb(d / "Acme Financials_Annual.xlsx", {
+        "Capital Structure Details": [
+            ["Acme (NYSE:ACME) > Financials > Capital Structure Details"],
+            ["FY 2025 (Dec-31-2025) Capital Structure As Reported Details"],
+            ["Description", "Type", "Principal Due (USD)", "Coupon/Base Rate", "Floating Rate", "Maturity", "Seniority"],
+            ["Fixed Bond blank-cell", "Bonds and Notes", 400, "5.0%", None, _date(2029, 6, 1), "Senior"],  # blank → FIXED
+            ["Term Loan floating", "Term Loan", 100, "NA", "SOFR + 3%", _date(2028, 6, 1), "Senior"],      # value → floating
+        ],
+    })
+    mw = F.build_facts(d, "ACME")["facts"]["debt_maturity_wall"]
+    check("maturity: a BLANK (None) Floating Rate cell is FIXED, not floating (CIQ convention)",
+          mw["status"] == "present" and "100 floating / 400 fixed" in str(mw["value"]), str(mw))
+
+
 def test_xls_fact_chain() -> None:
     # The whole chain above is exercised on synthetic .xlsx (openpyxl). But real Capital IQ exports are
     # frequently LEGACY BIFF .xls read by xlrd — a different reader with its own date/number decoding. Prove
@@ -498,6 +519,7 @@ def main() -> int:
         test_ownership_missing(d)
         print("== debt maturity wall (lease-separation + block boundary) ==")
         test_maturity_wall(d)
+        test_maturity_floating_blank(d)
         print("== legacy .xls (xlrd) fact chain ==")
         test_xls_fact_chain()
         print("== reported currency (not USD) ==")

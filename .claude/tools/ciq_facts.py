@@ -846,7 +846,12 @@ def debt_maturity_wall(bundle: ResolvedBundle) -> Sourced:
             continue
         mat = excel_date(r[mc]) if mc < len(r) else None
         typ = str(r[tc]).strip().lower() if tc is not None and tc < len(r) else ""
-        if fc is not None and fc < len(r) and str(r[fc]).strip() not in ("NA", "N/A", "-", ""):
+        # An instrument is floating ONLY when the Floating Rate cell carries a real value (a spread/margin or
+        # a 'Yes'/'Floating' flag). A BLANK cell means fixed by CIQ convention — and openpyxl returns a blank
+        # cell as None (which str()s to 'None'), so normalise None → "" first; otherwise every fixed
+        # instrument with a blank cell is mis-bucketed as floating, overstating floating exposure (§15).
+        fval = str(r[fc]).strip() if (fc is not None and fc < len(r) and r[fc] is not None) else ""
+        if fval and fval.upper() not in ("NA", "N/A", "-", "—", "NM"):
             floating += p
         else:
             fixed += p
