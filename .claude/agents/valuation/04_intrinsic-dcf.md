@@ -101,6 +101,8 @@ Label every cell as company-guided, peer-derived, or analyst assumption.
 | Equity / debt weights | | |
 | **WACC** | | |
 
+**Formula (pin the assembly — do not eyeball the blend):** `WACC = w_e·k_e + w_d·k_d·(1 − t)`, plus `+ w_p·k_p` only if preferred equity exists. `w_e / w_d / w_p` are the **market-value** weights of equity / debt / preferred and must sum to 1; `k_e` = cost of equity (CAPM: `k_e = risk-free rate + beta × equity-risk premium`); `k_d` = pre-tax cost of debt; `t` = tax rate — the `(1 − t)` is the debt tax shield (interest is tax-deductible, so debt costs less after tax). Use the SAME normalized tax rate as NOPAT (step 3 / §1). The table's **WACC** row must equal this formula applied to the rows above it, produced by the executed snippet the self-check requires — not assembled by hand.
+
 ## 4. Free Cash Flow Forecast & Discounting
 
 | Year | Revenue | EBIT | NOPAT | Capex | ΔWC | FCF | Discount Factor | PV of FCF |
@@ -114,7 +116,9 @@ Show the **executed** command and its raw output (a fenced code block) for the P
 
 ## 5. Terminal Value
 
-- Method: Gordon growth (g = ...) OR exit multiple (... × terminal metric)
+- Method + formula (write it out — do not apply it from memory):
+  - **Gordon growth:** `TV = FCFF_{n+1} / (WACC − g) = FCFF_n × (1 + g) / (WACC − g)`, where `FCFF_{n+1}` is the first cash flow *after* the explicit forecast period and `g` is the perpetual growth rate. **`WACC − g` must stay comfortably positive:** as `g` approaches `WACC` the denominator collapses and TV explodes toward infinity — keep `g` below `WACC` and at/under long-run nominal GDP; if the gap is under ~1–2pp, treat the value as unreliable and lean on the §7 grid.
+  - **Exit multiple:** `TV = terminal metric × exit multiple` (e.g. terminal EBITDA × an EV/EBITDA a mature version of the business would warrant). Cross-check the two: the exit multiple *implied* by the Gordon TV should be sane for the business at maturity, and vice-versa.
 - Terminal value (undiscounted): ...
 - PV of terminal value: ...
 - **Terminal value as % of total EV: ...** (flag if >75% → terminal-dominated, low confidence)
