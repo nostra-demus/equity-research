@@ -81,5 +81,5 @@ Single-agent runs are iterative; committing one file per agent would spam `main`
 ## Hard rules
 
 - Do not hardcode agent names or layers — everything is discovered from the file and its frontmatter, exactly like `frameworks/MODULE_PIPELINE.md`.
-- Write only `<OUTPUT_PATH>`. Do not modify sibling files or any other module's folder.
+- Write only `<OUTPUT_PATH>` — plus the deterministic sidecar under `<RUN_ROOT>/_pool_extracts/` that the section-7 refresh regenerates (`extract_pool.py`), which is a run-level cache, not a module output. Do not modify sibling module files or any other module's folder.
 - Do not commit or push. The cockpit and the user own when a single-agent output gets committed.
