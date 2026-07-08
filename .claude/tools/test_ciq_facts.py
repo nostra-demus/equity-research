@@ -632,6 +632,22 @@ def test_comps_asof_forward(base: Path) -> None:
     check("peer_ev_ebitda REFUSES a bare forward-year (2026E) multiple → UNKNOWN, not forward-as-trailing",
           ee["status"] == "unknown" and ee["value"] is None, str(ee))
 
+    # …but a calendar-/fiscal-year ACTUAL column ('CY2025A') is a valid TRAILING multiple and must STILL be
+    # selected — the forward reject keys on the 'E' estimate marker, never on a bare fy/cy year (else a
+    # calendar-year comp grid loses its peer multiple entirely).
+    d2 = base / "comps_cyactual"
+    d2.mkdir()
+    _wb(d2 / "Acme Comps.xlsx", {"Trading Multiples": [
+        ["As-Of Date", "Mar-31-2026"],
+        ["Company Name", "TEV/EBITDA CY2025A", "TEV/EBITDA CY2026E"],  # actual + estimate; must pick the ACTUAL
+        ["Acme (NYSE:ACME)", 9.1, 10.4],
+        ["Peer One (NYSE:P1)", 8.0, 9.0],
+        ["Summary Statistics"],
+        ["Median", 8.5, 9.5]]})
+    ee2 = F.build_facts(d2, "ACME")["facts"]["peer_ev_ebitda"]
+    check("peer_ev_ebitda KEEPS a CY-actual column (CY2025A) and picks it over the CY2026E estimate",
+          ee2["status"] == "present" and "9.1x" in str(ee2["value"]) and "8.5x" in str(ee2["value"]), str(ee2))
+
 
 def test_ltm_quarter_guard(base: Path) -> None:
     # A quarterly-ONLY financials export (no annual sibling, no _Annual token) served to an annual request

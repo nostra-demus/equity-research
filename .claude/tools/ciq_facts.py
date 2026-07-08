@@ -1037,7 +1037,7 @@ def peer_ev_ebitda(bundle: ResolvedBundle) -> Sourced:
     if ec is None:
         ec = _comps_col(g, lambda c: "tev/ebitda" in c
                         and not any(t in c for t in ("ntm", "fwd", "forward", "fy+", "cy+", "+1", "+2", "next"))
-                        and not re.search(r"20\d\de\b|(?:fy|cy)\s*20\d\d", c))  # also reject a bare forward-year header (2026E / FY2026)
+                        and not re.search(r"20\d\de\b", c))  # reject a forward-year ESTIMATE (2026E / FY2026E); an ACTUAL (2025A / CY2025A) still counts
     if ec is None:
         return Sourced.unknown(note="comps Trading Multiples: no LTM/trailing TEV/EBITDA column (only forward multiples)")
     label = str(rows[g["hdr"]][ec]).strip() if ec < len(rows[g["hdr"]]) else "TEV/EBITDA"
