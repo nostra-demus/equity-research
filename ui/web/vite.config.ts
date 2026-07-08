@@ -26,7 +26,10 @@ export default defineConfig({
     port: Number(process.env.PORT) || 5173,
     strictPort: false,
     proxy: {
-      '/api': { target: 'http://127.0.0.1:8787', changeOrigin: true },
+      // Defaults to the local control plane on 8787. Override with VITE_API_TARGET to point the dev cockpit
+      // at a throwaway engine (e.g. `VITE_API_TARGET=http://127.0.0.1:8899`) instead of the one serving the
+      // live tunnel — so a UI change can be exercised against fixture data without touching a real run.
+      '/api': { target: process.env.VITE_API_TARGET || 'http://127.0.0.1:8787', changeOrigin: true },
     },
   },
 })

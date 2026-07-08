@@ -6,7 +6,7 @@ import { resolveVerdict } from './format'
 import { displayHeadline, originalHeadline, plainRoute, plainStage } from './plain'
 import type { Theme, ThemeDetail, ThemeBrief } from './themes'
 import { intensityWindowForHours } from './themes'
-import type { ActiveRunLite, AgentNode, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, TickerSummary, Usage } from './types'
+import type { ActiveRunLite, AgentNode, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, ThesisPlan, TickerSummary, Usage } from './types'
 import { feedbackInputFromItem, feedbackLabel } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
 import { emptyReviewFilters, matchesReviewFilters, type ReviewFilterState } from '../components/screener/ReviewFilters'
@@ -77,6 +77,8 @@ const runSources = new Map<string, EventSource>()
 // in-flight chat turn's aborter (module-level so closeChat / scope-change / ticker-switch can cancel it
 // without threading it through React state). Chat is ephemeral — one conversation at a time.
 let chatAbort: AbortController | null = null
+// Monotonic stamp for "complete the thesis" re-pricing requests: only the newest response may be applied.
+let thesisPriceSeq = 0
 // Most-recent turns sent to the model per request. The server's ChatBody caps the transcript at 40, so a
 // long or resumed conversation (whose full history lives in chatMessages + on disk) is windowed to the last
 // 40 here — anything larger would be rejected 400 and break "continue chatting". The closed-book CONTEXT is
@@ -314,6 +316,20 @@ interface State {
   selectNodeForRun: (node: AgentNode) => void
   openOutputForNode: (node: AgentNode) => Promise<void>
   openThesis: () => Promise<void>
+
+  // ---- complete the thesis ----
+  // The core orb used to dead-end on "No final thesis yet". Now a click with no thesis opens a plan: what is
+  // missing, what already exists on disk (and in which dated run), and what finishing it actually costs.
+  thesisPlan: ThesisPlan | null
+  thesisPlanOpen: boolean
+  thesisPlanLoading: boolean // first load — the panel shows its skeleton
+  thesisPlanPricing: boolean // re-pricing after a checkbox toggle — the old price stays put, no flicker
+  thesisPlanError: string | null
+  openThesisPlan: () => Promise<void>
+  closeThesisPlan: () => void
+  toggleThesisRerun: (module: string) => void // flip one module between "reuse" and "re-run", then re-price
+  completeThesis: () => Promise<void>
+
   openReport: (tier: 'memo' | 'thesis' | 'dossier') => Promise<void>
   openModuleReport: (module: string, tier: 'synthesis' | 'memo' | 'dossier') => void
   closeOutput: () => void
@@ -531,6 +547,11 @@ export const useStore = create<State>((set, get) => ({
   runRoot: null,
   reports: { memo: false, thesis: false, dossier: false },
   moduleReports: {},
+  thesisPlan: null,
+  thesisPlanOpen: false,
+  thesisPlanLoading: false,
+  thesisPlanPricing: false,
+  thesisPlanError: null,
   openOutput: null,
   chatOpen: false,
   chatScope: 'run',
@@ -705,7 +726,8 @@ export const useStore = create<State>((set, get) => ({
     // keep only still-live runs across tickers (drop finished); the new ticker rebuilds from snapshots
     const activeRuns = Object.fromEntries(Object.entries(get().activeRuns).filter(([, r]) => LIVE_RUN.has(r.status)))
     chatAbort?.abort(); chatAbort = null // a new subject → drop any in-flight chat + its thread
-    set({ selectToken: token, selectedTicker: t, constellationSwarm: sw, dataStatus: null, dataLoading: isResearch, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], activeRuns, openOutput: null, ...CHAT_RESET })
+    // the completion plan is per-subject disk truth — never let a previous subject's plan survive a switch
+    set({ selectToken: token, selectedTicker: t, constellationSwarm: sw, dataStatus: null, dataLoading: isResearch, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], activeRuns, openOutput: null, thesisPlan: null, thesisPlanOpen: false, thesisPlanError: null, ...CHAT_RESET })
     const graph = isResearch ? await api.swarm(t) : await api.swarmGraph(sw, t)
     if (get().selectToken !== token) return // a newer selection superseded this one
     set({ graph, nodesByKey: flatten(graph) })
@@ -1223,8 +1245,143 @@ export const useStore = create<State>((set, get) => ({
       const runRoot = get().runRoot
       const rel = !isResearch && runRoot && res.path.startsWith(`${runRoot}/`) ? res.path.slice(runRoot.length + 1).replace(/\.md$/, '') : null
       set({ openOutput: { path: res.path, title: isResearch ? `Investment Thesis — ${t}` : `Dossier — ${t}`, verdict: resolveVerdict(get().decision, vf), nodeKey: isResearch ? 'master/synthesizer' : rel ?? undefined } })
-    } catch {
-      get().setToast({ msg: isResearch ? 'No final thesis yet' : 'No final dossier yet', tone: 'info' })
+    } catch (e: any) {
+      // Tell "there is no thesis yet" (404) apart from "we could not ask" (500, timeout, tunnel drop). Only
+      // the first means the thesis is unbuilt. Showing a completion plan for the second would turn a failed
+      // request into a confident answer — and invite the user to pay for a run they may not need.
+      const status = e?.status as number | undefined
+      if (status !== undefined && status !== 404) {
+        get().setToast({ msg: `Couldn’t check this run’s output — the engine returned ${status}.`, tone: 'bad' })
+        return
+      }
+      // No final deliverable yet. "No final thesis yet" was true and useless — worse, it hid the fact that
+      // finished modules may already be sitting on disk (possibly in an OLDER dated run folder), so the only
+      // obvious next move, "Run full", silently re-ran and re-charged for all of them. Open the plan instead:
+      // what's missing, what already exists, and what finishing it actually costs.
+      await get().openThesisPlan()
+    }
+  },
+
+  // ---- complete the thesis ----
+  // Always fetched fresh from disk. The whole promise of this panel is "we will not re-run what already
+  // exists", and a cached picture of what exists is exactly how that promise gets broken.
+  openThesisPlan: async () => {
+    const t = get().selectedTicker
+    if (!t) { get().setToast({ msg: 'Select a company first', tone: 'info' }); return }
+    if (get().staticMode) { get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' }); return }
+    const sw = get().constellationSwarm
+    // thesisPlanPricing MUST be cleared here: a toggle whose re-price was still in flight when the panel
+    // closed returns early and leaves it true, and nothing else resets it — which would leave the Run button
+    // permanently disabled on every subsequent open (a dead button, the failure mode of the readiness gate).
+    set({ thesisPlanOpen: true, thesisPlanLoading: true, thesisPlanPricing: false, thesisPlanError: null, thesisPlan: null })
+    try {
+      const plan = await api.thesisPlan(t, sw)
+      // the user may have switched subject or closed the panel while this was in flight
+      if (get().selectedTicker !== t || !get().thesisPlanOpen) return
+      set({ thesisPlan: plan, thesisPlanLoading: false })
+    } catch (e: any) {
+      if (get().selectedTicker !== t) return
+      set({ thesisPlanLoading: false, thesisPlanError: e?.message || 'Could not read what this run still needs' })
+    }
+  },
+
+  closeThesisPlan: () => set({ thesisPlanOpen: false, thesisPlanPricing: false, thesisPlanError: null }),
+
+  // Flip ONE module between "reuse what's on disk" and "re-run it", then ask the SERVER to re-price. The
+  // server owns pricing (it is what the launcher will charge), so the button's number can never drift from
+  // the truth. The old plan stays on screen while the new price lands — a priced button must not flicker.
+  toggleThesisRerun: (module) => {
+    const plan = get().thesisPlan
+    const t = get().selectedTicker
+    if (!plan || !t) return
+    if (!plan.reusable.includes(module)) return // nothing on disk to reuse — this module always runs
+    if (plan.mustReuse.includes(module)) return // its synthesis is already in the target run root — the launcher skips it regardless
+
+    const next = plan.reuse.includes(module) ? plan.reuse.filter((m) => m !== module) : [...plan.reuse, module]
+
+    // Optimistic: flip the checkbox now (the click must feel instant), then reconcile with the server's price.
+    set({ thesisPlan: { ...plan, reuse: next }, thesisPlanPricing: true })
+    const token = get().selectToken
+    // Clicks are faster than a disk walk, and responses can land out of order. Stamp each request and apply
+    // only the newest — otherwise a slow earlier response overwrites a later one, visibly re-ticking a box the
+    // user just unticked, and `completeThesis` launches with a reuse set the user can see they changed.
+    const seq = ++thesisPriceSeq
+    void (async () => {
+      try {
+        const repriced = await api.thesisPlan(t, plan.swarm, next)
+        if (seq !== thesisPriceSeq || get().selectToken !== token || !get().thesisPlanOpen) return
+        set({ thesisPlan: repriced, thesisPlanPricing: false })
+      } catch (e: any) {
+        if (seq !== thesisPriceSeq || get().selectToken !== token) return
+        // Roll THIS toggle back off current state (not a stale closure, which would also undo later toggles),
+        // and surface the failure as a toast — a transient re-price must never unmount the plan the user is
+        // reading, and it is not the "couldn't read your run folders" error the panel's error state describes.
+        const cur = get().thesisPlan
+        set({ thesisPlan: cur ? { ...cur, reuse: plan.reuse } : plan, thesisPlanPricing: false })
+        get().setToast({ msg: e?.message || 'Couldn’t re-price that change — nothing was changed.', tone: 'bad' })
+      }
+    })()
+  },
+
+  completeThesis: async () => {
+    const plan = get().thesisPlan
+    const t = get().selectedTicker
+    if (!plan || !t) return
+    // Research-only, matched positively (a missing/unknown swarm must never read as permitted).
+    if (plan.swarm !== 'research') return get().setToast({ msg: `Completing a ${plan.swarm} dossier from here isn’t supported yet.`, tone: 'info' })
+    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+
+    // Nothing to reuse ⇒ this IS a full run: same orbs, same price, same commits pushed to main. Hand it to
+    // the normal full-run confirm dialog, which asks the user to type the ticker and shows the plan-usage row.
+    // A cheaper run earns the one-click path; a full one does not, whichever modal you happen to be standing in.
+    if (plan.reuse.length === 0) {
+      set({ thesisPlanOpen: false })
+      await get().requestFull()
+      return
+    }
+
+    set({ launchPending: { key: 'complete-thesis', label: `Completing ${t}…`, ticker: t } })
+    try {
+      const { runId, chained, carried, willRun } = await api.runThesisPlan(t, plan.reuse, plan.swarm)
+      if (chained) set({ chainTickers: new Set(get().chainTickers).add(t) })
+
+      // Light up ONLY the modules that will actually run; show the reused ones as done (green), never as
+      // "starting" — the client lying about that is the exact scare this feature exists to remove.
+      const nodes = [...get().nodesByKey.values()]
+      const runSet = new Set(willRun)
+      const reuseSet = new Set(plan.reuse)
+      const plannedKeys = nodes.filter((n) => runSet.has(n.module)).map((n) => n.key)
+      const doneKeys = nodes.filter((n) => reuseSet.has(n.module)).map((n) => n.key)
+
+      set({ thesisPlanOpen: false, launchPending: null })
+      if (runId) {
+        beginRun(set, get, runId, { kind: 'full', willCommitToMain: true }, plannedKeys, doneKeys)
+      } else {
+        // runId === '' — every module was already on disk, so the engine launched the master synthesizer
+        // directly under its OWN runId (adopted via refreshActiveRuns). NEVER open a stream to an empty id or
+        // write a phantom activeRuns[''] card that never terminates and blocks "Run full" until reload.
+        const rt = { ...get().nodeRuntime }
+        for (const k of doneKeys) rt[k] = { status: 'done' }
+        set({ nodeRuntime: rt })
+        void get().refreshActiveRuns()
+      }
+
+      const carriedNote = carried.length ? ` · reused ${carried.length} finished module${carried.length === 1 ? '' : 's'}` : ''
+      get().setToast({ msg: willRun.length ? `Completing the thesis — running ${willRun.length} module${willRun.length === 1 ? '' : 's'} + the memo${carriedNote}` : `Writing the memo${carriedNote}`, tone: 'good' })
+    } catch (e: any) {
+      set({ launchPending: null })
+      // api.post() throws `Object.assign(new Error(msg), { status, body })` — the discriminated code the
+      // server sends lives at e.body.code, NOT e.code. Reading e.code silently never matched.
+      const code = e?.body?.code
+      if (code === 'already_complete') {
+        // Someone else's run (or a chained run) finished this thesis while the panel was open. Don't error —
+        // the user asked for the thesis, and it now exists: give them it.
+        set({ thesisPlanOpen: false })
+        get().setToast({ msg: 'This run already has a final thesis — opening it.', tone: 'info' })
+        void get().openThesis()
+        return
+      }
+      set({ thesisPlanError: e?.message || 'Could not start the completion run' })
     }
   },
 

@@ -13,7 +13,7 @@ import { runReadiness } from './readiness'
 import { providerEnvKeys } from './load-env'
 import { buildSwarmGraph, downstreamCascade } from './roster'
 import { resolveInsideScreener } from './sandbox'
-import { swarmById } from './swarms'
+import { RESEARCH_SWARM_ID, swarmById } from './swarms'
 import { finalPaths, handleStreamLine } from './stream-parser'
 import type { LaunchPreflight, ReadinessDecision, ReadinessReport, RunKind, RunStatus } from './types'
 
@@ -872,13 +872,15 @@ const defaultFullChainDeps: FullChainDeps = {
 // remaining work, not the whole pipeline — otherwise a resume that skips 4 of 6 modules still shows the
 // full "~$90 / ~150 min", which reads as "it's redoing everything" even though it isn't. Scaled from the
 // calibrated full-run band by the fraction of agents left to run (an honest "~" band, not false precision).
-function chainedResumePreflight(ticker: string, plannedModules: string[]): LaunchPreflight {
-  const g = buildSwarmGraph()
+export function chainedResumePreflight(ticker: string, plannedModules: string[], swarmId: string = RESEARCH_SWARM_ID): LaunchPreflight {
+  // Swarm-aware so the "complete the thesis" panel prices a non-research subject against ITS OWN graph
+  // (agent counts and full-run band), not the research one. Research callers pass nothing and are unchanged.
+  const g = buildSwarmGraph(swarmId)
   const agentCountOf = new Map(g.modules.map((m) => [m.name, m.agentCount]))
   const totalAgents = g.totals.agents + 1 // + master
   const plannedAgents = plannedModules.reduce((s, n) => s + (agentCountOf.get(n) ?? 0), 0) + 1 // + master
   const frac = totalAgents > 0 ? Math.min(1, plannedAgents / totalAgents) : 1
-  const full = estimate('full', ticker)
+  const full = estimate('full', ticker, undefined, undefined, swarmId === RESEARCH_SWARM_ID ? undefined : swarmId)
   return {
     ...full,
     agentCount: plannedAgents,

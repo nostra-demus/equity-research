@@ -24,6 +24,7 @@ import { ScoringPanel } from './components/screener/ScoringPanel'
 import { ReviewPanel } from './components/screener/ReviewPanel'
 import { CallsTracker } from './components/CallsTracker'
 import { LaunchConfirm } from './components/LaunchConfirm'
+import { ThesisPlanPanel } from './components/ThesisPlanPanel'
 import { AddCompany } from './components/AddCompany'
 import { ReadinessWarnings } from './components/ReadinessWarnings'
 import { DataUploadEmptyState } from './components/DataUploadEmptyState'
@@ -181,6 +182,7 @@ export function App() {
       {sourcesOpen && <SourcesPanel />}
       <SignalIntake />
       <LaunchConfirm />
+      <ThesisPlanPanel />
       <AddCompany />
       <ReadinessWarnings />
       <SwarmWarp />

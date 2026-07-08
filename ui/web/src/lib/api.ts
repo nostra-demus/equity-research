@@ -1,6 +1,6 @@
 import { staticPromptPath } from './prompts'
 import { DEFAULT_RANK_WEIGHTS, type RankWeights, type RankWeightsState } from './rankWeights'
-import type { ActivityQuery, ActivityResult, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CoverageGroup, DataStatus, EventEnrichment, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SourcesReport, SwarmGraph, SwarmMeta, TickerSummary, UploadResult, Usage, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CoverageGroup, DataStatus, EventEnrichment, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SourcesReport, SwarmGraph, SwarmMeta, ThesisPlan, TickerSummary, UploadResult, Usage, Whoami } from './types'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -56,7 +56,9 @@ export function isStatic(): boolean {
 // heavy JSON; pass a shorter budget for small, frequently-polled endpoints (e.g. news status).
 async function get<T>(url: string, timeoutMs = 15_000): Promise<T> {
   const r = await fetch(url, { signal: AbortSignal.timeout(timeoutMs) })
-  if (!r.ok) throw new Error(`${r.status} ${url}`)
+  // Carry the status on the error (as post() already does) so a caller can tell "this doesn't exist yet"
+  // (404) from "the engine is broken/unreachable" (500, timeout) instead of guessing from the message.
+  if (!r.ok) throw Object.assign(new Error(`${r.status} ${url}`), { status: r.status })
   return r.json() as Promise<T>
 }
 async function post<T>(url: string, body?: any): Promise<T> {
@@ -445,6 +447,33 @@ export const api = {
     if ((await ensureMode()) === 'static') return { runs: [] }
     return get(`/api/resumable`, 8_000)
   },
+
+  // ---- complete the thesis ----
+  // Recomputed from disk on every call — the panel must never show a stale picture of what already exists,
+  // because that picture is what decides whether the user pays to re-run a finished module.
+  // `reuse` re-prices the plan for a chosen selection. Omit it for the safe default (reuse what is finished
+  // AND current). The server prices every selection — the client never does its own cost math, so the number
+  // on the button is always the number the launcher will charge.
+  thesisPlan: async (ticker: string, swarm?: string, reuse?: string[]): Promise<ThesisPlan> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    const q = new URLSearchParams({ ticker })
+    if (swarm && swarm !== 'research') q.set('swarm', swarm)
+    if (reuse) q.set('reuse', reuse.join(',')) // '' is meaningful: reuse nothing, run everything
+    return get(`/api/thesis-plan?${q}`, 12_000)
+  },
+  // `reuse` = the modules to carry forward rather than re-run. Everything else in the graph runs. The
+  // server re-validates this against its own plan, so a stale client can never smuggle a stale module in.
+  runThesisPlan: async (
+    ticker: string,
+    reuse: string[],
+    swarm: string,
+  ): Promise<{ runId: string; preflight: LaunchPreflight; carried: { module: string; from: string }[]; reused: string[]; willRun: string[]; chained?: boolean; skipped?: string[]; planned?: string[] }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    // `swarm` is ALWAYS sent (never omitted for research), so the server can match positively on it rather
+    // than treat an absent field as permission to dispatch a research pipeline at another swarm's subject.
+    return post(`/api/thesis-plan/run`, { ticker, reuse, swarm })
+  },
+
   runStreamUrl: (runId: string) => `/api/runs/${runId}/stream`,
   dataStreamUrl: () => `/api/data-status/stream`,
 
