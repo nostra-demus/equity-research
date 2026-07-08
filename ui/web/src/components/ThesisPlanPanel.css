@@ -1,0 +1,130 @@
+/* "Complete the thesis" — the panel that replaced a dead-end toast.
+   Motion budget: transform/opacity only, every UI transition <300ms, custom easing (--ease-out).
+   The modal itself stays centered (it is not anchored to a trigger); only popovers are origin-aware. */
+
+/* A swarm can declare any number of modules, so this list has no fixed length. Cap the dialog and let the
+   MODULE LIST scroll — the title, the price, and the Run button must never be pushed off a short viewport. */
+.tpp {
+  width: 560px; max-width: calc(100vw - 32px);
+  max-height: min(88vh, 900px);
+  display: flex; flex-direction: column;
+}
+.tpp .modal__head, .tpp .tpp__price, .tpp .modal__actions, .tpp .tpp__saving, .tpp .tpp__carry, .tpp .tpp__hint { flex: none; }
+
+/* ---- module rows ------------------------------------------------------------------------------- */
+.tpp__list { display: flex; flex-direction: column; padding-top: 6px; padding-bottom: 6px; min-height: 0; overflow-y: auto; }
+
+.tpp__row {
+  display: grid;
+  /* mark · (name over note) · badge. Stacking name+note keeps every note starting at the same x and gives a
+     long stale reason room to breathe, instead of squeezing it against a variable-width name column. */
+  grid-template-columns: 18px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 9px 8px;
+  margin: 0 -8px;
+  border-radius: var(--r-sm);
+  text-align: left;
+  transition: transform var(--dur-fast) var(--ease-out), opacity var(--dur-fast) var(--ease-out);
+  /* stagger: rows cascade in behind the modal. 34ms apart — short enough never to feel slow. */
+  animation: tpp-row-in 220ms var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 34ms + 40ms);
+}
+.tpp__row + .tpp__row { border-top: 1px solid var(--hairline); }
+
+@keyframes tpp-row-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Only a row with something on disk to reuse — and not already finished inside this run — is pressable.
+   The rest are statements, not controls, and must not look like controls. */
+.tpp__row--actionable { cursor: pointer; }
+@media (hover: hover) and (pointer: fine) {
+  .tpp__row--actionable:hover { background: var(--surface-3); }
+}
+/* The toggle is the decision that costs money; its press must be felt. 0.97 per the interaction bar. */
+.tpp__row--actionable:active { transform: scale(0.97); }
+.tpp__row--actionable:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+
+/* Inert rows (missing / partial / locked-reuse) read as information, not affordance. */
+.tpp__row--inert { cursor: default; opacity: 0.82; }
+.tpp__row--master { opacity: 0.72; }
+
+/* ---- the reuse / re-run mark -------------------------------------------------------------------- */
+.tpp__mark { display: grid; place-items: center; width: 18px; height: 18px; }
+.tpp__mark svg { width: 13px; height: 13px; fill: none; stroke-width: 1.35; stroke-linecap: round; stroke-linejoin: round; }
+.tpp__mark--reuse svg { stroke: var(--live); }
+.tpp__mark--run svg { stroke: var(--accent-bright); }
+
+.tpp__text { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.tpp__name { font-size: 13px; font-weight: 600; color: var(--text); text-transform: capitalize; }
+.tpp__note { font-size: 11.5px; color: var(--text-faint); line-height: 1.4; }
+
+/* The rows are pressable, and nothing else says so. One quiet line beats a per-row affordance. */
+.tpp__hint { padding: 2px 20px 0; font-size: 11px; color: var(--text-faint); }
+
+.tpp__badge {
+  font-size: 9.5px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase;
+  padding: 3px 7px; border-radius: var(--r-pill); white-space: nowrap;
+}
+.tpp__badge--reuse { color: var(--live); background: var(--live-wash); }
+.tpp__badge--run { color: var(--accent-bright); background: var(--accent-wash); }
+.tpp__badge--stale { color: var(--conv-warn); background: var(--accent-wash); }
+
+/* ---- provenance + pool notes --------------------------------------------------------------------- */
+.tpp__carry {
+  margin: 2px 20px 0; padding: 9px 11px;
+  font-size: 11.5px; line-height: 1.5; color: var(--text-muted);
+  background: var(--accent-wash-soft); border: 1px solid var(--hairline); border-radius: var(--r-sm);
+}
+.tpp__carry + .tpp__carry { margin-top: 6px; }
+.tpp__carry--warn { color: var(--conv-warn); }
+
+/* ---- price block ---------------------------------------------------------------------------------- */
+/* Re-pricing after a toggle: the OLD number stays legible and just dims. A priced button must never flash
+   an empty or wrong value — the user is about to spend money against it. */
+.tpp__price { transition: opacity var(--dur-fast) var(--ease-out); }
+.tpp__price--pricing { opacity: 0.45; }
+
+.tpp__saving {
+  padding: 10px 20px 0;
+  font-size: 11.5px; line-height: 1.5; color: var(--text-muted);
+}
+.tpp__saving b { color: var(--text); font-weight: 600; }
+
+/* ---- error ---------------------------------------------------------------------------------------- */
+.tpp__error { padding: 6px 20px 4px; }
+.tpp__error-msg { font-size: 12.5px; color: var(--bad); line-height: 1.5; }
+.tpp__error-hint { font-size: 11.5px; color: var(--text-faint); margin-top: 5px; }
+
+/* ---- loading skeleton ------------------------------------------------------------------------------ */
+/* A real loading state, not a spinner over an empty box: the rows are already where they will be, so the
+   panel does not jump when the plan lands. */
+.tpp__row--skeleton { pointer-events: none; }
+.tpp__skel { height: 9px; border-radius: var(--r-pill); background: var(--surface-3); opacity: 0.7; animation: tpp-pulse 1.15s ease-in-out infinite; }
+.tpp__skel--mark { width: 13px; height: 13px; border-radius: 50%; }
+.tpp__skel--name { width: 96px; }
+.tpp__skel--note { width: 100%; max-width: 260px; }
+.tpp__row--skeleton .tpp__skel:nth-child(2) { animation-delay: 90ms; }
+.tpp__row--skeleton .tpp__skel:nth-child(3) { animation-delay: 180ms; }
+
+@keyframes tpp-pulse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.75; }
+}
+
+/* ---- narrow viewports ------------------------------------------------------------------------------ */
+/* The note is the first thing to go: the badge already carries the state, and the name carries the subject. */
+@media (max-width: 560px) {
+  .tpp__note { display: none; }
+}
+
+/* ---- reduced motion --------------------------------------------------------------------------------- */
+/* Keep the opacity fades that aid comprehension (the re-pricing dim); drop every positional animation. */
+@media (prefers-reduced-motion: reduce) {
+  .tpp__row { animation: none; }
+  .tpp__row--actionable:active { transform: none; }
+  .tpp__skel { animation: none; opacity: 0.5; }
+}

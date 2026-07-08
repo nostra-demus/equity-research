@@ -43,11 +43,13 @@ import { assembleContext, buildChatPrompts, scopeAvailability } from './chat-con
 import { chatTurnsInFlight, runChatTurn } from './chat-llm'
 import { deleteConversation, getConversation, isValidConversationId, listConversations, recordAssistantMessage, recordUserMessage } from './chat-store'
 import { dataPoolPresent, readCandidates, readConviction, readConvictionCalibration, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest, screenerSubjectLabels } from './screener'
-import { listSwarms } from './swarms'
+import { listSwarms, RESEARCH_SWARM_ID, swarmById } from './swarms'
 import { getNewsStatus, startNewsIngester } from './news/scheduler'
 import { startConvictionLoop } from './conviction-dispatch'
 import { startResumeSupervisor } from './resume-supervisor'
 import { listResumableRuns } from './resumable'
+import { carryForwardModules, thesisPlan } from './completion'
+import { SubjectBusyError, withSubjectLock } from './subject-lock'
 import { AGENT_RE, EVENT_ID_RE, FEEDBACK_ID_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE, isValidTicker, resolveInsideRuns, validateNewTicker, sanitizeUploadFilename } from './sandbox'
 import type { RunKind } from './types'
 
@@ -374,6 +376,18 @@ const ResearchLaunchBody = z.object({
 
 const INB_RE = /^INB-\d{8}-\d{3,}$/
 
+// "Complete the thesis": the caller sends the modules it wants REUSED (carried, not re-run). Everything
+// else in the graph runs. `reuse` is checked against the server's own plan before anything is copied.
+const ThesisPlanRunBody = z.object({
+  ticker: z.string().regex(TICKER_RE),
+  reuse: z.array(z.string().regex(MODULE_RE)).max(64).default([]),
+  // REQUIRED, so an omitted field can never default to "research" and launch a research pipeline against
+  // another swarm's subject. Completion is research-only for now; the route rejects anything else by name.
+  swarm: z.string().regex(MODULE_RE),
+  // Typed-ticker confirmation, required only when the reuse set is empty (i.e. this is really a full run).
+  confirmTicker: z.string().optional(),
+})
+
 const SignalLaunchBody = z.object({
   kind: z.literal('signal'),
   // relaunch an existing signal by id…
@@ -662,6 +676,120 @@ app.post('/api/runs/:runId/readiness-decision', async (req, reply) => {
 // from disk each call (the in-memory registry is wiped on restart). The Activity log and the orb view
 // join their rows/subjects against this set to decide where to show a "Resume" affordance.
 app.get('/api/resumable', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async () => ({ runs: listResumableRuns() }))
+
+// ---------- complete the thesis ----------
+// What is actually missing before this subject can have a final thesis, and what already exists on disk
+// (possibly in an OLDER dated run folder) that must therefore NOT be paid for again. Read-only; recomputed
+// from disk on every call, so the panel can never show a stale "what's done" picture.
+// `?reuse=a,b` re-prices the plan for a caller's chosen reuse set (the panel's checkboxes) — the SERVER
+// stays the only thing that prices a run, so the number on the button can never drift from the number the
+// launcher will charge. Omit it for the safe default (reuse everything finished-and-current).
+app.get('/api/thesis-plan', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const q = req.query as { ticker?: string; swarm?: string; reuse?: string }
+  // isValidTicker, not the bare TICKER_RE: the regex admits ".." (its charclass includes `.`), and
+  // `dataPoolNewest('..')` would synchronously walk the whole repo — a blocking scan on the event loop.
+  if (!q.ticker || !isValidTicker(q.ticker)) return reply.code(400).send({ error: 'bad ticker' })
+  if (q.swarm && !swarmById(q.swarm)) return reply.code(400).send({ error: 'unknown swarm' })
+  const reuse = q.reuse === undefined ? undefined : q.reuse.split(',').filter(Boolean)
+  if (reuse && (reuse.length > 64 || reuse.some((m) => !MODULE_RE.test(m)))) return reply.code(400).send({ error: 'bad reuse set' })
+  try {
+    return thesisPlan(q.ticker, q.swarm || undefined, reuse)
+  } catch (e: any) {
+    return reply.code(500).send({ error: e?.message || 'could not build the completion plan' })
+  }
+})
+
+// Complete the thesis: carry the caller's REUSE set into today's run root (each module stamped with the
+// run it came from), then hand off to the ordinary full-run path. Both full-run implementations already
+// skip any module whose 99 synthesis is non-empty in the run root, so the carried modules are reused and
+// only the remainder + master actually run — priced by `chainedResumePreflight`, not the full band.
+//
+// The reuse set is validated against the plan's own `reusable` list — every module with a finished synthesis
+// on disk. A caller may knowingly keep a `stale` module (the panel unticks it explicitly), but can never
+// "reuse" a module that was never finished: there is nothing on disk to carry.
+app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '1 minute' } } }, async (req, reply) => {
+  // CSRF guard — this route launches a paid run and writes to disk from a plain POST, same class of
+  // non-preflighted write as /api/tickers and /api/chat (see originAllowed's own comment: the catch-all
+  // content-type parser means a cross-origin "simple request" reaches this handler without a preflight).
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
+  const parsed = ThesisPlanRunBody.safeParse(req.body)
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  const { ticker, reuse, swarm, confirmTicker } = parsed.data
+  const { user, userVia } = identify(req)
+  if (!isValidTicker(ticker)) return reply.code(400).send({ error: 'bad ticker' })
+  // Same closed allow-list /api/launch enforces before a research launch: membership in the data pool.
+  // Without it, a caller could drive a full paid run for a ticker with no data on disk at all — `launch()`
+  // itself does not re-check this for kind:'full', it is enforced at the route layer only.
+  if (isReservedDataFolder(ticker) || !fs.existsSync(path.join(DATA_DIR, ticker))) {
+    return reply.code(400).send({ error: `unknown ticker ${ticker}` })
+  }
+
+  // Research-only, by POSITIVE match. `swarm` is REQUIRED (the client always sends it) so an omitted field can
+  // never read as "research" — carry-forward assumes dated run folders, and `launch({kind:'full'})` below would
+  // otherwise dispatch a RESEARCH pipeline against another swarm's subject and push its output to main. A
+  // constellation swarm keeps one stable folder per subject, so it has no cross-folder reuse problem to solve.
+  if (swarm !== RESEARCH_SWARM_ID) {
+    return reply.code(400).send({ error: `Completing a ${swarm ?? 'non-research'} dossier from here isn’t supported yet — run its pipeline from the swarm’s own controls.`, code: 'swarm_unsupported' })
+  }
+
+  // Reserve this ticker for the whole busy-check + carry + launch sequence, synchronously, before any of
+  // it runs. `carryForwardModules` writes files BEFORE `launch()` registers a `RunState`, so the busy-check
+  // two lines down cannot by itself stop a second concurrent POST for the same ticker — Fastify's own hooks
+  // (rate-limit, body parsing) can interleave two requests across an `await` boundary that sits before this
+  // handler's body ever runs, and both would then see "not busy" and both carry into the same target root.
+  // `withSubjectLock` closes that race in-process: see subject-lock.ts for why check-and-set order is enough.
+  try {
+    return await withSubjectLock(`thesis-plan:${ticker}`, async () => {
+      // Never write into a run root another run currently owns. `carryForwardModules` copies module folders in
+      // BEFORE admission runs, so a live run on this subject would silently absorb them: its own per-module skip
+      // test would see a `99_*-synthesis.md` it did not write and skip that module, synthesizing over evidence
+      // read against an older data pool. Admission would reject us a moment later — too late, the files are there.
+      const busy = listRuns().some((r) => r.subjectId === ticker && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))
+      if (busy) return reply.code(409).send({ error: `A run is already in flight on ${ticker}. Let it finish (or stop it) before completing the thesis.`, code: 'subject_busy' })
+
+      // ONE disk snapshot decides everything below: the already-complete check, the reuse validation, and what
+      // gets carried. Re-reading between those steps would open a time-of-check/time-of-use gap — a module
+      // finishing mid-request would let us carry work this route never validated.
+      const plan = thesisPlan(ticker, undefined, reuse)
+      if (plan.complete) return reply.code(409).send({ error: 'this run already has a final thesis', code: 'already_complete', path: plan.finalReportPath })
+
+      const allowed = new Set(plan.reusable)
+      const bad = reuse.filter((m) => !allowed.has(m))
+      if (bad.length) return reply.code(400).send({ error: `cannot reuse a module that never finished: ${bad.join(', ')}`, code: 'unreusable' })
+
+      // When NOTHING is reused this is a bit-for-bit full run — same orbs, same $55-130, same commits pushed to
+      // main. The "it's already an explicit priced click" argument only justifies dropping the typed-ticker guard
+      // when the run is genuinely smaller than a full one. So the guard comes back exactly when the run is a full
+      // one, and the panel routes that case to the normal full-run confirm dialog.
+      if (plan.reuse.length === 0 && confirmTicker !== ticker) {
+        return reply.code(412).send({ error: 'nothing is being reused — this is a full run and needs typed confirmation', code: 'needs_typed_confirm' })
+      }
+
+      let carried: { module: string; from: string }[] = []
+      try {
+        ;({ carried } = carryForwardModules(ticker, reuse, undefined, plan))
+      } catch (e: any) {
+        return reply.code(500).send({ error: `could not carry forward existing work: ${e?.message || e}` })
+      }
+
+      try {
+        const out = await launch({ kind: 'full', ticker, user, userVia })
+        return { ...out, carried, reused: plan.reuse, willRun: plan.run }
+      } catch (e: any) {
+        // The carry-forward already landed on disk. Nothing is LOST (source folders are untouched, and the copied
+        // modules are genuinely finished work), and a retry reuses them — but the run root now exists, so the
+        // cockpit will offer this subject as resumable. That is honest: resuming is exactly how you finish it.
+        const body = e?.body && typeof e.body === 'object' ? e.body : null
+        return reply.code(e?.statusCode || 500).send({ error: e?.message || 'launch failed', carried, ...(body || {}) })
+      }
+    })
+  } catch (e: any) {
+    if (e instanceof SubjectBusyError) {
+      return reply.code(409).send({ error: `Another completion request for ${ticker} is already in progress. Wait for it to finish before retrying.`, code: 'subject_busy' })
+    }
+    throw e
+  }
+})
 
 // ---------- active runs list ----------
 app.get('/api/runs', async (req) => {

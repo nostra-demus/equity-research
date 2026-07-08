@@ -101,6 +101,10 @@ Before writing the final dossier, read inputs in this priority order:
    - `analyses/{TICKER}_{DATE}/earnings/99_earnings-synthesis.md`
    - Additional modules as the system grows — read whatever `99_*-synthesis.md` files exist.
 
+   **Carried-forward modules (vintage travels with the number).** A module folder in this run root may contain a `CARRIED_FORWARD.md` stamp. That module was NOT re-run for this run: its outputs were copied verbatim from an earlier dated run of the same subject, because a completed synthesis already existed and the data pool had gained no newer file since. Read the stamp. It names the source run and its date.
+
+   For every such module: use its verdict, scores, and red flags exactly as you would a freshly-run module — a carried module is a completed module, not a degraded one — but **carry its vintage with it**. When a figure from a carried module reaches the §2 Scorecard, the Scenario Model, or the `decision_record`, its evidence was read against the data pool as it stood on the SOURCE run's date, not today's. Say so where it matters (§5: vintage travels with the number), and record every carried module and its source date in `RUN_METADATA.md` and in `missing_data` if any of them predates a material filing you can see in `data/{TICKER}/`. Do not silently age a carried conclusion forward. If a carried module's date is materially stale against the evidence in front of you, treat that as a data-sufficiency input (§11) and lower confidence — then say that the module should be re-run.
+
 ## SECONDARY INPUTS (read for verification, override, and dossier appendices)
 
 4. **Sub-agent outputs** — all non-99 files inside each module folder (e.g., `analyses/{TICKER}_{DATE}/business-model/00_data-triage.md`, `01_disqualifier-scan.md`, etc.). Use these to:
@@ -110,7 +114,9 @@ Before writing the final dossier, read inputs in this priority order:
 
 5. **Raw data** — files inside `data/{TICKER}/`. Includes filings, transcripts, presentations, annual/quarterly reports, investor decks, user notes, Capital IQ exports, IBKR screenshots, options data, and positioning data.
 
-6. **Prior runs** — if `analyses/{TICKER}_*` folders exist from earlier dates, note them. You may reference whether the verdict has changed since the prior run, but do not merge prior-run content into the current dossier — each dated run is a frozen snapshot. If prior dated runs exist, compare only high-level verdict changes unless explicitly asked for a full run-over-run diff. Never overwrite or modify files in prior-run folders.
+6. **Prior runs** — if `analyses/{TICKER}_*` folders exist from earlier dates, note them. You may reference whether the verdict has changed since the prior run, but do not reach into a prior-run folder and pull its content into the current dossier — each dated run is a frozen snapshot. If prior dated runs exist, compare only high-level verdict changes unless explicitly asked for a full run-over-run diff. Never overwrite or modify files in prior-run folders.
+
+   **The one exception is a carried-forward module** (see input 3): a module folder that is physically present in THIS run root and carries a `CARRIED_FORWARD.md` stamp. That is not you reaching backwards — the engine copied a completed, still-current module into this run root before the run started, recorded exactly where it came from, and left the source folder untouched. Read it as part of this run, and disclose its vintage. The rule this exception preserves is the real one: **nothing enters the dossier unless it is in this run root and its provenance is on disk.**
 
 7. **Latest calibration summary** — `Glob analyses/performance/*_calibration_summary.json`, filtered to files dated on or before today, latest wins. This is the Phase 6 calibration-feedback input (`frameworks/DECISION_LEDGER.md` §18) — read it before the Pre-Write Gate, since gate step 4C needs it. If none exists yet, that is expected and non-blocking (the ledger has no resolved history yet); proceed and record that honestly.
 

@@ -92,6 +92,24 @@ export function isValidTicker(name: string): boolean {
   return TICKER_RE.test(name) && /[A-Z0-9]/.test(name)
 }
 
+/**
+ * A subject id that is safe to use as a SINGLE path segment.
+ *
+ * `isValidTicker` alone is not a path barrier: TICKER_RE admits `.` and `-`, so names like `.` or `..`
+ * only fail on the "needs a letter/digit" clause, and a reader (or a taint analyser) has to reason about
+ * two regexes to see that. Anything that becomes a path segment goes through here instead:
+ * `path.basename` strips every separator and traversal component, and the equality check proves nothing
+ * WAS stripped — so the returned value is provably the caller's own name and provably one segment.
+ *
+ * Throws rather than returning a fallback: a subject we cannot name is a bug, never a directory to guess at.
+ */
+export function safeSubjectSegment(name: string): string {
+  if (!isValidTicker(name)) throw Object.assign(new Error('bad subject'), { statusCode: 400 })
+  const base = path.basename(name)
+  if (base !== name || base === '.' || base === '..') throw Object.assign(new Error('bad subject'), { statusCode: 400 })
+  return base
+}
+
 // A usable ticker symbol derived from a folder name (uppercase, drop spaces/illegal chars, cap length).
 // e.g. "TATA MOTORS" -> "TATAMOTORS", "reliance.ns" -> "RELIANCE.NS". Empty if nothing usable remains.
 export function suggestTicker(name: string): string {

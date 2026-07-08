@@ -780,6 +780,44 @@ export interface ResumableRunInfo {
   unit: 'module' | 'agent' // whether the counts are modules-done (full/signal) or agents-done (module)
   label?: string // human label (e.g. the signal headline) when the raw subject id isn't the best name
 }
+// ---- "Complete the thesis" (GET /api/thesis-plan) ----
+// What still stands between this subject and a final thesis, and what already exists on disk — possibly in
+// an OLDER dated run folder — that must therefore NOT be paid for a second time. Mirrors the server's
+// `ThesisPlan` in ui/server/src/completion.ts.
+export type ModuleState = 'done' | 'stale' | 'partial' | 'missing'
+
+export interface ModulePlanEntry {
+  module: string
+  state: ModuleState
+  sourceRunRoot?: string // the folder holding this module's newest outputs
+  sourceDate?: string // that folder's run vintage (YYYY-MM-DD)
+  inTargetRoot: boolean // already in the run root a completion writes into (nothing to carry)
+  doneAgents: number
+  totalAgents: number
+  staleReason?: string // plain-English "why this needs re-running", shown verbatim
+}
+
+export interface ThesisPlan {
+  swarm: string
+  subject: string
+  targetRunRoot: string
+  complete: boolean
+  finalReportPath: string | null
+  modules: ModulePlanEntry[]
+  reusable: string[] // every module with a finished synthesis on disk — what MAY be reused (incl. stale)
+  // modules the run CANNOT rebuild: their synthesis already sits in the target run root, so both full-run
+  // paths skip them. Always inside `reuse`. Their rows must not offer a toggle that the launcher would ignore.
+  mustReuse: string[]
+  reuse: string[] // what this plan DOES reuse (carried, never re-run). Default = the `done` set + mustReuse.
+  run: string[] // actually runs — the exact complement of `reuse`
+  carry: { module: string; from: string; date: string | null }[]
+  master: { state: 'ready' | 'blocked' | 'done'; blockedBy: string[] }
+  dataPool: { files: number; newestDate: string | null }
+  preflight: LaunchPreflight // cost/time of ONLY the remaining work
+  fullPreflight: LaunchPreflight // cost/time of the naive full re-run — the savings, made visible
+  canCarry: boolean
+}
+
 export interface ActivityQuery {
   from?: number
   to?: number

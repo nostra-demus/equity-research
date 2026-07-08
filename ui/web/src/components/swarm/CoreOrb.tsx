@@ -42,7 +42,9 @@ export function CoreOrb({ x, y, r, decision, bloom, armed, onClick, onHover }: P
 
   const onCoreClick = (e: React.MouseEvent) => {
     e.stopPropagation()
-    if (!hasReports) return onClick() // no run yet -> existing behavior (toasts "no thesis yet")
+    // No final deliverable yet → open the completion plan: what's missing, what already exists on disk (and
+    // will therefore be reused, not re-charged), and what finishing it costs. Never a dead-end toast.
+    if (!hasReports) return onClick()
     if (anchor) return setAnchor(null)
     const rc = ref.current?.getBoundingClientRect()
     if (rc) setAnchor({ cx: rc.left + rc.width / 2, top: rc.top - 12 }) // just above the orb
@@ -56,7 +58,7 @@ export function CoreOrb({ x, y, r, decision, bloom, armed, onClick, onHover }: P
       onClick={onCoreClick}
       onMouseEnter={() => onHover?.(true)}
       onMouseLeave={() => onHover?.(false)}
-      title={hasReports ? 'Open this run’s documents — Memo, Thesis, Full Dossier' : hasMemo ? `Open the ${label}` : `The ${label} — run the full pipeline to build it`}
+      title={hasReports ? 'Open this run’s documents — Memo, Thesis, Full Dossier' : hasMemo ? `Open the ${label}` : `The ${label} — see what’s still missing, and finish it without redoing work`}
     >
       <div className="core__ring" />
       <div className="core__decision" style={{ color: 'var(--text)' }}>{label}</div>

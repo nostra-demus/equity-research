@@ -505,6 +505,11 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       // Hard time-bound: themes runs AFTER the core write, so it must NEVER eat the cycle. Even though
       // every LLM call inside has its own 30s timeout, bound the whole stage as a belt-and-suspenders
       // (a slow clustering pass or a retry loop can't stall the ingester) — the catch below logs + skips.
+      // The timer is cleared as soon as EITHER side of the race settles: an uncleared timer is a dangling
+      // handle that keeps the process alive for the full 90s even after `runThemesCycle` wins the race —
+      // harmless in the long-running server, but it silently added ~90s to every test that reaches this
+      // stage (a real, measured regression in CI wall-clock, not a hypothetical one).
+      let themesTimeout: ReturnType<typeof setTimeout>
       const res = await Promise.race([
         runThemesCycle({
           repoRoot,
@@ -516,8 +521,11 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
           cfg: themesConfigFromNews(cfg),
           llmNamer: makeThemeNamer(cfg, fetchFn, stateDir, log),
         }),
-        new Promise<never>((_, rej) => setTimeout(() => rej(new Error('themes stage exceeded 90s — skipped')), 90_000)),
-      ])
+        new Promise<never>((_, rej) => {
+          themesTimeout = setTimeout(() => rej(new Error('themes stage exceeded 90s — skipped')), 90_000)
+          themesTimeout.unref?.()
+        }),
+      ]).finally(() => clearTimeout(themesTimeout))
       for (const s of res.changed) newsBus.emit({ type: 'theme-update', theme: s })
       if (res.changed.length) log(`themes: ${res.changed.length} updated`)
     } catch (e: any) {
