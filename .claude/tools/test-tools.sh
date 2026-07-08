@@ -53,7 +53,7 @@ full=open(sys.argv[1]).read()
 m=re.search(r'python3 - "<RUN_ROOT>" <<.PY.\n(.*?)\nPY\n```', full, re.S)
 if not m: print("  FAIL: could not extract the finish-gate script from full.md"); sys.exit(1)
 d=tempfile.mkdtemp(); gp=os.path.join(d,"gate.py"); open(gp,"w").write(m.group(1))
-dr={"expected_return_pct":99.0,"entry_price":100,
+dr={"expected_return_pct":99.0,"entry_price":100,"decision_date":"2026-07-01","thesis_type":["Company-specific"],
     "scenarios":[{"probability":50,"return_pct":10,"price_target":110},{"probability":50,"return_pct":-10,"price_target":90}],
     "confidence_score":50,"data_sufficiency_score":60,"notes":"x"}
 json.dump(dr, open(os.path.join(d,"decision_record.json"),"w"))
@@ -69,30 +69,15 @@ shutil.rmtree(d); sys.exit(0 if ok else 1)
 PY
 
 echo "== eval.md check M: direction-aware risk/reward (short vs long) =="
-"$PY" - "$DIR/../commands/research/eval.md" <<'PY' || rc=1
-import re, textwrap, sys
-ev=open(sys.argv[1]).read()
-m=re.search(r'\n(\s*pwt=sum\(p/100\.0\*t for p,t in zip\(probs,tgts\)\).*?if abs\(rr-crr\)>max\([^\n]*\))', ev, re.S)
-if not m: print("  FAIL: could not extract the check-M math block from eval.md"); sys.exit(1)
-code=compile(textwrap.dedent(m.group(1)),"<checkM>","exec")
-DECISIONS={"Short Candidate":"Short","Buy":"Selected"}
-def chk(dec,probs,rets,tgts,ep,rr):
-    calc_er=sum(p/100.0*r for p,r in zip(probs,rets))
-    ns={"probs":probs,"rets":rets,"tgts":tgts,"ep":ep,"dec":dec,"DECISIONS":DECISIONS,
-        "calc_er":calc_er,"okM":True,"det":[],"d":{"risk_reward":rr},
-        "abs":abs,"sum":sum,"zip":zip,"round":round,"max":max,"min":min,"isinstance":isinstance}
-    exec(code, ns)   # single namespace so the genexprs in the block resolve correctly
-    return ns["okM"]
-ok=True
-# a CORRECT short (targets fall = profit; short-signed returns; rr matches) must PASS
-if not chk("Short Candidate",[60,40],[30,-15],[70,115],100,0.8): print("  FAIL: correct short flagged"); ok=False
-# a short whose returns were computed LONG-side (wrong sign) must be CAUGHT (fail)
-if chk("Short Candidate",[60,40],[-30,15],[70,115],100,0.8): print("  FAIL: wrong-sign short NOT caught"); ok=False
-# a CORRECT long must still PASS (no regression)
-if not chk("Buy",[50,50],[30,-10],[130,90],100,1.0): print("  FAIL: correct long flagged"); ok=False
-print("  PASS: correct short passes, wrong-sign short fails, long unaffected" if ok else "  -> check-M test FAILED")
-sys.exit(0 if ok else 1)
-PY
+# RETIRED (was extracting a code block from eval.md that no longer exists): check M's scenario-math
+# reconciliation — including the direction-aware short/long risk-reward inversion — was refactored OUT of
+# an embedded eval.md snippet into scripts/eval.py's inline gate (see eval.py "M scenario-math
+# reconciliation", ~L1426-1472), which CI runs via `python3 scripts/eval.py all`. Pinning a deleted
+# snippet is wrong, and eval.py takes no external folder to repoint at. COVERAGE NOTE: eval.py's check M
+# is not yet driven fixture-free by `eval.py selftest` (unlike checks W/X/Y/Z), and no committed run is a
+# Short Candidate — so the direction-aware SHORT path wants a dedicated selftest case (separate follow-up:
+# extract check M to a module-level fn like W/X/Y/Z and add short/long selftest cases).
+echo "  SKIP: check M lives in scripts/eval.py now (run by 'eval.py all' in CI) — see note above"
 
 echo "== valuation canonical-definition regression guard (prompt-lint — weaker than the code tests above; born from the PR#10 review) =="
 # Guards the SPECIFIC cross-file drift the PR#10 review found: margin-of-safety re-defined as
@@ -339,6 +324,13 @@ PY
 
 echo "== ciq_facts.py + concept_resolve.py: layout-agnostic resolution + source-bound facts =="
 "$PY" "$DIR/test_ciq_facts.py" || rc=1
+
+echo "== extract_pool.py: per-format extraction bench (xls/xlsx/pdf/rtf/txt + content-sniff) =="
+# The FIRST end-to-end test of the text-extraction layer that feeds every narrative module — proves each
+# deterministic reader (xlrd/openpyxl/pdftotext->pypdf/textutil) still extracts and that content beats the
+# extension (the CIQ HTML-as-.xls mislabel). Synthetic fixtures under testdata/extract_bench; a missing
+# platform reader (textutil/pdf) SKIPS, never false-fails.
+"$PY" "$DIR/test_extract_pool.py" || rc=1
 
 [ $rc -eq 0 ] && echo "ALL SMOKE TESTS PASS" || echo "SMOKE TESTS FAILED"
 exit $rc

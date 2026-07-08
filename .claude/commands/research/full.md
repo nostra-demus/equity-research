@@ -574,6 +574,68 @@ PY
 
 Record the printed `GATE-VERIFY:` line for step 11 ("Integrity gate") and step 13. A `PROVISIONAL` result here carries the same weight as a 10B.1 math break — the published thesis is UNVERIFIED until the flagged items are resolved. The deeper audits still never *abort* the run (a thesis is always produced), but a run that did not clear truth-integrity is **published with the PROVISIONAL banner, never clean** — "not run" is no longer a silent pass.
 
+### 10B.3 — Expectations-gap audit (independent §7 edge check, fix F-EG)
+
+`research:expectations-gap` was, until now, the one member of the audit trio (verify-evidence, pre-mortem, expectations-gap) never invoked in the ship path — it existed and worked, but nothing called it, so real committed runs almost never carried an `expectations_gap.json`. That left a real hole: the 10B.1 §7 edge gate (check V) only verifies the synthesizer's OWN self-reported `edge_score` / `edge_proof` are internally consistent — it cannot catch a self-graded "proven edge" when an INDEPENDENT re-read of the same reverse-DCF/consensus/scenario evidence would show no real variant perception. This closes that hole exactly the way pre-mortem independently red-teams confidence instead of trusting the synthesizer's own assessment.
+
+Follow `.claude/commands/research/expectations-gap.md` against `<RUN_ROOT>`, producing `<RUN_ROOT>/expectations_gap.json` — **skip its own commit step**; step 12 below commits the whole run folder. This never aborts the run.
+
+Then run this deterministic cross-check:
+
+```bash
+python3 - "<RUN_ROOT>" <<'PY'
+import json, glob, os, re, sys
+run = sys.argv[1]
+dr_path = os.path.join(run, "decision_record.json"); ft = os.path.join(run, "final_thesis.md")
+_vn = lambda p: int(re.search(r"_v(\d+)\.json$", p).group(1)) if re.search(r"_v(\d+)\.json$", p) else 1
+egs = sorted([p for p in glob.glob(os.path.join(run, "expectations_gap*.json"))
+              if re.fullmatch(r"expectations_gap(_v\d+)?", os.path.basename(p)[:-5])], key=_vn)
+MARK = "PROVISIONAL — the automated finish-gate"
+_isnum = lambda x: isinstance(x, (int, float)) and not isinstance(x, bool)
+reason = None
+try: dr = json.load(open(dr_path, encoding="utf-8"))
+except Exception as e: dr = {}
+cf = dr.get("confidence_score")
+if egs:
+    try:
+        eg = json.load(open(egs[-1], encoding="utf-8"))
+        vpq = str(eg.get("variant_perception_quality") or "").strip().lower()
+        no_edge = vpq in ("", "none", "weak") or eg.get("is_exploitable") is False
+        if no_edge and _isnum(cf) and cf > 60:
+            reason = (f"expectations-gap audit found variant_perception_quality={eg.get('variant_perception_quality')!r} "
+                       f"/ is_exploitable={eg.get('is_exploitable')!r} (no independently-proven edge) but "
+                       f"confidence_score={cf} > 60 — §7 bans a confident rating on unproven variant perception")
+    except Exception as e:
+        reason = f"expectations_gap.json unreadable ({e}) — §7 edge audit not confirmed"
+elif _isnum(cf) and cf > 60:
+    reason = (f"expectations-gap audit did NOT run (no expectations_gap.json) but confidence_score={cf} > 60 — "
+               "§7 requires the variant-perception edge be independently confirmed before shipping high conviction")
+if reason:
+    body = open(ft, encoding="utf-8").read()
+    lines = body.split("\n"); i = 0
+    while i < len(lines) and lines[i].strip() == "": i += 1
+    reasons = []
+    if i < len(lines) and lines[i].startswith(">") and MARK in "\n".join(lines[i:i+6]):
+        blk = []
+        while i < len(lines) and lines[i].startswith(">"): blk.append(lines[i]); i += 1
+        while i < len(lines) and lines[i].strip() == "": i += 1
+        body = "\n".join(lines[i:])
+        if len(blk) >= 2:
+            reasons = [r.strip() for r in blk[1].lstrip("> ").split(";")
+                       if r.strip() and "expectations-gap audit" not in r]
+    reasons.append(reason)
+    banner = ("> ⚠️ **PROVISIONAL — the automated finish-gate found an integrity issue; this thesis was committed UNVERIFIED.**\n> "
+              + "; ".join(reasons) + "\n>\n> Resolve the flagged items before relying on these numbers. (CLAUDE.md §7; finish-gate F-EG.)\n\n")
+    open(ft, "w", encoding="utf-8").write(banner + body)
+    print("GATE-EXPECTATIONS: PROVISIONAL — " + reason)
+else:
+    print("GATE-EXPECTATIONS: PASS — expectations-gap audit found no confidence/edge contradiction"
+          + (" (no expectations_gap.json — confidence not above 60, so not required)" if not egs else ""))
+PY
+```
+
+Record the printed `GATE-EXPECTATIONS:` line for step 11 ("Integrity gate") and step 13. This carries the same weight as the 10B.1/10B.2 stamps — a `PROVISIONAL` result here means a confident rating shipped with no independently-confirmed variant perception, the exact "fake variant perception" CLAUDE.md §7 bans.
+
 ---
 
 ## 11. Update RUN_METADATA.md (final)
@@ -585,7 +647,7 @@ Rewrite `<RUN_ROOT>/RUN_METADATA.md` via the Write tool to fill in the placehold
 - "Synthesizer status": `succeeded` (if `final_thesis.md` exists), `failed` (if it does not), or `skipped (all modules aborted)`
 - "Memo status": `succeeded` (if `memo.md` exists), `failed`, or `skipped (no final thesis)`
 - "Audit dossier status": `succeeded` (if `audit_dossier.md` exists), `failed`, or `skipped (no final thesis)`
-- "Integrity gate": the step-10B result — the `GATE: PASS|PROVISIONAL|ERROR` line from 10B.1, plus the verify-evidence verdict and the pre-mortem verdict / any confidence haircut from 10B.2 (e.g. `PASS; verify-evidence: Verified; pre-mortem: Survives (confidence 70→64)`). If 10B was skipped because no `final_thesis.md` exists, write `skipped (no final thesis)`.
+- "Integrity gate": the step-10B result — the `GATE: PASS|PROVISIONAL|ERROR` line from 10B.1, the verify-evidence verdict and the pre-mortem verdict / any confidence haircut from 10B.2, and the `GATE-EXPECTATIONS: PASS|PROVISIONAL` line from 10B.3 (e.g. `PASS; verify-evidence: Verified; pre-mortem: Survives (confidence 70→64); expectations-gap: PASS`). If 10B was skipped because no `final_thesis.md` exists, write `skipped (no final thesis)`.
 - "Commit SHA": leave as `(to be filled after commit)` — you'll patch it post-commit in step 12.
 
 ---
@@ -617,7 +679,7 @@ Print a final summary to the user containing:
 - Number of modules discovered and their names
 - Per-module status: `completed` / `aborted (fail-fast at <agent>)` / `aborted (failures: <names>)`
 - Whether the master synthesizer ran and whether `final_thesis.md` exists
-- **The integrity finish-gate result (step 10B):** the `GATE: PASS|PROVISIONAL` line, the verify-evidence verdict, and any pre-mortem confidence haircut. If the gate is `PROVISIONAL` or verify-evidence is `Failed`, say so prominently — the published thesis carries a PROVISIONAL banner and its numbers are not yet trusted.
+- **The integrity finish-gate result (step 10B):** the `GATE: PASS|PROVISIONAL` line, the verify-evidence verdict, any pre-mortem confidence haircut, and the `GATE-EXPECTATIONS:` result (10B.3). If any of these is `PROVISIONAL` or verify-evidence is `Failed`, say so prominently — the published thesis carries a PROVISIONAL banner and its numbers are not yet trusted.
 - The three output tiers and their paths: `<RUN_ROOT>/memo.md` (~10-page colleague memo), `<RUN_ROOT>/final_thesis.md` (deep-dive thesis), `<RUN_ROOT>/audit_dossier.md` (full audit concatenation) — noting any that were skipped or failed
 - The two commit SHAs pushed to `origin/main`
 

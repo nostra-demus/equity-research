@@ -96,6 +96,8 @@ In 2–3 sentences: is CFO tracking EBITDA? Is CFO/EBITDA above 70% consistently
 | Payable days (DPO) | | | | | |
 | Cash conversion cycle (DSO + DIO − DPO) | | | | | |
 
+**Formulas (pin the denominators — the COGS-vs-sales mix-up distorts the whole cycle):** `DSO = 365 × average receivables ÷ revenue`; `DIO = 365 × average inventory ÷ COGS`; `DPO = 365 × average payables ÷ COGS` (use purchases if disclosed). DSO uses **revenue**; DIO and DPO use **COGS**, NOT revenue — putting sales in the DIO/DPO denominator is the classic error that understates both and mis-states the cycle. Use average balances `(opening + closing) / 2`, or period-end consistently and say which. `Cash conversion cycle = DSO + DIO − DPO` (days to collect + days of inventory − days you take to pay).
+
 Flag any of:
 - DSO rising >10% YoY (revenue recognition concern)
 - DIO rising >15% YoY (inventory build / channel stuffing)

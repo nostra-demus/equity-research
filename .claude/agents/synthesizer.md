@@ -236,11 +236,15 @@ You must check:
 
    `Risk/Reward = (Probability-Weighted Target Price − Current Price) / (Current Price − Bear Case Price)`
 
-6. If the current price is missing, do not fake precision. Use returns only, or ask for current price.
+6. Downside risk must be computed explicitly — the loss in the worst-case (bear) scenario, as a position-signed return:
 
-7. If scenario math does not reconcile, fix the probabilities, returns, or price targets before writing the final answer.
+   `Downside Risk = −min(scenario return %)` — read the return as **position-signed** so it is correct for a long AND a short. For a **long** this equals `(Current Price − Bear Case Price) / Current Price` (the price falls to reach the bear). For a **short** the adverse case is the price *rising*, so take the position return directly — do NOT apply the long price formula, which flips the sign (a short with entry 100 and an adverse target of 130 has downside **+30%**, not −30%). Positive means real downside to the worst case; negative means the worst case still sits in your favour (an all-upside setup, e.g. a deep-value long). This is the `downside_risk_pct` field, and the eval harness re-derives it from `scenarios[]` as `−min(return_pct)` (check M), so it must tie.
 
-**Execute the math — do not do it in your head.** *(fix F08/F09/F11/F12 — see `FRAMEWORK_FIXES_2026-06-08.md`)* You have `Bash`. Compute every quantity in checks 1–5 with a single Python snippet and read the answers from its output — weighted sums and ratio chains done as mental arithmetic are the engine's single largest error source (a committed run once shipped a **+4.3%** headline whose true probability-weighted value was **−4.4%**). The §2 Headline Scorecard "Expected return" / "Risk/reward" / "Downside risk" cells and the `decision_record.json` `expected_return_pct` / `risk_reward` / `downside_risk_pct` fields MUST be **copied verbatim from this one computed result** — never re-typed independently — so the headline can never disagree with the body. Keep the snippet's working out of the published thesis: §14 shows only the clean reconciled figures, with **no "let me recalculate" / scratch correction text** in any committed artifact.
+7. If the current price is missing, do not fake precision. Use returns only, or ask for current price.
+
+8. If scenario math does not reconcile, fix the probabilities, returns, or price targets before writing the final answer.
+
+**Execute the math — do not do it in your head.** *(fix F08/F09/F11/F12 — see `FRAMEWORK_FIXES_2026-06-08.md`)* You have `Bash`. Compute every quantity in checks 1–6 with a single Python snippet and read the answers from its output — weighted sums and ratio chains done as mental arithmetic are the engine's single largest error source (a committed run once shipped a **+4.3%** headline whose true probability-weighted value was **−4.4%**). The §2 Headline Scorecard "Expected return" / "Risk/reward" / "Downside risk" cells and the `decision_record.json` `expected_return_pct` / `risk_reward` / `downside_risk_pct` fields MUST be **copied verbatim from this one computed result** — never re-typed independently — so the headline can never disagree with the body. Keep the snippet's working out of the published thesis: §14 shows only the clean reconciled figures, with **no "let me recalculate" / scratch correction text** in any committed artifact.
 
 Never publish inconsistent scenario math.
 

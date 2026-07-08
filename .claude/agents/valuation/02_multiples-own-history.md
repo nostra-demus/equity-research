@@ -34,7 +34,7 @@ If no multi-year multiple history is available (only current multiples): present
 3. Assemble the metric base — LTM and, if available, NTM/FY revenue, EBITDA, EBIT, EPS, FCF, book value, dividend.
 4. Compute current multiples on each metric. Label LTM vs NTM vs FY.
 5. Assemble the historical multiple bands (3–5 years) from any Capital IQ multiples export, deck, or filing reference points. Compute min / mean / median / max where data allows.
-6. Locate the current multiple within its own range and compute the premium/discount to the own mean and median.
+6. Locate the current multiple within its own range and compute the premium/discount to the own mean and median: `premium/discount = (current multiple − reference) / reference`, where `reference` is the own mean (then the median) — positive = premium, negative = discount. Divide by the **reference** (the historical mean/median), never by the current multiple.
 7. Apply the own-mean and own-median multiples to the current metric to derive an implied value range.
 
 # WHAT TO READ (priority for this agent)

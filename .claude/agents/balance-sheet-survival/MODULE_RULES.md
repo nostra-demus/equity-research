@@ -117,10 +117,17 @@ Do NOT write "company filings" or "annual report" alone — those are not citati
 5. **Interest coverage:** show `EBITDA / interest`, `EBIT / interest`, and `(EBITDA − capex) / interest`. Use gross interest expense unless net interest is disclosed and justified.
 6. **Fixed-charge coverage** (where data allows): `(EBITDA − capex) / (gross interest + scheduled debt amortization + lease payments)`.
 7. **Liquidity** = cash + liquid short-term investments + **committed, undrawn** facilities. State committed vs uncommitted; exclude uncommitted lines from the headline figure.
-8. **Liquidity runway** = liquidity ÷ near-term cash obligations (next-12-month maturities + cash interest + maintenance capex + committed dividends). Express in months or quarters.
+8. **Liquidity runway (in months)** = liquidity ÷ **monthly** net cash burn. Compute the burn on ONE of two clean bases — never mix them, because FCF (= CFO − total capex, §15) already nets operating inflows, **cash interest paid** (inside CFO), and **all capex**:
+   - **Net-of-FCF basis (use when FCF is meaningful/positive):** monthly net burn = [ (12-month debt maturities + committed dividends/buybacks) − FCF over those 12 months ] ÷ 12. Only include obligations NOT already inside FCF (financing outflows + discretionary returns). **Do NOT also add cash interest or maintenance capex here — FCF already carries both; adding them double-counts, overstates burn, and understates runway.**
+   - **Gross-obligations basis (use when FCF is negative or unreliable — most conservative):** monthly burn = [ 12-month maturities + cash interest + maintenance capex + committed dividends ] ÷ 12, with **no FCF subtraction** (you are deliberately ignoring operating inflows). Here the full obligations bucket is correct precisely because FCF is not netted against it.
+
+   **Units matter:** dividing liquidity by the *annual* burn (the bracketed 12-month figure) gives a coverage **multiple** (e.g. 2.0× = two years covered), NOT months — to express as months, ×12 (2.0× → 24 months). Never label the bare multiple "months" (it understates runway ~12×). If FCF covers all foreseeable obligations, state a surplus / no finite runway, not a small number.
 9. **Maturity wall:** weighted-average maturity (WAM); % of total debt maturing within 12 / 24 / 36 months; the single largest maturity year.
 10. **Rate exposure:** fixed vs floating mix; weighted-average coupon; compare to the current market refinancing cost (web-source the benchmark rate, labeled) to estimate the refi cost step-up.
-11. **Covenant headroom** = `(covenant threshold − actual) / threshold`, signed so positive = headroom remaining. Do this for each maintenance covenant (max leverage, min coverage, min liquidity / net worth).
+11. **Covenant headroom** = signed distance to breach, and the formula is **direction-aware** — it depends on whether the covenant is a ceiling or a floor:
+    - **MAX / ceiling covenant** (e.g. max net leverage, max debt/EBITDA): `headroom = (threshold − actual) / threshold`.
+    - **MIN / floor covenant** (e.g. min interest coverage, min liquidity / net worth, min current ratio): `headroom = (actual − threshold) / threshold`.
+    Signed so positive = headroom remaining and negative = breached for **both** directions. Read the direction from each covenant's type — applying the MAX form to a MIN covenant inverts the sign (a safe min-coverage covenant, e.g. actual 5.0x against a 3.0x floor, reads as −67% "breached" when true headroom is +67%) and corrupts the tightest-covenant pick and the stress-test breach flag. Do this for each maintenance covenant (max leverage, min coverage, min liquidity / net worth).
 12. **Off-balance-sheet:** record BOTH the recorded liability and the maximum/contingent exposure, with the ratio between them.
 13. **Stress:** apply explicit EBITDA haircuts and recompute. Show every formula. A reader must be able to reproduce every number.
 
