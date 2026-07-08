@@ -51,6 +51,10 @@ CATALOG: tuple[tuple[str, str, str], ...] = (
     ("comps", "Financial Data", r"^financial data$"),
     ("comps", "Trading Multiples", r"^trading multiples$"),
     ("comps", "Operating Statistics", r"^operating statistics$"),
+    # ownership / insider — CIQ 'Public Ownership' exports (each a single-tab workbook). Tabs are exactly
+    # 'History' (institutional holders × period share counts) and 'Insider Trading' (per-transaction grid).
+    ("ownership", "History", r"^history$"),
+    ("ownership", "Insider Trading", r"^insider trading$"),
 )
 
 
