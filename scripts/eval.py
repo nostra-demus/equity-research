@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Deterministic eval harness for the equity-research engine.
 
-Checks invariants A-Z, AA-AG, and J (framework-source contracts) against every committed
+Checks invariants A-Z, AA-AH, and J (framework-source contracts) against every committed
 decision record in analyses/. Called by /research:eval and by CI.
 
 Usage:
@@ -637,6 +637,35 @@ def eval_ag_calibration_feedback_gate(decision_date, calibration_summary, calibr
         if isinstance(mf,list) and len(mf)>0:
             violations.append(f"status='checked_no_action' but modules_flagged={mf!r} is non-empty")
     return violations  # empty list = pass
+
+# ── Check AH (expectations-gap ship-time audit: existence + independent §7 edge consistency) ──
+# CLAUDE.md §7 bans "fake variant perception": a conviction rating (confidence_score > 60) must rest on
+# a PROVEN edge, not just the synthesizer's own self-report. Check V already verifies the synthesizer's
+# OWN edge_score/edge_proof are internally consistent; it cannot catch a self-graded "proven edge" that a
+# SEPARATE, independent re-read of the same reverse-DCF/consensus/scenario evidence (research:expectations-
+# gap) would show has no real variant perception. /research:full's 10B.3 now runs that independent audit
+# in the ship path (mirroring how verify-evidence/pre-mortem are gated at O/S/U/X) — this check verifies
+# it actually ran for a conviction-confidence run and did not surface a contradiction.
+# Landing date: 2026-07-08 (forward-looking; all golden fixtures predate → N/A → suite green).
+AH_DATE = "2026-07-08"
+def eval_ah_expectations_gap_gate(decision_date, confidence_score, eg):
+    """Core of check AH. Returns None (N/A — pre-gate, or confidence not above the §7 conviction floor)
+    or a list of violation strings (empty list = pass). `eg` is the parsed latest expectations_gap.json
+    dict, or None if absent. Side-effect-free + module-level so eval.py selftest can drive it fixture-free."""
+    if not (isdate(decision_date) and decision_date >= AH_DATE):
+        return None  # forward-looking; pre-gate runs N/A
+    if not (isnum(confidence_score) and confidence_score > 60):
+        return None  # only a conviction-level confidence needs an independently-proven edge (mirrors check V's threshold)
+    if eg is None:
+        return [f"expectations-gap audit did not run (no expectations_gap.json) but confidence_score={confidence_score} "
+                "> 60 — §7 requires the variant-perception edge be independently confirmed before shipping high conviction"]
+    vpq = str(eg.get("variant_perception_quality") or "").strip().lower()
+    no_edge = vpq in ("", "none", "weak") or eg.get("is_exploitable") is False
+    if no_edge:
+        return [f"expectations-gap audit found variant_perception_quality={eg.get('variant_perception_quality')!r} "
+                f"/ is_exploitable={eg.get('is_exploitable')!r} (no independently-proven edge) but "
+                f"confidence_score={confidence_score} > 60 — §7 bans a confident rating on unproven variant perception"]
+    return []
 
 if scope=="selftest":
     # Fixture-free coverage for check W — the golden suite can't exercise it (every committed run is
@@ -1284,7 +1313,34 @@ if scope=="selftest":
         print(f"  [{'ok' if ok else 'XX'}] AG({dt_!r},cs_verdict={(cs_ or {}).get('verdict')!r},cf_status={(cf_ or {}).get('status')!r}) -> {got}"
               +("" if ok else f"  EXPECTED exp={exp}"))
     bad+=agbad
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(agcases)} check-AG cases")
+    # AH — expectations-gap ship-time audit. The golden suite can't reach it (every committed fixture
+    # predates AH_DATE), so drive every branch here: pre-gate, below-conviction confidence, missing
+    # report, no-edge contradiction (each of variant_perception_quality/is_exploitable), and a clean pass.
+    AH=eval_ah_expectations_gap_gate
+    ahcases=[  # (decision_date, confidence_score, eg-dict-or-None, expect: None|[]|[substr,...])
+        ("2026-07-07",75,None,None),                                          # predates AH_DATE
+        ("2026-07-08",60,None,None),                                         # confidence not > 60
+        ("2026-07-08",75,None,["did not run"]),                              # conviction, no report at all
+        ("2026-07-08",75,{"variant_perception_quality":"Strong","is_exploitable":True},[]),   # clean pass
+        ("2026-07-08",75,{"variant_perception_quality":"Weak","is_exploitable":True},["no independently-proven edge"]),
+        ("2026-07-08",75,{"variant_perception_quality":"None","is_exploitable":None},["no independently-proven edge"]),
+        ("2026-07-08",75,{},["no independently-proven edge"]),                # absent fields → treated as no edge
+        ("2026-07-08",75,{"variant_perception_quality":"Strong","is_exploitable":False},["no independently-proven edge"]),  # explicit False wins over text
+        ("2026-07-08",61,{"variant_perception_quality":"Moderate","is_exploitable":True},[]),  # just above the floor, clean
+    ]
+    ahbad=0
+    for dt_,cf_,eg_,exp in ahcases:
+        got=AH(dt_,cf_,eg_)
+        if exp is None:
+            ok=(got is None)
+        elif not exp:
+            ok=(isinstance(got,list) and len(got)==0)
+        else:
+            ok=(isinstance(got,list) and len(got)>0 and all(any(s in v for v in got) for s in exp))
+        if not ok: ahbad+=1
+        print(f"  [{'ok' if ok else 'XX'}] AH({dt_!r},cf={cf_!r},eg={eg_!r}) -> {got}"+("" if ok else f"  EXPECTED exp={exp}"))
+    bad+=ahbad
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(agcases)} check-AG + {len(ahcases)} check-AH cases")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -1980,6 +2036,24 @@ for drp in runs:
                 f"consistent with as-of calibration_summary (verdict={(calib_asof_ag or {}).get('verdict')!r})")
     else:
         add("AG_calibration_feedback_gate",True,f"run predates Phase 6 calibration-feedback gate ({ddte}) — N/A",na=True)
+    # AH expectations-gap ship-time audit (forward-looking; landing AH_DATE) — CLAUDE.md §7. Independently
+    #   verifies /research:full's 10B.3 actually ran the third audit-trio member (verify-evidence,
+    #   pre-mortem, expectations-gap) for a conviction-confidence run and that it did not surface a
+    #   confidence/edge contradiction — mirrors the G/O/X trilogy already built for verify-evidence.
+    egp_ah=_latest("expectations_gap.json"); eg_ah=None
+    if egp_ah:
+        try: eg_ah=json.load(open(egp_ah))
+        except Exception: eg_ah=None
+    ahresult=eval_ah_expectations_gap_gate(ddte,d.get("confidence_score"),eg_ah)
+    if ahresult is None:
+        add("AH_expectations_gap_gate",True,
+            f"run predates the gate or confidence_score={d.get('confidence_score')!r} not above the §7 conviction floor ({ddte}) — N/A",na=True)
+    elif ahresult:
+        add("AH_expectations_gap_gate",False,"; ".join(ahresult))
+    else:
+        add("AH_expectations_gap_gate",True,
+            f"expectations_gap.json present (variant_perception_quality={(eg_ah or {}).get('variant_perception_quality')!r}, "
+            f"is_exploitable={(eg_ah or {}).get('is_exploitable')!r}) consistent with confidence_score={d.get('confidence_score')!r}")
     # WARN non-schema files
     # [review fix] suppress only genuine versioned/audit/review artifacts via PRECISE patterns — the old naive
     # `"_v" not in name` / `"review" not in name` substring tests hid real strays (preview.md, *_v*-named scratch).
@@ -2040,10 +2114,10 @@ FRAMEWORK_CONTRACTS={
  ".claude/agents/catalyst/01_catalyst-calendar.md":["12-Month Catalyst Calendar","Bullish Trigger","Bearish Trigger"],
  ".claude/agents/catalyst/99_catalyst-synthesis.md":["Catalyst strength /100","No proven catalyst yet","depends_on"],
  ".claude/agents/memo-writer.md":["memo.md","colleague","~10"],
- ".claude/commands/research/full.md":["audit_dossier.md","memo.md","memo-writer","post_mortem_decision","RATING-CAP","TERMINAL"],
+ ".claude/commands/research/full.md":["audit_dossier.md","memo.md","memo-writer","post_mortem_decision","RATING-CAP","TERMINAL","10B.3","GATE-EXPECTATIONS","expectations-gap.md"],
  ".claude/agents/module-memo-writer.md":["_memo.md","module synthesis","condenser"],
  "frameworks/MODULE_PIPELINE.md":["Step 4.9","module-memo-writer","_memo.md","_dossier.md"],
- ".claude/commands/research/rerun.md":["module-memo-writer","_dossier.md"],
+ ".claude/commands/research/rerun.md":["module-memo-writer","_dossier.md","10B.3"],
  ".claude/commands/research/track.md":["analyses/tracking","_calls_tracker","review_schedule","ad-hoc","memo_delta_file"],
  ".claude/settings.json":["SessionStart","review_due.py"],
  ".claude/hooks/review_due.py":["review_schedule","research:review-decisions due"],
@@ -2051,7 +2125,7 @@ FRAMEWORK_CONTRACTS={
  ".claude/commands/research/review-decisions.md":["memo_delta","stage_one_comment","rerun_command","Pool first","_memo_delta"],
  ".claude/commands/research/eval.md":["scripts/eval.py"],
  ".claude/commands/research/calibrate.md":["calibration_by_module","calibration_by_forecast_type","owner_module","forecast_type","Phase 6"],
- "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap","eval_ag_calibration_feedback_gate","AG_DATE","AG_STATUSES","_calib_summary_asof","CALIB_SUMMARIES"],
+ "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap","eval_ag_calibration_feedback_gate","AG_DATE","AG_STATUSES","_calib_summary_asof","CALIB_SUMMARIES","eval_ah_expectations_gap_gate","AH_DATE","AH_expectations_gap_gate"],
  ".github/workflows/ci.yml":["eval-contracts","scripts/eval.py"],
 }
 jchecks=[]
