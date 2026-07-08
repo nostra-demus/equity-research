@@ -39,5 +39,8 @@ _pool_extracts/
 __pycache__/
 *.pyc
 
+# transient agent-tool git worktrees (isolation:"worktree") — never commit
+.claude/worktrees/
+
 # Cloudflare wrangler local cache (account info / build cache) — never commit
 .wrangler/
