@@ -381,6 +381,167 @@ def test_maturity_floating_blank(base: Path) -> None:
           mw["status"] == "present" and "100 floating / 400 fixed" in str(mw["value"]), str(mw))
 
 
+def test_comps(base: Path) -> None:
+    # Peer relative valuation + the keystones (price, shares outstanding). Guards: the SUBJECT row (:ACME))
+    # is read, NOT a peer; the peer median is CIQ's own Summary-Statistics Median (not a re-derivation).
+    d = base / "comps"
+    d.mkdir()
+    _wb(d / "Company Comparable Analysis.xlsx", {
+        "Trading Multiples": [
+            ["Acme (NYSE:ACME) > Quick Comparable Analysis > Trading Multiples"],
+            ["As-Of Date:", 46206],
+            ["Company Name", "TEV/EBITDA LTM - Latest"],
+            ["Peer One (NYSE:P1)", 7.0],
+            ["Peer Two (NYSE:P2)", 9.0],
+            ["Acme Corp (NYSE:ACME)", 12.0],  # SUBJECT — premium to peers
+            ["Summary Statistics", "TEV/EBITDA LTM - Latest"],
+            ["High", 9.0], ["Low", 7.0], ["Mean", 8.0], ["Median", 8.0],
+        ],
+        "Financial Data": [
+            ["Acme (NYSE:ACME) > Quick Comparable Analysis > Financial Data"],
+            ["As-Of Date:", 46206],
+            ["Company Name", "Day Close Price Latest", "Shares Outstanding Latest", "Market Capitalization Latest"],
+            ["Peer One (NYSE:P1)", 10.0, 100.0, 1000.0],
+            ["Peer Two (NYSE:P2)", 20.0, 200.0, 4000.0],
+            ["Acme Corp (NYSE:ACME)", 55.5, 300.0, 16650.0],  # SUBJECT
+            ["Summary Statistics", "", "", ""], ["High", 20.0, 200.0, 4000.0],
+        ],
+    })
+    f = F.build_facts(d, "ACME")["facts"]
+    so = f["shares_outstanding_m"]
+    check("shares_outstanding_m: 300.0 from the SUBJECT row (not a peer's 100/200)",
+          so["status"] == "present" and abs(float(so["value"]) - 300.0) < 0.05, str(so))
+    cp = f["current_price"]
+    check("current_price: 55.5 (subject) as-of 2026-07-03",
+          cp["status"] == "present" and abs(float(cp["value"]) - 55.5) < 0.05 and "2026-07-03" in str(cp["source_ref"]), str(cp))
+    pe = f["peer_ev_ebitda"]
+    check("peer_ev_ebitda: subject 12.0x vs CIQ peer median 8.0x (not re-derived)",
+          pe["status"] == "present" and "12.0x" in str(pe["value"]) and "median 8.0x" in str(pe["value"]), str(pe))
+
+
+def test_comps_dual_listing(base: Path) -> None:
+    # RE-AUDIT (critical): a PEER sharing the subject's BARE ticker on a different exchange (BSE:ACME vs the
+    # subject's NYSE:ACME), placed AFTER the subject, must NOT be emitted as the subject. Matching on the full
+    # EXCH:TICKER (not the bare ticker) keeps them distinct; before the fix the trailing BSE:ACME peer won.
+    d = base / "comps_dual"
+    d.mkdir()
+    _wb(d / "Comparable Analysis.xlsx", {
+        "Financial Data": [
+            ["Acme Inc. (NYSE:ACME) > Quick Comparable Analysis > Financial Data"],
+            ["As-Of Date:", 46206],
+            ["Company Name", "Day Close Price Latest", "Shares Outstanding Latest"],
+            ["Acme Inc. (NYSE:ACME)", 55.5, 300.0],  # SUBJECT (leads)
+            ["Peer One (NYSE:P1)", 10.0, 100.0],
+            ["Acme Sub Ltd (BSE:ACME)", 3.33, 999.0],  # same BARE ticker, different exchange, AFTER the subject
+            ["Summary Statistics", "", ""], ["High", 55.5, 999.0],
+        ],
+        "Trading Multiples": [
+            ["Acme Inc. (NYSE:ACME) > Quick Comparable Analysis > Trading Multiples"],
+            ["Company Name", "TEV/EBITDA LTM - Latest"],
+            ["Acme Inc. (NYSE:ACME)", 12.0],
+            ["Peer One (NYSE:P1)", 8.0],
+            ["Acme Sub Ltd (BSE:ACME)", 2.0],
+            ["Summary Statistics", "TEV/EBITDA LTM - Latest"], ["Median", 8.0],
+        ],
+    })
+    f = F.build_facts(d, "ACME")["facts"]
+    check("comps dual-listing: shares from NYSE:ACME subject (300), NOT the BSE:ACME peer (999)",
+          f["shares_outstanding_m"]["status"] == "present" and abs(float(f["shares_outstanding_m"]["value"]) - 300.0) < 0.5, str(f["shares_outstanding_m"]))
+    check("comps dual-listing: price from NYSE:ACME subject (55.5), NOT the BSE:ACME peer (3.33)",
+          f["current_price"]["status"] == "present" and abs(float(f["current_price"]["value"]) - 55.5) < 0.5, str(f["current_price"]))
+    check("comps dual-listing: subject 12.0x vs median 8.0x, NOT the BSE:ACME peer's 2.0x",
+          f["peer_ev_ebitda"]["status"] == "present" and "12.0x" in str(f["peer_ev_ebitda"]["value"]) and "median 8.0x" in str(f["peer_ev_ebitda"]["value"]), str(f["peer_ev_ebitda"]))
+
+
+def test_comps_foreign_subject(base: Path) -> None:
+    # AUDIT — the §27 default case: the FOLDER ticker (RELIANCE.NS) does NOT match the file's exchange ticker
+    # (NSEI:RELIANCE), AND the subject is NOT the last row before Summary (a peer is). The subject must be
+    # found via the grid's OWN title breadcrumb — a positional fallback would emit the PEER's numbers as the
+    # subject's (a wrong PRESENT). Before the fix this returned Coal India's price/shares/multiple.
+    d = base / "comps_foreign"
+    d.mkdir()
+    _wb(d / "Comparable Analysis.xlsx", {
+        "Financial Data": [
+            ["Reliance Industries Limited (NSEI:RELIANCE) > Quick Comparable Analysis > Financial Data"],
+            ["As-Of Date:", 46206],
+            ["Company Name", "Day Close Price Latest", "Shares Outstanding Latest"],
+            ["Reliance Industries Limited (NSEI:RELIANCE)", 1400.0, 6766.0],  # SUBJECT — NOT last
+            ["Oil & Natural Gas (NSEI:ONGC)", 250.0, 12580.0],
+            ["Coal India Limited (NSEI:COALINDIA)", 400.0, 6160.0],  # a PEER sits last before Summary
+            ["Summary Statistics", "", ""], ["High", 1400.0, 12580.0],
+        ],
+        "Trading Multiples": [
+            ["Reliance Industries Limited (NSEI:RELIANCE) > Quick Comparable Analysis > Trading Multiples"],
+            ["Company Name", "TEV/EBITDA LTM - Latest"],
+            ["Reliance Industries Limited (NSEI:RELIANCE)", 11.0],  # SUBJECT — NOT last
+            ["Oil & Natural Gas (NSEI:ONGC)", 5.0],
+            ["Coal India Limited (NSEI:COALINDIA)", 4.0],
+            ["Summary Statistics", "TEV/EBITDA LTM - Latest"], ["Median", 4.5],
+        ],
+    })
+    f = F.build_facts(d, "RELIANCE.NS")["facts"]  # folder ticker != exchange ticker; subject not last
+    so = f["shares_outstanding_m"]
+    check("comps foreign: shares from the SUBJECT (6,766 Reliance), NOT the last peer (6,160 Coal India)",
+          so["status"] == "present" and abs(float(so["value"]) - 6766.0) < 0.5, str(so))
+    cp = f["current_price"]
+    check("comps foreign: price from the SUBJECT (1,400 Reliance), NOT the last peer (400)",
+          cp["status"] == "present" and abs(float(cp["value"]) - 1400.0) < 0.5, str(cp))
+    pe = f["peer_ev_ebitda"]
+    check("comps foreign: subject 11.0x (Reliance, via title ticker), NOT the last peer 4.0x",
+          pe["status"] == "present" and "11.0x" in str(pe["value"]), str(pe))
+
+
+def test_comps_p2(base: Path) -> None:
+    # §15/§16 correctness on the comps facts: (1) the price carries its comp-set currency (never assumed USD);
+    # (2) peer_ev_ebitda picks the LTM column, NOT a forward NTM one it would mislabel 'LTM'; (3) a sub-cent
+    # price does not round to 0.00; (4) peer_ev_ebitda is UNKNOWN when the peer-set median is absent.
+    d = base / "comps_p2"
+    d.mkdir()
+    _wb(d / "Comparable Analysis.xlsx", {
+        "Financial Data": [
+            ["Tata Motors Limited (NSEI:TATAMOTORS) > Quick Comparable Analysis > Financial Data"],
+            ["Currency:", "Indian Rupee"], ["As-Of Date:", 46206],
+            ["Company Name", "Day Close Price Latest", "Shares Outstanding Latest"],
+            ["Tata Motors Limited (NSEI:TATAMOTORS)", 0.004, 3300.0],  # sub-cent price (must NOT become 0.00)
+            ["Peer One (NSEI:P1)", 500.0, 100.0],
+            ["Summary Statistics", "", ""], ["High", 500.0, 3300.0],
+        ],
+        "Trading Multiples": [
+            ["Tata Motors Limited (NSEI:TATAMOTORS) > Quick Comparable Analysis > Trading Multiples"],
+            ["As-Of Date:", 46206],
+            # NTM column FIRST (a naive 'first tev/ebitda' match would wrongly pick 5.0 and label it LTM)
+            ["Company Name", "TEV/EBITDA NTM", "TEV/EBITDA LTM - Latest"],
+            ["Peer One (NSEI:P1)", 4.0, 6.0],
+            ["Tata Motors Limited (NSEI:TATAMOTORS)", 5.0, 9.0],  # SUBJECT: NTM 5.0, LTM 9.0
+            ["Summary Statistics", "TEV/EBITDA NTM", "TEV/EBITDA LTM - Latest"],
+            ["Median", 4.5, 7.5],
+        ],
+    })
+    f = F.build_facts(d, "TATAMOTORS")["facts"]
+    cp = f["current_price"]
+    check("comps price carries its comp-set currency (INR), never assumed USD",
+          cp["status"] == "present" and "in INR" in str(cp["source_ref"]), str(cp))
+    check("comps sub-cent price 0.004 does NOT round to 0.00",
+          cp["status"] == "present" and float(cp["value"]) > 0, str(cp))
+    pe = f["peer_ev_ebitda"]
+    check("peer_ev_ebitda picks the LTM column (9.0x vs median 7.5x), NOT the forward NTM (5.0x)",
+          pe["status"] == "present" and "9.0x" in str(pe["value"]) and "median 7.5x" in str(pe["value"])
+          and "5.0x" not in str(pe["value"]), str(pe))
+
+    # (4) no peer-set median -> UNKNOWN (a PEER-relative fact needs the comp-set stats, not just the subject)
+    d2 = base / "comps_nomed"
+    d2.mkdir()
+    _wb(d2 / "Comparable Analysis.xlsx", {"Trading Multiples": [
+        ["Beta Co (NYSE:BETA) > Quick Comparable Analysis > Trading Multiples"],
+        ["Company Name", "TEV/EBITDA LTM - Latest"],
+        ["Beta Co (NYSE:BETA)", 10.0],
+        ["Peer One (NYSE:P1)", 8.0],
+        ["Summary Statistics", "TEV/EBITDA LTM - Latest"], ["High", 10.0], ["Low", 8.0]]})  # no Median row
+    pe2 = F.build_facts(d2, "BETA")["facts"]["peer_ev_ebitda"]
+    check("peer_ev_ebitda UNKNOWN when the peer-set median is absent (not the subject's own multiple)",
+          pe2["status"] == "unknown" and pe2["value"] is None and "median absent" in (pe2["note"] or ""), str(pe2))
+
+
 def test_xls_fact_chain() -> None:
     # The whole chain above is exercised on synthetic .xlsx (openpyxl). But real Capital IQ exports are
     # frequently LEGACY BIFF .xls read by xlrd — a different reader with its own date/number decoding. Prove
@@ -520,6 +681,11 @@ def main() -> int:
         print("== debt maturity wall (lease-separation + block boundary) ==")
         test_maturity_wall(d)
         test_maturity_floating_blank(d)
+        print("== comps: peer multiple + price + shares outstanding ==")
+        test_comps(d)
+        test_comps_dual_listing(d)
+        test_comps_foreign_subject(d)
+        test_comps_p2(d)
         print("== legacy .xls (xlrd) fact chain ==")
         test_xls_fact_chain()
         print("== reported currency (not USD) ==")

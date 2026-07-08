@@ -880,6 +880,184 @@ def debt_maturity_wall(bundle: ResolvedBundle) -> Sourced:
         source_ref="CIQ Financials→Capital Structure Details (latest as-reported block: Principal Due × Maturity × Floating Rate; leases carry no maturity)")
 
 
+# --- comps: peer relative valuation + the anchor keystones (price, shares outstanding) --------
+# The comp-set grid carries, on the SUBJECT's own row, the tier-critical current price and the diluted
+# share count — the keystone that unlocks per-share checks (§15), ownership % of shares outstanding, and a
+# relative sanity anchor for the insider sentinel — plus the peer relative multiple (§16), read from CIQ's
+# own Summary-Statistics median rather than a re-derivation.
+def _comps_full_id(cell: Any) -> str | None:
+    """The LAST exchange-qualified id in a string — '(EXCH:TICKER)' -> 'EXCH:TICKER'. The exchange is a
+    code shape (letters/digits/'.'), and the LAST occurrence wins (the exchange-qualified ticker is the
+    trailing parenthetical in CIQ names), so a lower-case 'word:word' earlier in a company name can't be
+    mistaken for it. Matching on the FULL EXCH:TICKER (not the bare ticker) keeps two listings of the same
+    ticker on different exchanges (NYSE:MGM vs SEHK:MGM) distinct."""
+    ms = re.findall(r"\(\s*([A-Za-z0-9.]+:[^)\s]+)\s*\)", str(cell))
+    return ms[-1].replace(" ", "").upper() if ms else None
+
+
+def _comps_grid(rows: Rows, ticker: str) -> dict[str, Any] | None:
+    """Locate a CIQ Quick-Comparable grid: the 'Company Name' header row, the SUBJECT row, and the
+    Summary-Statistics stat rows (High/Low/Mean/Median). The subject is identified by the exchange-qualified
+    id the GRID ITSELF declares in its title breadcrumb ('<Name> (EXCH:TICKER) > Quick Comparable …') — NOT
+    the folder name, which for non-US / dual-listed subjects (§27, the default-likely case) differs from the
+    file's exchange ticker. A peer's row must NEVER be emitted as the subject: we match the subject on its
+    FULL exchange-qualified id (so a same-ticker peer on another exchange can't collide) and take the first
+    match (the subject leads); if no row matches, we return no subject (→ UNKNOWN), never a positional guess."""
+    hdr = next((i for i, r in enumerate(rows) if r and str(r[0]).strip() == "Company Name"), None)
+    if hdr is None:
+        return None
+    # the grid's own subject id: the LAST 'Quick Comparable' breadcrumb before the header (closest to the
+    # data — not a decoy note earlier in the preamble), read as a full exchange-qualified id.
+    title_id = next((_comps_full_id(rows[i][0]) for i in range(hdr - 1, -1, -1)
+                     if rows[i] and ">" in str(rows[i][0]) and "quick comparable" in str(rows[i][0]).lower()
+                     and _comps_full_id(rows[i][0])), None)
+    folder_pat = re.compile(rf"[:(]\s*{re.escape(ticker)}\s*\)", re.I) if ticker else None
+    subj = summ = None
+    for i in range(hdr + 1, len(rows)):
+        c0 = str(rows[i][0]).strip() if rows[i] else ""
+        if c0.lower().startswith("summary statistics"):
+            summ = i
+            break  # stop at the stats section — but keep scanning UNTIL here so summ is found even after subj
+        if subj is not None:
+            continue  # subject already fixed (first match wins) — keep going only to locate Summary Statistics
+        if title_id is not None:
+            if _comps_full_id(c0) == title_id:  # exact exchange-qualified match — the true subject
+                subj = i
+        elif folder_pat and folder_pat.search(c0):
+            subj = i  # no title id in the grid: best-effort fall back to the folder ticker (bare match)
+    stat = {}
+    if summ is not None:
+        for i in range(summ + 1, min(summ + 8, len(rows))):
+            lbl = str(rows[i][0]).strip().lower() if rows[i] else ""
+            if lbl in ("high", "low", "mean", "median"):
+                stat[lbl] = i
+    return {"hdr": hdr, "header": [str(c).strip().lower() for c in rows[hdr]], "subj": subj, "stat": stat}
+
+
+def _comps_col(g: dict[str, Any], pred: Callable[[str], bool]) -> int | None:
+    return next((j for j, c in enumerate(g["header"]) if pred(c)), None)
+
+
+def _comps_subject_cell(bundle: ResolvedBundle, sheet: str, pred: Callable[[str], bool]) -> tuple[Rows, dict, float] | Sourced:
+    """Shared read: the subject row's value in the column matching `pred`, or an honest Sourced UNKNOWN/MISSING."""
+    try:
+        rows = bundle.sheet("comps", sheet)
+    except CiqUnavailableError as exc:
+        return _miss_or_unknown(bundle, "comps", exc)
+    g = _comps_grid(rows, bundle.ticker)
+    if g is None or g["subj"] is None:
+        return Sourced.unknown(note=f"comps {sheet}: subject (self) row not found")
+    col = _comps_col(g, pred)
+    v = clean_num(rows[g["subj"]][col]) if col is not None and col < len(rows[g["subj"]]) else None
+    if v is None:
+        return Sourced.unknown(note=f"comps {sheet}: subject column unavailable")
+    return rows, g, v
+
+
+# Comps-local currency/date helpers. Deliberately comps-scoped: CIQ converts a comp set's prices/multiples
+# to the grid's OWN display currency, which for a non-US or dual-listed subject differs from the reporting
+# currency — so the price's currency is read here, from the grid, not assumed USD (§15/§27).
+_COMPS_CCY_NAMES = {
+    "us dollar": "USD", "u.s. dollar": "USD", "indian rupee": "INR", "british pound": "GBP",
+    "pound sterling": "GBP", "euro": "EUR", "japanese yen": "JPY", "hong kong dollar": "HKD",
+    "canadian dollar": "CAD", "australian dollar": "AUD", "chinese yuan": "CNY", "chinese yuan renminbi": "CNY",
+    "swiss franc": "CHF", "singapore dollar": "SGD", "south korean won": "KRW", "brazilian real": "BRL",
+}
+
+
+def _comps_currency(rows: Rows) -> str | None:
+    """The display currency the comps grid states for its converted figures ('Currency: | US Dollar' /
+    'Currency | USD'), so a comp price/multiple is never assumed USD on a non-US comp set (§15/§27)."""
+    for r in rows[:40]:
+        if not r or str(r[0]).strip().lower().rstrip(":") != "currency":
+            continue
+        for cell in r[1:]:
+            v = str(cell).strip()
+            if re.fullmatch(r"[A-Za-z]{3}", v):
+                return v.upper()
+            if v.lower() in _COMPS_CCY_NAMES:
+                return _COMPS_CCY_NAMES[v.lower()]
+    return None
+
+
+def _comps_asof(rows: Rows) -> date | None:
+    ai = next((k for k, r in enumerate(rows) if r and "as-of date" in str(r[0]).lower()), None)
+    return excel_date(rows[ai][1]) if ai is not None and len(rows[ai]) > 1 else None
+
+
+def _round_price(v: float) -> float:
+    """2dp for a normal price, but a sub-cent price (e.g. a low-priced local listing) must NOT collapse to
+    0.00 — keep enough precision to preserve a non-zero value (§15: never fabricate a zero)."""
+    r = round(v, 2)
+    return r if r != 0 or v == 0 else round(v, 6)
+
+
+def shares_outstanding(bundle: ResolvedBundle) -> Sourced:
+    """Shares outstanding (millions; latest reported point-in-time count — NOT the weighted fully-diluted
+    figure §15 wants for EPS, but the right denominator for market cap / % of S/O). The keystone: unlocks
+    ownership % of shares outstanding and the insider sentinel's relative sanity anchor."""
+    got = _comps_subject_cell(bundle, "Financial Data", lambda c: "shares outstanding" in c)
+    if isinstance(got, Sourced):
+        return got
+    _rows, _g, v = got
+    return Sourced.present(round(v, 1), source_ref="CIQ Comps→Financial Data 'Shares Outstanding Latest' (subject row)")
+
+
+def current_price(bundle: ResolvedBundle) -> Sourced:
+    """The current share price + its as-of date — the tier-critical valuation anchor (its absence caps
+    valuation confidence), read from the comp grid's subject row where present."""
+    got = _comps_subject_cell(bundle, "Financial Data", lambda c: "day close price" in c)
+    if isinstance(got, Sourced):
+        return got
+    rows, _g, v = got
+    asof = _comps_asof(rows)
+    asof_s = f" as-of {asof.isoformat()}" if asof else ""
+    ccy = _comps_currency(rows)
+    ccy_s = f"; price in {ccy}" if ccy else "; price in the comp set's display currency (code not stated in the export)"
+    return Sourced.present(_round_price(v),
+                           source_ref=f"CIQ Comps→Financial Data 'Day Close Price Latest' (subject row){asof_s}{ccy_s}")
+
+
+def peer_ev_ebitda(bundle: ResolvedBundle) -> Sourced:
+    """The subject's EV/EBITDA vs the peer set — the §16 peer relative read, using CIQ's own comp-set
+    Summary-Statistics median (not a re-derivation)."""
+    try:
+        rows = bundle.sheet("comps", "Trading Multiples")
+    except CiqUnavailableError as exc:
+        return _miss_or_unknown(bundle, "comps", exc)
+    g = _comps_grid(rows, bundle.ticker)
+    if g is None or g["subj"] is None:
+        return Sourced.unknown(note="comps Trading Multiples: subject (self) row not found")
+    # Pick the LTM (trailing) TEV/EBITDA column, NEVER the first 'tev/ebitda' header — a comp grid usually
+    # also carries NTM / forward columns, and labelling a forward multiple 'LTM' is a §16 defect. Prefer an
+    # explicit LTM header; else an unqualified 'tev/ebitda' column that carries no forward token.
+    ec = _comps_col(g, lambda c: "tev/ebitda" in c and ("ltm" in c or "last twelve" in c or "last 12" in c))
+    if ec is None:
+        ec = _comps_col(g, lambda c: "tev/ebitda" in c
+                        and not any(t in c for t in ("ntm", "fwd", "forward", "fy+", "cy+", "+1", "+2", "next")))
+    if ec is None:
+        return Sourced.unknown(note="comps Trading Multiples: no LTM/trailing TEV/EBITDA column (only forward multiples)")
+    label = str(rows[g["hdr"]][ec]).strip() if ec < len(rows[g["hdr"]]) else "TEV/EBITDA"
+    subj = clean_num(rows[g["subj"]][ec]) if ec < len(rows[g["subj"]]) else None
+    if subj is None:
+        return Sourced.unknown(note="comps Trading Multiples: subject TEV/EBITDA unavailable")
+
+    def stat(name: str) -> float | None:
+        i = g["stat"].get(name)
+        return clean_num(rows[i][ec]) if i is not None and ec < len(rows[i]) else None
+
+    med, hi, lo = stat("median"), stat("high"), stat("low")
+    if med is None:
+        return Sourced.unknown(note="comps Trading Multiples: peer-set median absent — a PEER-relative "
+                                    "multiple needs the comp-set Summary Statistics (the subject's own multiple "
+                                    "is ev_ebitda_current_x, not this fact)")
+    rng = f" (high {hi:.1f} / low {lo:.1f})" if hi is not None and lo is not None else ""
+    asof = _comps_asof(rows)
+    asof_s = f" as-of {asof.isoformat()}" if asof else ""
+    return Sourced.present(f"TEV/EBITDA {subj:.1f}x vs peer set median {med:.1f}x{rng}",
+                           source_ref=f"CIQ Comps→Trading Multiples '{label}' (subject vs comp-set Summary Statistics){asof_s}")
+
+
 # --- emit ------------------------------------------------------------------------------------
 # Money facts are in MILLIONS OF THE REPORTED CURRENCY (the '_m' suffix) — NOT necessarily USD. CIQ states
 # the currency as a 'Currency | USD' cell (Capital Structure / per-column) or 'Currency: | US Dollar'
@@ -936,6 +1114,9 @@ FACTS: dict[str, Callable[[ResolvedBundle], Sourced]] = {
     "top_institutional_holders": top_institutional_holders,
     "institutional_ownership_trend": institutional_ownership_trend,
     "debt_maturity_wall": debt_maturity_wall,
+    "shares_outstanding_m": shares_outstanding,
+    "current_price": current_price,
+    "peer_ev_ebitda": peer_ev_ebitda,
 }
 
 
