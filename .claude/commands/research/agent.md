@@ -57,6 +57,8 @@ Construct `<CROSS_MODULE_CONTEXT>` exactly as `frameworks/MODULE_PIPELINE.md` St
 
 ## 7. Dispatch the single agent
 
+**Refresh the deterministic sidecar first.** The Step 4A message tells the agent to trust `<RUN_ROOT>/_pool_extracts/ciq_facts.json` as authoritative, but a single-agent re-run into an existing run folder may carry a STALE sidecar from the original run. Run `frameworks/MODULE_PIPELINE.md` Step 1.5 once — `python3 .claude/tools/extract_pool.py "data/<TICKER>/" "<RUN_ROOT>/_pool_extracts"` — which regenerates `ciq_facts.json` when the data changed (idempotent; an unchanged pool costs nothing). Never dispatch the trust-the-sidecar instruction against an unrefreshed sidecar.
+
 Issue exactly ONE Task call using the EXACT message template from `frameworks/MODULE_PIPELINE.md` Step 4A:
 
 - `subagent_type` = the agent's frontmatter `name`
@@ -79,5 +81,5 @@ Single-agent runs are iterative; committing one file per agent would spam `main`
 ## Hard rules
 
 - Do not hardcode agent names or layers — everything is discovered from the file and its frontmatter, exactly like `frameworks/MODULE_PIPELINE.md`.
-- Write only `<OUTPUT_PATH>`. Do not modify sibling files or any other module's folder.
+- Write only `<OUTPUT_PATH>` — plus the deterministic sidecar under `<RUN_ROOT>/_pool_extracts/` that the section-7 refresh regenerates (`extract_pool.py`), which is a run-level cache, not a module output. Do not modify sibling module files or any other module's folder.
 - Do not commit or push. The cockpit and the user own when a single-agent output gets committed.

@@ -52,6 +52,8 @@ Confirm `<RUN_ROOT>/<MODULE>/` exists (`mkdir -p` it if not). Prerequisite check
 
 Build `<CROSS_MODULE_CONTEXT>` exactly as `frameworks/MODULE_PIPELINE.md` Step 4A / `/research:full` step 8A specify: one sentence per `depends_on` module whose `99_*-synthesis.md` exists under `<RUN_ROOT>`, in the form `<Dep> cross-module path: <RUN_ROOT>/<dep>/.` (first letter capitalised). If none, the literal `none`.
 
+**Refresh the deterministic sidecar first (so the dispatched agent doesn't cite stale facts).** A rerun exists to fold in NEW data, and the Step 4A message tells the agent to trust `<RUN_ROOT>/_pool_extracts/ciq_facts.json` as authoritative — but that file was written by the ORIGINAL run and would be stale. Run `frameworks/MODULE_PIPELINE.md` Step 1.5 once now — `python3 .claude/tools/extract_pool.py "data/<TICKER>/" "<RUN_ROOT>/_pool_extracts"` — which re-extracts the pool and regenerates `ciq_facts.json` when the data changed (idempotent: it skips when the manifest is newer than every source, so an unchanged pool costs nothing). Never dispatch the trust-the-sidecar instruction against an unrefreshed sidecar.
+
 Dispatch exactly ONE Task call using the message template in `frameworks/MODULE_PIPELINE.md` Step 4A: `subagent_type` = the target's frontmatter `name`; pass `<TICKER>`, `data/<TICKER>/`, `<DATE>`, and `<CROSS_MODULE_CONTEXT>`; instruct the agent to persist its complete clean report to `<TARGET_OUT>` (Mode A/B/C), starting with its `#` header, no confirmation block, **and not to run git**. Then verify per Step 4B (`test -s`, starts with `#`, not truncated, no stray confirmation block); attempt one recovery if it fails.
 
 ## 6. Compute the downstream synthesis cascade (data-driven — no hardcoding)
@@ -80,6 +82,8 @@ For each `<M>` in `<CASCADE>`, in order:
 You re-run only the `99` synthesis of each cascade module (then refresh that module's memo + dossier tiers) — never its specialists.
 
 ## 8. Re-run the master synthesizer
+
+**Refresh the deterministic sidecar first — this is the only refresh the master-target path gets.** A `master synthesizer` rerun skips steps 5–7 (step 1 / step 4 jump straight here), so the Step-5 refresh never runs for it; yet the synthesizer now treats `<RUN_ROOT>/_pool_extracts/ciq_facts.json` as authoritative for scorecard and `decision_record` anchors. Without this, a master-only rerun after new data lands would tie the final thesis to the ORIGINAL run's stale CIQ facts. Run `frameworks/MODULE_PIPELINE.md` Step 1.5 once now — `python3 .claude/tools/extract_pool.py "data/<TICKER>/" "<RUN_ROOT>/_pool_extracts"` — which regenerates `ciq_facts.json` when the data changed (idempotent: it skips when the manifest is newer than every source, so on the normal cascade path — where Step 5 already refreshed it — this second call costs nothing).
 
 Dispatch a single Task call (per `/research:full` step 10):
 
