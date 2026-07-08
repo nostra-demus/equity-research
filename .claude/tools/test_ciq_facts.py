@@ -381,6 +381,39 @@ def test_maturity_floating_blank(base: Path) -> None:
           mw["status"] == "present" and "100 floating / 400 fixed" in str(mw["value"]), str(mw))
 
 
+def test_maturity_year_range_pastdate(base: Path) -> None:
+    # DEFECT (#181 — LIVE on the real pool: EMAAR/AMZN/HCG). A 'Maturity' cell CIQ writes as a bare YEAR
+    # (2026 as a NUMBER — EMAAR), a date RANGE ('MM-DD-YYYY - YYYY' bundled notes — AMZN), or a PAST date
+    # (an overdue instrument — HCG) must bucket by its real year: NEVER a 1905 Excel-serial misread, never
+    # silently dropped to 'undated', and never a NEGATIVE weighted-average maturity. This IS the §18/§24
+    # distress input, so a mis-bucket silently mis-states the refinancing wall and the survival read.
+    from datetime import date as _date
+    d = base / "maturity_yr"
+    d.mkdir()
+    _wb(d / "Acme Financials_Annual.xlsx", {
+        "Capital Structure Details": [
+            ["Acme (NYSE:ACME) > Financials > Capital Structure Details"],
+            ["FY 2025 (Dec-31-2025) Capital Structure As Reported Details"],
+            ["Description", "Type", "Principal Due (USD)", "Coupon/Base Rate", "Floating Rate", "Maturity", "Seniority"],
+            ["Trust Certificates (bare year)", "Bonds and Notes", 3100, "5.0%", "NA", 2031, "Senior"],           # EMAAR: 2031 → 2031, NOT 1905
+            ["Secured Loan (bare year, near)", "Bonds and Notes", 2600, "4.0%", "NA", 2026, "Senior"],           # bare year → 2026
+            ["25 Notes bundle (range)", "Bonds and Notes", 1500, "5.0%", "NA", "11-20-2028 - 2065", "Senior"],   # AMZN: range → earliest 2028
+            ["Overdue deferred liability", "Term Loan", 200, "6.0%", "NA", _date(2023, 3, 1), "Senior"],         # HCG: past date → overdue, WAM≥0
+            ["Lease Liabilities", "Capital Lease", 25000, "7.0%", "NA", "-", "Senior"],                          # lease — separated as before
+        ],
+    })
+    mw = F.build_facts(d, "ACME")["facts"]["debt_maturity_wall"]
+    v = str(mw["value"])
+    check("maturity: a bare-YEAR cell (2031) buckets in 2031, NOT a 1905 Excel-serial misread",
+          mw["status"] == "present" and "2031 3,100" in v and "1905" not in v, str(mw))
+    check("maturity: a near-term bare-year (2026) stays in the dated wall, not dropped to undated",
+          "2026 2,600" in v, str(mw))
+    check("maturity: a date-RANGE bundle buckets at its earliest year (2028), not dropped to 'undated'",
+          "2028 1,500" in v and "date-ranges bucketed at earliest" in v, str(mw))
+    check("maturity: an overdue/past-due instrument is disclosed and never drives WAM negative (floored 0y)",
+          "WAM ~-" not in v and "overdue" in v.lower(), str(mw))
+
+
 def test_comps(base: Path) -> None:
     # Peer relative valuation + the keystones (price, shares outstanding). Guards: the SUBJECT row (:ACME))
     # is read, NOT a peer; the peer median is CIQ's own Summary-Statistics Median (not a re-derivation).
@@ -681,6 +714,7 @@ def main() -> int:
         print("== debt maturity wall (lease-separation + block boundary) ==")
         test_maturity_wall(d)
         test_maturity_floating_blank(d)
+        test_maturity_year_range_pastdate(d)
         print("== comps: peer multiple + price + shares outstanding ==")
         test_comps(d)
         test_comps_dual_listing(d)
