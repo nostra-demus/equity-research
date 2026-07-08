@@ -656,6 +656,12 @@ Rewrite `<RUN_ROOT>/RUN_METADATA.md` via the Write tool to fill in the placehold
 
 Per repo `CLAUDE.md` git policy: commit straight to `main`. No branches. No PRs.
 
+First drop any stale failure note — the run has now completed, so a break-time `RUN_FAILURE.md` (written by the server if an earlier attempt of this run broke) must NOT ride along in the success commit:
+
+```
+rm -f "analyses/${ARGUMENTS}_<DATE>/RUN_FAILURE.md"
+```
+
 Commit through the serialized helper (it holds a global git lock so concurrent companies don't collide on `.git/index.lock`, commits only this run folder, and pushes):
 
 ```

@@ -130,7 +130,7 @@ completed (master re-run)
 
 2. **Integrity finish-gate** — run `/research:full`'s **Step 10B verbatim** against `<RUN_ROOT>` (with `RUN_ROOT="<RUN_ROOT>"`), exactly as Step 9 above reuses `/research:full` step 10A.2: first **10B.1** (the deterministic validator that re-derives the §10 scenario math and the §7/§11/§14 caps and can stamp a PROVISIONAL banner on `final_thesis.md`), then **10B.2** (verify-evidence → `verification_report.json`, pre-mortem → `pre_mortem.json`, and the haircut propagation that patches `decision_record.json`), then **10B.3** (expectations-gap → `expectations_gap.json`, and the independent §7 edge-consistency cross-check against `decision_record.json`'s confidence_score). Produce ONLY the report JSON in each command — skip each command's own commit step; Step 10 below commits the whole run folder in one place. Record the printed `GATE:` / `GATE-VERIFY:` / `GATE-EXPECTATIONS:` lines for the report (Step 11) — a `PROVISIONAL` result is surfaced loudly, never hidden.
 
-Then **delete the marker so it is never committed**: `rm -f "<RUN_ROOT>/.defer_module_memos"`.
+Then **delete the marker so it is never committed, and drop any stale failure note** — the run has now completed, so a break-time `RUN_FAILURE.md` (written by the server when an earlier attempt broke) must NOT ride along in this success commit: `rm -f "<RUN_ROOT>/.defer_module_memos" "<RUN_ROOT>/RUN_FAILURE.md"`.
 
 ## 10. Commit and push to main (one commit)
 

@@ -3,6 +3,11 @@ import path from 'node:path'
 import { REPO_ROOT } from './config'
 import { setCreditStatus } from './credit'
 import { sweepRunOutputs } from './fs-watcher'
+// launcher.ts also imports handleStreamLine from this file — a circular import, but safe under native
+// ESM: recordStreamResultFailure is a hoisted `export function` (live before either module's own
+// top-level code runs), and both files only call the other's export from inside a function body, at
+// runtime, never at module-init time. See the comment on recordStreamResultFailure (Finding 1).
+import { recordStreamResultFailure } from './launcher'
 import { emit, finishRun, type RunState } from './registry'
 import { agentNameIndexAllSwarms, buildSwarmGraph } from './roster'
 
@@ -123,7 +128,13 @@ export function handleStreamLine(run: RunState, line: string) {
       if (run.status === 'running' || run.status === 'starting') {
         if (obj.is_error || obj.subtype === 'error_max_turns' || obj.subtype === 'error_during_execution') {
           const reason = obj.api_error_status ? `api_error_${obj.api_error_status}` : obj.subtype || 'engine_error'
-          emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason, message: typeof obj.result === 'string' ? obj.result.slice(0, 400) : undefined, ts })
+          const message = typeof obj.result === 'string' ? obj.result : ''
+          // Finding 1: this early-finalize path used to call finishRun() directly, which sets run.endedAt —
+          // so finalizeRunOnClose (the close handler) would later return immediately without ever writing
+          // the .interrupted marker or RUN_FAILURE.md for what is the single most common budget/API-error
+          // stop. Record the SAME failure note here, before finishRun, so it's never skipped.
+          recordStreamResultFailure(run, reason, message)
+          emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason, message: message ? message.slice(0, 400) : undefined, ts })
           finishRun(run, 'error')
         }
       }

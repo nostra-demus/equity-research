@@ -148,6 +148,35 @@ export function finalDeliverablesPresent(runRoot: string | null): boolean {
   return fs.existsSync(path.join(root, 'final_thesis.md')) && fs.existsSync(path.join(root, 'decision_record.json'))
 }
 
+// Were the terminal deliverables actually produced by THIS run attempt — not stale leftovers from an
+// EARLIER completed run left sitting in the same analyses/<ticker>_<date> folder (a same-day relaunch
+// into an already-finished root)? Only the master synthesizer step ever writes final_thesis.md /
+// decision_record.json, so a copy whose mtime predates this run's OWN startedAt cannot have been written
+// by it — it is a success this attempt did not earn. Comparing against run.startedAt (rather than some
+// separate "pipeline start" concept) is correct for every caller: the monolithic `full` run and every
+// per-module step of a chained full are each created strictly AFTER a pre-existing stale file, so the
+// freshness test holds regardless of which step of the pipeline is asking. A small negative skew
+// tolerance absorbs clock/filesystem timestamp granularity.
+//
+// Shared by every place that used to ask "does finalDeliverablesPresent(run.runRoot) mean this run
+// shipped?" — the failure-note guard (recordRunFailure), the .interrupted-marker guards, the run-done
+// success-override branch, and the marker/failure-note clear guard in finalizeRunOnClose. The fix for
+// Findings 5, 12 and 14 is this ONE helper, not three separate patches.
+const DELIVERABLE_MTIME_SKEW_TOLERANCE_MS = 2000
+export function finalDeliverablesShippedByThisAttempt(run: RunState): boolean {
+  const runRoot = run.runRoot
+  if (!finalDeliverablesPresent(runRoot)) return false
+  try {
+    const root = path.isAbsolute(runRoot!) ? runRoot! : path.join(REPO_ROOT, runRoot!)
+    const thesisM = fs.statSync(path.join(root, 'final_thesis.md')).mtimeMs
+    const decisionM = fs.statSync(path.join(root, 'decision_record.json')).mtimeMs
+    const floor = run.startedAt - DELIVERABLE_MTIME_SKEW_TOLERANCE_MS
+    return thesisM >= floor && decisionM >= floor
+  } catch {
+    return false // stat raced the existsSync check (e.g. removed mid-check) — treat conservatively as not shipped
+  }
+}
+
 // Did a full/rerun exit cleanly WITHOUT its terminal deliverable? Research ends on final_thesis.md +
 // decision_record.json; a constellation swarm (e.g. commodity) ends on decision_record.json alone —
 // the same key the resume detector uses (resumable.ts). The screener (flow layout) has its own
@@ -168,6 +197,174 @@ function isResumableResearchRun(run: RunState): boolean {
   return run.swarmId === 'research' && (run.kind === 'full' || run.chained === true)
 }
 
+// --- A2: commit a diagnosable failure note WITH the run (a DISTINCT file, never the success contract) ----
+// When a chained/full research run BREAKS (crash / external kill / plan-limit / nonzero exit) BEFORE it
+// ships its terminal deliverables, the machine reason lands only in the on-host `.interrupted` marker + a
+// transient SSE event — neither survives off-host. So a broken run committed just its finished modules with
+// NO record of WHY it stopped (the hole that made a real MGM run un-diagnosable). This writes RUN_FAILURE.md
+// into the run folder — modules finished, the module it broke at, the reason, the stderr tail — and
+// best-effort commits just that ONE file via the serialized commit helper (a DATA pathspec, §25/§28-clean).
+//
+// Correctness guards (do NOT remove — each closes a confirmed bug):
+//  1. DISTINCT filename RUN_FAILURE.md, NEVER RUN_METADATA.md — RUN_METADATA.md is the SUCCESS-metadata
+//     CONTRACT written by full.md/rerun.md and READ by the synthesizer + eval; a FAILED note there would
+//     corrupt it and race the master's own write. RUN_FAILURE.md has no other writer/reader.
+//  2. finalDeliverablesPresent guard — a run that shipped final_thesis + decision_record is a SUCCESS
+//     regardless of a trailing nonzero exit / late kill; never stamp it failed (mirrors the clear at ~297).
+//  3. single-shot per run folder — concurrent chained-module closes must not each write+commit the note.
+// Fully best-effort: recording never throws and never blocks run finalization. The git spawn is injectable
+// so tests assert the note without committing for real.
+const FAILURE_NOTE = 'RUN_FAILURE.md'
+const recordedFailure = new Set<string>() // runRoots already recorded this process (single-shot dedup)
+
+let commitRunFile: (runRoot: string, file: string, msg: string) => void = (runRoot, file, msg) => {
+  const script = path.join(REPO_ROOT, 'scripts', 'commit-run.sh')
+  // Timeout must EXCEED commit-run.sh's own ~15-min git-lock wait — a 60s cap would kill the helper while
+  // it legitimately waits behind a concurrent full/chained commit, so the note would never reach git
+  // (defeating the durable off-host diagnostic). commit-run.sh gives up on its own at 15m (exit 4).
+  void execa('bash', [script, msg, '--', `${runRoot}/${file}`], { cwd: REPO_ROOT, timeout: 20 * 60_000 })
+    .catch(() => { /* best-effort: a failed commit must never affect the run */ })
+}
+/** Test seam — override the git committer so tests never spawn real git. Returns the prior fn. */
+export function __setFailureNoteCommitter(fn: typeof commitRunFile): typeof commitRunFile {
+  const prev = commitRunFile; commitRunFile = fn; return prev
+}
+
+// Mask common secret shapes before a stderr tail is PERSISTED: RUN_FAILURE.md is committed to a public
+// repo, and the marker/activity note surface in the UI. A failing tool or auth error can print an API key,
+// token, JWT, or signed URL to stderr — this stops a transient error stream from becoming a permanent git
+// artifact. Best-effort masking (targeted shapes, not a general DLP), applied at every persist point.
+function redactSecrets(s: string): string {
+  if (!s) return s
+  return s
+    .replace(/\b(sk|rk|pk|sk-ant|xoxb|xoxp)-[A-Za-z0-9_-]{12,}/gi, '$1-***REDACTED***') // Anthropic/OpenAI/Stripe/Slack
+    .replace(/\bgh[pousr]_[A-Za-z0-9]{20,}\b/g, 'gh*_***REDACTED***')                    // GitHub tokens
+    .replace(/\bAKIA[0-9A-Z]{16}\b/g, 'AKIA***REDACTED***')                              // AWS access key id
+    .replace(/\b(?:ey[A-Za-z0-9_-]{8,}\.){2}[A-Za-z0-9_-]{8,}/g, '***JWT-REDACTED***')   // JWTs
+    .replace(/\b(Bearer|Basic)\s+[A-Za-z0-9._~+/=-]{12,}/gi, '$1 ***REDACTED***')        // Authorization headers
+    .replace(/\b(api[_-]?key|secret|token|password|passwd|auth|access[_-]?key|client[_-]?secret)(["'\s:=]{1,4})[A-Za-z0-9._~+/=-]{8,}/gi, '$1$2***REDACTED***') // key=value
+    .replace(/([?&](?:sig|signature|token|key|secret|password|api[_-]?key|access[_-]?token|x-amz-signature)=)[^&\s"']+/gi, '$1***REDACTED***') // signed URLs / query strings
+}
+
+function recordRunFailure(run: RunState, reason: string, stderr: string): void {
+  const runRoot = run.runRoot
+  if (!runRoot) return
+  // Finding 5: a stale final_thesis.md/decision_record.json from an EARLIER completed run in this same
+  // folder must not suppress a genuinely NEW failure — only deliverables THIS attempt actually shipped do.
+  if (finalDeliverablesShippedByThisAttempt(run)) return // the run actually shipped — a trailing nonzero is not a failure
+  if (recordedFailure.has(runRoot)) return       // single-shot: dedup concurrent chained-module closes
+  recordedFailure.add(runRoot)
+  try {
+    const abs = path.join(REPO_ROOT, runRoot)
+    if (!fs.existsSync(abs)) return
+    // modules finished = subfolders with a non-empty 99_*-synthesis.md (the "module done" test the resume
+    // uses). Exclude the module it broke AT so it never shows as both completed and stopped-at.
+    let doneAll: string[] = []
+    try {
+      doneAll = fs.readdirSync(abs, { withFileTypes: true })
+        .filter((d) => d.isDirectory())
+        .filter((d) => {
+          try {
+            return fs.readdirSync(path.join(abs, d.name)).some((f) =>
+              /^99_.*-synthesis\.md$/.test(f) && fs.statSync(path.join(abs, d.name, f)).size > 0)
+          } catch { return false }
+        })
+        .map((d) => d.name).sort()
+    } catch { /* best-effort inventory */ }
+    // Completed = DISK TRUTH: every module whose 99_*-synthesis.md is on disk — exactly what a resume will
+    // skip. Do NOT drop run.module: if its synthesis already shipped (a commit/handoff failed AFTER it), the
+    // module IS complete and belongs here; the failed phase is reported separately in stopped_at below.
+    const done = doneAll
+    const moduleShipped = !!run.module && doneAll.includes(run.module)
+    // stopped-at: the chained step that broke. If run.module's synthesis is already on disk, the break was on
+    // its commit/handoff AFTER the module completed — say so, so the note never contradicts the completed
+    // list. Else (monolithic full, no run.module) the master if every module synthesis shipped but
+    // final_thesis didn't, else the first module still missing.
+    let stoppedAt = run.module
+      ? (moduleShipped ? `after ${run.module} (its synthesis shipped)` : run.module)
+      : undefined
+    if (!stoppedAt) {
+      let allModules: string[] = []
+      try { allModules = buildSwarmGraph().modules.map((m) => m.name) } catch { /* graph unavailable */ }
+      const missing = allModules.filter((m) => !doneAll.includes(m))
+      stoppedAt = missing.length === 0 ? 'master synthesis' : (missing[0] || 'unknown')
+    }
+    const md = [
+      '# Run Failure', '',
+      `- ticker: ${run.ticker}`,
+      '- orchestrator: chained full run (server)',
+      '- status: FAILED — stopped mid-run before the final thesis',
+      `- stopped_at: ${stoppedAt}`,
+      `- reason: ${reason}`,
+      `- stopped_at_utc: ${new Date().toISOString()}`, '',
+      '## Modules completed', '',
+      done.length ? done.map((m) => `- ${m}`).join('\n') : '(none)', '',
+      '## Error (last 2000 chars of the engine stderr, secrets redacted)', '', '```',
+      redactSecrets((stderr || '').slice(-2000)) || '(no stderr captured)', '```', '',
+      '## Resume', '',
+      'This run broke before the master synthesis. The machine reason (and any plan-reset time) is in the `.interrupted` marker. Re-run to continue — a same-day relaunch resumes from the finished modules; an older run is re-run fresh. This note is auto-removed if the run later completes.', '',
+    ].join('\n')
+    fs.writeFileSync(path.join(abs, FAILURE_NOTE), md)
+    commitRunFile(runRoot, FAILURE_NOTE, `Run failure note: ${run.ticker} (stopped at ${stoppedAt})`)
+  } catch { /* best-effort: recording a failure must never itself fail the run */ }
+}
+
+// On genuine completion, drop a stale RUN_FAILURE.md left by an EARLIER break of the same run folder (a run
+// that broke, was resumed, then finished) so a completed run never carries a failure note. Best-effort;
+// commits the removal only when the file is actually present (a no-op for the vast majority of runs).
+function clearRunFailure(runRoot: string | null): void {
+  if (!runRoot) return
+  recordedFailure.delete(runRoot)
+  try {
+    const p = path.join(REPO_ROOT, runRoot, FAILURE_NOTE)
+    if (!fs.existsSync(p)) return
+    fs.rmSync(p, { force: true })
+    commitRunFile(runRoot, FAILURE_NOTE, `Clear stale failure note: ${path.basename(runRoot)} (run completed)`)
+  } catch { /* best-effort */ }
+}
+
+// Reset all per-attempt failure-note state for a DELIBERATE relaunch into an existing, still-incomplete
+// run root (Findings 6/8/9): the single-shot dedup (so a FRESH failure re-records RUN_FAILURE.md instead
+// of being suppressed by the prior attempt's entry) AND any stale RUN_FAILURE.md file ITSELF, deleted here
+// synchronously — not only via the eventual clearRunFailure() at true completion. Finding 8: a resumed
+// chained run's master step (rerun.md Step 9B) already `rm -f`s RUN_FAILURE.md before its own success
+// commit, but deleting it here too, at the moment the relaunch starts, closes the same hole for any OTHER
+// commit of the run root that might fire before that step ever runs. No git commit here (the removal is
+// silent + local) — if the resumed attempt fails again, recordRunFailure (dedup now reset) recreates and
+// re-commits a FRESH note; nothing here can drop a note a genuinely-still-broken run still needs.
+function resetForRelaunch(runRoot: string): void {
+  recordedFailure.delete(runRoot)
+  try { fs.rmSync(path.join(REPO_ROOT, runRoot, FAILURE_NOTE), { force: true }) } catch { /* best-effort */ }
+}
+
+// A3: a compact one-line failure reason for the DURABLE activity log (reason + a short, whitespace-
+// collapsed stderr tail). finishRun() already forwards run.note to logFinish, and the cockpit's activity
+// row already renders it (a ⚠ pill + hover) — the same path the 'incomplete' note uses. So setting run.note
+// here surfaces WHY a run stopped both in the queryable log and the UI, with no new field or web code (A4).
+const failureNote = (reason: string, stderr: string): string =>
+  reason + (stderr?.trim() ? `: ${redactSecrets(stderr.slice(-300)).replace(/\s+/g, ' ').trim()}` : '')
+
+// Finding 1: `handleStreamLine` (stream-parser.ts) finalizes a run EARLY — before process close — the
+// moment Claude emits an unambiguous structured error `result` (error_max_turns, error_during_execution,
+// any is_error result). That early finishRun() sets run.endedAt, so finalizeRunOnClose's endedAt guard
+// then returns immediately without ever reaching the terminated/nonzero branches that write the
+// .interrupted marker + RUN_FAILURE.md — silently dropping the failure note for the single most common
+// budget/API-error stop. This runs the SAME marker + failure-note + activity-log-note logic those
+// branches use, so a stream-reported error is exactly as diagnosable as a close-time error. Exported so
+// stream-parser.ts can call it before its own finishRun; the two files import each other's exports but
+// only from inside function bodies (never at module top level), which is safe under native ESM — a
+// hoisted `export function` binding is live before either module's own top-level code runs.
+// Fully best-effort: never throws (mirrors every other A2/A3 call site).
+export function recordStreamResultFailure(run: RunState, reason: string, message: string): void {
+  try {
+    if (isResumableResearchRun(run) && !finalDeliverablesShippedByThisAttempt(run)) {
+      writeRunMarker(run.runRoot, '.interrupted', { reason, module: run.module, message: redactSecrets((message || '').slice(-2000)) || undefined })
+      recordRunFailure(run, reason, message)
+    }
+    run.note = failureNote(reason, message) // A3: durable reason in the activity log (shown on the row)
+  } catch { /* best-effort: must never affect the stream parser or the run */ }
+}
+
 // The SINGLE place a run's final status is decided on process close (exported for tests).
 // Gated on `endedAt` rather than status so (a) the stream parser's early ERROR finalization is
 // never double-applied, and (b) a cancel() — which sets status='cancelled' directly — still gets
@@ -186,12 +383,31 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
     if (isResumableResearchRun(run)) clearRunMarker(run.runRoot, '.interrupted') // a deliberate stop — cancel() wrote .aborted; never auto-resume
     emit(run, { type: 'run-error', runId: run.runId, status: 'cancelled', reason: 'cancelled', ts: Date.now() })
     finishRun(run, 'cancelled')
+  } else if (isResumableResearchRun(run) && finalDeliverablesShippedByThisAttempt(run)) {
+    // SHIPPED before a trailing nonzero/kill: the terminal deliverables (final_thesis + decision_record) were
+    // written by THIS attempt (Findings 12/14 — not just present, which a same-day stale relaunch could also
+    // satisfy from an EARLIER completed run), so the research SUCCEEDED — a nonzero exit or a late kill on the
+    // final commit/handoff does NOT un-ship it. Finalize as DONE, consistent with recordRunFailure's own
+    // finalDeliverablesShippedByThisAttempt guard (which already skips RUN_FAILURE.md here), and never log a
+    // failure reason for a run that shipped. Only full/chained research runs qualify — a rerun's folder may
+    // hold the ORIGINAL run's deliverables, so a failed rerun must NOT be called done on their presence (it
+    // falls through to the error branches below).
+    if ((run.kind === 'full' || run.kind === 'rerun') && run.swarmId === 'research') saveMemosToCompanyFolder(run.ticker, run.runRoot)
+    clearRunMarker(run.runRoot, '.interrupted')
+    clearRunFailure(run.runRoot)
+    emit(run, { type: 'run-done', runId: run.runId, status: 'done', costUsd: run.costUsd, durationMs: run.durationMs, numTurns: run.numTurns, ...finalPaths(run), ts: Date.now() })
+    finishRun(run, 'done')
   } else if (terminated) {
     // killed from OUTSIDE cancel() (OOM killer, manual kill, parent shutdown, a dropped connection that
     // tears the process down) — an error, not a success. Mark the folder so the resume supervisor can pick
     // the broken full run back up and continue it (forever-living: a closed laptop / lost network resumes).
-    if (isResumableResearchRun(run)) writeRunMarker(run.runRoot, '.interrupted', { reason: `terminated_${res?.signal || 'signal'}` })
-    emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason: `terminated_${res?.signal || 'signal'}`, message: stderr.slice(-400) || undefined, ts: Date.now() })
+    const treason = `terminated_${res?.signal || 'signal'}`
+    if (isResumableResearchRun(run)) {
+      if (!finalDeliverablesShippedByThisAttempt(run)) writeRunMarker(run.runRoot, '.interrupted', { reason: treason, module: run.module, message: redactSecrets(stderr.slice(-2000)) || undefined })
+      recordRunFailure(run, treason, stderr) // A2: diagnosable failure note (self-guards on deliverables + single-shot)
+    }
+    run.note = failureNote(treason, stderr) // A3: durable reason in the activity log (shown on the row)
+    emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason: treason, message: stderr.slice(-400) || undefined, ts: Date.now() })
     finishRun(run, 'error')
   } else if ((code && code !== 0) || res?.failed === true) {
     const reason = /credit|rate limit/i.test(stderr) ? 'out_of_credits' : 'nonzero_exit'
@@ -201,8 +417,10 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
     // nonzero_exit; it resumes on the next tick.)
     if (isResumableResearchRun(run)) {
       const resetsAt = reason === 'out_of_credits' ? getCreditStatus().resetsAt : undefined
-      writeRunMarker(run.runRoot, '.interrupted', { reason, resetsAt })
+      if (!finalDeliverablesShippedByThisAttempt(run)) writeRunMarker(run.runRoot, '.interrupted', { reason, resetsAt, module: run.module, message: redactSecrets(stderr.slice(-2000)) || undefined })
+      recordRunFailure(run, reason, stderr) // A2: diagnosable failure note (self-guards on deliverables + single-shot)
     }
+    run.note = failureNote(reason, stderr) // A3: durable reason in the activity log (shown on the row)
     emit(run, { type: 'run-error', runId: run.runId, status: 'error', reason, message: stderr.slice(-400) || undefined, ts: Date.now() })
     finishRun(run, 'error')
   } else if (truncatedBeforeFinal(run)) {
@@ -228,7 +446,13 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
     // disk). A single chained MODULE finishing 'done' must NOT clear a marker a FAILED sibling just wrote
     // — that would lose a genuine interruption and strand the run unresumable. Final deliverables are
     // present only after the master synthesis, so this fires once, at true completion.
-    if (isResumableResearchRun(run) && finalDeliverablesPresent(run.runRoot)) clearRunMarker(run.runRoot, '.interrupted')
+    // finalDeliverablesShippedByThisAttempt (not mere presence) — else a SIBLING chained module finishing
+    // cleanly while stale deliverables sit in the folder from an earlier completed run could clear a
+    // FRESH RUN_FAILURE.md that a different sibling's genuine failure just wrote for THIS same attempt.
+    if (isResumableResearchRun(run) && finalDeliverablesShippedByThisAttempt(run)) {
+      clearRunMarker(run.runRoot, '.interrupted')
+      clearRunFailure(run.runRoot) // drop a stale RUN_FAILURE.md from an earlier break of this now-complete run
+    }
     emit(run, { type: 'run-done', runId: run.runId, status: 'done', costUsd: run.costUsd, durationMs: run.durationMs, numTurns: run.numTurns, ...finalPaths(run), ts: Date.now() })
     finishRun(run, 'done')
   }
@@ -372,6 +596,15 @@ function agentRequiredUpstream(swarmId: string, module?: string, agent?: string)
 }
 
 // Run-root artifacts full/rerun also write (diagnostics for D2; D1 is the real exclusivity guard).
+// RUN_FAILURE.md is deliberately NOT declared here for chained `module` runs (Finding 2 review comment).
+// Declaring it as a write target would make admission's D2 (exact-match disjoint-write) treat EVERY
+// concurrently-scheduled sibling module for a ticker as conflicting on this one shared root file — killing
+// the DAG-parallel scheduling FULL_PER_MODULE exists for. The race D2 would be guarding against here
+// (two modules failing "at the same time" both writing+committing RUN_FAILURE.md) cannot actually happen:
+// Node is single-threaded, recordRunFailure()'s dedup-check-then-set (the `recordedFailure` Set) is fully
+// synchronous with no `await` in between, so two onClose callbacks landing "around the same time" still
+// run to completion one at a time — the second always sees the first's dedup entry and returns before
+// writing. Serialization is real, just done in-process rather than via admission's declared-write model.
 const ROOT_ARTIFACTS_FULL = ['final_thesis.md', 'memo.md', 'audit_dossier.md', 'decision_record.json', 'RUN_METADATA.md']
 const ROOT_ARTIFACTS_RERUN = ['final_thesis.md', 'memo.md', 'audit_dossier.md', 'decision_record.json']
 // A screener signal run owns its whole SIG folder; these are its run-root JSON artifacts.
@@ -684,6 +917,7 @@ export async function launchFullChained(ticker: string, user: string, userVia: '
     }
     clearRunMarker(resumeRoot, '.interrupted') // a deliberate (re)launch; a fresh break will re-mark it
     clearRunMarker(resumeRoot, '.aborted')
+    resetForRelaunch(resumeRoot) // Findings 6/8: reset the single-shot dedup AND drop any stale RUN_FAILURE.md
     // eslint-disable-next-line no-console
     if (done.size) console.log(`[full-chain] ${ticker}: resuming — ${done.size}/${total} modules already on disk, running the rest`)
   }
@@ -864,6 +1098,10 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
   let subjectId: string
   let runRoot: string
   let pendingIntake: { path: string; body: any } | null = null
+  // Finding 13: set below (research 'full' branch) when this is a deliberate same-day relaunch into an
+  // existing, still-incomplete run root — the actual dedup/marker reset happens only after admission
+  // succeeds, never here.
+  let isFullRelaunch = false
 
   if (kind === 'signal') {
     const date = todayDate()
@@ -957,6 +1195,17 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
       runRoot = resolveAgentRunRoot(ticker)
     } else {
       runRoot = `analyses/${ticker}_${todayDate()}`
+      // A deliberate same-day relaunch of a FULL run reuses this run root. The plain launch() path (the
+      // default when FULL_PER_MODULE is off) must reset the single-shot failure-note dedup — otherwise
+      // recordRunFailure() suppresses the RELAUNCH's failure and RUN_FAILURE.md keeps the first attempt's
+      // reason/stopped_at/stderr. The chained launcher already does this reset at its resume root (~900).
+      // Finding 13: the ACTUAL reset (including clearing .interrupted) is deferred until admission below
+      // actually admits this launch — NOT done here, while merely resolving the run root. Clearing the
+      // marker this early, before admitRun() runs, would strand a genuinely-broken full run forever if
+      // admission then REJECTS this attempt (capacity/lock): no run would start, yet the only marker that
+      // makes the resume supervisor consider the folder resumable would already be gone. `isFullRelaunch`
+      // just records the (cheap, side-effect-free) fact so the code after admission can act on it.
+      isFullRelaunch = kind === 'full' && fs.existsSync(path.join(REPO_ROOT, runRoot)) && !finalDeliverablesPresent(runRoot)
     }
   }
 
@@ -1020,6 +1269,15 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
     err.statusCode = rejection.httpStatus
     err.body = rejection
     throw err
+  }
+
+  // Finding 13: NOW that admission has actually admitted this launch, reset the relaunch state — clearing
+  // .interrupted any earlier would strand the run if admission had rejected it instead (see the comment
+  // where isFullRelaunch is set). A deliberate relaunch; a fresh break re-marks .interrupted, and a fresh
+  // failure re-records RUN_FAILURE.md (dedup reset) since Finding 8 also drops any stale copy here.
+  if (isFullRelaunch) {
+    clearRunMarker(runRoot, '.interrupted')
+    resetForRelaunch(runRoot)
   }
 
   // Materialize the signal intake AFTER admission passes (no orphan folders on rejection).
