@@ -32,7 +32,11 @@ If undrawn committed facilities are not disclosed: set liquidity = cash + liquid
 1. Read the repo root `CLAUDE.md`, then read `.claude/agents/balance-sheet-survival/MODULE_RULES.md`, and apply both.
 2. Assemble liquidity sources: cash + liquid short-term investments (from `01`) + committed, undrawn revolver/facility capacity (from the debt/liquidity note). Exclude uncommitted lines and flag any restricted cash.
 3. Assemble near-term (next-12-month) uses: debt maturities (from `02`), cash interest, maintenance capex, and committed dividends/buybacks.
-4. Compute the runway **in months** = liquidity ÷ **monthly** net cash burn, where monthly net cash burn = (the next-12-month uses from step 3 − FCF over those same 12 months) ÷ 12. Dividing liquidity by the *annual net* obligations (uses − FCF) gives a coverage **multiple**, not months (×12 to convert to months). If FCF covers obligations, state the annual surplus instead of a finite runway.
+4. Compute the runway **in months** = liquidity ÷ **monthly** net cash burn, on ONE clean basis (per `MODULE_RULES` §8) — do not double-count, because FCF (= CFO − total capex, §15) already includes cash interest paid and all capex:
+   - **Net-of-FCF (FCF meaningful):** monthly net burn = [ (12-month debt maturities + committed dividends/buybacks) − FCF ] ÷ 12 — include only obligations NOT already inside FCF; **do not re-add cash interest or maintenance capex** (FCF carries them — re-adding overstates burn and shortens runway).
+   - **Gross-obligations (FCF negative/unreliable):** monthly burn = [ full 12-month uses from step 3 ] ÷ 12, with **no FCF subtraction**.
+
+   Dividing liquidity by the *annual* burn gives a coverage **multiple**, not months (×12 to convert). If FCF covers obligations, state the annual surplus instead of a finite runway.
 5. Build the sources-and-uses bridge.
 6. State how much of the runway depends on FCF holding up vs already-in-hand liquidity.
 
@@ -76,11 +80,12 @@ Rule: Total usable liquidity must EXCLUDE the revolver if availability is unknow
 |---|---:|
 | Total committed liquidity | |
 | Annual FCF (or proxy) | |
-| Net near-term obligations (12-month uses − FCF) | |
-| Monthly net cash burn (net near-term obligations ÷ 12) | |
+| Basis used (net-of-FCF / gross-obligations) | |
+| Annual net cash burn (on the stated basis — see step 4) | |
+| Monthly net cash burn (annual burn ÷ 12) | |
 | **Liquidity runway (months) = liquidity ÷ monthly net cash burn** | |
 
-Show the formula. Dividing liquidity by the *annual* net obligations gives a coverage multiple (e.g. 2.0× = two years), NOT months — the runway is liquidity ÷ **monthly** net burn (equivalently, that multiple × 12). If FCF more than covers obligations, state the annual surplus instead of a finite runway.
+Show the formula and name the basis. On the **net-of-FCF** basis the annual burn is `(12-month maturities + committed dividends/buybacks) − FCF` — do NOT re-add cash interest or capex (FCF already includes them). On the **gross-obligations** basis it is the full 12-month uses with no FCF subtraction. Dividing liquidity by the *annual* burn gives a coverage multiple (e.g. 2.0× = two years), NOT months — the runway is liquidity ÷ **monthly** net burn (that multiple × 12). If FCF more than covers obligations, state the annual surplus instead of a finite runway.
 
 ### Seasonality / Peak Liquidity Need (Hard Check)
 
