@@ -1,0 +1,86 @@
+{
+  "signal_id": "SIG-20260709-c7ac1278",
+  "event_id": "EVT-87ff0c171d13",
+  "processed_at": "2026-07-09T00:00:00Z",
+  "gate0": {
+    "approved_source_check": true,
+    "source_grade": "A",
+    "source_grade_rationale": "Fierce Healthcare is a primary sector-specific trade publication listed verbatim on the approved source list — not an aggregator citing another source.",
+    "dedup_url_hash": "EVT-87ff0c171d13"
+  },
+  "relevance_label": "material",
+  "relevance_confidence": 0.92,
+  "event_types": ["mna"],
+  "entities": {
+    "primary_issuers": ["Ascension Health (via Ascension Saint Thomas)", "Williamson Health"],
+    "secondary_issuers": ["HCA Healthcare (NYSE: HCA)", "UnitedHealth Group / Optum (NYSE: UNH)"],
+    "sector": "Healthcare / Hospital Systems",
+    "geography": "United States — Tennessee (Franklin, TN; Ascension HQ: St. Louis, MO)",
+    "commodity": null
+  },
+  "issuer_linkage": "primary_issuer",
+  "similarity_score": 0.0,
+  "similar_event_ids": [],
+  "pair_label": "new_event",
+  "fact_delta": 0.0,
+  "fact_delta_fields": [],
+  "confirmation_upgrade": false,
+  "novelty_score": 0.85,
+  "action": "keep_separate",
+  "is_generic_media": false,
+  "generic_media_reason": "None of the 6 generic-media categories matched — the article covers a single, fully quantified M&A transaction (one buyer, one target, a $700M purchase price plus itemised capital commitments totalling ~$1B) with specific attributed roles for every company mentioned.",
+  "specificity_score": 90,
+  "quantifiability_score": 88,
+  "investability_score": 82,
+  "filing_type": "material_exchange_filing",
+  "filing_type_rationale": "Override keyword mna matched — classified material_exchange_filing regardless of routine wrapper text. No ceiling applied.",
+  "issuer_public_status": "private_unlisted",
+  "private_linkage_tags": ["competitor_informative_to_public_company"],
+  "private_linkage_evidence": "HCA Healthcare (NYSE: HCA) submitted a competing $700M bid for Williamson Health and lost to Ascension — the same purchase price, differentiated only by capital commitments ($210M from HCA vs $235M from Ascension) and tax obligations; this directly reveals HCA's M&A pricing ceiling and Tennessee market strategy. Optum (a subsidiary of UnitedHealth Group, NYSE: UNH) was the third finalist; being outbid reveals UNH/Optum's valuation ceiling for community hospital systems. [Williamson Herald, 2026-07-06; NewsChannel5, 2026-07-08]",
+  "linked_public_companies": ["HCA Healthcare (NYSE: HCA)", "UnitedHealth Group (NYSE: UNH)"],
+  "materiality_score": 64,
+  "materiality_math": "Source 13/20 + Event 20/20 + Company 11/20 + Specificity 15/15 + Estimate 5/15 + Theme 0/10 − penalties 0 = 64/100.",
+  "score_breakdown": {
+    "source_quality": {"value": 13, "max_value": 20, "reason": "Tier 2 source, body readable or no paywall issue."},
+    "event_materiality": {"value": 20, "max_value": 20, "reason": "Base 14 (material relevance) + severity add-on 6 (mna)."},
+    "company_relevance": {"value": 11, "max_value": 20, "reason": "Private/unlisted issuer scored on evidenced linkage 'competitor_informative_to_public_company' (11) + portfolio-position bonus 0."},
+    "specificity": {"value": 15, "max_value": 15, "reason": "Raw 15, no corroboration cap applies."},
+    "estimate_impact": {"value": 5, "max_value": 15, "reason": "Raw 5, no corroboration cap applies."},
+    "theme_macro": {"value": 0, "max_value": 10, "reason": "No macro/theme angle — single-name event."},
+    "routine_filing_penalty": {"value": 0, "max_value": -20, "reason": "filing_type 'material_exchange_filing' — not a routine-filing derate category."},
+    "generic_media_penalty": {"value": 0, "max_value": -15, "reason": "Not flagged generic media (is_generic_media=false)."},
+    "private_unlisted_irrelevance_penalty": {"value": 0, "max_value": -15, "reason": "Evidenced linkage present (competitor_informative_to_public_company); the no-linkage penalty does not apply."},
+    "duplicate_stale_penalty": {"value": 0, "max_value": -25, "reason": "pair_label 'new_event' — not a duplicate/stale repeat."},
+    "low_confidence_extraction_penalty": {"value": 0, "max_value": -10, "reason": "relevance_confidence 0.92 >= 0.80, source tier 2 or corroborated."}
+  },
+  "final_score_reason": "The event materiality component maxed out at 20/20 — a first-seen billion-dollar M&A deal is the highest-severity event type — and specificity reached 15/15 with hard dollar figures and named counterparties. The company relevance is held to 11/20 because both primary issuers (Ascension Health and Williamson Health) are private nonprofits and the public-company linkage is indirect (HCA Healthcare and Optum as losing bidders), which is the single largest drag on the score.",
+  "source_tier": 2,
+  "source_quality_score": 13,
+  "source_quality_reason": "Tier 2 source, body readable or no paywall issue.",
+  "routing": "PARK",
+  "routing_reason": "Materiality score 64 is in the PARK band (40–69). The deal is real and well-specified, but both primary issuers are private nonprofits — the public-market link runs only through HCA Healthcare and Optum as losing bidders, which caps company relevance at 11/20 and keeps the score below the 70-point threshold to start Phase 1.",
+  "next_action": "none — human can re-launch with override_promote: true if HCA or UNH thesis context warrants it",
+  "sources": [
+    {
+      "url": "https://www.fiercehealthcare.com/providers/ascension-plans-acquire-independent-system-williamson-health-nearly-1b",
+      "source_name": "Fierce Healthcare",
+      "source_grade": "A",
+      "retrieved_at": "2026-07-08T16:46:19.637Z",
+      "claim_supported": "Ascension plans to acquire Williamson Health for nearly $1B ($700M purchase price plus capital commitments); Ascension beat HCA Healthcare and Optum bids."
+    },
+    {
+      "url": "https://www.healthcaredive.com/news/ascension-williamson-health-deal-value-tennessee-hospital/824561/",
+      "source_name": "Healthcare Dive",
+      "source_grade": "B",
+      "retrieved_at": "2026-07-08T00:00:00Z",
+      "claim_supported": "Transaction valued at nearly $1B; $700M purchase price plus $235M facility/EHR investment, $140M strategic projects, $20M routine capex. Williamson's board voted unanimously."
+    },
+    {
+      "url": "https://www.newschannel5.com/news/williamson-health-leaders-say-950m-ascension-st-thomas-sale-will-fuel-hospital-growth-in-the-county",
+      "source_name": "NewsChannel5",
+      "source_grade": "B",
+      "retrieved_at": "2026-07-08T00:00:00Z",
+      "claim_supported": "Williamson Health board chair confirmed unanimous vote; $950M figure cited for deal value; Ascension beat competing bids from HCA Healthcare and Optum."
+    }
+  ]
+}
