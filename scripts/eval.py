@@ -1467,6 +1467,18 @@ for drp in runs:
                     if isnum(rr) and (worst>ep if short else ep>worst):
                         crr=((ep-pwt)/(worst-ep)) if short else ((pwt-ep)/(ep-worst))
                         if abs(rr-crr)>max(0.15,abs(crr)*0.12): okM=False; det.append(f"risk_reward={rr} != calc={round(crr,2)}")
+                # downside_risk_pct completes the §10 triple (expected_return ✓, risk_reward ✓): it is the
+                # worst-case (bear) position return, negated to a downside magnitude — downside = −min(scenario
+                # return_pct) = (entry − bear_price)/entry. return_pct is already position-signed (a short's
+                # winning case is +ve), so min() is the worst case for BOTH long and short — no separate short
+                # branch. Verified vs the EMAR committed run (published −63.9 == −min(180.3,127.0,63.9)).
+                # Needs no price targets (works in returns-only mode); sign-flip guarded like the ER check.
+                dr=d.get("downside_risk_pct")
+                if isnum(dr) and rets:
+                    cdr=-min(rets)
+                    _drflip=(abs(dr)>0.25 and abs(cdr)>0.25 and (dr>0)!=(cdr>0))
+                    if abs(dr-cdr)>max(1.0,abs(cdr)*0.05) or _drflip:
+                        okM=False; det.append(f"downside_risk_pct={dr} != −min(scenario return)={round(cdr,2)}")
             except Exception as e:
                 okM=False; det.append(f"scenario parse error: {e}")
             add("M_scenario_math", okM, "; ".join(det) or "prob sum=100; expected_return=Sum(p*ret); target & risk/reward reconcile")
