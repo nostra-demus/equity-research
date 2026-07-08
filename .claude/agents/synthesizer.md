@@ -236,9 +236,9 @@ You must check:
 
    `Risk/Reward = (Probability-Weighted Target Price − Current Price) / (Current Price − Bear Case Price)`
 
-6. Downside risk must be computed explicitly — the loss to the worst-case (bear) scenario, as a % of the current price:
+6. Downside risk must be computed explicitly — the loss in the worst-case (bear) scenario, as a position-signed return:
 
-   `Downside Risk = (Current Price − Bear Case Price) / Current Price` — equivalently, the negative of the worst-case scenario return, `−min(scenario return %)`. Positive means the price falls that far to reach the bear; negative means the bear case sits ABOVE the current price (an all-upside setup, e.g. a deep-value name). This is the `downside_risk_pct` field, and the eval harness re-derives it from `scenarios[]` (check M), so it must tie.
+   `Downside Risk = −min(scenario return %)` — read the return as **position-signed** so it is correct for a long AND a short. For a **long** this equals `(Current Price − Bear Case Price) / Current Price` (the price falls to reach the bear). For a **short** the adverse case is the price *rising*, so take the position return directly — do NOT apply the long price formula, which flips the sign (a short with entry 100 and an adverse target of 130 has downside **+30%**, not −30%). Positive means real downside to the worst case; negative means the worst case still sits in your favour (an all-upside setup, e.g. a deep-value long). This is the `downside_risk_pct` field, and the eval harness re-derives it from `scenarios[]` as `−min(return_pct)` (check M), so it must tie.
 
 7. If the current price is missing, do not fake precision. Use returns only, or ask for current price.
 

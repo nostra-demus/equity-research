@@ -1474,11 +1474,18 @@ for drp in runs:
                 # branch. Verified vs the EMAR committed run (published −63.9 == −min(180.3,127.0,63.9)).
                 # Needs no price targets (works in returns-only mode); sign-flip guarded like the ER check.
                 dr=d.get("downside_risk_pct")
-                if isnum(dr) and rets:
+                if rets:
                     cdr=-min(rets)
-                    _drflip=(abs(dr)>0.25 and abs(cdr)>0.25 and (dr>0)!=(cdr>0))
-                    if abs(dr-cdr)>max(1.0,abs(cdr)*0.05) or _drflip:
-                        okM=False; det.append(f"downside_risk_pct={dr} != −min(scenario return)={round(cdr,2)}")
+                    if not isnum(dr):
+                        # [review fix — Codex #186 thread 1] scenarios[] make downside derivable (= −min(return_pct),
+                        # price-free), and the synthesizer now REQUIRES downside_risk_pct be copied from the computed
+                        # math. A null value used to skip this subcheck (the old `isnum(dr)` guard) and still pass M
+                        # with the headline downside blank — now it FAILs, exactly like an omitted expected_return.
+                        okM=False; det.append(f"downside_risk_pct missing/null but derivable from scenarios = {round(cdr,2)}")
+                    else:
+                        _drflip=(abs(dr)>0.25 and abs(cdr)>0.25 and (dr>0)!=(cdr>0))
+                        if abs(dr-cdr)>max(1.0,abs(cdr)*0.05) or _drflip:
+                            okM=False; det.append(f"downside_risk_pct={dr} != −min(scenario return)={round(cdr,2)}")
             except Exception as e:
                 okM=False; det.append(f"scenario parse error: {e}")
             add("M_scenario_math", okM, "; ".join(det) or "prob sum=100; expected_return=Sum(p*ret); target & risk/reward reconcile")
