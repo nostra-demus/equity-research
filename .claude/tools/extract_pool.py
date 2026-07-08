@@ -1008,6 +1008,7 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None)
     }
     json.dump(manifest, open(os.path.join(out_dir, "manifest.json"), "w"), indent=2)
     open(os.path.join(out_dir, "manifest.md"), "w").write(_manifest_md(manifest))
+    _write_ciq_facts(data_path, out_dir)  # B3: deterministic CIQ facts sidecar, best-effort (never blocks extraction)
     if corpus_path:
         _write_corpus(out_dir, data_path, corpus_path)
 
@@ -1015,6 +1016,25 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None)
           f"-> {n_tabs} tab(s) | {n_written} extract(s) written | {n_fail} failure(s)")
     print(f"[extract_pool] manifest: {os.path.join(out_dir, 'manifest.md')}")
     return manifest
+
+
+def _write_ciq_facts(data_path, out_dir):
+    """B3 generation hook: emit ciq_facts.json (deterministic, source-bound CIQ numbers) next to
+    manifest.json. Wired HERE so the facts are produced automatically wherever the pool is built (every
+    00-triage's full extract), with no prompt change. Fully best-effort — a facts-layer failure (a missing
+    lib, a malformed workbook, a bug in a reader) must NEVER fail the pool extract. NO agent consumes it
+    yet; this only PUBLISHES the facts for verify-evidence + (later) the specialists to cite."""
+    try:
+        from pathlib import Path as _Path
+        from ciq_facts import build_facts  # same tools dir (on sys.path when run as a script)
+        ticker = os.path.basename(os.path.normpath(data_path))
+        facts = build_facts(_Path(data_path), ticker)
+        json.dump(facts, open(os.path.join(out_dir, "ciq_facts.json"), "w"), indent=2, default=str)
+        n_present = sum(1 for v in facts.get("facts", {}).values() if v.get("status") == "present")
+        print(f"[extract_pool] ciq_facts.json: {n_present} source-bound fact(s) "
+              f"({facts.get('concepts_resolved', 0)} CIQ concepts resolved)")
+    except Exception as e:  # noqa: BLE001 — best-effort; a facts failure must never fail extraction
+        print(f"[extract_pool] ciq_facts: skipped ({type(e).__name__}: {e})")
 
 
 def _manifest_md(m):
