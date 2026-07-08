@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import enum
 import json
+import math
 import re
 import statistics
 import sys
@@ -1045,10 +1046,30 @@ def shares_outstanding(bundle: ResolvedBundle) -> Sourced:
     got = _comps_subject_cell(bundle, "Financial Data", lambda c: "shares outstanding" in c)
     if isinstance(got, Sourced):
         return got
-    rows, _g, v = got
+    rows, g, v = got
+    # Units cross-check. The comps grid gives NO explicit units cell, but it carries Market Cap and Day Close
+    # Price on the SAME subject row, and Market Cap = Price × Shares with shares in the SAME (millions) unit as
+    # Market Cap. So a grid that states shares in thousands/actual (not millions) betrays itself as a clean
+    # power-of-10 gap vs market_cap ÷ price — snap it back, so a non-millions export can't publish a 1000x
+    # share count under the _m (millions) key and corrupt market cap and every ownership % (§15).
+    def _subj(pred: Callable[[str], bool]) -> float | None:
+        c = _comps_col(g, pred)
+        return clean_num(rows[g["subj"]][c]) if c is not None and c < len(rows[g["subj"]]) else None
+    unit_s = ""
+    mc, px = _subj(lambda c: "market cap" in c), _subj(lambda c: "day close price" in c)
+    # Guard the correction to an IMPLAUSIBLY large raw count (>100,000 mm = 100bn shares — above essentially
+    # every real company). This only rescales a clear thousands/actual export; a plausible count is never
+    # touched, so a mis-scaled Market Cap can't drag a CORRECT share count down (a genuinely large count like
+    # a 60bn-share bank still reconciles at scale 0 → also untouched). §24: never corrupt a right value.
+    if v and v > 100_000 and mc and px and px > 0:
+        implied = mc / px  # CIQ's own implied share count, in millions (Market Cap is millions, Price is actual)
+        scale = round(math.log10(v / implied)) if implied > 0 else 0
+        if abs(scale) >= 2 and abs(v / 10 ** scale - implied) <= 0.02 * implied:  # off by ≥100x AND the snap reconciles
+            v /= 10 ** scale
+            unit_s = f"; shares normalized ÷10^{scale} to millions (reconciled to CIQ market cap ÷ price)"
     asof = _comps_asof(rows)  # carry the as-of, like current_price: a share count compared against dated ownership needs its date
     asof_s = f" as-of {asof.isoformat()}" if asof else ""
-    return Sourced.present(round(v, 1), source_ref=f"CIQ Comps→Financial Data 'Shares Outstanding Latest' (subject row){asof_s}")
+    return Sourced.present(round(v, 1), source_ref=f"CIQ Comps→Financial Data 'Shares Outstanding Latest' (subject row){asof_s}{unit_s}")
 
 
 def current_price(bundle: ResolvedBundle) -> Sourced:

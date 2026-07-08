@@ -682,6 +682,45 @@ def test_comps_asof_forward(base: Path) -> None:
           ee2["status"] == "present" and "9.1x" in str(ee2["value"]) and "8.5x" in str(ee2["value"]), str(ee2))
 
 
+def test_shares_units_normalize(base: Path) -> None:
+    # §15 units guard. The comps grid has NO units cell, but Market Cap = Price × Shares on the same subject
+    # row, shares in millions. A grid that states shares in THOUSANDS (255,900 for a 255.9M-share company)
+    # must snap back to millions via market_cap ÷ price — else market cap and every ownership % is 1000x off.
+    d = base / "shares_units"
+    d.mkdir()
+    _wb(d / "Acme Comps.xlsx", {"Financial Data": [
+        ["As-Of Date", "Mar-31-2026"],
+        ["Company Name", "Day Close Price Latest", "Shares Outstanding Latest", "Market Capitalization Latest"],
+        ["Acme (NYSE:ACME)", 47.1, 255900.0, 12053.0],   # shares in THOUSANDS; mc ÷ px = 255.9 (millions)
+        ["Peer One (NYSE:P1)", 20.0, 100000.0, 2000.0]]})
+    so = F.build_facts(d, "ACME")["facts"]["shares_outstanding_m"]
+    check("shares stated in thousands are normalized to millions via market_cap ÷ price (255,900 → 255.9)",
+          so["status"] == "present" and abs(float(so["value"]) - 255.9) < 0.5 and "normalized" in (so["source_ref"] or ""), str(so))
+
+    # a CONSISTENT grid (shares already millions, reconciles with mc ÷ px) is left UNTOUCHED — no false correction.
+    d2 = base / "shares_ok"
+    d2.mkdir()
+    _wb(d2 / "Acme Comps.xlsx", {"Financial Data": [
+        ["As-Of Date", "Mar-31-2026"],
+        ["Company Name", "Day Close Price Latest", "Shares Outstanding Latest", "Market Capitalization Latest"],
+        ["Acme (NYSE:ACME)", 47.1, 255.9, 12053.0]]})
+    so2 = F.build_facts(d2, "ACME")["facts"]["shares_outstanding_m"]
+    check("consistent shares (already millions) are NOT altered (no false units correction)",
+          so2["status"] == "present" and abs(float(so2["value"]) - 255.9) < 0.05 and "normalized" not in (so2["source_ref"] or ""), str(so2))
+
+    # GUARD: a plausible (correct) share count must survive even when Market Cap itself is mis-scaled — the
+    # correction fires ONLY on an implausibly-large raw count, so it can never drag a right value down.
+    d3 = base / "shares_mc_bad"
+    d3.mkdir()
+    _wb(d3 / "Acme Comps.xlsx", {"Financial Data": [
+        ["As-Of Date", "Mar-31-2026"],
+        ["Company Name", "Day Close Price Latest", "Shares Outstanding Latest", "Market Capitalization Latest"],
+        ["Acme (NYSE:ACME)", 47.1, 255.9, 12.053]]})   # shares CORRECT (255.9mm); Market Cap mis-scaled to billions
+    so3 = F.build_facts(d3, "ACME")["facts"]["shares_outstanding_m"]
+    check("a plausible share count is NEVER rescaled by a mis-scaled Market Cap (255.9 stays 255.9)",
+          so3["status"] == "present" and abs(float(so3["value"]) - 255.9) < 0.05 and "normalized" not in (so3["source_ref"] or ""), str(so3))
+
+
 def test_ltm_quarter_guard(base: Path) -> None:
     # A quarterly-ONLY financials export (no annual sibling, no _Annual token) served to an annual request
     # must NEVER publish its single-quarter EBITDA/OCF/levered-FCF under an 'ltm_' key — a 4x period error
@@ -786,6 +825,7 @@ def main() -> int:
         test_comps_foreign_subject(d)
         test_comps_p2(d)
         test_comps_asof_forward(d)
+        test_shares_units_normalize(d)
         print("== legacy .xls (xlrd) fact chain ==")
         test_xls_fact_chain()
         print("== reported currency (not USD) ==")
