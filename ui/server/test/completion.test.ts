@@ -319,5 +319,23 @@ const { thesisPlan, carryForwardModules, dataPoolNewest } = await import('../src
   console.log('✅ a carried module keeps its true vintage and can still go stale')
 }
 
+// ---- 14. a subject can never steer a path out of its tree ----------------------------------------
+{
+  // `TICKER_RE` admits `.` and `-`, so the regex alone is not a path barrier. Every path in this module is
+  // built from `safeSubjectSegment`, which proves the name is ONE segment with no separator or traversal.
+  const hostile = ['..', '.', '../..', 'A/../../etc', 'A/B', '..\\..', '']
+  for (const bad of hostile) {
+    assert.throws(() => thesisPlan(bad), /bad subject/, `thesisPlan must reject ${JSON.stringify(bad)}`)
+    assert.throws(() => carryForwardModules(bad, ['alpha']), /bad subject/, `carryForwardModules must reject ${JSON.stringify(bad)}`)
+    assert.throws(() => dataPoolNewest(bad), /bad subject/, `dataPoolNewest must reject ${JSON.stringify(bad)}`)
+  }
+  // …while a real symbol with legal punctuation still works (Indian/NSE style).
+  write(`analyses/RELIANCE.NS_${YESTERDAY}/alpha/99_alpha-synthesis.md`, '# a\n')
+  const ok = thesisPlan('RELIANCE.NS')
+  assert.equal(ok.subject, 'RELIANCE.NS')
+  assert.deepEqual(ok.reuse, ['alpha'], 'a dotted symbol is a normal subject, not a traversal')
+  console.log('✅ hostile subjects are rejected; legal dotted symbols still work')
+}
+
 fs.rmSync(REPO, { recursive: true, force: true })
 console.log('\nall completion tests passed')

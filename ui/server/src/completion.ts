@@ -40,7 +40,7 @@ import { ANALYSES_DIR, DATA_DIR, REPO_ROOT } from './config'
 import { chainedResumePreflight, estimate } from './launcher'
 import { runManifest } from './outputs'
 import { buildSwarmGraph, findRunRootForSubject, terminalModuleName } from './roster'
-import { isValidTicker, resolveInsideAnalyses, resolveInsideRuns } from './sandbox'
+import { resolveInsideAnalyses, resolveInsideRuns, safeSubjectSegment } from './sandbox'
 import { RESEARCH_SWARM_ID, runRootForSubject, swarmById } from './swarms'
 import type { LaunchPreflight } from './types'
 
@@ -185,7 +185,9 @@ function foldersWithModule(folders: { runRoot: string; date: string }[], module:
  *  mtimes are never rewritten by a checkout or a rebase — they are the one durable freshness signal we
  *  have. Returns the local calendar date, which is what run folders are named by. */
 export function dataPoolNewest(ticker: string, dataDir: string = DATA_DIR): { files: number; newestDate: string | null } {
-  const root = path.join(dataDir, ticker)
+  // `ticker` reaches here from a query string. Reduce it to a proven single path segment before it touches
+  // the filesystem — otherwise `dataPoolNewest('..')` walks the whole repo on a blocking stat.
+  const root = path.join(dataDir, safeSubjectSegment(ticker))
   let files = 0
   let newestMs = 0
   const walk = (dir: string, depth: number): void => {
@@ -237,15 +239,20 @@ export function thesisPlan(subject: string, swarmId: string = RESEARCH_SWARM_ID,
   const graph = buildSwarmGraph(swarmId)
   const isResearch = swarmId === RESEARCH_SWARM_ID
 
+  // Every path below is built from `safe`, never from the raw `subject` string that arrived on a query
+  // string. `safeSubjectSegment` proves it is one path segment with no separator and no traversal, so no
+  // amount of `..`/`/` in the request can steer a readdir, a stat, or a write out of its intended tree.
+  const safe = safeSubjectSegment(subject)
+
   // Where a completion writes. Research: today's dated folder — the one BOTH full-run paths seed their
   // skip-set from. Any other swarm: its single stable per-subject folder.
   const targetRunRoot = isResearch
-    ? `analyses/${subject}_${todayDate()}`
-    : (swarm && runRootForSubject(swarm, subject)) || `analyses/${subject}`
+    ? `analyses/${safe}_${todayDate()}`
+    : (swarm && runRootForSubject(swarm, safe)) || `analyses/${safe}`
 
   const targetAbs = path.join(REPO_ROOT, targetRunRoot)
-  const pool = dataPoolNewest(subject)
-  const dated = isResearch ? datedRunFoldersFor(subject) : []
+  const pool = dataPoolNewest(safe)
+  const dated = isResearch ? datedRunFoldersFor(safe) : []
 
   const modules: ModulePlanEntry[] = []
   const mustReuse: string[] = []
@@ -256,7 +263,7 @@ export function thesisPlan(subject: string, swarmId: string = RESEARCH_SWARM_ID,
     const candidates = isResearch
       ? foldersWithModule(dated, m.name)
       : (() => {
-          const root = findRunRootForSubject(swarmId, subject)
+          const root = findRunRootForSubject(swarmId, safe)
           if (!root) return []
           const rel = path.relative(REPO_ROOT, root)
           return fs.existsSync(path.join(root, m.name)) ? [{ runRoot: rel, date: '' }] : []
@@ -352,7 +359,7 @@ export function thesisPlan(subject: string, swarmId: string = RESEARCH_SWARM_ID,
 
   return {
     swarm: swarmId,
-    subject,
+    subject: safe,
     targetRunRoot,
     complete,
     finalReportPath,
@@ -368,8 +375,8 @@ export function thesisPlan(subject: string, swarmId: string = RESEARCH_SWARM_ID,
     // returns a single band calibrated on one research run, with no swarm branch. So for a non-research swarm
     // these are research-derived numbers scaled by orb count — which is why the panel does not show a price
     // for a swarm it cannot launch (canCarry === false). Do not present them as that swarm's cost.
-    preflight: chainedResumePreflight(subject, run, swarmId),
-    fullPreflight: estimate('full', subject, undefined, undefined, isResearch ? undefined : swarmId),
+    preflight: chainedResumePreflight(safe, run, swarmId),
+    fullPreflight: estimate('full', safe, undefined, undefined, isResearch ? undefined : swarmId),
     canCarry,
   }
 }
@@ -431,9 +438,9 @@ re-run the module rather than ageing its conclusions forward.
  *  `modules` is the caller's REUSE set. Whatever is carried gets skipped by the subsequent full run;
  *  whatever is not carried gets run. That is the whole control surface — the carry set IS the reuse set. */
 export function carryForwardModules(subject: string, modules: string[], swarmId: string = RESEARCH_SWARM_ID, precomputed?: ThesisPlan): CarryResult {
-  // Validate BEFORE any mkdir: the target root is built from `subject`, so a traversal in it must never
-  // reach the filesystem. `isValidTicker` (not the bare TICKER_RE, which admits "..") is the repo's gate.
-  if (!isValidTicker(subject)) throw new Error('bad subject')
+  // Reduce to a proven single path segment BEFORE any mkdir — the target root is built from it, so a
+  // separator or a traversal component must never reach the filesystem. Throws on anything else.
+  const safe = safeSubjectSegment(subject)
 
   // Act on the caller's plan when it has one. The route validates `reuse` against a plan it already read; if
   // we re-read disk here, a module finishing in that window makes us carry work the route never approved (or
@@ -442,7 +449,7 @@ export function carryForwardModules(subject: string, modules: string[], swarmId:
   // `precomputed` must have been built with THIS `modules` set as its reuse override, so that a knowingly-kept
   // stale module is carriable. Anything not backed by a finished synthesis on disk was already dropped by
   // `thesisPlan` — a caller can never smuggle in a module that does not exist.
-  const plan = precomputed ?? thesisPlan(subject, swarmId, modules)
+  const plan = precomputed ?? thesisPlan(safe, swarmId, modules)
   if (!plan.canCarry) return { carried: [], skipped: [...modules] }
 
   const carriable = new Map(plan.carry.map((c) => [c.module, c]))
@@ -465,7 +472,11 @@ export function carryForwardModules(subject: string, modules: string[], swarmId:
       skipped.push(module)
       continue
     }
-    const dstAbs = path.join(targetAbs, module)
+    // Build paths from the PLAN's own strings, never the caller's. `c.module` came from the discovered
+    // agent graph and `c.from` from a directory listing, so neither is attacker-controlled — the caller's
+    // `module` string is only ever used to look up this entry.
+    const name = c.module
+    const dstAbs = path.join(targetAbs, name)
 
     // A FINISHED module in the target root is left exactly as-is (that's `mustReuse`, never in `carry`).
     // But a PARTIAL folder — the leftover of an interrupted run, which is the very case this feature exists
@@ -474,16 +485,16 @@ export function carryForwardModules(subject: string, modules: string[], swarmId:
     // 99 synthesis in the run root) failed and re-ran it at full cost.
     const replacedPartial = fs.existsSync(dstAbs)
 
-    const srcAbs = path.join(REPO_ROOT, c.from, module)
+    const srcAbs = path.join(REPO_ROOT, c.from, name)
     // Stage OUTSIDE the run root, then rename in. Two reasons a `.carry-*` dir must never sit inside the run
     // root: `runManifest` enumerates every subdirectory as a module (a crash mid-copy would mint a phantom
     // module orb, and `/research:full` would dispatch a paid memo-writer against it), and `commit-run.sh`
     // stages the run root wholesale. The unique suffix keeps two concurrent requests off each other's tree.
-    const tmpAbs = path.join(ANALYSES_DIR, `.carry-${subject}-${module}-${process.pid}-${carrySeq++}`)
+    const tmpAbs = path.join(ANALYSES_DIR, `.carry-${safe}-${name}-${process.pid}-${carrySeq++}`)
     try {
       fs.rmSync(tmpAbs, { recursive: true, force: true })
       copyDir(srcAbs, tmpAbs)
-      fs.writeFileSync(path.join(tmpAbs, CARRY_MARKER), carryNote(module, c.from, c.date, plan.targetRunRoot, replacedPartial), 'utf8')
+      fs.writeFileSync(path.join(tmpAbs, CARRY_MARKER), carryNote(name, c.from, c.date, plan.targetRunRoot, replacedPartial), 'utf8')
       // Swap into place. The complete module supersedes any unfinished copy; the SOURCE folder is untouched,
       // so nothing finished is ever destroyed — only unfinished work in TODAY's root is replaced.
       if (replacedPartial) fs.rmSync(dstAbs, { recursive: true, force: true })
@@ -492,7 +503,7 @@ export function carryForwardModules(subject: string, modules: string[], swarmId:
       // A throw anywhere above (ENOSPC, EXDEV, a mid-copy kill) must not leave the staging tree behind.
       fs.rmSync(tmpAbs, { recursive: true, force: true })
     }
-    carried.push({ module, from: c.from })
+    carried.push({ module: name, from: c.from })
   }
   return { carried, skipped }
 }
