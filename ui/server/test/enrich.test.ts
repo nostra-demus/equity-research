@@ -79,6 +79,48 @@ await check('bestFallbackSummary: a bodyless filing goes straight to the determi
   const out = bestFallbackSummary('', '', { headline: 'ACME LTD: Outcome of Board Meeting', input_nature: 'exchange_announcement', source_tier: 'primary_filing', domain: 'www.bseindia.com', url: 'https://www.bseindia.com/x.pdf' }, true)
   assert.ok(/ACME LTD/i.test(out) && /Board Meeting/i.test(out), `filing floor should restate the disclosure, got: ${out}`)
 })
+// ---- the Adani-QIP defect: a BSE/NSE- or PDF-attachment filing whose PDF read but the LLM missed. The
+// document opening we hold is cover-page LETTERHEAD (address / CIN / phone / scrip codes), longer and
+// prose-like — the old "longest wins" ranking surfaced THAT over the parsed subject. filingIsAttachment=true
+// (the disclosure is a BSE/NSE or PDF attachment) must force the headline floor.
+await check('bestFallbackSummary: an attachment-filing letterhead lede never outranks the headline floor', () => {
+  const letterhead =
+    'Adani Enterprises Limited Am Shantigram, Near Vaishno Devi Circle, S. G. Highway, Khodiyar Ahmedabad 382421 Gujarat, ' +
+    'India Tel +91 79 2656 5555 Fax +91 79 2555 5500 investor.ael@adani.com www.adanienterprises.com CIN L51100GJ1993PLC019067 ' +
+    'Registered Office BSE Limited P J Towers, Dalal Street, Mumbai 400001 Scrip Code 512599 Scrip Code ADANIENT'
+  const filingInput = {
+    headline: 'Adani Enterprises Ltd: Allotment of Equity Share to Eligible Qualified Institutional Investors',
+    input_nature: 'exchange_announcement', source_tier: 'primary_filing', domain: 'www.bseindia.com',
+    url: 'https://www.bseindia.com/xml-data/corpfiling/AttachLive/abc123.pdf',
+  }
+  const out = bestFallbackSummary('', letterhead, filingInput, false, true) // not bodyless (PDF read), but a BSE attachment filing
+  assert.ok(/Adani Enterprises Ltd/i.test(out), `names the issuer, got: ${out}`)
+  assert.ok(/Allotment of Equity Share/i.test(out), `carries the headline disclosure subject, got: ${out}`)
+  assert.ok(!/CIN|Dalal Street|Vaishno Devi|Fax|2656 5555|Scrip Code/i.test(out), `letterhead boilerplate leaked into the story: ${out}`)
+})
+// ---- scoping guard #1: the fix must NOT over-floor a NON-attachment filing whose document opens with real
+// content. An ASX announcement (filingIsAttachment=false — fetched via documentKey, not a BSE/NSE or .pdf
+// URL) whose PDF opens with the actual announcement must still lead with that content, not the terse floor.
+await check('bestFallbackSummary: a non-attachment filing document (ASX-style, substantive opening) still leads with its real content', () => {
+  const asxDoc =
+    'For personal use only Triton Minerals said completion of the sale of its Mozambique graphite assets did not ' +
+    'occur on 1 July 2026 because NQM failed to take the required steps, and Triton has issued a default notice.'
+  const out = bestFallbackSummary('', asxDoc, { headline: 'TON: Completion delay and issue of default notice', input_nature: 'exchange_announcement', source_name: 'ASX (Australia Exchange Filing)', domain: 'www.asx.com.au' }, false, false)
+  // assert on tokens that appear ONLY in the document body, never in the headline-derived floor — so a
+  // regression that wrongly floored this would FAIL here (the floor's "Subject — …default notice" would pass
+  // a laxer check even though the real content was lost).
+  assert.ok(/Mozambique|graphite|NQM|completion of the sale/i.test(out), `the real document content should win, got: ${out}`)
+})
+// ---- scoping guard #2: the fix must NOT over-floor a regulator PRESS RELEASE — a readable ARTICLE whose
+// real page prose (filingIsAttachment=false) must still win over the terse headline floor, even though the
+// item is classified a filing (input_nature: regulatory_filing → isFilingEvent true).
+await check('bestFallbackSummary: a readable regulator press release (not an attachment filing) still leads with its real prose', () => {
+  const pressHtml =
+    '<html><body><p>The Financial Conduct Authority fined Acme Bank 5 million pounds for anti-money-laundering ' +
+    'failures between 2019 and 2022, citing weak transaction monitoring and inadequate staff training.</p></body></html>'
+  const out = bestFallbackSummary(pressHtml, '', { headline: 'FCA fines Acme Bank', input_nature: 'regulatory_filing', source_name: 'FCA', domain: 'www.fca.org.uk' }, false, false)
+  assert.ok(/5 million pounds|anti-money-laundering/i.test(out), `the real page prose should win, got: ${out}`)
+})
 
 // ---- e2e harness: a temp repo + state dir, an in-firehose event, a controllable LLM provider ----
 // Use REAL time so the cache's freshness checks (which compare against Date.now()) behave as in production,
@@ -463,6 +505,45 @@ await check('INCIDENT 1 floor: when the filing PDF is unreadable, the story fall
   assert.ok(r.summary && /completion delay|default notice/i.test(r.summary), `floor restates the disclosure, got: ${r.summary}`)
   assert.ok(!/verification link|agree and proceed|terms of use/i.test(r.summary || ''), 'interstitial text never leaks into the floor')
   assert.equal(r.published, undefined, 'no stale meta date')
+})
+
+// The Adani-QIP defect, end-to-end: a BSE exchange filing whose PDF document READS (so it is NOT bodyless —
+// the old `if (bodylessFiling) return floor` early-out does not fire) but the LLM body read MISSES (returns
+// no usable brief). The document opening we hold is the cover-page letterhead (registered address, CIN,
+// phone/fax, scrip codes); the old "longest substantial prose wins" fallback surfaced THAT as THE STORY.
+// The fix: a filing-document lede can never outrank the headline-derived floor — so the clean parsed subject
+// stands, and none of the letterhead leaks.
+await check('INCIDENT 1 / Adani-QIP e2e: a filing whose PDF read but the LLM missed falls to the clean headline floor, never the letterhead', async () => {
+  const PDF_URL = 'https://www.bseindia.com/xml-data/corpfiling/AttachLive/adani-qip.pdf'
+  const ADANI_EVENT_ID = 'EVT-test-adani-qip'
+  const { repoRoot, stateDir } = tmpRepoItems([{
+    event_id: ADANI_EVENT_ID,
+    headline: 'Adani Enterprises Ltd: Allotment of Equity Share to Eligible Qualified Institutional Investors',
+    url: PDF_URL, source_name: 'BSE / NSE Exchange Filing', region: 'IN',
+    input_nature: 'exchange_announcement',
+    companies: [{ name: 'Adani Enterprises Ltd', ticker: 'ADANIENT' }], event_types: ['capital_actions'],
+  }])
+  // the PDF's own opening — pure cover-page letterhead, exactly what leaked in the reported screenshot
+  const LETTERHEAD = [
+    'Adani Enterprises Limited Am Shantigram, Near Vaishno Devi Circle, S. G. Highway, Khodiyar Ahmedabad 382421 Gujarat India',
+    'Tel +91 79 2656 5555 Fax +91 79 2555 5500 investor.ael@adani.com www.adanienterprises.com CIN L51100GJ1993PLC019067',
+    'Registered Office BSE Limited P J Towers, Dalal Street, Mumbai 400001 Scrip Code 512599 Scrip Code ADANIENT',
+    'Sub Qualified institutions placement of equity shares of face value 1 each by Adani Enterprises Limited',
+  ]
+  const MISS_BRIEF: ArticleBrief = { gist: [], companies: [], beneficiaries: [], exposed: [], theme: 'capital_actions' } // the LLM read produced nothing usable
+  const fetchFn = (async (input: any, init?: any) => {
+    const url = String(input?.url || input)
+    if (url.includes('/chat/completions')) {
+      return new Response(JSON.stringify({ choices: [{ message: { content: JSON.stringify(MISS_BRIEF) }, finish_reason: 'stop' }], usage: { total_tokens: 120 } }), { status: 200, headers: { 'content-type': 'application/json' } })
+    }
+    if (url.startsWith(PDF_URL)) return new Response(tinyPdf(LETTERHEAD), { status: 200, headers: { 'content-type': 'application/pdf' } })
+    return new Response('should not be fetched', { status: 404 })
+  }) as typeof fetch
+  const r = await enrichEvent({ event_id: ADANI_EVENT_ID }, { repoRoot, stateDir, force: true, articleProviders: [PROVIDER], fetchFn })
+  assert.ok(!r.gist?.length, 'no fabricated gist from a letterhead-only read')
+  assert.ok(r.summary && /Adani Enterprises Ltd/i.test(r.summary), `names the issuer, got: ${r.summary}`)
+  assert.ok(r.summary && /Allotment of Equity Share|Qualified Institutional/i.test(r.summary), `carries the disclosure subject, got: ${r.summary}`)
+  assert.ok(!/CIN|Dalal Street|Vaishno Devi|Fax|2656 5555/i.test(r.summary || ''), `letterhead leaked as THE STORY: ${r.summary}`)
 })
 
 await check('INCIDENT 1 non-filing page: a consent interstitial on ANY site yields the floor + an honest note, no junk, no stale date', async () => {

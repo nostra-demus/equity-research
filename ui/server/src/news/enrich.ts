@@ -520,10 +520,25 @@ function ttlFor(r: EventEnrichment): number {
 /** When the LLM read isn't available, show the MOST substantial real text we already hold — not whatever
  *  comes first. The og:description is frequently a vague marketing dek ("there's one theme you can't
  *  ignore"); the RSS lede is frequently the real opening paragraph. Prefer the longest genuine prose of the
- *  two, falling back to the deterministic story floor. (A filing has no readable body → straight to floor.) */
-export function bestFallbackSummary(pageHtml: string, snippet: string, filingInput: StoryFloorInput, bodylessFiling: boolean): string {
+ *  two, falling back to the deterministic story floor. (A filing has no readable body → straight to floor.)
+ *
+ *  filingIsAttachment = the disclosure is a BSE/NSE or PDF/exchange ATTACHMENT (not a fetchable article
+ *  page). Its document opens with cover-page letterhead — the issuer's registered address, CIN, phone/fax,
+ *  website, scrip codes — NEVER the disclosure, yet it is long and prose-like, so the "longest genuine prose
+ *  wins" ranking below would surface THAT boilerplate over the parsed subject (the Adani-QIP defect). For
+ *  these filings the meaning lives in the HEADLINE (story-floor.ts / §27), and the document already got its
+ *  shot via the LLM body read; on a miss, a deterministic re-parse of a cover page the LLM couldn't
+ *  summarise won't beat the headline floor. So an attachment-filing lede never outranks the floor.
+ *  Deliberately NOT keyed on merely "we read a document": an ASX announcement (fetched via its documentKey,
+ *  and whose PDF opens with the real announcement text, not letterhead) has filingIsAttachment=false, so its
+ *  genuine content still competes — as does a regulator PRESS RELEASE (a readable article, no document). */
+export function bestFallbackSummary(pageHtml: string, snippet: string, filingInput: StoryFloorInput, bodylessFiling: boolean, filingIsAttachment = false): string {
   const floor = storyFloor(filingInput).summary
   if (bodylessFiling) return floor
+  // A BSE/NSE- or PDF-attachment filing → the document opening we hold is cover-page letterhead, so the
+  // headline-derived floor is the authoritative best; the raw cover page must never win. (isFilingEvent is a
+  // belt-and-braces guard — the attachment signal already implies a filing.)
+  if (filingIsAttachment && isFilingEvent(filingInput)) return floor
   // the real article prose (extractReadable) is preferred over the often-vague og:description dek — so a
   // fetched page shows its genuine opening even when no LLM was available to summarise it.
   const readable = pageHtml ? extractReadable(pageHtml) : ''
@@ -1051,15 +1066,18 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
       // the brief was read from the filing document itself — label the provenance so the reader knows
       // the story is the announcement's own words, not the (interstitial) page around it (§3/§5)
       if (docText && docRef) result.read_from = { kind: 'filing_doc', url: docRef.docUrl }
-      // read succeeded but produced no gist bullets → back it with the most substantial text we hold, never blank
-      if (!brief!.gist.length) result.summary = bestFallbackSummary(fallbackHtml, fallbackLede, filingInput, bodylessNoDoc)
+      // read succeeded but produced no gist bullets → back it with the most substantial text we hold, never blank.
+      // For a BSE/NSE- or PDF-attachment filing the document opening is cover-page letterhead, which must never
+      // outrank the headline floor (see bestFallbackSummary); pass that signal, NOT merely "we read a document"
+      // (an ASX doc opens with the real announcement, not letterhead — its content must still compete).
+      if (!brief!.gist.length) result.summary = bestFallbackSummary(fallbackHtml, fallbackLede, filingInput, bodylessNoDoc, bodylessFiling)
     } else {
       // NO readable body (a PDF/attachment filing, a JS shell, a paywall, an off-list link) OR the LLM read
       // momentarily missed. Guarantee a meaningful, accurate THE STORY rather than a raw fetch error — and
       // prefer the MOST substantial real text we hold (the filing document's opening, else the RSS lede over
       // the vague og:description dek), then the deterministic floor (never empty, never fabricated). The raw
       // fetch reason is demoted to a hint.
-      result.summary = bestFallbackSummary(fallbackHtml, fallbackLede, filingInput, bodylessNoDoc)
+      result.summary = bestFallbackSummary(fallbackHtml, fallbackLede, filingInput, bodylessNoDoc, bodylessFiling)
       if (fetchNote) result.note = fetchNote
     }
 
