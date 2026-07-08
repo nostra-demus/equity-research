@@ -1248,10 +1248,12 @@ export const useStore = create<State>((set, get) => ({
     } catch (e: any) {
       // Tell "there is no thesis yet" (404) apart from "we could not ask" (500, timeout, tunnel drop). Only
       // the first means the thesis is unbuilt. Showing a completion plan for the second would turn a failed
-      // request into a confident answer — and invite the user to pay for a run they may not need.
+      // request into a confident answer — and invite the user to pay for a run they may not need. A fetch
+      // timeout/network drop carries NO status at all (undefined) — that is not proof of a 404 either, so
+      // it must fail the same way an explicit 500 does, not fall through as if the thesis were missing.
       const status = e?.status as number | undefined
-      if (status !== undefined && status !== 404) {
-        get().setToast({ msg: `Couldn’t check this run’s output — the engine returned ${status}.`, tone: 'bad' })
+      if (status !== 404) {
+        get().setToast({ msg: status === undefined ? 'Couldn’t reach the engine to check this run’s output.' : `Couldn’t check this run’s output — the engine returned ${status}.`, tone: 'bad' })
         return
       }
       // No final deliverable yet. "No final thesis yet" was true and useless — worse, it hid the fact that
@@ -1270,6 +1272,11 @@ export const useStore = create<State>((set, get) => ({
     if (!t) { get().setToast({ msg: 'Select a company first', tone: 'info' }); return }
     if (get().staticMode) { get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' }); return }
     const sw = get().constellationSwarm
+    // Bump the price-request generation on every (re)open, not just on each toggle. Without this, a reprice
+    // still in flight when the panel closes can resolve AFTER the panel is reopened (same ticker) and land
+    // a stale override on top of the fresh disk snapshot just loaded below — `seq !== thesisPriceSeq` alone
+    // can't catch that, since no toggle happened in the new session to advance the counter past it.
+    thesisPriceSeq++
     // thesisPlanPricing MUST be cleared here: a toggle whose re-price was still in flight when the panel
     // closed returns early and leaves it true, and nothing else resets it — which would leave the Run button
     // permanently disabled on every subsequent open (a dead button, the failure mode of the readiness gate).

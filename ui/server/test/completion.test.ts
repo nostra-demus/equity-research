@@ -88,7 +88,7 @@ const { thesisPlan, carryForwardModules, dataPoolNewest } = await import('../src
   assert.deepEqual(p.reusable, ['alpha'], 'alpha has a finished synthesis → reusable')
   assert.deepEqual(p.reuse, ['alpha'], 'alpha is reused, never re-run')
   assert.deepEqual(p.run, ['beta'], 'only the genuinely missing module runs')
-  assert.deepEqual(p.carry, [{ module: 'alpha', from: `analyses/ACME_${YESTERDAY}`, date: YESTERDAY }])
+  assert.deepEqual(p.carry, [{ module: 'alpha', from: `analyses/ACME_${YESTERDAY}`, date: YESTERDAY, copyFrom: `analyses/ACME_${YESTERDAY}` }])
   assert.equal(p.master.state, 'blocked')
   assert.deepEqual(p.master.blockedBy, ['beta'])
   assert.equal(p.complete, false)
@@ -357,6 +357,58 @@ const { thesisPlan, carryForwardModules, dataPoolNewest } = await import('../src
   assert.match(note, /knowingly kept despite newer data/i, 'the stamp discloses the knowing stale keep')
   assert.doesNotMatch(note, /gained no newer file/i, 'the stamp must not falsely claim currency for a stale keep')
   console.log('✅ a knowingly-kept stale module’s stamp discloses the override, never claims false currency')
+}
+
+// ---- 13d. rebuilding an upstream module forces its reuse-eligible downstream modules to rebuild too -----
+{
+  // beta depends_on alpha (the fixture graph). Both finished together in an older folder — completely
+  // reusable on their own. But asking to rebuild alpha (by NOT including it in the reuse override) must
+  // also force beta to rebuild: beta's carried synthesis read the OLD alpha, and reusing it verbatim
+  // alongside a freshly-rebuilt alpha would synthesize a thesis mixing evidence vintages.
+  write(`analyses/CASCADE_${YESTERDAY}/alpha/99_alpha-synthesis.md`, '# alpha\n')
+  write(`analyses/CASCADE_${YESTERDAY}/beta/99_beta-synthesis.md`, '# beta\n')
+  poolFile('CASCADE', 'filing.pdf', -3) // older than the run — neither module is stale
+
+  const base = thesisPlan('CASCADE')
+  assert.deepEqual(base.reuse, ['alpha', 'beta'], 'sanity: both are reusable and reused by default')
+
+  // The caller asks to keep ONLY beta — i.e. rebuild alpha.
+  const cascaded = thesisPlan('CASCADE', undefined, ['beta'])
+  assert.ok(!cascaded.reuse.includes('beta'), 'beta is forced back into the run set — its upstream is rebuilding')
+  assert.deepEqual(cascaded.run.sort(), ['alpha', 'beta'], 'both alpha (chosen) and beta (cascaded) run')
+  console.log('✅ rebuilding an upstream module cascades the rebuild to its reuse-eligible descendants')
+}
+
+// ---- 13e. carrying a module copies from where the bytes actually live, not the stamped true origin ------
+{
+  // Same shape as 13b (an intermediate folder that is itself a carried-forward copy), but this time the
+  // TRUE origin folder is GONE by the time we plan/carry — only the intermediate copy still exists on
+  // disk. The copy step must read from the intermediate (proven to exist), while the stamp it writes
+  // still records the deep true origin as the vintage of record.
+  const TRUE_ORIGIN = day(-2)
+  // NOTE: the true-origin folder is deliberately never written — it no longer exists on disk.
+  write(`analyses/PRUNEDORIGIN_${YESTERDAY}/alpha/01_alpha-thing.md`, '# a\n')
+  write(`analyses/PRUNEDORIGIN_${YESTERDAY}/alpha/99_alpha-synthesis.md`, '# alpha synthesis\n')
+  write(
+    `analyses/PRUNEDORIGIN_${YESTERDAY}/alpha/CARRIED_FORWARD.md`,
+    `<!-- carried-from: analyses/PRUNEDORIGIN_${TRUE_ORIGIN} | run-date: ${TRUE_ORIGIN} -->\n\n# Carried forward — alpha\n`,
+  )
+  poolFile('PRUNEDORIGIN', 'filing.pdf', -3)
+
+  const p = thesisPlan('PRUNEDORIGIN')
+  const alpha = p.modules.find((m) => m.module === 'alpha')!
+  assert.equal(alpha.sourceRunRoot, `analyses/PRUNEDORIGIN_${TRUE_ORIGIN}`, 'plan still reports the true (pruned) origin as provenance')
+  assert.equal(p.carry.length, 1)
+  assert.equal(p.carry[0].from, `analyses/PRUNEDORIGIN_${TRUE_ORIGIN}`, 'the stamp-facing "from" stays the true origin')
+
+  // Must not throw ENOENT: the copy reads from the intermediate folder, which genuinely exists.
+  const res = carryForwardModules('PRUNEDORIGIN', ['alpha'])
+  assert.deepEqual(res.carried, [{ module: 'alpha', from: `analyses/PRUNEDORIGIN_${TRUE_ORIGIN}` }])
+  const dst = path.join(REPO, `analyses/PRUNEDORIGIN_${TODAY}/alpha`)
+  assert.ok(fs.statSync(path.join(dst, '99_alpha-synthesis.md')).size > 0, 'copied successfully from the surviving intermediate folder')
+  const note = fs.readFileSync(path.join(dst, 'CARRIED_FORWARD.md'), 'utf8')
+  assert.match(note, new RegExp(`carried-from: analyses/PRUNEDORIGIN_${TRUE_ORIGIN}`), 'the new stamp still names the TRUE origin, not the intermediate copy')
+  console.log('✅ carrying a module copies from the surviving folder while the stamp keeps the true origin')
 }
 
 // ---- 14. a subject can never steer a path out of its tree ----------------------------------------

@@ -39,7 +39,7 @@ import path from 'node:path'
 import { ANALYSES_DIR, DATA_DIR, REPO_ROOT } from './config'
 import { chainedResumePreflight, estimate } from './launcher'
 import { runManifest } from './outputs'
-import { buildSwarmGraph, findRunRootForSubject, terminalModuleName } from './roster'
+import { buildSwarmGraph, findRunRootForSubject, terminalModuleName, transitiveDownstreamModules } from './roster'
 import { resolveInsideAnalyses, resolveInsideRuns, safeSubjectSegment } from './sandbox'
 import { RESEARCH_SWARM_ID, runRootForSubject, swarmById } from './swarms'
 import type { LaunchPreflight } from './types'
@@ -54,10 +54,16 @@ export type ModuleState =
 export interface ModulePlanEntry {
   module: string
   state: ModuleState
-  /** repo-relative folder holding the newest outputs for this module (absent when `missing`) */
+  /** the run this module's evidence truly dates to — read from the carry stamp when the newest
+   *  candidate is itself a carried-forward copy, so vintage is never laundered into a copy's date.
+   *  Provenance/display only — NOT necessarily a folder that still exists (see `copyFromRunRoot`). */
   sourceRunRoot?: string
   /** the run vintage — the `<DATE>` of `sourceRunRoot` (absent for a non-dated swarm root) */
   sourceDate?: string
+  /** the folder to physically COPY FROM — always the real, currently-existing candidate folder
+   *  (`finished.runRoot`), never a historical stamp target that may since have been pruned. Carrying
+   *  reads bytes from here but reports the vintage from `sourceDate`/`sourceRunRoot`. */
+  copyFromRunRoot?: string
   /** true when the newest outputs already live in the target run root (nothing to carry) */
   inTargetRoot: boolean
   doneAgents: number
@@ -88,8 +94,10 @@ export interface ThesisPlan {
   reuse: string[]
   /** modules this plan actually runs — the exact complement of `reuse` */
   run: string[]
-  /** modules that must be copied into the target root before the run (subset of `reuse`) */
-  carry: { module: string; from: string; date: string | null }[]
+  /** modules that must be copied into the target root before the run (subset of `reuse`). `from`/`date`
+   *  are the TRUE origin (provenance, written into the stamp); `copyFrom` is the folder actually read —
+   *  they can differ when the newest candidate is itself an intermediate carried-forward copy. */
+  carry: { module: string; from: string; date: string | null; copyFrom: string }[]
   master: { state: 'ready' | 'blocked' | 'done'; blockedBy: string[] }
   dataPool: { files: number; newestDate: string | null }
   /** cost/time of running ONLY the remaining work (what the Run button commits to) */
@@ -290,6 +298,9 @@ export function thesisPlan(subject: string, swarmId: string = RESEARCH_SWARM_ID,
         state: staleReason ? 'stale' : 'done',
         sourceRunRoot,
         sourceDate,
+        // Always the folder `foldersWithModule`/`hasSynthesis` just proved has the complete files RIGHT
+        // NOW — never the stamp's historical origin, which may have been pruned since.
+        copyFromRunRoot: finished.runRoot,
         inTargetRoot,
         doneAgents: countAgentOutputs(path.join(REPO_ROOT, finished.runRoot, m.name)),
         totalAgents,
@@ -324,9 +335,24 @@ export function thesisPlan(subject: string, swarmId: string = RESEARCH_SWARM_ID,
   const chosen = reuseOverride
     ? reuseOverride.filter((m) => reusableSet.has(m))
     : modules.filter((m) => m.state === 'done').map((m) => m.module)
+
+  // A module the caller chooses to REBUILD invalidates every module downstream of it (directly or
+  // transitively via depends_on): earnings depends on business-model, valuation/catalyst read prior
+  // module syntheses, and so on. Reusing a downstream module's carried conclusions would synthesize a
+  // thesis mixing fresh upstream evidence with an old downstream read of the PREVIOUS upstream output.
+  // Expand each rebuild through its descendants before finalizing what actually runs — `mustReuse` below
+  // still wins over this (a module already finished in today's root can never be forced to rebuild;
+  // that is a pre-existing, separately-surfaced limitation, not one this expansion can lift).
+  const rebuilding = modules.filter((m) => reusableSet.has(m.module) && !chosen.includes(m.module)).map((m) => m.module)
+  const forcedDownstream = new Set<string>()
+  for (const name of rebuilding) {
+    for (const d of transitiveDownstreamModules(graph, name)) forcedDownstream.add(d)
+  }
+  const chosenAfterCascade = chosen.filter((m) => !forcedDownstream.has(m))
+
   // `mustReuse` is not negotiable — the launcher skips those modules regardless. Fold them in so `run` is
   // exactly what will run, and the price on the button is exactly what the launcher will charge.
-  const reuseSet = new Set([...chosen, ...mustReuse])
+  const reuseSet = new Set([...chosenAfterCascade, ...mustReuse])
   const reuse = modules.filter((m) => reuseSet.has(m.module)).map((m) => m.module) // graph order, deduped
   const run = modules.filter((m) => !reuseSet.has(m.module)).map((m) => m.module)
 
@@ -335,8 +361,13 @@ export function thesisPlan(subject: string, swarmId: string = RESEARCH_SWARM_ID,
   const carry = canCarry
     ? reuse
         .map((name) => byName.get(name))
-        .filter((m): m is ModulePlanEntry => Boolean(m && !m.inTargetRoot && m.sourceRunRoot))
-        .map((m) => ({ module: m.module, from: m.sourceRunRoot!, date: m.sourceDate ?? null }))
+        .filter((m): m is ModulePlanEntry => Boolean(m && !m.inTargetRoot && m.copyFromRunRoot))
+        // `from`/`date`: the TRUE origin — what the stamp should say this evidence's vintage really is.
+        // `copyFrom`: the folder PROVEN (by `foldersWithModule`/`hasSynthesis` above) to physically hold
+        // the files right now — which is what the copy step must actually read from. They can differ
+        // when the newest candidate is itself an intermediate carried-forward copy whose true origin
+        // folder has since been pruned; copying from the (possibly missing) origin would fail outright.
+        .map((m) => ({ module: m.module, from: m.sourceRunRoot ?? m.copyFromRunRoot!, date: m.sourceDate ?? null, copyFrom: m.copyFromRunRoot! }))
     : []
 
   let complete = false
@@ -503,7 +534,11 @@ export function carryForwardModules(subject: string, modules: string[], swarmId:
     // 99 synthesis in the run root) failed and re-ran it at full cost.
     const replacedPartial = fs.existsSync(dstAbs)
 
-    const srcAbs = path.join(REPO_ROOT, c.from, name)
+    // Read bytes from `c.copyFrom` — the folder PROVEN to physically hold them right now — never from
+    // `c.from`, which is the TRUE-origin provenance for the stamp and may point at a folder that has
+    // since been pruned (the module then reads as "reusable" in the plan but a copy from `c.from` would
+    // ENOENT here).
+    const srcAbs = path.join(REPO_ROOT, c.copyFrom, name)
     // Stage OUTSIDE the run root, then rename in. Two reasons a `.carry-*` dir must never sit inside the run
     // root: `runManifest` enumerates every subdirectory as a module (a crash mid-copy would mint a phantom
     // module orb, and `/research:full` would dispatch a paid memo-writer against it), and `commit-run.sh`

@@ -708,11 +708,21 @@ app.get('/api/thesis-plan', { config: { rateLimit: { max: 600, timeWindow: '1 mi
 // on disk. A caller may knowingly keep a `stale` module (the panel unticks it explicitly), but can never
 // "reuse" a module that was never finished: there is nothing on disk to carry.
 app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '1 minute' } } }, async (req, reply) => {
+  // CSRF guard — this route launches a paid run and writes to disk from a plain POST, same class of
+  // non-preflighted write as /api/tickers and /api/chat (see originAllowed's own comment: the catch-all
+  // content-type parser means a cross-origin "simple request" reaches this handler without a preflight).
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
   const parsed = ThesisPlanRunBody.safeParse(req.body)
   if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
   const { ticker, reuse, swarm, confirmTicker } = parsed.data
   const { user, userVia } = identify(req)
   if (!isValidTicker(ticker)) return reply.code(400).send({ error: 'bad ticker' })
+  // Same closed allow-list /api/launch enforces before a research launch: membership in the data pool.
+  // Without it, a caller could drive a full paid run for a ticker with no data on disk at all — `launch()`
+  // itself does not re-check this for kind:'full', it is enforced at the route layer only.
+  if (isReservedDataFolder(ticker) || !fs.existsSync(path.join(DATA_DIR, ticker))) {
+    return reply.code(400).send({ error: `unknown ticker ${ticker}` })
+  }
 
   // Research-only, by POSITIVE match. `swarm` is REQUIRED (the client always sends it) so an omitted field can
   // never read as "research" — carry-forward assumes dated run folders, and `launch({kind:'full'})` below would
