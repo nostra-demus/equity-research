@@ -546,6 +546,44 @@ await check('INCIDENT 1 / Adani-QIP e2e: a filing whose PDF read but the LLM mis
   assert.ok(!/CIN|Dalal Street|Vaishno Devi|Fax|2656 5555/i.test(r.summary || ''), `letterhead leaked as THE STORY: ${r.summary}`)
 })
 
+// ---- HKEX regression (Codex review on #189): the letterhead-suppression must be scoped to the letterhead-
+// prone BSE/NSE HOST, NOT to every direct PDF. A DIRECT-PDF filing on ANOTHER exchange (HKEXnews) opens with
+// the REAL announcement, not a cover page (story-floor.ts / CLAUDE.md §27). When its PDF READS (so it is not
+// bodyless) but the LLM MISSES, the fallback must keep that real body — flooring it for a generic headline
+// would DISCARD the primary source (§4). Passing `bodylessFiling` (= BSE/NSE host OR any .pdf) as the
+// attachment signal wrongly caught this HKEX .pdf; the fix passes a host-scoped signal so it does not.
+// Expected value pinned to §4 (the filing document IS the primary source, floor is a last resort), NOT to
+// current code behaviour: the assertion keys on body-only tokens that never appear in the headline floor.
+await check('INCIDENT 1 / HKEX regression: a direct-PDF HKEX filing whose PDF read but the LLM missed keeps its real body, not the generic floor', async () => {
+  const HKEX_URL = 'https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0708/2026070800123.pdf'
+  const HKEX_EVENT_ID = 'EVT-test-hkex-pdf'
+  const { repoRoot, stateDir } = tmpRepoItems([{
+    event_id: HKEX_EVENT_ID,
+    headline: 'BYD Company Limited: Voluntary Announcement',
+    url: HKEX_URL, source_name: 'HKEXnews (HK Exchange Filing)', region: 'CN',
+    input_nature: 'exchange_announcement',
+    companies: [{ name: 'BYD Company Limited', ticker: '1211' }], event_types: ['operational_update'],
+  }])
+  // the PDF's own opening — a REAL HKEX announcement body (NOT cover-page letterhead). tinyPdf forbids parens.
+  const ANNOUNCEMENT = [
+    'BYD Company Limited announced that its new energy vehicle sales reached 500000 units in June 2026',
+    'a year on year increase of 35 percent driven by strong demand for its Dynasty and Ocean series overseas',
+  ]
+  const MISS_BRIEF: ArticleBrief = { gist: [], companies: [], beneficiaries: [], exposed: [], theme: 'operational_update' } // LLM read produced nothing usable
+  const fetchFn = (async (input: any) => {
+    const url = String(input?.url || input)
+    if (url.includes('/chat/completions')) {
+      return new Response(JSON.stringify({ choices: [{ message: { content: JSON.stringify(MISS_BRIEF) }, finish_reason: 'stop' }], usage: { total_tokens: 120 } }), { status: 200, headers: { 'content-type': 'application/json' } })
+    }
+    if (url.startsWith(HKEX_URL)) return new Response(tinyPdf(ANNOUNCEMENT), { status: 200, headers: { 'content-type': 'application/pdf' } })
+    return new Response('should not be fetched', { status: 404 })
+  }) as typeof fetch
+  const r = await enrichEvent({ event_id: HKEX_EVENT_ID }, { repoRoot, stateDir, force: true, articleProviders: [PROVIDER], fetchFn })
+  // tokens that appear ONLY in the document body, never in the headline-derived floor — so a regression that
+  // floored this real HKEX body FAILS here (the floor's "Subject — Voluntary Announcement" carries none of them).
+  assert.ok(r.summary && /new energy vehicle sales|500000 units|35 percent/i.test(r.summary), `the real HKEX announcement body should lead, got: ${r.summary}`)
+})
+
 await check('INCIDENT 1 non-filing page: a consent interstitial on ANY site yields the floor + an honest note, no junk, no stale date', async () => {
   const { repoRoot, stateDir } = tmpRepoItems([{
     event_id: 'EVT-test-interstitial',

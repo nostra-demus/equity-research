@@ -930,6 +930,13 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
   // release (FCA / SEC press / etc.) is a readable article — still read its body. So we skip the read
   // only for these, and let every other "filing" fall through to a normal body read.
   const bodylessFiling = filing && (/(^|\.)(bseindia|nseindia)\.com$/.test(host) || /\.(?:pdf|xlsx?|docx?|zip)(?:[?#]|$)/i.test(url))
+  // The cover-page LETTERHEAD that must never outrank the headline floor (the Adani-QIP defect) is a BSE/NSE
+  // phenomenon — page 1 is the issuer's registered address / CIN / scrip codes, not the disclosure. A direct
+  // PDF on ANOTHER exchange (HKEXnews / ASX FILE_LINK) opens with the REAL announcement, so only the Indian-
+  // exchange HOST is letterhead-prone. Scoping the attachment signal to the host (NOT every .pdf, which
+  // `bodylessFiling` also catches) keeps a successfully-read HKEX/other PDF body from being discarded for a
+  // generic headline floor — the floor is a last resort; the filing document is the primary source (§4).
+  const letterheadProneFiling = filing && /(^|\.)(bseindia|nseindia)\.com$/.test(host)
   // SEC item parsing applies ONLY to an actual EDGAR filing INDEX page — sec.gov press releases /
   // litigation bulletins are ordinary articles and fall through to the summary extractor.
   const isSec = /(^|\.)sec\.gov$/.test(host) && /\/Archives\/edgar\//i.test(url) && /-index\.html?($|[?#])/i.test(url)
@@ -1067,17 +1074,17 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
       // the story is the announcement's own words, not the (interstitial) page around it (§3/§5)
       if (docText && docRef) result.read_from = { kind: 'filing_doc', url: docRef.docUrl }
       // read succeeded but produced no gist bullets → back it with the most substantial text we hold, never blank.
-      // For a BSE/NSE- or PDF-attachment filing the document opening is cover-page letterhead, which must never
-      // outrank the headline floor (see bestFallbackSummary); pass that signal, NOT merely "we read a document"
-      // (an ASX doc opens with the real announcement, not letterhead — its content must still compete).
-      if (!brief!.gist.length) result.summary = bestFallbackSummary(fallbackHtml, fallbackLede, filingInput, bodylessNoDoc, bodylessFiling)
+      // For a BSE/NSE cover-page filing the document opening is letterhead, which must never outrank the headline
+      // floor (see bestFallbackSummary); pass the letterhead-prone signal (the Indian-exchange HOST), NOT every
+      // .pdf — an HKEX/ASX doc opens with the real announcement, not letterhead, so its content must still compete.
+      if (!brief!.gist.length) result.summary = bestFallbackSummary(fallbackHtml, fallbackLede, filingInput, bodylessNoDoc, letterheadProneFiling)
     } else {
       // NO readable body (a PDF/attachment filing, a JS shell, a paywall, an off-list link) OR the LLM read
       // momentarily missed. Guarantee a meaningful, accurate THE STORY rather than a raw fetch error — and
       // prefer the MOST substantial real text we hold (the filing document's opening, else the RSS lede over
       // the vague og:description dek), then the deterministic floor (never empty, never fabricated). The raw
       // fetch reason is demoted to a hint.
-      result.summary = bestFallbackSummary(fallbackHtml, fallbackLede, filingInput, bodylessNoDoc, bodylessFiling)
+      result.summary = bestFallbackSummary(fallbackHtml, fallbackLede, filingInput, bodylessNoDoc, letterheadProneFiling)
       if (fetchNote) result.note = fetchNote
     }
 
