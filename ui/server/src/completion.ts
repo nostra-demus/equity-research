@@ -272,8 +272,13 @@ export function thesisPlan(subject: string, swarmId: string = RESEARCH_SWARM_ID,
     const finished = candidates.find((c) => hasSynthesis(path.join(REPO_ROOT, c.runRoot, m.name)))
     if (finished) {
       const inTargetRoot = finished.runRoot === targetRunRoot
-      // A module carried into the target root keeps the vintage of the run it came FROM, not today's.
-      const carried = inTargetRoot ? carriedVintage(path.join(REPO_ROOT, finished.runRoot, m.name)) : null
+      // A carried module's folder is named for whichever run COPIED it, not the run that produced its
+      // evidence — and that is true whether it landed in TODAY's target root or in some OTHER prior dated
+      // folder that itself carried it forward (a module carried into `_07-05`, then found again as the
+      // newest candidate while planning `_07-08`). Reading the stamp only when `inTargetRoot` would let
+      // that intermediate folder's date stand in for the true vintage, silently aging the module forward
+      // and under-reporting staleness against data that landed between the ORIGINAL run and today.
+      const carried = carriedVintage(path.join(REPO_ROOT, finished.runRoot, m.name))
       const sourceRunRoot = carried?.from ?? finished.runRoot
       const sourceDate = carried?.date ?? (finished.date || undefined)
       const staleReason = stalenessOf(sourceDate, pool.newestDate)
@@ -407,7 +412,7 @@ function copyDir(srcAbs: string, dstAbs: string): void {
  *  matches none of the engine's output patterns (`NN_*.md`, `99_*-synthesis.md`, `*_memo.md`,
  *  `*_dossier.md`), so it is never mistaken for a specialist report — while still being swept into the
  *  module dossier's lossless `*.md` concatenation, which is exactly where an auditor should find it. */
-function carryNote(module: string, fromRunRoot: string, fromDate: string | null, intoRunRoot: string, replacedPartial: boolean): string {
+function carryNote(module: string, fromRunRoot: string, fromDate: string | null, intoRunRoot: string, replacedPartial: boolean, staleReason?: string): string {
   const vintage = fromDate ? ` (run dated ${fromDate})` : ''
   // A machine-readable line first: `thesisPlan` reads it back to recover this module's TRUE vintage, so a
   // carried module never launders its age into today's folder name (§11).
@@ -415,12 +420,22 @@ function carryNote(module: string, fromRunRoot: string, fromDate: string | null,
   const replaced = replacedPartial
     ? '\n- Replaced: an unfinished copy of this module left in this run folder by an interrupted run. That partial work was superseded by the complete module below; nothing finished was discarded.\n'
     : ''
+  // A module can be carried while STALE only when the caller knowingly kept it (thesisPlan's reuseOverride).
+  // The default claim below ("the data pool has gained no newer file") is true for the default reuse path —
+  // it is FALSE for a knowing keep, and the master synthesizer is told to read this stamp as provenance
+  // (§5/§11). Saying so honestly here, rather than reusing the "current" claim, is what stops a knowingly
+  // stale module from being documented as if it were current.
+  const currency = staleReason
+    ? `it was **knowingly kept despite newer data**: ${staleReason}`
+    : 'the data pool has gained no newer file since that run'
+  const staleNotice = staleReason
+    ? `\n> **Kept stale, on purpose.** This module was NOT re-run to read the newer data — the reuse selection explicitly kept it anyway. Its figures reflect the data pool as of its source run only.\n`
+    : ''
   return `${provenance}# Carried forward — ${module}
 
 > This module was **not re-run** for this run. Its outputs were copied verbatim from a previous run of the
-> same subject, because a completed \`99_*-synthesis.md\` already existed and the data pool has gained no
-> newer file since that run.
-
+> same subject, because a completed \`99_*-synthesis.md\` already existed and ${currency}.
+${staleNotice}
 - Source run: \`${fromRunRoot}\`${vintage}
 - Copied into: \`${intoRunRoot}\`
 - Re-run: **no** — every figure below carries the vintage of the source run, not of this run.${replaced}
@@ -453,6 +468,9 @@ export function carryForwardModules(subject: string, modules: string[], swarmId:
   if (!plan.canCarry) return { carried: [], skipped: [...modules] }
 
   const carriable = new Map(plan.carry.map((c) => [c.module, c]))
+  // Looked up per module below so the stamp can say WHY a stale module was carried anyway (a caller's
+  // knowing keep), rather than reusing the "current" wording that only holds for the default reuse path.
+  const planModuleByName = new Map(plan.modules.map((m) => [m.module, m]))
   const toCarry = modules.filter((m) => carriable.has(m))
   // Nothing to copy — never create today's run folder as a side effect of merely asking.
   if (toCarry.length === 0) return { carried: [], skipped: [...modules] }
@@ -494,7 +512,8 @@ export function carryForwardModules(subject: string, modules: string[], swarmId:
     try {
       fs.rmSync(tmpAbs, { recursive: true, force: true })
       copyDir(srcAbs, tmpAbs)
-      fs.writeFileSync(path.join(tmpAbs, CARRY_MARKER), carryNote(name, c.from, c.date, plan.targetRunRoot, replacedPartial), 'utf8')
+      const staleReason = planModuleByName.get(name)?.staleReason
+      fs.writeFileSync(path.join(tmpAbs, CARRY_MARKER), carryNote(name, c.from, c.date, plan.targetRunRoot, replacedPartial, staleReason), 'utf8')
       // Swap into place. The complete module supersedes any unfinished copy; the SOURCE folder is untouched,
       // so nothing finished is ever destroyed — only unfinished work in TODAY's root is replaced.
       if (replacedPartial) fs.rmSync(dstAbs, { recursive: true, force: true })

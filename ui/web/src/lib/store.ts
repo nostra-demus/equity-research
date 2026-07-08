@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { api, ensureMode, isStatic } from './api'
 import type { ArchiveQuery, FeedFacets, SearchCursor } from './api'
 import { downstreamCascade, type CascadeNode } from './cascade'
-import { resolveVerdict } from './format'
+import { moduleLabel, resolveVerdict } from './format'
 import { displayHeadline, originalHeadline, plainRoute, plainStage } from './plain'
 import type { Theme, ThemeDetail, ThemeBrief } from './themes'
 import { intensityWindowForHours } from './themes'
@@ -1342,6 +1342,26 @@ export const useStore = create<State>((set, get) => ({
 
     set({ launchPending: { key: 'complete-thesis', label: `Completing ${t}…`, ticker: t } })
     try {
+      // The panel can sit open for a while before the click. A module the user never touched — reused only
+      // because it was `done` by DEFAULT, not because they clicked "Keep" on a stale row — can go `stale` in
+      // that window if new data lands. The request to the server carries only a bare module-name list, so the
+      // server cannot tell "explicitly kept despite staleness" apart from "was fresh a while ago and never
+      // reconsidered" (that distinction only exists here, in what the user actually saw and clicked). Re-check
+      // fresh, from disk, immediately before submitting, and abort rather than silently carry evidence the
+      // user never agreed to keep past its shelf life.
+      const fresh = await api.thesisPlan(t, plan.swarm, plan.reuse)
+      const turnedStale = plan.reuse.filter((m) => {
+        const was = plan.modules.find((x) => x.module === m)
+        const now = fresh.modules.find((x) => x.module === m)
+        return was?.state === 'done' && now?.state === 'stale'
+      })
+      if (turnedStale.length > 0) {
+        set({ thesisPlan: fresh, launchPending: null })
+        const names = turnedStale.map((m) => moduleLabel(m)).join(', ')
+        get().setToast({ msg: `New data landed while this was open — ${names} ${turnedStale.length === 1 ? 'is' : 'are'} now stale. Review the plan again.`, tone: 'info' })
+        return
+      }
+
       const { runId, chained, carried, willRun } = await api.runThesisPlan(t, plan.reuse, plan.swarm)
       if (chained) set({ chainTickers: new Set(get().chainTickers).add(t) })
 

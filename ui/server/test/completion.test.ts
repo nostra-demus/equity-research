@@ -319,6 +319,46 @@ const { thesisPlan, carryForwardModules, dataPoolNewest } = await import('../src
   console.log('✅ a carried module keeps its true vintage and can still go stale')
 }
 
+// ---- 13b. vintage is preserved even when the NEWEST candidate folder is ITSELF a carry (not the target) ---
+{
+  // The true origin: alpha genuinely ran two days ago.
+  const TWO_DAYS_AGO = day(-2)
+  write(`analyses/DBLCARRY_${TWO_DAYS_AGO}/alpha/01_alpha-thing.md`, '# a\n')
+  write(`analyses/DBLCARRY_${TWO_DAYS_AGO}/alpha/99_alpha-synthesis.md`, '# alpha synthesis\n')
+
+  // An intermediate folder (yesterday) that itself carried alpha forward from the two-days-ago run — the
+  // shape a prior completion run would have left on disk. It is NOT today's target root.
+  write(`analyses/DBLCARRY_${YESTERDAY}/alpha/01_alpha-thing.md`, '# a\n')
+  write(`analyses/DBLCARRY_${YESTERDAY}/alpha/99_alpha-synthesis.md`, '# alpha synthesis\n')
+  write(
+    `analyses/DBLCARRY_${YESTERDAY}/alpha/CARRIED_FORWARD.md`,
+    `<!-- carried-from: analyses/DBLCARRY_${TWO_DAYS_AGO} | run-date: ${TWO_DAYS_AGO} -->\n\n# Carried forward — alpha\n`,
+  )
+  poolFile('DBLCARRY', 'filing.pdf', -3) // older than even the true origin — nothing stale here
+
+  // Planning TODAY, the newest folder holding alpha is YESTERDAY's — itself a carry, not the target root.
+  // The vintage of record must still be the TRUE origin (two days ago), not yesterday's copy date.
+  const p = thesisPlan('DBLCARRY')
+  const alpha = p.modules.find((m) => m.module === 'alpha')!
+  assert.equal(alpha.inTargetRoot, false, 'the newest folder holding alpha is not today’s target root')
+  assert.equal(alpha.sourceDate, TWO_DAYS_AGO, 'vintage reads from the carry stamp even off the target root')
+  assert.equal(alpha.sourceRunRoot, `analyses/DBLCARRY_${TWO_DAYS_AGO}`, 'provenance points at the TRUE origin run, not the intermediate copy')
+  console.log('✅ a module carried through an intermediate folder keeps its true vintage, not the copy’s date')
+}
+
+// ---- 13c. a knowingly-kept STALE module's carry stamp discloses that, instead of claiming currency ------
+{
+  // 'STALE' (fixture at the top): alpha finished yesterday, but the pool gained a file TODAY. Carrying it
+  // over is only reachable via an explicit override (a caller who ticks "Keep" on a stale row).
+  const res = carryForwardModules('STALE', ['alpha'])
+  assert.deepEqual(res.carried, [{ module: 'alpha', from: `analyses/STALE_${YESTERDAY}` }])
+
+  const note = fs.readFileSync(path.join(REPO, `analyses/STALE_${TODAY}/alpha/CARRIED_FORWARD.md`), 'utf8')
+  assert.match(note, /knowingly kept despite newer data/i, 'the stamp discloses the knowing stale keep')
+  assert.doesNotMatch(note, /gained no newer file/i, 'the stamp must not falsely claim currency for a stale keep')
+  console.log('✅ a knowingly-kept stale module’s stamp discloses the override, never claims false currency')
+}
+
 // ---- 14. a subject can never steer a path out of its tree ----------------------------------------
 {
   // `TICKER_RE` admits `.` and `-`, so the regex alone is not a path barrier. Every path in this module is

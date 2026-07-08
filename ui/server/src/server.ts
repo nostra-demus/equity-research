@@ -49,6 +49,7 @@ import { startConvictionLoop } from './conviction-dispatch'
 import { startResumeSupervisor } from './resume-supervisor'
 import { listResumableRuns } from './resumable'
 import { carryForwardModules, thesisPlan } from './completion'
+import { SubjectBusyError, withSubjectLock } from './subject-lock'
 import { AGENT_RE, EVENT_ID_RE, FEEDBACK_ID_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE, isValidTicker, resolveInsideRuns, validateNewTicker, sanitizeUploadFilename } from './sandbox'
 import type { RunKind } from './types'
 
@@ -721,47 +722,62 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
     return reply.code(400).send({ error: `Completing a ${swarm ?? 'non-research'} dossier from here isn’t supported yet — run its pipeline from the swarm’s own controls.`, code: 'swarm_unsupported' })
   }
 
-  // Never write into a run root another run currently owns. `carryForwardModules` copies module folders in
-  // BEFORE admission runs, so a live run on this subject would silently absorb them: its own per-module skip
-  // test would see a `99_*-synthesis.md` it did not write and skip that module, synthesizing over evidence
-  // read against an older data pool. Admission would reject us a moment later — too late, the files are there.
-  const busy = listRuns().some((r) => r.subjectId === ticker && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))
-  if (busy) return reply.code(409).send({ error: `A run is already in flight on ${ticker}. Let it finish (or stop it) before completing the thesis.`, code: 'subject_busy' })
-
-  // ONE disk snapshot decides everything below: the already-complete check, the reuse validation, and what
-  // gets carried. Re-reading between those steps would open a time-of-check/time-of-use gap — a module
-  // finishing mid-request would let us carry work this route never validated.
-  const plan = thesisPlan(ticker, undefined, reuse)
-  if (plan.complete) return reply.code(409).send({ error: 'this run already has a final thesis', code: 'already_complete', path: plan.finalReportPath })
-
-  const allowed = new Set(plan.reusable)
-  const bad = reuse.filter((m) => !allowed.has(m))
-  if (bad.length) return reply.code(400).send({ error: `cannot reuse a module that never finished: ${bad.join(', ')}`, code: 'unreusable' })
-
-  // When NOTHING is reused this is a bit-for-bit full run — same orbs, same $55-130, same commits pushed to
-  // main. The "it's already an explicit priced click" argument only justifies dropping the typed-ticker guard
-  // when the run is genuinely smaller than a full one. So the guard comes back exactly when the run is a full
-  // one, and the panel routes that case to the normal full-run confirm dialog.
-  if (plan.reuse.length === 0 && confirmTicker !== ticker) {
-    return reply.code(412).send({ error: 'nothing is being reused — this is a full run and needs typed confirmation', code: 'needs_typed_confirm' })
-  }
-
-  let carried: { module: string; from: string }[] = []
+  // Reserve this ticker for the whole busy-check + carry + launch sequence, synchronously, before any of
+  // it runs. `carryForwardModules` writes files BEFORE `launch()` registers a `RunState`, so the busy-check
+  // two lines down cannot by itself stop a second concurrent POST for the same ticker — Fastify's own hooks
+  // (rate-limit, body parsing) can interleave two requests across an `await` boundary that sits before this
+  // handler's body ever runs, and both would then see "not busy" and both carry into the same target root.
+  // `withSubjectLock` closes that race in-process: see subject-lock.ts for why check-and-set order is enough.
   try {
-    ;({ carried } = carryForwardModules(ticker, reuse, undefined, plan))
-  } catch (e: any) {
-    return reply.code(500).send({ error: `could not carry forward existing work: ${e?.message || e}` })
-  }
+    return await withSubjectLock(`thesis-plan:${ticker}`, async () => {
+      // Never write into a run root another run currently owns. `carryForwardModules` copies module folders in
+      // BEFORE admission runs, so a live run on this subject would silently absorb them: its own per-module skip
+      // test would see a `99_*-synthesis.md` it did not write and skip that module, synthesizing over evidence
+      // read against an older data pool. Admission would reject us a moment later — too late, the files are there.
+      const busy = listRuns().some((r) => r.subjectId === ticker && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))
+      if (busy) return reply.code(409).send({ error: `A run is already in flight on ${ticker}. Let it finish (or stop it) before completing the thesis.`, code: 'subject_busy' })
 
-  try {
-    const out = await launch({ kind: 'full', ticker, user, userVia })
-    return { ...out, carried, reused: plan.reuse, willRun: plan.run }
+      // ONE disk snapshot decides everything below: the already-complete check, the reuse validation, and what
+      // gets carried. Re-reading between those steps would open a time-of-check/time-of-use gap — a module
+      // finishing mid-request would let us carry work this route never validated.
+      const plan = thesisPlan(ticker, undefined, reuse)
+      if (plan.complete) return reply.code(409).send({ error: 'this run already has a final thesis', code: 'already_complete', path: plan.finalReportPath })
+
+      const allowed = new Set(plan.reusable)
+      const bad = reuse.filter((m) => !allowed.has(m))
+      if (bad.length) return reply.code(400).send({ error: `cannot reuse a module that never finished: ${bad.join(', ')}`, code: 'unreusable' })
+
+      // When NOTHING is reused this is a bit-for-bit full run — same orbs, same $55-130, same commits pushed to
+      // main. The "it's already an explicit priced click" argument only justifies dropping the typed-ticker guard
+      // when the run is genuinely smaller than a full one. So the guard comes back exactly when the run is a full
+      // one, and the panel routes that case to the normal full-run confirm dialog.
+      if (plan.reuse.length === 0 && confirmTicker !== ticker) {
+        return reply.code(412).send({ error: 'nothing is being reused — this is a full run and needs typed confirmation', code: 'needs_typed_confirm' })
+      }
+
+      let carried: { module: string; from: string }[] = []
+      try {
+        ;({ carried } = carryForwardModules(ticker, reuse, undefined, plan))
+      } catch (e: any) {
+        return reply.code(500).send({ error: `could not carry forward existing work: ${e?.message || e}` })
+      }
+
+      try {
+        const out = await launch({ kind: 'full', ticker, user, userVia })
+        return { ...out, carried, reused: plan.reuse, willRun: plan.run }
+      } catch (e: any) {
+        // The carry-forward already landed on disk. Nothing is LOST (source folders are untouched, and the copied
+        // modules are genuinely finished work), and a retry reuses them — but the run root now exists, so the
+        // cockpit will offer this subject as resumable. That is honest: resuming is exactly how you finish it.
+        const body = e?.body && typeof e.body === 'object' ? e.body : null
+        return reply.code(e?.statusCode || 500).send({ error: e?.message || 'launch failed', carried, ...(body || {}) })
+      }
+    })
   } catch (e: any) {
-    // The carry-forward already landed on disk. Nothing is LOST (source folders are untouched, and the copied
-    // modules are genuinely finished work), and a retry reuses them — but the run root now exists, so the
-    // cockpit will offer this subject as resumable. That is honest: resuming is exactly how you finish it.
-    const body = e?.body && typeof e.body === 'object' ? e.body : null
-    return reply.code(e?.statusCode || 500).send({ error: e?.message || 'launch failed', carried, ...(body || {}) })
+    if (e instanceof SubjectBusyError) {
+      return reply.code(409).send({ error: `Another completion request for ${ticker} is already in progress. Wait for it to finish before retrying.`, code: 'subject_busy' })
+    }
+    throw e
   }
 })
 
