@@ -337,5 +337,12 @@ print("  PASS: entity (content+filename signals, CIQ-header, prose/suffix/field-
 sys.exit(0 if ok else 1)
 PY
 
+echo "== extract_pool.py: per-format extraction bench (xls/xlsx/pdf/rtf/txt + content-sniff) =="
+# The FIRST end-to-end test of the text-extraction layer that feeds every narrative module — proves each
+# deterministic reader (xlrd/openpyxl/pdftotext->pypdf/textutil) still extracts and that content beats the
+# extension (the CIQ HTML-as-.xls mislabel). Synthetic fixtures under testdata/extract_bench; a missing
+# platform reader (textutil/pdf) SKIPS, never false-fails.
+"$PY" "$DIR/test_extract_pool.py" || rc=1
+
 [ $rc -eq 0 ] && echo "ALL SMOKE TESTS PASS" || echo "SMOKE TESTS FAILED"
 exit $rc
