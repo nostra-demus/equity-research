@@ -37,8 +37,8 @@ If no covenant disclosure exists: state that, apply a typical market covenant fo
 2. Take debt and the EBITDA base from `01`; take EBIT, interest, and capex from the filings / `earnings/01_historical-financials.md`.
 3. Compute coverage: `EBITDA / interest`, `EBIT / interest`, `(EBITDA − capex) / interest`, and fixed-charge coverage where data allows.
 4. Extract each maintenance financial covenant from the credit-agreement / debt note: the metric, the threshold, the current actual, and the cushion.
-5. Compute headroom for each: `(threshold − actual) / threshold`, signed so positive = headroom.
-6. Identify the tightest covenant and what operational move (EBITDA drop, debt increase) would trip it.
+5. Compute headroom for each, **direction-aware** (per `MODULE_RULES.md`): for a **MAX / ceiling** covenant `(threshold − actual) / threshold`; for a **MIN / floor** covenant (min coverage, min liquidity / net worth) `(actual − threshold) / threshold`. Signed so positive = headroom remaining for both — applying the MAX form to a MIN covenant inverts the sign.
+6. Identify the tightest covenant — the **smallest direction-correct headroom** across all maintenance covenants — and what operational move (EBITDA drop, debt increase) would trip it.
 
 # WHAT TO READ (priority for this agent)
 
