@@ -77,6 +77,49 @@ jobs:
       - name: Screener feedback-tune selftest (recommend-only rank-weight nudges from the feedback ledger)
         run: python3 scripts/screener_feedback_tune.py --selftest
 
+  tools-tests:
+    name: tools — deterministic extractor + CIQ facts tests
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install extractor dependencies (xlrd/openpyxl/pypdf + poppler for PDF text)
+        run: |
+          python3 -m pip install --quiet xlrd openpyxl pypdf
+          sudo apt-get update -qq && sudo apt-get install -y -qq poppler-utils
+
+      # Closes the assessment gap "the deterministic-extractor test suite is invisible to CI" without
+      # depending on the whole test-tools.sh (which also carries unrelated prompt-lint blocks). textutil
+      # (.rtf) and — if poppler somehow absent — the PDF path self-SKIP on Linux; the pure-Python readers
+      # assert everywhere. The gate is SELF-TERMINATING: each test is tied to the presence of the TOOL /
+      # fixtures it exercises (not to its own file), so it skips cleanly before those land on main and, the
+      # moment they do, HARD-RUNS — a test that has gone missing while its tool is present then FAILS the job
+      # (python3 on an absent file exits nonzero) rather than skipping forever.
+      - name: Deterministic extractor + CIQ facts tests (self-activates as the tools land on main)
+        run: |
+          rc=0
+          # CIQ facts — tied to the sidecar tool. Once ciq_facts.py reaches main, its test is REQUIRED.
+          if [ -f ".claude/tools/ciq_facts.py" ]; then
+            echo "== test_ciq_facts.py =="
+            python3 .claude/tools/test_ciq_facts.py || rc=1
+          else
+            echo "skip: ciq_facts.py not on this ref yet (lands with the CIQ-facts sidecar PR)"
+          fi
+          # Extraction bench — tied to its committed fixtures. Once testdata/extract_bench reaches main, required.
+          if [ -d ".claude/tools/testdata/extract_bench" ]; then
+            echo "== test_extract_pool.py =="
+            python3 .claude/tools/test_extract_pool.py || rc=1
+          else
+            echo "skip: extract_bench fixtures not on this ref yet (lands with the extraction-bench PR)"
+          fi
+          exit $rc
+
   ui-web:
     name: ui/web — typecheck + build
     runs-on: ubuntu-latest
