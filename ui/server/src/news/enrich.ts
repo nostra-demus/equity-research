@@ -550,8 +550,16 @@ function stripLetterhead(text: string): string {
   // the subject boundary, so anchoring on whichever comes first (Codex review on #189) can return a tail that
   // still starts mid-boilerplate. Only fall back to "Ref:" when there is no Sub/Subject or salutation anchor
   // at all — some cover letters label the subject line "Ref:" instead.
-  const subj = /\b(?:sub|subject)\b\s*[:\-–]\s*/i.exec(t)
+  // Separator is a colon, or a dash/en-dash FOLLOWED BY whitespace ("Sub - …") — never a word-joining hyphen,
+  // so "Sub-committee" / "Sub-division" in a cover page is not mistaken for the "Sub-" subject boundary.
+  const subj = /\b(?:sub|subject)\b\s*\.?\s*(?::|[-–](?=\s))\s*/i.exec(t)
   if (subj) { const tail = t.slice(subj.index + subj[0].length).trim(); if (tail.length >= 40) return tail }
+  // PDF text extraction sometimes drops the ":" after "Sub" (the Adani-QIP shape: "Sub Qualified institutions
+  // placement …"). Accept a colonless "Sub" / "Sub." label — the ABBREVIATION only (\bsub\b excludes "subject",
+  // "submitted", "subsidiary"), and only when real body text (a letter/digit) follows, so ordinary prose that
+  // merely contains the word "subject" can never be mistaken for the disclosure boundary.
+  const subBare = /\bsub\b\.?\s+(?=[A-Za-z0-9])/i.exec(t)
+  if (subBare) { const tail = t.slice(subBare.index + subBare[0].length).trim(); if (tail.length >= 40) return tail }
   const dear = /\bdear\s+(?:sir|madam|sir\s*\/?\s*madam|sirs)\b[,:]?\s*/i.exec(t)
   if (dear) { const tail = t.slice(dear.index + dear[0].length).trim(); if (tail.length >= 40) return tail }
   const ref = /\bref\b\s*[:\-–]\s*/i.exec(t)

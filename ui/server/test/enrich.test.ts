@@ -98,6 +98,24 @@ await check('bestFallbackSummary: an attachment-filing letterhead lede never out
   assert.ok(/Allotment of Equity Share/i.test(out), `carries the headline disclosure subject, got: ${out}`)
   assert.ok(!/CIN|Dalal Street|Vaishno Devi|Fax|2656 5555|Scrip Code/i.test(out), `letterhead boilerplate leaked into the story: ${out}`)
 })
+// ---- #189 [B] (Codex): PDF extraction sometimes drops the ":" after "Sub", so a cover page reads "Sub <body>"
+// with no colon. The colonless "Sub" body must still be isolated and win over the floor — while a word-joining
+// hyphen ("Sub-committee") must NOT be mistaken for the "Sub-" subject separator (it has no real body to isolate).
+await check('bestFallbackSummary: a colonless "Sub <body>" surfaces the real body; "Sub-committee" is not a boundary', () => {
+  const fi = (headline: string, id: string) => ({
+    headline, input_nature: 'exchange_announcement', source_tier: 'primary_filing',
+    domain: 'www.bseindia.com', url: `https://www.bseindia.com/xml-data/corpfiling/AttachLive/${id}.pdf`,
+  })
+  const HEAD = 'ACME Limited Registered Office 1 MG Road Bengaluru 560001 Tel +91 80 1234 5678 www.acme.com CIN L12345KA1990PLC000111 Scrip Code 500001 '
+  // (a) colon dropped after "Sub": the real disclosure body must be isolated and beat the generic floor
+  const colonless = bestFallbackSummary('', HEAD + 'Sub Resignation of Mr R K Sharma as Chief Financial Officer with effect from close of business today', fi('ACME LTD: General Updates', 'a'), false, true)
+  assert.ok(/Resignation of Mr R K Sharma|Chief Financial Officer/i.test(colonless), `colonless "Sub" body must win, got: ${colonless}`)
+  assert.ok(!/CIN|Registered Office|Scrip Code|1234 5678/i.test(colonless), `letterhead leaked: ${colonless}`)
+  // (b) "Sub-committee" is a compound word, not a subject line — no isolable body, so the clean floor wins
+  const subcommittee = bestFallbackSummary('', HEAD + 'The Sub-committee of the Board of Directors is scheduled to meet to consider matters in due course', fi('ACME LTD: Outcome of Board Meeting', 'b'), false, true)
+  assert.ok(/Outcome of Board Meeting/i.test(subcommittee), `must fall to the headline floor, got: ${subcommittee}`)
+  assert.ok(!/committee of the Board|CIN|1234 5678/i.test(subcommittee), `must not surface a mis-stripped "committee …" tail or letterhead, got: ${subcommittee}`)
+})
 // ---- scoping guard #3 (Codex review follow-up on #189): a BSE/NSE filing with a generic exchange title
 // (e.g. "General Updates") whose extracted PDF text opens DIRECTLY with the real disclosure — no CIN /
 // address / Tel / Fax / Scrip-Code cover page — must NOT be discarded for the terse headline floor just
@@ -614,10 +632,10 @@ await check('INCIDENT 1 floor: when the filing PDF is unreadable, the story fall
 // The Adani-QIP defect, end-to-end: a BSE exchange filing whose PDF document READS (so it is NOT bodyless —
 // the old `if (bodylessFiling) return floor` early-out does not fire) but the LLM body read MISSES (returns
 // no usable brief). The document opening we hold is the cover-page letterhead (registered address, CIN,
-// phone/fax, scrip codes); the old "longest substantial prose wins" fallback surfaced THAT as THE STORY.
-// The fix: a filing-document lede can never outrank the headline-derived floor — so the clean parsed subject
-// stands, and none of the letterhead leaks.
-await check('INCIDENT 1 / Adani-QIP e2e: a filing whose PDF read but the LLM missed falls to the clean headline floor, never the letterhead', async () => {
+// phone/fax, scrip codes) FOLLOWED BY the real disclosure after a colonless "Sub " line (PDF extraction drops
+// the ":"). The letterhead is stripped and the real "Sub" body — the filing's own words (§4) — becomes THE
+// STORY (it outranks the terse headline floor), while none of the letterhead boilerplate leaks.
+await check('INCIDENT 1 / Adani-QIP e2e: a filing whose PDF read but the LLM missed surfaces the real colonless-"Sub" body, never the letterhead', async () => {
   const PDF_URL = 'https://www.bseindia.com/xml-data/corpfiling/AttachLive/adani-qip.pdf'
   const ADANI_EVENT_ID = 'EVT-test-adani-qip'
   const { repoRoot, stateDir } = tmpRepoItems([{
@@ -645,8 +663,8 @@ await check('INCIDENT 1 / Adani-QIP e2e: a filing whose PDF read but the LLM mis
   }) as typeof fetch
   const r = await enrichEvent({ event_id: ADANI_EVENT_ID }, { repoRoot, stateDir, force: true, articleProviders: [PROVIDER], fetchFn })
   assert.ok(!r.gist?.length, 'no fabricated gist from a letterhead-only read')
-  assert.ok(r.summary && /Adani Enterprises Ltd/i.test(r.summary), `names the issuer, got: ${r.summary}`)
-  assert.ok(r.summary && /Allotment of Equity Share|Qualified Institutional/i.test(r.summary), `carries the disclosure subject, got: ${r.summary}`)
+  assert.ok(r.summary && /Adani Enterprises/i.test(r.summary), `names the issuer, got: ${r.summary}`)
+  assert.ok(r.summary && /Qualified institutions placement/i.test(r.summary), `carries the real "Sub" disclosure body — the strip path ran, not the floor, got: ${r.summary}`)
   assert.ok(!/CIN|Dalal Street|Vaishno Devi|Fax|2656 5555/i.test(r.summary || ''), `letterhead leaked as THE STORY: ${r.summary}`)
 })
 
