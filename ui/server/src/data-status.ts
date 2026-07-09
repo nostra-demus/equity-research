@@ -192,6 +192,16 @@ export function extractPeriod(filename: string, sniff: string): { hint: string |
       const q = Number(m[1])
       return { hint: `Q${m[1]} ${m[2]}`, ageMonths: Math.max(0, monthsSince(Number(m[2]), q * 3)), year: Number(m[2]), precise: true }
     }
+    // broker-style quarter e.g. 4Q25 / 1Q2026 (sell-side note convention) — parse to the SAME `Q<n> <yyyy>`
+    // hint as a verbatim "Q4 2025" transcript, so a broker note and the real transcript for one call dedupe to
+    // a single period (and 4Q25 vs 1Q26 count as two). Without this both fall to the bare-year max and collapse
+    // to the same "2026" periodHint, mis-counting distinct recent calls (Codex #195).
+    m = hay.match(/\b([1-4])Q\s?(20\d{2}|\d{2})\b/i)
+    if (m) {
+      const q = Number(m[1])
+      const yr = m[2].length === 2 ? 2000 + Number(m[2]) : Number(m[2])
+      return { hint: `Q${m[1]} ${yr}`, ageMonths: Math.max(0, monthsSince(yr, q * 3)), year: yr, precise: true }
+    }
     // bare fiscal range e.g. 2024-25 / 2024-2025 — the common Indian annual-report filename with NO `FY`
     // prefix (`Annual_Report_2024-25.pdf`). Without this branch the plain-year scan below grabs only the
     // START year (2024) and dates it to June, so a current FY2024-25 report reads ~9-12 months too old and
@@ -286,6 +296,27 @@ export function quoteAsOfMonths(sniff: string): number | null {
     if (key > bestKey) { bestKey = key; bestY = h.y; bestMo = h.mo }
   }
   return bestKey < 0 ? null : Math.max(0, monthsSince(bestY, bestMo))
+}
+
+// The as-of age of an earnings CALL from an explicit date in its FILENAME (e.g.
+// "… Q4 2025 Earnings Call, Feb 05, 2026.rtf" or an ISO "2026-02-05"). A call is held AFTER the quarter it
+// covers closes, so for RECENCY its call date is sharper than the quarter-END that extractPeriod anchors to —
+// without it a Q4 call held in February reads a quarter (~2mo) too old and can fall outside the 6-month
+// "recent call" window (Codex #195). periodHint keeps the quarter for distinctness; only the age uses the
+// call date. Filename only — a bare body date is too easily a forward-looking one (next-earnings / ex-div).
+export function callDateMonths(name: string): number | null {
+  const cands: Array<{ y: number; mo: number }> = []
+  for (const m of name.matchAll(/\b([A-Za-z]{3})[a-z]*[-.\s](\d{1,2})(?:st|nd|rd|th)?,?[-\s](\d{4})\b/gi)) {
+    const mo = MONTH_NUM[m[1].toLowerCase()]
+    if (mo) cands.push({ y: Number(m[3]), mo })
+  }
+  for (const m of name.matchAll(/\b(\d{4})-(\d{2})-\d{2}\b/g)) cands.push({ y: Number(m[1]), mo: Number(m[2]) })
+  let best: { y: number; mo: number } | null = null
+  for (const c of cands) {
+    if (c.y < 2000 || c.y > new Date().getFullYear() + 1 || c.mo < 1 || c.mo > 12) continue
+    if (!best || c.y * 12 + c.mo > best.y * 12 + best.mo) best = c
+  }
+  return best ? Math.max(0, monthsSince(best.y, best.mo)) : null
 }
 
 // A sell-side note by CONTENT: a directional verdict block (Target Price + Rating/Recommendation) riding on
@@ -414,7 +445,15 @@ async function classifyFile(dir: string, filename: string): Promise<ClassifiedFi
   // "IBKR_quote_2025-01-02" name); and only last the file mtime — so a Drive re-sync that refreshes mtime
   // can't make a stale quote look current. Keeps the price chip AND valuation's hasCurrentPrice gate honest.
   const isPriceDoc = PRICE_RE.test(filename) || (sheets ?? []).some((s) => PRICE_RE.test(s.name))
-  const ageMonthsFinal = isPriceDoc ? (quoteAsOfMonths(sniff) ?? ageMonths ?? mtimeAge) : (ageMonths ?? mtimeAge)
+  // For an earnings CALL (verbatim transcript or sell-side proxy), a call date in the filename is a sharper
+  // recency anchor than the quarter-END extractPeriod uses — a Q4 call held in Feb must age from Feb, or it
+  // falls out of the 6-month recent-call window and mis-fires the "<2 recent calls" cap (Codex #195).
+  const isCallDoc = type === 'transcript' || type === 'sell_side_earnings_note'
+  const ageMonthsFinal = isPriceDoc
+    ? (quoteAsOfMonths(sniff) ?? ageMonths ?? mtimeAge)
+    : isCallDoc
+      ? (callDateMonths(filename) ?? ageMonths ?? mtimeAge)
+      : (ageMonths ?? mtimeAge)
 
   return {
     filename,
