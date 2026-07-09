@@ -116,4 +116,67 @@ check('readinessHas: no exact type and no proxy → false (no false positive)', 
   assert.equal(readinessHas([cf('financials')], 'transcript'), false)
 })
 
+// ---- Codex #195 follow-ups: tighten the detector so non-call files can't fill the transcript slot (§11/§24) ----
+
+// r3551600913: the FILENAME shortcut must require the earnings/conference qualifier — a bare "Capital Call
+// Summary" / "Customer Call Recap" is NOT an earnings call and must not be typed as the proxy.
+check('a non-earnings "Capital Call Summary" filename is NOT a sell-side earnings note (r3551600913)', () => {
+  assert.notEqual(classify('Blackstone Capital Call Summary.pdf', '').type, 'sell_side_earnings_note')
+  assert.notEqual(classify('Acme Customer Call Recap.pdf', '').type, 'sell_side_earnings_note')
+})
+
+// r3551600915: a Capital IQ "Key Developments" material-events feed whose text quotes an earnings call plus a
+// target-price/rating event must stay 'other' (pinned by name), NOT be content-typed as a call proxy.
+check('a "Key Developments" feed with a call+target/rating mention stays other, not a proxy (r3551600915)', () => {
+  const kdSniff = 'MGM Resorts Key Developments. Analyst reiterates Rating BUY, Target Price 55, ahead of the Q1 2026 earnings call.'
+  const r = classify('MGM Resorts International NYSE MGM Key Developments.rtf', kdSniff)
+  assert.equal(r.type, 'other')
+})
+
+// r3552380164: a VERBATIM transcript that merely quotes a "target price" and says "buy"/"hold" as free text
+// (no Rating/Recommendation label, no buy/hold-next-to-a-rating cue) must keep its transcript classification.
+check('a verbatim transcript quoting "target price" + free-text "buy/hold" stays a transcript (r3552380164)', () => {
+  const sniff = [
+    'MGM Resorts International, Q1 2026 Earnings Call, Apr 29, 2026',
+    'Operator: Good afternoon. Prepared Remarks follow.',
+    'Analyst: Given your stock is below many sell-side target price levels, would you buy back more, or hold cash?',
+    'CFO: We will be opportunistic on the buyback.',
+  ].join('\n')
+  assert.equal(classify('deadbeef-opaque-uuid.pdf', sniff).type, 'transcript')
+})
+// and the FabResearch verdict block (a labelled "Rating BUY" + "Target Price") is still caught after the tighten
+check('a labelled broker verdict block (Rating + Target Price on a call summary) is still the proxy (r3552380164 non-regression)', () => {
+  assert.equal(classify('opaque-uuid.pdf', FAB_SNIFF).type, 'sell_side_earnings_note')
+})
+// r3552380160: a "Price Target" (reversed) variant on a call summary is still detected
+check('a broker note using the "Price Target" variant is still the proxy (r3552380160)', () => {
+  const sniff = 'Emaar 4Q25 Earnings Call Summary. Recommendation: BUY. Price Target: AED 19.25.'
+  assert.equal(classify('opaque.pdf', sniff).type, 'sell_side_earnings_note')
+})
+
+// r3551600904: a STALE verbatim transcript (>6mo) + two RECENT distinct proxies must NOT read Sufficient —
+// the only recent call colour is proxy-only, so a cap fires and it stays Partial (§11 false-confidence path).
+check('earnings: stale transcript + 2 recent distinct proxies → Partial, not Sufficient (r3551600904)', () => {
+  const files = [
+    cf('financials'), cf('consensus_estimates'),
+    cf('transcript', { periodHint: 'Q1 2025', ageMonths: 15, filename: 'stale.pdf' }), // >6mo → stale
+    cf('sell_side_earnings_note', { periodHint: 'Q4 2025', ageMonths: 3, filename: 'p1.pdf' }),
+    cf('sell_side_earnings_note', { periodHint: 'Q3 2025', ageMonths: 5, filename: 'p2.pdf' }),
+  ]
+  const r = evaluateModules(files, [])['earnings']
+  assert.equal(r.status, 'Partial')
+  assert.ok(r.caps.some((c) => /only RECENT earnings-call colour is a sell-side proxy/.test(c)), `expected the recent-proxy-only cap, got: ${JSON.stringify(r.caps)}`)
+})
+// non-regression: a stale transcript + a RECENT verbatim transcript still reads by its recent verbatim colour
+check('earnings: stale transcript + a recent verbatim transcript is NOT proxy-capped (r3551600904 non-regression)', () => {
+  const files = [
+    cf('financials'), cf('consensus_estimates'),
+    cf('transcript', { periodHint: 'Q1 2025', ageMonths: 15, filename: 'stale.pdf' }),
+    cf('transcript', { periodHint: 'Q4 2025', ageMonths: 3, filename: 'recent1.pdf' }),
+    cf('transcript', { periodHint: 'Q3 2025', ageMonths: 5, filename: 'recent2.pdf' }),
+  ]
+  const r = evaluateModules(files, [])['earnings']
+  assert.ok(!r.caps.some((c) => /sell-side proxy/.test(c)), `no proxy cap expected, got: ${JSON.stringify(r.caps)}`)
+})
+
 console.log(`\n${passed} passed`)

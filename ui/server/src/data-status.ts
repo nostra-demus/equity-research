@@ -295,9 +295,17 @@ export function quoteAsOfMonths(sniff: string): number | null {
 // sniff, so a broker note is tagged the same however it is named.
 function isSellSideNoteContent(sniff: string): boolean {
   if (!sniff) return false
-  return /target price/i.test(sniff)
-    && /\brating\b|recommendation|\b(buy|sell|hold|overweight|underweight)\b/i.test(sniff)
-    && /earnings call|earnings call summary|prepared remarks|conference call/i.test(sniff)
+  // "Target Price" OR the "Price Target" / hyphenated variant a note may use (Codex #195 r3552380160).
+  const hasTargetPrice = /target[\s\-]?price|price[\s\-]?target/i.test(sniff)
+  // A verdict LABEL, not free text: "Rating"/"Recommendation"/"Overweight"/"Underweight" are unambiguous
+  // analyst-verdict labels a real broker note always prints. A bare "buy"/"sell"/"hold" is deliberately NOT
+  // accepted on its own — a verbatim transcript routinely says "buy back", "hold cash", or "sell-side" in
+  // passing, and pairing that with a quoted "price target" would mis-tag it a broker note and strip its
+  // transcript status (§24 — Codex #195 r3552380164). A genuine broker note labels its call ("Rating BUY",
+  // "Recommendation: BUY"), so this loses no real proxy.
+  const hasVerdict = /\brating\b|recommendation|overweight|underweight/i.test(sniff)
+  const summarisesCall = /earnings call|earnings call summary|prepared remarks|conference call/i.test(sniff)
+  return hasTargetPrice && hasVerdict && summarisesCall
 }
 
 // ---- classification ----
@@ -320,19 +328,23 @@ export function classify(filename: string, sniff: string): { type: FileType; con
   // A SELL-SIDE / analyst earnings-CALL note (a broker "Earnings Call Insight / Summary / Recap") is a
   // hybrid: a call summary bundled with a directional verdict (Rating / Target Price). It is NOT a verbatim
   // transcript — tag it distinctly so the reading layer strips the verdict and caps it (earnings
-  // MODULE_RULES → Transcript Sourcing). The FILENAME shortcut fires ONLY on an explicit call-insight /
-  // call-summary / call-recap token: a bare "Equity Research … Earnings" or "Analyst Report … Results" name
-  // is an ORDINARY results/target-price note, not a call summary, so tagging it here would let it satisfy
-  // the Earnings-transcript slot and HIDE a missing call source (§11) — those need the content verdict block
-  // (below) to prove they summarise a call. Tested BEFORE the transcript rule so an "…Earnings Call Summary"
+  // MODULE_RULES → Transcript Sourcing). The FILENAME shortcut REQUIRES the "earnings"/"conference" qualifier
+  // on the call token: an "…Earnings Call Summary/Insight/Recap" is the proxy, but a bare "Capital Call
+  // Summary" / "Customer Call Recap" is NOT an earnings call and must not fill the Earnings-transcript slot
+  // (§11 — Codex #195 r3551600913). A bare "Equity Research … Earnings" or "Analyst Report … Results" name is
+  // an ORDINARY results/target-price note, not a call summary, so it too needs the content verdict block
+  // (below) to prove it summarises a call. Tested BEFORE the transcript rule so an "…Earnings Call Summary"
   // name is a proxy, not a plain transcript; a verbatim CIQ transcript ("…Q1 2026 Earnings Call…") carries
   // no insight/summary/recap token, so it falls through untouched.
-  if (test(/(?:earnings|conference)[\s\-_]?call[\s\-_]?(?:insight|summary|recap|review|takeaways?|highlights?)|\bcall[\s\-_]?(?:insight|summary|recap)\b/)) return { type: 'sell_side_earnings_note', confidence: 'high', basis: 'filename' }
+  if (test(/(?:earnings|conference)[\s\-_]?call[\s\-_]?(?:insight|summary|recap|review|takeaways?|highlights?)/)) return { type: 'sell_side_earnings_note', confidence: 'high', basis: 'filename' }
   // A file whose NAME says "earnings call" but whose BODY carries a broker verdict block (Target Price +
   // Rating on a call summary) is a sell-side note, not a verbatim transcript — check content BEFORE the
   // transcript-filename fallback below claims it, otherwise the directional verdict rides along untagged
-  // (§24) and fills the call slot as if it were a real transcript.
-  if (isSellSideNoteContent(sniff)) return { type: 'sell_side_earnings_note', confidence: 'medium', basis: 'content' }
+  // (§24) and fills the call slot as if it were a real transcript. EXCLUDE the tearsheet / Key-Developments /
+  // company-profile / landscape NAMES here: those are Capital IQ material-events/reference feeds that can
+  // quote an earnings call plus an analyst target/rating and would be mis-typed as a call proxy, satisfying
+  // the transcript slot (§11 — Codex #195 r3551600915). They are pinned to 'other' by name just below.
+  if (!test(/company profile|tearsheet|landscape|key[\s_]?developments|strategic[\s_]?alliances/) && isSellSideNoteContent(sniff)) return { type: 'sell_side_earnings_note', confidence: 'medium', basis: 'content' }
   // Transcript is tested BEFORE quarterly on purpose: an earnings-call transcript filename carries a
   // quarter token ("…Q1 2026 Earnings Call…") that the quarterly rule's `q[1-4] 20\d{2}` would otherwise
   // claim first — and once quarterly returns, the content sniff (line ~223) never runs. The
@@ -512,11 +524,17 @@ export function evaluateModules(files: ClassifiedFile[], moduleNames: string[]):
       (f) => (f.type === 'transcript' || f.type === 'sell_side_earnings_note') && (f.ageMonths == null || f.ageMonths <= 6),
     )
     const distinctRecentCalls = new Set(recentCalls.map((f) => f.periodHint ?? `__file:${f.filename}`)).size
+    const recentTranscripts = recentCalls.filter((f) => f.type === 'transcript').length
+    const recentProxies = recentCalls.filter((f) => f.type === 'sell_side_earnings_note').length
     const caps: string[] = []
     // Earnings-call source is a STRONG-CAP, never a blocker: the engine wants the latest ~2 quarters of
     // call colour, and a sell-side proxy fills the commentary role only (verdict-stripped, MODULE_RULES).
     if (nTranscript === 0 && nProxy > 0) caps.push('earnings-call colour from a sell-side proxy only — verdict-stripped commentary; earnings clarity capped, tone/candor not assessable')
     else if (nTranscript === 0 && nProxy === 0) caps.push('no earnings call (transcript or proxy) — management commentary from filings only')
+    // Even WITH a verbatim transcript in the pool, if the only RECENT call colour is a proxy (the transcript
+    // is stale), the recent drivers/guidance are proxy-sourced — cap so a stale transcript + recent proxies
+    // can't read Sufficient on proxy-only recent colour (§11 false-confidence path — Codex #195 r3551600904).
+    else if (recentTranscripts === 0 && recentProxies > 0) caps.push('the only RECENT earnings-call colour is a sell-side proxy (any verbatim transcript is stale) — recent drivers/guidance verdict-stripped; earnings clarity capped')
     if (nTranscript + nProxy > 0 && distinctRecentCalls < 2) caps.push('fewer than 2 recent earnings calls in the pool — driver/candor detail limited')
     let status: Sufficiency = 'Insufficient'
     const reasons: string[] = []
