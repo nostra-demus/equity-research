@@ -136,6 +136,53 @@ await check('bestFallbackSummary: a BSE cover page followed by a real "Sub:" bod
   assert.ok(/200 MW solar|1,450 crore|480 million units/i.test(out), `the disclosure body after the letterhead should survive, got: ${out}`)
   assert.ok(!/CIN|MG Road|Dalal Street|1234 5678|Scrip Code/i.test(out), `the stripped letterhead must not leak, got: ${out}`)
 })
+// ---- scoping guard #5 (Codex review follow-up on #189, discussion_r3549811417): a cover page whose
+// letterhead runs PAST 600 characters before the "Sub:" boundary. The old fallbackLede was sliced to 600
+// chars BEFORE stripLetterhead ran, so a long letterhead cut off the "Sub:" anchor entirely and the whole
+// (truncated, still-boilerplate) lede lost to the floor. fallbackLede must carry a wider window so
+// stripLetterhead can still find the boundary; the final output is truncated to 600 only afterward.
+await check('bestFallbackSummary: a letterhead longer than 600 chars still finds the "Sub:" boundary and keeps the body', () => {
+  const longLetterhead =
+    'Acme Industries Limited Regd. Office: 12 MG Road, Bengaluru 560001, Karnataka, India CIN: L12345KA1990PLC012345 ' +
+    'Tel: +91 80 1234 5678 Fax: +91 80 1234 5679 Email: investors@acme.example www.acme.example Scrip Code: 500123 ' +
+    'Corporate Identity Number as above. Registered with the Ministry of Corporate Affairs. Listed on BSE and NSE. ' +
+    'This letter is addressed to the Deputy General Manager, Listing Department, BSE Limited, Phiroze Jeejeebhoy ' +
+    'Towers, Dalal Street, Mumbai 400001, and to the Vice President, Listing Department, National Stock Exchange ' +
+    'of India Limited, Exchange Plaza, Bandra Kurla Complex, Mumbai 400051, in compliance with Regulation 30 of ' +
+    'the SEBI (Listing Obligations and Disclosure Requirements) Regulations, 2015, as amended from time to time. ' +
+    'Dear Sir/Madam, Sub: Update on new manufacturing facility. ' +
+    'The Board of Directors at its meeting held today approved the establishment of a new 200 MW solar power ' +
+    'plant in Rajasthan at an estimated cost of Rs 1,450 crore, funded through internal accruals and debt, ' +
+    'with commercial commissioning targeted by March 2027 and expected annual generation of 480 million units.'
+  assert.ok(longLetterhead.slice(0, 600).search(/\bSub\b\s*[:\-–]/i) === -1, 'fixture must place "Sub:" past the old 600-char cutoff')
+  const filingInput = {
+    headline: 'Acme Industries Ltd: Update on new manufacturing facility', input_nature: 'exchange_announcement', source_tier: 'primary_filing',
+    domain: 'www.bseindia.com', url: 'https://www.bseindia.com/xml-data/corpfiling/AttachLive/acme-long.pdf',
+  }
+  const out = bestFallbackSummary('', longLetterhead, filingInput, false, true)
+  assert.ok(/200 MW solar|1,450 crore|480 million units/i.test(out), `the disclosure body past the long letterhead should survive, got: ${out}`)
+  assert.ok(!/CIN|MG Road|Dalal Street|Bandra Kurla|1234 5678/i.test(out), `the stripped letterhead must not leak, got: ${out}`)
+})
+// ---- scoping guard #6 (Codex review follow-up on #189, discussion_r3549811423): a cover letter whose
+// internal "Ref:" line sits ABOVE the real "Sub:" line. Anchoring on whichever comes first (the old
+// leftmost-match behaviour) returned a tail starting at the Ref: reference number — still boilerplate
+// (date, addressee) — instead of the real Sub: subject boundary. Sub/Subject must win when both are present.
+await check('bestFallbackSummary: a "Ref:" line above "Sub:" does not win — the Sub: boundary is preferred', () => {
+  const refThenSub =
+    'Acme Industries Limited Regd. Office: 12 MG Road, Mumbai 400001 CIN: L12345MH1990PLC012345 ' +
+    'Ref: ACME/SEC/2026-27/145 dated 09th July 2026, addressed to the Listing Department. ' +
+    'Dear Sir/Madam, Sub: General Updates. ' +
+    'The Board of Directors at its meeting held today approved the establishment of a new 200 MW solar power ' +
+    'plant in Rajasthan at an estimated cost of Rs 1,450 crore, funded through internal accruals and debt, ' +
+    'with commercial commissioning targeted by March 2027 and expected annual generation of 480 million units.'
+  const filingInput = {
+    headline: 'Acme Industries Ltd: General Updates', input_nature: 'exchange_announcement', source_tier: 'primary_filing',
+    domain: 'www.bseindia.com', url: 'https://www.bseindia.com/xml-data/corpfiling/AttachLive/acme-ref.pdf',
+  }
+  const out = bestFallbackSummary('', refThenSub, filingInput, false, true)
+  assert.ok(/200 MW solar|1,450 crore|480 million units/i.test(out), `the disclosure body should survive, got: ${out}`)
+  assert.ok(!/ACME\/SEC\/2026-27\/145|dated 09th July|Listing Department/i.test(out), `the Ref: line boilerplate must not lead the body, got: ${out}`)
+})
 // ---- scoping guard #1: the fix must NOT over-floor a NON-attachment filing whose document opens with real
 // content. An ASX announcement (filingIsAttachment=false — fetched via documentKey, not a BSE/NSE or .pdf
 // URL) whose PDF opens with the actual announcement must still lead with that content, not the terse floor.

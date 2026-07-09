@@ -545,10 +545,17 @@ function looksLikeLetterhead(text: string): boolean {
  *  anchor is the only reliable boundary between the cover page and the disclosure. */
 function stripLetterhead(text: string): string {
   const t = text.replace(/\s+/g, ' ').trim()
-  const sub = /\b(?:sub|subject|ref)\b\s*[:\-–]\s*/i.exec(t)
-  if (sub) { const tail = t.slice(sub.index + sub[0].length).trim(); if (tail.length >= 40) return tail }
+  // Sub/Subject is the actual disclosure boundary. Try it FIRST — a cover letter's "Ref:" line (an internal
+  // reference number, often followed by more address/date boilerplate) sits ABOVE "Sub:" and is not itself
+  // the subject boundary, so anchoring on whichever comes first (Codex review on #189) can return a tail that
+  // still starts mid-boilerplate. Only fall back to "Ref:" when there is no Sub/Subject or salutation anchor
+  // at all — some cover letters label the subject line "Ref:" instead.
+  const subj = /\b(?:sub|subject)\b\s*[:\-–]\s*/i.exec(t)
+  if (subj) { const tail = t.slice(subj.index + subj[0].length).trim(); if (tail.length >= 40) return tail }
   const dear = /\bdear\s+(?:sir|madam|sir\s*\/?\s*madam|sirs)\b[,:]?\s*/i.exec(t)
   if (dear) { const tail = t.slice(dear.index + dear[0].length).trim(); if (tail.length >= 40) return tail }
+  const ref = /\bref\b\s*[:\-–]\s*/i.exec(t)
+  if (ref) { const tail = t.slice(ref.index + ref[0].length).trim(); if (tail.length >= 40) return tail }
   return ''
 }
 
@@ -1092,7 +1099,11 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
     const readHeadline = headlineEn || headline
     // what the no-LLM fallback may lead with: the filing document's own opening beats the RSS lede beats
     // the floor — all real text, never chrome (a junk page contributes NOTHING to the fallback).
-    const fallbackLede = docText ? docText.replace(/\s+/g, ' ').trim().slice(0, 600) : snippet
+    // Keep a wider window than the final 600-char output: a BSE/NSE cover-page letterhead can run past 600
+    // chars before its "Sub:/Ref:" boundary, and stripLetterhead (below, via bestFallbackSummary) needs to see
+    // that boundary to isolate the real body — slicing to 600 here would cut it off first (Codex review on
+    // #189). bestFallbackSummary truncates the FINAL chosen candidate to 600, so nothing downstream regresses.
+    const fallbackLede = docText ? docText.replace(/\s+/g, ' ').trim().slice(0, 4000) : snippet
     const fallbackHtml = pageJunk ? '' : pageHtml
     const bodylessNoDoc = bodylessFiling && !docText // a filing is truly bodyless only when its document didn't read
     let brief: ArticleBrief | null = null
