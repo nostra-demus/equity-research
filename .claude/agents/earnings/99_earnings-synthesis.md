@@ -134,6 +134,8 @@ Apply the score caps from `MODULE_RULES.md`. For each cap trigger, state whether
 | No consensus / estimate data | | Consensus setup | max 30 |
 | No cash flow statement | | Earnings quality | max 45 |
 | No revision history | | Consensus setup | max 60 |
+| No verbatim transcript AND no sell-side proxy | | Earnings clarity | max 70 |
+| Transcript role filled ONLY by a sell-side proxy (no verbatim) | | Earnings clarity | max 65 |
 | Only inferred sensitivities | | Earnings volatility confidence | must be Low |
 
 If multiple caps affect the same score, use the most restrictive.

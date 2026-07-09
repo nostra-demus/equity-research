@@ -41,7 +41,7 @@ If no VERBATIM transcript is available, apply the **Transcript Sourcing & Fallba
 # WHAT TO READ (priority for this agent)
 
 - **Earnings transcript** — guidance section in prepared remarks, often also in Q&A
-- **Sell-side / analyst earnings note (transcript proxy)** — its "Earnings Call Summary" carries guided figures, backlog and launch colour; STRIP the analyst Rating / Target / estimate first (§24), cross-check every number to the primary doc, cite as an unverified paraphrase
+- **Sell-side / analyst earnings note (transcript proxy)** — its "Earnings Call Summary" may point to guided figures and backlog / launch colour; STRIP the analyst Rating / Target / estimate first (§24). Any guidance NUMBER must be traced to and cited from the primary doc (filing / press release), NEVER on the note's authority (§5) — the proxy only leads you to the figure, it does not source it. The paraphrase may carry only qualitative commentary/colour, cited as an unverified paraphrase where it has no primary equivalent
 - **Investor presentation** — guidance slides
 - **Material-event disclosure** — sometimes contains standalone guidance updates (8-K/6-K in the US; exchange intimation to NSE/BSE under SEBI LODR Reg 30 in India; RNS/local equivalent elsewhere)
 - **Capital IQ / Bloomberg / FactSet exports** — consensus estimates and revision history
