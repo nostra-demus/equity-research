@@ -616,6 +616,71 @@ def test_currency(base: Path) -> None:
     check("consensus target price is labelled INR, never a hard-coded '$'",
           cv["status"] == "present" and "INR 3,200" in cv["value"] and "$" not in cv["value"], str(cv))
 
+    # A NON-US subject: financials in the local currency (AED), but the COMPS grid is CONVERTED to a USD
+    # display currency. The reported currency for the '_m' money facts must be read from the FINANCIALS
+    # (AED), NEVER the comps USD (which here sorts first) — the EMAAR AED-read-as-USD defect (§15/§27).
+    d2 = base / "curr_comps"
+    d2.mkdir()
+    _wb(d2 / "AA Comps.xlsx", {"Financial Data": [  # sorts BEFORE the financials file → would win pre-fix
+        ["Currency:", "US Dollar"],
+        ["Company Name", "Day Close Price", "Shares Outstanding"],
+        ["Acme (NYSE:ACME)", 3.32, 8838.8]]})
+    _wb(d2 / "Acme Financials_Annual.xlsx", {
+        "Income Statement": [["Period Type:", "Annual"], ["Fiscal Period", "FY2025"], ["Total Revenue", 1000], ["EBITDA", 200]],
+        "Capital Structure Details": [
+            ["FY 2025 (Dec-31-2025) Capital Structure As Reported Details"],
+            ["Currency", "AED"],
+            ["Description", "Principal Due", "Maturity"],
+            ["Sukuk", 5000, 2030]]})
+    out2 = F.build_facts(d2, "ACME")
+    check("currency reads the FINANCIALS local currency (AED), NOT the comps USD display (EMAAR defect)",
+          out2.get("currency") == "AED", str(out2.get("currency")))
+
+
+def test_comps_asof_forward(base: Path) -> None:
+    # #183 comps hardening. shares_outstanding must carry its as-of date (a share count compared against
+    # dated ownership needs one). peer_ev_ebitda must REFUSE a bare forward-year column ('TEV/EBITDA 2026E')
+    # → UNKNOWN, never publish a forward multiple as the trailing peer read (§16).
+    d = base / "comps_prb"
+    d.mkdir()
+    _wb(d / "Acme Comps.xlsx", {
+        "Financial Data": [
+            ["As-Of Date", "Mar-31-2026"],
+            ["Company Name", "Shares Outstanding", "Day Close Price"],
+            ["Acme (NYSE:ACME)", 255.9, 47.1],
+            ["Peer One (NYSE:P1)", 100.0, 20.0]],
+        "Trading Multiples": [
+            ["As-Of Date", "Mar-31-2026"],
+            ["Company Name", "TEV/EBITDA 2026E"],   # ONLY a forward-year column
+            ["Acme (NYSE:ACME)", 9.1],
+            ["Peer One (NYSE:P1)", 8.0],
+            ["Summary Statistics"],
+            ["Median", 8.5]],
+    })
+    f = F.build_facts(d, "ACME")["facts"]
+    so = f["shares_outstanding_m"]
+    check("shares_outstanding carries an as-of date (subject row)",
+          so["status"] == "present" and "as-of 2026-03-31" in (so["source_ref"] or ""), str(so))
+    ee = f["peer_ev_ebitda"]
+    check("peer_ev_ebitda REFUSES a bare forward-year (2026E) multiple → UNKNOWN, not forward-as-trailing",
+          ee["status"] == "unknown" and ee["value"] is None, str(ee))
+
+    # …but a calendar-/fiscal-year ACTUAL column ('CY2025A') is a valid TRAILING multiple and must STILL be
+    # selected — the forward reject keys on the 'E' estimate marker, never on a bare fy/cy year (else a
+    # calendar-year comp grid loses its peer multiple entirely).
+    d2 = base / "comps_cyactual"
+    d2.mkdir()
+    _wb(d2 / "Acme Comps.xlsx", {"Trading Multiples": [
+        ["As-Of Date", "Mar-31-2026"],
+        ["Company Name", "TEV/EBITDA CY2025A", "TEV/EBITDA CY2026E"],  # actual + estimate; must pick the ACTUAL
+        ["Acme (NYSE:ACME)", 9.1, 10.4],
+        ["Peer One (NYSE:P1)", 8.0, 9.0],
+        ["Summary Statistics"],
+        ["Median", 8.5, 9.5]]})
+    ee2 = F.build_facts(d2, "ACME")["facts"]["peer_ev_ebitda"]
+    check("peer_ev_ebitda KEEPS a CY-actual column (CY2025A) and picks it over the CY2026E estimate",
+          ee2["status"] == "present" and "9.1x" in str(ee2["value"]) and "8.5x" in str(ee2["value"]), str(ee2))
+
 
 def test_ltm_quarter_guard(base: Path) -> None:
     # A quarterly-ONLY financials export (no annual sibling, no _Annual token) served to an annual request
@@ -720,6 +785,7 @@ def main() -> int:
         test_comps_dual_listing(d)
         test_comps_foreign_subject(d)
         test_comps_p2(d)
+        test_comps_asof_forward(d)
         print("== legacy .xls (xlrd) fact chain ==")
         test_xls_fact_chain()
         print("== reported currency (not USD) ==")

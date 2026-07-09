@@ -1045,8 +1045,10 @@ def shares_outstanding(bundle: ResolvedBundle) -> Sourced:
     got = _comps_subject_cell(bundle, "Financial Data", lambda c: "shares outstanding" in c)
     if isinstance(got, Sourced):
         return got
-    _rows, _g, v = got
-    return Sourced.present(round(v, 1), source_ref="CIQ Comps→Financial Data 'Shares Outstanding Latest' (subject row)")
+    rows, _g, v = got
+    asof = _comps_asof(rows)  # carry the as-of, like current_price: a share count compared against dated ownership needs its date
+    asof_s = f" as-of {asof.isoformat()}" if asof else ""
+    return Sourced.present(round(v, 1), source_ref=f"CIQ Comps→Financial Data 'Shares Outstanding Latest' (subject row){asof_s}")
 
 
 def current_price(bundle: ResolvedBundle) -> Sourced:
@@ -1080,7 +1082,8 @@ def peer_ev_ebitda(bundle: ResolvedBundle) -> Sourced:
     ec = _comps_col(g, lambda c: "tev/ebitda" in c and ("ltm" in c or "last twelve" in c or "last 12" in c))
     if ec is None:
         ec = _comps_col(g, lambda c: "tev/ebitda" in c
-                        and not any(t in c for t in ("ntm", "fwd", "forward", "fy+", "cy+", "+1", "+2", "next")))
+                        and not any(t in c for t in ("ntm", "fwd", "forward", "fy+", "cy+", "+1", "+2", "next"))
+                        and not re.search(r"20\d\de\b", c))  # reject a forward-year ESTIMATE (2026E / FY2026E); an ACTUAL (2025A / CY2025A) still counts
     if ec is None:
         return Sourced.unknown(note="comps Trading Multiples: no LTM/trailing TEV/EBITDA column (only forward multiples)")
     label = str(rows[g["hdr"]][ec]).strip() if ec < len(rows[g["hdr"]]) else "TEV/EBITDA"
@@ -1118,12 +1121,19 @@ _CURRENCY_NAMES = {
 
 
 def _reported_currency(pool: ResolvedPool) -> str | None:
-    """Best-effort read of the workbook's reported-currency CODE from any resolved sheet's 'Currency' header
-    — a 3-letter code cell, or a spelled-out name mapped via _CURRENCY_NAMES. 'Reported Currency' (the CIQ
-    conversion SETTING, not a code) is skipped. None if the code is never stated."""
-    for sheets in pool._cache.values():
-        for rows in sheets.values():
-            for r in rows[:16]:
+    """The SUBJECT's reported-currency CODE, read from its FINANCIALS sheets ONLY (Balance Sheet / Income
+    Statement / Cash Flow / Capital Structure) — a 3-letter code cell, or a spelled-out name mapped via
+    _CURRENCY_NAMES. Financials-only, NOT comps/estimates: CIQ converts a COMP SET to a USD DISPLAY currency,
+    so scanning every resolved sheet returns USD for a non-US subject and mislabels its money facts (the
+    EMAAR AED-read-as-USD defect — a ~3.67x error on every _m fact, §15/§27). The '_m' money facts all come
+    from financials, so their currency must too; the comps price/multiple carry their own display currency
+    (_comps_currency). 'Reported Currency' (the CIQ conversion SETTING, not a code) is skipped. None if the
+    code is never stated on a financials sheet."""
+    for (kind, _sheet, _freq), units in pool.concept_map.items():
+        if kind != "financials":
+            continue
+        for u in units:
+            for r in (pool._cache.get(u["file"], {}).get(u["tab"]) or [])[:16]:
                 if not r or str(r[0]).strip().lower().rstrip(":") != "currency":
                     continue
                 for cell in r[1:]:
