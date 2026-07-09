@@ -69,6 +69,7 @@ If `01_historical-financials.md` is missing, write at the top:
 - **Upstream historical-financials** — margin levels and trends
 - **MD&A** in latest annual and quarterly filings — management discusses cost and margin dynamics
 - **Earnings transcript** — analyst questions on margins, input costs, pricing
+- **Sell-side / analyst earnings note (transcript proxy)** — if no verbatim transcript, use its "Earnings Call Summary" for margin/cost colour; strip the analyst verdict first (§24), cross-check to the primary doc, cite as an unverified paraphrase (`MODULE_RULES.md` → Transcript Sourcing)
 - **Cost of goods sold / cost of revenue** breakdown in notes
 - **Employee cost / headcount** disclosures
 - **Raw material / input cost** commentary in MD&A or Risk Factors

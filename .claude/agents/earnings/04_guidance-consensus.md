@@ -27,7 +27,7 @@ You DO NOT:
 
 **Consensus must come from a pool export** (Capital IQ / Bloomberg / FactSet estimates). *(fix F19)* Do NOT substitute a web-sourced or remembered Street estimate for a covered name — an LLM can produce plausible-but-fabricated "consensus" from memory, and it would silently set the beat/miss bar and the rating. If no consensus / estimate data is in the pool, produce a guidance-only read: extract what management guided, skip the consensus comparison table and revision momentum table, state: *"No consensus data in pool — consensus setup cannot be assessed. Beat/miss setup will be capped at Unclear."*, and apply the consensus-setup cap per `MODULE_RULES.md`. If a web consensus is used at all, it MUST carry the verbatim label `Consensus, web-sourced as of {DATE}, not from data pool — unverified` and still trigger the cap.
 
-If no earnings transcript is available, note: *"No transcript — guidance extracted from filings only."*
+If no VERBATIM transcript is available, apply the **Transcript Sourcing & Fallback** rule (`MODULE_RULES.md`): the guidance / driver colour falls back, in order, to (a) a **sell-side / analyst earnings note used as a verdict-stripped proxy** — strip its Rating / Target Price / "vs our estimate" (§24), use ONLY the call-summary, label `<Broker> "Earnings Call Insight", {Q} (paraphrasing the call; unverified)`, cross-check every figure to the primary doc, and apply the "sell-side proxy only" cap (earnings clarity ≤65); then (b) the **company earnings press-release** outlook; then (c) the filing MD&A. If none exist, note *"No transcript — guidance extracted from filings only."* Official guidance NUMBERS always come from the primary doc, never on the analyst's authority.
 
 # WORKFLOW
 
@@ -41,6 +41,7 @@ If no earnings transcript is available, note: *"No transcript — guidance extra
 # WHAT TO READ (priority for this agent)
 
 - **Earnings transcript** — guidance section in prepared remarks, often also in Q&A
+- **Sell-side / analyst earnings note (transcript proxy)** — its "Earnings Call Summary" carries guided figures, backlog and launch colour; STRIP the analyst Rating / Target / estimate first (§24), cross-check every number to the primary doc, cite as an unverified paraphrase
 - **Investor presentation** — guidance slides
 - **Material-event disclosure** — sometimes contains standalone guidance updates (8-K/6-K in the US; exchange intimation to NSE/BSE under SEBI LODR Reg 30 in India; RNS/local equivalent elsewhere)
 - **Capital IQ / Bloomberg / FactSet exports** — consensus estimates and revision history
