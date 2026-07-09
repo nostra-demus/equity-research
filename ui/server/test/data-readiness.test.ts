@@ -200,6 +200,24 @@ check('extractPeriod: a LATER year in the body never overrides the filename year
   assert.equal(extractPeriod('Emaar_Annual_Report_2024.pdf', 'Our outlook for FY2025-26 remains strong.').hint, '2024')
 })
 
+// ---- the common Indian AR filename `Annual_Report_2024-25.pdf` (fiscal range, NO `FY` prefix). Before the
+// bare-fiscal-range branch the plain-year scan grabbed only the START year 2024 (June), so a current FY2024-25
+// report read ~9 months too old and could wrongly trip the 18-month staleness gate. ----
+check('extractPeriod: a bare fiscal-range filename (2024-25, no FY prefix) ages from the END year 31-Mar, not the START year June', () => {
+  // Expected values pinned to §27 fiscal facts + the March(3)/June(6) monthsSince anchors, not to code output.
+  const fiscal = extractPeriod('Annual_Report_2024-25.pdf', '')
+  const precise2025 = extractPeriod('Annual Report 2025.pdf', 'Report for FY2024-25. Year ended 31 March 2025.')
+  const bare2024 = extractPeriod('Annual Report 2024.pdf', '')
+  assert.equal(fiscal.hint, 'FY2024-25')
+  assert.equal(fiscal.ageMonths, precise2025.ageMonths, 'the filename fiscal range must age from the SAME 31-Mar-2025 year-end as the precise body path')
+  assert.equal((bare2024.ageMonths ?? 0) - (fiscal.ageMonths ?? 0), 9, 'must take END year 2025 (Mar), not START year 2024 (Jun) — a 9-month fresher read')
+})
+
+// a real multi-year span or an ISO date must NOT be mis-read as a fiscal year (guarded by end===start+1)
+check('extractPeriod: a non-consecutive span (2019-2024) is not a fiscal year — falls through to the plain-year max', () => {
+  assert.equal(extractPeriod('Sector_Study_2019-2024.pdf', '').hint, '2024')
+})
+
 check('coverage: among annual reports the Annual-report group names the LATEST (2025), not the alphabetically-earlier 2024', () => {
   const g = deriveCoverage([
     cf('Emaar_Properties_Annual_Report_2023.pdf', 'annual_filing', 37),

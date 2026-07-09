@@ -192,6 +192,19 @@ export function extractPeriod(filename: string, sniff: string): { hint: string |
       const q = Number(m[1])
       return { hint: `Q${m[1]} ${m[2]}`, ageMonths: Math.max(0, monthsSince(Number(m[2]), q * 3)), year: Number(m[2]), precise: true }
     }
+    // bare fiscal range e.g. 2024-25 / 2024-2025 — the common Indian annual-report filename with NO `FY`
+    // prefix (`Annual_Report_2024-25.pdf`). Without this branch the plain-year scan below grabs only the
+    // START year (2024) and dates it to June, so a current FY2024-25 report reads ~9-12 months too old and
+    // wrongly trips the staleness gate. Require CONSECUTIVE years (end === start+1) so it is a real fiscal
+    // year, not an ISO date (`2024-05`) or a multi-year span (`2019-2024`); resolve to the END year, 31-Mar.
+    m = hay.match(/(?<![0-9])(20\d{2})[-/](\d{4}|\d{2})(?![0-9])/)
+    if (m) {
+      const startY = Number(m[1])
+      const endY = m[2].length === 2 ? 2000 + Number(m[2]) : Number(m[2])
+      if (endY === startY + 1) {
+        return { hint: `FY${m[1]}-${m[2]}`, ageMonths: Math.max(0, monthsSince(endY, 3)), year: endY, precise: true }
+      }
+    }
     // plain 4-digit year, take the most recent plausible one. NB: not \b(…)\b — `_` is a word char, so \b
     // never fires between "_" and a digit and a filename year like "…_2024.pdf" would go UNMATCHED (the very
     // case this fix targets). Use digit-boundary lookaround so "_2024.", " 2024 " and "-2024-" all match while
