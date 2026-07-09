@@ -115,6 +115,27 @@ await check('bestFallbackSummary: a BSE/NSE filing whose text is NOT a cover pag
   const out = bestFallbackSummary('', realBody, filingInput, false, true) // not bodyless (PDF read), BSE attachment filing
   assert.ok(/qualified institutional buyers|QIP|12,50,000/i.test(out), `real filing body should win over the terse floor, got: ${out}`)
 })
+// ---- scoping guard #4 (Codex review follow-up on #189): a BSE/NSE cover page FOLLOWED BY the real body.
+// The text IS letterhead (CIN/address/Tel/Fax/Scrip cluster → looksLikeLetterhead true), but the real
+// disclosure follows a "Sub:" line. The letterhead must be STRIPPED and the body kept — not the whole lede
+// discarded for the terse floor. Body-only facts (the 200 MW plant, the Rs 1,450 crore) must survive; the
+// letterhead tokens must NOT leak.
+await check('bestFallbackSummary: a BSE cover page followed by a real "Sub:" body keeps the body, strips the letterhead', () => {
+  const coverPlusBody =
+    'Acme Industries Limited Regd. Office: 12 MG Road, Mumbai 400001 CIN: L12345MH1990PLC012345 ' +
+    'Tel: +91 22 1234 5678 Fax: +91 22 1234 5679 www.acme.example Scrip Code: 500123 ' +
+    'To, BSE Limited, Dalal Street, Mumbai. Dear Sir/Madam, Sub: General Updates. ' +
+    'The Board of Directors at its meeting held today approved the establishment of a new 200 MW solar power ' +
+    'plant in Rajasthan at an estimated cost of Rs 1,450 crore, funded through internal accruals and debt, ' +
+    'with commercial commissioning targeted by March 2027 and expected annual generation of 480 million units.'
+  const filingInput = {
+    headline: 'Acme Industries Ltd: General Updates', input_nature: 'exchange_announcement', source_tier: 'primary_filing',
+    domain: 'www.bseindia.com', url: 'https://www.bseindia.com/xml-data/corpfiling/AttachLive/acme.pdf',
+  }
+  const out = bestFallbackSummary('', coverPlusBody, filingInput, false, true) // letterhead-prone BSE attachment, PDF read
+  assert.ok(/200 MW solar|1,450 crore|480 million units/i.test(out), `the disclosure body after the letterhead should survive, got: ${out}`)
+  assert.ok(!/CIN|MG Road|Dalal Street|1234 5678|Scrip Code/i.test(out), `the stripped letterhead must not leak, got: ${out}`)
+})
 // ---- scoping guard #1: the fix must NOT over-floor a NON-attachment filing whose document opens with real
 // content. An ASX announcement (filingIsAttachment=false — fetched via documentKey, not a BSE/NSE or .pdf
 // URL) whose PDF opens with the actual announcement must still lead with that content, not the terse floor.

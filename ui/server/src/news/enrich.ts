@@ -535,6 +535,23 @@ function looksLikeLetterhead(text: string): boolean {
   return hits >= 2
 }
 
+/** Isolate the real disclosure body from a filing PDF's opening cover-page letterhead. Indian SEBI-LODR
+ *  cover letters carry the matter after a "Sub:/Subject:/Ref:" line, or after a "Dear Sir/Madam" salutation
+ *  — take the text from the first such anchor so the body that follows the letterhead is preserved and can
+ *  compete, instead of discarding the whole lede for the terse headline floor (Codex review on #189). A
+ *  genuine cover page with NEITHER anchor is pure boilerplate with no isolable body → returns '' (the caller
+ *  keeps the headline floor). Deliberately anchor-based, NOT "drop leading letterhead lines": an issuer
+ *  ADDRESS block carries none of the letterhead keywords, so a line-dropping heuristic would leak it — the
+ *  anchor is the only reliable boundary between the cover page and the disclosure. */
+function stripLetterhead(text: string): string {
+  const t = text.replace(/\s+/g, ' ').trim()
+  const sub = /\b(?:sub|subject|ref)\b\s*[:\-–]\s*/i.exec(t)
+  if (sub) { const tail = t.slice(sub.index + sub[0].length).trim(); if (tail.length >= 40) return tail }
+  const dear = /\bdear\s+(?:sir|madam|sir\s*\/?\s*madam|sirs)\b[,:]?\s*/i.exec(t)
+  if (dear) { const tail = t.slice(dear.index + dear[0].length).trim(); if (tail.length >= 40) return tail }
+  return ''
+}
+
 /** When the LLM read isn't available, show the MOST substantial real text we already hold — not whatever
  *  comes first. The og:description is frequently a vague marketing dek ("there's one theme you can't
  *  ignore"); the RSS lede is frequently the real opening paragraph. Prefer the longest genuine prose of the
@@ -545,24 +562,29 @@ function looksLikeLetterhead(text: string): boolean {
  *  phone/fax, website, scrip codes — NEVER the disclosure, yet it is long and prose-like, so the "longest
  *  genuine prose wins" ranking below would surface THAT boilerplate over the parsed subject (the Adani-QIP
  *  defect). For these filings, once the extracted text actually looks like a cover page (looksLikeLetterhead),
- *  the meaning lives in the HEADLINE (story-floor.ts / §27) and the deterministic floor is the authoritative
- *  best. A BSE/NSE filing whose text is NOT a cover page (a generic title opening directly with the real
- *  update) still competes normally below — the attachment signal alone must not discard real body text.
+ *  the letterhead is STRIPPED (stripLetterhead) so the real disclosure body that follows — a "Sub:/Ref:"
+ *  line or the text after a salutation — still competes below; a pure cover page with no isolable body
+ *  reduces to '' and the headline floor wins the sort (story-floor.ts / §27). This preserves body-only facts
+ *  for generic-title filings ("General Updates" whose PDF is letterhead + the real update) instead of
+ *  discarding them for the terse floor (Codex review on #189). A BSE/NSE filing whose text is NOT a cover
+ *  page (a generic title opening directly with the real update) is untouched and competes as-is.
  *  Deliberately NOT keyed on merely "we read a document": an ASX announcement (fetched via its documentKey,
  *  and whose PDF opens with the real announcement text, not letterhead) has filingIsAttachment=false, so its
  *  genuine content still competes — as does a regulator PRESS RELEASE (a readable article, no document). */
 export function bestFallbackSummary(pageHtml: string, snippet: string, filingInput: StoryFloorInput, bodylessFiling: boolean, filingIsAttachment = false): string {
   const floor = storyFloor(filingInput).summary
   if (bodylessFiling) return floor
-  // A BSE/NSE- or PDF-attachment filing whose extracted text actually IS cover-page letterhead → the
-  // headline-derived floor is the authoritative best; the raw cover page must never win. (isFilingEvent is a
-  // belt-and-braces guard — the attachment signal already implies a filing.) A filing whose text is NOT a
-  // cover page (looksLikeLetterhead=false) falls through and competes on its own substance below.
-  if (filingIsAttachment && isFilingEvent(filingInput) && looksLikeLetterhead(snippet)) return floor
+  // A BSE/NSE- or PDF-attachment filing whose extracted text actually IS cover-page letterhead → strip the
+  // boilerplate so the real disclosure body that follows still competes below, rather than discarding the
+  // whole lede for the terse floor. A pure cover page (no isolable body) strips to '' → the floor wins the
+  // sort, so letterhead can never leak. (isFilingEvent is a belt-and-braces guard — the attachment signal
+  // already implies a filing.) A filing whose text is NOT a cover page falls through untouched.
+  let lede = String(snippet || '')
+  if (filingIsAttachment && isFilingEvent(filingInput) && looksLikeLetterhead(lede)) lede = stripLetterhead(lede)
   // the real article prose (extractReadable) is preferred over the often-vague og:description dek — so a
   // fetched page shows its genuine opening even when no LLM was available to summarise it.
   const readable = pageHtml ? extractReadable(pageHtml) : ''
-  const cands = [String(snippet || ''), readable, pageHtml ? extractSummary(pageHtml) || '' : '']
+  const cands = [lede, readable, pageHtml ? extractSummary(pageHtml) || '' : '']
     .map((s) => s.trim())
     .filter((s) => s.length >= 40 && /[a-z][a-z ,;:'"-]{12,}/i.test(s)) // real prose, not a code/stub
   // The deterministic floor (an honest "couldn't open the body — from the headline: …" restatement) is
