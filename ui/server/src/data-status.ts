@@ -288,6 +288,18 @@ export function quoteAsOfMonths(sniff: string): number | null {
   return bestKey < 0 ? null : Math.max(0, monthsSince(bestY, bestMo))
 }
 
+// A sell-side note by CONTENT: a directional verdict block (Target Price + Rating/Recommendation) riding on
+// an earnings-call summary. Specific to broker notes — a company / verbatim transcript never carries a
+// Target-Price-and-Rating block. Keyed on the verdict block, NOT on "our estimate" (which management also
+// says when guiding). Used both before the transcript-filename fallback and in the opaque-name content
+// sniff, so a broker note is tagged the same however it is named.
+function isSellSideNoteContent(sniff: string): boolean {
+  if (!sniff) return false
+  return /target price/i.test(sniff)
+    && /\brating\b|recommendation|\b(buy|sell|hold|overweight|underweight)\b/i.test(sniff)
+    && /earnings call|earnings call summary|prepared remarks|conference call/i.test(sniff)
+}
+
 // ---- classification ----
 export function classify(filename: string, sniff: string): { type: FileType; confidence: 'high' | 'medium' | 'low'; basis: 'filename' | 'content' | 'extension' } {
   const f = filename.toLowerCase()
@@ -305,13 +317,22 @@ export function classify(filename: string, sniff: string): { type: FileType; con
   // Transcript") is prepared remarks, not slides — the `transcript` token wins, so exclude it here and let
   // it fall through to the transcript rule below.
   if (test(/presentation|slides|\bdeck\b/) && !test(/transcript/)) return { type: 'investor_deck', confidence: 'high', basis: 'filename' }
-  // A SELL-SIDE / analyst earnings note (a broker "…Equity Research… Earnings…" PDF, an "Earnings Call
-  // Insight/Summary") is a hybrid: a call summary bundled with a directional verdict (Rating / Target
-  // Price). It is NOT a verbatim transcript — tag it distinctly so the reading layer strips the verdict
-  // and caps (earnings MODULE_RULES → Transcript Sourcing). Tested BEFORE the transcript rule, whose
-  // "earnings call" token it would otherwise trip; a verbatim CIQ transcript ("…Q1 2026 Earnings Call…")
-  // carries none of these broker tokens, so it falls through untouched.
-  if (test(/equity research|earnings call insight|analyst[\s_]?(note|report)|initiation of coverage/) && test(/earnings|results|[1-4]q[\s\-_]?\d{2}|q[1-4][\s\-_]?20\d{2}/)) return { type: 'sell_side_earnings_note', confidence: 'high', basis: 'filename' }
+  // A SELL-SIDE / analyst earnings-CALL note (a broker "Earnings Call Insight / Summary / Recap") is a
+  // hybrid: a call summary bundled with a directional verdict (Rating / Target Price). It is NOT a verbatim
+  // transcript — tag it distinctly so the reading layer strips the verdict and caps it (earnings
+  // MODULE_RULES → Transcript Sourcing). The FILENAME shortcut fires ONLY on an explicit call-insight /
+  // call-summary / call-recap token: a bare "Equity Research … Earnings" or "Analyst Report … Results" name
+  // is an ORDINARY results/target-price note, not a call summary, so tagging it here would let it satisfy
+  // the Earnings-transcript slot and HIDE a missing call source (§11) — those need the content verdict block
+  // (below) to prove they summarise a call. Tested BEFORE the transcript rule so an "…Earnings Call Summary"
+  // name is a proxy, not a plain transcript; a verbatim CIQ transcript ("…Q1 2026 Earnings Call…") carries
+  // no insight/summary/recap token, so it falls through untouched.
+  if (test(/(?:earnings|conference)[\s\-_]?call[\s\-_]?(?:insight|summary|recap|review|takeaways?|highlights?)|\bcall[\s\-_]?(?:insight|summary|recap)\b/)) return { type: 'sell_side_earnings_note', confidence: 'high', basis: 'filename' }
+  // A file whose NAME says "earnings call" but whose BODY carries a broker verdict block (Target Price +
+  // Rating on a call summary) is a sell-side note, not a verbatim transcript — check content BEFORE the
+  // transcript-filename fallback below claims it, otherwise the directional verdict rides along untagged
+  // (§24) and fills the call slot as if it were a real transcript.
+  if (isSellSideNoteContent(sniff)) return { type: 'sell_side_earnings_note', confidence: 'medium', basis: 'content' }
   // Transcript is tested BEFORE quarterly on purpose: an earnings-call transcript filename carries a
   // quarter token ("…Q1 2026 Earnings Call…") that the quarterly rule's `q[1-4] 20\d{2}` would otherwise
   // claim first — and once quarterly returns, the content sniff (line ~223) never runs. The
@@ -334,14 +355,9 @@ export function classify(filename: string, sniff: string): { type: FileType; con
   // hijack the "Annual report" coverage slot from the real 10-K (a §4 source-hierarchy error).
   if (test(/company profile|tearsheet|landscape|suppliers|customers|products|key[\s_]?developments|strategic[\s_]?alliances/)) return { type: 'other', confidence: 'low', basis: 'filename' }
 
-  // content sniff for opaque names (UUID PDFs)
+  // content sniff for opaque names (UUID PDFs). A sell-side verdict block is already caught above
+  // (isSellSideNoteContent), before the transcript-filename fallback, so no proxy check is needed here.
   if (sniff) {
-    // sell-side note by content: a directional verdict block (Target Price + Rating/Recommendation) riding
-    // on an earnings-call summary. Tested FIRST so the "earnings call" token doesn't slot it as a plain
-    // transcript (below) with the verdict untagged. Keyed on the verdict block, NOT on "our estimate"
-    // (which management also says when giving guidance) — a company / verbatim transcript never carries a
-    // Target-Price-and-Rating block, so this stays specific to broker notes.
-    if (testC(/target price/i) && testC(/\brating\b|recommendation|\b(buy|sell|hold|overweight|underweight)\b/i) && testC(/earnings call|earnings call summary|prepared remarks|conference call/i)) return { type: 'sell_side_earnings_note', confidence: 'medium', basis: 'content' }
     if (testC(/ANNUAL REPORT|Form 10-K|Independent Auditor|Integrated Annual/i)) return { type: 'annual_filing', confidence: 'medium', basis: 'content' }
     if (testC(/Form 10-Q|three months ended|unaudited condensed|interim (results|report|financial)|half[\s-]?year/i)) return { type: 'quarterly_filing', confidence: 'medium', basis: 'content' }
     if (testC(/prepared remarks|Question-and-Answer|Operator[,:]|Thank you for joining|earnings call/i)) return { type: 'transcript', confidence: 'medium', basis: 'content' }
@@ -420,7 +436,18 @@ export function evalDecl(decl: DataReadinessDecl, has: (t: FileType) => boolean)
   return { status: 'Partial', reasons: [`present, missing: ${missing.join(', ')}`], caps }
 }
 
-function evaluateModules(files: ClassifiedFile[], moduleNames: string[]): Record<string, ModuleReadiness> {
+// Type-equivalence for a self-declared readiness `has`: a sell-side proxy fills the `transcript` slot,
+// exactly as the coverage row groups them (COVERAGE_GROUPS transcript group → types transcript +
+// sell_side_earnings_note). Generic — NO module name hardcoded (§26) — so a proxy+guidance pool reads the
+// same in the upload panel and in every self-declared module's readiness dot (was inconsistent: the panel
+// showed the slot filled while `has('transcript')` stayed false and reported a missing-transcript cap).
+export function readinessHas(files: ClassifiedFile[], t: FileType): boolean {
+  if (files.some((f) => f.type === t)) return true
+  if (t === 'transcript') return files.some((f) => f.type === 'sell_side_earnings_note')
+  return false
+}
+
+export function evaluateModules(files: ClassifiedFile[], moduleNames: string[]): Record<string, ModuleReadiness> {
   const has = (t: FileType) => files.some((f) => f.type === t)
   const minAge = (types: FileType[]) => {
     const ages = files.filter((f) => types.includes(f.type)).map((f) => f.ageMonths).filter((a): a is number => a != null)
@@ -476,12 +503,21 @@ function evaluateModules(files: ClassifiedFile[], moduleNames: string[]): Record
     const core = hasFinancials && (hasPeriodic || hasAnnual)
     const nTranscript = files.filter((f) => f.type === 'transcript').length
     const nProxy = files.filter((f) => f.type === 'sell_side_earnings_note').length
+    // Count DISTINCT RECENT call PERIODS, not files: a Q4 transcript + a Q4 proxy (same call), or two stale
+    // calls, is not "two recent earnings calls" — counting files let that suppress the <2 cap and mark
+    // earnings Sufficient on one call's worth of colour (§11). Recent = ≤6mo (matches the transcript coverage
+    // staleAfterMonths) or undated; distinctness keys on the parsed period, falling back to a per-file key so
+    // two undated/unparsed calls still count as two (no false cap).
+    const recentCalls = files.filter(
+      (f) => (f.type === 'transcript' || f.type === 'sell_side_earnings_note') && (f.ageMonths == null || f.ageMonths <= 6),
+    )
+    const distinctRecentCalls = new Set(recentCalls.map((f) => f.periodHint ?? `__file:${f.filename}`)).size
     const caps: string[] = []
     // Earnings-call source is a STRONG-CAP, never a blocker: the engine wants the latest ~2 quarters of
     // call colour, and a sell-side proxy fills the commentary role only (verdict-stripped, MODULE_RULES).
     if (nTranscript === 0 && nProxy > 0) caps.push('earnings-call colour from a sell-side proxy only — verdict-stripped commentary; earnings clarity capped, tone/candor not assessable')
     else if (nTranscript === 0 && nProxy === 0) caps.push('no earnings call (transcript or proxy) — management commentary from filings only')
-    if (nTranscript + nProxy > 0 && nTranscript + nProxy < 2) caps.push('fewer than 2 recent earnings calls in the pool — driver/candor detail limited')
+    if (nTranscript + nProxy > 0 && distinctRecentCalls < 2) caps.push('fewer than 2 recent earnings calls in the pool — driver/candor detail limited')
     let status: Sufficiency = 'Insufficient'
     const reasons: string[] = []
     if (!hasFinancials) {
@@ -563,7 +599,7 @@ function evaluateModules(files: ClassifiedFile[], moduleNames: string[]): Record
   for (const name of moduleNames) {
     if (out[name]) continue
     const d = decls[name]
-    if (d) out[name] = evalDecl(d, has)
+    if (d) out[name] = evalDecl(d, (t) => readinessHas(files, t))
   }
 
   // generic fallback — keeps readiness self-discovering for any other module the engine adds,
