@@ -587,7 +587,18 @@ export function bestFallbackSummary(pageHtml: string, snippet: string, filingInp
   // sort, so letterhead can never leak. (isFilingEvent is a belt-and-braces guard — the attachment signal
   // already implies a filing.) A filing whose text is NOT a cover page falls through untouched.
   let lede = String(snippet || '')
-  if (filingIsAttachment && isFilingEvent(filingInput) && looksLikeLetterhead(lede)) lede = stripLetterhead(lede)
+  let strippedBody = ''
+  if (filingIsAttachment && isFilingEvent(filingInput) && looksLikeLetterhead(lede)) {
+    strippedBody = stripLetterhead(lede)
+    lede = strippedBody
+  }
+  // A disclosure body we deliberately isolated from cover-page letterhead is the filing's OWN words — the
+  // primary source (§4) — and must outrank the deterministic headline floor even when it is SHORTER than
+  // that floor. A one-line "Mr X has resigned as CFO with effect from today" after the letterhead must not
+  // lose the length sort to the terse "from the headline: …" restatement and drop the body-only fact (Codex
+  // review on #189, discussion_r3551546331). stripLetterhead already removed the letterhead, so a non-empty
+  // return is real disclosure prose (≥40 chars) — never letterhead, so this can't leak the cover page.
+  if (strippedBody && /[a-z][a-z ,;:'"-]{12,}/i.test(strippedBody)) return strippedBody.slice(0, 600)
   // the real article prose (extractReadable) is preferred over the often-vague og:description dek — so a
   // fetched page shows its genuine opening even when no LLM was available to summarise it.
   const readable = pageHtml ? extractReadable(pageHtml) : ''

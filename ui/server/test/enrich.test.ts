@@ -183,6 +183,25 @@ await check('bestFallbackSummary: a "Ref:" line above "Sub:" does not win — th
   assert.ok(/200 MW solar|1,450 crore|480 million units/i.test(out), `the disclosure body should survive, got: ${out}`)
   assert.ok(!/ACME\/SEC\/2026-27\/145|dated 09th July|Listing Department/i.test(out), `the Ref: line boilerplate must not lead the body, got: ${out}`)
 })
+// ---- scoping guard #7 (Codex review follow-up on #189, discussion_r3551546331): a cover page whose real
+// disclosure body after the "Sub:" line is SHORTER than the deterministic headline floor. In the plain
+// length sort the longer floor won, so a terse-but-material body-only fact (a one-line CFO resignation) was
+// dropped. A body we deliberately isolated from letterhead is the filing's OWN words (§4) and must beat the
+// floor regardless of length. Expected outcome pinned to §4 (primary source over headline restatement), not
+// to code output — the assertion keys on a body-only token ("Sharma"/"resigned") absent from the floor.
+await check('bestFallbackSummary: a stripped disclosure body SHORTER than the floor still wins (§4 primary source over headline restatement)', () => {
+  const coverPlusShortBody =
+    'Acme Industries Limited Regd. Office: 12 MG Road, Mumbai 400001 CIN: L12345MH1990PLC012345 ' +
+    'Tel: +91 22 1234 5678 Fax: +91 22 1234 5679 www.acme.example Scrip Code: 500123 ' +
+    'Dear Sir/Madam, Sub: Change in KMP. Mr R K Sharma has resigned as CFO with effect from today.'
+  const filingInput = {
+    headline: 'Acme Industries Ltd: General Updates and Other Corporate Matters', input_nature: 'exchange_announcement',
+    source_tier: 'primary_filing', domain: 'www.bseindia.com', url: 'https://www.bseindia.com/xml-data/corpfiling/AttachLive/acme-kmp.pdf',
+  }
+  const out = bestFallbackSummary('', coverPlusShortBody, filingInput, false, true)
+  assert.ok(/Sharma|resigned as CFO/i.test(out), `the short stripped body must win over the longer floor, got: ${out}`)
+  assert.ok(!/CIN|MG Road|1234 5678|Scrip Code/i.test(out), `the stripped letterhead must not leak, got: ${out}`)
+})
 // ---- scoping guard #1: the fix must NOT over-floor a NON-attachment filing whose document opens with real
 // content. An ASX announcement (filingIsAttachment=false — fetched via documentKey, not a BSE/NSE or .pdf
 // URL) whose PDF opens with the actual announcement must still lead with that content, not the terse floor.
