@@ -707,7 +707,14 @@ def _metric_numbers(text, kind):
     if kind=="ratio":
         xs = re.findall(r"([+-]?\d+(?:\.\d+)?)\s*x\b", t, re.I)
         if xs: return [float(x) for x in xs]
-        return [float(x) for x in re.findall(r"[+-]?\d+(?:\.\d+)?(?!\s*%)", t)]
+        # Ratio written without a unit ("≈ -0.37"): bare non-percent numbers, but FIRST drop figures that
+        # cannot be a risk/reward ratio — currency amounts / prices ("$38", "AED 20", "Rs 1,450"), quantities
+        # with a unit ("38/share", "480 million units"), and 4-digit years — so a stray price sharing the
+        # cell ("≈ -0.37 … risking ~$38/share") can't spuriously satisfy a bad JSON ratio (r3551580659).
+        tt = re.sub(r"(?:[$€£₹]|\b(?:aed|rs|usd|inr|eur|gbp)\b\.?)\s*[+-]?\d[\d,]*(?:\.\d+)?", " ", t, flags=re.I)
+        tt = re.sub(r"[+-]?\d[\d,]*(?:\.\d+)?\s*(?:/\s*share|per\s+share|shares?|crore|cr|lakh|million|mn|billion|bn|units?)\b", " ", tt, flags=re.I)
+        tt = re.sub(r"\b(?:19|20)\d{2}\b", " ", tt)
+        return [float(x) for x in re.findall(r"[+-]?\d+(?:\.\d+)?(?!\s*%)", tt)]
     t = re.sub(r"/\s*100\b","",t)
     return [float(x) for x in re.findall(r"[+-]?\d+(?:\.\d+)?", t)]
 def _reconciles(nums, target, tol_abs, tol_rel, use_abs=False):
@@ -737,6 +744,12 @@ def eval_ai_headline_reconciliation(decision_date, d, thesis):
     if section is None:
         return ["'## 2. Headline Scorecard' section not found in final_thesis.md"]
     det=[]
+    # The two reader-facing SCORE rows are MANDATORY in the §2 scorecard even for a non-conviction run whose
+    # score field is null — synthesizer.md §2 makes them numbers the reader always sees, so an omitted row is
+    # a real defect the §8/§14 tables cannot paper over (r3551580662). (An honest "N/A" cell for a null field
+    # is still a present row and is fine — only a wholly ABSENT row fails.) For a return/ratio field, an
+    # absent row is only a defect when the JSON actually carries a value to reconcile against.
+    SCORE_ROWS_REQUIRED = {"confidence_score", "data_sufficiency_score"}
     for label, field, kind, tol_abs, tol_rel, use_abs in [
         ("Confidence /100", "confidence_score", "plain", 0.5, 0.0, False),
         ("Data sufficiency /100", "data_sufficiency_score", "plain", 0.5, 0.0, False),
@@ -747,15 +760,19 @@ def eval_ai_headline_reconciliation(decision_date, d, thesis):
         target = d.get(field)
         cell = _hs_cell(section, label)
         nums = _metric_numbers(cell, kind)
+        if cell is None:
+            if field in SCORE_ROWS_REQUIRED:
+                det.append(f"Headline Scorecard row {label!r} is required (a reader-facing score) but absent from the scorecard")
+            elif isnum(target):
+                det.append(f"Headline Scorecard row {label!r} not found but {field}={target} is set")
+            continue  # row absent + non-score field + null JSON → nothing to reconcile
         if not isnum(target):
-            # field null/missing in decision_record.json: a numeric headline cell then has no computed
-            # value to be a verbatim copy OF (§2) — flag the split rather than let it through silently (r3548777243).
+            # field null/missing but the row IS present: a numeric headline cell then has no computed value
+            # to be a verbatim copy OF (§2) — flag the split; an empty / "N/A" cell for a null field is fine (r3548777243).
             if nums:
                 det.append(f"Headline Scorecard {label!r}={cell!r} carries a number but {field} is null/missing in decision_record.json")
             continue
-        if cell is None:
-            det.append(f"Headline Scorecard row {label!r} not found but {field}={target} is set")
-        elif not _reconciles(nums, target, tol_abs, tol_rel, use_abs):
+        if not _reconciles(nums, target, tol_abs, tol_rel, use_abs):
             det.append(f"Headline Scorecard {label!r}={cell!r} does not reconcile with {field}={target}"
                         +(" (by magnitude)" if use_abs else ""))
     return det
@@ -1464,6 +1481,9 @@ if scope=="selftest":
                    "| Rating | Watchlist |\n| Downside risk | −81% |\n| Risk/reward | −0.23x |\n"
                    "| Confidence /100 | 47 |\n| Data sufficiency /100 | 68 |\n\n"
                    "## 8. Scenario Model\n\n| Metric | Value |\n|---|---|\n| Expected return | −4.4% |\n")
+    # r3551580662 — the Confidence row is wholly ABSENT from the scorecard (Data sufficiency present).
+    TH_NO_CONF_ROW=("# Thesis\n\n## 2. Headline Scorecard\n\n| Item | Answer |\n|---|---|\n"
+                    "| Rating | Watchlist |\n| Data sufficiency /100 | 70 |\n")
     aicases=[  # (decision_date, decision_record_dict, thesis_text, expect: None|[]|[substr,...])
         ("2026-07-08", D_TMCV, TH_TMCV, None),                                    # predates AI_DATE
         ("2026-07-09", D_CLEAN, NO_SCORECARD, ["section not found"]),
@@ -1492,6 +1512,13 @@ if scope=="selftest":
          _hs_thesis(exp="+20% (probability-weighted)", conf="50"), ["Expected return"]),
         # r3548777243 — numeric headline cell but the JSON field is entirely MISSING → FAIL.
         ("2026-07-09", {"confidence_score":50}, _hs_thesis(exp="+20%", conf="50"), ["Expected return"]),
+        # r3551580659 — ratio fallback must IGNORE a stray price sharing the cell: the real ratio is -0.37,
+        # and a bad JSON risk_reward=38 equal to the "$38/share" price must NOT reconcile (price is stripped).
+        ("2026-07-09", {"risk_reward":38.0,"confidence_score":50},
+         _hs_thesis(rr="≈ -0.37 in base case, risking ~$38/share", conf="50"), ["Risk/reward"]),
+        # r3551580662 — a required reader-facing SCORE row is ABSENT and its JSON field is null → FAIL
+        # (previously skipped, letting a thesis ship with no reader-facing Confidence / Data-sufficiency row).
+        ("2026-07-09", {"confidence_score":None,"data_sufficiency_score":70}, TH_NO_CONF_ROW, ["Confidence /100"]),
     ]
     aibad=0
     for dt_,d_,th_,exp in aicases:
