@@ -74,6 +74,7 @@ export type FileType =
   | 'annual_filing'
   | 'quarterly_filing'
   | 'transcript'
+  | 'sell_side_earnings_note' // a broker "Earnings Call Insight/Summary" — a verdict-bearing transcript PROXY, NOT a verbatim transcript
   | 'investor_deck'
   | 'consensus_estimates'
   | 'multiples_export'

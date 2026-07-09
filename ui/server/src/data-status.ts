@@ -305,6 +305,13 @@ export function classify(filename: string, sniff: string): { type: FileType; con
   // Transcript") is prepared remarks, not slides — the `transcript` token wins, so exclude it here and let
   // it fall through to the transcript rule below.
   if (test(/presentation|slides|\bdeck\b/) && !test(/transcript/)) return { type: 'investor_deck', confidence: 'high', basis: 'filename' }
+  // A SELL-SIDE / analyst earnings note (a broker "…Equity Research… Earnings…" PDF, an "Earnings Call
+  // Insight/Summary") is a hybrid: a call summary bundled with a directional verdict (Rating / Target
+  // Price). It is NOT a verbatim transcript — tag it distinctly so the reading layer strips the verdict
+  // and caps (earnings MODULE_RULES → Transcript Sourcing). Tested BEFORE the transcript rule, whose
+  // "earnings call" token it would otherwise trip; a verbatim CIQ transcript ("…Q1 2026 Earnings Call…")
+  // carries none of these broker tokens, so it falls through untouched.
+  if (test(/equity research|earnings call insight|analyst[\s_]?(note|report)|initiation of coverage/) && test(/earnings|results|[1-4]q[\s\-_]?\d{2}|q[1-4][\s\-_]?20\d{2}/)) return { type: 'sell_side_earnings_note', confidence: 'high', basis: 'filename' }
   // Transcript is tested BEFORE quarterly on purpose: an earnings-call transcript filename carries a
   // quarter token ("…Q1 2026 Earnings Call…") that the quarterly rule's `q[1-4] 20\d{2}` would otherwise
   // claim first — and once quarterly returns, the content sniff (line ~223) never runs. The
@@ -329,6 +336,12 @@ export function classify(filename: string, sniff: string): { type: FileType; con
 
   // content sniff for opaque names (UUID PDFs)
   if (sniff) {
+    // sell-side note by content: a directional verdict block (Target Price + Rating/Recommendation) riding
+    // on an earnings-call summary. Tested FIRST so the "earnings call" token doesn't slot it as a plain
+    // transcript (below) with the verdict untagged. Keyed on the verdict block, NOT on "our estimate"
+    // (which management also says when giving guidance) — a company / verbatim transcript never carries a
+    // Target-Price-and-Rating block, so this stays specific to broker notes.
+    if (testC(/target price/i) && testC(/\brating\b|recommendation|\b(buy|sell|hold|overweight|underweight)\b/i) && testC(/earnings call|earnings call summary|prepared remarks|conference call/i)) return { type: 'sell_side_earnings_note', confidence: 'medium', basis: 'content' }
     if (testC(/ANNUAL REPORT|Form 10-K|Independent Auditor|Integrated Annual/i)) return { type: 'annual_filing', confidence: 'medium', basis: 'content' }
     if (testC(/Form 10-Q|three months ended|unaudited condensed|interim (results|report|financial)|half[\s-]?year/i)) return { type: 'quarterly_filing', confidence: 'medium', basis: 'content' }
     if (testC(/prepared remarks|Question-and-Answer|Operator[,:]|Thank you for joining|earnings call/i)) return { type: 'transcript', confidence: 'medium', basis: 'content' }
@@ -461,13 +474,20 @@ function evaluateModules(files: ClassifiedFile[], moduleNames: string[]): Record
   // earnings
   {
     const core = hasFinancials && (hasPeriodic || hasAnnual)
+    const nTranscript = files.filter((f) => f.type === 'transcript').length
+    const nProxy = files.filter((f) => f.type === 'sell_side_earnings_note').length
     const caps: string[] = []
+    // Earnings-call source is a STRONG-CAP, never a blocker: the engine wants the latest ~2 quarters of
+    // call colour, and a sell-side proxy fills the commentary role only (verdict-stripped, MODULE_RULES).
+    if (nTranscript === 0 && nProxy > 0) caps.push('earnings-call colour from a sell-side proxy only — verdict-stripped commentary; earnings clarity capped, tone/candor not assessable')
+    else if (nTranscript === 0 && nProxy === 0) caps.push('no earnings call (transcript or proxy) — management commentary from filings only')
+    if (nTranscript + nProxy > 0 && nTranscript + nProxy < 2) caps.push('fewer than 2 recent earnings calls in the pool — driver/candor detail limited')
     let status: Sufficiency = 'Insufficient'
     const reasons: string[] = []
     if (!hasFinancials) {
       reasons.push('no income statement / cash-flow base to analyze earnings')
     } else if (core && hasConsensus) {
-      status = 'Sufficient'
+      status = caps.length ? 'Partial' : 'Sufficient'
       reasons.push('financials + recent period + consensus estimates present')
     } else {
       status = 'Partial'
@@ -617,8 +637,8 @@ const COVERAGE_GROUPS: CoverageGroupDef[] = [
     helps: 'the latest interim/quarterly (≤~6mo) — recent trend & earnings',
     types: ['quarterly_filing'], tab: /quarter|interim/i, staleAfterMonths: 6 },
   { key: 'transcript', label: 'Earnings transcript', tier: 'core',
-    helps: 'the latest earnings call — guidance & candor; more quarters optional (trend)',
-    types: ['transcript'], staleAfterMonths: 6 },
+    helps: 'the latest ~2 earnings calls — guidance, drivers & candor; a sell-side "Earnings Call Insight" works as a verdict-stripped proxy when no verbatim transcript exists',
+    types: ['transcript', 'sell_side_earnings_note'], staleAfterMonths: 6 },
   { key: 'estimates', label: 'Consensus estimates', tier: 'core',
     helps: 'current consensus + revisions (90/60/30d) — the bar to beat; without it earnings consensus caps at 30',
     types: ['consensus_estimates'], tab: /consensus|estimate|revision|trend|surprise|analyst[\s_]?coverage/i },
