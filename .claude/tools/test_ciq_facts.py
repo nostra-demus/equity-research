@@ -720,6 +720,31 @@ def test_shares_units_normalize(base: Path) -> None:
     check("a plausible share count is NEVER rescaled by a mis-scaled Market Cap (255.9 stays 255.9)",
           so3["status"] == "present" and abs(float(so3["value"]) - 255.9) < 0.05 and "normalized" not in (so3["source_ref"] or ""), str(so3))
 
+    # A SUB-100M-share issuer in thousands is caught too (50M shares → 50,000; mc ÷ px = 50) — the raw>1000
+    # suspect line reaches well below 100M shares, not just mega-caps.
+    d4 = base / "shares_small"
+    d4.mkdir()
+    _wb(d4 / "Acme Comps.xlsx", {"Financial Data": [
+        ["As-Of Date", "Mar-31-2026"],
+        ["Company Name", "Day Close Price Latest", "Shares Outstanding Latest", "Market Capitalization Latest"],
+        ["Acme (NYSE:ACME)", 40.0, 50000.0, 2000.0]]})   # 50M-share issuer stated in THOUSANDS; mc ÷ px = 50
+    so4 = F.build_facts(d4, "ACME")["facts"]["shares_outstanding_m"]
+    check("a sub-100M-share issuer in thousands is normalized (50,000 → 50) — threshold reaches small caps",
+          so4["status"] == "present" and abs(float(so4["value"]) - 50.0) < 0.5 and "normalized" in (so4["source_ref"] or ""), str(so4))
+
+    # An OFF-CONVENTION 100x gap (scale 2 — NOT a real share unit; the kind a GBp/pence price against a
+    # £-millions Market Cap produces) must NOT be rescaled even though the raw clears the >1000 line: only
+    # 10^3/10^6 are share-unit scales, so a 10^2 gap leaves the count alone rather than fabricating one.
+    d5 = base / "shares_offscale"
+    d5.mkdir()
+    _wb(d5 / "Acme Comps.xlsx", {"Financial Data": [
+        ["As-Of Date", "Mar-31-2026"],
+        ["Company Name", "Day Close Price Latest", "Shares Outstanding Latest", "Market Capitalization Latest"],
+        ["Acme (LSE:ACME)", 47.1, 25590.0, 12053.0]]})   # shares ÷ (mc÷px) = 25590/255.9 = 100 → scale 2, not 3/6
+    so5 = F.build_facts(d5, "ACME")["facts"]["shares_outstanding_m"]
+    check("an off-convention 100x gap (scale 2) is NOT rescaled (25,590 stays; only 10^3/10^6 count)",
+          so5["status"] == "present" and abs(float(so5["value"]) - 25590.0) < 0.5 and "normalized" not in (so5["source_ref"] or ""), str(so5))
+
 
 def test_ltm_quarter_guard(base: Path) -> None:
     # A quarterly-ONLY financials export (no annual sibling, no _Annual token) served to an annual request

@@ -1057,16 +1057,21 @@ def shares_outstanding(bundle: ResolvedBundle) -> Sourced:
         return clean_num(rows[g["subj"]][c]) if c is not None and c < len(rows[g["subj"]]) else None
     unit_s = ""
     mc, px = _subj(lambda c: "market cap" in c), _subj(lambda c: "day close price" in c)
-    # Guard the correction to an IMPLAUSIBLY large raw count (>100,000 mm = 100bn shares — above essentially
-    # every real company). This only rescales a clear thousands/actual export; a plausible count is never
-    # touched, so a mis-scaled Market Cap can't drag a CORRECT share count down (a genuinely large count like
-    # a 60bn-share bank still reconciles at scale 0 → also untouched). §24: never corrupt a right value.
-    if v and v > 100_000 and mc and px and px > 0:
+    # A units error makes the raw count too BIG (thousands/actual > millions), so only a raw above a plausible
+    # small-cap millions count (>1,000 mm = 1bn shares) is a suspect — this catches a thousands export down to
+    # ~1M-share issuers while a genuinely small millions count (<1bn shares) is never touched, so a mis-scaled
+    # Market Cap can't drag a correct value down (§24).
+    if v and v > 1000 and mc and px and px > 0:
         implied = mc / px  # CIQ's own implied share count, in millions (Market Cap is millions, Price is actual)
-        scale = round(math.log10(v / implied)) if implied > 0 else 0
-        if abs(scale) >= 2 and abs(v / 10 ** scale - implied) <= 0.02 * implied:  # off by ≥100x AND the snap reconciles
-            v /= 10 ** scale
-            unit_s = f"; shares normalized ÷10^{scale} to millions (reconciled to CIQ market cap ÷ price)"
+        if implied > 0:
+            scale = round(math.log10(v / implied))
+            # ONLY the two real share-unit scales — thousands→mm (10^3) and actual→mm (10^6) — reconciled to
+            # within 2%. Never a negative/upward scale (would inflate an already-correct large count), and
+            # never an off-convention power like 10^2 (a subunit price, e.g. GBp pence, vs a major-currency
+            # Market Cap is a CURRENCY mismatch, not a share-units error) — both would fabricate a share count.
+            if scale in (3, 6) and abs(v / 10 ** scale - implied) <= 0.02 * implied:
+                v /= 10 ** scale
+                unit_s = f"; shares normalized ÷10^{scale} to millions (reconciled to CIQ market cap ÷ price)"
     asof = _comps_asof(rows)  # carry the as-of, like current_price: a share count compared against dated ownership needs its date
     asof_s = f" as-of {asof.isoformat()}" if asof else ""
     return Sourced.present(round(v, 1), source_ref=f"CIQ Comps→Financial Data 'Shares Outstanding Latest' (subject row){asof_s}{unit_s}")
