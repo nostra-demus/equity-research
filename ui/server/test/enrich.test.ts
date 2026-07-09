@@ -98,6 +98,23 @@ await check('bestFallbackSummary: an attachment-filing letterhead lede never out
   assert.ok(/Allotment of Equity Share/i.test(out), `carries the headline disclosure subject, got: ${out}`)
   assert.ok(!/CIN|Dalal Street|Vaishno Devi|Fax|2656 5555|Scrip Code/i.test(out), `letterhead boilerplate leaked into the story: ${out}`)
 })
+// ---- scoping guard #3 (Codex review follow-up on #189): a BSE/NSE filing with a generic exchange title
+// (e.g. "General Updates") whose extracted PDF text opens DIRECTLY with the real disclosure — no CIN /
+// address / Tel / Fax / Scrip-Code cover page — must NOT be discarded for the terse headline floor just
+// because the host is bseindia/nseindia. Only text that actually looks like a cover page forces the floor.
+await check('bestFallbackSummary: a BSE/NSE filing whose text is NOT a cover page still leads with its real body', () => {
+  const realBody =
+    'The Company wishes to inform the Exchange that pursuant to the resolution passed by the Board of ' +
+    'Directors, the Company has approved the allotment of 12,50,000 equity shares of face value Re. 1 each ' +
+    'to the qualified institutional buyers pursuant to the QIP, with effect from today, in accordance with ' +
+    'the applicable provisions of the SEBI ICDR Regulations, 2018, as amended from time to time.'
+  const filingInput = {
+    headline: 'ACME LTD: General Updates', input_nature: 'exchange_announcement', source_tier: 'primary_filing',
+    domain: 'www.bseindia.com', url: 'https://www.bseindia.com/xml-data/corpfiling/AttachLive/xyz456.pdf',
+  }
+  const out = bestFallbackSummary('', realBody, filingInput, false, true) // not bodyless (PDF read), BSE attachment filing
+  assert.ok(/qualified institutional buyers|QIP|12,50,000/i.test(out), `real filing body should win over the terse floor, got: ${out}`)
+})
 // ---- scoping guard #1: the fix must NOT over-floor a NON-attachment filing whose document opens with real
 // content. An ASX announcement (filingIsAttachment=false — fetched via documentKey, not a BSE/NSE or .pdf
 // URL) whose PDF opens with the actual announcement must still lead with that content, not the terse floor.
