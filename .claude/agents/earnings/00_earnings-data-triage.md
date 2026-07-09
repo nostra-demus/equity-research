@@ -124,7 +124,7 @@ Set these so later agents apply CLAUDE.md §27 and read/cite the local-equivalen
 |---|---|---|---|
 | No consensus / estimate data | | 04, 05, 99 | |
 | No quarterly data | | 01, 02, 03, 06 | |
-| No VERBATIM transcript, sell-side proxy present | | 02, 03, 04 | proxy = verdict-stripped commentary; clarity ≤65; tone/candor not assessable — that candor cap binds management-governance `06`, NOT earnings `06` (cash-flow quality) |
+| No VERBATIM transcript, sell-side proxy present | | 02, 03, 04 | proxy = verdict-stripped commentary; clarity ≤70 (= no-call cap, not below it); tone/candor not assessable — that candor cap binds management-governance `06`, NOT earnings `06` (cash-flow quality) |
 | No transcript AND no sell-side proxy | | 02, 03, 04 | filings / press-release only; clarity ≤70 |
 | No segment-level P&L | | 02, 03, 99 | |
 | No cash flow statement | | 06, 99 | |

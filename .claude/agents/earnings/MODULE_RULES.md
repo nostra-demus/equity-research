@@ -195,7 +195,7 @@ When data is missing or weak, these hard caps override the agent's own scoring. 
 | Consensus present but stale (data-as-of predates the latest reported quarter) | Cap via the named triggers (e.g. no-revision-history) plus an explicitly-labeled discretionary staleness haircut — do NOT borrow the no-consensus max-30 value, which would read as "consensus absent" |
 | No cash flow statement | Earnings quality max 45 |
 | No earnings transcript AND no sell-side proxy | Earnings clarity max 70 |
-| Transcript role filled ONLY by a sell-side proxy (no verbatim) | Earnings clarity max 65; every guidance/driver read from it flagged "via unverified sell-side paraphrase" and cross-checked to the primary doc |
+| Transcript role filled ONLY by a sell-side proxy (no verbatim) | Earnings clarity max 70 — equal to the no-call/press-release cap above, NEVER below it (the proxy is directionally better than a press release and every NUMBER is still anchored to the primary doc, so it cannot make the read *less* clear than having no call colour at all); still capped below a verbatim transcript. Every guidance/driver read from it flagged "via unverified sell-side paraphrase" and cross-checked to the primary doc |
 | No segment-level P&L for multi-segment business | Earnings clarity max 70 |
 | No revision history | Consensus setup max 60 |
 | No sensitivity disclosures and only inferred sensitivities | Earnings volatility confidence must be Low |
