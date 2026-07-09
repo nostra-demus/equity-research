@@ -165,32 +165,42 @@ function monthsSince(year: number, month: number): number {
   return (now.getFullYear() - year) * 12 + (now.getMonth() + 1 - month)
 }
 
-function extractPeriod(filename: string, sniff: string): { hint: string | null; ageMonths: number | null } {
-  const hay = `${filename}\n${sniff.slice(0, 2000)}`
-  // fiscal year e.g. FY24-25, FY2024-25, FY25
-  let m = hay.match(/FY\s?(\d{4})[-/](\d{2,4})/i)
-  if (m) {
-    const endY = m[2].length === 2 ? 2000 + Number(m[2]) : Number(m[2])
-    return { hint: `FY${m[1]}-${m[2]}`, ageMonths: Math.max(0, monthsSince(endY, 3)) }
+export function extractPeriod(filename: string, sniff: string): { hint: string | null; ageMonths: number | null } {
+  // The FILENAME's own period wins over content-scraped years: a doc titled "…_2024" IS the FY2024 doc, even
+  // though its BODY routinely names the following year (outlook, AGM date, forward statements). Scanning
+  // filename+content TOGETHER and taking Math.max let that next-year read as the period — so the 2024 annual
+  // report (body mentions 2025) tied the 2025 one at ~1.1yr, and the freshest-pick's strict `<` then kept the
+  // alphabetically-earlier 2024. Scan the filename ALONE first; fall to content only when it carries no period.
+  const scan = (hay: string): { hint: string; ageMonths: number | null } | null => {
+    // fiscal year e.g. FY24-25, FY2024-25, FY25
+    let m = hay.match(/FY\s?(\d{4})[-/](\d{2,4})/i)
+    if (m) {
+      const endY = m[2].length === 2 ? 2000 + Number(m[2]) : Number(m[2])
+      return { hint: `FY${m[1]}-${m[2]}`, ageMonths: Math.max(0, monthsSince(endY, 3)) }
+    }
+    m = hay.match(/\bFY\s?(\d{2})\b/i)
+    if (m) {
+      const endY = 2000 + Number(m[1])
+      return { hint: `FY${m[1]}`, ageMonths: Math.max(0, monthsSince(endY, 3)) }
+    }
+    // quarter e.g. Q1 2026 / q1-2026
+    m = hay.match(/\bQ([1-4])[\s\-_]?(20\d{2})\b/i)
+    if (m) {
+      const q = Number(m[1])
+      return { hint: `Q${m[1]} ${m[2]}`, ageMonths: Math.max(0, monthsSince(Number(m[2]), q * 3)) }
+    }
+    // plain 4-digit year, take the most recent plausible one. NB: not \b(…)\b — `_` is a word char, so \b
+    // never fires between "_" and a digit and a filename year like "…_2024.pdf" would go UNMATCHED (the very
+    // case this fix targets). Use digit-boundary lookaround so "_2024.", " 2024 " and "-2024-" all match while
+    // a digit-embedded "12024"/"20245" does not.
+    const years = [...hay.matchAll(/(?<![0-9])(20[1-3]\d)(?![0-9])/g)].map((x) => Number(x[1])).filter((y) => y <= new Date().getFullYear() + 1)
+    if (years.length) {
+      const y = Math.max(...years)
+      return { hint: String(y), ageMonths: Math.max(0, monthsSince(y, 6)) }
+    }
+    return null
   }
-  m = hay.match(/\bFY\s?(\d{2})\b/i)
-  if (m) {
-    const endY = 2000 + Number(m[1])
-    return { hint: `FY${m[1]}`, ageMonths: Math.max(0, monthsSince(endY, 3)) }
-  }
-  // quarter e.g. Q1 2026 / q1-2026
-  m = hay.match(/\bQ([1-4])[\s\-_]?(20\d{2})\b/i)
-  if (m) {
-    const q = Number(m[1])
-    return { hint: `Q${m[1]} ${m[2]}`, ageMonths: Math.max(0, monthsSince(Number(m[2]), q * 3)) }
-  }
-  // plain 4-digit year, take the most recent plausible one
-  const years = [...hay.matchAll(/\b(20[1-3]\d)\b/g)].map((x) => Number(x[1])).filter((y) => y <= new Date().getFullYear() + 1)
-  if (years.length) {
-    const y = Math.max(...years)
-    return { hint: String(y), ageMonths: Math.max(0, monthsSince(y, 6)) }
-  }
-  return { hint: null, ageMonths: null }
+  return scan(filename) ?? scan(sniff.slice(0, 2000)) ?? { hint: null, ageMonths: null }
 }
 
 const MONTH_NUM: Record<string, number> = {

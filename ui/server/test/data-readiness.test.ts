@@ -2,7 +2,7 @@
 // Proves a module can declare its readiness rule in its own 00-triage frontmatter (zero edits to the
 // readiness engine) and that the interpreter behaves correctly.
 import assert from 'node:assert/strict'
-import { classify, deriveCoverage, evalDecl, quoteAsOfMonths } from '../src/data-status'
+import { classify, deriveCoverage, evalDecl, extractPeriod, quoteAsOfMonths } from '../src/data-status'
 import { moduleReadinessIssues } from '../src/readiness'
 import { moduleReadinessDecls } from '../src/roster'
 import type { ClassifiedFile, FileType, ModuleReadiness } from '../src/types'
@@ -167,6 +167,29 @@ check('moduleReadinessIssues: Partial is not surfaced (runs capped, not a gate c
 check('moduleReadinessIssues: agent + rerun are skipped entirely', () => {
   assert.equal(moduleReadinessIssues('agent', undefined, { earnings: M('Insufficient') }).length, 0)
   assert.equal(moduleReadinessIssues('rerun', undefined, { earnings: M('Insufficient') }).length, 0)
+})
+
+// ---- period from the FILENAME wins over content-scraped years (the "Data Coverage picks 2024 not 2025" bug) ----
+check('extractPeriod: a titled annual report takes its FILENAME year, not a later year its body mentions', () => {
+  // the 2024 report's body names 2025 (outlook / AGM date) — that must NOT be read as the period
+  const p24 = extractPeriod('Emaar_Properties_Annual_Report_2024.pdf', 'Annual Report 2024. Year ended 31 December 2024. Our outlook for 2025 remains strong.')
+  const p25 = extractPeriod('Emaar_Properties_Annual_Report_2025.pdf', 'Annual Report 2025. Year ended 31 December 2025.')
+  assert.equal(p24.hint, '2024')
+  assert.equal(p25.hint, '2025')
+  assert.ok((p24.ageMonths ?? 0) > (p25.ageMonths ?? 0), 'the 2024 report must be OLDER than the 2025 report')
+})
+
+check('extractPeriod: with no year in the filename it falls back to the content period', () => {
+  assert.equal(extractPeriod('annual-report.pdf', 'Results for the year ended 31 December 2025.').hint, '2025')
+})
+
+check('coverage: among annual reports the Annual-report group names the LATEST (2025), not the alphabetically-earlier 2024', () => {
+  const g = deriveCoverage([
+    cf('Emaar_Properties_Annual_Report_2023.pdf', 'annual_filing', 37),
+    cf('Emaar_Properties_Annual_Report_2024.pdf', 'annual_filing', 25),
+    cf('Emaar_Properties_Annual_Report_2025.pdf', 'annual_filing', 13),
+  ]).find((x) => x.key === 'annual')
+  assert.equal(g?.filename, 'Emaar_Properties_Annual_Report_2025.pdf')
 })
 
 console.log(`\n${passed} checks passed${process.exitCode ? ' (with failures)' : ''}`)
