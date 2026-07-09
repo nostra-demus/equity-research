@@ -21,7 +21,7 @@ import re
 import statistics
 import sys
 from dataclasses import dataclass
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 from pathlib import Path
 from typing import Any, Callable
 
@@ -821,6 +821,44 @@ def _capstruct_block(rows: Rows) -> tuple[int, dict[str, int | None], date | Non
     return (hdr, cols, asof) if cols["principal"] is not None and cols["maturity"] is not None else None
 
 
+# A real Excel date serial for ANY plausible maturity is ~44,000–73,000 (44,000≈2020, 73,050≈2100); a bare
+# YEAR label is 1900–2100. The two ranges never overlap, so a number in [1900, 2100] is a YEAR CIQ wrote as
+# a number (e.g. "2026"), NOT a serial — feeding it through excel_date lands it in 1905 (July-1905, serial
+# 2026), silently dropping a real near-term maturity out of the refinancing wall (the §18/§24 distress input,
+# LIVE on EMAAR). Likewise a date RANGE ('11-20-2028 - 2065', bundled notes) and a single-digit 'M-D-YYYY'
+# fall through excel_date's three formats to None → "undated" (LIVE on AMZN: the whole senior-notes stack).
+_MATURITY_YEAR_LO, _MATURITY_YEAR_HI = 1900, 2100
+
+
+def _maturity_date(cell: Any) -> date | None:
+    """A Capital Structure 'Maturity' cell → one date for year-bucketing / WAM. Beyond excel_date it reads a
+    bare YEAR (2026 / 2026.0 / '2026' → mid-year of that year — only .year buckets), a single-digit
+    'M-D-YYYY', and a date RANGE ('MM-DD-YYYY - YYYY' bundled notes → the EARLIEST endpoint, conservative for
+    the near-term wall, §24). Returns None only when GENUINELY unparseable (→ honest 'undated', never 1905)."""
+    if isinstance(cell, datetime):
+        return cell.date()
+    if isinstance(cell, (int, float)) and not isinstance(cell, bool):
+        n = int(cell)
+        if _MATURITY_YEAR_LO <= n <= _MATURITY_YEAR_HI:
+            return date(n, 6, 30)          # a bare year written as a number — NOT an Excel serial
+        return excel_date(cell)            # a genuine Excel date serial
+    s = str(cell).strip()
+    if not s or s in ("-", "—", "–"):
+        return None
+    parts = re.split(r"\s+[-–—]\s+", s)    # a date RANGE ('d1 - d2') → earliest endpoint
+    if len(parts) > 1:
+        ds = [d for d in (_maturity_date(p) for p in parts) if d is not None]
+        return min(ds) if ds else None
+    if re.fullmatch(r"(19|20)\d{2}", s):   # a bare 4-digit year as text
+        return date(int(s), 6, 30)
+    for fmt in ("%Y-%m-%d", "%b-%d-%Y", "%m/%d/%Y", "%m-%d-%Y"):  # incl. single-digit M-D-YYYY
+        try:
+            return datetime.strptime(s, fmt).date()
+        except ValueError:
+            continue
+    return None
+
+
 def debt_maturity_wall(bundle: ResolvedBundle) -> Sourced:
     """The refinancing wall: DATED bond/loan principal by maturity year (+ nearest, weighted-avg maturity,
     fixed vs floating), with amortizing LEASES separated out (they have no maturity to refinance)."""
@@ -834,17 +872,18 @@ def debt_maturity_wall(bundle: ResolvedBundle) -> Sourced:
     hdr, cols, asof = blk
     pc, mc, fc, tc = cols["principal"], cols["maturity"], cols["floating"], cols["type"]
     by_year: dict[int, float] = {}
-    dated = leases = undated = floating = fixed = 0.0
+    dated = leases = undated = floating = fixed = overdue = ranged = 0.0
     nearest: date | None = None
     wam_num = 0.0
     for r in rows[hdr + 1:]:
-        desc = str(r[0]).strip() if r else ""
+        desc = str(r[0]).strip() if r and r[0] is not None else ""  # xlsx blank cell → None; treat as separator
         if not desc or "as reported" in desc.lower():  # end of the latest block (blank row or the next FY block)
             break
         p = clean_num(r[pc]) if pc < len(r) else None
         if p is None or p <= 0:
             continue
-        mat = excel_date(r[mc]) if mc < len(r) else None
+        raw_mat = r[mc] if mc < len(r) else None
+        mat = _maturity_date(raw_mat)  # NOT excel_date: also reads bare-year, single-digit, and range cells
         typ = str(r[tc]).strip().lower() if tc is not None and tc < len(r) else ""
         # An instrument is floating ONLY when the Floating Rate cell carries a real value (a spread/margin or
         # a 'Yes'/'Floating' flag). A BLANK cell means fixed by CIQ convention — and openpyxl returns a blank
@@ -862,21 +901,28 @@ def debt_maturity_wall(bundle: ResolvedBundle) -> Sourced:
         else:
             by_year[mat.year] = by_year.get(mat.year, 0.0) + p
             dated += p
+            if isinstance(raw_mat, str) and re.search(r"\d\s+[-–—]\s+", raw_mat):
+                ranged += p  # a date RANGE, bucketed at its earliest endpoint (disclosed below)
             nearest = mat if nearest is None or mat < nearest else nearest
             if asof is not None:
-                wam_num += p * ((mat - asof).days / 365.25)
+                wam_num += p * max(0.0, (mat - asof).days / 365.25)  # matured/overdue debt = 0y to refi, never a negative WAM
+                if mat < asof:
+                    overdue += p
     if dated == 0 and leases == 0 and undated == 0:
         return Sourced.unknown(note="no priced instruments in Capital Structure Details")
     sched = "; ".join(f"{y} {v:,.0f}" for y, v in sorted(by_year.items())) or "—"
     asof_s = asof.isoformat() if asof else "the reporting date"
     wam = f", WAM ~{wam_num / dated:.1f}y from {asof_s}" if dated and asof else ""
-    near = f"; nearest {nearest.isoformat()}" if nearest else ""
+    over_s = " (overdue)" if nearest and asof and nearest < asof else ""
+    near = f"; nearest {nearest.isoformat()}{over_s}" if nearest else ""
     lease = f"; amortizing leases (no refi maturity) {leases:,.0f}" if leases else ""
+    over = f"; incl. {overdue:,.0f} overdue/past-due (WAM floored at 0y)" if overdue else ""
+    rng = f"; incl. {ranged:,.0f} in date-ranges bucketed at earliest maturity" if ranged else ""
     undat = f"; undated debt {undated:,.0f} (maturity not parsed — timing unknown)" if undated else ""
     total = dated + leases + undated
     return Sourced.present(
         f"dated debt {dated:,.0f} of {total:,.0f} total principal by maturity — {sched}{near}{wam}; "
-        f"{floating:,.0f} floating / {fixed:,.0f} fixed{lease}{undat}",
+        f"{floating:,.0f} floating / {fixed:,.0f} fixed{lease}{over}{rng}{undat}",
         source_ref="CIQ Financials→Capital Structure Details (latest as-reported block: Principal Due × Maturity × Floating Rate; leases carry no maturity)")
 
 
@@ -999,8 +1045,10 @@ def shares_outstanding(bundle: ResolvedBundle) -> Sourced:
     got = _comps_subject_cell(bundle, "Financial Data", lambda c: "shares outstanding" in c)
     if isinstance(got, Sourced):
         return got
-    _rows, _g, v = got
-    return Sourced.present(round(v, 1), source_ref="CIQ Comps→Financial Data 'Shares Outstanding Latest' (subject row)")
+    rows, _g, v = got
+    asof = _comps_asof(rows)  # carry the as-of, like current_price: a share count compared against dated ownership needs its date
+    asof_s = f" as-of {asof.isoformat()}" if asof else ""
+    return Sourced.present(round(v, 1), source_ref=f"CIQ Comps→Financial Data 'Shares Outstanding Latest' (subject row){asof_s}")
 
 
 def current_price(bundle: ResolvedBundle) -> Sourced:
@@ -1034,7 +1082,8 @@ def peer_ev_ebitda(bundle: ResolvedBundle) -> Sourced:
     ec = _comps_col(g, lambda c: "tev/ebitda" in c and ("ltm" in c or "last twelve" in c or "last 12" in c))
     if ec is None:
         ec = _comps_col(g, lambda c: "tev/ebitda" in c
-                        and not any(t in c for t in ("ntm", "fwd", "forward", "fy+", "cy+", "+1", "+2", "next")))
+                        and not any(t in c for t in ("ntm", "fwd", "forward", "fy+", "cy+", "+1", "+2", "next"))
+                        and not re.search(r"20\d\de\b", c))  # reject a forward-year ESTIMATE (2026E / FY2026E); an ACTUAL (2025A / CY2025A) still counts
     if ec is None:
         return Sourced.unknown(note="comps Trading Multiples: no LTM/trailing TEV/EBITDA column (only forward multiples)")
     label = str(rows[g["hdr"]][ec]).strip() if ec < len(rows[g["hdr"]]) else "TEV/EBITDA"
@@ -1072,12 +1121,19 @@ _CURRENCY_NAMES = {
 
 
 def _reported_currency(pool: ResolvedPool) -> str | None:
-    """Best-effort read of the workbook's reported-currency CODE from any resolved sheet's 'Currency' header
-    — a 3-letter code cell, or a spelled-out name mapped via _CURRENCY_NAMES. 'Reported Currency' (the CIQ
-    conversion SETTING, not a code) is skipped. None if the code is never stated."""
-    for sheets in pool._cache.values():
-        for rows in sheets.values():
-            for r in rows[:16]:
+    """The SUBJECT's reported-currency CODE, read from its FINANCIALS sheets ONLY (Balance Sheet / Income
+    Statement / Cash Flow / Capital Structure) — a 3-letter code cell, or a spelled-out name mapped via
+    _CURRENCY_NAMES. Financials-only, NOT comps/estimates: CIQ converts a COMP SET to a USD DISPLAY currency,
+    so scanning every resolved sheet returns USD for a non-US subject and mislabels its money facts (the
+    EMAAR AED-read-as-USD defect — a ~3.67x error on every _m fact, §15/§27). The '_m' money facts all come
+    from financials, so their currency must too; the comps price/multiple carry their own display currency
+    (_comps_currency). 'Reported Currency' (the CIQ conversion SETTING, not a code) is skipped. None if the
+    code is never stated on a financials sheet."""
+    for (kind, _sheet, _freq), units in pool.concept_map.items():
+        if kind != "financials":
+            continue
+        for u in units:
+            for r in (pool._cache.get(u["file"], {}).get(u["tab"]) or [])[:16]:
                 if not r or str(r[0]).strip().lower().rstrip(":") != "currency":
                     continue
                 for cell in r[1:]:
