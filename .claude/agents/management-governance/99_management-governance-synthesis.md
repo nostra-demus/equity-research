@@ -32,7 +32,7 @@ You DO NOT:
 - If `03` had no proxy/comp: incentive alignment is capped and flagged in the Abstract.
 - If `04` had no ownership/insider data: shareholder friendliness is capped.
 - If `05` had no board disclosure: the board read is "Not assessable."
-- If `01`/`06` had no prior promises/transcripts: management quality and candor reads are capped.
+- If `01`/`06` had no prior promises / **verbatim** transcripts: management quality and candor reads are capped. A **sell-side / analyst earnings note (transcript proxy)** does NOT count as a transcript here — tone, Q&A-evasiveness, and owning-the-miss are *Not assessable* from a paraphrase (per `06`'s partial-data rule), so the Disclosure candor cap still binds even when a proxy fills the transcript slot; never read a proxy-filled slot as lifting the candor cap.
 
 ## A translated fact is a fact (CLAUDE.md §27)
 

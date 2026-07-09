@@ -69,7 +69,7 @@ If `01_historical-financials.md` is missing, write at the top:
 - **Upstream historical-financials** — margin levels and trends
 - **MD&A** in latest annual and quarterly filings — management discusses cost and margin dynamics
 - **Earnings transcript** — analyst questions on margins, input costs, pricing
-- **Sell-side / analyst earnings note (transcript proxy)** — if no verbatim transcript, use its "Earnings Call Summary" for margin/cost colour; strip the analyst verdict first (§24), cross-check to the primary doc, cite as an unverified paraphrase (`MODULE_RULES.md` → Transcript Sourcing)
+- **Sell-side / analyst earnings note (transcript proxy)** — if no verbatim transcript, use its "Earnings Call Summary" for margin/cost colour; strip the analyst verdict first (§24). Any margin/cost NUMBER (gross-margin %, input-cost %, pricing bps, realised price) must be traced to and cited from the primary doc (filing / press release), NEVER on the note's authority (§5) — the proxy only leads you to the figure, it does not source it. Only qualitative margin colour may be cited as an unverified paraphrase where it has no primary equivalent (`MODULE_RULES.md` → Transcript Sourcing)
 - **Cost of goods sold / cost of revenue** breakdown in notes
 - **Employee cost / headcount** disclosures
 - **Raw material / input cost** commentary in MD&A or Risk Factors
