@@ -667,6 +667,66 @@ def eval_ah_expectations_gap_gate(decision_date, confidence_score, eg):
                 f"confidence_score={confidence_score} > 60 — §7 bans a confident rating on unproven variant perception"]
     return []
 
+# ── Check AI (Headline Scorecard ↔ decision_record.json reconciliation) ──
+# synthesizer.md §2/Step 4 requires the Part I Headline Scorecard cells (the ONLY numbers most readers
+# ever see) to be "copied verbatim" from the same computed result that fills decision_record.json — "so
+# the headline can never disagree with the body." Nothing mechanically checked that until now: check I
+# only matches the DECISION string, check M recomputes the scenario math from decision_record.json alone
+# and never opens final_thesis.md. A prose/JSON split is exactly the false-confidence failure mode CLAUDE.md
+# §10/§21 exist to prevent — and it is not hypothetical: TMCV_2026-06-07/final_thesis.md ships "Expected
+# return | +4.3%" while its own decision_record.json carries expected_return_pct=-4.4 (the sign-flip bug
+# synthesizer.md's own Step-4 comment already warns about by name, never actually caught in the artifact).
+AI_DATE = "2026-07-09"
+def _hs_cell(thesis, label):
+    """Return the Headline Scorecard 'Answer' cell text for a row whose label starts with `label`
+    (tolerates trailing qualifiers like 'Expected return (probability-weighted)'), or None if the row
+    is absent. Anchored on the pipe-table row shape synthesizer.md §2 defines."""
+    m = re.search(r"(?im)^\|\s*"+re.escape(label)+r"[^|]*\|\s*(.*?)\s*\|\s*$", thesis)
+    return m.group(1) if m else None
+def _numbers_in(text):
+    """All signed decimal numbers in `text`, normalizing the Unicode minus/en/em-dash glyphs the prose
+    uses (−31%, –19%) to an ASCII '-' first."""
+    if not text: return []
+    t = text.replace("−","-").replace("–","-").replace("—","-")
+    return [float(x) for x in re.findall(r"[+-]?\d+(?:\.\d+)?", t)]
+def _reconciles(nums, target, tol_abs, tol_rel, use_abs=False):
+    if not isnum(target) or not nums: return False
+    t = abs(target) if use_abs else target
+    for n in nums:
+        v = abs(n) if use_abs else n
+        if abs(v-t) <= max(tol_abs, abs(t)*tol_rel): return True
+    return False
+def eval_ai_headline_reconciliation(decision_date, d, thesis):
+    """Core of check AI. Returns None (N/A — pre-gate) or a list of violation strings (empty = pass).
+    `d` is the parsed decision_record.json; `thesis` is the full final_thesis.md text. Side-effect-free +
+    module-level so eval.py selftest can drive it with synthetic table snippets, fixture-free.
+    Confidence /100 and Data sufficiency /100 are exact-match (plain integers, no legitimate reason to
+    differ). Expected return and Risk/reward are sign-sensitive (a sign flip IS the bug — see TMCV above).
+    Downside risk is compared by MAGNITUDE only: synthesizer.md §2 documents a deliberate reader-friendly
+    sign inversion when the bear case still sits above entry (e.g. EMAR_2026-07-03 prose "+63.9%" for a
+    decision_record.json downside_risk_pct of -63.9 — both correctly describe the same all-upside setup)."""
+    if not (isdate(decision_date) and decision_date >= AI_DATE):
+        return None  # forward-looking; pre-gate runs N/A
+    if not re.search(r"(?im)^##\s*2\.\s*Headline Scorecard", thesis):
+        return ["'## 2. Headline Scorecard' section not found in final_thesis.md"]
+    det=[]
+    for label, field, tol_abs, tol_rel, use_abs in [
+        ("Confidence /100", "confidence_score", 0.5, 0.0, False),
+        ("Data sufficiency /100", "data_sufficiency_score", 0.5, 0.0, False),
+        ("Expected return", "expected_return_pct", 1.0, 0.05, False),
+        ("Risk/reward", "risk_reward", 0.15, 0.12, False),
+        ("Downside risk", "downside_risk_pct", 1.0, 0.05, True),
+    ]:
+        target = d.get(field)
+        if not isnum(target): continue
+        cell = _hs_cell(thesis, label)
+        if cell is None:
+            det.append(f"Headline Scorecard row {label!r} not found but {field}={target} is set")
+        elif not _reconciles(_numbers_in(cell), target, tol_abs, tol_rel, use_abs):
+            det.append(f"Headline Scorecard {label!r}={cell!r} does not reconcile with {field}={target}"
+                        +(" (by magnitude)" if use_abs else ""))
+    return det
+
 if scope=="selftest":
     # Fixture-free coverage for check W — the golden suite can't exercise it (every committed run is
     # pre-gate / blank-fielded, so W is always N/A there). Asserts forbidden combos FAIL, correct combos
@@ -1340,7 +1400,55 @@ if scope=="selftest":
         if not ok: ahbad+=1
         print(f"  [{'ok' if ok else 'XX'}] AH({dt_!r},cf={cf_!r},eg={eg_!r}) -> {got}"+("" if ok else f"  EXPECTED exp={exp}"))
     bad+=ahbad
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(agcases)} check-AG + {len(ahcases)} check-AH cases")
+    # AI — Headline Scorecard ↔ decision_record.json reconciliation. No committed run reaches AI_DATE,
+    # so drive every branch here, including the two REAL committed-run shapes: TMCV_2026-06-07 (a live,
+    # still-uncaught sign-flip bug — prose "+4.3%" vs expected_return_pct=-4.4) and EMAR_2026-07-03 (a
+    # legitimate downside-risk sign inversion that must NOT be flagged).
+    AI=eval_ai_headline_reconciliation
+    def _hs_thesis(exp="",dr="",rr="",conf="",ds=""):
+        return ("# Thesis\n\n## 2. Headline Scorecard\n\n| Item | Answer |\n|---|---|\n"
+                "| Rating | Buy |\n| Suggested action | Start small |\n| Time horizon | 12-18 months |\n"
+                f"| Expected return | {exp} |\n| Downside risk | {dr} |\n| Risk/reward | {rr} |\n"
+                f"| Confidence /100 | {conf} |\n| Data sufficiency /100 | {ds} |\n")
+    D_TMCV={"expected_return_pct":-4.4,"downside_risk_pct":-81.0,"risk_reward":-0.23,"confidence_score":47,"data_sufficiency_score":68}
+    TH_TMCV=_hs_thesis(exp="+4.3% (see §8 Scenario Model)", dr="−19% to −81% depending on Iveco scenario",
+                        rr="0.72× upside/downside in base case; binary risk makes this ratio misleading",
+                        conf="47", ds="68")
+    D_EMAR={"expected_return_pct":118.8,"downside_risk_pct":-63.9,"risk_reward":1.9,"confidence_score":52,"data_sufficiency_score":72}
+    TH_EMAR=_hs_thesis(exp="+118.8% (probability-weighted; computed — see §14)",
+                        dr="+63.9% (bear case AED 20.0 is 64% ABOVE current price AED 12.20 — no loss in bear)",
+                        rr="1.9x (reward/bear gap; bear case is above entry, so effective downside is nil)",
+                        conf="52", ds="72")
+    D_CLEAN={"expected_return_pct":-11.5,"downside_risk_pct":-31.0,"risk_reward":-0.37,"confidence_score":46,"data_sufficiency_score":68}
+    TH_CLEAN=_hs_thesis(exp="≈ −11.5% (probability-weighted, vs indicative ~$123.35; see §8/§14)",
+                         dr="≈ −31% to the bear value", rr="≈ −0.37 (negative)", conf="**46**", ds="**68**")
+    NO_SCORECARD="# Thesis\n\nno scorecard section here\n"
+    ROW_MISSING="# Thesis\n\n## 2. Headline Scorecard\n\n| Item | Answer |\n|---|---|\n| Rating | Buy |\n"
+    aicases=[  # (decision_date, decision_record_dict, thesis_text, expect: None|[]|[substr,...])
+        ("2026-07-08", D_TMCV, TH_TMCV, None),                                    # predates AI_DATE
+        ("2026-07-09", D_CLEAN, NO_SCORECARD, ["section not found"]),
+        ("2026-07-09", {"confidence_score":46}, ROW_MISSING, ["Confidence /100"]),  # row absent, field set
+        ("2026-07-09", D_CLEAN, TH_CLEAN, []),                                    # clean, fully reconciled
+        ("2026-07-09", D_EMAR, TH_EMAR, []),                                      # legit downside sign inversion — must NOT flag
+        ("2026-07-09", D_TMCV, TH_TMCV, ["Expected return","Risk/reward"]),        # the real, live TMCV bug
+        ("2026-07-09", {"confidence_score":80}, _hs_thesis(conf="60"), ["Confidence /100"]),
+        ("2026-07-09", {"data_sufficiency_score":70}, _hs_thesis(ds="40"), ["Data sufficiency /100"]),
+        ("2026-07-09", {"risk_reward":None,"confidence_score":50}, _hs_thesis(conf="50"), []),  # unset field skipped
+        ("2026-07-09", {"confidence_score":46.4}, _hs_thesis(conf="46"), []),                    # rounding within tolerance
+    ]
+    aibad=0
+    for dt_,d_,th_,exp in aicases:
+        got=AI(dt_,d_,th_)
+        if exp is None:
+            ok=(got is None)
+        elif not exp:
+            ok=(isinstance(got,list) and len(got)==0)
+        else:
+            ok=(isinstance(got,list) and len(got)>0 and all(any(s in v for v in got) for s in exp))
+        if not ok: aibad+=1
+        print(f"  [{'ok' if ok else 'XX'}] AI({dt_!r},d={ {k:v for k,v in d_.items()} !r}) -> {got}"+("" if ok else f"  EXPECTED exp={exp}"))
+    bad+=aibad
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(agcases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI cases")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -2054,6 +2162,19 @@ for drp in runs:
         add("AH_expectations_gap_gate",True,
             f"expectations_gap.json present (variant_perception_quality={(eg_ah or {}).get('variant_perception_quality')!r}, "
             f"is_exploitable={(eg_ah or {}).get('is_exploitable')!r}) consistent with confidence_score={d.get('confidence_score')!r}")
+    # AI Headline Scorecard <-> decision_record.json reconciliation (forward-looking; landing AI_DATE) —
+    #   synthesizer.md §2/Step 4. The Part I Headline Scorecard is what most readers actually see; nothing
+    #   before this mechanically verified its Expected return / Downside risk / Risk/reward / Confidence
+    #   / Data sufficiency cells still equal the same computed decision_record.json fields.
+    airesult=eval_ai_headline_reconciliation(ddte,d,thesis)
+    if airesult is None:
+        add("AI_headline_scorecard_reconciliation",True,f"run predates the gate ({ddte}) — N/A",na=True)
+    elif airesult:
+        add("AI_headline_scorecard_reconciliation",False,"; ".join(airesult))
+    else:
+        add("AI_headline_scorecard_reconciliation",True,
+            "Headline Scorecard cells reconcile with expected_return_pct/downside_risk_pct/risk_reward/"
+            "confidence_score/data_sufficiency_score")
     # WARN non-schema files
     # [review fix] suppress only genuine versioned/audit/review artifacts via PRECISE patterns — the old naive
     # `"_v" not in name` / `"review" not in name` substring tests hid real strays (preview.md, *_v*-named scratch).
@@ -2125,7 +2246,7 @@ FRAMEWORK_CONTRACTS={
  ".claude/commands/research/review-decisions.md":["memo_delta","stage_one_comment","rerun_command","Pool first","_memo_delta"],
  ".claude/commands/research/eval.md":["scripts/eval.py"],
  ".claude/commands/research/calibrate.md":["calibration_by_module","calibration_by_forecast_type","owner_module","forecast_type","Phase 6"],
- "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap","eval_ag_calibration_feedback_gate","AG_DATE","AG_STATUSES","_calib_summary_asof","CALIB_SUMMARIES","eval_ah_expectations_gap_gate","AH_DATE","AH_expectations_gap_gate"],
+ "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap","eval_ag_calibration_feedback_gate","AG_DATE","AG_STATUSES","_calib_summary_asof","CALIB_SUMMARIES","eval_ah_expectations_gap_gate","AH_DATE","AH_expectations_gap_gate","eval_ai_headline_reconciliation","AI_DATE","_hs_cell","_numbers_in","_reconciles"],
  ".github/workflows/ci.yml":["eval-contracts","scripts/eval.py"],
 }
 jchecks=[]
