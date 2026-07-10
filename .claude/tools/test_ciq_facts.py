@@ -682,6 +682,69 @@ def test_comps_asof_forward(base: Path) -> None:
           ee2["status"] == "present" and "9.1x" in str(ee2["value"]) and "8.5x" in str(ee2["value"]), str(ee2))
 
 
+def test_shares_units_flag(base: Path) -> None:
+    # §15/§24 units guard — DETECT, never REWRITE. The comps grid has no units cell, but Market Cap = Price ×
+    # Shares on the same subject row (shares in millions). A clean power-of-10 gap vs market_cap ÷ price signals
+    # a units mismatch — but WHICH cell is mis-scaled (shares vs Market Cap) is unobservable from the grid, so
+    # we KEEP the reported value and FLAG it, never fabricate a "corrected" one (which would corrupt a correct
+    # large issuer as readily as it "fixes" a thousands export).
+    FLAG = "units inconsistency"
+
+    # (1) shares stated in THOUSANDS (255,900 for a 255.9mm company): the value is KEPT (not rewritten) + FLAGGED.
+    d = base / "shares_thousands"; d.mkdir()
+    _wb(d / "Acme Comps.xlsx", {"Financial Data": [
+        ["As-Of Date", "Mar-31-2026"],
+        ["Company Name", "Day Close Price Latest", "Shares Outstanding Latest", "Market Capitalization Latest"],
+        ["Acme (NYSE:ACME)", 47.1, 255900.0, 12053.0],   # thousands; mc / px = 255.9 -> 10^3 gap
+        ["Peer One (NYSE:P1)", 20.0, 100000.0, 2000.0]]})
+    so = F.build_facts(d, "ACME")["facts"]["shares_outstanding_m"]
+    check("thousands export: reported count KEPT (255,900, not rewritten) and FLAGGED",
+          so["status"] == "present" and abs(float(so["value"]) - 255900.0) < 1 and FLAG in (so["source_ref"] or ""), str(so))
+
+    # (2) a CONSISTENT grid: no power-of-10 gap -> no flag, value untouched.
+    d2 = base / "shares_ok"; d2.mkdir()
+    _wb(d2 / "Acme Comps.xlsx", {"Financial Data": [
+        ["As-Of Date", "Mar-31-2026"],
+        ["Company Name", "Day Close Price Latest", "Shares Outstanding Latest", "Market Capitalization Latest"],
+        ["Acme (NYSE:ACME)", 47.1, 255.9, 12053.0]]})
+    so2 = F.build_facts(d2, "ACME")["facts"]["shares_outstanding_m"]
+    check("consistent shares: no flag, value untouched (255.9)",
+          so2["status"] == "present" and abs(float(so2["value"]) - 255.9) < 0.05 and FLAG not in (so2["source_ref"] or ""), str(so2))
+
+    # (3) THE FIX: a CORRECT 255.9mm count whose Market Cap is mis-scaled must SURVIVE (never divided to 0.256).
+    d3 = base / "shares_mc_bad"; d3.mkdir()
+    _wb(d3 / "Acme Comps.xlsx", {"Financial Data": [
+        ["As-Of Date", "Mar-31-2026"],
+        ["Company Name", "Day Close Price Latest", "Shares Outstanding Latest", "Market Capitalization Latest"],
+        ["Acme (NYSE:ACME)", 47.1, 255.9, 12.053]]})   # shares CORRECT; Market Cap mis-scaled to billions
+    so3 = F.build_facts(d3, "ACME")["facts"]["shares_outstanding_m"]
+    check("mis-scaled Market Cap: the CORRECT count (255.9) is preserved, not corrupted; discrepancy flagged",
+          so3["status"] == "present" and abs(float(so3["value"]) - 255.9) < 0.05 and FLAG in (so3["source_ref"] or ""), str(so3))
+
+    # (4) THE needs-human CASE (Codex r3549699516): a correct 60,000mm (60bn-share) issuer whose Market Cap is
+    # mis-scaled DOWN by 10^3 — numerically identical to a thousands export. It must be KEPT (never -> 60), flagged.
+    d4 = base / "shares_large"; d4.mkdir()
+    _wb(d4 / "Acme Comps.xlsx", {"Financial Data": [
+        ["As-Of Date", "Mar-31-2026"],
+        ["Company Name", "Day Close Price Latest", "Shares Outstanding Latest", "Market Capitalization Latest"],
+        ["Acme (NYSE:ACME)", 5.0, 60000.0, 300.0]]})   # 60bn shares x $5 = $300bn, but MC stated 300 (/10^3 mis-scale)
+    so4 = F.build_facts(d4, "ACME")["facts"]["shares_outstanding_m"]
+    check("large-issuer guard: a correct 60,000mm count with a mis-scaled Market Cap is KEPT (not -> 60), flagged",
+          so4["status"] == "present" and abs(float(so4["value"]) - 60000.0) < 1 and FLAG in (so4["source_ref"] or ""), str(so4))
+
+    # (5) an OFF-CONVENTION 10^2 gap (e.g. a GBp/pence price vs a GBP-millions Market Cap): not a share-unit
+    # scale, so NEITHER flagged NOR altered.
+    d5 = base / "shares_offscale"; d5.mkdir()
+    _wb(d5 / "Acme Comps.xlsx", {"Financial Data": [
+        ["As-Of Date", "Mar-31-2026"],
+        ["Company Name", "Day Close Price Latest", "Shares Outstanding Latest", "Market Capitalization Latest"],
+        ["Acme (LSE:ACME)", 47.1, 25590.0, 12053.0]]})   # shares / (mc/px) = 100 -> scale 2, not 3/6
+    so5 = F.build_facts(d5, "ACME")["facts"]["shares_outstanding_m"]
+    check("off-convention 10^2 gap: neither flagged nor altered (only 10^3/10^6 are share-unit scales)",
+          so5["status"] == "present" and abs(float(so5["value"]) - 25590.0) < 0.5 and FLAG not in (so5["source_ref"] or ""), str(so5))
+
+
+
 def test_ltm_quarter_guard(base: Path) -> None:
     # A quarterly-ONLY financials export (no annual sibling, no _Annual token) served to an annual request
     # must NEVER publish its single-quarter EBITDA/OCF/levered-FCF under an 'ltm_' key — a 4x period error
@@ -786,6 +849,7 @@ def main() -> int:
         test_comps_foreign_subject(d)
         test_comps_p2(d)
         test_comps_asof_forward(d)
+        test_shares_units_flag(d)
         print("== legacy .xls (xlrd) fact chain ==")
         test_xls_fact_chain()
         print("== reported currency (not USD) ==")

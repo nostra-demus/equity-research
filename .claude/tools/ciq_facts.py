@@ -17,6 +17,7 @@ from __future__ import annotations
 
 import enum
 import json
+import math
 import re
 import statistics
 import sys
@@ -1045,10 +1046,35 @@ def shares_outstanding(bundle: ResolvedBundle) -> Sourced:
     got = _comps_subject_cell(bundle, "Financial Data", lambda c: "shares outstanding" in c)
     if isinstance(got, Sourced):
         return got
-    rows, _g, v = got
+    rows, g, v = got
+    # Units cross-check. The comps grid gives NO explicit units cell, but it carries Market Cap and Day Close
+    # Price on the SAME subject row, and Market Cap = Price × Shares with shares in the SAME (millions) unit as
+    # Market Cap. So a grid that states shares in thousands/actual (not millions) betrays itself as a clean
+    # power-of-10 gap vs market_cap ÷ price. We DETECT that and FLAG it — but never silently rewrite the count
+    # (see the detect-not-rewrite note below), so we can't corrupt a correct large issuer while "fixing" a
+    # thousands export.
+    def _subj(pred: Callable[[str], bool]) -> float | None:
+        c = _comps_col(g, pred)
+        return clean_num(rows[g["subj"]][c]) if c is not None and c < len(rows[g["subj"]]) else None
+    unit_s = ""
+    mc, px = _subj(lambda c: "market cap" in c), _subj(lambda c: "day close price" in c)
+    # DETECT, never REWRITE. A clean power-of-10 gap between the reported count and market_cap ÷ price signals a
+    # units mismatch — a thousands/actual share export, OR a mis-scaled Market Cap. But WHICH cell is wrong is
+    # unobservable from the grid: a correct 60,000mm (60bn-share) issuer whose Market Cap is mis-scaled down by
+    # 10³ is numerically IDENTICAL to a 50M-share issuer stated in thousands (same v, implied, scale). So we do
+    # NOT rescale the count — that would corrupt a correct large-issuer count as readily as it "fixes" a
+    # thousands export (§15/§24: never fabricate a value we cannot verify). Keep the reported value and FLAG it.
+    if v and v > 0 and mc and px and px > 0:
+        implied = mc / px  # CIQ's own implied count, in millions (Market Cap millions ÷ Price actual)
+        if implied > 0:
+            scale = round(math.log10(v / implied))
+            if abs(scale) in (3, 6) and abs(v / 10 ** scale - implied) <= 0.02 * implied:  # a CLEAN 10^3/10^6 gap
+                unit_s = (f"; ⚠ units inconsistency — reported count is 10^{scale} off CIQ market cap ÷ price "
+                          f"(≈{implied:,.1f} mm): shares or Market Cap is mis-scaled and the grid can't say which "
+                          f"— verify against a filing share count before trusting market cap or ownership %")
     asof = _comps_asof(rows)  # carry the as-of, like current_price: a share count compared against dated ownership needs its date
     asof_s = f" as-of {asof.isoformat()}" if asof else ""
-    return Sourced.present(round(v, 1), source_ref=f"CIQ Comps→Financial Data 'Shares Outstanding Latest' (subject row){asof_s}")
+    return Sourced.present(round(v, 1), source_ref=f"CIQ Comps→Financial Data 'Shares Outstanding Latest' (subject row){asof_s}{unit_s}")
 
 
 def current_price(bundle: ResolvedBundle) -> Sourced:
