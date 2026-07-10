@@ -319,10 +319,17 @@ export function deriveSignalState(sigId: string): SignalStateResult {
   // verdict, so a gate-first test would wrongly show 'parked'/'logged' for a finished override run).
   let state: SignalRunState
   if (locked && hasCandidates) state = 'complete' // ran to the end, candidates surfaced
-  else if (locked) state = isTerminal(status0) ? 'watchlist' : 'partial' // progressed & locked: terminal status (watchlist_no_edge) = watchlist; provisional/full_machine still pending candidate-surfacing = resumable
-  else if (norm(routing0) === 'park') state = 'parked' // held AT the gate, never progressed (materiality 40–69) — override to run
-  else if (norm(routing0) === 'log') state = 'logged' // held AT the gate, never progressed (<40) — override to run
-  else if (isTerminal(status0) || isTerminal(routing0) || hitTerminal) state = 'watchlist' // a real terminal rejection (suppress / watchlist_* / return_to_m0_2) — no Continue
+  // A terminal THESIS status means the run progressed past Gate 0 and then dead-ended downstream — even when
+  // signal_payload.routing still records the original PARK/LOG (a human override runs on past the gate, and a
+  // thesis-structure terminal like watchlist_no_world_change / return_to_m0_2 is written with locked:false).
+  // Check this BEFORE the gate holds below, or such a run would read 'parked'/'logged' and offer a useless
+  // override that just stops at the same thesis gate. (Gate-level PARK/LOG stay AFTER — they are themselves in
+  // the terminal set, so testing routing0/hitTerminal here would swallow a genuine Gate-0 hold into watchlist.)
+  else if (isTerminal(status0)) state = 'watchlist'
+  else if (locked) state = 'partial' // locked provisional/full_machine, candidate-surfacing still pending — resumable
+  else if (norm(routing0) === 'park') state = 'parked' // held AT Gate 0, no downstream thesis (materiality 40–69) — override to run
+  else if (norm(routing0) === 'log') state = 'logged' // held AT Gate 0, no downstream thesis (<40) — override to run
+  else if (isTerminal(routing0) || hitTerminal) state = 'watchlist' // a Gate-0 terminal with no thesis (suppress / watchlist_no_source) or a terminal module verdict — no Continue
   else state = 'partial' // PROMOTEd, neither terminal nor complete — a stop-after, mid-run, or break (resumable)
 
   return { sigId, state, running: false, materiality, routing: status0 ?? routing0, locked, hasCandidates, doneModules }
