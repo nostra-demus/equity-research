@@ -559,7 +559,11 @@ function stripLetterhead(text: string): string {
   // ABOVE the salutation in a real letter. Anchoring on that bare "sub" first would return a tail starting
   // mid-address ("Station Road …") instead of the disclosure after "Dear Sir/Madam" (Codex review on #189).
   // "Dear Sir/Madam" is a much stronger, less ambiguous boundary, so it takes priority whenever present.
-  const dear = /\bdear\s+(?:sir|madam|sir\s*\/?\s*madam|sirs)\b[,:]?\s*/i.exec(t)
+  // The alternation lists the COMPOUND "sir/madam" FIRST: ordered alternation is greedy-left, so a bare `sir`
+  // ahead of `sir\s*\/?\s*madam` would match only "Sir" and stop at the "/", leaving the tail beginning
+  // "/Madam, <disclosure>" — a stray "/Madam," prefix leaks onto THE STORY. Matching the full "Sir/Madam"
+  // first consumes it cleanly so the tail starts at the real disclosure.
+  const dear = /\bdear\s+(?:sir\s*\/?\s*madam|madam|sirs|sir)\b[,:]?\s*/i.exec(t)
   if (dear) { const tail = t.slice(dear.index + dear[0].length).trim(); if (tail.length >= 40) return tail }
   // PDF text extraction sometimes drops the ":" after "Sub" (the Adani-QIP shape: "Sub Qualified institutions
   // placement …"). Accept a colonless "Sub" / "Sub." label — the ABBREVIATION only (\bsub\b excludes "subject",
