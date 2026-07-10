@@ -103,22 +103,38 @@ expect("short long-formula downside (-20) -> PROVISIONAL", {**SHORT,"downside_ri
 expect("short wrong risk_reward -> PROVISIONAL", {**SHORT,"risk_reward":2.0}, False)
 # MoS is direction-uniform: a short's correct MoS is NEGATIVE; a long-style +25 must be caught
 expect("short wrong-sign MoS (+25 not -25) -> PROVISIONAL", {**SHORT,"margin_of_safety_pct":25}, False)
+# Codex-review hardening: each fires only its own check.
+# risk_reward null-but-derivable (worst target 90 < entry 100 → adverse) must FAIL, not skip
+expect("risk_reward omitted (derivable) -> PROVISIONAL", {k:v for k,v in LONG.items() if k!="risk_reward"}, False)
+# a present-but-non-numeric price_target (the string "150") must FAIL, not be treated as absent
+expect("string price_target -> PROVISIONAL", {**LONG,"scenarios":[
+        {"label":"bull","probability":25,"return_pct":50,"price_target":"150"},
+        {"label":"base","probability":50,"return_pct":25,"price_target":125},
+        {"label":"bear","probability":25,"return_pct":-10,"price_target":90}]}, False)
+# a non-numeric margin_of_safety_pct must FAIL
+expect("non-numeric MoS ('20%') -> PROVISIONAL", {**LONG,"margin_of_safety_pct":"20%"}, False)
+# a numeric MoS with no base-labelled scenario cannot be re-derived → FAIL
+expect("MoS present but no 'base' scenario -> PROVISIONAL", {**LONG,"scenarios":[
+        {"label":"bull","probability":25,"return_pct":50,"price_target":150},
+        {"label":"mid","probability":50,"return_pct":25,"price_target":125},
+        {"label":"bear","probability":25,"return_pct":-10,"price_target":90}]}, False)
 # idempotency: fail stamps, fix strips, body preserved
 o1,b1=gate({**LONG,"expected_return_pct":99}); staged=("PROVISIONAL" in o1) and (MARK in b1)
 o2,b2=gate(LONG); stripped=("GATE: PASS" in o2) and (MARK not in b2) and ("Real body content." in b2)
 if not (staged and stripped): ok=False; print(f"  FAIL idempotent stamp/strip: staged={staged} stripped={stripped}")
-print("  PASS: long+short parity (ER + ER-from-target/risk_reward/downside/MoS), all-or-none targets, fail-when-omitted, long-formula-on-short + wrong-sign-MoS caught, idempotent stamp/strip" if ok else "  -> finish-gate parity test FAILED")
+print("  PASS: long+short parity (ER/ER-from-target/risk_reward/downside/MoS); all-or-none + non-numeric targets; risk_reward & downside fail-when-omitted; MoS non-numeric / not-re-derivable / wrong-sign + long-formula-on-short caught; idempotent stamp/strip" if ok else "  -> finish-gate parity test FAILED")
 shutil.rmtree(d); sys.exit(0 if ok else 1)
 PY
 
 echo "== eval.md check M: direction-aware risk/reward + downside (short vs long) =="
-# check M's scenario-math reconciliation lives in scripts/eval.py (run by `eval.py all` in CI). Its
-# direction-aware short/long math — ER_from_target, risk_reward, AND downside (incl. the sign) — is now
-# exercised fixture-free by the FINISH-GATE PARITY test above: full.md Step 10B mirrors check M exactly, and
-# that test drives a long AND a short (including the long-formula-applied-to-a-short downside bug). So the
-# short-candidate math path (Codex #185) is under test here. eval.py's OWN check M is the identical mirror;
-# a dedicated `eval.py selftest` case for it (extract to a module-level fn like W/X/Y/Z) remains a follow-up.
-echo "  OK: short/long direction-aware scenario math (ER/risk_reward/downside/MoS) covered by the finish-gate parity test above"
+# check M's scenario-math reconciliation lives in scripts/eval.py, exercised by `eval.py all` on committed run
+# fixtures (NOT fixture-free here). The FINISH-GATE PARITY test above tests the full.md Step-10B gate — a CLOSE
+# mirror of check M (same ER / ER-from-target / risk_reward / downside / MoS math, long + short) — but it is a
+# SEPARATE implementation, so this section does NOT test eval.py's own check M and must not claim to: a regression
+# in eval.py's short path would not be caught here. The two are close but not byte-identical (the eval side also
+# date-gates the MoS "required-when-derivable" rule). A dedicated fixture-free `eval.py selftest` case for check M
+# (extract to a module-level fn like W/X/Y/Z, drive long + short) remains a follow-up.
+echo "  SKIP: eval.py check M is covered by 'eval.py all' on committed fixtures; the finish-gate MIRROR (a separate impl) is tested above — this does NOT test eval.py's own check M"
 
 echo "== valuation canonical-definition regression guard (prompt-lint — weaker than the code tests above; born from the PR#10 review) =="
 # Guards the SPECIFIC cross-file drift the PR#10 review found: margin-of-safety re-defined as

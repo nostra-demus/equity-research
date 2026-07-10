@@ -358,8 +358,8 @@ if isinstance(scen, list) and scen:
                 viol.append(f"headline expected_return_pct={er} != Sum(p*ret)={round(calc,2)} from scenarios")
         ep = d.get("entry_price"); tgts = [s.get("price_target") for s in scen]; have_t = [_isnum(t) for t in tgts]
         short = (d.get("decision") == "Short Candidate")
-        if _isnum(ep) and ep and any(have_t) and not all(have_t):
-            viol.append("some scenarios carry price_target, some don't — cannot reconcile target / risk-reward")
+        if _isnum(ep) and ep and any(t is not None for t in tgts) and not all(have_t):
+            viol.append("price_target present on some scenarios but not all numeric — cannot reconcile target / risk-reward")
         if _isnum(ep) and ep and all(have_t):
             pwt = sum(p/100.0*t for p, t in zip(probs, tgts)); worst = max(tgts) if short else min(tgts)
             er_t = ((ep-pwt) if short else (pwt-ep))/ep*100.0
@@ -367,9 +367,11 @@ if isinstance(scen, list) and scen:
             if abs(er_t - calc) > max(1.5, abs(calc)*0.05) or _tflip:
                 viol.append(f"ER_from_target={round(er_t,2)} != Sum(p*ret)={round(calc,2)}")
             rr = d.get("risk_reward")
-            if _isnum(rr) and (worst > ep if short else ep > worst):
+            if (worst > ep if short else ep > worst):   # a real adverse case exists → risk/reward is derivable
                 crr = ((ep-pwt)/(worst-ep)) if short else ((pwt-ep)/(ep-worst))
-                if abs(rr-crr) > max(0.15, abs(crr)*0.12): viol.append(f"risk_reward={rr} != calc={round(crr,2)} from scenarios")
+                if not _isnum(rr):
+                    viol.append(f"risk_reward null but derivable from scenarios = {round(crr,2)} — must be published when price targets are used")
+                elif abs(rr-crr) > max(0.15, abs(crr)*0.12): viol.append(f"risk_reward={rr} != calc={round(crr,2)} from scenarios")
         # downside = worst-case (bear) position return, negated: −min(return_pct). Position-signed, so min() is the
         # worst case for BOTH long and short. A scenarios[] run that leaves downside_risk_pct null (but derivable) FAILs.
         cdr = -min(rets); dr = d.get("downside_risk_pct")
@@ -380,16 +382,22 @@ if isinstance(scen, list) and scen:
             if abs(dr-cdr) > max(1.0, abs(cdr)*0.05) or _flip: viol.append(f"downside_risk_pct={dr} != -min(scenario return)={round(cdr,2)}")
         # margin_of_safety_pct — discount of price to the BASE-case fair value: (base FV − price)/base FV, base FV =
         # the base-labelled scenario's price_target. Direction-UNIFORM (price levels, not position-signed returns) — a
-        # short (base FV < price) yields a negative MoS on the SAME formula, no branch. Presence-gated: null is a valid
-        # "Not assessable" (no pool-verified price). Mirrors eval.py check M.
+        # short (base FV < price) yields a negative MoS on the SAME formula, no branch. Reconciles a PRESENT value and
+        # fails a non-numeric or non-re-derivable one; a null is allowed here (the eval-side check M enforces
+        # "required-when-derivable" once the schema/synthesizer emit lands — the live gate does NOT require it, so it
+        # cannot spuriously fail every run in the window before that emit merges).
         mos = d.get("margin_of_safety_pct")
+        _base = next((s for s in scen if str(s.get("label","")).strip().lower() == "base"), None)
+        bfv = _base.get("price_target") if isinstance(_base, dict) else None
         if _isnum(mos):
-            _base = next((s for s in scen if str(s.get("label","")).strip().lower() == "base"), None)
-            bfv = _base.get("price_target") if isinstance(_base, dict) else None
             if _isnum(ep) and ep and _isnum(bfv) and bfv:
                 cmos = (bfv-ep)/bfv*100.0
                 _mflip = (abs(mos) > 0.25 and abs(cmos) > 0.25 and (mos > 0) != (cmos > 0))
                 if abs(mos-cmos) > max(1.0, abs(cmos)*0.05) or _mflip: viol.append(f"margin_of_safety_pct={mos} != (base FV − price)/base FV={round(cmos,2)}")
+            else:
+                viol.append("margin_of_safety_pct present but not re-derivable — no base-labelled scenario price_target")
+        elif mos is not None:
+            viol.append(f"margin_of_safety_pct={mos!r} is present but not a number")
     except Exception as e: viol.append(f"scenarios[] unparseable: {e}")
 elif d.get("expected_return_pct") is not None:
     viol.append("expected_return_pct is set but scenarios[] is missing — the math cannot be re-derived")
