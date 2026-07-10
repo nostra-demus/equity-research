@@ -53,6 +53,7 @@ If `01_historical-financials.md` is missing, write at the top:
 - **Upstream historical-financials** — revenue levels and trends
 - **MD&A** in latest annual and quarterly filings — management discusses what drove revenue
 - **Earnings transcript prepared remarks and Q&A** — analysts probe revenue drivers
+- **Sell-side / analyst earnings note (transcript proxy)** — if no verbatim transcript, its "Earnings Call Summary" gives driver colour (volume / backlog / launches); strip the analyst verdict first (§24). Any driver NUMBER (units, backlog value, order intake, launch counts) must be traced to and cited from the primary doc (filing / press release), NEVER on the note's authority (§5) — the proxy only leads you to the figure, it does not source it. Only qualitative driver colour may be cited as an unverified paraphrase where it has no primary equivalent (`MODULE_RULES.md` → Transcript Sourcing)
 - **Investor deck** — KPI pages often show volume, price, ARPU, backlog
 - **Order backlog / book-to-bill** data if disclosed
 - **Business-model segment-map** if available

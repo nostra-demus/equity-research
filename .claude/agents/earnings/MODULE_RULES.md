@@ -47,6 +47,30 @@ When the deck is bullish and the filing is cautious, trust the filing.
 
 ---
 
+## Transcript Sourcing & Fallback (Hard Rule — the management-commentary source)
+
+The "earnings transcript" role (management driver detail, guidance nuance, Q&A colour) is filled by the BEST available call-derived source. These candidates are NOT one linear tier — **route by ROLE**, because they are strong at opposite things:
+
+- **Numbers / reported figures / official guidance figures** — anchor to the PRIMARY document: the audited filing, then the quarterly filing, then the company's own **earnings press release / results intimation** (SEBI LODR Reg 30 in India; 8-K/6-K in the US; RNS elsewhere). A number is cited from — and verified against — the primary doc, NEVER published on a third party's authority (§5).
+- **Management commentary / drivers / qualitative guidance** — use the richest CALL-derived source, in this order:
+  1. **Verbatim transcript** (CIQ / company earnings-call transcript) — the primary record of the call, incl. Q&A. Full trust.
+  2. **Sell-side / analyst earnings note used as a transcript proxy** (a broker "Earnings Call Insight / Summary") — a *paraphrase of the actual call*, so for driver/commentary colour it is DIRECTIONALLY BETTER than a press release (which is management's positive-outlook spin and thin on driver detail). Use it — as an unverified, verdict-stripped, secondary paraphrase (rules below).
+  3. **Company earnings press-release outlook** — the primary-but-curated fallback when no call-derived source exists.
+- **Tone / candor** (owning misses, Q&A evasiveness, promotional vs conservative) — **verbatim transcript ONLY.** NEVER read tone or candor from a paraphrase or a press release: an analyst's summary reflects the analyst's selection, not management's words. If only a proxy / press-release exists, tone/candor is *Not assessable* and the candor read is capped (management-governance `06`).
+
+### Using a sell-side / analyst note as a transcript proxy
+
+A sell-side earnings note is a HYBRID: a **directional verdict block** bundled with a **paraphrase of the call**. Handle the two parts oppositely:
+
+- **STRIP the verdict — never ingest or cite it (§24).** Drop and never carry forward the analyst's Rating (BUY/SELL/HOLD), Target Price, Upside/Downside, and their beat/miss framing ("vs *our* estimate of X"). The engine forms its own verdict; a sell-side recommendation is banned marketer input (§21/§24), not evidence. (Extraction stays verbatim per §27 — the note is transcribed whole; the STRIP happens here, at the reading layer, not in the extractor.)
+  - *Worked example (illustrative and FICTIONAL — invented broker, company, and figures; a teaching placeholder that must NEVER be cited or carried into any analysis as evidence):* a note "Acme Securities — Equity Research, Acme Developers Q4" quotes `Current Price 100 / Target Price 120 / Upside +20% / Rating BUY` and "net profit … *higher than our estimate of 900 Mn*". STRIP all of that. KEEP the note's **"Earnings Call Summary"** bullets *from that same Q4 note* — e.g. property sales up mid-teens YoY, order backlog up ~40%, a units-under-construction count — as *management commentary via the call*, each cross-checked against the actual results. (Do NOT pull a detail from a different quarter's note into this one — that would be the §15 period-mix the whole rule guards against. These placeholder numbers are not real data; they exist only to show the STRIP-vs-KEEP split and may never appear as evidence.)
+- **Label provenance honestly (§5).** Cite as `<Broker> "Earnings Call Insight", 4Q25 (paraphrasing the earnings call; unverified)` — NEVER as a verbatim transcript (we do not have the words) and NEVER under a filing's name. A NUMBER is cited from the filing / press release where it was verified.
+- **Flag the selection bias.** A sell-side summary foregrounds what supports its own (stripped) call — corroborate any material commentary against the filing / MD&A before it lifts a conclusion.
+
+**A sell-side proxy is NOT a verbatim transcript for sufficiency or caps:** it fills the *commentary* role (verdict-stripped) but is weaker than a real transcript — see the score cap below. It does NOT satisfy the tone/candor requirement.
+
+---
+
 ## Evidence Citation Format
 
 Every "Evidence" cell uses this format:
@@ -152,7 +176,8 @@ When specific data is missing, the affected agents must cap their output as desc
 |---|---|---|
 | No consensus / estimate data | 04, 05, 99 | 04 produces guidance-only read; 05 caps beat/miss setup at "Unclear"; 99 caps consensus setup score |
 | No quarterly data (only annual) | 01, 02, 03, 06 | Skip seasonality and QoQ analysis; mark QoQ trends as "Not available" |
-| No earnings transcript | 02, 03, 04 | Management commentary unavailable; work from filings only and flag the limitation |
+| No VERBATIM transcript, but a sell-side / analyst earnings note IS present | 02, 03, 04 | Use the note as a VERDICT-STRIPPED transcript proxy for commentary (Transcript Sourcing & Fallback rule): drivers/guidance colour from its call-summary, numbers from the primary doc, tone/candor NOT assessable. The tone/candor limitation caps the candor read in management-governance `06`, NOT earnings `06` (cash conversion / accruals / non-GAAP), which a paraphrase does not touch |
+| No call-derived source at all (no transcript AND no sell-side proxy) | 02, 03, 04 | Management commentary unavailable; work from the earnings press release / filings and flag the limitation |
 | No segment-level P&L | 02, 03, 99 | Segment decomposition skipped; consolidated-only read with limitation flagged |
 | No cash flow statement | 06, 99 | Earnings quality capped; cash conversion marked "Unavailable" |
 | No current price | 99 | Do not discuss stock reaction precision; earnings-only verdict |
@@ -169,7 +194,8 @@ When data is missing or weak, these hard caps override the agent's own scoring. 
 | No consensus / estimate data (genuinely absent — NOT merely stale) | Consensus setup max 30 |
 | Consensus present but stale (data-as-of predates the latest reported quarter) | Cap via the named triggers (e.g. no-revision-history) plus an explicitly-labeled discretionary staleness haircut — do NOT borrow the no-consensus max-30 value, which would read as "consensus absent" |
 | No cash flow statement | Earnings quality max 45 |
-| No earnings transcript | Earnings clarity max 70 |
+| No earnings transcript AND no sell-side proxy | Earnings clarity max 70 |
+| Transcript role filled ONLY by a sell-side proxy (no verbatim) | Earnings clarity max 70 — equal to the no-call/press-release cap above, NEVER below it (the proxy is directionally better than a press release and every NUMBER is still anchored to the primary doc, so it cannot make the read *less* clear than having no call colour at all); still capped below a verbatim transcript. Every guidance/driver read from it flagged "via unverified sell-side paraphrase" and cross-checked to the primary doc |
 | No segment-level P&L for multi-segment business | Earnings clarity max 70 |
 | No revision history | Consensus setup max 60 |
 | No sensitivity disclosures and only inferred sensitivities | Earnings volatility confidence must be Low |

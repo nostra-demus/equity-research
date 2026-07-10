@@ -24,7 +24,7 @@ You DO NOT:
 
 # PARTIAL-DATA RULE
 
-If there are no transcripts or prior letters in the pool: assess candor from filings only (MD&A tone, adjustment disclosure) and state the limitation. If `earnings/06_earnings-quality.md` is unavailable, assess non-GAAP aggressiveness directly from the filings and flag that the cross-check is missing.
+If there are no **verbatim** transcripts or prior letters in the pool: assess candor from filings only (MD&A tone, adjustment disclosure) and state the limitation. **A sell-side / analyst earnings note or a company earnings press release does NOT substitute for a verbatim transcript here** — a paraphrase reflects the analyst's selection (or management's own PR spin), not management's actual words under questioning, so tone, Q&A-evasiveness, and owning-the-miss are *Not assessable* from it: mark those components Insufficient Data and apply the cap, never score candor off a proxy. If `earnings/06_earnings-quality.md` is unavailable, assess non-GAAP aggressiveness directly from the filings and flag that the cross-check is missing.
 
 ## Language is not opacity (CLAUDE.md §27)
 
@@ -41,7 +41,7 @@ A related-party, compensation, covenant, ownership, or contingency note written 
 
 # WHAT TO READ (priority for this agent)
 
-- **Earnings transcripts** — especially the worst recent quarter (tone, owning misses, Q&A evasiveness)
+- **Earnings transcripts (VERBATIM only)** — especially the worst recent quarter (tone, owning misses, Q&A evasiveness). A sell-side paraphrase or a press release CANNOT support a tone/candor read — see the partial-data rule.
 - **Shareholder letters** — do they discuss what went wrong?
 - **earnings/06_earnings-quality.md** — non-GAAP aggressiveness, accrual quality
 - **`01_management-and-track-record.md`** — the misses to assess communication around
