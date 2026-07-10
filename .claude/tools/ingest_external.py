@@ -120,6 +120,33 @@ RERUN_HINT = {
     "external_other": ("earnings", "guidance-consensus"),
 }
 
+# A pool folder can be a COMMODITY (GOLD, SUGAR) rather than an equity ticker — the commodity
+# swarm shares data/<SUBJECT>/ and its subjects are the `## <NAME>` headings of the profiles file
+# (the same source the /commodity:* commands grep). The rerun hint switches accordingly:
+# `/commodity:rerun supply-demand <NAME>` is the documented "common post-note case".
+_PROFILES_PATH = os.path.join("frameworks", "commodity", "COMMODITY_PROFILES.md")
+_commodity_cache = {}
+
+
+def _is_commodity_subject(name):
+    if name in _commodity_cache:
+        return _commodity_cache[name]
+    hit = False
+    try:
+        txt = open(_PROFILES_PATH, encoding="utf-8").read()
+        hit = bool(re.search(r"(?m)^## " + re.escape(name) + r"\s*$", txt))
+    except Exception:
+        hit = False
+    _commodity_cache[name] = hit
+    return hit
+
+
+def _rerun_hint(stype, subject):
+    if _is_commodity_subject(subject):
+        return f"/commodity:rerun supply-demand {subject}"
+    module, agent = RERUN_HINT.get(stype, RERUN_HINT["external_other"])
+    return f"/research:rerun {module} {agent} {subject}"
+
 KNOWN_PROVIDERS = {
     "yipit": "YipitData", "yipitdata": "YipitData",
     "m science": "M Science", "second measure": "Second Measure",
@@ -149,6 +176,12 @@ companies that already have a folder in this Drive pool.
 Optional: a `.aliases.json` file here teaches the router the product/segment
 names a document uses instead of the company name, e.g.
 `{"AMZN": ["Amazon", "AWS", "Amazon Web Services"]}`.
+
+Commodities work the same way: a `GOLD/` or `SUGAR/` pool folder receives
+external research too (satellite crop data, paid analytics, trade channel
+checks), and the engine suggests `/commodity:rerun` instead. Commodity names
+are common words, so prefer the forced `<Provider>/<COMMODITY>/` layout (or
+add precise `.aliases.json` entries) over loose drops.
 
 Rules of the road (frameworks/EXTERNAL_DATA.md in the repo):
 - external data is cited as what it is (estimate / expert view / channel check),
@@ -529,8 +562,7 @@ def run(pool="data", dry_run=False):
             "routed_by": "ingest_external.py",
             "routed_from": os.path.relpath(fp, pool),
         }
-        module, agent = RERUN_HINT.get(stype, RERUN_HINT["external_other"])
-        hints = [f"/research:rerun {module} {agent} {t}" for t in tick_list]
+        hints = [_rerun_hint(stype, t) for t in tick_list]
 
         if dry_run:
             routed.append((base, tick_list, provider, stype, hints))
@@ -555,7 +587,8 @@ def run(pool="data", dry_run=False):
         print(f"{tag} routed: {base} -> {', '.join(ts)}  ({provider} · {stype})")
         for h in hints:
             tick = h.rsplit(" ", 1)[-1]
-            has_run = bool([d for d in _safe_ls("analyses") if d.startswith(tick + "_")])
+            has_run = bool([d for d in _safe_ls("analyses") if d.startswith(tick + "_")]) \
+                or os.path.isdir(os.path.join("commodity", "runs", tick))
             note = "finished run now stale — suggest: " if has_run else "no prior run; hint: "
             print(f"{tag}   {note}{h}")
     for base, why in unrouted:

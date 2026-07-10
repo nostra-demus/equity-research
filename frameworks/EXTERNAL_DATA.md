@@ -108,6 +108,12 @@ Ban the same vagueness §5 bans: "alternative data suggests", "channel checks in
 
 Two consumption limits, stated honestly: the deterministic `ciq_facts.json` sidecar reads only the pool's TOP-LEVEL files, so a CIQ-shaped workbook under `external/` never feeds the facts sidecar (specialists still read its extracts directly). And the readiness gate's entity-contamination check deliberately SKIPS `external/` files (a multi-company external note is normal, not contamination) — a genuinely mis-routed external file is caught by the triage inventory and its sidecar's `tickers[]`, not by the entity gate.
 
+## 6A. Commodities — the same lane, one caveat
+
+The commodity swarm shares the pool root: `data/<COMMODITY>/external/<provider>/` works identically (satellite crop analytics, paid ag/energy reports, broker commodity research, trade-house channel checks), the same sidecar travels with each document, `.claude/agents/commodity/MODULE_RULES.md` §2 maps the source types into the commodity source hierarchy, and the commodity triage inventories external docs the same way. The router detects a commodity subject (a `## <NAME>` heading in `frameworks/commodity/COMMODITY_PROFILES.md`) and suggests `/commodity:rerun supply-demand <NAME>` instead of a research-swarm rerun.
+
+The one caveat: commodity names are common English words ("gold", "sugar"), so loose-drop auto-detection is unreliable for them — use the forced `<Provider>/<COMMODITY>/` inbox layout, or add precise `.aliases.json` entries (e.g. `"GOLD": ["XAU", "bullion", "COMEX gold"]`), rather than relying on body mentions.
+
 ## 7. Paid APIs (adapter contract)
 
 A paid-API integration is a fetcher that WRITES FILES — it needs no engine wiring. Contract: drop the pull (CSV/JSON/PDF) into `EXTERNAL-INBOX/<Provider>/` (or directly into a ticker's `external/<provider>/` with a sidecar), one file per pull, the as-of IN the filename or body. Keys live in `~/.config/nostra-engine/providers.env` (never in the repo, §28). The router, extractor, triage, and staleness loop then treat it exactly like a manual drop. This is deliberately the same zero-touch shape as §26: adding a data source must never require engine-code edits.

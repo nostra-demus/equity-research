@@ -185,6 +185,25 @@ def main():
     m.STABLE_AGE_S = 0
     shutil.rmtree(root)
 
+    # ---- 8b. commodity subject: forced routing + /commodity:rerun hint ----
+    # GOLD is a real `## GOLD` heading in frameworks/commodity/COMMODITY_PROFILES.md (tests run
+    # from the repo root, like CI) — the hint must switch to the commodity swarm's rerun.
+    root = tempfile.mkdtemp()
+    build_pool(root)
+    drop(root, "SatCrop/GOLD/mine_supply_read.txt", "quarterly mine supply analytics readout")
+    res = m.run(root)
+    check("commodity: forced routing lands in the commodity pool",
+          os.path.exists(os.path.join(root, "GOLD", "external", "satcrop", "mine_supply_read.txt")), str(res))
+    hints = next((h for b, ts, p, s, h in res["routed"] if b == "mine_supply_read.txt"), [])
+    check("commodity: hint is /commodity:rerun supply-demand GOLD",
+          hints == ["/commodity:rerun supply-demand GOLD"], str(hints))
+    drop(root, "Vendor/AMZN/equity_note.txt", "an equity note")
+    res = m.run(root)
+    hints = next((h for b, ts, p, s, h in res["routed"] if b == "equity_note.txt"), [])
+    check("commodity: equity hint unchanged (/research:rerun …)",
+          hints and hints[0].startswith("/research:rerun "), str(hints))
+    shutil.rmtree(root)
+
     # ---- 9. dry-run writes nothing ----
     root = tempfile.mkdtemp()
     build_pool(root)

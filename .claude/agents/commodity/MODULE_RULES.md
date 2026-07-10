@@ -35,6 +35,18 @@ When sources conflict, take the more conservative reading and prefer the officia
 vendor estimate (§4). Cite the source the number actually came from (§5) — never attach a vendor number
 to an official body's name.
 
+**External data (`data/<COMMODITY>/external/<provider>/` — `frameworks/EXTERNAL_DATA.md`).** The user's
+paid or collected commodity research — satellite crop analytics, paid ag/energy analytics reports,
+broker commodity research, trade-house or field channel checks — enters through the same external-data
+lane the research swarm uses, with a `.source.json` provenance sidecar per document. Map it INTO this
+hierarchy: a measured/licensed dataset (satellite acreage, paid analytics panel) sits at the
+recognised-data-vendor tier (5 above), always labelled estimate-based with the vendor's stated error
+margin; broker commodity research is verdict-stripped colour below it; a field channel check or expert
+call is a user-collected note, dated, N stated. External data never substitutes an official balance or
+exchange print it disagrees with — surface the conflict, conservative reading wins (§4). It CAN be the
+edge: a quantified divergence from the official balance, cited with provider + as-of + margin, is
+exactly what the thesis synthesis should weigh.
+
 ## 3. Citation (§5, adapted)
 
 Every material figure is cited `[Source, period/contract, date]`, e.g. `[USDA WASDE, 2026-06, 2026-06-12]`,
