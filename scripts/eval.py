@@ -1847,9 +1847,14 @@ for drp in runs:
     SCEN_DATE="2026-06-08"; scen=d.get("scenarios")
     if isdate(ddte) and ddte>=SCEN_DATE:
         if not isinstance(scen,list) or not scen:
-            # a post-gate run that quantified a return MUST ship the machine-readable scenario block
-            add("M_scenario_math", d.get("expected_return_pct") is None,
-                "scenarios[] missing/empty but expected_return_pct is set — cannot re-derive the math (required post-2026-06-08)")
+            # a post-gate run that quantified a return MUST ship the machine-readable scenario block.
+            # [review fix — Codex] margin_of_safety_pct is unverifiable with no scenarios[] to derive it from
+            # (no base-labelled target exists), so a numeric MoS here is exactly as unre-derivable as a
+            # numeric expected_return_pct would be — gate it the same way instead of only checking ER.
+            MOS_DATE="2026-07-10"
+            _mos_ok = d.get("margin_of_safety_pct") is None or not (isdate(ddte) and ddte>=MOS_DATE)
+            add("M_scenario_math", d.get("expected_return_pct") is None and _mos_ok,
+                "scenarios[] missing/empty but expected_return_pct and/or margin_of_safety_pct is set — cannot re-derive the math (required post-2026-06-08 / MoS post-2026-07-10)")
         else:
             det=[]; okM=True
             try:

@@ -1109,7 +1109,7 @@ Populate each field as follows. All of these come from work you have already don
 | time_horizon | final thesis time horizon |
 | expected_return_pct | expected return from valuation/scenario math |
 | downside_risk_pct | downside from bear case/scenario math |
-| margin_of_safety_pct | discount of price to base-case fair value = (base FV − price)/base FV, from the valuation module; null when no pool-verified price ("Not assessable"). Direction-uniform — a short candidate → negative MoS. The eval harness re-derives it from the base-labelled scenario target (check M). |
+| margin_of_safety_pct | discount of price to base-case fair value, IN PERCENTAGE POINTS = ((base FV − price)/base FV) × 100 — do not publish the bare 0–1 ratio, from the valuation module; null when no pool-verified price ("Not assessable"). Direction-uniform — a short candidate → negative MoS. Required once entry_price and the base-labelled scenario's price_target both exist (derivable); only stays null when price is not pool-verified. The eval harness re-derives it from the base-labelled scenario target (check M). |
 | risk_reward | risk/reward from final thesis |
 | scenarios | §8 Scenario Model rows — array of `{label, probability, return_pct, price_target}` (fix F08; enables deterministic math re-check) |
 | confidence_score | final confidence score /100 |
