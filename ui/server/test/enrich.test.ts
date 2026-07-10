@@ -116,6 +116,23 @@ await check('bestFallbackSummary: a colonless "Sub <body>" surfaces the real bod
   assert.ok(/Outcome of Board Meeting/i.test(subcommittee), `must fall to the headline floor, got: ${subcommittee}`)
   assert.ok(!/committee of the Board|CIN|1234 5678/i.test(subcommittee), `must not surface a mis-stripped "committee …" tail or letterhead, got: ${subcommittee}`)
 })
+// ---- #189 [D] (Codex): a cover-page ADDRESS line can itself contain the bare word "sub" (e.g. "Near Sub
+// Station Road" — a landmark, not a subject label), sitting ABOVE the salutation. The colonless "Sub"
+// fallback must not anchor on that address text when a "Dear Sir/Madam" salutation is present later —
+// the salutation must win so the real disclosure after it is isolated, not the address tail.
+await check('bestFallbackSummary: an address landmark containing "Sub" does not outrank the salutation anchor', () => {
+  const fi = (headline: string, id: string) => ({
+    headline, input_nature: 'exchange_announcement', source_tier: 'primary_filing',
+    domain: 'www.bseindia.com', url: `https://www.bseindia.com/xml-data/corpfiling/AttachLive/${id}.pdf`,
+  })
+  const HEAD = 'ACME Limited Registered Office 1 MG Road, Near Sub Station Road, Bengaluru 560001 Tel +91 80 1234 5678 www.acme.com CIN L12345KA1990PLC000111 Scrip Code 500001 '
+  const out = bestFallbackSummary(
+    '', HEAD + 'Dear Sir/Madam, Resignation of Mr R K Sharma as Chief Financial Officer with effect from close of business today',
+    fi('ACME LTD: General Updates', 'd'), false, true,
+  )
+  assert.ok(/Resignation of Mr R K Sharma|Chief Financial Officer/i.test(out), `salutation anchor must surface the real body, got: ${out}`)
+  assert.ok(!/Station Road|CIN|Registered Office|Scrip Code|1234 5678/i.test(out), `address landmark or letterhead leaked: ${out}`)
+})
 // ---- scoping guard #3 (Codex review follow-up on #189): a BSE/NSE filing with a generic exchange title
 // (e.g. "General Updates") whose extracted PDF text opens DIRECTLY with the real disclosure — no CIN /
 // address / Tel / Fax / Scrip-Code cover page — must NOT be discarded for the terse headline floor just

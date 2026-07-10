@@ -554,14 +554,20 @@ function stripLetterhead(text: string): string {
   // so "Sub-committee" / "Sub-division" in a cover page is not mistaken for the "Sub-" subject boundary.
   const subj = /\b(?:sub|subject)\b\s*\.?\s*(?::|[-–](?=\s))\s*/i.exec(t)
   if (subj) { const tail = t.slice(subj.index + subj[0].length).trim(); if (tail.length >= 40) return tail }
+  // The salutation is checked BEFORE the colonless "Sub" fallback below: a cover-page ADDRESS line can itself
+  // contain the bare word "sub" (e.g. "Near Sub Station Road" — a landmark, not a subject label), which sits
+  // ABOVE the salutation in a real letter. Anchoring on that bare "sub" first would return a tail starting
+  // mid-address ("Station Road …") instead of the disclosure after "Dear Sir/Madam" (Codex review on #189).
+  // "Dear Sir/Madam" is a much stronger, less ambiguous boundary, so it takes priority whenever present.
+  const dear = /\bdear\s+(?:sir|madam|sir\s*\/?\s*madam|sirs)\b[,:]?\s*/i.exec(t)
+  if (dear) { const tail = t.slice(dear.index + dear[0].length).trim(); if (tail.length >= 40) return tail }
   // PDF text extraction sometimes drops the ":" after "Sub" (the Adani-QIP shape: "Sub Qualified institutions
   // placement …"). Accept a colonless "Sub" / "Sub." label — the ABBREVIATION only (\bsub\b excludes "subject",
   // "submitted", "subsidiary"), and only when real body text (a letter/digit) follows, so ordinary prose that
-  // merely contains the word "subject" can never be mistaken for the disclosure boundary.
+  // merely contains the word "subject" can never be mistaken for the disclosure boundary. Tried only after the
+  // salutation anchor above, since a bare "sub" can appear earlier in an address landmark (see above).
   const subBare = /\bsub\b\.?\s+(?=[A-Za-z0-9])/i.exec(t)
   if (subBare) { const tail = t.slice(subBare.index + subBare[0].length).trim(); if (tail.length >= 40) return tail }
-  const dear = /\bdear\s+(?:sir|madam|sir\s*\/?\s*madam|sirs)\b[,:]?\s*/i.exec(t)
-  if (dear) { const tail = t.slice(dear.index + dear[0].length).trim(); if (tail.length >= 40) return tail }
   const ref = /\bref\b\s*[:\-–]\s*/i.exec(t)
   if (ref) { const tail = t.slice(ref.index + ref[0].length).trim(); if (tail.length >= 40) return tail }
   return ''
