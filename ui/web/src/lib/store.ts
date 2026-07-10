@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { api, ensureMode, isStatic } from './api'
+import { api, ensureMode, isStatic, snapshotGeneratedAt } from './api'
 import type { ArchiveQuery, FeedFacets, SearchCursor } from './api'
 import { downstreamCascade, type CascadeNode } from './cascade'
 import { moduleLabel, resolveVerdict } from './format'
@@ -178,6 +178,7 @@ interface State {
   healthFailCount: number
   lastHealthOkAt: number | null
   staticMode: boolean
+  snapshotAt: string | null
   dataDir: string | null
   tickers: TickerSummary[]
   emptyState: boolean
@@ -517,6 +518,7 @@ export const useStore = create<State>((set, get) => ({
   healthFailCount: 0,
   lastHealthOkAt: null,
   staticMode: false,
+  snapshotAt: null,
   dataDir: null,
   tickers: [],
   emptyState: false,
@@ -664,7 +666,7 @@ export const useStore = create<State>((set, get) => ({
     } catch {
       stat = isStatic()
     }
-    set({ staticMode: stat })
+    set({ staticMode: stat, snapshotAt: stat ? snapshotGeneratedAt() : null })
     if (!stat) {
       get().startHealth() // begin the engine heartbeat (live mode only); idempotent across reconnects
       // Rediscover any run still executing server-side. A page refresh remounts this store with no

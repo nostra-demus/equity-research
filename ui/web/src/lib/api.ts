@@ -48,6 +48,11 @@ export function getMode(): 'live' | 'static' | null {
 export function isStatic(): boolean {
   return mode === 'static'
 }
+// Build time (ISO) of the loaded static snapshot, or null in live mode / before the probe. Lets the
+// read-only status chip show "synced Xh ago" so a stale snapshot is never mistaken for live data.
+export function snapshotGeneratedAt(): string | null {
+  return mode === 'static' && snap && typeof snap.generatedAt === 'string' ? snap.generatedAt : null
+}
 
 // Every control-plane GET is time-bounded. A bare fetch with no timeout can hang forever on a dead
 // socket (tunnel dropped, laptop asleep mid-request) and, when it gates boot (swarm/tickers), pin the
