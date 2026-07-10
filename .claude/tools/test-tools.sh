@@ -78,6 +78,18 @@ expect("long wrong risk_reward -> PROVISIONAL", {**LONG,"risk_reward":5.0}, Fals
 expect("long wrong downside (sign flip) -> PROVISIONAL", {**LONG,"downside_risk_pct":-10}, False)
 expect("long MISSING downside -> PROVISIONAL (fail-when-omitted)", {k:v for k,v in LONG.items() if k!="downside_risk_pct"}, False)
 expect("long wrong margin_of_safety -> PROVISIONAL", {**LONG,"margin_of_safety_pct":50}, False)
+# ER-from-target: returns sum to the headline (Sum=15) but the price_targets imply a different ER (pwt=122.5 ->
+#   ER_from_target=22.5). rr/downside/MoS are left consistent so ONLY the ER-from-target cross-check fires.
+ERT={**BASE,"decision":"Buy","entry_price":100,"expected_return_pct":15,"risk_reward":2.25,"downside_risk_pct":10,"margin_of_safety_pct":20,
+     "scenarios":[{"label":"bull","probability":25,"return_pct":30,"price_target":150},
+                  {"label":"base","probability":50,"return_pct":20,"price_target":125},
+                  {"label":"bear","probability":25,"return_pct":-10,"price_target":90}]}
+expect("ER-from-target mismatch (returns vs targets) -> PROVISIONAL", ERT, False)
+# partial price_targets (bear omits it) must FAIL all-or-none, not silently skip the target cross-checks
+expect("partial price_targets -> PROVISIONAL", {**LONG,"scenarios":[
+        {"label":"bull","probability":25,"return_pct":50,"price_target":150},
+        {"label":"base","probability":50,"return_pct":25,"price_target":125},
+        {"label":"bear","probability":25,"return_pct":-10}]}, False)
 # SHORT — entry 100, bull/base/bear = 60/80/120 (30/40/30), returns +40/+20/-20 (position-signed): ER=Sum=14,
 #   pwt=86, worst=max=120, ER_from_target=(100-86)/100=14, rr=(100-86)/(120-100)=0.7, downside=-min(40,20,-20)=+20,
 #   MoS=(base 80 -100)/80=-25 (NEGATIVE — an overvalued short, same formula, no branch)
@@ -95,7 +107,7 @@ expect("short wrong-sign MoS (+25 not -25) -> PROVISIONAL", {**SHORT,"margin_of_
 o1,b1=gate({**LONG,"expected_return_pct":99}); staged=("PROVISIONAL" in o1) and (MARK in b1)
 o2,b2=gate(LONG); stripped=("GATE: PASS" in o2) and (MARK not in b2) and ("Real body content." in b2)
 if not (staged and stripped): ok=False; print(f"  FAIL idempotent stamp/strip: staged={staged} stripped={stripped}")
-print("  PASS: long+short parity (ER/risk_reward/downside/MoS), fail-when-omitted, long-formula-on-short + wrong-sign-MoS caught, idempotent stamp/strip" if ok else "  -> finish-gate parity test FAILED")
+print("  PASS: long+short parity (ER + ER-from-target/risk_reward/downside/MoS), all-or-none targets, fail-when-omitted, long-formula-on-short + wrong-sign-MoS caught, idempotent stamp/strip" if ok else "  -> finish-gate parity test FAILED")
 shutil.rmtree(d); sys.exit(0 if ok else 1)
 PY
 

@@ -346,17 +346,26 @@ if isinstance(scen, list) and scen:
     try:
         probs = [float(s["probability"]) for s in scen]; rets = [float(s["return_pct"]) for s in scen]
         if abs(sum(probs) - 100) > 0.5: viol.append(f"scenario probabilities sum to {round(sum(probs),2)} != 100")
-        er = d.get("expected_return_pct"); calc = sum(p/100.0*r for p, r in zip(probs, rets))
-        if isinstance(er, (int, float)) and abs(er - calc) > 1.0:
-            viol.append(f"headline expected_return_pct={er} != Sum(p*ret)={round(calc,2)} from scenarios")
         # PARITY with eval.py check M — this LIVE finish-gate used to re-derive ONLY prob-sum + expected_return,
-        # so a wrong risk_reward / downside_risk_pct shipped clean until a later (CI/manual) eval. Now it mirrors
-        # check M. Direction-aware: a short's adverse case is the price RISING, so worst = max(target) and the
-        # return signs invert — do NOT apply the long price formula to a short.
-        ep = d.get("entry_price"); tgts = [s.get("price_target") for s in scen]
+        # so a wrong risk_reward / ER-from-target / downside shipped clean until a later (CI/manual) eval. It now
+        # mirrors check M FAITHFULLY (expected_return sign-flip + relative tolerance, all-or-none price targets,
+        # ER-from-target, risk_reward, downside, MoS). Direction-aware: a short's adverse case is the price RISING,
+        # so worst = max(target) and the return signs invert — do NOT apply the long price formula to a short.
+        er = d.get("expected_return_pct"); calc = sum(p/100.0*r for p, r in zip(probs, rets))
+        if _isnum(er):
+            _erflip = (abs(er) > 0.25 and abs(calc) > 0.25 and (er > 0) != (calc > 0))
+            if abs(er - calc) > max(1.0, abs(calc)*0.05) or _erflip:
+                viol.append(f"headline expected_return_pct={er} != Sum(p*ret)={round(calc,2)} from scenarios")
+        ep = d.get("entry_price"); tgts = [s.get("price_target") for s in scen]; have_t = [_isnum(t) for t in tgts]
         short = (d.get("decision") == "Short Candidate")
-        if _isnum(ep) and ep and tgts and all(_isnum(t) for t in tgts):
+        if _isnum(ep) and ep and any(have_t) and not all(have_t):
+            viol.append("some scenarios carry price_target, some don't — cannot reconcile target / risk-reward")
+        if _isnum(ep) and ep and all(have_t):
             pwt = sum(p/100.0*t for p, t in zip(probs, tgts)); worst = max(tgts) if short else min(tgts)
+            er_t = ((ep-pwt) if short else (pwt-ep))/ep*100.0
+            _tflip = (abs(er_t) > 0.25 and abs(calc) > 0.25 and (er_t > 0) != (calc > 0))
+            if abs(er_t - calc) > max(1.5, abs(calc)*0.05) or _tflip:
+                viol.append(f"ER_from_target={round(er_t,2)} != Sum(p*ret)={round(calc,2)}")
             rr = d.get("risk_reward")
             if _isnum(rr) and (worst > ep if short else ep > worst):
                 crr = ((ep-pwt)/(worst-ep)) if short else ((pwt-ep)/(ep-worst))
