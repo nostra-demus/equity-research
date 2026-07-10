@@ -314,11 +314,15 @@ export function deriveSignalState(sigId: string): SignalStateResult {
   // manifest) — catches a terminal Gate-0 stop that short-circuited before signal_payload.json was written.
   const hitTerminal = Object.values(man.modules).some((agents) => agents.some((a) => isTerminal(a.routing)))
 
+  // Check COMPLETION/progress before the gate routing: a locked thesis means the run progressed past the
+  // gate — including a human override of a PARK/LOG (signal_payload.routing still records the original gate
+  // verdict, so a gate-first test would wrongly show 'parked'/'logged' for a finished override run).
   let state: SignalRunState
-  if (norm(routing0) === 'park') state = 'parked' // gate held it (materiality 40–69) — overridable
-  else if (norm(routing0) === 'log') state = 'logged' // gate held it (<40) — overridable
-  else if (locked && hasCandidates) state = 'complete' // ran to the end, candidates surfaced
-  else if (isTerminal(status0) || isTerminal(routing0) || hitTerminal) state = 'watchlist' // a real terminal rejection — no Continue
+  if (locked && hasCandidates) state = 'complete' // ran to the end, candidates surfaced
+  else if (locked) state = isTerminal(status0) ? 'watchlist' : 'partial' // progressed & locked: terminal status (watchlist_no_edge) = watchlist; provisional/full_machine still pending candidate-surfacing = resumable
+  else if (norm(routing0) === 'park') state = 'parked' // held AT the gate, never progressed (materiality 40–69) — override to run
+  else if (norm(routing0) === 'log') state = 'logged' // held AT the gate, never progressed (<40) — override to run
+  else if (isTerminal(status0) || isTerminal(routing0) || hitTerminal) state = 'watchlist' // a real terminal rejection (suppress / watchlist_* / return_to_m0_2) — no Continue
   else state = 'partial' // PROMOTEd, neither terminal nor complete — a stop-after, mid-run, or break (resumable)
 
   return { sigId, state, running: false, materiality, routing: status0 ?? routing0, locked, hasCandidates, doneModules }
