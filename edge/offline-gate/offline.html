@@ -97,8 +97,14 @@
     // unreachable too, so we keep the honest "reconnect when online" page), and never to our own origin.
     function toReadOnly() {
       if (redirected || !READONLY_URL || !navigator.onLine) return;
-      try { if (READONLY_URL.indexOf(location.origin) === 0) return; } catch (e) {}
+      // Loop-guard: never redirect to our OWN origin (relative OR absolute) — that would just re-serve this
+      // page. Resolving against location.href catches a relative "/readonly" too, which indexOf missed.
+      try { if (new URL(READONLY_URL, location.href).origin === location.origin) return; } catch (e) { return; }
       redirected = true;
+      // Reset the grace clock. We're leaving offline.html WITHOUT going through check()'s recovery cleanup,
+      // so a LATER outage in this same tab must start a fresh 45s grace — otherwise it inherits this outage's
+      // old timestamp and would skip the grace, redirecting on a brief blip (the misfire the grace prevents).
+      try { sessionStorage.removeItem('nos_offline_since'); } catch (e) {}
       s.textContent = 'Opening the read-only view…';
       location.replace(READONLY_URL);
     }

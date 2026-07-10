@@ -87,6 +87,14 @@ Token scopes if not using `wrangler login`: **Workers Scripts: Edit · Workers R
    - a `*.js` asset → **not** the offline HTML.
 3. **Access ordering:** an **unauthenticated** private window must still get the Cloudflare **Access login**,
    not the offline page. If it doesn't, fix the Access app / route ordering before relying on this.
+4. **Read-only fallback (only if `READONLY_URL` is set):** with the origin down, a **brief** restart (bring
+   the tunnel back within ~30s) must snap the reconnecting page back to the LIVE app — **no** redirect. A
+   **sustained** outage (>45s) must hand off to the read-only host. Then the blip-safety regression test:
+   after that hand-off, bring the engine back, reload the LIVE app once, kill the tunnel again for ~20s —
+   it must show the calm "Reconnecting…" page for the full grace and snap back to live, **not** immediately
+   escalate/redirect (proves the grace clock reset on hand-off; the `nos_offline_since` key must be gone
+   after the redirect). The read-only host must sit behind the **same Access** — an unauthenticated window
+   hitting it gets the login, never the snapshot.
 
 Roll back if anything is wrong: `npx wrangler rollback` (or delete the route in the dashboard).
 
