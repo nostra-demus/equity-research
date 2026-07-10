@@ -1817,10 +1817,10 @@ a { color: inherit; }
 /* press feedback consistent with the chips above (scale, not the global .btn translate) */
 .evdetail__actions .btn:active { transform: scale(0.97); }
 
-/* ── "Run the checks" split button (primary + caret) + status badge ─────────────────────────────────────
-   One control: an optional state badge, a one-click primary, and a caret that opens the state-aware menu.
-   The primary + caret are a joined pair (a hairline divider between); both ride the swarm accent (cyan on
-   the screener). The badge sits to the left so the state reads before the action. */
+/* ── "Run the checks" menu-trigger button + status badge ────────────────────────────────────────────────
+   ONE control: an optional state badge on the left, and a single button that OPENS the state-aware menu (no
+   separate one-click action — every verb is a menu item). The button rides the swarm accent (cyan on the
+   screener); the badge sits to the left so the state reads before the options. */
 .runsplit { display: inline-flex; align-items: center; gap: 10px; }
 .runsplit__badge { display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 9px; border-radius: var(--r-pill); font-size: 11px; font-weight: 600; letter-spacing: 0.2px; white-space: nowrap; border: 1px solid transparent; }
 .runsplit__badge .rdg-spin { width: 11px; height: 11px; }
@@ -1828,13 +1828,8 @@ a { color: inherit; }
 .runsplit__badge--pause { color: var(--accent-deep); background: var(--accent-wash-soft); border-color: color-mix(in srgb, var(--accent) 22%, transparent); }
 .runsplit__badge--hold { color: var(--text-muted); background: var(--surface-3); border-color: var(--hairline-strong); }
 .runsplit__badge--done { color: var(--accent-deep); background: var(--accent-wash); border-color: color-mix(in srgb, var(--accent) 26%, transparent); }
-.runsplit__btns { display: inline-flex; align-items: stretch; }
-.runsplit__primary { height: 38px; padding: 0 16px; border-top-right-radius: 0; border-bottom-right-radius: 0; }
-.runsplit__caret { height: 38px; width: 34px; padding: 0; display: inline-flex; align-items: center; justify-content: center; border-top-left-radius: 0; border-bottom-left-radius: 0; border-left: 1px solid color-mix(in srgb, var(--accent-deep) 55%, transparent); margin-left: -1px; font-size: 13px; }
-/* danger (Stop) variant — red fill for the destructive primary+caret when a run is live */
-.runsplit__primary--danger, .runsplit__caret--danger { background: var(--bad); color: #fff; border-color: color-mix(in srgb, var(--bad) 65%, black); }
-.runsplit__primary--danger:hover, .runsplit__caret--danger:hover { background: color-mix(in srgb, var(--bad) 88%, black); }
-.runsplit__caret--danger { border-left-color: color-mix(in srgb, #000 30%, transparent); }
+.runsplit__trigger { height: 38px; padding: 0 16px; display: inline-flex; align-items: center; gap: 6px; }
+.runsplit__chev { font-size: 12px; opacity: 0.85; display: inline-block; transition: transform 140ms var(--ease-out); }
 
 /* keyboard focus — the rail is now the main way to move through events, so it must be visibly traversable.
    box-shadow ring (token-scoped to cyan) matches the .intake__input:focus idiom; inset on the full-width row. */

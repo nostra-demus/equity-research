@@ -89,40 +89,39 @@ export function RunChecksMenu({ it }: Props) {
 
   const scoreTxt = typeof st?.materiality === 'number' ? ` · ${Math.round(st.materiality)}` : ''
 
-  // ── the badge + the primary (one-click) action, by state ────────────────────────────────────────────────
+  // ── the status badge + the dropdown-trigger label, by state ─────────────────────────────────────────────
+  // ONE button that OPENS the menu — there is no separate one-click action. The label names what the menu is
+  // about; the badge (to its left) shows the state. Every verb (run / stop after / continue / override / stop
+  // / re-run) lives INSIDE the menu, so a click always opens options to pick from and never fires a run itself.
   let badge: { label: ReactNode; tone: BadgeTone } | null = null
-  let primary: { label: ReactNode; title: string; danger?: boolean; disabled?: boolean; onClick: () => void }
-
+  let buttonLabel = 'Run the checks'
   switch (state) {
     case 'running':
       badge = { label: 'Running', tone: 'run' }
-      primary = { label: 'Stop', danger: true, title: 'Stop the checks running for this signal', onClick: stopRun }
+      buttonLabel = 'Manage run'
       break
     case 'partial':
       badge = { label: `Paused · ${doneSet.size}/${stages.length}`, tone: 'pause' }
-      primary = { label: 'Continue ▸', title: 'Resume the remaining checks from where they stopped', onClick: resumeAll }
+      buttonLabel = 'Continue the run'
       break
     case 'parked':
       badge = { label: `Parked${scoreTxt}`, tone: 'hold' }
-      primary = { label: 'Override & run ▸', title: 'The gate parked this (materiality 40–69). Override it to run the full gauntlet anyway.', onClick: overrideRun }
       break
     case 'logged':
       badge = { label: `Logged${scoreTxt}`, tone: 'hold' }
-      primary = { label: 'Override & run ▸', title: 'The gate logged this (materiality below 40). Override it to run the full gauntlet anyway.', onClick: overrideRun }
       break
     case 'watchlist':
       badge = { label: 'Watchlist', tone: 'done' }
-      primary = { label: 'Re-run ▸', disabled: true, title: 'This signal already ran and locked with no edge. Re-running from scratch is coming soon — the saved run stays on the board.', onClick: () => {} }
+      buttonLabel = 'Re-run'
       break
     case 'complete':
       badge = { label: 'Complete ✓', tone: 'done' }
-      primary = { label: 'Re-run ▸', disabled: true, title: 'This signal already ran and locked. Re-running from scratch is coming soon — the saved run stays on the board.', onClick: () => {} }
+      buttonLabel = 'Re-run'
       break
-    default: // never / still loading — the safe default: a plain full run
-      primary = { label: 'Run the checks ▸', title: staticMode ? 'Runs on your local machine (npm run dev)' : 'Run the full gauntlet — every stage', onClick: startFull }
+    // default (never / still loading): no badge, label stays "Run the checks"
   }
 
-  // the cost/early-stop hint only applies when the primary starts a fresh (or overridden) full run
+  // the cost/early-stop hint only applies to states whose menu can start a fresh (or overridden) full run
   const showEst = state === 'never' || state === 'parked' || state === 'logged' || !st
 
   const openMenu = (e: React.MouseEvent) => {
@@ -138,26 +137,16 @@ export function RunChecksMenu({ it }: Props) {
     <div className="evdetail__run">
       <div className="runsplit">
         {badge && <span className={`runsplit__badge runsplit__badge--${badge.tone}`}>{badge.tone === 'run' && <Spin />}{badge.label}</span>}
-        <div className="runsplit__btns">
-          <button
-            className={`btn runsplit__primary${primary.danger ? ' runsplit__primary--danger' : ' btn--amber'}`}
-            disabled={busy || primary.disabled}
-            onClick={closeThen(primary.onClick)}
-            title={primary.title}
-          >
-            {busy ? <><Spin /> Starting…</> : primary.label}
-          </button>
-          <button
-            className={`btn runsplit__caret${primary.danger ? ' runsplit__caret--danger' : ' btn--amber'}`}
-            aria-haspopup="menu"
-            aria-expanded={open}
-            disabled={busy}
-            onClick={openMenu}
-            title="More run options"
-          >
-            <span aria-hidden style={{ transform: open ? 'rotate(180deg)' : 'none', transition: 'transform 140ms var(--ease-out)' }}>▾</span>
-          </button>
-        </div>
+        <button
+          className="btn btn--amber runsplit__trigger"
+          aria-haspopup="menu"
+          aria-expanded={open}
+          disabled={busy}
+          onClick={openMenu}
+          title={staticMode ? 'Runs on your local machine (npm run dev)' : 'Choose how to run the checks'}
+        >
+          {busy ? <><Spin /> Starting…</> : <>{buttonLabel}<span className="runsplit__chev" aria-hidden style={{ transform: open ? 'rotate(180deg)' : 'none' }}>▾</span></>}
+        </button>
       </div>
       {showEst && <span className="evdetail__est mono">about $8–45 · stops early (and cheaper) if a check says no</span>}
 
