@@ -58,6 +58,15 @@ Detect the filing regime from triage `00` and read the local-equivalent document
 7. More than 40% of revenue from a single customer with no long-term contract disclosed.
 8. Negative operating cash flow in 3 of the last 4 years (excludes early-stage businesses with explicit disclosed growth-investment narratives — if so, name the narrative).
 
+## Formulas for the quantitative triggers (pin the denominators)
+
+A scale or denominator slip on any of these silently flips a **hard verdict-lock** — either missing a real disqualifier or falsely locking a clean business. Compute each explicitly; show the computed ratio AND the threshold in the Evidence cell, not just Y/N. Use the same reporting period for numerator and denominator, and the company's own currency. A trigger is strictly `>` the threshold.
+
+- **#2 Pledged shares** = `pledged promoter+insider shares ÷ total promoter+insider shares > 50%` — the pledge as a share of the **promoter/insider holding**, NOT of total shares outstanding.
+- **#3 Related-party transactions** — trips if `aggregate annual RPT value ÷ revenue > 25%` **OR** `aggregate annual RPT value ÷ total expenses > 25%`; state which side crosses.
+- **#5 Material restatement** = `|restatement amount| ÷ revenue > 5%` **OR** `|restatement amount| ÷ net income > 5%` — use the **absolute** magnitude (a restatement can cut either way). Net income can be small or negative (which inflates or flips the ratio); when it is, lead with the revenue-based test and say so.
+- **#7 Customer concentration** = `largest single customer's revenue ÷ total revenue > 40%` (with no long-term contract disclosed).
+
 ## Integrity note (CLAUDE.md §24, Filter 1)
 
 Proven fraud or proven defrauding of customers, suppliers, employees, or shareholders by the controller or senior management is a hard disqualifier — record it under #6 (regulatory enforcement) when there is an enforcement action, or as a §13 critical red flag when proven by primary evidence, and set the verdict-lock. But this gate triggers ONLY on hard, named, sourced facts. Soft or unverified adverse signal about integrity ("buzz", informal allegations, unproven media claims) does NOT trigger the lock here — it must NOT be discarded either. Note it explicitly in the report and route it to the management-governance module (track-record and candor agents), where it lowers the score and caps conviction rather than locking the verdict.
