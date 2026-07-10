@@ -8,6 +8,7 @@ const TYPE_LABEL: Record<string, string> = {
   annual_filing: 'Annual',
   quarterly_filing: 'Quarterly',
   transcript: 'Transcript',
+  sell_side_earnings_note: 'Sell-side note',
   investor_deck: 'Deck',
   consensus_estimates: 'Estimates',
   multiples_export: 'Multiples',

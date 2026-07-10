@@ -2,7 +2,7 @@
 // Proves a module can declare its readiness rule in its own 00-triage frontmatter (zero edits to the
 // readiness engine) and that the interpreter behaves correctly.
 import assert from 'node:assert/strict'
-import { classify, deriveCoverage, evalDecl, extractPeriod, quoteAsOfMonths } from '../src/data-status'
+import { callDateMonths, classify, deriveCoverage, evalDecl, extractPeriod, quoteAsOfMonths } from '../src/data-status'
 import { moduleReadinessIssues } from '../src/readiness'
 import { moduleReadinessDecls } from '../src/roster'
 import type { ClassifiedFile, FileType, ModuleReadiness } from '../src/types'
@@ -241,6 +241,27 @@ check('extractPeriod: a download/saved stamp year in the filename does not win o
 // the body names the following year.
 check('extractPeriod: a non-stamp filename year still ignores a later body year (no next-year leak)', () => {
   assert.equal(extractPeriod('Annual_Report_2024.pdf', 'Outlook for 2025 and the AGM in 2025.').hint, '2024')
+})
+
+// ---- #195: broker-style quarter labels (distinctness) + call-date recency ----
+check('extractPeriod: broker quarters 4Q25 / 1Q2026 parse to the same Q<n> <yyyy> as a verbatim transcript', () => {
+  assert.equal(extractPeriod('ACME 4Q25 Earnings Call Insight.pdf', '').hint, 'Q4 2025')
+  assert.equal(extractPeriod('ACME 1Q2026 Results Note.pdf', '').hint, 'Q1 2026')
+  // a broker 4Q25 note and a verbatim Q4 2025 transcript are ONE call period — they must dedupe (not read as "2026")
+  assert.equal(extractPeriod('Broker 4Q25 note.pdf', '').hint, extractPeriod('Co Q4 2025 transcript.rtf', '').hint)
+})
+
+check('callDateMonths: a call ages from its FILENAME call date — 2 months fresher than the quarter-end', () => {
+  // "Q4 2025 Earnings Call, Feb 05 2026": the call (Feb 2026) is 2 months newer than the Q4-2025 quarter-end
+  // (Dec 2025) extractPeriod anchors to. The diff is date-independent (both shift with today) — pins the fix.
+  const callAge = callDateMonths('ACME Q4 2025 Earnings Call, Feb 05, 2026.rtf')
+  const quarterEnd = extractPeriod('ACME Q4 2025 Earnings Call.rtf', '').ageMonths
+  assert.ok(callAge != null, 'the Feb-2026 call date is parsed from the filename')
+  assert.equal((quarterEnd ?? 0) - (callAge ?? 0), 2, 'call date reads exactly 2 months fresher than the quarter-end')
+})
+
+check('callDateMonths: no date in the filename -> null (falls back to the quarter-end age)', () => {
+  assert.equal(callDateMonths('ACME Q4 2025 Earnings Call.rtf'), null)
 })
 
 console.log(`\n${passed} checks passed${process.exitCode ? ' (with failures)' : ''}`)
