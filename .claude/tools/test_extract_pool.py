@@ -159,6 +159,9 @@ def test_external_provenance() -> None:
             "provider": "YipitData", "source_type": "alt_data_panel", "tier": 5,
             "as_of": "2026-03-31", "tickers": ["AMZN", "MSFT", "GOOGL"]}))
         (ext / "note.txt").write_text("external doc sharing a basename with a top-level file")
+        tegus = pool / "external" / "tegus"
+        tegus.mkdir(parents=True)
+        (tegus / "call.txt").write_text("direct drop with NO sidecar — path-derived provenance")
 
         manifest = ep.extract_pool(str(pool), out_td, vision=False)
         files = [s["file"] for s in manifest["sources"]]
@@ -176,6 +179,15 @@ def test_external_provenance() -> None:
         md = (Path(out_td) / "manifest.md").read_text()
         check("external: manifest.md carries the provenance summary",
               "external: YipitData · alt_data_panel · tier 5 · as-of 2026-03-31" in md, md[-500:])
+        # a direct drop with no sidecar still gets path-derived provenance (provider = folder,
+        # conservative tier 9) — never `unknown provider · unclassified` (PR #210 review)
+        call = next((s for s in manifest["sources"] if s["file"] == "call.txt"), {})
+        fallback = call.get("provenance") or {}
+        check("external: sidecar-less drop gets path-derived provenance",
+              fallback.get("provider") == "tegus" and fallback.get("tier") == 9
+              and fallback.get("source_type") == "external_other", str(call))
+        check("external: manifest.md shows the fallback provider/tier",
+              "external: tegus · external_other · tier 9" in md, md[-500:])
         # sidecar edits invalidate the mtime freshness check (a provenance fix must rebuild)
         future = __import__("time").time() + 60
         _os.utime(str(ext / "panel.txt.source.json"), (future, future))

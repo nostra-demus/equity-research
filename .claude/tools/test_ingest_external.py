@@ -204,6 +204,49 @@ def main():
           hints and hints[0].startswith("/research:rerun "), str(hints))
     shutil.rmtree(root)
 
+    # ---- 8c. review fixes (PR #210 P2s) ----
+    # suffix loop: three DISTINCT docs with the same basename all survive
+    root = tempfile.mkdtemp()
+    build_pool(root)
+    for i, body in enumerate(["v1 content", "v2 content", "v3 content"]):
+        drop(root, "Vendor/AMZN/report.txt", body)
+        m.run(root)
+    provdir = os.path.join(root, "AMZN", "external", "vendor")
+    names = sorted(n for n in os.listdir(provdir) if not n.endswith(".source.json"))
+    check("collision suffixes keep every distinct version",
+          names == ["report (2).txt", "report (3).txt", "report.txt"], str(names))
+    shutil.rmtree(root)
+
+    # forced re-route: a doc auto-routed earlier can later be FORCED to a missed ticker
+    root = tempfile.mkdtemp()
+    build_pool(root)
+    drop(root, "auto_note.txt", "AMZN AMZN AMZN AMZN AMZN panel readout")
+    m.run(root)
+    drop(root, "Vendor/BUNGE/auto_note.txt", "AMZN AMZN AMZN AMZN AMZN panel readout")
+    res = m.run(root)
+    check("forced route bypasses the sha ledger for a missed ticker",
+          os.path.exists(os.path.join(root, "BUNGE", "external", "vendor", "auto_note.txt")), str(res))
+    shutil.rmtree(root)
+
+    # server-parity ticker shape: digit-led symbols route (sandbox.ts TICKER_RE parity)
+    root = tempfile.mkdtemp()
+    build_pool(root)
+    os.makedirs(os.path.join(root, "360ONE"))
+    drop(root, "Vendor/360ONE/wealth_note.txt", "no detectable names")
+    res = m.run(root)
+    check("digit-led ticker force-routes (server TICKER_RE parity)",
+          os.path.exists(os.path.join(root, "360ONE", "external", "vendor", "wealth_note.txt")), str(res))
+    shutil.rmtree(root)
+
+    # day-first data-through dates are detected + validated
+    check("day-first 'data through 31/03/2026' parses as 2026-03-31",
+          m._parse_dates("x.txt", "data through 31/03/2026")[0] == "2026-03-31",
+          str(m._parse_dates("x.txt", "data through 31/03/2026")))
+    check("month-first 'data thru 3/31/2026' parses as 2026-03-31",
+          m._parse_dates("x.txt", "data thru 3/31/2026")[0] == "2026-03-31")
+    check("impossible date is dropped, not written",
+          m._parse_dates("x.txt", "data through 45/77/2026")[0] is None)
+
     # ---- 9. dry-run writes nothing ----
     root = tempfile.mkdtemp()
     build_pool(root)

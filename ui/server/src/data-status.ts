@@ -501,34 +501,26 @@ async function classifyFile(dir: string, filename: string): Promise<ClassifiedFi
 
 const SIDECAR_SUFFIX = '.source.json'
 
-// Containment: resolve a joined path and confine it to its base dir — analyzeTicker's idiom,
-// applied at every fs sink below so a crafted name ('..', an absolute path) can never escape the
-// ticker's pool folder. readdir entries are basenames in practice; this makes it a guarantee.
-// (Clears CodeQL js/path-injection.)
-function confine(baseDir: string, ...segments: string[]): string | null {
-  const base = path.resolve(baseDir)
-  const full = path.resolve(base, ...segments)
-  return full === base || full.startsWith(base + path.sep) ? full : null
-}
-
 // external/<provider>/<file> — two levels max (the watcher and this walk agree on that bound)
-function listExternalFiles(tickerDir: string): string[] {
-  const root = confine(tickerDir, 'external')
+function listExternalFiles(tickerDirRaw: string): string[] {
+  // Inline containment — analyzeTicker's exact idiom, repeated INLINE because CodeQL recognizes
+  // the resolve + startsWith guard only when it sits at the flow itself, not behind a helper
+  // (a confine() wrapper still produced js/path-injection findings). Everything below derives
+  // from the confined tickerDir plus readdir basenames, so no crafted input can escape data/.
+  const tickerDir = path.resolve(tickerDirRaw)
+  if (tickerDir !== DATA_DIR && !tickerDir.startsWith(DATA_DIR + path.sep)) return []
+  const root = path.join(tickerDir, 'external')
   const out: string[] = []
-  if (!root) return out
   try {
     for (const n of fs.readdirSync(root)) {
       if (n.startsWith('.') || n.endsWith(SIDECAR_SUFFIX)) continue
-      const full = confine(root, n)
-      if (!full) continue
+      const full = path.join(root, n)
       const st = fs.statSync(full)
       if (st.isFile()) out.push(path.join('external', n))
       else if (st.isDirectory()) {
         for (const m of fs.readdirSync(full)) {
           if (m.startsWith('.') || m.endsWith(SIDECAR_SUFFIX)) continue
-          const leaf = confine(full, m)
-          if (!leaf) continue
-          try { if (fs.statSync(leaf).isFile()) out.push(path.join('external', n, m)) } catch {}
+          try { if (fs.statSync(path.join(full, m)).isFile()) out.push(path.join('external', n, m)) } catch {}
         }
       }
     }
@@ -536,9 +528,15 @@ function listExternalFiles(tickerDir: string): string[] {
   return out.sort()
 }
 
-async function classifyExternalFile(tickerDir: string, rel: string): Promise<ClassifiedFile> {
-  const full = confine(tickerDir, rel)
-  if (!full) throw new Error(`external path escapes the pool: ${rel}`)
+async function classifyExternalFile(tickerDirRaw: string, rel: string): Promise<ClassifiedFile> {
+  // same inline containment as listExternalFiles (and analyzeTicker): confine the ticker dir to
+  // DATA_DIR, then confine the joined document path to the ticker dir, before ANY fs use.
+  const tickerDir = path.resolve(tickerDirRaw)
+  if (tickerDir !== DATA_DIR && !tickerDir.startsWith(DATA_DIR + path.sep)) {
+    throw new Error('ticker dir escapes the pool')
+  }
+  const full = path.resolve(tickerDir, rel)
+  if (!full.startsWith(tickerDir + path.sep)) throw new Error(`external path escapes the pool: ${rel}`)
   const st = fs.statSync(full)
   const base = path.basename(rel)
   const sniff = await sniffText(full, st.size, st.mtimeMs)

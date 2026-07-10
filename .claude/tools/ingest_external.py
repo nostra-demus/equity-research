@@ -86,8 +86,10 @@ README_NAME = "README.md"
 # system folders in the pool root that are never companies.
 RESERVED = {"news-archive", "external-inbox"}
 
-# A folder/company symbol as the engine uses them: UPPERCASE alnum with ./- (AMZN, NIVABUPA, BRK.B).
-TICKER_SHAPE = re.compile(r"^[A-Z][A-Z0-9.\-]{0,11}$")
+# A folder/company symbol as the engine uses them — MIRRORS ui/server/src/sandbox.ts TICKER_RE
+# (`[A-Z0-9.\-]{1,15}` + at least one alphanumeric), so a digit-led Indian symbol or a 13-15 char
+# ticker the cockpit accepts is also routable here (incl. via the forced <Provider>/<TICKER>/ lane).
+TICKER_SHAPE = re.compile(r"^(?=.*[A-Z0-9])[A-Z0-9.\-]{1,15}$")
 # Auto-detection only trusts symbols of length >= 3 as bare word tokens ("IT"/"SO"/"A" would
 # over-match any English text); shorter symbols need an explicit context tag ($SO / (NYSE:SO)).
 MIN_BARE_SYMBOL_LEN = 3
@@ -256,7 +258,14 @@ def _parse_dates(name, sniff):
     m = re.search(r"(?:data )?thr(?:ough|u)\s+(\d{1,2})/(\d{1,2})(?:/(\d{2,4}))?", hay, re.I)
     if m and m.group(3):
         y = int(m.group(3)); y += 2000 if y < 100 else 0
-        as_of = f"{y:04d}-{int(m.group(1)):02d}-{int(m.group(2)):02d}"
+        a, b = int(m.group(1)), int(m.group(2))
+        # VALIDATE, and detect the day-first form ("data through 31/03/2026"): a first number
+        # that cannot be a month is the day. Both plausible -> US month-first. Neither -> drop.
+        mo, dy = (a, b) if a <= 12 else (b, a)
+        if a > 12 and b > 12:
+            mo = dy = 0
+        if 1 <= mo <= 12 and 1 <= dy <= 31:
+            as_of = f"{y:04d}-{mo:02d}-{dy:02d}"
     if not as_of:
         m = re.search(r"\b([A-Za-z]{3})[a-z]*[- ](\d{2})\b(?=\s*(update|data|panel|read|month)|\W*$)", name, re.I)
         if m and m.group(1).lower()[:3] in _MONTHS:
@@ -521,11 +530,14 @@ def run(pool="data", dry_run=False):
             skipped.append((base, "still syncing — next pass"))
             continue
         digest = sha256_file(fp)
-        if digest in seen:
+        provider_folder, forced = classify_inbox_path(fp, inbox, tickers)
+        # sha256 dedup — but a FORCED drop is an explicit instruction: a doc auto-routed to one
+        # ticker earlier can be force-added to another (the documented <Provider>/<TICKER>/ path
+        # for a missed ticker). The per-target copy below still skips a pool that already holds
+        # this exact content, so a forced re-drop of an already-covered ticker stays a no-op.
+        if digest in seen and not forced:
             skipped.append((base, "already routed (ledger)"))
             continue
-
-        provider_folder, forced = classify_inbox_path(fp, inbox, tickers)
         sniff = ""
         try:
             sniff = ep.sniff_text(fp, SNIFF_CHARS)
@@ -570,9 +582,16 @@ def run(pool="data", dry_run=False):
 
         for t in tick_list:
             dst = os.path.join(pool, t, "external", pslug, base)
-            if os.path.exists(dst) and sha256_file(dst) != digest:
-                stem, ext = os.path.splitext(base)
-                dst = os.path.join(pool, t, "external", pslug, f"{stem} (2){ext}")
+            # same-name collisions: keep EVERY distinct version — walk (2), (3), … until a free
+            # slot or an identical copy (recurring vendor exports all named "report.pdf" must
+            # never overwrite the evidence history). Identical content already in place = no-op.
+            stem, ext = os.path.splitext(base)
+            i = 2
+            while os.path.exists(dst) and sha256_file(dst) != digest:
+                dst = os.path.join(pool, t, "external", pslug, f"{stem} ({i}){ext}")
+                i += 1
+            if os.path.exists(dst):  # identical copy already in this pool
+                continue
             copy_contents(fp, dst)
             json.dump(sidecar, open(dst + ".source.json", "w", encoding="utf-8"), indent=2)
         move_to_routed(fp, inbox)

@@ -115,15 +115,23 @@ def _collect_sidecars(data_path):
 def _finish_row(row, rel, prov_map):
     """Enrich a manifest source row with its pool-relative path (when nested — duplicate
     basenames across subfolders stay distinguishable) and, for external documents, the
-    `external` flag + `provenance` from the sidecar."""
+    `external` flag + `provenance` from the sidecar. A direct drop WITHOUT a sidecar still
+    gets path-derived provenance — provider = the containing folder's name, conservative
+    tier-9 default (EXTERNAL_DATA.md §2 `external_other`) — so triage always has the
+    provider/tier labels its citations require, never `unknown provider · unclassified`."""
     base = row.get("file", "")
     if rel and rel != base:
         row["path"] = rel.replace(os.sep, "/")
     if rel and _is_external_rel(rel):
         row["external"] = True
         prov = prov_map.get(rel)
-        if prov:
-            row["provenance"] = prov
+        if not prov:
+            parts = rel.replace(os.sep, "/").split("/")
+            folder = parts[-2] if len(parts) >= 2 else ""
+            prov = {"provider": folder if folder and folder != "external" else "unfiled",
+                    "source_type": "external_other", "tier": 9,
+                    "provenance_basis": "path-derived (no sidecar)"}
+        row["provenance"] = prov
     return row
 
 
