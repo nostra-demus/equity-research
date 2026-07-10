@@ -1,0 +1,187 @@
+{
+  "schema_version": "1.0",
+  "ticker": "HCG",
+  "original_decision_date": "2026-06-01",
+  "review_date": "2026-07-11",
+  "review_window": "30d",
+  "original_decision": "Avoid",
+  "basket": "Rejected",
+  "entry_price": 646.15,
+  "review_price": 602.0,
+  "absolute_return_pct": -6.8,
+  "benchmark_return_pct": 3.3,
+  "sector_return_pct": 2.9,
+  "benchmark_relative_return_pct": -10.1,
+  "sector_relative_return_pct": -9.7,
+  "thesis_status": "on-track",
+  "forecast_results": [
+    {
+      "prediction": "HCG trades below INR 646.15 (the decision price) in 12 months",
+      "status": "still open",
+      "evidence": "Stock is currently ~INR 602 (below the entry price of INR 646.15), tracking favorably; but the confirmation trigger is 'Price < INR 646.15 on the 2027-06-01 review date' -- 11 months remain in the window",
+      "as_of": "2026-07-11"
+    },
+    {
+      "prediction": "FY27 EPS-Normalized consensus is NOT raised net-positive over the next 6 months",
+      "status": "still open",
+      "evidence": "Q1 FY27 results not yet announced (trading window closed July 1, 2026; results expected ~July 30, 2026). No evidence of EPS revision trend reversal found. Window runs to 2026-12-01.",
+      "as_of": "2026-07-11"
+    },
+    {
+      "prediction": "FQ1 FY27 revenue misses the ~INR 7,340.9M (~+20% implied) consensus bar",
+      "status": "still open",
+      "evidence": "Q1 FY27 results not yet announced. Trading window closed July 1, 2026. Results expected ~July 30, 2026. The +20% bar vs +11.5% Q4 FY26 exit rate remains demanding.",
+      "as_of": "2026-07-11"
+    },
+    {
+      "prediction": "Group statutory ROIC stays below the ~11-12% cost of capital in FY27",
+      "status": "still open",
+      "evidence": "FY26 audited annual report not yet filed as of July 11, 2026. No FY27 data available. Window runs to FY27 results, mid-2027.",
+      "as_of": "2026-07-11"
+    },
+    {
+      "prediction": "Reported (audited) FY26 PAT does NOT reconcile up to the ~INR 557M adjusted figure cleanly",
+      "status": "still open",
+      "evidence": "FY26 audited annual report not yet filed as of July 11, 2026. Window was 'by FY26 audited annual report (~mid-2026)'; overdue by approximately 40 days without the primary filing.",
+      "as_of": "2026-07-11"
+    },
+    {
+      "prediction": "No further CFO/auditor exit before the next governance review",
+      "status": "not assessable",
+      "evidence": "Web search (indicative/unverified, July 11, 2026) found Sanjeev Kumar appointed as CFO replacing interim CFO Dr. Manish Mattoo (effective May 25, 2026). If this appointment post-dates the June 1 analysis pool cutoff, it represents a fourth CFO change, falsifying this forecast. However, the pool snapshot was late May 2026, and the resignation effective date of May 25 may have been captured. Verify against NSE/SEBI LODR Reg-30 filing to determine whether this is new vs. in the pool.",
+      "as_of": "2026-07-11"
+    }
+  ],
+  "catalyst_results": [
+    {
+      "catalyst": "FY26 audited statutory annual report (expected June-August 2026)",
+      "status": "pending",
+      "evidence": "FY26 audited AR not found in the data pool and not announced in web searches as of July 11, 2026. This is the single highest-value catalyst; its absence means four of the eight kill criteria and three of the five open forecasts remain unresolvable.",
+      "as_of": "2026-07-11"
+    },
+    {
+      "catalyst": "FQ1 FY27 results (~July 30, 2026)",
+      "status": "pending",
+      "evidence": "HCG closed its trading window July 1, 2026, pending Q1 FY27 announcement. Results expected ~July 30, 2026. Bearish setup: revenue bar ~INR 7,340.9M (+20% implied) vs +11.5% Q4 FY26 exit rate. (Web: TipRanks announcement, indicative/unverified, July 11, 2026)",
+      "as_of": "2026-07-11"
+    },
+    {
+      "catalyst": "Milann fertility divestiture close (EV INR 632M; INR 282M upfront; Q1 FY27 expected)",
+      "status": "pending -- unconfirmed",
+      "evidence": "Web search found the Milann sale to Inviga was approved and expected to close by end of Q1 FY27 (June 30, 2026). No primary filing confirming the close was found. Related-party concern (RF-RPT-002) remains open pending fairness opinion disclosure. (Web: stockinsights.ai ~May 2026, Yahoo Finance transcript; indicative/unverified, July 11, 2026)",
+      "as_of": "2026-07-11"
+    },
+    {
+      "catalyst": "DPCO / government-scheme tariff reviews",
+      "status": "not materialized (as killer trigger)",
+      "evidence": "Drugs (Prices Control) Amendment Order, 2026 notified June 30, 2026 -- amends drug pricing mechanisms (overcharge recovery, digital records, new drug launch rules). NPPA approved in-principle price hike for Cisplatin and Carboplatin amid shortage -- a potential oncology drug input-cost headwind. No direct hospital procedure tariff cut or cap on government-scheme rates found. The killer bearish trigger (tariff tightening on ~33% of revenue) has not yet materialized. (Web: SCC Online, Business Standard; indicative/unverified, July 11, 2026)",
+      "as_of": "2026-07-11"
+    }
+  ],
+  "risk_results": [
+    {
+      "risk": "Valuation re-rating failure (killer risk): market pricing ~33% FCF CAGR/decade never produced; multiple de-rates if ramp disappoints",
+      "status": "not materialized (tracking)",
+      "evidence": "Stock is down ~6.8% from entry vs benchmark up ~3.3%, an early directional sign of de-rating consistent with the thesis. No specific multiple-de-rate event found. FY26 audited AR and Q1 print are the next tests.",
+      "as_of": "2026-07-11"
+    },
+    {
+      "risk": "RF-MGT-001: Finance-leadership discontinuity (three CFOs in ~33 months)",
+      "status": "potentially deepened",
+      "evidence": "Sanjeev Kumar appointed CFO replacing interim CFO Dr. Manish Mattoo (effective May 25, 2026). If this appointment post-dates the June 1 pool cutoff, it represents a fourth CFO change, deepening RF-MGT-001 and triggering kill criterion 7 ('DEEPENS AVOID: another CFO/auditor exit'). Unconfirmed vs. pool cutoff; verify via NSE/SEBI LODR Reg-30 filing. (Web: broker portals, indicative/unverified, July 11, 2026)",
+      "as_of": "2026-07-11"
+    },
+    {
+      "risk": "RF-RPT-002: Milann sale to promoter-linked buyer without fairness opinion",
+      "status": "pending resolution",
+      "evidence": "Close appears imminent/overdue (Q1 FY27 deadline was June 30, 2026). Fairness opinion disclosure not found in web search. (Web: indicative/unverified, July 11, 2026)",
+      "as_of": "2026-07-11"
+    },
+    {
+      "risk": "BSS-overdraft-call: ~INR 2.8Bn on-demand overdraft with undisclosed committed availability",
+      "status": "not assessable",
+      "evidence": "No new lender or covenant information available. FY26 audited AR (debt notes) not yet filed.",
+      "as_of": "2026-07-11"
+    },
+    {
+      "risk": "Minority put / forward buy-out crystallisation (~INR 3,318M; INR 1,401M current)",
+      "status": "not assessable",
+      "evidence": "No update available. Vizag tranche (~INR 1,543M) reportedly paid April 2026. FY26 AR debt notes needed to confirm current balance.",
+      "as_of": "2026-07-11"
+    }
+  ],
+  "decision_quality": "not assessable",
+  "error_taxonomy": [],
+  "lessons": [
+    "Price direction: stock ~INR 602 (down ~6.8% from entry INR 646.15) vs NIFTY 50 up ~3.3% and NIFTY Healthcare up ~2.9% -- Avoid call has avoided a ~10-percentage-point relative underperformance vs benchmark in 40 days.",
+    "Thesis status: on-track but none of the key thesis drivers (FY26 audited AR, ROIC trajectory, Q1 print) have been tested; 40 days is too early to confirm or falsify a 12-month thesis.",
+    "Decision quality: not assessable at 30d -- price direction is favorable for the Avoid but the thesis has not played out on its stated evidence; full quality assessment deferred to 90d (post Q1 print) and 180d (post FY26 AR and FY27 H1 data).",
+    "CFO change: Sanjeev Kumar appointed replacing interim CFO Mattoo (effective May 25, 2026) -- if post-pool, represents a fourth CFO change, deepening the governance concern per kill criterion 7. Verify against NSE/SEBI LODR Reg-30 filing.",
+    "FY26 audited AR remains the single highest-value unresolved item -- all five open forecasts and most kill criteria hang on it; it was expected 'June-August 2026' and is now overdue.",
+    "DPCO Amendment Order (June 30, 2026) relates to drug pricing mechanisms, not hospital procedure tariffs; not a direct bearish trigger for HCG at this stage.",
+    "Review price ~INR 602 sourced from broker sites/finology/Kotak Neo/ICICI Direct (approx. July 7-11, 2026; Business Standard showed INR 654.30 on July 6 -- possible data inconsistency; exact July 11 close not confirmed). Verify from NSEIndia.com before acting. Indicative/unverified, searched July 11, 2026.",
+    "NIFTY 50: June 1 level ~23,484 (Liquide market wrap, June 2, 2026); July 11 level inferred ~24,250 (univest.in weekly recap). Indicative/unverified.",
+    "NIFTY Healthcare: June 1 level ~15,600 (broker site estimate, mid-June approximation used); July 11 level ~16,050 (Kotak Neo/broker). Indicative/unverified. June 1 close not directly recovered; approximation may understate or overstate the benchmark return.",
+    "Most important takeaway: the Avoid thesis is tracking correctly on price, but the real test is the FY26 audited annual report (confirming/challenging the adjusted-PAT bridge, ROIC, and debt covenants) and the Q1 FY27 revenue print vs the demanding ~+20% bar."
+  ],
+  "module_calibration_notes": {
+    "most_responsible_for_decision": "valuation (overvaluation / negative expected return) and management-governance (Weak governance caps rating at Watchlist-or-lower) jointly drove the Avoid verdict",
+    "most_accurate_so_far": "valuation: stock has declined ~6.8% vs entry while market rose ~3.3%, directionally confirming the 'modestly overvalued, no margin of safety' verdict; too early to confirm at 40 days",
+    "module_that_missed_key_variable": "none apparent at 40 days; all modules are still being tested via pending catalysts (FY26 AR, Q1 print)",
+    "earnings_accuracy": "too early -- FQ1 FY27 not yet reported; EPS revision trajectory not updated",
+    "governance_accuracy": "on-track -- potential fourth CFO change (Sanjeev Kumar) if post-pool would further validate the RF-MGT-001 flag; Milann fairness opinion still unresolved",
+    "valuation_accuracy": "directionally correct at 40 days -- stock underperforming benchmark by ~10pp, consistent with 'modestly overvalued, negative expected return'",
+    "balance_sheet_accuracy": "not assessable -- FY26 audited AR not yet filed; covenants and minority-put status unknown",
+    "confidence_calibration": "confidence_score was 70/100 for an Avoid; at 30d the call is tracking favorably; 70 appears appropriate given remaining uncertainty (all core catalysts pending); full calibration assessment deferred to 90d review",
+    "data_sufficiency_calibration": "data_sufficiency_score was 69/100; the absence of the FY26 audited AR (flagged as the highest-value missing item) continues to be the binding gap; score appears well-calibrated",
+    "note": "30d review is too early for meaningful module calibration on a 12-month thesis; all conclusions here are directional only; 90d review (post Q1 print) will provide the first real calibration signal"
+  },
+  "memo_delta": {
+    "summary": "HCG has declined approximately 6.8% since the June 1 Avoid call while NIFTY 50 rose approximately 3.3% and NIFTY Healthcare rose approximately 2.9%, giving the Avoid a roughly 10-percentage-point relative benefit vs benchmark at 40 days. A potential fourth CFO change (Sanjeev Kumar replacing interim CFO Mattoo, effective May 25, 2026) may have occurred at or after the analysis pool cutoff and, if confirmed as new, deepens the governance concern per kill criterion 7. All major thesis catalysts -- the FY26 audited annual report and the Q1 FY27 results (~July 30, 2026) -- remain pending and unresolved.",
+    "thesis_delta_verdict": "strengthened",
+    "stage_one_comment": "HCG is down roughly 6.8% since the June 1 Avoid call versus a roughly 3.3% rise in NIFTY 50, giving the Avoid an approximate 10-point relative benefit in 40 days. The thesis is on-track but not yet confirmed: no upgrade kill criteria have triggered and the biggest test, the FY26 audited annual report, is still pending and overdue vs the expected June-August 2026 window. A potential fourth CFO change (Sanjeev Kumar replacing Mattoo if post-pool cutoff) would deepen the governance concern but does not change the rating -- the Avoid was already supported by 7 High governance flags. Q1 FY27 results are due around July 30 against a demanding revenue bar of approximately plus 20% versus a plus 11.5% exit rate; a miss would further validate the Avoid thesis. We maintain the Avoid at approximately INR 602, with the next major catalysts the FY26 audited AR and the Q1 FY27 print. Re-underwrite threshold remains INR 520 or two consecutive clean prints showing ROIC rising toward the cost of capital.",
+    "changed_sections": [
+      {
+        "section": "Catalyst Calendar / Kill Criterion 7 -- Finance-leadership discontinuity (RF-MGT-001)",
+        "original_claim": "Three CFOs in ~33 months; kill criterion 7 states 'DEEPENS AVOID: another CFO/auditor exit, or Milann closes without an independent fairness opinion'",
+        "new_evidence": "Sanjeev Kumar appointed as CFO replacing interim CFO Dr. Manish Mattoo (effective May 25, 2026). If appointment post-dates the June 1 pool cutoff, this is a fourth CFO in approximately 35 months, triggering kill criterion 7 and deepening the Avoid.",
+        "evidence_source": "Web: broker portals / management-change filings, indicative/unverified, searched July 11, 2026; pool cutoff late May 2026 -- exact date unclear. Verify vs NSE/SEBI LODR Reg-30 filing.",
+        "materiality_score": 60,
+        "impact_direction": "negative",
+        "impacted_modules": ["management-governance"],
+        "rerun_recommended": false,
+        "rerun_reason": "Confirm filing date vs pool cutoff before spending on a full rerun; a management-governance rerun is more warranted after the FY26 audited AR lands (which will contain the new CFO pay, board composition update, and Milann fairness opinion)",
+        "rerun_command": ""
+      },
+      {
+        "section": "Catalyst Calendar -- DPCO / government-scheme tariff reviews",
+        "original_claim": "The dominant external lever -- sets pricing on ~33% of revenue HCG does not control; killer bearish trigger if tightened",
+        "new_evidence": "Drugs (Prices Control) Amendment Order, 2026 notified June 30, 2026 -- amends pricing mechanisms for drugs (overcharge recovery, digital records). NPPA approved in-principle price hike for Cisplatin and Carboplatin amid shortage, which is a potential input-cost headwind for oncology hospitals. No direct hospital procedure tariff cut found.",
+        "evidence_source": "Web: SCC Online (scconline.com), Business Standard (business-standard.com); indicative/unverified, searched July 11, 2026",
+        "materiality_score": 30,
+        "impact_direction": "mixed",
+        "impacted_modules": ["business-model", "earnings"],
+        "rerun_recommended": false,
+        "rerun_reason": "Below the 60-point materiality threshold for a rerun; the DPCO amendment is not a direct procedure tariff cut; watch for state-scheme circulars before recommending a rerun",
+        "rerun_command": ""
+      }
+    ],
+    "watch_items": [
+      "FY26 audited statutory annual report (expected June-August 2026, now overdue): single highest-value item -- confirms real PAT, debt covenants, CEO/CFO pay, Vizag CGU ROCE, and Milann fairness opinion. All five open forecasts hinge on this.",
+      "Q1 FY27 results (~July 30, 2026): revenue vs INR 7,340.9M bar (+20% implied vs +11.5% Q4 exit); structural EBITDA-up/PAT-down divergence; consensus EPS revision direction",
+      "Sanjeev Kumar CFO appointment: verify NSE/SEBI LODR Reg-30 filing date vs June 1 pool cutoff -- if post-cutoff, kill criterion 7 is triggered (fourth CFO change deepens governance Avoid)",
+      "Milann divestiture close: confirm effective date and receipt of INR 282M upfront; fairness opinion disclosure to resolve RF-RPT-002 (deadline was end of Q1 FY27, June 30, 2026 -- now past due)",
+      "DPCO/government-scheme tariff: monitor state-scheme circulars and any procedure-rate caps or reimbursement changes emerging from the June 30, 2026 DPCO Amendment Order framework"
+    ],
+    "management_questions": [
+      "What are Sanjeev Kumar's (new CFO) specific performance metrics, personal equity stake in HCG, and fixed-vs-at-risk pay structure -- the single transparency item most absent from the pool?",
+      "Has the Milann fertility unit divestiture closed (confirm effective date and receipt of the INR 282M upfront); was an independent fairness opinion obtained and will it be disclosed in the FY26 Annual Report?",
+      "What is the audited FY26 PAT and the full adjusted-PAT bridge -- specifically, is the INR 127M labour-code statutory cost still added back as a non-recurring item for the third consecutive year?",
+      "What is the current committed bank facility status for the ~INR 3,318M minority put/forward buyout obligations -- specifically the Vizag tranche and any remaining tranches -- and what covenants attach to those facilities?",
+      "What is the West-cluster utilisation as at June 30, 2026 (Q1 FY27 close), and what is the West cohort ROCE vs the mature South's ~27%?",
+      "Does the FY26 audited annual report disclose any financial maintenance covenant in the lender loan agreements (DSCR, interest coverage, or leverage ratio threshold)?",
+      "How does the June 30, 2026 DPCO Amendment Order and the NPPA Cisplatin/Carboplatin price hike approval affect HCG's oncology drug procurement costs and government-scheme reimbursement rates for procedures?"
+    ],
+    "memo_delta_file": "analyses/HCG_2026-06-01/reviews/2026-07-11_30d_memo_delta.md"
+  }
+}
