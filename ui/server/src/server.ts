@@ -1367,8 +1367,16 @@ app.get('/api/news/enrich', async (req, reply) => {
 // Live wire: one SSE client set, bridged once from the ingest cycle's bus.
 const newsClients = new Set<{ send: (e: any) => void }>()
 newsBus.subscribe((e) => {
+  // Explicit per-variant mapping (not a fall-through ternary): adding a bus event must be a compile
+  // error here, never a silently mis-shaped payload on the wire.
   const payload =
-    e.type === 'news-item' ? { type: 'news-item', item: e.item } : e.type === 'theme-update' ? { type: 'theme-update', theme: e.theme } : { type: 'news-cycle', summary: e.summary }
+    e.type === 'news-item'
+      ? { type: 'news-item', item: e.item }
+      : e.type === 'theme-update'
+        ? { type: 'theme-update', theme: e.theme }
+        : e.type === 'news-cycle-start'
+          ? { type: 'news-cycle-start', ts: e.ts, phase: e.phase }
+          : { type: 'news-cycle', summary: e.summary }
   for (const c of newsClients) c.send(payload)
 })
 app.get('/api/news/stream', (req, reply) => {

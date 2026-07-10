@@ -135,8 +135,7 @@ async function claudeAvailable(): Promise<boolean> {
   return claudeOk
 }
 
-function todayDate(): string {
-  const d = new Date()
+function todayDate(d: Date = new Date()): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
 }
 
@@ -182,6 +181,15 @@ export function finalDeliverablesShippedByThisAttempt(run: RunState): boolean {
 // the same key the resume detector uses (resumable.ts). The screener (flow layout) has its own
 // terminal-routing semantics and is never judged here.
 export function truncatedBeforeFinal(run: RunState): boolean {
+  // A sweep's whole deliverable is the day's inbox file. A clean exit that never wrote one means the scan
+  // found and saved nothing — say so, instead of reporting the misleading "done" the cockpit turns into
+  // "Checks finished". Deliberately EXISTENCE-only, and keyed on the LAUNCH date (a run that crosses
+  // midnight wrote the launch day's file, per swarmStoreTargets): the auto-ingester merges into the very
+  // same file, so a row-count delta would read a concurrent ingest as sweep work — and would call a
+  // legitimate dedup-only sweep a failure. Never report a false failure.
+  if (run.kind === 'sweep') {
+    return !fs.existsSync(path.join(REPO_ROOT, 'screener', 'inbox', `${todayDate(new Date(run.startedAt))}_sweep.json`))
+  }
   if (run.kind !== 'full' && run.kind !== 'rerun') return false
   if (run.swarmId === 'research') return !finalDeliverablesPresent(run.runRoot)
   if (!run.runRoot || swarmById(run.swarmId)?.layout !== 'constellation') return false
@@ -429,10 +437,12 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
     // certainly budget/turn-truncated before the last synthesis finished. Report it honestly as
     // INCOMPLETE (not a misleading "done") so the cockpit + activity log show the truth and the
     // user can finish it / raise the cap.
-    const msg = run.swarmId === 'research'
-      ? 'Run ended without the final thesis & memo — likely budget- or turn-truncated before the master synthesizer finished. Re-run from the master (or any late orb) to finish; the cap is now higher.'
-      : 'Run ended without the final dossier & decision record — likely budget- or turn-truncated before the terminal synthesis finished. Re-run the terminal module to finish.'
-    run.note = 'incomplete: no final thesis/decision (likely budget/turn truncation)'
+    const msg = run.kind === 'sweep'
+      ? 'The scan ended without saving anything to the Inbox — it found no events, or it stopped before it could write. Nothing was added.'
+      : run.swarmId === 'research'
+        ? 'Run ended without the final thesis & memo — likely budget- or turn-truncated before the master synthesizer finished. Re-run from the master (or any late orb) to finish; the cap is now higher.'
+        : 'Run ended without the final dossier & decision record — likely budget- or turn-truncated before the terminal synthesis finished. Re-run the terminal module to finish.'
+    run.note = run.kind === 'sweep' ? 'incomplete: sweep wrote no inbox file' : 'incomplete: no final thesis/decision (likely budget/turn truncation)'
     // A clean budget/turn truncation is a DELIBERATE cap, not an interruption — auto-resuming would just
     // re-hit the same cap and loop. Clear any interrupted-marker so the supervisor leaves it for the human.
     if (isResumableResearchRun(run)) clearRunMarker(run.runRoot, '.interrupted')

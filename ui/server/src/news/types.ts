@@ -215,4 +215,9 @@ export interface CycleSummary {
   overflow_requests?: number // batches that overflowed to the OpenAI-compatible registry (OpenRouter, NVIDIA, …)
   overflow_tokens?: number
   note?: string // a human-readable reason when ok=false or a cap was hit
+  // Raw articles pulled per source layer this cycle, keyed by each item's `via` provenance (gdelt, rss,
+  // nse, asx, …). Absent on a drain cycle, which fetches nothing. Lets the cockpit show WHICH sources are
+  // delivering right now instead of only the on-open /api/news/sources snapshot.
+  sources?: Record<string, number>
+  phase?: 'fetch' | 'drain'
 }

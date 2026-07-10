@@ -296,6 +296,26 @@ export interface NewsCycle {
   note?: string
 }
 
+// One ingest cycle's outcome, streamed live over /api/news/stream as `news-cycle`. Mirrors the server's
+// CycleSummary (ui/server/src/news/types.ts). Every field past `dropped` is optional so an OLDER engine
+// (the ~20-30s deploy-skew window where the new bundle is served by the old server) simply renders less,
+// never a wrong number.
+export interface CycleSummary {
+  ts: string
+  ok: boolean
+  fetched: number // raw articles pulled from the sources
+  candidates: number // new, on-list, not-already-seen items sent to triage
+  picked: number
+  watched: number
+  dropped: number
+  inboxed?: number
+  groq_requests?: number
+  groq_tokens?: number
+  note?: string // why a cap was hit / why items were deferred — the warning the user must see
+  sources?: Record<string, number> // raw articles per source layer this cycle (absent on a drain)
+  phase?: 'fetch' | 'drain'
+}
+
 export interface NewsStatus {
   enabled: boolean
   running: boolean
