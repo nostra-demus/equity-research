@@ -369,6 +369,18 @@ if isinstance(scen, list) and scen:
         else:
             _flip = (abs(dr) > 0.25 and abs(cdr) > 0.25 and (dr > 0) != (cdr > 0))
             if abs(dr-cdr) > max(1.0, abs(cdr)*0.05) or _flip: viol.append(f"downside_risk_pct={dr} != -min(scenario return)={round(cdr,2)}")
+        # margin_of_safety_pct — discount of price to the BASE-case fair value: (base FV − price)/base FV, base FV =
+        # the base-labelled scenario's price_target. Direction-UNIFORM (price levels, not position-signed returns) — a
+        # short (base FV < price) yields a negative MoS on the SAME formula, no branch. Presence-gated: null is a valid
+        # "Not assessable" (no pool-verified price). Mirrors eval.py check M.
+        mos = d.get("margin_of_safety_pct")
+        if _isnum(mos):
+            _base = next((s for s in scen if str(s.get("label","")).strip().lower() == "base"), None)
+            bfv = _base.get("price_target") if isinstance(_base, dict) else None
+            if _isnum(ep) and ep and _isnum(bfv) and bfv:
+                cmos = (bfv-ep)/bfv*100.0
+                _mflip = (abs(mos) > 0.25 and abs(cmos) > 0.25 and (mos > 0) != (cmos > 0))
+                if abs(mos-cmos) > max(1.0, abs(cmos)*0.05) or _mflip: viol.append(f"margin_of_safety_pct={mos} != (base FV − price)/base FV={round(cmos,2)}")
     except Exception as e: viol.append(f"scenarios[] unparseable: {e}")
 elif d.get("expected_return_pct") is not None:
     viol.append("expected_return_pct is set but scenarios[] is missing — the math cannot be re-derived")

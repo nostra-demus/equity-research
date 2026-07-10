@@ -66,28 +66,36 @@ def expect(name, rec, should_pass):
     out,b=gate(dict(rec))
     passed=("GATE: PASS" in out) and (MARK not in b); prov=("PROVISIONAL" in out) and (MARK in b)
     if not (passed if should_pass else prov): ok=False; print(f"  FAIL {name}: out={out.strip()!r}")
-# LONG — entry 100, targets 130/90, returns +30/-10 (50/50): ER=Sum=10, pwt=110, ER_from_target=10,
-#   rr=(110-100)/(100-90)=1.0, downside=-min(30,-10)=+10
-LONG={**BASE,"decision":"Buy","entry_price":100,"expected_return_pct":10,"risk_reward":1.0,"downside_risk_pct":10,
-      "scenarios":[{"probability":50,"return_pct":30,"price_target":130},{"probability":50,"return_pct":-10,"price_target":90}]}
+# LONG — entry 100, bull/base/bear = 150/125/90 (25/50/25), returns +50/+25/-10: ER=Sum=22.5, pwt=122.5,
+#   ER_from_target=22.5, rr=(122.5-100)/(100-90)=2.25, downside=-min(50,25,-10)=+10, MoS=(base 125 -100)/125=+20
+LONG={**BASE,"decision":"Buy","entry_price":100,"expected_return_pct":22.5,"risk_reward":2.25,"downside_risk_pct":10,"margin_of_safety_pct":20,
+      "scenarios":[{"label":"bull","probability":25,"return_pct":50,"price_target":150},
+                   {"label":"base","probability":50,"return_pct":25,"price_target":125},
+                   {"label":"bear","probability":25,"return_pct":-10,"price_target":90}]}
 expect("long all-correct -> PASS", LONG, True)
 expect("long wrong expected_return -> PROVISIONAL", {**LONG,"expected_return_pct":99}, False)
 expect("long wrong risk_reward -> PROVISIONAL", {**LONG,"risk_reward":5.0}, False)
 expect("long wrong downside (sign flip) -> PROVISIONAL", {**LONG,"downside_risk_pct":-10}, False)
 expect("long MISSING downside -> PROVISIONAL (fail-when-omitted)", {k:v for k,v in LONG.items() if k!="downside_risk_pct"}, False)
-# SHORT — entry 100, targets 60(win)/120(loss), returns +40/-20 (60/40): ER=Sum=16, pwt=84, worst=max=120,
-#   ER_from_target=(100-84)/100=16, rr=(100-84)/(120-100)=0.8, downside=-min(40,-20)=+20
-SHORT={**BASE,"decision":"Short Candidate","entry_price":100,"expected_return_pct":16,"risk_reward":0.8,"downside_risk_pct":20,
-       "scenarios":[{"probability":60,"return_pct":40,"price_target":60},{"probability":40,"return_pct":-20,"price_target":120}]}
-expect("short all-correct (direction-aware) -> PASS", SHORT, True)
+expect("long wrong margin_of_safety -> PROVISIONAL", {**LONG,"margin_of_safety_pct":50}, False)
+# SHORT — entry 100, bull/base/bear = 60/80/120 (30/40/30), returns +40/+20/-20 (position-signed): ER=Sum=14,
+#   pwt=86, worst=max=120, ER_from_target=(100-86)/100=14, rr=(100-86)/(120-100)=0.7, downside=-min(40,20,-20)=+20,
+#   MoS=(base 80 -100)/80=-25 (NEGATIVE — an overvalued short, same formula, no branch)
+SHORT={**BASE,"decision":"Short Candidate","entry_price":100,"expected_return_pct":14,"risk_reward":0.7,"downside_risk_pct":20,"margin_of_safety_pct":-25,
+       "scenarios":[{"label":"bull","probability":30,"return_pct":40,"price_target":60},
+                    {"label":"base","probability":40,"return_pct":20,"price_target":80},
+                    {"label":"bear","probability":30,"return_pct":-20,"price_target":120}]}
+expect("short all-correct (direction-aware, MoS -25) -> PASS", SHORT, True)
 # the exact bug once shipped: applying the LONG price formula (price-bear)/price to a short gives -20, not +20
 expect("short long-formula downside (-20) -> PROVISIONAL", {**SHORT,"downside_risk_pct":-20}, False)
 expect("short wrong risk_reward -> PROVISIONAL", {**SHORT,"risk_reward":2.0}, False)
+# MoS is direction-uniform: a short's correct MoS is NEGATIVE; a long-style +25 must be caught
+expect("short wrong-sign MoS (+25 not -25) -> PROVISIONAL", {**SHORT,"margin_of_safety_pct":25}, False)
 # idempotency: fail stamps, fix strips, body preserved
 o1,b1=gate({**LONG,"expected_return_pct":99}); staged=("PROVISIONAL" in o1) and (MARK in b1)
 o2,b2=gate(LONG); stripped=("GATE: PASS" in o2) and (MARK not in b2) and ("Real body content." in b2)
 if not (staged and stripped): ok=False; print(f"  FAIL idempotent stamp/strip: staged={staged} stripped={stripped}")
-print("  PASS: long+short parity (ER/risk_reward/downside), fail-when-omitted, long-formula-on-short caught, idempotent stamp/strip" if ok else "  -> finish-gate parity test FAILED")
+print("  PASS: long+short parity (ER/risk_reward/downside/MoS), fail-when-omitted, long-formula-on-short + wrong-sign-MoS caught, idempotent stamp/strip" if ok else "  -> finish-gate parity test FAILED")
 shutil.rmtree(d); sys.exit(0 if ok else 1)
 PY
 
@@ -98,7 +106,7 @@ echo "== eval.md check M: direction-aware risk/reward + downside (short vs long)
 # that test drives a long AND a short (including the long-formula-applied-to-a-short downside bug). So the
 # short-candidate math path (Codex #185) is under test here. eval.py's OWN check M is the identical mirror;
 # a dedicated `eval.py selftest` case for it (extract to a module-level fn like W/X/Y/Z) remains a follow-up.
-echo "  OK: short/long direction-aware scenario math (ER/risk_reward/downside) covered by the finish-gate parity test above"
+echo "  OK: short/long direction-aware scenario math (ER/risk_reward/downside/MoS) covered by the finish-gate parity test above"
 
 echo "== valuation canonical-definition regression guard (prompt-lint — weaker than the code tests above; born from the PR#10 review) =="
 # Guards the SPECIFIC cross-file drift the PR#10 review found: margin-of-safety re-defined as
