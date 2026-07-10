@@ -133,6 +133,24 @@ await check('bestFallbackSummary: an address landmark containing "Sub" does not 
   assert.ok(/Resignation of Mr R K Sharma|Chief Financial Officer/i.test(out), `salutation anchor must surface the real body, got: ${out}`)
   assert.ok(!/Station Road|CIN|Registered Office|Scrip Code|1234 5678/i.test(out), `address landmark or letterhead leaked: ${out}`)
 })
+// ---- #189 follow-up: when the salutation is the winning anchor, "Dear Sir/Madam" must be consumed WHOLE.
+// A greedy-left alternation with a bare `sir` before `sir/madam` matched only "Sir" and left the tail
+// beginning "/Madam, <disclosure>", leaking a stray "/Madam," prefix onto THE STORY. The disclosure body must
+// lead cleanly, with no "/Madam" prefix. Expected value pinned to §4 (the matter after the salutation is the
+// primary disclosure); asserted on the absence of the prefix, so it is RED on the pre-fix alternation.
+await check('bestFallbackSummary: a "Dear Sir/Madam" salutation is consumed whole — no "/Madam" prefix leaks', () => {
+  const fi = (headline: string, id: string) => ({
+    headline, input_nature: 'exchange_announcement', source_tier: 'primary_filing',
+    domain: 'www.bseindia.com', url: `https://www.bseindia.com/xml-data/corpfiling/AttachLive/${id}.pdf`,
+  })
+  const HEAD = 'ACME Limited Registered Office 1 MG Road, Near Sub Station Road, Bengaluru 560001 Tel +91 80 1234 5678 www.acme.com CIN L12345KA1990PLC000111 Scrip Code 500001 '
+  const out = bestFallbackSummary(
+    '', HEAD + 'Dear Sir/Madam, We wish to inform the Exchange that Mr R K Sharma has resigned as Chief Financial Officer with effect from the close of business today',
+    fi('ACME LTD: General Updates', 'e'), false, true,
+  )
+  assert.ok(/We wish to inform the Exchange that Mr R K Sharma has resigned/i.test(out), `the disclosure body must lead, got: ${out}`)
+  assert.ok(!/^\s*\/?\s*madam\b/i.test(out) && !/\bMadam,\s*We wish/i.test(out), `a "/Madam" prefix leaked onto THE STORY: ${out}`)
+})
 // ---- scoping guard #3 (Codex review follow-up on #189): a BSE/NSE filing with a generic exchange title
 // (e.g. "General Updates") whose extracted PDF text opens DIRECTLY with the real disclosure — no CIN /
 // address / Tel / Fax / Scrip-Code cover page — must NOT be discarded for the terse headline floor just
