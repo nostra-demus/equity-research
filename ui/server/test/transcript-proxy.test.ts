@@ -6,7 +6,7 @@
 // slot and hide a missing call source (CLAUDE.md §11 / §24). Pure-function unit test.
 // Run: npx tsx test/transcript-proxy.test.ts
 import assert from 'node:assert/strict'
-import { classify, evaluateModules, readinessHas, evalDecl } from '../src/data-status'
+import { classify, evaluateModules, readinessHas, evalDecl, callDateMonths } from '../src/data-status'
 import type { ClassifiedFile, FileType } from '../src/types'
 
 let passed = 0
@@ -177,6 +177,63 @@ check('earnings: stale transcript + a recent verbatim transcript is NOT proxy-ca
   ]
   const r = evaluateModules(files, [])['earnings']
   assert.ok(!r.caps.some((c) => /sell-side proxy/.test(c)), `no proxy cap expected, got: ${JSON.stringify(r.caps)}`)
+})
+
+// ── Codex #195 second-round review findings (2026-07-09) ─────────────────────────────────────────────
+// Expected values pinned to CLAUDE.md §11 (a non-call source must not fill the earnings-transcript slot) and
+// §24 (a broker verdict must never ride into a verbatim-transcript classification untagged). Each is red on
+// the pre-fix classifier (verified by stashing src/data-status.ts) and green after.
+
+// A (r3553999643): a broker note titled "…Earnings Call - Summary" / "…Earnings Call – Recap" (a dash-run
+// separator, no readable body) must still be the proxy — not fall through to the plain-transcript rule where
+// its verdict would ride untagged (§24). A single-char separator class missed the space-dash-space shape.
+check('A: "Earnings Call - Summary" (dash-run sep), empty body → sell_side_earnings_note not transcript', () => {
+  assert.equal(classify('Emaar 4Q25 Earnings Call - Summary.pdf', '').type, 'sell_side_earnings_note')
+  assert.equal(classify('Emaar 4Q25 Earnings Call – Recap.pdf', '').type, 'sell_side_earnings_note')
+})
+// A non-regression: a verbatim "…Earnings Call.pdf" (no summary/recap token) is still a plain transcript.
+check('A non-regression: a verbatim "Earnings Call.pdf" is still a transcript', () => {
+  assert.equal(classify('MGM Q1 2026 Earnings Call.pdf', '').type, 'transcript')
+})
+
+// B (r3553999647): a VERBATIM transcript that mentions its "credit rating" (management colour) and quotes a
+// "price target" in an analyst question, with "prepared remarks", must stay a transcript — a company credit
+// rating is not an analyst verdict label, so it must not mis-tag the file as a broker note (§24).
+check('B: verbatim transcript mentioning credit rating + price target stays a transcript', () => {
+  const body = 'Operator: Thank you for joining. Prepared remarks. CFO: our credit rating was affirmed. Analyst: what price target underpins guidance'
+  assert.equal(classify('Emaar Q4 2025 Earnings Call.pdf', body).type, 'transcript')
+})
+// B non-regression: a labelled analyst verdict ("Rating BUY") on a call summary is still the proxy.
+check('B non-regression: a labelled "Rating BUY" broker verdict is still the proxy', () => {
+  assert.equal(classify('opaque.pdf', FAB_SNIFF).type, 'sell_side_earnings_note')
+})
+
+// C (r3553999649): a file NAMED "Analyst Coverage" / "Broker Recommendation" is a consensus/estimates export
+// (the filename rule pins it to consensus_estimates). A Recommendation+Target-Price body that also quotes a
+// call must NOT hijack it into the transcript slot (§4/§11) — it must stay consensus_estimates.
+check('C: "Broker Recommendation"/"Analyst Coverage" named file stays consensus_estimates, not proxy', () => {
+  const body = 'Emaar 4Q25 Earnings Call Summary. Rating: BUY. Target Price AED 19.25. Recommendation BUY.'
+  assert.equal(classify('Emaar Broker Recommendation.pdf', body).type, 'consensus_estimates')
+  assert.equal(classify('Emaar Analyst Coverage.pdf', body).type, 'consensus_estimates')
+})
+
+// E (r3554298632): the tearsheet/profile exclusion must be separator-tolerant — "Public_Company_Profile.pdf"
+// and "tear_sheet.pdf" are CIQ reference exports and must be pinned to 'other', exactly like their space/one-
+// word forms, never mis-typed as a call proxy that fills the transcript slot (§11).
+check('E: "Public_Company_Profile"/"tear_sheet" separator variants → other, not proxy', () => {
+  const body = 'Emaar 4Q25 Earnings Call Summary. Rating: BUY. Target Price AED 19.25. Recommendation BUY.'
+  assert.equal(classify('Public_Company_Profile.pdf', body).type, 'other')
+  assert.equal(classify('Emaar_tear_sheet.pdf', body).type, 'other')
+})
+
+// G (r3554298641): a later EXPORT / DOWNLOAD stamp in a call filename must not set the call's recency — a
+// stale Q2-2025 call exported on 2026-07-01 must age from the CALL date (Aug 2025 ≈ 11mo), not the export
+// stamp (which would read ~0mo and falsely suppress the "<2 recent calls" cap).
+check('G: an export stamp does not refresh a stale call date', () => {
+  const withStamp = callDateMonths('Emaar Q2 2025 Earnings Call, Aug 05 2025 - exported 2026-07-01.rtf')
+  const callOnly = callDateMonths('Emaar Q2 2025 Earnings Call, Aug 05 2025.rtf')
+  assert.equal(withStamp, callOnly, `export stamp must be ignored: got ${withStamp}, expected ${callOnly}`)
+  assert.ok(withStamp != null && withStamp >= 10, `stale call must age from Aug 2025 (~11mo), got ${withStamp}`)
 })
 
 console.log(`\n${passed} passed`)

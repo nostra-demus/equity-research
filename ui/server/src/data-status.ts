@@ -306,11 +306,20 @@ export function quoteAsOfMonths(sniff: string): number | null {
 // call date. Filename only — a bare body date is too easily a forward-looking one (next-earnings / ex-div).
 export function callDateMonths(name: string): number | null {
   const cands: Array<{ y: number; mo: number }> = []
+  // A later EXPORT / DOWNLOAD / PRINT stamp is not the call date. Taking the max of every filename date would
+  // let "…Aug 05 2025 - exported 2026-07-01.rtf" age a stale Q2-2025 call from the export date (→ falsely
+  // recent, suppressing the "<2 recent calls" cap). Skip any date immediately preceded by such a stamp word
+  // so recency binds to the call date, never the housekeeping stamp (Codex #195 r3554298641).
+  const STAMP = /(?:exported?|downloaded?|printed?|generated?|retrieved?|accessed?|saved?|created?|updated?|as[\s_]?of)[\s_:.\-]*$/i
+  const push = (idx: number, y: number, mo: number) => {
+    if (STAMP.test(name.slice(Math.max(0, idx - 16), idx))) return
+    cands.push({ y, mo })
+  }
   for (const m of name.matchAll(/\b([A-Za-z]{3})[a-z]*[-.\s](\d{1,2})(?:st|nd|rd|th)?,?[-\s](\d{4})\b/gi)) {
     const mo = MONTH_NUM[m[1].toLowerCase()]
-    if (mo) cands.push({ y: Number(m[3]), mo })
+    if (mo) push(m.index!, Number(m[3]), mo)
   }
-  for (const m of name.matchAll(/\b(\d{4})-(\d{2})-\d{2}\b/g)) cands.push({ y: Number(m[1]), mo: Number(m[2]) })
+  for (const m of name.matchAll(/\b(\d{4})-(\d{2})-\d{2}\b/g)) push(m.index!, Number(m[1]), Number(m[2]))
   let best: { y: number; mo: number } | null = null
   for (const c of cands) {
     if (c.y < 2000 || c.y > new Date().getFullYear() + 1 || c.mo < 1 || c.mo > 12) continue
@@ -334,7 +343,11 @@ function isSellSideNoteContent(sniff: string): boolean {
   // passing, and pairing that with a quoted "price target" would mis-tag it a broker note and strip its
   // transcript status (§24 — Codex #195 r3552380164). A genuine broker note labels its call ("Rating BUY",
   // "Recommendation: BUY"), so this loses no real proxy.
-  const hasVerdict = /\brating\b|recommendation|overweight|underweight/i.test(sniff)
+  // A bare "rating" preceded by "credit" is a company's CREDIT rating (management colour on a verbatim
+  // transcript), NOT an analyst verdict label — exclude it so a real transcript that mentions its credit
+  // rating alongside an analyst "price target" question is not mis-tagged a broker note (§24 — Codex #195
+  // r3553999647). "Recommendation"/"Overweight"/"Underweight", and a non-credit "Rating: BUY", still qualify.
+  const hasVerdict = /(?<!credit )\brating\b|recommendation|overweight|underweight/i.test(sniff)
   const summarisesCall = /earnings call|earnings call summary|prepared remarks|conference call/i.test(sniff)
   return hasTargetPrice && hasVerdict && summarisesCall
 }
@@ -367,7 +380,12 @@ export function classify(filename: string, sniff: string): { type: FileType; con
   // (below) to prove it summarises a call. Tested BEFORE the transcript rule so an "…Earnings Call Summary"
   // name is a proxy, not a plain transcript; a verbatim CIQ transcript ("…Q1 2026 Earnings Call…") carries
   // no insight/summary/recap token, so it falls through untouched.
-  if (test(/(?:earnings|conference)[\s\-_]?call[\s\-_]?(?:insight|summary|recap|review|takeaways?|highlights?)/)) return { type: 'sell_side_earnings_note', confidence: 'high', basis: 'filename' }
+  // The separator between "call" and the summary token is a RUN (`[\s\-_–—]*`), so a broker note titled
+  // "…Earnings Call - Summary" / "…Earnings Call – Recap" (space-dash-space, en/em dash) still matches — a
+  // single-char class missed these and let them fall through to the plain-transcript rule untagged (§24 —
+  // Codex #195 r3553999643). The trailing token list is still required, so a verbatim "…Earnings Call.pdf"
+  // (no insight/summary/recap token) is unaffected and falls through to the transcript rule below.
+  if (test(/(?:earnings|conference)[\s\-_–—]?call[\s\-_–—]*(?:insight|summary|recap|review|takeaways?|highlights?)/)) return { type: 'sell_side_earnings_note', confidence: 'high', basis: 'filename' }
   // A file whose NAME says "earnings call" but whose BODY carries a broker verdict block (Target Price +
   // Rating on a call summary) is a sell-side note, not a verbatim transcript — check content BEFORE the
   // transcript-filename fallback below claims it, otherwise the directional verdict rides along untagged
@@ -375,7 +393,12 @@ export function classify(filename: string, sniff: string): { type: FileType; con
   // company-profile / landscape NAMES here: those are Capital IQ material-events/reference feeds that can
   // quote an earnings call plus an analyst target/rating and would be mis-typed as a call proxy, satisfying
   // the transcript slot (§11 — Codex #195 r3551600915). They are pinned to 'other' by name just below.
-  if (!test(/company profile|tearsheet|landscape|key[\s_]?developments|strategic[\s_]?alliances/) && isSellSideNoteContent(sniff)) return { type: 'sell_side_earnings_note', confidence: 'medium', basis: 'content' }
+  // The excluded NAMES are separator-tolerant (`company[\s_]?profile`, `tear[\s_]?sheet`) so `Public_Company_
+  // Profile.pdf` / `tear_sheet.pdf` are caught too (a literal-space list missed the underscore/hyphen exports —
+  // Codex #195 r3554298632). Also exclude an ANALYST-COVERAGE / BROKER-RECOMMENDATION name here: a file the
+  // filename rule below pins to `consensus_estimates` must not be hijacked into the transcript slot by a
+  // Recommendation+Target-Price body that also quotes a call (§4/§11 — Codex #195 r3553999649).
+  if (!test(/company[\s_]?profile|tear[\s_]?sheet|landscape|key[\s_]?developments|strategic[\s_]?alliances|analyst[\s_]?coverage|research[\s_]?coverage|broker[\s_]?(?:recommendation|rating)/) && isSellSideNoteContent(sniff)) return { type: 'sell_side_earnings_note', confidence: 'medium', basis: 'content' }
   // Transcript is tested BEFORE quarterly on purpose: an earnings-call transcript filename carries a
   // quarter token ("…Q1 2026 Earnings Call…") that the quarterly rule's `q[1-4] 20\d{2}` would otherwise
   // claim first — and once quarterly returns, the content sniff (line ~223) never runs. The
@@ -396,7 +419,7 @@ export function classify(filename: string, sniff: string): { type: FileType; con
   // sniff below can't mis-toptier them. "Key Developments" is a material-events/news feed that quotes
   // phrases like "Independent Auditor" and would otherwise false-match the annual_filing content rule and
   // hijack the "Annual report" coverage slot from the real 10-K (a §4 source-hierarchy error).
-  if (test(/company profile|tearsheet|landscape|suppliers|customers|products|key[\s_]?developments|strategic[\s_]?alliances/)) return { type: 'other', confidence: 'low', basis: 'filename' }
+  if (test(/company[\s_]?profile|tear[\s_]?sheet|landscape|suppliers|customers|products|key[\s_]?developments|strategic[\s_]?alliances/)) return { type: 'other', confidence: 'low', basis: 'filename' }
 
   // content sniff for opaque names (UUID PDFs). A sell-side verdict block is already caught above
   // (isSellSideNoteContent), before the transcript-filename fallback, so no proxy check is needed here.
