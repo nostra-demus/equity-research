@@ -501,20 +501,34 @@ async function classifyFile(dir: string, filename: string): Promise<ClassifiedFi
 
 const SIDECAR_SUFFIX = '.source.json'
 
+// Containment: resolve a joined path and confine it to its base dir — analyzeTicker's idiom,
+// applied at every fs sink below so a crafted name ('..', an absolute path) can never escape the
+// ticker's pool folder. readdir entries are basenames in practice; this makes it a guarantee.
+// (Clears CodeQL js/path-injection.)
+function confine(baseDir: string, ...segments: string[]): string | null {
+  const base = path.resolve(baseDir)
+  const full = path.resolve(base, ...segments)
+  return full === base || full.startsWith(base + path.sep) ? full : null
+}
+
 // external/<provider>/<file> — two levels max (the watcher and this walk agree on that bound)
 function listExternalFiles(tickerDir: string): string[] {
-  const root = path.join(tickerDir, 'external')
+  const root = confine(tickerDir, 'external')
   const out: string[] = []
+  if (!root) return out
   try {
     for (const n of fs.readdirSync(root)) {
       if (n.startsWith('.') || n.endsWith(SIDECAR_SUFFIX)) continue
-      const full = path.join(root, n)
+      const full = confine(root, n)
+      if (!full) continue
       const st = fs.statSync(full)
       if (st.isFile()) out.push(path.join('external', n))
       else if (st.isDirectory()) {
         for (const m of fs.readdirSync(full)) {
           if (m.startsWith('.') || m.endsWith(SIDECAR_SUFFIX)) continue
-          try { if (fs.statSync(path.join(full, m)).isFile()) out.push(path.join('external', n, m)) } catch {}
+          const leaf = confine(full, m)
+          if (!leaf) continue
+          try { if (fs.statSync(leaf).isFile()) out.push(path.join('external', n, m)) } catch {}
         }
       }
     }
@@ -523,7 +537,8 @@ function listExternalFiles(tickerDir: string): string[] {
 }
 
 async function classifyExternalFile(tickerDir: string, rel: string): Promise<ClassifiedFile> {
-  const full = path.join(tickerDir, rel)
+  const full = confine(tickerDir, rel)
+  if (!full) throw new Error(`external path escapes the pool: ${rel}`)
   const st = fs.statSync(full)
   const base = path.basename(rel)
   const sniff = await sniffText(full, st.size, st.mtimeMs)
