@@ -1045,6 +1045,7 @@ The exact object to emit (mirrors `frameworks/DECISION_LEDGER.md` §5 — that f
   "time_horizon": "",
   "expected_return_pct": null,
   "downside_risk_pct": null,
+  "margin_of_safety_pct": null,
   "risk_reward": null,
   "confidence_score": null,
   "data_sufficiency_score": null,
@@ -1108,6 +1109,7 @@ Populate each field as follows. All of these come from work you have already don
 | time_horizon | final thesis time horizon |
 | expected_return_pct | expected return from valuation/scenario math |
 | downside_risk_pct | downside from bear case/scenario math |
+| margin_of_safety_pct | discount of price to base-case fair value = (base FV − price)/base FV, from the valuation module; null when no pool-verified price ("Not assessable"). Direction-uniform — a short candidate → negative MoS. The eval harness re-derives it from the base-labelled scenario target (check M). |
 | risk_reward | risk/reward from final thesis |
 | scenarios | §8 Scenario Model rows — array of `{label, probability, return_pct, price_target}` (fix F08; enables deterministic math re-check) |
 | confidence_score | final confidence score /100 |

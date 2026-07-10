@@ -1904,6 +1904,21 @@ for drp in runs:
                         _drflip=(abs(dr)>0.25 and abs(cdr)>0.25 and (dr>0)!=(cdr>0))
                         if abs(dr-cdr)>max(1.0,abs(cdr)*0.05) or _drflip:
                             okM=False; det.append(f"downside_risk_pct={dr} != −min(scenario return)={round(cdr,2)}")
+                # margin_of_safety_pct — discount of price to the BASE-case fair value: (base FV − price)/base FV,
+                # base FV = the base-labelled scenario's price_target (valuation's base level feeds §8 as the base
+                # target, so the two must tie). Direction-UNIFORM: built from price LEVELS not position-signed returns,
+                # so a short candidate (base FV < price) yields a negative MoS on the SAME formula — no branch (unlike
+                # downside). Presence-gated: null is a valid "Not assessable" (no pool-verified price), so reconcile
+                # only when present, and only when a base-labelled target + entry price exist.
+                mos=d.get("margin_of_safety_pct")
+                if isnum(mos):
+                    _base=next((s for s in scen if str(s.get("label","")).strip().lower()=="base"), None)
+                    bfv=_base.get("price_target") if isinstance(_base,dict) else None
+                    if isnum(ep) and ep and isnum(bfv) and bfv:
+                        cmos=(bfv-ep)/bfv*100.0
+                        _mflip=(abs(mos)>0.25 and abs(cmos)>0.25 and (mos>0)!=(cmos>0))
+                        if abs(mos-cmos)>max(1.0,abs(cmos)*0.05) or _mflip:
+                            okM=False; det.append(f"margin_of_safety_pct={mos} != (base FV − price)/base FV={round(cmos,2)}")
             except Exception as e:
                 okM=False; det.append(f"scenario parse error: {e}")
             add("M_scenario_math", okM, "; ".join(det) or "prob sum=100; expected_return=Sum(p*ret); target & risk/reward reconcile")
