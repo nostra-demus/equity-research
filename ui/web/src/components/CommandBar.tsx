@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useStore } from '../lib/store'
-import { decisionColor, resetIn, resolveVerdict, sufficiencyColor, usageColor, usageLabel, usagePct } from '../lib/format'
+import { decisionColor, fmtAgo, resetIn, resolveVerdict, sufficiencyColor, usageColor, usageLabel, usagePct } from '../lib/format'
 import { plainKind } from '../lib/plain'
 import { EngineStatusPill } from './EngineStatus'
 import { ThemeToggle } from './ThemeToggle'
@@ -399,6 +399,7 @@ export function CommandBar() {
   const fullPending = useStore((s) => s.launchPending?.key === 'full:request')
   const selectedTicker = useStore((s) => s.selectedTicker)
   const staticMode = useStore((s) => s.staticMode)
+  const snapshotAt = useStore((s) => s.snapshotAt)
   const health = useStore((s) => s.health)
   const activeSwarm = useStore((s) => s.activeSwarm)
   const swarms = useStore((s) => s.swarms)
@@ -421,7 +422,7 @@ export function CommandBar() {
         </div>
         <span className="brand__sub">{sub}</span>
         <SwarmSwitcher />
-        {staticMode && <span className="chip" style={{ color: 'var(--accent-bright)', borderColor: 'var(--accent-deep)' }} title="Live showcase of completed runs. Launching agents happens on your local machine.">read-only showcase</span>}
+        {staticMode && <span className="chip" style={{ color: 'var(--accent-bright)', borderColor: 'var(--accent-deep)' }} title={snapshotAt ? `Read-only snapshot, synced ${fmtAgo(Date.parse(snapshotAt))} — the live engine is offline or unreachable. Actions resume when it's back.` : 'Read-only snapshot — the live engine runs on your machine.'}>read-only{snapshotAt ? ` · synced ${fmtAgo(Date.parse(snapshotAt))}` : ''}</span>}
       </div>
       <div className="topbar__spacer" />
       <ThemeToggle />

@@ -36,6 +36,34 @@ Worker returned HTML for `/api/health`, the heartbeat would classify the outage 
 = Access login) instead of *engine offline*. The JSON `{reason:"engine-offline"}` + `x-engine-status` header is
 the **contract** that keeps the two layers honest — keep it if you change either side.
 
+## Optional: read-only fallback
+
+By default a sustained outage shows the "System offline" page and auto-reloads when the engine returns. You
+can OPTIONALLY hand off to a **read-only snapshot of the cockpit** once the outage outlasts the 45s grace, so
+visitors can still browse finished theses while the engine is asleep. This is pure reuse — the app already
+ships a static read-only mode (`ui/web/src/lib/api.ts` `ensureMode()` → `data/snapshot.json`, every input
+disabled) — **no app redesign and no engine change.**
+
+**Wire it up (one-time):**
+1. Build the cockpit — `cd ui/web && npm run build`. `build` already runs `build-snapshot.mjs`, so `dist/`
+   contains the read-only app AND `data/snapshot.json` (its `generatedAt` drives the "synced Xh ago" chip).
+2. Publish `ui/web/dist` to a **separate, always-on** host behind the **same Cloudflare Access app** — e.g.
+   `npx wrangler pages deploy ui/web/dist --project-name nostra-readonly` on its own hostname
+   (`readonly.nostra-demus.com`), **NOT** the engine's tunnel origin. (Access-scoping is mandatory — the
+   snapshot is your research, not public.)
+3. Set `READONLY_URL` in `offline.html` to that hostname, then `wrangler deploy` this Worker.
+
+**Behaviour once set (`READONLY_URL` non-empty):**
+- **< 45s outage (restart / redeploy):** unchanged — the reconnecting page snaps straight back to the LIVE
+  app. It never redirects, so a brief blip is never mistaken for a real outage.
+- **≥ 45s outage (laptop asleep / off):** hands off to the read-only snapshot — but only when the visitor's
+  own network is up (else it keeps the honest "reconnect when online" page). To return to live, revisit the
+  engine's URL; it re-probes and goes live the moment the engine is back.
+- **Freshness:** the snapshot is only as current as the last `dist` deploy — rebuild + redeploy it on a
+  schedule (or on `analyses/` commits) so it doesn't drift. The chip shows exactly how stale it is.
+
+Leaving `READONLY_URL = ''` (the default) keeps today's behaviour **exactly** — no redirect, nothing changes.
+
 ## Deploy (needs Cloudflare auth: `wrangler login` or `CLOUDFLARE_API_TOKEN`)
 
 ```bash
