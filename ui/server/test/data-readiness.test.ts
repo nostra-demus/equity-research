@@ -2,7 +2,7 @@
 // Proves a module can declare its readiness rule in its own 00-triage frontmatter (zero edits to the
 // readiness engine) and that the interpreter behaves correctly.
 import assert from 'node:assert/strict'
-import { classify, deriveCoverage, evalDecl, quoteAsOfMonths } from '../src/data-status'
+import { classify, deriveCoverage, evalDecl, extractPeriod, quoteAsOfMonths } from '../src/data-status'
 import { moduleReadinessIssues } from '../src/readiness'
 import { moduleReadinessDecls } from '../src/roster'
 import type { ClassifiedFile, FileType, ModuleReadiness } from '../src/types'
@@ -167,6 +167,80 @@ check('moduleReadinessIssues: Partial is not surfaced (runs capped, not a gate c
 check('moduleReadinessIssues: agent + rerun are skipped entirely', () => {
   assert.equal(moduleReadinessIssues('agent', undefined, { earnings: M('Insufficient') }).length, 0)
   assert.equal(moduleReadinessIssues('rerun', undefined, { earnings: M('Insufficient') }).length, 0)
+})
+
+// ---- period from the FILENAME wins over content-scraped years (the "Data Coverage picks 2024 not 2025" bug) ----
+check('extractPeriod: a titled annual report takes its FILENAME year, not a later year its body mentions', () => {
+  // the 2024 report's body names 2025 (outlook / AGM date) — that must NOT be read as the period
+  const p24 = extractPeriod('Emaar_Properties_Annual_Report_2024.pdf', 'Annual Report 2024. Year ended 31 December 2024. Our outlook for 2025 remains strong.')
+  const p25 = extractPeriod('Emaar_Properties_Annual_Report_2025.pdf', 'Annual Report 2025. Year ended 31 December 2025.')
+  assert.equal(p24.hint, '2024')
+  assert.equal(p25.hint, '2025')
+  assert.ok((p24.ageMonths ?? 0) > (p25.ageMonths ?? 0), 'the 2024 report must be OLDER than the 2025 report')
+})
+
+check('extractPeriod: with no year in the filename it falls back to the content period', () => {
+  assert.equal(extractPeriod('annual-report.pdf', 'Results for the year ended 31 December 2025.').hint, '2025')
+})
+
+// ---- a bare-year filename is sharpened by the body's EXACT same-year fiscal period (was regressed by
+// filename-first: the old combined scan caught FY2024-25; filename-first short-circuited on bare "2025") ----
+check('extractPeriod: a bare-year filename takes the body\'s exact SAME-YEAR fiscal period (March year-end, not the June default)', () => {
+  // "Annual Report 2025" whose body states FY2024-25 = year ended 31 March 2025 (Indian FY, CLAUDE.md §27).
+  // It must age from MARCH, not the plain-year June default — i.e. exactly 3 months older. Expected value is
+  // pinned to the fiscal-calendar fact (§27) + the March(3)-vs-June(6) monthsSince anchors, not to code output.
+  const precise = extractPeriod('Annual Report 2025.pdf', 'Report for FY2024-25. Year ended 31 March 2025.')
+  const bareOnly = extractPeriod('Annual Report 2025.pdf', 'no fiscal period is stated in this body')
+  assert.equal(precise.hint, 'FY2024-25')
+  assert.equal((precise.ageMonths ?? 0) - (bareOnly.ageMonths ?? 0), 3, 'March year-end must read 3 months older than the June plain-year default')
+})
+
+check('extractPeriod: a LATER year in the body never overrides the filename year (the next-year leak stays shut)', () => {
+  // guard for the same-year constraint: a 2024-titled report whose body names FY2025-26 must stay 2024.
+  assert.equal(extractPeriod('Emaar_Annual_Report_2024.pdf', 'Our outlook for FY2025-26 remains strong.').hint, '2024')
+})
+
+// ---- the common Indian AR filename `Annual_Report_2024-25.pdf` (fiscal range, NO `FY` prefix). Before the
+// bare-fiscal-range branch the plain-year scan grabbed only the START year 2024 (June), so a current FY2024-25
+// report read ~9 months too old and could wrongly trip the 18-month staleness gate. ----
+check('extractPeriod: a bare fiscal-range filename (2024-25, no FY prefix) ages from the END year 31-Mar, not the START year June', () => {
+  // Expected values pinned to §27 fiscal facts + the March(3)/June(6) monthsSince anchors, not to code output.
+  const fiscal = extractPeriod('Annual_Report_2024-25.pdf', '')
+  const precise2025 = extractPeriod('Annual Report 2025.pdf', 'Report for FY2024-25. Year ended 31 March 2025.')
+  const bare2024 = extractPeriod('Annual Report 2024.pdf', '')
+  assert.equal(fiscal.hint, 'FY2024-25')
+  assert.equal(fiscal.ageMonths, precise2025.ageMonths, 'the filename fiscal range must age from the SAME 31-Mar-2025 year-end as the precise body path')
+  assert.equal((bare2024.ageMonths ?? 0) - (fiscal.ageMonths ?? 0), 9, 'must take END year 2025 (Mar), not START year 2024 (Jun) — a 9-month fresher read')
+})
+
+// a real multi-year span or an ISO date must NOT be mis-read as a fiscal year (guarded by end===start+1)
+check('extractPeriod: a non-consecutive span (2019-2024) is not a fiscal year — falls through to the plain-year max', () => {
+  assert.equal(extractPeriod('Sector_Study_2019-2024.pdf', '').hint, '2024')
+})
+
+check('coverage: among annual reports the Annual-report group names the LATEST (2025), not the alphabetically-earlier 2024', () => {
+  const g = deriveCoverage([
+    cf('Emaar_Properties_Annual_Report_2023.pdf', 'annual_filing', 37),
+    cf('Emaar_Properties_Annual_Report_2024.pdf', 'annual_filing', 25),
+    cf('Emaar_Properties_Annual_Report_2025.pdf', 'annual_filing', 13),
+  ]).find((x) => x.key === 'annual')
+  assert.equal(g?.filename, 'Emaar_Properties_Annual_Report_2025.pdf')
+})
+
+// Codex #196 r3553859966: a bare filename year that is a DOWNLOAD/SAVED stamp (not the report period) must
+// not win over the body's real fiscal period. Expected value pinned to §27 (a FY2024-25 report ends 31-Mar-
+// 2025 → aged from March), NOT to the 2026 saved-date. Red on the pre-fix same-year-only rule (the stamp
+// year 2026 ≠ body year 2025 rejected the upgrade, leaving the false-fresh "2026" ~1mo read); green after.
+check('extractPeriod: a download/saved stamp year in the filename does not win over the body FY period', () => {
+  const stamped = extractPeriod('Annual_Report_downloaded_2026.pdf', 'This is the FY2024-25 annual report. Outlook for 2026.')
+  const real = extractPeriod('Annual_Report_2024-25.pdf', '')
+  assert.equal(stamped.hint, 'FY2024-25', 'the FY2024-25 body period must win over the 2026 download stamp')
+  assert.equal(stamped.ageMonths, real.ageMonths, 'must age from the 31-Mar-2025 FY end, not the June-2026 stamp')
+})
+// next-year-leak guard (must still hold): a REAL period filename with no stamp keeps its own year even when
+// the body names the following year.
+check('extractPeriod: a non-stamp filename year still ignores a later body year (no next-year leak)', () => {
+  assert.equal(extractPeriod('Annual_Report_2024.pdf', 'Outlook for 2025 and the AGM in 2025.').hint, '2024')
 })
 
 console.log(`\n${passed} checks passed${process.exitCode ? ' (with failures)' : ''}`)
