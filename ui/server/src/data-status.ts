@@ -223,7 +223,15 @@ export function extractPeriod(filename: string, sniff: string): { hint: string |
   // stable and cannot reintroduce the next-year leak (a body year ≠ the filename year is ignored).
   if (fromName && !fromName.precise) {
     const fromBody = scan(sniff.slice(0, 2000))
-    if (fromBody && fromBody.precise && fromBody.year === fromName.year) {
+    // A bare filename year that is actually a DOWNLOAD / SAVED / EXPORT / DATED stamp (e.g.
+    // `Annual_Report_downloaded_2026.pdf`) is NOT the report period — it would otherwise read a FY2024-25
+    // report as ~1mo fresh off the 2026 stamp and slip past the staleness gate. When the picked bare year is
+    // such a stamp, prefer the body's precise fiscal/quarter period even on a DIFFERENT year (Codex #196
+    // r3553859966). This does NOT reopen the next-year leak: a real period filename (`Annual_Report_2024.pdf`)
+    // has no stamp token, so its year is not a stamp and the strict same-year rule below still guards it.
+    const stamp = filename.match(/(?:downloaded?|saved?|exported?|printed?|retrieved?|generated?|accessed?|dated|as[\s_]?(?:of|at))[\s_:.\-]*(?:on[\s_]*)?(20[1-3]\d)(?![0-9])/i)
+    const nameYearIsStamp = stamp != null && Number(stamp[1]) === fromName.year
+    if (fromBody && fromBody.precise && (fromBody.year === fromName.year || nameYearIsStamp)) {
       return { hint: fromBody.hint, ageMonths: fromBody.ageMonths }
     }
   }

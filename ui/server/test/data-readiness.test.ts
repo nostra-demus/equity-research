@@ -227,4 +227,20 @@ check('coverage: among annual reports the Annual-report group names the LATEST (
   assert.equal(g?.filename, 'Emaar_Properties_Annual_Report_2025.pdf')
 })
 
+// Codex #196 r3553859966: a bare filename year that is a DOWNLOAD/SAVED stamp (not the report period) must
+// not win over the body's real fiscal period. Expected value pinned to §27 (a FY2024-25 report ends 31-Mar-
+// 2025 → aged from March), NOT to the 2026 saved-date. Red on the pre-fix same-year-only rule (the stamp
+// year 2026 ≠ body year 2025 rejected the upgrade, leaving the false-fresh "2026" ~1mo read); green after.
+check('extractPeriod: a download/saved stamp year in the filename does not win over the body FY period', () => {
+  const stamped = extractPeriod('Annual_Report_downloaded_2026.pdf', 'This is the FY2024-25 annual report. Outlook for 2026.')
+  const real = extractPeriod('Annual_Report_2024-25.pdf', '')
+  assert.equal(stamped.hint, 'FY2024-25', 'the FY2024-25 body period must win over the 2026 download stamp')
+  assert.equal(stamped.ageMonths, real.ageMonths, 'must age from the 31-Mar-2025 FY end, not the June-2026 stamp')
+})
+// next-year-leak guard (must still hold): a REAL period filename with no stamp keeps its own year even when
+// the body names the following year.
+check('extractPeriod: a non-stamp filename year still ignores a later body year (no next-year leak)', () => {
+  assert.equal(extractPeriod('Annual_Report_2024.pdf', 'Outlook for 2025 and the AGM in 2025.').hint, '2024')
+})
+
 console.log(`\n${passed} checks passed${process.exitCode ? ' (with failures)' : ''}`)
