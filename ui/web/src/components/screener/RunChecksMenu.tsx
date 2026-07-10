@@ -44,6 +44,20 @@ export function RunChecksMenu({ it }: Props) {
     void fetchState(it)
   }, [it.event_id]) // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Escape closes the menu — and ONLY the menu. EventDetail also backs out to the list on Escape and can't
+  // see this local open-state, so consume the event in the CAPTURE phase (runs before EventDetail's bubble
+  // listener) and stop it, or one Escape would both close the menu and drop the user out of the reader.
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return
+      e.stopPropagation()
+      setOpen(false)
+    }
+    window.addEventListener('keydown', onKey, true)
+    return () => window.removeEventListener('keydown', onKey, true)
+  }, [open])
+
   const st: SignalState | null = entry && entry !== 'loading' ? entry : null
   const state = st?.state ?? 'never'
   const sigId = st?.sigId || ''
@@ -175,7 +189,7 @@ export function RunChecksMenu({ it }: Props) {
                   <b>Continue to the end</b>
                   <span>Run every remaining stage</span>
                 </button>
-                {remaining.length > 1 && remaining.slice(0, -1).map((m) => (
+                {remaining.length > 0 && remaining.map((m) => (
                   <button key={m.name} className="reportpop__item" role="menuitem" onClick={closeThen(() => resumeThrough(m.name))}>
                     <b>Continue through “{plainStage(m.name)}”</b>
                     <span>Run up to here, then stop again</span>
