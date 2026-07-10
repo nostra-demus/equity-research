@@ -38,7 +38,7 @@ If there is no usable EBITDA base, the stress test cannot run: state that and ma
    - **(a) Covenant breach** — solve the tightest covenant's stressed metric to its threshold `T`:
      - **MAX / ceiling** (e.g. max net leverage, `T` = net debt ÷ EBITDA): breach at `net debt ÷ (EBITDA·(1−h)) = T` → **`h = 1 − net debt ÷ (T · EBITDA)`**.
      - **MIN / floor** (e.g. min interest coverage, `T` = EBITDA ÷ interest): breach at `EBITDA·(1−h) ÷ interest = T` → **`h = 1 − (T · interest) ÷ EBITDA`**.
-     - If the solve returns `h ≥ 1` (a net-cash company on a leverage covenant, or already-ample coverage), the covenant does **not** breach on an EBITDA decline alone — say so; do not report a spurious %.
+     - If the solve returns `h ≥ 1` — which happens only when the covenant metric carries no debt (net cash on a leverage covenant, or zero interest on a coverage covenant); with any positive net debt / interest `h` is finite — the covenant does **not** breach on an EBITDA decline alone. Say so; do not report a spurious %. (A covenant already breached at today's EBITDA gives `h ≤ 0` — flag it as already in breach.)
    - **(b) Liquidity exhaustion** — the `h` at which `committed liquidity + stressed 12-month FCF(h) = next-12-month obligations`. **State the FCF-to-EBITDA scaling** you use (e.g. lost EBITDA drops through to FCF at the after-tax operating margin, holding cash interest and maintenance capex fixed → `stressed FCF(h) ≈ FCF_base − EBITDA·h·(1−tax)`), then solve for `h`. Do not present a false-precise closed form if the scaling is uncertain — show the assumption and the solved `h`.
 6. State, for each scenario, whether the company survives without an equity raise, distressed asset sale, or covenant waiver — and if not, what it would need.
 
