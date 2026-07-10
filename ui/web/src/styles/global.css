@@ -990,6 +990,9 @@ a { color: inherit; }
 .datafiles__name { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text); }
 .datafiles__tabsn { flex: none; font-size: 10.5px; color: var(--accent-bright); white-space: nowrap; }
 .datafiles__period { flex: none; font-size: 10.5px; color: var(--text-muted); white-space: nowrap; }
+/* external-data provenance chip (provider · §4 tier) — quiet accent so routed external docs read
+   as a distinct class of evidence without shouting over the type badge */
+.datafiles__ext { flex: none; font-size: 10px; color: var(--accent-bright); opacity: 0.85; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .datafiles__tabs { padding: 1px 8px 6px 30px; display: flex; flex-direction: column; gap: 2px; }
 .datafiles__tab { display: flex; align-items: baseline; gap: 8px; }
 .datafiles__tabname { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-muted); }

@@ -186,7 +186,7 @@ Each review also answers: **"what changed since the original memo, and does it m
 
 - **The original memo** = `<RUN_ROOT>/memo.md` if present, else `final_thesis.md` (Part I plus its section headings).
 - **Delta evidence, in `CLAUDE.md` §4 source order:**
-  1. **Pool first.** Documents in the ticker's data pool (`data/<TICKER>/`) added or dated after `decision_date` — list them (`ls -lt data/<TICKER>/`), read the material ones, cite per §5. A pool source always beats a web source for the same fact.
+  1. **Pool first.** Documents in the ticker's data pool (`data/<TICKER>/`) added or dated after `decision_date` — list them RECURSIVELY (`ls -ltR data/<TICKER>/`, or `find data/<TICKER>/ -type f -newer <RUN_ROOT>/final_thesis.md`), so externally ingested documents under `data/<TICKER>/external/<provider>/` are seen too (they arrive continuously via the EXTERNAL-INBOX router and are the most likely post-decision delta — `frameworks/EXTERNAL_DATA.md`). Read the material ones, cite per §5 at the tier each document's `.source.json` provenance maps to. A pool source always beats a web source for the same fact.
   2. Newer run folders / module outputs for the same ticker, if any exist.
   3. The web-sourced outcome facts already gathered in Step 5 (price, benchmark, catalyst/risk outcomes) — already labelled source + date.
 - Populate per §8:

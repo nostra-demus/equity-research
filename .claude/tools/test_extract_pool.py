@@ -142,6 +142,72 @@ def test_pipeline() -> None:
               "Sniff Test Revenue" in blob)
 
 
+def test_external_provenance() -> None:
+    """External-data lane (frameworks/EXTERNAL_DATA.md): a `<doc>.source.json` sidecar is never a
+    source row, its provenance rides on the document's row, nested files carry a pool-relative
+    `path`, and the readiness entity gate ignores deliberately multi-company external docs."""
+    import json as _json
+    import os as _os
+
+    with tempfile.TemporaryDirectory() as pool_td, tempfile.TemporaryDirectory() as out_td:
+        pool = Path(pool_td)
+        (pool / "note.txt").write_text("Amazon results commentary, top-level user note.")
+        ext = pool / "external" / "yipitdata"
+        ext.mkdir(parents=True)
+        (ext / "panel.txt").write_text("Cloud panel: AWS growth estimate 29.3% with margin of error.")
+        (ext / "panel.txt.source.json").write_text(_json.dumps({
+            "provider": "YipitData", "source_type": "alt_data_panel", "tier": 5,
+            "as_of": "2026-03-31", "tickers": ["AMZN", "MSFT", "GOOGL"]}))
+        (ext / "note.txt").write_text("external doc sharing a basename with a top-level file")
+
+        manifest = ep.extract_pool(str(pool), out_td, vision=False)
+        files = [s["file"] for s in manifest["sources"]]
+        check("external: sidecar is not a source row", "panel.txt.source.json" not in files, str(files))
+        panel = next((s for s in manifest["sources"] if s["file"] == "panel.txt"), {})
+        check("external: doc flagged external", panel.get("external") is True, str(panel))
+        check("external: provenance attached from sidecar",
+              (panel.get("provenance") or {}).get("provider") == "YipitData", str(panel))
+        check("external: nested path recorded",
+              panel.get("path") == "external/yipitdata/panel.txt", str(panel))
+        nested_note = [s for s in manifest["sources"] if s["file"] == "note.txt"]
+        check("external: duplicate basenames distinguishable via path",
+              sorted(s.get("path", "") for s in nested_note) == ["", "external/yipitdata/note.txt"],
+              str(nested_note))
+        md = (Path(out_td) / "manifest.md").read_text()
+        check("external: manifest.md carries the provenance summary",
+              "external: YipitData · alt_data_panel · tier 5 · as-of 2026-03-31" in md, md[-500:])
+        # sidecar edits invalidate the mtime freshness check (a provenance fix must rebuild)
+        future = __import__("time").time() + 60
+        _os.utime(str(ext / "panel.txt.source.json"), (future, future))
+        check("external: sidecar edit breaks is_fresh (manifest rebuilds)",
+              ep.is_fresh(out_td, str(pool), str(_HERE / "extract_pool.py")) is None)
+
+    # entity gate: two same-name foreign-company files under external/ must NOT trip the
+    # contamination blocker (multi-company external docs are normal)…
+    with tempfile.TemporaryDirectory() as pool_td, tempfile.TemporaryDirectory() as out_td:
+        pool = Path(pool_td)
+        (pool / "Amazon com Inc Annual Report.txt").write_text("Amazon com Inc. filing text.")
+        (pool / "Amazon com Inc Profile.txt").write_text("Amazon com Inc. profile text.")
+        ext = pool / "external" / "somepanel"
+        ext.mkdir(parents=True)
+        (ext / "Microsoft Corporation Panel A.txt").write_text("Azure spend text")
+        (ext / "Microsoft Corporation Panel B.txt").write_text("Azure token text")
+        summary = ep.readiness_summary(str(pool), out_td)
+        codes = [i["code"] for i in summary["issues"]]
+        check("external: entity gate ignores external/ files", "entity_disagreement" not in codes, str(codes))
+    # …while the SAME files at top level still do (the skip, not a broken gate, is what saved it)
+    with tempfile.TemporaryDirectory() as pool_td, tempfile.TemporaryDirectory() as out_td:
+        pool = Path(pool_td)
+        (pool / "Amazon com Inc Annual Report.txt").write_text("Amazon com Inc. filing text.")
+        (pool / "Amazon com Inc Profile.txt").write_text("Amazon com Inc. profile text.")
+        (pool / "Microsoft Corporation Panel A.txt").write_text("Azure spend text")
+        (pool / "Microsoft Corporation Panel B.txt").write_text("Azure token text")
+        summary = ep.readiness_summary(str(pool), out_td)
+        codes = [i["code"] for i in summary["issues"]]
+        check("external: same foreign files at top level DO trip the gate",
+              "entity_disagreement" in codes, str(codes))
+
+
 def main() -> int:
     print("== sniff: content beats extension ==")
     test_sniff()
@@ -149,6 +215,8 @@ def main() -> int:
     test_readers()
     print("== full extract_pool pipeline (statuses + corpus) ==")
     test_pipeline()
+    print("== external-data provenance (sidecars, paths, entity-gate skip) ==")
+    test_external_provenance()
     print(f"\n{_passed} passed, {_failed} failed, {_skipped} skipped")
     return 1 if _failed else 0
 

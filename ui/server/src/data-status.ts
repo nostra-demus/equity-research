@@ -492,6 +492,85 @@ async function classifyFile(dir: string, filename: string): Promise<ClassifiedFi
   }
 }
 
+// ---- external data (data/<TICKER>/external/**) — frameworks/EXTERNAL_DATA.md ----
+// Externally ingested research (alt-data panels, expert calls, channel checks, broker notes).
+// Listed alongside the top-level pool with three deliberate differences: the type is FORCED to
+// the readiness-neutral 'external_data' (an expert-call "transcript" must never fill the earnings
+// transcript slot), the filename is the pool-relative path, and provenance comes from the
+// document's `.source.json` sidecar (fallback: provider = the containing folder's name).
+
+const SIDECAR_SUFFIX = '.source.json'
+
+// external/<provider>/<file> — two levels max (the watcher and this walk agree on that bound)
+function listExternalFiles(tickerDir: string): string[] {
+  const root = path.join(tickerDir, 'external')
+  const out: string[] = []
+  try {
+    for (const n of fs.readdirSync(root)) {
+      if (n.startsWith('.') || n.endsWith(SIDECAR_SUFFIX)) continue
+      const full = path.join(root, n)
+      const st = fs.statSync(full)
+      if (st.isFile()) out.push(path.join('external', n))
+      else if (st.isDirectory()) {
+        for (const m of fs.readdirSync(full)) {
+          if (m.startsWith('.') || m.endsWith(SIDECAR_SUFFIX)) continue
+          try { if (fs.statSync(path.join(full, m)).isFile()) out.push(path.join('external', n, m)) } catch {}
+        }
+      }
+    }
+  } catch { /* no external/ folder — the common case */ }
+  return out.sort()
+}
+
+async function classifyExternalFile(tickerDir: string, rel: string): Promise<ClassifiedFile> {
+  const full = path.join(tickerDir, rel)
+  const st = fs.statSync(full)
+  const base = path.basename(rel)
+  const sniff = await sniffText(full, st.size, st.mtimeMs)
+  // period from the BASENAME + content — a digit-bearing provider slug ('yipit-2024/') must
+  // never be read as the document's period
+  const { hint, ageMonths } = extractPeriod(base, sniff)
+  const mtimeAge = Math.max(0, Math.round((Date.now() - st.mtimeMs) / (1000 * 60 * 60 * 24 * 30.4)))
+  const ext = path.extname(base).toLowerCase()
+  let sheets: WorkbookSheet[] | undefined
+  if (ext === '.xls' || ext === '.xlsx' || ext === '.xlsm') sheets = await readWorkbookSheets(full, st.size, st.mtimeMs)
+
+  const parent = path.dirname(rel).split(path.sep).pop()
+  let external: NonNullable<ClassifiedFile['external']> = { provider: parent === 'external' ? undefined : parent }
+  let hasSidecar = false
+  try {
+    const sc = JSON.parse(fs.readFileSync(full + SIDECAR_SUFFIX, 'utf8')) as Record<string, unknown>
+    hasSidecar = true
+    external = {
+      provider: typeof sc.provider === 'string' ? sc.provider : external.provider,
+      sourceType: typeof sc.source_type === 'string' ? sc.source_type : undefined,
+      tier: typeof sc.tier === 'number' ? sc.tier : undefined,
+      asOf: typeof sc.as_of === 'string' ? sc.as_of : undefined,
+      license: typeof sc.license === 'string' ? sc.license : undefined,
+    }
+  } catch { /* no/unreadable sidecar — path-derived provenance is the honest floor */ }
+
+  // age: the sidecar's data-coverage end wins, then the parsed period, then the copy mtime
+  // (a routed copy's mtime is the ROUTING date — recency of arrival, not of the data)
+  let asOfAge: number | null = null
+  const m = /^(\d{4})-(\d{2})/.exec(external.asOf ?? '')
+  if (m) asOfAge = Math.max(0, monthsSince(Number(m[1]), Number(m[2])))
+
+  return {
+    filename: rel.split(path.sep).join('/'),
+    ext: ext.replace(/^\./, ''),
+    sizeBytes: st.size,
+    mtime: new Date(st.mtimeMs).toISOString(),
+    type: 'external_data',
+    periodHint: external.asOf ?? hint,
+    ageMonths: asOfAge ?? ageMonths ?? mtimeAge,
+    confidence: hasSidecar ? 'high' : 'low',
+    basis: hasSidecar ? 'content' : 'filename',
+    ...(sheets && sheets.length ? { sheets } : {}),
+    external,
+  }
+}
+
 // ---- per-module sufficiency ----
 const recent = (age: number | null, months: number) => (age == null ? true : age <= months)
 
@@ -543,8 +622,10 @@ export function evaluateModules(files: ClassifiedFile[], moduleNames: string[]):
   // signal and excludes target/analyst/estimate names; the age check rejects a quote dated older than
   // ~1 month (the same freshness the price coverage group flags). (Was faked as `hasConsensus ||
   // hasMultiples`, which overstated valuation readiness on every pool with a vendor export.)
+  // external files are excluded: this gate is filename-regex-based (not type-keyed), and a routed
+  // alt-data file named like a price tracker must not fake valuation's pool-verified-price gate.
   const hasCurrentPrice = files.some(
-    (f) => (PRICE_RE.test(f.filename) || (f.sheets ?? []).some((s) => PRICE_RE.test(s.name))) && (f.ageMonths == null || f.ageMonths <= 1),
+    (f) => !f.external && (PRICE_RE.test(f.filename) || (f.sheets ?? []).some((s) => PRICE_RE.test(s.name))) && (f.ageMonths == null || f.ageMonths <= 1),
   )
   const hasDebtNote = hasAnnual || hasQuarterly
   const hasGovernance = hasAnnual || hasProxyComp || hasOwnership
@@ -793,7 +874,11 @@ const COVERAGE_GROUPS: CoverageGroupDef[] = [
 ]
 
 // Match a group against the pool: prefer a whole-file match (file-type, then filename), else a tab match.
-function matchCoverage(files: ClassifiedFile[], spec: CoverageSpec): { via: 'file' | 'tab' | null; file: ClassifiedFile | null; sheet: string | null } {
+function matchCoverage(allFiles: ClassifiedFile[], spec: CoverageSpec): { via: 'file' | 'tab' | null; file: ClassifiedFile | null; sheet: string | null } {
+  // external files never satisfy a coverage slot: the name/tab regexes aren't type-keyed, and a
+  // routed broker note with a "Consensus" tab must not read as the estimates upload being present
+  // (coverage is the upload guide — external data is enrichment, not a substitute; EXTERNAL_DATA.md).
+  const files = allFiles.filter((f) => !f.external)
   const { types = [], name, tab, prefer } = spec
   // 1. file-type match (strongest) — a filename-hinted file wins (so "Financials extract" names the
   //    Financials.xls, not a same-typed Credit Health Panel), then the freshest.
@@ -857,6 +942,8 @@ export async function analyzeTicker(ticker: string): Promise<DataStatus> {
   // cancel POST keep flowing through a cold 44-file classify instead of freezing 20-30s per file.
   const files: ClassifiedFile[] = []
   for (const n of filenames) files.push(await classifyFile(dir, n))
+  // externally ingested research (data/<T>/external/**) — listed with provenance, readiness-neutral
+  for (const rel of listExternalFiles(dir)) files.push(await classifyExternalFile(dir, rel))
   files.sort((a, b) => a.filename.localeCompare(b.filename))
 
   const recentByType: DataStatus['recentByType'] = {}
@@ -907,11 +994,13 @@ export function listTickers(): { tickers: TickerSummary[]; emptyState: boolean; 
     let fileCount = 0
     try {
       // count only top-level FILES (not subfolders) — so engine-written "Memos …" output folders saved
-      // back into the company folder don't inflate the data-file count
+      // back into the company folder don't inflate the data-file count — PLUS the routed external
+      // documents under external/** (sidecars excluded), which are real pool inputs (EXTERNAL_DATA.md)
       fileCount = fs.readdirSync(path.join(DATA_DIR, ticker)).filter((n) => {
         if (n.startsWith('.')) return false
         try { return fs.statSync(path.join(DATA_DIR, ticker, n)).isFile() } catch { return false }
       }).length
+      fileCount += listExternalFiles(path.join(DATA_DIR, ticker)).length
     } catch {}
     const invalidReason = tickerInvalidReason(ticker)
     const { syncing, lastChangeAt } = syncingState(ticker)

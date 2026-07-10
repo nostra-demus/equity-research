@@ -78,6 +78,67 @@ IMAGE_EXTS = {"png", "jpg", "jpeg", "gif", "webp", "tif", "tiff", "bmp"}
 # Google Drive pointer stubs — tiny JSON, no real content
 POINTER_EXTS = {"gdoc", "gsheet", "gslides"}
 
+# ---------- external-data provenance (frameworks/EXTERNAL_DATA.md) ----------
+# Externally ingested documents live under data/<TICKER>/external/<provider>/ with a
+# `<file>.source.json` provenance sidecar (provider, source_type, §4 tier, as-of, license).
+# The sidecar is METADATA, never a document: it is skipped as a source and folded into its
+# document's manifest row as `provenance`. These predicates run at CONSUMPTION sites only —
+# never inside iter_pool_files, which also feeds is_fresh (filtering there would blind the
+# freshness check to sidecar edits and external files).
+SIDECAR_SUFFIX = ".source.json"
+
+
+def _is_sidecar(name):
+    return name.lower().endswith(SIDECAR_SUFFIX)
+
+
+def _is_external_rel(rel):
+    """True when a pool-relative path sits under an `external/` folder segment."""
+    return "external" in rel.replace(os.sep, "/").split("/")[:-1]
+
+
+def _collect_sidecars(data_path):
+    """{document relpath -> parsed sidecar dict} for every readable `<doc>.source.json`."""
+    out = {}
+    for p in iter_pool_files(data_path):
+        base = os.path.basename(p)
+        if not _is_sidecar(base):
+            continue
+        try:
+            out[os.path.relpath(p, data_path)[: -len(SIDECAR_SUFFIX)]] = json.load(
+                open(p, encoding="utf-8"))
+        except Exception:  # noqa — a malformed sidecar degrades to path-derived provenance
+            continue
+    return out
+
+
+def _finish_row(row, rel, prov_map):
+    """Enrich a manifest source row with its pool-relative path (when nested — duplicate
+    basenames across subfolders stay distinguishable) and, for external documents, the
+    `external` flag + `provenance` from the sidecar."""
+    base = row.get("file", "")
+    if rel and rel != base:
+        row["path"] = rel.replace(os.sep, "/")
+    if rel and _is_external_rel(rel):
+        row["external"] = True
+        prov = prov_map.get(rel)
+        if prov:
+            row["provenance"] = prov
+    return row
+
+
+def _prov_summary(row):
+    """One-line human summary for manifest.md: 'external: YipitData · alt_data_panel · tier 5 · as-of 2026-03-31'."""
+    if not row.get("external"):
+        return ""
+    p = row.get("provenance") or {}
+    bits = [str(p.get("provider") or "unknown provider"), str(p.get("source_type") or "unclassified")]
+    if p.get("tier"):
+        bits.append(f"tier {p['tier']}")
+    if p.get("as_of"):
+        bits.append(f"as-of {p['as_of']}")
+    return "external: " + " · ".join(bits)
+
 
 def _ensure_deps():
     """The extractor needs xlrd (.xls/BIFF) + openpyxl (.xlsx) to read workbooks, plus
@@ -857,12 +918,23 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None)
     os.makedirs(out_dir, exist_ok=True)
     used = set()
     sources = []
+    prov_map = _collect_sidecars(data_path)  # external provenance sidecars (EXTERNAL_DATA.md)
+    rel = None
+
+    def _add(row):
+        """Append a source row, enriched with relpath / external flag / provenance.
+        Reads the loop's current `rel` late-bound, so it always tags the file being processed."""
+        sources.append(_finish_row(row, rel, prov_map))
+
     n_workbooks = n_tabs = n_written = n_fail = 0
 
     for p in iter_pool_files(data_path):
         base = os.path.basename(p)
         if base.startswith(".") or os.path.dirname(p).rstrip("/").endswith("_pool_extracts"):
             continue
+        if _is_sidecar(base):
+            continue  # metadata, folded into its document's row via prov_map — never a source
+        rel = os.path.relpath(p, data_path)
         ext = base.lower().rsplit(".", 1)[-1] if "." in base else ""
         stem = _sanitize(base.rsplit(".", 1)[0] if "." in base else base, "file")
 
@@ -882,7 +954,7 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None)
                 n_workbooks -= 1
                 n_fail += 1
                 lib = "xlrd" if fmt == "ole2" else "openpyxl"
-                sources.append({"file": base, "ext": ext, "kind": "workbook",
+                _add({"file": base, "ext": ext, "kind": "workbook",
                                 "status": "missing-dependency",
                                 "error": f"{type(e).__name__}: {e} — run "
                                          f"`.claude/tools/setup-tools.sh` (installs {lib})",
@@ -895,13 +967,13 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None)
                     out_name = _unique(used, stem) + ".txt"
                     open(os.path.join(out_dir, out_name), "w").write(txt)
                     n_written += 1
-                    sources.append({"file": base, "ext": ext, "kind": "document",
+                    _add({"file": base, "ext": ext, "kind": "document",
                                     "status": "ok",
                                     "note": f"{fmt} container, not a workbook — read as document",
                                     "extract": out_name, "chars": len(txt)})
                 else:
                     n_fail += 1
-                    sources.append({"file": base, "ext": ext, "kind": "workbook",
+                    _add({"file": base, "ext": ext, "kind": "workbook",
                                     "status": "fail",
                                     "error": f"not a workbook ({type(e).__name__}); doc fallback: {derr}",
                                     "sheets": []})
@@ -916,7 +988,7 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None)
                 sheet_meta.append({"name": nm, "rows": nr, "cols": nc,
                                    "cells": _nonempty_cells(rows), "units": _detect_units(rows),
                                    "extract": out_name})
-            sources.append({"file": base, "ext": ext, "kind": "workbook",
+            _add({"file": base, "ext": ext, "kind": "workbook",
                             "status": "ok", "sheets": sheet_meta})
 
         # ---- document / text formats, again by sniffed content ----
@@ -938,7 +1010,7 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None)
                        "extract": out_name, "chars": len(txt)}
                 if note:
                     src["note"] = note  # e.g. "OCR'd (was image-only scan)"
-                sources.append(src)
+                _add(src)
             else:
                 n_fail += 1
                 # A valid PDF that yields no text is image-only/scanned. Keep any SPECIFIC visual-read
@@ -950,7 +1022,7 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None)
                                                    "deferred", "timed out", "rasterise")):
                         err = ("image-only/scanned PDF — no extractable text layer (needs OCR; "
                                "run .claude/tools/setup-tools.sh to install tesseract, then re-check)")
-                sources.append({"file": base, "ext": ext, "kind": kind,
+                _add({"file": base, "ext": ext, "kind": kind,
                                 "status": "fail", "error": err})
 
         elif fmt == "image" or ext in IMAGE_EXTS:
@@ -964,24 +1036,24 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None)
                        "extract": out_name, "chars": len(txt)}
                 if note:
                     src["note"] = note  # e.g. "read via Claude vision"
-                sources.append(src)
+                _add(src)
             else:
                 n_fail += 1
-                sources.append({"file": base, "ext": ext or "(none)", "kind": kind,
+                _add({"file": base, "ext": ext or "(none)", "kind": kind,
                                 "status": "fail", "error": err or _no_reader_note("image")})
 
         elif ext in POINTER_EXTS:  # pointer stubs are JSON text — match by extension
-            sources.append({"file": base, "ext": ext, "kind": "gdrive-pointer",
+            _add({"file": base, "ext": ext, "kind": "gdrive-pointer",
                             "status": "skipped",
                             "error": "Google Drive pointer stub — open in browser; no local content"})
 
         elif fmt == "text":
-            sources.append({"file": base, "ext": ext or "(none)", "kind": "text",
+            _add({"file": base, "ext": ext or "(none)", "kind": "text",
                             "status": "in-place", "extract": "(original)"})
 
         elif fmt == "empty":
             n_fail += 1
-            sources.append({"file": base, "ext": ext or "(none)", "kind": "other",
+            _add({"file": base, "ext": ext or "(none)", "kind": "other",
                             "status": "fail", "error": "empty file"})
 
         else:  # unknown binary — last-ditch document conversion, else surface honestly
@@ -990,11 +1062,11 @@ def extract_pool(data_path, out_dir, force=False, corpus_path=None, vision=None)
                 out_name = _unique(used, stem) + ".txt"
                 open(os.path.join(out_dir, out_name), "w").write(txt)
                 n_written += 1
-                sources.append({"file": base, "ext": ext or "(none)", "kind": "document",
+                _add({"file": base, "ext": ext or "(none)", "kind": "document",
                                 "status": "ok", "note": "unrecognized binary — read via textutil",
                                 "extract": out_name, "chars": len(txt)})
             else:
-                sources.append({"file": base, "ext": ext or "(none)", "kind": "other",
+                _add({"file": base, "ext": ext or "(none)", "kind": "other",
                                 "status": "skipped", "error": f"unrecognized format ({fmt}); {derr}"})
 
     manifest = {
@@ -1047,13 +1119,18 @@ def _manifest_md(m):
              "| Source File | Type | Tab / Stream | Rows×Cols | Cells | Extract |",
              "|---|---|---|---|---|---|"]
     for s in m["sources"]:
+        display = s.get("path", s["file"])  # nested (e.g. external/) files show their pool-relative path
+        prov = _prov_summary(s)
         if s["kind"] == "workbook" and s.get("sheets"):
+            kind = f"workbook ({prov})" if prov else "workbook"
             for sh in s["sheets"]:
-                lines.append(f"| {s['file']} | workbook | {sh['name']} | "
+                lines.append(f"| {display} | {kind} | {sh['name']} | "
                              f"{sh['rows']}×{sh['cols']} | {sh['cells']} | `{sh['extract']}` |")
         else:
             note = s.get("extract", s.get("error", "—"))
-            lines.append(f"| {s['file']} | {s['kind']} ({s['status']}) | — | — | — | {note} |")
+            if prov:
+                note = f"{note} — {prov}"
+            lines.append(f"| {display} | {s['kind']} ({s['status']}) | — | — | — | {note} |")
     return "\n".join(lines) + "\n"
 
 
@@ -1071,7 +1148,9 @@ def _write_corpus(out_dir, data_path, corpus_path):
         parts.append(open(p, errors="ignore").read())
     for p in iter_pool_files(data_path):
         if p.lower().endswith(".txt"):
-            parts.append(f"\n===== SOURCE: {os.path.basename(p)} =====\n")
+            # relpath, not basename — data/T/note.txt and data/T/external/x/note.txt must be
+            # labelled distinctly, or verify-evidence attributes greps to the wrong source.
+            parts.append(f"\n===== SOURCE: {os.path.relpath(p, data_path)} =====\n")
             parts.append(open(p, errors="ignore").read())
     open(corpus_path, "w").write("".join(parts))
     print(f"[extract_pool] corpus: {corpus_path} ({sum(len(x) for x in parts)} chars)")
@@ -1380,6 +1459,15 @@ def readiness_summary(data_path, out_dir, force=False):
         entities = []
         for p in iter_pool_files(data_path):
             base = os.path.basename(p)
+            rel = os.path.relpath(p, data_path)
+            # External documents (data/<T>/external/…) are DELIBERATELY multi-company — a cloud
+            # panel covering AMZN+MSFT+GOOGL, a peer channel check — and each also carries a
+            # .source.json twin, so one foreign name would clear the >=2-file threshold and raise
+            # a FALSE contamination blocker. Skip them here (frameworks/EXTERNAL_DATA.md §6): a
+            # genuinely mis-routed external file is caught by the triage inventory + its sidecar's
+            # tickers[], not by this gate. Sidecars themselves are metadata, never entity evidence.
+            if _is_external_rel(rel) or _is_sidecar(base):
+                continue
             if _NON_FILING_NAME.search(base):
                 continue
             # (a) the FILE NAME as an entity signal — catches a wrong-entity file whose content hides it

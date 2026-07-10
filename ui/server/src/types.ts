@@ -84,6 +84,11 @@ export type FileType =
   | 'financials'
   | 'guidance'
   | 'user_note'
+  // externally ingested research under data/<TICKER>/external/ (frameworks/EXTERNAL_DATA.md):
+  // alt-data panels, expert calls, channel checks, broker notes, paid-API pulls. Deliberately ONE
+  // readiness-NEUTRAL type — no readiness rule keys on it, so an expert-call "transcript" can never
+  // fill the earnings transcript slot; the granular kind lives in `external.sourceType`.
+  | 'external_data'
   | 'other'
 
 // A module's OPTIONAL self-declared data-readiness rule (in its 00-triage frontmatter as
@@ -115,6 +120,15 @@ export interface ClassifiedFile {
   // present for multi-tab workbooks (.xls/.xlsx/.xlsm): one entry per tab, so the
   // cockpit shows every sheet instead of one opaque file. Read via extract_pool.py.
   sheets?: WorkbookSheet[]
+  // present for files under data/<TICKER>/external/ — provenance from the document's
+  // `.source.json` sidecar (or path-derived: provider = folder name). frameworks/EXTERNAL_DATA.md.
+  external?: {
+    provider?: string
+    sourceType?: string // alt_data_panel | expert_call | channel_check | broker_research | ...
+    tier?: number // CLAUDE.md §4 tier the provenance maps to
+    asOf?: string
+    license?: string
+  }
 }
 
 export interface ModuleReadiness {

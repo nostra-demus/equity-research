@@ -34,7 +34,7 @@ You DO NOT:
 
 1. Read the repo-root `CLAUDE.md` (cross-cutting doctrine) and `.claude/agents/commodity/MODULE_RULES.md`, and apply both.
 2. Read the `## {COMMODITY}` section of `frameworks/commodity/COMMODITY_PROFILES.md`. Record the commodity's benchmark, quote unit/currency, the instruments/tickers it lists, the lenses that apply, and the priority sources. If there is NO section for this commodity, say so — that is the main Insufficient trigger.
-3. If `data/{COMMODITY}/` exists, list any user notes there (they are supplementary, dated, lower-tier per §4).
+3. If `data/{COMMODITY}/` exists, list any user notes there (they are supplementary, dated, lower-tier per §4). Documents under `data/{COMMODITY}/external/<provider>/` are externally sourced research (paid data notes, expert calls, the user's own channel checks) with a `.source.json` provenance sidecar — list each with `Provider · source_type · §4 tier · as-of` per `frameworks/EXTERNAL_DATA.md`. They enrich the read but never substitute a primary/official source in the sufficiency rule.
 4. Do ONE light reachability check: confirm a current benchmark price/quote and at least one supply-demand or positioning source named in the profile can be found from a primary/official source (a single WebSearch is enough — do not build the analysis here). Note what you found and its date.
 5. Apply the sufficiency rule below and write the verdict.
 6. Use the Write tool to save the report to `OUTPUT_PATH` (Mode A). The saved file must start with its `#` header and contain no chat-confirmation block. Then return only the CHAT CONFIRMATION block.
