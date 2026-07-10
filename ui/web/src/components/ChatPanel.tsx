@@ -33,6 +33,8 @@ export function ChatPanel() {
   const scope = useStore((s) => s.chatScope)
   const chatModule = useStore((s) => s.chatModule)
   const chatOrbKey = useStore((s) => s.chatOrbKey)
+  // set only for a resumed conversation the current run can't serve — it answers from its original run
+  const answerRunRoot = useStore((s) => s.chatAnswerRunRoot)
   const title = useStore((s) => s.chatTitle)
   const messages = useStore((s) => s.chatMessages)
   const streaming = useStore((s) => s.chatStreaming)
@@ -72,11 +74,14 @@ export function ChatPanel() {
   const threadRef = useRef<HTMLDivElement | null>(null)
   const lockedRef = useRef(true) // auto-scroll to bottom while the user hasn't scrolled up
 
-  // is the chosen scope present on disk? drives the "run this first" body + send-enabled
+  // is the chosen scope present on disk? drives the "run this first" body + send-enabled. A resumed
+  // conversation that resolved to a concrete answer run (its original run, when the current one can't serve
+  // it) is always chat-able — never gate an already-answered thread behind "run this first".
   const present =
-    scope === 'run' ? scopes.run
+    !!answerRunRoot ||
+    (scope === 'run' ? scopes.run
     : scope === 'module' ? !!scopes.modules.find((m) => m.module === chatModule)?.present
-    : !!scopes.orbs.find((o) => o.key === chatOrbKey)?.present
+    : !!scopes.orbs.find((o) => o.key === chatOrbKey)?.present)
 
   // focus the composer on open (occasional surface → autofocus is fine)
   useEffect(() => { inputRef.current?.focus() }, [])

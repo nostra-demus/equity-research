@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useStore } from '../lib/store'
 import { fmtCost } from '../lib/format'
@@ -41,6 +41,8 @@ export function RunStreamPanel() {
   const runStream = useStore((s) => s.runStream)
   const cancelRun = useStore((s) => s.cancelRun)
   const dismissRunStream = useStore((s) => s.dismissRunStream)
+  const runPanelDismissed = useStore((s) => s.runPanelDismissed)
+  const reopenRunStream = useStore((s) => s.reopenRunStream)
   const ticker = useStore((s) => s.selectedTicker)
   const activeSwarm = useStore((s) => s.activeSwarm)
   const scSelectedSignal = useStore((s) => s.scSelectedSignal)
@@ -61,7 +63,14 @@ export function RunStreamPanel() {
   // a launch is pending server-ack for THIS subject — show the panel with a starting banner in the
   // same frame as the click, so the stage is never silent while the request is in flight
   const pendingHere = launchPending && (launchPending.ticker === ticker || activeSwarm !== 'research')
+  // is anything actually in flight right now? drives close-button visibility + auto-reopen
+  const anyLive = runs.some((r) => LIVEISH.has(r.status)) || !!pendingHere
+  // A new live run supersedes a prior manual close, so the panel returns to show progress — and stays visible
+  // after it finishes, because the flag is cleared now (while live), not on the finish transition.
+  useEffect(() => { if (anyLive && runPanelDismissed) reopenRunStream() }, [anyLive, runPanelDismissed, reopenRunStream])
   if (!runs.length && runStream.length === 0 && !pendingHere) return null
+  // user closed it and nothing is live → stay hidden until a new run starts or they reopen it from the top bar
+  if (runPanelDismissed && !anyLive) return null
 
   // The panel is shared across swarms; its scope label must follow the active swarm — not the
   // research-side selectedTicker, which would otherwise leak a stale ticker (e.g. "BG") into the
@@ -87,9 +96,10 @@ export function RunStreamPanel() {
           <div className="sidepanel__title">{runs.length ? `${runs.length} run${runs.length > 1 ? 's' : ''}` : 'Last run'}</div>
           <div className="sidepanel__meta">{scope}{runs.length ? ` · ${aggDone}/${aggTotal} orbs` : ''}</div>
         </div>
-        {/* close the panel — only when nothing is live (clearing a running stream would just re-populate) */}
-        {!runs.length && (
-          <button type="button" className="sidepanel__close" onClick={dismissRunStream} aria-label="Close run panel" title="Close">✕</button>
+        {/* close the panel — allowed whenever nothing is live (a live run keeps the panel pinned so progress
+            stays visible; reopen it any time from the top-bar "Runs" button) */}
+        {!anyLive && (
+          <button type="button" className="sidepanel__close" onClick={dismissRunStream} aria-label="Close run panel" title="Close — reopen from “Runs” in the top bar">✕</button>
         )}
       </div>
 
