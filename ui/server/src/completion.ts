@@ -39,7 +39,7 @@ import path from 'node:path'
 import { ANALYSES_DIR, DATA_DIR, REPO_ROOT } from './config'
 import { chainedResumePreflight, estimate } from './launcher'
 import { runManifest } from './outputs'
-import { buildSwarmGraph, findRunRootForSubject, terminalModuleName, transitiveDownstreamModules } from './roster'
+import { buildSwarmGraph, findRunRootForSubject, moduleAncestors, terminalModuleName, transitiveDownstreamModules } from './roster'
 import { resolveInsideAnalyses, resolveInsideRuns, safeSubjectSegment } from './sandbox'
 import { RESEARCH_SWARM_ID, runRootForSubject, swarmById } from './swarms'
 import type { LaunchPreflight } from './types'
@@ -66,10 +66,21 @@ export interface ModulePlanEntry {
   copyFromRunRoot?: string
   /** true when the newest outputs already live in the target run root (nothing to carry) */
   inTargetRoot: boolean
+  /** orbs on disk that the module pipeline will actually REUSE — counted with `validAgentOutputs`, not by
+   *  filename, so an empty or header-less file (which Step 4A re-dispatches) is never counted as finished. */
   doneAgents: number
   totalAgents: number
-  /** plain-English reason this module is `stale` — shown verbatim in the cockpit */
+  /** plain-English reason this module's evidence predates the data pool. Populated for `stale` (a finished
+   *  module) AND for `partial` (its unfinished orbs) — in both cases it means "do not reuse this, run it". */
   staleReason?: string
+  /** ancestors of this module that are themselves in `run` — this module cannot run until they have. Empty
+   *  for a module whose whole `depends_on` closure is being reused. Never set for a reused module. */
+  blockedBy: string[]
+  /** this module can be launched on its own RIGHT NOW: it is in `run`, and nothing upstream of it is. */
+  runnable: boolean
+  /** orbs that would actually execute if this module ran now — `totalAgents` minus the orbs a resume would
+   *  reuse. Equals `totalAgents` for a missing module and for a stale partial (whose orbs are discarded). */
+  willRunAgents: number
 }
 
 export interface ThesisPlan {
@@ -134,11 +145,40 @@ function hasSynthesis(moduleDirAbs: string): boolean {
 }
 
 function countAgentOutputs(moduleDirAbs: string): number {
+  return validAgentOutputs(moduleDirAbs).length
+}
+
+/** The orb outputs a resume will genuinely REUSE, newest-name-first-sorted, as `NN_slug.md` basenames.
+ *
+ *  Keyed on the same test the module pipeline itself applies before deciding to skip an agent
+ *  (`frameworks/MODULE_PIPELINE.md` Step 4A): the file must exist, be non-empty, and start with a
+ *  top-level `#` header. A filename-only count is an OVER-count — an empty or truncated `03_*.md` reads as
+ *  "finished" here while Step 4A re-dispatches it, so the panel would promise "8 orbs run" and 9 would run.
+ *  That is precisely the class of lie this whole module exists to prevent, so the count and the pipeline's
+ *  skip test have to be the same test.
+ *
+ *  The pipeline additionally rejects a file truncated mid-section or inside an unclosed code fence. We do
+ *  not replicate that here: it is a judgment the dispatching model makes on the file's prose, and guessing
+ *  at it would UNDER-count (promising to re-run an orb the pipeline then skips). Under-counting is the safe
+ *  direction — the header check catches the mechanical failures (empty / preamble-first) that actually occur. */
+function validAgentOutputs(moduleDirAbs: string): string[] {
+  let entries: string[]
   try {
-    return fs.readdirSync(moduleDirAbs).filter((f) => /^[0-9]{2}_.*\.md$/.test(f) && !/^99_/.test(f)).length
+    entries = fs.readdirSync(moduleDirAbs)
   } catch {
-    return 0
+    return []
   }
+  return entries
+    .filter((f) => /^[0-9]{2}_.*\.md$/.test(f) && !/^99_/.test(f))
+    .filter((f) => {
+      try {
+        const body = fs.readFileSync(path.join(moduleDirAbs, f), 'utf8')
+        return body.trimStart().startsWith('#')
+      } catch {
+        return false
+      }
+    })
+    .sort()
 }
 
 /** The machine-readable provenance line inside a `CARRIED_FORWARD.md` stamp. */
@@ -151,6 +191,33 @@ const CARRY_PROVENANCE = /<!--\s*carried-from:\s*(\S+)\s*\|\s*run-date:\s*(\d{4}
 function carriedVintage(moduleDirAbs: string): { from: string; date: string } | null {
   try {
     const m = CARRY_PROVENANCE.exec(fs.readFileSync(path.join(moduleDirAbs, CARRY_MARKER), 'utf8'))
+    return m ? { from: m[1], date: m[2] } : null
+  } catch {
+    return null
+  }
+}
+
+/** The twin of `CARRIED_FORWARD.md`, for a module that was RESUMED rather than reused whole: its finished
+ *  orbs were copied in from an unfinished earlier run, and the rest ran here.
+ *
+ *  It is deliberately a DIFFERENT filename with a DIFFERENT provenance key (`resumed-from:`, never
+ *  `carried-from:`). `carriedVintage` above is what dates a FINISHED module, and it must never match this
+ *  marker: a module that was resumed and then genuinely completed today did run today, and reading a
+ *  carry stamp would back-date the whole module to the run its one leftover orb came from.
+ *
+ *  Matches none of the engine's output patterns (`NN_*.md`, `99_*-synthesis.md`, `*_memo.md`,
+ *  `*_dossier.md`), so it is never mistaken for a specialist report — while still being swept into the
+ *  module and audit dossiers' lossless `*.md` concatenation, which is where an auditor should find it. */
+const RESUME_MARKER = 'RESUMED_FROM.md'
+const RESUME_PROVENANCE = /<!--\s*resumed-from:\s*(\S+)\s*\|\s*run-date:\s*(\d{4}-\d{2}-\d{2})\s*-->/
+
+/** A resumed module's orbs physically live in a folder named for the run that COPIED them, so — exactly as
+ *  with `carriedVintage` — the stamp, not the folder name, is the vintage of record. Without this, orbs
+ *  resumed on Jul 10 from a Jul 4 run would report "Jul 10" and never face a staleness check against data
+ *  that landed Jul 5–9 (CLAUDE.md §11). Read for `partial` entries only. */
+function resumedVintage(moduleDirAbs: string): { from: string; date: string } | null {
+  try {
+    const m = RESUME_PROVENANCE.exec(fs.readFileSync(path.join(moduleDirAbs, RESUME_MARKER), 'utf8'))
     return m ? { from: m[1], date: m[2] } : null
   } catch {
     return null
@@ -305,6 +372,11 @@ export function thesisPlan(subject: string, swarmId: string = RESEARCH_SWARM_ID,
         doneAgents: countAgentOutputs(path.join(REPO_ROOT, finished.runRoot, m.name)),
         totalAgents,
         staleReason,
+        // A reused module never runs, and a rebuilt one runs whole. Both are settled by the reuse set, not
+        // by orbs on disk — filled in by the second pass below once `run`/`reuse` are known.
+        blockedBy: [],
+        runnable: false,
+        willRunAgents: totalAgents,
       })
       continue
     }
@@ -313,18 +385,34 @@ export function thesisPlan(subject: string, swarmId: string = RESEARCH_SWARM_ID,
     // module at all) holds at least one specialist output — a module that started and broke.
     const partialAt = candidates.find((c) => countAgentOutputs(path.join(REPO_ROOT, c.runRoot, m.name)) > 0)
     if (partialAt) {
+      const partialAbs = path.join(REPO_ROOT, partialAt.runRoot, m.name)
+      // Same vintage-of-record rule as the finished branch, via the resume stamp: orbs resumed into a
+      // folder are dated by the run that PRODUCED them, never by the folder that copied them.
+      const resumed = resumedVintage(partialAbs)
+      const sourceRunRoot = resumed?.from ?? partialAt.runRoot
+      const sourceDate = resumed?.date ?? (partialAt.date || undefined)
+      // A partial's orbs are reusable evidence too, and the same §11 rule governs them: if the data pool has
+      // gained a file since they ran, they never read it, and resuming would synthesize a module from orbs
+      // read against two different data pools. So a stale partial is run CLEAN — every orb, from scratch.
+      const staleReason = stalenessOf(sourceDate, pool.newestDate)
+      const doneAgents = validAgentOutputs(partialAbs).length
       modules.push({
         module: m.name,
         state: 'partial',
-        sourceRunRoot: partialAt.runRoot,
-        sourceDate: partialAt.date || undefined,
+        sourceRunRoot,
+        sourceDate,
+        copyFromRunRoot: partialAt.runRoot,
         inTargetRoot: partialAt.runRoot === targetRunRoot,
-        doneAgents: countAgentOutputs(path.join(REPO_ROOT, partialAt.runRoot, m.name)),
+        doneAgents,
         totalAgents,
+        staleReason,
+        blockedBy: [],
+        runnable: false,
+        willRunAgents: staleReason ? totalAgents : Math.max(0, totalAgents - doneAgents),
       })
       continue
     }
-    modules.push({ module: m.name, state: 'missing', inTargetRoot: false, doneAgents: 0, totalAgents })
+    modules.push({ module: m.name, state: 'missing', inTargetRoot: false, doneAgents: 0, totalAgents, blockedBy: [], runnable: false, willRunAgents: totalAgents })
   }
 
   // A module can be reused iff a finished synthesis for it exists on disk — `done` or `stale`. Staleness
@@ -355,6 +443,17 @@ export function thesisPlan(subject: string, swarmId: string = RESEARCH_SWARM_ID,
   const reuseSet = new Set([...chosenAfterCascade, ...mustReuse])
   const reuse = modules.filter((m) => reuseSet.has(m.module)).map((m) => m.module) // graph order, deduped
   const run = modules.filter((m) => !reuseSet.has(m.module)).map((m) => m.module)
+
+  // Second pass, now that `run` is settled: which modules can be launched ON THEIR OWN from the panel.
+  // A module is launchable iff it will run AND every module it depends on (directly or transitively) is
+  // being REUSED, not itself waiting to run — because a research `module` launch reads its reused upstream
+  // from the target run root, and an ancestor that has not run yet is not there. `blockedBy` names the
+  // ancestors still in `run`; an empty list means the whole `depends_on` closure is reused and ready.
+  const runSet = new Set(run)
+  for (const m of modules) {
+    m.blockedBy = [...moduleAncestors(graph, m.module)].filter((a) => runSet.has(a))
+    m.runnable = runSet.has(m.module) && m.blockedBy.length === 0
+  }
 
   // Only a research swarm can carry (dated folders). A reused module already in the target root needs no copy.
   const canCarry = isResearch
@@ -560,4 +659,121 @@ export function carryForwardModules(subject: string, modules: string[], swarmId:
     carried.push({ module: name, from: c.from })
   }
   return { carried, skipped }
+}
+
+// ---- single-module resume ------------------------------------------------------------------------
+
+export interface ModuleResumeResult {
+  /** reused upstream modules physically copied into the target root so the command can read them */
+  carriedAncestors: { module: string; from: string }[]
+  /** the run the resumed orbs came from (null when the module ran clean — missing, or a stale partial) */
+  resumedFrom: string | null
+  /** orbs the resume reuses, as node keys `<module>/<NN>_<slug>` — empty when the module runs clean */
+  doneOrbKeys: string[]
+  /** orbs that will actually execute (the module's synthesis always among them) */
+  willRunAgents: number
+  /** true when a stale partial's leftover orbs were discarded so the module runs from scratch */
+  discardedStaleOrbs: boolean
+}
+
+/** The provenance stamp for a RESUMED module — the twin of `carryNote`, written under `RESUME_MARKER`.
+ *  Says plainly that only SOME orbs were carried and the rest ran here, and records the true origin of the
+ *  carried orbs so their vintage travels with them (§5/§11). Contains no `Agent:` line (eval check H). */
+function resumeNote(module: string, fromRunRoot: string, fromDate: string | null, intoRunRoot: string, reusedOrbs: number, ranOrbs: number): string {
+  const vintage = fromDate ? ` (run dated ${fromDate})` : ''
+  const provenance = fromDate ? `<!-- resumed-from: ${fromRunRoot} | run-date: ${fromDate} -->\n\n` : ''
+  return `${provenance}# Resumed — ${module}
+
+> This module was **resumed**, not run from scratch. ${reusedOrbs} finished specialist orb${reusedOrbs === 1 ? '' : 's'}
+> ${reusedOrbs === 1 ? 'was' : 'were'} copied verbatim from an earlier, unfinished run of this same module; the remaining
+> ${ranOrbs} orb${ranOrbs === 1 ? '' : 's'} (including this module's synthesis) ran for this run.
+
+- Resumed from: \`${fromRunRoot}\`${vintage}
+- Copied into: \`${intoRunRoot}\`
+- The carried orbs keep the vintage of the run that produced them, not this run's date.
+
+**How to read this.** The orbs carried in were evidenced against the data pool as it stood on the source
+run's date. If a filing has landed since, this module should be run clean, not resumed — the cockpit does
+exactly that, so a resumed module is only ever resumed when no newer data has landed since its orbs ran.
+`
+}
+
+/**
+ * Stage the target run root so ONE module can be launched on its own and resume from the orbs already on
+ * disk. Does everything the launch needs EXCEPT calling `launch()` — so it is unit-testable without the CLI,
+ * exactly like `carryForwardModules` (its finished-module twin). Three moves:
+ *
+ *   1. Carry every REUSED ancestor of `module` into the target root. A research `module` command reads its
+ *      upstream from `<RUN_ROOT>/<dep>/` with no cross-folder fallback for some deps (valuation ← governance),
+ *      so an ancestor reused from an older folder must be physically present, or the module runs degraded.
+ *      Only ancestors are carried — never the whole reuse set — so launching valuation does not lock an
+ *      unrelated reused module (balance-sheet-survival) into today's root (a `mustReuse` the user can't undo).
+ *   2. If `module` is a resumable partial living in an OLDER folder, copy its finished orbs into the target
+ *      root under a `RESUMED_FROM.md` stamp, so Step 4A skips them and only the remainder runs.
+ *   3. If `module` is a STALE partial, discard any of its orbs sitting in today's root so it runs CLEAN —
+ *      resuming stale orbs would synthesize a module from evidence read against two different data pools (§11).
+ *
+ * `plan` MUST have been built with the caller's reuse set as its override (the route does this), so the
+ * ancestor set and the module's own state are read from one consistent snapshot. Caller must hold the
+ * subject lock and have proven `module ∈ plan.run` with an empty `blockedBy` — this function trusts that.
+ */
+export function prepareModuleResume(subject: string, module: string, swarmId: string = RESEARCH_SWARM_ID, precomputed?: ThesisPlan): ModuleResumeResult {
+  const safe = safeSubjectSegment(subject)
+  const plan = precomputed ?? thesisPlan(safe, swarmId, undefined)
+  const graph = buildSwarmGraph(swarmId)
+  const entry = plan.modules.find((m) => m.module === module)
+  if (!entry) throw new Error(`module ${module} is not in this swarm`)
+
+  // (1) Carry the reused ancestors. `carryForwardModules` reads `plan.carry` (derived from `plan.reuse`), so
+  // an ancestor already in the target root (`mustReuse`) or not reused is silently skipped — exactly right.
+  const reuseSet = new Set(plan.reuse)
+  const ancestors = [...moduleAncestors(graph, module)].filter((a) => reuseSet.has(a))
+  const { carried: carriedAncestors } = ancestors.length ? carryForwardModules(safe, ancestors, swarmId, plan) : { carried: [] }
+
+  const targetAbs = path.join(REPO_ROOT, plan.targetRunRoot)
+  const dstAbs = path.join(targetAbs, module)
+
+  // (3) Stale partial → run clean. Drop any orbs of this module already in today's root; do not carry.
+  if (entry.state === 'partial' && entry.staleReason) {
+    const discardedStaleOrbs = fs.existsSync(dstAbs)
+    if (discardedStaleOrbs) fs.rmSync(dstAbs, { recursive: true, force: true })
+    return { carriedAncestors, resumedFrom: null, doneOrbKeys: [], willRunAgents: entry.totalAgents, discardedStaleOrbs }
+  }
+
+  // (2) Resumable partial in an OLDER folder → copy its finished orbs into the target root under a resume
+  // stamp. `!inTargetRoot` guarantees the target root holds no orbs for this module yet (else that folder
+  // would be the newest candidate and `inTargetRoot` would be true).
+  const doneKeysOf = (dir: string): string[] => validAgentOutputs(dir).map((f) => `${module}/${f.replace(/\.md$/, '')}`)
+  if (entry.state === 'partial' && !entry.inTargetRoot && entry.copyFromRunRoot) {
+    const srcAbs = path.join(REPO_ROOT, entry.copyFromRunRoot, module)
+    const doneOrbKeys = doneKeysOf(srcAbs)
+    const ranOrbs = Math.max(0, entry.totalAgents - doneOrbKeys.length)
+    fs.mkdirSync(targetAbs, { recursive: true })
+    resolveInsideAnalyses(plan.targetRunRoot)
+    // Stage OUTSIDE the run root, then rename in — same reasons as `carryForwardModules`: `runManifest`
+    // reads every subdirectory as a module, and `commit-run.sh` stages the run root wholesale.
+    const tmpAbs = path.join(ANALYSES_DIR, `.resume-${safe}-${module}-${process.pid}-${carrySeq++}`)
+    try {
+      fs.rmSync(tmpAbs, { recursive: true, force: true })
+      copyDir(srcAbs, tmpAbs)
+      fs.writeFileSync(path.join(tmpAbs, RESUME_MARKER), resumeNote(module, entry.sourceRunRoot ?? entry.copyFromRunRoot, entry.sourceDate ?? null, plan.targetRunRoot, doneOrbKeys.length, ranOrbs), 'utf8')
+      // A partial fragment could in principle sit in today's root already; the complete set of finished orbs
+      // supersedes it. The source folder is untouched — nothing finished is ever destroyed.
+      if (fs.existsSync(dstAbs)) fs.rmSync(dstAbs, { recursive: true, force: true })
+      fs.renameSync(tmpAbs, dstAbs)
+    } finally {
+      fs.rmSync(tmpAbs, { recursive: true, force: true })
+    }
+    return { carriedAncestors, resumedFrom: entry.sourceRunRoot ?? entry.copyFromRunRoot, doneOrbKeys, willRunAgents: ranOrbs, discardedStaleOrbs: false }
+  }
+
+  // A resumable partial ALREADY in today's root (resumed here earlier, non-stale): its orbs are in place,
+  // nothing to copy or clean. Report them as reused so the panel shows "N done" rather than a clean start.
+  if (entry.state === 'partial' && entry.inTargetRoot) {
+    const doneOrbKeys = doneKeysOf(dstAbs)
+    return { carriedAncestors, resumedFrom: entry.sourceRunRoot ?? plan.targetRunRoot, doneOrbKeys, willRunAgents: Math.max(0, entry.totalAgents - doneOrbKeys.length), discardedStaleOrbs: false }
+  }
+
+  // Missing module → runs whole. Nothing to carry for the module itself.
+  return { carriedAncestors, resumedFrom: null, doneOrbKeys: [], willRunAgents: entry.totalAgents, discardedStaleOrbs: false }
 }

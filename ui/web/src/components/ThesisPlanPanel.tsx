@@ -19,8 +19,15 @@ function shortDate(iso?: string | null): string {
   return `${month} ${d}`
 }
 
+/** Humanize a kebab module name for a sentence, and cap a blocker list (mirrors admission.ts's capList). */
+const humanMod = (m: string) => m.replace(/-/g, ' ')
+function blockerList(mods: string[]): string {
+  const h = mods.map(humanMod)
+  return h.length <= 3 ? h.join(', ') : `${h.slice(0, 3).join(', ')} +${h.length - 3} more`
+}
+
 /** What the row says about itself, once. The badge carries the state; the note carries the evidence. */
-function rowCopy(m: ModulePlanEntry, willRerun: boolean, locked: boolean): { badge: string; tone: string; note: string } {
+function rowCopy(m: ModulePlanEntry, willRerun: boolean, locked: boolean, newestDate: string | null): { badge: string; tone: string; note: string } {
   if (m.state === 'done') {
     if (locked) return { badge: 'Reuse', tone: 'reuse', note: `already finished in this run — reused as-is` }
     return willRerun
@@ -33,17 +40,34 @@ function rowCopy(m: ModulePlanEntry, willRerun: boolean, locked: boolean): { bad
       ? { badge: 'Re-run', tone: 'stale', note: m.staleReason || 'newer data has landed since this ran' }
       : { badge: 'Keep', tone: 'reuse', note: `kept despite newer data — ${m.staleReason || 'this module never read it'}` }
   }
-  if (m.state === 'partial') return { badge: 'Run', tone: 'run', note: `started and stopped — ${m.doneAgents} of ${m.totalAgents} orbs finished` }
-  return { badge: 'Run', tone: 'run', note: 'never run for this company' }
+  if (m.state === 'partial') {
+    if (m.blockedBy.length) return { badge: 'Run', tone: 'run', note: `${m.doneAgents} of ${m.totalAgents} orbs done — waits on ${blockerList(m.blockedBy)} first` }
+    if (m.staleReason) return { badge: 'Run', tone: 'run', note: `started ${shortDate(m.sourceDate)}; newer data landed ${shortDate(newestDate)} — runs all ${m.totalAgents} orbs fresh` }
+    return { badge: 'Run', tone: 'run', note: `${m.doneAgents} of ${m.totalAgents} orbs done from ${shortDate(m.sourceDate)} — resumes the last ${m.willRunAgents}` }
+  }
+  if (m.blockedBy.length) return { badge: 'Run', tone: 'run', note: `waits on ${blockerList(m.blockedBy)} to run first` }
+  return { badge: 'Run', tone: 'run', note: `never run — runs all ${m.totalAgents} orbs` }
 }
 
 function ModuleRow({ m, plan, i }: { m: ModulePlanEntry; plan: ThesisPlan; i: number }) {
   const toggle = useStore((s) => s.toggleThesisRerun)
+  const resumeModule = useStore((s) => s.resumeThesisModule)
+  const launchPending = useStore((s) => s.launchPending)
+  const ticker = useStore((s) => s.selectedTicker)
   // Locked: its synthesis already sits in the run root the launcher seeds from, so it is reused no matter what.
   const locked = plan.mustReuse.includes(m.module)
   const actionable = plan.reusable.includes(m.module) && !locked
   const willRerun = !plan.reuse.includes(m.module)
-  const { badge, tone, note } = rowCopy(m, willRerun, locked)
+  const { badge, tone, note } = rowCopy(m, willRerun, locked, plan.dataPool.newestDate)
+
+  // The RUN pill is a real button only when this module can be launched on its own RIGHT NOW — it will run,
+  // and nothing upstream of it is still waiting. A blocked Run row keeps an inert pill (its note names the
+  // blocker). Research-only, matched positively so a deploy-skew absent field never reads as launchable.
+  const pillPressable = m.runnable && plan.swarm === 'research'
+  const pillPending = launchPending?.key === `complete-module:${m.module}`
+  // One launch on this ticker at a time — disable every pill (and the row toggle can't race it) while any is
+  // in flight. Also disabled during a full "Complete the thesis" launch (key 'complete-thesis').
+  const anyPending = Boolean(launchPending && launchPending.ticker === ticker)
 
   // A module with nothing on disk always runs, and a locked one is always reused. Neither is a control —
   // render them as statements (no pointer, no hover, no :active), because a row that LOOKS pressable and
@@ -65,7 +89,27 @@ function ModuleRow({ m, plan, i }: { m: ModulePlanEntry; plan: ThesisPlan; i: nu
         <span className="tpp__name">{moduleLabel(m.module)}</span>
         <span className="tpp__note">{note}</span>
       </span>
-      <span className={`tpp__badge tpp__badge--${tone}`}>{badge}</span>
+      {pillPressable ? (
+        <button
+          type="button"
+          className={`tpp__badge tpp__badge--${tone} tpp__badge--pressable`}
+          disabled={anyPending}
+          aria-busy={pillPending}
+          onClick={(e) => {
+            e.stopPropagation() // the row is inert here, but keep the pill the sole click target regardless
+            void resumeModule(m.module)
+          }}
+          title={
+            m.state === 'partial' && !m.staleReason
+              ? `Run ${moduleLabel(m.module)} now — resumes the ${m.willRunAgents} remaining orb${m.willRunAgents === 1 ? '' : 's'}`
+              : `Run ${moduleLabel(m.module)} now — ${m.willRunAgents} orb${m.willRunAgents === 1 ? '' : 's'}`
+          }
+        >
+          {pillPending ? <Spin /> : badge}
+        </button>
+      ) : (
+        <span className={`tpp__badge tpp__badge--${tone}`}>{badge}</span>
+      )}
     </Tag>
   )
 }
@@ -95,6 +139,10 @@ export function ThesisPlanPanel() {
 
   if (!open) return null
   const starting = launchPending?.key === 'complete-thesis'
+  // A per-module RUN pill and the full "Complete the thesis" button share ONE subject lock, so only one may
+  // launch at a time. While EITHER is in flight, disable the full-complete button (a `complete-module:*`
+  // launch would otherwise race it and 409). Its spinner still keys on `starting` alone.
+  const busyOnTicker = Boolean(launchPending && launchPending.ticker === ticker)
 
   const reuseCount = plan?.reuse.length ?? 0
   const runCount = plan?.run.length ?? 0
@@ -176,10 +224,14 @@ export function ThesisPlanPanel() {
               </div>
             </div>
 
-            {/* Only rows with something reusable on disk AND not already in this run are pressable. Say exactly
-                that — "click any module" would be false for the missing, partial, and locked rows. */}
+            {/* Two distinct affordances, stated only when each actually exists on this plan. A reusable row's
+                whole surface toggles rebuild; a runnable Run row's PILL launches just that module. Naming both
+                unconditionally would be false for a plan that has only one (or neither). */}
             {plan.reusable.some((m) => !plan.mustReuse.includes(m)) && (
               <div className="tpp__hint">Click a module marked <b>Reuse</b> or <b>Keep</b> to rebuild it instead.</div>
+            )}
+            {plan.modules.some((m) => m.runnable) && (
+              <div className="tpp__hint">Click a <b>Run</b> pill to run just that module now, resuming any orbs already done.</div>
             )}
 
             {plan.carry.length > 0 && (
@@ -240,7 +292,7 @@ export function ThesisPlanPanel() {
             <div className="modal__actions">
               <button className="btn btn--ghost" disabled={starting} onClick={close}>{canRun ? 'Cancel' : 'Close'}</button>
               {canRun && (
-                <button className="btn btn--amber" disabled={starting || pricing} onClick={() => void complete()}>
+                <button className="btn btn--amber" disabled={busyOnTicker || pricing} onClick={() => void complete()}>
                   {starting ? <><Spin /> Starting…</> : runCount === 0 ? 'Write the memo' : 'Complete the thesis'}
                 </button>
               )}

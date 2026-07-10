@@ -478,6 +478,18 @@ export const api = {
     // than treat an absent field as permission to dispatch a research pipeline at another swarm's subject.
     return post(`/api/thesis-plan/run`, { ticker, reuse, swarm })
   },
+  // Launch ONE module of the plan (the RUN pill), resuming from the orbs on disk. `reuse` governs which
+  // ancestors get carried into the target root first. Returns the done/planned orb split so the cockpit
+  // lights up "N done / M queued" instead of a false from-scratch start.
+  runThesisPlanModule: async (
+    ticker: string,
+    module: string,
+    reuse: string[],
+    swarm: string,
+  ): Promise<{ runId: string; preflight: LaunchPreflight; module: string; willRun: number; doneOrbKeys: string[]; carried: { module: string; from: string }[]; resumed?: boolean; ranClean?: boolean }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/thesis-plan/module`, { ticker, module, reuse, swarm })
+  },
 
   runStreamUrl: (runId: string) => `/api/runs/${runId}/stream`,
   dataStreamUrl: () => `/api/data-status/stream`,
