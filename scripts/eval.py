@@ -791,9 +791,28 @@ AJ_REQUIRED_COLS = ["Decision Driver", "Bull Evidence", "Bear Evidence", "Which 
 def _decision_audit_section(thesis):
     """The text of the '## Decision Audit Trail' section ONLY — from its heading up to the next '## '
     heading (or EOF), mirroring `_scorecard_section`'s scoping so a table living in a LATER section
-    cannot satisfy this check. None if absent."""
-    m = re.search(r"(?ims)^##\s*Decision Audit Trail\b.*?(?=^##\s|\Z)", thesis)
+    cannot satisfy this check. None if absent.
+
+    When the dossier uses the PART structure (synthesizer.md emits the audit trail under
+    '# PART II — CROSS-CUTTING ANALYSIS'), the search is FIRST restricted to the Part II slice, so a
+    later appendix/process section carrying its own '## Decision Audit Trail' heading cannot satisfy
+    the check while Part II omits the table (r3556238203). Falls back to the whole document only when
+    no Part II heading exists (degenerate/non-PART dossiers)."""
+    p2 = re.search(r"(?ims)^#\s+PART\s+II\b.*?(?=^#\s+PART\b|\Z)", thesis)
+    scope_text = p2.group(0) if p2 else thesis
+    m = re.search(r"(?ims)^##\s*Decision Audit Trail\b.*?(?=^##\s|\Z)", scope_text)
     return m.group(0) if m else None
+def _decision_audit_header(section):
+    """The HEADER cells of the Decision Audit Trail pipe-table (the first non-separator pipe row), or []
+    if the section holds no table. Split out so check AJ can verify the table actually carries the
+    required bull/bear adjudication COLUMNS, not merely five columns of any shape (r3556238195)."""
+    if not section: return []
+    for line in section.splitlines():
+        s=line.strip()
+        if not s.startswith("|"): continue
+        if re.match(r"^\|[\s:|-]+\|$", s): continue  # separator row
+        return [c.strip() for c in s.strip("|").split("|")]
+    return []
 def _decision_audit_rows(section):
     """The DATA rows of the Decision Audit Trail pipe-table (header and separator rows excluded), or []
     if the section holds no table. Side-effect-free + module-level so `selftest` can drive it directly."""
@@ -814,9 +833,15 @@ def _decision_audit_rows(section):
     return rows
 def _audit_cell_blank(cell):
     """A cell counts as blank if it's empty after stripping markdown bold, or is a bare placeholder
-    token ('-', 'n/a', 'tbd', 'none', '?') rather than real adjudication content."""
+    token rather than real adjudication content. Placeholders include any WHOLE-cell run of dash
+    characters — ASCII '-'/'--'/'---' and the Unicode figure/en/em dashes and horizontal bar
+    (—, –, ―) the synthesizer commonly types (r3556238198) — plus 'n/a', 'tbd', 'none', '?'. Matching
+    a whole-cell dash run (not a substring) keeps real content like '~11–12%' or '₹1,184M–586M' from
+    being misread as blank."""
     c = re.sub(r"\*+", "", cell or "").strip()
-    return (not c) or c.lower() in {"-", "--", "n/a", "na", "tbd", "none", "?"}
+    if re.fullmatch(r"[-‒–—―]+", c):
+        return True  # a cell that is ONLY dash characters is a placeholder
+    return (not c) or c.lower() in {"n/a", "na", "tbd", "none", "?"}
 def eval_aj_decision_audit_trail(decision_date, thesis):
     """Core of check AJ. Returns None (N/A — pre-gate) or a list of violation strings (empty = pass).
     `thesis` is the full final_thesis.md text. Side-effect-free + module-level so `eval.py selftest` can
@@ -830,6 +855,15 @@ def eval_aj_decision_audit_trail(decision_date, thesis):
     if not rows:
         return ["'## Decision Audit Trail' table has no data rows"]
     det=[]
+    # Validate the table HEADER carries the required bull/bear adjudication columns, in order, before
+    # trusting the positional per-cell checks below (r3556238195). A five-column table whose header
+    # omits or reorders 'Bear Evidence' would otherwise pass the positional checks with the wrong fields.
+    hdr=[re.sub(r"\*+","",h).strip().lower() for h in _decision_audit_header(section)]
+    for j, label in enumerate(AJ_REQUIRED_COLS):
+        if j >= len(hdr) or label.lower() not in hdr[j]:
+            got = hdr[j] if j < len(hdr) else "<missing>"
+            det.append(f"Decision Audit Trail header column {j+1} is {got!r} — expected {label!r} "
+                       f"(required columns, in order: {', '.join(AJ_REQUIRED_COLS)})")
     if len(rows) < AJ_MIN_ROWS:
         det.append(f"only {len(rows)} Decision Audit Trail row(s) — fewer than the {AJ_MIN_ROWS} required for a real cross-module adjudication")
     for i, cells in enumerate(rows, 1):
@@ -1617,12 +1651,42 @@ if scope=="selftest":
         "| **Demand quality** | Cancer care non-deferrable; +20% CAGR | Demand quality doesn't pay if not converted to returns | **Bull (immaterial)** | Already priced, doesn't offset sub-cost returns | 80 |\n"
         "| **Returns on capital** | Mature centres earn ~27% ROCE | Statutory ROC ~4.6% vs ~11-12% cost of capital | **Bear** | Statutory basis governs the cost-of-capital test | 78 |\n"
         "| **Solvency** | Net debt 2.57x incl. leases, down from 4.13x | Deleveraging was equity-funded, not FCF | **Bull (adequate)** | Removes distress risk, doesn't make equity cheap | 70 |\n")
+    # Review-fix fixtures (Codex r3556238195 / r3556238198 / r3556238203). Expected verdicts pinned to
+    # synthesizer.md Step 5 ("at least 3 real decision-driver rows, each with a genuine, non-placeholder
+    # Bull Evidence, Bear Evidence, Which Side Wins, and Why cell") and CLAUDE.md §22 ("adjudicate, not
+    # summarize"), NOT to current code behaviour.
+    # (1) Header omits 'Bear Evidence' but still has 5 columns — the bull/bear adjudication shape is absent.
+    BAD_HEAD=("| Decision Driver | Bull Evidence | Which Side Wins? | Why? | Confidence |\n"
+              "|---|---|---|---|---:|\n")
+    TH_DAT_BAD_HEADER=_dat_thesis(BAD_HEAD+
+        "| Valuation | Cheap vs peers | **Bear** | DCF below price | 60 |\n"
+        "| Solvency | Net cash | **Bull** | No near-term break | 70 |\n"
+        "| Governance | Clean audit | **Bull** | No disqualifiers | 55 |\n")
+    # (2) Unicode em-dash / en-dash placeholder cells — token, not adjudication.
+    TH_DAT_UNICODE_DASH=_dat_thesis(ROW_HEAD+
+        "| Valuation | Cheap vs peers | Priced for perfection | **Bear** | DCF below price | 60 |\n"
+        "| Solvency | Net cash | — | **Bull** | No near-term break | 70 |\n"        # em-dash Bear Evidence
+        "| Governance | Clean audit | No disqualifiers | **Bull** | – | 55 |\n")     # en-dash Why?
+    # (3) Part II omits the table; a later appendix carries its own '## Decision Audit Trail' — must NOT satisfy.
+    TH_DAT_APPENDIX_ONLY=("# PART II — CROSS-CUTTING ANALYSIS\n\nNarrative only, no audit table here.\n\n"
+        "# PART V — EVIDENCE AND PROCESS\n\n## Decision Audit Trail\n\n"+ROW_HEAD+
+        "| Valuation | Cheap vs peers | Priced for perfection | **Bear** | DCF below price | 60 |\n"
+        "| Solvency | Net cash | Equity-funded | **Bull** | No near break | 70 |\n"
+        "| Governance | Clean audit | No disqualifiers | **Bull** | Ok | 55 |\n")
+    # Positive control: the SAME clean table correctly placed under Part II must still pass with scoping on.
+    TH_DAT_CLEAN_PART2=("# PART II — CROSS-CUTTING ANALYSIS\n\n"+
+        "## Decision Audit Trail"+TH_DAT_CLEAN.split("## Decision Audit Trail",1)[1]+
+        "\n# PART III — MODULE CHAPTERS\n\n(chapters)\n")
     ajcases=[  # (decision_date, thesis_text, expect: None|[]|[substr,...])
         ("2026-07-09", TH_DAT_CLEAN, None),                                        # predates AJ_DATE
         ("2026-07-10", TH_DAT_MISSING, ["section not found"]),
         ("2026-07-10", TH_DAT_EMPTY, ["no data rows"]),
         ("2026-07-10", TH_DAT_ONE_ROW, ["only 1 Decision Audit Trail row"]),
         ("2026-07-10", TH_DAT_BLANK_CELL, ["blank 'Bear Evidence'", "blank 'Why?'"]),
+        ("2026-07-10", TH_DAT_BAD_HEADER, ["header column 3", "Bear Evidence"]),   # (1) header lacks Bear Evidence col
+        ("2026-07-10", TH_DAT_UNICODE_DASH, ["blank 'Bear Evidence'", "blank 'Why?'"]),  # (2) em/en-dash placeholders
+        ("2026-07-10", TH_DAT_APPENDIX_ONLY, ["section not found"]),               # (3) table only in appendix, not Part II
+        ("2026-07-10", TH_DAT_CLEAN_PART2, []),                                     # (3) positive control: clean table IN Part II passes
         ("2026-07-10", TH_DAT_CLEAN, []),                                          # clean, real-shape pass
         ("2026-07-11", TH_DAT_CLEAN, []),                                          # after the gate date too
     ]
@@ -2448,7 +2512,7 @@ FRAMEWORK_CONTRACTS={
  ".claude/commands/research/review-decisions.md":["memo_delta","stage_one_comment","rerun_command","Pool first","_memo_delta"],
  ".claude/commands/research/eval.md":["scripts/eval.py"],
  ".claude/commands/research/calibrate.md":["calibration_by_module","calibration_by_forecast_type","owner_module","forecast_type","Phase 6"],
- "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap","eval_ag_calibration_feedback_gate","AG_DATE","AG_STATUSES","_calib_summary_asof","CALIB_SUMMARIES","eval_ah_expectations_gap_gate","AH_DATE","AH_expectations_gap_gate","eval_ai_headline_reconciliation","AI_DATE","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","eval_aj_decision_audit_trail","AJ_DATE","AJ_MIN_ROWS","AJ_REQUIRED_COLS","_decision_audit_section","_decision_audit_rows","_audit_cell_blank"],
+ "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap","eval_ag_calibration_feedback_gate","AG_DATE","AG_STATUSES","_calib_summary_asof","CALIB_SUMMARIES","eval_ah_expectations_gap_gate","AH_DATE","AH_expectations_gap_gate","eval_ai_headline_reconciliation","AI_DATE","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","eval_aj_decision_audit_trail","AJ_DATE","AJ_MIN_ROWS","AJ_REQUIRED_COLS","_decision_audit_section","_decision_audit_header","_decision_audit_rows","_audit_cell_blank"],
  ".github/workflows/ci.yml":["eval-contracts","scripts/eval.py"],
 }
 jchecks=[]
