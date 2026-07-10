@@ -1,0 +1,198 @@
+{
+  "schema_version": "1.0",
+  "ticker": "AMZN",
+  "company_name": "Amazon.com, Inc.",
+  "exchange": "NasdaqGS",
+  "currency": "USD",
+  "decision_date": "2026-07-10",
+  "run_root": "analyses/AMZN_2026-07-10",
+  "final_thesis_path": "analyses/AMZN_2026-07-10/final_thesis.md",
+  "decision": "Watchlist",
+  "suggested_action": "No new position. Track at $190-200 for re-entry (>12% margin of safety on base fair value $210). July 31 Q2 2026 earnings is the first real test of D&A billing-lag hypothesis.",
+  "paper_treatment": "No trade, track opportunity cost",
+  "basket": "Watchlist",
+  "entry_price": 238.34,
+  "entry_price_source": "Capital IQ Key Stats, pool-verified",
+  "entry_price_timestamp": "2026-07-01",
+  "benchmark": "S&P 500",
+  "sector_benchmark": "Nasdaq 100",
+  "time_horizon": "12 months",
+  "expected_return_pct": -16.1,
+  "downside_risk_pct": 38.7,
+  "margin_of_safety_pct": -13.5,
+  "risk_reward": -0.41,
+  "confidence_score": 57,
+  "data_sufficiency_score": 82,
+  "rating_cap": "Edge gate binding: edge_score 35 < 50 caps confidence at ≤60; valuation module confidence 55/100 caps from method dispersion",
+  "thesis_type": ["Company-specific", "Sector-cycle"],
+  "variant_perception_summary": "The market prices near-perfect AI capex ROI for Amazon. The engine believes D&A from the $131.8B FY2025 / ~$200B FY2026 capex wave will compress AWS and consolidated margins materially over 18-24 months — a timing mismatch the consensus has not fully priced. However, edge_score = 35 because the D&A lag is directionally known but the magnitude and timing are unresolvable without quarterly D&A disclosure.",
+  "what_everyone_knows": "AWS is the most profitable segment (35.4% margin, 18% of revenue, 57% of operating income). Amazon is spending $131.8B FY2025 / ~$200B FY2026 on AI infrastructure. E-commerce is the #1 global player. Anthropic is a significant investment.",
+  "what_is_priced_in": "16.4% NOPAT CAGR for 10 years (reverse-DCF at $238). Consensus expects ~28% AWS revenue growth and consolidated EBIT expansion from ~$80B to $100B+ by FY2027. Strong balance sheet, AA credit, no near-term distress. Essentially a blue-chip quality premium.",
+  "what_market_may_be_missing": "D&A billing lag: $131.8B capex in FY2025 (servers, data centres, networking) has a 6-36 month D&A recognition delay. As that arrives in the income statement, Technology & Infrastructure costs will rise, compressing AWS and consolidated margins in FY2026-FY2027. At prior-cycle peak capex ratios, D&A could add $30-50B per year incrementally. Amazon discloses D&A only annually — quarterly transparency is absent — so the market cannot track the compression in real time. Anthropic $60.6B Level 3 mark-to-model inflates GAAP EPS by $2.47/share and cannot be meaningfully valued from public disclosures.",
+  "edge_score": 35,
+  "edge_proof": "At Q2 2026 earnings (July 31, 2026): if AWS margin compresses more than 150bp year-over-year AND Technology & Infrastructure costs grow faster than revenue, that would confirm the D&A billing-lag hypothesis. Conversely, if AWS margin holds or expands, the hypothesis is wrong and the bull case at $247+ is live. This is the single piece of evidence that would most move conviction in either direction.",
+  "killer_risk": "D&A from $131.8B FY2025 / ~$200B FY2026 capex wave arrives faster than revenue and compresses AWS margins below 30%, driving EBIT to $60-65B and fair value to $146 or below. Secondary: Anthropic mark-to-model reversal triggers GAAP EPS shock.",
+  "kill_criteria": [
+    "Q2 2026 AWS margin <30% AND Technology & Infrastructure costs growing >25% YoY without commensurate revenue acceleration — confirms D&A compression faster than priced",
+    "Q3 2026 EBIT guidance below $22B (floor of prior guidance range) — signals demand softness or cost acceleration not anticipated by consensus",
+    "Anthropic Level 3 mark-to-model reversal of >$20B — GAAP EPS shock, P/E re-rating risk",
+    "Globalstar or any other M&A deal >$10B closed at an expensive multiple — serial-acquirer risk materialising (RF-CAP-004 pre-cursor)",
+    "Federal antitrust breakup order targeting AWS or marketplace platform — structural bear case, low probability but not zero given ongoing DOJ scrutiny"
+  ],
+  "scenarios": [
+    {
+      "label": "bull",
+      "probability": 25,
+      "return_pct": 3.6,
+      "price_target": 247.0
+    },
+    {
+      "label": "base",
+      "probability": 45,
+      "return_pct": -11.9,
+      "price_target": 210.0
+    },
+    {
+      "label": "bear",
+      "probability": 30,
+      "return_pct": -38.7,
+      "price_target": 146.0
+    }
+  ],
+  "forecast_ledger": [
+    {
+      "prediction": "AWS segment margin compresses 100-300bp in FY2026 vs FY2025 (35.4%) as D&A from $131.8B capex wave flows through Technology & Infrastructure costs",
+      "probability": 60,
+      "time_window": "FY2026 full year (confirmed Feb 2027 in annual results)",
+      "evidence_today": "Amazon disclosed $131.8B capex in FY2025 10-K; prior cycles (2014-2016) showed 18-24 month D&A lag post peak-capex; T&I cost line opaque quarterly",
+      "confirmation_trigger": "FY2026 AWS segment margin < 33% (>140bp compression) in Q4 2026 results or FY2026 10-K",
+      "falsification_trigger": "FY2026 AWS segment margin ≥35% (flat or expanding) sustained through two quarters — demand absorbing capex faster than D&A arrives",
+      "owner_module": "earnings",
+      "confidence_score": 60,
+      "status": "open",
+      "forecast_type": "margin_or_cost"
+    },
+    {
+      "prediction": "Q2 2026 consolidated EBIT lands in the $23-25B range (above $23.4B consensus mid-point) driven by AWS acceleration and advertising strength",
+      "probability": 55,
+      "time_window": "Q2 2026 earnings July 31, 2026",
+      "evidence_today": "Q1 2026 EBIT $18.4B with Q2 guidance $22-26B; consensus $23.4B at 86th percentile of range; advertising and AWS both accelerating in Q1",
+      "confirmation_trigger": "Q2 EBIT ≥ $24B AND Q3 guidance midpoint ≥ $24B",
+      "falsification_trigger": "Q2 EBIT < $22B (floor of guidance range) OR Q3 guidance midpoint < $22B",
+      "owner_module": "catalyst",
+      "confidence_score": 55,
+      "status": "open",
+      "forecast_type": "earnings_eps"
+    },
+    {
+      "prediction": "Amazon's Anthropic $60.6B Level 3 investment is not marked down materially (>$15B reduction) in the next 12 months, keeping GAAP EPS noise elevated but not a shock",
+      "probability": 65,
+      "time_window": "12 months (by Q2 2027 results)",
+      "evidence_today": "Anthropic raised at $60.6B from Amazon in early 2025; no public signals of impairment; AI funding environment remains strong; Amazon has incentive to support the mark",
+      "confirmation_trigger": "FY2026 10-K shows Anthropic carrying value ≥ $45B (less than 25% write-down)",
+      "falsification_trigger": "Any quarter shows Anthropic write-down >$15B OR Anthropic raises a new round at <$40B valuation",
+      "owner_module": "earnings",
+      "confidence_score": 60,
+      "status": "open",
+      "forecast_type": "governance_or_accounting"
+    },
+    {
+      "prediction": "AMZN stock re-rates to $190-210 range within 12 months as the market prices in D&A cost pressure and the Anthropic noise becomes more visible",
+      "probability": 45,
+      "time_window": "12 months (by July 2027)",
+      "evidence_today": "Current price $238.34 vs base fair value $210; reverse-DCF implies 16.4% NOPAT CAGR for 10 years, above consensus; expected return -16.1% from scenario math",
+      "confirmation_trigger": "Stock trades below $210 on two consecutive quarter-ends AND AWS margin declines ≥150bp",
+      "falsification_trigger": "Stock holds above $230 through Q4 2026 earnings (Jan 2027) as AWS margins remain above 34%",
+      "owner_module": "valuation",
+      "confidence_score": 45,
+      "status": "open",
+      "forecast_type": "valuation_or_price_return"
+    },
+    {
+      "prediction": "Amazon completes the Globalstar acquisition within 12 months, adding incremental satellite network risk and M&A integration distraction",
+      "probability": 65,
+      "time_window": "12 months (by July 2027)",
+      "evidence_today": "Deal announced; catalyst module flags as Filter 4 M&A risk (serial-acquirer pre-cursor); FCC approval pending",
+      "confirmation_trigger": "Globalstar close announced in an 8-K/SEC filing with deal terms confirmed",
+      "falsification_trigger": "Deal falls apart (termination announced) or blocked by regulator",
+      "owner_module": "catalyst",
+      "confidence_score": 60,
+      "status": "open",
+      "forecast_type": "catalyst_or_estimate_revision"
+    }
+  ],
+  "module_scores": {
+    "business-model": {"score": 78, "verdict": "Narrow economic moat — AWS dominates; consolidated ROIC 9.0% below WACC; carried from 2026-07-03"},
+    "earnings": {"score": 75, "verdict": "Earnings accelerating at operating level; penalized for Anthropic EPS noise and D&A opacity; carried from 2026-07-03"},
+    "balance-sheet-survival": {"score": 96, "verdict": "Fortress balance sheet; $17.9B net cash strict / $54.2B broad; no plausible break; carried from 2026-07-04"},
+    "management-governance": {"score": 70, "verdict": "Aligned and competent; Governance Score 72/100; capped at 70 usefulness (proxy absent); carried from 2026-07-04"},
+    "valuation": {"score": 78, "verdict": "Modestly overvalued; base FV $210 vs $238.34 price; -13.5% MoS; fresh 2026-07-10"},
+    "catalyst": {"score": 80, "verdict": "Dated near-term catalysts; Q2 July 31 is key; balanced-to-slightly-bearish setup; fresh 2026-07-10"}
+  },
+  "red_flags": [
+    {
+      "id": "RF-ACC-001",
+      "severity": "High",
+      "description": "Anthropic $60.6B Level 3 mark-to-model investment inflates GAAP EPS by ~$2.47/share (FY2025 $15.3B unrealised gain); unauditable valuation"
+    },
+    {
+      "id": "RF-ACC-002",
+      "severity": "High",
+      "description": "Server useful-life extension one-off reduced D&A ~$3-4B in FY2023; non-recurring accounting gain embedded in multi-year margin trend"
+    },
+    {
+      "id": "RF-OPS-001",
+      "severity": "High",
+      "description": "D&A from $131.8B FY2025 / ~$200B FY2026 capex not disclosed quarterly in Technology & Infrastructure line; largest earnings risk is untrackable in real time"
+    },
+    {
+      "id": "RF-CAP-002",
+      "severity": "High",
+      "description": "Only $3.9B of $10B buyback authorization used; net dilution +5.0% over 5 years from SBC; share count growing despite $80B operating income"
+    },
+    {
+      "id": "RF-SHR-001",
+      "severity": "Medium",
+      "description": "22% say-on-pay opposition FY2024-FY2025 (improved to ~6% in 2026); indicates historical compensation concerns at institutional level"
+    },
+    {
+      "id": "RF-LIT-001",
+      "severity": "Medium",
+      "description": "FTC antitrust lawsuit and DOJ marketplace investigation ongoing; breakup or structural remedy risk — low probability, high severity"
+    },
+    {
+      "id": "RF-CONC-001",
+      "severity": "Medium",
+      "description": "GPU supply concentration: NVIDIA H100/H200/B200 GPU dependency for AWS AI build-out; supply chain disruption or NVIDIA pricing power risk"
+    },
+    {
+      "id": "RF-FCF-001",
+      "severity": "Medium",
+      "description": "Strict FCF negative $2.5B LTM (capex $100.5B vs CFO $98.0B); free cash flow only positive on operating FCF basis before growth capex"
+    }
+  ],
+  "missing_data": [
+    "RUN_METADATA.md absent — run was module-by-module, not via /research:full orchestrator",
+    "2026 DEF 14A proxy not in data pool — management-governance module capped at 70/100 usefulness; incentive alignment and ownership table unverifiable against 2026 disclosures",
+    "Q1 2026 10-Q not in pool — balance-sheet-survival carried from 2026-07-04 based on Q1 2026 press release; full note disclosures on $122.6B gross debt unverified against filed 10-Q",
+    "ciq_facts.json sidecar absent — no deterministic CIQ anchor for headline metrics; relied on module-sourced figures",
+    "Quarterly D&A breakdown for Technology & Infrastructure segment — Amazon discloses D&A only annually; the #1 earnings risk (D&A billing lag) is untrackable quarterly"
+  ],
+  "review_schedule": {
+    "30d": "2026-08-09",
+    "90d": "2026-10-08",
+    "180d": "2027-01-06",
+    "365d": "2027-07-10"
+  },
+  "created_by": "synthesizer",
+  "notes": "Four of six modules carried forward: business-model and earnings from analyses/AMZN_2026-07-03 (2026-07-03); balance-sheet-survival and management-governance from analyses/AMZN_2026-07-04 (2026-07-04). Valuation and catalyst freshly run 2026-07-10. No material filing arrived between carry dates and 2026-07-10 per git status scan. Edge gate is binding confidence cap: edge_score 35 < 50 threshold caps confidence at ≤60; final confidence 57/100. Calibration: pre_data status, no haircut applied. Margin of safety -13.5% = ((210 - 238.34) / 210) × 100 from base-case fair value $210.",
+  "business_type": "Multi-sided platform and cloud infrastructure conglomerate",
+  "primary_valuation_method": "SOTP + DCF exit multiple + peer NTM EV/EBITDA blend",
+  "calibration_feedback": {
+    "source_summary": "analyses/performance/2026-06-01_calibration_summary.json",
+    "status": "pre_data",
+    "haircut_points": 0,
+    "modules_flagged": [],
+    "rationale": "Calibration summary dated 2026-06-01 carries verdict 'Pre-data — learning loop live; inventory + process metrics computed; calibration awaits resolved reviews.' N=2 decisions, 0 reviews filed, 0 resolved forecasts — below minimum floors for reliable Brier-score or hit-rate metrics. No module calibration slice was actionable. No adjustment applied."
+  }
+}
