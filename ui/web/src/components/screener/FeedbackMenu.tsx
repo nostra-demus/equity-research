@@ -6,10 +6,11 @@ import type { FeedbackType, FeedItem } from '../../lib/types'
 import type { ReportMenuAnchor } from '../ActivityReportMenu'
 import '../swarm/CoreOrb.css' // reuse the .reportpop__item / __label / __hint / __scrim look
 
-// "Flag as irrelevant / mis-scored / …" — the fast, one-click feedback control on a wire card. Built on
-// the exact ActivityReportMenu pattern (portaled popover, click-outside scrim, Escape-to-close). The
-// default path is one click: pick a type, it submits immediately with whatever reason (if any) is
-// already typed. The reason box starts collapsed so it never slows down the common case.
+// "Flag as irrelevant / mis-scored / …" — the feedback control on a wire card. Built on the exact
+// ActivityReportMenu pattern (portaled popover, click-outside scrim, Escape-to-close). SELECT-then-SUBMIT:
+// clicking a reason SELECTS it (never submits on its own), an optional comment rides along with ANY reason
+// (required for "Other", which is meaningless without one), and one Submit logs the record. Nothing reaches
+// the ledger without an explicit Submit — a stray click can't file feedback, and every reason behaves the same.
 
 interface Props {
   item: FeedItem
@@ -19,7 +20,8 @@ interface Props {
 
 export function FeedbackMenu({ item, anchor, onClose }: Props) {
   const submitFeedback = useStore((s) => s.submitFeedback)
-  const [reasonOpen, setReasonOpen] = useState(false)
+  const [selected, setSelected] = useState<FeedbackType | null>(null)
+  const [commentOpen, setCommentOpen] = useState(false)
   const [reason, setReason] = useState('')
 
   useEffect(() => {
@@ -28,8 +30,16 @@ export function FeedbackMenu({ item, anchor, onClose }: Props) {
     return () => window.removeEventListener('keydown', onKey)
   }, [onClose])
 
-  const pick = (type: FeedbackType) => {
-    void submitFeedback(feedbackInputFromItem(item, type, reason))
+  const needsComment = selected === 'other' // "Other" carries no signal without a comment
+  const canSubmit = selected != null && (!needsComment || reason.trim().length > 0)
+
+  const choose = (type: FeedbackType) => {
+    setSelected(type)
+    if (type === 'other') setCommentOpen(true) // reveal the box — "Other" requires a comment
+  }
+  const submit = () => {
+    if (!selected || !canSubmit) return
+    void submitFeedback(feedbackInputFromItem(item, selected, reason))
     onClose()
   }
 
@@ -43,28 +53,49 @@ export function FeedbackMenu({ item, anchor, onClose }: Props) {
         role="menu"
       >
         <div className="reportpop__label">Feedback on this item</div>
-        {FEEDBACK_TYPES.map((type) => (
-          <button key={type} className="reportpop__item" onClick={() => pick(type)} role="menuitem">
-            <b>{feedbackLabel(type)}</b>
-          </button>
-        ))}
-        {reasonOpen ? (
+        {FEEDBACK_TYPES.map((type) => {
+          const on = selected === type
+          return (
+            <button
+              key={type}
+              className="reportpop__item"
+              onClick={() => choose(type)}
+              role="menuitemradio"
+              aria-checked={on}
+              style={on ? { background: 'var(--accent-wash)' } : undefined}
+            >
+              <b style={on ? { color: 'var(--accent-deep)' } : undefined}>{feedbackLabel(type)}</b>
+            </button>
+          )
+        })}
+        {commentOpen ? (
           <div style={{ padding: '6px 10px 8px' }}>
             <textarea
               autoFocus
               rows={3}
               value={reason}
               onChange={(e) => setReason(e.target.value)}
-              placeholder="Optional — why? (rides along with whichever button you click)"
+              onKeyDown={(e) => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey) && canSubmit) submit() }}
+              placeholder={needsComment ? 'Add a comment (required for “Other”)' : 'Optional — add a comment'}
               style={{ width: '100%', resize: 'vertical', font: 'inherit', fontSize: 11.5 }}
             />
           </div>
         ) : (
-          <button className="reportpop__item" onClick={() => setReasonOpen(true)} role="menuitem">
-            <span>+ Add reason</span>
+          <button className="reportpop__item" onClick={() => setCommentOpen(true)} role="menuitem">
+            <span>+ Add comment</span>
           </button>
         )}
-        <div className="reportpop__hint">pick a reason to save it — a reason you type rides along</div>
+        <button
+          className="reportpop__item"
+          onClick={submit}
+          disabled={!canSubmit}
+          role="menuitem"
+          title={canSubmit ? 'Log this feedback' : needsComment ? 'Add a comment for “Other”' : 'Pick a reason first'}
+          style={{ alignItems: 'center', marginTop: 2, background: canSubmit ? 'var(--accent-wash)' : 'transparent', cursor: canSubmit ? 'pointer' : 'not-allowed' }}
+        >
+          <b style={{ color: canSubmit ? 'var(--accent-deep)' : 'var(--text-faint)' }}>Submit →</b>
+        </button>
+        <div className="reportpop__hint">Pick a reason, add an optional comment, then Submit — nothing is logged until you Submit.</div>
       </div>
     </>,
     document.body,
