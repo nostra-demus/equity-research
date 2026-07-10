@@ -1773,7 +1773,7 @@ for drp in runs:
         add("D_missing_price", True, "entry_price present", na=True)
     # E numeric hygiene
     # [review fix] include the additive post-review numbers; isnum() excludes bool (a JSON true/false otherwise passed).
-    _numkeys=["expected_return_pct","downside_risk_pct","risk_reward","confidence_score","data_sufficiency_score","post_review_confidence_score","confidence_haircut"]
+    _numkeys=["expected_return_pct","downside_risk_pct","margin_of_safety_pct","risk_reward","confidence_score","data_sufficiency_score","post_review_confidence_score","confidence_haircut"]
     nums={k:d.get(k) for k in _numkeys if k in d}
     okE=all(v is None or isnum(v) for v in nums.values()) and all(0<=d.get(k)<=100 for k in ["confidence_score","data_sufficiency_score","post_review_confidence_score"] if isnum(d.get(k)))
     add("E_numeric", okE, f"{nums}")
@@ -1847,9 +1847,14 @@ for drp in runs:
     SCEN_DATE="2026-06-08"; scen=d.get("scenarios")
     if isdate(ddte) and ddte>=SCEN_DATE:
         if not isinstance(scen,list) or not scen:
-            # a post-gate run that quantified a return MUST ship the machine-readable scenario block
-            add("M_scenario_math", d.get("expected_return_pct") is None,
-                "scenarios[] missing/empty but expected_return_pct is set — cannot re-derive the math (required post-2026-06-08)")
+            # a post-gate run that quantified a return MUST ship the machine-readable scenario block.
+            # [review fix — Codex] margin_of_safety_pct is unverifiable with no scenarios[] to derive it from
+            # (no base-labelled target exists), so a numeric MoS here is exactly as unre-derivable as a
+            # numeric expected_return_pct would be — gate it the same way instead of only checking ER.
+            MOS_DATE="2026-07-10"
+            _mos_ok = d.get("margin_of_safety_pct") is None or not (isdate(ddte) and ddte>=MOS_DATE)
+            add("M_scenario_math", d.get("expected_return_pct") is None and _mos_ok,
+                "scenarios[] missing/empty but expected_return_pct and/or margin_of_safety_pct is set — cannot re-derive the math (required post-2026-06-08 / MoS post-2026-07-10)")
         else:
             det=[]; okM=True
             try:
@@ -1868,9 +1873,10 @@ for drp in runs:
                 have_t=[isnum(t) for t in tgts]
                 # [review fix] price_target was read with .get() so omitting ONE silently SKIPPED both the
                 # ER-from-target and risk/reward cross-checks (the two strongest, independent anchors). Now: if a
-                # price anchor exists, require ALL-or-NONE price targets; a PARTIAL set FAILs instead of dropping them.
-                if isnum(ep) and ep and any(have_t) and not all(have_t):
-                    okM=False; det.append("some scenarios carry price_target, some don't — cannot reconcile target/risk-reward")
+                # price anchor exists, require ALL price targets PRESENT and NUMERIC; a partial set OR a
+                # present-but-non-numeric target (e.g. the string "150") FAILs instead of being dropped as "absent".
+                if isnum(ep) and ep and any(t is not None for t in tgts) and not all(have_t):
+                    okM=False; det.append("price_target present on some scenarios but not all numeric — cannot reconcile target/risk-reward")
                 if isnum(ep) and ep and all(have_t):
                     pwt=sum(p/100.0*t for p,t in zip(probs,tgts))
                     # [PR#9 review fix] direction-aware: a SHORT profits when price FALLS, so its return,
@@ -1882,9 +1888,11 @@ for drp in runs:
                     if abs(er_t-calc_er)>max(1.5, abs(calc_er)*0.05) or _tflip:
                         okM=False; det.append(f"ER_from_target={round(er_t,2)} != Sum(p*ret)={round(calc_er,2)}")
                     rr=d.get("risk_reward"); worst=max(tgts) if short else min(tgts)
-                    if isnum(rr) and (worst>ep if short else ep>worst):
+                    if (worst>ep if short else ep>worst):   # a real adverse case exists → risk/reward is derivable
                         crr=((ep-pwt)/(worst-ep)) if short else ((pwt-ep)/(ep-worst))
-                        if abs(rr-crr)>max(0.15,abs(crr)*0.12): okM=False; det.append(f"risk_reward={rr} != calc={round(crr,2)}")
+                        if not isnum(rr):
+                            okM=False; det.append(f"risk_reward null but derivable from scenarios = {round(crr,2)} — must be published when price targets are used")
+                        elif abs(rr-crr)>max(0.15,abs(crr)*0.12): okM=False; det.append(f"risk_reward={rr} != calc={round(crr,2)}")
                 # downside_risk_pct completes the §10 triple (expected_return ✓, risk_reward ✓): it is the
                 # worst-case (bear) position return, negated to a downside magnitude — downside = −min(scenario
                 # return_pct) = (entry − bear_price)/entry. return_pct is already position-signed (a short's
@@ -1904,6 +1912,27 @@ for drp in runs:
                         _drflip=(abs(dr)>0.25 and abs(cdr)>0.25 and (dr>0)!=(cdr>0))
                         if abs(dr-cdr)>max(1.0,abs(cdr)*0.05) or _drflip:
                             okM=False; det.append(f"downside_risk_pct={dr} != −min(scenario return)={round(cdr,2)}")
+                # margin_of_safety_pct — discount of price to the BASE-case fair value: (base FV − price)/base FV,
+                # base FV = the base-labelled scenario's price_target (valuation's base level feeds §8 as the base
+                # target, so the two must tie). Direction-UNIFORM: built from price LEVELS not position-signed returns,
+                # so a short candidate (base FV < price) yields a negative MoS on the SAME formula — no branch (unlike
+                # downside). When price + base FV make it derivable, a run dated >= MOS_DATE MUST publish it (only the
+                # no-pool-verified-price case may stay null); a present value that cannot be re-derived is unverifiable
+                # and FAILs. (A non-numeric margin_of_safety_pct is caught by check E via _numkeys.)
+                mos=d.get("margin_of_safety_pct"); MOS_DATE="2026-07-10"
+                _base=next((s for s in scen if str(s.get("label","")).strip().lower()=="base"), None)
+                bfv=_base.get("price_target") if isinstance(_base,dict) else None
+                _mder=isnum(ep) and ep and isnum(bfv) and bfv
+                if isnum(mos):
+                    if _mder:
+                        cmos=(bfv-ep)/bfv*100.0
+                        _mflip=(abs(mos)>0.25 and abs(cmos)>0.25 and (mos>0)!=(cmos>0))
+                        if abs(mos-cmos)>max(1.0,abs(cmos)*0.05) or _mflip:
+                            okM=False; det.append(f"margin_of_safety_pct={mos} != (base FV − price)/base FV={round(cmos,2)}")
+                    elif isdate(ddte) and ddte>=MOS_DATE:
+                        okM=False; det.append("margin_of_safety_pct present but not re-derivable — no base-labelled scenario price_target")
+                elif mos is None and _mder and isdate(ddte) and ddte>=MOS_DATE:
+                    okM=False; det.append(f"margin_of_safety_pct null but derivable from the base scenario = {round((bfv-ep)/bfv*100.0,2)} — required for runs dated >= {MOS_DATE}")
             except Exception as e:
                 okM=False; det.append(f"scenario parse error: {e}")
             add("M_scenario_math", okM, "; ".join(det) or "prob sum=100; expected_return=Sum(p*ret); target & risk/reward reconcile")
