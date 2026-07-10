@@ -18,7 +18,7 @@ import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, GDRIVE, HOST, NEWS, PORT, REPO_
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
 import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED } from './drive'
-import { cancel, cancelAll, cancelSubject, creditCheck, decideReadiness, estimate, launch, sigIdFor, warmLaunchProbes } from './launcher'
+import { cancel, cancelAll, cancelSubject, creditCheck, decideReadiness, estimate, launch, sigIdFor, todayDate, warmLaunchProbes } from './launcher'
 import { newsBus } from './news/bus'
 import { readFeed, searchFeed } from './news/feed'
 import { matchesFeedFilters, parseFeedFilterQuery, explainFeedFilterMatch, type FeedFilterQuery } from './news/feed-filter'
@@ -1093,9 +1093,10 @@ app.get('/api/screener/signal-state', { config: { rateLimit: { max: 600, timeWin
   const headline = String(q.headline || '').trim()
   if (headline.length < 8) return { sigId: '', state: 'never' as const, running: false } // can't identify a signal
   const sourceUrl = String(q.source_url || q.url || '')
-  const d = new Date() // local date — must match launcher.ts todayDate() so the id equals what a launch produces
-  const date = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
-  const sigId = sigIdFor({ headline, source_url: sourceUrl } as Parameters<typeof sigIdFor>[0], date)
+  // reuse the launcher's own date+id recipe (not a re-derivation) so the probe's SIG-id EQUALS what a launch
+  // produces — see todayDate()/sigIdFor. NOTE: identity is stamped with today's local date, so a run created
+  // on a prior day (or an event opened across midnight) reads 'never' — same-day is the supported case.
+  const sigId = sigIdFor({ headline, source_url: sourceUrl } as Parameters<typeof sigIdFor>[0], todayDate())
   return deriveSignalState(sigId)
 })
 

@@ -135,7 +135,10 @@ async function claudeAvailable(): Promise<boolean> {
   return claudeOk
 }
 
-function todayDate(): string {
+// Local-calendar date that stamps a launch's SIG-id (both the hash input and the id prefix). Exported so
+// the read-only signal-state probe computes the SAME id instead of re-deriving the recipe from a comment —
+// if this ever changes (UTC, format), the probe follows automatically rather than silently reading 'never'.
+export function todayDate(): string {
   const d = new Date()
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
 }

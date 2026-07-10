@@ -61,6 +61,10 @@ export function RunChecksMenu({ it }: Props) {
   const st: SignalState | null = entry && entry !== 'loading' ? entry : null
   const state = st?.state ?? 'never'
   const sigId = st?.sigId || ''
+  // FIRST-read only (a refetch keeps the last-known value, never 'loading'). While the very first state is
+  // unknown, disable the trigger so a fast click can't fire the 'never' default (a duplicate run) on a signal
+  // that's actually running/complete/parked. Sub-second; the button enables the moment the state lands.
+  const loading = entry === 'loading'
 
   // the screener stages in order; the LAST is the terminal module, so "run/stop THROUGH the last stage" == run
   // all — the staged targets are every stage before it (mirrors the old "or run only through" chip list).
@@ -101,7 +105,8 @@ export function RunChecksMenu({ it }: Props) {
       buttonLabel = 'Manage run'
       break
     case 'partial':
-      badge = { label: `Paused · ${doneSet.size}/${stages.length}`, tone: 'pause' }
+      // omit the fraction until the screener graph has loaded, so a cold open never shows "Paused · N/0"
+      badge = { label: stages.length ? `Paused · ${doneSet.size}/${stages.length}` : 'Paused', tone: 'pause' }
       buttonLabel = 'Continue the run'
       break
     case 'parked':
@@ -122,14 +127,15 @@ export function RunChecksMenu({ it }: Props) {
   }
 
   // the cost/early-stop hint only applies to states whose menu can start a fresh (or overridden) full run
-  const showEst = state === 'never' || state === 'parked' || state === 'logged' || !st
+  // ('never' already covers the still-loading case, since state falls back to 'never' when st is null)
+  const showEst = state === 'never' || state === 'parked' || state === 'logged'
 
   const openMenu = (e: React.MouseEvent) => {
     const bar = (e.currentTarget as HTMLElement).closest('.runsplit') as HTMLElement | null
     const r = (bar ?? (e.currentTarget as HTMLElement)).getBoundingClientRect()
     const right = Math.max(8, window.innerWidth - r.right)
     const below = window.innerHeight - r.bottom
-    setAnchor(below < 340 ? { right, bottom: Math.max(8, window.innerHeight - r.top + 6) } : { right, top: r.bottom + 6 })
+    setAnchor(below < 320 ? { right, bottom: Math.max(8, window.innerHeight - r.top + 6) } : { right, top: r.bottom + 6 })
     setOpen((v) => !v)
   }
 
@@ -141,11 +147,11 @@ export function RunChecksMenu({ it }: Props) {
           className="btn btn--amber runsplit__trigger"
           aria-haspopup="menu"
           aria-expanded={open}
-          disabled={busy}
+          disabled={busy || loading}
           onClick={openMenu}
-          title={staticMode ? 'Runs on your local machine (npm run dev)' : 'Choose how to run the checks'}
+          title={staticMode ? 'Runs on your local machine (npm run dev)' : loading ? 'Checking this signal’s run state…' : 'Choose how to run the checks'}
         >
-          {busy ? <><Spin /> Starting…</> : <>{buttonLabel}<span className="runsplit__chev" aria-hidden style={{ transform: open ? 'rotate(180deg)' : 'none' }}>▾</span></>}
+          {busy ? <><Spin /> Starting…</> : loading ? <><Spin /> Checking…</> : <>{buttonLabel}<span className="runsplit__chev" aria-hidden style={{ transform: open ? 'rotate(180deg)' : 'none' }}>▾</span></>}
         </button>
       </div>
       {showEst && <span className="evdetail__est mono">about $8–45 · stops early (and cheaper) if a check says no</span>}
@@ -173,7 +179,7 @@ export function RunChecksMenu({ it }: Props) {
             {/* PARTIAL — resume to the end, or resume through a named stage */}
             {state === 'partial' && (
               <>
-                <div className="reportpop__label">Resume · {doneSet.size}/{stages.length} done</div>
+                <div className="reportpop__label">{stages.length ? `Resume · ${doneSet.size}/${stages.length} done` : 'Resume the run'}</div>
                 <button className="reportpop__item" role="menuitem" onClick={closeThen(resumeAll)}>
                   <b>Continue to the end</b>
                   <span>Run every remaining stage</span>
@@ -203,7 +209,7 @@ export function RunChecksMenu({ it }: Props) {
             )}
 
             {/* NEVER — run all, or run through a named stage then stop */}
-            {(state === 'never' || !st) && (
+            {state === 'never' && (
               <>
                 <div className="reportpop__label">Run the checks</div>
                 <button className="reportpop__item" role="menuitem" onClick={closeThen(startFull)}>

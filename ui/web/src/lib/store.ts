@@ -145,6 +145,9 @@ const HARD_DOWN = new Set<HealthState>(['engine-offline', 'your-network', 'sessi
 // resuming. Module-level (not store state) so re-attempts don't churn React. A capacity/exclusivity
 // reject doesn't count as a try — it just means "wait for a slot", retried on the next board fetch.
 const autoResumeTries = new Map<string, { count: number; lastAt: number }>()
+// events whose signal-state read is currently in flight — guards concurrent fetchSignalState WITHOUT
+// parking a 'loading' sentinel in the store, so a refetch keeps the last-known badge visible (no flash).
+const signalStateInFlight = new Set<string>()
 const AUTO_RESUME_MAX = 3 // give up after this many real failures → fall back to the manual Continue
 const AUTO_RESUME_COOLDOWN_MS = 30_000 // min gap between re-attempts of the SAME signal
 const AUTO_RESUME_BATCH = 4 // most to kick off per cycle (the server's own cap gates the rest)
@@ -2438,18 +2441,27 @@ export const useStore = create<State>((set, get) => ({
   // logged / watchlist / partial / complete. Read-only: touches no run, spends nothing. Never throws into UI.
   fetchSignalState: async (it) => {
     const key = it.event_id
-    if (get().scSignalState[key] === 'loading') return // a read is already in flight for this event
-    set({ scSignalState: { ...get().scSignalState, [key]: 'loading' } })
+    if (signalStateInFlight.has(key)) return // a read is already in flight for this event
+    signalStateInFlight.add(key)
+    // Only show the 'loading' sentinel on the FIRST read (no prior value). On a REFETCH (after resume/stop, or
+    // a reopen) keep the last-known state visible so the reader never flashes back to the "never / Run the
+    // checks" default over a signal that is actually running/parked/complete.
+    const prior = get().scSignalState[key]
+    if (prior === undefined) set({ scSignalState: { ...get().scSignalState, [key]: 'loading' } })
     try {
       // api.signalState short-circuits to { state:'never' } in static/offline, so no mode guard is needed here
       const st = await api.signalState({ headline: it.headline, sourceUrl: it.url || undefined })
       set({ scSignalState: { ...get().scSignalState, [key]: st } })
     } catch {
-      // don't leave a stuck 'loading' (the button would spin forever) — drop the key so a reopen retries;
-      // the split button falls back to its default "Run all checks" primary whenever state is absent.
-      const m = { ...get().scSignalState }
-      delete m[key]
-      set({ scSignalState: m })
+      // On the first read, don't leave a stuck 'loading' — drop the key so a reopen retries. On a refetch,
+      // leave the last-known value in place (a transient probe blip shouldn't blank a good badge).
+      if (prior === undefined) {
+        const m = { ...get().scSignalState }
+        delete m[key]
+        set({ scSignalState: m })
+      }
+    } finally {
+      signalStateInFlight.delete(key)
     }
   },
 
@@ -2459,10 +2471,13 @@ export const useStore = create<State>((set, get) => ({
   cancelSignalRun: async (sigId) => {
     if (get().staticMode || HARD_DOWN.has(get().health)) return
     try {
-      await api.cancelSubject('screener', sigId)
+      const { cancelled } = await api.cancelSubject('screener', sigId)
       void get().refreshActiveRuns()
       void get().scRefreshBoard()
-      get().setToast({ msg: `Stopped the checks for ${sigId}`, tone: 'info' })
+      // cancelSubject is idempotent — it returns 200 { cancelled: [] } when nothing matched (it does not
+      // 404), so only claim a stop when one actually happened. A Stop clicked after the run already ended
+      // (or a self-finish race) otherwise shows a false "Stopped the checks" confirmation.
+      if (cancelled.length) get().setToast({ msg: `Stopped the checks for ${sigId}`, tone: 'info' })
     } catch (e: any) {
       if (e?.status === 404) {
         void get().refreshActiveRuns()
