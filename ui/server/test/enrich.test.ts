@@ -882,4 +882,22 @@ await check('listCoveredTickers: a missing analyses/ dir returns [] and never th
   assert.deepEqual(listCoveredTickers(root), [])
 })
 
+// ---- #189 (Codex r3554318226): a letterhead ADDRESS can contain the bare word "Sub" ("Near Sub Station").
+// The colonless-"Sub" fallback must not anchor on that and return an address tail; the "Dear Sir/Madam"
+// salutation is tried first, so the normal cover-letter shape isolates the real disclosure. Expected value
+// pinned to §4 (the disclosure body after the salutation is the primary matter), asserted on body-only tokens.
+await check('bestFallbackSummary: an address "Near Sub Station" does not anchor the colonless-Sub strip; the salutation body wins', () => {
+  const fi = (headline: string) => ({
+    headline, input_nature: 'exchange_announcement', source_tier: 'primary_filing',
+    domain: 'www.bseindia.com', url: 'https://www.bseindia.com/xml-data/corpfiling/AttachLive/subst.pdf',
+  })
+  const head = 'ACME Limited Regd. Office Plot 7 Near Sub Station Road Bengaluru 560001 Tel +91 80 1234 5678 ' +
+    'CIN L12345KA1990PLC000111 Scrip Code 500001 To BSE Limited Dalal Street Mumbai '
+  const body = 'Dear Sir/Madam, We wish to inform the Exchange that Mr R K Sharma has resigned as Chief Financial ' +
+    'Officer with effect from the close of business today, and the Board has commenced a search for a successor.'
+  const out = bestFallbackSummary('', head + body, fi('ACME LTD: General Updates'), false, true)
+  assert.ok(/resigned as Chief Financial Officer/i.test(out), `the disclosure body after the salutation must win, got: ${out}`)
+  assert.ok(!/Sub Station|Scrip Code|Dalal Street|1234 5678|^\/?Madam/i.test(out), `an address tail / letterhead must not leak, got: ${out}`)
+})
+
 console.log(`\n${passed} checks passed`)

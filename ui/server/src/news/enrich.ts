@@ -554,14 +554,20 @@ function stripLetterhead(text: string): string {
   // so "Sub-committee" / "Sub-division" in a cover page is not mistaken for the "Sub-" subject boundary.
   const subj = /\b(?:sub|subject)\b\s*\.?\s*(?::|[-–](?=\s))\s*/i.exec(t)
   if (subj) { const tail = t.slice(subj.index + subj[0].length).trim(); if (tail.length >= 40) return tail }
+  // The "Dear Sir/Madam" salutation is an UNAMBIGUOUS boundary — try it BEFORE the loose colonless "Sub"
+  // fallback below. A letterhead address can contain the bare word "Sub" ("Near Sub Station", "Sub Post
+  // Office"), and the colonless matcher would anchor on THAT and return an address tail; anchoring on the
+  // salutation first makes the normal cover-letter shape ("…address… Dear Sir/Madam, <disclosure>") isolate
+  // the real matter instead (Codex #189 r3554318226). The colonless "Sub" is only reached when there is no
+  // salutation at all (the Adani-QIP shape, where PDF extraction dropped both the ":" and the salutation).
+  const dear = /\bdear\s+(?:sir\s*\/?\s*madam|madam|sirs|sir)\b[,:]?\s*/i.exec(t)
+  if (dear) { const tail = t.slice(dear.index + dear[0].length).trim(); if (tail.length >= 40) return tail }
   // PDF text extraction sometimes drops the ":" after "Sub" (the Adani-QIP shape: "Sub Qualified institutions
   // placement …"). Accept a colonless "Sub" / "Sub." label — the ABBREVIATION only (\bsub\b excludes "subject",
   // "submitted", "subsidiary"), and only when real body text (a letter/digit) follows, so ordinary prose that
   // merely contains the word "subject" can never be mistaken for the disclosure boundary.
   const subBare = /\bsub\b\.?\s+(?=[A-Za-z0-9])/i.exec(t)
   if (subBare) { const tail = t.slice(subBare.index + subBare[0].length).trim(); if (tail.length >= 40) return tail }
-  const dear = /\bdear\s+(?:sir|madam|sir\s*\/?\s*madam|sirs)\b[,:]?\s*/i.exec(t)
-  if (dear) { const tail = t.slice(dear.index + dear[0].length).trim(); if (tail.length >= 40) return tail }
   const ref = /\bref\b\s*[:\-–]\s*/i.exec(t)
   if (ref) { const tail = t.slice(ref.index + ref[0].length).trim(); if (tail.length >= 40) return tail }
   return ''
