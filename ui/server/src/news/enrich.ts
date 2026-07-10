@@ -517,17 +517,106 @@ function ttlFor(r: EventEnrichment): number {
   return isEnrichmentComplete(r) ? CACHE_TTL_MS : DEGRADED_TTL_MS
 }
 
+/** Cover-page letterhead (registered address, CIN, phone/fax, website, scrip/ISIN codes) clusters near the
+ *  START of a BSE/NSE filing's PDF text — real disclosure prose never does. Scopes the letterhead-floor
+ *  override below to filings whose extracted text actually IS a cover page, not every BSE/NSE filing: a
+ *  filing with a generic title (e.g. "General Updates", "Newspaper Publication") can open directly with the
+ *  real update, and that body must still compete instead of being discarded for the terse floor (Codex
+ *  review on #189). Matches on the Adani-QIP letterhead fixture: CIN, Registered Office, Tel/Fax, a website,
+ *  and Scrip Code all cluster in the opening lines of a genuine cover page — real prose rarely carries two. */
+function looksLikeLetterhead(text: string): boolean {
+  const head = text.slice(0, 500)
+  let hits = 0
+  if (/\bCIN[:\s]*[LU]\d{5}[A-Z]{2}\d{4}[A-Z]{3}\d{6}\b/i.test(head)) hits++
+  if (/\bregd\.?\s*office\b|\bregistered\s+office\b/i.test(head)) hits++
+  if (/\b(?:tel|fax)\b\s*[:.]?\s*\+?\d/i.test(head)) hits++
+  if (/\bwww\.[a-z0-9.-]+\.[a-z]{2,}/i.test(head)) hits++
+  if (/\bscrip\s*code\b/i.test(head)) hits++
+  return hits >= 2
+}
+
+/** Isolate the real disclosure body from a filing PDF's opening cover-page letterhead. Indian SEBI-LODR
+ *  cover letters carry the matter after a "Sub:/Subject:/Ref:" line, or after a "Dear Sir/Madam" salutation
+ *  — take the text from the first such anchor so the body that follows the letterhead is preserved and can
+ *  compete, instead of discarding the whole lede for the terse headline floor (Codex review on #189). A
+ *  genuine cover page with NEITHER anchor is pure boilerplate with no isolable body → returns '' (the caller
+ *  keeps the headline floor). Deliberately anchor-based, NOT "drop leading letterhead lines": an issuer
+ *  ADDRESS block carries none of the letterhead keywords, so a line-dropping heuristic would leak it — the
+ *  anchor is the only reliable boundary between the cover page and the disclosure. */
+function stripLetterhead(text: string): string {
+  const t = text.replace(/\s+/g, ' ').trim()
+  // Sub/Subject is the actual disclosure boundary. Try it FIRST — a cover letter's "Ref:" line (an internal
+  // reference number, often followed by more address/date boilerplate) sits ABOVE "Sub:" and is not itself
+  // the subject boundary, so anchoring on whichever comes first (Codex review on #189) can return a tail that
+  // still starts mid-boilerplate. Only fall back to "Ref:" when there is no Sub/Subject or salutation anchor
+  // at all — some cover letters label the subject line "Ref:" instead.
+  // Separator is a colon, or a dash/en-dash FOLLOWED BY whitespace ("Sub - …") — never a word-joining hyphen,
+  // so "Sub-committee" / "Sub-division" in a cover page is not mistaken for the "Sub-" subject boundary.
+  const subj = /\b(?:sub|subject)\b\s*\.?\s*(?::|[-–](?=\s))\s*/i.exec(t)
+  if (subj) { const tail = t.slice(subj.index + subj[0].length).trim(); if (tail.length >= 40) return tail }
+  // The salutation is checked BEFORE the colonless "Sub" fallback below: a cover-page ADDRESS line can itself
+  // contain the bare word "sub" (e.g. "Near Sub Station Road" — a landmark, not a subject label), which sits
+  // ABOVE the salutation in a real letter. Anchoring on that bare "sub" first would return a tail starting
+  // mid-address ("Station Road …") instead of the disclosure after "Dear Sir/Madam" (Codex review on #189).
+  // "Dear Sir/Madam" is a much stronger, less ambiguous boundary, so it takes priority whenever present.
+  const dear = /\bdear\s+(?:sir|madam|sir\s*\/?\s*madam|sirs)\b[,:]?\s*/i.exec(t)
+  if (dear) { const tail = t.slice(dear.index + dear[0].length).trim(); if (tail.length >= 40) return tail }
+  // PDF text extraction sometimes drops the ":" after "Sub" (the Adani-QIP shape: "Sub Qualified institutions
+  // placement …"). Accept a colonless "Sub" / "Sub." label — the ABBREVIATION only (\bsub\b excludes "subject",
+  // "submitted", "subsidiary"), and only when real body text (a letter/digit) follows, so ordinary prose that
+  // merely contains the word "subject" can never be mistaken for the disclosure boundary. Tried only after the
+  // salutation anchor above, since a bare "sub" can appear earlier in an address landmark (see above).
+  const subBare = /\bsub\b\.?\s+(?=[A-Za-z0-9])/i.exec(t)
+  if (subBare) { const tail = t.slice(subBare.index + subBare[0].length).trim(); if (tail.length >= 40) return tail }
+  const ref = /\bref\b\s*[:\-–]\s*/i.exec(t)
+  if (ref) { const tail = t.slice(ref.index + ref[0].length).trim(); if (tail.length >= 40) return tail }
+  return ''
+}
+
 /** When the LLM read isn't available, show the MOST substantial real text we already hold — not whatever
  *  comes first. The og:description is frequently a vague marketing dek ("there's one theme you can't
  *  ignore"); the RSS lede is frequently the real opening paragraph. Prefer the longest genuine prose of the
- *  two, falling back to the deterministic story floor. (A filing has no readable body → straight to floor.) */
-export function bestFallbackSummary(pageHtml: string, snippet: string, filingInput: StoryFloorInput, bodylessFiling: boolean): string {
+ *  two, falling back to the deterministic story floor. (A filing has no readable body → straight to floor.)
+ *
+ *  filingIsAttachment = the disclosure is a BSE/NSE or PDF/exchange ATTACHMENT (not a fetchable article
+ *  page). Its document OFTEN opens with cover-page letterhead — the issuer's registered address, CIN,
+ *  phone/fax, website, scrip codes — NEVER the disclosure, yet it is long and prose-like, so the "longest
+ *  genuine prose wins" ranking below would surface THAT boilerplate over the parsed subject (the Adani-QIP
+ *  defect). For these filings, once the extracted text actually looks like a cover page (looksLikeLetterhead),
+ *  the letterhead is STRIPPED (stripLetterhead) so the real disclosure body that follows — a "Sub:/Ref:"
+ *  line or the text after a salutation — still competes below; a pure cover page with no isolable body
+ *  reduces to '' and the headline floor wins the sort (story-floor.ts / §27). This preserves body-only facts
+ *  for generic-title filings ("General Updates" whose PDF is letterhead + the real update) instead of
+ *  discarding them for the terse floor (Codex review on #189). A BSE/NSE filing whose text is NOT a cover
+ *  page (a generic title opening directly with the real update) is untouched and competes as-is.
+ *  Deliberately NOT keyed on merely "we read a document": an ASX announcement (fetched via its documentKey,
+ *  and whose PDF opens with the real announcement text, not letterhead) has filingIsAttachment=false, so its
+ *  genuine content still competes — as does a regulator PRESS RELEASE (a readable article, no document). */
+export function bestFallbackSummary(pageHtml: string, snippet: string, filingInput: StoryFloorInput, bodylessFiling: boolean, filingIsAttachment = false): string {
   const floor = storyFloor(filingInput).summary
   if (bodylessFiling) return floor
+  // A BSE/NSE- or PDF-attachment filing whose extracted text actually IS cover-page letterhead → strip the
+  // boilerplate so the real disclosure body that follows still competes below, rather than discarding the
+  // whole lede for the terse floor. A pure cover page (no isolable body) strips to '' → the floor wins the
+  // sort, so letterhead can never leak. (isFilingEvent is a belt-and-braces guard — the attachment signal
+  // already implies a filing.) A filing whose text is NOT a cover page falls through untouched.
+  let lede = String(snippet || '')
+  let strippedBody = ''
+  if (filingIsAttachment && isFilingEvent(filingInput) && looksLikeLetterhead(lede)) {
+    strippedBody = stripLetterhead(lede)
+    lede = strippedBody
+  }
+  // A disclosure body we deliberately isolated from cover-page letterhead is the filing's OWN words — the
+  // primary source (§4) — and must outrank the deterministic headline floor even when it is SHORTER than
+  // that floor. A one-line "Mr X has resigned as CFO with effect from today" after the letterhead must not
+  // lose the length sort to the terse "from the headline: …" restatement and drop the body-only fact (Codex
+  // review on #189, discussion_r3551546331). stripLetterhead already removed the letterhead, so a non-empty
+  // return is real disclosure prose (≥40 chars) — never letterhead, so this can't leak the cover page.
+  if (strippedBody && /[a-z][a-z ,;:'"-]{12,}/i.test(strippedBody)) return strippedBody.slice(0, 600)
   // the real article prose (extractReadable) is preferred over the often-vague og:description dek — so a
   // fetched page shows its genuine opening even when no LLM was available to summarise it.
   const readable = pageHtml ? extractReadable(pageHtml) : ''
-  const cands = [String(snippet || ''), readable, pageHtml ? extractSummary(pageHtml) || '' : '']
+  const cands = [lede, readable, pageHtml ? extractSummary(pageHtml) || '' : '']
     .map((s) => s.trim())
     .filter((s) => s.length >= 40 && /[a-z][a-z ,;:'"-]{12,}/i.test(s)) // real prose, not a code/stub
   // The deterministic floor (an honest "couldn't open the body — from the headline: …" restatement) is
@@ -915,6 +1004,13 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
   // release (FCA / SEC press / etc.) is a readable article — still read its body. So we skip the read
   // only for these, and let every other "filing" fall through to a normal body read.
   const bodylessFiling = filing && (/(^|\.)(bseindia|nseindia)\.com$/.test(host) || /\.(?:pdf|xlsx?|docx?|zip)(?:[?#]|$)/i.test(url))
+  // The cover-page LETTERHEAD that must never outrank the headline floor (the Adani-QIP defect) is a BSE/NSE
+  // phenomenon — page 1 is the issuer's registered address / CIN / scrip codes, not the disclosure. A direct
+  // PDF on ANOTHER exchange (HKEXnews / ASX FILE_LINK) opens with the REAL announcement, so only the Indian-
+  // exchange HOST is letterhead-prone. Scoping the attachment signal to the host (NOT every .pdf, which
+  // `bodylessFiling` also catches) keeps a successfully-read HKEX/other PDF body from being discarded for a
+  // generic headline floor — the floor is a last resort; the filing document is the primary source (§4).
+  const letterheadProneFiling = filing && /(^|\.)(bseindia|nseindia)\.com$/.test(host)
   // SEC item parsing applies ONLY to an actual EDGAR filing INDEX page — sec.gov press releases /
   // litigation bulletins are ordinary articles and fall through to the summary extractor.
   const isSec = /(^|\.)sec\.gov$/.test(host) && /\/Archives\/edgar\//i.test(url) && /-index\.html?($|[?#])/i.test(url)
@@ -1028,7 +1124,11 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
     const readHeadline = headlineEn || headline
     // what the no-LLM fallback may lead with: the filing document's own opening beats the RSS lede beats
     // the floor — all real text, never chrome (a junk page contributes NOTHING to the fallback).
-    const fallbackLede = docText ? docText.replace(/\s+/g, ' ').trim().slice(0, 600) : snippet
+    // Keep a wider window than the final 600-char output: a BSE/NSE cover-page letterhead can run past 600
+    // chars before its "Sub:/Ref:" boundary, and stripLetterhead (below, via bestFallbackSummary) needs to see
+    // that boundary to isolate the real body — slicing to 600 here would cut it off first (Codex review on
+    // #189). bestFallbackSummary truncates the FINAL chosen candidate to 600, so nothing downstream regresses.
+    const fallbackLede = docText ? docText.replace(/\s+/g, ' ').trim().slice(0, 4000) : snippet
     const fallbackHtml = pageJunk ? '' : pageHtml
     const bodylessNoDoc = bodylessFiling && !docText // a filing is truly bodyless only when its document didn't read
     let brief: ArticleBrief | null = null
@@ -1051,15 +1151,18 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
       // the brief was read from the filing document itself — label the provenance so the reader knows
       // the story is the announcement's own words, not the (interstitial) page around it (§3/§5)
       if (docText && docRef) result.read_from = { kind: 'filing_doc', url: docRef.docUrl }
-      // read succeeded but produced no gist bullets → back it with the most substantial text we hold, never blank
-      if (!brief!.gist.length) result.summary = bestFallbackSummary(fallbackHtml, fallbackLede, filingInput, bodylessNoDoc)
+      // read succeeded but produced no gist bullets → back it with the most substantial text we hold, never blank.
+      // For a BSE/NSE cover-page filing the document opening is letterhead, which must never outrank the headline
+      // floor (see bestFallbackSummary); pass the letterhead-prone signal (the Indian-exchange HOST), NOT every
+      // .pdf — an HKEX/ASX doc opens with the real announcement, not letterhead, so its content must still compete.
+      if (!brief!.gist.length) result.summary = bestFallbackSummary(fallbackHtml, fallbackLede, filingInput, bodylessNoDoc, letterheadProneFiling)
     } else {
       // NO readable body (a PDF/attachment filing, a JS shell, a paywall, an off-list link) OR the LLM read
       // momentarily missed. Guarantee a meaningful, accurate THE STORY rather than a raw fetch error — and
       // prefer the MOST substantial real text we hold (the filing document's opening, else the RSS lede over
       // the vague og:description dek), then the deterministic floor (never empty, never fabricated). The raw
       // fetch reason is demoted to a hint.
-      result.summary = bestFallbackSummary(fallbackHtml, fallbackLede, filingInput, bodylessNoDoc)
+      result.summary = bestFallbackSummary(fallbackHtml, fallbackLede, filingInput, bodylessNoDoc, letterheadProneFiling)
       if (fetchNote) result.note = fetchNote
     }
 
