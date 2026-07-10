@@ -6,7 +6,7 @@ import { moduleLabel, resolveVerdict } from './format'
 import { displayHeadline, originalHeadline, plainRoute, plainStage } from './plain'
 import type { Theme, ThemeDetail, ThemeBrief } from './themes'
 import { intensityWindowForHours } from './themes'
-import type { ActiveRunLite, AgentNode, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SseEvent, SwarmGraph, SwarmMeta, ThesisPlan, TickerSummary, Usage } from './types'
+import type { ActiveRunLite, AgentNode, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, ThesisPlan, TickerSummary, Usage } from './types'
 import { feedbackInputFromItem, feedbackLabel } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
 import { emptyReviewFilters, matchesReviewFilters, type ReviewFilterState } from '../components/screener/ReviewFilters'
@@ -378,7 +378,8 @@ interface State {
   relaunchSignal: (sigId: string) => Promise<void>
   // resume a stopped/partial signal run from where it left off — reuses the finished orbs on disk and
   // only runs the remaining ones (the gauntlet command skips completed modules). NOT a fresh restart.
-  continueSignal: (sigId: string) => Promise<void>
+  // `until` = continue only THROUGH that stage then stop again (undefined = continue to the end).
+  continueSignal: (sigId: string, until?: string) => Promise<void>
   runSweep: () => Promise<void>
   openPipeline: () => void
   closePipeline: () => void
@@ -395,7 +396,13 @@ interface State {
   scEnsureNewsStream: () => Promise<void>
   scSelectEvent: (it: FeedItem | null) => void
   scFocusCompany: (c: FocusedCompany | null) => void
-  runEventChecks: (it: FeedItem, until?: string) => Promise<void>
+  // `until` = run only THROUGH that stage then stop; `override` = force past a PARK/LOG gate (§ human override).
+  runEventChecks: (it: FeedItem, until?: string, override?: boolean) => Promise<void>
+  // the run-state of the open event's signal (for the "Run the checks" split button + badge). Keyed by
+  // event_id; a lazy READ on open (GET /api/screener/signal-state), refreshed each time the reader opens.
+  scSignalState: Record<string, SignalState | 'loading'>
+  fetchSignalState: (it: FeedItem) => Promise<void>
+  cancelSignalRun: (sigId: string) => Promise<void>
   // shelving: set an event aside (or bring it back) — local, persisted, filters the rail
   shelvedEvents: Set<string>
   toggleShelve: (eventId: string) => void
@@ -616,6 +623,7 @@ export const useStore = create<State>((set, get) => ({
   reviewSubmitting: false,
   coveredTickers: new Set(),
   enrichCache: {},
+  scSignalState: {},
   newsFeedOpen: false,
   sourcesOpen: false,
   newsItems: [],
@@ -2245,7 +2253,7 @@ export const useStore = create<State>((set, get) => ({
   // Run the paid gauntlet straight from a wire event: map the FeedItem to the intake schema and reuse
   // submitSignal (which selects the new signal + animates the orbs). Clearing the read view first means
   // the main stage swaps from the event detail to the constellation as soon as the run begins.
-  runEventChecks: async (it, until) => {
+  runEventChecks: async (it, until, override) => {
     // bail BEFORE tearing down the reader — submitSignal no-ops (toast only) in static/offline, and clearing
     // first would drop the user back to the empty constellation on a confusing no-op, losing their place.
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — runs happen on your machine via npm run dev', tone: 'info' })
@@ -2260,6 +2268,10 @@ export const useStore = create<State>((set, get) => ({
       source_name: it.source_name || undefined,
       input_nature: it.input_nature || 'news_headline',
       body_text: [orig ? `English translation of the headline: ${displayHeadline(it)}` : null, it.triage_reason].filter(Boolean).join('\n') || undefined,
+      // human override: force a PARK/LOG-bound signal past the promotion gate (signal-gate reads this and
+      // routes PROMOTE, recording the override). Only set when the user explicitly picks "Override" — never
+      // by default, so the gauntlet's own routing stands untouched for a normal run.
+      override_promote: override || undefined,
     }, until) // until = target module to run THROUGH then stop (undefined = the full gauntlet)
   },
 
@@ -2395,7 +2407,7 @@ export const useStore = create<State>((set, get) => ({
   // command skips any module whose synthesis is already on disk, so only the remaining orbs actually run).
   // Unlike relaunchSignal (a clean restart), this preserves the done orbs so the constellation picks up
   // exactly where it stopped — 3 done, the rest queued → running.
-  continueSignal: async (sigId) => {
+  continueSignal: async (sigId, until) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — signals run on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
     set({ launchPending: { key: `continue:${sigId}`, label: `Resuming ${sigId}…`, ticker: sigId } })
@@ -2403,7 +2415,9 @@ export const useStore = create<State>((set, get) => ({
       // make sure we hold the authoritative finished-orb set from disk before relaunching
       if (get().scSelectedSignal !== sigId || !Object.keys(get().scRuntime).length) await get().scSelectSignal(sigId)
       const done = { ...get().scRuntime } // the orbs already finished (loaded from disk / frozen from the stop)
-      const { runId } = await api.launchSignal({ sigId })
+      // `until` continues only THROUGH the named module then stops again (a staged partial); undefined runs
+      // the rest of the gauntlet to the end. The gauntlet skips modules already on disk either way.
+      const { runId } = await api.launchSignal({ sigId, until })
       // keep finished orbs as-is; re-queue everything else under the new runId so they animate as they run
       const rt: Record<string, NodeRuntime> = {}
       for (const k of get().scNodesByKey.keys()) rt[k] = done[k]?.status === 'done' ? done[k] : { status: 'queued', runId }
@@ -2415,6 +2429,47 @@ export const useStore = create<State>((set, get) => ({
       get().setToast({ msg: e?.message ? String(e.message) : 'Could not resume the checks', tone: e?.body?.code ? 'info' : 'bad' })
     } finally {
       set({ launchPending: null })
+    }
+  },
+
+  // Read (and cache) the run-state of an opened event's signal, so the "Run the checks" split button can pick
+  // the right primary action + status badge. A lazy GET keyed by event_id, refreshed on each open. The server
+  // derives the SIG-id the SAME way a launch would (headline|url|today) and reports never / running / parked /
+  // logged / watchlist / partial / complete. Read-only: touches no run, spends nothing. Never throws into UI.
+  fetchSignalState: async (it) => {
+    const key = it.event_id
+    if (get().scSignalState[key] === 'loading') return // a read is already in flight for this event
+    set({ scSignalState: { ...get().scSignalState, [key]: 'loading' } })
+    try {
+      // api.signalState short-circuits to { state:'never' } in static/offline, so no mode guard is needed here
+      const st = await api.signalState({ headline: it.headline, sourceUrl: it.url || undefined })
+      set({ scSignalState: { ...get().scSignalState, [key]: st } })
+    } catch {
+      // don't leave a stuck 'loading' (the button would spin forever) — drop the key so a reopen retries;
+      // the split button falls back to its default "Run all checks" primary whenever state is absent.
+      const m = { ...get().scSignalState }
+      delete m[key]
+      set({ scSignalState: m })
+    }
+  },
+
+  // Stop an in-flight signal run from the split button's "Cancel" action. Cancels by SUBJECT (every run for
+  // this SIG-id), mirroring cancelRun's subject path, then reconciles the live set + the board so the badge
+  // and the constellation reflect the stop. Best-effort: a 404 means it already ended (success, not failure).
+  cancelSignalRun: async (sigId) => {
+    if (get().staticMode || HARD_DOWN.has(get().health)) return
+    try {
+      await api.cancelSubject('screener', sigId)
+      void get().refreshActiveRuns()
+      void get().scRefreshBoard()
+      get().setToast({ msg: `Stopped the checks for ${sigId}`, tone: 'info' })
+    } catch (e: any) {
+      if (e?.status === 404) {
+        void get().refreshActiveRuns()
+        void get().scRefreshBoard()
+        return
+      }
+      get().setToast({ msg: `Couldn't stop the run: ${e?.message || 'the request failed'}`, tone: 'bad' })
     }
   },
 

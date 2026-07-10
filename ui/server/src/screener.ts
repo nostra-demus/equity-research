@@ -240,6 +240,58 @@ export function screenerRunManifest(sigId: string) {
   }
 }
 
+export type SignalRunState = 'never' | 'running' | 'parked' | 'logged' | 'watchlist' | 'partial' | 'complete'
+export interface SignalStateResult {
+  sigId: string
+  state: SignalRunState
+  running: boolean
+  runningModule?: string | null
+  materiality?: number | null
+  routing?: string | null
+  locked?: boolean
+  hasCandidates?: boolean
+  doneModules?: string[]
+}
+
+/** Derive the run state of a signal (by its SIG-id) for the cockpit's "Run the checks" control — a pure
+ *  READ over the run folder + the live-run registry, never a launch. `never` when no folder exists;
+ *  `running` when a live screener run owns the id; otherwise the terminal/partial verdict is read from the
+ *  on-disk records: signal_payload.routing (PROMOTE/PARK/LOG) gates first, then thesis_record.meta.locked
+ *  + candidates.json presence separate a locked-and-complete idea from a locked watchlist, and a PROMOTEd
+ *  but not-yet-locked run is a partial (a deliberate stop-after, or a break). Field names mirror the
+ *  committed signal_payload.json / thesis_record.json schemas. */
+export function deriveSignalState(sigId: string): SignalStateResult {
+  const live = listRuns().find(
+    (r) => r.swarmId === 'screener' && r.subjectId === sigId && (r.status === 'starting' || r.status === 'running'),
+  )
+  if (live) return { sigId, state: 'running', running: true, runningModule: (live as { module?: string }).module ?? null }
+
+  let man: ReturnType<typeof screenerRunManifest>
+  try {
+    man = screenerRunManifest(sigId)
+  } catch {
+    return { sigId, state: 'never', running: false } // ENOENT (no folder) or unreadable → treat as never-run
+  }
+
+  const sp = man.signalPayload as { routing?: string; materiality_score?: number } | null
+  const tr = man.thesisRecord as { meta?: { locked?: boolean; status?: string } } | null
+  const routing0 = sp?.routing ?? null // PROMOTE | PARK | LOG
+  const materiality = typeof sp?.materiality_score === 'number' ? sp.materiality_score : null
+  const locked = tr?.meta?.locked === true
+  const hasCandidates = !!man.candidates
+  const doneModules = Object.entries(man.modules)
+    .filter(([, agents]) => agents.some((a) => /(^|\/)99_/.test(a.agentKey)))
+    .map(([mod]) => mod)
+
+  let state: SignalRunState
+  if (routing0 === 'PARK') state = 'parked'
+  else if (routing0 === 'LOG' || routing0 === 'SUPPRESS') state = 'logged'
+  else if (locked) state = hasCandidates ? 'complete' : 'watchlist'
+  else state = 'partial' // PROMOTEd (gate passed) but not yet locked — a stop-after, mid-run, or break
+
+  return { sigId, state, running: false, materiality, routing: tr?.meta?.status ?? routing0, locked, hasCandidates, doneModules }
+}
+
 // A screener markdown output (for the cockpit's reader panel) — sandboxed to screener/.
 export function readScreenerMarkdown(relPath: string): { path: string; markdown: string } {
   if (!relPath.endsWith('.md')) throw new Error('only .md outputs are served')
