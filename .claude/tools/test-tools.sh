@@ -46,38 +46,95 @@ else:
 sys.exit(0 if ok else 1)
 PY
 
-echo "== full.md finish-gate: idempotent rerun cycle (fail -> stamp -> fix -> strip) =="
+echo "== full.md finish-gate: scenario-math PARITY with eval check M (long + short) + idempotent stamp/strip =="
 "$PY" - "$DIR/../commands/research/full.md" <<'PY' || rc=1
 import re, json, os, tempfile, subprocess, sys, shutil
 full=open(sys.argv[1]).read()
 m=re.search(r'python3 - "<RUN_ROOT>" <<.PY.\n(.*?)\nPY\n```', full, re.S)
 if not m: print("  FAIL: could not extract the finish-gate script from full.md"); sys.exit(1)
 d=tempfile.mkdtemp(); gp=os.path.join(d,"gate.py"); open(gp,"w").write(m.group(1))
-dr={"expected_return_pct":99.0,"entry_price":100,"decision_date":"2026-07-01","thesis_type":["Company-specific"],
-    "scenarios":[{"probability":50,"return_pct":10,"price_target":110},{"probability":50,"return_pct":-10,"price_target":90}],
-    "confidence_score":50,"data_sufficiency_score":60,"notes":"x"}
-json.dump(dr, open(os.path.join(d,"decision_record.json"),"w"))
-open(os.path.join(d,"final_thesis.md"),"w").write("# Thesis\n\nReal body content.\n")
 MARK="PROVISIONAL — the automated finish-gate"
-r1=subprocess.run([sys.executable,gp,d],capture_output=True,text=True).stdout; b1=open(os.path.join(d,"final_thesis.md")).read()
-ok = ("PROVISIONAL" in r1) and (MARK in b1)                                  # fail -> banner stamped
-dr["expected_return_pct"]=0.0; json.dump(dr, open(os.path.join(d,"decision_record.json"),"w"))
-r2=subprocess.run([sys.executable,gp,d],capture_output=True,text=True).stdout; b2=open(os.path.join(d,"final_thesis.md")).read()
-ok = ok and ("PASS" in r2) and (MARK not in b2) and ("Real body content." in b2)  # fixed -> banner stripped, body intact
-print("  PASS: stamps on fail, strips on pass, body preserved" if ok else f"  FAIL: r1={r1.strip()!r} r2={r2.strip()!r} banner_after={MARK in b2}")
+BASE={"decision_date":"2026-07-01","thesis_type":["Company-specific"],"confidence_score":50,"data_sufficiency_score":60,"notes":"x"}
+def gate(rec, body="# Thesis\n\nReal body content.\n"):
+    json.dump(rec, open(os.path.join(d,"decision_record.json"),"w"))
+    open(os.path.join(d,"final_thesis.md"),"w").write(body)
+    out=subprocess.run([sys.executable,gp,d],capture_output=True,text=True).stdout
+    return out, open(os.path.join(d,"final_thesis.md")).read()
+ok=True
+def expect(name, rec, should_pass):
+    global ok
+    out,b=gate(dict(rec))
+    passed=("GATE: PASS" in out) and (MARK not in b); prov=("PROVISIONAL" in out) and (MARK in b)
+    if not (passed if should_pass else prov): ok=False; print(f"  FAIL {name}: out={out.strip()!r}")
+# LONG — entry 100, bull/base/bear = 150/125/90 (25/50/25), returns +50/+25/-10: ER=Sum=22.5, pwt=122.5,
+#   ER_from_target=22.5, rr=(122.5-100)/(100-90)=2.25, downside=-min(50,25,-10)=+10, MoS=(base 125 -100)/125=+20
+LONG={**BASE,"decision":"Buy","entry_price":100,"expected_return_pct":22.5,"risk_reward":2.25,"downside_risk_pct":10,"margin_of_safety_pct":20,
+      "scenarios":[{"label":"bull","probability":25,"return_pct":50,"price_target":150},
+                   {"label":"base","probability":50,"return_pct":25,"price_target":125},
+                   {"label":"bear","probability":25,"return_pct":-10,"price_target":90}]}
+expect("long all-correct -> PASS", LONG, True)
+expect("long wrong expected_return -> PROVISIONAL", {**LONG,"expected_return_pct":99}, False)
+expect("long wrong risk_reward -> PROVISIONAL", {**LONG,"risk_reward":5.0}, False)
+expect("long wrong downside (sign flip) -> PROVISIONAL", {**LONG,"downside_risk_pct":-10}, False)
+expect("long MISSING downside -> PROVISIONAL (fail-when-omitted)", {k:v for k,v in LONG.items() if k!="downside_risk_pct"}, False)
+expect("long wrong margin_of_safety -> PROVISIONAL", {**LONG,"margin_of_safety_pct":50}, False)
+# ER-from-target: returns sum to the headline (Sum=15) but the price_targets imply a different ER (pwt=122.5 ->
+#   ER_from_target=22.5). rr/downside/MoS are left consistent so ONLY the ER-from-target cross-check fires.
+ERT={**BASE,"decision":"Buy","entry_price":100,"expected_return_pct":15,"risk_reward":2.25,"downside_risk_pct":10,"margin_of_safety_pct":20,
+     "scenarios":[{"label":"bull","probability":25,"return_pct":30,"price_target":150},
+                  {"label":"base","probability":50,"return_pct":20,"price_target":125},
+                  {"label":"bear","probability":25,"return_pct":-10,"price_target":90}]}
+expect("ER-from-target mismatch (returns vs targets) -> PROVISIONAL", ERT, False)
+# partial price_targets (bear omits it) must FAIL all-or-none, not silently skip the target cross-checks
+expect("partial price_targets -> PROVISIONAL", {**LONG,"scenarios":[
+        {"label":"bull","probability":25,"return_pct":50,"price_target":150},
+        {"label":"base","probability":50,"return_pct":25,"price_target":125},
+        {"label":"bear","probability":25,"return_pct":-10}]}, False)
+# SHORT — entry 100, bull/base/bear = 60/80/120 (30/40/30), returns +40/+20/-20 (position-signed): ER=Sum=14,
+#   pwt=86, worst=max=120, ER_from_target=(100-86)/100=14, rr=(100-86)/(120-100)=0.7, downside=-min(40,20,-20)=+20,
+#   MoS=(base 80 -100)/80=-25 (NEGATIVE — an overvalued short, same formula, no branch)
+SHORT={**BASE,"decision":"Short Candidate","entry_price":100,"expected_return_pct":14,"risk_reward":0.7,"downside_risk_pct":20,"margin_of_safety_pct":-25,
+       "scenarios":[{"label":"bull","probability":30,"return_pct":40,"price_target":60},
+                    {"label":"base","probability":40,"return_pct":20,"price_target":80},
+                    {"label":"bear","probability":30,"return_pct":-20,"price_target":120}]}
+expect("short all-correct (direction-aware, MoS -25) -> PASS", SHORT, True)
+# the exact bug once shipped: applying the LONG price formula (price-bear)/price to a short gives -20, not +20
+expect("short long-formula downside (-20) -> PROVISIONAL", {**SHORT,"downside_risk_pct":-20}, False)
+expect("short wrong risk_reward -> PROVISIONAL", {**SHORT,"risk_reward":2.0}, False)
+# MoS is direction-uniform: a short's correct MoS is NEGATIVE; a long-style +25 must be caught
+expect("short wrong-sign MoS (+25 not -25) -> PROVISIONAL", {**SHORT,"margin_of_safety_pct":25}, False)
+# Codex-review hardening: each fires only its own check.
+# risk_reward null-but-derivable (worst target 90 < entry 100 → adverse) must FAIL, not skip
+expect("risk_reward omitted (derivable) -> PROVISIONAL", {k:v for k,v in LONG.items() if k!="risk_reward"}, False)
+# a present-but-non-numeric price_target (the string "150") must FAIL, not be treated as absent
+expect("string price_target -> PROVISIONAL", {**LONG,"scenarios":[
+        {"label":"bull","probability":25,"return_pct":50,"price_target":"150"},
+        {"label":"base","probability":50,"return_pct":25,"price_target":125},
+        {"label":"bear","probability":25,"return_pct":-10,"price_target":90}]}, False)
+# a non-numeric margin_of_safety_pct must FAIL
+expect("non-numeric MoS ('20%') -> PROVISIONAL", {**LONG,"margin_of_safety_pct":"20%"}, False)
+# a numeric MoS with no base-labelled scenario cannot be re-derived → FAIL
+expect("MoS present but no 'base' scenario -> PROVISIONAL", {**LONG,"scenarios":[
+        {"label":"bull","probability":25,"return_pct":50,"price_target":150},
+        {"label":"mid","probability":50,"return_pct":25,"price_target":125},
+        {"label":"bear","probability":25,"return_pct":-10,"price_target":90}]}, False)
+# idempotency: fail stamps, fix strips, body preserved
+o1,b1=gate({**LONG,"expected_return_pct":99}); staged=("PROVISIONAL" in o1) and (MARK in b1)
+o2,b2=gate(LONG); stripped=("GATE: PASS" in o2) and (MARK not in b2) and ("Real body content." in b2)
+if not (staged and stripped): ok=False; print(f"  FAIL idempotent stamp/strip: staged={staged} stripped={stripped}")
+print("  PASS: long+short parity (ER/ER-from-target/risk_reward/downside/MoS); all-or-none + non-numeric targets; risk_reward & downside fail-when-omitted; MoS non-numeric / not-re-derivable / wrong-sign + long-formula-on-short caught; idempotent stamp/strip" if ok else "  -> finish-gate parity test FAILED")
 shutil.rmtree(d); sys.exit(0 if ok else 1)
 PY
 
-echo "== eval.md check M: direction-aware risk/reward (short vs long) =="
-# RETIRED (was extracting a code block from eval.md that no longer exists): check M's scenario-math
-# reconciliation — including the direction-aware short/long risk-reward inversion — was refactored OUT of
-# an embedded eval.md snippet into scripts/eval.py's inline gate (see eval.py "M scenario-math
-# reconciliation", ~L1426-1472), which CI runs via `python3 scripts/eval.py all`. Pinning a deleted
-# snippet is wrong, and eval.py takes no external folder to repoint at. COVERAGE NOTE: eval.py's check M
-# is not yet driven fixture-free by `eval.py selftest` (unlike checks W/X/Y/Z), and no committed run is a
-# Short Candidate — so the direction-aware SHORT path wants a dedicated selftest case (separate follow-up:
-# extract check M to a module-level fn like W/X/Y/Z and add short/long selftest cases).
-echo "  SKIP: check M lives in scripts/eval.py now (run by 'eval.py all' in CI) — see note above"
+echo "== eval.md check M: direction-aware risk/reward + downside (short vs long) =="
+# check M's scenario-math reconciliation lives in scripts/eval.py, exercised by `eval.py all` on committed run
+# fixtures (NOT fixture-free here). The FINISH-GATE PARITY test above tests the full.md Step-10B gate — a CLOSE
+# mirror of check M (same ER / ER-from-target / risk_reward / downside / MoS math, long + short) — but it is a
+# SEPARATE implementation, so this section does NOT test eval.py's own check M and must not claim to: a regression
+# in eval.py's short path would not be caught here. The two are close but not byte-identical (the eval side also
+# date-gates the MoS "required-when-derivable" rule). A dedicated fixture-free `eval.py selftest` case for check M
+# (extract to a module-level fn like W/X/Y/Z, drive long + short) remains a follow-up.
+echo "  SKIP: eval.py check M is covered by 'eval.py all' on committed fixtures; the finish-gate MIRROR (a separate impl) is tested above — this does NOT test eval.py's own check M"
 
 echo "== valuation canonical-definition regression guard (prompt-lint — weaker than the code tests above; born from the PR#10 review) =="
 # Guards the SPECIFIC cross-file drift the PR#10 review found: margin-of-safety re-defined as
