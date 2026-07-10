@@ -338,6 +338,9 @@ dr = os.path.join(run, "decision_record.json"); ft = os.path.join(run, "final_th
 viol = []
 try: d = json.load(open(dr))
 except Exception as e: print("GATE: ERROR — decision_record.json unreadable:", e); sys.exit(0)
+# _isnum mirrors eval.py isnum() (numeric, bool excluded); shared by the scenario-math block below AND the
+# score-range / data-sufficiency / edge / external-variable checks further down.
+_isnum = lambda v: isinstance(v, (int, float)) and not isinstance(v, bool)
 scen = d.get("scenarios")
 if isinstance(scen, list) and scen:
     try:
@@ -346,14 +349,31 @@ if isinstance(scen, list) and scen:
         er = d.get("expected_return_pct"); calc = sum(p/100.0*r for p, r in zip(probs, rets))
         if isinstance(er, (int, float)) and abs(er - calc) > 1.0:
             viol.append(f"headline expected_return_pct={er} != Sum(p*ret)={round(calc,2)} from scenarios")
+        # PARITY with eval.py check M — this LIVE finish-gate used to re-derive ONLY prob-sum + expected_return,
+        # so a wrong risk_reward / downside_risk_pct shipped clean until a later (CI/manual) eval. Now it mirrors
+        # check M. Direction-aware: a short's adverse case is the price RISING, so worst = max(target) and the
+        # return signs invert — do NOT apply the long price formula to a short.
+        ep = d.get("entry_price"); tgts = [s.get("price_target") for s in scen]
+        short = (d.get("decision") == "Short Candidate")
+        if _isnum(ep) and ep and tgts and all(_isnum(t) for t in tgts):
+            pwt = sum(p/100.0*t for p, t in zip(probs, tgts)); worst = max(tgts) if short else min(tgts)
+            rr = d.get("risk_reward")
+            if _isnum(rr) and (worst > ep if short else ep > worst):
+                crr = ((ep-pwt)/(worst-ep)) if short else ((pwt-ep)/(ep-worst))
+                if abs(rr-crr) > max(0.15, abs(crr)*0.12): viol.append(f"risk_reward={rr} != calc={round(crr,2)} from scenarios")
+        # downside = worst-case (bear) position return, negated: −min(return_pct). Position-signed, so min() is the
+        # worst case for BOTH long and short. A scenarios[] run that leaves downside_risk_pct null (but derivable) FAILs.
+        cdr = -min(rets); dr = d.get("downside_risk_pct")
+        if not _isnum(dr):
+            viol.append(f"downside_risk_pct is null but derivable from scenarios = {round(cdr,2)} — the synthesizer must publish it")
+        else:
+            _flip = (abs(dr) > 0.25 and abs(cdr) > 0.25 and (dr > 0) != (cdr > 0))
+            if abs(dr-cdr) > max(1.0, abs(cdr)*0.05) or _flip: viol.append(f"downside_risk_pct={dr} != -min(scenario return)={round(cdr,2)}")
     except Exception as e: viol.append(f"scenarios[] unparseable: {e}")
 elif d.get("expected_return_pct") is not None:
     viol.append("expected_return_pct is set but scenarios[] is missing — the math cannot be re-derived")
 if d.get("entry_price") is None and not re.search(r"(price|not assessable|paper trade)", (d.get("notes") or "").lower()):
     viol.append("entry_price is null but notes do not flag the missing/indicative price (margin of safety must be Not assessable)")
-# _isnum mirrors eval.py isnum() (numeric, bool excluded); shared by the score-range, data-sufficiency,
-# edge, and external-variable checks below — defined here, before its first use in the score-range loop.
-_isnum = lambda v: isinstance(v, (int, float)) and not isinstance(v, bool)
 for k in ("confidence_score", "data_sufficiency_score"):
     v = d.get(k)
     # [review fix r3481332826] mirror eval.py check E (numeric hygiene, always-apply): a present-but-non-numeric

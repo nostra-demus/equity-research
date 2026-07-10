@@ -46,38 +46,59 @@ else:
 sys.exit(0 if ok else 1)
 PY
 
-echo "== full.md finish-gate: idempotent rerun cycle (fail -> stamp -> fix -> strip) =="
+echo "== full.md finish-gate: scenario-math PARITY with eval check M (long + short) + idempotent stamp/strip =="
 "$PY" - "$DIR/../commands/research/full.md" <<'PY' || rc=1
 import re, json, os, tempfile, subprocess, sys, shutil
 full=open(sys.argv[1]).read()
 m=re.search(r'python3 - "<RUN_ROOT>" <<.PY.\n(.*?)\nPY\n```', full, re.S)
 if not m: print("  FAIL: could not extract the finish-gate script from full.md"); sys.exit(1)
 d=tempfile.mkdtemp(); gp=os.path.join(d,"gate.py"); open(gp,"w").write(m.group(1))
-dr={"expected_return_pct":99.0,"entry_price":100,"decision_date":"2026-07-01","thesis_type":["Company-specific"],
-    "scenarios":[{"probability":50,"return_pct":10,"price_target":110},{"probability":50,"return_pct":-10,"price_target":90}],
-    "confidence_score":50,"data_sufficiency_score":60,"notes":"x"}
-json.dump(dr, open(os.path.join(d,"decision_record.json"),"w"))
-open(os.path.join(d,"final_thesis.md"),"w").write("# Thesis\n\nReal body content.\n")
 MARK="PROVISIONAL — the automated finish-gate"
-r1=subprocess.run([sys.executable,gp,d],capture_output=True,text=True).stdout; b1=open(os.path.join(d,"final_thesis.md")).read()
-ok = ("PROVISIONAL" in r1) and (MARK in b1)                                  # fail -> banner stamped
-dr["expected_return_pct"]=0.0; json.dump(dr, open(os.path.join(d,"decision_record.json"),"w"))
-r2=subprocess.run([sys.executable,gp,d],capture_output=True,text=True).stdout; b2=open(os.path.join(d,"final_thesis.md")).read()
-ok = ok and ("PASS" in r2) and (MARK not in b2) and ("Real body content." in b2)  # fixed -> banner stripped, body intact
-print("  PASS: stamps on fail, strips on pass, body preserved" if ok else f"  FAIL: r1={r1.strip()!r} r2={r2.strip()!r} banner_after={MARK in b2}")
+BASE={"decision_date":"2026-07-01","thesis_type":["Company-specific"],"confidence_score":50,"data_sufficiency_score":60,"notes":"x"}
+def gate(rec, body="# Thesis\n\nReal body content.\n"):
+    json.dump(rec, open(os.path.join(d,"decision_record.json"),"w"))
+    open(os.path.join(d,"final_thesis.md"),"w").write(body)
+    out=subprocess.run([sys.executable,gp,d],capture_output=True,text=True).stdout
+    return out, open(os.path.join(d,"final_thesis.md")).read()
+ok=True
+def expect(name, rec, should_pass):
+    global ok
+    out,b=gate(dict(rec))
+    passed=("GATE: PASS" in out) and (MARK not in b); prov=("PROVISIONAL" in out) and (MARK in b)
+    if not (passed if should_pass else prov): ok=False; print(f"  FAIL {name}: out={out.strip()!r}")
+# LONG — entry 100, targets 130/90, returns +30/-10 (50/50): ER=Sum=10, pwt=110, ER_from_target=10,
+#   rr=(110-100)/(100-90)=1.0, downside=-min(30,-10)=+10
+LONG={**BASE,"decision":"Buy","entry_price":100,"expected_return_pct":10,"risk_reward":1.0,"downside_risk_pct":10,
+      "scenarios":[{"probability":50,"return_pct":30,"price_target":130},{"probability":50,"return_pct":-10,"price_target":90}]}
+expect("long all-correct -> PASS", LONG, True)
+expect("long wrong expected_return -> PROVISIONAL", {**LONG,"expected_return_pct":99}, False)
+expect("long wrong risk_reward -> PROVISIONAL", {**LONG,"risk_reward":5.0}, False)
+expect("long wrong downside (sign flip) -> PROVISIONAL", {**LONG,"downside_risk_pct":-10}, False)
+expect("long MISSING downside -> PROVISIONAL (fail-when-omitted)", {k:v for k,v in LONG.items() if k!="downside_risk_pct"}, False)
+# SHORT — entry 100, targets 60(win)/120(loss), returns +40/-20 (60/40): ER=Sum=16, pwt=84, worst=max=120,
+#   ER_from_target=(100-84)/100=16, rr=(100-84)/(120-100)=0.8, downside=-min(40,-20)=+20
+SHORT={**BASE,"decision":"Short Candidate","entry_price":100,"expected_return_pct":16,"risk_reward":0.8,"downside_risk_pct":20,
+       "scenarios":[{"probability":60,"return_pct":40,"price_target":60},{"probability":40,"return_pct":-20,"price_target":120}]}
+expect("short all-correct (direction-aware) -> PASS", SHORT, True)
+# the exact bug once shipped: applying the LONG price formula (price-bear)/price to a short gives -20, not +20
+expect("short long-formula downside (-20) -> PROVISIONAL", {**SHORT,"downside_risk_pct":-20}, False)
+expect("short wrong risk_reward -> PROVISIONAL", {**SHORT,"risk_reward":2.0}, False)
+# idempotency: fail stamps, fix strips, body preserved
+o1,b1=gate({**LONG,"expected_return_pct":99}); staged=("PROVISIONAL" in o1) and (MARK in b1)
+o2,b2=gate(LONG); stripped=("GATE: PASS" in o2) and (MARK not in b2) and ("Real body content." in b2)
+if not (staged and stripped): ok=False; print(f"  FAIL idempotent stamp/strip: staged={staged} stripped={stripped}")
+print("  PASS: long+short parity (ER/risk_reward/downside), fail-when-omitted, long-formula-on-short caught, idempotent stamp/strip" if ok else "  -> finish-gate parity test FAILED")
 shutil.rmtree(d); sys.exit(0 if ok else 1)
 PY
 
-echo "== eval.md check M: direction-aware risk/reward (short vs long) =="
-# RETIRED (was extracting a code block from eval.md that no longer exists): check M's scenario-math
-# reconciliation — including the direction-aware short/long risk-reward inversion — was refactored OUT of
-# an embedded eval.md snippet into scripts/eval.py's inline gate (see eval.py "M scenario-math
-# reconciliation", ~L1426-1472), which CI runs via `python3 scripts/eval.py all`. Pinning a deleted
-# snippet is wrong, and eval.py takes no external folder to repoint at. COVERAGE NOTE: eval.py's check M
-# is not yet driven fixture-free by `eval.py selftest` (unlike checks W/X/Y/Z), and no committed run is a
-# Short Candidate — so the direction-aware SHORT path wants a dedicated selftest case (separate follow-up:
-# extract check M to a module-level fn like W/X/Y/Z and add short/long selftest cases).
-echo "  SKIP: check M lives in scripts/eval.py now (run by 'eval.py all' in CI) — see note above"
+echo "== eval.md check M: direction-aware risk/reward + downside (short vs long) =="
+# check M's scenario-math reconciliation lives in scripts/eval.py (run by `eval.py all` in CI). Its
+# direction-aware short/long math — ER_from_target, risk_reward, AND downside (incl. the sign) — is now
+# exercised fixture-free by the FINISH-GATE PARITY test above: full.md Step 10B mirrors check M exactly, and
+# that test drives a long AND a short (including the long-formula-applied-to-a-short downside bug). So the
+# short-candidate math path (Codex #185) is under test here. eval.py's OWN check M is the identical mirror;
+# a dedicated `eval.py selftest` case for it (extract to a module-level fn like W/X/Y/Z) remains a follow-up.
+echo "  OK: short/long direction-aware scenario math (ER/risk_reward/downside) covered by the finish-gate parity test above"
 
 echo "== valuation canonical-definition regression guard (prompt-lint — weaker than the code tests above; born from the PR#10 review) =="
 # Guards the SPECIFIC cross-file drift the PR#10 review found: margin-of-safety re-defined as
