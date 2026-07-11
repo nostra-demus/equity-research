@@ -12,6 +12,7 @@ fronted by Cloudflare Access). macOS `launchd` user agents keep it up — **and 
 | `com.nostradamus.caffeinate` | `caffeinate -i` (no idle sleep **on AC AND battery**) | base | ✅ `RunAtLoad` | ✅ `KeepAlive` |
 | `com.nostradamus.tunnel` | `cloudflared tunnel run nostradamus-engine` | **doer** | ✅ `RunAtLoad` | ✅ `KeepAlive` |
 | `com.nostradamus.news-archive` | `news-archive.sh` every 3h | **doer** | ✅ `RunAtLoad` | — |
+| `com.nostradamus.external-ingest` | `ingest_external.py` every 10m — routes `data/EXTERNAL-INBOX/` drops into per-ticker pools (`frameworks/EXTERNAL_DATA.md`) | **doer** | ✅ `RunAtLoad` | — |
 | `com.nostradamus.news-ingester` | `npm run ingest:once` every 15m (opt-in: set `GROQ_API_KEY`) | **doer** | ✅ `RunAtLoad` | — |
 | `com.nostradamus.hk-review` | `housekeeping.sh /research:review-decisions due` daily 06:10 (DUE-gated) | **doer** | — | — |
 | `com.nostradamus.hk-track` | `housekeeping.sh /research:track all` daily 06:30 | **doer** | — | — |

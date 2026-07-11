@@ -1663,12 +1663,15 @@ function broadcastData(fp: string, change: 'added' | 'removed') {
 }
 
 if (fs.existsSync(DATA_DIR)) {
-  // data/ is a Google Drive CloudStorage mount -> polling is the robust choice across the FUSE boundary
+  // data/ is a Google Drive CloudStorage mount -> polling is the robust choice across the FUSE boundary.
+  // depth 3 (not 2): external data lands at data/<T>/external/<provider>/<file> (frameworks/
+  // EXTERNAL_DATA.md) — at depth 2 a file routed into an EXISTING provider folder emits no event at
+  // all (only the folder's own creation did), so the cockpit never heard about later drops.
   const dataWatcher = chokidar.watch(DATA_DIR, {
     ignoreInitial: true,
     usePolling: true,
     interval: 1500,
-    depth: 2,
+    depth: 3,
     awaitWriteFinish: { stabilityThreshold: 2000, pollInterval: 500 },
   })
   dataWatcher.on('add', (f) => broadcastData(f, 'added'))
