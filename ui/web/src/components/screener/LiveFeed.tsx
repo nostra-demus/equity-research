@@ -53,6 +53,18 @@ function BudgetChip({ label, used, cap, unit, color, active, title }: { label: s
   )
 }
 
+// Pick the BINDING dimension for a provider's budget chip — whichever of requests-vs-cap or tokens-vs-cap is
+// closer to its cap — so the bar tells the truth. A provider can be gated on EITHER limit, and which one bites
+// varies by day: a flaky Groq day burns the daily REQUEST cap on retries while token use stays tiny (13k/13k
+// requests, 14k/500k tokens), so a fixed "always show tokens" bar would read ~3% full while the provider is
+// actually out. Compares against the HARD caps; when tokens bind, displays against the paced target if given.
+function bindingDim(b: { requests: number; reqCap: number; tokens: number; tokenCap?: number; tokenTarget?: number }): { used: number; cap: number; unit: string } {
+  const reqFrac = b.reqCap > 0 ? b.requests / b.reqCap : 0
+  const tokFrac = b.tokenCap && b.tokenCap > 0 ? b.tokens / b.tokenCap : -1 // no token cap ⇒ request-gated only
+  if (tokFrac > reqFrac) return { used: b.tokens, cap: b.tokenTarget || b.tokenCap!, unit: 'tok' }
+  return { used: b.requests, cap: b.reqCap, unit: 'req' }
+}
+
 function ScorePill({ score }: { score: number }) {
   const tone = score >= 70 ? 'var(--live)' : score >= 40 ? 'var(--accent-bright)' : 'var(--text-faint)'
   return (
@@ -299,29 +311,36 @@ export function LiveFeed() {
           <ScanStatus variant="panel" />
           {status?.enabled && status.budget && (
             <div className="pipeline__pools">
-              <BudgetChip
-                label="Groq"
-                used={status.budget.tokens}
-                cap={status.budget.tokenTarget || status.budget.tokenCap}
-                unit="tok"
-                color="--accent"
-                title={`Groq daily token budget — paced evenly across the day so it never runs dry by noon. ${kfmt(status.budget.tokens)} of ${kfmt(status.budget.tokenTarget || status.budget.tokenCap)} tokens used today${status.budget.paceCeiling ? ` · ${kfmt(status.budget.paceCeiling)} released so far on the clock schedule` : ''}.`}
-              />
+              {(() => {
+                // show whichever limit is actually biting (requests OR tokens) — Groq has both a daily request
+                // cap and a paced token budget, and either can max out first.
+                const g = bindingDim(status.budget)
+                return (
+                  <BudgetChip
+                    label="Groq"
+                    used={g.used}
+                    cap={g.cap}
+                    unit={g.unit}
+                    color="--accent"
+                    title={`Groq free-tier daily budget. Requests: ${status.budget.requests}/${status.budget.reqCap}. Tokens: ${kfmt(status.budget.tokens)}/${kfmt(status.budget.tokenCap)}${status.budget.tokenTarget ? ` (paced target ${kfmt(status.budget.tokenTarget)})` : ''}. The bar shows whichever is closer to its cap — when either is reached, triage flows to the free pools or defers to the next cycle.`}
+                  />
+                )
+              })()}
               {(status.overflow || []).map((o) => {
-                // TOKEN-gated providers (Cerebras) bind on tokens, not requests — show the chip in its
-                // binding unit so the bar is ground truth, not a non-binding request proxy. Request-gated
-                // providers (OpenRouter/NVIDIA, Gemini) have no tokenCap → show requests, exactly as before.
-                const tokenGated = typeof o.tokenCap === 'number' && o.tokenCap > 0
+                // Show the BINDING limit — a provider can max its request cap before its token cap (e.g. a bad
+                // Groq day burns requests on retries), so a fixed "always tokens" bar would look nearly empty
+                // while the provider is out. bindingDim picks requests or tokens by whichever is closer to cap.
+                const d = bindingDim(o)
                 return (
                   <BudgetChip
                     key={o.id}
                     label={`${o.label} overflow`}
-                    used={tokenGated ? o.tokens : o.requests}
-                    cap={tokenGated ? o.tokenCap! : o.reqCap}
-                    unit={tokenGated ? 'tok' : 'req'}
+                    used={d.used}
+                    cap={d.cap}
+                    unit={d.unit}
                     color={o.color}
-                    active={(tokenGated ? o.tokens : o.requests) > 0}
-                    title={`Free-tier overflow (${o.model}) — picks up triage when Groq is paced or capped, so the day's throughput is Groq + every free pool. ${tokenGated ? `${kfmt(o.tokens)} of ${kfmt(o.tokenCap!)} tokens used today (token-gated — the binding limit; ${o.requests} requests).` : `${o.requests} of ${o.reqCap} requests used today.`}`}
+                    active={o.requests > 0 || o.tokens > 0}
+                    title={`Free-tier overflow (${o.model}) — picks up triage when Groq is paced or capped, so the day's throughput is Groq + every free pool. Requests: ${o.requests}/${o.reqCap}${o.tokenCap ? ` · Tokens: ${kfmt(o.tokens)}/${kfmt(o.tokenCap)}` : ''}. The bar shows whichever is closer to its cap.`}
                   />
                 )
               })}

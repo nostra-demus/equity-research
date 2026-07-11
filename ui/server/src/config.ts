@@ -305,6 +305,17 @@ export const NEWS = {
   // constrained tier (8b-instant is ~$0.05/M tokens, so 500k tokens/day ≈ $0.025 if ever metered).
   groqDailyReqCap: capNum(process.env.NEWS_GROQ_DAILY_REQ_CAP, 13_000),
   groqDailyTokenCap: capNum(process.env.NEWS_GROQ_DAILY_TOKEN_CAP, 500_000),
+  // Cross-cycle Groq COOLDOWN — protects the daily REQUEST cap above from being drained by a sustained
+  // Groq OUTAGE. The in-cycle guard (runCycle groqDownThisCycle) stops re-poking a down Groq WITHIN one
+  // cycle, but the scheduler runs many cycles/day, so with no cross-cycle memory each cycle still burns
+  // one failed probe — and a 429 / timeout still counts as a request. That is exactly what emptied the
+  // budget on 2026-07-11: 13,000/13,000 requests on only ~14,100 tokens (≈1 token/request → almost all
+  // failures). Fix: when a Groq batch fails, persist an "unhealthy until now+cooldown" marker in STATE_DIR
+  // and skip probing Groq (straight to overflow / defer) until it lapses; the first cycle after it lapses
+  // probes once and CLEARS the marker on success. A HEALTHY Groq never arms it, so throughput is
+  // unaffected. Default 300s → at most ~one failed probe per 5 min (≈288/day worst case) instead of
+  // thousands. Tune with NEWS_GROQ_COOLDOWN_SEC.
+  groqCooldownMs: capNum(process.env.NEWS_GROQ_COOLDOWN_SEC, 300) * 1000,
   // Daily-budget PACER. The caps above stop us BUSTING the day's limit; the pacer stops us SPENDING IT
   // ALL AT ONCE. It releases the day's token TARGET on a linear schedule across the UTC day, so a heavy
   // news morning can't drain the budget and leave the afternoon dark — and an explicit buffer is always
