@@ -2885,12 +2885,16 @@ a { color: inherit; }
 
 /* the pulse strip — one compact card per subject above the resting main view */
 .subjectpulse {
-  display: flex; flex-wrap: nowrap; gap: 8px; overflow-x: auto; padding: 10px 14px 8px;
+  display: flex; flex-wrap: nowrap; gap: 8px; overflow-x: auto; padding: 10px 14px 10px;
   /* keep the horizontal gesture on the strip (never nudge browser back/forward), and make the strip's
      scrollability DISCOVERABLE: a persistent thin bar (macOS hides overlay scrollbars until you scroll,
      which is exactly why the overflow read as "stuck") */
   overscroll-behavior-x: contain; scrollbar-width: thin; scrollbar-color: var(--hairline-strong) transparent;
-  flex: 0 0 auto;
+  /* a real top BAND: a crisp bottom divider reads it as chrome above the canvas, so the constellation
+     below (which starts flush at the band's bottom edge) never looks like it's bleeding into the cards.
+     The band itself stays transparent — the cards (surface-1) are the raised chips on it. flex:0 0 auto
+     keeps the band its natural height in the column. */
+  flex: 0 0 auto; border-bottom: 1px solid var(--hairline);
 }
 .subjectpulse::-webkit-scrollbar { height: 6px; }
 .subjectpulse::-webkit-scrollbar-thumb { background: var(--hairline-strong); border-radius: var(--r-pill); }
