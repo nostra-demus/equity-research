@@ -825,9 +825,12 @@ export interface ModulePlanEntry {
   sourceRunRoot?: string // the folder holding this module's newest outputs
   sourceDate?: string // that folder's run vintage (YYYY-MM-DD)
   inTargetRoot: boolean // already in the run root a completion writes into (nothing to carry)
-  doneAgents: number
+  doneAgents: number // orbs the pipeline will REUSE (validity-checked, not counted by filename)
   totalAgents: number
-  staleReason?: string // plain-English "why this needs re-running", shown verbatim
+  staleReason?: string // plain-English "why this needs re-running", shown verbatim (also set for `partial`)
+  blockedBy: string[] // ancestors of this module that are themselves in `run` — it can't launch until they do
+  runnable: boolean // this module can be launched on its own now (in `run`, and nothing upstream is)
+  willRunAgents: number // orbs that would actually execute if it ran now (total minus reused-on-resume)
 }
 
 export interface ThesisPlan {

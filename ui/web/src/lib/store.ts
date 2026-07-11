@@ -333,6 +333,7 @@ interface State {
   closeThesisPlan: () => void
   toggleThesisRerun: (module: string) => void // flip one module between "reuse" and "re-run", then re-price
   completeThesis: () => Promise<void>
+  resumeThesisModule: (module: string) => Promise<void> // the RUN pill — launch one module, resuming its orbs
 
   openReport: (tier: 'memo' | 'thesis' | 'dossier') => Promise<void>
   openModuleReport: (module: string, tier: 'synthesis' | 'memo' | 'dossier') => void
@@ -1438,6 +1439,54 @@ export const useStore = create<State>((set, get) => ({
         return
       }
       set({ thesisPlanError: e?.message || 'Could not start the completion run' })
+    }
+  },
+
+  // The RUN pill on a Run row: launch ONE module now, resuming from the orbs already on disk. Unlike
+  // `completeThesis`, a stale module here is NOT an abort — the server runs it clean and says so (decision
+  // #2), so the client just reflects the done/planned split the server returns.
+  resumeThesisModule: async (module) => {
+    const plan = get().thesisPlan
+    const t = get().selectedTicker
+    if (!plan || !t) return
+    if (plan.swarm !== 'research') return get().setToast({ msg: `Running a single module of a ${plan.swarm} dossier from here isn’t supported yet.`, tone: 'info' })
+    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    const entry = plan.modules.find((m) => m.module === module)
+    if (!entry || !entry.runnable) return // the pill is only pressable when runnable; belt-and-braces
+
+    set({ launchPending: { key: `complete-module:${module}`, label: `Running ${moduleLabel(module)}…`, ticker: t } })
+    try {
+      const { runId, willRun, doneOrbKeys, carried, resumed, ranClean } = await api.runThesisPlanModule(t, module, plan.reuse, plan.swarm)
+
+      // Light up only THIS module's orbs: the ones on disk as done, the rest as queued. Never a false
+      // from-scratch start.
+      const nodes = [...get().nodesByKey.values()].filter((n) => n.module === module)
+      const doneSet = new Set(doneOrbKeys)
+      const doneKeys = nodes.filter((n) => doneSet.has(n.key)).map((n) => n.key)
+      const plannedKeys = nodes.filter((n) => !doneSet.has(n.key)).map((n) => n.key)
+
+      set({ thesisPlanOpen: false, launchPending: null })
+      if (runId) beginRun(set, get, runId, { kind: 'module', module, willCommitToMain: true }, plannedKeys, doneKeys)
+
+      const carriedNote = carried.length ? ` · reused ${carried.length} upstream module${carried.length === 1 ? '' : 's'}` : ''
+      const msg = ranClean
+        ? `Re-running ${moduleLabel(module)} clean on ${t} — newer data landed${carriedNote}`
+        : resumed
+          ? `Resuming ${moduleLabel(module)} on ${t} — ${willRun} orb${willRun === 1 ? '' : 's'} left${carriedNote}`
+          : `Running ${moduleLabel(module)} on ${t} — ${willRun} orb${willRun === 1 ? '' : 's'}${carriedNote}`
+      get().setToast({ msg, tone: 'good' })
+    } catch (e: any) {
+      set({ launchPending: null })
+      const code = e?.body?.code
+      if (code === 'already_complete') {
+        set({ thesisPlanOpen: false })
+        get().setToast({ msg: 'This run already has a final thesis — opening it.', tone: 'info' })
+        void get().openThesis()
+        return
+      }
+      // A transient launch failure must not unmount the plan the user is reading; surface it as a toast and
+      // leave the panel open so they can retry (the carry is idempotent, a retry resumes).
+      get().setToast({ msg: e?.message || `Could not run ${moduleLabel(module)}`, tone: 'bad' })
     }
   },
 

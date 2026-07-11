@@ -70,7 +70,7 @@ write(`analyses/FIN_${TODAY}/alpha/99_alpha-synthesis.md`, '# a\n')
 write(`analyses/FIN_${TODAY}/beta/99_beta-synthesis.md`, '# b\n')
 write(`analyses/FIN_${TODAY}/final_thesis.md`, '# thesis\n')
 
-const { thesisPlan, carryForwardModules, dataPoolNewest } = await import('../src/completion')
+const { thesisPlan, carryForwardModules, dataPoolNewest, prepareModuleResume } = await import('../src/completion')
 
 // ---- 1. cross-folder reuse: the money test -------------------------------------------------------
 {
@@ -427,6 +427,149 @@ const { thesisPlan, carryForwardModules, dataPoolNewest } = await import('../src
   assert.equal(ok.subject, 'RELIANCE.NS')
   assert.deepEqual(ok.reuse, ['alpha'], 'a dotted symbol is a normal subject, not a traversal')
   console.log('✅ hostile subjects are rejected; legal dotted symbols still work')
+}
+
+// ---- 15. runnable / blockedBy: a Run row's pill is only pressable when its upstream is reused, not running -
+{
+  // RUNOK: alpha finished yesterday (reused ancestor), beta partial today's-older-folder (runs, no blocker).
+  write(`analyses/RUNOK_${YESTERDAY}/alpha/99_alpha-synthesis.md`, '# a\n')
+  write(`analyses/RUNOK_${YESTERDAY}/beta/01_beta-thing.md`, '# b\n')
+  poolFile('RUNOK', 'f.pdf', -3)
+  const p = thesisPlan('RUNOK')
+  const alpha = p.modules.find((m) => m.module === 'alpha')!
+  const beta = p.modules.find((m) => m.module === 'beta')!
+  assert.deepEqual(p.reuse, ['alpha'])
+  assert.deepEqual(p.run, ['beta'])
+  assert.deepEqual(beta.blockedBy, [], 'beta’s only ancestor (alpha) is reused, not running → not blocked')
+  assert.equal(beta.runnable, true, 'a partial whose upstream is reused is runnable on its own')
+  assert.equal(alpha.runnable, false, 'a reused module is never runnable')
+
+  // BLK: alpha missing (runs), beta partial (runs). beta waits on alpha.
+  write(`analyses/BLK_${YESTERDAY}/beta/01_beta-thing.md`, '# b\n')
+  poolFile('BLK', 'f.pdf', -3)
+  const q = thesisPlan('BLK')
+  const qa = q.modules.find((m) => m.module === 'alpha')!
+  const qb = q.modules.find((m) => m.module === 'beta')!
+  assert.deepEqual(q.run.sort(), ['alpha', 'beta'])
+  assert.equal(qa.runnable, true, 'a missing module with no ancestors is runnable')
+  assert.deepEqual(qb.blockedBy, ['alpha'], 'beta’s ancestor alpha is itself in the run set → blocked')
+  assert.equal(qb.runnable, false, 'a module whose upstream is still to run cannot be launched alone')
+  console.log('✅ runnable/blockedBy gates the RUN pill on upstream being reused, not running')
+}
+
+// ---- 16. willRunAgents + validAgentOutputs: the count is orbs that RUN, not files on disk -----------------
+{
+  // VALID: beta partial with one VALID orb (has a header) + one EMPTY orb (Step 4A would re-dispatch it).
+  write(`analyses/VALID_${YESTERDAY}/alpha/99_alpha-synthesis.md`, '# a\n')
+  write(`analyses/VALID_${YESTERDAY}/beta/01_beta-thing.md`, '# real orb\n')
+  write(`analyses/VALID_${YESTERDAY}/beta/02_beta-extra.md`, '') // empty → NOT a finished orb
+  poolFile('VALID', 'f.pdf', -3)
+  const beta = thesisPlan('VALID').modules.find((m) => m.module === 'beta')!
+  assert.equal(beta.state, 'partial')
+  assert.equal(beta.doneAgents, 1, 'the empty orb is not counted as done (validity-checked, not filename-counted)')
+  assert.equal(beta.totalAgents, 2, 'graph agent count (specialist + synthesis)')
+  assert.equal(beta.willRunAgents, 1, 'resumable partial runs total − valid-done = 2 − 1')
+
+  // ALLEMPTY: a folder whose only orb is empty is NOT a partial to resume — it reads as missing (run whole).
+  write(`analyses/ALLEMPTY_${YESTERDAY}/beta/01_beta-thing.md`, '')
+  poolFile('ALLEMPTY', 'f.pdf', -3)
+  const eb = thesisPlan('ALLEMPTY').modules.find((m) => m.module === 'beta')!
+  assert.equal(eb.state, 'missing', 'no valid orb on disk → nothing to resume, reads as missing')
+  assert.equal(eb.willRunAgents, 2, 'a missing module runs every orb')
+  console.log('✅ willRunAgents/validAgentOutputs count orbs that actually run, never empty files')
+}
+
+// ---- 17. prepareModuleResume: carries reused ancestors + resumes the module’s own orbs -------------------
+{
+  // RESUME: alpha done yesterday (reused ancestor of beta); beta partial yesterday with one valid orb.
+  write(`analyses/RESUME_${YESTERDAY}/alpha/01_alpha-thing.md`, '# a\n')
+  write(`analyses/RESUME_${YESTERDAY}/alpha/99_alpha-synthesis.md`, '# alpha synthesis\n')
+  write(`analyses/RESUME_${YESTERDAY}/beta/01_beta-thing.md`, '# beta orb one\n')
+  poolFile('RESUME', 'f.pdf', -3)
+
+  const plan = thesisPlan('RESUME')
+  assert.deepEqual(plan.reuse, ['alpha'])
+  assert.deepEqual(plan.run, ['beta'])
+  const beta = plan.modules.find((m) => m.module === 'beta')!
+  assert.equal(beta.runnable, true)
+
+  const res = prepareModuleResume('RESUME', 'beta', undefined, plan)
+  assert.deepEqual(res.carriedAncestors, [{ module: 'alpha', from: `analyses/RESUME_${YESTERDAY}` }], 'the reused ancestor alpha is carried into today’s root')
+  assert.equal(res.resumedFrom, `analyses/RESUME_${YESTERDAY}`, 'the module’s orbs are resumed from the older folder')
+  assert.deepEqual(res.doneOrbKeys, ['beta/01_beta-thing'], 'the finished orb is reported as a node key so the cockpit shows it done')
+  assert.equal(res.willRunAgents, 1, 'total 2 orbs − 1 resumed = 1 orb still to run (the synthesis)')
+
+  // alpha (ancestor) carried in with a CARRIED_FORWARD stamp
+  assert.ok(fs.existsSync(path.join(REPO, `analyses/RESUME_${TODAY}/alpha/99_alpha-synthesis.md`)), 'ancestor synthesis is present in the target root')
+  assert.match(fs.readFileSync(path.join(REPO, `analyses/RESUME_${TODAY}/alpha/CARRIED_FORWARD.md`), 'utf8'), /not re-run/i)
+  // beta’s orb carried in under a RESUMED_FROM stamp — a DIFFERENT marker, so it never dates the module
+  const betaDst = path.join(REPO, `analyses/RESUME_${TODAY}/beta`)
+  assert.ok(fs.existsSync(path.join(betaDst, '01_beta-thing.md')), 'the finished orb is copied into today’s root so Step 4A skips it')
+  const stamp = fs.readFileSync(path.join(betaDst, 'RESUMED_FROM.md'), 'utf8')
+  assert.match(stamp, new RegExp(`resumed-from: analyses/RESUME_${YESTERDAY} \\| run-date: ${YESTERDAY}`), 'the resume stamp records the TRUE origin, machine-readably')
+  assert.doesNotMatch(stamp, /carried-from:/, 'the resume stamp must NOT use the carry key (carriedVintage would back-date the whole module)')
+  assert.doesNotMatch(stamp, /^Agent:/m, 'no stray Agent: line (eval check H)')
+  // the source folder is byte-for-byte untouched — no stamp leaks into it
+  assert.ok(!fs.existsSync(path.join(REPO, `analyses/RESUME_${YESTERDAY}/beta/RESUMED_FROM.md`)), 'the source run folder is never written to')
+  console.log('✅ prepareModuleResume carries ancestors + resumes the module’s orbs under a distinct stamp')
+}
+
+// ---- 17b. resumedVintage: a resumed orb keeps its true vintage and can still go stale --------------------
+{
+  const TWO_AGO = day(-2)
+  // beta resumed INTO today's root from a two-days-ago run (RESUMED_FROM stamp), and data landed TODAY.
+  write(`analyses/RVINT_${TODAY}/alpha/99_alpha-synthesis.md`, '# a\n') // alpha finished today → mustReuse, unblocks beta
+  write(`analyses/RVINT_${TODAY}/beta/01_beta-thing.md`, '# b\n')
+  write(`analyses/RVINT_${TODAY}/beta/RESUMED_FROM.md`, `<!-- resumed-from: analyses/RVINT_${TWO_AGO} | run-date: ${TWO_AGO} -->\n\n# Resumed — beta\n`)
+  poolFile('RVINT', 'new.pdf', 0)
+  const beta = thesisPlan('RVINT').modules.find((m) => m.module === 'beta')!
+  assert.equal(beta.sourceDate, TWO_AGO, 'the resume stamp, not the folder name, dates the orbs')
+  assert.equal(beta.state, 'partial')
+  assert.ok(beta.staleReason, 'orbs resumed from two days ago are stale against a file that landed today')
+  assert.equal(beta.willRunAgents, beta.totalAgents, 'a stale partial runs every orb, never a resume')
+  console.log('✅ a resumed orb keeps its true vintage, so it can still be caught stale (no laundering)')
+}
+
+// ---- 18. prepareModuleResume carries ANCESTORS ONLY — never a reused non-ancestor ------------------------
+{
+  // ANCONLY: beta finished yesterday (reused), alpha missing (runs). alpha has NO ancestors, so running it
+  // must carry nothing — beta is reused but is a DESCENDANT, and carrying it would wrongly lock it in.
+  write(`analyses/ANCONLY_${YESTERDAY}/beta/99_beta-synthesis.md`, '# b\n')
+  poolFile('ANCONLY', 'f.pdf', -3)
+  const plan = thesisPlan('ANCONLY')
+  assert.deepEqual(plan.reuse, ['beta'], 'beta is reused')
+  assert.ok(plan.run.includes('alpha'), 'alpha is missing → runs')
+  const res = prepareModuleResume('ANCONLY', 'alpha', undefined, plan)
+  assert.deepEqual(res.carriedAncestors, [], 'alpha has no ancestors → nothing is carried')
+  assert.ok(!fs.existsSync(path.join(REPO, `analyses/ANCONLY_${TODAY}/beta`)), 'the reused DESCENDANT beta must NOT be carried into the target root')
+  console.log('✅ prepareModuleResume carries only ancestors, never a reused non-ancestor')
+}
+
+// ---- 19. prepareModuleResume runs a STALE partial CLEAN, clearing its orbs from today’s root -------------
+{
+  const TWO_AGO = day(-2)
+  // STCLEAN: alpha finished today (mustReuse, unblocks beta). beta was resumed into today's root from two
+  // days ago, and data landed today → stale. Running beta must DISCARD its today-root orbs and run whole.
+  write(`analyses/STCLEAN_${TODAY}/alpha/99_alpha-synthesis.md`, '# a\n')
+  write(`analyses/STCLEAN_${TODAY}/beta/01_beta-thing.md`, '# stale orb\n')
+  write(`analyses/STCLEAN_${TODAY}/beta/RESUMED_FROM.md`, `<!-- resumed-from: analyses/STCLEAN_${TWO_AGO} | run-date: ${TWO_AGO} -->\n\n# Resumed — beta\n`)
+  poolFile('STCLEAN', 'new.pdf', 0)
+
+  const plan = thesisPlan('STCLEAN')
+  const beta = plan.modules.find((m) => m.module === 'beta')!
+  assert.equal(beta.state, 'partial')
+  assert.ok(beta.staleReason, 'beta is a stale partial (resumed two days ago, data today)')
+  assert.equal(beta.inTargetRoot, true)
+  assert.deepEqual(beta.blockedBy, [], 'alpha is finished in today’s root (mustReuse) → beta is not blocked')
+  assert.ok(plan.run.includes('beta'))
+
+  const res = prepareModuleResume('STCLEAN', 'beta', undefined, plan)
+  assert.equal(res.discardedStaleOrbs, true, 'the stale orbs in today’s root were cleared')
+  assert.equal(res.resumedFrom, null, 'a stale module is NOT resumed')
+  assert.deepEqual(res.doneOrbKeys, [], 'no orb is reported done — the module runs clean')
+  assert.equal(res.willRunAgents, beta.totalAgents, 'every orb runs')
+  assert.ok(!fs.existsSync(path.join(REPO, `analyses/STCLEAN_${TODAY}/beta`)), 'beta’s stale orb folder is gone — the launcher will run it from scratch')
+  console.log('✅ a stale partial is run clean: its target-root orbs are cleared, nothing resumed')
 }
 
 fs.rmSync(REPO, { recursive: true, force: true })
