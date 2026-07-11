@@ -1,11 +1,12 @@
 // Live verifier for the commodity pulse sources (frameworks/commodity/pulse_sources.json). Does
-// EXACTLY what production does — one batched stooq CSV call parsed by the production parseStooqCsv(),
-// and one CFTC Socrata pull parsed against each subject's cot_market_contains substring — so a PASS
-// here means the live /api/swarm/pulse will resolve the same data. Per stooq symbol it reports
-// live / N-D / missing (plus the observed CSV header, since we parse by header name); per COT
-// substring it lists the DISTINCT matching market names in the last 21 days and flags 0 matches
-// (broken substring) or >1 (ambiguous — production picks deterministically, but the substring should
-// ideally be tightened). Informational by default (exit 0); --strict exits 1 on any flag.
+// EXACTLY what production does — ONE batched CNBC restQuote call parsed by the production
+// parseCnbcQuotes(), and one CFTC Socrata pull parsed against each subject's cot_market_contains
+// substring — so a PASS here means the live /api/swarm/pulse will resolve the same data. Per CNBC
+// symbol it reports LIVE (with last/prev/contract name/quote time), MISSING (the batch answered but
+// that symbol carried no usable quote — e.g. the dead @ALI.1 contract), or FAIL (the whole batch
+// HTTP-failed); per COT substring it lists the DISTINCT matching market names in the last 21 days and
+// flags 0 matches (broken substring) or >1 (ambiguous — production picks deterministically, but the
+// substring should ideally be tightened). Informational by default (exit 0); --strict exits 1 on any flag.
 //
 // Run: npx tsx scripts/verify-pulse.ts [pulse_sources.json] [--out results.json] [--strict]
 
@@ -14,24 +15,28 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import {
   loadPulseConfig,
-  parseStooqCsv,
+  parseCnbcQuotes,
   parseCotRows,
-  buildStooqUrl,
+  buildCnbcQuoteUrl,
   buildCotUrl,
+  type CnbcQuote,
 } from '../ui/server/src/news/commodity-pulse'
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const DEFAULT_CONFIG = path.join(REPO_ROOT, 'frameworks', 'commodity', 'pulse_sources.json')
+// One descriptive UA (with a contact) for both sources, mirroring production (commodity-pulse.ts):
+// .gov endpoints require it and CNBC doesn't care.
 const UA = 'nostra-demus-screener/1.0 (ceekay@muns.io)'
 
 interface SymbolResult {
   subject: string
   symbol: string
   unit: string
-  verdict: 'live' | 'n/d' | 'missing'
+  verdict: 'live' | 'missing' | 'fail'
   last: number | null
   prev_close: number | null
   as_of: string | null
+  name: string | null
 }
 
 interface CotResult {
@@ -49,7 +54,7 @@ async function fetchWithRetry(url: string, timeoutMs = 20_000): Promise<{ status
     const ctrl = new AbortController()
     const timer = setTimeout(() => ctrl.abort(), timeoutMs)
     try {
-      const res = await fetch(url, { signal: ctrl.signal, redirect: 'follow', headers: { 'user-agent': UA, accept: '*/*' } })
+      const res = await fetch(url, { signal: ctrl.signal, redirect: 'follow', headers: { 'user-agent': UA, accept: 'application/json, */*' } })
       const body = await res.text()
       clearTimeout(timer)
       if ((res.status === 429 || res.status >= 500) && attempt === 1) {
@@ -82,45 +87,39 @@ async function main() {
   const subjects = Object.entries(cfg.subjects)
   console.error(`verifying ${subjects.length} subjects from ${configPath}\n`)
 
-  // ---- prices: ONE batched stooq call, exactly as production issues it ----
-  const symbols = [...new Set(subjects.map(([, s]) => s.stooq).filter((s): s is string => Boolean(s)))].sort()
-  const stooqUrl = buildStooqUrl(symbols)
-  console.error(`stooq: ${stooqUrl}`)
-  const stooq = await fetchWithRetry(stooqUrl)
-  const symbolResults: SymbolResult[] = []
-  let observedHeader = ''
-  if (typeof stooq.status === 'number' && stooq.status === 200) {
-    const lines = stooq.body.split(/\r?\n/).map((l) => l.trim()).filter(Boolean)
-    observedHeader = lines[0] || ''
-    console.error(`stooq header observed: ${observedHeader || '(empty body)'}`)
-    const quotes = new Map(parseStooqCsv(stooq.body).map((q) => [q.symbol, q]))
-    // rows present in the raw CSV but dropped by the parser are N/D; absent rows are missing entirely
-    const rawSymbols = new Set(lines.slice(1).map((l) => (l.split(',')[0] || '').trim().toLowerCase()).filter(Boolean))
-    for (const [subject, src] of subjects) {
-      const sym = src.stooq || ''
-      const q = sym ? quotes.get(sym) : undefined
-      symbolResults.push({
-        subject,
-        symbol: sym || '(none)',
-        unit: src.unit || '',
-        verdict: q ? 'live' : sym && rawSymbols.has(sym) ? 'n/d' : 'missing',
-        last: q ? q.last : null,
-        prev_close: q ? q.prevClose : null,
-        as_of: q?.date ? (q.time ? `${q.date}T${q.time}` : q.date) : null,
-      })
-    }
+  // ---- prices: ONE batched CNBC restQuote call, exactly as production issues it ----
+  const symbols = [...new Set(subjects.map(([, s]) => s.cnbc).filter((s): s is string => Boolean(s)))].sort()
+  const cnbcUrl = buildCnbcQuoteUrl(symbols)
+  console.error(`cnbc: ${cnbcUrl}`)
+  const cnbc = await fetchWithRetry(cnbcUrl)
+  let quotes = new Map<string, CnbcQuote>()
+  const batchOk = typeof cnbc.status === 'number' && cnbc.status === 200
+  if (batchOk) {
+    try { quotes = parseCnbcQuotes(JSON.parse(cnbc.body)) } catch { /* leave empty — every symbol reads missing */ }
+    console.error(`cnbc batch: HTTP 200, ${quotes.size} usable quote(s) of ${symbols.length} requested`)
   } else {
-    console.error(`stooq fetch FAILED: ${stooq.status}`)
-    for (const [subject, src] of subjects) {
-      symbolResults.push({ subject, symbol: src.stooq || '(none)', unit: src.unit || '', verdict: 'missing', last: null, prev_close: null, as_of: null })
-    }
+    console.error(`cnbc batch FAILED: ${cnbc.status}`)
   }
+  const symbolResults: SymbolResult[] = subjects.map(([subject, src]) => {
+    const sym = src.cnbc || ''
+    const q = sym ? quotes.get(sym) : undefined
+    return {
+      subject,
+      symbol: sym || '(none)',
+      unit: src.unit || '',
+      verdict: q ? 'live' : batchOk && sym ? 'missing' : 'fail',
+      last: q ? q.last : null,
+      prev_close: q ? q.prevClose : null,
+      as_of: q ? q.asOf : null,
+      name: q ? q.name : null,
+    }
+  })
 
-  console.error('\n--- stooq symbols ---')
+  console.error('\n--- cnbc symbols ---')
   for (const r of symbolResults) {
-    const tag = r.verdict === 'live' ? 'LIVE' : r.verdict === 'n/d' ? ' N/D' : 'MISS'
+    const tag = r.verdict === 'live' ? 'LIVE' : r.verdict === 'missing' ? 'MISS' : 'FAIL'
     const px = r.last !== null ? `${r.last}${r.prev_close !== null ? ` (prev ${r.prev_close})` : ''} ${r.unit}` : ''
-    console.error(`  ${tag}  ${r.subject.padEnd(12)} ${r.symbol.padEnd(7)} ${px}${r.as_of ? `  as of ${r.as_of}` : ''}`)
+    console.error(`  ${tag}  ${r.subject.padEnd(12)} ${r.symbol.padEnd(7)} ${px}${r.name ? `  "${r.name}"` : ''}${r.as_of ? `  as of ${r.as_of}` : ''}`)
   }
 
   // ---- COT: one Socrata pull over the last 21 days, then per-subject substring resolution ----
@@ -178,7 +177,7 @@ async function main() {
     `${cotFlagged.length ? ` (${cotFlagged.map((r) => `${r.subject}:${r.flag}`).join(', ')})` : ''} ===`)
 
   if (outPath) {
-    fs.writeFileSync(outPath, JSON.stringify({ config: configPath, observed_stooq_header: observedHeader, prices: symbolResults, cot: cotResults }, null, 2) + '\n')
+    fs.writeFileSync(outPath, JSON.stringify({ config: configPath, prices: symbolResults, cot: cotResults }, null, 2) + '\n')
     console.error(`results written to ${outPath}`)
   }
 

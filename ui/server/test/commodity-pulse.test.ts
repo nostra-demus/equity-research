@@ -1,10 +1,12 @@
 // Commodity pulse (news/commodity-pulse.ts) — the per-subject snapshot behind /api/swarm/pulse.
-// Tests the pure parsers (stooq CSV by header name, CFTC COT market resolution, the recurring-reports
-// calendar with a frozen clock), config sanitization (hosts can never come from config), the shipped
-// frameworks/commodity/pulse_sources.json shape, and the full getPulse flow with injected deps: happy
-// path, honest absence (N/D price, unmatched COT market), serve-cached within TTL (no refetch),
-// keep-previous + stale:true on fetch failure, and the single-flight guard (two concurrent calls, one
-// fetch). Isolated tmpdirs, stubbed fetch, no network. Run: npx tsx test/commodity-pulse.test.ts
+// Tests the pure parsers (CNBC restQuote batch rows with comma-thousands numbers, CFTC COT market
+// resolution, the recurring-reports calendar with a frozen clock), config sanitization (hosts can
+// never come from config), the shipped frameworks/commodity/pulse_sources.json shape, and the full
+// getPulse flow with injected deps: happy path, honest absence (a dead-contract row like @ALI.1, a
+// symbol missing from a good batch, unmatched COT market, null previous close → null change),
+// serve-cached within TTL (no refetch), keep-previous + stale:true on batch failure, and the
+// single-flight guard (two concurrent calls, one fetch per source). Isolated tmpdirs, stubbed fetch,
+// no network. Run: npx tsx test/commodity-pulse.test.ts
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
@@ -15,10 +17,11 @@ import { NEWS } from '../src/config'
 import {
   getPulse,
   loadPulseConfig,
-  parseStooqCsv,
+  parseCnbcQuotes,
   parseCotRows,
   nextReports,
   buildCotUrl,
+  buildCnbcQuoteUrl,
   type PulseDeps,
 } from '../src/news/commodity-pulse'
 
@@ -48,36 +51,36 @@ const WED = new Date(T0)
 const tmpdirs: string[] = []
 const tmp = () => { const d = fs.mkdtempSync(path.join(os.tmpdir(), 'pulse-')); tmpdirs.push(d); return d }
 
-// ---- pure parser: stooq CSV ----
+// ---- pure parser: CNBC restQuote batch ----
 
-const CSV = [
-  'Symbol,Date,Time,Open,High,Low,Close,Volume,Previous Close',
-  'GC.F,2026-07-08,11:59:02,3310.1,3345.2,3301.0,3340.5,182345,3325.0',
-  'NG.F,N/D,N/D,N/D,N/D,N/D,N/D,N/D,N/D',
-].join('\n')
+// CNBC's last_time carries a UTC offset ("-0400") — 07:59:02-0400 is 11:59:02Z.
+const GC_ROW = { symbol: '@GC.1', name: "Gold COMEX (Aug'26)", last: '3,340.50', previous_day_closing: '3,325.00', last_time: '2026-07-08T07:59:02.000-0400' }
+const SB_ROW = { symbol: '@SB.1', name: "Sugar #11 (Oct'26)", last: '14.86', last_time: '2026-07-08T07:59:02.000-0400' } // no previous_day_closing
+const NG_DEAD_ROW = { symbol: '@NG.1', name: "Natural Gas (Nov'20)" } // dead contract: no last / no time
+const cnbcBody = (rows: unknown) => JSON.stringify({ FormattedQuoteResult: { FormattedQuote: rows } })
 
-await check('parseStooqCsv parses by header name, drops N/D rows, lowercases symbols', () => {
-  const rows = parseStooqCsv(CSV)
-  assert.equal(rows.length, 1, 'the N/D row is omitted, never faked')
-  const gc = rows[0]
-  assert.equal(gc.symbol, 'gc.f')
-  assert.equal(gc.last, 3340.5)
-  assert.equal(gc.prevClose, 3325.0)
-  assert.equal(gc.date, '2026-07-08')
-  assert.equal(gc.time, '11:59:02')
+await check('parseCnbcQuotes strips comma thousands separators and normalizes last_time to ISO UTC', () => {
+  const m = parseCnbcQuotes(JSON.parse(cnbcBody([GC_ROW, SB_ROW])))
+  assert.equal(m.size, 2)
+  assert.deepEqual(m.get('@GC.1'), { symbol: '@GC.1', last: 3340.5, prevClose: 3325.0, asOf: '2026-07-08T11:59:02.000Z', name: "Gold COMEX (Aug'26)" })
+  assert.deepEqual(m.get('@SB.1'), { symbol: '@SB.1', last: 14.86, prevClose: null, asOf: '2026-07-08T11:59:02.000Z', name: "Sugar #11 (Oct'26)" }, 'missing previous_day_closing → null, not 0')
 })
 
-await check('parseStooqCsv tolerates reordered columns and a missing Previous column', () => {
-  // reordered + no prev column + an extra column we ignore
-  const shuffled = ['Close,Symbol,Extra,Date,Time', '17.42,SB.F,x,2026-07-08,11:00:00'].join('\n')
-  const rows = parseStooqCsv(shuffled)
-  assert.equal(rows.length, 1)
-  assert.equal(rows[0].symbol, 'sb.f')
-  assert.equal(rows[0].last, 17.42)
-  assert.equal(rows[0].prevClose, null, 'no prev column → null, not a guess')
-  // an unrecognizable header must refuse to guess columns
-  assert.deepEqual(parseStooqCsv('a,b,c\n1,2,3'), [])
-  assert.deepEqual(parseStooqCsv(''), [])
+await check('parseCnbcQuotes: a dead-contract row (no usable last) gets NO entry — honest absence', () => {
+  const m = parseCnbcQuotes(JSON.parse(cnbcBody([GC_ROW, NG_DEAD_ROW])))
+  assert.equal(m.size, 1)
+  assert.equal(m.get('@NG.1'), undefined, "the @ALI.1-style dead row is omitted, never faked")
+})
+
+await check('parseCnbcQuotes: a single bare FormattedQuote object (not array) still parses; garbage → empty', () => {
+  const single = parseCnbcQuotes(JSON.parse(JSON.stringify({ FormattedQuoteResult: { FormattedQuote: GC_ROW } })))
+  assert.equal(single.size, 1)
+  assert.equal(single.get('@GC.1')!.last, 3340.5)
+  assert.equal(parseCnbcQuotes({ FormattedQuoteResult: {} }).size, 0)
+  assert.equal(parseCnbcQuotes('garbage').size, 0)
+  assert.equal(parseCnbcQuotes(null).size, 0)
+  // a non-numeric last ("N/A", "unch") is not a price
+  assert.equal(parseCnbcQuotes(JSON.parse(cnbcBody([{ symbol: '@X.1', last: 'N/A' }]))).size, 0)
 })
 
 // ---- pure parser: CFTC COT rows ----
@@ -165,18 +168,23 @@ await check('loadPulseConfig ignores any value containing :// — hosts can neve
   fs.writeFileSync(file, JSON.stringify({
     cot_dataset: 'https://evil.example/resource/x.json',
     subjects: {
-      GOLD: { stooq: 'https://evil.example/gc', unit: 'USD/troy oz', cot_market_contains: 'GOLD - COMMODITY EXCHANGE' },
-      SUGAR: { stooq: 'sb.f', unit: 'US¢/lb', cot_market_contains: 'SUGAR NO. 11' },
+      GOLD: { cnbc: 'https://evil.example/gc', unit: 'USD/troy oz', cot_market_contains: 'GOLD - COMMODITY EXCHANGE' },
+      SUGAR: { cnbc: '@sb.1', unit: 'US¢/lb', cot_market_contains: 'SUGAR NO. 11' },
     },
   }))
   const cfg = loadPulseConfig(file)
   assert.ok(cfg)
-  assert.equal(cfg!.subjects.GOLD.stooq, undefined, 'a URL-shaped symbol is dropped')
+  assert.equal(cfg!.subjects.GOLD.cnbc, undefined, 'a URL-shaped symbol is dropped')
   assert.equal(cfg!.subjects.GOLD.cotMarketContains, 'GOLD - COMMODITY EXCHANGE')
-  assert.equal(cfg!.subjects.SUGAR.stooq, 'sb.f')
+  assert.equal(cfg!.subjects.SUGAR.cnbc, '@SB.1', 'symbols normalize to CNBC uppercase')
   assert.equal(cfg!.cotResource, '/resource/72hh-3qpy.json', 'a ://-carrying dataset falls back to the default resource')
   assert.equal(loadPulseConfig(path.join(dir, 'missing.json')), null)
   assert.ok(buildCotUrl('2026-06-17', cfg!.cotResource).startsWith('https://publicreporting.cftc.gov/resource/72hh-3qpy.json?'))
+  assert.equal(
+    buildCnbcQuoteUrl(['@GC.1', '@SB.1']),
+    'https://quote.cnbc.com/quote-html-webservice/restQuote/symbolType/symbol?symbols=%40GC.1%7C%40SB.1&requestMethod=itv&noform=1&partnerId=2&fund=1&output=json',
+    'symbols pipe-joined then URL-encoded, host hardcoded',
+  )
 })
 
 await check('the shipped frameworks/commodity/pulse_sources.json carries all 12 subjects, fully specified', () => {
@@ -186,10 +194,16 @@ await check('the shipped frameworks/commodity/pulse_sources.json carries all 12 
   assert.deepEqual(Object.keys(cfg!.subjects).sort(), [...expect].sort())
   for (const s of expect) {
     const src = cfg!.subjects[s]
-    assert.ok(src.stooq, `${s} has a stooq symbol`)
+    assert.ok(src.cnbc, `${s} has a CNBC symbol`)
+    assert.match(src.cnbc!, /^@[A-Z0-9.]+$/, `${s} symbol looks like a CNBC front-month symbol`)
     assert.ok(src.unit, `${s} has a quote unit`)
     assert.ok(src.cotMarketContains, `${s} has a COT market substring`)
   }
+  assert.equal(cfg!.subjects.GOLD.cnbc, '@GC.1')
+  assert.equal(cfg!.subjects.WHEAT.cnbc, '@W.1')
+  assert.equal(cfg!.subjects.ALUMINIUM.cnbc, '@ALI.1', 'kept as the seed even though currently a dead contract')
+  // live-verified 2026-07-11: bare "NATURAL GAS" matches nothing — the NYMEX Henry Hub row is "NAT GAS NYME"
+  assert.equal(cfg!.subjects['NATURAL-GAS'].cotMarketContains, 'NAT GAS NYME')
   assert.equal(cfg!.cotResource, '/resource/72hh-3qpy.json')
 })
 
@@ -200,11 +214,12 @@ function makeRepo(): string {
   const fw = path.join(repo, 'frameworks', 'commodity')
   fs.mkdirSync(fw, { recursive: true })
   fs.writeFileSync(path.join(fw, 'pulse_sources.json'), JSON.stringify({
-    price_source: 'stooq',
+    price_source: 'cnbc',
     cot_dataset: 'publicreporting.cftc.gov/resource/72hh-3qpy.json',
     subjects: {
-      GOLD: { stooq: 'gc.f', unit: 'USD/troy oz', cot_market_contains: 'GOLD - COMMODITY EXCHANGE' },
-      'NATURAL-GAS': { stooq: 'ng.f', unit: 'USD/MMBtu', cot_market_contains: 'NATURAL GAS' },
+      GOLD: { cnbc: '@GC.1', unit: 'USD/troy oz', cot_market_contains: 'GOLD - COMMODITY EXCHANGE' },
+      'NATURAL-GAS': { cnbc: '@NG.1', unit: 'USD/MMBtu', cot_market_contains: 'NAT GAS NYME' },
+      SUGAR: { cnbc: '@SB.1', unit: 'US¢/lb', cot_market_contains: 'SUGAR NO. 11' },
     },
   }))
   fs.writeFileSync(path.join(fw, 'COMMODITY_PROFILES.md'), [
@@ -241,14 +256,15 @@ function makeManifest(id: string) {
 }
 
 function makeFetch() {
-  const calls = { stooq: 0, cftc: 0 }
+  const calls = { cnbc: 0, cftc: 0 }
   const state = { fail: false }
   const fetchFn = (async (input: any) => {
     const url = String(input)
-    if (url.includes('stooq.com')) {
-      calls.stooq++
+    if (url.includes('quote.cnbc.com')) {
+      calls.cnbc++
       if (state.fail) throw new Error('stub network down')
-      return new Response(CSV, { status: 200 })
+      // the batch answers for GC + SB; NG is a dead contract (row present, no usable quote)
+      return new Response(cnbcBody([GC_ROW, SB_ROW, NG_DEAD_ROW]), { status: 200 })
     }
     if (url.includes('publicreporting.cftc.gov')) {
       calls.cftc++
@@ -273,7 +289,7 @@ await check('getPulse returns null for an unknown swarm and for a manifest with 
 // from process.env at config import, and PulseDeps (a fixed public contract) carries no enabled knob —
 // flipping it would need a subprocess with NEWS_PULSE_ENABLED=0, which isn't worth a one-line guard.
 
-// shared fixture across the next three checks: happy path → within-TTL reuse → failure keeps cache
+// shared fixture across the next three checks: happy path → within-TTL reuse → batch failure keeps cache
 const repo = makeRepo()
 const stateDir = tmp()
 const manifest = makeManifest('pulse-test')
@@ -286,13 +302,13 @@ await check('getPulse happy path: prices, COT, reports, verdict — and honest a
   assert.equal(snap!.swarm, 'pulse-test')
   assert.equal(snap!.stale, false)
   assert.equal(snap!.as_of, new Date(T0).toISOString())
-  assert.deepEqual(Object.keys(snap!.subjects).sort(), ['GOLD', 'NATURAL-GAS'])
+  assert.deepEqual(Object.keys(snap!.subjects).sort(), ['GOLD', 'NATURAL-GAS', 'SUGAR'])
 
   const goldSub = snap!.subjects.GOLD
   assert.deepEqual(goldSub.price, {
-    symbol: 'gc.f', last: 3340.5, prev_close: 3325, change_pct: 0.47,
-    unit: 'USD/troy oz', as_of: '2026-07-08T11:59:02', source: 'stooq',
-  })
+    symbol: '@GC.1', last: 3340.5, prev_close: 3325, change_pct: 0.47,
+    unit: 'USD/troy oz', as_of: '2026-07-08T11:59:02.000Z', source: 'cnbc', label: "Gold COMEX (Aug'26)",
+  }, 'comma-separated strings parsed; change recomputed from last/prev; contract label carried')
   assert.deepEqual(goldSub.cot, {
     market: 'GOLD - COMMODITY EXCHANGE INC.', managed_money_net: 200000, prev_net: 180000,
     change: 20000, report_date: '2026-07-07', source: 'cftc',
@@ -303,16 +319,24 @@ await check('getPulse happy path: prices, COT, reports, verdict — and honest a
   ])
   assert.deepEqual(goldSub.verdict, { action: 'Hold', at: '2026-07-01' })
 
+  const sugar = snap!.subjects.SUGAR
+  assert.deepEqual(sugar.price, {
+    symbol: '@SB.1', last: 14.86, prev_close: null, change_pct: null,
+    unit: 'US¢/lb', as_of: '2026-07-08T11:59:02.000Z', source: 'cnbc', label: "Sugar #11 (Oct'26)",
+  }, 'null previous close → change_pct null, never a fake 0-based move')
+  assert.equal(sugar.cot, undefined, 'no matching COT market → omitted')
+  assert.equal(sugar.reports, undefined, 'no profile section → omitted')
+
   const ng = snap!.subjects['NATURAL-GAS']
-  assert.equal(ng.price, undefined, 'the N/D stooq row is omitted, never faked')
-  assert.equal(ng.cot, undefined, 'no matching COT market → omitted')
+  assert.equal(ng.price, undefined, 'a dead-contract row in a good batch is omitted, never faked')
+  assert.equal(ng.cot, undefined)
   assert.equal(ng.verdict, undefined, 'no decision_record.json yet → omitted')
   assert.deepEqual(ng.reports, [
     { name: 'EIA weekly storage (Thu 10:30 ET)', cadence: 'weekly', next: '2026-07-09' },
     { name: 'weekly CFTC COT', cadence: 'weekly', next: '2026-07-10' },
   ])
 
-  assert.equal(calls.stooq, 1)
+  assert.equal(calls.cnbc, 1, 'ONE batch call covers every symbol')
   assert.equal(calls.cftc, 1)
   const persisted = JSON.parse(fs.readFileSync(path.join(stateDir, 'commodity-pulse.json'), 'utf8'))
   assert.ok(persisted['pulse-test']?.prices?.GOLD, 'snapshot persisted under the state dir for restart warm-start')
@@ -323,7 +347,7 @@ await check('getPulse serves the cache within TTL — no refetch', async () => {
   assert.ok(snap)
   assert.equal(snap!.stale, false)
   assert.equal(snap!.subjects.GOLD.price!.last, 3340.5)
-  assert.equal(calls.stooq, 1, 'no second stooq call inside the price TTL')
+  assert.equal(calls.cnbc, 1, 'no second batch call inside the price TTL')
   assert.equal(calls.cftc, 1, 'no second CFTC call inside the COT TTL')
 })
 
@@ -334,8 +358,9 @@ await check('getPulse keeps the previous data and reports stale:true when a due 
   assert.ok(snap)
   assert.equal(snap!.stale, true, 'a failed refresh is declared, not hidden')
   assert.equal(snap!.subjects.GOLD.price!.last, 3340.5, 'the previous price half is kept')
+  assert.equal(snap!.subjects.SUGAR.price!.last, 14.86)
   assert.equal(snap!.subjects.GOLD.cot!.managed_money_net, 200000, 'the previous COT half is kept')
-  assert.ok(calls.stooq > 1, 'a refresh was actually attempted')
+  assert.ok(calls.cnbc > 1, 'a refresh was actually attempted')
   state.fail = false
 })
 
@@ -347,7 +372,7 @@ await check('getPulse single-flight: two concurrent calls share ONE fetch per so
   const d: PulseDeps = { manifest: m2, fetchFn: f2.fetchFn, now: at(T0), stateDir: state2, repoRoot: repo2 }
   const [a, b] = await Promise.all([getPulse('pulse-sf', d), getPulse('pulse-sf', d)])
   assert.ok(a && b)
-  assert.equal(f2.calls.stooq, 1, 'one stooq fetch for two concurrent callers')
+  assert.equal(f2.calls.cnbc, 1, 'one batch call for two concurrent callers')
   assert.equal(f2.calls.cftc, 1, 'one CFTC fetch for two concurrent callers')
   assert.deepEqual(a!.subjects.GOLD.price, b!.subjects.GOLD.price)
 })

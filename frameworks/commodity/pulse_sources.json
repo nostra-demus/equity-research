@@ -1,19 +1,19 @@
 {
-  "note": "Pulse source config for the commodity swarm (ui/server/src/news/commodity-pulse.ts), declared by the swarm manifest's wire.pulse — verified by scripts/verify-pulse.ts — edit here, never in code. This file supplies SYMBOLS, quote units, and COT market-name substrings ONLY: the fetch hosts (stooq.com, publicreporting.cftc.gov) are hardcoded in code, and any value here containing '://' is ignored. cot_market_contains is matched case-insensitively as a substring of the CFTC's market_and_exchange_names.",
-  "price_source": "stooq",
+  "note": "Pulse source config for the commodity swarm (ui/server/src/news/commodity-pulse.ts), declared by the swarm manifest's wire.pulse — verified by scripts/verify-pulse.ts — edit here, never in code. This file supplies SYMBOLS, quote units, and COT market-name substrings ONLY: the fetch hosts (quote.cnbc.com, publicreporting.cftc.gov) are hardcoded in code, and any value here containing '://' is ignored. cnbc is the CNBC restQuote symbol (stooq was dropped 2026-07-11: quote endpoint 404s + anti-bot history wall; Yahoo v8 was dropped the same day: it TLS-fingerprints Node clients and 429s them all). cot_market_contains is matched case-insensitively as a substring of the CFTC's market_and_exchange_names.",
+  "price_source": "cnbc",
   "cot_dataset": "publicreporting.cftc.gov/resource/72hh-3qpy.json",
   "subjects": {
-    "GOLD": { "stooq": "gc.f", "unit": "USD/troy oz", "cot_market_contains": "GOLD - COMMODITY EXCHANGE" },
-    "SUGAR": { "stooq": "sb.f", "unit": "US¢/lb", "cot_market_contains": "SUGAR NO. 11" },
-    "CRUDE-OIL": { "stooq": "cl.f", "unit": "USD/bbl", "cot_market_contains": "CRUDE OIL, LIGHT SWEET" },
-    "NATURAL-GAS": { "stooq": "ng.f", "unit": "USD/MMBtu", "cot_market_contains": "NATURAL GAS" },
-    "COPPER": { "stooq": "hg.f", "unit": "USD/lb (COMEX)", "cot_market_contains": "COPPER" },
-    "ALUMINIUM": { "stooq": "ali.f", "unit": "USD/t", "cot_market_contains": "ALUMINUM", "confidence": "low — least-verified stooq symbol (COMEX ALI is thin and stooq's coverage of it is unconfirmed; run scripts/verify-pulse.ts before trusting)" },
-    "WHEAT": { "stooq": "zw.f", "unit": "US¢/bu", "cot_market_contains": "WHEAT-SRW" },
-    "CORN": { "stooq": "zc.f", "unit": "US¢/bu", "cot_market_contains": "CORN" },
-    "SOYBEANS": { "stooq": "zs.f", "unit": "US¢/bu", "cot_market_contains": "SOYBEANS" },
-    "COFFEE": { "stooq": "kc.f", "unit": "US¢/lb", "cot_market_contains": "COFFEE C" },
-    "COCOA": { "stooq": "cc.f", "unit": "USD/t", "cot_market_contains": "COCOA" },
-    "COTTON": { "stooq": "ct.f", "unit": "US¢/lb", "cot_market_contains": "COTTON NO. 2" }
+    "GOLD": { "cnbc": "@GC.1", "unit": "USD/troy oz", "cot_market_contains": "GOLD - COMMODITY EXCHANGE" },
+    "SUGAR": { "cnbc": "@SB.1", "unit": "US¢/lb", "cot_market_contains": "SUGAR NO. 11" },
+    "CRUDE-OIL": { "cnbc": "@CL.1", "unit": "USD/bbl", "cot_market_contains": "CRUDE OIL, LIGHT SWEET" },
+    "NATURAL-GAS": { "cnbc": "@NG.1", "unit": "USD/MMBtu", "cot_market_contains": "NAT GAS NYME" },
+    "COPPER": { "cnbc": "@HG.1", "unit": "USD/lb (COMEX)", "cot_market_contains": "COPPER" },
+    "ALUMINIUM": { "cnbc": "@ALI.1", "unit": "USD/t", "cot_market_contains": "ALUMINUM", "confidence": "low — @ALI.1 is currently a DEAD contract on CNBC (fields empty, name 'Aluminium COMEX Nov'20', live-verified 2026-07-11), so ALUMINIUM shows honest absence; kept as the seed — if CNBC lists a live ALI front month it lights up with no code change" },
+    "WHEAT": { "cnbc": "@W.1", "unit": "US¢/bu", "cot_market_contains": "WHEAT-SRW" },
+    "CORN": { "cnbc": "@C.1", "unit": "US¢/bu", "cot_market_contains": "CORN" },
+    "SOYBEANS": { "cnbc": "@S.1", "unit": "US¢/bu", "cot_market_contains": "SOYBEANS" },
+    "COFFEE": { "cnbc": "@KC.1", "unit": "US¢/lb", "cot_market_contains": "COFFEE C" },
+    "COCOA": { "cnbc": "@CC.1", "unit": "USD/t", "cot_market_contains": "COCOA" },
+    "COTTON": { "cnbc": "@CT.1", "unit": "US¢/lb", "cot_market_contains": "COTTON NO. 2" }
   }
 }

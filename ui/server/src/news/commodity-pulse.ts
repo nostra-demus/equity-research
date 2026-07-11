@@ -3,10 +3,17 @@
 // shows a commodity's NEWS, but a reader also wants the three numbers that frame every headline — where
 // the price is (latest future + % change), which way the speculators lean (weekly CFTC COT managed-money
 // net length), and what scheduled report hits next — plus the engine's own last verdict for the subject.
-// All of it is plain keyless HTTP + date math: stooq's CSV quote endpoint for prices, the CFTC Socrata
-// API for COT, the recurring-reports line of COMMODITY_PROFILES.md for the calendar, and the run folder's
-// decision_record.json for the verdict. ZERO LLM spend, and honest absence throughout: a field that can't
-// be fetched or derived is OMITTED, never faked (§3 — no source, no claim).
+// All of it is plain keyless HTTP + date math: CNBC's quote REST service for prices (ONE batch call
+// for all subjects), the CFTC Socrata API for COT, the recurring-reports line of COMMODITY_PROFILES.md
+// for the calendar, and the run folder's decision_record.json for the verdict. ZERO LLM spend, and
+// honest absence throughout: a field that can't be fetched or derived is OMITTED, never faked (§3).
+//
+// Why CNBC (live-verified 2026-07-11): stooq's CSV quote endpoint 404s for every symbol and its history
+// endpoint sits behind a JavaScript proof-of-work wall; Yahoo's v8 chart API (query1 AND query2)
+// fingerprints the TLS client and 429s every Node HTTP stack — undici fetch, node:https, cookie
+// bootstrap, any UA — while letting curl through, so a Node server can never rely on it. CNBC's
+// restQuote answers keylessly from Node, batches all symbols in one call, and each row carries the
+// front-month contract label (e.g. "Gold COMEX (Aug'26)") as a bonus.
 //
 // Caching: prices and COT refresh independently on their own TTLs (NEWS.pulsePriceTtlMin /
 // pulseCotTtlHours), with a single-flight guard so concurrent requests share one fetch, and the last
@@ -14,10 +21,10 @@
 // failure the previous data for that half is kept and the snapshot says `stale: true`. Reports and
 // verdicts are recomputed every call (pure local reads, cheap). Never throws.
 //
-// Security posture: the HOSTS are hardcoded here (stooq.com, publicreporting.cftc.gov). The config file
-// (frameworks/commodity/pulse_sources.json, path declared by the swarm manifest's `wire.pulse`) supplies
-// only SYMBOLS / market substrings / units — any config value containing '://' is ignored, so a poisoned
-// config can never redirect the fetch. Verified live by scripts/verify-pulse.ts.
+// Security posture: the HOSTS are hardcoded here (quote.cnbc.com, publicreporting.cftc.gov).
+// The config file (frameworks/commodity/pulse_sources.json, path declared by the swarm manifest's
+// `wire.pulse`) supplies only SYMBOLS / market substrings / units — any config value containing '://'
+// is ignored, so a poisoned config can never redirect the fetch. Verified live by scripts/verify-pulse.ts.
 
 import fs from 'node:fs'
 import path from 'node:path'
@@ -27,7 +34,7 @@ import type { SwarmManifest } from '../types'
 
 // ---- public snapshot shapes (the /api/swarm/pulse contract) ----
 
-export interface PulsePrice { symbol: string; last: number; prev_close: number | null; change_pct: number | null; unit: string; as_of: string; source: 'stooq' }
+export interface PulsePrice { symbol: string; last: number; prev_close: number | null; change_pct: number | null; unit: string; as_of: string; source: 'cnbc'; label?: string }
 export interface PulseCot { market: string; managed_money_net: number; prev_net: number | null; change: number | null; report_date: string; source: 'cftc' }
 export interface PulseReport { name: string; cadence: string; next: string | null }
 export interface PulseSubject { subject: string; price?: PulsePrice; cot?: PulseCot; reports?: PulseReport[]; verdict?: { action: string; at: string } }
@@ -45,7 +52,7 @@ export interface PulseDeps {
 
 // ---- config (frameworks/commodity/pulse_sources.json) ----
 
-export interface PulseSubjectSource { stooq?: string; unit?: string; cotMarketContains?: string }
+export interface PulseSubjectSource { cnbc?: string; unit?: string; cotMarketContains?: string }
 export interface PulseSourcesConfig {
   subjects: Record<string, PulseSubjectSource>
   cotResource: string // path-only, e.g. '/resource/72hh-3qpy.json' — the host is never configurable
@@ -55,8 +62,8 @@ const DEFAULT_COT_RESOURCE = '/resource/72hh-3qpy.json'
 
 /**
  * Load + sanitize the pulse source config. Symbols/substrings/units only: any value containing '://'
- * is dropped (hosts live in code, not config), stooq symbols must look like symbols, and the COT
- * dataset is reduced to its `/resource/<id>.json` path against the hardcoded Socrata host.
+ * is dropped (hosts live in code, not config), CNBC symbols must look like symbols (@GC.1, @W.1 …),
+ * and the COT dataset is reduced to its `/resource/<id>.json` path against the hardcoded Socrata host.
  * Extra fields (notes, confidence flags) are tolerated and ignored. Null on any read/parse problem.
  */
 export function loadPulseConfig(file: string): PulseSourcesConfig | null {
@@ -68,9 +75,9 @@ export function loadPulseConfig(file: string): PulseSourcesConfig | null {
     for (const [k, v] of Object.entries<any>(j.subjects)) {
       const key = k.trim()
       if (!key || !v || typeof v !== 'object') continue
-      const rawSym = safe(v.stooq)
+      const rawSym = safe(v.cnbc)
       subjects[key] = {
-        stooq: rawSym && /^[a-z0-9._^-]+$/i.test(rawSym) ? rawSym.toLowerCase() : undefined,
+        cnbc: rawSym && /^[@a-z0-9.-]+$/i.test(rawSym) ? rawSym.toUpperCase() : undefined,
         unit: safe(v.unit),
         cotMarketContains: safe(v.cot_market_contains),
       }
@@ -90,11 +97,15 @@ export function loadPulseConfig(file: string): PulseSourcesConfig | null {
 
 // ---- pure parsers + URL builders (exported for tests and scripts/verify-pulse.ts) ----
 
-export interface StooqQuote { symbol: string; last: number; prevClose: number | null; date: string | null; time: string | null }
+export interface CnbcQuote { symbol: string; last: number; prevClose: number | null; asOf: string | null; name: string | null }
 
-/** One batched stooq quote call for every configured symbol (f=sd2t2ohlcvp&h&e=csv). */
-export function buildStooqUrl(symbols: string[]): string {
-  return `https://stooq.com/q/l/?s=${symbols.join('+')}&f=sd2t2ohlcvp&h&e=csv`
+/**
+ * CNBC quote REST service: ONE batch call for every configured symbol, pipe-joined then URL-encoded
+ * (verified live 2026-07-11 from Node — keyless, no TLS fingerprinting, plain UA fine). The host is
+ * hardcoded — never config-driven.
+ */
+export function buildCnbcQuoteUrl(symbols: string[]): string {
+  return `https://quote.cnbc.com/quote-html-webservice/restQuote/symbolType/symbol?symbols=${encodeURIComponent(symbols.join('|'))}&requestMethod=itv&noform=1&partnerId=2&fund=1&output=json`
 }
 
 /** CFTC Socrata pull: last-N-days disaggregated futures rows, four columns, one call for all subjects. */
@@ -108,37 +119,38 @@ export function buildCotUrl(sinceIsoDate: string, resourcePath: string = DEFAULT
 }
 
 /**
- * Parse a stooq CSV quote response BY HEADER NAME, case-insensitively — column order and extra/missing
- * columns are tolerated (stooq has shifted its layout before; positional parsing would silently mislabel
- * numbers, which is worse than returning nothing). Rows whose Close is 'N/D' or non-numeric are dropped
- * (honest absence). Previous close comes from a 'p'/'Prev…' column when present, else null.
+ * Parse a CNBC restQuote batch response into a symbol → quote map. Rows live under
+ * FormattedQuoteResult.FormattedQuote (array, or a bare object for a single symbol). Numbers arrive as
+ * STRINGS with comma thousands separators ("4,128.90") → stripped and parseFloat-ed; a row whose `last`
+ * is missing/non-finite gets NO entry (a dead contract like @ALI.1 "Aluminium COMEX Nov'20" — the
+ * caller omits that subject's price, honest absence, never a faked number). as_of comes from
+ * `last_time` (ISO with offset, e.g. "…-0400") normalized to ISO UTC; `previous_day_closing` → prev;
+ * `name` carries the front-month contract label. change_pct is deliberately NOT read from CNBC — the
+ * caller recomputes it from last/prev so the math is always internally consistent (§15).
  */
-export function parseStooqCsv(text: string): StooqQuote[] {
-  const lines = String(text || '').split(/\r?\n/).map((l) => l.trim()).filter(Boolean)
-  if (lines.length < 2) return []
-  const headers = lines[0].split(',').map((h) => h.trim().toLowerCase())
-  const col = (re: RegExp) => headers.findIndex((h) => re.test(h))
-  const iSym = col(/^symbol$/)
-  const iClose = col(/^(close|last)$/)
-  const iPrev = col(/^(p|prev(ious)?(\s+close)?)$/)
-  const iDate = col(/^date$/)
-  const iTime = col(/^time$/)
-  if (iSym < 0 || iClose < 0) return [] // not the CSV we expect — refuse to guess columns
-  const num = (s: string | undefined): number | null => {
-    const t = (s ?? '').trim()
-    if (!t || /^n\/d$/i.test(t)) return null
-    const n = Number(t)
+export function parseCnbcQuotes(json: unknown): Map<string, CnbcQuote> {
+  const out = new Map<string, CnbcQuote>()
+  const raw = (json as any)?.FormattedQuoteResult?.FormattedQuote
+  const rows: any[] = Array.isArray(raw) ? raw : raw && typeof raw === 'object' ? [raw] : []
+  const num = (v: unknown): number | null => {
+    if (v == null) return null
+    const s = String(v).replace(/,/g, '').trim()
+    if (!s) return null
+    const n = parseFloat(s)
     return Number.isFinite(n) ? n : null
   }
-  const out: StooqQuote[] = []
-  for (const line of lines.slice(1)) {
-    const cells = line.split(',').map((c) => c.trim())
-    const symbol = (cells[iSym] || '').toLowerCase()
-    const last = num(cells[iClose])
-    if (!symbol || last === null) continue // N/D or malformed row → omit that symbol, never fake a price
-    const date = iDate >= 0 && /^\d{4}-\d{2}-\d{2}$/.test(cells[iDate] || '') ? cells[iDate] : null
-    const time = iTime >= 0 && /^\d{2}:\d{2}(:\d{2})?$/.test(cells[iTime] || '') ? cells[iTime] : null
-    out.push({ symbol, last, prevClose: iPrev >= 0 ? num(cells[iPrev]) : null, date, time })
+  for (const r of rows) {
+    const symbol = typeof r?.symbol === 'string' ? r.symbol.trim().toUpperCase() : ''
+    const last = num(r?.last)
+    if (!symbol || last === null) continue
+    const t = typeof r?.last_time === 'string' ? Date.parse(r.last_time) : NaN
+    out.set(symbol, {
+      symbol,
+      last,
+      prevClose: num(r?.previous_day_closing),
+      asOf: Number.isFinite(t) ? new Date(t).toISOString() : null,
+      name: typeof r?.name === 'string' && r.name.trim() ? r.name.trim() : null,
+    })
   }
   return out
 }
@@ -283,14 +295,19 @@ function splitProfileSections(md: string): Map<string, string> {
 
 // ---- fetch hygiene (mirrors sources/gov-data.ts: abort timeout, one retry, never throws) ----
 
+// Per-host UAs: the .gov endpoint wants a descriptive UA with a contact (their API etiquette); CNBC's
+// WAF INTERMITTENTLY 403s non-browser UAs (verified live 2026-07-11: the same batch URL answered 200
+// with a Mozilla UA and 403 with a plain/descriptive one minutes apart) — so the CNBC call presents a
+// browser-ish UA and the CFTC call stays descriptive.
 const PULSE_UA = 'nostra-demus-screener/1.0 (ceekay@muns.io)'
+const BROWSER_UA = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36'
 
-async function fetchText(fetchFn: typeof fetch, url: string, timeoutMs: number): Promise<string | null> {
+async function fetchText(fetchFn: typeof fetch, url: string, timeoutMs: number, ua: string = PULSE_UA): Promise<string | null> {
   for (let attempt = 1; attempt <= 2; attempt++) {
     const ctrl = new AbortController()
     const timer = setTimeout(() => ctrl.abort(), timeoutMs)
     try {
-      const res = await fetchFn(url, { headers: { 'user-agent': PULSE_UA, accept: '*/*' }, signal: ctrl.signal })
+      const res = await fetchFn(url, { headers: { 'user-agent': ua, accept: '*/*' }, signal: ctrl.signal })
       if (!res.ok) throw new Error(`HTTP ${res.status}`)
       return await res.text()
     } catch {
@@ -348,28 +365,34 @@ function persist(stateDir: string, swarmId: string, entry: CacheEntry): void {
 
 const round2 = (n: number) => Math.round(n * 100) / 100
 
+// CNBC batches every symbol in ONE call, so the failure semantics are simple: the batch failing
+// (network / HTTP / non-JSON / empty) keeps the WHOLE previous half untouched — timestamp included —
+// and the snapshot reports stale:true; a symbol missing (or unusable, e.g. a dead contract) inside a
+// GOOD batch is honest absence for that subject.
 async function refreshPrices(entry: CacheEntry, cfg: PulseSourcesConfig, fetchFn: typeof fetch, now: () => Date, timeoutMs: number): Promise<void> {
-  const symbols = [...new Set(Object.values(cfg.subjects).map((s) => s.stooq).filter((s): s is string => Boolean(s)))].sort()
+  const wanted = Object.entries(cfg.subjects).filter(([, s]) => s.cnbc)
   const nowMs = now().getTime()
-  if (!symbols.length) { entry.price = { at: nowMs, data: {} }; return } // nothing configured — absence, not failure
-  const text = await fetchText(fetchFn, buildStooqUrl(symbols), timeoutMs)
-  if (text === null) return // fetch failed — keep the previous half (caller reports stale)
-  const quotes = parseStooqCsv(text)
-  if (!quotes.length) return // 200 but unparseable/empty — treat as failure, keep the previous half
-  const bySym = new Map(quotes.map((q) => [q.symbol, q]))
+  if (!wanted.length) { entry.price = { at: nowMs, data: {} }; return } // nothing configured — absence, not failure
+  const symbols = [...new Set(wanted.map(([, s]) => s.cnbc!))].sort()
+  const text = await fetchText(fetchFn, buildCnbcQuoteUrl(symbols), timeoutMs, BROWSER_UA)
+  if (text === null) return // batch failed — keep the previous half (caller reports stale)
+  let quotes: Map<string, CnbcQuote>
+  try { quotes = parseCnbcQuotes(JSON.parse(text)) } catch { return } // not JSON — keep the previous half
+  if (!quotes.size) return // 200 but nothing usable (shape change / block page) — keep the previous half
   const data: Record<string, PulsePrice> = {}
-  for (const [subject, src] of Object.entries(cfg.subjects)) {
-    const q = src.stooq ? bySym.get(src.stooq) : undefined
-    if (!q) continue // N/D or missing from the response → omit this subject's price
+  for (const [subject, src] of wanted) {
+    const q = quotes.get(src.cnbc!)
+    if (!q) continue // absent/unusable in a good batch (dead contract) → omit, never fake
     const prev = q.prevClose !== null && q.prevClose !== 0 ? q.prevClose : null
     data[subject] = {
-      symbol: q.symbol,
+      symbol: src.cnbc!,
       last: q.last,
       prev_close: q.prevClose,
       change_pct: prev !== null ? round2(((q.last - prev) / prev) * 100) : null,
       unit: src.unit || '',
-      as_of: q.date ? (q.time ? `${q.date}T${q.time}` : q.date) : now().toISOString(),
-      source: 'stooq',
+      as_of: q.asOf ?? now().toISOString(),
+      source: 'cnbc',
+      ...(q.name ? { label: q.name } : {}), // the front-month contract label, when CNBC names it
     }
   }
   entry.price = { at: nowMs, data }
