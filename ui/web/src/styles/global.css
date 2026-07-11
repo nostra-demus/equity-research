@@ -990,6 +990,9 @@ a { color: inherit; }
 .datafiles__name { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text); }
 .datafiles__tabsn { flex: none; font-size: 10.5px; color: var(--accent-bright); white-space: nowrap; }
 .datafiles__period { flex: none; font-size: 10.5px; color: var(--text-muted); white-space: nowrap; }
+/* external-data provenance chip (provider · §4 tier) — quiet accent so routed external docs read
+   as a distinct class of evidence without shouting over the type badge */
+.datafiles__ext { flex: none; font-size: 10px; color: var(--accent-bright); opacity: 0.85; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .datafiles__tabs { padding: 1px 8px 6px 30px; display: flex; flex-direction: column; gap: 2px; }
 .datafiles__tab { display: flex; align-items: baseline; gap: 8px; }
 .datafiles__tabname { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-muted); }
@@ -1611,6 +1614,25 @@ a { color: inherit; }
 /* a small live dot inside the "Latest" tab — signals the stream is running */
 .evrail__segpulse { width: 5px; height: 5px; flex-shrink: 0; border-radius: 50%; background: var(--live); box-shadow: 0 0 5px var(--live); animation: evpulse 1.9s var(--ease-out) infinite; }
 
+/* "N new · Mark all read" — a thin fixed bar above the scrolling list, shown only while unread items are on
+   screen. Mirrors the count in the rows beneath it. */
+.evrail__unreadbar {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  padding: 6px 16px; border-bottom: 1px solid var(--hairline); background: var(--surface-1);
+  font-size: 10.5px; color: var(--text-muted); flex-shrink: 0;
+  animation: evrowin 200ms var(--ease-out) both;
+}
+.evrail__unreadcount { display: inline-flex; align-items: center; gap: 6px; font-variant-numeric: tabular-nums; letter-spacing: 0.2px; }
+.evrail__unreaddot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 6px var(--accent-glow); }
+.evrail__markread {
+  padding: 3px 9px; border-radius: var(--r-pill); border: 1px solid var(--hairline);
+  background: var(--surface-2); color: var(--text-muted); font-size: 10.5px; cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), transform 140ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .evrail__markread:hover { border-color: var(--hairline-strong); color: var(--text); } }
+.evrail__markread:active { transform: scale(0.97); }
+@media (prefers-reduced-motion: reduce) { .evrail__unreadbar { animation: none; } }
+
 .evrail__list { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; padding: 4px 0 16px; }
 .evrail__list::-webkit-scrollbar { width: 8px; }
 .evrail__list::-webkit-scrollbar-thumb { background: var(--hairline-strong); border-radius: var(--r-pill); border: 2px solid var(--surface-1); }
@@ -1649,6 +1671,17 @@ a { color: inherit; }
 .evrow--on { background: var(--accent-wash); }
 .evrow--on .evrow__rail { opacity: 1; width: 3px; }
 .evrow--on .evrow__headline { color: var(--text); }
+
+/* read / unread — the PERSISTENT "have I seen this?" marker (distinct from the transient --fresh arrival
+   glow above). Unread = a filled accent dot in the left gutter + a brighter headline; read is the calm
+   default (muted headline, no dot). Opening the row, or "Mark all read", clears it. Static — no motion to
+   respect under reduced-motion. */
+.evrow__unread {
+  position: absolute; left: 6px; top: 16px; z-index: 1; pointer-events: none;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--accent); box-shadow: 0 0 6px var(--accent-glow);
+}
+.evrow--unread .evrow__headline { color: var(--text); }
 .evrow__shelve {
   position: absolute; top: 8px; right: 8px; width: 20px; height: 20px; display: grid; place-items: center;
   border: none; background: transparent; color: var(--text-faint); font-size: 12px; cursor: pointer; line-height: 1;
@@ -1810,6 +1843,94 @@ a { color: inherit; }
 .evdetail__run { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
 .evdetail__est { font-size: 11px; color: var(--text-faint); line-height: 1.45; }
 .evdetail__utility { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+/* ---- 👍 / 👎 rating — the reader's feedback control ------------------------------------------------- */
+/* Two thumbs in one quiet segmented shell: tapping one opens its reason popover; once rated, that thumb
+   FILLS with its polarity colour (up = live green, down = the "bad" red) and the other recedes. */
+.evdetail__rate { display: inline-flex; align-items: center; gap: 2px; padding: 2px; border-radius: var(--r-pill); border: 1px solid var(--hairline); background: var(--bg-2); }
+.evdetail__thumb {
+  display: inline-grid; place-items: center; width: 30px; height: 26px; padding: 0; border: none; background: transparent; cursor: pointer;
+  color: var(--text-muted); border-radius: var(--r-pill);
+  transition: color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out), transform 140ms var(--ease-out);
+}
+.evdetail__thumb svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+@media (hover: hover) and (pointer: fine) {
+  .evdetail__thumb--up:hover { color: var(--live); background: var(--live-wash); }
+  .evdetail__thumb--down:hover { color: var(--bad); background: var(--bad-wash); }
+}
+.evdetail__thumb:active { transform: scale(0.97); }
+.evdetail__thumb:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--accent); }
+/* rated (filled): the chosen thumb solid in its colour, its glyph filled; the other thumb dims out of the way.
+   The green is deepened (mix toward black) so the white glyph clears WCAG 1.4.11's 3:1 for a graphical object
+   — token --live is too light in dark mode for white-on-solid; --bad is already dark enough. */
+.evdetail__thumb--on.evdetail__thumb--up { color: #fff; background: color-mix(in srgb, var(--live) 78%, #000); }
+.evdetail__thumb--on.evdetail__thumb--down { color: #fff; background: var(--bad); }
+.evdetail__thumb--on svg { fill: currentColor; }
+.evdetail__rate--rated .evdetail__thumb:not(.evdetail__thumb--on) { opacity: 0.4; }
+
+/* ---- "Open source" — a quiet icon link, not a shouty button (its own class: .evdetail__source is the
+       reader header's source-attribution block) ---- */
+.evdetail__srclink {
+  display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 11px; border-radius: var(--r-md);
+  border: 1px solid var(--hairline); background: transparent; color: var(--text-muted); text-decoration: none;
+  font-size: 12px; font-weight: 500; white-space: nowrap;
+  transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out), transform 140ms var(--ease-out);
+}
+.evdetail__srclink svg { width: 13px; height: 13px; flex-shrink: 0; opacity: 0.75; }
+@media (hover: hover) and (pointer: fine) { .evdetail__srclink:hover { color: var(--accent-bright); border-color: var(--accent-deep); background: var(--accent-wash-soft); } }
+.evdetail__srclink:active { transform: scale(0.97); }
+.evdetail__srclink:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--accent); }
+
+/* ---- the rating reason popover (behind the thumbs and the rail-row ⚑) ---- */
+.fbpop__scrim { position: fixed; inset: 0; z-index: 60; background: transparent; }
+.fbpop {
+  position: fixed; z-index: 61; width: 248px; max-width: calc(100vw - 24px); padding: 12px; border-radius: var(--r-lg);
+  background: var(--surface-2); border: 1px solid var(--hairline-strong); box-shadow: 0 16px 40px -12px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(0, 0, 0, 0.2);
+  animation: fbpopin 160ms var(--ease-out) both;
+}
+@keyframes fbpopin { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+.fbpop__head { font-size: 11px; font-weight: 600; letter-spacing: 0.2px; color: var(--text-muted); margin-bottom: 9px; }
+.fbpop__group + .fbpop__group { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--hairline); }
+.fbpop__grouplabel { font-size: 10px; font-weight: 600; color: var(--text-faint); margin-bottom: 6px; }
+.fbpop__chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.fbpop__chip {
+  font-size: 11.5px; font-weight: 500; line-height: 1; padding: 6px 10px; border-radius: var(--r-pill); cursor: pointer;
+  border: 1px solid var(--hairline); background: var(--bg-2); color: var(--text-muted);
+  transition: color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out), transform 120ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .fbpop__chip--up:hover { color: var(--live); border-color: var(--live); background: var(--live-wash); }
+  .fbpop__chip--down:hover { color: var(--bad); border-color: var(--bad); background: var(--bad-wash); }
+}
+.fbpop__chip:active { transform: scale(0.96); }
+.fbpop__chip:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--accent); }
+.fbpop__chip--sel.fbpop__chip--up { color: var(--live); border-color: var(--live); background: var(--live-wash); }
+.fbpop__chip--sel.fbpop__chip--down { color: var(--bad); border-color: var(--bad); background: var(--bad-wash); }
+.fbpop__addnote {
+  margin-top: 10px; padding: 4px 2px 0; border: none; background: transparent; color: var(--text-faint); cursor: pointer;
+  font-size: 10.5px; font-weight: 500; transition: color var(--dur-fast) var(--ease-out), transform 120ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .fbpop__addnote:hover { color: var(--accent-bright); } }
+.fbpop__addnote:active { transform: scale(0.97); }
+.fbpop__note { margin-top: 10px; }
+.fbpop__noteinput {
+  width: 100%; resize: vertical; min-height: 44px; padding: 7px 9px; border-radius: var(--r-md);
+  border: 1px solid var(--hairline); background: var(--bg-2); color: var(--text); font: inherit; font-size: 11.5px; line-height: 1.4;
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+.fbpop__noteinput:focus { outline: none; border-color: var(--accent-deep); }
+.fbpop__noterow { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 7px; }
+.fbpop__notehint { font-size: 10.5px; color: var(--text-faint); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.fbpop__send {
+  flex-shrink: 0; font-size: 11.5px; font-weight: 600; padding: 5px 12px; border-radius: var(--r-pill); cursor: pointer;
+  border: 1px solid var(--accent-deep); background: var(--accent-wash); color: var(--accent-bright);
+  transition: background var(--dur-fast) var(--ease-out), transform 120ms var(--ease-out), opacity var(--dur-fast) var(--ease-out);
+}
+.fbpop__send:active { transform: scale(0.96); }
+.fbpop__send:disabled { opacity: 0.45; cursor: not-allowed; }
+@media (prefers-reduced-motion: reduce) {
+  .fbpop { animation: none; }
+  .evdetail__thumb:active, .fbpop__chip:active, .fbpop__send:active, .fbpop__addnote:active, .evdetail__srclink:active { transform: none; }
+}
 /* press feedback consistent with the chips above (scale, not the global .btn translate) */
 .evdetail__actions .btn:active { transform: scale(0.97); }
 
@@ -2727,3 +2848,86 @@ a { color: inherit; }
 .pulsemap__legend-dim { color: var(--text-faint); }
 .pulsemap__dot { display: inline-block; width: 11px; height: 11px; border-radius: 50%; vertical-align: middle; margin-right: 5px; }
 .pulsemap__dot--hot { background: radial-gradient(circle, #fff1ea 0%, #ff5a3c 72%); }
+
+/* ================= the shared WIRE surface (components/wire/*) =================
+   Cross-swarm chrome: rail collapse tab, subject chips' living state, the per-subject pulse strip,
+   and the reader's launch bar. Tokens only; every motion is transform/opacity within --dur* / --ease*
+   (ui/web/DESIGN.md). The chips themselves reuse .evscope — these are only the wire-specific extras. */
+
+/* rail collapse — instant width swap (no width animation, ever); the tab is a slim hairline handle */
+.wiresurface__railtab {
+  align-self: stretch; width: 14px; flex: 0 0 14px; display: flex; align-items: center; justify-content: center;
+  border: none; border-right: 1px solid var(--hairline); background: transparent; color: var(--text-faint);
+  font-size: 11px; cursor: pointer; padding: 0;
+  transition: color var(--dur-fast), transform 140ms var(--ease-out);
+}
+.wiresurface__railtab:active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) {
+  .wiresurface__railtab:hover { color: var(--accent-bright); }
+}
+
+/* subject chips' living state: a run pulse-dot + the last verdict tick (token tones only) */
+.subjectchips__run {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--accent-bright);
+  animation: subjectchips-pulse 1.6s var(--ease) infinite;
+}
+@keyframes subjectchips-pulse { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .subjectchips__run { animation: none; opacity: 1; } }
+.subjectchips__verdict { width: 6px; height: 6px; border-radius: 50%; }
+.subjectchips__verdict--good { background: var(--good); }
+.subjectchips__verdict--bad { background: var(--bad); }
+.subjectchips__verdict--mid { background: var(--text-faint); }
+
+/* the pulse strip — one compact card per subject above the resting main view */
+.subjectpulse {
+  display: flex; gap: 8px; overflow-x: auto; padding: 10px 14px 6px; scrollbar-width: thin;
+}
+.subjectpulse__card {
+  flex: 0 0 auto; min-width: 148px; padding: 8px 10px; border: 1px solid var(--hairline);
+  border-radius: var(--r-md); background: var(--surface-1); display: flex; flex-direction: column; gap: 4px;
+}
+.subjectpulse__card--running { border-color: var(--accent); }
+.subjectpulse__card--skeleton { min-height: 88px; position: relative; overflow: hidden; }
+.subjectpulse__card--skeleton::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(100deg, transparent 30%, var(--accent-wash) 50%, transparent 70%);
+  transform: translateX(-100%); animation: subjectpulse-shimmer 1.4s var(--ease) infinite;
+}
+@keyframes subjectpulse-shimmer { to { transform: translateX(100%); } }
+@media (prefers-reduced-motion: reduce) { .subjectpulse__card--skeleton::after { animation: none; opacity: 0.4; transform: none; } }
+.subjectpulse__toprow { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.subjectpulse__name { font-size: 11px; font-weight: 700; letter-spacing: 0.4px; color: var(--text-muted); }
+.subjectpulse__action { font-size: 10px; font-weight: 700; color: var(--accent-bright); }
+.subjectpulse__price { display: flex; align-items: baseline; gap: 6px; font-variant-numeric: tabular-nums; }
+.subjectpulse__price--none { color: var(--text-faint); font-size: 11px; }
+.subjectpulse__last { font-size: 16px; font-weight: 650; color: var(--text); font-family: var(--font-mono); }
+.subjectpulse__chg { font-size: 11px; font-weight: 700; font-family: var(--font-mono); }
+.subjectpulse__chg--up { color: var(--good); }
+.subjectpulse__chg--down { color: var(--bad); }
+.subjectpulse__unit { font-size: 9px; color: var(--text-faint); }
+.subjectpulse__meta { display: flex; flex-direction: column; gap: 1px; font-size: 10px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.subjectpulse__run {
+  align-self: flex-start; margin-top: 2px; font-size: 10px; font-weight: 700; color: var(--accent-bright);
+  background: transparent; border: none; padding: 0; cursor: pointer;
+  transition: color var(--dur-fast), transform 140ms var(--ease-out);
+}
+.subjectpulse__run:active { transform: scale(0.97); }
+.subjectpulse__run:disabled { color: var(--text-faint); cursor: default; }
+@media (hover: hover) and (pointer: fine) { .subjectpulse__run:hover:not(:disabled) { color: var(--accent); } }
+.subjectpulse__note { align-self: center; font-size: 11px; color: var(--text-faint); padding: 4px 8px; }
+.subjectpulse__retry { background: none; border: none; padding: 0; color: var(--accent-bright); font-size: 11px; cursor: pointer; }
+
+/* the reader's launch bar (wire-only swarms): one decisive CTA per subject + the last verdict */
+.wirelaunch { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
+.wirelaunch--untracked { color: var(--text-faint); font-size: 12px; }
+.wirelaunch__slot { display: inline-flex; align-items: center; gap: 10px; }
+.wirelaunch__cta {
+  font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: var(--r-pill);
+  border: 1px solid var(--accent); color: var(--accent-bright); background: var(--accent-wash); cursor: pointer;
+  transition: background var(--dur-fast), color var(--dur-fast), transform 140ms var(--ease-out), opacity var(--dur-fast);
+}
+.wirelaunch__cta:active { transform: scale(0.97); }
+.wirelaunch__cta:disabled { opacity: 0.5; cursor: default; }
+@media (hover: hover) and (pointer: fine) { .wirelaunch__cta:hover:not(:disabled) { background: var(--accent); color: var(--surface-1); } }
+.wirelaunch__verdict { font-size: 11px; color: var(--text-muted); }
+.wirelaunch__verdict--none { color: var(--text-faint); }

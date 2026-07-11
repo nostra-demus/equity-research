@@ -12,6 +12,20 @@ runs_root: commodity/runs
 board_index: commodity/board/index.json
 schemas_root: frameworks/commodity
 subjects_source: frameworks/commodity/COMMODITY_PROFILES.md
+# The swarm's news-wire capability (CLAUDE.md §26: self-declared, interpreted generically — the engine
+# hardcodes nothing). Declaring this gives the commodities cockpit the SAME shared wire surface the
+# screener uses (ui/web components/wire/*), scoped to commodity news: the rail groups + filters by this
+# swarm's canonical subjects (the `## <NAME>` headings of subjects_source, stamped onto feed items as
+# FeedItem.commodity by ui/server/src/news/commodities.ts), themes slice to commodity flow, and the
+# per-subject pulse strip (price / CFTC COT / next reports / last verdict) reads the sources declared in
+# `pulse:` (seeds pinned by scripts/verify-pulse.ts). Remove this block and the cockpit falls back to the
+# plain constellation — nothing else changes.
+wire:
+  event_scope: commodity # the news scope bucket this wire carries (news/scope.ts vocabulary)
+  group_by: subject # rail chips = the swarm's canonical subjects (GOLD, SUGAR, …) + Other
+  subject_field: commodity # the FeedItem field carrying the canonical subject id
+  pulse: frameworks/commodity/pulse_sources.json # enables GET /api/swarm/pulse?swarm=commodity
+  default_view: latest # the rail lands on Latest (themes open one click away)
 routing:
   verdict_field: "Action"
   # Every commodity thesis ends on ONE action-discipline verdict — all are valid terminal

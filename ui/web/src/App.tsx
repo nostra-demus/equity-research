@@ -6,10 +6,9 @@ import { SwarmField } from './components/swarm/SwarmField'
 import { ViewToggle } from './components/swarm/ViewToggle'
 import { GLOBE } from './components/swarm/globe/globe-consts'
 import { ScreenerField } from './components/screener/ScreenerField'
-import { EventRail } from './components/screener/EventRail'
-import { EventDetail } from './components/screener/EventDetail'
-import { CompanyView } from './components/screener/CompanyView'
-import { ThemesView } from './components/screener/ThemesView'
+import { WireSurface } from './components/wire/WireSurface'
+import { FLOW_WIRE_CONFIG } from './components/wire/WireContext'
+import { deriveWireConfig } from './lib/wire'
 import { SignalIntake } from './components/screener/SignalIntake'
 import { LiveFeed } from './components/screener/LiveFeed'
 import { SourcesPanel } from './components/screener/SourcesPanel'
@@ -55,9 +54,19 @@ function GlobeLoading() {
 // renderer mounted through its exit, so the globe's wrap/unwrap can finish before it unmounts and the two
 // views overlap (both are position:absolute inset:0) for one continuous motion. Reduced-motion → instant
 // swap. No WebGL → only the constellation (the Globe toggle is disabled).
+// the active swarm's wire config (lib/wire.ts), memoized — a fresh object from a bare selector would
+// re-render every subscriber on every store write (the zustand getSnapshot loop).
+function useActiveWireConfig() {
+  const swarms = useStore((s) => s.swarms)
+  const activeSwarm = useStore((s) => s.activeSwarm)
+  const subjects = useStore((s) => s.swarmSubjectList)
+  return useMemo(() => deriveWireConfig(swarms.find((m) => m.id === activeSwarm), subjects), [swarms, activeSwarm, subjects])
+}
+
 function ResearchStage() {
   const view = useStore((s) => s.researchView)
   const webglOK = useStore((s) => s.webglOK)
+  const wireConfig = useActiveWireConfig()
   const reduced = useMemo(
     () => typeof window !== 'undefined' && !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches,
     [],
@@ -65,7 +74,7 @@ function ResearchStage() {
   const onGlobe = webglOK && view === 'globe'
   const ease = [0.23, 1, 0.32, 1] as const
   const W = GLOBE.WRAP_SECONDS // wrap/unwrap duration, shared with GlobeScene's morph
-  return (
+  const home = (
     <>
       <AnimatePresence>
         {onGlobe ? (
@@ -106,23 +115,23 @@ function ResearchStage() {
       <DecisionBanner />
     </>
   )
+  // A constellation swarm whose manifest DECLARES a wire (SWARM.md `wire:` → /api/swarms) renders the
+  // SAME shared wire surface the screener uses, with the constellation as its resting main view — read
+  // the wire, open an event, launch a run, watch the orbs. Absent declaration (incl. every swarm on an
+  // old server): exactly the plain stage below, no wire chrome (deploy-skew fail-closed).
+  if (wireConfig && !wireConfig.flow) return <WireSurface config={wireConfig} home={home} />
+  return home
 }
 
 // Two panes: a persistent left rail streaming every event the scanner reads (ranked), and the main
 // stage. The main stage reads ONE event when the user picks it off the rail, otherwise it is the
 // gauntlet constellation (dormant until a signal runs, animated while one does). Picking "Run the
 // checks" in the reader clears the event and the constellation takes over — one continuous flow:
-// see events → read one → run it → watch the orbs.
+// see events → read one → run it → watch the orbs. The composition itself is the shared WireSurface;
+// this stage just supplies the flow config + the gauntlet as home.
 function ScreenerStage() {
-  const event = useStore((s) => s.scSelectedEvent)
-  const themesView = useStore((s) => s.themesView)
-  const focusedCompany = useStore((s) => s.scFocusedCompany)
-  return (
-    <div className="scstage">
-      <EventRail />
-      <div className="scstage__main">{focusedCompany ? <CompanyView /> : event ? <EventDetail it={event} /> : themesView ? <ThemesView /> : <ScreenerField />}</div>
-    </div>
-  )
+  const wireConfig = useActiveWireConfig()
+  return <WireSurface config={wireConfig ?? FLOW_WIRE_CONFIG} home={<ScreenerField />} />
 }
 
 export function App() {

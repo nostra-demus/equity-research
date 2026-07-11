@@ -59,7 +59,17 @@ export interface SwarmGraph {
 // ---- swarms (the cockpit can host multiple — research is the grandfathered default) ----
 // verdictField: the swarm's self-declared routing verdict key (SWARM.md) for reading its decision
 // record generically; absent for research (whose records use `decision`) and on older engines.
-export interface SwarmMeta { id: string; label: string; color: string; unit: string; order: number; layout: string; verdictField?: string }
+// A swarm's self-declared news-wire capability (SWARM.md `wire:` block, surfaced by /api/swarms).
+// ABSENT on old servers (deploy skew) and for swarms that declare none — every consumer must gate on
+// positive presence (`meta.wire` set), never default the surface on (ui/web/DESIGN.md, deploy-skew rule).
+export interface SwarmWireMeta {
+  eventScope?: string // pre-filter the swarm's wire to this scope bucket (e.g. 'commodity')
+  groupBy?: string // 'subject' => the rail groups + filters by the swarm's canonical subjects
+  subjectField?: string // the FeedItem field carrying the canonical subject id (e.g. 'commodity')
+  pulse?: string // repo-relative pulse config path — truthy => /api/swarm/pulse is available
+  defaultView?: string // rail landing tab ('themes' | 'ranked' | 'latest')
+}
+export interface SwarmMeta { id: string; label: string; color: string; unit: string; order: number; layout: string; verdictField?: string; wire?: SwarmWireMeta }
 
 // ---- screener board (the canonical pipeline state the Pipeline panel renders) ----
 export interface BoardInboxRow {
@@ -139,6 +149,8 @@ export interface FeedItem {
   size_bucket: string
   scope?: string // derived company-vs-broad bucket (news/scope.ts) — present on every served item
   source_tier?: string // derived §4 source tier (Filing / Official data / Company / News / Unconfirmed)
+  commodity?: string // canonical commodity subject (server news/commodities.ts, e.g. 'GOLD') — ABSENT on old servers / non-commodity items; consumers fall back to the client extractor (lib/wire.ts)
+  commodities?: string[] // all canonical commodity subjects the headline names (≤4), same absence rule
   event_materiality_label?: string // low / medium / high / critical — re-derived from the boosted triage_score, never contradicts it
   event_direction?: string // positive / negative / mixed / neutral / unknown — informational only, never scored
   event_scope?: string // company_specific / sector / commodity / macro / geopolitical / regulatory / generic_media
@@ -246,7 +258,7 @@ export interface EventEnrichment {
 }
 
 // ---- screener card feedback (ui/server/src/screener-feedback.ts is the source of truth) ----
-export type FeedbackType = 'irrelevant' | 'score_too_high' | 'score_too_low' | 'wrong_company' | 'wrong_sector' | 'duplicate_stale' | 'should_be_higher' | 'other'
+export type FeedbackType = 'irrelevant' | 'score_too_high' | 'score_too_low' | 'wrong_company' | 'wrong_sector' | 'duplicate_stale' | 'should_be_higher' | 'relevant' | 'other'
 export interface FeedbackSubmitInput {
   event_id: string
   feedback_type: FeedbackType
@@ -544,7 +556,16 @@ export interface DataStatus {
   ticker: string
   hasAnyData: boolean
   fileCount: number
-  files: { filename: string; type: string; periodHint: string | null; ageMonths: number | null; confidence: string; sheets?: { name: string; rows: number; cols: number; cells: number }[] }[]
+  files: {
+    filename: string
+    type: string
+    periodHint: string | null
+    ageMonths: number | null
+    confidence: string
+    sheets?: { name: string; rows: number; cols: number; cells: number }[]
+    // present for externally ingested docs under data/<T>/external/ (frameworks/EXTERNAL_DATA.md)
+    external?: { provider?: string; sourceType?: string; tier?: number; asOf?: string; license?: string }
+  }[]
   recentByType: Record<string, { filename: string; ageMonths: number | null } | undefined>
   modules: Record<string, ModuleReadiness>
   coverage: CoverageGroup[]

@@ -9,7 +9,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { searchFeed } from '../src/news/feed'
-import { matchesFeedFilters } from '../src/news/feed-filter'
+import { explainFeedFilterMatch, matchesFeedFilters, parseFeedFilterQuery } from '../src/news/feed-filter'
 import { computeFacets, invalidateFacets } from '../src/news/facets'
 import type { FeedItem } from '../src/news/types'
 
@@ -231,6 +231,121 @@ check('searchFeed pages without loss when same-ts items have an empty event_id (
     cursor = snap.nextCursor
   }
   assert.equal(seen.size, 3, 'all three empty-event_id matches returned exactly once across the page boundary')
+})
+
+// ═══ commodity-wire filter clauses (scope / commodities / wireScope) — appended checks ═══
+
+// ---- 9. parseFeedFilterQuery: the new keys parse (commodities comma-list uppercased) ----
+check('parseFeedFilterQuery parses commodities (comma-list, uppercased), scope, and wireScope', () => {
+  const q = parseFeedFilterQuery({ commodities: 'gold,sugar', scope: 'commodity', wireScope: 'commodity' })
+  assert.deepEqual(q.commodities, ['GOLD', 'SUGAR'])
+  assert.equal(q.scope, 'commodity')
+  assert.equal(q.wireScope, 'commodity')
+  // unset keys stay absent, and a blank string is not a filter
+  const empty = parseFeedFilterQuery({ commodities: '  ', scope: '', wireScope: undefined })
+  assert.equal(empty.commodities, undefined)
+  assert.equal(empty.scope, undefined)
+  assert.equal(empty.wireScope, undefined)
+})
+
+// ---- 10. matchesFeedFilters: scope exact-match, commodities intersection, wireScope disjunction ----
+check('matchesFeedFilters: scope is an exact-match clause', () => {
+  const it = item({ ts: `${dayAgo(0)}T10:00:00Z`, scope: 'commodity' })
+  assert.equal(matchesFeedFilters(it, { scope: 'commodity' }), true)
+  assert.equal(matchesFeedFilters(it, { scope: 'macro' }), false)
+})
+
+check('matchesFeedFilters: commodities is an intersection (OR within the set)', () => {
+  const it = item({ ts: `${dayAgo(0)}T10:00:00Z`, scope: 'commodity', commodities: ['GOLD', 'COPPER'] })
+  assert.equal(matchesFeedFilters(it, { commodities: ['COPPER'] }), true, 'any shared subject matches')
+  assert.equal(matchesFeedFilters(it, { commodities: ['WHEAT', 'GOLD'] }), true)
+  assert.equal(matchesFeedFilters(it, { commodities: ['WHEAT'] }), false)
+})
+
+check('matchesFeedFilters: wireScope is the disjunction — scope match OR any commodity tag', () => {
+  // a gold-miner single_name story IS commodity-wire material via its tag…
+  const miner = item({ ts: `${dayAgo(0)}T10:00:00Z`, scope: 'single_name', commodities: ['GOLD'] })
+  assert.equal(matchesFeedFilters(miner, { wireScope: 'commodity' }), true, 'a tagged single_name item is ON the wire')
+  // …a macro story with no tags is NOT…
+  const macro = item({ ts: `${dayAgo(0)}T10:00:00Z`, scope: 'macro', commodities: [], headline: 'GDP growth beats forecast' })
+  assert.equal(matchesFeedFilters(macro, { wireScope: 'commodity' }), false, 'untagged off-scope item is OFF the wire')
+  // …and an untagged commodity-scope story is (the scope arm of the disjunction)
+  const broad = item({ ts: `${dayAgo(0)}T10:00:00Z`, scope: 'commodity', commodities: [], headline: 'Palm oil exports jump' })
+  assert.equal(matchesFeedFilters(broad, { wireScope: 'commodity' }), true, 'an untagged commodity-scope item is ON the wire')
+})
+
+check('matchesFeedFilters: an item with NO commodities field lazily derives from its headline', () => {
+  const it = item({ ts: `${dayAgo(0)}T10:00:00Z`, headline: 'Wheat futures surge' }) // never hydrated, no commodities key
+  assert.equal(matchesFeedFilters(it, { commodities: ['WHEAT'] }), true, 'commoditiesOf derives on the fly (synthetic /debug items)')
+  assert.equal(matchesFeedFilters(it, { wireScope: 'commodity' }), true, 'the derived tag also satisfies the wire disjunction')
+})
+
+// ---- 11. archive search: a GOLD item buried days deep is found by the commodities predicate ----
+check('searchFeed finds a sparse GOLD match buried days deep (commodities clause over the archive)', () => {
+  const repo = tmp()
+  for (let d = 0; d <= 5; d++) {
+    writeDay(repo, dayAgo(d), Array.from({ length: 20 }, () => item({ ts: `${dayAgo(d)}T10:00:00Z`, headline: 'Retailer posts quarterly sales' })))
+  }
+  // 6 days ago: the one GOLD item — an OLD line with NO commodity fields (hydrate derives on read)
+  const target = item({ ts: `${dayAgo(6)}T09:00:00Z`, headline: 'Gold climbs to a record high' })
+  writeDay(repo, dayAgo(6), [target])
+
+  const snap = searchFeed(repo, { now, predicate: (it) => matchesFeedFilters(it, { commodities: ['GOLD'] }), limit: 60 })
+  assert.equal(snap.items.length, 1, 'the buried GOLD match is found, not lost behind newer non-commodity items')
+  assert.equal(snap.items[0].event_id, target.event_id)
+  assert.deepEqual(snap.items[0].commodities, ['GOLD'], 'the served item carries the derived tag')
+  assert.equal(snap.exhausted, true)
+})
+
+// ---- 12. facets: commodities + scopes counts, each excluding its OWN dimension ----
+check('computeFacets surfaces commodities + scopes counts; picking a commodity never zeroes its own facet', () => {
+  const repo = tmp() // fresh tmpdir — the facet index caches per repoRoot|archiveDir
+  writeDay(repo, dayAgo(1), [
+    item({ ts: `${dayAgo(1)}T10:00:00Z`, scope: 'commodity', commodities: ['GOLD'], commodity: 'GOLD', headline: 'Gold climbs to a record high' }),
+    item({ ts: `${dayAgo(1)}T11:00:00Z`, scope: 'commodity', commodities: ['GOLD'], commodity: 'GOLD', headline: 'Gold extends its rally' }),
+    item({ ts: `${dayAgo(1)}T12:00:00Z`, scope: 'single_name', commodities: ['COPPER'], commodity: 'COPPER', headline: 'Miner rallies as copper climbs' }),
+    item({ ts: `${dayAgo(1)}T13:00:00Z`, scope: 'macro', commodities: [], headline: 'GDP growth beats forecast' }),
+  ])
+  const f = computeFacets(repo, {}, { now })
+  assert.equal(f.commodities.find((c) => c.key === 'GOLD')?.count, 2)
+  assert.equal(f.commodities.find((c) => c.key === 'COPPER')?.count, 1)
+  assert.equal(f.scopes.find((s) => s.key === 'commodity')?.count, 2)
+  assert.equal(f.scopes.find((s) => s.key === 'single_name')?.count, 1)
+  assert.equal(f.scopes.find((s) => s.key === 'macro')?.count, 1)
+  assert.equal(f.total, 4)
+
+  // own-dimension exclusion: with commodities=GOLD active, the commodities facet still shows BOTH
+  // subjects (the "if I picked this instead" counts), while every other facet narrows to GOLD rows
+  const fGold = computeFacets(repo, { commodities: ['GOLD'] }, { now })
+  assert.equal(fGold.commodities.find((c) => c.key === 'GOLD')?.count, 2, 'the active pick keeps its count')
+  assert.equal(fGold.commodities.find((c) => c.key === 'COPPER')?.count, 1, 'the sibling subject is NOT zeroed by the pick')
+  assert.deepEqual(fGold.scopes.map((s) => s.key), ['commodity'], 'the scopes facet narrows to the GOLD rows')
+  assert.equal(fGold.total, 2)
+
+  // the wire disjunction as a facet context: scope-match OR tagged → 3 of the 4 rows
+  const fWire = computeFacets(repo, { wireScope: 'commodity' }, { now })
+  assert.equal(fWire.total, 3, 'wire membership = scope commodity (2) + tagged single_name (1); the untagged macro row is out')
+})
+
+// ---- 13. explainFeedFilterMatch names the new clauses with pass/fail ----
+check("explainFeedFilterMatch reports 'scope' / 'commodities' / 'wireScope' clauses", () => {
+  const q = { scope: 'commodity', commodities: ['GOLD'], wireScope: 'commodity' }
+  const hit = item({ ts: `${dayAgo(0)}T10:00:00Z`, scope: 'commodity', commodities: ['GOLD'] })
+  const ex = explainFeedFilterMatch(hit, q)
+  assert.equal(ex.matched, true)
+  const clauses = ex.checks.map((c) => c.clause)
+  assert.ok(clauses.includes('scope') && clauses.includes('commodities') && clauses.includes('wireScope'), `missing clause in [${clauses.join(', ')}]`)
+  assert.ok(ex.checks.every((c) => c.passed))
+  assert.ok(ex.checks.find((c) => c.clause === 'wireScope')!.detail.includes('GOLD'), 'the wire pass names the tag that carried it')
+
+  const miss = item({ ts: `${dayAgo(0)}T10:00:00Z`, scope: 'macro', commodities: [], headline: 'GDP growth beats forecast' })
+  const exMiss = explainFeedFilterMatch(miss, q)
+  assert.equal(exMiss.matched, false)
+  for (const clause of ['scope', 'commodities', 'wireScope']) {
+    const c = exMiss.checks.find((x) => x.clause === clause)
+    assert.ok(c && c.passed === false, `${clause} should be reported as failed`)
+    assert.ok(c!.detail.length > 0, `${clause} carries a human-readable detail`)
+  }
 })
 
 console.log(`\nfeed-search.test.ts: ${passed} passed`)

@@ -55,6 +55,10 @@ export interface Filterable {
   companies?: { name: string; ticker: string | null; listing_country?: string | null }[]
 }
 
+// The LIVE-window twin of the server's matchesFeedFilters (ui/server/src/news/feed-filter.ts) — keep the
+// clauses in lockstep. The server's wire clauses (scope / commodities / wireScope) intentionally have no
+// twin HERE: on the live rail those are applied by lib/wire.ts (itemOnWire + the subject chips), and in
+// archive mode the server applies them — one owner per surface, no double-filtering.
 export function matchesFilters(it: Filterable, f: FeedFilterState): boolean {
   if (f.themes.size > 0 && !(it.event_types || []).some((t) => f.themes.has(t))) return false
   if (f.region && (it.region || '') !== f.region) return false

@@ -26,6 +26,7 @@ import { triageBatchGemini } from './triage/gemini'
 import { estimateTokens, scoreToBand, triageBatch } from './triage/groq'
 import { rankScore, preTriagePriority, capSocialBand, capSocialScore, deriveMaterialityLabel } from './rank'
 import { deriveScope, deriveSourceTier, toEventScope } from './scope'
+import { deriveCommodities } from './commodities'
 import { appendFirehoseSummary, mergeInbox, refreshBoard } from './write-inbox'
 import { runThemesCycle, bumpCycleCounter, themesConfigFromNews } from './themes/engine'
 import { makeThemeNamer } from './themes/llm'
@@ -455,6 +456,8 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     // derived, zero-cost classification — persisted so the wire + a later backfill agree
     scope: deriveScope(t),
     source_tier: deriveSourceTier(t),
+    // canonical commodity tag(s) (news/commodities.ts) — absent when the headline names none
+    ...(() => { const cs = deriveCommodities(t); return cs ? { commodity: cs[0], commodities: cs } : {} })(),
     // event-materiality classifier's final fields — already resolved onto t in the TRIAGE loop above
     event_materiality_label: t.event_materiality_label,
     event_direction: t.event_direction,
@@ -515,6 +518,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         scope: deriveScope(t),
         region: t.region,
         country: resolveCountry(t.headline, t.headline_en, t.companies, t.region, t.issuer_linkage), // same resolver as the feed write (line ~432) → member country == feed-item country
+        commodities: deriveCommodities(t), // same tagger as the feed write → member tags == feed-item tags
       }))
       const n = bumpCycleCounter(stateDir)
       // Hard time-bound: themes runs AFTER the core write, so it must NEVER eat the cycle. Even though
