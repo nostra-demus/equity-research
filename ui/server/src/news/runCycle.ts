@@ -492,7 +492,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const overflowTok = overflow.reduce((s, o) => s + o.tokens, 0)
   const overflowLog = overflow.filter((o) => o.requests).map((o) => ` · ${o.p.id} ${o.requests} req / ${o.tokens} tok`).join('')
   const note = budgetHit
-    ? `daily LLM budget reached (all providers) — ${deferred.length} item${deferred.length === 1 ? '' : 's'} deferred to next cycle`
+    ? `free-tier daily LLM budget reached — ${deferred.length} item${deferred.length === 1 ? '' : 's'} deferred; they clear when the daily quotas reset`
     : groqCoolingDown && deferred.length
       // A prior cycle failed and armed the cross-cycle cooldown; we skipped Groq this cycle and had no
       // overflow room. Say so honestly — otherwise this reads as the "paced for the day" note below, which
