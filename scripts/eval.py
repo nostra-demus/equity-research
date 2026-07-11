@@ -875,6 +875,63 @@ def eval_aj_decision_audit_trail(decision_date, thesis):
                 det.append(f"row {i} ({cells[0]!r}) has a blank {label!r} cell")
     return det
 
+# ── Check AK (red-flag severity reconciliation, CLAUDE.md §13/§18) ──
+# CLAUDE.md §13 makes a Critical red flag hard-cap the rating; §18 caps the headline at Watchlist or
+# lower whenever one stands unresolved. Every module already tells the synthesizer its own Critical
+# count in its 99_*-synthesis.md (management-governance's `critical_red_flag_count` JSON field;
+# earnings-red-flags' "N critical" prose + "Critical" severity table cells; the shapes already in
+# production use). Nothing before this mechanically verified that count actually reaches
+# decision_record.json's `red_flags` array with severity="Critical" — a module could report "Critical
+# concerns" and the synthesizer could silently write those same flags in as "High" with no CI signal.
+# This is the exact gap check AI's landing PR (#199) named as the next candidate for the same
+# treatment ("there's no mechanical check that a Critical/High red flag actually named in a module
+# synthesis is reflected in the decision_record.json red_flags array and rating cap").
+AK_DATE = "2026-07-11"
+_AK_CRITICAL_PATTERNS = [
+    re.compile(r'"critical_red_flag_count"\s*:\s*(\d+)'),
+    re.compile(r'\bCritical\s*:\s*(\d+)\b', re.I),
+    re.compile(r'\((\d+)\s+critical\b', re.I),
+    re.compile(r'\|\s*Critical\s+flags?\s*\|\s*(\d+)\s*\|', re.I),
+    re.compile(r'(\d+)\s+critical\s+(?:red[- ]?flags?|flags?)\b', re.I),
+]
+_AK_DENIAL = re.compile(r'\bno\b[^.\n]{0,60}\bcritical\b', re.I)
+def _module_critical_count(text):
+    """Best-effort count of a module's OWN declared Critical-severity red-flag total, scanning the
+    digit-anchored phrasings modules already use in production ('2 critical', 'Critical: 0',
+    '| Critical flags | 2 |', 'critical_red_flag_count'). Digit-anchored on purpose so loose prose use
+    of the word 'critical' (a 'critical risk', 'critical juncture') can't false-fire. Returns None when
+    the text carries no such declaration at all (nothing to reconcile) — an explicit declared zero is a
+    real 0, not None."""
+    found = [int(m.group(1)) for pat in _AK_CRITICAL_PATTERNS for m in pat.finditer(text or "")]
+    return max(found) if found else None
+def eval_ak_red_flag_severity_reconciliation(decision_date, d, thesis, module_texts):
+    """Core of check AK. `module_texts` is {module_name: its 99_*-synthesis.md text}. Returns None
+    (N/A — pre-gate) or a list of violation strings (empty = pass). Side-effect-free + module-level so
+    `eval.py selftest` can drive it with synthetic module-text snippets, fixture-free."""
+    if not (isdate(decision_date) and decision_date >= AK_DATE):
+        return None  # forward-looking; pre-gate runs N/A
+    declared = {}
+    for mod, text in (module_texts or {}).items():
+        c = _module_critical_count(text)
+        if c:  # 0/None both mean "nothing to reconcile from this module"
+            declared[mod] = c
+    if not declared:
+        return []  # no module declared a Critical flag — nothing to reconcile
+    top_mod = max(declared, key=declared.get); top_n = declared[top_mod]
+    flags = d.get("red_flags") or []
+    json_critical = sum(1 for rf in flags if isinstance(rf, dict) and str(rf.get("severity","")).strip().lower()=="critical")
+    det = []
+    if json_critical < top_n:
+        det.append(f"{top_mod} declares {top_n} Critical red flag(s) but decision_record.json's red_flags "
+                    f"array carries only {json_critical} entr{'y' if json_critical==1 else 'ies'} with "
+                    f"severity=Critical (modules declaring a Critical count: {declared})")
+    section = _scorecard_section(thesis)
+    cap_cell = _hs_cell(section, "Rating cap") if section else None
+    for label, txt in [("Headline Scorecard 'Rating cap' cell", cap_cell), ("decision_record.json rating_cap field", d.get("rating_cap"))]:
+        if txt and _AK_DENIAL.search(txt):
+            det.append(f"{label} denies a Critical red flag ({txt!r}) but {top_mod} declares {top_n}")
+    return det
+
 if scope=="selftest":
     # Fixture-free coverage for check W — the golden suite can't exercise it (every committed run is
     # pre-gate / blank-fielded, so W is always N/A there). Asserts forbidden combos FAIL, correct combos
@@ -1702,7 +1759,66 @@ if scope=="selftest":
         if not ok: ajbad+=1
         print(f"  [{'ok' if ok else 'XX'}] AJ({dt_!r}) -> {got}"+("" if ok else f"  EXPECTED exp={exp}"))
     bad+=ajbad
-    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(agcases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ cases")
+    # AK — red-flag severity reconciliation. No committed run reaches AK_DATE, so drive every branch
+    # here, including the REAL committed-run shape (AMZN_2026-07-10, condensed): the earnings module
+    # declares 2 Critical red flags ("Anthropic Level 3 mark-to-model asset", "D&A from AI capex wave")
+    # via both the "(2 critical, ..." prose and "| Critical flags | 2 |" table row, but the committed
+    # decision_record.json carries those same two flags (RF-ACC-001, RF-OPS-001) as severity="High", and
+    # the Headline Scorecard's Rating-cap cell reads "...no verdict-lock or Critical red flag" — the
+    # live, still-uncaught bug this check exists to catch.
+    AK=eval_ak_red_flag_severity_reconciliation
+    MT_EARNINGS_2CRIT = ("## 1. Earnings Verdict\n\n- **Red-flag agent overall severity verdict: Critical "
+        "concerns** (2 critical, 14 high, 10 medium flags — 26 triggered total)\n\n"
+        "| # | Category | Red Flag | Status | Severity |\n|---|---|---|---|---|\n"
+        "| 1 | Earnings Quality | Anthropic Level 3 mark-to-model asset | Triggered | Critical |\n"
+        "| 2 | Sensitivity | D&A from AI capex wave | Triggered | Critical |\n\n"
+        "| Critical flags | 2 |\n")
+    MT_GOVERNANCE_0CRIT = ('```json\n{"red_flag_count": 2, "critical_red_flag_count": 0}\n```\n'
+        "**Red-Flag Count: 2. Critical: 0.**\n")
+    MT_BM_NUMERIC_SEVERITY = ("Six new flags with severity >=40: Anthropic investment (62), litigation "
+        "overhang (58) — a 0-100 numeric severity scale, not a Critical/High/Medium/Low label.\n")
+    RF_HIGH_ONLY = [{"id":"RF-ACC-001","severity":"High","description":"Anthropic mark-to-model"},
+                     {"id":"RF-OPS-001","severity":"High","description":"D&A opacity"}]
+    RF_TWO_CRITICAL = [{"id":"RF-ACC-001","severity":"Critical","description":"Anthropic mark-to-model"},
+                        {"id":"RF-OPS-001","severity":"Critical","description":"D&A opacity"}]
+    TH_AK_DENIAL = _hs_thesis(exp="-16.1%", dr="-38.7%", rr="-0.42x", conf="57", ds="65").replace(
+        "| Data sufficiency /100 | 65 |\n",
+        "| Data sufficiency /100 | 65 |\n| Rating cap, if any | Edge gate binding; no verdict-lock or Critical red flag |\n")
+    TH_AK_CLEAN = _hs_thesis(exp="-16.1%", dr="-38.7%", rr="-0.42x", conf="57", ds="65").replace(
+        "| Data sufficiency /100 | 65 |\n",
+        "| Data sufficiency /100 | 65 |\n| Rating cap, if any | 2 Critical red flags cap the rating at Watchlist per §13/§18 |\n")
+    akcases=[  # (decision_date, decision_record_dict, thesis_text, module_texts, expect: None|[]|[substr,...])
+        ("2026-07-10", {"red_flags":RF_HIGH_ONLY}, TH_AK_DENIAL, {"earnings":MT_EARNINGS_2CRIT}, None),  # predates AK_DATE
+        ("2026-07-11", {"red_flags":[]}, "# Thesis\n", {}, []),                                          # no modules -> nothing to reconcile
+        ("2026-07-11", {"red_flags":[]}, "# Thesis\n", {"management-governance":MT_GOVERNANCE_0CRIT}, []), # explicit declared 0 -> nothing to reconcile
+        ("2026-07-11", {"red_flags":[]}, "# Thesis\n", {"business-model":MT_BM_NUMERIC_SEVERITY}, []),    # numeric 0-100 severity scale never matches
+        # the live AMZN_2026-07-10 bug shape: severity downgraded AND the headline denies a Critical flag
+        ("2026-07-11", {"red_flags":RF_HIGH_ONLY}, TH_AK_DENIAL, {"earnings":MT_EARNINGS_2CRIT},
+         ["declares 2 Critical red flag(s) but decision_record.json's red_flags array carries only 0",
+          "denies a Critical red flag"]),
+        # severity correctly carried through but the headline text still denies -> still a real defect
+        ("2026-07-11", {"red_flags":RF_TWO_CRITICAL}, TH_AK_DENIAL, {"earnings":MT_EARNINGS_2CRIT},
+         ["denies a Critical red flag"]),
+        # fully reconciled: severity carried through AND the headline states the cap -> clean pass
+        ("2026-07-11", {"red_flags":RF_TWO_CRITICAL}, TH_AK_CLEAN, {"earnings":MT_EARNINGS_2CRIT}, []),
+        # management-governance's clean structured 0-critical shape alongside a real earnings 2-critical
+        # declaration -> still governed by the earnings module's nonzero count
+        ("2026-07-11", {"red_flags":RF_TWO_CRITICAL}, TH_AK_CLEAN,
+         {"earnings":MT_EARNINGS_2CRIT, "management-governance":MT_GOVERNANCE_0CRIT}, []),
+    ]
+    akbad=0
+    for dt_,d_,th_,mt_,exp in akcases:
+        got=AK(dt_,d_,th_,mt_)
+        if exp is None:
+            ok=(got is None)
+        elif not exp:
+            ok=(isinstance(got,list) and len(got)==0)
+        else:
+            ok=(isinstance(got,list) and len(got)>0 and all(any(s in v for v in got) for s in exp))
+        if not ok: akbad+=1
+        print(f"  [{'ok' if ok else 'XX'}] AK({dt_!r},red_flags={d_.get('red_flags')!r}) -> {got}"+("" if ok else f"  EXPECTED exp={exp}"))
+    bad+=akbad
+    print(("SELFTEST PASS" if not bad else f"SELFTEST FAIL ({bad} case(s))")+f" — {len(cases)} check-W + {len(xcases)} check-X + {len(ycases)} check-Y + {len(zcases)} check-Z + {len(t2cases)} check-T2 + {len(t3cases)} check-T3 + {len(aacases)} check-AA + {len(evcases)} AA-extractor + {len(abcases)} check-AB + {len(accases)} check-AC + {len(adcases)} check-AD + {len(aecases)} check-AE + {len(afcases)} check-AF + {len(agcases)} check-AG + {len(ahcases)} check-AH + {len(aicases)} check-AI + {len(ajcases)} check-AJ + {len(akcases)} check-AK cases")
     sys.exit(0 if not bad else 1)
 
 runs=sorted(glob.glob("analyses/*/decision_record.json"))
@@ -2470,6 +2586,25 @@ for drp in runs:
     else:
         add("AJ_decision_audit_trail",True,
             f"Decision Audit Trail table present with {len(_decision_audit_rows(_decision_audit_section(thesis)))} populated rows")
+    # AK red-flag severity reconciliation (forward-looking; landing AK_DATE) — CLAUDE.md §13/§18. A
+    #   module can declare a Critical red flag (management-governance's `critical_red_flag_count` field;
+    #   earnings-red-flags' "N critical" prose/table) with nothing before this verifying that severity
+    #   actually reaches decision_record.json's red_flags array, or that the Headline Scorecard's
+    #   Rating-cap cell doesn't deny it — the gap check AI's landing PR (#199) named as next.
+    module_texts_ak={}
+    for sp in glob.glob(os.path.join(run,"*","99_*-synthesis.md")):
+        mod=os.path.basename(os.path.dirname(sp))
+        try: module_texts_ak[mod]=open(sp).read()
+        except Exception: pass
+    akresult=eval_ak_red_flag_severity_reconciliation(ddte,d,thesis,module_texts_ak)
+    if akresult is None:
+        add("AK_red_flag_severity_reconciliation",True,f"run predates the gate ({ddte}) — N/A",na=True)
+    elif akresult:
+        add("AK_red_flag_severity_reconciliation",False,"; ".join(akresult))
+    else:
+        add("AK_red_flag_severity_reconciliation",True,
+            "module-declared Critical red-flag counts reconcile with decision_record.json red_flags "
+            "and the Headline Scorecard Rating-cap cell does not deny one")
     # WARN non-schema files
     # [review fix] suppress only genuine versioned/audit/review artifacts via PRECISE patterns — the old naive
     # `"_v" not in name` / `"review" not in name` substring tests hid real strays (preview.md, *_v*-named scratch).
@@ -2541,7 +2676,7 @@ FRAMEWORK_CONTRACTS={
  ".claude/commands/research/review-decisions.md":["memo_delta","stage_one_comment","rerun_command","Pool first","_memo_delta"],
  ".claude/commands/research/eval.md":["scripts/eval.py"],
  ".claude/commands/research/calibrate.md":["calibration_by_module","calibration_by_forecast_type","owner_module","forecast_type","Phase 6"],
- "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap","eval_ag_calibration_feedback_gate","AG_DATE","AG_STATUSES","_calib_summary_asof","CALIB_SUMMARIES","eval_ah_expectations_gap_gate","AH_DATE","AH_expectations_gap_gate","eval_ai_headline_reconciliation","AI_DATE","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","eval_aj_decision_audit_trail","AJ_DATE","AJ_MIN_ROWS","AJ_REQUIRED_COLS","_decision_audit_section","_decision_audit_header","_decision_audit_rows","_audit_cell_blank"],
+ "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap","eval_ag_calibration_feedback_gate","AG_DATE","AG_STATUSES","_calib_summary_asof","CALIB_SUMMARIES","eval_ah_expectations_gap_gate","AH_DATE","AH_expectations_gap_gate","eval_ai_headline_reconciliation","AI_DATE","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","eval_aj_decision_audit_trail","AJ_DATE","AJ_MIN_ROWS","AJ_REQUIRED_COLS","_decision_audit_section","_decision_audit_header","_decision_audit_rows","_audit_cell_blank","eval_ak_red_flag_severity_reconciliation","AK_DATE","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL"],
  ".github/workflows/ci.yml":["eval-contracts","scripts/eval.py"],
 }
 jchecks=[]
