@@ -238,6 +238,42 @@ def main():
           os.path.exists(os.path.join(root, "360ONE", "external", "vendor", "wealth_note.txt")), str(res))
     shutil.rmtree(root)
 
+    # provider folder sets the source_type when content is silent (round-2 review)
+    root = tempfile.mkdtemp()
+    build_pool(root)
+    drop(root, "YipitData/AMZN/opaque_export.txt", "rows of numbers, no vendor words at all")
+    drop(root, "Tegus/AMZN/opaque_call.txt", "notes, nothing signal-bearing")
+    res = m.run(root)
+    sc = sidecar(root, "AMZN", "yipitdata", "opaque_export.txt")
+    check("known alt-data provider folder -> alt_data_panel tier 5",
+          sc and sc["source_type"] == "alt_data_panel" and sc["tier"] == 5, str(sc))
+    sc = sidecar(root, "AMZN", "tegus", "opaque_call.txt")
+    check("known expert-network folder -> expert_call tier 9",
+          sc and sc["source_type"] == "expert_call" and sc["tier"] == 9, str(sc))
+    shutil.rmtree(root)
+
+    # lowercase filename symbol routes (filename is metadata; body stays case-sensitive)
+    root = tempfile.mkdtemp()
+    build_pool(root)
+    drop(root, "amzn_panel_readout.txt", "no readable signals in the body")
+    res = m.run(root)
+    check("lowercase filename symbol routes",
+          any(b == "amzn_panel_readout.txt" and ts == ["AMZN"] for b, ts, *_ in res["routed"]), str(res))
+    shutil.rmtree(root)
+
+    # period-shaped provider subfolders are never forced tickers
+    root = tempfile.mkdtemp()
+    build_pool(root)
+    drop(root, "Vendor/2026/undetectable.txt", "no names")
+    drop(root, "Vendor/Q1-2026/undetectable2.txt", "no names")
+    res = m.run(root)
+    check("date folders are not force-routed as tickers",
+          not os.path.isdir(os.path.join(root, "2026")) and not os.path.isdir(os.path.join(root, "Q1-2026")),
+          str(res))
+    check("date-folder files fall back to detection (unrouted here)",
+          len(res["unrouted"]) == 2, str(res))
+    shutil.rmtree(root)
+
     # day-first data-through dates are detected + validated
     check("day-first 'data through 31/03/2026' parses as 2026-03-31",
           m._parse_dates("x.txt", "data through 31/03/2026")[0] == "2026-03-31",

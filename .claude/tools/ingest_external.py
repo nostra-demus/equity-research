@@ -159,6 +159,28 @@ KNOWN_PROVIDERS = {
     "visible alpha": "Visible Alpha", "hedgeye": "Hedgeye",
 }
 
+# What a KNOWN provider ships — used when the document's own text gives no stronger signal, so a
+# `<Provider>/<TICKER>/` drop whose only vendor cue is the folder name still lands at the right
+# source_type/tier (an alt-data vendor's opaque export must not default to external_other/tier 9).
+PROVIDER_TYPE = {
+    "YipitData": "alt_data_panel", "M Science": "alt_data_panel", "Second Measure": "alt_data_panel",
+    "SimilarWeb": "alt_data_panel", "Sensor Tower": "alt_data_panel", "Consumer Edge": "alt_data_panel",
+    "Earnest Analytics": "alt_data_panel", "Visible Alpha": "alt_data_panel",
+    "Tegus": "expert_call", "GLG": "expert_call", "AlphaSights": "expert_call",
+    "Third Bridge": "expert_call", "Guidepoint": "expert_call",
+    "Hedgeye": "broker_research",
+}
+
+# Period-shaped folder names ("2026", "Q1-2026", "Mar-26", "FY26", "H1-2026") are how providers
+# organize drops by date — NEVER a forced ticker, or a fake data/2026/ pool would swallow the doc.
+PERIOD_SHAPE = re.compile(
+    r"^(?:(?:19|20)\d{2}(?:[-_.](?:\d{1,2})(?:[-_.]\d{1,2})?)?"
+    r"|Q[1-4](?:[-_ ]?(?:19|20)?\d{2})?"
+    r"|FY[-_ ]?\d{2,4}"
+    r"|H[12](?:[-_ ]?(?:19|20)?\d{2})?"
+    r"|(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC)[-_ ]?\d{2,4})$",
+    re.I)
+
 README_TEXT = """# External data inbox
 
 Drop ANY research file here — paid data notes, expert-call notes, your own channel
@@ -367,7 +389,10 @@ def match_tickers(filename, sniff, tickers, aliases):
     scores = []
     for t in tickers:
         score = 0
-        fname_hit = bool(_count_word(filename, t)) or any(_count_phrase(norm_name, a) for a in aliases.get(t, ()))
+        # filename symbols match case-INSENSITIVELY (a filename is metadata — "amzn_panel.pdf"
+        # is the only routing signal a scanned/sparse-text file has); BODY symbols stay
+        # case-sensitive below to avoid prose false positives.
+        fname_hit = bool(_count_word(filename, t, re.I)) or any(_count_phrase(norm_name, a) for a in aliases.get(t, ()))
         if fname_hit:
             score += 5
         if len(t) >= MIN_BARE_SYMBOL_LEN:
@@ -498,7 +523,9 @@ def classify_inbox_path(fp, inbox, tickers):
         if parts[0] in tickers:
             return None, parts[0]
         return parts[0], None
-    forced = parts[1] if TICKER_SHAPE.match(parts[1]) else None
+    # a period-shaped second segment ("2026", "Q1-2026", "Mar-26") is a provider's date folder,
+    # never a forced ticker — force-routing it would create a fake data/2026/ pool
+    forced = parts[1] if TICKER_SHAPE.match(parts[1]) and not PERIOD_SHAPE.match(parts[1]) else None
     return parts[0], forced
 
 
@@ -556,8 +583,14 @@ def run(pool="data", dry_run=False):
                 continue
 
         provider = infer_provider(base, sniff, provider_folder)
-        pslug = slug(provider)
         stype = infer_source_type(base, sniff)
+        # the folder name is often the ONLY vendor signal (`YipitData/AMZN/opaque.xlsx`): when the
+        # content gave no stronger signal than a generic bucket, a KNOWN provider sets the type
+        canon = KNOWN_PROVIDERS.get(str(provider).strip().lower(), provider)
+        if stype in ("external_other", "vendor_export", "paid_api") and canon in PROVIDER_TYPE:
+            provider = canon
+            stype = PROVIDER_TYPE[canon]
+        pslug = slug(provider)
         as_of, published = _parse_dates(base, sniff)
         tick_list = [t for t, _ in targets]
         sidecar = {

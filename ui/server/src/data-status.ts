@@ -503,24 +503,25 @@ const SIDECAR_SUFFIX = '.source.json'
 
 // external/<provider>/<file> — two levels max (the watcher and this walk agree on that bound)
 function listExternalFiles(tickerDirRaw: string): string[] {
-  // Inline containment — analyzeTicker's exact idiom, repeated INLINE because CodeQL recognizes
-  // the resolve + startsWith guard only when it sits at the flow itself, not behind a helper
-  // (a confine() wrapper still produced js/path-injection findings). Everything below derives
-  // from the confined tickerDir plus readdir basenames, so no crafted input can escape data/.
-  const tickerDir = path.resolve(tickerDirRaw)
-  if (tickerDir !== DATA_DIR && !tickerDir.startsWith(DATA_DIR + path.sep)) return []
-  const root = path.join(tickerDir, 'external')
+  // Inline containment at EVERY derived path, right before its fs use — the shape CodeQL's
+  // js/path-injection barrier recognizes (a guard on the parent variable alone, or behind a
+  // helper, still left findings on the joined children). No crafted input can escape data/.
+  const root = path.resolve(tickerDirRaw, 'external')
+  if (!root.startsWith(DATA_DIR + path.sep)) return []
   const out: string[] = []
   try {
     for (const n of fs.readdirSync(root)) {
       if (n.startsWith('.') || n.endsWith(SIDECAR_SUFFIX)) continue
-      const full = path.join(root, n)
+      const full = path.resolve(root, n)
+      if (!full.startsWith(root + path.sep)) continue
       const st = fs.statSync(full)
       if (st.isFile()) out.push(path.join('external', n))
       else if (st.isDirectory()) {
         for (const m of fs.readdirSync(full)) {
           if (m.startsWith('.') || m.endsWith(SIDECAR_SUFFIX)) continue
-          try { if (fs.statSync(path.join(full, m)).isFile()) out.push(path.join('external', n, m)) } catch {}
+          const leaf = path.resolve(full, m)
+          if (!leaf.startsWith(full + path.sep)) continue
+          try { if (fs.statSync(leaf).isFile()) out.push(path.join('external', n, m)) } catch {}
         }
       }
     }
