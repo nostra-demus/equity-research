@@ -187,7 +187,13 @@ export function computeGlobeLayout(graph: SwarmGraph, flat?: FlatOverride): Glob
         toModule: a.module,
       })
     }
-    // dep: upstream module synthesis → this module (arcs across the globe; flat curves between columns)
+    // dep: upstream module synthesis → this module (arcs across the globe; flat curves between columns).
+    // On the SPHERE the arc lands on this module's synthesis hub — the same orb `feeds` converge into and
+    // `core` departs from — so every inter-module comet visibly TERMINATES on a real orb. Targeting the bare
+    // region `center` (radius R, below the bumped-out orbs and in the gap between them) made the comet fade
+    // into empty space at the module's location, reading as "not joining any orb". The FLAT endpoint stays the
+    // module header (flatAnchorV) so the morph-0 layout still overlays the constellation exactly (a seamless
+    // crossfade); the endpoint's slide from header to hub is absorbed by the overall wrap motion.
     for (const dep of a.dependsOn) {
       const src = anchorByModule.get(dep)
       if (!src) continue
@@ -195,7 +201,7 @@ export function computeGlobeLayout(graph: SwarmGraph, flat?: FlatOverride): Glob
         id: `dep:${dep}->${a.module}`,
         kind: 'dep',
         from: src.synthPos,
-        to: a.center,
+        to: a.synthPos,
         flatFrom: flatSynth(dep),
         flatTo: flatAnchorV(a.module),
         fromKey: src.synthKey || dep,
