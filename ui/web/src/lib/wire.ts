@@ -85,12 +85,16 @@ const TAXONOMY_TO_SUBJECT: Record<string, string> = {
   Cotton: 'COTTON',
 }
 
+// the plural of a subject field name ('commodity' -> 'commodities') — the server stamps BOTH the
+// singular (primary) and the plural (all matches) onto the item
+const pluralOf = (field: string): string => (field.endsWith('y') ? `${field.slice(0, -1)}ies` : `${field}s`)
+
 /** Every canonical subject an item belongs to, for the active wire config. The server-stamped field
  *  (cfg.subjectField, e.g. it.commodity/commodities) is authoritative; the taxonomy extractor is the
  *  old-server fallback. Only subjects the config actually tracks are returned; [] = untracked (Other). */
 export function subjectsOfItem(it: FeedItem, cfg: WireConfig): string[] {
   const tracked = new Set(cfg.subjects)
-  const stamped = cfg.subjectField ? ((it as any)[`${cfg.subjectField}s`] ?? ((it as any)[cfg.subjectField] ? [(it as any)[cfg.subjectField]] : undefined)) : undefined
+  const stamped = cfg.subjectField ? ((it as any)[pluralOf(cfg.subjectField)] ?? ((it as any)[cfg.subjectField] ? [(it as any)[cfg.subjectField]] : undefined)) : undefined
   if (Array.isArray(stamped)) return stamped.filter((s: string) => tracked.has(s))
   const extracted = extractCommodities(`${it.headline_en || it.headline}`)
   const mapped = extracted.map((name) => TAXONOMY_TO_SUBJECT[name]).filter((s): s is string => !!s && tracked.has(s))
