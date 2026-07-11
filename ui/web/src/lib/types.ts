@@ -246,7 +246,7 @@ export interface EventEnrichment {
 }
 
 // ---- screener card feedback (ui/server/src/screener-feedback.ts is the source of truth) ----
-export type FeedbackType = 'irrelevant' | 'score_too_high' | 'score_too_low' | 'wrong_company' | 'wrong_sector' | 'duplicate_stale' | 'should_be_higher' | 'other'
+export type FeedbackType = 'irrelevant' | 'score_too_high' | 'score_too_low' | 'wrong_company' | 'wrong_sector' | 'duplicate_stale' | 'should_be_higher' | 'relevant' | 'other'
 export interface FeedbackSubmitInput {
   event_id: string
   feedback_type: FeedbackType
