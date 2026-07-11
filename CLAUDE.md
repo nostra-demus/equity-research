@@ -19,7 +19,10 @@ This is the root doctrine for the equity-research engine. It is cross-cutting: e
 - Always inspect existing files, modules, commands, agents, frameworks, and outputs first.
 - Prefer upgrading, extending, refactoring, or strengthening an existing component over creating a parallel one.
 - Add a new component only when no existing component can absorb the function cleanly.
+- Prefer deletion to addition, and the shortest change that fully solves the problem — but only once you understand it. The smallest change in the wrong place is not lean, it is a second bug. Shorten the solution, never the reading.
 - Default workflow: inspect, then reuse, then upgrade, and only then add.
+
+This reuse-and-deletion discipline governs engine **code** — the software under `ui/`, `scripts/`, and `.github/`: do not write, keep, or wrap code the task does not need. It is not a license to thin the research program. The prompt-program (`.claude/agents/**`, `.claude/commands/**`, `frameworks/**`, and this doctrine) is dense on purpose: its length carries calibration, evidence rules, and jurisdiction coverage (§27), not bloat. A "cut the unnecessary" pass over those files removes the very instructions that keep the engine less wrong — the §20 bad-extraction and §24 survival failures they exist to prevent. So: reuse and delete freely in code; the standards written into the prompt-program may be extended or tightened, never shortened for brevity (§23, §28).
 
 ---
 
