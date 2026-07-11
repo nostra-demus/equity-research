@@ -107,11 +107,17 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const ts = now().toISOString().replace(/\.\d{3}Z$/, 'Z')
   const date = ts.slice(0, 10)
 
-  const blank: CycleSummary = { ts, ok: false, fetched: 0, candidates: 0, picked: 0, watched: 0, dropped: 0, inboxed: 0, groq_requests: 0, groq_tokens: 0 }
+  const phase: 'fetch' | 'drain' = deps.skipFetch ? 'drain' : 'fetch'
+  const blank: CycleSummary = { ts, ok: false, fetched: 0, candidates: 0, picked: 0, watched: 0, dropped: 0, inboxed: 0, groq_requests: 0, groq_tokens: 0, phase }
 
   if (!cfg.groqApiKey) {
     return { ...blank, note: 'no GROQ_API_KEY — ingester idle' }
   }
+
+  // Announce the cycle BEFORE any network work, so the cockpit can say "looking now" for its whole
+  // duration rather than staying blind until the summary lands ~minutes later. Every exit path below
+  // emits a matching news-cycle, so a start is never left dangling.
+  newsBus.emit({ type: 'news-cycle-start', ts, phase })
 
   // 1. FETCH — GDELT, RSS and the NSE primary-disclosure API in parallel; one layer failing never
   // blocks the others. Merge by URL (first wins; order is only a tiebreak — each carries its own
@@ -160,6 +166,9 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   ])
   const raws: RawArticle[] = []
   const seenUrl = new Set<string>()
+  // per-source delivery for THIS cycle, keyed by `via` — the live counterpart to the on-open source
+  // health snapshot. A layer that fetched nothing simply never appears.
+  const bySource: Record<string, number> = {}
   for (const f of fetches) {
     if (f.status !== 'fulfilled') {
       log(`fetch layer failed: ${(f as PromiseRejectedResult).reason?.message || f.reason}`)
@@ -170,9 +179,13 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       if (key && !seenUrl.has(key)) {
         seenUrl.add(key)
         raws.push(a)
+        const via = a.via || 'other'
+        bySource[via] = (bySource[via] || 0) + 1
       }
     }
   }
+  // A drain fetches nothing, so `sources` stays absent there rather than reporting a misleading all-zero row.
+  const sources = phase === 'fetch' ? bySource : undefined
 
   // 2. NORMALIZE + FILTER + DEDUP — plus the previous cycle's deferred (unscored) spillover
   const seen = SeenCache.load(stateDir)
@@ -189,7 +202,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
 
   if (!items.length) {
     saveDeferred(stateDir, []) // any stale spillover was consumed by the filters above
-    const summary: CycleSummary = { ...blank, ok: true, fetched: raws.length, note: 'no new on-list items' }
+    const summary: CycleSummary = { ...blank, ok: true, fetched: raws.length, note: 'no new on-list items', ...(sources ? { sources } : {}) }
     appendFirehoseSummary(repoRoot, date, summary)
     newsBus.emit({ type: 'news-cycle', summary })
     return summary
@@ -473,6 +486,8 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     picked, watched, dropped, inboxed, groq_requests: groqRequests, groq_tokens: groqTokens,
     ...(geminiRequests ? { gemini_requests: geminiRequests, gemini_tokens: geminiTokens } : {}),
     ...(overflowReq ? { overflow_requests: overflowReq, overflow_tokens: overflowTok } : {}),
+    ...(sources ? { sources } : {}),
+    phase,
     note,
   }
   appendFirehoseSummary(repoRoot, date, summary)

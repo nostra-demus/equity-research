@@ -6,7 +6,7 @@ import { moduleLabel, resolveVerdict } from './format'
 import { displayHeadline, originalHeadline, plainRoute, plainStage } from './plain'
 import type { Theme, ThemeDetail, ThemeBrief } from './themes'
 import { intensityWindowForHours } from './themes'
-import type { ActiveRunLite, AgentNode, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, ThesisPlan, TickerSummary, Usage } from './types'
+import type { ActiveRunLite, AgentNode, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, CycleSummary, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, ThesisPlan, TickerSummary, Usage } from './types'
 import { feedbackInputFromItem, feedbackLabel } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
 import { emptyReviewFilters, matchesReviewFilters, type ReviewFilterState } from '../components/screener/ReviewFilters'
@@ -333,6 +333,7 @@ interface State {
   closeThesisPlan: () => void
   toggleThesisRerun: (module: string) => void // flip one module between "reuse" and "re-run", then re-price
   completeThesis: () => Promise<void>
+  resumeThesisModule: (module: string) => Promise<void> // the RUN pill — launch one module, resuming its orbs
 
   openReport: (tier: 'memo' | 'thesis' | 'dossier') => Promise<void>
   openModuleReport: (module: string, tier: 'synthesis' | 'memo' | 'dossier') => void
@@ -440,6 +441,16 @@ interface State {
   freshEvents: Set<string> // event_ids that just streamed in over SSE — drive the "new detected" glow
   newsArrivedTotal: number // monotonic count of items read off the wire (survives the 1000 cap) — paces the live themes map
   lastScan: { fetched: number; candidates: number; seq: number } | null // the latest ingest cycle's RAW fetch volume — the true "data coming in" intensity that drives the live themes-map flow
+  // ---- what the scanner is doing, right now (the visibility surface) ----
+  // The engine already streams a full CycleSummary per cycle and a cycle-START the moment one begins; both
+  // used to be dropped on the floor. `lastCycle` is the newest summary, `cycleLog` the last CYCLE_LOG_CAP of
+  // them (newest first, in-memory only — the firehose file is the durable record).
+  lastCycle: CycleSummary | null
+  cycleLog: CycleSummary[]
+  // set by news-cycle-start, cleared by the matching news-cycle. `since` lets the view expire a stale
+  // "looking now" on its own (a cycle that throws emits a start with no matching end), and `phase`
+  // separates a real network look ('fetch') from a backlog catch-up ('drain').
+  scanningSince: { since: number; phase: 'fetch' | 'drain' } | null
   scIntensity: IntensityStats | null // windowed intake rollup for the ThemeMap (small server aggregates)
   scIntensityWindow: IntensityWindow // derived from the "When" ribbon (themesWindow) — drives the map readout + lane mix; 'scan' = the live per-cycle path
   setIntensityWindow: (w: IntensityWindow) => Promise<void> // internal — driven by setThemesWindow; not a separate user control
@@ -464,6 +475,9 @@ interface State {
   globalActive: ActiveRunLite[]
   stopListOpen: boolean
   openNewsFeed: () => Promise<void>
+  // The panel's "refresh": re-pull the window AND force-rebuild the live stream. Split from openNewsFeed so
+  // merely opening the panel never tears down a healthy SSE — only an explicit user refresh does.
+  refreshNewsFeed: () => Promise<void>
   closeNewsFeed: () => void
   openSources: () => void
   closeSources: () => void
@@ -633,6 +647,9 @@ export const useStore = create<State>((set, get) => ({
   freshEvents: new Set(),
   newsArrivedTotal: 0,
   lastScan: null,
+  lastCycle: null,
+  cycleLog: [],
+  scanningSince: null,
   scIntensity: null,
   scIntensityWindow: 'scan', // derived from the "When" ribbon (themesWindow) — Live → scan; the ribbon is the single window control
   feedWindowDays: 2,
@@ -1422,6 +1439,54 @@ export const useStore = create<State>((set, get) => ({
         return
       }
       set({ thesisPlanError: e?.message || 'Could not start the completion run' })
+    }
+  },
+
+  // The RUN pill on a Run row: launch ONE module now, resuming from the orbs already on disk. Unlike
+  // `completeThesis`, a stale module here is NOT an abort — the server runs it clean and says so (decision
+  // #2), so the client just reflects the done/planned split the server returns.
+  resumeThesisModule: async (module) => {
+    const plan = get().thesisPlan
+    const t = get().selectedTicker
+    if (!plan || !t) return
+    if (plan.swarm !== 'research') return get().setToast({ msg: `Running a single module of a ${plan.swarm} dossier from here isn’t supported yet.`, tone: 'info' })
+    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
+    const entry = plan.modules.find((m) => m.module === module)
+    if (!entry || !entry.runnable) return // the pill is only pressable when runnable; belt-and-braces
+
+    set({ launchPending: { key: `complete-module:${module}`, label: `Running ${moduleLabel(module)}…`, ticker: t } })
+    try {
+      const { runId, willRun, doneOrbKeys, carried, resumed, ranClean } = await api.runThesisPlanModule(t, module, plan.reuse, plan.swarm)
+
+      // Light up only THIS module's orbs: the ones on disk as done, the rest as queued. Never a false
+      // from-scratch start.
+      const nodes = [...get().nodesByKey.values()].filter((n) => n.module === module)
+      const doneSet = new Set(doneOrbKeys)
+      const doneKeys = nodes.filter((n) => doneSet.has(n.key)).map((n) => n.key)
+      const plannedKeys = nodes.filter((n) => !doneSet.has(n.key)).map((n) => n.key)
+
+      set({ thesisPlanOpen: false, launchPending: null })
+      if (runId) beginRun(set, get, runId, { kind: 'module', module, willCommitToMain: true }, plannedKeys, doneKeys)
+
+      const carriedNote = carried.length ? ` · reused ${carried.length} upstream module${carried.length === 1 ? '' : 's'}` : ''
+      const msg = ranClean
+        ? `Re-running ${moduleLabel(module)} clean on ${t} — newer data landed${carriedNote}`
+        : resumed
+          ? `Resuming ${moduleLabel(module)} on ${t} — ${willRun} orb${willRun === 1 ? '' : 's'} left${carriedNote}`
+          : `Running ${moduleLabel(module)} on ${t} — ${willRun} orb${willRun === 1 ? '' : 's'}${carriedNote}`
+      get().setToast({ msg, tone: 'good' })
+    } catch (e: any) {
+      set({ launchPending: null })
+      const code = e?.body?.code
+      if (code === 'already_complete') {
+        set({ thesisPlanOpen: false })
+        get().setToast({ msg: 'This run already has a final thesis — opening it.', tone: 'info' })
+        void get().openThesis()
+        return
+      }
+      // A transient launch failure must not unmount the plan the user is reading; surface it as a toast and
+      // leave the panel open so they can retry (the carry is idempotent, a retry resumes).
+      get().setToast({ msg: e?.message || `Could not run ${moduleLabel(module)}`, tone: 'bad' })
     }
   },
 
@@ -2494,9 +2559,14 @@ export const useStore = create<State>((set, get) => ({
     set({ launchPending: { key: 'sweep', label: 'Starting the news scan…', ticker: 'sweep' } })
     try {
       const { runId } = await api.launchSweep()
+      scSweepWatch.add(runId) // tag this run so run-done/run-error give it sweep copy, not signal copy
       beginScreenerRun(set, get, runId, 'sweep')
-      get().setToast({ msg: 'Looking for news — new items will appear in the Inbox when done', tone: 'good' })
+      // open the wire so the scan is watchable AS it runs — the visibility surface, not a black box
+      void get().openNewsFeed()
+      get().setToast({ msg: 'Scanning for news — watch it come in on the wire; new leads land in the Inbox.', tone: 'good' })
     } catch (e: any) {
+      // A launch REJECTION (admission/pre-flight) carries a structured body.code → an expected block (e.g.
+      // a sweep already running), shown calm. Anything else is a real failure. Either way, say what it is.
       get().setToast({ msg: e?.message ? String(e.message) : 'The news scan could not start', tone: e?.body?.code ? 'info' : 'bad' })
     } finally {
       set({ launchPending: null })
@@ -2575,14 +2645,10 @@ export const useStore = create<State>((set, get) => ({
   // ---- the news wire: watch the scanner live ----
   openNewsFeed: async () => {
     set({ newsFeedOpen: true, pipelineOpen: false, scThesisDetail: null })
-    void get().refreshNewsStatus()
-    try {
-      const { items } = await api.newsFeed(get().feedWindowDays || 2)
-      set({ newsItems: items })
-    } catch {
-      set({ newsItems: [] })
-    }
-    if (!get().staticMode) connectNewsStream(get)
+    await loadNewsFeed(set, get, false)
+  },
+  refreshNewsFeed: async () => {
+    await loadNewsFeed(set, get, true)
   },
   // Switch the wire's time window. 2 = live (SSE keeps appending); bigger = a historical snapshot pulled
   // from the daily firehose archive (newest items in that range). Live items still prepend on top.
@@ -2708,11 +2774,19 @@ export const useStore = create<State>((set, get) => ({
         n.delete(it.event_id)
         set({ freshEvents: n })
       }, FRESH_MS))
+    } else if (e?.type === 'news-cycle-start') {
+      // the scanner just started a look — say so for the whole cycle instead of staying silent until the
+      // summary lands minutes later. An OLDER engine never sends this; the view falls back to status.running.
+      set({ scanningSince: { since: Date.now(), phase: (e as any).phase === 'drain' ? 'drain' : 'fetch' } })
     } else if (e?.type === 'news-cycle') {
       void get().refreshNewsStatus()
       // the cycle's RAW fetch volume drives the live themes map's scanning flow — top it up each scan
-      const sum = (e as any).summary
+      const sum = (e as any).summary as CycleSummary | undefined
       if (sum && typeof sum.fetched === 'number') set({ lastScan: { fetched: sum.fetched, candidates: sum.candidates || 0, seq: (get().lastScan?.seq || 0) + 1 } })
+      // keep the WHOLE summary, not just two fields of it: it is the only record of what this look read,
+      // kept, dropped and why — the "no visibility" gap. Newest first, capped; the firehose file is durable.
+      if (sum) set({ lastCycle: sum, cycleLog: [sum, ...get().cycleLog].slice(0, CYCLE_LOG_CAP), scanningSince: null })
+      else set({ scanningSince: null })
       // keep the chosen intensity window live as cycles land (debounced; the rollup is a tiny aggregate)
       if (get().themesView && get().scIntensityWindow !== 'scan') {
         if (intensityRefetchTimer) clearTimeout(intensityRefetchTimer)
@@ -2848,6 +2922,22 @@ export const useStore = create<State>((set, get) => ({
         if (e.terminal) get().setToast({ msg: `Stopped at "${plainStage(e.module)}": ${plainRoute(e.route)}. A normal outcome, not a failure.`, tone: 'info' })
         break
       }
+      case 'run-heartbeat': {
+        // A sweep has no orbs, so without this it renders as a silent black box — the "no visibility" gap.
+        // The server already pulses this ~every 3s carrying the live tool (lastActivity) + elapsed; patch it
+        // onto the run so RunStreamPanel can show "engine active · WebSearch · Xs ago" for a running scan.
+        // Mirrors the research handler (case 'run-heartbeat' above). Screener signal runs get it too, free.
+        const r = get().activeRuns[e.runId]
+        if (r) {
+          set({
+            activeRuns: {
+              ...get().activeRuns,
+              [e.runId]: { ...r, status: e.status ?? r.status, costUsd: e.costUsd ?? r.costUsd, agentsDone: e.agentsDone, agentsTotal: e.agentsTotal, lastStdoutAt: e.lastStdoutAt, lastActivity: e.lastActivity },
+            },
+          })
+        }
+        break
+      }
       case 'run-done': {
         closeScreenerRunSource(e.runId)
         void get().scRefreshBoard()
@@ -2863,6 +2953,14 @@ export const useStore = create<State>((set, get) => ({
           })
           break
         }
+        // A sweep ("scan now") is not a signal — no orbs, no checks, no selected-signal reload. Announce the
+        // scan on its own terms and refresh the wire so the new leads it just wrote appear immediately.
+        if (scSweepWatch.has(e.runId)) {
+          scSweepWatch.delete(e.runId)
+          void get().refreshNewsFeed()
+          get().setToast({ msg: 'Scan finished — fresh leads are on the wire and in the Inbox.', tone: 'good' })
+          break
+        }
         const sig = get().scSelectedSignal
         if (sig) void get().scSelectSignal(sig) // reload saved outputs + final routing lights
         get().setToast({ msg: 'Checks finished', tone: 'good' })
@@ -2876,6 +2974,22 @@ export const useStore = create<State>((set, get) => ({
         if (handoff) {
           scHandoffWatch.delete(e.runId)
           get().setToast({ msg: `Sending ${handoff.ticker} to research failed (${e.reason}) — the memo may not be saved. Try again from the idea board.`, tone: 'bad' })
+          break
+        }
+        // A sweep failure must NOT borrow the signal copy below: a sweep has no saved checks, and it never
+        // auto-resumes (_maybeAutoResume only relaunches SIG- ids). Say what actually broke, and offer a
+        // one-click retry — the honest fix for the "run paused… resumes on its own" lie the user hit.
+        if (scSweepWatch.has(e.runId)) {
+          scSweepWatch.delete(e.runId)
+          if (/cancel/i.test(String(e.reason || ''))) {
+            get().setToast({ msg: 'Scan stopped. Nothing was charged for the part that did not run.', tone: 'info' })
+            break
+          }
+          get().setToast({
+            msg: `The scan could not finish — ${plainReason(e.reason, e.message)} (${e.reason || 'unknown'}).`,
+            tone: 'bad',
+            action: { label: 'Try again', onClick: () => void get().runSweep() },
+          })
           break
         }
         // a stopped/failed signal run: reload the truthful finished-orb set from disk (the done orbs stay
@@ -3065,6 +3179,8 @@ function closeRunSource(runId?: string) {
 // "new detected" glow: an event_id stays in freshEvents for FRESH_MS after it streams in, then clears
 // itself so the glow plays exactly once. Timers tracked here so a re-seen id resets cleanly.
 const FRESH_MS = 2600
+// how many ingest cycles the live scan log remembers (in-memory; the daily firehose file is the durable record)
+const CYCLE_LOG_CAP = 50
 const freshTimers = new Map<string, ReturnType<typeof setTimeout>>()
 let newsSource: EventSource | null = null
 // App-level reconnect for the news wire. The browser's native EventSource auto-reconnect gives up
@@ -3082,7 +3198,7 @@ function connectNewsStream(get: () => State) {
   if (newsSource) return
   const es = new EventSource(api.newsStreamUrl())
   // 'news-connected' is sent immediately on open — handled in _handleNewsEvent to flip the rail online.
-  for (const t of ['news-connected', 'news-item', 'news-cycle', 'theme-update']) {
+  for (const t of ['news-connected', 'news-item', 'news-cycle-start', 'news-cycle', 'theme-update']) {
     es.addEventListener(t, (ev: MessageEvent) => {
       get()._noteStreamLive() // any wire byte = the engine is up → flip health online instantly
       try {
@@ -3113,11 +3229,37 @@ function scheduleNewsReconnect(get: () => State) {
   newsRetry++
   newsRetryTimer = setTimeout(() => { newsRetryTimer = null; connectNewsStream(get) }, delay)
 }
+// Load (or reload) the wire's current time-window and make sure the live stream is running. Shared by
+// openNewsFeed and the panel's refresh button, so both carry the same two guarantees:
+//  1. a FAILED load never blanks the list — it keeps whatever is shown (same posture as setFeedWindow).
+//     The old openNewsFeed did `set({ newsItems: [] })` here, so one flaky fetch turned a healthy
+//     1000-item wire into "Nothing read yet today" — and refresh was the quickest way to hit it.
+//  2. feedWindowLoading is held for the whole fetch, so the refresh button can show a pending state
+//     instead of looking dead when a successful reload returns visually identical data.
+async function loadNewsFeed(set: any, get: () => State, force: boolean) {
+  set({ feedWindowLoading: true })
+  void get().refreshNewsStatus()
+  try {
+    const { items } = await api.newsFeed(get().feedWindowDays || 2)
+    set({ newsItems: items })
+  } catch {
+    // keep whatever's shown — a transient failure must not destroy the data we were asked to reload
+  } finally {
+    set({ feedWindowLoading: false })
+  }
+  if (!get().staticMode) reviveNewsStream(get, force)
+}
+
 // Wake / focus / network-return: re-create the news stream if it died (CLOSED) or was never opened. A
 // healthy or still-connecting source is left untouched so a focus event never stacks a duplicate stream.
-function reviveNewsStream(get: () => State) {
+//
+// `force` is for an EXPLICIT user refresh only. A stream wedged OPEN-but-silent (readyState 1, a half-open
+// hop through the tunnel, the server no longer pushing) is indistinguishable from a healthy one from here,
+// so the passive path must leave it alone — but when the user presses "refresh" and asks for exactly this,
+// tearing it down and reconnecting is both what they meant and cheap (one reconnect, items dedup by id).
+function reviveNewsStream(get: () => State, force = false) {
   if (isStatic()) return
-  if (newsSource && newsSource.readyState !== 2) return
+  if (!force && newsSource && newsSource.readyState !== 2) return
   if (newsSource) { try { newsSource.close() } catch {} ; newsSource = null }
   if (newsRetryTimer) { clearTimeout(newsRetryTimer); newsRetryTimer = null }
   newsRetry = 0
@@ -3130,6 +3272,30 @@ const scRunSources = new Map<string, EventSource>()
 // as the CLI spawns, so "memo seeded" is only true at run-done — these runs get a tailored
 // completion/failure toast instead of the generic "Screener run complete".
 const scHandoffWatch = new Map<string, { ticker: string; poolPresent: boolean }>()
+// Sweep ("scan now") runs in flight. A sweep has no signal, no orbs, no board entry and does NOT resume on
+// its own (_maybeAutoResume only relaunches SIG- ids), so it must never inherit the signal-run copy — this
+// tags the runId so run-done/run-error branch to sweep-specific messages.
+const scSweepWatch = new Set<string>()
+// Turn the engine's machine failure reason into one plain-English clause (CLAUDE.md §21). Falls back to the
+// first line of the raw message, then the code itself — never a blank or a lie.
+const SWEEP_FAILURE_COPY: Record<string, string> = {
+  api_error_403: "the engine's Claude login was rejected",
+  api_error_401: "the engine's Claude login was rejected",
+  api_error_429: 'Claude is rate-limiting the engine — give it a moment',
+  out_of_credits: 'the engine is out of Claude credit for now',
+  error_max_turns: 'it ran out of steps before finishing',
+  error_during_execution: 'the engine stopped mid-scan',
+  incomplete_deliverables: 'it finished without saving anything',
+  spawn_failed: 'the engine could not start',
+  launch_failed: 'the engine could not start',
+  nonzero_exit: 'the engine exited with an error',
+}
+function plainReason(reason?: string, message?: string): string {
+  if (reason && SWEEP_FAILURE_COPY[reason]) return SWEEP_FAILURE_COPY[reason]
+  const firstLine = (message || '').split('\n')[0].trim()
+  if (firstLine) return firstLine.slice(0, 90)
+  return reason || 'the scan could not start'
+}
 let warpTimer: any = null
 
 // Terminal routing values mirror the SWARM.md routing contract. Kept as a display heuristic only —

@@ -73,6 +73,28 @@
 .tpp__badge--run { color: var(--accent-bright); background: var(--accent-wash); }
 .tpp__badge--stale { color: var(--conv-warn); background: var(--accent-wash); }
 
+/* A runnable Run row's pill is a real button — it launches just that module. Everything else about a Run
+   row stays inert, so the ONE thing that spends money is the one thing that looks pressable. Reset the
+   button chrome (it inherits the badge look), then add the press/hover/focus the interaction bar wants. */
+button.tpp__badge--pressable {
+  font: inherit; letter-spacing: 0.4px; /* keep the badge type, drop the UA button font */
+  border: 0; cursor: pointer;
+  display: inline-grid; place-items: center; min-width: 44px; min-height: 20px; /* holds width when label→spinner */
+  transition: transform var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out), filter var(--dur-fast) var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  button.tpp__badge--pressable:hover:not(:disabled) { filter: brightness(1.18); }
+}
+button.tpp__badge--pressable:active:not(:disabled) { transform: scale(0.97); } /* the press must be felt — it costs money */
+button.tpp__badge--pressable:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* One launch on this ticker at a time: while any pill's launch is in flight, the rest go quiet, not dead. */
+button.tpp__badge--pressable:disabled { cursor: default; opacity: 0.55; }
+button.tpp__badge--pressable[aria-busy='true'] { opacity: 1; } /* the launching pill stays lit, spinner and all */
+.tpp__badge--pressable .rdg-spin { color: var(--accent-bright); }
+@media (prefers-reduced-motion: reduce) {
+  button.tpp__badge--pressable:active:not(:disabled) { transform: none; }
+}
+
 /* ---- provenance + pool notes --------------------------------------------------------------------- */
 .tpp__carry {
   margin: 2px 20px 0; padding: 9px 11px;
