@@ -1614,6 +1614,25 @@ a { color: inherit; }
 /* a small live dot inside the "Latest" tab — signals the stream is running */
 .evrail__segpulse { width: 5px; height: 5px; flex-shrink: 0; border-radius: 50%; background: var(--live); box-shadow: 0 0 5px var(--live); animation: evpulse 1.9s var(--ease-out) infinite; }
 
+/* "N new · Mark all read" — a thin fixed bar above the scrolling list, shown only while unread items are on
+   screen. Mirrors the count in the rows beneath it. */
+.evrail__unreadbar {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  padding: 6px 16px; border-bottom: 1px solid var(--hairline); background: var(--surface-1);
+  font-size: 10.5px; color: var(--text-muted); flex-shrink: 0;
+  animation: evrowin 200ms var(--ease-out) both;
+}
+.evrail__unreadcount { display: inline-flex; align-items: center; gap: 6px; font-variant-numeric: tabular-nums; letter-spacing: 0.2px; }
+.evrail__unreaddot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 6px var(--accent-glow); }
+.evrail__markread {
+  padding: 3px 9px; border-radius: var(--r-pill); border: 1px solid var(--hairline);
+  background: var(--surface-2); color: var(--text-muted); font-size: 10.5px; cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), transform 140ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .evrail__markread:hover { border-color: var(--hairline-strong); color: var(--text); } }
+.evrail__markread:active { transform: scale(0.97); }
+@media (prefers-reduced-motion: reduce) { .evrail__unreadbar { animation: none; } }
+
 .evrail__list { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; padding: 4px 0 16px; }
 .evrail__list::-webkit-scrollbar { width: 8px; }
 .evrail__list::-webkit-scrollbar-thumb { background: var(--hairline-strong); border-radius: var(--r-pill); border: 2px solid var(--surface-1); }
@@ -1652,6 +1671,17 @@ a { color: inherit; }
 .evrow--on { background: var(--accent-wash); }
 .evrow--on .evrow__rail { opacity: 1; width: 3px; }
 .evrow--on .evrow__headline { color: var(--text); }
+
+/* read / unread — the PERSISTENT "have I seen this?" marker (distinct from the transient --fresh arrival
+   glow above). Unread = a filled accent dot in the left gutter + a brighter headline; read is the calm
+   default (muted headline, no dot). Opening the row, or "Mark all read", clears it. Static — no motion to
+   respect under reduced-motion. */
+.evrow__unread {
+  position: absolute; left: 6px; top: 16px; z-index: 1; pointer-events: none;
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--accent); box-shadow: 0 0 6px var(--accent-glow);
+}
+.evrow--unread .evrow__headline { color: var(--text); }
 .evrow__shelve {
   position: absolute; top: 8px; right: 8px; width: 20px; height: 20px; display: grid; place-items: center;
   border: none; background: transparent; color: var(--text-faint); font-size: 12px; cursor: pointer; line-height: 1;
