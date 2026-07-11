@@ -112,6 +112,7 @@ function rowMatches(r: FacetRow, q: FeedFilterQuery): boolean {
   if (q.gicsSubSector && !r.subSectors.includes(q.gicsSubSector)) return false
   if (q.scope && r.scope !== q.scope) return false
   if (q.commodities && q.commodities.length > 0 && !r.commodities.some((c) => q.commodities!.includes(c))) return false
+  if (q.wireScope && r.scope !== q.wireScope && r.commodities.length === 0) return false
   return true
 }
 

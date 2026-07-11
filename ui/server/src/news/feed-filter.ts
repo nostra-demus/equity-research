@@ -23,6 +23,11 @@ export interface FeedFilterQuery {
   gicsSubSector?: string // a sub-sector within gicsSector
   scope?: string // exact scope bucket (news/scope.ts ScopeId) — e.g. a wire swarm's declared event_scope
   commodities?: string[] // canonical commodity subjects (news/commodities.ts) — OR within the set
+  // the wire-membership DISJUNCTION: item passes when its scope equals this value OR it carries any
+  // canonical commodity tag. This is what "on the commodity wire" means (a gold-miner single_name
+  // story is GOLD-wire material even though its scope isn't 'commodity') — one clause, so the archive
+  // search and the live rail's client-side projection (ui/web lib/wire.ts itemOnWire) agree exactly.
+  wireScope?: string
   text?: string // substring over headline / translation / company name+ticker
 }
 
@@ -32,7 +37,7 @@ export function hasAnyFilter(q: FeedFilterQuery): boolean {
     (q.themes?.length ?? 0) > 0 ||
     !!q.country || !!q.geoRegion || !!q.source || !!q.band || !!q.size || !!q.linkage ||
     !!q.gicsSector || !!q.gicsSubSector || !!q.scope || (q.commodities?.length ?? 0) > 0 ||
-    !!(q.text && q.text.trim())
+    !!q.wireScope || !!(q.text && q.text.trim())
   )
 }
 
@@ -57,6 +62,7 @@ export function matchesFeedFilters(it: FeedItem, q: FeedFilterQuery): boolean {
   // commoditiesOf lazily derives when the item was never hydrated (synthetic /debug/explain items) —
   // same trick as the lazy gicsOf above
   if (q.commodities && q.commodities.length > 0 && !commoditiesOf(it).some((c) => q.commodities!.includes(c))) return false
+  if (q.wireScope && (it.scope || '') !== q.wireScope && commoditiesOf(it).length === 0) return false
   if (q.text && q.text.trim()) {
     const needle = q.text.trim().toLowerCase()
     const hay = `${it.headline} ${it.headline_en || ''} ${(it.companies || []).map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase()
@@ -85,6 +91,7 @@ export function parseFeedFilterQuery(raw: Record<string, unknown>): FeedFilterQu
     gicsSubSector: str(raw.gicsSubSector),
     scope: str(raw.scope),
     commodities: commoditiesRaw ? commoditiesRaw.split(',').map((c) => c.trim().toUpperCase()).filter(Boolean) : undefined,
+    wireScope: str(raw.wireScope),
     text: str(raw.text),
   }
 }
@@ -152,6 +159,11 @@ export function explainFeedFilterMatch(it: FeedItem, q: FeedFilterQuery): FeedFi
     const have = commoditiesOf(it)
     const hit = have.filter((c) => q.commodities!.includes(c))
     checks.push({ clause: 'commodities', passed: hit.length > 0, detail: hit.length ? `matched commodity subject(s): ${hit.join(', ')}` : `item commodities [${have.join(', ') || 'none'}] do not include any of [${q.commodities.join(', ')}]` })
+  }
+  if (q.wireScope) {
+    const have = commoditiesOf(it)
+    const pass = (it.scope || '') === q.wireScope || have.length > 0
+    checks.push({ clause: 'wireScope', passed: pass, detail: pass ? (have.length ? `on the wire via commodity tag(s): ${have.join(', ')}` : `on the wire via scope ${q.wireScope}`) : `item scope "${it.scope || 'unset'}" ≠ "${q.wireScope}" and it carries no commodity tag` })
   }
   if (q.text && q.text.trim()) {
     const needle = q.text.trim().toLowerCase()

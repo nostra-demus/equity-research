@@ -21,6 +21,7 @@ import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, companyFolderExi
 import { cancel, cancelAll, cancelSubject, creditCheck, decideReadiness, estimate, launch, sigIdFor, todayDate, warmLaunchProbes } from './launcher'
 import { newsBus } from './news/bus'
 import { readFeed, searchFeed } from './news/feed'
+import { getPulse } from './news/commodity-pulse'
 import type { FeedItem } from './news/types'
 import { matchesFeedFilters, parseFeedFilterQuery, explainFeedFilterMatch, hasAnyFilter, type FeedFilterQuery } from './news/feed-filter'
 import { computeFacets } from './news/facets'
@@ -180,8 +181,23 @@ app.get('/api/health', async (_req, reply) => {
 app.get('/api/swarms', async () =>
   // verdictField: the swarm's self-declared routing verdict key (SWARM.md), lets the client read the
   // decision record's verdict generically (research has none — its records use `decision`).
-  listSwarms().map((s) => ({ id: s.id, label: s.label, color: s.color, unit: s.unit, order: s.order, layout: s.layout, verdictField: s.routing?.verdictField })),
+  // wire: the swarm's self-declared news-wire capability (SwarmWireDecl) — ABSENT unless declared, so a
+  // new client on an old server (deploy skew) sees no `wire` key and keeps the wire surface off.
+  listSwarms().map((s) => ({ id: s.id, label: s.label, color: s.color, unit: s.unit, order: s.order, layout: s.layout, verdictField: s.routing?.verdictField, ...(s.wire ? { wire: s.wire } : {}) })),
 )
+
+// The per-subject PULSE — price / positioning / next scheduled reports / last run verdict — for a swarm
+// whose manifest declares `wire.pulse` (news/commodity-pulse.ts). Generic: no swarm id appears here; an
+// undeclared swarm (or NEWS_PULSE_ENABLED=0) 404s, which the client treats as absence (fail-closed).
+app.get('/api/swarm/pulse', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const swarm = (req.query as any)?.swarm as string | undefined
+  const m = swarm ? swarmById(swarm) : undefined
+  if (!m) return reply.code(404).send({ error: `unknown swarm ${swarm || ''}` })
+  if (!m.wire?.pulse || !NEWS.pulseEnabled) return reply.code(404).send({ error: 'no pulse declared for this swarm' })
+  const snap = await getPulse(m.id)
+  if (!snap) return reply.code(404).send({ error: 'no pulse available' })
+  return snap
+})
 
 // ---------- swarm graph ----------
 // No params -> the research graph, byte-identical to the pre-swarm payload (back-compat).

@@ -2727,3 +2727,86 @@ a { color: inherit; }
 .pulsemap__legend-dim { color: var(--text-faint); }
 .pulsemap__dot { display: inline-block; width: 11px; height: 11px; border-radius: 50%; vertical-align: middle; margin-right: 5px; }
 .pulsemap__dot--hot { background: radial-gradient(circle, #fff1ea 0%, #ff5a3c 72%); }
+
+/* ================= the shared WIRE surface (components/wire/*) =================
+   Cross-swarm chrome: rail collapse tab, subject chips' living state, the per-subject pulse strip,
+   and the reader's launch bar. Tokens only; every motion is transform/opacity within --dur* / --ease*
+   (ui/web/DESIGN.md). The chips themselves reuse .evscope — these are only the wire-specific extras. */
+
+/* rail collapse — instant width swap (no width animation, ever); the tab is a slim hairline handle */
+.wiresurface__railtab {
+  align-self: stretch; width: 14px; flex: 0 0 14px; display: flex; align-items: center; justify-content: center;
+  border: none; border-right: 1px solid var(--hairline); background: transparent; color: var(--text-faint);
+  font-size: 11px; cursor: pointer; padding: 0;
+  transition: color var(--dur-fast), transform 140ms var(--ease-out);
+}
+.wiresurface__railtab:active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) {
+  .wiresurface__railtab:hover { color: var(--accent-bright); }
+}
+
+/* subject chips' living state: a run pulse-dot + the last verdict tick (token tones only) */
+.subjectchips__run {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--accent-bright);
+  animation: subjectchips-pulse 1.6s var(--ease) infinite;
+}
+@keyframes subjectchips-pulse { 0%, 100% { opacity: 0.35; } 50% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .subjectchips__run { animation: none; opacity: 1; } }
+.subjectchips__verdict { width: 6px; height: 6px; border-radius: 50%; }
+.subjectchips__verdict--good { background: var(--good); }
+.subjectchips__verdict--bad { background: var(--bad); }
+.subjectchips__verdict--mid { background: var(--text-faint); }
+
+/* the pulse strip — one compact card per subject above the resting main view */
+.subjectpulse {
+  display: flex; gap: 8px; overflow-x: auto; padding: 10px 14px 6px; scrollbar-width: thin;
+}
+.subjectpulse__card {
+  flex: 0 0 auto; min-width: 148px; padding: 8px 10px; border: 1px solid var(--hairline);
+  border-radius: var(--r-md); background: var(--surface-1); display: flex; flex-direction: column; gap: 4px;
+}
+.subjectpulse__card--running { border-color: var(--accent); }
+.subjectpulse__card--skeleton { min-height: 88px; position: relative; overflow: hidden; }
+.subjectpulse__card--skeleton::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(100deg, transparent 30%, var(--accent-wash) 50%, transparent 70%);
+  transform: translateX(-100%); animation: subjectpulse-shimmer 1.4s var(--ease) infinite;
+}
+@keyframes subjectpulse-shimmer { to { transform: translateX(100%); } }
+@media (prefers-reduced-motion: reduce) { .subjectpulse__card--skeleton::after { animation: none; opacity: 0.4; transform: none; } }
+.subjectpulse__toprow { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; }
+.subjectpulse__name { font-size: 11px; font-weight: 700; letter-spacing: 0.4px; color: var(--text-muted); }
+.subjectpulse__action { font-size: 10px; font-weight: 700; color: var(--accent-bright); }
+.subjectpulse__price { display: flex; align-items: baseline; gap: 6px; font-variant-numeric: tabular-nums; }
+.subjectpulse__price--none { color: var(--text-faint); font-size: 11px; }
+.subjectpulse__last { font-size: 16px; font-weight: 650; color: var(--text); font-family: var(--font-mono); }
+.subjectpulse__chg { font-size: 11px; font-weight: 700; font-family: var(--font-mono); }
+.subjectpulse__chg--up { color: var(--good); }
+.subjectpulse__chg--down { color: var(--bad); }
+.subjectpulse__unit { font-size: 9px; color: var(--text-faint); }
+.subjectpulse__meta { display: flex; flex-direction: column; gap: 1px; font-size: 10px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.subjectpulse__run {
+  align-self: flex-start; margin-top: 2px; font-size: 10px; font-weight: 700; color: var(--accent-bright);
+  background: transparent; border: none; padding: 0; cursor: pointer;
+  transition: color var(--dur-fast), transform 140ms var(--ease-out);
+}
+.subjectpulse__run:active { transform: scale(0.97); }
+.subjectpulse__run:disabled { color: var(--text-faint); cursor: default; }
+@media (hover: hover) and (pointer: fine) { .subjectpulse__run:hover:not(:disabled) { color: var(--accent); } }
+.subjectpulse__note { align-self: center; font-size: 11px; color: var(--text-faint); padding: 4px 8px; }
+.subjectpulse__retry { background: none; border: none; padding: 0; color: var(--accent-bright); font-size: 11px; cursor: pointer; }
+
+/* the reader's launch bar (wire-only swarms): one decisive CTA per subject + the last verdict */
+.wirelaunch { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
+.wirelaunch--untracked { color: var(--text-faint); font-size: 12px; }
+.wirelaunch__slot { display: inline-flex; align-items: center; gap: 10px; }
+.wirelaunch__cta {
+  font-size: 12px; font-weight: 700; padding: 6px 12px; border-radius: var(--r-pill);
+  border: 1px solid var(--accent); color: var(--accent-bright); background: var(--accent-wash); cursor: pointer;
+  transition: background var(--dur-fast), color var(--dur-fast), transform 140ms var(--ease-out), opacity var(--dur-fast);
+}
+.wirelaunch__cta:active { transform: scale(0.97); }
+.wirelaunch__cta:disabled { opacity: 0.5; cursor: default; }
+@media (hover: hover) and (pointer: fine) { .wirelaunch__cta:hover:not(:disabled) { background: var(--accent); color: var(--surface-1); } }
+.wirelaunch__verdict { font-size: 11px; color: var(--text-muted); }
+.wirelaunch__verdict--none { color: var(--text-faint); }
