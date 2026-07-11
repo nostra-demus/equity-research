@@ -537,7 +537,10 @@ export const ARTICLE_READ_PROVIDERS: ArticleReadProvider[] = buildArticleReadPro
 // NEWS_ARCHIVE_DIR resolves to a folder that lives INSIDE data/, that folder's basename is reserved too
 // — derived from config, never a second hardcoded name (§26). Pure + injectable so it unit-tests without
 // touching the real mount.
-export const RESERVED_DATA_FOLDERS = new Set(['news-archive', 'NEWS-ARCHIVE'])
+// 'EXTERNAL-INBOX' is the external-data drop folder (frameworks/EXTERNAL_DATA.md): the user (or a
+// paid-API fetcher) drops files there, and ingest_external.py routes them into per-ticker pools —
+// it matches TICKER_RE, so without this reservation it would list as a phantom company.
+export const RESERVED_DATA_FOLDERS = new Set(['news-archive', 'NEWS-ARCHIVE', 'EXTERNAL-INBOX'])
 
 export function isReservedDataFolder(name: string, dataDir: string = DATA_DIR, archiveDir: string = NEWS.newsArchiveDir): boolean {
   const lower = name.toLowerCase()

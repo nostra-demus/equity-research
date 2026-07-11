@@ -394,6 +394,10 @@ export function CommandBar() {
   const openCalls = useStore((s) => s.openCalls)
   const openChat = useStore((s) => s.openChat)
   const openChatHistory = useStore((s) => s.openChatHistory)
+  // "Runs" reopen: shown only while the run panel is closed (dismiss only happens from the panel, and switching
+  // company/starting a run clears the flag — so a visible flag always means there's a hidden panel to bring back)
+  const runPanelDismissed = useStore((s) => s.runPanelDismissed)
+  const reopenRunStream = useStore((s) => s.reopenRunStream)
   const requestFull = useStore((s) => s.requestFull)
   const anyRun = useStore((s) => s.anyRunForTicker(s.selectedTicker))
   const fullPending = useStore((s) => s.launchPending?.key === 'full:request')
@@ -434,6 +438,7 @@ export function CommandBar() {
           <button className="btn btn--ghost" onClick={openScoring} title="Scoring weights — tune how every event is scored, for the whole wire">Scoring</button>
           <button className="btn btn--ghost" onClick={openActivity} title="Activity log — who ran what, when">Activity</button>
           <button className="btn btn--ghost" onClick={openReview} title="Batch review — flag a day's worth of items fast, with keyboard shortcuts">Review</button>
+          {runPanelDismissed && <button className="btn btn--ghost" onClick={reopenRunStream} title="Show the run panel again">Runs</button>}
           <ScreenerControls />
           <CreditBadge />
         </>
@@ -445,6 +450,7 @@ export function CommandBar() {
           <button className="btn btn--ghost" onClick={openCalls} title="Calls tracker — every call the engine made and what's happened since">Calls</button>
           <button className="btn btn--ghost" onClick={openActivity} title="Activity log — who ran what, when, on which company">Activity</button>
           <button className="btn btn--ghost" onClick={openChatHistory} title="Chat history — reopen and continue any past Ask conversation">Chats</button>
+          {runPanelDismissed && <button className="btn btn--ghost" onClick={reopenRunStream} title="Show the run panel again — the live/last runs for this company">Runs</button>}
           {decision?.final_thesis_path !== undefined || verdict ? (
             <button className="btn btn--ghost" onClick={openThesis}>{activeSwarm === 'research' ? 'Thesis' : 'Dossier'}</button>
           ) : null}
