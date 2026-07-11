@@ -804,12 +804,25 @@ def eval_ai_headline_reconciliation(decision_date, d, thesis):
             if not isnum(val):
                 det.append(f"post-split run (>= {CONF_SPLIT_DATE}): decision_record.json {fld}={val!r} must be a number "
                            f"(from scripts/confidence.py) — a null/absent value means the scorer did not run")
+            elif not (0.0 <= float(val) <= 100.0):
+                # Codex #217: isnum alone let analysis_confidence=140 / -10 match the scorecard and pass. All
+                # §12 scores are 0-100. conviction is indirectly bounded via the confidence_score tie below,
+                # but analysis_confidence has no other gate — bound BOTH here explicitly.
+                det.append(f"post-split run: decision_record.json {fld}={val} is outside the 0-100 range "
+                           f"(CLAUDE.md §12 — all scores are 0-100)")
         if isnum(cv) and not isnum(cf):
             det.append(f"post-split run: conviction={cv} is set but confidence_score={cf!r} is null — set "
                        f"confidence_score=conviction (backward-compat; V_edge_gate/AH still read confidence_score)")
         elif isnum(cv) and isnum(cf) and abs(float(cf)-float(cv))>0.5:
             det.append(f"post-split run: confidence_score={cf} must equal conviction={cv} (backward-compat; the §7 "
                        f"V_edge_gate/AH gates read confidence_score, so a split lets an unproven high-conviction thesis ship)")
+        # Codex #217: the split REPLACES the legacy rows — data sufficiency is folded into Understanding
+        # (synthesizer.md §2). A carried-forward old template that still shows Confidence /100 or Data
+        # sufficiency /100 alongside the new rows leaves the reader two disagreeing systems; reject it.
+        for legacy in ("Confidence /100", "Data sufficiency /100"):
+            if _hs_cell(section, legacy) is not None:
+                det.append(f"post-split run (>= {CONF_SPLIT_DATE}): legacy scorecard row {legacy!r} must not appear — "
+                           f"post-split emits Conviction /100 + Understanding /100 only (data sufficiency folded into Understanding)")
     return det
 
 # ── Check AJ (Decision Audit Trail structural check, CLAUDE.md §8/§22) ──
@@ -1737,6 +1750,21 @@ if scope=="selftest":
         ("2026-07-11", {"conviction":62,"analysis_confidence":74,"confidence_score":62,
                         "expected_return_pct":-11.5,"downside_risk_pct":-31.0,"risk_reward":-0.37},
          _hs_thesis_split(conv="62", und="74", exp="≈ −11.5%", dr="≈ −31%", rr="≈ −0.37"), []),
+        # (Codex #217, P2) split scores must be BOUNDED 0-100, not merely numeric. analysis_confidence=140
+        # reconciles against a matching cell but is out of range → FAIL (pinned to CLAUDE.md §12, not code).
+        ("2026-07-11", {"conviction":80,"analysis_confidence":140,"confidence_score":80},
+         _hs_thesis_split(conv="80", und="140"), ["analysis_confidence=140 is outside the 0-100 range"]),
+        # (Codex #217, P2) a negative conviction is likewise out of range (confidence_score matches it, so the
+        # equality check passes — the range check is what must catch it).
+        ("2026-07-11", {"conviction":-10,"analysis_confidence":70,"confidence_score":-10},
+         _hs_thesis_split(conv="-10", und="70"), ["conviction=-10 is outside the 0-100 range"]),
+        # (Codex #217, P2) legacy rows must not survive the split: a carried-forward template that still shows
+        # Confidence /100 + Data sufficiency /100 next to the new rows → FAIL (two disagreeing systems).
+        ("2026-07-11", {"conviction":62,"analysis_confidence":74,"confidence_score":62},
+         ("# Thesis\n\n## 2. Headline Scorecard\n\n| Item | Answer |\n|---|---|\n"
+          "| Rating | Watchlist |\n| Understanding /100 | 74 |\n| Conviction /100 | 62 |\n"
+          "| Confidence /100 | 62 |\n| Data sufficiency /100 | 70 |\n"),
+         ["legacy scorecard row 'Confidence /100' must not appear"]),
     ]
     aibad=0
     for dt_,d_,th_,exp in aicases:

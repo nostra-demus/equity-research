@@ -476,6 +476,23 @@ if _isdate(ddte) and ddte >= "2026-06-21":
             viol.append(f"thesis_type contains value(s) not in the CLAUDE.md §14 closed enum: {_unknown} — use exact canonical strings (case-sensitive)")
         elif any(t in _EXTERNAL for t in tt) and dec in _ABOVE_STARTER and not (_isnum(es_z) and es_z >= 50):
             viol.append(f"thesis_type={tt} includes external-variable type(s) but edge_score={es_z!r} <50 and decision={dec!r} exceeds 'Starter Position Only' — §14 cap")
+# check AI tail — post-split two-number confidence; forward-looking from 2026-07-11; mirrors the post-split
+# block of eval.py check AI. The split (scripts/confidence.py) makes conviction/analysis_confidence REQUIRED
+# numeric /100 fields and forces confidence_score == conviction (the §7 edge gate above + eval both read
+# confidence_score). Without this, a live run can print GATE: PASS and commit a decision_record — DATA that
+# goes straight to main per §28, bypassing PR CI — whose split fields are missing / out-of-range / stale,
+# only to fail a later manual eval. This is the ONLY gate on that DATA, so mirror the check here.
+if _isdate(ddte) and ddte >= "2026-07-11":
+    cv = d.get("conviction"); au = d.get("analysis_confidence"); cf_s = d.get("confidence_score")
+    for _f, _v in (("conviction", cv), ("analysis_confidence", au)):
+        if not _isnum(_v):
+            viol.append(f"post-split run (>=2026-07-11): {_f}={_v!r} must be a number from scripts/confidence.py — a null/absent value means the scorer did not run")
+        elif not (0 <= _v <= 100):
+            viol.append(f"post-split run: {_f}={_v} outside 0–100 (§12 — all scores are 0–100)")
+    if _isnum(cv) and not _isnum(cf_s):
+        viol.append(f"post-split run: conviction={cv} set but confidence_score={cf_s!r} is null — set confidence_score=conviction (backward-compat; the §7 gate + eval read confidence_score)")
+    elif _isnum(cv) and _isnum(cf_s) and abs(float(cf_s)-float(cv)) > 0.5:
+        viol.append(f"post-split run: confidence_score={cf_s} must equal conviction={cv} (backward-compat; the §7 gate reads confidence_score, so a split lets an unproven high-conviction thesis ship)")
 # [PR#9 review fix] idempotent banner: ALWAYS strip any prior finish-gate banner first, then re-stamp
 # fresh if still failing, or write the clean thesis if it now passes. The old code only prepended-if-
 # absent, so a fixed re-run in the same folder kept a stale PROVISIONAL banner with outdated reasons.

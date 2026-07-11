@@ -910,7 +910,7 @@ The figure you built above is your **conviction**. Do not hand-pick a single num
    ```
    python3 -c "import json,sys; sys.path.insert(0,'scripts'); from confidence import ConfidenceInputs, compute; inp=json.loads(r'''<your confidence_inputs JSON>'''); print(json.dumps(compute(ConfidenceInputs(**inp)), indent=0))"
    ```
-   Read `analysis_confidence`, `conviction`, `sizing_hint`, and `confidence_breakdown` from its output.
+   Read `analysis_confidence`, `conviction`, `sizing_hint`, and `confidence_breakdown` from its output. **Also read `warnings`: a non-empty `warnings` list means the scorer detected an inconsistency that may have silently dropped an intended cap (e.g. a mistyped `modules_absent` key ignored, so its cap never applied) or a mis-rating. Do NOT publish over a non-empty `warnings` — fix the `confidence_inputs` (correct the key, resolve the flagged inconsistency) and re-run the scorer until `warnings` is empty, or state explicitly in the thesis why the warning stands.**
 
 3. **Write to `decision_record.json` verbatim from that output**: `analysis_confidence`, `conviction`, `sizing_hint`, `confidence_breakdown`, and set **`confidence_score = conviction`** (backward-compat — every consumer that still reads `confidence_score` gets the conviction number).
 
@@ -1068,6 +1068,11 @@ The exact object to emit (mirrors `frameworks/DECISION_LEDGER.md` §5 — that f
   "risk_reward": null,
   "confidence_score": null,
   "data_sufficiency_score": null,
+  "confidence_inputs": null,
+  "analysis_confidence": null,
+  "conviction": null,
+  "sizing_hint": null,
+  "confidence_breakdown": null,
   "rating_cap": "",
   "thesis_type": [],
   "variant_perception_summary": "",
@@ -1131,8 +1136,13 @@ Populate each field as follows. All of these come from work you have already don
 | margin_of_safety_pct | discount of price to base-case fair value, IN PERCENTAGE POINTS = ((base FV − price)/base FV) × 100 — do not publish the bare 0–1 ratio, from the valuation module; null when no pool-verified price ("Not assessable"). Direction-uniform — a short candidate → negative MoS. Required once entry_price and the base-labelled scenario's price_target both exist (derivable); only stays null when price is not pool-verified. The eval harness re-derives it from the base-labelled scenario target (check M). |
 | risk_reward | risk/reward from final thesis |
 | scenarios | §8 Scenario Model rows — array of `{label, probability, return_pct, price_target}` (fix F08; enables deterministic math re-check) |
-| confidence_score | final confidence score /100 |
+| confidence_score | final confidence score /100 (post-split runs ≥ 2026-07-11: set equal to `conviction` for backward-compat) |
 | data_sufficiency_score | data sufficiency score /100 |
+| confidence_inputs | (additive, runs ≥ 2026-07-11) the recorded judgments the scorer consumes — see the Confidence Scoring Rules step 1 and `DECISION_LEDGER.md` §5 |
+| analysis_confidence | (additive, runs ≥ 2026-07-11) "Understanding" /100 from `scripts/confidence.py` — evidence quality, direction-agnostic |
+| conviction | (additive, runs ≥ 2026-07-11) direction-aware conviction /100 from `scripts/confidence.py`; the deterministic successor to `confidence_score` |
+| sizing_hint | (additive, runs ≥ 2026-07-11) `{band, action}` derived from `conviction` + `decision` |
+| confidence_breakdown | (additive, runs ≥ 2026-07-11) the step-by-step build so `conviction` is auditable/re-derivable |
 | rating_cap | rating cap from pre-write gate, if any |
 | thesis_type | thesis type classification from CLAUDE.md §14 |
 | variant_perception_summary | final variant perception |
