@@ -82,6 +82,9 @@ CONST = {
     # hard maxima (§18)
     "SOFT_MAX":              85.0,   # >85 only with exceptional_evidence
     "HARD_MAX":             100.0,
+    # §11 data-sufficiency conviction cap (mirrors scripts/eval.py eval_y_data_sufficiency thresholds)
+    "DS_REFUSE_THRESHOLD":   30.0,   # §11 '0-29 insufficient — refuse to rate' (= eval.py INSUF_THRESHOLD)
+    "DS_CONVICTION_FLOOR":   50.0,   # §11 '30-49 weak — cap the opinion': conviction cannot reach a conviction position (= eval.py DATASUF_CONVICTION_FLOOR)
     # gate tolerance (points) for reconcile()
     "RECONCILE_TOL":         2.0,
 }
@@ -108,6 +111,28 @@ def _clamp(x: float, lo: float = 0.0, hi: float = 100.0) -> float:
 
 def _isnum(v) -> bool:
     return isinstance(v, (int, float)) and not isinstance(v, bool)
+
+
+def _num0(v) -> float:
+    """Coerce a nullable numeric field to float, treating None / non-numeric as 0.0. Ledger fields such as
+    calibration_haircut and staleness_penalty are nullable (null = 'not applied'); float(None) must never
+    crash the scorer when a decision_record is fed in verbatim."""
+    return float(v) if _isnum(v) else 0.0
+
+
+def _ds_ceiling(ds) -> float:
+    """CLAUDE.md §11 data-sufficiency cap on CONVICTION — mirrors scripts/eval.py eval_y_data_sufficiency.
+    ds<30 ('insufficient — refuse to rate') caps conviction at INSUFFICIENT_CEILING (20); 30<=ds<50
+    ('weak — cap the opinion') caps it at DS_CONVICTION_FLOOR (50), so thin data can never reach a
+    conviction position (§11 caps conviction AND rating). ds>=50 or non-numeric -> no extra cap here
+    (a non-numeric ds is already reflected in analysis_confidence)."""
+    if not _isnum(ds):
+        return CONST["HARD_MAX"]
+    if ds < CONST["DS_REFUSE_THRESHOLD"]:
+        return CONST["INSUFFICIENT_CEILING"]
+    if ds < CONST["DS_CONVICTION_FLOOR"]:
+        return CONST["DS_CONVICTION_FLOOR"]
+    return CONST["HARD_MAX"]
 
 
 def classify_direction(decision: str, expected_return_pct: Optional[float] = None) -> str:
@@ -166,7 +191,7 @@ def analysis_confidence(inp: ConfidenceInputs) -> float:
     raw = (CONST["AC_W_DATA_SUFFICIENCY"] * inp.data_sufficiency
            + CONST["AC_W_CORROBORATION"] * corrob
            + CONST["AC_W_EVIDENCE_TIER"] * tier)
-    raw -= inp.staleness_penalty
+    raw -= max(0.0, _num0(inp.staleness_penalty))   # a penalty can only LOWER understanding; a sign-slipped (negative) staleness must never inflate it
     return round(_clamp(raw), 1)
 
 
@@ -195,6 +220,7 @@ def _documented_ceilings(inp: ConfidenceInputs):
         caps.append(CONST["CATALYST_WEAK_CAP"])       # 70, per L895
     if _isnum(inp.rating_cap_ceiling):
         caps.append(float(inp.rating_cap_ceiling))
+    caps.append(_ds_ceiling(inp.data_sufficiency))   # §11: thin data caps conviction (ds<30 -> 20; 30-49 -> 50)
     return caps, unknown
 
 
@@ -222,7 +248,9 @@ def compute(inp: ConfidenceInputs) -> dict:
         ceiling_reason += f" ; §11 refuse-to-rate -> <= {round(CONST['INSUFFICIENT_CEILING'])}"
 
     # Penalties can ONLY subtract (floor each at >=0) — a sign-slipped downgrade must never upgrade.
-    downgrade_pts = sum(max(0.0, float(d.get("points", 0))) for d in inp.downgrades) + max(0.0, float(inp.calibration_haircut))
+    # _num0 coerces a nullable/None points or calibration_haircut to 0.0 so a decision_record fed in
+    # verbatim (where these are nullable) never crashes the scorer.
+    downgrade_pts = sum(max(0.0, _num0(d.get("points", 0))) for d in inp.downgrades) + max(0.0, _num0(inp.calibration_haircut))
     capped_understanding = min(ac, dir_ceiling)
     # Re-bound by the ceiling as well: penalties lower, they can never lift above the ceiling.
     conviction_raw = min(capped_understanding - downgrade_pts, dir_ceiling)
@@ -232,8 +260,13 @@ def compute(inp: ConfidenceInputs) -> dict:
     warnings = []
     if unknown_keys:
         warnings.append(f"unrecognized modules_absent keys ignored: {unknown_keys} — an intended cap may be missing")
+    # A proven edge on a Watchlist is "likely under-rated" ONLY when nothing else justifies staying neutral.
+    # If a documented cap is binding (rating_cap_ceiling, critical governance, a module-absence cap, weak
+    # catalyst, or thin data — any of which lowers base_ceiling below HARD_MAX), the Watchlist is a
+    # deliberate §18/§24 cap, not an under-rating: a proven edge does not override a valuation/governance/
+    # red-flag cap. Suppress the warning (and thus a false reconcile() PROVISIONAL) in that case.
     if direction == "neutral" and _isnum(inp.edge_score) and inp.edge_score >= 50 and inp.edge_proof_present \
-            and "insufficient" not in (inp.decision or "").lower():
+            and "insufficient" not in (inp.decision or "").lower() and base_ceiling >= CONST["HARD_MAX"]:
         warnings.append("a proven edge (>=50) is recorded on a non-committal rating — likely under-rated; "
                         "per §7 a proven variant perception argues for at least a Starter, not a Watchlist")
 

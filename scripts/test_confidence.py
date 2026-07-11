@@ -147,6 +147,38 @@ wl_edge = C(data_sufficiency=80, corroboration=80, evidence_tier=80, edge_score=
             decision="Watchlist")
 check("proven-edge-on-Watchlist raises a mis-rating warning", any("under-rated" in w for w in wl_edge["warnings"]))
 
+# B9 (Codex #215 P1) — §11 data-sufficiency caps conviction. Expected values pinned to CLAUDE.md §11
+# bands ("0-29 insufficient — refuse to rate", "30-49 weak — cap the opinion") and scripts/eval.py
+# eval_y_data_sufficiency (INSUF_THRESHOLD=30, DATASUF_CONVICTION_FLOOR=50), NOT to current code.
+# Pre-fix, an all-high-subscore Buy on ds=25 returned conviction 62.5 (a conviction position on
+# refuse-to-rate data) and ds=40 returned 70 — both contradicting the §11 gate.
+ds_thin = C(data_sufficiency=25, corroboration=100, evidence_tier=100, edge_score=100, edge_proof_present=True, decision="Buy")
+check("§11: ds<30 caps conviction to refuse-to-rate band (<=20)", ds_thin["conviction"] <= 20, f"got {ds_thin['conviction']}")
+ds_weak = C(data_sufficiency=40, corroboration=100, evidence_tier=100, edge_score=100, edge_proof_present=True, decision="Buy")
+check("§11: 30<=ds<50 caps conviction below a conviction position (<=50)", ds_weak["conviction"] <= 50, f"got {ds_weak['conviction']}")
+check("§11: ds cap shows in the ceiling sources", 20.0 in ds_thin["confidence_breakdown"]["documented_ceiling_sources"])
+
+# B10 (Codex #215 P2) — a sign-slipped (negative) staleness_penalty must NOT inflate understanding.
+# Pinned to the module's own stated invariant ("penalties can only LOWER"); pre-fix AC was 85 (raw 60 + 25).
+neg_stale = C(data_sufficiency=60, corroboration=60, evidence_tier=60, staleness_penalty=-25, decision="Avoid")
+check("neg staleness_penalty cannot inflate analysis_confidence (stays <=60)", neg_stale["analysis_confidence"] <= 60, f"got {neg_stale['analysis_confidence']}")
+
+# B11 (Codex #215 P2) — a nullable calibration_haircut / staleness_penalty (null in the ledger = 'not
+# applied') must be treated as 0, not crash the scorer. Pre-fix, float(None) raised TypeError.
+try:
+    nullh = C(data_sufficiency=60, decision="Avoid", calibration_haircut=None, staleness_penalty=None)
+    check("null calibration_haircut/staleness_penalty scored (no TypeError)", isinstance(nullh["conviction"], (int, float)))
+except Exception as e:
+    check("null calibration_haircut/staleness_penalty scored (no TypeError)", False, f"raised {type(e).__name__}: {e}")
+
+# B12 (Codex #215 P2) — a proven edge on a Watchlist that is HELD there by a documented cap is NOT an
+# under-rating (§7 edge does not override a §18/§24 cap), so reconcile() must not mark it PROVISIONAL.
+# But a proven edge on an UNCAPPED Watchlist (B8) must still warn — the fix is cap-conditional, not blanket.
+capped_wl = ConfidenceInputs(data_sufficiency=80, corroboration=80, evidence_tier=80, edge_score=65,
+                             edge_proof_present=True, decision="Watchlist", rating_cap_ceiling=60)
+check("capped Watchlist + proven edge: no false under-rated warning", not any("under-rated" in w for w in compute(capped_wl)["warnings"]))
+check("capped Watchlist + proven edge: reconcile is NOT PROVISIONAL", reconcile(compute(capped_wl)["conviction"], capped_wl)["ok"])
+
 print("\n=== C. GATE, WEIGHTS, DIRECTION, CAP-BINDING ===")
 
 # C1 — reconcile: real (non-self-referential) checks.
