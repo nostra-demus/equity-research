@@ -9,6 +9,7 @@
 import type { FeedItem } from './types'
 import { gicsOf, explainGicsOf } from './gics'
 import { regionOfCountry } from './geography'
+import { commoditiesOf } from './commodities'
 
 export interface FeedFilterQuery {
   themes?: string[] // event_type tags — OR within the set
@@ -20,6 +21,8 @@ export interface FeedFilterQuery {
   linkage?: string // issuer_linkage
   gicsSector?: string // a GICS sector
   gicsSubSector?: string // a sub-sector within gicsSector
+  scope?: string // exact scope bucket (news/scope.ts ScopeId) — e.g. a wire swarm's declared event_scope
+  commodities?: string[] // canonical commodity subjects (news/commodities.ts) — OR within the set
   text?: string // substring over headline / translation / company name+ticker
 }
 
@@ -28,7 +31,8 @@ export function hasAnyFilter(q: FeedFilterQuery): boolean {
   return (
     (q.themes?.length ?? 0) > 0 ||
     !!q.country || !!q.geoRegion || !!q.source || !!q.band || !!q.size || !!q.linkage ||
-    !!q.gicsSector || !!q.gicsSubSector || !!(q.text && q.text.trim())
+    !!q.gicsSector || !!q.gicsSubSector || !!q.scope || (q.commodities?.length ?? 0) > 0 ||
+    !!(q.text && q.text.trim())
   )
 }
 
@@ -49,6 +53,10 @@ export function matchesFeedFilters(it: FeedItem, q: FeedFilterQuery): boolean {
     if (q.gicsSector && !g.sectors.has(q.gicsSector)) return false
     if (q.gicsSubSector && !g.subSectors.has(q.gicsSubSector)) return false
   }
+  if (q.scope && (it.scope || '') !== q.scope) return false
+  // commoditiesOf lazily derives when the item was never hydrated (synthetic /debug/explain items) —
+  // same trick as the lazy gicsOf above
+  if (q.commodities && q.commodities.length > 0 && !commoditiesOf(it).some((c) => q.commodities!.includes(c))) return false
   if (q.text && q.text.trim()) {
     const needle = q.text.trim().toLowerCase()
     const hay = `${it.headline} ${it.headline_en || ''} ${(it.companies || []).map((c) => `${c.name} ${c.ticker || ''}`).join(' ')}`.toLowerCase()
@@ -64,6 +72,7 @@ export function parseFeedFilterQuery(raw: Record<string, unknown>): FeedFilterQu
     return s || undefined
   }
   const themesRaw = str(raw.themes)
+  const commoditiesRaw = str(raw.commodities)
   return {
     themes: themesRaw ? themesRaw.split(',').map((t) => t.trim()).filter(Boolean) : undefined,
     country: str(raw.country)?.toUpperCase(),
@@ -74,6 +83,8 @@ export function parseFeedFilterQuery(raw: Record<string, unknown>): FeedFilterQu
     linkage: str(raw.linkage),
     gicsSector: str(raw.gicsSector),
     gicsSubSector: str(raw.gicsSubSector),
+    scope: str(raw.scope),
+    commodities: commoditiesRaw ? commoditiesRaw.split(',').map((c) => c.trim().toUpperCase()).filter(Boolean) : undefined,
     text: str(raw.text),
   }
 }
@@ -132,6 +143,15 @@ export function explainFeedFilterMatch(it: FeedItem, q: FeedFilterQuery): FeedFi
   }
   if (q.gicsSector || q.gicsSubSector) {
     checks.push(explainGics(it, q.gicsSector, q.gicsSubSector))
+  }
+  if (q.scope) {
+    const s = it.scope || ''
+    checks.push({ clause: 'scope', passed: s === q.scope, detail: s === q.scope ? `scope ${s} matches` : `item scope "${s || 'unset'}" ≠ requested "${q.scope}"` })
+  }
+  if (q.commodities && q.commodities.length > 0) {
+    const have = commoditiesOf(it)
+    const hit = have.filter((c) => q.commodities!.includes(c))
+    checks.push({ clause: 'commodities', passed: hit.length > 0, detail: hit.length ? `matched commodity subject(s): ${hit.join(', ')}` : `item commodities [${have.join(', ') || 'none'}] do not include any of [${q.commodities.join(', ')}]` })
   }
   if (q.text && q.text.trim()) {
     const needle = q.text.trim().toLowerCase()

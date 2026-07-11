@@ -28,6 +28,8 @@ interface FacetRow {
   size: string
   band: string
   linkage: string
+  scope: string
+  commodities: string[]
 }
 
 export interface FacetCount { key: string; label: string; count: number; parent?: string }
@@ -38,6 +40,8 @@ export interface Facets {
   subSectors: FacetCount[] // parent = sector
   sources: FacetCount[]
   themes: FacetCount[]
+  scopes: FacetCount[] // scope buckets (news/scope.ts ScopeId)
+  commodities: FacetCount[] // canonical commodity subjects (news/commodities.ts) — key = profile heading
   total: number // items matching the FULL active filter
   builtThroughDate: string | null // oldest day in the index — "searched all history back to <date>"
   builtAt: string
@@ -75,6 +79,8 @@ function buildRows(repoRoot: string, archiveDir: string, nowMs: number): { rows:
         size: it.size_bucket || 'unknown',
         band: bandOf(it),
         linkage: it.issuer_linkage || '',
+        scope: it.scope || '', // hydrate already ran in readDayItems, so these are always filled
+        commodities: it.commodities || [],
       })
     }
     if (lines >= MAX_LINES) break
@@ -104,6 +110,8 @@ function rowMatches(r: FacetRow, q: FeedFilterQuery): boolean {
   if (q.linkage && r.linkage !== q.linkage) return false
   if (q.gicsSector && !r.sectors.includes(q.gicsSector)) return false
   if (q.gicsSubSector && !r.subSectors.includes(q.gicsSubSector)) return false
+  if (q.scope && r.scope !== q.scope) return false
+  if (q.commodities && q.commodities.length > 0 && !r.commodities.some((c) => q.commodities!.includes(c))) return false
   return true
 }
 
@@ -131,6 +139,8 @@ export function computeFacets(repoRoot: string, q: FeedFilterQuery, opts: { arch
   const subSectorRows = rows.filter((r) => rowMatches(r, without(q, 'gicsSubSector')))
   const sourceRows = rows.filter((r) => rowMatches(r, without(q, 'source')))
   const themeRows = rows.filter((r) => rowMatches(r, without(q, 'themes')))
+  const scopeRows = rows.filter((r) => rowMatches(r, without(q, 'scope')))
+  const commodityRows = rows.filter((r) => rowMatches(r, without(q, 'commodities')))
 
   const countryCounts = tally(countryRows, (r) => (r.country ? [r.country] : []))
   const regionCounts = tally(regionRows, (r) => (r.geoRegion ? [r.geoRegion] : []))
@@ -138,6 +148,8 @@ export function computeFacets(repoRoot: string, q: FeedFilterQuery, opts: { arch
   const subSectorCounts = tally(subSectorRows, (r) => r.subSectors)
   const sourceCounts = tally(sourceRows, (r) => [r.source])
   const themeCounts = tally(themeRows, (r) => r.themes)
+  const scopeCounts = tally(scopeRows, (r) => (r.scope ? [r.scope] : []))
+  const commodityCounts = tally(commodityRows, (r) => r.commodities)
 
   const countries: FacetCount[] = [...countryCounts].map(([key, count]) => ({ key, label: COUNTRIES[key]?.name || key, count, parent: regionOfCountry(key) || undefined })).sort(sortCounts)
   const regions: FacetCount[] = GEO_REGIONS.map((g) => ({ key: g, label: g, count: regionCounts.get(g) || 0 })).filter((f) => f.count > 0).sort(sortCounts)
@@ -145,7 +157,9 @@ export function computeFacets(repoRoot: string, q: FeedFilterQuery, opts: { arch
   const subSectors: FacetCount[] = [...subSectorCounts].map(([key, count]) => ({ key, label: key, count, parent: SUBSECTOR_PARENT.get(key) })).sort(sortCounts)
   const sources: FacetCount[] = [...sourceCounts].map(([key, count]) => ({ key, label: key, count })).sort(sortCounts)
   const themes: FacetCount[] = [...themeCounts].map(([key, count]) => ({ key, label: key, count })).sort(sortCounts)
+  const scopes: FacetCount[] = [...scopeCounts].map(([key, count]) => ({ key, label: key, count })).sort(sortCounts)
+  const commodities: FacetCount[] = [...commodityCounts].map(([key, count]) => ({ key, label: key, count })).sort(sortCounts)
 
   const total = rows.filter((r) => rowMatches(r, q)).length
-  return { countries, regions, sectors, subSectors, sources, themes, total, builtThroughDate, builtAt: now().toISOString() }
+  return { countries, regions, sectors, subSectors, sources, themes, scopes, commodities, total, builtThroughDate, builtAt: now().toISOString() }
 }

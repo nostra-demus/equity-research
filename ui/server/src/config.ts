@@ -423,6 +423,13 @@ export const NEWS = {
   redditOverallBudgetMs: capNum(process.env.NEWS_REDDIT_OVERALL_BUDGET_MS, 45_000), // wall-clock cap on the whole social layer so a Reddit outage can't stall the cycle (low-trust layer; next cycle resumes)
   // Live-feed per-item records (firehose kind:"item") — the daily cap bounds file growth.
   feedItemsDailyCap: capNum(process.env.NEWS_FEED_ITEMS_DAILY_CAP, 5000),
+  // PULSE (news/commodity-pulse.ts) — the per-subject structured snapshot (price / CFTC COT /
+  // next scheduled reports) behind /api/swarm/pulse, for swarms whose manifest declares `wire.pulse`.
+  // Plain keyless HTTP + date math — zero LLM load. Lazy on request; cached under STATE_DIR.
+  pulseEnabled: process.env.NEWS_PULSE_ENABLED !== '0',
+  pulsePriceTtlMin: capNum(process.env.NEWS_PULSE_PRICE_TTL_MIN, 15),
+  pulseCotTtlHours: capNum(process.env.NEWS_PULSE_COT_TTL_HOURS, 6),
+  pulseTimeoutMs: capNum(process.env.NEWS_PULSE_TIMEOUT_MS, 10_000),
   // Groq output budget per triage call (the per-item payload grew with companies/size_bucket, then
   // headline_en for non-English items) — 2400 keeps headroom so a batch of long foreign-script
   // headlines can't truncate (a truncated batch is safely deferred, but would otherwise re-defer).

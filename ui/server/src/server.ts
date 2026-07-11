@@ -21,13 +21,15 @@ import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, companyFolderExi
 import { cancel, cancelAll, cancelSubject, creditCheck, decideReadiness, estimate, launch, sigIdFor, todayDate, warmLaunchProbes } from './launcher'
 import { newsBus } from './news/bus'
 import { readFeed, searchFeed } from './news/feed'
-import { matchesFeedFilters, parseFeedFilterQuery, explainFeedFilterMatch, type FeedFilterQuery } from './news/feed-filter'
+import type { FeedItem } from './news/types'
+import { matchesFeedFilters, parseFeedFilterQuery, explainFeedFilterMatch, hasAnyFilter, type FeedFilterQuery } from './news/feed-filter'
 import { computeFacets } from './news/facets'
 import { getIntensity, INTENSITY_WINDOWS, type IntensityWindow } from './news/intensity'
 import { getRankWeights, defaultRankWeights, saveRankWeights, resetRankWeights, rankWeightsCustomised, type RankWeights } from './news/rank-weights'
 import { buildSourcesReport } from './news/source-health'
 import { readThemesIndex, loadTheme, loadThemes, buildThemeDetail, themesLedgerPath } from './news/themes/store'
 import { buildGeoThemesIndex, hasThemeGeo, type ThemeGeo } from './news/themes/geo-index'
+import { buildCommodityThemesIndex } from './news/themes/commodity-index'
 import type { ThemesIndex } from './news/themes/types'
 import { buildThemeBrief } from './news/themes/brief'
 import { enrichEvent, listCoveredTickers } from './news/enrich'
@@ -1272,11 +1274,16 @@ app.get('/api/news/sources', async () => buildSourcesReport(REPO_ROOT, STATE_DIR
 // Backfill for the live wire + the time-travel view: every triaged item (kept AND dropped) over the
 // requested window. days defaults to 2 (the live view); larger windows (14 / 30 / 90 / 180 / all) read
 // the daily firehose files newest-first with a higher item cap, so you can surface the archived history.
+// Optional filters (the same query keys /search parses, e.g. scope= / commodities=) apply at the read
+// site, so the early-stop counts MATCHES — a wire swarm's scoped backfill (commodity) still fills its
+// window. No params → byte-identical to the unfiltered read.
 app.get('/api/news/feed', async (req) => {
   const q = req.query as any
   const days = Math.min(370, Math.max(1, Math.floor(Number(q?.days) || 2))) // 'all' → the client sends 370
   const maxItems = days <= 2 ? 1000 : 6000 // deep windows return the newest 6k items in range (readFeed early-stops)
-  return readFeed(REPO_ROOT, days, { maxItems, archiveDir: NEWS.newsArchiveDir }) // read pruned days from the Drive archive
+  const filters = parseFeedFilterQuery(q || {})
+  const predicate = hasAnyFilter(filters) ? (it: FeedItem) => matchesFeedFilters(it, filters) : undefined
+  return readFeed(REPO_ROOT, days, { maxItems, archiveDir: NEWS.newsArchiveDir, predicate }) // read pruned days from the Drive archive
 })
 
 // ARCHIVE SEARCH — filter the WHOLE since-inception archive, not just the loaded window. Unlike /feed
@@ -1365,14 +1372,18 @@ const THEME_RE = /^THM-[a-z0-9]{8}$/
 // gazetteer over every member (measured ~89ms today, ~540ms at the 32MB size prod once reached — all on the
 // single event loop). A new mtime drops the whole map, so a cycle's fresh themes show up immediately.
 let themesGeoCache: { mtime: number; byGeo: Map<string, ThemesIndex> } = { mtime: -1, byGeo: new Map() }
-function geoThemesIndex(geo: ThemeGeo): ThemesIndex {
+function slicedThemesIndex(geo: ThemeGeo, commodity: { scoped: boolean; subject?: string }): ThemesIndex {
   let mtime = 0
   try { mtime = fs.statSync(themesLedgerPath(REPO_ROOT)).mtimeMs } catch { /* no ledger yet → mtime 0 */ }
   if (themesGeoCache.mtime !== mtime) themesGeoCache = { mtime, byGeo: new Map() }
-  const key = `${geo.country || ''}|${geo.geoRegion || ''}`
+  const key = `${geo.country || ''}|${geo.geoRegion || ''}|${commodity.scoped ? 'c' : ''}|${commodity.subject || ''}`
   const hit = themesGeoCache.byGeo.get(key)
   if (hit) return hit
-  const idx = buildGeoThemesIndex(loadThemes(REPO_ROOT), geo)
+  // the commodity slice composes the geo filter itself (memberMatchesCommodity applies both), so the
+  // two pickers stack exactly like they do on the Events list
+  const idx = commodity.scoped
+    ? buildCommodityThemesIndex(loadThemes(REPO_ROOT), { commodity: commodity.subject, geo: hasThemeGeo(geo) ? geo : null })
+    : buildGeoThemesIndex(loadThemes(REPO_ROOT), geo)
   themesGeoCache.byGeo.set(key, idx)
   return idx
 }
@@ -1382,8 +1393,13 @@ app.get('/api/news/themes', { config: { rateLimit: { max: 600, timeWindow: '1 mi
     country: typeof q.country === 'string' && q.country.trim() ? q.country.trim().toUpperCase() : undefined,
     geoRegion: typeof q.geoRegion === 'string' && q.geoRegion.trim() ? q.geoRegion.trim() : undefined,
   }
-  if (!hasThemeGeo(geo)) return readThemesIndex(REPO_ROOT)
-  return geoThemesIndex(geo)
+  // `scope=commodity` slices to commodity-tagged members (any subject); `commodity=GOLD` narrows to one
+  // canonical subject (and implies the slice). Any other `scope` value is ignored here — the themes
+  // ledger has no per-scope member attribution beyond commodities today (honest scope, not a 400).
+  const subject = typeof q.commodity === 'string' && q.commodity.trim() ? q.commodity.trim().toUpperCase() : undefined
+  const commodityScoped = subject !== undefined || (typeof q.scope === 'string' && q.scope.trim() === 'commodity')
+  if (!commodityScoped && !hasThemeGeo(geo)) return readThemesIndex(REPO_ROOT)
+  return slicedThemesIndex(geo, { scoped: commodityScoped, subject })
 })
 app.get('/api/news/themes/:id', async (req, reply) => {
   const id = String((req.params as any)?.id || '')
