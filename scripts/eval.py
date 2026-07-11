@@ -893,8 +893,14 @@ _AK_CRITICAL_PATTERNS = [
     re.compile(r'\((\d+)\s+critical\b', re.I),
     re.compile(r'\|\s*Critical\s+flags?\s*\|\s*(\d+)\s*\|', re.I),
     re.compile(r'(\d+)\s+critical\s+(?:red[- ]?flags?|flags?)\b', re.I),
+    re.compile(r'\bCritical\s+flags?\s*\((\d+)\)', re.I),   # "**Critical flags (3):**" — a production phrasing (analyses/NIVABUPA_2026-06-22/earnings/99_earnings-synthesis.md)
 ]
 _AK_DENIAL = re.compile(r'\bno\b[^.\n]{0,60}\bcritical\b', re.I)
+# A denial only counts when the SAME cell does not ALSO affirm a Critical cap. A truthful scoped cell
+# ("2 Critical earnings flags cap the rating; no Critical governance red flag") acknowledges the module's
+# Criticals AND correctly notes a DIFFERENT module has none — compliant per §13/§18, not a denial. Affirm =
+# a digit-anchored "N Critical" count or an explicit "Critical ... cap"/"cap ... Critical" phrase.
+_AK_AFFIRM = re.compile(r'\d+\s+critical|critical[^.\n]{0,40}\bcaps?\b|\bcaps?\b[^.\n]{0,40}critical', re.I)
 def _module_critical_count(text):
     """Best-effort count of a module's OWN declared Critical-severity red-flag total, scanning the
     digit-anchored phrasings modules already use in production ('2 critical', 'Critical: 0',
@@ -928,7 +934,7 @@ def eval_ak_red_flag_severity_reconciliation(decision_date, d, thesis, module_te
     section = _scorecard_section(thesis)
     cap_cell = _hs_cell(section, "Rating cap") if section else None
     for label, txt in [("Headline Scorecard 'Rating cap' cell", cap_cell), ("decision_record.json rating_cap field", d.get("rating_cap"))]:
-        if txt and _AK_DENIAL.search(txt):
+        if txt and _AK_DENIAL.search(txt) and not _AK_AFFIRM.search(txt):
             det.append(f"{label} denies a Critical red flag ({txt!r}) but {top_mod} declares {top_n}")
     return det
 
@@ -1787,6 +1793,15 @@ if scope=="selftest":
     TH_AK_CLEAN = _hs_thesis(exp="-16.1%", dr="-38.7%", rr="-0.42x", conf="57", ds="65").replace(
         "| Data sufficiency /100 | 65 |\n",
         "| Data sufficiency /100 | 65 |\n| Rating cap, if any | 2 Critical red flags cap the rating at Watchlist per §13/§18 |\n")
+    # Codex #212 fix: the parenthesized "**Critical flags (3):**" phrasing is a production format
+    # (analyses/NIVABUPA_2026-06-22/earnings/99_earnings-synthesis.md:132) the original patterns missed.
+    MT_EARNINGS_PAREN3 = ("## 1. Earnings Verdict\n\n**Critical flags (3):** three accounting-integrity "
+        "items triggered — mark-to-model asset, D&A opacity, channel stuffing.\n")
+    # Codex #212 fix: a TRUTHFUL scoped cap cell — affirms the 2 earnings Criticals AND correctly notes a
+    # DIFFERENT module (governance) has none. Compliant per §13/§18; the old bare-denial regex false-failed it.
+    TH_AK_SCOPED = _hs_thesis(exp="-16.1%", dr="-38.7%", rr="-0.42x", conf="57", ds="65").replace(
+        "| Data sufficiency /100 | 65 |\n",
+        "| Data sufficiency /100 | 65 |\n| Rating cap, if any | 2 Critical earnings flags cap the rating at Watchlist per §13/§18; no Critical governance red flag |\n")
     akcases=[  # (decision_date, decision_record_dict, thesis_text, module_texts, expect: None|[]|[substr,...])
         ("2026-07-10", {"red_flags":RF_HIGH_ONLY}, TH_AK_DENIAL, {"earnings":MT_EARNINGS_2CRIT}, None),  # predates AK_DATE
         ("2026-07-11", {"red_flags":[]}, "# Thesis\n", {}, []),                                          # no modules -> nothing to reconcile
@@ -1805,6 +1820,13 @@ if scope=="selftest":
         # declaration -> still governed by the earnings module's nonzero count
         ("2026-07-11", {"red_flags":RF_TWO_CRITICAL}, TH_AK_CLEAN,
          {"earnings":MT_EARNINGS_2CRIT, "management-governance":MT_GOVERNANCE_0CRIT}, []),
+        # Codex #212 (parenthesized-count): "**Critical flags (3):**" declares 3 but red_flags carries 0
+        # -> must be caught. RED on the pre-fix patterns (the paren format was unmatched -> declared={} -> pass).
+        ("2026-07-11", {"red_flags":[]}, TH_AK_CLEAN, {"earnings":MT_EARNINGS_PAREN3},
+         ["declares 3 Critical red flag(s) but decision_record.json's red_flags array carries only 0"]),
+        # Codex #212 (scoped-denial false positive): a truthful cell that affirms the 2 Criticals AND scopes
+        # the "no Critical" to a DIFFERENT module must PASS. RED on the pre-fix bare-denial regex (it fired).
+        ("2026-07-11", {"red_flags":RF_TWO_CRITICAL}, TH_AK_SCOPED, {"earnings":MT_EARNINGS_2CRIT}, []),
     ]
     akbad=0
     for dt_,d_,th_,mt_,exp in akcases:
@@ -2676,7 +2698,7 @@ FRAMEWORK_CONTRACTS={
  ".claude/commands/research/review-decisions.md":["memo_delta","stage_one_comment","rerun_command","Pool first","_memo_delta"],
  ".claude/commands/research/eval.md":["scripts/eval.py"],
  ".claude/commands/research/calibrate.md":["calibration_by_module","calibration_by_forecast_type","owner_module","forecast_type","Phase 6"],
- "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap","eval_ag_calibration_feedback_gate","AG_DATE","AG_STATUSES","_calib_summary_asof","CALIB_SUMMARIES","eval_ah_expectations_gap_gate","AH_DATE","AH_expectations_gap_gate","eval_ai_headline_reconciliation","AI_DATE","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","eval_aj_decision_audit_trail","AJ_DATE","AJ_MIN_ROWS","AJ_REQUIRED_COLS","_decision_audit_section","_decision_audit_header","_decision_audit_rows","_audit_cell_blank","eval_ak_red_flag_severity_reconciliation","AK_DATE","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL"],
+ "scripts/eval.py":["T_forecast_ledger_quality","FL_DATE","confirmation_trigger","falsification_trigger","eval_t_probability","PROB_DATE","eval_forecast_type","FORECAST_TYPE_ENUM","FTYPE_DATE","W_sector_valuation","SECTOR_DATE","SECTOR_FORBIDDEN","X_verify_floor","VERIFY_FLOOR_DATE","ACCEPTABLE_VERDICTS","Y_data_sufficiency_cap","INSUF_THRESHOLD","DATASUF_CONVICTION_FLOOR","HIGH_CONVICTION_DECISIONS","eval_z_thesis_type_cap","THESIS_TYPE_ENUM","EXTERNAL_TYPES","THESIS_Z_DATE","AA_module_verdict_lock","AA_DATE","BSS_CAP_VERDICT","MG_CAP_VERDICT","eval_aa_module_verdict_lock","extract_synthesis_verdict","AB_bm_disqualifier_lock","AB_DATE","BM_CAP_VERDICT","eval_ab_bm_verdict_lock","AC_turnaround_cap","AC_DATE","TURNAROUND_TYPE","ABOVE_STARTER_AC","eval_ac_turnaround_cap","eval_ad_filter_4_6_cap","AD_DATE","CAP4_TAG","CAP6_TAG","AD_filter_4_6_cap","eval_ae_filter5_cap","AE_DATE","CAP5_TAG","ABOVE_STARTER_AE","AE_filter5_cap","_tag_fired_standalone","eval_af_filter1_integrity_cap","AF_DATE","CAP1_TAG","ABOVE_WATCHLIST_AF","AF_filter1_integrity_cap","eval_ag_calibration_feedback_gate","AG_DATE","AG_STATUSES","_calib_summary_asof","CALIB_SUMMARIES","eval_ah_expectations_gap_gate","AH_DATE","AH_expectations_gap_gate","eval_ai_headline_reconciliation","AI_DATE","_scorecard_section","_hs_cell","_metric_numbers","_reconciles","eval_aj_decision_audit_trail","AJ_DATE","AJ_MIN_ROWS","AJ_REQUIRED_COLS","_decision_audit_section","_decision_audit_header","_decision_audit_rows","_audit_cell_blank","eval_ak_red_flag_severity_reconciliation","AK_DATE","_module_critical_count","_AK_CRITICAL_PATTERNS","_AK_DENIAL","_AK_AFFIRM"],
  ".github/workflows/ci.yml":["eval-contracts","scripts/eval.py"],
 }
 jchecks=[]
