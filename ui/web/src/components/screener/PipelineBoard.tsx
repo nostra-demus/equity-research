@@ -246,31 +246,39 @@ function SkeletonCards() {
 function RecentChecks({ onOpen, onReplay }: { onOpen: (thesisId: string) => void; onReplay: (sigId: string) => void }) {
   const board = useStore((s) => s.scBoard)
   const restoreConviction = useStore((s) => s.restoreConviction)
+  const hideIdea = useStore((s) => s.hideIdea)
+  const restoreIdea = useStore((s) => s.restoreIdea)
   const filters = useStore((s) => s.scBookFilters)
   const sort = useStore((s) => s.scBookSort)
   const setFilters = useStore((s) => s.setBookFilters)
   const setSort = useStore((s) => s.setBookSort)
   const archivedOpen = useStore((s) => s.scBookArchivedOpen)
   const setArchivedOpen = useStore((s) => s.setBookArchivedOpen)
+  const [hiddenOpen, setHiddenOpen] = useState(false)
 
-  const { liveAll, archAll, live, archived, sources, themesAvailable } = useMemo(() => {
+  // hidden ideas (soft-deleted by the human) live in their own tray, out of the live book AND the counts,
+  // but restorable any time — so a hide is a reversible curation, never a data loss.
+  const { liveAll, archAll, hiddenRows, live, archived, sources, themesAvailable } = useMemo(() => {
     const tBySig = new Map((board?.theses || []).map((t) => [t.signal_id, t]))
     const all: BookRow[] = (board?.signals || []).filter((s) => s.processed_at).map((s) => ({ s, t: tBySig.get(s.signal_id) }))
-    const liveAll = all.filter((r) => !r.t?.conviction?.archived)
-    const archAll = all.filter((r) => r.t?.conviction?.archived)
+    const visible = all.filter((r) => !r.s.hidden)
+    const hiddenRows = all.filter((r) => r.s.hidden).sort((a, b) => ((a.s.processed_at || '') < (b.s.processed_at || '') ? 1 : -1))
+    const liveAll = visible.filter((r) => !r.t?.conviction?.archived)
+    const archAll = visible.filter((r) => r.t?.conviction?.archived)
     const live = liveAll.filter((r) => matchesBookFilters(r, filters)).sort(bookComparator(sort))
     const archived = archAll.filter((r) => matchesBookFilters(r, filters)).sort((a, b) => ((a.s.processed_at || '') < (b.s.processed_at || '') ? 1 : -1))
-    const sources = [...new Set(all.map((r) => r.s.source_name).filter(Boolean))].sort() as string[]
-    const themesAvailable = all.some((r) => (r.s.event_types?.length ?? 0) > 0)
-    return { liveAll, archAll, live, archived, sources, themesAvailable }
+    const sources = [...new Set(visible.map((r) => r.s.source_name).filter(Boolean))].sort() as string[]
+    const themesAvailable = visible.some((r) => (r.s.event_types?.length ?? 0) > 0)
+    return { liveAll, archAll, hiddenRows, live, archived, sources, themesAvailable }
   }, [board, filters, sort])
 
   // loading — the board has never resolved yet (first open). A manual refresh keeps the prior board,
   // so this skeleton only ever shows on first load, never as a flash on refresh.
   if (!board) return <SkeletonCards />
 
-  // truly empty (no checks at all) — gated on UNFILTERED totals so a filter can't trigger it.
-  if (!liveAll.length && !archAll.length) {
+  // truly empty (no checks at all) — gated on UNFILTERED totals so a filter can't trigger it. Hidden
+  // ideas still count as "checks you ran", so a book that's been fully hidden shows its tray, not this.
+  if (!liveAll.length && !archAll.length && !hiddenRows.length) {
     return (
       <div className="recent recent--center">
         <div className="bookempty">
@@ -318,6 +326,20 @@ function RecentChecks({ onOpen, onReplay }: { onOpen: (thesisId: string) => void
             {t && archivedCard && (
               <button className="btn btn--ghost ideacard__replay" onClick={(e) => { e.stopPropagation(); void restoreConviction(t.thesis_id) }} title="Re-open this idea onto the live book">
                 ↩ restore
+              </button>
+            )}
+            {/* soft-delete: hide this idea from the book. Reversible (an Undo toast + the Hidden tray), so a
+                single click is enough — no heavy confirm. Appears on hover; keyboard-reachable. */}
+            {!archivedCard && (
+              <button
+                className="ideacard__hide"
+                onClick={(e) => { e.stopPropagation(); void hideIdea(s.signal_id) }}
+                aria-label={`Hide from your book: ${displayHeadline(s)}`}
+                title="Hide this idea from your book — it stays on record; restore any time"
+              >
+                <svg viewBox="0 0 16 16" width="14" height="14" fill="none" aria-hidden="true">
+                  <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+                </svg>
               </button>
             )}
           </div>
@@ -398,6 +420,36 @@ function RecentChecks({ onOpen, onReplay }: { onOpen: (thesisId: string) => void
             )}
           </div>
         )}
+
+        {/* Hidden tray — ideas the human soft-deleted from the book. Kept on record and one-click restorable. */}
+        {hiddenRows.length > 0 && (
+          <div className="archived hiddenbook">
+            <button className="archived__head" onClick={() => setHiddenOpen(!hiddenOpen)} aria-expanded={hiddenOpen}>
+              <span className="archived__chev" data-open={hiddenOpen}>›</span>
+              Hidden — {hiddenRows.length} idea{hiddenRows.length === 1 ? '' : 's'} you removed (restore any time)
+            </button>
+            {hiddenOpen && (
+              <div className="archived__list">
+                {hiddenRows.map(({ s }) => (
+                  <div key={s.signal_id} className="ideacard ideacard--hidden">
+                    <div className="ideacard__body">
+                      <div className="ideacard__topline">
+                        <div className="ideacard__headline" title={originalHeadline(s) || undefined}>{displayHeadline(s)}</div>
+                        <button className="btn btn--ghost ideacard__replay" onClick={(e) => { e.stopPropagation(); void restoreIdea(s.signal_id) }} title="Restore this idea to your live book">
+                          ↩ restore
+                        </button>
+                      </div>
+                      <div className="ideacard__meta">
+                        {s.source_name && <span className="ideacard__src">{s.source_name}</span>}
+                        <span>{fmtWhen(s.processed_at)}</span>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
       </div>
     </>
   )
@@ -408,6 +460,7 @@ function RecentChecks({ onOpen, onReplay }: { onOpen: (thesisId: string) => void
 export function PipelineBoard() {
   const board = useStore((s) => s.scBoard)
   const refresh = useStore((s) => s.scRefreshBoard)
+  const rebuild = useStore((s) => s.scRebuildBoard)
   const close = useStore((s) => s.closePipeline)
   const detail = useStore((s) => s.scThesisDetail)
   const openThesisDetail = useStore((s) => s.openThesisDetail)
@@ -426,7 +479,9 @@ export function PipelineBoard() {
     return () => clearInterval(id)
   }, [refresh])
 
-  const doRefresh = () => { setSpin(true); void refresh().finally(() => setTimeout(() => setSpin(false), 600)) }
+  // the manual ↻ REBUILDS the board from the live ledger (so runs that finished since the last snapshot,
+  // or a stale committed index, show up) — heavier than the 30s auto-poll above, which just re-reads.
+  const doRefresh = () => { setSpin(true); void rebuild().finally(() => setTimeout(() => setSpin(false), 600)) }
 
   return (
     <motion.div className="pipeline" initial={{ opacity: 0, x: '100%' }} animate={{ opacity: 1, x: 0 }} exit={{ x: '100%' }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
@@ -436,7 +491,7 @@ export function PipelineBoard() {
           <div className="pipeline__sub">{detail?.thesis ? 'one idea, opened up' : 'your live book — every checked event, ranked by how it’s holding up'}</div>
         </div>
         <div className="pipeline__tools">
-          <button className={`btn btn--ghost pipeline__refresh${spin ? ' is-spinning' : ''}`} onClick={doRefresh} title="Re-pull the board now">↻</button>
+          <button className={`btn btn--ghost pipeline__refresh${spin ? ' is-spinning' : ''}`} onClick={doRefresh} title="Rebuild from the ledger — pulls in runs that finished since, so nothing you ran is missing">↻</button>
           <button className="btn btn--ghost" onClick={close} title="Close">✕</button>
         </div>
       </div>

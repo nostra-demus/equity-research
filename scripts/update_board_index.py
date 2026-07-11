@@ -164,9 +164,16 @@ def build() -> dict:
     # verdict) and `effective_status` (where the human put it) — plus `override_stale` when the
     # engine re-ran and changed its mind AFTER the move (surfaced, never silently resolved).
     latest_override: dict[str, dict] = {}
+    # ---- human signal HIDES (soft-delete from the live book; append-only, LAST line per signal wins) ----
+    # A `signal_hide` removes an idea from the board; a later `signal_restore` un-hides it. The engine's
+    # ledger/run are never touched — this is purely a view state (like the inbox dismiss), so it's reversible.
+    hidden_signals: dict[str, bool] = {}
     for line in read_ndjson(os.path.join(LEDGER, "overrides.ndjson")):
-        if line.get("kind") == "thesis_status" and line.get("thesis_id"):
+        kind = line.get("kind")
+        if kind == "thesis_status" and line.get("thesis_id"):
             latest_override[line["thesis_id"]] = line
+        elif kind in ("signal_hide", "signal_restore") and line.get("signal_id"):
+            hidden_signals[line["signal_id"]] = kind == "signal_hide"
 
     # event_id -> English headline, sourced from the wire's own translation (never re-translated here);
     # attached to any non-Latin signal/thesis below so the board reads in English like the events rail.
@@ -305,6 +312,9 @@ def build() -> dict:
             "status": status,
             "status_reason": e.get("status_reason") or e.get("routing_reason") or "",
             "thesis_id": (linked or {}).get("thesis_id"),
+            # additive human view-state: soft-hidden from the live book (a `signal_hide` override); a
+            # `signal_restore` clears it. The UI filters these into a "Hidden" tray, restorable one-click.
+            "hidden": hidden_signals.get(sid, False),
             # carry the scanner's theme tags + named issuers through so the live book can filter by
             # theme/company (already on the event ledger row; the UI's theme chips self-activate once present).
             "event_types": e.get("event_types") if isinstance(e.get("event_types"), list) else [],
@@ -323,16 +333,20 @@ def build() -> dict:
     } for h in handoffs]
 
     # ---- funnel counts ----
-    # funnel counts run on the EFFECTIVE status (engine verdict unless a human moved the idea)
-    thesis_statuses = [t.get("effective_status") or t["status"] for t in theses]
+    # funnel counts run on the EFFECTIVE status (engine verdict unless a human moved the idea), and EXCLUDE
+    # ideas the human soft-hid from the book, so every funnel number matches the cards actually shown.
+    hidden_sig_ids = {s["signal_id"] for s in signals if s["hidden"]}
+    visible_signals = [s for s in signals if not s["hidden"]]
+    thesis_statuses = [t.get("effective_status") or t["status"] for t in theses if t.get("signal_id") not in hidden_sig_ids]
     news_seen, news_picked, news_dropped = firehose_counts(now[:10])
     counts = {
         "inbox_unconsumed": sum(1 for r in inbox_rows if not r["consumed"] and not r.get("dismissed")),
-        "signals_total": len(signals),
-        "parked": sum(1 for s in signals if s["status"] == "PARK"),
-        "logged": sum(1 for s in signals if s["status"] in ("LOG", "suppress")),
+        "signals_total": len(visible_signals),
+        "hidden": len(hidden_sig_ids),
+        "parked": sum(1 for s in visible_signals if s["status"] == "PARK"),
+        "logged": sum(1 for s in visible_signals if s["status"] in ("LOG", "suppress")),
         "watchlist": sum(1 for st in thesis_statuses if st in WATCHLIST_STATUSES)
-        + sum(1 for s in signals if s["status"] == "watchlist_no_source" and not s["thesis_id"]),
+        + sum(1 for s in visible_signals if s["status"] == "watchlist_no_source" and not s["thesis_id"]),
         "provisional": sum(1 for st in thesis_statuses if st == "provisional"),
         "full_machine": sum(1 for st in thesis_statuses if st == "full_machine"),
         "handed_off": len(handoff_rows),

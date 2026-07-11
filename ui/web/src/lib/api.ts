@@ -319,6 +319,15 @@ export const api = {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/screener/conviction/${encodeURIComponent(thesisId)}/restore`, {})
   },
+  hideSignal: async (signalId: string, action: 'hide' | 'restore'): Promise<{ ok: boolean }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/screener/signal/${encodeURIComponent(signalId)}/hide`, { action })
+  },
+  // force a board rebuild from the live ledger (picks up runs that finished since the last snapshot)
+  rebuildBoard: async (): Promise<ScreenerBoard> => {
+    if ((await ensureMode()) === 'static') return snap.screenerBoard || EMPTY_BOARD
+    return post<ScreenerBoard>(`/api/screener/board/rebuild`, {})
+  },
   submitFeedback: async (input: FeedbackSubmitInput): Promise<{ ok: boolean; feedback: FeedbackRecord }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/screener/feedback`, input)
