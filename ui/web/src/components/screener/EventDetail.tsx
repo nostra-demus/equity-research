@@ -14,6 +14,8 @@ import { FeedbackMenu } from './FeedbackMenu'
 import { RunChecksMenu } from './RunChecksMenu'
 import type { FeedbackPolarity } from '../../lib/feedbackTypes'
 import type { ReportMenuAnchor } from '../ActivityReportMenu'
+import { useWireConfig } from '../wire/WireContext'
+import { WireLaunchBar } from '../wire/WireLaunchBar'
 
 const fmtTime = (iso?: string) => {
   if (!iso) return ''
@@ -364,6 +366,7 @@ function ScoreWhy({ it, anchorRef, open, onToggle }: { it: FeedItem; anchorRef: 
 }
 
 export function EventDetail({ it }: { it: FeedItem }) {
+  const cfg = useWireConfig() // the active wire's capabilities — the reader branches on these, never on swarm ids
   const close = useStore((s) => s.scSelectEvent)
   // the "Run the checks" split button + state-aware menu owns the whole run affordance (fresh / staged /
   // continue / override / stop), reading the signal's live run-state itself — EventDetail just mounts it.
@@ -650,7 +653,11 @@ export function EventDetail({ it }: { it: FeedItem }) {
 
         <div className="evdetail__actions">
           <div className="evdetail__actions-bar">
-            <RunChecksMenu it={it} />
+            {/* the primary action is the WIRE's, not the reader's: the flow stage runs its gauntlet on
+                the event (the state-aware split button); a subject-grouped wire launches the full
+                research pipeline on the event's subject(s) instead (WireLaunchBar) — same slot,
+                per-wire behavior via config only */}
+            {cfg.flow ? <RunChecksMenu it={it} /> : <WireLaunchBar it={it} />}
             <div className="evdetail__utility">
               <div className={`evdetail__rate${rated ? ' evdetail__rate--rated' : ''}`} role="group" aria-label="Was this worth surfacing?">
                 <button

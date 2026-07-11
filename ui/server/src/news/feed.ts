@@ -10,6 +10,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import type { CycleSummary, FeedItem } from './types'
 import { deriveScope, deriveSourceTier, toEventScope } from './scope'
+import { deriveCommodities } from './commodities'
 import { cleanText } from './clean'
 import { assignDedupGroups, type DedupConfig } from './dedup'
 import { reRankFromFactors, capSocialBand, capSocialScore, deriveMaterialityLabel } from './rank'
@@ -27,8 +28,13 @@ function hydrate(it: FeedItem): FeedItem {
   const needsClean = headline !== it.headline
   const needsGeo = it.country === undefined // older firehose line, written before the country field existed
   const needsClassifier = it.event_scope === undefined // older line, predates the event-materiality classifier
-  if (it.scope && it.source_tier && !needsClean && !needsGeo && !needsClassifier) return it
+  // older line, predates the per-commodity tag — OR a no-match line (ingest omits the field when the
+  // headline names no canonical commodity), which re-derives to nothing each read: trivial (a small
+  // lexicon scan) and idempotent, the same acceptance the country:null rows already make.
+  const needsCommodity = it.commodities === undefined
+  if (it.scope && it.source_tier && !needsClean && !needsGeo && !needsClassifier && !needsCommodity) return it
   const scope = it.scope || deriveScope({ ...it, headline })
+  const commodities = needsCommodity ? deriveCommodities({ ...it, headline: headline || it.headline }) : undefined
   return {
     ...it,
     headline: headline || it.headline,
@@ -39,6 +45,7 @@ function hydrate(it: FeedItem): FeedItem {
     // event_materiality_label re-derives from the persisted triage_score so it's never stale;
     // event_direction has no deterministic source, so an older line honestly defaults to 'unknown'.
     ...(needsClassifier ? { event_scope: toEventScope(scope), event_materiality_label: it.event_materiality_label || deriveMaterialityLabel(it.triage_score), event_direction: it.event_direction || 'unknown' } : {}),
+    ...(commodities ? { commodity: commodities[0], commodities } : {}),
   }
 }
 
@@ -177,10 +184,14 @@ export interface FeedSnapshot {
  * Read the last `days` firehose files (today first) and split records by kind. Items come back
  * newest-first, capped, corrupt lines skipped — same tolerance discipline as the ledger readers.
  */
-export function readFeed(repoRoot: string, days = 2, opts: { now?: () => Date; maxItems?: number; archiveDir?: string; applyActiveWeights?: boolean } = {}): FeedSnapshot {
+export function readFeed(repoRoot: string, days = 2, opts: { now?: () => Date; maxItems?: number; archiveDir?: string; applyActiveWeights?: boolean; predicate?: (it: FeedItem) => boolean } = {}): FeedSnapshot {
   const now = opts.now || (() => new Date())
   const maxItems = opts.maxItems && opts.maxItems > 0 ? opts.maxItems : 1000
   const archiveDir = opts.archiveDir || '' // Google Drive mount folder — read older days from here after local prune
+  // when a predicate filters, it must see CURRENT-weight scores/bands (same rule as searchFeed) — a
+  // stale persisted band would disagree with what the wire displays after a Scoring-panel edit.
+  // Idempotent, so the display re-apply on the capped page below is a no-op.
+  const weightsForPredicate = opts.predicate && opts.applyActiveWeights !== false ? getRankWeights() : null
   const items: FeedItem[] = []
   const cycles: CycleSummary[] = []
   for (let d = 0; d < Math.max(1, days); d++) {
@@ -192,8 +203,13 @@ export function readFeed(repoRoot: string, days = 2, opts: { now?: () => Date; m
       if (!t) continue
       try {
         const o = JSON.parse(t)
-        if (o?.kind === 'item') items.push(hydrate(o as FeedItem))
-        else if (o?.kind === 'cycle_summary') cycles.push(o as CycleSummary)
+        if (o?.kind === 'item') {
+          // filter at the push site (post-hydrate), so the early-stop below counts MATCHES — a sparse
+          // filter (e.g. one commodity) still fills its window instead of stopping at maxItems raw lines
+          const h = hydrate(o as FeedItem)
+          if (weightsForPredicate) applyActiveWeightsTo(h, weightsForPredicate)
+          if (!opts.predicate || opts.predicate(h)) items.push(h)
+        } else if (o?.kind === 'cycle_summary') cycles.push(o as CycleSummary)
       } catch {
         // corrupt line — skip, never break the wire
       }

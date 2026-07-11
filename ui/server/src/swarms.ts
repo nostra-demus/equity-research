@@ -3,7 +3,7 @@ import path from 'node:path'
 import fg from 'fast-glob'
 import matter from 'gray-matter'
 import { AGENTS_DIR } from './config'
-import type { SwarmManifest, SwarmRoutingContract } from './types'
+import type { SwarmManifest, SwarmRoutingContract, SwarmWireDecl } from './types'
 
 // Swarm discovery (CLAUDE.md §26 "Swarms"): a swarm is `.claude/agents/<swarm>/` carrying a
 // SWARM.md manifest; its modules NEST one level deeper. The research swarm is grandfathered as a
@@ -34,6 +34,21 @@ function parseRouting(v: any): SwarmRoutingContract | undefined {
   const verdictField = String(v.verdict_field || '').trim()
   if (!verdictField) return undefined
   return { verdictField, terminal: list(v.terminal), continue: list(v.continue) }
+}
+
+// The optional `wire:` capability block (SwarmWireDecl) — snake_case front-matter to camelCase,
+// undefined when absent or empty so /api/swarms omits the key entirely (the client's fail-closed gate).
+function parseWire(v: any): SwarmWireDecl | undefined {
+  if (!v || typeof v !== 'object') return undefined
+  const str = (x: any) => (typeof x === 'string' && x.trim() ? x.trim() : undefined)
+  const wire: SwarmWireDecl = {
+    eventScope: str(v.event_scope),
+    groupBy: str(v.group_by),
+    subjectField: str(v.subject_field),
+    pulse: str(v.pulse),
+    defaultView: str(v.default_view),
+  }
+  return Object.values(wire).some((x) => x !== undefined) ? wire : undefined
 }
 
 function parseManifest(file: string): SwarmManifest | null {
@@ -67,6 +82,7 @@ function parseManifest(file: string): SwarmManifest | null {
     schemasRoot: str(data.schemas_root) || undefined,
     subjectsSource: str(data.subjects_source) || undefined,
     routing: parseRouting(data.routing),
+    wire: parseWire(data.wire),
   }
 }
 

@@ -45,6 +45,19 @@ export interface SwarmRoutingContract {
   continue: string[] // routing values that let the next module run
 }
 
+// A swarm's OPTIONAL self-declared news-wire capability (`wire:` in SWARM.md front-matter). Presence
+// turns the shared wire surface on for that swarm (CLAUDE.md §26: the manifest declares, the engine
+// interprets generically — no swarm id is ever hardcoded). The screener's wire is the grandfathered
+// implicit default of its 'flow' layout; research declares nothing. Absent on /api/swarms => the
+// client renders that swarm exactly as before (deploy-skew fail-closed).
+export interface SwarmWireDecl {
+  eventScope?: string // pre-filter the swarm's feed/search/facets/themes to this scope (news/scope.ts ScopeId)
+  groupBy?: string // 'subject' => the rail groups + filters by the swarm's canonical subjects
+  subjectField?: string // the FeedItem field carrying the canonical subject id (e.g. 'commodity' -> 'GOLD')
+  pulse?: string // repo-relative pulse-source config (frameworks/...); presence enables /api/swarm/pulse
+  defaultView?: string // rail landing tab ('themes' | 'ranked' | 'latest')
+}
+
 export interface SwarmManifest {
   id: string
   label: string
@@ -66,6 +79,7 @@ export interface SwarmManifest {
   // no subject/swarm name is hardcoded (CLAUDE.md §26). Absent for research/screener.
   subjectsSource?: string
   routing?: SwarmRoutingContract // absent for research (it uses triage Sufficiency semantics)
+  wire?: SwarmWireDecl // absent unless the swarm declares a news-wire capability (see SwarmWireDecl)
 }
 
 // ---- data-status ----

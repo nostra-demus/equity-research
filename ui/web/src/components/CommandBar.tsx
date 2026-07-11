@@ -446,6 +446,8 @@ export function CommandBar() {
         <>
           <ReadinessStrip />
           <StopControl />
+          {/* a constellation swarm with a declared wire watches the same scanner — show its status chip */}
+          {swarms.find((s) => s.id === activeSwarm)?.wire && <AutoScanChip />}
           <EngineStatusPill />
           <button className="btn btn--ghost" onClick={openCalls} title="Calls tracker — every call the engine made and what's happened since">Calls</button>
           <button className="btn btn--ghost" onClick={openActivity} title="Activity log — who ran what, when, on which company">Activity</button>

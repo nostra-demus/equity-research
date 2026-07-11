@@ -108,6 +108,9 @@ export interface ArchiveQuery {
   linkage?: string
   gicsSector?: string
   gicsSubSector?: string
+  scope?: string // exact scope bucket (server news/scope.ts) — a wire swarm's declared eventScope
+  commodities?: string[] // canonical commodity subjects (server news/commodities.ts) — OR within the set
+  wireScope?: string // wire-membership disjunction: scope equals this OR the item carries a commodity tag
   text?: string
 }
 export interface SearchCursor { ts: string; id: string }
@@ -140,6 +143,9 @@ function archiveQueryParams(q: ArchiveQuery): URLSearchParams {
   if (q.linkage) p.set('linkage', q.linkage)
   if (q.gicsSector) p.set('gicsSector', q.gicsSector)
   if (q.gicsSubSector) p.set('gicsSubSector', q.gicsSubSector)
+  if (q.scope) p.set('scope', q.scope)
+  if (q.commodities?.length) p.set('commodities', q.commodities.join(','))
+  if (q.wireScope) p.set('wireScope', q.wireScope)
   if (q.text?.trim()) p.set('text', q.text.trim())
   return p
 }
@@ -161,6 +167,17 @@ export const api = {
     }
     if (swarmId === 'research') return get<SwarmGraph>(`/api/swarm`)
     return get<SwarmGraph>(`/api/swarm?swarm=${encodeURIComponent(swarmId)}${subject ? `&subject=${encodeURIComponent(subject)}` : ''}`)
+  },
+  // The per-subject pulse snapshot (price / positioning / next reports / last verdict) for a swarm whose
+  // manifest declares `wire.pulse`. 404 (→ null) when undeclared or on an old server — the pulse strip
+  // simply doesn't render (fail-closed). Static showcase: no engine → null.
+  swarmPulse: async (swarmId: string): Promise<import('./wire').WirePulseSnapshot | null> => {
+    if ((await ensureMode()) === 'static') return null
+    try {
+      return await get<import('./wire').WirePulseSnapshot>(`/api/swarm/pulse?swarm=${encodeURIComponent(swarmId)}`)
+    } catch {
+      return null // undeclared / old server / transient — absence, never an error surface
+    }
   },
   // Subjects of a non-research constellation swarm (e.g. commodity) for its subject picker. Research
   // uses tickers(). Static showcase: the bundled snapshot list (or empty).
@@ -209,9 +226,14 @@ export const api = {
     if ((await ensureMode()) === 'static') return { updated_at: new Date().toISOString(), counts: { total: 0, healthy: 0, quiet: 0, failing: 0, idle: 0 }, sources: [] }
     return get(`/api/news/sources`)
   },
-  newsFeed: async (days = 2): Promise<{ items: FeedItem[]; cycles: NewsCycle[] }> => {
+  // Optional filters (the same ArchiveQuery keys /search takes) apply server-side at the read site, so a
+  // wire swarm's scoped backfill (e.g. scope=commodity) still fills its window (matches are counted, not
+  // raw lines). No filters → byte-identical to the unfiltered read on any server version.
+  newsFeed: async (days = 2, q?: ArchiveQuery): Promise<{ items: FeedItem[]; cycles: NewsCycle[] }> => {
     if ((await ensureMode()) === 'static') return { items: [], cycles: [] }
-    return get(`/api/news/feed?days=${Math.max(1, Math.floor(days))}`)
+    const p = q ? archiveQueryParams(q) : new URLSearchParams()
+    p.set('days', String(Math.max(1, Math.floor(days))))
+    return get(`/api/news/feed?${p.toString()}`)
   },
   // Archive-spanning, server-filtered search over the WHOLE since-inception archive (not the 2-day wire).
   // Recency-ordered, (ts,event_id) cursor paging. Empty in static showcase mode (no engine).
@@ -242,11 +264,15 @@ export const api = {
   // the living themes the firehose is bucketed into (ranked index + one theme's deep-dive). An optional
   // geography (country ISO alpha-2 and/or continent) slices the SAME themes to that geography's news flow —
   // the server re-ranks + re-sizes them — so the "Where" picker narrows the Themes view like the Events list.
-  newsThemes: async (geo?: { country?: string; geoRegion?: string }): Promise<import('./themes').ThemesIndex> => {
+  // An optional wire slice (scope=commodity, or one canonical subject) composes with the geography —
+  // the server re-ranks + re-sizes the SAME themes by that slice's news flow (themes/commodity-index.ts).
+  newsThemes: async (geo?: { country?: string; geoRegion?: string }, slice?: { scope?: string; commodity?: string }): Promise<import('./themes').ThemesIndex> => {
     if ((await ensureMode()) === 'static') return { generated_at: '', themes: [], counts: { hot: 0, active: 0, cooling: 0, parked: 0, retired: 0, total: 0 }, history_days: 0 }
     const p = new URLSearchParams()
     if (geo?.country) p.set('country', geo.country)
     if (geo?.geoRegion) p.set('geoRegion', geo.geoRegion)
+    if (slice?.scope) p.set('scope', slice.scope)
+    if (slice?.commodity) p.set('commodity', slice.commodity)
     const qs = p.toString()
     return get(`/api/news/themes${qs ? `?${qs}` : ''}`)
   },

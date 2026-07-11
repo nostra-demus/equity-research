@@ -186,6 +186,11 @@ export interface FeedItem {
   //     backfilled on read for older firehose lines that predate it (feed.ts) ---
   scope?: import('./scope').ScopeId // company-vs-broad bucket the cockpit filters + chips on
   source_tier?: import('./scope').SourceTierId // §4 source hierarchy, made visible
+  // canonical commodity subject(s) the headline names (news/commodities.ts — profile headings like
+  // 'GOLD'); ABSENT (never []) when none match, so deploy-skew clients fail closed on undefined.
+  // `commodity` = the primary (earliest-mentioned) tag; `commodities` = all matches (≤4).
+  commodity?: string
+  commodities?: string[]
   // event-materiality classifier's final fields — see TriagedItem's doc comment
   event_materiality_label?: EventMaterialityLabel
   event_direction?: EventDirection

@@ -6,6 +6,7 @@ import { moduleLabel, resolveVerdict } from './format'
 import { displayHeadline, originalHeadline, plainRoute, plainStage } from './plain'
 import type { Theme, ThemeDetail, ThemeBrief } from './themes'
 import { intensityWindowForHours } from './themes'
+import { deriveWireConfig, type WireConfig, type WirePulseSubject } from './wire'
 import type { ActiveRunLite, AgentNode, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, CycleSummary, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, ThesisPlan, TickerSummary, Usage } from './types'
 import { feedbackInputFromItem, feedbackLabel, polarityOf } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
@@ -577,12 +578,40 @@ interface State {
   selectTheme: (id: string | null) => Promise<void>
   regenerateThemeBrief: () => Promise<void>
   refreshThemes: () => Promise<void>
+
+  // ---- wire (the swarm-generic news-wire surface — lib/wire.ts; shared by every swarm that declares one) ----
+  wireSwarm: string // which swarm OWNS the wire view state (archive query, themes geo/subject) — reset on change
+  themesSubject: string | null // single selected subject chip, mirrored to the Themes slice (like themesGeo)
+  setThemesSubject: (s: string | null) => void
+  wirePulse: Record<string, WirePulseSubject> // per-subject pulse (price / positioning / reports / verdict)
+  wirePulseAt: number | null // when the snapshot landed (ms) — the refresh TTL
+  wirePulseStale: boolean // the server said its own upstream fetch failed (serving cached)
+  refreshWirePulse: (force?: boolean) => Promise<void>
+  requestFullForSubject: (subject: string) => Promise<void> // one-click "Run full ▸ GOLD" (select + confirm arc)
+  _enterWire: (to: string) => void // owner-keyed wire view-state reset (mirrors constellationSwarm)
 }
 
 function flatten(graph: SwarmGraph): Map<string, AgentNode> {
   const m = new Map<string, AgentNode>()
   for (const mod of graph.modules) for (const a of Object.values(mod.layers).flat()) m.set(a.key, a)
   return m
+}
+
+// ---- wire (the swarm-generic news-wire surface — lib/wire.ts) ----
+// The ACTIVE swarm's wire config, derived fresh each call from the swarm list + subject list (both tiny).
+// Null = no wire for this swarm (an old server's meta carries no `wire`, so this fails closed by shape).
+export function activeWireConfig(s: { swarms: SwarmMeta[]; activeSwarm: string; swarmSubjectList: string[] }): WireConfig | null {
+  return deriveWireConfig(s.swarms.find((m) => m.id === s.activeSwarm), s.swarmSubjectList)
+}
+// the swarm-level wire-membership clause merged into every archive/facets query a NON-flow wire sends
+function withWireClause(s: { swarms: SwarmMeta[]; activeSwarm: string; swarmSubjectList: string[] }, q: ArchiveQuery): ArchiveQuery {
+  const cfg = activeWireConfig(s)
+  return cfg && !cfg.flow && cfg.eventScope && !q.commodities?.length ? { ...q, wireScope: cfg.eventScope } : q
+}
+// is the active swarm the flow stage? (layout-driven, mirroring App.tsx's first-frame fallback — the
+// board/gauntlet are flow-stage features, not tied to a hardcoded swarm id beyond that grandfathered default)
+function isFlowActive(s: { swarms: SwarmMeta[]; activeSwarm: string }): boolean {
+  return (s.swarms.find((m) => m.id === s.activeSwarm)?.layout ?? (s.activeSwarm === 'screener' ? 'flow' : 'constellation')) === 'flow'
 }
 
 // default header title for the chat panel given a scope + the company
@@ -741,6 +770,11 @@ export const useStore = create<State>((set, get) => ({
   themeBriefLoading: false,
   themesStatus: 'idle',
   themesLoading: false,
+  wireSwarm: '',
+  themesSubject: null,
+  wirePulse: {},
+  wirePulseAt: null,
+  wirePulseStale: false,
   globalActive: [],
   stopListOpen: false,
 
@@ -1886,9 +1920,9 @@ export const useStore = create<State>((set, get) => ({
       const reconnected = get().health !== 'online' // down → up (or the first connect)
       outageStartedAt = 0 // engine answered — end any grace clock
       set({ health: 'online', healthFailCount: 0, lastHealthOkAt: Date.now(), connected: true })
-      // connection is back — re-pull the screener board so any run the engine forgot during the break
+      // connection is back — re-pull the flow-stage board so any run the engine forgot during the break
       // resumes on its own (scRefreshBoard → _maybeAutoResume). The cooldown/live guards stop doubles.
-      if (reconnected && get().activeSwarm === 'screener') void get().scRefreshBoard()
+      if (reconnected && isFlowActive(get())) void get().scRefreshBoard()
     } else if (outcome === 'session') {
       outageStartedAt = 0 // an Access/session issue, not an engine outage
       set({ health: 'session-expired', connected: false })
@@ -1903,7 +1937,7 @@ export const useStore = create<State>((set, get) => ({
         const reconnected = get().health !== 'online'
         outageStartedAt = 0 // the live wire proves the engine is up — end any grace clock
         set({ health: 'online', healthFailCount: 0, lastHealthOkAt: Date.now(), connected: true })
-        if (reconnected && get().activeSwarm === 'screener') void get().scRefreshBoard()
+        if (reconnected && isFlowActive(get())) void get().scRefreshBoard()
       } else {
         const n = get().healthFailCount + 1
         if (!outageStartedAt) outageStartedAt = Date.now() // first genuine fail of this outage → start the grace clock
@@ -2093,7 +2127,7 @@ export const useStore = create<State>((set, get) => ({
 
   _enterSwarm: (to) => {
     const layout = get().swarms.find((s) => s.id === to)?.layout
-    if (layout === 'flow') { void get().scInit(); return } // screener boots its own board + wire
+    if (layout === 'flow') { get()._enterWire(to); void get().scInit(); return } // the flow stage boots its own board + wire
     // constellation swarm (research or commodity): both share the graph/selectedTicker slices, so reset
     // the selection when the owner changes (a screener detour leaves constellationSwarm untouched, so
     // returning to research keeps its selection). Then load the swarm's subject list (commodity only).
@@ -2105,6 +2139,32 @@ export const useStore = create<State>((set, get) => ({
       })
     }
     if (to !== 'research') void get().loadSwarmSubjects(to)
+    // a constellation swarm that DECLARES a wire (manifest `wire:` block) boots the shared wire surface
+    // too: reset the wire's view state to this owner, backfill + attach the one shared news stream, and
+    // pull the pulse. Absent on old servers → none of this runs (fail-closed).
+    if (get().swarms.find((s) => s.id === to)?.wire) {
+      get()._enterWire(to)
+      void get().scEnsureNewsStream()
+      void get().refreshWirePulse(true)
+    }
+  },
+
+  // Owner-keyed wire view-state reset (mirrors the constellationSwarm pattern above): the archive query,
+  // facets, themes geo/subject/window and open theme belong to ONE wire at a time — switching wire owners
+  // must never leak a commodity archive query into the screener rail (or vice versa). The shared data
+  // plane (newsItems, the SSE singleton, enrichment cache, shelf/flags) is deliberately NOT touched.
+  _enterWire: (to) => {
+    if (get().wireSwarm === to) return
+    set({
+      wireSwarm: to,
+      scArchiveQuery: {}, scArchiveResults: [], scArchiveCursor: null, scArchiveLoading: false,
+      scArchiveLoadingMore: false, scArchiveScannedThrough: null, scArchiveExhausted: false,
+      scFacets: null, scFacetsLoading: false,
+      themes: [], themesStatus: 'idle', themesView: null, themesWindow: null,
+      themesGeo: { country: '', geoRegion: '', label: '' }, themesSubject: null,
+      selectedTheme: null, themeDetail: null, themeBrief: null, themeBriefLoading: false,
+      feedWindowDays: 2,
+    })
   },
 
   loadSwarmSubjects: async (swarmId) => {
@@ -2197,13 +2257,29 @@ export const useStore = create<State>((set, get) => ({
     try {
       const g = get().themesGeo
       const geo = g.country || g.geoRegion ? { country: g.country || undefined, geoRegion: g.geoRegion || undefined } : undefined
-      const idx = await api.newsThemes(geo)
-      // guard a slow geo response landing after the geo changed again (last-write-wins on the current geo)
+      // a non-flow wire slices the SAME themes to its own flow (server themes/commodity-index.ts) —
+      // narrowed further to one subject when a single chip is selected (themesSubject, like themesGeo)
+      const cfg = activeWireConfig(get())
+      const subject = get().themesSubject
+      const slice = cfg && !cfg.flow && cfg.eventScope ? { scope: cfg.eventScope, commodity: subject || undefined } : undefined
+      const idx = await api.newsThemes(geo, slice)
+      // guard a slow response landing after the geo/subject changed again (last-write-wins on the current slice)
       const now = get().themesGeo
-      if (now.country !== g.country || now.geoRegion !== g.geoRegion) return
+      if (now.country !== g.country || now.geoRegion !== g.geoRegion || get().themesSubject !== subject) return
       set({ themes: idx.themes, themesHistoryDays: idx.history_days || 0, themesStatus: 'ready' })
     } catch {
       set({ themesStatus: 'error' })
+    }
+  },
+  // the wire rail's subject chips call this so the Themes map/board slice to the same single subject —
+  // the exact themesGeo pattern (debounced refetch, display updates without a wasted round-trip).
+  setThemesSubject: (s) => {
+    if (get().themesSubject === s) return
+    set({ themesSubject: s })
+    if (get().themesView !== null) {
+      set({ themesStatus: get().themes.length ? 'ready' : 'loading' })
+      if (themesGeoRefetchTimer) clearTimeout(themesGeoRefetchTimer)
+      themesGeoRefetchTimer = setTimeout(() => void get().refreshThemes(), 300)
     }
   },
   // the Event rail's "Where" picker calls this so the Themes map/board slice to the same geography. Only
@@ -2266,6 +2342,31 @@ export const useStore = create<State>((set, get) => ({
     } catch {
       if (get().selectedTheme === id) set({ themeBriefLoading: false })
     }
+  },
+
+  // ---- wire pulse + one-click launch (the swarm-generic wire's own actions) ----
+  // Pull the per-subject pulse snapshot (price / positioning / next reports / last verdict) for the
+  // active wire. TTL-gated (60s) so the news-cycle hook can call it freely; `force` on wire entry.
+  // Failure keeps the prior snapshot — the strip degrades to its own quiet error state, never blanks.
+  refreshWirePulse: async (force = false) => {
+    const cfg = activeWireConfig(get())
+    if (!cfg?.pulse) return
+    const at = get().wirePulseAt
+    if (!force && at && Date.now() - at < 60_000) return
+    try {
+      const snap = await api.swarmPulse(cfg.swarmId)
+      if (!snap || get().activeSwarm !== cfg.swarmId) return // stale landing after a swarm switch
+      set({ wirePulse: snap.subjects || {}, wirePulseAt: Date.now(), wirePulseStale: !!snap.stale })
+    } catch { /* keep the prior snapshot */ }
+  },
+
+  // One-click "Run full ▸ <SUBJECT>" from the wire (reader launch bar / subject chips): select the
+  // subject (loads its graph + last decision, exactly like the picker) then open the existing Run-full
+  // confirm arc (estimate → LaunchConfirm → /<ns>:full <SUBJECT> → the constellation animates).
+  requestFullForSubject: async (subject) => {
+    if (!subject) return
+    await get().selectTicker(subject)
+    await get().requestFull()
   },
 
   // set an event aside / bring it back (local, persisted). If the shelved event is the open one, close it.
@@ -2513,7 +2614,7 @@ export const useStore = create<State>((set, get) => ({
   // connection is back. Capped + cooled-down so a genuinely-broken run can't loop, and capacity rejects
   // are retried (not counted) on the next fetch. The selected run animates; the rest run in the background.
   _maybeAutoResume: async (resumable) => {
-    if (get().staticMode || HARD_DOWN.has(get().health) || get().activeSwarm !== 'screener') return
+    if (get().staticMode || HARD_DOWN.has(get().health) || !isFlowActive(get())) return
     const list = (resumable || []).filter((r) => {
       const t = autoResumeTries.get(r.sigId)
       if (t && t.count >= AUTO_RESUME_MAX) return false // gave up — manual Continue from here
@@ -2822,7 +2923,7 @@ export const useStore = create<State>((set, get) => ({
   // of filtering the 2-day wire. An empty query returns the rail to LIVE mode (the SSE wire). A monotonic
   // token guards against a stale slow response overwriting a newer search (last-write-wins by query).
   scRunArchiveSearch: async (q: ArchiveQuery) => {
-    const active = !!(q.themes?.length || q.country || q.geoRegion || q.source || q.band || q.size || q.linkage || q.gicsSector || q.gicsSubSector || (q.text && q.text.trim()))
+    const active = !!(q.themes?.length || q.country || q.geoRegion || q.source || q.band || q.size || q.linkage || q.gicsSector || q.gicsSubSector || q.commodities?.length || (q.text && q.text.trim()))
     if (!active) { // back to LIVE mode — drop the archive snapshot, keep the live wire
       archiveToken++
       set({ scArchiveQuery: {}, scArchiveResults: [], scArchiveCursor: null, scArchiveLoading: false, scArchiveLoadingMore: false, scArchiveScannedThrough: null, scArchiveExhausted: false })
@@ -2834,9 +2935,12 @@ export const useStore = create<State>((set, get) => ({
     }
     const token = ++archiveToken
     facetsToken++ // this contextful facets load supersedes any in-flight contextless scLoadFacets
+    // a non-flow wire pre-scopes every archive read to its own wire (wireScope clause) — the stored
+    // scArchiveQuery stays the USER's filter; the clause is merged at the request edge only
+    const wq = withWireClause(get(), q)
     set({ scArchiveQuery: q, scArchiveLoading: true, scFacetsLoading: true })
     try {
-      const [res, facets] = await Promise.all([api.newsSearch(q, { limit: 60 }), api.newsFacets(q)])
+      const [res, facets] = await Promise.all([api.newsSearch(wq, { limit: 60 }), api.newsFacets(wq)])
       if (token !== archiveToken) return // a newer search superseded this one
       set({ scArchiveResults: res.items, scArchiveCursor: res.nextCursor, scArchiveScannedThrough: res.scannedThroughDate, scArchiveExhausted: res.exhausted, scArchiveLoading: false, scFacets: facets, scFacetsLoading: false })
     } catch {
@@ -2848,7 +2952,7 @@ export const useStore = create<State>((set, get) => ({
     const token = ++facetsToken
     set({ scFacetsLoading: true })
     try {
-      const f = await api.newsFacets(q)
+      const f = await api.newsFacets(withWireClause(get(), q))
       if (token !== facetsToken) return
       set({ scFacets: f, scFacetsLoading: false })
     } catch {
@@ -2862,7 +2966,7 @@ export const useStore = create<State>((set, get) => ({
     const token = archiveToken
     set({ scArchiveLoadingMore: true })
     try {
-      const res = await api.newsSearch(scArchiveQuery, { cursor: scArchiveCursor, limit: 60 })
+      const res = await api.newsSearch(withWireClause(get(), scArchiveQuery), { cursor: scArchiveCursor, limit: 60 })
       if (token !== archiveToken) return // the filter changed mid-page — discard this page
       const seen = new Set(get().scArchiveResults.map((i) => i.event_id))
       const fresh = res.items.filter((i) => !seen.has(i.event_id))
@@ -2947,16 +3051,18 @@ export const useStore = create<State>((set, get) => ({
         if (intensityRefetchTimer) clearTimeout(intensityRefetchTimer)
         intensityRefetchTimer = setTimeout(() => void get().setIntensityWindow(get().scIntensityWindow), 1200)
       }
-      if (get().activeSwarm === 'screener') void get().scRefreshBoard() // the board is screener UI — don't refetch it from the research swarm every cycle
+      if (isFlowActive(get())) void get().scRefreshBoard() // the board is flow-stage UI — don't refetch it from a constellation swarm every cycle
+      void get().refreshWirePulse() // TTL-gated no-op unless the active wire declares a pulse and it's due
     } else if (e?.type === 'theme-update' && e.theme) {
       // upsert the changed theme; the map/board re-rank from the array. Only when the themes view is
       // open (otherwise we'd hold stale themes until next open anyway).
       if (get().themesView === null && !get().themes.length) return
-      // in a geo-sliced view the SSE patch is a GLOBAL theme summary that doesn't match the geo projection
-      // (different member_count / flow / ranking), so recompute the whole geo index (debounced) instead of
-      // upserting a mismatched row.
+      // in a geo- OR wire-sliced view the SSE patch is a GLOBAL theme summary that doesn't match the
+      // sliced projection (different member_count / flow / ranking), so recompute the whole sliced index
+      // (debounced) instead of upserting a mismatched row.
       const g = get().themesGeo
-      if (g.country || g.geoRegion) {
+      const wireCfg = activeWireConfig(get())
+      if (g.country || g.geoRegion || (wireCfg && !wireCfg.flow && wireCfg.eventScope)) {
         if (themesGeoRefetchTimer) clearTimeout(themesGeoRefetchTimer)
         themesGeoRefetchTimer = setTimeout(() => void get().refreshThemes(), 1200)
         return
