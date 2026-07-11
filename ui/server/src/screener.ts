@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { DATA_DIR, REPO_ROOT } from './config'
-import { listRuns } from './registry'
+import { IN_FLIGHT_STATUSES, listRuns } from './registry'
 import { listModuleNames } from './roster'
 import { resolveInsideScreener } from './sandbox'
 import { swarmById } from './swarms'
@@ -238,6 +238,101 @@ export function screenerRunManifest(sigId: string) {
     thesisRecord: has('thesis_record.json') ? readJson(`${runRoot}/thesis_record.json`) : null,
     candidates: has('candidates.json') ? readJson(`${runRoot}/candidates.json`) : null,
   }
+}
+
+export type SignalRunState = 'never' | 'running' | 'parked' | 'logged' | 'watchlist' | 'partial' | 'complete'
+export interface SignalStateResult {
+  sigId: string
+  state: SignalRunState
+  running: boolean
+  runningModule?: string | null
+  materiality?: number | null
+  routing?: string | null
+  locked?: boolean
+  hasCandidates?: boolean
+  doneModules?: string[]
+}
+
+/** Derive the run state of a signal (by its SIG-id) for the cockpit's "Run the checks" control — a pure
+ *  READ over the run folder + the live-run registry, never a launch. `never` when no folder exists;
+ *  `running` when a live screener run owns the id; otherwise terminal-vs-partial is decided from the SAME
+ *  authoritative sources the sibling `listResumableSignals` uses — the swarm manifest's `routing.terminal`
+ *  set (case-normalized, reused not re-encoded) plus `thesis_record.meta.status` — so the manual control and
+ *  the auto-resume detector agree about every run:
+ *    • PARK / LOG (signal-gate held it) → parked / logged — overridable.
+ *    • locked AND candidates.json present → complete (ran to the end).
+ *    • any other terminal verdict (suppress / watchlist_no_source / watchlist_no_world_change /
+ *      return_to_m0_2 / watchlist_no_edge) on the payload routing, the thesis status, OR any recorded module
+ *      verdict → watchlist — a real, terminal rejection with nothing to continue.
+ *    • everything else that PROMOTEd but is neither terminal nor complete (a `--until` stop-after, a locked
+ *      provisional/full_machine still pending candidate-surfacing, or a break) → partial — resumable.
+ *  Field names mirror the committed signal_payload.json / thesis_record.json schemas. */
+export function deriveSignalState(sigId: string): SignalStateResult {
+  // IN_FLIGHT_STATUSES (not the two literals 'starting'/'running') — the registry warns these statuses
+  // drift, so a future screener readiness gate would otherwise read an at-gate run as not-running.
+  const live = listRuns().find((r) => r.swarmId === 'screener' && r.subjectId === sigId && IN_FLIGHT_STATUSES.has(r.status))
+  if (live) return { sigId, state: 'running', running: true, runningModule: (live as { module?: string }).module ?? null }
+
+  let man: ReturnType<typeof screenerRunManifest>
+  try {
+    man = screenerRunManifest(sigId)
+  } catch {
+    return { sigId, state: 'never', running: false } // ENOENT (no folder) or unreadable → treat as never-run
+  }
+
+  const sp = man.signalPayload as { routing?: string; materiality_score?: number } | null
+  const tr = man.thesisRecord as { meta?: { locked?: boolean; status?: string } } | null
+  const routing0 = sp?.routing ?? null // PROMOTE | PARK | LOG | watchlist_no_source | suppress
+  const status0 = tr?.meta?.status ?? null // provisional | full_machine | watchlist_no_edge | watchlist_no_world_change | …
+  const materiality = typeof sp?.materiality_score === 'number' ? sp.materiality_score : null
+  const locked = tr?.meta?.locked === true
+  const hasCandidates = !!man.candidates
+  // "module done" = a NON-EMPTY 99_ synthesis on disk — matches listResumableSignals' synthesisPresent.
+  // (screenerRunManifest lists every NN_*.md regardless of size, so an empty/half-written synthesis from a
+  // crash would otherwise over-count "Paused · N/M" and mis-target Continue-through.)
+  const runAbs = resolveInsideScreener(man.runRoot)
+  const doneModules = Object.keys(man.modules).filter((mod) => {
+    try {
+      return fs.statSync(path.join(runAbs, mod, `99_${mod}-synthesis.md`)).size > 0
+    } catch {
+      return false
+    }
+  })
+
+  // the swarm's authoritative terminal verdict set (case-normalized), reused from the manifest exactly as
+  // listResumableSignals does — never hardcoded literals, so a new terminal routing added to SWARM.md is
+  // honored here automatically. Falls back to the known set only if the manifest can't be read.
+  const norm = (v: string | null | undefined) => (v || '').toLowerCase().trim()
+  let terminal: Set<string>
+  try {
+    terminal = new Set((manifest().routing?.terminal || []).map((s: string) => s.toLowerCase().trim()))
+  } catch {
+    terminal = new Set(['log', 'park', 'suppress', 'watchlist_no_source', 'watchlist_no_world_change', 'return_to_m0_2', 'watchlist_no_edge'])
+  }
+  const isTerminal = (v: string | null | undefined) => !!norm(v) && terminal.has(norm(v))
+  // also scan every recorded module verdict (mirrors listResumableSignals' hitTerminal, off the parsed
+  // manifest) — catches a terminal Gate-0 stop that short-circuited before signal_payload.json was written.
+  const hitTerminal = Object.values(man.modules).some((agents) => agents.some((a) => isTerminal(a.routing)))
+
+  // Check COMPLETION/progress before the gate routing: a locked thesis means the run progressed past the
+  // gate — including a human override of a PARK/LOG (signal_payload.routing still records the original gate
+  // verdict, so a gate-first test would wrongly show 'parked'/'logged' for a finished override run).
+  let state: SignalRunState
+  if (locked && hasCandidates) state = 'complete' // ran to the end, candidates surfaced
+  // A terminal THESIS status means the run progressed past Gate 0 and then dead-ended downstream — even when
+  // signal_payload.routing still records the original PARK/LOG (a human override runs on past the gate, and a
+  // thesis-structure terminal like watchlist_no_world_change / return_to_m0_2 is written with locked:false).
+  // Check this BEFORE the gate holds below, or such a run would read 'parked'/'logged' and offer a useless
+  // override that just stops at the same thesis gate. (Gate-level PARK/LOG stay AFTER — they are themselves in
+  // the terminal set, so testing routing0/hitTerminal here would swallow a genuine Gate-0 hold into watchlist.)
+  else if (isTerminal(status0)) state = 'watchlist'
+  else if (locked) state = 'partial' // locked provisional/full_machine, candidate-surfacing still pending — resumable
+  else if (norm(routing0) === 'park') state = 'parked' // held AT Gate 0, no downstream thesis (materiality 40–69) — override to run
+  else if (norm(routing0) === 'log') state = 'logged' // held AT Gate 0, no downstream thesis (<40) — override to run
+  else if (isTerminal(routing0) || hitTerminal) state = 'watchlist' // a Gate-0 terminal with no thesis (suppress / watchlist_no_source) or a terminal module verdict — no Continue
+  else state = 'partial' // PROMOTEd, neither terminal nor complete — a stop-after, mid-run, or break (resumable)
+
+  return { sigId, state, running: false, materiality, routing: status0 ?? routing0, locked, hasCandidates, doneModules }
 }
 
 // A screener markdown output (for the cockpit's reader panel) — sandboxed to screener/.
