@@ -44,17 +44,19 @@ Canonical hierarchy, most trusted to least trusted:
 2. Quarterly filings / exchange filings / 10-Q / 6-K
 3. Notes to accounts, auditor report, debt notes, segment disclosures
 4. Proxy / AGM notice / governance report / shareholding disclosures
-5. Capital IQ / Bloomberg / FactSet / IBKR exports or screenshots
+5. Capital IQ / Bloomberg / FactSet / IBKR exports or screenshots; licensed alternative-data / vendor research exports (always labelled estimate-based, with the vendor's stated error margin where disclosed)
 6. Earnings transcripts
 7. Investor presentations
 8. Credit rating reports / regulator releases
-9. User-uploaded notes
+9. User-uploaded notes (including the user's own channel checks, expert-call notes, and management-meeting notes)
 10. Reputable web sources, clearly dated and labelled unverified
 11. Inference
 
 Rule: when sources conflict, use the more conservative interpretation unless stronger evidence proves otherwise. Do not give the thesis the benefit of the doubt when evidence quality is equal.
 
 This root hierarchy is the canonical version. Each module's MODULE_RULES.md may insert module-specific tiers (for example, the management-governance module elevates the proxy/DEF 14A; the balance-sheet-survival module elevates debt notes and rating-agency reports). Those refinements must stay consistent with this ordering — filings above transcripts, transcripts above decks, third-party data above user notes, user notes above dated web sources, everything above unlabeled inference.
+
+Externally ingested documents — paid alternative data, expert calls, channel checks, broker research, paid-API pulls, living in `data/<TICKER>/external/` with provenance sidecars — map into these tiers per `frameworks/EXTERNAL_DATA.md` (alt-data panel / vendor export / API pull → tier 5; broker research → the presentation band, verdict-stripped per §24; expert call / channel check / management meeting → tier 9). The mapping refines this hierarchy, never reorders it, and external data never substitutes for a filing a sufficiency rule requires.
 
 The document NAMES in this hierarchy are regime-specific. "10-K", "10-Q", "6-K" and the like are US/foreign-private-issuer examples; the equivalent for an Indian or other-market company is its local statutory filing. Detect the listing jurisdiction first and read the local equivalent — the tier (audited annual filing, interim filing, notes, proxy/AGM) is what matters, not the form number. See §27 for the full US / India / global equivalence map.
 
@@ -75,6 +77,7 @@ Concrete forms already in use across modules, all acceptable — cite the local 
 - `FY24 10-K, Note 13 (Debt)`
 - `CRISIL rating rationale, 2026-03-10` / `Capital IQ Multiples export, data as of 2026-05-09`
 - `IBKR screenshot, 2026-05-30`
+- `YipitData Cloud panel, Mar-26 update (pub. 2026-04-16), Ex.1A — licensed alt-data, estimate (±2.3pp @80% vendor backtest)` (external data, see `frameworks/EXTERNAL_DATA.md`)
 - `Web: exchange quote, 2026-05-31 (indicative, unverified)`
 - `FY24 Annual Report (IFRS, Arabic original), Note 34 — translated` (non-English filing; figures transcribed verbatim, labels translated — see §27)
 

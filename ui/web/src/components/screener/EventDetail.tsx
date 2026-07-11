@@ -12,6 +12,7 @@ import { useStore } from '../../lib/store'
 import type { ArticleParty, EventEnrichment, FeedItem, NewsImpact, RelatedEvent } from '../../lib/types'
 import { FeedbackMenu } from './FeedbackMenu'
 import { RunChecksMenu } from './RunChecksMenu'
+import type { FeedbackPolarity } from '../../lib/feedbackTypes'
 import type { ReportMenuAnchor } from '../ActivityReportMenu'
 import { useWireConfig } from '../wire/WireContext'
 import { WireLaunchBar } from '../wire/WireLaunchBar'
@@ -372,8 +373,9 @@ export function EventDetail({ it }: { it: FeedItem }) {
   const enrichCache = useStore((s) => s.enrichCache)
   const shelvedEvents = useStore((s) => s.shelvedEvents)
   const toggleShelve = useStore((s) => s.toggleShelve)
-  const flaggedEvents = useStore((s) => s.flaggedEvents)
-  const [feedbackAnchor, setFeedbackAnchor] = useState<ReportMenuAnchor | null>(null)
+  const ratedPolarity = useStore((s) => s.ratedPolarity)
+  // the open rating popover carries WHICH thumb opened it, so it shows that thumb's reasons
+  const [feedback, setFeedback] = useState<{ anchor: ReportMenuAnchor; polarity: FeedbackPolarity } | null>(null)
   const newsItems = useStore((s) => s.newsItems)
   const selectEvent = useStore((s) => s.scSelectEvent)
   const focusCompany = useStore((s) => s.scFocusCompany)
@@ -418,7 +420,14 @@ export function EventDetail({ it }: { it: FeedItem }) {
   const enr = enrichCache[it.event_id]
   const enrichment = enr && enr !== 'loading' ? enr : undefined
   const shelved = shelvedEvents.has(it.event_id)
-  const flagged = flaggedEvents.has(it.event_id)
+  const rated = ratedPolarity[it.event_id] // 'up' | 'down' | undefined — which thumb the reader lit up
+  // A thumb click computes its popover anchor the same way the old flag button did, then tags the polarity.
+  const openRate = (e: React.MouseEvent<HTMLElement>, polarity: FeedbackPolarity) => {
+    const r = e.currentTarget.getBoundingClientRect()
+    const right = Math.max(8, window.innerWidth - r.right)
+    const anchor = window.innerHeight - r.bottom < 320 ? { right, bottom: Math.max(8, window.innerHeight - r.top + 6) } : { right, top: r.bottom + 6 }
+    setFeedback({ anchor, polarity })
+  }
   const tone = it.triage_score >= 70 ? 'var(--live)' : it.triage_score >= 40 ? 'var(--accent-bright)' : 'var(--text-faint)'
   const s = scopeOf(it)
   const fam = familyOf(s)
@@ -650,25 +659,39 @@ export function EventDetail({ it }: { it: FeedItem }) {
                 per-wire behavior via config only */}
             {cfg.flow ? <RunChecksMenu it={it} /> : <WireLaunchBar it={it} />}
             <div className="evdetail__utility">
-              <button
-                className="btn btn--ghost evdetail__shelfbtn"
-                onClick={(e) => {
-                  const r = e.currentTarget.getBoundingClientRect()
-                  const right = Math.max(8, window.innerWidth - r.right)
-                  setFeedbackAnchor(window.innerHeight - r.bottom < 320 ? { right, bottom: Math.max(8, window.innerHeight - r.top + 6) } : { right, top: r.bottom + 6 })
-                }}
-                title={flagged ? 'Feedback already saved for this item' : 'Flag as irrelevant / mis-scored / …'}
-              >
-                {flagged ? 'Feedback saved ✓' : 'Flag feedback'}
-              </button>
+              <div className={`evdetail__rate${rated ? ' evdetail__rate--rated' : ''}`} role="group" aria-label="Was this worth surfacing?">
+                <button
+                  type="button"
+                  className={`evdetail__thumb evdetail__thumb--up${rated === 'up' ? ' evdetail__thumb--on' : ''}`}
+                  onClick={(e) => openRate(e, 'up')}
+                  aria-pressed={rated === 'up'}
+                  aria-label="Good call"
+                  title={rated === 'up' ? 'You rated this a good call — click to change' : 'Good call — the wire got this right'}
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden><path d="M7 10v11H4a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1h3zm0 0 4.5-7a2 2 0 0 1 3.7 1.3L14.5 9H20a2 2 0 0 1 2 2.3l-1.3 7A2 2 0 0 1 18.7 20H7" /></svg>
+                </button>
+                <button
+                  type="button"
+                  className={`evdetail__thumb evdetail__thumb--down${rated === 'down' ? ' evdetail__thumb--on' : ''}`}
+                  onClick={(e) => openRate(e, 'down')}
+                  aria-pressed={rated === 'down'}
+                  aria-label="Not a good call"
+                  title={rated === 'down' ? 'You flagged this — click to change' : 'It’s off — irrelevant, mis-scored or wrong'}
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden><path d="M17 14V3h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-3zm0 0-4.5 7a2 2 0 0 1-3.7-1.3L9.5 15H4a2 2 0 0 1-2-2.3l1.3-7A2 2 0 0 1 5.3 4H17" /></svg>
+                </button>
+              </div>
               <button className="btn btn--ghost evdetail__shelfbtn" onClick={() => toggleShelve(it.event_id)} title={shelved ? 'Bring this back to the wire' : 'Set this aside — not worth a check right now'}>
                 {shelved ? 'Bring back' : 'Set aside'}
               </button>
               {it.url && (
-                <a className="btn btn--ghost" href={it.url} target="_blank" rel="noreferrer">Open source ↗</a>
+                <a className="evdetail__srclink" href={it.url} target="_blank" rel="noreferrer" title={`Read the original at ${it.domain || 'the source'}`}>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden><path d="M14 4h6v6M20 4l-8.5 8.5M18 13.5V19a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5.5" /></svg>
+                  Open source
+                </a>
               )}
             </div>
-            {feedbackAnchor && <FeedbackMenu item={it} anchor={feedbackAnchor} onClose={() => setFeedbackAnchor(null)} />}
+            {feedback && <FeedbackMenu item={it} anchor={feedback.anchor} polarity={feedback.polarity} onClose={() => setFeedback(null)} />}
           </div>
         </div>
       </article>

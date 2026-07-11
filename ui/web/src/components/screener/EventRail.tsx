@@ -96,7 +96,7 @@ function ScopeChip({ it }: { it: FeedItem }) {
   )
 }
 
-function EventRow({ group, selected, shelved, fresh, onPick, onShelve }: { group: StoryGroup; selected: boolean; shelved: boolean; fresh: boolean; onPick: (it: FeedItem) => void; onShelve: (id: string) => void }) {
+function EventRow({ group, selected, shelved, fresh, unread, onPick, onShelve }: { group: StoryGroup; selected: boolean; shelved: boolean; fresh: boolean; unread: boolean; onPick: (it: FeedItem) => void; onShelve: (id: string) => void }) {
   const it = group.rep
   const [expanded, setExpanded] = useState(false)
   const [feedbackAnchor, setFeedbackAnchor] = useState<ReportMenuAnchor | null>(null)
@@ -113,9 +113,10 @@ function EventRow({ group, selected, shelved, fresh, onPick, onShelve }: { group
       ? `+${group.others.length} more`
       : ''
   return (
-    <div className={`evrow${selected ? ' evrow--on' : ''}${kept ? '' : ' evrow--dropped'}${shelved ? ' evrow--shelved' : ''}${fresh ? ' evrow--fresh' : ''}`}>
+    <div className={`evrow${selected ? ' evrow--on' : ''}${kept ? '' : ' evrow--dropped'}${shelved ? ' evrow--shelved' : ''}${fresh ? ' evrow--fresh' : ''}${unread ? ' evrow--unread' : ''}`}>
       {fresh && <span className="evrow__glow" aria-hidden />}
-      <button type="button" className="evrow__hit" onClick={() => onPick(it)} title={[displayHeadline(it), origHl && `original: ${origHl}`].filter(Boolean).join('\n')}>
+      {unread && <span className="evrow__unread" aria-hidden title="Unread — you haven't opened this yet" />}
+      <button type="button" className="evrow__hit" onClick={() => onPick(it)} title={[unread ? '● Unread' : null, displayHeadline(it), origHl && `original: ${origHl}`].filter(Boolean).join('\n')}>
         <span className="evrow__rail" aria-hidden style={{ background: tone }} />
         <span className="evrow__top">
           <span className="evrow__score mono" style={{ color: tone, borderColor: tone }}>
@@ -208,6 +209,8 @@ export function EventRail() {
   const pick = useStore((s) => s.scSelectEvent)
   const shelvedEvents = useStore((s) => s.shelvedEvents)
   const toggleShelve = useStore((s) => s.toggleShelve)
+  const readEvents = useStore((s) => s.readEvents)
+  const markEventsRead = useStore((s) => s.markEventsRead)
   const themesOpen = useStore((s) => s.themesView !== null)
   const openThemes = useStore((s) => s.openThemes)
   const closeThemes = useStore((s) => s.closeThemes)
@@ -399,8 +402,15 @@ export function EventRail() {
     })
   }, [refined, scopeFilter, sectorSel, commSel, broadActive, subjectMode, subjectSel, cfg])
   const isFresh = (g: StoryGroup) => g.members.some((m) => freshEvents.has(m.event_id))
+  // a story is unread until its lead item is opened (or "mark all read"). Read state lives on the rep, so a
+  // whole cluster clears when you open it — matching how the row is keyed everywhere else.
+  const isUnread = (g: StoryGroup) => !readEvents.has(g.rep.event_id)
 
   const shelvedInBand = useMemo(() => groups.reduce((n, g) => n + (shelvedEvents.has(g.rep.event_id) ? 1 : 0), 0), [groups, shelvedEvents])
+  // unread among what's actually on screen now (respects the current view + filters), so "N new · Mark all
+  // read" always matches the list beneath it. Marking all read clears exactly those rows.
+  const unreadVisible = useMemo(() => visibleGroups.filter((g) => !readEvents.has(g.rep.event_id)), [visibleGroups, readEvents])
+  const markAllRead = () => markEventsRead(unreadVisible.map((g) => g.rep.event_id))
 
   // The GICS-specific empty line applies ONLY when GICS is the sole structured narrower: if the scope chips
   // (broadActive) also narrowed, the empty list may be theirs, so we fall through to the generic line
@@ -599,9 +609,21 @@ export function EventRail() {
         )}
       </header>
 
+      {unreadVisible.length > 0 && (
+        <div className="evrail__unreadbar">
+          <span className="evrail__unreadcount">
+            <span className="evrail__unreaddot" aria-hidden />
+            {unreadVisible.length} new
+          </span>
+          <button type="button" className="evrail__markread" onClick={markAllRead} title="Mark every event shown here as read">
+            Mark all read
+          </button>
+        </div>
+      )}
+
       <div className="evrail__list" ref={listRef}>
         {visibleGroups.map((g) => (
-          <EventRow key={g.group} group={g} selected={inGroup(selected, g)} shelved={shelvedEvents.has(g.rep.event_id)} fresh={isFresh(g)} onPick={pick} onShelve={toggleShelve} />
+          <EventRow key={g.group} group={g} selected={inGroup(selected, g)} shelved={shelvedEvents.has(g.rep.event_id)} fresh={isFresh(g)} unread={isUnread(g)} onPick={pick} onShelve={toggleShelve} />
         ))}
         {/* Render the paging sentinel whenever a next cursor remains — even when THIS page filtered to zero
             visible rows (e.g. a page of all band='drop' items hidden in Ranked/Latest). Gating it on

@@ -1,101 +1,146 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useStore } from '../../lib/store'
-import { FEEDBACK_TYPES, feedbackInputFromItem, feedbackLabel } from '../../lib/feedbackTypes'
+import { feedbackChipLabel, feedbackInputFromItem, reasonsFor, type FeedbackPolarity } from '../../lib/feedbackTypes'
 import type { FeedbackType, FeedItem } from '../../lib/types'
 import type { ReportMenuAnchor } from '../ActivityReportMenu'
-import '../swarm/CoreOrb.css' // reuse the .reportpop__item / __label / __hint / __scrim look
 
-// "Flag as irrelevant / mis-scored / …" — the feedback control on a wire card. Built on the exact
-// ActivityReportMenu pattern (portaled popover, click-outside scrim, Escape-to-close). SELECT-then-SUBMIT:
-// clicking a reason SELECTS it (never submits on its own), an optional comment rides along with ANY reason
-// (required for "Other", which is meaningless without one), and one Submit logs the record. Nothing reaches
-// the ledger without an explicit Submit — a stray click can't file feedback, and every reason behaves the same.
+// The rating popover behind the 👍 / 👎 thumbs (in the reader) and the rail-row ⚑ flag.
+//
+//   • With a `polarity`, it shows ONE thumb's reasons — the thumb the reader pressed.
+//   • Without one (the rail ⚑), it shows BOTH groups so a quick flag can still go either way.
+//
+// FAST BY DEFAULT: tapping a reason chip files it immediately (one deliberate thumb-click already opened
+// this, so a chip tap is never a stray), and the toast offers Undo. Two exceptions take a moment more:
+// "Something else" always needs a note, and the "＋ note" toggle switches to a pick-then-send mode so a
+// note can ride along with ANY reason. Nothing is sent until a chip is chosen (or, in note mode, Send).
 
 interface Props {
   item: FeedItem
   anchor: ReportMenuAnchor
   onClose: () => void
+  polarity?: FeedbackPolarity // omitted → the rail ⚑ (both groups)
 }
 
-export function FeedbackMenu({ item, anchor, onClose }: Props) {
+export function FeedbackMenu({ item, anchor, onClose, polarity }: Props) {
   const submitFeedback = useStore((s) => s.submitFeedback)
-  const [selected, setSelected] = useState<FeedbackType | null>(null)
-  const [commentOpen, setCommentOpen] = useState(false)
-  const [reason, setReason] = useState('')
+  const [noteMode, setNoteMode] = useState(false)
+  // A chosen reason carries the THUMB it was clicked under — the group already knows its polarity, so
+  // `other` (which sits under BOTH thumbs in the rail's two-group view) records the right one, and only the
+  // clicked group's chip highlights.
+  const [sel, setSel] = useState<{ type: FeedbackType; pol: FeedbackPolarity } | null>(null)
+  const [note, setNote] = useState('')
+  const noteRef = useRef<HTMLTextAreaElement>(null)
+  const popRef = useRef<HTMLDivElement>(null)
+  // Capture the element that opened us during the FIRST render — synchronously, before any effect moves
+  // focus into the popover. (An effect-time capture races the focus-in effect below and, under StrictMode's
+  // double-invoke, can grab the popover itself; a lazy useState initializer runs once during render, when
+  // the trigger — the thumb or the rail ⚑ — is still `document.activeElement`.)
+  const [trigger] = useState<HTMLElement | null>(() => document.activeElement as HTMLElement | null)
+
+  // Close AND return focus to the trigger — done SYNCHRONOUSLY, before the unmount removes the popover DOM.
+  // (Restoring in an effect-cleanup runs too late: React removes the focused popover node first, the browser
+  // drops focus to <body>, and the cleanup then fights it. Focusing the trigger while it's still the only
+  // thing to focus, then unmounting, leaves focus exactly where a keyboard user expects it.) `useCallback`
+  // so the Escape listener below always closes via the same path.
+  // Close, returning focus to whatever opened us so a keyboard user lands back on the thumb (or rail ⚑),
+  // not at <body>. Focus the trigger FIRST, then unmount only the popover — the trigger is still mounted
+  // (the reader stays open, see the Escape capture below), so focus stays put once the popover is gone.
+  const close = useCallback(() => { trigger?.focus?.(); onClose() }, [trigger, onClose])
 
   useEffect(() => {
-    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose()
-    window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [onClose])
+    // CAPTURE phase + stopImmediatePropagation: the reader (EventDetail) has its own bubble-phase window
+    // Escape listener that backs all the way out to the wire. Without capturing first, one Escape would close
+    // the popover AND the whole reader out from under it (and drop focus to <body>). Capturing lets us close
+    // only the popover and swallow the key before the reader sees it.
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key !== 'Escape') return
+      e.stopImmediatePropagation()
+      e.preventDefault()
+      close()
+    }
+    window.addEventListener('keydown', onKey, true)
+    return () => window.removeEventListener('keydown', onKey, true)
+  }, [close])
+  // Move focus into the popover on open so it's keyboard- and screen-reader-operable (Tab reaches the
+  // chips, Escape closes); once a note box appears, focus follows it.
+  useEffect(() => { if (noteMode) noteRef.current?.focus(); else popRef.current?.focus() }, [noteMode, sel])
 
-  const needsComment = selected === 'other' // "Other" carries no signal without a comment
-  const canSubmit = selected != null && (!needsComment || reason.trim().length > 0)
-
-  const choose = (type: FeedbackType) => {
-    setSelected(type)
-    if (type === 'other') setCommentOpen(true) // reveal the box — "Other" requires a comment
+  const file = (type: FeedbackType, pol: FeedbackPolarity, reason: string) => {
+    void submitFeedback(feedbackInputFromItem(item, type, reason), pol)
+    close()
   }
-  const submit = () => {
-    if (!selected || !canSubmit) return
-    void submitFeedback(feedbackInputFromItem(item, selected, reason))
-    onClose()
+  const onChip = (type: FeedbackType, pol: FeedbackPolarity) => {
+    // "Something else" always needs a note; note mode wants an explicit Send so the note attaches.
+    if (type === 'other' || noteMode) { setSel({ type, pol }); setNoteMode(true); return }
+    file(type, pol, '')
   }
+  const canSend = sel != null && (sel.type !== 'other' || note.trim().length > 0)
+  const send = () => { if (sel && canSend) file(sel.type, sel.pol, note.trim()) }
 
-  return createPortal(
-    <>
-      <div className="reportpop__scrim" onClick={onClose} />
-      <div
-        className="reportpop"
-        style={{ left: 'auto', right: anchor.right, top: anchor.top, bottom: anchor.bottom, transform: 'none', animation: 'none' }}
-        onClick={(e) => e.stopPropagation()}
-        role="menu"
-      >
-        <div className="reportpop__label">Feedback on this item</div>
-        {FEEDBACK_TYPES.map((type) => {
-          const on = selected === type
+  // Scale IN from the trigger it's anchored to: the popover sits at the button's near corner, so the origin
+  // is that corner (bottom-right when it opens upward, top-right when it opens downward). Modals stay centered;
+  // an anchored popover does not.
+  const origin = anchor.bottom != null ? 'bottom right' : 'top right'
+
+  const group = (pol: FeedbackPolarity) => (
+    <div className="fbpop__group" key={pol}>
+      {!polarity && <div className="fbpop__grouplabel">{pol === 'up' ? '👍 Good call' : '👎 It’s off'}</div>}
+      <div className="fbpop__chips">
+        {reasonsFor(pol).map((type) => {
+          const on = sel?.type === type && sel?.pol === pol
           return (
             <button
-              key={type}
-              className="reportpop__item"
-              onClick={() => choose(type)}
-              role="menuitemradio"
-              aria-checked={on}
-              style={on ? { background: 'var(--accent-wash)' } : undefined}
+              key={`${pol}:${type}`}
+              type="button"
+              className={`fbpop__chip fbpop__chip--${pol}${on ? ' fbpop__chip--sel' : ''}`}
+              onClick={() => onChip(type, pol)}
+              aria-pressed={on}
             >
-              <b style={on ? { color: 'var(--accent-deep)' } : undefined}>{feedbackLabel(type)}</b>
+              {feedbackChipLabel(type)}
             </button>
           )
         })}
-        {commentOpen ? (
-          <div style={{ padding: '6px 10px 8px' }}>
+      </div>
+    </div>
+  )
+
+  return createPortal(
+    <>
+      <div className="fbpop__scrim" onClick={close} />
+      <div
+        ref={popRef}
+        tabIndex={-1}
+        className="fbpop"
+        style={{ right: anchor.right, top: anchor.top, bottom: anchor.bottom, transformOrigin: origin }}
+        onClick={(e) => e.stopPropagation()}
+        role="group"
+        aria-label="Rate this event"
+      >
+        <div className="fbpop__head">
+          {polarity ? (polarity === 'up' ? 'What’s good about this?' : 'What’s off about this?') : 'Rate this event'}
+        </div>
+        {polarity ? group(polarity) : (<>{group('up')}{group('down')}</>)}
+
+        {noteMode ? (
+          <div className="fbpop__note">
             <textarea
-              autoFocus
-              rows={3}
-              value={reason}
-              onChange={(e) => setReason(e.target.value)}
-              onKeyDown={(e) => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey) && canSubmit) submit() }}
-              placeholder={needsComment ? 'Add a comment (required for “Other”)' : 'Optional — add a comment'}
-              style={{ width: '100%', resize: 'vertical', font: 'inherit', fontSize: 11.5 }}
+              ref={noteRef}
+              rows={2}
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              onKeyDown={(e) => { if (e.key === 'Enter' && (e.metaKey || e.ctrlKey) && canSend) send() }}
+              placeholder={sel?.type === 'other' ? 'Tell us what’s off (required)' : 'Add a note (optional)'}
+              className="fbpop__noteinput"
             />
+            <div className="fbpop__noterow">
+              <span className="fbpop__notehint">{sel ? feedbackChipLabel(sel.type) : 'Pick a reason above'}</span>
+              <button type="button" className="fbpop__send" onClick={send} disabled={!canSend}>Send →</button>
+            </div>
           </div>
         ) : (
-          <button className="reportpop__item" onClick={() => setCommentOpen(true)} role="menuitem">
-            <span>+ Add comment</span>
-          </button>
+          <button type="button" className="fbpop__addnote" onClick={() => setNoteMode(true)}>＋ add a note</button>
         )}
-        <button
-          className="reportpop__item"
-          onClick={submit}
-          disabled={!canSubmit}
-          role="menuitem"
-          title={canSubmit ? 'Log this feedback' : needsComment ? 'Add a comment for “Other”' : 'Pick a reason first'}
-          style={{ alignItems: 'center', marginTop: 2, background: canSubmit ? 'var(--accent-wash)' : 'transparent', cursor: canSubmit ? 'pointer' : 'not-allowed' }}
-        >
-          <b style={{ color: canSubmit ? 'var(--accent-deep)' : 'var(--text-faint)' }}>Submit →</b>
-        </button>
-        <div className="reportpop__hint">Pick a reason, add an optional comment, then Submit — nothing is logged until you Submit.</div>
       </div>
     </>,
     document.body,

@@ -258,7 +258,7 @@ export interface EventEnrichment {
 }
 
 // ---- screener card feedback (ui/server/src/screener-feedback.ts is the source of truth) ----
-export type FeedbackType = 'irrelevant' | 'score_too_high' | 'score_too_low' | 'wrong_company' | 'wrong_sector' | 'duplicate_stale' | 'should_be_higher' | 'other'
+export type FeedbackType = 'irrelevant' | 'score_too_high' | 'score_too_low' | 'wrong_company' | 'wrong_sector' | 'duplicate_stale' | 'should_be_higher' | 'relevant' | 'other'
 export interface FeedbackSubmitInput {
   event_id: string
   feedback_type: FeedbackType
@@ -556,7 +556,16 @@ export interface DataStatus {
   ticker: string
   hasAnyData: boolean
   fileCount: number
-  files: { filename: string; type: string; periodHint: string | null; ageMonths: number | null; confidence: string; sheets?: { name: string; rows: number; cols: number; cells: number }[] }[]
+  files: {
+    filename: string
+    type: string
+    periodHint: string | null
+    ageMonths: number | null
+    confidence: string
+    sheets?: { name: string; rows: number; cols: number; cells: number }[]
+    // present for externally ingested docs under data/<T>/external/ (frameworks/EXTERNAL_DATA.md)
+    external?: { provider?: string; sourceType?: string; tier?: number; asOf?: string; license?: string }
+  }[]
   recentByType: Record<string, { filename: string; ageMonths: number | null } | undefined>
   modules: Record<string, ModuleReadiness>
   coverage: CoverageGroup[]

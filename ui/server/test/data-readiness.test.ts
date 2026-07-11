@@ -264,4 +264,29 @@ check('callDateMonths: no date in the filename -> null (falls back to the quarte
   assert.equal(callDateMonths('ACME Q4 2025 Earnings Call.rtf'), null)
 })
 
+// ---- external data is readiness-NEUTRAL (frameworks/EXTERNAL_DATA.md) ----
+// An external file's name/tabs must never satisfy a coverage slot — the coverage regexes are not
+// type-keyed, so a routed broker note with a "Consensus" tab (or a file named like a price quote)
+// would otherwise read as the upload being present.
+const extCf = (filename: string, sheets?: { name: string; rows: number; cols: number; cells: number }[]): ClassifiedFile => ({
+  ...cf(filename, 'external_data', 0),
+  ...(sheets ? { sheets } : {}),
+  external: { provider: 'SomeVendor', sourceType: 'broker_research', tier: 7 },
+})
+
+check('external: a price-named external file does not satisfy the price coverage slot', () => {
+  assert.equal(covPresent([extCf('external/vendor/spot_price_tracker.xlsx')], 'price'), false)
+})
+check('external: a "Consensus" tab inside an external workbook does not satisfy estimates coverage', () => {
+  assert.equal(covPresent([extCf('external/vendor/panel.xlsx', [{ name: 'Consensus', rows: 5, cols: 5, cells: 10 }])], 'estimates'), false)
+})
+check('external: the same names as TOP-LEVEL files DO satisfy coverage (the exclusion is external-only)', () => {
+  assert.equal(covPresent([cf('spot_price_tracker.xlsx')], 'price'), true)
+  assert.equal(covPresent([cf('estimates.xls', 'consensus_estimates')], 'estimates'), true)
+})
+check('external: external_data satisfies no declared readiness slot (type-keyed has())', () => {
+  const r = evalDecl({ sufficient: ['transcript'] }, hasOf(['external_data' as FileType]))
+  assert.equal(r.status, 'Partial')
+})
+
 console.log(`\n${passed} checks passed${process.exitCode ? ' (with failures)' : ''}`)
