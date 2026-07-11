@@ -304,7 +304,15 @@ def compute(inp: ConfidenceInputs) -> dict:
 
 def sizing_hint(decision: str, conviction: float) -> dict:
     """conviction + decision -> a plain action/size band (Step 4). Presentation only — the
-    full model portfolio lives in /research:size; this is the quick tag on the score."""
+    full model portfolio lives in /research:size; this is the quick tag on the score.
+
+    Honors the frameworks/DECISION_LEDGER.md decision -> paper-treatment map, so the quick tag
+    can never contradict the recorded decision's own size cap:
+      - Starter Position Only = 'Small paper long' — the DECISION caps size to a starter, so it
+        never sizes to a full/standard long however high conviction runs (Codex #215).
+      - Short Candidate = 'Paper short' — an ACTIVE short leg, distinct from a no-position Avoid,
+        so its action names the short expression rather than reusing the avoid text (Codex #215).
+      - Watchlist = 'No trade, track opportunity cost' — never a conditional starter (Codex #215)."""
     d = (decision or "").lower()
     if "insufficient" in d:
         return {"band": "none", "action": "no position — refuse to rate (§11)"}
@@ -312,11 +320,23 @@ def sizing_hint(decision: str, conviction: float) -> dict:
         if conviction >= 60:
             return {"band": "hedge-on", "action": "construct the pair/hedge — size to the spread, not directional"}
         return {"band": "hedge-watch", "action": "hedge thesis noted — wait for the spread/trigger before constructing"}
-    if "avoid" in d or "short" in d:
+    # Short Candidate — DECISION_LEDGER 'Paper short': an active short leg, NOT a no-position avoid.
+    if "short" in d:
         if conviction >= 60:
-            return {"band": "high", "action": "clear avoid / short candidate — do not own; exit if held"}
+            return {"band": "short-on", "action": "short candidate — initiate a (paper) short; size to borrow/risk"}
+        return {"band": "short-watch", "action": "lean short — monitor for the trigger, no short on yet"}
+    # Avoid — DECISION_LEDGER 'No trade': never owned, and no short leg implied.
+    if "avoid" in d:
+        if conviction >= 60:
+            return {"band": "high", "action": "clear avoid — do not own; exit if held"}
         return {"band": "low", "action": "lean avoid — monitor, no position"}
-    if "buy" in d or "starter" in d:
+    # Starter Position Only — DECISION_LEDGER 'Small paper long': the decision itself caps the size
+    # to a starter regardless of conviction, so it can NEVER return a full/standard long.
+    if "starter" in d:
+        if conviction >= 50:
+            return {"band": "starter", "action": "starter position only (decision caps size)"}
+        return {"band": "tiny", "action": "tiny starter — mostly watchlist"}
+    if "buy" in d:
         if conviction >= 75:
             return {"band": "full", "action": "full position candidate"}
         if conviction >= 60:
@@ -324,10 +344,9 @@ def sizing_hint(decision: str, conviction: float) -> dict:
         if conviction >= 50:
             return {"band": "starter", "action": "starter position only"}
         return {"band": "tiny", "action": "tiny starter — mostly watchlist"}
-    # Watchlist / other
-    if conviction >= 55:
-        return {"band": "starter-watch", "action": "monitor; starter only if margin of safety > 0"}
-    return {"band": "watch", "action": "monitor only — no position"}
+    # Watchlist / other non-committal — DECISION_LEDGER 'No trade, track opportunity cost': no
+    # conditional starter action (a Watchlist is deliberately not-a-trade, §18/§24).
+    return {"band": "watch", "action": "monitor only — no position (track opportunity cost)"}
 
 
 def reconcile(stated_confidence, inp: ConfidenceInputs, tol: Optional[float] = None) -> dict:
