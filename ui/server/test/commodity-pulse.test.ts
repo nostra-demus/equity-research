@@ -260,13 +260,16 @@ function makeFetch() {
   const state = { fail: false }
   const fetchFn = (async (input: any) => {
     const url = String(input)
-    if (url.includes('quote.cnbc.com')) {
+    // route by the PARSED host, not a substring — matches how production pins its hosts (and keeps
+    // CodeQL's incomplete-url-substring-sanitization check quiet, even though this is only a stub)
+    const host = new URL(url).host
+    if (host === 'quote.cnbc.com') {
       calls.cnbc++
       if (state.fail) throw new Error('stub network down')
       // the batch answers for GC + SB; NG is a dead contract (row present, no usable quote)
       return new Response(cnbcBody([GC_ROW, SB_ROW, NG_DEAD_ROW]), { status: 200 })
     }
-    if (url.includes('publicreporting.cftc.gov')) {
+    if (host === 'publicreporting.cftc.gov') {
       calls.cftc++
       if (state.fail) throw new Error('stub network down')
       return new Response(JSON.stringify(COT_ROWS), { status: 200 })
