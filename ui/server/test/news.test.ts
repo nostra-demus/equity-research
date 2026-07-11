@@ -9,7 +9,8 @@ import { approvedDomains, lookupSource, normalizeDomain } from '../src/news/sour
 import { buildQueries, fetchGdelt, fetchGdeltDoc, resetGdeltBackoff } from '../src/news/sources/gdelt'
 import { eventIdFor, loadLedgerEventIds, normalizeAndFilter, parseSeendate } from '../src/news/normalize'
 import { SeenCache } from '../src/news/seen-cache'
-import { Budget, RateLimiter } from '../src/news/triage/budget'
+import { Budget, RateLimiter, armCooldown, clearCooldown, readCooldownUntil, resetCooldownMemory, resetSharedLimiters } from '../src/news/triage/budget'
+import { readArticleBrief } from '../src/news/triage/article-read'
 import { coerceTriage, estimateTokens, scoreToBand, triageBatch } from '../src/news/triage/groq'
 import { appendFeedItems, readFeed } from '../src/news/feed'
 import { mergeInbox } from '../src/news/write-inbox'
@@ -665,6 +666,7 @@ await check('a sustained Groq outage arms a cross-cycle cooldown — the next cy
 
   // cycle 2: STILL inside the cooldown window (clock unchanged) → Groq is NOT probed at all. THE FIX.
   const s2 = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  assert.equal(s2.candidates, 1, 'the item IS in the triage queue this cycle (so "no Groq call" is the cooldown, not "nothing to score")')
   assert.equal(groqCalls, 2, 'THE FIX: cycle 2 made NO Groq call while cooling down (was 2, still 2)')
   assert.equal(groqReq(), burnedAfter1, 'and so it burned NO more of the daily request cap')
   assert.match(s2.note || '', /cooldown/i) // the operator sees the honest reason, not a bogus "paced" note
@@ -678,6 +680,92 @@ await check('a sustained Groq outage arms a cross-cycle cooldown — the next cy
   assert.equal(groqCalls, 3, 'cycle 3 re-probes the recovered Groq exactly once after the window lapsed')
   assert.equal(s3.picked, 1, 'the deferred item scores as soon as Groq is healthy again')
   assert.equal(fs.existsSync(path.join(state, 'groq-health.json')), false, 'a successful probe cleared the cooldown marker')
+})
+
+// ---- #1: the cooldown is now PER-PROVIDER — an overflow provider outage stops re-probing it too ----
+await check('a sustained OVERFLOW-provider outage arms its own cross-cycle cooldown — the next cycle does not re-probe it', async () => {
+  const root = tmp()
+  const state = tmp()
+  let cerebrasUp = false
+  let cerebrasCalls = 0
+  const goodTriage = { usage: { total_tokens: 200 }, choices: [{ message: { content: JSON.stringify({ items: [
+    { i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'A rate move shifts funding costs.', companies: [], size_bucket: 'unknown' },
+  ] }) } }] }
+  let gdeltServed = false
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('groq')) return res('upstream sad', 503) // Groq DOWN all cycle → the chain reaches overflow
+    if (u.includes('cerebras.test')) { cerebrasCalls++; return cerebrasUp ? res(goodTriage) : res('upstream sad', 503) }
+    if (u.includes('gdelt') && !gdeltServed) { gdeltServed = true; return res({ articles: [{ url: 'https://reuters.com/ov', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] }) }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false,
+    overflowProviders: [{ id: 'cerebras', label: 'Cerebras', color: '--x', kind: 'openai', apiKey: 'k', baseUrl: 'https://cerebras.test/v1', model: 'm', maxTokens: 900, rpm: 6000, tpm: 0, dailyReqCap: 2300, dailyTokenCap: 1e9, budgetFile: 'cerebras-budget.json', limiter: 'cerebras' }] } as any
+  let nowMs = Date.parse('2026-06-12T09:30:00Z')
+  const now = () => new Date(nowMs)
+
+  // cycle 1: Groq down → chain reaches Cerebras, which is ALSO down (503) → Cerebras probed, its cooldown armed
+  await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  assert.ok(cerebrasCalls >= 1, 'cycle 1 probed the down overflow provider')
+  assert.ok(fs.existsSync(path.join(state, 'cerebras-health.json')), 'the overflow failure armed a PER-PROVIDER cooldown marker')
+  const cbAfter1 = cerebrasCalls
+
+  // cycle 2: still inside the window (clock unchanged) → Cerebras is NOT re-probed (was the identical Groq bug)
+  const s2 = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  assert.equal(s2.candidates, 1, 'the deferred item IS still in the triage queue (so "no re-probe" is the cooldown, not an empty queue)')
+  assert.equal(cerebrasCalls, cbAfter1, 'THE FIX (#1): cycle 2 did NOT re-probe the cooling-down overflow provider — no cap burn')
+
+  // cycle 3: window lapsed + Cerebras recovered → it re-probes, scores the spillover, and clears its marker
+  cerebrasUp = true
+  nowMs += 7 * 60_000
+  const s3 = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  assert.equal(s3.picked, 1, 'the deferred item scores via the recovered overflow provider')
+  assert.equal(fs.existsSync(path.join(state, 'cerebras-health.json')), false, 'a successful overflow probe cleared its cooldown marker')
+})
+
+// ---- #2: the article-read / auto-heal path now honors the SHARED cooldown + no longer exhausts on a bare 429 ----
+await check('readArticleBrief: a 429 arms the shared cooldown (does NOT exhaust the daily budget), then a cooling provider is skipped', async () => {
+  const state = tmp()
+  resetCooldownMemory() // hermetic: clear any in-memory marker leaked from an earlier case
+  resetSharedLimiters() // the shared 'groq' limiter carries `last` from prior cases' injected clocks; the reader's bounded acquire would otherwise skip
+  const provider = { id: 'groq', kind: 'openai', apiKey: 'k', baseUrl: 'https://groq.test', model: 'm', rpm: 6000, tpm: 0, dailyReqCap: 13000, dailyTokenCap: 500000, budgetFile: 'groq-budget.json', limiter: 'groq' }
+  const body = 'The central bank cut rates by 50 basis points in a surprise off-cycle move, citing softer inflation and slowing growth across the economy.'
+  let calls = 0
+  const fetchFn = (async () => { calls++; return res('rate limited', 429) }) as unknown as typeof fetch
+  const at = Date.parse('2026-06-12T09:30:00Z')
+  const r1 = await readArticleBrief(body, 'RBI surprise cut', [provider] as any, { stateDir: state, fetchFn, sleep: noSleep, now: () => at, deadlineMs: at + 12_000 })
+  assert.equal(calls, 1, 'the reader tries Groq once (maxAttempts:1)')
+  assert.equal(r1.brief, null)
+  const gb = JSON.parse(fs.readFileSync(path.join(state, 'groq-budget.json'), 'utf8'))
+  assert.equal(gb.requests, 1, 'a per-MINUTE 429 records ONE request — it must NOT exhaust the whole daily budget to the cap')
+  assert.ok(gb.requests < 13000, 'the daily request cap is intact (the old exhaust-on-429 slammed it to 13000, blocking recovery till midnight)')
+  assert.ok(fs.existsSync(path.join(state, 'groq-health.json')), 'the 429 armed the shared cross-cycle cooldown instead')
+
+  // a second read while still inside the window skips Groq entirely — the heal/on-demand path no longer re-probes a down provider
+  const before = calls
+  const r2 = await readArticleBrief(body, 'RBI surprise cut', [provider] as any, { stateDir: state, fetchFn, sleep: noSleep, now: () => at + 5_000, deadlineMs: at + 17_000 })
+  assert.equal(calls, before, 'THE FIX (#2): a cooling-down Groq is skipped by the reader — no re-probe, no burn')
+  assert.equal(r2.brief, null)
+})
+
+// ---- #3: exponential backoff + clear-resets, so a sustained outage stays under even a tiny cap ----
+await check('cooldown backoff: consecutive failures double the window (capped); clear resets it', () => {
+  const state = tmp()
+  resetCooldownMemory()
+  const t0 = Date.parse('2026-06-12T09:30:00Z')
+  armCooldown(state, t0, 1000, 'p1', 60_000) // 1st fail → base window 1000ms
+  assert.equal(readCooldownUntil(state, 'p1'), t0 + 1000)
+  armCooldown(state, t0, 1000, 'p1', 60_000) // 2nd consecutive → doubles to 2000
+  assert.equal(readCooldownUntil(state, 'p1'), t0 + 2000)
+  armCooldown(state, t0, 1000, 'p1', 60_000) // 3rd → 4000
+  assert.equal(readCooldownUntil(state, 'p1'), t0 + 4000)
+  clearCooldown(state, 'p1') // recovered → resets the backoff counter
+  assert.equal(readCooldownUntil(state, 'p1'), 0)
+  armCooldown(state, t0, 1000, 'p1', 60_000) // back to base after a clear
+  assert.equal(readCooldownUntil(state, 'p1'), t0 + 1000)
+  // the backoff is CAPPED at maxMs, so a long outage can never push the window unbounded
+  for (let i = 0; i < 20; i++) armCooldown(state, t0, 1000, 'p2', 5000)
+  assert.equal(readCooldownUntil(state, 'p2'), t0 + 5000, 'the window clamps at maxMs')
 })
 
 await check('mergeInbox: dismissed rows are preserved like consumed (never evicted, never resurrected)', () => {
