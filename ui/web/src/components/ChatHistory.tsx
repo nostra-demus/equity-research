@@ -19,6 +19,8 @@ export function ChatHistory() {
   const close = useStore((s) => s.closeChatHistory)
   const resume = useStore((s) => s.resumeConversation)
   const del = useStore((s) => s.deleteConversation)
+  const startNewChat = useStore((s) => s.startNewChat)
+  const selectedTicker = useStore((s) => s.selectedTicker)
   const [data, setData] = useState<ChatListResult | null>(null)
   const [loading, setLoading] = useState(true)
   const [whoami, setWhoami] = useState<Whoami | null>(null)
@@ -89,6 +91,7 @@ export function ChatHistory() {
           </div>
         </div>
         <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexShrink: 0 }}>
+          {!staticMode && <button className="btn btn--amber" style={{ height: 30 }} disabled={!selectedTicker} onClick={startNewChat} title={selectedTicker ? 'Start a fresh Ask conversation about this company' : 'Select a company first'}>New chat ▸</button>}
           <button className="btn" style={{ height: 30 }} onClick={() => { setLoading(true); load() }}>Refresh ↻</button>
           <button className="btn btn--ghost" style={{ height: 30 }} onClick={close}>Close ✕</button>
         </div>
@@ -130,9 +133,18 @@ export function ChatHistory() {
           <div className="activity__body">
             {rows.length === 0 && !loading ? (
               <div className="activity__empty">
-                {anyFilter
-                  ? 'No saved conversations match these filters.'
-                  : 'No saved conversations yet. Open Ask on a company and your questions and answers are saved here automatically.'}
+                {anyFilter ? (
+                  'No saved conversations match these filters.'
+                ) : (
+                  <>
+                    No saved conversations yet. Start one and it’s saved here automatically.
+                    {!staticMode && selectedTicker && (
+                      <div style={{ marginTop: 14 }}>
+                        <button className="btn btn--amber" onClick={startNewChat}>New chat ▸</button>
+                      </div>
+                    )}
+                  </>
+                )}
               </div>
             ) : (
               <div className="chathist__list">
