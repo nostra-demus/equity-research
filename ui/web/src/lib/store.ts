@@ -7,7 +7,7 @@ import { displayHeadline, originalHeadline, plainRoute, plainStage } from './pla
 import type { Theme, ThemeDetail, ThemeBrief } from './themes'
 import { intensityWindowForHours } from './themes'
 import type { ActiveRunLite, AgentNode, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, CycleSummary, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, ThesisPlan, TickerSummary, Usage } from './types'
-import { feedbackInputFromItem, feedbackLabel } from './feedbackTypes'
+import { feedbackInputFromItem, feedbackLabel, polarityOf } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
 import { emptyReviewFilters, matchesReviewFilters, type ReviewFilterState } from '../components/screener/ReviewFilters'
 
@@ -45,6 +45,30 @@ function loadFlagged(): Set<string> {
 }
 function saveFlagged(s: Set<string>): void {
   try { localStorage.setItem(FLAGGED_KEY, JSON.stringify([...s].slice(-500))) } catch {}
+}
+
+// --- which THUMB the reader last rated an event with (up / down) — drives the filled thumb in the reader
+//     so a rating survives a reload. Same local-cache spirit as flaggedEvents; the server ledger is still
+//     authoritative for the actual reasons. ---
+const RATED_KEY = 'nsw.ratedPolarity'
+function loadRated(): Record<string, 'up' | 'down'> {
+  try {
+    const raw = JSON.parse(localStorage.getItem(RATED_KEY) || '{}')
+    if (!raw || typeof raw !== 'object') return {}
+    const out: Record<string, 'up' | 'down'> = {}
+    for (const [k, v] of Object.entries(raw)) if (v === 'up' || v === 'down') out[k] = v
+    return out
+  } catch {
+    return {}
+  }
+}
+function saveRated(m: Record<string, 'up' | 'down'>): void {
+  // Keep only the most-recent ~500 (insertion order) so the cache can't grow unbounded — same cap as the shelf.
+  try {
+    const keys = Object.keys(m)
+    const trimmed = keys.length > 500 ? Object.fromEntries(keys.slice(-500).map((k) => [k, m[k]])) : m
+    localStorage.setItem(RATED_KEY, JSON.stringify(trimmed))
+  } catch {}
 }
 
 // The research stage's renderer: the 3D globe (default) or the flat 2D constellation. A per-browser
@@ -413,7 +437,10 @@ interface State {
   // card feedback ("flag as irrelevant / mis-scored / …") — flaggedEvents is a local display cache;
   // the server ledger (screener/ledger/screener_feedback.ndjson) is the source of truth
   flaggedEvents: Set<string>
-  submitFeedback: (input: FeedbackSubmitInput) => Promise<boolean>
+  // which thumb the reader last rated each event with — drives the filled 👍/👎 in the reader (persisted)
+  ratedPolarity: Record<string, 'up' | 'down'>
+  // `polarity` records which thumb lit up; omit it and it's derived from the reason (`other` needs it explicit)
+  submitFeedback: (input: FeedbackSubmitInput, polarity?: 'up' | 'down') => Promise<boolean>
   undoFeedbackFlow: (feedbackId: string, eventId: string) => Promise<void>
   // fast batch review mode: a focused, filtered, keyboard-driven queue over the same wire — reuses
   // submitFeedback above, so there is exactly one storage path for both flows
@@ -632,6 +659,7 @@ export const useStore = create<State>((set, get) => ({
   scFocusedCompany: null,
   shelvedEvents: loadShelf(),
   flaggedEvents: loadFlagged(),
+  ratedPolarity: loadRated(),
   reviewOpen: false,
   reviewFilters: emptyReviewFilters(),
   reviewQueue: [],
@@ -2172,12 +2200,21 @@ export const useStore = create<State>((set, get) => ({
   // ledger, and toast a confirmation with a short-window Undo. Rolled back on a failed save.
   // Returns true only when the ledger POST actually succeeded — the batch-review path relies on this to
   // decide whether to advance to the next card (a failed save must NOT silently skip a card).
-  submitFeedback: async (input) => {
+  submitFeedback: async (input, polarity) => {
     if (get().staticMode) { get().setToast({ msg: 'Read-only showcase — feedback needs a live engine.', tone: 'info' }); return false }
+    const pol = polarity ?? polarityOf(input.feedback_type) // `other` arrives with an explicit thumb; the rest derive
+    // Snapshot the PRIOR state so a failed POST restores exactly what was there — re-rating an
+    // already-rated event and hitting a network error must not wipe the rating it already had.
+    const prevFlagged = get().flaggedEvents.has(input.event_id)
+    const prevPol = get().ratedPolarity[input.event_id]
+    // Only a 👎 is a "flag": the rail row's ⚑ means "I marked this as off". A 👍 lights no flag, and a
+    // 👍 after a prior 👎 clears it — so `flaggedEvents` always reflects "currently rated down".
     const next = new Set(get().flaggedEvents)
-    next.add(input.event_id)
+    pol === 'down' ? next.add(input.event_id) : next.delete(input.event_id)
+    const rated = { ...get().ratedPolarity, [input.event_id]: pol }
     saveFlagged(next)
-    set({ flaggedEvents: next })
+    saveRated(rated)
+    set({ flaggedEvents: next, ratedPolarity: rated })
     try {
       const { feedback } = await api.submitFeedback(input)
       get().setToast({
@@ -2188,9 +2225,13 @@ export const useStore = create<State>((set, get) => ({
       return true
     } catch (e: any) {
       const rollback = new Set(get().flaggedEvents)
-      rollback.delete(input.event_id)
+      prevFlagged ? rollback.add(input.event_id) : rollback.delete(input.event_id)
+      const rolledRated = { ...get().ratedPolarity }
+      if (prevPol) rolledRated[input.event_id] = prevPol
+      else delete rolledRated[input.event_id]
       saveFlagged(rollback)
-      set({ flaggedEvents: rollback })
+      saveRated(rolledRated)
+      set({ flaggedEvents: rollback, ratedPolarity: rolledRated })
       get().setToast({ msg: e?.body?.error || e?.message || 'Could not save feedback', tone: 'bad' })
       return false
     }
@@ -2200,8 +2241,10 @@ export const useStore = create<State>((set, get) => ({
       await api.undoFeedback(feedbackId)
       const next = new Set(get().flaggedEvents)
       next.delete(eventId)
+      const rated = { ...get().ratedPolarity }; delete rated[eventId]
       saveFlagged(next)
-      set({ flaggedEvents: next })
+      saveRated(rated)
+      set({ flaggedEvents: next, ratedPolarity: rated })
       // Rewind batch review when THIS undo tombstones the card the queue just advanced past. reviewSubmit
       // already moved reviewIndex forward and counted the card, so an immediate Undo would otherwise leave
       // the card skipped and still counted as flagged. Only rewind when the panel is open AND the card

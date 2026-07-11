@@ -1,5 +1,6 @@
-// Human feedback on screener news-wire cards — "this is wrong" for a flagged reason (irrelevant,
-// mis-scored, wrong company/sector, stale duplicate, under-rated, other). An APPEND-ONLY ledger,
+// Human feedback on screener news-wire cards — a 👍/👎 rating with a reason: 👎 "this is off" (irrelevant,
+// mis-scored, wrong company/sector, stale duplicate, other) or 👍 "the wire got this right" (a good call,
+// under-rated, should rank higher). An APPEND-ONLY ledger,
 // same shape as screener-actions.ts's thesis overrides: nothing is ever rewritten, so an "undo" is a
 // second line (kind: 'feedback_undo') that references the original by id, never a mutation of it.
 // Kept structured (event/score/source/company/sector snapshot at flag time) so a later pass — human
@@ -24,6 +25,7 @@ export const FEEDBACK_TYPES = [
   'wrong_sector',
   'duplicate_stale',
   'should_be_higher',
+  'relevant', // thumbs-up: the wire got this right — a good, correctly-surfaced item (no score change implied)
   'other',
 ] as const
 export type FeedbackType = (typeof FEEDBACK_TYPES)[number]
