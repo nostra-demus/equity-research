@@ -677,6 +677,10 @@ def eval_ah_expectations_gap_gate(decision_date, confidence_score, eg):
 # return | +4.3%" while its own decision_record.json carries expected_return_pct=-4.4 (the sign-flip bug
 # synthesizer.md's own Step-4 comment already warns about by name, never actually caught in the artifact).
 AI_DATE = "2026-07-09"
+# Two-number confidence split (Understanding + Conviction) replaces the single "Confidence /100" scorecard
+# row on/after this date (schema fields analysis_confidence/conviction; DECISION_LEDGER.md §5). Before it,
+# the old "Confidence /100" + "Data sufficiency /100" rows apply. No committed fixture reaches this date.
+CONF_SPLIT_DATE = "2026-07-11"
 def _scorecard_section(thesis):
     """The text of the '## 2. Headline Scorecard' section ONLY — from its heading up to the next '## '
     heading (or EOF). Scoping every cell read to this slice is what stops _hs_cell picking up a row that
@@ -749,14 +753,27 @@ def eval_ai_headline_reconciliation(decision_date, d, thesis):
     # a real defect the §8/§14 tables cannot paper over (r3551580662). (An honest "N/A" cell for a null field
     # is still a present row and is fine — only a wholly ABSENT row fails.) For a return/ratio field, an
     # absent row is only a defect when the JSON actually carries a value to reconcile against.
-    SCORE_ROWS_REQUIRED = {"confidence_score", "data_sufficiency_score"}
-    for label, field, kind, tol_abs, tol_rel, use_abs in [
-        ("Confidence /100", "confidence_score", "plain", 0.5, 0.0, False),
-        ("Data sufficiency /100", "data_sufficiency_score", "plain", 0.5, 0.0, False),
-        ("Expected return", "expected_return_pct", "pct", 1.0, 0.05, False),
-        ("Risk/reward", "risk_reward", "ratio", 0.15, 0.12, False),
-        ("Downside risk", "downside_risk_pct", "pct", 1.0, 0.05, True),
-    ]:
+    # Two-number confidence (Understanding + Conviction) supersedes the single Confidence /100 row on/after
+    # CONF_SPLIT_DATE; data sufficiency is folded into Understanding (still in the JSON, still drives §11 caps).
+    if isdate(decision_date) and decision_date >= CONF_SPLIT_DATE:
+        SCORE_ROWS_REQUIRED = {"conviction", "analysis_confidence"}
+        _rows = [
+            ("Conviction /100", "conviction", "plain", 0.5, 0.0, False),
+            ("Understanding /100", "analysis_confidence", "plain", 0.5, 0.0, False),
+            ("Expected return", "expected_return_pct", "pct", 1.0, 0.05, False),
+            ("Risk/reward", "risk_reward", "ratio", 0.15, 0.12, False),
+            ("Downside risk", "downside_risk_pct", "pct", 1.0, 0.05, True),
+        ]
+    else:
+        SCORE_ROWS_REQUIRED = {"confidence_score", "data_sufficiency_score"}
+        _rows = [
+            ("Confidence /100", "confidence_score", "plain", 0.5, 0.0, False),
+            ("Data sufficiency /100", "data_sufficiency_score", "plain", 0.5, 0.0, False),
+            ("Expected return", "expected_return_pct", "pct", 1.0, 0.05, False),
+            ("Risk/reward", "risk_reward", "ratio", 0.15, 0.12, False),
+            ("Downside risk", "downside_risk_pct", "pct", 1.0, 0.05, True),
+        ]
+    for label, field, kind, tol_abs, tol_rel, use_abs in _rows:
         target = d.get(field)
         cell = _hs_cell(section, label)
         nums = _metric_numbers(cell, kind)

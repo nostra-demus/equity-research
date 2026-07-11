@@ -441,8 +441,9 @@ The reader who reads only Part I should leave with a real, actionable decision.
 | Expected return | |
 | Downside risk | |
 | Risk/reward | |
-| Confidence /100 | |
-| Data sufficiency /100 | |
+| Understanding /100 | |
+| Conviction /100 | |
+| Suggested sizing | |
 | Thesis type | |
 | Variant perception — edge score /100 | |
 | Biggest upside driver | |
@@ -896,6 +897,22 @@ Additional downgrades:
 - **Calibration feedback gate (mechanical, per `frameworks/DECISION_LEDGER.md` §18 — Phase 6).** If Pre-Write Gate step 4C set `calibration_feedback.status = "applied"` (a module used in this run has a real, non-insufficient calibration slice showing poor historical calibration — Brier > 0.25 or realized hit rate off by >20 points from its stated band), apply a flat **8-point** confidence haircut and name the flagged module(s) plus the numbers. This never lifts confidence, only lowers it. If `status` is `"not_available"` or `"pre_data"`, state that plainly and apply no adjustment — do not skip the check silently.
 
 Never give 90+ unless the evidence is exceptional.
+
+### Deterministic two-number confidence — `scripts/confidence.py` *(additive; runs on/after 2026-07-11)*
+
+The figure you built above is your **conviction**. Do not hand-pick a single number and stop — record the inputs and let the deterministic scorer compute the pair, so the headline is auditable and re-derivable (the same discipline Step 4 applies to the scenario math). The scorer codifies the caps + downgrades above; you supply the judgments, it does the arithmetic.
+
+1. **Record `confidence_inputs`** — the judgments you just made, structured: `data_sufficiency`, `corroboration` (cross-module agreement; low on unresolved conflict / a wide cross-method valuation spread), `evidence_tier` (share of load-bearing claims on Tier-1/2 filings, §4/§6), `staleness_penalty`, `edge_score`, `edge_proof_present` (bool), `decision`, `modules_absent` (list of any of: consensus/valuation/solvency/governance/filings/catalyst/options), `critical_governance_unresolved` (bool), `catalyst_timing_weak` (bool), `rating_cap_ceiling` (any §18/§24 rating cap expressed as a number, else null), `downgrades` (list of `{type, points≥0, reason}`), `calibration_haircut`. Carry this object into `decision_record.json.confidence_inputs`.
+
+2. **Run the scorer with Bash** (do NOT compute in your head):
+   ```
+   python3 -c "import json,sys; sys.path.insert(0,'scripts'); from confidence import ConfidenceInputs, compute; inp=json.loads(r'''<your confidence_inputs JSON>'''); print(json.dumps(compute(ConfidenceInputs(**inp)), indent=0))"
+   ```
+   Read `analysis_confidence`, `conviction`, `sizing_hint`, and `confidence_breakdown` from its output.
+
+3. **Write to `decision_record.json` verbatim from that output**: `analysis_confidence`, `conviction`, `sizing_hint`, `confidence_breakdown`, and set **`confidence_score = conviction`** (backward-compat — every consumer that still reads `confidence_score` gets the conviction number).
+
+4. **Fill the §2 Headline Scorecard from these**: `Understanding /100` = `analysis_confidence` (gloss: "how well the company is understood — evidence quality; not a buy signal"), `Conviction /100` = `conviction` (gloss: "how much to bet — direction-aware; drives the sizing"), `Suggested sizing` = `sizing_hint.action`. **Data sufficiency is folded into Understanding — do NOT emit a separate `Data sufficiency /100` scorecard row** (data_sufficiency_score stays in `decision_record.json` and still drives the §11 caps). The eval harness reconciles the scorecard `Conviction /100` against `decision_record.json` (check AI), so the prose number and the JSON can never silently split; `confidence_inputs` is recorded so a later gate can re-derive `conviction` from first principles.
 
 ---
 
