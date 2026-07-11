@@ -15,6 +15,7 @@ all from one report template (`server/src/export.ts`). The Claude plan-usage bad
   watcher on `analyses/` into one live SSE feed. Binds `127.0.0.1` only.
 - **`web/`** — Vite + React + TypeScript frontend. Minimal-luxe: charcoal, one amber accent, crisp
   dependency edges, tasteful motion. No build step needed for the server (runs via `tsx`).
+  The design contract (tokens, swarm accents, motion, shared wire surfaces) is [`web/DESIGN.md`](web/DESIGN.md) — every `ui/web` PR is held to it.
 
 ## Run it
 
