@@ -13,8 +13,8 @@ import type { FeedItem } from '../../lib/types'
 import { api, type ArchiveQuery, type SearchCursor } from '../../lib/api'
 import { archiveFiltersActive, emptyFilters, FeedFilters, gicsEmptyMessage, matchesFilters, type FeedFilterState } from './FeedFilters'
 import { PulseMap } from './PulseMap'
+import { ScanStatus } from './ScanStatus'
 
-const agoMin = (iso?: string | null) => (iso ? Math.max(0, Math.round((Date.now() - new Date(iso).getTime()) / 60_000)) : null)
 // a friendly label for a YYYY-MM-DD archive day — e.g. "11 Jun 2026" (mirrors EventRail's dateLabel)
 const dateLabel = (d?: string | null) => (d ? new Date(`${d}T00:00:00`).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' }) : '')
 
@@ -128,7 +128,7 @@ export function LiveFeed() {
   const liveItems = useStore((s) => s.newsItems)
   const status = useStore((s) => s.newsStatus)
   const refreshStatus = useStore((s) => s.refreshNewsStatus)
-  const openFeed = useStore((s) => s.openNewsFeed)
+  const refreshFeed = useStore((s) => s.refreshNewsFeed)
   const feedWindowDays = useStore((s) => s.feedWindowDays)
   const setFeedWindow = useStore((s) => s.setFeedWindow)
   const feedWindowLoading = useStore((s) => s.feedWindowLoading)
@@ -216,6 +216,28 @@ export function LiveFeed() {
     }
   }
 
+  // The "refresh" button. In LIVE mode it re-pulls the wire + heals the stream (store.refreshNewsFeed). In
+  // ARCHIVE mode the visible list is `archive.results`, which store.refreshNewsFeed does NOT touch — so a
+  // refresh there used to be a silent no-op. Re-run the SAME archive query inline (the debounced effect only
+  // fires on a query CHANGE, so we can't lean on it here), guarded by the same monotonic seq as page loads
+  // so a slow in-flight page can't clobber this fresh result.
+  const refresh = async () => {
+    if (archiveMode) {
+      const seq = ++searchSeq.current
+      setArchive((a) => ({ ...a, loading: true }))
+      try {
+        const res = await api.newsSearch(archiveQuery, { limit: 60 })
+        if (seq !== searchSeq.current) return
+        setArchive({ results: res.items, loading: false, loadingMore: false, cursor: res.nextCursor, scannedThrough: res.scannedThroughDate, exhausted: res.exhausted })
+      } catch {
+        if (seq !== searchSeq.current) return
+        setArchive({ ...EMPTY_ARCHIVE, exhausted: true })
+      }
+      return
+    }
+    await refreshFeed()
+  }
+
   // the rendered set: the archive matches (already server-filtered) in archive mode, the loaded window otherwise
   const items = archiveMode ? archive.results : liveItems
 
@@ -269,20 +291,12 @@ export function LiveFeed() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visibleGroups.length, hasMore, archiveMode, archive.cursor, shownCount])
 
-  const ago = agoMin(status?.lastCycleAt)
-
-  const statusLine = status
-    ? status.enabled
-      ? `Auto-scan on · looks every ${status.intervalMin} min${ago != null ? ` · last look ${ago}m ago` : ' · first look coming up'} · today: read ${status.today.read} · kept ${status.today.kept} · dropped ${status.today.dropped}`
-      : 'Auto-scan off — it needs a (free) Groq key in the engine to run'
-    : 'checking the scanner…'
-
   return (
     <motion.div className="pipeline wire" initial={{ opacity: 0, x: '100%' }} animate={{ opacity: 1, x: 0 }} exit={{ x: '100%' }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
       <div className="pipeline__head">
         <div>
           <div className="pipeline__title">News wire — everything the scanner read</div>
-          <div className="pipeline__sub">{statusLine}</div>
+          <ScanStatus variant="panel" />
           {status?.enabled && status.budget && (
             <div className="pipeline__pools">
               <BudgetChip
@@ -315,8 +329,8 @@ export function LiveFeed() {
           )}
         </div>
         <div className="pipeline__tools">
-          <button className="btn btn--ghost" onClick={() => void openFeed()}>
-            refresh
+          <button className="btn btn--ghost" onClick={() => void refresh()} disabled={feedWindowLoading}>
+            {feedWindowLoading ? 'refreshing…' : 'refresh'}
           </button>
           <button className="btn btn--ghost" onClick={close}>
             ✕

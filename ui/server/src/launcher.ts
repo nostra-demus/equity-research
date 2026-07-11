@@ -135,8 +135,11 @@ async function claudeAvailable(): Promise<boolean> {
   return claudeOk
 }
 
-function todayDate(): string {
-  const d = new Date()
+// Local-calendar date that stamps a launch's SIG-id (both the hash input and the id prefix). Exported so
+// the read-only signal-state probe computes the SAME id instead of re-deriving the recipe from a comment —
+// if this ever changes (UTC, format), the probe follows automatically rather than silently reading 'never'.
+// Accepts an optional Date so callers can derive the date a past run started on, not just "today".
+export function todayDate(d: Date = new Date()): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
 }
 
@@ -182,6 +185,15 @@ export function finalDeliverablesShippedByThisAttempt(run: RunState): boolean {
 // the same key the resume detector uses (resumable.ts). The screener (flow layout) has its own
 // terminal-routing semantics and is never judged here.
 export function truncatedBeforeFinal(run: RunState): boolean {
+  // A sweep's whole deliverable is the day's inbox file. A clean exit that never wrote one means the scan
+  // found and saved nothing — say so, instead of reporting the misleading "done" the cockpit turns into
+  // "Checks finished". Deliberately EXISTENCE-only, and keyed on the LAUNCH date (a run that crosses
+  // midnight wrote the launch day's file, per swarmStoreTargets): the auto-ingester merges into the very
+  // same file, so a row-count delta would read a concurrent ingest as sweep work — and would call a
+  // legitimate dedup-only sweep a failure. Never report a false failure.
+  if (run.kind === 'sweep') {
+    return !fs.existsSync(path.join(REPO_ROOT, 'screener', 'inbox', `${todayDate(new Date(run.startedAt))}_sweep.json`))
+  }
   if (run.kind !== 'full' && run.kind !== 'rerun') return false
   if (run.swarmId === 'research') return !finalDeliverablesPresent(run.runRoot)
   if (!run.runRoot || swarmById(run.swarmId)?.layout !== 'constellation') return false
@@ -429,10 +441,12 @@ export function finalizeRunOnClose(run: RunState, res: any, stderr: string) {
     // certainly budget/turn-truncated before the last synthesis finished. Report it honestly as
     // INCOMPLETE (not a misleading "done") so the cockpit + activity log show the truth and the
     // user can finish it / raise the cap.
-    const msg = run.swarmId === 'research'
-      ? 'Run ended without the final thesis & memo — likely budget- or turn-truncated before the master synthesizer finished. Re-run from the master (or any late orb) to finish; the cap is now higher.'
-      : 'Run ended without the final dossier & decision record — likely budget- or turn-truncated before the terminal synthesis finished. Re-run the terminal module to finish.'
-    run.note = 'incomplete: no final thesis/decision (likely budget/turn truncation)'
+    const msg = run.kind === 'sweep'
+      ? 'The scan ended without saving anything to the Inbox — it found no events, or it stopped before it could write. Nothing was added.'
+      : run.swarmId === 'research'
+        ? 'Run ended without the final thesis & memo — likely budget- or turn-truncated before the master synthesizer finished. Re-run from the master (or any late orb) to finish; the cap is now higher.'
+        : 'Run ended without the final dossier & decision record — likely budget- or turn-truncated before the terminal synthesis finished. Re-run the terminal module to finish.'
+    run.note = run.kind === 'sweep' ? 'incomplete: sweep wrote no inbox file' : 'incomplete: no final thesis/decision (likely budget/turn truncation)'
     // A clean budget/turn truncation is a DELIBERATE cap, not an interruption — auto-resuming would just
     // re-hit the same cap and loop. Clear any interrupted-marker so the supervisor leaves it for the human.
     if (isResumableResearchRun(run)) clearRunMarker(run.runRoot, '.interrupted')
@@ -1062,15 +1076,23 @@ export async function cancelAll(): Promise<string[]> {
 export async function cancelSubject(subjectId: string, swarmId = 'research'): Promise<string[]> {
   haltAllChains() // no queued chain step can launch after this (global epoch bump — same as any chained cancel)
   const cancelled: string[] = []
+  const stopping: RunState[] = []
   for (const r of listRuns()) {
     if (!IN_FLIGHT_STATUSES.has(r.status)) continue
     if (r.subjectId !== subjectId || r.swarmId !== swarmId) continue
+    stopping.push(r) // hold the RunState — cancel() drops it from the in-flight set, so we can't re-find it after
     try {
       if (await cancel(r.runId)) cancelled.push(r.runId)
     } catch {
       // keep stopping the rest — one stuck run must not shield the others
     }
   }
+  // cancel() only SIGTERMs and returns BEFORE the child dies, yet the run has already left the in-flight set —
+  // so a relaunch admitted immediately after (a Stop→Continue on the same subject) could start a SECOND engine
+  // writing the SAME run dir while the first is still flushing. Wait for the killed children to actually exit
+  // before returning, so the next launch admits onto a clean subject (best-effort: awaitRunsExited bounds the
+  // wait at the SIGKILL window). This mirrors the force-launch guard, applied to the explicit-cancel path too.
+  if (stopping.length) await awaitRunsExited(stopping)
   return cancelled
 }
 

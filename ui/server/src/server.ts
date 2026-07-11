@@ -18,7 +18,7 @@ import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, GDRIVE, HOST, NEWS, PORT, REPO_
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
 import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED } from './drive'
-import { cancel, cancelAll, cancelSubject, creditCheck, decideReadiness, estimate, launch, warmLaunchProbes } from './launcher'
+import { cancel, cancelAll, cancelSubject, creditCheck, decideReadiness, estimate, launch, sigIdFor, todayDate, warmLaunchProbes } from './launcher'
 import { newsBus } from './news/bus'
 import { readFeed, searchFeed } from './news/feed'
 import { matchesFeedFilters, parseFeedFilterQuery, explainFeedFilterMatch, type FeedFilterQuery } from './news/feed-filter'
@@ -42,13 +42,13 @@ import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt
 import { assembleContext, buildChatPrompts, scopeAvailability } from './chat-context'
 import { chatTurnsInFlight, runChatTurn } from './chat-llm'
 import { deleteConversation, getConversation, isValidConversationId, listConversations, recordAssistantMessage, recordUserMessage } from './chat-store'
-import { dataPoolPresent, readCandidates, readConviction, readConvictionCalibration, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest, screenerSubjectLabels } from './screener'
+import { dataPoolPresent, deriveSignalState, readCandidates, readConviction, readConvictionCalibration, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest, screenerSubjectLabels } from './screener'
 import { listSwarms, RESEARCH_SWARM_ID, swarmById } from './swarms'
 import { getNewsStatus, startNewsIngester } from './news/scheduler'
 import { startConvictionLoop } from './conviction-dispatch'
 import { startResumeSupervisor } from './resume-supervisor'
 import { listResumableRuns } from './resumable'
-import { carryForwardModules, thesisPlan } from './completion'
+import { carryForwardModules, prepareModuleResume, thesisPlan } from './completion'
 import { SubjectBusyError, withSubjectLock } from './subject-lock'
 import { AGENT_RE, EVENT_ID_RE, FEEDBACK_ID_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE, isValidTicker, resolveInsideRuns, validateNewTicker, sanitizeUploadFilename } from './sandbox'
 import type { RunKind } from './types'
@@ -386,6 +386,16 @@ const ThesisPlanRunBody = z.object({
   swarm: z.string().regex(MODULE_RE),
   // Typed-ticker confirmation, required only when the reuse set is empty (i.e. this is really a full run).
   confirmTicker: z.string().optional(),
+})
+
+// Launch ONE module of a completion plan, resuming from the orbs already on disk (the RUN pill on a Run row).
+const ThesisPlanModuleBody = z.object({
+  ticker: z.string().regex(TICKER_RE),
+  module: z.string().regex(MODULE_RE),
+  // The caller's reuse set — governs which ancestors get carried into the target root before the module runs.
+  reuse: z.array(z.string().regex(MODULE_RE)).max(64).default([]),
+  // REQUIRED for the same reason as ThesisPlanRunBody: an omitted field must never read as "research".
+  swarm: z.string().regex(MODULE_RE),
 })
 
 const SignalLaunchBody = z.object({
@@ -791,6 +801,76 @@ app.post('/api/thesis-plan/run', { config: { rateLimit: { max: 20, timeWindow: '
   }
 })
 
+// Run ONE module of a completion plan (the RUN pill on a Run row), resuming from the orbs already on disk.
+// Same guard sequence and same subject lock as /run above — a pill click and a "Complete the thesis" click
+// must serialize, or two could carry into the same target root at once. `prepareModuleResume` carries the
+// module's reused ancestors + its own finished orbs into today's root, then the ordinary `module` launch
+// runs only the remainder (Step 4A skips the orbs on disk). A stale partial is run clean (§11).
+app.post('/api/thesis-plan/module', { config: { rateLimit: { max: 30, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
+  const parsed = ThesisPlanModuleBody.safeParse(req.body)
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  const { ticker, module, reuse, swarm } = parsed.data
+  const { user, userVia } = identify(req)
+  if (!isValidTicker(ticker)) return reply.code(400).send({ error: 'bad ticker' })
+  // Data-pool allow-list — `launch()` does not re-check it for a research `module` kind (route-enforced only).
+  if (isReservedDataFolder(ticker) || !fs.existsSync(path.join(DATA_DIR, ticker))) {
+    return reply.code(400).send({ error: `unknown ticker ${ticker}` })
+  }
+  if (swarm !== RESEARCH_SWARM_ID) {
+    return reply.code(400).send({ error: `Running a single module of a ${swarm ?? 'non-research'} dossier from here isn’t supported yet — run its pipeline from the swarm’s own controls.`, code: 'swarm_unsupported' })
+  }
+
+  try {
+    return await withSubjectLock(`thesis-plan:${ticker}`, async () => {
+      const busy = listRuns().some((r) => r.subjectId === ticker && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))
+      if (busy) return reply.code(409).send({ error: `A run is already in flight on ${ticker}. Let it finish (or stop it) before running a module.`, code: 'subject_busy' })
+
+      // ONE snapshot decides everything: complete-check, runnability, blockedBy, and what gets carried.
+      const plan = thesisPlan(ticker, undefined, reuse)
+      if (plan.complete) return reply.code(409).send({ error: 'this run already has a final thesis', code: 'already_complete', path: plan.finalReportPath })
+
+      const allowed = new Set(plan.reusable)
+      const bad = reuse.filter((m) => !allowed.has(m))
+      if (bad.length) return reply.code(400).send({ error: `cannot reuse a module that never finished: ${bad.join(', ')}`, code: 'unreusable' })
+
+      const entry = plan.modules.find((m) => m.module === module)
+      if (!entry) return reply.code(400).send({ error: `unknown module ${module}`, code: 'unknown_module' })
+      // Only a module that will actually run can be launched here — a reused one has nothing to do, and its
+      // launch would either no-op or, worse, re-run work the panel promised to keep.
+      if (!plan.run.includes(module)) return reply.code(409).send({ error: `${module} is already finished or reused in this run — nothing to run.`, code: 'not_runnable' })
+      // Its upstream must be reused-and-present, not itself waiting to run: the command reads deps from the
+      // target root with no cross-folder fallback for some (valuation ← governance), so a not-yet-run
+      // ancestor means a degraded run. The panel keeps such a pill inert; reject here as the server backstop.
+      if (entry.blockedBy.length) {
+        return reply.code(409).send({ error: `Run ${entry.blockedBy.map((m) => m.replace(/-/g, ' ')).join(', ')} first — ${module.replace(/-/g, ' ')} reads ${entry.blockedBy.length === 1 ? 'it' : 'them'}.`, code: 'upstream_incomplete', missing: entry.blockedBy })
+      }
+
+      let prep
+      try {
+        prep = prepareModuleResume(ticker, module, undefined, plan)
+      } catch (e: any) {
+        return reply.code(500).send({ error: `could not stage the module resume: ${e?.message || e}` })
+      }
+
+      try {
+        const out = await launch({ kind: 'module', ticker, module, user, userVia })
+        return { ...out, module, willRun: prep.willRunAgents, doneOrbKeys: prep.doneOrbKeys, carried: prep.carriedAncestors, resumed: Boolean(prep.resumedFrom), ranClean: prep.discardedStaleOrbs }
+      } catch (e: any) {
+        // Same honesty note as /run: the carry already landed, sources are untouched, a retry resumes, and the
+        // run root now exists so the subject reads as resumable.
+        const body = e?.body && typeof e.body === 'object' ? e.body : null
+        return reply.code(e?.statusCode || 500).send({ error: e?.message || 'launch failed', carried: prep.carriedAncestors, ...(body || {}) })
+      }
+    })
+  } catch (e: any) {
+    if (e instanceof SubjectBusyError) {
+      return reply.code(409).send({ error: `Another completion request for ${ticker} is already in progress. Wait for it to finish before retrying.`, code: 'subject_busy' })
+    }
+    throw e
+  }
+})
+
 // ---------- active runs list ----------
 app.get('/api/runs', async (req) => {
   const ticker = (req.query as any)?.ticker as string | undefined
@@ -1085,6 +1165,21 @@ app.get('/api/screener/run', async (req, reply) => {
   }
 })
 
+// Run-state of a WIRE event's signal, for the reader's "Run the checks" control. Computes the SIG-id the
+// SAME way a launch would (sigIdFor with today's local date — the recipe that hashes headline|url|date), then
+// derives never/running/parked/logged/watchlist/partial/complete as a pure read. No launch, no write.
+app.get('/api/screener/signal-state', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req) => {
+  const q = req.query as { headline?: string; source_url?: string; url?: string }
+  const headline = String(q.headline || '').trim()
+  if (headline.length < 8) return { sigId: '', state: 'never' as const, running: false } // can't identify a signal
+  const sourceUrl = String(q.source_url || q.url || '')
+  // reuse the launcher's own date+id recipe (not a re-derivation) so the probe's SIG-id EQUALS what a launch
+  // produces — see todayDate()/sigIdFor. NOTE: identity is stamped with today's local date, so a run created
+  // on a prior day (or an event opened across midnight) reads 'never' — same-day is the supported case.
+  const sigId = sigIdFor({ headline, source_url: sourceUrl } as Parameters<typeof sigIdFor>[0], todayDate())
+  return deriveSignalState(sigId)
+})
+
 app.get('/api/screener/thesis/:id', async (req, reply) => {
   const id = (req.params as any).id as string
   if (!THESIS_RE.test(id || '')) return reply.code(400).send({ error: 'bad thesis id' })
@@ -1367,8 +1462,16 @@ app.get('/api/news/enrich', async (req, reply) => {
 // Live wire: one SSE client set, bridged once from the ingest cycle's bus.
 const newsClients = new Set<{ send: (e: any) => void }>()
 newsBus.subscribe((e) => {
+  // Explicit per-variant mapping (not a fall-through ternary): adding a bus event must be a compile
+  // error here, never a silently mis-shaped payload on the wire.
   const payload =
-    e.type === 'news-item' ? { type: 'news-item', item: e.item } : e.type === 'theme-update' ? { type: 'theme-update', theme: e.theme } : { type: 'news-cycle', summary: e.summary }
+    e.type === 'news-item'
+      ? { type: 'news-item', item: e.item }
+      : e.type === 'theme-update'
+        ? { type: 'theme-update', theme: e.theme }
+        : e.type === 'news-cycle-start'
+          ? { type: 'news-cycle-start', ts: e.ts, phase: e.phase }
+          : { type: 'news-cycle', summary: e.summary }
   for (const c of newsClients) c.send(payload)
 })
 app.get('/api/news/stream', (req, reply) => {
@@ -1560,12 +1663,15 @@ function broadcastData(fp: string, change: 'added' | 'removed') {
 }
 
 if (fs.existsSync(DATA_DIR)) {
-  // data/ is a Google Drive CloudStorage mount -> polling is the robust choice across the FUSE boundary
+  // data/ is a Google Drive CloudStorage mount -> polling is the robust choice across the FUSE boundary.
+  // depth 3 (not 2): external data lands at data/<T>/external/<provider>/<file> (frameworks/
+  // EXTERNAL_DATA.md) — at depth 2 a file routed into an EXISTING provider folder emits no event at
+  // all (only the folder's own creation did), so the cockpit never heard about later drops.
   const dataWatcher = chokidar.watch(DATA_DIR, {
     ignoreInitial: true,
     usePolling: true,
     interval: 1500,
-    depth: 2,
+    depth: 3,
     awaitWriteFinish: { stabilityThreshold: 2000, pollInterval: 500 },
   })
   dataWatcher.on('add', (f) => broadcastData(f, 'added'))

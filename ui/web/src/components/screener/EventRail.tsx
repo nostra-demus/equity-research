@@ -21,6 +21,7 @@ import type { FeedItem } from '../../lib/types'
 import { archiveFiltersActive, emptyFilters, FeedFilters, filtersActive, gicsEmptyMessage, matchesFilters, type FeedFilterState } from './FeedFilters'
 import type { ArchiveQuery } from '../../lib/api'
 import { FeedbackMenu } from './FeedbackMenu'
+import { ScanStatus } from './ScanStatus'
 import type { ReportMenuAnchor } from '../ActivityReportMenu'
 
 // a multi-select dropdown for a broad scope with dynamic sub-values (Sector, Commodity). "All X" =
@@ -417,18 +418,20 @@ export function EventRail() {
             today {today.read} read · {today.kept} kept · {today.dropped} dropped
           </div>
         )}
+        {status?.enabled && <ScanStatus variant="rail" />}
         {status?.enabled && (
           <div className="evrail__scan">
             <button type="button" className="evrail__scanbtn" onClick={() => void openNewsFeed()} title="The live wire — everything the scanner read today, kept and dropped, with the reason for each">
-              watch live ▸
+              <span className="evrail__scandot evrail__scandot--live" aria-hidden />
+              Watch live
             </button>
             <button type="button" className="evrail__scanbtn" onClick={openSources} title="Every source we pull from — when its data last arrived and whether it's healthy, quiet, failing or idle">
-              sources ▸
+              Sources
             </button>
             {!staticMode && (
               <button
                 type="button"
-                className={`evrail__scanbtn${armScan ? ' evrail__scanbtn--armed' : ''}`}
+                className={`evrail__scanbtn evrail__scanbtn--primary${armScan ? ' evrail__scanbtn--armed' : ''}`}
                 onClick={() => {
                   if (!armScan) {
                     setArmScan(true)
@@ -438,9 +441,9 @@ export function EventRail() {
                   setArmScan(false)
                   void runSweep()
                 }}
-                title="A manual top-up scan by the paid engine (~$2–12). Usually unnecessary — the free auto-scan runs every 15 minutes."
+                title="A manual top-up scan by the paid engine (~$2–12). Usually unnecessary — the free auto-scan already runs every few minutes. Click once to confirm the cost, again to start."
               >
-                {sweepStarting ? 'starting the scan…' : armScan ? 'yes, scan now · ~$2–12 ▸' : 'scan now ▸'}
+                {sweepStarting ? 'Starting the scan…' : armScan ? 'Confirm · scan now (~$2–12)' : 'Scan now · ~$2–12'}
               </button>
             )}
           </div>

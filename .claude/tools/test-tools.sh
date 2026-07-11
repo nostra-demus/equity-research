@@ -389,5 +389,11 @@ echo "== extract_pool.py: per-format extraction bench (xls/xlsx/pdf/rtf/txt + co
 # platform reader (textutil/pdf) SKIPS, never false-fails.
 "$PY" "$DIR/test_extract_pool.py" || rc=1
 
+echo "== ingest_external.py: EXTERNAL-INBOX router (routing, sidecars, dedup, fan-out cap) =="
+# The external-data lane's entry point (frameworks/EXTERNAL_DATA.md): files dropped in the Drive inbox
+# are matched to ticker pools, copied to data/<T>/external/<provider>/ with provenance sidecars, and
+# sha256-deduped. Text fixtures only — no workbook/pdf readers needed.
+"$PY" "$DIR/test_ingest_external.py" || rc=1
+
 [ $rc -eq 0 ] && echo "ALL SMOKE TESTS PASS" || echo "SMOKE TESTS FAILED"
 exit $rc

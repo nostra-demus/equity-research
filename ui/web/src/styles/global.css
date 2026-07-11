@@ -990,6 +990,9 @@ a { color: inherit; }
 .datafiles__name { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text); }
 .datafiles__tabsn { flex: none; font-size: 10.5px; color: var(--accent-bright); white-space: nowrap; }
 .datafiles__period { flex: none; font-size: 10.5px; color: var(--text-muted); white-space: nowrap; }
+/* external-data provenance chip (provider · §4 tier) — quiet accent so routed external docs read
+   as a distinct class of evidence without shouting over the type badge */
+.datafiles__ext { flex: none; font-size: 10px; color: var(--accent-bright); opacity: 0.85; white-space: nowrap; font-variant-numeric: tabular-nums; }
 .datafiles__tabs { padding: 1px 8px 6px 30px; display: flex; flex-direction: column; gap: 2px; }
 .datafiles__tab { display: flex; align-items: baseline; gap: 8px; }
 .datafiles__tabname { flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--text-muted); }
@@ -1808,14 +1811,24 @@ a { color: inherit; }
 .evdetail__actions { display: flex; flex-direction: column; gap: 16px; margin-top: 28px; padding-top: 20px; border-top: 1px solid var(--hairline); }
 .evdetail__actions-bar { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .evdetail__run { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
-.evdetail__runbtn { height: 38px; padding: 0 18px; }
 .evdetail__est { font-size: 11px; color: var(--text-faint); line-height: 1.45; }
 .evdetail__utility { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-.evdetail__through { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
-.evdetail__through-label { font-size: 11px; color: var(--text-faint); white-space: nowrap; }
-.evdetail__through-chips { display: flex; flex-wrap: wrap; gap: 8px; }
 /* press feedback consistent with the chips above (scale, not the global .btn translate) */
 .evdetail__actions .btn:active { transform: scale(0.97); }
+
+/* ── "Run the checks" menu-trigger button + status badge ────────────────────────────────────────────────
+   ONE control: an optional state badge on the left, and a single button that OPENS the state-aware menu (no
+   separate one-click action — every verb is a menu item). The button rides the swarm accent (cyan on the
+   screener); the badge sits to the left so the state reads before the options. */
+.runsplit { display: inline-flex; align-items: center; gap: 10px; }
+.runsplit__badge { display: inline-flex; align-items: center; gap: 5px; height: 22px; padding: 0 9px; border-radius: var(--r-pill); font-size: 11px; font-weight: 600; letter-spacing: 0.2px; white-space: nowrap; border: 1px solid transparent; }
+.runsplit__badge .rdg-spin { width: 11px; height: 11px; }
+.runsplit__badge--run { color: var(--accent-deep); background: var(--accent-wash); border-color: color-mix(in srgb, var(--accent) 30%, transparent); }
+.runsplit__badge--pause { color: var(--accent-deep); background: var(--accent-wash-soft); border-color: color-mix(in srgb, var(--accent) 22%, transparent); }
+.runsplit__badge--hold { color: var(--text-muted); background: var(--surface-3); border-color: var(--hairline-strong); }
+.runsplit__badge--done { color: var(--accent-deep); background: var(--accent-wash); border-color: color-mix(in srgb, var(--accent) 26%, transparent); }
+.runsplit__trigger { height: 38px; padding: 0 16px; display: inline-flex; align-items: center; gap: 6px; }
+.runsplit__chev { font-size: 12px; opacity: 0.85; display: inline-block; transition: transform 140ms var(--ease-out); }
 
 /* keyboard focus — the rail is now the main way to move through events, so it must be visibly traversable.
    box-shadow ring (token-scoped to cyan) matches the .intake__input:focus idiom; inset on the full-width row. */
@@ -1917,14 +1930,80 @@ a { color: inherit; }
 
 /* ---- read/kept/dropped counters + the scan controls, at the top of the rail ---- */
 .evrail__today { font-size: 10px; color: var(--text-faint); margin-top: 4px; font-family: var(--font-mono); letter-spacing: 0.2px; font-variant-numeric: tabular-nums; }
-.evrail__scan { display: flex; flex-wrap: wrap; gap: 3px 14px; margin-top: 5px; }
+
+/* The three rail controls used to be 10.5px faint TEXT on nothing — they read as captions and got missed.
+   Promote them to real pills (modelled on the .autoscan chip): a resting surface + hairline so none can be
+   overlooked. "Watch live" and "Sources" are free & read-only (outline pills); "Scan now" is the paid action
+   (~$2–12), so it's the one filled cyan primary — discoverable, but its cost is on the label and it keeps the
+   two-click arm so it can't fire by accident. */
+.evrail__scan { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
 .evrail__scanbtn {
-  padding: 0; background: transparent; border: none; cursor: pointer; font-size: 10.5px; color: var(--text-faint);
-  transition: color var(--dur-fast), transform 140ms var(--ease-out);
+  display: inline-flex; align-items: center; gap: 6px;
+  height: 26px; padding: 0 11px; border-radius: var(--r-pill);
+  background: var(--surface-2); border: 1px solid var(--hairline); color: var(--text-muted);
+  font-size: 11px; font-weight: 500; letter-spacing: 0.1px; cursor: pointer; white-space: nowrap;
+  /* transform + cheap paints only, matching the house .btn/.autoscan pattern (no layout props). The armed
+     glow ring is deliberately NOT transitioned — it snaps in on the confirm click as a crisp state change. */
+  transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), transform 140ms var(--ease-out);
 }
-@media (hover: hover) and (pointer: fine) { .evrail__scanbtn:hover { color: var(--accent-bright); } }
+@media (hover: hover) and (pointer: fine) {
+  .evrail__scanbtn:hover { border-color: var(--hairline-strong); color: var(--text); }
+}
 .evrail__scanbtn:active { transform: scale(0.97); }
-.evrail__scanbtn--armed { color: var(--accent-bright); font-weight: 600; }
+.evrail__scanbtn:focus-visible { outline: 2px solid var(--accent-glow); outline-offset: 2px; }
+/* the paid primary — filled cyan, near-black label for AA on the accent (same posture as .btn--amber) */
+.evrail__scanbtn--primary {
+  background: var(--accent); border-color: var(--accent-deep); color: #04171a; font-weight: 600;
+}
+@media (hover: hover) and (pointer: fine) {
+  .evrail__scanbtn--primary:hover { background: var(--accent-soft); border-color: var(--accent-deep); color: #04171a; }
+}
+/* armed = the confirm step: a static glow ring draws the eye to the second click (never animated — the ring
+   is a state, not motion) plus the darker accent fill, so "Confirm · scan now" reads as deliberate. */
+.evrail__scanbtn--armed, .evrail__scanbtn--armed:hover {
+  background: var(--accent-bright); border-color: var(--accent-bright); color: #04171a;
+  box-shadow: 0 0 0 2px var(--accent-glow);
+}
+/* the little live dot inside "Watch live" — reuses the rail's evpulse (opacity-only) keyframe */
+.evrail__scandot { width: 6px; height: 6px; border-radius: 50%; background: var(--text-faint); flex-shrink: 0; }
+.evrail__scandot--live { background: var(--live); box-shadow: 0 0 6px var(--live); animation: evpulse 1.9s var(--ease-out) infinite; }
+@media (prefers-reduced-motion: reduce) { .evrail__scandot--live { animation: none; } }
+
+/* ---- scan status: what the scanner is doing right now (rail strip + watch-live block) ---- */
+.scanstat { display: flex; flex-direction: column; gap: 3px; margin-top: 6px; font-variant-numeric: tabular-nums; }
+.scanstat--rail { font-size: 10.5px; }
+.scanstat--panel { font-size: 11.5px; margin-top: 4px; gap: 4px; }
+.scanstat__row { display: flex; align-items: center; gap: 6px; }
+.scanstat__pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--text-faint); flex-shrink: 0; transition: background var(--dur-fast) var(--ease-out); }
+.scanstat__pulse--on { background: var(--live); box-shadow: 0 0 6px var(--live); animation: evpulse 1.6s var(--ease-out) infinite; }
+@media (prefers-reduced-motion: reduce) { .scanstat__pulse--on { animation: none; } }
+.scanstat__live { color: var(--text-muted); }
+.scanstat__live--off { color: var(--text-faint); }
+.scanstat__last { color: var(--text-faint); }
+.scanstat__last b { color: var(--text-muted); font-weight: 600; }
+.scanstat__last .scanstat__kept { color: var(--accent-bright); }
+/* the warning row — the "988 items not scored (LLM hiccup)" note the cockpit used to hide entirely */
+.scanstat__note {
+  display: flex; align-items: baseline; gap: 5px;
+  color: var(--warn, #d8a656); font-size: 10.5px; line-height: 1.35;
+  background: color-mix(in srgb, var(--warn, #d8a656) 10%, transparent);
+  border-radius: var(--r-sm); padding: 3px 7px; margin-top: 1px;
+}
+.scanstat__sources { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 2px; }
+.scanstat__src {
+  display: inline-flex; align-items: center; gap: 5px; padding: 1px 8px; border-radius: var(--r-pill);
+  background: var(--surface-2); border: 1px solid var(--hairline); color: var(--text-muted); font-size: 10.5px;
+}
+.scanstat__srcn { color: var(--accent-bright); font-weight: 600; }
+.scanstat__log { margin-top: 2px; }
+.scanstat__log > summary { color: var(--text-faint); font-size: 10.5px; cursor: pointer; list-style: none; user-select: none; }
+.scanstat__log > summary::-webkit-details-marker { display: none; }
+.scanstat__log > summary::before { content: '▸ '; color: var(--text-faint); }
+.scanstat__log[open] > summary::before { content: '▾ '; }
+@media (hover: hover) and (pointer: fine) { .scanstat__log > summary:hover { color: var(--text-muted); } }
+.scanstat__logrows { display: flex; flex-direction: column; gap: 2px; margin-top: 4px; padding-left: 2px; }
+.scanstat__logrow { display: flex; gap: 8px; color: var(--text-faint); font-size: 10.5px; }
+.scanstat__logtime { color: var(--text-muted); flex-shrink: 0; font-variant-numeric: tabular-nums; }
 
 /* ---- Refine: the secondary filter disclosure (news type / search / region / size) ---- */
 .evrefine { display: flex; align-items: center; gap: 8px; margin-top: 10px; }

@@ -18,6 +18,7 @@ const TYPE_LABEL: Record<string, string> = {
   financials: 'Financials',
   guidance: 'Guidance',
   user_note: 'Note',
+  external_data: 'External',
   other: 'Other',
 }
 
@@ -61,6 +62,15 @@ export function DataFilesPanel() {
               const tabs = f.sheets ?? []
               const hasTabs = tabs.length > 0
               const isOpen = !!expanded[f.filename]
+              // external rows (data/<T>/external/**): show the document's own name (the full
+              // pool-relative path stays in the tooltip) + a compact provider · §4-tier chip
+              const ext = f.external
+              const displayName = ext ? f.filename.split('/').pop() || f.filename : f.filename
+              const extChip = ext ? [ext.provider, ext.tier ? `T${ext.tier}` : null].filter(Boolean).join(' · ') : ''
+              const extTitle = ext
+                ? [ext.provider, ext.sourceType, ext.tier ? `§4 tier ${ext.tier}` : null, ext.asOf ? `as-of ${ext.asOf}` : null]
+                    .filter(Boolean).join(' · ')
+                : ''
               return (
                 <div className="datafiles__file" key={`${f.filename}:${i}`}>
                   <div
@@ -68,7 +78,8 @@ export function DataFilesPanel() {
                     onClick={hasTabs ? () => setExpanded((e) => ({ ...e, [f.filename]: !e[f.filename] })) : undefined}
                   >
                     <span className="datafiles__badge" data-conf={f.confidence}>{TYPE_LABEL[f.type] || f.type}</span>
-                    <span className="datafiles__name" title={f.filename}>{f.filename}</span>
+                    <span className="datafiles__name" title={f.filename}>{displayName}</span>
+                    {extChip && <span className="datafiles__ext" title={extTitle}>{extChip}</span>}
                     {hasTabs ? (
                       <span className="datafiles__tabsn">{tabs.length} tabs {isOpen ? '▾' : '▸'}</span>
                     ) : (

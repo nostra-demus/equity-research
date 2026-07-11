@@ -174,6 +174,24 @@ check('truncatedBeforeFinal: a commodity full run is judged on decision_record.j
   assert.equal(truncatedBeforeFinal({ kind: 'full', swarmId: 'research', runRoot: 'analyses/ZZ_NO_SUCH_RUN_2099-01-01' } as RunState), true)
 })
 
+check('truncatedBeforeFinal: a sweep is judged on its date-stamped inbox file (present → ok, absent → incomplete)', () => {
+  // Local noon of a fixed far-future day, so the derived filename is deterministic and no real sweep exists.
+  const startedAt = new Date(2099, 0, 1, 12, 0, 0).getTime() // → screener/inbox/2099-01-01_sweep.json
+  const sweep = { kind: 'sweep', swarmId: 'screener', runRoot: 'screener/inbox', startedAt } as RunState
+  const inbox = path.join(REPO_ROOT, 'screener', 'inbox', '2099-01-01_sweep.json')
+  fs.rmSync(inbox, { force: true })
+  // no file written → a clean-but-empty scan is reported incomplete, not a misleading "done"
+  assert.equal(truncatedBeforeFinal(sweep), true)
+  fs.mkdirSync(path.dirname(inbox), { recursive: true })
+  fs.writeFileSync(inbox, JSON.stringify({ date: '2099-01-01', rows: [] }))
+  try {
+    // the file exists → the sweep did its job (existence-only; a legit dedup-only sweep is never a failure)
+    assert.equal(truncatedBeforeFinal(sweep), false)
+  } finally {
+    fs.rmSync(inbox, { force: true })
+  }
+})
+
 // ---- fs-watcher emits the Action routing verdict as a terminal module-routed event ----
 const ZZ = 'ZZCMDY'
 const ZZ_ROOT = `commodity/runs/${ZZ}`

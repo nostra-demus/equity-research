@@ -5,13 +5,13 @@
 // corrected theme. Triage metadata sits in the header, not in the way. Then: run / open / shelve.
 
 import { useEffect, useRef, useState } from 'react'
-import { displayHeadline, originalHeadline, translatedFromLang, plainAffectedMetric, plainImpactDirection, plainImpactMagnitude, plainSize, plainStage, plainTheme } from '../../lib/plain'
+import { displayHeadline, originalHeadline, translatedFromLang, plainAffectedMetric, plainImpactDirection, plainImpactMagnitude, plainSize, plainTheme } from '../../lib/plain'
 import { familyOf, isCompanyNameClient, roleLabel, SCOPES, scopeOf, sourceTierDef } from '../../lib/scope'
 import { discoveryCapDelta } from '../../lib/rankWeights'
 import { useStore } from '../../lib/store'
-import { Spin } from '../Spin'
 import type { ArticleParty, EventEnrichment, FeedItem, NewsImpact, RelatedEvent } from '../../lib/types'
 import { FeedbackMenu } from './FeedbackMenu'
+import { RunChecksMenu } from './RunChecksMenu'
 import type { ReportMenuAnchor } from '../ActivityReportMenu'
 
 const fmtTime = (iso?: string) => {
@@ -364,13 +364,8 @@ function ScoreWhy({ it, anchorRef, open, onToggle }: { it: FeedItem; anchorRef: 
 
 export function EventDetail({ it }: { it: FeedItem }) {
   const close = useStore((s) => s.scSelectEvent)
-  const run = useStore((s) => s.runEventChecks)
-  const checksStarting = useStore((s) => s.launchPending?.key === 'signal:intake')
-  const scGraph = useStore((s) => s.scGraph) // the SCREENER swarm graph (signal-gate…candidate-surfacing) — NOT the research s.graph
-  // the screener pipeline stages in dependency order — drives the "run only through X" picker.
-  // Derived from the live screener graph (zero-touch: new modules appear automatically); plain names via plainStage.
-  const scStages = (scGraph?.modules || []).slice().sort((a, b) => a.order - b.order)
-  const staticMode = useStore((s) => s.staticMode)
+  // the "Run the checks" split button + state-aware menu owns the whole run affordance (fresh / staged /
+  // continue / override / stop), reading the signal's live run-state itself — EventDetail just mounts it.
   const enrichCache = useStore((s) => s.enrichCache)
   const shelvedEvents = useStore((s) => s.shelvedEvents)
   const toggleShelve = useStore((s) => s.toggleShelve)
@@ -646,12 +641,7 @@ export function EventDetail({ it }: { it: FeedItem }) {
 
         <div className="evdetail__actions">
           <div className="evdetail__actions-bar">
-            <div className="evdetail__run">
-              <button className="btn btn--amber evdetail__runbtn" disabled={checksStarting} onClick={() => void run(it)} title={staticMode ? 'Runs on your local machine (npm run dev)' : 'Run the full gauntlet — every stage'}>
-                {checksStarting ? <><Spin /> Starting…</> : <>Run the checks ▸</>}
-              </button>
-              <span className="evdetail__est mono">about $8–45 · stops early (and cheaper) if a check says no</span>
-            </div>
+            <RunChecksMenu it={it} />
             <div className="evdetail__utility">
               <button
                 className="btn btn--ghost evdetail__shelfbtn"
@@ -673,25 +663,6 @@ export function EventDetail({ it }: { it: FeedItem }) {
             </div>
             {feedbackAnchor && <FeedbackMenu item={it} anchor={feedbackAnchor} onClose={() => setFeedbackAnchor(null)} />}
           </div>
-          {scStages.length > 1 && (
-            <div className="evdetail__through">
-              <span className="evdetail__through-label mono">or run only through</span>
-              <div className="evdetail__through-chips">
-                {scStages.slice(0, -1).map((m) => (
-                  <button
-                    key={m.name}
-                    type="button"
-                    className="evdetail__chip evdetail__chip--btn"
-                    disabled={checksStarting}
-                    onClick={() => void run(it, m.name)}
-                    title={`Run the gauntlet through "${plainStage(m.name)}" and stop there — finished checks are saved, and you can Continue the rest later`}
-                  >
-                    {plainStage(m.name)}
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
       </article>
     </div>

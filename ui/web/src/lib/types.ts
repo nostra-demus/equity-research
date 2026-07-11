@@ -296,6 +296,26 @@ export interface NewsCycle {
   note?: string
 }
 
+// One ingest cycle's outcome, streamed live over /api/news/stream as `news-cycle`. Mirrors the server's
+// CycleSummary (ui/server/src/news/types.ts). Every field past `dropped` is optional so an OLDER engine
+// (the ~20-30s deploy-skew window where the new bundle is served by the old server) simply renders less,
+// never a wrong number.
+export interface CycleSummary {
+  ts: string
+  ok: boolean
+  fetched: number // raw articles pulled from the sources
+  candidates: number // new, on-list, not-already-seen items sent to triage
+  picked: number
+  watched: number
+  dropped: number
+  inboxed?: number
+  groq_requests?: number
+  groq_tokens?: number
+  note?: string // why a cap was hit / why items were deferred — the warning the user must see
+  sources?: Record<string, number> // raw articles per source layer this cycle (absent on a drain)
+  phase?: 'fetch' | 'drain'
+}
+
 export interface NewsStatus {
   enabled: boolean
   running: boolean
@@ -448,6 +468,19 @@ export interface BoardThesis {
   conviction?: BoardConviction | null
 }
 export interface BoardHandoff { handoff_id: string; thesis_id: string; ticker: string; handed_off_at: string; seeded_path: string }
+// Run-state of a wire event's signal (GET /api/screener/signal-state) — drives the reader's "Run the checks"
+// split button + badge. A pure read of the run folder + live registry; never a launch.
+export interface SignalState {
+  sigId: string
+  state: 'never' | 'running' | 'parked' | 'logged' | 'watchlist' | 'partial' | 'complete'
+  running: boolean
+  runningModule?: string | null
+  materiality?: number | null
+  routing?: string | null
+  locked?: boolean
+  hasCandidates?: boolean
+  doneModules?: string[]
+}
 export interface ScreenerBoard {
   generated_at: string | null
   inbox: BoardInboxRow[]
@@ -511,7 +544,16 @@ export interface DataStatus {
   ticker: string
   hasAnyData: boolean
   fileCount: number
-  files: { filename: string; type: string; periodHint: string | null; ageMonths: number | null; confidence: string; sheets?: { name: string; rows: number; cols: number; cells: number }[] }[]
+  files: {
+    filename: string
+    type: string
+    periodHint: string | null
+    ageMonths: number | null
+    confidence: string
+    sheets?: { name: string; rows: number; cols: number; cells: number }[]
+    // present for externally ingested docs under data/<T>/external/ (frameworks/EXTERNAL_DATA.md)
+    external?: { provider?: string; sourceType?: string; tier?: number; asOf?: string; license?: string }
+  }[]
   recentByType: Record<string, { filename: string; ageMonths: number | null } | undefined>
   modules: Record<string, ModuleReadiness>
   coverage: CoverageGroup[]
@@ -792,9 +834,12 @@ export interface ModulePlanEntry {
   sourceRunRoot?: string // the folder holding this module's newest outputs
   sourceDate?: string // that folder's run vintage (YYYY-MM-DD)
   inTargetRoot: boolean // already in the run root a completion writes into (nothing to carry)
-  doneAgents: number
+  doneAgents: number // orbs the pipeline will REUSE (validity-checked, not counted by filename)
   totalAgents: number
-  staleReason?: string // plain-English "why this needs re-running", shown verbatim
+  staleReason?: string // plain-English "why this needs re-running", shown verbatim (also set for `partial`)
+  blockedBy: string[] // ancestors of this module that are themselves in `run` — it can't launch until they do
+  runnable: boolean // this module can be launched on its own now (in `run`, and nothing upstream is)
+  willRunAgents: number // orbs that would actually execute if it ran now (total minus reused-on-resume)
 }
 
 export interface ThesisPlan {

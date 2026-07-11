@@ -1,6 +1,6 @@
 import { staticPromptPath } from './prompts'
 import { DEFAULT_RANK_WEIGHTS, type RankWeights, type RankWeightsState } from './rankWeights'
-import type { ActivityQuery, ActivityResult, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CoverageGroup, DataStatus, EventEnrichment, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SourcesReport, SwarmGraph, SwarmMeta, ThesisPlan, TickerSummary, UploadResult, Usage, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CoverageGroup, DataStatus, EventEnrichment, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, ThesisPlan, TickerSummary, UploadResult, Usage, Whoami } from './types'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -176,6 +176,12 @@ export const api = {
   screenerRun: async (sigId: string): Promise<any> => {
     if ((await ensureMode()) === 'static') return snap.screenerRuns?.[sigId] || null
     return get(`/api/screener/run?sig_id=${encodeURIComponent(sigId)}`)
+  },
+  signalState: async (p: { headline: string; sourceUrl?: string }): Promise<SignalState> => {
+    if ((await ensureMode()) === 'static') return { sigId: '', state: 'never', running: false }
+    const qs = new URLSearchParams({ headline: p.headline })
+    if (p.sourceUrl) qs.set('source_url', p.sourceUrl)
+    return get<SignalState>(`/api/screener/signal-state?${qs.toString()}`)
   },
   screenerThesis: async (thesisId: string): Promise<any> => {
     if ((await ensureMode()) === 'static') return snap.screenerTheses?.[thesisId] || null
@@ -477,6 +483,18 @@ export const api = {
     // `swarm` is ALWAYS sent (never omitted for research), so the server can match positively on it rather
     // than treat an absent field as permission to dispatch a research pipeline at another swarm's subject.
     return post(`/api/thesis-plan/run`, { ticker, reuse, swarm })
+  },
+  // Launch ONE module of the plan (the RUN pill), resuming from the orbs on disk. `reuse` governs which
+  // ancestors get carried into the target root first. Returns the done/planned orb split so the cockpit
+  // lights up "N done / M queued" instead of a false from-scratch start.
+  runThesisPlanModule: async (
+    ticker: string,
+    module: string,
+    reuse: string[],
+    swarm: string,
+  ): Promise<{ runId: string; preflight: LaunchPreflight; module: string; willRun: number; doneOrbKeys: string[]; carried: { module: string; from: string }[]; resumed?: boolean; ranClean?: boolean }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/thesis-plan/module`, { ticker, module, reuse, swarm })
   },
 
   runStreamUrl: (runId: string) => `/api/runs/${runId}/stream`,

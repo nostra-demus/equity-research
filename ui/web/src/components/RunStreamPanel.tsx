@@ -13,7 +13,7 @@ const dotColor: Record<string, string> = {
 }
 
 const runLabel = (r: { kind: string; module?: string; agent?: string }) =>
-  r.kind === 'full' ? 'Full run' : r.kind === 'module' ? `${r.module} module` : r.kind === 'rerun' ? `Re-run · ${r.agent}` : r.agent || 'Agent'
+  r.kind === 'full' ? 'Full run' : r.kind === 'sweep' ? 'News scan' : r.kind === 'module' ? `${r.module} module` : r.kind === 'rerun' ? `Re-run · ${r.agent}` : r.agent || 'Agent'
 
 // every in-flight server status (incl. the pre-spawn gate phases the early-acked launch surfaces)
 const LIVEISH = new Set(['starting', 'readiness-checking', 'awaiting-readiness-decision', 'running'])
@@ -34,6 +34,8 @@ const TOOL_GLOSS: Record<string, string> = {
   Bash: 'running pipeline steps',
   Glob: 'scanning the run folder',
   Grep: 'searching outputs',
+  WebSearch: 'searching the news',
+  WebFetch: 'reading a source',
 }
 
 export function RunStreamPanel() {
@@ -55,9 +57,11 @@ export function RunStreamPanel() {
   // run-adaptive expected duration per orb class (gate / specialist / synthesis), learned from finished orbs
   const exp = useMemo(() => expectedDurations(collectSamples(nodeRuntime, (k) => { const n = nodesByKey.get(k); return n ? orbClass(n) : 'specialist' })), [nodeRuntime, nodesByKey])
 
-  // runs for the selected company (live + just-finished), oldest first
+  // runs for the current scope (live + just-finished), oldest first. Research keys on the selected company;
+  // the screener's unit of work is a signal or a sweep, whose `ticker` is a SIG- id or the literal 'sweep' —
+  // filtering those by the research `selectedTicker` hid a running scan entirely (the "no visibility" gap).
   const runs = Object.values(activeRuns)
-    .filter((r) => r.ticker === ticker)
+    .filter((r) => (activeSwarm === 'screener' ? r.ticker === 'sweep' || r.ticker.startsWith('SIG-') : r.ticker === ticker))
     .sort((a, b) => (a.startedAt ?? 0) - (b.startedAt ?? 0))
 
   // a launch is pending server-ack for THIS subject — show the panel with a starting banner in the
@@ -94,7 +98,7 @@ export function RunStreamPanel() {
       <div className="sidepanel__head">
         <div>
           <div className="sidepanel__title">{runs.length ? `${runs.length} run${runs.length > 1 ? 's' : ''}` : 'Last run'}</div>
-          <div className="sidepanel__meta">{scope}{runs.length ? ` · ${aggDone}/${aggTotal} orbs` : ''}</div>
+          <div className="sidepanel__meta">{scope}{runs.length && aggTotal ? ` · ${aggDone}/${aggTotal} orbs` : ''}</div>
         </div>
         {/* close the panel — allowed whenever nothing is live (a live run keeps the panel pinned so progress
             stays visible; reopen it any time from the top-bar "Runs" button) */}
@@ -129,7 +133,11 @@ export function RunStreamPanel() {
                   <div className="sidepanel__meta">
                     {PHASE_LABEL[run.status]
                       ? PHASE_LABEL[run.status] + (running ? ` · ${fmtClock(elapsedMs)}` : '')
-                      : `${done}/${total} orbs · ${running ? `${fmtClock(elapsedMs)} · ${etaText}` : run.status}`}
+                      : run.kind === 'sweep'
+                        // a sweep has no orbs — a "0/0 orbs" line would read as broken. Show the clock (and,
+                        // once done, the plain status) instead; the heartbeat line below carries the live detail.
+                        ? (running ? `scanning · ${fmtClock(elapsedMs)}` : run.status)
+                        : `${done}/${total} orbs · ${running ? `${fmtClock(elapsedMs)} · ${etaText}` : run.status}`}
                   </div>
                 </div>
                 {run.willCommitToMain && <span className="chip" style={{ color: 'var(--accent-bright)', borderColor: 'var(--accent-deep)' }}>commits main</span>}

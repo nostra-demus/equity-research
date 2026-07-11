@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Machine-agnostic TEMPLATE: placeholder tokens rendered by scripts/ops/install-services.sh at install time.
+     DOER-ONLY: only the always-on host routes the shared Drive inbox — two machines routing the same
+     folder would race on the ledger. Every 10 minutes (and once at load) it runs the external-data
+     router (frameworks/EXTERNAL_DATA.md): files dropped in data/EXTERNAL-INBOX/ are sha256-deduped,
+     matched to their ticker pool(s), copied to data/<TICKER>/external/<provider>/ with a provenance
+     sidecar, and archived under _routed/. Recommend-only: it never launches a research run.
+     MaterializeDatalessFiles is REQUIRED — the pool is a Google Drive CloudStorage mount and a launchd
+     job cannot read streamed (dataless) files without it (same key as the engine plist). -->
+<plist version="1.0">
+<dict>
+	<key>Label</key>
+	<string>com.nostradamus.external-ingest</string>
+	<key>EnvironmentVariables</key>
+	<dict>
+		<key>HOME</key>
+		<string>{{HOME}}</string>
+		<key>PATH</key>
+		<string>{{PLIST_PATH}}</string>
+	</dict>
+	<key>WorkingDirectory</key>
+	<string>{{ENGINE_REPO_ROOT}}</string>
+	<key>ProgramArguments</key>
+	<array>
+		<string>/usr/bin/env</string>
+		<string>python3</string>
+		<string>{{ENGINE_REPO_ROOT}}/.claude/tools/ingest_external.py</string>
+		<string>--pool</string>
+		<string>{{ENGINE_REPO_ROOT}}/data</string>
+	</array>
+	<key>MaterializeDatalessFiles</key>
+	<true/>
+	<key>RunAtLoad</key>
+	<true/>
+	<key>StartInterval</key>
+	<integer>600</integer>
+	<key>StandardOutPath</key>
+	<string>{{HOME}}/Library/Logs/nostradamus-external-ingest.log</string>
+	<key>StandardErrorPath</key>
+	<string>{{HOME}}/Library/Logs/nostradamus-external-ingest.log</string>
+	<key>ThrottleInterval</key>
+	<integer>60</integer>
+</dict>
+</plist>
