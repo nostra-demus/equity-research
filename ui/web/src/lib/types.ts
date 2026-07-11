@@ -544,7 +544,16 @@ export interface DataStatus {
   ticker: string
   hasAnyData: boolean
   fileCount: number
-  files: { filename: string; type: string; periodHint: string | null; ageMonths: number | null; confidence: string; sheets?: { name: string; rows: number; cols: number; cells: number }[] }[]
+  files: {
+    filename: string
+    type: string
+    periodHint: string | null
+    ageMonths: number | null
+    confidence: string
+    sheets?: { name: string; rows: number; cols: number; cells: number }[]
+    // present for externally ingested docs under data/<T>/external/ (frameworks/EXTERNAL_DATA.md)
+    external?: { provider?: string; sourceType?: string; tier?: number; asOf?: string; license?: string }
+  }[]
   recentByType: Record<string, { filename: string; ageMonths: number | null } | undefined>
   modules: Record<string, ModuleReadiness>
   coverage: CoverageGroup[]

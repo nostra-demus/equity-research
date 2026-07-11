@@ -118,7 +118,23 @@ jobs:
           else
             echo "skip: extract_bench fixtures not on this ref yet (lands with the extraction-bench PR)"
           fi
+          # External-data router — tied to the tool. Once ingest_external.py reaches main, required.
+          if [ -f ".claude/tools/ingest_external.py" ]; then
+            echo "== test_ingest_external.py =="
+            python3 .claude/tools/test_ingest_external.py || rc=1
+          else
+            echo "skip: ingest_external.py not on this ref yet (lands with the external-data-ingestion PR)"
+          fi
           exit $rc
+
+      # The doctrine twins (CLAUDE.md / AGENTS.md) must stay identical except each file's own name
+      # (CLAUDE.md §28 "The twins must match") — this mechanizes what was previously discipline-only.
+      - name: Doctrine twins byte-diff (CLAUDE.md == AGENTS.md modulo self-name)
+        run: |
+          diff <(sed 's/AGENTS\.md/DOCTRINE/g; s/CLAUDE\.md/DOCTRINE/g' CLAUDE.md) \
+               <(sed 's/AGENTS\.md/DOCTRINE/g; s/CLAUDE\.md/DOCTRINE/g' AGENTS.md) \
+            && echo "twins match" \
+            || { echo "::error::CLAUDE.md and AGENTS.md have drifted — patch both (they are twins, §28)"; exit 1; }
 
   ui-web:
     name: ui/web — typecheck + build

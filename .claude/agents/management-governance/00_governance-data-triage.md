@@ -123,6 +123,16 @@ Set these so later agents apply the right Jurisdiction-Aware Source Mapping and 
 
 Detect and record each document's language. A filing in the company's home language — Arabic, Mandarin, Japanese, or any non-English language — counts as PRESENT at the full source tier its type earns. `extract_pool.py` transcribes it verbatim into `_pool_extracts/` (scanned pages via OCR), and the downstream specialists translate the material facts as they read; figures are taken verbatim (§5/§15). Do NOT mark a non-English document "missing", "not extractable in English", or "opaque", and do NOT reduce the data-quality or data-sufficiency score for language — **a non-English filing is not a data gap.** Record the detected language in the Filing Regime block. The ONLY real gap is a document whose extraction FAILED in the pool manifest (corrupt / encrypted / illegible), which is already handled as missing.
 
+## External data (frameworks/EXTERNAL_DATA.md)
+
+The pool may carry externally sourced research under `data/{TICKER}/external/<provider>/` — paid alt-data panels, expert-call notes, the user's own channel checks, broker research, paid-API pulls. Each such document's manifest row carries `external: true` and (when a `.source.json` sidecar exists) a `provenance` object: provider, source_type, CLAUDE.md §4 tier, as-of, license.
+
+- **Inventory every external document as its own row**, with `Provider · source_type · §4 tier · as-of` in the Notes column (fall back to the folder name as the provider when no sidecar exists). When any external documents exist, add a short `## 1A. External Data` table right after the File Inventory listing exactly those rows.
+- **External data never moves the sufficiency verdict.** It is enrichment: it can sharpen downstream analysis, but it never fills a filing/transcript/deck slot in the sufficiency rule, and its absence is never a gap.
+- **Flag freshness.** If an external document's as-of is newer than the most recent filing or transcript, say so in one line ("new external evidence, fresher than the latest filing") so downstream agents read it.
+- The as-of comes from INSIDE the document (fix F23); the sidecar's `as_of` is the router's best-effort parse, not an authority.
+
+
 ## 5B. Source Coverage Matrix
 
 | Governance Need | Best Available Source | Period | Confidence 1–5 | Missing? | Replacement Source |
@@ -169,6 +179,7 @@ Write a source manifest to `analyses/{TICKER}_{DATE}/management-governance/sourc
 - [ ] Jurisdiction, filing regime, and sector are detected (Section 5A) so downstream agents apply the right source map and overlay.
 - [ ] Verdict matches the sufficiency rule exactly.
 - [ ] If Insufficient, report explicitly says "Verdict: Insufficient data" for orchestrator fail-fast.
+- [ ] Every `external/` document is listed with provider · source_type · §4 tier · as-of, and none of them moved the sufficiency verdict.
 
 # CHAT CONFIRMATION
 

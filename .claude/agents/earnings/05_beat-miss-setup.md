@@ -50,6 +50,7 @@ If any upstream is missing, note at the top:
 - **All 4 upstream outputs** — this agent synthesizes, not extracts
 - **Seasonality table from 01** — is the next quarter a seasonally strong or weak quarter?
 - **Historical beat/miss pattern from 04** — does the company have a pattern?
+- **04's Alt-Data Cross-Check (§3A), when present** — an in-quarter panel read diverging from consensus beyond the vendor's stated error margin is among the strongest beat/miss evidence available; carry it as a named driver, cited with provider + as-of + error margin (`frameworks/EXTERNAL_DATA.md`), always as an estimate
 - **Recent macro / industry data** via web search if relevant (e.g., commodity prices, industry PMIs)
 
 # REPORT STRUCTURE

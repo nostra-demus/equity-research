@@ -27,6 +27,8 @@ You DO NOT:
 
 **Consensus must come from a pool export** (Capital IQ / Bloomberg / FactSet estimates). *(fix F19)* Do NOT substitute a web-sourced or remembered Street estimate for a covered name — an LLM can produce plausible-but-fabricated "consensus" from memory, and it would silently set the beat/miss bar and the rating. If no consensus / estimate data is in the pool, produce a guidance-only read: extract what management guided, skip the consensus comparison table and revision momentum table, state: *"No consensus data in pool — consensus setup cannot be assessed. Beat/miss setup will be capped at Unclear."*, and apply the consensus-setup cap per `MODULE_RULES.md`. If a web consensus is used at all, it MUST carry the verbatim label `Consensus, web-sourced as of {DATE}, not from data pool — unverified` and still trigger the cap.
 
+**Alt-data is a cross-check, never the consensus.** A licensed alt-data panel in the pool (`data/{TICKER}/external/`, `source_type: alt_data_panel` — see `frameworks/EXTERNAL_DATA.md`) may carry its own estimate of the same metric, sometimes alongside a consensus snapshot the vendor licenses. Neither substitutes for a pool consensus export under fix F19: the panel's number is a tier-5 vendor ESTIMATE (cite it with provider, as-of, and the vendor's stated error margin), and a vendor-quoted consensus is usable only as `Consensus per {vendor} panel note, as of {date} — secondary` when no direct export exists (the consensus-setup cap still applies). What the panel IS for: Section 3A — where a fresh panel read diverges materially from consensus, that divergence (with the error margin against it) is exactly the evidence the bar assessment and the beat/miss setup should weigh.
+
 If no VERBATIM transcript is available, apply the **Transcript Sourcing & Fallback** rule (`MODULE_RULES.md`): the guidance / driver colour falls back, in order, to (a) a **sell-side / analyst earnings note used as a verdict-stripped proxy** — strip its Rating / Target Price / "vs our estimate" (§24), use ONLY the call-summary, label `<Broker> "Earnings Call Insight", {Q} (paraphrasing the call; unverified)`, cross-check every figure to the primary doc, and apply the "sell-side proxy only" cap (earnings clarity ≤70 — the same ceiling as no call source at all, not below it); then (b) the **company earnings press-release** outlook; then (c) the filing MD&A. If none exist, note *"No transcript — guidance extracted from filings only."* Official guidance NUMBERS always come from the primary doc, never on the analyst's authority.
 
 # WORKFLOW
@@ -45,6 +47,7 @@ If no VERBATIM transcript is available, apply the **Transcript Sourcing & Fallba
 - **Investor presentation** — guidance slides
 - **Material-event disclosure** — sometimes contains standalone guidance updates (8-K/6-K in the US; exchange intimation to NSE/BSE under SEBI LODR Reg 30 in India; RNS/local equivalent elsewhere)
 - **Capital IQ / Bloomberg / FactSet exports** — consensus estimates and revision history
+- **External alt-data panels** (`data/{TICKER}/external/`, per `frameworks/EXTERNAL_DATA.md`) — a measured panel's estimate of the same metric, with its vendor error margin; cross-check only, never the consensus source
 - **Latest quarterly filing MD&A** — sometimes embeds implicit guidance
 
 # REPORT STRUCTURE
@@ -90,6 +93,13 @@ For range guidance, calculate the midpoint. Compare consensus to the midpoint, n
 Gap = Consensus minus Guidance (positive = Street above guidance).
 If consensus is not available, skip this table and state the partial-data cap.
 
+## 3A. Alt-Data Cross-Check (only when the pool carries an external alt-data panel)
+
+| Metric | Period | Panel Estimate (provider, as-of) | Vendor Error Margin | Street Consensus | Divergence |
+|---|---|---|---|---|---|
+
+One or two sentences: does the panel read sit above or below consensus, is the divergence larger than the vendor's own stated error margin, and what does that imply for the bar? Cite per §5 (e.g. `YipitData Cloud panel, Mar-26 update (pub. 2026-04-16), Ex.1A — licensed alt-data, estimate (±2.3pp @80% vendor backtest)`). If no external panel exists, omit this section entirely — its absence is not a gap.
+
 ## 4. Estimate Revision Momentum Table
 
 | Estimate | 90 Days Ago | 60 Days Ago | 30 Days Ago | Current | Direction |
@@ -131,6 +141,8 @@ State ONE of:
 - **Bar is unknown** — insufficient consensus or guidance data to assess
 
 **Stale-consensus guard:** if the consensus data-as-of date predates the most recently reported quarter (the estimates have not yet absorbed the latest print), the bar verdict is **provisional** — say so *in the verdict line itself* (e.g. "Bar is low — provisional; consensus is pre-{quarter} and likely to re-rate"), not only in the body. A stale snapshot is NOT a no-consensus case; do not let an un-updated "low" bar propagate as a beatable setup.
+
+**Alt-data in the bar call:** where Section 3A shows a panel read diverging from consensus by more than the vendor's stated error margin, the bar assessment may lean on it as evidence (e.g. "Bar is low — panel tracks +29.3% vs consensus +25.4%, a gap outside the ±2.3pp backtest band") — always with the provider + as-of label, and never upgrading the divergence from estimate to fact.
 
 In 2–3 sentences, explain the rationale. Reference specific gaps and revision directions.
 ```

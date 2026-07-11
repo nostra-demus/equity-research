@@ -71,6 +71,26 @@ function saveRated(m: Record<string, 'up' | 'down'>): void {
   } catch {}
 }
 
+// --- read events: which wire items the user has already seen — the persistent read/unread state (an
+//     unopened item shows an unread dot + brighter headline; opening it, or "mark all read", clears it).
+//     Same per-browser localStorage shape as the shelf, keyed by event_id. A larger cap than the shelf
+//     because it accumulates as you read (Set keeps insertion order, so slice(-N) keeps the newest). The
+//     one-time READ_SEEDED marker gives a first-EVER visit a clean slate: everything already on the wire is
+//     marked read once, so only genuinely new arrivals from then on show as unread (no wall of dots). ---
+const READ_KEY = 'nsw.readEvents'
+const READ_SEEDED_KEY = 'nsw.readSeeded'
+function loadRead(): Set<string> {
+  try {
+    const raw = JSON.parse(localStorage.getItem(READ_KEY) || '[]')
+    return new Set(Array.isArray(raw) ? raw.filter((x) => typeof x === 'string') : [])
+  } catch {
+    return new Set()
+  }
+}
+function saveRead(s: Set<string>): void {
+  try { localStorage.setItem(READ_KEY, JSON.stringify([...s].slice(-4000))) } catch {}
+}
+
 // The research stage's renderer: the 3D globe (default) or the flat 2D constellation. A per-browser
 // presentation preference like the theme — persisted to localStorage, never leaves the machine. Globe is
 // the default; only an explicit 'constellation' choice opts out. init() coerces a stored/default 'globe'
@@ -226,7 +246,9 @@ interface State {
   chainTickers: Set<string> // tickers whose full run is a per-module CHAIN — defer the "complete" celebration to the master step
   selectToken: number
   runStream: StreamRow[]
-  dismissRunStream: () => void // clear the persisted last-run rows (closes the run-stream side panel)
+  runPanelDismissed: boolean // user closed the run-stream panel while nothing was live; re-shows on the next live run
+  dismissRunStream: () => void // hide the run-stream side panel (allowed only when nothing is live)
+  reopenRunStream: () => void // bring the run-stream side panel back (the top-bar "Runs" affordance)
   coreBloom: boolean
   decision: any | null
   runRoot: string | null
@@ -240,6 +262,11 @@ interface State {
   chatModule?: string
   chatOrbPath?: string
   chatOrbKey?: string
+  // Set only when RESUMING a saved conversation whose scope the CURRENT run can't serve (a newer/mid-flight
+  // run replaced it): the run folder the next turn is answered from — the run the conversation was originally
+  // answered from, whose files are still on disk. undefined ⇒ answer from the live current run (fresh chats,
+  // and resumes the current run still serves). Also tells the panel a resumed thread is answerable (not "run first").
+  chatAnswerRunRoot?: string
   chatTitle: string
   chatModel: string
   chatStyle: ChatStyle // narration style — sticky preference, default 'simple'
@@ -375,6 +402,7 @@ interface State {
   openChatHistory: () => void
   closeChatHistory: () => void
   resumeConversation: (id: string) => Promise<void> // reopen a saved conversation and keep chatting
+  startNewChat: () => void // open a fresh Ask conversation (from the history panel or elsewhere)
   deleteConversation: (id: string) => Promise<void>
   openActivity: () => void
   closeActivity: () => void
@@ -434,6 +462,12 @@ interface State {
   // shelving: set an event aside (or bring it back) — local, persisted, filters the rail
   shelvedEvents: Set<string>
   toggleShelve: (eventId: string) => void
+  // read/unread: which wire items the user has already seen (local, persisted). Opening an event marks it
+  // read; markEventsRead is also the "mark all read" verb; seedReadBaseline gives a first-ever visit a
+  // clean slate so only genuinely new arrivals show as unread.
+  readEvents: Set<string>
+  markEventsRead: (ids: string[]) => void
+  seedReadBaseline: (items: FeedItem[]) => void
   // card feedback ("flag as irrelevant / mis-scored / …") — flaggedEvents is a local display cache;
   // the server ledger (screener/ledger/screener_feedback.ndjson) is the source of truth
   flaggedEvents: Set<string>
@@ -561,7 +595,7 @@ function defaultChatTitle(scope: ChatScope, ticker: string, opts?: { module?: st
 
 // the chat-panel scope state cleared on every teardown (ticker switch, swarm switch) so a conversation
 // never bleeds across companies. Mirrors how openOutput is nulled alongside it.
-const CHAT_RESET = { chatOpen: false, chatStreaming: false, chatMessages: [] as ChatMessage[], chatError: undefined as string | undefined, chatSource: undefined as string | undefined, chatConversationId: undefined as string | undefined }
+const CHAT_RESET = { chatOpen: false, chatStreaming: false, chatMessages: [] as ChatMessage[], chatError: undefined as string | undefined, chatSource: undefined as string | undefined, chatConversationId: undefined as string | undefined, chatAnswerRunRoot: undefined as string | undefined }
 
 export const useStore = create<State>((set, get) => ({
   connected: true,
@@ -595,6 +629,7 @@ export const useStore = create<State>((set, get) => ({
   chainTickers: new Set(),
   selectToken: 0,
   runStream: [],
+  runPanelDismissed: false,
   coreBloom: false,
   decision: null,
   runRoot: null,
@@ -611,6 +646,7 @@ export const useStore = create<State>((set, get) => ({
   chatModule: undefined,
   chatOrbPath: undefined,
   chatOrbKey: undefined,
+  chatAnswerRunRoot: undefined,
   chatTitle: '',
   chatModel: 'sonnet',
   chatStyle: loadChatStyle(),
@@ -658,6 +694,7 @@ export const useStore = create<State>((set, get) => ({
   scSelectedEvent: null,
   scFocusedCompany: null,
   shelvedEvents: loadShelf(),
+  readEvents: loadRead(),
   flaggedEvents: loadFlagged(),
   ratedPolarity: loadRated(),
   reviewOpen: false,
@@ -785,7 +822,7 @@ export const useStore = create<State>((set, get) => ({
     const activeRuns = Object.fromEntries(Object.entries(get().activeRuns).filter(([, r]) => LIVE_RUN.has(r.status)))
     chatAbort?.abort(); chatAbort = null // a new subject → drop any in-flight chat + its thread
     // the completion plan is per-subject disk truth — never let a previous subject's plan survive a switch
-    set({ selectToken: token, selectedTicker: t, constellationSwarm: sw, dataStatus: null, dataLoading: isResearch, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], activeRuns, openOutput: null, thesisPlan: null, thesisPlanOpen: false, thesisPlanError: null, ...CHAT_RESET })
+    set({ selectToken: token, selectedTicker: t, constellationSwarm: sw, dataStatus: null, dataLoading: isResearch, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], runPanelDismissed: false, activeRuns, openOutput: null, thesisPlan: null, thesisPlanOpen: false, thesisPlanError: null, ...CHAT_RESET })
     const graph = isResearch ? await api.swarm(t) : await api.swarmGraph(sw, t)
     if (get().selectToken !== token) return // a newer selection superseded this one
     set({ graph, nodesByKey: flatten(graph) })
@@ -1196,7 +1233,10 @@ export const useStore = create<State>((set, get) => ({
 
   cancelLaunch: () => set({ launchConfirm: null }),
 
-  dismissRunStream: () => set({ runStream: [] }),
+  // Hide the run-stream panel. Keep the run rows in state (so reopening restores them); a boolean flag drives
+  // visibility. The panel re-shows automatically on the next live run (see RunStreamPanel's anyLive effect).
+  dismissRunStream: () => set({ runPanelDismissed: true }),
+  reopenRunStream: () => set({ runPanelDismissed: false }),
 
   cancelRun: async (runId) => {
     const run = get().activeRuns[runId]
@@ -1563,7 +1603,7 @@ export const useStore = create<State>((set, get) => ({
     chatAbort?.abort(); chatAbort = null
     set({
       chatOpen: true, chatScope: scope,
-      chatModule: opts?.module, chatOrbPath: opts?.orbPath, chatOrbKey: opts?.orbKey,
+      chatModule: opts?.module, chatOrbPath: opts?.orbPath, chatOrbKey: opts?.orbKey, chatAnswerRunRoot: undefined,
       chatTitle: defaultChatTitle(scope, t, opts),
       chatError: undefined, chatSource: undefined, chatStreaming: false,
       // a different scope starts a fresh thread AND a fresh saved conversation; reopening the same scope keeps both
@@ -1574,7 +1614,7 @@ export const useStore = create<State>((set, get) => ({
   setChatScope: (scope, opts) => {
     chatAbort?.abort(); chatAbort = null
     set({
-      chatScope: scope, chatModule: opts?.module, chatOrbPath: opts?.orbPath, chatOrbKey: opts?.orbKey,
+      chatScope: scope, chatModule: opts?.module, chatOrbPath: opts?.orbPath, chatOrbKey: opts?.orbKey, chatAnswerRunRoot: undefined,
       chatMessages: [], chatStreaming: false, chatError: undefined, chatSource: undefined, chatConversationId: undefined,
       chatTitle: defaultChatTitle(scope, get().selectedTicker || '', opts),
     })
@@ -1582,7 +1622,7 @@ export const useStore = create<State>((set, get) => ({
   setChatModel: (m) => set({ chatModel: m }),
   setChatStyle: (s) => { try { localStorage.setItem(CHAT_STYLE_KEY, s) } catch { /* blocked storage */ } set({ chatStyle: s }) },
   // Clear starts a NEW conversation (fresh saved thread); the prior one stays in history — nothing is lost.
-  clearChat: () => { chatAbort?.abort(); chatAbort = null; set({ chatMessages: [], chatError: undefined, chatStreaming: false, chatSource: undefined, chatConversationId: undefined }) },
+  clearChat: () => { chatAbort?.abort(); chatAbort = null; set({ chatMessages: [], chatError: undefined, chatStreaming: false, chatSource: undefined, chatConversationId: undefined, chatAnswerRunRoot: undefined }) },
 
   // ---- saved chat history (persisted Ask conversations) ----
   openChatHistory: () => set({ chatHistoryOpen: true }),
@@ -1610,12 +1650,33 @@ export const useStore = create<State>((set, get) => ({
     }
     // select the subject if we're not already on it (loads its graph/manifest; applies CHAT_RESET itself)
     if (get().selectedTicker !== c.subject) await get().selectTicker(c.subject)
-    // an orb conversation's saved path may point at an older run folder — re-resolve it from the current
-    // run by the stable orb key, so "continue" chats against the latest output of that orb.
+    // Decide which run to answer this resumed conversation from, and keep the thread chat-able. Prefer the
+    // CURRENT run when it can still serve the conversation's scope (so "continue" chats the latest output);
+    // otherwise fall back to the run the conversation was originally answered from (c.runRoot) — analyses/
+    // runs are committed, so those files are still on disk. Either way a saved conversation is never gated as
+    // "not produced" just because a newer run replaced it or one is mid-flight (the old failure: a stale orb
+    // path was re-checked against the current run's manifest and rejected by both the panel and the server).
+    // Research only: only its chat route honours an explicit older runRoot — a constellation swarm resolves
+    // the run from the subject, so the override can't reach it; leave those on today's behaviour.
+    const cur = get()
+    const research = cur.activeSwarm === 'research'
     let orbPath = c.orbPath
-    if (c.scope === 'orb' && c.orbKey) {
-      const rt = get().nodeRuntime[c.orbKey]
-      if (rt?.outputPath) orbPath = rt.outputPath
+    let answerRunRoot: string | undefined // undefined ⇒ answer from the live current run
+    if (c.scope === 'orb') {
+      const rt = c.orbKey ? cur.nodeRuntime[c.orbKey] : undefined
+      if (rt?.status === 'done' && rt.outputPath) orbPath = rt.outputPath // latest output of this orb, current run
+      else if (research && c.orbPath) {
+        // current run can't serve it → answer from the run this orb was originally answered from: c.runRoot
+        // when stored (#170+), else derived from the saved path (analyses/<TICKER>_<DATE>/<module>/<file>.md),
+        // so even a pre-#170 orb conversation with no stored runRoot still reopens.
+        const orig = c.runRoot || c.orbPath.match(/^(analyses\/[^/]+)\//)?.[1]
+        if (orig) { orbPath = c.orbPath; answerRunRoot = orig }
+      }
+    } else if (c.scope === 'module') {
+      if (research && !cur.moduleReports[c.module || '']?.synthesis && c.runRoot) answerRunRoot = c.runRoot
+    } else { // whole run
+      const hereServesRun = cur.reports.thesis || Object.values(cur.moduleReports).some((r) => !!r?.synthesis)
+      if (research && !hereServesRun && c.runRoot) answerRunRoot = c.runRoot
     }
     set({
       chatHistoryOpen: false,
@@ -1624,6 +1685,7 @@ export const useStore = create<State>((set, get) => ({
       chatModule: c.module,
       chatOrbPath: orbPath,
       chatOrbKey: c.orbKey,
+      chatAnswerRunRoot: answerRunRoot,
       chatTitle: c.title || defaultChatTitle(c.scope, c.subject, { module: c.module }),
       chatMessages: c.messages.map((m) => ({ role: m.role, content: m.content })),
       chatConversationId: c.id,
@@ -1632,6 +1694,19 @@ export const useStore = create<State>((set, get) => ({
       chatStreaming: false,
       chatError: undefined,
       chatSource: undefined,
+    })
+  },
+  // Start a brand-new Ask conversation about the selected company — used by the History panel's "New chat"
+  // button and its empty-state CTA. Always a fresh thread on the whole-run scope: closes History, opens Ask.
+  startNewChat: () => {
+    const t = get().selectedTicker
+    if (!t) { get().setToast({ msg: 'Select a company first', tone: 'info' }); return }
+    chatAbort?.abort(); chatAbort = null
+    set({
+      chatHistoryOpen: false, chatOpen: true, chatScope: 'run',
+      chatModule: undefined, chatOrbPath: undefined, chatOrbKey: undefined, chatAnswerRunRoot: undefined,
+      chatTitle: defaultChatTitle('run', t), chatMessages: [], chatConversationId: undefined,
+      chatError: undefined, chatSource: undefined, chatStreaming: false,
     })
   },
   deleteConversation: async (id) => {
@@ -1655,7 +1730,9 @@ export const useStore = create<State>((set, get) => ({
     const sw = get().activeSwarm
     await api.chatStream(
       {
-        ticker, runRoot: get().runRoot ?? undefined, scope: get().chatScope,
+        // a resumed conversation the current run can't serve answers from its original run (chatAnswerRunRoot);
+        // fresh chats and current-run resumes leave it undefined and use the live run.
+        ticker, runRoot: get().chatAnswerRunRoot ?? get().runRoot ?? undefined, scope: get().chatScope,
         // constellation swarm (e.g. commodity): the subject resolves the run folder server-side
         swarm: sw !== 'research' ? sw : undefined, subject: sw !== 'research' ? ticker : undefined,
         module: get().chatModule, orbPath: get().chatOrbPath, orbKey: get().chatOrbKey, model: get().chatModel, style: get().chatStyle,
@@ -2099,13 +2176,18 @@ export const useStore = create<State>((set, get) => ({
         if (Object.keys(patch).length) set(patch)
       } catch {}
     }
+    // first-ever visit: everything already on the wire counts as seen (once-only; see seedReadBaseline)
+    if (get().newsItems.length) get().seedReadBaseline(get().newsItems)
     if (!get().staticMode) connectNewsStream(get)
   },
 
   scSelectEvent: (it) => {
     // opening any event exits the company drill-down (the CompanyView takes main-stage precedence)
     set({ scSelectedEvent: it, scFocusedCompany: null })
-    if (it) void get().fetchEnrichment(it) // kick the enrichment the moment an event opens
+    if (it) {
+      get().markEventsRead([it.event_id]) // opening an item is what marks it read (RSS/Gmail standard)
+      void get().fetchEnrichment(it) // kick the enrichment the moment an event opens
+    }
   },
 
   scFocusCompany: (c) => set({ scFocusedCompany: c }),
@@ -2194,6 +2276,36 @@ export const useStore = create<State>((set, get) => ({
     saveShelf(next)
     const open = get().scSelectedEvent
     set({ shelvedEvents: next, ...(open && open.event_id === eventId && next.has(eventId) ? { scSelectedEvent: null } : {}) })
+  },
+
+  // mark one or many events read (opening an event, or "mark all read"). Idempotent — a no-op if nothing
+  // new, so it never fires a needless re-render.
+  markEventsRead: (ids) => {
+    const cur = get().readEvents
+    let next: Set<string> | null = null
+    for (const id of ids) {
+      if (!id || cur.has(id) || next?.has(id)) continue
+      if (!next) next = new Set(cur)
+      next.add(id)
+    }
+    if (!next) return
+    saveRead(next)
+    set({ readEvents: next })
+  },
+  // First-EVER visit only (gated by the persistent READ_SEEDED marker): fold everything already on the
+  // wire into the read set so the user starts clean and only new arrivals show unread. On every later
+  // visit this is a no-op, so genuine unread items are preserved across reloads.
+  seedReadBaseline: (items) => {
+    try {
+      if (localStorage.getItem(READ_SEEDED_KEY)) return
+      localStorage.setItem(READ_SEEDED_KEY, '1')
+    } catch {
+      return // storage blocked → skip seeding; unread simply tracks from now (worst case: some extra dots)
+    }
+    const next = new Set(get().readEvents)
+    for (const it of items) if (it?.event_id) next.add(it.event_id)
+    saveRead(next)
+    set({ readEvents: next })
   },
 
   // submit card feedback: mark it flagged (optimistic, local display cache), persist to the server
@@ -3285,6 +3397,7 @@ async function loadNewsFeed(set: any, get: () => State, force: boolean) {
   try {
     const { items } = await api.newsFeed(get().feedWindowDays || 2)
     set({ newsItems: items })
+    if (items.length) get().seedReadBaseline(items) // first-ever visit → clean slate (once-only)
   } catch {
     // keep whatever's shown — a transient failure must not destroy the data we were asked to reload
   } finally {
