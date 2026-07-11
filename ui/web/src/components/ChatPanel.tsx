@@ -2,7 +2,7 @@ import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
-import { useStore } from '../lib/store'
+import { useStore, isFlowActive } from '../lib/store'
 import type { ChatScope, ChatStyle } from '../lib/types'
 
 const titleize = (s: string) => s.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase())
@@ -63,7 +63,15 @@ export function ChatPanel() {
   const moduleReports = useStore((s) => s.moduleReports)
   const nodeRuntime = useStore((s) => s.nodeRuntime)
   const graph = useStore((s) => s.graph)
-  const scopes = useMemo(() => scopesFn(), [scopesFn, reports, moduleReports, nodeRuntime, graph, nodesByKey])
+  // the flow stage (screener) derives its scopes from the screener graph slices instead — keep them in the
+  // memo deps so a screener conversation's scope availability recomputes as the signal's orbs finish
+  const scGraph = useStore((s) => s.scGraph)
+  const scNodesByKey = useStore((s) => s.scNodesByKey)
+  const scRuntime = useStore((s) => s.scRuntime)
+  const scopes = useMemo(() => scopesFn(), [scopesFn, reports, moduleReports, nodeRuntime, graph, nodesByKey, scGraph, scNodesByKey, scRuntime])
+  // the flow stage (screener) runs its orbs through the gauntlet, not from this panel — so its "not produced
+  // yet" state offers no in-panel launch (the constellation launch actions don't apply to a screener signal)
+  const isFlow = useStore((s) => isFlowActive(s))
 
   const [draft, setDraft] = useState('')
   const [scopeMenu, setScopeMenu] = useState(false)
@@ -226,9 +234,11 @@ export function ChatPanel() {
           <div className="chatpanel__runfirst">
             <div className="chatpanel__runfirst-h">This {scope === 'run' ? 'run' : scope} hasn’t been produced yet</div>
             <p>Chat answers only from output the engine has already written. Run it first, then come back to ask about it.</p>
-            {scope === 'run'
-              ? <p className="chatpanel__hintline">Use <b>Run full ▸</b> in the top bar to run the whole pipeline.</p>
-              : <button className="btn btn--amber" disabled={staticMode || !!chatLaunchPending} onClick={runThisScope}>{chatLaunchPending ? 'Starting…' : scope === 'module' ? `Run ${titleize(chatModule || '')} ▸` : 'Run this orb ▸'}</button>}
+            {isFlow
+              ? <p className="chatpanel__hintline">This part of the signal hasn’t finished yet — it runs as part of the gauntlet. Come back once it completes.</p>
+              : scope === 'run'
+                ? <p className="chatpanel__hintline">Use <b>Run full ▸</b> in the top bar to run the whole pipeline.</p>
+                : <button className="btn btn--amber" disabled={staticMode || !!chatLaunchPending} onClick={runThisScope}>{chatLaunchPending ? 'Starting…' : scope === 'module' ? `Run ${titleize(chatModule || '')} ▸` : 'Run this orb ▸'}</button>}
           </div>
         ) : messages.length === 0 ? (
           <div className="chatpanel__empty">

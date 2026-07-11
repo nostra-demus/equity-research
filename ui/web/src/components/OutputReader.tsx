@@ -198,10 +198,11 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
   }
 
   // Chat about THIS output — opens the side panel pre-scoped to the open orb / module / run, answered
-  // only from what the engine already wrote. Research-only (the chat feature covers the research swarm);
-  // never shown for a pending (not-yet-run) output, since there's nothing to chat with.
+  // only from what the engine already wrote. Swarm-generic: the scope (run/module/orb) is derived from the
+  // open output's identity below, and openChat resolves the subject for the active swarm (a company/commodity
+  // run, or a screener signal run). Never shown for a pending (not-yet-run) output — nothing to chat with.
   function chatButton() {
-    if (activeSwarm !== 'research' || output.pending) return null
+    if (output.pending) return null
     const onClick = () => {
       if (isMaster) return openChat('run')
       if (agentNode?.isSynthesis) return openChat('module', { module: agentNode.module })
