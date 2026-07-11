@@ -119,6 +119,49 @@ export class Budget {
   get tokens(): number { return this.state.tokens }
 }
 
+// Cross-cycle provider COOLDOWN — a third free-tier guardrail, sitting alongside Budget and RateLimiter.
+// The in-cycle "stop poking a down provider" flag (runCycle groqDownThisCycle) only lives for ONE cycle;
+// the scheduler runs many cycles/day, so a sustained outage would still burn one failed probe on every
+// cycle — and a 429 / timeout still counts as a request against the daily cap. This marker persists an
+// "unhealthy until T" timestamp in STATE_DIR so repeated cycles STOP probing a provider that keeps
+// failing (routing straight to overflow / defer) until the window lapses. It is armed ONLY on a real
+// failure and cleared on the very next success, so a HEALTHY provider is never touched; and it decays by
+// time, so after the window one probe re-checks health — clearing it on success, re-arming on continued
+// failure. Best-effort I/O: a missed read/write only costs one extra probe, never the cycle.
+interface CooldownState { unhealthyUntil: number }
+const COOLDOWN_FILE = 'groq-health.json'
+
+/** Epoch ms the provider is considered unhealthy until (0 when there is no live marker). Never throws. */
+export function readCooldownUntil(stateDir: string, fileName = COOLDOWN_FILE): number {
+  try {
+    const s = JSON.parse(fs.readFileSync(path.join(stateDir, fileName), 'utf8')) as CooldownState
+    const t = Number(s?.unhealthyUntil)
+    return Number.isFinite(t) && t > 0 ? t : 0
+  } catch {
+    return 0 // no marker / unreadable → healthy
+  }
+}
+
+/** Arm the cooldown: mark the provider unhealthy until `now + cooldownMs`. Called on a real failure. */
+export function armCooldown(stateDir: string, now: number, cooldownMs: number, fileName = COOLDOWN_FILE): void {
+  if (!(cooldownMs > 0)) return
+  try {
+    fs.mkdirSync(stateDir, { recursive: true })
+    fs.writeFileSync(path.join(stateDir, fileName), JSON.stringify({ unhealthyUntil: now + cooldownMs }))
+  } catch {
+    // best-effort — a missed write just means we probe the down provider one more cycle
+  }
+}
+
+/** Clear the marker (provider recovered). No-op when none exists. */
+export function clearCooldown(stateDir: string, fileName = COOLDOWN_FILE): void {
+  try {
+    fs.rmSync(path.join(stateDir, fileName), { force: true })
+  } catch {
+    // best-effort — a stale marker with a PAST timestamp already reads as healthy anyway
+  }
+}
+
 // What Groq tells us about the live rate-limit state, parsed from the response headers (groq.ts).
 export interface RateInfo {
   tpmLimit?: number // x-ratelimit-limit-tokens — the per-MINUTE token ceiling (the binding free-tier limit)
