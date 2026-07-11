@@ -47,6 +47,26 @@ function saveFlagged(s: Set<string>): void {
   try { localStorage.setItem(FLAGGED_KEY, JSON.stringify([...s].slice(-500))) } catch {}
 }
 
+// --- read events: which wire items the user has already seen — the persistent read/unread state (an
+//     unopened item shows an unread dot + brighter headline; opening it, or "mark all read", clears it).
+//     Same per-browser localStorage shape as the shelf, keyed by event_id. A larger cap than the shelf
+//     because it accumulates as you read (Set keeps insertion order, so slice(-N) keeps the newest). The
+//     one-time READ_SEEDED marker gives a first-EVER visit a clean slate: everything already on the wire is
+//     marked read once, so only genuinely new arrivals from then on show as unread (no wall of dots). ---
+const READ_KEY = 'nsw.readEvents'
+const READ_SEEDED_KEY = 'nsw.readSeeded'
+function loadRead(): Set<string> {
+  try {
+    const raw = JSON.parse(localStorage.getItem(READ_KEY) || '[]')
+    return new Set(Array.isArray(raw) ? raw.filter((x) => typeof x === 'string') : [])
+  } catch {
+    return new Set()
+  }
+}
+function saveRead(s: Set<string>): void {
+  try { localStorage.setItem(READ_KEY, JSON.stringify([...s].slice(-4000))) } catch {}
+}
+
 // The research stage's renderer: the 3D globe (default) or the flat 2D constellation. A per-browser
 // presentation preference like the theme — persisted to localStorage, never leaves the machine. Globe is
 // the default; only an explicit 'constellation' choice opts out. init() coerces a stored/default 'globe'
@@ -410,6 +430,12 @@ interface State {
   // shelving: set an event aside (or bring it back) — local, persisted, filters the rail
   shelvedEvents: Set<string>
   toggleShelve: (eventId: string) => void
+  // read/unread: which wire items the user has already seen (local, persisted). Opening an event marks it
+  // read; markEventsRead is also the "mark all read" verb; seedReadBaseline gives a first-ever visit a
+  // clean slate so only genuinely new arrivals show as unread.
+  readEvents: Set<string>
+  markEventsRead: (ids: string[]) => void
+  seedReadBaseline: (items: FeedItem[]) => void
   // card feedback ("flag as irrelevant / mis-scored / …") — flaggedEvents is a local display cache;
   // the server ledger (screener/ledger/screener_feedback.ndjson) is the source of truth
   flaggedEvents: Set<string>
@@ -631,6 +657,7 @@ export const useStore = create<State>((set, get) => ({
   scSelectedEvent: null,
   scFocusedCompany: null,
   shelvedEvents: loadShelf(),
+  readEvents: loadRead(),
   flaggedEvents: loadFlagged(),
   reviewOpen: false,
   reviewFilters: emptyReviewFilters(),
@@ -2071,13 +2098,18 @@ export const useStore = create<State>((set, get) => ({
         if (Object.keys(patch).length) set(patch)
       } catch {}
     }
+    // first-ever visit: everything already on the wire counts as seen (once-only; see seedReadBaseline)
+    if (get().newsItems.length) get().seedReadBaseline(get().newsItems)
     if (!get().staticMode) connectNewsStream(get)
   },
 
   scSelectEvent: (it) => {
     // opening any event exits the company drill-down (the CompanyView takes main-stage precedence)
     set({ scSelectedEvent: it, scFocusedCompany: null })
-    if (it) void get().fetchEnrichment(it) // kick the enrichment the moment an event opens
+    if (it) {
+      get().markEventsRead([it.event_id]) // opening an item is what marks it read (RSS/Gmail standard)
+      void get().fetchEnrichment(it) // kick the enrichment the moment an event opens
+    }
   },
 
   scFocusCompany: (c) => set({ scFocusedCompany: c }),
@@ -2166,6 +2198,36 @@ export const useStore = create<State>((set, get) => ({
     saveShelf(next)
     const open = get().scSelectedEvent
     set({ shelvedEvents: next, ...(open && open.event_id === eventId && next.has(eventId) ? { scSelectedEvent: null } : {}) })
+  },
+
+  // mark one or many events read (opening an event, or "mark all read"). Idempotent — a no-op if nothing
+  // new, so it never fires a needless re-render.
+  markEventsRead: (ids) => {
+    const cur = get().readEvents
+    let next: Set<string> | null = null
+    for (const id of ids) {
+      if (!id || cur.has(id) || next?.has(id)) continue
+      if (!next) next = new Set(cur)
+      next.add(id)
+    }
+    if (!next) return
+    saveRead(next)
+    set({ readEvents: next })
+  },
+  // First-EVER visit only (gated by the persistent READ_SEEDED marker): fold everything already on the
+  // wire into the read set so the user starts clean and only new arrivals show unread. On every later
+  // visit this is a no-op, so genuine unread items are preserved across reloads.
+  seedReadBaseline: (items) => {
+    try {
+      if (localStorage.getItem(READ_SEEDED_KEY)) return
+      localStorage.setItem(READ_SEEDED_KEY, '1')
+    } catch {
+      return // storage blocked → skip seeding; unread simply tracks from now (worst case: some extra dots)
+    }
+    const next = new Set(get().readEvents)
+    for (const it of items) if (it?.event_id) next.add(it.event_id)
+    saveRead(next)
+    set({ readEvents: next })
   },
 
   // submit card feedback: mark it flagged (optimistic, local display cache), persist to the server
@@ -3242,6 +3304,7 @@ async function loadNewsFeed(set: any, get: () => State, force: boolean) {
   try {
     const { items } = await api.newsFeed(get().feedWindowDays || 2)
     set({ newsItems: items })
+    if (items.length) get().seedReadBaseline(items) // first-ever visit → clean slate (once-only)
   } catch {
     // keep whatever's shown — a transient failure must not destroy the data we were asked to reload
   } finally {
