@@ -116,22 +116,27 @@ const ROUNDUP_TERMS = [
 const ROUNDUP_NUM_RE = /\btop\s*\d+\b|\branked\b.{0,20}\b(companies|stocks|firms)\b/i
 
 const lc = (s: unknown): string => String(s ?? '').toLowerCase()
-/** Whole-word(ish) match: a term must sit on BOTH a left and a right alphanumeric boundary, so "gold"
- *  fires on "gold" but never inside "Goldman", "fta" never inside "after", "boj" never inside
- *  "Bojangles". We scan EVERY occurrence (not just the first), so a real standalone hit later in the
- *  string still counts even if an earlier occurrence was inside a word ("Goldman discusses gold").
- *  Multi-word terms ("natural gas") are bounded the same way at their outer edges. */
-function hasTerm(hay: string, term: string): boolean {
+/** Index of the first whole-word(ish) occurrence of `term` in `hay`, or -1. A term must sit on BOTH a
+ *  left and a right alphanumeric boundary, so "gold" fires on "gold" but never inside "Goldman", "fta"
+ *  never inside "after", "boj" never inside "Bojangles". We scan EVERY occurrence (not just the first),
+ *  so a real standalone hit later in the string still counts even if an earlier occurrence was inside a
+ *  word ("Goldman discusses gold"). Multi-word terms ("natural gas") are bounded the same way at their
+ *  outer edges. Exported (with hasTerm) so the per-commodity tagger (news/commodities.ts) uses the SAME
+ *  matcher as the scope lexicons — one boundary rule, no drift. */
+export function findTerm(hay: string, term: string): number {
   const t = term.trim()
-  if (!t) return false
+  if (!t) return -1
   for (let from = 0; ; ) {
     const i = hay.indexOf(t, from)
-    if (i < 0) return false
+    if (i < 0) return -1
     const before = i === 0 ? ' ' : hay[i - 1]
     const after = i + t.length >= hay.length ? ' ' : hay[i + t.length]
-    if (!/[a-z0-9]/.test(before) && !/[a-z0-9]/.test(after)) return true
+    if (!/[a-z0-9]/.test(before) && !/[a-z0-9]/.test(after)) return i
     from = i + 1
   }
+}
+export function hasTerm(hay: string, term: string): boolean {
+  return findTerm(hay, term) >= 0
 }
 const anyTerm = (hay: string, terms: string[]): boolean => terms.some((t) => hasTerm(hay, t))
 
