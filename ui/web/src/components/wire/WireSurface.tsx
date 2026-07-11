@@ -45,8 +45,14 @@ export function WireSurface({ config, home }: { config: WireConfig; home: ReactN
           {railOpen ? '‹' : '›'}
         </button>
         <div className="scstage__main">
+          {/* the pulse is a real top BAND (not an overlay): the content views below are each
+              position:absolute inset:0, so keeping the pulse in-flow above its own positioned body is
+              what lets its own overflow-x:auto scroll — an overlaid content layer would swallow the
+              horizontal wheel/drag over the strip */}
           {config.pulse && !focusedCompany && !event && <SubjectPulse />}
-          {focusedCompany ? <CompanyView /> : event ? <EventDetail it={event} /> : themesView ? <ThemesView /> : home}
+          <div className="scstage__body">
+            {focusedCompany ? <CompanyView /> : event ? <EventDetail it={event} /> : themesView ? <ThemesView /> : home}
+          </div>
         </div>
       </div>
     </WireProvider>
