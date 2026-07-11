@@ -337,6 +337,9 @@ def harvest_aliases(pool, tickers, ep):
         user_aliases = json.load(open(os.path.join(pool, INBOX_NAME, ".aliases.json"), encoding="utf-8"))
     except Exception:
         pass
+    if not isinstance(user_aliases, dict):
+        user_aliases = {}  # a valid-JSON but wrong-type sidecar (array/string/number) must degrade to "no
+        #                    aliases", not crash harvest_aliases (which runs every pass) and wedge the whole lane
     aliases = {}
     for t in tickers:
         names = set()

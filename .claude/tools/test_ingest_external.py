@@ -121,6 +121,19 @@ def main():
           any(b == "infra_spend.txt" and ts == ["AMZN"] for b, ts, *_ in res["routed"]), str(res))
     shutil.rmtree(root)
 
+    # ---- 3b. a wrong-TYPE .aliases.json (valid JSON, but an array/string, not an object) must degrade,
+    #          not crash the whole pass. harvest_aliases runs once per pass BEFORE the file loop, so an
+    #          uncaught AttributeError here wedged the entire lane (inbox never routes) until noticed. ----
+    root = tempfile.mkdtemp()
+    build_pool(root)
+    open(os.path.join(root, "EXTERNAL-INBOX", ".aliases.json"), "w").write('["AMZN", "AWS"]')  # array, not object
+    drop(root, "brand_note2.txt",
+         "Amazon results: Amazon grew, Amazon margins up, Amazon capex, Amazon guidance intact.")
+    res = m.run(root)  # used to raise AttributeError: 'list' object has no attribute 'get'
+    check("wrong-type .aliases.json degrades (pass completes; harvested alias still routes)",
+          any(b == "brand_note2.txt" and ts == ["AMZN"] for b, ts, *_ in res["routed"]), str(res))
+    shutil.rmtree(root)
+
     # ---- 4. multi-ticker copies to every matching pool ----
     root = tempfile.mkdtemp()
     build_pool(root)
