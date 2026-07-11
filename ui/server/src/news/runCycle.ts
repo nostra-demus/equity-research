@@ -21,7 +21,7 @@ import { resolveEventRegion } from './geo'
 import { resolveCountry } from './geography'
 import { invalidateFacets } from './facets'
 import { SeenCache } from './seen-cache'
-import { Budget, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter } from './triage/budget'
+import { Budget, armCooldown, clearCooldown, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter, readCooldownUntil } from './triage/budget'
 import { triageBatchGemini } from './triage/gemini'
 import { estimateTokens, scoreToBand, triageBatch } from './triage/groq'
 import { rankScore, preTriagePriority, capSocialBand, capSocialScore, deriveMaterialityLabel } from './rank'
@@ -249,6 +249,15 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   // straight to overflow — otherwise a sustained Groq outage burns the whole daily request cap on
   // failed calls (each 429 still counts as a request), locking Groq out even after the outage clears.
   let groqDownThisCycle = false
+  // CROSS-CYCLE cooldown: `groqDownThisCycle` only lives for one cycle, but the scheduler runs many
+  // cycles/day — so a sustained outage would still burn one failed probe PER cycle across thousands of
+  // cycles, which is exactly what emptied the request cap on 2026-07-11 (13,000 req / ~14,100 tok). A
+  // prior cycle that failed persists an "unhealthy until T" marker; while it's live we skip Groq entirely
+  // this cycle (straight to overflow / defer) and don't touch the marker (it decays by time). We read it
+  // once here: `groqCooldownUntil` is the persisted value (0 = none) — kept so that when the window has
+  // lapsed (marker present but NOT in the future) we probe once and clear the stale marker if it recovers.
+  const groqCooldownUntil = readCooldownUntil(stateDir)
+  const groqCoolingDown = groqCooldownUntil > now().getTime()
   const pace = { targetTokens: cfg.groqDailyTokenTarget, floorFrac: cfg.groqPaceFloorFrac }
 
   for (let i = 0; i < items.length; i += cfg.triageBatch) {
@@ -275,14 +284,19 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     // never stall triage: the batch flows to whoever is up. `res` stays undefined only when NOTHING
     // was even attempted (all daily budgets out) → that's the genuine "defer the rest" case.
     let res
-    if (groqOk && !groqDownThisCycle) {
+    if (groqOk && !groqDownThisCycle && !groqCoolingDown) {
       await limiter.acquire(est, sleep, () => now().getTime())
       res = await triageBatch(batch, { model: cfg.groqModel, baseUrl: cfg.groqBaseUrl, apiKey: cfg.groqApiKey, maxTokens: cfg.triageMaxTokens }, fetchFn, sleep)
       groqRequests += res.requests
       groqTokens += res.tokens
       budget.record(res.requests, res.tokens)
       limiter.learn(res.rate, () => now().getTime()) // track the live per-minute ceiling + back off on 429
-      if (!res.ok) groqDownThisCycle = true // Groq is having a bad cycle → skip it for the rest, save the cap
+      if (!res.ok) {
+        groqDownThisCycle = true // Groq is having a bad cycle → skip it for the rest of THIS cycle, save the cap
+        armCooldown(stateDir, now().getTime(), cfg.groqCooldownMs) // …and across cycles: skip probing until the window lapses
+      } else if (groqCooldownUntil) {
+        clearCooldown(stateDir) // a probe after the window lapsed SUCCEEDED → Groq recovered, drop the stale marker
+      }
     }
     if (!res || !res.ok) {
       // Walk the overflow chain for THIS SAME batch: a failing/exhausted provider advances to the NEXT one
@@ -479,11 +493,16 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   const overflowLog = overflow.filter((o) => o.requests).map((o) => ` · ${o.p.id} ${o.requests} req / ${o.tokens} tok`).join('')
   const note = budgetHit
     ? `daily LLM budget reached (all providers) — ${deferred.length} item${deferred.length === 1 ? '' : 's'} deferred to next cycle`
-    : paceHit
-      ? `paced for the day — ${deferred.length} item${deferred.length === 1 ? '' : 's'} held for the next drain (spreading the budget evenly)`
-      : batchFailed
-        ? `${deferred.length} item${deferred.length === 1 ? '' : 's'} not scored (LLM hiccup) — deferred to next cycle`
-        : undefined
+    : groqCoolingDown && deferred.length
+      // A prior cycle failed and armed the cross-cycle cooldown; we skipped Groq this cycle and had no
+      // overflow room. Say so honestly — otherwise this reads as the "paced for the day" note below, which
+      // wrongly implies a healthy budget being spread rather than a Groq outage being ridden out.
+      ? `Groq in failure cooldown — ${deferred.length} item${deferred.length === 1 ? '' : 's'} deferred (protecting the daily request cap after a Groq outage)`
+      : paceHit
+        ? `paced for the day — ${deferred.length} item${deferred.length === 1 ? '' : 's'} held for the next drain (spreading the budget evenly)`
+        : batchFailed
+          ? `${deferred.length} item${deferred.length === 1 ? '' : 's'} not scored (LLM hiccup) — deferred to next cycle`
+          : undefined
   const summary: CycleSummary = {
     ts, ok: true, fetched: raws.length, candidates: items.length,
     picked, watched, dropped, inboxed, groq_requests: groqRequests, groq_tokens: groqTokens,

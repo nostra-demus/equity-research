@@ -597,7 +597,11 @@ await check('a failed Groq batch is DEFERRED (not zero-scored-and-seen) and is s
     return res({ articles: [] })
   }) as unknown as typeof fetch
   const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false } as any
-  const now = () => new Date('2026-06-12T09:30:00Z')
+  // advanceable clock: cycle 1's Groq failure arms the cross-cycle cooldown (default 5 min), so cycle 2 must
+  // sit PAST that window to re-probe the recovered Groq — exactly how the real scheduler behaves (the next
+  // cycle after a failure keeps skipping Groq, protecting the daily request cap, until the cooldown lapses).
+  let nowMs = Date.parse('2026-06-12T09:30:00Z')
+  const now = () => new Date(nowMs)
 
   // cycle 1: Groq is down (503, retried, still down) — the item must NOT be scored-zero or marked seen
   const s1 = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
@@ -606,14 +610,74 @@ await check('a failed Groq batch is DEFERRED (not zero-scored-and-seen) and is s
   assert.match(s1.note || '', /deferred/) // and the summary says so honestly
   assert.ok(fs.existsSync(path.join(state, 'news-deferred.json'))) // the spillover persisted
 
-  // cycle 2: Groq is back, GDELT has nothing new — the item re-enters from the spillover and scores
+  // cycle 2: Groq is back and the cooldown has lapsed — the item re-enters from the spillover and scores
   groqUp = true
+  nowMs += 7 * 60_000 // step past the 5-min cooldown armed by cycle 1's failure
   const s2 = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
   assert.equal(s2.candidates, 1) // the requeued item
   assert.equal(s2.picked, 1) // scored this time
   const doc = JSON.parse(fs.readFileSync(path.join(root, 'screener/inbox/2026-06-12_sweep.json'), 'utf8'))
   assert.equal(doc.rows[0].url, 'https://reuters.com/once')
   assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 0) // spillover drained
+})
+
+// ---- the cross-cycle Groq COOLDOWN: a sustained outage stops burning the daily REQUEST cap ----
+// The in-cycle groqDownThisCycle guard resets every cycle, so BEFORE this fix each of the scheduler's
+// many cycles/day re-probed a down Groq and charged the failed call (a 429/timeout still counts as a
+// request) to the daily cap — draining it to 13,000/13,000 on only ~14,100 tokens (the 2026-07-11
+// incident). The cooldown makes the SECOND cycle (and every cycle until the window lapses) skip Groq
+// entirely: no call, no burn. A healthy Groq never arms it, and recovery is bounded by the window.
+await check('a sustained Groq outage arms a cross-cycle cooldown — the next cycle makes NO Groq call and burns NO more of the daily request cap', async () => {
+  const root = tmp()
+  const state = tmp()
+  let groqUp = false
+  let groqCalls = 0
+  const goodGroq = { usage: { total_tokens: 200 }, choices: [{ message: { content: JSON.stringify({ items: [
+    { i: 0, relevance: 'material', materiality_pre_score: 84, event_types: ['macro_sector'], issuer_linkage: 'macro', why: 'A 50 bps cut lowers funding costs.', companies: [], size_bucket: 'unknown' },
+  ] }) } }] }
+  let gdeltServed = false
+  const fetchFn = (async (url: string) => {
+    const u = String(url)
+    if (u.includes('groq')) { groqCalls++; return groqUp ? res(goodGroq) : res('upstream sad', 503) }
+    if (u.includes('gdelt') && !gdeltServed) {
+      gdeltServed = true // GDELT hands the article over ONCE — cycles 2+ rely on the spillover
+      return res({ articles: [{ url: 'https://reuters.com/once', title: 'RBI cuts repo rate 50 bps in surprise off-cycle move', domain: 'reuters.com', seendate: '20260612T090000Z' }] })
+    }
+    return res({ articles: [] })
+  }) as unknown as typeof fetch
+  // NO overflow configured → Groq is the only brain, so the outage's defer/burn behavior shows in isolation.
+  // themes off so the ONLY calls to the groq URL are triage probes (the themes namer hits the same baseUrl).
+  // groqCooldownMs left at the NEWS default (300s).
+  const cfg = { groqApiKey: 'k', gdeltBaseUrl: 'https://gdelt.test/doc', groqBaseUrl: 'https://groq.test', groqRpm: 6000, gdeltLookbackMin: 40, rssEnabled: false, themesEnabled: false } as any
+  let nowMs = Date.parse('2026-06-12T09:30:00Z')
+  const now = () => new Date(nowMs)
+  const groqReq = () => { try { return Number(JSON.parse(fs.readFileSync(path.join(state, 'groq-budget.json'), 'utf8')).requests) || 0 } catch { return 0 } }
+
+  // cycle 1: Groq down → it IS probed once (one batch, retried once = 2 requests charged), and the failure
+  // arms the outage marker
+  const s1 = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  assert.equal(s1.picked + s1.watched + s1.dropped, 0) // nothing scored — Groq was down
+  assert.equal(groqCalls, 2, 'cycle 1 probes the down Groq (one batch, retried once = 2 requests)')
+  const burnedAfter1 = groqReq()
+  assert.ok(burnedAfter1 >= 1, 'the failed probe was charged to the daily request budget')
+  assert.ok(fs.existsSync(path.join(state, 'groq-health.json')), 'the failure armed the cross-cycle cooldown marker')
+  assert.ok(JSON.parse(fs.readFileSync(path.join(state, 'groq-health.json'), 'utf8')).unhealthyUntil > nowMs, 'the marker holds a future unhealthy-until timestamp')
+
+  // cycle 2: STILL inside the cooldown window (clock unchanged) → Groq is NOT probed at all. THE FIX.
+  const s2 = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  assert.equal(groqCalls, 2, 'THE FIX: cycle 2 made NO Groq call while cooling down (was 2, still 2)')
+  assert.equal(groqReq(), burnedAfter1, 'and so it burned NO more of the daily request cap')
+  assert.match(s2.note || '', /cooldown/i) // the operator sees the honest reason, not a bogus "paced" note
+  assert.equal(JSON.parse(fs.readFileSync(path.join(state, 'news-deferred.json'), 'utf8')).length, 1, 'the item is still safely deferred (never lost)')
+
+  // cycle 3: clock steps PAST the cooldown AND Groq has recovered → it re-probes once, scores the spillover,
+  // and clears the marker. Recovery is bounded by the window, never blocked by it.
+  groqUp = true
+  nowMs += 7 * 60_000 // step past the 5-min cooldown armed by cycle 1
+  const s3 = await runIngestCycle({ repoRoot: root, stateDir: state, config: cfg, fetchFn, sleep: noSleep, now })
+  assert.equal(groqCalls, 3, 'cycle 3 re-probes the recovered Groq exactly once after the window lapsed')
+  assert.equal(s3.picked, 1, 'the deferred item scores as soon as Groq is healthy again')
+  assert.equal(fs.existsSync(path.join(state, 'groq-health.json')), false, 'a successful probe cleared the cooldown marker')
 })
 
 await check('mergeInbox: dismissed rows are preserved like consumed (never evicted, never resurrected)', () => {
