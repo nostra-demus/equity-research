@@ -1,6 +1,6 @@
 import { staticPromptPath } from './prompts'
 import { DEFAULT_RANK_WEIGHTS, type RankWeights, type RankWeightsState } from './rankWeights'
-import type { ActivityQuery, ActivityResult, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CoverageGroup, DataStatus, EventEnrichment, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SourcesReport, SwarmGraph, SwarmMeta, ThesisPlan, TickerSummary, UploadResult, Usage, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CoverageGroup, DataStatus, EventEnrichment, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, ThesisPlan, TickerSummary, UploadResult, Usage, Whoami } from './types'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -176,6 +176,12 @@ export const api = {
   screenerRun: async (sigId: string): Promise<any> => {
     if ((await ensureMode()) === 'static') return snap.screenerRuns?.[sigId] || null
     return get(`/api/screener/run?sig_id=${encodeURIComponent(sigId)}`)
+  },
+  signalState: async (p: { headline: string; sourceUrl?: string }): Promise<SignalState> => {
+    if ((await ensureMode()) === 'static') return { sigId: '', state: 'never', running: false }
+    const qs = new URLSearchParams({ headline: p.headline })
+    if (p.sourceUrl) qs.set('source_url', p.sourceUrl)
+    return get<SignalState>(`/api/screener/signal-state?${qs.toString()}`)
   },
   screenerThesis: async (thesisId: string): Promise<any> => {
     if ((await ensureMode()) === 'static') return snap.screenerTheses?.[thesisId] || null

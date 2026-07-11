@@ -18,7 +18,7 @@ import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, GDRIVE, HOST, NEWS, PORT, REPO_
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
 import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED } from './drive'
-import { cancel, cancelAll, cancelSubject, creditCheck, decideReadiness, estimate, launch, warmLaunchProbes } from './launcher'
+import { cancel, cancelAll, cancelSubject, creditCheck, decideReadiness, estimate, launch, sigIdFor, todayDate, warmLaunchProbes } from './launcher'
 import { newsBus } from './news/bus'
 import { readFeed, searchFeed } from './news/feed'
 import { matchesFeedFilters, parseFeedFilterQuery, explainFeedFilterMatch, type FeedFilterQuery } from './news/feed-filter'
@@ -42,7 +42,7 @@ import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt
 import { assembleContext, buildChatPrompts, scopeAvailability } from './chat-context'
 import { chatTurnsInFlight, runChatTurn } from './chat-llm'
 import { deleteConversation, getConversation, isValidConversationId, listConversations, recordAssistantMessage, recordUserMessage } from './chat-store'
-import { dataPoolPresent, readCandidates, readConviction, readConvictionCalibration, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest, screenerSubjectLabels } from './screener'
+import { dataPoolPresent, deriveSignalState, readCandidates, readConviction, readConvictionCalibration, readHandoffs, readScreenerMarkdown, readThesis, screenerBoard, screenerRunManifest, screenerSubjectLabels } from './screener'
 import { listSwarms, RESEARCH_SWARM_ID, swarmById } from './swarms'
 import { getNewsStatus, startNewsIngester } from './news/scheduler'
 import { startConvictionLoop } from './conviction-dispatch'
@@ -1083,6 +1083,21 @@ app.get('/api/screener/run', async (req, reply) => {
   } catch (e: any) {
     return reply.code(e?.code === 'ENOENT' ? 404 : 400).send({ error: 'cannot read run', detail: String(e?.message || e) })
   }
+})
+
+// Run-state of a WIRE event's signal, for the reader's "Run the checks" control. Computes the SIG-id the
+// SAME way a launch would (sigIdFor with today's local date — the recipe that hashes headline|url|date), then
+// derives never/running/parked/logged/watchlist/partial/complete as a pure read. No launch, no write.
+app.get('/api/screener/signal-state', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req) => {
+  const q = req.query as { headline?: string; source_url?: string; url?: string }
+  const headline = String(q.headline || '').trim()
+  if (headline.length < 8) return { sigId: '', state: 'never' as const, running: false } // can't identify a signal
+  const sourceUrl = String(q.source_url || q.url || '')
+  // reuse the launcher's own date+id recipe (not a re-derivation) so the probe's SIG-id EQUALS what a launch
+  // produces — see todayDate()/sigIdFor. NOTE: identity is stamped with today's local date, so a run created
+  // on a prior day (or an event opened across midnight) reads 'never' — same-day is the supported case.
+  const sigId = sigIdFor({ headline, source_url: sourceUrl } as Parameters<typeof sigIdFor>[0], todayDate())
+  return deriveSignalState(sigId)
 })
 
 app.get('/api/screener/thesis/:id', async (req, reply) => {

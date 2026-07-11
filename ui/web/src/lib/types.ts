@@ -468,6 +468,19 @@ export interface BoardThesis {
   conviction?: BoardConviction | null
 }
 export interface BoardHandoff { handoff_id: string; thesis_id: string; ticker: string; handed_off_at: string; seeded_path: string }
+// Run-state of a wire event's signal (GET /api/screener/signal-state) — drives the reader's "Run the checks"
+// split button + badge. A pure read of the run folder + live registry; never a launch.
+export interface SignalState {
+  sigId: string
+  state: 'never' | 'running' | 'parked' | 'logged' | 'watchlist' | 'partial' | 'complete'
+  running: boolean
+  runningModule?: string | null
+  materiality?: number | null
+  routing?: string | null
+  locked?: boolean
+  hasCandidates?: boolean
+  doneModules?: string[]
+}
 export interface ScreenerBoard {
   generated_at: string | null
   inbox: BoardInboxRow[]

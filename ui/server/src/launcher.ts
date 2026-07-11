@@ -135,7 +135,11 @@ async function claudeAvailable(): Promise<boolean> {
   return claudeOk
 }
 
-function todayDate(d: Date = new Date()): string {
+// Local-calendar date that stamps a launch's SIG-id (both the hash input and the id prefix). Exported so
+// the read-only signal-state probe computes the SAME id instead of re-deriving the recipe from a comment —
+// if this ever changes (UTC, format), the probe follows automatically rather than silently reading 'never'.
+// Accepts an optional Date so callers can derive the date a past run started on, not just "today".
+export function todayDate(d: Date = new Date()): string {
   return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
 }
 
@@ -1072,15 +1076,23 @@ export async function cancelAll(): Promise<string[]> {
 export async function cancelSubject(subjectId: string, swarmId = 'research'): Promise<string[]> {
   haltAllChains() // no queued chain step can launch after this (global epoch bump — same as any chained cancel)
   const cancelled: string[] = []
+  const stopping: RunState[] = []
   for (const r of listRuns()) {
     if (!IN_FLIGHT_STATUSES.has(r.status)) continue
     if (r.subjectId !== subjectId || r.swarmId !== swarmId) continue
+    stopping.push(r) // hold the RunState — cancel() drops it from the in-flight set, so we can't re-find it after
     try {
       if (await cancel(r.runId)) cancelled.push(r.runId)
     } catch {
       // keep stopping the rest — one stuck run must not shield the others
     }
   }
+  // cancel() only SIGTERMs and returns BEFORE the child dies, yet the run has already left the in-flight set —
+  // so a relaunch admitted immediately after (a Stop→Continue on the same subject) could start a SECOND engine
+  // writing the SAME run dir while the first is still flushing. Wait for the killed children to actually exit
+  // before returning, so the next launch admits onto a clean subject (best-effort: awaitRunsExited bounds the
+  // wait at the SIGKILL window). This mirrors the force-launch guard, applied to the explicit-cancel path too.
+  if (stopping.length) await awaitRunsExited(stopping)
   return cancelled
 }
 
