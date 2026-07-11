@@ -487,7 +487,7 @@ export function PipelineBoard() {
     <motion.div className="pipeline" initial={{ opacity: 0, x: '100%' }} animate={{ opacity: 1, x: 0 }} exit={{ x: '100%' }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}>
       <div className="pipeline__head">
         <div className="pipeline__titlewrap">
-          <div className="pipeline__title">{detail?.thesis ? 'Analysis' : 'Recent runs'}</div>
+          <div className="pipeline__title">{detail?.thesis ? 'Analysis' : 'Runs'}</div>
           <div className="pipeline__sub">{detail?.thesis ? 'one idea, opened up' : 'your live book — every checked event, ranked by how it’s holding up'}</div>
         </div>
         <div className="pipeline__tools">
