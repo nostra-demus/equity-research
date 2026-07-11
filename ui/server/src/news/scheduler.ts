@@ -273,10 +273,13 @@ export function startNewsIngester(): void {
   process.once('exit', () => releaseIngesterLock(STATE_DIR))
   const log = (m: string) => console.log(`[news] ${m}`) // eslint-disable-line no-console
   const tick = async () => {
+    // Advance BEFORE the overlap guard. setInterval fires on schedule whether or not we run, so the next
+    // fetch attempt is always one interval away — even when this tick is skipped because a drain is still
+    // in flight. Assigning after the guard left nextCycleAt frozen at the last tick that actually ran, so
+    // a busy backlog (drains hogging `running`) made the status report a next look already in the PAST.
+    nextCycleAt = new Date(Date.now() + NEWS.pollIntervalMin * 60_000).toISOString().replace(/\.\d{3}Z$/, 'Z')
     if (running) return // never overlap cycles
     running = true
-    // next fire is interval-anchored from the tick START (matches setInterval's cadence)
-    nextCycleAt = new Date(Date.now() + NEWS.pollIntervalMin * 60_000).toISOString().replace(/\.\d{3}Z$/, 'Z')
     try {
       const summary = await runAbortableCycle(
         (signal) => runIngestCycle({ log, signal, fetchFn: withCycleSignal(fetch, signal) }),

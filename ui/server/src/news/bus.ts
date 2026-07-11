@@ -7,6 +7,10 @@ import type { ThemeSummary } from './themes/types'
 
 export type NewsBusEvent =
   | { type: 'news-item'; item: FeedItem }
+  // Fired the moment a cycle BEGINS, so the cockpit can say "looking now" for the whole cycle instead
+  // of staying blind until the summary lands. `phase` separates a real fetch from a backlog drain
+  // (a drain scores deferred items and never touches the network).
+  | { type: 'news-cycle-start'; ts: string; phase: 'fetch' | 'drain' }
   | { type: 'news-cycle'; summary: CycleSummary }
   | { type: 'theme-update'; theme: ThemeSummary }
 
