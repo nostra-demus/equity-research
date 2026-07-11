@@ -69,6 +69,10 @@ export interface ThemeMember {
   // domain-region FLOOR the archive applies (resolveCountry step c) — without it a geo slice and the geo
   // Events list disagree for items whose only geography signal is their source region.
   region?: string
+  // canonical commodity subject(s) the member's headline names (news/commodities.ts — 'GOLD' etc.) —
+  // the key the commodity-sliced themes view filters on, exactly like `country` for the geo slice.
+  // Optional: members written before this field existed are derived lazily at read time.
+  commodities?: string[]
 }
 
 export interface RelatedTheme {
@@ -175,6 +179,7 @@ export interface ThemeItemView {
   scope?: string
   region?: string // legacy 8-bucket market region (geo.ts) — a coarse floor
   country?: string | null // ISO alpha-2 the event is ABOUT (geography.ts) — persisted onto the member for geo slicing
+  commodities?: string[] // canonical commodity tag(s) (news/commodities.ts) — persisted onto the member for commodity slicing
 }
 
 // One mutation line appended to screener/ledger/themes.ndjson (last-line-per-theme_id wins on rebuild).

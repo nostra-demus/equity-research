@@ -12,9 +12,9 @@ function check(name: string, fn: () => void) {
   catch (e: any) { console.error(`FAIL  ${name}\n      ${e?.stack || e?.message || e}`); process.exitCode = 1 }
 }
 
-const EXPECTED = ['irrelevant', 'score_too_high', 'score_too_low', 'wrong_company', 'wrong_sector', 'duplicate_stale', 'should_be_higher', 'other']
+const EXPECTED = ['irrelevant', 'score_too_high', 'score_too_low', 'wrong_company', 'wrong_sector', 'duplicate_stale', 'should_be_higher', 'relevant', 'other']
 
-check('exactly the 8 feedback types, matching the server enum in order', () => {
+check('exactly the 9 feedback types, matching the server enum in order', () => {
   assert.deepEqual(FEEDBACK_TYPES, EXPECTED)
 })
 

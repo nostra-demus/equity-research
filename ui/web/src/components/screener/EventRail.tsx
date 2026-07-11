@@ -23,6 +23,9 @@ import type { ArchiveQuery } from '../../lib/api'
 import { FeedbackMenu } from './FeedbackMenu'
 import { ScanStatus } from './ScanStatus'
 import type { ReportMenuAnchor } from '../ActivityReportMenu'
+import { itemOnWire, subjectOfItem, WIRE_OTHER } from '../../lib/wire'
+import { useWireConfig } from '../wire/WireContext'
+import { SubjectChips } from '../wire/SubjectChips'
 
 // a multi-select dropdown for a broad scope with dynamic sub-values (Sector, Commodity). "All X" =
 // the whole scope; specific picks narrow to those. Closes on outside-click / Escape.
@@ -93,7 +96,7 @@ function ScopeChip({ it }: { it: FeedItem }) {
   )
 }
 
-function EventRow({ group, selected, shelved, fresh, onPick, onShelve }: { group: StoryGroup; selected: boolean; shelved: boolean; fresh: boolean; onPick: (it: FeedItem) => void; onShelve: (id: string) => void }) {
+function EventRow({ group, selected, shelved, fresh, unread, onPick, onShelve }: { group: StoryGroup; selected: boolean; shelved: boolean; fresh: boolean; unread: boolean; onPick: (it: FeedItem) => void; onShelve: (id: string) => void }) {
   const it = group.rep
   const [expanded, setExpanded] = useState(false)
   const [feedbackAnchor, setFeedbackAnchor] = useState<ReportMenuAnchor | null>(null)
@@ -110,9 +113,10 @@ function EventRow({ group, selected, shelved, fresh, onPick, onShelve }: { group
       ? `+${group.others.length} more`
       : ''
   return (
-    <div className={`evrow${selected ? ' evrow--on' : ''}${kept ? '' : ' evrow--dropped'}${shelved ? ' evrow--shelved' : ''}${fresh ? ' evrow--fresh' : ''}`}>
+    <div className={`evrow${selected ? ' evrow--on' : ''}${kept ? '' : ' evrow--dropped'}${shelved ? ' evrow--shelved' : ''}${fresh ? ' evrow--fresh' : ''}${unread ? ' evrow--unread' : ''}`}>
       {fresh && <span className="evrow__glow" aria-hidden />}
-      <button type="button" className="evrow__hit" onClick={() => onPick(it)} title={[displayHeadline(it), origHl && `original: ${origHl}`].filter(Boolean).join('\n')}>
+      {unread && <span className="evrow__unread" aria-hidden title="Unread — you haven't opened this yet" />}
+      <button type="button" className="evrow__hit" onClick={() => onPick(it)} title={[unread ? '● Unread' : null, displayHeadline(it), origHl && `original: ${origHl}`].filter(Boolean).join('\n')}>
         <span className="evrow__rail" aria-hidden style={{ background: tone }} />
         <span className="evrow__top">
           <span className="evrow__score mono" style={{ color: tone, borderColor: tone }}>
@@ -188,7 +192,13 @@ function EventRow({ group, selected, shelved, fresh, onPick, onShelve }: { group
 }
 
 export function EventRail() {
-  const liveItems = useStore((s) => s.newsItems)
+  // the active wire's capabilities (lib/wire.ts) — the rail branches on these, never on a swarm id
+  const cfg = useWireConfig()
+  const subjectMode = cfg.groupBy === 'subject'
+  const rawItems = useStore((s) => s.newsItems)
+  // a subject-grouped wire is a PROJECTION of the shared firehose: only items on this wire (tagged with
+  // a tracked subject, or in the wire's declared scope bucket) — the flow wire carries everything
+  const liveItems = useMemo(() => (subjectMode ? rawItems.filter((i) => itemOnWire(i, cfg)) : rawItems), [rawItems, subjectMode, cfg])
   const freshEvents = useStore((s) => s.freshEvents)
   const status = useStore((s) => s.newsStatus)
   const streamOnline = useStore((s) => s.newsStreamOnline)
@@ -199,6 +209,8 @@ export function EventRail() {
   const pick = useStore((s) => s.scSelectEvent)
   const shelvedEvents = useStore((s) => s.shelvedEvents)
   const toggleShelve = useStore((s) => s.toggleShelve)
+  const readEvents = useStore((s) => s.readEvents)
+  const markEventsRead = useStore((s) => s.markEventsRead)
   const themesOpen = useStore((s) => s.themesView !== null)
   const openThemes = useStore((s) => s.openThemes)
   const closeThemes = useStore((s) => s.closeThemes)
@@ -218,9 +230,12 @@ export function EventRail() {
   const runArchiveSearch = useStore((s) => s.scRunArchiveSearch)
   const loadMoreArchive = useStore((s) => s.scLoadMoreArchive)
   const loadFacets = useStore((s) => s.scLoadFacets)
-  const [view, setView] = useState<View>('ranked')
+  const [view, setView] = useState<View>(cfg.defaultView === 'latest' && !cfg.flow ? 'latest' : 'ranked')
   // multi-select: empty = show everything; otherwise show the UNION of the picked scopes
   const [scopeFilter, setScopeFilter] = useState<Set<ScopeId>>(new Set())
+  // subject-grouped wires: the UNION of picked subject chips (GOLD / SUGAR / … / Other); empty = all
+  const [subjectSel, setSubjectSel] = useState<Set<string>>(new Set())
+  const setThemesSubject = useStore((s) => s.setThemesSubject)
   const [showShelved, setShowShelved] = useState(false)
   // the secondary filters (theme / search / sector / size) — now always visible
   const [filters, setFilters] = useState<FeedFilterState>(emptyFilters())
@@ -246,6 +261,11 @@ export function EventRail() {
   // live 2-day SSE wire to a server-side search over the WHOLE since-inception archive — so a sparse
   // filter finds matches buried deep in history instead of falsely reading "nothing".
   const archiveMode = archiveFiltersActive(filters)
+  // picked subject chips ride into the archive query as the server's commodities= clause, so a deep
+  // history search stays scoped to the same subjects the live rail shows. "Other" has no per-subject
+  // server key — with it picked the search falls back to the whole wire (the wireScope clause the store
+  // merges), which over-includes rather than silently hiding matches.
+  const subjectPicks = useMemo(() => [...subjectSel].filter((s) => s !== WIRE_OTHER), [subjectSel])
   const archiveQuery = useMemo<ArchiveQuery>(() => ({
     themes: filters.themes.size ? [...filters.themes] : undefined,
     country: filters.country || undefined,
@@ -253,8 +273,9 @@ export function EventRail() {
     size: filters.size || undefined,
     gicsSector: filters.gicsSector || undefined,
     gicsSubSector: filters.gicsSubSector || undefined,
+    commodities: subjectMode && subjectPicks.length && !subjectSel.has(WIRE_OTHER) ? subjectPicks : undefined,
     text: filters.text.trim() || undefined,
-  }), [filters])
+  }), [filters, subjectMode, subjectPicks, subjectSel])
   const archiveKey = JSON.stringify(archiveQuery)
   // fire the search when the filter changes (debounced so typing in the search box doesn't spam the server);
   // an empty filter returns the rail to LIVE mode. The store guards against a stale slow response winning.
@@ -322,6 +343,20 @@ export function EventRail() {
   const companyTotal = COMPANY_SCOPES.reduce((n, s) => n + (counts[s] || 0), 0)
   const broadTotal = BROAD_SCOPES.reduce((n, s) => n + (counts[s] || 0), 0)
 
+  // per-SUBJECT counts over the refined set (subject-grouped wires) — drive the subject chips
+  const subjectCounts = useMemo(() => {
+    if (!subjectMode) return {}
+    const c: Record<string, number> = {}
+    for (const g of refined) c[subjectOfItem(g.rep, cfg)] = (c[subjectOfItem(g.rep, cfg)] || 0) + 1
+    return c
+  }, [refined, subjectMode, cfg])
+  // mirror a SINGLE picked subject into the store so the Themes map/board slice to it (like the geography)
+  useEffect(() => {
+    if (!subjectMode) return
+    const single = subjectSel.size === 1 ? [...subjectSel][0] : null
+    setThemesSubject(single && single !== WIRE_OTHER ? single : null)
+  }, [subjectMode, subjectSel, setThemesSubject])
+
   // dynamic sub-value lists for the Sector / Commodity dropdowns — only what's actually shown, with counts
   const sectorOptions = useMemo(() => {
     const c: Record<string, number> = {}
@@ -351,8 +386,12 @@ export function EventRail() {
   }, [filters.country, filters.geoRegion, countryLabel, setThemesGeo])
 
   // the broad filter: a UNION of the picked scope chips + the Sector/Commodity sub-selections, applied on
-  // top of the refined set
+  // top of the refined set. Subject-grouped wires filter by their subject chips instead.
   const visibleGroups = useMemo(() => {
+    if (subjectMode) {
+      if (!subjectSel.size) return refined
+      return refined.filter((g) => subjectSel.has(subjectOfItem(g.rep, cfg)))
+    }
     if (!broadActive) return refined
     return refined.filter((g) => {
       const sc = scopeOf(g.rep)
@@ -361,10 +400,17 @@ export function EventRail() {
       if (sc === 'commodity' && (commSel.all || extractCommodities(displayHeadline(g.rep)).some((x) => commSel.picks.has(x)))) return true
       return false
     })
-  }, [refined, scopeFilter, sectorSel, commSel, broadActive])
+  }, [refined, scopeFilter, sectorSel, commSel, broadActive, subjectMode, subjectSel, cfg])
   const isFresh = (g: StoryGroup) => g.members.some((m) => freshEvents.has(m.event_id))
+  // a story is unread until its lead item is opened (or "mark all read"). Read state lives on the rep, so a
+  // whole cluster clears when you open it — matching how the row is keyed everywhere else.
+  const isUnread = (g: StoryGroup) => !readEvents.has(g.rep.event_id)
 
   const shelvedInBand = useMemo(() => groups.reduce((n, g) => n + (shelvedEvents.has(g.rep.event_id) ? 1 : 0), 0), [groups, shelvedEvents])
+  // unread among what's actually on screen now (respects the current view + filters), so "N new · Mark all
+  // read" always matches the list beneath it. Marking all read clears exactly those rows.
+  const unreadVisible = useMemo(() => visibleGroups.filter((g) => !readEvents.has(g.rep.event_id)), [visibleGroups, readEvents])
+  const markAllRead = () => markEventsRead(unreadVisible.map((g) => g.rep.event_id))
 
   // The GICS-specific empty line applies ONLY when GICS is the sole structured narrower: if the scope chips
   // (broadActive) also narrowed, the empty list may be theirs, so we fall through to the generic line
@@ -428,7 +474,9 @@ export function EventRail() {
             <button type="button" className="evrail__scanbtn" onClick={openSources} title="Every source we pull from — when its data last arrived and whether it's healthy, quiet, failing or idle">
               Sources
             </button>
-            {!staticMode && (
+            {/* the paid top-up sweep is a flow-stage (gauntlet) action — wire-only swarms read the same
+                stream but don't own the sweep */}
+            {!staticMode && cfg.flow && (
               <button
                 type="button"
                 className={`evrail__scanbtn evrail__scanbtn--primary${armScan ? ' evrail__scanbtn--armed' : ''}`}
@@ -464,8 +512,12 @@ export function EventRail() {
           </button>
         </div>
 
-        {/* SCOPE filter — tap to add/remove (multi-select); company-specific vs broad context */}
-        <div className="evscope" role="group" aria-label="Filter by what the event is about — tap to add or remove">
+        {/* SCOPE filter — tap to add/remove (multi-select); company-specific vs broad context.
+            Subject-grouped wires show their canonical SUBJECT chips instead (same look, same rules). */}
+        {subjectMode ? (
+          <SubjectChips counts={subjectCounts} total={refined.length} sel={subjectSel} onChange={setSubjectSel} />
+        ) : (
+          <div className="evscope" role="group" aria-label="Filter by what the event is about — tap to add or remove">
           <button type="button" className={`evscope__chip evscope__chip--all${!broadActive ? ' evscope__chip--on' : ''}`} onClick={clearBroad} aria-pressed={!broadActive} title="Show every category">
             {!broadActive && <span className="evscope__tick" aria-hidden>✓</span>}
             All<span className="evscope__n">{refined.length}</span>
@@ -488,9 +540,10 @@ export function EventRail() {
               {scopeChip('policy')}
             </span>
           )}
-        </div>
-        {scopeFilter.size === 1 && <div className="evscope__meaning">{SCOPES[[...scopeFilter][0]].meaning}</div>}
-        {scopeFilter.size > 1 && <div className="evscope__meaning">Showing {scopeFilter.size} categories together — tap All to reset.</div>}
+          </div>
+        )}
+        {!subjectMode && scopeFilter.size === 1 && <div className="evscope__meaning">{SCOPES[[...scopeFilter][0]].meaning}</div>}
+        {!subjectMode && scopeFilter.size > 1 && <div className="evscope__meaning">Showing {scopeFilter.size} categories together — tap All to reset.</div>}
 
         {/* GEOGRAPHY — country-level, Continent → Country, fed by the ARCHIVE facets (every country with any
             archived match, with counts), NOT the loaded window. Picking either flips the rail to a
@@ -556,9 +609,21 @@ export function EventRail() {
         )}
       </header>
 
+      {unreadVisible.length > 0 && (
+        <div className="evrail__unreadbar">
+          <span className="evrail__unreadcount">
+            <span className="evrail__unreaddot" aria-hidden />
+            {unreadVisible.length} new
+          </span>
+          <button type="button" className="evrail__markread" onClick={markAllRead} title="Mark every event shown here as read">
+            Mark all read
+          </button>
+        </div>
+      )}
+
       <div className="evrail__list" ref={listRef}>
         {visibleGroups.map((g) => (
-          <EventRow key={g.group} group={g} selected={inGroup(selected, g)} shelved={shelvedEvents.has(g.rep.event_id)} fresh={isFresh(g)} onPick={pick} onShelve={toggleShelve} />
+          <EventRow key={g.group} group={g} selected={inGroup(selected, g)} shelved={shelvedEvents.has(g.rep.event_id)} fresh={isFresh(g)} unread={isUnread(g)} onPick={pick} onShelve={toggleShelve} />
         ))}
         {/* Render the paging sentinel whenever a next cursor remains — even when THIS page filtered to zero
             visible rows (e.g. a page of all band='drop' items hidden in Ranked/Latest). Gating it on
@@ -576,13 +641,15 @@ export function EventRail() {
                 : `Searched all history${archiveScannedThrough ? ` back to ${dateLabel(archiveScannedThrough)}` : ''} — genuinely nothing matches ${filterSummary || 'these filters'}. This is the WHOLE archive, not just the last two days.`
               : gicsEmptyLine
               ? gicsEmptyLine
-              : broadActive || filtersActive(filters)
+              : broadActive || filtersActive(filters) || (subjectMode && subjectSel.size > 0)
               ? 'Nothing matches these filters right now — tap All or clear the filters to see the rest.'
               : items.length
                 ? view === 'ranked'
                   ? 'Nothing ranked yet — switch to Everything to see the full wire.'
                   : 'Nothing here yet — new events appear the moment the scanner scores them.'
-                : status?.enabled
+                : subjectMode && rawItems.length
+                  ? 'Nothing on this wire in the loaded window — the scanner keeps watching; use the filters to search all history.'
+                  : status?.enabled
                   ? 'Nothing read yet. New events appear here the moment the scanner scores them.'
                   : 'The auto-scan is off, so the wire is quiet. You can still check an event yourself from the top bar.'}
           </div>

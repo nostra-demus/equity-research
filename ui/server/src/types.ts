@@ -45,6 +45,19 @@ export interface SwarmRoutingContract {
   continue: string[] // routing values that let the next module run
 }
 
+// A swarm's OPTIONAL self-declared news-wire capability (`wire:` in SWARM.md front-matter). Presence
+// turns the shared wire surface on for that swarm (CLAUDE.md §26: the manifest declares, the engine
+// interprets generically — no swarm id is ever hardcoded). The screener's wire is the grandfathered
+// implicit default of its 'flow' layout; research declares nothing. Absent on /api/swarms => the
+// client renders that swarm exactly as before (deploy-skew fail-closed).
+export interface SwarmWireDecl {
+  eventScope?: string // pre-filter the swarm's feed/search/facets/themes to this scope (news/scope.ts ScopeId)
+  groupBy?: string // 'subject' => the rail groups + filters by the swarm's canonical subjects
+  subjectField?: string // the FeedItem field carrying the canonical subject id (e.g. 'commodity' -> 'GOLD')
+  pulse?: string // repo-relative pulse-source config (frameworks/...); presence enables /api/swarm/pulse
+  defaultView?: string // rail landing tab ('themes' | 'ranked' | 'latest')
+}
+
 export interface SwarmManifest {
   id: string
   label: string
@@ -66,6 +79,7 @@ export interface SwarmManifest {
   // no subject/swarm name is hardcoded (CLAUDE.md §26). Absent for research/screener.
   subjectsSource?: string
   routing?: SwarmRoutingContract // absent for research (it uses triage Sufficiency semantics)
+  wire?: SwarmWireDecl // absent unless the swarm declares a news-wire capability (see SwarmWireDecl)
 }
 
 // ---- data-status ----
@@ -84,6 +98,11 @@ export type FileType =
   | 'financials'
   | 'guidance'
   | 'user_note'
+  // externally ingested research under data/<TICKER>/external/ (frameworks/EXTERNAL_DATA.md):
+  // alt-data panels, expert calls, channel checks, broker notes, paid-API pulls. Deliberately ONE
+  // readiness-NEUTRAL type — no readiness rule keys on it, so an expert-call "transcript" can never
+  // fill the earnings transcript slot; the granular kind lives in `external.sourceType`.
+  | 'external_data'
   | 'other'
 
 // A module's OPTIONAL self-declared data-readiness rule (in its 00-triage frontmatter as
@@ -115,6 +134,15 @@ export interface ClassifiedFile {
   // present for multi-tab workbooks (.xls/.xlsx/.xlsm): one entry per tab, so the
   // cockpit shows every sheet instead of one opaque file. Read via extract_pool.py.
   sheets?: WorkbookSheet[]
+  // present for files under data/<TICKER>/external/ — provenance from the document's
+  // `.source.json` sidecar (or path-derived: provider = folder name). frameworks/EXTERNAL_DATA.md.
+  external?: {
+    provider?: string
+    sourceType?: string // alt_data_panel | expert_call | channel_check | broker_research | ...
+    tier?: number // CLAUDE.md §4 tier the provenance maps to
+    asOf?: string
+    license?: string
+  }
 }
 
 export interface ModuleReadiness {

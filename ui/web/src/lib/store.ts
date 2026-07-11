@@ -6,8 +6,9 @@ import { moduleLabel, resolveVerdict } from './format'
 import { displayHeadline, originalHeadline, plainRoute, plainStage } from './plain'
 import type { Theme, ThemeDetail, ThemeBrief } from './themes'
 import { intensityWindowForHours } from './themes'
+import { deriveWireConfig, type WireConfig, type WirePulseSubject } from './wire'
 import type { ActiveRunLite, AgentNode, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, CycleSummary, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, ThesisPlan, TickerSummary, Usage } from './types'
-import { feedbackInputFromItem, feedbackLabel } from './feedbackTypes'
+import { feedbackInputFromItem, feedbackLabel, polarityOf } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
 import { emptyReviewFilters, matchesReviewFilters, type ReviewFilterState } from '../components/screener/ReviewFilters'
 
@@ -45,6 +46,50 @@ function loadFlagged(): Set<string> {
 }
 function saveFlagged(s: Set<string>): void {
   try { localStorage.setItem(FLAGGED_KEY, JSON.stringify([...s].slice(-500))) } catch {}
+}
+
+// --- which THUMB the reader last rated an event with (up / down) — drives the filled thumb in the reader
+//     so a rating survives a reload. Same local-cache spirit as flaggedEvents; the server ledger is still
+//     authoritative for the actual reasons. ---
+const RATED_KEY = 'nsw.ratedPolarity'
+function loadRated(): Record<string, 'up' | 'down'> {
+  try {
+    const raw = JSON.parse(localStorage.getItem(RATED_KEY) || '{}')
+    if (!raw || typeof raw !== 'object') return {}
+    const out: Record<string, 'up' | 'down'> = {}
+    for (const [k, v] of Object.entries(raw)) if (v === 'up' || v === 'down') out[k] = v
+    return out
+  } catch {
+    return {}
+  }
+}
+function saveRated(m: Record<string, 'up' | 'down'>): void {
+  // Keep only the most-recent ~500 (insertion order) so the cache can't grow unbounded — same cap as the shelf.
+  try {
+    const keys = Object.keys(m)
+    const trimmed = keys.length > 500 ? Object.fromEntries(keys.slice(-500).map((k) => [k, m[k]])) : m
+    localStorage.setItem(RATED_KEY, JSON.stringify(trimmed))
+  } catch {}
+}
+
+// --- read events: which wire items the user has already seen — the persistent read/unread state (an
+//     unopened item shows an unread dot + brighter headline; opening it, or "mark all read", clears it).
+//     Same per-browser localStorage shape as the shelf, keyed by event_id. A larger cap than the shelf
+//     because it accumulates as you read (Set keeps insertion order, so slice(-N) keeps the newest). The
+//     one-time READ_SEEDED marker gives a first-EVER visit a clean slate: everything already on the wire is
+//     marked read once, so only genuinely new arrivals from then on show as unread (no wall of dots). ---
+const READ_KEY = 'nsw.readEvents'
+const READ_SEEDED_KEY = 'nsw.readSeeded'
+function loadRead(): Set<string> {
+  try {
+    const raw = JSON.parse(localStorage.getItem(READ_KEY) || '[]')
+    return new Set(Array.isArray(raw) ? raw.filter((x) => typeof x === 'string') : [])
+  } catch {
+    return new Set()
+  }
+}
+function saveRead(s: Set<string>): void {
+  try { localStorage.setItem(READ_KEY, JSON.stringify([...s].slice(-4000))) } catch {}
 }
 
 // The research stage's renderer: the 3D globe (default) or the flat 2D constellation. A per-browser
@@ -202,7 +247,9 @@ interface State {
   chainTickers: Set<string> // tickers whose full run is a per-module CHAIN — defer the "complete" celebration to the master step
   selectToken: number
   runStream: StreamRow[]
-  dismissRunStream: () => void // clear the persisted last-run rows (closes the run-stream side panel)
+  runPanelDismissed: boolean // user closed the run-stream panel while nothing was live; re-shows on the next live run
+  dismissRunStream: () => void // hide the run-stream side panel (allowed only when nothing is live)
+  reopenRunStream: () => void // bring the run-stream side panel back (the top-bar "Runs" affordance)
   coreBloom: boolean
   decision: any | null
   runRoot: string | null
@@ -216,6 +263,11 @@ interface State {
   chatModule?: string
   chatOrbPath?: string
   chatOrbKey?: string
+  // Set only when RESUMING a saved conversation whose scope the CURRENT run can't serve (a newer/mid-flight
+  // run replaced it): the run folder the next turn is answered from — the run the conversation was originally
+  // answered from, whose files are still on disk. undefined ⇒ answer from the live current run (fresh chats,
+  // and resumes the current run still serves). Also tells the panel a resumed thread is answerable (not "run first").
+  chatAnswerRunRoot?: string
   chatTitle: string
   chatModel: string
   chatStyle: ChatStyle // narration style — sticky preference, default 'simple'
@@ -351,6 +403,7 @@ interface State {
   openChatHistory: () => void
   closeChatHistory: () => void
   resumeConversation: (id: string) => Promise<void> // reopen a saved conversation and keep chatting
+  startNewChat: () => void // open a fresh Ask conversation (from the history panel or elsewhere)
   deleteConversation: (id: string) => Promise<void>
   openActivity: () => void
   closeActivity: () => void
@@ -410,10 +463,19 @@ interface State {
   // shelving: set an event aside (or bring it back) — local, persisted, filters the rail
   shelvedEvents: Set<string>
   toggleShelve: (eventId: string) => void
+  // read/unread: which wire items the user has already seen (local, persisted). Opening an event marks it
+  // read; markEventsRead is also the "mark all read" verb; seedReadBaseline gives a first-ever visit a
+  // clean slate so only genuinely new arrivals show as unread.
+  readEvents: Set<string>
+  markEventsRead: (ids: string[]) => void
+  seedReadBaseline: (items: FeedItem[]) => void
   // card feedback ("flag as irrelevant / mis-scored / …") — flaggedEvents is a local display cache;
   // the server ledger (screener/ledger/screener_feedback.ndjson) is the source of truth
   flaggedEvents: Set<string>
-  submitFeedback: (input: FeedbackSubmitInput) => Promise<boolean>
+  // which thumb the reader last rated each event with — drives the filled 👍/👎 in the reader (persisted)
+  ratedPolarity: Record<string, 'up' | 'down'>
+  // `polarity` records which thumb lit up; omit it and it's derived from the reason (`other` needs it explicit)
+  submitFeedback: (input: FeedbackSubmitInput, polarity?: 'up' | 'down') => Promise<boolean>
   undoFeedbackFlow: (feedbackId: string, eventId: string) => Promise<void>
   // fast batch review mode: a focused, filtered, keyboard-driven queue over the same wire — reuses
   // submitFeedback above, so there is exactly one storage path for both flows
@@ -516,12 +578,40 @@ interface State {
   selectTheme: (id: string | null) => Promise<void>
   regenerateThemeBrief: () => Promise<void>
   refreshThemes: () => Promise<void>
+
+  // ---- wire (the swarm-generic news-wire surface — lib/wire.ts; shared by every swarm that declares one) ----
+  wireSwarm: string // which swarm OWNS the wire view state (archive query, themes geo/subject) — reset on change
+  themesSubject: string | null // single selected subject chip, mirrored to the Themes slice (like themesGeo)
+  setThemesSubject: (s: string | null) => void
+  wirePulse: Record<string, WirePulseSubject> // per-subject pulse (price / positioning / reports / verdict)
+  wirePulseAt: number | null // when the snapshot landed (ms) — the refresh TTL
+  wirePulseStale: boolean // the server said its own upstream fetch failed (serving cached)
+  refreshWirePulse: (force?: boolean) => Promise<void>
+  requestFullForSubject: (subject: string) => Promise<void> // one-click "Run full ▸ GOLD" (select + confirm arc)
+  _enterWire: (to: string) => void // owner-keyed wire view-state reset (mirrors constellationSwarm)
 }
 
 function flatten(graph: SwarmGraph): Map<string, AgentNode> {
   const m = new Map<string, AgentNode>()
   for (const mod of graph.modules) for (const a of Object.values(mod.layers).flat()) m.set(a.key, a)
   return m
+}
+
+// ---- wire (the swarm-generic news-wire surface — lib/wire.ts) ----
+// The ACTIVE swarm's wire config, derived fresh each call from the swarm list + subject list (both tiny).
+// Null = no wire for this swarm (an old server's meta carries no `wire`, so this fails closed by shape).
+export function activeWireConfig(s: { swarms: SwarmMeta[]; activeSwarm: string; swarmSubjectList: string[] }): WireConfig | null {
+  return deriveWireConfig(s.swarms.find((m) => m.id === s.activeSwarm), s.swarmSubjectList)
+}
+// the swarm-level wire-membership clause merged into every archive/facets query a NON-flow wire sends
+function withWireClause(s: { swarms: SwarmMeta[]; activeSwarm: string; swarmSubjectList: string[] }, q: ArchiveQuery): ArchiveQuery {
+  const cfg = activeWireConfig(s)
+  return cfg && !cfg.flow && cfg.eventScope && !q.commodities?.length ? { ...q, wireScope: cfg.eventScope } : q
+}
+// is the active swarm the flow stage? (layout-driven, mirroring App.tsx's first-frame fallback — the
+// board/gauntlet are flow-stage features, not tied to a hardcoded swarm id beyond that grandfathered default)
+function isFlowActive(s: { swarms: SwarmMeta[]; activeSwarm: string }): boolean {
+  return (s.swarms.find((m) => m.id === s.activeSwarm)?.layout ?? (s.activeSwarm === 'screener' ? 'flow' : 'constellation')) === 'flow'
 }
 
 // default header title for the chat panel given a scope + the company
@@ -534,7 +624,7 @@ function defaultChatTitle(scope: ChatScope, ticker: string, opts?: { module?: st
 
 // the chat-panel scope state cleared on every teardown (ticker switch, swarm switch) so a conversation
 // never bleeds across companies. Mirrors how openOutput is nulled alongside it.
-const CHAT_RESET = { chatOpen: false, chatStreaming: false, chatMessages: [] as ChatMessage[], chatError: undefined as string | undefined, chatSource: undefined as string | undefined, chatConversationId: undefined as string | undefined }
+const CHAT_RESET = { chatOpen: false, chatStreaming: false, chatMessages: [] as ChatMessage[], chatError: undefined as string | undefined, chatSource: undefined as string | undefined, chatConversationId: undefined as string | undefined, chatAnswerRunRoot: undefined as string | undefined }
 
 export const useStore = create<State>((set, get) => ({
   connected: true,
@@ -568,6 +658,7 @@ export const useStore = create<State>((set, get) => ({
   chainTickers: new Set(),
   selectToken: 0,
   runStream: [],
+  runPanelDismissed: false,
   coreBloom: false,
   decision: null,
   runRoot: null,
@@ -584,6 +675,7 @@ export const useStore = create<State>((set, get) => ({
   chatModule: undefined,
   chatOrbPath: undefined,
   chatOrbKey: undefined,
+  chatAnswerRunRoot: undefined,
   chatTitle: '',
   chatModel: 'sonnet',
   chatStyle: loadChatStyle(),
@@ -631,7 +723,9 @@ export const useStore = create<State>((set, get) => ({
   scSelectedEvent: null,
   scFocusedCompany: null,
   shelvedEvents: loadShelf(),
+  readEvents: loadRead(),
   flaggedEvents: loadFlagged(),
+  ratedPolarity: loadRated(),
   reviewOpen: false,
   reviewFilters: emptyReviewFilters(),
   reviewQueue: [],
@@ -676,6 +770,11 @@ export const useStore = create<State>((set, get) => ({
   themeBriefLoading: false,
   themesStatus: 'idle',
   themesLoading: false,
+  wireSwarm: '',
+  themesSubject: null,
+  wirePulse: {},
+  wirePulseAt: null,
+  wirePulseStale: false,
   globalActive: [],
   stopListOpen: false,
 
@@ -757,7 +856,7 @@ export const useStore = create<State>((set, get) => ({
     const activeRuns = Object.fromEntries(Object.entries(get().activeRuns).filter(([, r]) => LIVE_RUN.has(r.status)))
     chatAbort?.abort(); chatAbort = null // a new subject → drop any in-flight chat + its thread
     // the completion plan is per-subject disk truth — never let a previous subject's plan survive a switch
-    set({ selectToken: token, selectedTicker: t, constellationSwarm: sw, dataStatus: null, dataLoading: isResearch, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], activeRuns, openOutput: null, thesisPlan: null, thesisPlanOpen: false, thesisPlanError: null, ...CHAT_RESET })
+    set({ selectToken: token, selectedTicker: t, constellationSwarm: sw, dataStatus: null, dataLoading: isResearch, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], runPanelDismissed: false, activeRuns, openOutput: null, thesisPlan: null, thesisPlanOpen: false, thesisPlanError: null, ...CHAT_RESET })
     const graph = isResearch ? await api.swarm(t) : await api.swarmGraph(sw, t)
     if (get().selectToken !== token) return // a newer selection superseded this one
     set({ graph, nodesByKey: flatten(graph) })
@@ -1168,7 +1267,10 @@ export const useStore = create<State>((set, get) => ({
 
   cancelLaunch: () => set({ launchConfirm: null }),
 
-  dismissRunStream: () => set({ runStream: [] }),
+  // Hide the run-stream panel. Keep the run rows in state (so reopening restores them); a boolean flag drives
+  // visibility. The panel re-shows automatically on the next live run (see RunStreamPanel's anyLive effect).
+  dismissRunStream: () => set({ runPanelDismissed: true }),
+  reopenRunStream: () => set({ runPanelDismissed: false }),
 
   cancelRun: async (runId) => {
     const run = get().activeRuns[runId]
@@ -1535,7 +1637,7 @@ export const useStore = create<State>((set, get) => ({
     chatAbort?.abort(); chatAbort = null
     set({
       chatOpen: true, chatScope: scope,
-      chatModule: opts?.module, chatOrbPath: opts?.orbPath, chatOrbKey: opts?.orbKey,
+      chatModule: opts?.module, chatOrbPath: opts?.orbPath, chatOrbKey: opts?.orbKey, chatAnswerRunRoot: undefined,
       chatTitle: defaultChatTitle(scope, t, opts),
       chatError: undefined, chatSource: undefined, chatStreaming: false,
       // a different scope starts a fresh thread AND a fresh saved conversation; reopening the same scope keeps both
@@ -1546,7 +1648,7 @@ export const useStore = create<State>((set, get) => ({
   setChatScope: (scope, opts) => {
     chatAbort?.abort(); chatAbort = null
     set({
-      chatScope: scope, chatModule: opts?.module, chatOrbPath: opts?.orbPath, chatOrbKey: opts?.orbKey,
+      chatScope: scope, chatModule: opts?.module, chatOrbPath: opts?.orbPath, chatOrbKey: opts?.orbKey, chatAnswerRunRoot: undefined,
       chatMessages: [], chatStreaming: false, chatError: undefined, chatSource: undefined, chatConversationId: undefined,
       chatTitle: defaultChatTitle(scope, get().selectedTicker || '', opts),
     })
@@ -1554,7 +1656,7 @@ export const useStore = create<State>((set, get) => ({
   setChatModel: (m) => set({ chatModel: m }),
   setChatStyle: (s) => { try { localStorage.setItem(CHAT_STYLE_KEY, s) } catch { /* blocked storage */ } set({ chatStyle: s }) },
   // Clear starts a NEW conversation (fresh saved thread); the prior one stays in history — nothing is lost.
-  clearChat: () => { chatAbort?.abort(); chatAbort = null; set({ chatMessages: [], chatError: undefined, chatStreaming: false, chatSource: undefined, chatConversationId: undefined }) },
+  clearChat: () => { chatAbort?.abort(); chatAbort = null; set({ chatMessages: [], chatError: undefined, chatStreaming: false, chatSource: undefined, chatConversationId: undefined, chatAnswerRunRoot: undefined }) },
 
   // ---- saved chat history (persisted Ask conversations) ----
   openChatHistory: () => set({ chatHistoryOpen: true }),
@@ -1582,12 +1684,33 @@ export const useStore = create<State>((set, get) => ({
     }
     // select the subject if we're not already on it (loads its graph/manifest; applies CHAT_RESET itself)
     if (get().selectedTicker !== c.subject) await get().selectTicker(c.subject)
-    // an orb conversation's saved path may point at an older run folder — re-resolve it from the current
-    // run by the stable orb key, so "continue" chats against the latest output of that orb.
+    // Decide which run to answer this resumed conversation from, and keep the thread chat-able. Prefer the
+    // CURRENT run when it can still serve the conversation's scope (so "continue" chats the latest output);
+    // otherwise fall back to the run the conversation was originally answered from (c.runRoot) — analyses/
+    // runs are committed, so those files are still on disk. Either way a saved conversation is never gated as
+    // "not produced" just because a newer run replaced it or one is mid-flight (the old failure: a stale orb
+    // path was re-checked against the current run's manifest and rejected by both the panel and the server).
+    // Research only: only its chat route honours an explicit older runRoot — a constellation swarm resolves
+    // the run from the subject, so the override can't reach it; leave those on today's behaviour.
+    const cur = get()
+    const research = cur.activeSwarm === 'research'
     let orbPath = c.orbPath
-    if (c.scope === 'orb' && c.orbKey) {
-      const rt = get().nodeRuntime[c.orbKey]
-      if (rt?.outputPath) orbPath = rt.outputPath
+    let answerRunRoot: string | undefined // undefined ⇒ answer from the live current run
+    if (c.scope === 'orb') {
+      const rt = c.orbKey ? cur.nodeRuntime[c.orbKey] : undefined
+      if (rt?.status === 'done' && rt.outputPath) orbPath = rt.outputPath // latest output of this orb, current run
+      else if (research && c.orbPath) {
+        // current run can't serve it → answer from the run this orb was originally answered from: c.runRoot
+        // when stored (#170+), else derived from the saved path (analyses/<TICKER>_<DATE>/<module>/<file>.md),
+        // so even a pre-#170 orb conversation with no stored runRoot still reopens.
+        const orig = c.runRoot || c.orbPath.match(/^(analyses\/[^/]+)\//)?.[1]
+        if (orig) { orbPath = c.orbPath; answerRunRoot = orig }
+      }
+    } else if (c.scope === 'module') {
+      if (research && !cur.moduleReports[c.module || '']?.synthesis && c.runRoot) answerRunRoot = c.runRoot
+    } else { // whole run
+      const hereServesRun = cur.reports.thesis || Object.values(cur.moduleReports).some((r) => !!r?.synthesis)
+      if (research && !hereServesRun && c.runRoot) answerRunRoot = c.runRoot
     }
     set({
       chatHistoryOpen: false,
@@ -1596,6 +1719,7 @@ export const useStore = create<State>((set, get) => ({
       chatModule: c.module,
       chatOrbPath: orbPath,
       chatOrbKey: c.orbKey,
+      chatAnswerRunRoot: answerRunRoot,
       chatTitle: c.title || defaultChatTitle(c.scope, c.subject, { module: c.module }),
       chatMessages: c.messages.map((m) => ({ role: m.role, content: m.content })),
       chatConversationId: c.id,
@@ -1604,6 +1728,19 @@ export const useStore = create<State>((set, get) => ({
       chatStreaming: false,
       chatError: undefined,
       chatSource: undefined,
+    })
+  },
+  // Start a brand-new Ask conversation about the selected company — used by the History panel's "New chat"
+  // button and its empty-state CTA. Always a fresh thread on the whole-run scope: closes History, opens Ask.
+  startNewChat: () => {
+    const t = get().selectedTicker
+    if (!t) { get().setToast({ msg: 'Select a company first', tone: 'info' }); return }
+    chatAbort?.abort(); chatAbort = null
+    set({
+      chatHistoryOpen: false, chatOpen: true, chatScope: 'run',
+      chatModule: undefined, chatOrbPath: undefined, chatOrbKey: undefined, chatAnswerRunRoot: undefined,
+      chatTitle: defaultChatTitle('run', t), chatMessages: [], chatConversationId: undefined,
+      chatError: undefined, chatSource: undefined, chatStreaming: false,
     })
   },
   deleteConversation: async (id) => {
@@ -1627,7 +1764,9 @@ export const useStore = create<State>((set, get) => ({
     const sw = get().activeSwarm
     await api.chatStream(
       {
-        ticker, runRoot: get().runRoot ?? undefined, scope: get().chatScope,
+        // a resumed conversation the current run can't serve answers from its original run (chatAnswerRunRoot);
+        // fresh chats and current-run resumes leave it undefined and use the live run.
+        ticker, runRoot: get().chatAnswerRunRoot ?? get().runRoot ?? undefined, scope: get().chatScope,
         // constellation swarm (e.g. commodity): the subject resolves the run folder server-side
         swarm: sw !== 'research' ? sw : undefined, subject: sw !== 'research' ? ticker : undefined,
         module: get().chatModule, orbPath: get().chatOrbPath, orbKey: get().chatOrbKey, model: get().chatModel, style: get().chatStyle,
@@ -1781,9 +1920,9 @@ export const useStore = create<State>((set, get) => ({
       const reconnected = get().health !== 'online' // down → up (or the first connect)
       outageStartedAt = 0 // engine answered — end any grace clock
       set({ health: 'online', healthFailCount: 0, lastHealthOkAt: Date.now(), connected: true })
-      // connection is back — re-pull the screener board so any run the engine forgot during the break
+      // connection is back — re-pull the flow-stage board so any run the engine forgot during the break
       // resumes on its own (scRefreshBoard → _maybeAutoResume). The cooldown/live guards stop doubles.
-      if (reconnected && get().activeSwarm === 'screener') void get().scRefreshBoard()
+      if (reconnected && isFlowActive(get())) void get().scRefreshBoard()
     } else if (outcome === 'session') {
       outageStartedAt = 0 // an Access/session issue, not an engine outage
       set({ health: 'session-expired', connected: false })
@@ -1798,7 +1937,7 @@ export const useStore = create<State>((set, get) => ({
         const reconnected = get().health !== 'online'
         outageStartedAt = 0 // the live wire proves the engine is up — end any grace clock
         set({ health: 'online', healthFailCount: 0, lastHealthOkAt: Date.now(), connected: true })
-        if (reconnected && get().activeSwarm === 'screener') void get().scRefreshBoard()
+        if (reconnected && isFlowActive(get())) void get().scRefreshBoard()
       } else {
         const n = get().healthFailCount + 1
         if (!outageStartedAt) outageStartedAt = Date.now() // first genuine fail of this outage → start the grace clock
@@ -1988,7 +2127,7 @@ export const useStore = create<State>((set, get) => ({
 
   _enterSwarm: (to) => {
     const layout = get().swarms.find((s) => s.id === to)?.layout
-    if (layout === 'flow') { void get().scInit(); return } // screener boots its own board + wire
+    if (layout === 'flow') { get()._enterWire(to); void get().scInit(); return } // the flow stage boots its own board + wire
     // constellation swarm (research or commodity): both share the graph/selectedTicker slices, so reset
     // the selection when the owner changes (a screener detour leaves constellationSwarm untouched, so
     // returning to research keeps its selection). Then load the swarm's subject list (commodity only).
@@ -2000,6 +2139,32 @@ export const useStore = create<State>((set, get) => ({
       })
     }
     if (to !== 'research') void get().loadSwarmSubjects(to)
+    // a constellation swarm that DECLARES a wire (manifest `wire:` block) boots the shared wire surface
+    // too: reset the wire's view state to this owner, backfill + attach the one shared news stream, and
+    // pull the pulse. Absent on old servers → none of this runs (fail-closed).
+    if (get().swarms.find((s) => s.id === to)?.wire) {
+      get()._enterWire(to)
+      void get().scEnsureNewsStream()
+      void get().refreshWirePulse(true)
+    }
+  },
+
+  // Owner-keyed wire view-state reset (mirrors the constellationSwarm pattern above): the archive query,
+  // facets, themes geo/subject/window and open theme belong to ONE wire at a time — switching wire owners
+  // must never leak a commodity archive query into the screener rail (or vice versa). The shared data
+  // plane (newsItems, the SSE singleton, enrichment cache, shelf/flags) is deliberately NOT touched.
+  _enterWire: (to) => {
+    if (get().wireSwarm === to) return
+    set({
+      wireSwarm: to,
+      scArchiveQuery: {}, scArchiveResults: [], scArchiveCursor: null, scArchiveLoading: false,
+      scArchiveLoadingMore: false, scArchiveScannedThrough: null, scArchiveExhausted: false,
+      scFacets: null, scFacetsLoading: false,
+      themes: [], themesStatus: 'idle', themesView: null, themesWindow: null,
+      themesGeo: { country: '', geoRegion: '', label: '' }, themesSubject: null,
+      selectedTheme: null, themeDetail: null, themeBrief: null, themeBriefLoading: false,
+      feedWindowDays: 2,
+    })
   },
 
   loadSwarmSubjects: async (swarmId) => {
@@ -2071,13 +2236,18 @@ export const useStore = create<State>((set, get) => ({
         if (Object.keys(patch).length) set(patch)
       } catch {}
     }
+    // first-ever visit: everything already on the wire counts as seen (once-only; see seedReadBaseline)
+    if (get().newsItems.length) get().seedReadBaseline(get().newsItems)
     if (!get().staticMode) connectNewsStream(get)
   },
 
   scSelectEvent: (it) => {
     // opening any event exits the company drill-down (the CompanyView takes main-stage precedence)
     set({ scSelectedEvent: it, scFocusedCompany: null })
-    if (it) void get().fetchEnrichment(it) // kick the enrichment the moment an event opens
+    if (it) {
+      get().markEventsRead([it.event_id]) // opening an item is what marks it read (RSS/Gmail standard)
+      void get().fetchEnrichment(it) // kick the enrichment the moment an event opens
+    }
   },
 
   scFocusCompany: (c) => set({ scFocusedCompany: c }),
@@ -2087,13 +2257,29 @@ export const useStore = create<State>((set, get) => ({
     try {
       const g = get().themesGeo
       const geo = g.country || g.geoRegion ? { country: g.country || undefined, geoRegion: g.geoRegion || undefined } : undefined
-      const idx = await api.newsThemes(geo)
-      // guard a slow geo response landing after the geo changed again (last-write-wins on the current geo)
+      // a non-flow wire slices the SAME themes to its own flow (server themes/commodity-index.ts) —
+      // narrowed further to one subject when a single chip is selected (themesSubject, like themesGeo)
+      const cfg = activeWireConfig(get())
+      const subject = get().themesSubject
+      const slice = cfg && !cfg.flow && cfg.eventScope ? { scope: cfg.eventScope, commodity: subject || undefined } : undefined
+      const idx = await api.newsThemes(geo, slice)
+      // guard a slow response landing after the geo/subject changed again (last-write-wins on the current slice)
       const now = get().themesGeo
-      if (now.country !== g.country || now.geoRegion !== g.geoRegion) return
+      if (now.country !== g.country || now.geoRegion !== g.geoRegion || get().themesSubject !== subject) return
       set({ themes: idx.themes, themesHistoryDays: idx.history_days || 0, themesStatus: 'ready' })
     } catch {
       set({ themesStatus: 'error' })
+    }
+  },
+  // the wire rail's subject chips call this so the Themes map/board slice to the same single subject —
+  // the exact themesGeo pattern (debounced refetch, display updates without a wasted round-trip).
+  setThemesSubject: (s) => {
+    if (get().themesSubject === s) return
+    set({ themesSubject: s })
+    if (get().themesView !== null) {
+      set({ themesStatus: get().themes.length ? 'ready' : 'loading' })
+      if (themesGeoRefetchTimer) clearTimeout(themesGeoRefetchTimer)
+      themesGeoRefetchTimer = setTimeout(() => void get().refreshThemes(), 300)
     }
   },
   // the Event rail's "Where" picker calls this so the Themes map/board slice to the same geography. Only
@@ -2158,6 +2344,31 @@ export const useStore = create<State>((set, get) => ({
     }
   },
 
+  // ---- wire pulse + one-click launch (the swarm-generic wire's own actions) ----
+  // Pull the per-subject pulse snapshot (price / positioning / next reports / last verdict) for the
+  // active wire. TTL-gated (60s) so the news-cycle hook can call it freely; `force` on wire entry.
+  // Failure keeps the prior snapshot — the strip degrades to its own quiet error state, never blanks.
+  refreshWirePulse: async (force = false) => {
+    const cfg = activeWireConfig(get())
+    if (!cfg?.pulse) return
+    const at = get().wirePulseAt
+    if (!force && at && Date.now() - at < 60_000) return
+    try {
+      const snap = await api.swarmPulse(cfg.swarmId)
+      if (!snap || get().activeSwarm !== cfg.swarmId) return // stale landing after a swarm switch
+      set({ wirePulse: snap.subjects || {}, wirePulseAt: Date.now(), wirePulseStale: !!snap.stale })
+    } catch { /* keep the prior snapshot */ }
+  },
+
+  // One-click "Run full ▸ <SUBJECT>" from the wire (reader launch bar / subject chips): select the
+  // subject (loads its graph + last decision, exactly like the picker) then open the existing Run-full
+  // confirm arc (estimate → LaunchConfirm → /<ns>:full <SUBJECT> → the constellation animates).
+  requestFullForSubject: async (subject) => {
+    if (!subject) return
+    await get().selectTicker(subject)
+    await get().requestFull()
+  },
+
   // set an event aside / bring it back (local, persisted). If the shelved event is the open one, close it.
   toggleShelve: (eventId) => {
     const next = new Set(get().shelvedEvents)
@@ -2168,16 +2379,55 @@ export const useStore = create<State>((set, get) => ({
     set({ shelvedEvents: next, ...(open && open.event_id === eventId && next.has(eventId) ? { scSelectedEvent: null } : {}) })
   },
 
+  // mark one or many events read (opening an event, or "mark all read"). Idempotent — a no-op if nothing
+  // new, so it never fires a needless re-render.
+  markEventsRead: (ids) => {
+    const cur = get().readEvents
+    let next: Set<string> | null = null
+    for (const id of ids) {
+      if (!id || cur.has(id) || next?.has(id)) continue
+      if (!next) next = new Set(cur)
+      next.add(id)
+    }
+    if (!next) return
+    saveRead(next)
+    set({ readEvents: next })
+  },
+  // First-EVER visit only (gated by the persistent READ_SEEDED marker): fold everything already on the
+  // wire into the read set so the user starts clean and only new arrivals show unread. On every later
+  // visit this is a no-op, so genuine unread items are preserved across reloads.
+  seedReadBaseline: (items) => {
+    try {
+      if (localStorage.getItem(READ_SEEDED_KEY)) return
+      localStorage.setItem(READ_SEEDED_KEY, '1')
+    } catch {
+      return // storage blocked → skip seeding; unread simply tracks from now (worst case: some extra dots)
+    }
+    const next = new Set(get().readEvents)
+    for (const it of items) if (it?.event_id) next.add(it.event_id)
+    saveRead(next)
+    set({ readEvents: next })
+  },
+
   // submit card feedback: mark it flagged (optimistic, local display cache), persist to the server
   // ledger, and toast a confirmation with a short-window Undo. Rolled back on a failed save.
   // Returns true only when the ledger POST actually succeeded — the batch-review path relies on this to
   // decide whether to advance to the next card (a failed save must NOT silently skip a card).
-  submitFeedback: async (input) => {
+  submitFeedback: async (input, polarity) => {
     if (get().staticMode) { get().setToast({ msg: 'Read-only showcase — feedback needs a live engine.', tone: 'info' }); return false }
+    const pol = polarity ?? polarityOf(input.feedback_type) // `other` arrives with an explicit thumb; the rest derive
+    // Snapshot the PRIOR state so a failed POST restores exactly what was there — re-rating an
+    // already-rated event and hitting a network error must not wipe the rating it already had.
+    const prevFlagged = get().flaggedEvents.has(input.event_id)
+    const prevPol = get().ratedPolarity[input.event_id]
+    // Only a 👎 is a "flag": the rail row's ⚑ means "I marked this as off". A 👍 lights no flag, and a
+    // 👍 after a prior 👎 clears it — so `flaggedEvents` always reflects "currently rated down".
     const next = new Set(get().flaggedEvents)
-    next.add(input.event_id)
+    pol === 'down' ? next.add(input.event_id) : next.delete(input.event_id)
+    const rated = { ...get().ratedPolarity, [input.event_id]: pol }
     saveFlagged(next)
-    set({ flaggedEvents: next })
+    saveRated(rated)
+    set({ flaggedEvents: next, ratedPolarity: rated })
     try {
       const { feedback } = await api.submitFeedback(input)
       get().setToast({
@@ -2188,9 +2438,13 @@ export const useStore = create<State>((set, get) => ({
       return true
     } catch (e: any) {
       const rollback = new Set(get().flaggedEvents)
-      rollback.delete(input.event_id)
+      prevFlagged ? rollback.add(input.event_id) : rollback.delete(input.event_id)
+      const rolledRated = { ...get().ratedPolarity }
+      if (prevPol) rolledRated[input.event_id] = prevPol
+      else delete rolledRated[input.event_id]
       saveFlagged(rollback)
-      set({ flaggedEvents: rollback })
+      saveRated(rolledRated)
+      set({ flaggedEvents: rollback, ratedPolarity: rolledRated })
       get().setToast({ msg: e?.body?.error || e?.message || 'Could not save feedback', tone: 'bad' })
       return false
     }
@@ -2200,8 +2454,10 @@ export const useStore = create<State>((set, get) => ({
       await api.undoFeedback(feedbackId)
       const next = new Set(get().flaggedEvents)
       next.delete(eventId)
+      const rated = { ...get().ratedPolarity }; delete rated[eventId]
       saveFlagged(next)
-      set({ flaggedEvents: next })
+      saveRated(rated)
+      set({ flaggedEvents: next, ratedPolarity: rated })
       // Rewind batch review when THIS undo tombstones the card the queue just advanced past. reviewSubmit
       // already moved reviewIndex forward and counted the card, so an immediate Undo would otherwise leave
       // the card skipped and still counted as flagged. Only rewind when the panel is open AND the card
@@ -2358,7 +2614,7 @@ export const useStore = create<State>((set, get) => ({
   // connection is back. Capped + cooled-down so a genuinely-broken run can't loop, and capacity rejects
   // are retried (not counted) on the next fetch. The selected run animates; the rest run in the background.
   _maybeAutoResume: async (resumable) => {
-    if (get().staticMode || HARD_DOWN.has(get().health) || get().activeSwarm !== 'screener') return
+    if (get().staticMode || HARD_DOWN.has(get().health) || !isFlowActive(get())) return
     const list = (resumable || []).filter((r) => {
       const t = autoResumeTries.get(r.sigId)
       if (t && t.count >= AUTO_RESUME_MAX) return false // gave up — manual Continue from here
@@ -2667,7 +2923,7 @@ export const useStore = create<State>((set, get) => ({
   // of filtering the 2-day wire. An empty query returns the rail to LIVE mode (the SSE wire). A monotonic
   // token guards against a stale slow response overwriting a newer search (last-write-wins by query).
   scRunArchiveSearch: async (q: ArchiveQuery) => {
-    const active = !!(q.themes?.length || q.country || q.geoRegion || q.source || q.band || q.size || q.linkage || q.gicsSector || q.gicsSubSector || (q.text && q.text.trim()))
+    const active = !!(q.themes?.length || q.country || q.geoRegion || q.source || q.band || q.size || q.linkage || q.gicsSector || q.gicsSubSector || q.commodities?.length || (q.text && q.text.trim()))
     if (!active) { // back to LIVE mode — drop the archive snapshot, keep the live wire
       archiveToken++
       set({ scArchiveQuery: {}, scArchiveResults: [], scArchiveCursor: null, scArchiveLoading: false, scArchiveLoadingMore: false, scArchiveScannedThrough: null, scArchiveExhausted: false })
@@ -2679,9 +2935,12 @@ export const useStore = create<State>((set, get) => ({
     }
     const token = ++archiveToken
     facetsToken++ // this contextful facets load supersedes any in-flight contextless scLoadFacets
+    // a non-flow wire pre-scopes every archive read to its own wire (wireScope clause) — the stored
+    // scArchiveQuery stays the USER's filter; the clause is merged at the request edge only
+    const wq = withWireClause(get(), q)
     set({ scArchiveQuery: q, scArchiveLoading: true, scFacetsLoading: true })
     try {
-      const [res, facets] = await Promise.all([api.newsSearch(q, { limit: 60 }), api.newsFacets(q)])
+      const [res, facets] = await Promise.all([api.newsSearch(wq, { limit: 60 }), api.newsFacets(wq)])
       if (token !== archiveToken) return // a newer search superseded this one
       set({ scArchiveResults: res.items, scArchiveCursor: res.nextCursor, scArchiveScannedThrough: res.scannedThroughDate, scArchiveExhausted: res.exhausted, scArchiveLoading: false, scFacets: facets, scFacetsLoading: false })
     } catch {
@@ -2693,7 +2952,7 @@ export const useStore = create<State>((set, get) => ({
     const token = ++facetsToken
     set({ scFacetsLoading: true })
     try {
-      const f = await api.newsFacets(q)
+      const f = await api.newsFacets(withWireClause(get(), q))
       if (token !== facetsToken) return
       set({ scFacets: f, scFacetsLoading: false })
     } catch {
@@ -2707,7 +2966,7 @@ export const useStore = create<State>((set, get) => ({
     const token = archiveToken
     set({ scArchiveLoadingMore: true })
     try {
-      const res = await api.newsSearch(scArchiveQuery, { cursor: scArchiveCursor, limit: 60 })
+      const res = await api.newsSearch(withWireClause(get(), scArchiveQuery), { cursor: scArchiveCursor, limit: 60 })
       if (token !== archiveToken) return // the filter changed mid-page — discard this page
       const seen = new Set(get().scArchiveResults.map((i) => i.event_id))
       const fresh = res.items.filter((i) => !seen.has(i.event_id))
@@ -2792,16 +3051,18 @@ export const useStore = create<State>((set, get) => ({
         if (intensityRefetchTimer) clearTimeout(intensityRefetchTimer)
         intensityRefetchTimer = setTimeout(() => void get().setIntensityWindow(get().scIntensityWindow), 1200)
       }
-      if (get().activeSwarm === 'screener') void get().scRefreshBoard() // the board is screener UI — don't refetch it from the research swarm every cycle
+      if (isFlowActive(get())) void get().scRefreshBoard() // the board is flow-stage UI — don't refetch it from a constellation swarm every cycle
+      void get().refreshWirePulse() // TTL-gated no-op unless the active wire declares a pulse and it's due
     } else if (e?.type === 'theme-update' && e.theme) {
       // upsert the changed theme; the map/board re-rank from the array. Only when the themes view is
       // open (otherwise we'd hold stale themes until next open anyway).
       if (get().themesView === null && !get().themes.length) return
-      // in a geo-sliced view the SSE patch is a GLOBAL theme summary that doesn't match the geo projection
-      // (different member_count / flow / ranking), so recompute the whole geo index (debounced) instead of
-      // upserting a mismatched row.
+      // in a geo- OR wire-sliced view the SSE patch is a GLOBAL theme summary that doesn't match the
+      // sliced projection (different member_count / flow / ranking), so recompute the whole sliced index
+      // (debounced) instead of upserting a mismatched row.
       const g = get().themesGeo
-      if (g.country || g.geoRegion) {
+      const wireCfg = activeWireConfig(get())
+      if (g.country || g.geoRegion || (wireCfg && !wireCfg.flow && wireCfg.eventScope)) {
         if (themesGeoRefetchTimer) clearTimeout(themesGeoRefetchTimer)
         themesGeoRefetchTimer = setTimeout(() => void get().refreshThemes(), 1200)
         return
@@ -3242,6 +3503,7 @@ async function loadNewsFeed(set: any, get: () => State, force: boolean) {
   try {
     const { items } = await api.newsFeed(get().feedWindowDays || 2)
     set({ newsItems: items })
+    if (items.length) get().seedReadBaseline(items) // first-ever visit → clean slate (once-only)
   } catch {
     // keep whatever's shown — a transient failure must not destroy the data we were asked to reload
   } finally {

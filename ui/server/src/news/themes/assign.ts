@@ -6,6 +6,7 @@
 // Pure data transforms; no I/O, no LLM (a tiny Groq tie-break is an optional caller concern).
 
 import type { CompanyGuess } from '../types'
+import { deriveCommodities } from '../commodities'
 import { companyKeys, themeTokens, intersectionSize } from '../text-match'
 import { companyImpact } from './order'
 import { bumpDaily } from './score'
@@ -125,6 +126,9 @@ export function assignThemes(items: ThemeItemView[], themes: Theme[], cfg: Assig
         issuer_linkage: it.issuer_linkage,
         country: it.country ?? null, // carry the event's country so the themes view can be sliced by geography
         region: it.region, // + the domain-region floor, so the lazy resolver matches the archive exactly
+        // carry the canonical commodity tag(s) so the themes view can be sliced per commodity, exactly
+        // like country/geo above — derived here (zero-cost) when the item didn't arrive pre-tagged
+        ...(() => { const cs = it.commodities ?? deriveCommodities(it); return cs && cs.length ? { commodities: cs } : {} })(),
       }
       theme.members.push(member)
       if (theme.members.length > cfg.maxMembers) theme.members.splice(0, theme.members.length - cfg.maxMembers)

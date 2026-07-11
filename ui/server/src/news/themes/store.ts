@@ -182,6 +182,7 @@ export function readRecentThemeItems(repoRoot: string, minScore: number): ThemeI
         companies: it.companies || [], event_types: it.event_types || [], issuer_linkage: it.issuer_linkage,
         triage_score: it.triage_score, materiality_pre_score: (it as any).materiality_pre_score,
         source_tier: it.source_tier || deriveSourceTier(it), scope: it.scope, region: it.region, country: it.country,
+        commodities: it.commodities, // canonical commodity tag(s) — carried onto members for the commodity slice
       })
     }
   } catch {
