@@ -792,6 +792,24 @@ def eval_ai_headline_reconciliation(decision_date, d, thesis):
         if not _reconciles(nums, target, tol_abs, tol_rel, use_abs):
             det.append(f"Headline Scorecard {label!r}={cell!r} does not reconcile with {field}={target}"
                         +(" (by magnitude)" if use_abs else ""))
+    # Post-split (>= CONF_SPLIT_DATE): the scorer's two outputs are REQUIRED numbers, and confidence_score
+    # MUST equal conviction. (Codex #217.) Without this, a run can present Conviction /100 = 80 in the
+    # headline while leaving confidence_score = 50 (or null); the shipped §7 gates V_edge_gate and
+    # AH_expectations_gap_gate still read confidence_score, so they bind to the stale value and an unproven
+    # high-conviction thesis passes — and a null conviction/analysis_confidence with an "N/A" cell would
+    # otherwise slip past the row-presence check with the scorer never run.
+    if isdate(decision_date) and decision_date >= CONF_SPLIT_DATE:
+        cf=d.get("confidence_score"); cv=d.get("conviction"); au=d.get("analysis_confidence")
+        for fld,val in [("conviction",cv),("analysis_confidence",au)]:
+            if not isnum(val):
+                det.append(f"post-split run (>= {CONF_SPLIT_DATE}): decision_record.json {fld}={val!r} must be a number "
+                           f"(from scripts/confidence.py) — a null/absent value means the scorer did not run")
+        if isnum(cv) and not isnum(cf):
+            det.append(f"post-split run: conviction={cv} is set but confidence_score={cf!r} is null — set "
+                       f"confidence_score=conviction (backward-compat; V_edge_gate/AH still read confidence_score)")
+        elif isnum(cv) and isnum(cf) and abs(float(cf)-float(cv))>0.5:
+            det.append(f"post-split run: confidence_score={cf} must equal conviction={cv} (backward-compat; the §7 "
+                       f"V_edge_gate/AH gates read confidence_score, so a split lets an unproven high-conviction thesis ship)")
     return det
 
 # ── Check AJ (Decision Audit Trail structural check, CLAUDE.md §8/§22) ──
@@ -1575,6 +1593,12 @@ if scope=="selftest":
                 "| Rating | Buy |\n| Suggested action | Start small |\n| Time horizon | 12-18 months |\n"
                 f"| Expected return | {exp} |\n| Downside risk | {dr} |\n| Risk/reward | {rr} |\n"
                 f"| Confidence /100 | {conf} |\n| Data sufficiency /100 | {ds} |\n")
+    def _hs_thesis_split(exp="",dr="",rr="",conv="",und=""):
+        # post-CONF_SPLIT_DATE scorecard: Conviction /100 + Understanding /100 replace Confidence/Data-suff.
+        return ("# Thesis\n\n## 2. Headline Scorecard\n\n| Item | Answer |\n|---|---|\n"
+                "| Rating | Watchlist |\n| Suggested action | Monitor |\n| Time horizon | 12-18 months |\n"
+                f"| Expected return | {exp} |\n| Downside risk | {dr} |\n| Risk/reward | {rr} |\n"
+                f"| Understanding /100 | {und} |\n| Conviction /100 | {conv} |\n| Suggested sizing | monitor only |\n")
     D_TMCV={"expected_return_pct":-4.4,"downside_risk_pct":-81.0,"risk_reward":-0.23,"confidence_score":47,"data_sufficiency_score":68}
     TH_TMCV=_hs_thesis(exp="+4.3% (see §8 Scenario Model)", dr="−19% to −81% depending on Iveco scenario",
                         rr="0.72× upside/downside in base case; binary risk makes this ratio misleading",
@@ -1634,6 +1658,22 @@ if scope=="selftest":
         # r3551580662 — a required reader-facing SCORE row is ABSENT and its JSON field is null → FAIL
         # (previously skipped, letting a thesis ship with no reader-facing Confidence / Data-sufficiency row).
         ("2026-07-09", {"confidence_score":None,"data_sufficiency_score":70}, TH_NO_CONF_ROW, ["Confidence /100"]),
+        # ── Codex #217: post-split (>= 2026-07-11) two-number confidence consistency ──
+        # Post-split scorecard uses Conviction /100 + Understanding /100. _hs_thesis_split builds it.
+        # (P1) confidence_score must EQUAL conviction (V_edge_gate/AH read confidence_score). A run showing
+        # Conviction 80 but confidence_score 50 must FAIL — else an unproven high-conviction thesis ships.
+        ("2026-07-11", {"conviction":80,"analysis_confidence":79,"confidence_score":50},
+         _hs_thesis_split(conv="80", und="79"), ["confidence_score=50 must equal conviction=80"]),
+        # (P1) confidence_score null while conviction set → FAIL.
+        ("2026-07-11", {"conviction":72,"analysis_confidence":70,"confidence_score":None},
+         _hs_thesis_split(conv="72", und="70"), ["confidence_score", "backward-compat"]),
+        # (P1b) conviction JSON field null but the row shows "N/A" → FAIL (scorer did not run).
+        ("2026-07-11", {"conviction":None,"analysis_confidence":None,"confidence_score":None},
+         _hs_thesis_split(conv="N/A", und="N/A"), ["conviction=None must be a number", "analysis_confidence=None must be a number"]),
+        # fully consistent post-split run → clean pass.
+        ("2026-07-11", {"conviction":62,"analysis_confidence":74,"confidence_score":62,
+                        "expected_return_pct":-11.5,"downside_risk_pct":-31.0,"risk_reward":-0.37},
+         _hs_thesis_split(conv="62", und="74", exp="≈ −11.5%", dr="≈ −31%", rr="≈ −0.37"), []),
     ]
     aibad=0
     for dt_,d_,th_,exp in aicases:
