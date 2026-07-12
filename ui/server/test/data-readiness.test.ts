@@ -2,7 +2,10 @@
 // Proves a module can declare its readiness rule in its own 00-triage frontmatter (zero edits to the
 // readiness engine) and that the interpreter behaves correctly.
 import assert from 'node:assert/strict'
-import { callDateMonths, classify, deriveCoverage, evalDecl, extractPeriod, quoteAsOfMonths } from '../src/data-status'
+import fs from 'node:fs'
+import os from 'node:os'
+import path from 'node:path'
+import { callDateMonths, classify, deriveCoverage, evalDecl, extractPeriod, latestDecision, quoteAsOfMonths } from '../src/data-status'
 import { moduleReadinessIssues } from '../src/readiness'
 import { moduleReadinessDecls } from '../src/roster'
 import type { ClassifiedFile, FileType, ModuleReadiness } from '../src/types'
@@ -288,5 +291,39 @@ check('external: external_data satisfies no declared readiness slot (type-keyed 
   const r = evalDecl({ sufficient: ['transcript'] }, hasOf(['external_data' as FileType]))
   assert.equal(r.status, 'Partial')
 })
+
+// ---- latestDecision: a newer INCOMPLETE run must not hide the last finished dossier. The real case: a
+// single-module rerun writes a fresh dated folder (e.g. AMZN_2026-07-11/management-governance) with no
+// decision_record, and the old code returned that newest folder unconditionally, hiding AMZN_2026-07-10. ----
+{
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'analyses-'))
+  fs.mkdirSync(path.join(dir, 'AMZN_2026-07-10'), { recursive: true })
+  fs.writeFileSync(path.join(dir, 'AMZN_2026-07-10', 'decision_record.json'),
+    JSON.stringify({ decision: 'Buy', decision_date: '2026-07-10', confidence_score: 78 }))
+  fs.mkdirSync(path.join(dir, 'AMZN_2026-07-11', 'management-governance'), { recursive: true }) // partial rerun, no decision_record
+
+  check('latestDecision: a newer partial run does NOT shadow the last finished dossier', () => {
+    const r = latestDecision('AMZN', dir)
+    assert.equal(r?.runRoot, 'analyses/AMZN_2026-07-10', 'must fall back to the completed run, not the empty 07-11 folder')
+    assert.equal(r?.decision, 'Buy')
+    assert.equal(r?.confidence, 78)
+  })
+  check('latestDecision: a malformed latest decision_record also falls back to the previous complete run', () => {
+    fs.writeFileSync(path.join(dir, 'AMZN_2026-07-11', 'decision_record.json'), '{ not valid json')
+    const r = latestDecision('AMZN', dir)
+    assert.equal(r?.runRoot, 'analyses/AMZN_2026-07-10')
+    assert.equal(r?.decision, 'Buy')
+  })
+  check('latestDecision: when only an incomplete run exists -> return it (decision null), never null-crash', () => {
+    const d2 = fs.mkdtempSync(path.join(os.tmpdir(), 'analyses2-'))
+    fs.mkdirSync(path.join(d2, 'NEWCO_2026-01-01'))
+    const r = latestDecision('NEWCO', d2)
+    assert.equal(r?.runRoot, 'analyses/NEWCO_2026-01-01')
+    assert.equal(r?.decision, null)
+  })
+  check('latestDecision: no runs for the ticker -> null', () => {
+    assert.equal(latestDecision('ZZZ', dir), null)
+  })
+}
 
 console.log(`\n${passed} checks passed${process.exitCode ? ' (with failures)' : ''}`)

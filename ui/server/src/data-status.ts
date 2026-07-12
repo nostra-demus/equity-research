@@ -1041,26 +1041,36 @@ export function listTickers(): { tickers: TickerSummary[]; emptyState: boolean; 
   return { tickers, emptyState: tickers.length === 0, dataDir, coverage: deriveCoverage([]) }
 }
 
-function latestDecision(ticker: string): TickerSummary['latestRun'] {
+// The latest run to surface for a ticker. Prefer the newest run that HAS a decision_record.json (a finished
+// dossier); only fall back to an incomplete folder if no finished run exists. Without this, a newer partial
+// run — e.g. a single-module rerun that writes a fresh dated folder with no decision record — would shadow
+// and hide the previous complete dossier (the folders sort newest-first). analysesDir is injectable for tests.
+export function latestDecision(ticker: string, analysesDir: string = ANALYSES_DIR): TickerSummary['latestRun'] {
   try {
     const dirs = fs
-      .readdirSync(ANALYSES_DIR)
+      .readdirSync(analysesDir)
       .filter((n) => n.startsWith(ticker + '_'))
       .sort()
       .reverse()
+    let fallback: TickerSummary['latestRun'] = null
     for (const d of dirs) {
-      const drPath = path.join(ANALYSES_DIR, d, 'decision_record.json')
+      const drPath = path.join(analysesDir, d, 'decision_record.json')
       if (fs.existsSync(drPath)) {
-        const dr = JSON.parse(fs.readFileSync(drPath, 'utf8'))
-        return {
-          runRoot: `analyses/${d}`,
-          decision: dr.decision ?? null,
-          decisionDate: dr.decision_date ?? null,
-          confidence: typeof dr.confidence_score === 'number' ? dr.confidence_score : null,
-        }
+        try {
+          const dr = JSON.parse(fs.readFileSync(drPath, 'utf8'))
+          return {
+            runRoot: `analyses/${d}`,
+            decision: dr.decision ?? null,
+            decisionDate: dr.decision_date ?? null,
+            confidence: typeof dr.confidence_score === 'number' ? dr.confidence_score : null,
+          }
+        } catch { /* malformed record — treat as incomplete and keep scanning older runs */ }
       }
-      return { runRoot: `analyses/${d}`, decision: null, decisionDate: null, confidence: null }
+      // A partial / in-progress run (no usable decision record). Remember the NEWEST such folder, but keep
+      // scanning — a finished dossier further back must not be hidden by it. Used only if none are complete.
+      if (!fallback) fallback = { runRoot: `analyses/${d}`, decision: null, decisionDate: null, confidence: null }
     }
+    return fallback
   } catch {}
   return null
 }
