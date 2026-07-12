@@ -63,7 +63,7 @@ export const DEFAULT_MODEL = process.env.ENGINE_MODEL || 'sonnet'
 // stays the single-process /research:full path.
 export const FULL_PER_MODULE = process.env.ENGINE_FULL_PER_MODULE === '1'
 
-export type LaunchKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track' | 'signal' | 'sweep' | 'screener-agent' | 'handoff'
+export type LaunchKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track' | 'doc-intake' | 'signal' | 'sweep' | 'screener-agent' | 'handoff'
 
 // Runaway / cost guards per launch granularity. These are HARD ceilings: the headless CLI stops when it
 // hits the budget/turn cap, even mid-run. The earlier full-run defaults (800 turns / $60) truncated a
@@ -213,6 +213,9 @@ export const LAUNCH_GUARDS: Record<LaunchKind, { maxTurns: number; budgetUsd: nu
   review: { maxTurns: capNum(process.env.ENGINE_REVIEW_MAX_TURNS, 120), budgetUsd: capNum(process.env.ENGINE_REVIEW_BUDGET_USD, 20) },
   // rebuild the calls-tracker dashboard (read-only aggregate of records + reviews; no web).
   track: { maxTurns: capNum(process.env.ENGINE_TRACK_MAX_TURNS, 120), budgetUsd: capNum(process.env.ENGINE_TRACK_BUDGET_USD, 20) },
+  // read the docs that landed since the last run + write a scoped rerun plan (frameworks/INTAKE.md);
+  // cheap read-reason-write pass, launches no rerun — same shape as 'review'.
+  'doc-intake': { maxTurns: capNum(process.env.ENGINE_INTAKE_MAX_TURNS, 120), budgetUsd: capNum(process.env.ENGINE_INTAKE_BUDGET_USD, 20) },
   // screener swarm — one signal through the whole gauntlet (4 modules, ~13 agents, fail-fast gates
   // mean most signals stop early and cost far less than the ceiling).
   signal: { maxTurns: capNum(process.env.ENGINE_SIGNAL_MAX_TURNS, 900), budgetUsd: capNum(process.env.ENGINE_SIGNAL_BUDGET_USD, 100) },

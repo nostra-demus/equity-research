@@ -52,6 +52,7 @@ import { startConvictionLoop } from './conviction-dispatch'
 import { startResumeSupervisor } from './resume-supervisor'
 import { listResumableRuns } from './resumable'
 import { carryForwardModules, prepareModuleResume, thesisPlan } from './completion'
+import { readIntakePlan } from './intake'
 import { SubjectBusyError, withSubjectLock } from './subject-lock'
 import { AGENT_RE, EVENT_ID_RE, FEEDBACK_ID_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE, isValidTicker, resolveInsideRuns, validateNewTicker, sanitizeUploadFilename } from './sandbox'
 import type { RunKind } from './types'
@@ -708,6 +709,45 @@ app.post('/api/runs/:runId/readiness-decision', async (req, reply) => {
 // from disk each call (the in-memory registry is wiped on restart). The Activity log and the orb view
 // join their rows/subjects against this set to decide where to show a "Resume" affordance.
 app.get('/api/resumable', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async () => ({ runs: listResumableRuns() }))
+
+// ---------- document intake (scoped rerun plan) ----------
+// The latest scoped rerun plan for a ticker: which SPECIFIC orbs the docs that landed since the last
+// run actually invalidate (frameworks/INTAKE.md). Read-only, roster-validated + downstream re-expanded
+// by readIntakePlan (a hallucinated module/agent name can never reach the client as a launchable
+// command). Returns { plan: null } when there's no run or no plan yet — the client then shows the
+// honest staleness floor, never a fabricated plan. This NEVER moves a module stale->done (INTAKE.md §1).
+app.get('/api/intake/:ticker', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const { ticker } = req.params as { ticker: string }
+  if (!isValidTicker(ticker)) return reply.code(400).send({ error: 'bad ticker' })
+  try {
+    return { plan: readIntakePlan(ticker) }
+  } catch (e: any) {
+    return reply.code(500).send({ error: e?.message || 'could not read the intake plan' })
+  }
+})
+
+// Analyze the documents that landed since the last run and (re)write the scoped rerun plan. This is
+// the cheap, advisory 'doc-intake' launch (clone of 'review'): it reads + reasons + writes a plan and
+// launches NO rerun (reruns stay a human one-click, CLAUDE.md §24). Same CSRF + data-pool allow-list
+// guards as /api/thesis-plan/run. Auto-analyze-on-landing (PR3) calls launch({kind:'doc-intake'})
+// directly through the same path.
+app.post('/api/intake/:ticker/analyze', { config: { rateLimit: { max: 30, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
+  const { ticker } = req.params as { ticker: string }
+  const { user, userVia } = identify(req)
+  if (!isValidTicker(ticker)) return reply.code(400).send({ error: 'bad ticker' })
+  // Data-pool allow-list — `launch()` does not re-check it for a research kind (route-enforced only).
+  if (isReservedDataFolder(ticker) || !fs.existsSync(path.join(DATA_DIR, ticker))) {
+    return reply.code(400).send({ error: `unknown ticker ${ticker}` })
+  }
+  try {
+    const out = await launch({ kind: 'doc-intake', ticker, user, userVia })
+    return out
+  } catch (e: any) {
+    const body = e?.body && typeof e.body === 'object' ? e.body : null
+    return reply.code(e?.statusCode || 500).send({ error: e?.message || 'intake analysis failed', ...(body || {}) })
+  }
+})
 
 // ---------- complete the thesis ----------
 // What is actually missing before this subject can have a final thesis, and what already exists on disk
