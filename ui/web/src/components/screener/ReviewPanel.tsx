@@ -140,6 +140,11 @@ export function ReviewPanel() {
             Feedback so far — irrelevant {summary.by_type.irrelevant || 0} · too high {summary.by_type.score_too_high || 0} · too low {summary.by_type.score_too_low || 0}
             {summary.top_reasons.length > 0 && ` · top reason: "${summary.top_reasons[0].reason}" (${summary.top_reasons[0].count})`}
           </span>
+          {summary.clustered_reasons.filter((c) => c.scope !== 'unrouted').length > 0 && (
+            <span className="review__footnote review__footthemes" title="your written reasons, grouped by what they're about — feeds the auto-tune loop">
+              Reason themes — {summary.clustered_reasons.filter((c) => c.scope !== 'unrouted').slice(0, 4).map((c) => `${c.scope.replace(/_/g, ' ')} ${c.count}`).join(' · ')}
+            </span>
+          )}
         </div>
       )}
     </motion.div>

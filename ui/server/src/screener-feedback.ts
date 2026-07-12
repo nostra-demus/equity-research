@@ -61,11 +61,26 @@ export interface FeedbackRecord {
   submitted_at: string
 }
 
+// The free-text reason router's frozen verdict for one feedback record — a NEW additive ledger line
+// (kind: 'feedback_route'), never a rewrite of the feedback record, so the tuner's byte-reproducible
+// backtest is untouched. `routes` names the feedback_id it classifies.
+export interface FeedbackRouteRecord {
+  kind: 'feedback_route'
+  routes: string // the feedback_id this route classifies
+  routed_scope: string // a ScopeId (news/scope.ts) — where the free-text reason points
+  confidence: number
+  via: 'llm' | 'keyword' | 'none'
+  generated_at: string
+}
+
 export interface FeedbackSummary {
   total: number
   active_total: number
   by_type: Record<FeedbackType, number>
   top_reasons: { reason: string; count: number }[]
+  // free-text reasons grouped by the router's scope, so the review surface shows THEMES ("noise",
+  // "macro", "policy") instead of only byte-identical strings. Empty until routes accrue.
+  clustered_reasons: { scope: string; count: number; sample_reasons: string[] }[]
   generated_at: string
 }
 
@@ -138,6 +153,32 @@ export async function undoFeedback(feedbackId: string, user: string, repoRoot: s
   return record
 }
 
+/**
+ * Append the reason router's verdict as a new additive line (kind: 'feedback_route'), keyed on the
+ * feedback_id it classifies so a re-run is idempotent. Best-effort and out of the request's critical
+ * path — the caller fires this AFTER the feedback POST has already returned; a failure never affects the
+ * captured feedback, only whether the free-text also feeds the loop.
+ */
+export async function appendFeedbackRoute(
+  feedbackId: string,
+  routedScope: string,
+  confidence: number,
+  via: FeedbackRouteRecord['via'],
+  repoRoot: string = REPO_ROOT,
+): Promise<void> {
+  const record: FeedbackRouteRecord = {
+    kind: 'feedback_route',
+    routes: feedbackId,
+    routed_scope: routedScope,
+    confidence,
+    via,
+    generated_at: nowIso(),
+  }
+  await execFileAsync('bash', [path.join(REPO_ROOT, 'scripts', 'append-ndjson.sh'), LEDGER(repoRoot), JSON.stringify(record), 'routes', feedbackId], {
+    cwd: repoRoot,
+  })
+}
+
 /** Read every ledger line. [] on a missing file (a fresh install has no feedback yet) — never throws. */
 export function readAllFeedback(repoRoot: string = REPO_ROOT): FeedbackRecord[] {
   let raw: string
@@ -174,11 +215,32 @@ export function summarizeFeedback(records: FeedbackRecord[]): FeedbackSummary {
     .sort((a, b) => b[1] - a[1])
     .slice(0, 10)
     .map(([reason, count]) => ({ reason, count }))
+
+  // cluster free-text reasons by the router's scope so the review surface shows themes, not raw strings.
+  const routeOf = new Map<string, string>()
+  for (const r of records as unknown as FeedbackRouteRecord[]) {
+    if (r.kind === 'feedback_route' && r.routes && r.routed_scope) routeOf.set(r.routes, r.routed_scope)
+  }
+  const clusters = new Map<string, { count: number; samples: string[] }>()
+  for (const r of active) {
+    const reason = r.feedback_reason.trim()
+    if (!reason) continue
+    const scope = routeOf.get(r.feedback_id) || 'unrouted'
+    const c = clusters.get(scope) || { count: 0, samples: [] }
+    c.count += 1
+    if (c.samples.length < 3) c.samples.push(reason)
+    clusters.set(scope, c)
+  }
+  const clustered_reasons = [...clusters.entries()]
+    .sort((a, b) => b[1].count - a[1].count)
+    .map(([scope, c]) => ({ scope, count: c.count, sample_reasons: c.samples }))
+
   return {
     total: records.filter((r) => r.kind === 'feedback').length,
     active_total: active.length,
     by_type,
     top_reasons,
+    clustered_reasons,
     generated_at: nowIso(),
   }
 }

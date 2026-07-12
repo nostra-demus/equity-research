@@ -687,6 +687,45 @@ a { color: inherit; }
 
 .scoring__foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 18px; border-top: 1px solid var(--hairline); background: var(--surface-1); }
 .scoring__footnote { font-size: 11.5px; color: var(--text-muted); }
+
+/* auto-tune: pin a weight against the loop */
+.scoring__pin { appearance: none; cursor: pointer; width: 22px; height: 22px; border-radius: var(--r-sm); border: 1px solid transparent; background: transparent; display: grid; place-items: center; transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease-out); }
+.scoring__pindot { width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid var(--text-faint); box-sizing: border-box; transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { .scoring__pin:hover { border-color: var(--hairline-strong); background: var(--surface-2); } .scoring__pin:hover .scoring__pindot { border-color: var(--accent-bright); } }
+.scoring__pin:active { transform: scale(0.9); }
+.scoring__pin--on { border-color: var(--accent-deep); background: var(--accent-wash-soft); }
+.scoring__pin--on .scoring__pindot { background: var(--accent); border-color: var(--accent-deep); }
+
+/* auto-tune: the on/paused toggle in the header */
+.scoring__autotoggle { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 11px; border-radius: var(--r-pill); border: 1px solid var(--hairline-strong); background: var(--surface-2); color: var(--text-muted); font-size: 11.5px; font-weight: 600; cursor: pointer; transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { .scoring__autotoggle:hover { border-color: var(--accent-deep); color: var(--text); } }
+.scoring__autotoggle:active { transform: scale(0.97); }
+.scoring__autodot { width: 7px; height: 7px; border-radius: 50%; background: var(--live); transition: background var(--dur-fast) var(--ease); }
+.scoring__autotoggle--paused { color: var(--text-faint); }
+.scoring__autotoggle--paused .scoring__autodot { background: var(--text-faint); }
+
+/* auto-tune: the change-history audit list */
+.scoring__auditsec { border-top: 1px solid var(--hairline); padding-top: 18px; }
+.scoring__auditempty { font-size: 11.5px; color: var(--text-faint); line-height: 1.6; }
+.scoring__audit { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.scoring__auditrow { display: flex; flex-direction: column; gap: 4px; padding: 9px 0; border-top: 1px solid var(--hairline); animation: scoringAuditIn 200ms var(--ease-out) both; }
+.scoring__auditrow:first-child { border-top: none; }
+.scoring__auditrow--reverted { opacity: 0.5; }
+.scoring__auditmain { display: flex; align-items: baseline; gap: 8px; }
+.scoring__auditkind { font-size: 9px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: var(--accent-bright); border: 1px solid var(--accent-deep); border-radius: var(--r-pill); padding: 1px 6px; flex-shrink: 0; }
+.scoring__auditkind--revert { color: var(--text-faint); border-color: var(--hairline-strong); }
+.scoring__auditdeltas { display: flex; flex-wrap: wrap; gap: 8px; font-size: 11px; }
+.scoring__auditdelta { color: var(--text-muted); white-space: nowrap; }
+.scoring__auditmeta { display: flex; align-items: center; gap: 10px; font-size: 10.5px; color: var(--text-faint); }
+.scoring__auditbt { color: var(--live); }
+.scoring__auditreverted { font-style: italic; }
+.scoring__revert { appearance: none; cursor: pointer; margin-left: auto; padding: 2px 9px; font-size: 10.5px; font-weight: 600; color: var(--text-muted); background: transparent; border: 1px solid var(--hairline-strong); border-radius: var(--r-sm); transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { .scoring__revert:hover:not(:disabled) { color: var(--bad); border-color: var(--bad); } }
+.scoring__revert:active:not(:disabled) { transform: scale(0.97); }
+.scoring__revert:disabled { opacity: 0.5; cursor: default; }
+@keyframes scoringAuditIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) { .scoring__auditrow { animation: none; } }
+
 @media (max-width: 720px) { .scoring__body { grid-template-columns: 1fr; } .scoring__preview { border-top: 1px solid var(--hairline); } }
 
 /* ---- Batch review panel (fast keyboard-driven feedback triage over the wire) ---- */

@@ -37,7 +37,7 @@ import { enrichEvent, listCoveredTickers } from './news/enrich'
 import { markInboxConsumed, setDismissed } from './news/inbox-actions'
 import { refreshBoard } from './news/write-inbox'
 import { auditInboxAction, hideSignal, moveThesis, MOVE_TARGETS, SIGNAL_ACTIONS } from './screener-actions'
-import { FEEDBACK_TYPES, readAllFeedback, submitFeedback, summarizeFeedback, undoFeedback } from './screener-feedback'
+import { appendFeedbackRoute, FEEDBACK_TYPES, readAllFeedback, submitFeedback, summarizeFeedback, undoFeedback } from './screener-feedback'
 import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
 import { agentNamesForModule, buildSwarmGraph, findRunRootForSubject, graphForSubject, graphForTicker, listModuleNames, swarmSubjects, terminalModuleName } from './roster'
@@ -49,6 +49,9 @@ import { dataPoolPresent, deriveSignalState, readCandidates, readConviction, rea
 import { listSwarms, RESEARCH_SWARM_ID, swarmById } from './swarms'
 import { getNewsStatus, startNewsIngester } from './news/scheduler'
 import { startConvictionLoop } from './conviction-dispatch'
+import { runAutotuneOnce, startAutotuneLoop } from './news/rank-weights-autotune'
+import { getAutotuneState, readChanges, revertChange, setAutotunePaused, setAutotunePins } from './news/rank-weights-audit'
+import { routeReason } from './news/triage/reason-router'
 import { startResumeSupervisor } from './resume-supervisor'
 import { listResumableRuns } from './resumable'
 import { carryForwardModules, prepareModuleResume, thesisPlan } from './completion'
@@ -1383,6 +1386,43 @@ app.put('/api/news/rank-weights', { config: { rateLimit: { max: 1000, timeWindow
   return { active, defaults: defaultRankWeights(), customised: rankWeightsCustomised() }
 })
 
+// AUTO-TUNE audit + control — the append-only history of automatic weight changes (each with the feedback
+// that drove it + the backtest), a one-click revert, and the pause/pins the loop obeys. Same per-route
+// limiter as the other fs-touching handlers.
+const CHANGE_ID_RE = /^CHG-[0-9]{14}-[0-9a-f]{6}$/
+app.get('/api/news/rank-weights/changes', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async () => ({ changes: readChanges(), autotune: getAutotuneState() }))
+
+app.post('/api/news/rank-weights/changes/:id/revert', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const id = (req.params as any).id as string
+  if (!CHANGE_ID_RE.test(id)) return reply.code(400).send({ error: 'invalid change id' })
+  const { user } = identify(req)
+  try {
+    const reverted = revertChange(id, user || 'local')
+    if (!reverted) return reply.code(404).send({ error: 'no such change, or already reverted' })
+    return { ok: true, reverted, active: getRankWeights() }
+  } catch (e: any) {
+    return reply.code(500).send({ error: e?.message || 'revert failed' })
+  }
+})
+
+app.get('/api/news/rank-weights/autotune', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async () => getAutotuneState())
+
+const AutotuneBody = z.object({ paused: z.boolean().optional(), pins: z.array(z.string().max(64)).optional() }).strip()
+app.put('/api/news/rank-weights/autotune', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const parsed = AutotuneBody.safeParse(req.body ?? {})
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  if (typeof parsed.data.paused === 'boolean') setAutotunePaused(parsed.data.paused)
+  const state = parsed.data.pins ? setAutotunePins(parsed.data.pins) : getAutotuneState()
+  return state
+})
+
+// Manual kick — run one pass now (respects pause/cap/guardrails exactly like the daily tick). For the
+// panel's "run now" and for tests; it never bypasses a single guardrail.
+app.post('/api/news/rank-weights/autotune/run', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req) => {
+  const { user } = identify(req)
+  return runAutotuneOnce(user || 'manual')
+})
+
 // THEMES — the living, ranked investment themes the firehose is bucketed into. With a `country` (ISO
 // alpha-2) or `geoRegion` (continent) query param it returns the SAME themes sliced to that geography —
 // re-ranked + re-sized by that geography's news flow — so the cockpit's "Where" picker narrows the Themes
@@ -1643,6 +1683,14 @@ app.post('/api/screener/feedback', { config: { rateLimit: { max: 1000, timeWindo
   const { user } = identify(req)
   try {
     const record = await submitFeedback(parsed.data, user)
+    // Route the free-text reason into a scope OFF the critical path — the feedback is already saved and
+    // the response goes out now; the router (LLM→keyword) then appends an additive feedback_route line so
+    // the note also feeds the tuning loop. A failure here never affects the captured feedback.
+    if (record.feedback_reason) {
+      void routeReason(record.feedback_reason)
+        .then((r) => (r.scope ? appendFeedbackRoute(record.feedback_id, r.scope, r.confidence, r.via) : undefined))
+        .catch(() => {})
+    }
     return reply.code(201).send({ ok: true, feedback: record })
   } catch (e: any) {
     return reply.code(500).send({ error: e?.message || 'feedback save failed' })
@@ -1879,6 +1927,10 @@ app
     // conviction loop (Phase 3): auto-fire /screener:validate on due checkpoints + on matching wire
     // items. OFF unless CONVICTION_LOOP_ENABLED=1 — auto-spawning paid checks is opt-in.
     startConvictionLoop()
+    // feedback auto-tune (screener): once a day, apply the tuner's guardrailed, backtest-passing rank-weight
+    // nudges from human feedback — audited + revertible. OFF unless SCREENER_AUTOTUNE_ENABLED=1 (opt-in, the
+    // prod engine env sets it); nothing is spent and no paid run is launched.
+    startAutotuneLoop()
     // forever-living resume supervisor: server-side, no browser needed — continues runs interrupted by a
     // plan-limit reset / dropped connection / reboot. OFF unless RESUME_SUPERVISOR_ENABLED=1 (the cloud
     // host sets it; a dev laptop stays dark). Never spends overage; waits for the plan limit to reset.
