@@ -36,6 +36,9 @@ BOARD = os.path.join(REPO, "screener", "board", "index.json")
 CONV_STATE = os.path.join(LEDGER, "conviction", "conviction_state")
 CONV_CHECKPOINTS = os.path.join(LEDGER, "conviction", "checkpoints.ndjson")
 CONV_TICKS = os.path.join(LEDGER, "conviction", "conviction.ndjson")
+# The PM skim's surfaced ideas (news/ideas). One snapshot per idea; the board projects them as a pure,
+# read-only feed, deriving `stale` at build time from decay_at (no paid pass). Missing dir = empty.
+IDEAS = os.path.join(LEDGER, "ideas")
 
 # Thesis statuses count as "watchlist" for the funnel header. watchlist_manual is a HUMAN move
 # (an overrides.ndjson record), distinct from the engine's three watchlist reasons.
@@ -48,6 +51,15 @@ def read_json(path: str):
             return json.load(f)
     except Exception:
         return None
+
+
+def safe_int(v, default: int = 0) -> int:
+    """int() that never raises — a malformed value (a non-numeric string, a list) degrades to the default
+    instead of aborting the whole board rebuild. Used for numeric fields read from external snapshots."""
+    try:
+        return int(v)
+    except (TypeError, ValueError):
+        return default
 
 
 def read_ndjson(path: str) -> list[dict]:
@@ -380,12 +392,94 @@ def build() -> dict:
         "archived_count": sum(1 for c in conv if c.get("archived")),
     }
 
+    # ---- PM skim: surfaced ideas (news/ideas) + self-grading scorecard ----
+    # A pure, read-only projection of the idea snapshots. `stale` is derived at build time from decay_at
+    # (an ISO-Z string, so a lexicographic compare against `now` is a correct time compare) — a surfaced
+    # idea ages off the fresh lane for free, no paid pass. Sorted best-first (conviction, then the wire's
+    # own materiality) so the UI can slice the top 1-2 without re-ranking. Missing dir = empty.
+    #
+    # The scorecard is the skim's HONEST track record: how many ideas it surfaced, how many the human ran,
+    # how the DEEP machine graded the ones that were run (confirmed vs passed), and the 👍/👎 tally — no
+    # price, no fake P&L. The UI refuses to quote a confirmation rate until enough runs have resolved.
+    idea_fb: dict[str, str] = {}  # per-idea latest human vote (last line per idea_id wins; 'clear' un-votes)
+    for r in read_ndjson(os.path.join(LEDGER, "ideas_feedback.ndjson")):
+        iid, pol = r.get("idea_id"), r.get("polarity")
+        if iid and pol in ("up", "down", "clear"):
+            idea_fb[iid] = pol
+    # a promoted idea links to its signal; the signal's status IS the deep machine's grade of the skim's call
+    sig_status = {s["signal_id"]: (s.get("status") or "") for s in signals}
+    MACHINE_CONFIRM = {"provisional", "full_machine"}
+    MACHINE_PASS = {"watchlist_no_edge", "watchlist_no_world_change", "watchlist_no_source", "LOG", "PARK", "suppress"}
+
+    ideas: list[dict] = []
+    sc = {"surfaced_total": 0, "live_count": 0, "promoted_total": 0,
+          "machine_confirmed": 0, "machine_passed": 0, "machine_pending": 0,
+          "up_votes": 0, "down_votes": 0}
+    for fp in sorted(glob.glob(os.path.join(IDEAS, "*.json"))):
+        rec = read_json(fp)
+        if not isinstance(rec, dict) or not rec.get("idea_id") or not rec.get("ticker"):
+            continue
+        decay_at = rec.get("decay_at") or ""
+        pc = rec.get("prior_coverage") if isinstance(rec.get("prior_coverage"), dict) else None
+        fb = idea_fb.get(rec.get("idea_id"))
+        fb = fb if fb in ("up", "down") else None  # 'clear'/absent -> no live vote
+        stale = bool(decay_at) and decay_at < now
+        status = rec.get("status") or "live"
+        ideas.append({
+            "idea_id": rec.get("idea_id"),
+            "ticker": rec.get("ticker") or "",
+            "company": rec.get("company"),
+            "exchange": rec.get("exchange"),
+            "direction": rec.get("direction") or "long",
+            "pair_with": rec.get("pair_with"),
+            "reason": rec.get("reason") or "",
+            "why_now": rec.get("why_now") or "",
+            "conviction": safe_int(rec.get("conviction"), 0),
+            "conviction_basis": rec.get("conviction_basis") or "pre_edge_proxy",
+            "priced_in": rec.get("priced_in") or "unknown",
+            "thesis_type": rec.get("thesis_type") or "company_specific",
+            "source_event_ids": rec.get("source_event_ids") if isinstance(rec.get("source_event_ids"), list) else [],
+            "source_headlines": rec.get("source_headlines") if isinstance(rec.get("source_headlines"), list) else [],
+            "source_url": rec.get("source_url"),
+            "source_name": rec.get("source_name"),
+            "materiality_max": safe_int(rec.get("materiality_max"), 0),
+            "newest_source_at": rec.get("newest_source_at") or "",
+            "prior_coverage": pc,
+            "surfaced_at": rec.get("surfaced_at") or "",
+            "updated_at": rec.get("updated_at") or "",
+            "decay_at": decay_at,
+            "status": status,
+            "promoted_signal_id": rec.get("promoted_signal_id"),
+            "feedback": fb,
+            "stale": stale,
+        })
+        sc["surfaced_total"] += 1
+        if not stale:
+            sc["live_count"] += 1
+        if fb == "up":
+            sc["up_votes"] += 1
+        elif fb == "down":
+            sc["down_votes"] += 1
+        if status == "promoted":
+            sc["promoted_total"] += 1
+            st = sig_status.get(rec.get("promoted_signal_id") or "", "")
+            if st in MACHINE_CONFIRM:
+                sc["machine_confirmed"] += 1
+            elif st in MACHINE_PASS:
+                sc["machine_passed"] += 1
+            else:
+                sc["machine_pending"] += 1
+    sc["resolved"] = sc["machine_confirmed"] + sc["machine_passed"]
+    ideas.sort(key=lambda i: (i["stale"], -i["conviction"], -i["materiality_max"]))
+
     return {
         "generated_at": now,
         "inbox": inbox_rows,
         "signals": signals,
         "theses": theses,
         "handoffs": handoff_rows,
+        "ideas": ideas,
+        "ideas_scorecard": sc,
         "counts": counts,
         "book_momentum": book_momentum,
     }
