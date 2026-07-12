@@ -38,6 +38,7 @@ import { markInboxConsumed, setDismissed } from './news/inbox-actions'
 import { refreshBoard } from './news/write-inbox'
 import { auditInboxAction, hideSignal, moveThesis, MOVE_TARGETS, SIGNAL_ACTIONS } from './screener-actions'
 import { FEEDBACK_TYPES, readAllFeedback, submitFeedback, summarizeFeedback, undoFeedback } from './screener-feedback'
+import { FEEDBACK_MAX_IMAGES, type FeedbackCategory, appendFeedbackEvent, foldFeedback, isFeedbackId, itemDir, newFeedbackId, readAllFeedback as readAllCockpitFeedback, resolveFeedbackImage, saveFeedbackImage, writeFeedbackItem } from './feedback-store'
 import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
 import { agentNamesForModule, buildSwarmGraph, findRunRootForSubject, graphForSubject, graphForTicker, listModuleNames, swarmSubjects, terminalModuleName } from './roster'
@@ -1663,6 +1664,81 @@ app.post('/api/screener/feedback/:id/undo', { config: { rateLimit: { max: 1000, 
 })
 
 app.get('/api/screener/feedback/summary', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async () => summarizeFeedback(readAllFeedback(REPO_ROOT)))
+
+// ---------- cockpit-wide product feedback (feedback-store.ts) ----------
+// A prominent "Feedback" surface: anyone behind Cloudflare Access files a bug / UI note / idea with
+// screenshots; the whole team sees the folded list. The gated one-click "send to coding engine"
+// dispatch is added in a follow-up (feedback-dispatch.ts). Storage is operational (STATE_DIR/feedback/,
+// gitignored), NOT the tracked screener ledger — the one doer box serving the cockpit makes it team-visible.
+app.post('/api/feedback', { config: { rateLimit: { max: 300, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const { user } = identify(req)
+  // Mint the id first so screenshots land in the item's own folder as they stream. Accept a mixed
+  // multipart (text fields + images) OR a JSON text-only body.
+  const feedbackId = newFeedbackId()
+  const fields: Record<string, string> = {}
+  const images: string[] = []
+  const imageErrors: { filename: string; reason: string }[] = []
+  let seq = 1
+  try {
+    if (req.isMultipart()) {
+      for await (const part of req.parts()) {
+        if (part.type === 'file') {
+          if (images.length >= FEEDBACK_MAX_IMAGES) { part.file.resume(); imageErrors.push({ filename: part.filename || '(unnamed)', reason: 'too many images (max ' + FEEDBACK_MAX_IMAGES + ')' }); continue }
+          const res = await saveFeedbackImage(feedbackId, seq, part.filename || `img${seq}.png`, part.file)
+          if (res.ok) { images.push(res.name); seq++ } else imageErrors.push({ filename: part.filename || '(unnamed)', reason: res.reason })
+        } else {
+          fields[part.fieldname] = String((part as any).value ?? '')
+        }
+      }
+    } else {
+      const body = (req.body ?? {}) as Record<string, unknown>
+      fields.text = typeof body.text === 'string' ? body.text : ''
+      fields.category = typeof body.category === 'string' ? body.category : 'other'
+      fields.url = typeof body.url === 'string' ? body.url : ''
+    }
+    const text = (fields.text || '').trim()
+    if (!text && images.length === 0) {
+      try { fs.rmSync(itemDir(feedbackId), { recursive: true, force: true }) } catch { /* nothing written yet */ }
+      return reply.code(400).send({ error: 'feedback needs text or at least one screenshot' })
+    }
+    const record = await writeFeedbackItem({ feedback_id: feedbackId, text, category: (fields.category || 'other') as FeedbackCategory, images, url: fields.url || '' }, user)
+    return reply.code(201).send({ ok: true, feedback: record, imageErrors })
+  } catch (e: any) {
+    return reply.code(500).send({ error: e?.message || 'feedback save failed' })
+  }
+})
+
+// Folded team-visible list (item + its latest status event), newest first.
+app.get('/api/feedback', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async () => ({ items: foldFeedback(readAllCockpitFeedback()) }))
+
+// Serve a stored screenshot back to the panel — path-contained to the item's own folder (resolveFeedbackImage
+// applies the resolve + startsWith containment barrier, so a crafted :id / :name can't escape STATE_DIR/feedback).
+app.get('/api/feedback/:id/image/:name', { config: { rateLimit: { max: 2000, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const { id, name } = req.params as { id: string; name: string }
+  const full = resolveFeedbackImage(id, name)
+  if (!full || !fs.existsSync(full)) return reply.code(404).send({ error: 'not found' })
+  const ext = (full.split('.').pop() || '').toLowerCase()
+  const mime = ext === 'png' ? 'image/png' : ext === 'gif' ? 'image/gif' : ext === 'webp' ? 'image/webp' : 'image/jpeg'
+  reply.header('content-type', mime)
+  reply.header('cache-control', 'private, max-age=3600')
+  return reply.send(fs.createReadStream(full))
+})
+
+// Manual triage — mark an item triaged / done / wontfix (append-only status event). Any authenticated
+// teammate may triage; the paid "dispatch to coding engine" action is separately admin-gated (PR B).
+const FeedbackStatusBody = z.object({ status: z.enum(['triaged', 'done', 'wontfix']), note: z.string().max(2000).optional() }).strip()
+app.post('/api/feedback/:id/status', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const id = (req.params as any).id as string
+  if (!isFeedbackId(id)) return reply.code(400).send({ error: 'invalid feedback id' })
+  const parsed = FeedbackStatusBody.safeParse(req.body)
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  const { user } = identify(req)
+  const ev = await appendFeedbackEvent(id, parsed.data.status, { note: parsed.data.note, user })
+  if (!ev) return reply.code(404).send({ error: 'no such feedback' })
+  return { ok: true, event: ev }
+})
 
 // Tickers already under research coverage — the batch-review "portfolio companies" filter's data
 // source (a proxy: this codebase has no separate brokerage holdings list). Cheap; fetched once per panel-open.

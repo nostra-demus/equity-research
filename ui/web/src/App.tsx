@@ -21,6 +21,7 @@ import { ChatHistory } from './components/ChatHistory'
 import { ActivityLog } from './components/ActivityLog'
 import { ScoringPanel } from './components/screener/ScoringPanel'
 import { ReviewPanel } from './components/screener/ReviewPanel'
+import { FeedbackPanel } from './components/FeedbackPanel'
 import { CallsTracker } from './components/CallsTracker'
 import { LaunchConfirm } from './components/LaunchConfirm'
 import { ThesisPlanPanel } from './components/ThesisPlanPanel'
@@ -140,6 +141,7 @@ export function App() {
   const activityOpen = useStore((s) => s.activityOpen)
   const scoringOpen = useStore((s) => s.scoringOpen)
   const reviewOpen = useStore((s) => s.reviewOpen)
+  const cockpitFeedbackOpen = useStore((s) => s.cockpitFeedbackOpen)
   const callsOpen = useStore((s) => s.callsOpen)
   const pipelineOpen = useStore((s) => s.pipelineOpen)
   const chatOpen = useStore((s) => s.chatOpen)
@@ -182,6 +184,7 @@ export function App() {
       <AnimatePresence>{activityOpen && <ActivityLog />}</AnimatePresence>
       <AnimatePresence>{scoringOpen && <ScoringPanel />}</AnimatePresence>
       <AnimatePresence>{reviewOpen && <ReviewPanel />}</AnimatePresence>
+      <AnimatePresence>{cockpitFeedbackOpen && <FeedbackPanel />}</AnimatePresence>
       <AnimatePresence>{callsOpen && <CallsTracker />}</AnimatePresence>
       <AnimatePresence>{pipelineOpen && <PipelineBoard />}</AnimatePresence>
       {/* no exit animation by design: the wire re-renders on live news/status ticks, which can
