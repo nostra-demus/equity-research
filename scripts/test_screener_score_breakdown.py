@@ -518,5 +518,36 @@ class CapexEventTypeWeighted(unittest.TestCase):
         self.assertEqual(capex_val, 19)
 
 
+class KeyDevelopmentSubtypesWeighted(unittest.TestCase):
+    """The high-signal Key-Development subtypes (Capital IQ parity: signal_payload.schema.json enum +
+    groq.ts EVENT_TYPES + rank-weights.ts) must be weighted here too — a change to a weight edits both
+    EVENT_TYPE_WEIGHT and the MODULE_RULES prose in the same PR. Without a weight a distress/red-flag
+    signal takes EVENT_TYPE_WEIGHT.get(t, 0) = 0 add-on and under-scores/under-routes — the exact
+    dormant-slot defect the taxonomy audit called out."""
+
+    def test_distress_red_flag_family_maxes_the_addon(self):
+        # base 14 (material) + capped add-on 6 = 20 for each of the top-band §13/§24 subtypes.
+        for et in ("default_distress", "credit_rating_downgrade", "accounting_restatement"):
+            val, _ = score_event_materiality("material", [et])
+            self.assertEqual(val, 20, f"{et} should max the +6 add-on cap (base 14 + 6)")
+
+    def test_downgrade_outweighs_upgrade(self):
+        # asymmetry: a rating DOWNGRADE is a survival signal (§24), weighted above an upgrade.
+        down, _ = score_event_materiality("material", ["credit_rating_downgrade"])
+        up, _ = score_event_materiality("material", ["credit_rating_upgrade"])
+        self.assertGreater(down, up, "a downgrade must add more materiality than an upgrade")
+
+    def test_no_subtype_is_unweighted(self):
+        # every subtype contributes a non-zero add-on (guards against a 0-weight dormant slot).
+        for et in (
+            "default_distress", "credit_rating_downgrade", "credit_rating_upgrade", "accounting_restatement",
+            "dividend_cut", "executive_exit", "ownership_activist", "insider_transaction", "strategic_review",
+            "index_rebalance", "restructuring_layoffs",
+        ):
+            base, _ = score_event_materiality("material", [])
+            with_et, _ = score_event_materiality("material", [et])
+            self.assertGreater(with_et, base, f"{et} must add a non-zero materiality add-on")
+
+
 if __name__ == "__main__":
     unittest.main()

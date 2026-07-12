@@ -39,7 +39,14 @@ export const DEFAULT_RANK_WEIGHTS: RankWeights = {
   // dedicated bucket and fell into weak operations(2)/commercial(3), under-scoring it relative to its
   // actual materiality (the quantifiedImpactBonus above already credits a capex headline WITH a $
   // figure; this credits the event itself, figure or not).
-  event: { mna: 9, guidance_change: 7, debt_credit: 7, capital_actions: 6, litigation_enforcement: 6, capex: 6, earnings_revenue_margin: 5, management: 4, regulatory: 4, cybersecurity: 4, product: 3, commercial: 3, operations: 2, macro_sector: 1, rumor: -3 },
+  // High-signal Key-Development subtypes (Capital IQ parity, groq.ts EVENT_TYPES). Calibrated against the
+  // existing scale: default_distress ties mna at the top — a default/bankruptcy/going-concern is the most
+  // decision-relevant single-name event there is (§24 survival). A rating DOWNGRADE (7) sits with
+  // guidance_change/debt_credit; an UPGRADE (4) is real but lesser. accounting_restatement (7) and
+  // ownership_activist (6) are §13 red flags. strategic_review/dividend_cut/executive_exit (5) are strong
+  // but a notch below. index_rebalance/restructuring_layoffs (4) are real flow/cost signals;
+  // insider_transaction (2) is watched only in aggregate. The strongest matching type wins (rank.ts).
+  event: { mna: 9, default_distress: 9, guidance_change: 7, debt_credit: 7, credit_rating_downgrade: 7, accounting_restatement: 7, capital_actions: 6, litigation_enforcement: 6, capex: 6, ownership_activist: 6, earnings_revenue_margin: 5, strategic_review: 5, dividend_cut: 5, executive_exit: 5, management: 4, regulatory: 4, cybersecurity: 4, credit_rating_upgrade: 4, index_rebalance: 4, restructuring_layoffs: 4, product: 3, commercial: 3, operations: 2, insider_transaction: 2, macro_sector: 1, rumor: -3 },
   size: { mega: 2, large: 2, mid: 1, small: -1, unknown: 0 },
   recency: { '1': 5, '3': 4, '6': 3, '12': 2, '24': 1, more: 0 },
   boost_weight: 1,
