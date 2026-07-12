@@ -2693,7 +2693,10 @@ export const useStore = create<State>((set, get) => ({
 
   // load one signal's run folder onto the gauntlet: seed orb states from its saved outputs
   scSelectSignal: async (sigId) => {
-    set({ scSelectedSignal: sigId, scRuntime: {}, scRouted: {} })
+    // a different signal is a different run — reset chat state exactly like selectTicker does, so an open
+    // (or saved) conversation can't keep posting against the signal it was opened for after the board moves
+    // on to another one (cross-run answer contamination: wrong SIG context + wrong saved thread/id).
+    set({ scSelectedSignal: sigId, scRuntime: {}, scRouted: {}, ...CHAT_RESET })
     if (!sigId) return
     try {
       const m = await api.screenerRun(sigId)

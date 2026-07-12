@@ -68,10 +68,12 @@ export function ChatPanel() {
   const scGraph = useStore((s) => s.scGraph)
   const scNodesByKey = useStore((s) => s.scNodesByKey)
   const scRuntime = useStore((s) => s.scRuntime)
-  const scopes = useMemo(() => scopesFn(), [scopesFn, reports, moduleReports, nodeRuntime, graph, nodesByKey, scGraph, scNodesByKey, scRuntime])
+  // scopesFn() branches internally on isFlowActive(s) — keep that same slice in the deps array so scopes
+  // recomputes if the active swarm's flow status changes while this panel stays mounted.
+  const isFlow = useStore((s) => isFlowActive(s))
+  const scopes = useMemo(() => scopesFn(), [scopesFn, reports, moduleReports, nodeRuntime, graph, nodesByKey, scGraph, scNodesByKey, scRuntime, isFlow])
   // the flow stage (screener) runs its orbs through the gauntlet, not from this panel — so its "not produced
   // yet" state offers no in-panel launch (the constellation launch actions don't apply to a screener signal)
-  const isFlow = useStore((s) => isFlowActive(s))
 
   const [draft, setDraft] = useState('')
   const [scopeMenu, setScopeMenu] = useState(false)
