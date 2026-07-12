@@ -191,6 +191,10 @@ export interface FeedItem {
   // `commodity` = the primary (earliest-mentioned) tag; `commodities` = all matches (≤4).
   commodity?: string
   commodities?: string[]
+  // CapIQ-style subject topics the headline names (news/topics.ts — AI, cybersecurity, EVs, …). Always
+  // an array once hydrated (derived on read from the persisted headline; [] when none match), so a client
+  // can rely on it. Orthogonal to event_types (the corporate-action axis) and GICS sectors (the industry).
+  topics?: string[]
   // event-materiality classifier's final fields — see TriagedItem's doc comment
   event_materiality_label?: EventMaterialityLabel
   event_direction?: EventDirection

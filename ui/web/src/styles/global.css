@@ -1877,6 +1877,9 @@ a { color: inherit; }
   padding: 1px 5px; border-radius: var(--r-pill); border: 1px solid var(--hairline); color: var(--text-faint);
 }
 .evrow__tag--theme { color: var(--accent-bright); border-color: var(--accent-deep); text-transform: none; letter-spacing: 0.2px; }
+/* subject topic (CapIQ News-topic overlay) — a quieter, secondary chip: it names what the story is ABOUT
+   (AI, cybersecurity, EVs), context beside the primary event-type theme, so it reads dimmer than it. */
+.evrow__tag--topic { color: var(--text-dim, var(--text-faint)); border-color: var(--hairline); text-transform: none; letter-spacing: 0.2px; opacity: 0.9; }
 .evrow__tag--rss { color: var(--live); border-color: var(--live); }
 /* a quiet "EN" badge: this headline was machine-translated to English (original on hover) */
 .evrow__tag--xlate { color: var(--text-faint); border-color: var(--hairline); opacity: 0.85; }

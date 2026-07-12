@@ -111,6 +111,7 @@ export interface ArchiveQuery {
   gicsSubSector?: string
   scope?: string // exact scope bucket (server news/scope.ts) — a wire swarm's declared eventScope
   commodities?: string[] // canonical commodity subjects (server news/commodities.ts) — OR within the set
+  topics?: string[] // CapIQ-style subject topics (server news/topics.ts) — OR within the set
   wireScope?: string // wire-membership disjunction: scope equals this OR the item carries a commodity tag
   text?: string
 }
@@ -129,6 +130,7 @@ export interface FeedFacets {
   subSectors: FacetCount[] // parent = sector
   sources: FacetCount[]
   themes: FacetCount[]
+  topics?: FacetCount[] // CapIQ-style subject topics (server news/topics.ts) — optional: absent on old servers
   total: number
   builtThroughDate: string | null
   builtAt: string
@@ -146,6 +148,7 @@ function archiveQueryParams(q: ArchiveQuery): URLSearchParams {
   if (q.gicsSubSector) p.set('gicsSubSector', q.gicsSubSector)
   if (q.scope) p.set('scope', q.scope)
   if (q.commodities?.length) p.set('commodities', q.commodities.join(','))
+  if (q.topics?.length) p.set('topics', q.topics.join(','))
   if (q.wireScope) p.set('wireScope', q.wireScope)
   if (q.text?.trim()) p.set('text', q.text.trim())
   return p
