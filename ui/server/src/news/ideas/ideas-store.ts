@@ -6,9 +6,13 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
+import { execFile } from 'node:child_process'
+import { promisify } from 'node:util'
 import { createHash } from 'node:crypto'
 import { eventIdFor } from '../normalize'
 import type { IdeaDirection, IdeaInputRow, PricedIn, RawIdea, ThesisType } from './surface-ideas'
+
+const execFileAsync = promisify(execFile)
 
 // The persisted idea: the LLM's raw read plus the free-derived fields (resolved source ids, freshness,
 // prior coverage) and the lifecycle stamps. A strict superset of the candidates.schema.json subset the
@@ -187,6 +191,29 @@ function readDecision(fp: string): string | null {
     const d = o?.decision ?? o?.verdict ?? o?.rating ?? o?.recommendation
     return typeof d === 'string' ? d.slice(0, 60) : null
   } catch { return null }
+}
+
+// ---- human feedback on a surfaced idea (the self-grading loop) ------------------------------------
+// A 👍/👎 (with an optional reason) on an idea card. Its OWN ledger — never the wire's screener_feedback,
+// so idea-quality is not conflated with wire-materiality. Append-only, last line per idea_id wins (the
+// board reader + the python scorecard both take the latest). A 'clear' un-votes.
+export type IdeaFeedbackPolarity = 'up' | 'down' | 'clear'
+export interface IdeaFeedbackRecord {
+  idea_feedback_id: string
+  ts: string
+  idea_id: string
+  ticker: string
+  polarity: IdeaFeedbackPolarity
+  reason: string | null
+  user: string
+}
+
+/** Append one idea-feedback record via the shared atomic-locked ndjson appender (idempotency key is the
+ *  per-submit id, so every vote appends and the reader takes the last per idea_id). Never throws fatally
+ *  to the caller beyond the exec — the endpoint wraps it. */
+export async function appendIdeaFeedback(repoRoot: string, rec: IdeaFeedbackRecord): Promise<void> {
+  const ledger = path.join(repoRoot, 'screener', 'ledger', 'ideas_feedback.ndjson')
+  await execFileAsync('bash', [path.join(repoRoot, 'scripts', 'append-ndjson.sh'), ledger, JSON.stringify(rec), 'idea_feedback_id', rec.idea_feedback_id], { cwd: repoRoot, timeout: 15_000 })
 }
 
 // ---- pass state (change-detection + interval throttle) --------------------------------------------

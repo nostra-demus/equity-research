@@ -210,8 +210,24 @@
           "decay_at": { "type": "string", "description": "Shelf-life expiry — the board marks the idea stale past this by a pure date compare." },
           "status": { "type": "string", "enum": ["live", "promoted"], "description": "promoted once escalated to the paid gauntlet." },
           "promoted_signal_id": { "type": ["string", "null"] },
+          "feedback": { "type": ["string", "null"], "enum": ["up", "down", null], "description": "The human's latest 👍/👎 on this idea (self-grading loop); null = no vote. From screener/ledger/ideas_feedback.ndjson, last vote per idea wins." },
           "stale": { "type": "boolean", "description": "Derived at build time: decay_at is in the past." }
         }
+      }
+    },
+    "ideas_scorecard": {
+      "type": "object",
+      "description": "The PM skim's HONEST track record (no price, no P&L): how many ideas it surfaced, how many the human ran, how the DEEP machine graded the ones that were run, and the 👍/👎 tally. The UI refuses to quote a confirmation rate until `resolved` clears a small floor.",
+      "properties": {
+        "surfaced_total": { "type": "integer", "description": "Ideas currently tracked (live + recently cooled + all promoted)." },
+        "live_count": { "type": "integer" },
+        "promoted_total": { "type": "integer", "description": "Ideas the human ran through the paid gauntlet." },
+        "machine_confirmed": { "type": "integer", "description": "Promoted ideas whose signal reached provisional / full_machine — the deep machine agreed with the skim." },
+        "machine_passed": { "type": "integer", "description": "Promoted ideas the deep machine passed on (watchlist / logged / parked)." },
+        "machine_pending": { "type": "integer", "description": "Promoted ideas whose gauntlet run has not resolved yet." },
+        "resolved": { "type": "integer", "description": "machine_confirmed + machine_passed — the denominator for a confirmation rate." },
+        "up_votes": { "type": "integer" },
+        "down_votes": { "type": "integer" }
       }
     },
     "counts": {

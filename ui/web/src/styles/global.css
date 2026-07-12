@@ -3104,3 +3104,49 @@ a { color: inherit; }
   .bidea--skeleton { animation: none; }
   .bidea__cta:active, .bidea-c__cta:active { transform: none; }
 }
+
+/* ---- Best-ideas rating (self-grading) + track record ---------------------------------------------- */
+.bidea__actions { display: inline-flex; align-items: center; gap: 10px; }
+
+.ideafb { position: relative; display: inline-flex; align-items: center; }
+.ideafb__shell { display: inline-flex; align-items: center; gap: 2px; padding: 2px; border-radius: var(--r-pill); border: 1px solid var(--hairline); background: var(--bg-2); }
+.ideafb__thumb {
+  display: inline-grid; place-items: center; width: 28px; height: 24px; padding: 0; border: none; background: transparent; cursor: pointer;
+  color: var(--text-muted); border-radius: var(--r-pill);
+  transition: color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out), transform 140ms var(--ease-out);
+}
+.ideafb__thumb svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+@media (hover: hover) and (pointer: fine) {
+  .ideafb__thumb--up:hover { color: var(--live); background: var(--live-wash); }
+  .ideafb__thumb--down:hover { color: var(--bad); background: var(--bad-wash); }
+}
+.ideafb__thumb:active { transform: scale(0.97); }
+.ideafb__thumb:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--accent); }
+/* rated (filled) — same treatment as the reader's thumbs: deepened green so the white glyph clears WCAG 3:1 */
+.ideafb__thumb--on.ideafb__thumb--up { color: #fff; background: color-mix(in srgb, var(--live) 78%, #000); }
+.ideafb__thumb--on.ideafb__thumb--down { color: #fff; background: var(--bad); }
+.ideafb__thumb--on svg { fill: currentColor; }
+.ideafb__shell--rated .ideafb__thumb:not(.ideafb__thumb--on) { opacity: 0.4; }
+
+/* the optional one-tap reason picker, anchored above the thumbs (origin-aware, no layout push) */
+.ideafb__reasons {
+  position: absolute; bottom: calc(100% + 6px); right: 0; display: flex; flex-wrap: wrap; gap: 4px;
+  width: max-content; max-width: 220px; padding: 6px; background: var(--surface-3);
+  border: 1px solid var(--hairline-strong); border-radius: var(--r-md); box-shadow: var(--shadow-2);
+  z-index: 6; transform-origin: bottom right; animation: ideafbPop var(--dur-fast) var(--ease-out);
+}
+@keyframes ideafbPop { from { opacity: 0; transform: scale(0.96) translateY(3px); } to { opacity: 1; transform: none; } }
+.ideafb__chip {
+  font-size: 10.5px; padding: 3px 8px; border-radius: var(--r-pill); background: var(--surface-2);
+  border: 1px solid var(--hairline); color: var(--text-muted); cursor: pointer; white-space: nowrap;
+  transition: color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out), transform 140ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .ideafb__chip:hover { color: var(--text); background: var(--accent-wash); border-color: var(--accent-deep); } }
+.ideafb__chip:active { transform: scale(0.97); }
+
+.bideas__track { font-size: 11px; color: var(--text-faint); margin: -8px 0 14px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ideafb__reasons { animation: none; }
+  .ideafb__thumb:active, .ideafb__chip:active { transform: none; }
+}

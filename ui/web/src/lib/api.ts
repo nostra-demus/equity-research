@@ -222,6 +222,11 @@ export const api = {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/screener/ideas/${encodeURIComponent(ideaId)}/promote`, {})
   },
+  // 👍/👎 a surfaced idea (self-grading loop). 'clear' un-votes.
+  rateIdea: async (ideaId: string, polarity: 'up' | 'down' | 'clear', reason?: string): Promise<{ ok: boolean }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/screener/ideas/${encodeURIComponent(ideaId)}/feedback`, { polarity, ...(reason ? { reason } : {}) })
+  },
   // ---- the news wire (auto-scanner visibility + human actions) ----
   newsStatus: async (): Promise<NewsStatus> => {
     if ((await ensureMode()) === 'static')

@@ -512,7 +512,21 @@ export interface BoardIdea {
   decay_at: string
   status: 'live' | 'promoted'
   promoted_signal_id: string | null
+  feedback: 'up' | 'down' | null // the human's latest 👍/👎 (self-grading loop); null = no vote
   stale: boolean
+}
+// The skim's honest track record (no price / no P&L) — surfaced/run counts, how the deep machine graded the
+// runs, and the vote tally. The header shows a confirmation rate only once `resolved` clears a small floor.
+export interface IdeasScorecard {
+  surfaced_total: number
+  live_count: number
+  promoted_total: number
+  machine_confirmed: number
+  machine_passed: number
+  machine_pending: number
+  resolved: number
+  up_votes: number
+  down_votes: number
 }
 // Run-state of a wire event's signal (GET /api/screener/signal-state) — drives the reader's "Run the checks"
 // split button + badge. A pure read of the run folder + live registry; never a launch.
@@ -536,6 +550,7 @@ export interface ScreenerBoard {
   // The PM skim's surfaced ideas. Optional: an engine build before this feature emits no `ideas` key, so
   // the cockpit fails closed — the "Best ideas" tab only shows when the server positively sends the array.
   ideas?: BoardIdea[]
+  ideas_scorecard?: IdeasScorecard // the skim's honest track record (absent on an older engine)
   counts: Record<string, number>
   book_momentum?: BookMomentum
   live?: { runId: string; kind: string; subjectId: string; runRoot: string | null; startedAt: number }[]

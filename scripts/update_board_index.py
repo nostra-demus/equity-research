@@ -392,18 +392,39 @@ def build() -> dict:
         "archived_count": sum(1 for c in conv if c.get("archived")),
     }
 
-    # ---- PM skim: surfaced ideas (news/ideas) ----
+    # ---- PM skim: surfaced ideas (news/ideas) + self-grading scorecard ----
     # A pure, read-only projection of the idea snapshots. `stale` is derived at build time from decay_at
     # (an ISO-Z string, so a lexicographic compare against `now` is a correct time compare) — a surfaced
     # idea ages off the fresh lane for free, no paid pass. Sorted best-first (conviction, then the wire's
     # own materiality) so the UI can slice the top 1-2 without re-ranking. Missing dir = empty.
+    #
+    # The scorecard is the skim's HONEST track record: how many ideas it surfaced, how many the human ran,
+    # how the DEEP machine graded the ones that were run (confirmed vs passed), and the 👍/👎 tally — no
+    # price, no fake P&L. The UI refuses to quote a confirmation rate until enough runs have resolved.
+    idea_fb: dict[str, str] = {}  # per-idea latest human vote (last line per idea_id wins; 'clear' un-votes)
+    for r in read_ndjson(os.path.join(LEDGER, "ideas_feedback.ndjson")):
+        iid, pol = r.get("idea_id"), r.get("polarity")
+        if iid and pol in ("up", "down", "clear"):
+            idea_fb[iid] = pol
+    # a promoted idea links to its signal; the signal's status IS the deep machine's grade of the skim's call
+    sig_status = {s["signal_id"]: (s.get("status") or "") for s in signals}
+    MACHINE_CONFIRM = {"provisional", "full_machine"}
+    MACHINE_PASS = {"watchlist_no_edge", "watchlist_no_world_change", "watchlist_no_source", "LOG", "PARK", "suppress"}
+
     ideas: list[dict] = []
+    sc = {"surfaced_total": 0, "live_count": 0, "promoted_total": 0,
+          "machine_confirmed": 0, "machine_passed": 0, "machine_pending": 0,
+          "up_votes": 0, "down_votes": 0}
     for fp in sorted(glob.glob(os.path.join(IDEAS, "*.json"))):
         rec = read_json(fp)
         if not isinstance(rec, dict) or not rec.get("idea_id") or not rec.get("ticker"):
             continue
         decay_at = rec.get("decay_at") or ""
         pc = rec.get("prior_coverage") if isinstance(rec.get("prior_coverage"), dict) else None
+        fb = idea_fb.get(rec.get("idea_id"))
+        fb = fb if fb in ("up", "down") else None  # 'clear'/absent -> no live vote
+        stale = bool(decay_at) and decay_at < now
+        status = rec.get("status") or "live"
         ideas.append({
             "idea_id": rec.get("idea_id"),
             "ticker": rec.get("ticker") or "",
@@ -427,10 +448,28 @@ def build() -> dict:
             "surfaced_at": rec.get("surfaced_at") or "",
             "updated_at": rec.get("updated_at") or "",
             "decay_at": decay_at,
-            "status": rec.get("status") or "live",
+            "status": status,
             "promoted_signal_id": rec.get("promoted_signal_id"),
-            "stale": bool(decay_at) and decay_at < now,
+            "feedback": fb,
+            "stale": stale,
         })
+        sc["surfaced_total"] += 1
+        if not stale:
+            sc["live_count"] += 1
+        if fb == "up":
+            sc["up_votes"] += 1
+        elif fb == "down":
+            sc["down_votes"] += 1
+        if status == "promoted":
+            sc["promoted_total"] += 1
+            st = sig_status.get(rec.get("promoted_signal_id") or "", "")
+            if st in MACHINE_CONFIRM:
+                sc["machine_confirmed"] += 1
+            elif st in MACHINE_PASS:
+                sc["machine_passed"] += 1
+            else:
+                sc["machine_pending"] += 1
+    sc["resolved"] = sc["machine_confirmed"] + sc["machine_passed"]
     ideas.sort(key=lambda i: (i["stale"], -i["conviction"], -i["materiality_max"]))
 
     return {
@@ -440,6 +479,7 @@ def build() -> dict:
         "theses": theses,
         "handoffs": handoff_rows,
         "ideas": ideas,
+        "ideas_scorecard": sc,
         "counts": counts,
         "book_momentum": book_momentum,
     }

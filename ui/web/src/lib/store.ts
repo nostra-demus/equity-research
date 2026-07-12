@@ -427,6 +427,7 @@ interface State {
   scInit: () => Promise<void>
   scRefreshBoard: () => Promise<void>
   scPromoteIdea: (idea: BoardIdea) => Promise<void>
+  scRateIdea: (idea: BoardIdea, polarity: 'up' | 'down' | 'clear', reason?: string) => Promise<void>
   _maybeAutoResume: (resumable: ScreenerBoard['resumable']) => Promise<void>
   scSelectSignal: (sigId: string | null) => Promise<void>
   scNodeStatus: (key: string) => NodeStatus
@@ -2658,6 +2659,24 @@ export const useStore = create<State>((set, get) => ({
   scPromoteIdea: async (idea) => {
     await api.promoteIdea(idea.idea_id)
     await get().scRefreshBoard()
+  },
+  // 👍/👎 a surfaced idea — the self-grading loop. Optimistic (the thumb reacts instantly), then persist +
+  // refresh so the board's scorecard + any decay change land. Reverts by refetch on failure.
+  scRateIdea: async (idea, polarity, reason) => {
+    const next = polarity === 'clear' ? null : polarity
+    set((s) => (s.scBoard && Array.isArray(s.scBoard.ideas)
+      ? { scBoard: { ...s.scBoard, ideas: s.scBoard.ideas.map((i) => (i.idea_id === idea.idea_id ? { ...i, feedback: next } : i)) } }
+      : {}))
+    try {
+      await api.rateIdea(idea.idea_id, polarity, reason)
+    } catch {
+      await get().scRefreshBoard() // revert the optimistic vote to the server's truth
+      return
+    }
+    // On success KEEP the optimistic vote — do NOT refetch here. The server rebuilds the board on a deferred
+    // setImmediate, so an immediate GET would read the PRE-rebuild board (feedback still null), clobber the
+    // filled thumb, and break toggle-off (vote===pol would compare against null). The periodic 30s board poll
+    // reconciles the scorecard + any 👎 decay change once the rebuild has landed.
   },
 
   scRefreshBoard: async () => {

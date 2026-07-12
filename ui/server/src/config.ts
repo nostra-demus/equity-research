@@ -354,6 +354,7 @@ export const NEWS = {
   ideasMinIntervalSec: capNum(process.env.IDEAS_MIN_INTERVAL_SEC, 900), // hard floor between passes (15 min) — even a churny wire can't hammer it
   ideasRefreshSec: capNum(process.env.IDEAS_REFRESH_SEC, 3600), // heartbeat: re-skim at least this often even when the top-N is unchanged
   ideasMaxTokens: capNum(process.env.IDEAS_MAX_TOKENS, 2500), // output ceiling — a few ideas of JSON, never a truncation
+  ideasDownvoteGraceHrs: capNum(process.env.IDEAS_DOWNVOTE_GRACE_HRS, 2), // a 👎 on a surfaced idea cools it this fast (idea-scoped, no global lever)
   // OPTIONAL stronger model for FILING reads only (exchange PDFs / regulatory docs) — see
   // buildFilingReadProviders. OpenAI-compatible endpoint: point it at any capable model you hold a key for
   // (a larger OpenRouter model, an Anthropic/OpenAI-compatible gateway, …). Unset (no model) => filings use

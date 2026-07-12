@@ -11,9 +11,67 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { useStore } from '../../lib/store'
-import type { BoardIdea } from '../../lib/types'
+import type { BoardIdea, IdeasScorecard } from '../../lib/types'
 
 const MACRO_TYPES = new Set(['macro_conditional', 'commodity_conditional', 'policy_conditional', 'fx_rates', 'liquidity_positioning'])
+
+// The same thumb glyphs the reader uses, so a rating feels identical across the cockpit.
+const THUMB_UP = 'M7 10v11H4a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1h3zm0 0 4.5-7a2 2 0 0 1 3.7 1.3L14.5 9H20a2 2 0 0 1 2 2.3l-1.3 7A2 2 0 0 1 18.7 20H7'
+const THUMB_DOWN = 'M17 14V3h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1h-3zm0 0-4.5 7a2 2 0 0 1-3.7-1.3L9.5 15H4a2 2 0 0 1-2-2.3l1.3-7A2 2 0 0 1 5.3 4H17'
+const UP_REASONS = ['clean setup', 'timely', 'non-obvious']
+const DOWN_REASONS = ['not tradable', 'priced in', 'wrong way', 'too vague']
+
+// 👍/👎 on a surfaced idea — the self-grading loop, in the reader's exact visual language. A thumb click
+// files the vote instantly (optimistic) and reveals an OPTIONAL one-tap reason above it; clicking the lit
+// thumb again un-votes. Reasons refine the vote but are never required — fast by default.
+function IdeaFeedback({ idea }: { idea: BoardIdea }) {
+  const rate = useStore((s) => s.scRateIdea)
+  const [open, setOpen] = useState<null | 'up' | 'down'>(null)
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const rootRef = useRef<HTMLDivElement>(null)
+  useEffect(() => () => { if (closeTimer.current) clearTimeout(closeTimer.current) }, [])
+  // While the reason popover is open, Escape or an outside click dismisses it, and focus moves into the
+  // group so a keyboard / screen-reader user actually reaches (and hears) the reason chips.
+  useEffect(() => {
+    if (!open) return
+    rootRef.current?.querySelector<HTMLButtonElement>('.ideafb__chip')?.focus()
+    const onDown = (e: MouseEvent) => { if (rootRef.current && !rootRef.current.contains(e.target as Node)) setOpen(null) }
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') { e.stopPropagation(); setOpen(null) } }
+    document.addEventListener('mousedown', onDown)
+    document.addEventListener('keydown', onKey)
+    return () => { document.removeEventListener('mousedown', onDown); document.removeEventListener('keydown', onKey) }
+  }, [open])
+  const vote = idea.feedback
+
+  const clickThumb = (pol: 'up' | 'down') => {
+    if (closeTimer.current) clearTimeout(closeTimer.current)
+    if (vote === pol) { setOpen(null); void rate(idea, 'clear'); return } // toggle off
+    setOpen(pol)
+    void rate(idea, pol) // files immediately; the reason is an optional refinement
+    closeTimer.current = setTimeout(() => setOpen(null), 5000)
+  }
+  const pickReason = (pol: 'up' | 'down', reason: string) => { if (closeTimer.current) clearTimeout(closeTimer.current); setOpen(null); void rate(idea, pol, reason) }
+
+  return (
+    <div className="ideafb" ref={rootRef}>
+      {open && (
+        <span className="ideafb__reasons" role="group" aria-label="Why?">
+          {(open === 'up' ? UP_REASONS : DOWN_REASONS).map((r) => (
+            <button key={r} type="button" className="ideafb__chip" onClick={() => pickReason(open, r)}>{r}</button>
+          ))}
+        </span>
+      )}
+      <span className={`ideafb__shell${vote ? ' ideafb__shell--rated' : ''}`} role="group" aria-label="Rate this idea">
+        <button type="button" className={`ideafb__thumb ideafb__thumb--up${vote === 'up' ? ' ideafb__thumb--on' : ''}`} onClick={() => clickThumb('up')} aria-pressed={vote === 'up'} aria-label="Good idea" title="Good idea">
+          <svg viewBox="0 0 24 24" aria-hidden><path d={THUMB_UP} /></svg>
+        </button>
+        <button type="button" className={`ideafb__thumb ideafb__thumb--down${vote === 'down' ? ' ideafb__thumb--on' : ''}`} onClick={() => clickThumb('down')} aria-pressed={vote === 'down'} aria-label="Not a good idea" title="Not a good idea">
+          <svg viewBox="0 0 24 24" aria-hidden><path d={THUMB_DOWN} /></svg>
+        </button>
+      </span>
+    </div>
+  )
+}
 
 function agoLabel(iso: string): string {
   const t = Date.parse(iso)
@@ -114,7 +172,10 @@ function IdeaCard({ idea }: { idea: BoardIdea }) {
           <span className="bidea__readnum">{idea.conviction}<span className="bidea__readden">/100</span></span>
           <span className="bidea__bar" aria-hidden><span className="bidea__barfill" style={{ width: `${Math.max(0, Math.min(100, idea.conviction))}%` }} /></span>
         </div>
-        <PromoteButton idea={idea} />
+        <div className="bidea__actions">
+          <IdeaFeedback idea={idea} />
+          <PromoteButton idea={idea} />
+        </div>
       </div>
     </article>
   )
@@ -175,6 +236,7 @@ export function BestIdeasView() {
   return (
     <div className="bideas">
       <Header subtitle={`from today's top-ranked wire · read ${updated || 'just now'} · $0`} count={live.length} />
+      <Track sc={scBoard.ideas_scorecard} />
 
       {live.length === 0 ? (
         <div className="bideas__empty bideas__empty--reject">
@@ -218,4 +280,14 @@ function Header({ subtitle, count }: { subtitle: string; count: number | null })
       {count != null && <span className="bideas__count">{count === 0 ? 'none clear the bar' : `${count} clear the bar`}</span>}
     </header>
   )
+}
+
+// The skim's honest track record — one quiet line. No price, no P&L: surfaced/run counts, how the deep
+// machine graded the runs (only once enough have resolved, per §19), and the vote tally.
+function Track({ sc }: { sc?: IdeasScorecard }) {
+  if (!sc || sc.surfaced_total === 0) return null
+  const parts = [`${sc.surfaced_total} surfaced`, `${sc.promoted_total} run through the machine`]
+  if (sc.resolved >= 3) parts.push(`it backed ${sc.machine_confirmed} of ${sc.resolved}`)
+  const votes = sc.up_votes || sc.down_votes ? ` · you rated ${sc.up_votes} good, ${sc.down_votes} off` : ''
+  return <div className="bideas__track">Track record — {parts.join(' · ')}{votes}</div>
 }
