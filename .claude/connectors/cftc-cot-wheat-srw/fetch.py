@@ -18,6 +18,7 @@ import argparse
 import json
 import os
 import sys
+import tempfile
 import urllib.parse
 import urllib.request
 from datetime import datetime, timezone
@@ -87,11 +88,30 @@ def build(records):
         "as_of": asof,
         "received": datetime.now(timezone.utc).strftime("%Y-%m-%d"),
         "source_url": _url(),
-        "licensing": "public_domain (US Government work, 17 U.S.C. §105)",
+        "license": "public_domain (US Government work, 17 U.S.C. §105)",
         "connector_id": CONNECTOR_ID,
         "note": f"Managed money net {net:+,} ({stance}) as of {asof}; OI {oi:,}.",
     }
     return asof, net, stance, payload, sidecar
+
+
+def _atomic_write_json(path: str, obj) -> None:
+    """Write JSON atomically — a crash / disk-full mid-write can't leave a truncated file at `path`
+    (write a temp in the same dir, fsync, then os.replace, which is atomic on POSIX)."""
+    d = os.path.dirname(path) or "."
+    fd, tmp = tempfile.mkstemp(dir=d, suffix=".tmp")
+    try:
+        with os.fdopen(fd, "w", encoding="utf-8") as f:
+            json.dump(obj, f, indent=2)
+            f.flush()
+            os.fsync(f.fileno())
+        os.replace(tmp, path)
+    except BaseException:
+        try:
+            os.unlink(tmp)
+        except OSError:
+            pass
+        raise
 
 
 def main() -> int:
@@ -114,10 +134,8 @@ def main() -> int:
     out_dir = os.path.join(a.data_root, a.subject, "external", PROVIDER)
     os.makedirs(out_dir, exist_ok=True)
     data_path = os.path.join(out_dir, f"cot_wheat_srw_{asof}.json")
-    with open(data_path, "w", encoding="utf-8") as f:
-        json.dump(payload, f, indent=2)
-    with open(data_path + ".source.json", "w", encoding="utf-8") as f:
-        json.dump(sidecar, f, indent=2)
+    _atomic_write_json(data_path, payload)
+    _atomic_write_json(data_path + ".source.json", sidecar)
     print(f"wrote {data_path} (managed money net {net:+,}, {stance}, as_of {asof}) + .source.json sidecar (tier 5)")
     return 0
 
