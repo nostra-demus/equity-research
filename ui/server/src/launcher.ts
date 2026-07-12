@@ -647,7 +647,8 @@ export function screenerMarkerDir(swarmId: string | undefined, sigId: string): s
   return resolveInsideScreener(abs)
 }
 
-function buildPrompt(swarmId: string, kind: RunKind, ticker: string, module?: string, agent?: string, window?: string, extra?: { thesisId?: string }): string {
+// Exported for the build-prompt routing test (test/build-prompt.test.ts).
+export function buildPrompt(swarmId: string, kind: RunKind, ticker: string, module?: string, agent?: string, window?: string, extra?: { thesisId?: string }): string {
   // Generic constellation swarm (e.g. commodity): full/module/agent through the manifest's command
   // namespace — never hardcode the swarm's literal beyond reading commandNs (CLAUDE.md §26).
   if (swarmId !== 'research' && !SCREENER_KINDS.has(kind)) {
@@ -657,6 +658,10 @@ function buildPrompt(swarmId: string, kind: RunKind, ticker: string, module?: st
     // rerun on a constellation swarm: AGENT is optional (whole-module vs single-orb). Never fall through
     // to the research `/research:rerun` line below — dispatch the swarm's own command namespace (§26).
     if (kind === 'rerun') return `/${ns}:rerun ${module}${agent ? ' ' + agent : ''} ${ticker}`
+    // doc-intake is the CHEAP advisory plan-writer (a clone of 'review'), NOT a full run. Route it to the
+    // swarm's own `:intake` command; without this it fell through to `/${ns}:full` below — so a single
+    // landed file (the auto-analyze-on-landing signal) would trigger a full PAID run. (§26 namespace)
+    if (kind === 'doc-intake') return `/${ns}:intake ${ticker}`
     return `/${ns}:full ${ticker}` // 'full' (default)
   }
   if (kind === 'full') return `/research:full ${ticker}`
