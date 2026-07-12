@@ -677,6 +677,10 @@ def eval_ah_expectations_gap_gate(decision_date, confidence_score, eg):
 # return | +4.3%" while its own decision_record.json carries expected_return_pct=-4.4 (the sign-flip bug
 # synthesizer.md's own Step-4 comment already warns about by name, never actually caught in the artifact).
 AI_DATE = "2026-07-09"
+# Two-number confidence split (Understanding + Conviction) replaces the single "Confidence /100" scorecard
+# row on/after this date (schema fields analysis_confidence/conviction; DECISION_LEDGER.md §5). Before it,
+# the old "Confidence /100" + "Data sufficiency /100" rows apply. No committed fixture reaches this date.
+CONF_SPLIT_DATE = "2026-07-11"
 def _scorecard_section(thesis):
     """The text of the '## 2. Headline Scorecard' section ONLY — from its heading up to the next '## '
     heading (or EOF). Scoping every cell read to this slice is what stops _hs_cell picking up a row that
@@ -749,14 +753,27 @@ def eval_ai_headline_reconciliation(decision_date, d, thesis):
     # a real defect the §8/§14 tables cannot paper over (r3551580662). (An honest "N/A" cell for a null field
     # is still a present row and is fine — only a wholly ABSENT row fails.) For a return/ratio field, an
     # absent row is only a defect when the JSON actually carries a value to reconcile against.
-    SCORE_ROWS_REQUIRED = {"confidence_score", "data_sufficiency_score"}
-    for label, field, kind, tol_abs, tol_rel, use_abs in [
-        ("Confidence /100", "confidence_score", "plain", 0.5, 0.0, False),
-        ("Data sufficiency /100", "data_sufficiency_score", "plain", 0.5, 0.0, False),
-        ("Expected return", "expected_return_pct", "pct", 1.0, 0.05, False),
-        ("Risk/reward", "risk_reward", "ratio", 0.15, 0.12, False),
-        ("Downside risk", "downside_risk_pct", "pct", 1.0, 0.05, True),
-    ]:
+    # Two-number confidence (Understanding + Conviction) supersedes the single Confidence /100 row on/after
+    # CONF_SPLIT_DATE; data sufficiency is folded into Understanding (still in the JSON, still drives §11 caps).
+    if isdate(decision_date) and decision_date >= CONF_SPLIT_DATE:
+        SCORE_ROWS_REQUIRED = {"conviction", "analysis_confidence"}
+        _rows = [
+            ("Conviction /100", "conviction", "plain", 0.5, 0.0, False),
+            ("Understanding /100", "analysis_confidence", "plain", 0.5, 0.0, False),
+            ("Expected return", "expected_return_pct", "pct", 1.0, 0.05, False),
+            ("Risk/reward", "risk_reward", "ratio", 0.15, 0.12, False),
+            ("Downside risk", "downside_risk_pct", "pct", 1.0, 0.05, True),
+        ]
+    else:
+        SCORE_ROWS_REQUIRED = {"confidence_score", "data_sufficiency_score"}
+        _rows = [
+            ("Confidence /100", "confidence_score", "plain", 0.5, 0.0, False),
+            ("Data sufficiency /100", "data_sufficiency_score", "plain", 0.5, 0.0, False),
+            ("Expected return", "expected_return_pct", "pct", 1.0, 0.05, False),
+            ("Risk/reward", "risk_reward", "ratio", 0.15, 0.12, False),
+            ("Downside risk", "downside_risk_pct", "pct", 1.0, 0.05, True),
+        ]
+    for label, field, kind, tol_abs, tol_rel, use_abs in _rows:
         target = d.get(field)
         cell = _hs_cell(section, label)
         nums = _metric_numbers(cell, kind)
@@ -775,6 +792,56 @@ def eval_ai_headline_reconciliation(decision_date, d, thesis):
         if not _reconciles(nums, target, tol_abs, tol_rel, use_abs):
             det.append(f"Headline Scorecard {label!r}={cell!r} does not reconcile with {field}={target}"
                         +(" (by magnitude)" if use_abs else ""))
+    # Post-split (>= CONF_SPLIT_DATE): the scorer's two outputs are REQUIRED numbers, and confidence_score
+    # MUST equal conviction. (Codex #217.) Without this, a run can present Conviction /100 = 80 in the
+    # headline while leaving confidence_score = 50 (or null); the shipped §7 gates V_edge_gate and
+    # AH_expectations_gap_gate still read confidence_score, so they bind to the stale value and an unproven
+    # high-conviction thesis passes — and a null conviction/analysis_confidence with an "N/A" cell would
+    # otherwise slip past the row-presence check with the scorer never run.
+    if isdate(decision_date) and decision_date >= CONF_SPLIT_DATE:
+        cf=d.get("confidence_score"); cv=d.get("conviction"); au=d.get("analysis_confidence")
+        for fld,val in [("conviction",cv),("analysis_confidence",au)]:
+            if not isnum(val):
+                det.append(f"post-split run (>= {CONF_SPLIT_DATE}): decision_record.json {fld}={val!r} must be a number "
+                           f"(from scripts/confidence.py) — a null/absent value means the scorer did not run")
+            elif not (0.0 <= float(val) <= 100.0):
+                # Codex #217: isnum alone let analysis_confidence=140 / -10 match the scorecard and pass. All
+                # §12 scores are 0-100. conviction is indirectly bounded via the confidence_score tie below,
+                # but analysis_confidence has no other gate — bound BOTH here explicitly.
+                det.append(f"post-split run: decision_record.json {fld}={val} is outside the 0-100 range "
+                           f"(CLAUDE.md §12 — all scores are 0-100)")
+        if isnum(cv) and not isnum(cf):
+            det.append(f"post-split run: conviction={cv} is set but confidence_score={cf!r} is null — set "
+                       f"confidence_score=conviction (backward-compat; V_edge_gate/AH still read confidence_score)")
+        elif isnum(cv) and isnum(cf) and abs(float(cf)-float(cv))>0.5:
+            det.append(f"post-split run: confidence_score={cf} must equal conviction={cv} (backward-compat; the §7 "
+                       f"V_edge_gate/AH gates read confidence_score, so a split lets an unproven high-conviction thesis ship)")
+        # Codex #217: the split REPLACES the legacy rows — data sufficiency is folded into Understanding
+        # (synthesizer.md §2). A carried-forward old template that still shows Confidence /100 or Data
+        # sufficiency /100 alongside the new rows leaves the reader two disagreeing systems; reject it.
+        for legacy in ("Confidence /100", "Data sufficiency /100"):
+            if _hs_cell(section, legacy) is not None:
+                det.append(f"post-split run (>= {CONF_SPLIT_DATE}): legacy scorecard row {legacy!r} must not appear — "
+                           f"post-split emits Conviction /100 + Understanding /100 only (data sufficiency folded into Understanding)")
+        # Codex #217: a numeric conviction/analysis_confidence pair alone does not prove
+        # scripts/confidence.py actually ran — a record can hand-write matching numbers and leave the
+        # scorer's own artifacts null. Require confidence_inputs (the recorded judgments the scorer
+        # consumes) and confidence_breakdown (the auditable step-by-step build) to be present dict
+        # objects, and sizing_hint to be a {band, action} dict — DECISION_LEDGER.md §5's declared shapes.
+        ci = d.get("confidence_inputs")
+        if not isinstance(ci, dict):
+            det.append(f"post-split run (>= {CONF_SPLIT_DATE}): confidence_inputs={ci!r} must be an object "
+                       f"(the recorded judgments scripts/confidence.py consumed) — a null/absent value means "
+                       f"the scorer may never have actually run")
+        cb = d.get("confidence_breakdown")
+        if not isinstance(cb, dict):
+            det.append(f"post-split run (>= {CONF_SPLIT_DATE}): confidence_breakdown={cb!r} must be an object "
+                       f"(the scorer's auditable step-by-step build) — a null/absent value means conviction "
+                       f"cannot be re-derived")
+        sh = d.get("sizing_hint")
+        if not (isinstance(sh, dict) and isinstance(sh.get("band"), str) and isinstance(sh.get("action"), str)):
+            det.append(f"post-split run (>= {CONF_SPLIT_DATE}): sizing_hint={sh!r} must be an object with "
+                       f"string 'band' and 'action' fields (DECISION_LEDGER.md §5)")
     return det
 
 # ── Check AJ (Decision Audit Trail structural check, CLAUDE.md §8/§22) ──
@@ -1621,6 +1688,12 @@ if scope=="selftest":
                 "| Rating | Buy |\n| Suggested action | Start small |\n| Time horizon | 12-18 months |\n"
                 f"| Expected return | {exp} |\n| Downside risk | {dr} |\n| Risk/reward | {rr} |\n"
                 f"| Confidence /100 | {conf} |\n| Data sufficiency /100 | {ds} |\n")
+    def _hs_thesis_split(exp="",dr="",rr="",conv="",und=""):
+        # post-CONF_SPLIT_DATE scorecard: Conviction /100 + Understanding /100 replace Confidence/Data-suff.
+        return ("# Thesis\n\n## 2. Headline Scorecard\n\n| Item | Answer |\n|---|---|\n"
+                "| Rating | Watchlist |\n| Suggested action | Monitor |\n| Time horizon | 12-18 months |\n"
+                f"| Expected return | {exp} |\n| Downside risk | {dr} |\n| Risk/reward | {rr} |\n"
+                f"| Understanding /100 | {und} |\n| Conviction /100 | {conv} |\n| Suggested sizing | monitor only |\n")
     D_TMCV={"expected_return_pct":-4.4,"downside_risk_pct":-81.0,"risk_reward":-0.23,"confidence_score":47,"data_sufficiency_score":68}
     TH_TMCV=_hs_thesis(exp="+4.3% (see §8 Scenario Model)", dr="−19% to −81% depending on Iveco scenario",
                         rr="0.72× upside/downside in base case; binary risk makes this ratio misleading",
@@ -1680,6 +1753,59 @@ if scope=="selftest":
         # r3551580662 — a required reader-facing SCORE row is ABSENT and its JSON field is null → FAIL
         # (previously skipped, letting a thesis ship with no reader-facing Confidence / Data-sufficiency row).
         ("2026-07-09", {"confidence_score":None,"data_sufficiency_score":70}, TH_NO_CONF_ROW, ["Confidence /100"]),
+        # ── Codex #217: post-split (>= 2026-07-11) two-number confidence consistency ──
+        # Post-split scorecard uses Conviction /100 + Understanding /100. _hs_thesis_split builds it.
+        # (P1) confidence_score must EQUAL conviction (V_edge_gate/AH read confidence_score). A run showing
+        # Conviction 80 but confidence_score 50 must FAIL — else an unproven high-conviction thesis ships.
+        ("2026-07-11", {"conviction":80,"analysis_confidence":79,"confidence_score":50},
+         _hs_thesis_split(conv="80", und="79"), ["confidence_score=50 must equal conviction=80"]),
+        # (P1) confidence_score null while conviction set → FAIL.
+        ("2026-07-11", {"conviction":72,"analysis_confidence":70,"confidence_score":None},
+         _hs_thesis_split(conv="72", und="70"), ["confidence_score", "backward-compat"]),
+        # (P1b) conviction JSON field null but the row shows "N/A" → FAIL (scorer did not run).
+        ("2026-07-11", {"conviction":None,"analysis_confidence":None,"confidence_score":None},
+         _hs_thesis_split(conv="N/A", und="N/A"), ["conviction=None must be a number", "analysis_confidence=None must be a number"]),
+        # fully consistent post-split run → clean pass. Carries confidence_inputs/confidence_breakdown/
+        # sizing_hint too — the clean-pass fixture must actually satisfy the scorer-artifact check below.
+        ("2026-07-11", {"conviction":62,"analysis_confidence":74,"confidence_score":62,
+                        "expected_return_pct":-11.5,"downside_risk_pct":-31.0,"risk_reward":-0.37,
+                        "confidence_inputs":{"data_sufficiency":70,"decision":"Watchlist"},
+                        "confidence_breakdown":{"base":70,"final":62},
+                        "sizing_hint":{"band":"watch","action":"monitor only — no position (track opportunity cost)"}},
+         _hs_thesis_split(conv="62", und="74", exp="≈ −11.5%", dr="≈ −31%", rr="≈ −0.37"), []),
+        # (P2) confidence_inputs missing (null) → the scorer's recorded judgments were never written, even
+        # though conviction/analysis_confidence happen to be present numbers → FAIL.
+        ("2026-07-11", {"conviction":62,"analysis_confidence":74,"confidence_score":62,"confidence_inputs":None,
+                        "confidence_breakdown":{"base":70,"final":62},
+                        "sizing_hint":{"band":"watch","action":"monitor only"}},
+         _hs_thesis_split(conv="62", und="74"), ["confidence_inputs=None must be an object"]),
+        # (P2) confidence_breakdown missing → conviction cannot be re-derived/audited → FAIL.
+        ("2026-07-11", {"conviction":62,"analysis_confidence":74,"confidence_score":62,
+                        "confidence_inputs":{"data_sufficiency":70,"decision":"Watchlist"},
+                        "confidence_breakdown":None,
+                        "sizing_hint":{"band":"watch","action":"monitor only"}},
+         _hs_thesis_split(conv="62", und="74"), ["confidence_breakdown=None must be an object"]),
+        # (P2) sizing_hint present but missing the required 'action' string → FAIL.
+        ("2026-07-11", {"conviction":62,"analysis_confidence":74,"confidence_score":62,
+                        "confidence_inputs":{"data_sufficiency":70,"decision":"Watchlist"},
+                        "confidence_breakdown":{"base":70,"final":62},
+                        "sizing_hint":{"band":"watch"}},
+         _hs_thesis_split(conv="62", und="74"), ["sizing_hint", "must be an object with"]),
+        # (Codex #217, P2) split scores must be BOUNDED 0-100, not merely numeric. analysis_confidence=140
+        # reconciles against a matching cell but is out of range → FAIL (pinned to CLAUDE.md §12, not code).
+        ("2026-07-11", {"conviction":80,"analysis_confidence":140,"confidence_score":80},
+         _hs_thesis_split(conv="80", und="140"), ["analysis_confidence=140 is outside the 0-100 range"]),
+        # (Codex #217, P2) a negative conviction is likewise out of range (confidence_score matches it, so the
+        # equality check passes — the range check is what must catch it).
+        ("2026-07-11", {"conviction":-10,"analysis_confidence":70,"confidence_score":-10},
+         _hs_thesis_split(conv="-10", und="70"), ["conviction=-10 is outside the 0-100 range"]),
+        # (Codex #217, P2) legacy rows must not survive the split: a carried-forward template that still shows
+        # Confidence /100 + Data sufficiency /100 next to the new rows → FAIL (two disagreeing systems).
+        ("2026-07-11", {"conviction":62,"analysis_confidence":74,"confidence_score":62},
+         ("# Thesis\n\n## 2. Headline Scorecard\n\n| Item | Answer |\n|---|---|\n"
+          "| Rating | Watchlist |\n| Understanding /100 | 74 |\n| Conviction /100 | 62 |\n"
+          "| Confidence /100 | 62 |\n| Data sufficiency /100 | 70 |\n"),
+         ["legacy scorecard row 'Confidence /100' must not appear"]),
     ]
     aibad=0
     for dt_,d_,th_,exp in aicases:
