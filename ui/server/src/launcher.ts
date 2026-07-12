@@ -1157,7 +1157,9 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
         try {
           const p = path.join(REPO_ROOT, runRoot, 'intake.json')
           const cur = JSON.parse(fs.readFileSync(p, 'utf8'))
-          if (cur.override_promote !== true) pendingIntake = { path: p, body: { ...cur, override_promote: true } }
+          if (cur && typeof cur === 'object' && !Array.isArray(cur) && cur.override_promote !== true) {
+            pendingIntake = { path: p, body: { ...cur, override_promote: true } }
+          }
         } catch {
           /* unreadable/absent intake — the existing-file check above already threw; nothing to stamp */
         }

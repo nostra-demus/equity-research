@@ -83,6 +83,10 @@ export function ScreenerField() {
   // LOG "noted, no action"), so downstream stages never ran. A human can override that gate and run the
   // rest — reusing the finished first checks. This is the terminal-gate twin of `resumable`: same
   // some-done-not-all shape, but a deliberate cull rather than an interruption, so it gets its own verb.
+  // Must also NOT have downstream module/thesis routing already recorded — e.g. a prior override already
+  // pushed this signal past signal-gate and it stopped at a LATER terminal gate (thesis-structure,
+  // edge-definition, or the thesis switchyard itself). In that case it isn't a first-checks-only cull
+  // anymore, and offering "Override & run forward" again would just re-run into the same later gate.
   const overridable = useMemo(() => {
     if (!selectedSignal || anyLive) return false
     const total = nodesByKey.size
@@ -91,7 +95,9 @@ export function ScreenerField() {
     for (const v of Object.values(runtime)) if (v.status === 'done') done++
     if (done === 0 || done >= total) return false
     const gate = routed['signal-gate']?.route // only the promotion gate is what override_promote lifts
-    return gate === 'PARK' || gate === 'LOG'
+    if (gate !== 'PARK' && gate !== 'LOG') return false
+    const hasDownstreamRouting = Object.keys(routed).some((k) => k !== 'signal-gate')
+    return !hasDownstreamRouting
   }, [selectedSignal, anyLive, runtime, routed, nodesByKey])
 
   useEffect(() => {

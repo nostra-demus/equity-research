@@ -2753,7 +2753,7 @@ export const useStore = create<State>((set, get) => ({
       void get().refreshActiveRuns()
       get().setToast({ msg: override ? `Running ${sigId} forward — overriding the gate, reusing finished checks` : `Resuming ${sigId} — picking up where it stopped`, tone: 'good' })
     } catch (e: any) {
-      get().setToast({ msg: e?.message ? String(e.message) : 'Could not resume the checks', tone: e?.body?.code ? 'info' : 'bad' })
+      get().setToast({ msg: e?.message ? String(e.message) : (override ? 'Could not run the checks forward' : 'Could not resume the checks'), tone: e?.body?.code ? 'info' : 'bad' })
     } finally {
       set({ launchPending: null })
     }
