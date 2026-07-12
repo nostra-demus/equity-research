@@ -1597,7 +1597,9 @@ app.post('/api/screener/signal/:id/hide', { config: { rateLimit: { max: 1000, ti
 // stale committed index) instead of only re-reading the same snapshot — so "runs I just ran" always show.
 app.post('/api/screener/board/rebuild', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (_req, reply) => {
   try {
-    await refreshBoard(REPO_ROOT)
+    // throwOnFailure: this is the manual "rebuild" button, not a best-effort auto-poll — a script
+    // timeout or bad ledger row must surface as a failed request, never a silent 200 of the stale index.
+    await refreshBoard(REPO_ROOT, () => {}, { throwOnFailure: true })
     return screenerBoard()
   } catch (e: any) {
     return reply.code(500).send({ error: e?.message || 'rebuild failed' })

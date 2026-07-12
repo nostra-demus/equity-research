@@ -334,6 +334,7 @@ function RecentChecks({ onOpen, onReplay }: { onOpen: (thesisId: string) => void
               <button
                 className="ideacard__hide"
                 onClick={(e) => { e.stopPropagation(); void hideIdea(s.signal_id) }}
+                onKeyDown={(e) => { e.stopPropagation() }}
                 aria-label={`Hide from your book: ${displayHeadline(s)}`}
                 title="Hide this idea from your book — it stays on record; restore any time"
               >

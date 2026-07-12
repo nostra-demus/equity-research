@@ -336,7 +336,11 @@ def build() -> dict:
     # funnel counts run on the EFFECTIVE status (engine verdict unless a human moved the idea), and EXCLUDE
     # ideas the human soft-hid from the book, so every funnel number matches the cards actually shown.
     hidden_sig_ids = {s["signal_id"] for s in signals if s["hidden"]}
+    # a hidden signal's thesis (if any) carries the hide through to anything keyed on thesis_id — handoffs
+    # included — so the "Sent" funnel count matches the cards actually shown, not the ledger's raw count.
+    hidden_thesis_ids = {t["thesis_id"] for t in theses if t.get("signal_id") in hidden_sig_ids}
     visible_signals = [s for s in signals if not s["hidden"]]
+    visible_handoff_rows = [h for h in handoff_rows if h["thesis_id"] not in hidden_thesis_ids]
     thesis_statuses = [t.get("effective_status") or t["status"] for t in theses if t.get("signal_id") not in hidden_sig_ids]
     news_seen, news_picked, news_dropped = firehose_counts(now[:10])
     counts = {
@@ -349,7 +353,7 @@ def build() -> dict:
         + sum(1 for s in visible_signals if s["status"] == "watchlist_no_source" and not s["thesis_id"]),
         "provisional": sum(1 for st in thesis_statuses if st == "provisional"),
         "full_machine": sum(1 for st in thesis_statuses if st == "full_machine"),
-        "handed_off": len(handoff_rows),
+        "handed_off": len(visible_handoff_rows),
         # autonomous news ingester — today's firehose throughput (0 when nothing has run today)
         "news_seen_today": news_seen,
         "news_picked_today": news_picked,
@@ -359,7 +363,10 @@ def build() -> dict:
     # ---- book momentum (Phase 3 live book) ----
     # The single number the desk watches: are live ideas, on balance, upgrading? Computed from the
     # conviction snapshots. Archived (terminal) theses leave the live book but stay counted.
-    conv = [t["conviction"] for t in theses if isinstance(t.get("conviction"), dict)]
+    conv = [
+        t["conviction"] for t in theses
+        if isinstance(t.get("conviction"), dict) and t.get("signal_id") not in hidden_sig_ids
+    ]
     live = [c for c in conv if not c.get("archived")]
     vels = [float(c.get("upgrade_velocity") or 0) for c in live]
     book_momentum = {

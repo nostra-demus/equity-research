@@ -1214,7 +1214,7 @@ a { color: inherit; }
               transform var(--dur-fast) var(--ease-out);
 }
 @media (hover: hover) and (pointer: fine) {
-  .ideacard[role='button']:hover .ideacard__hide { opacity: 0.55; }
+  .ideacard:hover .ideacard__hide { opacity: 0.55; }
   .ideacard__hide:hover { opacity: 1; color: var(--bad); background: color-mix(in srgb, var(--bad) 12%, transparent); border-color: color-mix(in srgb, var(--bad) 26%, transparent); }
 }
 /* touch / keyboard: always reachable (no hover to reveal it) */

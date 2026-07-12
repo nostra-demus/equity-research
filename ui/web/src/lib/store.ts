@@ -2878,6 +2878,7 @@ export const useStore = create<State>((set, get) => ({
       await api.hideSignal(signalId, 'hide')
       get().setToast({ msg: 'Idea hidden from your book', tone: 'info', action: { label: 'Undo', onClick: () => void get().restoreIdea(signalId) } })
     } catch (e: any) {
+      set((s) => ({ scBoard: s.scBoard ? { ...s.scBoard, signals: s.scBoard.signals.map((sig) => (sig.signal_id === signalId ? { ...sig, hidden: false } : sig)) } : s.scBoard }))
       get().setToast({ msg: e?.message || 'Could not hide the idea', tone: 'bad' })
     }
     await get().scRefreshBoard()
@@ -2890,6 +2891,7 @@ export const useStore = create<State>((set, get) => ({
       await api.hideSignal(signalId, 'restore')
       get().setToast({ msg: 'Idea restored to your book', tone: 'good' })
     } catch (e: any) {
+      set((s) => ({ scBoard: s.scBoard ? { ...s.scBoard, signals: s.scBoard.signals.map((sig) => (sig.signal_id === signalId ? { ...sig, hidden: true } : sig)) } : s.scBoard }))
       get().setToast({ msg: e?.message || 'Could not restore the idea', tone: 'bad' })
     }
     await get().scRefreshBoard()
