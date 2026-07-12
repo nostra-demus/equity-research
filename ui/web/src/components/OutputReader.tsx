@@ -16,6 +16,14 @@ const titleize = (s: string) => s.replace(/-/g, ' ').replace(/\b\w/g, (c) => c.t
 interface PromptRow { path: string; label: string; sub: string; blurb: string }
 interface PromptSource { path: string; label: string; blurb: string }
 
+// the SIG id a screener report's own path belongs to (run_root_template is `screener/runs/{SIG_ID}` — see
+// .claude/agents/screener/SWARM.md). A report opened via openCallFile (pipeline board / activity menu)
+// carries only a path/title, no nodeKey, so this is the only way to know which run it actually came from.
+const SIG_FROM_PATH_RE = /^screener\/runs\/([^/]+)\//
+function sigFromOutputPath(path?: string): string | undefined {
+  return SIG_FROM_PATH_RE.exec(path || '')?.[1]
+}
+
 export function OutputReader({ output }: { output: { path?: string; title: string; verdict?: string | null; nodeKey?: string; pending?: boolean } }) {
   const close = useStore((s) => s.closeOutput)
   const activeSwarm = useStore((s) => s.activeSwarm)
@@ -29,6 +37,8 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
   const launchAgent = useStore((s) => s.launchAgent)
   const launchModule = useStore((s) => s.launchModule)
   const openChat = useStore((s) => s.openChat)
+  const scSelectedSignal = useStore((s) => s.scSelectedSignal)
+  const scSelectSignal = useStore((s) => s.scSelectSignal)
   const setToast = useStore((s) => s.setToast)
   const launchPending = useStore((s) => s.launchPending)
   const nodeRuntime = useStore((s) => s.nodeRuntime)
@@ -198,18 +208,27 @@ export function OutputReader({ output }: { output: { path?: string; title: strin
   }
 
   // Chat about THIS output — opens the side panel pre-scoped to the open orb / module / run, answered
-  // only from what the engine already wrote. Research-only (the chat feature covers the research swarm);
-  // never shown for a pending (not-yet-run) output, since there's nothing to chat with.
+  // only from what the engine already wrote. Swarm-generic: the scope (run/module/orb) is derived from the
+  // open output's identity below, and openChat resolves the subject for the active swarm (a company/commodity
+  // run, or a screener signal run). Never shown for a pending (not-yet-run) output — nothing to chat with.
   function chatButton() {
-    if (activeSwarm !== 'research' || output.pending) return null
-    const onClick = () => {
+    if (output.pending) return null
+    const onClick = async () => {
       if (isMaster) return openChat('run')
       if (agentNode?.isSynthesis) return openChat('module', { module: agentNode.module })
       if (output.nodeKey && /\/99_.*-synthesis$/.test(output.nodeKey)) return openChat('module', { module: moduleOfNodeKey(output.nodeKey) || undefined })
       if (agentNode) return openChat('orb', { module: agentNode.module, orbPath: output.path, orbKey: agentNode.key, title: `Ask · ${output.title}` })
+      // Unkeyed report (opened via openCallFile from the pipeline board / activity menu — path/title only,
+      // no nodeKey): for a screener report, don't trust whatever scSelectedSignal happens to be on the board
+      // right now — derive the SIG this report actually belongs to from its own path, and select it first so
+      // "Ask" always targets the run that's actually open, not a differently-selected one.
+      if (activeSwarm === 'screener') {
+        const sig = sigFromOutputPath(output.path)
+        if (sig && sig !== scSelectedSignal) await scSelectSignal(sig)
+      }
       return openChat('run')
     }
-    return <button className="btn" style={{ height: 30 }} onClick={onClick} title="Ask questions about this output — answered only from what the engine wrote">Chat ▸</button>
+    return <button className="btn" style={{ height: 30 }} onClick={() => void onClick()} title="Ask questions about this output — answered only from what the engine wrote">Chat ▸</button>
   }
 
   // the Prompt control — view/download the exact instructions this orb + its module run on, so anyone

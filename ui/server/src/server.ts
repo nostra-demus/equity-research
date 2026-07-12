@@ -1005,7 +1005,8 @@ app.get('/api/chat/scopes', async (req, reply) => {
   if (swarm && swarm !== 'research') {
     if (!listSwarms().some((s) => s.id === swarm)) return reply.code(404).send({ error: `unknown swarm ${swarm}` })
     const subject = (q?.subject || q?.ticker) as string
-    if (!subject || !TICKER_RE.test(subject)) return reply.code(400).send({ error: 'subject required' })
+    // a subject is either a ticker (research/commodity) or a screener SIG id — accept both (same as /api/swarm)
+    if (!subject || !(TICKER_RE.test(subject) || SIG_RE.test(subject))) return reply.code(400).send({ error: 'subject required' })
     const abs = findRunRootForSubject(swarm, subject)
     const rr = abs ? path.relative(REPO_ROOT, abs) : null
     try {
@@ -1029,9 +1030,10 @@ app.get('/api/chat/scopes', async (req, reply) => {
 const ChatBody = z.object({
   ticker: z.string().regex(TICKER_RE).optional(),
   runRoot: z.string().max(300).optional(),
-  // constellation swarm (e.g. commodity): its subject resolves the run folder from the manifest
+  // a non-research swarm resolves its run folder from (swarm, subject); the subject is a ticker
+  // (commodity) or a screener SIG id — accept either shape.
   swarm: z.string().regex(/^[a-z0-9-]{1,40}$/).optional(),
-  subject: z.string().regex(TICKER_RE).optional(),
+  subject: z.string().refine((s) => TICKER_RE.test(s) || SIG_RE.test(s), 'subject must be a ticker or SIG id').optional(),
   scope: z.enum(['run', 'module', 'orb']),
   module: z.string().regex(MODULE_RE).optional(),
   orbPath: z.string().max(300).optional(),
@@ -1064,7 +1066,7 @@ app.post('/api/chat', async (req, reply) => {
   if (swarmId !== 'research') {
     if (!listSwarms().some((s) => s.id === swarmId)) return reply.code(404).send({ error: `unknown swarm ${swarmId}` })
     const subj = parsed.data.subject || parsed.data.ticker
-    if (!subj || !TICKER_RE.test(subj)) return reply.code(400).send({ error: 'subject required for this swarm' })
+    if (!subj || !(TICKER_RE.test(subj) || SIG_RE.test(subj))) return reply.code(400).send({ error: 'subject required for this swarm' })
     const abs = findRunRootForSubject(swarmId, subj)
     runRoot = abs ? path.relative(REPO_ROOT, abs) : null
     subject = subj

@@ -399,6 +399,7 @@ export function CommandBar() {
   const openCalls = useStore((s) => s.openCalls)
   const openChat = useStore((s) => s.openChat)
   const openChatHistory = useStore((s) => s.openChatHistory)
+  const scSelectedSignal = useStore((s) => s.scSelectedSignal) // the signal whose run is on the gauntlet — the screener Ask's subject
   // "Runs" reopen: shown only while the run panel is closed (dismiss only happens from the panel, and switching
   // company/starting a run clears the flag — so a visible flag always means there's a hidden panel to bring back)
   const runPanelDismissed = useStore((s) => s.runPanelDismissed)
@@ -445,6 +446,12 @@ export function CommandBar() {
           <button className="btn btn--ghost" onClick={openReview} title="Batch review — flag a day's worth of items fast, with keyboard shortcuts">Review</button>
           {/* the live-run rail's reopen is folded into the single "Runs" button below (ScreenerControls) —
               no separate top-bar button, so "Runs" and "Recent runs" no longer read as duplicates */}
+          <button className="btn btn--ghost" onClick={openChatHistory} title="Chat history — reopen and continue any past Ask conversation">Chats</button>
+          {/* Ask about the open signal's output — closed-book Q&A over what the gauntlet wrote, exactly like
+              the research cockpit's Ask. Gated on a selected signal (the SIG whose run is on the gauntlet). */}
+          <button className="btn cmdbar__ask" disabled={!scSelectedSignal} onClick={() => openChat('run')} title={scSelectedSignal ? 'Ask questions about this signal’s output — answered only from what the engine wrote' : 'Open a signal first'}>
+            Ask ▸
+          </button>
           <ScreenerControls />
           <CreditBadge />
         </>
