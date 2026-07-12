@@ -11,7 +11,7 @@
 // instantly and fades content (transform/opacity only, per the motion doctrine). Reading flows are
 // unchanged: pick an event → the reader takes the main pane; Themes → the map/board.
 
-import { useRef, useState, type PointerEvent as ReactPointerEvent, type ReactNode } from 'react'
+import { useRef, useState, type MouseEvent as ReactMouseEvent, type PointerEvent as ReactPointerEvent, type ReactNode } from 'react'
 import { useStore } from '../../lib/store'
 import type { WireConfig } from '../../lib/wire'
 import { CompanyView } from '../screener/CompanyView'
@@ -23,8 +23,13 @@ import { WireProvider } from './WireContext'
 
 const RAIL_MIN = 300 // the resting rail still reads well down to here
 const RAIL_DEFAULT = 360
-const railMaxPx = () => (typeof window === 'undefined' ? 900 : Math.max(RAIL_MIN, Math.round(window.innerWidth * 0.78)))
-const clampW = (w: number) => Math.min(railMaxPx(), Math.max(RAIL_MIN, Math.round(w)))
+// The 78% clamp is against the actual available width, not the browser viewport: the wire lives inside
+// `.stage`, which can be narrower than window.innerWidth when another panel (e.g. a run-stream side panel)
+// is mounted as a flex sibling. Callers pass the live container width (measured off a ref); `containerW`
+// falls back to window.innerWidth (then a fixed 900) only before the ref has ever measured anything.
+const railMaxPx = (containerW: number) =>
+  Math.max(RAIL_MIN, Math.round((containerW || (typeof window === 'undefined' ? 900 : window.innerWidth)) * 0.78))
+const clampW = (w: number, containerW: number) => Math.min(railMaxPx(containerW), Math.max(RAIL_MIN, Math.round(w)))
 
 export function WireSurface({ config, home }: { config: WireConfig; home: ReactNode }) {
   const event = useStore((s) => s.scSelectedEvent)
@@ -36,8 +41,13 @@ export function WireSurface({ config, home }: { config: WireConfig; home: ReactN
     try { return localStorage.getItem(openKey) !== '0' } catch { return true }
   })
   const [railW, setRailW] = useState<number>(() => {
-    try { const v = Number(localStorage.getItem(widthKey)); return v >= RAIL_MIN ? clampW(v) : RAIL_DEFAULT } catch { return RAIL_DEFAULT }
+    // No layout has happened yet, so there's no measured container width — clampW falls back to
+    // window.innerWidth (see railMaxPx above). The drag handlers below re-clamp against the real
+    // `.stage` width once the ref is attached.
+    const fallbackW = typeof window === 'undefined' ? 900 : window.innerWidth
+    try { const v = Number(localStorage.getItem(widthKey)); return v >= RAIL_MIN ? clampW(v, fallbackW) : RAIL_DEFAULT } catch { return RAIL_DEFAULT }
   })
+  const stageRef = useRef<HTMLDivElement>(null)
   const toggleRail = () => setRailOpen((v) => {
     const n = !v
     try { localStorage.setItem(openKey, n ? '1' : '0') } catch { /* private mode */ }
@@ -58,7 +68,12 @@ export function WireSurface({ config, home }: { config: WireConfig; home: ReactN
     if (!d) return
     const dx = e.clientX - d.startX
     if (!d.moved && Math.abs(dx) > 4) d.moved = true
-    if (d.moved) { const w = clampW(d.startW + dx); d.curW = w; setRailW(w) }
+    if (d.moved) {
+      const containerW = stageRef.current?.getBoundingClientRect().width ?? (typeof window === 'undefined' ? 900 : window.innerWidth)
+      const w = clampW(d.startW + dx, containerW)
+      d.curW = w
+      setRailW(w)
+    }
   }
   const onDividerUp = (e: ReactPointerEvent<HTMLButtonElement>) => {
     const d = drag.current
@@ -66,12 +81,20 @@ export function WireSurface({ config, home }: { config: WireConfig; home: ReactN
     e.currentTarget.releasePointerCapture?.(e.pointerId)
     if (!d) return
     if (d.moved) { try { localStorage.setItem(widthKey, String(d.curW)) } catch { /* private mode */ } }
-    else toggleRail() // a genuine click, not a drag
+    else toggleRail() // a genuine pointer click (mouse/touch), not a drag
+  }
+  // Keyboard/switch-device activation (Enter/Space on the focused button) dispatches a `click` with no
+  // preceding pointer events, so onDividerDown/onDividerUp never run for it — this is the only path that
+  // toggles tuck state for those users. `event.detail` is 0 for a keyboard-synthesized click and >=1 for a
+  // real pointer click, so this guard never double-fires alongside the pointer-driven toggle in onDividerUp.
+  const onDividerClick = (e: ReactMouseEvent<HTMLButtonElement>) => {
+    if (e.detail !== 0) return // pointer click already handled (toggle or drag) via onDividerUp above
+    toggleRail()
   }
 
   return (
     <WireProvider value={config}>
-      <div className={`scstage${railOpen ? '' : ' scstage--railshut'}`} style={{ ['--evrail-w' as string]: `${railW}px` }}>
+      <div ref={stageRef} className={`scstage${railOpen ? '' : ' scstage--railshut'}`} style={{ ['--evrail-w' as string]: `${railW}px` }}>
         {railOpen && <EventRail />}
         <button
           type="button"
@@ -79,6 +102,7 @@ export function WireSurface({ config, home }: { config: WireConfig; home: ReactN
           onPointerDown={onDividerDown}
           onPointerMove={onDividerMove}
           onPointerUp={onDividerUp}
+          onClick={onDividerClick}
           title={railOpen ? 'Drag to widen the wire · click to tuck it away' : 'Show the wire'}
           aria-label={railOpen ? 'Resize or collapse the events rail' : 'Expand the events rail'}
           aria-expanded={railOpen}

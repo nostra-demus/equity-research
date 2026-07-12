@@ -1982,7 +1982,7 @@ a { color: inherit; }
   .evdetail__shimmer::after { animation: none; }
 }
 
-@media (max-width: 1040px) { .evrail { width: 296px; } }
+@media (max-width: 1040px) { .evrail { width: var(--evrail-w, 296px); } }
 /* narrow / stacked: the rail collapses above the reader instead of squeezing it */
 @media (max-width: 720px) {
   .scstage { flex-direction: column; }
