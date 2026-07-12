@@ -170,6 +170,66 @@
         }
       }
     },
+    "ideas": {
+      "type": "array",
+      "description": "The PM skim's surfaced ideas (news/ideas) — a cheap free-LLM pass over the ranked wire top-N that names the best 1-2 tradable stock ideas (ticker · side · one plain reason · a pre-edge read), feeding the paid gauntlet on a click. Best-first (conviction, then materiality); a decayed idea sorts last and carries stale:true. Optional (absent on an engine build before this feature) — the cockpit fails closed when it's missing.",
+      "items": {
+        "type": "object",
+        "required": ["idea_id", "ticker", "direction", "conviction"],
+        "properties": {
+          "idea_id": { "type": "string", "description": "IDEA-<sha256-12 of ticker|direction> — stable identity; a re-surfacing of the same directional call updates in place." },
+          "ticker": { "type": "string" },
+          "company": { "type": ["string", "null"] },
+          "exchange": { "type": ["string", "null"], "description": "The model's guess; UNVERIFIED (no dated listing check at surface tier)." },
+          "direction": { "type": "string", "enum": ["long", "short", "pair"] },
+          "pair_with": { "type": ["string", "null"], "description": "The other leg's ticker when direction is pair." },
+          "reason": { "type": "string", "description": "One plain-English sentence stating the mechanism (§21)." },
+          "why_now": { "type": "string", "description": "Why it's live now — the dated catalyst, or 'timing unproven' (§17)." },
+          "conviction": { "type": "integer", "description": "0–100 PRE-EDGE proxy — NOT the locked 0.40/0.30/0.30 edge score." },
+          "conviction_basis": { "type": "string", "enum": ["pre_edge_proxy"], "description": "Hard label so the surface read can never masquerade as the locked edge score (§7)." },
+          "priced_in": { "type": "string", "enum": ["priced", "room", "unknown"] },
+          "thesis_type": { "type": "string", "description": "§14 classification — flags a macro/commodity/policy bet wearing a ticker." },
+          "source_event_ids": { "type": "array", "items": { "type": "string" }, "description": "EVT-* — the join key back to the wire events that produced this idea." },
+          "source_headlines": { "type": "array", "items": { "type": "string" } },
+          "source_url": { "type": ["string", "null"], "description": "The primary source URL — so a promotion's SIG_ID byte-matches the wire event." },
+          "source_name": { "type": ["string", "null"], "description": "The primary source publisher — Gate 0 checks it on promotion." },
+          "materiality_max": { "type": "integer", "description": "Top triage_score among the source events." },
+          "newest_source_at": { "type": "string", "description": "ISO of the freshest contributing event — drives freshness + decay." },
+          "prior_coverage": {
+            "type": ["object", "null"],
+            "description": "Free (no-LLM) read of whether the engine already looked at this ticker.",
+            "properties": {
+              "has_run": { "type": "boolean" },
+              "latest_run": { "type": ["string", "null"] },
+              "latest_decision": { "type": ["string", "null"] },
+              "data_pool_present": { "type": "boolean" }
+            }
+          },
+          "surfaced_at": { "type": "string" },
+          "updated_at": { "type": "string" },
+          "decay_at": { "type": "string", "description": "Shelf-life expiry — the board marks the idea stale past this by a pure date compare." },
+          "status": { "type": "string", "enum": ["live", "promoted"], "description": "promoted once escalated to the paid gauntlet." },
+          "promoted_signal_id": { "type": ["string", "null"] },
+          "feedback": { "type": ["string", "null"], "enum": ["up", "down", null], "description": "The human's latest 👍/👎 on this idea (self-grading loop); null = no vote. From screener/ledger/ideas_feedback.ndjson, last vote per idea wins." },
+          "stale": { "type": "boolean", "description": "Derived at build time: decay_at is in the past." }
+        }
+      }
+    },
+    "ideas_scorecard": {
+      "type": "object",
+      "description": "The PM skim's HONEST track record (no price, no P&L): how many ideas it surfaced, how many the human ran, how the DEEP machine graded the ones that were run, and the 👍/👎 tally. The UI refuses to quote a confirmation rate until `resolved` clears a small floor.",
+      "properties": {
+        "surfaced_total": { "type": "integer", "description": "Ideas currently tracked (live + recently cooled + all promoted)." },
+        "live_count": { "type": "integer" },
+        "promoted_total": { "type": "integer", "description": "Ideas the human ran through the paid gauntlet." },
+        "machine_confirmed": { "type": "integer", "description": "Promoted ideas whose signal reached provisional / full_machine — the deep machine agreed with the skim." },
+        "machine_passed": { "type": "integer", "description": "Promoted ideas the deep machine passed on (watchlist / logged / parked)." },
+        "machine_pending": { "type": "integer", "description": "Promoted ideas whose gauntlet run has not resolved yet." },
+        "resolved": { "type": "integer", "description": "machine_confirmed + machine_passed — the denominator for a confirmation rate." },
+        "up_votes": { "type": "integer" },
+        "down_votes": { "type": "integer" }
+      }
+    },
     "counts": {
       "type": "object",
       "description": "Funnel totals for the board header.",

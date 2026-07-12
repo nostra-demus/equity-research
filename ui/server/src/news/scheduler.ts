@@ -12,10 +12,34 @@ import path from 'node:path'
 import { NEWS, REPO_ROOT, STATE_DIR } from '../config'
 import { acquireSingletonLock, releaseSingletonLock } from '../singleton-lock'
 import { readFeed } from './feed'
+import { refreshBoard } from './write-inbox'
 import { runIngestCycle } from './runCycle'
 import { healEnrichCache } from './enrich-heal'
+import { runIdeaPass } from './ideas/run-idea-pass'
 import { pacedCeiling, pacedHasHeadroom } from './triage/budget'
 import type { CycleSummary } from './types'
+
+// The PM-skim config, assembled once from NEWS (opt-in via IDEAS_ENABLED). Reuses the ingester's own Groq
+// budget / limiter / cooldown knobs so the two paths share one honest free-tier accounting.
+const IDEA_PASS_CONFIG = {
+  topN: NEWS.ideasTopN,
+  shelfLifeHrs: NEWS.ideasShelfLifeHrs,
+  minIntervalSec: NEWS.ideasMinIntervalSec,
+  refreshSec: NEWS.ideasRefreshSec,
+  groqApiKey: NEWS.groqApiKey,
+  groqBaseUrl: NEWS.groqBaseUrl,
+  groqModel: NEWS.groqModel,
+  groqMaxTokens: NEWS.ideasMaxTokens,
+  groqDailyReqCap: NEWS.groqDailyReqCap,
+  groqDailyTokenCap: NEWS.groqDailyTokenCap,
+  groqDailyTokenTarget: NEWS.groqDailyTokenTarget,
+  groqPaceFloorFrac: NEWS.groqPaceFloorFrac,
+  groqRpm: NEWS.groqRpm,
+  groqTpm: NEWS.groqTpm,
+  llmCooldownMs: NEWS.llmCooldownMs,
+  llmCooldownMaxMs: NEWS.llmCooldownMaxMs,
+  limiterWaitMs: 4000, // give up the shared Groq minute window fast if triage has it — skip the pass, don't block
+}
 
 const PACE = { targetTokens: NEWS.groqDailyTokenTarget, floorFrac: NEWS.groqPaceFloorFrac }
 
@@ -292,6 +316,12 @@ export function startNewsIngester(): void {
       // itself without a human reopening it. Budget-gated, capped, never throws, and bounded by its own
       // per-fetch timeouts — AWAITED to completion (not raced) so it can't overlap the next tick either.
       if (budgetHasHeadroom()) await healEnrichCache({ hasBudget: budgetHasHeadroom, log })
+      // PM SKIM (opt-in): after triage + heal, surface the best 1-2 tradable ideas from the ranked top-N.
+      // Same cycle lock (no overlap/double-spend), same budget gate; the pass throttles itself (change-
+      // detection + interval floor) so this per-cycle call almost always no-ops without spending a token.
+      if (NEWS.ideasEnabled && budgetHasHeadroom()) {
+        await runIdeaPass({ repoRoot: REPO_ROOT, stateDir: STATE_DIR, config: IDEA_PASS_CONFIG, refreshBoard: () => refreshBoard(REPO_ROOT, log), log })
+      }
     } catch (e: any) {
       log(`cycle error: ${e?.message || e}`)
       lastNote = `cycle error: ${e?.message || e}`

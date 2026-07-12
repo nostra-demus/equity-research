@@ -2627,6 +2627,32 @@ for drp in runs:
         add("AK_red_flag_severity_reconciliation",True,
             "module-declared Critical red-flag counts reconcile with decision_record.json red_flags "
             "and the Headline Scorecard Rating-cap cell does not deny one")
+    # Retrospective advisories (informational only — NEVER read by run_pass/gate_eligible/suite_pass below).
+    # AI and AK reconcile fields that existed long before either check's own landing date (Headline
+    # Scorecard prose vs decision_record.json numbers; module-declared red-flag severity vs the red_flags
+    # array) — they are not gated on a NEW schema field that pre-gate runs structurally lack, unlike most
+    # of the other forward-looking checks in this file. Date-gating them was still the right call for
+    # `checks`/suite_pass ("golden fixtures predate -> N/A -> suite green" — see every other *_DATE
+    # comment above), but it has the side effect of making a check permanently blind to the exact pre-gate
+    # run that motivated writing it: AK's own landing comment says "The committed AMZN_2026-07-10 run
+    # already exhibits this exact defect", yet AMZN_2026-07-10 predates AK_DATE by one day, so check AK can
+    # never actually see it. This block re-runs the SAME two pure functions with the landing date
+    # substituted for the run's real decision_date — bypassing only the date gate, not the reconciliation
+    # logic itself — strictly when the primary check above was N/A for being pre-gate, and records any
+    # finding as a clearly-labeled advisory. Scope is deliberately narrow (AI, AK only): the two checks
+    # with a CONFIRMED, still-live defect on `main` (AMZN's Critical->High red-flag downgrade; TMCV's
+    # expected-return sign flip) — not a blanket un-gating of every forward-looking check.
+    retro=[]
+    if airesult is None:
+        r=eval_ai_headline_reconciliation(AI_DATE,d,thesis)
+        if r:
+            retro.append({"check":"AI_headline_scorecard_reconciliation","status":"FAIL","detail":"; ".join(r),
+                          "note":f"retrospective — decision_date {ddte!r} predates AI_DATE ({AI_DATE}); informational only, does not affect pass/gate_eligible/suite_pass"})
+    if akresult is None:
+        r=eval_ak_red_flag_severity_reconciliation(AK_DATE,d,thesis,module_texts_ak)
+        if r:
+            retro.append({"check":"AK_red_flag_severity_reconciliation","status":"FAIL","detail":"; ".join(r),
+                          "note":f"retrospective — decision_date {ddte!r} predates AK_DATE ({AK_DATE}); informational only, does not affect pass/gate_eligible/suite_pass"})
     # WARN non-schema files
     # [review fix] suppress only genuine versioned/audit/review artifacts via PRECISE patterns — the old naive
     # `"_v" not in name` / `"review" not in name` substring tests hid real strays (preview.md, *_v*-named scratch).
@@ -2653,7 +2679,8 @@ for drp in runs:
         suite_pass = suite_pass and run_pass
     results[name]={"run_root":run,"ticker":d.get("ticker"),"decision":dec,"pass":run_pass,
                    "gate_eligible":gate_eligible,"warn_only":warn_only,
-                   "checks":checks,"warn_nonschema_files":extras}
+                   "checks":checks,"warn_nonschema_files":extras,
+                   "retrospective_advisories":retro}
 
 # J FRAMEWORK SOURCE CONTRACTS (suite-level, run once; protects §24 wiring + the §17 catalyst module
 #   + the N1/C1/C2 net-cash-labelling / cyclical-normalisation wiring, in their CORRECT files —
@@ -2732,5 +2759,12 @@ jfails=[j["file"] for j in jchecks if j["status"]=="FAIL"]
 print("  framework source contracts (J: §24 + catalyst + tiers):", "PASS" if not jfails else "FAIL "+";".join(jfails))
 for j in jchecks:
     if j["status"]=="FAIL": print(f"     FAIL {j['file']} missing={j['missing']}")
+retro_runs={nm:r["retrospective_advisories"] for nm,r in results.items() if r.get("retrospective_advisories")}
+if retro_runs:
+    n=sum(len(v) for v in retro_runs.values())
+    print(f"  RETROSPECTIVE ADVISORIES (informational — does not affect PASS/FAIL above): {n} pre-gate finding(s) in {len(retro_runs)} run(s)")
+    for nm,adv in retro_runs.items():
+        for a in adv:
+            print(f"     ADVISORY {nm}: {a['check']} — {a['detail']}")
 print("WROTE", of)
 sys.exit(0 if suite_pass else 1)   # [review fix] non-zero exit on FAIL so CI / hooks / automation gating on $? see the regression
