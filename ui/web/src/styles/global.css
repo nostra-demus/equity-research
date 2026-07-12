@@ -1584,7 +1584,12 @@ a { color: inherit; }
    Screener stage: persistent left event rail + main stage (read / orbs)
    ========================================================================== */
 .scstage { position: absolute; inset: 0; display: flex; min-height: 0; }
-.scstage__main { position: relative; flex: 1; min-width: 0; overflow: hidden; }
+/* column flex so a pulse-bearing wire can put the pulse strip in a real top band and the content in a
+   positioned body below it — the content views are position:absolute inset:0, so overlaying them on the
+   in-flow pulse (the old single-box layout) swallowed the strip's horizontal scroll. .scstage__body is
+   the positioning context those inset:0 views resolve against, replicating the old .scstage__main box. */
+.scstage__main { position: relative; flex: 1; min-width: 0; overflow: hidden; display: flex; flex-direction: column; }
+.scstage__body { position: relative; flex: 1; min-height: 0; overflow: hidden; }
 
 /* ---- the rail ---- */
 .evrail {
@@ -2880,8 +2885,20 @@ a { color: inherit; }
 
 /* the pulse strip — one compact card per subject above the resting main view */
 .subjectpulse {
-  display: flex; gap: 8px; overflow-x: auto; padding: 10px 14px 6px; scrollbar-width: thin;
+  display: flex; flex-wrap: nowrap; gap: 8px; overflow-x: auto; padding: 10px 14px 10px;
+  /* keep the horizontal gesture on the strip (never nudge browser back/forward), and make the strip's
+     scrollability DISCOVERABLE: a persistent thin bar (macOS hides overlay scrollbars until you scroll,
+     which is exactly why the overflow read as "stuck") */
+  overscroll-behavior-x: contain; scrollbar-width: thin; scrollbar-color: var(--hairline-strong) transparent;
+  /* a real top BAND: a crisp bottom divider reads it as chrome above the canvas, so the constellation
+     below (which starts flush at the band's bottom edge) never looks like it's bleeding into the cards.
+     The band itself stays transparent — the cards (surface-1) are the raised chips on it. flex:0 0 auto
+     keeps the band its natural height in the column. */
+  flex: 0 0 auto; border-bottom: 1px solid var(--hairline);
 }
+.subjectpulse::-webkit-scrollbar { height: 6px; }
+.subjectpulse::-webkit-scrollbar-thumb { background: var(--hairline-strong); border-radius: var(--r-pill); }
+.subjectpulse::-webkit-scrollbar-track { background: transparent; }
 .subjectpulse__card {
   flex: 0 0 auto; min-width: 148px; padding: 8px 10px; border: 1px solid var(--hairline);
   border-radius: var(--r-md); background: var(--surface-1); display: flex; flex-direction: column; gap: 4px;
