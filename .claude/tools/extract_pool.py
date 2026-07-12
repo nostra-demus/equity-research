@@ -128,15 +128,17 @@ SOURCE_TYPE_MAX_TRUST = {
 def _enforce_tier_ceiling(prov):
     """Clamp a sidecar's §4 tier DOWN to the ceiling its source_type permits (never up); fill a missing/
     non-numeric tier from the source_type; flag any over-claim as `tier_corrected` so the manifest + triage
-    see the correction. An unknown source_type is left untouched — the path-derived default is already the
-    conservative tier-9 floor. Mutates and returns the provenance dict."""
+    see the correction. An UNKNOWN / missing / typo'd source_type fails CLOSED to the conservative
+    external_other floor (tier 9 — the same default a no-sidecar drop gets): a self-declared tier we cannot
+    classify is never trusted verbatim. (Falling through untouched here was a fail-OPEN hole — a sidecar with
+    an off-list source_type and a low tier folded in at that trusted tier, a worse masquerade than the tier-5
+    one this gate blocks.) Mutates and returns the provenance dict."""
     st = prov.get("source_type")
-    ceiling = SOURCE_TYPE_MAX_TRUST.get(st)
-    if ceiling is None:
-        return prov
+    # Unknown / missing source_type → the most conservative ceiling (external_other, tier 9), never a bypass.
+    ceiling = SOURCE_TYPE_MAX_TRUST.get(st, SOURCE_TYPE_MAX_TRUST["external_other"])
     declared = prov.get("tier")
-    if isinstance(declared, bool) or not isinstance(declared, int):
-        prov["tier"] = ceiling  # derive from the source_type when absent / non-numeric (bool is not a tier)
+    if isinstance(declared, bool) or not isinstance(declared, (int, float)):
+        prov["tier"] = ceiling  # derive from the ceiling when absent / non-numeric (bool is not a tier)
     elif declared < ceiling:  # over-claimed a more-trusted tier than the source_type earns → clamp + flag
         prov["tier"] = ceiling
         prov["tier_corrected"] = {"declared": declared, "enforced": ceiling,

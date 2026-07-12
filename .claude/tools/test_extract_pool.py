@@ -250,6 +250,19 @@ def test_external_tier_ceiling() -> None:
         (ext / "cons.txt").write_text("panel cited conservatively")
         (ext / "cons.txt.source.json").write_text(_json.dumps({
             "provider": "Yip", "source_type": "alt_data_panel", "tier": 9}))
+        # an OFF-LIST source_type (not in the trust table) claiming tier 1 → must FAIL CLOSED: clamp to the
+        # conservative external_other ceiling (9) + flag. An unclassified sidecar can't buy a filing-grade tier.
+        (ext / "scrape.txt").write_text("a web scrape with a made-up source_type")
+        (ext / "scrape.txt.source.json").write_text(_json.dumps({
+            "provider": "Reddit", "source_type": "social_scrape", "tier": 1}))
+        # a sidecar with NO source_type at all, claiming tier 1 → same fail-closed clamp to 9 + flag.
+        (ext / "notype.txt").write_text("sidecar missing its source_type")
+        (ext / "notype.txt.source.json").write_text(_json.dumps({
+            "provider": "Mystery", "tier": 1}))
+        # a FLOAT over-claim (3.0) on a panel (ceiling 5) → floats are numeric tiers: clamp to 5 + flag.
+        (ext / "flt.txt").write_text("panel with a float tier")
+        (ext / "flt.txt.source.json").write_text(_json.dumps({
+            "provider": "Yip", "source_type": "alt_data_panel", "tier": 3.0}))
 
         manifest = ep.extract_pool(str(pool), out_td, vision=False)
         prov = {s["file"]: (s.get("provenance") or {}) for s in manifest["sources"] if s.get("external")}
@@ -268,6 +281,15 @@ def test_external_tier_ceiling() -> None:
         check("tier-ceiling: a MORE conservative tier is left as-is (panel voluntarily tier 9)",
               prov.get("cons.txt", {}).get("tier") == 9 and "tier_corrected" not in prov.get("cons.txt", {}),
               str(prov.get("cons.txt")))
+        scrape = prov.get("scrape.txt", {})
+        check("tier-ceiling: off-list source_type fails closed (tier 1 → 9 + flag)",
+              scrape.get("tier") == 9 and (scrape.get("tier_corrected") or {}).get("declared") == 1, str(scrape))
+        notype = prov.get("notype.txt", {})
+        check("tier-ceiling: sidecar with no source_type fails closed (tier 1 → 9 + flag)",
+              notype.get("tier") == 9 and "tier_corrected" in notype, str(notype))
+        flt = prov.get("flt.txt", {})
+        check("tier-ceiling: float over-claim clamped (3.0 → 5 + flag)",
+              flt.get("tier") == 5 and "tier_corrected" in flt, str(flt))
         md = (Path(out_td) / "manifest.md").read_text()
         check("tier-ceiling: manifest.md flags the over-claim", "⚠ tier corrected" in md, md[-800:])
 
