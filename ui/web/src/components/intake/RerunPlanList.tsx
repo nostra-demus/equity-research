@@ -20,8 +20,8 @@ export function RerunPlanList({
   onRun: () => void
   running: boolean
 }) {
-  const cmds = plan.rerun_plan.commands
-  const notes = plan.rerun_plan.note_only
+  const cmds = plan.rerun_plan?.commands ?? []
+  const notes = plan.rerun_plan?.note_only ?? []
 
   if (cmds.length === 0) {
     return (

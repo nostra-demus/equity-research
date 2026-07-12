@@ -37,7 +37,7 @@ export function IntakeDock() {
   if (activeSwarm !== 'research') return null
   if (!docCards.length && !analyzing) return null
 
-  const cmds = intake?.rerun_plan.commands ?? []
+  const cmds = intake?.rerun_plan?.commands ?? []
   return (
     <div className="intake" onMouseLeave={clear}>
       <button className="intake__head" onClick={() => setOpen((o) => !o)} aria-expanded={open}>

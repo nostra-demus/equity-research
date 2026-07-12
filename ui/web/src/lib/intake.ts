@@ -6,9 +6,9 @@ import type { AgentNode, IntakePlan } from './types'
 // thesis" panel RE-RUNS; everything else finished stays kept — the "keep 5, re-run 1" intelligence.
 export function affectedModules(plan: IntakePlan | null | undefined): Set<string> {
   const s = new Set<string>()
-  for (const c of plan?.rerun_plan.commands ?? []) {
+  for (const c of plan?.rerun_plan?.commands ?? []) {
     s.add(c.module)
-    for (const m of c.cascade_modules) s.add(m)
+    for (const m of c.cascade_modules ?? []) s.add(m)
   }
   return s
 }
@@ -18,8 +18,8 @@ export function affectedModules(plan: IntakePlan | null | undefined): Set<string
 export function focusKeysFor(plan: IntakePlan | null | undefined, nodesByKey: Map<string, AgentNode>): Set<string> {
   const want = new Set<string>()
   const add = (module: string, agent: string) => { want.add(`${module}::${agent}`) }
-  for (const o of plan?.rerun_plan.entry_orbs ?? []) add(o.module, o.agent)
-  for (const d of plan?.new_docs ?? []) for (const o of d.entry_orbs) add(o.module, o.agent)
+  for (const o of plan?.rerun_plan?.entry_orbs ?? []) add(o.module, o.agent)
+  for (const d of plan?.new_docs ?? []) for (const o of d.entry_orbs ?? []) add(o.module, o.agent)
   const keys = new Set<string>()
   for (const n of nodesByKey.values()) {
     if (want.has(`${n.module}::${n.name}`) || want.has(`${n.module}::${n.slug}`)) keys.add(n.key)
@@ -30,8 +30,8 @@ export function focusKeysFor(plan: IntakePlan | null | undefined, nodesByKey: Ma
 // A short, honest headline for the intake state, used by the dock + the thesis panel banner.
 export function intakeHeadline(plan: IntakePlan | null | undefined): string {
   if (!plan) return ''
-  const n = plan.new_docs.length
-  const cmds = plan.rerun_plan.commands.length
+  const n = plan.new_docs?.length ?? 0
+  const cmds = plan.rerun_plan?.commands?.length ?? 0
   if (n === 0) return 'No new documents since the last run.'
   if (cmds === 0) return `${n} new document${n === 1 ? '' : 's'} — none change any orb’s inputs. Nothing to re-run.`
   return `${n} new document${n === 1 ? '' : 's'} — ${cmds} orb${cmds === 1 ? '' : 's'} to re-run, the rest kept.`
