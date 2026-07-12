@@ -1,0 +1,32 @@
+# M0.6.4 Mispricing Reason — SIG-20260711-b55e8917
+
+## 1. Primary Category
+
+- **primary_category:** complexity
+
+- **primary_category_rationale:** The core mispricing requires a reader to do three things at once that equity analysts do not routinely combine: (1) read an OEM dealer franchise policy document (Stellantis January 6, 2026 consolidation update — an automotive-industry regulatory document, not a financial filing), (2) build a store-count model that applies a 1-per-rolling-12-month ceiling to Carvana's new-car expansion path, and (3) compare the resulting cap-constrained optionality value (~$1.6–$6.2 billion at generous multiples) against the roughly $53.8 billion EV premium above a dealer-group floor multiple. Step 1 lives in automotive trade press; step 2 requires a non-standard extension to the standard Carvana earnings model; step 3 demands EV-premium decomposition that no major sell-side firm covering CVNA has published. The market has priced the new-car optionality as a large positive but has not done the cross-domain work to size it against the structural ceiling the OEM has imposed. This is complexity, not behavioral: the mechanism is not hidden by anchoring or recency — Northcoast Research flagged the cap publicly. It is hidden because applying the cap to an optionality NPV inside an existing EPS model requires steps that span two separate domains (auto franchise law and equity valuation), and no sell-side firm covering CVNA has done all three steps in a single published note.
+
+---
+
+## 2. The Three Verifiable Facts
+
+1. **evidence_verifiable_fact_1:** Stellantis updated its dealer consolidation policy on January 6, 2026, explicitly capping any single entity to one CDJR (Chrysler-Dodge-Jeep-Ram) dealership acquisition per rolling 12-month period. This policy directly limits Carvana — which holds seven Stellantis stores acquired in June 2026 — to one additional Stellantis store per year, meaning the new-car store count under Stellantis cannot exceed 8 by mid-2027. — *verify via:* DealershipGuy newsletter, published 2026-02-26, sourced from Stellantis dealer network communication dated January 6, 2026 (https://www.dealershipguy.com); corroborating coverage in CBT Automotive News and Carscoops, both citing the January 6 policy date. A skeptic can pull the Stellantis dealer operations bulletin through any CDJR franchise dealer or the January–February 2026 automotive trade press archive.
+
+2. **evidence_verifiable_fact_2:** Northcoast Research analyst John Healy publicly flagged the Stellantis acquisition cap as "not coincidental" in response to Carvana's seven-store deal, yet a web search run on 2026-07-12 across Morgan Stanley, JPMorgan, Baird, RBC, and BTIG coverage found zero published notes that (a) state a terminal new-car store count under the cap, (b) derive an optionality NPV from a cap-constrained store count, or (c) reconcile that ceiling with the ~$53.8B EV premium above an 8× EBITDA dealer-group floor. The mechanism is flagged in trade press but not translated into a sell-side valuation model. — *verify via:* Web: searches on 2026-07-12 for "Carvana CDJR one dealership per 12 months Stellantis acquisition cap analyst model consensus 2026" and "Carvana new car franchise expansion beyond seven Stellantis stores analyst forecast 2026" — both returned trade-press commentary but no major sell-side published model; Northcoast/Healy reference found in automotive trade press. A skeptic can run the same search strings on a financial research aggregator (Bloomberg Research, FactSet earnings estimates database) and verify the absence of a cap-constrained optionality valuation in any note published by the five major covering firms.
+
+3. **evidence_verifiable_fact_3:** Carvana's TTM EV/EBITDA of approximately 29–32× (EV ~$75.4 billion, TTM adj. EBITDA ~$2.6 billion, Q1 2026 adj. EBITDA $672 million per the April 29, 2026 8-K filed on SEC EDGAR) is 4–5× the dealer-group median of 5–8× (AutoNation, Lithia Motors, Group 1). At a cap-constrained peak of 8 stores × 700 units/month × $6,200 new-car GPU = ~$416 million gross profit/year, the new-car business at a generous 15× gross-profit multiple is worth roughly $6.2 billion of EV, against the $53.8 billion premium above an 8× EBITDA floor. The multi-step arithmetic connecting OEM policy → store count → GP → EV attribution has not been published by any covering analyst as of 2026-07-12. — *verify via:* Carvana Q1 2026 8-K / earnings press release, SEC EDGAR, CIK 0001690820, filed April 29, 2026 (adj. EBITDA $672M, confirming TTM annualised run-rate ~$2.7B); CVNA total EV from StockAnalysis.com or any financial data terminal, data as of approximately 2026-07-10; dealer-group multiples from Lithia Motors 10-K (FY2025) or any sector EV/EBITDA compilation (e.g., multiples.vc, data as of mid-2026). The GP arithmetic is a carry-through from WC-002 (700 units/month, Casa Grande confirmed run-rate) × BTIG midpoint GPU of $6,200 (Web: Investing.com / BTIG research note summary, approximately 2026-07-10, indicative, unverified).
+
+---
+
+## 3. Secondary Categories
+
+| Category | Rationale |
+|---|---|
+| structural | Carvana's December 2025 S&P 500 addition (and June 2026 Russell rebalancing to the Top 200) created a captive passive-ownership base — Vanguard ~7.25% of shares, BlackRock ~5.5% per 13G filings — that is indifferent to the new-car optionality debate. Passive flows provide a price floor that slows price discovery: an index fund will not reduce its CVNA weight because the Stellantis cap constrains new-car store count. This is a genuine structural contribution, but it is secondary to complexity: it slows the correction rather than explaining why the mechanism was missed in the first place. |
+| behavioral | The Carvana recovery narrative — bankruptcy-edge to S&P 500 in three years, "most disruptive force in U.S. auto retailing in decades" — carries strong recency and narrative momentum. Analysts who lived through the near-collapse are anchored to the execution story and inclined to treat franchise policy constraints as operational detail, not as valuation-relevant ceilings. Behavioral effects add to the persistence of the mispricing but are not its root cause: the primary reason no sell-side model has published a cap-constrained NPV is the cross-domain complexity of doing so, not a refusal to look at the fact. |
+
+---
+
+## 4. Verdict
+
+Verdict: complexity — 3/3 facts verifiable
