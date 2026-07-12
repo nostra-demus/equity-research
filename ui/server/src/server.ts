@@ -436,6 +436,10 @@ const SignalLaunchBody = z.object({
   inboxId: z.string().regex(INB_RE).optional(),
   // optional TARGET module: run the gauntlet THROUGH this module then stop (a deliberate partial run)
   until: z.string().regex(MODULE_RE).optional(),
+  // human "Override & run forward" of an EXISTING sig: stamp override_promote onto its intake.json so the
+  // gauntlet pushes a signal-gate PARK/LOG cull past the promotion gate (sigId-only; ignored for a new intake,
+  // which carries override_promote in the intake object itself).
+  override: z.boolean().optional(),
   model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i).optional(),
 })
 
@@ -489,7 +493,7 @@ app.post('/api/launch', { config: { rateLimit: { max: 60, timeWindow: '1 minute'
     if (!parsed.data.sigId && !parsed.data.intake) return reply.code(400).send({ error: 'signal launch needs sigId or intake' })
     if (parsed.data.until && !listModuleNames('screener').includes(parsed.data.until)) return reply.code(400).send({ error: 'unknown screener module' })
     try {
-      const out = await launch({ kind, ticker: parsed.data.sigId, intake: parsed.data.intake, inboxId: parsed.data.inboxId, module: parsed.data.until, model: parsed.data.model, user, userVia })
+      const out = await launch({ kind, ticker: parsed.data.sigId, intake: parsed.data.intake, inboxId: parsed.data.inboxId, module: parsed.data.until, overridePromote: parsed.data.override, model: parsed.data.model, user, userVia })
       // an Inbox-card launch marks its row consumed so it leaves the lane (best-effort: a failed
       // mark only leaves the row visible — a duplicate click is rejected by SIG-id exclusivity).
       // Deferred past the reply: refreshBoard shells a synchronous python board rebuild (~0.3-2s)

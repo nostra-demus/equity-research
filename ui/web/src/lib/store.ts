@@ -436,7 +436,9 @@ interface State {
   // resume a stopped/partial signal run from where it left off — reuses the finished orbs on disk and
   // only runs the remaining ones (the gauntlet command skips completed modules). NOT a fresh restart.
   // `until` = continue only THROUGH that stage then stop again (undefined = continue to the end).
-  continueSignal: (sigId: string, until?: string) => Promise<void>
+  // `override` stamps override_promote onto the sig's intake so the gauntlet pushes a signal-gate PARK/LOG
+  // cull past the promotion gate — the "Override & run forward" affordance for a "noted, no action" signal.
+  continueSignal: (sigId: string, until?: string, override?: boolean) => Promise<void>
   runSweep: () => Promise<void>
   openPipeline: () => void
   closePipeline: () => void
@@ -2731,26 +2733,27 @@ export const useStore = create<State>((set, get) => ({
   // command skips any module whose synthesis is already on disk, so only the remaining orbs actually run).
   // Unlike relaunchSignal (a clean restart), this preserves the done orbs so the constellation picks up
   // exactly where it stopped — 3 done, the rest queued → running.
-  continueSignal: async (sigId, until) => {
+  continueSignal: async (sigId, until, override) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — signals run on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
-    set({ launchPending: { key: `continue:${sigId}`, label: `Resuming ${sigId}…`, ticker: sigId } })
+    set({ launchPending: { key: `continue:${sigId}`, label: override ? `Running ${sigId} forward…` : `Resuming ${sigId}…`, ticker: sigId } })
     try {
       // make sure we hold the authoritative finished-orb set from disk before relaunching
       if (get().scSelectedSignal !== sigId || !Object.keys(get().scRuntime).length) await get().scSelectSignal(sigId)
       const done = { ...get().scRuntime } // the orbs already finished (loaded from disk / frozen from the stop)
       // `until` continues only THROUGH the named module then stops again (a staged partial); undefined runs
-      // the rest of the gauntlet to the end. The gauntlet skips modules already on disk either way.
-      const { runId } = await api.launchSignal({ sigId, until })
+      // the rest of the gauntlet to the end. `override` pushes a signal-gate PARK/LOG past the promotion gate.
+      // Either way the gauntlet skips modules already on disk, so finished checks are reused, never redone.
+      const { runId } = await api.launchSignal({ sigId, until, override })
       // keep finished orbs as-is; re-queue everything else under the new runId so they animate as they run
       const rt: Record<string, NodeRuntime> = {}
       for (const k of get().scNodesByKey.keys()) rt[k] = done[k]?.status === 'done' ? done[k] : { status: 'queued', runId }
       set({ scSelectedSignal: sigId, scRuntime: rt, pipelineOpen: false })
       connectScreenerRun(get, runId)
       void get().refreshActiveRuns()
-      get().setToast({ msg: `Resuming ${sigId} — picking up where it stopped`, tone: 'good' })
+      get().setToast({ msg: override ? `Running ${sigId} forward — overriding the gate, reusing finished checks` : `Resuming ${sigId} — picking up where it stopped`, tone: 'good' })
     } catch (e: any) {
-      get().setToast({ msg: e?.message ? String(e.message) : 'Could not resume the checks', tone: e?.body?.code ? 'info' : 'bad' })
+      get().setToast({ msg: e?.message ? String(e.message) : (override ? 'Could not run the checks forward' : 'Could not resume the checks'), tone: e?.body?.code ? 'info' : 'bad' })
     } finally {
       set({ launchPending: null })
     }
