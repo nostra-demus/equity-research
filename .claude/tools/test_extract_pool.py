@@ -220,6 +220,58 @@ def test_external_provenance() -> None:
               "entity_disagreement" in codes, str(codes))
 
 
+def test_external_tier_ceiling() -> None:
+    """§4/§5 masquerade guard (EXTERNAL_DATA.md §4): a sidecar can never fold in stamped at a tier MORE
+    trusted than its source_type earns. An over-claim is clamped DOWN to the ceiling and flagged; a missing
+    tier is derived from the source_type; a MORE conservative tier is left as-is."""
+    import json as _json
+
+    with tempfile.TemporaryDirectory() as pool_td, tempfile.TemporaryDirectory() as out_td:
+        pool = Path(pool_td)
+        ext = pool / "external" / "acme"
+        ext.mkdir(parents=True)
+        # a channel check (ceiling 9) that LIES it is tier 5 → must clamp to 9 + flag
+        (ext / "liar.txt").write_text("a channel check masquerading as vendor-grade")
+        (ext / "liar.txt.source.json").write_text(_json.dumps({
+            "provider": "Acme", "source_type": "channel_check", "tier": 5, "as_of": "2026-07-01"}))
+        # a broker note (ceiling 7) claiming tier 5 → clamp to 7 + flag
+        (ext / "broker.txt").write_text("sell-side initiation")
+        (ext / "broker.txt.source.json").write_text(_json.dumps({
+            "provider": "BankCo", "source_type": "broker_research", "tier": 5}))
+        # a legit alt-data panel at its ceiling (5) → unchanged, no flag
+        (ext / "panel.txt").write_text("licensed panel estimate")
+        (ext / "panel.txt.source.json").write_text(_json.dumps({
+            "provider": "Yip", "source_type": "alt_data_panel", "tier": 5}))
+        # an expert call with NO tier → derived from the source_type (9)
+        (ext / "call.txt").write_text("expert network call")
+        (ext / "call.txt.source.json").write_text(_json.dumps({
+            "provider": "GLG", "source_type": "expert_call"}))
+        # an alt-data panel voluntarily MORE conservative (9) → left as-is (conservative is always allowed)
+        (ext / "cons.txt").write_text("panel cited conservatively")
+        (ext / "cons.txt.source.json").write_text(_json.dumps({
+            "provider": "Yip", "source_type": "alt_data_panel", "tier": 9}))
+
+        manifest = ep.extract_pool(str(pool), out_td, vision=False)
+        prov = {s["file"]: (s.get("provenance") or {}) for s in manifest["sources"] if s.get("external")}
+
+        liar = prov.get("liar.txt", {})
+        check("tier-ceiling: channel_check over-claim clamped 5→9 + flagged",
+              liar.get("tier") == 9 and (liar.get("tier_corrected") or {}).get("declared") == 5, str(liar))
+        broker = prov.get("broker.txt", {})
+        check("tier-ceiling: broker_research over-claim clamped 5→7",
+              broker.get("tier") == 7 and "tier_corrected" in broker, str(broker))
+        check("tier-ceiling: legit alt_data_panel tier 5 unchanged (no flag)",
+              prov.get("panel.txt", {}).get("tier") == 5 and "tier_corrected" not in prov.get("panel.txt", {}),
+              str(prov.get("panel.txt")))
+        check("tier-ceiling: missing tier derived from source_type (expert_call → 9)",
+              prov.get("call.txt", {}).get("tier") == 9, str(prov.get("call.txt")))
+        check("tier-ceiling: a MORE conservative tier is left as-is (panel voluntarily tier 9)",
+              prov.get("cons.txt", {}).get("tier") == 9 and "tier_corrected" not in prov.get("cons.txt", {}),
+              str(prov.get("cons.txt")))
+        md = (Path(out_td) / "manifest.md").read_text()
+        check("tier-ceiling: manifest.md flags the over-claim", "⚠ tier corrected" in md, md[-800:])
+
+
 def main() -> int:
     print("== sniff: content beats extension ==")
     test_sniff()
@@ -229,6 +281,8 @@ def main() -> int:
     test_pipeline()
     print("== external-data provenance (sidecars, paths, entity-gate skip) ==")
     test_external_provenance()
+    print("== external tier-ceiling masquerade guard (§4/§5) ==")
+    test_external_tier_ceiling()
     print(f"\n{_passed} passed, {_failed} failed, {_skipped} skipped")
     return 1 if _failed else 0
 

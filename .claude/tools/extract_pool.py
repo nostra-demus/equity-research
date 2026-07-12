@@ -112,6 +112,38 @@ def _collect_sidecars(data_path):
     return out
 
 
+# §4/§5 masquerade guard (EXTERNAL_DATA.md §4). Each source_type earns a §4 tier CEILING (lower = more
+# trusted). A sidecar may declare a MORE conservative tier, never a more trusted one — a scrape / channel
+# check / broker note can never fold into the pool stamped as a tier-5 vendor number. Enforced HERE, at fold
+# time, so no downstream specialist ever sees an over-claimed tier no matter who wrote the sidecar (a hand
+# drop, or an auto-built connector's fetcher whose self-reported tier is not to be trusted).
+SOURCE_TYPE_MAX_TRUST = {
+    "alt_data_panel": 5, "vendor_export": 5, "paid_api": 5,
+    "broker_research": 7,
+    "expert_call": 9, "channel_check": 9, "management_meeting": 9,
+    "external_other": 9,
+}
+
+
+def _enforce_tier_ceiling(prov):
+    """Clamp a sidecar's §4 tier DOWN to the ceiling its source_type permits (never up); fill a missing/
+    non-numeric tier from the source_type; flag any over-claim as `tier_corrected` so the manifest + triage
+    see the correction. An unknown source_type is left untouched — the path-derived default is already the
+    conservative tier-9 floor. Mutates and returns the provenance dict."""
+    st = prov.get("source_type")
+    ceiling = SOURCE_TYPE_MAX_TRUST.get(st)
+    if ceiling is None:
+        return prov
+    declared = prov.get("tier")
+    if isinstance(declared, bool) or not isinstance(declared, int):
+        prov["tier"] = ceiling  # derive from the source_type when absent / non-numeric (bool is not a tier)
+    elif declared < ceiling:  # over-claimed a more-trusted tier than the source_type earns → clamp + flag
+        prov["tier"] = ceiling
+        prov["tier_corrected"] = {"declared": declared, "enforced": ceiling,
+                                  "reason": f"source_type '{st}' may be cited at most at §4 tier {ceiling}"}
+    return prov
+
+
 def _finish_row(row, rel, prov_map):
     """Enrich a manifest source row with its pool-relative path (when nested — duplicate
     basenames across subfolders stay distinguishable) and, for external documents, the
@@ -131,7 +163,7 @@ def _finish_row(row, rel, prov_map):
             prov = {"provider": folder if folder and folder != "external" else "unfiled",
                     "source_type": "external_other", "tier": 9,
                     "provenance_basis": "path-derived (no sidecar)"}
-        row["provenance"] = prov
+        row["provenance"] = _enforce_tier_ceiling(prov)
     return row
 
 
@@ -143,6 +175,9 @@ def _prov_summary(row):
     bits = [str(p.get("provider") or "unknown provider"), str(p.get("source_type") or "unclassified")]
     if p.get("tier"):
         bits.append(f"tier {p['tier']}")
+    tc = p.get("tier_corrected")
+    if tc:
+        bits.append(f"⚠ tier corrected (declared {tc.get('declared')}, over-claimed)")
     if p.get("as_of"):
         bits.append(f"as-of {p['as_of']}")
     return "external: " + " · ".join(bits)
