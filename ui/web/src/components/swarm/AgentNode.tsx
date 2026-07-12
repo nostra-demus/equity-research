@@ -7,6 +7,10 @@ interface Props {
   node: PlacedNode
   status: NodeStatus
   selected: boolean
+  // intake surface: `scoped` = this orb is in the current scoped rerun plan (persistent, subtle ring);
+  // `dimmed` = an intake focus is active and this orb isn't in it (recede so the affected orbs read).
+  scoped?: boolean
+  dimmed?: boolean
   delayMs?: number
   // live timing — present only while this orb is running (its clock started when the data reached it).
   // tStart/tExpected/tNow are undefined otherwise, so a memoized non-running orb never re-renders on tick.
@@ -18,7 +22,7 @@ interface Props {
   onClick: (n: PlacedNode) => void
 }
 
-function AgentNodeImpl({ node, status, selected, delayMs = 0, tStart, tExpected, tNow, onEnter, onLeave, onClick }: Props) {
+function AgentNodeImpl({ node, status, selected, scoped = false, dimmed = false, delayMs = 0, tStart, tExpected, tNow, onEnter, onLeave, onClick }: Props) {
   const size = node.r * 2
   const live = status === 'running' && tStart != null && tNow != null && tExpected != null
   const p = live ? orbProgress(tStart!, tExpected!, tNow!) : null
@@ -28,7 +32,7 @@ function AgentNodeImpl({ node, status, selected, delayMs = 0, tStart, tExpected,
   const fillY = p ? (1 - Math.min(p.fraction, 0.94)) * 100 : 100
   // ring sweep = same progress, clamped to 1 (a full ring at/after the estimate); pathLength=100 normalizes
   const dash = p ? 100 - Math.min(p.fraction, 1) * 100 : 100
-  const cls = `node node--${status}${node.isSynthesis ? ' node--synthesis' : ''}${selected ? ' node--selected' : ''}${overrun ? ' node--overrun' : ''}`
+  const cls = `node node--${status}${node.isSynthesis ? ' node--synthesis' : ''}${selected ? ' node--selected' : ''}${overrun ? ' node--overrun' : ''}${scoped ? ' node--scoped' : ''}${dimmed ? ' node--dimmed' : ''}`
   return (
     <div
       className={cls}

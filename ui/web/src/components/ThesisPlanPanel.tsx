@@ -128,6 +128,11 @@ export function ThesisPlanPanel() {
   // only the affected ones. Null = the honest floor (no plan, or it didn't narrow anything).
   const intake = useStore((s) => s.thesisPlanIntake)
   const resetReuse = useStore((s) => s.resetThesisReuse)
+  // Manual entry point when the panel is all-stale but no scoped plan exists yet (auto-analysis off / not
+  // yet run): read the new docs first, then re-open the now-scoped plan.
+  const analyzing = useStore((s) => s.intakeAnalyzing)
+  const analyzeThenScope = useStore((s) => s.analyzeIntake)
+  const reopen = useStore((s) => s.openThesisPlan)
   // The CSS handles the row stagger / press / skeleton under prefers-reduced-motion, but the modal's own
   // entrance is JS-driven and never sees that media query. Keep the opacity fade (it aids comprehension),
   // drop the scale + translate (positional motion is what causes discomfort).
@@ -212,6 +217,20 @@ export function ThesisPlanPanel() {
 
         {!loading && !error && plan && (
           <>
+            {!intake && canRun && staleCount > 0 && (
+              <div className="tpp__intake tpp__intake--cta">
+                <div className="tpp__intake-lede">
+                  <span className="tpp__intake-mark" aria-hidden />
+                  <div className="tpp__intake-copy">
+                    <div className="tpp__intake-head">Newer data landed — scope it before re-running everything</div>
+                    <div className="tpp__intake-note">Let intake read the new documents and re-run only the orbs they actually change.</div>
+                  </div>
+                </div>
+                <button className="tpp__intake-reset" onClick={async () => { await analyzeThenScope(); await reopen() }} disabled={analyzing || busyOnTicker}>
+                  {analyzing ? <><Spin /> Scoping…</> : 'Scope with intake'}
+                </button>
+              </div>
+            )}
             {intake && intake.affected.length > 0 && (
               <div className="tpp__intake">
                 <div className="tpp__intake-lede">

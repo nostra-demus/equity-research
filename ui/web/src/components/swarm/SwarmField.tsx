@@ -9,6 +9,7 @@ import { ModuleReportPopup } from './ModuleReportPopup'
 import { EdgeLayer } from './EdgeLayer'
 import { AgentTooltip } from '../AgentTooltip'
 import { useNodeInteractions } from './useNodeInteractions'
+import { IntakeProjection } from '../intake/IntakeProjection'
 
 export function SwarmField() {
   const graph = useStore((s) => s.graph)
@@ -22,6 +23,9 @@ export function SwarmField() {
   const selectedNodeKey = useStore((s) => s.selectedNodeKey)
   const now = useStore((s) => s.now)
   const setNow = useStore((s) => s.setNow)
+  // intake surface: focus = orbs to LIGHT (hover a doc/plan row); plan = the persistent scoped-plan orbs.
+  const intakeFocusKeys = useStore((s) => s.intakeFocusKeys)
+  const intakePlanKeys = useStore((s) => s.intakePlanKeys)
 
   // Click/decision logic shared with the 3D globe view (no drift); see useNodeInteractions.
   const { onNodeClick, onClusterClick, openThesis, modulePop, setModulePop } = useNodeInteractions()
@@ -103,9 +107,14 @@ export function SwarmField() {
       return rect ? { cx: rect.left + n.x, top: rect.top + n.y - 14 } : null
     })
 
+  // Intake highlighting: light the hovered doc's orbs (focus) if any, else the persistent scoped-plan orbs.
+  const intakeActiveKeys = intakeFocusKeys.size ? intakeFocusKeys : intakePlanKeys
+  const intakeBright = intakeFocusKeys.size > 0
+
   return (
     <div className="swarm" ref={ref} onClick={() => setHover(null)}>
       <EdgeLayer layout={layout} highlighted={highlighted} anyHover={anyHover} />
+      <IntakeProjection nodes={layout.nodes} keys={intakeActiveKeys} bright={intakeBright} />
 
       {/* cluster labels */}
       {layout.clusters.map((c) => {
@@ -165,7 +174,9 @@ export function SwarmField() {
               key={n.key}
               node={n}
               status={st}
-              selected={selectedNodeKey === n.key || hover?.node.key === n.key}
+              selected={selectedNodeKey === n.key || hover?.node.key === n.key || intakeFocusKeys.has(n.key)}
+              scoped={intakePlanKeys.has(n.key)}
+              dimmed={intakeFocusKeys.size > 0 && !intakeFocusKeys.has(n.key)}
               delayMs={(moduleOrder.get(n.module) ?? 0) * 45 + n.layer * 50}
               tStart={running ? nodeRuntime[n.key]?.startedAt : undefined}
               tExpected={running ? expectedFor(orbClass(n), exp) : undefined}
