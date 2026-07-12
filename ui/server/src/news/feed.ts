@@ -12,6 +12,7 @@ import type { CycleSummary, FeedItem } from './types'
 import { deriveScope, deriveSourceTier, toEventScope } from './scope'
 import { deriveCommodities } from './commodities'
 import { deriveTopics } from './topics'
+import { deriveScheduledEvents } from './schedule'
 import { cleanText } from './clean'
 import { assignDedupGroups, type DedupConfig } from './dedup'
 import { reRankFromFactors, capSocialBand, capSocialScore, deriveMaterialityLabel } from './rank'
@@ -37,7 +38,10 @@ function hydrate(it: FeedItem): FeedItem {
   // WHOLE backlog gets the subject tags with no backfill. Cheap deterministic lexicon scan; always an
   // array. Computed here so it rides BOTH the fast-path and the full-path return (never a dormant field).
   const topics = deriveTopics({ headline: headline || it.headline, headline_en: it.headline_en })
-  if (it.scope && it.source_tier && !needsClean && !needsGeo && !needsClassifier && !needsCommodity) return { ...it, topics }
+  // scheduled/forward corporate events (news/schedule.ts) — same read-time derivation as topics (never
+  // persisted, cheap, always an array), so the whole backlog gets the §17 forward-catalyst flag for free.
+  const scheduled_events = deriveScheduledEvents({ headline: headline || it.headline, headline_en: it.headline_en })
+  if (it.scope && it.source_tier && !needsClean && !needsGeo && !needsClassifier && !needsCommodity) return { ...it, topics, scheduled_events }
   const scope = it.scope || deriveScope({ ...it, headline })
   const commodities = needsCommodity ? deriveCommodities({ ...it, headline: headline || it.headline }) : undefined
   return {
@@ -46,6 +50,7 @@ function hydrate(it: FeedItem): FeedItem {
     scope,
     source_tier: it.source_tier || deriveSourceTier(it),
     topics,
+    scheduled_events,
     ...(needsGeo ? { country: resolveCountry(headline || it.headline, it.headline_en, it.companies, it.region, it.issuer_linkage) } : {}),
     // free, zero-cost backfill — event_scope derives from scope (already resolved above);
     // event_materiality_label re-derives from the persisted triage_score so it's never stale;

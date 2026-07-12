@@ -14,6 +14,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { groupByDedup, type StoryGroup } from '../../lib/dedup'
 import { displayHeadline, originalHeadline, plainSize, plainTheme } from '../../lib/plain'
 import { topicLabel } from '../../lib/topics'
+import { scheduledEventLabel } from '../../lib/schedule'
 import { BROAD_SCOPES, COMPANY_SCOPES, familyOf, isCompanyNameClient, SCOPES, scopeLabel, scopeOf, type ScopeId } from '../../lib/scope'
 import { fmtStampLocal } from '../../lib/format'
 import { extractCommodities, extractSectors } from '../../lib/taxonomy'
@@ -141,6 +142,14 @@ function EventRow({ group, selected, shelved, fresh, unread, onPick, onShelve }:
           {(it.topics || []).slice(0, 2).map((t) => (
             <span key={t} className="evrow__tag evrow__tag--topic" title="Subject topic">
               {topicLabel(t)}
+            </span>
+          ))}
+          {/* forward/scheduled corporate event (server news/schedule.ts) — the §17 catalyst flag: this
+              item announces an UPCOMING dated event. The only FILLED chip, so it pops as actionable.
+              Show one (the primary). Deploy-skew-safe: undefined scheduled_events → no chip. */}
+          {(it.scheduled_events || []).slice(0, 1).map((s) => (
+            <span key={s} className="evrow__tag evrow__tag--sched" title="Upcoming scheduled event — a forward catalyst">
+              📅 {scheduledEventLabel(s)}
             </span>
           ))}
           {companyLabel && (

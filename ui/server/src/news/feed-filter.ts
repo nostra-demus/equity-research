@@ -11,10 +11,13 @@ import { gicsOf, explainGicsOf } from './gics'
 import { regionOfCountry } from './geography'
 import { commoditiesOf } from './commodities'
 import { deriveTopics } from './topics'
+import { deriveScheduledEvents } from './schedule'
 
 /** The item's subject topics — the hydrated field, or a lazy derive for a synthetic/un-hydrated item
  *  (the same trick as commoditiesOf/gicsOf above). deriveTopics reads only headline/headline_en. */
 const topicsOf = (it: FeedItem): string[] => it.topics || deriveTopics(it)
+/** The item's scheduled/forward events — hydrated field or a lazy derive (same trick). */
+const scheduledEventsOf = (it: FeedItem): string[] => it.scheduled_events || deriveScheduledEvents(it)
 
 export interface FeedFilterQuery {
   themes?: string[] // event_type tags — OR within the set
@@ -29,6 +32,7 @@ export interface FeedFilterQuery {
   scope?: string // exact scope bucket (news/scope.ts ScopeId) — e.g. a wire swarm's declared event_scope
   commodities?: string[] // canonical commodity subjects (news/commodities.ts) — OR within the set
   topics?: string[] // CapIQ-style subject topics (news/topics.ts) — OR within the set
+  scheduledEvents?: string[] // forward/scheduled corporate events (news/schedule.ts) — OR within the set
   // the wire-membership DISJUNCTION: item passes when its scope equals this value OR it carries any
   // canonical commodity tag. This is what "on the commodity wire" means (a gold-miner single_name
   // story is GOLD-wire material even though its scope isn't 'commodity') — one clause, so the archive
@@ -43,7 +47,7 @@ export function hasAnyFilter(q: FeedFilterQuery): boolean {
     (q.themes?.length ?? 0) > 0 ||
     !!q.country || !!q.geoRegion || !!q.source || !!q.band || !!q.size || !!q.linkage ||
     !!q.gicsSector || !!q.gicsSubSector || !!q.scope || (q.commodities?.length ?? 0) > 0 ||
-    (q.topics?.length ?? 0) > 0 || !!q.wireScope || !!(q.text && q.text.trim())
+    (q.topics?.length ?? 0) > 0 || (q.scheduledEvents?.length ?? 0) > 0 || !!q.wireScope || !!(q.text && q.text.trim())
   )
 }
 
@@ -69,6 +73,7 @@ export function matchesFeedFilters(it: FeedItem, q: FeedFilterQuery): boolean {
   // same trick as the lazy gicsOf above
   if (q.commodities && q.commodities.length > 0 && !commoditiesOf(it).some((c) => q.commodities!.includes(c))) return false
   if (q.topics && q.topics.length > 0 && !topicsOf(it).some((t) => q.topics!.includes(t))) return false
+  if (q.scheduledEvents && q.scheduledEvents.length > 0 && !scheduledEventsOf(it).some((s) => q.scheduledEvents!.includes(s))) return false
   if (q.wireScope && (it.scope || '') !== q.wireScope && commoditiesOf(it).length === 0) return false
   if (q.text && q.text.trim()) {
     const needle = q.text.trim().toLowerCase()
@@ -87,6 +92,7 @@ export function parseFeedFilterQuery(raw: Record<string, unknown>): FeedFilterQu
   const themesRaw = str(raw.themes)
   const commoditiesRaw = str(raw.commodities)
   const topicsRaw = str(raw.topics)
+  const scheduledRaw = str(raw.scheduledEvents)
   return {
     themes: themesRaw ? themesRaw.split(',').map((t) => t.trim()).filter(Boolean) : undefined,
     country: str(raw.country)?.toUpperCase(),
@@ -101,6 +107,8 @@ export function parseFeedFilterQuery(raw: Record<string, unknown>): FeedFilterQu
     commodities: commoditiesRaw ? commoditiesRaw.split(',').map((c) => c.trim().toUpperCase()).filter(Boolean) : undefined,
     // topic ids are lowercase (news/topics.ts TopicId) — no upcasing, unlike commodity headings
     topics: topicsRaw ? topicsRaw.split(',').map((t) => t.trim().toLowerCase()).filter(Boolean) : undefined,
+    // scheduled-event kinds are lowercase ids (news/schedule.ts ScheduledEventKind)
+    scheduledEvents: scheduledRaw ? scheduledRaw.split(',').map((s) => s.trim().toLowerCase()).filter(Boolean) : undefined,
     wireScope: str(raw.wireScope),
     text: str(raw.text),
   }
@@ -174,6 +182,11 @@ export function explainFeedFilterMatch(it: FeedItem, q: FeedFilterQuery): FeedFi
     const have = topicsOf(it)
     const hit = have.filter((t) => q.topics!.includes(t))
     checks.push({ clause: 'topics', passed: hit.length > 0, detail: hit.length ? `matched subject topic(s): ${hit.join(', ')}` : `item topics [${have.join(', ') || 'none'}] do not include any of [${q.topics.join(', ')}]` })
+  }
+  if (q.scheduledEvents && q.scheduledEvents.length > 0) {
+    const have = scheduledEventsOf(it)
+    const hit = have.filter((s) => q.scheduledEvents!.includes(s))
+    checks.push({ clause: 'scheduledEvents', passed: hit.length > 0, detail: hit.length ? `matched forward event(s): ${hit.join(', ')}` : `item scheduled events [${have.join(', ') || 'none'}] do not include any of [${q.scheduledEvents.join(', ')}]` })
   }
   if (q.wireScope) {
     const have = commoditiesOf(it)
