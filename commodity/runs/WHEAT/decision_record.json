@@ -1,0 +1,46 @@
+{
+  "swarm": "commodity",
+  "commodity": "WHEAT",
+  "decision_date": "2026-07-12",
+  "action": "Research More",
+  "benchmark": "CBOT SRW (ZW), US¢/bushel",
+  "current_price": {
+    "value": 632,
+    "currency": "USc",
+    "unit": "per bushel (CBOT ZW Sep'26 at 640.25¢ post-roll)",
+    "as_of": "2026-07-10"
+  },
+  "curve": "contango",
+  "balance": "deficit",
+  "net_macro": "mixed",
+  "positioning": "net short",
+  "thesis_summary": "Global wheat is in a genuine ~4 MMT supply deficit for MY 2026/27 with major-exporter stocks-to-use near 8% and a developing strong El Niño threatening a second consecutive tightening year, but the current 632¢/bu price already embeds an estimated $0.50-0.80/bu Black Sea war-risk premium that is binary and reversible; the highest-information data window (USDA WASDE August 12, NOAA ENSO August 13) is 31 days away, making initiation today a decision to pay now for evidence available in one month.",
+  "key_risks": [
+    "Black Sea war-risk premium dissolves on ceasefire or maritime corridor deal — price retraces ~8-13% to the estimated $5.50-5.80/bu fundamental floor",
+    "Russia's 88 MMT crop exports fully at zero duty, capping CBOT upside and removing the key supply-offset uncertainty",
+    "India expands wheat export quota beyond the current 5 MMT cap, adding non-Russian supply",
+    "El Niño weakens unexpectedly — NOAA August update lowers very-strong-event probability, removing the second-season tightening narrative",
+    "Contango roll drag of ~8-9%/yr structurally penalises any ETF (WEAT) long position that fails to outrun the carry cost"
+  ],
+  "key_levels": {
+    "support": "598-605 (mid-June 2026 pullback low, web unverified)",
+    "resistance": "672-688 (May 2026 spike high ceiling, web unverified)",
+    "fair_value_range": "550-580 (fundamental-only, stripping war-risk premium per macro-positioning synthesis)"
+  },
+  "relative_view": "WHEAT has a real supply deficit and historically tight exporter buffer but is not the best-positioned commodity in the tracked universe today — its bull case is hostage to a binary geopolitical premium, the curve drag (~9%/yr) is structurally punitive, and the August 12 WASDE is the cleanest entry signal 31 days away; corn (near-term pollination weather catalyst) and gold (macro-conditional, lower carry cost) offer cleaner setups in the current window",
+  "confidence": 38,
+  "sources": [
+    "USDA WASDE Jul-2026, 2026-07-10",
+    "USDA WASDE Jun-2026, 2026-06-11",
+    "USDA NASS Crop Progress, 2026-07-05",
+    "USDA Wheat Outlook May-2026",
+    "ABARES Australian Crop Report Jun-2026",
+    "NOAA/CPC ENSO Diagnostic Discussion, 2026-07-09",
+    "CFTC Disaggregated COT, data 2026-07-01, released 2026-07-07",
+    "Farmbucks / Barchart (web, unverified), 2026-07-10",
+    "Kyiv Independent, 2026-07-11 (web, unverified)",
+    "UkrAgroConsult Jul-2026 (labelled estimate)",
+    "Argus wheat estimates Jul-2026 (labelled estimate)",
+    "Stockanalysis.com WEAT flows (web, indicative, unverified)"
+  ]
+}
