@@ -121,4 +121,36 @@ const plan2 = readIntakePlan('TEST')
 assert.equal(plan2!.rerun_plan.commands.length, 0, 'all-bad commands dropped')
 assert.notEqual(plan2!.verdict, 'scoped_rerun', 'verdict must not claim a scoped rerun when every command was invalid')
 
+// ---- 5. a hallucinated-only command on a MATERIAL doc → verdict is 'insufficient', not a quiet 'note_only' ----
+const materialAllBad = {
+  ...planFixture,
+  new_docs: [{ ...planFixture.new_docs[0], materiality_score: 90, entry_orbs: [{ module: 'badmod', agent: 'bad-agent', why: 'hallucinated', confidence: 0.9 }] }],
+  rerun_plan: { materiality_gate: 60, entry_orbs: [], commands: [
+    { command: '/research:rerun badmod bad-agent TEST2', module: 'badmod', agent: 'bad-agent', cascade_modules: [], triggered_by: [] },
+  ], note_only: [] },
+}
+write(`${RUN}/intake/${TODAY}_intake_plan_v3.json`, JSON.stringify(materialAllBad, null, 2))
+const plan3 = readIntakePlan('TEST')
+assert.equal(plan3!.rerun_plan.commands.length, 0, 'the hallucinated command must still be dropped')
+assert.equal(plan3!.verdict, 'insufficient', 'a dropped command on a doc that cleared the materiality gate must fail closed, not read as note_only')
+
+// ---- 6. a file-declared 'insufficient' verdict survives even though new_docs is non-empty ----
+write(`analyses/INSUF_${YESTERDAY}/final_thesis.md`, '# thesis\n')
+const insufFixture = { ...planFixture, ticker: 'INSUF', run_root: `analyses/INSUF_${YESTERDAY}`, verdict: 'insufficient', rerun_plan: { materiality_gate: 60, entry_orbs: [], commands: [], note_only: [] } }
+write(`analyses/INSUF_${YESTERDAY}/intake/${TODAY}_intake_plan.json`, JSON.stringify(insufFixture, null, 2))
+const planInsuf = readIntakePlan('INSUF')
+assert.equal(planInsuf!.verdict, 'insufficient', 'a file-declared insufficient verdict must not be overwritten to note_only just because new_docs is non-empty')
+
+// ---- 7. a plan older than the newest data-pool file → null (expired; fail toward the honest floor) ----
+write(`analyses/STALE_${YESTERDAY}/final_thesis.md`, '# thesis\n')
+const staleFixture = { ...planFixture, ticker: 'STALE', run_root: `analyses/STALE_${YESTERDAY}` }
+const stalePlanPath = path.join(REPO, `analyses/STALE_${YESTERDAY}/intake/${TODAY}_intake_plan.json`)
+write(`analyses/STALE_${YESTERDAY}/intake/${TODAY}_intake_plan.json`, JSON.stringify(staleFixture, null, 2))
+const yesterdayDate = new Date(Date.now() - 86_400_000)
+fs.utimesSync(stalePlanPath, yesterdayDate, yesterdayDate) // simulate a plan written yesterday
+write('data/STALE/new_doc_today.txt', 'landed after the plan') // written NOW, real today's mtime
+const planStale = readIntakePlan('STALE')
+assert.equal(planStale, null, 'a data-pool file newer than the plan must expire it to null, not serve a stale plan')
+
 console.log('intake.test.ts: all assertions passed')
+fs.rmSync(REPO, { recursive: true, force: true })

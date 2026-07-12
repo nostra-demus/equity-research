@@ -32,27 +32,47 @@ The argument is `$ARGUMENTS` — a single `<TICKER>`. Execute the steps below in
 
 `<TICKER>` = the first token of `$ARGUMENTS`, upper-cased. Resolve `<TODAY>` once: `date +%F`.
 
-Find the **latest finished run root** for the ticker:
+Find the **latest FINISHED run root** for the ticker — the newest run directory that actually carries
+a `final_thesis.md` or a `decision_record.json`. Skip over a newer but incomplete/failed run folder
+(an in-progress run with no thesis yet) rather than scoping against it — intake only makes sense
+against a real, finished thesis:
 
 ```bash
-RUN_ROOT="$(ls -1d analyses/${TICKER}_*/ 2>/dev/null | sort -r | head -n 1 | sed 's:/$::')"
+RUN_ROOT=""
+for d in $(ls -1d analyses/${TICKER}_*/ 2>/dev/null | sort -r); do
+  d="${d%/}"
+  if [ -f "$d/final_thesis.md" ] || [ -f "$d/decision_record.json" ]; then
+    RUN_ROOT="$d"
+    break
+  fi
+done
 echo "$RUN_ROOT"
 ```
 
-- If there is **no** run root, STOP: print `No finished run for <TICKER> — nothing to scope against. Run the pipeline first.` and exit **without writing anything**. (Intake only makes sense against an existing thesis.)
-- The watermark is `<RUN_ROOT>/final_thesis.md`. If it is absent (an incomplete run), fall back to the newest `*.md` under `<RUN_ROOT>` as the watermark and note it in the plan `summary`.
+- If there is **no** finished run root, STOP: print `No finished run for <TICKER> — nothing to scope against. Run the pipeline first.` and exit **without writing anything**. (Intake only makes sense against an existing thesis; a newer but incomplete run folder does not count.)
+- The watermark is `<RUN_ROOT>/final_thesis.md` if present, else `<RUN_ROOT>/decision_record.json` (both are only ever written once the run is finished, so this is never a partial/in-progress file). Note which one was used in the plan `summary`.
+
+```bash
+WATERMARK="${RUN_ROOT}/final_thesis.md"
+[ -f "$WATERMARK" ] || WATERMARK="${RUN_ROOT}/decision_record.json"
+```
 
 ## 2. Find the documents that arrived since the run
 
-List pool files newer than the watermark, RECURSIVELY (so externally-ingested docs under
+List pool files newer than `$WATERMARK`, RECURSIVELY (so externally-ingested docs under
 `data/<TICKER>/external/<provider>/` are seen — they are the most likely delta, `EXTERNAL_DATA.md`).
-**Exclude engine-written output folders**: any directory carrying a `.nostradamus_output` sentinel
-is the engine's own prior output, never new evidence (the same exclusion `extract_pool.py` applies).
+**Exclude engine-written output**: `extract_pool.py` marks a folder that holds the engine's own prior
+output (a routed copy of `final_thesis.md`/memo/dossier saved back into the data folder) with a
+sibling **file** named `.nostradamus_output` — never a directory by that name — so skip any file
+whose OWN DIRECTORY contains that sentinel. Also skip a document's provenance sidecar
+(`<file>.source.json`, `EXTERNAL_DATA.md` §3) — it is metadata about a document, not new evidence
+itself:
 
 ```bash
-find "data/${TICKER}/" -type f -newer "${RUN_ROOT}/final_thesis.md" \
-  -not -path '*/.nostradamus_output/*' \
-  -not -name '.source.json' 2>/dev/null | sort
+find "data/${TICKER}/" -type f -newer "$WATERMARK" -not -name '*.source.json' 2>/dev/null | while read -r f; do
+  [ -e "$(dirname "$f")/.nostradamus_output" ] && continue
+  echo "$f"
+done | sort
 ```
 
 - If **no** new documents: write a plan with `verdict: "note_only"`, empty `new_docs`, empty
@@ -63,14 +83,19 @@ find "data/${TICKER}/" -type f -newer "${RUN_ROOT}/final_thesis.md" \
 
 ## 3. Refresh the extract sidecar and read each new document
 
-Refresh the deterministic extract once (idempotent), then read each new doc's extract + provenance:
+Extract into a **throwaway temp directory**, never `${RUN_ROOT}/_pool_extracts` — that path is the
+run's own canonical evidence cache other modules read from, and intake is recommend-only (the
+Inviolable rules above: never touch the run's output). Writing there would mutate a committed run's evidence
+cache outside the two-file commit this command makes, leaving the worktree with an uncommitted change
+Step 7 never stages. A fresh temp dir is idempotent-enough for one intake pass and leaves no trace:
 
 ```bash
-python3 .claude/tools/extract_pool.py "data/${TICKER}/" "${RUN_ROOT}/_pool_extracts" 2>/dev/null || true
+EXTRACT_TMP="$(mktemp -d)"
+python3 .claude/tools/extract_pool.py "data/${TICKER}/" "$EXTRACT_TMP" 2>/dev/null || true
 ```
 
 For each new document, gather from its `.source.json` sidecar (external docs) or the
-`_pool_extracts/manifest.md` row (`provenance`): `provider`, `source_type`, `tier` (§4 map in
+`$EXTRACT_TMP/manifest.md` row (`provenance`): `provider`, `source_type`, `tier` (§4 map in
 `EXTERNAL_DATA.md`), and `as_of` (the DATA coverage date, read from inside the document — never the
 file mtime). A plain filing with no sidecar takes the tier its document TYPE earns (CLAUDE.md §4/§27:
 audited annual = tier 1, interim = tier 2, deck = tier 7, etc.). Read the extract to learn what the
@@ -95,15 +120,21 @@ fill `impacted_modules`, but at **orb** granularity.
 For each document, emit `entry_orbs: [{module, agent, why, confidence}]`:
 - `module` / `agent` MUST be a real folder name and a real orb `name:` in the discovered roster.
   **Validate each against the roster before writing it. If you cannot confidently place a material
-  document on a specific orb, widen to that module's most-upstream relevant orb (or list the module's
-  data-triage orb) and lower `confidence`** — never drop a material document silently.
+  document on a single specific orb, widen to EVERY orb in that module** (one `entry_orbs` row per
+  `[0-9][0-9]_*.md` file the module has, not just its data-triage orb — a single-orb rerun does not
+  re-run its siblings, `rerun.md`, so listing only data-triage would under-scope exactly this
+  uncertain case) **and lower `confidence` on each** — never drop a material document silently.
 - `why` — one plain-English sentence tying the document's content to that orb's declared inputs.
 - `confidence` — 0–1, your certainty this orb (and not a neighbour) is the one the evidence hits.
 
 **Tier discipline (`INTAKE.md` §5):** a tier-9 single-source anecdote (one channel check / one
-expert call, N=1) does NOT by itself force a rerun of a filing-anchored number — it can raise a
-question, so record it under `note_only` with its materiality unless it is corroborated or clears
-the gate. A filing (tier 1–3) that changes a consumed number clears the gate readily.
+expert call, N=1) **defaults to `note_only`** — clearing the materiality gate alone is NOT enough to
+escape that default, since materiality only measures how much the claim would matter if true, not
+whether one uncorroborated source is enough to believe it. It only earns an `entry_orbs` /
+`rerun_plan.commands` recommendation when a SECOND, independent document in the pool (a different
+provider/source_type, or a filing) makes the same claim — cite both in `why` when that happens. A
+filing (tier 1–3) that changes a consumed number clears the gate on its own; it needs no
+corroboration.
 
 ## 5. Derive the scoped rerun plan
 
@@ -187,5 +218,5 @@ Report the commit SHA. If no plan file was written (Step 1 stop), skip the commi
   the plan; the human clicks it.
 - Every `module`/`agent` in the plan is a real discovered roster name — validate before writing.
 - Never under-scope a material document: when unsure, widen (whole module) and lower confidence.
-- A tier-9 single-source note is `note_only` unless corroborated or clearing the gate.
+- A tier-9 single-source note is `note_only` unless a second, independent document corroborates it.
 - The schema and doctrine come from `frameworks/INTAKE.md`; this command does not redefine them.
