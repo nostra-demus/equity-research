@@ -666,6 +666,9 @@ function buildPrompt(swarmId: string, kind: RunKind, ticker: string, module?: st
   if (kind === 'review') return `/research:review-decisions ${ticker} ${window || 'ad-hoc'}`
   // rebuild the cross-ticker calls-tracker dashboard (ignores ticker — it is cross-ticker by design).
   if (kind === 'track') return `/research:track`
+  // read the docs that landed since the ticker's last run + write a scoped rerun plan (advisory,
+  // launches nothing). The command resolves the latest run root itself, like 'review'.
+  if (kind === 'doc-intake') return `/research:intake ${ticker}`
   // screener swarm — namespace from the manifest (never hardcode the literal beyond the kind map)
   if (SCREENER_KINDS.has(kind)) {
     const ns = swarmById(swarmId)?.commandNs || 'screener'

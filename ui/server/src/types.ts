@@ -218,7 +218,9 @@ export interface TickerSummary {
 // Screener swarm kinds: 'signal' runs one signal through the gauntlet (subject = SIG id), 'sweep'
 // fills the inbox (no subject), 'screener-agent' re-runs one orb in a signal run, 'handoff' seeds
 // a ticker's data pool from a locked thesis (idempotent; never launches the research run itself).
-export type RunKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track' | 'signal' | 'sweep' | 'screener-agent' | 'handoff'
+// 'doc-intake' is an advisory research kind (like 'review'/'track'): it reads the docs that landed
+// since the last run and writes a SCOPED rerun plan (frameworks/INTAKE.md) — it launches no run.
+export type RunKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track' | 'doc-intake' | 'signal' | 'sweep' | 'screener-agent' | 'handoff'
 // 'incomplete' = the process exited cleanly but a full/rerun didn't produce its final deliverables
 // (thesis/decision) — almost always budget/turn truncation. Distinct from 'error' (a real failure).
 // 'readiness-checking' / 'awaiting-readiness-decision' are PRE-SPAWN states: the deterministic
