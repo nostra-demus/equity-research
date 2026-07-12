@@ -554,6 +554,9 @@ interface State {
   restoreInbox: (inboxId: string) => Promise<void>
   moveThesis: (thesisId: string, to: 'watchlist' | 'provisional' | 'full_machine' | 'engine', reason?: string) => Promise<void>
   restoreConviction: (thesisId: string) => Promise<void>
+  hideIdea: (signalId: string) => Promise<void>
+  restoreIdea: (signalId: string) => Promise<void>
+  scRebuildBoard: () => Promise<void>
   setStopListOpen: (open: boolean) => void
   stopEverything: () => Promise<void>
   _handleNewsEvent: (e: any) => void
@@ -2864,6 +2867,46 @@ export const useStore = create<State>((set, get) => ({
       if (d?.thesis?.meta?.thesis_id === thesisId) await get().openThesisDetail(thesisId)
     } catch (e: any) {
       get().setToast({ msg: e?.message || 'Could not restore', tone: 'bad' })
+    }
+  },
+
+  // Soft-delete: hide one idea from the live book (an append-only override; the engine's ledger/run are
+  // untouched, so it's reversible). Optimistic — the card leaves at once — with an inline Undo, and the
+  // board is reconciled from the server after, which also un-does the optimistic hide if the call failed.
+  hideIdea: async (signalId) => {
+    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — actions run on your machine via npm run dev', tone: 'info' })
+    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — try again once it reconnects.', tone: 'info' })
+    set((s) => ({ scBoard: s.scBoard ? { ...s.scBoard, signals: s.scBoard.signals.map((sig) => (sig.signal_id === signalId ? { ...sig, hidden: true } : sig)) } : s.scBoard }))
+    try {
+      await api.hideSignal(signalId, 'hide')
+      get().setToast({ msg: 'Idea hidden from your book', tone: 'info', action: { label: 'Undo', onClick: () => void get().restoreIdea(signalId) } })
+    } catch (e: any) {
+      set((s) => ({ scBoard: s.scBoard ? { ...s.scBoard, signals: s.scBoard.signals.map((sig) => (sig.signal_id === signalId ? { ...sig, hidden: false } : sig)) } : s.scBoard }))
+      get().setToast({ msg: e?.message || 'Could not hide the idea', tone: 'bad' })
+    }
+    await get().scRefreshBoard()
+  },
+  restoreIdea: async (signalId) => {
+    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — actions run on your machine via npm run dev', tone: 'info' })
+    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — try again once it reconnects.', tone: 'info' })
+    set((s) => ({ scBoard: s.scBoard ? { ...s.scBoard, signals: s.scBoard.signals.map((sig) => (sig.signal_id === signalId ? { ...sig, hidden: false } : sig)) } : s.scBoard }))
+    try {
+      await api.hideSignal(signalId, 'restore')
+      get().setToast({ msg: 'Idea restored to your book', tone: 'good' })
+    } catch (e: any) {
+      set((s) => ({ scBoard: s.scBoard ? { ...s.scBoard, signals: s.scBoard.signals.map((sig) => (sig.signal_id === signalId ? { ...sig, hidden: true } : sig)) } : s.scBoard }))
+      get().setToast({ msg: e?.message || 'Could not restore the idea', tone: 'bad' })
+    }
+    await get().scRefreshBoard()
+  },
+  // Force a server-side board rebuild from the live ledger (picks up runs that finished since the last
+  // snapshot), then swap in the fresh board. Falls back to a plain re-read if the rebuild endpoint fails.
+  scRebuildBoard: async () => {
+    if (get().staticMode) return get().scRefreshBoard()
+    try {
+      set({ scBoard: await api.rebuildBoard() })
+    } catch {
+      await get().scRefreshBoard()
     }
   },
 

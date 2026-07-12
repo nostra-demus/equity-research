@@ -377,6 +377,9 @@ export interface BoardSignal {
   // (generated before the passthrough) still type-checks, and the theme filter self-activates once present.
   event_types?: string[]
   issuers?: string[]
+  // additive human view-state: the human soft-hid this idea from the live book (a `signal_hide` override).
+  // The board filters it into a restorable "Hidden" tray. Optional → older board JSON still type-checks.
+  hidden?: boolean
 }
 export interface BoardCandidate {
   candidate_id: string; ticker: string; company_name: string; side: string; exposure_score: number; handed_off?: boolean

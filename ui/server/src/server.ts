@@ -36,7 +36,7 @@ import { buildThemeBrief } from './news/themes/brief'
 import { enrichEvent, listCoveredTickers } from './news/enrich'
 import { markInboxConsumed, setDismissed } from './news/inbox-actions'
 import { refreshBoard } from './news/write-inbox'
-import { auditInboxAction, moveThesis, MOVE_TARGETS } from './screener-actions'
+import { auditInboxAction, hideSignal, moveThesis, MOVE_TARGETS, SIGNAL_ACTIONS } from './screener-actions'
 import { FEEDBACK_TYPES, readAllFeedback, submitFeedback, summarizeFeedback, undoFeedback } from './screener-feedback'
 import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
@@ -1575,6 +1575,39 @@ app.post('/api/screener/conviction/:id/restore', { config: { rateLimit: { max: 1
     return { ok: true, message: stdout.trim() }
   } catch (e: any) {
     return reply.code(500).send({ error: e?.message || 'restore failed' })
+  }
+})
+
+// Hide (or restore) one idea from the live book — a SOFT delete. Appends a `signal_hide`/`signal_restore`
+// override (the engine's ledger + run folder are untouched), then rebuilds the board so the card leaves /
+// returns immediately. Reversible from the "Hidden" tray.
+const SignalHideBody = z.object({ action: z.enum(SIGNAL_ACTIONS) })
+app.post('/api/screener/signal/:id/hide', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const signalId = (req.params as any).id as string
+  if (!SIG_RE.test(signalId)) return reply.code(400).send({ error: 'invalid signal id' })
+  const parsed = SignalHideBody.safeParse(req.body)
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  const { user } = identify(req)
+  try {
+    const record = await hideSignal(signalId, parsed.data.action, user)
+    await refreshBoard(REPO_ROOT) // rebuild the index so the card leaves/returns without waiting for a run
+    return { ok: true, ...record }
+  } catch (e: any) {
+    return reply.code(500).send({ error: e?.message || 'hide failed' })
+  }
+})
+
+// Force a board rebuild from the live ledger, then return the fresh board. The board index is a snapshot
+// the agents rewrite at each run's end; this lets the cockpit's ↻ pick up runs that finished since (or a
+// stale committed index) instead of only re-reading the same snapshot — so "runs I just ran" always show.
+app.post('/api/screener/board/rebuild', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (_req, reply) => {
+  try {
+    // throwOnFailure: this is the manual "rebuild" button, not a best-effort auto-poll — a script
+    // timeout or bad ledger row must surface as a failed request, never a silent 200 of the stale index.
+    await refreshBoard(REPO_ROOT, () => {}, { throwOnFailure: true })
+    return screenerBoard()
+  } catch (e: any) {
+    return reply.code(500).send({ error: e?.message || 'rebuild failed' })
   }
 })
 

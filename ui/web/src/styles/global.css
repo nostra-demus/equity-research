@@ -56,13 +56,21 @@ a { color: inherit; }
 .topbar :where(button, .chip, .readiness__label, .tickerpick__ticker, .creditbadge, .autoscan, .brand__name, .brand__sub) { white-space: nowrap; }
 .topbar .btn { padding: 0 12px; }
 .topbar__spacer { flex: 1 1 0; }
-.brand { flex-shrink: 1; min-width: 0; }
+/* The brand may shrink to truncate its TITLE, but never below its own content: the swarm switcher is
+   flex-shrink:0, so if the brand were allowed to collapse past it (min-width:0), the switcher would spill
+   out of the brand box and render ON TOP of the right-hand controls — the "research·running·Screener"
+   garble in screener mode, which packs the most controls. Reserving min-content keeps the switcher inside
+   the brand; when the whole row still can't fit, the right controls overflow the edge cleanly instead. */
+.brand { flex-shrink: 1; min-width: min-content; }
 .brand__title { min-width: 0; overflow: hidden; }
 .brand__name { overflow: hidden; text-overflow: ellipsis; }
 /* Primary nav — never let it get squeezed by the generic .brand > div shrink rule above (that rule is
    scoped to .brand__title on purpose: the app name may truncate, the swarm switcher must not). */
 .swarmswitch { flex-shrink: 0; }
 @media (max-width: 1240px) { .brand__sub { display: none; } }
+/* Tighter still: drop the switcher's text labels (the colour-coded orbs + their titles still identify each
+   swarm) so the left cluster stops crowding the right-hand tools before anything can collide. */
+@media (max-width: 1160px) { .swarmswitch__label { display: none; } .swarmswitch__item { padding: 0 8px; } }
 
 /* ticker picker */
 .tickerpick { position: relative; }
@@ -1189,6 +1197,36 @@ a { color: inherit; }
 .ideacard__chev { align-self: center; font-size: 17px; color: var(--text-faint); transition: transform var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out); }
 .ideacard--archived { opacity: 0.82; grid-template-columns: 32px 1fr; }
 .ideacard--archived .ideacard__body { gap: 4px; }
+
+/* Soft-delete control — a quiet ✕ that surfaces on card hover (like Replay), never competing with the
+   headline at rest. GPU-only (opacity + transform), custom ease-out, keyboard-reachable, and it warms to
+   the danger colour only on direct hover so the intent reads without shouting. Hide is reversible (Undo
+   toast + Hidden tray), so one click is enough — no destructive confirm. */
+.ideacard__hide {
+  flex-shrink: 0; align-self: flex-start;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 26px; height: 26px; padding: 0; margin: -1px -3px -1px 0;
+  border: 1px solid transparent; border-radius: var(--r-sm);
+  background: transparent; color: var(--text-faint); cursor: pointer;
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out),
+              background-color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out),
+              transform var(--dur-fast) var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .ideacard:hover .ideacard__hide { opacity: 0.55; }
+  .ideacard__hide:hover { opacity: 1; color: var(--bad); background: color-mix(in srgb, var(--bad) 12%, transparent); border-color: color-mix(in srgb, var(--bad) 26%, transparent); }
+}
+/* touch / keyboard: always reachable (no hover to reveal it) */
+@media (hover: none), (pointer: coarse) { .ideacard__hide { opacity: 0.55; } }
+.ideacard__hide:focus-visible { outline: none; opacity: 1; color: var(--bad); box-shadow: 0 0 0 2px var(--accent-wash); }
+.ideacard__hide:active { transform: scale(0.92); }
+@media (prefers-reduced-motion: reduce) { .ideacard__hide { transition: opacity var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out); } .ideacard__hide:active { transform: none; } }
+
+/* Hidden tray cards — muted, compact, single-column (no dial, no chevron): they're out of the book but
+   on record, one click from restore. */
+.ideacard--hidden { opacity: 0.7; grid-template-columns: 1fr; }
+.ideacard--hidden .ideacard__body { gap: 4px; }
 
 /* skeleton — three placeholder cards swept by a transform-only sheen (compositor-friendly) */
 .ideacard--skeleton { animation: none; align-items: center; }
