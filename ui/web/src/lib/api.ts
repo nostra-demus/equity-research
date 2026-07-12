@@ -216,6 +216,12 @@ export const api = {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/launch`, { kind: 'sweep' })
   },
+  // Escalate a PM-skim idea into the paid gauntlet ("Run the full machine"). The server maps the idea to a
+  // signal intake and launches it through the normal signal path.
+  promoteIdea: async (ideaId: string): Promise<{ sigId: string; runId: string }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/screener/ideas/${encodeURIComponent(ideaId)}/promote`, {})
+  },
   // ---- the news wire (auto-scanner visibility + human actions) ----
   newsStatus: async (): Promise<NewsStatus> => {
     if ((await ensureMode()) === 'static')

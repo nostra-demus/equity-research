@@ -483,6 +483,37 @@ export interface BoardThesis {
   conviction?: BoardConviction | null
 }
 export interface BoardHandoff { handoff_id: string; thesis_id: string; ticker: string; handed_off_at: string; seeded_path: string }
+// The PM skim's surfaced ideas (news/ideas → board.ideas). A cheap free-LLM pass over the ranked wire
+// top-N names the best 1-2 tradable stock ideas; the "Best ideas" tab renders these. `conviction` is a
+// PRE-EDGE proxy (conviction_basis pins that), never the locked edge score.
+export interface BoardIdeaPriorCoverage { has_run: boolean; latest_run: string | null; latest_decision: string | null; data_pool_present: boolean }
+export interface BoardIdea {
+  idea_id: string
+  ticker: string
+  company: string | null
+  exchange: string | null // the model's guess, UNVERIFIED
+  direction: 'long' | 'short' | 'pair'
+  pair_with: string | null
+  reason: string
+  why_now: string
+  conviction: number // 0-100 pre-edge PROXY
+  conviction_basis: 'pre_edge_proxy'
+  priced_in: 'priced' | 'room' | 'unknown'
+  thesis_type: string
+  source_event_ids: string[]
+  source_headlines: string[]
+  source_url: string | null
+  source_name: string | null
+  materiality_max: number
+  newest_source_at: string
+  prior_coverage: BoardIdeaPriorCoverage | null
+  surfaced_at: string
+  updated_at: string
+  decay_at: string
+  status: 'live' | 'promoted'
+  promoted_signal_id: string | null
+  stale: boolean
+}
 // Run-state of a wire event's signal (GET /api/screener/signal-state) — drives the reader's "Run the checks"
 // split button + badge. A pure read of the run folder + live registry; never a launch.
 export interface SignalState {
@@ -502,6 +533,9 @@ export interface ScreenerBoard {
   signals: BoardSignal[]
   theses: BoardThesis[]
   handoffs: BoardHandoff[]
+  // The PM skim's surfaced ideas. Optional: an engine build before this feature emits no `ideas` key, so
+  // the cockpit fails closed — the "Best ideas" tab only shows when the server positively sends the array.
+  ideas?: BoardIdea[]
   counts: Record<string, number>
   book_momentum?: BookMomentum
   live?: { runId: string; kind: string; subjectId: string; runRoot: string | null; startedAt: number }[]

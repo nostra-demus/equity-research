@@ -214,6 +214,10 @@ export function EventRail() {
   const themesOpen = useStore((s) => s.themesView !== null)
   const openThemes = useStore((s) => s.openThemes)
   const closeThemes = useStore((s) => s.closeThemes)
+  const ideasOpen = useStore((s) => s.ideasOpen)
+  const openIdeas = useStore((s) => s.openIdeas)
+  const closeIdeas = useStore((s) => s.closeIdeas)
+  const scBoard = useStore((s) => s.scBoard)
   const setThemesGeo = useStore((s) => s.setThemesGeo)
   const openNewsFeed = useStore((s) => s.openNewsFeed)
   const openSources = useStore((s) => s.openSources)
@@ -255,7 +259,11 @@ export function EventRail() {
     next.has(s) ? next.delete(s) : next.add(s)
     setScopeFilter(next)
   }
-  const pickView = (v: View) => { setView(v); if (themesOpen) closeThemes() }
+  const pickView = (v: View) => { setView(v); if (themesOpen) closeThemes(); if (ideasOpen) closeIdeas() }
+  // The "Best ideas" tab is screener-only (the flow wire) AND deploy-skew-safe: it shows only when the
+  // server positively sends the ideas array (a capability check, never a swarm-id literal — DESIGN.md §5/§7).
+  const ideasAvailable = cfg.flow && Array.isArray(scBoard?.ideas)
+  const liveIdeaCount = (scBoard?.ideas || []).filter((i) => !i.stale).length
 
   // ARCHIVE MODE: any structured filter (geography / sector / theme / size / text) flips the rail from the
   // live 2-day SSE wire to a server-side search over the WHOLE since-inception archive — so a sparse
@@ -497,17 +505,23 @@ export function EventRail() {
           </div>
         )}
         <div className="evrail__seg" role="radiogroup" aria-label="How to view the wire">
+          {ideasAvailable && (
+            <button type="button" role="radio" aria-checked={ideasOpen} className={`evrail__segbtn evrail__segbtn--ideas${ideasOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => openIdeas()} title="The best 1-2 tradable stock ideas the desk skimmed from today's top-ranked wire">
+              {liveIdeaCount > 0 && <span className="evrail__segdot" aria-hidden />}
+              Ideas{liveIdeaCount ? ` · ${liveIdeaCount}` : ''}
+            </button>
+          )}
           <button type="button" role="radio" aria-checked={themesOpen} className={`evrail__segbtn${themesOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => void openThemes('map')} title="The wire clustered into living investment themes">
             Themes
           </button>
-          <button type="button" role="radio" aria-checked={view === 'ranked' && !themesOpen} className={`evrail__segbtn${view === 'ranked' && !themesOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => pickView('ranked')} title="The events worth a look, most important first">
+          <button type="button" role="radio" aria-checked={view === 'ranked' && !themesOpen && !ideasOpen} className={`evrail__segbtn${view === 'ranked' && !themesOpen && !ideasOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => pickView('ranked')} title="The events worth a look, most important first">
             Ranked{keptCount ? ` · ${keptCount}` : ''}
           </button>
-          <button type="button" role="radio" aria-checked={view === 'latest' && !themesOpen} className={`evrail__segbtn${view === 'latest' && !themesOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => pickView('latest')} title="The same events, newest first — a live stream as news lands">
+          <button type="button" role="radio" aria-checked={view === 'latest' && !themesOpen && !ideasOpen} className={`evrail__segbtn${view === 'latest' && !themesOpen && !ideasOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => pickView('latest')} title="The same events, newest first — a live stream as news lands">
             {status?.enabled && <span className="evrail__segpulse" aria-hidden />}
             Latest
           </button>
-          <button type="button" role="radio" aria-checked={view === 'all' && !themesOpen} className={`evrail__segbtn${view === 'all' && !themesOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => pickView('all')} title={`The full firehose, newest first${items.length ? ` (${items.length})` : ''} — includes the low-signal tail`}>
+          <button type="button" role="radio" aria-checked={view === 'all' && !themesOpen && !ideasOpen} className={`evrail__segbtn${view === 'all' && !themesOpen && !ideasOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => pickView('all')} title={`The full firehose, newest first${items.length ? ` (${items.length})` : ''} — includes the low-signal tail`}>
             Everything
           </button>
         </div>

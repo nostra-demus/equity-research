@@ -7,7 +7,7 @@ import { displayHeadline, originalHeadline, plainRoute, plainStage } from './pla
 import type { Theme, ThemeDetail, ThemeBrief } from './themes'
 import { intensityWindowForHours } from './themes'
 import { deriveWireConfig, type WireConfig, type WirePulseSubject } from './wire'
-import type { ActiveRunLite, AgentNode, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, CycleSummary, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, ThesisPlan, TickerSummary, Usage } from './types'
+import type { ActiveRunLite, AgentNode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, CycleSummary, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, ThesisPlan, TickerSummary, Usage } from './types'
 import { feedbackInputFromItem, feedbackLabel, polarityOf } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
 import { emptyReviewFilters, matchesReviewFilters, type ReviewFilterState } from '../components/screener/ReviewFilters'
@@ -426,6 +426,7 @@ interface State {
   _advanceWarp: () => void
   scInit: () => Promise<void>
   scRefreshBoard: () => Promise<void>
+  scPromoteIdea: (idea: BoardIdea) => Promise<void>
   _maybeAutoResume: (resumable: ScreenerBoard['resumable']) => Promise<void>
   scSelectSignal: (sigId: string | null) => Promise<void>
   scNodeStatus: (key: string) => NodeStatus
@@ -564,6 +565,10 @@ interface State {
   // ---- dynamic themes (the firehose bucketed into living, ranked investment themes) ----
   themes: Theme[]
   themesView: 'map' | 'board' | null // null = themes view closed (gauntlet/idle canvas shows)
+  // "Best ideas" tab — the PM skim. A sibling of Themes in the wire's tab row: when true, the main pane
+  // shows BestIdeasView instead of the home/gauntlet. Mutually exclusive with Themes (opening one closes
+  // the other), exactly like themesView.
+  ideasOpen: boolean
   themesWindow: number | null // the selected time-window lookback in HOURS; null = Live (real-time)
   themesHistoryDays: number // days of real daily-flow history the engine has (gates the long windows)
   // the "Where" geography picker (owned by the Event rail) mirrored here so the Themes view slices by it —
@@ -578,6 +583,8 @@ interface State {
   themesLoading: boolean
   openThemes: (view: 'map' | 'board') => Promise<void>
   closeThemes: () => void
+  openIdeas: () => void
+  closeIdeas: () => void
   setThemesView: (view: 'map' | 'board') => void
   setThemesWindow: (hours: number | null) => void
   selectTheme: (id: string | null) => Promise<void>
@@ -775,6 +782,7 @@ export const useStore = create<State>((set, get) => ({
   newsStreamOnline: false,
   themes: [],
   themesView: null,
+  ideasOpen: false,
   themesWindow: null,
   themesHistoryDays: 0,
   themesGeo: { country: '', geoRegion: '', label: '' },
@@ -1706,7 +1714,7 @@ export const useStore = create<State>((set, get) => ({
     if (get().activeSwarm !== targetSwarm) {
       if (!get().swarms.some((s) => s.id === targetSwarm)) { get().setToast({ msg: `The ${targetSwarm} view isn’t available here`, tone: 'info' }); return }
       if (warpTimer) { clearTimeout(warpTimer); warpTimer = null }
-      set({ activeSwarm: targetSwarm, warp: null, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, scFocusedCompany: null, newsFeedOpen: false, ...CHAT_RESET })
+      set({ activeSwarm: targetSwarm, warp: null, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, scFocusedCompany: null, newsFeedOpen: false, ideasOpen: false, ...CHAT_RESET })
       get()._enterSwarm(targetSwarm)
     }
     // select the subject if we're not already on it (loads its graph/manifest). A flow swarm (screener)
@@ -2152,12 +2160,12 @@ export const useStore = create<State>((set, get) => ({
     const reduced = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
     chatAbort?.abort(); chatAbort = null // chat is research-only — leaving the swarm closes it
     if (reduced) {
-      set({ activeSwarm: to, warp: null, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, scFocusedCompany: null, newsFeedOpen: false, ...CHAT_RESET })
+      set({ activeSwarm: to, warp: null, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, scFocusedCompany: null, newsFeedOpen: false, ideasOpen: false, ...CHAT_RESET })
       get()._enterSwarm(to)
       if (opts?.landTicker) void get().selectTicker(opts.landTicker)
       return
     }
-    set({ warp: { from, to, payloadTicker: opts?.payloadTicker, landTicker: opts?.landTicker, phase: 'collapse' }, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, scFocusedCompany: null, newsFeedOpen: false, ...CHAT_RESET })
+    set({ warp: { from, to, payloadTicker: opts?.payloadTicker, landTicker: opts?.landTicker, phase: 'collapse' }, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, scFocusedCompany: null, newsFeedOpen: false, ideasOpen: false, ...CHAT_RESET })
     if (warpTimer) clearTimeout(warpTimer)
     warpTimer = setTimeout(() => get()._advanceWarp(), 420) // collapse -> traverse
   },
@@ -2334,8 +2342,16 @@ export const useStore = create<State>((set, get) => ({
       themesGeoRefetchTimer = setTimeout(() => void get().refreshThemes(), 300)
     }
   },
+  // The "Best ideas" tab. Mirrors openThemes: takes the main pane, clears any open event, and closes the
+  // sibling Themes view. Kicks a board refresh so the freshly-skimmed ideas land without waiting for the
+  // 30s poll. Read-only — surfacing happens server-side on the ingester tick.
+  openIdeas: () => {
+    set({ ideasOpen: true, themesView: null, scSelectedEvent: null, scFocusedCompany: null })
+    void get().scRefreshBoard()
+  },
+  closeIdeas: () => set({ ideasOpen: false }),
   openThemes: async (view) => {
-    set({ themesView: view, scSelectedEvent: null, themesStatus: get().themes.length ? 'ready' : 'loading' })
+    set({ themesView: view, ideasOpen: false, scSelectedEvent: null, themesStatus: get().themes.length ? 'ready' : 'loading' })
     void get().setIntensityWindow(intensityWindowForHours(get().themesWindow)) // map readout follows the "When" window (the single control)
     await get().refreshThemes()
     if (!get().staticMode) connectNewsStream(get) // reuse the one news EventSource; theme-update flows on it
@@ -2634,6 +2650,14 @@ export const useStore = create<State>((set, get) => ({
       // by default, so the gauntlet's own routing stands untouched for a normal run.
       override_promote: override || undefined,
     }, until) // until = target module to run THROUGH then stop (undefined = the full gauntlet)
+  },
+
+  // Escalate a surfaced idea into the paid gauntlet. Fire the launch, then refresh the board so the card
+  // flips to "In the machine" (the server stamped the snapshot promoted). Re-throws so the card can show a
+  // failure inline — a paid launch that didn't happen must never look like it did.
+  scPromoteIdea: async (idea) => {
+    await api.promoteIdea(idea.idea_id)
+    await get().scRefreshBoard()
   },
 
   scRefreshBoard: async () => {

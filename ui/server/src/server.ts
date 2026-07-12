@@ -36,6 +36,7 @@ import { buildThemeBrief } from './news/themes/brief'
 import { enrichEvent, listCoveredTickers } from './news/enrich'
 import { markInboxConsumed, setDismissed } from './news/inbox-actions'
 import { refreshBoard } from './news/write-inbox'
+import { readIdeaById, writeIdea } from './news/ideas/ideas-store'
 import { auditInboxAction, hideSignal, moveThesis, MOVE_TARGETS, SIGNAL_ACTIONS } from './screener-actions'
 import { FEEDBACK_TYPES, readAllFeedback, submitFeedback, summarizeFeedback, undoFeedback } from './screener-feedback'
 import { runReadiness } from './readiness'
@@ -1615,6 +1616,47 @@ app.post('/api/screener/board/rebuild', { config: { rateLimit: { max: 120, timeW
     return screenerBoard()
   } catch (e: any) {
     return reply.code(500).send({ error: e?.message || 'rebuild failed' })
+  }
+})
+
+// Promote a PM-skim idea into the paid gauntlet — the "Run the full machine" click. Builds a signal intake
+// from the idea's primary source and launches it through the SAME path a wire-event launch uses (launch +
+// sigIdFor), so a run for an event the gauntlet already saw is de-duplicated by SIG-id, never double-folded.
+// Then it stamps the idea snapshot promoted so the board reflects it. Reuses the whole launch machinery
+// (credit/preflight/admission) — this endpoint only maps idea -> intake and records the promotion.
+const IDEA_ID_RE = /^IDEA-[a-f0-9]{12}$/
+app.post('/api/screener/ideas/:id/promote', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const ideaId = (req.params as any).id as string
+  if (!IDEA_ID_RE.test(ideaId)) return reply.code(400).send({ error: 'invalid idea id' })
+  const idea = readIdeaById(REPO_ROOT, ideaId)
+  if (!idea) return reply.code(404).send({ error: 'idea not found' })
+  // Idempotent: an already-promoted idea returns its existing signal WITHOUT re-launching. The board rebuild
+  // is deferred (setImmediate), so the client card can briefly still read 'live' — a re-click (or an
+  // automated retry) must never spend a second paid run on the same idea.
+  if (idea.status === 'promoted' && idea.promoted_signal_id) {
+    return { sigId: idea.promoted_signal_id, runId: null, alreadyPromoted: true }
+  }
+  const { user, userVia } = identify(req)
+  // Use the ORIGINAL-language headline (not the English translation) so the launched signal's SIG_ID
+  // byte-matches a wire launch of the same event — otherwise a non-English event double-folds a paid run.
+  const headline = (idea.source_headline || idea.source_headlines?.[0] || idea.reason || '').trim().slice(0, 500)
+  if (headline.length < 8) return reply.code(422).send({ error: 'idea has no usable source headline to launch' })
+  // A real on-list source anchors a news intake (Gate 0 checks it, and the SIG_ID byte-matches the wire
+  // event). Without one, fall back to a human-prompt intake carrying the skim's read as the note.
+  const hasSource = Boolean(idea.source_url && idea.source_name)
+  const intake = hasSource
+    ? { headline, source_url: idea.source_url as string, source_name: idea.source_name as string, input_nature: 'news_headline' }
+    : { headline, human_prompt_note: `Desk skim — ${idea.direction.toUpperCase()} ${idea.ticker}: ${idea.reason}`.slice(0, 4000), input_nature: 'human_prompt' }
+  try {
+    const out = await launch({ kind: 'signal', intake, user, userVia })
+    const sigId = out.preflight?.ticker || sigIdFor({ headline, source_url: idea.source_url || '' } as Parameters<typeof sigIdFor>[0], todayDate())
+    // stamp the snapshot so the board shows "In the machine" (deterministic — the board rebuilds from this)
+    writeIdea(REPO_ROOT, { ...idea, status: 'promoted', promoted_signal_id: sigId, updated_at: new Date().toISOString().replace(/\.\d{3}Z$/, 'Z') })
+    setImmediate(() => { try { refreshBoard(REPO_ROOT) } catch { /* best-effort */ } })
+    return { sigId, runId: out.runId }
+  } catch (e: any) {
+    const body = e?.body && typeof e.body === 'object' ? e.body : null
+    return reply.code(e?.statusCode || 500).send({ error: e?.message || 'promote failed', ...(body || {}) })
   }
 })
 
