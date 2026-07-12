@@ -5,11 +5,24 @@ How we keep many people (and AI agents) shipping features into `main` without re
 ## The flow (same for everyone, human or agent)
 
 1. Branch off `main`, make the change, open a PR.
-2. CI runs automatically (typecheck + tests). Get it green + one review.
-3. Click **merge** → the PR enters the **merge queue**.
+2. CI runs automatically (typecheck + tests), and the standing bot reviewers (CodeQL, Gemini, Codex, Copilot) review it. The engine also runs its own multi-lens adversarial pass. Get it green, and triage every review finding — fix the real ones, record a reasoned won't-fix for the rest.
+3. Merge once that bar is clear → the PR enters the **merge queue**.
 4. The queue rebases your PR on the latest `main`, re-runs CI, and merges only if still green.
 
+**No human approval is required** (CLAUDE.md/AGENTS.md §28). The quality gate is CI + the automated multi-reviewer adversarial pass, not a person clicking approve — and the engine's PR agent runs that gate and self-merges. Retaining the multiple independent views (each bot reviewer + the engine's own lenses) is exactly what makes a change bulletproof; keep them all.
+
 You never hand-rebase for the normal case, and you never need to know whether your change is "big" or "small" — every PR takes the identical path.
+
+## The engine's PR agent handles the whole PR (no human babysitting)
+
+The engine's PR agent owns a code PR end to end and never needs a human to advance it (§28, "Autonomous merge authority"). It is standing-authorized to:
+
+- **update an out-of-date branch itself** — rebase or merge the latest `main` in, no "Update branch" click needed;
+- **resolve merge conflicts itself** — take the correct side, re-run the full local check suite (typecheck + tests + build + eval), and push;
+- **run the multi-view adversarial review** — the bot reviewers above plus its own multi-agent lenses — and **triage every finding**: fix the real ones, reply with a reasoned won't-fix for the rest;
+- **merge once CI is green and the review is clean.**
+
+The `needs-human` label is advisory context, never a blocker. Don't ping a person to rebase, resolve, or approve — the agent does all of it.
 
 ## Why this prevents the conflicts we kept hitting
 
@@ -19,7 +32,7 @@ You never hand-rebase for the normal case, and you never need to know whether yo
 - **Zero-touch boundaries (CLAUDE.md/AGENTS.md §26).** Adding a module/sub-agent edits no shared engine file. Extend that everywhere: prefer auto-discovery and per-file fragments over central registries/manifests/index files.
 - **Don't commit generated/derived files** (build snapshots, lockfile churn from unrelated installs). They conflict for no reason; regenerate them in CI or `.gitignore` them.
 
-The one thing no tool can (or should) auto-resolve: two people changing the **same logic**. The queue + CI will *catch* it (the second PR fails and a human reconciles) — that's correct. Keep it rare with good file boundaries; never let a tool silently blend conflicting logic.
+The one thing to reconcile with real judgment: two changes to the **same logic**. The queue + CI will *catch* it (the second PR fails against the updated `main`) — that's correct. The engine's PR agent then reconciles it deliberately (take the correct side, re-run the full check suite), never a silent blend. Keep it rare with good file boundaries.
 
 ## Adding a test
 
@@ -31,7 +44,7 @@ These are the enforcement layer — they bind every contributor. Do them once in
 
 1. **Let CI run once** (merge this PR or push it) so the check named **`ui/server — typecheck + tests`** exists to be selected below.
 2. **Settings → Branches → Add branch ruleset (or protect `main`)**:
-   - Require a pull request before merging → **Require approvals: 1** (raise later).
+   - Require a pull request before merging → **Require approvals: 0**. The gate is CI + the automated multi-reviewer adversarial pass (§28), not a human sign-off; the engine's PR agent self-merges a green, reviewed PR. Leave this at 0 — do **not** require human approvals.
    - **Require status checks to pass** → add **`ui/server — typecheck + tests`**.
    - **Require branches to be up to date before merging** (the merge queue satisfies this automatically).
    - **Require linear history** (optional, keeps `main` clean).
