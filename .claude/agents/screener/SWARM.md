@@ -189,6 +189,7 @@ sources:
       - "U.S. Department of War (formerly DoD)"
       - "U.S. Food & Drug Administration (Press Releases)"
       - "UK Financial Conduct Authority (FCA)"
+      - "UK Investor Magazine"
       - "US Government agency (GovDelivery)"
       - "USDA National Agricultural Statistics Service"
       - "Utility Dive"

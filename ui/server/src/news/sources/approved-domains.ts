@@ -209,6 +209,9 @@ const DOMAINS: Record<string, SourceMeta> = {
   'sky.com': { source_name: 'Sky News', region: 'GB', input_nature: 'news_headline', gdelt: false },
   'standard.co.uk': { source_name: 'The Standard (Evening Standard)', region: 'GB', input_nature: 'news_headline', gdelt: false },
   'thisismoney.co.uk': { source_name: 'This is Money (Daily Mail)', region: 'GB', input_nature: 'news_headline', gdelt: false },
+  // UK small/mid-cap (LSE/AIM) coverage — the closest free route to the London RNS gap (the raw RNS wire
+  // is Cloudflare/JS-blocked). Read directly via RSS (gdelt:false); `news` tier, not a primary filing.
+  'ukinvestormagazine.co.uk': { source_name: 'UK Investor Magazine', region: 'GB', input_nature: 'news_headline', gdelt: false },
   // --- Japan ---
   'fsa.go.jp': { source_name: 'Financial Services Agency (FSA Japan)', region: 'JP', input_nature: 'regulatory_filing', gdelt: false },
   'japantimes.co.jp': { source_name: 'The Japan Times', region: 'JP', input_nature: 'news_headline', gdelt: false },
