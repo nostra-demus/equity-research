@@ -13,6 +13,7 @@
 // no run or no readable plan, so the client shows the honest floor rather than a fabricated one.
 import fs from 'node:fs'
 import path from 'node:path'
+import { dataPoolNewest, todayDate } from './completion'
 import { findLatestRunRoot, listModuleNames, agentNamesForModule, downstreamCascade } from './roster'
 import { RESEARCH_SWARM_ID } from './swarms'
 
@@ -105,7 +106,16 @@ export function readIntakePlan(ticker: string): IntakePlan | null {
   } catch {
     return null // malformed → show the blunt floor, never a fabricated plan
   }
-  if (!raw || typeof raw !== 'object') return null
+  if (!raw || typeof raw !== 'object' || Array.isArray(raw)) return null
+
+  // Expire a stale plan: if a pool file landed on a LATER calendar day than the plan itself was
+  // written, the plan's new_docs/entry_orbs are missing at least that document — showing it would
+  // under-scope a document the plan never saw. Same-day is deliberately NOT flagged (mirrors
+  // stalenessOf's own same-day-ambiguity convention) since we cannot tell landed-before-or-after.
+  // Fail toward blunt (INTAKE.md §1): null → the client falls back to the honest staleness floor.
+  const planDate = todayDate(new Date(mtime))
+  const poolNewest = dataPoolNewest(ticker).newestDate
+  if (poolNewest && poolNewest > planDate) return null
 
   const moduleNames = new Set(listModuleNames(RESEARCH_SWARM_ID))
   const agentsByModule = new Map<string, Set<string>>()
@@ -180,8 +190,17 @@ export function readIntakePlan(ticker: string): IntakePlan | null {
 
   // verdict is derived from the VALIDATED commands, not trusted from the file: if every command was
   // dropped as invalid, this is not a scoped rerun anymore.
-  const verdict: IntakePlan['verdict'] = commands.length > 0 ? 'scoped_rerun'
-    : (newDocs.length > 0 ? 'note_only' : (raw.verdict === 'insufficient' ? 'insufficient' : 'note_only'))
+  //   - A file-declared `insufficient` is preserved regardless of new_docs (it means "the run/data
+  //     can't support a judgment", which new documents existing does not resolve).
+  //   - Fail closed (INTAKE.md §1): if a command was dropped as invalid AND none survived AND a
+  //     dropped document actually cleared the materiality gate, this is NOT a quiet "nothing to
+  //     re-run" — a material recommendation was lost to a hallucinated name, so treat it the same as
+  //     `insufficient` rather than silently reporting note_only.
+  const droppedMaterialCommand = commands.length === 0 && widened.length > 0 &&
+    newDocs.some((d) => d.materiality_score >= rerunPlan.materiality_gate)
+  const verdict: IntakePlan['verdict'] = commands.length > 0
+    ? 'scoped_rerun'
+    : (raw.verdict === 'insufficient' || droppedMaterialCommand ? 'insufficient' : 'note_only')
 
   return {
     schema_version: String(raw.schema_version ?? '1.0'),

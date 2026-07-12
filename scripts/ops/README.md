@@ -57,6 +57,28 @@ stored credential also works if it is reachable by the launchd GUI agent, but th
 path.) `NEWS_ARCHIVE_DIR` is auto-carried from the existing install on a re-run, so you don't have to re-pass
 it every time.
 
+**Feedback → coding-agent dispatch (optional).** The cockpit's Feedback panel can send an item to a coding
+agent that opens a **draft PR** (`ui/server/src/feedback-dispatch.ts`). It is OFF and FAIL-CLOSED by default;
+to enable it, drop one more file next to `providers.env` — `~/.config/nostra-engine/code-pr.env` (mode 600,
+outside the repo, loaded by the same `load-env.ts`):
+
+```
+# code-pr.env — fine-grained GitHub PAT (Contents + Pull-requests: write, THIS repo only; no admin).
+# NEVER the engine's data-only App identity (§28) — this authors CODE PRs, which the App must not.
+GH_PR_TOKEN=github_pat_xxx
+ENGINE_FEEDBACK_DISPATCH_ENABLED=1
+ENGINE_DISPATCH_ADMINS=you@example.com        # comma-separated; EMPTY ⇒ nobody can dispatch (fail-closed)
+# optional knobs: ENGINE_FEEDBACK_BUDGET_USD (15) · ENGINE_FEEDBACK_MAX_TURNS (200) ·
+#                 ENGINE_FEEDBACK_MAX_CONCURRENT (1) · ENGINE_FEEDBACK_DAILY_CAP (8) ·
+#                 ENGINE_FEEDBACK_WORKTREE_DIR (defaults under $TMPDIR)
+```
+
+The agent runs in a throwaway git worktree on a `feedback/<id>` branch cut from `origin/main` (never the
+prod checkout, never `main`), and branch protection stops the PAT from pushing to `main` — it can only open
+a draft PR for review. **Portability (Air → Pro):** everything lives in `~/.config/nostra-engine/` and derives
+from `ENGINE_REPO_ROOT` / `ENGINE_STATE_DIR`, so moving machines is the usual "copy the config dir + re-clone
++ run `install-services.sh`" — this one file comes along with the rest, no rework.
+
 ### Production runs from its own tree (`nostra-prod`) — dev never touches live
 The engine does **not** serve this dev checkout. Live runs from a dedicated git worktree pinned to
 `main` at **`$HOME/nostra-prod`** (e.g. `/Users/admin/nostra-prod`), so feature-branch work and uncommitted

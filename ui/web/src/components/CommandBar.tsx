@@ -394,6 +394,7 @@ export function CommandBar() {
   const decision = useStore((s) => s.decision)
   const openThesis = useStore((s) => s.openThesis)
   const openActivity = useStore((s) => s.openActivity)
+  const openCockpitFeedback = useStore((s) => s.openCockpitFeedback)
   const openScoring = useStore((s) => s.openScoring)
   const openReview = useStore((s) => s.openReview)
   const openCalls = useStore((s) => s.openCalls)
@@ -442,6 +443,7 @@ export function CommandBar() {
           <AutoScanChip />
           <EngineStatusPill />
           <button className="btn btn--ghost" onClick={openScoring} title="Scoring weights — tune how every event is scored, for the whole wire">Scoring</button>
+          <button className="btn btn--ghost" onClick={openCockpitFeedback} title="Feedback — report a bug, share an idea, or drop a screenshot">Feedback</button>
           <button className="btn btn--ghost" onClick={openActivity} title="Activity log — who ran what, when">Activity</button>
           <button className="btn btn--ghost" onClick={openReview} title="Batch review — flag a day's worth of items fast, with keyboard shortcuts">Review</button>
           {/* the live-run rail's reopen is folded into the single "Runs" button below (ScreenerControls) —
@@ -463,6 +465,7 @@ export function CommandBar() {
           {swarms.find((s) => s.id === activeSwarm)?.wire && <AutoScanChip />}
           <EngineStatusPill />
           <button className="btn btn--ghost" onClick={openCalls} title="Calls tracker — every call the engine made and what's happened since">Calls</button>
+          <button className="btn btn--ghost" onClick={openCockpitFeedback} title="Feedback — report a bug, share an idea, or drop a screenshot">Feedback</button>
           <button className="btn btn--ghost" onClick={openActivity} title="Activity log — who ran what, when, on which company">Activity</button>
           <button className="btn btn--ghost" onClick={openChatHistory} title="Chat history — reopen and continue any past Ask conversation">Chats</button>
           {runPanelDismissed && <button className="btn btn--ghost" onClick={reopenRunStream} title="Show the run panel again — the live/last runs for this company">Runs</button>}

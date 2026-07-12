@@ -1,7 +1,7 @@
 import { staticPromptPath } from './prompts'
 import { DEFAULT_RANK_WEIGHTS, type RankWeights, type RankWeightsState } from './rankWeights'
 import type { AutotuneState, RankWeightChanges, WeightChange } from './types'
-import type { ActivityQuery, ActivityResult, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CoverageGroup, DataStatus, EventEnrichment, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, ThesisPlan, TickerSummary, UploadResult, Usage, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CoverageGroup, DataStatus, EventEnrichment, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, ThesisPlan, TickerSummary, UploadResult, Usage, Whoami } from './types'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -370,6 +370,48 @@ export const api = {
     if ((await ensureMode()) === 'static') return []
     const { tickers } = await get<{ tickers: string[] }>(`/api/screener/covered-tickers`)
     return tickers
+  },
+
+  // ---- cockpit-wide product feedback ----
+  listFeedback: async (): Promise<CockpitFeedbackView[]> => {
+    if ((await ensureMode()) === 'static') return []
+    const { items } = await get<{ items: CockpitFeedbackView[] }>(`/api/feedback`)
+    return items
+  },
+  // multipart (text + category + url + up to N screenshots) via XHR so the composer can show progress.
+  submitCockpitFeedback: async (
+    input: { text: string; category: CockpitFeedbackCategory; url: string; images: File[] },
+    onProgress?: (frac: number) => void,
+  ): Promise<{ ok: boolean; feedback: any; imageErrors: { filename: string; reason: string }[] }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    const fd = new FormData()
+    fd.append('text', input.text)
+    fd.append('category', input.category)
+    fd.append('url', input.url)
+    for (const f of input.images) fd.append('images', f, f.name)
+    return new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest()
+      xhr.open('POST', `/api/feedback`)
+      if (onProgress) xhr.upload.onprogress = (e) => { if (e.lengthComputable) onProgress(e.loaded / e.total) }
+      xhr.onload = () => {
+        let j: any = {}
+        try { j = JSON.parse(xhr.responseText) } catch { /* non-JSON error body */ }
+        if (xhr.status >= 200 && xhr.status < 300) resolve(j)
+        else reject(Object.assign(new Error(j?.error || `${xhr.status}`), { status: xhr.status }))
+      }
+      xhr.onerror = () => reject(new Error('network error'))
+      xhr.send(fd)
+    })
+  },
+  feedbackImageUrl: (feedbackId: string, name: string): string =>
+    `/api/feedback/${encodeURIComponent(feedbackId)}/image/${encodeURIComponent(name)}`,
+  setFeedbackStatus: async (feedbackId: string, status: CockpitFeedbackStatus, note?: string): Promise<{ ok: boolean }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/feedback/${encodeURIComponent(feedbackId)}/status`, { status, ...(note ? { note } : {}) })
+  },
+  dispatchFeedback: async (feedbackId: string): Promise<{ ok: boolean; status: string; message: string }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/feedback/${encodeURIComponent(feedbackId)}/dispatch`, {})
   },
   screenerCalibration: async (): Promise<any | null> => {
     if ((await ensureMode()) === 'static') return snap.screenerCalibration || null
