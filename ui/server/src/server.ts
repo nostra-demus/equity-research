@@ -749,12 +749,30 @@ app.post('/api/intake/:ticker/analyze', { config: { rateLimit: { max: 30, timeWi
   if (isReservedDataFolder(ticker) || !fs.existsSync(path.join(DATA_DIR, ticker))) {
     return reply.code(400).send({ error: `unknown ticker ${ticker}` })
   }
+  // Serialize intake per subject. `doc-intake` declares no write targets, so admission's own
+  // per-subject exclusivity has nothing to key on — two concurrent POSTs (a double-click, or the
+  // PR3 auto-analyze-on-landing firing alongside a manual click) would each pass the busy-check
+  // below and both carry into the same `intake/` dir, racing the plan write + commit. The same
+  // in-process `withSubjectLock` + busy-check the sibling /api/thesis-plan routes use closes it:
+  // the first caller registers an in-flight run via `launch()`; the second then sees it (or is
+  // rejected outright by the held lock) and 409s instead of racing.
   try {
-    const out = await launch({ kind: 'doc-intake', ticker, user, userVia })
-    return out
+    return await withSubjectLock(`intake:${ticker}`, async () => {
+      const busy = listRuns().some((r) => r.subjectId === ticker && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))
+      if (busy) return reply.code(409).send({ error: `A run is already in flight on ${ticker}. Let it finish (or stop it) before analyzing new documents.`, code: 'subject_busy' })
+      try {
+        const out = await launch({ kind: 'doc-intake', ticker, user, userVia })
+        return out
+      } catch (e: any) {
+        const body = e?.body && typeof e.body === 'object' ? e.body : null
+        return reply.code(e?.statusCode || 500).send({ error: e?.message || 'intake analysis failed', ...(body || {}) })
+      }
+    })
   } catch (e: any) {
-    const body = e?.body && typeof e.body === 'object' ? e.body : null
-    return reply.code(e?.statusCode || 500).send({ error: e?.message || 'intake analysis failed', ...(body || {}) })
+    if (e instanceof SubjectBusyError) {
+      return reply.code(409).send({ error: `Another intake analysis for ${ticker} is already in progress. Wait for it to finish before retrying.`, code: 'subject_busy' })
+    }
+    throw e
   }
 })
 
