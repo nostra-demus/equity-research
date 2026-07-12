@@ -39,8 +39,8 @@
       "type": "object",
       "required": ["support", "resistance", "fair_value_range"],
       "properties": {
-        "support": { "type": ["number", "string", "null"], "description": "a price level or a contextual zone string (e.g. '598-605 (mid-June low)') — mirrors fair_value_range, which is already a string" },
-        "resistance": { "type": ["number", "string", "null"] },
+        "support": { "type": ["number", "null"] },
+        "resistance": { "type": ["number", "null"] },
         "fair_value_range": { "type": ["string", "null"] }
       }
     },
