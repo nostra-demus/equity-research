@@ -208,7 +208,7 @@ export function summarizeFeedback(records: FeedbackRecord[]): FeedbackSummary {
   const reasonCounts = new Map<string, number>()
   for (const r of active) {
     if (r.feedback_type) by_type[r.feedback_type] = (by_type[r.feedback_type] || 0) + 1
-    const reason = r.feedback_reason.trim()
+    const reason = (r.feedback_reason || '').trim()
     if (reason) reasonCounts.set(reason, (reasonCounts.get(reason) || 0) + 1)
   }
   const top_reasons = [...reasonCounts.entries()]
@@ -223,7 +223,7 @@ export function summarizeFeedback(records: FeedbackRecord[]): FeedbackSummary {
   }
   const clusters = new Map<string, { count: number; samples: string[] }>()
   for (const r of active) {
-    const reason = r.feedback_reason.trim()
+    const reason = (r.feedback_reason || '').trim()
     if (!reason) continue
     const scope = routeOf.get(r.feedback_id) || 'unrouted'
     const c = clusters.get(scope) || { count: 0, samples: [] }

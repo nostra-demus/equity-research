@@ -456,6 +456,8 @@ def main():
         try:
             with open(args.baseline, encoding="utf-8") as f:
                 baseline = json.load(f)
+            if not isinstance(baseline, dict):
+                raise ValueError("baseline weights must be a JSON object")
         except Exception as e:  # noqa: BLE001 — a bad baseline is a caller error; report it as JSON and exit non-zero
             print(json.dumps({"status": "error", "status_reason": f"could not read --baseline-weights: {e}"}))
             sys.exit(2)

@@ -76,7 +76,8 @@ function readChangesRaw(): WeightChange[] {
     const t = line.trim()
     if (!t) continue
     try {
-      out.push(JSON.parse(t) as WeightChange)
+      const parsed = JSON.parse(t)
+      if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) out.push(parsed as WeightChange)
     } catch {
       /* skip a malformed line rather than fail the whole read */
     }
