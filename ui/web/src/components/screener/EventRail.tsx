@@ -14,7 +14,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { groupByDedup, type StoryGroup } from '../../lib/dedup'
 import { displayHeadline, originalHeadline, plainSize, plainTheme } from '../../lib/plain'
 import { BROAD_SCOPES, COMPANY_SCOPES, familyOf, isCompanyNameClient, SCOPES, scopeLabel, scopeOf, type ScopeId } from '../../lib/scope'
-import { hhmmLocal } from '../../lib/format'
+import { fmtStampLocal } from '../../lib/format'
 import { extractCommodities, extractSectors } from '../../lib/taxonomy'
 import { useStore } from '../../lib/store'
 import type { FeedItem } from '../../lib/types'
@@ -122,7 +122,7 @@ function EventRow({ group, selected, shelved, fresh, unread, onPick, onShelve }:
           <span className="evrow__score mono" style={{ color: tone, borderColor: tone }}>
             {it.triage_score}
           </span>
-          <span className="evrow__time mono">{hhmmLocal(it.ts)}</span>
+          <span className="evrow__time mono" title="When this was published (your local time)">{fmtStampLocal(it.ts)}</span>
           <span className="evrow__src">{it.source_name}</span>
           {it.via === 'rss' && <span className="evrow__tag evrow__tag--rss">RSS</span>}
           {origHl && <span className="evrow__tag evrow__tag--xlate" title={`Translated to English — original: ${origHl}`}>EN</span>}
