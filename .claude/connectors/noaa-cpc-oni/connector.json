@@ -1,0 +1,28 @@
+{
+  "id": "noaa-cpc-oni",
+  "series": "NOAA CPC Oceanic Niño Index (ONI) — the ENSO (El Niño / La Niña) signal",
+  "satisfies": ["noaa-enso", "enso-probabilities"],
+  "subjects": ["WHEAT", "CORN", "SOYBEAN", "SUGAR", "COFFEE", "COCOA"],
+  "provider": "NOAA CPC",
+  "acquisition": "official_api",
+  "source_type": "paid_api",
+  "tier": 5,
+  "licensing": "public_domain",
+  "host_allowlist": ["www.cpc.ncep.noaa.gov"],
+  "cadence": "monthly",
+  "staleness_sla_days": 45,
+  "entry": "fetch.py",
+  "verify": "fetch.py --verify",
+  "output_path": "data/<SUBJECT>/external/noaa-cpc/oni_<as_of>.json",
+  "output_schema": {
+    "series": "string",
+    "as_of": "date",
+    "latest": {
+      "season": "string",
+      "year": "int",
+      "sst": "float",
+      "anom": "float",
+      "enso_state": "enum:el_nino|la_nina|neutral"
+    }
+  }
+}

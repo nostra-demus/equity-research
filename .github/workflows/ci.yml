@@ -130,6 +130,19 @@ jobs:
           fi
           exit $rc
 
+      # Connector unit tests — zero-touch (§26): every .claude/connectors/*/test_*.py runs automatically, so
+      # adding a connector never touches CI. Parse/transform + manifest consistency only (no network — a live
+      # endpoint is proven by `fetch.py --verify` at merge time, kept out of CI to avoid flakiness).
+      - name: Connector unit tests (self-discovering — every .claude/connectors/*/test_*.py)
+        run: |
+          rc=0
+          shopt -s nullglob
+          for t in .claude/connectors/*/test_*.py; do
+            echo "== $t =="
+            python3 "$t" || rc=1
+          done
+          exit $rc
+
       # The doctrine twins (CLAUDE.md / AGENTS.md) must stay identical except each file's own name
       # (CLAUDE.md §28 "The twins must match") — this mechanizes what was previously discipline-only.
       - name: Doctrine twins byte-diff (CLAUDE.md == AGENTS.md modulo self-name)
