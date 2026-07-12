@@ -293,7 +293,40 @@ export interface FeedbackSummary {
   active_total: number
   by_type: Record<FeedbackType, number>
   top_reasons: { reason: string; count: number }[]
+  clustered_reasons: { scope: string; count: number; sample_reasons: string[] }[]
   generated_at: string
+}
+
+// AUTO-TUNE — the automatic feedback→weights loop's audit + controls (rank-weights-audit.ts).
+export interface WeightDelta {
+  dimension: string
+  category: string
+  before: number
+  after: number
+}
+export interface WeightChange {
+  v: 1
+  change_id: string
+  ts: string
+  actor: string
+  kind: 'apply' | 'revert'
+  reverts?: string
+  status?: string
+  deltas: WeightDelta[]
+  evidence_feedback_ids?: string[]
+  backtest?: { holdout_evaluable: number; directional_improvement: number | null; passes: boolean | null } | null
+  tuner_generated_at?: string
+  note?: string
+  reverted?: boolean
+}
+export interface AutotuneState {
+  paused: boolean
+  pins: string[] // "dimension:category"
+  daily: { date: string; count: number }
+}
+export interface RankWeightChanges {
+  changes: WeightChange[]
+  autotune: AutotuneState
 }
 
 export interface NewsCycle {
