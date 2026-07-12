@@ -426,7 +426,9 @@ await check('coerceArticleBrief shapes gist/companies/parties safely; bad roles 
   assert.deepEqual(b.gist, ['a', 'b', 'c', 'd'])
   assert.equal(b.market_angle, 'A crude supply shock lifts oil names and squeezes importers.')
   assert.equal(b.companies[0].ticker, 'PRGO')
+  assert.equal(b.companies[0].listing_status, 'public') // no explicit status, but a ticker ⇒ derived public
   assert.equal(b.companies[1].role, 'mentioned') // bogus role coerced
+  assert.equal(b.companies[1].listing_status, 'unknown') // no status, ticker or exchange ⇒ unknown
   assert.equal(b.companies.length, 2) // empty-name dropped
   assert.equal(b.beneficiaries[0].name, 'Woodside')
   assert.equal(b.beneficiaries[0].mechanism, 'higher realised crude prices')
@@ -440,6 +442,35 @@ await check('coerceArticleBrief shapes gist/companies/parties safely; bad roles 
   assert.equal(b.the_edge, 'Second-order tanker beneficiaries are under-owned.')
   assert.equal(b.watch_item, 'Brent holding above $90.')
   assert.equal(b.theme, 'ma') // non-letters stripped
+})
+
+await check('coerceArticleBrief: listing_status — only PUBLIC keeps a listing anchor; private/unknown stripped; missing derives', () => {
+  const b = coerceArticleBrief({
+    theme: 'deals_takeovers',
+    companies: [
+      // the Gull defect: a private, PE-owned name the model (wrongly) tagged with a country/exchange —
+      // private MUST win and null the anchor so it never renders as "LISTED Gull — New Zealand".
+      { name: 'Gull', role: 'subject', listing_status: 'private', listing_country: 'New Zealand', exchange: 'NZX' },
+      { name: 'Allegro Funds', role: 'acquirer', listing_status: 'PRIVATE' }, // case-insensitive
+      { name: 'Petrobras', role: 'mentioned', listing_status: 'public', listing_country: 'Brazil', exchange: 'B3: PETR3' },
+      { name: 'Obscure Co', role: 'mentioned', listing_status: 'nonsense', ticker: 'OBS' }, // bad status → derive (ticker ⇒ public)
+      { name: 'No Info Co', role: 'mentioned' }, // nothing → unknown
+      // a self-contradicting read: model says "unknown" yet supplies a ticker/exchange — the anchor must be
+      // stripped so the UI never shows a concrete "NSE" line beside a "Listing unknown" tag.
+      { name: 'Murky Co', role: 'mentioned', listing_status: 'unknown', ticker: 'MRK', listing_country: 'India', exchange: 'NSE' },
+    ],
+  })
+  assert.equal(b.companies[0].listing_status, 'private')
+  assert.equal(b.companies[0].listing_country, null, 'private firm keeps NO listing country')
+  assert.equal(b.companies[0].exchange, null, 'private firm keeps NO exchange')
+  assert.equal(b.companies[1].listing_status, 'private') // upper-case normalised
+  assert.equal(b.companies[2].listing_status, 'public')
+  assert.equal(b.companies[2].exchange, 'B3: PETR3', 'public firm keeps its exchange')
+  assert.equal(b.companies[3].listing_status, 'public') // invalid status + a ticker ⇒ derived public
+  assert.equal(b.companies[4].listing_status, 'unknown') // no status, no anchor ⇒ unknown
+  assert.equal(b.companies[5].listing_status, 'unknown')
+  assert.equal(b.companies[5].ticker, null, 'unknown firm keeps NO ticker')
+  assert.equal(b.companies[5].exchange, null, 'unknown firm keeps NO exchange (no contradiction with the pill)')
 })
 
 // ---- news_impact coercion ----

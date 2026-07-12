@@ -188,7 +188,11 @@ export interface RelatedEvent {
 }
 export type CompanyRole = 'subject' | 'acquirer' | 'target' | 'forecaster' | 'mentioned'
 export type PartyOrder = 'first' | 'second'
-export interface ArticleCompany { name: string; ticker: string | null; role: CompanyRole; listing_country?: string | null; exchange?: string | null }
+// public = the firm has tradable listed equity; private = privately held (PE/family-owned, a fund, an unlisted
+// subsidiary), so not directly investable; unknown = the read couldn't tell. Optional so a ≤12h-old cached
+// enrichment (produced before the field existed) still renders — the client derives/defaults it.
+export type ListingStatus = 'public' | 'private' | 'unknown'
+export interface ArticleCompany { name: string; ticker: string | null; role: CompanyRole; listing_status?: ListingStatus; listing_country?: string | null; exchange?: string | null }
 // A gainer / exposed party with its transmission read. `mechanism` is the live field; `basis` is kept
 // optional so a ≤12h-old cached enrichment (produced before the upgrade) still renders its blurb.
 export interface ArticleParty {
