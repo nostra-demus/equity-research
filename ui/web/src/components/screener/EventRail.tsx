@@ -10,7 +10,7 @@
 // into ONE row (server dedup) with a "+N · also …" expander; multi-source corroboration nudges its rank.
 // Click a row to read the whole event; set aside the ones not worth a check.
 
-import { useEffect, useMemo, useRef, useState, type FocusEvent, type MouseEvent } from 'react'
+import { useEffect, useMemo, useRef, useState, type FocusEvent as ReactFocusEvent, type MouseEvent as ReactMouseEvent } from 'react'
 import { createPortal } from 'react-dom'
 import { groupByDedup, type StoryGroup } from '../../lib/dedup'
 import { displayHeadline, originalHeadline, plainSize, plainTheme } from '../../lib/plain'
@@ -106,7 +106,7 @@ function EventRow({ group, selected, shelved, fresh, unread, onPick, onShelve }:
   // card the way the old native `title` tooltip did. Skipped on touch (no true hover); the button keeps an
   // aria-label for screen readers.
   const [tip, setTip] = useState<{ right: number; bottom: number } | null>(null)
-  const showTip = (e: MouseEvent<HTMLButtonElement> | FocusEvent<HTMLButtonElement>) => {
+  const showTip = (e: ReactMouseEvent<HTMLButtonElement> | ReactFocusEvent<HTMLButtonElement>) => {
     if (e.type === 'mouseenter' && !window.matchMedia?.('(hover: hover)').matches) return
     const r = e.currentTarget.getBoundingClientRect()
     setTip({ right: Math.max(8, window.innerWidth - r.right), bottom: Math.max(8, window.innerHeight - r.top + 6) })

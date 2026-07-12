@@ -169,7 +169,7 @@ export function App() {
   }, [init])
 
   return (
-    <div className={`app${warp ? ` app--warp-${warp.phase}` : ''}`} data-swarm={activeSwarm} style={activeColor ? ({ ['--swarm-color' as any]: activeColor }) : undefined}>
+    <div className={`app${warp ? ` app--warp-${warp.phase}` : ''}${openOutput && chatOpen ? ' app--dual' : ''}`} data-swarm={activeSwarm} style={activeColor ? ({ ['--swarm-color' as any]: activeColor }) : undefined}>
       <div className="app__bg" />
       <CommandBar />
       <OfflineBanner />
