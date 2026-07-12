@@ -801,7 +801,7 @@ export interface CallsResult {
 
 // ---- activity / audit log ----
 export type RunKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track' | 'signal' | 'sweep' | 'screener-agent' | 'handoff'
-export interface Whoami { user: string; userVia: 'cf-access' | 'local' }
+export interface Whoami { user: string; userVia: 'cf-access' | 'local'; canDispatch?: boolean }
 
 // ---- cockpit-wide product feedback (server: feedback-store.ts) ----
 export type CockpitFeedbackCategory = 'bug' | 'ui' | 'idea' | 'research_quality' | 'other'

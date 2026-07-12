@@ -56,6 +56,26 @@ function resolveClaudeBin(): string {
 export const CLAUDE_BIN = resolveClaudeBin()
 export const DEFAULT_MODEL = process.env.ENGINE_MODEL || 'sonnet'
 
+// ---- feedback → coding-agent dispatch (feedback-dispatch.ts) ----
+// The gated one-click "send this feedback to a coding agent, which opens a DRAFT PR" action. FAIL-CLOSED:
+// only emails in ENGINE_DISPATCH_ADMINS may trigger it (empty list ⇒ nobody), AND it must be enabled.
+// Everything is env-driven from the out-of-repo config dir (code-pr.env) so it survives a machine move.
+export const DISPATCH_ADMINS = (process.env.ENGINE_DISPATCH_ADMINS || '')
+  .split(',').map((s) => s.trim().toLowerCase()).filter(Boolean)
+export const FEEDBACK_DISPATCH_ENABLED = process.env.ENGINE_FEEDBACK_DISPATCH_ENABLED === '1'
+// The fine-grained PAT (Contents + Pull-requests write, this repo only) the coding agent authenticates
+// `gh`/`git` with — NEVER the engine's §28 data-only App identity. Lives in code-pr.env.
+export const CODE_PR_TOKEN = process.env.GH_PR_TOKEN || ''
+/** Fail-closed authorization for the paid dispatch action. */
+export function isDispatchAdmin(email: string): boolean {
+  const e = (email || '').trim().toLowerCase()
+  return DISPATCH_ADMINS.length > 0 && DISPATCH_ADMINS.includes(e)
+}
+/** Dispatch can actually run only when enabled AND a PR token is configured. */
+export function feedbackDispatchReady(): boolean {
+  return FEEDBACK_DISPATCH_ENABLED && CODE_PR_TOKEN.length > 0
+}
+
 // OPT-IN (off by default): orchestrate a full run as a CHAIN of separate per-module runs (each its own
 // budget), in dependency order, then the master synthesizer — instead of one monolithic /research:full
 // process. No single budget cap can then truncate the whole pipeline. Enable with ENGINE_FULL_PER_MODULE=1.

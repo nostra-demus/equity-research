@@ -55,6 +55,7 @@ export function FeedbackPanel() {
   const [thumbs, setThumbs] = useState<string[]>([])
   const [submitting, setSubmitting] = useState(false)
   const [items, setItems] = useState<CockpitFeedbackView[] | null>(null)
+  const [canDispatch, setCanDispatch] = useState(false)
   const fileInput = useRef<HTMLInputElement>(null)
   const dragging = useRef(false)
   const [isDrag, setIsDrag] = useState(false)
@@ -78,6 +79,14 @@ export function FeedbackPanel() {
     window.addEventListener('keydown', onKey)
     return () => window.removeEventListener('keydown', onKey)
   }, [close])
+
+  // is this viewer allowed to trigger the paid "send to coding engine" dispatch? (server: admin allowlist
+  // AND dispatch enabled + PR token). The button is hidden otherwise.
+  useEffect(() => {
+    let alive = true
+    api.whoami().then((w) => { if (alive) setCanDispatch(!!w.canDispatch) }).catch(() => {})
+    return () => { alive = false }
+  }, [])
 
   // paste a screenshot anywhere in the panel (Cmd/Ctrl+V after a screen-grab is the fast path)
   const onPaste = useCallback((e: React.ClipboardEvent) => {
@@ -133,6 +142,18 @@ export function FeedbackPanel() {
     // optimistic: reflect the new status immediately, refetch to confirm
     setItems((cur) => (cur ? cur.map((it) => (it.feedback_id === id ? { ...it, status } : it)) : cur))
     try { await api.setFeedbackStatus(id, status); void loadList() } catch { void loadList() }
+  }
+
+  async function dispatch(id: string) {
+    setItems((cur) => (cur ? cur.map((it) => (it.feedback_id === id ? { ...it, status: 'dispatched' } : it)) : cur))
+    try {
+      const res = await api.dispatchFeedback(id)
+      setToast({ msg: res.message || 'Sent to the coding engine.', tone: res.ok ? 'good' : 'bad' })
+      void loadList()
+    } catch (e: any) {
+      setToast({ msg: `Could not dispatch: ${e?.message || 'error'}`, tone: 'bad' })
+      void loadList()
+    }
   }
 
   return (
@@ -234,8 +255,11 @@ export function FeedbackPanel() {
                     )}
                     {it.pr_url && <a className="feedback__pr" href={it.pr_url} target="_blank" rel="noreferrer">View pull request ↗</a>}
                     {it.note && <div className="feedback__note">{it.note}</div>}
-                    {(it.status === 'new' || it.status === 'triaged') && (
+                    {(it.status === 'new' || it.status === 'triaged' || it.status === 'assessed') && (
                       <div className="feedback__cardactions">
+                        {canDispatch && (it.category === 'bug' || it.category === 'ui' || it.category === 'idea') && (
+                          <button className="btn btn--amber feedback__cardbtn" title="Send to the coding engine — it works on a fresh branch and opens a draft PR" onClick={() => dispatch(it.feedback_id)}>Send to coding engine ▸</button>
+                        )}
                         <button className="btn btn--ghost feedback__cardbtn" onClick={() => setStatus(it.feedback_id, 'done')}>Mark done</button>
                         <button className="btn btn--ghost feedback__cardbtn" onClick={() => setStatus(it.feedback_id, 'wontfix')}>Won't fix</button>
                       </div>

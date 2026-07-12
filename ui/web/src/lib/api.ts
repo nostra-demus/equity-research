@@ -383,6 +383,10 @@ export const api = {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/feedback/${encodeURIComponent(feedbackId)}/status`, { status, ...(note ? { note } : {}) })
   },
+  dispatchFeedback: async (feedbackId: string): Promise<{ ok: boolean; status: string; message: string }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/feedback/${encodeURIComponent(feedbackId)}/dispatch`, {})
+  },
   screenerCalibration: async (): Promise<any | null> => {
     if ((await ensureMode()) === 'static') return snap.screenerCalibration || null
     return get<any>(`/api/screener/calibration`)

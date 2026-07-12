@@ -14,7 +14,7 @@ import { z } from 'zod'
 import { readActivity } from './activity-log'
 import { recordDataChange } from './data-activity'
 import { buildReportHtml, parseMeta, safeName } from './export'
-import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, WEB_DIST, isReservedDataFolder } from './config'
+import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, WEB_DIST, feedbackDispatchReady, isDispatchAdmin, isReservedDataFolder } from './config'
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
 import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED } from './drive'
@@ -38,7 +38,8 @@ import { markInboxConsumed, setDismissed } from './news/inbox-actions'
 import { refreshBoard } from './news/write-inbox'
 import { auditInboxAction, hideSignal, moveThesis, MOVE_TARGETS, SIGNAL_ACTIONS } from './screener-actions'
 import { FEEDBACK_TYPES, readAllFeedback, submitFeedback, summarizeFeedback, undoFeedback } from './screener-feedback'
-import { FEEDBACK_MAX_IMAGES, type FeedbackCategory, appendFeedbackEvent, foldFeedback, isFeedbackId, itemDir, newFeedbackId, readAllFeedback as readAllCockpitFeedback, resolveFeedbackImage, saveFeedbackImage, writeFeedbackItem } from './feedback-store'
+import { FEEDBACK_MAX_IMAGES, type FeedbackCategory, type FeedbackItemRecord, appendFeedbackEvent, foldFeedback, isFeedbackId, itemDir, newFeedbackId, readAllFeedback as readAllCockpitFeedback, resolveFeedbackImage, saveFeedbackImage, writeFeedbackItem } from './feedback-store'
+import { dryRunFeedbackDispatch, startFeedbackDispatch } from './feedback-dispatch'
 import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
 import { agentNamesForModule, buildSwarmGraph, findRunRootForSubject, graphForSubject, graphForTicker, listModuleNames, swarmSubjects, terminalModuleName } from './roster'
@@ -326,7 +327,12 @@ app.post('/api/credit-check', async () => creditCheck())
 
 // ---------- identity + activity log ----------
 // who am I (per Cloudflare Access) — drives the "signed in as" line in the cockpit
-app.get('/api/whoami', async (req) => identify(req))
+app.get('/api/whoami', async (req) => {
+  const who = identify(req)
+  // canDispatch drives the admin-only "Send to coding engine" button — reflects BOTH the allowlist and
+  // whether dispatch is actually runnable (enabled + PR token), so the button never appears when it'd fail.
+  return { ...who, canDispatch: isDispatchAdmin(who.user) && feedbackDispatchReady() }
+})
 
 // perpetual audit log of cockpit-initiated runs, with filters (time / ticker / kind / user / status / text)
 app.get('/api/activity', async (req) => {
@@ -1738,6 +1744,27 @@ app.post('/api/feedback/:id/status', { config: { rateLimit: { max: 1000, timeWin
   const ev = await appendFeedbackEvent(id, parsed.data.status, { note: parsed.data.note, user })
   if (!ev) return reply.code(404).send({ error: 'no such feedback' })
   return { ok: true, event: ev }
+})
+
+// One-click "send to coding engine" — the gated, paid action. FAIL-CLOSED: only an admitted admin
+// (ENGINE_DISPATCH_ADMINS) may trigger it, and only when dispatch is enabled + a PR token is configured.
+// The agent runs in an isolated worktree and opens a DRAFT PR (feedback-dispatch.ts). `?dryRun=1` proves
+// the wiring (worktree + prompt) with no spawn and no spend.
+app.post('/api/feedback/:id/dispatch', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const id = (req.params as any).id as string
+  if (!isFeedbackId(id)) return reply.code(400).send({ error: 'invalid feedback id' })
+  const { user } = identify(req)
+  if (!isDispatchAdmin(user)) return reply.code(403).send({ error: 'not authorized to dispatch (admin only)' })
+  const item = readAllCockpitFeedback().find((r): r is FeedbackItemRecord => r.kind === 'feedback' && r.feedback_id === id)
+  if (!item) return reply.code(404).send({ error: 'no such feedback' })
+  const dryRun = (req.query as any)?.dryRun === '1' || (req.body as any)?.dryRun === true
+  if (dryRun) {
+    if (!feedbackDispatchReady()) return { ok: true, dryRun: true, ready: false, note: 'dispatch is not enabled or no PR token configured — wiring probe only', plan: await dryRunFeedbackDispatch(item) }
+    return { ok: true, dryRun: true, ready: true, plan: await dryRunFeedbackDispatch(item) }
+  }
+  const res = startFeedbackDispatch(item, user)
+  return reply.code(res.accepted ? 202 : 409).send({ ok: res.accepted, ...res })
 })
 
 // Tickers already under research coverage — the batch-review "portfolio companies" filter's data
