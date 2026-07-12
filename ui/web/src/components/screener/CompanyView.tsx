@@ -58,7 +58,7 @@ export function CompanyView() {
         {focus.ticker && <span className="coview__ticker mono">{focus.ticker}</span>}
         {/* is this name tradable? — the same public/private tag the event reader showed, carried through the
             drill-down so a private name (Gull) reads as private here too, not a bare page. */}
-        {focus.listing_status && (
+        {focus.listing_status && LISTING_STATUS_META[focus.listing_status] && (
           <span className={`liststatus liststatus--${focus.listing_status}`} title={LISTING_STATUS_META[focus.listing_status].title}>{LISTING_STATUS_META[focus.listing_status].label}</span>
         )}
         {listing && <span className="coview__listing">{listing}</span>}

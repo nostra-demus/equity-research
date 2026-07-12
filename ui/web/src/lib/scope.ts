@@ -149,5 +149,7 @@ export const LISTING_STATUS_META: Record<ListingStatus, { label: string; title: 
 // Normalise any value — including undefined or a stale/garbage cached string — to a valid status, so a
 // LISTING_STATUS_META lookup can never miss. When it's absent, derive from the listing anchor (a ticker or
 // exchange ⇒ public, else unknown), mirroring the server coercion in ui/server/src/news/triage/groq.ts.
-export const normListingStatus = (raw: unknown, hasAnchor: boolean): ListingStatus =>
-  raw === 'public' || raw === 'private' || raw === 'unknown' ? raw : (hasAnchor ? 'public' : 'unknown')
+export const normListingStatus = (raw: unknown, hasAnchor: boolean): ListingStatus => {
+  const v = typeof raw === 'string' ? raw.toLowerCase() : raw
+  return v === 'public' || v === 'private' || v === 'unknown' ? v : (hasAnchor ? 'public' : 'unknown')
+}
