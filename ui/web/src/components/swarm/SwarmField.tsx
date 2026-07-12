@@ -112,7 +112,7 @@ export function SwarmField() {
   const intakeBright = intakeFocusKeys.size > 0
 
   return (
-    <div className="swarm" ref={ref} onClick={() => setHover(null)}>
+    <div className="swarm" ref={ref} onClick={() => setHover(null)} data-intake-focus={intakeBright ? 'true' : undefined}>
       <EdgeLayer layout={layout} highlighted={highlighted} anyHover={anyHover} />
       <IntakeProjection nodes={layout.nodes} keys={intakeActiveKeys} bright={intakeBright} />
 
