@@ -305,17 +305,24 @@ export const NEWS = {
   // constrained tier (8b-instant is ~$0.05/M tokens, so 500k tokens/day ≈ $0.025 if ever metered).
   groqDailyReqCap: capNum(process.env.NEWS_GROQ_DAILY_REQ_CAP, 13_000),
   groqDailyTokenCap: capNum(process.env.NEWS_GROQ_DAILY_TOKEN_CAP, 500_000),
-  // Cross-cycle Groq COOLDOWN — protects the daily REQUEST cap above from being drained by a sustained
-  // Groq OUTAGE. The in-cycle guard (runCycle groqDownThisCycle) stops re-poking a down Groq WITHIN one
-  // cycle, but the scheduler runs many cycles/day, so with no cross-cycle memory each cycle still burns
-  // one failed probe — and a 429 / timeout still counts as a request. That is exactly what emptied the
-  // budget on 2026-07-11: 13,000/13,000 requests on only ~14,100 tokens (≈1 token/request → almost all
-  // failures). Fix: when a Groq batch fails, persist an "unhealthy until now+cooldown" marker in STATE_DIR
-  // and skip probing Groq (straight to overflow / defer) until it lapses; the first cycle after it lapses
-  // probes once and CLEARS the marker on success. A HEALTHY Groq never arms it, so throughput is
-  // unaffected. Default 300s → at most ~one failed probe per 5 min (≈288/day worst case) instead of
-  // thousands. Tune with NEWS_GROQ_COOLDOWN_SEC.
-  groqCooldownMs: capNum(process.env.NEWS_GROQ_COOLDOWN_SEC, 300) * 1000,
+  // Cross-cycle PER-PROVIDER LLM cooldown — protects every provider's daily REQUEST cap (Groq's 13,000 AND
+  // each overflow provider's much smaller one) from being drained by a sustained OUTAGE. The in-cycle guards
+  // (runCycle groqDownThisCycle / ov.failed) stop re-poking a down provider WITHIN one cycle, but the
+  // scheduler runs many cycles/day, so with no cross-cycle memory each cycle still burns one failed probe —
+  // and a 429 / timeout still counts as a request. That is exactly what emptied the Groq budget on
+  // 2026-07-11: 13,000/13,000 requests on only ~14,100 tokens (≈1 token/request → almost all failures).
+  // Fix: on a provider failure, persist an "unhealthy until now+window" marker per provider in STATE_DIR
+  // (news/triage/budget.ts) and skip probing it (route to the next provider / defer) until the window
+  // lapses; the first probe after it lapses clears the marker on success. Consulted by EVERY LLM seam
+  // (triage, the article-read + auto-heal path, the themes namer), not just triage. Exponential backoff
+  // (base, 2×, 4×, … capped at llmCooldownMaxMs) makes the daily failed-probe count grow only
+  // logarithmically — a sustained outage falls from thousands of probes to a few dozen, which fully protects
+  // Groq's 13,000 cap and drastically cuts waste on the small-cap fallbacks (a tiny ~20-45/day fallback cap
+  // can still be approached, never exceeded, late in a day-long outage — it self-heals at the daily reset).
+  // A HEALTHY provider never arms it. Base default 300s, cap 60 min. Tune with NEWS_LLM_COOLDOWN_SEC /
+  // NEWS_LLM_COOLDOWN_MAX_SEC.
+  llmCooldownMs: capNum(process.env.NEWS_LLM_COOLDOWN_SEC, 300) * 1000,
+  llmCooldownMaxMs: capNum(process.env.NEWS_LLM_COOLDOWN_MAX_SEC, 3600) * 1000,
   // Daily-budget PACER. The caps above stop us BUSTING the day's limit; the pacer stops us SPENDING IT
   // ALL AT ONCE. It releases the day's token TARGET on a linear schedule across the UTC day, so a heavy
   // news morning can't drain the budget and leave the afternoon dark — and an explicit buffer is always

@@ -1484,6 +1484,11 @@ app.get('/api/news/enrich', async (req, reply) => {
         filingReadProviders: FILING_READ_PROVIDERS, // optional stronger model for filing reads (unset => unchanged)
         llmBudgetMs: NEWS.enrichLlmBudgetMs,
         limiterWaitMs: NEWS.enrichLimiterWaitMs,
+        // thread the OPERATOR-configured cooldown (NEWS_LLM_COOLDOWN_SEC / _MAX_SEC) through to the article
+        // read so a lengthened cooldown during a real outage is actually honored here, not just by the
+        // ingester's own triage/overflow/Gemini seams in runCycle.ts.
+        cooldownMs: NEWS.llmCooldownMs,
+        cooldownMaxMs: NEWS.llmCooldownMaxMs,
         // when the publisher blocks the direct read, corroborate the event from the secondary wire (GDELT
         // keyword search → same read chain). Shares the firehose's GDELT endpoint + penalty backoff.
         corroborate: { enabled: NEWS.enrichCorroborate, baseUrl: NEWS.gdeltBaseUrl, timeoutMs: NEWS.enrichCorroborateTimeoutMs },

@@ -119,6 +119,11 @@ export async function healEnrichCache(deps: HealDeps = {}): Promise<HealSummary>
           filingReadProviders: FILING_READ_PROVIDERS,
           llmBudgetMs: NEWS.enrichLlmBudgetMs,
           limiterWaitMs: NEWS.enrichLimiterWaitMs,
+          // same OPERATOR-configured cooldown as the on-demand reader (server.ts) — the heal pass shares the
+          // reader's provider chain + budgets, so it must share the configured cooldown too (NEWS_LLM_COOLDOWN_SEC
+          // / _MAX_SEC), not fall back to readArticleBrief's hardcoded default.
+          cooldownMs: NEWS.llmCooldownMs,
+          cooldownMaxMs: NEWS.llmCooldownMaxMs,
         },
       )
       if (isEnrichmentComplete(r)) healed++

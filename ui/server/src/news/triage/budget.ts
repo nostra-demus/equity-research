@@ -119,48 +119,98 @@ export class Budget {
   get tokens(): number { return this.state.tokens }
 }
 
-// Cross-cycle provider COOLDOWN — a third free-tier guardrail, sitting alongside Budget and RateLimiter.
-// The in-cycle "stop poking a down provider" flag (runCycle groqDownThisCycle) only lives for ONE cycle;
-// the scheduler runs many cycles/day, so a sustained outage would still burn one failed probe on every
-// cycle — and a 429 / timeout still counts as a request against the daily cap. This marker persists an
-// "unhealthy until T" timestamp in STATE_DIR so repeated cycles STOP probing a provider that keeps
-// failing (routing straight to overflow / defer) until the window lapses. It is armed ONLY on a real
-// failure and cleared on the very next success, so a HEALTHY provider is never touched; and it decays by
-// time, so after the window one probe re-checks health — clearing it on success, re-arming on continued
-// failure. Best-effort I/O: a missed read/write only costs one extra probe, never the cycle.
-interface CooldownState { unhealthyUntil: number }
-const COOLDOWN_FILE = 'groq-health.json'
+// Cross-cycle PER-PROVIDER cooldown — a third free-tier guardrail, sitting alongside Budget and RateLimiter.
+// The in-cycle "stop poking a down provider" flags (runCycle groqDownThisCycle / ov.failed) only live for
+// ONE cycle; the scheduler runs many cycles/day, so a sustained outage would still burn one failed probe on
+// every cycle — and a 429 / timeout still counts as a request against the daily cap. This marker persists an
+// "unhealthy until T" timestamp per provider id in STATE_DIR (`<id>-health.json`) so repeated cycles STOP
+// probing a provider that keeps failing (routing to the next provider / deferring) until the window lapses.
+// It is armed ONLY on a real failure and cleared on the very next success, so a HEALTHY provider is never
+// touched. Shared by EVERY Groq/overflow/Gemini seam (triage, the article-read + auto-heal path, the themes
+// namer) so one down provider is skipped everywhere at once, not just in triage.
+//
+// Two robustness properties matter:
+//   - EXPONENTIAL BACKOFF: each consecutive failed probe doubles the window (base, 2×, 4×, … capped at
+//     maxMs), so the daily failed-probe count grows only LOGARITHMICALLY with outage length — a sustained
+//     outage falls from thousands of probes to a few dozen. That fully protects a large cap (Groq's 13,000
+//     — ~50 probes is noise) and drastically cuts waste on the small-cap fallbacks. It does NOT make a
+//     TINY-cap provider un-drainable: a >~day-long continuous outage of an overflow provider (~45/day) or a
+//     single Gemini model (~20/day) can still APPROACH its cap late in the day — but never EXCEED it
+//     (budget.canSpend gates further calls once the cap is reached), and it self-heals at the daily reset,
+//     while every other provider (and the primary Groq path) keeps serving.
+//   - IN-MEMORY FALLBACK: the marker is mirrored in a process-lifetime map. If the STATE_DIR write fails
+//     (e.g. disk full — which correlates with a long outage as backlogs/logs grow), the in-memory marker
+//     still gates THIS process, so a persistent write failure can't silently reopen the request-cap burn.
+//
+// NOTE (per-STATE_DIR scope): markers + budgets are keyed on STATE_DIR. A single-instance ingester lock
+// (scheduler.ts) prevents a duplicate ingester in the SAME STATE_DIR. A second engine pointed at a DIFFERENT
+// STATE_DIR but the SAME provider account keeps its own markers/budget — bounded ~2× the (already few-dozen)
+// per-day probe count, but the two budget mirrors under-count real org spend; avoid running two full
+// ingesters against one account.
+interface CooldownState { unhealthyUntil: number; fails: number }
+const cooldownMem = new Map<string, CooldownState>() // `${stateDir}\0${id}` → state; process-lifetime fallback
+
+function healthFile(id: string): string { return `${id.replace(/[^a-z0-9]+/gi, '-')}-health.json` }
+function memKey(stateDir: string, id: string): string { return `${stateDir}\u0000${id}` } // \u0000 (NUL) separator: absent from any path/id, so the key never collides
+
+/** The live cooldown state for a provider: whichever of the on-disk marker and the in-memory fallback is
+ *  LATER (disk is the source of truth; the fallback covers a failed write). Absent/unreadable → healthy. */
+function readCooldownState(stateDir: string, id: string): CooldownState {
+  const mem = cooldownMem.get(memKey(stateDir, id))
+  let disk: CooldownState | null = null
+  try {
+    const s = JSON.parse(fs.readFileSync(path.join(stateDir, healthFile(id)), 'utf8')) as CooldownState
+    const until = Number(s?.unhealthyUntil)
+    if (Number.isFinite(until) && until > 0) {
+      const fails = Number(s?.fails)
+      disk = { unhealthyUntil: until, fails: Number.isFinite(fails) && fails > 0 ? fails : 1 }
+    }
+  } catch {
+    // no marker / unreadable → nothing on disk
+  }
+  if (disk && mem) return disk.unhealthyUntil >= mem.unhealthyUntil ? disk : mem
+  return disk || mem || { unhealthyUntil: 0, fails: 0 }
+}
 
 /** Epoch ms the provider is considered unhealthy until (0 when there is no live marker). Never throws. */
-export function readCooldownUntil(stateDir: string, fileName = COOLDOWN_FILE): number {
-  try {
-    const s = JSON.parse(fs.readFileSync(path.join(stateDir, fileName), 'utf8')) as CooldownState
-    const t = Number(s?.unhealthyUntil)
-    return Number.isFinite(t) && t > 0 ? t : 0
-  } catch {
-    return 0 // no marker / unreadable → healthy
-  }
+export function readCooldownUntil(stateDir: string, id = 'groq'): number {
+  return readCooldownState(stateDir, id).unhealthyUntil
 }
 
-/** Arm the cooldown: mark the provider unhealthy until `now + cooldownMs`. Called on a real failure. */
-export function armCooldown(stateDir: string, now: number, cooldownMs: number, fileName = COOLDOWN_FILE): void {
-  if (!(cooldownMs > 0)) return
+/** True while the provider is still inside its cooldown window — callers skip probing it. */
+export function isCoolingDown(stateDir: string, id = 'groq', now = Date.now()): boolean {
+  return readCooldownUntil(stateDir, id) > now
+}
+
+/** Arm/extend the cooldown on a real failure, with exponential backoff: each consecutive failed probe
+ *  doubles the window (baseMs, 2×, 4×, …) capped at maxMs. Persisted to disk AND the in-memory fallback. */
+export function armCooldown(stateDir: string, now: number, baseMs: number, id = 'groq', maxMs = 3_600_000): void {
+  if (!(baseMs > 0)) return
+  const fails = readCooldownState(stateDir, id).fails + 1 // consecutive failures so far (0 when healthy/cleared) + this one
+  const window = Math.min(baseMs * Math.pow(2, fails - 1), Math.max(baseMs, maxMs))
+  const state: CooldownState = { unhealthyUntil: now + window, fails }
+  cooldownMem.set(memKey(stateDir, id), state) // in-memory first — survives a disk-write failure below
   try {
     fs.mkdirSync(stateDir, { recursive: true })
-    fs.writeFileSync(path.join(stateDir, fileName), JSON.stringify({ unhealthyUntil: now + cooldownMs }))
+    fs.writeFileSync(path.join(stateDir, healthFile(id)), JSON.stringify(state))
   } catch {
-    // best-effort — a missed write just means we probe the down provider one more cycle
+    // disk write failed (e.g. disk full during a long outage) — the in-memory marker still gates this
+    // process, so the cooldown holds until restart instead of silently reopening the request-cap burn
   }
 }
 
-/** Clear the marker (provider recovered). No-op when none exists. */
-export function clearCooldown(stateDir: string, fileName = COOLDOWN_FILE): void {
+/** Clear the marker (provider recovered) — resets the backoff counter. No-op when none exists. */
+export function clearCooldown(stateDir: string, id = 'groq'): void {
+  cooldownMem.delete(memKey(stateDir, id))
   try {
-    fs.rmSync(path.join(stateDir, fileName), { force: true })
+    fs.rmSync(path.join(stateDir, healthFile(id)), { force: true })
   } catch {
     // best-effort — a stale marker with a PAST timestamp already reads as healthy anyway
   }
 }
+
+/** Test hook only — clears the process-wide in-memory cooldown fallback between hermetic cases. */
+export function resetCooldownMemory(): void { cooldownMem.clear() }
 
 // What Groq tells us about the live rate-limit state, parsed from the response headers (groq.ts).
 export interface RateInfo {

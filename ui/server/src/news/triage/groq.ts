@@ -465,6 +465,11 @@ export function coerceArticleBrief(raw: any): ArticleBrief {
 /**
  * One Groq call over an article body → an ArticleBrief. Never throws. Returns brief=null on no-key,
  * transient failure (one retry), truncation, or non-JSON — the caller then degrades to the regex summary.
+ *
+ * `attempted` distinguishes a genuine provider-call failure from a PRE-FLIGHT short-circuit (no key, or the
+ * body too thin to ever feed an LLM) that never reached the network — explicitly false for those two, absent
+ * (≡ true) everywhere else. The caller (article-read.ts) must only arm the shared cooldown when a provider
+ * actually failed; a pre-flight skip says nothing about the provider's health and must not mark it unhealthy.
  */
 export async function analyzeArticle(
   body: string,
@@ -472,10 +477,10 @@ export async function analyzeArticle(
   opts: TriageOptions,
   fetchFn: typeof fetch = fetch,
   sleep: (ms: number) => Promise<void> = (ms) => new Promise((r) => setTimeout(r, ms)),
-): Promise<{ brief: ArticleBrief | null; tokens: number; note?: string; rate?: RateInfo }> {
-  if (!opts.apiKey) return { brief: null, tokens: 0, note: 'no GROQ_API_KEY' }
+): Promise<{ brief: ArticleBrief | null; tokens: number; note?: string; rate?: RateInfo; attempted?: boolean }> {
+  if (!opts.apiKey) return { brief: null, tokens: 0, note: 'no GROQ_API_KEY', attempted: false }
   const text = String(body || '').slice(0, 6000)
-  if (text.replace(/\s+/g, ' ').trim().length < 80) return { brief: null, tokens: 0, note: 'body too thin to read' }
+  if (text.replace(/\s+/g, ' ').trim().length < 80) return { brief: null, tokens: 0, note: 'body too thin to read', attempted: false }
   const user = `HEADLINE: ${headline}\n\nARTICLE BODY:\n${text}`
   let tokens = 0
   let lastNote = 'groq fetch error'

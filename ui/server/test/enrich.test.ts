@@ -410,6 +410,34 @@ await check('regression(F4/F5): a no-readable-body article (unfetchable page, no
   assert.ok(r.summary && /headline/i.test(r.summary), `shows the honest floor restatement, got: ${r.summary}`)
 })
 
+await check('regression(P2, PR #223 review): enrichEvent threads the CALLER-supplied cooldownMs/cooldownMaxMs to the article read, not readArticleBrief\'s hardcoded default', async () => {
+  // Mirrors what server.ts's /api/news/enrich route and enrich-heal.ts's healEnrichCache now both pass:
+  // config.NEWS.llmCooldownMs/llmCooldownMaxMs (NEWS_LLM_COOLDOWN_SEC / NEWS_LLM_COOLDOWN_MAX_SEC). Before the
+  // fix, neither caller threaded these into EnrichDeps, so a real-outage operator lengthening the cooldown had
+  // no effect on article reads — they always armed readArticleBrief's hardcoded ~300s/60min marker.
+  const { repoRoot, stateDir } = tmpRepo()
+  const fetchFn429: typeof fetch = (async (input: any) => {
+    const url = String(input?.url || input)
+    if (url.includes('/chat/completions')) return new Response('rate limited', { status: 429, headers: { 'content-type': 'application/json' } })
+    return new Response(PAGE_HTML, { status: 200, headers: { 'content-type': 'text/html' } })
+  }) as typeof fetch
+  // real wall clock (the tmpRepo fixture stamps the firehose item with real "now", so readFeed's 2-day
+  // window needs the enrichEvent clock to match) — bracket the call to compute a tolerant expected range.
+  const configuredCooldownMs = 25 * 60_000 // 25 min — deliberately far from the 300s (5 min) hardcoded default
+  const configuredCooldownMaxMs = 100 * 60_000
+  const before = Date.now()
+  await enrichEvent({ event_id: EVENT_ID }, {
+    repoRoot, stateDir, force: true, articleProviders: [PROVIDER], fetchFn: fetchFn429,
+    cooldownMs: configuredCooldownMs, cooldownMaxMs: configuredCooldownMaxMs,
+  })
+  const after = Date.now()
+  const health = JSON.parse(fs.readFileSync(path.join(stateDir, 'test-health.json'), 'utf8'))
+  assert.ok(health.unhealthyUntil >= before + configuredCooldownMs && health.unhealthyUntil <= after + configuredCooldownMs,
+    `the armed window must equal now+cooldownMs using the CALLER-supplied 25min cooldownMs, got unhealthyUntil ${health.unhealthyUntil} outside [${before + configuredCooldownMs}, ${after + configuredCooldownMs}]`)
+  // and it must NOT be readArticleBrief's hardcoded ~300s(5min) default — the whole point of the fix
+  assert.ok(health.unhealthyUntil > before + 10 * 60_000, 'the armed window must be far longer than the 300s hardcoded default — the configured value was ignored')
+})
+
 await check('regression(F2): a short vague og:description dek never out-ranks the honest floor', () => {
   const dekHtml = '<html><head><meta property="og:description" content="There is one overriding theme you cannot ignore."></head><body><p>x</p></body></html>'
   const out = bestFallbackSummary(dekHtml, '', { headline: 'Tilray Is Growing 73% Internationally. The Market Is Paying Almost No Attention. Is That a Mistake?' }, false)

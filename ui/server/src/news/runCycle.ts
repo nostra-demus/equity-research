@@ -21,7 +21,7 @@ import { resolveEventRegion } from './geo'
 import { resolveCountry } from './geography'
 import { invalidateFacets } from './facets'
 import { SeenCache } from './seen-cache'
-import { Budget, armCooldown, clearCooldown, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter, readCooldownUntil } from './triage/budget'
+import { Budget, armCooldown, clearCooldown, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter, isCoolingDown, readCooldownUntil } from './triage/budget'
 import { triageBatchGemini } from './triage/gemini'
 import { estimateTokens, scoreToBand, triageBatch } from './triage/groq'
 import { rankScore, preTriagePriority, capSocialBand, capSocialScore, deriveMaterialityLabel } from './rank'
@@ -220,8 +220,17 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   // deferring; a per-DAY 429 marks that model done for the day. Inactive (empty) when no key — the
   // Groq-only path is byte-for-byte unchanged.
   const geminiOn = cfg.geminiEnabled && !!cfg.geminiApiKey && cfg.geminiModels.length > 0
+  // Each pool model also carries a per-cycle `failed` flag AND a cross-cycle cooldown (id `gemini:<model>`),
+  // so a transient Gemini failure isn't re-picked every batch (it had no per-cycle flag before — the audit's
+  // intra-cycle burn) NOR re-probed every cycle during an outage (draining the tiny ~20/day bucket).
   const geminiPool = geminiOn
-    ? cfg.geminiModels.map((e) => ({ model: e.model, budget: Budget.load(stateDir, e.dailyReqCap, cfg.geminiDailyTokenCap, now().getTime(), `gemini-budget-${e.model.replace(/[^a-z0-9]+/gi, '-')}.json`, cfg.geminiDayTz) }))
+    ? cfg.geminiModels.map((e) => ({
+        model: e.model,
+        budget: Budget.load(stateDir, e.dailyReqCap, cfg.geminiDailyTokenCap, now().getTime(), `gemini-budget-${e.model.replace(/[^a-z0-9]+/gi, '-')}.json`, cfg.geminiDayTz),
+        failed: false,
+        coolingDown: isCoolingDown(stateDir, `gemini:${e.model}`, now().getTime()),
+        cooldownWasSet: readCooldownUntil(stateDir, `gemini:${e.model}`),
+      }))
     : []
   const geminiLimiter = geminiOn ? getSharedGeminiLimiter(cfg.geminiRpm, cfg.geminiTpm) : null
   // OpenAI-compatible OVERFLOW registry (Cerebras, OpenRouter, NVIDIA, …) — each its own budget + per-minute
@@ -235,6 +244,10 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
     requests: 0,
     tokens: 0,
     failed: false, // set when a call errors this cycle → skip it so the batch flows to the next provider
+    // cross-cycle cooldown (read once at cycle start, same as Groq's): skip a provider that a PRIOR cycle
+    // marked unhealthy so a sustained outage can't re-probe it every cycle and drain its (small) daily cap.
+    coolingDown: isCoolingDown(stateDir, p.id, now().getTime()),
+    cooldownWasSet: readCooldownUntil(stateDir, p.id), // >0 → a marker existed at start; clear it if we recover
   }))
   const triaged: TriagedItem[] = []
   const deferred: NewsItem[] = [] // unscored this cycle (budget hit / batch failed) — re-queued next cycle
@@ -256,7 +269,7 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
   // this cycle (straight to overflow / defer) and don't touch the marker (it decays by time). We read it
   // once here: `groqCooldownUntil` is the persisted value (0 = none) — kept so that when the window has
   // lapsed (marker present but NOT in the future) we probe once and clear the stale marker if it recovers.
-  const groqCooldownUntil = readCooldownUntil(stateDir)
+  const groqCooldownUntil = readCooldownUntil(stateDir, 'groq')
   const groqCoolingDown = groqCooldownUntil > now().getTime()
   const pace = { targetTokens: cfg.groqDailyTokenTarget, floorFrac: cfg.groqPaceFloorFrac }
 
@@ -293,9 +306,9 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       limiter.learn(res.rate, () => now().getTime()) // track the live per-minute ceiling + back off on 429
       if (!res.ok) {
         groqDownThisCycle = true // Groq is having a bad cycle → skip it for the rest of THIS cycle, save the cap
-        armCooldown(stateDir, now().getTime(), cfg.groqCooldownMs) // …and across cycles: skip probing until the window lapses
+        armCooldown(stateDir, now().getTime(), cfg.llmCooldownMs, 'groq', cfg.llmCooldownMaxMs) // …and across cycles until the window lapses
       } else if (groqCooldownUntil) {
-        clearCooldown(stateDir) // a probe after the window lapsed SUCCEEDED → Groq recovered, drop the stale marker
+        clearCooldown(stateDir, 'groq') // a probe after the window lapsed SUCCEEDED → Groq recovered, drop the stale marker
       }
     }
     if (!res || !res.ok) {
@@ -306,22 +319,29 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
       // news-deferred.json). The 4xx-exhaust below persists the skip across drains; this loop covers the
       // non-terminal failures (429 / 5xx / network) that don't exhaust, by trying the rest in the same batch.
       for (const ov of overflow) {
-        if (ov.failed || !ov.budget.canSpend(est)) continue // skip already-failed / out-of-budget providers
+        // skip already-failed (this cycle), cross-cycle cooling-down, or out-of-budget providers
+        if (ov.failed || ov.coolingDown || !ov.budget.canSpend(est)) continue
         await ov.limiter.acquire(est, sleep, () => now().getTime())
         res = await triageBatch(batch, { model: ov.p.model, models: ov.p.models, baseUrl: ov.p.baseUrl, apiKey: ov.p.apiKey, maxTokens: ov.p.maxTokens, headers: ov.p.headers, extraBody: ov.p.extraBody }, fetchFn, sleep)
         ov.requests += res.requests
         ov.tokens += res.tokens
         ov.budget.record(res.requests, res.tokens)
-        if (res.ok) break // scored — stop walking the chain
+        if (res.ok) {
+          if (ov.cooldownWasSet) clearCooldown(stateDir, ov.p.id) // recovered after a prior cycle's failure → drop the marker
+          break // scored — stop walking the chain
+        }
         ov.failed = true // skip this provider for the rest of the cycle so the batch can flow to the next
         // a terminal 4xx (auth / out-of-credits / quota) won't recover today — exhaust its daily budget so it's
         // skipped across cycles too (e.g. NVIDIA's finite credit pool running dry), until the daily reset.
         if (/HTTP (400|401|402|403|404|413)/.test(res.note || '')) ov.budget.exhaust()
-        // not terminal (429 / 5xx / network): fall through to the NEXT overflow provider for this same batch
+        // not terminal (429 / 5xx / network): arm the CROSS-CYCLE cooldown so later cycles stop re-probing this
+        // provider (draining its small daily cap on failures), then fall through to the NEXT provider this batch.
+        else armCooldown(stateDir, now().getTime(), cfg.llmCooldownMs, ov.p.id, cfg.llmCooldownMaxMs)
       }
     }
     if ((!res || !res.ok) && geminiOn) {
-      const gemPick = geminiPool.find((g) => g.budget.canSpend(est)) // first pool model with daily room
+      // first pool model with daily room that isn't failed-this-cycle or cross-cycle cooling down
+      const gemPick = geminiPool.find((g) => !g.failed && !g.coolingDown && g.budget.canSpend(est))
       if (gemPick) {
         await geminiLimiter!.acquire(est, sleep, () => now().getTime())
         res = await triageBatchGemini(batch, { model: gemPick.model, baseUrl: cfg.geminiBaseUrl, apiKey: cfg.geminiApiKey, maxTokens: cfg.geminiMaxTokens }, fetchFn, sleep)
@@ -329,7 +349,13 @@ export async function runIngestCycle(deps: RunCycleDeps = {}): Promise<CycleSumm
         geminiTokens += res.tokens
         gemPick.budget.record(res.requests, res.tokens)
         geminiLimiter!.learn(res.rate, () => now().getTime())
-        if (!res.ok && /PerDay/i.test(res.note || '')) gemPick.budget.exhaust() // model's free day is spent → rotation skips it until midnight PT
+        if (res.ok) {
+          if (gemPick.cooldownWasSet) clearCooldown(stateDir, `gemini:${gemPick.model}`) // recovered → drop the marker
+        } else {
+          gemPick.failed = true // don't re-pick this model for the rest of THIS cycle (the intra-cycle burn fix)
+          if (/PerDay/i.test(res.note || '')) gemPick.budget.exhaust() // model's free day is spent → rotation skips it until midnight PT
+          else armCooldown(stateDir, now().getTime(), cfg.llmCooldownMs, `gemini:${gemPick.model}`, cfg.llmCooldownMaxMs) // transient → cross-cycle backoff
+        }
       }
     }
     if (!res) {
