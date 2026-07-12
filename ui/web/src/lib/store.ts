@@ -436,7 +436,9 @@ interface State {
   // resume a stopped/partial signal run from where it left off — reuses the finished orbs on disk and
   // only runs the remaining ones (the gauntlet command skips completed modules). NOT a fresh restart.
   // `until` = continue only THROUGH that stage then stop again (undefined = continue to the end).
-  continueSignal: (sigId: string, until?: string) => Promise<void>
+  // `override` stamps override_promote onto the sig's intake so the gauntlet pushes a signal-gate PARK/LOG
+  // cull past the promotion gate — the "Override & run forward" affordance for a "noted, no action" signal.
+  continueSignal: (sigId: string, until?: string, override?: boolean) => Promise<void>
   runSweep: () => Promise<void>
   openPipeline: () => void
   closePipeline: () => void
@@ -552,6 +554,9 @@ interface State {
   restoreInbox: (inboxId: string) => Promise<void>
   moveThesis: (thesisId: string, to: 'watchlist' | 'provisional' | 'full_machine' | 'engine', reason?: string) => Promise<void>
   restoreConviction: (thesisId: string) => Promise<void>
+  hideIdea: (signalId: string) => Promise<void>
+  restoreIdea: (signalId: string) => Promise<void>
+  scRebuildBoard: () => Promise<void>
   setStopListOpen: (open: boolean) => void
   stopEverything: () => Promise<void>
   _handleNewsEvent: (e: any) => void
@@ -2766,26 +2771,27 @@ export const useStore = create<State>((set, get) => ({
   // command skips any module whose synthesis is already on disk, so only the remaining orbs actually run).
   // Unlike relaunchSignal (a clean restart), this preserves the done orbs so the constellation picks up
   // exactly where it stopped — 3 done, the rest queued → running.
-  continueSignal: async (sigId, until) => {
+  continueSignal: async (sigId, until, override) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — signals run on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
-    set({ launchPending: { key: `continue:${sigId}`, label: `Resuming ${sigId}…`, ticker: sigId } })
+    set({ launchPending: { key: `continue:${sigId}`, label: override ? `Running ${sigId} forward…` : `Resuming ${sigId}…`, ticker: sigId } })
     try {
       // make sure we hold the authoritative finished-orb set from disk before relaunching
       if (get().scSelectedSignal !== sigId || !Object.keys(get().scRuntime).length) await get().scSelectSignal(sigId)
       const done = { ...get().scRuntime } // the orbs already finished (loaded from disk / frozen from the stop)
       // `until` continues only THROUGH the named module then stops again (a staged partial); undefined runs
-      // the rest of the gauntlet to the end. The gauntlet skips modules already on disk either way.
-      const { runId } = await api.launchSignal({ sigId, until })
+      // the rest of the gauntlet to the end. `override` pushes a signal-gate PARK/LOG past the promotion gate.
+      // Either way the gauntlet skips modules already on disk, so finished checks are reused, never redone.
+      const { runId } = await api.launchSignal({ sigId, until, override })
       // keep finished orbs as-is; re-queue everything else under the new runId so they animate as they run
       const rt: Record<string, NodeRuntime> = {}
       for (const k of get().scNodesByKey.keys()) rt[k] = done[k]?.status === 'done' ? done[k] : { status: 'queued', runId }
       set({ scSelectedSignal: sigId, scRuntime: rt, pipelineOpen: false })
       connectScreenerRun(get, runId)
       void get().refreshActiveRuns()
-      get().setToast({ msg: `Resuming ${sigId} — picking up where it stopped`, tone: 'good' })
+      get().setToast({ msg: override ? `Running ${sigId} forward — overriding the gate, reusing finished checks` : `Resuming ${sigId} — picking up where it stopped`, tone: 'good' })
     } catch (e: any) {
-      get().setToast({ msg: e?.message ? String(e.message) : 'Could not resume the checks', tone: e?.body?.code ? 'info' : 'bad' })
+      get().setToast({ msg: e?.message ? String(e.message) : (override ? 'Could not run the checks forward' : 'Could not resume the checks'), tone: e?.body?.code ? 'info' : 'bad' })
     } finally {
       set({ launchPending: null })
     }
@@ -2896,6 +2902,46 @@ export const useStore = create<State>((set, get) => ({
       if (d?.thesis?.meta?.thesis_id === thesisId) await get().openThesisDetail(thesisId)
     } catch (e: any) {
       get().setToast({ msg: e?.message || 'Could not restore', tone: 'bad' })
+    }
+  },
+
+  // Soft-delete: hide one idea from the live book (an append-only override; the engine's ledger/run are
+  // untouched, so it's reversible). Optimistic — the card leaves at once — with an inline Undo, and the
+  // board is reconciled from the server after, which also un-does the optimistic hide if the call failed.
+  hideIdea: async (signalId) => {
+    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — actions run on your machine via npm run dev', tone: 'info' })
+    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — try again once it reconnects.', tone: 'info' })
+    set((s) => ({ scBoard: s.scBoard ? { ...s.scBoard, signals: s.scBoard.signals.map((sig) => (sig.signal_id === signalId ? { ...sig, hidden: true } : sig)) } : s.scBoard }))
+    try {
+      await api.hideSignal(signalId, 'hide')
+      get().setToast({ msg: 'Idea hidden from your book', tone: 'info', action: { label: 'Undo', onClick: () => void get().restoreIdea(signalId) } })
+    } catch (e: any) {
+      set((s) => ({ scBoard: s.scBoard ? { ...s.scBoard, signals: s.scBoard.signals.map((sig) => (sig.signal_id === signalId ? { ...sig, hidden: false } : sig)) } : s.scBoard }))
+      get().setToast({ msg: e?.message || 'Could not hide the idea', tone: 'bad' })
+    }
+    await get().scRefreshBoard()
+  },
+  restoreIdea: async (signalId) => {
+    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — actions run on your machine via npm run dev', tone: 'info' })
+    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — try again once it reconnects.', tone: 'info' })
+    set((s) => ({ scBoard: s.scBoard ? { ...s.scBoard, signals: s.scBoard.signals.map((sig) => (sig.signal_id === signalId ? { ...sig, hidden: false } : sig)) } : s.scBoard }))
+    try {
+      await api.hideSignal(signalId, 'restore')
+      get().setToast({ msg: 'Idea restored to your book', tone: 'good' })
+    } catch (e: any) {
+      set((s) => ({ scBoard: s.scBoard ? { ...s.scBoard, signals: s.scBoard.signals.map((sig) => (sig.signal_id === signalId ? { ...sig, hidden: true } : sig)) } : s.scBoard }))
+      get().setToast({ msg: e?.message || 'Could not restore the idea', tone: 'bad' })
+    }
+    await get().scRefreshBoard()
+  },
+  // Force a server-side board rebuild from the live ledger (picks up runs that finished since the last
+  // snapshot), then swap in the fresh board. Falls back to a plain re-read if the rebuild endpoint fails.
+  scRebuildBoard: async () => {
+    if (get().staticMode) return get().scRefreshBoard()
+    try {
+      set({ scBoard: await api.rebuildBoard() })
+    } catch {
+      await get().scRefreshBoard()
     }
   },
 

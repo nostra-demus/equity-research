@@ -136,12 +136,17 @@ function StopControl() {
 function ScreenerControls() {
   const openSignalIntake = useStore((s) => s.openSignalIntake)
   const openPipeline = useStore((s) => s.openPipeline)
+  const reopenRunStream = useStore((s) => s.reopenRunStream)
   const health = useStore((s) => s.health)
   const engineDown = health === 'engine-offline' || health === 'your-network' || health === 'session-expired'
+  // ONE runs entry: opens the book (every event you've checked) AND un-hides the live-progress rail, so
+  // "Runs" is the single home for both what's running now and everything you've run — replacing the
+  // confusing pair of "Runs" (reopen the live rail) + "Recent runs" (open the book) that read as duplicates.
+  const openRuns = () => { reopenRunStream(); openPipeline() }
   return (
     <>
-      <button className="btn btn--ghost" onClick={openPipeline} title="Recent runs — every event you've put through the checks, newest first; reopen any analysis">
-        Recent runs
+      <button className="btn btn--ghost" onClick={openRuns} title="Your runs — the live progress of anything running now, plus the full book of every event you've checked; reopen any analysis">
+        Runs
       </button>
       <button className="btn btn--amber" disabled={engineDown} onClick={openSignalIntake} title="Paste one news event and run it through the checks">
         Check an event ▸
@@ -439,7 +444,8 @@ export function CommandBar() {
           <button className="btn btn--ghost" onClick={openScoring} title="Scoring weights — tune how every event is scored, for the whole wire">Scoring</button>
           <button className="btn btn--ghost" onClick={openActivity} title="Activity log — who ran what, when">Activity</button>
           <button className="btn btn--ghost" onClick={openReview} title="Batch review — flag a day's worth of items fast, with keyboard shortcuts">Review</button>
-          {runPanelDismissed && <button className="btn btn--ghost" onClick={reopenRunStream} title="Show the run panel again">Runs</button>}
+          {/* the live-run rail's reopen is folded into the single "Runs" button below (ScreenerControls) —
+              no separate top-bar button, so "Runs" and "Recent runs" no longer read as duplicates */}
           <button className="btn btn--ghost" onClick={openChatHistory} title="Chat history — reopen and continue any past Ask conversation">Chats</button>
           {/* Ask about the open signal's output — closed-book Q&A over what the gauntlet wrote, exactly like
               the research cockpit's Ask. Gated on a selected signal (the SIG whose run is on the gauntlet). */}

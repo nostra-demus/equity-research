@@ -79,6 +79,27 @@ export function ScreenerField() {
     return !endedAtGate
   }, [selectedSignal, anyLive, runtime, routed, nodesByKey])
 
+  // overridable = the gauntlet CULLED the signal at the first-checks promotion gate (a PARK "set aside" or
+  // LOG "noted, no action"), so downstream stages never ran. A human can override that gate and run the
+  // rest — reusing the finished first checks. This is the terminal-gate twin of `resumable`: same
+  // some-done-not-all shape, but a deliberate cull rather than an interruption, so it gets its own verb.
+  // Must also NOT have downstream module/thesis routing already recorded — e.g. a prior override already
+  // pushed this signal past signal-gate and it stopped at a LATER terminal gate (thesis-structure,
+  // edge-definition, or the thesis switchyard itself). In that case it isn't a first-checks-only cull
+  // anymore, and offering "Override & run forward" again would just re-run into the same later gate.
+  const overridable = useMemo(() => {
+    if (!selectedSignal || anyLive) return false
+    const total = nodesByKey.size
+    if (!total) return false
+    let done = 0
+    for (const v of Object.values(runtime)) if (v.status === 'done') done++
+    if (done === 0 || done >= total) return false
+    const gate = routed['signal-gate']?.route // only the promotion gate is what override_promote lifts
+    if (gate !== 'PARK' && gate !== 'LOG') return false
+    const hasDownstreamRouting = Object.keys(routed).some((k) => k !== 'signal-gate')
+    return !hasDownstreamRouting
+  }, [selectedSignal, anyLive, runtime, routed, nodesByKey])
+
   useEffect(() => {
     if (!anyLive) return
     setNow(Date.now())
@@ -141,13 +162,16 @@ export function ScreenerField() {
               {sigDate && <span>{sigDate}</span>}
               {sig?.status && <span className="scsignal__outcome">{plainRoute(sig.status)}</span>}
             </div>
-            {!anyLive && !resumable && (
+            {!anyLive && !resumable && !overridable && (
               <div className="scsignal__hint">Not the live wire on the left — open an event to run a new check.</div>
             )}
             {resumable && (
               <div className="scsignal__hint">Stopped partway — your finished checks are saved.</div>
             )}
-            {(anyLive && liveRunId) || resumable ? (
+            {overridable && (
+              <div className="scsignal__hint">Set aside at the first checks. You can override the gate and run the rest — your finished checks are reused, not redone.</div>
+            )}
+            {(anyLive && liveRunId) || resumable || overridable ? (
               <div className="scsignal__actions">
                 {anyLive && liveRunId && (
                   <button type="button" className="scsignal__act scsignal__act--stop" disabled={!!stoppingRuns[liveRunId]} onClick={() => void cancelRun(liveRunId)} title="Stop the run — finished checks are saved so you can continue later">
@@ -157,6 +181,11 @@ export function ScreenerField() {
                 {resumable && (
                   <button type="button" className="scsignal__act scsignal__act--continue" disabled={launchPending?.key === `continue:${selectedSignal}`} onClick={() => void continueSignal(selectedSignal)} title="Resume from where it stopped — reuses the finished checks, runs only the rest">
                     {launchPending?.key === `continue:${selectedSignal}` ? 'Resuming…' : 'Continue'} <span className="scsignal__act-glyph" aria-hidden>▸</span>
+                  </button>
+                )}
+                {overridable && (
+                  <button type="button" className="scsignal__act scsignal__act--continue" disabled={launchPending?.key === `continue:${selectedSignal}`} onClick={() => void continueSignal(selectedSignal, undefined, true)} title="Override the promotion gate and run the rest of the gauntlet — the finished first checks are reused, not redone (a recorded human override of the auto-cull)">
+                    {launchPending?.key === `continue:${selectedSignal}` ? 'Running…' : 'Override & run forward'} <span className="scsignal__act-glyph" aria-hidden>▸</span>
                   </button>
                 )}
               </div>

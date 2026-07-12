@@ -334,6 +334,16 @@ export const NEWS = {
   // On a higher tier the headers raise the ceiling automatically; no redeploy needed.
   groqRpm: capNum(process.env.NEWS_GROQ_RPM, 28),
   groqTpm: capNum(process.env.NEWS_GROQ_TPM, 6000),
+  // OPTIONAL stronger model for FILING reads only (exchange PDFs / regulatory docs) — see
+  // buildFilingReadProviders. OpenAI-compatible endpoint: point it at any capable model you hold a key for
+  // (a larger OpenRouter model, an Anthropic/OpenAI-compatible gateway, …). Unset (no model) => filings use
+  // the default small-model chain, byte-for-byte unchanged. Base URL defaults to OpenRouter for convenience.
+  filingReadApiKey: process.env.NEWS_FILING_READ_API_KEY || '',
+  filingReadBaseUrl: process.env.NEWS_FILING_READ_BASE_URL || 'https://openrouter.ai/api/v1',
+  filingReadModel: process.env.NEWS_FILING_READ_MODEL || '',
+  filingReadMaxTokens: capNum(process.env.NEWS_FILING_READ_MAX_TOKENS, 3500),
+  filingReadRpm: capNum(process.env.NEWS_FILING_READ_RPM, 12),
+  filingReadDailyReqCap: capNum(process.env.NEWS_FILING_READ_DAILY_REQ_CAP, 500),
   // SECOND free-tier brain — Google Gemini (AI Studio) as a triage OVERFLOW provider. When Groq is
   // paced/capped, a batch routes to Gemini instead of deferring. REALITY CHECK (empirically probed from
   // the live 429 quota, Jun 2026): Google gutted the free tier — gemini-2.5-flash-lite is only ~20
@@ -547,6 +557,34 @@ export function buildArticleReadProviders(cfg: typeof NEWS = NEWS): ArticleReadP
 
 // Built once at startup from the present keys; consumed by the /api/news/enrich route.
 export const ARTICLE_READ_PROVIDERS: ArticleReadProvider[] = buildArticleReadProviders()
+
+// An OPTIONAL stronger model for reading FILINGS (exchange PDFs / regulatory documents). The default read
+// chain above is small free models (Groq llama-3.1-8b-instant, …) tuned for the high-volume article
+// firehose. Filings read WORSE on those: their document opens with cover-page letterhead / a boilerplate
+// disclaimer and the free-tier model tends to return an empty brief, so THE STORY falls to the headline
+// floor. A Haiku-class model reads the SAME letterhead-heavy filing fine (verified experiment). This
+// provider is gated behind its own env AND given its OWN budget file + limiter — so it never competes with
+// the saturated article-firehose Groq quota (which also covers the read-skip failure mode) — and enrichEvent
+// PREPENDS it to the read chain for filing events only, falling through to the normal chain if it is
+// unconfigured or fails. Unset (no key/model) => [] => filing reads are byte-for-byte unchanged.
+export function buildFilingReadProviders(cfg: typeof NEWS = NEWS): ArticleReadProvider[] {
+  if (!cfg.filingReadApiKey || !cfg.filingReadModel) return []
+  return [{
+    id: 'filing-read',
+    kind: 'openai',
+    apiKey: cfg.filingReadApiKey,
+    baseUrl: cfg.filingReadBaseUrl,
+    model: cfg.filingReadModel,
+    maxTokens: cfg.filingReadMaxTokens,
+    rpm: cfg.filingReadRpm,
+    tpm: 0, // request-gated, like the OpenRouter/NVIDIA overflow providers
+    dailyReqCap: cfg.filingReadDailyReqCap,
+    dailyTokenCap: 50_000_000, // non-binding (request-gated)
+    budgetFile: 'filing-read-budget.json', // its OWN budget — never shares the article firehose's Groq quota
+    limiter: 'filing-read', // its OWN process-wide limiter, independent of the ingester's
+  }]
+}
+export const FILING_READ_PROVIDERS: ArticleReadProvider[] = buildFilingReadProviders()
 
 // ---- reserved (non-company) folders under data/ ----
 // Folders under data/ that are NOT companies — never list or treat them as tickers (case-insensitive).
