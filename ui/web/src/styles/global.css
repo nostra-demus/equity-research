@@ -56,13 +56,21 @@ a { color: inherit; }
 .topbar :where(button, .chip, .readiness__label, .tickerpick__ticker, .creditbadge, .autoscan, .brand__name, .brand__sub) { white-space: nowrap; }
 .topbar .btn { padding: 0 12px; }
 .topbar__spacer { flex: 1 1 0; }
-.brand { flex-shrink: 1; min-width: 0; }
+/* The brand may shrink to truncate its TITLE, but never below its own content: the swarm switcher is
+   flex-shrink:0, so if the brand were allowed to collapse past it (min-width:0), the switcher would spill
+   out of the brand box and render ON TOP of the right-hand controls — the "research·running·Screener"
+   garble in screener mode, which packs the most controls. Reserving min-content keeps the switcher inside
+   the brand; when the whole row still can't fit, the right controls overflow the edge cleanly instead. */
+.brand { flex-shrink: 1; min-width: min-content; }
 .brand__title { min-width: 0; overflow: hidden; }
 .brand__name { overflow: hidden; text-overflow: ellipsis; }
 /* Primary nav — never let it get squeezed by the generic .brand > div shrink rule above (that rule is
    scoped to .brand__title on purpose: the app name may truncate, the swarm switcher must not). */
 .swarmswitch { flex-shrink: 0; }
 @media (max-width: 1240px) { .brand__sub { display: none; } }
+/* Tighter still: drop the switcher's text labels (the colour-coded orbs + their titles still identify each
+   swarm) so the left cluster stops crowding the right-hand tools before anything can collide. */
+@media (max-width: 1160px) { .swarmswitch__label { display: none; } .swarmswitch__item { padding: 0 8px; } }
 
 /* ticker picker */
 .tickerpick { position: relative; }
@@ -679,6 +687,45 @@ a { color: inherit; }
 
 .scoring__foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 18px; border-top: 1px solid var(--hairline); background: var(--surface-1); }
 .scoring__footnote { font-size: 11.5px; color: var(--text-muted); }
+
+/* auto-tune: pin a weight against the loop */
+.scoring__pin { appearance: none; cursor: pointer; width: 22px; height: 22px; border-radius: var(--r-sm); border: 1px solid transparent; background: transparent; display: grid; place-items: center; transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease-out); }
+.scoring__pindot { width: 8px; height: 8px; border-radius: 50%; border: 1.5px solid var(--text-faint); box-sizing: border-box; transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { .scoring__pin:hover { border-color: var(--hairline-strong); background: var(--surface-2); } .scoring__pin:hover .scoring__pindot { border-color: var(--accent-bright); } }
+.scoring__pin:active { transform: scale(0.9); }
+.scoring__pin--on { border-color: var(--accent-deep); background: var(--accent-wash-soft); }
+.scoring__pin--on .scoring__pindot { background: var(--accent); border-color: var(--accent-deep); }
+
+/* auto-tune: the on/paused toggle in the header */
+.scoring__autotoggle { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 11px; border-radius: var(--r-pill); border: 1px solid var(--hairline-strong); background: var(--surface-2); color: var(--text-muted); font-size: 11.5px; font-weight: 600; cursor: pointer; transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { .scoring__autotoggle:hover { border-color: var(--accent-deep); color: var(--text); } }
+.scoring__autotoggle:active { transform: scale(0.97); }
+.scoring__autodot { width: 7px; height: 7px; border-radius: 50%; background: var(--live); transition: background var(--dur-fast) var(--ease); }
+.scoring__autotoggle--paused { color: var(--text-faint); }
+.scoring__autotoggle--paused .scoring__autodot { background: var(--text-faint); }
+
+/* auto-tune: the change-history audit list */
+.scoring__auditsec { border-top: 1px solid var(--hairline); padding-top: 18px; }
+.scoring__auditempty { font-size: 11.5px; color: var(--text-faint); line-height: 1.6; }
+.scoring__audit { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.scoring__auditrow { display: flex; flex-direction: column; gap: 4px; padding: 9px 0; border-top: 1px solid var(--hairline); animation: scoringAuditIn 200ms var(--ease-out) both; }
+.scoring__auditrow:first-child { border-top: none; }
+.scoring__auditrow--reverted { opacity: 0.5; }
+.scoring__auditmain { display: flex; align-items: baseline; gap: 8px; }
+.scoring__auditkind { font-size: 9px; font-weight: 700; letter-spacing: 0.4px; text-transform: uppercase; color: var(--accent-bright); border: 1px solid var(--accent-deep); border-radius: var(--r-pill); padding: 1px 6px; flex-shrink: 0; }
+.scoring__auditkind--revert { color: var(--text-faint); border-color: var(--hairline-strong); }
+.scoring__auditdeltas { display: flex; flex-wrap: wrap; gap: 8px; font-size: 11px; }
+.scoring__auditdelta { color: var(--text-muted); white-space: nowrap; }
+.scoring__auditmeta { display: flex; align-items: center; gap: 10px; font-size: 10.5px; color: var(--text-faint); }
+.scoring__auditbt { color: var(--live); }
+.scoring__auditreverted { font-style: italic; }
+.scoring__revert { appearance: none; cursor: pointer; margin-left: auto; padding: 2px 9px; font-size: 10.5px; font-weight: 600; color: var(--text-muted); background: transparent; border: 1px solid var(--hairline-strong); border-radius: var(--r-sm); transition: background var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { .scoring__revert:hover:not(:disabled) { color: var(--bad); border-color: var(--bad); } }
+.scoring__revert:active:not(:disabled) { transform: scale(0.97); }
+.scoring__revert:disabled { opacity: 0.5; cursor: default; }
+@keyframes scoringAuditIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) { .scoring__auditrow { animation: none; } }
+
 @media (max-width: 720px) { .scoring__body { grid-template-columns: 1fr; } .scoring__preview { border-top: 1px solid var(--hairline); } }
 
 /* ---- Batch review panel (fast keyboard-driven feedback triage over the wire) ---- */
@@ -1192,6 +1239,36 @@ a { color: inherit; }
 .ideacard--archived { opacity: 0.82; grid-template-columns: 32px 1fr; }
 .ideacard--archived .ideacard__body { gap: 4px; }
 
+/* Soft-delete control — a quiet ✕ that surfaces on card hover (like Replay), never competing with the
+   headline at rest. GPU-only (opacity + transform), custom ease-out, keyboard-reachable, and it warms to
+   the danger colour only on direct hover so the intent reads without shouting. Hide is reversible (Undo
+   toast + Hidden tray), so one click is enough — no destructive confirm. */
+.ideacard__hide {
+  flex-shrink: 0; align-self: flex-start;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 26px; height: 26px; padding: 0; margin: -1px -3px -1px 0;
+  border: 1px solid transparent; border-radius: var(--r-sm);
+  background: transparent; color: var(--text-faint); cursor: pointer;
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out),
+              background-color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out),
+              transform var(--dur-fast) var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .ideacard:hover .ideacard__hide { opacity: 0.55; }
+  .ideacard__hide:hover { opacity: 1; color: var(--bad); background: color-mix(in srgb, var(--bad) 12%, transparent); border-color: color-mix(in srgb, var(--bad) 26%, transparent); }
+}
+/* touch / keyboard: always reachable (no hover to reveal it) */
+@media (hover: none), (pointer: coarse) { .ideacard__hide { opacity: 0.55; } }
+.ideacard__hide:focus-visible { outline: none; opacity: 1; color: var(--bad); box-shadow: 0 0 0 2px var(--accent-wash); }
+.ideacard__hide:active { transform: scale(0.92); }
+@media (prefers-reduced-motion: reduce) { .ideacard__hide { transition: opacity var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out); } .ideacard__hide:active { transform: none; } }
+
+/* Hidden tray cards — muted, compact, single-column (no dial, no chevron): they're out of the book but
+   on record, one click from restore. */
+.ideacard--hidden { opacity: 0.7; grid-template-columns: 1fr; }
+.ideacard--hidden .ideacard__body { gap: 4px; }
+
 /* skeleton — three placeholder cards swept by a transform-only sheen (compositor-friendly) */
 .ideacard--skeleton { animation: none; align-items: center; }
 .skel { position: relative; overflow: hidden; border-radius: var(--r-sm); background: var(--surface-3); }
@@ -1586,12 +1663,21 @@ a { color: inherit; }
    Screener stage: persistent left event rail + main stage (read / orbs)
    ========================================================================== */
 .scstage { position: absolute; inset: 0; display: flex; min-height: 0; }
-.scstage__main { position: relative; flex: 1; min-width: 0; overflow: hidden; }
+/* column flex so a pulse-bearing wire can put the pulse strip in a real top band and the content in a
+   positioned body below it — the content views are position:absolute inset:0, so overlaying them on the
+   in-flow pulse (the old single-box layout) swallowed the strip's horizontal scroll. .scstage__body is
+   the positioning context those inset:0 views resolve against, replicating the old .scstage__main box. */
+.scstage__main { position: relative; flex: 1; min-width: 0; overflow: hidden; display: flex; flex-direction: column; }
+.scstage__body { position: relative; flex: 1; min-height: 0; overflow: hidden; }
 
 /* ---- the rail ---- */
+/* Width is driven by --evrail-w (set inline by WireSurface, dragged live); the resting default is 340px.
+   `container-type: inline-size` lets the list below re-flow to multi-column purely off the rail's own width
+   (see the @container rule near .evrail__list) — no JS breakpoint, no reflow tied to the viewport. */
 .evrail {
-  width: 340px; flex-shrink: 0; min-height: 0; display: flex; flex-direction: column;
+  width: var(--evrail-w, 340px); flex-shrink: 0; min-height: 0; display: flex; flex-direction: column;
   background: var(--surface-1); border-right: 1px solid var(--hairline);
+  container: evrail / inline-size;
 }
 .evrail__head { padding: 14px 16px 10px; border-bottom: 1px solid var(--hairline); }
 .evrail__titlerow { display: flex; align-items: center; gap: 8px; }
@@ -1639,6 +1725,19 @@ a { color: inherit; }
 .evrail__list::-webkit-scrollbar { width: 8px; }
 .evrail__list::-webkit-scrollbar-thumb { background: var(--hairline-strong); border-radius: var(--r-pill); border: 2px solid var(--surface-1); }
 .evrail__empty { padding: 28px 18px; font-size: 11.5px; line-height: 1.5; color: var(--text-muted); }
+
+/* WIDE wire — once the rail is dragged past ~640px it has room for more than one column, so the single
+   list re-flows into a responsive grid of CARD rows: the incoming wire read in a full, roomy view instead
+   of a narrow ticker. Keyed on the rail's OWN width (container query), so it tracks the drag, not the
+   window. Non-row children (the empty state, the "show set aside" line, the paging sentinel) span the grid. */
+@container evrail (min-width: 640px) {
+  .evrail__list { display: grid; grid-template-columns: repeat(auto-fill, minmax(304px, 1fr)); gap: 8px; align-content: start; padding: 10px 12px 20px; }
+  .evrail__list > :not(.evrow) { grid-column: 1 / -1; }
+  .evrow { border-bottom: none; border: 1px solid var(--hairline); border-radius: 10px; background: var(--surface-1); }
+  .evrow:last-child { border-bottom: 1px solid var(--hairline); } /* the last-row hairline reset doesn't apply in card mode */
+  @media (hover: hover) and (pointer: fine) { .evrow:hover { border-color: var(--hairline-strong); } }
+  .evrow--on { border-color: var(--accent-deep); }
+}
 
 /* ---- a row (wrapper holds the click target + a hover-only set-aside affordance) ---- */
 .evrow {
@@ -1793,7 +1892,19 @@ a { color: inherit; }
 .evdetail__listing-co { font-size: 12.5px; font-weight: 600; color: var(--text); }
 .evdetail__listing-sep { color: var(--text-faint); }
 .evdetail__listing-where { font-size: 12.5px; color: var(--text-muted); }
+/* private subject: an informational (not investable) anchor — drop the accent tint for a neutral one */
+.evdetail__listing--private { border-left-color: var(--hairline-strong); background: var(--surface-2); }
+.evdetail__listing-label--private { color: var(--text-muted); }
 .evdetail__listingtag { font-size: 10.5px; color: var(--text-muted); border: 1px solid var(--hairline); border-radius: var(--r-pill); padding: 2px 8px; }
+/* PUBLIC / PRIVATE / listing-unknown — the shared "can I trade this name?" flag on a firm the read named,
+   used in the event reader (COMPANIES NAMED) and the company drill-down. A status dot leads the word:
+   accent = public/tradable, muted = private; unknown drops the dot + goes dashed. */
+.liststatus { display: inline-flex; align-items: center; gap: 5px; font-size: 10.5px; font-weight: 600; letter-spacing: 0.2px; padding: 2px 8px; border: 1px solid var(--hairline); border-radius: var(--r-pill); }
+.liststatus::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+.liststatus--public { color: var(--accent-bright); border-color: var(--accent-deep); background: var(--accent-wash); }
+.liststatus--private { color: var(--text-muted); border-color: var(--hairline-strong); }
+.liststatus--unknown { color: var(--text-faint); border-style: dashed; }
+.liststatus--unknown::before { display: none; }
 .evdetail__block { margin-top: 18px; }
 .evdetail__label { font-size: 10.5px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: var(--text-faint); margin-bottom: 7px; }
 .evdetail__why { font-size: 13.5px; line-height: 1.6; color: var(--text); margin: 0; }
@@ -1967,7 +2078,7 @@ a { color: inherit; }
   .evdetail__shimmer::after { animation: none; }
 }
 
-@media (max-width: 1040px) { .evrail { width: 296px; } }
+@media (max-width: 1040px) { .evrail { width: var(--evrail-w, 296px); } }
 /* narrow / stacked: the rail collapses above the reader instead of squeezing it */
 @media (max-width: 720px) {
   .scstage { flex-direction: column; }
@@ -2856,16 +2967,18 @@ a { color: inherit; }
    and the reader's launch bar. Tokens only; every motion is transform/opacity within --dur* / --ease*
    (ui/web/DESIGN.md). The chips themselves reuse .evscope — these are only the wire-specific extras. */
 
-/* rail collapse — instant width swap (no width animation, ever); the tab is a slim hairline handle */
+/* rail divider — DRAG to widen (col-resize), CLICK to tuck. Width swaps are instant (no width animation,
+   ever); the drag is direct manipulation. `touch-action: none` so a touch-drag resizes instead of scrolling. */
 .wiresurface__railtab {
   align-self: stretch; width: 14px; flex: 0 0 14px; display: flex; align-items: center; justify-content: center;
   border: none; border-right: 1px solid var(--hairline); background: transparent; color: var(--text-faint);
-  font-size: 11px; cursor: pointer; padding: 0;
-  transition: color var(--dur-fast), transform 140ms var(--ease-out);
+  font-size: 11px; cursor: pointer; padding: 0; touch-action: none;
+  transition: color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
 }
-.wiresurface__railtab:active { transform: scale(0.97); }
+.wiresurface__railtab--resizable { cursor: col-resize; }
+.wiresurface__grip { user-select: none; line-height: 1; letter-spacing: 0.5px; }
 @media (hover: hover) and (pointer: fine) {
-  .wiresurface__railtab:hover { color: var(--accent-bright); }
+  .wiresurface__railtab:hover { color: var(--accent-bright); background: var(--accent-wash-soft); }
 }
 
 /* subject chips' living state: a run pulse-dot + the last verdict tick (token tones only) */
@@ -2882,8 +2995,20 @@ a { color: inherit; }
 
 /* the pulse strip — one compact card per subject above the resting main view */
 .subjectpulse {
-  display: flex; gap: 8px; overflow-x: auto; padding: 10px 14px 6px; scrollbar-width: thin;
+  display: flex; flex-wrap: nowrap; gap: 8px; overflow-x: auto; padding: 10px 14px 10px;
+  /* keep the horizontal gesture on the strip (never nudge browser back/forward), and make the strip's
+     scrollability DISCOVERABLE: a persistent thin bar (macOS hides overlay scrollbars until you scroll,
+     which is exactly why the overflow read as "stuck") */
+  overscroll-behavior-x: contain; scrollbar-width: thin; scrollbar-color: var(--hairline-strong) transparent;
+  /* a real top BAND: a crisp bottom divider reads it as chrome above the canvas, so the constellation
+     below (which starts flush at the band's bottom edge) never looks like it's bleeding into the cards.
+     The band itself stays transparent — the cards (surface-1) are the raised chips on it. flex:0 0 auto
+     keeps the band its natural height in the column. */
+  flex: 0 0 auto; border-bottom: 1px solid var(--hairline);
 }
+.subjectpulse::-webkit-scrollbar { height: 6px; }
+.subjectpulse::-webkit-scrollbar-thumb { background: var(--hairline-strong); border-radius: var(--r-pill); }
+.subjectpulse::-webkit-scrollbar-track { background: transparent; }
 .subjectpulse__card {
   flex: 0 0 auto; min-width: 148px; padding: 8px 10px; border: 1px solid var(--hairline);
   border-radius: var(--r-md); background: var(--surface-1); display: flex; flex-direction: column; gap: 4px;
@@ -2933,3 +3058,148 @@ a { color: inherit; }
 @media (hover: hover) and (pointer: fine) { .wirelaunch__cta:hover:not(:disabled) { background: var(--accent); color: var(--surface-1); } }
 .wirelaunch__verdict { font-size: 11px; color: var(--text-muted); }
 .wirelaunch__verdict--none { color: var(--text-faint); }
+
+/* ============================================================================
+   Best ideas — the PM-skim tab (BestIdeasView). A sibling of Themes in the wire
+   pane. Tokens only; motion is transform/opacity ≤300ms; the only entrance is a
+   one-shot per-idea fade (keyed by idea_id, so a 30s board poll never re-flashes).
+   ============================================================================ */
+.evrail__segdot { width: 5px; height: 5px; flex-shrink: 0; border-radius: 50%; background: var(--accent-bright); box-shadow: 0 0 5px var(--accent-glow); }
+
+.bideas { height: 100%; overflow-y: auto; padding: 18px 20px 44px; }
+.bideas > * { max-width: 720px; margin-inline: auto; }
+
+.bideas__head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+.bideas__title { display: flex; align-items: baseline; gap: 8px; min-width: 0; flex-wrap: wrap; }
+.bideas__dot { align-self: center; width: 7px; height: 7px; border-radius: 50%; background: var(--accent-bright); box-shadow: 0 0 6px var(--accent-glow); flex: none; }
+.bideas__titlemain { font-size: 15px; font-weight: 600; color: var(--text); letter-spacing: 0.2px; }
+.bideas__sub { font-size: 11.5px; color: var(--text-muted); }
+.bideas__count { font-size: 11px; color: var(--text-faint); white-space: nowrap; }
+
+.bideas__top { display: flex; flex-direction: column; gap: 12px; }
+
+.bidea {
+  display: flex; flex-direction: column; gap: 9px;
+  background: var(--surface-2); border: 1px solid var(--hairline); border-radius: var(--r-lg);
+  padding: 14px 16px;
+  animation: bideaIn var(--dur) var(--ease-out) both;
+}
+@keyframes bideaIn { from { opacity: 0; transform: translateY(6px) scale(0.99); } to { opacity: 1; transform: none; } }
+.bideas__top .bidea:nth-child(2) { animation-delay: 55ms; }
+
+.bidea__head { display: flex; align-items: center; gap: 9px; flex-wrap: wrap; }
+.bidea__side { font-size: 10px; font-weight: 700; letter-spacing: 0.5px; padding: 3px 8px; border-radius: var(--r-pill); }
+.bidea__side--long { color: var(--good); background: color-mix(in srgb, var(--good) 16%, transparent); }
+.bidea__side--short { color: var(--bad); background: color-mix(in srgb, var(--bad) 16%, transparent); }
+.bidea__side--pair { color: var(--accent-bright); background: var(--accent-wash); }
+.bidea__ticker { font-family: var(--font-mono); font-size: 15px; font-weight: 600; color: var(--text); }
+.bidea__co { font-size: 12px; color: var(--text-muted); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.bidea__ago { margin-left: auto; font-size: 11px; color: var(--text-faint); white-space: nowrap; }
+
+.bidea__reason { margin: 0; font-size: 13.5px; line-height: 1.5; color: var(--text); }
+.bidea__why { margin: 0; font-size: 12px; line-height: 1.45; color: var(--text-muted); }
+.bidea__whylabel { color: var(--text-faint); }
+
+.bidea__tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.bidea__tag { font-size: 10.5px; padding: 3px 8px; border-radius: var(--r-pill); background: var(--surface-3); color: var(--text-muted); border: 1px solid var(--hairline); }
+.bidea__tag--warn { color: var(--conv-warn); background: color-mix(in srgb, var(--conv-warn) 14%, transparent); border-color: color-mix(in srgb, var(--conv-warn) 34%, transparent); }
+.bidea__tag--rated { color: var(--accent-bright); border-color: color-mix(in srgb, var(--accent) 32%, transparent); }
+
+.bidea__foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; margin-top: 2px; }
+.bidea__read { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.bidea__readlabel { font-size: 11px; color: var(--text-faint); }
+.bidea__readnum { font-family: var(--font-mono); font-size: 13px; font-weight: 600; color: var(--text); }
+.bidea__readden { color: var(--text-faint); font-weight: 400; font-size: 11px; }
+.bidea__bar { width: 76px; height: 5px; border-radius: var(--r-pill); background: var(--surface-3); overflow: hidden; }
+.bidea__barfill { display: block; height: 100%; background: var(--accent); border-radius: inherit; }
+
+.bidea__ctawrap { display: inline-flex; align-items: center; gap: 8px; }
+.bidea__cta { font-size: 12px; font-weight: 600; padding: 6px 12px; border-radius: var(--r-md); cursor: pointer;
+  color: var(--accent-bright); background: var(--accent-wash); border: 1px solid color-mix(in srgb, var(--accent) 38%, transparent);
+  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out); }
+.bidea__cta:active { transform: scale(0.97); }
+.bidea__cta--armed { background: color-mix(in srgb, var(--accent) 30%, transparent); border-color: var(--accent); color: var(--text); }
+@media (hover: hover) and (pointer: fine) { .bidea__cta:hover { background: color-mix(in srgb, var(--accent) 20%, transparent); } }
+.bidea__sent { font-size: 11.5px; color: var(--text-muted); padding: 5px 10px; border-radius: var(--r-md); background: var(--surface-3); border: 1px solid var(--hairline); }
+.bidea__err { font-size: 11px; color: var(--bad); }
+
+.bideas__more, .bideas__cooling { margin-top: 18px; }
+.bideas__morehead, .bideas__coolhead { font-size: 11px; font-weight: 600; letter-spacing: 0.3px; text-transform: uppercase; color: var(--text-faint); margin: 0 0 8px; }
+.bideas__coolsub { text-transform: none; letter-spacing: 0; font-weight: 400; }
+.bidea-c { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; padding: 8px 4px; border-bottom: 1px solid var(--hairline); }
+.bidea-c__err { flex-basis: 100%; font-size: 10.5px; color: var(--bad); }
+.bidea-c:last-child { border-bottom: none; }
+.bidea-c__side { font-size: 9px; font-weight: 700; letter-spacing: 0.4px; padding: 2px 6px; border-radius: var(--r-pill); flex: none; }
+.bidea-c__side--long { color: var(--good); background: color-mix(in srgb, var(--good) 15%, transparent); }
+.bidea-c__side--short { color: var(--bad); background: color-mix(in srgb, var(--bad) 15%, transparent); }
+.bidea-c__side--pair { color: var(--accent-bright); background: var(--accent-wash); }
+.bidea-c__ticker { font-family: var(--font-mono); font-size: 12.5px; font-weight: 600; color: var(--text); flex: none; }
+.bidea-c__reason { font-size: 12px; color: var(--text-muted); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+.bidea-c__read { font-family: var(--font-mono); font-size: 12px; color: var(--text-faint); flex: none; }
+.bidea-c__ctawrap { flex: none; display: inline-flex; }
+.bidea-c__cta { font-size: 11px; font-weight: 600; padding: 4px 9px; border-radius: var(--r-sm); cursor: pointer; color: var(--accent-bright); background: transparent; border: 1px solid color-mix(in srgb, var(--accent) 34%, transparent); transition: background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out); flex: none; }
+.bidea-c__cta:active { transform: scale(0.97); }
+.bidea-c__cta--armed { background: color-mix(in srgb, var(--accent) 26%, transparent); border-color: var(--accent); color: var(--text); }
+.bidea-c__sent { font-size: 10.5px; color: var(--text-faint); flex: none; }
+.bideas__cooling .bidea-c { opacity: 0.62; }
+
+.bideas__empty { font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+.bideas__empty--reject { background: var(--surface-2); border: 1px solid var(--hairline); border-radius: var(--r-lg); padding: 18px; }
+.bideas__empty--reject p { margin: 0; }
+.bideas__emptyhead { font-size: 14px; font-weight: 600; color: var(--text); margin: 0 0 6px !important; }
+.bidea--skeleton { height: 148px; border: 1px solid var(--hairline); border-radius: var(--r-lg); background: var(--surface-2); animation: bideaPulse 1.5s ease-in-out infinite; }
+@keyframes bideaPulse { 0%, 100% { opacity: 0.55; } 50% { opacity: 0.9; } }
+.bideas__foot { font-size: 11px; color: var(--text-faint); line-height: 1.5; margin-top: 22px; border-top: 1px solid var(--hairline); padding-top: 12px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .bidea { animation: bideaFade var(--dur) ease both; }
+  @keyframes bideaFade { from { opacity: 0; } to { opacity: 1; } }
+  .bidea--skeleton { animation: none; }
+  .bidea__cta:active, .bidea-c__cta:active { transform: none; }
+}
+
+/* ---- Best-ideas rating (self-grading) + track record ---------------------------------------------- */
+.bidea__actions { display: inline-flex; align-items: center; gap: 10px; }
+
+.ideafb { position: relative; display: inline-flex; align-items: center; }
+.ideafb__shell { display: inline-flex; align-items: center; gap: 2px; padding: 2px; border-radius: var(--r-pill); border: 1px solid var(--hairline); background: var(--bg-2); }
+.ideafb__thumb {
+  display: inline-grid; place-items: center; width: 28px; height: 24px; padding: 0; border: none; background: transparent; cursor: pointer;
+  color: var(--text-muted); border-radius: var(--r-pill);
+  transition: color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out), transform 140ms var(--ease-out);
+}
+.ideafb__thumb svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+@media (hover: hover) and (pointer: fine) {
+  .ideafb__thumb--up:hover { color: var(--live); background: var(--live-wash); }
+  .ideafb__thumb--down:hover { color: var(--bad); background: var(--bad-wash); }
+}
+.ideafb__thumb:active { transform: scale(0.97); }
+.ideafb__thumb:focus-visible { outline: none; box-shadow: 0 0 0 2px var(--accent); }
+/* rated (filled) — same treatment as the reader's thumbs: deepened green so the white glyph clears WCAG 3:1 */
+.ideafb__thumb--on.ideafb__thumb--up { color: #fff; background: color-mix(in srgb, var(--live) 78%, #000); }
+.ideafb__thumb--on.ideafb__thumb--down { color: #fff; background: var(--bad); }
+.ideafb__thumb--on svg { fill: currentColor; }
+.ideafb__shell--rated .ideafb__thumb:not(.ideafb__thumb--on) { opacity: 0.4; }
+
+/* the optional one-tap reason picker, anchored above the thumbs (origin-aware, no layout push) */
+.ideafb__reasons {
+  position: absolute; bottom: calc(100% + 6px); right: 0; display: flex; flex-wrap: wrap; gap: 4px;
+  width: max-content; max-width: 220px; padding: 6px; background: var(--surface-3);
+  border: 1px solid var(--hairline-strong); border-radius: var(--r-md); box-shadow: var(--shadow-2);
+  z-index: 6; transform-origin: bottom right; animation: ideafbPop var(--dur-fast) var(--ease-out);
+}
+@keyframes ideafbPop { from { opacity: 0; transform: scale(0.96) translateY(3px); } to { opacity: 1; transform: none; } }
+.ideafb__chip {
+  font-size: 10.5px; padding: 3px 8px; border-radius: var(--r-pill); background: var(--surface-2);
+  border: 1px solid var(--hairline); color: var(--text-muted); cursor: pointer; white-space: nowrap;
+  transition: color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out), transform 140ms var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .ideafb__chip:hover { color: var(--text); background: var(--accent-wash); border-color: var(--accent-deep); } }
+.ideafb__chip:active { transform: scale(0.97); }
+
+.bideas__track { font-size: 11px; color: var(--text-faint); margin: -8px 0 14px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .ideafb__reasons { animation: none; }
+  .ideafb__thumb:active, .ideafb__chip:active { transform: none; }
+}

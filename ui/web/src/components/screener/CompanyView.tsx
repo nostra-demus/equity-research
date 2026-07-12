@@ -7,6 +7,7 @@ import { useMemo } from 'react'
 import { groupByDedup } from '../../lib/dedup'
 import { fmtStampLocal } from '../../lib/format'
 import { displayHeadline, originalHeadline, plainTheme } from '../../lib/plain'
+import { LISTING_STATUS_META } from '../../lib/scope'
 import { useStore } from '../../lib/store'
 import type { FeedItem } from '../../lib/types'
 
@@ -55,6 +56,11 @@ export function CompanyView() {
       <div className="coview__headrow">
         <h1 className="coview__name">{focus.name}</h1>
         {focus.ticker && <span className="coview__ticker mono">{focus.ticker}</span>}
+        {/* is this name tradable? — the same public/private tag the event reader showed, carried through the
+            drill-down so a private name (Gull) reads as private here too, not a bare page. */}
+        {focus.listing_status && LISTING_STATUS_META[focus.listing_status] && (
+          <span className={`liststatus liststatus--${focus.listing_status}`} title={LISTING_STATUS_META[focus.listing_status].title}>{LISTING_STATUS_META[focus.listing_status].label}</span>
+        )}
         {listing && <span className="coview__listing">{listing}</span>}
       </div>
       <div className="coview__stat">

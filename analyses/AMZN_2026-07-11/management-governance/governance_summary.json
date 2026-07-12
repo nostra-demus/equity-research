@@ -1,0 +1,46 @@
+{
+  "ticker": "AMZN",
+  "date": "2026-07-11",
+  "module": "management-governance",
+  "stewardship_verdict": "Aligned & competent",
+  "hard_disqualifier": false,
+  "hard_disqualifier_detail": "All 8 disqualifiers clear per business-model/01_disqualifier-scan.md",
+  "scores": {
+    "management_quality": 78,
+    "capital_allocation": 74,
+    "incentive_alignment": 50,
+    "incentive_alignment_pre_cap": 60,
+    "shareholder_friendliness": 60,
+    "disclosure_candor": 82,
+    "governance_risk": 25,
+    "governance_risk_note": "inverted — higher is worse",
+    "data_quality": 72,
+    "overall_usefulness": 70
+  },
+  "governance_score_inputs": {
+    "formula": "0.20xCapAlloc + 0.18xIncentive + 0.18xShFriendliness + 0.16xCandor + 0.16xMgmtQuality + 0.12x(100-GovRisk)",
+    "cap_alloc": 74,
+    "incentive": 50,
+    "sh_friendliness": 60,
+    "candor": 82,
+    "mgmt_quality": 78,
+    "gov_risk": 25,
+    "governance_score": 69.2
+  },
+  "confidence_score": 72,
+  "confidence_adjusted_governance_score": 49.8,
+  "governance_rating": "Watchlist",
+  "governance_rating_note": "Proxy-cap driven; uncapped score approximately 73 (Good)",
+  "red_flag_count": 1,
+  "critical_red_flag_count": 0,
+  "partial_data_caps_applied": [
+    "Incentive alignment capped at 50 (pre-cap 60) — 2026 DEF 14A not in pool",
+    "Shareholder Friendliness capped at 60 — no beneficial ownership table in pool",
+    "Overall Usefulness capped at 70 — proxy gap"
+  ],
+  "section24_filters_tripped": [],
+  "insider_ownership_oneline": "Bezos ~8.8% founding equity (web-sourced, unverified; declining via 10b5-1 plans); CEO/NEOs <1% each (RSU grants); float 90.9% pool-confirmed",
+  "biggest_governance_signal": "RF-CAP-002: $6.1B buyback authorization dormant FY2023-FY2025; 348M net new shares (+3.4%) from SBC with zero mitigation",
+  "highest_value_next_data_request": "2026 DEF 14A (Amazon proxy statement) — would lift incentive alignment cap, provide beneficial ownership table, and reveal compensation committee rationale",
+  "supersedes": "business-model/11_capital-allocation-governance"
+}

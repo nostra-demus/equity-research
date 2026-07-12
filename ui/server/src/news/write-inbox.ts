@@ -163,14 +163,21 @@ export function appendFirehoseSummary(repoRoot: string, date: string, summary: C
 
 const execFileAsync = promisify(execFile)
 
-/** Rebuild the board index using the existing python script. Best-effort; logs but never throws. */
+/**
+ * Rebuild the board index using the existing python script. Best-effort by default (logs but never
+ * throws) — every auto-poll / best-effort caller relies on that so a rebuild hiccup never breaks the
+ * click it rode in on. Pass `throwOnFailure: true` for a caller that must know the rebuild actually
+ * happened (e.g. the manual "rebuild from ledger" endpoint) — it rethrows instead of swallowing, so the
+ * caller can surface a real failure instead of quietly returning the stale, pre-rebuild index.
+ */
 // async execFile (never execFileSync — a multi-second rebuild must not block the event loop; see
 // readiness.ts). Concurrent rebuilds are safe: the python script writes per-PID tmp + rename, and
 // each rebuild is deterministic from the stores, so last-rename-wins converges to the truth.
-export async function refreshBoard(repoRoot: string, log: (m: string) => void = () => {}): Promise<void> {
+export async function refreshBoard(repoRoot: string, log: (m: string) => void = () => {}, opts: { throwOnFailure?: boolean } = {}): Promise<void> {
   try {
     await execFileAsync('python3', [path.join(repoRoot, 'scripts', 'update_board_index.py')], { cwd: repoRoot, timeout: 60_000, maxBuffer: 8_000_000 })
   } catch (e: any) {
     log(`board refresh failed: ${e?.message || e}`)
+    if (opts.throwOnFailure) throw e
   }
 }

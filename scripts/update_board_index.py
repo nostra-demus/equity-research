@@ -36,6 +36,9 @@ BOARD = os.path.join(REPO, "screener", "board", "index.json")
 CONV_STATE = os.path.join(LEDGER, "conviction", "conviction_state")
 CONV_CHECKPOINTS = os.path.join(LEDGER, "conviction", "checkpoints.ndjson")
 CONV_TICKS = os.path.join(LEDGER, "conviction", "conviction.ndjson")
+# The PM skim's surfaced ideas (news/ideas). One snapshot per idea; the board projects them as a pure,
+# read-only feed, deriving `stale` at build time from decay_at (no paid pass). Missing dir = empty.
+IDEAS = os.path.join(LEDGER, "ideas")
 
 # Thesis statuses count as "watchlist" for the funnel header. watchlist_manual is a HUMAN move
 # (an overrides.ndjson record), distinct from the engine's three watchlist reasons.
@@ -48,6 +51,15 @@ def read_json(path: str):
             return json.load(f)
     except Exception:
         return None
+
+
+def safe_int(v, default: int = 0) -> int:
+    """int() that never raises — a malformed value (a non-numeric string, a list) degrades to the default
+    instead of aborting the whole board rebuild. Used for numeric fields read from external snapshots."""
+    try:
+        return int(v)
+    except (TypeError, ValueError):
+        return default
 
 
 def read_ndjson(path: str) -> list[dict]:
@@ -164,9 +176,16 @@ def build() -> dict:
     # verdict) and `effective_status` (where the human put it) — plus `override_stale` when the
     # engine re-ran and changed its mind AFTER the move (surfaced, never silently resolved).
     latest_override: dict[str, dict] = {}
+    # ---- human signal HIDES (soft-delete from the live book; append-only, LAST line per signal wins) ----
+    # A `signal_hide` removes an idea from the board; a later `signal_restore` un-hides it. The engine's
+    # ledger/run are never touched — this is purely a view state (like the inbox dismiss), so it's reversible.
+    hidden_signals: dict[str, bool] = {}
     for line in read_ndjson(os.path.join(LEDGER, "overrides.ndjson")):
-        if line.get("kind") == "thesis_status" and line.get("thesis_id"):
+        kind = line.get("kind")
+        if kind == "thesis_status" and line.get("thesis_id"):
             latest_override[line["thesis_id"]] = line
+        elif kind in ("signal_hide", "signal_restore") and line.get("signal_id"):
+            hidden_signals[line["signal_id"]] = kind == "signal_hide"
 
     # event_id -> English headline, sourced from the wire's own translation (never re-translated here);
     # attached to any non-Latin signal/thesis below so the board reads in English like the events rail.
@@ -305,6 +324,9 @@ def build() -> dict:
             "status": status,
             "status_reason": e.get("status_reason") or e.get("routing_reason") or "",
             "thesis_id": (linked or {}).get("thesis_id"),
+            # additive human view-state: soft-hidden from the live book (a `signal_hide` override); a
+            # `signal_restore` clears it. The UI filters these into a "Hidden" tray, restorable one-click.
+            "hidden": hidden_signals.get(sid, False),
             # carry the scanner's theme tags + named issuers through so the live book can filter by
             # theme/company (already on the event ledger row; the UI's theme chips self-activate once present).
             "event_types": e.get("event_types") if isinstance(e.get("event_types"), list) else [],
@@ -323,19 +345,27 @@ def build() -> dict:
     } for h in handoffs]
 
     # ---- funnel counts ----
-    # funnel counts run on the EFFECTIVE status (engine verdict unless a human moved the idea)
-    thesis_statuses = [t.get("effective_status") or t["status"] for t in theses]
+    # funnel counts run on the EFFECTIVE status (engine verdict unless a human moved the idea), and EXCLUDE
+    # ideas the human soft-hid from the book, so every funnel number matches the cards actually shown.
+    hidden_sig_ids = {s["signal_id"] for s in signals if s["hidden"]}
+    # a hidden signal's thesis (if any) carries the hide through to anything keyed on thesis_id — handoffs
+    # included — so the "Sent" funnel count matches the cards actually shown, not the ledger's raw count.
+    hidden_thesis_ids = {t["thesis_id"] for t in theses if t.get("signal_id") in hidden_sig_ids}
+    visible_signals = [s for s in signals if not s["hidden"]]
+    visible_handoff_rows = [h for h in handoff_rows if h["thesis_id"] not in hidden_thesis_ids]
+    thesis_statuses = [t.get("effective_status") or t["status"] for t in theses if t.get("signal_id") not in hidden_sig_ids]
     news_seen, news_picked, news_dropped = firehose_counts(now[:10])
     counts = {
         "inbox_unconsumed": sum(1 for r in inbox_rows if not r["consumed"] and not r.get("dismissed")),
-        "signals_total": len(signals),
-        "parked": sum(1 for s in signals if s["status"] == "PARK"),
-        "logged": sum(1 for s in signals if s["status"] in ("LOG", "suppress")),
+        "signals_total": len(visible_signals),
+        "hidden": len(hidden_sig_ids),
+        "parked": sum(1 for s in visible_signals if s["status"] == "PARK"),
+        "logged": sum(1 for s in visible_signals if s["status"] in ("LOG", "suppress")),
         "watchlist": sum(1 for st in thesis_statuses if st in WATCHLIST_STATUSES)
-        + sum(1 for s in signals if s["status"] == "watchlist_no_source" and not s["thesis_id"]),
+        + sum(1 for s in visible_signals if s["status"] == "watchlist_no_source" and not s["thesis_id"]),
         "provisional": sum(1 for st in thesis_statuses if st == "provisional"),
         "full_machine": sum(1 for st in thesis_statuses if st == "full_machine"),
-        "handed_off": len(handoff_rows),
+        "handed_off": len(visible_handoff_rows),
         # autonomous news ingester — today's firehose throughput (0 when nothing has run today)
         "news_seen_today": news_seen,
         "news_picked_today": news_picked,
@@ -345,7 +375,10 @@ def build() -> dict:
     # ---- book momentum (Phase 3 live book) ----
     # The single number the desk watches: are live ideas, on balance, upgrading? Computed from the
     # conviction snapshots. Archived (terminal) theses leave the live book but stay counted.
-    conv = [t["conviction"] for t in theses if isinstance(t.get("conviction"), dict)]
+    conv = [
+        t["conviction"] for t in theses
+        if isinstance(t.get("conviction"), dict) and t.get("signal_id") not in hidden_sig_ids
+    ]
     live = [c for c in conv if not c.get("archived")]
     vels = [float(c.get("upgrade_velocity") or 0) for c in live]
     book_momentum = {
@@ -359,12 +392,94 @@ def build() -> dict:
         "archived_count": sum(1 for c in conv if c.get("archived")),
     }
 
+    # ---- PM skim: surfaced ideas (news/ideas) + self-grading scorecard ----
+    # A pure, read-only projection of the idea snapshots. `stale` is derived at build time from decay_at
+    # (an ISO-Z string, so a lexicographic compare against `now` is a correct time compare) — a surfaced
+    # idea ages off the fresh lane for free, no paid pass. Sorted best-first (conviction, then the wire's
+    # own materiality) so the UI can slice the top 1-2 without re-ranking. Missing dir = empty.
+    #
+    # The scorecard is the skim's HONEST track record: how many ideas it surfaced, how many the human ran,
+    # how the DEEP machine graded the ones that were run (confirmed vs passed), and the 👍/👎 tally — no
+    # price, no fake P&L. The UI refuses to quote a confirmation rate until enough runs have resolved.
+    idea_fb: dict[str, str] = {}  # per-idea latest human vote (last line per idea_id wins; 'clear' un-votes)
+    for r in read_ndjson(os.path.join(LEDGER, "ideas_feedback.ndjson")):
+        iid, pol = r.get("idea_id"), r.get("polarity")
+        if iid and pol in ("up", "down", "clear"):
+            idea_fb[iid] = pol
+    # a promoted idea links to its signal; the signal's status IS the deep machine's grade of the skim's call
+    sig_status = {s["signal_id"]: (s.get("status") or "") for s in signals}
+    MACHINE_CONFIRM = {"provisional", "full_machine"}
+    MACHINE_PASS = {"watchlist_no_edge", "watchlist_no_world_change", "watchlist_no_source", "LOG", "PARK", "suppress"}
+
+    ideas: list[dict] = []
+    sc = {"surfaced_total": 0, "live_count": 0, "promoted_total": 0,
+          "machine_confirmed": 0, "machine_passed": 0, "machine_pending": 0,
+          "up_votes": 0, "down_votes": 0}
+    for fp in sorted(glob.glob(os.path.join(IDEAS, "*.json"))):
+        rec = read_json(fp)
+        if not isinstance(rec, dict) or not rec.get("idea_id") or not rec.get("ticker"):
+            continue
+        decay_at = rec.get("decay_at") or ""
+        pc = rec.get("prior_coverage") if isinstance(rec.get("prior_coverage"), dict) else None
+        fb = idea_fb.get(rec.get("idea_id"))
+        fb = fb if fb in ("up", "down") else None  # 'clear'/absent -> no live vote
+        stale = bool(decay_at) and decay_at < now
+        status = rec.get("status") or "live"
+        ideas.append({
+            "idea_id": rec.get("idea_id"),
+            "ticker": rec.get("ticker") or "",
+            "company": rec.get("company"),
+            "exchange": rec.get("exchange"),
+            "direction": rec.get("direction") or "long",
+            "pair_with": rec.get("pair_with"),
+            "reason": rec.get("reason") or "",
+            "why_now": rec.get("why_now") or "",
+            "conviction": safe_int(rec.get("conviction"), 0),
+            "conviction_basis": rec.get("conviction_basis") or "pre_edge_proxy",
+            "priced_in": rec.get("priced_in") or "unknown",
+            "thesis_type": rec.get("thesis_type") or "company_specific",
+            "source_event_ids": rec.get("source_event_ids") if isinstance(rec.get("source_event_ids"), list) else [],
+            "source_headlines": rec.get("source_headlines") if isinstance(rec.get("source_headlines"), list) else [],
+            "source_url": rec.get("source_url"),
+            "source_name": rec.get("source_name"),
+            "materiality_max": safe_int(rec.get("materiality_max"), 0),
+            "newest_source_at": rec.get("newest_source_at") or "",
+            "prior_coverage": pc,
+            "surfaced_at": rec.get("surfaced_at") or "",
+            "updated_at": rec.get("updated_at") or "",
+            "decay_at": decay_at,
+            "status": status,
+            "promoted_signal_id": rec.get("promoted_signal_id"),
+            "feedback": fb,
+            "stale": stale,
+        })
+        sc["surfaced_total"] += 1
+        if not stale:
+            sc["live_count"] += 1
+        if fb == "up":
+            sc["up_votes"] += 1
+        elif fb == "down":
+            sc["down_votes"] += 1
+        if status == "promoted":
+            sc["promoted_total"] += 1
+            st = sig_status.get(rec.get("promoted_signal_id") or "", "")
+            if st in MACHINE_CONFIRM:
+                sc["machine_confirmed"] += 1
+            elif st in MACHINE_PASS:
+                sc["machine_passed"] += 1
+            else:
+                sc["machine_pending"] += 1
+    sc["resolved"] = sc["machine_confirmed"] + sc["machine_passed"]
+    ideas.sort(key=lambda i: (i["stale"], -i["conviction"], -i["materiality_max"]))
+
     return {
         "generated_at": now,
         "inbox": inbox_rows,
         "signals": signals,
         "theses": theses,
         "handoffs": handoff_rows,
+        "ideas": ideas,
+        "ideas_scorecard": sc,
         "counts": counts,
         "book_momentum": book_momentum,
     }

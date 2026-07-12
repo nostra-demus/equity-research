@@ -71,6 +71,27 @@ export async function moveThesis(thesisId: string, to: MoveTarget, reason: strin
   return record
 }
 
+export const SIGNAL_ACTIONS = ['hide', 'restore'] as const
+export type SignalAction = (typeof SIGNAL_ACTIONS)[number]
+
+/**
+ * Hide (or restore) ONE idea from the live book — a SOFT delete. The record is an append-only override
+ * line (same overrides.ndjson, same append path as moveThesis); the board builder applies the LATEST hide/
+ * restore per signal as `hidden` on the signal entry. Nothing the engine wrote is touched — the run folder,
+ * the event ledger and the audit trail all survive — so a restore simply un-hides it. Returns the record id.
+ */
+export async function hideSignal(signalId: string, action: SignalAction, user: string, repoRoot: string = REPO_ROOT): Promise<{ override_id: string }> {
+  const at = new Date().toISOString().replace(/\.\d{3}Z$/, 'Z')
+  const kind = action === 'hide' ? 'signal_hide' : 'signal_restore'
+  // random id (not a content hash): a hide→restore→hide within the same second must never collide on the
+  // append script's idempotency key and get silently dropped — the same reason moveThesis uses a random id.
+  const record = { override_id: `OVR-${at.slice(0, 10).replace(/-/g, '')}-${randomUUID().slice(0, 8)}`, kind, signal_id: signalId, by: user, at }
+  await execFileAsync('bash', [path.join(REPO_ROOT, 'scripts', 'append-ndjson.sh'), OVERRIDES(repoRoot), JSON.stringify(record), 'override_id', record.override_id], {
+    cwd: repoRoot,
+  })
+  return { override_id: record.override_id }
+}
+
 /** Append an inbox dismiss/restore audit line (best-effort; the sweep file is the ground truth). */
 export async function auditInboxAction(inboxId: string, action: 'inbox_dismiss' | 'inbox_restore', user: string, repoRoot: string = REPO_ROOT): Promise<void> {
   const at = new Date().toISOString().replace(/\.\d{3}Z$/, 'Z')

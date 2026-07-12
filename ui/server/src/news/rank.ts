@@ -54,6 +54,11 @@ export interface RankFactors {
   boost_weight?: number // global multiplier applied to (source_tier+scope+event+size+recency+materiality_label_floor+quantified) for THIS score (1 = none); always set on output, optional on input (records predating the field)
   scope_id: ScopeId
   source_tier_id: SourceTierId
+  // the winning event type / size bucket LABELS behind the event & size points — captured so the feedback
+  // loop can attribute a mis-score to a specific event/size category (parallels scope_id/source_tier_id),
+  // closing the "points snapshotted but not their label" gap. null event_id = no positive event winner.
+  event_id: string | null
+  size_bucket: string
 }
 
 // Fixed severity-tier floors (aligned with the existing pickThreshold=70/watchThreshold=40 bands, plus
@@ -142,6 +147,23 @@ function eventBonus(eventTypes: (string | null | undefined)[] | null | undefined
   return positive
 }
 
+/** The event type that produced the bonus — the max-points type (first wins a tie), or 'rumor' when rumor
+ *  is the only signal. Mirrors eventBonus's choice so the tuner can re-weight this record's event from the
+ *  weight set; null when no type scored positive (the bonus was 0 → nothing to attribute). */
+function winningEventType(eventTypes: (string | null | undefined)[] | null | undefined, ev: Record<string, number>): string | null {
+  const types = (eventTypes || []).map((t) => String(t || '').toLowerCase()).filter(Boolean)
+  if (!types.length) return null
+  let best: string | null = null
+  let bestPts = 0
+  for (const t of types) {
+    const p = ev[t] ?? 0
+    if (p > bestPts) { bestPts = p; best = t }
+  }
+  if (best) return best
+  if (types.includes('rumor') && types.every((t) => (ev[t] ?? 0) <= 0)) return 'rumor'
+  return null
+}
+
 // Freshness → points. The thresholds are fixed; the points per bucket are tunable (weights.recency).
 function recencyBonus(foundAt: string | null | undefined, now: Date, pts: Record<string, number>): number {
   if (!foundAt) return 0
@@ -180,7 +202,7 @@ export function rankScore(it: RankInput, now: Date = new Date(), weights: RankWe
 
   return {
     rank_score,
-    rank_factors: { materiality, source_tier, scope, event, size, recency, materiality_label_floor, quantified, boost_weight: w, scope_id, source_tier_id },
+    rank_factors: { materiality, source_tier, scope, event, size, recency, materiality_label_floor, quantified, boost_weight: w, scope_id, source_tier_id, event_id: winningEventType(it.event_types, weights.event), size_bucket: String(it.size_bucket || 'unknown').toLowerCase() },
   }
 }
 
@@ -213,7 +235,7 @@ export function reRankFromFactors(
 
   return {
     rank_score,
-    rank_factors: { materiality, source_tier, scope, event, size, recency, materiality_label_floor, quantified, boost_weight: w, scope_id: rf.scope_id, source_tier_id: rf.source_tier_id },
+    rank_factors: { materiality, source_tier, scope, event, size, recency, materiality_label_floor, quantified, boost_weight: w, scope_id: rf.scope_id, source_tier_id: rf.source_tier_id, event_id: winningEventType(item.event_types, weights.event), size_bucket: String(item.size_bucket || 'unknown').toLowerCase() },
   }
 }
 

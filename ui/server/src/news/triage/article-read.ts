@@ -18,9 +18,17 @@
 //     one honest free-tier accounting and never collectively bust a quota.
 // Never throws. Returns the first usable brief, or null (→ the caller synthesises the floor).
 
-import { Budget, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter } from './budget'
+import { Budget, armCooldown, clearCooldown, getNamedLimiter, getSharedGeminiLimiter, getSharedLimiter, isCoolingDown } from './budget'
 import { analyzeArticle, type ArticleBrief } from './groq'
 import { analyzeArticleGemini } from './gemini'
+
+// Base cooldown window when a read fails a provider — mirrors config.NEWS.llmCooldownMs's default so the
+// on-demand/heal reader and the ingester arm the SAME shared per-provider marker with the same base (the
+// marker stores an absolute expiry, so a small drift between callers is harmless). Backoff cap mirrors
+// config.NEWS.llmCooldownMaxMs's default (armCooldown's own default, 60 min) — both are only the fallback
+// for callers that don't thread the configured values through ArticleReadDeps.cooldownMs/cooldownMaxMs.
+const COOLDOWN_MS = 300_000
+const COOLDOWN_MAX_MS = 3_600_000
 
 // One entry in the article-read fallback chain. Built from config (config.ts → buildArticleReadProviders),
 // in priority order. The shapes mirror the ingester's so the two share budgets + limiters exactly.
@@ -52,6 +60,8 @@ export interface ArticleReadDeps {
   now?: () => number
   deadlineMs?: number // absolute wall-clock ms the whole read must finish by (default now + 14s)
   limiterWaitMs?: number // max wait on each provider's limiter before skipping it (default 2500)
+  cooldownMs?: number // base cross-cycle cooldown window armed on a provider failure (default COOLDOWN_MS)
+  cooldownMaxMs?: number // exponential-backoff cap for the cooldown window (default COOLDOWN_MAX_MS)
   perCallTimeoutMs?: number // hard ceiling for a single provider HTTP call (default 9000, clamped to the deadline)
   log?: (m: string) => void
 }
@@ -99,9 +109,16 @@ export async function readArticleBrief(
   let lastNote = 'no LLM provider configured'
   let attempted = false // flips true the instant any provider actually executes an LLM call (not a skip)
 
+  const cooldownMs = deps.cooldownMs ?? COOLDOWN_MS
+  const cooldownMaxMs = deps.cooldownMaxMs ?? COOLDOWN_MAX_MS
   for (const p of providers) {
     if (now() >= deadline) { lastNote = 'deadline reached before a provider answered'; break }
     if (!p.apiKey) continue
+    // cross-cycle cooldown: skip a provider a recent failure marked unhealthy — HERE or in the ingester
+    // (the `<id>-health.json` marker is shared). Stops an opened event / the auto-heal pass from re-probing
+    // a known-down provider and re-charging its daily budget on failures (the audit's ungated-drain hole).
+    // The Gemini pool cools PER MODEL, so its check lives inside that branch below.
+    if (p.kind !== 'gemini' && isCoolingDown(deps.stateDir, p.id, now())) { lastNote = `${p.id} cooling down after a recent failure — skipped`; continue }
 
     // a single provider call must fit inside what's left of the deadline (minus the limiter-wait slice).
     // The 7s default is generous for Groq/Gemini-flash-lite (they answer in 1-3s) yet trims a stuck free
@@ -119,6 +136,8 @@ export async function readArticleBrief(
       const pool = p.pool && p.pool.length ? p.pool : [{ model: p.model, dailyReqCap: p.dailyReqCap }]
       for (const m of pool) {
         if (now() >= deadline) break
+        const coolId = `${p.id}:${m.model}` // per-model cooldown id, shared with the ingester's Gemini pool
+        if (isCoolingDown(deps.stateDir, coolId, now())) { lastNote = `${coolId} cooling down after a recent failure — skipped`; continue }
         const file = p.budgetFile.replace('{model}', m.model.replace(/[^a-z0-9]+/gi, '-'))
         const budget = Budget.load(deps.stateDir, m.dailyReqCap, p.dailyTokenCap, now(), file, p.dayTz)
         if (!budget.canSpend(EST_TOKENS)) { lastNote = `${p.id}:${m.model} daily budget reached`; continue }
@@ -128,9 +147,18 @@ export async function readArticleBrief(
         const r = await analyzeArticleGemini(body, headline, { model: m.model, baseUrl: p.baseUrl, apiKey: p.apiKey, maxTokens: p.maxTokens, timeoutMs: callTimeout, maxAttempts: 1 }, fetchFn, sleep)
         budget.record(1, r.tokens || EST_TOKENS); budget.save()
         limiter.learn(r.rate, now)
-        if (r.brief && hasContent(r.brief)) { log(`article read via ${p.id}:${m.model}`); return { brief: r.brief, provider: `${p.id}:${m.model}`, attempted } }
+        if (r.brief) {
+          clearCooldown(deps.stateDir, coolId) // this model answered → healthy, drop any marker
+          if (hasContent(r.brief)) { log(`article read via ${p.id}:${m.model}`); return { brief: r.brief, provider: `${p.id}:${m.model}`, attempted } }
+          lastNote = `${p.id}:${m.model}: boilerplate article — no usable brief`; break // healthy but empty → next provider, don't penalise
+        }
         lastNote = r.note || `${p.id}:${m.model} returned no usable brief`
         if (r.note && /PerDay/i.test(r.note)) { budget.exhaust(); budget.save(); continue } // this model's day is spent → next pool model
+        // only a REAL provider-call failure (429/5xx/network) marks this model unhealthy. r.attempted === false
+        // means analyzeArticleGemini short-circuited BEFORE any network call (no key, or the body too thin to
+        // ever feed an LLM) — that says nothing about the provider's health and must not arm its cooldown (the
+        // #219-adjacent bug: a single thin article would otherwise sideline a perfectly healthy provider).
+        if (r.attempted !== false) armCooldown(deps.stateDir, now(), cooldownMs, coolId, cooldownMaxMs)
         break // a non-quota miss: don't churn the pool — fall through to the next provider
       }
     } else {
@@ -142,11 +170,24 @@ export async function readArticleBrief(
       const r = await analyzeArticle(body, headline, { model: p.model, models: p.models, baseUrl: p.baseUrl, apiKey: p.apiKey, maxTokens: p.maxTokens, headers: p.headers, extraBody: p.extraBody, timeoutMs: callTimeout, maxAttempts: 1 }, fetchFn, sleep)
       budget.record(1, r.tokens || EST_TOKENS); budget.save()
       limiter.learn(r.rate, now)
-      if (r.brief && hasContent(r.brief)) { log(`article read via ${p.id}`); return { brief: r.brief, provider: p.id, attempted } }
-      lastNote = r.note || `${p.id} returned no usable brief`
-      // a 4xx (auth / out-of-credits / quota) won't recover today — exhaust the daily budget so the chain
-      // skips this provider across reads until the daily reset, exactly like the ingester does.
-      if (r.note && /HTTP (400|401|402|403|404|413|429)/.test(r.note)) { budget.exhaust(); budget.save() }
+      if (r.brief) {
+        clearCooldown(deps.stateDir, p.id) // the provider ANSWERED (even a content-less brief = healthy) → drop any marker
+        if (hasContent(r.brief)) { log(`article read via ${p.id}`); return { brief: r.brief, provider: p.id, attempted } }
+        lastNote = `${p.id}: boilerplate article — no usable brief` // healthy, just nothing to read → try the next, don't penalise
+      } else {
+        lastNote = r.note || `${p.id} returned no usable brief`
+        // a terminal 4xx (auth / out-of-credits / quota) won't recover today — exhaust the daily budget so the
+        // chain skips this provider across reads until the daily reset, exactly like the ingester does. A 429 is
+        // a PER-MINUTE rate limit, NOT per-day exhaustion: exhausting on it slammed the whole daily budget to the
+        // cap on ONE failed read and blocked triage's own recovery until UTC midnight (the #219 audit finding) —
+        // so a 429 / 5xx / network arms the shared cross-cycle cooldown instead (transient, backs off, self-clears).
+        // r.attempted === false means analyzeArticle short-circuited BEFORE any network call (no key, or the
+        // body too thin to ever feed an LLM) — never arm the cooldown on that: nothing about the provider
+        // failed, so marking it unhealthy would wrongly sideline it for the whole window on a single thin
+        // article (the P1 twin of the #219 audit finding, this time for the pre-flight path).
+        if (/HTTP (400|401|402|403|404|413)/.test(r.note || '')) { budget.exhaust(); budget.save() }
+        else if (r.attempted !== false) armCooldown(deps.stateDir, now(), cooldownMs, p.id, cooldownMaxMs)
+      }
     }
   }
   return { brief: null, note: lastNote, attempted }

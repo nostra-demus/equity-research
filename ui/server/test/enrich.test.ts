@@ -13,6 +13,7 @@ import { bestFallbackSummary, corroboratesSameEvent, enrichEvent, extractReadabl
 import { resetGdeltBackoff } from '../src/news/sources/gdelt'
 import type { ArticleReadProvider } from '../src/news/triage/article-read'
 import type { ArticleBrief } from '../src/news/triage/groq'
+import { buildFilingReadProviders } from '../src/config'
 
 let passed = 0
 async function check(name: string, fn: () => void | Promise<void>) {
@@ -307,7 +308,7 @@ function tmpRepo(snippet: string = SNIPPET): { repoRoot: string; stateDir: strin
 
 const GOOD_BRIEF: ArticleBrief = {
   gist: ['Tilray reported $206.7M in Q3 sales; international cannabis grew 73% but is only 12% of revenue.', 'The company remains unprofitable.'],
-  companies: [{ name: 'Tilray Brands', ticker: 'TLRY', role: 'subject', listing_country: 'United States', exchange: 'NASDAQ' }],
+  companies: [{ name: 'Tilray Brands', ticker: 'TLRY', role: 'subject', listing_status: 'public', listing_country: 'United States', exchange: 'NASDAQ' }],
   beneficiaries: [], exposed: [{ name: 'Tilray Brands', named_in_article: true, mechanism: 'persistent unprofitability' }], theme: 'earnings_revenue_margin',
 }
 const EMPTY_BRIEF: ArticleBrief = { gist: [], companies: [], beneficiaries: [], exposed: [], theme: '' }
@@ -409,6 +410,34 @@ await check('regression(F4/F5): a no-readable-body article (unfetchable page, no
   assert.ok(r.summary && /headline/i.test(r.summary), `shows the honest floor restatement, got: ${r.summary}`)
 })
 
+await check('regression(P2, PR #223 review): enrichEvent threads the CALLER-supplied cooldownMs/cooldownMaxMs to the article read, not readArticleBrief\'s hardcoded default', async () => {
+  // Mirrors what server.ts's /api/news/enrich route and enrich-heal.ts's healEnrichCache now both pass:
+  // config.NEWS.llmCooldownMs/llmCooldownMaxMs (NEWS_LLM_COOLDOWN_SEC / NEWS_LLM_COOLDOWN_MAX_SEC). Before the
+  // fix, neither caller threaded these into EnrichDeps, so a real-outage operator lengthening the cooldown had
+  // no effect on article reads — they always armed readArticleBrief's hardcoded ~300s/60min marker.
+  const { repoRoot, stateDir } = tmpRepo()
+  const fetchFn429: typeof fetch = (async (input: any) => {
+    const url = String(input?.url || input)
+    if (url.includes('/chat/completions')) return new Response('rate limited', { status: 429, headers: { 'content-type': 'application/json' } })
+    return new Response(PAGE_HTML, { status: 200, headers: { 'content-type': 'text/html' } })
+  }) as typeof fetch
+  // real wall clock (the tmpRepo fixture stamps the firehose item with real "now", so readFeed's 2-day
+  // window needs the enrichEvent clock to match) — bracket the call to compute a tolerant expected range.
+  const configuredCooldownMs = 25 * 60_000 // 25 min — deliberately far from the 300s (5 min) hardcoded default
+  const configuredCooldownMaxMs = 100 * 60_000
+  const before = Date.now()
+  await enrichEvent({ event_id: EVENT_ID }, {
+    repoRoot, stateDir, force: true, articleProviders: [PROVIDER], fetchFn: fetchFn429,
+    cooldownMs: configuredCooldownMs, cooldownMaxMs: configuredCooldownMaxMs,
+  })
+  const after = Date.now()
+  const health = JSON.parse(fs.readFileSync(path.join(stateDir, 'test-health.json'), 'utf8'))
+  assert.ok(health.unhealthyUntil >= before + configuredCooldownMs && health.unhealthyUntil <= after + configuredCooldownMs,
+    `the armed window must equal now+cooldownMs using the CALLER-supplied 25min cooldownMs, got unhealthyUntil ${health.unhealthyUntil} outside [${before + configuredCooldownMs}, ${after + configuredCooldownMs}]`)
+  // and it must NOT be readArticleBrief's hardcoded ~300s(5min) default — the whole point of the fix
+  assert.ok(health.unhealthyUntil > before + 10 * 60_000, 'the armed window must be far longer than the 300s hardcoded default — the configured value was ignored')
+})
+
 await check('regression(F2): a short vague og:description dek never out-ranks the honest floor', () => {
   const dekHtml = '<html><head><meta property="og:description" content="There is one overriding theme you cannot ignore."></head><body><p>x</p></body></html>'
   const out = bestFallbackSummary(dekHtml, '', { headline: 'Tilray Is Growing 73% Internationally. The Market Is Paying Almost No Attention. Is That a Mistake?' }, false)
@@ -490,7 +519,7 @@ const SECONDARIES = [
 ]
 const CORROB_BRIEF: ArticleBrief = {
   gist: ['Tilray international cannabis revenue grew 73%; Q3 sales were $206.7M and the company remains unprofitable.'],
-  companies: [{ name: 'Tilray Brands', ticker: 'TLRY', role: 'subject', listing_country: 'United States', exchange: 'NASDAQ' }],
+  companies: [{ name: 'Tilray Brands', ticker: 'TLRY', role: 'subject', listing_status: 'public', listing_country: 'United States', exchange: 'NASDAQ' }],
   beneficiaries: [], exposed: [], theme: 'earnings_revenue_margin',
 }
 // a fetch that BLOCKS the source page (403), serves the GDELT keyword query, and (optionally) an LLM brief
@@ -612,7 +641,7 @@ const INTERSTITIAL_HTML =
   '</body></html>'
 const TON_BRIEF: ArticleBrief = {
   gist: ['NQM failed to complete the Mozambique graphite asset sale by 1 July 2026; Triton issued a default notice requiring completion by 9 July 2026.'],
-  companies: [{ name: 'Triton Minerals', ticker: 'TON', role: 'subject', listing_country: 'Australia', exchange: 'ASX' }],
+  companies: [{ name: 'Triton Minerals', ticker: 'TON', role: 'subject', listing_status: 'public', listing_country: 'Australia', exchange: 'ASX' }],
   beneficiaries: [], exposed: [], theme: 'deals_takeovers',
 }
 
@@ -868,7 +897,7 @@ await check('REVIEW FIX: after a successful gist-less alternate read, corroborat
   resetGdeltBackoff()
   const GISTLESS_BRIEF: ArticleBrief = {
     gist: [], beneficiaries: [], exposed: [], theme: 'lawsuits_penalties',
-    companies: [{ name: 'KPMG Australia', ticker: null, role: 'subject', listing_country: 'Australia', exchange: null }],
+    companies: [{ name: 'KPMG Australia', ticker: null, role: 'subject', listing_status: 'unknown', listing_country: 'Australia', exchange: null }],
   }
   const { repoRoot, stateDir } = tmpRepoItems([
     {
@@ -915,6 +944,69 @@ await check('listCoveredTickers: real <TICKER>_<date> run folders are picked up,
 await check('listCoveredTickers: a missing analyses/ dir returns [] and never throws', () => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'covered-empty-'))
   assert.deepEqual(listCoveredTickers(root), [])
+})
+
+// ── FILING READ ESCALATION — a config-gated stronger model for filing reads (exchange PDFs / regulatory
+//    docs), prepended to the chain for filing events only. Verified end-to-end via the fetch router: a
+//    filing routes to the stronger provider FIRST; an article never touches it; and the config gate is off
+//    by default (unset => [] => filings read byte-for-byte as before). The stronger model's real efficacy on
+//    letterhead-heavy filings was validated separately (a Haiku-class read of the actual Adani/HKEX PDFs). ──
+await check('buildFilingReadProviders: unset => [] (filings unchanged); set => one provider with its OWN budget + limiter', () => {
+  const base: any = { filingReadApiKey: '', filingReadModel: '', filingReadBaseUrl: 'https://x/v1', filingReadMaxTokens: 3500, filingReadRpm: 12, filingReadDailyReqCap: 500 }
+  assert.deepEqual(buildFilingReadProviders(base), [], 'no key/model => disabled (backward-compatible)')
+  const on = buildFilingReadProviders({ ...base, filingReadApiKey: 'k', filingReadModel: 'strong-model' })
+  assert.equal(on.length, 1)
+  assert.equal(on[0].model, 'strong-model')
+  assert.equal(on[0].budgetFile, 'filing-read-budget.json', 'its OWN budget — never the article firehose Groq quota')
+  assert.equal(on[0].limiter, 'filing-read', 'its OWN limiter, independent of the ingester')
+})
+
+const FILING_ID = 'EVT-test-filing'
+function tmpFilingRepo(): { repoRoot: string; stateDir: string } {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'enrich-filing-'))
+  const inbox = path.join(root, 'screener', 'inbox')
+  fs.mkdirSync(inbox, { recursive: true })
+  const item = {
+    kind: 'item', event_id: FILING_ID, ts: NOW_ISO,
+    headline: 'Adani Enterprises Ltd: Allotment of Equity Shares to Eligible Qualified Institutional Investors',
+    url: 'https://www.example-regulator.test/disclosure/ael-qip.html', source_name: 'Exchange Filing',
+    region: 'IN', input_nature: 'regulatory_filing', source_tier: 'primary_filing',
+    snippet: 'The QIP committee approved the allotment of equity shares to eligible qualified institutional buyers at the disclosed issue price, aggregating to the total amount reported to the exchange under SEBI ICDR Regulations.',
+    companies: [{ name: 'Adani Enterprises', ticker: 'ADANIENT', listing_country: 'IN' }], event_types: ['capital_actions'], triage_score: 90,
+  }
+  fs.writeFileSync(path.join(inbox, `${TODAY}_firehose.ndjson`), JSON.stringify(item) + '\n')
+  return { repoRoot: root, stateDir: fs.mkdtempSync(path.join(os.tmpdir(), 'enrich-filing-state-')) }
+}
+// route the LLM call by provider baseUrl so the test can see WHICH model was asked
+function makeRoutedFetch(filingBrief: ArticleBrief, normalBrief: ArticleBrief, seen: Set<string>): typeof fetch {
+  return (async (input: any) => {
+    const url = String(input?.url || input)
+    if (url.includes('/chat/completions')) {
+      const isFiling = url.includes('filing.test')
+      seen.add(isFiling ? 'filing' : 'normal')
+      const body = JSON.stringify({ choices: [{ message: { content: JSON.stringify(isFiling ? filingBrief : normalBrief) }, finish_reason: 'stop' }], usage: { total_tokens: 120 } })
+      return new Response(body, { status: 200, headers: { 'content-type': 'application/json' } })
+    }
+    return new Response(PAGE_HTML, { status: 200, headers: { 'content-type': 'text/html' } })
+  }) as typeof fetch
+}
+const FILING_PROVIDER: ArticleReadProvider = { ...PROVIDER, id: 'filing-read', baseUrl: 'https://filing.test', budgetFile: 'filing-test-budget.json', limiter: 'filing-test' }
+const FILING_BRIEF: ArticleBrief = { gist: ['STRONG-MODEL read: Adani Enterprises allotted QIP equity shares at the issue price, raising the disclosed amount'], companies: [{ name: 'Adani Enterprises', ticker: 'ADANIENT', role: 'subject', listing_status: 'public', listing_country: 'India', exchange: 'NSE' }], beneficiaries: [], exposed: [], theme: 'capital_actions' }
+
+await check('filing read escalation: a FILING is read by the stronger filing provider FIRST', async () => {
+  const { repoRoot, stateDir } = tmpFilingRepo()
+  const seen = new Set<string>()
+  const r = await enrichEvent({ event_id: FILING_ID }, { repoRoot, stateDir, force: true, articleProviders: [PROVIDER], filingReadProviders: [FILING_PROVIDER], fetchFn: makeRoutedFetch(FILING_BRIEF, GOOD_BRIEF, seen) })
+  assert.ok(seen.has('filing'), 'the filing provider was called')
+  assert.ok(r.gist && r.gist[0]?.startsWith('STRONG-MODEL'), 'THE STORY came from the stronger filing read, not the floor')
+})
+
+await check('filing read escalation: an ARTICLE never touches the filing provider (gated to filings only)', async () => {
+  const { repoRoot, stateDir } = tmpRepo() // the Tilray ARTICLE — input_nature news_headline, not a filing
+  const seen = new Set<string>()
+  const r = await enrichEvent({ event_id: EVENT_ID }, { repoRoot, stateDir, force: true, articleProviders: [PROVIDER], filingReadProviders: [FILING_PROVIDER], fetchFn: makeRoutedFetch({ gist: ['SHOULD-NOT-APPEAR'], companies: [], beneficiaries: [], exposed: [], theme: '' }, GOOD_BRIEF, seen) })
+  assert.ok(!seen.has('filing'), 'the filing provider was NOT called for a non-filing article')
+  assert.ok(r.gist && r.gist.some((g) => g.includes('Tilray')), 'the article used the normal chain')
 })
 
 console.log(`\n${passed} checks passed`)

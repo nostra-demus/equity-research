@@ -179,6 +179,27 @@ capped_wl = ConfidenceInputs(data_sufficiency=80, corroboration=80, evidence_tie
 check("capped Watchlist + proven edge: no false under-rated warning", not any("under-rated" in w for w in compute(capped_wl)["warnings"]))
 check("capped Watchlist + proven edge: reconcile is NOT PROVISIONAL", reconcile(compute(capped_wl)["conviction"], capped_wl)["ok"])
 
+# B13 (Codex #215 P2) — sizing_hint must honor the frameworks/DECISION_LEDGER.md decision->treatment map.
+# Expected values pinned to that table ("Starter Position Only -> Small paper long"; "Short Candidate ->
+# Paper short"; "Watchlist -> No trade, track opportunity cost"), NOT to current code behaviour.
+# Pre-fix, a high-conviction Starter sized to {"band":"full"}, a Short reused the Avoid text, and a
+# high-conviction Watchlist offered a conditional "starter only if margin of safety > 0".
+starter_hi = C(data_sufficiency=100, corroboration=100, evidence_tier=100, edge_score=100,
+               edge_proof_present=True, decision="Starter Position Only")
+check("§ledger Starter is a SMALL long — never sizes to full/standard however high conviction runs",
+      starter_hi["sizing_hint"]["band"] in ("starter", "tiny"), f"got {starter_hi['sizing_hint']}")
+short_hi = C(data_sufficiency=74, corroboration=80, evidence_tier=82, edge_score=60,
+             edge_proof_present=True, decision="Short Candidate")
+avoid_hi = C(data_sufficiency=74, corroboration=80, evidence_tier=82, decision="Avoid", expected_return_pct=-30)
+check("§ledger Short Candidate action names the short leg (Paper short), not the Avoid text",
+      "short" in short_hi["sizing_hint"]["action"].lower() and short_hi["sizing_hint"]["band"].startswith("short"),
+      f"got {short_hi['sizing_hint']}")
+check("§ledger Short and Avoid do NOT share the same sizing action",
+      short_hi["sizing_hint"]["action"] != avoid_hi["sizing_hint"]["action"])
+wl_hi = C(data_sufficiency=90, corroboration=90, evidence_tier=90, decision="Watchlist")
+check("§ledger Watchlist is 'No trade' — no conditional starter action, even near the neutral ceiling",
+      wl_hi["sizing_hint"]["band"] == "watch", f"got {wl_hi['sizing_hint']}")
+
 print("\n=== C. GATE, WEIGHTS, DIRECTION, CAP-BINDING ===")
 
 # C1 — reconcile: real (non-self-referential) checks.

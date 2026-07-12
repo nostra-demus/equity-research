@@ -6,10 +6,10 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { displayHeadline, originalHeadline, translatedFromLang, plainAffectedMetric, plainImpactDirection, plainImpactMagnitude, plainSize, plainTheme } from '../../lib/plain'
-import { familyOf, isCompanyNameClient, roleLabel, SCOPES, scopeOf, sourceTierDef } from '../../lib/scope'
+import { familyOf, isCompanyNameClient, LISTING_STATUS_META, normListingStatus, roleLabel, SCOPES, scopeOf, sourceTierDef } from '../../lib/scope'
 import { discoveryCapDelta } from '../../lib/rankWeights'
 import { useStore } from '../../lib/store'
-import type { ArticleParty, EventEnrichment, FeedItem, NewsImpact, RelatedEvent } from '../../lib/types'
+import type { ArticleParty, EventEnrichment, FeedItem, ListingStatus, NewsImpact, RelatedEvent } from '../../lib/types'
 import { FeedbackMenu } from './FeedbackMenu'
 import { RunChecksMenu } from './RunChecksMenu'
 import type { FeedbackPolarity } from '../../lib/feedbackTypes'
@@ -438,14 +438,25 @@ export function EventDetail({ it }: { it: FeedItem }) {
   // from OTHER outlets, NOT read from THIS article — so the attribution copy must say so (CLAUDE.md §3).
   const corroborated = !!enrichment?.corroborated
 
-  // companies: prefer the body-read firms (with role + where they're listed); else the headline guess
+  // companies: prefer the body-read firms (with role, public/private status + where they're listed); else the
+  // headline guess (firms named in the title, no read yet — status genuinely unknown, so we don't tag it).
   const companies = enrichment?.companies?.length
-    ? enrichment.companies.map((c) => ({ name: c.name, ticker: c.ticker, listing_country: c.listing_country ?? null, exchange: c.exchange ?? null, role: c.role }))
-    : (it.companies || []).filter((c) => isCompanyNameClient(c.name)).map((c) => ({ name: c.name, ticker: c.ticker, listing_country: null as string | null, exchange: null as string | null, role: undefined as string | undefined }))
+    ? enrichment.companies.map((c) => {
+        // normalise the status (deriving it for a pre-field cached brief: a ticker/exchange ⇒ public). Only a
+        // PUBLIC firm keeps its listing anchor — for private OR unknown, null it so a stale/contradictory brief
+        // can't render a "Listed — … — country" line for a name we can't confirm is tradable (the Gull leak).
+        const listing_status = normListingStatus(c.listing_status, !!(c.ticker || c.exchange))
+        const noListing = listing_status !== 'public'
+        return { name: c.name, ticker: noListing ? null : c.ticker, listing_country: noListing ? null : (c.listing_country ?? null), exchange: noListing ? null : (c.exchange ?? null), role: c.role, listing_status, fromRead: true }
+      })
+    : (it.companies || []).filter((c) => isCompanyNameClient(c.name)).map((c) => ({ name: c.name, ticker: c.ticker, listing_country: null as string | null, exchange: null as string | null, role: undefined as string | undefined, listing_status: 'unknown' as ListingStatus, fromRead: false }))
   // the company the story is about + where it trades — the "which market / where would I buy this"
   // glance a global investor needs. From the article-body read; null until that read lands.
   const subject = companies.find((c) => c.role === 'subject') || (companies.length === 1 ? companies[0] : undefined)
   const subjectWhere = subject ? [subject.listing_country, subject.exchange].filter(Boolean).join(' · ') : ''
+  // is the story's own company one we could buy? Private ⇒ show a plain "Private" anchor at the top instead of
+  // a misleading "Listed — …"; the badge otherwise only appears once the read finds a real listing.
+  const subjectPrivate = !!subject?.fromRead && subject.listing_status === 'private'
   const didRead = !!(enrichment && (enrichment.gist?.length || enrichment.companies?.length || enrichment.beneficiaries?.length || enrichment.exposed?.length))
   const benefits = enrichment?.beneficiaries || []
   const exposed = enrichment?.exposed || []
@@ -497,15 +508,23 @@ export function EventDetail({ it }: { it: FeedItem }) {
           {it.via === 'rss' && <span className="evrow__tag evrow__tag--rss">RSS</span>}
         </div>
 
-        {/* WHERE IT'S LISTED — the country + exchange for the company the story is about, at a glance */}
-        {subjectWhere && (
+        {/* WHERE IT'S LISTED — for the company the story is about: its market at a glance, or a plain "Private"
+            anchor when it's privately held (so a PE-owned name is never dressed up as a listed stock). */}
+        {subjectPrivate ? (
+          <div className="evdetail__listing evdetail__listing--private" title="This company is privately held — it has no listed, tradable stock; read from the article, the checks verify it before any thesis">
+            <span className="evdetail__listing-label evdetail__listing-label--private">Private</span>
+            <span className="evdetail__listing-co">{subject!.name}</span>
+            <span className="evdetail__listing-sep" aria-hidden>—</span>
+            <span className="evdetail__listing-where">not listed · no tradable stock</span>
+          </div>
+        ) : subjectWhere ? (
           <div className="evdetail__listing" title="Where the company in this story is listed — read from the article; the checks verify it before any thesis">
             <span className="evdetail__listing-label">Listed</span>
             <span className="evdetail__listing-co">{[subject!.name, subject!.ticker].filter(Boolean).join(' · ')}</span>
             <span className="evdetail__listing-sep" aria-hidden>—</span>
             <span className="evdetail__listing-where">{subjectWhere}</span>
           </div>
-        )}
+        ) : null}
 
         {/* what KIND of event — the company-vs-broad call, stated plainly */}
         {s !== 'unknown' && (
@@ -591,10 +610,17 @@ export function EventDetail({ it }: { it: FeedItem }) {
                 const cov = coverageFor(c.name, c.ticker)
                 return (
                   <div key={`${c.name}-${i}`} className="evdetail__co">
-                    <button type="button" className="evdetail__chip evdetail__chip--co evdetail__chip--btn" onClick={() => focusCompany({ name: c.name, ticker: c.ticker, listing_country: c.listing_country, exchange: c.exchange })} title={`See all wire news on ${c.name}`}>
+                    <button type="button" className="evdetail__chip evdetail__chip--co evdetail__chip--btn" onClick={() => focusCompany({ name: c.name, ticker: c.ticker, listing_country: c.listing_country, exchange: c.exchange, listing_status: c.fromRead ? c.listing_status : undefined })} title={`See all wire news on ${c.name}`}>
                       {[c.name, c.ticker].filter(Boolean).join(' · ')}
                       <span className="evdetail__chip-go" aria-hidden>›</span>
                     </button>
+                    {/* the first thing a PM needs on any name: is it public (tradable) or private? Only shown once
+                        the body read has judged it — a bare headline guess can't tell, and the hint below says so. */}
+                    {c.fromRead && (
+                      <span className={`liststatus liststatus--${c.listing_status}`} title={LISTING_STATUS_META[c.listing_status].title}>
+                        {LISTING_STATUS_META[c.listing_status].label}
+                      </span>
+                    )}
                     {(c.listing_country || c.exchange) && (
                       <span className="evdetail__listingtag" title={corroborated ? "Where it's listed (from the corroborating wire)" : "Where it's listed (from the article read)"}>{[c.listing_country, c.exchange].filter(Boolean).join(' · ')}</span>
                     )}

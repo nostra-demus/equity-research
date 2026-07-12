@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { motion } from 'framer-motion'
-import { useStore } from '../lib/store'
+import { useStore, chatSubjectOf } from '../lib/store'
 import { api, isStatic } from '../lib/api'
 import { fmtAbsolute, fmtAgo, moduleLabel } from '../lib/format'
 import type { ChatConversationSummary, ChatListResult, ChatScope, Whoami } from '../lib/types'
@@ -20,7 +20,8 @@ export function ChatHistory() {
   const resume = useStore((s) => s.resumeConversation)
   const del = useStore((s) => s.deleteConversation)
   const startNewChat = useStore((s) => s.startNewChat)
-  const selectedTicker = useStore((s) => s.selectedTicker)
+  // the active swarm's chat subject (a company/commodity, or a screener signal) — a new chat needs one selected
+  const chatSubject = useStore((s) => chatSubjectOf(s))
   const [data, setData] = useState<ChatListResult | null>(null)
   const [loading, setLoading] = useState(true)
   const [whoami, setWhoami] = useState<Whoami | null>(null)
@@ -91,7 +92,7 @@ export function ChatHistory() {
           </div>
         </div>
         <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexShrink: 0 }}>
-          {!staticMode && <button className="btn btn--amber" style={{ height: 30 }} disabled={!selectedTicker} onClick={startNewChat} title={selectedTicker ? 'Start a fresh Ask conversation about this company' : 'Select a company first'}>New chat ▸</button>}
+          {!staticMode && <button className="btn btn--amber" style={{ height: 30 }} disabled={!chatSubject} onClick={startNewChat} title={chatSubject ? 'Start a fresh Ask conversation about the open subject' : 'Open a signal or select a company first'}>New chat ▸</button>}
           <button className="btn" style={{ height: 30 }} onClick={() => { setLoading(true); load() }}>Refresh ↻</button>
           <button className="btn btn--ghost" style={{ height: 30 }} onClick={close}>Close ✕</button>
         </div>
@@ -138,7 +139,7 @@ export function ChatHistory() {
                 ) : (
                   <>
                     No saved conversations yet. Start one and it’s saved here automatically.
-                    {!staticMode && selectedTicker && (
+                    {!staticMode && chatSubject && (
                       <div style={{ marginTop: 14 }}>
                         <button className="btn btn--amber" onClick={startNewChat}>New chat ▸</button>
                       </div>
