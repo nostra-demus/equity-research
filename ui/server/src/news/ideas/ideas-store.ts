@@ -122,8 +122,16 @@ export function readIdeaSnapshots(repoRoot: string): SurfacedIdea[] {
 
 /** Read one idea snapshot by id (for the promote endpoint). Returns null when absent/corrupt. */
 export function readIdeaById(repoRoot: string, ideaId: string): SurfacedIdea | null {
+  // Defence-in-depth at the sink: `ideaId` reaches here from a route param (`:id`). Reject anything that
+  // isn't a strict IDEA-<12 hex> token, then confirm the RESOLVED file still sits inside the ideas dir —
+  // a normalised-path containment check (path.resolve collapses any `../`, startsWith bounds it) that the
+  // path-injection scanner recognises as a barrier, so no traversal can escape regardless of any caller.
+  if (!/^IDEA-[a-f0-9]{12}$/.test(ideaId)) return null
+  const dir = path.resolve(ideasDir(repoRoot))
+  const fp = path.resolve(dir, `${ideaId}.json`)
+  if (!fp.startsWith(dir + path.sep)) return null
   try {
-    const o = JSON.parse(fs.readFileSync(path.join(ideasDir(repoRoot), `${ideaId}.json`), 'utf8'))
+    const o = JSON.parse(fs.readFileSync(fp, 'utf8'))
     return o && typeof o.idea_id === 'string' ? (o as SurfacedIdea) : null
   } catch { return null }
 }

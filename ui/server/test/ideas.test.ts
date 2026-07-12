@@ -8,7 +8,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 import { buildIdeaUserMessage, coerceIdea, estimateIdeaTokens, surfaceIdeasBatch, type IdeaInputRow } from '../src/news/ideas/surface-ideas'
-import { ideaId, readTopSweepRows, topNHash } from '../src/news/ideas/ideas-store'
+import { ideaId, readIdeaById, readTopSweepRows, topNHash, writeIdea } from '../src/news/ideas/ideas-store'
 import { eventIdFor } from '../src/news/normalize'
 
 let passed = 0
@@ -145,6 +145,32 @@ check('readTopSweepRows keeps the ORIGINAL headline for the SIG byte-match on a 
   assert.equal(row.headline, 'SoftBank to sell chip business')      // display + LLM use the translation
   assert.equal(row.headline_orig, 'ソフトバンクが半導体を売却')       // promote uses the ORIGINAL -> SIG byte-matches the wire launch
   assert.equal(row.event_id, eventIdFor('ソフトバンクが半導体を売却', 'http://jp')) // canonical id over the original
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+
+// ---- readIdeaById path-traversal barrier (security: the `:id` route param reaches a filesystem path) ----
+// Expected behaviour pinned to the security contract, NOT to current code: readIdeaById must ONLY read a
+// file named by a strict IDEA-<12 hex> token; any id containing a traversal segment (or any non-token
+// shape) must return null and must NOT read a file outside the ideas dir. Red-on-old (pre-guard the
+// traversal id read `screener/ledger/evil.json`), green-on-new.
+check('readIdeaById reads a well-formed idea by its strict id', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-'))
+  const id = ideaId('BBB', 'long')
+  writeIdea(dir, { idea_id: id, ticker: 'BBB' } as any)
+  const got = readIdeaById(dir, id)
+  assert.equal(got?.idea_id, id)
+  fs.rmSync(dir, { recursive: true, force: true })
+})
+check('readIdeaById refuses a path-traversal id and never escapes the ideas dir', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'ideas-'))
+  // plant a valid-looking snapshot OUTSIDE the ideas dir, exactly where `../evil` would land
+  const escape = path.join(dir, 'screener', 'ledger', 'evil.json')
+  fs.mkdirSync(path.dirname(escape), { recursive: true })
+  fs.writeFileSync(escape, JSON.stringify({ idea_id: 'ESCAPED', ticker: 'X' }))
+  assert.equal(readIdeaById(dir, '../evil'), null)                 // traversal → refused (pre-fix returned the ESCAPED file)
+  assert.equal(readIdeaById(dir, '../../../../etc/hosts'), null)   // absolute-ish traversal → refused
+  assert.equal(readIdeaById(dir, 'IDEA-not12hex'), null)           // wrong shape → refused
+  assert.equal(readIdeaById(dir, 'IDEA-AAAAAAAAAAAA'), null)       // uppercase hex not in the [a-f0-9] token → refused
   fs.rmSync(dir, { recursive: true, force: true })
 })
 
