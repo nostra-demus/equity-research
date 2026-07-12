@@ -131,29 +131,66 @@ async function createWorktree(id: string): Promise<string> {
   return wt
 }
 
-// child env: inherit the server env, inject the PAT as GH_TOKEN (gh + git auth), and DROP any ambient
-// engine App identity vars so a code push can never borrow the §28 data App. ANTHROPIC/CLAUDE creds pass
-// through so the agent can run.
-function childEnv(): NodeJS.ProcessEnv {
-  const env: NodeJS.ProcessEnv = { ...process.env }
-  delete env.GH_APP_ID; delete env.GH_APP_INSTALLATION_ID; delete env.GH_APP_PRIVATE_KEY
-  env.GH_TOKEN = CODE_PR_TOKEN
-  env.GITHUB_TOKEN = CODE_PR_TOKEN
+// child env: a minimal ALLOWLIST, never the full server env. The agent runs on UNTRUSTED feedback text
+// with `--permission-mode bypassPermissions`, so it must NOT inherit provider API keys or any other
+// server secret — a prompt-injection could otherwise read them from `process.env` (it has Bash/Read) and
+// exfiltrate them into the draft PR. We pass ONLY what the Claude CLI + git/gh need: runtime/locale/proxy/
+// CA vars, Anthropic/Claude auth, git identity, and the injected PR token. Everything else — Groq/Gemini/
+// OpenAI keys, the §28 data-App identity, anything from providers.env — is dropped. An operator whose auth
+// needs an extra var lists it in ENGINE_FEEDBACK_ENV_PASSTHROUGH (comma-separated) when they enable
+// dispatch: deny-by-default, extensible with no code change. Pure over its inputs so it is unit-testable.
+const ENV_ALLOW_EXACT = new Set([
+  'PATH', 'HOME', 'USER', 'LOGNAME', 'SHELL', 'PWD', 'TMPDIR', 'TMP', 'TEMP',
+  'LANG', 'TERM', 'TZ', 'HOSTNAME',
+  'NODE_EXTRA_CA_CERTS', 'SSL_CERT_FILE', 'SSL_CERT_DIR', 'CURL_CA_BUNDLE', 'REQUESTS_CA_BUNDLE',
+  'HTTP_PROXY', 'HTTPS_PROXY', 'NO_PROXY', 'ALL_PROXY',
+  'http_proxy', 'https_proxy', 'no_proxy', 'all_proxy',
+])
+const ENV_ALLOW_PREFIX = ['LC_', 'ANTHROPIC_', 'CLAUDE_', 'GIT_', 'XDG_', 'NVM_']
+const GH_APP_VARS = ['GH_APP_ID', 'GH_APP_INSTALLATION_ID', 'GH_APP_PRIVATE_KEY']
+
+/** Build the minimal child env for the untrusted-input agent: allowlist ∪ operator-passthrough, minus the
+ *  §28 data-App vars, plus the fine-grained PR token as the ONLY credential. Pure — testable on any base. */
+export function buildChildEnv(base: NodeJS.ProcessEnv, token: string | undefined): NodeJS.ProcessEnv {
+  const passthrough = new Set((base.ENGINE_FEEDBACK_ENV_PASSTHROUGH || '').split(',').map((s) => s.trim()).filter(Boolean))
+  const env: NodeJS.ProcessEnv = {}
+  for (const [k, v] of Object.entries(base)) {
+    if (v === undefined || GH_APP_VARS.includes(k)) continue // §28 data-App identity is never passed
+    if (ENV_ALLOW_EXACT.has(k) || passthrough.has(k) || ENV_ALLOW_PREFIX.some((p) => k.startsWith(p))) env[k] = v
+  }
+  // the fine-grained PR PAT (Contents + PR write, this repo only) — the sole credential this agent gets.
+  if (token) { env.GH_TOKEN = token; env.GITHUB_TOKEN = token }
   return env
+}
+
+function childEnv(): NodeJS.ProcessEnv {
+  return buildChildEnv(process.env, CODE_PR_TOKEN)
 }
 
 interface Outcome { outcome: 'pr_open' | 'assessed'; pr_url?: string; note?: string }
 
+// A PR URL is only trusted if it is a real pull request on THIS repo. The outcome file is written by an
+// agent running on untrusted feedback text, so an injected/malformed `pr_url` (a `javascript:` link, a
+// lookalike host, another repo) must never be persisted and rendered as the team's "View pull request"
+// link. Anything else → treat the run as `assessed`, not `pr_open`.
+const PR_URL_RE = /^https:\/\/github\.com\/nostra-demus\/equity-research\/pull\/\d+$/
+export const isValidPrUrl = (u: unknown): u is string => typeof u === 'string' && PR_URL_RE.test(u)
+
 async function readOutcome(wt: string, id: string, env: NodeJS.ProcessEnv): Promise<Outcome> {
   try {
     const o = JSON.parse(fs.readFileSync(path.join(wt, OUTCOME_FILE), 'utf8'))
-    if (o && (o.outcome === 'pr_open' || o.outcome === 'assessed')) return o
+    if (o && o.outcome === 'pr_open') {
+      // a pr_open claim is only honored with a URL that is a real PR on this repo; otherwise it's assessed.
+      if (isValidPrUrl(o.pr_url)) return { outcome: 'pr_open', pr_url: o.pr_url, note: typeof o.note === 'string' ? o.note : '' }
+      return { outcome: 'assessed', note: `Agent reported a PR but its URL was not a valid ${'nostra-demus/equity-research'} pull request — recorded as assessed.` }
+    }
+    if (o && o.outcome === 'assessed') return { outcome: 'assessed', note: typeof o.note === 'string' ? o.note : '' }
   } catch { /* no/invalid outcome file — fall back to detecting a PR */ }
   // fallback: did a PR get opened for the branch anyway?
   try {
     const { stdout } = await execFileAsync('gh', ['pr', 'list', '--head', branchFor(id), '--json', 'url', '--limit', '1'], { cwd: wt, env, maxBuffer: 4_000_000 })
     const arr = JSON.parse(stdout || '[]')
-    if (Array.isArray(arr) && arr[0]?.url) return { outcome: 'pr_open', pr_url: arr[0].url, note: 'PR opened (outcome file missing).' }
+    if (Array.isArray(arr) && isValidPrUrl(arr[0]?.url)) return { outcome: 'pr_open', pr_url: arr[0].url, note: 'PR opened (outcome file missing).' }
   } catch { /* gh unavailable or no PR */ }
   return { outcome: 'assessed', note: 'The agent finished without opening a PR (no outcome file, no PR found).' }
 }
@@ -203,8 +240,14 @@ export function startFeedbackDispatch(item: FeedbackItemRecord, user: string): D
   if (firedToday() >= DAILY_CAP) return { accepted: false, status: 'daily_cap', message: `Daily dispatch cap (${DAILY_CAP}) reached.` }
   inflight.add(item.feedback_id)
   bumpFired()
-  void appendFeedbackEvent(item.feedback_id, 'dispatched', { note: 'Sent to the coding engine.', user }).catch(() => {})
-  void runDispatch(item, user)
+  // Write the `dispatched` event BEFORE starting the run, then chain runDispatch onto its completion.
+  // Ledger events carry only second precision and the fold lets the later line win a tie, so if the run
+  // fails fast (worktree/spawn error) its `assessed` event could otherwise land in the same second as a
+  // still-in-flight `dispatched` write and lose the tie — leaving the card stuck "Building". Chaining
+  // guarantees `dispatched` is persisted first. The route still returns 202 immediately (not awaited).
+  void appendFeedbackEvent(item.feedback_id, 'dispatched', { note: 'Sent to the coding engine.', user })
+    .catch(() => {})
+    .then(() => { void runDispatch(item, user) })
   log(`dispatched ${item.feedback_id} by ${user}`)
   return { accepted: true, status: 'dispatched', message: 'Sent to the coding engine — a draft PR will appear here when it\'s ready.' }
 }
@@ -213,10 +256,17 @@ export function startFeedbackDispatch(item: FeedbackItemRecord, user: string): D
  * Dry run — proves the branch/worktree/prompt wiring with NO spend and NO spawn. Builds the worktree,
  * composes the prompt, then tears the worktree down. Used by the verification flow and a `?dryRun=1` probe.
  */
-export async function dryRunFeedbackDispatch(item: FeedbackItemRecord): Promise<{ branch: string; worktree: string; promptPreview: string; worktreeCreated: boolean }> {
+export async function dryRunFeedbackDispatch(item: FeedbackItemRecord): Promise<{ branch: string; worktree: string; promptPreview: string; worktreeCreated: boolean; busy?: boolean }> {
   const branch = branchFor(item.feedback_id)
   const wt = worktreeFor(item.feedback_id)
   const prompt = buildPrompt(item)
+  // Never touch the worktree of a LIVE dispatch. createWorktree() begins with cleanupWorktree(id), which
+  // `git worktree remove --force` + `branch -D`s that id — so a `?dryRun=1` probe for an id currently being
+  // worked on would tear the real agent's worktree/branch out from under it. If a dispatch is in flight for
+  // this id, return the wiring preview without creating/cleaning anything.
+  if (inflight.has(item.feedback_id)) {
+    return { branch, worktree: wt, promptPreview: prompt.slice(0, 1200), worktreeCreated: false, busy: true }
+  }
   let created = false
   try {
     await createWorktree(item.feedback_id)
