@@ -1725,11 +1725,14 @@ app.get('/api/feedback', { config: { rateLimit: { max: 1000, timeWindow: '1 minu
 app.get('/api/feedback/:id/image/:name', { config: { rateLimit: { max: 2000, timeWindow: '1 minute' } } }, async (req, reply) => {
   const { id, name } = req.params as { id: string; name: string }
   if (!isFeedbackId(id)) return reply.code(404).send({ error: 'not found' })
-  const base = path.resolve(STATE_DIR, 'feedback', id)
-  const full = path.resolve(base, name)
-  if (full !== base && !full.startsWith(base + path.sep)) return reply.code(404).send({ error: 'not found' })
-  const ext = (full.split('.').pop() || '').toLowerCase()
+  const ext = (String(name).split('.').pop() || '').toLowerCase()
   if (!['png', 'jpg', 'jpeg', 'webp', 'gif'].includes(ext)) return reply.code(404).send({ error: 'not found' })
+  // Containment against the CONSTANT feedback root (derived from STATE_DIR, not from the request): the
+  // fully-resolved path must sit under it, or the crafted :id / :name escaped. Checking startsWith on a
+  // fixed root — never a base that itself embeds user input — is the shape CodeQL accepts as the barrier.
+  const root = path.resolve(STATE_DIR, 'feedback')
+  const full = path.resolve(root, id, name)
+  if (!full.startsWith(root + path.sep)) return reply.code(404).send({ error: 'not found' })
   if (!fs.existsSync(full)) return reply.code(404).send({ error: 'not found' })
   const mime = ext === 'png' ? 'image/png' : ext === 'gif' ? 'image/gif' : ext === 'webp' ? 'image/webp' : 'image/jpeg'
   reply.header('content-type', mime)
