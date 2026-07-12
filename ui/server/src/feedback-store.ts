@@ -163,7 +163,9 @@ export function readAllFeedback(stateDir: string = STATE_DIR): FeedbackRecord[] 
     const trimmed = line.trim()
     if (!trimmed) continue
     try {
-      out.push(JSON.parse(trimmed) as FeedbackRecord)
+      const parsed = JSON.parse(trimmed)
+      // defensively require a real object (a corrupt/hand-edited line could be a primitive, null, or array)
+      if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) out.push(parsed as FeedbackRecord)
     } catch {
       // skip a malformed line rather than fail the whole read
     }
@@ -249,6 +251,12 @@ export async function saveFeedbackImage(
   })
   try {
     await pipeline(stream, counter, fs.createWriteStream(tmpPath))
+    // the multipart parser's own fileSize limit can truncate the stream WITHOUT throwing (it just ends
+    // early and sets .truncated) — reject that partial rather than rename + display a broken image.
+    if ((stream as any).truncated) {
+      try { fs.rmSync(tmpPath, { force: true }) } catch { /* best-effort */ }
+      return { ok: false, reason: `image exceeds the ${Math.round(FEEDBACK_IMAGE_MAX_BYTES / (1024 * 1024))} MB limit` }
+    }
     fs.renameSync(tmpPath, finalPath)
     return { ok: true, name: safe.name }
   } catch (e) {

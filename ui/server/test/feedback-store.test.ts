@@ -80,6 +80,23 @@ async function main() {
     assert.ok(fs.existsSync(path.join(itemDir(id1, state), '1.png')))
   })
 
+  await check('saveFeedbackImage rejects a truncated stream (multipart fileSize limit)', async () => {
+    const s: any = Readable.from([Buffer.from('\x89PNG')])
+    s.truncated = true // the multipart parser sets this when its own fileSize cap fired mid-stream
+    const res = await saveFeedbackImage(id1, 9, 'big.png', s, state)
+    assert.equal((res as any).ok, false)
+    assert.match((res as any).reason, /limit/)
+    assert.ok(!fs.existsSync(path.join(itemDir(id1, state), '9.png')))
+  })
+
+  await check('readAllFeedback skips non-object ledger lines (corruption/hand-edit)', () => {
+    const ledger = path.join(state, 'feedback', 'feedback.ndjson')
+    fs.appendFileSync(ledger, '\n42\n"a string"\n[1,2,3]\nnull\n')
+    const rows = readAllFeedback(state)
+    assert.ok(rows.every((r) => r && typeof r === 'object' && !Array.isArray(r)))
+    assert.ok(rows.some((r) => r.feedback_id === id1)) // the real records still read
+  })
+
   await check('resolveFeedbackImage confines to the item folder', () => {
     const good = resolveFeedbackImage(id1, '1.png', state)
     assert.ok(good && good.endsWith(path.join(id1, '1.png')))

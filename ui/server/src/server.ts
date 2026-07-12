@@ -1711,6 +1711,9 @@ app.post('/api/feedback', { config: { rateLimit: { max: 300, timeWindow: '1 minu
     const record = await writeFeedbackItem({ feedback_id: feedbackId, text, category: (fields.category || 'other') as FeedbackCategory, images, url: fields.url || '' }, user)
     return reply.code(201).send({ ok: true, feedback: record, imageErrors })
   } catch (e: any) {
+    // a mid-stream failure can leave partial screenshots in the item's folder — clean it up so a failed
+    // upload never accumulates orphaned files (the ledger line was not written, so the folder is unreferenced)
+    try { fs.rmSync(itemDir(feedbackId), { recursive: true, force: true }) } catch { /* best-effort */ }
     return reply.code(500).send({ error: e?.message || 'feedback save failed' })
   }
 })

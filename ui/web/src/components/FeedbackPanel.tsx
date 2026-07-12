@@ -55,6 +55,7 @@ export function FeedbackPanel() {
   const [thumbs, setThumbs] = useState<string[]>([])
   const [submitting, setSubmitting] = useState(false)
   const [items, setItems] = useState<CockpitFeedbackView[] | null>(null)
+  const [listError, setListError] = useState(false)
   const [canDispatch, setCanDispatch] = useState(false)
   const fileInput = useRef<HTMLInputElement>(null)
   const dragging = useRef(false)
@@ -107,9 +108,11 @@ export function FeedbackPanel() {
     const gen = ++reqGen.current
     try {
       const rows = await api.listFeedback()
-      if (gen === reqGen.current) setItems(rows)
+      if (gen === reqGen.current) { setItems(rows); setListError(false) }
     } catch {
-      if (gen === reqGen.current) setItems((cur) => cur ?? [])
+      // keep any rows we already have (a failed poll shouldn't blank the list); surface an error only
+      // when we have nothing to show, so a broken store never masquerades as "no feedback yet".
+      if (gen === reqGen.current) setListError(true)
     }
   }, [])
   useEffect(() => {
@@ -228,9 +231,14 @@ export function FeedbackPanel() {
         </div>
       ) : (
         <div className="feedback__body">
-          {items === null ? (
+          {items === null && !listError ? (
             <div className="feedback__empty">Loading feedback…</div>
-          ) : items.length === 0 ? (
+          ) : listError && (!items || items.length === 0) ? (
+            <div className="feedback__empty">
+              Couldn't load feedback right now.
+              <div style={{ marginTop: 12 }}><button className="btn btn--ghost feedback__cardbtn" onClick={() => void loadList()}>Retry</button></div>
+            </div>
+          ) : !items || items.length === 0 ? (
             <div className="feedback__empty">No feedback yet — you'll be the first. Anything you send shows up here for the whole team.</div>
           ) : (
             <div className="feedback__list">
