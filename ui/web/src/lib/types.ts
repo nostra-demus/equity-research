@@ -80,6 +80,30 @@ export interface IntakePlan {
 // explain "kept N the evidence doesn't touch; re-running the affected ones" and offer the escape hatch.
 export interface ThesisPlanIntake { affected: string[]; keep: string[]; scanDate: string; summary: string }
 
+// A structured data need the run's terminal synthesizer surfaced (decision_record.json data_needs[]) —
+// an external series whose absence caps conviction, so a durable connector can be built to feed it in.
+// Mirrors the DataNeed the server reader emits (ui/server/src/data-needs.ts).
+export interface DataNeed {
+  need_id: string
+  series: string
+  why_it_caps: string
+  cap_lifted?: string
+  filing_required: boolean
+  entry_modules: string[]
+  suggested_source: { name: string; acquisition: string; licensing?: string }
+  tier: number
+  cadence: string
+  next_release?: string
+}
+export interface DataNeedsRead {
+  subject: string
+  swarm: string
+  run_root: string
+  decided_at: string
+  needs: DataNeed[]
+  widened: string[]
+}
+
 export interface ModuleNode {
   name: string
   order: number
