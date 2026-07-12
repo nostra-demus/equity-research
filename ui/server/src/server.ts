@@ -716,8 +716,15 @@ app.get('/api/resumable', { config: { rateLimit: { max: 1000, timeWindow: '1 min
 // by readIntakePlan (a hallucinated module/agent name can never reach the client as a launchable
 // command). Returns { plan: null } when there's no run or no plan yet — the client then shows the
 // honest staleness floor, never a fabricated plan. This NEVER moves a module stale->done (INTAKE.md §1).
+// Route-param barrier: the SAME zod regex the launch routes use (ThesisPlanRunBody etc.). It shapes the
+// param AND acts as the taint sanitizer CodeQL recognizes, so `ticker` never reaches path.join / launch()
+// as an untrusted value. isValidTicker below is the stricter real guard (TICKER_RE admits '..').
+const IntakeParams = z.object({ ticker: z.string().regex(TICKER_RE) })
+
 app.get('/api/intake/:ticker', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req, reply) => {
-  const { ticker } = req.params as { ticker: string }
+  const parsed = IntakeParams.safeParse(req.params)
+  if (!parsed.success) return reply.code(400).send({ error: 'bad ticker' })
+  const { ticker } = parsed.data
   if (!isValidTicker(ticker)) return reply.code(400).send({ error: 'bad ticker' })
   try {
     return { plan: readIntakePlan(ticker) }
@@ -733,7 +740,9 @@ app.get('/api/intake/:ticker', { config: { rateLimit: { max: 600, timeWindow: '1
 // directly through the same path.
 app.post('/api/intake/:ticker/analyze', { config: { rateLimit: { max: 30, timeWindow: '1 minute' } } }, async (req, reply) => {
   if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request blocked' })
-  const { ticker } = req.params as { ticker: string }
+  const parsed = IntakeParams.safeParse(req.params)
+  if (!parsed.success) return reply.code(400).send({ error: 'bad ticker' })
+  const { ticker } = parsed.data
   const { user, userVia } = identify(req)
   if (!isValidTicker(ticker)) return reply.code(400).send({ error: 'bad ticker' })
   // Data-pool allow-list — `launch()` does not re-check it for a research kind (route-enforced only).
