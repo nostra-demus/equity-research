@@ -39,6 +39,47 @@ export interface AgentNode {
   soloRunnable: boolean
   isSynthesis: boolean
 }
+
+// ---- document intake (the scoped rerun plan, frameworks/INTAKE.md) ----
+// Mirrors the server's readIntakePlan() shape. The plan is ADVISORY guidance over the staleness floor —
+// it never claims a module is fresh; it only narrows which orbs a rerun needs to touch.
+export interface IntakeEntryOrb { module: string; agent: string; why: string; confidence: number }
+export interface IntakeNewDoc {
+  path: string
+  sha256?: string | null
+  provider?: string | null
+  source_type?: string | null
+  tier?: number | null
+  as_of?: string | null
+  claims_summary: string
+  materiality_score: number
+  impact_direction: string
+  entry_orbs: IntakeEntryOrb[]
+}
+export interface IntakeRerunCommand { command: string; module: string; agent: string; cascade_modules: string[]; triggered_by: string[] }
+export interface IntakeRerunPlan {
+  materiality_gate: number
+  entry_orbs: { module: string; agent: string }[]
+  commands: IntakeRerunCommand[]
+  note_only: { path: string; reason: string }[]
+}
+export interface IntakePlan {
+  schema_version: string
+  ticker: string
+  run_root: string
+  scan_date: string
+  watermark?: string
+  new_docs: IntakeNewDoc[]
+  rerun_plan: IntakeRerunPlan
+  verdict: 'scoped_rerun' | 'note_only' | 'insufficient'
+  summary: string
+  analyzed_at: string
+  widened: string[]
+}
+// The scoping the intake plan applied to a "Complete the thesis" plan (client-only), so the panel can
+// explain "kept N the evidence doesn't touch; re-running the affected ones" and offer the escape hatch.
+export interface ThesisPlanIntake { affected: string[]; keep: string[]; scanDate: string; summary: string }
+
 export interface ModuleNode {
   name: string
   order: number

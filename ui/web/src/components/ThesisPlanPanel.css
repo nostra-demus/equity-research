@@ -150,3 +150,48 @@ button.tpp__badge--pressable[aria-busy='true'] { opacity: 1; } /* the launching 
   .tpp__row--actionable:active { transform: none; }
   .tpp__skel { animation: none; opacity: 0.5; }
 }
+
+/* ---- intake scoping banner: the intelligent "keep N, re-run only the affected" framing --------------
+   Shown when a scoped intake plan narrowed this run. Distinct from the plain carry/hint notes: it carries
+   the accent + an angular document-shard mark, so it reads as the intelligence, not a footnote.
+   Motion budget honored: transform/opacity only, <300ms, --ease-out, reduced-motion + hover gated. */
+.tpp__intake {
+  flex: none;
+  margin: 2px 20px 4px;
+  padding: 11px 13px;
+  display: flex; align-items: center; gap: 12px;
+  background: var(--accent-wash-soft);
+  border: 1px solid var(--accent-wash);
+  border-radius: var(--r-sm);
+  animation: tpp-intake-in 240ms var(--ease-out) both;
+}
+.tpp__intake-lede { display: flex; align-items: flex-start; gap: 10px; min-width: 0; flex: 1; }
+.tpp__intake-mark {
+  flex: none; width: 10px; height: 12px; margin-top: 2px;
+  background: var(--accent-bright);
+  /* an angular document-shard glyph (folded top-right corner) — deliberately not a round orb mark */
+  clip-path: polygon(0 0, 66% 0, 100% 34%, 100% 100%, 0 100%);
+  box-shadow: 0 0 9px var(--accent-glow);
+}
+.tpp__intake-copy { min-width: 0; }
+.tpp__intake-head { font-size: 12.5px; color: var(--text); line-height: 1.35; }
+.tpp__intake-head b { color: var(--accent-bright); font-weight: 600; }
+.tpp__intake-note { margin-top: 3px; font-size: 11.5px; color: var(--text-faint); line-height: 1.4; }
+.tpp__intake-reset {
+  flex: none; align-self: center;
+  font-size: 11px; color: var(--text-faint); white-space: nowrap;
+  background: transparent; border: 1px solid var(--hairline); border-radius: var(--r-pill);
+  padding: 5px 10px; cursor: pointer;
+  transition: transform var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .tpp__intake-reset:hover { color: var(--text); border-color: var(--accent-wash); }
+}
+.tpp__intake-reset:active { transform: scale(0.97); }
+.tpp__intake-reset:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.tpp__intake-reset:disabled { opacity: 0.5; cursor: default; }
+@keyframes tpp-intake-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+@media (prefers-reduced-motion: reduce) {
+  .tpp__intake { animation: none; }
+  .tpp__intake-reset:active { transform: none; }
+}
