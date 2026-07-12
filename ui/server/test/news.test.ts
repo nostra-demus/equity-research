@@ -748,6 +748,54 @@ await check('readArticleBrief: a 429 arms the shared cooldown (does NOT exhaust 
   assert.equal(r2.brief, null)
 })
 
+// ---- P1 fix (PR #223 review): a pre-flight miss (no provider request ever made) must NOT arm the shared
+// cooldown. "body too thin to read" is decided BEFORE any HTTP call — a single thin article must never mark
+// a perfectly healthy provider unhealthy and sideline it for the whole cooldown/backoff window. ----
+await check('readArticleBrief: a body too thin to read never contacts the provider and never arms the cooldown', async () => {
+  const state = tmp()
+  resetCooldownMemory()
+  resetSharedLimiters()
+  const provider = { id: 'groq', kind: 'openai', apiKey: 'k', baseUrl: 'https://groq.test', model: 'm', rpm: 6000, tpm: 0, dailyReqCap: 13000, dailyTokenCap: 500000, budgetFile: 'groq-budget.json', limiter: 'groq' }
+  const thinBody = 'Rates cut.' // well under analyzeArticle's 80-char floor after whitespace-stripping
+  let calls = 0
+  const fetchFn = (async () => { calls++; return res({}, 200) }) as unknown as typeof fetch
+  const at = Date.parse('2026-06-12T09:30:00Z')
+  const r = await readArticleBrief(thinBody, 'RBI surprise cut', [provider] as any, { stateDir: state, fetchFn, sleep: noSleep, now: () => at, deadlineMs: at + 12_000 })
+  assert.equal(calls, 0, 'the pre-flight thin-body check short-circuits BEFORE any network call — the provider is never touched')
+  assert.equal(r.brief, null)
+  assert.equal(readCooldownUntil(state, 'groq'), 0, 'no failure ever reached the provider — the cooldown must stay unarmed')
+  assert.equal(fs.existsSync(path.join(state, 'groq-health.json')), false, 'no health marker written — a thin article must not sideline a healthy provider')
+
+  // a SECOND read (still a thin body) must ALSO reach the provider check fresh — proving the first thin-body
+  // miss left the provider marked healthy, not cooling down.
+  const r2 = await readArticleBrief(thinBody, 'RBI surprise cut', [provider] as any, { stateDir: state, fetchFn, sleep: noSleep, now: () => at + 1_000, deadlineMs: at + 13_000 })
+  assert.equal(r2.brief, null)
+  assert.equal(readCooldownUntil(state, 'groq'), 0, 'still unarmed after a second thin-body miss')
+})
+
+// ---- P2 fix (PR #223 review): readArticleBrief must honor the CALLER-supplied cooldownMs/cooldownMaxMs
+// (what server.ts/enrich-heal.ts now thread from config.NEWS.llmCooldownMs/llmCooldownMaxMs) instead of
+// always arming its own hardcoded ~300s/60min default — an operator lengthening the cooldown for a real
+// outage must have it actually apply to article reads, not just triage. ----
+await check('readArticleBrief: a caller-supplied cooldownMs/cooldownMaxMs is honored, not the hardcoded default', async () => {
+  const state = tmp()
+  resetCooldownMemory()
+  resetSharedLimiters()
+  const provider = { id: 'groq', kind: 'openai', apiKey: 'k', baseUrl: 'https://groq.test', model: 'm', rpm: 6000, tpm: 0, dailyReqCap: 13000, dailyTokenCap: 500000, budgetFile: 'groq-budget.json', limiter: 'groq' }
+  const body = 'The central bank cut rates by 50 basis points in a surprise off-cycle move, citing softer inflation and slowing growth across the economy.'
+  const fetchFn = (async () => res('rate limited', 429)) as unknown as typeof fetch
+  const at = Date.parse('2026-06-12T09:30:00Z')
+  // an operator-configured window far longer than readArticleBrief's own 300s/60min hardcoded default —
+  // mirrors NEWS_LLM_COOLDOWN_SEC / NEWS_LLM_COOLDOWN_MAX_SEC being turned up during a real outage.
+  const configuredCooldownMs = 20 * 60_000 // 20 min
+  const configuredCooldownMaxMs = 90 * 60_000 // 90 min
+  await readArticleBrief(body, 'RBI surprise cut', [provider] as any, {
+    stateDir: state, fetchFn, sleep: noSleep, now: () => at, deadlineMs: at + 12_000,
+    cooldownMs: configuredCooldownMs, cooldownMaxMs: configuredCooldownMaxMs,
+  })
+  assert.equal(readCooldownUntil(state, 'groq'), at + configuredCooldownMs, 'the armed window uses the CONFIGURED base, not readArticleBrief\'s 300s hardcoded default')
+})
+
 // ---- #3: exponential backoff + clear-resets, so a sustained outage stays under even a tiny cap ----
 await check('cooldown backoff: consecutive failures double the window (capped); clear resets it', () => {
   const state = tmp()

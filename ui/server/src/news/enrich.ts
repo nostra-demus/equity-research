@@ -751,6 +751,12 @@ export interface EnrichDeps {
   // single provider's rate limiter before skipping it (default 2.5s). Past the budget we return the floor.
   llmBudgetMs?: number
   limiterWaitMs?: number
+  // the SHARED per-provider cross-cycle cooldown (config.NEWS.llmCooldownMs / llmCooldownMaxMs, set by
+  // NEWS_LLM_COOLDOWN_SEC / NEWS_LLM_COOLDOWN_MAX_SEC). Omit → readArticleBrief's own hardcoded defaults
+  // (300s base / 60min cap) — an operator who lengthens the cooldown during a real outage must have that
+  // reach every article-read call site, not just the ingester's triage/overflow/Gemini seams in runCycle.ts.
+  cooldownMs?: number
+  cooldownMaxMs?: number
   // legacy single-Groq shape — still honoured (tests / older callers). When articleProviders is absent but
   // this is set, it's promoted to a one-element chain so behaviour is unchanged.
   groq?: { apiKey: string; model: string; baseUrl: string; maxTokens?: number; rpm?: number; tpm?: number; dailyReqCap?: number; dailyTokenCap?: number }
@@ -1144,6 +1150,8 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
         now: () => now().getTime(),
         deadlineMs: readDeadline,
         limiterWaitMs: deps.limiterWaitMs,
+        cooldownMs: deps.cooldownMs,
+        cooldownMaxMs: deps.cooldownMaxMs,
       })
       brief = r.brief
       // count this toward read_attempts ONLY if a provider actually ran an LLM call. A SKIP (all providers
@@ -1191,6 +1199,7 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
         const r = await readArticleBrief([alt.snippet, at.text].filter(Boolean).join('\n\n'), readHeadline, providers, {
           stateDir: deps.stateDir, fetchFn, sleep: deps.sleep,
           now: () => now().getTime(), deadlineMs: readDeadline, limiterWaitMs: deps.limiterWaitMs,
+          cooldownMs: deps.cooldownMs, cooldownMaxMs: deps.cooldownMaxMs,
         })
         if (r.attempted) attempted = true
         if (applyBrief(result, r.brief)) {
@@ -1222,6 +1231,7 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
           const r = await readArticleBrief(buildCorroborationBody(headline, secondaries), readHeadline, providers, {
             stateDir: deps.stateDir, fetchFn, sleep: deps.sleep,
             now: () => now().getTime(), deadlineMs: readDeadline, limiterWaitMs: deps.limiterWaitMs,
+            cooldownMs: deps.cooldownMs, cooldownMaxMs: deps.cooldownMaxMs,
           })
           if (r.attempted) attempted = true
           applyBrief(result, r.brief)

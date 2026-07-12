@@ -24,9 +24,11 @@ import { analyzeArticleGemini } from './gemini'
 
 // Base cooldown window when a read fails a provider — mirrors config.NEWS.llmCooldownMs's default so the
 // on-demand/heal reader and the ingester arm the SAME shared per-provider marker with the same base (the
-// marker stores an absolute expiry, so a small drift between callers is harmless). Backoff cap is
-// armCooldown's own default (30 min).
+// marker stores an absolute expiry, so a small drift between callers is harmless). Backoff cap mirrors
+// config.NEWS.llmCooldownMaxMs's default (armCooldown's own default, 60 min) — both are only the fallback
+// for callers that don't thread the configured values through ArticleReadDeps.cooldownMs/cooldownMaxMs.
 const COOLDOWN_MS = 300_000
+const COOLDOWN_MAX_MS = 3_600_000
 
 // One entry in the article-read fallback chain. Built from config (config.ts → buildArticleReadProviders),
 // in priority order. The shapes mirror the ingester's so the two share budgets + limiters exactly.
@@ -59,6 +61,7 @@ export interface ArticleReadDeps {
   deadlineMs?: number // absolute wall-clock ms the whole read must finish by (default now + 14s)
   limiterWaitMs?: number // max wait on each provider's limiter before skipping it (default 2500)
   cooldownMs?: number // base cross-cycle cooldown window armed on a provider failure (default COOLDOWN_MS)
+  cooldownMaxMs?: number // exponential-backoff cap for the cooldown window (default COOLDOWN_MAX_MS)
   perCallTimeoutMs?: number // hard ceiling for a single provider HTTP call (default 9000, clamped to the deadline)
   log?: (m: string) => void
 }
@@ -107,6 +110,7 @@ export async function readArticleBrief(
   let attempted = false // flips true the instant any provider actually executes an LLM call (not a skip)
 
   const cooldownMs = deps.cooldownMs ?? COOLDOWN_MS
+  const cooldownMaxMs = deps.cooldownMaxMs ?? COOLDOWN_MAX_MS
   for (const p of providers) {
     if (now() >= deadline) { lastNote = 'deadline reached before a provider answered'; break }
     if (!p.apiKey) continue
@@ -150,7 +154,11 @@ export async function readArticleBrief(
         }
         lastNote = r.note || `${p.id}:${m.model} returned no usable brief`
         if (r.note && /PerDay/i.test(r.note)) { budget.exhaust(); budget.save(); continue } // this model's day is spent → next pool model
-        armCooldown(deps.stateDir, now(), cooldownMs, coolId) // transient (429/5xx/network) → back this model off across reads
+        // only a REAL provider-call failure (429/5xx/network) marks this model unhealthy. r.attempted === false
+        // means analyzeArticleGemini short-circuited BEFORE any network call (no key, or the body too thin to
+        // ever feed an LLM) — that says nothing about the provider's health and must not arm its cooldown (the
+        // #219-adjacent bug: a single thin article would otherwise sideline a perfectly healthy provider).
+        if (r.attempted !== false) armCooldown(deps.stateDir, now(), cooldownMs, coolId, cooldownMaxMs)
         break // a non-quota miss: don't churn the pool — fall through to the next provider
       }
     } else {
@@ -173,8 +181,12 @@ export async function readArticleBrief(
         // a PER-MINUTE rate limit, NOT per-day exhaustion: exhausting on it slammed the whole daily budget to the
         // cap on ONE failed read and blocked triage's own recovery until UTC midnight (the #219 audit finding) —
         // so a 429 / 5xx / network arms the shared cross-cycle cooldown instead (transient, backs off, self-clears).
+        // r.attempted === false means analyzeArticle short-circuited BEFORE any network call (no key, or the
+        // body too thin to ever feed an LLM) — never arm the cooldown on that: nothing about the provider
+        // failed, so marking it unhealthy would wrongly sideline it for the whole window on a single thin
+        // article (the P1 twin of the #219 audit finding, this time for the pre-flight path).
         if (/HTTP (400|401|402|403|404|413)/.test(r.note || '')) { budget.exhaust(); budget.save() }
-        else armCooldown(deps.stateDir, now(), cooldownMs, p.id)
+        else if (r.attempted !== false) armCooldown(deps.stateDir, now(), cooldownMs, p.id, cooldownMaxMs)
       }
     }
   }

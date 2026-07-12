@@ -123,16 +123,19 @@ export async function triageBatchGemini(
  * down. Never throws; bounded by timeoutMs; honours maxAttempts (the reader passes 1 — one shot, then fall
  * through to the next provider). FREE TIER ONLY.
  */
+// `attempted` distinguishes a genuine provider-call failure from a PRE-FLIGHT short-circuit (no key, or the
+// body too thin to ever feed an LLM) that never reached the network — explicitly false for those two, absent
+// (≡ true) everywhere else. Mirrors analyzeArticle (groq.ts); see its comment for why the caller needs this.
 export async function analyzeArticleGemini(
   body: string,
   headline: string,
   opts: TriageOptions,
   fetchFn: typeof fetch = fetch,
   sleep: (ms: number) => Promise<void> = (ms) => new Promise((r) => setTimeout(r, ms)),
-): Promise<{ brief: ArticleBrief | null; tokens: number; note?: string; rate?: RateInfo }> {
-  if (!opts.apiKey) return { brief: null, tokens: 0, note: 'no GEMINI_API_KEY' }
+): Promise<{ brief: ArticleBrief | null; tokens: number; note?: string; rate?: RateInfo; attempted?: boolean }> {
+  if (!opts.apiKey) return { brief: null, tokens: 0, note: 'no GEMINI_API_KEY', attempted: false }
   const text = String(body || '').slice(0, 6000)
-  if (text.replace(/\s+/g, ' ').trim().length < 80) return { brief: null, tokens: 0, note: 'body too thin to read' }
+  if (text.replace(/\s+/g, ' ').trim().length < 80) return { brief: null, tokens: 0, note: 'body too thin to read', attempted: false }
   const user = `HEADLINE: ${headline}\n\nARTICLE BODY:\n${text}`
   const url = `${opts.baseUrl}/models/${opts.model}:generateContent`
   let tokens = 0
