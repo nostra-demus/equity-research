@@ -361,6 +361,20 @@ export const NEWS = {
   // On a higher tier the headers raise the ceiling automatically; no redeploy needed.
   groqRpm: capNum(process.env.NEWS_GROQ_RPM, 28),
   groqTpm: capNum(process.env.NEWS_GROQ_TPM, 6000),
+  // PM SKIM — the "Best ideas" pass (news/ideas). Tier 1.5: after triage, one cheap batched free-LLM call
+  // over the wire's already-ranked top-N surfaces the best 1-2 TRADABLE stock ideas (ticker · side · reason
+  // · pre-edge read), feeding the paid gauntlet on a click. Opt-in and defensive: OFF unless IDEAS_ENABLED=1,
+  // so it can never destabilise the live wire until deliberately turned on. It rides the SAME Groq budget /
+  // limiter / cooldown as triage (never a parallel lane), and is throttled hard so it can't starve triage:
+  // it spends only when the top-N event set changes (or once per ideasRefreshSec heartbeat), and never more
+  // often than ideasMinIntervalSec. A per-cycle call would blow the 500k token budget alone.
+  ideasEnabled: process.env.IDEAS_ENABLED === '1',
+  ideasTopN: capNum(process.env.IDEAS_TOP_N, 12), // how many ranked rows the skim reads per pass (matches the triage batch size)
+  ideasShelfLifeHrs: capNum(process.env.IDEAS_SHELF_LIFE_HRS, 36), // a surfaced idea ages off the fresh lane after this many hours
+  ideasMinIntervalSec: capNum(process.env.IDEAS_MIN_INTERVAL_SEC, 900), // hard floor between passes (15 min) — even a churny wire can't hammer it
+  ideasRefreshSec: capNum(process.env.IDEAS_REFRESH_SEC, 3600), // heartbeat: re-skim at least this often even when the top-N is unchanged
+  ideasMaxTokens: capNum(process.env.IDEAS_MAX_TOKENS, 2500), // output ceiling — a few ideas of JSON, never a truncation
+  ideasDownvoteGraceHrs: capNum(process.env.IDEAS_DOWNVOTE_GRACE_HRS, 2), // a 👎 on a surfaced idea cools it this fast (idea-scoped, no global lever)
   // OPTIONAL stronger model for FILING reads only (exchange PDFs / regulatory docs) — see
   // buildFilingReadProviders. OpenAI-compatible endpoint: point it at any capable model you hold a key for
   // (a larger OpenRouter model, an Anthropic/OpenAI-compatible gateway, …). Unset (no model) => filings use

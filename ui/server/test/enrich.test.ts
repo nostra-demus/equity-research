@@ -308,7 +308,7 @@ function tmpRepo(snippet: string = SNIPPET): { repoRoot: string; stateDir: strin
 
 const GOOD_BRIEF: ArticleBrief = {
   gist: ['Tilray reported $206.7M in Q3 sales; international cannabis grew 73% but is only 12% of revenue.', 'The company remains unprofitable.'],
-  companies: [{ name: 'Tilray Brands', ticker: 'TLRY', role: 'subject', listing_country: 'United States', exchange: 'NASDAQ' }],
+  companies: [{ name: 'Tilray Brands', ticker: 'TLRY', role: 'subject', listing_status: 'public', listing_country: 'United States', exchange: 'NASDAQ' }],
   beneficiaries: [], exposed: [{ name: 'Tilray Brands', named_in_article: true, mechanism: 'persistent unprofitability' }], theme: 'earnings_revenue_margin',
 }
 const EMPTY_BRIEF: ArticleBrief = { gist: [], companies: [], beneficiaries: [], exposed: [], theme: '' }
@@ -519,7 +519,7 @@ const SECONDARIES = [
 ]
 const CORROB_BRIEF: ArticleBrief = {
   gist: ['Tilray international cannabis revenue grew 73%; Q3 sales were $206.7M and the company remains unprofitable.'],
-  companies: [{ name: 'Tilray Brands', ticker: 'TLRY', role: 'subject', listing_country: 'United States', exchange: 'NASDAQ' }],
+  companies: [{ name: 'Tilray Brands', ticker: 'TLRY', role: 'subject', listing_status: 'public', listing_country: 'United States', exchange: 'NASDAQ' }],
   beneficiaries: [], exposed: [], theme: 'earnings_revenue_margin',
 }
 // a fetch that BLOCKS the source page (403), serves the GDELT keyword query, and (optionally) an LLM brief
@@ -641,7 +641,7 @@ const INTERSTITIAL_HTML =
   '</body></html>'
 const TON_BRIEF: ArticleBrief = {
   gist: ['NQM failed to complete the Mozambique graphite asset sale by 1 July 2026; Triton issued a default notice requiring completion by 9 July 2026.'],
-  companies: [{ name: 'Triton Minerals', ticker: 'TON', role: 'subject', listing_country: 'Australia', exchange: 'ASX' }],
+  companies: [{ name: 'Triton Minerals', ticker: 'TON', role: 'subject', listing_status: 'public', listing_country: 'Australia', exchange: 'ASX' }],
   beneficiaries: [], exposed: [], theme: 'deals_takeovers',
 }
 
@@ -897,7 +897,7 @@ await check('REVIEW FIX: after a successful gist-less alternate read, corroborat
   resetGdeltBackoff()
   const GISTLESS_BRIEF: ArticleBrief = {
     gist: [], beneficiaries: [], exposed: [], theme: 'lawsuits_penalties',
-    companies: [{ name: 'KPMG Australia', ticker: null, role: 'subject', listing_country: 'Australia', exchange: null }],
+    companies: [{ name: 'KPMG Australia', ticker: null, role: 'subject', listing_status: 'unknown', listing_country: 'Australia', exchange: null }],
   }
   const { repoRoot, stateDir } = tmpRepoItems([
     {
@@ -991,7 +991,7 @@ function makeRoutedFetch(filingBrief: ArticleBrief, normalBrief: ArticleBrief, s
   }) as typeof fetch
 }
 const FILING_PROVIDER: ArticleReadProvider = { ...PROVIDER, id: 'filing-read', baseUrl: 'https://filing.test', budgetFile: 'filing-test-budget.json', limiter: 'filing-test' }
-const FILING_BRIEF: ArticleBrief = { gist: ['STRONG-MODEL read: Adani Enterprises allotted QIP equity shares at the issue price, raising the disclosed amount'], companies: [{ name: 'Adani Enterprises', ticker: 'ADANIENT', role: 'subject', listing_country: 'India', exchange: 'NSE' }], beneficiaries: [], exposed: [], theme: 'capital_actions' }
+const FILING_BRIEF: ArticleBrief = { gist: ['STRONG-MODEL read: Adani Enterprises allotted QIP equity shares at the issue price, raising the disclosed amount'], companies: [{ name: 'Adani Enterprises', ticker: 'ADANIENT', role: 'subject', listing_status: 'public', listing_country: 'India', exchange: 'NSE' }], beneficiaries: [], exposed: [], theme: 'capital_actions' }
 
 await check('filing read escalation: a FILING is read by the stronger filing provider FIRST', async () => {
   const { repoRoot, stateDir } = tmpFilingRepo()

@@ -1,5 +1,6 @@
 import { staticPromptPath } from './prompts'
 import { DEFAULT_RANK_WEIGHTS, type RankWeights, type RankWeightsState } from './rankWeights'
+import type { AutotuneState, RankWeightChanges, WeightChange } from './types'
 import type { ActivityQuery, ActivityResult, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CoverageGroup, DataStatus, EventEnrichment, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, ThesisPlan, TickerSummary, UploadResult, Usage, Whoami } from './types'
 
 const BASE = import.meta.env.BASE_URL
@@ -94,7 +95,7 @@ async function put<T>(url: string, body?: any): Promise<T> {
 const STATIC_ERR = () => Object.assign(new Error('static-deploy'), { static: true })
 
 const EMPTY_BOARD: ScreenerBoard = { generated_at: null, inbox: [], signals: [], theses: [], handoffs: [], counts: {}, live: [] }
-const EMPTY_FEEDBACK_SUMMARY: FeedbackSummary = { total: 0, active_total: 0, by_type: {} as Record<FeedbackType, number>, top_reasons: [], generated_at: '' }
+const EMPTY_FEEDBACK_SUMMARY: FeedbackSummary = { total: 0, active_total: 0, by_type: {} as Record<FeedbackType, number>, top_reasons: [], clustered_reasons: [], generated_at: '' }
 
 // ---- archive search + facets (the whole-history filtered read) ----
 /** The structured filter sent to /api/news/search + /api/news/facets. Geography is country-level. */
@@ -216,6 +217,17 @@ export const api = {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/launch`, { kind: 'sweep' })
   },
+  // Escalate a PM-skim idea into the paid gauntlet ("Run the full machine"). The server maps the idea to a
+  // signal intake and launches it through the normal signal path.
+  promoteIdea: async (ideaId: string): Promise<{ sigId: string; runId: string }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/screener/ideas/${encodeURIComponent(ideaId)}/promote`, {})
+  },
+  // 👍/👎 a surfaced idea (self-grading loop). 'clear' un-votes.
+  rateIdea: async (ideaId: string, polarity: 'up' | 'down' | 'clear', reason?: string): Promise<{ ok: boolean }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/screener/ideas/${encodeURIComponent(ideaId)}/feedback`, { polarity, ...(reason ? { reason } : {}) })
+  },
   // ---- the news wire (auto-scanner visibility + human actions) ----
   newsStatus: async (): Promise<NewsStatus> => {
     if ((await ensureMode()) === 'static')
@@ -260,6 +272,20 @@ export const api = {
   saveRankWeights: async (body: Partial<RankWeights> | { reset: true }): Promise<RankWeightsState> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return put<RankWeightsState>(`/api/news/rank-weights`, body)
+  },
+  // AUTO-TUNE — the append-only history of automatic weight changes + the pause/pins the loop obeys, a
+  // one-click revert, and a manual "run now". Static showcase has no engine → empty history, unpaused.
+  rankWeightChanges: async (): Promise<RankWeightChanges> => {
+    if ((await ensureMode()) === 'static') return { changes: [], autotune: { paused: false, pins: [], daily: { date: '', count: 0 } } }
+    return get<RankWeightChanges>(`/api/news/rank-weights/changes`)
+  },
+  revertRankWeightChange: async (id: string): Promise<{ ok: boolean; reverted: WeightChange; active: RankWeights }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/news/rank-weights/changes/${encodeURIComponent(id)}/revert`)
+  },
+  setAutotune: async (body: { paused?: boolean; pins?: string[] }): Promise<AutotuneState> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return put<AutotuneState>(`/api/news/rank-weights/autotune`, body)
   },
   // the living themes the firehose is bucketed into (ranked index + one theme's deep-dive). An optional
   // geography (country ISO alpha-2 and/or continent) slices the SAME themes to that geography's news flow —

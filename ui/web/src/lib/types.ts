@@ -188,7 +188,11 @@ export interface RelatedEvent {
 }
 export type CompanyRole = 'subject' | 'acquirer' | 'target' | 'forecaster' | 'mentioned'
 export type PartyOrder = 'first' | 'second'
-export interface ArticleCompany { name: string; ticker: string | null; role: CompanyRole; listing_country?: string | null; exchange?: string | null }
+// public = the firm has tradable listed equity; private = privately held (PE/family-owned, a fund, an unlisted
+// subsidiary), so not directly investable; unknown = the read couldn't tell. Optional so a ≤12h-old cached
+// enrichment (produced before the field existed) still renders — the client derives/defaults it.
+export type ListingStatus = 'public' | 'private' | 'unknown'
+export interface ArticleCompany { name: string; ticker: string | null; role: CompanyRole; listing_status?: ListingStatus; listing_country?: string | null; exchange?: string | null }
 // A gainer / exposed party with its transmission read. `mechanism` is the live field; `basis` is kept
 // optional so a ≤12h-old cached enrichment (produced before the upgrade) still renders its blurb.
 export interface ArticleParty {
@@ -293,7 +297,40 @@ export interface FeedbackSummary {
   active_total: number
   by_type: Record<FeedbackType, number>
   top_reasons: { reason: string; count: number }[]
+  clustered_reasons: { scope: string; count: number; sample_reasons: string[] }[]
   generated_at: string
+}
+
+// AUTO-TUNE — the automatic feedback→weights loop's audit + controls (rank-weights-audit.ts).
+export interface WeightDelta {
+  dimension: string
+  category: string
+  before: number
+  after: number
+}
+export interface WeightChange {
+  v: 1
+  change_id: string
+  ts: string
+  actor: string
+  kind: 'apply' | 'revert'
+  reverts?: string
+  status?: string
+  deltas: WeightDelta[]
+  evidence_feedback_ids?: string[]
+  backtest?: { holdout_evaluable: number; directional_improvement: number | null; passes: boolean | null } | null
+  tuner_generated_at?: string
+  note?: string
+  reverted?: boolean
+}
+export interface AutotuneState {
+  paused: boolean
+  pins: string[] // "dimension:category"
+  daily: { date: string; count: number }
+}
+export interface RankWeightChanges {
+  changes: WeightChange[]
+  autotune: AutotuneState
 }
 
 export interface NewsCycle {
@@ -483,6 +520,51 @@ export interface BoardThesis {
   conviction?: BoardConviction | null
 }
 export interface BoardHandoff { handoff_id: string; thesis_id: string; ticker: string; handed_off_at: string; seeded_path: string }
+// The PM skim's surfaced ideas (news/ideas → board.ideas). A cheap free-LLM pass over the ranked wire
+// top-N names the best 1-2 tradable stock ideas; the "Best ideas" tab renders these. `conviction` is a
+// PRE-EDGE proxy (conviction_basis pins that), never the locked edge score.
+export interface BoardIdeaPriorCoverage { has_run: boolean; latest_run: string | null; latest_decision: string | null; data_pool_present: boolean }
+export interface BoardIdea {
+  idea_id: string
+  ticker: string
+  company: string | null
+  exchange: string | null // the model's guess, UNVERIFIED
+  direction: 'long' | 'short' | 'pair'
+  pair_with: string | null
+  reason: string
+  why_now: string
+  conviction: number // 0-100 pre-edge PROXY
+  conviction_basis: 'pre_edge_proxy'
+  priced_in: 'priced' | 'room' | 'unknown'
+  thesis_type: string
+  source_event_ids: string[]
+  source_headlines: string[]
+  source_url: string | null
+  source_name: string | null
+  materiality_max: number
+  newest_source_at: string
+  prior_coverage: BoardIdeaPriorCoverage | null
+  surfaced_at: string
+  updated_at: string
+  decay_at: string
+  status: 'live' | 'promoted'
+  promoted_signal_id: string | null
+  feedback: 'up' | 'down' | null // the human's latest 👍/👎 (self-grading loop); null = no vote
+  stale: boolean
+}
+// The skim's honest track record (no price / no P&L) — surfaced/run counts, how the deep machine graded the
+// runs, and the vote tally. The header shows a confirmation rate only once `resolved` clears a small floor.
+export interface IdeasScorecard {
+  surfaced_total: number
+  live_count: number
+  promoted_total: number
+  machine_confirmed: number
+  machine_passed: number
+  machine_pending: number
+  resolved: number
+  up_votes: number
+  down_votes: number
+}
 // Run-state of a wire event's signal (GET /api/screener/signal-state) — drives the reader's "Run the checks"
 // split button + badge. A pure read of the run folder + live registry; never a launch.
 export interface SignalState {
@@ -502,6 +584,10 @@ export interface ScreenerBoard {
   signals: BoardSignal[]
   theses: BoardThesis[]
   handoffs: BoardHandoff[]
+  // The PM skim's surfaced ideas. Optional: an engine build before this feature emits no `ideas` key, so
+  // the cockpit fails closed — the "Best ideas" tab only shows when the server positively sends the array.
+  ideas?: BoardIdea[]
+  ideas_scorecard?: IdeasScorecard // the skim's honest track record (absent on an older engine)
   counts: Record<string, number>
   book_momentum?: BookMomentum
   live?: { runId: string; kind: string; subjectId: string; runRoot: string | null; startedAt: number }[]
