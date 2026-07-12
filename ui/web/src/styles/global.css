@@ -56,13 +56,21 @@ a { color: inherit; }
 .topbar :where(button, .chip, .readiness__label, .tickerpick__ticker, .creditbadge, .autoscan, .brand__name, .brand__sub) { white-space: nowrap; }
 .topbar .btn { padding: 0 12px; }
 .topbar__spacer { flex: 1 1 0; }
-.brand { flex-shrink: 1; min-width: 0; }
+/* The brand may shrink to truncate its TITLE, but never below its own content: the swarm switcher is
+   flex-shrink:0, so if the brand were allowed to collapse past it (min-width:0), the switcher would spill
+   out of the brand box and render ON TOP of the right-hand controls — the "research·running·Screener"
+   garble in screener mode, which packs the most controls. Reserving min-content keeps the switcher inside
+   the brand; when the whole row still can't fit, the right controls overflow the edge cleanly instead. */
+.brand { flex-shrink: 1; min-width: min-content; }
 .brand__title { min-width: 0; overflow: hidden; }
 .brand__name { overflow: hidden; text-overflow: ellipsis; }
 /* Primary nav — never let it get squeezed by the generic .brand > div shrink rule above (that rule is
    scoped to .brand__title on purpose: the app name may truncate, the swarm switcher must not). */
 .swarmswitch { flex-shrink: 0; }
 @media (max-width: 1240px) { .brand__sub { display: none; } }
+/* Tighter still: drop the switcher's text labels (the colour-coded orbs + their titles still identify each
+   swarm) so the left cluster stops crowding the right-hand tools before anything can collide. */
+@media (max-width: 1160px) { .swarmswitch__label { display: none; } .swarmswitch__item { padding: 0 8px; } }
 
 /* ticker picker */
 .tickerpick { position: relative; }
@@ -1190,6 +1198,36 @@ a { color: inherit; }
 .ideacard--archived { opacity: 0.82; grid-template-columns: 32px 1fr; }
 .ideacard--archived .ideacard__body { gap: 4px; }
 
+/* Soft-delete control — a quiet ✕ that surfaces on card hover (like Replay), never competing with the
+   headline at rest. GPU-only (opacity + transform), custom ease-out, keyboard-reachable, and it warms to
+   the danger colour only on direct hover so the intent reads without shouting. Hide is reversible (Undo
+   toast + Hidden tray), so one click is enough — no destructive confirm. */
+.ideacard__hide {
+  flex-shrink: 0; align-self: flex-start;
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 26px; height: 26px; padding: 0; margin: -1px -3px -1px 0;
+  border: 1px solid transparent; border-radius: var(--r-sm);
+  background: transparent; color: var(--text-faint); cursor: pointer;
+  opacity: 0;
+  transition: opacity var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out),
+              background-color var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out),
+              transform var(--dur-fast) var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .ideacard:hover .ideacard__hide { opacity: 0.55; }
+  .ideacard__hide:hover { opacity: 1; color: var(--bad); background: color-mix(in srgb, var(--bad) 12%, transparent); border-color: color-mix(in srgb, var(--bad) 26%, transparent); }
+}
+/* touch / keyboard: always reachable (no hover to reveal it) */
+@media (hover: none), (pointer: coarse) { .ideacard__hide { opacity: 0.55; } }
+.ideacard__hide:focus-visible { outline: none; opacity: 1; color: var(--bad); box-shadow: 0 0 0 2px var(--accent-wash); }
+.ideacard__hide:active { transform: scale(0.92); }
+@media (prefers-reduced-motion: reduce) { .ideacard__hide { transition: opacity var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out); } .ideacard__hide:active { transform: none; } }
+
+/* Hidden tray cards — muted, compact, single-column (no dial, no chevron): they're out of the book but
+   on record, one click from restore. */
+.ideacard--hidden { opacity: 0.7; grid-template-columns: 1fr; }
+.ideacard--hidden .ideacard__body { gap: 4px; }
+
 /* skeleton — three placeholder cards swept by a transform-only sheen (compositor-friendly) */
 .ideacard--skeleton { animation: none; align-items: center; }
 .skel { position: relative; overflow: hidden; border-radius: var(--r-sm); background: var(--surface-3); }
@@ -1584,12 +1622,21 @@ a { color: inherit; }
    Screener stage: persistent left event rail + main stage (read / orbs)
    ========================================================================== */
 .scstage { position: absolute; inset: 0; display: flex; min-height: 0; }
-.scstage__main { position: relative; flex: 1; min-width: 0; overflow: hidden; }
+/* column flex so a pulse-bearing wire can put the pulse strip in a real top band and the content in a
+   positioned body below it — the content views are position:absolute inset:0, so overlaying them on the
+   in-flow pulse (the old single-box layout) swallowed the strip's horizontal scroll. .scstage__body is
+   the positioning context those inset:0 views resolve against, replicating the old .scstage__main box. */
+.scstage__main { position: relative; flex: 1; min-width: 0; overflow: hidden; display: flex; flex-direction: column; }
+.scstage__body { position: relative; flex: 1; min-height: 0; overflow: hidden; }
 
 /* ---- the rail ---- */
+/* Width is driven by --evrail-w (set inline by WireSurface, dragged live); the resting default is 340px.
+   `container-type: inline-size` lets the list below re-flow to multi-column purely off the rail's own width
+   (see the @container rule near .evrail__list) — no JS breakpoint, no reflow tied to the viewport. */
 .evrail {
-  width: 340px; flex-shrink: 0; min-height: 0; display: flex; flex-direction: column;
+  width: var(--evrail-w, 340px); flex-shrink: 0; min-height: 0; display: flex; flex-direction: column;
   background: var(--surface-1); border-right: 1px solid var(--hairline);
+  container: evrail / inline-size;
 }
 .evrail__head { padding: 14px 16px 10px; border-bottom: 1px solid var(--hairline); }
 .evrail__titlerow { display: flex; align-items: center; gap: 8px; }
@@ -1637,6 +1684,19 @@ a { color: inherit; }
 .evrail__list::-webkit-scrollbar { width: 8px; }
 .evrail__list::-webkit-scrollbar-thumb { background: var(--hairline-strong); border-radius: var(--r-pill); border: 2px solid var(--surface-1); }
 .evrail__empty { padding: 28px 18px; font-size: 11.5px; line-height: 1.5; color: var(--text-muted); }
+
+/* WIDE wire — once the rail is dragged past ~640px it has room for more than one column, so the single
+   list re-flows into a responsive grid of CARD rows: the incoming wire read in a full, roomy view instead
+   of a narrow ticker. Keyed on the rail's OWN width (container query), so it tracks the drag, not the
+   window. Non-row children (the empty state, the "show set aside" line, the paging sentinel) span the grid. */
+@container evrail (min-width: 640px) {
+  .evrail__list { display: grid; grid-template-columns: repeat(auto-fill, minmax(304px, 1fr)); gap: 8px; align-content: start; padding: 10px 12px 20px; }
+  .evrail__list > :not(.evrow) { grid-column: 1 / -1; }
+  .evrow { border-bottom: none; border: 1px solid var(--hairline); border-radius: 10px; background: var(--surface-1); }
+  .evrow:last-child { border-bottom: 1px solid var(--hairline); } /* the last-row hairline reset doesn't apply in card mode */
+  @media (hover: hover) and (pointer: fine) { .evrow:hover { border-color: var(--hairline-strong); } }
+  .evrow--on { border-color: var(--accent-deep); }
+}
 
 /* ---- a row (wrapper holds the click target + a hover-only set-aside affordance) ---- */
 .evrow {
@@ -1965,7 +2025,7 @@ a { color: inherit; }
   .evdetail__shimmer::after { animation: none; }
 }
 
-@media (max-width: 1040px) { .evrail { width: 296px; } }
+@media (max-width: 1040px) { .evrail { width: var(--evrail-w, 296px); } }
 /* narrow / stacked: the rail collapses above the reader instead of squeezing it */
 @media (max-width: 720px) {
   .scstage { flex-direction: column; }
@@ -2854,16 +2914,18 @@ a { color: inherit; }
    and the reader's launch bar. Tokens only; every motion is transform/opacity within --dur* / --ease*
    (ui/web/DESIGN.md). The chips themselves reuse .evscope — these are only the wire-specific extras. */
 
-/* rail collapse — instant width swap (no width animation, ever); the tab is a slim hairline handle */
+/* rail divider — DRAG to widen (col-resize), CLICK to tuck. Width swaps are instant (no width animation,
+   ever); the drag is direct manipulation. `touch-action: none` so a touch-drag resizes instead of scrolling. */
 .wiresurface__railtab {
   align-self: stretch; width: 14px; flex: 0 0 14px; display: flex; align-items: center; justify-content: center;
   border: none; border-right: 1px solid var(--hairline); background: transparent; color: var(--text-faint);
-  font-size: 11px; cursor: pointer; padding: 0;
-  transition: color var(--dur-fast), transform 140ms var(--ease-out);
+  font-size: 11px; cursor: pointer; padding: 0; touch-action: none;
+  transition: color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
 }
-.wiresurface__railtab:active { transform: scale(0.97); }
+.wiresurface__railtab--resizable { cursor: col-resize; }
+.wiresurface__grip { user-select: none; line-height: 1; letter-spacing: 0.5px; }
 @media (hover: hover) and (pointer: fine) {
-  .wiresurface__railtab:hover { color: var(--accent-bright); }
+  .wiresurface__railtab:hover { color: var(--accent-bright); background: var(--accent-wash-soft); }
 }
 
 /* subject chips' living state: a run pulse-dot + the last verdict tick (token tones only) */
@@ -2880,8 +2942,20 @@ a { color: inherit; }
 
 /* the pulse strip — one compact card per subject above the resting main view */
 .subjectpulse {
-  display: flex; gap: 8px; overflow-x: auto; padding: 10px 14px 6px; scrollbar-width: thin;
+  display: flex; flex-wrap: nowrap; gap: 8px; overflow-x: auto; padding: 10px 14px 10px;
+  /* keep the horizontal gesture on the strip (never nudge browser back/forward), and make the strip's
+     scrollability DISCOVERABLE: a persistent thin bar (macOS hides overlay scrollbars until you scroll,
+     which is exactly why the overflow read as "stuck") */
+  overscroll-behavior-x: contain; scrollbar-width: thin; scrollbar-color: var(--hairline-strong) transparent;
+  /* a real top BAND: a crisp bottom divider reads it as chrome above the canvas, so the constellation
+     below (which starts flush at the band's bottom edge) never looks like it's bleeding into the cards.
+     The band itself stays transparent — the cards (surface-1) are the raised chips on it. flex:0 0 auto
+     keeps the band its natural height in the column. */
+  flex: 0 0 auto; border-bottom: 1px solid var(--hairline);
 }
+.subjectpulse::-webkit-scrollbar { height: 6px; }
+.subjectpulse::-webkit-scrollbar-thumb { background: var(--hairline-strong); border-radius: var(--r-pill); }
+.subjectpulse::-webkit-scrollbar-track { background: transparent; }
 .subjectpulse__card {
   flex: 0 0 auto; min-width: 148px; padding: 8px 10px; border: 1px solid var(--hairline);
   border-radius: var(--r-md); background: var(--surface-1); display: flex; flex-direction: column; gap: 4px;

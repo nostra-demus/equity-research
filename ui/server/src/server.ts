@@ -14,7 +14,7 @@ import { z } from 'zod'
 import { readActivity } from './activity-log'
 import { recordDataChange } from './data-activity'
 import { buildReportHtml, parseMeta, safeName } from './export'
-import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, GDRIVE, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, WEB_DIST, isReservedDataFolder } from './config'
+import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, WEB_DIST, isReservedDataFolder } from './config'
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
 import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED } from './drive'
@@ -36,7 +36,7 @@ import { buildThemeBrief } from './news/themes/brief'
 import { enrichEvent, listCoveredTickers } from './news/enrich'
 import { markInboxConsumed, setDismissed } from './news/inbox-actions'
 import { refreshBoard } from './news/write-inbox'
-import { auditInboxAction, moveThesis, MOVE_TARGETS } from './screener-actions'
+import { auditInboxAction, hideSignal, moveThesis, MOVE_TARGETS, SIGNAL_ACTIONS } from './screener-actions'
 import { FEEDBACK_TYPES, readAllFeedback, submitFeedback, summarizeFeedback, undoFeedback } from './screener-feedback'
 import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
@@ -436,6 +436,10 @@ const SignalLaunchBody = z.object({
   inboxId: z.string().regex(INB_RE).optional(),
   // optional TARGET module: run the gauntlet THROUGH this module then stop (a deliberate partial run)
   until: z.string().regex(MODULE_RE).optional(),
+  // human "Override & run forward" of an EXISTING sig: stamp override_promote onto its intake.json so the
+  // gauntlet pushes a signal-gate PARK/LOG cull past the promotion gate (sigId-only; ignored for a new intake,
+  // which carries override_promote in the intake object itself).
+  override: z.boolean().optional(),
   model: z.string().regex(/^[a-z0-9.\-]{1,40}$/i).optional(),
 })
 
@@ -489,7 +493,7 @@ app.post('/api/launch', { config: { rateLimit: { max: 60, timeWindow: '1 minute'
     if (!parsed.data.sigId && !parsed.data.intake) return reply.code(400).send({ error: 'signal launch needs sigId or intake' })
     if (parsed.data.until && !listModuleNames('screener').includes(parsed.data.until)) return reply.code(400).send({ error: 'unknown screener module' })
     try {
-      const out = await launch({ kind, ticker: parsed.data.sigId, intake: parsed.data.intake, inboxId: parsed.data.inboxId, module: parsed.data.until, model: parsed.data.model, user, userVia })
+      const out = await launch({ kind, ticker: parsed.data.sigId, intake: parsed.data.intake, inboxId: parsed.data.inboxId, module: parsed.data.until, overridePromote: parsed.data.override, model: parsed.data.model, user, userVia })
       // an Inbox-card launch marks its row consumed so it leaves the lane (best-effort: a failed
       // mark only leaves the row visible — a duplicate click is rejected by SIG-id exclusivity).
       // Deferred past the reply: refreshBoard shells a synchronous python board rebuild (~0.3-2s)
@@ -1001,7 +1005,8 @@ app.get('/api/chat/scopes', async (req, reply) => {
   if (swarm && swarm !== 'research') {
     if (!listSwarms().some((s) => s.id === swarm)) return reply.code(404).send({ error: `unknown swarm ${swarm}` })
     const subject = (q?.subject || q?.ticker) as string
-    if (!subject || !TICKER_RE.test(subject)) return reply.code(400).send({ error: 'subject required' })
+    // a subject is either a ticker (research/commodity) or a screener SIG id — accept both (same as /api/swarm)
+    if (!subject || !(TICKER_RE.test(subject) || SIG_RE.test(subject))) return reply.code(400).send({ error: 'subject required' })
     const abs = findRunRootForSubject(swarm, subject)
     const rr = abs ? path.relative(REPO_ROOT, abs) : null
     try {
@@ -1025,9 +1030,10 @@ app.get('/api/chat/scopes', async (req, reply) => {
 const ChatBody = z.object({
   ticker: z.string().regex(TICKER_RE).optional(),
   runRoot: z.string().max(300).optional(),
-  // constellation swarm (e.g. commodity): its subject resolves the run folder from the manifest
+  // a non-research swarm resolves its run folder from (swarm, subject); the subject is a ticker
+  // (commodity) or a screener SIG id — accept either shape.
   swarm: z.string().regex(/^[a-z0-9-]{1,40}$/).optional(),
-  subject: z.string().regex(TICKER_RE).optional(),
+  subject: z.string().refine((s) => TICKER_RE.test(s) || SIG_RE.test(s), 'subject must be a ticker or SIG id').optional(),
   scope: z.enum(['run', 'module', 'orb']),
   module: z.string().regex(MODULE_RE).optional(),
   orbPath: z.string().max(300).optional(),
@@ -1060,7 +1066,7 @@ app.post('/api/chat', async (req, reply) => {
   if (swarmId !== 'research') {
     if (!listSwarms().some((s) => s.id === swarmId)) return reply.code(404).send({ error: `unknown swarm ${swarmId}` })
     const subj = parsed.data.subject || parsed.data.ticker
-    if (!subj || !TICKER_RE.test(subj)) return reply.code(400).send({ error: 'subject required for this swarm' })
+    if (!subj || !(TICKER_RE.test(subj) || SIG_RE.test(subj))) return reply.code(400).send({ error: 'subject required for this swarm' })
     const abs = findRunRootForSubject(swarmId, subj)
     runRoot = abs ? path.relative(REPO_ROOT, abs) : null
     subject = subj
@@ -1477,8 +1483,14 @@ app.get('/api/news/enrich', async (req, reply) => {
         // each sharing the ingester's daily budget + per-minute limiter so an opened event never blows the
         // per-minute ceiling alongside the scanner — under HARD time budgets so it can never hang the reader.
         articleProviders: ARTICLE_READ_PROVIDERS,
+        filingReadProviders: FILING_READ_PROVIDERS, // optional stronger model for filing reads (unset => unchanged)
         llmBudgetMs: NEWS.enrichLlmBudgetMs,
         limiterWaitMs: NEWS.enrichLimiterWaitMs,
+        // thread the OPERATOR-configured cooldown (NEWS_LLM_COOLDOWN_SEC / _MAX_SEC) through to the article
+        // read so a lengthened cooldown during a real outage is actually honored here, not just by the
+        // ingester's own triage/overflow/Gemini seams in runCycle.ts.
+        cooldownMs: NEWS.llmCooldownMs,
+        cooldownMaxMs: NEWS.llmCooldownMaxMs,
         // when the publisher blocks the direct read, corroborate the event from the secondary wire (GDELT
         // keyword search → same read chain). Shares the firehose's GDELT endpoint + penalty backoff.
         corroborate: { enabled: NEWS.enrichCorroborate, baseUrl: NEWS.gdeltBaseUrl, timeoutMs: NEWS.enrichCorroborateTimeoutMs },
@@ -1570,6 +1582,39 @@ app.post('/api/screener/conviction/:id/restore', { config: { rateLimit: { max: 1
     return { ok: true, message: stdout.trim() }
   } catch (e: any) {
     return reply.code(500).send({ error: e?.message || 'restore failed' })
+  }
+})
+
+// Hide (or restore) one idea from the live book — a SOFT delete. Appends a `signal_hide`/`signal_restore`
+// override (the engine's ledger + run folder are untouched), then rebuilds the board so the card leaves /
+// returns immediately. Reversible from the "Hidden" tray.
+const SignalHideBody = z.object({ action: z.enum(SIGNAL_ACTIONS) })
+app.post('/api/screener/signal/:id/hide', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const signalId = (req.params as any).id as string
+  if (!SIG_RE.test(signalId)) return reply.code(400).send({ error: 'invalid signal id' })
+  const parsed = SignalHideBody.safeParse(req.body)
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  const { user } = identify(req)
+  try {
+    const record = await hideSignal(signalId, parsed.data.action, user)
+    await refreshBoard(REPO_ROOT) // rebuild the index so the card leaves/returns without waiting for a run
+    return { ok: true, ...record }
+  } catch (e: any) {
+    return reply.code(500).send({ error: e?.message || 'hide failed' })
+  }
+})
+
+// Force a board rebuild from the live ledger, then return the fresh board. The board index is a snapshot
+// the agents rewrite at each run's end; this lets the cockpit's ↻ pick up runs that finished since (or a
+// stale committed index) instead of only re-reading the same snapshot — so "runs I just ran" always show.
+app.post('/api/screener/board/rebuild', { config: { rateLimit: { max: 120, timeWindow: '1 minute' } } }, async (_req, reply) => {
+  try {
+    // throwOnFailure: this is the manual "rebuild" button, not a best-effort auto-poll — a script
+    // timeout or bad ledger row must surface as a failed request, never a silent 200 of the stale index.
+    await refreshBoard(REPO_ROOT, () => {}, { throwOnFailure: true })
+    return screenerBoard()
+  } catch (e: any) {
+    return reply.code(500).send({ error: e?.message || 'rebuild failed' })
   }
 })
 

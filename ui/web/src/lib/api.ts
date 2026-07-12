@@ -208,7 +208,7 @@ export const api = {
     if ((await ensureMode()) === 'static') return snap.screenerCandidates?.[thesisId] || null
     return get(`/api/screener/candidates/${encodeURIComponent(thesisId)}`)
   },
-  launchSignal: async (body: { sigId?: string; intake?: SignalIntakeInput; inboxId?: string; until?: string }): Promise<{ runId: string; preflight: LaunchPreflight }> => {
+  launchSignal: async (body: { sigId?: string; intake?: SignalIntakeInput; inboxId?: string; until?: string; override?: boolean }): Promise<{ runId: string; preflight: LaunchPreflight }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/launch`, { kind: 'signal', ...body })
   },
@@ -318,6 +318,15 @@ export const api = {
   convictionRestore: async (thesisId: string): Promise<{ ok: boolean; message?: string }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/screener/conviction/${encodeURIComponent(thesisId)}/restore`, {})
+  },
+  hideSignal: async (signalId: string, action: 'hide' | 'restore'): Promise<{ ok: boolean }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/screener/signal/${encodeURIComponent(signalId)}/hide`, { action })
+  },
+  // force a board rebuild from the live ledger (picks up runs that finished since the last snapshot)
+  rebuildBoard: async (): Promise<ScreenerBoard> => {
+    if ((await ensureMode()) === 'static') return snap.screenerBoard || EMPTY_BOARD
+    return post<ScreenerBoard>(`/api/screener/board/rebuild`, {})
   },
   submitFeedback: async (input: FeedbackSubmitInput): Promise<{ ok: boolean; feedback: FeedbackRecord }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()

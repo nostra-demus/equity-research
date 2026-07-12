@@ -436,7 +436,9 @@ interface State {
   // resume a stopped/partial signal run from where it left off — reuses the finished orbs on disk and
   // only runs the remaining ones (the gauntlet command skips completed modules). NOT a fresh restart.
   // `until` = continue only THROUGH that stage then stop again (undefined = continue to the end).
-  continueSignal: (sigId: string, until?: string) => Promise<void>
+  // `override` stamps override_promote onto the sig's intake so the gauntlet pushes a signal-gate PARK/LOG
+  // cull past the promotion gate — the "Override & run forward" affordance for a "noted, no action" signal.
+  continueSignal: (sigId: string, until?: string, override?: boolean) => Promise<void>
   runSweep: () => Promise<void>
   openPipeline: () => void
   closePipeline: () => void
@@ -552,6 +554,9 @@ interface State {
   restoreInbox: (inboxId: string) => Promise<void>
   moveThesis: (thesisId: string, to: 'watchlist' | 'provisional' | 'full_machine' | 'engine', reason?: string) => Promise<void>
   restoreConviction: (thesisId: string) => Promise<void>
+  hideIdea: (signalId: string) => Promise<void>
+  restoreIdea: (signalId: string) => Promise<void>
+  scRebuildBoard: () => Promise<void>
   setStopListOpen: (open: boolean) => void
   stopEverything: () => Promise<void>
   _handleNewsEvent: (e: any) => void
@@ -610,8 +615,17 @@ function withWireClause(s: { swarms: SwarmMeta[]; activeSwarm: string; swarmSubj
 }
 // is the active swarm the flow stage? (layout-driven, mirroring App.tsx's first-frame fallback — the
 // board/gauntlet are flow-stage features, not tied to a hardcoded swarm id beyond that grandfathered default)
-function isFlowActive(s: { swarms: SwarmMeta[]; activeSwarm: string }): boolean {
+export function isFlowActive(s: { swarms: SwarmMeta[]; activeSwarm: string }): boolean {
   return (s.swarms.find((m) => m.id === s.activeSwarm)?.layout ?? (s.activeSwarm === 'screener' ? 'flow' : 'constellation')) === 'flow'
+}
+
+// The subject a chat answers about, for the active swarm — the ONE accessor the chat slice keys off so it
+// never hardcodes a swarm id. A flow swarm (screener) chats a SIGNAL run (scSelectedSignal is a SIG id); a
+// constellation swarm (research/commodity) chats a subject run (selectedTicker is a ticker/commodity id).
+// The server resolves either shape to a run folder via (swarm, subject). Exported so the history + command
+// bar surfaces gate on the same value.
+export function chatSubjectOf(s: { swarms: SwarmMeta[]; activeSwarm: string; scSelectedSignal: string | null; selectedTicker: string | null }): string | null {
+  return isFlowActive(s) ? s.scSelectedSignal : s.selectedTicker
 }
 
 // default header title for the chat panel given a scope + the company
@@ -1620,7 +1634,21 @@ export const useStore = create<State>((set, get) => ({
   // which scopes are present (chat-able) vs not-yet-run — derived LIVE from the store, so the picker
   // updates the instant an orb/module finishes over the run SSE (no extra fetch needed).
   chatScopesAvailable: () => {
-    const { reports, moduleReports, nodeRuntime, nodesByKey, graph } = get()
+    const s = get()
+    // the flow stage (screener) chats the SELECTED signal's run — its scopes come from the screener graph
+    // + per-orb runtime (scGraph/scNodesByKey/scRuntime), not the constellation slices. A module is
+    // chat-able once its 99_*-synthesis orb finished; the whole-run scope opens on any finished synthesis.
+    if (isFlowActive(s)) {
+      const nodes = [...s.scNodesByKey.values()]
+      const orbs = nodes.map((n) => {
+        const rt = s.scRuntime[n.key]
+        return { key: n.key, module: n.module, path: rt?.outputPath, title: n.name, present: rt?.status === 'done' && !!rt?.outputPath }
+      })
+      const synthDone = (module: string) => nodes.some((n) => n.module === module && n.isSynthesis && s.scRuntime[n.key]?.status === 'done' && !!s.scRuntime[n.key]?.outputPath)
+      const modules = (s.scGraph?.modules ?? []).map((m) => ({ module: m.name, present: synthDone(m.name) }))
+      return { run: modules.some((m) => m.present), modules, orbs }
+    }
+    const { reports, moduleReports, nodeRuntime, nodesByKey, graph } = s
     const anySynth = Object.values(moduleReports).some((r) => !!r?.synthesis)
     const modules = (graph?.modules ?? []).map((m) => ({ module: m.name, present: !!moduleReports[m.name]?.synthesis }))
     const orbs = [...nodesByKey.values()].map((n) => {
@@ -1630,8 +1658,8 @@ export const useStore = create<State>((set, get) => ({
     return { run: reports.thesis || anySynth, modules, orbs }
   },
   openChat: (scope, opts) => {
-    const t = get().selectedTicker
-    if (!t) { get().setToast({ msg: 'Select a company first', tone: 'info' }); return }
+    const t = chatSubjectOf(get())
+    if (!t) { get().setToast({ msg: isFlowActive(get()) ? 'Open a signal first' : 'Select a company first', tone: 'info' }); return }
     // reopening the SAME scope keeps the thread; a different scope target starts fresh
     const sameScope = get().chatOpen && get().chatScope === scope && get().chatModule === opts?.module && get().chatOrbKey === opts?.orbKey
     chatAbort?.abort(); chatAbort = null
@@ -1650,7 +1678,7 @@ export const useStore = create<State>((set, get) => ({
     set({
       chatScope: scope, chatModule: opts?.module, chatOrbPath: opts?.orbPath, chatOrbKey: opts?.orbKey, chatAnswerRunRoot: undefined,
       chatMessages: [], chatStreaming: false, chatError: undefined, chatSource: undefined, chatConversationId: undefined,
-      chatTitle: defaultChatTitle(scope, get().selectedTicker || '', opts),
+      chatTitle: defaultChatTitle(scope, chatSubjectOf(get()) || '', opts),
     })
   },
   setChatModel: (m) => set({ chatModel: m }),
@@ -1673,17 +1701,22 @@ export const useStore = create<State>((set, get) => ({
     const c = await api.getChat(id).catch(() => null)
     if (!c) { get().setToast({ msg: 'Could not open that conversation', tone: 'info' }); return }
     const targetSwarm = c.swarm || 'research'
-    // chat only exists for constellation swarms (research / commodity), which share the selection slices.
     // A different swarm is a deliberate jump — switch directly (no animated warp), mirroring switchSwarm's
-    // reduced-motion reset so no screener panel or in-flight warp is left dangling over the new view.
+    // reduced-motion reset so no panel or in-flight warp is left dangling over the new view.
     if (get().activeSwarm !== targetSwarm) {
       if (!get().swarms.some((s) => s.id === targetSwarm)) { get().setToast({ msg: `The ${targetSwarm} view isn’t available here`, tone: 'info' }); return }
       if (warpTimer) { clearTimeout(warpTimer); warpTimer = null }
       set({ activeSwarm: targetSwarm, warp: null, openOutput: null, selectedNodeKey: null, signalIntakeOpen: false, pipelineOpen: false, scThesisDetail: null, scSelectedEvent: null, scFocusedCompany: null, newsFeedOpen: false, ...CHAT_RESET })
       get()._enterSwarm(targetSwarm)
     }
-    // select the subject if we're not already on it (loads its graph/manifest; applies CHAT_RESET itself)
-    if (get().selectedTicker !== c.subject) await get().selectTicker(c.subject)
+    // select the subject if we're not already on it (loads its graph/manifest). A flow swarm (screener)
+    // reopens the SIGNAL run; a constellation swarm reopens the company/commodity run (selectTicker applies
+    // its own CHAT_RESET). Either way the server re-resolves the run from (swarm, subject).
+    if (isFlowActive(get())) {
+      if (get().scSelectedSignal !== c.subject) await get().scSelectSignal(c.subject)
+    } else if (get().selectedTicker !== c.subject) {
+      await get().selectTicker(c.subject)
+    }
     // Decide which run to answer this resumed conversation from, and keep the thread chat-able. Prefer the
     // CURRENT run when it can still serve the conversation's scope (so "continue" chats the latest output);
     // otherwise fall back to the run the conversation was originally answered from (c.runRoot) — analyses/
@@ -1733,8 +1766,8 @@ export const useStore = create<State>((set, get) => ({
   // Start a brand-new Ask conversation about the selected company — used by the History panel's "New chat"
   // button and its empty-state CTA. Always a fresh thread on the whole-run scope: closes History, opens Ask.
   startNewChat: () => {
-    const t = get().selectedTicker
-    if (!t) { get().setToast({ msg: 'Select a company first', tone: 'info' }); return }
+    const t = chatSubjectOf(get())
+    if (!t) { get().setToast({ msg: isFlowActive(get()) ? 'Open a signal first' : 'Select a company first', tone: 'info' }); return }
     chatAbort?.abort(); chatAbort = null
     set({
       chatHistoryOpen: false, chatOpen: true, chatScope: 'run',
@@ -1753,8 +1786,8 @@ export const useStore = create<State>((set, get) => ({
     const q = text.trim()
     if (!q || get().chatStreaming) return
     if (get().staticMode) { set({ chatError: 'static-deploy' }); return }
-    const ticker = get().selectedTicker
-    if (!ticker) return
+    const subject = chatSubjectOf(get())
+    if (!subject) return
     const baseline = get().chatMessages
     // optimistic: append the user turn + an empty assistant turn we grow token-by-token
     set({ chatMessages: [...baseline, { role: 'user', content: q }, { role: 'assistant', content: '' }], chatStreaming: true, chatError: undefined, chatSource: undefined })
@@ -1762,13 +1795,17 @@ export const useStore = create<State>((set, get) => ({
     chatAbort?.abort()
     chatAbort = new AbortController()
     const sw = get().activeSwarm
+    const isResearch = sw === 'research'
     await api.chatStream(
       {
-        // a resumed conversation the current run can't serve answers from its original run (chatAnswerRunRoot);
-        // fresh chats and current-run resumes leave it undefined and use the live run.
-        ticker, runRoot: get().chatAnswerRunRoot ?? get().runRoot ?? undefined, scope: get().chatScope,
-        // constellation swarm (e.g. commodity): the subject resolves the run folder server-side
-        swarm: sw !== 'research' ? sw : undefined, subject: sw !== 'research' ? ticker : undefined,
+        // Research answers from an explicit run root (chatAnswerRunRoot lets a resumed conversation the current
+        // run can't serve fall back to its original committed run). A non-research swarm (commodity/screener)
+        // resolves the run folder server-side from (swarm, subject) — so it sends NO ticker/runRoot (a screener
+        // SIG id would fail the server's ticker regex), only swarm + subject.
+        scope: get().chatScope,
+        ...(isResearch
+          ? { ticker: subject, runRoot: get().chatAnswerRunRoot ?? get().runRoot ?? undefined }
+          : { swarm: sw, subject }),
         module: get().chatModule, orbPath: get().chatOrbPath, orbKey: get().chatOrbKey, model: get().chatModel, style: get().chatStyle,
         // chat-history persistence: attach to the saved conversation (server mints its id on the first turn)
         conversationId: get().chatConversationId, title: get().chatTitle,
@@ -2661,7 +2698,10 @@ export const useStore = create<State>((set, get) => ({
 
   // load one signal's run folder onto the gauntlet: seed orb states from its saved outputs
   scSelectSignal: async (sigId) => {
-    set({ scSelectedSignal: sigId, scRuntime: {}, scRouted: {} })
+    // a different signal is a different run — reset chat state exactly like selectTicker does, so an open
+    // (or saved) conversation can't keep posting against the signal it was opened for after the board moves
+    // on to another one (cross-run answer contamination: wrong SIG context + wrong saved thread/id).
+    set({ scSelectedSignal: sigId, scRuntime: {}, scRouted: {}, ...CHAT_RESET })
     if (!sigId) return
     try {
       const m = await api.screenerRun(sigId)
@@ -2731,26 +2771,27 @@ export const useStore = create<State>((set, get) => ({
   // command skips any module whose synthesis is already on disk, so only the remaining orbs actually run).
   // Unlike relaunchSignal (a clean restart), this preserves the done orbs so the constellation picks up
   // exactly where it stopped — 3 done, the rest queued → running.
-  continueSignal: async (sigId, until) => {
+  continueSignal: async (sigId, until, override) => {
     if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — signals run on your machine via npm run dev', tone: 'info' })
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — live runs are paused until it reconnects.', tone: 'info' })
-    set({ launchPending: { key: `continue:${sigId}`, label: `Resuming ${sigId}…`, ticker: sigId } })
+    set({ launchPending: { key: `continue:${sigId}`, label: override ? `Running ${sigId} forward…` : `Resuming ${sigId}…`, ticker: sigId } })
     try {
       // make sure we hold the authoritative finished-orb set from disk before relaunching
       if (get().scSelectedSignal !== sigId || !Object.keys(get().scRuntime).length) await get().scSelectSignal(sigId)
       const done = { ...get().scRuntime } // the orbs already finished (loaded from disk / frozen from the stop)
       // `until` continues only THROUGH the named module then stops again (a staged partial); undefined runs
-      // the rest of the gauntlet to the end. The gauntlet skips modules already on disk either way.
-      const { runId } = await api.launchSignal({ sigId, until })
+      // the rest of the gauntlet to the end. `override` pushes a signal-gate PARK/LOG past the promotion gate.
+      // Either way the gauntlet skips modules already on disk, so finished checks are reused, never redone.
+      const { runId } = await api.launchSignal({ sigId, until, override })
       // keep finished orbs as-is; re-queue everything else under the new runId so they animate as they run
       const rt: Record<string, NodeRuntime> = {}
       for (const k of get().scNodesByKey.keys()) rt[k] = done[k]?.status === 'done' ? done[k] : { status: 'queued', runId }
       set({ scSelectedSignal: sigId, scRuntime: rt, pipelineOpen: false })
       connectScreenerRun(get, runId)
       void get().refreshActiveRuns()
-      get().setToast({ msg: `Resuming ${sigId} — picking up where it stopped`, tone: 'good' })
+      get().setToast({ msg: override ? `Running ${sigId} forward — overriding the gate, reusing finished checks` : `Resuming ${sigId} — picking up where it stopped`, tone: 'good' })
     } catch (e: any) {
-      get().setToast({ msg: e?.message ? String(e.message) : 'Could not resume the checks', tone: e?.body?.code ? 'info' : 'bad' })
+      get().setToast({ msg: e?.message ? String(e.message) : (override ? 'Could not run the checks forward' : 'Could not resume the checks'), tone: e?.body?.code ? 'info' : 'bad' })
     } finally {
       set({ launchPending: null })
     }
@@ -2861,6 +2902,46 @@ export const useStore = create<State>((set, get) => ({
       if (d?.thesis?.meta?.thesis_id === thesisId) await get().openThesisDetail(thesisId)
     } catch (e: any) {
       get().setToast({ msg: e?.message || 'Could not restore', tone: 'bad' })
+    }
+  },
+
+  // Soft-delete: hide one idea from the live book (an append-only override; the engine's ledger/run are
+  // untouched, so it's reversible). Optimistic — the card leaves at once — with an inline Undo, and the
+  // board is reconciled from the server after, which also un-does the optimistic hide if the call failed.
+  hideIdea: async (signalId) => {
+    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — actions run on your machine via npm run dev', tone: 'info' })
+    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — try again once it reconnects.', tone: 'info' })
+    set((s) => ({ scBoard: s.scBoard ? { ...s.scBoard, signals: s.scBoard.signals.map((sig) => (sig.signal_id === signalId ? { ...sig, hidden: true } : sig)) } : s.scBoard }))
+    try {
+      await api.hideSignal(signalId, 'hide')
+      get().setToast({ msg: 'Idea hidden from your book', tone: 'info', action: { label: 'Undo', onClick: () => void get().restoreIdea(signalId) } })
+    } catch (e: any) {
+      set((s) => ({ scBoard: s.scBoard ? { ...s.scBoard, signals: s.scBoard.signals.map((sig) => (sig.signal_id === signalId ? { ...sig, hidden: false } : sig)) } : s.scBoard }))
+      get().setToast({ msg: e?.message || 'Could not hide the idea', tone: 'bad' })
+    }
+    await get().scRefreshBoard()
+  },
+  restoreIdea: async (signalId) => {
+    if (get().staticMode) return get().setToast({ msg: 'Read-only showcase — actions run on your machine via npm run dev', tone: 'info' })
+    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — try again once it reconnects.', tone: 'info' })
+    set((s) => ({ scBoard: s.scBoard ? { ...s.scBoard, signals: s.scBoard.signals.map((sig) => (sig.signal_id === signalId ? { ...sig, hidden: false } : sig)) } : s.scBoard }))
+    try {
+      await api.hideSignal(signalId, 'restore')
+      get().setToast({ msg: 'Idea restored to your book', tone: 'good' })
+    } catch (e: any) {
+      set((s) => ({ scBoard: s.scBoard ? { ...s.scBoard, signals: s.scBoard.signals.map((sig) => (sig.signal_id === signalId ? { ...sig, hidden: true } : sig)) } : s.scBoard }))
+      get().setToast({ msg: e?.message || 'Could not restore the idea', tone: 'bad' })
+    }
+    await get().scRefreshBoard()
+  },
+  // Force a server-side board rebuild from the live ledger (picks up runs that finished since the last
+  // snapshot), then swap in the fresh board. Falls back to a plain re-read if the rebuild endpoint fails.
+  scRebuildBoard: async () => {
+    if (get().staticMode) return get().scRefreshBoard()
+    try {
+      set({ scBoard: await api.rebuildBoard() })
+    } catch {
+      await get().scRefreshBoard()
     }
   },
 

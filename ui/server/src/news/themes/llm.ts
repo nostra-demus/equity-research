@@ -8,6 +8,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { companyKeys } from '../text-match'
+import { Budget, clearCooldown, isCoolingDown } from '../triage/budget'
 import type { LlmNamer } from './engine'
 import type { Theme } from './types'
 
@@ -20,6 +21,25 @@ interface NamerCfg {
   groqApiKey?: string
   groqBaseUrl?: string
   groqModel?: string
+  // the Groq daily caps — so the namer's Groq seam charges + gates against the ingester's exact budget file
+  // (populated automatically: runCycle passes the full NEWS config).
+  groqDailyReqCap?: number
+  groqDailyTokenCap?: number
+}
+
+// Rough per-call cost of a namer batch (≤8 clusters + the SYSTEM prompt) — charged to groq-budget.json so
+// the Groq seam here is visible to the same mirror + daily cap the triage/read paths use (was invisible).
+const GROQ_NAMER_EST_TOKENS = 1400
+
+/** Charge one Groq namer request to the shared groq-budget.json (tokens 0 on a failed call, like triage). */
+function chargeGroq(stateDir: string, now: Date, cfg: NamerCfg, tokens: number): void {
+  try {
+    const b = Budget.load(stateDir, cfg.groqDailyReqCap ?? 13_000, cfg.groqDailyTokenCap ?? 500_000, now.getTime())
+    b.record(1, tokens)
+    b.save()
+  } catch {
+    // best-effort accounting — a missed write only slightly under-counts the mirror
+  }
 }
 
 const SYSTEM =
@@ -158,10 +178,21 @@ export function makeThemeNamer(cfg: NamerCfg, fetchFn: typeof fetch, stateDir: s
   return async (created: Theme[], now: Date): Promise<void> => {
     if (!created.length) return
     const todayISO = now.toISOString().slice(0, 10)
-    const cap = useClaude ? (cfg.themesClaudeDailyCap ?? 60) : 1e9 // Groq shares its own caps elsewhere; Claude is the metered seam
+    const cap = useClaude ? (cfg.themesClaudeDailyCap ?? 60) : 1e9 // Groq shares its own caps below; Claude is the metered seam
     if (useClaude && !canSpend(stateDir, cap, todayISO)) {
       log('themes: claude daily cap reached — naming deterministically this pass')
       return
+    }
+    // GROQ seam: the namer READS the shared Groq cooldown + daily cap (so it never probes a Groq a recent
+    // triage/read failure marked down, nor exceeds the daily cap) and CHARGES its calls to groq-budget.json
+    // (closing the "uncounted Groq spend" desync). It deliberately does NOT *arm* the shared marker: unlike
+    // triage/reads it is UNPACED (no shared RateLimiter) and hits the per-minute cap routinely, so its 429s
+    // are the expected/benign case — arming on them would sideline a HEALTHY primary Groq. Arming is left to
+    // the paced, high-volume seams (triage + the article reader), which are the reliable outage signal.
+    if (useGroq) {
+      if (isCoolingDown(stateDir, 'groq', now.getTime())) { log('themes: groq cooling down — naming deterministically this pass'); return }
+      const gb = Budget.load(stateDir, cfg.groqDailyReqCap ?? 13_000, cfg.groqDailyTokenCap ?? 500_000, now.getTime())
+      if (!gb.canSpend(GROQ_NAMER_EST_TOKENS)) { log('themes: groq daily cap reached — naming deterministically this pass'); return }
     }
     const batch = created.slice(0, 8) // cap clusters per call
     const user = buildUserMessage(batch)
@@ -172,13 +203,17 @@ export function makeThemeNamer(cfg: NamerCfg, fetchFn: typeof fetch, stateDir: s
       try {
         const text = useClaude ? await callClaude(cfg, user, fetchFn) : await callGroq(cfg, user, fetchFn)
         if (useClaude) recordSpend(stateDir, todayISO)
+        else { chargeGroq(stateDir, now, cfg, GROQ_NAMER_EST_TOKENS); clearCooldown(stateDir, 'groq') } // Groq answered → count it, mark healthy
         if (!text) return
         applyProposals(batch, parseThemesJson(text))
         log(`themes: named ${batch.length} new theme${batch.length === 1 ? '' : 's'} via ${useClaude ? 'claude' : 'groq'}`)
         return
       } catch (e: any) {
+        if (useGroq) chargeGroq(stateDir, now, cfg, 0) // a failed Groq call still consumed a request — count it (0 tokens)
         const transient = /HTTP (429|5\d\d)/.test(String(e?.message || ''))
         if (attempt === 3 || !transient) {
+          // NB: do NOT arm the shared cooldown here — a benign per-minute 429 (the expected case for this
+          // unpaced seam) must not sideline the healthy primary Groq. Just fall back to deterministic names.
           log(`themes namer: ${e?.message || e} — keeping deterministic names`)
           return
         }

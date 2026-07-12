@@ -795,6 +795,10 @@ export interface LaunchParams {
   model?: string
   intake?: SignalIntakeInput // kind 'signal' (new signal): materialized into <runRoot>/intake.json
   inboxId?: string // kind 'signal' launched from an Inbox card — recorded as the intake's provenance
+  // kind 'signal' relaunch of an EXISTING sig: stamp override_promote onto its intake.json so the gauntlet
+  // pushes a signal-gate PARK/LOG (a "noted, no action" / "set aside" cull) PAST the promotion gate and runs
+  // the rest. A recorded human override of the auto-cull — the gate reads intake.json, so this is how it lands.
+  overridePromote?: boolean
   thesisId?: string // kind 'handoff'
   user?: string // who launched it (from Cloudflare Access at the route); defaults to "local"
   userVia?: 'cf-access' | 'local'
@@ -1144,6 +1148,21 @@ export async function launch(params: LaunchParams): Promise<{ runId: string; pre
         if (dir) fs.rmSync(path.join(dir, '.aborted'), { force: true })
       } catch {
         /* best-effort */
+      }
+      // Human "Override & run forward": stamp override_promote onto the EXISTING intake.json (preserving
+      // every other field) so the gauntlet's promotion gate reads it and pushes a signal-gate PARK/LOG past
+      // the cull. Written via pendingIntake so it lands on the same materialize-before-spawn path the fresh
+      // intake uses — the command re-reads intake.json when it re-evaluates the gate on the resumed run.
+      if (params.overridePromote) {
+        try {
+          const p = path.join(REPO_ROOT, runRoot, 'intake.json')
+          const cur = JSON.parse(fs.readFileSync(p, 'utf8'))
+          if (cur && typeof cur === 'object' && !Array.isArray(cur) && cur.override_promote !== true) {
+            pendingIntake = { path: p, body: { ...cur, override_promote: true } }
+          }
+        } catch {
+          /* unreadable/absent intake — the existing-file check above already threw; nothing to stamp */
+        }
       }
     } else {
       const intake = params.intake

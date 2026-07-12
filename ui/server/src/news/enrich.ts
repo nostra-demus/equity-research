@@ -746,11 +746,21 @@ export interface EnrichDeps {
   // shares the ingester's daily budget + per-minute limiter, so the two paths keep one honest free-tier
   // accounting and never collectively bust a quota. Built once in config.ts (buildArticleReadProviders).
   articleProviders?: ArticleReadProvider[]
+  // OPTIONAL stronger read chain for FILINGS only (config.ts buildFilingReadProviders). When the opened event
+  // is a filing (exchange PDF / regulatory doc), these are PREPENDED to the article chain so the filing tries
+  // the stronger model FIRST, then falls through to the normal chain. Absent/empty => filings read unchanged.
+  filingReadProviders?: ArticleReadProvider[]
   // hard ceilings that keep an opened event from ever hanging the reader: the LLM read gets at most
   // llmBudgetMs of wall-clock across ALL providers (default 14s), and waits at most limiterWaitMs on any
   // single provider's rate limiter before skipping it (default 2.5s). Past the budget we return the floor.
   llmBudgetMs?: number
   limiterWaitMs?: number
+  // the SHARED per-provider cross-cycle cooldown (config.NEWS.llmCooldownMs / llmCooldownMaxMs, set by
+  // NEWS_LLM_COOLDOWN_SEC / NEWS_LLM_COOLDOWN_MAX_SEC). Omit → readArticleBrief's own hardcoded defaults
+  // (300s base / 60min cap) — an operator who lengthens the cooldown during a real outage must have that
+  // reach every article-read call site, not just the ingester's triage/overflow/Gemini seams in runCycle.ts.
+  cooldownMs?: number
+  cooldownMaxMs?: number
   // legacy single-Groq shape — still honoured (tests / older callers). When articleProviders is absent but
   // this is set, it's promoted to a one-element chain so behaviour is unchanged.
   groq?: { apiKey: string; model: string; baseUrl: string; maxTokens?: number; rpm?: number; tpm?: number; dailyReqCap?: number; dailyTokenCap?: number }
@@ -1109,11 +1119,18 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
     // in milliseconds and try the next, and past the budget we stop and fall through to the story floor.
     // SKIPPED for a filing: its "body" is a PDF/exchange-shell with no story to read — the headline IS the
     // disclosure, so we go straight to the deterministic floor (no wasted LLM call, no fabrication).
-    const providers: ArticleReadProvider[] = deps.articleProviders?.length
+    const baseProviders: ArticleReadProvider[] = deps.articleProviders?.length
       ? deps.articleProviders
       : deps.groq?.apiKey
         ? [{ id: 'groq', kind: 'openai', apiKey: deps.groq.apiKey, baseUrl: deps.groq.baseUrl, model: deps.groq.model, maxTokens: deps.groq.maxTokens, rpm: deps.groq.rpm ?? 28, tpm: deps.groq.tpm ?? 6000, dailyReqCap: deps.groq.dailyReqCap ?? Number.MAX_SAFE_INTEGER, dailyTokenCap: deps.groq.dailyTokenCap ?? Number.MAX_SAFE_INTEGER, budgetFile: 'groq-budget.json', limiter: 'groq' }]
         : []
+    // A FILING (exchange PDF / regulatory doc) reads best on a stronger model — its document opens with
+    // letterhead / a boilerplate disclaimer that makes a small free-tier model return an empty brief (→ the
+    // headline floor). When a filing-read chain is configured, PREPEND it so the filing tries the stronger
+    // model FIRST, then falls through to the normal chain unchanged. Non-filings, or no filing chain, are
+    // byte-for-byte the base chain. (`filing` = isFilingEvent, computed above.)
+    const providers: ArticleReadProvider[] =
+      filing && deps.filingReadProviders?.length ? [...deps.filingReadProviders, ...baseProviders] : baseProviders
     // Is there enough text to ever feed an LLM read? An off-list / unfetchable page with no usable RSS lede,
     // or a body too thin to read, can NEVER produce a brief — retrying is pointless, so we converge it to the
     // floor below instead of letting the heal pass re-fetch it forever (≈ the analyzeArticle min-body bar).
@@ -1144,6 +1161,8 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
         now: () => now().getTime(),
         deadlineMs: readDeadline,
         limiterWaitMs: deps.limiterWaitMs,
+        cooldownMs: deps.cooldownMs,
+        cooldownMaxMs: deps.cooldownMaxMs,
       })
       brief = r.brief
       // count this toward read_attempts ONLY if a provider actually ran an LLM call. A SKIP (all providers
@@ -1191,6 +1210,7 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
         const r = await readArticleBrief([alt.snippet, at.text].filter(Boolean).join('\n\n'), readHeadline, providers, {
           stateDir: deps.stateDir, fetchFn, sleep: deps.sleep,
           now: () => now().getTime(), deadlineMs: readDeadline, limiterWaitMs: deps.limiterWaitMs,
+          cooldownMs: deps.cooldownMs, cooldownMaxMs: deps.cooldownMaxMs,
         })
         if (r.attempted) attempted = true
         if (applyBrief(result, r.brief)) {
@@ -1222,6 +1242,7 @@ export async function enrichEvent(input: EnrichInput, deps: EnrichDeps): Promise
           const r = await readArticleBrief(buildCorroborationBody(headline, secondaries), readHeadline, providers, {
             stateDir: deps.stateDir, fetchFn, sleep: deps.sleep,
             now: () => now().getTime(), deadlineMs: readDeadline, limiterWaitMs: deps.limiterWaitMs,
+            cooldownMs: deps.cooldownMs, cooldownMaxMs: deps.cooldownMaxMs,
           })
           if (r.attempted) attempted = true
           applyBrief(result, r.brief)
