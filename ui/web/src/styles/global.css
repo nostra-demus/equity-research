@@ -138,7 +138,7 @@ a { color: inherit; }
   .themetoggle__icon { transition: opacity 120ms linear; transform: none !important; }
 }
 
-/* engine status pill (online/offline heartbeat) — fixed min-width so state changes never shift the bar */
+/* engine status pill (online/offline heartbeat) — compact; width tracks the state label */
 .estatus {
   display: flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px;
   border-radius: var(--r-pill); border: 1px solid var(--hairline);
