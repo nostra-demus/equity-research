@@ -7,14 +7,15 @@ import { displayHeadline, originalHeadline, plainRoute, plainStage } from './pla
 import type { Theme, ThemeDetail, ThemeBrief } from './themes'
 import { intensityWindowForHours } from './themes'
 import { deriveWireConfig, type WireConfig, type WirePulseSubject } from './wire'
-import type { ActiveRunLite, AgentNode, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, CycleSummary, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, ThesisPlan, TickerSummary, Usage } from './types'
+import type { ActiveRunLite, AgentNode, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, CycleSummary, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, ThesisPlan, TickerSummary, Usage } from './types'
 import { feedbackInputFromItem, feedbackLabel, polarityOf } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
 import { emptyReviewFilters, matchesReviewFilters, type ReviewFilterState } from '../components/screener/ReviewFilters'
 
 // A company the user drilled into from an event (the COMPANIES NAMED chips) — the main stage then
-// shows every wire story about it. listing_country/exchange ride along from the article-body read.
-export interface FocusedCompany { name: string; ticker: string | null; listing_country?: string | null; exchange?: string | null }
+// shows every wire story about it. listing_country/exchange + listing_status (public/private/unknown)
+// ride along from the article-body read, so the drill-down labels the name the same way the reader did.
+export interface FocusedCompany { name: string; ticker: string | null; listing_status?: ListingStatus; listing_country?: string | null; exchange?: string | null }
 
 // --- shelved events: a local, per-browser "set aside" set for wire items the user has judged not
 //     worth a paid check. Persisted to localStorage (the wire is ephemeral firehose data, not server

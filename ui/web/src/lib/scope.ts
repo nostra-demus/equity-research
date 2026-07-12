@@ -7,6 +7,8 @@
 // single-stock idea) vs BROAD (context / theme / basket — not a single name). The rail colors the
 // two families differently so "what can I actually work on?" is answerable at a glance.
 
+import type { ListingStatus } from './types'
+
 export type ScopeId = 'single_name' | 'multi_name' | 'sector' | 'macro' | 'commodity' | 'policy' | 'geopolitical' | 'generic_media' | 'unknown'
 export type ScopeFamily = 'company' | 'broad' | 'unknown'
 
@@ -135,3 +137,17 @@ export function isCompanyNameClient(name?: string | null): boolean {
 // plain labels for the article-company role tags
 const ROLE_LABEL: Record<string, string> = { subject: 'the subject', acquirer: 'acquirer', target: 'target', forecaster: 'forecaster', mentioned: 'mentioned' }
 export const roleLabel = (r?: string | null): string => (r ? ROLE_LABEL[r] || r : '')
+
+// Public / private / unknown — the plain-English "can I actually trade this name?" tag on a firm the
+// article read named (CLAUDE.md §21). Shared by the event reader (COMPANIES NAMED) and the company
+// drill-down so both surfaces label a name the same way; the checks verify it before any thesis.
+export const LISTING_STATUS_META: Record<ListingStatus, { label: string; title: string }> = {
+  public: { label: 'Public', title: 'Publicly listed — its shares trade on a stock exchange, so you can buy it.' },
+  private: { label: 'Private', title: 'Privately held — not on any stock exchange, so you cannot buy its shares directly.' },
+  unknown: { label: 'Listing unknown', title: "The read couldn't confirm whether this firm is publicly listed — the checks verify it before any thesis." },
+}
+// Normalise any value — including undefined or a stale/garbage cached string — to a valid status, so a
+// LISTING_STATUS_META lookup can never miss. When it's absent, derive from the listing anchor (a ticker or
+// exchange ⇒ public, else unknown), mirroring the server coercion in ui/server/src/news/triage/groq.ts.
+export const normListingStatus = (raw: unknown, hasAnchor: boolean): ListingStatus =>
+  raw === 'public' || raw === 'private' || raw === 'unknown' ? raw : (hasAnchor ? 'public' : 'unknown')

@@ -267,7 +267,13 @@ export async function triageBatch(
 
 export type CompanyRole = 'subject' | 'acquirer' | 'target' | 'forecaster' | 'mentioned'
 export type PartyOrder = 'first' | 'second'
-export interface ArticleCompany { name: string; ticker: string | null; role: CompanyRole; listing_country: string | null; exchange: string | null }
+// public = the firm has publicly-traded equity a fund can actually buy; private = privately held (PE- or
+// family-owned, a fund / investment vehicle, or an unlisted subsidiary) and so NOT directly investable;
+// unknown = the read couldn't tell. Answers a PM's first question on any named firm — "can I trade this?" —
+// so a private name (Gull, Allegro Funds) is never mistaken for a listed one. A private firm has no market
+// listing, so listing_country / exchange / ticker are null for it.
+export type ListingStatus = 'public' | 'private' | 'unknown'
+export interface ArticleCompany { name: string; ticker: string | null; role: CompanyRole; listing_status: ListingStatus; listing_country: string | null; exchange: string | null }
 // A gainer / exposed party — upgraded from a bare name+blurb to a real transmission read: HOW the event
 // reaches its economics (mechanism), roughly how big (magnitude), when it bites (horizon), and whether it's
 // directly hit (first-order) or a downstream/substitute (second-order). `mechanism` supersedes the old
@@ -322,7 +328,7 @@ export interface ArticleBrief {
 export const ARTICLE_SYSTEM = `You are a buy-side analyst reading ONE news article for a portfolio manager. You are given the article's BODY TEXT (not just the headline). Produce a sharp, decision-ready brief that thinks in TRANSMISSION: event -> what changes in the real economy or a business -> which LISTED, TRADABLE asset moves, in what direction, by roughly how much, over what horizon. Second-level thinking, never a plain summary.
 
 Return ONLY this JSON (use [] or "" or null whenever the body does not support a field — NEVER invent to fill it):
-{"gist":["...","..."],"market_angle":"...","companies":[{"name":"...","ticker":null,"listing_country":null,"exchange":null,"role":"subject|acquirer|target|forecaster|mentioned"}],"beneficiaries":[{"name":"...","named_in_article":true,"ticker":null,"listing":null,"mechanism":"...","magnitude":null,"horizon":null,"order":"first|second"}],"exposed":[{"name":"...","named_in_article":true,"ticker":null,"listing":null,"mechanism":"...","magnitude":null,"horizon":null,"order":"first|second"}],"whats_priced":"...","the_edge":"...","watch_item":"...","theme":"<tag>","news_impact":{"impact_direction":"positive|negative|mixed|neutral|unknown","impact_magnitude":"low|medium|high|critical","affected_metric":["<zero or more SEPARATE values, each exactly one of: revenue, ebitda, pat_net_income, eps, cash_flow, debt, capex, commodity_price, valuation_multiple, regulatory_risk, thesis_quality — e.g. [\\"revenue\\",\\"eps\\"]; NEVER a single pipe-joined string>"],"quantified_impact_available":false,"extracted_numbers":["..."],"quick_dirty_calculation":"...","why_it_matters":"...","analyst_takeaway":"...","confidence":0}}
+{"gist":["...","..."],"market_angle":"...","companies":[{"name":"...","ticker":null,"listing_status":"public|private|unknown","listing_country":null,"exchange":null,"role":"subject|acquirer|target|forecaster|mentioned"}],"beneficiaries":[{"name":"...","named_in_article":true,"ticker":null,"listing":null,"mechanism":"...","magnitude":null,"horizon":null,"order":"first|second"}],"exposed":[{"name":"...","named_in_article":true,"ticker":null,"listing":null,"mechanism":"...","magnitude":null,"horizon":null,"order":"first|second"}],"whats_priced":"...","the_edge":"...","watch_item":"...","theme":"<tag>","news_impact":{"impact_direction":"positive|negative|mixed|neutral|unknown","impact_magnitude":"low|medium|high|critical","affected_metric":["<zero or more SEPARATE values, each exactly one of: revenue, ebitda, pat_net_income, eps, cash_flow, debt, capex, commodity_price, valuation_multiple, regulatory_risk, thesis_quality — e.g. [\\"revenue\\",\\"eps\\"]; NEVER a single pipe-joined string>"],"quantified_impact_available":false,"extracted_numbers":["..."],"quick_dirty_calculation":"...","why_it_matters":"...","analyst_takeaway":"...","confidence":0}}
 
 GIST — 2 to 4 short bullets carrying the REAL crux: the number, threshold, call, or change that is the point. Lead with the punchline, not the setup (e.g. "sees 50-75bp of rate hikes and 5% FY27 CPI", not the CPI sub-components). Plain English, short sentences. Every number you state must appear in the body. No hype words (robust, strong, well-positioned, attractive, best-in-class). If the story is contested or two-sided, state BOTH sides. If the body is boilerplate, a cookie/ad notice, an "about us" page, or a login wall with no story, return gist [] and set theme to your best guess.
 For results, separate reported from adjusted and name any one-off behind a beat/miss (tax credit, disposal gain, customer advance) — lead with the underlying number, not the flattered one; margin moves in basis points.
@@ -331,7 +337,7 @@ DIGEST RULE: if the article bundles several unrelated items (a wire round-up, a 
 MARKET_ANGLE — one or two sentences: the "so what" for a market. Trace the transmission from the event to asset prices. For a macro / policy / commodity / geopolitics story this is the MOST important field (e.g. "A wider Middle-East war risks a crude supply shock: oil producers and tanker owners gain, while oil-importing economies, airlines and paint/tyre makers are squeezed on input costs."). Leave "" only if the story genuinely cannot move any tradable asset.
 
 COMPANIES — INVESTABLE FIRMS ONLY. A firm issues equity or debt. NEVER list: a country, nationality, region, state, city or sports team (India, China, Haryana, "Iran's national team"); a person; a market index or rate (S&P 500, Nifty, Euribor); a government body, regulator, central bank or agency (Fed, ECB, RBI, SEBI, SEC, DOJ, European Commission, OPEC, Ministry of X); a generic placeholder ("major tyre maker", "startups"). Give each firm a role: subject (the firm the story is about) | acquirer/target (M&A) | forecaster (a bank/analyst MAKING a call — NOT a party that gains) | mentioned.
-For each firm also give listing_country (the FULL English name of the country of its primary stock listing, e.g. "Brazil", "United States", "India", "Japan", "South Korea") and exchange (the primary exchange where it trades, with its ticker if you are confident, e.g. "B3: PETR3", "NYSE: PBR", "NSE: RELIANCE", "LSE", "Tokyo (TSE)"; a well-known dual listing/ADR may be added, e.g. "B3 (NYSE ADR: PBR)"). These come from your own knowledge of the company, not the article. Use null whenever you are not confident — NEVER guess a listing, ticker or exchange you are unsure of.
+For each firm first give listing_status: "public" if it has publicly-traded equity a fund can buy on an exchange (ordinary shares or depositary receipts / ADRs); "private" if it is privately held — private-equity- or family-owned, a fund or investment vehicle, or an unlisted subsidiary — and so has no tradable stock; "unknown" if you genuinely cannot tell. This is your FIRST duty on every named firm: a portfolio manager needs to know whether the name is even investable (e.g. Gull and Allegro Funds are private; Petrobras is public). Then, for a PUBLIC firm only, give listing_country (the FULL English name of the country of its primary stock listing, e.g. "Brazil", "United States", "India", "Japan", "South Korea") and exchange (the primary exchange where it trades, with its ticker if you are confident, e.g. "B3: PETR3", "NYSE: PBR", "NSE: RELIANCE", "LSE", "Tokyo (TSE)"; a well-known dual listing/ADR may be added, e.g. "B3 (NYSE ADR: PBR)"). For a private or unknown firm set listing_country, exchange AND ticker to null — a private firm has no exchange, and its country of OPERATION is NOT a listing. These come from your own knowledge of the company, not the article. Use null whenever you are not confident — NEVER guess a listing, ticker or exchange you are unsure of.
 
 BENEFICIARIES / EXPOSED — who GAINS and who is AT RISK, framed as an INVESTMENT with the transmission spelled out:
 - INVESTABILITY GATE: every entry must be something a fund can actually hold — a named listed firm, or a tradable sector / group / asset ("oil & gas producers", "Indian private banks", "gold", "US Treasuries"). NEVER list (in EITHER column) a sports team, an individual, a country's citizens, a government, a central bank, a regulator or agency, a market index, or a rate — these are causes or context, not positions. The central bank/regulator is the CAUSE; translate it into the tradable sectors it moves. If only non-tradable parties are affected, return [].
@@ -357,6 +363,7 @@ analyst_takeaway — one sentence: the single most decision-useful line a portfo
 confidence — integer 0 to 100. 0 when you have no real basis for a verdict (e.g. the body is too thin or off-topic). NEVER fabricate an implied confidence.`
 
 const ROLES: CompanyRole[] = ['subject', 'acquirer', 'target', 'forecaster', 'mentioned']
+const LISTING_STATUSES: ListingStatus[] = ['public', 'private', 'unknown']
 const str = (v: unknown, max = 200): string => (typeof v === 'string' ? v.trim().slice(0, max) : '')
 
 function coerceParty(raw: any): ArticleParty | null {
@@ -430,11 +437,21 @@ export function coerceArticleBrief(raw: any): ArticleBrief {
     .map((c: any): ArticleCompany | null => {
       const name = str(c?.name, 120)
       if (!name) return null
-      const ticker = typeof c?.ticker === 'string' && TICKER_RE.test(c.ticker.trim()) ? c.ticker.trim().toUpperCase() : null
+      let ticker = typeof c?.ticker === 'string' && TICKER_RE.test(c.ticker.trim()) ? c.ticker.trim().toUpperCase() : null
       const role: CompanyRole = ROLES.includes(c?.role) ? c.role : 'mentioned'
-      const listing_country = str(c?.listing_country, 48) || null
-      const exchange = str(c?.exchange, 48) || null
-      return { name, ticker, role, listing_country, exchange }
+      let listing_country = str(c?.listing_country, 48) || null
+      let exchange = str(c?.exchange, 48) || null
+      // public / private / unknown — the "can I trade this?" flag. When the model omits it (an older cached
+      // brief predating this field), derive from the listing anchor: a ticker or exchange means public, else unknown.
+      const rawStatus = str(c?.listing_status, 12).toLowerCase()
+      const listing_status: ListingStatus = (LISTING_STATUSES as string[]).includes(rawStatus)
+        ? (rawStatus as ListingStatus)
+        : ((ticker || exchange) ? 'public' : 'unknown')
+      // Only a PUBLIC firm has a market listing — for private OR unknown, null the anchor so a stray country/
+      // exchange can't masquerade as one (the "LISTED Gull — New Zealand" overclaim on a PE-owned or
+      // unconfirmed name). Mirrors the prompt: private/unknown ⇒ no ticker, country or exchange.
+      if (listing_status !== 'public') { ticker = null; listing_country = null; exchange = null }
+      return { name, ticker, role, listing_status, listing_country, exchange }
     })
     .filter((c: ArticleCompany | null): c is ArticleCompany => c !== null)
     .slice(0, 8)
