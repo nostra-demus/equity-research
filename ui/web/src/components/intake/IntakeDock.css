@@ -1,0 +1,133 @@
+/* Document-intake surface. Motion budget: transform/opacity only, <300ms, --ease-out; enter-only (this is a
+   live-tick surface — it refreshes on data-changed, so it uses the instant-close rule: no exit animation).
+   Themes entirely from the accent family, so it resolves in light + dark and for any swarm's accent. */
+
+/* ---- the docked panel (top-left, distinct from DataFilesPanel which sits bottom-left) ---- */
+.intake {
+  position: absolute; left: 18px; top: 70px; z-index: 21;
+  width: 320px; max-width: 38vw;
+  background: var(--datafiles-bg);
+  border: 1px solid var(--accent-wash);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-2); backdrop-filter: blur(8px);
+  overflow: hidden; font-size: 12px;
+  animation: intake-in 260ms var(--ease-out) both;
+}
+@keyframes intake-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+
+.intake__head {
+  display: flex; align-items: center; gap: 8px; width: 100%;
+  padding: 9px 12px; text-align: left; cursor: pointer;
+  background: transparent; border: 0; color: inherit;
+  transition: background var(--dur-fast) var(--ease);
+}
+@media (hover: hover) and (pointer: fine) { .intake__head:hover { background: var(--surface-3); } }
+.intake__chev { font-size: 9px; color: var(--accent-bright); transition: transform var(--dur-fast) var(--ease); }
+.intake__chev[data-open="true"] { transform: rotate(90deg); }
+.intake__title { font-weight: 600; color: var(--text); letter-spacing: 0.2px; }
+.intake__count { font-size: 11px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.intake__reanalyze {
+  margin-left: auto; display: inline-flex; align-items: center; justify-content: center;
+  width: 22px; height: 22px; border-radius: var(--r-pill);
+  color: var(--text-muted); font-size: 13px; cursor: pointer;
+  transition: transform var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .intake__reanalyze:hover { color: var(--accent-bright); background: var(--accent-wash); } }
+.intake__reanalyze:active { transform: scale(0.9) rotate(-30deg); }
+
+.intake__body { padding: 4px 12px 12px; }
+.intake__reading { padding: 8px 2px; color: var(--text-muted); font-style: italic; }
+
+/* ---- the document shards ---- */
+.intake__docs { display: flex; flex-direction: column; gap: 7px; }
+.intake__docwrap { animation: idoc-in 240ms var(--ease-out) both; animation-delay: calc(var(--i) * 45ms); }
+@keyframes idoc-in { from { opacity: 0; transform: translateY(6px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+.idoc {
+  position: relative; display: flex; gap: 0;
+  background: var(--surface-2); border: 1px solid var(--hairline);
+  /* folded top-right corner → an angular "document", never a round orb */
+  clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 0 100%);
+  border-radius: 3px; overflow: hidden;
+  transition: transform var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) {
+  .idoc:hover { transform: translateX(2px); border-color: var(--accent-wash); }
+}
+.idoc__spine { flex: none; width: 3px; background: var(--accent-bright); box-shadow: 0 0 8px var(--accent-glow); }
+.idoc__body { min-width: 0; flex: 1; padding: 8px 10px 9px; }
+.idoc__top { display: flex; align-items: baseline; gap: 8px; }
+.idoc__name { min-width: 0; flex: 1; color: var(--text); font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.idoc__mat { flex: none; display: inline-flex; align-items: center; gap: 2px; font-variant-numeric: tabular-nums; font-size: 11px; color: var(--text-muted); }
+.idoc__mat-glyph { font-size: 12px; line-height: 1; }
+.idoc__mat--bad .idoc__mat-glyph { color: var(--bad); }
+.idoc__mat--good .idoc__mat-glyph { color: var(--good); }
+.idoc__mat--warn .idoc__mat-glyph { color: var(--conv-warn); }
+.idoc__chips { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+.idoc__chip {
+  font-size: 10px; line-height: 1; padding: 3px 6px; border-radius: var(--r-pill);
+  background: var(--surface-3); color: var(--text-muted); white-space: nowrap;
+}
+.idoc__chip--prov { color: var(--text); }
+.idoc__chip--tier { color: var(--accent-bright); background: var(--accent-wash); font-variant-numeric: tabular-nums; }
+.idoc__chip--date { color: var(--text-faint); }
+.idoc__summary { margin-top: 7px; color: var(--text-muted); line-height: 1.4; }
+.idoc__orbs { margin-top: 6px; font-size: 10.5px; color: var(--accent-bright); }
+
+/* ---- the scoped rerun plan ---- */
+.iplan { margin-top: 11px; }
+.iplan__rows { display: flex; flex-direction: column; gap: 4px; }
+.iplan__row {
+  display: flex; align-items: center; gap: 7px; padding: 6px 8px;
+  background: var(--accent-wash-soft); border: 1px solid var(--accent-wash); border-radius: var(--r-sm);
+  transition: background var(--dur-fast) var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .iplan__row:hover { background: var(--accent-wash); } }
+.iplan__orb { color: var(--text); font-weight: 600; }
+.iplan__conf { flex: none; width: 6px; height: 6px; border-radius: 50%; background: var(--accent-bright); }
+.iplan__conf--low { background: var(--conv-warn); }
+.iplan__cascade { margin-left: auto; font-size: 10.5px; color: var(--text-faint); white-space: nowrap; }
+.iplan__run {
+  width: 100%; margin-top: 9px; padding: 9px 12px;
+  background: var(--accent); color: #1a1206; font-weight: 600; font-size: 12px;
+  border: 0; border-radius: var(--r-sm); cursor: pointer;
+  transition: transform var(--dur-fast) var(--ease-out), filter var(--dur-fast) var(--ease-out);
+}
+@media (hover: hover) and (pointer: fine) { .iplan__run:hover { filter: brightness(1.06); } }
+.iplan__run:active { transform: scale(0.98); }
+.iplan__run:disabled { opacity: 0.6; cursor: default; }
+.iplan__foot { margin-top: 6px; font-size: 10.5px; color: var(--text-faint); text-align: center; }
+
+.iplan--none { margin-top: 10px; padding: 10px 11px; background: var(--surface-2); border: 1px solid var(--hairline); border-radius: var(--r-sm); }
+.iplan__none-head { color: var(--text); font-weight: 600; }
+.iplan__none-note { margin-top: 3px; color: var(--text-muted); line-height: 1.4; }
+.iplan__notes { margin: 7px 0 0; padding-left: 16px; color: var(--text-faint); line-height: 1.5; }
+.iplan__note b { color: var(--text-muted); }
+
+/* ---- the impact beams (rendered inside SwarmField, stage-pixel space) ---- */
+.intake-beams { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; z-index: 1; }
+.intake-beam {
+  stroke: var(--accent-bright); stroke-width: 1.3; opacity: 0.4;
+  animation: intake-beam-in 220ms var(--ease-out) both;
+}
+.intake-beam--bright {
+  stroke: var(--accent-bright); stroke-width: 2.4; opacity: 1;
+  stroke-dasharray: 6 6; animation: edgeflow 0.7s linear infinite;
+  filter: drop-shadow(0 0 6px var(--accent-glow)) drop-shadow(0 0 2px var(--accent-bright));
+}
+@keyframes intake-beam-in { from { opacity: 0; } to { opacity: 0.4; } }
+
+/* ---- orb states driven by the intake surface ---- */
+.node--scoped .node__ring { box-shadow: 0 0 0 1.5px var(--accent-wash), 0 0 10px var(--accent-glow); }
+.node--dimmed { opacity: 0.32; transition: opacity var(--dur) var(--ease-out); }
+/* When a doc/plan row is hovered, the dependency edges recede so the impact beam reads as the one thing
+   pointing at the affected orbs (transform/opacity only). */
+.swarm[data-intake-focus="true"] .swarm__svg { opacity: 0.12 !important; transition: opacity var(--dur) var(--ease-out); }
+.swarm .swarm__svg { transition: opacity var(--dur) var(--ease-out); }
+
+@media (prefers-reduced-motion: reduce) {
+  .intake, .intake__docwrap { animation: none; }
+  .intake__reanalyze:active { transform: none; }
+  .iplan__run:active { transform: none; }
+  .intake-beam--bright { animation: intake-beam-in 1ms both; }
+}

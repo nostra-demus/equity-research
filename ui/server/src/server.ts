@@ -12,7 +12,7 @@ import { execa } from 'execa'
 import Fastify, { type FastifyReply, type FastifyRequest } from 'fastify'
 import { z } from 'zod'
 import { readActivity } from './activity-log'
-import { recordDataChange } from './data-activity'
+import { recordDataChange, syncingState, SYNC_WINDOW_MS } from './data-activity'
 import { buildReportHtml, parseMeta, safeName } from './export'
 import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, WEB_DIST, feedbackDispatchReady, isDispatchAdmin, isReservedDataFolder } from './config'
 import { getCreditStatus } from './credit'
@@ -43,7 +43,7 @@ import { FEEDBACK_MAX_IMAGES, type FeedbackCategory, type FeedbackItemRecord, ap
 import { dryRunFeedbackDispatch, startFeedbackDispatch } from './feedback-dispatch'
 import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
-import { agentNamesForModule, buildSwarmGraph, findRunRootForSubject, graphForSubject, graphForTicker, listModuleNames, swarmSubjects, terminalModuleName } from './roster'
+import { agentNamesForModule, buildSwarmGraph, findLatestRunRoot, findRunRootForSubject, graphForSubject, graphForTicker, listModuleNames, swarmSubjects, terminalModuleName } from './roster'
 import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, resolveRunRoot, runManifest } from './outputs'
 import { assembleContext, buildChatPrompts, scopeAvailability } from './chat-context'
 import { chatTurnsInFlight, runChatTurn } from './chat-llm'
@@ -57,7 +57,7 @@ import { getAutotuneState, readChanges, revertChange, setAutotunePaused, setAuto
 import { routeReason } from './news/triage/reason-router'
 import { startResumeSupervisor } from './resume-supervisor'
 import { listResumableRuns } from './resumable'
-import { carryForwardModules, prepareModuleResume, thesisPlan } from './completion'
+import { carryForwardModules, dataPoolNewest, prepareModuleResume, thesisPlan } from './completion'
 import { readIntakePlan } from './intake'
 import { SubjectBusyError, withSubjectLock } from './subject-lock'
 import { AGENT_RE, EVENT_ID_RE, FEEDBACK_ID_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE, isValidTicker, resolveInsideRuns, validateNewTicker, sanitizeUploadFilename } from './sandbox'
@@ -2026,6 +2026,44 @@ app.get('/api/data-status/stream', (req, reply) => {
   })
 })
 
+// ---- auto-analyze document intake on landing (frameworks/INTAKE.md) ----
+// When new docs sync for a ticker that already has a FINISHED thesis, generate the scoped rerun plan
+// automatically so the cockpit is intelligent the moment it's opened — no manual "analyze" step. Only the
+// CHEAP analysis auto-fires; reruns stay a human one-click (CLAUDE.md §24). Debounced per ticker (wait out
+// the Drive-sync burst), deduped on the pool's newest-file date, and gated behind INTAKE_AUTO_ANALYZE
+// (default on; set to '0' to disable). Best-effort: any admission/capacity/offline error just skips a round.
+const AUTO_INTAKE_ON = process.env.INTAKE_AUTO_ANALYZE !== '0'
+const AUTO_INTAKE_DEBOUNCE_MS = 30_000
+const autoIntakeTimers = new Map<string, ReturnType<typeof setTimeout>>()
+const autoIntakeLastNewest = new Map<string, string>()
+
+function scheduleAutoIntake(ticker: string) {
+  if (!AUTO_INTAKE_ON || !TICKER_RE.test(ticker) || isValidTicker(ticker) === false || isReservedDataFolder(ticker)) return
+  const prev = autoIntakeTimers.get(ticker)
+  if (prev) clearTimeout(prev)
+  autoIntakeTimers.set(ticker, setTimeout(() => { autoIntakeTimers.delete(ticker); void fireAutoIntake(ticker) }, AUTO_INTAKE_DEBOUNCE_MS))
+}
+
+async function fireAutoIntake(ticker: string, attempt = 0): Promise<void> {
+  try {
+    if (!AUTO_INTAKE_ON) return
+    // still mid-sync? wait out the burst and retry a few times, so we analyze the settled pool, not a half-copy.
+    if (syncingState(ticker).syncing && attempt < 4) { setTimeout(() => void fireAutoIntake(ticker, attempt + 1), SYNC_WINDOW_MS); return }
+    // intake only makes sense against a finished thesis — nothing to scope otherwise.
+    const runRoot = findLatestRunRoot(ticker)
+    if (!runRoot || !fs.existsSync(path.join(runRoot, 'final_thesis.md'))) return
+    // dedupe: skip if the pool has not gained a newer file since the last auto-analysis (a restart re-fires once).
+    const newest = dataPoolNewest(ticker).newestDate || ''
+    if (newest && autoIntakeLastNewest.get(ticker) === newest) return
+    // never analyze while a run (research OR a prior intake) is already in flight on this subject.
+    if (listRuns().some((r) => r.subjectId === ticker && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))) return
+    autoIntakeLastNewest.set(ticker, newest)
+    await launch({ kind: 'doc-intake', ticker, user: 'auto', userVia: 'local' })
+  } catch {
+    /* best-effort — admission conflict / capacity / CLI-missing just skip; the manual Analyze button remains */
+  }
+}
+
 function broadcastData(fp: string, change: 'added' | 'removed') {
   let rel: string
   try {
@@ -2036,6 +2074,7 @@ function broadcastData(fp: string, change: 'added' | 'removed') {
   const ticker = rel.split(path.sep)[0]
   if (!ticker || ticker.startsWith('..')) return
   recordDataChange(ticker, change) // stamp Drive-sync activity so the UI can show a live "syncing…" state
+  scheduleAutoIntake(ticker) // debounced, deduped, finished-run-gated auto-analysis of the scoped rerun plan
   const evt = { type: 'data-changed', ticker, change, ts: Date.now() }
   for (const c of dataClients) {
     try {

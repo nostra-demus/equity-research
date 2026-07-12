@@ -29,6 +29,7 @@ import { AddCompany } from './components/AddCompany'
 import { ReadinessWarnings } from './components/ReadinessWarnings'
 import { DataUploadEmptyState } from './components/DataUploadEmptyState'
 import { DataFilesPanel } from './components/DataFilesPanel'
+import { IntakeDock } from './components/intake/IntakeDock'
 import { DecisionBanner } from './components/DecisionBanner'
 import { OfflineBanner } from './components/EngineStatus'
 
@@ -113,6 +114,7 @@ function ResearchStage() {
       <ViewToggle />
       <DataUploadEmptyState />
       <DataFilesPanel />
+      <IntakeDock />
       <DecisionBanner />
     </>
   )

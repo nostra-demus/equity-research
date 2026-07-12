@@ -7,7 +7,8 @@ import { displayHeadline, originalHeadline, plainRoute, plainStage } from './pla
 import type { Theme, ThemeDetail, ThemeBrief } from './themes'
 import { intensityWindowForHours } from './themes'
 import { deriveWireConfig, type WireConfig, type WirePulseSubject } from './wire'
-import type { ActiveRunLite, AgentNode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, CycleSummary, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, ThesisPlan, TickerSummary, Usage } from './types'
+import { affectedModules, focusKeysFor } from './intake'
+import type { ActiveRunLite, AgentNode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, CycleSummary, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage } from './types'
 import { feedbackInputFromItem, feedbackLabel, polarityOf } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
 import { emptyReviewFilters, matchesReviewFilters, type ReviewFilterState } from '../components/screener/ReviewFilters'
@@ -382,9 +383,24 @@ interface State {
   thesisPlanLoading: boolean // first load — the panel shows its skeleton
   thesisPlanPricing: boolean // re-pricing after a checkbox toggle — the old price stays put, no flicker
   thesisPlanError: string | null
+  // The intake plan for the selected ticker (frameworks/INTAKE.md), refreshed on select + on data-changed.
+  // Advisory guidance over the staleness floor — it never flips a module fresh, only pre-selects what to keep.
+  intake: IntakePlan | null
+  // Orb keys the intake surface lights: focus = transient (hover a doc/plan row), plan = persistent (the
+  // affected orbs while a scoped plan exists). SwarmField unions these into its highlight/selection sets.
+  intakeFocusKeys: Set<string>
+  intakePlanKeys: Set<string>
+  intakeAnalyzing: boolean // a manual "analyze new documents" run is in flight (auto-analysis is silent)
+  setIntakeFocus: (keys: Set<string>) => void
+  analyzeIntake: () => Promise<void> // manual trigger — writes/refreshes the scoped plan; launches no rerun
+  // When the thesis plan was scoped by intake, what it kept vs re-ran — so the panel can explain + offer the
+  // "re-run everything" escape hatch. Null = the blunt floor (no plan, or the plan didn't narrow anything).
+  thesisPlanIntake: ThesisPlanIntake | null
+  refreshIntake: () => Promise<void>
   openThesisPlan: () => Promise<void>
   closeThesisPlan: () => void
   toggleThesisRerun: (module: string) => void // flip one module between "reuse" and "re-run", then re-price
+  resetThesisReuse: () => void // the "re-run everything" escape hatch — drop the intake scoping, re-run all stale
   completeThesis: () => Promise<void>
   resumeThesisModule: (module: string) => Promise<void> // the RUN pill — launch one module, resuming its orbs
 
@@ -697,6 +713,11 @@ export const useStore = create<State>((set, get) => ({
   thesisPlanLoading: false,
   thesisPlanPricing: false,
   thesisPlanError: null,
+  intake: null,
+  intakeFocusKeys: new Set(),
+  intakePlanKeys: new Set(),
+  intakeAnalyzing: false,
+  thesisPlanIntake: null,
   openOutput: null,
   chatOpen: false,
   chatScope: 'run',
@@ -838,7 +859,7 @@ export const useStore = create<State>((set, get) => ({
         dataSource.addEventListener('data-changed', (ev: MessageEvent) => {
           try {
             const d = JSON.parse(ev.data)
-            if (d.ticker === get().selectedTicker) get().refreshData()
+            if (d.ticker === get().selectedTicker) { get().refreshData(); void get().refreshIntake() }
             refreshTickersSoon(get, set) // live count update + keep polling while Drive is still syncing
           } catch {}
         })
@@ -886,12 +907,13 @@ export const useStore = create<State>((set, get) => ({
     const activeRuns = Object.fromEntries(Object.entries(get().activeRuns).filter(([, r]) => LIVE_RUN.has(r.status)))
     chatAbort?.abort(); chatAbort = null // a new subject → drop any in-flight chat + its thread
     // the completion plan is per-subject disk truth — never let a previous subject's plan survive a switch
-    set({ selectToken: token, selectedTicker: t, constellationSwarm: sw, dataStatus: null, dataLoading: isResearch, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], runPanelDismissed: false, activeRuns, openOutput: null, thesisPlan: null, thesisPlanOpen: false, thesisPlanError: null, ...CHAT_RESET })
+    set({ selectToken: token, selectedTicker: t, constellationSwarm: sw, dataStatus: null, dataLoading: isResearch, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], runPanelDismissed: false, activeRuns, openOutput: null, thesisPlan: null, thesisPlanOpen: false, thesisPlanError: null, intake: null, intakeFocusKeys: new Set(), intakePlanKeys: new Set(), intakeAnalyzing: false, thesisPlanIntake: null, ...CHAT_RESET })
     const graph = isResearch ? await api.swarm(t) : await api.swarmGraph(sw, t)
     if (get().selectToken !== token) return // a newer selection superseded this one
     set({ graph, nodesByKey: flatten(graph) })
     void get().refreshResumable() // so the orb-view Resume chip knows if this subject has an interrupted run
     if (isResearch) await get().refreshData()
+    if (isResearch) void get().refreshIntake() // the scoped rerun plan (if one exists) — non-blocking
     if (get().selectToken !== token) return
     // seed prior-run results into the swarm
     try {
@@ -1442,19 +1464,99 @@ export const useStore = create<State>((set, get) => ({
     // thesisPlanPricing MUST be cleared here: a toggle whose re-price was still in flight when the panel
     // closed returns early and leaves it true, and nothing else resets it — which would leave the Run button
     // permanently disabled on every subsequent open (a dead button, the failure mode of the readiness gate).
-    set({ thesisPlanOpen: true, thesisPlanLoading: true, thesisPlanPricing: false, thesisPlanError: null, thesisPlan: null })
+    set({ thesisPlanOpen: true, thesisPlanLoading: true, thesisPlanPricing: false, thesisPlanError: null, thesisPlan: null, thesisPlanIntake: null })
     try {
-      const plan = await api.thesisPlan(t, sw)
+      let plan = await api.thesisPlan(t, sw)
       // the user may have switched subject or closed the panel while this was in flight
       if (get().selectedTicker !== t || !get().thesisPlanOpen) return
-      set({ thesisPlan: plan, thesisPlanLoading: false })
+      // INTELLIGENT DEFAULT (frameworks/INTAKE.md): if intake has read the docs that landed since the last
+      // run and scoped the impact, don't default to "re-run every stale module". Keep the finished modules
+      // the evidence doesn't touch; re-run only the affected ones + their DAG cascade. This is ADDITIVE over
+      // the floor — the stale badges stay honest, and "re-run everything" (resetThesisReuse) is one click away.
+      let scoped: ThesisPlanIntake | null = null
+      const intake = get().intake
+      const affected = affectedModules(intake)
+      if (sw === 'research' && intake && affected.size && plan.reusable.length) {
+        const keep = plan.reusable.filter((m) => !affected.has(m))
+        const bluntKeeps = new Set(plan.reuse)
+        // only override when it genuinely narrows the run (keeps something the blunt default would re-run)
+        if (keep.length && keep.some((m) => !bluntKeeps.has(m))) {
+          const scopedPlan = await api.thesisPlan(t, sw, keep)
+          if (get().selectedTicker !== t || !get().thesisPlanOpen) return
+          plan = scopedPlan
+          const present = new Set(plan.modules.map((m) => m.module))
+          scoped = { affected: [...affected].filter((m) => present.has(m)), keep, scanDate: intake.scan_date, summary: intake.summary }
+        }
+      }
+      set({ thesisPlan: plan, thesisPlanLoading: false, thesisPlanIntake: scoped })
     } catch (e: any) {
       if (get().selectedTicker !== t) return
       set({ thesisPlanLoading: false, thesisPlanError: e?.message || 'Could not read what this run still needs' })
     }
   },
 
-  closeThesisPlan: () => set({ thesisPlanOpen: false, thesisPlanPricing: false, thesisPlanError: null }),
+  closeThesisPlan: () => set({ thesisPlanOpen: false, thesisPlanPricing: false, thesisPlanError: null, thesisPlanIntake: null }),
+
+  // Fetch the scoped rerun plan for the selected ticker (advisory; the server validates + re-expands it).
+  // Fails to null — the cockpit then shows the honest staleness floor, never a fabricated plan.
+  refreshIntake: async () => {
+    const t = get().selectedTicker
+    if (!t || get().staticMode || get().activeSwarm !== 'research') return
+    const token = get().selectToken
+    try {
+      const plan = await api.intake(t)
+      if (get().selectToken !== token) return // a newer selection superseded this fetch
+      // recompute which orbs the plan lights (nodesByKey is already set by selectTicker before this runs)
+      set({ intake: plan, intakePlanKeys: focusKeysFor(plan, get().nodesByKey) })
+    } catch {
+      if (get().selectToken === token) set({ intake: null, intakePlanKeys: new Set() })
+    }
+  },
+
+  setIntakeFocus: (keys) => set({ intakeFocusKeys: keys }),
+
+  // Manual "understand these documents" trigger. Launches the cheap advisory analysis (NO rerun) and polls
+  // for the fresh plan (it's written to analyses/, which the data watcher doesn't announce). Auto-analysis
+  // covers the common case silently; this is the on-demand button.
+  analyzeIntake: async () => {
+    const t = get().selectedTicker
+    if (!t || get().staticMode || get().activeSwarm !== 'research' || get().intakeAnalyzing) return
+    if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — analysis is paused until it reconnects.', tone: 'info' })
+    set({ intakeAnalyzing: true })
+    const token = get().selectToken
+    const before = get().intake?.analyzed_at
+    try {
+      await api.analyzeIntake(t)
+      for (let i = 0; i < 12; i++) {
+        await new Promise((r) => setTimeout(r, 15_000))
+        if (get().selectToken !== token) return
+        await get().refreshIntake()
+        if (get().selectToken !== token) return
+        if (get().intake && get().intake!.analyzed_at !== before) break
+      }
+    } catch (e: any) {
+      get().setToast({ msg: `Couldn’t analyze the new documents: ${e?.message || 'the run failed'}`, tone: 'bad' })
+    } finally {
+      if (get().selectToken === token) set({ intakeAnalyzing: false })
+    }
+  },
+
+  // The "re-run everything" escape hatch: drop the intake scoping and re-price against the honest floor
+  // (reuse only done-and-current → re-run every stale module). Intake guidance can narrow, never trap.
+  resetThesisReuse: () => {
+    const plan = get().thesisPlan
+    const t = get().selectedTicker
+    if (!plan || !t) return
+    set({ thesisPlanIntake: null, thesisPlanPricing: true })
+    const token = get().selectToken
+    const seq = ++thesisPriceSeq
+    api.thesisPlan(t, plan.swarm)
+      .then((fresh) => {
+        if (get().selectToken !== token || seq !== thesisPriceSeq || !get().thesisPlanOpen) return
+        set({ thesisPlan: fresh, thesisPlanPricing: false })
+      })
+      .catch(() => { if (seq === thesisPriceSeq) set({ thesisPlanPricing: false }) })
+  },
 
   // Flip ONE module between "reuse what's on disk" and "re-run it", then ask the SERVER to re-price. The
   // server owns pricing (it is what the launcher will charge), so the button's number can never drift from

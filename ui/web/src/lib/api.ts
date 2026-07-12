@@ -1,7 +1,7 @@
 import { staticPromptPath } from './prompts'
 import { DEFAULT_RANK_WEIGHTS, type RankWeights, type RankWeightsState } from './rankWeights'
 import type { AutotuneState, RankWeightChanges, WeightChange } from './types'
-import type { ActivityQuery, ActivityResult, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CoverageGroup, DataStatus, EventEnrichment, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, ThesisPlan, TickerSummary, UploadResult, Usage, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CoverageGroup, DataStatus, EventEnrichment, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, ThesisPlan, TickerSummary, UploadResult, Usage, Whoami } from './types'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -598,6 +598,26 @@ export const api = {
   ): Promise<{ runId: string; preflight: LaunchPreflight; module: string; willRun: number; doneOrbKeys: string[]; carried: { module: string; from: string }[]; resumed?: boolean; ranClean?: boolean }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/thesis-plan/module`, { ticker, module, reuse, swarm })
+  },
+
+  // ---- document intake (the scoped rerun plan, frameworks/INTAKE.md) ----
+  // The latest scoped plan for a ticker (roster-validated + downstream re-expanded server-side), or null
+  // when there's no run/plan yet. A 404 / old server / static deploy → null (fail-closed: the cockpit then
+  // shows the honest staleness floor, never a fabricated plan).
+  intake: async (ticker: string): Promise<IntakePlan | null> => {
+    if ((await ensureMode()) === 'static') return null
+    try {
+      const r = await get<{ plan: IntakePlan | null }>(`/api/intake/${encodeURIComponent(ticker)}`, 8_000)
+      return r.plan ?? null
+    } catch {
+      return null
+    }
+  },
+  // Trigger the cheap, advisory analysis that (re)writes the scoped plan. Launches NO rerun (reruns stay a
+  // human one-click). Returns the run id of the doc-intake run.
+  analyzeIntake: async (ticker: string): Promise<{ runId: string }> => {
+    if ((await ensureMode()) === 'static') throw STATIC_ERR()
+    return post(`/api/intake/${encodeURIComponent(ticker)}/analyze`)
   },
 
   runStreamUrl: (runId: string) => `/api/runs/${runId}/stream`,
