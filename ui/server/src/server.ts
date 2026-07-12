@@ -38,7 +38,7 @@ import { markInboxConsumed, setDismissed } from './news/inbox-actions'
 import { refreshBoard } from './news/write-inbox'
 import { auditInboxAction, hideSignal, moveThesis, MOVE_TARGETS, SIGNAL_ACTIONS } from './screener-actions'
 import { FEEDBACK_TYPES, readAllFeedback, submitFeedback, summarizeFeedback, undoFeedback } from './screener-feedback'
-import { FEEDBACK_MAX_IMAGES, type FeedbackCategory, type FeedbackItemRecord, appendFeedbackEvent, foldFeedback, isFeedbackId, itemDir, newFeedbackId, readAllFeedback as readAllCockpitFeedback, resolveFeedbackImage, saveFeedbackImage, writeFeedbackItem } from './feedback-store'
+import { FEEDBACK_MAX_IMAGES, type FeedbackCategory, type FeedbackItemRecord, appendFeedbackEvent, foldFeedback, isFeedbackId, itemDir, newFeedbackId, readAllFeedback as readAllCockpitFeedback, saveFeedbackImage, writeFeedbackItem } from './feedback-store'
 import { dryRunFeedbackDispatch, startFeedbackDispatch } from './feedback-dispatch'
 import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
@@ -1718,13 +1718,19 @@ app.post('/api/feedback', { config: { rateLimit: { max: 300, timeWindow: '1 minu
 // Folded team-visible list (item + its latest status event), newest first.
 app.get('/api/feedback', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async () => ({ items: foldFeedback(readAllCockpitFeedback()) }))
 
-// Serve a stored screenshot back to the panel — path-contained to the item's own folder (resolveFeedbackImage
-// applies the resolve + startsWith containment barrier, so a crafted :id / :name can't escape STATE_DIR/feedback).
+// Serve a stored screenshot back to the panel. The resolve + startsWith containment barrier is applied
+// INLINE here, right before the fs sinks — CodeQL recognizes js/path-injection sanitization only at the
+// sink, not behind a helper (same finding pattern as the external-data image work). A crafted :id / :name
+// therefore cannot escape STATE_DIR/feedback/<id>.
 app.get('/api/feedback/:id/image/:name', { config: { rateLimit: { max: 2000, timeWindow: '1 minute' } } }, async (req, reply) => {
   const { id, name } = req.params as { id: string; name: string }
-  const full = resolveFeedbackImage(id, name)
-  if (!full || !fs.existsSync(full)) return reply.code(404).send({ error: 'not found' })
+  if (!isFeedbackId(id)) return reply.code(404).send({ error: 'not found' })
+  const base = path.resolve(STATE_DIR, 'feedback', id)
+  const full = path.resolve(base, name)
+  if (full !== base && !full.startsWith(base + path.sep)) return reply.code(404).send({ error: 'not found' })
   const ext = (full.split('.').pop() || '').toLowerCase()
+  if (!['png', 'jpg', 'jpeg', 'webp', 'gif'].includes(ext)) return reply.code(404).send({ error: 'not found' })
+  if (!fs.existsSync(full)) return reply.code(404).send({ error: 'not found' })
   const mime = ext === 'png' ? 'image/png' : ext === 'gif' ? 'image/gif' : ext === 'webp' ? 'image/webp' : 'image/jpeg'
   reply.header('content-type', mime)
   reply.header('cache-control', 'private, max-age=3600')
