@@ -15,7 +15,7 @@
 // re-reads, and it NEVER throws (a heal failure must never wedge a cycle).
 
 import { NEWS, REPO_ROOT, STATE_DIR } from '../config'
-import { ARTICLE_READ_PROVIDERS } from '../config'
+import { ARTICLE_READ_PROVIDERS, FILING_READ_PROVIDERS } from '../config'
 import { readFeed } from './feed'
 import { enrichEvent, isEnrichmentComplete, type EventEnrichment } from './enrich'
 import fs from 'node:fs'
@@ -113,6 +113,10 @@ export async function healEnrichCache(deps: HealDeps = {}): Promise<HealSummary>
           sleep,
           force: true, // bypass the degraded entry's short TTL and re-run the real read
           articleProviders: ARTICLE_READ_PROVIDERS,
+          // A floored FILING must re-read on the strong filing chain too — healing on the article-only chain
+          // re-floors it and locks complete=true for ~12h, so the configured stronger model would never be
+          // consulted after a first-open miss (limiter busy / deadline / 429 / mangled PDF). [PR #220 audit MEDIUM-1]
+          filingReadProviders: FILING_READ_PROVIDERS,
           llmBudgetMs: NEWS.enrichLlmBudgetMs,
           limiterWaitMs: NEWS.enrichLimiterWaitMs,
         },

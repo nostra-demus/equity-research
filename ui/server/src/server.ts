@@ -14,7 +14,7 @@ import { z } from 'zod'
 import { readActivity } from './activity-log'
 import { recordDataChange } from './data-activity'
 import { buildReportHtml, parseMeta, safeName } from './export'
-import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, GDRIVE, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, WEB_DIST, isReservedDataFolder } from './config'
+import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, WEB_DIST, isReservedDataFolder } from './config'
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
 import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED } from './drive'
@@ -1477,6 +1477,7 @@ app.get('/api/news/enrich', async (req, reply) => {
         // each sharing the ingester's daily budget + per-minute limiter so an opened event never blows the
         // per-minute ceiling alongside the scanner — under HARD time budgets so it can never hang the reader.
         articleProviders: ARTICLE_READ_PROVIDERS,
+        filingReadProviders: FILING_READ_PROVIDERS, // optional stronger model for filing reads (unset => unchanged)
         llmBudgetMs: NEWS.enrichLlmBudgetMs,
         limiterWaitMs: NEWS.enrichLimiterWaitMs,
         // when the publisher blocks the direct read, corroborate the event from the secondary wire (GDELT
