@@ -10,7 +10,8 @@
 // into ONE row (server dedup) with a "+N · also …" expander; multi-source corroboration nudges its rank.
 // Click a row to read the whole event; set aside the ones not worth a check.
 
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState, type FocusEvent, type MouseEvent } from 'react'
+import { createPortal } from 'react-dom'
 import { groupByDedup, type StoryGroup } from '../../lib/dedup'
 import { displayHeadline, originalHeadline, plainSize, plainTheme } from '../../lib/plain'
 import { BROAD_SCOPES, COMPANY_SCOPES, familyOf, isCompanyNameClient, SCOPES, scopeLabel, scopeOf, type ScopeId } from '../../lib/scope'
@@ -100,6 +101,17 @@ function EventRow({ group, selected, shelved, fresh, unread, onPick, onShelve }:
   const it = group.rep
   const [expanded, setExpanded] = useState(false)
   const [feedbackAnchor, setFeedbackAnchor] = useState<ReportMenuAnchor | null>(null)
+  // Hover/focus hint for the ⚑, drawn through a portal (below) so it escapes the wire list's overflow clip
+  // and anchors ABOVE-and-right of the button — in the multi-column grid it never spills onto the neighbouring
+  // card the way the old native `title` tooltip did. Skipped on touch (no true hover); the button keeps an
+  // aria-label for screen readers.
+  const [tip, setTip] = useState<{ right: number; bottom: number } | null>(null)
+  const showTip = (e: MouseEvent<HTMLButtonElement> | FocusEvent<HTMLButtonElement>) => {
+    if (e.type === 'mouseenter' && !window.matchMedia?.('(hover: hover)').matches) return
+    const r = e.currentTarget.getBoundingClientRect()
+    setTip({ right: Math.max(8, window.innerWidth - r.right), bottom: Math.max(8, window.innerHeight - r.top + 6) })
+  }
+  const hideTip = () => setTip(null)
   const flagged = useStore((s) => s.flaggedEvents.has(it.event_id))
   const origHl = originalHeadline(it) // source-language original, only when an English translation is shown
   const kept = it.band !== 'drop'
@@ -158,15 +170,25 @@ function EventRow({ group, selected, shelved, fresh, unread, onPick, onShelve }:
         className={`evrow__flag${flagged ? ' evrow__flag--on' : ''}`}
         onClick={(e) => {
           e.stopPropagation()
+          setTip(null)
           const r = e.currentTarget.getBoundingClientRect()
           const right = Math.max(8, window.innerWidth - r.right)
           setFeedbackAnchor(window.innerHeight - r.bottom < 320 ? { right, bottom: Math.max(8, window.innerHeight - r.top + 6) } : { right, top: r.bottom + 6 })
         }}
-        title={flagged ? 'Feedback already saved for this item' : 'Flag as irrelevant / mis-scored / …'}
-        aria-label="Flag feedback on this item"
+        onMouseEnter={showTip}
+        onMouseLeave={hideTip}
+        onFocus={showTip}
+        onBlur={hideTip}
+        aria-label={flagged ? 'Feedback saved for this item' : 'Flag feedback on this item'}
       >
         ⚑
       </button>
+      {tip && createPortal(
+        <div className="rowtip" style={{ right: tip.right, bottom: tip.bottom }} aria-hidden>
+          {flagged ? 'Feedback already saved' : 'Flag as irrelevant or mis-scored'}
+        </div>,
+        document.body,
+      )}
       {feedbackAnchor && <FeedbackMenu item={it} anchor={feedbackAnchor} onClose={() => setFeedbackAnchor(null)} />}
       {group.others.length > 0 && (
         <button type="button" className={`evrow__dups${expanded ? ' evrow__dups--open' : ''}`} onClick={() => setExpanded((v) => !v)} aria-expanded={expanded} title="The same story from other sources — click to expand">
