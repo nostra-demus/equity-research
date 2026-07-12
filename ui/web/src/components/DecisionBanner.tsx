@@ -25,6 +25,9 @@ export function DecisionBanner() {
   if (dataStatus && !dataStatus.hasAnyData) return null
   if (hasActiveRun) return null
   const er = decision.expected_return_pct as number | undefined
+  // Two-number confidence (scripts/confidence.py): show understanding + conviction + sizing when
+  // the synthesizer emitted them; fall back to the old single confidence_score otherwise.
+  const d = decision as any
   // the three memo/thesis/dossier tiers exist only for research runs — a swarm run has one final
   // dossier (the banner itself opens it), so an all-off tier row would just be noise
   const anyTier = TIERS.some(({ key }) => reports[key])
@@ -35,7 +38,15 @@ export function DecisionBanner() {
         <span className="decision__call" style={{ color: decisionColor(verdict) }}>{verdict}</span>
       </div>
       <div className="decision__divider" />
-      <span className="decision__stat">conf <b>{decision.confidence_score ?? decision.confidence ?? '—'}</b></span>
+      {typeof d.conviction === 'number' && typeof d.analysis_confidence === 'number' ? (
+        <>
+          <span className="decision__stat" title="How well the company is understood — evidence quality only (data completeness, module agreement, source quality). NOT a buy signal.">understanding <b>{d.analysis_confidence}</b></span>
+          <span className="decision__stat" title="How much to bet on the call — direction-aware conviction. This is the actionable number that drives sizing (it is what the old single 'confidence' became).">conviction <b>{d.conviction}</b></span>
+          {d.sizing_hint?.action && <span className="decision__stat" style={{ color: 'var(--text-faint)', fontStyle: 'italic' }}>→ {d.sizing_hint.action}</span>}
+        </>
+      ) : (
+        <span className="decision__stat">conf <b>{decision.confidence_score ?? decision.confidence ?? '—'}</b></span>
+      )}
       {typeof er === 'number' && (
         <span className="decision__stat">exp ret <b style={{ color: er >= 0 ? 'var(--accent-bright)' : 'var(--bad)' }}>{er > 0 ? '+' : ''}{er}%</b></span>
       )}

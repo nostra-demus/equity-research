@@ -36,8 +36,9 @@ import { buildThemeBrief } from './news/themes/brief'
 import { enrichEvent, listCoveredTickers } from './news/enrich'
 import { markInboxConsumed, setDismissed } from './news/inbox-actions'
 import { refreshBoard } from './news/write-inbox'
+import { appendIdeaFeedback, readIdeaById, writeIdea } from './news/ideas/ideas-store'
 import { auditInboxAction, hideSignal, moveThesis, MOVE_TARGETS, SIGNAL_ACTIONS } from './screener-actions'
-import { FEEDBACK_TYPES, readAllFeedback, submitFeedback, summarizeFeedback, undoFeedback } from './screener-feedback'
+import { appendFeedbackRoute, FEEDBACK_TYPES, readAllFeedback, submitFeedback, summarizeFeedback, undoFeedback } from './screener-feedback'
 import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
 import { agentNamesForModule, buildSwarmGraph, findLatestRunRoot, findRunRootForSubject, graphForSubject, graphForTicker, listModuleNames, swarmSubjects, terminalModuleName } from './roster'
@@ -49,6 +50,9 @@ import { dataPoolPresent, deriveSignalState, readCandidates, readConviction, rea
 import { listSwarms, RESEARCH_SWARM_ID, swarmById } from './swarms'
 import { getNewsStatus, startNewsIngester } from './news/scheduler'
 import { startConvictionLoop } from './conviction-dispatch'
+import { runAutotuneOnce, startAutotuneLoop } from './news/rank-weights-autotune'
+import { getAutotuneState, readChanges, revertChange, setAutotunePaused, setAutotunePins } from './news/rank-weights-audit'
+import { routeReason } from './news/triage/reason-router'
 import { startResumeSupervisor } from './resume-supervisor'
 import { listResumableRuns } from './resumable'
 import { carryForwardModules, dataPoolNewest, prepareModuleResume, thesisPlan } from './completion'
@@ -1432,6 +1436,43 @@ app.put('/api/news/rank-weights', { config: { rateLimit: { max: 1000, timeWindow
   return { active, defaults: defaultRankWeights(), customised: rankWeightsCustomised() }
 })
 
+// AUTO-TUNE audit + control — the append-only history of automatic weight changes (each with the feedback
+// that drove it + the backtest), a one-click revert, and the pause/pins the loop obeys. Same per-route
+// limiter as the other fs-touching handlers.
+const CHANGE_ID_RE = /^CHG-[0-9]{14}-[0-9a-f]{6}$/
+app.get('/api/news/rank-weights/changes', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async () => ({ changes: readChanges(), autotune: getAutotuneState() }))
+
+app.post('/api/news/rank-weights/changes/:id/revert', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const id = (req.params as any).id as string
+  if (!CHANGE_ID_RE.test(id)) return reply.code(400).send({ error: 'invalid change id' })
+  const { user } = identify(req)
+  try {
+    const reverted = revertChange(id, user || 'local')
+    if (!reverted) return reply.code(404).send({ error: 'no such change, or already reverted' })
+    return { ok: true, reverted, active: getRankWeights() }
+  } catch (e: any) {
+    return reply.code(500).send({ error: e?.message || 'revert failed' })
+  }
+})
+
+app.get('/api/news/rank-weights/autotune', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async () => getAutotuneState())
+
+const AutotuneBody = z.object({ paused: z.boolean().optional(), pins: z.array(z.string().max(64)).optional() }).strip()
+app.put('/api/news/rank-weights/autotune', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const parsed = AutotuneBody.safeParse(req.body ?? {})
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  if (typeof parsed.data.paused === 'boolean') setAutotunePaused(parsed.data.paused)
+  const state = parsed.data.pins ? setAutotunePins(parsed.data.pins) : getAutotuneState()
+  return state
+})
+
+// Manual kick — run one pass now (respects pause/cap/guardrails exactly like the daily tick). For the
+// panel's "run now" and for tests; it never bypasses a single guardrail.
+app.post('/api/news/rank-weights/autotune/run', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req) => {
+  const { user } = identify(req)
+  return runAutotuneOnce(user || 'manual')
+})
+
 // THEMES — the living, ranked investment themes the firehose is bucketed into. With a `country` (ISO
 // alpha-2) or `geoRegion` (continent) query param it returns the SAME themes sliced to that geography —
 // re-ranked + re-sized by that geography's news flow — so the cockpit's "Where" picker narrows the Themes
@@ -1667,6 +1708,80 @@ app.post('/api/screener/board/rebuild', { config: { rateLimit: { max: 120, timeW
   }
 })
 
+// Promote a PM-skim idea into the paid gauntlet — the "Run the full machine" click. Builds a signal intake
+// from the idea's primary source and launches it through the SAME path a wire-event launch uses (launch +
+// sigIdFor), so a run for an event the gauntlet already saw is de-duplicated by SIG-id, never double-folded.
+// Then it stamps the idea snapshot promoted so the board reflects it. Reuses the whole launch machinery
+// (credit/preflight/admission) — this endpoint only maps idea -> intake and records the promotion.
+const IDEA_ID_RE = /^IDEA-[a-f0-9]{12}$/
+app.post('/api/screener/ideas/:id/promote', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const ideaId = (req.params as any).id as string
+  if (!IDEA_ID_RE.test(ideaId)) return reply.code(400).send({ error: 'invalid idea id' })
+  const idea = readIdeaById(REPO_ROOT, ideaId)
+  if (!idea) return reply.code(404).send({ error: 'idea not found' })
+  // Idempotent: an already-promoted idea returns its existing signal WITHOUT re-launching. The board rebuild
+  // is deferred (setImmediate), so the client card can briefly still read 'live' — a re-click (or an
+  // automated retry) must never spend a second paid run on the same idea.
+  if (idea.status === 'promoted' && idea.promoted_signal_id) {
+    return { sigId: idea.promoted_signal_id, runId: null, alreadyPromoted: true }
+  }
+  const { user, userVia } = identify(req)
+  // Use the ORIGINAL-language headline (not the English translation) so the launched signal's SIG_ID
+  // byte-matches a wire launch of the same event — otherwise a non-English event double-folds a paid run.
+  const headline = (idea.source_headline || idea.source_headlines?.[0] || idea.reason || '').trim().slice(0, 500)
+  if (headline.length < 8) return reply.code(422).send({ error: 'idea has no usable source headline to launch' })
+  // A real on-list source anchors a news intake (Gate 0 checks it, and the SIG_ID byte-matches the wire
+  // event). Without one, fall back to a human-prompt intake carrying the skim's read as the note.
+  const hasSource = Boolean(idea.source_url && idea.source_name)
+  const intake = hasSource
+    ? { headline, source_url: idea.source_url as string, source_name: idea.source_name as string, input_nature: 'news_headline' }
+    : { headline, human_prompt_note: `Desk skim — ${idea.direction.toUpperCase()} ${idea.ticker}: ${idea.reason}`.slice(0, 4000), input_nature: 'human_prompt' }
+  try {
+    const out = await launch({ kind: 'signal', intake, user, userVia })
+    const sigId = out.preflight?.ticker || sigIdFor({ headline, source_url: idea.source_url || '' } as Parameters<typeof sigIdFor>[0], todayDate())
+    // stamp the snapshot so the board shows "In the machine" (deterministic — the board rebuilds from this)
+    writeIdea(REPO_ROOT, { ...idea, status: 'promoted', promoted_signal_id: sigId, updated_at: new Date().toISOString().replace(/\.\d{3}Z$/, 'Z') })
+    setImmediate(() => { try { refreshBoard(REPO_ROOT) } catch { /* best-effort */ } })
+    return { sigId, runId: out.runId }
+  } catch (e: any) {
+    const body = e?.body && typeof e.body === 'object' ? e.body : null
+    return reply.code(e?.statusCode || 500).send({ error: e?.message || 'promote failed', ...(body || {}) })
+  }
+})
+
+// Rate a surfaced idea 👍/👎 (with an optional reason) — the skim's self-grading loop. Appends to the
+// ideas' OWN feedback ledger (never the wire's, so idea-quality is not conflated with wire-materiality),
+// and a 👎 cools the idea faster (idea-scoped decay, no global lever). The board scorecard reads this.
+const IdeaFeedbackBody = z.object({ polarity: z.enum(['up', 'down', 'clear']), reason: z.string().max(120).optional() })
+app.post('/api/screener/ideas/:id/feedback', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const ideaId = (req.params as any).id as string
+  if (!IDEA_ID_RE.test(ideaId)) return reply.code(400).send({ error: 'invalid idea id' })
+  const parsed = IdeaFeedbackBody.safeParse(req.body)
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  const idea = readIdeaById(REPO_ROOT, ideaId)
+  if (!idea) return reply.code(404).send({ error: 'idea not found' })
+  const { user } = identify(req)
+  const ts = new Date().toISOString().replace(/\.\d{3}Z$/, 'Z')
+  try {
+    await appendIdeaFeedback(REPO_ROOT, { idea_feedback_id: `IFB-${randomUUID().slice(0, 12)}`, ts, idea_id: ideaId, ticker: idea.ticker, polarity: parsed.data.polarity, reason: parsed.data.reason || null, user })
+    // a 👎 cools the idea toward the "Cooling off" lane within the grace window (never past its own decay).
+    // RE-READ after the append (a promote or a skim-pass write may have landed during that await): merge the
+    // decay onto the FRESH snapshot, never the stale pre-await one, so a concurrent promoted stamp / refreshed
+    // source set is preserved (the writeIdea below is synchronous after this read — no yield, no lost update).
+    if (parsed.data.polarity === 'down') {
+      const fresh = readIdeaById(REPO_ROOT, ideaId) || idea
+      const graceMs = Math.max(0, NEWS.ideasDownvoteGraceHrs) * 3_600_000
+      const cur = Date.parse(fresh.decay_at)
+      const next = Math.min(Number.isFinite(cur) ? cur : Number.POSITIVE_INFINITY, Date.now() + graceMs)
+      writeIdea(REPO_ROOT, { ...fresh, decay_at: new Date(next).toISOString().replace(/\.\d{3}Z$/, 'Z'), updated_at: ts })
+    }
+    setImmediate(() => { try { refreshBoard(REPO_ROOT) } catch { /* best-effort */ } })
+    return { ok: true }
+  } catch (e: any) {
+    return reply.code(500).send({ error: e?.message || 'feedback failed' })
+  }
+})
+
 // ---------- screener card feedback ("flag as irrelevant / mis-scored / …") ----------
 // The wire's cockpit lets a human flag one item as irrelevant, mis-scored, mis-tagged, a stale
 // duplicate, or under-rated, with an optional reason. Stored as a structured, append-only ledger
@@ -1692,6 +1807,14 @@ app.post('/api/screener/feedback', { config: { rateLimit: { max: 1000, timeWindo
   const { user } = identify(req)
   try {
     const record = await submitFeedback(parsed.data, user)
+    // Route the free-text reason into a scope OFF the critical path — the feedback is already saved and
+    // the response goes out now; the router (LLM→keyword) then appends an additive feedback_route line so
+    // the note also feeds the tuning loop. A failure here never affects the captured feedback.
+    if (record.feedback_reason) {
+      void routeReason(record.feedback_reason)
+        .then((r) => (r.scope ? appendFeedbackRoute(record.feedback_id, r.scope, r.confidence, r.via) : undefined))
+        .catch(() => {})
+    }
     return reply.code(201).send({ ok: true, feedback: record })
   } catch (e: any) {
     return reply.code(500).send({ error: e?.message || 'feedback save failed' })
@@ -1967,6 +2090,10 @@ app
     // conviction loop (Phase 3): auto-fire /screener:validate on due checkpoints + on matching wire
     // items. OFF unless CONVICTION_LOOP_ENABLED=1 — auto-spawning paid checks is opt-in.
     startConvictionLoop()
+    // feedback auto-tune (screener): once a day, apply the tuner's guardrailed, backtest-passing rank-weight
+    // nudges from human feedback — audited + revertible. OFF unless SCREENER_AUTOTUNE_ENABLED=1 (opt-in, the
+    // prod engine env sets it); nothing is spent and no paid run is launched.
+    startAutotuneLoop()
     // forever-living resume supervisor: server-side, no browser needed — continues runs interrupted by a
     // plan-limit reset / dropped connection / reboot. OFF unless RESUME_SUPERVISOR_ENABLED=1 (the cloud
     // host sets it; a dev laptop stays dark). Never spends overage; waits for the plan limit to reset.

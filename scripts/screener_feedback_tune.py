@@ -7,21 +7,29 @@ PR #131 built the CAPTURE half: every "this card is wrong" flag is appended to
 adjustments to the runtime rank weights (rank-weights.ts / STATE_DIR/rank-weights.json).
 
 Design (mirrors screener_rescore.py / screener_calibrate.py — LLM/human judgment IN, deterministic
-math OUT, §12): it never touches the live weights. It emits a dated report of RECOMMENDATIONS; a
-human applies them via the cockpit Scoring panel (PUT /api/news/rank-weights). Recommend-only is the
-whole safety story — rank weights are a GLOBAL blast-radius lever.
+math OUT, §12): the SCRIPT itself never touches the live weights — it emits a report of
+RECOMMENDATIONS (and `applied` is ALWAYS false here). Application is a separate, server-side concern:
+the auto-tune orchestrator (rank-weights-autotune.ts) runs this with `--baseline-weights <live>` and
+applies the passing patch through saveRankWeights, auditing every change; a human can still apply by
+hand via the cockpit Scoring panel. Recommend-only-in-this-script keeps the deterministic math
+independently testable — rank weights are a GLOBAL blast-radius lever.
 
-  python3 scripts/screener_feedback_tune.py            # write a dated report
-  python3 scripts/screener_feedback_tune.py --print    # also print the JSON
-  python3 scripts/screener_feedback_tune.py --selftest # run the built-in checks (no ledger needed)
+  python3 scripts/screener_feedback_tune.py                       # write a dated report (baseline = shipped defaults)
+  python3 scripts/screener_feedback_tune.py --print               # also print the JSON
+  python3 scripts/screener_feedback_tune.py --baseline-weights W  # baseline against a live weight set (path to JSON)
+  python3 scripts/screener_feedback_tune.py --emit-json           # print ONLY the report JSON, write no file (server path)
+  python3 scripts/screener_feedback_tune.py --selftest            # run the built-in checks (no ledger needed)
 
 What it can tune from the current capture:
   - scope weights        (via score_breakdown.scope_id)
   - source_tier weights  (via score_breakdown.source_tier_id)
+  - event weights        (via score_breakdown.event_id — the winning event type)
+  - size weights         (via score_breakdown.size_bucket)
   - source reputation    (via the source string — repeat over-scorers, reported only)
-What it CANNOT tune yet (honest gap): event / size weights — the FeedbackRecord snapshots their POINT
-  contribution but not their category LABEL (and points aren't reverse-mappable: debt_credit and
-  guidance_change both = 7). Add `event_types` + `size_bucket` to FeedbackInput to enable those.
+A record whose snapshot has NO scope_id is recovered via a frozen `feedback_route` line (the free-text
+  reason router's captured-once verdict), so its human verdict still counts — additive, never overriding
+  an existing scope_id. Records predating event_id/size_bucket fall back to their frozen POINT value, so
+  the backtest stays byte-reproducible.
 
 Guardrails (never relaxed):
   - MIN_TOTAL active weight-flags before ANY recommendation (small-N refusal, §11/§19).
@@ -40,17 +48,21 @@ import sys
 from datetime import datetime, timezone
 
 REPO = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-LEDGER = os.path.join(REPO, "screener", "ledger", "screener_feedback.ndjson")
+# FEEDBACK_LEDGER overrides the ledger path (the auto-tune orchestrator + tests point it at a fixture);
+# defaults to the real ledger otherwise.
+LEDGER = os.environ.get("FEEDBACK_LEDGER") or os.path.join(REPO, "screener", "ledger", "screener_feedback.ndjson")
 OUT_DIR = os.path.join(REPO, "screener", "ledger", "feedback")
 
-# --- mirror of rank-weights.ts DEFAULT_RANK_WEIGHTS (keep in sync; the script only MUTATES scope +
-#     source_tier + boost, but carries the full set so a report reads against real defaults) ---
+# --- mirror of rank-weights.ts DEFAULT_RANK_WEIGHTS (keep in sync by hand). Used ONLY for --selftest and
+#     the no-baseline manual path; in production the server passes the LIVE weights via --baseline-weights,
+#     so any drift here never affects an auto-apply (the live set is the real baseline) ---
 DEFAULT_RANK_WEIGHTS = {
     "source_tier": {"primary_filing": 8, "official_data": 5, "company": 3, "news": 0, "unconfirmed": -8, "social": -12},
-    "scope": {"single_name": 6, "multi_name": 5, "policy": 2, "commodity": 1, "sector": 0, "macro": -4, "unknown": -2},
+    "scope": {"single_name": 6, "multi_name": 5, "policy": 2, "commodity": 4, "sector": 0, "macro": -4,
+              "geopolitical": 9, "generic_media": -10, "unknown": -2},
     "event": {"mna": 9, "guidance_change": 7, "debt_credit": 7, "capital_actions": 6, "litigation_enforcement": 6,
-              "earnings_revenue_margin": 5, "management": 4, "regulatory": 4, "cybersecurity": 4, "product": 3,
-              "commercial": 3, "operations": 2, "macro_sector": 1, "rumor": -3},
+              "capex": 6, "earnings_revenue_margin": 5, "management": 4, "regulatory": 4, "cybersecurity": 4,
+              "product": 3, "commercial": 3, "operations": 2, "macro_sector": 1, "rumor": -3},
     "size": {"mega": 2, "large": 2, "mid": 1, "small": -1, "unknown": 0},
     "recency": {"1": 5, "3": 4, "6": 3, "12": 2, "24": 1, "more": 0},
     "boost_weight": 1,
@@ -69,7 +81,9 @@ MIN_BACKTEST = 5        # need this many score-changing holdout items to trust t
 ERR = {"score_too_high": -1.0, "irrelevant": -1.5, "score_too_low": 1.0, "should_be_higher": 1.0}
 EXTRACTION_TYPES = {"wrong_company", "wrong_sector"}
 DEDUP_TYPES = {"duplicate_stale"}
-TUNABLE = [("scope", "scope_id"), ("source_tier", "source_tier_id")]
+# (weight-group name, score_breakdown field carrying its category label). event_id / size_bucket were added
+# to RankFactors (rank.ts) so these are now tunable; a record predating them falls back to its frozen points.
+TUNABLE = [("scope", "scope_id"), ("source_tier", "source_tier_id"), ("event", "event_id"), ("size", "size_bucket")]
 
 
 def _clamp(n, lo, hi):
@@ -100,13 +114,16 @@ def _breakdown(rec):
 
 
 def recompute_score(sb, weights):
-    """Reproduce rank.ts's composite under a given weight set. scope + source_tier come from the
-    weights (via the snapshot's category ids); event/size/recency are held at their SNAPSHOT points
-    (their labels aren't captured, so they can't be re-weighted); boost from the weight set."""
+    """Reproduce rank.ts's composite under a given weight set. scope + source_tier + event + size come
+    from the weights (via the snapshot's category ids); event/size fall back to their SNAPSHOT points for
+    records predating event_id/size_bucket (backward-compatible, byte-reproducible); recency is always the
+    frozen freshness points (its label isn't a tunable weight); boost from the weight set."""
     st = weights["source_tier"].get(sb.get("source_tier_id"), 0)
     sc = weights["scope"].get(sb.get("scope_id"), 0)
-    ev = sb.get("event", 0) or 0
-    sz = sb.get("size", 0) or 0
+    ev_id = sb.get("event_id")
+    ev = weights["event"].get(ev_id, 0) if ev_id else (sb.get("event", 0) or 0)
+    sz_id = sb.get("size_bucket")
+    sz = weights["size"].get(sz_id, 0) if sz_id else (sb.get("size", 0) or 0)
     rc = sb.get("recency", 0) or 0
     base = sb.get("materiality", 0) or 0
     boost = weights.get("boost_weight", sb.get("boost_weight", 1) or 1)
@@ -222,20 +239,44 @@ def source_reputation(records):
     return out
 
 
-def build(records):
+def _routes_map(records):
+    """feedback_id -> routed_scope, from the free-text reason router's frozen 'feedback_route' lines."""
+    m = {}
+    for r in records:
+        if r.get("kind") == "feedback_route" and r.get("routes") and r.get("routed_scope"):
+            m[r["routes"]] = r["routed_scope"]
+    return m
+
+
+def _apply_routes(active, routes):
+    """Additive recovery: a weight record whose snapshot has NO scope_id inherits the routed scope (frozen,
+    captured once) so its free-text verdict still counts. NEVER overrides an existing scope_id, so the
+    deterministic backtest stays byte-reproducible."""
+    for r in active:
+        sb = r.get("score_breakdown")
+        if isinstance(sb, dict) and not sb.get("scope_id"):
+            routed = routes.get(r.get("feedback_id"))
+            if routed:
+                sb["scope_id"] = routed
+
+
+def build(records, baseline=None):
     now = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     active = active_feedback(records)
+    _apply_routes(active, _routes_map(records))
     weight_recs = [r for r in active if _err_of(r) is not None]
     with_bd = [r for r in weight_recs if _breakdown(r) is not None]
     extraction = [r for r in active if r.get("feedback_type") in EXTRACTION_TYPES]
     dedup = [r for r in active if r.get("feedback_type") in DEDUP_TYPES]
     other = [r for r in active if r.get("feedback_type") == "other"]
 
-    cur = DEFAULT_RANK_WEIGHTS
+    cur = baseline or DEFAULT_RANK_WEIGHTS
     report = {
         "generated_at": now,
         "ledger_path": os.path.relpath(LEDGER, REPO),
-        "weights_basis": "DEFAULT_RANK_WEIGHTS (compare against the live STATE_DIR/rank-weights.json before applying)",
+        "weights_basis": ("live weights (--baseline-weights) — proposals are absolute against the live set"
+                          if baseline else
+                          "DEFAULT_RANK_WEIGHTS — pass --baseline-weights <live> before applying"),
         "counts": {
             "ledger_lines": len(records),
             "active_feedback": len(active),
@@ -252,8 +293,8 @@ def build(records):
         "extraction_backlog": {"wrong_company": sum(1 for r in extraction if r.get("feedback_type") == "wrong_company"),
                                "wrong_sector": sum(1 for r in extraction if r.get("feedback_type") == "wrong_sector")},
         "dedup_backlog": {"duplicate_stale": len(dedup)},
-        "capture_gap": "event/size weights are NOT tunable yet — score_breakdown snapshots their point value but "
-                       "not their category label. Add event_types + size_bucket to FeedbackInput (#131) to enable.",
+        "capture_gap": "event/size weights ARE tunable now (event_id + size_bucket captured in score_breakdown); "
+                       "a record predating those fields falls back to its frozen point value in the backtest.",
         "guardrails": {"MIN_TOTAL": MIN_TOTAL, "MIN_PER_CATEGORY": MIN_PER_CATEGORY,
                        "CONSISTENCY": CONSISTENCY, "MAX_STEP": MAX_STEP},
     }
@@ -298,18 +339,25 @@ def build(records):
         report["status"] = "recommendations"
         report["status_reason"] = f"{len(recs)} weight nudge(s) cleared the gates and generalized on the holdout."
         report["recommendations"] = recs
-        report["proposed_weights_patch"] = {"scope": {r["category"]: r["proposed"] for r in recs if r["dimension"] == "scope"},
-                                            "source_tier": {r["category"]: r["proposed"] for r in recs if r["dimension"] == "source_tier"}}
+        patch = {}
+        for r in recs:
+            patch.setdefault(r["dimension"], {})[r["category"]] = r["proposed"]
+        report["proposed_weights_patch"] = patch
     return report
 
 
 # ------------------------------------------------------------------ selftest
 def _rec(fid, ftype, scope_id="single_name", source_tier_id="news", source="Reuters", materiality=60,
-         scope=6, source_tier=0, event=0, size=0, recency=0, boost=1, kind="feedback"):
-    return {"feedback_id": fid, "kind": kind, "feedback_type": ftype, "source": source,
-            "score_breakdown": {"materiality": materiality, "scope": scope, "source_tier": source_tier,
-                                "event": event, "size": size, "recency": recency, "boost_weight": boost,
-                                "scope_id": scope_id, "source_tier_id": source_tier_id}}
+         scope=6, source_tier=0, event=0, size=0, recency=0, boost=1, kind="feedback",
+         event_id=None, size_bucket=None):
+    sb = {"materiality": materiality, "scope": scope, "source_tier": source_tier,
+          "event": event, "size": size, "recency": recency, "boost_weight": boost,
+          "scope_id": scope_id, "source_tier_id": source_tier_id}
+    if event_id is not None:
+        sb["event_id"] = event_id
+    if size_bucket is not None:
+        sb["size_bucket"] = size_bucket
+    return {"feedback_id": fid, "kind": kind, "feedback_type": ftype, "source": source, "score_breakdown": sb}
 
 
 def selftest():
@@ -363,7 +411,31 @@ def selftest():
     com = next((x for x in r.get("recommendations", []) + r.get("recommendations_held", []) if x["category"] == "commodity"), None)
     check("under-scored -> nudged UP", com is not None and com["delta"] > 0)
 
-    print(f"\n{'ALL PASS' if not fails else 'FAILURES: ' + ', '.join(fails)}  ({7 - 0} checks groups)")
+    # 8. --baseline-weights: proposals are ABSOLUTE against the passed-in LIVE baseline, not the defaults
+    live = json.loads(json.dumps(DEFAULT_RANK_WEIGHTS)); live["scope"]["macro"] = 10  # a customised live value
+    r = build([_rec(f"bl{i}", "score_too_high", scope_id="macro") for i in range(30)], live)
+    mb = next((x for x in r["recommendations"] if x["category"] == "macro"), None)
+    check("baseline honored (current = live 10, not default -4)", mb is not None and mb["current"] == 10)
+    check("baseline nudge is bounded off the live value", mb is not None and mb["proposed"] == 7)
+
+    # 9. event weights are tunable via event_id, and backtest-evaluable (recompute re-weights event)
+    r = build([_rec(f"ev{i}", "score_too_high", scope_id="single_name", event_id="mna", materiality=80) for i in range(30)])
+    mna = next((x for x in r.get("recommendations", []) + r.get("recommendations_held", []) if x["dimension"] == "event" and x["category"] == "mna"), None)
+    check("event weight tunable (mna nudged DOWN)", mna is not None and mna["delta"] < 0 and mna["current"] == 9)
+
+    # 10. a record with NO scope_id is recovered via a frozen feedback_route line (additive, never overrides)
+    recs10 = [_rec(f"rt{i}", "score_too_high", scope_id=None, materiality=80) for i in range(30)]
+    routes10 = [{"kind": "feedback_route", "routes": f"rt{i}", "routed_scope": "policy"} for i in range(30)]
+    r = build(recs10 + routes10)
+    pol = next((x for x in r.get("recommendations", []) + r.get("recommendations_held", []) if x["dimension"] == "scope" and x["category"] == "policy"), None)
+    check("routed scope recovers a no-scope_id record", pol is not None)
+    # and it must NOT override an existing scope_id
+    recs10b = [_rec(f"ov{i}", "score_too_high", scope_id="single_name", materiality=80) for i in range(30)]
+    routes10b = [{"kind": "feedback_route", "routes": f"ov{i}", "routed_scope": "policy"} for i in range(30)]
+    r = build(recs10b + routes10b)
+    check("route never overrides an existing scope_id", not any(x["category"] == "policy" for x in r.get("recommendations", []) + r.get("recommendations_held", [])))
+
+    print(f"\n{'ALL PASS' if not fails else 'FAILURES: ' + ', '.join(fails)}  (10 check groups)")
     return 0 if not fails else 1
 
 
@@ -371,13 +443,32 @@ def selftest():
 def main():
     ap = argparse.ArgumentParser(description="Recommend rank-weight nudges from the screener feedback ledger.")
     ap.add_argument("--print", dest="show", action="store_true", help="print the report JSON to stdout")
+    ap.add_argument("--baseline-weights", dest="baseline", help="path to a JSON weight set to baseline against (the live weights); default = shipped defaults")
+    ap.add_argument("--emit-json", action="store_true", help="print ONLY the report JSON to stdout and write no dated file (server auto-apply path)")
     ap.add_argument("--selftest", action="store_true", help="run built-in checks (no ledger needed)")
     args = ap.parse_args()
 
     if args.selftest:
         sys.exit(selftest())
 
-    report = build(read_ndjson(LEDGER))
+    baseline = None
+    if args.baseline:
+        try:
+            with open(args.baseline, encoding="utf-8") as f:
+                baseline = json.load(f)
+            if not isinstance(baseline, dict):
+                raise ValueError("baseline weights must be a JSON object")
+        except Exception as e:  # noqa: BLE001 — a bad baseline is a caller error; report it as JSON and exit non-zero
+            print(json.dumps({"status": "error", "status_reason": f"could not read --baseline-weights: {e}"}))
+            sys.exit(2)
+
+    report = build(read_ndjson(LEDGER), baseline)
+
+    # --emit-json: stdout only, no dated file (the orchestrator parses this; it never wants a side-effect write).
+    if args.emit_json:
+        print(json.dumps(report))
+        return
+
     os.makedirs(OUT_DIR, exist_ok=True)
     out = os.path.join(OUT_DIR, datetime.now(timezone.utc).strftime("%Y-%m-%d") + "_feedback_tuning.json")
     with open(out, "w", encoding="utf-8") as f:

@@ -61,7 +61,7 @@ const deps = (repoRoot: string, stateDir: string, brief: ArticleBrief) => ({
 await check('scenario 1: profit warning → negative direction, high magnitude, quantified numbers', async () => {
   const brief: ArticleBrief = {
     gist: ['Acme Corp cut FY guidance, now sees a $40-60M operating loss versus prior $20M profit guidance.'],
-    companies: [{ name: 'Acme Corp', ticker: 'ACME', role: 'subject', listing_country: 'United States', exchange: 'NYSE' }],
+    companies: [{ name: 'Acme Corp', ticker: 'ACME', role: 'subject', listing_status: 'public', listing_country: 'United States', exchange: 'NYSE' }],
     beneficiaries: [], exposed: [{ name: 'Acme Corp', named_in_article: true, mechanism: 'demand shortfall drives a swing to an operating loss' }],
     theme: 'guidance_change',
     news_impact: {
@@ -109,7 +109,7 @@ await check('scenario 2: generic market color → low magnitude, no quantified i
 await check('scenario 3: major capex announcement → sector/theme-level impact, capex + commodity metrics', async () => {
   const brief: ArticleBrief = {
     gist: ['Acme Corp will invest $3B in a new chip fab, its largest capex commitment ever.'],
-    companies: [{ name: 'Acme Corp', ticker: 'ACME', role: 'subject', listing_country: 'United States', exchange: 'NASDAQ' }],
+    companies: [{ name: 'Acme Corp', ticker: 'ACME', role: 'subject', listing_status: 'public', listing_country: 'United States', exchange: 'NASDAQ' }],
     beneficiaries: [{ name: 'semiconductor equipment makers', named_in_article: false, mechanism: 'new fab construction drives equipment orders' }],
     exposed: [], theme: 'capital_actions',
     news_impact: {

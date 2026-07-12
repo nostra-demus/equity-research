@@ -252,7 +252,7 @@ You must check:
 
 8. If scenario math does not reconcile, fix the probabilities, returns, or price targets before writing the final answer.
 
-**Execute the math — do not do it in your head.** *(fix F08/F09/F11/F12 — see `FRAMEWORK_FIXES_2026-06-08.md`)* You have `Bash`. Compute every quantity in checks 1–6 with a single Python snippet and read the answers from its output — weighted sums and ratio chains done as mental arithmetic are the engine's single largest error source (a committed run once shipped a **+4.3%** headline whose true probability-weighted value was **−4.4%**). The §2 Headline Scorecard "Expected return" / "Risk/reward" / "Downside risk" cells and the `decision_record.json` `expected_return_pct` / `risk_reward` / `downside_risk_pct` fields MUST be **copied verbatim from this one computed result** — never re-typed independently — so the headline can never disagree with the body. The same applies to "Confidence /100" and "Data sufficiency /100" against `confidence_score` / `data_sufficiency_score`. Keep the snippet's working out of the published thesis: §14 shows only the clean reconciled figures, with **no "let me recalculate" / scratch correction text** in any committed artifact. The eval harness re-derives these ties directly from `final_thesis.md` and `decision_record.json` (check AI) for runs dated on/after 2026-07-09 — a prose/JSON split like the +4.3%/−4.4% example above now fails CI instead of shipping silently.
+**Execute the math — do not do it in your head.** *(fix F08/F09/F11/F12 — see `FRAMEWORK_FIXES_2026-06-08.md`)* You have `Bash`. Compute every quantity in checks 1–6 with a single Python snippet and read the answers from its output — weighted sums and ratio chains done as mental arithmetic are the engine's single largest error source (a committed run once shipped a **+4.3%** headline whose true probability-weighted value was **−4.4%**). The §2 Headline Scorecard "Expected return" / "Risk/reward" / "Downside risk" cells and the `decision_record.json` `expected_return_pct` / `risk_reward` / `downside_risk_pct` fields MUST be **copied verbatim from this one computed result** — never re-typed independently — so the headline can never disagree with the body. The same applies to the confidence scorecard rows — for runs on/after 2026-07-11 these are "Conviction /100" and "Understanding /100" reconciled against `conviction` / `analysis_confidence` (the two-number split — see the deterministic-confidence section below; there is **no** separate "Data sufficiency /100" scorecard row post-split, though `data_sufficiency_score` stays in the JSON); before that date they are "Confidence /100" and "Data sufficiency /100" against `confidence_score` / `data_sufficiency_score`. Keep the snippet's working out of the published thesis: §14 shows only the clean reconciled figures, with **no "let me recalculate" / scratch correction text** in any committed artifact. The eval harness re-derives these ties directly from `final_thesis.md` and `decision_record.json` (check AI) for runs dated on/after 2026-07-09 — a prose/JSON split like the +4.3%/−4.4% example above now fails CI instead of shipping silently.
 
 Never publish inconsistent scenario math.
 
@@ -443,8 +443,9 @@ The reader who reads only Part I should leave with a real, actionable decision.
 | Expected return | |
 | Downside risk | |
 | Risk/reward | |
-| Confidence /100 | |
-| Data sufficiency /100 | |
+| Understanding /100 | |
+| Conviction /100 | |
+| Suggested sizing | |
 | Thesis type | |
 | Variant perception — edge score /100 | |
 | Biggest upside driver | |
@@ -899,6 +900,22 @@ Additional downgrades:
 
 Never give 90+ unless the evidence is exceptional.
 
+### Deterministic two-number confidence — `scripts/confidence.py` *(additive; runs on/after 2026-07-11)*
+
+The figure you built above is your **conviction**. Do not hand-pick a single number and stop — record the inputs and let the deterministic scorer compute the pair, so the headline is auditable and re-derivable (the same discipline Step 4 applies to the scenario math). The scorer codifies the caps + downgrades above; you supply the judgments, it does the arithmetic.
+
+1. **Record `confidence_inputs`** — the judgments you just made, structured: `data_sufficiency`, `corroboration` (cross-module agreement; low on unresolved conflict / a wide cross-method valuation spread), `evidence_tier` (share of load-bearing claims on Tier-1/2 filings, §4/§6), `staleness_penalty`, `edge_score`, `edge_proof_present` (bool), `decision`, `modules_absent` (list of any of: consensus/valuation/solvency/governance/filings/catalyst/options), `critical_governance_unresolved` (bool), `catalyst_timing_weak` (bool), `rating_cap_ceiling` (any §18/§24 rating cap expressed as a number, else null), `downgrades` (list of `{type, points≥0, reason}`), `calibration_haircut`. Carry this object into `decision_record.json.confidence_inputs`.
+
+2. **Run the scorer with Bash** (do NOT compute in your head):
+   ```
+   python3 -c "import json,sys; sys.path.insert(0,'scripts'); from confidence import ConfidenceInputs, compute; inp=json.loads(r'''<your confidence_inputs JSON>'''); print(json.dumps(compute(ConfidenceInputs(**inp)), indent=0))"
+   ```
+   Read `analysis_confidence`, `conviction`, `sizing_hint`, and `confidence_breakdown` from its output. **Also read `warnings`: a non-empty `warnings` list means the scorer detected an inconsistency that may have silently dropped an intended cap (e.g. a mistyped `modules_absent` key ignored, so its cap never applied) or a mis-rating. Do NOT publish over a non-empty `warnings` — fix the `confidence_inputs` (correct the key, resolve the flagged inconsistency) and re-run the scorer until `warnings` is empty, or state explicitly in the thesis why the warning stands.**
+
+3. **Write to `decision_record.json` verbatim from that output**: `analysis_confidence`, `conviction`, `sizing_hint`, `confidence_breakdown`, and set **`confidence_score = conviction`** (backward-compat — every consumer that still reads `confidence_score` gets the conviction number).
+
+4. **Fill the §2 Headline Scorecard from these**: `Understanding /100` = `analysis_confidence` (gloss: "how well the company is understood — evidence quality; not a buy signal"), `Conviction /100` = `conviction` (gloss: "how much to bet — direction-aware; drives the sizing"), `Suggested sizing` = `sizing_hint.action`. **Data sufficiency is folded into Understanding — do NOT emit a separate `Data sufficiency /100` scorecard row** (data_sufficiency_score stays in `decision_record.json` and still drives the §11 caps). The eval harness reconciles the scorecard `Conviction /100` against `decision_record.json` (check AI), so the prose number and the JSON can never silently split; `confidence_inputs` is recorded so a later gate can re-derive `conviction` from first principles.
+
 ---
 
 # RATING CAP RULES
@@ -1051,6 +1068,11 @@ The exact object to emit (mirrors `frameworks/DECISION_LEDGER.md` §5 — that f
   "risk_reward": null,
   "confidence_score": null,
   "data_sufficiency_score": null,
+  "confidence_inputs": null,
+  "analysis_confidence": null,
+  "conviction": null,
+  "sizing_hint": null,
+  "confidence_breakdown": null,
   "rating_cap": "",
   "thesis_type": [],
   "variant_perception_summary": "",
@@ -1114,8 +1136,13 @@ Populate each field as follows. All of these come from work you have already don
 | margin_of_safety_pct | discount of price to base-case fair value, IN PERCENTAGE POINTS = ((base FV − price)/base FV) × 100 — do not publish the bare 0–1 ratio, from the valuation module; null when no pool-verified price ("Not assessable"). Direction-uniform — a short candidate → negative MoS. Required once entry_price and the base-labelled scenario's price_target both exist (derivable); only stays null when price is not pool-verified. The eval harness re-derives it from the base-labelled scenario target (check M). |
 | risk_reward | risk/reward from final thesis |
 | scenarios | §8 Scenario Model rows — array of `{label, probability, return_pct, price_target}` (fix F08; enables deterministic math re-check) |
-| confidence_score | final confidence score /100 |
+| confidence_score | final confidence score /100 (post-split runs ≥ 2026-07-11: set equal to `conviction` for backward-compat) |
 | data_sufficiency_score | data sufficiency score /100 |
+| confidence_inputs | (additive, runs ≥ 2026-07-11) the recorded judgments the scorer consumes — see the Confidence Scoring Rules step 1 and `DECISION_LEDGER.md` §5 |
+| analysis_confidence | (additive, runs ≥ 2026-07-11) "Understanding" /100 from `scripts/confidence.py` — evidence quality, direction-agnostic |
+| conviction | (additive, runs ≥ 2026-07-11) direction-aware conviction /100 from `scripts/confidence.py`; the deterministic successor to `confidence_score` |
+| sizing_hint | (additive, runs ≥ 2026-07-11) `{band, action}` derived from `conviction` + `decision` |
+| confidence_breakdown | (additive, runs ≥ 2026-07-11) the step-by-step build so `conviction` is auditable/re-derivable |
 | rating_cap | rating cap from pre-write gate, if any |
 | thesis_type | thesis type classification from CLAUDE.md §14 |
 | variant_perception_summary | final variant perception |
