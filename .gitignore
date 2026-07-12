@@ -44,3 +44,8 @@ __pycache__/
 
 # Cloudflare wrangler local cache (account info / build cache) — never commit
 .wrangler/
+
+# transient per-PID atomic-write temp files for the screener board index — update_board_index.py
+# writes index.json.tmp.<pid> then os.replace()s it onto index.json (never meant to be tracked;
+# they only survive on the rare crash between write and rename) — never commit
+screener/board/index.json.tmp.*
