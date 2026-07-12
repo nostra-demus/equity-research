@@ -17,10 +17,10 @@ import path from 'node:path'
 // launcher.ts (childEnv).
 export const providerEnvKeys: string[] = []
 
-function loadProviderEnv(): void {
+function loadEnvFile(name: string): void {
   try {
     const cfgDir = process.env.NOSTRA_ENGINE_CONFIG_DIR || path.join(os.homedir(), '.config', 'nostra-engine')
-    const raw = fs.readFileSync(path.join(cfgDir, 'providers.env'), 'utf8')
+    const raw = fs.readFileSync(path.join(cfgDir, name), 'utf8')
     for (const line of raw.split(/\r?\n/)) {
       const s = line.trim()
       if (!s || s.startsWith('#')) continue
@@ -40,4 +40,10 @@ function loadProviderEnv(): void {
   }
 }
 
-loadProviderEnv()
+// providers.env — LLM-provider secrets (as before). code-pr.env — the fine-grained GitHub PAT the
+// feedback→coding-agent dispatch uses to open DRAFT PRs (feedback-dispatch.ts), plus its dispatch config.
+// Same out-of-repo dir, same one-file-drop portability (Air→Pro migration = copy the config dir). Both
+// files' keys go into providerEnvKeys so launcher.childEnv scrubs them from ordinary research/screener
+// runs — the PAT is re-injected only into the feedback-dispatch child that actually needs it.
+loadEnvFile('providers.env')
+loadEnvFile('code-pr.env')

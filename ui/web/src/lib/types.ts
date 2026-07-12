@@ -887,7 +887,24 @@ export interface CallsResult {
 
 // ---- activity / audit log ----
 export type RunKind = 'full' | 'module' | 'agent' | 'rerun' | 'review' | 'track' | 'signal' | 'sweep' | 'screener-agent' | 'handoff'
-export interface Whoami { user: string; userVia: 'cf-access' | 'local' }
+export interface Whoami { user: string; userVia: 'cf-access' | 'local'; canDispatch?: boolean }
+
+// ---- cockpit-wide product feedback (server: feedback-store.ts) ----
+export type CockpitFeedbackCategory = 'bug' | 'ui' | 'idea' | 'research_quality' | 'other'
+export type CockpitFeedbackStatus = 'new' | 'triaged' | 'dispatched' | 'pr_open' | 'assessed' | 'done' | 'wontfix'
+export interface CockpitFeedbackView {
+  feedback_id: string
+  text: string
+  category: CockpitFeedbackCategory
+  images: string[]
+  url: string
+  user_id: string
+  submitted_at: string
+  status: CockpitFeedbackStatus
+  pr_url: string | null
+  note: string
+  last_update_at: string
+}
 export interface ActivityRow {
   runId: string
   user: string

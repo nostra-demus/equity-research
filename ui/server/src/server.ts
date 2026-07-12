@@ -14,7 +14,7 @@ import { z } from 'zod'
 import { readActivity } from './activity-log'
 import { recordDataChange } from './data-activity'
 import { buildReportHtml, parseMeta, safeName } from './export'
-import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, WEB_DIST, isReservedDataFolder } from './config'
+import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, HOST, NEWS, PORT, REPO_ROOT, STATE_DIR, WEB_DIST, feedbackDispatchReady, isDispatchAdmin, isReservedDataFolder } from './config'
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
 import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED } from './drive'
@@ -39,6 +39,8 @@ import { refreshBoard } from './news/write-inbox'
 import { appendIdeaFeedback, readIdeaById, writeIdea } from './news/ideas/ideas-store'
 import { auditInboxAction, hideSignal, moveThesis, MOVE_TARGETS, SIGNAL_ACTIONS } from './screener-actions'
 import { appendFeedbackRoute, FEEDBACK_TYPES, readAllFeedback, submitFeedback, summarizeFeedback, undoFeedback } from './screener-feedback'
+import { FEEDBACK_MAX_IMAGES, type FeedbackCategory, type FeedbackItemRecord, appendFeedbackEvent, foldFeedback, isFeedbackId, itemDir, newFeedbackId, readAllFeedback as readAllCockpitFeedback, saveFeedbackImage, writeFeedbackItem } from './feedback-store'
+import { dryRunFeedbackDispatch, startFeedbackDispatch } from './feedback-dispatch'
 import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
 import { agentNamesForModule, buildSwarmGraph, findRunRootForSubject, graphForSubject, graphForTicker, listModuleNames, swarmSubjects, terminalModuleName } from './roster'
@@ -330,7 +332,12 @@ app.post('/api/credit-check', async () => creditCheck())
 
 // ---------- identity + activity log ----------
 // who am I (per Cloudflare Access) — drives the "signed in as" line in the cockpit
-app.get('/api/whoami', async (req) => identify(req))
+app.get('/api/whoami', async (req) => {
+  const who = identify(req)
+  // canDispatch drives the admin-only "Send to coding engine" button — reflects BOTH the allowlist and
+  // whether dispatch is actually runnable (enabled + PR token), so the button never appears when it'd fail.
+  return { ...who, canDispatch: isDispatchAdmin(who.user) && feedbackDispatchReady() }
+})
 
 // perpetual audit log of cockpit-initiated runs, with filters (time / ticker / kind / user / status / text)
 app.get('/api/activity', async (req) => {
@@ -1853,6 +1860,114 @@ app.post('/api/screener/feedback/:id/undo', { config: { rateLimit: { max: 1000, 
 })
 
 app.get('/api/screener/feedback/summary', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async () => summarizeFeedback(readAllFeedback(REPO_ROOT)))
+
+// ---------- cockpit-wide product feedback (feedback-store.ts) ----------
+// A prominent "Feedback" surface: anyone behind Cloudflare Access files a bug / UI note / idea with
+// screenshots; the whole team sees the folded list. The gated one-click "send to coding engine"
+// dispatch is added in a follow-up (feedback-dispatch.ts). Storage is operational (STATE_DIR/feedback/,
+// gitignored), NOT the tracked screener ledger — the one doer box serving the cockpit makes it team-visible.
+app.post('/api/feedback', { config: { rateLimit: { max: 300, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const { user } = identify(req)
+  // Mint the id first so screenshots land in the item's own folder as they stream. Accept a mixed
+  // multipart (text fields + images) OR a JSON text-only body.
+  const feedbackId = newFeedbackId()
+  const fields: Record<string, string> = {}
+  const images: string[] = []
+  const imageErrors: { filename: string; reason: string }[] = []
+  let seq = 1
+  try {
+    if (req.isMultipart()) {
+      for await (const part of req.parts()) {
+        if (part.type === 'file') {
+          if (images.length >= FEEDBACK_MAX_IMAGES) { part.file.resume(); imageErrors.push({ filename: part.filename || '(unnamed)', reason: 'too many images (max ' + FEEDBACK_MAX_IMAGES + ')' }); continue }
+          const res = await saveFeedbackImage(feedbackId, seq, part.filename || `img${seq}.png`, part.file)
+          if (res.ok) { images.push(res.name); seq++ } else imageErrors.push({ filename: part.filename || '(unnamed)', reason: res.reason })
+        } else {
+          fields[part.fieldname] = String((part as any).value ?? '')
+        }
+      }
+    } else {
+      const body = (req.body ?? {}) as Record<string, unknown>
+      fields.text = typeof body.text === 'string' ? body.text : ''
+      fields.category = typeof body.category === 'string' ? body.category : 'other'
+      fields.url = typeof body.url === 'string' ? body.url : ''
+    }
+    const text = (fields.text || '').trim()
+    if (!text && images.length === 0) {
+      try { fs.rmSync(itemDir(feedbackId), { recursive: true, force: true }) } catch { /* nothing written yet */ }
+      return reply.code(400).send({ error: 'feedback needs text or at least one screenshot' })
+    }
+    const record = await writeFeedbackItem({ feedback_id: feedbackId, text, category: (fields.category || 'other') as FeedbackCategory, images, url: fields.url || '' }, user)
+    return reply.code(201).send({ ok: true, feedback: record, imageErrors })
+  } catch (e: any) {
+    // a mid-stream failure can leave partial screenshots in the item's folder — clean it up so a failed
+    // upload never accumulates orphaned files (the ledger line was not written, so the folder is unreferenced)
+    try { fs.rmSync(itemDir(feedbackId), { recursive: true, force: true }) } catch { /* best-effort */ }
+    return reply.code(500).send({ error: e?.message || 'feedback save failed' })
+  }
+})
+
+// Folded team-visible list (item + its latest status event), newest first.
+app.get('/api/feedback', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async () => ({ items: foldFeedback(readAllCockpitFeedback()) }))
+
+// Serve a stored screenshot back to the panel. The resolve + startsWith containment barrier is applied
+// INLINE here, right before the fs sinks — CodeQL recognizes js/path-injection sanitization only at the
+// sink, not behind a helper (same finding pattern as the external-data image work). A crafted :id / :name
+// therefore cannot escape STATE_DIR/feedback/<id>.
+app.get('/api/feedback/:id/image/:name', { config: { rateLimit: { max: 2000, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const { id, name } = req.params as { id: string; name: string }
+  if (!isFeedbackId(id)) return reply.code(404).send({ error: 'not found' })
+  const ext = (String(name).split('.').pop() || '').toLowerCase()
+  if (!['png', 'jpg', 'jpeg', 'webp', 'gif'].includes(ext)) return reply.code(404).send({ error: 'not found' })
+  // Containment against the CONSTANT feedback root (derived from STATE_DIR, not from the request): the
+  // fully-resolved path must sit under it, or the crafted :id / :name escaped. Checking startsWith on a
+  // fixed root — never a base that itself embeds user input — is the shape CodeQL accepts as the barrier.
+  const root = path.resolve(STATE_DIR, 'feedback')
+  const full = path.resolve(root, id, name)
+  if (!full.startsWith(root + path.sep)) return reply.code(404).send({ error: 'not found' })
+  if (!fs.existsSync(full)) return reply.code(404).send({ error: 'not found' })
+  const mime = ext === 'png' ? 'image/png' : ext === 'gif' ? 'image/gif' : ext === 'webp' ? 'image/webp' : 'image/jpeg'
+  reply.header('content-type', mime)
+  reply.header('cache-control', 'private, max-age=3600')
+  return reply.send(fs.createReadStream(full))
+})
+
+// Manual triage — mark an item triaged / done / wontfix (append-only status event). Any authenticated
+// teammate may triage; the paid "dispatch to coding engine" action is separately admin-gated (PR B).
+const FeedbackStatusBody = z.object({ status: z.enum(['triaged', 'done', 'wontfix']), note: z.string().max(2000).optional() }).strip()
+app.post('/api/feedback/:id/status', { config: { rateLimit: { max: 1000, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const id = (req.params as any).id as string
+  if (!isFeedbackId(id)) return reply.code(400).send({ error: 'invalid feedback id' })
+  const parsed = FeedbackStatusBody.safeParse(req.body)
+  if (!parsed.success) return reply.code(400).send({ error: 'invalid body', detail: parsed.error.flatten() })
+  const { user } = identify(req)
+  const ev = await appendFeedbackEvent(id, parsed.data.status, { note: parsed.data.note, user })
+  if (!ev) return reply.code(404).send({ error: 'no such feedback' })
+  return { ok: true, event: ev }
+})
+
+// One-click "send to coding engine" — the gated, paid action. FAIL-CLOSED: only an admitted admin
+// (ENGINE_DISPATCH_ADMINS) may trigger it, and only when dispatch is enabled + a PR token is configured.
+// The agent runs in an isolated worktree and opens a DRAFT PR (feedback-dispatch.ts). `?dryRun=1` proves
+// the wiring (worktree + prompt) with no spawn and no spend.
+app.post('/api/feedback/:id/dispatch', { config: { rateLimit: { max: 60, timeWindow: '1 minute' } } }, async (req, reply) => {
+  if (!originAllowed(req)) return reply.code(403).send({ error: 'cross-origin request rejected' })
+  const id = (req.params as any).id as string
+  if (!isFeedbackId(id)) return reply.code(400).send({ error: 'invalid feedback id' })
+  const { user } = identify(req)
+  if (!isDispatchAdmin(user)) return reply.code(403).send({ error: 'not authorized to dispatch (admin only)' })
+  const item = readAllCockpitFeedback().find((r): r is FeedbackItemRecord => r.kind === 'feedback' && r.feedback_id === id)
+  if (!item) return reply.code(404).send({ error: 'no such feedback' })
+  const dryRun = (req.query as any)?.dryRun === '1' || (req.body as any)?.dryRun === true
+  if (dryRun) {
+    if (!feedbackDispatchReady()) return { ok: true, dryRun: true, ready: false, note: 'dispatch is not enabled or no PR token configured — wiring probe only', plan: await dryRunFeedbackDispatch(item) }
+    return { ok: true, dryRun: true, ready: true, plan: await dryRunFeedbackDispatch(item) }
+  }
+  const res = startFeedbackDispatch(item, user)
+  return reply.code(res.accepted ? 202 : 409).send({ ok: res.accepted, ...res })
+})
 
 // Tickers already under research coverage — the batch-review "portfolio companies" filter's data
 // source (a proxy: this codebase has no separate brokerage holdings list). Cheap; fetched once per panel-open.

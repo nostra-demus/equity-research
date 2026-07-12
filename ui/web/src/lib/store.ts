@@ -495,6 +495,11 @@ interface State {
   openReview: () => void
   closeReview: () => void
   setReviewFilters: (f: ReviewFilterState) => void
+  // cockpit-wide product feedback panel — boolean only; the panel owns its own list/compose state
+  // (ActivityLog/ReviewPanel pattern), so no fresh-array store selectors (the getSnapshot footgun)
+  cockpitFeedbackOpen: boolean
+  openCockpitFeedback: () => void
+  closeCockpitFeedback: () => void
   reviewSubmit: (feedbackType: FeedbackType, reason: string) => Promise<void>
   reviewSkip: () => void
   // on-demand enrichment for the opened event (the real story / SEC items / prior coverage / related)
@@ -750,6 +755,7 @@ export const useStore = create<State>((set, get) => ({
   flaggedEvents: loadFlagged(),
   ratedPolarity: loadRated(),
   reviewOpen: false,
+  cockpitFeedbackOpen: false,
   reviewFilters: emptyReviewFilters(),
   reviewQueue: [],
   reviewIndex: 0,
@@ -1845,6 +1851,8 @@ export const useStore = create<State>((set, get) => ({
 
   openActivity: () => set({ activityOpen: true }),
   closeActivity: () => set({ activityOpen: false }),
+  openCockpitFeedback: () => set({ cockpitFeedbackOpen: true }),
+  closeCockpitFeedback: () => set({ cockpitFeedbackOpen: false }),
   openScoring: () => set({ scoringOpen: true }),
   closeScoring: () => set({ scoringOpen: false }),
   openCalls: () => set({ callsOpen: true }),
