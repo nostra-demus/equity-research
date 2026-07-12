@@ -93,9 +93,41 @@ Write exactly this shape (a commodity-scoped record — NOT the equity schema):
   "key_levels": { "support": null, "resistance": null, "fair_value_range": null },
   "relative_view": "how it ranks vs the other tracked commodities",
   "confidence": 0,
-  "sources": ["…"]
+  "sources": ["…"],
+  "data_needs": [
+    {
+      "need_id": "wasde-stocks-to-use",
+      "series": "USDA WASDE US wheat ending stocks-to-use",
+      "why_it_caps": "the balance verdict rests on the stocks-to-use trend; without the monthly print the deficit read is one release stale",
+      "cap_lifted": "confirms or updates the deficit → tightens the balance conviction",
+      "filing_required": false,
+      "entry_modules": ["supply-demand"],
+      "suggested_source": { "name": "USDA FAS PSD Online", "acquisition": "free_key_api", "licensing": "public_domain" },
+      "tier": 5,
+      "cadence": "event_driven",
+      "next_release": "2026-08-12"
+    }
+  ]
 }
 ```
+
+## data_needs — surface what would sharpen this call
+
+`data_needs[]` is OPTIONAL and forward-looking. Emit one entry per EXTERNAL data series whose absence is
+capping conviction *right now* — the same gaps you named under "what would flip the view" (§3) and the
+catalyst "what to wait for" (§17), plus any series a lens had to estimate or fetch ad-hoc. This is what the
+cockpit surfaces so a durable feed can be built for it. Rules:
+
+- Emit the NEED, **not a scraper**: `series` (what it is), `why_it_caps` (why its absence limits conviction),
+  `entry_modules` (which module consumes it — drives the scoped rerun), a `suggested_source` (prefer an
+  OFFICIAL / public-domain body — USDA, NOAA, CFTC, an exchange — over a redistributor), and the realistic
+  `cadence`. Do **not** invent endpoints, schemas, or scraper code — the human authors the connector spec later.
+- `tier` is the §4 ceiling the series can earn: an API / vendor feed is `5`; a dated web scrape is `9` or `10`.
+  **Never 1–4** — a live feed is not a filing.
+- Set `filing_required: true` ONLY when the gap can be closed solely by a statutory filing (an audited figure,
+  a formal disclosure). Such a need is advisory — no connector can satisfy it — so mark it and move on.
+- If nothing external is capping the call, omit the array or leave it empty. **Never manufacture needs** to
+  fill it (§24: a rejected/insufficient read is a valid output, not a gap to paper over).
 
 # SELF-CHECK
 
@@ -104,6 +136,7 @@ Write exactly this shape (a commodity-scoped record — NOT the equity schema):
 - [ ] `decision_record.json` was written and is valid JSON with the `action` matching the Routing line.
 - [ ] Risk summary names the killer risk and the flip condition; the relative read answers "are we in the right commodity?".
 - [ ] No forced Buy; conviction is capped as Commodity-conditional.
+- [ ] `data_needs[]` (if present) lists only EXTERNAL, connector-feedable gaps, each with a `why_it_caps`, an official-source-preferred `suggested_source`, and a §4 `tier` of 5/9/10; filing-only gaps are marked `filing_required: true`; no invented endpoints; nothing manufactured.
 
 # CHAT CONFIRMATION
 
