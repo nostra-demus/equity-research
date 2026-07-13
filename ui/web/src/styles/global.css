@@ -997,6 +997,34 @@ a { color: inherit; }
 .coco__loading .empty__spin { color: var(--accent-bright); }
 @media (hover: hover) and (pointer: fine) { .coco__row:hover { background: var(--surface-3); } }
 @media (prefers-reduced-motion: reduce) { .coco__row:active { transform: none; } }
+/* run-history expander (per ticker): a chevron tucked left of the symbol, the "N runs" cue, the
+   "newer run" flag, and the inline timeline of every run with an Open affordance. */
+.coco__rowwrap { display: flex; flex-direction: column; }
+.coco__disc { display: inline-flex; align-items: center; justify-content: center; width: 14px; height: 16px; margin-left: -2px; border-radius: var(--r-sm); color: var(--text-faint); flex-shrink: 0; cursor: pointer; transition: color var(--dur-fast) var(--ease), background var(--dur-fast) var(--ease); }
+.coco__disc-sp { display: inline-block; width: 14px; margin-left: -2px; flex-shrink: 0; }
+.coco__chev { transition: transform var(--dur-fast) var(--ease); }
+.coco__disc.is-open .coco__chev { transform: rotate(90deg); }
+@media (hover: hover) and (pointer: fine) { .coco__disc:hover { color: var(--text); background: var(--surface-3); } }
+.coco__runs { color: var(--accent); font-weight: 600; }
+.coco__sep { color: var(--text-faint); }
+.coco__refresh { display: inline-flex; align-items: center; font-size: 10.5px; font-weight: 600; color: var(--accent); border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent); background: var(--accent-wash-soft); border-radius: var(--r-sm); padding: 1px 6px; white-space: nowrap; }
+.coco__hist { margin: 2px 0 6px 24px; padding: 6px 8px; background: var(--surface-2); border: 1px solid var(--hairline); border-radius: var(--r-md); display: flex; flex-direction: column; gap: 1px; animation: cocoHistIn var(--dur) var(--ease-out); }
+@keyframes cocoHistIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+.coco__hrow { display: flex; align-items: center; gap: 10px; min-height: 34px; padding: 4px 7px; border-radius: var(--r-sm); }
+.coco__hrow--skel { pointer-events: none; }
+.coco__hrow.is-standing { background: var(--accent-wash-soft); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 24%, transparent); }
+@media (hover: hover) and (pointer: fine) { .coco__hrow:not(.is-standing):hover { background: var(--surface-3); } }
+.coco__hdate { font-size: 11px; color: var(--text-muted); min-width: 82px; flex-shrink: 0; font-variant-numeric: tabular-nums; }
+.coco__hkind { flex: 1; min-width: 0; display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.coco__hchip { flex-shrink: 0; font-size: 10px; color: var(--text-faint); border: 1px solid var(--hairline); border-radius: var(--r-sm); padding: 1px 5px; }
+.coco__hstate { display: inline-flex; align-items: center; gap: 7px; flex-shrink: 0; }
+.coco__hmuted { font-size: 10.5px; color: var(--text-faint); }
+.coco__htag { font-size: 10px; font-weight: 600; color: var(--accent); }
+.coco__hopen { flex-shrink: 0; font-size: 11px; color: var(--text-muted); border: 1px solid var(--hairline); background: transparent; border-radius: var(--r-sm); padding: 3px 10px; cursor: pointer; transition: background var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), border-color var(--dur-fast) var(--ease); }
+.coco__hopen:hover { background: var(--surface-3); color: var(--text); border-color: color-mix(in srgb, var(--text-faint) 40%, transparent); }
+.coco__hopen:focus-visible { outline: none; border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent-wash); }
+.coco__hist-empty { padding: 10px; text-align: center; color: var(--text-muted); font-size: 12px; }
+@media (prefers-reduced-motion: reduce) { .coco__chev { transition: none; } .coco__hist { animation: none; } }
 .pulsedot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 0 var(--accent-glow); animation: pulse 1.8s var(--ease) infinite; }
 @keyframes pulse { 0% { box-shadow: 0 0 0 0 var(--accent-glow); } 70% { box-shadow: 0 0 0 9px transparent; } 100% { box-shadow: 0 0 0 0 transparent; } }
 

@@ -738,6 +738,25 @@ export interface TickerSummary {
   syncing: boolean
   lastChangeAt: number | null
   latestRun: { runRoot: string; decision: string | null; decisionDate: string | null; confidence: number | null } | null
+  // how many analyses/ run folders this ticker has — drives the "N runs" affordance + run-history expander
+  runCount: number
+  // a run folder NEWER than latestRun has no decision record yet — the verdict shown is from the last
+  // completed run; the picker flags that a partial re-run has landed since (see RunHistoryEntry)
+  hasNewerPartial: boolean
+}
+
+// One row of a ticker's run history (GET /api/runs?ticker=…). Newest-first; a run with no decision record
+// is a partial / single-module re-run that never became the standing verdict.
+export interface RunHistoryEntry {
+  runRoot: string
+  date: string
+  decision: string | null
+  confidence: number | null
+  decisionDate: string | null
+  modules: string[]
+  hasDecisionRecord: boolean
+  hasDossier: boolean
+  hasFinalThesis: boolean
 }
 
 // ---- in-app upload (POST /api/tickers/:ticker/files) — per-file result ----

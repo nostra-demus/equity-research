@@ -1079,7 +1079,9 @@ function resolveOutputRun(q: any): { runRoot: string | null; swarm: string; reso
     const abs = findRunRootForSubject(swarm, subject)
     return { runRoot: abs ? path.relative(REPO_ROOT, abs) : null, swarm, resolve: resolveInsideRuns }
   }
-  return { runRoot: resolveRunRoot({ runRoot: q?.runRoot, ticker: q?.ticker, date: q?.date }), swarm: 'research' }
+  // display path: a bare ticker resolves to its STANDING run (newest that decided), so a partial re-run
+  // can't shadow the dossier. An explicit runRoot/date is still honored (opening a specific historical run).
+  return { runRoot: resolveRunRoot({ runRoot: q?.runRoot, ticker: q?.ticker, date: q?.date, preferComplete: true }), swarm: 'research' }
 }
 
 app.get('/api/output/decision', async (req, reply) => {
@@ -1128,7 +1130,7 @@ app.get('/api/chat/scopes', async (req, reply) => {
   const ticker = q?.ticker as string
   if (!ticker || !TICKER_RE.test(ticker)) return reply.code(400).send({ error: 'ticker required' })
   try {
-    return scopeAvailability(ticker, resolveRunRoot({ ticker }))
+    return scopeAvailability(ticker, resolveRunRoot({ ticker, preferComplete: true }))
   } catch (e: any) {
     return reply.code(400).send({ error: 'cannot read scopes', detail: String(e?.message || e) })
   }
@@ -1181,7 +1183,7 @@ app.post('/api/chat', async (req, reply) => {
     runRoot = abs ? path.relative(REPO_ROOT, abs) : null
     subject = subj
   } else {
-    runRoot = resolveRunRoot({ runRoot: parsed.data.runRoot, ticker: parsed.data.ticker })
+    runRoot = resolveRunRoot({ runRoot: parsed.data.runRoot, ticker: parsed.data.ticker, preferComplete: true })
     subject = parsed.data.ticker || (runRoot ? runRoot.replace(/^analyses\//, '').replace(/_\d{4}-\d{2}-\d{2}$/, '') : '')
   }
   if (!runRoot) return reply.code(404).send({ error: 'no run found for this subject yet — run the engine first' })

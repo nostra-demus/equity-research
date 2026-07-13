@@ -335,7 +335,9 @@ interface State {
   stopHealth: () => void
   checkHealthNow: () => Promise<void>
   _tickHealth: () => Promise<void>
-  selectTicker: (t: string) => Promise<void>
+  // runRoot (optional): open a SPECIFIC historical run of the ticker from the run-history expander; omitted,
+  // the ticker resolves to its standing run (newest that decided).
+  selectTicker: (t: string, runRoot?: string) => Promise<void>
   refreshData: () => Promise<void>
   // ---- in-app add-company + Drive upload (Change C) ----
   addCompanyOpen: boolean
@@ -906,7 +908,7 @@ export const useStore = create<State>((set, get) => ({
     void loadCore(get, set, stat, true)
   },
 
-  selectTicker: async (t) => {
+  selectTicker: async (t, runRoot) => {
     closeAllRunSources() // stop the previous company's live streams before anything else (no event bleed)
     // the active swarm owns this selection: research loads the research graph + data pool; a constellation
     // swarm (e.g. commodity) loads ITS graph + resolves reads/chat by subject. Non-research subjects have
@@ -929,7 +931,7 @@ export const useStore = create<State>((set, get) => ({
     if (get().selectToken !== token) return
     // seed prior-run results into the swarm
     try {
-      const manifest = await api.runManifest(t, undefined, isResearch ? undefined : sw)
+      const manifest = await api.runManifest(t, isResearch ? runRoot : undefined, isResearch ? undefined : sw)
       if (get().selectToken !== token) return
       const seed: Record<string, NodeRuntime> = {}
       for (const [, agents] of Object.entries<any>(manifest.modules || {})) {
