@@ -97,9 +97,12 @@ Write exactly this shape (a commodity-scoped record — NOT the equity schema):
 }
 ```
 
+**`key_levels` field types (schema-enforced).** `support` and `resistance` are a SINGLE NUMBER — a bare price level in the benchmark's own units — or `null`; NEVER a range or a string with commentary. Reduce a support/resistance ZONE to one representative level (the floor for support, the ceiling for resistance). Any range, band, or caveat (e.g. "web unverified") goes in `fair_value_range` (free text) or the prose — NOT in `support`/`resistance`. A string in those two fails `frameworks/commodity/decision_record.schema.json` and red-lines CI.
+
 # SELF-CHECK
 
 - [ ] All four required inputs were read; a missing one lowered conviction, not invented data.
+- [ ] `key_levels.support` and `.resistance` are single numbers (or `null`) — not range-strings; any range/caveat lives in `fair_value_range` or the prose.
 - [ ] The `## Routing` block has a single `Action:` line matching one allowed verdict exactly.
 - [ ] `decision_record.json` was written and is valid JSON with the `action` matching the Routing line.
 - [ ] Risk summary names the killer risk and the flip condition; the relative read answers "are we in the right commodity?".
