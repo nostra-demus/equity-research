@@ -5,7 +5,7 @@
 set -euo pipefail
 
 REPO="${NOSTRA_REPO:-$HOME/equity-research}"
-BR="${NOSTRA_BRANCH:-claude/engine-macbook-pro-migration-21581d}"
+BR="${NOSTRA_BRANCH:-main}"
 U="$(id -u)"
 PLIST="$HOME/Library/LaunchAgents/com.nostradamus.failover.plist"
 SCRIPT="$HOME/.nostra-ops/failover.sh"

@@ -56,7 +56,7 @@ decide(){
 activate(){
   if [ "$DRYRUN" = 1 ]; then log "DRYRUN ACTIVATE — would run install-services.sh"; return; fi
   log "ACTIVATE: primary absent >= ${K} min — taking over via install-services.sh"
-  NEWS_ARCHIVE_DIR="$NEWS_ARCHIVE_DIR" bash "$PROD/scripts/ops/install-services.sh" >> "$LOG" 2>&1
+  ENGINE_REPO_ROOT="$PROD" NEWS_ARCHIVE_DIR="$NEWS_ARCHIVE_DIR" bash "$PROD/scripts/ops/install-services.sh" >> "$LOG" 2>&1
   log "ACTIVATE: install-services.sh exit=$?"
 }
 
@@ -81,6 +81,10 @@ stand_down(){
 # ── one tick ──────────────────────────────────────────────────────────────────
 counter=$(cat "$STATE" 2>/dev/null || echo 0); case "$counter" in ''|*[!0-9]*) counter=0;; esac
 
+if [ ! -f "$HOME/.cloudflared/cert.pem" ]; then
+  log "ERROR: ~/.cloudflared/cert.pem is missing — cannot query tunnel info (counter held at $counter)"
+  exit 0
+fi
 info=$(cloudflared tunnel info "$TUNNEL" 2>/dev/null || true)
 # FAIL-SAFE: trust the reply ONLY if it provably reached Cloudflare (carries the tunnel ID line).
 # A network failure yields empty/partial stdout with no ID line → we do nothing.

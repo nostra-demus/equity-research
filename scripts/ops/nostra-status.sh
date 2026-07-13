@@ -50,8 +50,9 @@ TUNNEL=$(awk -F': *' '/^tunnel:/{print $2; exit}' "$CFG_DIR/config.yml" 2>/dev/n
 # tunnel connectors (needs cert.pem to query the CF API)
 TUN_RAW=""; TUN_ERR=""
 if [ -f "$CFG_DIR/cert.pem" ]; then
-  TUN_RAW=$(cloudflared tunnel info "$TUNNEL" 2>/tmp/.nostra_tun_err) || TUN_ERR=$(cat /tmp/.nostra_tun_err 2>/dev/null)
-  rm -f /tmp/.nostra_tun_err
+  TUN_ERR_FILE=$(mktemp 2>/dev/null || echo "/tmp/.nostra_tun_err_$$")
+  TUN_RAW=$(cloudflared tunnel info "$TUNNEL" 2>"$TUN_ERR_FILE") || TUN_ERR=$(cat "$TUN_ERR_FILE" 2>/dev/null)
+  rm -f "$TUN_ERR_FILE"
 else
   TUN_ERR="no ~/.cloudflared/cert.pem — cannot query the tunnel"
 fi
@@ -63,9 +64,7 @@ CONN_COUNT=$(printf '%s' "$CONN_LINES" | grep -c . || echo 0)
 SERVING=no; LIVE_DESC=""
 while IFS= read -r line; do
   [ -n "$line" ] || continue
-  oip=$(printf '%s' "$line" | awk '{print $5}')
-  arch=$(printf '%s' "$line" | awk '{print $3}')
-  edge=$(printf '%s' "$line" | awk '{for(i=6;i<=NF;i++)printf "%s ",$i; print ""}')
+  read -r _ _ arch _ oip edge <<< "$line"
   mine=""
   { [ "$oip" = "$IP4" ] || [ "$oip" = "$IP6" ]; } && { SERVING=yes; mine=" ${G}← THIS MACHINE${X}"; }
   LIVE_DESC="${LIVE_DESC}    origin ${oip}  ·  ${arch}  ·  edge ${edge}${mine}\n"
@@ -140,7 +139,7 @@ row "public IPv6" "$IP6"
 
 hd "ROLE — am I the live production host?"
 row "tunnel name" "$TUNNEL"
-if [ -n "$TUN_ERR" ]; then row "tunnel query" "${Y}$TUN_ERR${X}"; else row "live connectors" "$CONN_COUNT"; printf "$LIVE_DESC"; fi
+if [ -n "$TUN_ERR" ]; then row "tunnel query" "${Y}$TUN_ERR${X}"; else row "live connectors" "$CONN_COUNT"; printf '%b' "$LIVE_DESC"; fi
 say ""
 say "  $VERDICT"
 
