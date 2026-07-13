@@ -15,6 +15,7 @@ import { useRef, useState, type MouseEvent as ReactMouseEvent, type PointerEvent
 import { useStore } from '../../lib/store'
 import type { WireConfig } from '../../lib/wire'
 import { BestIdeasView } from '../screener/BestIdeasView'
+import { CalendarView } from '../screener/CalendarView'
 import { CompanyView } from '../screener/CompanyView'
 import { EventDetail } from '../screener/EventDetail'
 import { EventRail } from '../screener/EventRail'
@@ -36,6 +37,7 @@ export function WireSurface({ config, home }: { config: WireConfig; home: ReactN
   const event = useStore((s) => s.scSelectedEvent)
   const themesView = useStore((s) => s.themesView)
   const ideasOpen = useStore((s) => s.ideasOpen)
+  const calendarOpen = useStore((s) => s.calendarOpen)
   const focusedCompany = useStore((s) => s.scFocusedCompany)
   const openKey = `wire.railOpen.${config.swarmId}`
   const widthKey = `wire.railW.${config.swarmId}`
@@ -118,7 +120,7 @@ export function WireSurface({ config, home }: { config: WireConfig; home: ReactN
               horizontal wheel/drag over the strip */}
           {config.pulse && !focusedCompany && !event && <SubjectPulse />}
           <div className="scstage__body">
-            {focusedCompany ? <CompanyView /> : event ? <EventDetail it={event} /> : ideasOpen ? <BestIdeasView /> : themesView ? <ThemesView /> : home}
+            {focusedCompany ? <CompanyView /> : event ? <EventDetail it={event} /> : ideasOpen ? <BestIdeasView /> : calendarOpen ? <CalendarView /> : themesView ? <ThemesView /> : home}
           </div>
         </div>
       </div>

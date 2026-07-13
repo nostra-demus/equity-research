@@ -260,6 +260,9 @@ export function EventRail() {
   const ideasOpen = useStore((s) => s.ideasOpen)
   const openIdeas = useStore((s) => s.openIdeas)
   const closeIdeas = useStore((s) => s.closeIdeas)
+  const calendarOpen = useStore((s) => s.calendarOpen)
+  const openCalendar = useStore((s) => s.openCalendar)
+  const closeCalendar = useStore((s) => s.closeCalendar)
   const scBoard = useStore((s) => s.scBoard)
   const setThemesGeo = useStore((s) => s.setThemesGeo)
   const openNewsFeed = useStore((s) => s.openNewsFeed)
@@ -302,7 +305,7 @@ export function EventRail() {
     next.has(s) ? next.delete(s) : next.add(s)
     setScopeFilter(next)
   }
-  const pickView = (v: View) => { setView(v); if (themesOpen) closeThemes(); if (ideasOpen) closeIdeas() }
+  const pickView = (v: View) => { setView(v); if (themesOpen) closeThemes(); if (ideasOpen) closeIdeas(); if (calendarOpen) closeCalendar() }
   // The "Best ideas" tab is screener-only (the flow wire) AND deploy-skew-safe: it shows only when the
   // server positively sends the ideas array (a capability check, never a swarm-id literal — DESIGN.md §5/§7).
   const ideasAvailable = cfg.flow && Array.isArray(scBoard?.ideas)
@@ -557,14 +560,17 @@ export function EventRail() {
           <button type="button" role="radio" aria-checked={themesOpen} className={`evrail__segbtn${themesOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => void openThemes('map')} title="The wire clustered into living investment themes">
             Themes
           </button>
-          <button type="button" role="radio" aria-checked={view === 'ranked' && !themesOpen && !ideasOpen} className={`evrail__segbtn${view === 'ranked' && !themesOpen && !ideasOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => pickView('ranked')} title="The events worth a look, most important first">
+          <button type="button" role="radio" aria-checked={calendarOpen} className={`evrail__segbtn${calendarOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => (calendarOpen ? closeCalendar() : openCalendar())} title="What's scheduled ahead — upcoming earnings dates and macro releases (a forward calendar)">
+            Calendar
+          </button>
+          <button type="button" role="radio" aria-checked={view === 'ranked' && !themesOpen && !ideasOpen && !calendarOpen} className={`evrail__segbtn${view === 'ranked' && !themesOpen && !ideasOpen && !calendarOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => pickView('ranked')} title="The events worth a look, most important first">
             Ranked{keptCount ? ` · ${keptCount}` : ''}
           </button>
-          <button type="button" role="radio" aria-checked={view === 'latest' && !themesOpen && !ideasOpen} className={`evrail__segbtn${view === 'latest' && !themesOpen && !ideasOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => pickView('latest')} title="The same events, newest first — a live stream as news lands">
+          <button type="button" role="radio" aria-checked={view === 'latest' && !themesOpen && !ideasOpen && !calendarOpen} className={`evrail__segbtn${view === 'latest' && !themesOpen && !ideasOpen && !calendarOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => pickView('latest')} title="The same events, newest first — a live stream as news lands">
             {status?.enabled && <span className="evrail__segpulse" aria-hidden />}
             Latest
           </button>
-          <button type="button" role="radio" aria-checked={view === 'all' && !themesOpen && !ideasOpen} className={`evrail__segbtn${view === 'all' && !themesOpen && !ideasOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => pickView('all')} title={`The full firehose, newest first${items.length ? ` (${items.length})` : ''} — includes the low-signal tail`}>
+          <button type="button" role="radio" aria-checked={view === 'all' && !themesOpen && !ideasOpen && !calendarOpen} className={`evrail__segbtn${view === 'all' && !themesOpen && !ideasOpen && !calendarOpen ? ' evrail__segbtn--on' : ''}`} onClick={() => pickView('all')} title={`The full firehose, newest first${items.length ? ` (${items.length})` : ''} — includes the low-signal tail`}>
             Everything
           </button>
         </div>

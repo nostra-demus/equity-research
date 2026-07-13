@@ -1771,6 +1771,53 @@ a { color: inherit; }
 /* a small live dot inside the "Latest" tab — signals the stream is running */
 .evrail__segpulse { width: 5px; height: 5px; flex-shrink: 0; border-radius: 50%; background: var(--live); box-shadow: 0 0 5px var(--live); animation: evpulse 1.9s var(--ease-out) infinite; }
 
+/* ---- Calendar view (the forward events calendar — components/screener/CalendarView.tsx) ---- */
+.calview { position: absolute; inset: 0; display: flex; flex-direction: column; overflow: hidden; }
+.calview__head { flex-shrink: 0; padding: 14px 16px 10px; border-bottom: 1px solid var(--hairline); display: flex; flex-direction: column; gap: 8px; }
+.calview__titlerow { display: flex; align-items: baseline; gap: 10px; }
+.calview__title { font-size: 15px; font-weight: 700; color: var(--text); letter-spacing: -0.2px; }
+.calview__count { font-size: 11px; color: var(--text-faint); font-variant-numeric: tabular-nums; }
+.calview__controls { display: flex; flex-wrap: wrap; gap: 8px; }
+.calview__seg { display: inline-flex; gap: 2px; padding: 2px; border-radius: var(--r-md); background: var(--bg-2); border: 1px solid var(--hairline); }
+.calview__segbtn { height: 24px; padding: 0 10px; border: none; background: transparent; cursor: pointer; border-radius: var(--r-sm); font-size: 10px; font-weight: 600; color: var(--text-muted); transition: color var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out); }
+.calview__segbtn.is-on { color: var(--accent-bright); background: var(--accent-wash); }
+.calview__segbtn:active { transform: scale(0.97); }
+@media (hover: hover) and (pointer: fine) { .calview__segbtn:not(.is-on):hover { color: var(--text); } }
+.calview__health { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; font-size: 10px; color: var(--text-faint); }
+.calhealth { display: inline-flex; align-items: center; gap: 5px; }
+.calhealth__dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; background: var(--text-faint); }
+.calhealth--ok .calhealth__dot { background: var(--live); box-shadow: 0 0 5px var(--live-wash); }
+.calhealth--down { color: var(--text-muted); }
+.calhealth__n { color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.calview__stalenote { color: var(--accent); }
+.calview__body { flex: 1 1 auto; overflow-y: auto; padding: 4px 0 24px; }
+.calday { padding: 2px 0; }
+.calday__head { position: sticky; top: 0; z-index: 1; display: flex; align-items: baseline; gap: 8px; padding: 6px 16px; background: var(--bg); border-bottom: 1px solid var(--hairline); }
+.calday__rel { font-size: 11px; font-weight: 700; color: var(--accent-bright); letter-spacing: 0.2px; }
+.calday__date { font-size: 11px; color: var(--text-muted); }
+.calday__n { margin-left: auto; font-size: 10px; color: var(--text-faint); font-variant-numeric: tabular-nums; }
+.calday__list { list-style: none; margin: 0; padding: 0; }
+.calrow { display: flex; align-items: center; gap: 8px; padding: 5px 16px; font-size: 12px; border-bottom: 1px solid var(--hairline); transition: background var(--dur-fast) var(--ease-out); }
+@media (hover: hover) and (pointer: fine) { .calrow:hover { background: var(--bg-2); } }
+.calrow__kind { flex-shrink: 0; font-size: 9px; color: var(--text-faint); width: 10px; text-align: center; }
+.calrow__kind--macro { color: var(--text-muted); }
+.calrow__kind--high { color: var(--accent-bright); }
+.calrow__kind--medium { color: var(--text); }
+.calrow__title { color: var(--text); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 52%; }
+.calrow--macro .calrow__title { font-weight: 600; }
+.calrow__ticker { flex-shrink: 0; font-size: 10px; color: var(--accent); }
+.calrow__spacer { flex: 1 1 auto; }
+.calrow__detail { flex-shrink: 0; font-size: 10px; color: var(--text-faint); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 42%; }
+.calrow__region { flex-shrink: 0; font-size: 9px; font-weight: 700; color: var(--text-faint); border: 1px solid var(--hairline); border-radius: var(--r-pill); padding: 1px 5px; }
+.calrow__time { flex-shrink: 0; font-size: 10px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+.calview__skeleton { padding: 10px 16px; display: flex; flex-direction: column; gap: 8px; }
+.calskel { height: 22px; border-radius: var(--r-sm); background: linear-gradient(90deg, var(--bg-2) 25%, var(--hairline) 37%, var(--bg-2) 63%); background-size: 400% 100%; animation: calshimmer 1.4s var(--ease-out) infinite; animation-delay: calc(var(--i) * 80ms); opacity: 0.7; }
+@keyframes calshimmer { from { background-position: 100% 0; } to { background-position: 0 0; } }
+.calview__empty { padding: 48px 24px; text-align: center; }
+.calview__emptytitle { font-size: 13px; font-weight: 600; color: var(--text-muted); margin-bottom: 4px; }
+.calview__emptysub { font-size: 11px; color: var(--text-faint); }
+@media (prefers-reduced-motion: reduce) { .calskel { animation: none; } .calview__segbtn:active, .calrow { transition: none; } }
+
 /* "N new · Mark all read" — a thin fixed bar above the scrolling list, shown only while unread items are on
    screen. Mirrors the count in the rows beneath it. */
 .evrail__unreadbar {

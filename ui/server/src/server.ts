@@ -22,6 +22,7 @@ import { cancel, cancelAll, cancelSubject, creditCheck, decideReadiness, estimat
 import { newsBus } from './news/bus'
 import { readFeed, searchFeed } from './news/feed'
 import { getPulse } from './news/commodity-pulse'
+import { getCalendar } from './news/events-calendar'
 import type { FeedItem } from './news/types'
 import { matchesFeedFilters, parseFeedFilterQuery, explainFeedFilterMatch, hasAnyFilter, type FeedFilterQuery } from './news/feed-filter'
 import { computeFacets } from './news/facets'
@@ -204,6 +205,16 @@ app.get('/api/swarm/pulse', { config: { rateLimit: { max: 600, timeWindow: '1 mi
   if (!m.wire?.pulse || !NEWS.pulseEnabled) return reply.code(404).send({ error: 'no pulse declared for this swarm' })
   const snap = await getPulse(m.id)
   if (!snap) return reply.code(404).send({ error: 'no pulse available' })
+  return snap
+})
+
+// The forward EVENTS CALENDAR (news/events-calendar.ts): date-sorted upcoming earnings (Nasdaq US + NSE
+// India) + macro releases (investing.com). Lazy + TTL-cached; 404 when disabled. Never throws — a total
+// source outage returns an empty, all-unhealthy, stale snapshot so the UI can say "the calendar is down".
+app.get('/api/calendar', { config: { rateLimit: { max: 300, timeWindow: '1 minute' } } }, async (_req, reply) => {
+  if (!NEWS.calendarEnabled) return reply.code(404).send({ error: 'events calendar disabled' })
+  const snap = await getCalendar()
+  if (!snap) return reply.code(404).send({ error: 'events calendar disabled' })
   return snap
 })
 

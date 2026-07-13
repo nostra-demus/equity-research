@@ -495,6 +495,15 @@ export const NEWS = {
   pulsePriceTtlMin: capNum(process.env.NEWS_PULSE_PRICE_TTL_MIN, 15),
   pulseCotTtlHours: capNum(process.env.NEWS_PULSE_COT_TTL_HOURS, 6),
   pulseTimeoutMs: capNum(process.env.NEWS_PULSE_TIMEOUT_MS, 10_000),
+  // EVENTS CALENDAR (news/events-calendar.ts) — the date-sorted forward calendar behind /api/calendar:
+  // earnings (Nasdaq US + NSE India, official JSON APIs) + macro (investing.com econ-calendar). Keyless,
+  // lazy on request, cached under STATE_DIR; each source fails independently (keeps last-good + flags
+  // health) so one broken scraper never takes the calendar down. Off with NEWS_CALENDAR_ENABLED=0.
+  calendarEnabled: process.env.NEWS_CALENDAR_ENABLED !== '0',
+  calendarWindowDays: capNum(process.env.NEWS_CALENDAR_WINDOW_DAYS, 14),
+  calendarEarningsTtlHours: capNum(process.env.NEWS_CALENDAR_EARNINGS_TTL_HOURS, 6),
+  calendarMacroTtlHours: capNum(process.env.NEWS_CALENDAR_MACRO_TTL_HOURS, 12),
+  calendarTimeoutMs: capNum(process.env.NEWS_CALENDAR_TIMEOUT_MS, 12_000),
   // Groq output budget per triage call (the per-item payload grew with companies/size_bucket, then
   // headline_en for non-English items) — 2400 keeps headroom so a batch of long foreign-script
   // headlines can't truncate (a truncated batch is safely deferred, but would otherwise re-defer).
