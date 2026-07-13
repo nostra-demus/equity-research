@@ -47,11 +47,11 @@ a { color: inherit; }
 .topbar__spacer { flex: 1; }
 
 /* Keep the command bar on ONE row at any zoom / width. By default the flex children shrink and their
-   labels wrap to two lines when space is tight (the 100%-zoom bug: "Run full" / "usage · check" / "Ask"
+   labels wrap to two lines when space is tight (the 100%-zoom bug: "Run full" / "usage" / "Ask"
    breaking). Here: no top-bar control wraps its label or gets squished; the spacer yields space first,
-   then the brand subtitle drops on tight widths, then the brand name truncates — so the right-hand
-   controls stay crisp and never wrap or clip. */
-.topbar { gap: 12px; }
+   then the brand name truncates — so the right-hand controls stay crisp and never wrap or clip. The
+   10px gap (down from 12px) leaves a little more room for the running-state "N running" pill. */
+.topbar { gap: 10px; }
 .topbar > * { flex-shrink: 0; }
 .topbar :where(button, .chip, .readiness__label, .tickerpick__ticker, .creditbadge, .autoscan, .brand__name, .brand__sub) { white-space: nowrap; }
 .topbar .btn { padding: 0 12px; }
@@ -102,8 +102,6 @@ a { color: inherit; }
 .tickerpick__warn { flex: 1; color: var(--bad); font-size: 11.5px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* readiness strip */
-.readiness { display: flex; align-items: center; gap: 14px; }
-.readiness__group { display: flex; align-items: center; gap: 7px; }
 .readiness__dot { width: 8px; height: 8px; border-radius: 50%; }
 .readiness__label { font-size: 11px; color: var(--text-muted); letter-spacing: 0.2px; }
 
@@ -118,7 +116,9 @@ a { color: inherit; }
 .creditbadge__dot { width: 7px; height: 7px; border-radius: 50%; }
 
 /* theme toggle (light/dark) — icon pill matching the top-bar control language */
-.themetoggle {
+/* .iconbtn shares the theme toggle's compact 32x30 icon box, so any square icon-only top-bar control
+   (theme toggle, feedback) reads identically and stays cheap on width. */
+.themetoggle, .iconbtn {
   position: relative; display: grid; place-items: center; flex: none;
   width: 32px; height: 30px;
   border-radius: var(--r-pill); border: 1px solid var(--hairline);
@@ -126,8 +126,8 @@ a { color: inherit; }
   cursor: pointer;
   transition: border-color var(--dur-fast) var(--ease), color var(--dur-fast) var(--ease), transform var(--dur-fast) var(--ease);
 }
-@media (hover: hover) and (pointer: fine) { .themetoggle:hover { border-color: var(--hairline-strong); color: var(--text); } }
-.themetoggle:active { transform: scale(0.94); }
+@media (hover: hover) and (pointer: fine) { .themetoggle:hover, .iconbtn:hover { border-color: var(--hairline-strong); color: var(--text); } }
+.themetoggle:active, .iconbtn:active { transform: scale(0.94); }
 /* both icons share one grid cell; the TARGET-action icon rotates+fades in (dark -> sun, light -> moon) */
 .themetoggle__icon { grid-area: 1 / 1; transition: opacity var(--dur) var(--ease-out), transform var(--dur) var(--ease-out); }
 .themetoggle__sun { opacity: 0; transform: rotate(-90deg) scale(0.6); }
@@ -138,9 +138,9 @@ a { color: inherit; }
   .themetoggle__icon { transition: opacity 120ms linear; transform: none !important; }
 }
 
-/* engine status pill (online/offline heartbeat) — fixed min-width so state changes never shift the bar */
+/* engine status pill (online/offline heartbeat) — compact; width tracks the state label */
 .estatus {
-  display: flex; align-items: center; gap: 7px; height: 30px; padding: 0 12px; min-width: 132px;
+  display: flex; align-items: center; gap: 6px; height: 30px; padding: 0 10px;
   border-radius: var(--r-pill); border: 1px solid var(--hairline);
   font-size: 11.5px; color: var(--text-muted); background: var(--surface-2);
   cursor: pointer; transition: border-color var(--dur-fast), transform var(--dur-fast) var(--ease);
@@ -606,7 +606,7 @@ a { color: inherit; }
 
 .activity__count { padding: 9px 18px; font-size: 11.5px; color: var(--text-faint); border-bottom: 1px solid var(--hairline); }
 .activity__count b { color: var(--text-muted); }
-.activity__body { flex: 1; overflow-y: auto; padding: 0 0 40px; }
+.activity__body { flex: 1; overflow: auto; padding: 0 0 40px; }
 .activity__empty { color: var(--text-faint); font-size: 13px; padding: 40px 24px; text-align: center; line-height: 1.6; }
 
 /* ---- Chat history browser (saved Ask conversations) — reuses the .activity panel shell ---- */
@@ -825,14 +825,14 @@ a { color: inherit; }
 .atable thead th {
   position: sticky; top: 0; z-index: 1; background: var(--surface-2);
   text-align: left; font-weight: 600; font-size: 10.5px; letter-spacing: 0.4px; text-transform: uppercase; color: var(--text-faint);
-  padding: 9px 14px; border-bottom: 1px solid var(--hairline);
+  padding: 9px 10px; border-bottom: 1px solid var(--hairline);
 }
-.atable td { padding: 10px 14px; border-bottom: 1px solid var(--hairline); vertical-align: middle; }
+.atable td { padding: 9px 10px; border-bottom: 1px solid var(--hairline); vertical-align: middle; }
 .atable tbody tr { transition: background var(--dur-fast); }
 .atable tbody tr:hover { background: var(--surface-2); }
 .atable__num { text-align: right; font-family: var(--font-mono); font-size: 11.5px; color: var(--text-muted); white-space: nowrap; }
-.atable__who { font-family: var(--font-mono); font-size: 11.5px; color: var(--text-muted); max-width: 220px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-.atable__company { font-weight: 600; max-width: 300px; }
+.atable__who { font-family: var(--font-mono); font-size: 11.5px; color: var(--text-muted); max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.atable__company { font-weight: 600; max-width: 200px; }
 .atable__company > span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .atable__company--none { color: var(--text-faint); font-weight: 400; }
 

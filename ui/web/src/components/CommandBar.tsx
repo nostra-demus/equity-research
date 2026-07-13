@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useStore } from '../lib/store'
-import { decisionColor, fmtAgo, resetIn, resolveVerdict, sufficiencyColor, usageColor, usageLabel, usagePct } from '../lib/format'
+import { decisionColor, fmtAgo, resetIn, resolveVerdict, usageColor, usageLabel, usagePct } from '../lib/format'
 import { plainKind } from '../lib/plain'
 import { EngineStatusPill } from './EngineStatus'
 import { ThemeToggle } from './ThemeToggle'
@@ -299,22 +299,20 @@ function ResumeChip() {
   )
 }
 
+// Data-readiness at a glance: how many of the swarm's modules have SUFFICIENT data. The compact "N/M ready"
+// count replaces the per-module dot row (each module's own status is already shown in the swarm view); the
+// tooltip still names any capped module so no detail is lost.
 function ReadinessStrip() {
   const graph = useStore((s) => s.graph)
   const dataStatus = useStore((s) => s.dataStatus)
   if (!graph || !dataStatus) return null
-  const ready = graph.modules.filter((m) => dataStatus.modules[m.name]?.status === 'Sufficient').length
-  return (
-    <div className="readiness" title="Per-module data readiness">
-      <div className="readiness__group">
-        {graph.modules.map((m) => {
-          const st = dataStatus.modules[m.name]?.status || 'Insufficient'
-          return <span key={m.name} className="readiness__dot" style={{ background: sufficiencyColor(st as any) }} title={`${m.name} · ${st}`} />
-        })}
-      </div>
-      <span className="readiness__label">{ready}/{graph.modules.length} ready</span>
-    </div>
-  )
+  const statuses = graph.modules.map((m) => ({ name: m.name, st: dataStatus.modules[m.name]?.status || 'Insufficient' }))
+  const ready = statuses.filter((m) => m.st === 'Sufficient').length
+  const capped = statuses.filter((m) => m.st !== 'Sufficient')
+  const tip = capped.length
+    ? `Data readiness — ${ready}/${statuses.length} modules have sufficient data. Capped: ${capped.map((m) => `${m.name} (${m.st})`).join(', ')}`
+    : `Data readiness — all ${statuses.length} modules have sufficient data`
+  return <span className="readiness__label" title={tip}>{ready}/{statuses.length} ready</span>
 }
 
 const windowOrder = (t: string) => (t === 'five_hour' ? 0 : t.startsWith('seven_day') && !t.includes('opus') ? 1 : t.includes('opus') ? 2 : 3)
@@ -332,7 +330,7 @@ function CreditBadge() {
   const windows = credit?.windows ? Object.entries(credit.windows).sort((a, b) => windowOrder(a[0]) - windowOrder(b[0])) : []
   // headline a real window if we have one (binding window preferred, else highest utilization)
   const headline = windows.find(([t]) => t === credit?.rateLimitType) || [...windows].sort((a, b) => (b[1].utilization ?? 0) - (a[1].utilization ?? 0))[0]
-  let label = 'usage · check'
+  let label = 'usage'
   let dotColor = 'var(--text-faint)'
   if (headline) {
     const [type, w] = headline
@@ -390,11 +388,39 @@ function CreditBadge() {
   )
 }
 
+// Compact icon-only entry to the cockpit-wide feedback panel. Replaces the old full-width "Feedback"
+// text button to reclaim top-bar space; the panel it opens (FeedbackPanel) is unchanged. Rendered once
+// beside the theme toggle, so it appears in every swarm without duplicating the control per branch.
+function FeedbackButton() {
+  const openCockpitFeedback = useStore((s) => s.openCockpitFeedback)
+  return (
+    <button
+      className="iconbtn"
+      onClick={openCockpitFeedback}
+      title="Feedback — report a bug, share an idea, or drop a screenshot"
+      aria-label="Feedback — report a bug, share an idea, or drop a screenshot"
+    >
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+        <path d="m8 2 1.88 1.88" />
+        <path d="M14.12 3.88 16 2" />
+        <path d="M9 7.13v-1a3.003 3.003 0 1 1 6 0v1" />
+        <path d="M12 20c-3.3 0-6-2.7-6-6v-3a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v3c0 3.3-2.7 6-6 6" />
+        <path d="M12 20v-9" />
+        <path d="M6.53 9C4.6 8.8 3 7.1 3 5" />
+        <path d="M6 13H2" />
+        <path d="M3 21c0-2.1 1.7-3.9 3.8-4" />
+        <path d="M20.97 5c0 2.1-1.6 3.8-3.5 4" />
+        <path d="M22 13h-4" />
+        <path d="M17.2 17c2.1.1 3.8 1.9 3.8 4" />
+      </svg>
+    </button>
+  )
+}
+
 export function CommandBar() {
   const decision = useStore((s) => s.decision)
   const openThesis = useStore((s) => s.openThesis)
   const openActivity = useStore((s) => s.openActivity)
-  const openCockpitFeedback = useStore((s) => s.openCockpitFeedback)
   const openScoring = useStore((s) => s.openScoring)
   const openReview = useStore((s) => s.openReview)
   const openCalls = useStore((s) => s.openCalls)
@@ -419,31 +445,26 @@ export function CommandBar() {
   // a swarm's decision record carries its own verdict field (e.g. commodity `action`) — resolve it
   // generically so the final-report button shows for any finished constellation-swarm run too
   const verdict = resolveVerdict(decision, swarms.find((s) => s.id === activeSwarm)?.verdictField)
-  const sub = screenerMode
-    ? (swarms.find((s) => s.id === activeSwarm)?.label ? 'Idea Generation — Screener' : 'Screener')
-    : activeSwarm === 'research'
-      ? 'Equity Research Cockpit'
-      : `${swarms.find((s) => s.id === activeSwarm)?.label || 'Commodity'} Research Cockpit`
   return (
     <div className="topbar">
       <div className="brand">
         <BrandMark />
         <div className="brand__title">
-          <div className="brand__name">Nostradamus Swarm</div>
+          <div className="brand__name">Nostra</div>
         </div>
-        <span className="brand__sub">{sub}</span>
         <SwarmSwitcher />
         {staticMode && <span className="chip" style={{ color: 'var(--accent-bright)', borderColor: 'var(--accent-deep)' }} title={snapshotAt ? `Read-only snapshot, synced ${fmtAgo(Date.parse(snapshotAt))} — the live engine is offline or unreachable. Actions resume when it's back.` : 'Read-only snapshot — the live engine runs on your machine.'}>read-only{snapshotAt ? ` · synced ${fmtAgo(Date.parse(snapshotAt))}` : ''}</span>}
       </div>
       <div className="topbar__spacer" />
       <ThemeToggle />
+      <FeedbackButton />
       {screenerMode ? (
         <>
           <StopControl />
           <AutoScanChip />
           <EngineStatusPill />
+          <CreditBadge />
           <button className="btn btn--ghost" onClick={openScoring} title="Scoring weights — tune how every event is scored, for the whole wire">Scoring</button>
-          <button className="btn btn--ghost" onClick={openCockpitFeedback} title="Feedback — report a bug, share an idea, or drop a screenshot">Feedback</button>
           <button className="btn btn--ghost" onClick={openActivity} title="Activity log — who ran what, when">Activity</button>
           <button className="btn btn--ghost" onClick={openReview} title="Batch review — flag a day's worth of items fast, with keyboard shortcuts">Review</button>
           {/* the live-run rail's reopen is folded into the single "Runs" button below (ScreenerControls) —
@@ -455,7 +476,6 @@ export function CommandBar() {
             Ask ▸
           </button>
           <ScreenerControls />
-          <CreditBadge />
         </>
       ) : (
         <>
@@ -464,8 +484,8 @@ export function CommandBar() {
           {/* a constellation swarm with a declared wire watches the same scanner — show its status chip */}
           {swarms.find((s) => s.id === activeSwarm)?.wire && <AutoScanChip />}
           <EngineStatusPill />
+          <CreditBadge />
           <button className="btn btn--ghost" onClick={openCalls} title="Calls tracker — every call the engine made and what's happened since">Calls</button>
-          <button className="btn btn--ghost" onClick={openCockpitFeedback} title="Feedback — report a bug, share an idea, or drop a screenshot">Feedback</button>
           <button className="btn btn--ghost" onClick={openActivity} title="Activity log — who ran what, when, on which company">Activity</button>
           <button className="btn btn--ghost" onClick={openChatHistory} title="Chat history — reopen and continue any past Ask conversation">Chats</button>
           {runPanelDismissed && <button className="btn btn--ghost" onClick={reopenRunStream} title="Show the run panel again — the live/last runs for this company">Runs</button>}
@@ -479,7 +499,6 @@ export function CommandBar() {
           <button className="btn btn--amber" disabled={!selectedTicker || anyRun || engineDown || fullPending} onClick={requestFull} title={staticMode ? 'Runs on your local machine (npm run dev)' : engineDown ? 'Engine offline — live runs are paused until it reconnects' : anyRun ? 'A run is in flight — a full run needs exclusive access' : 'Run the full pipeline'}>
             {fullPending ? 'Preparing…' : 'Run full ▸'}
           </button>
-          <CreditBadge />
           <TickerPicker />
         </>
       )}
