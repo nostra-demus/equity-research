@@ -38,7 +38,7 @@ USAGE_KEYS = ('input_tokens', 'output_tokens', 'cache_read_input_tokens', 'cache
 def rate_for(model):
     if model:
         for k, v in MODEL_PRICES.items():
-            if model.startswith(k):
+            if k in model:
                 return v
     return DEFAULT_RATE
 
@@ -84,8 +84,8 @@ def dedup_usage(path):
         if isinstance(m, dict):
             model = model or m.get('model')
             u = m.get('usage')
-            if u:
-                rid = o.get('requestId') or m.get('id') or len(byreq)
+            if isinstance(u, dict):
+                rid = o.get('requestId') or m.get('id') or f'_missing_{len(byreq)}'
                 byreq[rid] = u                       # keep final usage per billed call
     agg = {k: 0 for k in USAGE_KEYS}
     cc5 = cc1 = 0
