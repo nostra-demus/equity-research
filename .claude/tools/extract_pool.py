@@ -105,11 +105,49 @@ def _collect_sidecars(data_path):
         if not _is_sidecar(base):
             continue
         try:
-            out[os.path.relpath(p, data_path)[: -len(SIDECAR_SUFFIX)]] = json.load(
-                open(p, encoding="utf-8"))
+            parsed = json.load(open(p, encoding="utf-8"))
         except Exception:  # noqa — a malformed sidecar degrades to path-derived provenance
             continue
+        # A sidecar that parses to a NON-object (a bare JSON array/scalar) is malformed the same way an
+        # unparseable one is: skip it so the doc falls to path-derived provenance, never a non-dict stored
+        # in prov_map that the fold would later call .get() on (AttributeError). Only objects are provenance.
+        if isinstance(parsed, dict):
+            out[os.path.relpath(p, data_path)[: -len(SIDECAR_SUFFIX)]] = parsed
     return out
+
+
+# §4/§5 masquerade guard (EXTERNAL_DATA.md §4). Each source_type earns a §4 tier CEILING (lower = more
+# trusted). A sidecar may declare a MORE conservative tier, never a more trusted one — a scrape / channel
+# check / broker note can never fold into the pool stamped as a tier-5 vendor number. Enforced HERE, at fold
+# time, so no downstream specialist ever sees an over-claimed tier no matter who wrote the sidecar (a hand
+# drop, or an auto-built connector's fetcher whose self-reported tier is not to be trusted).
+SOURCE_TYPE_MAX_TRUST = {
+    "alt_data_panel": 5, "vendor_export": 5, "paid_api": 5,
+    "broker_research": 7,
+    "expert_call": 9, "channel_check": 9, "management_meeting": 9,
+    "external_other": 9,
+}
+
+
+def _enforce_tier_ceiling(prov):
+    """Clamp a sidecar's §4 tier DOWN to the ceiling its source_type permits (never up); fill a missing/
+    non-numeric tier from the source_type; flag any over-claim as `tier_corrected` so the manifest + triage
+    see the correction. An UNKNOWN / missing / typo'd source_type fails CLOSED to the conservative
+    external_other floor (tier 9 — the same default a no-sidecar drop gets): a self-declared tier we cannot
+    classify is never trusted verbatim. (Falling through untouched here was a fail-OPEN hole — a sidecar with
+    an off-list source_type and a low tier folded in at that trusted tier, a worse masquerade than the tier-5
+    one this gate blocks.) Mutates and returns the provenance dict."""
+    st = prov.get("source_type")
+    # Unknown / missing source_type → the most conservative ceiling (external_other, tier 9), never a bypass.
+    ceiling = SOURCE_TYPE_MAX_TRUST.get(st, SOURCE_TYPE_MAX_TRUST["external_other"])
+    declared = prov.get("tier")
+    if isinstance(declared, bool) or not isinstance(declared, (int, float)):
+        prov["tier"] = ceiling  # derive from the ceiling when absent / non-numeric (bool is not a tier)
+    elif declared < ceiling:  # over-claimed a more-trusted tier than the source_type earns → clamp + flag
+        prov["tier"] = ceiling
+        prov["tier_corrected"] = {"declared": declared, "enforced": ceiling,
+                                  "reason": f"source_type '{st}' may be cited at most at §4 tier {ceiling}"}
+    return prov
 
 
 def _finish_row(row, rel, prov_map):
@@ -131,7 +169,7 @@ def _finish_row(row, rel, prov_map):
             prov = {"provider": folder if folder and folder != "external" else "unfiled",
                     "source_type": "external_other", "tier": 9,
                     "provenance_basis": "path-derived (no sidecar)"}
-        row["provenance"] = prov
+        row["provenance"] = _enforce_tier_ceiling(prov)
     return row
 
 
@@ -143,6 +181,9 @@ def _prov_summary(row):
     bits = [str(p.get("provider") or "unknown provider"), str(p.get("source_type") or "unclassified")]
     if p.get("tier"):
         bits.append(f"tier {p['tier']}")
+    tc = p.get("tier_corrected")
+    if isinstance(tc, dict):  # only a real correction dict (written by _enforce_tier_ceiling) renders a flag;
+        bits.append(f"⚠ tier corrected (declared {tc.get('declared')}, over-claimed)")  # a pre-declared non-dict is ignored
     if p.get("as_of"):
         bits.append(f"as-of {p['as_of']}")
     return "external: " + " · ".join(bits)
