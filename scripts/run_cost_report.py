@@ -70,10 +70,24 @@ def _iter(path):
             for line in f:
                 line = line.strip()
                 if line:
-                    try: yield json.loads(line)
+                    try: obj = json.loads(line)
                     except Exception: continue
+                    if isinstance(obj, dict): yield obj   # a bare JSON null/list/str is not a record
     except OSError:
         return
+
+def _meta_agent(path):
+    """Fallback attribution: the harness writes a sibling `<name>.meta.json` (`agentType`) next to
+    each subagent `.jsonl` — the SAME source scripts/run-metrics.mjs keys on. Use it when the JSONL
+    lines carry no `attributionAgent`, otherwise a whole subagent is silently dropped."""
+    if not path.endswith('.jsonl'):
+        return None
+    try:
+        with open(path[:-len('.jsonl')] + '.meta.json', encoding='utf-8', errors='ignore') as f:
+            d = json.load(f)
+    except (OSError, ValueError):
+        return None
+    return d.get('agentType') if isinstance(d, dict) else None
 
 def dedup_usage(path):
     """(attributionAgent, model, summed-usage, n_billed_calls) — usage deduped by requestId."""
@@ -87,6 +101,8 @@ def dedup_usage(path):
             if isinstance(u, dict):
                 rid = o.get('requestId') or m.get('id') or f'_missing_{len(byreq)}'
                 byreq[rid] = u                       # keep final usage per billed call
+    if not atype:
+        atype = _meta_agent(path)                # meta-sidecar fallback (run-metrics.mjs format)
     agg = {k: 0 for k in USAGE_KEYS}
     cc5 = cc1 = 0
     for u in byreq.values():
@@ -104,6 +120,19 @@ def runtimes_from_main(main_path):
             rt[tur['agentType']] += tur.get('totalDurationMs', 0) or 0
     return rt
 
+def _empty_usage():
+    return {**{k: 0 for k in USAGE_KEYS},
+            'cache_creation': {'ephemeral_5m_input_tokens': 0, 'ephemeral_1h_input_tokens': 0}}
+
+def _add_usage(dst, u):
+    """Accumulate one deduped usage into `dst`, carrying the 5m/1h cache-creation split — not just the
+    flat keys. Without the split the render's per-token-type breakdown reprices 1h cache-writes at the
+    5m rate and understates cache-creation dollars (the total cost, computed per-call, stays correct)."""
+    for k in USAGE_KEYS: dst[k] += u.get(k, 0)
+    uc = u.get('cache_creation') or {}
+    dst['cache_creation']['ephemeral_5m_input_tokens'] += uc.get('ephemeral_5m_input_tokens', 0)
+    dst['cache_creation']['ephemeral_1h_input_tokens'] += uc.get('ephemeral_1h_input_tokens', 0)
+
 def attribute_session(main_path, subagent_paths):
     rt = runtimes_from_main(main_path) if main_path else collections.Counter()
     agents = {}
@@ -111,18 +140,19 @@ def attribute_session(main_path, subagent_paths):
         atype, model, u, calls = dedup_usage(p)
         if not atype: continue
         a = agents.setdefault(atype, dict(agent=atype, model=model, calls=0,
-                                          usage={k: 0 for k in USAGE_KEYS}, cost=0.0))
+                                          usage=_empty_usage(), cost=0.0))
         a['model'] = a['model'] or model
         a['calls'] += calls
-        for k in USAGE_KEYS: a['usage'][k] += u[k]
+        _add_usage(a['usage'], u)                 # flat keys AND the 5m/1h cache-creation split
         a['cost'] += token_cost(model, u)
     for atype, a in agents.items():
         a['runtime_ms'] = rt.get(atype, 0)
     orch = None
     if main_path:
         _, om, ou, oc = dedup_usage(main_path)
+        ousage = _empty_usage(); _add_usage(ousage, ou)
         orch = dict(agent='(orchestrator)', model=om, calls=oc,
-                    usage={k: ou[k] for k in USAGE_KEYS}, cost=token_cost(om, ou), runtime_ms=0)
+                    usage=ousage, cost=token_cost(om, ou), runtime_ms=0)
     return {'agents': list(agents.values()), 'orchestrator': orch}
 
 # ---- discovery + module map ----

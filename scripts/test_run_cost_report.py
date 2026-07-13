@@ -86,5 +86,50 @@ check("module map: research specialist -> its module", mm.get('moat') == 'busine
 check("module map: top-level agent included (not dropped from --all)", mm.get('synthesizer') == '(top-level)')
 check("module map: swarm specialist -> <swarm>/<module> (product-wide)", mm.get('screener-ticker-mapping') == 'screener/candidate-surfacing')
 
+import collections
+
+# --- 6. aggregation preserves the 5m/1h cache-creation split so the render breakdown prices 1h at
+#        2.0x, not 5m's 1.25x (Codex WyLo). Total cost was already correct; the per-token-type
+#        breakdown understated cache-creation whenever 1h cache-writes were present — and THIS engine
+#        runs on a 1h prompt-cache TTL, so the miss is real. Expected pinned to CACHE_1H_MULT=2.00. ---
+d2 = tempfile.mkdtemp()
+sub1h = os.path.join(d2, 'agent-1h.jsonl')
+with open(sub1h, 'w') as f:
+    f.write(json.dumps({"attributionAgent":"moat","requestId":"r1","message":{"model":"claude-sonnet",
+        "usage":{"input_tokens":0,"output_tokens":0,"cache_read_input_tokens":0,
+                 "cache_creation_input_tokens":1000,
+                 "cache_creation":{"ephemeral_5m_input_tokens":0,"ephemeral_1h_input_tokens":1000}}}})+"\n")
+res6 = R.attribute_session(None, [sub1h])
+a6 = res6['agents'][0]
+check("agg preserves the 1h cache-creation split", a6['usage']['cache_creation']['ephemeral_1h_input_tokens'] == 1000)
+comp6 = collections.Counter(); R._accrue(comp6, a6['model'], a6['usage'])
+check("render breakdown prices 1h cache at 2.0x (not 5m 1.25x)", abs(comp6['cache_creation'] - 1000*R.CACHE_1H_MULT*3/1e6) < 1e-12)
+check("breakdown cache-creation == authoritative per-call token_cost", abs(comp6['cache_creation'] - a6['cost']) < 1e-12)
+
+# --- 7. attribution falls back to the harness `<name>.meta.json` (agentType) sidecar when the JSONL
+#        lines carry no `attributionAgent` — the SAME source scripts/run-metrics.mjs keys on. ---
+d3 = tempfile.mkdtemp(); subm = os.path.join(d3, 'agent-y.jsonl')
+with open(subm, 'w') as f:
+    f.write(json.dumps({"requestId":"q1","message":{"model":"claude-sonnet",
+        "usage":{"input_tokens":10,"output_tokens":5,"cache_read_input_tokens":0,"cache_creation_input_tokens":0}}})+"\n")
+with open(os.path.join(d3, 'agent-y.meta.json'), 'w') as f:
+    json.dump({"agentType":"business-quality"}, f)
+atype_m, _, _, calls_m = R.dedup_usage(subm)
+check("meta-sidecar supplies agentType when attributionAgent absent", atype_m == "business-quality")
+check("meta-sidecar path: billed call still counted", calls_m == 1)
+resm = R.attribute_session(None, [subm])
+check("subagent NOT dropped when only the meta sidecar names it", any(a['agent'] == "business-quality" for a in resm['agents']))
+
+# --- 8. malformed transcript lines never crash the reader (bare non-dict lines + a non-dict usage) ---
+d4 = tempfile.mkdtemp(); badp = os.path.join(d4, 'agent-bad.jsonl')
+with open(badp, 'w') as f:
+    f.write("null\n"); f.write("[1,2,3]\n"); f.write('"a bare string"\n')
+    f.write(json.dumps({"attributionAgent":"moat","requestId":"g1","message":{"model":"claude-sonnet","usage":"NOT-A-DICT"}})+"\n")
+    f.write(json.dumps({"attributionAgent":"moat","requestId":"g2","message":{"model":"claude-sonnet",
+        "usage":{"input_tokens":7,"output_tokens":1,"cache_read_input_tokens":0,"cache_creation_input_tokens":0}}})+"\n")
+at8, _, agg8, calls8 = R.dedup_usage(badp)      # must not raise
+check("malformed lines skipped; the one valid billed call counted", calls8 == 1 and agg8['input_tokens'] == 7)
+check("attribution survives malformed lines", at8 == "moat")
+
 print("\nALL RUN_COST_REPORT TESTS PASS" if not fails else f"\n{len(fails)} FAILED: {fails}")
 sys.exit(1 if fails else 0)
