@@ -232,6 +232,15 @@ def render(result, modmap=None, title=''):
     lines.append("NOTE: list-price estimate (tokens x published rate); not a billed invoice.")
     return "\n".join(lines)
 
+def stamp_modules(result, modmap):
+    """Add a `module` label to each agent in the result, so the --json artifact is self-describing for a
+    consumer doing a per-module rollup (e.g. the cockpit's per-orb cost/value view) without re-deriving the
+    agent->module map. The text render reads modmap directly and ignores this field; the orchestrator is not
+    a specialist and is left unlabelled."""
+    for a in result.get('agents', []):
+        a.setdefault('module', modmap.get(a['agent'], '(unknown)'))
+    return result
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--session', help='session UUID to attribute (one run)')
@@ -257,6 +266,7 @@ def main(argv=None):
         print(render(result, modmap, title="— fleet (all research sub-agents on disk)"))
     else:
         ap.print_help(); return 2
+    stamp_modules(result, modmap)  # label each agent with its module so the JSON artifact is self-describing
     if args.json:
         with open(args.json, 'w') as f: json.dump(result, f, indent=2)
         print(f"\nwrote {args.json}", file=sys.stderr)

@@ -86,6 +86,11 @@ check("module map: research specialist -> its module", mm.get('moat') == 'busine
 check("module map: top-level agent included (not dropped from --all)", mm.get('synthesizer') == '(top-level)')
 check("module map: swarm specialist -> <swarm>/<module> (product-wide)", mm.get('screener-ticker-mapping') == 'screener/candidate-surfacing')
 
+# --- 5b. stamp_modules labels each agent for the --json artifact (self-describing per-module rollup) ---
+stamped = R.stamp_modules({'agents': [{'agent': 'moat'}, {'agent': 'not-an-agent'}]}, {'moat': 'business-model'})
+check("stamp_modules: known agent -> its module", stamped['agents'][0]['module'] == 'business-model')
+check("stamp_modules: unknown agent -> '(unknown)', never dropped", stamped['agents'][1]['module'] == '(unknown)')
+
 import collections
 
 # --- 6. aggregation preserves the 5m/1h cache-creation split so the render breakdown prices 1h at
