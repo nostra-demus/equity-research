@@ -11,6 +11,8 @@
 import { listFirehoseDates, readDayItems } from './feed'
 import { gicsOf, GICS_SECTORS, gicsSubSectorsFor } from './gics'
 import { COUNTRIES, GEO_REGIONS, regionOfCountry } from './geography'
+import { topicLabel } from './topics'
+import { scheduledEventLabel } from './schedule'
 import type { FeedFilterQuery } from './feed-filter'
 
 // sub-sector label → its parent GICS sector, for the drill-down grouping (built once from the taxonomy)
@@ -30,6 +32,8 @@ interface FacetRow {
   linkage: string
   scope: string
   commodities: string[]
+  topics: string[]
+  scheduledEvents: string[]
 }
 
 export interface FacetCount { key: string; label: string; count: number; parent?: string }
@@ -42,6 +46,8 @@ export interface Facets {
   themes: FacetCount[]
   scopes: FacetCount[] // scope buckets (news/scope.ts ScopeId)
   commodities: FacetCount[] // canonical commodity subjects (news/commodities.ts) — key = profile heading
+  topics: FacetCount[] // CapIQ-style subject topics (news/topics.ts) — key = topic id, label = plain name
+  scheduledEvents: FacetCount[] // forward/scheduled corporate events (news/schedule.ts) — the §17 catalyst axis
   total: number // items matching the FULL active filter
   builtThroughDate: string | null // oldest day in the index — "searched all history back to <date>"
   builtAt: string
@@ -81,6 +87,8 @@ function buildRows(repoRoot: string, archiveDir: string, nowMs: number): { rows:
         linkage: it.issuer_linkage || '',
         scope: it.scope || '', // hydrate already ran in readDayItems, so these are always filled
         commodities: it.commodities || [],
+        topics: it.topics || [], // derived on read in hydrate (news/topics.ts) — always an array
+        scheduledEvents: it.scheduled_events || [], // derived on read in hydrate (news/schedule.ts)
       })
     }
     if (lines >= MAX_LINES) break
@@ -112,6 +120,8 @@ function rowMatches(r: FacetRow, q: FeedFilterQuery): boolean {
   if (q.gicsSubSector && !r.subSectors.includes(q.gicsSubSector)) return false
   if (q.scope && r.scope !== q.scope) return false
   if (q.commodities && q.commodities.length > 0 && !r.commodities.some((c) => q.commodities!.includes(c))) return false
+  if (q.topics && q.topics.length > 0 && !r.topics.some((t) => q.topics!.includes(t))) return false
+  if (q.scheduledEvents && q.scheduledEvents.length > 0 && !r.scheduledEvents.some((s) => q.scheduledEvents!.includes(s))) return false
   if (q.wireScope && r.scope !== q.wireScope && r.commodities.length === 0) return false
   return true
 }
@@ -142,6 +152,8 @@ export function computeFacets(repoRoot: string, q: FeedFilterQuery, opts: { arch
   const themeRows = rows.filter((r) => rowMatches(r, without(q, 'themes')))
   const scopeRows = rows.filter((r) => rowMatches(r, without(q, 'scope')))
   const commodityRows = rows.filter((r) => rowMatches(r, without(q, 'commodities')))
+  const topicRows = rows.filter((r) => rowMatches(r, without(q, 'topics')))
+  const scheduledEventRows = rows.filter((r) => rowMatches(r, without(q, 'scheduledEvents')))
 
   const countryCounts = tally(countryRows, (r) => (r.country ? [r.country] : []))
   const regionCounts = tally(regionRows, (r) => (r.geoRegion ? [r.geoRegion] : []))
@@ -151,6 +163,8 @@ export function computeFacets(repoRoot: string, q: FeedFilterQuery, opts: { arch
   const themeCounts = tally(themeRows, (r) => r.themes)
   const scopeCounts = tally(scopeRows, (r) => (r.scope ? [r.scope] : []))
   const commodityCounts = tally(commodityRows, (r) => r.commodities)
+  const topicCounts = tally(topicRows, (r) => r.topics)
+  const scheduledEventCounts = tally(scheduledEventRows, (r) => r.scheduledEvents)
 
   const countries: FacetCount[] = [...countryCounts].map(([key, count]) => ({ key, label: COUNTRIES[key]?.name || key, count, parent: regionOfCountry(key) || undefined })).sort(sortCounts)
   const regions: FacetCount[] = GEO_REGIONS.map((g) => ({ key: g, label: g, count: regionCounts.get(g) || 0 })).filter((f) => f.count > 0).sort(sortCounts)
@@ -160,7 +174,9 @@ export function computeFacets(repoRoot: string, q: FeedFilterQuery, opts: { arch
   const themes: FacetCount[] = [...themeCounts].map(([key, count]) => ({ key, label: key, count })).sort(sortCounts)
   const scopes: FacetCount[] = [...scopeCounts].map(([key, count]) => ({ key, label: key, count })).sort(sortCounts)
   const commodities: FacetCount[] = [...commodityCounts].map(([key, count]) => ({ key, label: key, count })).sort(sortCounts)
+  const topics: FacetCount[] = [...topicCounts].map(([key, count]) => ({ key, label: topicLabel(key), count })).sort(sortCounts)
+  const scheduledEvents: FacetCount[] = [...scheduledEventCounts].map(([key, count]) => ({ key, label: scheduledEventLabel(key), count })).sort(sortCounts)
 
   const total = rows.filter((r) => rowMatches(r, q)).length
-  return { countries, regions, sectors, subSectors, sources, themes, scopes, commodities, total, builtThroughDate, builtAt: now().toISOString() }
+  return { countries, regions, sectors, subSectors, sources, themes, scopes, commodities, topics, scheduledEvents, total, builtThroughDate, builtAt: now().toISOString() }
 }

@@ -14,6 +14,8 @@ import { useEffect, useMemo, useRef, useState, type FocusEvent as ReactFocusEven
 import { createPortal } from 'react-dom'
 import { groupByDedup, type StoryGroup } from '../../lib/dedup'
 import { displayHeadline, originalHeadline, plainSize, plainTheme } from '../../lib/plain'
+import { topicLabel } from '../../lib/topics'
+import { scheduledEventLabel } from '../../lib/schedule'
 import { BROAD_SCOPES, COMPANY_SCOPES, familyOf, isCompanyNameClient, SCOPES, scopeLabel, scopeOf, type ScopeId } from '../../lib/scope'
 import { fmtStampLocal } from '../../lib/format'
 import { extractCommodities, extractSectors } from '../../lib/taxonomy'
@@ -149,6 +151,21 @@ function EventRow({ group, selected, shelved, fresh, unread, onPick, onShelve }:
           {it.event_types.slice(0, 2).map((t) => (
             <span key={t} className="evrow__tag evrow__tag--theme">
               {plainTheme(t)}
+            </span>
+          ))}
+          {/* CapIQ-style subject topics (server news/topics.ts) — a quieter, secondary label next to the
+              event-type theme. Guarded for deploy-skew: an old server omits `topics` (undefined → none). */}
+          {(it.topics || []).slice(0, 2).map((t) => (
+            <span key={t} className="evrow__tag evrow__tag--topic" title="Subject topic">
+              {topicLabel(t)}
+            </span>
+          ))}
+          {/* forward/scheduled corporate event (server news/schedule.ts) — the §17 catalyst flag: this
+              item announces an UPCOMING dated event. The only FILLED chip, so it pops as actionable.
+              Show one (the primary). Deploy-skew-safe: undefined scheduled_events → no chip. */}
+          {(it.scheduled_events || []).slice(0, 1).map((s) => (
+            <span key={s} className="evrow__tag evrow__tag--sched" title="Upcoming scheduled event — a forward catalyst">
+              📅 {scheduledEventLabel(s)}
             </span>
           ))}
           {companyLabel && (

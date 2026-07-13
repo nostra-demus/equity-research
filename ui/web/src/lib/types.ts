@@ -216,6 +216,8 @@ export interface FeedItem {
   source_tier?: string // derived §4 source tier (Filing / Official data / Company / News / Unconfirmed)
   commodity?: string // canonical commodity subject (server news/commodities.ts, e.g. 'GOLD') — ABSENT on old servers / non-commodity items; consumers fall back to the client extractor (lib/wire.ts)
   commodities?: string[] // all canonical commodity subjects the headline names (≤4), same absence rule
+  topics?: string[] // CapIQ-style subject topics the headline names (server news/topics.ts — 'artificial_intelligence', 'cybersecurity', …); [] when none, ABSENT on old servers (deploy-skew: treat undefined as none)
+  scheduled_events?: string[] // forward/scheduled corporate events this headline announces (server news/schedule.ts — 'results_date', 'ex_dividend', …); same absence rule
   event_materiality_label?: string // low / medium / high / critical — re-derived from the boosted triage_score, never contradicts it
   event_direction?: string // positive / negative / mixed / neutral / unknown — informational only, never scored
   event_scope?: string // company_specific / sector / commodity / macro / geopolitical / regulatory / generic_media

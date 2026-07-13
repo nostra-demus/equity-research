@@ -191,6 +191,14 @@ export interface FeedItem {
   // `commodity` = the primary (earliest-mentioned) tag; `commodities` = all matches (≤4).
   commodity?: string
   commodities?: string[]
+  // CapIQ-style subject topics the headline names (news/topics.ts — AI, cybersecurity, EVs, …). Always
+  // an array once hydrated (derived on read from the persisted headline; [] when none match), so a client
+  // can rely on it. Orthogonal to event_types (the corporate-action axis) and GICS sectors (the industry).
+  topics?: string[]
+  // scheduled/forward corporate events this headline ANNOUNCES (news/schedule.ts — results_date, AGM,
+  // ex_dividend, …). Same read-time derivation + always-array rule as topics. The §17 forward-catalyst
+  // axis: it flags that the item is about an UPCOMING dated event, not (only) something that happened.
+  scheduled_events?: string[]
   // event-materiality classifier's final fields — see TriagedItem's doc comment
   event_materiality_label?: EventMaterialityLabel
   event_direction?: EventDirection
