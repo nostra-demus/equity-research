@@ -10,5 +10,23 @@
         ]
       }
     ]
+  },
+  "permissions": {
+    "allow": [
+      "Read",
+      "Glob",
+      "Grep",
+      "Edit",
+      "Write",
+      "Bash(git *)",
+      "Bash(gh *)",
+      "Bash(npm *)",
+      "Bash(npx *)",
+      "Bash(node *)",
+      "Bash(python3 *)",
+      "Bash(python *)",
+      "Bash(tsx *)",
+      "mcp__github__*"
+    ]
   }
 }
