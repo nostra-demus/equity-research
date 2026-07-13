@@ -658,9 +658,9 @@ export function buildPrompt(swarmId: string, kind: RunKind, ticker: string, modu
     // rerun on a constellation swarm: AGENT is optional (whole-module vs single-orb). Never fall through
     // to the research `/research:rerun` line below — dispatch the swarm's own command namespace (§26).
     if (kind === 'rerun') return `/${ns}:rerun ${module}${agent ? ' ' + agent : ''} ${ticker}`
-    // doc-intake is the CHEAP advisory plan-writer (a clone of 'review'), NOT a full run. Route it to the
-    // swarm's own `:intake` command; without this it fell through to `/${ns}:full` below — so a single
-    // landed file (the auto-analyze-on-landing signal) would trigger a full PAID run. (§26 namespace)
+    // doc-intake is the CHEAP advisory plan-writer (clone of 'review'), NOT a full run. Route it to the
+    // swarm's own `:intake` command; without this branch it fell through to `/${ns}:full` below — so a
+    // single landed file (the auto-analyze-on-landing signal) would trigger a full PAID run. (§26 namespace)
     if (kind === 'doc-intake') return `/${ns}:intake ${ticker}`
     return `/${ns}:full ${ticker}` // 'full' (default)
   }
