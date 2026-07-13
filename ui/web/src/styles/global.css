@@ -1999,9 +1999,19 @@ a { color: inherit; }
 @media (prefers-reduced-motion: reduce) { .evrow__duplist { animation: none; } .evrow__dups:active { transform: none; } .evrow__dups-caret { transition: none; } }
 
 /* ---- the reader (main stage) ---- */
-.evdetail-wrap { position: absolute; inset: 0; overflow-y: auto; display: flex; justify-content: center; }
+/* The reader scrolls inside this box. Gutters are the wrap's PADDING, not the column's side margins, so the
+   column can never be pushed wider than the box it lives in — the old `width:min(680px,100%)` + `28px` side
+   margins inside a `justify-content:center` flex parent squeezed the content (margins ate into it) as the
+   stage narrowed and left ~40% of a wide stage empty. The column now fills the gutter box and centres with
+   margin:auto, capped at a comfortable reading width. Dropping the centred flex also fixes the overflow:
+   should a child ever be wider than the column, the wrap now scrolls across to it — a centred-flex overflow
+   instead spilled off the LEFT edge, where it can't be scrolled back to. */
+.evdetail-wrap {
+  position: absolute; inset: 0; overflow-y: auto;
+  padding: clamp(20px, 4vh, 44px) clamp(20px, 4vw, 48px) 56px;
+}
 .evdetail {
-  width: min(680px, 100%); margin: clamp(24px, 7vh, 72px) 28px 40px; align-self: flex-start;
+  width: 100%; max-width: 860px; margin-inline: auto;
   animation: evdetailin 260ms var(--ease-out) both;
 }
 .evdetail__top { display: flex; align-items: center; gap: 10px; }
