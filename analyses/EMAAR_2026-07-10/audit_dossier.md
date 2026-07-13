@@ -1,4 +1,4 @@
-# EMAR Audit Dossier — EMAAR_2026-07-10
+# EMAAR Audit Dossier — EMAAR_2026-07-10
 
 > Deterministic, lossless concatenation of every artifact in this run.
 
@@ -14,13 +14,13 @@ _Source: `RUN_METADATA.md`_
 
 # Run Metadata
 
-- ticker: EMAR
+- ticker: EMAAR
 - run_date: 2026-07-10
 - started_at: 2026-07-10T10:26:43Z
 - orchestrator: /research:full (pre-merge integration test on integration/emaar-preview — LOCAL, not pushed to main)
 - repo_sha: ddfe7cf
-- data_folder: data/EMAR/
-- prior_run: analyses/EMAR_2026-07-03
+- data_folder: data/EMAAR/
+- prior_run: analyses/EMAAR_2026-07-03
 
 ## Source files
 
@@ -68,33 +68,248 @@ _Source: `RUN_METADATA.md`_
 
 ## Modules completed
 
-(filled in at end of run)
+- business-model
+- earnings
+- balance-sheet-survival
+- management-governance
+- valuation
+- catalyst
 
 ## Modules aborted
 
-(filled in at end of run)
+(none)
 
 ## Synthesizer status
 
-(filled in at end of run)
+done (final_thesis.md + decision_record.json)
 
 ## Memo status
 
-(filled in at end of run)
+done (6 module memos + run memo)
 
 ## Audit dossier status
 
-(filled in at end of run)
+done
 
 ## Integrity gate
 
-(filled in at end of run)
+GATE: PASS (finish-gate 10B.1 — scenario math, score ranges, §11/§7/§14 caps all satisfied)
 
 ## Commit SHA
 
 (local test — not committed)
 
 
+
+---
+
+## Decision Record
+
+_Source: `decision_record.json`_
+
+```json
+{
+  "schema_version": "1.0",
+  "ticker": "EMAAR",
+  "company_name": "Emaar Properties PJSC",
+  "exchange": "DFM",
+  "currency": "AED",
+  "decision_date": "2026-07-10",
+  "run_root": "analyses/EMAAR_2026-07-10",
+  "final_thesis_path": "analyses/EMAAR_2026-07-10/final_thesis.md",
+  "decision": "Watchlist",
+  "suggested_action": "No position at AED 12.20. Track the Q2 2026 print (est. 10 Aug) for the Dubai demand signal; watch for a government value-crystallization (mall spin/REIT/higher payout) or, conversely, a parent asset-injection funded by dilution. Revisit toward a starter long only if pre-sales hold >=+16% YoY and the discount begins to close, or on primary evidence the state owner treats minorities as value-owners.",
+  "paper_treatment": "No trade, track opportunity cost",
+  "basket": "Watchlist",
+  "entry_price": 12.2,
+  "entry_price_source": "CIQ Comps -> Financial Data 'Day Close Price Latest' (subject row); US$3.32 x 3.6725 AED/USD peg -> AED 12.20 (pool-verified, 12 days stale)",
+  "entry_price_timestamp": "2026-06-28",
+  "benchmark": "DFM General Index",
+  "sector_benchmark": "Aldar Properties (ADX) - the clean listed UAE-developer comp",
+  "time_horizon": "12 months",
+  "expected_return_pct": 17.7,
+  "downside_risk_pct": 20.1,
+  "margin_of_safety_pct": 18.7,
+  "risk_reward": 0.88,
+  "scenarios": [
+    {
+      "label": "bull",
+      "probability": 20,
+      "return_pct": 72.13,
+      "price_target": 21.0
+    },
+    {
+      "label": "base",
+      "probability": 45,
+      "return_pct": 22.95,
+      "price_target": 15.0
+    },
+    {
+      "label": "bear",
+      "probability": 35,
+      "return_pct": -20.08,
+      "price_target": 9.75
+    }
+  ],
+  "confidence_score": 52,
+  "data_sufficiency_score": 80,
+  "rating_cap": "RF-OWN-004 (CLAUDE.md 24 Filter 6 - unaligned Government-of-Dubai controller, Dubai Holding 29.73%) caps the headline at Watchlist and forbids a conviction position (eval check AD); lifts only on primary evidence the discount/value-destruction is temporary (minority-friendly owner action or arm's-length IAS 24 RPT disclosure). Separately, edge 38<50 caps confidence at 60.",
+  "thesis_type": [
+    "Sector-cycle",
+    "Company-specific"
+  ],
+  "variant_perception_summary": "A wholly-owned Dubai mall annuity worth ~79% of enterprise value plus net cash roughly equals the whole market cap, and a 94%-sold AED 163.4bn backlog contradicts the ~13.4%/yr free-cash collapse the AED 12.20 price implies - so the asset value is real and under-credited. But the payoff is gated by a value-indifferent Government-of-Dubai owner (RF-OWN-004) with no incentive to crystallize it, on top of developer earnings at a Dubai-cycle peak, so the cheapness is a value trap, not a proven, timeable edge.",
+  "what_everyone_knows": "Emaar is the #1 Dubai developer, screens very cheap (EV/EBITDA ~4.0x at the 0th percentile of its own 4-year range; trailing P/E ~5.9x), holds a large net-cash position, pays ~8% dividends, sits at a Dubai property-cycle peak with cooling leading indicators, under government control.",
+  "what_is_priced_in": "A structural earnings decline: the reverse-DCF says AED 12.20 prices free cash flow to shrink ~13.4%/yr for a decade at a through-cycle margin ~21% (below Emaar's own FY2021 trough 23.5% and below peer Aldar 27.2%); consensus long-term growth -14.8%; mean target cut 7x in 3 months.",
+  "what_market_may_be_missing": "(1) A wholly-owned recurring Dubai mall annuity worth ~AED 76.8bn EV (~79% of current EV from 22% of profit); malls + net cash ~= the whole market cap, so the #1 developer is valued at nearly nothing. (2) The AED 163.4bn backlog (94% sold, ~3.3x revenue) locks 3-4 years of rising recognized revenue, contradicting the priced-in collapse.",
+  "edge_score": 38,
+  "edge_proof": "Falsifiable but owner-gated: if Q2 2026 (10 Aug) pre-sales hold >=+16% YoY and backlog growth holds >=+29%, the priced-in FCF collapse is disproven on fundamentals. But closing the discount also requires a minority-friendly owner action (mall spin/REIT/special distribution or arm's-length IAS 24 RPT disclosure) the government controller has shown no intent to deliver - so even a correct fundamental read may not pay off. Checkable at the 180d/365d review.",
+  "killer_risk": "The value trap - a Government-of-Dubai controller (Dubai Holding 29.73%) with no incentive to crystallize the masked mall value can keep the price below intrinsic indefinitely (dead money), while the Dubai property cycle rolls over from its record 2025 peak (a de-rating, not a solvency, loss).",
+  "kill_criteria": [
+    "Q2 2026 (10 Aug) pre-sales growth < +16% YoY and falling / backlog growth stepping toward flat - the Dubai cycle is turning; the backlog-fed P&L becomes rear-view.",
+    "A richly-priced parent asset injected from Dubai Holding and funded by new Emaar shares (a repeat of the 2022 AED 7.5bn Dubai Creek Harbour structure) - flips capital allocation from value-creative to extractive; value trap proven real.",
+    "Development gross margin fades below the guided 'low 50s' toward high-40s - the profit-beat mechanism breaks and consolidated margin follows the cheap-land spread down.",
+    "FY2026 dividend cut or capped (declared ~Feb 2027) as cash is steered to the AED 200bn masterplan - removes the ~8% yield that pays holders to wait.",
+    "Net cash swings to material net debt via a debt-funded capital call - erodes the fortress balance sheet and the counter-cyclical floor under the downside."
+  ],
+  "upgrade_triggers": [
+    "a credible mall spin/REIT/special distribution or arm's-length IAS 24 related-party disclosure - would lift the RF-OWN-004 cap toward a starter long."
+  ],
+  "forecast_ledger": [
+    {
+      "prediction": "Q2 2026 (10 Aug) reports an EPS/EBITDA profit-line beat vs the reset consensus bar",
+      "probability": 62,
+      "time_window": "To Aug 2026",
+      "evidence_today": "Bar reset 9-16% lower and stopped falling; beat 3 of 4 quarters; Q1-26 EPS +9.6% on a revenue miss; ~AED 2bn/yr net finance income on the cash pile.",
+      "confirmation_trigger": "Reported Q2 EPS > consensus AND Q2 EBITDA > consensus",
+      "falsification_trigger": "Q2 EPS misses consensus OR Q2 EBITDA misses consensus",
+      "owner_module": "earnings",
+      "confidence_score": 55,
+      "status": "open",
+      "forecast_type": "earnings_eps"
+    },
+    {
+      "prediction": "Q2 2026 property pre-sales growth decelerates below Q1-26's +16% YoY",
+      "probability": 60,
+      "time_window": "To Aug 2026",
+      "evidence_today": "Backlog growth already +39%->+29%; 167k-unit 2026-27 supply wave; LT growth -14.8%; 7 target cuts in 3 months.",
+      "confirmation_trigger": "Q2 pre-sales growth < +16% YoY",
+      "falsification_trigger": "Q2 pre-sales growth >= +16% YoY",
+      "owner_module": "catalyst",
+      "confidence_score": 50,
+      "status": "open",
+      "forecast_type": "revenue"
+    },
+    {
+      "prediction": "No value-crystallizing owner action (mall spin/REIT/special distribution) within 12 months",
+      "probability": 80,
+      "time_window": "To Jul 2027",
+      "evidence_today": "Government city-building mandate; no such intent disclosed; IAS 24 opacity; no buyback.",
+      "confirmation_trigger": "No crystallization event by 2027-07-10",
+      "falsification_trigger": "A mall spin/REIT/special distribution announced",
+      "owner_module": "management-governance",
+      "confidence_score": 60,
+      "status": "open",
+      "forecast_type": "catalyst_or_estimate_revision"
+    },
+    {
+      "prediction": "Net-cash fortress maintained (no swing to material net debt) over 12 months",
+      "probability": 78,
+      "time_window": "To Jul 2027",
+      "evidence_today": "Gross debt falling; 52x interest cover; one well-covered sukuk; self-funded model.",
+      "confirmation_trigger": "Still net cash (broad) at next reporting",
+      "falsification_trigger": "Swings to material net debt via a debt-funded deal / capital call",
+      "owner_module": "balance-sheet-survival",
+      "confidence_score": 65,
+      "status": "open",
+      "forecast_type": "balance_sheet_or_solvency"
+    },
+    {
+      "prediction": "FY2026 dividend held at ~AED 1.00/share (declared ~Feb 2027)",
+      "probability": 62,
+      "time_window": "To Feb 2027",
+      "evidence_today": "~2.9-3.7x FCF cover; net cash; dividend grew 0.25->1.00; discretionary but not pressured near-term.",
+      "confirmation_trigger": "FY2026 DPS >= AED 0.90",
+      "falsification_trigger": "FY2026 DPS < AED 0.90",
+      "owner_module": "balance-sheet-survival",
+      "confidence_score": 55,
+      "status": "open",
+      "forecast_type": "cash_flow"
+    },
+    {
+      "prediction": "Price stays below the AED 15.00 base fair value at 12 months (value trap persists)",
+      "probability": 60,
+      "time_window": "To Jul 2027",
+      "evidence_today": "Owner-gated discount; EV/EBITDA at the 0th percentile persisting on peak earnings; consensus target cut 7x.",
+      "confirmation_trigger": "Price < AED 15.00 at 365d",
+      "falsification_trigger": "Price re-rates >= AED 15.00",
+      "owner_module": "valuation",
+      "confidence_score": 55,
+      "status": "open",
+      "forecast_type": "valuation_or_price_return"
+    }
+  ],
+  "module_scores": {
+    "business-model": {
+      "score": 60,
+      "verdict": "Cyclical business - worth deeper work only with a strong Dubai-cycle timing edge; no disqualifier"
+    },
+    "earnings": {
+      "score": 80,
+      "verdict": "Mixed earnings setup (EQ 81); Material concerns (0 Critical, 6 High = one root cyclical risk)"
+    },
+    "balance-sheet-survival": {
+      "score": 90,
+      "verdict": "Fortress balance sheet; net cash both bases; survives -69% EBITDA; first break only at -94%"
+    },
+    "management-governance": {
+      "score": 78,
+      "verdict": "Standard / mixed; Governance Score 59 (Watchlist); RF-OWN-004 High; no hard disqualifier"
+    },
+    "valuation": {
+      "score": 80,
+      "verdict": "Modestly undervalued (base AED 15.00 vs 12.20; +18.7% MoS); value-trap flag (RF-OWN-004); dominant method SOTP"
+    },
+    "catalyst": {
+      "score": 70,
+      "verdict": "Dated near-term catalysts (Q2 ~10 Aug; Sukuk 15 Sep); highest-impact re-rate undated & Filter-6 gated; timing 42"
+    }
+  },
+  "red_flags": [
+    "RF-OWN-004 (High) - unaligned Government-of-Dubai controller (Dubai Holding 29.73%); board all state officials; IAS 24 leaves the largest related-party channel unquantified (CLAUDE.md 24 Filter 6). THE BINDING RATING CAP.",
+    "RF-MGT-001 (High/watch) - Group CFO left abruptly (effective 20 May 2026, announced 2 days later, no reason disclosed, 9 days after the control block changed hands); interim successor 'until further notice'.",
+    "NCI (minority-interest) leakage (severity 52) - ~21% of consolidated profit (AED 4.7bn) belongs to outside shareholders, so consolidated EV/EBITDA overstates owner cash flow; parent EPS AED 1.99 is already NCI-clean.",
+    "Founder-MD / Eagle Hills conflict (High, unresolved) - the founder-MD (Alabbar, 0.03%) chairs a directly-competing developer with no disclosed Emaar<->Eagle Hills deal-flow separation.",
+    "IAS 24 government-ecosystem RPT opacity (High disclosure gap) - land/utilities/construction/financing flows with the Dubai-state sphere left unquantified; the channel through which the AED 7.5bn DCH asset was bought from the parent.",
+    "Earnings red-flag verdict: Material concerns (0 Critical, 6 High) - the 6 High flags are one root risk: a geared claim on a peak-cycle Dubai developer with a lagging, backlog-fed P&L ('good print, bad signal')."
+  ],
+  "missing_data": [
+    "IAS 24 government-ecosystem related-party detail (land/utilities/construction/financing with the Dubai-state sphere) + the controller's capital-return intent toward minorities - THE single highest-value next item; the only disclosure that can lift the RF-OWN-004 cap.",
+    "Verbatim earnings-call transcript (only sell-side proxies in the pool) - caps earnings clarity and governance candor at ~70/65; tone/Q&A not assessable.",
+    "CIQ ownership / insider-trading export (missing) - no insider net-activity or institutional-concentration read.",
+    "Actual lender covenant thresholds + change-of-control / cross-default terms (sukuk offering circular / bank facility agreements) - covenant headroom is 'Not assessable'.",
+    "Clean annual homes-sold count and average selling price (ASP) - to split reversible price from durable volume and read the cycle turn directly.",
+    "Confirmed exact Q2 2026 results date (DFM board-meeting intimation; currently CIQ-estimated 10 Aug)."
+  ],
+  "review_schedule": {
+    "30d": "2026-08-09",
+    "90d": "2026-10-08",
+    "180d": "2027-01-06",
+    "365d": "2027-07-10"
+  },
+  "created_by": "synthesizer",
+  "notes": "Watchlist -> no paper trade (track opportunity cost from the pool-verified AED 12.20, 12 days stale). RF-OWN-004 (24 Filter 6) caps the rating at Watchlist per eval check AD - the prior 2026-07-03 run's 'Starter Position Only' is a conviction position that would fail that check; corrected to Watchlist here (no new bad news, a tighter-rule application). Expected return +17.7% is price-only and excludes the ~8% dividend, which adds to total return; downside/risk-reward are price-basis. Existing final_thesis.md was refined only to correct the catalyst sub-scores to the catalyst module (strength 47 / timing 42 / risk 56 / usefulness 70). LOCAL pre-merge integration test - not committed.",
+  "business_type": "REIT / real estate",
+  "primary_valuation_method": "Sum-of-the-parts / NAV (corroborated by normalized FCFF DCF)",
+  "calibration_feedback": {
+    "source_summary": "analyses/performance/2026-06-01_calibration_summary_v2.json",
+    "status": "pre_data",
+    "haircut_points": 0,
+    "modules_flagged": [],
+    "rationale": "Latest as-of calibration summary (2026-06-01; _v2 wins the same-date tie) has verdict starting 'Pre-data - both decisions fully audited; calibration awaits resolved reviews (first 2026-07-01)'. 0 resolved reviews / 0 resolved forecasts, so no per-module calibration slice exists yet; no haircut applied and none can be. Check ran and is recorded (not silently skipped)."
+  }
+}
+```
 
 ---
 
@@ -4358,7 +4573,7 @@ Emaar's operators are competent and have delivered, but alignment with minority 
 - **Strongest bear point:** The controller is the Government of Dubai (Dubai Holding group 29.73%), whose objective is city development, not minority per-share value; the board is staffed entirely by government officials/executives, and the **IAS 24 government-related-entity election leaves the biggest value-transfer channel — land/utilities/construction bought from the state ecosystem — entirely unquantified** [05-016, 05-021, 04-004]. The AED 7.5bn Dubai Creek Harbour asset was bought *from* parent Dubai Holding, part-funded by issuing new Emaar shares to that same owner, with no arm's-length valuation shown to minorities [02-005]. This is a structural cap (§24 Filter 6), not a discount to arbitrage.
 - **Strongest bull point (steelman):** On the capital actually deployed, this team created per-share value and avoided every classic trap — EPS AED 0.52→1.99, DPS AED 0.25→1.00, ROIC 4.7%→13.7%, net cash ~AED 25bn, dividend covered ~2.9–3.7x by free cash flow, **zero** value-destructive M&A spree, no uncovered dividend, no buyback-at-high-prices, and clean straight-IFRS accounting with **no adjusted-earnings engineering** (earnings-quality 81/100) [02-010, 02-012, 02-014, 06-001].
 - **Single killer risk (stewardship-specific):** A future asset injected richly from the parent (Dubai Holding) and funded by dilution — the exact structure of the 2022 DCH deal — would flip capital allocation from value-creative to extractive, and the IAS 24 exemption means minorities would not see the price [02-005, 05-016] (§24 Filter 6 owner-conflict).
-- **Disconfirming evidence already visible (cutting *against* the bear):** dividends flow **pro-rata** to all holders (~AED 8.84bn, AED 1.00/sh held FY2024–25); **single one-share-one-vote class, no pledging, zero equity dilution**; disclosed RPT is tiny (0.35% rev); and directors executed **no** trades (no selling before news) [02-010, 04-006, 04-007, 04-008, 05-015]. No *proven* extraction exists today — the risk is the channel, not a demonstrated leak.
+- **Disconfirming evidence already visible (cutting *against* the bear):** dividends flow **pro-rata** to all holders (~AED 8.84bn, AED 1.00/sh held FY2024–25); **single one-share-one-vote class, no pledging, share count flat since FY2023 (after a disclosed 2021–22 share-funded-M&A step-up)**; disclosed RPT is tiny (0.35% rev); and directors executed **no** trades (no selling before news) [02-010, 04-006, 04-007, 04-008, 05-015]. No *proven* extraction exists today — the risk is the channel, not a demonstrated leak.
 
 ## 2. Specialist Roll-Up
 
@@ -5718,9 +5933,9 @@ _Source: `05_board-and-shareholder-rights.md`_
 | AGM votes against (remuneration / RPT / director / auditor resolutions) | **Not disclosed in the pool.** FY2025 AGM (March 2025) approved dividends, the director bonus, and the EY auditor appointment; **no vote-for/against breakdown or scrutinizer result is in the pool.** Cannot assess dissent. | FY2025 AR, Annex K (AGM resolutions listed, no tallies) |
 | Proxy-advisor recommendations (ISS / Glass Lewis / IiAS) | **None in pool.** No proxy-advisor coverage available for this DFM issuer. | — (data gap) |
 | Institutional opposition to any resolution | **Not disclosed.** Free float is largely passive index money (Vanguard 2.70%, BlackRock 2.52% pre-May-2026); no activist campaign against Emaar disclosed (Royal London / Causeway hold <0.1% with campaign flags elsewhere). | Public Ownership Summary (Top Holders; Activist Investors) |
-| Dilution history | **Benign — no equity dilution.** Shares outstanding flat at **8,838.789849m every year** (FY2020–FY2025). No preferential allotment, QIP, warrants, or rights issue disclosed. The executive LTIP is **phantom (cash-settled) shares** (Annex D) — non-dilutive to minorities. Dec-2025 General Assembly approved a **debt** programme, not equity. | CIQ Financials → Historical Capitalization (Shares Out.); FY2025 AR, CG Report §3(g)/Annex D; Note (General Assembly, Dec 2025) |
+| Dilution history | **Mild historical dilution, flat since FY2023.** Shares outstanding stepped up from 8,179.7m to **8,838.789849m in 2021–22** — share-funded M&A (the Emaar Malls minority swap and the part-stock-funded Dubai Creek Harbour purchase from the controlling owner; see management-governance/02, "Buybacks / net share-count discipline") — then flat at 8,838.789849m every year since FY2023. No preferential allotment, QIP, warrants, or rights issue disclosed in the window. The executive LTIP is **phantom (cash-settled) shares** (Annex D) — non-dilutive to minorities. Dec-2025 General Assembly approved a **debt** programme, not equity. | CIQ Historical Capitalization (Shares Out.); FY2025 AR, CG Report §3(g)/Annex D; Note (General Assembly, Dec 2025); cross-ref management-governance/02 (02-009) |
 
-*No votes-against or proxy-advisor data exists in the pool, so RF-SHR-001 (high votes-against) cannot be tested — stated as a data gap, not a clear. RF-SHR-002 (controversial dilution) is **not** triggered: zero equity dilution and a cash-settled LTIP.*
+*No votes-against or proxy-advisor data exists in the pool, so RF-SHR-001 (high votes-against) cannot be tested — stated as a data gap, not a clear. RF-SHR-002 (controversial dilution) is **not** triggered: the 2021–22 step-up was disclosed, share-funded M&A (not a stock-comp treadmill), and the count has been flat since FY2023 — but it is not a zero-dilution history.*
 
 ## 5. Minority-Shareholder Protection Read
 
@@ -5754,7 +5969,7 @@ On paper the board ticks the UAE boxes — 55.6% independent, an independent-cha
 | 05-016 | 3 | IAS 24 govt-ecosystem RPT exemption | Red | n/a | unquantified (land/utilities/construction/financing) | FY2025 | Same election | Stable | — | NA | 3 | 8 | 0 | 5 | High | FY2025 AR, Note 33 | 2025-12-31 | Largest related-party flows to the govt sphere are not quantified; "cheap land" edge unverifiable for minorities; legal election, not opacity | No (disclosure gap; conservative default — no hard RF on unquantified amount) | — | Quantify or range the govt-ecosystem land/utility/construction spend |
 | 05-017 | 4 | Takeover defenses (pill / staggered / dual-class) | Green | 0 | defenses present | FY2025 | 0 | Stable | — | NA | 4 | 5 | 0 | 5 | Medium | FY2025 AR, CG Report §3; Public Ownership Summary | 2025-12-31 | No poison pill, no staggered board, no dual-class; whole-board election | No | — | None |
 | 05-018 | 4 | Voting structure | Green | 1 | vote per share (single class) | FY2025 | 1 | Stable | UAE norm | In line | 4 | 5 | 0 | 5 | Medium | Public Ownership Summary; UAE CCL (labelled) | 2025-12-31 | One-share-one-vote; statutory cumulative voting aids minority board access | No | — | None |
-| 05-019 | 4A | Dilution history | Green | 8,838.79 | m shares (flat every year) | FY2025 | 8,838.79 | Stable | — | Better | 2 | 2 | 0 | 5 | Medium | CIQ Historical Capitalization; FY2025 AR Annex D | 2025-12-31 | Zero equity dilution; LTIP is cash-settled phantom shares; no preferential allotment/warrants | No | — | None |
+| 05-019 | 4A | Dilution history | Amber | 8,838.79 | m shares (flat since FY2023) | FY2025 | 8,838.79 | Stable since FY2023 | — | Mixed | 1 | 2 | 0 | 5 | Medium | CIQ Historical Capitalization; FY2025 AR Annex D; cross-ref management-governance/02 (02-009) | 2025-12-31 | Not zero-dilution: count rose 8,179.7m→8,838.8m in 2021–22 from share-funded M&A (Emaar Malls swap + Dubai Creek Harbour, part-paid in new shares to the controlling owner), then flat since FY2023; LTIP is cash-settled phantom shares; no preferential allotment/warrants in the window | No | — | None |
 | 05-020 | 4A | AGM dissent / proxy-advisor data | Insufficient Data | n/a | votes-against not disclosed | FY2025 AGM | — | NA | — | NA | 2 | 4 | 0 | 2 | Medium | FY2025 AR, Annex K | 2025-03 | No vote tallies or ISS/Glass Lewis/IiAS coverage in pool — dissent not assessable | No | — | Obtain AGM scrutinizer results |
 | 05-021 | 5 | Government controlling owner (structural cap) | Red | 29.73 | % (Dubai Holding group) | May-2026 | ICD 22.27% (Dec-2025) | Reshuffled | UAE norm | In line (weak norm) | 4 | 10 | 0 | 5 | Critical | Note 33; Public Ownership Summary; Key Developments 2026-05-11 | 2026-05-14 | Board of the controller's own officials cannot check a govt owner for minorities → weak/entrenched | Yes | RF-OWN-004 (cross-ref agent 04) | Ownership deep-dive & value-trap note → agent 04 / valuation |
 | 05-022 | 1 | Female board representation | Amber | 11.1 | % (1/9) | FY2025 | 11.1 | Stable | UAE min 1 | In line (low) | — | — | 0 | 5 | Low | FY2025 AR, CG Report §3; Governance overview | 2025-12-31 | One female director (Abdulrazzaq); meets UAE minimum but low diversity | No | — | None |
@@ -5767,7 +5982,7 @@ On paper the board ticks the UAE boxes — 55.6% independent, an independent-cha
 | True independence / tenure / overboarding | 7 | 20 | All "independents" are govt / govt-entity affiliated (not independent of the controller); controlling trio 28/20/14-yr tenure; MD heavily overboarded incl. a competing developer; controller's CIO on board [05-005, 05-011, 05-012] |
 | Committee quality | 9 | 15 | Audit indep-chaired 2/3 indep 100% attend & reviews all RPT; N&R indep-chaired 95%; Risk indep-chaired 100% — offset by NI VC on both oversight committees and exec MD chairing the most active (Investment) committee [05-006, 05-007, 05-008, 05-009] |
 | RPT and group-leakage protection | 11 | 20 | Disclosed RPT tiny (0.35%/0.76% rev), receivables trivial, no loans/guarantees/royalty to owner, KMP pay flat, Audit Cttee approves RPT — but IAS 24 exemption hides the largest govt-ecosystem flows and MD competitor conflict undisclosed [05-015, 05-016, 05-014] |
-| Shareholder voting rights | 10 | 15 | One-share-one-vote, single class, statutory cumulative voting, no poison pill / staggered board / dual-class, zero dilution — offset by govt de-facto control and ~10% requisition threshold [05-017, 05-018, 05-019] |
+| Shareholder voting rights | 10 | 15 | One-share-one-vote, single class, statutory cumulative voting, no poison pill / staggered board / dual-class, mild historical dilution (2021–22 share-funded M&A, flat since FY2023 [05-019]) — offset by govt de-facto control and ~10% requisition threshold [05-017, 05-018, 05-019] |
 | AGM opposition / minority protection | 4 | 10 | No votes-against / proxy-advisor data in pool (dissent untestable); structurally weak minority protection under a govt controller with a govt-staffed board [05-020, 05-021] |
 | **Total** | **53** | **100** | Mixed board that complies with UAE code but is captured by the government owner; rights intact on the mechanical axes (voting, dilution, defenses), weak on the axis that matters (a board that checks the controller for minorities) |
 
@@ -5811,7 +6026,7 @@ On paper the board ticks the UAE boxes — 55.6% independent, an independent-cha
   {"finding_id":"05-016","ticker":"EMAR","date":"2026-07-10","agent":"05_board-and-shareholder-rights","section":"Related-Party Transactions & Group Leakage","question":"IAS 24 govt-ecosystem RPT exemption","standardized_verdict":"Red","raw_value":null,"unit":"unquantified (land/utilities/construction/financing)","current_period":"FY2025","prior_period":"Same election","trend":"Stable","peer_benchmark":"","peer_verdict":"NA","score":3,"max_score":8,"penalty":0,"confidence_1_to_5":5,"materiality":"High","evidence":"FY2025 AR, Note 33","source_id":"S2","source_type":"Annual report notes","source_date":"2025-12-31","as_of_date":"2025-12-31","analyst_interpretation":"Largest related-party flows to the govt sphere are not quantified; cheap-land edge unverifiable for minorities; legal election, not opacity","red_flag_triggered":false,"red_flag_id":"","follow_up_required":"Quantify or range the govt-ecosystem land/utility/construction spend"},
   {"finding_id":"05-017","ticker":"EMAR","date":"2026-07-10","agent":"05_board-and-shareholder-rights","section":"Takeover Defenses & Voting Rights","question":"Takeover defenses (pill/staggered/dual-class)","standardized_verdict":"Green","raw_value":0,"unit":"defenses present","current_period":"FY2025","prior_period":"0","trend":"Stable","peer_benchmark":"","peer_verdict":"NA","score":4,"max_score":5,"penalty":0,"confidence_1_to_5":5,"materiality":"Medium","evidence":"FY2025 AR, CG Report §3; Public Ownership Summary","source_id":"S1","source_type":"Annual report","source_date":"2025-12-31","as_of_date":"2025-12-31","analyst_interpretation":"No poison pill, no staggered board, no dual-class; whole-board election","red_flag_triggered":false,"red_flag_id":"","follow_up_required":"None"},
   {"finding_id":"05-018","ticker":"EMAR","date":"2026-07-10","agent":"05_board-and-shareholder-rights","section":"Takeover Defenses & Voting Rights","question":"Voting structure","standardized_verdict":"Green","raw_value":1,"unit":"vote per share (single class)","current_period":"FY2025","prior_period":"1","trend":"Stable","peer_benchmark":"UAE norm","peer_verdict":"In line","score":4,"max_score":5,"penalty":0,"confidence_1_to_5":5,"materiality":"Medium","evidence":"Public Ownership Summary; UAE CCL (labelled)","source_id":"S5","source_type":"Vendor export","source_date":"2026-05-31","as_of_date":"2026-05-31","analyst_interpretation":"One-share-one-vote; statutory cumulative voting aids minority board access","red_flag_triggered":false,"red_flag_id":"","follow_up_required":"None"},
-  {"finding_id":"05-019","ticker":"EMAR","date":"2026-07-10","agent":"05_board-and-shareholder-rights","section":"Shareholder Voting & Dilution","question":"Dilution history","standardized_verdict":"Green","raw_value":8838.79,"unit":"m shares (flat every year)","current_period":"FY2025","prior_period":"8838.79","trend":"Stable","peer_benchmark":"","peer_verdict":"Better","score":2,"max_score":2,"penalty":0,"confidence_1_to_5":5,"materiality":"Medium","evidence":"CIQ Historical Capitalization; FY2025 AR Annex D","source_id":"S6","source_type":"Vendor export","source_date":"2026-06-28","as_of_date":"2026-06-28","analyst_interpretation":"Zero equity dilution; LTIP is cash-settled phantom shares; no preferential allotment/warrants","red_flag_triggered":false,"red_flag_id":"","follow_up_required":"None"},
+  {"finding_id":"05-019","ticker":"EMAR","date":"2026-07-10","agent":"05_board-and-shareholder-rights","section":"Shareholder Voting & Dilution","question":"Dilution history","standardized_verdict":"Amber","raw_value":8838.79,"unit":"m shares (flat since FY2023)","current_period":"FY2025","prior_period":"8838.79","trend":"Stable since FY2023","peer_benchmark":"","peer_verdict":"Mixed","score":1,"max_score":2,"penalty":0,"confidence_1_to_5":5,"materiality":"Medium","evidence":"CIQ Historical Capitalization; FY2025 AR Annex D; cross-ref management-governance/02 (02-009)","source_id":"S6","source_type":"Vendor export","source_date":"2026-06-28","as_of_date":"2026-06-28","analyst_interpretation":"Not zero-dilution: count rose 8,179.7m->8,838.8m in 2021-22 from share-funded M&A (Emaar Malls swap + Dubai Creek Harbour, part-paid in new shares to the controlling owner), then flat since FY2023; LTIP is cash-settled phantom shares; no preferential allotment/warrants in the window","red_flag_triggered":false,"red_flag_id":"","follow_up_required":"None"},
   {"finding_id":"05-020","ticker":"EMAR","date":"2026-07-10","agent":"05_board-and-shareholder-rights","section":"Shareholder Voting & Dilution","question":"AGM dissent / proxy-advisor data","standardized_verdict":"Insufficient Data","raw_value":null,"unit":"votes-against not disclosed","current_period":"FY2025 AGM","prior_period":"","trend":"NA","peer_benchmark":"","peer_verdict":"NA","score":2,"max_score":4,"penalty":0,"confidence_1_to_5":2,"materiality":"Medium","evidence":"FY2025 AR, Annex K","source_id":"S1","source_type":"Annual report","source_date":"2025-03-31","as_of_date":"2025-03-31","analyst_interpretation":"No vote tallies or ISS/Glass Lewis/IiAS coverage in pool — dissent not assessable","red_flag_triggered":false,"red_flag_id":"","follow_up_required":"Obtain AGM scrutinizer results"},
   {"finding_id":"05-021","ticker":"EMAR","date":"2026-07-10","agent":"05_board-and-shareholder-rights","section":"Minority-Shareholder Protection Read","question":"Government controlling owner (structural cap)","standardized_verdict":"Red","raw_value":29.73,"unit":"% (Dubai Holding group)","current_period":"May-2026","prior_period":"ICD 22.27% (Dec-2025)","trend":"Reshuffled","peer_benchmark":"UAE norm","peer_verdict":"In line (weak norm)","score":4,"max_score":10,"penalty":0,"confidence_1_to_5":5,"materiality":"Critical","evidence":"FY2025 AR, Note 33; Public Ownership Summary; Key Developments 2026-05-11","source_id":"S2","source_type":"Annual report notes","source_date":"2026-05-14","as_of_date":"2026-05-14","analyst_interpretation":"Board of the controller's own officials cannot check a govt owner for minorities -> weak/entrenched","red_flag_triggered":true,"red_flag_id":"RF-OWN-004","follow_up_required":"Ownership deep-dive & value-trap note -> agent 04 / valuation"},
   {"finding_id":"05-022","ticker":"EMAR","date":"2026-07-10","agent":"05_board-and-shareholder-rights","section":"Board Composition","question":"Female board representation","standardized_verdict":"Amber","raw_value":11.1,"unit":"% (1/9)","current_period":"FY2025","prior_period":"11.1","trend":"Stable","peer_benchmark":"UAE min 1","peer_verdict":"In line (low)","score":null,"max_score":null,"penalty":0,"confidence_1_to_5":5,"materiality":"Low","evidence":"FY2025 AR, CG Report §3; Governance overview","source_id":"S1","source_type":"Annual report","source_date":"2025-12-31","as_of_date":"2025-12-31","analyst_interpretation":"One female director (Abdulrazzaq); meets UAE minimum but low diversity","red_flag_triggered":false,"red_flag_id":"","follow_up_required":"None"}
@@ -5824,7 +6039,7 @@ On paper the board ticks the UAE boxes — 55.6% independent, an independent-cha
 - Committee independence checked — Audit independent-chaired 2/3 independent 100% attendance & reviews all RPT; N&R independent-chaired 2/3 independent 95%; Risk independent-chaired 100%; Investment chaired by executive MD (9 mtgs, 78%). ✓
 - Tenure/refreshment assessed — controlling trio 28/20/14 yrs entrenched; independents fresh; MD overboarded incl. a competing developer; controller's CIO on board. ✓
 - RPT captured from audited Note 33 with materiality on revenue/PAT/net-worth and cross-referenced to `business-model/01_disqualifier-scan` (hard RPT test = N); IAS 24 government-ecosystem exemption flagged as the leakage-visibility gap (disclosed legal election, not §27 opacity). ✓
-- Takeover defenses & voting standards inventoried — no pill / no staggered board / no dual-class; one-share-one-vote; statutory cumulative voting; zero dilution; cash-settled LTIP. ✓
+- Takeover defenses & voting standards inventoried — no pill / no staggered board / no dual-class; one-share-one-vote; statutory cumulative voting; flat since FY2023 after a disclosed 2021–22 share-funded-M&A step-up; cash-settled LTIP. ✓
 - §24 Filter 6 applied: government controller confirmed from primary filings → RF-OWN-004, shareholder-friendliness capped ≤55, minority protection "weak / entrenched," value-trap note routed to valuation; formal quantification left to agent 04. ✓
 - Jurisdiction map applied (UAE/DFM, SCA CG Report, Note 33, AGM); no US-form assumptions; UAE statutory voting labelled as jurisdiction inference, not company disclosure. ✓
 - Data gaps marked Insufficient (AGM votes-against / proxy-advisor coverage), not guessed. ✓
