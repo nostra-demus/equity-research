@@ -1,0 +1,592 @@
+{
+  "meta": {
+    "thesis_id": "THS-SIG-20260711-b55e8917-v1",
+    "signal_id": "SIG-20260711-b55e8917",
+    "created_at": "2026-07-12T00:00:00Z",
+    "locked": true,
+    "version": 1,
+    "version_history": [],
+    "status": "provisional",
+    "status_reason": "Edge score 61 places this in the provisional band. The Stellantis acquisition-cap mechanism is real, documented, and numeric — but the sell-side coverage gap is only partial (BTIG covered unit economics; the cap-constrained optionality NPV is unflagged), and the variant depends on an assumption about what fraction of the $53.8B EV premium is attributable to new-car optionality versus permanent used-car market share. The convergence trigger is a scheduled event 17 days away. Surface candidates and monitor the July 29 Q2 print.",
+    "next_action": "Surface candidate companies for the pair-trade opportunity (online DTC used-car retail long versus franchise dealership networks short). Monitor the July 29, 2026 Q2 earnings release and any Stellantis monthly sales data published in August 2026.",
+    "analyst_id": "ceekay@muns.io",
+    "phase1_completed_at": "2026-07-12T00:00:00Z",
+    "next_module": "candidate-surfacing",
+    "raw_input_source": {
+      "input_nature": "news_headline",
+      "input_datetime": "2026-07-11T15:16:27.017Z",
+      "source_name": "The Motley Fool",
+      "source_url": "https://www.fool.com/investing/2026/07/11/prediction-carvanas-new-car-business-will-work/?source=iedfolrf0000001",
+      "source_grade": "B",
+      "human_prompt_note": "",
+      "approved_source_check": true
+    }
+  },
+  "headline": "Prediction: Carvana's New-Car Business Will Work. Early Numbers Are Stunning.",
+  "run_root": "screener/runs/SIG-20260711-b55e8917",
+  "M0_1": {
+    "event_statement": "In July 2026, Carvana completed the acquisition of seven Stellantis dealerships for $171 million and began operating them as new-car retail locations. The Casa Grande, Arizona dealership recorded sales of over 700 new vehicles in May 2026, compared to a prior monthly average of 30 to 50 units under the previous operator. Carvana's online-only model — with no in-person haggling and no commission-based salespeople — was applied to the acquired sites, which retained operational service bays. The total U.S. new-car retail market spans 16,990 dealerships and approximately $1.3 trillion in annual sales.",
+    "sentence_count": 4,
+    "primary_source": "The Motley Fool, July 11 2026",
+    "source_url": "https://www.fool.com/investing/2026/07/11/prediction-carvanas-new-car-business-will-work/?source=iedfolrf0000001",
+    "supporting_source_urls": [
+      "https://www.cnbc.com/2026/06/16/carvana-new-cars-dealerships.html"
+    ],
+    "source_grade": "B",
+    "source_grade_rationale": "The Motley Fool is on the approved source list (SWARM.md signal_gate.allowed) but is a secondary retail-investment publication, not a primary newswire or official filing; Gate 0 assigned Grade B.",
+    "causal_language_check": true,
+    "causal_language_review": "Phrases checked: 'completed the acquisition' (transactional descriptor, retained); 'recorded sales of' (factual observation, retained); 'compared to a prior monthly average' (comparative reference, retained); 'was applied to' (descriptive, retained); 'retained operational service bays' (factual, retained). No instances of: because, due to, driven by, as a result, leading to, signals, suggests, implies, panic, crisis, soaring, plunging, aggressively, inevitably, or synonyms doing causal work.",
+    "60_second_source_check": true,
+    "60_second_check_note": "Primary source was fully readable with no paywall. All key figures confirmed on direct read: $171M acquisition price, seven Stellantis dealerships, Casa Grande 700+ new vehicles in May vs prior 30–50 average, AutoNation Q1 2026 gross-profit split (22% new/used, 78% parts/service/F&I), 16,990 U.S. dealerships, $1.3 trillion market. scripts/screener_confirmation_score.py output: confirmation_status=confirmed extraction_confidence=70 gate_pass=True.",
+    "paywall_detected": false,
+    "primary_read_quality": "full",
+    "extraction_confidence": 70,
+    "confirmation_status": "confirmed",
+    "alternate_sources_found": [],
+    "fallback_search_log": [
+      {
+        "tool": "WebFetch",
+        "target": "https://www.fool.com/investing/2026/07/11/prediction-carvanas-new-car-business-will-work/?source=iedfolrf0000001",
+        "result": "corroboration_found",
+        "at": "2026-07-12T00:00:00Z"
+      }
+    ],
+    "filled_by": "agent"
+  },
+  "M0_2": {
+    "world_changes": [
+      {
+        "id": "WC-001",
+        "change_description": "Carvana completed the acquisition of seven Stellantis (CDJR) franchised dealerships, establishing its first foothold in new-car retail.",
+        "quantitative_magnitude": "7 dealerships acquired for $171 million",
+        "baseline_reference": "0 Carvana-owned new-car franchises before February 2025",
+        "date_confirmed": "February 2025 (first store) – July 2026 (seventh store confirmed)",
+        "source": "CNBC, June 16 2026; The Motley Fool, July 11 2026",
+        "source_url": "https://www.cnbc.com/2026/06/16/carvana-new-cars-dealerships.html",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      },
+      {
+        "id": "WC-002",
+        "change_description": "Monthly new-vehicle unit sales at the Casa Grande, AZ Carvana/CDJR store rose to 700+ units in May 2026, making it the #1-volume Stellantis store in the U.S., up from a prior average of 30–50 units/month under the previous operator — a greater than 14× increase.",
+        "quantitative_magnitude": "700+ units/month (May 2026) vs prior average of 30–50 units/month — more than 14× increase",
+        "baseline_reference": "30–50 new vehicles/month under the prior operator",
+        "date_confirmed": "May 2026 (Stellantis sales data confirmed to CNBC)",
+        "source": "CNBC, June 16 2026; The Motley Fool, July 11 2026",
+        "source_url": "https://www.cnbc.com/2026/06/16/carvana-new-cars-dealerships.html",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      },
+      {
+        "id": "WC-003",
+        "change_description": "Carvana's total used-car retail unit volume reached 187,393 units in Q1 2026, a 40% year-over-year increase and an all-time quarterly record.",
+        "quantitative_magnitude": "+53,495 units (+40% YoY) in Q1 2026",
+        "baseline_reference": "133,898 retail units in Q1 2025",
+        "date_confirmed": "April 29 2026 (Q1 2026 earnings release, Form 8-K filed with SEC)",
+        "source": "Carvana 8-K / Q1 2026 earnings release, SEC EDGAR, filed April 29 2026; BusinessWire, April 29 2026",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/0001690820/000169082026000034/ex99_1q12026.htm",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      },
+      {
+        "id": "WC-004",
+        "change_description": "Carvana's total revenue reached $6.432 billion in Q1 2026, a 52% year-over-year increase and an all-time quarterly record.",
+        "quantitative_magnitude": "$6.432B in Q1 2026 vs $4.232B in Q1 2025 — an increase of $2.2B (+52% YoY)",
+        "baseline_reference": "$4.232B in Q1 2025",
+        "date_confirmed": "April 29 2026 (Form 8-K filed with SEC)",
+        "source": "Carvana 8-K / Q1 2026 earnings release, SEC EDGAR, filed April 29 2026",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/0001690820/000169082026000034/ex99_1q12026.htm",
+        "already_occurred": true,
+        "hypothetical_flag": false
+      }
+    ],
+    "gate_result": "pass",
+    "gate_rationale": "Four already-occurred, quantified world changes are confirmed with numbers, baselines, dates, and sources — all four required elements are present for each row.",
+    "watchlist_deferred_items": [
+      "Carvana expands to additional Stellantis or other-brand franchises beyond the current seven — no confirmed 8th dealership acquisition found as of July 12 2026.",
+      "New-car business generates material, separately reported profit contribution — no SEC filing separately discloses new-vehicle franchise revenue or gross profit.",
+      "Other dealership operators or OEMs replicate or respond to the Carvana model — no confirmed competitive response found in sources reviewed.",
+      "Service-bay and F&I revenue uplift at acquired stores — no quantified F&I or parts/service revenue figure for the Carvana-operated stores found.",
+      "Used-car inventory sourcing benefit from exclusive manufacturer auctions — mentioned as strategic rationale but no auction volumes or pricing effects confirmed."
+    ],
+    "agent_data_sources_checked": [
+      "The Motley Fool, July 11 2026",
+      "CNBC, June 16 2026",
+      "CNBC, June 17 2026 (403 Forbidden — not accessible)",
+      "Yahoo Finance / CBT News / Jalopnik / PYMNTS (multiple, June–July 2026)",
+      "SEC EDGAR — Carvana 8-K Q1 2026 earnings release, filed April 29 2026",
+      "SEC EDGAR — Carvana 10-Q Q1 2026 (403 Forbidden — direct access blocked)",
+      "Carvana investor relations page (investors.carvana.com)",
+      "Search: Carvana 8-K filing re Stellantis acquisition",
+      "Search: Casa Grande #1 Stellantis store nationally",
+      "Yahoo Finance (CVNA quote)"
+    ]
+  },
+  "M0_3": {
+    "direct_beneficiaries": [
+      {
+        "id": "DIR-001",
+        "industry_category": "Online / direct-to-consumer used-car retail",
+        "gics_classification": "Specialty Retail, GICS 2550",
+        "mechanism": "WC-001, WC-003, WC-004: Carvana's acquisition of seven franchises and its record used-car volume confirm that the online-only retail model can be applied at physical dealership sites. Franchised-dealership economics (high overhead, commission salespeople, haggling) are the direct target being replaced; the disruptive model itself is the structural winner.",
+        "scoring": {
+          "mechanism_directness_score": 25,
+          "magnitude_score": 20,
+          "speed_score": 20,
+          "reversibility_score": 20,
+          "composite_score": 85,
+          "tier": "primary",
+          "carry_forward": true,
+          "scoring_notes": "Mechanism is 1-step and directly confirmed by all four WC rows — the business model itself is the one being validated. Magnitude scores 20 not 25 because only 7 stores are confirmed operational; the broader market impact is still nascent. Speed is 20 because the model is proven operational today but broader adoption takes months. Reversibility scores 20 because capital is already deployed and brand repositioning is underway, but the operator could still exit the franchise business."
+        }
+      },
+      {
+        "id": "DIR-003",
+        "industry_category": "Automotive OEM / vehicle manufacturer supply chains",
+        "gics_classification": "Automobiles & Components, GICS 2510",
+        "mechanism": "WC-001, WC-002: Carvana's Casa Grande store became the single highest-volume Stellantis store in the United States in May 2026. A new distribution channel that turns a 30–50 unit/month location into a 700+ unit location is a confirmed demand accelerant for that OEM's new vehicles. The OEM benefits directly from incremental new-vehicle throughput.",
+        "scoring": {
+          "mechanism_directness_score": 20,
+          "magnitude_score": 20,
+          "speed_score": 20,
+          "reversibility_score": 20,
+          "composite_score": 80,
+          "tier": "primary",
+          "carry_forward": true,
+          "scoring_notes": "Mechanism is 1-step — more throughput at the OEM's own franchise directly benefits the OEM's new-vehicle revenue. Magnitude 20 because the volume uplift at Casa Grande is dramatic but only one Stellantis brand and seven stores are confirmed. Speed 20 because OEM revenue follows unit shipments, which are already happening. Reversibility 20 because OEM supply relationships are sticky."
+        }
+      }
+    ],
+    "indirect_beneficiaries": [
+      {
+        "id": "IND-001",
+        "industry_category": "Automotive finance & insurance (F&I) / non-bank auto lenders",
+        "gics_classification": "Consumer Finance, GICS 4020",
+        "mechanism": "WC-002, WC-003: higher new- and used-vehicle unit volumes (700+ units/month at one store; 187,393 used units in Q1 2026 for the operator) generate proportionally more auto-loan originations and ancillary insurance products. The mechanism is one step removed — loan demand follows unit sales.",
+        "scoring": {
+          "mechanism_directness_score": 15,
+          "magnitude_score": 15,
+          "speed_score": 20,
+          "reversibility_score": 20,
+          "composite_score": 70,
+          "tier": "secondary",
+          "carry_forward": true,
+          "scoring_notes": "One step removed from unit sales: more new and used cars sold → more loan originations and F&I product attachment. Magnitude 15 because the confirmed volume uplift is real but small relative to total U.S. auto-loan origination. Speed 20 because loan origination follows the sale immediately. Reversibility 20 because auto loan books, once made, cannot be easily unwound."
+        }
+      },
+      {
+        "id": "IND-002",
+        "industry_category": "Automotive parts, accessories & service",
+        "gics_classification": "Automotive Retail / Distributors, GICS 2550/2010",
+        "mechanism": "WC-001: Carvana retained the operational service bays at acquired Stellantis sites. Higher new-vehicle volume creates a growing captive pool of vehicles requiring scheduled maintenance and warranty work, benefiting parts suppliers and service providers. Two steps: franchise acquired → vehicle volume rises → service demand rises.",
+        "two_step_mechanism": "Franchise acquired → vehicle volume rises → service demand rises",
+        "scoring": {
+          "mechanism_directness_score": 15,
+          "magnitude_score": 10,
+          "speed_score": 15,
+          "reversibility_score": 20,
+          "composite_score": 60,
+          "tier": "secondary",
+          "carry_forward": true,
+          "scoring_notes": "Two steps removed. The service bay retention at acquired stores is confirmed, but no quantified service revenue data exists in any WC row. Magnitude 10 because the effect is real but small and unquantified at confirmed scale. Speed 15 because vehicle parc build-up that drives service demand takes time. Reversibility 20 because vehicles once sold generate recurring service demand that is not easily diverted."
+        }
+      },
+      {
+        "id": "IND-003",
+        "industry_category": "Digital automotive marketplaces & listing platforms",
+        "gics_classification": "Interactive Media & Services, GICS 5020",
+        "mechanism": "WC-003, WC-004: Carvana's 40% YoY unit growth and 52% YoY revenue growth confirm consumer willingness to buy vehicles through digital-first platforms. Rising consumer acceptance expands the total addressable audience for third-party digital listing and research platforms. Three steps: Carvana grows → validates consumer behavior → adjacent listing platforms see tailwinds.",
+        "scoring": {
+          "mechanism_directness_score": 10,
+          "magnitude_score": 10,
+          "speed_score": 10,
+          "reversibility_score": 15,
+          "composite_score": 45,
+          "tier": "parked",
+          "carry_forward": false,
+          "scoring_notes": "Three steps and the connection is weak — Carvana's growth confirms consumer openness to online car buying, but does not directly transfer volume or revenue to third-party listing platforms. Magnitude 10 because the benefit is behavioral and diffuse. Speed 10 because consumer behavior shifts are slow. Parked."
+        }
+      }
+    ],
+    "harmed_parties": [
+      {
+        "id": "DIR-002",
+        "industry_category": "Automotive franchise dealership networks",
+        "gics_classification": "Specialty Retail, GICS 2550",
+        "mechanism": "WC-001, WC-002: Carvana directly acquired seven operational franchised-dealer sites and one of them achieved 700+ units/month against the prior operator's 30–50 — a 14x volume uplift under a no-commission, no-haggle model. Every competing traditional dealership selling the same CDJR brands in the same markets faces direct volume displacement.",
+        "scoring": {
+          "mechanism_directness_score": 25,
+          "magnitude_score": 20,
+          "speed_score": 20,
+          "reversibility_score": 15,
+          "composite_score": 80,
+          "tier": "primary",
+          "carry_forward": true,
+          "scoring_notes": "Mechanism is 1-step — Carvana directly won volume at existing franchise locations by displacing the prior operator. Magnitude at 20 reflects that volume impact is confirmed at one store at a scale that made it the #1 Stellantis store nationally, but the confirmed displacement footprint is 7 stores out of 16,990. Reversibility at 15 reflects that affected traditional dealerships cannot easily reprice their cost structure without significant structural change."
+        }
+      },
+      {
+        "id": "HARM-002",
+        "industry_category": "Commission-based automotive sales workforce / dealership staffing",
+        "gics_classification": "Human Resource & Employment Services, GICS 2020",
+        "mechanism": "WC-001, WC-002: Carvana's model eliminates commission-based salespeople entirely. At sites where Carvana applies its online-only model, traditional salesperson roles are structurally removed. The 14x volume uplift was achieved without that workforce model. Effect is direct but limited to the acquired stores so far (7 stores out of 16,990 nationwide).",
+        "scoring": {
+          "mechanism_directness_score": 20,
+          "magnitude_score": 5,
+          "speed_score": 25,
+          "reversibility_score": 10,
+          "composite_score": 60,
+          "tier": "secondary",
+          "carry_forward": true,
+          "scoring_notes": "Mechanism is direct and confirmed — Carvana's model has no commission salespeople. Magnitude 5 because only 7 stores are confirmed affected out of 16,990 nationwide. Speed 25 because the harm to this workforce is immediate at each acquired site. Reversibility 10 because displaced commission-only roles are structurally eliminated, not temporarily reduced."
+        }
+      },
+      {
+        "id": "HARM-003",
+        "industry_category": "Third-party vehicle auction houses & wholesale remarketing",
+        "gics_classification": "Distributors / Commercial Services, GICS 2010/2020",
+        "mechanism": "WC-003: Carvana's 40% YoY used-unit volume growth means it is sourcing more vehicles at scale. To the extent Carvana bypasses or competes with open-auction channels, independent auction platforms face pressure on volume and fees. Two steps: Carvana grows used volume → shifts sourcing toward direct/proprietary channels → auction volume or pricing softens. Evidence for the bypass mechanism is inferential, not confirmed in any WC row.",
+        "scoring": {
+          "mechanism_directness_score": 10,
+          "magnitude_score": 10,
+          "speed_score": 10,
+          "reversibility_score": 15,
+          "composite_score": 45,
+          "tier": "parked",
+          "carry_forward": false,
+          "scoring_notes": "Two steps and relies on an inferential bypass mechanism not confirmed in any WC row. Magnitude and speed both weak and unquantified. Parked."
+        }
+      }
+    ],
+    "population_gate": {
+      "direct_beneficiaries_populated": true,
+      "indirect_beneficiaries_populated": true,
+      "harmed_parties_populated": true,
+      "at_least_one_populated": true,
+      "both_sides_empty": false,
+      "primary_count": 3,
+      "secondary_count": 2,
+      "parked_count": 3,
+      "carry_forward_count": 5,
+      "zero_carry_forward_action": "proceed"
+    },
+    "pair_trade_notes": "Pair A: online DTC used-car retail (DIR-001) long vs. traditional franchise dealership networks (DIR-002) short — the same event confirms the online model's volume superiority while confirming volume displacement at traditional operators selling the same brand. Pair B: automotive OEM supply chains (DIR-003) long vs. commission-based sales workforce / dealership staffing model (HARM-002) short — higher OEM unit throughput through the new channel confirmed while the workforce model that delivered 30–50 units/month is replaced by one delivering 700+. Pair C: auto F&I / non-bank auto lenders (IND-001) long vs. traditional franchise dealership F&I desks (subset of DIR-002) short — volume flowing through a lower-overhead online-first channel may shift F&I product origination toward the operator's own financing arms and away from traditional dealership-embedded F&I desks.",
+    "ticker_check": true,
+    "ticker_check_detail": {
+      "performed": true,
+      "violations": [],
+      "repair_action": "none required"
+    }
+  },
+  "M0_4": {
+    "horizon": "medium_weeks_3months",
+    "horizon_rationale": "The world changes that matter here transmit through Carvana's quarterly earnings cycle and any public franchise-expansion announcements. The Casa Grande volume figure (WC-002, May 2026) is already a confirmed data point; whether it is a sustained run rate or a one-month spike becomes visible when Carvana reports Q2 2026 results, expected late July 2026 — roughly 2–3 weeks from today. A second quarterly read (Q3 2026, expected late October 2026) would confirm or break the trend, but the thesis either gains meaningful confirmation or begins to fail within the next 3 months. New-car retail reports monthly sales data to OEMs and posts quarterly financials on a fixed calendar, so the clock is set by those releases.",
+    "expiry_condition": "Carvana publishes its Q2 2026 earnings release (Form 8-K / press release via SEC EDGAR and Carvana IR) AND either (a) discloses a separately reported new-vehicle unit volume or franchise revenue line for the acquired stores, or (b) makes no additional franchise-acquisition announcement by the time Q3 2026 results are published (expected late October 2026). Whichever of these two prints first signals the thesis has either resolved (model confirmed, expansion announced) or expired (no scale-up disclosed by Q3 close).",
+    "expiry_condition_is_observable": true,
+    "expiry_condition_is_opinion": false,
+    "monitoring_frequency": "Weekly — check SEC EDGAR for new Carvana 8-K filings each Monday; check Stellantis North America monthly sales release in the first week of each calendar month for any update to Casa Grande or franchise-store volumes.",
+    "horizon_expiry_market_signal": "The spread between Carvana's forward EV/Revenue multiple and the average traditional dealership group multiple (e.g., AutoNation, Lithia Motors) on a named market-data feed such as Yahoo Finance or CapIQ. If the spread narrows materially — meaning the market stops pricing Carvana at a premium tied to new-car franchise optionality — that is a market-side signal that the thesis has expired or been priced out without being confirmed by operating data."
+  },
+  "M0_5": {
+    "falsification_sentence": "If Carvana's Q2 2026 earnings release (or any subsequent Stellantis monthly sales disclosure before 2026-10-31) shows that the acquired Stellantis franchise stores collectively sold fewer than 350 new vehicles per store per month on average, the core volume-superiority claim is broken and the thesis is dead.",
+    "falsification_condition_type": "magnitude_decay",
+    "monitorable_metric_1": "Carvana 8-K / Q2 2026 earnings press release — new-vehicle unit count at acquired Stellantis franchise stores, filed on SEC EDGAR (CIK 0001690820), expected late July 2026",
+    "monitorable_metric_2": "Stellantis North America monthly U.S. sales report — store-level or brand-level volume for the Casa Grande, AZ location, published at media.stellantisnorthamerica.com in the first week of each calendar month",
+    "monitorable_threshold_rate": 350,
+    "monitorable_threshold_rate_unit": "new vehicles sold per acquired store per month (average across all seven stores)",
+    "monitorable_threshold_date": "2026-10-31",
+    "uncomfortable_check": true,
+    "uncomfortable_check_rationale": "The entire thesis rests on one confirmed load-bearing number: 700+ new-vehicle units sold at Casa Grande in May 2026 versus 30–50 under the prior operator (WC-002). That 14x uplift is the mechanism that makes DIR-001, DIR-002, and DIR-003 credible. If the threshold of 350 units per store per month — half of the single confirmed data point, and still 7–12x the prior operator's baseline — is not met when Carvana or Stellantis next discloses operating data, the empirical foundation of the thesis is gone. There is no secondary mechanism that carries the thesis if the volume claim fails: the $171M acquisition price, Carvana's overall used-car growth, and the pair-trade logic all depend on the new-car volume superiority being real and sustained. The falsifier would kill the thesis, not dent it.",
+    "secondary_falsifiers": [
+      {
+        "id": "SF-001",
+        "description": "Stellantis terminates or declines to expand the franchise agreement with Carvana, signalling that the OEM itself does not view the model as a durable distribution channel — removing the DIR-003 mechanism and capping DIR-001 upside at seven stores.",
+        "monitorable_metric": "Stellantis North America press release or SEC 8-K from Carvana disclosing franchise non-renewal, termination, or OEM objection, reachable on SEC EDGAR and media.stellantisnorthamerica.com",
+        "probability_estimate": 0.10
+      },
+      {
+        "id": "SF-002",
+        "description": "Carvana publicly abandons or pauses further new-car franchise acquisition activity by Q3 2026 results, indicating that the economics at the seven acquired stores do not justify expansion — collapsing the thesis from a disruption story to a seven-store experiment.",
+        "monitorable_metric": "Carvana Q2 2026 or Q3 2026 earnings transcript (SEC EDGAR, CIK 0001690820) or investor presentation containing language explicitly pausing or exiting the franchise strategy",
+        "probability_estimate": 0.15
+      },
+      {
+        "id": "SF-003",
+        "description": "A second Stellantis monthly sales report (covering June or July 2026) shows that Casa Grande's unit volume has reverted to below 200 units per month, confirming the May 2026 spike was a one-month promotional event rather than a structural run rate.",
+        "monitorable_metric": "Stellantis North America monthly U.S. sales report, store-level or brand-level data for Casa Grande, AZ, published at media.stellantisnorthamerica.com",
+        "probability_estimate": 0.20
+      }
+    ],
+    "locked_after_m0_complete": true,
+    "locked_at": "2026-07-12T00:00:00Z"
+  },
+  "M0_6_1": {
+    "consensus_view": {
+      "paragraph": "Carvana has completed one of the most remarkable corporate recoveries in recent U.S. equity market history, moving from the edge of bankruptcy in late 2022 to S&P 500 membership in December 2025 and to all-time quarterly records in Q1 2026 ($6.432 billion in revenue, 187,393 used-car retail units). The mainstream buy-side and sell-side view holds that this trajectory is structural, not cyclical: Carvana's online-only model — with no commission salespeople, a single no-haggle price, and a technology-driven reconditioning network via its ADESA acquisition — creates durable cost advantages over traditional franchise dealerships, enabling continued market-share gains in the fragmented, $1.3 trillion U.S. new- and used-car retail market. Analysts at firms including Morgan Stanley (Overweight, $450 price target, $745 bull case), Baird (Outperform, $88 price target), and RBC Capital (Outperform, $85 price target) see the company executing against what Morgan Stanley calls a 'transitory retail GPU headwind' and expect Q2 2026 used-car retail unit volume to exceed 185,000 units, up roughly 40% year-over-year, continuing the Q1 pace. Consensus FY2026 revenue is $27.79 billion (+37% year-over-year), and the 22-analyst panel covering the stock rates it a 'Buy' with an average 12-month price target of ~$93, implying approximately 40% upside from the current trading price of ~$66. The new-car franchise foray into seven Stellantis dealerships is noted in the coverage universe as a potential incremental revenue stream and long-term disruption vector, though the dominant consensus model is built around used-car market share growth, not new-car franchise expansion.",
+      "numeric_anchor": "FY2026 consensus revenue estimate of $27.79 billion (+37% YoY), Q2 2026 EPS consensus of $0.42 (+62% YoY), 12-month average price target of ~$93 [StockAnalysis.com, Jun 23 2026; MarketBeat, Jul 12 2026]",
+      "key_consensus_assumptions": [
+        "Carvana's used-car volume growth rate of ~40% YoY is sustainable through FY2026, driven by continued market-share capture in the fragmented, 16,990-dealership U.S. auto retail market — the consensus FY2026 revenue model of $27.79 billion requires that pace to hold for three more quarters after Q1 2026's record. [StockAnalysis.com, Jun 23 2026]",
+        "The retail gross profit per unit (GPU) headwind flagged by Morgan Stanley is temporary friction, not a structural margin ceiling — the consensus view is that reconditioning efficiencies and ADESA network scale will restore and expand per-unit economics as volume ramps. [Morgan Stanley via TheStreet, July 2026]",
+        "Gotham City Research's January 2026 allegations of $1 billion in overstated 2023–2024 earnings and undisclosed related-party dependence on DriveTime/Bridgecrest are a 'significant misrepresentation of facts' (JPMorgan analyst Rajat Gupta, Seeking Alpha, Jan 2026) that the reported financials do not support — the consensus baseline is that no restatement or auditor resignation will occur and that the SEC/legal investigation risk is manageable. [CNBC, Jan 28 2026; Seeking Alpha, Jan 2026]",
+        "The new-car franchise business (seven Stellantis dealerships, $171 million acquisition cost) is a real but early-stage and small option value — the market broadly acknowledges the Casa Grande volume data (700+ units/month) but has not rebuilt consensus models around it; the new-car business is expected to remain a single-digit percentage of total revenue through the forecast horizon and is treated as upside optionality, not a base-case driver. [CNBC, Jun 16 2026; The Motley Fool, Jul 11 2026]"
+      ]
+    },
+    "contrary_view": {
+      "exists": true,
+      "paragraph": "Gotham City Research published a short-seller report on January 28–29, 2026, alleging that Carvana overstated 2023–2024 earnings by more than $1 billion through loan sales to undisclosed related parties (DriveTime and Bridgecrest, both controlled by Garcia family members), with DriveTime carrying leverage of 20–40x earnings. The report predicted that Carvana's 2025 10-K would be delayed and prior 10-Ks would be restated. Carvana shares fell 14% on January 28–29, 2026, to approximately $410 from a recent high of $486.89, then recovered within a week after JPMorgan analyst Rajat Gupta publicly rebutted the report. As of July 2026, no restatement or auditor change has been announced, but a securities-law investigation overhang remains.",
+      "contrary_numeric_anchor": "More than $1 billion in cumulative earnings overstatement alleged for 2023–2024; 12.1% short interest of float as of May 2026.",
+      "contrary_view_sources": [
+        "Gotham City Research short-seller report, January 28–29 2026",
+        "CNBC, January 28 2026",
+        "JPMorgan / Rajat Gupta via Seeking Alpha, January 2026",
+        "MarketBeat, May 2026"
+      ]
+    },
+    "consensus_strength": {
+      "unanimity_rating": "moderate",
+      "unanimity_rationale": "16 of 24 analysts rate CVNA a Strong Buy or Buy (67%), 7 rate it Hold, and 1 rates it Strong Sell; the average price target of $93 implies ~40% upside, but price target dispersion is wide ($67 low to $120 high, a $53 spread, or 79% of the average) and 12.1% short interest as of May 2026 shows a documented minority that doubts the consensus. [StockAnalysis.com, Jun 23 2026; MarketBeat May 2026]"
+    },
+    "analyst_rating_distribution": {
+      "buy_count": 16,
+      "hold_count": 7,
+      "sell_count": 1,
+      "total_analysts": 24,
+      "buy_pct": 67,
+      "source": "StockAnalysis.com",
+      "as_of": "2026-06-23",
+      "missing_reason": ""
+    },
+    "estimate_dispersion": {
+      "current_high_estimate": 1.86,
+      "current_low_estimate": 1.40,
+      "current_spread_abs": 0.46,
+      "current_spread_pct": 29,
+      "metric": "FY2026 EPS (post-split)",
+      "historical_avg_spread_pct": null,
+      "historical_period": "not available — company had negative EPS through most of 2019–2022",
+      "historical_std_dev_pct": null,
+      "spread_vs_history": "elevated",
+      "dispersion_interpretation": "The FY2026 EPS spread of 29% is elevated relative to typical large-cap specialty retailers, where EPS estimate spreads for a non-distressed fiscal year are commonly in the 10–15% range (inference — no historical CVNA norm exists due to the bankruptcy-era break in earnings history). The price target spread of $53 (79% of the $93.14 average) is also wide, reflecting genuine disagreement on Carvana's terminal margin trajectory. The Morgan Stanley bull case of $745 is an extreme outlier. The 12.1% short float confirms that dispersion extends beyond price targets to actual positioning.",
+      "missing_reason": "5-year historical EPS dispersion norm not available — Carvana reported negative EPS through most of 2019–2022; no vendor published a multi-year average spread for a normalized operating period. Searched StockAnalysis.com, MarketBeat, Yahoo Finance, Seeking Alpha on 2026-07-12."
+    },
+    "entrenchment_note": "Carvana joined the S&P 500 on December 22, 2025, creating a structurally captive base of passive index fund demand; it was reclassified from Russell Midcap to Russell Top 200 in late June 2026, shifting the investor base toward larger large-cap mandates — both moves embed the stock in passive flow structures that are indifferent to the fundamental debate and provide a floor that slows price discovery on the bear case. [Axios Phoenix, Feb 6 2026; Sahm Capital, Jul 3 2026]",
+    "strawman_risk_check": true
+  },
+  "M0_6_2": {
+    "estimate_dispersion": {
+      "data": {
+        "fy2026_consensus_eps": "$1.58 (post-split)",
+        "fy2026_eps_60day_revision": "+$0.05",
+        "fy2026_consensus_revenue": "~$25.7B",
+        "analyst_pt_mean": "$92–$93 (post-split)",
+        "analyst_pt_high": "$120 (post-split)",
+        "analyst_pt_low": "$33 (post-split, implied)",
+        "ratings_distribution": "14 Strong Buy / 3 Moderate Buy / 5 Hold / 0 Underperform / 1 Sell (22 analysts)",
+        "q2_2026_eps": "$0.42 post-split (+61.5% YoY)"
+      },
+      "interpretation": "Consensus is heavily skewed to the long side (77% Buy or better). The mean price target at ~$93 is roughly 41% above the July 11 close — analysts already expect material upside on sustained execution. The high-to-low target range (~$33 to ~$120) reflects genuine disagreement on terminal margin trajectory rather than near-term revenues.",
+      "missing_reason": "NTM adj. EBITDA estimate dispersion (high/low bracket) not available — searched Yahoo Finance analysis tab, TIKR, Simply Wall St, Barchart, and Zacks on 2026-07-12; none surfaced a publicly accessible high/low NTM adj. EBITDA analyst bracket."
+    },
+    "estimate_revision_trajectory": {
+      "data": {
+        "3m_ago_mid_april_2026": "~$1.49 (reconstructed inference — Q1 beat of $0.20 vs pre-beat consensus)",
+        "1m_ago_mid_june_2026": "~$1.53 (inferred midpoint from '+$0.05 in 60 days' to reach $1.58)",
+        "now_early_july_2026": "$1.58 (+$0.09 from mid-April; +$0.05 vs 60 days ago)"
+      },
+      "interpretation": "Despite three beats in the last four quarters and record Q1 with 40% unit growth and 52% revenue growth, the full-year estimate moved only +$0.09 in three months. Analysts are embedding reversion-to-mean caution rather than extrapolating Q1 momentum linearly — the market is pricing a gradual-improvement story, not a step-change.",
+      "missing_reason": "Point-in-time consensus from exactly 3 months ago (mid-April 2026, pre-Q1 beat) not available — no archived or dated open-web consensus snapshot predating the April 29 2026 Q1 earnings release was found; figure is reconstructed inference, labelled as such."
+    },
+    "implied_scenario_from_multiple": {
+      "data": {
+        "ev_approx": "~$75.4B",
+        "ttm_adj_ebitda_approx": "~$2.6B",
+        "ttm_ev_ebitda": "29–32x",
+        "forward_ev_ebitda_ntm": "~20–22x",
+        "dealer_group_normal_range": "5–8x EV/EBITDA",
+        "specialty_retail_avg": "~6.8x",
+        "at_15x_exit_required_ebitda": "$5.0B",
+        "at_22x_exit_required_ebitda": "$3.4B",
+        "q1_2026_annualised_ebitda": "~$2.7B"
+      },
+      "interpretation": "At today's EV of ~$75.4B and TTM EV/EBITDA of 29–32x, the price implies NTM adj. EBITDA must reach $3.4–$5.0B — a 26–85% lift from Q1's annualised run-rate — just to tread water at a still-elevated exit multiple. There is no room in the current price for the new-car franchise to stall or used-car unit growth to slow."
+    },
+    "options_implied_move": {
+      "data": {
+        "q2_earnings_date": "July 29–30, 2026 (AMC)",
+        "iv_30day": "~79.7%",
+        "hv_30day": "~64.1%",
+        "iv_rank_52w": "~60%",
+        "iv_percentile_52w": "~77%",
+        "implied_move_earnings": "~15.5% (Options AI / Perplexity, ~2026-07-10, indicative, unverified)",
+        "atm_call_premium": null,
+        "atm_put_premium": null
+      },
+      "interpretation": "IV in the 77th percentile means options are pricing more uncertainty than 77% of the past year's days. A ~15.5% implied move on a $65.90 stock implies approximately a ±$10.2 move in either direction. Earnings are 17 days away and the falsification threshold for the thesis will be tested by the Q2 release.",
+      "missing_reason": "ATM call and put premiums for the July 29 2026 expiry not available — searched Yahoo Finance options chain, Barchart options page, OptionCharts, and Options AI on 2026-07-12; live-table premiums were not returned in extractable form."
+    },
+    "short_interest_positioning": {
+      "data": {
+        "short_interest_shares": "74.85M shares",
+        "short_pct_outstanding": "~6.8%",
+        "short_pct_float": "~10.65% (StockAnalysis) to ~14.08% (MarketBeat)",
+        "recent_si_trend": "Expanded from 72.22M to 74.85M shares in the most recent period",
+        "institutional_ownership_pct": "~66.6%",
+        "vanguard_shares": "10.38M shares = ~7.25% of class (Schedule 13G, as of March 31 2026)",
+        "blackrock_shares": "7.38M shares = ~5.5% of class"
+      },
+      "interpretation": "Short interest at 10.6–14.1% of float is elevated but not extreme — it would generate covering pressure if Q2 results confirm the new-car volume trajectory. The recent uptick from 72.2M to 74.8M shares short suggests bears are adding ahead of the July 29 Q2 print, not covering. Passive ownership by Vanguard (~7.25%) and BlackRock (~5.5%) collectively accounts for ~12.75% of the class."
+    },
+    "implied_scenario_interpretation": "The market is currently pricing Carvana as a near-perfect execution story. Block 3 (multiple arithmetic) shows that at today's EV of ~$75.4 billion and a TTM EV/EBITDA of 29–32x, the price implies NTM adj. EBITDA must reach $3.4–$5.0 billion — a 26–85% lift from the Q1 2026 annualised run-rate of $2.7 billion — just to tread water at a still-elevated exit multiple. Block 1 (estimate dispersion) reinforces this: analysts sit 77% bullish at ratings level but the consensus price target of ~$93 is 41% above the July 11 close, meaning even the bulls believe the stock is being held back by uncertainty rather than being overvalued on their estimates. Block 4 (options) confirms the market is not complacent about the July 29 Q2 print: implied volatility in the 77th percentile and a ~15.5% implied move say the options market is treating the upcoming earnings as a binary event, not a routine quarter. Block 5 (short interest) adds a final layer: bears have recently added to positions (SI rose from 72.2M to 74.8M shares), lining up in front of Q2 results, and this latent short base becomes fuel for a squeeze if the results confirm the new-car volume story.",
+    "all_five_fields_present": false,
+    "fields_missing_flagged": [
+      "Block 1: NTM adj. EBITDA estimate dispersion (high/low bracket) — searched Yahoo Finance analysis tab, TIKR, Simply Wall St, Barchart, and Zacks on 2026-07-12; none surfaced a publicly accessible high/low NTM adj. EBITDA analyst bracket.",
+      "Block 2: Point-in-time consensus from exactly 3 months ago (mid-April 2026 pre-Q1 beat) — no archived or dated open-web consensus snapshot predating the April 29 2026 Q1 earnings release was found; figure is reconstructed inference, labelled as such.",
+      "Block 4: ATM call and put premiums for the July 29 2026 expiry — searched Yahoo Finance options chain, Barchart options page, OptionCharts, and Options AI on 2026-07-12; live-table premiums were not returned in extractable form."
+    ]
+  },
+  "M0_6_3": {
+    "variant_paragraph": "The market is paying for Carvana to disrupt 16,990 dealerships, but Stellantis has structurally capped the pace at one additional acquisition per rolling 12-month period. At that rate, Carvana can reach 8 new-car stores by mid-2027. The new-car gross profit from 8 stores at peak run-rate is roughly $100 million per year — about 3.7% of Carvana's Q1 2026 annualised adj. EBITDA of $2.7 billion. Yet the stock's EV of $75.4 billion sits $53.8 billion above what 8x EBITDA (the dealer-group median) on $2.7 billion would justify. That gap is what the market is pricing as disruption optionality. The cap-constrained new-car path cannot support it.",
+    "consensus_numeric_view": "New-car business <10% of units, <3% GPU dilution; modelled as option value only, not a base-case driver; market assigns 22–32x TTM EV/EBITDA vs 5–8x for dealer peers [M0.6.1 assumption #4; M0.6.2 Block 3 (EV ~$75.4B, TTM EV/EBITDA 29–32x)]",
+    "our_numeric_view": "8 max stores by mid-2027 (7 today + 1 per rolling 12 months per Stellantis cap) × ~700 units/store/month × $6,200 avg new-car GPU (midpoint BTIG $5,500–$7,500) = ~$8.7M gross profit/month = ~$104M/year. At a 15x GP multiple, the new-car business is worth ~$1.6B of incremental EV. The floor dealer-group EV at 8x on $2.7B EBITDA = ~$21.6B. Implied optionality embedded in the stock: $75.4B − $21.6B = $53.8B. Our estimate of the cap-constrained new-car optionality: ~$1.6B.",
+    "numeric_departure_magnitude": "~$52B of priced optionality that the structural acquisition ceiling does not support: the market is embedding ~33x the cap-constrained new-car value in the EV",
+    "mechanism_1_missing_from_consensus": "The Stellantis acquisition cap as a hard ceiling on new-car optionality: Stellantis updated its dealer consolidation policy on January 6, 2026 to limit any single entity to one CDJR dealership acquisition per rolling 12-month period. No major sell-side model (Morgan Stanley, JPMorgan, Baird, RBC, BTIG) has published a terminal new-car store count under the cap constraint or derived what that cap implies for the EV premium. The mechanism is flagged in trade press (DealershipGuy newsletter, February 2026; Northcoast Research/John Healy) but has not been translated into a cap-adjusted optionality valuation in any major sell-side CVNA note.",
+    "mechanism_2_missing_from_consensus": "The crossover demand creation metric as a used-car GPU drag: BTIG has reported that 75% of Carvana's new-car buyers initially searched for used vehicles, meaning the new-car franchise is simultaneously removing demand pressure from the used-car segment where Carvana earns $6,900+ GPU. No sell-side model found in searches run on 2026-07-12 has modelled the demand substitution effect between new-car franchise buyers and the used-car GPU line. The incremental new-car GPU of ~$6,200 substitutes for an incremental used-car GPU of ~$6,900 — a $700 per-unit opportunity-cost drag not captured in BTIG's '<3% total GPU dilution' figure.",
+    "sell_side_coverage_gap_confirmed": true,
+    "sell_side_gap_evidence": "Searches across web sources on 2026-07-12 found no Morgan Stanley, JPMorgan, Baird, or RBC published model or note that (a) quantifies a terminal new-car store count under the Stellantis 1-per-12-month cap, (b) derives an optionality NPV from that cap-constrained store count, or (c) reconciles the cap-constrained store-count ceiling with the ~$53.8B EV premium above a dealer-group floor multiple. BTIG covers the unit economics of the new-car business as an incremental add-on but does not address the structural cap as a constraint on the disruption optionality being priced. Queries run: 'Carvana CDJR one dealership per 12 months Stellantis acquisition cap analyst model consensus 2026'; 'Carvana new car franchise expansion beyond seven Stellantis stores analyst forecast 2026'; 'Carvana new car gross profit per unit consensus model F&I service bay attach rate analyst 2026'.",
+    "manifestation_event": "Carvana Q2 2026 earnings release (Form 8-K, press release via SEC EDGAR, CIK 0001690820) — expected July 29–30, 2026. This release will (a) confirm or break the 350-units-per-store-per-month M0.5 falsification threshold, and (b) reveal whether management provides any guidance or commentary on new-car franchise expansion pace beyond seven stores.",
+    "manifestation_time_window": "July 29–30, 2026 (primary, Q2 earnings). August–October 2026 (secondary, Stellantis monthly sales reports and Q3 2026 earnings in late October) confirm the run-rate and whether OEM franchise expansion beyond Stellantis has been announced."
+  },
+  "M0_6_4": {
+    "primary_category": "complexity",
+    "primary_category_rationale": "The core mispricing requires a reader to do three things at once that equity analysts do not routinely combine: (1) read an OEM dealer franchise policy document (Stellantis January 6, 2026 consolidation update — an automotive-industry regulatory document, not a financial filing), (2) build a store-count model that applies a 1-per-rolling-12-month ceiling to Carvana's new-car expansion path, and (3) compare the resulting cap-constrained optionality value (~$1.6–$6.2 billion at generous multiples) against the roughly $53.8 billion EV premium above a dealer-group floor multiple. Step 1 lives in automotive trade press; step 2 requires a non-standard extension to the standard Carvana earnings model; step 3 demands EV-premium decomposition that no major sell-side firm covering CVNA has published. The mechanism is not hidden by anchoring or recency — Northcoast Research flagged the cap publicly. It is hidden because applying the cap to an optionality NPV inside an existing EPS model requires steps that span two separate domains (auto franchise law and equity valuation), and no sell-side firm covering CVNA has done all three steps in a single published note.",
+    "evidence_verifiable_fact_1": "Stellantis updated its dealer consolidation policy on January 6, 2026, explicitly capping any single entity to one CDJR (Chrysler-Dodge-Jeep-Ram) dealership acquisition per rolling 12-month period. This policy directly limits Carvana — which holds seven Stellantis stores — to one additional Stellantis store per year. Verify via: DealershipGuy newsletter, published 2026-02-26, sourced from Stellantis dealer network communication dated January 6, 2026 (https://www.dealershipguy.com); corroborating coverage in CBT Automotive News and Carscoops, both citing the January 6 policy date.",
+    "evidence_verifiable_fact_2": "Northcoast Research analyst John Healy publicly flagged the Stellantis acquisition cap as 'not coincidental' in response to Carvana's seven-store deal, yet a web search run on 2026-07-12 across Morgan Stanley, JPMorgan, Baird, RBC, and BTIG coverage found zero published notes that (a) state a terminal new-car store count under the cap, (b) derive an optionality NPV from a cap-constrained store count, or (c) reconcile that ceiling with the ~$53.8B EV premium above an 8× EBITDA dealer-group floor. Verify via: web searches on 2026-07-12 for 'Carvana CDJR one dealership per 12 months Stellantis acquisition cap analyst model consensus 2026' and 'Carvana new car franchise expansion beyond seven Stellantis stores analyst forecast 2026' — both returned trade-press commentary but no major sell-side published model.",
+    "evidence_verifiable_fact_3": "Carvana's TTM EV/EBITDA of approximately 29–32× (EV ~$75.4 billion, TTM adj. EBITDA ~$2.6 billion, Q1 2026 adj. EBITDA $672 million per the April 29, 2026 8-K filed on SEC EDGAR) is 4–5× the dealer-group median of 5–8×. At a cap-constrained peak of 8 stores × 700 units/month × $6,200 new-car GPU = ~$416 million gross profit/year, the new-car business at a generous 15× gross-profit multiple is worth roughly $6.2 billion of EV, against the $53.8 billion premium above an 8× EBITDA floor. Verify via: Carvana Q1 2026 8-K / earnings press release, SEC EDGAR, CIK 0001690820, filed April 29, 2026; CVNA total EV from StockAnalysis.com, data as of approximately 2026-07-10; dealer-group multiples from Lithia Motors FY2025 10-K or any sector EV/EBITDA compilation.",
+    "secondary_categories": [
+      {
+        "category": "structural",
+        "rationale": "Carvana's December 2025 S&P 500 addition (and June 2026 Russell rebalancing to the Top 200) created a captive passive-ownership base — Vanguard ~7.25% of shares, BlackRock ~5.5% per 13G filings — that is indifferent to the new-car optionality debate. Passive flows provide a price floor that slows price discovery: an index fund will not reduce its CVNA weight because the Stellantis cap constrains new-car store count."
+      },
+      {
+        "category": "behavioral",
+        "rationale": "The Carvana recovery narrative — bankruptcy-edge to S&P 500 in three years, 'most disruptive force in U.S. auto retailing in decades' — carries strong recency and narrative momentum. Analysts who lived through the near-collapse are anchored to the execution story and inclined to treat franchise policy constraints as operational detail, not as valuation-relevant ceilings."
+      }
+    ]
+  },
+  "M0_6_5": {
+    "trigger_name": "Carvana Q2 2026 earnings release (Form 8-K + earnings call)",
+    "trigger_date_range": "July 29, 2026 after market close (confirmed: Carvana IR press release, StockTitan 2026-07-09, web: stocktitan.net/news/CVNA/carvana-to-report-second-quarter-2026-results, indicative, unverified)",
+    "trigger_type": "scheduled",
+    "probability_if_unscheduled": null,
+    "probability_note": "Scheduled — SEC-required Form 8-K filing follows a fixed quarterly calendar; no discretion to skip. The earnings call at 5:30 p.m. ET on July 29 is also publicly pre-announced via Carvana IR.",
+    "causal_mechanism": [
+      "Step 1: On July 29, 2026 Carvana files its Q2 2026 8-K and management addresses new-car franchise volume on the earnings call. Management either discloses new-car unit count for all seven Stellantis stores or declines to provide it, and when analysts press for guidance on additional franchise acquisitions, management either confirms the Stellantis 1-per-12-month cap as a binding constraint or is silent on a non-Stellantis OEM deal — neither of which supports a multi-thousand-store disruption narrative.",
+      "Step 2: Morgan Stanley, JPMorgan, Baird, RBC, and BTIG analysts — who have not published a cap-constrained terminal store count or cap-adjusted optionality NPV — revise or flag the structural ceiling after the call explicitly surfaces it. Because no major sell-side model has previously assigned a store-count ceiling to the new-car expansion story (confirmed search gap, M0.6.3), the call is the first moment the cap constraint is on-record in management's own words, forcing model updates in the immediate post-earnings note cycle (July 30 – August 1, 2026).",
+      "Step 3: Long-only funds and hedge funds that own CVNA on the basis of new-car franchise disruption optionality reduce or exit positions as the sell-side notes mark down the optionality's NPV to align with a 1-per-year acquisition pace. Short sellers (10.6–14.1% of float as of mid-2026, per M0.6.2) cover partially or add, creating asymmetric selling pressure in the 72 hours following the earnings release.",
+      "Step 4: With the sell-side now modelling cap-constrained new-car optionality (~$1.6–$6.2B) rather than unconstrained disruption optionality (~$53.8B premium), the multiple that justified a $75.4B EV compresses toward a dealer-group-plus-used-car-franchise blended multiple. The stock reprices downward, partially closing the gap between the current EV and the cap-constrained fair value — the magnitude of convergence depends on how much of the $53.8B premium the market assigns specifically to new-car franchise optionality versus permanent used-car market dominance."
+    ],
+    "secondary_triggers": [
+      {
+        "id": "ST-001",
+        "trigger_name": "Stellantis North America August 2026 monthly sales report (covering July 2026)",
+        "trigger_date_range": "First week of August 2026",
+        "trigger_type": "scheduled",
+        "probability": null,
+        "mechanism": "If Casa Grande's July 2026 unit volume is disclosed at below 350 units (the M0.5 falsification threshold), the one confirmed data-point collapses and partial convergence occurs before Q2 earnings as the volume-superiority thesis loses its empirical anchor."
+      },
+      {
+        "id": "ST-002",
+        "trigger_name": "Northcoast Research or a second sell-side firm publishes a cap-adjusted CVNA optionality note",
+        "trigger_date_range": "Any time between now and Q2 earnings (July 29)",
+        "trigger_type": "unscheduled",
+        "probability": 0.20,
+        "mechanism": "A second-analyst publication naming the Stellantis 1-per-12-month cap as a constraint on terminal store count would validate the trade press coverage already out and force the broader sell-side to re-examine the unconstrained disruption assumption — partial convergence without waiting for the earnings print."
+      },
+      {
+        "id": "ST-003",
+        "trigger_name": "Carvana Q3 2026 earnings release (Form 8-K + earnings call)",
+        "trigger_date_range": "Late October 2026 (expected ~October 28–30, 2026)",
+        "trigger_type": "scheduled",
+        "probability": null,
+        "mechanism": "If July 29 earnings do not force convergence (e.g. management guides to multi-OEM expansion), Q3 earnings becomes the second scheduled event that either confirms a second acquisition (still only 1-per-year pace) or forces the market to price 12 additional months of waiting for store #9 — a further compression of the disruption timeline."
+      },
+      {
+        "id": "ST-004",
+        "trigger_name": "Any Carvana 8-K or press release disclosing a non-Stellantis OEM franchise agreement",
+        "trigger_date_range": "Unscheduled",
+        "trigger_type": "unscheduled",
+        "probability": 0.15,
+        "mechanism": "A Honda, Toyota, or other-OEM franchise announcement would partially validate the multi-OEM expansion path the market may be pricing and would cause partial convergence in the opposite direction — reducing the mispricing as the structural cap is partially circumvented. This is a bearish-to-thesis event and a partial-convergence trigger for the SHORT side of any pair trade."
+      }
+    ]
+  },
+  "M0_6_6": {
+    "scoring_criteria": {
+      "variant_perception_quality": {
+        "sub_score": 52,
+        "rationale": "The variant has a specific numeric departure: the market embeds ~$53.8B of EV premium above the dealer-group floor, while the cap-constrained new-car business justifies ~$1.6–$6.2B at generous multiples — a ~33x gap. The Stellantis 1-per-rolling-12-month acquisition cap (January 6 2026 policy) is a real, documented mechanism that no major sell-side firm has translated into a published optionality NPV adjustment (confirmed by four web searches on 2026-07-12). However, two weaknesses pull the score into the mixed band rather than strong: first, the sell-side coverage gap is only partial — BTIG has independently covered new-car unit economics and the 75% crossover metric, so mechanism_2 is not a genuine coverage gap; second, and more fundamentally, the variant depends on an assumption that cannot currently be proven — that the full $53.8B EV premium is attributable to new-car franchise optionality rather than to a durable used-car market-share premium, which the market could rationally award at 15–22x EBITDA on its own merits. M0.6.3 itself labels the variant 'weak' for this reason. A variant that is directionally correct, has a real mechanism, and has a large numeric departure, but rests on an attribution assumption that requires further evidence, scores in the lower-middle of the mixed band."
+      },
+      "mispricing_reason_strength": {
+        "sub_score": 62,
+        "rationale": "The primary category is complexity, and all three verifiable facts check out: the Stellantis January 6 2026 policy cap is documented in trade press (DealershipGuy newsletter, CBT Automotive News, Carscoops) and flagged by Northcoast Research/John Healy; the absence of a cap-constrained optionality NPV in any major sell-side note is independently verifiable via the same web searches; and the EV/EBITDA arithmetic (Q1 2026 8-K adj. EBITDA of $672M × 4 annualised, TTM EV ~$75.4B at 29–32x, vs dealer-group median 5–8x) is drawn from a filing and a market-data source. The complexity reason is the right primary category — the mispricing requires cross-domain steps (OEM franchise law plus equity model) that no single team has completed in a published note, which is a structural gap rather than a transient one. Secondary categories (structural via passive ownership; behavioral via narrative momentum) add coherence. The score sits in the lower-strong band rather than higher because the mispricing reason, while structural in character, relies on a negative — an absence of published analysis — which is harder to defend than a positive misestimate. The absence of a cap-adjusted sell-side note is real and currently true, but could be remedied rapidly by a single analyst before Q2 earnings, which limits how durable the mispricing reason is."
+      },
+      "convergence_trigger_clarity": {
+        "sub_score": 72,
+        "rationale": "The primary trigger is the Carvana Q2 2026 earnings release (Form 8-K + earnings call), confirmed for July 29, 2026 after market close — 17 days from today. This is a SEC-mandatory filing on a publicly pre-announced calendar, squarely inside the M0.4 3-month horizon. The four-step mechanism is specific and names real actors: management discloses the cap on the call → Morgan Stanley, JPMorgan, Baird, RBC, BTIG revise post-call models → long-only and short-sellers reallocate → multiple compresses. The trigger date is as solid as triggers get (scheduled SEC filing), and the causal chain has named actors at each step. The score is 72 rather than higher because the mechanism's force depends heavily on whether management actually addresses new-car franchise expansion constraints on the call — management could dodge the question, leaving the sell-side without the on-record language needed to force model revisions — and because the magnitude of convergence is uncertain given the ambiguity about what fraction of the $53.8B premium is attributable to new-car optionality."
+      }
+    },
+    "blended_calculation": "0.40 × 52 + 0.30 × 62 + 0.30 × 72 = 20.80 + 18.60 + 21.60 = 61.00",
+    "final_score": 61,
+    "analyst_override": false,
+    "override_justification": "",
+    "justification_sentence_1": "The edge exists in documented form — the Stellantis acquisition-cap mechanism is real, the numeric departure from priced optionality is large (~$52B), and the primary trigger is a scheduled SEC filing 17 days away — but the variant is weakened by an attribution assumption that cannot yet be proven and a sell-side coverage gap that is only partial.",
+    "justification_sentence_2": "A score of 61 puts this in the provisional band: the mechanism is worth pursuing with candidate-surfacing and close monitoring of the July 29 Q2 earnings print, but the full machine is not warranted until the attribution question is answered by management disclosure or a second independent source confirms the cap-adjusted optionality gap.",
+    "routing_outcome": "provisional",
+    "routing_logic": "final_score 61 falls in the 60–80 band → provisional",
+    "routing_reason": "The Stellantis cap mechanism is documented and the numeric departure is large, but the variant depends on an unproven attribution assumption (how much of the $53.8B EV premium is new-car optionality vs. durable used-car market share), and the sell-side coverage gap is partial. The July 29 Q2 earnings release is a firm, dated trigger that will either strengthen or kill the variant within 17 days — a clear reason to surface candidates and hold at provisional rather than commit the full machine now."
+  },
+  "sources": [
+    {
+      "url": "https://www.fool.com/investing/2026/07/11/prediction-carvanas-new-car-business-will-work/?source=iedfolrf0000001",
+      "source_name": "The Motley Fool",
+      "source_grade": "B",
+      "retrieved_at": "2026-07-12T00:00:00Z",
+      "claim_supported": "Carvana acquisition of 7 Stellantis dealerships for $171M; Casa Grande 700+ new vehicles in May vs prior 30–50 average; AutoNation gross-profit split (78% F&I/service, 22% new/used); 16,990 U.S. dealerships; $1.3 trillion market; Ally Financial financing partnership."
+    },
+    {
+      "url": "https://www.cnbc.com/2026/06/16/carvana-new-cars-dealerships.html",
+      "source_name": "CNBC",
+      "source_grade": "A",
+      "retrieved_at": "2026-07-12T00:00:00Z",
+      "claim_supported": "Volume confirmed as Stellantis data shared with CNBC; Casa Grande is #1 U.S. Stellantis volume store; $171M and 7 stores confirmed independently of The Motley Fool."
+    },
+    {
+      "url": "https://www.sec.gov/Archives/edgar/data/0001690820/000169082026000034/ex99_1q12026.htm",
+      "source_name": "Carvana 8-K / Q1 2026 earnings release, SEC EDGAR",
+      "source_grade": "A",
+      "retrieved_at": "2026-07-12T00:00:00Z",
+      "claim_supported": "187,393 retail units (+40% YoY) in Q1 2026; $6.432B total revenue (+52% YoY); $405M net income; $672M adj. EBITDA; no separate new-car franchise revenue line disclosed."
+    },
+    {
+      "url": "https://www.businesswire.com/news/home/20260429971130/en/Carvana-Announces-Record-First-Quarter-2026-Results",
+      "source_name": "BusinessWire",
+      "source_grade": "A",
+      "retrieved_at": "2026-07-12T00:00:00Z",
+      "claim_supported": "Corroboration of Q1 2026 record results (WC-003, WC-004)."
+    },
+    {
+      "url": "https://www.dealershipguy.com",
+      "source_name": "DealershipGuy newsletter",
+      "source_grade": "B",
+      "retrieved_at": "2026-07-12T00:00:00Z",
+      "claim_supported": "Stellantis January 6 2026 consolidation policy — one CDJR dealership acquisition per rolling 12-month period cap; published 2026-02-26."
+    },
+    {
+      "url": "https://stocktitan.net/news/CVNA/carvana-to-report-second-quarter-2026-results.html",
+      "source_name": "Stock Titan / Carvana IR",
+      "source_grade": "A",
+      "retrieved_at": "2026-07-12T00:00:00Z",
+      "claim_supported": "Q2 2026 earnings call confirmed for July 29, 2026 after market close (5:30 p.m. ET)."
+    }
+  ]
+}

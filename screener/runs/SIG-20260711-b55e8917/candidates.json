@@ -1,0 +1,287 @@
+{
+  "thesis_id": "THS-SIG-20260711-b55e8917-v1",
+  "signal_id": "SIG-20260711-b55e8917",
+  "generated_at": "2026-07-12T00:00:00Z",
+  "routing": "provisional",
+  "candidates": [
+    {
+      "candidate_id": "CND-001",
+      "ticker": "CVNA",
+      "company_name": "Carvana Co.",
+      "exchange": "NYSE",
+      "side": "long",
+      "beneficiary_ref": "DIR-001",
+      "exposure_score": 88,
+      "exposure_rationale": "Used-car retail is ~100% of segment revenue; Carvana directly owns and operates the seven Stellantis franchise sites where the 700+ units/month throughput was confirmed. The thesis mechanism — online DTC model outperforming traditional commission-based dealerships — is the company's entire business. No unrelated revenue dilutes the signal. [Carvana Q1 2026 8-K, SEC EDGAR, CIK 0001690820, filed April 29 2026; CNBC, June 16 2026]",
+      "liquidity_note": "NYSE large-cap; S&P 500 member (added December 22 2025); market cap ~$9.5B at ~$66/share (Web: Yahoo Finance, July 11 2026, indicative, unverified). Active and liquid. 12.1% short float (MarketBeat, May 2026) — elevated, creates short-squeeze risk on positive Q2 results but does not impair real-order execution. No suspension or pending corporate action found.",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run_root": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "pair_with": "CND-002",
+      "caveats": "Gotham City Research (January 2026) alleged >$1B in earnings overstatements via undisclosed related-party loan sales — unresolved as of July 12 2026 but uncorroborated by auditor action or restatement. 12.1% short float is elevated but manageable. The Stellantis 1-per-rolling-12-month acquisition cap (January 6 2026 Stellantis policy, DealershipGuy newsletter, February 26 2026) simultaneously defines the core thesis mechanism and caps the upside scale of the new-car disruption optionality. Q2 2026 earnings (July 29) is the primary M0.5 falsification test — 17 days away. A research run starts from scratch: no data pool exists.",
+      "news_impact": {
+        "applicable": true,
+        "mode": "primary",
+        "missing_reason": null,
+        "recurrence": "permanent_step_change",
+        "event_quantification": "7 stores × 700 units/month × 12 months × $6,200 avg new-car GPU (BTIG $5,500–$7,500 midpoint, cited in M0.6.3) = $366.0M/year gross profit. Cross-over demand substitution drag (75% of new-car buyers previously searched used, per BTIG data in M0.6.3): 0.75 × 7 × 700 × 12 × ($6,900 used GPU − $6,200 new GPU) = $30.9M/year foregone used-car GP. Net annual GP delta = $335.1M. After-tax at ~28% effective rate (inference; Carvana's incremental rate not separately disclosed): ΔE/yr = $335.1M × 0.72 = $241M/year. EPS revision: $241M ÷ 1,097M fully-diluted shares (derived from EV ~$75.4B and $65.90/share, M0.6.2) = +$0.22/share (+13.9% on $1.58 FY2026 consensus EPS, Web: Yahoo Finance/Zacks, ~July 10 2026, indicative, unverified). Net of $171M acquisition cost: ΔValue = ($241M × 41.7x forward P/E) − $171M = $9,879M (~$9.9B). [Carvana Q1 2026 8-K, SEC EDGAR, April 29 2026; CNBC, June 16 2026; The Motley Fool, July 11 2026]",
+        "delta_value": "~$9.9B net of $171M acquisition consideration (capitalised at 41.7x forward P/E on $241M after-tax ΔE/yr, permanent step-change)",
+        "implied_move_pct": 13.9,
+        "observed_move_pct": -13.5,
+        "gap_read": "re_rate_to_judge",
+        "caveats": "Duration-trap check: not applicable (permanent step-change). Illustrative finite check: if misclassified as 3-year finite, NPV at 12% cost of equity = $578M → implied move +0.8% vs +13.9% capitalised — a 17x overstatement, confirming the recurrence call is load-bearing. Observed move is a range (−10% to −17%, midpoint ~−13.5%) due to price-source inconsistency between two web sources for June 16 2026 close ($64.23 vs $70.04); direction is unambiguous. The +13.9% fundamental implied move and −10% to −17% observed move point in opposite directions: the market ran the re-rate on GPU dilution and the Stellantis cap, not on the earnings addition. Gap = ~25–31% total, a multiple compression to be adjudicated by the research swarm. The 700 units/month is one store in one month; applying it to all 7 stores is an extrapolation the M0.5 falsifier (350 units/store/month) tests. GPU midpoint is a BTIG estimate, not from a Carvana filing. Gotham City Research allegations (January 2026) create a tail risk on the EPS consensus base. This is a fundamentals floor, not a verdict.",
+        "sources": [
+          {
+            "url": "https://www.cnbc.com/2026/06/16/carvana-new-cars-dealerships.html",
+            "source_name": "CNBC, June 16 2026",
+            "source_grade": "A",
+            "retrieved_at": "2026-07-12",
+            "claim_supported": "7 Stellantis stores, $171M, Casa Grande 700+ units/month confirmed as #1 U.S. Stellantis volume store; primary news-date anchor for observed move"
+          },
+          {
+            "url": "https://www.sec.gov/Archives/edgar/data/0001690820/000169082026000034/ex99_1q12026.htm",
+            "source_name": "Carvana Q1 2026 8-K, SEC EDGAR, filed April 29 2026",
+            "source_grade": "A",
+            "retrieved_at": "2026-07-12",
+            "claim_supported": "$6.432B revenue, $405M net income, $672M adj. EBITDA, 187,393 retail units — underlying financials for ΔE calculation"
+          },
+          {
+            "url": "https://www.fool.com/investing/2026/07/11/prediction-carvanas-new-car-business-will-work/?source=iedfolrf0000001",
+            "source_name": "The Motley Fool, July 11 2026",
+            "source_grade": "B",
+            "retrieved_at": "2026-07-12",
+            "claim_supported": "BTIG GPU range $5,500–$7,500; 75% crossover substitution metric; $171M, 7 stores"
+          },
+          {
+            "url": "https://stockanalysis.com/stocks/cvna/history/",
+            "source_name": "Web: StockAnalysis.com, June 16–17 2026",
+            "source_grade": "B",
+            "retrieved_at": "2026-07-12",
+            "claim_supported": "CVNA closing prices June 16 $70.04, June 17 $62.86 (indicative, unverified); observed move basis"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "url": "https://www.sec.gov/Archives/edgar/data/0001690820/000169082026000034/ex99_1q12026.htm",
+          "source_name": "Carvana Q1 2026 8-K, SEC EDGAR, filed April 29 2026",
+          "source_grade": "A",
+          "retrieved_at": "2026-07-12",
+          "claim_supported": "187,393 retail units Q1 2026 (+40% YoY); $6.432B total revenue (+52% YoY); $672M adj. EBITDA; used-car retail as dominant segment"
+        },
+        {
+          "url": "https://www.cnbc.com/2026/06/16/carvana-new-cars-dealerships.html",
+          "source_name": "CNBC, June 16 2026",
+          "source_grade": "A",
+          "retrieved_at": "2026-07-12",
+          "claim_supported": "7 Stellantis stores, $171M acquisition cost, Casa Grande #1 U.S. Stellantis volume store at 700+ units/month"
+        }
+      ]
+    },
+    {
+      "candidate_id": "CND-002",
+      "ticker": "AN",
+      "company_name": "AutoNation, Inc.",
+      "exchange": "NYSE",
+      "side": "short",
+      "beneficiary_ref": "DIR-002",
+      "exposure_score": 72,
+      "exposure_rationale": "New-vehicle revenue was ~46% of Q1 2026 total revenue ($3.01B of $6.55B); new-vehicle same-store unit sales already down 9% in Q1 2026 YoY — the thesis displacement mechanism is visible in currently reported earnings. Parts/service and F&I (~54% of gross profit) partially insulate overall earnings, but the on-balance displacement is already in the numbers. [AutoNation Q1 2026 8-K, SEC EDGAR, filed ~May 1 2026]",
+      "liquidity_note": "NYSE large-cap (~$15B market cap, Web-sourced estimate, indicative, unverified). Active and liquid. No suspension or pending corporate action found.",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run_root": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "pair_with": "CND-001",
+      "caveats": "Diversified gross-profit base (parts/service/F&I ~78% of GP) acts as an earnings buffer — the short works on new-vehicle volume but total EPS impact is diluted. The fundamental impact from 7 Carvana stores is currently immaterial (five basis points per news-impact sizing); the short thesis rests on the structural disruption risk as Carvana expands over time, not the immediate 7-store impact. Geographic overlap between AN's CDJR stores and Carvana's 7 locations is unknown. A research run starts from scratch: no data pool exists.",
+      "news_impact": {
+        "applicable": true,
+        "mode": "fallback",
+        "missing_reason": "Forward consensus EPS and forward P/E for AN were not gathered in M0.6.2 (upstream focused on CVNA); self-anchored multiple (12x NTM P/E, consistent with dealer-group sector band) used as fallback.",
+        "recurrence": "permanent_step_change",
+        "event_quantification": "AN's proportional share of U.S. dealer locations: 240 ÷ 16,990 = ~1.41%. Displaced AN units: 1.41% × (7 × 700 × 12) = ~829 units/year. New-car GPU: ~$1,100/unit (inference from AN Q1 2026 8-K and industry benchmark; not separately disclosed per-unit in available filing). Annual GP lost: 829 × $1,100 = $911K/year. After-tax at 28%: ΔE/yr = −$656K. [AutoNation Q1 2026 8-K, SEC EDGAR, filed ~May 1 2026; proportional estimate — inference]",
+        "delta_value": "−$7.9M (capitalised at 12x self-anchored forward P/E on −$656K after-tax ΔE/yr)",
+        "implied_move_pct": -0.05,
+        "observed_move_pct": 0.0,
+        "gap_read": "priced",
+        "caveats": "Fundamental impact is five basis points — within normal daily noise. Market was flat on June 16 2026 (intraday range $194.07–$197.76, ~$195.86 close, Web: search result, June 16 2026, indicative, unverified), correctly reflecting the immateriality of 7 stores against a 240-store network. The short thesis is structural — it depends on Carvana expanding to dozens or hundreds of stores, not on the current 7-store earnings impact. Geographic overlap between AN's CDJR stores and Carvana's locations is not available from public filings. This is a fundamentals floor, not a verdict.",
+        "sources": [
+          {
+            "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=AN",
+            "source_name": "AutoNation Q1 2026 8-K, SEC EDGAR, filed ~May 1 2026",
+            "source_grade": "A",
+            "retrieved_at": "2026-07-12",
+            "claim_supported": "New vehicle revenue Q1 2026 $3.01B (−7.3% YoY), new-vehicle same-store units −9% YoY, total Q1 revenue $6.55B"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=AN",
+          "source_name": "AutoNation Q1 2026 8-K, SEC EDGAR, filed ~May 1 2026",
+          "source_grade": "A",
+          "retrieved_at": "2026-07-12",
+          "claim_supported": "New vehicle revenue Q1 2026 $3.01B (~46% of total $6.55B); same-store new-vehicle units −9% YoY Q1 2026"
+        }
+      ]
+    },
+    {
+      "candidate_id": "CND-003",
+      "ticker": "LAD",
+      "company_name": "Lithia Motors, Inc.",
+      "exchange": "NYSE",
+      "side": "short",
+      "beneficiary_ref": "DIR-002",
+      "exposure_score": 68,
+      "exposure_rationale": "New-vehicle revenue was ~49.7% of FY2025 total revenue ($18.70B of $37.635B); broadest U.S. franchise dealer network by store count (680+ stores), making it the widest expression of the harmed franchised-dealership party. Driveway (Lithia's own online platform) is a partial internal hedge that modestly lowers short-side purity. [Lithia Motors 8-K / FY2025 earnings release, SEC EDGAR, filed February 2026]",
+      "liquidity_note": "NYSE large-cap (~$8.5B market cap, Web estimate, indicative, unverified). Active and liquid. No suspension found.",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run_root": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "pair_with": "CND-001",
+      "caveats": "Driveway online platform partially offsets the Carvana competitive threat — Lithia is itself building digital retail capability, which mutes the short-side mechanism. Network breadth (680+ stores) means each of Carvana's 7 stores displaces volume across a much larger fleet; the per-store disruption impact is proportionally smaller than for AN. Fundamental news-impact sizing shows −0.24% implied move from the current 7-store event — well within daily noise. The short thesis is structural, not a current-period earnings event. A research run starts from scratch: no data pool exists.",
+      "news_impact": {
+        "applicable": true,
+        "mode": "fallback",
+        "missing_reason": "Forward consensus EPS and forward P/E for LAD were not gathered in M0.6.2; self-anchored multiple (11x NTM P/E, consistent with dealer-group sector band and LAD's own EV/EBITDA of ~13x from M0.6.2 Block 3) used as fallback.",
+        "recurrence": "permanent_step_change",
+        "event_quantification": "LAD's proportional share of U.S. dealer locations: 680 ÷ 16,990 = ~4.0%. Displaced LAD units: 4.0% × (7 × 700 × 12) = ~2,352 units/year. New-car GPU: ~$1,100/unit (inference from Lithia FY2025 8-K and industry benchmark; Lithia does not separately disclose per-unit GPU). Annual GP lost: 2,352 × $1,100 = $2.59M/year. After-tax at 28%: ΔE/yr = −$1.86M. [Lithia Motors 8-K / FY2025 earnings release, SEC EDGAR, filed February 2026; proportional estimate — inference]",
+        "delta_value": "−$20.5M (capitalised at 11x self-anchored forward P/E on −$1.86M after-tax ΔE/yr)",
+        "implied_move_pct": -0.24,
+        "observed_move_pct": null,
+        "gap_read": "priced",
+        "caveats": "Observed move: LAD June 13–17 2026 daily closes not obtained from open-web searches conducted on 2026-07-12; the −0.24% implied move is within daily noise and no detectable price reaction is expected. Driveway partially captures volume that Carvana might otherwise attract, making the net displacement even smaller. Geographic overlap caveat applies (same as AN). Proportional-share math is a rough approximation. This is a fundamentals floor, not a verdict.",
+        "sources": [
+          {
+            "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=LAD",
+            "source_name": "Lithia Motors 8-K / FY2025 earnings release, SEC EDGAR, filed February 2026",
+            "source_grade": "A",
+            "retrieved_at": "2026-07-12",
+            "claim_supported": "New vehicle revenue FY2025 $18.70B (~49.7% of $37.635B total), 680+ stores"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=LAD",
+          "source_name": "Lithia Motors 8-K / FY2025 earnings release, SEC EDGAR, filed February 2026",
+          "source_grade": "A",
+          "retrieved_at": "2026-07-12",
+          "claim_supported": "New vehicle revenue FY2025 $18.70B (~49.7% of $37.635B total); 680+ stores; FY2025 total revenue $37.635B"
+        }
+      ]
+    },
+    {
+      "candidate_id": "CND-004",
+      "ticker": "ALLY",
+      "company_name": "Ally Financial Inc.",
+      "exchange": "NYSE",
+      "side": "long",
+      "beneficiary_ref": "IND-001",
+      "exposure_score": 55,
+      "exposure_rationale": "Automotive Finance was ~70.4% of FY2025 consolidated net revenue ($5,572M of $7,914M); Ally is a named Carvana financing partner (The Motley Fool, July 11 2026), creating a direct named-relationship path for incremental loan originations from rising new- and used-vehicle unit volumes. Mechanism is one step removed (unit sales → loan originations), and rates/credit risk are co-drivers of earnings independent of the thesis. [Ally Financial Annual Report FY2025, SEC EDGAR, filed March 2026; The Motley Fool, July 11 2026]",
+      "liquidity_note": "NYSE large-cap. Active and liquid. No suspension found.",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run_root": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "pair_with": "CND-002",
+      "caveats": "Bank holding company: net interest margin and credit loss provisions are co-determinants of earnings alongside auto-loan volume — macro rates and credit-cycle exposure means ALLY can underperform even if Carvana volumes grow. The thesis tailwind is real but competes with macro drivers the thesis does not explain. No news-impact sizing was performed on ALLY (the news-impact agent sized the direct issuer CVNA and direct competitors AN/LAD only). A research run starts from scratch: no data pool exists.",
+      "news_impact": {
+        "applicable": false,
+        "mode": "not_applicable",
+        "missing_reason": "News-impact sizing agent sized CVNA (direct issuer), AN, and LAD (direct competitors) — the three candidates with both an observable market reaction and a directly quantifiable earnings delta from the 7-store event. ALLY's incremental loan origination from 7 Carvana stores is too diffuse to size without Carvana-specific loan attachment rate data not available from any source reviewed.",
+        "recurrence": "not_applicable",
+        "event_quantification": null,
+        "delta_value": null,
+        "implied_move_pct": null,
+        "observed_move_pct": null,
+        "gap_read": "not_applicable",
+        "caveats": null,
+        "sources": []
+      },
+      "sources": [
+        {
+          "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=ALLY",
+          "source_name": "Ally Financial Annual Report FY2025, SEC EDGAR, filed March 2026",
+          "source_grade": "A",
+          "retrieved_at": "2026-07-12",
+          "claim_supported": "Automotive Finance segment net revenue $5,572M = ~70.4% of FY2025 consolidated total net revenue of $7,914M"
+        },
+        {
+          "url": "https://www.fool.com/investing/2026/07/11/prediction-carvanas-new-car-business-will-work/?source=iedfolrf0000001",
+          "source_name": "The Motley Fool, July 11 2026",
+          "source_grade": "B",
+          "retrieved_at": "2026-07-12",
+          "claim_supported": "Ally Financial named as Carvana financing partner for new-car sales"
+        }
+      ]
+    },
+    {
+      "candidate_id": "CND-005",
+      "ticker": "PAG",
+      "company_name": "Penske Automotive Group, Inc.",
+      "exchange": "NYSE",
+      "side": "short",
+      "beneficiary_ref": "DIR-002",
+      "exposure_score": 44,
+      "exposure_rationale": "New-vehicle revenues were ~40% of FY2025 total Retail Automotive revenue ($12,855M); however, roughly 50%+ of total PAG revenue comes from international operations (UK, Germany, etc.) that are not exposed to Carvana's U.S. CDJR displacement thesis. The U.S.-specific thesis exposure is therefore well under half of total revenue. New-vehicle unit sales fell 11% in Q4 2025. [Penske 10-K FY2025, SEC EDGAR, filed February 2026]",
+      "liquidity_note": "NYSE large-cap (~$11B market cap, Web estimate, indicative, unverified). Active and liquid. No suspension found.",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run_root": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "pair_with": null,
+      "caveats": "International operations (UK, Germany, ~50%+ of revenue) are structurally insulated from the U.S.-focused thesis mechanism — this is the primary dilution. The score of 44 reflects this structural mismatch. No news-impact sizing performed (the news-impact agent did not size PAG). A research run starts from scratch: no data pool exists.",
+      "sources": [
+        {
+          "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=PAG",
+          "source_name": "Penske 10-K FY2025, SEC EDGAR, filed February 2026",
+          "source_grade": "A",
+          "retrieved_at": "2026-07-12",
+          "claim_supported": "New vehicle revenues FY2025 $12,855.4M (~40% of FY2025 Retail Automotive total); FY2025 total revenue $31.8B; international operations ~50%+ of total revenue; new-vehicle unit sales −11% Q4 2025"
+        }
+      ]
+    },
+    {
+      "candidate_id": "CND-006",
+      "ticker": "KMX",
+      "company_name": "CarMax, Inc.",
+      "exchange": "NYSE",
+      "side": "long",
+      "beneficiary_ref": "DIR-001",
+      "exposure_score": 38,
+      "exposure_rationale": "Used-vehicle retail dominates CarMax revenue (~$8.01B total Q2 CY2026); CarMax holds ~3.6% U.S. used-car market share for 0–10 year vehicles. The thesis mechanism for KMX is a channel tailwind (rising consumer acceptance of online car buying, confirmed by Carvana's results) rather than direct participation in Carvana's franchise disruption. Indirect mechanism lowers exposure purity below 40. [Yahoo Finance / CarMax Q2 CY2026 press release, indicative]",
+      "liquidity_note": "NYSE large-cap. Active and liquid. No suspension found.",
+      "prior_coverage": {
+        "has_run": false,
+        "latest_run_root": null,
+        "latest_decision": null,
+        "data_pool_present": false
+      },
+      "pair_with": null,
+      "caveats": "Exposure is indirect: KMX benefits from the same consumer shift Carvana is proving but does not participate in the franchise disruption. A weaker Q2 CVNA result would not necessarily harm KMX, and vice versa — the correlation to the thesis mechanism is loose. No news-impact sizing performed. A research run starts from scratch: no data pool exists.",
+      "sources": [
+        {
+          "url": "https://finance.yahoo.com/quote/KMX/",
+          "source_name": "Yahoo Finance / CarMax Q2 CY2026 press release",
+          "source_grade": "B",
+          "retrieved_at": "2026-07-12",
+          "claim_supported": "CarMax Q2 CY2026 total revenue $8.01B (+6.2% YoY); ~3.6% U.S. used-car market share (0–10 year vehicles)"
+        }
+      ]
+    }
+  ]
+}
