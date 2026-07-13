@@ -27,11 +27,19 @@ launchctl bootout "gui/$U/com.nostradamus.failover" 2>/dev/null || true
 launchctl bootstrap "gui/$U" "$PLIST"
 echo "  bootstrapped com.nostradamus.failover"
 
-sleep 4   # RunAtLoad fires the first tick immediately
+# Wait for the first REAL tick to write a fresh heartbeat. The log is intentionally silent when
+# steady (dormant), so we watch the heartbeat file instead — it's always current, never stale.
+HB="$HOME/.nostra-ops/failover.status"
+before="$(stat -f %m "$HB" 2>/dev/null || echo 0)"
+for _ in $(seq 1 75); do
+  now="$(stat -f %m "$HB" 2>/dev/null || echo 0)"
+  [ "$now" != "$before" ] && break
+  sleep 1
+done
 echo
 echo "loaded?"; launchctl list | grep -E 'nostradamus' || echo "  (nothing — check the log)"
-echo "first decision (expect dormant — the primary is up):"
-tail -3 "$HOME/Library/Logs/nostradamus-failover.log" 2>/dev/null | sed 's/^/  /' || echo "  (no log yet)"
+echo "live heartbeat (expect decision=DORMANT, connectors=1, dryrun=0):"
+echo "  $(cat "$HB" 2>/dev/null || echo '(no heartbeat yet — check ~/Library/Logs/nostradamus-failover.log)')"
 echo
 echo "done. This node is a DORMANT standby. It will take over only if the primary is"
 echo "globally absent for 10 min while this Mac is awake, and stand back down when it returns."
