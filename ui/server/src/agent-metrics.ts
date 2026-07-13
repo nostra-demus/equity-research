@@ -2,6 +2,7 @@ import path from 'node:path'
 import { execa } from 'execa'
 import { REPO_ROOT } from './config'
 import type { RunState } from './registry'
+import type { RunKind } from './types'
 
 // Per-agent cost + runtime, written to <RUN_ROOT>/agent_metrics.json when a run finalizes — so every run
 // leaves a per-agent record the audit can aggregate across runs (the gap the screener-module audit found:
@@ -36,10 +37,23 @@ export function agentMetricsArgs(sessionId: string, runRoot: string): string[] {
   ]
 }
 
+// Only kinds that mint their OWN run folder get a metrics file: `full` (analyses/<ticker>_<date>) and
+// `signal` (screener/runs/<sig>). `module`/`agent`/`rerun`/`screener-agent` REUSE an existing run folder, and
+// `sweep`/`handoff` share one (screener/inbox, screener/ledger); writing there would overwrite — or, for the
+// shared committed roots, mis-attribute — another run's metrics. The full/signal run already recorded every
+// sub-agent it spawned under one session, so skipping the reused-root kinds loses nothing but the collision.
+const METRICS_RUN_KINDS = new Set<RunKind>(['full', 'signal'])
+
+// A run earns a metrics file only if it has a session to attribute AND mints its OWN run folder. Exported so
+// the guard is unit-testable without spawning python or a paid run.
+export function shouldWriteAgentMetrics(run: Pick<RunState, 'runRoot' | 'sessionId' | 'kind'>): boolean {
+  return Boolean(run.runRoot) && Boolean(run.sessionId) && METRICS_RUN_KINDS.has(run.kind)
+}
+
 // Fire-and-forget on run finalize. Never throws; never blocks finalization.
 export function writeAgentMetrics(run: RunState): void {
-  if (!run.runRoot || !run.sessionId) return // no session transcript to attribute → no metrics file (we don't fake one)
-  void execa('python3', agentMetricsArgs(run.sessionId, run.runRoot), {
+  if (!shouldWriteAgentMetrics(run)) return // no session/runRoot, or a reused/shared run root → don't fake or clobber
+  void execa('python3', agentMetricsArgs(run.sessionId!, run.runRoot!), {
     cwd: REPO_ROOT,
     timeout: 120_000,
     reject: false, // a non-zero report (e.g. transcripts not found) is not a run failure

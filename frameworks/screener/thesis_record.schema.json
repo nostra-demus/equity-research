@@ -278,7 +278,7 @@
         },
         "analyst_rating_distribution": {
           "type": "object",
-          "description": "LEGACY (optional) — retained so pre-2026-07 records validate. New runs do NOT populate this here: analyst ratings + estimate dispersion are owned by M0_6_2 (market-implied); M0.6.1 stopped pulling them because a second copy from a different source contradicted M0_6_2.",
+          "description": "M0.6.1 owns the analyst buy/hold/sell recommendation split — a belief signal that evidences unanimity_rating. Optional; provide a missing_reason where unfindable. (Estimate dispersion is NOT here — it moved to M0_6_2 to end a contradictory second copy from a different source.)",
           "properties": {
             "buy_count": { "type": ["integer", "null"] },
             "hold_count": { "type": ["integer", "null"] },
@@ -292,7 +292,7 @@
         },
         "estimate_dispersion": {
           "type": "object",
-          "description": "LEGACY (optional) — see analyst_rating_distribution above. Dispersion now lives only in M0_6_2.estimate_dispersion; this M0_6_1 copy is retained for old records, not produced by new runs.",
+          "description": "LEGACY (optional) — retained so pre-2026-07 records validate. Dispersion now lives only in M0_6_2.estimate_dispersion; this M0_6_1 copy is not produced by new runs (it was a contradictory second copy from a different source).",
           "properties": {
             "current_high_estimate": { "type": ["number", "string", "null"] },
             "current_low_estimate": { "type": ["number", "string", "null"] },

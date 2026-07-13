@@ -9,7 +9,7 @@ import os from 'node:os'
 import path from 'node:path'
 process.env.ENGINE_STATE_DIR = fs.mkdtempSync(path.join(os.tmpdir(), 'agentmetrics-'))
 process.on('exit', () => { try { fs.rmSync(process.env.ENGINE_STATE_DIR!, { recursive: true, force: true }) } catch {} }) // don't leave the temp dir behind
-const { agentMetricsArgs, writeAgentMetrics } = await import('../src/agent-metrics')
+const { agentMetricsArgs, writeAgentMetrics, shouldWriteAgentMetrics } = await import('../src/agent-metrics')
 const { REPO_ROOT } = await import('../src/config')
 import type { RunState } from '../src/registry'
 
@@ -58,6 +58,25 @@ check('write guard: a run with no sessionId short-circuits (no throw, nothing sp
 })
 check('write guard: a run with no runRoot short-circuits (no throw, nothing spawned)', () => {
   writeAgentMetrics({ runRoot: null, sessionId: 'sess-abc' } as unknown as RunState)
+})
+
+// Finding 4 (Codex): the metrics filename is fixed per run root, so only kinds that mint their OWN run folder
+// may write it. `full`/`signal` do; `module`/`agent`/`rerun`/`screener-agent` reuse a folder and
+// `sweep`/`handoff` share one (screener/inbox, screener/ledger) — writing there would clobber or mis-attribute
+// another run's metrics, so the guard must skip them.
+const guardBase = { runRoot: 'analyses/FOO_2026-07-14', sessionId: 'sess-1' }
+check('kind guard: full and signal runs earn a metrics file', () => {
+  assert.equal(shouldWriteAgentMetrics({ ...guardBase, kind: 'full' } as RunState), true)
+  assert.equal(shouldWriteAgentMetrics({ ...guardBase, kind: 'signal' } as RunState), true)
+})
+check('kind guard: reused/shared-root kinds are skipped (no clobber / mis-attribution)', () => {
+  for (const kind of ['module', 'agent', 'rerun', 'screener-agent', 'sweep', 'handoff'] as const) {
+    assert.equal(shouldWriteAgentMetrics({ ...guardBase, kind } as RunState), false, `${kind} must be skipped`)
+  }
+})
+check('kind guard: a missing session or runRoot is skipped even for full/signal', () => {
+  assert.equal(shouldWriteAgentMetrics({ runRoot: 'analyses/FOO', sessionId: undefined, kind: 'full' } as unknown as RunState), false)
+  assert.equal(shouldWriteAgentMetrics({ runRoot: null, sessionId: 'sess-1', kind: 'signal' } as unknown as RunState), false)
 })
 
 console.log(`\n${passed} checks passed`)
