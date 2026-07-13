@@ -202,6 +202,9 @@ const AUTO_RESUME_BATCH = 4 // most to kick off per cycle (the server's own cap 
 export interface StreamRow { runId: string; ticker: string; key: string; name: string; module: string; layer: number; status: NodeStatus; verdict?: string | null; ts: number }
 export interface ActiveRun {
   runId: string; ticker: string; kind: string; module?: string; agent?: string; status: string; swarmId?: string; costUsd?: number; willCommitToMain?: boolean; plannedCount?: number; startedAt?: number
+  // this run's OWN folder, captured from the run-started event — lets the run-done/run-error refresh target
+  // exactly the run that finished, instead of resolving by ticker to the (possibly older) standing run
+  runRoot?: string | null
   // live-heartbeat fields (run-heartbeat SSE, ~3s cadence) — all optional so an older server (deploy
   // skew) simply renders no heartbeat line (fail closed):
   agentsDone?: number
@@ -941,7 +944,9 @@ export const useStore = create<State>((set, get) => ({
       set({ nodeRuntime: seed, runRoot: manifest.runRoot ?? null, reports: { memo: !!manifest.memo, thesis: !!manifest.finalThesis, dossier: !!manifest.fullDossier }, moduleReports: manifest.moduleReports ?? {} })
     } catch {}
     try {
-      const decision = await api.decision(t, isResearch ? undefined : sw)
+      // honor the run-history pick: an explicit runRoot loads THAT run's decision (not the standing run's),
+      // so the manifest and the decision banner stay on the same run instead of mixing an older verdict in.
+      const decision = await api.decision(t, isResearch ? undefined : sw, isResearch ? runRoot : undefined)
       if (get().selectToken !== token) return
       set({ decision })
     } catch {
@@ -1436,7 +1441,10 @@ export const useStore = create<State>((set, get) => ({
     const sw = get().constellationSwarm
     const isResearch = sw === 'research'
     try {
-      const res = await api.thesis(t, isResearch ? undefined : sw)
+      // open the thesis of the CURRENTLY-loaded run (get().runRoot, which selectTicker set to the run the
+      // user opened — standing by default, or a specific run picked from history) rather than re-resolving
+      // by ticker to the standing run — otherwise opening an older run would show the standing run's thesis.
+      const res = await api.thesis(t, isResearch ? undefined : sw, isResearch ? (get().runRoot ?? undefined) : undefined)
       const vf = get().swarms.find((w) => w.id === sw)?.verdictField
       // a swarm's final deliverable is its terminal module's synthesis (the dossier) — derive the
       // reader's prompt/re-run target from the returned path; research keeps the master node.
@@ -2193,6 +2201,15 @@ export const useStore = create<State>((set, get) => ({
         }
         break
       }
+      case 'run-started': {
+        // capture the run's OWN folder so the run-done/run-error refresh below can target THIS run (the
+        // just-finished folder) instead of resolving by ticker to the standing run. A fresh module-only
+        // re-run writes a new dated folder with no decision record; a by-ticker (preferComplete) refresh
+        // would otherwise roll the cockpit back to the older complete run and hide what just landed.
+        const r = get().activeRuns[e.runId]
+        if (r && e.runRoot) patch.activeRuns = { ...get().activeRuns, [e.runId]: { ...r, runRoot: e.runRoot } }
+        break
+      }
       case 'run-done': {
         if (get().readinessGate?.runId === e.runId) patch.readinessGate = null // a terminal event always closes the gate panel
         if (get().stoppingRuns[e.runId]) { const s = { ...get().stoppingRuns }; delete s[e.runId]; patch.stoppingRuns = s }
@@ -2207,8 +2224,10 @@ export const useStore = create<State>((set, get) => ({
           // resolve the finished run's OWN swarm (positive match only — an absent swarmId means an
           // older engine, which only ever runs research; never default a swarm in permissively)
           const rSw = r.swarmId && r.swarmId !== 'research' ? r.swarmId : undefined
-          // keep reports/decision current as each step lands (memo/thesis stay false until the master)
-          api.runManifest(selected, undefined, rSw).then((m) => {
+          // keep reports/decision current as each step lands (memo/thesis stay false until the master).
+          // target the run's OWN folder (r.runRoot, from run-started) so a module-only re-run surfaces what
+          // just landed instead of the by-ticker refresh resolving back to the older standing run.
+          api.runManifest(selected, r.runRoot ?? undefined, rSw).then((m) => {
             if (m.finalThesis) set({ nodeRuntime: { ...get().nodeRuntime, ['master/synthesizer']: { status: 'done', outputPath: `${m.runRoot}/final_thesis.md` } } })
             set({ runRoot: m.runRoot ?? get().runRoot, reports: { memo: !!m.memo, thesis: !!m.finalThesis, dossier: !!m.fullDossier }, moduleReports: m.moduleReports ?? get().moduleReports })
           }).catch(() => {})
@@ -2216,7 +2235,7 @@ export const useStore = create<State>((set, get) => ({
             patch.coreBloom = true
             if (bloomTimer) clearTimeout(bloomTimer)
             bloomTimer = setTimeout(() => set({ coreBloom: false }), 4500)
-            api.decision(selected, rSw).then((d) => set({ decision: d })).catch(() => {})
+            api.decision(selected, rSw, r.runRoot ?? undefined).then((d) => set({ decision: d })).catch(() => {})
             if (chained) set({ chainTickers: new Set([...get().chainTickers].filter((x) => x !== r.ticker)) })
             get().setToast({ msg: 'Run complete', tone: 'good' })
           } else {
@@ -2242,7 +2261,7 @@ export const useStore = create<State>((set, get) => ({
               ? (e.message || 'The pipeline finished but the final thesis & memo were not produced.')
               : `Pipeline stopped at ${r.module || 'a step'} (${e.status}) — fix it and re-run from there.`
             get().setToast({ msg, tone: 'bad' })
-            api.runManifest(selected).then((m) => set({ runRoot: m.runRoot ?? get().runRoot, reports: { memo: !!m.memo, thesis: !!m.finalThesis, dossier: !!m.fullDossier }, moduleReports: m.moduleReports ?? get().moduleReports })).catch(() => {})
+            api.runManifest(selected, r.runRoot ?? undefined).then((m) => set({ runRoot: m.runRoot ?? get().runRoot, reports: { memo: !!m.memo, thesis: !!m.finalThesis, dossier: !!m.fullDossier }, moduleReports: m.moduleReports ?? get().moduleReports })).catch(() => {})
           }
           break
         }
@@ -2252,7 +2271,7 @@ export const useStore = create<State>((set, get) => ({
             get().setToast({ msg: e.message || 'Run finished but the final thesis & memo were not produced — re-run from the master to finish.', tone: 'bad' })
             // surface whatever DID get written so the cockpit isn't blank (in the run's OWN swarm)
             const rSw = r?.swarmId && r.swarmId !== 'research' ? r.swarmId : undefined
-            if (r && r.ticker === selected) api.runManifest(selected, undefined, rSw).then((m) => set({ runRoot: m.runRoot ?? get().runRoot, reports: { memo: !!m.memo, thesis: !!m.finalThesis, dossier: !!m.fullDossier }, moduleReports: m.moduleReports ?? get().moduleReports })).catch(() => {})
+            if (r && r.ticker === selected) api.runManifest(selected, r.runRoot ?? undefined, rSw).then((m) => set({ runRoot: m.runRoot ?? get().runRoot, reports: { memo: !!m.memo, thesis: !!m.finalThesis, dossier: !!m.fullDossier }, moduleReports: m.moduleReports ?? get().moduleReports })).catch(() => {})
           } else {
             get().setToast({ msg: e.reason === 'out_of_credits' ? 'Out of credits — run could not execute' : `Run ${e.status}: ${e.reason}`, tone: 'bad' })
             if (e.reason === 'out_of_credits') patch.credit = { ok: false, reason: 'out_of_credits', checked: true }

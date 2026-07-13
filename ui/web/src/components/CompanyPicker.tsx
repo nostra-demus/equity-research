@@ -45,7 +45,10 @@ export function CompanyPicker() {
       setHistLoading(ticker)
       api.history(ticker)
         .then((r) => setHistCache((c) => ({ ...c, [ticker]: r.history })))
-        .catch(() => setHistCache((c) => ({ ...c, [ticker]: [] }))) // fail-closed: an empty history, retried on next expand
+        // leave the cache UNSET on failure so `!histCache[ticker]` stays true and the next expand actually
+        // retries (caching [] here would look identical to a genuinely empty history and never retry). Until
+        // then the render shows its empty state, and re-opening the row re-fetches.
+        .catch(() => {})
         .finally(() => setHistLoading((l) => (l === ticker ? null : l)))
     }
   }
@@ -133,6 +136,10 @@ export function CompanyPicker() {
     if (e.key === 'ArrowDown') { e.preventDefault(); setHi((h) => Math.min(h + 1, filtered.length - 1)) }
     else if (e.key === 'ArrowUp') { e.preventDefault(); setHi((h) => Math.max(h - 1, 0)) }
     else if (e.key === 'Enter') { e.preventDefault(); const t = filtered[hi]; if (t) selectTicker(t.ticker) }
+    // keyboard path to the run-history expander (the chevron is a pointer-only affordance): →/Space-less
+    // open on the highlighted ticker, ← close. Gives non-pointer users the same access to per-ticker history.
+    else if (e.key === 'ArrowRight') { const t = filtered[hi]; if (t && t.valid !== false && t.runCount > 1 && expanded !== t.ticker) { e.preventDefault(); toggleExpand(t.ticker) } }
+    else if (e.key === 'ArrowLeft') { const t = filtered[hi]; if (t && expanded === t.ticker) { e.preventDefault(); toggleExpand(t.ticker) } }
     else if (e.key === 'Escape') { if (q) setQ(''); else inputRef.current?.blur() }
   }
 

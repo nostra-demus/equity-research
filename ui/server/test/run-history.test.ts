@@ -19,10 +19,22 @@ process.env.ENGINE_REPO_ROOT = TMP
 const ANALYSES = path.join(TMP, 'analyses')
 fs.mkdirSync(ANALYSES, { recursive: true })
 
-function writeRun(dir: string, opts: { decision?: unknown; malformed?: boolean; dossier?: boolean; thesis?: boolean; modules?: string[] }) {
+function writeRun(dir: string, opts: { decision?: unknown; malformed?: boolean; dossier?: boolean; thesis?: boolean; modules?: string[]; support?: string[] }) {
   const abs = path.join(ANALYSES, dir)
   fs.mkdirSync(abs, { recursive: true })
-  for (const m of opts.modules ?? []) fs.mkdirSync(path.join(abs, m), { recursive: true })
+  // A real module folder carries the engine's numbered agent outputs (NN_*.md) — write one so the module is
+  // detected the way listRunsForTicker detects it (an empty dir is not a module).
+  for (const m of opts.modules ?? []) {
+    fs.mkdirSync(path.join(abs, m), { recursive: true })
+    fs.writeFileSync(path.join(abs, m, '00_data-triage.md'), `# ${m}`)
+  }
+  // Run-support folders that are NOT modules: reviews/ (*.json + *_memo_delta.md) and _pool_extracts/ (*.txt).
+  // Written with their real content types (no NN_*.md) so the module filter must exclude them by structure.
+  for (const s of opts.support ?? []) {
+    fs.mkdirSync(path.join(abs, s), { recursive: true })
+    if (s === 'reviews') { fs.writeFileSync(path.join(abs, s, '2026-01-01_30d_decision_review.json'), '{}'); fs.writeFileSync(path.join(abs, s, '2026-01-01_30d_memo_delta.md'), '# delta') }
+    else fs.writeFileSync(path.join(abs, s, 'Company__Balance-Sheet.txt'), 'x')
+  }
   if (opts.malformed) fs.writeFileSync(path.join(abs, 'decision_record.json'), '{ this is not json')
   else if (opts.decision !== undefined) fs.writeFileSync(path.join(abs, 'decision_record.json'), JSON.stringify(opts.decision))
   if (opts.dossier) fs.writeFileSync(path.join(abs, 'audit_dossier.md'), '# dossier')
@@ -34,8 +46,14 @@ function writeRun(dir: string, opts: { decision?: unknown; malformed?: boolean; 
 writeRun('AMZN_2026-07-01', { modules: ['business-model'] })
 writeRun('AMZN_2026-07-03', { modules: ['business-model', 'earnings'] })
 writeRun('AMZN_2026-07-04', { modules: ['management-governance', 'balance-sheet-survival'] })
-writeRun('AMZN_2026-07-10', { decision: { decision: 'Watchlist', decision_date: '2026-07-10', confidence_score: null }, dossier: true, thesis: true, modules: ['balance-sheet-survival', 'business-model', 'catalyst', 'earnings', 'management-governance', 'valuation'] })
+// The full run also carries run-support folders (reviews/ + _pool_extracts/) alongside its 6 real modules —
+// those must NOT be reported or counted as modules (they hold no NN_*.md agent output).
+writeRun('AMZN_2026-07-10', { decision: { decision: 'Watchlist', decision_date: '2026-07-10', confidence_score: null }, dossier: true, thesis: true, modules: ['balance-sheet-survival', 'business-model', 'catalyst', 'earnings', 'management-governance', 'valuation'], support: ['reviews', '_pool_extracts'] })
 writeRun('AMZN_2026-07-11', { modules: ['management-governance'] })
+// ARR — the newest run's decision_record.json parses but is an ARRAY (hand-edited / half-written), not an
+// object: it is NOT a usable "decided" signal, so the last GOOD (object) run must remain the standing pick.
+writeRun('ARR_2026-02-01', { decision: { decision: 'Buy', decision_date: '2026-02-01', confidence_score: 64 }, dossier: true, modules: ['business-model'] })
+writeRun('ARR_2026-02-05', { decision: [1, 2, 3], modules: ['valuation'] })
 // BG — only partial runs, none decided: the standing pick falls back to the newest folder.
 writeRun('BG_2026-06-01', { modules: ['business-model'] })
 writeRun('BG_2026-06-08', { modules: ['earnings'] })
@@ -100,6 +118,25 @@ check('a half-written newest decision record does not win the standing pick', ()
   assert.equal(summarizeRuns('MAL').latestRun?.decision, 'Buy')
   assert.equal(`analyses/${standingRunDir('MAL')}`, 'analyses/MAL_2026-01-02')
   assert.equal(resolveRunRoot({ ticker: 'MAL', preferComplete: true }), 'analyses/MAL_2026-01-02')
+})
+
+// ---- a decision record that parses but is NOT an object (array/primitive) is treated as incomplete ----
+// (guards summarizeRuns + standingRunDir; the two paths must stay in agreement)
+check('an array (non-object) decision record does not win the standing pick', () => {
+  assert.equal(summarizeRuns('ARR').latestRun?.runRoot, 'analyses/ARR_2026-02-01')
+  assert.equal(summarizeRuns('ARR').latestRun?.decision, 'Buy')
+  assert.equal(summarizeRuns('ARR').hasNewerPartial, true) // the newer array run is a partial shadowing the standing one
+  assert.equal(`analyses/${standingRunDir('ARR')}`, 'analyses/ARR_2026-02-01')
+  assert.equal(resolveRunRoot({ ticker: 'ARR', preferComplete: true }), 'analyses/ARR_2026-02-01')
+})
+
+// ---- run-support folders (reviews/, _pool_extracts/) are NOT reported or counted as modules ----
+check('listRunsForTicker excludes run-support folders from a run’s modules', () => {
+  const r = listRunsForTicker('AMZN').find((x) => x.date === '2026-07-10')!
+  assert.equal(r.modules.length, 6) // 6 real modules, NOT 8
+  assert.ok(!r.modules.includes('reviews'), 'reviews must not be listed as a module')
+  assert.ok(!r.modules.includes('_pool_extracts'), '_pool_extracts must not be listed as a module')
+  assert.deepEqual(r.modules, ['balance-sheet-survival', 'business-model', 'catalyst', 'earnings', 'management-governance', 'valuation'])
 })
 
 // ---- unknown ticker: null everywhere, no throw ----

@@ -550,7 +550,10 @@ export const api = {
     }
     return get(`/api/prompt?path=${encodeURIComponent(path)}`)
   },
-  thesis: async (ticker: string, swarm?: string): Promise<{ path: string; markdown?: string }> => {
+  // research: an explicit runRoot opens THAT run's thesis/decision (a run-history pick, or the just-finished
+  // run on a live refresh); without it the ticker resolves server-side to its standing run. Keeps the
+  // manifest and the decision/thesis reads on the SAME run instead of mixing an older run's verdict in.
+  thesis: async (ticker: string, swarm?: string, runRoot?: string): Promise<{ path: string; markdown?: string }> => {
     if ((await ensureMode()) === 'static') {
       const p = snap.finalThesis?.[ticker]
       if (!p) throw new Error('no thesis')
@@ -558,12 +561,12 @@ export const api = {
     }
     // a constellation swarm resolves its subject's terminal deliverable (the dossier) by swarm+subject
     if (swarm && swarm !== 'research') return get(`/api/output/thesis?swarm=${encodeURIComponent(swarm)}&subject=${encodeURIComponent(ticker)}`)
-    return get(`/api/output/thesis?ticker=${encodeURIComponent(ticker)}`)
+    return get(`/api/output/thesis?${runRoot ? `runRoot=${encodeURIComponent(runRoot)}` : `ticker=${encodeURIComponent(ticker)}`}`)
   },
-  decision: async (ticker: string, swarm?: string): Promise<any> => {
+  decision: async (ticker: string, swarm?: string, runRoot?: string): Promise<any> => {
     if ((await ensureMode()) === 'static') return snap.decisions[ticker]
     if (swarm && swarm !== 'research') return get(`/api/output/decision?swarm=${encodeURIComponent(swarm)}&subject=${encodeURIComponent(ticker)}`)
-    return get(`/api/output/decision?ticker=${encodeURIComponent(ticker)}`)
+    return get(`/api/output/decision?${runRoot ? `runRoot=${encodeURIComponent(runRoot)}` : `ticker=${encodeURIComponent(ticker)}`}`)
   },
   runManifest: async (ticker: string, runRoot?: string, swarm?: string): Promise<any> => {
     if ((await ensureMode()) === 'static') return snap.runs[ticker]

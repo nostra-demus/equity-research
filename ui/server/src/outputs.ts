@@ -34,10 +34,11 @@ export function standingRunDir(ticker: string): string | null {
   if (!dirs.length) return null
   for (const d of dirs) {
     try {
-      // "complete" means the decision record PARSES — a missing or half-written record shouldn't win the
-      // standing pick (this matches summarizeRuns in data-status.ts, so the pill and the open path agree).
-      JSON.parse(fs.readFileSync(path.join(ANALYSES_DIR, d, 'decision_record.json'), 'utf8'))
-      return d
+      // "complete" means the decision record PARSES INTO AN OBJECT — a missing, half-written, or non-object
+      // (array / primitive, e.g. a hand-edited file) record shouldn't win the standing pick. This matches the
+      // object guard in summarizeRuns (data-status.ts), so the pill and the open path always agree.
+      const dr = JSON.parse(fs.readFileSync(path.join(ANALYSES_DIR, d, 'decision_record.json'), 'utf8'))
+      if (dr && typeof dr === 'object' && !Array.isArray(dr)) return d
     } catch { /* missing or malformed — keep scanning older runs */ }
   }
   return dirs[0]
@@ -138,11 +139,19 @@ export function listRunsForTicker(ticker: string) {
       confidence = typeof dr.confidence_score === 'number' ? dr.confidence_score : null
       decisionDate = dr.decision_date ?? null
     } catch {}
-    // Module folders present in this run (its subdirectories). Labels a run in the history view as a full
-    // pipeline vs a single-module re-run. Directory-derived, so it stays zero-touch as modules change (§26).
+    // Module folders present in this run. Labels a run in the history view as a full pipeline vs a
+    // single-module re-run. A real module folder carries the engine's numbered agent outputs (`NN_*.md`,
+    // incl. its `99_*-synthesis.md`); run-support folders do NOT — `reviews/` holds `*.json` + `*_memo_delta.md`
+    // and `_pool_extracts/` holds `*.txt`. Deriving membership from that output pattern (not "every subdir")
+    // keeps it zero-touch as modules change (§26) and stops support dirs being reported/counted as modules.
     let modules: string[] = []
     try {
-      modules = fs.readdirSync(runAbs, { withFileTypes: true }).filter((e) => e.isDirectory() && !e.name.startsWith('.')).map((e) => e.name).sort()
+      modules = fs.readdirSync(runAbs, { withFileTypes: true })
+        .filter((e) => e.isDirectory() && !e.name.startsWith('.'))
+        .filter((e) => {
+          try { return fs.readdirSync(path.join(runAbs, e.name)).some((f) => /^\d\d_.*\.md$/.test(f)) } catch { return false }
+        })
+        .map((e) => e.name).sort()
     } catch {}
     return {
       runRoot,

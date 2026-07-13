@@ -1072,14 +1072,19 @@ export function summarizeRuns(
     if (fs.existsSync(drPath)) {
       try {
         const dr = JSON.parse(fs.readFileSync(drPath, 'utf8'))
-        standing = {
-          runRoot: `analyses/${d}`,
-          decision: dr.decision ?? null,
-          decisionDate: dr.decision_date ?? null,
-          confidence: typeof dr.confidence_score === 'number' ? dr.confidence_score : null,
+        // Only a decision record that parses INTO AN OBJECT is a usable "this run decided" signal. A non-object
+        // (array / primitive, e.g. a hand-edited or half-written file) is treated as incomplete and we keep
+        // scanning — matching standingRunDir's guard in outputs.ts so the pill and the open path agree.
+        if (dr && typeof dr === 'object' && !Array.isArray(dr)) {
+          standing = {
+            runRoot: `analyses/${d}`,
+            decision: dr.decision ?? null,
+            decisionDate: dr.decision_date ?? null,
+            confidence: typeof dr.confidence_score === 'number' ? dr.confidence_score : null,
+          }
+          standingDir = d
+          break
         }
-        standingDir = d
-        break
       } catch { /* malformed record — treat as incomplete and keep scanning older runs */ }
     }
     // The NEWEST partial / in-progress run (no usable decision record). Used only if none are complete.
