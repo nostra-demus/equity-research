@@ -162,7 +162,7 @@ Every file in `data/EMAR/` is listed. Multi-tab workbooks are exploded — **eac
 
 ## 4. Cross-Module Availability
 
-`analyses/EMAR_2026-07-10/business-model/` exists and is fully populated (00–12 + 99 synthesis).
+`analyses/EMAAR_2026-07-10/business-model/` exists and is fully populated (00–12 + 99 synthesis).
 
 | Business-Model Output | Available? |
 |---|---|

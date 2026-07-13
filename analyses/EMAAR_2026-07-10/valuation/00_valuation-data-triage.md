@@ -1,6 +1,6 @@
 # Valuation Data Triage — EMAR
 
-Company: **Emaar Properties PJSC** (DFM:EMAAR). Data pool: `data/EMAR/`. Extract pool: `analyses/EMAR_2026-07-10/_pool_extracts/` (fresh — 20 workbooks → 57 tabs, 69 extracts, **0 extraction failures**; all 32 source files `status: ok` in `manifest.json`). CIQ deterministic facts sidecar `ciq_facts.json` is present and pinned into the reads below.
+Company: **Emaar Properties PJSC** (DFM:EMAAR). Data pool: `data/EMAR/`. Extract pool: `analyses/EMAAR_2026-07-10/_pool_extracts/` (fresh — 20 workbooks → 57 tabs, 69 extracts, **0 extraction failures**; all 32 source files `status: ok` in `manifest.json`). CIQ deterministic facts sidecar `ciq_facts.json` is present and pinned into the reads below.
 
 Periods below are parsed from INSIDE each document (period-end / "as of" / filing-date lines), NOT the Drive-sync last-modified date (fix F23). All CIQ financial tabs are in **AED**; the Capital IQ comps workbook is converted to **USD** at spot (flag for `01`).
 

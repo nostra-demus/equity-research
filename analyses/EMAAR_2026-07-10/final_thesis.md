@@ -93,7 +93,7 @@ The auditable core of the verdict — for each decision driver, which side won a
 
 ## 6. Valuation and Peer Mispricing
 
-*This section DEFERS to `analyses/EMAR_2026-07-10/valuation/99_valuation-synthesis.md`. Verdict: **Modestly undervalued** — base-case fair value **AED 15.00** vs a pool-verified **AED 12.20** price (+23.0% to base, **+18.7% margin of safety** — the discount of price to fair value). Bull / base / bear fair-value LEVELS: **AED 21.00 / 15.00 / 9.75** (these feed the Scenario Model in §8; the module supplies the levels, the synthesizer assigns the probabilities). Cross-method dispersion (the "football field") is wide: ~AED 9.6 to ~AED 23.8 — a >40% spread that is itself the headline finding.*
+*This section DEFERS to `analyses/EMAAR_2026-07-10/valuation/99_valuation-synthesis.md`. Verdict: **Modestly undervalued** — base-case fair value **AED 15.00** vs a pool-verified **AED 12.20** price (+23.0% to base, **+18.7% margin of safety** — the discount of price to fair value). Bull / base / bear fair-value LEVELS: **AED 21.00 / 15.00 / 9.75** (these feed the Scenario Model in §8; the module supplies the levels, the synthesizer assigns the probabilities). Cross-method dispersion (the "football field") is wide: ~AED 9.6 to ~AED 23.8 — a >40% spread that is itself the headline finding.*
 
 **The core disagreement is one question:** value Emaar on its **assets** (sum-of-the-parts + DCF terminal + book value → ~AED 17–18) or on **normalized through-cycle earnings at a fair multiple** (→ ~AED 11–12.6)? Today's AED 12.20 price sits squarely in the through-cycle-earnings camp. The dominant method is **sum-of-the-parts (SOTP)** — it is the right tool for a holding-company-like hybrid, it is the only method that surfaces the masked mall annuity, and it already bakes in a 20% government-owner discount. The normalized free-cash-flow DCF corroborates the ~AED 17–18 asset value with a model that is not terminal-value-dependent (terminal value is only 36% of enterprise value — a plus for reliability).
 
@@ -111,7 +111,7 @@ The auditable core of the verdict — for each decision driver, which side won a
 
 ## 7. Catalyst Calendar
 
-*This section DEFERS to `analyses/EMAR_2026-07-10/catalyst/99_catalyst-synthesis.md`. Verdict: **Dated, evidenced near-term catalysts** — but the highest-impact catalyst (the re-rate) is **undated and §24 Filter-6 value-trap gated**. Timing visibility 42/100 (mixed-leaning-vague); catalyst strength 47/100.*
+*This section DEFERS to `analyses/EMAAR_2026-07-10/catalyst/99_catalyst-synthesis.md`. Verdict: **Dated, evidenced near-term catalysts** — but the highest-impact catalyst (the re-rate) is **undated and §24 Filter-6 value-trap gated**. Timing visibility 42/100 (mixed-leaning-vague); catalyst strength 47/100.*
 
 | Date / Window | Catalyst | Why It Matters | Bullish Trigger | Bearish Trigger |
 |---|---|---|---|---|
@@ -165,7 +165,7 @@ The bull / base / bear **levels** are taken from the valuation module (AED 21.00
 
 ## 9b. Governance & Stewardship
 
-*This section DEFERS to `analyses/EMAR_2026-07-10/management-governance/99_management-governance-synthesis.md`, which supersedes the business-model capital-allocation quick-read.*
+*This section DEFERS to `analyses/EMAAR_2026-07-10/management-governance/99_management-governance-synthesis.md`, which supersedes the business-model capital-allocation quick-read.*
 
 - **Stewardship verdict:** **Standard / mixed.** Governance Score **59/100** → **Watchlist** rating; Confidence-Adjusted Governance Score **41/100** (= 59 × 0.70 for source quality). Sub-scores: management quality 70, capital allocation 70, incentive alignment 50, shareholder friendliness 53, disclosure candor 65 (capped — no verbatim transcript), governance risk 58 (inverted, higher = worse).
 - **Capital-allocation record (per share):** genuinely value-creative — EPS AED 0.52→1.99, dividend AED 0.25→1.00/sh, ROIC 4.7%→13.7%, net cash ~AED 25bn (broad) / AED 2.1bn (strict), dividend covered ~2.9–3.7× by free cash, and **every classic value-destruction trap avoided** (no debt-funded M&A spree, no high-price buybacks, no uncovered dividend). Worst single item: the AED 7.5bn Dubai Creek Harbour asset bought *from* the controlling parent, part-paid in new Emaar shares, with no arm's-length price shown to minorities.
@@ -274,7 +274,7 @@ All figures computed with an executed Python snippet (WORKFLOW Step 4); the Head
 *Compressed per the No-Bloat Rule: each module's verdict, scores, red flags and the 3–5 decision-moving facts, with the full `99_*-synthesis.md` path for the audit trail. Nothing here is re-narrated from Parts I–II.*
 
 ## Chapter A: Business Model
-*Full file: `analyses/EMAR_2026-07-10/business-model/99_business-model-synthesis.md` (all 13 specialists read; no upstream missing).*
+*Full file: `analyses/EMAAR_2026-07-10/business-model/99_business-model-synthesis.md` (all 13 specialists read; no upstream missing).*
 
 - **Verdict:** *Cyclical business — worth deeper work only with a strong timing edge.* No hard disqualifier triggered (0 of 8). Business clarity 80, business quality **53** (Mixed/Average, "cyclical, not a durable compounder"), moat **68** (Narrow, eroding), external-dependency **63** (inverted — mostly externally driven), capital allocation & governance 66, overall usefulness 60.
 - **Decision-moving facts:** (1) ~80% of FY2025 revenue is off-plan Dubai residential (AED 39.6bn of AED 49.6bn); 93% of revenue is UAE — single-city concentration at a cycle peak. (2) The funding model *is* the edge: buyers pre-fund construction via ~AED 44bn regulated escrow, so working capital is customer-financed; combined with net cash and the AED 163bn backlog, downside is about *returns*, not *solvency*. (3) Through-cycle ROIC ~7.5–9.5% (tax-normalized) vs ~11–12% cost of capital — clears the hurdle only at the peak (13.7% LTM). (4) Out-earns the one listed peer Aldar by ~18 EBIT-margin points, but that superiority rests mainly on the Aldar anchor (DAMAC/Sobha private).
@@ -282,35 +282,35 @@ All figures computed with an executed Python snippet (WORKFLOW Step 4); the Head
 - **§24 filters (this module owns 1, 4, 5):** none tripped — Filter 5 rate-of-change 72 (>40), so RF-BQ-005 **not** emitted; this is a property-cycle bet, not a technology-disruption bet.
 
 ## Chapter B: Earnings
-*Full file: `analyses/EMAR_2026-07-10/earnings/99_earnings-synthesis.md` (all 9 specialists read).*
+*Full file: `analyses/EMAAR_2026-07-10/earnings/99_earnings-synthesis.md` (all 9 specialists read).*
 
 - **Verdict:** *Mixed earnings setup* — near-term accelerating and beatable, medium-term decelerating. Earnings quality **81** (cash-backed, minimal adjustments), consensus setup 60 (near-term beatable), earnings volatility **52** (inverted — material sensitivity), next-quarter favors a profit-line beat. **Red-flag severity verdict (verbatim): Material concerns** (0 Critical, 6 High, 8 Medium, 2 Low).
 - **Decision-moving facts:** (1) The six High red flags are **one root risk in six views** — a geared claim on a decelerating, peak-cycle Dubai developer with a lagging, backlog-fed P&L; the most dangerous is "good print, bad signal." (2) Revenue runs on two clocks: recognized revenue rising ~28–40% (backlog conversion) while the demand that refills it decelerates (pre-sales +16%, backlog growth +39%→+29%). (3) Development gross margin is fading off a cycle high (63%→55%, guided "low 50s"); flat EBITDA/EBIT margins only hide it behind cost leverage. (4) Model off **GAAP** EPS (AED 1.99, already net of minorities) — the P&L is clean; only the reported cash headline needs a ~27% haircut to a normalized ~AED 22.6bn.
 - **Caps applied:** earnings clarity ≤70 (no verbatim transcript, only sell-side proxies); earnings-volatility confidence Low (company discloses no sensitivity for its real property-demand exposure). Neither caps the headline scores.
 
 ## Chapter C: Balance-Sheet-Survival
-*Full file: `analyses/EMAR_2026-07-10/balance-sheet-survival/99_balance-sheet-survival-synthesis.md` (all 7 specialists read).*
+*Full file: `analyses/EMAAR_2026-07-10/balance-sheet-survival/99_balance-sheet-survival-synthesis.md` (all 7 specialists read).*
 
 - **Verdict:** *Fortress balance sheet.* Solvency strength 90, liquidity runway 90, refinancing risk **12** (inverted — very low), downside resilience 92, overall usefulness 90. Covenant headroom **Not assessable** (lender thresholds undisclosed).
 - **Decision-moving facts:** (1) **Net cash on both bases** — strict AED 2,115m (§15 total-debt−cash) / broad AED 24,969m (nets in short-term investments), gross leverage 0.40x on peak EBITDA / 0.69x on mid-cycle EBITDA, and debt still falling. (2) The only near-term capital-markets maturity is one AED 2,752.6m sukuk due 15 Sep 2026, covered **4.4×** by free cash — self-funded, not refinancing-dependent. (3) One year's normalized operating cash (~AED 22.6bn) covers all maturities, all interest **and** the whole AED 8.8bn dividend with ~AED 8.9bn to spare. (4) **Stress break point: the structure first cracks only at a ~−94% EBITDA collapse** (an assumed 3.0x interest-cover covenant) — deeper than its own worst −69% cycle. This is the §24 Filter-3 positive that floors the bear.
 - **Note:** the only cyclical pressure point is the *discretionary* AED 8.8bn dividend, cut long before debt service is ever at risk. Biggest data gap: actual lender covenant thresholds + change-of-control terms (sukuk offering circular).
 
 ## Chapter D: Management-Governance
-*Full file: `analyses/EMAR_2026-07-10/management-governance/99_management-governance-synthesis.md` (all 6 specialists read; supersedes the business-model governance quick-read).*
+*Full file: `analyses/EMAAR_2026-07-10/management-governance/99_management-governance-synthesis.md` (all 6 specialists read; supersedes the business-model governance quick-read).*
 
 - **Verdict:** *Standard / mixed.* Governance Score **59** → **Watchlist**; Confidence-Adjusted 41. Management quality 70, capital allocation 70, incentive alignment 50, shareholder friendliness 53, disclosure candor 65 (capped — no transcript), governance risk 58 (inverted). Red flags **2 / 0 Critical**: RF-OWN-004 (High), RF-MGT-001 (High/watch). No hard disqualifier.
 - **Decision-moving facts:** (1) **RF-OWN-004** is the whole governance story and the binding rating cap — a Government-of-Dubai controller (Dubai Holding 29.73%), a board on which every "independent" director is a government official, and an IAS 24 election that leaves the largest related-party channel unquantified. (2) No *proven* extraction today: dividends are pro-rata, no pledging, one share/one vote, clean audits, net cash — the risk is the *channel and the owner's objective*, not a demonstrated leak (§24 Filter 6 = structural cap, not a discount to arbitrage). (3) The founder-MD (Alabbar, 0.03%) takes AED 61m with no share link and chairs a competing developer (Eagle Hills). (4) The AED 7.5bn Dubai Creek Harbour asset was bought *from* the parent, part-paid in new Emaar shares, no arm's-length price shown — the template for the killer risk.
 - **Since last run (2026-07-03):** verdict upgraded one band (*Misaligned/weak* → *Standard/mixed*), driven mostly by **correcting prior language-driven caps** (all filings are English — §27: a translated/English fact is a fact), partly offset by a more conservative capital-allocation re-score (82→70). A new CFO-exit watch item was added.
 
 ## Chapter E: Valuation
-*Full file: `analyses/EMAR_2026-07-10/valuation/99_valuation-synthesis.md` (all 8 specialists read).*
+*Full file: `analyses/EMAAR_2026-07-10/valuation/99_valuation-synthesis.md` (all 8 specialists read).*
 
 - **Verdict:** *Modestly undervalued* — base FV **AED 15.00** vs **AED 12.20** price (+18.7% margin of safety); bull/base/bear **AED 21.00 / 15.00 / 9.75**. Valuation attractiveness 54 (capped ≤60 by RF-OWN-004), margin of safety 49, valuation confidence 55, downside risk 50 (inverted), overall usefulness 80. Dominant method **sum-of-the-parts**.
 - **Decision-moving facts:** (1) The wholly-owned Emaar Malls annuity alone ~AED 76.8bn EV ≈ 79% of current EV from 22% of profit; malls + net cash ≈ the whole market cap. (2) Reverse-DCF: the price implies FCF shrinking ~13.4%/yr for a decade at a ~21% through-cycle margin — below the FY2021 trough (23.5%) and Aldar (27.2%) — pricing structural impairment the backlog contradicts. (3) The >40% cross-method spread (~AED 9.6–23.8) *is* the finding: assets (~AED 17–18) vs through-cycle earnings (~AED 11–12.6); today's price sits in the earnings camp. (4) **RF-OWN-004 is the one binding cap** — value-trap flag mandatory; verdict held at "Modestly undervalued" (no better on a cheap multiple alone).
 - **Explicit handoff (honored):** the master assigns the scenario probabilities and computes the risk/reward off these levels; the module supplies the levels only.
 
 ## Chapter F: Catalyst
-*Full file: `analyses/EMAR_2026-07-10/catalyst/99_catalyst-synthesis.md` (2 specialists + 5 upstream modules read).*
+*Full file: `analyses/EMAAR_2026-07-10/catalyst/99_catalyst-synthesis.md` (2 specialists + 5 upstream modules read).*
 
 - **Verdict:** *Dated, evidenced near-term catalysts* — but the highest-impact one is undated and §24 Filter-6 gated. Catalyst strength 47, timing visibility 42, catalyst risk 56 (inverted), overall usefulness 70.
 - **Decision-moving facts:** (1) Nearest dated catalyst: Q2 2026 results ~10 Aug (event certain, exact day CIQ-estimated). (2) Single most important: the Dubai demand trajectory — the *signal* is dated (quarterly), the *cycle turn* and any *re-rate* are not. (3) Near-term calendar skews mildly bearish ("good print, bad signal"). (4) The AED 200bn masterplan, the FY2026 AGM, and the re-rate itself are all Filter-6 flagged and **must not be read as conviction-lifting**. Full 12-month calendar reproduced in §7.
@@ -322,7 +322,7 @@ All figures computed with an executed Python snippet (WORKFLOW Step 4); the Head
 *Sub-agent output index per module (verdict lines drawn from each module's Specialist Roll-Up). Drill into the referenced files for the underlying evidence.*
 
 ## Appendix A: Business Model — Sub-Agent Outputs
-Folder: `analyses/EMAR_2026-07-10/business-model/`
+Folder: `analyses/EMAAR_2026-07-10/business-model/`
 
 | File | Agent | Verdict / Headline Finding |
 |---|---|---|
@@ -341,7 +341,7 @@ Folder: `analyses/EMAR_2026-07-10/business-model/`
 | `12_red-flags-sweep.md` | red-flags-sweep | 3 flags; most severe = NCI leakage (52); founder-MD competing Eagle Hills (45); Syria (33) |
 
 ## Appendix B: Earnings — Sub-Agent Outputs
-Folder: `analyses/EMAR_2026-07-10/earnings/`
+Folder: `analyses/EMAAR_2026-07-10/earnings/`
 
 | File | Agent | Verdict / Headline Finding |
 |---|---|---|
@@ -356,7 +356,7 @@ Folder: `analyses/EMAR_2026-07-10/earnings/`
 | `08_earnings-red-flags.md` | earnings-red-flags | **Material concerns** — 0 Critical, 6 High (one root risk), 8 Medium, 2 Low |
 
 ## Appendix C: Balance-Sheet-Survival — Sub-Agent Outputs
-Folder: `analyses/EMAR_2026-07-10/balance-sheet-survival/`
+Folder: `analyses/EMAAR_2026-07-10/balance-sheet-survival/`
 
 | File | Agent | Verdict / Headline Finding |
 |---|---|---|
@@ -369,7 +369,7 @@ Folder: `analyses/EMAR_2026-07-10/balance-sheet-survival/`
 | `06_downside-stress-test.md` | downside-stress-test | Survives −30/−40/−60/−69% with no breach; first break at ~−94% EBITDA collapse |
 
 ## Appendix D: Management-Governance — Sub-Agent Outputs
-Folder: `analyses/EMAR_2026-07-10/management-governance/`
+Folder: `analyses/EMAAR_2026-07-10/management-governance/`
 
 | File | Agent | Verdict / Headline Finding |
 |---|---|---|
@@ -382,7 +382,7 @@ Folder: `analyses/EMAR_2026-07-10/management-governance/`
 | `06_candor-and-disclosure-quality.md` | candor-and-disclosure-quality | Mixed (65, capped); no adjusted-EPS engineering (positive), but promotional releases soft-pedal the margin fade |
 
 ## Appendix E: Valuation — Sub-Agent Outputs
-Folder: `analyses/EMAR_2026-07-10/valuation/`
+Folder: `analyses/EMAAR_2026-07-10/valuation/`
 
 | File | Agent | Verdict / Headline Finding |
 |---|---|---|
@@ -396,7 +396,7 @@ Folder: `analyses/EMAR_2026-07-10/valuation/`
 | `07_scenario-and-fair-value.md` | scenario-and-fair-value | Modestly undervalued; base AED 15.00, bull 21 / bear 9.75; MoS +18.7%, downside-to-bear +20.1% |
 
 ## Appendix F: Catalyst — Sub-Agent Outputs
-Folder: `analyses/EMAR_2026-07-10/catalyst/`
+Folder: `analyses/EMAAR_2026-07-10/catalyst/`
 
 | File | Agent | Verdict / Headline Finding |
 |---|---|---|
@@ -464,7 +464,7 @@ CIQ consensus is present and current (~28 Jun 2026, post the Q1 print):
 
 ## 18. Balance Sheet and Survival Test
 
-*This section DEFERS to `analyses/EMAR_2026-07-10/balance-sheet-survival/99_balance-sheet-survival-synthesis.md`. Verdict: **Fortress balance sheet.***
+*This section DEFERS to `analyses/EMAAR_2026-07-10/balance-sheet-survival/99_balance-sheet-survival-synthesis.md`. Verdict: **Fortress balance sheet.***
 
 - **Net debt:** **net cash** on both bases — strict AED 2,115m (§15 total-debt−cash), broad AED 24,969m (nets in ~AED 22.9bn short-term/liquid investments — labeled broad, the CIQ vendor basis). Gross debt AED 10,064m and falling (from AED 12,981m in FY2023).
 - **Cash & liquidity:** free cash AED 12,180m; committed liquidity ~AED 16.2bn (incl. ~AED 3.7bn undrawn revolver to 2030); plus ~AED 43.3bn RERA customer escrow (restricted).
