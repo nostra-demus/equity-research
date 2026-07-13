@@ -94,19 +94,22 @@ const NOW = () => new Date('2026-07-13T12:00:00Z')
 // a mock fetch that serves canned responses per URL, or FAILS on demand
 function mockFetch(opts: { failMacro?: boolean; failUs?: boolean; failIn?: boolean } = {}): typeof fetch {
   return (async (url: string) => {
-    const u = String(url)
+    // route on the parsed HOSTNAME, not a substring of the URL — a substring host check
+    // (u.includes('api.nasdaq.com')) is exactly the incomplete-sanitization pattern CodeQL flags.
+    let host = ''
+    try { host = new URL(String(url)).hostname } catch { host = '' }
     const ok = (body: unknown) => ({ ok: true, status: 200, json: async () => body, text: async () => JSON.stringify(body) })
     const okText = (s: string) => ({ ok: true, status: 200, json: async () => ({}), text: async () => s })
     const fail = { ok: false, status: 500, json: async () => ({}), text: async () => '' }
-    if (u.includes('api.nasdaq.com')) {
+    if (host === 'api.nasdaq.com') {
       if (opts.failUs) return fail as any
       return ok({ data: { rows: [{ symbol: 'AAPL', name: 'Apple', time: 'time-after-hours', epsForecast: '1.5', noOfEsts: '20' }] } }) as any
     }
-    if (u.includes('nseindia.com')) {
+    if (host === 'www.nseindia.com') {
       if (opts.failIn) return fail as any
       return ok([{ symbol: 'RELIANCE', company: 'Reliance', purpose: 'Financial Results', date: '20-Jul-2026' }]) as any
     }
-    if (u.includes('bea.gov')) {
+    if (host === 'www.bea.gov') {
       if (opts.failMacro) return fail as any
       return okText('BEGIN:VCALENDAR\nBEGIN:VEVENT\nSUMMARY:Gross Domestic Product\\, Q2 2026\nDTSTART;VALUE=DATE-TIME:20260713T133000Z\nEND:VEVENT\nEND:VCALENDAR') as any
     }
