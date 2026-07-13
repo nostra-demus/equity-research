@@ -5,6 +5,7 @@
 // handled module/agent/rerun and then fell through to `/<ns>:full` for everything else — so a commodity
 // `doc-intake` (the auto-analyze-on-landing signal) would launch a full PAID run: the loop's own success
 // signal triggering the exact expensive run it exists to avoid. This test guarantees it never regresses.
+// (Also carried by PR #239; folded here because the commodity re-score tail depends on it.)
 process.env.ENGINE_ACTIVITY_LOG_DISABLED = '1'
 import assert from 'node:assert/strict'
 import { buildPrompt } from '../src/launcher'

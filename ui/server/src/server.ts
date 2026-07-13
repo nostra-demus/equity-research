@@ -18,7 +18,7 @@ import { ARTICLE_READ_PROVIDERS, CHAT, DATA_DIR, FILING_READ_PROVIDERS, GDRIVE, 
 import { getCreditStatus } from './credit'
 import { analyzeTicker, listTickers } from './data-status'
 import { ensureCompanyFolder, uploadToCompany, deleteDriveFile, companyFolderExists, driveErrorMessage, GDRIVE_ENABLED } from './drive'
-import { cancel, cancelAll, cancelSubject, creditCheck, decideReadiness, estimate, launch, sigIdFor, todayDate, warmLaunchProbes } from './launcher'
+import { cancel, cancelAll, cancelSubject, creditCheck, decideReadiness, estimate, finalDeliverablesPresent, launch, sigIdFor, todayDate, warmLaunchProbes } from './launcher'
 import { newsBus } from './news/bus'
 import { readFeed, searchFeed } from './news/feed'
 import { getPulse } from './news/commodity-pulse'
@@ -43,7 +43,7 @@ import { FEEDBACK_MAX_IMAGES, type FeedbackCategory, type FeedbackItemRecord, ap
 import { dryRunFeedbackDispatch, startFeedbackDispatch } from './feedback-dispatch'
 import { runReadiness } from './readiness'
 import { IN_FLIGHT_STATUSES, getRun, listRuns, subscribe, unsubscribe, type SseClient } from './registry'
-import { agentNamesForModule, buildSwarmGraph, findLatestRunRoot, findRunRootForSubject, graphForSubject, graphForTicker, listModuleNames, swarmSubjects, terminalModuleName } from './roster'
+import { agentNamesForModule, buildSwarmGraph, findRunRootForSubject, graphForSubject, graphForTicker, listModuleNames, swarmSubjects, terminalModuleName } from './roster'
 import { listAllCalls, listRunsForTicker, readDecision, readMarkdown, readPrompt, resolveRunRoot, runManifest } from './outputs'
 import { assembleContext, buildChatPrompts, scopeAvailability } from './chat-context'
 import { chatTurnsInFlight, runChatTurn } from './chat-llm'
@@ -2065,21 +2065,46 @@ function scheduleAutoIntake(ticker: string) {
   autoIntakeTimers.set(ticker, setTimeout(() => { autoIntakeTimers.delete(ticker); void fireAutoIntake(ticker) }, AUTO_INTAKE_DEBOUNCE_MS))
 }
 
+// Does this swarm have a FINISHED run for the subject at `runRoot`? The terminal artifact differs by swarm:
+// research writes BOTH final_thesis.md + decision_record.json (finalDeliverablesPresent); a constellation
+// swarm (commodity) ends on decision_record.json alone (there is no final_thesis.md outside research,
+// launcher.ts). Never use finalDeliverablesPresent for a non-research swarm — its `&&` would reject a
+// legitimately-finished commodity run.
+function hasFinishedRun(swarmId: string, runRoot: string): boolean {
+  if (swarmId === RESEARCH_SWARM_ID) return finalDeliverablesPresent(runRoot)
+  return fs.existsSync(path.join(runRoot, 'decision_record.json'))
+}
+
+// `data/<SUBJECT>/` is a shared namespace across research (tickers) + constellation swarms (e.g. commodity
+// subjects), so a pool change alone doesn't say which swarm owns it. Resolve it by finding the swarm that
+// has a FINISHED run for the subject (first match wins; research is ordered first, so a subject that is
+// somehow both resolves to research — an unlikely edge). Returns null when no swarm has a finished run.
+function resolveSwarmForSubject(subject: string): { swarm: string; runRoot: string } | null {
+  for (const s of listSwarms()) {
+    const rr = findRunRootForSubject(s.id, subject)
+    if (rr && hasFinishedRun(s.id, rr)) return { swarm: s.id, runRoot: rr }
+  }
+  return null
+}
+
 async function fireAutoIntake(ticker: string, attempt = 0): Promise<void> {
   try {
     if (!AUTO_INTAKE_ON) return
     // still mid-sync? wait out the burst and retry a few times, so we analyze the settled pool, not a half-copy.
     if (syncingState(ticker).syncing && attempt < 4) { setTimeout(() => void fireAutoIntake(ticker, attempt + 1), SYNC_WINDOW_MS); return }
-    // intake only makes sense against a finished thesis — nothing to scope otherwise.
-    const runRoot = findLatestRunRoot(ticker)
-    if (!runRoot || !fs.existsSync(path.join(runRoot, 'final_thesis.md'))) return
+    // intake only makes sense against a finished run — resolve the OWNING swarm from the shared data/<SUBJECT>/
+    // namespace and use ITS terminal artifact (research: final_thesis.md; commodity: decision_record.json).
+    const owner = resolveSwarmForSubject(ticker)
+    if (!owner) return
     // dedupe: skip if the pool has not gained a newer file since the last auto-analysis (a restart re-fires once).
     const newest = dataPoolNewest(ticker).newestDate || ''
     if (newest && autoIntakeLastNewest.get(ticker) === newest) return
-    // never analyze while a run (research OR a prior intake) is already in flight on this subject.
+    // never analyze while a run (a real run OR a prior intake) is already in flight on this subject.
     if (listRuns().some((r) => r.subjectId === ticker && (IN_FLIGHT_STATUSES.has(r.status) || r.endedAt === undefined))) return
     autoIntakeLastNewest.set(ticker, newest)
-    await launch({ kind: 'doc-intake', ticker, user: 'auto', userVia: 'local' })
+    // doc-intake dispatches the OWNING swarm's `:intake` command (research → /research:intake,
+    // commodity → /commodity:intake) via buildPrompt; research omits `swarm` to match the existing default.
+    await launch({ kind: 'doc-intake', ticker, ...(owner.swarm !== RESEARCH_SWARM_ID ? { swarm: owner.swarm } : {}), user: 'auto', userVia: 'local' })
   } catch {
     /* best-effort — admission conflict / capacity / CLI-missing just skip; the manual Analyze button remains */
   }
