@@ -105,10 +105,14 @@ def _collect_sidecars(data_path):
         if not _is_sidecar(base):
             continue
         try:
-            out[os.path.relpath(p, data_path)[: -len(SIDECAR_SUFFIX)]] = json.load(
-                open(p, encoding="utf-8"))
+            parsed = json.load(open(p, encoding="utf-8"))
         except Exception:  # noqa — a malformed sidecar degrades to path-derived provenance
             continue
+        # A sidecar that parses to a NON-object (a bare JSON array/scalar) is malformed the same way an
+        # unparseable one is: skip it so the doc falls to path-derived provenance, never a non-dict stored
+        # in prov_map that the fold would later call .get() on (AttributeError). Only objects are provenance.
+        if isinstance(parsed, dict):
+            out[os.path.relpath(p, data_path)[: -len(SIDECAR_SUFFIX)]] = parsed
     return out
 
 
@@ -178,8 +182,8 @@ def _prov_summary(row):
     if p.get("tier"):
         bits.append(f"tier {p['tier']}")
     tc = p.get("tier_corrected")
-    if tc:
-        bits.append(f"⚠ tier corrected (declared {tc.get('declared')}, over-claimed)")
+    if isinstance(tc, dict):  # only a real correction dict (written by _enforce_tier_ceiling) renders a flag;
+        bits.append(f"⚠ tier corrected (declared {tc.get('declared')}, over-claimed)")  # a pre-declared non-dict is ignored
     if p.get("as_of"):
         bits.append(f"as-of {p['as_of']}")
     return "external: " + " · ".join(bits)

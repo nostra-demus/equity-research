@@ -294,6 +294,43 @@ def test_external_tier_ceiling() -> None:
         check("tier-ceiling: manifest.md flags the over-claim", "⚠ tier corrected" in md, md[-800:])
 
 
+def test_malformed_sidecar() -> None:
+    """A `<doc>.source.json` sidecar that is NOT a JSON object — a bare array/scalar, or a dict whose
+    `tier_corrected` field is itself not an object — must never crash the fold. A non-object sidecar
+    degrades to path-derived provenance (exactly like no sidecar at all); a non-object `tier_corrected`
+    is ignored, not rendered. A hand-edited or auto-connector-written sidecar is precisely the untrusted
+    input EXTERNAL_DATA.md §4 guards against, so it must fail CLOSED (path-derived / ignored), never raise."""
+    import json as _json
+
+    with tempfile.TemporaryDirectory() as pool_td, tempfile.TemporaryDirectory() as out_td:
+        pool = Path(pool_td)
+        ext = pool / "external" / "acme"
+        ext.mkdir(parents=True)
+        # sidecar is a valid-JSON ARRAY, not an object → the loader stored it verbatim and the fold called
+        # .get() on a list → AttributeError, crashing the whole pool extract. Must degrade to path-derived.
+        (ext / "arr.txt").write_text("doc whose sidecar is a bare JSON array")
+        (ext / "arr.txt.source.json").write_text(_json.dumps(["not", "an", "object"]))
+        # sidecar is a valid object but pre-declares tier_corrected as a STRING (not a dict) → the manifest
+        # summary called tc.get('declared') on a str → AttributeError. Must be ignored, not rendered.
+        (ext / "badtc.txt").write_text("doc whose sidecar pre-declares a non-object tier_corrected")
+        (ext / "badtc.txt.source.json").write_text(_json.dumps({
+            "provider": "Acme", "source_type": "alt_data_panel", "tier": 5, "tier_corrected": "boom"}))
+
+        manifest = ep.extract_pool(str(pool), out_td, vision=False)  # must NOT raise
+        prov = {s["file"]: (s.get("provenance") or {}) for s in manifest["sources"] if s.get("external")}
+
+        arr = prov.get("arr.txt", {})
+        check("malformed-sidecar: non-object sidecar degrades to path-derived (provider=folder, tier 9)",
+              arr.get("provider") == "acme" and arr.get("tier") == 9
+              and arr.get("source_type") == "external_other", str(arr))
+        badtc = prov.get("badtc.txt", {})
+        check("malformed-sidecar: object sidecar with non-dict tier_corrected still folds (tier 5 kept)",
+              badtc.get("tier") == 5, str(badtc))
+        md = (Path(out_td) / "manifest.md").read_text()  # building the summary must not raise
+        check("malformed-sidecar: manifest.md renders, non-object tier_corrected not shown as a flag",
+              "boom" not in md, md[-400:])
+
+
 def main() -> int:
     print("== sniff: content beats extension ==")
     test_sniff()
@@ -305,6 +342,8 @@ def main() -> int:
     test_external_provenance()
     print("== external tier-ceiling masquerade guard (§4/§5) ==")
     test_external_tier_ceiling()
+    print("== malformed sidecar fails closed (non-object / non-dict tier_corrected) ==")
+    test_malformed_sidecar()
     print(f"\n{_passed} passed, {_failed} failed, {_skipped} skipped")
     return 1 if _failed else 0
 
