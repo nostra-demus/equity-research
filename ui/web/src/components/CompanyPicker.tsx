@@ -37,8 +37,11 @@ export function CompanyPicker() {
   const [histCache, setHistCache] = useState<Record<string, RunHistoryEntry[]>>({})
   const [histLoading, setHistLoading] = useState<string | null>(null)
   const toggleExpand = (ticker: string) => {
-    setExpanded((cur) => (cur === ticker ? null : ticker))
-    if (!histCache[ticker]) {
+    const willExpand = expanded !== ticker
+    setExpanded(willExpand ? ticker : null)
+    // fetch the timeline once, and only when actually OPENING it — not on collapse, and not if a fetch for
+    // this ticker is already in flight or cached (avoids the redundant GET a fast re-toggle would otherwise fire)
+    if (willExpand && !histCache[ticker] && histLoading !== ticker) {
       setHistLoading(ticker)
       api.history(ticker)
         .then((r) => setHistCache((c) => ({ ...c, [ticker]: r.history })))
@@ -212,13 +215,12 @@ export function CompanyPicker() {
               >
                 <span className="coco__sym">
                   {canExpand ? (
-                    <span
-                      className={`coco__disc${isExp ? ' is-open' : ''}`}
-                      role="button"
-                      aria-expanded={isExp}
-                      aria-label={isExp ? `Hide ${t.ticker} run history` : `Show ${t.ticker} run history — ${t.runCount} runs`}
-                      title={`${t.runCount} runs — show history`}
-                    >
+                    // Decorative pointer affordance, not an ARIA button: a real interactive control can't nest
+                    // inside the row <button>, and the row's primary keyboard action is select (opens the
+                    // standing dossier). The click is delegated via the row's onClick (which tests .coco__disc);
+                    // the "N runs" text below carries the same cue for non-pointer users, so the chevron is
+                    // hidden from the accessibility tree rather than announced as a control that can't be operated.
+                    <span className={`coco__disc${isExp ? ' is-open' : ''}`} title={`${t.runCount} runs — ${isExp ? 'hide' : 'show'} history`} aria-hidden>
                       <svg className="coco__chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden><path d="m9 6 6 6-6 6" /></svg>
                     </span>
                   ) : (
