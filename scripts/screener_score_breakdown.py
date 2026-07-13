@@ -32,6 +32,15 @@ EVENT_TYPE_WEIGHT = {
     "management": 4, "cybersecurity": 4,
     "product": 3, "commercial": 3, "operations": 3, "macro_sector": 3,
     "rumor": 1,
+    # High-signal Key-Development subtypes (Capital IQ parity; signal_payload.schema.json enum +
+    # ui/server/src/news/triage/groq.ts EVENT_TYPES + rank-weights.ts). The distress/red-flag family
+    # (default, rating downgrade, restatement) sits in the top band (6) — a survival or §13 accounting
+    # event maxes the +6 add-on cap on its own. Governance/capital-return signals scale down from there.
+    "default_distress": 6, "credit_rating_downgrade": 6, "accounting_restatement": 6,
+    "ownership_activist": 5, "dividend_cut": 5, "strategic_review": 5,
+    "executive_exit": 4, "credit_rating_upgrade": 4,
+    "index_rebalance": 3, "restructuring_layoffs": 3,
+    "insider_transaction": 2,
 }
 
 # ---- component 3: company_relevance ------------------------------------------------------------

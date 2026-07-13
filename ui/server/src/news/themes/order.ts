@@ -23,7 +23,12 @@ export interface OrderSignals {
 // acquires, dividend, stake) are excluded — they flip meaning by context and would mis-side the company.
 const HARM_RE = /\b(administration|insolven\w*|liquidat\w*|bankrupt\w*|winding up|wind-up|defaults?|defaulting|fraud\w*|scam|probe|investigat\w*|lawsuit|sued|fined?|penalt\w*|enforcement|sanction\w*|banned|recalls?|recalled|breach|hacked?|cyberattack|outage|shutdown|resign\w*|ousted|slumps?|plunges?|crash\w*|miss(es|ed)?|warns?|warning|downgrade[ds]?|delist\w*|writedown|impair\w*|losses?|halts?)\b/
 const GAIN_RE = /\b(wins?|won|awarded|bags|secures?|approvals?|approved|cleared|first-to-market|positive|beats?|tops?|surges?|soars?|jumps?|upgrade[ds]?|buyback|launch(es|ed)?|expands?|milestone)\b/
-const HARM_EVENTS = new Set(['litigation_enforcement', 'debt_credit', 'cybersecurity'])
+// Unambiguously-bad-for-the-subject events add a one-way harm nudge (the regex above already catches the
+// cue words; these back it up for the high-signal distress subtypes). executive_exit / strategic_review /
+// restructuring_layoffs are deliberately EXCLUDED — an exit can be a planned retirement, a sale process is
+// often a positive, and a layoff is read as cost-cutting as often as weakness (the regex sides them when the
+// cue is clear).
+const HARM_EVENTS = new Set(['litigation_enforcement', 'debt_credit', 'cybersecurity', 'default_distress', 'credit_rating_downgrade', 'accounting_restatement', 'dividend_cut'])
 
 /**
  * Deterministic beneficiary/harmed read — CONSERVATIVE by design. Only reads a side from headlines where
@@ -49,10 +54,16 @@ export function sideFromHeadlines(solo: string[] | undefined, dominantEvent: str
 // (fast) timeline and its effect is medium-reversible — same treatment as its tied event weight
 // (rank-weights.ts: capex = capital_actions = 6). Without this a capex-dominant theme's directly-named
 // issuer falls to the generic `ev ? 8 : 12` speed / `ev ? 10 : 12` reversibility path and under-ranks.
-const FAST_EVENTS = new Set(['mna', 'guidance_change', 'debt_credit', 'capital_actions', 'capex', 'litigation_enforcement'])
-const MID_EVENTS = new Set(['earnings_revenue_margin', 'regulatory', 'management', 'product', 'commercial', 'cybersecurity'])
-const PERMANENT_EVENTS = new Set(['mna', 'debt_credit', 'litigation_enforcement', 'management', 'regulatory'])
-const MEDIUM_REV_EVENTS = new Set(['capital_actions', 'capex', 'guidance_change', 'product', 'cybersecurity', 'earnings_revenue_margin'])
+// The high-signal Key-Development subtypes (groq.ts EVENT_TYPES) placed on the same speed/reversibility
+// axes. Distress/rating/restatement/dividend-cut/activist/exec-exit play out fast AND leave a structurally
+// permanent mark (a default, downgrade, restatement or cut doesn't fade like a quarter's miss); a strategic
+// review, index rebalance or restructuring plays out fast but is medium-reversible (a review may lead
+// nowhere, flows reverse, a plan can be rescoped). insider_transaction is a slower, medium-reversible
+// aggregate signal, treated like earnings_revenue_margin.
+const FAST_EVENTS = new Set(['mna', 'guidance_change', 'debt_credit', 'capital_actions', 'capex', 'litigation_enforcement', 'default_distress', 'credit_rating_downgrade', 'credit_rating_upgrade', 'accounting_restatement', 'dividend_cut', 'executive_exit', 'ownership_activist', 'strategic_review', 'index_rebalance', 'restructuring_layoffs'])
+const MID_EVENTS = new Set(['earnings_revenue_margin', 'regulatory', 'management', 'product', 'commercial', 'cybersecurity', 'insider_transaction'])
+const PERMANENT_EVENTS = new Set(['mna', 'debt_credit', 'litigation_enforcement', 'management', 'regulatory', 'default_distress', 'credit_rating_downgrade', 'credit_rating_upgrade', 'accounting_restatement', 'dividend_cut', 'executive_exit', 'ownership_activist'])
+const MEDIUM_REV_EVENTS = new Set(['capital_actions', 'capex', 'guidance_change', 'product', 'cybersecurity', 'earnings_revenue_margin', 'strategic_review', 'index_rebalance', 'restructuring_layoffs', 'insider_transaction'])
 
 const clamp25 = (n: number) => Math.max(0, Math.min(25, Math.round(n)))
 

@@ -139,10 +139,15 @@ finished number) avoids double-penalizing the same noise twice.
 
 **2. `event_materiality`** — base by `relevance_label` (irrelevant 0 / relevant_non_material 4 /
 material 14) + a severity add-on summing each tagged `event_type`'s weight (guidance_change/mna/
-debt_credit/litigation_enforcement 6, regulatory/earnings_revenue_margin/capital_actions/capex 5,
-management/cybersecurity 4, product/commercial/operations/macro_sector 3, rumor 1), **capped at +6**.
-Never looks at whether a filing is routine — that is penalty 7a, kept independent so a maxed
-source/official filing and a low-materiality event can coexist truthfully.
+debt_credit/litigation_enforcement/default_distress/credit_rating_downgrade/accounting_restatement 6,
+regulatory/earnings_revenue_margin/capital_actions/capex/ownership_activist/dividend_cut/strategic_review 5,
+management/cybersecurity/executive_exit/credit_rating_upgrade 4,
+product/commercial/operations/macro_sector/index_rebalance/restructuring_layoffs 3,
+insider_transaction/rumor 1–2), **capped at +6** (a single distress / §13-red-flag subtype maxes the add-on
+on its own). Never looks at whether a filing is routine — that is penalty 7a, kept independent so a maxed
+source/official filing and a low-materiality event can coexist truthfully. The weight table lives in
+`scripts/screener_score_breakdown.py` (`EVENT_TYPE_WEIGHT`) — a change to a weight must edit both here and
+there in the same PR.
 
 **3. `company_relevance`** — selected by `issuer_public_status` (`public` / `private_unlisted`) of the
 **primary issuer**. Public: `issuer_linkage` base (primary_issuer 16 / secondary_issuer 10 /
