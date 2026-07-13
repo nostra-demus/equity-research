@@ -1,0 +1,32 @@
+{
+  "id": "cftc-cot-wheat-srw",
+  "series": "CFTC Disaggregated COT — WHEAT-SRW managed-money positioning",
+  "satisfies": ["cftc-cot", "managed-money-positioning"],
+  "subjects": ["WHEAT"],
+  "provider": "CFTC",
+  "acquisition": "official_api",
+  "source_type": "paid_api",
+  "tier": 5,
+  "license": "public_domain",
+  "host_allowlist": ["publicreporting.cftc.gov"],
+  "cadence": "weekly",
+  "staleness_sla_days": 12,
+  "entry": "fetch.py",
+  "verify": "fetch.py --verify",
+  "output_path": "data/<SUBJECT>/external/cftc/cot_wheat_srw_<as_of>.json",
+  "output_schema": {
+    "series": "string",
+    "as_of": "date",
+    "contract": "string",
+    "managed_money": {
+      "long": "int",
+      "short": "int",
+      "net": "int",
+      "stance": "enum:net_short|net_long|flat",
+      "net_change_wow": "int",
+      "pct_of_oi_long": "float",
+      "pct_of_oi_short": "float"
+    },
+    "open_interest_all": "int"
+  }
+}
