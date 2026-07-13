@@ -98,7 +98,13 @@ if [ "${ENGINE_NO_PUSH:-}" = "1" ]; then
   exit 0
 fi
 
-if git push -q origin main 2>/dev/null; then
+# Push CURRENT HEAD to remote main — never a bare "origin main", which resolves its source as
+# the LOCAL branch literally named main. A committing process is routinely checked out on some
+# other ref (a per-session worktree branch, a detached HEAD) whose local `main` — if it exists at
+# all — can be arbitrarily stale. `HEAD:main` is the only spelling that means what this script
+# actually intends ("land what I just committed on remote main"), independent of which branch is
+# checked out or whether a local `main` ref exists or is current.
+if git push -q origin HEAD:main 2>/dev/null; then
   echo "COMMIT_SHA=$SHA"
   exit 0
 fi
@@ -111,7 +117,7 @@ if ! git diff --quiet; then
   echo "COMMIT_SHA=$SHA"
   exit 4
 fi
-if git rebase -q origin/main 2>/dev/null && git push -q origin main 2>/dev/null; then
+if git rebase -q origin/main 2>/dev/null && git push -q origin HEAD:main 2>/dev/null; then
   echo "COMMIT_SHA=$(git rev-parse HEAD)"
   exit 0
 fi
