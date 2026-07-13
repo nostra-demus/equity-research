@@ -592,6 +592,9 @@ interface State {
   // shows BestIdeasView instead of the home/gauntlet. Mutually exclusive with Themes (opening one closes
   // the other), exactly like themesView.
   ideasOpen: boolean
+  // "Calendar" tab — the forward events calendar (upcoming earnings + macro, server /api/calendar). Another
+  // sibling of Themes/Best-ideas in the wire's tab row; mutually exclusive with them.
+  calendarOpen: boolean
   themesWindow: number | null // the selected time-window lookback in HOURS; null = Live (real-time)
   themesHistoryDays: number // days of real daily-flow history the engine has (gates the long windows)
   // the "Where" geography picker (owned by the Event rail) mirrored here so the Themes view slices by it —
@@ -608,6 +611,8 @@ interface State {
   closeThemes: () => void
   openIdeas: () => void
   closeIdeas: () => void
+  openCalendar: () => void
+  closeCalendar: () => void
   setThemesView: (view: 'map' | 'board') => void
   setThemesWindow: (hours: number | null) => void
   selectTheme: (id: string | null) => Promise<void>
@@ -812,6 +817,7 @@ export const useStore = create<State>((set, get) => ({
   themes: [],
   themesView: null,
   ideasOpen: false,
+  calendarOpen: false,
   themesWindow: null,
   themesHistoryDays: 0,
   themesGeo: { country: '', geoRegion: '', label: '' },
@@ -2458,12 +2464,16 @@ export const useStore = create<State>((set, get) => ({
   // sibling Themes view. Kicks a board refresh so the freshly-skimmed ideas land without waiting for the
   // 30s poll. Read-only — surfacing happens server-side on the ingester tick.
   openIdeas: () => {
-    set({ ideasOpen: true, themesView: null, scSelectedEvent: null, scFocusedCompany: null })
+    set({ ideasOpen: true, calendarOpen: false, themesView: null, scSelectedEvent: null, scFocusedCompany: null })
     void get().scRefreshBoard()
   },
   closeIdeas: () => set({ ideasOpen: false }),
+  // The "Calendar" tab. Mirrors openIdeas: takes the main pane, clears any open event, closes the sibling
+  // tabs. CalendarView fetches /api/calendar itself (no store data to seed) — this just flips the pane.
+  openCalendar: () => set({ calendarOpen: true, ideasOpen: false, themesView: null, scSelectedEvent: null, scFocusedCompany: null }),
+  closeCalendar: () => set({ calendarOpen: false }),
   openThemes: async (view) => {
-    set({ themesView: view, ideasOpen: false, scSelectedEvent: null, themesStatus: get().themes.length ? 'ready' : 'loading' })
+    set({ themesView: view, ideasOpen: false, calendarOpen: false, scSelectedEvent: null, themesStatus: get().themes.length ? 'ready' : 'loading' })
     void get().setIntensityWindow(intensityWindowForHours(get().themesWindow)) // map readout follows the "When" window (the single control)
     await get().refreshThemes()
     if (!get().staticMode) connectNewsStream(get) // reuse the one news EventSource; theme-update flows on it

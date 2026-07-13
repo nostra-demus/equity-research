@@ -133,6 +133,29 @@ export interface FeedFacets {
   builtThroughDate: string | null
   builtAt: string
 }
+
+// The forward events calendar (server news/events-calendar.ts). Mirrors the server CalendarSnapshot.
+export interface CalendarEvent {
+  id: string
+  kind: 'earnings' | 'macro'
+  date: string // ISO YYYY-MM-DD
+  time: string | null // 'bmo' | 'amc' | 'HH:MM' | null
+  region: string // US | IN | ...
+  title: string // company (earnings) or indicator (macro)
+  ticker: string | null
+  detail: string | null
+  importance: 'high' | 'medium' | 'low' | null // macro
+  source: string // nasdaq | nse | bea
+}
+export interface CalendarHealth { source: string; ok: boolean; at: string | null; count: number; note?: string }
+export interface CalendarSnapshot {
+  as_of: string
+  stale: boolean
+  window: { from: string; to: string }
+  events: CalendarEvent[]
+  health: CalendarHealth[]
+}
+
 function archiveQueryParams(q: ArchiveQuery): URLSearchParams {
   const p = new URLSearchParams()
   if (q.themes?.length) p.set('themes', q.themes.join(','))
@@ -263,6 +286,12 @@ export const api = {
     return get(`/api/news/facets?${archiveQueryParams(q).toString()}`)
   },
   newsStreamUrl: () => `/api/news/stream`,
+  // The forward EVENTS CALENDAR (server news/events-calendar.ts): upcoming earnings (Nasdaq US + NSE India)
+  // + macro (BEA US). 404 (→ null) when disabled or on an old server — the Calendar tab hides itself then.
+  calendar: async (): Promise<CalendarSnapshot | null> => {
+    if ((await ensureMode()) === 'static') return null
+    try { return await get<CalendarSnapshot>('/api/calendar') } catch { return null }
+  },
   // the global scoring weights behind every event's triage score (the Scoring panel reads + writes these).
   // Static showcase: no engine → hand back the bundled defaults so the panel still renders + previews.
   rankWeights: async (): Promise<RankWeightsState> => {
