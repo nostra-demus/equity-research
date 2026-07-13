@@ -1,0 +1,68 @@
+/* The "Data needs" dock — the external data series a run said were capping conviction, surfaced so a durable
+   connector can be built. Sits top-right (below the view toggle), opposite the doc-intake dock (top-left).
+   Motion budget: transform/opacity only, <300ms, --ease-out; enter-only (it refreshes on data-changed, so it
+   follows the instant-close rule — no exit animation). Themes entirely from the accent family, so it resolves
+   in light + dark and for any swarm's accent. */
+.dneeds {
+  position: absolute; right: 18px; top: 56px; z-index: 21;
+  width: 330px; max-width: 38vw;
+  background: var(--datafiles-bg);
+  border: 1px solid var(--accent-wash);
+  border-radius: var(--r-md);
+  box-shadow: var(--shadow-2); backdrop-filter: blur(8px);
+  overflow: hidden; font-size: 12px;
+  animation: dneeds-in 260ms var(--ease-out) both;
+}
+@keyframes dneeds-in { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+
+.dneeds__head {
+  display: flex; align-items: center; gap: 8px; width: 100%;
+  padding: 9px 12px; text-align: left; cursor: pointer;
+  background: transparent; border: 0; color: inherit;
+  transition: background var(--dur-fast) var(--ease);
+}
+@media (hover: hover) and (pointer: fine) { .dneeds__head:hover { background: var(--surface-3); } }
+.dneeds__chev { font-size: 9px; color: var(--accent-bright); transition: transform var(--dur-fast) var(--ease); }
+.dneeds__chev[data-open="true"] { transform: rotate(90deg); }
+.dneeds__title { font-weight: 600; color: var(--text); letter-spacing: 0.2px; }
+.dneeds__count { margin-left: auto; font-size: 11px; color: var(--text-muted); font-variant-numeric: tabular-nums; }
+
+/* Bound the dock so a run with many needs scrolls WITHIN it rather than growing past the viewport (the
+   stage clips at .app overflow:hidden — an unbounded dock would put the tail cards out of reach). */
+.dneeds__body { padding: 4px 12px 12px; display: flex; flex-direction: column; gap: 7px; max-height: min(62vh, 500px); overflow-y: auto; }
+.dneeds__body::-webkit-scrollbar { width: 7px; }
+.dneeds__body::-webkit-scrollbar-thumb { background: var(--hairline-strong); border-radius: var(--r-pill); border: 2px solid transparent; background-clip: padding-box; }
+
+.dneed {
+  background: var(--surface-2); border: 1px solid var(--hairline); border-left: 3px solid var(--accent-bright);
+  border-radius: var(--r-sm); padding: 9px 11px;
+  transition: transform var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out);
+  animation: dneed-in 240ms var(--ease-out) both; animation-delay: calc(var(--i) * 45ms);
+}
+@keyframes dneed-in { from { opacity: 0; transform: translateY(6px) scale(0.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+@media (hover: hover) and (pointer: fine) { .dneed:hover { transform: translateX(-2px); border-color: var(--accent-wash); } }
+/* a filing-only gap is advisory — no connector can satisfy it, so it reads muted rather than accent-lit.
+   Mute via content colour, NOT a container opacity (the entrance animation's forwards-fill lands on
+   opacity:1 and would override a card-level opacity, dropping the dim once the animation settled). */
+.dneed--filing { border-left-color: var(--text-faint); }
+.dneed--filing .dneed__series { color: var(--text-muted); }
+
+.dneed__top { display: flex; align-items: baseline; gap: 8px; }
+.dneed__series { min-width: 0; flex: 1; color: var(--text); font-weight: 600; line-height: 1.35; }
+.dneed__tier {
+  flex: none; font-size: 10px; line-height: 1; padding: 3px 6px; border-radius: var(--r-pill);
+  background: var(--accent-wash); color: var(--accent-bright); font-variant-numeric: tabular-nums; white-space: nowrap;
+}
+.dneed--filing .dneed__tier { background: var(--surface-3); color: var(--text-muted); }
+.dneed__why { margin: 5px 0 0; color: var(--text-muted); line-height: 1.45; }
+.dneed__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 5px 8px; margin-top: 7px; font-size: 10.5px; }
+.dneed__src { min-width: 0; color: var(--text); overflow: hidden; text-overflow: ellipsis; }
+.dneed__acq { color: var(--text-muted); }
+.dneed__cadence { color: var(--text-faint); font-variant-numeric: tabular-nums; }
+.dneed__buildable { margin-left: auto; color: var(--good); font-size: 10px; letter-spacing: 0.2px; white-space: nowrap; }
+.dneed__flag { margin-left: auto; color: var(--text-faint); font-size: 10px; letter-spacing: 0.2px; white-space: nowrap; }
+
+@media (prefers-reduced-motion: reduce) {
+  .dneeds, .dneed { animation: none; }
+  .dneed:hover { transform: none; }
+}

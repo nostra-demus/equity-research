@@ -1,7 +1,7 @@
 import { staticPromptPath } from './prompts'
 import { DEFAULT_RANK_WEIGHTS, type RankWeights, type RankWeightsState } from './rankWeights'
 import type { AutotuneState, RankWeightChanges, WeightChange } from './types'
-import type { ActivityQuery, ActivityResult, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CoverageGroup, DataStatus, EventEnrichment, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, ThesisPlan, TickerSummary, UploadResult, Usage, Whoami } from './types'
+import type { ActivityQuery, ActivityResult, CallsResult, ChatConversationDetail, ChatListQuery, ChatListResult, ChatRequest, ChatScopes, CockpitFeedbackCategory, CockpitFeedbackStatus, CockpitFeedbackView, CoverageGroup, DataNeedsRead, DataStatus, EventEnrichment, FeedbackRecord, FeedbackSubmitInput, FeedbackSummary, FeedbackType, FeedItem, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, NewsCycle, NewsStatus, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SignalState, SourcesReport, SwarmGraph, SwarmMeta, ThesisPlan, TickerSummary, UploadResult, Usage, Whoami } from './types'
 
 const BASE = import.meta.env.BASE_URL
 
@@ -618,6 +618,19 @@ export const api = {
   analyzeIntake: async (ticker: string): Promise<{ runId: string }> => {
     if ((await ensureMode()) === 'static') throw STATIC_ERR()
     return post(`/api/intake/${encodeURIComponent(ticker)}/analyze`)
+  },
+
+  // ---- data needs (the "surface a data gap → build a durable connector → re-score" loop) ----
+  // The structured data_needs[] the run's terminal synthesizer surfaced, roster-validated server-side, or
+  // null when there's no run/record. 404 / old server / static → null (fail-closed: the dock stays hidden).
+  dataNeeds: async (subject: string, swarm: string): Promise<DataNeedsRead | null> => {
+    if ((await ensureMode()) === 'static') return null
+    try {
+      const r = await get<{ read: DataNeedsRead | null }>(`/api/data-needs/${encodeURIComponent(subject)}?swarm=${encodeURIComponent(swarm)}`, 8_000)
+      return r.read ?? null
+    } catch {
+      return null
+    }
   },
 
   runStreamUrl: (runId: string) => `/api/runs/${runId}/stream`,

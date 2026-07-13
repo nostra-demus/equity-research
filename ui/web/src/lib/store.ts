@@ -8,7 +8,7 @@ import type { Theme, ThemeDetail, ThemeBrief } from './themes'
 import { intensityWindowForHours } from './themes'
 import { deriveWireConfig, type WireConfig, type WirePulseSubject } from './wire'
 import { affectedModules, focusKeysFor } from './intake'
-import type { ActiveRunLite, AgentNode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, CycleSummary, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage } from './types'
+import type { ActiveRunLite, AgentNode, BoardIdea, BoardInboxRow, BookFilterState, BookSort, ChatMessage, ChatScope, ChatStyle, ConvictionDetail, CoverageGroup, CycleSummary, DataNeedsRead, DataStatus, EventEnrichment, FeedbackSubmitInput, FeedbackType, FeedItem, HealthState, IntakePlan, IntensityStats, IntensityWindow, LaunchPreflight, ListingStatus, NewsStatus, NodeRuntime, NodeStatus, ReadinessReport, ResumableRunInfo, ScreenerBoard, SignalIntakeInput, SignalState, SseEvent, SwarmGraph, SwarmMeta, ThesisPlan, ThesisPlanIntake, TickerSummary, Usage } from './types'
 import { feedbackInputFromItem, feedbackLabel, polarityOf } from './feedbackTypes'
 import { emptyBookFilters } from '../components/screener/BookFilters'
 import { emptyReviewFilters, matchesReviewFilters, type ReviewFilterState } from '../components/screener/ReviewFilters'
@@ -397,6 +397,10 @@ interface State {
   // "re-run everything" escape hatch. Null = the blunt floor (no plan, or the plan didn't narrow anything).
   thesisPlanIntake: ThesisPlanIntake | null
   refreshIntake: () => Promise<void>
+  // The structured data needs the run's terminal synthesizer surfaced (decision_record.json data_needs[]),
+  // refreshed on select + on data-changed — read by the read-only "Data needs" dock. Null = none / no run.
+  dataNeeds: DataNeedsRead | null
+  refreshDataNeeds: () => Promise<void>
   openThesisPlan: () => Promise<void>
   closeThesisPlan: () => void
   toggleThesisRerun: (module: string) => void // flip one module between "reuse" and "re-run", then re-price
@@ -714,6 +718,7 @@ export const useStore = create<State>((set, get) => ({
   thesisPlanPricing: false,
   thesisPlanError: null,
   intake: null,
+  dataNeeds: null,
   intakeFocusKeys: new Set(),
   intakePlanKeys: new Set(),
   intakeAnalyzing: false,
@@ -859,7 +864,7 @@ export const useStore = create<State>((set, get) => ({
         dataSource.addEventListener('data-changed', (ev: MessageEvent) => {
           try {
             const d = JSON.parse(ev.data)
-            if (d.ticker === get().selectedTicker) { get().refreshData(); void get().refreshIntake() }
+            if (d.ticker === get().selectedTicker) { get().refreshData(); void get().refreshIntake(); void get().refreshDataNeeds() }
             refreshTickersSoon(get, set) // live count update + keep polling while Drive is still syncing
           } catch {}
         })
@@ -907,13 +912,14 @@ export const useStore = create<State>((set, get) => ({
     const activeRuns = Object.fromEntries(Object.entries(get().activeRuns).filter(([, r]) => LIVE_RUN.has(r.status)))
     chatAbort?.abort(); chatAbort = null // a new subject → drop any in-flight chat + its thread
     // the completion plan is per-subject disk truth — never let a previous subject's plan survive a switch
-    set({ selectToken: token, selectedTicker: t, constellationSwarm: sw, dataStatus: null, dataLoading: isResearch, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], runPanelDismissed: false, activeRuns, openOutput: null, thesisPlan: null, thesisPlanOpen: false, thesisPlanError: null, intake: null, intakeFocusKeys: new Set(), intakePlanKeys: new Set(), intakeAnalyzing: false, thesisPlanIntake: null, ...CHAT_RESET })
+    set({ selectToken: token, selectedTicker: t, constellationSwarm: sw, dataStatus: null, dataLoading: isResearch, nodeRuntime: {}, decision: null, runRoot: null, reports: { memo: false, thesis: false, dossier: false }, moduleReports: {}, coreBloom: false, selectedNodeKey: null, runStream: [], runPanelDismissed: false, activeRuns, openOutput: null, thesisPlan: null, thesisPlanOpen: false, thesisPlanError: null, intake: null, dataNeeds: null, intakeFocusKeys: new Set(), intakePlanKeys: new Set(), intakeAnalyzing: false, thesisPlanIntake: null, ...CHAT_RESET })
     const graph = isResearch ? await api.swarm(t) : await api.swarmGraph(sw, t)
     if (get().selectToken !== token) return // a newer selection superseded this one
     set({ graph, nodesByKey: flatten(graph) })
     void get().refreshResumable() // so the orb-view Resume chip knows if this subject has an interrupted run
     if (isResearch) await get().refreshData()
     if (isResearch) void get().refreshIntake() // the scoped rerun plan (if one exists) — non-blocking
+    void get().refreshDataNeeds() // the surfaced data needs (research + commodity) — non-blocking, fail-closed
     if (get().selectToken !== token) return
     // seed prior-run results into the swarm
     try {
@@ -1510,6 +1516,20 @@ export const useStore = create<State>((set, get) => ({
       set({ intake: plan, intakePlanKeys: focusKeysFor(plan, get().nodesByKey) })
     } catch {
       if (get().selectToken === token) set({ intake: null, intakePlanKeys: new Set() })
+    }
+  },
+  refreshDataNeeds: async () => {
+    const t = get().selectedTicker
+    const sw = get().activeSwarm
+    // constellation swarms only (research + commodity); the screener has no decision_record with data_needs.
+    if (!t || get().staticMode || sw === 'screener') return
+    const token = get().selectToken
+    try {
+      const read = await api.dataNeeds(t, sw)
+      if (get().selectToken !== token) return // a newer selection superseded this fetch
+      set({ dataNeeds: read })
+    } catch {
+      if (get().selectToken === token) set({ dataNeeds: null })
     }
   },
 

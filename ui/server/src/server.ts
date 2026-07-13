@@ -59,6 +59,7 @@ import { startResumeSupervisor } from './resume-supervisor'
 import { listResumableRuns } from './resumable'
 import { carryForwardModules, dataPoolNewest, prepareModuleResume, thesisPlan } from './completion'
 import { readIntakePlan } from './intake'
+import { readDataNeeds } from './data-needs'
 import { SubjectBusyError, withSubjectLock } from './subject-lock'
 import { AGENT_RE, EVENT_ID_RE, FEEDBACK_ID_RE, MODULE_RE, SIG_RE, THESIS_RE, TICKER_RE, isValidTicker, resolveInsideRuns, validateNewTicker, sanitizeUploadFilename } from './sandbox'
 import type { RunKind } from './types'
@@ -741,6 +742,26 @@ app.get('/api/intake/:ticker', { config: { rateLimit: { max: 600, timeWindow: '1
     return { plan: readIntakePlan(ticker) }
   } catch (e: any) {
     return reply.code(500).send({ error: e?.message || 'could not read the intake plan' })
+  }
+})
+
+// Data-needs dock (the "surface a data gap → build a durable connector → re-score" loop): the structured
+// data_needs[] the run's terminal synthesizer wrote onto decision_record.json, normalized + roster-validated
+// by readDataNeeds. Read-only. Same TICKER_RE zod barrier + isValidTicker guard as /api/intake (the subject
+// never reaches path.join as an untrusted value); the swarm is resolved through the registry (swarmById), so
+// an unknown / injected swarm id 400s rather than forming a path.
+const DataNeedsParams = z.object({ subject: z.string().regex(TICKER_RE) })
+app.get('/api/data-needs/:subject', { config: { rateLimit: { max: 600, timeWindow: '1 minute' } } }, async (req, reply) => {
+  const parsed = DataNeedsParams.safeParse(req.params)
+  if (!parsed.success) return reply.code(400).send({ error: 'bad subject' })
+  const { subject } = parsed.data
+  if (!isValidTicker(subject)) return reply.code(400).send({ error: 'bad subject' })
+  const swarmId = String((req.query as any)?.swarm ?? RESEARCH_SWARM_ID)
+  if (!swarmById(swarmId)) return reply.code(400).send({ error: 'unknown swarm' })
+  try {
+    return { read: readDataNeeds(swarmId, subject) }
+  } catch (e: any) {
+    return reply.code(500).send({ error: e?.message || 'could not read data needs' })
   }
 })
 

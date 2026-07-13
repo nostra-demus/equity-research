@@ -50,6 +50,34 @@
       "type": "array",
       "minItems": 1,
       "items": { "type": "string", "minLength": 1 }
+    },
+    "data_needs": {
+      "type": "array",
+      "description": "Optional, forward-looking. External data series whose absence caps this run's conviction (§11) — surfaced on the cockpit 'Data needs' dock so a durable connector can be built to feed them in continuously. The synthesizer emits the NEED (what / why / where it plugs in / a suggested source); the connector's implementation spec (endpoint, output schema, host allowlist) is authored later by the human at the approval/dispatch step, never here. A `filing_required` need is advisory only — no connector can satisfy it. Omitted or empty when nothing external is capping the call.",
+      "items": {
+        "type": "object",
+        "required": ["need_id", "series", "why_it_caps", "filing_required", "entry_modules", "suggested_source", "tier", "cadence"],
+        "properties": {
+          "need_id": { "type": "string", "pattern": "^[a-z0-9][a-z0-9_-]*$", "description": "stable slug, unique within the run (connector idempotency key)" },
+          "series": { "type": "string", "minLength": 1, "description": "the missing data series in plain words, e.g. 'USDA WASDE US wheat ending stocks-to-use'" },
+          "why_it_caps": { "type": "string", "minLength": 1, "description": "why its absence limits conviction, tied to the §11 sufficiency read" },
+          "cap_lifted": { "type": "string", "description": "what sharpens once the series feeds in (optional)" },
+          "filing_required": { "type": "boolean", "description": "true = only a statutory filing can close this gap; a connector/scrape can NEVER satisfy it (structurally non-dispatchable). false = connector-eligible." },
+          "entry_modules": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 }, "description": "the module(s) that consume this series — they drive the scoped rerun when it arrives" },
+          "suggested_source": {
+            "type": "object",
+            "required": ["name", "acquisition"],
+            "properties": {
+              "name": { "type": "string", "minLength": 1, "description": "the best source — an official / public-domain body preferred (USDA, NOAA, CFTC, an exchange) over a redistributor" },
+              "acquisition": { "type": "string", "enum": ["official_api", "free_key_api", "paid_api", "scrape", "manual"] },
+              "licensing": { "type": "string", "description": "known licensing / ToS note, or 'public_domain' (optional at emit; the human confirms it at approval)" }
+            }
+          },
+          "tier": { "type": "integer", "enum": [5, 9, 10], "description": "§4 source-tier ceiling this series can earn — NEVER 1-4 (a live feed is not a filing). An API / vendor feed is 5; a dated web scrape is 9 or 10." },
+          "cadence": { "type": "string", "enum": ["realtime", "daily", "weekly", "monthly", "event_driven"] },
+          "next_release": { "type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}$", "description": "for a scheduled / event-driven release (optional)" }
+        }
+      }
     }
   }
 }
