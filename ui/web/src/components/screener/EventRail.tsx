@@ -107,7 +107,11 @@ function EventRow({ group, selected, shelved, fresh, unread, onPick, onShelve }:
   // aria-label for screen readers.
   const [tip, setTip] = useState<{ right: number; bottom: number } | null>(null)
   const showTip = (e: ReactMouseEvent<HTMLButtonElement> | ReactFocusEvent<HTMLButtonElement>) => {
-    if (e.type === 'mouseenter' && !window.matchMedia?.('(hover: hover)').matches) return
+    // Gate on hover capability regardless of event type: a touch device fires `focus` (not just `mouseenter`)
+    // when focus is programmatically restored after closing a menu, and touch has no mouseleave/blur to clear
+    // it — so a mouseenter-only check left the tooltip stuck on screen. Desktop keyboard focus keeps working
+    // since (hover: hover) is still true there.
+    if (!window.matchMedia?.('(hover: hover)').matches) return
     const r = e.currentTarget.getBoundingClientRect()
     setTip({ right: Math.max(8, window.innerWidth - r.right), bottom: Math.max(8, window.innerHeight - r.top + 6) })
   }
