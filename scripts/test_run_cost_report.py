@@ -78,9 +78,13 @@ with open(os.path.join(repo, '.claude/agents/business-model/09_moat.md'), 'w') a
     f.write("---\nname: moat\nlayer: 2\n---\n# moat\n")
 with open(os.path.join(repo, '.claude/agents/synthesizer.md'), 'w') as f:          # top-level agent
     f.write("---\nname: synthesizer\nmodel: opus\n---\n# synth\n")
+os.makedirs(os.path.join(repo, '.claude/agents/screener/candidate-surfacing'))     # swarm: 3-level nesting
+with open(os.path.join(repo, '.claude/agents/screener/candidate-surfacing/01_ticker-mapping.md'), 'w') as f:
+    f.write("---\nname: screener-ticker-mapping\nlayer: 1\n---\n# tm\n")
 mm = R.agent_module_map(repo)
-check("module map: specialist -> its module", mm.get('moat') == 'business-model')
+check("module map: research specialist -> its module", mm.get('moat') == 'business-model')
 check("module map: top-level agent included (not dropped from --all)", mm.get('synthesizer') == '(top-level)')
+check("module map: swarm specialist -> <swarm>/<module> (product-wide)", mm.get('screener-ticker-mapping') == 'screener/candidate-surfacing')
 
 print("\nALL RUN_COST_REPORT TESTS PASS" if not fails else f"\n{len(fails)} FAILED: {fails}")
 sys.exit(1 if fails else 0)

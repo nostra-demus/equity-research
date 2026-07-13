@@ -137,19 +137,26 @@ def _readlines(p):
     except OSError: return []
 
 def agent_module_map(repo_root):
-    """agent name -> module. Includes BOTH module specialists (`agents/<module>/NN_*.md`) and
-    top-level agents (`agents/*.md`: synthesizer, memo-writer, module-memo-writer) so `--all`
-    does not silently drop the orchestrator-level roles."""
+    """agent name -> module label, across ALL swarms (research / screener / commodity), so the
+    module rollup and `--all` are product-wide, not research-only. Three layouts (CLAUDE.md §26):
+      research specialist  agents/<module>/NN_*.md         -> module = <module>
+      swarm specialist     agents/<swarm>/<module>/NN_*.md  -> module = <swarm>/<module>
+      top-level agent      agents/*.md                      -> module = (top-level)
+    Agent `name:` is globally unique, so there is no cross-swarm collision. SWARM.md/MODULE_RULES.md
+    carry no `name:` and are skipped."""
     m = {}
-    paths = glob.glob(f'{repo_root}/.claude/agents/*/*.md') + glob.glob(f'{repo_root}/.claude/agents/*.md')
+    root = f'{repo_root}/.claude/agents'
+    paths = (glob.glob(f'{root}/*/*/*.md')    # <swarm>/<module>/<agent>.md  (screener, commodity)
+             + glob.glob(f'{root}/*/*.md')     # <module>/<agent>.md          (research)
+             + glob.glob(f'{root}/*.md'))      # <agent>.md                   (top-level)
     for p in paths:
-        parent = os.path.basename(os.path.dirname(p))
-        module = '(top-level)' if parent == 'agents' else parent
+        parts = os.path.relpath(p, root).split(os.sep)
+        module = '/'.join(parts[:-1]) if len(parts) >= 2 else '(top-level)'
         name = None
         for line in _readlines(p)[:12]:
             if line.startswith('name:'):
                 name = line.split(':', 1)[1].strip(); break
-        if name: m[name] = module
+        if name and name not in m: m[name] = module   # deepest match wins (globs ordered 3->2->1)
     return m
 
 # ---- reporting ----
