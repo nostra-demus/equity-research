@@ -144,6 +144,14 @@ if [ -n "$TUN_ERR" ]; then row "tunnel query" "${Y}$TUN_ERR${X}"; else row "live
 say ""
 say "  $VERDICT"
 
+# standby failover monitor (present only on a standby node)
+FO_STATUS="$HOME/.nostra-ops/failover.status"
+if launchctl list 2>/dev/null | grep -q com.nostradamus.failover; then
+  hd "STANDBY FAILOVER MONITOR"
+  if [ -f "$FO_STATUS" ]; then row "last tick" "$(cat "$FO_STATUS")"; else row "last tick" "(no heartbeat yet)"; fi
+  row "meaning" "dormant=watching · WAIT=primary missing, counting · ACTIVATE/STANDDOWN=taking over/releasing"
+fi
+
 hd "ENGINE"
 row "port 8787"   "$ENG_DESC"
 row "origin /api/health" "$HEALTH"

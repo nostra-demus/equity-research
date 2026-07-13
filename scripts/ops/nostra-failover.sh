@@ -96,6 +96,12 @@ result=$(decide "$active" "$conns" "$counter")
 action=${result%% *}; newcounter=${result##* }
 echo "$newcounter" > "$STATE"
 
+# always-fresh heartbeat — the log is quiet when steady, so this file is how you SEE the
+# monitor is alive and what it currently sees (read it, or nostra-status.sh surfaces it).
+printf '%s decision=%s active=%s connectors=%s counter=%s/%s dryrun=%s\n' \
+  "$(date '+%Y-%m-%dT%H:%M:%S%z')" "$action" "$active" "$conns" "$newcounter" "$K" "$DRYRUN" \
+  > "$HOME/.nostra-ops/failover.status" 2>/dev/null || true
+
 case "$action" in
   ACTIVATE)  log "decision ACTIVATE (active=$active conns=$conns counter=$newcounter)"; activate ;;
   STANDDOWN) log "decision STANDDOWN (active=$active conns=$conns)"; stand_down ;;
