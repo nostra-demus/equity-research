@@ -1,0 +1,127 @@
+{
+  "schema_version": "1.0",
+  "ticker": "TMCV",
+  "original_decision_date": "2026-06-07",
+  "review_date": "2026-07-13",
+  "review_window": "30d",
+  "original_decision": "Watchlist",
+  "basket": "Watchlist",
+  "entry_price": 369.15,
+  "review_price": 422.20,
+  "absolute_return_pct": 14.37,
+  "benchmark_return_pct": 2.43,
+  "sector_return_pct": null,
+  "benchmark_relative_return_pct": 11.94,
+  "sector_relative_return_pct": null,
+  "thesis_status": "at-risk",
+  "forecast_results": [
+    {
+      "prediction": "Q1 FY27 Underlying EBITDA margin will print below FY26's 12.3%",
+      "status": "still open",
+      "evidence": "Q1 FY27 results are due late July / early August 2026 (per the original forecast window); no print found yet as of 2026-07-13.",
+      "as_of": "2026-07-13"
+    },
+    {
+      "prediction": "Iveco Group acquisition closes in Q2 FY27 (July-September 2026)",
+      "status": "still open",
+      "evidence": "Web-sourced coverage (MLex, Autocar Professional, Business Today; dated through late June 2026) confirms the deal has cleared EU antitrust and EU foreign-subsidy review and most other approvals, but remains pending on outstanding FRANCE and SPAIN financial-regulator approvals; management (CFO, per a 2026-06-29 Business Standard report) still guides a Q2 FY27 close. Not yet closed; consistent with the original 55% probability, neither confirmed nor falsified.",
+      "as_of": "2026-07-13"
+    },
+    {
+      "prediction": "FY27 normalised EPS consensus will be revised downward post-Q1 results",
+      "status": "still open",
+      "evidence": "Consensus revision window is August/September 2026, after Q1 FY27 results; too early to assess.",
+      "as_of": "2026-07-13"
+    },
+    {
+      "prediction": "TMF Holdings amalgamation will face material institutional opposition at 2nd AGM (June 29, 2026)",
+      "status": "not assessable",
+      "evidence": "The AGM was held on 2026-06-29 as scheduled. Web-sourced coverage (dated around 2026-06-29/30) reports the AGM 'approved FY26 statements, dividend, Girish Wagh reappointment, and related-party transaction' -- i.e. a related-party-transaction resolution reportedly passed. This is suggestive that the vote was not blocked, but public search could not confirm (a) whether the approved RPT resolution is specifically the TMF Holdings-related item this forecast tracks (separate related-party items, including the Tata Cummins RPT flow flagged as RF-RPT-001, were also on the agenda), or (b) the actual vote margin / scrutinizer report needed to judge 'material institutional opposition' vs a routine supermajority pass. Marked not assessable rather than guessed, per CLAUDE.md S3 (no source = no claim).",
+      "as_of": "2026-07-13"
+    },
+    {
+      "prediction": "Net cash position will be eliminated by H1 FY28 at the latest",
+      "status": "still open",
+      "evidence": "Contingent on the Iveco deal closing, which has not happened yet (see above); window (H1 FY28) is far from elapsed.",
+      "as_of": "2026-07-13"
+    },
+    {
+      "prediction": "TMCV will not pay a dividend at the same Rs4/share level in FY27",
+      "status": "still open",
+      "evidence": "FY27 dividend is announced at the Q4 FY27 board meeting (~March/May 2027); far from due. Note: the FY26 dividend (Rs4/share) was itself approved at the 2026-06-29 AGM per web-sourced coverage -- consistent with, not evidence against, the original forecast about FY27.",
+      "as_of": "2026-07-13"
+    }
+  ],
+  "catalyst_results": [
+    {"catalyst": "TMF Holdings AGM vote (2026-06-29)", "status": "occurred, outcome ambiguous", "evidence": "AGM held on schedule; a related-party-transaction resolution reportedly passed per web-sourced coverage, but the specific TMF Holdings vote margin / scrutinizer report was not found via public search."},
+    {"catalyst": "Iveco Group deal close (Q2 FY27 window)", "status": "pending", "evidence": "France/Spain financial-regulator approvals still outstanding as of late June 2026 web-sourced coverage; deal not yet closed."},
+    {"catalyst": "Q1 FY27 results (late July / early August 2026)", "status": "pending", "evidence": "Not yet reported as of 2026-07-13."},
+    {"catalyst": "September/December 2026 NCD refinancing", "status": "pending", "evidence": "Window not yet reached."}
+  ],
+  "risk_results": [
+    {"risk": "Iveco closes fully debt-funded with no equity component", "status": "pending", "evidence": "Deal has not closed; bridge-loan terms (Euribor +102.5bp, 12-month tenor, expected to be refinanced with a mix of equity and long-term debt within 12-18 months per web-sourced deal coverage) are unchanged from what the original thesis already priced. No new equity-component disclosure found."},
+    {"risk": "TMF Holdings merger passes AGM + FVTPL losses repeat", "status": "pending", "evidence": "AGM occurred; FY27 FVTPL loss magnitude will not be visible until Q1/Q2 FY27 results."},
+    {"risk": "Q1 FY27 Underlying EBITDA margin falls below 11%", "status": "pending", "evidence": "Q1 FY27 results not yet reported."},
+    {"risk": "India CV TIV contracts >10% in FY27", "status": "not assessable", "evidence": "No Q1 FY27 (Apr-Jun 2026) SIAM MHCV wholesale data found via web search as of 2026-07-13; the most recent SIAM data located covers Q4 FY26 (Jan-Mar 2026)."},
+    {"risk": "Post-Iveco NCD refinancing at 100+bp above existing WAC", "status": "pending", "evidence": "Refinancing window (Sep/Dec 2026) not yet reached; deal itself has not closed."}
+  ],
+  "decision_quality": "not assessable",
+  "error_taxonomy": [],
+  "lessons": [
+    "Price action: TMCV rose from an entry_price of Rs369.15 (2026-06-07, S&P Capital IQ Key Stats export) to a web-sourced Rs422.20 close on 2026-07-10 (Kotak Neo / Alice Blue aggregation via search, most recent dated quote found; true 2026-07-13 close not independently located) -- a +14.37% absolute move in ~5 weeks, well above the NIFTY 50's +2.43% over a comparable window (NIFTY 50 23,631.75 close on 2026-06-12 to 24,207 close on 2026-07-10, both Investing.com/Business Standard-sourced, dated; June 12 used as the nearest located dated close to the 2026-06-07 decision date, not an exact match). Benchmark-relative return +11.94% is a NOTABLE positive move against the original Watchlist/no-position call.",
+    "sector_return_pct (NIFTY AUTO) is left null: a dated closing value was found for 2026-06-30 (26,250.40) but not for a date near the 2026-06-07 decision date or near the 2026-07-10/13 review date, so no like-for-like sector return could be computed without guessing -- left null per DECISION_LEDGER.md S8 rather than fabricated.",
+    "The rally happened WITHOUT the two things the original thesis flagged as decisive: the Iveco financing structure is still undisclosed (France/Spain approvals pending, deal not closed) and the TMF Holdings AGM outcome could not be confirmed in the specific terms the forecast tracked (vote margin / institutional opposition). This is a genuine tension: price outcome (strongly positive so far) has decoupled from thesis resolution (still unresolved on both binary risks) -- exactly the 'good process, bad luck OR too early' vs 'luck' distinction DECISION_LEDGER.md S10 exists to separate, and it cannot be resolved yet because neither binary has actually fired.",
+    "Data-pool access: this review ran without access to data/TMCV/ (gitignored, not present in this review environment); the AGM scrutinizer report and any post-decision NSE/BSE filings were sought only via public web search, which could not confirm the exact TMF Holdings vote percentage. A future review with pool access should pull the scrutinizer's report and the Q1 FY27 SIAM MHCV data directly.",
+    "No red flag has been resolved either way: RF-CAP-001 (Iveco), RF-RPT-002 (TMF Holdings), and the Filter 4 / Filter 6 S24 caps all still stand exactly as at decision -- the rating cap logic (max Watchlist until Iveco financing is resolved and minority-holder protection evidence exists) has not been triggered to lift."
+  ],
+  "module_calibration_notes": {
+    "status": "too early to attribute with confidence",
+    "note": "The valuation module's reverse-DCF (implied ~1.7% FCF CAGR priced in) and the +4.3% probability-weighted expected return look, so far, directionally too cautious given the +14.4% move -- but the move has occurred entirely on sentiment/momentum (strong June retail auto sales headlines industry-wide, plus the resolved-without-incident AGM) rather than on resolution of either named binary risk (Iveco financing, TMF opposition). It would be a process error to credit the valuation or catalyst modules with being 'wrong' this early: the killer risk (Iveco fully debt-funded close) has not been ruled in or out, and the module verdicts were explicitly conditioned on those two unresolved binaries. Re-assess at the 90d checkpoint (2026-09-05), which should capture Q1 FY27 results and the September NCD refinancing evidence."
+  },
+  "memo_delta": {
+    "summary": "TMCV rallied ~14.4% (Rs369.15 -> ~Rs422.20 web-sourced) since the June 7 decision, ~12pp ahead of the NIFTY 50, even though neither of the thesis's two named binary risks has resolved: the Iveco deal remains unclosed (France/Spain regulatory approvals still pending) and the TMF Holdings AGM vote outcome could not be confirmed in the specific terms (vote margin, institutional opposition) the forecast ledger tracks. The rating cap (max Watchlist until Iveco financing is resolved and minority-holder protection evidence exists) has not been lifted by any new evidence -- the price move looks like sentiment/momentum, not thesis resolution, and is flagged as at-risk to monitor rather than acted upon.",
+    "thesis_delta_verdict": "weakened",
+    "stage_one_comment": "TMCV is up about 14% since our June 7 Watchlist call, well ahead of the Nifty 50's roughly 2%. That is a real gap and worth flagging, but it has not been earned by resolution of either risk we said would move the rating: the Iveco Group deal is still not closed (France and Spain regulators have not signed off yet), and we could not confirm from public sources whether the TMF Holdings-related AGM vote on June 29 passed comfortably or with real institutional pushback -- coverage says a related-party resolution was approved, but not the margin. Nothing in the filings changed the ~80% downside case if Iveco closes fully debt-funded, and that risk is still live. We are treating this as the market getting ahead of an unresolved binary, not as confirmation we were wrong -- but the gap is now large enough that a materially lower entry point no longer exists if the binary resolves favorably, which cuts into the safety margin of waiting. We are not chasing the rally. Hold Watchlist; revisit hard at Q1 FY27 results and on any Iveco financing-structure disclosure.",
+    "changed_sections": [
+      {
+        "section": "Part I S2 Headline Scorecard / current price and expected return",
+        "original_claim": "Current price Rs369.15 (2026-06-07, Capital IQ); expected return +4.3% probability-weighted; risk/reward 0.72x in base case.",
+        "new_evidence": "Web-sourced quote ~Rs422.20 (2026-07-10, Kotak Neo/Alice Blue aggregation) -- a +14.4% move, ~12pp ahead of the NIFTY 50 (+2.4%, Investing.com/Business Standard, 2026-06-12 to 2026-07-10) over the same window -- with neither the Iveco financing structure nor the TMF AGM outcome (in the terms tracked) yet confirmed.",
+        "evidence_source": "Web: Kotak Neo / Alice Blue TMCV quote, accessed 2026-07-13, dated 2026-07-10 (indicative, unverified); Investing.com / Business Standard NIFTY 50 closes, dated 2026-06-12 and 2026-07-10",
+        "materiality_score": 55,
+        "impact_direction": "mixed",
+        "impacted_modules": ["valuation", "catalyst"],
+        "rerun_recommended": false,
+        "rerun_reason": "Materiality (55) is below the 60 threshold for a recommended re-run -- the price move is real but neither binary risk (Iveco financing, TMF opposition) has actually resolved, so a re-run of valuation/catalyst now would be re-pricing sentiment, not new fundamental evidence. Revisit once Q1 FY27 results or an Iveco financing-structure disclosure lands.",
+        "rerun_command": ""
+      },
+      {
+        "section": "Part I S10 Kill Criteria / TMF Holdings AGM vote",
+        "original_claim": "TMF Holdings merger passes AGM (June 29, 2026) AND FVTPL losses repeat at Rs2,000+ cr in FY27 -- monitored via AGM vote results (NSE/BSE scrutinizer report post June 29).",
+        "new_evidence": "AGM held 2026-06-29 as scheduled; web-sourced coverage reports FY26 statements, dividend, a director reappointment, and 'a related-party transaction' were approved, but the scrutinizer report with the specific TMF Holdings vote margin could not be located via public search.",
+        "evidence_source": "Web: AGM coverage aggregation, dated 2026-06-29/30 (indicative, unverified -- primary scrutinizer report not located)",
+        "materiality_score": 40,
+        "impact_direction": "neutral",
+        "impacted_modules": ["management-governance"],
+        "rerun_recommended": false,
+        "rerun_reason": "The primary evidence (scrutinizer report / vote percentage) needed to actually resolve this kill criterion is not available from public web search; a re-run would not have better evidence than this review already sought. Recommend pulling the NSE/BSE scrutinizer filing directly (pool access) before the 90d review instead.",
+        "rerun_command": ""
+      }
+    ],
+    "watch_items": [
+      "Iveco Group deal close and financing structure -- France/Spain regulatory approvals, expected Q2 FY27 (~Jul-Sep 2026)",
+      "Q1 FY27 results and Underlying EBITDA margin -- late July / early August 2026",
+      "NSE/BSE scrutinizer report for the 2026-06-29 AGM -- confirm the actual TMF Holdings-related vote margin",
+      "September/December 2026 NCD refinancing terms vs the existing ~7.3-7.5% WAC",
+      "Q1 FY27 SIAM MHCV wholesale data -- CV TIV trend"
+    ],
+    "management_questions": [
+      "What is the current expected equity-vs-debt split for the permanent Iveco financing, and has any portion of the bridge loan been refinanced yet?",
+      "What was the exact voting result (for/against percentage) on the related-party-transaction resolution(s) at the 2026-06-29 AGM, and did any proxy advisor recommend against?",
+      "Did FY26 FVTPL losses from the TMF Holdings book recur or grow in Q1 FY27, and by how much?",
+      "Is Q1 FY27 Underlying EBITDA margin tracking above or below the FY26 12.3% level, and what is driving the delta?",
+      "Have France or Spain's financial regulators indicated a revised approval timeline for the Iveco transaction?"
+    ],
+    "memo_delta_file": "analyses/TMCV_2026-06-07/reviews/2026-07-13_30d_memo_delta.md"
+  }
+}

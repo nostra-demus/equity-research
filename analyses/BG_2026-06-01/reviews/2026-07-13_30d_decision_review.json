@@ -1,0 +1,123 @@
+{
+  "schema_version": "1.0",
+  "ticker": "BG",
+  "original_decision_date": "2026-06-01",
+  "review_date": "2026-07-13",
+  "review_window": "30d",
+  "original_decision": "Watchlist",
+  "basket": "Watchlist",
+  "entry_price": null,
+  "review_price": null,
+  "absolute_return_pct": null,
+  "benchmark_return_pct": null,
+  "sector_return_pct": null,
+  "benchmark_relative_return_pct": null,
+  "sector_relative_return_pct": null,
+  "thesis_status": "on-track",
+  "forecast_results": [
+    {
+      "prediction": "FY2026 full-year adjusted EPS lands inside (not above) the $9.00-9.50 guide.",
+      "status": "still open",
+      "evidence": "No FY2026 result yet (window is 'by Feb 2027'). Full-year 2026 guidance remains $9.00-9.50 per the late-April 2026 raise; no subsequent guide change found via web search as of 2026-07-13.",
+      "as_of": "2026-07-13"
+    },
+    {
+      "prediction": "Q2 FY2026 beats on the quarter but management does not raise the full-year guide.",
+      "status": "still open",
+      "evidence": "Q2 FY2026 results are scheduled for 2026-07-29 (Bunge investor-relations release calendar via StockTitan, web-sourced, dated 2026-07 update) -- after this review date. Sell-side currently models Q2 diluted EPS ~$2.00 (+52.7% YoY) per a web-sourced analyst-forecast summary (Yahoo Finance/Zacks-style preview, dated 2026-07). Not yet resolved.",
+      "as_of": "2026-07-13"
+    },
+    {
+      "prediction": "FY2026 free cash flow turns positive / CFO-to-EBITDA recovers toward 70%.",
+      "status": "still open",
+      "evidence": "No FY2026 cash-flow print since Q1; the decisive print is the FY2026 10-K / Q2-Q4 cash-flow statements, not yet available.",
+      "as_of": "2026-07-13"
+    },
+    {
+      "prediction": "At the indicative ~$123 price, BG's 12-month total return is negative (<=0%).",
+      "status": "still open",
+      "evidence": "12-month window (to Jun 2027) has not elapsed. Web-sourced quote ~$126.50 (stockanalysis.com-sourced aggregation via search, dated 2026-07-13) sits modestly above the ~$123.35 indicative decision-date price -- inside the thesis's own noted 'corroborating ~$123-126.50 band' -- so the sign of the eventual 12-month return is not yet determinable either way.",
+      "as_of": "2026-07-13"
+    },
+    {
+      "prediction": "No Viterra goodwill impairment in FY2026.",
+      "status": "still open",
+      "evidence": "Web search (SEC EDGAR filing index + press coverage, dated through mid-2026) finds no reported Viterra goodwill impairment; the $30M Q4-2025 charge on record relates to a separate long-term-investment write-down, not Viterra goodwill. Annual impairment testing is not yet complete for FY2026, so this remains open, not confirmed.",
+      "as_of": "2026-07-13"
+    },
+    {
+      "prediction": "No covenant breach and no downgrade out of investment grade in the next 12 months.",
+      "status": "still open",
+      "evidence": "No covenant-breach or rating-downgrade news found via web search as of 2026-07-13. 12-month window (to Jun 2027) has not elapsed.",
+      "as_of": "2026-07-13"
+    }
+  ],
+  "catalyst_results": [
+    {"catalyst": "Q2 FY2026 earnings (late July 2026)", "status": "pending", "evidence": "Scheduled 2026-07-29 (StockTitan release-date notice, web-sourced, dated 2026-07), after this review date."},
+    {"catalyst": "Q3 FY2026 -- Viterra first laps organic volume/spread", "status": "pending", "evidence": "Late Oct 2026, not yet reached."},
+    {"catalyst": "Biofuel mandate policy (EPA RVO + Brazil/Indonesia/EU)", "status": "not materialized (favorable so far)", "evidence": "Web-sourced coverage (dated 2026-06/07) still frames the mandate/crush backdrop as favorable -- 'higher U.S. biofuel blending mandates... lifted uncertainty' and 'growing demand for biofuels, renewable diesel, and SAF' -- with no reversal reported. This is not new proof of durability; it is an absence of the bearish trigger so far."},
+    {"catalyst": "Post-Viterra cash-conversion print (CFO/EBITDA, FCF)", "status": "pending", "evidence": "Arrives with Q2/FY2026 results, not yet reported."},
+    {"catalyst": "Viterra goodwill re-measurement ($2,659M preliminary)", "status": "pending", "evidence": "No impairment reported yet; annual testing not yet complete for FY2026."},
+    {"catalyst": "2028 maturity cluster", "status": "not near-term", "evidence": "Correctly flagged in the original thesis as not a 12-month catalyst; no new refinancing news found."},
+    {"catalyst": "Brazil indirect-tax claims (quarterly)", "status": "not assessable", "evidence": "No BG-specific update on the ~$760M claim found via web search as of 2026-07-13; the data pool (data/BG/) is not accessible from this review environment, so a Q1/Q2 FY2026 contingency-note update could not be checked directly. Genuine gap, not evidence either way."}
+  ],
+  "risk_results": [
+    {"risk": "Biofuel-policy / crush-spread reversal (the killer risk)", "status": "not materialized", "evidence": "No RVO reversal or crush-spread-compression news found; commentary remains constructive as of web search dated 2026-06/07 2026."},
+    {"risk": "Earnings: H2 fade vs top-of-guide consensus", "status": "pending", "evidence": "Cannot be judged before the Q2 print (2026-07-29)."},
+    {"risk": "Valuation re-rating failure / value trap", "status": "at-risk for the bear view", "evidence": "Sell-side sentiment has moved MORE bullish since the decision date, not less: web-sourced coverage (dated 2026-07) reports a 'Strong Buy' consensus (6 of 8 analysts) and an average price target of $139.30 -- close to this thesis's own bull case (~$140) and well above the base FV (~$108). This does not confirm the bull case (analyst targets are not evidence, and the original thesis explicitly treats the sub-cost-of-capital ROIC and the EV/EBITDA discount as warranted, not a re-rating case) but it is a real data point cutting against the bear thesis that should be tracked, not ignored."},
+    {"risk": "Cash-conversion stays broken (FCF negative)", "status": "pending", "evidence": "No FY2026 cash-flow print since Q1."},
+    {"risk": "Balance sheet: 2028 refi cluster / floating-rate", "status": "not materialized", "evidence": "No spread-widening or rating-action news found."},
+    {"risk": "Brazil compounding tail", "status": "not assessable", "evidence": "No BG-specific update found via web search; pool inaccessible from this review environment."},
+    {"risk": "Governance: ~34% bloc / control overhang", "status": "not assessable", "evidence": "The 2026 DEF-14A-equivalent proxy disclosure remains a stated missing_data item; no new bloc-related news (board seats, RPT) found via web search."},
+    {"risk": "Execution: Viterra integration / goodwill", "status": "not materialized", "evidence": "No impairment or synergy-stall news found."}
+  ],
+  "decision_quality": "not assessable",
+  "error_taxonomy": [],
+  "lessons": [
+    "entry_price was null at decision (no pool-verified price existed), so no paper trade was created and no return can be computed at this 30d checkpoint -- decision_quality is 'not assessable' by design (DECISION_LEDGER.md S8), not a process failure.",
+    "The thesis's own notes correctly anticipated this: 'The 30d review (2026-07-01) precedes the late-July Q2 FY2026 print... the 90d review (2026-08-30) is the first to capture it.' Filed 12 days after the scheduled 2026-07-01 window (still before the Q2 print), this review confirms that framing -- the decisive near-term test has not occurred yet.",
+    "Web-sourced current price ~$126.50 (stockanalysis.com aggregation via search, dated 2026-07-13) sits inside the original thesis's own 'corroborating ~$123-126.50 band' -- it neither confirms the >$115-toward-Avoid kill criterion (which requires a POOL-sourced price, not a web one) nor re-opens the <$100 margin-of-safety trigger. Still no pool-sourced price -- the single highest-value missing-data item from the original decision record remains missing.",
+    "The one real signal this checkpoint surfaces: analyst consensus has grown MORE bullish since the decision (Strong Buy, avg PT $139.30, web-sourced dated 2026-07) even as the engine's own probability-weighted view stayed at -11.5% expected return. This is a genuine divergence worth watching into the Q2 print and the 90d review -- not yet evidence the engine is wrong (analyst price targets are not primary evidence per CLAUDE.md S4), but the gap between consensus optimism and the engine's skepticism is the thing the 90d/180d reviews should resolve.",
+    "No Viterra goodwill impairment, no covenant/rating event, and no reported biofuel-policy reversal as of 2026-07-13 -- consistent with an 'on-track' Watchlist, not a broken thesis.",
+    "Data-pool access: this review ran without access to data/BG/ (gitignored, not present in this review environment), so all delta evidence is web-sourced and labeled accordingly; a future review run with pool access should re-check the Q1/Q2 FY2026 contingency note (Brazil) and any 2026 proxy filing directly."
+  ],
+  "module_calibration_notes": {
+    "status": "too early to attribute",
+    "note": "No forecast has resolved (confirmed or falsified) and no red flag has materialized or been cleared since the decision date. Valuation is the module most load-bearing for the Watchlist call (base FV ~$108 vs indicative price); it is also the module most directly challenged so far by the more-bullish analyst consensus, though that is sentiment, not a filings-based cross-check. A real per-module read is not possible until the Q2 FY2026 print (2026-07-29) and, more decisively, the FY2026 cash-conversion print land -- both fall inside the 90d window (2026-08-30), not this 30d checkpoint."
+  },
+  "memo_delta": {
+    "summary": "Nothing material has changed since the 2026-06-01 decision. The stock ticked up modestly to a web-sourced ~$126.50 (still inside the thesis's own corroborating band) and analyst sentiment has grown more bullish (Strong Buy, avg PT $139.30), but the decisive near-term test -- the Q2 FY2026 print on 2026-07-29 -- has not happened yet, and none of the seven kill criteria have triggered. This checkpoint is too early to move the thesis either way.",
+    "thesis_delta_verdict": "too_early",
+    "stage_one_comment": "BG remains Watchlist, unchanged. Since the June 1 decision, the stock has drifted up to a web-sourced ~$126.50 (no pool-verified quote exists yet -- the single biggest data gap, unresolved), and sell-side sentiment has firmed to Strong Buy with an average target near $139, closer to our own bull case than our base case. Nothing has actually broken: no Viterra goodwill impairment, no covenant or rating event, no biofuel-policy reversal, and Q2 FY2026 earnings (July 29) -- the print that actually tests whether the H2 guide holds and whether cash conversion recovers -- has not landed yet. We are not chasing the more bullish tape; our base fair value (~$108) rests on a mid-cycle DCF that this business has not yet earned through a full cycle, and the thesis explicitly flags the current setup as a value trap if the market keeps paying up without the ROIC improving. Action: hold the Watchlist call, do not buy at current levels, and treat the July 29 print and the subsequent cash-flow statement as the real test.",
+    "changed_sections": [
+      {
+        "section": "Part I S8 Scenario Model / current price anchor",
+        "original_claim": "Indicative price ~$123.35 (MarketBeat, 2026-05-29), not pool-verified; no paper trade created.",
+        "new_evidence": "Web-sourced quote ~$126.50 as of 2026-07-13 (stockanalysis.com aggregation via search) and a Strong Buy analyst consensus with an average price target of $139.30 (web-sourced analyst-forecast summary, dated 2026-07).",
+        "evidence_source": "Web: stockanalysis.com / Yahoo Finance aggregation, accessed 2026-07-13 (indicative, unverified)",
+        "materiality_score": 25,
+        "impact_direction": "mixed",
+        "impacted_modules": ["valuation"],
+        "rerun_recommended": false,
+        "rerun_reason": "",
+        "rerun_command": ""
+      }
+    ],
+    "watch_items": [
+      "Q2 FY2026 earnings and guide commentary -- 2026-07-29 (the first real test of the H2 setup)",
+      "FY2026 cash-conversion print (CFO/EBITDA, FCF) -- arrives with Q2/H2 results",
+      "Viterra goodwill annual impairment test -- FY2026 10-K",
+      "Brazil indirect-tax claims (~$760M, was rising ~$115M/qtr) -- next contingency-note update",
+      "A pool-sourced current price -- still the single highest-value missing data point",
+      "2026 proxy / governance disclosure on the ~34% Glencore/CPP/BCI bloc -- still not filed as of this review"
+    ],
+    "management_questions": [
+      "Is the H2 FY2026 crush/biofuel spread tracking at, above, or below the level embedded in the $9.00-9.50 guide as of late July?",
+      "What is CFO/EBITDA and free cash flow through Q2 FY2026, and has Viterra working-capital unwind actually begun?",
+      "Has the FY2026 annual goodwill impairment test on the Viterra reporting unit been performed, and with what headroom?",
+      "Has the ~$760M Brazil indirect-tax claim moved from 'possible' to 'probable' in any jurisdiction, and what is the quarter-over-quarter change?",
+      "Has the 2026 proxy (or equivalent governance disclosure) been filed, and does it disclose LTIP weights, beneficial ownership, and any Glencore/CPP/BCI-related director nominations?"
+    ],
+    "memo_delta_file": "analyses/BG_2026-06-01/reviews/2026-07-13_30d_memo_delta.md"
+  }
+}
