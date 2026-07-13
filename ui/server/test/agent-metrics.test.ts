@@ -8,6 +8,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 process.env.ENGINE_STATE_DIR = fs.mkdtempSync(path.join(os.tmpdir(), 'agentmetrics-'))
+process.on('exit', () => { try { fs.rmSync(process.env.ENGINE_STATE_DIR!, { recursive: true, force: true }) } catch {} }) // don't leave the temp dir behind
 const { agentMetricsArgs, writeAgentMetrics } = await import('../src/agent-metrics')
 const { REPO_ROOT } = await import('../src/config')
 import type { RunState } from '../src/registry'
@@ -30,13 +31,24 @@ check('argv: passes session id, repo root, and the run-scoped --json path to run
   assert.deepEqual(argv.slice(1, 5), ['--session', 'sess-abc-123', '--repo-root', REPO_ROOT])
   const j = argv.indexOf('--json')
   assert.ok(j > 0, '--json present')
-  assert.equal(argv[j + 1], path.join(REPO_ROOT, 'screener/runs/SIG-x', 'agent_metrics.json')) // written INTO the run folder
+  assert.equal(argv[j + 1], path.resolve(REPO_ROOT, 'screener/runs/SIG-x', 'agent_metrics.json')) // written INTO the run folder
 })
 
 check('argv: the session UUID is passed through verbatim (no mangling)', () => {
   const uuid = '3f2c81d0-0000-4a2b-9c3d-abcdef012345'
   const argv = agentMetricsArgs(uuid, 'analyses/FOO')
   assert.equal(argv[argv.indexOf('--session') + 1], uuid)
+})
+
+// runRoot is repo-relative by contract, but if an absolute one is ever passed the --json path must be that
+// path itself — NOT silently nested under REPO_ROOT (path.join would produce REPO_ROOT + '/abs/run/...',
+// writing the metrics to a bogus location). path.resolve is what the rest of the launcher already does.
+check('argv: an absolute runRoot resolves to itself, not nested under REPO_ROOT', () => {
+  const abs = path.resolve(os.tmpdir(), 'abs-run')
+  const argv = agentMetricsArgs('sess-1', abs)
+  const jsonPath = argv[argv.indexOf('--json') + 1]
+  // path.resolve → abs/agent_metrics.json; the old path.join would give REPO_ROOT + abs (nested) — the bug.
+  assert.equal(jsonPath, path.join(abs, 'agent_metrics.json'))
 })
 
 // writeAgentMetrics is fire-and-forget; the guard must short-circuit (never spawn) when there's nothing to

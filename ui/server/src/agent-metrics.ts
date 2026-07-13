@@ -27,7 +27,12 @@ export function agentMetricsArgs(sessionId: string, runRoot: string): string[] {
     COST_REPORT,
     '--session', sessionId,
     '--repo-root', REPO_ROOT,
-    '--json', path.join(REPO_ROOT, runRoot, 'agent_metrics.json'),
+    // path.resolve (not path.join): runRoot is repo-relative by contract (registry.ts), but the rest of the
+    // launcher defensively handles an absolute runRoot too (see launcher.ts's `path.isAbsolute(runRoot)`
+    // sites). resolve matches that — a relative runRoot resolves against REPO_ROOT exactly as before, and an
+    // absolute one is used as-is instead of being silently nested under REPO_ROOT (which would write the
+    // metrics to a bogus path). Keeps this file consistent with its siblings.
+    '--json', path.resolve(REPO_ROOT, runRoot, 'agent_metrics.json'),
   ]
 }
 
