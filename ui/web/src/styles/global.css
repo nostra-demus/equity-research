@@ -403,6 +403,13 @@ a { color: inherit; }
   background: var(--surface-1); border-left: 1px solid var(--hairline-strong); box-shadow: var(--shadow-2);
   display: flex; flex-direction: column; will-change: transform;
 }
+/* Chat is usually opened FROM an open module output. Rather than the chat floating OVER the reader (which
+   crushed it to an unusable sliver and hid the reader's own Chat/Prompt/Download/Close controls), TILE the
+   two: the reader docks flush to the LEFT of the chat, both fully visible. Percentage widths keep them
+   side-by-side with no overlap at every screen width; the px caps stop them ballooning on very wide ones.
+   Layout only (right/width), so it doesn't fight the reader's framer translateX enter/exit. */
+.app--dual .chatpanel { width: min(520px, 42%); }
+.app--dual .reader { right: min(520px, 42%); width: min(640px, 46%); }
 .chatpanel__head { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 14px 18px; border-bottom: 1px solid var(--hairline); }
 .chatpanel__title { font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 8px; min-width: 0; }
 .chatpanel__badge { font-size: 10px; font-weight: 700; letter-spacing: 0.3px; color: #1a1206; background: var(--accent); padding: 2px 8px; border-radius: var(--r-pill); flex-shrink: 0; }
@@ -1744,11 +1751,15 @@ a { color: inherit; }
 .evrail__dot--live { background: var(--live); box-shadow: 0 0 7px var(--live); animation: evpulse 1.9s var(--ease-out) infinite; }
 .evrail__status { font-size: 10.5px; color: var(--text-muted); margin-top: 3px; line-height: 1.4; font-variant-numeric: tabular-nums; }
 .evrail__seg {
-  display: flex; gap: 2px; margin-top: 10px; padding: 2px; border-radius: var(--r-md);
+  display: flex; flex-wrap: wrap; gap: 2px; margin-top: 10px; padding: 2px; border-radius: var(--r-md);
   background: var(--bg-2); border: 1px solid var(--hairline);
 }
+/* Tabs size to their own label and fill the row when there's room; when the rail is squeezed too narrow
+   for all of them (e.g. "Ranked · 166" + a 3-digit count), they WRAP to a second row instead of the old
+   equal-width `flex: 1 1 0`, which forced centred labels to clip on BOTH sides. Every tab stays fully
+   legible at any rail width — no clipping, no hidden horizontal scroll. */
 .evrail__segbtn {
-  flex: 1 1 0; min-width: 0; height: 24px; padding: 0 4px; border: none; background: transparent; cursor: pointer; border-radius: var(--r-sm);
+  flex: 1 0 auto; min-width: 0; height: 24px; padding: 0 4px; border: none; background: transparent; cursor: pointer; border-radius: var(--r-sm);
   display: inline-flex; align-items: center; justify-content: center; gap: 4px;
   font-size: 10px; font-weight: 600; letter-spacing: 0.1px; color: var(--text-muted);
   white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
@@ -1857,8 +1868,32 @@ a { color: inherit; }
 .evrow__flag--on { opacity: 1; color: var(--accent-bright); }
 @media (hover: hover) and (pointer: fine) { .evrow__flag:hover { color: var(--accent-bright); background: var(--surface-3); } }
 .evrow__flag:active { transform: scale(0.88); }
+/* Keyboard users: reveal the flag (and shelve) on focus and ring it, so the gutter controls aren't
+   invisible-until-hover for a Tab traversal. */
+.evrow__flag:focus-visible, .evrow__shelve:focus-visible { opacity: 1; outline: none; box-shadow: inset 0 0 0 1.5px var(--accent); }
 
-.evrow__top { display: flex; align-items: center; gap: 7px; min-width: 0; }
+/* The rail-row hover hint (the ⚑). Rendered through a portal onto <body> (see EventRail) so it escapes the
+   wire list's overflow clip; anchored ABOVE-and-right of the trigger, so in the ≥640px card grid it opens
+   into its OWN card column and never lands on the neighbouring card the way the old native `title` did.
+   Opacity + scale in from the trigger's corner (transform-origin), ≤160ms; the box is aria-hidden and the
+   button keeps an aria-label for screen readers. */
+.rowtip {
+  position: fixed; z-index: 60; pointer-events: none;
+  max-width: 210px; padding: 5px 9px; border-radius: var(--r-sm);
+  background: var(--surface-1); border: 1px solid var(--hairline-strong);
+  box-shadow: 0 10px 26px -12px rgba(0, 0, 0, 0.7);
+  font-size: 11px; line-height: 1.35; color: var(--text-muted);
+  transform-origin: bottom right;
+  animation: rowtip-in var(--dur-fast) var(--ease-out) both;
+}
+@keyframes rowtip-in { from { opacity: 0; transform: scale(0.95) translateY(2px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .rowtip { animation: none; } }
+
+/* Reserve the top-right gutter the hover controls (⌄ shelve at right:8px, ⚑ flag at right:30px) sit in, so
+   the last top-row tag (RSS / EN) can't slide under the flag and get overlapped — the flag's left edge sits
+   ~50px from the card's right, the base hit padding only clears ~34px. Top row only: the headline and meta
+   below keep full width. Same gutter in the narrow list and the ≥640px card grid. */
+.evrow__top { display: flex; align-items: center; gap: 7px; min-width: 0; padding-right: 26px; }
 .evrow__score {
   flex-shrink: 0; font-size: 10px; font-weight: 700; line-height: 1; padding: 3px 5px; border-radius: var(--r-sm);
   border: 1px solid; font-variant-numeric: tabular-nums;
