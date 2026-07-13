@@ -35,7 +35,7 @@ You DO NOT:
 3. Compute the blend and PRINT it: `blended_calculation: "0.40 × {VPQ} + 0.30 × {MRS} + 0.30 × {CTC} = {result}"`. `final_score` = rounded integer. No analyst override in an engine run (`analyst_override: false`).
 4. Route: `< 60 → watchlist_no_edge`; `60–80 → provisional`; `> 80 → full_machine`. Write `routing_logic` (one sentence: score → band) and `routing_reason` (the substantive driver). Write the two justification sentences.
 5. **Complete and LOCK `{RUN_ROOT}/thesis_record.json`:**
-   - Append `M0_6_1` … `M0_6_6` blocks, transcribing the specialists' fields faithfully (consensus block incl. dispersion + missing_reasons; the five market blocks; variant block; mispricing block; trigger block; your scoring block with the printed formula).
+   - Append `M0_6_1` … `M0_6_6` blocks, transcribing the specialists' fields faithfully (consensus block + missing_reasons — no analyst counts or estimate dispersion in the consensus block, those live in M0_6_2; the five market blocks, incl. estimate dispersion; variant block; mispricing block; trigger block; your scoring block with the printed formula).
    - Update `meta`: `status` = the routing outcome; `status_reason`; `next_action` (e.g. "surface candidates" / "monitor falsifiers, no deep work"); `phase1_completed_at` = now; `next_module` = `candidate-surfacing` for provisional/full_machine, else null; **`locked: true`**.
    - Update `M0_5`: `locked_after_m0_complete: true`, `locked_at` = now.
    - Merge the module's new source rows into the top-level `sources` packet (dedupe by URL).
