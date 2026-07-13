@@ -21,7 +21,9 @@ Usage:
 from __future__ import annotations
 import argparse, json, os, glob, sys, collections
 
-# ---- pricing: per 1M tokens (input, output). Source: Anthropic list price, cached 2026-06-24. ----
+# ---- pricing: per 1M tokens (input, output). Source: Anthropic list price, cached 2026-06-24.
+# Estimate only: Sonnet-5's intro rate ($2/$10 through 2026-08-31) is NOT modelled — Sonnet is
+# priced at the standard $3/$15, so Sonnet-5 runs in that window read slightly high. ----
 MODEL_PRICES = {
     'claude-fable':    (10.0, 50.0),
     'claude-opus':     (5.0, 25.0),
@@ -40,14 +42,22 @@ def rate_for(model):
                 return v
     return DEFAULT_RATE
 
-def token_cost(model, u):
-    """List-price USD for a usage dict; splits cache-creation by 5m/1h TTL when present."""
-    inp, out = rate_for(model)
+def _cache_creation_split(u):
+    """(5m_tokens, 1h_tokens) for a usage dict. Prefer the ephemeral breakdown; if it is absent
+    OR all-zero, fall back to the flat `cache_creation_input_tokens` priced at the 5m rate. This is
+    the single source of truth for cache-creation, so `token_cost`, `dedup_usage` (per message) and
+    `_accrue` cannot diverge — the bug where a synthesized {0,0} dict silently zeroed the flat field."""
     cc = u.get('cache_creation') or {}
-    cc5, cc1 = cc.get('ephemeral_5m_input_tokens'), cc.get('ephemeral_1h_input_tokens')
-    if cc5 is None and cc1 is None:
-        cc5, cc1 = u.get('cache_creation_input_tokens', 0), 0   # no split -> price all at 5m rate
-    cc5, cc1 = cc5 or 0, cc1 or 0
+    cc5 = cc.get('ephemeral_5m_input_tokens') or 0
+    cc1 = cc.get('ephemeral_1h_input_tokens') or 0
+    if cc5 == 0 and cc1 == 0:
+        cc5 = u.get('cache_creation_input_tokens', 0) or 0
+    return cc5, cc1
+
+def token_cost(model, u):
+    """List-price USD for a usage dict; cache-creation split by 5m/1h TTL (see _cache_creation_split)."""
+    inp, out = rate_for(model)
+    cc5, cc1 = _cache_creation_split(u)
     return (u.get('input_tokens', 0) * inp
             + u.get('cache_read_input_tokens', 0) * CACHE_READ_MULT * inp
             + cc5 * CACHE_5M_MULT * inp
@@ -81,9 +91,8 @@ def dedup_usage(path):
     cc5 = cc1 = 0
     for u in byreq.values():
         for k in USAGE_KEYS: agg[k] += u.get(k, 0)
-        cc = u.get('cache_creation') or {}
-        cc5 += cc.get('ephemeral_5m_input_tokens', 0) or 0
-        cc1 += cc.get('ephemeral_1h_input_tokens', 0) or 0
+        c5, c1 = _cache_creation_split(u)            # resolves dict-or-flat per message
+        cc5 += c5; cc1 += c1
     agg['cache_creation'] = {'ephemeral_5m_input_tokens': cc5, 'ephemeral_1h_input_tokens': cc1}
     return atype, model, agg, len(byreq)
 
@@ -122,23 +131,37 @@ def find_session(projects_dir, session_id):
     subs = glob.glob(f'{projects_dir}/*/{session_id}/subagents/*.jsonl')
     return main, subs
 
+def _readlines(p):
+    try:
+        with open(p, encoding='utf-8', errors='ignore') as f: return f.readlines()
+    except OSError: return []
+
 def agent_module_map(repo_root):
+    """agent name -> module. Includes BOTH module specialists (`agents/<module>/NN_*.md`) and
+    top-level agents (`agents/*.md`: synthesizer, memo-writer, module-memo-writer) so `--all`
+    does not silently drop the orchestrator-level roles."""
     m = {}
-    for p in glob.glob(f'{repo_root}/.claude/agents/*/*.md'):
-        module, name = os.path.basename(os.path.dirname(p)), None
+    paths = glob.glob(f'{repo_root}/.claude/agents/*/*.md') + glob.glob(f'{repo_root}/.claude/agents/*.md')
+    for p in paths:
+        parent = os.path.basename(os.path.dirname(p))
+        module = '(top-level)' if parent == 'agents' else parent
+        name = None
         for line in _readlines(p)[:12]:
             if line.startswith('name:'):
                 name = line.split(':', 1)[1].strip(); break
         if name: m[name] = module
     return m
 
-def _readlines(p):
-    try:
-        with open(p, encoding='utf-8', errors='ignore') as f: return f.readlines()
-    except OSError: return []
-
 # ---- reporting ----
 def _u(u): return sum(u.get(k, 0) for k in USAGE_KEYS)
+
+def _accrue(comp, model, u):
+    inp, out = rate_for(model)
+    cc5, cc1 = _cache_creation_split(u)
+    comp['input'] += u.get('input_tokens', 0) * inp / 1e6
+    comp['cache_read'] += u.get('cache_read_input_tokens', 0) * CACHE_READ_MULT * inp / 1e6
+    comp['cache_creation'] += (cc5 * CACHE_5M_MULT + cc1 * CACHE_1H_MULT) * inp / 1e6
+    comp['output'] += u.get('output_tokens', 0) * out / 1e6
 
 def render(result, modmap=None, title=''):
     modmap = modmap or {}
@@ -172,17 +195,6 @@ def render(result, modmap=None, title=''):
     lines.append("NOTE: list-price estimate (tokens x published rate); not a billed invoice.")
     return "\n".join(lines)
 
-def _accrue(comp, model, u):
-    inp, out = rate_for(model)
-    cc = u.get('cache_creation') or {}
-    cc5 = cc.get('ephemeral_5m_input_tokens'); cc1 = cc.get('ephemeral_1h_input_tokens')
-    if cc5 is None and cc1 is None: cc5, cc1 = u.get('cache_creation_input_tokens', 0), 0
-    cc5, cc1 = cc5 or 0, cc1 or 0
-    comp['input'] += u.get('input_tokens',0)*inp/1e6
-    comp['cache_read'] += u.get('cache_read_input_tokens',0)*CACHE_READ_MULT*inp/1e6
-    comp['cache_creation'] += (cc5*CACHE_5M_MULT + cc1*CACHE_1H_MULT)*inp/1e6
-    comp['output'] += u.get('output_tokens',0)*out/1e6
-
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument('--session', help='session UUID to attribute (one run)')
@@ -199,6 +211,9 @@ def main(argv=None):
         result = attribute_session(main_path, subs)
         print(render(result, modmap, title=f"— session {args.session[:12]}"))
     elif args.all:
+        if not modmap:
+            print(f"warning: no agents found under {args.repo_root}/.claude/agents — pass --repo-root; "
+                  f"--all filters to research agents so the result will be empty", file=sys.stderr)
         subs = glob.glob(f'{args.projects_dir}/*/*/subagents/*.jsonl')
         result = attribute_session(None, subs)
         result['agents'] = [a for a in result['agents'] if a['agent'] in modmap]  # research only
