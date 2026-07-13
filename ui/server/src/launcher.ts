@@ -6,6 +6,7 @@ import { logLaunch } from './activity-log'
 import { admitRun, admissionMessage } from './admission'
 import { CLAUDE_BIN, DATA_DIR, DEFAULT_MODEL, ESTIMATES, FULL_PER_MODULE, LAUNCH_GUARDS, MAX_CONCURRENT_RUNS, REPO_ROOT, type LaunchKind } from './config'
 import { getCreditStatus, setCreditStatus } from './credit'
+import { writeAgentMetrics } from './agent-metrics'
 import { startRunWatcher, sweepRunOutputs } from './fs-watcher'
 import { createRun, emit, finishRun, getRun, IN_FLIGHT_STATUSES, inFlightRunsForSubject, listRuns, setActiveSubjectRun, type ExpectedAgent, type RunState } from './registry'
 import { clearRunMarker, resolveRunRoot, writeRunMarker } from './outputs'
@@ -1530,6 +1531,7 @@ async function spawnEngine(run: RunState): Promise<void> {
     }
     // heal any file event the watcher missed in the final moments (awaitWriteFinish hold vs exit)
     sweepRunOutputs(run)
+    writeAgentMetrics(run) // per-agent cost/runtime from the transcripts (run_cost_report.py); fire-and-forget
     finalizeRunOnClose(run, res, stderr)
   }
   child.then(onClose).catch(onClose)
