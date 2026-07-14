@@ -234,11 +234,18 @@ function TickerPicker() {
                 <div key={t.ticker} className="tickerpick__itemwrap">
                   <button
                     className={`tickerpick__item${t.ticker === selected ? ' tickerpick__item--active' : ''}${t.valid === false ? ' tickerpick__item--invalid' : ''}`}
+                    aria-expanded={canExpand ? isExp : undefined}
                     onClick={(e) => {
                       // the chevron toggles history in place; the rest of the row opens the company (and closes the menu)
                       if ((e.target as HTMLElement).closest('.rh-disc')) { toggleExpand(t.ticker); return }
                       selectTicker(t.ticker)
                       setOpen(false)
+                    }}
+                    onKeyDown={(e) => {
+                      // Keyboard parity with the in-stage picker: the chevron is pointer-only + aria-hidden, so
+                      // →/← on the focused row open/close its run history (Enter/Space still select the company).
+                      if (canExpand && e.key === 'ArrowRight' && !isExp) { e.preventDefault(); toggleExpand(t.ticker) }
+                      else if (isExp && e.key === 'ArrowLeft') { e.preventDefault(); toggleExpand(t.ticker) }
                     }}
                   >
                     {canExpand ? (

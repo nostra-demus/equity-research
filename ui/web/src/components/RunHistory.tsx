@@ -25,13 +25,18 @@ export function RunHistory({ ticker, standingRunRoot, onOpen }: {
   const [error, setError] = useState(false)
 
   useEffect(() => {
-    const cached = cache.get(ticker)
-    if (cached) { setRuns(cached); setError(false); return }
     let alive = true
-    setRuns(null); setError(false)
+    const cached = cache.get(ticker)
+    setRuns(cached ?? null) // show cached instantly (skeleton if none); ALWAYS revalidate below
+    setError(false)
+    // Stale-while-revalidate: a run may have been written since this ticker was last cached (the row can
+    // even advertise a newer/multiple-run history), so refetch on every open and update if it changed —
+    // otherwise the expanded timeline keeps omitting the latest run + its Open button until a page reload.
+    // Cached-first keeps re-expand / selector-switch flicker-free; the refetch fixes the staleness. A failed
+    // fetch keeps any cached rows (only shows the error state when nothing was cached) and is never cached.
     api.history(ticker)
       .then((r) => { cache.set(ticker, r.history); if (alive) setRuns(r.history) })
-      .catch(() => { if (alive) setError(true) }) // not cached -> re-opening the row retries
+      .catch(() => { if (alive && !cache.get(ticker)) setError(true) })
     return () => { alive = false }
   }, [ticker])
 
