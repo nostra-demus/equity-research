@@ -291,6 +291,7 @@
         },
         "estimate_dispersion": {
           "type": "object",
+          "description": "LEGACY (optional) — see analyst_rating_distribution above. Dispersion now lives only in M0_6_2.estimate_dispersion; this M0_6_1 copy is retained for old records, not produced by new runs.",
           "properties": {
             "current_high_estimate": { "type": ["number", "string", "null"] },
             "current_low_estimate": { "type": ["number", "string", "null"] },
