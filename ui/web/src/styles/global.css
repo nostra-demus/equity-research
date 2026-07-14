@@ -87,7 +87,9 @@ a { color: inherit; }
   position: absolute; top: 42px; right: 0; min-width: 280px; z-index: 40;
   background: var(--surface-1); border: 1px solid var(--hairline-strong); border-radius: var(--r-md);
   box-shadow: var(--shadow-2); overflow-y: auto; overflow-x: hidden; padding: 6px;
-  max-height: min(70vh, 560px); /* an expanded run history can make the list tall — scroll, don't overflow the viewport */
+  /* an expanded run history can make the menu tall AND wide — cap both. Height scrolls; width is bounded so
+     the menu can't grow unboundedly (a long module-list run label ellipsizes via .runhist__kind instead). */
+  max-height: min(70vh, 560px); max-width: min(92vw, 460px);
 }
 .tickerpick__item {
   display: flex; align-items: center; gap: 10px; width: 100%;

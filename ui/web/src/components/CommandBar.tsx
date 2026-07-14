@@ -173,6 +173,8 @@ function TickerPicker() {
   // first-time picker). A company only offers it when it has >1 run.
   const [expanded, setExpanded] = useState<string | null>(null)
   const toggleExpand = (ticker: string) => setExpanded((cur) => (cur === ticker ? null : ticker))
+  // collapse any open history when the dropdown closes, so reopening it starts clean (and unmounts RunHistory)
+  useEffect(() => { if (!open) setExpanded(null) }, [open])
   // Non-research constellation swarm (e.g. commodity): a simple subject picker over the swarm's subjects.
   // All hooks above are called unconditionally, so this early return is rules-of-hooks safe.
   if (activeSwarm !== 'research') {
