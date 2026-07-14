@@ -209,6 +209,11 @@ export interface TickerSummary {
     decisionDate: string | null
     confidence: number | null
   } | null
+  // how many analyses/ run folders this ticker has — drives the "N runs" affordance + run-history expander
+  runCount: number
+  // a run folder NEWER than latestRun has no decision record yet — it would otherwise shadow the standing
+  // run, so the cockpit surfaces the standing (complete) run and flags that a partial re-run has landed since
+  hasNewerPartial: boolean
 }
 
 // ---- runs / events ----
