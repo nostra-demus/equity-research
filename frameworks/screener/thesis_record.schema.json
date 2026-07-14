@@ -278,7 +278,6 @@
         },
         "analyst_rating_distribution": {
           "type": "object",
-          "description": "LEGACY (optional) — retained so pre-2026-07 records validate. New runs do NOT populate this here: analyst ratings + estimate dispersion are owned by M0_6_2 (market-implied); M0.6.1 stopped pulling them because a second copy from a different source contradicted M0_6_2.",
           "properties": {
             "buy_count": { "type": ["integer", "null"] },
             "hold_count": { "type": ["integer", "null"] },

@@ -1531,7 +1531,13 @@ async function spawnEngine(run: RunState): Promise<void> {
     }
     // heal any file event the watcher missed in the final moments (awaitWriteFinish hold vs exit)
     sweepRunOutputs(run)
-    writeAgentMetrics(run) // per-agent cost/runtime from the transcripts (run_cost_report.py); fire-and-forget
+    // per-agent cost/runtime from the transcripts (run_cost_report.py); fire-and-forget. Runs AFTER the
+    // command's own commit-run.sh has already pushed the run folder, so the metrics file needs its own
+    // commit here — otherwise it lands after the data commit and is never pushed (stranded on an ephemeral
+    // host, defeating the "aggregate across runs" purpose it exists for).
+    writeAgentMetrics(run, (r, filename) => {
+      if (r.runRoot) commitRunFile(r.runRoot, filename, `Agent metrics: ${r.ticker} (${filename})`)
+    })
     finalizeRunOnClose(run, res, stderr)
   }
   child.then(onClose).catch(onClose)
