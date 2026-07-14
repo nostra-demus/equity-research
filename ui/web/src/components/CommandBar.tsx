@@ -4,6 +4,7 @@ import { decisionColor, fmtAgo, resetIn, resolveVerdict, usageColor, usageLabel,
 import { plainKind } from '../lib/plain'
 import { EngineStatusPill } from './EngineStatus'
 import { ThemeToggle } from './ThemeToggle'
+import { RunHistory } from './RunHistory'
 
 function BrandMark() {
   return (
@@ -168,6 +169,10 @@ function TickerPicker() {
   const activeSwarm = useStore((s) => s.activeSwarm)
   const swarmSubjectList = useStore((s) => s.swarmSubjectList)
   const [open, setOpen] = useState(false)
+  // which company's run history is expanded inside the dropdown (research only; same shared surface as the
+  // first-time picker). A company only offers it when it has >1 run.
+  const [expanded, setExpanded] = useState<string | null>(null)
+  const toggleExpand = (ticker: string) => setExpanded((cur) => (cur === ticker ? null : ticker))
   // Non-research constellation swarm (e.g. commodity): a simple subject picker over the swarm's subjects.
   // All hooks above are called unconditionally, so this early return is rules-of-hooks safe.
   if (activeSwarm !== 'research') {
@@ -220,29 +225,56 @@ function TickerPicker() {
         <>
           <div style={{ position: 'fixed', inset: 0, zIndex: 39 }} onClick={() => setOpen(false)} />
           <div className="tickerpick__menu">
-            {tickers.map((t) => (
-              <button
-                key={t.ticker}
-                className={`tickerpick__item${t.ticker === selected ? ' tickerpick__item--active' : ''}${t.valid === false ? ' tickerpick__item--invalid' : ''}`}
-                onClick={() => {
-                  selectTicker(t.ticker)
-                  setOpen(false)
-                }}
-              >
-                <span className="tickerpick__sym">{t.ticker}</span>
-                {activeRunsByTicker.has(t.ticker) && <span className="pulsedot" style={{ flexShrink: 0 }} title="Run in progress" />}
-                {t.valid === false ? (
-                  <span className="tickerpick__warn" title={`${t.invalidReason}. Rename the Drive folder to ${t.suggestedTicker}.`}>⚠ rename → {t.suggestedTicker}</span>
-                ) : t.syncing ? (
-                  <span className="tickerpick__meta tickerpick__meta--sync"><span className="pulsedot" style={{ flexShrink: 0 }} /> syncing… {t.fileCount} file{t.fileCount === 1 ? '' : 's'}</span>
-                ) : (
-                  <span className="tickerpick__meta">{t.fileCount} file{t.fileCount === 1 ? '' : 's'}</span>
-                )}
-                {t.valid !== false && t.latestRun?.decision && (
-                  <span style={{ color: decisionColor(t.latestRun.decision), fontSize: 11, fontWeight: 600 }}>{t.latestRun.decision}</span>
-                )}
-              </button>
-            ))}
+            {tickers.map((t) => {
+              const isExp = expanded === t.ticker
+              const canExpand = t.valid !== false && t.runCount > 1
+              return (
+                <div key={t.ticker} className="tickerpick__itemwrap">
+                  <button
+                    className={`tickerpick__item${t.ticker === selected ? ' tickerpick__item--active' : ''}${t.valid === false ? ' tickerpick__item--invalid' : ''}`}
+                    onClick={(e) => {
+                      // the chevron toggles history in place; the rest of the row opens the company (and closes the menu)
+                      if ((e.target as HTMLElement).closest('.rh-disc')) { toggleExpand(t.ticker); return }
+                      selectTicker(t.ticker)
+                      setOpen(false)
+                    }}
+                  >
+                    {canExpand ? (
+                      <span className={`rh-disc${isExp ? ' is-open' : ''}`} title={`${t.runCount} runs — ${isExp ? 'hide' : 'show'} history`} aria-hidden>
+                        <svg className="rh-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden><path d="m9 6 6 6-6 6" /></svg>
+                      </span>
+                    ) : (
+                      <span className="rh-disc-sp" aria-hidden />
+                    )}
+                    <span className="tickerpick__sym">{t.ticker}</span>
+                    {activeRunsByTicker.has(t.ticker) && <span className="pulsedot" style={{ flexShrink: 0 }} title="Run in progress" />}
+                    {t.valid === false ? (
+                      <span className="tickerpick__warn" title={`${t.invalidReason}. Rename the Drive folder to ${t.suggestedTicker}.`}>⚠ rename → {t.suggestedTicker}</span>
+                    ) : t.syncing ? (
+                      <span className="tickerpick__meta tickerpick__meta--sync"><span className="pulsedot" style={{ flexShrink: 0 }} /> syncing… {t.fileCount} file{t.fileCount === 1 ? '' : 's'}</span>
+                    ) : (
+                      <span className="tickerpick__meta">
+                        {t.runCount > 1 && <><span className="rh-runs">{t.runCount} runs</span><span className="rh-sep"> · </span></>}
+                        {t.fileCount} file{t.fileCount === 1 ? '' : 's'}
+                      </span>
+                    )}
+                    {t.valid !== false && t.latestRun?.decision && (
+                      <span style={{ color: decisionColor(t.latestRun.decision), fontSize: 11, fontWeight: 600 }}>{t.latestRun.decision}</span>
+                    )}
+                    {t.hasNewerPartial && (
+                      <span className="rh-refresh" title="A newer partial re-run exists that has not produced a decision — the verdict shown is from the last completed run. Expand to see it.">⟳ newer run</span>
+                    )}
+                  </button>
+                  {isExp && (
+                    <RunHistory
+                      ticker={t.ticker}
+                      standingRunRoot={t.latestRun?.runRoot ?? null}
+                      onOpen={(rr) => { selectTicker(t.ticker, rr); setOpen(false) }}
+                    />
+                  )}
+                </div>
+              )
+            })}
             {!tickers.length && (
               <div style={{ padding: '12px', color: 'var(--text-faint)', fontSize: 12, lineHeight: 1.55 }}>
                 {connected ? (

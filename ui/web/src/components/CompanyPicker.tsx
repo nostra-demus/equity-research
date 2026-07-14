@@ -1,10 +1,10 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { useStore } from '../lib/store'
-import { api } from '../lib/api'
-import { decisionColor, fmtAgo, fmtDuration, moduleLabel } from '../lib/format'
+import { decisionColor, fmtAgo, fmtDuration } from '../lib/format'
 import { plainKind } from '../lib/plain'
-import type { RunHistoryEntry, TickerSummary } from '../lib/types'
+import type { TickerSummary } from '../lib/types'
+import { RunHistory } from './RunHistory'
 
 // In-stage company picker for the research empty state (when companies exist but none is chosen). A
 // search-first, keyboard-driven palette right where the user is looking — no hunting to the top-right menu.
@@ -31,30 +31,11 @@ export function CompanyPicker() {
   const inputRef = useRef<HTMLInputElement>(null)
   const listRef = useRef<HTMLDivElement>(null)
 
-  // Run-history expander: which ticker's history is open, plus a lazy per-ticker cache (fetched on first
-  // expand from GET /api/runs?ticker=…). A ticker only offers the expander when it has >1 run.
+  // Run-history expander: which ticker's history is open. The timeline itself (fetch + render) lives in the
+  // shared <RunHistory> component, mounted when a row expands — the same surface the top-right dropdown uses,
+  // so the two selectors can't drift. A ticker only offers the expander when it has >1 run.
   const [expanded, setExpanded] = useState<string | null>(null)
-  const [histCache, setHistCache] = useState<Record<string, RunHistoryEntry[]>>({})
-  const [histLoading, setHistLoading] = useState<string | null>(null)
-  const toggleExpand = (ticker: string) => {
-    const willExpand = expanded !== ticker
-    setExpanded(willExpand ? ticker : null)
-    // fetch the timeline once, and only when actually OPENING it — not on collapse, and not if a fetch for
-    // this ticker is already in flight or cached (avoids the redundant GET a fast re-toggle would otherwise fire)
-    if (willExpand && !histCache[ticker] && histLoading !== ticker) {
-      setHistLoading(ticker)
-      api.history(ticker)
-        .then((r) => setHistCache((c) => ({ ...c, [ticker]: r.history })))
-        // leave the cache UNSET on failure so `!histCache[ticker]` stays true and the next expand actually
-        // retries (caching [] here would look identical to a genuinely empty history and never retry). Until
-        // then the render shows its empty state, and re-opening the row re-fetches.
-        .catch(() => {})
-        .finally(() => setHistLoading((l) => (l === ticker ? null : l)))
-    }
-  }
-  const cap = (s: string) => (s ? s.charAt(0).toUpperCase() + s.slice(1) : s)
-  const runKindLabel = (run: RunHistoryEntry) =>
-    run.hasDossier ? 'Full dossier' : run.modules.length ? run.modules.map((m) => cap(moduleLabel(m))).join(', ') : 'Run'
+  const toggleExpand = (ticker: string) => setExpanded((cur) => (cur === ticker ? null : ticker))
 
   // In-flight RESEARCH runs, grouped by company (selectTicker reconnects ALL of a ticker's runs, so one
   // row per ticker). Scoped hard to research: filtered by swarmId AND by the live roster, so a concurrent
@@ -132,7 +113,7 @@ export function CompanyPicker() {
   const onKeyDown = (e: React.KeyboardEvent) => {
     // a focused Resume button / an open run-history Open button owns its own Enter/Space — don't let the
     // list handler hijack them
-    if ((e.target as HTMLElement).closest?.('.coco__resume, .coco__hist')) return
+    if ((e.target as HTMLElement).closest?.('.coco__resume, .runhist')) return
     if (e.key === 'ArrowDown') { e.preventDefault(); setHi((h) => Math.min(h + 1, filtered.length - 1)) }
     else if (e.key === 'ArrowUp') { e.preventDefault(); setHi((h) => Math.max(h - 1, 0)) }
     else if (e.key === 'Enter') { e.preventDefault(); const t = filtered[hi]; if (t) selectTicker(t.ticker) }
@@ -216,7 +197,7 @@ export function CompanyPicker() {
                 className={`coco__row${i === hi ? ' is-active' : ''}${t.valid === false ? ' coco__row--invalid' : ''}`}
                 onClick={(e) => {
                   // the chevron (a span, not a nested button) toggles history in place; the rest of the row opens the company
-                  if ((e.target as HTMLElement).closest('.coco__disc')) { toggleExpand(t.ticker); return }
+                  if ((e.target as HTMLElement).closest('.rh-disc')) { toggleExpand(t.ticker); return }
                   selectTicker(t.ticker)
                 }}
               >
@@ -224,14 +205,14 @@ export function CompanyPicker() {
                   {canExpand ? (
                     // Decorative pointer affordance, not an ARIA button: a real interactive control can't nest
                     // inside the row <button>, and the row's primary keyboard action is select (opens the
-                    // standing dossier). The click is delegated via the row's onClick (which tests .coco__disc);
+                    // standing dossier). The click is delegated via the row's onClick (which tests .rh-disc);
                     // the "N runs" text below carries the same cue for non-pointer users, so the chevron is
                     // hidden from the accessibility tree rather than announced as a control that can't be operated.
-                    <span className={`coco__disc${isExp ? ' is-open' : ''}`} title={`${t.runCount} runs — ${isExp ? 'hide' : 'show'} history`} aria-hidden>
-                      <svg className="coco__chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden><path d="m9 6 6 6-6 6" /></svg>
+                    <span className={`rh-disc${isExp ? ' is-open' : ''}`} title={`${t.runCount} runs — ${isExp ? 'hide' : 'show'} history`} aria-hidden>
+                      <svg className="rh-chev" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" aria-hidden><path d="m9 6 6 6-6 6" /></svg>
                     </span>
                   ) : (
-                    <span className="coco__disc-sp" aria-hidden />
+                    <span className="rh-disc-sp" aria-hidden />
                   )}
                   {running ? (
                     <span className="pulsedot" title="Run in progress" />
@@ -250,8 +231,8 @@ export function CompanyPicker() {
                     <span style={{ color: 'var(--accent-bright)' }}>syncing… {t.fileCount} file{t.fileCount === 1 ? '' : 's'}</span>
                   ) : (
                     <>
-                      {t.runCount > 1 && <span className="coco__runs">{t.runCount} runs</span>}
-                      {t.runCount > 1 && <span className="coco__sep"> · </span>}
+                      {t.runCount > 1 && <span className="rh-runs">{t.runCount} runs</span>}
+                      {t.runCount > 1 && <span className="rh-sep"> · </span>}
                       {t.fileCount === 0 ? <span style={{ fontStyle: 'italic' }}>no documents yet</span> : <>{t.fileCount} file{t.fileCount === 1 ? '' : 's'}</>}
                     </>
                   )}
@@ -265,7 +246,7 @@ export function CompanyPicker() {
                     </span>
                   )}
                   {t.hasNewerPartial && (
-                    <span className="coco__refresh" title="A newer partial re-run exists that has not produced a decision — the verdict shown is from the last completed run. Expand to see it.">⟳ newer run</span>
+                    <span className="rh-refresh" title="A newer partial re-run exists that has not produced a decision — the verdict shown is from the last completed run. Expand to see it.">⟳ newer run</span>
                   )}
                   {running ? (
                     <span className="coco__ago" style={{ color: 'var(--accent)' }}>running</span>
@@ -276,44 +257,11 @@ export function CompanyPicker() {
               </button>
 
               {isExp && (
-                <div className="coco__hist">
-                  {histLoading === t.ticker && !histCache[t.ticker] ? (
-                    <>
-                      <div className="coco__hrow coco__hrow--skel"><span className="skel" style={{ height: 12, width: '55%', borderRadius: 4 }} /></div>
-                      <div className="coco__hrow coco__hrow--skel"><span className="skel" style={{ height: 12, width: '40%', borderRadius: 4 }} /></div>
-                    </>
-                  ) : histCache[t.ticker]?.length ? (
-                    histCache[t.ticker].map((run) => {
-                      const standing = run.runRoot === t.latestRun?.runRoot
-                      const vc = run.decision ? decisionColor(run.decision) : null
-                      return (
-                        <div key={run.runRoot} className={`coco__hrow${standing ? ' is-standing' : ''}`}>
-                          <span className="coco__hdate">{run.date}</span>
-                          <span className="coco__hkind">
-                            {runKindLabel(run)}
-                            {run.modules.length > 0 && <span className="coco__hchip">{run.modules.length} module{run.modules.length === 1 ? '' : 's'}</span>}
-                          </span>
-                          <span className="coco__hstate">
-                            {vc && run.decision ? (
-                              <span className="coco__pill" style={{ color: vc, borderColor: `color-mix(in srgb, ${vc} 40%, transparent)`, background: `color-mix(in srgb, ${vc} 12%, transparent)` }}>
-                                {run.decision}
-                                {run.confidence != null && <span className="coco__pill-conf"> · {run.confidence}</span>}
-                              </span>
-                            ) : (
-                              <span className="coco__hmuted">no decision</span>
-                            )}
-                            {standing && <span className="coco__htag" title="The verdict currently shown for this company">standing</span>}
-                          </span>
-                          <button type="button" className="coco__hopen" onClick={() => selectTicker(t.ticker, run.runRoot)}>
-                            Open{run.hasDossier ? ' dossier' : ''}
-                          </button>
-                        </div>
-                      )
-                    })
-                  ) : (
-                    <div className="coco__hist-empty">No run history found.</div>
-                  )}
-                </div>
+                <RunHistory
+                  ticker={t.ticker}
+                  standingRunRoot={t.latestRun?.runRoot ?? null}
+                  onOpen={(rr) => selectTicker(t.ticker, rr)}
+                />
               )}
             </div>
           )
