@@ -63,6 +63,13 @@
   --neutral: #6b6b73;
   --bad: #c9514e;
   --bad-wash: rgba(201, 81, 78, 0.12);
+  /* "affected by new data — needs a scoped re-run": the intake surface's own colour for the orbs a
+     newly-landed doc bears on + the impact beams pointing at them. A dedicated VIOLET, distinct from
+     --accent (running/done), --bad (failed) and --live, so a to-be-reheated orb pops instead of blending
+     with normal done orbs. The glow/wash are alpha-based so they read on any theme background. */
+  --rerun: #8b5cf6;
+  --rerun-glow: rgba(139, 92, 246, 0.55);
+  --rerun-wash: rgba(139, 92, 246, 0.18);
   /* conviction traffic-light amber (a "came up short / warning" state in the proof-point timeline) */
   --conv-warn: #d9912f;
   /* the one green — engine "Live" only (+ conviction "confirmed" success) */
@@ -198,6 +205,9 @@
   --bad-wash: rgba(181, 52, 43, 0.11);
   --conv-warn: #b9740c;
   --live: #0c7048;
+  --rerun: #5b46c9; /* darkened violet for light-mode contrast — matches --provider-or */
+  --rerun-glow: rgba(91, 70, 201, 0.42);
+  --rerun-wash: rgba(91, 70, 201, 0.15);
   --provider-or: #5b46c9; /* OpenRouter overflow accent (violet, darkened for light-mode contrast) */
   --provider-nv: #4f7d00; /* NVIDIA NIM overflow accent (NVIDIA green, darkened for light-mode contrast) */
   --provider-cb: #d4501c; /* Cerebras overflow accent (brand orange, darkened for light-mode contrast) */

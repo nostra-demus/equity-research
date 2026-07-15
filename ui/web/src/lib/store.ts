@@ -1559,10 +1559,18 @@ export const useStore = create<State>((set, get) => ({
     if (!t || get().staticMode || get().activeSwarm !== 'research' || get().intakeAnalyzing) return
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — analysis is paused until it reconnects.', tone: 'info' })
     set({ intakeAnalyzing: true })
+    get().setToast({ msg: 'Reading the new documents — I’ll light up the orbs to re-run when it’s done (about a minute).', tone: 'info' })
     const token = get().selectToken
     const before = get().intake?.analyzed_at
     try {
-      await api.analyzeIntake(t)
+      try {
+        await api.analyzeIntake(t)
+      } catch (e: any) {
+        // Auto-analyze-on-landing (or an earlier click) already has an analysis in flight for this
+        // ticker — the server serializes intake and returns 409 subject_busy. Treat that as progress,
+        // not failure: fall through to the same poll loop instead of surfacing an error toast.
+        if (e?.body?.code !== 'subject_busy') throw e
+      }
       for (let i = 0; i < 12; i++) {
         await new Promise((r) => setTimeout(r, 15_000))
         if (get().selectToken !== token) return
