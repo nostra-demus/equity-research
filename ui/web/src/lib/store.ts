@@ -1549,6 +1549,7 @@ export const useStore = create<State>((set, get) => ({
     if (!t || get().staticMode || get().activeSwarm !== 'research' || get().intakeAnalyzing) return
     if (HARD_DOWN.has(get().health)) return get().setToast({ msg: 'Engine offline — analysis is paused until it reconnects.', tone: 'info' })
     set({ intakeAnalyzing: true })
+    get().setToast({ msg: 'Reading the new documents — I’ll light up the orbs to re-run when it’s done (about a minute).', tone: 'info' })
     const token = get().selectToken
     const before = get().intake?.analyzed_at
     try {

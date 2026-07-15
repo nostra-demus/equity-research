@@ -33,6 +33,9 @@ export function DataFilesPanel() {
   const driveEnabled = useStore((s) => s.driveEnabled)
   const staticMode = useStore((s) => s.staticMode)
   const openUploader = useStore((s) => s.openUploader)
+  const activeSwarm = useStore((s) => s.activeSwarm)
+  const intakeAnalyzing = useStore((s) => s.intakeAnalyzing)
+  const analyzeIntake = useStore((s) => s.analyzeIntake)
   const [open, setOpen] = useState(false) // collapsed by default — just the pill; click the header to expand
   const [expanded, setExpanded] = useState<Record<string, boolean>>({})
 
@@ -40,6 +43,9 @@ export function DataFilesPanel() {
   const files = dataStatus.files
   const tabTotal = files.reduce((n, f) => n + (f.sheets?.length || 0), 0)
   const canAdd = driveEnabled && !staticMode
+  // "Analyze new data" — the one-click way to (re)generate the scoped intake plan, so a user never has to
+  // drop to `/research:intake`. Research runs only (the intake/rerun flow is research-swarm), live mode.
+  const canAnalyze = activeSwarm === 'research' && !staticMode
 
   return (
     <motion.div className="datafiles" initial={{ opacity: 0, x: -12 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}>
@@ -52,6 +58,18 @@ export function DataFilesPanel() {
             {tabTotal ? ` · ${tabTotal} tabs` : ''}
           </span>
         </button>
+        {canAnalyze && (
+          <button
+            className="datafiles__analyze"
+            disabled={intakeAnalyzing}
+            aria-busy={intakeAnalyzing}
+            title="Read the newest documents in the pool and show which orbs to re-run for them, right on the map. This launches NO re-run — it just points you at what changed."
+            onClick={() => void analyzeIntake()}
+          >
+            {intakeAnalyzing ? <span className="datafiles__spin" aria-hidden /> : <span className="datafiles__analyze-ic" aria-hidden>✦</span>}
+            {intakeAnalyzing ? 'Analyzing…' : 'Analyze new data'}
+          </button>
+        )}
         {canAdd && <button className="datafiles__add" title="Upload more documents to this company's Drive folder" onClick={() => openUploader(dataStatus.ticker)}>＋ Add files</button>}
       </div>
 

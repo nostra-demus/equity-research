@@ -3087,6 +3087,26 @@ a { color: inherit; }
   background: var(--surface-2); color: var(--text-muted); font-size: 11px; font-weight: 600;
 }
 .datafiles__add:hover { background: var(--surface-3); color: var(--accent-bright); border-color: var(--accent); }
+/* "Analyze new data" — the primary one-click intake trigger, so it reads louder than the muted "Add files"
+   secondary (accent fill vs surface). Instant :active feedback; transform/opacity-only motion. */
+.datafiles__analyze {
+  appearance: none; cursor: pointer; font: inherit; flex-shrink: 0; white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 4px 10px; border-radius: var(--r-sm); border: 1px solid var(--accent-deep);
+  background: var(--accent-wash); color: var(--accent-bright); font-size: 11px; font-weight: 600;
+  transition: background var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+}
+.datafiles__analyze:hover:not(:disabled) { background: var(--accent-wash-soft); border-color: var(--accent); }
+.datafiles__analyze:active:not(:disabled) { transform: scale(0.97); }
+.datafiles__analyze:disabled { cursor: default; opacity: 0.7; }
+.datafiles__analyze-ic { font-size: 10px; }
+.datafiles__spin {
+  width: 11px; height: 11px; flex-shrink: 0; border-radius: 50%;
+  border: 1.5px solid var(--accent-deep); border-top-color: var(--accent-bright);
+  animation: datafiles-spin 0.7s linear infinite;
+}
+@keyframes datafiles-spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .datafiles__spin { animation-duration: 1.8s; } .datafiles__analyze:active:not(:disabled) { transform: none; } }
 
 /* ---- ThemeMap windowed intensity readout (driven by the single "When" ribbon — no separate picker) ---- */
 .thememap__rate--window { flex-direction: column; align-items: center; gap: 4px; }
