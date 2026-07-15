@@ -3117,8 +3117,8 @@ a { color: inherit; }
 .tickerpick__add:hover { background: var(--surface-3); }
 
 /* "Add files" button beside the Data pool header */
-.datafiles__headrow { display: flex; align-items: center; gap: 8px; }
-.datafiles__headrow .datafiles__head { flex: 1; }
+.datafiles__headrow { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.datafiles__headrow .datafiles__head { flex: 1; min-width: 0; }
 .datafiles__add {
   appearance: none; cursor: pointer; font: inherit; flex-shrink: 0; white-space: nowrap;
   padding: 4px 9px; border-radius: var(--r-sm); border: 1px solid var(--hairline-strong);
@@ -3144,7 +3144,7 @@ a { color: inherit; }
   animation: datafiles-spin 0.7s linear infinite;
 }
 @keyframes datafiles-spin { to { transform: rotate(360deg); } }
-@media (prefers-reduced-motion: reduce) { .datafiles__spin { animation-duration: 1.8s; } .datafiles__analyze:active:not(:disabled) { transform: none; } }
+@media (prefers-reduced-motion: reduce) { .datafiles__spin { animation: none; } .datafiles__analyze:active:not(:disabled) { transform: none; } }
 
 /* ---- ThemeMap windowed intensity readout (driven by the single "When" ribbon — no separate picker) ---- */
 .thememap__rate--window { flex-direction: column; align-items: center; gap: 4px; }
