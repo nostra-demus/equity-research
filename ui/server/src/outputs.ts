@@ -19,10 +19,43 @@ export function readPrompt(relPath: string): { path: string; markdown: string } 
   return { path: relPath, markdown }
 }
 
-export function resolveRunRoot(opts: { runRoot?: string; ticker?: string; date?: string }): string | null {
+// The STANDING run folder for a ticker: the newest run that carries a finished decision record, else the
+// newest folder. A later module-only re-run writes a fresh dated folder with NO decision record; because
+// folders sort newest-first it would otherwise shadow the completed dossier and the cockpit would open an
+// empty run. Falls back to the newest folder only when no run has decided yet (a brand-new in-progress run
+// still resolves). Existence-checks only — cheap enough for the per-request display/chat path.
+export function standingRunDir(ticker: string): string | null {
+  let dirs: string[] = []
+  try {
+    dirs = fs.readdirSync(ANALYSES_DIR).filter((n) => n.startsWith(ticker + '_')).sort().reverse()
+  } catch {
+    return null
+  }
+  if (!dirs.length) return null
+  for (const d of dirs) {
+    try {
+      // "complete" means the decision record PARSES INTO AN OBJECT — a missing, half-written, or non-object
+      // (array / primitive, e.g. a hand-edited file) record shouldn't win the standing pick. This matches the
+      // object guard in summarizeRuns (data-status.ts), so the pill and the open path always agree.
+      const dr = JSON.parse(fs.readFileSync(path.join(ANALYSES_DIR, d, 'decision_record.json'), 'utf8'))
+      if (dr && typeof dr === 'object' && !Array.isArray(dr)) return d
+    } catch { /* missing or malformed — keep scanning older runs */ }
+  }
+  return dirs[0]
+}
+
+// `preferComplete` (the display + chat paths) resolves a bare ticker to its STANDING run — the newest run
+// that actually decided — instead of the literal newest folder, so a partial re-run cannot shadow the
+// dossier. The launcher deliberately leaves it OFF: `resolveAgentRunRoot` and `rerun` target the newest
+// folder (where a fresh module run writes / what a rerun continues), which must stay newest-wins.
+export function resolveRunRoot(opts: { runRoot?: string; ticker?: string; date?: string; preferComplete?: boolean }): string | null {
   if (opts.runRoot) return opts.runRoot.replace(/^\/+/, '')
   if (opts.ticker && opts.date) return `analyses/${opts.ticker}_${opts.date}`
   if (opts.ticker) {
+    if (opts.preferComplete) {
+      const d = standingRunDir(opts.ticker)
+      return d ? `analyses/${d}` : null
+    }
     try {
       const dirs = fs.readdirSync(ANALYSES_DIR).filter((n) => n.startsWith(opts.ticker + '_')).sort().reverse()
       return dirs.length ? `analyses/${dirs[0]}` : null
@@ -96,6 +129,7 @@ export function listRunsForTicker(ticker: string) {
   }
   return dirs.map((d) => {
     const runRoot = `analyses/${d}`
+    const runAbs = path.join(REPO_ROOT, runRoot)
     let decision: string | null = null
     let confidence: number | null = null
     let decisionDate: string | null = null
@@ -105,13 +139,32 @@ export function listRunsForTicker(ticker: string) {
       confidence = typeof dr.confidence_score === 'number' ? dr.confidence_score : null
       decisionDate = dr.decision_date ?? null
     } catch {}
+    // Module folders present in this run. Labels a run in the history view as a full pipeline vs a
+    // single-module re-run. A real module folder carries the engine's numbered agent outputs (`NN_*.md`,
+    // incl. its `99_*-synthesis.md`); run-support folders do NOT — `reviews/` holds `*.json` + `*_memo_delta.md`
+    // and `_pool_extracts/` holds `*.txt`. Deriving membership from that output pattern (not "every subdir")
+    // keeps it zero-touch as modules change (§26) and stops support dirs being reported/counted as modules.
+    let modules: string[] = []
+    try {
+      modules = fs.readdirSync(runAbs, { withFileTypes: true })
+        .filter((e) => e.isDirectory() && !e.name.startsWith('.'))
+        .filter((e) => {
+          try { return fs.readdirSync(path.join(runAbs, e.name)).some((f) => /^\d\d_.*\.md$/.test(f)) } catch { return false }
+        })
+        .map((e) => e.name).sort()
+    } catch {}
     return {
       runRoot,
       date: d.slice(ticker.length + 1),
       decision,
       confidence,
       decisionDate,
-      hasFinalThesis: fs.existsSync(path.join(REPO_ROOT, runRoot, 'final_thesis.md')),
+      modules,
+      // decision_record.json present = a finished run (the completeness signal the standing-run pick uses);
+      // audit_dossier.md = the full plain-English dossier is available to open.
+      hasDecisionRecord: fs.existsSync(path.join(runAbs, 'decision_record.json')),
+      hasDossier: fs.existsSync(path.join(runAbs, 'audit_dossier.md')),
+      hasFinalThesis: fs.existsSync(path.join(runAbs, 'final_thesis.md')),
     }
   })
 }

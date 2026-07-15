@@ -1018,6 +1018,7 @@ export function listTickers(): { tickers: TickerSummary[]; emptyState: boolean; 
     } catch {}
     const invalidReason = tickerInvalidReason(ticker)
     const { syncing, lastChangeAt } = syncingState(ticker)
+    const runs = summarizeRuns(ticker)
     return {
       ticker,
       fileCount,
@@ -1027,7 +1028,9 @@ export function listTickers(): { tickers: TickerSummary[]; emptyState: boolean; 
       suggestedTicker: invalidReason ? suggestTicker(ticker) : undefined,
       syncing,
       lastChangeAt,
-      latestRun: latestDecision(ticker),
+      latestRun: runs.latestRun,
+      runCount: runs.runCount,
+      hasNewerPartial: runs.hasNewerPartial,
     }
   })
   // resolve the data/ symlink so the UI shows the real Google Drive location it reads from
@@ -1041,36 +1044,58 @@ export function listTickers(): { tickers: TickerSummary[]; emptyState: boolean; 
   return { tickers, emptyState: tickers.length === 0, dataDir, coverage: deriveCoverage([]) }
 }
 
-// The latest run to surface for a ticker. Prefer the newest run that HAS a decision_record.json (a finished
-// dossier); only fall back to an incomplete folder if no finished run exists. Without this, a newer partial
-// run — e.g. a single-module rerun that writes a fresh dated folder with no decision record — would shadow
-// and hide the previous complete dossier (the folders sort newest-first). analysesDir is injectable for tests.
-export function latestDecision(ticker: string, analysesDir: string = ANALYSES_DIR): TickerSummary['latestRun'] {
+// Summarize a ticker's analyses/ runs for the picker in ONE directory scan:
+//  - latestRun: the run to SURFACE. Prefer the newest run that HAS a decision_record.json (a finished
+//    dossier); fall back to an incomplete folder only if no finished run exists. Without this, a newer
+//    partial run — e.g. a single-module rerun that writes a fresh dated folder with no decision record —
+//    would shadow and hide the previous complete dossier (folders sort newest-first).
+//  - runCount: how many run folders exist (drives the "N runs" affordance + the run-history expander).
+//  - hasNewerPartial: a decision-less run is NEWER than the standing one — the verdict shown is from an
+//    older complete run, so the cockpit flags that a partial re-run has landed since.
+// analysesDir is injectable for tests.
+export function summarizeRuns(
+  ticker: string,
+  analysesDir: string = ANALYSES_DIR,
+): { latestRun: TickerSummary['latestRun']; runCount: number; hasNewerPartial: boolean } {
+  let dirs: string[] = []
   try {
-    const dirs = fs
-      .readdirSync(analysesDir)
-      .filter((n) => n.startsWith(ticker + '_'))
-      .sort()
-      .reverse()
-    let fallback: TickerSummary['latestRun'] = null
-    for (const d of dirs) {
-      const drPath = path.join(analysesDir, d, 'decision_record.json')
-      if (fs.existsSync(drPath)) {
-        try {
-          const dr = JSON.parse(fs.readFileSync(drPath, 'utf8'))
-          return {
+    dirs = fs.readdirSync(analysesDir).filter((n) => n.startsWith(ticker + '_')).sort().reverse()
+  } catch {
+    return { latestRun: null, runCount: 0, hasNewerPartial: false }
+  }
+  if (!dirs.length) return { latestRun: null, runCount: 0, hasNewerPartial: false }
+  let standing: TickerSummary['latestRun'] = null
+  let standingDir: string | null = null
+  let fallback: TickerSummary['latestRun'] = null
+  for (const d of dirs) {
+    const drPath = path.join(analysesDir, d, 'decision_record.json')
+    if (fs.existsSync(drPath)) {
+      try {
+        const dr = JSON.parse(fs.readFileSync(drPath, 'utf8'))
+        // Only a decision record that parses INTO AN OBJECT is a usable "this run decided" signal. A non-object
+        // (array / primitive, e.g. a hand-edited or half-written file) is treated as incomplete and we keep
+        // scanning — matching standingRunDir's guard in outputs.ts so the pill and the open path agree.
+        if (dr && typeof dr === 'object' && !Array.isArray(dr)) {
+          standing = {
             runRoot: `analyses/${d}`,
             decision: dr.decision ?? null,
             decisionDate: dr.decision_date ?? null,
             confidence: typeof dr.confidence_score === 'number' ? dr.confidence_score : null,
           }
-        } catch { /* malformed record — treat as incomplete and keep scanning older runs */ }
-      }
-      // A partial / in-progress run (no usable decision record). Remember the NEWEST such folder, but keep
-      // scanning — a finished dossier further back must not be hidden by it. Used only if none are complete.
-      if (!fallback) fallback = { runRoot: `analyses/${d}`, decision: null, decisionDate: null, confidence: null }
+          standingDir = d
+          break
+        }
+      } catch { /* malformed record — treat as incomplete and keep scanning older runs */ }
     }
-    return fallback
-  } catch {}
-  return null
+    // The NEWEST partial / in-progress run (no usable decision record). Used only if none are complete.
+    if (!fallback) fallback = { runRoot: `analyses/${d}`, decision: null, decisionDate: null, confidence: null }
+  }
+  // A newer decision-less run shadows the standing one when the newest folder isn't the standing folder.
+  return { latestRun: standing ?? fallback, runCount: dirs.length, hasNewerPartial: !!standingDir && dirs[0] !== standingDir }
+}
+
+// The latest run to surface for a ticker (the standing-run pick above). Kept as a named export for callers
+// and tests that only need the surfaced run.
+export function latestDecision(ticker: string, analysesDir: string = ANALYSES_DIR): TickerSummary['latestRun'] {
+  return summarizeRuns(ticker, analysesDir).latestRun
 }

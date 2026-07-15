@@ -8,7 +8,7 @@ You re-run a single orb **and the synthesis chain its output flows into**, reusi
 
 Use this after dropping new data into `data/<TICKER>/` to refresh one orb and everything downstream of it without re-running the whole pipeline. You re-run ONLY: the selected orb, then its module's `99_*-synthesis.md`, then each downstream module's `99_*-synthesis.md` (every module that transitively `depends_on` the selected orb's module), then the master synthesizer, then the memo and audit dossier. You do **NOT** re-run sibling specialists or downstream modules' specialists — their inputs did not change; only the synthesis that consumes the refreshed upstream is re-run (this matches the data-flow arrows in the cockpit graph).
 
-Unlike `/research:agent` (one orb, no commit), this **commits once** at the end, because it rewrites the run's headline thesis. Execute every step in order.
+Unlike `/research:agent` (one orb, no commit), this **commits once** at the end, because it rewrites the run's headline thesis. Because this rewrites the decision of record, the master synthesizer step always ends with `/research:full`'s deterministic finish-gate (Step 8A) before commit — the same math/cap reconciliation a fresh full run gets, at zero added LLM cost. Execute every step in order.
 
 ---
 
@@ -92,6 +92,16 @@ Dispatch a single Task call (per `/research:full` step 10):
 
 Wait for it. Treat as failed if `<RUN_ROOT>/final_thesis.md` does not exist when it returns (if so, STOP before committing and report the failure).
 
+## 8A. Deterministic finish-gate (ALL master reruns — fix F-RRGATE)
+
+Run this step **unconditionally**, whether or not `.defer_module_memos` is present — for every rerun that rewrites `final_thesis.md` + `decision_record.json`, not only the per-module-chain case Step 9B already covers. Only if `<RUN_ROOT>/final_thesis.md` exists (Step 8 succeeded).
+
+**The gap this closes:** until now, `/research:full` Step 10B's finish-gate (deterministic scenario-math + §7/§11/§14 cap reconciliation, stamping `final_thesis.md` PROVISIONAL on a break) only ran for a fresh full run or the rare per-module-chain path (Step 9B, gated on `.defer_module_memos`). A **standalone** `/research:rerun` — the ordinary way an existing ticker's thesis gets refreshed after new data lands, and the far more common path in practice — skipped it entirely: the rewritten `decision_record.json`/`final_thesis.md` shipped straight to `main` with zero re-validation, relying solely on a human remembering to run `eval.py` afterward. `EMAAR_2026-07-03` (produced by exactly this standalone-rerun path) is a live, currently-committed instance of a rerun that shipped with no finish-gate at all — the whole of Step 10B was skipped, so neither the deterministic math/cap check (10B.1) nor the LLM audits (10B.2) ran; it already fails `eval.py` check O (a Selected/Short-basket decision missing `verification_report.json`/`pre_mortem.json`). Step 8A closes only the **deterministic half** of that hole for every future rerun: it re-derives the math and caps (10B.1) and can stamp `final_thesis.md` PROVISIONAL. It does **not** generate the two missing audit reports — that is 10B.2, still reserved for the per-module-chain path in Step 9B — so it does not retroactively repair EMAAR (a separate data-stream fix per §25/§28). Its point is narrower and unconditional: after this change no routine rerun ships with its scenario-math, §7/§11/§14 caps, or §24 rejector-filter caps unchecked, the way EMAAR's did — the §24 gap (10B.1 originally re-derived only the scenario math and §7/§11/§14 caps, not §24) is closed separately; see `scripts/rating_caps.py`.
+
+Run `/research:full` **Step 10B.1 verbatim** against `<RUN_ROOT>` (deterministic, no LLM, no added cost) — it re-derives the §10 scenario math, the §7/§11/§14 caps, and the §24 rejector-filter conviction caps (Filters 1/2/4/5/6, via `scripts/rating_caps.py`) straight from `decision_record.json` and the module synthesis/specialist files, and idempotently stamps (or clears) a PROVISIONAL banner on `final_thesis.md`. Record the printed `GATE:` line for Step 11.
+
+This step deliberately stops at 10B.1. The LLM audit trio (10B.2 verify-evidence + pre-mortem, 10B.3 expectations-gap) stays reserved for `/research:full` and the per-module-chain path in Step 9B below — forcing three more LLM passes onto every lightweight single-orb rerun is a materially larger cost/latency tradeoff that deserves its own deliberate call, not a bundled default here.
+
 ## 9. Regenerate the memo and audit dossier
 
 Only if `<RUN_ROOT>/final_thesis.md` exists. These keep the three tiers in sync with the refreshed thesis (per `/research:full` step 10A):
@@ -109,9 +119,9 @@ For **every** module folder `<RUN_ROOT>/<module>/` that has a `99_*-synthesis.md
 
 Each is best-effort: a module memo that fails to write is recorded as `failed` but never aborts the rerun (the `99_*-synthesis.md` is the module's decision of record). When done, **leave the `.defer_module_memos` marker in place** — Step 9B (below) reads it, runs the finish-gate, and removes it before the commit. The commit step (10) then commits the whole run folder including these newly generated memos, but never the marker.
 
-## 9B. Full-run finish-gate + RUN_METADATA (per-module-chain runs only)
+## 9B. Full-run LLM audit trio + RUN_METADATA (per-module-chain runs only)
 
-Check for the marker file `<RUN_ROOT>/.defer_module_memos` (`test -f`). If it is **absent**, skip this entire step — a standalone `/research:rerun` stays a single lightweight commit and does NOT re-run the finish-gate. If it is **present**, this master rerun is the **terminal step of a `/research:full` per-module chain**, so the chained full must ship the SAME integrity-gated, eval-complete artifact set as a monolithic `/research:full` run (a chained full is a full run — it must not skip the ship-path integrity checks the monolithic path runs). Do both, then remove the marker:
+Check for the marker file `<RUN_ROOT>/.defer_module_memos` (`test -f`). If it is **absent**, skip this entire step — a standalone `/research:rerun` already got the deterministic finish-gate unconditionally in Step 8A, stays a single lightweight commit, and does NOT also get the expensive LLM audit trio. If it is **present**, this master rerun is the **terminal step of a `/research:full` per-module chain**, so the chained full must ship the SAME integrity-gated, eval-complete artifact set as a monolithic `/research:full` run (a chained full is a full run — it must not skip the ship-path integrity checks the monolithic path runs). Do both, then remove the marker:
 
 1. **Backfill `RUN_METADATA.md`** — the per-module chain never ran `/research:full` step 7. If `<RUN_ROOT>/RUN_METADATA.md` is absent, create it with the Write tool (a chain writes each module in its own run, so only the essentials are known here):
 
@@ -132,7 +142,7 @@ Check for the marker file `<RUN_ROOT>/.defer_module_memos` (`test -f`). If it is
 completed (master re-run)
 ```
 
-2. **Integrity finish-gate** — run `/research:full`'s **Step 10B verbatim** against `<RUN_ROOT>` (with `RUN_ROOT="<RUN_ROOT>"`), exactly as Step 9 above reuses `/research:full` step 10A.2: first **10B.1** (the deterministic validator that re-derives the §10 scenario math and the §7/§11/§14 caps and can stamp a PROVISIONAL banner on `final_thesis.md`), then **10B.2** (verify-evidence → `verification_report.json`, pre-mortem → `pre_mortem.json`, and the haircut propagation that patches `decision_record.json`), then **10B.3** (expectations-gap → `expectations_gap.json`, and the independent §7 edge-consistency cross-check against `decision_record.json`'s confidence_score). Produce ONLY the report JSON in each command — skip each command's own commit step; Step 10 below commits the whole run folder in one place. Record the printed `GATE:` / `GATE-VERIFY:` / `GATE-EXPECTATIONS:` lines for the report (Step 11) — a `PROVISIONAL` result is surfaced loudly, never hidden.
+2. **Integrity finish-gate (LLM audit trio)** — Step 8A above already ran 10B.1 unconditionally for this rerun, so this step covers only the two LLM audits. Run `/research:full`'s **Step 10B.2 and 10B.3 verbatim** against `<RUN_ROOT>` (with `RUN_ROOT="<RUN_ROOT>"`), exactly as Step 9 above reuses `/research:full` step 10A.2: **10B.2** (verify-evidence → `verification_report.json`, pre-mortem → `pre_mortem.json`, and the haircut propagation that patches `decision_record.json`), then **10B.3** (expectations-gap → `expectations_gap.json`, and the independent §7 edge-consistency cross-check against `decision_record.json`'s confidence_score). Produce ONLY the report JSON in each command — skip each command's own commit step; Step 10 below commits the whole run folder in one place. Record the printed `GATE-VERIFY:` / `GATE-EXPECTATIONS:` lines for the report (Step 11) — a `PROVISIONAL` result is surfaced loudly, never hidden.
 
 Then **delete the marker so it is never committed, and drop any stale failure note** — the run has now completed, so a break-time `RUN_FAILURE.md` (written by the server when an earlier attempt broke) must NOT ride along in this success commit: `rm -f "<RUN_ROOT>/.defer_module_memos" "<RUN_ROOT>/RUN_FAILURE.md"`.
 
@@ -146,11 +156,11 @@ Commit through the serialized helper (global git lock so concurrent companies do
 bash scripts/commit-run.sh "Re-run: <TICKER> <MODULE>/<AGENT> + downstream <DATE>" -- "<RUN_ROOT>/"
 ```
 
-Capture the commit SHA (`git rev-parse HEAD`). This is a single commit. A **standalone** `/research:rerun` does not backfill `RUN_METADATA` (Step 9B was skipped); a **per-module-chain** master step backfilled `RUN_METADATA` and ran the finish-gate in Step 9B, so its commit ships the same eval-complete artifact set as a monolithic `/research:full`.
+Capture the commit SHA (`git rev-parse HEAD`). This is a single commit. Every rerun — standalone or chained — now carries the Step 8A deterministic finish-gate result. A **standalone** `/research:rerun` does not backfill `RUN_METADATA` and does not get the LLM audit trio (Step 9B was skipped); a **per-module-chain** master step backfilled `RUN_METADATA` and ran the LLM audit trio in Step 9B, so its commit ships the same eval-complete artifact set as a monolithic `/research:full`.
 
 ## 11. Report
 
-Print: the resolved `<RUN_ROOT>`; the target orb that was re-run; the ordered cascade of syntheses re-run (and that each cascade module's `<M>_memo.md` + `<M>_dossier.md` tiers were refreshed); whether the master thesis, memo, and audit dossier regenerated; the master thesis's one-line decision/verdict; for a per-module-chain master step, the finish-gate `GATE:` result and whether `RUN_METADATA.md` / `verification_report.json` / `pre_mortem.json` were written (Step 9B); and the commit SHA pushed to `origin/main`.
+Print: the resolved `<RUN_ROOT>`; the target orb that was re-run; the ordered cascade of syntheses re-run (and that each cascade module's `<M>_memo.md` + `<M>_dossier.md` tiers were refreshed); whether the master thesis, memo, and audit dossier regenerated; the master thesis's one-line decision/verdict; the Step 8A finish-gate `GATE:` result (every rerun); for a per-module-chain master step, additionally the `GATE-VERIFY:` / `GATE-EXPECTATIONS:` results and whether `RUN_METADATA.md` / `verification_report.json` / `pre_mortem.json` were written (Step 9B); and the commit SHA pushed to `origin/main`.
 
 ---
 
@@ -161,3 +171,4 @@ Print: the resolved `<RUN_ROOT>`; the target orb that was re-run; the ordered ca
 - Re-run the cascade syntheses strictly in topological order so each reads already-refreshed upstream.
 - Mutate the latest EXISTING run folder. Never create a new run folder.
 - Exactly one commit at the end. The individual agents must not commit.
+- Step 8A's deterministic finish-gate runs for EVERY rerun, standalone or chained — never skip it just because `.defer_module_memos` is absent. Only the LLM audit trio (verify-evidence + pre-mortem + expectations-gap, Step 9B) stays reserved for the per-module-chain path.

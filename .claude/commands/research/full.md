@@ -328,11 +328,11 @@ Run this step only if `<RUN_ROOT>/final_thesis.md` and `<RUN_ROOT>/decision_reco
 
 ### 10B.1 — Deterministic validator (always runs; can stamp the thesis PROVISIONAL)
 
-Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (same identities as `eval` harness check M), the missing-price / score-range caps, the §11 data-sufficiency ↔ decision cap (check Y), the §7 edge gate (check V), and the §14 external-variable conviction cap (check Z). Prepends a PROVISIONAL banner to `final_thesis.md` if any inconsistency is found:
+Run this via Bash. It re-derives the §10 scenario math from `decision_record.json` (same identities as `eval` harness check M), the missing-price / score-range caps, the §11 data-sufficiency ↔ decision cap (check Y), the §7 edge gate (check V), the §14 external-variable conviction cap (check Z), and the §24 rejector-filter conviction caps — Filters 1/2/4/5/6 (checks AC/AD/AE/AF, via `scripts/rating_caps.py`). Prepends a PROVISIONAL banner to `final_thesis.md` if any inconsistency is found:
 
 ```bash
 python3 - "<RUN_ROOT>" <<'PY'
-import json, os, re, sys, datetime
+import json, glob, os, re, sys, datetime
 run = sys.argv[1]
 dr = os.path.join(run, "decision_record.json"); ft = os.path.join(run, "final_thesis.md")
 viol = []
@@ -493,6 +493,40 @@ if _isdate(ddte) and ddte >= "2026-07-11":
         viol.append(f"post-split run: conviction={cv} set but confidence_score={cf_s!r} is null — set confidence_score=conviction (backward-compat; the §7 gate + eval read confidence_score)")
     elif _isnum(cv) and _isnum(cf_s) and abs(float(cf_s)-float(cv)) > 0.5:
         viol.append(f"post-split run: confidence_score={cf_s} must equal conviction={cv} (backward-compat; the §7 gate reads confidence_score, so a split lets an unproven high-conviction thesis ship)")
+# check AC/AD/AE/AF — §24 rejector-filter conviction caps (live pre-publish; mirrors eval.py
+# checks AC/AD/AE/AF via scripts/rating_caps.py, the shared detection module). Until this block
+# existed, these caps — CLAUDE.md §24 Filters 1/2/4/5/6, made explicit in synthesizer.md's Rating
+# Cap Rules — were enforced only by prose instruction to the synthesizer (Pre-Write Gate 4A) plus
+# a POST-HOC eval.py check nobody was required to run before commit. EMAAR_2026-07-03 is a live,
+# currently-committed proof of the hole: its management-governance synthesis fired RF-OWN-004
+# (§24 Filter 6, unaligned controlling owner) and the published decision was "Starter Position
+# Only" — one notch above the doctrine's own "maximum Watchlist" cap — undetected until a later
+# manual `/research:eval` run, and even then only advisory (the run lacks RUN_METADATA.md). This
+# block closes that hole for every future run, standalone rerun included (rerun.md Step 8A runs
+# this file verbatim), the same way the checks above already close it for §7/§11/§14.
+sys.path.insert(0, "scripts")
+import rating_caps as rc
+def _read_orb(mod_dir, pat):
+    # Resolve each §24 input to the SAME file eval.py's checks read (its `_read_synth_text` uses
+    # `99_*-synthesis.md`, `_read_specialist_text` the `NN_*.md` specialist), so the live gate and the
+    # retrospective grader can never see different text for the same run.
+    gg = glob.glob(os.path.join(run, mod_dir, pat))
+    if not gg: return None
+    try:
+        with open(gg[0], encoding="utf-8") as f: return f.read()
+    except Exception: return None
+_bm_txt = _read_orb("business-model", "99_*-synthesis.md")
+_bq_txt = _read_orb("business-model", "07_*.md")
+_mg_txt = _read_orb("management-governance", "99_*-synthesis.md")
+_track_txt = _read_orb("management-governance", "01_*.md")
+_tt24 = d.get("thesis_type"); _es24 = d.get("edge_score")
+if rc.eval_ac_turnaround_cap(dec, ddte, _tt24) == "fail":
+    viol.append(f"thesis_type={_tt24!r} includes '{rc.TURNAROUND_TYPE}' but decision={dec!r} exceeds the cap "
+                f"(synthesizer.md Rating Cap Rules: max 'Starter Position Only' for turnaround thesis "
+                f"without ≥2–3 yrs delivered inflection; CLAUDE.md §24 Filter 2)")
+viol.extend(rc.eval_ad_filter_4_6_cap(dec, ddte, _bm_txt, _mg_txt) or [])
+viol.extend(rc.eval_ae_filter5_cap(dec, ddte, _bm_txt, _es24, _bq_txt) or [])
+viol.extend(rc.eval_af_filter1_integrity_cap(dec, ddte, _mg_txt, _track_txt) or [])
 # [PR#9 review fix] idempotent banner: ALWAYS strip any prior finish-gate banner first, then re-stamp
 # fresh if still failing, or write the clean thesis if it now passes. The old code only prepended-if-
 # absent, so a fixed re-run in the same folder kept a stale PROVISIONAL banner with outdated reasons.
@@ -510,7 +544,7 @@ if viol:
     print("GATE: PROVISIONAL — " + "; ".join(viol))
 else:
     open(ft, "w", encoding="utf-8").write(body)   # write back the cleaned thesis (strips any now-stale banner)
-    print("GATE: PASS — scenario math, score ranges, §11 data-sufficiency cap, §7 edge gate, and §14 external-variable cap all satisfied")
+    print("GATE: PASS — scenario math, score ranges, §11 data-sufficiency cap, §7 edge gate, §14 external-variable cap, and §24 Filter 1/2/4/5/6 rejector-filter caps all satisfied")
 PY
 ```
 
