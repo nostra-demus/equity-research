@@ -506,15 +506,19 @@ if _isdate(ddte) and ddte >= "2026-07-11":
 # this file verbatim), the same way the checks above already close it for §7/§11/§14.
 sys.path.insert(0, "scripts")
 import rating_caps as rc
-def _read_orb(mod_dir, prefix):
-    gg = glob.glob(os.path.join(run, mod_dir, prefix + "*.md"))
+def _read_orb(mod_dir, pat):
+    # Resolve each §24 input to the SAME file eval.py's checks read (its `_read_synth_text` uses
+    # `99_*-synthesis.md`, `_read_specialist_text` the `NN_*.md` specialist), so the live gate and the
+    # retrospective grader can never see different text for the same run.
+    gg = glob.glob(os.path.join(run, mod_dir, pat))
     if not gg: return None
-    try: return open(gg[0], encoding="utf-8").read()
+    try:
+        with open(gg[0], encoding="utf-8") as f: return f.read()
     except Exception: return None
-_bm_txt = _read_orb("business-model", "99_")
-_bq_txt = _read_orb("business-model", "07_")
-_mg_txt = _read_orb("management-governance", "99_")
-_track_txt = _read_orb("management-governance", "01_")
+_bm_txt = _read_orb("business-model", "99_*-synthesis.md")
+_bq_txt = _read_orb("business-model", "07_*.md")
+_mg_txt = _read_orb("management-governance", "99_*-synthesis.md")
+_track_txt = _read_orb("management-governance", "01_*.md")
 _tt24 = d.get("thesis_type"); _es24 = d.get("edge_score")
 if rc.eval_ac_turnaround_cap(dec, ddte, _tt24) == "fail":
     viol.append(f"thesis_type={_tt24!r} includes '{rc.TURNAROUND_TYPE}' but decision={dec!r} exceeds the cap "
