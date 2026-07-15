@@ -332,7 +332,7 @@ def eval_ab_bm_verdict_lock(decision, decision_date, bm_verdict):
 from rating_caps import (
     AC_DATE, TURNAROUND_TYPE, ABOVE_STARTER_AC, eval_ac_turnaround_cap,
     AD_DATE, CAP4_TAG, CAP6_TAG, eval_ad_filter_4_6_cap,
-    _tag_fired_standalone, _CAP_TAG_NEGATIONS, _NEG_LEADING_STRIP,
+    _tag_fired_standalone,
     AE_DATE, CAP5_TAG, ABOVE_STARTER_AE, eval_ae_filter5_cap,
     AF_DATE, CAP1_TAG, ABOVE_WATCHLIST_AF, eval_af_filter1_integrity_cap,
 )
