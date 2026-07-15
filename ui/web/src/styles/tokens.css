@@ -63,6 +63,13 @@
   --neutral: #6b6b73;
   --bad: #c9514e;
   --bad-wash: rgba(201, 81, 78, 0.12);
+  /* "affected by new data — needs a scoped re-run": the intake surface's own colour for the orbs a
+     newly-landed doc bears on + the impact beams pointing at them. A dedicated VIOLET, distinct from
+     --accent (running/done), --bad (failed) and --live, so a to-be-reheated orb pops instead of blending
+     with normal done orbs. The glow/wash are alpha-based so they read on any theme background. */
+  --rerun: #8b5cf6;
+  --rerun-glow: rgba(139, 92, 246, 0.55);
+  --rerun-wash: rgba(139, 92, 246, 0.18);
   /* conviction traffic-light amber (a "came up short / warning" state in the proof-point timeline) */
   --conv-warn: #d9912f;
   /* the one green — engine "Live" only (+ conviction "confirmed" success) */
