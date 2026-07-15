@@ -1566,10 +1566,18 @@ export const useStore = create<State>((set, get) => ({
       try {
         await api.analyzeIntake(t)
       } catch (e: any) {
-        // Auto-analyze-on-landing (or an earlier click) already has an analysis in flight for this
-        // ticker — the server serializes intake and returns 409 subject_busy. Treat that as progress,
-        // not failure: fall through to the same poll loop instead of surfacing an error toast.
         if (e?.body?.code !== 'subject_busy') throw e
+        // The server's 409 subject_busy covers two different races under the same code: (1) ANY
+        // run in flight on this ticker (a full/module run — no intake plan is coming from it), or
+        // (2) another doc-intake analysis specifically racing this one (its write IS the plan we
+        // want). Only (2) is progress worth polling for — for (1), say so and stop instead of
+        // spinning "Analyzing…" for 3 minutes with nothing to show for it.
+        if (get().activeRunsForTicker(t).some((r) => r.kind !== 'doc-intake')) {
+          get().setToast({ msg: `A run is already in progress on ${t} — finish or stop it before analyzing new documents.`, tone: 'info' })
+          return
+        }
+        // Auto-analyze-on-landing (or an earlier click) already has an intake analysis in flight —
+        // fall through to the same poll loop instead of surfacing an error toast.
       }
       for (let i = 0; i < 12; i++) {
         await new Promise((r) => setTimeout(r, 15_000))
