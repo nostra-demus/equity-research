@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-16T01:23:04Z",
+  "generated_at": "2026-07-16T05:25:17Z",
   "inbox": [
     {
       "inbox_id": "INB-20260716-002",
@@ -853,6 +853,453 @@
       "dismissed_by": ""
     },
     {
+      "inbox_id": "INB-20260716-230",
+      "headline": "CAM NASDAQ100 CAM ASIA IGB CAM ASIA HIGHDV CAM JAPAN HDG CAM EU QLTY HDG CAM NASDAQ100-U CAM ASIA IGB-U (03086 03141 03145 03160 03165 09086 09141): Summary Information (3086,3141,3145,3160,3165,9086,9141)",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0716/2026071600115.xlsx",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-07-16T02:10:00Z",
+      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
+      "prelim_note": "Summary Information (3086,3141,3145,3160,3165,9086,9141)",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Summary Information (3086,3141,3145,3160,3165,9086,9141)",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capital_actions",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CAM NASDAQ100",
+          "ticker": "03086",
+          "listing_country": null
+        },
+        {
+          "name": "CAM ASIA IGB",
+          "ticker": "03141",
+          "listing_country": null
+        },
+        {
+          "name": "CAM ASIA HIGHDV",
+          "ticker": "03145",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260716-231",
+      "headline": "CAM HKUS AI CAM HKUS AI-U CAM HKUS AI-R (03140 09140 83140): Summary Information (3140, 83140, 9140)",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0716/2026071600113.xlsx",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-07-16T02:09:00Z",
+      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
+      "prelim_note": "Summary Information (3140, 83140, 9140)",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Summary Information (3140, 83140, 9140)",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capital_actions",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CAM HKUS AI",
+          "ticker": "03140",
+          "listing_country": null
+        },
+        {
+          "name": "CAM HKUS AI-U",
+          "ticker": "09140",
+          "listing_country": null
+        },
+        {
+          "name": "CAM HKUS AI-R",
+          "ticker": "83140",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260716-232",
+      "headline": "CAM CSI300 CAM CSI300-U CAM CSI300-R (03188 09188 83188): Summary Information (3188, 83188, 9188)",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0716/2026071600111.xlsx",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-07-16T02:08:00Z",
+      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
+      "prelim_note": "Summary Information (3188, 83188, 9188)",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Summary Information (3188, 83188, 9188)",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 8,
+        "scope": 5,
+        "event": 6,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "capital_actions",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "capital_actions"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "CAM CSI300",
+          "ticker": "03188",
+          "listing_country": null
+        },
+        {
+          "name": "CAM CSI300-U",
+          "ticker": "09188",
+          "listing_country": null
+        },
+        {
+          "name": "CAM CSI300-R",
+          "ticker": "83188",
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260716-236",
+      "headline": "Iran launches strikes on Gulf, even as FM visits Qatar",
+      "headline_en": null,
+      "url": "https://www.aljazeera.com/video/newsfeed/2026/7/16/aje-onl-nf_iran-strikes-gulf-nations-even-as-fm-visits-qatar-150726?traffic_source=rss",
+      "source_name": "Al Jazeera",
+      "input_nature": "geopolitical_event",
+      "found_at": "2026-07-16T02:10:58Z",
+      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
+      "prelim_note": "Iran launched strikes on the Gulf while its foreign minister visited Qatar.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Iran launched strikes on the Gulf while its foreign minister visited Qatar.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 80,
+      "rank_factors": {
+        "materiality": 80,
+        "source_tier": 0,
+        "scope": 9,
+        "event": 1,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 5,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "geopolitical",
+        "source_tier_id": "news",
+        "event_id": "macro_sector",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260716-240",
+      "headline": "US attacks oil tanker in strait of Hormuz as strikes reported in Tehran",
+      "headline_en": null,
+      "url": "https://www.theguardian.com/world/2026/jul/16/us-attacks-oil-tanker-strait-of-hormuz-iran-tehran-strikes",
+      "source_name": "The Guardian",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-16T02:40:19Z",
+      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
+      "prelim_note": "US attacks oil tanker in strait of Hormuz as strikes reported in Tehran.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "US attacks oil tanker in strait of Hormuz as strikes reported in Tehran.",
+      "region": "US",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260716-243",
+      "headline": "+++ Ukraine-Krieg +++: Selenskyj will Chef von Energiekonzern als Ministerpräsidenten",
+      "headline_en": "Zelensky will head of energy company as prime minister.",
+      "url": "https://www.handelsblatt.com/politik/international/ukraine-selenskyj-will-chef-von-energiekonzern-als-ministerpraesidenten/27982126.html",
+      "source_name": "Handelsblatt",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-16T02:48:00Z",
+      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
+      "prelim_note": "Selenskyj will Chef von Energiekonzern als Ministerpräsidenten.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Selenskyj will Chef von Energiekonzern als Ministerpräsidenten.",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 90,
+      "rank_factors": {
+        "materiality": 90,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 4,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "regulatory",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "regulatory"
+      ],
+      "issuer_linkage": "macro",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260716-244",
+      "headline": "This $2.5b takeover bid will self-destruct in five, four, three….",
+      "headline_en": null,
+      "url": "https://www.afr.com/chanticleer/perpetual-s-latest-drama-a-self-destructing-takeover-bid-20260716-p60ftt?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-16T02:33:01Z",
+      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
+      "prelim_note": "A $2.5 billion takeover bid is expected to collapse, removing a potential large‑scale transaction.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "A $2.5 billion takeover bid is expected to collapse, removing a potential large‑scale transaction.",
+      "region": "GLOBAL",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 6,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260716-248",
+      "headline": "Corporate Travel Management admits underpaying staff $2.4m",
+      "headline_en": null,
+      "url": "https://www.afr.com/companies/transport/corporate-travel-management-admits-underpaying-staff-2-4m-20260716-p60ftl?ref=rss&utm_medium=rss&utm_source=rss_feed",
+      "source_name": "Australian Financial Review",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-16T03:32:00Z",
+      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
+      "prelim_note": "Corporate Travel Management admits underpaying staff $2.4m",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "Corporate Travel Management admits underpaying staff $2.4m",
+      "region": "OTHER",
+      "relevance": "material",
+      "materiality_pre_score": 70,
+      "rank_factors": {
+        "materiality": 70,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 15,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Corporate Travel Management",
+          "ticker": null,
+          "listing_country": "AU"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260716-259",
+      "headline": "FANTASIA (01777): INSIDE INFORMATION UPDATE ON THE RESTRUCTURING OF OFFSHORE INDEBTEDNESS NOTICE OF DESIGNATION OF THE RESTRUCTURING EFFECTIVE DATE",
+      "headline_en": null,
+      "url": "https://www1.hkexnews.hk/listedco/listconews/sehk/2026/0716/2026071600156.pdf",
+      "source_name": "HKEXnews (HK Exchange Filing)",
+      "input_nature": "exchange_announcement",
+      "found_at": "2026-07-16T04:00:00Z",
+      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
+      "prelim_note": "FANTASIA announced restructuring of offshore indebtedness and designated an effective date.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 100,
+      "triage_reason": "FANTASIA announced restructuring of offshore indebtedness and designated an effective date.",
+      "region": "CN",
+      "relevance": "material",
+      "materiality_pre_score": 75,
+      "rank_factors": {
+        "materiality": 75,
+        "source_tier": 8,
+        "scope": 6,
+        "event": 9,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "primary_filing",
+        "event_id": "default_distress",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "default_distress"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "FANTASIA",
+          "ticker": "01777",
+          "listing_country": "CN"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
       "inbox_id": "INB-20260716-086",
       "headline": "US launches fresh strikes on Iran as Trump warns Tehran it 'better behave'",
       "headline_en": null,
@@ -891,6 +1338,109 @@
       "issuer_linkage": "macro",
       "companies": [],
       "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260716-245",
+      "headline": "[Economy Analysis] Bank of Korea Returns to Tightening with Rate Hike",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=273167",
+      "source_name": "BusinessKorea",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-16T06:57:39Z",
+      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
+      "prelim_note": "Bank of Korea returns to tightening with rate hike",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Bank of Korea returns to tightening with rate hike",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 85,
+      "rank_factors": {
+        "materiality": 85,
+        "source_tier": 0,
+        "scope": 2,
+        "event": 7,
+        "size": 0,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "policy",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "unknown"
+      },
+      "event_types": [
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Bank of Korea",
+          "ticker": null,
+          "listing_country": "KR"
+        }
+      ],
+      "size_bucket": "unknown",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260716-257",
+      "headline": "Hyundai Motor Group Secures 100% Stake in Boston Dynamics",
+      "headline_en": null,
+      "url": "https://www.businesskorea.co.kr/news/articleView.html?idxno=273168",
+      "source_name": "BusinessKorea",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-16T07:11:17Z",
+      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
+      "prelim_note": "Hyundai Motor Group acquired 100% of Boston Dynamics",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 99,
+      "triage_reason": "Hyundai Motor Group acquired 100% of Boston Dynamics",
+      "region": "KR",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 5,
+        "event": 9,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "multi_name",
+        "source_tier_id": "news",
+        "event_id": "mna",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "mna"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "Hyundai Motor Group",
+          "ticker": null,
+          "listing_country": "KR"
+        },
+        {
+          "name": "Boston Dynamics",
+          "ticker": null,
+          "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
       "dismissed": false,
       "dismissed_at": "",
       "dismissed_by": ""
@@ -987,6 +1537,56 @@
           "name": "SpaceX",
           "ticker": null,
           "listing_country": null
+        }
+      ],
+      "size_bucket": "large",
+      "dismissed": false,
+      "dismissed_at": "",
+      "dismissed_by": ""
+    },
+    {
+      "inbox_id": "INB-20260716-266",
+      "headline": "ICICI Lombard Shares Tank 15 % To Hit Two-Year Low As Q1 Profit Slumps 46%",
+      "headline_en": null,
+      "url": "https://www.ndtvprofit.com/markets/icici-lombard-shares-tank-15-to-hit-two-year-low-as-q1-profit-slumps-46-11777927#publisher=newsstand",
+      "source_name": "NDTV Profit",
+      "input_nature": "news_headline",
+      "found_at": "2026-07-16T04:27:26Z",
+      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
+      "prelim_note": "ICICI Lombard Q1 profit fell 46%, causing a 15% share drop.",
+      "dedup_status": "new",
+      "consumed": false,
+      "launched_signal_id": null,
+      "triage_score": 98,
+      "triage_reason": "ICICI Lombard Q1 profit fell 46%, causing a 15% share drop.",
+      "region": "IN",
+      "relevance": "material",
+      "materiality_pre_score": 78,
+      "rank_factors": {
+        "materiality": 78,
+        "source_tier": 0,
+        "scope": 6,
+        "event": 7,
+        "size": 2,
+        "recency": 5,
+        "materiality_label_floor": 0,
+        "quantified": 0,
+        "boost_weight": 1,
+        "scope_id": "single_name",
+        "source_tier_id": "news",
+        "event_id": "guidance_change",
+        "size_bucket": "large"
+      },
+      "event_types": [
+        "earnings_revenue_margin",
+        "guidance_change"
+      ],
+      "issuer_linkage": "primary",
+      "companies": [
+        {
+          "name": "ICICI Lombard",
+          "ticker": null,
+          "listing_country": "IN"
         }
       ],
       "size_bucket": "large",
@@ -1287,681 +1887,6 @@
           "name": "SC lender",
           "ticker": null,
           "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260716-084",
-      "headline": "A big dividend cut and a $2 billion charge: Conagra’s results signal more pain ahead for food industry",
-      "headline_en": null,
-      "url": "https://www.marketwatch.com/story/a-big-dividend-cut-and-a-2-billion-charge-conagras-results-signal-more-pain-ahead-for-food-industry-8613bd71?mod=mw_rss_topstories",
-      "source_name": "MarketWatch",
-      "input_nature": "news_headline",
-      "found_at": "2026-07-15T21:43:00Z",
-      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
-      "prelim_note": "Conagra cut its dividend and recorded a $2 billion charge, signalling further pain for the food industry.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Conagra cut its dividend and recorded a $2 billion charge, signalling further pain for the food industry.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 6,
-        "event": 5,
-        "size": 2,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "news",
-        "event_id": "dividend_cut",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "dividend_cut",
-        "earnings_revenue_margin"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Conagra",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260716-135",
-      "headline": "Bodhi Tree in advanced talks to buy stake in Adyar Ananda Bhavan at ₹3,000-3,500 crore valuation",
-      "headline_en": null,
-      "url": "https://www.livemint.com/companies/news/adyar-ananda-bhavan-revive-stake-plan-at-up-to-rs-3-500-cr-valuation-11784113624627.html",
-      "source_name": "LiveMint",
-      "input_nature": "news_headline",
-      "found_at": "2026-07-16T00:32:38Z",
-      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
-      "prelim_note": "Bodhi Tree is in advanced talks to buy a stake in Adyar Ananda Bhavan at a valuation of ₹3,000‑3,500 crore.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "Bodhi Tree is in advanced talks to buy a stake in Adyar Ananda Bhavan at a valuation of ₹3,000‑3,500 crore.",
-      "region": "IN",
-      "relevance": "material",
-      "materiality_pre_score": 48,
-      "rank_factors": {
-        "materiality": 48,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 22,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Bodhi Tree",
-          "ticker": null,
-          "listing_country": null
-        },
-        {
-          "name": "Adyar Ananda Bhavan",
-          "ticker": null,
-          "listing_country": null
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260716-151",
-      "headline": "Iran war live: Sirens in Bahrain, Kuwait; US ‘disables’ Iranian oil tanker",
-      "headline_en": null,
-      "url": "https://www.aljazeera.com/news/liveblog/2026/7/16/iran-war-live-sirens-in-bahrain-kuwait-us-disables-iranian-oil-tanker?traffic_source=rss",
-      "source_name": "Al Jazeera",
-      "input_nature": "geopolitical_event",
-      "found_at": "2026-07-16T00:00:48Z",
-      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
-      "prelim_note": "US disabling an Iranian oil tanker amid sirens in Bahrain and Kuwait signals a military escalation",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "US disabling an Iranian oil tanker amid sirens in Bahrain and Kuwait signals a military escalation",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": 4,
-        "event": 1,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260716-174",
-      "headline": "US and Iran trade strikes with no sign of backing down",
-      "headline_en": null,
-      "url": "https://www.deccanherald.com/world/us/us-and-iran-trade-strikes-with-no-sign-of-backing-down-4075460",
-      "source_name": "Deccan Herald",
-      "input_nature": "news_headline",
-      "found_at": "2026-07-16T00:10:18Z",
-      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
-      "prelim_note": "The United States and Iran have exchanged strikes with no sign of de‑escalation.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 95,
-      "triage_reason": "The United States and Iran have exchanged strikes with no sign of de‑escalation.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 75,
-      "rank_factors": {
-        "materiality": 75,
-        "source_tier": 0,
-        "scope": -4,
-        "event": 9,
-        "size": 0,
-        "recency": 5,
-        "materiality_label_floor": 10,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "macro",
-        "source_tier_id": "news",
-        "event_id": "default_distress",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "default_distress",
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260716-018",
-      "headline": "8-K - Yorkville Acquisition Corp. (0002064658) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2064658/000110465926083939/0001104659-26-083939-index.htm",
-      "source_name": "SEC EDGAR",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-07-15T21:12:24Z",
-      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
-      "prelim_note": "Filing of 8-K by Yorkville Acquisition Corp.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Filing of 8-K by Yorkville Acquisition Corp.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capital_actions",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Yorkville Acquisition Corp.",
-          "ticker": "0002064658",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260716-020",
-      "headline": "425 - Spark I Acquisition Corp (0001884046) (Subject)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1884046/000110465926083950/0001104659-26-083950-index.htm",
-      "source_name": "SEC EDGAR",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-07-15T21:26:13Z",
-      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
-      "prelim_note": "Filing of 425 by Spark I Acquisition Corp",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Filing of 425 by Spark I Acquisition Corp",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capital_actions",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Spark I Acquisition Corp",
-          "ticker": "0001884046",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260716-021",
-      "headline": "425 - Bleichroeder Acquisition France Merger Sub 2 (0002119292) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/2119292/000121390026078398/0001213900-26-078398-index.htm",
-      "source_name": "SEC EDGAR",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-07-15T21:24:48Z",
-      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
-      "prelim_note": "Filing of 425 by Bleichroeder Acquisition France Merger Sub 2",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "Filing of 425 by Bleichroeder Acquisition France Merger Sub 2",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capital_actions",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Bleichroeder Acquisition France Merger Sub 2",
-          "ticker": "0002119292",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260716-130",
-      "headline": "PYPY Pops 14% as Paypal Reportedly Draws $53 Billion Stripe + Advent Takeover Bid",
-      "headline_en": null,
-      "url": "https://finance.yahoo.com/markets/stocks/articles/pypy-pops-14-paypal-reportedly-161317689.html",
-      "source_name": "Yahoo Finance",
-      "input_nature": "news_headline",
-      "found_at": "2026-07-15T16:13:17Z",
-      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
-      "prelim_note": "PayPal shares rose 14% after reports of a $53 billion takeover bid from Stripe and Advent.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "PayPal shares rose 14% after reports of a $53 billion takeover bid from Stripe and Advent.",
-      "region": "US",
-      "relevance": "relevant_non_material",
-      "materiality_pre_score": 55,
-      "rank_factors": {
-        "materiality": 55,
-        "source_tier": 0,
-        "scope": 5,
-        "event": 9,
-        "size": 2,
-        "recency": 2,
-        "materiality_label_floor": 15,
-        "quantified": 6,
-        "boost_weight": 1,
-        "scope_id": "multi_name",
-        "source_tier_id": "news",
-        "event_id": "mna",
-        "size_bucket": "large"
-      },
-      "event_types": [
-        "mna"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PayPal",
-          "ticker": null,
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "large",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260716-182",
-      "headline": "US launches more Iran strikes, hits oil tanker trying to break Hormuz blockade",
-      "headline_en": null,
-      "url": "https://www.scmp.com/news/world/middle-east/article/3360730/us-launches-more-iran-strikes-hits-oil-tanker-trying-break-hormuz-blockade?utm_source=rss_feed",
-      "source_name": "South China Morning Post",
-      "input_nature": "news_headline",
-      "found_at": "2026-07-15T22:32:49Z",
-      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
-      "prelim_note": "US launched additional strikes on Iran and hit an oil tanker attempting to break the Hormuz blockade, raising geopolitical risk to oil supply.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 94,
-      "triage_reason": "US launched additional strikes on Iran and hit an oil tanker attempting to break the Hormuz blockade, raising geopolitical risk to oil supply.",
-      "region": "GLOBAL",
-      "relevance": "material",
-      "materiality_pre_score": 78,
-      "rank_factors": {
-        "materiality": 78,
-        "source_tier": 0,
-        "scope": 4,
-        "event": 1,
-        "size": 0,
-        "recency": 4,
-        "materiality_label_floor": 7,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "commodity",
-        "source_tier_id": "news",
-        "event_id": "macro_sector",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "macro_sector"
-      ],
-      "issuer_linkage": "macro",
-      "companies": [],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260716-008",
-      "headline": "FWD: Fleetwood Divestment of RV Solutions Segment [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.FWD?key=2924-03111500-6A1334066",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-07-15T22:36:13Z",
-      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
-      "prelim_note": "Fleetwood is divesting its RV Solutions segment.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Fleetwood is divesting its RV Solutions segment.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capital_actions",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Fleetwood",
-          "ticker": "FWD",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260716-010",
-      "headline": "MAQ: Exercise of option to acquire land and proposed development [price-sensitive]",
-      "headline_en": null,
-      "url": "https://www.asx.com.au/markets/trade-our-cash-market/announcements.MAQ?key=2924-03111480-2A1684653",
-      "source_name": "ASX (Australia Exchange Filing)",
-      "input_nature": "exchange_announcement",
-      "found_at": "2026-07-15T22:22:38Z",
-      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
-      "prelim_note": "MAQ is exercising an option to acquire land and proposed development.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "MAQ is exercising an option to acquire land and proposed development.",
-      "region": "OTHER",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": -1,
-        "recency": 4,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capital_actions",
-        "size_bucket": "small"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "MAQ",
-          "ticker": "MAQ",
-          "listing_country": "AU"
-        }
-      ],
-      "size_bucket": "small",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260716-022",
-      "headline": "425 - Constellation Acquisition Corp I (0001834032) (Filed by)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1834032/000121390026078351/0001213900-26-078351-index.htm",
-      "source_name": "SEC EDGAR",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-07-15T20:34:39Z",
-      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
-      "prelim_note": "Filing of 425 by Constellation Acquisition Corp I",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Filing of 425 by Constellation Acquisition Corp I",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capital_actions",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "secondary",
-      "companies": [
-        {
-          "name": "Constellation Acquisition Corp I",
-          "ticker": "0001834032",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260716-023",
-      "headline": "8-K - PHP Ventures Acquisition Corp. (0001863460) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1863460/000149315226033375/0001493152-26-033375-index.htm",
-      "source_name": "SEC EDGAR",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-07-15T20:33:17Z",
-      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
-      "prelim_note": "Filing of 8-K by PHP Ventures Acquisition Corp.",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Filing of 8-K by PHP Ventures Acquisition Corp.",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capital_actions",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "PHP Ventures Acquisition Corp.",
-          "ticker": "0001863460",
-          "listing_country": "US"
-        }
-      ],
-      "size_bucket": "unknown",
-      "dismissed": false,
-      "dismissed_at": "",
-      "dismissed_by": ""
-    },
-    {
-      "inbox_id": "INB-20260716-024",
-      "headline": "10-Q - Technology & Telecommunication Acquisition Corp (0001900679) (Filer)",
-      "headline_en": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1900679/000149315226033373/0001493152-26-033373-index.htm",
-      "source_name": "SEC EDGAR",
-      "input_nature": "regulatory_filing",
-      "found_at": "2026-07-15T20:30:30Z",
-      "sweep_file": "screener/inbox/2026-07-16_sweep.json",
-      "prelim_note": "Filing of 10-Q by Technology & Telecommunication Acquisition Corp",
-      "dedup_status": "new",
-      "consumed": false,
-      "launched_signal_id": null,
-      "triage_score": 93,
-      "triage_reason": "Filing of 10-Q by Technology & Telecommunication Acquisition Corp",
-      "region": "US",
-      "relevance": "material",
-      "materiality_pre_score": 70,
-      "rank_factors": {
-        "materiality": 70,
-        "source_tier": 8,
-        "scope": 6,
-        "event": 6,
-        "size": 0,
-        "recency": 3,
-        "materiality_label_floor": 0,
-        "quantified": 0,
-        "boost_weight": 1,
-        "scope_id": "single_name",
-        "source_tier_id": "primary_filing",
-        "event_id": "capital_actions",
-        "size_bucket": "unknown"
-      },
-      "event_types": [
-        "capital_actions"
-      ],
-      "issuer_linkage": "primary",
-      "companies": [
-        {
-          "name": "Technology & Telecommunication Acquisition Corp",
-          "ticker": "0001900679",
-          "listing_country": "US"
         }
       ],
       "size_bucket": "unknown",
@@ -11872,6 +11797,31 @@
   ],
   "signals": [
     {
+      "signal_id": "SIG-20260716-1f0ddd45",
+      "event_id": "EVT-886ee1f12f0a",
+      "headline": "Iran threatens to close more vital seaways as US renews blockade",
+      "headline_en": null,
+      "source_name": "South China Morning Post",
+      "source_grade": "A",
+      "processed_at": "2026-07-16T05:17:26.782Z",
+      "run_root": "screener/runs/SIG-20260716-1f0ddd45",
+      "materiality_score": 50,
+      "novelty_score": 0.85,
+      "pair_label": "new_event",
+      "action": "keep_separate",
+      "status": "PARK",
+      "status_reason": "Materiality 50 (40-69 PARK band): a genuinely new, non-generic geopolitical escalation threatening the Strait of Hormuz and Bab el-Mandeb, but the primary issuer is a sovereign actor with no ticker and the single source is uncorroborated.",
+      "thesis_id": null,
+      "hidden": false,
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuers": [
+        "Iran",
+        "Islamic Revolutionary Guard Corps (IRGC)"
+      ]
+    },
+    {
       "signal_id": "SIG-20260711-b55e8917",
       "event_id": "",
       "headline": "",
@@ -13072,18 +13022,18 @@
     "resolved": 0
   },
   "counts": {
-    "inbox_unconsumed": 269,
-    "signals_total": 12,
+    "inbox_unconsumed": 267,
+    "signals_total": 13,
     "hidden": 0,
-    "parked": 2,
+    "parked": 3,
     "logged": 1,
     "watchlist": 3,
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 14309,
-    "news_picked_today": 311,
-    "news_dropped_today": 1317
+    "news_seen_today": 16079,
+    "news_picked_today": 607,
+    "news_dropped_today": 2132
   },
   "book_momentum": {
     "live_count": 8,
