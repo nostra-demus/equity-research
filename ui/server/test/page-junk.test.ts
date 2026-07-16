@@ -138,6 +138,24 @@ await check('an article REPORTING a subscription price survives (price + CTA two
   assert.equal(isBoilerplateParagraph(pricing), false)
 })
 
+await check('financial prose sharing offer vocabulary survives: clinical trials, onboarding, perks, ARPU, metered-strategy coverage', () => {
+  const prose = [
+    // "start a trial" (clinical) — never "start a FREE trial"
+    'The company said it will start a trial of the drug in 240 patients during the first quarter, with initial data expected about a year after enrollment begins.',
+    // "already have an account" (fintech onboarding) — the wall form carries the question mark
+    'Customers who already have an account with the brokerage can link it to the new app and begin trading within a day, the company said in its launch announcement.',
+    // "get unlimited access" (subscription-perk prose) — no price, no CTA
+    'Prime members get unlimited access to the streaming library at no extra cost, a perk the company says drives renewals.',
+    // per-period price next to "free trial" in EARNINGS prose — the CTA set is imperative-only
+    'Disney said average revenue per user fell to $7.28 a month in the first quarter as free trial conversions slowed.',
+    // metered-paywall STRATEGY coverage — third person, never "you … your"
+    'Readers who reached their free article limit were shown a discounted offer, the publisher said during the earnings call.',
+    // "$X for the first quarter" is guidance, not an offer
+    'Netflix forecast earnings of $5.58 for the first quarter after a limited-time promotion lifted signups in Asia.',
+  ]
+  for (const p of prose) assert.equal(isBoilerplateParagraph(p), false, `should be prose: ${p.slice(0, 60)}…`)
+})
+
 await check('an offer-modal stub over a bare teaser classifies as paywall', () => {
   const r = classifyParagraphs([OFFER_MODAL, OFFER_METER, TEASER])
   assert.equal(r.verdict, 'paywall')
@@ -196,6 +214,33 @@ await check('a junk JSON-LD body can never rescue a paywall page (both lanes jun
   assert.equal(r.verdict, 'paywall')
 })
 
+await check('a TRUNCATED teaser-length JSON-LD body can never flip a hard-paywall page to ok (honest degradation holds)', () => {
+  // a hard paywall commonly ships the SAME teaser in articleBody that it renders — rescuing on it
+  // would silence the paywall verdict and skip the alternate-outlet / corroboration ladder
+  const html = `<html><head>${ldScript({ '@type': 'NewsArticle', articleBody: TEASER })}</head><body><p>${TEASER}</p><p>${OFFER_MODAL}</p><p>${OFFER_METER}</p></body></html>`
+  const r = extractArticleText(html)
+  assert.equal(r.verdict, 'paywall')
+})
+
+await check('a JS shell (no rendered paragraphs at all) is rescued by the JSON-LD body', () => {
+  const html = `<html><head>${ldScript({ '@type': 'NewsArticle', articleBody: LD_BODY })}</head><body><script>window.__APP__={}</script><div id="root"></div></body></html>`
+  const r = extractArticleText(html)
+  assert.equal(r.verdict, 'ok')
+  assert.ok(r.text.includes('Fujairah'))
+})
+
+await check('type="application/ld+json; charset=utf-8" and single-quoted/unquoted variants all parse', () => {
+  const payload = JSON.stringify({ '@type': 'NewsArticle', articleBody: LD_BODY })
+  for (const tag of [
+    `<script type="application/ld+json; charset=utf-8">${payload}</script>`,
+    `<script type='application/ld+json' data-page="1">${payload}</script>`,
+    `<script async type=application/ld+json>${payload}</script>`,
+  ]) {
+    const r = extractJsonLdArticle(`<html><head>${tag}</head><body></body></html>`)
+    assert.ok(r && r.paras.length === 3, `should parse: ${tag.slice(0, 60)}…`)
+  }
+})
+
 await check('<dialog> and <template> markup is never collected as article paragraphs', () => {
   const dialogProse =
     'Choose the plan that works for you and join millions of readers who trust our coverage every single day.'
@@ -208,9 +253,24 @@ await check('<dialog> and <template> markup is never collected as article paragr
   assert.ok(!t.includes('beta programme'), 'template content stripped')
 })
 
+await check('a NESTED <dialog> leaks nothing — the outer element tail is stripped with it', () => {
+  const tail =
+    'Members of the loyalty programme also receive early access to selected reports and events across the region.'
+  const html = `<html><body><dialog><p>Pick the subscription plan that suits how you like to read the news every day.</p><dialog><p>Confirm your choice to continue with the selected reading plan right away today.</p></dialog><p>${tail}</p></dialog><p>${PROSE_1}</p><p>${PROSE_2}</p></body></html>`
+  const t = extractReadable(html)
+  assert.ok(t.includes('Mozambique graphite'), 'real prose kept')
+  assert.ok(!t.includes('loyalty programme'), 'the outer dialog tail is stripped, not leaked')
+})
+
 await check('extractPublished falls back to the JSON-LD datePublished when the page has no meta date', () => {
   const html = `<html><head>${ldScript({ '@type': 'NewsArticle', articleBody: LD_BODY, datePublished: '2026-07-13T09:02:00Z' })}</head><body><p>${TEASER}</p></body></html>`
   assert.equal(extractPublished(html), '2026-07-13T09:02:00Z')
+})
+
+await check('a datePublished-only Article node (no articleBody) still feeds extractPublished', () => {
+  const html = `<html><head>${ldScript({ '@type': 'NewsArticle', headline: 'x', datePublished: '2026-07-10' })}</head><body><p>${TEASER}</p></body></html>`
+  assert.equal(extractPublished(html), '2026-07-10')
+  assert.equal(extractArticleText(html).verdict, 'ok') // and the empty-body node never disturbs the rendered lane
 })
 
 console.log(`\npage-junk: ${passed} checks passed${process.exitCode ? ' (WITH FAILURES)' : ''}`)

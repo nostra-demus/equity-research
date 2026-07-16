@@ -58,21 +58,35 @@ const PAYWALL_RE: RegExp[] = [
   /\bsubscription (?:is )?required\b/i,
   /\bthis (?:article|content|story) is (?:reserved|exclusive|available) (?:for|to) (?:our )?(?:subscribers|members)\b/i,
   /\bunlock (?:unlimited|full) access\b/i,
-  // subscription-OFFER modal copy — the "$1.99 your first month" overlay that covers a loaded article
-  /\b(?:get|enjoy|claim) unlimited (?:digital )?access\b/i,
+  // subscription-OFFER modal copy — the "$1.99 your first month" overlay that covers a loaded article.
+  // Every entry is second-person / imperative WALL copy: descriptive prose must survive — a company
+  // that "will start a trial" (clinical), customers who "already have an account" (onboarding), or
+  // readers who "reached their free article limit" (media-business coverage) are all reporting, not walls
   /\bclaim (?:this|your) offer\b/i,
-  /\bstart (?:your|a) (?:free )?trial\b/i,
-  /\b(?:reached|read) (?:your|the) .{0,30}(?:article|story) limit\b/i,
-  /\bfree articles? (?:remaining|left)\b/i,
-  /\balready have an account\b/i,
+  /\bstart (?:your|a) free trial\b/i,
+  /\byou(?:'ve|’ve| have) (?:reached|read) your\b.{0,30}\b(?:article|story) limit\b/i,
+  /\byou have \d+ free articles? (?:remaining|left)\b/i,
+  /\balready have an account\s*\?/i,
 ]
 
-// two-signal combination: a money-per-period price counts as paywall chrome only NEXT TO
-// subscription-offer phrasing, so an article REPORTING a price ("raised its standard plan to
-// $15.49 a month") survives. Dropped as chrome but deliberately NOT counted as a paywall hit —
-// a pricing paragraph must never flip a thin page's verdict to 'paywall' on its own.
-const OFFER_PRICE_RE = /[$€£₹¥]\s?\d[\d.,]*\s*(?:\/\s*|per |a |an |(?:for )?(?:your |the )?first )(?:week|month|year|annum|quarter)\b/i
-const OFFER_CTA_RE = /\b(?:subscri|unlimited access|all[- ]access|introductory|billed (?:annually|monthly)|cancel (?:anytime|at any time)|free trial|sign up|special offer|limited[- ]time|sale ends)\b/i
+// two-signal combinations for offer copy whose words also live in genuine financial prose. A
+// money-per-period price counts as chrome only NEXT TO an imperative offer CTA, so an article
+// REPORTING a price ("ARPU fell to $7.28 a month … as free trial conversions slowed") survives —
+// and the pair is deliberately chrome, NOT a paywall hit: a pricing paragraph must never flip a
+// thin page's verdict to 'paywall' on its own. "unlimited access" is wall copy only next to a
+// price or CTA ("Prime members get unlimited access to the library" is product prose).
+// NOTE: period words are week/month/year only, and "first" only as second-person "your first" —
+// "$5.58 for the first quarter" is earnings guidance, never an offer.
+const OFFER_PRICE_RE = /[$€£₹¥]\s?\d[\d.,]*\s*(?:\/\s*|per |a |an |(?:for )?your first )(?:week|month|year)\b/i
+const OFFER_CTA_RE = /\b(?:cancel (?:anytime|at any time)|billed (?:annually|monthly)|subscribe (?:now|today|for)|sign up (?:now|today)|claim (?:this|your)|start your|your first (?:week|month|year)|special offer|offer ends)\b/i
+const UNLIMITED_ACCESS_RE = /\b(?:get|enjoy|claim) unlimited (?:digital )?access\b/i
+
+/** Wall copy addressed at the reader — an unambiguous PAYWALL_RE phrase, or "unlimited access"
+ *  offer copy next to a price / offer CTA (the two-signal guard keeps perk prose alive). */
+function isPaywallCopy(t: string): boolean {
+  for (const re of PAYWALL_RE) if (re.test(t)) return true
+  return UNLIMITED_ACCESS_RE.test(t) && (OFFER_PRICE_RE.test(t) || OFFER_CTA_RE.test(t))
+}
 
 // two-signal combination: terms-of-use vocabulary counts as chrome only NEXT TO agreement/consent
 // phrasing, so an article REPORTING on someone's terms of use survives
@@ -88,7 +102,7 @@ export function isBoilerplateParagraph(p: string): boolean {
   if (!t) return false
   if (CHROME_START_RE.test(t)) return true
   for (const re of CHROME_RE) if (re.test(t)) return true
-  for (const re of PAYWALL_RE) if (re.test(t)) return true
+  if (isPaywallCopy(t)) return true
   if (TERMS_RE.test(t) && CONSENT_RE.test(t)) return true
   if (OFFER_PRICE_RE.test(t) && OFFER_CTA_RE.test(t)) return true
   return false
@@ -116,7 +130,7 @@ export function classifyParagraphs(paras: string[]): PageJunkResult {
   let paywallHit = false
   const kept: string[] = []
   for (const p of all) {
-    if (PAYWALL_RE.some((re) => re.test(p))) paywallHit = true
+    if (isPaywallCopy(p)) paywallHit = true
     if (isBoilerplateParagraph(p)) droppedChars += p.length
     else { kept.push(p); keptChars += p.length }
   }

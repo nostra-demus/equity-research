@@ -201,21 +201,50 @@ export function extractSummary(html: string): string | undefined {
   return lede ? lede.slice(0, 600) : meta?.slice(0, 600)
 }
 
+/** Remove every <dialog> / <template> element INCLUDING nested ones — explicit popup markup and
+ *  unrendered app-shell markup (subscribe modals ship in both), whose paragraphs are never article
+ *  prose whatever their vocabulary. A depth-counting scan, because a non-greedy pair regex stops at
+ *  the FIRST close tag and leaks the outer element's tail, while a greedy one would eat the real
+ *  article between two separate popups. An UNCLOSED container swallows the rest of the page — the
+ *  conservative read for markup that declared itself a popup and never came back. */
+function stripPopupContainers(html: string): string {
+  let out = html
+  for (const tag of ['dialog', 'template'] as const) {
+    if (!new RegExp(`<${tag}\\b`, 'i').test(out)) continue
+    const re = new RegExp(`<\\/?${tag}\\b[^>]*>`, 'gi')
+    let kept = ''
+    let depth = 0
+    let last = 0
+    for (const m of out.matchAll(re)) {
+      if (m[0][1] !== '/') {
+        if (/\/\s*>$/.test(m[0])) continue // a self-closing <dialog/> wraps nothing
+        if (depth === 0) kept += out.slice(last, m.index)
+        depth++
+      } else if (depth > 0) {
+        depth--
+        if (depth === 0) last = (m.index as number) + m[0].length
+      }
+    }
+    if (depth === 0) kept += out.slice(last)
+    out = kept
+  }
+  return out
+}
+
 /** The substantive <p> paragraphs of a page in document order — non-content regions stripped
- *  (script/style/nav/header/footer/aside/figure/form), prose-gated, de-duped. This is the RAW paragraph
- *  set, BEFORE the chrome/boilerplate filter, so classifyParagraphs can measure how much of the page is
- *  chrome (the interstitial/paywall verdict needs the dropped share, not just what survives). */
+ *  (script/style/nav/header/footer/aside/figure/form, plus dialog/template popup containers),
+ *  prose-gated, de-duped. This is the RAW paragraph set, BEFORE the chrome/boilerplate filter, so
+ *  classifyParagraphs can measure how much of the page is chrome (the interstitial/paywall verdict
+ *  needs the dropped share, not just what survives). */
 function collectParagraphs(html: string): string[] {
   if (!html) return []
-  const stripped = html
+  const stripped = stripPopupContainers(html)
     // end tags matched the way browsers accept them — </script>, </script >, and even </script\t\n bar>
     // (whitespace + junk before >) — so a crafted page can't slip script/style text past the strip
     // (CodeQL js/bad-tag-filter); \b so <scriptx>/</scriptx> isn't mistaken for a real script tag.
     .replace(/<script\b[\s\S]*?<\/script\b[^>]*>/gi, ' ')
     .replace(/<style\b[\s\S]*?<\/style\b[^>]*>/gi, ' ')
-    // dialog = explicit popup markup; template = unrendered app-shell markup (subscribe modals ship in
-    // both) — a paragraph inside either is never article prose, whatever its vocabulary
-    .replace(/<(nav|header|footer|aside|form|figure|figcaption|dialog|template)\b[\s\S]*?<\/\1\b[^>]*>/gi, ' ')
+    .replace(/<(nav|header|footer|aside|form|figure|figcaption)\b[\s\S]*?<\/\1\b[^>]*>/gi, ' ')
     .replace(/<!--[\s\S]*?-->/g, ' ')
   const seen = new Set<string>()
   const paras: string[] = []
@@ -230,6 +259,38 @@ function collectParagraphs(html: string): string[] {
   return paras
 }
 
+/** The raw contents of every <script type="application/ld+json"> block, by INDEX SCAN — a single
+ *  regex over the whole page ("<script[^>]*type=…[^>]*>…</script>") backtracks polynomially on a
+ *  crafted approved-source page (js/polynomial-redos: seconds of blocked event loop per read), so the
+ *  scan walks indexOf boundaries and runs the type test on the short tag slice only. The loose
+ *  contains-test also accepts the real-world attribute variants a strict quoted match misses:
+ *  type='application/ld+json; charset=utf-8', unquoted, single-quoted. Close tags follow the HTML
+ *  rule ("</script" + whitespace / ">" / "/"), so "</scriptx>" inside a string can't truncate a block. */
+function collectJsonLdBlocks(html: string): string[] {
+  const blocks: string[] = []
+  const lower = html.toLowerCase()
+  let i = 0
+  while (blocks.length < 50) {
+    const start = lower.indexOf('<script', i)
+    if (start < 0) break
+    const afterName = lower.charAt(start + 7)
+    if (afterName && !/[\s>/]/.test(afterName)) { i = start + 7; continue } // "<scriptx…" is not a script tag
+    const tagEnd = lower.indexOf('>', start)
+    if (tagEnd < 0) break
+    let close = tagEnd
+    for (;;) {
+      close = lower.indexOf('</script', close + 1)
+      if (close < 0) break
+      const c = lower.charAt(close + 8)
+      if (!c || /[\s>/]/.test(c)) break
+    }
+    if (close < 0) break
+    if (/type\s*=\s*["']?application\/ld\+json\b/.test(lower.slice(start, tagEnd))) blocks.push(html.slice(tagEnd + 1, close))
+    i = close + 8
+  }
+  return blocks
+}
+
 /** STRUCTURED-DATA LANE — the article body a publisher ships as schema.org JSON-LD
  *  (<script type="application/ld+json"> → NewsArticle.articleBody), plus datePublished. A subscribe /
  *  consent / newsletter overlay can bury or dilute the RENDERED paragraphs, but it cannot touch this
@@ -242,9 +303,9 @@ function collectParagraphs(html: string): string[] {
 export function extractJsonLdArticle(html: string): { paras: string[]; published?: string } | undefined {
   if (!html || !/application\/ld\+json/i.test(html)) return undefined
   const nodes: Record<string, unknown>[] = []
-  for (const m of html.matchAll(/<script\b[^>]*type\s*=\s*["']application\/ld\+json["'][^>]*>([\s\S]*?)<\/script\b[^>]*>/gi)) {
+  for (const block of collectJsonLdBlocks(html)) {
     let parsed: unknown
-    try { parsed = JSON.parse(m[1].trim()) } catch { continue } // one broken block must not cost the others
+    try { parsed = JSON.parse(block.trim()) } catch { continue } // one broken block must not cost the others
     for (const top of Array.isArray(parsed) ? parsed : [parsed]) {
       if (!top || typeof top !== 'object') continue
       nodes.push(top as Record<string, unknown>)
@@ -287,15 +348,19 @@ export function extractJsonLdArticle(html: string): { paras: string[]; published
  *  Two lanes compete: the rendered <p> paragraphs, and the schema.org JSON-LD articleBody
  *  (extractJsonLdArticle). The structured body — junk-tested by the SAME chrome filter — wins when the
  *  rendered read failed (a popup buried the visible text: the loaded-but-blocked page) or when it holds
- *  substantially more prose (the visible text is a teaser diluted by the modal). A junk structured body
- *  can never rescue a junk page: both lanes pass through classifyParagraphs, so the honest paywall /
- *  interstitial verdict stands when neither holds real prose. Exported for the test suite. */
+ *  substantially more prose (the visible text is a teaser diluted by the modal). Two guards keep the
+ *  honest verdicts honest: a junk structured body can never rescue a junk page (both lanes pass through
+ *  classifyParagraphs), and a structured body under 400 kept chars never rescues ANY page — a hard
+ *  paywall commonly ships a TRUNCATED articleBody (the same teaser it renders), and rescuing on that
+ *  would silence the paywall verdict and skip the alternate-outlet / corroboration ladder. 400 is
+ *  classifyParagraphs' own "a teaser under the wall is not a body" threshold. Exported for tests. */
 export function extractArticleText(html: string): { text: string; verdict: PageTextVerdict } {
   const r = classifyParagraphs(collectParagraphs(html))
   const ld = extractJsonLdArticle(html)
   if (ld?.paras.length) {
     const lr = classifyParagraphs(ld.paras)
-    if (lr.verdict === 'ok' && (r.verdict !== 'ok' || lr.keptChars >= Math.max(400, r.keptChars * 2))) {
+    const floor = r.verdict === 'ok' ? Math.max(400, r.keptChars * 2) : 400
+    if (lr.verdict === 'ok' && lr.keptChars >= floor) {
       return { text: lr.kept.join('\n\n').slice(0, 4000), verdict: 'ok' }
     }
   }
