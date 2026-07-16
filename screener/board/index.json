@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-16T05:25:17Z",
+  "generated_at": "2026-07-16T05:35:47Z",
   "inbox": [
     {
       "inbox_id": "INB-20260716-002",
@@ -11822,6 +11822,28 @@
       ]
     },
     {
+      "signal_id": "SIG-20260716-070c5069",
+      "event_id": "EVT-870c13fe70bd",
+      "headline": "Housing Sales in Dubai Declines 16 Pc in Jan-Jun to AED 226 Bn Amid West Asia Conflict",
+      "headline_en": null,
+      "source_name": "Outlook Business",
+      "source_grade": "B",
+      "processed_at": "2026-07-16T00:00:00Z",
+      "run_root": "screener/runs/SIG-20260716-070c5069/",
+      "materiality_score": 2,
+      "novelty_score": 0.85,
+      "pair_label": "new_event",
+      "action": "keep_separate",
+      "status": "LOG",
+      "status_reason": "City-wide Dubai housing-sales aggregate with no named company and no attributable single-entity cause; materiality 2/100.",
+      "thesis_id": null,
+      "hidden": false,
+      "event_types": [
+        "macro_sector"
+      ],
+      "issuers": []
+    },
+    {
       "signal_id": "SIG-20260711-b55e8917",
       "event_id": "",
       "headline": "",
@@ -13023,15 +13045,15 @@
   },
   "counts": {
     "inbox_unconsumed": 267,
-    "signals_total": 13,
+    "signals_total": 14,
     "hidden": 0,
     "parked": 3,
-    "logged": 1,
+    "logged": 2,
     "watchlist": 3,
     "provisional": 6,
     "full_machine": 0,
     "handed_off": 0,
-    "news_seen_today": 16079,
+    "news_seen_today": 16818,
     "news_picked_today": 607,
     "news_dropped_today": 2132
   },
