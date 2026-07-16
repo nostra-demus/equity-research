@@ -2,10 +2,15 @@
    live-tick surface — it refreshes on data-changed, so it uses the instant-close rule: no exit animation).
    Themes entirely from the accent family, so it resolves in light + dark and for any swarm's accent. */
 
-/* ---- the docked panel (top-left, distinct from DataFilesPanel which sits bottom-left) ---- */
+/* ---- the docked panel (the top of the left rail; the data pool sits below it in the same column) ---- */
+/* A rail child (.stagerail in global.css): position/width come from the column, not from the stage's
+   corner — it used to be `absolute; left:18px; top:70px`, growing DOWN into a pool that grew UP from
+   `bottom:18px`, which is how a 33-file pool and a long intake plan ended up painted over each other.
+   `relative` only so its z-index still counts; min-height:0 so a long plan scrolls INSIDE the dock. */
 .intake {
-  position: absolute; left: 18px; top: 70px; z-index: 21;
-  width: 320px; max-width: 38vw;
+  position: relative; z-index: 21;
+  width: 100%; min-height: 0;
+  display: flex; flex-direction: column;
   background: var(--datafiles-bg);
   border: 1px solid var(--accent-wash);
   border-radius: var(--r-md);
@@ -35,7 +40,8 @@
 @media (hover: hover) and (pointer: fine) { .intake__reanalyze:hover { color: var(--accent-bright); background: var(--accent-wash); } }
 .intake__reanalyze:active { transform: scale(0.9) rotate(-30deg); }
 
-.intake__body { padding: 4px 12px 12px; }
+.intake__head { flex: none; } /* the header stays put; only the body below it scrolls */
+.intake__body { padding: 4px 12px 12px; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
 .intake__reading { padding: 8px 2px; color: var(--text-muted); font-style: italic; }
 
 /* ---- the live reading list (what the run is opening, right now) ---- */
@@ -145,6 +151,17 @@
 .iplan__run:active { transform: scale(0.98); }
 .iplan__run:disabled { opacity: 0.6; cursor: default; }
 .iplan__foot { margin-top: 6px; font-size: 10.5px; color: var(--text-faint); text-align: center; }
+
+/* The "re-run anyway" escape hatch. Deliberately secondary — the engine's read is still "nothing here
+   changes an orb's inputs", so this must not compete with the primary Re-run button on a plan that DOES
+   have work. Same shape, drained of its fill. */
+.iplan__run--ghost {
+  background: transparent; color: var(--text-muted);
+  border: 1px solid var(--hairline-strong);
+}
+@media (hover: hover) and (pointer: fine) {
+  .iplan__run--ghost:hover { background: var(--accent-wash-soft); border-color: var(--accent-deep); color: var(--accent-bright); filter: none; }
+}
 
 .iplan--none { margin-top: 10px; padding: 10px 11px; background: var(--surface-2); border: 1px solid var(--hairline); border-radius: var(--r-sm); }
 .iplan__none-head { color: var(--text); font-weight: 600; }

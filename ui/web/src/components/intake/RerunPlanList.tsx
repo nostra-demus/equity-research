@@ -37,6 +37,14 @@ export function RerunPlanList({
             ))}
           </ul>
         )}
+        {/* The recommendation is "don't spend" — but it is a RECOMMENDATION (INTAKE.md: advisory,
+            "augment the floor, never replace it"), and a reader who disagrees was left with nowhere to
+            click at all. This is the same priced, one-confirm plan the Re-run button opens; it never
+            launches anything by itself. Secondary styling: the engine's advice is still "no". */}
+        <button className="iplan__run iplan__run--ghost" onClick={onRun} disabled={running}>
+          Re-run anyway…
+        </button>
+        <div className="iplan__foot">Opens the run plan so you can pick what to re-run — nothing spends until you confirm.</div>
       </div>
     )
   }

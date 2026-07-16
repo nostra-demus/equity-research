@@ -111,6 +111,10 @@
   --r-lg: 16px;
   --r-pill: 999px;
 
+  /* layout — the left rail's column (.stagerail): the width of every dock in it AND the width the
+     constellation gives up so it never lays an orb underneath. One number, so the two can't drift. */
+  --dock-w: 304px;
+
   /* type */
   --font-sans: ui-sans-serif, -apple-system, "SF Pro Text", "Inter", "Segoe UI", system-ui, sans-serif;
   --font-mono: ui-monospace, "SF Mono", "JetBrains Mono", "Menlo", monospace;

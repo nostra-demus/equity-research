@@ -74,7 +74,9 @@ export function DataFilesPanel() {
       </div>
 
       {open && (
-        <>
+        // one scroller for the list + coverage together: the dock is a rail child now, so a long pool
+        // has to scroll INSIDE it rather than grow the column into the dock above
+        <div className="datafiles__body">
           <div className="datafiles__list">
             {files.map((f, i) => {
               const tabs = f.sheets ?? []
@@ -120,7 +122,7 @@ export function DataFilesPanel() {
           </div>
 
           <DataCoverage coverage={dataStatus.coverage} mode="panel" />
-        </>
+        </div>
       )}
     </motion.div>
   )
