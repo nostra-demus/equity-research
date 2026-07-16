@@ -1,0 +1,47 @@
+{
+  "schema_version": "1.0",
+  "ticker": "EMAAR",
+  "run_root": "analyses/EMAAR_2026-07-10",
+  "scan_date": "2026-07-16",
+  "watermark": "analyses/EMAAR_2026-07-10/final_thesis.md",
+  "new_docs": [
+    {
+      "path": "data/EMAAR/screener_event_EVT-870c13fe70bd.md",
+      "sha256": "",
+      "provider": "Outlook Business (via screener wire, Anarock data cited within)",
+      "source_type": "screener_bridged_wire_event",
+      "tier": 10,
+      "as_of": "2026-07-13",
+      "claims_summary": "Dubai H1 2026 residential transactions AED 225.7bn, +15% vs H1 2024 but -16% vs H1 2025; prices softened 4-7% Feb-Apr amid regional conflict then recovered; Anarock calls it sentiment-driven, not structural; full-year 2025 record AED 547bn / 206,166 transactions.",
+      "materiality_score": 55,
+      "impact_direction": "mixed",
+      "entry_orbs": [
+        {
+          "module": "earnings",
+          "agent": "revenue-drivers",
+          "why": "Dubai residential transaction volume and price-per-sq-ft are the market-level backdrop for EMAAR's development-sales revenue, which revenue-drivers models as volume x price x mix.",
+          "confidence": 0.5
+        },
+        {
+          "module": "business-model",
+          "agent": "external-dependency",
+          "why": "The article frames the move as geopolitical/macro-cycle risk to the Dubai residential market, which is the external variable external-dependency tracks for EMAAR's development exposure.",
+          "confidence": 0.45
+        }
+      ]
+    }
+  ],
+  "rerun_plan": {
+    "materiality_gate": 60,
+    "entry_orbs": [],
+    "commands": [],
+    "note_only": [
+      {
+        "path": "data/EMAAR/screener_event_EVT-870c13fe70bd.md",
+        "reason": "Tier-10 screener-bridged wire event, single origin (Outlook Business article citing one consultant, Anarock) with materiality_score 55 < gate 60. Per INTAKE.md §5, a single uncorroborated wire claim defaults to note_only unless a filing or a second independent source in the pool backs the same fact; no other new document landed in this intake window to corroborate it, and the claim itself (sentiment-driven dip, not structural) argues against a rerun."
+      }
+    ]
+  },
+  "verdict": "note_only",
+  "summary": "One document landed since the last finished run: a tier-10 screener wire note reporting Dubai H1 2026 residential sales down 16% year-on-year (but up 15% vs 2024) amid regional conflict, with the cited consultant calling the dip sentiment-driven rather than structural. It is a single-source, uncorroborated web input below the materiality gate, so it does not clear the bar for a rerun of revenue-drivers or external-dependency on its own. Recommendation: watch only — re-run those orbs if a filing (Q2/H1 2026 results) or a second independent source corroborates a structural, not sentiment-driven, slowdown in Dubai residential transactions."
+}
